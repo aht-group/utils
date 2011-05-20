@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+    	<groupId>org.sonatype.oss</groupId>
+    	<artifactId>oss-parent</artifactId>
+    	<version>7</version>
+	</parent>
+	     
+	<groupId>net.sf.ahtutils</groupId>
+	<artifactId>ahtutils</artifactId>
+	<version>0.2.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>AHT-Utils</name>
+	<url>http://sourceforge.net/projects/ahtutils</url>
+
+	<licenses>
+		<license>
+			<name>GNU General Public License</name>
+			<url>http://www.gnu.org/licenses/gpl-3.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+    	<connection>scm:svn:https://ahtutils.svn.sourceforge.net/svnroot/ahtutils/trunk/</connection>
+    	<developerConnection>scm:svn:https://ahtutils.svn.sourceforge.net/svnroot/ahtutils/trunk/</developerConnection>
+    	<url>https://ahtutils.svn.sourceforge.net/svnroot/ahtutils/trunk/</url>
+	</scm>
+	
+	<developers>
+		<developer>
+			<id>1</id>
+			<name>Thorsten Kisner</name>
+			<email>thorsten-k@sourceforge.net</email>
+		</developer>
+	</developers>
+
+    <properties>
+	</properties>
+
+	<prerequisites>
+		<maven>2.0.9</maven>
+	</prerequisites>
+
+	
+	<issueManagement>
+	</issueManagement>
+
+	<modules>
+		<module>util</module>
+		<module>xml</module>
+	</modules>
+ 
+	<dependencyManagement>
+		<dependencies>
+		</dependencies>
+	</dependencyManagement>
+
+</project>
