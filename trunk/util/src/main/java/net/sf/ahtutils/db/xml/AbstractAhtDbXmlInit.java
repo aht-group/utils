@@ -23,12 +23,14 @@ public abstract class AbstractAhtDbXmlInit extends AbstractAhtDbXmlUtil
 	{
 		switch(priority)
 		{
+			case statics: initStatics();break;
 			case required: initRequired();break;
 			case mandatory: initMandatory();break;
 			case optional: initOptional();break;
 		}
 	}
 	
+	protected void initStatics() throws FileNotFoundException,AhtUtilIntegrityException{}
 	protected void initRequired() throws FileNotFoundException,AhtUtilIntegrityException{}
 	protected void initMandatory() throws FileNotFoundException,AhtUtilIntegrityException{}
 	protected void initOptional() throws FileNotFoundException,AhtUtilIntegrityException{}
