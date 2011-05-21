@@ -1,6 +1,7 @@
 package net.sf.ahtutils.model.ejb.status;
 
 import java.io.Serializable;
+import java.util.Hashtable;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
@@ -18,7 +19,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 
 @Entity
@@ -26,7 +26,7 @@ import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 @DiscriminatorColumn(name="type")
 @DiscriminatorValue("generic")
 @Table(name = "UtilsStatus", uniqueConstraints = @UniqueConstraint(columnNames = {"type","code"}))
-public class AhtUtilsStatus implements UtilsStatus,Serializable
+public class AhtUtilsStatus implements UtilsStatus<AhtUtilsLang>,Serializable
 {
 	private static final long serialVersionUID = 1;
 	
@@ -48,9 +48,8 @@ public class AhtUtilsStatus implements UtilsStatus,Serializable
 	public void setId(int id) {this.id = id;}
 	public int getId() {return id;}
 	
-	public Map<String, ? extends UtilsLang> getName(){return name;}
-	@SuppressWarnings("unchecked")
-	public void setName(Map<String, ? extends UtilsLang> name) {this.name = (Map<String, AhtUtilsLang>)name;}
+	public Map<String, AhtUtilsLang> getName(){if(name==null){name = new Hashtable<String, AhtUtilsLang>();}return name;}
+	public void setName(Map<String, AhtUtilsLang> name) {this.name = name;}
 	
 	public String getCode() {return code;}
 	public void setCode(String code) {this.code = code;}

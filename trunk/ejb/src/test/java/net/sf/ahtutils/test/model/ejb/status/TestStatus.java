@@ -48,7 +48,7 @@ public class TestStatus
     	ejb.setCode(code);
     	ejb.setVisible(true);
     	ejb.getName().put("en", create("en", "en"+rnd.nextInt(10000)));
-    	ejb.getName().put("de", (UtilsLang)create("de", "de123"+rnd.nextInt(10000)));
+    	ejb.getName().put("de", create("de", "de"+rnd.nextInt(10000)));
     	return ejb;
     }
     
