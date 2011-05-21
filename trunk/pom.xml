@@ -49,6 +49,7 @@
 	</issueManagement>
 
 	<modules>
+		<module>ejb</module>
 		<module>util</module>
 		<module>xml</module>
 	</modules>
