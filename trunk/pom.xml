@@ -15,6 +15,17 @@
     <name>AHT-Utils</name>
 	<url>http://sourceforge.net/projects/ahtutils</url>
 
+	<properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Timestamp format for the maven.build.timestamp property -->
+        <!-- You can reference property in pom.xml or filtered resources (must enable third-party plugin if using Maven < 2.1) -->
+        <maven.build.timestamp.format>yyyyMMdd'T'HHmmss</maven.build.timestamp.format>
+        <jboss.home>${env.JBOSS_HOME}</jboss.home>
+        <jboss.domain>default</jboss.domain>
+        <arquillian.version>1.0.0.Alpha5</arquillian.version>
+        <jboss-javaee6-spec.version>1.0.0.Final</jboss-javaee6-spec.version>
+    </properties>
+
 	<licenses>
 		<license>
 			<name>GNU General Public License</name>
@@ -37,9 +48,6 @@
 		</developer>
 	</developers>
 
-    <properties>
-	</properties>
-
 	<prerequisites>
 		<maven>2.0.9</maven>
 	</prerequisites>
@@ -58,5 +66,31 @@
 		<dependencies>
 		</dependencies>
 	</dependencyManagement>
+	
+	<repositories>
+        <!-- The JBoss Community public repository is a composite repository of several major repositories -->
+        <!-- see http://community.jboss.org/wiki/MavenGettingStarted-Users -->
+        <!-- At the time of writing, Arquillian and the JBoss Java EE specification POMs are only in the JBoss Community public 
+            repository (not Maven central) -->
+        <repository>
+            <id>jboss-public-repository</id>
+            <name>JBoss Repository</name>
+            <url>http://repository.jboss.org/nexus/content/groups/public</url>
+            <!-- These optional flags are designed to speed up your builds by reducing remote server calls -->
+            <releases>
+                <updatePolicy>daily</updatePolicy>
+            </releases>
+            <snapshots>
+                <updatePolicy>daily</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+			<id>sonatype.snapshot</id>
+			<name>Sonatype Snapshot Repository</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+			<releases><enabled>false</enabled></releases>
+			<snapshots><enabled>true</enabled></snapshots>
+		</repository>
+    </repositories>
 
 </project>
