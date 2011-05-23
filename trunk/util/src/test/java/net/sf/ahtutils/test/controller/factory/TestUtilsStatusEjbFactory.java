@@ -9,7 +9,6 @@ import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Langs;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.exlp.util.io.LoggerInit;
-import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

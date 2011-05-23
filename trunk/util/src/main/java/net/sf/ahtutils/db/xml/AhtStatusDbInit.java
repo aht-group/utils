@@ -18,14 +18,14 @@ import net.sf.exlp.util.xml.JaxbUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class StatusDbInitHelper
+public class AhtStatusDbInit
 {
-	static Log logger = LogFactory.getLog(StatusDbInitHelper.class);
+	static Log logger = LogFactory.getLog(AhtStatusDbInit.class);
 	
 	protected Map<String,Set<Integer>> mDbAvailableStatus;
 	protected Set<Long> sDeleteLangs;
 	
-	public StatusDbInitHelper()
+	public AhtStatusDbInit()
 	{
 		mDbAvailableStatus = new Hashtable<String,Set<Integer>>();
 		sDeleteLangs = new HashSet<Long>();
