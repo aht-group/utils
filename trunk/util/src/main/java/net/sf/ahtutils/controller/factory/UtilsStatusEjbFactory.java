@@ -37,6 +37,7 @@ public class UtilsStatusEjbFactory<S extends UtilsStatus<L>, L extends UtilsLang
     
 	public S create(Status status) throws InstantiationException, IllegalAccessException, AhtUtilIntegrityException
 	{
+		if(!status.isSetLangs()){throw new AhtUtilIntegrityException("No <langs> available for "+JaxbUtil.toString(status));}
         S s = statusClass.newInstance();
         s.setCode(status.getCode());
         s.setName(getLangMap(status.getLangs()));

@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import net.sf.ahtutils.controller.exception.AhtUtilIntegrityException;
+import net.sf.ahtutils.controller.factory.UtilsStatusEjbFactory;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.xml.aht.Aht;
@@ -22,9 +24,14 @@ public class AhtStatusDbInit
 {
 	static Log logger = LogFactory.getLog(AhtStatusDbInit.class);
 	
-	protected Map<String,Set<Integer>> mDbAvailableStatus;
-	protected Set<Long> sDeleteLangs;
-	
+	private Map<String,Set<Integer>> mDbAvailableStatus;
+	public Map<String, Set<Integer>> getmDbAvailableStatus() {
+		return mDbAvailableStatus;
+	}
+	private Set<Long> sDeleteLangs;
+
+	private UtilsStatusEjbFactory statusEjbFactory;
+
 	public AhtStatusDbInit()
 	{
 		mDbAvailableStatus = new Hashtable<String,Set<Integer>>();
@@ -43,7 +50,7 @@ public class AhtStatusDbInit
 		return mDbAvailableStatus.containsKey(group);
 	}
 	
-	public void savePreviousDbEntries(String key, List<UtilsStatus<UtilsLang>> availableStatus)
+	public void savePreviousDbEntries(String key, List<UtilsStatus> availableStatus)
 	{
 		logger.trace("Adding available DB entries: "+key);
 		Set<Integer> dbStatus = new HashSet<Integer>();
@@ -54,7 +61,7 @@ public class AhtStatusDbInit
 		mDbAvailableStatus.put(key, dbStatus);
 	}
 	
-	public UtilsStatus<UtilsLang> removeData(UtilsStatus<UtilsLang> ejbStatus)
+	public UtilsStatus removeData(UtilsStatus ejbStatus)
 	{
 		Map<String,UtilsLang> dbLangMap = ejbStatus.getName();
 		ejbStatus.setName(null);		
@@ -70,11 +77,10 @@ public class AhtStatusDbInit
 		return ejbStatus;
 	}
 	
-	public UtilsStatus<UtilsLang> addLangs(UtilsStatus<UtilsLang> ejbStatus, Status status)
+	public UtilsStatus<UtilsLang> addLangs(UtilsStatus ejbStatus, Status status) throws InstantiationException, IllegalAccessException, AhtUtilIntegrityException
 	{
-		Map<String,UtilsLang> langMap = new Hashtable<String,UtilsLang>();
-//		if(status.isSetLangs()){langMap.putAll(AhtUtilEjbFactory.getLangMap(status.getLangs()));}
-		ejbStatus.setName(langMap);
+		UtilsStatus ejbUpdateInfo = (UtilsStatus)statusEjbFactory.create(status);
+		ejbStatus.setName(ejbUpdateInfo.getName());
 		return ejbStatus;
 	}
 	
@@ -98,28 +104,6 @@ public class AhtStatusDbInit
 		return result;
 	}
 	
-/*	public void deleteUnusedStatus(AhtUtilFacade fUtil) throws AhtUtilIntegrityException
-	{
-		List<Integer> delStatus = getDeleteStatusIds();
-		logger.debug("Deleting langs: "+sDeleteLangs.size());
-		logger.debug("Deleting status: "+delStatus.size());
-		
-		Iterator<Long> iteratorLang = sDeleteLangs.iterator();
-		while(iteratorLang.hasNext())
-		{
-			Long id = iteratorLang.next();
-			logger.warn("NYI delete id="+id);
-//			Object o = fUtil.findObject(AhtLang.class ,id);
-//			fUtil.deleteObject(o);
-		}
-		
-		for(Integer id : delStatus)
-		{
-			logger.trace("Delete status with id="+id);
-			logger.warn("NYI delete id="+id);
-//			Object o = fUtil.findObject(AhtStatus.class ,id);
-//			fUtil.deleteObject(o);
-		}
-	}
-	*/
+	public void setStatusEjbFactory(UtilsStatusEjbFactory statusEjbFactory) {this.statusEjbFactory = statusEjbFactory;}
+	public Set<Long> getsDeleteLangs() {return sDeleteLangs;}
 }
