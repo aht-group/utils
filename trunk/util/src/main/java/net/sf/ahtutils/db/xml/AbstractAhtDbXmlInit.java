@@ -2,7 +2,7 @@ package net.sf.ahtutils.db.xml;
 
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.controller.exception.AhtUtilIntegrityException;
+import net.sf.ahtutils.controller.exception.AhtUtilsIntegrityException;
 import net.sf.ahtutils.db.xml.AhtDbXmlInit.Priority;
 
 import org.apache.commons.configuration.Configuration;
@@ -19,7 +19,7 @@ public abstract class AbstractAhtDbXmlInit extends AbstractAhtDbXmlUtil
 		super(config, datasource);
 	}
 	
-	public void initFromXml(Priority priority) throws FileNotFoundException,AhtUtilIntegrityException
+	public void initFromXml(Priority priority) throws FileNotFoundException,AhtUtilsIntegrityException
 	{
 		switch(priority)
 		{
@@ -30,8 +30,8 @@ public abstract class AbstractAhtDbXmlInit extends AbstractAhtDbXmlUtil
 		}
 	}
 	
-	protected void initStatics() throws FileNotFoundException,AhtUtilIntegrityException{}
-	protected void initRequired() throws FileNotFoundException,AhtUtilIntegrityException{}
-	protected void initMandatory() throws FileNotFoundException,AhtUtilIntegrityException{}
-	protected void initOptional() throws FileNotFoundException,AhtUtilIntegrityException{}
+	protected void initStatics() throws FileNotFoundException,AhtUtilsIntegrityException{}
+	protected void initRequired() throws FileNotFoundException,AhtUtilsIntegrityException{}
+	protected void initMandatory() throws FileNotFoundException,AhtUtilsIntegrityException{}
+	protected void initOptional() throws FileNotFoundException,AhtUtilsIntegrityException{}
 }

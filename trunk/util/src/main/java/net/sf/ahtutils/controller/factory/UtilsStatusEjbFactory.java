@@ -4,7 +4,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.ahtutils.controller.exception.AhtUtilIntegrityException;
+import net.sf.ahtutils.controller.exception.AhtUtilsIntegrityException;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
@@ -35,21 +35,21 @@ public class UtilsStatusEjbFactory<S extends UtilsStatus<L>, L extends UtilsLang
         return new UtilsStatusEjbFactory<S, L>(statusClass, langClass);
     }
     
-	public S create(Status status) throws InstantiationException, IllegalAccessException, AhtUtilIntegrityException
+	public S create(Status status) throws InstantiationException, IllegalAccessException, AhtUtilsIntegrityException
 	{
-		if(!status.isSetLangs()){throw new AhtUtilIntegrityException("No <langs> available for "+JaxbUtil.toString(status));}
+		if(!status.isSetLangs()){throw new AhtUtilsIntegrityException("No <langs> available for "+JaxbUtil.toString(status));}
         S s = statusClass.newInstance();
         s.setCode(status.getCode());
         s.setName(getLangMap(status.getLangs()));
         return s;
     }
 	
-	public Map<String,L> getLangMap(Langs langs) throws InstantiationException, IllegalAccessException, AhtUtilIntegrityException
+	public Map<String,L> getLangMap(Langs langs) throws InstantiationException, IllegalAccessException, AhtUtilsIntegrityException
 	{
 		return getLangMap(langs.getLang()); 
 	}
 	
-	public Map<String,L> getLangMap(List<Lang> langList) throws InstantiationException, IllegalAccessException, AhtUtilIntegrityException
+	public Map<String,L> getLangMap(List<Lang> langList) throws InstantiationException, IllegalAccessException, AhtUtilsIntegrityException
 	{
 		Map<String,L> map = new Hashtable<String,L>();
 		for(Lang lang : langList)
@@ -60,10 +60,10 @@ public class UtilsStatusEjbFactory<S extends UtilsStatus<L>, L extends UtilsLang
 		return map;
 	}
 	
-	public L createLang(Lang lang) throws InstantiationException, IllegalAccessException, AhtUtilIntegrityException
+	public L createLang(Lang lang) throws InstantiationException, IllegalAccessException, AhtUtilsIntegrityException
 	{
-		if(lang.getKey()==null){throw new AhtUtilIntegrityException("Key not set for: "+JaxbUtil.toString(lang, new AhtUtilsNsPrefixMapper()));}
-		if(lang.getTranslation()==null){throw new AhtUtilIntegrityException("Translation not set for: "+JaxbUtil.toString(lang, new AhtUtilsNsPrefixMapper()));}
+		if(lang.getKey()==null){throw new AhtUtilsIntegrityException("Key not set for: "+JaxbUtil.toString(lang, new AhtUtilsNsPrefixMapper()));}
+		if(lang.getTranslation()==null){throw new AhtUtilsIntegrityException("Translation not set for: "+JaxbUtil.toString(lang, new AhtUtilsNsPrefixMapper()));}
 		L l = langClass.newInstance();
 		l.setLkey(lang.getKey());
 		l.setLang(lang.getTranslation());

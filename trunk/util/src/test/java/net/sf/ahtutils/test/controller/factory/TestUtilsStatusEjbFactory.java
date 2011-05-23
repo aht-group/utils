@@ -1,6 +1,6 @@
 package net.sf.ahtutils.test.controller.factory;
 
-import net.sf.ahtutils.controller.exception.AhtUtilIntegrityException;
+import net.sf.ahtutils.controller.exception.AhtUtilsIntegrityException;
 import net.sf.ahtutils.controller.factory.UtilsStatusEjbFactory;
 import net.sf.ahtutils.model.ejb.status.AhtUtilsLang;
 import net.sf.ahtutils.model.ejb.status.AhtUtilsStatus;
@@ -40,43 +40,43 @@ public class TestUtilsStatusEjbFactory extends AbstractAhtUtilTest
     }
  
     @Test
-    public void testClass() throws InstantiationException, IllegalAccessException, AhtUtilIntegrityException
+    public void testClass() throws InstantiationException, IllegalAccessException, AhtUtilsIntegrityException
     {
     	Object o = facStatus.create(status);
     	Assert.assertTrue(o instanceof AhtUtilsStatus);
     }
     
     @Test
-    public void testCode() throws InstantiationException, IllegalAccessException, AhtUtilIntegrityException
+    public void testCode() throws InstantiationException, IllegalAccessException, AhtUtilsIntegrityException
     {
     	AhtUtilsStatus ejb = (AhtUtilsStatus)facStatus.create(status);
     	Assert.assertEquals(status.getCode(), ejb.getCode());
     }
     
     @Test
-    public void testMapSize() throws InstantiationException, IllegalAccessException, AhtUtilIntegrityException
+    public void testMapSize() throws InstantiationException, IllegalAccessException, AhtUtilsIntegrityException
     {
     	AhtUtilsStatus ejb = (AhtUtilsStatus)facStatus.create(status);
     	Assert.assertEquals(status.getLangs().getLang().size(), ejb.getName().size());
     }
     
     @Test
-    public void testTranslation() throws InstantiationException, IllegalAccessException, AhtUtilIntegrityException
+    public void testTranslation() throws InstantiationException, IllegalAccessException, AhtUtilsIntegrityException
     {
     	Lang lang = status.getLangs().getLang().get(0);
     	AhtUtilsStatus ejb = (AhtUtilsStatus)facStatus.create(status);
     	Assert.assertEquals(lang.getTranslation(), ejb.getName().get(lang.getKey()).getLang());
     }
     
-    @Test(expected=AhtUtilIntegrityException.class)
-    public void testMissingKey() throws InstantiationException, IllegalAccessException, AhtUtilIntegrityException
+    @Test(expected=AhtUtilsIntegrityException.class)
+    public void testMissingKey() throws InstantiationException, IllegalAccessException, AhtUtilsIntegrityException
     {
     	status.getLangs().getLang().get(0).setKey(null);
     	facStatus.create(status);
     }
     
-    @Test(expected=AhtUtilIntegrityException.class)
-    public void testMissingTranslation() throws InstantiationException, IllegalAccessException, AhtUtilIntegrityException
+    @Test(expected=AhtUtilsIntegrityException.class)
+    public void testMissingTranslation() throws InstantiationException, IllegalAccessException, AhtUtilsIntegrityException
     {
     	status.getLangs().getLang().get(0).setTranslation(null);
     	facStatus.create(status);
@@ -98,7 +98,7 @@ public class TestUtilsStatusEjbFactory extends AbstractAhtUtilTest
     	return langs;
     }
 	
-	public static void main(String[] args) throws InstantiationException, IllegalAccessException, AhtUtilIntegrityException
+	public static void main(String[] args) throws InstantiationException, IllegalAccessException, AhtUtilsIntegrityException
     {
 		LoggerInit loggerInit = new LoggerInit("log4j.xml");	
 			loggerInit.addAltPath("src/test/resources/config");

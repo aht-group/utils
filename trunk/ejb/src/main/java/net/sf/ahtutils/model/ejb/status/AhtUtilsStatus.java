@@ -33,7 +33,7 @@ public class AhtUtilsStatus implements UtilsStatus<AhtUtilsLang>,Serializable
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>Fields<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	protected int id;
+	protected long id;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	@MapKey(name = "lkey")
@@ -45,8 +45,8 @@ public class AhtUtilsStatus implements UtilsStatus<AhtUtilsLang>,Serializable
 
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>Getters and Setters<<<<<<<<<<<<<<<<<
 	
-	public void setId(int id) {this.id = id;}
-	public int getId() {return id;}
+	public void setId(long id) {this.id = id;}
+	public long getId() {return id;}
 	
 	public Map<String, AhtUtilsLang> getName(){if(name==null){name = new Hashtable<String, AhtUtilsLang>();}return name;}
 	public void setName(Map<String, AhtUtilsLang> name) {this.name = name;}
