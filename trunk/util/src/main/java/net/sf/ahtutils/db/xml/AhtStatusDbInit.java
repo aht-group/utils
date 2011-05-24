@@ -153,12 +153,12 @@ public class AhtStatusDbInit
 				if(!isGroupInMap(status.getGroup()))
 				{
 					List<UtilsStatus> l = new ArrayList<UtilsStatus>();
-					for(S s : fStatus.allStatus(cStatus)){l.add(s);}
+					for(S s : fStatus.allAhtUtilsStatus(cStatus)){l.add(s);}
 					savePreviousDbEntries(status.getGroup(), l);
 				}
 				try
 				{
-					ejbStatus = fStatus.fStatusByCode(cStatus,status.getCode());
+					ejbStatus = fStatus.fAhtUtilsStatusByCode(cStatus,status.getCode());
 					ejbStatus = (S)removeData(ejbStatus);
 					ejbStatus = fStatus.updateAhtUtilsStatus(ejbStatus);
 					removeStatusFromDelete(status.getGroup(), ejbStatus.getId());
