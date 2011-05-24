@@ -141,4 +141,46 @@ public class AhtStatusDbInit
 	public void setStatusEjbFactory(UtilsStatusEjbFactory statusEjbFactory) {this.statusEjbFactory = statusEjbFactory;}
 	public Set<Long> getsDeleteLangs() {return sDeleteLangs;}
 	public Map<String, Set<Long>> getmDbAvailableStatus() {return mDbAvailableStatus;}
+	
+	public <S extends UtilsStatus<L>,L extends UtilsLang> void iuStatus(List<Status> list, AhtUtilsStatusInterface fStatus, Class<S> cStatus, Class<L> cLang)
+	{
+		for(Status status : list)
+		{
+			try
+			{
+				logger.debug("Processing "+status.getGroup()+" with "+status.getCode());
+				S ejbStatus;
+				if(!isGroupInMap(status.getGroup()))
+				{
+					List<UtilsStatus> l = new ArrayList<UtilsStatus>();
+					for(S s : fStatus.allStatus(cStatus)){l.add(s);}
+					savePreviousDbEntries(status.getGroup(), l);
+				}
+				try
+				{
+					ejbStatus = fStatus.fStatusByCode(cStatus,status.getCode());
+					ejbStatus = (S)removeData(ejbStatus);
+					ejbStatus = fStatus.updateAhtUtilsStatus(ejbStatus);
+					removeStatusFromDelete(status.getGroup(), ejbStatus.getId());
+					logger.trace("Found: "+ejbStatus);
+				}
+				catch (AhtUtilsNotFoundException e)
+				{
+					ejbStatus = cStatus.newInstance();
+					ejbStatus.setCode(status.getCode());
+					ejbStatus = fStatus.persistAhtUtilsStatus(ejbStatus);
+					logger.trace("Added: "+ejbStatus);
+				}
+				logger.trace("Updating Langs ... "+ejbStatus);
+				try {addLangs(ejbStatus,status);}
+				catch (InstantiationException e) {logger.error(e);}
+				catch (IllegalAccessException e) {logger.error(e);}
+				catch (AhtUtilsIntegrityException e) {logger.error(e);}
+				ejbStatus = fStatus.updateAhtUtilsStatus(ejbStatus);
+			}
+			catch (AhtUtilsContraintViolationException e){logger.error(e);}
+			catch (InstantiationException e) {logger.error(e);}
+			catch (IllegalAccessException e) {logger.error(e);}
+		}
+	}
 }

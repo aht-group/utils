@@ -9,6 +9,8 @@ import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 
 public interface AhtUtilsStatusInterface 
 {
+	<T extends Object> T persistAhtUtilsStatus(T o) throws AhtUtilsContraintViolationException;
+	<T extends Object> T updateAhtUtilsStatus(T o) throws AhtUtilsContraintViolationException;
 	<T extends Object> T fAhtUtilsEntity(Class<T> type, long id) throws AhtUtilsNotFoundException;
 	void rmAhtUtilsEntity(Object o) throws AhtUtilsContraintViolationException;
 	
