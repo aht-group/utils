@@ -63,6 +63,23 @@
 	        	<type>jar</type>
 	        	<scope>test</scope>
 	        </dependency>
+	        	<dependency>
+			    <groupId>org.apache.poi</groupId>
+			    <artifactId>poi</artifactId>
+			    <version>3.8-beta3</version>
+			</dependency>
+			<dependency>
+			    <groupId>net.sf.jasperreports</groupId>
+			    <artifactId>jasperreports</artifactId>
+			    <version>3.7.6</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.jboss.spec</groupId>
+			    <artifactId>jboss-javaee-6.0</artifactId>
+			    <version>1.0.0.Final</version>
+			    <type>pom</type>
+			    <scope>provided</scope>
+			</dependency>
 	</dependencies>
    
 </project>
