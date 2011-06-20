@@ -20,16 +20,15 @@ public class TestStatus extends AbstractTgXmlTest
 {
 	static Log logger = LogFactory.getLog(TestStatus.class);
 	
-	private static final String xmlStatus = "src/test/resources/data/xml/single/status/status.xml";
-	private static final String xmlAht = "src/test/resources/data/xml/single/status/statusAht.xml";
+	private static final String rootDir = "src/test/resources/data/xml/status/status";
 	
 	private static File fStatus,fAht;
 	
 	@BeforeClass
 	public static void initFiles()
 	{
-		fStatus = new File(xmlStatus);
-		fAht = new File(xmlAht);
+		fStatus = new File(rootDir,"status.xml");
+		fAht = new File(rootDir,"statusAht.xml");
 	}
     
     @Test

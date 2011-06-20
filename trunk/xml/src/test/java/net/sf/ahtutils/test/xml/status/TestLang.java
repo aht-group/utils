@@ -20,16 +20,15 @@ public class TestLang extends AbstractTgXmlTest
 {
 	static Log logger = LogFactory.getLog(TestLang.class);
 	
-	private static final String xmlLang = "src/test/resources/data/xml/single/lang/lang.xml";
-	private static final String xmlLangs = "src/test/resources/data/xml/single/lang/langs.xml";
+	private static final String rootDir = "src/test/resources/data/xml/status/lang";
 	
 	private static File fLang,fLangs;
 	
 	@BeforeClass
 	public static void initFiles()
 	{
-		fLang = new File(xmlLang);
-		fLangs = new File(xmlLangs);
+		fLang = new File(rootDir,"lang.xml");
+		fLangs = new File(rootDir,"langs.xml");
 	}
     
     @Test
