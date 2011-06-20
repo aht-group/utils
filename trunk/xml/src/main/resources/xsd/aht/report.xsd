@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://ahtutils.aht-group.com/report"
+    xmlns:r="http://ahtutils.aht-group.com/report"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="info">
+        <xsd:complexType>
+            <xsd:attribute name="code" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

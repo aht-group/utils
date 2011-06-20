@@ -15,5 +15,11 @@
             <jxb:package name="net.sf.ahtutils.xml.status"/>
         </jxb:schemaBindings>
     </jxb:bindings>
+    
+    <jxb:bindings schemaLocation="aht/report.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="net.sf.ahtutils.xml.report"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
    
 </jxb:bindings>
