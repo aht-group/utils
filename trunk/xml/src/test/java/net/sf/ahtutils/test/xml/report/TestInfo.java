@@ -1,4 +1,4 @@
-package net.sf.ahtutils.test.report;
+package net.sf.ahtutils.test.xml.report;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,7 +19,7 @@ public class TestInfo extends AbstractTgXmlTest
 {
 	static Log logger = LogFactory.getLog(TestInfo.class);
 	
-	private static final String rootDir = "src/test/resources/data/xml/info/info";
+	private static final String rootDir = "src/test/resources/data/xml/report/info";
 	
 	private static File fInfo;
 	
