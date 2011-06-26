@@ -1,6 +1,6 @@
 package net.sf.ahtutils.model.interfaces.status;
 
-public interface UtilsLang
+public interface UtilsLang extends UtilsRemoveable
 {
 	long getId();
 	void setId(long id);

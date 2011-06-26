@@ -2,7 +2,7 @@ package net.sf.ahtutils.model.interfaces.status;
 
 import java.util.Map;
 
-public interface UtilsStatus<T extends UtilsLang>
+public interface UtilsStatus<T extends UtilsLang> extends UtilsRemoveable
 {	
 	public void setId(long id);
 	public long getId();
