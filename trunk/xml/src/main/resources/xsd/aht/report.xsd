@@ -2,9 +2,49 @@
 <xsd:schema targetNamespace="http://ahtutils.aht-group.com/report"
     xmlns:r="http://ahtutils.aht-group.com/report"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <xsd:element name="info">
+    <xsd:element name="reports">
+	    <xsd:complexType>
+	            <xsd:sequence>
+		            <xsd:element ref="r:report" maxOccurs="unbounded"/>
+				</xsd:sequence>
+				<xsd:attribute name="dir" type="xsd:string"/>
+		</xsd:complexType>    
+    </xsd:element>
+    <xsd:element name="report">
         <xsd:complexType>
-            <xsd:attribute name="code" type="xsd:string"/>
+            <xsd:sequence>
+	            <xsd:element ref="r:mediaPdf" maxOccurs="1"/>
+	            <xsd:element ref="r:mediaXls" maxOccurs="1"/>
+	            <xsd:element name="example" type="xsd:string"/>
+            </xsd:sequence>
+            <xsd:attribute name="id" type="xsd:string"/>
+            <xsd:attribute name="dir" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="mediaPdf">
+        <xsd:complexType>
+            <xsd:sequence>
+	            <xsd:element ref="r:jr" maxOccurs="unbounded"/>
+            </xsd:sequence>
+            <xsd:attribute name="dir" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+     <xsd:element name="mediaXls">
+        <xsd:complexType>
+            <xsd:sequence>
+	            <xsd:element ref="r:jr" maxOccurs="unbounded"/>
+            </xsd:sequence>
+            <xsd:attribute name="dir" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+     <xsd:element name="jr">
+        <xsd:complexType>
+            <xsd:attribute name="type" type="xsd:string"/>
+            <xs:restriction base="xs:string">
+				<xs:enumeration value="mr"/>
+				<xs:enumeration value="sr"/>
+			</xs:restriction>
+            <xsd:attribute name="name" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
 </xsd:schema>
