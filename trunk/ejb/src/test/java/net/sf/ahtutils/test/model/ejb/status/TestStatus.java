@@ -4,15 +4,16 @@ import java.util.Random;
 
 import net.sf.ahtutils.model.ejb.status.AhtUtilsLang;
 import net.sf.ahtutils.model.ejb.status.AhtUtilsStatus;
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 
+@Ignore
 @RunWith(Arquillian.class)
 public class TestStatus
 {
