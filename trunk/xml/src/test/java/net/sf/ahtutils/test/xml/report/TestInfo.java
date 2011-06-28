@@ -2,10 +2,13 @@ package net.sf.ahtutils.test.xml.report;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Date;
 
 import net.sf.ahtutils.test.AbstractTgXmlTest;
 import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
 import net.sf.ahtutils.xml.report.Info;
+import net.sf.ahtutils.xml.report.ObjectFactory;
+import net.sf.exlp.util.DateUtil;
 import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.xml.JaxbUtil;
 
@@ -49,7 +52,18 @@ public class TestInfo extends AbstractTgXmlTest
     public static Info createInfo()
     {
     	Info info = new Info();
-    	info.setCode("myCode");
+    	Info.Title title = new Info.Title();
+    	title.setValue("testTitle");
+    	info.setTitle(title);
+    	Info.Subtitle subtitle = new Info.Subtitle();
+    	subtitle.setValue("testSubTitle");
+    	info.setSubtitle(subtitle);
+    	Info.Footer footer = new Info.Footer();
+    	footer.setValue("testFooter");
+    	info.setFooter(footer);
+    	Info.Record record = new Info.Record();
+    	record.setValue(DateUtil.getXmlGc4D(new Date(0)));
+    	info.setRecord(record);
     	return info;
     }
 	
