@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:reports xmlns:ns2="http://ahtutils.aht-group.com/report" dir="testDir">
+    <report id="testReportId" dir="testDir">
+        <mediaPdf dir="testDir">
+            <jr type="mr" name="testReportName"/>
+        </mediaPdf>
+        <mediaXls dir="testDir">
+            <jr type="mr" name="testReportName"/>
+        </mediaXls>
+        <example>testExampleXmlFile</example>
+    </report>
+</ns2:reports>
