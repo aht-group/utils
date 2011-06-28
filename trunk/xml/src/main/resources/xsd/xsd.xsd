@@ -2,12 +2,14 @@
 <xsd:schema targetNamespace="http://ahtutils.aht-group.com"
     xmlns:aht="http://ahtutils.aht-group.com"
     xmlns:s="http://ahtutils.aht-group.com/status"
+    xmlns:a="http://ahtutils.aht-group.com/access"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" jaxb:extensionBindingPrefixes="xjc"
     jaxb:version="2.0">
     <xsd:import namespace="http://ahtutils.aht-group.com/status" schemaLocation="aht/status.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/report" schemaLocation="aht/report.xsd"/>
+    <xsd:import namespace="http://ahtutils.aht-group.com/access" schemaLocation="aht/access.xsd"/>
     <xsd:annotation>
         <xsd:appinfo>
             <jaxb:globalBindings generateIsSetMethod="true">

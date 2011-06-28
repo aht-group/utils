@@ -21,5 +21,11 @@
             <jxb:package name="net.sf.ahtutils.xml.report"/>
         </jxb:schemaBindings>
     </jxb:bindings>
+    
+    <jxb:bindings schemaLocation="aht/access.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="net.sf.ahtutils.xml.access"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
    
 </jxb:bindings>
