@@ -3,7 +3,7 @@ package net.sf.ahtutils.test.xml.status;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.test.AbstractTgXmlTest;
+import net.sf.ahtutils.test.AbstractXmlTest;
 import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Langs;
@@ -16,7 +16,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestLang extends AbstractTgXmlTest
+public class TestLang extends AbstractXmlTest
 {
 	static Log logger = LogFactory.getLog(TestLang.class);
 	

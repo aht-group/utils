@@ -6,9 +6,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.BeforeClass;
 
-public class AbstractTgXmlTest
+public abstract class AbstractXmlTest
 {
-	static Log logger = LogFactory.getLog(AbstractTgXmlTest.class);	
+	static Log logger = LogFactory.getLog(AbstractXmlTest.class);	
 	
 	@BeforeClass
     public static void initLogger()

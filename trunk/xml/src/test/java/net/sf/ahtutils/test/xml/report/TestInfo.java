@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Date;
 
-import net.sf.ahtutils.test.AbstractTgXmlTest;
+import net.sf.ahtutils.test.AbstractXmlTest;
 import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
 import net.sf.ahtutils.xml.report.Info;
 import net.sf.ahtutils.xml.report.ObjectFactory;
@@ -18,7 +18,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestInfo extends AbstractTgXmlTest
+public class TestInfo extends AbstractXmlTest
 {
 	static Log logger = LogFactory.getLog(TestInfo.class);
 	

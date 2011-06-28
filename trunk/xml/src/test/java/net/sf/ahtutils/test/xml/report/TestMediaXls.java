@@ -2,7 +2,7 @@ package net.sf.ahtutils.test.xml.report;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import net.sf.ahtutils.test.AbstractTgXmlTest;
+import net.sf.ahtutils.test.AbstractXmlTest;
 import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
 import net.sf.ahtutils.xml.report.MediaXls;
 import net.sf.exlp.util.io.LoggerInit;
@@ -14,7 +14,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestMediaXls extends AbstractTgXmlTest
+public class TestMediaXls extends AbstractXmlTest
 {
 	static Log logger = LogFactory.getLog(TestMediaXls.class);
 	
