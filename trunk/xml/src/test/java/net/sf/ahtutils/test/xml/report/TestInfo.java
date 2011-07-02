@@ -7,14 +7,12 @@ import java.util.Date;
 import net.sf.ahtutils.test.AbstractXmlTest;
 import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
 import net.sf.ahtutils.xml.report.Info;
-import net.sf.ahtutils.xml.report.ObjectFactory;
 import net.sf.exlp.util.DateUtil;
 import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -37,7 +35,7 @@ public class TestInfo extends AbstractXmlTest
     {
     	Info test = createInfo();
     	Info ref = (Info)JaxbUtil.loadJAXB(fInfo.getAbsolutePath(), Info.class);
-    	Assert.assertEquals(JaxbUtil.toString(ref),JaxbUtil.toString(test));
+    	assertJaxbEquals(ref, test);
     }
  
     public void save()
