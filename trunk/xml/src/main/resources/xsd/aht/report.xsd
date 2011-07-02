@@ -33,7 +33,7 @@
             <xsd:attribute name="dir" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
-     <xsd:element name="mediaXls">
+    <xsd:element name="mediaXls">
         <xsd:complexType>
             <xsd:sequence>
 	            <xsd:element ref="r:jr" maxOccurs="unbounded"/>

@@ -10,6 +10,7 @@ public class AhtUtilsNsPrefixMapper extends NamespacePrefixMapper implements NsP
     {
         if("http://ahtutils.aht-group.com".equals(namespaceUri) ){return "aht";}
         if("http://ahtutils.aht-group.com/status".equals(namespaceUri) ){return "s";}
+        if("http://ahtutils.aht-group.com/report".equals(namespaceUri) ){return "r";}
   
         return suggestion;
     }

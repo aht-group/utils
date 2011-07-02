@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ns2:mediaXls xmlns:ns2="http://ahtutils.aht-group.com/report" dir="testDir">
+<r:mediaPdf xmlns:r="http://ahtutils.aht-group.com/report" dir="testDir">
     <jr type="mr" name="testReportName"/>
-</ns2:mediaXls>
+</r:mediaPdf>

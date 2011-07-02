@@ -2,46 +2,40 @@ package net.sf.ahtutils.test.xml.report;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import net.sf.ahtutils.test.AbstractXmlTest;
-import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
+
 import net.sf.ahtutils.xml.report.MediaPdf;
 import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestMediaPdf extends AbstractXmlTest
+public class TestMediaPdf extends AbstractXmlReportTest
 {
 	static Log logger = LogFactory.getLog(TestMediaPdf.class);
-	
-	private static final String rootDir = "src/test/resources/data/xml/report/mediaPdf";
-	
-	private static File fMediaPdf;
 	
 	@BeforeClass
 	public static void initFiles()
 	{
-		fMediaPdf = new File(rootDir,"mediaPdf.xml");
+		fXml = new File(rootDir,"mediaPdf.xml");
 	}
     
     @Test
     public void testMediaPdf() throws FileNotFoundException
     {
-    	MediaPdf mediaPdf = createMediaPdf();
-    	MediaPdf ref = (MediaPdf)JaxbUtil.loadJAXB(fMediaPdf.getAbsolutePath(), MediaPdf.class);
-    	Assert.assertEquals(JaxbUtil.toString(ref),JaxbUtil.toString(mediaPdf));
+    	MediaPdf test = createMediaPdf();
+    	MediaPdf ref = (MediaPdf)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), MediaPdf.class);
+    	assertJaxbEquals(ref, test);
     }
  
     public void save()
     {
     	logger.debug("Saving Reference XML");
     	MediaPdf mediaPdf = createMediaPdf();
-    	JaxbUtil.debug2(this.getClass(),mediaPdf, new AhtUtilsNsPrefixMapper());
-    	JaxbUtil.save(fMediaPdf, mediaPdf, new AhtUtilsNsPrefixMapper(), true);
+    	JaxbUtil.debug2(this.getClass(),mediaPdf, nsPrefixMapper);
+    	JaxbUtil.save(fXml, mediaPdf, nsPrefixMapper, true);
     	
     }
     
@@ -59,6 +53,7 @@ public class TestMediaPdf extends AbstractXmlTest
 			loggerInit.addAltPath("src/test/resources/config");
 			loggerInit.init();		
 			
+		TestMediaPdf.initPrefixMapper();
 		TestMediaPdf.initFiles();	
 		TestMediaPdf test = new TestMediaPdf();
 		test.save();

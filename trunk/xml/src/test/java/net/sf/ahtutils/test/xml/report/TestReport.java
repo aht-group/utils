@@ -3,47 +3,39 @@ package net.sf.ahtutils.test.xml.report;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.test.AbstractXmlTest;
-import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
 import net.sf.ahtutils.xml.report.Report;
 import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestReport extends AbstractXmlTest
+public class TestReport extends AbstractXmlReportTest
 {
 	static Log logger = LogFactory.getLog(TestReport.class);
-	
-	private static final String rootDir = "src/test/resources/data/xml/report/report";
-	
-	private static File fReport;
 	
 	@BeforeClass
 	public static void initFiles()
 	{
-		fReport = new File(rootDir,"report.xml");
+		fXml = new File(rootDir,"report.xml");
 	}
     
     @Test
     public void testReport() throws FileNotFoundException
     {
     	Report test = createReport();
-    	Report ref = (Report)JaxbUtil.loadJAXB(fReport.getAbsolutePath(), Report.class);
-    	Assert.assertEquals(JaxbUtil.toString(ref),JaxbUtil.toString(test));
+    	Report ref = (Report)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Report.class);
+    	assertJaxbEquals(ref, test);
     }
  
     public void save()
     {
     	logger.debug("Saving Reference XML");
     	Report report = createReport();
-    	JaxbUtil.debug2(this.getClass(),report, new AhtUtilsNsPrefixMapper());
-    	JaxbUtil.save(fReport, report, new AhtUtilsNsPrefixMapper(), true);
-    	
+    	JaxbUtil.debug2(this.getClass(),report, nsPrefixMapper);
+    	JaxbUtil.save(fXml, report, nsPrefixMapper, true);
     }
     
     public static Report createReport()
@@ -63,6 +55,7 @@ public class TestReport extends AbstractXmlTest
 			loggerInit.addAltPath("src/test/resources/config");
 			loggerInit.init();		
 			
+		TestReport.initPrefixMapper();
 		TestReport.initFiles();	
 		TestReport test = new TestReport();
 		test.save();

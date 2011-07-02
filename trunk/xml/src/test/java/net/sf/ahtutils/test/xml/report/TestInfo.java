@@ -2,10 +2,7 @@ package net.sf.ahtutils.test.xml.report;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Date;
 
-import net.sf.ahtutils.test.AbstractXmlTest;
-import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
 import net.sf.ahtutils.xml.report.Info;
 import net.sf.exlp.util.DateUtil;
 import net.sf.exlp.util.io.LoggerInit;
@@ -16,25 +13,21 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestInfo extends AbstractXmlTest
+public class TestInfo extends AbstractXmlReportTest
 {
 	static Log logger = LogFactory.getLog(TestInfo.class);
-	
-	private static final String rootDir = "src/test/resources/data/xml/report/info";
-	
-	private static File fInfo;
 	
 	@BeforeClass
 	public static void initFiles()
 	{
-		fInfo = new File(rootDir,"info.xml");
+		fXml = new File(rootDir,"info.xml");
 	}
     
     @Test
     public void testInfo() throws FileNotFoundException
     {
     	Info test = createInfo();
-    	Info ref = (Info)JaxbUtil.loadJAXB(fInfo.getAbsolutePath(), Info.class);
+    	Info ref = (Info)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Info.class);
     	assertJaxbEquals(ref, test);
     }
  
@@ -42,9 +35,8 @@ public class TestInfo extends AbstractXmlTest
     {
     	logger.debug("Saving Reference XML");
     	Info info = createInfo();
-    	JaxbUtil.debug2(this.getClass(),info, new AhtUtilsNsPrefixMapper());
-    	JaxbUtil.save(fInfo, info, new AhtUtilsNsPrefixMapper(), true);
-    	
+    	JaxbUtil.debug2(this.getClass(),info, nsPrefixMapper);
+    	JaxbUtil.save(fXml, info, nsPrefixMapper, true);
     }
     
     public static Info createInfo()
@@ -60,7 +52,7 @@ public class TestInfo extends AbstractXmlTest
     	footer.setValue("testFooter");
     	info.setFooter(footer);
     	Info.Record record = new Info.Record();
-    	record.setValue(DateUtil.getXmlGc4D(new Date(0)));
+    	record.setValue(DateUtil.getXmlGc4D(getDefaultDate()));
     	info.setRecord(record);
     	return info;
     }
@@ -71,6 +63,7 @@ public class TestInfo extends AbstractXmlTest
 			loggerInit.addAltPath("src/test/resources/config");
 			loggerInit.init();		
 			
+		TestInfo.initPrefixMapper();
 		TestInfo.initFiles();	
 		TestInfo test = new TestInfo();
 		test.save();
