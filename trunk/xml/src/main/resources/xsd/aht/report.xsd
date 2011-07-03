@@ -13,8 +13,7 @@
     <xsd:element name="report">
         <xsd:complexType>
             <xsd:sequence>
-	            <xsd:element ref="r:mediaPdf" maxOccurs="1"/>
-	            <xsd:element ref="r:mediaXls" maxOccurs="1"/>
+	            <xsd:element ref="r:media" maxOccurs="2"/>
 	           	<xsd:element name="example">
 	           		<xsd:simpleType>
 		               	<xsd:restriction base="xsd:string"/>
@@ -25,20 +24,20 @@
             <xsd:attribute name="dir" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
-    <xsd:element name="mediaPdf">
+    <xsd:element name="media">
         <xsd:complexType>
             <xsd:sequence>
 	            <xsd:element ref="r:jr" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="dir" type="xsd:string"/>
-        </xsd:complexType>
-    </xsd:element>
-    <xsd:element name="mediaXls">
-        <xsd:complexType>
-            <xsd:sequence>
-	            <xsd:element ref="r:jr" maxOccurs="unbounded"/>
-            </xsd:sequence>
-            <xsd:attribute name="dir" type="xsd:string"/>
+	        <xsd:attribute name="type">
+	            <xsd:simpleType>
+		            <xsd:restriction base="xsd:string">
+						<xsd:enumeration value="pdf"/>
+						<xsd:enumeration value="xls"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
         </xsd:complexType>
     </xsd:element>
      <xsd:element name="jr">
