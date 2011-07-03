@@ -61,7 +61,6 @@
     	   		<artifactId>commons-logging</artifactId>
     	   		<version>1.1.1</version>
     	   		<type>jar</type>
-    	   		<scope>test</scope>
     	   	</dependency>
     	   	<dependency>
     	   		<groupId>net.sf.exlp</groupId>
