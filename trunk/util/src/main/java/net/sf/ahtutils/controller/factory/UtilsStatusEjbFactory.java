@@ -60,13 +60,25 @@ public class UtilsStatusEjbFactory<S extends UtilsStatus<L>, L extends UtilsLang
 		return map;
 	}
 	
+	public Map<String,L> createLangMap(String key, String translation) throws InstantiationException, IllegalAccessException
+	{
+		Map<String,L> map = new Hashtable<String,L>();
+		map.put(key, createLang(key, translation));
+		return map;
+	}
+	
 	public L createLang(Lang lang) throws InstantiationException, IllegalAccessException, AhtUtilsIntegrityException
 	{
 		if(lang.getKey()==null){throw new AhtUtilsIntegrityException("Key not set for: "+JaxbUtil.toString(lang, new AhtUtilsNsPrefixMapper()));}
 		if(lang.getTranslation()==null){throw new AhtUtilsIntegrityException("Translation not set for: "+JaxbUtil.toString(lang, new AhtUtilsNsPrefixMapper()));}
+		return createLang(lang.getKey(), lang.getTranslation());
+	}
+	
+	private L createLang(String key, String translation) throws InstantiationException, IllegalAccessException
+	{
 		L l = langClass.newInstance();
-		l.setLkey(lang.getKey());
-		l.setLang(lang.getTranslation());
+		l.setLkey(key);
+		l.setLang(translation);
 		return l;
 	}
 }
