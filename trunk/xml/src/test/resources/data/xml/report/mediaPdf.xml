@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<r:mediaPdf xmlns:r="http://ahtutils.aht-group.com/report" dir="testDir">
-    <jr type="mr" name="testReportName"/>
-</r:mediaPdf>

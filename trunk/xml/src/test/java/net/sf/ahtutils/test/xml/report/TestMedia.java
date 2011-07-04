@@ -39,12 +39,13 @@ public class TestMedia extends AbstractXmlReportTest
     	
     }
     
-    public static Media createMedia()
+    public static Media createMedia(){return createMedia("pdf");}
+    public static Media createMedia(String type)
     {
     	Media media = new Media();
     	media.setDir("testDir");
     	media.getJr().add(TestJr.createJr());
-    	media.setType("pdf");
+    	media.setType(type);
     	return media;
     }
 	
