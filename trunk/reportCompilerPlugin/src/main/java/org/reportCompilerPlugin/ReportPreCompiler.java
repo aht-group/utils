@@ -45,29 +45,36 @@ public class ReportPreCompiler
     public void execute()
         throws MojoExecutionException
     {	
-        //Create Configuration object from configuration file
-        ConfigurationFactory factory = new ConfigurationFactory(configFile);
-        Configuration config = null;
-        try {
-			config = factory.getConfiguration();
-		} catch (ConfigurationException e) {
-			e.printStackTrace();
-		}
-		
-		//Get the ReportController from ahtutils
-		ReportController reportController = new ReportController(config);
-
-		//Get a list of all reports in configuration file
-		String xPathPrefix = "//report";
-		int reportCount = (config.getStringArray(xPathPrefix)).length;
-		logger.debug("Pre-Compiling "+reportCount+" Reports");
-		for(int i=1;i<=reportCount;i++)
-		{
-			//Compile reports and save to file
-			String rId = config.getString(xPathPrefix+"/["+i+"]/@id");
-			reportController.setParameter("en", rId);
+    	if (false)
+    	{
+	        //Create Configuration object from configuration file
+	        ConfigurationFactory factory = new ConfigurationFactory(configFile);
+	        Configuration config = null;
+	        try {
+				config = factory.getConfiguration();
+			} catch (ConfigurationException e) {
+				e.printStackTrace();
+			}
 			
-			
-		}
+			//Get the ReportController from ahtutils
+			ReportController reportController = new ReportController(config);
+	
+			//Get a list of all reports in configuration file
+			String xPathPrefix = "//report";
+			int reportCount = (config.getStringArray(xPathPrefix)).length;
+			logger.debug("Pre-Compiling "+reportCount+" Reports");
+			for(int i=1;i<=reportCount;i++)
+			{
+				//Compile reports and save to file
+				String rId = config.getString(xPathPrefix+"/["+i+"]/@id");
+				reportController.setParameter("en", rId);
+				
+				
+			}
+    	}
+    	else
+    	{
+    		getLog().warn("No config file specified!");
+    	}
     }
 }
