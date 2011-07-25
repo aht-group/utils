@@ -34,47 +34,41 @@ public class ReportPreCompiler
 {
 	/**
      * Location of the file.
-     * @parameter expression="src/main/resources/config/config.xml"
+     * @parameter expression="src/test/resources/config/reports.xml"
      * @required
      */
     private String configFile;
 
-    static Log logger = LogFactory.getLog(ReportPreCompiler.class);
-	protected Configuration config;
+    protected Configuration config;
 	
     public void execute()
         throws MojoExecutionException
     {	
-    	if (false)
-    	{
-	        //Create Configuration object from configuration file
-	        ConfigurationFactory factory = new ConfigurationFactory(configFile);
-	        Configuration config = null;
-	        try {
-				config = factory.getConfiguration();
-			} catch (ConfigurationException e) {
-				e.printStackTrace();
-			}
+        //Create Configuration object from configuration file
+		getLog().info("Using " +configFile +" for report configuration.");
+        ConfigurationFactory factory = new ConfigurationFactory(configFile);
+        Configuration config = null;
+        try {
+			config = factory.getConfiguration();
+		} catch (ConfigurationException e) {
+			e.printStackTrace();
+		}
+        
+        
+		
+		//Get the ReportController from ahtutils
+		ReportController reportController = new ReportController(config);
+
+		//Get a list of all reports in configuration file
+		String xPathPrefix = "///report";
+		int reportCount = (config.getStringArray(xPathPrefix)).length;
+		getLog().info("Pre-Compiling "+reportCount+" Reports");
+		for(int i=1;i<=reportCount;i++)
+		{
+			//Compile reports and save to file
+			String rId = config.getString(xPathPrefix+"/["+i+"]/@id");
+			reportController.setParameter("en", rId);
 			
-			//Get the ReportController from ahtutils
-			ReportController reportController = new ReportController(config);
-	
-			//Get a list of all reports in configuration file
-			String xPathPrefix = "//report";
-			int reportCount = (config.getStringArray(xPathPrefix)).length;
-			logger.debug("Pre-Compiling "+reportCount+" Reports");
-			for(int i=1;i<=reportCount;i++)
-			{
-				//Compile reports and save to file
-				String rId = config.getString(xPathPrefix+"/["+i+"]/@id");
-				reportController.setParameter("en", rId);
-				
-				
-			}
-    	}
-    	else
-    	{
-    		getLog().warn("No config file specified!");
-    	}
+		}
     }
 }
