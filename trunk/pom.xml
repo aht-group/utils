@@ -60,7 +60,7 @@
 		<module>ejb</module>
 		<module>util</module>
 		<module>xml</module>
-    <module>reportCompilerPlugin</module>
+    <module>report</module>
   </modules>
  
 	<dependencyManagement>
