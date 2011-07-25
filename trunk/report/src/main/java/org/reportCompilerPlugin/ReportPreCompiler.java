@@ -2,12 +2,14 @@ package org.reportCompilerPlugin;
 
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.report.ReportController;
+import net.sf.ahtutils.xml.report.Jr;
+import net.sf.ahtutils.xml.report.Media;
 import net.sf.ahtutils.xml.report.Report;
 import net.sf.ahtutils.xml.report.Reports;
 import net.sf.exlp.util.xml.JaxbUtil;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
 
-import org.apache.commons.configuration.Configuration;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 
@@ -22,31 +24,39 @@ public class ReportPreCompiler extends AbstractMojo
 {
 	/**
      * Location of the file.
-     * @parameter expression="src/test/resources/config/reports.xml"
+     * @parameter expression="src/main/resources/reports/reports.xml"
      * @required
      */
     private String configFile;
 	
     public void execute() throws MojoExecutionException
     {	
-        //Create Configuration object from configuration file
-		getLog().info("Using " +configFile +" for report configuration.");
+        getLog().info("Using " +configFile +" for report configuration.");
 		
 		Reports reports;
 		try {reports = (Reports)JaxbUtil.loadJAXB(configFile, Reports.class);}
-		catch (FileNotFoundException e) {throw new MojoExecutionException(e.getMessage());}        
-		
-		//Get the ReportController from ahtutils
-	 
-		getLog().warn("ReportController deactivated");
-//		ReportController reportController = new ReportController(config);
+		catch (FileNotFoundException e) {throw new MojoExecutionException(e.getMessage());}
 
-		getLog().info("Pre-Compiling "+reports.getReport().size()+" Reports");
+		getLog().info("Pre-Compiling "+reports.getReport().size()+" Report(s)");
 		for(Report report : reports.getReport())
 		{
-			getLog().info("Report: "+report.getId());
-//			reportController.setParameter("en", rId);
-			
+			getLog().info("Report: "+report.getId() +" (" +report.getMedia().size() + " media outputs)");
+			for (Media media : report.getMedia())
+			{
+				getLog().info("Compiling " +media.getJr().size() +" reports for output -" +media.getType() +"-");
+				for (Jr jr : media.getJr())
+				{
+					getLog().info(jr.getName());
+					String jrxml  = media.getDir() + "/" + jr.getType() + jr.getName() +".jrxml";
+					String jasper = media.getDir() + "/" + jr.getType() + jr.getName() +".jasper";
+					getLog().info("Compiling " +jrxml +" to " +jasper);
+					try {
+						JasperCompileManager.compileReportToFile(jrxml, jasper);
+					} catch (JRException e) {
+						getLog().error(e.getMessage());
+					}
+				}
+			}
 		}
     }
 }
