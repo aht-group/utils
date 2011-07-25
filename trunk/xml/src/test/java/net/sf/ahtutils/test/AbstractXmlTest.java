@@ -35,7 +35,7 @@ public abstract class AbstractXmlTest
 	
 	protected void assertJaxbEquals(Object ref, Object test)
 	{
-		Assert.assertEquals(JaxbUtil.toString(ref),JaxbUtil.toString(ref));
+		Assert.assertEquals(JaxbUtil.toString(ref),JaxbUtil.toString(test));
 	}
 	
 	protected static Date getDefaultDate()

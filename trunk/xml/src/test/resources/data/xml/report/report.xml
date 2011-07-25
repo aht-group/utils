@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <r:report xmlns:r="http://ahtutils.aht-group.com/report" id="testReportId" dir="testDir">
-    <mediaPdf dir="testDir">
-        <jr type="mr" name="testReportName"/>
-    </mediaPdf>
-    <mediaXls dir="testDir">
-        <jr type="mr" name="testReportName"/>
-    </mediaXls>
+    <r:media dir="testDir" type="pdf">
+        <r:jr type="mr" name="testReportName"/>
+    </r:media>
+    <r:media dir="testDir" type="xls">
+        <r:jr type="mr" name="testReportName"/>
+    </r:media>
     <example>testExampleXmlFile</example>
 </r:report>
