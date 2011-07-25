@@ -1,26 +1,15 @@
 package org.reportCompilerPlugin;
 
-import java.io.File;
-import java.util.Locale;
-import java.util.ResourceBundle;
-
-import org.apache.commons.configuration.Configuration;
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.ConfigurationFactory;
-import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
+import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.report.ReportController;
-import net.sf.ahtutils.report.AbstractReportControl.Direction;
-import net.sf.ahtutils.report.AbstractReportControl.Output;
+import net.sf.ahtutils.xml.report.Report;
+import net.sf.ahtutils.xml.report.Reports;
+import net.sf.exlp.util.xml.JaxbUtil;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperPrintManager;
-import net.sf.jasperreports.view.save.JRPrintSaveContributor;
+import org.apache.commons.configuration.Configuration;
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
 
 /**
  * Goal which compiles a set of JasperReports jrxml files to .jasper file. Creates a rtl language and a ltr language version of all reports.
@@ -29,8 +18,7 @@ import net.sf.jasperreports.view.save.JRPrintSaveContributor;
  * 
  * @phase process-sources
  */
-public class ReportPreCompiler
-    extends AbstractMojo
+public class ReportPreCompiler extends AbstractMojo
 {
 	/**
      * Location of the file.
@@ -38,36 +26,26 @@ public class ReportPreCompiler
      * @required
      */
     private String configFile;
-
-    protected Configuration config;
 	
-    public void execute()
-        throws MojoExecutionException
+    public void execute() throws MojoExecutionException
     {	
         //Create Configuration object from configuration file
 		getLog().info("Using " +configFile +" for report configuration.");
-        ConfigurationFactory factory = new ConfigurationFactory(configFile);
-        Configuration config = null;
-        try {
-			config = factory.getConfiguration();
-		} catch (ConfigurationException e) {
-			e.printStackTrace();
-		}
-        
-        
+		
+		Reports reports;
+		try {reports = (Reports)JaxbUtil.loadJAXB(configFile, Reports.class);}
+		catch (FileNotFoundException e) {throw new MojoExecutionException(e.getMessage());}        
 		
 		//Get the ReportController from ahtutils
-		ReportController reportController = new ReportController(config);
+	 
+		getLog().warn("ReportController deactivated");
+//		ReportController reportController = new ReportController(config);
 
-		//Get a list of all reports in configuration file
-		String xPathPrefix = "///report";
-		int reportCount = (config.getStringArray(xPathPrefix)).length;
-		getLog().info("Pre-Compiling "+reportCount+" Reports");
-		for(int i=1;i<=reportCount;i++)
+		getLog().info("Pre-Compiling "+reports.getReport().size()+" Reports");
+		for(Report report : reports.getReport())
 		{
-			//Compile reports and save to file
-			String rId = config.getString(xPathPrefix+"/["+i+"]/@id");
-			reportController.setParameter("en", rId);
+			getLog().info("Report: "+report.getId());
+//			reportController.setParameter("en", rId);
 			
 		}
     }
