@@ -1,5 +1,7 @@
 package net.sf.ahtutils.report;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Hashtable;
@@ -12,6 +14,7 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.io.FilenameUtils;
@@ -91,21 +94,39 @@ public abstract class AbstractReportControl
 		JasperReport report = null;
 		fileName = rDir+"/"+fileName;
 		fileName = FilenameUtils.normalize(fileName);
-		fileName = fileName.replace("\\", "/")+".jrxml";
-		logger.debug("Getting Report: "+fileName);
-		try
+		fileName = fileName.replace("\\", "/");
+		File compiledReport = new File(fileName+".jasper");
+		if (compiledReport.exists())
 		{
-			InputStream is=null;
-			switch(dir)
-			{
-				case ltr: is = mrl.searchIs(fileName);break;
-				case rtl: is = ReportUtil.LeftToRightConversion(fileName);break;
-			}
-			report = JasperCompileManager.compileReport(is);
+			logger.debug("Loading pre-compiled Report: "+fileName);
+			FileInputStream in;
+			try {
+				in = new FileInputStream(compiledReport);
+				report = (JasperReport)JRLoader.loadObject(in);
+			} catch (FileNotFoundException e) {
+				logger.error(e.getMessage());
+			} catch (JRException e) {
+				logger.error(e.getMessage());
+			} 
 		}
-		catch (JRException e) {logger.error(e);}
-		catch (FileNotFoundException e) {logger.error(e);}
-		catch (JDOMException e) {logger.error(e);}
+		else
+		{
+			fileName = fileName +".jrxml";
+			logger.debug("Compiling Report: "+fileName);
+			try
+			{
+				InputStream is=null;
+				switch(dir)
+				{
+					case ltr: is = mrl.searchIs(fileName);break;
+					case rtl: is = ReportUtil.LeftToRightConversion(fileName);break;
+				}
+				report = JasperCompileManager.compileReport(is);
+			}
+			catch (JRException e) {logger.error(e);}
+			catch (FileNotFoundException e) {logger.error(e);}
+			catch (JDOMException e) {logger.error(e);}
+		}
 		return report;
 	}
 }
