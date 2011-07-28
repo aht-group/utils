@@ -24,6 +24,35 @@
             <xsd:attribute name="dir" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
+    <xsd:element name="resources">
+        <xsd:complexType>
+            <xsd:sequence>
+	            <xsd:element ref="r:resource" maxOccurs="unbounded"/>
+            </xsd:sequence>
+            <xsd:attribute name="dir" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="resource">
+        <xsd:complexType>
+            <xsd:sequence>
+	            <xsd:element name="value" maxOccurs="1">
+	            	<xsd:complexType>
+                        <xsd:simpleContent>
+                            <xsd:extension base="xsd:string"/>
+                        </xsd:simpleContent>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+            <xsd:attribute name="type">
+	            <xsd:simpleType>
+		            <xsd:restriction base="xsd:string">
+						<xsd:enumeration value="image"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="name"/>
+        </xsd:complexType>
+    </xsd:element>
     <xsd:element name="media">
         <xsd:complexType>
             <xsd:sequence>

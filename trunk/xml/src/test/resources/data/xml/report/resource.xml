@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<r:resource xmlns:r="http://ahtutils.aht-group.com/report" type="image" name="logo">
+    <value>logo.png</value>
+</r:resource>
