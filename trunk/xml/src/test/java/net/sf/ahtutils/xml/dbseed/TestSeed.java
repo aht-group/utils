@@ -40,7 +40,7 @@ public class TestSeed extends AbstractXmlDbseedTest
     public static Seed createSeed()
     {
     	Seed xml = new Seed();
-    	xml.setId("myId");
+    	xml.setCode("myCode");
     	xml.setTemplate("myTemplate");
     	xml.setContent("myContent");
     	return xml;

@@ -1,5 +1,10 @@
 package net.sf.ahtutils.db.xml;
 
+import net.sf.ahtutils.xml.dbseed.Db;
+import net.sf.ahtutils.xml.dbseed.Seed;
+import net.sf.ahtutils.xml.xpath.DbseedXpath;
+import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
+import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.util.io.resourceloader.MultiResourceLoader;
 
 import org.apache.commons.configuration.Configuration;
@@ -13,12 +18,20 @@ public abstract class AbstractAhtDbXmlUtil
 	public static enum DataSource{ide,jar}
 	
 	protected Configuration config;
+	protected Db dbSeed;
 	protected String prefix;
 	
 	public AbstractAhtDbXmlUtil(Configuration config, DataSource datasource)
 	{
 		this.config=config;
 		setPrefix(datasource);
+	}
+	
+	public AbstractAhtDbXmlUtil(Db dbSeed, DataSource datasource)
+	{
+		this.dbSeed=dbSeed;
+		prefix = "config/db";
+		logger.warn("No dynamic prefix handling. Hardcoded Prefix="+prefix);
 	}
 	
 	private void setPrefix(DataSource datasource)
@@ -41,7 +54,19 @@ public abstract class AbstractAhtDbXmlUtil
 	
 	protected String getTargetName(String extractId)
 	{
-		return config.getString("db/extract/file[@id='"+extractId+"']/@target");
+		if(config!=null){return config.getString("db/extract/file[@id='"+extractId+"']/@target");}
+		else if(dbSeed!=null)
+		{
+			try
+			{
+				Seed seed = DbseedXpath.getSeed(dbSeed, extractId);
+				return seed.getContent();
+			}
+			catch (ExlpXpathNotFoundException e) {logger.error(e);}
+			catch (ExlpXpathNotUniqueException e) {logger.error(e);}
+		}
+		logger.warn("config AND dbSeed == null !!");
+		return null;
 	}
 	
 	protected String getExtractName(String extractId)

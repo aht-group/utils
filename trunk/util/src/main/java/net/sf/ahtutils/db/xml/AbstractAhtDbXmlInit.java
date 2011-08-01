@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.controller.exception.AhtUtilsIntegrityException;
 import net.sf.ahtutils.db.xml.AhtDbXmlInit.Priority;
+import net.sf.ahtutils.xml.dbseed.Db;
 
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.logging.Log;
@@ -13,10 +14,14 @@ public abstract class AbstractAhtDbXmlInit extends AbstractAhtDbXmlUtil
 {
 	static Log logger = LogFactory.getLog(AbstractAhtDbXmlInit.class);
 
-	
 	public AbstractAhtDbXmlInit(Configuration config, DataSource datasource)
 	{
 		super(config, datasource);
+	}
+	
+	public AbstractAhtDbXmlInit(Db dbSeed, DataSource datasource)
+	{
+		super(dbSeed, datasource);
 	}
 	
 	public void initFromXml(Priority priority) throws FileNotFoundException,AhtUtilsIntegrityException
