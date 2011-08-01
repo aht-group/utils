@@ -30,7 +30,7 @@ public abstract class AbstractAhtDbXmlUtil
 	public AbstractAhtDbXmlUtil(Db dbSeed, DataSource datasource)
 	{
 		this.dbSeed=dbSeed;
-		prefix = "config/db";
+		prefix = "db";
 		logger.warn("No dynamic prefix handling. Hardcoded Prefix="+prefix);
 	}
 	
