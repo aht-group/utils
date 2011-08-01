@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.sf.ahtutils.controller.exception.AhtUtilsIntegrityException;
+import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
@@ -16,23 +17,25 @@ import net.sf.exlp.util.xml.JaxbUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class UtilsStatusEjbFactory<S extends UtilsStatus<L>, L extends UtilsLang>
+public class UtilsStatusEjbFactory<S extends UtilsStatus<L>, L extends UtilsLang, D extends UtilsDescription>
 {
 	static Log logger = LogFactory.getLog(UtilsStatusEjbFactory.class);
 	
 	final Class<S> statusClass;
     final Class<L> langClass;
+    final Class<D> descriptionClass;
 	
-    public UtilsStatusEjbFactory(final Class<S> statusClass, final Class<L> langClass)
+    public UtilsStatusEjbFactory(final Class<S> statusClass, final Class<L> langClass, final Class<D> descriptionClass)
     {
         this.statusClass = statusClass;
         this.langClass = langClass;
+        this.descriptionClass = descriptionClass;
     } 
     
-    public static <S extends UtilsStatus<L>, L extends UtilsLang> UtilsStatusEjbFactory<S, L>
-    		createFactory(final Class<S> statusClass, final Class<L> langClass)
+    public static <S extends UtilsStatus<L>, L extends UtilsLang, D extends UtilsDescription> UtilsStatusEjbFactory<S, L, D>
+    		createFactory(final Class<S> statusClass, final Class<L> langClass, final Class<D> descriptionClass)
     {
-        return new UtilsStatusEjbFactory<S, L>(statusClass, langClass);
+        return new UtilsStatusEjbFactory<S, L, D>(statusClass, langClass, descriptionClass);
     }
     
 	public S create(Status status) throws InstantiationException, IllegalAccessException, AhtUtilsIntegrityException
