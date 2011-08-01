@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://ahtutils.aht-group.com/dbseed"
+    xmlns:db="http://ahtutils.aht-group.com/dbseed"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="db">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="db:seed" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>    
+    </xsd:element>
+    <xsd:element name="seed">
+        <xsd:complexType>
+            <xsd:attribute name="id" type="xsd:string"/>
+            <xsd:attribute name="template" type="xsd:string"/>
+            <xsd:attribute name="content" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

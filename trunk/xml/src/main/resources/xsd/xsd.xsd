@@ -3,6 +3,7 @@
     xmlns:aht="http://ahtutils.aht-group.com"
     xmlns:s="http://ahtutils.aht-group.com/status"
     xmlns:a="http://ahtutils.aht-group.com/access"
+    xmlns:db="http://ahtutils.aht-group.com/dbseed"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" jaxb:extensionBindingPrefixes="xjc"
@@ -10,6 +11,7 @@
     <xsd:import namespace="http://ahtutils.aht-group.com/status" schemaLocation="aht/status.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/report" schemaLocation="aht/report.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/access" schemaLocation="aht/access.xsd"/>
+    <xsd:import namespace="http://ahtutils.aht-group.com/dbseed" schemaLocation="aht/dbseed.xsd"/>
     <xsd:annotation>
         <xsd:appinfo>
             <jaxb:globalBindings generateIsSetMethod="true">
