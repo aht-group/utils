@@ -1,6 +1,10 @@
 package org.reportCompilerPlugin;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -19,6 +23,8 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
+import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import net.sf.jasperreports.engine.query.JRXPathQueryExecuterFactory;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.util.JRXmlUtils;
@@ -140,7 +146,18 @@ public class ReportExporter extends AbstractMojo
 		            
 		            if (media.getType().equals("xls"))
 		            {
-		            	
+		            	ByteArrayOutputStream output = new ByteArrayOutputStream();
+		                OutputStream outputfile= new FileOutputStream(new File(report.getDir() +"/" +report.getId() + ".xls"));
+
+		                JRXlsExporter exporterXLS = new JRXlsExporter();
+		                exporterXLS.setParameter(JRXlsExporterParameter.JASPER_PRINT, filledReport);
+		                exporterXLS.setParameter(JRXlsExporterParameter.OUTPUT_STREAM, output);
+		                exporterXLS.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.FALSE);
+		                exporterXLS.setParameter(JRXlsExporterParameter.IS_AUTO_DETECT_CELL_TYPE, Boolean.TRUE);
+		                exporterXLS.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
+		                exporterXLS.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
+		                exporterXLS.exportReport();
+		                outputfile.write(output.toByteArray()); 
 		            } 
 		            
 
