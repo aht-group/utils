@@ -1,24 +1,20 @@
 package org.reportCompilerPlugin;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import net.sf.ahtutils.xml.report.Jr;
 import net.sf.ahtutils.xml.report.Media;
 import net.sf.ahtutils.xml.report.Report;
 import net.sf.ahtutils.xml.report.Reports;
+import net.sf.exlp.util.io.resourceloader.MultiResourceLoader;
+import net.sf.exlp.util.xml.DomUtil;
+import net.sf.exlp.util.xml.JDomUtil;
 import net.sf.exlp.util.xml.JaxbUtil;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
-import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -30,8 +26,6 @@ import net.sf.jasperreports.engine.util.JRXmlUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 /**
  * Goal which fills all reports with example data and exports them to output formats.
@@ -72,13 +66,24 @@ public class ReportExporter extends AbstractMojo
 			getLog().info("Loading example data from XML file: " +exampleXML);
 			Document document = null;
 			
+			MultiResourceLoader mrl = new MultiResourceLoader();
+			getLog().info("XML available: "+mrl.isAvailable(exampleXML));
+			
 			try {
 				document = JRXmlUtils.parse(JRLoader.getLocationInputStream(exampleXML));
 			} catch (JRException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-
+			
+			DomUtil.debugDocument(document);
+			
+			org.jdom.Document jdomDoc =  JDomUtil.load(exampleXML);
+			jdomDoc = JDomUtil.unsetNameSpace(jdomDoc);
+			
+			document =JDomUtil.toW3CDocument(jdomDoc);
+			DomUtil.debugDocument(document);
+			
 //			File file = new File(exampleXML);
 //			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 //			DocumentBuilder db;
