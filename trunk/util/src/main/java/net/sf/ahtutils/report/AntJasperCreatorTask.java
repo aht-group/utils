@@ -32,7 +32,7 @@ public class AntJasperCreatorTask extends Task{
     {
     	 logger.info("Using " +configFile +" for report configuration.");
  		
- 		Reports reports;
+ 		Reports reports = null;
  		try {reports = (Reports)JaxbUtil.loadJAXB(reportRoot +"/" +configFile, Reports.class);}
  		catch (FileNotFoundException e) {logger.error(e.getMessage());}
  		
@@ -79,6 +79,7 @@ public class AntJasperCreatorTask extends Task{
  					}
  				}
  			}
+ 		}
  		}
 
 	public static void main(String[] args) {
