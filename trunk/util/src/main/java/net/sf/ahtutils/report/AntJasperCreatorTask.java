@@ -13,9 +13,6 @@ import net.sf.exlp.util.xml.JaxbUtil;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 
-import org.apache.commons.configuration.Configuration;
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.ConfigurationFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tools.ant.BuildException;
@@ -84,7 +81,6 @@ public class AntJasperCreatorTask extends Task{
 
 	public static void main(String[] args) {
 		AntJasperCreatorTask task = new AntJasperCreatorTask();
-		task.setConfigFile("../aht-java/resources/config/erp/erp.xml");
 		task.execute();
 
 	}
