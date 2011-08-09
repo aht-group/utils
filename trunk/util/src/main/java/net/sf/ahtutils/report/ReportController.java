@@ -95,7 +95,7 @@ public class ReportController extends AbstractReportControl
 			
 			try
 			{
-				OutputStream osProcessed = ReportUtil.RemoveEmptyCells(os);
+				OutputStream osProcessed = ReportUtilXls.RemoveEmptyCells(os);
 				
 				OutputStream outputStreamProcessed = new FileOutputStream ("src/test/resources/data/reports/"+name+".xls"); 
 				((ByteArrayOutputStream)osProcessed).writeTo(outputStreamProcessed);

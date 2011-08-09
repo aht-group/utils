@@ -130,7 +130,7 @@ public abstract class AbstractReportControl
 				switch(dir)
 				{
 					case ltr: is = mrl.searchIs(fileName);break;
-					case rtl: is = ReportUtil.LeftToRightConversion(fileName);break;
+					case rtl: is = ReportUtilRtl.LeftToRightConversion(fileName);break;
 				}
 				report = JasperCompileManager.compileReport(is);
 			}
