@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Locale;
 
+import net.sf.ahtutils.xml.report.Reports;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -15,7 +16,6 @@ import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import net.sf.jasperreports.engine.query.JRXPathQueryExecuterFactory;
 
-import org.apache.commons.configuration.Configuration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
@@ -24,7 +24,7 @@ public class ReportController extends AbstractReportControl
 {
 	static Log logger = LogFactory.getLog(ReportController.class);
 	
-	public ReportController(Configuration config)
+	public ReportController(Reports config)
 	{
 		super(config);
 	}
@@ -34,10 +34,10 @@ public class ReportController extends AbstractReportControl
 		mapReportParameter.put(key, value);
 	}
 	
-	public void generateReport(String reportId, Output output, Direction dir)
+	public void generateReport(String reportId, Output output, Direction dir, Document data)
 	{
 		rId = reportId;
-		Document doc=null;
+		Document doc=data;
 		logger.debug("Starting Report Generation");
 		compileSubReports(output,dir);
 		fillParameterMap(doc);
@@ -58,7 +58,7 @@ public class ReportController extends AbstractReportControl
 		try
 		{	
 			logger.info("Exporting report to PDF");
-			JasperExportManager.exportReportToPdfFile(jsPrint, "dist/"+name+".pdf");
+			JasperExportManager.exportReportToPdfFile(jsPrint, "src/test/resources/data/reports/"+name+".pdf");
 			
 			logger.info("Exporting report to Excel Sheet");
 			OutputStream os = new ByteArrayOutputStream();
@@ -75,7 +75,7 @@ public class ReportController extends AbstractReportControl
 			{
 				OutputStream osProcessed = ReportUtil.RemoveEmptyCells(os);
 				
-				OutputStream outputStreamProcessed = new FileOutputStream ("dist/"+name+".xls"); 
+				OutputStream outputStreamProcessed = new FileOutputStream ("src/test/resources/data/reports/"+name+".xls"); 
 				((ByteArrayOutputStream)osProcessed).writeTo(outputStreamProcessed);
 			}
 			catch (FileNotFoundException e) {logger.error(e);}

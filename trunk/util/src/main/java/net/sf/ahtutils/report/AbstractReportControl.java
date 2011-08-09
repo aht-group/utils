@@ -6,8 +6,11 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Hashtable;
 import java.util.Map;
-import java.util.NoSuchElementException;
 
+import net.sf.ahtutils.xml.report.Jr;
+import net.sf.ahtutils.xml.report.Media;
+import net.sf.ahtutils.xml.report.Report;
+import net.sf.ahtutils.xml.report.Reports;
 import net.sf.exlp.util.io.resourceloader.MultiResourceLoader;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -16,8 +19,8 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 
-import org.apache.commons.configuration.Configuration;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.jxpath.JXPathContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jdom.JDOMException;
@@ -30,14 +33,16 @@ public abstract class AbstractReportControl
 	public static enum Source{database,example,report}
 	public static enum Direction{ltr,rtl}	
 	
-	protected Configuration config;
+	protected Reports config;
 	protected MultiResourceLoader mrl;
 	protected Map<String,Object> mapReportParameter;
 	
 	protected String rId,lang;
 	protected JasperPrint jPrint;
 	
-	public AbstractReportControl(Configuration config)
+	protected String reportRoot = "";
+	
+	public AbstractReportControl(Reports config)
 	{
 		this.config=config;
 		mrl = new MultiResourceLoader();
@@ -52,6 +57,11 @@ public abstract class AbstractReportControl
 		this.rId=rId;
 	}
 	
+	public void setReportRoot(String reportRoot)
+	{
+		this.reportRoot = reportRoot;
+	}
+	
 	public JasperPrint getJasperPrint(Output output, Direction dir)
 	{
 		JasperPrint  print = new JasperPrint();
@@ -63,29 +73,30 @@ public abstract class AbstractReportControl
 	
 	public void compileSubReports(Output output, Direction dir)
 	{	
-		String xPathPrefix = "reports/report[@id='"+rId+"']/"+output.toString();
-		String rDir = config.getString(xPathPrefix+"/@dir");
-		int anz = (config.getStringArray(xPathPrefix+"/jr[@type='sr']/@name")).length;
-		logger.debug("Compiling "+anz+" Sub Reports");
-		for(int i=1;i<=anz;i++)
+		Report  report  = (Report)JXPathContext.newContext(config).getValue("report[id='" +rId +"']");
+		for (Media media : report.getMedia())
 		{
-			String rName = "sr"+config.getString(xPathPrefix+"/jr[@type='sr']["+i+"]/@name");
-			String fileName = rName;
-			try
+			String rDir = reportRoot +"jrxml/"+report.getDir() +"/" +media.getType() +"/";
+			for (Jr jr : media.getJr())
 			{
-				fileName = config.getString(xPathPrefix+"/jr[@type='sr']["+i+"]/@file");
+				if (jr.getType().equals("sr"))
+				{
+					String rName    = "";
+					String fileName = jr.getType() +jr.getName();
+					logger.debug("Compiling " +fileName);
+					JasperReport jreport = getReport(rDir, fileName,dir);
+					mapReportParameter.put(rName, jreport);
+				}
 			}
-			catch (NoSuchElementException e){}
-			JasperReport jr = getReport(rDir, fileName,dir);
-			mapReportParameter.put(rName, jr);
 		}
 	}
 	
 	protected JasperReport getMasterReport(Output output, Direction dir)
 	{
-		String xPathPrefix = "reports/report[@id='"+rId+"']/"+output.toString();
-		String rName = config.getString(xPathPrefix+"/jr[@type='mr']/@name");
-		String rDir = config.getString(xPathPrefix+"/@dir");
+		
+		Jr jr  = (Jr)JXPathContext.newContext(config).getValue("report[id='"+ rId +"']/media[type='" +output.name() +"']/jr[type='mr']");
+		String rName = jr.getName();
+		String rDir  = reportRoot +"jrxml/"+(String)JXPathContext.newContext(config).getValue("report[id='" +rId +"']/@dir") +"/" +output.name();
 		return getReport(rDir, "mr"+rName,dir);
 	}
 	
