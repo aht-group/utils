@@ -13,7 +13,7 @@ import net.sf.ahtutils.controller.exception.AhtUtilsContraintViolationException;
 import net.sf.ahtutils.controller.exception.AhtUtilsIntegrityException;
 import net.sf.ahtutils.controller.exception.AhtUtilsNotFoundException;
 import net.sf.ahtutils.controller.factory.UtilsStatusEjbFactory;
-import net.sf.ahtutils.controller.interfaces.AhtUtilsStatusInterface;
+import net.sf.ahtutils.controller.interfaces.AhtUtilsFacade;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsRemoveable;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
@@ -105,7 +105,7 @@ public class AhtStatusDbInit
 		return result;
 	}
 	
-	public <S extends UtilsStatus<L>,L extends UtilsLang> void deleteUnusedStatus(AhtUtilsStatusInterface fStatus, Class<S> cStatus, Class<L> cLang)
+	public <S extends UtilsStatus<L>,L extends UtilsLang> void deleteUnusedStatus(AhtUtilsFacade fStatus, Class<S> cStatus, Class<L> cLang)
 	{
 		logger.debug("Deleing unused Status/Langs");
 		for(long id : sDeleteLangs)
@@ -138,7 +138,7 @@ public class AhtStatusDbInit
 		 }
 	}
 	
-	public <S extends UtilsStatus<L>,L extends UtilsLang> void iuStatus(List<Status> list, AhtUtilsStatusInterface fStatus, Class<S> cStatus, Class<L> cLang)
+	public <S extends UtilsStatus<L>,L extends UtilsLang> void iuStatus(List<Status> list, AhtUtilsFacade fStatus, Class<S> cStatus, Class<L> cLang)
 	{
 		for(Status status : list)
 		{

@@ -8,7 +8,7 @@ import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsRemoveable;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 
-public interface AhtUtilsStatusInterface 
+public interface AhtUtilsFacade
 {
 	<T extends Object> T persistAhtUtilsStatus(T o) throws AhtUtilsContraintViolationException;
 	<T extends Object> T updateAhtUtilsStatus(T o) throws AhtUtilsContraintViolationException;

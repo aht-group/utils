@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.sf.ahtutils.controller.exception.AhtUtilsContraintViolationException;
-import net.sf.ahtutils.controller.interfaces.AhtUtilsStatusInterface;
+import net.sf.ahtutils.controller.interfaces.AhtUtilsFacade;
 import net.sf.ahtutils.model.interfaces.EjbWithCode;
 import net.sf.ahtutils.model.interfaces.status.UtilsRemoveable;
 
@@ -55,7 +55,7 @@ public class AhtDbEjbUpdater<C extends EjbWithCode>
 		return result;
 	}
 	
-	public void remove(AhtUtilsStatusInterface fUtils)
+	public void remove(AhtUtilsFacade fUtils)
 	{
 		if(getEjbForRemove().size()>0)
 		{
