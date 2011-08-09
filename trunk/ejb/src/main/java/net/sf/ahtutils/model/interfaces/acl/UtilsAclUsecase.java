@@ -8,9 +8,10 @@ import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 
 public interface UtilsAclUsecase<L extends UtilsLang,
 								 D extends UtilsDescription, 
-								 C extends UtilsAclCategoryUsecase<L,D,UtilsAclUsecase<L,D,C>>>
+								 CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
+								 U extends UtilsAclUsecase<L,D,CU,U>>
 			extends EjbWithCode,EjbWithLang<L>,EjbWithDescription<D>
 {
-	public C getCategory();
-	public void setCategory(C category);
+	public CU getCategory();
+	public void setCategory(CU category);
 }

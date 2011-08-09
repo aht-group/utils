@@ -8,10 +8,12 @@ import net.sf.ahtutils.model.interfaces.EjbWithLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 
-public interface UtilsAclCategoryUsecase<L extends UtilsLang,
-										 D extends UtilsDescription,
-										 CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
-										 U extends UtilsAclUsecase<L,D,CU,U>>
+public interface UtilsAclCategoryRole<L extends UtilsLang,
+									  D extends UtilsDescription,
+									  CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
+									  CR extends UtilsAclCategoryRole<L,D,CU,CR,U,R>,
+									  U extends UtilsAclUsecase<L,D,CU,U>,
+									  R extends UtilsAclRole<L,D,CU,CR,U,R>>
 			extends EjbWithCode,EjbWithLang<L>,EjbWithDescription<D>
 {
 	public List<U> getUsecases();
