@@ -1,5 +1,6 @@
 package net.sf.ahtutils.report;
 
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -7,7 +8,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Locale;
 
+import javax.imageio.ImageIO;
+
 import net.sf.ahtutils.xml.report.Reports;
+import net.sf.ahtutils.xml.report.Resource;
+import net.sf.ahtutils.xml.report.Resources;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -23,10 +28,12 @@ import org.w3c.dom.Document;
 public class ReportController extends AbstractReportControl
 {
 	static Log logger = LogFactory.getLog(ReportController.class);
+	protected Resources resources;
 	
-	public ReportController(Reports config)
+	public ReportController(Reports config, Resources resources)
 	{
 		super(config);
+		this.resources = resources;
 	}
 	
 	public void addParameter(String key, Object value)
@@ -50,6 +57,21 @@ public class ReportController extends AbstractReportControl
 		mapReportParameter.put(JRXPathQueryExecuterFactory.XML_NUMBER_PATTERN, "#,##0.00");
 		mapReportParameter.put(JRXPathQueryExecuterFactory.XML_LOCALE, Locale.ENGLISH);
 		mapReportParameter.put(JRParameter.REPORT_LOCALE, Locale.US);
+		
+		for (Resource res : resources.getResource())
+		{
+			logger.info("Adding resource of type " +res.getType() +" with id='" +res.getName() +"' loaded from " +res.getValue().getValue());
+			if (res.getType().equals("image"))
+				
+				{
+					BufferedImage image = null;
+					try {
+						image = ImageIO.read(mrl.searchIs(reportRoot +"resources/" +res.getType() +"/" +res.getValue().getValue()));} 
+					catch (FileNotFoundException e) {logger.error(e.getMessage());}
+					catch (IOException e) {logger.error(e.getMessage());}
+					mapReportParameter.put(res.getName(), image);
+				}
+		}
 	}
 	
 	@SuppressWarnings("deprecation")
