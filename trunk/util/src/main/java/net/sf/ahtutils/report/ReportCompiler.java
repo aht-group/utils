@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import net.sf.ahtutils.xml.report.Jr;
 import net.sf.ahtutils.xml.report.Media;
@@ -21,9 +22,12 @@ public class ReportCompiler {
 
     static Log logger = LogFactory.getLog(ReportCompiler.class);
 	
-    public static void execute(String configFile, String reportRoot)
+    public static ArrayList<String> execute(String configFile, String reportRoot)
     {
-    	 logger.info("Using " +configFile +" for report configuration.");
+    	ArrayList<String> log = new ArrayList<String>();
+    	
+    	logger.info("Using " +configFile +" for report configuration.");
+ 		log.add("Using " +configFile +" for report configuration.");
  		
  		Reports reports = null;
  		try {reports = (Reports)JaxbUtil.loadJAXB(reportRoot +"/" +configFile, Reports.class);}
@@ -46,6 +50,7 @@ public class ReportCompiler {
  					String jrxml  = reportRoot +"/" +"jrxml"  +"/" +report.getDir() +"/" + media.getType() + "/" + jr.getType() + jr.getName() +".jrxml";
  					String jasperLtr = reportRoot +"/" +"jasper" +"/" +report.getDir() +"/" + media.getType() + "/ltr/" + jr.getType() + jr.getName() +".jasper";
  					logger.info("Compiling " +jrxml +" to " +jasperLtr);
+ 					log.add("Compiled  " +jrxml +" to " +jasperLtr);
  					try {
  						new File(reportRoot +"/" +"jasper"  +"/" +report.getDir() +"/" + media.getType() + "/ltr/").mkdirs();
  						JasperCompileManager.compileReportToFile(jrxml, jasperLtr);
@@ -56,6 +61,8 @@ public class ReportCompiler {
  					//Compiling rtl version
  					String jasperRtl = reportRoot +"/" +"jasper" +"/" +report.getDir() +"/" + media.getType() + "/rtl/" + jr.getType() + jr.getName() +".jasper";
  					logger.info("Compiling " +jrxml +" to " +jasperRtl);
+ 					log.add("Compiled  " +jrxml +" to " +jasperRtl);
+ 					
  					new File(reportRoot +"/" +"jasper"  +"/" +report.getDir() +"/" + media.getType() + "/rtl/").mkdirs();
  					InputStream in = null;
  					try {
@@ -73,5 +80,6 @@ public class ReportCompiler {
  				}
  			}
  		}
+ 		return log;
  	}
 }
