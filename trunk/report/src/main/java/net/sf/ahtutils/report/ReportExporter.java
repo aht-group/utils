@@ -1,4 +1,4 @@
-package org.reportCompilerPlugin;
+package net.sf.ahtutils.report;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
