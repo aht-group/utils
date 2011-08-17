@@ -19,6 +19,9 @@ public interface UtilsAclRole<L extends UtilsLang,
 	public CR getCategory();
 	public void setCategory(CR category);
 	
+	public List<R> getRoles();
+	public void setRoles(List<R> roles);
+	
 	public List<U> getUsecases() ;
 	public void setUsecases(List<U> usecases);
 }
