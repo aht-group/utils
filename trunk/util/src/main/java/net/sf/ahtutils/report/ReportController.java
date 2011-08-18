@@ -2,6 +2,7 @@ package net.sf.ahtutils.report;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -74,14 +75,34 @@ public class ReportController extends AbstractReportControl
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	public static void export(JasperPrint jsPrint, String name)
+	{
+		export(jsPrint, "src/test/resources/data/reports/", name);
+	}
+	
+	public static void export(JasperPrint jsPrint, String path, String name)
+	{
+		exportPdf(jsPrint, new File(path +name+".pdf"));
+		exportXls(jsPrint, new File(path +name+".xls"));
+	}
+
+	
+	@SuppressWarnings("deprecation")
+	public static void exportPdf(JasperPrint jsPrint, File f)
 	{
 		try
 		{	
 			logger.info("Exporting report to PDF");
-			JasperExportManager.exportReportToPdfFile(jsPrint, "src/test/resources/data/reports/"+name+".pdf");
-			
+			JasperExportManager.exportReportToPdfFile(jsPrint, f.getAbsolutePath());
+		}
+		catch (JRException e) {logger.error("Error in JasperReport creation: " +e.getMessage());}
+	}
+	
+	@SuppressWarnings("deprecation")
+	public static void exportXls(JasperPrint jsPrint, File f)
+	{
+		try
+		{	
 			logger.info("Exporting report to Excel Sheet");
 			OutputStream os = new ByteArrayOutputStream();
 			JRXlsExporter exporterXLS = new JRXlsExporter();
@@ -91,13 +112,12 @@ public class ReportController extends AbstractReportControl
 			exporterXLS.setParameter(JRXlsExporterParameter.IS_AUTO_DETECT_CELL_TYPE, Boolean.TRUE);
 			exporterXLS.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
 			exporterXLS.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
-			exporterXLS.exportReport();
-			
+			exporterXLS.exportReport();	
 			try
 			{
 				OutputStream osProcessed = ReportUtilXls.RemoveEmptyCells(os);
 				
-				OutputStream outputStreamProcessed = new FileOutputStream ("src/test/resources/data/reports/"+name+".xls"); 
+				OutputStream outputStreamProcessed = new FileOutputStream (f); 
 				((ByteArrayOutputStream)osProcessed).writeTo(outputStreamProcessed);
 			}
 			catch (FileNotFoundException e) {logger.error(e);}
