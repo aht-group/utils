@@ -46,6 +46,8 @@ public class TestReport extends AbstractXmlReportTest
     	report.setId("testReportId");
     	report.getMedia().add(TestMedia.createMedia("pdf"));
     	report.getMedia().add(TestMedia.createMedia("xls"));
+    	report.setLtr(true);
+    	report.setRtl(false);
     	return report;
     }
 	
