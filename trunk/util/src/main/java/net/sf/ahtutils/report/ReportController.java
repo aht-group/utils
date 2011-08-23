@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 
 import net.sf.ahtutils.report.AbstractReportControl.Direction;
 import net.sf.ahtutils.report.AbstractReportControl.Output;
+import net.sf.ahtutils.report.exception.ReportException;
 import net.sf.ahtutils.xml.report.Reports;
 import net.sf.ahtutils.xml.report.Resource;
 import net.sf.ahtutils.xml.report.Resources;
@@ -105,8 +106,12 @@ public class ReportController extends AbstractReportControl
 
 	
 	@SuppressWarnings("deprecation")
-	public void exportPdf()
+	public void exportPdf() throws ReportException
 	{
+		if (!output.equals(Output.pdf))
+		{
+			throw new ReportException("Wrong format (" +output.toString() +") for exporting to PDF document! Exprected PDF.");
+		}
 		File f = new File(path +name+".pdf");
 		try
 		{	
@@ -117,8 +122,12 @@ public class ReportController extends AbstractReportControl
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void exportXls()
+	public void exportXls() throws ReportException
 	{
+		if (!output.equals(Output.xls))
+		{
+			throw new ReportException("Wrong format (" +output.toString() +") for exporting to excel sheet! Exprected XLS.");
+		}
 		File f = new File(path +name+".xls");
 		try
 		{	
