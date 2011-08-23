@@ -11,13 +11,17 @@ import java.util.Locale;
 
 import javax.imageio.ImageIO;
 
+import net.sf.ahtutils.report.AbstractReportControl.Direction;
+import net.sf.ahtutils.report.AbstractReportControl.Output;
 import net.sf.ahtutils.xml.report.Reports;
 import net.sf.ahtutils.xml.report.Resource;
 import net.sf.ahtutils.xml.report.Resources;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import net.sf.jasperreports.engine.query.JRXPathQueryExecuterFactory;
@@ -30,6 +34,7 @@ public class ReportController extends AbstractReportControl
 {
 	static Log logger = LogFactory.getLog(ReportController.class);
 	protected Resources resources;
+	protected String path, name;
 	
 	public ReportController(Reports config, Resources resources)
 	{
@@ -49,6 +54,18 @@ public class ReportController extends AbstractReportControl
 		logger.debug("Starting Report Generation");
 		compileSubReports(output,dir);
 		fillParameterMap(doc);
+	}
+	
+	public void createJasperPrint(String reportId, Output output, Direction dir, Document data)
+	{
+		rId = reportId;
+		Document doc=data;
+		this.output = output;
+		direction = dir;
+		JasperReport report = getMasterReport(output,dir);
+		fillParameterMap(doc);
+		try {jPrint  = JasperFillManager.fillReport(report, mapReportParameter);}
+		catch (JRException e) {e.printStackTrace();}
 	}
 		
 	public void fillParameterMap(Document doc)
@@ -75,38 +92,40 @@ public class ReportController extends AbstractReportControl
 		}
 	}
 	
-	public static void export(JasperPrint jsPrint, String name)
+	public void setExportParameter(String name)
 	{
-		export(jsPrint, "src/test/resources/data/reports/", name);
+		setExportParameter("src/test/resources/data/reports/", name);
 	}
 	
-	public static void export(JasperPrint jsPrint, String path, String name)
+	public void setExportParameter(String path, String name)
 	{
-		exportPdf(jsPrint, new File(path +name+".pdf"));
-		exportXls(jsPrint, new File(path +name+".xls"));
+		this.path = path;
+		this.name = name;
 	}
 
 	
 	@SuppressWarnings("deprecation")
-	public static void exportPdf(JasperPrint jsPrint, File f)
+	public void exportPdf()
 	{
+		File f = new File(path +name+".pdf");
 		try
 		{	
 			logger.info("Exporting report to PDF");
-			JasperExportManager.exportReportToPdfFile(jsPrint, f.getAbsolutePath());
+			JasperExportManager.exportReportToPdfFile(jPrint, f.getAbsolutePath());
 		}
 		catch (JRException e) {logger.error("Error in JasperReport creation: " +e.getMessage());}
 	}
 	
 	@SuppressWarnings("deprecation")
-	public static void exportXls(JasperPrint jsPrint, File f)
+	public void exportXls()
 	{
+		File f = new File(path +name+".xls");
 		try
 		{	
 			logger.info("Exporting report to Excel Sheet");
 			OutputStream os = new ByteArrayOutputStream();
 			JRXlsExporter exporterXLS = new JRXlsExporter();
-			exporterXLS.setParameter(JRXlsExporterParameter.JASPER_PRINT, jsPrint);
+			exporterXLS.setParameter(JRXlsExporterParameter.JASPER_PRINT, jPrint);
 			exporterXLS.setParameter(JRXlsExporterParameter.OUTPUT_STREAM, os);
 			exporterXLS.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.TRUE);
 			exporterXLS.setParameter(JRXlsExporterParameter.IS_AUTO_DETECT_CELL_TYPE, Boolean.TRUE);

@@ -24,6 +24,7 @@ import org.apache.commons.jxpath.JXPathContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jdom.JDOMException;
+import org.w3c.dom.Document;
 
 public abstract class AbstractReportControl
 {
@@ -38,6 +39,8 @@ public abstract class AbstractReportControl
 	protected Map<String,Object> mapReportParameter;
 	
 	protected String rId,lang;
+	protected Output output;
+	protected Direction direction;
 	protected JasperPrint jPrint;
 	
 	protected String reportRoot = "";
@@ -70,6 +73,8 @@ public abstract class AbstractReportControl
 		catch (JRException e) {e.printStackTrace();}
 		return print;
 	}
+	
+	
 	
 	public void compileSubReports(Output output, Direction dir)
 	{	
