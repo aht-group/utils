@@ -21,10 +21,38 @@ import org.jdom.JDOMException;
 public class ReportCompiler {
 
     static Log logger = LogFactory.getLog(ReportCompiler.class);
-	
-    public static ArrayList<String> execute(String configFile, String reportRoot)
+    static ArrayList<String> log;
+    static String currentHash;
+    
+    public static Boolean compilationNeeded(String jrxml)
     {
-    	ArrayList<String> log = new ArrayList<String>();
+    	Boolean compilation = true;
+    	
+    	ReportUtilHash hashUtil = new ReportUtilHash(jrxml);
+    	String oldHash = hashUtil.readAndRemoveHash();
+    	String newHash = hashUtil.calculateHash();
+    	log.add("Hash was:");
+    	log.add(oldHash);
+    	log.add(newHash);
+    	log.add("is new Hash");
+    	
+    	if (!(newHash.equals(oldHash)))
+    	{
+    		compilation=true;
+    		log.add("Re-Compilation needed.");
+    	}
+		else
+		{
+			compilation = false;
+		    log.add("Re-Compilation not needed.");
+		}
+	    
+    	return compilation;
+    }
+    
+    public static ArrayList<String> execute(String configFile, String reportRoot) 
+    {
+    	log = new ArrayList<String>();
     	
     	logger.info("Using " +configFile +" for report configuration.");
  		log.add("Using " +configFile +" for report configuration.");
@@ -52,11 +80,15 @@ public class ReportCompiler {
 	 					if (report.isLtr())
 	 					{
 		 					String jasperLtr = reportRoot +"/" +"jasper" +"/" +report.getDir() +"/" + media.getType() + "/ltr/" + jr.getType() + jr.getName() +".jasper";
-		 					logger.info("Compiling " +jrxml +" to " +jasperLtr);
-		 					log.add("Compiled  " +jrxml +" to " +jasperLtr);
+		 					
 		 					try {
 		 						new File(reportRoot +"/" +"jasper"  +"/" +report.getDir() +"/" + media.getType() + "/ltr/").mkdirs();
-		 						JasperCompileManager.compileReportToFile(jrxml, jasperLtr);
+		 						if (compilationNeeded(jrxml) || !(new File(jasperLtr).exists()))
+		 						{
+		 							JasperCompileManager.compileReportToFile(jrxml, jasperLtr);
+		 							logger.info("Compiling " +jrxml +" to " +jasperLtr);
+				 					log.add("Compiled  " +jrxml +" to " +jasperLtr);
+		 						}
 		 					} catch (JRException e) {
 		 						logger.error(e.getMessage());
 		 					}
@@ -80,7 +112,12 @@ public class ReportCompiler {
 	 	 						logger.error("Problem converting to right-to-left language.");
 	 	 					}
 	 	 					try {
-	 	 						JasperCompileManager.compileReportToStream(in, new FileOutputStream(jasperRtl));
+	 	 						if (compilationNeeded(jrxml) || !(new File(jasperRtl).exists()))
+		 						{
+	 	 							JasperCompileManager.compileReportToStream(in, new FileOutputStream(jasperRtl));
+	 	 							logger.info("Compiling " +jrxml +" to " +jasperRtl);
+				 					log.add("Compiled  " +jrxml +" to " +jasperRtl);
+		 						}
 	 	 					} catch (FileNotFoundException e) {
 	 	 						logger.error(e.getMessage());
 	 	 					} catch (JRException e) {

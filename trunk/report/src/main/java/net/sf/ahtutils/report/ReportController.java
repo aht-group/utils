@@ -85,7 +85,9 @@ public class ReportController extends AbstractReportControl
 				{
 					BufferedImage image = null;
 					try {
-						image = ImageIO.read(mrl.searchIs(reportRoot +"resources/" +res.getType() +"/" +res.getValue().getValue()));} 
+						String imgLocation = reportRoot +"resources/" +res.getType() +"/" +res.getValue().getValue();
+						logger.info("Including image resource: " +imgLocation);
+						image = ImageIO.read(mrl.searchIs(imgLocation));} 
 					catch (FileNotFoundException e) {logger.error(e.getMessage());}
 					catch (IOException e) {logger.error(e.getMessage());}
 					mapReportParameter.put(res.getName(), image);
