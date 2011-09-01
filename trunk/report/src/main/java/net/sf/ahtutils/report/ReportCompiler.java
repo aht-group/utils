@@ -24,7 +24,7 @@ public class ReportCompiler {
     static ArrayList<String> log;
     static String currentHash;
     
-    public static Boolean compilationNeeded(String jrxml)
+    public static Boolean compileReport(String jrxml, String jasper)
     {
     	Boolean compilation = true;
     	
@@ -46,7 +46,59 @@ public class ReportCompiler {
 			compilation = false;
 		    log.add("Re-Compilation not needed.");
 		}
-	    
+    	
+    	
+	    if (compilation || !(new File(jasper).exists()))
+	    {
+	    	try {
+				JasperCompileManager.compileReportToFile(jrxml, jasper);
+				hashUtil.saveNewHash();
+			} catch (JRException e) {
+				logger.error(e.getMessage());
+				log.add(e.getMessage());
+			}
+			logger.info("Compiling " +jrxml +" to " +jasper);
+			log.add("Compiled  " +jrxml +" to " +jasper);
+	    }
+    	return compilation;
+    }
+    
+    public static Boolean compileReport(InputStream report ,String jrxml, String jasper)
+    {
+    	Boolean compilation = true;
+    	
+    	ReportUtilHash hashUtil = new ReportUtilHash(report, jrxml);
+    	String oldHash = hashUtil.readAndRemoveHash();
+    	String newHash = hashUtil.calculateHash();
+    	log.add("Hash was:");
+    	log.add(oldHash);
+    	log.add(newHash);
+    	log.add("is new Hash");
+    	
+    	if (!(newHash.equals(oldHash)))
+    	{
+    		compilation=true;
+    		log.add("Re-Compilation needed.");
+    	}
+		else
+		{
+			compilation = false;
+		    log.add("Re-Compilation not needed.");
+		}
+    	
+    	
+	    if (compilation || !(new File(jasper).exists()))
+	    {
+	    	try {
+				JasperCompileManager.compileReportToFile(jrxml, jasper);
+				hashUtil.saveNewHash();
+			} catch (JRException e) {
+				logger.error(e.getMessage());
+				log.add(e.getMessage());
+			}
+			logger.info("Compiling " +jrxml +" to " +jasper);
+			log.add("Compiled  " +jrxml +" to " +jasper);
+	    }
     	return compilation;
     }
     
@@ -80,18 +132,8 @@ public class ReportCompiler {
 	 					if (report.isLtr())
 	 					{
 		 					String jasperLtr = reportRoot +"/" +"jasper" +"/" +report.getDir() +"/" + media.getType() + "/ltr/" + jr.getType() + jr.getName() +".jasper";
-		 					
-		 					try {
-		 						new File(reportRoot +"/" +"jasper"  +"/" +report.getDir() +"/" + media.getType() + "/ltr/").mkdirs();
-		 						if (compilationNeeded(jrxml) || !(new File(jasperLtr).exists()))
-		 						{
-		 							JasperCompileManager.compileReportToFile(jrxml, jasperLtr);
-		 							logger.info("Compiling " +jrxml +" to " +jasperLtr);
-				 					log.add("Compiled  " +jrxml +" to " +jasperLtr);
-		 						}
-		 					} catch (JRException e) {
-		 						logger.error(e.getMessage());
-		 					}
+		 					new File(reportRoot +"/" +"jasper"  +"/" +report.getDir() +"/" + media.getType() + "/ltr/").mkdirs();
+		 					compileReport(jrxml, jasperLtr);
 	 					}
  					}
  					
@@ -111,18 +153,7 @@ public class ReportCompiler {
 	 	 					} catch (JDOMException e) {
 	 	 						logger.error("Problem converting to right-to-left language.");
 	 	 					}
-	 	 					try {
-	 	 						if (compilationNeeded(jrxml) || !(new File(jasperRtl).exists()))
-		 						{
-	 	 							JasperCompileManager.compileReportToStream(in, new FileOutputStream(jasperRtl));
-	 	 							logger.info("Compiling " +jrxml +" to " +jasperRtl);
-				 					log.add("Compiled  " +jrxml +" to " +jasperRtl);
-		 						}
-	 	 					} catch (FileNotFoundException e) {
-	 	 						logger.error(e.getMessage());
-	 	 					} catch (JRException e) {
-	 	 						logger.error(e.getMessage());
-	 	 					}
+	 	 					compileReport(in, jrxml, jasperRtl);
 	 					}
  					}
  				}
