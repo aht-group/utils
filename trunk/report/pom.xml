@@ -50,13 +50,6 @@
     	<scope>compile</scope>
 	</dependency>
 	<dependency>
-	        	<groupId>net.sf.ahtutils</groupId>
-	        	<artifactId>ahtutils-util</artifactId>
-	        	<version>0.2.0-SNAPSHOT</version>
-	        	<type>jar</type>
-	        	<scope>compile</scope>
-	        </dependency>
-	<dependency>
 		<groupId>net.sf.jasperreports</groupId>
 		<artifactId>jasperreports</artifactId>
 		<version>4.0.0</version>
@@ -77,6 +70,11 @@
 		<version>0.2.0-SNAPSHOT</version>
 		<type>jar</type>
 		<scope>compile</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.poi</groupId>
+		<artifactId>poi</artifactId>
+		<version>3.8-beta3</version>
 	</dependency>
   </dependencies>
   <build>

@@ -75,11 +75,6 @@
 	        	<type>jar</type>
 	        	<scope>test</scope>
 	        </dependency>
-	        	<dependency>
-			    <groupId>org.apache.poi</groupId>
-			    <artifactId>poi</artifactId>
-			    <version>3.8-beta3</version>
-			</dependency>
 			<dependency>
 			    <groupId>net.sf.jasperreports</groupId>
 			    <artifactId>jasperreports</artifactId>
