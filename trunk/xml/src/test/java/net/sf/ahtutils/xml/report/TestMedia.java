@@ -1,4 +1,4 @@
-package net.sf.ahtutils.test.xml.report;
+package net.sf.ahtutils.xml.report;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,4 +1,4 @@
-package net.sf.ahtutils.test.xml.xpath.dbseed;
+package net.sf.ahtutils.xml.xpath.dbseed;
 
 import net.sf.ahtutils.test.AbstractXmlTest;
 import net.sf.ahtutils.xml.dbseed.Db;

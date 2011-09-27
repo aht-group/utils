@@ -1,4 +1,4 @@
-package net.sf.ahtutils.test.xml.report;
+package net.sf.ahtutils.xml.report;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -38,12 +38,13 @@ public class TestReport extends AbstractXmlReportTest
     	JaxbUtil.save(fXml, report, nsPrefixMapper, true);
     }
     
-    public static Report createReport()
+    public static Report createReport(){return createReport("testReportId");}
+    public static Report createReport(String id)
     {
     	Report report = new Report();
+    	report.setId(id);
     	report.setDir("testDir");
     	report.setExample("testExampleXmlFile");
-    	report.setId("testReportId");
     	report.getMedia().add(TestMedia.createMedia("pdf"));
     	report.getMedia().add(TestMedia.createMedia("xls"));
     	report.setLtr(true);

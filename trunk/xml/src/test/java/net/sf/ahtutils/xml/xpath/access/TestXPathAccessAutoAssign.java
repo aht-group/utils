@@ -1,4 +1,4 @@
-package net.sf.ahtutils.test.xml.xpath.access;
+package net.sf.ahtutils.xml.xpath.access;
 
 import net.sf.ahtutils.test.AbstractXmlTest;
 import net.sf.ahtutils.xml.access.AclContainer;
