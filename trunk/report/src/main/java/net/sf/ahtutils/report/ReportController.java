@@ -117,7 +117,7 @@ public class ReportController extends AbstractReportControl
 		File f = new File(path +name+".pdf");
 		try
 		{	
-			logger.info("Exporting report to PDF");
+			logger.info("Exporting report to PDF ("+f.getAbsolutePath()+")");
 			JasperExportManager.exportReportToPdfFile(jPrint, f.getAbsolutePath());
 		}
 		catch (JRException e) {logger.error("Error in JasperReport creation: " +e.getMessage());}
