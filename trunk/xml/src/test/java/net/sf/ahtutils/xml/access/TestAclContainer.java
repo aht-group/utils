@@ -24,17 +24,9 @@ public class TestAclContainer extends AbstractXmlAccessTest
     @Test
     public void testAclContainer() throws FileNotFoundException
     {
-    	AclContainer test = createAclContainer();
-    	AclContainer ref = (AclContainer)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), AclContainer.class);
-    	assertJaxbEquals(ref, test);
-    }
- 
-    public void save()
-    {
-    	logger.debug("Saving Reference XML");
-    	AclContainer xml = createAclContainer();
-    	JaxbUtil.debug2(this.getClass(),xml, nsPrefixMapper);
-    	JaxbUtil.save(fXml, xml, nsPrefixMapper, true);
+    	AclContainer actual = createAclContainer();
+    	AclContainer expected = (AclContainer)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), AclContainer.class);
+    	assertJaxbEquals(expected, actual);
     }
     
     public static AclContainer createAclContainer()
@@ -42,6 +34,8 @@ public class TestAclContainer extends AbstractXmlAccessTest
     	AclContainer aclContainer = new AclContainer();
     	return aclContainer;
     }
+    
+    public void save() {save(createAclContainer(),fXml);}
 	
 	public static void main(String[] args)
     {
@@ -49,7 +43,6 @@ public class TestAclContainer extends AbstractXmlAccessTest
 			loggerInit.addAltPath("src/test/resources/config");
 			loggerInit.init();		
 			
-		TestAclContainer.initPrefixMapper();
 		TestAclContainer.initFiles();	
 		TestAclContainer test = new TestAclContainer();
 		test.save();

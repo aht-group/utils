@@ -1,5 +1,6 @@
 package net.sf.ahtutils.test;
 
+import java.io.File;
 import java.util.Date;
 
 import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
@@ -41,5 +42,18 @@ public abstract class AbstractXmlTest
 	protected static Date getDefaultDate()
 	{
 		return DateUtil.getDateFromInt(2011, 11, 11, 11, 11, 11);
+	}
+	
+	protected NsPrefixMapperInterface getPrefixMapper()
+	{
+		if(nsPrefixMapper==null){nsPrefixMapper = new AhtUtilsNsPrefixMapper();}
+		return nsPrefixMapper;
+	}
+	
+	protected void save(Object xml, File f)
+	{
+		logger.debug("Saving Reference XML");
+		JaxbUtil.debug2(this.getClass(),xml, getPrefixMapper());
+    	JaxbUtil.save(f, xml, getPrefixMapper(), true);
 	}
 }
