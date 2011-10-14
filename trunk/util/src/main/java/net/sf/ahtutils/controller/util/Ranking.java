@@ -1,6 +1,7 @@
 package net.sf.ahtutils.controller.util;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Ranking
@@ -12,38 +13,30 @@ public class Ranking
 	
 	public List<Integer> rank(List<Integer> listPoints)
 	{
-		List <Integer> tempList;
-		List <Rank> rankList= null;
+		List <Rank> rankList = new ArrayList<Rank>();
+		int[] tmpresult = new int[listPoints.size()]; 
+		List <Integer> result = new ArrayList<Integer>();
+		
 		int zaehler = 0, zaehler1 = 0;
 		
-		tempList=listPoints;
-		
-		while (listPoints.get(zaehler)!=null)
+		for (Integer i: listPoints)
 		{
-			
-			rankList.set(zaehler, new Rank(zaehler, listPoints.get(zaehler)));
+			rankList.add(new Rank(zaehler, listPoints.get(zaehler)));
 			zaehler++;
 		}
 		
-		while (listPoints.get(zaehler1)!=null){
-			if (rankList.get(zaehler1).compare(rankList.get(zaehler1), rankList.get(zaehler1+1))>0)
-			{
-				rankList.set(zaehler1, new Rank(zaehler1, listPoints.get(zaehler1)));
-				listPoints.set(zaehler1, rankList.get(zaehler1).getPoints());
-				zaehler1++;
-				
-			}
-			else 
-			{	
-				rankList.set(zaehler1+1, new Rank(zaehler1+1, listPoints.get(zaehler1+1)));
-				listPoints.set(zaehler1+1, rankList.get(zaehler1+1).getPoints());
-				zaehler1++;
-			}
+		Collections.sort(rankList, new Rank());
+		
+		for (Rank j: rankList){  //bis hier korrekt
 			
+			tmpresult[zaehler1] = rankList.get(zaehler1).getPoints();
+			
+			result.add(tmpresult[zaehler1]);
+			zaehler1++;
 		}
 		
 		
 		
-		return listPoints;
+		return result;
 	}
 }

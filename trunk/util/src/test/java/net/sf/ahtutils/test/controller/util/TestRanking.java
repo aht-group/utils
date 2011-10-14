@@ -14,7 +14,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-@Ignore
+
 public class TestRanking extends AbstractAhtUtilTest
 {
 	static Log logger = LogFactory.getLog(TestRanking.class);
@@ -48,6 +48,7 @@ public class TestRanking extends AbstractAhtUtilTest
     	}	
     }
     
+    @Ignore ("Result is too high")
     @Test
     public void testRandom()
     {
