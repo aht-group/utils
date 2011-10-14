@@ -14,7 +14,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-@Ignore
+
 public class TestRankComparator extends AbstractAhtUtilTest
 {
 	static Log logger = LogFactory.getLog(TestRankComparator.class);
@@ -33,7 +33,7 @@ public class TestRankComparator extends AbstractAhtUtilTest
     	Rank b = new Rank(2,5);list.add(b);
     	
     	Collections.sort(list, new Rank());
-    	Assert.assertEquals(b, list.get(0));
+    	Assert.assertEquals("b.points = " + b.getPoints() + " b2 = " + list.get(0).getPoints(), b, list.get(0));
     	Assert.assertEquals(a, list.get(1));
     }
 }

@@ -26,7 +26,21 @@ public class Rank implements Comparator<Rank>
 	public int compare(Rank a, Rank b)
 	{
 		// TODO Auto-generated method stub
-		return 0;
+		
+		
+		return(new Integer(a.getPoints())).compareTo(b.getPoints())*-1;
+		
+		/*if (a.getPoints()<b.getPoints())
+		{
+			return 1;
+		}
+		else
+		if (a.getPoints()>b.getPoints())
+		{
+			return -1;
+		}
+		
+		return 0;*/
 	}	
 
 }
