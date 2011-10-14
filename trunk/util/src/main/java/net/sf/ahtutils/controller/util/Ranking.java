@@ -11,6 +11,10 @@ public class Ranking
 	
 	public List<Integer> rank(List<Integer> listPoints)
 	{
+		List <Integer> tempList, Listpoints ;
+		
+		
+		
 		return listPoints;
 	}
 }

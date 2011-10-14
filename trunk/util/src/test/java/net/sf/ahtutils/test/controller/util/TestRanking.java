@@ -15,7 +15,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-@Ignore
 public class TestRanking extends AbstractAhtUtilTest
 {
 	static Log logger = LogFactory.getLog(TestRanking.class);
@@ -41,11 +40,11 @@ public class TestRanking extends AbstractAhtUtilTest
     public void testSimple()
     {
     	List<Integer> points = new ArrayList<Integer>();points.add(1);points.add(2);points.add(3);
-    	List<Integer> ref = new ArrayList<Integer>();ref.add(3);ref.add(2);ref.add(1);
-    	List<Integer> test = ranking.rank(points);
-    	for(int i=0;i<test.size();i++)
+    	List<Integer> expected = new ArrayList<Integer>();expected.add(3);expected.add(2);expected.add(1);
+    	List<Integer> actual = ranking.rank(points);
+    	for(int i=0;i<actual.size();i++)
     	{
-    		Assert.assertEquals(ref.get(i), test.get(i));
+    		Assert.assertEquals(expected.get(i), actual.get(i));
     	}	
     }
     
