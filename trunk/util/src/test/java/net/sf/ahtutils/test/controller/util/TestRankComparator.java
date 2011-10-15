@@ -5,13 +5,12 @@ import java.util.Collections;
 import java.util.List;
 
 import junit.framework.Assert;
-import net.sf.ahtutils.controller.util.Rank;
+import net.sf.ahtutils.controller.util.Ranking;
 import net.sf.ahtutils.test.AbstractAhtUtilTest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 
@@ -28,11 +27,12 @@ public class TestRankComparator extends AbstractAhtUtilTest
     @Test
     public void testSimple()
     {	
-    	List<Rank> list = new ArrayList<Rank>();
-    	Rank a = new Rank(1,4);list.add(a);
-    	Rank b = new Rank(2,5);list.add(b);
+    	Ranking r = new Ranking();
+    	List<Ranking.Rank> list = new ArrayList<Ranking.Rank>();
+    	Ranking.Rank a = r.new Rank(1,4);list.add(a);
+    	Ranking.Rank b = r.new Rank(2,5);list.add(b);
     	
-    	Collections.sort(list, new Rank());
+    	Collections.sort(list, r.new Rank());
     	Assert.assertEquals("b.points = " + b.getPoints() + " b2 = " + list.get(0).getPoints(), b, list.get(0));
     	Assert.assertEquals(a, list.get(1));
     }
