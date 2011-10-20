@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <r:reports xmlns:r="http://ahtutils.aht-group.com/report" dir="testDir">
-    <report id="testReportId" dir="testDir" ltr="true" rtl="false">
+    <r:report id="testReportId" dir="testDir" ltr="true" rtl="false">
         <r:media dir="testDir" type="pdf">
             <r:jr type="mr" name="testReportName"/>
         </r:media>
@@ -8,5 +8,5 @@
             <r:jr type="mr" name="testReportName"/>
         </r:media>
         <example>testExampleXmlFile</example>
-    </report>
+    </r:report>
 </r:reports>

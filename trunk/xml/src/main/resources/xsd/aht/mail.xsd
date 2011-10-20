@@ -4,7 +4,51 @@
     xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <xsd:element name="header">
         <xsd:complexType>
-            <xsd:attribute name="code" type="xsd:string"/>
+        	<xsd:sequence>
+                <xsd:element ref="m:from" maxOccurs="1"/>
+                <xsd:element ref="m:to" maxOccurs="1"/>
+                <xsd:element ref="m:cc" maxOccurs="1"/>
+                <xsd:element ref="m:bcc" maxOccurs="1"/>
+                <xsd:element name="subject">
+	           		<xsd:simpleType>
+		               	<xsd:restriction base="xsd:string"/>
+		            </xsd:simpleType>
+		        </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="emailAddress">
+        <xsd:complexType>
+            <xsd:attribute name="name" type="xsd:string"/>
+            <xsd:attribute name="email" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="from">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="m:emailAddress" maxOccurs="1"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="to">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="m:emailAddress" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="cc">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="m:emailAddress" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="bcc">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="m:emailAddress" maxOccurs="unbounded"/>
+            </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
 </xsd:schema>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<m:cc xmlns:m="http://ahtutils.aht-group.com/mail">
+    <m:emailAddress name="myName" email="my@e.mail"/>
+    <m:emailAddress name="myName" email="my@e.mail"/>
+</m:cc>

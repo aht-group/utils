@@ -18,7 +18,7 @@ public class TestXmlHeader extends AbstractXmlMailTest
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"db.xml");
+		fXml = new File(rootDir,"header.xml");
 	}
     
     @Test
@@ -33,11 +33,14 @@ public class TestXmlHeader extends AbstractXmlMailTest
     public static Header createHeader(boolean withChilds)
     {
     	Header xml = new Header();
-    	xml.setCode("myCode");
+    	xml.setSubject("mySubject");
     	
     	if(withChilds)
     	{
-    		
+    		xml.setFrom(TestXmlFrom.createFrom(false));
+    		xml.setTo(TestXmlTo.create(false));
+    		xml.setCc(TestXmlCc.create(false));
+    		xml.setBcc(TestXmlBcc.create(false));
     	}
     	
     	return xml;
