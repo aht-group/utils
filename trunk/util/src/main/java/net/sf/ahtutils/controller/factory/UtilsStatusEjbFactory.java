@@ -9,6 +9,8 @@ import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
+import net.sf.ahtutils.xml.status.Description;
+import net.sf.ahtutils.xml.status.Descriptions;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Langs;
 import net.sf.ahtutils.xml.status.Status;
@@ -83,5 +85,30 @@ public class UtilsStatusEjbFactory<S extends UtilsStatus<L>, L extends UtilsLang
 		l.setLkey(key);
 		l.setLang(translation);
 		return l;
+	}
+	
+	public Map<String,D> getDescriptionMap(Descriptions desciptions) throws InstantiationException, IllegalAccessException
+	{
+		if(desciptions!=null && desciptions.isSetDescription())
+		{
+			return getDescriptionMap(desciptions.getDescription());
+		}
+		else
+		{
+			return new Hashtable<String,D>();
+		}
+	}
+	
+	public Map<String,D> getDescriptionMap(List<Description> descList) throws InstantiationException, IllegalAccessException
+	{
+		Map<String,D> mapDesc = new Hashtable<String,D>();
+		for(Description xmlD : descList)
+		{
+			D d = descriptionClass.newInstance();
+			d.setLkey(xmlD.getKey());
+			d.setLang(xmlD.getValue().trim());
+			mapDesc.put(d.getLkey(), d);
+		}
+		return mapDesc;
 	}
 }
