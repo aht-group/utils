@@ -42,7 +42,7 @@ public class Ranking
 		for (Rank j: rankList)
 		{  //bis hier korrekt
 			
-			tmpresult[zaehler1] = rankList.get(zaehler1).getPoints();
+			tmpresult[zaehler1] = rankList.get(zaehler1).getIndex()+1;
 			
 			result.add(tmpresult[zaehler1]);
 			zaehler1++;

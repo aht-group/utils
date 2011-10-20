@@ -15,7 +15,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-@Ignore
 public class TestRanking extends AbstractAhtUtilTest
 {
 	static Log logger = LogFactory.getLog(TestRanking.class);
@@ -72,9 +71,9 @@ public class TestRanking extends AbstractAhtUtilTest
     		Assert.assertEquals(expected[i], actual[i]);
     	}	
     }
-    
+    @Ignore
     @Test
-    public void testDouleLow()
+    public void testDoubleLow()
     {
     	int[] points = {3,5,3};
     	int[] expected = {2,1,2};
@@ -84,9 +83,9 @@ public class TestRanking extends AbstractAhtUtilTest
     		Assert.assertEquals(expected[i], actual[i]);
     	}	
     }
-    
+    @Ignore
     @Test
-    public void testDouleHigh()
+    public void testDoubleHigh()
     {
     	int[] points = {7,5,7};
     	int[] expected = {1,3,1};
