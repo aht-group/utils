@@ -7,8 +7,8 @@ import java.util.Map;
 
 import net.sf.ahtutils.controller.exception.AhtUtilsContraintViolationException;
 import net.sf.ahtutils.controller.interfaces.AhtUtilsFacade;
+import net.sf.ahtutils.model.interfaces.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.EjbWithCode;
-import net.sf.ahtutils.model.interfaces.status.UtilsRemoveable;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -62,14 +62,14 @@ public class AhtDbEjbUpdater<C extends EjbWithCode>
 			logger.info("Removing "+getEjbForRemove().size()+" from "+codeClass.getSimpleName());
 			for(C pc : getEjbForRemove())
 			{
-				if(pc instanceof UtilsRemoveable)
+				if(pc instanceof EjbRemoveable)
 				{
-					try {fUtils.rmAhtUtilsEntity((UtilsRemoveable)pc);}
+					try {fUtils.rmAhtUtilsEntity((EjbRemoveable)pc);}
 					catch (AhtUtilsContraintViolationException e) {e.printStackTrace();}
 				}
 				else
 				{
-					logger.warn(pc.getClass().getSimpleName()+" does not implement "+UtilsRemoveable.class.getSimpleName());
+					logger.warn(pc.getClass().getSimpleName()+" does not implement "+EjbRemoveable.class.getSimpleName());
 				}
 			}
 		}	

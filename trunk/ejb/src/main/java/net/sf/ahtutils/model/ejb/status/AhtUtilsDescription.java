@@ -11,12 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import net.sf.ahtutils.model.interfaces.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
-import net.sf.ahtutils.model.interfaces.status.UtilsRemoveable;
 
 @Entity
 @Table(name = "UtilsLang")
-public class AhtUtilsDescription implements UtilsDescription,UtilsRemoveable,Serializable
+public class AhtUtilsDescription implements UtilsDescription,EjbRemoveable,Serializable
 {
 	public static final long serialVersionUID=1;
 	

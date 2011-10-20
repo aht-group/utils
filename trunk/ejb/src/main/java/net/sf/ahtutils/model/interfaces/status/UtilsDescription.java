@@ -1,6 +1,8 @@
 package net.sf.ahtutils.model.interfaces.status;
 
-public interface UtilsDescription extends UtilsRemoveable
+import net.sf.ahtutils.model.interfaces.EjbRemoveable;
+
+public interface UtilsDescription extends EjbRemoveable
 {
 	long getId();
 	void setId(long id);

@@ -15,7 +15,6 @@ import net.sf.ahtutils.controller.exception.AhtUtilsNotFoundException;
 import net.sf.ahtutils.controller.factory.UtilsStatusEjbFactory;
 import net.sf.ahtutils.controller.interfaces.AhtUtilsFacade;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
-import net.sf.ahtutils.model.interfaces.status.UtilsRemoveable;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.status.Status;
