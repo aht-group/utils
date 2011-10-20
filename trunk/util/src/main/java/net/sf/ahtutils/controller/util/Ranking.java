@@ -29,7 +29,7 @@ public class Ranking
 		int[] tmpresult = new int[listPoints.size()]; 
 		List <Integer> result = new ArrayList<Integer>();
 		
-		int zaehler = 0, zaehler1 = 0;
+		int zaehler = 0, zaehler1 = 0, l=0;
 		
 		for (Integer i: listPoints)
 		{
@@ -42,10 +42,33 @@ public class Ranking
 		for (Rank j: rankList)
 		{  //bis hier korrekt
 			
-			tmpresult[zaehler1] = rankList.get(zaehler1).getIndex()+1;
+			if (zaehler1>0){
+				if(rankList.get(zaehler1).getPoints() == rankList.get(zaehler1-1).getPoints())
+				{
+					for(Rank k: rankList)
+						if (rankList.get(zaehler1).getPoints() == rankList.get(zaehler-1).getPoints())
+							
+					
+					tmpresult[zaehler1] = rankList.get(zaehler1).getIndex()+l;			
+					result.add(tmpresult[zaehler1]);
+					zaehler1++;
+					l++;
+				}
+				else
+				{
+					tmpresult[zaehler1] = rankList.get(zaehler1).getIndex()+1;			
+					result.add(tmpresult[zaehler1]);
+					zaehler1++;
+				}
+			}
 			
-			result.add(tmpresult[zaehler1]);
-			zaehler1++;
+			else
+			{
+				tmpresult[zaehler1] = rankList.get(zaehler1).getIndex()+1;			
+				result.add(tmpresult[zaehler1]);
+				zaehler1++;
+			}
+			
 		}	
 		
 		return result;

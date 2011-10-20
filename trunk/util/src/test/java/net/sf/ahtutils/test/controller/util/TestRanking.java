@@ -71,7 +71,7 @@ public class TestRanking extends AbstractAhtUtilTest
     		Assert.assertEquals(expected[i], actual[i]);
     	}	
     }
-    @Ignore
+    
     @Test
     public void testDoubleLow()
     {
