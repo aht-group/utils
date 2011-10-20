@@ -29,7 +29,7 @@ public class TestSeed extends AbstractXmlDbseedTest
     	assertJaxbEquals(expected, actual);
     }
  
-    public static Seed createSeed(){return createSeed(true);}
+    private static Seed createSeed(){return createSeed(true);}
     public static Seed createSeed(boolean withChilds)
     {
     	Seed xml = new Seed();

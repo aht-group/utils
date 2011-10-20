@@ -33,5 +33,12 @@
             <jxb:package name="net.sf.ahtutils.xml.dbseed"/>
         </jxb:schemaBindings>
     </jxb:bindings>
+    
+   	<jxb:bindings schemaLocation="../resources/xsd/aht/mail.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="net.sf.ahtutils.xml.mail"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
+    
    
 </jxb:bindings>

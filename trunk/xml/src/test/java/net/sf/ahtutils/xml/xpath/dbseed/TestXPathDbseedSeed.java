@@ -26,11 +26,11 @@ public class TestXPathDbseedSeed extends AbstractXmlTest
 	@Before
 	public void iniDbseed()
 	{
-		dbSeed = TestDb.createDb();
+		dbSeed = TestDb.createDb(false);
 
-		Seed s1 = TestSeed.createSeed();s1.setCode(codeOk);dbSeed.getSeed().add(s1);
-		Seed s2 = TestSeed.createSeed();s2.setCode(codeMulti);dbSeed.getSeed().add(s2);
-		Seed s3 = TestSeed.createSeed();s3.setCode(codeMulti);dbSeed.getSeed().add(s3);
+		Seed s1 = TestSeed.createSeed(false);s1.setCode(codeOk);dbSeed.getSeed().add(s1);
+		Seed s2 = TestSeed.createSeed(false);s2.setCode(codeMulti);dbSeed.getSeed().add(s2);
+		Seed s3 = TestSeed.createSeed(false);s3.setCode(codeMulti);dbSeed.getSeed().add(s3);
 	}
 	
 	@Test

@@ -1,4 +1,4 @@
-package net.sf.ahtutils.xml.dbseed;
+package net.sf.ahtutils.xml.mail;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,9 +11,9 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestDb extends AbstractXmlDbseedTest
+public class TestXmlHeader extends AbstractXmlMailTest
 {
-	static Log logger = LogFactory.getLog(TestDb.class);
+	static Log logger = LogFactory.getLog(TestXmlHeader.class);
 	
 	@BeforeClass
 	public static void initFiles()
@@ -24,26 +24,26 @@ public class TestDb extends AbstractXmlDbseedTest
     @Test
     public void xml() throws FileNotFoundException
     {
-    	Db actual = createDb();
-    	Db expected = (Db)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Db.class);
+    	Header actual = createHeader();
+    	Header expected = (Header)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Header.class);
     	assertJaxbEquals(expected, actual);
     }  
     
-    private static Db createDb() {return createDb(true);}
-    public static Db createDb(boolean withChilds)
+    private static Header createHeader() {return createHeader(true);}
+    public static Header createHeader(boolean withChilds)
     {
-    	Db xml = new Db();
-    	xml.setPath("myPath");
+    	Header xml = new Header();
+    	xml.setCode("myCode");
     	
     	if(withChilds)
     	{
-    		xml.getSeed().add(TestSeed.createSeed(false));
+    		
     	}
     	
     	return xml;
     }
     
-    public void save() {save(createDb(),fXml);}
+    public void save() {save(createHeader(),fXml);}
 	
 	public static void main(String[] args)
     {
@@ -51,9 +51,9 @@ public class TestDb extends AbstractXmlDbseedTest
 			loggerInit.addAltPath("src/test/resources/config");
 			loggerInit.init();		
 			
-		TestDb.initPrefixMapper();
-		TestDb.initFiles();	
-		TestDb test = new TestDb();
+		TestXmlHeader.initPrefixMapper();
+		TestXmlHeader.initFiles();	
+		TestXmlHeader test = new TestXmlHeader();
 		test.save();
     }
 }
