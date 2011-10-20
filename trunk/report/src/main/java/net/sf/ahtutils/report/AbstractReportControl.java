@@ -81,7 +81,7 @@ public abstract class AbstractReportControl
 		Report  report  = (Report)JXPathContext.newContext(config).getValue("report[id='" +rId +"']");
 		for (Media media : report.getMedia())
 		{
-			String rDir = reportRoot +"jrxml/"+report.getDir() +"/" +media.getType() +"/";
+			String rDir = reportRoot +"/jrxml/"+report.getDir() +"/" +media.getType() +"/";
 			for (Jr jr : media.getJr())
 			{
 				if (jr.getType().equals("sr"))
@@ -101,7 +101,7 @@ public abstract class AbstractReportControl
 		
 		Jr jr  = (Jr)JXPathContext.newContext(config).getValue("report[id='"+ rId +"']/media[type='" +output.name() +"']/jr[type='mr']");
 		String rName = jr.getName();
-		String rDir  = reportRoot +"jrxml/"+(String)JXPathContext.newContext(config).getValue("report[id='" +rId +"']/@dir") +"/" +output.name();
+		String rDir  = reportRoot +"/jrxml/"+(String)JXPathContext.newContext(config).getValue("report[id='" +rId +"']/@dir") +"/" +output.name();
 		return getReport(rDir, "mr"+rName,dir);
 	}
 	

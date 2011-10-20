@@ -75,7 +75,9 @@ public class ReportController extends AbstractReportControl
 		mapReportParameter.put(JRXPathQueryExecuterFactory.XML_DATE_PATTERN, "yyyy-MM-dd");
 		mapReportParameter.put(JRXPathQueryExecuterFactory.XML_NUMBER_PATTERN, "#,##0.00");
 		mapReportParameter.put(JRXPathQueryExecuterFactory.XML_LOCALE, Locale.ENGLISH);
-		mapReportParameter.put(JRParameter.REPORT_LOCALE, Locale.US);
+		Locale locale = new Locale("de", "DE");
+		mapReportParameter.put(JRParameter.REPORT_LOCALE, locale);
+		mapReportParameter.put("REPORT_LOCALE", locale);
 		
 		for (Resource res : resources.getResource())
 		{
@@ -85,7 +87,7 @@ public class ReportController extends AbstractReportControl
 				{
 					BufferedImage image = null;
 					try {
-						String imgLocation = reportRoot +"resources/" +res.getType() +"/" +res.getValue().getValue();
+						String imgLocation = reportRoot +"/resources/" +res.getType() +"/" +res.getValue().getValue();
 						logger.info("Including image resource: " +imgLocation);
 						image = ImageIO.read(mrl.searchIs(imgLocation));} 
 					catch (FileNotFoundException e) {logger.error(e.getMessage());}
@@ -114,7 +116,7 @@ public class ReportController extends AbstractReportControl
 		{
 			throw new ReportException("Wrong format (" +output.toString() +") for exporting to PDF document! Exprected PDF.");
 		}
-		File f = new File(path +name+".pdf");
+		File f = new File(path, name+".pdf");
 		try
 		{	
 			logger.info("Exporting report to PDF ("+f.getAbsolutePath()+")");
