@@ -24,20 +24,13 @@ public class TestSeed extends AbstractXmlDbseedTest
     @Test
     public void xml() throws FileNotFoundException
     {
-    	Seed test = createSeed();
-    	Seed ref = (Seed)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Seed.class);
-    	assertJaxbEquals(ref, test);
+    	Seed actual = createSeed();
+    	Seed expected = (Seed)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Seed.class);
+    	assertJaxbEquals(expected, actual);
     }
  
-    public void save()
-    {
-    	logger.debug("Saving Reference XML");
-    	Seed xml = createSeed();
-    	JaxbUtil.debug2(this.getClass(),xml, nsPrefixMapper);
-    	JaxbUtil.save(fXml, xml, nsPrefixMapper, true);
-    }
-    
-    public static Seed createSeed()
+    public static Seed createSeed(){return createSeed(true);}
+    public static Seed createSeed(boolean withChilds)
     {
     	Seed xml = new Seed();
     	xml.setCode("myCode");
@@ -45,6 +38,8 @@ public class TestSeed extends AbstractXmlDbseedTest
     	xml.setContent("myContent");
     	return xml;
     }
+    
+    public void save() {save(createSeed(),fXml);}
 	
 	public static void main(String[] args)
     {

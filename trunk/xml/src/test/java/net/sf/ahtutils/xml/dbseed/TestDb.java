@@ -24,31 +24,26 @@ public class TestDb extends AbstractXmlDbseedTest
     @Test
     public void xml() throws FileNotFoundException
     {
-    	Db test = createDbWithChilds();
-    	Db ref = (Db)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Db.class);
-    	assertJaxbEquals(ref, test);
-    }
- 
-    public void save()
-    {
-    	logger.debug("Saving Reference XML");
-    	Db xml = createDbWithChilds();
-    	JaxbUtil.debug2(this.getClass(),xml, nsPrefixMapper);
-    	JaxbUtil.save(fXml, xml, nsPrefixMapper, true);
-    }
+    	Db actual = createDb();
+    	Db expected = (Db)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Db.class);
+    	assertJaxbEquals(expected, actual);
+    }  
     
-    public static Db createDb()
+    public static Db createDb() {return createDb(true);}
+    public static Db createDb(boolean withChilds)
     {
     	Db xml = new Db();
+    	xml.setPath("myPath");
+    	
+    	if(withChilds)
+    	{
+    		xml.getSeed().add(TestSeed.createSeed());
+    	}
+    	
     	return xml;
     }
     
-    public static Db createDbWithChilds()
-    {
-    	Db xml = createDb();
-    	xml.getSeed().add(TestSeed.createSeed());
-    	return xml;
-    }
+    public void save() {save(createDb(),fXml);}
 	
 	public static void main(String[] args)
     {

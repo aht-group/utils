@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
 import net.sf.exlp.util.io.compression.JarExtractor;
 import net.sf.exlp.util.io.compression.JarStream;
 
@@ -32,14 +33,14 @@ public abstract class AbstractAhtDbXmlExtract extends AbstractAhtDbXmlUtil
 		return templateDir+"/"+config.getString("db/extract/file[@id='"+extractId+"']/@template");
 	}
 	
-	protected void addExtractId(String id)
+	protected void addExtractId(String id) throws AhtUtilsConfigurationException
 	{
 		logger.debug(id+" "+getTemplate(id)+" -> "+getExtractName(id));
 		if(extractedIds.contains(id)){logger.warn("extractedIds already containes "+id);}
 		extractedIds.add(id);
 	}
 	
-	public void ideUpdate()
+	public void ideUpdate() throws AhtUtilsConfigurationException
 	{
 		Iterator<String> iterator = extractedIds.iterator();
 		while(iterator.hasNext())
@@ -48,9 +49,8 @@ public abstract class AbstractAhtDbXmlExtract extends AbstractAhtDbXmlUtil
 		}
 	}
 	
-	public void singleJarExtract(String extractId)
+	public void singleJarExtract(String extractId) throws AhtUtilsConfigurationException
 	{
-		
 		String from = getExtractName(extractId);
 		String to = config.getString("db/prefix[@type='ide']")+"/"+getTargetName(extractId);
 		singleJarExtract(from, to);

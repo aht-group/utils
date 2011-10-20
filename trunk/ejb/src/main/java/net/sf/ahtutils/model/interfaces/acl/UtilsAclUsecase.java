@@ -12,6 +12,8 @@ public interface UtilsAclUsecase<L extends UtilsLang,
 								 U extends UtilsAclUsecase<L,D,CU,U>>
 			extends EjbWithCode,EjbWithLang<L>,EjbWithDescription<D>
 {
+	public static final String extractId = "aclUseCases";
+	
 	public CU getCategory();
 	public void setCategory(CU category);
 }

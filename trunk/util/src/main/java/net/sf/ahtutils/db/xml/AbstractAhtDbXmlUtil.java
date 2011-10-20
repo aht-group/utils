@@ -1,5 +1,6 @@
 package net.sf.ahtutils.db.xml;
 
+import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
 import net.sf.ahtutils.xml.dbseed.Db;
 import net.sf.ahtutils.xml.dbseed.Seed;
 import net.sf.ahtutils.xml.xpath.DbseedXpath;
@@ -30,13 +31,12 @@ public abstract class AbstractAhtDbXmlUtil
 	public AbstractAhtDbXmlUtil(Db dbSeed, DataSource datasource)
 	{
 		this.dbSeed=dbSeed;
-		prefix = "db";
-		logger.warn("No dynamic prefix handling. Hardcoded Prefix="+prefix);
+		setPrefix(datasource);
 	}
 	
 	private void setPrefix(DataSource datasource)
 	{
-		prefix=config.getString("db/prefix[@type='"+datasource.toString()+"']");
+		prefix=dbSeed.getPath();
 		
 		if(datasource.toString().equals(DataSource.jar.toString()))
 		{
@@ -47,12 +47,13 @@ public abstract class AbstractAhtDbXmlUtil
 			{
 				logger.warn("Datasource jar is selected, but Token not available "+searchPath);
 				logger.warn("Fallback to "+DataSource.ide);
-				prefix=config.getString("db/prefix[@type='"+DataSource.ide.toString()+"']");
+				setPrefix(DataSource.ide);
 			}
 		}
+		logger.info("Prefix is "+prefix);
 	}
 	
-	protected String getTargetName(String extractId)
+	protected String getTargetName(String extractId) throws AhtUtilsConfigurationException
 	{
 		if(config!=null){return config.getString("db/extract/file[@id='"+extractId+"']/@target");}
 		else if(dbSeed!=null)
@@ -62,14 +63,13 @@ public abstract class AbstractAhtDbXmlUtil
 				Seed seed = DbseedXpath.getSeed(dbSeed, extractId);
 				return seed.getContent();
 			}
-			catch (ExlpXpathNotFoundException e) {logger.error(e);}
-			catch (ExlpXpathNotUniqueException e) {logger.error(e);}
+			catch (ExlpXpathNotFoundException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
+			catch (ExlpXpathNotUniqueException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
 		}
-		logger.warn("config AND dbSeed == null !!");
-		return null;
+		throw new AhtUtilsConfigurationException("config AND dbSeed == null !!");
 	}
 	
-	protected String getExtractName(String extractId)
+	protected String getExtractName(String extractId) throws AhtUtilsConfigurationException
 	{
 		return prefix+"/"+getTargetName(extractId);
 	}
