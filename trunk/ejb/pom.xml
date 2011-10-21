@@ -102,6 +102,22 @@
          	<type>jar</type>
          	<scope>test</scope>
          </dependency>
+         <dependency>
+         	<groupId>net.sf.ahtutils</groupId>
+         	<artifactId>ahtutils-xml</artifactId>
+         	<version>0.2.0-SNAPSHOT</version>
+         	<type>jar</type>
+         	<exclusions>
+        		<exclusion>
+        			<artifactId>jaxb-impl</artifactId>
+        			<groupId>com.sun.xml.bind</groupId>
+        		</exclusion>
+        		<exclusion>
+        			<artifactId>jaxb-api</artifactId>
+        			<groupId>javax.xml.bind</groupId>
+        		</exclusion>
+        	</exclusions>
+         </dependency>
     </dependencies>
 
     <build>
