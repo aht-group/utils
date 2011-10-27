@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 	
 	<parent>
     	<groupId>net.sf.ahtutils</groupId>
@@ -8,11 +9,8 @@
         <relativePath>../pom.xml</relativePath>
 	</parent>
 	
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>net.sf.ahtutils</groupId>
     <artifactId>ahtutils-util</artifactId>
     <packaging>jar</packaging>
-    <version>0.2.0-SNAPSHOT</version>
     <name>AHT-Utils - Util</name>
    
 	<build>
@@ -38,7 +36,7 @@
 	        <dependency>
 	        	<groupId>net.sf.exlp</groupId>
 	        	<artifactId>exlp-util</artifactId>
-	        	<version>0.1.3-SNAPSHOT</version>
+	        	<version>${exlp.version}</version>
 	        	<type>jar</type>
 	        	<scope>compile</scope>
 	        	<exclusions>
@@ -51,21 +49,21 @@
 	        <dependency>
 	        	<groupId>net.sf.ahtutils</groupId>
 	        	<artifactId>ahtutils-xml</artifactId>
-	        	<version>0.2.0-SNAPSHOT</version>
+	        	<version>${ahtutils.version}</version>
 	        	<type>jar</type>
 	        	<scope>compile</scope>
 	        </dependency>
 	        <dependency>
 	        	<groupId>net.sf.ahtutils</groupId>
 	        	<artifactId>ahtutils-ejb</artifactId>
-	        	<version>0.2.0-SNAPSHOT</version>
+	        	<version>${ahtutils.version}</version>
 	        	<type>ejb</type>
 	        	<scope>compile</scope>
 	        </dependency>
 	        <dependency>
 	        	<groupId>net.sf.ahtutils</groupId>
 	        	<artifactId>ahtutils-report</artifactId>
-	        	<version>0.2.0-SNAPSHOT</version>
+	        	<version>${ahtutils.version}</version>
 	        	<scope>test</scope>
 	        </dependency>
 	        <dependency>
