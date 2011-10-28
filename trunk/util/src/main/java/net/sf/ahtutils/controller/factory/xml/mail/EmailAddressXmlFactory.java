@@ -9,6 +9,7 @@ public class EmailAddressXmlFactory
 {
 	static Log logger = LogFactory.getLog(EmailAddressXmlFactory.class);
 		
+	public static EmailAddress create(String email){return create(null, email);}
     public static EmailAddress create(String name, String email)
     {
     	EmailAddress xml = new EmailAddress();
