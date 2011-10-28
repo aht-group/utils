@@ -49,21 +49,21 @@
 	        <dependency>
 	        	<groupId>net.sf.ahtutils</groupId>
 	        	<artifactId>ahtutils-xml</artifactId>
-	        	<version>${ahtutils.version}</version>
+	        	<version>${version}</version>
 	        	<type>jar</type>
 	        	<scope>compile</scope>
 	        </dependency>
 	        <dependency>
 	        	<groupId>net.sf.ahtutils</groupId>
 	        	<artifactId>ahtutils-ejb</artifactId>
-	        	<version>${ahtutils.version}</version>
+	        	<version>${version}</version>
 	        	<type>ejb</type>
 	        	<scope>compile</scope>
 	        </dependency>
 	        <dependency>
 	        	<groupId>net.sf.ahtutils</groupId>
 	        	<artifactId>ahtutils-report</artifactId>
-	        	<version>${ahtutils.version}</version>
+	        	<version>${version}</version>
 	        	<scope>test</scope>
 	        </dependency>
 	        <dependency>
