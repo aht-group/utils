@@ -15,14 +15,19 @@ public abstract class AbstractAhtDbXmlInit extends AbstractAhtDbXmlUtil
 {
 	static Log logger = LogFactory.getLog(AbstractAhtDbXmlInit.class);
 
+	protected AhtXmlInitIdMapper idMapper;
+	protected AhtStatusDbInit asdi;
+	
 	public AbstractAhtDbXmlInit(Configuration config, DataSource datasource)
 	{
 		super(config, datasource);
 	}
 	
-	public AbstractAhtDbXmlInit(Db dbSeed, DataSource datasource)
+	public AbstractAhtDbXmlInit(Db dbSeed, DataSource datasource, AhtXmlInitIdMapper idMapper,AhtStatusDbInit asdi)
 	{
 		super(dbSeed, datasource);
+		this.idMapper=idMapper;
+		this.asdi=asdi;
 	}
 	
 	public void initFromXml(Priority priority) throws FileNotFoundException,AhtUtilsIntegrityException, AhtUtilsConfigurationException
