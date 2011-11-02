@@ -23,10 +23,10 @@ public class AhtUtilsMsgBundleFactory extends AbstractMojo
 {
 	/**
      * Location of the file.
-     * @parameter expression="reports.xml"
+     * @parameter expression="${project.groupId}"
      * @required
      */
-    private String configFile;
+    private String bundlePackage;
     
     /**
      * Location of the file.
@@ -52,15 +52,15 @@ public class AhtUtilsMsgBundleFactory extends AbstractMojo
     	File fRoot = new File(reportRoot);
     	if(!fRoot.exists()){throw new MojoExecutionException("msg.bundle directory does not exist: "+fRoot.getAbsolutePath());}
     	
-    	getLog().info("Using data from " +reportRoot);
+    	getLog().info("Creating MessageBundle "+bundlePackage+".msg_<lang>.txt from "+reportRoot);
     	
-    	TranslationFactory tFactory = new TranslationFactory(true);
+    	TranslationFactory tFactory = new TranslationFactory();
 		tFactory.setInEncoding("UTF-8");
 		tFactory.setOutEncoding("UTF-8");
 		try
 		{
 			tFactory.add(fRoot.getAbsolutePath()+"/login.xml");
-			tFactory.writeMessageResourceBundles("msg",targetDir);
+			tFactory.writeMessageResourceBundles("msg",bundlePackage,targetDir);
 			for(String s : tFactory.getStats())
 			{
 				getLog().info(s);

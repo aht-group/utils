@@ -6,4 +6,10 @@
     		<s:lang key="en" translation="English"/>
     	</s:langs>
     </s:translation>
+    <s:translation key="umlaut">
+    	<s:langs>
+    		<s:lang key="de" translation="Düüüse"/>
+    		<s:lang key="en" translation="English"/>
+    	</s:langs>
+    </s:translation>
 </s:translations>

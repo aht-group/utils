@@ -10,7 +10,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.ahtutils.AhtUtilsBootstrap;
 import net.sf.ahtutils.controller.exception.AhtUtilsNotFoundException;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Translation;
@@ -31,13 +30,11 @@ public class TranslationFactory
 
 	private String inEncoding,outEncoding;
 	private List<String> outFiles;
-	private boolean useLog4j;
 
 	private MultiResourceLoader mrl;
 
-	public TranslationFactory(boolean useLog4j)
+	public TranslationFactory()
 	{
-		this.useLog4j=useLog4j;
 		mrl = new MultiResourceLoader();
 		tMap = new TranslationMap();
 		inEncoding = "UTF-8";
@@ -45,18 +42,26 @@ public class TranslationFactory
 		outFiles = new ArrayList<String>();
 	}
 	
-	public void writeMessageResourceBundles(String name, String directory) throws FileNotFoundException, AhtUtilsNotFoundException
+	public void writeMessageResourceBundles(String bundleName, String bundlePackage, String targetDirectory) throws FileNotFoundException, AhtUtilsNotFoundException
 	{
-		File baseDir = new File(directory);
+		File baseDir = new File(targetDirectory);
 		if(!baseDir.exists() || !baseDir.isDirectory())
 		{
 			throw new FileNotFoundException("Directory "+baseDir.getAbsolutePath()+" does not exist!");
 		}
+		
+		bundlePackage=bundlePackage.replaceAll("\\.", "/");
+		File bundleDir = new File(baseDir,bundlePackage);
+		if(!bundleDir.exists())
+		{
+			bundleDir.mkdirs();
+		}
+		
 		for(String langKey : tMap.getLangKeys())
 		{
 			logger.info("Processing "+langKey);
-			String fName = name+"_"+langKey+".txt";
-			outFiles.add(directory+"/"+fName);
+			String fName = bundleName+"_"+langKey+".txt";
+			outFiles.add(targetDirectory+"/"+fName);
 			
 			
 /*			Map<String,String> mapLang = mapTranslations.get(s);
@@ -68,7 +73,7 @@ public class TranslationFactory
 			
 			try
 			{
-				File f = new File(baseDir,fName);
+				File f = new File(bundleDir,fName);
 				OutputStream os = new FileOutputStream(f);
 				OutputStreamWriter osw = new OutputStreamWriter(os, outEncoding);
 				PrintWriter pw = new PrintWriter(osw, true); 
@@ -111,9 +116,7 @@ public class TranslationFactory
 	{
 		Translations translations = (Translations)JaxbUtil.loadJAXB(xmlFile, Translations.class);
 
-		String msg = "Loaded "+translations.getTranslation().size()+" Elements from "+xmlFile;
-		if(useLog4j){logger.info(msg);}
-		else{System.out.println(msg);}
+		logger.info("Loaded "+translations.getTranslation().size()+" Elements from "+xmlFile);
 			
 		for(Translation translation : translations.getTranslation())
 		{
@@ -175,15 +178,8 @@ public class TranslationFactory
 	public void setInEncoding(String inEncoding) {this.inEncoding = inEncoding;}
 	public void setOutEncoding(String outEncoding) {this.outEncoding = outEncoding;}
 	
-	public static void main (String[] args) throws Exception
+	protected TranslationMap gettMap()
 	{
-		AhtUtilsBootstrap.init();
-		
-		TranslationFactory tFactory = new TranslationFactory(true);
-		tFactory.setInEncoding("UTF-8");
-		tFactory.setOutEncoding("UTF-8");
-		tFactory.add("src/test/resources/data/xml/msgBundle/translation1.xml");
-		tFactory.writeMessageResourceBundles("msg","target");
-		tFactory.debug();
+		return tMap;
 	}
 }
