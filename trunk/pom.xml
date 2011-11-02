@@ -86,6 +86,7 @@
 		<module>util</module>
 		<module>xml</module>
 		<module>report</module>
+		<module>maven</module>
 	</modules>
  
 	<dependencyManagement>
