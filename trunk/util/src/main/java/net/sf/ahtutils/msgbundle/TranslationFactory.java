@@ -23,6 +23,7 @@ import org.apache.commons.logging.LogFactory;
 public class TranslationFactory
 {
 	static Log logger = LogFactory.getLog(TranslationFactory.class);
+	public static final String msgBundleSuffix = "properties";
 	
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>Fields<<<<<<<<<<<<<<<<<<<<<<<<<<<	
 	
@@ -38,7 +39,7 @@ public class TranslationFactory
 		mrl = new MultiResourceLoader();
 		tMap = new TranslationMap();
 		inEncoding = "UTF-8";
-		outEncoding = "ISO-8859-1";
+		outEncoding = "UTF-8";
 		outFiles = new ArrayList<String>();
 	}
 	
@@ -60,7 +61,7 @@ public class TranslationFactory
 		for(String langKey : tMap.getLangKeys())
 		{
 			logger.info("Processing "+langKey);
-			String fName = bundleName+"_"+langKey+".txt";
+			String fName = bundleName+"_"+langKey+"."+msgBundleSuffix;
 			outFiles.add(targetDirectory+"/"+fName);
 			
 			
@@ -130,7 +131,7 @@ public class TranslationFactory
 	public List<String> getStats()
 	{
 		List<String> result = new ArrayList<String>();
-		result.add("Created Message Bundle");
+		result.add("Created Message Bundle (output Ecoding: "+outEncoding+")");
 		for(String langKey : tMap.getLangKeys())
 		{
 			StringBuffer sb = new StringBuffer();

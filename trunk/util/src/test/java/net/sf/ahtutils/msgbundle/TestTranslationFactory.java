@@ -2,12 +2,13 @@ package net.sf.ahtutils.msgbundle;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import junit.framework.Assert;
-
 import net.sf.ahtutils.controller.exception.AhtUtilsNotFoundException;
 import net.sf.ahtutils.test.AbstractAhtUtilTest;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
@@ -24,7 +25,7 @@ public class TestTranslationFactory extends AbstractAhtUtilTest
 	private String bundlePackage = "net.sf";
 	
 	@Before
-	public void init() throws FileNotFoundException
+	public void init() throws IOException
 	{
 		tFactory = new TranslationFactory();
 		tFactory.setInEncoding("UTF-8");
@@ -34,7 +35,7 @@ public class TestTranslationFactory extends AbstractAhtUtilTest
 		fTarget = new File(targetDir);
 		if(fTarget.exists())
 		{
-			fTarget.delete();
+			FileUtils.deleteDirectory(fTarget);
 		}
 		fTarget.mkdir();
 		dirBundle = new File(fTarget,bundlePackage.replaceAll("\\.", "/"));
@@ -59,7 +60,7 @@ public class TestTranslationFactory extends AbstractAhtUtilTest
 		TranslationMap tMap = tFactory.gettMap();
 		for(String s : tMap.getLangKeys())
 		{
-			File f = new File(dirBundle,bundleName+"_"+s+".txt");
+			File f = new File(dirBundle,bundleName+"_"+s+"."+TranslationFactory.msgBundleSuffix);
 			Assert.assertTrue("Should exist: "+f.getAbsolutePath(),f.exists());
 			Assert.assertTrue(f.isFile());
 		}
