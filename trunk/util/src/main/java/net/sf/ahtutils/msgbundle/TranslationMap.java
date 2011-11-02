@@ -1,6 +1,8 @@
 package net.sf.ahtutils.msgbundle;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 
 import net.sf.ahtutils.controller.exception.AhtUtilsNotFoundException;
@@ -83,7 +85,7 @@ public class TranslationMap
 	}
 	public void add(String langKey, String translationKey, String translationValue)
 	{
-		logger.debug("Add "+langKey+" "+translationKey+" "+translationValue);
+		logger.trace("Add "+langKey+" "+translationKey+" "+translationValue);
 		getLangMap(langKey).put(translationKey, translationValue);
 	}
 	
@@ -107,6 +109,33 @@ public class TranslationMap
 		if(tMap.containsKey(langKey))
 		{
 			return getLangMap(langKey).size();
+		}
+		else
+		{
+			throw new AhtUtilsNotFoundException("No Translations for lang="+langKey);
+		}
+	}
+	
+	public List<String> getLangKeys()
+	{
+		List<String> result = new ArrayList<String>();
+		for(String s : tMap.keySet())
+		{
+			result.add(s);
+		}
+		return result;
+	}
+	
+	public List<String> getTranslationKeys(String langKey) throws AhtUtilsNotFoundException
+	{
+		if(tMap.containsKey(langKey))
+		{
+			List<String> result = new ArrayList<String>();
+			for(String s : tMap.get(langKey).keySet())
+			{
+				result.add(s);
+			}
+			return result;
 		}
 		else
 		{

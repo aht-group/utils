@@ -1,7 +1,11 @@
 package net.sf.ahtutils.msgbundle;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import junit.framework.Assert;
 import net.sf.ahtutils.controller.exception.AhtUtilsNotFoundException;
@@ -20,12 +24,16 @@ public class TestTranslationMap extends AbstractAhtUtilTest
 	
 	private String[] t1,t2,t3;
 	private List<String[]> translations;
+	private Set<String> langs;
+	private Map<String,String> deTranslations;
 	
 	@Before
 	public void init()
 	{
 		tMap = new TranslationMap();
 		translations = new ArrayList<String[]>();
+		langs = new HashSet<String>();
+		deTranslations = new Hashtable<String,String>();
 		
 		t1 = new String[] {"de","key1","lang1"};translations.add(t1);
 		t2 = new String[] {"de","key2","lang2"};translations.add(t2);
@@ -37,6 +45,8 @@ public class TestTranslationMap extends AbstractAhtUtilTest
 		for(String[] s : translations)
 		{
 			tMap.add(s);
+			langs.add(s[0]);
+			if(s[0].equals("de")){deTranslations.put(s[1], s[2]);}
 		}
 	}
 	
@@ -89,5 +99,36 @@ public class TestTranslationMap extends AbstractAhtUtilTest
 	{
 		addAllTranslations();
 		tMap.translateWithException("de","-1");
+	}
+	
+	@Test
+	public void getLangKeys()
+	{
+		addAllTranslations();
+		List<String> list = tMap.getLangKeys();
+		Assert.assertEquals(langs.size(), list.size());
+		for(String langKey : list)
+		{
+			Assert.assertTrue(langs.contains(langKey));
+		}
+	}
+	
+	@Test
+	public void getTranslationKeys() throws AhtUtilsNotFoundException
+	{
+		addAllTranslations();
+		List<String> list = tMap.getTranslationKeys("de");
+		Assert.assertEquals(deTranslations.size(), list.size());
+		for(String key : list)
+		{
+			Assert.assertTrue(deTranslations.containsKey(key));
+			Assert.assertEquals(deTranslations.get(key), tMap.translate("de", key));
+		}
+	}
+	
+	@Test(expected=AhtUtilsNotFoundException.class)
+	public void getTranslationKeysUnknows() throws AhtUtilsNotFoundException
+	{
+		tMap.getTranslationKeys("-1");
 	}
 }
