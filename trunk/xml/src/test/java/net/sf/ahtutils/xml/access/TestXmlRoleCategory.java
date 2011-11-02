@@ -8,40 +8,39 @@ import net.sf.ahtutils.xml.status.TestXmlLangs;
 import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestXmlProjectRole extends AbstractXmlAccessTest
+public class TestXmlRoleCategory extends AbstractXmlAccessTest
 {
-	static Log logger = LogFactory.getLog(TestXmlProjectRole.class);
-	
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"projectRole.xml");
+		fXml = new File(rootDir,"roleCategory.xml");
 	}
     
     @Test
     public void testXml() throws FileNotFoundException
     {
-    	ProjectRole actual = create();
-    	ProjectRole expected = (ProjectRole)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), ProjectRole.class);
+    	RoleCategory actual = create();
+    	RoleCategory expected = (RoleCategory)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), RoleCategory.class);
     	assertJaxbEquals(expected, actual);
     }
     
-    private static ProjectRole create(){return create(true);}
-    public static ProjectRole create(boolean withChilds)
+    private static RoleCategory create(){return create(true);}
+    public static RoleCategory create(boolean withChilds)
     {
-    	ProjectRole xml = new ProjectRole();
+    	RoleCategory xml = new RoleCategory();
     	xml.setCode("myCode");
+    	xml.setIndex(1);
     	
     	if(withChilds)
     	{
     		xml.setLangs(TestXmlLangs.create(false));
     		xml.setDescriptions(TestXmlDescriptions.create(false));
+    		xml.setRoles(TestXmlRoles.create(false));
     	}
+    	
     	return xml;
     }
     
@@ -53,8 +52,8 @@ public class TestXmlProjectRole extends AbstractXmlAccessTest
 			loggerInit.addAltPath("src/test/resources/config");
 			loggerInit.init();		
 			
-		TestXmlProjectRole.initFiles();	
-		TestXmlProjectRole test = new TestXmlProjectRole();
+		TestXmlRoleCategory.initFiles();	
+		TestXmlRoleCategory test = new TestXmlRoleCategory();
 		test.save();
     }
 }

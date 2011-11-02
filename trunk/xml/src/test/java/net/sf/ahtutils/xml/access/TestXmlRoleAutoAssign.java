@@ -11,31 +11,34 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestAclContainer extends AbstractXmlAccessTest
+public class TestXmlRoleAutoAssign extends AbstractXmlAccessTest
 {
-	static Log logger = LogFactory.getLog(TestAclContainer.class);
+	static Log logger = LogFactory.getLog(TestXmlRoleAutoAssign.class);
 	
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"aclContainer.xml");
+		fXml = new File(rootDir,"roleAutoAssign.xml");
 	}
     
     @Test
     public void testAclContainer() throws FileNotFoundException
     {
-    	AclContainer actual = createAclContainer();
-    	AclContainer expected = (AclContainer)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), AclContainer.class);
+    	RoleAutoAssign actual = create();
+    	RoleAutoAssign expected = (RoleAutoAssign)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), RoleAutoAssign.class);
     	assertJaxbEquals(expected, actual);
     }
     
-    public static AclContainer createAclContainer()
+    private static RoleAutoAssign create(){return create(true);}
+    public static RoleAutoAssign create(boolean withChilds)
     {
-    	AclContainer aclContainer = new AclContainer();
-    	return aclContainer;
+    	RoleAutoAssign xml = new RoleAutoAssign();
+    	xml.setCode("myCode");
+    	
+    	return xml;
     }
     
-    public void save() {save(createAclContainer(),fXml);}
+    public void save() {save(create(),fXml);}
 	
 	public static void main(String[] args)
     {
@@ -43,8 +46,8 @@ public class TestAclContainer extends AbstractXmlAccessTest
 			loggerInit.addAltPath("src/test/resources/config");
 			loggerInit.init();		
 			
-		TestAclContainer.initFiles();	
-		TestAclContainer test = new TestAclContainer();
+		TestXmlRoleAutoAssign.initFiles();	
+		TestXmlRoleAutoAssign test = new TestXmlRoleAutoAssign();
 		test.save();
     }
 }

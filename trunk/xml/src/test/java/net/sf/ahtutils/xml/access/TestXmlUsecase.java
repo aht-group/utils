@@ -13,29 +13,30 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestXmlProjectRole extends AbstractXmlAccessTest
+public class TestXmlUsecase extends AbstractXmlAccessTest
 {
-	static Log logger = LogFactory.getLog(TestXmlProjectRole.class);
+	static Log logger = LogFactory.getLog(TestXmlUsecase.class);
 	
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"projectRole.xml");
+		fXml = new File(rootDir,"usecase.xml");
 	}
     
     @Test
-    public void testXml() throws FileNotFoundException
+    public void testAclContainer() throws FileNotFoundException
     {
-    	ProjectRole actual = create();
-    	ProjectRole expected = (ProjectRole)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), ProjectRole.class);
+    	Usecase actual = create();
+    	Usecase expected = (Usecase)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Usecase.class);
     	assertJaxbEquals(expected, actual);
     }
     
-    private static ProjectRole create(){return create(true);}
-    public static ProjectRole create(boolean withChilds)
+    private static Usecase create(){return create(true);}
+    public static Usecase create(boolean withChilds)
     {
-    	ProjectRole xml = new ProjectRole();
+    	Usecase xml = new Usecase();
     	xml.setCode("myCode");
+    	xml.setIndex(1);
     	
     	if(withChilds)
     	{
@@ -53,8 +54,8 @@ public class TestXmlProjectRole extends AbstractXmlAccessTest
 			loggerInit.addAltPath("src/test/resources/config");
 			loggerInit.init();		
 			
-		TestXmlProjectRole.initFiles();	
-		TestXmlProjectRole test = new TestXmlProjectRole();
+		TestXmlUsecase.initFiles();	
+		TestXmlUsecase test = new TestXmlUsecase();
 		test.save();
     }
 }

@@ -8,40 +8,39 @@ import net.sf.ahtutils.xml.status.TestXmlLangs;
 import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestXmlProjectRole extends AbstractXmlAccessTest
+public class TestXmlProjectRoleCategory extends AbstractXmlAccessTest
 {
-	static Log logger = LogFactory.getLog(TestXmlProjectRole.class);
-	
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"projectRole.xml");
+		fXml = new File(rootDir,"projectRoleCategory.xml");
 	}
     
     @Test
     public void testXml() throws FileNotFoundException
     {
-    	ProjectRole actual = create();
-    	ProjectRole expected = (ProjectRole)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), ProjectRole.class);
+    	ProjectRoleCategory actual = create();
+    	ProjectRoleCategory expected = (ProjectRoleCategory)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), ProjectRoleCategory.class);
     	assertJaxbEquals(expected, actual);
     }
     
-    private static ProjectRole create(){return create(true);}
-    public static ProjectRole create(boolean withChilds)
+    private static ProjectRoleCategory create(){return create(true);}
+    public static ProjectRoleCategory create(boolean withChilds)
     {
-    	ProjectRole xml = new ProjectRole();
+    	ProjectRoleCategory xml = new ProjectRoleCategory();
     	xml.setCode("myCode");
+    	xml.setIndex(1);
     	
     	if(withChilds)
     	{
     		xml.setLangs(TestXmlLangs.create(false));
     		xml.setDescriptions(TestXmlDescriptions.create(false));
+    		xml.setProjectRoles(TestXmlProjectRoles.create(false));
     	}
+    	
     	return xml;
     }
     
@@ -53,8 +52,8 @@ public class TestXmlProjectRole extends AbstractXmlAccessTest
 			loggerInit.addAltPath("src/test/resources/config");
 			loggerInit.init();		
 			
-		TestXmlProjectRole.initFiles();	
-		TestXmlProjectRole test = new TestXmlProjectRole();
+		TestXmlProjectRoleCategory.initFiles();	
+		TestXmlProjectRoleCategory test = new TestXmlProjectRoleCategory();
 		test.save();
     }
 }

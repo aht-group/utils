@@ -13,34 +13,36 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestXmlProjectRole extends AbstractXmlAccessTest
+public class TestXmlRole extends AbstractXmlAccessTest
 {
-	static Log logger = LogFactory.getLog(TestXmlProjectRole.class);
+	static Log logger = LogFactory.getLog(TestXmlRole.class);
 	
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"projectRole.xml");
+		fXml = new File(rootDir,"role.xml");
 	}
     
     @Test
-    public void testXml() throws FileNotFoundException
+    public void testAclContainer() throws FileNotFoundException
     {
-    	ProjectRole actual = create();
-    	ProjectRole expected = (ProjectRole)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), ProjectRole.class);
+    	Role actual = create();
+    	Role expected = (Role)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Role.class);
     	assertJaxbEquals(expected, actual);
     }
     
-    private static ProjectRole create(){return create(true);}
-    public static ProjectRole create(boolean withChilds)
+    private static Role create(){return create(true);}
+    public static Role create(boolean withChilds)
     {
-    	ProjectRole xml = new ProjectRole();
+    	Role xml = new Role();
     	xml.setCode("myCode");
     	
     	if(withChilds)
     	{
     		xml.setLangs(TestXmlLangs.create(false));
     		xml.setDescriptions(TestXmlDescriptions.create(false));
+    		xml.setUsecases(TestXmlUsecases.create(false));
+    		xml.setRoles(TestXmlRoles.create(false));
     	}
     	return xml;
     }
@@ -53,8 +55,8 @@ public class TestXmlProjectRole extends AbstractXmlAccessTest
 			loggerInit.addAltPath("src/test/resources/config");
 			loggerInit.init();		
 			
-		TestXmlProjectRole.initFiles();	
-		TestXmlProjectRole test = new TestXmlProjectRole();
+		TestXmlRole.initFiles();	
+		TestXmlRole test = new TestXmlRole();
 		test.save();
     }
 }
