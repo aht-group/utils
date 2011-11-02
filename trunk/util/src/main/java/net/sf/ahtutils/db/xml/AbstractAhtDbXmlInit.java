@@ -7,7 +7,6 @@ import net.sf.ahtutils.controller.exception.AhtUtilsIntegrityException;
 import net.sf.ahtutils.db.xml.AhtDbXmlInit.Priority;
 import net.sf.ahtutils.xml.dbseed.Db;
 
-import org.apache.commons.configuration.Configuration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -17,11 +16,6 @@ public abstract class AbstractAhtDbXmlInit extends AbstractAhtDbXmlUtil
 
 	protected AhtXmlInitIdMapper idMapper;
 	protected AhtStatusDbInit asdi;
-	
-	public AbstractAhtDbXmlInit(Configuration config, DataSource datasource)
-	{
-		super(config, datasource);
-	}
 	
 	public AbstractAhtDbXmlInit(Db dbSeed, DataSource datasource, AhtXmlInitIdMapper idMapper,AhtStatusDbInit asdi)
 	{

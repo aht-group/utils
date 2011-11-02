@@ -5,10 +5,10 @@ import java.util.Iterator;
 import java.util.Set;
 
 import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
+import net.sf.ahtutils.xml.dbseed.Db;
 import net.sf.exlp.util.io.compression.JarExtractor;
 import net.sf.exlp.util.io.compression.JarStream;
 
-import org.apache.commons.configuration.Configuration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -20,17 +20,19 @@ public abstract class AbstractAhtDbXmlExtract extends AbstractAhtDbXmlUtil
 	protected JarStream jarStream;
 	private Set<String> extractedIds;
 	
-	public AbstractAhtDbXmlExtract(Configuration config, DataSource datasource, JarStream jarStream)
+	public AbstractAhtDbXmlExtract(Db dbSeed, DataSource datasource, JarStream jarStream)
 	{
-		super(config, datasource);
+		super(dbSeed, datasource);
 		this.jarStream=jarStream;
-		templateDir=config.getString("db/extract/@dirTemplate");
+		logger.warn("NYI: TemplateDir");
+//		templateDir=config.getString("db/extract/@dirTemplate");
 		extractedIds = new HashSet<String>();
 	}
 	
 	protected String getTemplate(String extractId)
 	{
-		return templateDir+"/"+config.getString("db/extract/file[@id='"+extractId+"']/@template");
+		logger.warn("NYI: getTemplate");
+		return null;//templateDir+"/"+config.getString("db/extract/file[@id='"+extractId+"']/@template");
 	}
 	
 	protected void addExtractId(String id) throws AhtUtilsConfigurationException
@@ -52,13 +54,15 @@ public abstract class AbstractAhtDbXmlExtract extends AbstractAhtDbXmlUtil
 	public void singleJarExtract(String extractId) throws AhtUtilsConfigurationException
 	{
 		String from = getExtractName(extractId);
-		String to = config.getString("db/prefix[@type='ide']")+"/"+getTargetName(extractId);
+		logger.warn("NYI: singleJarExtract");
+		String to = null;//= config.getString("db/prefix[@type='ide']")+"/"+getContentName(extractId);
 		singleJarExtract(from, to);
 	}
 	
 	public void singleJarExtract(String from, String to)
 	{
-		String jarName = config.getString("db/prefix[@type='jar']/@file");
+		logger.warn("NYI: singleJarExtract");
+		String jarName = null;//config.getString("db/prefix[@type='jar']/@file");
 		StringBuffer sb = new StringBuffer();
 			sb.append("Extracting "+jarName);
 			sb.append(" from jar to "+to);
