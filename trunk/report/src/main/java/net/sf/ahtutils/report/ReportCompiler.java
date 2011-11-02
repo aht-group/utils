@@ -18,8 +18,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jdom.JDOMException;
 
-public class ReportCompiler {
-
+public class ReportCompiler
+{
     static Log logger = LogFactory.getLog(ReportCompiler.class);
     static ArrayList<String> log;
     static String currentHash;
