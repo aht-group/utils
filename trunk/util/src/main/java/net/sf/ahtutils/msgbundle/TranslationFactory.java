@@ -124,11 +124,28 @@ public class TranslationFactory
 		}
 	}
 	
+	public List<String> getStats()
+	{
+		List<String> result = new ArrayList<String>();
+		result.add("Created Message Bundle");
+		for(String langKey : tMap.getLangKeys())
+		{
+			StringBuffer sb = new StringBuffer();
+			sb.append("    ").append(langKey).append(": ");
+			int number = 0;
+			try {number = tMap.getTranslationKeys(langKey).size();}
+			catch (AhtUtilsNotFoundException e) {logger.error(e);}
+			sb.append(number).append(" translations");
+			result.add(sb.toString());
+		}
+		return result;
+	}
+	
 	public void debug()
 	{
-//		for(String s : getDebugMsg(true))
+		for(String s : getStats())
 		{
-//			logger.debug(s);
+			logger.debug(s);
 		}
 	}
 	
