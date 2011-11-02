@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <s:translation xmlns:s="http://ahtutils.aht-group.com/status" key="myKey">
-    <s:langs>
-        <s:lang key="de" translation="t1"/>
-        <s:lang key="en" translation="t2"/>
-    </s:langs>
+    <s:langs/>
+    <s:descriptions/>
 </s:translation>

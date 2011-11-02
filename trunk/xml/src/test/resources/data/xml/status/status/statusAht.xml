@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<aht:aht xmlns:s="http://ahtutils.aht-group.com/status" xmlns:aht="http://ahtutils.aht-group.com">
-    <s:status code="myCode" group="myGroup">
-        <s:langs>
-            <s:lang key="de" translation="t1"/>
-            <s:lang key="en" translation="t2"/>
-        </s:langs>
-    </s:status>
-</aht:aht>
