@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+    	<groupId>org.sonatype.oss</groupId>
+    	<artifactId>oss-parent</artifactId>
+    	<version>7</version>
+	</parent>
+	     
+	<groupId>net.sf.ahtutils</groupId>
+	<artifactId>ahtutils</artifactId>
+	<version>0.2.0</version>
+    <packaging>pom</packaging>
+    <name>AHT-Utils</name>
+	<url>http://sourceforge.net/projects/ahtutils</url>
+	<description>Utilities and Helper for JavaEE Developments</description>
+
+	<properties>		
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Timestamp format for the maven.build.timestamp property -->
+        <!-- You can reference property in pom.xml or filtered resources (must enable third-party plugin if using Maven < 2.1) -->
+        <maven.build.timestamp.format>yyyyMMdd'T'HHmmss</maven.build.timestamp.format>
+        <jboss.home>${env.JBOSS_HOME}</jboss.home>
+        <jboss.domain>default</jboss.domain>
+        <arquillian.version>1.0.0.Alpha5</arquillian.version>
+        <jboss-javaee6-spec.version>1.0.0.Final</jboss-javaee6-spec.version>
+        <jboss.version>6.0.0.Final</jboss.version>
+        <exlp.version>0.1.3</exlp.version>   
+        <junit.version>4.10</junit.version>
+        <commons-collections.version>3.2.1</commons-collections.version>
+        <commons-logging.version>1.1.1</commons-logging.version>
+        <commons-io.version>2.1</commons-io.version>
+        <poi.version>3.8-beta3</poi.version>
+        <jasperreports.version>4.0.0</jasperreports.version>
+       	<groovy.version>1.8.1</groovy.version>
+       	<slf4j.version>1.5.5</slf4j.version>
+       	<xalan.version>2.7.1</xalan.version>
+       	<ant.version>1.8.2</ant.version>
+       	<guava.version>10.0.1</guava.version>
+       	<ofx.version>1.3.0</ofx.version>
+       	<jaxb.version>2.2.2</jaxb.version>
+        
+        <maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
+    	<compiler-source.version>1.6</compiler-source.version>
+    	<compiler-target.version>1.6</compiler-target.version>
+    	<maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
+    	<maven-javadoc-plugin.version>2.8</maven-javadoc-plugin.version>
+    	<maven-source-plugin.version>2.1.2</maven-source-plugin.version>
+    	<maven-plugin-plugin.version>2.5.1</maven-plugin-plugin.version>
+    	<maven-plugin-api.version>2.0</maven-plugin-api.version>
+    	<maven-ejb-plugin.version>2.3</maven-ejb-plugin.version>
+    </properties>
+
+	<licenses>
+		<license>
+			<name>GNU General Public License</name>
+			<url>http://www.gnu.org/licenses/gpl-3.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+    	<connection>scm:svn:https://ahtutils.svn.sourceforge.net/svnroot/ahtutils/tags/ahtutils-0.2.0</connection>
+    	<developerConnection>scm:svn:https://ahtutils.svn.sourceforge.net/svnroot/ahtutils/tags/ahtutils-0.2.0</developerConnection>
+    	<url>https://ahtutils.svn.sourceforge.net/svnroot/ahtutils/tags/ahtutils-0.2.0</url>
+	</scm>
+	
+	<developers>
+		<developer>
+			<id>1</id>
+			<name>Thorsten Kisner</name>
+			<email>thorsten-k@sourceforge.net</email>
+		</developer>
+	</developers>
+
+	<prerequisites>
+		<maven>2.0.9</maven>
+	</prerequisites>
+
+	
+	<issueManagement>
+	</issueManagement>
+
+	<modules>
+		<module>ejb</module>
+		<module>util</module>
+		<module>xml</module>
+		<module>report</module>
+		<module>maven</module>
+	</modules>
+ 
+	<dependencyManagement>
+		<dependencies>
+		</dependencies>
+	</dependencyManagement>
+	
+	<repositories>
+        <!-- The JBoss Community public repository is a composite repository of several major repositories -->
+        <!-- see http://community.jboss.org/wiki/MavenGettingStarted-Users -->
+        <!-- At the time of writing, Arquillian and the JBoss Java EE specification POMs are only in the JBoss Community public 
+            repository (not Maven central) -->
+        <repository>
+            <id>jboss-public-repository</id>
+            <name>JBoss Repository</name>
+            <url>http://repository.jboss.org/nexus/content/groups/public</url>
+            <!-- These optional flags are designed to speed up your builds by reducing remote server calls -->
+            <releases>
+                <updatePolicy>daily</updatePolicy>
+            </releases>
+            <snapshots>
+                <updatePolicy>daily</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+			<id>sonatype.snapshot</id>
+			<name>Sonatype Snapshot Repository</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+			<releases><enabled>false</enabled></releases>
+			<snapshots><enabled>true</enabled></snapshots>
+		</repository>
+		<repository>
+    		<id>com.springsource.repository.bundles.release</id>
+    		<name>EBR Spring Release Repository</name>
+    		<url>http://repository.springsource.com/maven/bundles/release</url>
+		</repository>
+		<repository>
+    		<id>com.springsource.repository.bundles.external</id>
+    		<name>EBR External Release Repository</name>
+    		<url>http://repository.springsource.com/maven/bundles/external</url>
+		</repository>
+		<repository>
+	      <id>jboss-deprecated-repository</id>
+	      <name>JBoss Deprecated Maven Repository</name>
+	      <url>https://repository.jboss.org/nexus/content/repositories/deprecated/</url>
+	      <layout>default</layout>
+	      <releases>
+	        <enabled>true</enabled>
+	        <updatePolicy>never</updatePolicy>
+	      </releases>
+	      <snapshots>
+	        <enabled>false</enabled>
+	        <updatePolicy>never</updatePolicy>
+	      </snapshots>
+	    </repository>
+    </repositories>
+    
+	<profiles>
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>${maven-gpg-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+									<goals><goal>sign</goal></goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>${maven-javadoc-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals><goal>jar</goal></goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>${maven-source-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals><goal>jar</goal></goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+    		</build>
+  		</profile>
+	</profiles>
+
+</project>

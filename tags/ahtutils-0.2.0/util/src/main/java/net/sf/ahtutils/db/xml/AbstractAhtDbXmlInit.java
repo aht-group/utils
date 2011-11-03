@@ -1,0 +1,42 @@
+package net.sf.ahtutils.db.xml;
+
+import java.io.FileNotFoundException;
+
+import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
+import net.sf.ahtutils.controller.exception.AhtUtilsIntegrityException;
+import net.sf.ahtutils.db.xml.AhtDbXmlInit.Priority;
+import net.sf.ahtutils.xml.dbseed.Db;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+public abstract class AbstractAhtDbXmlInit extends AbstractAhtDbXmlUtil
+{
+	static Log logger = LogFactory.getLog(AbstractAhtDbXmlInit.class);
+
+	protected AhtXmlInitIdMapper idMapper;
+	protected AhtStatusDbInit asdi;
+	
+	public AbstractAhtDbXmlInit(Db dbSeed, DataSource datasource, AhtXmlInitIdMapper idMapper,AhtStatusDbInit asdi)
+	{
+		super(dbSeed, datasource);
+		this.idMapper=idMapper;
+		this.asdi=asdi;
+	}
+	
+	public void initFromXml(Priority priority) throws FileNotFoundException,AhtUtilsIntegrityException, AhtUtilsConfigurationException
+	{
+		switch(priority)
+		{
+			case statics: initStatics();break;
+			case required: initRequired();break;
+			case mandatory: initMandatory();break;
+			case optional: initOptional();break;
+		}
+	}
+	
+	protected void initStatics() throws FileNotFoundException,AhtUtilsIntegrityException,AhtUtilsConfigurationException{}
+	protected void initRequired() throws FileNotFoundException,AhtUtilsIntegrityException,AhtUtilsConfigurationException{}
+	protected void initMandatory() throws FileNotFoundException,AhtUtilsIntegrityException,AhtUtilsConfigurationException{}
+	protected void initOptional() throws FileNotFoundException,AhtUtilsIntegrityException,AhtUtilsConfigurationException{}
+}

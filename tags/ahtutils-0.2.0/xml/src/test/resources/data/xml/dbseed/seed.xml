@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<db:seed xmlns:db="http://ahtutils.aht-group.com/dbseed" code="myCode" template="myTemplate" content="myContent"/>
