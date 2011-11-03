@@ -10,7 +10,7 @@
 	     
 	<groupId>net.sf.ahtutils</groupId>
 	<artifactId>ahtutils</artifactId>
-	<version>0.2.0</version>
+	<version>0.2.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>AHT-Utils</name>
 	<url>http://sourceforge.net/projects/ahtutils</url>
@@ -61,9 +61,9 @@
 	</licenses>
 
 	<scm>
-    	<connection>scm:svn:https://ahtutils.svn.sourceforge.net/svnroot/ahtutils/tags/ahtutils-0.2.0</connection>
-    	<developerConnection>scm:svn:https://ahtutils.svn.sourceforge.net/svnroot/ahtutils/tags/ahtutils-0.2.0</developerConnection>
-    	<url>https://ahtutils.svn.sourceforge.net/svnroot/ahtutils/tags/ahtutils-0.2.0</url>
+    	<connection>scm:svn:https://ahtutils.svn.sourceforge.net/svnroot/ahtutils/trunk</connection>
+    	<developerConnection>scm:svn:https://ahtutils.svn.sourceforge.net/svnroot/ahtutils/trunk</developerConnection>
+    	<url>https://ahtutils.svn.sourceforge.net/svnroot/ahtutils/trunk/</url>
 	</scm>
 	
 	<developers>
