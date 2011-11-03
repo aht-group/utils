@@ -37,7 +37,7 @@ public class AhtUtilsMsgBundleFactory extends AbstractMojo
     
     /**
      * Location of the file.
-     * @parameter expression="${basedir}/src/main/resources/msg.${project.artifactId}"
+     * @parameter expression="${basedir}/src/main/msg.${project.artifactId}"
      * @required
      */
     private String reportRoot;
