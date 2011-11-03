@@ -28,9 +28,7 @@ public class TestTranslationFactory extends AbstractAhtUtilTest
 	public void init() throws IOException
 	{
 		tFactory = new TranslationFactory();
-		tFactory.setInEncoding("UTF-8");
 		tFactory.setOutEncoding("UTF-8");
-		tFactory.add("src/test/resources/data/xml/msgBundle/translation1.xml");
 		
 		fTarget = new File(targetDir);
 		if(fTarget.exists())
@@ -44,18 +42,19 @@ public class TestTranslationFactory extends AbstractAhtUtilTest
 	@Test
 	public void targetCreation() throws FileNotFoundException, AhtUtilsNotFoundException
     {	
+		tFactory.add("src/test/resources/data/xml/msgBundle/translation1.xml");
 		tFactory.writeMessageResourceBundles(bundleName,bundlePackage,fTarget.getAbsolutePath());
 		Assert.assertTrue(fTarget.exists());
 		Assert.assertTrue(fTarget.isDirectory());
-		
 		
 		Assert.assertTrue("Directory ("+bundlePackage+") does not exist: "+dirBundle.getAbsolutePath(),dirBundle.exists());
 		Assert.assertTrue("("+bundlePackage+") not a directory: "+dirBundle.getAbsolutePath(),dirBundle.isDirectory());
     }
 	
 	@Test
-	public void sizeLanguages() throws FileNotFoundException, AhtUtilsNotFoundException
+	public void langFiles() throws FileNotFoundException, AhtUtilsNotFoundException
     {	
+		tFactory.add("src/test/resources/data/xml/msgBundle/translation1.xml");
 		tFactory.writeMessageResourceBundles(bundleName,bundlePackage,fTarget.getAbsolutePath());
 		TranslationMap tMap = tFactory.gettMap();
 		for(String s : tMap.getLangKeys())
@@ -63,6 +62,33 @@ public class TestTranslationFactory extends AbstractAhtUtilTest
 			File f = new File(dirBundle,bundleName+"_"+s+"."+TranslationFactory.msgBundleSuffix);
 			Assert.assertTrue("Should exist: "+f.getAbsolutePath(),f.exists());
 			Assert.assertTrue(f.isFile());
+		}
+    }
+	
+	@Test
+	public void multipleTranslationFiles() throws FileNotFoundException, AhtUtilsNotFoundException
+    {	
+		tFactory.add("src/test/resources/data/xml/msgBundle/translation1.xml");
+		tFactory.add("src/test/resources/data/xml/msgBundle/translation2.xml");
+		tFactory.writeMessageResourceBundles(bundleName,bundlePackage,fTarget.getAbsolutePath());
+		TranslationMap tMap = tFactory.gettMap();
+		Assert.assertEquals(2,tMap.getLangKeys().size());
+		for(String s : tMap.getLangKeys())
+		{
+			Assert.assertEquals(3,tMap.getTranslationKeys(s).size());
+		}
+    }
+	
+	@Test
+	public void rekursiveDirectory() throws FileNotFoundException, AhtUtilsNotFoundException
+    {	
+		tFactory.rekursiveDirectory("src/test/resources/data/xml/msgBundle");
+		tFactory.writeMessageResourceBundles(bundleName,bundlePackage,fTarget.getAbsolutePath());
+		TranslationMap tMap = tFactory.gettMap();
+		Assert.assertEquals(2,tMap.getLangKeys().size());
+		for(String s : tMap.getLangKeys())
+		{
+			Assert.assertEquals(5,tMap.getTranslationKeys(s).size());
 		}
     }
 }

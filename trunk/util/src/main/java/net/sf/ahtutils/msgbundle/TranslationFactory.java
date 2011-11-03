@@ -8,15 +8,16 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import net.sf.ahtutils.controller.exception.AhtUtilsNotFoundException;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Translation;
 import net.sf.ahtutils.xml.status.Translations;
-import net.sf.exlp.util.io.resourceloader.MultiResourceLoader;
 import net.sf.exlp.util.xml.JaxbUtil;
 
+import org.apache.commons.io.DirectoryWalker;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -29,18 +30,14 @@ public class TranslationFactory
 	
 	private TranslationMap tMap;
 
-	private String inEncoding,outEncoding;
-	private List<String> outFiles;
-
-	private MultiResourceLoader mrl;
+	private String outEncoding;
+	private int processedFiles;
 
 	public TranslationFactory()
 	{
-		mrl = new MultiResourceLoader();
 		tMap = new TranslationMap();
-		inEncoding = "UTF-8";
 		outEncoding = "UTF-8";
-		outFiles = new ArrayList<String>();
+		processedFiles = 0;
 	}
 	
 	public void writeMessageResourceBundles(String bundleName, String bundlePackage, String targetDirectory) throws FileNotFoundException, AhtUtilsNotFoundException
@@ -62,16 +59,7 @@ public class TranslationFactory
 		{
 			logger.info("Processing "+langKey);
 			String fName = bundleName+"_"+langKey+"."+msgBundleSuffix;
-			outFiles.add(targetDirectory+"/"+fName);
-			
-			
-/*			Map<String,String> mapLang = mapTranslations.get(s);
-			for(String key : mapLang.keySet())
-			{
-				pw.println(key+"="+mapLang.get(key));
-			}
-*/			
-			
+					
 			try
 			{
 				File f = new File(bundleDir,fName);
@@ -88,30 +76,24 @@ public class TranslationFactory
 			}
 			catch (IOException e) {e.printStackTrace();}
 		}
-		
-/*		for(String s : mapTranslations.keySet())
+	}
+	
+	public void rekursiveDirectory(String directory) throws FileNotFoundException
+	{
+		File startDirectory = new File(directory);
+		TranslationFileFinder tff = new TranslationFileFinder();
+		try
 		{
-			try
+			for(File f : tff.find(startDirectory))
 			{
-				
-				
-				File f = new File(baseDir,fName);
-				OutputStream os = new FileOutputStream(f);
-				OutputStreamWriter osw = new OutputStreamWriter(os, outEncoding);
-				PrintWriter pw = new PrintWriter(osw, true); 
-				
-				Map<String,String> mapLang = mapTranslations.get(s);
-				for(String key : mapLang.keySet())
-				{
-					pw.println(key+"="+mapLang.get(key));
-				}
-				
-				pw.close();osw.close();os.close();
+				add(f.getAbsolutePath());
 			}
-			catch (UnsupportedEncodingException e) {logger.error(e);}
-			catch (IOException e) {logger.error(e);}
 		}
-*/	}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	public void add(String xmlFile) throws FileNotFoundException
 	{
@@ -126,12 +108,13 @@ public class TranslationFactory
 				tMap.add(lang.getKey(), translation.getKey(), lang.getTranslation());
 			}
 		}
+		processedFiles++;
 	}
 	
 	public List<String> getStats()
 	{
 		List<String> result = new ArrayList<String>();
-		result.add("Created Message Bundle (output Ecoding: "+outEncoding+")");
+		result.add("Created Message Bundle (output ecoding: "+outEncoding+", processed files: "+processedFiles+")");
 		for(String langKey : tMap.getLangKeys())
 		{
 			StringBuffer sb = new StringBuffer();
@@ -153,34 +136,32 @@ public class TranslationFactory
 		}
 	}
 	
-/*	public List<String> getDebugMsg(boolean debug)
-	{
-		List<String> result = new ArrayList<String>();
-		result.add("Encoding: in="+inEncoding+" out="+outEncoding);
-		for(String langKey : mapTranslations.keySet())
-		{
-			StringBuffer sb = new StringBuffer();
-			sb.append("Keys for language "+langKey+": ");
-			Map<String,String> trans = mapTranslations.get(langKey);
-			sb.append(trans.keySet().size());
-			result.add(sb.toString());
-			if(debug)
-			{
-				for(String sub : trans.keySet())
-				{
-					result.add("  "+sub+": "+trans.get(sub));
-				}
-			}
-		}
-		for(String s : outFiles){result.add("Written: "+s);}
-		return result;
-	}
-*/	
-	public void setInEncoding(String inEncoding) {this.inEncoding = inEncoding;}
 	public void setOutEncoding(String outEncoding) {this.outEncoding = outEncoding;}
+	protected TranslationMap gettMap(){return tMap;}
 	
-	protected TranslationMap gettMap()
+	protected class TranslationFileFinder extends DirectoryWalker<File>
 	{
-		return tMap;
+		public TranslationFileFinder()
+	    {
+			super();
+	    }
+
+	    public List<File> find(File startDirectory) throws IOException
+	    {
+	    	List<File> results = new ArrayList<File>();
+	    	walk(startDirectory, results);
+	    	return results;
+	    }
+
+	    protected boolean handleDirectory(File directory, int depth, Collection<File> results)
+	    {
+	    	if(directory.getName().equals(".svn")){return false;}
+	    	else {return true;}
+	    }
+
+	    protected void handleFile(File file, int depth, Collection<File> results)
+	    {
+		    results.add(file);
+	    }
 	}
 }

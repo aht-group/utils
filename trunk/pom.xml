@@ -30,6 +30,7 @@
         <junit.version>4.10</junit.version>
         <commons-collections.version>3.2.1</commons-collections.version>
         <commons-logging.version>1.1.1</commons-logging.version>
+        <commons-io.version>2.1</commons-io.version>
         <poi.version>3.8-beta3</poi.version>
         <jasperreports.version>4.0.0</jasperreports.version>
        	<groovy.version>1.8.1</groovy.version>

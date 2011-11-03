@@ -127,6 +127,11 @@
 				<type>jar</type>
 				<scope>compile</scope>
 			</dependency>
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${commons-io.version}</version>
+			</dependency>
 	</dependencies>
    
 </project>

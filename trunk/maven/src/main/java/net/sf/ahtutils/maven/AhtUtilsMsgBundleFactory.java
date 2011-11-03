@@ -55,26 +55,18 @@ public class AhtUtilsMsgBundleFactory extends AbstractMojo
     	getLog().info("Creating MessageBundle "+bundlePackage+".msg_<lang>.txt from "+reportRoot);
     	
     	TranslationFactory tFactory = new TranslationFactory();
-		tFactory.setInEncoding("UTF-8");
 		tFactory.setOutEncoding("UTF-8");
 		try
 		{
-			tFactory.add(fRoot.getAbsolutePath()+"/login.xml");
-			tFactory.writeMessageResourceBundles("msg",bundlePackage,targetDir);
+			tFactory.rekursiveDirectory(fRoot.getAbsolutePath());
+			tFactory.writeMessageResourceBundles("msg",bundlePackage,fTarget.getAbsolutePath());
 			for(String s : tFactory.getStats())
 			{
 				getLog().info(s);
 			}
 		}
-		catch (FileNotFoundException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (AhtUtilsNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		catch (FileNotFoundException e) {e.printStackTrace();}
+		catch (AhtUtilsNotFoundException e) {e.printStackTrace();}
     }
     
     private File createTargetDir() throws MojoExecutionException

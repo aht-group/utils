@@ -20,33 +20,7 @@ public class TranslationMap
 	{
 		tMap = new Hashtable<String,Map<String,String>>();
 	}
-/*	
-	private void init(Configuration config, String fileXPath)
-	{
-		TranslationFactory translationFactory = new TranslationFactory(true);
-		
-		int numberTranslations = config.getStringArray(fileXPath).length;
-		logger.debug("Translations: "+numberTranslations);
-		for(int i=1;i<=numberTranslations;i++)
-		{
-			String fileName = config.getString(fileXPath+"["+i+"]");
-			try {
-				translationFactory.add(fileName);
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-		t = translationFactory.getMapTranslations();
-		logger.info("Translations loaded:");
-		for(String s : t.keySet())
-		{
-			Map<String,String> trans = t.get(s);
-			logger.debug("   "+s+": "+trans.size());
-		}
-	}
-*/	
+
 	public String translate(String langKey, String key)
 	{
 		String result;
