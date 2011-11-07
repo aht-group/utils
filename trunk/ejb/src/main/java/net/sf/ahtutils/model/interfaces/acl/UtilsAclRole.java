@@ -16,6 +16,8 @@ public interface UtilsAclRole<L extends UtilsLang,
 						 R extends UtilsAclRole<L,D,CU,CR,U,R>>
 			extends EjbWithCode,EjbWithLang<L>,EjbWithDescription<D>
 {
+	public static final String extractId = "aclRoles";
+	
 	public CR getCategory();
 	public void setCategory(CR category);
 	

@@ -16,10 +16,9 @@
 	<url>http://sourceforge.net/projects/ahtutils</url>
 	<description>Utilities and Helper for JavaEE Developments</description>
 
-	<properties>		
+	<properties>	
+		<my.build.directory>target</my.build.directory>	
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- Timestamp format for the maven.build.timestamp property -->
-        <!-- You can reference property in pom.xml or filtered resources (must enable third-party plugin if using Maven < 2.1) -->
         <maven.build.timestamp.format>yyyyMMdd'T'HHmmss</maven.build.timestamp.format>
         <jboss.home>${env.JBOSS_HOME}</jboss.home>
         <jboss.domain>default</jboss.domain>
@@ -51,6 +50,10 @@
     	<maven-plugin-api.version>2.0</maven-plugin-api.version>
     	<maven-ejb-plugin.version>2.3</maven-ejb-plugin.version>
     </properties>
+
+	<build>
+		<directory>${my.build.directory}</directory>
+	</build>
 
 	<licenses>
 		<license>

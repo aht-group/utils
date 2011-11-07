@@ -12,6 +12,8 @@ public interface UtilsAclProjectRole<L extends UtilsLang,
 						 R extends UtilsAclProjectRole<L,D,C,R>>
 			extends EjbWithCode,EjbWithLang<L>,EjbWithDescription<D>
 {
+	public static final String extractId = "aclProjectRoles";
+	
 	public C getCategory();
 	public void setCategory(C category);
 }
