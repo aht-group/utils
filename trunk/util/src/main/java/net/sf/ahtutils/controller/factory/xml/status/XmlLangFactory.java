@@ -1,6 +1,7 @@
 package net.sf.ahtutils.controller.factory.xml.status;
 
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
+import net.sf.ahtutils.xml.status.Lang;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -9,18 +10,18 @@ public class XmlLangFactory
 {
 	static Log logger = LogFactory.getLog(XmlLangFactory.class);
 		
-	private net.sf.ahtutils.xml.status.Lang qLangUtils;
+	private Lang q;
 	
-	public XmlLangFactory(net.sf.ahtutils.xml.status.Lang qLangUtils)
+	public XmlLangFactory(Lang q)
 	{
-		this.qLangUtils=qLangUtils;
+		this.q=q;
 	}
 	
-	public <L extends UtilsLang> net.sf.ahtutils.xml.status.Lang getUtilsLang(L ejb)
+	public <L extends UtilsLang> Lang getUtilsLang(L ejb)
 	{
-		net.sf.ahtutils.xml.status.Lang lang = new net.sf.ahtutils.xml.status.Lang();
-		if(qLangUtils.isSetKey()){lang.setKey(ejb.getLang());}
-		if(qLangUtils.isSetTranslation()){lang.setTranslation(ejb.getLkey());}
+		Lang lang = new Lang();
+		if(q.isSetKey()){lang.setKey(ejb.getLang());}
+		if(q.isSetTranslation()){lang.setTranslation(ejb.getLkey());}
 		return lang;
 	}
 	

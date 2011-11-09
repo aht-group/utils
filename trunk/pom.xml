@@ -51,10 +51,6 @@
     	<maven-ejb-plugin.version>2.3</maven-ejb-plugin.version>
     </properties>
 
-	<build>
-		<!-- <directory>${my.build.directory}</directory>  -->
-	</build>
-
 	<licenses>
 		<license>
 			<name>GNU General Public License</name>
@@ -196,6 +192,12 @@
 				</plugins>
     		</build>
   		</profile>
+    	<profile>
+       		<id>ram</id>
+       		<build>
+       			<directory>${my.build.directory}</directory>
+       		</build>
+   		</profile> 
 	</profiles>
 
 </project>

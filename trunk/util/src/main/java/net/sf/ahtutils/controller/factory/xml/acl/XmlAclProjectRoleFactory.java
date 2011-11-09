@@ -1,5 +1,6 @@
 package net.sf.ahtutils.controller.factory.xml.acl;
 
+import net.sf.ahtutils.controller.factory.xml.status.XmlLangsFactory;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryProjectRole;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclProjectRole;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
@@ -36,6 +37,13 @@ public class XmlAclProjectRoleFactory
     			xml.setName(ejb.getName().get(lang).getLang());
     		}
     	}
+    	
+    	if(q.isSetLangs())
+		{
+			XmlLangsFactory f = new XmlLangsFactory(q.getLangs());
+			xml.setLangs(f.getUtilsLangs(ejb.getName()));
+		}
+    	
     	return xml;
     }
 }
