@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <acl:projectRoles xmlns:s="http://ahtutils.aht-group.com/status" xmlns:acl="http://ahtutils.aht-group.com/access">
-    <acl:projectRole code="myCode"/>
+    <acl:projectRole code="myCode" name="myName"/>
 </acl:projectRoles>

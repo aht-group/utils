@@ -36,6 +36,7 @@ public class TestXmlProjectRole extends AbstractXmlAccessTest
     {
     	ProjectRole xml = new ProjectRole();
     	xml.setCode("myCode");
+    	xml.setName("myName");
     	
     	if(withChilds)
     	{

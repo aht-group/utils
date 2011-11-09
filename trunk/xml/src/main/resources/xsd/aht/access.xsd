@@ -129,6 +129,7 @@
                 <xsd:element ref="s:langs" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="code" type="xsd:string"/>
+            <xsd:attribute name="name" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
 </xsd:schema>

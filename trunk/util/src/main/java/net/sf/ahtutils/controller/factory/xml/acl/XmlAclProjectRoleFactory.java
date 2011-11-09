@@ -17,7 +17,7 @@ public class XmlAclProjectRoleFactory
 	private ProjectRole q;
 	private String lang;
 	
-	public XmlAclProjectRoleFactory(Query q){this(q.getProjectRole(),q.getLang());}
+	public XmlAclProjectRoleFactory(Query uQ){this(uQ.getProjectRole(),uQ.getLang());}
 	public XmlAclProjectRoleFactory(ProjectRole q,String lang)
 	{
 		this.q=q;
@@ -29,6 +29,13 @@ public class XmlAclProjectRoleFactory
     {
     	ProjectRole xml = new ProjectRole();
     	if(q.isSetCode()){xml.setCode(ejb.getCode());}
+    	if(q.isSetName())
+    	{
+    		if(ejb.getName()!=null && ejb.getName().containsKey(lang))
+    		{
+    			xml.setName(ejb.getName().get(lang).getLang());
+    		}
+    	}
     	return xml;
     }
 }

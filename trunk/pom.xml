@@ -52,7 +52,7 @@
     </properties>
 
 	<build>
-		<directory>${my.build.directory}</directory>
+		<!-- <directory>${my.build.directory}</directory>  -->
 	</build>
 
 	<licenses>

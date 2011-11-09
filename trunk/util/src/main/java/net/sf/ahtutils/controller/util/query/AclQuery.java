@@ -31,6 +31,7 @@ public class AclQuery
 	{
 		ProjectRole r = new ProjectRole();
 		r.setCode("");
+		r.setName("");
     	
 		Query q = new Query();
     	q.setProjectRole(r);
