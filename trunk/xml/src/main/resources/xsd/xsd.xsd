@@ -28,4 +28,12 @@
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
+    <xsd:element name="query">
+        <xsd:complexType>
+        	<xsd:sequence>
+                <xsd:element ref="a:projectRole" maxOccurs="1"/>
+            </xsd:sequence>
+            <xsd:attribute name="lang" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
 </xsd:schema>

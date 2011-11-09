@@ -1,8 +1,9 @@
-package net.sf.ahtutils.xml.dbseed;
+package net.sf.ahtutils.xml.aht;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import net.sf.ahtutils.xml.access.TestXmlProjectRole;
 import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.xml.JaxbUtil;
 
@@ -11,33 +12,33 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestDb extends AbstractXmlDbseedTest
+public class TestQuery extends AbstractXmlAhtTest
 {
-	static Log logger = LogFactory.getLog(TestDb.class);
+	static Log logger = LogFactory.getLog(TestQuery.class);
 	
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"db.xml");
+		fXml = new File(rootDir,"query.xml");
 	}
     
     @Test
     public void xml() throws FileNotFoundException
     {
-    	Db actual = create();
-    	Db expected = (Db)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Db.class);
+    	Query actual = create();
+    	Query expected = (Query)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Query.class);
     	assertJaxbEquals(expected, actual);
     }  
     
-    private static Db create() {return create(true);}
-    public static Db create(boolean withChilds)
+    private static Query create() {return create(true);}
+    public static Query create(boolean withChilds)
     {
-    	Db xml = new Db();
-    	xml.setPath("myPath");
+    	Query xml = new Query();
+    	xml.setLang("myLang");
     	
     	if(withChilds)
     	{
-    		xml.getSeed().add(TestSeed.createSeed(false));
+    		xml.setProjectRole(TestXmlProjectRole.create(false));
     	}
     	
     	return xml;
@@ -51,9 +52,9 @@ public class TestDb extends AbstractXmlDbseedTest
 			loggerInit.addAltPath("src/test/resources/config");
 			loggerInit.init();		
 			
-		TestDb.initPrefixMapper();
-		TestDb.initFiles();	
-		TestDb test = new TestDb();
+		TestQuery.initPrefixMapper();
+		TestQuery.initFiles();	
+		TestQuery test = new TestQuery();
 		test.save();
     }
 }

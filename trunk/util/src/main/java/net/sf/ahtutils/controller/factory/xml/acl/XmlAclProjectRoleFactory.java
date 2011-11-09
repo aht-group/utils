@@ -5,6 +5,7 @@ import net.sf.ahtutils.model.interfaces.acl.UtilsAclProjectRole;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.xml.access.ProjectRole;
+import net.sf.ahtutils.xml.aht.Query;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -16,6 +17,7 @@ public class XmlAclProjectRoleFactory
 	private ProjectRole q;
 	private String lang;
 	
+	public XmlAclProjectRoleFactory(Query q){this(q.getProjectRole(),q.getLang());}
 	public XmlAclProjectRoleFactory(ProjectRole q,String lang)
 	{
 		this.q=q;
