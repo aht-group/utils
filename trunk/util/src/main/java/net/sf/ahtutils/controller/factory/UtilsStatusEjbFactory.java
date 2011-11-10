@@ -51,6 +51,13 @@ public class UtilsStatusEjbFactory<S extends UtilsStatus<L>, L extends UtilsLang
         return s;
     }
 	
+	public S create(String code) throws InstantiationException, IllegalAccessException, AhtUtilsIntegrityException
+	{
+        S s = statusClass.newInstance();
+        s.setCode(code);
+        return s;
+    }
+	
 	public Map<String,D> getDescriptionMap(Descriptions desciptions) throws InstantiationException, IllegalAccessException
 	{
 		if(desciptions!=null && desciptions.isSetDescription())
