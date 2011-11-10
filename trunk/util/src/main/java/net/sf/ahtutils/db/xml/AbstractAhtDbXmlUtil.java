@@ -6,9 +6,7 @@ import net.sf.ahtutils.xml.dbseed.Seed;
 import net.sf.ahtutils.xml.xpath.DbseedXpath;
 import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
-import net.sf.exlp.util.io.resourceloader.MultiResourceLoader;
 
-import org.apache.commons.configuration.Configuration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

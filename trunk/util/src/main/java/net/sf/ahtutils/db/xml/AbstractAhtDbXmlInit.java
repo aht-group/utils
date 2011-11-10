@@ -17,7 +17,7 @@ public abstract class AbstractAhtDbXmlInit extends AbstractAhtDbXmlUtil
 	protected AhtXmlInitIdMapper idMapper;
 	protected AhtStatusDbInit asdi;
 	
-	public AbstractAhtDbXmlInit(Db dbSeed, DataSource datasource, AhtXmlInitIdMapper idMapper,AhtStatusDbInit asdi)
+	public AbstractAhtDbXmlInit(Db dbSeed, DataSource datasource, AhtXmlInitIdMapper idMapper, AhtStatusDbInit asdi)
 	{
 		super(dbSeed, datasource);
 		this.idMapper=idMapper;
