@@ -6,13 +6,13 @@ import net.sf.ahtutils.model.interfaces.EjbWithId;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 
-public interface UtilsMailTracker<T extends UtilsStatus<L>, L extends UtilsLang> extends EjbWithId
+public interface UtilsMailTracker<S extends UtilsStatus<L>, L extends UtilsLang> extends EjbWithId
 {
 	long getRefId();
 	void setRefId(long refId);
 	
-	T getType();
-	void setType(T type);
+	S getType();
+	void setType(S type);
 	
 	Date getRecordCreated();
 	void setRecordCreated(Date recordGenerated);
