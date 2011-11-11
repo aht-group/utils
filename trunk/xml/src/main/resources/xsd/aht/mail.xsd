@@ -26,6 +26,15 @@
             <xsd:attribute name="lang" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
+    <xsd:element name="tracker">
+        <xsd:complexType>
+            <xsd:attribute name="id" type="xsd:long"/>
+            <xsd:attribute name="refId" type="xsd:long"/>
+            <xsd:attribute name="created" type="xsd:dateTime"/>
+            <xsd:attribute name="sent" type="xsd:dateTime"/>
+            <xsd:attribute name="type" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
     <xsd:element name="header">
         <xsd:complexType>
         	<xsd:sequence>

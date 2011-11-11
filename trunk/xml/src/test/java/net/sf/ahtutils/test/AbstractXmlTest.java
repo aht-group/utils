@@ -3,6 +3,8 @@ package net.sf.ahtutils.test;
 import java.io.File;
 import java.util.Date;
 
+import javax.xml.datatype.XMLGregorianCalendar;
+
 import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
 import net.sf.exlp.util.DateUtil;
 import net.sf.exlp.util.io.LoggerInit;
@@ -39,6 +41,10 @@ public abstract class AbstractXmlTest
 		Assert.assertEquals(JaxbUtil.toString(expected),JaxbUtil.toString(actual));
 	}
 	
+	protected static XMLGregorianCalendar getXmlDefaultDate()
+	{
+		return DateUtil.getXmlGc4D(getDefaultDate());
+	}
 	protected static Date getDefaultDate()
 	{
 		return DateUtil.getDateFromInt(2011, 11, 11, 11, 11, 11);
