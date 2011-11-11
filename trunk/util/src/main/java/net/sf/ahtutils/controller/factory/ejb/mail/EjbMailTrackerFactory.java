@@ -25,7 +25,9 @@ public class EjbMailTrackerFactory<T extends UtilsMailTracker<S,L>,S extends Uti
         this.clTracker = clTracker;
     } 
     
-    public T create(S type, long refId, Date created)
+    public T create(S type, long refId) {return create(type, refId, new Date());}
+    public T create(S type, long refId, Date created){return create(type, refId, created,-1);}
+    public T create(S type, long refId, Date created, int retryCounter)
     {
     	T ejb = null;
     	
@@ -35,6 +37,7 @@ public class EjbMailTrackerFactory<T extends UtilsMailTracker<S,L>,S extends Uti
 			ejb.setType(type);
 			ejb.setRefId(refId);
 			ejb.setRecordCreated(created);
+			ejb.setRetryCounter(retryCounter);
 		}
     	catch (InstantiationException e) {e.printStackTrace();}
     	catch (IllegalAccessException e) {e.printStackTrace();}

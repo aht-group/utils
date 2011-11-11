@@ -37,7 +37,8 @@ public class TestXmlTracker extends AbstractXmlMailTest
     	xml.setRefId(345);
     	xml.setType("myType");
     	xml.setCreated(getXmlDefaultDate());
-    	xml.setSent(getXmlDefaultDate());    	
+    	xml.setSent(getXmlDefaultDate());
+    	xml.setRetryCounter(1);
     	return xml;
     }
     

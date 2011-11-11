@@ -33,6 +33,7 @@
             <xsd:attribute name="created" type="xsd:dateTime"/>
             <xsd:attribute name="sent" type="xsd:dateTime"/>
             <xsd:attribute name="type" type="xsd:string"/>
+            <xsd:attribute name="retryCounter" type="xsd:int"/>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="header">

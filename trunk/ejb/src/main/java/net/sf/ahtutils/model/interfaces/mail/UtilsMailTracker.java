@@ -19,4 +19,7 @@ public interface UtilsMailTracker<S extends UtilsStatus<L>, L extends UtilsLang>
 	
 	Date getRecordSent();
 	void setRecordSent(Date recordSent);
+	
+	int getRetryCounter();
+	void setRetryCounter(int retryCounter);
 }
