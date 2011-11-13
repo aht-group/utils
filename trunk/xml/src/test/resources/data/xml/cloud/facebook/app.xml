@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fb:app xmlns="http://exlp.sf.net/net" xmlns:fb="http://ahtutils.aht-group.com/cloud/facebook" appId="123" scope="myScope" secret="mySecret">
+    <fb:redirect>
+        <url code="myCode">http://my.app</url>
+    </fb:redirect>
+</fb:app>
