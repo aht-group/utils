@@ -3,7 +3,7 @@
 <project name="AHT-Utils XML"  basedir="../../..">
 
 	<property name="src.dir" location="${basedir}/src/main/java" />
-	<property name="rsrc.dir" location="${basedir}/src/main/resources" />
+	<property name="rsrc.dir" location="${basedir}/src/main" />
 	<property name="xsd.dir" location="${rsrc.dir}/xsd" />
 	
 	<property name="jaxb.version" value="2.2.2"/>
