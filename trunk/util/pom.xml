@@ -29,10 +29,9 @@
 	</build>
 	
 	<dependencies>
-	        <dependency>
+		<dependency>
         	<groupId>commons-logging</groupId>
         	<artifactId>commons-logging</artifactId>
-        	<version>${commons-logging.version}</version>
         	<type>jar</type>
         </dependency>
 	        <dependency>
