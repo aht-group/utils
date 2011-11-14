@@ -23,8 +23,8 @@ public abstract class AbstractXmlFacebookTest extends AbstractXmlTest
 			loggerInit.init();	
 		
 		TestXmlApp.initFiles();
-		TestXmlApp test = new TestXmlApp();
-		test.save();	
+		TestXmlApp tA = new TestXmlApp();
+		tA.save();	
 			
 		TestXmlSignedRequest.initFiles();
 		TestXmlSignedRequest tSr = new TestXmlSignedRequest();
@@ -33,5 +33,13 @@ public abstract class AbstractXmlFacebookTest extends AbstractXmlTest
 		TestXmlUser.initFiles();
 		TestXmlUser tU = new TestXmlUser();
 		tU.save();
+		
+		TestXmlToken.initFiles();
+		TestXmlToken tT = new TestXmlToken();
+		tT.save();
+		
+		TestXmlOauth.initFiles();
+		TestXmlOauth tO = new TestXmlOauth();
+		tO.save();
     }
 }

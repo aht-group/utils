@@ -3,7 +3,6 @@ package net.sf.ahtutils.xml.cloud.facebook;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.apache.commons.logging.Log;
@@ -38,14 +37,4 @@ public class TestXmlOauth extends AbstractXmlFacebookTest
     }
     
     public void save() {save(create(),fXml);}
-	
-	public static void main(String[] args)
-    {
-		LoggerInit loggerInit = new LoggerInit("log4j.xml");	
-			loggerInit.addAltPath("src/test/resources/config");
-			loggerInit.init();	
-		
-		TestXmlOauth test = new TestXmlOauth();
-		test.save();
-    }
 }

@@ -42,15 +42,4 @@ public class TestXmlToken extends AbstractXmlFacebookTest
     }
     
     public void save() {save(create(),fXml);}
-	
-	public static void main(String[] args)
-    {
-		LoggerInit loggerInit = new LoggerInit("log4j.xml");	
-			loggerInit.addAltPath("src/test/resources/config");
-			loggerInit.init();	
-		
-		TestXmlToken.initFiles();
-		TestXmlToken test = new TestXmlToken();
-		test.save();
-    }
 }

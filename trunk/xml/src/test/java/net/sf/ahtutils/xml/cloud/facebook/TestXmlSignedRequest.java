@@ -19,7 +19,7 @@ public class TestXmlSignedRequest extends AbstractXmlFacebookTest
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"singedRequest.xml");
+		fXml = new File(rootDir,"signedRequest.xml");
 	}
     
     @Test
