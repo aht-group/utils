@@ -84,6 +84,7 @@
 			<plugin>
 				<artifactId>maven-plugin-plugin</artifactId>
         		<version>${maven-plugin-plugin.version}</version>
+        		<!--  Commented out (because of error) 
         		<executions>
 	          		<execution>
 	            		<id>generated-helpmojo</id>
@@ -91,7 +92,7 @@
 	              			<goal>helpmojo</goal>
 	            		</goals>
 	          		</execution>
-	        	</executions>
+	        	</executions> -->
 	        	<configuration>
 	          		<goalPrefix>ahtutils-report</goalPrefix>
 	        	</configuration>
