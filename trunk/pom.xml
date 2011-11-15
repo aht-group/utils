@@ -45,7 +45,7 @@
     	<maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
     	<maven-javadoc-plugin.version>2.8</maven-javadoc-plugin.version>
     	<maven-source-plugin.version>2.1.2</maven-source-plugin.version>
-    	<maven-plugin-plugin.version>2.5.1</maven-plugin-plugin.version>
+    	<maven-plugin-plugin.version>2.9</maven-plugin-plugin.version>
     	<maven-plugin-api.version>2.0</maven-plugin-api.version>
     	<maven-ejb-plugin.version>2.3</maven-ejb-plugin.version>
     </properties>
