@@ -1,5 +1,6 @@
 package net.sf.ahtutils.controller.factory.xml.mail;
 
+import net.sf.ahtutils.model.interfaces.EjbWithId;
 import net.sf.ahtutils.model.interfaces.mail.UtilsMailTracker;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
@@ -20,7 +21,7 @@ public class XmlTrackerFactory
 		this.q=q;
 	}
 	
-    public <T extends UtilsMailTracker<S,L>, S extends UtilsStatus<L>, L extends UtilsLang>
+    public <T extends UtilsMailTracker<S,L,U>, S extends UtilsStatus<L>, L extends UtilsLang, U extends EjbWithId>
     	Tracker create(T ejb)
     {
     	Tracker xml = new Tracker();
