@@ -30,7 +30,7 @@ public class AhtUtilsMsgBundleFactory extends AbstractMojo
     
     /**
      * Location of the file.
-     * @parameter expression="${basedir}/target/msg.${project.artifactId}"
+     * @parameter expression="${project.build.directory}/msg.${project.artifactId}"
      * @required
      */
     private String targetDir;
