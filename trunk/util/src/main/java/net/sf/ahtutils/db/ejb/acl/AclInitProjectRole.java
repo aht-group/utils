@@ -172,6 +172,7 @@ public class AclInitProjectRole <L extends UtilsLang,
 			try
 			{
 				aclRole = roleClass.newInstance();
+				aclRole.setCategory(category);
 				aclRole.setCode(role.getCode());
 				aclRole = (R)fAcl.persistAhtUtilsStatus(aclRole);
 			}
