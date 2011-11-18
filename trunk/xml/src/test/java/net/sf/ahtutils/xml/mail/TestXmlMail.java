@@ -37,10 +37,13 @@ public class TestXmlMail extends AbstractXmlMailTest
     	xml.setId(id);
     	xml.setDir("myDir");
     	xml.setExample("myExample");
-    	xml.setLang("myLang");
-    	xml.setLtr(true);
-    	xml.setRtl(true);
-    	    	
+    	
+    	if(withChilds)
+    	{
+    		xml.getTemplate().add(TestXmlTemplate.create(false));
+    		xml.getTemplate().add(TestXmlTemplate.create(false));
+    	}
+    	
     	return xml;
     }
     
