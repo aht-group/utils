@@ -145,17 +145,17 @@ public class ReportController extends AbstractReportControl
 			exporterXLS.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
 			exporterXLS.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
 			exporterXLS.exportReport();	
-			try
-			{
-				OutputStream osProcessed = ReportUtilXls.RemoveEmptyCells(os);
-				
-				OutputStream outputStreamProcessed = new FileOutputStream (f); 
-				((ByteArrayOutputStream)osProcessed).writeTo(outputStreamProcessed);
-			}
-			catch (FileNotFoundException e) {logger.error(e);}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
+//			try
+//			{
+//				OutputStream osProcessed = ReportUtilXls.RemoveEmptyCells(os);
+//				
+//				OutputStream outputStreamProcessed = new FileOutputStream (f); 
+//				((ByteArrayOutputStream)osProcessed).writeTo(outputStreamProcessed);
+//			}
+//			catch (FileNotFoundException e) {logger.error(e);}
+//			catch (IOException e) {
+//				e.printStackTrace();
+//			}
 			
 		}
 		catch (JRException e) {logger.error("Error in JasperReport creation: " +e.getMessage());}

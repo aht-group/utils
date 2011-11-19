@@ -1,4 +1,4 @@
-package net.sf.ahtutils.report;
+package net.sf.ahtutils.maven;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
