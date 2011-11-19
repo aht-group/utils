@@ -30,12 +30,13 @@ public class TestXmlTemplate extends AbstractXmlMailTest
     }  
     
     private static Template create() {return create(true);}
-    public static Template create(boolean withChilds)
+    public static Template create(boolean withChilds){return create("myLang", "myType",withChilds);}
+    public static Template create(String lang, String type, boolean withChilds)
     {
     	Template xml = new Template();
     	xml.setFile("myFile");
-    	xml.setLang("myLang");
-    	xml.setType("myType");
+    	xml.setLang(lang);
+    	xml.setType(type);
     	return xml;
     }
     
