@@ -7,13 +7,13 @@ import org.apache.tools.ant.Task;
 
 public class AntJasperCreatorTask extends Task{
 	
-	private String configFile, reportRoot;
+	private String configFile, reportRoot, targetDir;
 
     static Log logger = LogFactory.getLog(AntJasperCreatorTask.class);
 	
     public void execute() throws BuildException
     {
-    	ReportCompiler.execute(configFile, reportRoot);
+    	ReportCompiler.execute(configFile, reportRoot, targetDir);
   	}
 
 	public static void main(String[] args) {

@@ -29,11 +29,19 @@ public class ReportPreCompiler extends AbstractMojo
      * @required
      */
     private String reportRoot;
+    
+    /**
+     * Location of the file.
+     * @parameter expression="${project.build.directory}/reports.${project.artifactId}"
+     * @required
+     */
+    private String targetDir;
 	
     public void execute() throws MojoExecutionException
     {
     	getLog().info("Using data from " +reportRoot +" for report processing.");
-    	ArrayList<String> log = ReportCompiler.execute(configFile, reportRoot);
+    	getLog().info("Using target: " +targetDir);
+    	ArrayList<String> log = ReportCompiler.execute(configFile, reportRoot, targetDir);
     	for (String str : log)
     	{
     		getLog().info(str);

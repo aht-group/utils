@@ -99,10 +99,11 @@ public class ReportCompiler
 			logger.info("Compiling " +jrxml +" to " +jasper);
 			log.add("Compiled  " +jrxml +" to " +jasper);
 	    }
+	    log.add("Target File was " +jasper);
     	return compilation;
     }
     
-    public static ArrayList<String> execute(String configFile, String reportRoot) 
+    public static ArrayList<String> execute(String configFile, String reportRoot, String targetDir) 
     {
     	log = new ArrayList<String>();
     	
@@ -131,8 +132,9 @@ public class ReportCompiler
  					//Compiling ltr version
 	 					if (report.isLtr())
 	 					{
-		 					String jasperLtr = reportRoot +"/" +"jasper" +"/" +report.getDir() +"/" + media.getType() + "/ltr/" + jr.getType() + jr.getName() +".jasper";
-		 					new File(reportRoot +"/" +"jasper"  +"/" +report.getDir() +"/" + media.getType() + "/ltr/").mkdirs();
+		 					String jasperLtr = targetDir +"/" +"jasper" +"/" +report.getDir() +"/" + media.getType() + "/ltr/" + jr.getType() + jr.getName() +".jasper";
+		 					log.add("target file: " +jasperLtr);
+		 					new File(targetDir +"/" +"jasper"  +"/" +report.getDir() +"/" + media.getType() + "/ltr/").mkdirs();
 		 					compileReport(jrxml, jasperLtr);
 	 					}
  					}
@@ -142,11 +144,11 @@ public class ReportCompiler
  					{
 	 					if (report.isRtl())
 	 					{
-	 						String jasperRtl = reportRoot +"/" +"jasper" +"/" +report.getDir() +"/" + media.getType() + "/rtl/" + jr.getType() + jr.getName() +".jasper";
+	 						String jasperRtl = targetDir +"/" +"jasper" +"/" +report.getDir() +"/" + media.getType() + "/rtl/" + jr.getType() + jr.getName() +".jasper";
 	 	 					logger.info("Compiling " +jrxml +" to " +jasperRtl);
 	 	 					log.add("Compiled  " +jrxml +" to " +jasperRtl);
 	 	 					
-	 	 					new File(reportRoot +"/" +"jasper"  +"/" +report.getDir() +"/" + media.getType() + "/rtl/").mkdirs();
+	 	 					new File(targetDir +"/" +"jasper"  +"/" +report.getDir() +"/" + media.getType() + "/rtl/").mkdirs();
 	 	 					InputStream in = null;
 	 	 					try {
 	 	 						in = ReportUtilRtl.LeftToRightConversion(jrxml);
