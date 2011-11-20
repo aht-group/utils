@@ -24,7 +24,7 @@ import org.junit.runners.Parameterized;
 @RunWith(Parameterized.class)
 public class TestAccessTokenFactory extends AbstractFileProcessingTest
 {
-	static Log logger = LogFactory.getLog(TestSignedRequestFactory.class);
+	static Log logger = LogFactory.getLog(TestAccessTokenFactory.class);
 	
 	private AccessTokenFactory atf;
 	

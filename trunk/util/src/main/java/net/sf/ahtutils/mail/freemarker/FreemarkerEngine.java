@@ -8,12 +8,15 @@ import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import net.sf.ahtutils.controller.exception.AhtUtilsDeveloperException;
 import net.sf.ahtutils.xml.mail.Mail;
 import net.sf.ahtutils.xml.mail.Mails;
 import net.sf.ahtutils.xml.xpath.MailXpath;
 import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
+import net.sf.exlp.util.io.StringBufferOutputStream;
 import net.sf.exlp.util.xml.JDomUtil;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -45,9 +48,21 @@ public class FreemarkerEngine
 	{
 		logger.warn("name: " +resourceName);
 		
-		
 		ftl = freemarkerConfiguration.getTemplate(resourceName);
 		initTemplate(mailCfg);
+	}
+	
+	public void createTemplate(String id, String lang, String type)
+	{
+		try
+		{
+			FreemarkerConfigBuilder fcb = new FreemarkerConfigBuilder(mails);
+			initTemplate(fcb.build(id, lang, type));
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	private void initTemplate(Mail mailCfg) throws IOException
@@ -72,20 +87,22 @@ public class FreemarkerEngine
 		catch (ExlpXpathNotUniqueException e) {e.printStackTrace();}
 	}
  
-	public void process(Mail mailCfg, String reName) throws SAXException, IOException, ParserConfigurationException, TemplateException
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public String process(Object xml) throws SAXException, IOException, ParserConfigurationException, TemplateException
 	{
-		initTemplate(mailCfg);
-		 Document jdom = JDomUtil.load(reName); 
-		 jdom=JDomUtil.unsetNameSpace(jdom);
+		if(ftl==null){throw new AhtUtilsDeveloperException("You forgot to init the template");}
+		Document jdom = JaxbUtil.toDocument(xml);
+		jdom=JDomUtil.unsetNameSpace(jdom);
 		 
-		 Map root = new HashMap();
-	     root.put("doc", freemarker.ext.dom.NodeModel.parse(new InputSource(JDomUtil.toInputStream(jdom, Format.getPrettyFormat()))));
+		Map root = new HashMap();
+		root.put("doc", freemarker.ext.dom.NodeModel.parse(new InputSource(JDomUtil.toInputStream(jdom, Format.getPrettyFormat()))));
 	     
-	     Writer out = new OutputStreamWriter(System.out);
-	     ftl.process(root, out);
-	     out.flush();
+		StringBufferOutputStream sbos = new StringBufferOutputStream();
+	     
+		Writer out = new OutputStreamWriter(sbos);
+		ftl.process(root, out);
+		out.flush();
+	     
+		return sbos.getStringBuffer().toString();
 	}
-	
-
-
 }

@@ -11,6 +11,7 @@ public class FreemarkerConfigBuilder
 {
 	static Log logger = LogFactory.getLog(FreemarkerConfigBuilder.class);
 
+	@SuppressWarnings("unused")
 	private Mails mails;
 	
 	public FreemarkerConfigBuilder(Mails mails)
