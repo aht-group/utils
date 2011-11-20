@@ -1,5 +1,6 @@
 package net.sf.ahtutils.mail.freemarker;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
@@ -14,7 +15,6 @@ import net.sf.ahtutils.xml.mail.Mails;
 import net.sf.ahtutils.xml.xpath.MailXpath;
 import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
-import net.sf.exlp.util.io.StringBufferOutputStream;
 import net.sf.exlp.util.xml.JDomUtil;
 import net.sf.exlp.util.xml.JaxbUtil;
 
@@ -81,7 +81,8 @@ public class FreemarkerEngine
 			sb.append(utilsTemplate.getFile());
 			logger.warn("name: " +sb.toString());
 			
-			ftl = freemarkerConfiguration.getTemplate(sb.toString());
+			ftl = freemarkerConfiguration.getTemplate(sb.toString(),"UTF-8");
+			ftl.setEncoding("UTF-8"); 
 		}
 		catch (ExlpXpathNotFoundException e) {e.printStackTrace();}
 		catch (ExlpXpathNotUniqueException e) {e.printStackTrace();}
@@ -97,12 +98,14 @@ public class FreemarkerEngine
 		Map root = new HashMap();
 		root.put("doc", freemarker.ext.dom.NodeModel.parse(new InputSource(JDomUtil.toInputStream(jdom, Format.getPrettyFormat()))));
 	     
-		StringBufferOutputStream sbos = new StringBufferOutputStream();
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	     
-		Writer out = new OutputStreamWriter(sbos);
+		Writer out = new OutputStreamWriter(baos);
 		ftl.process(root, out);
 		out.flush();
+		
+		String result = new String(baos.toByteArray(),"UTF-8");
 	     
-		return sbos.getStringBuffer().toString();
+		return result;
 	}
 }
