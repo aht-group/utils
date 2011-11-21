@@ -1,11 +1,13 @@
 package net.sf.ahtutils.report;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Locale;
 
@@ -123,6 +125,24 @@ public class ReportController extends AbstractReportControl
 			JasperExportManager.exportReportToPdfFile(jPrint, f.getAbsolutePath());
 		}
 		catch (JRException e) {logger.error("Error in JasperReport creation: " +e.getMessage());}
+	}
+	
+	@SuppressWarnings("deprecation")
+	public InputStream exportPdfStream() throws ReportException
+	{
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		if (!output.equals(Output.pdf))
+		{
+			throw new ReportException("Wrong format (" +output.toString() +") for exporting to PDF document! Exprected PDF.");
+		}
+		File f = new File(path, name+".pdf");
+		try
+		{	
+			logger.info("Exporting report to PDF ("+f.getAbsolutePath()+")");
+			JasperExportManager.exportReportToPdfStream(jPrint, os);
+		}
+		catch (JRException e) {logger.error("Error in JasperReport creation: " +e.getMessage());}
+		return new ByteArrayInputStream(os.toByteArray());
 	}
 	
 	@SuppressWarnings("deprecation")
