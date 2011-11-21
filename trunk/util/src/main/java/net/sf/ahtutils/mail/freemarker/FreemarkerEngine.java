@@ -1,9 +1,7 @@
 package net.sf.ahtutils.mail.freemarker;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,14 +42,6 @@ public class FreemarkerEngine
 		freemarkerConfiguration.setClassForTemplateLoading(this.getClass(), "/");
 	}
 	
-	public void get(Mail mailCfg, String resourceName) throws IOException
-	{
-		logger.warn("name: " +resourceName);
-		
-		ftl = freemarkerConfiguration.getTemplate(resourceName);
-		initTemplate(mailCfg);
-	}
-	
 	public void createTemplate(String id, String lang, String type)
 	{
 		try
@@ -79,10 +69,9 @@ public class FreemarkerEngine
 			sb.append(utilsTemplate.getLang()).append("-");
 			sb.append(utilsTemplate.getType()).append("-");
 			sb.append(utilsTemplate.getFile());
-			logger.warn("name: " +sb.toString());
 			
 			ftl = freemarkerConfiguration.getTemplate(sb.toString(),"UTF-8");
-			ftl.setEncoding("UTF-8"); 
+			ftl.setEncoding("UTF-8");
 		}
 		catch (ExlpXpathNotFoundException e) {e.printStackTrace();}
 		catch (ExlpXpathNotUniqueException e) {e.printStackTrace();}
@@ -98,14 +87,10 @@ public class FreemarkerEngine
 		Map root = new HashMap();
 		root.put("doc", freemarker.ext.dom.NodeModel.parse(new InputSource(JDomUtil.toInputStream(jdom, Format.getPrettyFormat()))));
 	     
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		StringWriter sw = new StringWriter();
+		ftl.process(root, sw);
+		sw.flush();
 	     
-		Writer out = new OutputStreamWriter(baos);
-		ftl.process(root, out);
-		out.flush();
-		
-		String result = new String(baos.toByteArray(),"UTF-8");
-	     
-		return result;
+		return sw.toString();
 	}
 }
