@@ -77,6 +77,10 @@
 			    		<artifactId>commons-collections</artifactId>
 			    		<groupId>commons-collections</groupId>
 			    	</exclusion>
+			    	<exclusion>
+			    		<artifactId>xml-apis</artifactId>
+			    		<groupId>xml-apis</groupId>
+			    	</exclusion>
 			    </exclusions>
 			</dependency>
 			<dependency>
@@ -93,6 +97,12 @@
 			    <groupId>xalan</groupId>
 			    <artifactId>xalan</artifactId>
 			    <version>${xalan.version}</version>
+			    <exclusions>
+			    	<exclusion>
+			    		<artifactId>xml-apis</artifactId>
+			    		<groupId>xml-apis</groupId>
+			    	</exclusion>
+			    </exclusions>
 			</dependency>
 			<dependency>
 			    <groupId>org.jboss.spec</groupId>
@@ -137,6 +147,25 @@
   			<groupId>org.freemarker</groupId>
   			<artifactId>freemarker</artifactId>
 			<version>2.3.18</version>
+		</dependency>
+		<dependency>
+			<groupId>jmimemagic</groupId>
+			<artifactId>jmimemagic</artifactId>
+			<version>0.1.2</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>xercesImpl</artifactId>
+					<groupId>xerces</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>xml-apis</artifactId>
+					<groupId>xml-apis</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>xmlParserAPIs</artifactId>
+					<groupId>xml-apis</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
    
