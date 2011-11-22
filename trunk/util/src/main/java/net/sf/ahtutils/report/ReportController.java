@@ -111,7 +111,6 @@ public class ReportController extends AbstractReportControl
 	}
 
 	
-	@SuppressWarnings("deprecation")
 	public void exportPdf() throws ReportException
 	{
 		if (!output.equals(Output.pdf))
@@ -127,10 +126,15 @@ public class ReportController extends AbstractReportControl
 		catch (JRException e) {logger.error("Error in JasperReport creation: " +e.getMessage());}
 	}
 	
-	@SuppressWarnings("deprecation")
-	public InputStream exportPdfStream() throws ReportException
+	public ByteArrayOutputStream exportToPdf() throws ReportException
 	{
-		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		exportToPdf(baos);
+		return baos;
+	}
+	
+	public void exportToPdf(OutputStream os) throws ReportException
+	{
 		if (!output.equals(Output.pdf))
 		{
 			throw new ReportException("Wrong format (" +output.toString() +") for exporting to PDF document! Exprected PDF.");
@@ -142,7 +146,6 @@ public class ReportController extends AbstractReportControl
 			JasperExportManager.exportReportToPdfStream(jPrint, os);
 		}
 		catch (JRException e) {logger.error("Error in JasperReport creation: " +e.getMessage());}
-		return new ByteArrayInputStream(os.toByteArray());
 	}
 	
 	@SuppressWarnings("deprecation")
