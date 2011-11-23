@@ -7,6 +7,7 @@ import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import net.sf.ahtutils.xml.mail.Bcc;
 import net.sf.ahtutils.xml.mail.Cc;
@@ -17,11 +18,19 @@ import net.sf.ahtutils.xml.mail.To;
 
 public class MailMessageCreator
 {
-	private Message msg;
+	private MimeMessage msg;
+	private String encoding;
 	
-	public MailMessageCreator(Message msg)
+	public MailMessageCreator(MimeMessage msg)
+	{
+		this("UTF-8",msg);
+		
+	}
+	
+	public MailMessageCreator(String encoding, MimeMessage msg)
 	{
 		this.msg=msg;
+		this.encoding=encoding;
 	}
 	
 	public void createHeader(Header header) throws UnsupportedEncodingException, MessagingException
@@ -31,7 +40,7 @@ public class MailMessageCreator
 		if(header.isSetCc()){createCc(header.getCc());}
 		if(header.isSetBcc()){createBcc(header.getBcc());}
 		
-		msg.setSubject(header.getSubject());
+		msg.setSubject(header.getSubject(),encoding);
 		msg.setSentDate(new Date());
 	}
 	
