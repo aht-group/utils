@@ -55,12 +55,14 @@ public class FreemarkerEngine
 		}
 	}
 	
-	private void initTemplate(Mail mailCfg) throws IOException
+	private void initTemplate(Mail cfgMail) throws IOException
 	{
 		try
 		{
-			Mail mail = MailXpath.getMail(mails, mailCfg.getId());
-			net.sf.ahtutils.xml.mail.Template utilsTemplate = MailXpath.getTemplate(mail, mail.getTemplate().get(0).getLang(), mail.getTemplate().get(0).getType());
+			Mail mail = MailXpath.getMail(mails, cfgMail.getId());
+
+			net.sf.ahtutils.xml.mail.Template cfgTemplate =  cfgMail.getTemplate().get(0);
+			net.sf.ahtutils.xml.mail.Template utilsTemplate = MailXpath.getTemplate(mail, cfgTemplate.getLang(), cfgTemplate.getType());
 			
 			StringBuffer sb = new StringBuffer();
 			sb.append(mails.getDir());
@@ -73,8 +75,8 @@ public class FreemarkerEngine
 			ftl = freemarkerConfiguration.getTemplate(sb.toString(),"UTF-8");
 			ftl.setEncoding("UTF-8");
 		}
-		catch (ExlpXpathNotFoundException e) {e.printStackTrace();}
-		catch (ExlpXpathNotUniqueException e) {e.printStackTrace();}
+		catch (ExlpXpathNotFoundException e) {logger.error("Mail.id="+cfgMail.getId()+" "+e.getMessage());}
+		catch (ExlpXpathNotUniqueException e) {logger.error("Mail.id="+cfgMail.getId()+" "+e.getMessage());}
 	}
  
 	@SuppressWarnings({ "rawtypes", "unchecked" })
