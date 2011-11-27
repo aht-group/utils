@@ -8,9 +8,13 @@ import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestXmlStatus extends AbstractXmlStatusTest
 {
+	final static Logger logger = LoggerFactory.getLogger(TestXmlStatus.class);
+	
 	@BeforeClass
 	public static void initFiles()
 	{

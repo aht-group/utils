@@ -11,15 +11,15 @@ import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestReportMediaXpath extends AbstractXmlTest
 {
-	static Log logger = LogFactory.getLog(TestReportMediaXpath.class);
+	final static Logger logger = LoggerFactory.getLogger(TestReportMediaXpath.class);
     
 	private Media media1,media2,media3,media4;
 	private List<Media> mediaList;
@@ -27,13 +27,13 @@ public class TestReportMediaXpath extends AbstractXmlTest
 	@Before
 	public void iniMedia()
 	{
-		media1 = TestMedia.createMedia("t1");
+		media1 = TestMedia.create("t1");
     	media1.setDir("d1");
     	
-    	media2 = TestMedia.createMedia("t2");
+    	media2 = TestMedia.create("t2");
 
-    	media3 = TestMedia.createMedia("t3");
-    	media4 = TestMedia.createMedia("t3");
+    	media3 = TestMedia.create("t3");
+    	media4 = TestMedia.create("t3");
     	
     	mediaList = new ArrayList<Media>();
     	mediaList.add(media1);

@@ -8,14 +8,14 @@ import net.sf.ahtutils.xml.xpath.MailXpath;
 import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestMailsTemplateXpath extends AbstractXmlTest
 {
-	static Log logger = LogFactory.getLog(TestMailsTemplateXpath.class);
+	final static Logger logger = LoggerFactory.getLogger(TestMailsTemplateXpath.class);
     
 	private Template xml1,xml2,xml3,xml4;
 	private Mail mail;

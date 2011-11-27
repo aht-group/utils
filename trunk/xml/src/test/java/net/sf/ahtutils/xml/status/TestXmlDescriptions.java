@@ -6,14 +6,14 @@ import java.io.FileNotFoundException;
 import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestXmlDescriptions extends AbstractXmlStatusTest
 {
-	static Log logger = LogFactory.getLog(TestXmlDescriptions.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlLang.class);
 	
 	@BeforeClass
 	public static void initFiles()

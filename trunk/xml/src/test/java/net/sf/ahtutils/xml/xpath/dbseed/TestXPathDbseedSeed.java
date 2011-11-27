@@ -9,15 +9,15 @@ import net.sf.ahtutils.xml.xpath.DbseedXpath;
 import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestXPathDbseedSeed extends AbstractXmlTest
 {
-	static Log logger = LogFactory.getLog(TestXPathDbseedSeed.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXPathDbseedSeed.class);
     
 	private Db dbSeed;
 	private final String codeOk = "code";

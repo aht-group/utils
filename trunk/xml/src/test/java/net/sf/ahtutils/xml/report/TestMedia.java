@@ -3,18 +3,17 @@ package net.sf.ahtutils.xml.report;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.xml.report.Media;
 import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestMedia extends AbstractXmlReportTest
 {
-	static Log logger = LogFactory.getLog(TestMedia.class);
+	final static Logger logger = LoggerFactory.getLogger(TestMedia.class);
 	
 	@BeforeClass
 	public static void initFiles()
@@ -25,29 +24,22 @@ public class TestMedia extends AbstractXmlReportTest
     @Test
     public void testMedia() throws FileNotFoundException
     {
-    	Media test = createMedia();
+    	Media test = create();
     	Media ref = (Media)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Media.class);
     	assertJaxbEquals(ref, test);
     }
- 
-    public void save()
-    {
-    	logger.debug("Saving Reference XML");
-    	Media media = createMedia();
-    	JaxbUtil.debug2(this.getClass(),media, nsPrefixMapper);
-    	JaxbUtil.save(fXml, media, nsPrefixMapper, true);
-    	
-    }
     
-    public static Media createMedia(){return createMedia("pdf");}
-    public static Media createMedia(String type)
+    public static Media create(){return create("pdf");}
+    public static Media create(String type)
     {
     	Media media = new Media();
     	media.setDir("testDir");
-    	media.getJr().add(TestJr.createJr());
+    	media.getJr().add(TestJr.create());
     	media.setType(type);
     	return media;
     }
+    
+    public void save() {save(create(),fXml);}
 	
 	public static void main(String[] args)
     {

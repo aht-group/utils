@@ -8,14 +8,14 @@ import net.sf.ahtutils.xml.xpath.ReportXpath;
 import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestReportsReportXpath extends AbstractXmlTest
 {
-	static Log logger = LogFactory.getLog(TestReportsReportXpath.class);
+	final static Logger logger = LoggerFactory.getLogger(TestReportsReportXpath.class);
     
 	private Report xml1,xml2,xml3,xml4;
 	private Reports reports;
@@ -25,10 +25,10 @@ public class TestReportsReportXpath extends AbstractXmlTest
 	{
 		reports = new Reports();
 		
-		xml1 = TestReport.createReport("t1");reports.getReport().add(xml1);
-		xml2 = TestReport.createReport("t2");reports.getReport().add(xml2);
-		xml3 = TestReport.createReport("t3");reports.getReport().add(xml3);
-		xml4 = TestReport.createReport("t3");reports.getReport().add(xml4);
+		xml1 = TestReport.create("t1");reports.getReport().add(xml1);
+		xml2 = TestReport.create("t2");reports.getReport().add(xml2);
+		xml3 = TestReport.create("t3");reports.getReport().add(xml3);
+		xml4 = TestReport.create("t3");reports.getReport().add(xml4);
 	}
 	
 	@Test

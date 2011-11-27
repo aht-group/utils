@@ -3,18 +3,17 @@ package net.sf.ahtutils.xml.report;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.xml.report.Reports;
 import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestReports extends AbstractXmlReportTest
 {
-	static Log logger = LogFactory.getLog(TestReports.class);
+	final static Logger logger = LoggerFactory.getLogger(TestReports.class);
 	
 	@BeforeClass
 	public static void initFiles()
@@ -25,26 +24,20 @@ public class TestReports extends AbstractXmlReportTest
     @Test
     public void testReports() throws FileNotFoundException
     {
-    	Reports test = createReports();
+    	Reports test = create();
     	Reports ref = (Reports)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Reports.class);
     	assertJaxbEquals(ref, test);
     }
- 
-    public void save()
-    {
-    	logger.debug("Saving Reference XML");
-    	Reports reports = createReports();
-    	JaxbUtil.debug2(this.getClass(),reports, nsPrefixMapper);
-    	JaxbUtil.save(fXml, reports, nsPrefixMapper, true);
-    }
     
-    public static Reports createReports()
+    public static Reports create()
     {
     	Reports reports = new Reports();
     	reports.setDir("testDir");
-    	reports.getReport().add(TestReport.createReport());
+    	reports.getReport().add(TestReport.create());
     	return reports;
     }
+    
+    public void save() {save(create(),fXml);}
 	
 	public static void main(String[] args)
     {
