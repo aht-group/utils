@@ -8,14 +8,14 @@ import net.sf.ahtutils.xml.cloud.facebook.User;
 import net.sf.exlp.util.DateUtil;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SignedRequestFactory
 {
-	static Log logger = LogFactory.getLog(SignedRequestFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(SignedRequestFactory.class);
 	
 	private SignedRequest signedRequest;
 

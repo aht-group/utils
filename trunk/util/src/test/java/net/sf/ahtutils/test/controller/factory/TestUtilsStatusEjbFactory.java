@@ -6,21 +6,22 @@ import net.sf.ahtutils.model.ejb.status.AhtUtilsDescription;
 import net.sf.ahtutils.model.ejb.status.AhtUtilsLang;
 import net.sf.ahtutils.model.ejb.status.AhtUtilsStatus;
 import net.sf.ahtutils.test.AbstractAhtUtilTest;
+import net.sf.ahtutils.test.controller.util.TestRankComparator;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Langs;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.exlp.util.io.LoggerInit;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestUtilsStatusEjbFactory extends AbstractAhtUtilTest
 {
-	static Log logger = LogFactory.getLog(TestUtilsStatusEjbFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(TestRankComparator.class);
 	
 	private UtilsStatusEjbFactory<AhtUtilsStatus,AhtUtilsLang,AhtUtilsDescription> facStatus;
 	private Status status;

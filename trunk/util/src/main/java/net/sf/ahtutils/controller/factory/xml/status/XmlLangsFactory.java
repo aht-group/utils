@@ -2,15 +2,16 @@ package net.sf.ahtutils.controller.factory.xml.status;
 
 import java.util.Map;
 
+import net.sf.ahtutils.controller.servlet.facebook.FbRedirector;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.xml.status.Langs;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class XmlLangsFactory
 {
-	static Log logger = LogFactory.getLog(XmlLangsFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(XmlLangsFactory.class);
 		
 	private Langs q;
 	

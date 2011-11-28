@@ -7,12 +7,12 @@ import net.sf.ahtutils.controller.exception.AhtUtilsIntegrityException;
 import net.sf.ahtutils.db.xml.AhtDbXmlInit.Priority;
 import net.sf.ahtutils.xml.dbseed.Db;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class AbstractAhtDbXmlInit extends AbstractAhtDbXmlUtil
 {
-	static Log logger = LogFactory.getLog(AbstractAhtDbXmlInit.class);
+	final static Logger logger = LoggerFactory.getLogger(AbstractAhtDbXmlInit.class);
 
 	protected AhtXmlInitIdMapper idMapper;
 	protected AhtStatusDbInit asdi;

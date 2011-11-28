@@ -7,17 +7,17 @@ import java.util.Random;
 import net.sf.ahtutils.controller.util.Ranking;
 import net.sf.ahtutils.test.AbstractAhtUtilTest;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestRanking extends AbstractAhtUtilTest
 {
-	static Log logger = LogFactory.getLog(TestRanking.class);
+	final static Logger logger = LoggerFactory.getLogger(TestRanking.class);
 	
 	private Ranking ranking;
 	private Random rnd;

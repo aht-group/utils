@@ -7,12 +7,12 @@ import net.sf.ahtutils.model.interfaces.mail.UtilsMailTracker;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class EjbMailTrackerFactory<T extends UtilsMailTracker<S,L,U>,S extends UtilsStatus<L>, L extends UtilsLang, U extends EjbWithId>
 {
-	static Log logger = LogFactory.getLog(EjbMailTrackerFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(EjbMailTrackerFactory.class);
 	
     final Class<T> clTracker;
 	

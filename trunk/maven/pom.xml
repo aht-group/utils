@@ -35,7 +35,6 @@
 	    <dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
 			<scope>test</scope>
 	    </dependency>
 	    <dependency>
@@ -45,42 +44,11 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-	    <dependency>
-        	<groupId>commons-logging</groupId>
-        	<artifactId>commons-logging</artifactId>
-        	<type>jar</type>
-		</dependency>
-		<dependency>
-			<groupId>commons-collections</groupId>
-			<artifactId>commons-collections</artifactId>
-			<version>${commons-collections.version}</version>
-		</dependency>
 		<dependency>
     		<groupId>net.sf.exlp</groupId>
     		<artifactId>exlp-util</artifactId>
-    		<version>${exlp.version}</version>
     		<type>jar</type>
     		<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.sf.jasperreports</groupId>
-			<artifactId>jasperreports</artifactId>
-			<version>${jasperreports.version}</version>
-		</dependency>
-		<dependency>
-	    	<groupId>net.sf.jasperreports</groupId>
-	    	<artifactId>jasperreports-fonts</artifactId>
-	    	<version>${jasperreports.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.groovy</groupId>
-			<artifactId>groovy-all</artifactId>
-			<version>${groovy.version}</version> 
-		</dependency>
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi</artifactId>
-			<version>${poi.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.ahtutils</groupId>

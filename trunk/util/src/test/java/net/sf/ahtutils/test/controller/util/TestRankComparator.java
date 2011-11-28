@@ -8,15 +8,14 @@ import junit.framework.Assert;
 import net.sf.ahtutils.controller.util.Ranking;
 import net.sf.ahtutils.test.AbstractAhtUtilTest;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestRankComparator extends AbstractAhtUtilTest
 {
-	static Log logger = LogFactory.getLog(TestRankComparator.class);
+	final static Logger logger = LoggerFactory.getLogger(TestRankComparator.class);
 	
 	@Before
 	public void init()

@@ -2,11 +2,10 @@ package net.sf.ahtutils.report;
 //
 //import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-//import java.io.File;
-//import java.io.FileNotFoundException;
-//import java.io.IOException;
-//import java.io.InputStream;
 import java.io.OutputStream;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 //import java.io.FileInputStream;
 //import java.util.ArrayList;
 //import java.util.Hashtable;
@@ -29,10 +28,10 @@ import java.io.OutputStream;
 //import org.jdom.xpath.XPath;
 //
 //
-public class ReportUtilXls {
-//	
-//	static Log logger = LogFactory.getLog(ReportUtilXls.class);
-//	
+public class ReportUtilXls 
+{
+	final static Logger logger = LoggerFactory.getLogger(ReportUtilXls.class);
+
 public static OutputStream RemoveEmptyCells(String fileName)
 {
 	OutputStream out = new ByteArrayOutputStream();

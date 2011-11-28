@@ -8,12 +8,12 @@ import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.xml.access.ProjectRoles;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class XmlAclProjectRolesFactory
 {
-	static Log logger = LogFactory.getLog(XmlAclProjectRolesFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(XmlAclProjectRolesFactory.class);
 		
 	private ProjectRoles qProjectRoles;
 	

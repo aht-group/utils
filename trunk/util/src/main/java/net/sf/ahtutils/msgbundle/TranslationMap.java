@@ -7,12 +7,12 @@ import java.util.Map;
 
 import net.sf.ahtutils.controller.exception.AhtUtilsNotFoundException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TranslationMap
 {
-	static Log logger = LogFactory.getLog(TranslationMap.class);
+	final static Logger logger = LoggerFactory.getLogger(TranslationMap.class);
 	
 	private Map<String,Map<String,String>> tMap;
 	

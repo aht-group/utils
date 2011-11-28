@@ -4,12 +4,12 @@ import java.util.Enumeration;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.logging.Log;
+import org.slf4j.Logger;
 
 public class FbLoginSessionDebug
 {
 	@SuppressWarnings("rawtypes")
-	public static void debug(HttpSession session, Log logger)
+	public static void debug(HttpSession session, Logger logger)
 	{
 		logger.debug("Debugging FbLoginSession Parameter (line numbers are inaccurate)");
 		Enumeration e = session.getAttributeNames();

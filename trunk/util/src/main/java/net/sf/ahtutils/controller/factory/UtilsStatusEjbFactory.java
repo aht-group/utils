@@ -14,12 +14,12 @@ import net.sf.ahtutils.xml.status.Descriptions;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class UtilsStatusEjbFactory<S extends UtilsStatus<L>, L extends UtilsLang, D extends UtilsDescription>
 {
-	static Log logger = LogFactory.getLog(UtilsStatusEjbFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(UtilsStatusEjbFactory.class);
 	
 	final Class<S> statusClass;
     final Class<L> langClass;

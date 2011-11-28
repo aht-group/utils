@@ -3,12 +3,12 @@ package net.sf.ahtutils.controller.factory.xml.status;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.xml.status.Lang;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class XmlLangFactory
 {
-	static Log logger = LogFactory.getLog(XmlLangFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(XmlLangsFactory.class);
 		
 	private Lang q;
 	

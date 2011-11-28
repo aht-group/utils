@@ -4,12 +4,12 @@ import java.util.List;
 
 import net.sf.exlp.util.io.txt.AbstractTxtWriter;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DoubleLineTexTable extends AbstractTxtWriter implements TexTable
 {
-	static Log logger = LogFactory.getLog(DoubleLineTexTable.class);
+	final static Logger logger = LoggerFactory.getLogger(DoubleLineTexTable.class);
 	
 	public DoubleLineTexTable(String dirName,String fileName)
 	{

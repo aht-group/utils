@@ -1,15 +1,15 @@
 package net.sf.ahtutils.report;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class AntJasperCreatorTask extends Task{
+public class AntJasperCreatorTask extends Task
+{
+	final static Logger logger = LoggerFactory.getLogger(ReportController.class);
 	
 	private String configFile, reportRoot, targetDir;
-
-    static Log logger = LogFactory.getLog(AntJasperCreatorTask.class);
 	
     public void execute() throws BuildException
     {

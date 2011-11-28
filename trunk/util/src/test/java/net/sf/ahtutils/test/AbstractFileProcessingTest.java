@@ -6,13 +6,13 @@ import java.util.Collection;
 
 import net.sf.exlp.util.io.LoggerInit;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.BeforeClass;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class AbstractFileProcessingTest
 {
-	static Log logger = LogFactory.getLog(AbstractFileProcessingTest.class);
+	final static Logger logger = LoggerFactory.getLogger(AbstractFileProcessingTest.class);
 	
 	protected File fTest;
 	protected File fRef;

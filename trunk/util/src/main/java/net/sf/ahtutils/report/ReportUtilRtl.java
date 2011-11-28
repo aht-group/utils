@@ -1,32 +1,22 @@
 package net.sf.ahtutils.report;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.FileInputStream;
-import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
 
 import net.sf.exlp.util.xml.JDomUtil;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.output.Format;
 import org.jdom.xpath.XPath;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-
-public class ReportUtilRtl {
-	
-	static Log logger = LogFactory.getLog(ReportUtilRtl.class);
+public class ReportUtilRtl
+{
+	final static Logger logger = LoggerFactory.getLogger(ReportUtilXls.class);
 	
 	public static InputStream LeftToRightConversion(String jrxmlName) throws JDOMException
 	{

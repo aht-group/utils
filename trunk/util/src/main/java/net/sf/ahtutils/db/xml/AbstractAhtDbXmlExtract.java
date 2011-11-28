@@ -9,12 +9,12 @@ import net.sf.ahtutils.xml.dbseed.Db;
 import net.sf.exlp.util.io.compression.JarExtractor;
 import net.sf.exlp.util.io.compression.JarStream;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class AbstractAhtDbXmlExtract extends AbstractAhtDbXmlUtil
 {
-	static Log logger = LogFactory.getLog(AbstractAhtDbXmlExtract.class);
+	final static Logger logger = LoggerFactory.getLogger(AbstractAhtDbXmlExtract.class);
 
 	protected String templateDir;
 	protected JarStream jarStream;
@@ -66,7 +66,7 @@ public abstract class AbstractAhtDbXmlExtract extends AbstractAhtDbXmlUtil
 		StringBuffer sb = new StringBuffer();
 			sb.append("Extracting "+jarName);
 			sb.append(" from jar to "+to);
-		logger.debug(sb);
+		logger.debug(sb.toString());
 		JarExtractor.extract(jarName, from,to);
 	}
 }

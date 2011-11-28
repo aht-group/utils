@@ -9,17 +9,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import net.sf.ahtutils.controller.factory.xml.cloud.facebook.SignedRequestFactory;
+import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
 import net.sf.ahtutils.xml.cloud.facebook.App;
 import net.sf.ahtutils.xml.cloud.facebook.SignedRequest;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FbServletLoginHandler
 {	
-	static Log logger = LogFactory.getLog(FbServletLoginHandler.class);
+	final static Logger logger = LoggerFactory.getLogger(FbServletLoginHandler.class);
 	
 	private static Map<String,App> mapAppDef;
 	private App app;
@@ -33,7 +33,7 @@ public class FbServletLoginHandler
 		{
 			loadXml(fbAppDefXml);
 		}
-		catch (FileNotFoundException e) {logger.error(e);}
+		catch (FileNotFoundException e) {logger.error("",e);}
 	}
 	
 	private void loadXml(String fbAppDefXml) throws FileNotFoundException

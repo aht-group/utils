@@ -16,19 +16,18 @@ import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.xml.xpath.NetXpath;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AccessTokenFactory
 {
-	static Log logger = LogFactory.getLog(AccessTokenFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(AccessTokenFactory.class);
 
 	private String appId;
 	private String appSecret;
@@ -53,8 +52,8 @@ public class AccessTokenFactory
 			this.appURL=NetXpath.getUrl(app.getRedirect().getUrl(), FbRedirector.Code.fbauth.toString()).getValue();
 			this.appSecret=app.getSecret();
 		}
-		catch (ExlpXpathNotFoundException e) {logger.error(e);}
-		catch (ExlpXpathNotUniqueException e) {logger.error(e);}
+		catch (ExlpXpathNotFoundException e) {logger.error("",e);}
+		catch (ExlpXpathNotUniqueException e) {logger.error("",e);}
 	}
 	
 	public Token request(String code)
@@ -110,8 +109,8 @@ public class AccessTokenFactory
 			URL url = new URL(sb.toString());
 		    uri = new URI(url.getProtocol(), url.getHost(), url.getPath(), url.getQuery(), null);
 		}
-		catch (URISyntaxException e) {logger.error(e);}
-		catch (MalformedURLException e) {logger.error(e);}
+		catch (URISyntaxException e) {logger.error("",e);}
+		catch (MalformedURLException e) {logger.error("",e);}
 		return new HttpGet(uri);
 	}
 }

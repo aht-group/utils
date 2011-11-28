@@ -11,12 +11,12 @@ import net.sf.jmimemagic.MagicMatchNotFoundException;
 import net.sf.jmimemagic.MagicParseException;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class XmlAttachmentFactory
 {
-	static Log logger = LogFactory.getLog(XmlAttachmentFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(EmailAddressXmlFactory.class);
 	
 	public static Attachment create(File f) throws IOException, MagicParseException, MagicMatchNotFoundException, MagicException
 	{

@@ -214,7 +214,7 @@
               				<rules>
                 				<bannedDependencies>
                   					<excludes>
-                    					<exclude>commons-logging</exclude>
+                    					<exclude>commons-logging:commons-logging</exclude>
                   					</excludes>
                 				</bannedDependencies>
               				</rules>

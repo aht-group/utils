@@ -16,10 +16,10 @@ import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.util.xml.JDomUtil;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.jdom.Document;
 import org.jdom.output.Format;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -29,7 +29,7 @@ import freemarker.template.TemplateException;
 
 public class FreemarkerEngine
 {
-	static Log logger = LogFactory.getLog(FreemarkerEngine.class);
+	final static Logger logger = LoggerFactory.getLogger(FreemarkerEngine.class);
 
 	private Mails mails;
 	private Template ftl;

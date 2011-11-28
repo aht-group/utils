@@ -10,12 +10,12 @@ import net.sf.ahtutils.controller.interfaces.AhtUtilsFacade;
 import net.sf.ahtutils.model.interfaces.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.EjbWithCode;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AhtDbEjbUpdater<C extends EjbWithCode>
 {
-	static Log logger = LogFactory.getLog(AhtDbEjbUpdater.class);
+	final static Logger logger = LoggerFactory.getLogger(AhtDbEjbUpdater.class);
 	
 	final Class<C> codeClass;
 	

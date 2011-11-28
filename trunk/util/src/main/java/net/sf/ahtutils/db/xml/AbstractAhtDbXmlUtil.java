@@ -7,12 +7,12 @@ import net.sf.ahtutils.xml.xpath.DbseedXpath;
 import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class AbstractAhtDbXmlUtil
 {
-	static Log logger = LogFactory.getLog(AbstractAhtDbXmlUtil.class);
+	final static Logger logger = LoggerFactory.getLogger(AbstractAhtDbXmlUtil.class);
 	
 	public static enum DataSource{ide,jar}
 	

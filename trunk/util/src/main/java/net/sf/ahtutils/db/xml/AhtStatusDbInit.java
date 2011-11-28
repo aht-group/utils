@@ -20,12 +20,12 @@ import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AhtStatusDbInit
 {
-	static Log logger = LogFactory.getLog(AhtStatusDbInit.class);
+	final static Logger logger = LoggerFactory.getLogger(AhtStatusDbInit.class);
 	
 	private Map<String,Set<Long>> mDbAvailableStatus;
 	private Set<Long> sDeleteLangs;
@@ -115,8 +115,8 @@ public class AhtStatusDbInit
 				L lang = fStatus.fAhtUtilsEntity(cLang, id);
 				fStatus.rmAhtUtilsEntity(lang);
 			}
-			catch (AhtUtilsContraintViolationException e) {logger.error(e);}
-			catch (AhtUtilsNotFoundException e) {logger.error(e);}
+			catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
+			catch (AhtUtilsNotFoundException e) {logger.error("",e);}
 		}
 		
 		 for(String group : mDbAvailableStatus.keySet())
@@ -131,8 +131,8 @@ public class AhtStatusDbInit
 						S status = fStatus.fAhtUtilsEntity(cStatus, id);
 					 fStatus.rmAhtUtilsEntity(status);
 				 }
-				 catch (AhtUtilsContraintViolationException e) {logger.error(e);}
-				 catch (AhtUtilsNotFoundException e) {logger.error(e);}
+				 catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
+				 catch (AhtUtilsNotFoundException e) {logger.error("",e);}
 			 }
 		 }
 	}
@@ -177,14 +177,14 @@ public class AhtStatusDbInit
 					addLangs(ejbStatus,status);
 //					logger.debug(ejbStatus.getName().get("de").getId());
 				}
-				catch (InstantiationException e) {logger.error(e);}
-				catch (IllegalAccessException e) {logger.error(e);}
-				catch (AhtUtilsIntegrityException e) {logger.error(e);}
+				catch (InstantiationException e) {logger.error("",e);}
+				catch (IllegalAccessException e) {logger.error("",e);}
+				catch (AhtUtilsIntegrityException e) {logger.error("",e);}
 				ejbStatus = fStatus.updateAhtUtilsStatus(ejbStatus);
 			}
-			catch (AhtUtilsContraintViolationException e){logger.error(e);}
-			catch (InstantiationException e) {logger.error(e);}
-			catch (IllegalAccessException e) {logger.error(e);}
+			catch (AhtUtilsContraintViolationException e){logger.error("",e);}
+			catch (InstantiationException e) {logger.error("",e);}
+			catch (IllegalAccessException e) {logger.error("",e);}
 		}
 	}
 	

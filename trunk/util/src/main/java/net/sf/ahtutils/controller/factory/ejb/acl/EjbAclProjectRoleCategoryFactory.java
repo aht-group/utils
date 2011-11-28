@@ -5,12 +5,12 @@ import net.sf.ahtutils.model.interfaces.acl.UtilsAclProjectRole;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class EjbAclProjectRoleCategoryFactory<L extends UtilsLang,D extends UtilsDescription,C extends UtilsAclCategoryProjectRole<L,D,C,R>,R extends UtilsAclProjectRole<L,D,C,R>>
 {
-	static Log logger = LogFactory.getLog(EjbAclProjectRoleCategoryFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(EjbAclProjectRoleCategoryFactory.class);
 	
     final Class<L> langClass;
     final Class<D> descriptionClass;

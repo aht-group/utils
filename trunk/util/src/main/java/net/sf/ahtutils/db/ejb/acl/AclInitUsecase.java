@@ -20,8 +20,8 @@ import net.sf.ahtutils.xml.access.Usecase;
 import net.sf.ahtutils.xml.access.UsecaseCategory;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AclInitUsecase <	S extends UtilsStatus<L>,
 							L extends UtilsLang,
@@ -29,6 +29,7 @@ public class AclInitUsecase <	S extends UtilsStatus<L>,
 							CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
 							U extends UtilsAclUsecase<L,D,CU,U>>
 {
+	final static Logger logger = LoggerFactory.getLogger(AclInitUsecase.class);
 	public static enum ExtractId {aclUseCases,aclRoles,aclRoleAutoAssign,aclProjectRoles}
 	
 	final Class<S> statusClass;
@@ -37,9 +38,7 @@ public class AclInitUsecase <	S extends UtilsStatus<L>,
     
     final Class<CU> categoryUsecaseClass;
     final Class<U> usecaseClass;
-	
-	static Log logger = LogFactory.getLog(AclInitUsecase.class);
-	
+		
 	private AhtAclFacade fAcl;
 	private EjbLangFactory<L> ejbLangFactory;
 	
@@ -102,18 +101,18 @@ public class AclInitUsecase <	S extends UtilsStatus<L>,
 				usecaseCategory.setDescription(null);
 				
 				try{usecaseCategory=(CU)fAcl.updateAhtUtilsStatus(usecaseCategory);}
-				catch (AhtUtilsContraintViolationException e) {logger.error(e);}
+				catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
 				
 				for(L lang : langMap.values())
 				{
 					try {fAcl.rmAhtUtilsEntity(lang);}
-					catch (AhtUtilsContraintViolationException e) {logger.error(e);}
+					catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
 				}
 				
 				for(D desc : descMap.values())
 				{
 					try {fAcl.rmAhtUtilsEntity(desc);}
-					catch (AhtUtilsContraintViolationException e) {logger.error(e);}
+					catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
 				}
 				logger.trace("removed existing langs: "+category.getCode());
 			}
@@ -145,10 +144,10 @@ public class AclInitUsecase <	S extends UtilsStatus<L>,
 					}
 				}
 			}
-			catch (AhtUtilsContraintViolationException e) {logger.error(e);}
-			catch (InstantiationException e) {logger.error(e);}
-			catch (IllegalAccessException e) {logger.error(e);}
-			catch (AhtUtilsIntegrityException e) {logger.error(e);}
+			catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
+			catch (InstantiationException e) {logger.error("",e);}
+			catch (IllegalAccessException e) {logger.error("",e);}
+			catch (AhtUtilsIntegrityException e) {logger.error("",e);}
 		}
 		
 		ejbUcUpdate.remove(fAcl);
@@ -170,18 +169,18 @@ public class AclInitUsecase <	S extends UtilsStatus<L>,
 			aclUsecase.setDescription(null);
 			
 			try{aclUsecase=fAcl.updateAhtUtilsStatus(aclUsecase);}
-			catch (AhtUtilsContraintViolationException e) {logger.error(e);}
+			catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
 			
 			for(L lang : langMap.values())
 			{
 				try {fAcl.rmAhtUtilsEntity(lang);}
-				catch (AhtUtilsContraintViolationException e) {logger.error(e);}
+				catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
 			}
 			
 			for(D desc : descMap.values())
 			{
 				try {fAcl.rmAhtUtilsEntity(desc);}
-				catch (AhtUtilsContraintViolationException e) {logger.error(e);}
+				catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
 			}
 		}
 		catch (AhtUtilsNotFoundException e)
@@ -204,9 +203,9 @@ public class AclInitUsecase <	S extends UtilsStatus<L>,
 			aclUsecase.setCategory(usecaseCategory);
 			aclUsecase=fAcl.updateAhtUtilsStatus(aclUsecase);
 		}
-		catch (AhtUtilsContraintViolationException e) {logger.error(e);}
-		catch (InstantiationException e) {logger.error(e);}
-		catch (IllegalAccessException e) {logger.error(e);}
-		catch (AhtUtilsIntegrityException e) {logger.error(e);}
+		catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
+		catch (InstantiationException e) {logger.error("",e);}
+		catch (IllegalAccessException e) {logger.error("",e);}
+		catch (AhtUtilsIntegrityException e) {logger.error("",e);}
 	}
 }

@@ -8,12 +8,12 @@ import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.xml.access.Usecase;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class XmlUsecaseFactory
 {
-	static Log logger = LogFactory.getLog(XmlUsecaseFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(XmlUsecaseFactory.class);
 		
 	private Usecase qUc;
 	private String lang;

@@ -1,13 +1,14 @@
 package net.sf.ahtutils.test;
 
+import net.sf.ahtutils.test.chart.TestOfxChartRenderer;
 import net.sf.exlp.util.io.LoggerInit;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AhtUtilsTstBootstrap
 {
-	static Log logger = LogFactory.getLog(AhtUtilsTstBootstrap.class);
+	final static Logger logger = LoggerFactory.getLogger(AhtUtilsTstBootstrap.class);
 	
 	public static void init()
 	{

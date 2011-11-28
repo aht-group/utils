@@ -10,14 +10,13 @@ import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.xml.net.Url;
 import net.sf.exlp.xml.xpath.NetXpath;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FbRedirector
 {
+	final static Logger logger = LoggerFactory.getLogger(FbRedirector.class);
 	public static enum Code{app,canvas,fbauth}
-	
-	static Log logger = LogFactory.getLog(FbRedirector.class);
 	
 	private App app;
 	
@@ -39,8 +38,8 @@ public class FbRedirector
 			
 			redirect(response, sb.toString());
 		}
-		catch (ExlpXpathNotFoundException e) {logger.error(e);}
-		catch (ExlpXpathNotUniqueException e) {logger.error(e);}
+		catch (ExlpXpathNotFoundException e) {logger.error("",e);}
+		catch (ExlpXpathNotUniqueException e) {logger.error("",e);}
 	}
 	
 	public void toApp(HttpServletResponse response)
@@ -50,8 +49,8 @@ public class FbRedirector
 			Url url = NetXpath.getUrl(app.getRedirect().getUrl(), Code.app.toString());
 			redirect(response, url.getValue());
 		}
-		catch (ExlpXpathNotFoundException e) {logger.error(e);}
-		catch (ExlpXpathNotUniqueException e) {logger.error(e);}
+		catch (ExlpXpathNotFoundException e) {logger.error("",e);}
+		catch (ExlpXpathNotUniqueException e) {logger.error("",e);}
 	}
 	
 	public void toCanvas(HttpServletResponse response)
@@ -61,14 +60,14 @@ public class FbRedirector
 			Url url = NetXpath.getUrl(app.getRedirect().getUrl(), Code.canvas.toString());
 			redirect(response, url.getValue());
 		}
-		catch (ExlpXpathNotFoundException e) {logger.error(e);}
-		catch (ExlpXpathNotUniqueException e) {logger.error(e);}
+		catch (ExlpXpathNotFoundException e) {logger.error("",e);}
+		catch (ExlpXpathNotUniqueException e) {logger.error("",e);}
 	}
 	
 	private void redirect(HttpServletResponse response, String url)
 	{
 		logger.debug("Redirecting to "+url);
 		try {response.sendRedirect(response.encodeRedirectURL(url));}
-		catch (IOException e) {logger.error(e);}
+		catch (IOException e) {logger.error("",e);}
 	}
 }

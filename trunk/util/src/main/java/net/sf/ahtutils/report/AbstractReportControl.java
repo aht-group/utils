@@ -21,14 +21,13 @@ import net.sf.jasperreports.engine.util.JRLoader;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.jxpath.JXPathContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.jdom.JDOMException;
-import org.w3c.dom.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class AbstractReportControl
 {
-	static Log logger = LogFactory.getLog(AbstractReportControl.class);
+	final static Logger logger = LoggerFactory.getLogger(AbstractReportControl.class);
 
 	public static enum Output{pdf,xls}
 	public static enum Source{database,example,report}
@@ -139,9 +138,9 @@ public abstract class AbstractReportControl
 				}
 				report = JasperCompileManager.compileReport(is);
 			}
-			catch (JRException e) {logger.error(e);}
-			catch (FileNotFoundException e) {logger.error(e);}
-			catch (JDOMException e) {logger.error(e);}
+			catch (JRException e) {logger.error("",e);}
+			catch (FileNotFoundException e) {logger.error("",e);}
+			catch (JDOMException e) {logger.error("",e);}
 		}
 		return report;
 	}

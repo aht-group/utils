@@ -7,12 +7,12 @@ import javax.naming.Context;
 import javax.naming.NamingException;
 import javax.naming.ldap.InitialLdapContext;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AdsAuth
 {
-	static Log logger = LogFactory.getLog(AdsAuth.class);
+	final static Logger logger = LoggerFactory.getLogger(AdsAuth.class);
 	
 	private String domain;
 	private String ldapHost;
@@ -37,8 +37,8 @@ public class AdsAuth
 			new InitialLdapContext(env, null);
 			return true;
 		}
-		catch (AuthenticationException e){logger.trace(e);}
-		catch (NamingException e){logger.error(e);}
+		catch (AuthenticationException e){logger.trace("",e);}
+		catch (NamingException e){logger.error("",e);}
 		return false;
 	}
 }

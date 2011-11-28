@@ -2,7 +2,6 @@ package net.sf.ahtutils.report;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 
@@ -14,13 +13,14 @@ import net.sf.exlp.util.xml.JaxbUtil;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.jdom.JDOMException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ReportCompiler
 {
-    static Log logger = LogFactory.getLog(ReportCompiler.class);
+	final static Logger logger = LoggerFactory.getLogger(ReportController.class);
+	
     static ArrayList<String> log;
     static String currentHash;
     

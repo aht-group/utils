@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Collection;
 
-import net.sf.ahtutils.controller.factory.xml.cloud.facebook.AccessTokenFactory;
 import net.sf.ahtutils.test.AbstractFileProcessingTest;
 import net.sf.ahtutils.xml.cloud.facebook.Token;
 import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
@@ -12,19 +11,19 @@ import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.io.StringIO;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RunWith(Parameterized.class)
 public class TestAccessTokenFactory extends AbstractFileProcessingTest
 {
-	static Log logger = LogFactory.getLog(TestAccessTokenFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(TestAccessTokenFactory.class);
 	
 	private AccessTokenFactory atf;
 	
@@ -63,7 +62,7 @@ public class TestAccessTokenFactory extends AbstractFileProcessingTest
 	private void decode(boolean saveReference) throws FileNotFoundException
 	{
 		setRefFile("xml",dstDirToken);
-		logger.debug(fTest.getAbsoluteFile());
+		logger.debug(fTest.getAbsoluteFile().getAbsolutePath());
 		String inRaw = StringIO.loadTxt(fTest);
 		Token testToken = atf.toXml(inRaw);
 		if(saveReference)

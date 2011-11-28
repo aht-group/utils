@@ -1,20 +1,15 @@
 package net.sf.ahtutils.report;
 
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Locale;
 
 import javax.imageio.ImageIO;
 
-import net.sf.ahtutils.report.AbstractReportControl.Direction;
-import net.sf.ahtutils.report.AbstractReportControl.Output;
 import net.sf.ahtutils.report.exception.ReportException;
 import net.sf.ahtutils.xml.report.Reports;
 import net.sf.ahtutils.xml.report.Resource;
@@ -23,19 +18,19 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import net.sf.jasperreports.engine.query.JRXPathQueryExecuterFactory;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
 public class ReportController extends AbstractReportControl
 {
-	static Log logger = LogFactory.getLog(ReportController.class);
+	final static Logger logger = LoggerFactory.getLogger(ReportController.class);
+	
 	protected Resources resources;
 	protected String path, name;
 	

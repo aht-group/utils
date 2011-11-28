@@ -1,24 +1,19 @@
 package net.sf.ahtutils.report;
 
-import java.awt.Color;
-
 import net.sf.jasperreports.engine.JRBand;
-import net.sf.jasperreports.engine.JRElement;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExpression;
-import net.sf.jasperreports.engine.JRHyperlink;
-import net.sf.jasperreports.engine.JRParameter;
-import net.sf.jasperreports.engine.JRPen;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.base.JRBaseTextField;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
-import net.sf.jasperreports.engine.design.JRDesignTextElement;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlWriter;
 
-public class ReportUtilTemplate {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class ReportUtilTemplate
+{
+	final static Logger logger = LoggerFactory.getLogger(ReportUtilXls.class);
 	
 	public void create() throws JRException
 	{

@@ -18,12 +18,13 @@ import net.sf.ahtutils.xml.status.Translations;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.apache.commons.io.DirectoryWalker;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TranslationFactory
 {
-	static Log logger = LogFactory.getLog(TranslationFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(TranslationFactory.class);
+	
 	public static final String msgBundleSuffix = "properties";
 	
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>Fields<<<<<<<<<<<<<<<<<<<<<<<<<<<	
@@ -121,7 +122,7 @@ public class TranslationFactory
 			sb.append("    ").append(langKey).append(": ");
 			int number = 0;
 			try {number = tMap.getTranslationKeys(langKey).size();}
-			catch (AhtUtilsNotFoundException e) {logger.error(e);}
+			catch (AhtUtilsNotFoundException e) {logger.error("",e);}
 			sb.append(number).append(" translations");
 			result.add(sb.toString());
 		}

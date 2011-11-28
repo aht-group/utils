@@ -7,12 +7,12 @@ import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.xml.mail.Tracker;
 import net.sf.exlp.util.DateUtil;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class XmlTrackerFactory
 {
-	static Log logger = LogFactory.getLog(XmlTrackerFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(EmailAddressXmlFactory.class);
 	
 	private Tracker q;
 	

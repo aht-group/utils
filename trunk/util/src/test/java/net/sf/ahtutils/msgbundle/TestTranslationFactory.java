@@ -9,14 +9,14 @@ import net.sf.ahtutils.controller.exception.AhtUtilsNotFoundException;
 import net.sf.ahtutils.test.AbstractAhtUtilTest;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestTranslationFactory extends AbstractAhtUtilTest
 {
-	static Log logger = LogFactory.getLog(TestTranslationFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(TestTranslationFactory.class);
 	
 	private static final String targetDir = "target/msg-bundle.test";
 	private TranslationFactory tFactory;

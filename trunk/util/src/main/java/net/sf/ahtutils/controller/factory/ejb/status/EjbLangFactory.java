@@ -11,12 +11,12 @@ import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Langs;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class EjbLangFactory<L extends UtilsLang>
 {
-	static Log logger = LogFactory.getLog(EjbLangFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(EjbLangFactory.class);
 	
     final Class<L> langClass;
 	

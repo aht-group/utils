@@ -3,12 +3,12 @@ package net.sf.ahtutils.controller.factory.xml.mail;
 import net.sf.ahtutils.xml.mail.Mail;
 import net.sf.ahtutils.xml.mail.Template;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class XmlMailFactory
 {
-	static Log logger = LogFactory.getLog(XmlMailFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(EmailAddressXmlFactory.class);
 	
     public static Mail create(String id, String lang, String type)
     {

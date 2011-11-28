@@ -19,14 +19,15 @@ import net.sf.ahtutils.xml.access.ProjectRole;
 import net.sf.ahtutils.xml.access.ProjectRoleCategory;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AclInitProjectRole <L extends UtilsLang,
 								D extends UtilsDescription, 
 								C extends UtilsAclCategoryProjectRole<L,D,C,R>,
 								R extends UtilsAclProjectRole<L,D,C,R>>
 {
+	final static Logger logger = LoggerFactory.getLogger(AclInitProjectRole.class);
 	public static enum ExtractId {aclUseCases,aclRoles,aclRoleAutoAssign,aclProjectRoles}
 	
     final Class<L> langClass;
@@ -34,8 +35,6 @@ public class AclInitProjectRole <L extends UtilsLang,
     
     final Class<C> categoryClass;
     final Class<R> roleClass;
-	
-	static Log logger = LogFactory.getLog(AclInitProjectRole.class);
 	
 	private AhtAclFacade fAcl;
 	private EjbLangFactory<L> ejbLangFactory;
@@ -86,18 +85,18 @@ public class AclInitProjectRole <L extends UtilsLang,
 				aclCategory.setDescription(null);
 				
 				try{aclCategory=(C)fAcl.updateAhtUtilsStatus(aclCategory);}
-				catch (AhtUtilsContraintViolationException e) {logger.error(e);}
+				catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
 				
 				for(L lang : langMap.values())
 				{
 					try {fAcl.rmAhtUtilsEntity(lang);}
-					catch (AhtUtilsContraintViolationException e) {logger.error(e);}
+					catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
 				}
 				
 				for(D desc : descMap.values())
 				{
 					try {fAcl.rmAhtUtilsEntity(desc);}
-					catch (AhtUtilsContraintViolationException e) {logger.error(e);}
+					catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
 				}
 			}
 			catch (AhtUtilsNotFoundException e)
@@ -129,10 +128,10 @@ public class AclInitProjectRole <L extends UtilsLang,
 				}
 				
 			}
-			catch (AhtUtilsContraintViolationException e) {logger.error(e);}
-			catch (InstantiationException e) {logger.error(e);}
-			catch (IllegalAccessException e) {logger.error(e);}
-			catch (AhtUtilsIntegrityException e) {logger.error(e);}
+			catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
+			catch (InstantiationException e) {logger.error("",e);}
+			catch (IllegalAccessException e) {logger.error("",e);}
+			catch (AhtUtilsIntegrityException e) {logger.error("",e);}
 		}
 		
 		updateCategory.remove(fAcl);
@@ -153,18 +152,18 @@ public class AclInitProjectRole <L extends UtilsLang,
 			aclRole.setDescription(null);
 			
 			try{aclRole=(R)fAcl.updateAhtUtilsStatus(aclRole);}
-			catch (AhtUtilsContraintViolationException e) {logger.error(e);}
+			catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
 			
 			for(L lang : langMap.values())
 			{
 				try {fAcl.rmAhtUtilsEntity(lang);}
-				catch (AhtUtilsContraintViolationException e) {logger.error(e);}
+				catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
 			}
 			
 			for(D desc : descMap.values())
 			{
 				try {fAcl.rmAhtUtilsEntity(desc);}
-				catch (AhtUtilsContraintViolationException e) {logger.error(e);}
+				catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
 			}
 		}
 		catch (AhtUtilsNotFoundException e)
@@ -188,9 +187,9 @@ public class AclInitProjectRole <L extends UtilsLang,
 			aclRole.setCategory(category);
 			aclRole=(R)fAcl.updateAhtUtilsStatus(aclRole);
 		}
-		catch (AhtUtilsContraintViolationException e) {logger.error(e);}
-		catch (InstantiationException e) {logger.error(e);}
-		catch (IllegalAccessException e) {logger.error(e);}
-		catch (AhtUtilsIntegrityException e) {logger.error(e);}
+		catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
+		catch (InstantiationException e) {logger.error("",e);}
+		catch (IllegalAccessException e) {logger.error("",e);}
+		catch (AhtUtilsIntegrityException e) {logger.error("",e);}
 	}
 }

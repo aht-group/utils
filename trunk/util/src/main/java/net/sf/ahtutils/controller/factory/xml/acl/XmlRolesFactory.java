@@ -10,12 +10,12 @@ import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.xml.access.Roles;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class XmlRolesFactory
 {
-	static Log logger = LogFactory.getLog(XmlRolesFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(XmlRolesFactory.class);
 		
 	private Roles qRoles;
 	private String lang;

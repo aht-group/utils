@@ -4,12 +4,12 @@ import net.sf.ahtutils.controller.factory.xml.mail.XmlMailFactory;
 import net.sf.ahtutils.xml.mail.Mail;
 import net.sf.ahtutils.xml.mail.Mails;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FreemarkerConfigBuilder
 {
-	static Log logger = LogFactory.getLog(FreemarkerConfigBuilder.class);
+	final static Logger logger = LoggerFactory.getLogger(FreemarkerConfigBuilder.class);
 
 	@SuppressWarnings("unused")
 	private Mails mails;

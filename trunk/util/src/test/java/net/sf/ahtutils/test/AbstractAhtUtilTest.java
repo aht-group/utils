@@ -2,13 +2,13 @@ package net.sf.ahtutils.test;
 
 import net.sf.exlp.util.io.LoggerInit;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.BeforeClass;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AbstractAhtUtilTest
 {
-	static Log logger = LogFactory.getLog(AbstractAhtUtilTest.class);	
+	final static Logger logger = LoggerFactory.getLogger(AbstractAhtUtilTest.class);
 	
 	@BeforeClass
     public static void initLogger()
