@@ -8,12 +8,12 @@ import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
 
 import org.apache.commons.jxpath.JXPathContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AccessXpath
 {
-	static Log logger = LogFactory.getLog(AccessXpath.class);
+	final static Logger logger = LoggerFactory.getLogger(AccessXpath.class);
 	
 	public static synchronized RoleAutoAssign getAutoAssign(AclContainer aclContainer,String code) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
 	{

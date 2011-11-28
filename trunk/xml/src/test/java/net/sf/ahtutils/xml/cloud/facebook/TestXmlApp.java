@@ -3,19 +3,18 @@ package net.sf.ahtutils.xml.cloud.facebook;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.xml.cloud.facebook.App;
 import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.xml.JaxbUtil;
 import net.sf.exlp.xml.net.Url;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestXmlApp extends AbstractXmlFacebookTest
 {
-	static Log logger = LogFactory.getLog(TestXmlApp.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlApp.class);
 	
 	@BeforeClass
 	public static void initFiles()

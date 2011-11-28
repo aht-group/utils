@@ -9,12 +9,12 @@ import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
 
 import org.apache.commons.jxpath.JXPathContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MailXpath
 {
-	static Log logger = LogFactory.getLog(MailXpath.class);
+	final static Logger logger = LoggerFactory.getLogger(MailXpath.class);
 
 	public static synchronized Mail getMail(Mails mails, String id) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
 	{

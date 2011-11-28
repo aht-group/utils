@@ -8,14 +8,14 @@ import net.sf.ahtutils.xml.status.TestXmlLangs;
 import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestXmlUsecase extends AbstractXmlAccessTest
 {
-	static Log logger = LogFactory.getLog(TestXmlUsecase.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlUsecase.class);
 	
 	@BeforeClass
 	public static void initFiles()

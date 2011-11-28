@@ -10,9 +10,13 @@ import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestXmlProjectRoleCategory extends AbstractXmlAccessTest
 {
+	final static Logger logger = LoggerFactory.getLogger(TestXmlProjectRoleCategory.class);
+	
 	@BeforeClass
 	public static void initFiles()
 	{

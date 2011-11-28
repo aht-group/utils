@@ -5,13 +5,12 @@ import java.io.File;
 import net.sf.ahtutils.test.AbstractXmlTest;
 import net.sf.exlp.util.io.LoggerInit;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class AbstractXmlFacebookTest extends AbstractXmlTest
 {
-	static Log logger = LogFactory.getLog(AbstractXmlFacebookTest.class);	
+	final static Logger logger = LoggerFactory.getLogger(AbstractXmlFacebookTest.class);
 	
 	protected static final String rootDir = "src/test/resources/data/xml/cloud/facebook";
 	protected static File fXml;

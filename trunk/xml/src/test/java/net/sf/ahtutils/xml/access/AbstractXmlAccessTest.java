@@ -4,12 +4,12 @@ import java.io.File;
 
 import net.sf.ahtutils.test.AbstractXmlTest;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class AbstractXmlAccessTest extends AbstractXmlTest
 {
-	static Log logger = LogFactory.getLog(AbstractXmlAccessTest.class);	
+	final static Logger logger = LoggerFactory.getLogger(AbstractXmlAccessTest.class);
 	
 	protected static final String rootDir = "src/test/resources/data/xml/access";
 	protected static File fXml;

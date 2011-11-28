@@ -5,20 +5,21 @@ import java.util.Date;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import net.sf.ahtutils.xml.access.AbstractXmlAccessTest;
 import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
 import net.sf.exlp.util.DateUtil;
 import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.xml.JaxbUtil;
 import net.sf.exlp.xml.ns.NsPrefixMapperInterface;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class AbstractXmlTest
 {
-	static Log logger = LogFactory.getLog(AbstractXmlTest.class);	
+	final static Logger logger = LoggerFactory.getLogger(AbstractXmlTest.class);
 	
 	protected static NsPrefixMapperInterface nsPrefixMapper;
 	

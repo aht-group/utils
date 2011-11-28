@@ -8,12 +8,12 @@ import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
 
 import org.apache.commons.jxpath.JXPathContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DbseedXpath
 {
-	static Log logger = LogFactory.getLog(DbseedXpath.class);
+	final static Logger logger = LoggerFactory.getLogger(DbseedXpath.class);
 	
 	public static synchronized Seed getSeed(Db dbSeed, String code) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
 	{
