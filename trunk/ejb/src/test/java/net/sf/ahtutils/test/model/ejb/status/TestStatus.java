@@ -4,20 +4,21 @@ import java.util.Random;
 
 import net.sf.ahtutils.model.ejb.status.AhtUtilsLang;
 import net.sf.ahtutils.model.ejb.status.AhtUtilsStatus;
+import net.sf.ahtutils.test.model.ejb.status.cli.TstStatus;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Ignore
 @RunWith(Arquillian.class)
 public class TestStatus
 {
-	static Log logger = LogFactory.getLog(TestStatus.class);
+	final static Logger logger = LoggerFactory.getLogger(TstStatus.class);
 	
 	private Random rnd;
 	private String code;

@@ -6,26 +6,24 @@ import net.sf.ahtutils.model.ejb.status.AhtUtilsStatus;
 import net.sf.ahtutils.test.model.ejb.status.TestStatus;
 import net.sf.exlp.util.io.LoggerInit;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TstStatus
 {
-	static Log logger = LogFactory.getLog(TstStatus.class);
+	final static Logger logger = LoggerFactory.getLogger(TstStatus.class);
 	
-	private TestStatus test;
 	private Random rnd;
 	
 	public TstStatus()
 	{
-		test = new TestStatus();
 		rnd = new Random();
 	}
 	
 	public void create()
 	{
 		AhtUtilsStatus status = TestStatus.create(rnd, "code");
-		logger.debug(status);
+		logger.debug(status.toString());
 	}
 	
 	public static void main(String[] args)
