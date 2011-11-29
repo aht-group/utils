@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import net.sf.ahtutils.controller.factory.xml.cloud.facebook.SignedRequestFactory;
-import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
 import net.sf.ahtutils.xml.cloud.facebook.App;
 import net.sf.ahtutils.xml.cloud.facebook.SignedRequest;
 import net.sf.exlp.util.xml.JaxbUtil;

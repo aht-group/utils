@@ -2,7 +2,6 @@ package net.sf.ahtutils.controller.factory.xml.status;
 
 import java.util.Map;
 
-import net.sf.ahtutils.controller.servlet.facebook.FbRedirector;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.xml.status.Langs;
 

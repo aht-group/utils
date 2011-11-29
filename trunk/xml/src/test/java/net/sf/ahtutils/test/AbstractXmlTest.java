@@ -5,7 +5,6 @@ import java.util.Date;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import net.sf.ahtutils.xml.access.AbstractXmlAccessTest;
 import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
 import net.sf.exlp.util.DateUtil;
 import net.sf.exlp.util.io.LoggerInit;

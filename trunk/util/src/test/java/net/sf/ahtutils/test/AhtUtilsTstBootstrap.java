@@ -1,6 +1,5 @@
 package net.sf.ahtutils.test;
 
-import net.sf.ahtutils.test.chart.TestOfxChartRenderer;
 import net.sf.exlp.util.io.LoggerInit;
 
 import org.slf4j.Logger;
