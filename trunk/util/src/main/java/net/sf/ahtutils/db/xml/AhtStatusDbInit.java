@@ -12,7 +12,7 @@ import java.util.Set;
 import net.sf.ahtutils.controller.exception.AhtUtilsContraintViolationException;
 import net.sf.ahtutils.controller.exception.AhtUtilsIntegrityException;
 import net.sf.ahtutils.controller.exception.AhtUtilsNotFoundException;
-import net.sf.ahtutils.controller.factory.UtilsStatusEjbFactory;
+import net.sf.ahtutils.controller.factory.ejb.status.EjbStatusEjbFactory;
 import net.sf.ahtutils.controller.interfaces.AhtUtilsFacade;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
@@ -31,7 +31,7 @@ public class AhtStatusDbInit
 	private Map<String,Set<Long>> mDbAvailableStatus;
 	private Set<Long> sDeleteLangs;
 
-	private UtilsStatusEjbFactory statusEjbFactory;
+	private EjbStatusEjbFactory statusEjbFactory;
 
 	public AhtStatusDbInit()
 	{
@@ -189,5 +189,5 @@ public class AhtStatusDbInit
 		}
 	}
 	
-	public void setStatusEjbFactory(UtilsStatusEjbFactory statusEjbFactory) {this.statusEjbFactory = statusEjbFactory;}
+	public void setStatusEjbFactory(EjbStatusEjbFactory statusEjbFactory) {this.statusEjbFactory = statusEjbFactory;}
 }

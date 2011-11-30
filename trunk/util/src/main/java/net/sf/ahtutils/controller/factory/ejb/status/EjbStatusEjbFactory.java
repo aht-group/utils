@@ -1,11 +1,10 @@
-package net.sf.ahtutils.controller.factory;
+package net.sf.ahtutils.controller.factory.ejb.status;
 
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
 import net.sf.ahtutils.controller.exception.AhtUtilsIntegrityException;
-import net.sf.ahtutils.controller.factory.ejb.status.EjbLangFactory;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
@@ -17,9 +16,9 @@ import net.sf.exlp.util.xml.JaxbUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UtilsStatusEjbFactory<S extends UtilsStatus<L>, L extends UtilsLang, D extends UtilsDescription>
+public class EjbStatusEjbFactory<S extends UtilsStatus<L>, L extends UtilsLang, D extends UtilsDescription>
 {
-	final static Logger logger = LoggerFactory.getLogger(UtilsStatusEjbFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(EjbStatusEjbFactory.class);
 	
 	final Class<S> statusClass;
     final Class<L> langClass;
@@ -27,7 +26,7 @@ public class UtilsStatusEjbFactory<S extends UtilsStatus<L>, L extends UtilsLang
     
     private EjbLangFactory<L> ejbLangFactory;
 	
-    public UtilsStatusEjbFactory(final Class<S> statusClass, final Class<L> langClass, final Class<D> descriptionClass)
+    public EjbStatusEjbFactory(final Class<S> statusClass, final Class<L> langClass, final Class<D> descriptionClass)
     {
         this.statusClass = statusClass;
         this.langClass = langClass;
@@ -36,10 +35,10 @@ public class UtilsStatusEjbFactory<S extends UtilsStatus<L>, L extends UtilsLang
         ejbLangFactory = EjbLangFactory.createFactory(langClass);
     } 
     
-    public static <S extends UtilsStatus<L>, L extends UtilsLang, D extends UtilsDescription> UtilsStatusEjbFactory<S, L, D>
+    public static <S extends UtilsStatus<L>, L extends UtilsLang, D extends UtilsDescription> EjbStatusEjbFactory<S, L, D>
     		createFactory(final Class<S> statusClass, final Class<L> langClass, final Class<D> descriptionClass)
     {
-        return new UtilsStatusEjbFactory<S, L, D>(statusClass, langClass, descriptionClass);
+        return new EjbStatusEjbFactory<S, L, D>(statusClass, langClass, descriptionClass);
     }
     
 	public S create(Status status) throws InstantiationException, IllegalAccessException, AhtUtilsIntegrityException

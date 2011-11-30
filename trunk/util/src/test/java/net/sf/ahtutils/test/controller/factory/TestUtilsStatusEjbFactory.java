@@ -1,7 +1,7 @@
 package net.sf.ahtutils.test.controller.factory;
 
 import net.sf.ahtutils.controller.exception.AhtUtilsIntegrityException;
-import net.sf.ahtutils.controller.factory.UtilsStatusEjbFactory;
+import net.sf.ahtutils.controller.factory.ejb.status.EjbStatusEjbFactory;
 import net.sf.ahtutils.model.ejb.status.AhtUtilsDescription;
 import net.sf.ahtutils.model.ejb.status.AhtUtilsLang;
 import net.sf.ahtutils.model.ejb.status.AhtUtilsStatus;
@@ -23,13 +23,13 @@ public class TestUtilsStatusEjbFactory extends AbstractAhtUtilTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestRankComparator.class);
 	
-	private UtilsStatusEjbFactory<AhtUtilsStatus,AhtUtilsLang,AhtUtilsDescription> facStatus;
+	private EjbStatusEjbFactory<AhtUtilsStatus,AhtUtilsLang,AhtUtilsDescription> facStatus;
 	private Status status;
 	
 	@Before
 	public void init()
 	{
-		facStatus = UtilsStatusEjbFactory.createFactory(AhtUtilsStatus.class, AhtUtilsLang.class,AhtUtilsDescription.class);
+		facStatus = EjbStatusEjbFactory.createFactory(AhtUtilsStatus.class, AhtUtilsLang.class,AhtUtilsDescription.class);
 		status = createStatus();
 	}
     
