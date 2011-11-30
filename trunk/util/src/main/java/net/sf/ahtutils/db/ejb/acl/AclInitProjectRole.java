@@ -64,8 +64,8 @@ public class AclInitProjectRole <L extends UtilsLang,
 		AhtDbEjbUpdater<C> updateCategory = AhtDbEjbUpdater.createFactory(categoryClass);
 		AhtDbEjbUpdater<R> updateRole = AhtDbEjbUpdater.createFactory(roleClass);
 		
-		updateCategory.dbEjbs(fAcl.allAclProjectRoleCategory(categoryClass));
-		updateRole.dbEjbs(fAcl.allAclProjectRole(roleClass));
+		updateCategory.dbEjbs(fAcl.all(categoryClass));
+		updateRole.dbEjbs(fAcl.all(roleClass));
 		
 		logger.trace("i/u "+ProjectRoleCategory.class.getSimpleName()+" with "+xmlFile);
 		AclContainer aclContainer = (AclContainer)JaxbUtil.loadJAXB(xmlFile, AclContainer.class);

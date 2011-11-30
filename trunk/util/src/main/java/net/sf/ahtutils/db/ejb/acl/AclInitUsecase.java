@@ -23,7 +23,7 @@ import net.sf.exlp.util.xml.JaxbUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AclInitUsecase <	S extends UtilsStatus<L>,
+public class AclInitUsecase <S extends UtilsStatus<L>,
 							L extends UtilsLang,
 							D extends UtilsDescription,
 							CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
@@ -78,8 +78,8 @@ public class AclInitUsecase <	S extends UtilsStatus<L>,
 		AhtDbEjbUpdater<CU> ejbUccUpdate = AhtDbEjbUpdater.createFactory(categoryUsecaseClass);
 		AhtDbEjbUpdater<U> ejbUcUpdate = AhtDbEjbUpdater.createFactory(usecaseClass);
 		
-		ejbUccUpdate.dbEjbs(fAcl.allAclUsecaseCategory(categoryUsecaseClass));
-		ejbUcUpdate.dbEjbs(fAcl.allAclUsecase(usecaseClass));
+		ejbUccUpdate.dbEjbs(fAcl.all(categoryUsecaseClass));
+		ejbUcUpdate.dbEjbs(fAcl.all(usecaseClass));
 
 		logger.debug("iuUsecaseCategory with "+xmlFile);
 		AclContainer aclContainer = (AclContainer)JaxbUtil.loadJAXB(xmlFile, AclContainer.class);

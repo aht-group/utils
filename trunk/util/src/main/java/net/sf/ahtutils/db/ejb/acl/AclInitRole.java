@@ -86,8 +86,8 @@ public class AclInitRole <	S extends UtilsStatus<L>,
 		AhtDbEjbUpdater<CR> updateRoleCategory = AhtDbEjbUpdater.createFactory(categoryRoleClass);
 		AhtDbEjbUpdater<R> updateRole = AhtDbEjbUpdater.createFactory(roleClass);
 		
-		updateRoleCategory.dbEjbs(fAcl.allAclRoleCategory(categoryRoleClass));
-		updateRole.dbEjbs(fAcl.allAclRole(roleClass));
+		updateRoleCategory.dbEjbs(fAcl.all(categoryRoleClass));
+		updateRole.dbEjbs(fAcl.all(roleClass));
 		
 		logger.debug("i/u "+RoleCategory.class.getSimpleName());
 		AclContainer aclContainer = (AclContainer)JaxbUtil.loadJAXB(xmlFile, AclContainer.class);

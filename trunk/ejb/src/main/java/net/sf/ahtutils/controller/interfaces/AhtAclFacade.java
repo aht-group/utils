@@ -77,17 +77,21 @@ public interface AhtAclFacade extends AhtUtilsFacade
 	 R extends UtilsAclProjectRole<L,D,C,R>>
 	R fProjectRoleByCode(Class<R> type, String code) throws AhtUtilsNotFoundException;
 	
+	
+	//ALL
+	<T extends Object> List<T> all(Class<T> type);
+	/*
 	<L extends UtilsLang,
 	 D extends UtilsDescription,
 	 C extends UtilsAclCategoryProjectRole<L,D,C,R>,
 	 R extends UtilsAclProjectRole<L,D,C,R>>
-	List<C> allAclProjectRoleCategory(Class<C> type);
+	List<C> allAclProjectRoleCategory2(Class<C> type);
 	
 	<L extends UtilsLang,
 	 D extends UtilsDescription, 
 	 C extends UtilsAclCategoryProjectRole<L,D,C,R>,
 	 R extends UtilsAclProjectRole<L,D,C,R>>
-	List<R> allAclProjectRole(Class<R> type);
+	List<R> allAclProjectRole2(Class<R> type);
 	
 	<L extends UtilsLang,
 	 D extends UtilsDescription,
@@ -99,7 +103,7 @@ public interface AhtAclFacade extends AhtUtilsFacade
 	 D extends UtilsDescription, 
 	 CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
 	 U extends UtilsAclUsecase<L,D,CU,U>>
-	List<U> allAclUsecase(Class<U> type);
+	List<U> allAclUsecase2(Class<U> type);
 	
 	<L extends UtilsLang,
 	 D extends UtilsDescription,
@@ -115,7 +119,7 @@ public interface AhtAclFacade extends AhtUtilsFacade
 	 CR extends UtilsAclCategoryRole<L,D,CU,CR,U,R>,
 	 U extends UtilsAclUsecase<L,D,CU,U>,
 	 R extends UtilsAclRole<L,D,CU,CR,U,R>>
-	List<R> allAclRole(Class<R> type);
+	List<R> allAclRole2(Class<R> type); */
 	
 	//***************************   XML Factory   *************************************
 	
