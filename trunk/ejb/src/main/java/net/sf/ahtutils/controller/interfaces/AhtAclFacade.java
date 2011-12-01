@@ -21,6 +21,44 @@ import net.sf.ahtutils.xml.access.UsecaseCategory;
 
 public interface AhtAclFacade extends AhtUtilsFacade
 {
+
+	
+
+	
+	<L extends UtilsLang,
+	 D extends UtilsDescription, 
+	 CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
+	 CR extends UtilsAclCategoryRole<L,D,CU,CR,U,R>,
+	 U extends UtilsAclUsecase<L,D,CU,U>,
+	 R extends UtilsAclRole<L,D,CU,CR,U,R>>
+	List<R> fAclRoles(Class<R> type, List<Role> lRoles) throws AhtUtilsNotFoundException;
+	
+	<L extends UtilsLang,
+	 D extends UtilsDescription, 
+	 CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
+	 CR extends UtilsAclCategoryRole<L,D,CU,CR,U,R>,
+	 U extends UtilsAclUsecase<L,D,CU,U>,
+	 R extends UtilsAclRole<L,D,CU,CR,U,R>>
+	Set<String> findUsecaseCodesForRoles(List<R> roles);
+	
+
+	
+	
+	//By-CODE
+	<L extends UtilsLang,
+	 D extends UtilsDescription, 
+	 C extends UtilsAclCategoryProjectRole<L,D,C,R>,
+	 R extends UtilsAclProjectRole<L,D,C,R>>
+	R fProjectRoleByCode(Class<R> type, String code) throws AhtUtilsNotFoundException;
+	
+	<L extends UtilsLang,
+	 D extends UtilsDescription, 
+	 CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
+	 CR extends UtilsAclCategoryRole<L,D,CU,CR,U,R>,
+	 U extends UtilsAclUsecase<L,D,CU,U>,
+	 R extends UtilsAclRole<L,D,CU,CR,U,R>>
+	R fRoleByCode(Class<R> type, String code) throws AhtUtilsNotFoundException;
+	
 	<L extends UtilsLang,
 	 D extends UtilsDescription,
 	 CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
@@ -47,79 +85,10 @@ public interface AhtAclFacade extends AhtUtilsFacade
 	 U extends UtilsAclUsecase<L,D,CU,U>>
 	U fUsecaseByCode(Class<U> type, String code) throws AhtUtilsNotFoundException;
 	
-	<L extends UtilsLang,
-	 D extends UtilsDescription, 
-	 CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
-	 CR extends UtilsAclCategoryRole<L,D,CU,CR,U,R>,
-	 U extends UtilsAclUsecase<L,D,CU,U>,
-	 R extends UtilsAclRole<L,D,CU,CR,U,R>>
-	R fRoleByCode(Class<R> type, String code) throws AhtUtilsNotFoundException;
 	
-	<L extends UtilsLang,
-	 D extends UtilsDescription, 
-	 CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
-	 CR extends UtilsAclCategoryRole<L,D,CU,CR,U,R>,
-	 U extends UtilsAclUsecase<L,D,CU,U>,
-	 R extends UtilsAclRole<L,D,CU,CR,U,R>>
-	List<R> fAclRoles(Class<R> type, List<Role> lRoles) throws AhtUtilsNotFoundException;
+	//***********************
 	
-	<L extends UtilsLang,
-	 D extends UtilsDescription, 
-	 CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
-	 CR extends UtilsAclCategoryRole<L,D,CU,CR,U,R>,
-	 U extends UtilsAclUsecase<L,D,CU,U>,
-	 R extends UtilsAclRole<L,D,CU,CR,U,R>>
-	Set<String> findUsecaseCodesForRoles(List<R> roles);
-	
-	<L extends UtilsLang,
-	 D extends UtilsDescription, 
-	 C extends UtilsAclCategoryProjectRole<L,D,C,R>,
-	 R extends UtilsAclProjectRole<L,D,C,R>>
-	R fProjectRoleByCode(Class<R> type, String code) throws AhtUtilsNotFoundException;
-	
-	
-	//ALL
 	<T extends Object> List<T> all(Class<T> type);
-	/*
-	<L extends UtilsLang,
-	 D extends UtilsDescription,
-	 C extends UtilsAclCategoryProjectRole<L,D,C,R>,
-	 R extends UtilsAclProjectRole<L,D,C,R>>
-	List<C> allAclProjectRoleCategory2(Class<C> type);
-	
-	<L extends UtilsLang,
-	 D extends UtilsDescription, 
-	 C extends UtilsAclCategoryProjectRole<L,D,C,R>,
-	 R extends UtilsAclProjectRole<L,D,C,R>>
-	List<R> allAclProjectRole2(Class<R> type);
-	
-	<L extends UtilsLang,
-	 D extends UtilsDescription,
-	 CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
-	 U extends UtilsAclUsecase<L,D,CU,U>>
-	List<CU> allAclUsecaseCategory(Class<CU> type);
-	
-	<L extends UtilsLang,
-	 D extends UtilsDescription, 
-	 CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
-	 U extends UtilsAclUsecase<L,D,CU,U>>
-	List<U> allAclUsecase2(Class<U> type);
-	
-	<L extends UtilsLang,
-	 D extends UtilsDescription,
-	 CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
-	 CR extends UtilsAclCategoryRole<L,D,CU,CR,U,R>,
-	 U extends UtilsAclUsecase<L,D,CU,U>,
-	 R extends UtilsAclRole<L,D,CU,CR,U,R>>
-	List<CR> allAclRoleCategory(Class<CR> type);
-	
-	<L extends UtilsLang,
-	 D extends UtilsDescription, 
-	 CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
-	 CR extends UtilsAclCategoryRole<L,D,CU,CR,U,R>,
-	 U extends UtilsAclUsecase<L,D,CU,U>,
-	 R extends UtilsAclRole<L,D,CU,CR,U,R>>
-	List<R> allAclRole2(Class<R> type); */
 	
 	//***************************   XML Factory   *************************************
 	
