@@ -97,7 +97,7 @@ public class AclInitRole <	S extends UtilsStatus<L>,
 			CR aclRoleCategory;
 			try
 			{
-				aclRoleCategory = fAcl.fRoleCategoryByCode(categoryRoleClass,category.getCode());
+				aclRoleCategory = fAcl.fAhtUtilsByCode(categoryRoleClass,category.getCode());
 				
 				Map<String,L> langMap = aclRoleCategory.getName();
 				Map<String,D> descMap = aclRoleCategory.getDescription();
@@ -180,7 +180,7 @@ public class AclInitRole <	S extends UtilsStatus<L>,
 		R aclRole;
 		try
 		{
-			aclRole = fAcl.fRoleByCode(roleClass,role.getCode());
+			aclRole = fAcl.fAhtUtilsByCode(roleClass,role.getCode());
 			
 			if(!refRoles)
 			{
@@ -233,7 +233,7 @@ public class AclInitRole <	S extends UtilsStatus<L>,
 				{
 					for(Usecase usecase : role.getUsecases().getUsecase())
 					{
-						try {aclRole.getUsecases().add(fAcl.fUsecaseByCode(usecaseClass,usecase.getCode()));}
+						try {aclRole.getUsecases().add(fAcl.fAhtUtilsByCode(usecaseClass,usecase.getCode()));}
 						catch (AhtUtilsNotFoundException e) {logger.error("",e);}
 					}
 				}
@@ -256,7 +256,7 @@ public class AclInitRole <	S extends UtilsStatus<L>,
 				{
 					try
 					{
-						R aclSubRole = fAcl.fRoleByCode(roleClass,subRole.getCode());
+						R aclSubRole = fAcl.fAhtUtilsByCode(roleClass,subRole.getCode());
 						aclRole.getRoles().add(aclSubRole);
 					}
 					catch (AhtUtilsNotFoundException e) {{logger.error("Sub.Role "+subRole.getCode()+" not found! Exit.");System.exit(-1);}}

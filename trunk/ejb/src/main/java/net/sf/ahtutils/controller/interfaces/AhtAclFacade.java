@@ -20,11 +20,7 @@ import net.sf.ahtutils.xml.access.RoleCategory;
 import net.sf.ahtutils.xml.access.UsecaseCategory;
 
 public interface AhtAclFacade extends AhtUtilsFacade
-{
-
-	
-
-	
+{	
 	<L extends UtilsLang,
 	 D extends UtilsDescription, 
 	 CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
@@ -41,11 +37,8 @@ public interface AhtAclFacade extends AhtUtilsFacade
 	 R extends UtilsAclRole<L,D,CU,CR,U,R>>
 	Set<String> findUsecaseCodesForRoles(List<R> roles);
 	
-
-	
-	
 	//By-CODE
-	<L extends UtilsLang,
+/*	<L extends UtilsLang,
 	 D extends UtilsDescription, 
 	 C extends UtilsAclCategoryProjectRole<L,D,C,R>,
 	 R extends UtilsAclProjectRole<L,D,C,R>>
@@ -84,7 +77,7 @@ public interface AhtAclFacade extends AhtUtilsFacade
 	 CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
 	 U extends UtilsAclUsecase<L,D,CU,U>>
 	U fUsecaseByCode(Class<U> type, String code) throws AhtUtilsNotFoundException;
-	
+*/	
 	
 	//***********************
 	

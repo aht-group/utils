@@ -92,7 +92,7 @@ public class AclInitUsecase <S extends UtilsStatus<L>,
 			CU usecaseCategory;
 			try
 			{
-				usecaseCategory = fAcl.fUsecaseCategoryByCode(categoryUsecaseClass, category.getCode());
+				usecaseCategory = fAcl.fAhtUtilsByCode(categoryUsecaseClass, category.getCode());
 				
 				logger.trace("removing existing langs: "+category.getCode());
 				Map<String,L> langMap = usecaseCategory.getName();
@@ -161,7 +161,7 @@ public class AclInitUsecase <S extends UtilsStatus<L>,
 		U aclUsecase;
 		try
 		{
-			aclUsecase = fAcl.fUsecaseByCode(usecaseClass, usecase.getCode());
+			aclUsecase = fAcl.fAhtUtilsByCode(usecaseClass, usecase.getCode());
 			
 			Map<String,L> langMap = aclUsecase.getName();
 			Map<String,D> descMap = aclUsecase.getDescription();

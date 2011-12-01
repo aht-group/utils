@@ -77,7 +77,7 @@ public class AclInitProjectRole <L extends UtilsLang,
 			C aclCategory;
 			try
 			{
-				aclCategory = fAcl.fProjectRoleCategoryByCode(categoryClass,category.getCode());
+				aclCategory = fAcl.fAhtUtilsByCode(categoryClass,category.getCode());
 				
 				Map<String,L> langMap = aclCategory.getName();
 				Map<String,D> descMap = aclCategory.getDescription();
@@ -144,7 +144,7 @@ public class AclInitProjectRole <L extends UtilsLang,
 		R aclRole;
 		try
 		{
-			aclRole = fAcl.fProjectRoleByCode(roleClass,role.getCode());
+			aclRole = fAcl.fAhtUtilsByCode(roleClass,role.getCode());
 			
 			Map<String,L> langMap = aclRole.getName();
 			Map<String,D> descMap = aclRole.getDescription();
