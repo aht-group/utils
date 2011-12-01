@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Set;
 
 import net.sf.ahtutils.controller.exception.AhtUtilsNotFoundException;
-import net.sf.ahtutils.controller.interfaces.AhtUtilsFacade;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryProjectRole;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryRole;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
@@ -29,6 +28,7 @@ public interface AhtAclFacade extends AhtUtilsFacade
 	 R extends UtilsAclRole<L,D,CU,CR,U,R>>
 	List<R> fAclRoles(Class<R> type, List<Role> lRoles) throws AhtUtilsNotFoundException;
 	
+	@Deprecated// ERP-275
 	<L extends UtilsLang,
 	 D extends UtilsDescription, 
 	 CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
@@ -36,6 +36,14 @@ public interface AhtAclFacade extends AhtUtilsFacade
 	 U extends UtilsAclUsecase<L,D,CU,U>,
 	 R extends UtilsAclRole<L,D,CU,CR,U,R>>
 	Set<String> findUsecaseCodesForRoles(List<R> roles);
+	
+	<L extends UtilsLang,
+	 D extends UtilsDescription, 
+	 CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
+	 CR extends UtilsAclCategoryRole<L,D,CU,CR,U,R>,
+	 U extends UtilsAclUsecase<L,D,CU,U>,
+	 R extends UtilsAclRole<L,D,CU,CR,U,R>>
+	Set<U> findUsecasesForRoles(List<R> roles);
 		
 	<T extends Object> List<T> all(Class<T> type);
 	

@@ -85,11 +85,9 @@ public class UtilsIdentityFactory  <I extends UtilsIdentity<L,D,CU,UC,U>,
 		I identity = clIdentity.newInstance();
 		identity.setUser(user);
 		
-		
-		for(String code : fAcl.findUsecaseCodesForRoles(roles))
+		for(UC uc : fAcl.findUsecasesForRoles(roles))
 		{
-			try {identity.allowUsecase(fAcl.fAhtUtilsByCode(clUsecase, code));}
-			catch (AhtUtilsNotFoundException e) {logger.error("This should not happen ...",e);}
+			identity.allowUsecase(uc);
 		}
 		
 		return identity;
