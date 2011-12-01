@@ -12,25 +12,30 @@ public class AbstractIdentityUser <L extends UtilsLang,D extends UtilsDescriptio
 {
 	public static final long serialVersionUID=1;
 
-	protected Map<String,Boolean> mapAllowedUsecases;
+	private Map<String,Boolean> mapUsecases;
 	
 	public AbstractIdentityUser()
 	{
-		mapAllowedUsecases = new Hashtable<String,Boolean>();
+		mapUsecases = new Hashtable<String,Boolean>();
 	}
 	
 	public void allowUsecase(U usecase)
 	{
-		mapAllowedUsecases.put(usecase.getCode(), true);
+		mapUsecases.put(usecase.getCode(), true);
 	}
 	
 	public boolean hasUsecase(String code)
 	{
-		if(mapAllowedUsecases.containsKey(code))
+		if(mapUsecases.containsKey(code))
 		{
-			return mapAllowedUsecases.get(code);
+			return mapUsecases.get(code);
 		}
 		return false;
+	}
+	
+	public int sizeUsecases()
+	{
+		return mapUsecases.size();
 	}
 	
 

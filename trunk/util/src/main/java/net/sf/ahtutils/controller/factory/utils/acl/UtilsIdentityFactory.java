@@ -3,6 +3,7 @@ package net.sf.ahtutils.controller.factory.utils.acl;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.ahtutils.controller.exception.AhtUtilsNotFoundException;
 import net.sf.ahtutils.controller.interfaces.AhtAclFacade;
 import net.sf.ahtutils.model.interfaces.EjbWithId;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryRole;
@@ -25,7 +26,7 @@ public class UtilsIdentityFactory  <I extends UtilsIdentity<L,D,CU,UC,U>,
 									UC extends UtilsAclUsecase<L,D,CU,UC>,
 									U extends EjbWithId>
 {
-final static Logger logger = LoggerFactory.getLogger(UtilsIdentityFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(UtilsIdentityFactory.class);
 
 	final Class<I> clIdentity;
 	final Class<L> clLang;
@@ -84,16 +85,12 @@ final static Logger logger = LoggerFactory.getLogger(UtilsIdentityFactory.class)
 		I identity = clIdentity.newInstance();
 		identity.setUser(user);
 		
-		/*
+		
 		for(String code : fAcl.findUsecaseCodesForRoles(roles))
 		{
-			identity.allowUsecase(fAcl.fAhtUtilsByCode(type, code));
-		}			 
-		 */
-		
-		UC uc = clUsecase.newInstance();
-		uc.setCode("myCode");
-		identity.allowUsecase(uc);
+			try {identity.allowUsecase(fAcl.fAhtUtilsByCode(clUsecase, code));}
+			catch (AhtUtilsNotFoundException e) {logger.error("This should not happen ...",e);}
+		}
 		
 		return identity;
 	}

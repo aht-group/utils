@@ -18,4 +18,5 @@ public interface UtilsIdentity  <L extends UtilsLang,
 	void allowUsecase(UC usecase);
 	
 	public boolean hasUsecase(String usecaseCode);
+	int sizeUsecases();
 }
