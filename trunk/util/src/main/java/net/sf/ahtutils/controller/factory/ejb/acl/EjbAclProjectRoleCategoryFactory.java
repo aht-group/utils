@@ -12,21 +12,21 @@ public class EjbAclProjectRoleCategoryFactory<L extends UtilsLang,D extends Util
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbAclProjectRoleCategoryFactory.class);
 	
-    final Class<L> langClass;
-    final Class<D> descriptionClass;
+    final Class<L> clLang;
+    final Class<D> clDescription;
     final Class<C> clCategory;
     final Class<R> clRole;
 	
     public static <L extends UtilsLang,D extends UtilsDescription,C extends UtilsAclCategoryProjectRole<L,D,C,R>,R extends UtilsAclProjectRole<L,D,C,R>>
-    	EjbAclProjectRoleCategoryFactory<L,D,C,R> createFactory(final Class<L> langClass,final Class<D> descriptionClass,final Class<C> clCategory,final Class<R> clRole)
+    	EjbAclProjectRoleCategoryFactory<L,D,C,R> createFactory(final Class<L> clLang,final Class<D> clDescription,final Class<C> clCategory,final Class<R> clRole)
     {
-        return new EjbAclProjectRoleCategoryFactory<L,D,C,R>(langClass,descriptionClass,clCategory,clRole);
+        return new EjbAclProjectRoleCategoryFactory<L,D,C,R>(clLang,clDescription,clCategory,clRole);
     }
     
-    public EjbAclProjectRoleCategoryFactory(final Class<L> langClass,final Class<D> descriptionClass,final Class<C> clCategory,final Class<R> clRole)
+    public EjbAclProjectRoleCategoryFactory(final Class<L> clLang,final Class<D> clDescription,final Class<C> clCategory,final Class<R> clRole)
     {
-        this.langClass = langClass;
-        this.descriptionClass = descriptionClass;
+        this.clLang = clLang;
+        this.clDescription = clDescription;
         this.clCategory = clCategory;
         this.clRole = clRole;
     } 

@@ -36,51 +36,7 @@ public interface AhtAclFacade extends AhtUtilsFacade
 	 U extends UtilsAclUsecase<L,D,CU,U>,
 	 R extends UtilsAclRole<L,D,CU,CR,U,R>>
 	Set<String> findUsecaseCodesForRoles(List<R> roles);
-	
-	//By-CODE
-/*	<L extends UtilsLang,
-	 D extends UtilsDescription, 
-	 C extends UtilsAclCategoryProjectRole<L,D,C,R>,
-	 R extends UtilsAclProjectRole<L,D,C,R>>
-	R fProjectRoleByCode(Class<R> type, String code) throws AhtUtilsNotFoundException;
-	
-	<L extends UtilsLang,
-	 D extends UtilsDescription, 
-	 CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
-	 CR extends UtilsAclCategoryRole<L,D,CU,CR,U,R>,
-	 U extends UtilsAclUsecase<L,D,CU,U>,
-	 R extends UtilsAclRole<L,D,CU,CR,U,R>>
-	R fRoleByCode(Class<R> type, String code) throws AhtUtilsNotFoundException;
-	
-	<L extends UtilsLang,
-	 D extends UtilsDescription,
-	 CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
-	 U extends UtilsAclUsecase<L,D,CU,U>>
-	CU fUsecaseCategoryByCode(Class<CU> type, String code) throws AhtUtilsNotFoundException;
-	
-	<L extends UtilsLang,
-	 D extends UtilsDescription,
-	 CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
-	 CR extends UtilsAclCategoryRole<L,D,CU,CR,U,R>,
-	 U extends UtilsAclUsecase<L,D,CU,U>,
-	 R extends UtilsAclRole<L,D,CU,CR,U,R>>
-	CR fRoleCategoryByCode(Class<CR> type, String code) throws AhtUtilsNotFoundException;
-	
-	<L extends UtilsLang,
-	 D extends UtilsDescription,
-	 C extends UtilsAclCategoryProjectRole<L,D,C,R>,
-	 R extends UtilsAclProjectRole<L,D,C,R>>
-	C fProjectRoleCategoryByCode(Class<C> type, String code) throws AhtUtilsNotFoundException;
-	
-	<L extends UtilsLang,
-	 D extends UtilsDescription, 
-	 CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
-	 U extends UtilsAclUsecase<L,D,CU,U>>
-	U fUsecaseByCode(Class<U> type, String code) throws AhtUtilsNotFoundException;
-*/	
-	
-	//***********************
-	
+		
 	<T extends Object> List<T> all(Class<T> type);
 	
 	//***************************   XML Factory   *************************************

@@ -84,6 +84,13 @@ final static Logger logger = LoggerFactory.getLogger(UtilsIdentityFactory.class)
 		I identity = clIdentity.newInstance();
 		identity.setUser(user);
 		
+		/*
+		for(String code : fAcl.findUsecaseCodesForRoles(roles))
+		{
+			identity.allowUsecase(fAcl.fAhtUtilsByCode(type, code));
+		}			 
+		 */
+		
 		UC uc = clUsecase.newInstance();
 		uc.setCode("myCode");
 		identity.allowUsecase(uc);
