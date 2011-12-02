@@ -3,8 +3,9 @@ package net.sf.ahtutils.model.interfaces.status;
 import java.util.Map;
 
 import net.sf.ahtutils.model.interfaces.EjbRemoveable;
+import net.sf.ahtutils.model.interfaces.EjbWithCode;
 
-public interface UtilsStatus<T extends UtilsLang> extends EjbRemoveable
+public interface UtilsStatus<T extends UtilsLang> extends EjbRemoveable,EjbWithCode
 {	
 	public void setId(long id);
 	public long getId();
