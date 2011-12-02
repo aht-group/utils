@@ -30,11 +30,12 @@ public class TestXmlDescription extends AbstractXmlStatusTest
     }
     
     private static Description create(){return create(true);}
-    public static Description create(boolean withChilds)
+    public static Description create(boolean withChilds){return create(withChilds,"myKey","myValue");}
+    public static Description create(boolean withChilds, String key, String description)
     {
     	Description xml = new Description();
-    	xml.setKey("myKey");
-    	xml.setValue("myValue");
+    	xml.setKey(key);
+    	xml.setValue(description);
     	return xml;
     }
     

@@ -16,14 +16,15 @@
 	<build>
 		<plugins>
 			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<inherited>true</inherited>
-				<version>${maven-compiler-plugin.version}</version>
-				<configuration>
-					<source>${compiler-source.version}</source>
-					<target>${compiler-target.version}</target>
-					<encoding>${project.build.sourceEncoding}</encoding>
-				</configuration>
+  				<groupId>org.apache.maven.plugins</groupId>
+  				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+  					<execution>
+    					<goals>
+       						<goal>test-jar</goal>
+    					</goals>
+  					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
@@ -103,6 +104,11 @@
     	   	<dependency>
     	   		<groupId>org.jdom</groupId>
     	   		<artifactId>jdom</artifactId>
+    	   		<scope>test</scope>
+    	   	</dependency>
+    	   	<dependency>
+    	   		<groupId>org.slf4j</groupId>
+    	   		<artifactId>slf4j-log4j12</artifactId>
     	   		<scope>test</scope>
     	   	</dependency>
 	</dependencies>

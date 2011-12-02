@@ -3,7 +3,6 @@ package net.sf.ahtutils.controller.factory.utils.acl;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsNotFoundException;
 import net.sf.ahtutils.controller.interfaces.AhtAclFacade;
 import net.sf.ahtutils.model.interfaces.EjbWithId;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryRole;

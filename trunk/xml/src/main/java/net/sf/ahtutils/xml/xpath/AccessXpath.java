@@ -20,7 +20,7 @@ public class AccessXpath
 		JXPathContext context = JXPathContext.newContext(aclContainer);
 		
 		StringBuffer sb = new StringBuffer();
-		sb.append("roleAutoAssign[@code='"+code+"']");
+		sb.append("roleAutoAssign[@code='").append(code).append("']");
 		
 		@SuppressWarnings("unchecked")
 		List<RoleAutoAssign> listResult = (List<RoleAutoAssign>)context.selectNodes(sb.toString());

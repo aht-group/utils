@@ -44,9 +44,15 @@
 	        <dependency>
 	        	<groupId>net.sf.ahtutils</groupId>
 	        	<artifactId>ahtutils-xml</artifactId>
-	        	<version>${project.version}</version>
 	        	<type>jar</type>
 	        	<scope>compile</scope>
+	        </dependency>
+			<dependency>
+	        	<groupId>net.sf.ahtutils</groupId>
+	        	<artifactId>ahtutils-xml</artifactId>
+	        	<type>jar</type>
+	        	<scope>test</scope>
+	        	<classifier>tests</classifier>
 	        </dependency>
 	        <dependency>
 	        	<groupId>net.sf.ahtutils</groupId>
@@ -123,7 +129,6 @@
 			<dependency>
 				<groupId>org.openfuxml</groupId>
 				<artifactId>ofx-chart</artifactId>
-				<version>${ofx.version}</version>
 				<type>jar</type>
 				<scope>compile</scope>
 				<exclusions>
@@ -177,9 +182,13 @@
 	 	<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
-			<version>1.6.4</version>
 			<scope>test</scope>
 		</dependency>
+	 	<dependency>
+	 		<groupId>org.slf4j</groupId>
+	 		<artifactId>slf4j-log4j12</artifactId>
+	 		<version>1.6.4</version>
+	 	</dependency>
 	</dependencies>
    
 </project>

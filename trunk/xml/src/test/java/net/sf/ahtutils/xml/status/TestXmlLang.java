@@ -30,11 +30,12 @@ public class TestXmlLang extends AbstractXmlStatusTest
     }
     
     private static Lang create(){return create(true);}
-    public static Lang create(boolean withChilds)
+    public static Lang create(boolean withChilds){return create(withChilds,"myKey","myTranslation");}
+    public static Lang create(boolean withChilds, String key, String translation)
     {
     	Lang xml = new Lang();
-    	xml.setKey("myKey");
-    	xml.setTranslation("myTranslation");
+    	xml.setKey(key);
+    	xml.setTranslation(translation);
     	return xml;
     }
     
