@@ -23,6 +23,7 @@
 		        <xsd:element ref="m:template" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:string"/>
+            <xsd:attribute name="msgId" type="xsd:string"/>
             <xsd:attribute name="dir" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>

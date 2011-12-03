@@ -35,6 +35,7 @@ public class TestXmlMail extends AbstractXmlMailTest
     {
     	Mail xml = new Mail();
     	xml.setId(id);
+    	xml.setMsgId("myMsgID");
     	xml.setDir("myDir");
     	xml.setExample("myExample");
     	
