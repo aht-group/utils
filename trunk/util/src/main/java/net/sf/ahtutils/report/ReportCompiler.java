@@ -28,38 +28,48 @@ public class ReportCompiler
     {
     	Boolean compilation = true;
     	
-    	ReportUtilHash hashUtil = new ReportUtilHash(jrxml);
-    	String oldHash = hashUtil.readAndRemoveHash();
-    	String newHash = hashUtil.calculateHash();
-    	log.add("Hash was:");
-    	log.add(oldHash);
-    	log.add(newHash);
-    	log.add("is new Hash");
+//    	ReportUtilHash hashUtil = new ReportUtilHash(jrxml);
+//    	String oldHash = hashUtil.readAndRemoveHash();
+//    	String newHash = hashUtil.calculateHash();
+//    	log.add("Hash was:");
+//    	log.add(oldHash);
+//    	log.add(newHash);
+//    	log.add("is new Hash");
+//    	
+//    	if (!(newHash.equals(oldHash)))
+//    	{
+//    		compilation=true;
+//    		log.add("Re-Compilation needed.");
+//    	}
+//		else
+//		{
+//			compilation = false;
+//		    log.add("Re-Compilation not needed.");
+//		}
+//    	
+//    	   if (compilation || !(new File(jasper).exists()))
+//   	    {
+//   	    	try {
+//   				JasperCompileManager.compileReportToFile(jrxml, jasper);
+//   				hashUtil.saveNewHash();
+//   			} catch (JRException e) {
+//   				logger.error(e.getMessage());
+//   				log.add(e.getMessage());
+//   			}
+//   			logger.info("Compiling " +jrxml +" to " +jasper);
+//   			log.add("Compiled  " +jrxml +" to " +jasper);
+//   	    }
+	   
     	
-    	if (!(newHash.equals(oldHash)))
-    	{
-    		compilation=true;
-    		log.add("Re-Compilation needed.");
-    	}
-		else
-		{
-			compilation = false;
-		    log.add("Re-Compilation not needed.");
+    	
+		   try {
+			JasperCompileManager.compileReportToFile(jrxml, jasper);
+		} catch (JRException e) {
+			e.printStackTrace();
 		}
+	   
     	
-    	
-	    if (compilation || !(new File(jasper).exists()))
-	    {
-	    	try {
-				JasperCompileManager.compileReportToFile(jrxml, jasper);
-				hashUtil.saveNewHash();
-			} catch (JRException e) {
-				logger.error(e.getMessage());
-				log.add(e.getMessage());
-			}
-			logger.info("Compiling " +jrxml +" to " +jasper);
-			log.add("Compiled  " +jrxml +" to " +jasper);
-	    }
+	 
     	return compilation;
     }
     
@@ -67,38 +77,46 @@ public class ReportCompiler
     {
     	Boolean compilation = true;
     	
-    	ReportUtilHash hashUtil = new ReportUtilHash(report, jrxml);
-    	String oldHash = hashUtil.readAndRemoveHash();
-    	String newHash = hashUtil.calculateHash();
-    	log.add("Hash was:");
-    	log.add(oldHash);
-    	log.add(newHash);
-    	log.add("is new Hash");
+//    	ReportUtilHash hashUtil = new ReportUtilHash(report, jrxml);
+//    	String oldHash = hashUtil.readAndRemoveHash();
+//    	String newHash = hashUtil.calculateHash();
+//    	log.add("Hash was:");
+//    	log.add(oldHash);
+//    	log.add(newHash);
+//    	log.add("is new Hash");
+//    	
+//    	if (!(newHash.equals(oldHash)))
+//    	{
+//    		compilation=true;
+//    		log.add("Re-Compilation needed.");
+//    	}
+//		else
+//		{
+//			compilation = false;
+//		    log.add("Re-Compilation not needed.");
+//		}
+//    	
+//    	
+//	    if (compilation || !(new File(jasper).exists()))
+//	    {
+//	    	try {
+//				JasperCompileManager.compileReportToFile(jrxml, jasper);
+//				hashUtil.saveNewHash();
+//			} catch (JRException e) {
+//				logger.error(e.getMessage());
+//				log.add(e.getMessage());
+//			}
+//			logger.info("Compiling " +jrxml +" to " +jasper);
+//			log.add("Compiled  " +jrxml +" to " +jasper);
+//	    }
     	
-    	if (!(newHash.equals(oldHash)))
-    	{
-    		compilation=true;
-    		log.add("Re-Compilation needed.");
-    	}
-		else
-		{
-			compilation = false;
-		    log.add("Re-Compilation not needed.");
+	    try {
+			JasperCompileManager.compileReportToFile(jrxml, jasper);
+			
+		} catch (JRException e) {
+			logger.error(e.getMessage());
+			log.add(e.getMessage());
 		}
-    	
-    	
-	    if (compilation || !(new File(jasper).exists()))
-	    {
-	    	try {
-				JasperCompileManager.compileReportToFile(jrxml, jasper);
-				hashUtil.saveNewHash();
-			} catch (JRException e) {
-				logger.error(e.getMessage());
-				log.add(e.getMessage());
-			}
-			logger.info("Compiling " +jrxml +" to " +jasper);
-			log.add("Compiled  " +jrxml +" to " +jasper);
-	    }
 	    log.add("Target File was " +jasper);
     	return compilation;
     }
