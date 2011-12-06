@@ -1,15 +1,24 @@
 package net.sf.ahtutils.controller.factory.ofx.acl;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.StringWriter;
+
 import net.sf.ahtutils.xml.access.RoleCategory;
 import net.sf.ahtutils.xml.status.Description;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.xpath.StatusXpath;
 import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
+import net.sf.exlp.util.io.StringIO;
 
 import org.openfuxml.content.ofx.Paragraph;
+import org.openfuxml.exception.OfxAuthoringException;
+import org.openfuxml.renderer.processor.latex.content.SectionFactory;
+import org.openfuxml.renderer.processor.latex.content.list.LatexListFactory;
 import org.openfuxml.xml.content.list.Item;
 import org.openfuxml.xml.content.list.List;
+import org.openfuxml.xml.content.list.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,8 +30,23 @@ public class OfxCategoryListFactory
 	
 	public OfxCategoryListFactory(String lang)
 	{
-
 		this.lang=lang;
+	}
+	
+	public void saveDescription(File f, java.util.List<RoleCategory> lRc)
+	{
+		try
+		{
+			logger.debug("Saving Reference to "+f);
+			LatexListFactory renderer = new LatexListFactory();
+			renderer.render(create(lRc),new SectionFactory(0,null));
+			StringWriter actual = new StringWriter();
+			renderer.write(actual);
+			StringIO.writeTxt(f, actual.toString());
+			
+		}
+		catch (OfxAuthoringException e) {logger.error("Something went wrong during ofx/latex transformation ",e);}
+		catch (IOException e) {logger.error("Cannot save the file to "+f.getAbsolutePath(),e);}
 	}
 	
 	public List create(java.util.List<RoleCategory> lRc)
@@ -41,9 +65,13 @@ public class OfxCategoryListFactory
 	
 	private List createList()
 	{
-		List result = new List();
+		Type type = new Type();
+		type.setDescription(true);
 		
-		return result;
+		List list = new List();
+		list.setType(type);
+		
+		return list;
 	}
 	
 	private Item createItem(RoleCategory rc) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
@@ -60,6 +88,4 @@ public class OfxCategoryListFactory
 		
 		return item;
 	}
-	
-	
 }

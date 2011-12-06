@@ -57,7 +57,6 @@
 	        <dependency>
 	        	<groupId>net.sf.ahtutils</groupId>
 	        	<artifactId>ahtutils-ejb</artifactId>
-	        	<version>${project.version}</version>
 	        	<type>ejb</type>
 	        	<scope>compile</scope>
 	        </dependency>
@@ -187,7 +186,10 @@
 	 	<dependency>
 	 		<groupId>org.slf4j</groupId>
 	 		<artifactId>slf4j-log4j12</artifactId>
-	 		<version>1.6.4</version>
+	 	</dependency>
+	 	<dependency>
+	 		<groupId>org.openfuxml</groupId>
+	 		<artifactId>ofx-core</artifactId>
 	 	</dependency>
 	</dependencies>
    
