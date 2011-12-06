@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 
-import net.sf.ahtutils.xml.access.RoleCategory;
+import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.status.Description;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.xpath.StatusXpath;
@@ -33,7 +33,7 @@ public class OfxCategoryListFactory
 		this.lang=lang;
 	}
 	
-	public void saveDescription(File f, java.util.List<RoleCategory> lRc)
+	public void saveDescription(File f, java.util.List<Category> lRc)
 	{
 		try
 		{
@@ -49,13 +49,13 @@ public class OfxCategoryListFactory
 		catch (IOException e) {logger.error("Cannot save the file to "+f.getAbsolutePath(),e);}
 	}
 	
-	public List create(java.util.List<RoleCategory> lRc)
+	public List create(java.util.List<Category> lRc)
 	{
 		List result = createList();
 		
-		for(RoleCategory rc : lRc)
+		for(Category category : lRc)
 		{
-			try {result.getItem().add(createItem(rc));}
+			try {result.getItem().add(createItem(category));}
 			catch (ExlpXpathNotFoundException e) {e.printStackTrace();}
 			catch (ExlpXpathNotUniqueException e) {e.printStackTrace();}
 		}
@@ -74,10 +74,10 @@ public class OfxCategoryListFactory
 		return list;
 	}
 	
-	private Item createItem(RoleCategory rc) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
+	private Item createItem(Category category) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
 	{
-		Lang l = StatusXpath.getLang(rc.getLangs(), lang);
-		Description d = StatusXpath.getDescription(rc.getDescriptions(), lang);
+		Lang l = StatusXpath.getLang(category.getLangs(), lang);
+		Description d = StatusXpath.getDescription(category.getDescriptions(), lang);
 		
 		Paragraph p = new Paragraph();
 		p.getContent().add(d.getValue());

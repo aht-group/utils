@@ -17,7 +17,9 @@ import net.sf.ahtutils.model.interfaces.acl.UtilsAclUsecase;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
+import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.AclContainer;
+import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.Role;
 import net.sf.ahtutils.xml.access.RoleCategory;
 import net.sf.ahtutils.xml.access.Roles;
@@ -81,7 +83,7 @@ public class AclInitRole <	S extends UtilsStatus<L>,
 		ejbLangFactory = EjbLangFactory.createFactory(langClass);
 	}
 	
-	public void iuRoleCategory(String xmlFile) throws FileNotFoundException, AhtUtilsConfigurationException
+	public void iuRoleCategory(Access access) throws FileNotFoundException, AhtUtilsConfigurationException
 	{
 		AhtDbEjbUpdater<CR> updateRoleCategory = AhtDbEjbUpdater.createFactory(categoryRoleClass);
 		AhtDbEjbUpdater<R> updateRole = AhtDbEjbUpdater.createFactory(roleClass);
@@ -89,9 +91,8 @@ public class AclInitRole <	S extends UtilsStatus<L>,
 		updateRoleCategory.dbEjbs(fAcl.all(categoryRoleClass));
 		updateRole.dbEjbs(fAcl.all(roleClass));
 		
-		logger.debug("i/u "+RoleCategory.class.getSimpleName());
-		AclContainer aclContainer = (AclContainer)JaxbUtil.loadJAXB(xmlFile, AclContainer.class);
-		for(RoleCategory category : aclContainer.getRoleCategory())
+		logger.debug("i/u "+categoryRoleClass+" with "+access.getCategory()+" categories");
+		for(Category category : access.getCategory())
 		{
 			updateRoleCategory.actualAdd(category.getCode());
 			CR aclRoleCategory;
@@ -148,19 +149,6 @@ public class AclInitRole <	S extends UtilsStatus<L>,
 			catch (IllegalAccessException e) {logger.error("",e);}
 			catch (AhtUtilsIntegrityException e) {logger.error("",e);}
 		}
-/*		for(RoleCategory category : aclContainer.getRoleCategory())
-		{
-			try
-			{
-				AclRoleCategory aclRoleCategory = fAcl.fRoleCategoryByCode(AclRoleCategory.class,category.getCode());
-				if(category.isSetRoles() && category.getRoles().isSetRole())
-				{
-					initUpdateRole(aclRoleCategory, category.getRoles(), true);
-				}
-			}
-			catch (AhtUtilsNotFoundException e) {logger.error("",e);}
-		}
-*/ 
 		updateRoleCategory.remove(fAcl);
 	}
 	

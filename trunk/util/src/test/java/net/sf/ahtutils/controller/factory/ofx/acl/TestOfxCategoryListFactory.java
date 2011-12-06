@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import net.sf.ahtutils.test.AhtUtilsTstBootstrap;
-import net.sf.ahtutils.xml.access.RoleCategory;
-import net.sf.ahtutils.xml.access.TestXmlRoleCategory;
+import net.sf.ahtutils.xml.access.Category;
+import net.sf.ahtutils.xml.access.TestXmlCategory;
 import net.sf.ahtutils.xml.status.TestXmlDescription;
 import net.sf.ahtutils.xml.status.TestXmlLang;
 import net.sf.exlp.util.xml.JaxbUtil;
@@ -30,9 +30,9 @@ public class TestOfxCategoryListFactory extends AbstractOfxAclFactoryTest
 	private OfxCategoryListFactory factory;
 	
 	private final String lang ="de";
-	private RoleCategory rc1;
+	private Category rc1;
 //	private RoleCategory rc2;
-	private java.util.List<RoleCategory> list;
+	private java.util.List<Category> list;
 	
 	private OfxLatexRenderer parentSection;
 	
@@ -48,13 +48,13 @@ public class TestOfxCategoryListFactory extends AbstractOfxAclFactoryTest
 	{	
 		parentSection = new SectionFactory(0,null);
 		factory = new OfxCategoryListFactory(lang);
-		list = new ArrayList<RoleCategory>();
+		list = new ArrayList<Category>();
 		rc1 = createCategory(1);list.add(rc1);
 	}
 	
-	private RoleCategory createCategory(int id)
+	private Category createCategory(int id)
 	{
-		RoleCategory rc = TestXmlRoleCategory.create(true);
+		Category rc = TestXmlCategory.create(true);
 		rc.getLangs().getLang().add(TestXmlLang.create(false,lang,"Category "+id));
 		rc.getDescriptions().getDescription().add(TestXmlDescription.create(false,lang,id+" This category is for testing purposes only."));
 		return rc;
