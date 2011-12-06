@@ -97,11 +97,24 @@ public abstract class AbstractReportControl
 	
 	protected JasperReport getMasterReport(Output output, Direction dir)
 	{
-		
+		JasperReport report = null;
 		Jr jr  = (Jr)JXPathContext.newContext(config).getValue("report[id='"+ rId +"']/media[type='" +output.name() +"']/jr[type='mr']");
+		Report rep = (Report)JXPathContext.newContext(config).getValue("report[id='"+ rId +"']");
 		String rName = jr.getName();
 		String rDir  = reportRoot +"/jrxml/"+(String)JXPathContext.newContext(config).getValue("report[id='" +rId +"']/@dir") +"/" +output.name();
-		return getReport(rDir, "mr"+rName,dir);
+		String reportDir = reportRoot.replace("src/main/resources/", "");
+		try {
+			report = (JasperReport) JRLoader.loadObject(mrl.searchIs(reportDir +"/jasper/" +rep.getDir()+"/" +output.name() +"/" +dir.name() +"/mr" +rName +".jasper"));
+		} catch (FileNotFoundException e) {
+			logger.warn("File Not Found - compiling Report!");
+			report = getReport(rDir, "mr"+rName,dir);
+			e.printStackTrace();
+		} catch (JRException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return report;
+		//return getReport(rDir, "mr"+rName,dir);
 	}
 	
 	private JasperReport getReport(String rDir, String fileName, Direction dir)
@@ -113,7 +126,7 @@ public abstract class AbstractReportControl
 		File compiledReport = new File(fileName+".jasper");
 		if (compiledReport.exists())
 		{
-			logger.debug("Loading pre-compiled Report: "+fileName);
+			logger.info("Loading pre-compiled Report: "+fileName);
 			FileInputStream in;
 			try {
 				in = new FileInputStream(compiledReport);
@@ -127,7 +140,7 @@ public abstract class AbstractReportControl
 		else
 		{
 			fileName = fileName +".jrxml";
-			logger.debug("Compiling Report: "+fileName);
+			logger.info("Compiling Report: "+fileName);
 			try
 			{
 				InputStream is=null;
