@@ -14,6 +14,13 @@
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
+    <xsd:element name="access">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="a:category" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
     <xsd:element name="aclQuery">
         <xsd:complexType>
             <xsd:sequence>
@@ -25,12 +32,47 @@
             <xsd:attribute name="delQueryAfterProcessing" type="xsd:boolean"/>
         </xsd:complexType>
     </xsd:element>
+    <xsd:element name="category">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="s:langs" maxOccurs="1"/>
+                <xsd:element ref="s:descriptions" maxOccurs="1"/>
+                <xsd:element ref="a:roles" maxOccurs="1"/>
+                <xsd:element ref="a:projectRoles" maxOccurs="1"/>
+                <xsd:element ref="a:usecases" maxOccurs="1"/>
+            </xsd:sequence>
+            <xsd:attribute name="code" type="xsd:string"/>
+            <xsd:attribute name="index" type="xsd:int"/>
+        </xsd:complexType>
+    </xsd:element>
     <xsd:element name="roleCategory">
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element ref="s:langs" maxOccurs="1"/>
                 <xsd:element ref="s:descriptions" maxOccurs="1"/>
                 <xsd:element ref="a:roles" maxOccurs="1"/>
+            </xsd:sequence>
+            <xsd:attribute name="code" type="xsd:string"/>
+            <xsd:attribute name="index" type="xsd:int"/>
+        </xsd:complexType>
+    </xsd:element>
+	<xsd:element name="usecaseCategory">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="s:descriptions" maxOccurs="1"/>
+                <xsd:element ref="s:langs" maxOccurs="1"/>
+                <xsd:element ref="a:usecases" maxOccurs="1"/>
+            </xsd:sequence>
+            <xsd:attribute name="code" type="xsd:string"/>
+            <xsd:attribute name="index" type="xsd:int"/>
+        </xsd:complexType>
+    </xsd:element>
+	<xsd:element name="projectRoleCategory">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="s:langs" maxOccurs="1"/>
+                <xsd:element ref="s:descriptions" maxOccurs="1"/>
+                <xsd:element ref="a:projectRoles" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="code" type="xsd:string"/>
             <xsd:attribute name="index" type="xsd:int"/>
@@ -76,17 +118,6 @@
             <xsd:attribute name="code" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
-    <xsd:element name="usecaseCategory">
-        <xsd:complexType>
-            <xsd:sequence>
-                <xsd:element ref="s:descriptions" maxOccurs="1"/>
-                <xsd:element ref="s:langs" maxOccurs="1"/>
-                <xsd:element ref="a:usecases" maxOccurs="1"/>
-            </xsd:sequence>
-            <xsd:attribute name="code" type="xsd:string"/>
-            <xsd:attribute name="index" type="xsd:int"/>
-        </xsd:complexType>
-    </xsd:element>
     <xsd:element name="usecases">
         <xsd:complexType>
             <xsd:sequence>
@@ -99,17 +130,6 @@
             <xsd:sequence>
                 <xsd:element ref="s:descriptions" maxOccurs="1"/>
                 <xsd:element ref="s:langs" maxOccurs="1"/>
-            </xsd:sequence>
-            <xsd:attribute name="code" type="xsd:string"/>
-            <xsd:attribute name="index" type="xsd:int"/>
-        </xsd:complexType>
-    </xsd:element>
-    <xsd:element name="projectRoleCategory">
-        <xsd:complexType>
-            <xsd:sequence>
-                <xsd:element ref="s:langs" maxOccurs="1"/>
-                <xsd:element ref="s:descriptions" maxOccurs="1"/>
-                <xsd:element ref="a:projectRoles" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="code" type="xsd:string"/>
             <xsd:attribute name="index" type="xsd:int"/>
