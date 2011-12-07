@@ -13,28 +13,28 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestXmlUsecase extends AbstractXmlAccessTest
+public class TestXmlView extends AbstractXmlAccessTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestXmlUsecase.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlView.class);
 	
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"usecase.xml");
+		fXml = new File(rootDir,"view.xml");
 	}
     
     @Test
     public void testAclContainer() throws FileNotFoundException
     {
-    	Usecase actual = create();
-    	Usecase expected = (Usecase)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Usecase.class);
+    	View actual = create();
+    	View expected = (View)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), View.class);
     	assertJaxbEquals(expected, actual);
     }
     
-    private static Usecase create(){return create(true);}
-    public static Usecase create(boolean withChilds)
+    private static View create(){return create(true);}
+    public static View create(boolean withChilds)
     {
-    	Usecase xml = new Usecase();
+    	View xml = new View();
     	xml.setCode("myCode");
     	xml.setIndex(1);
     	
@@ -54,8 +54,8 @@ public class TestXmlUsecase extends AbstractXmlAccessTest
 			loggerInit.addAltPath("src/test/resources/config");
 			loggerInit.init();		
 			
-		TestXmlUsecase.initFiles();	
-		TestXmlUsecase test = new TestXmlUsecase();
+		TestXmlView.initFiles();	
+		TestXmlView test = new TestXmlView();
 		test.save();
     }
 }

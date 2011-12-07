@@ -7,7 +7,7 @@ import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryProjectRole;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclGroup;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclRole;
-import net.sf.ahtutils.model.interfaces.acl.UtilsAclUsecase;
+import net.sf.ahtutils.model.interfaces.acl.UtilsAclView;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.xml.access.Category;
@@ -28,7 +28,7 @@ public class XmlCategoryFactory
 		this.lang=lang;
 	}
 	
-	public <L extends UtilsLang,D extends UtilsDescription,CU extends UtilsAclCategoryUsecase<L,D,CU,U>,CR extends UtilsAclCategoryGroup<L,D,CU,CR,U,R>,U extends UtilsAclUsecase<L,D,CU,U>,R extends UtilsAclGroup<L,D,CU,CR,U,R>>
+	public <L extends UtilsLang,D extends UtilsDescription,CU extends UtilsAclCategoryUsecase<L,D,CU,U>,CR extends UtilsAclCategoryGroup<L,D,CU,CR,U,R>,U extends UtilsAclView<L,D,CU,U>,R extends UtilsAclGroup<L,D,CU,CR,U,R>>
 	Category getRoleCategory(CR aclRoleCategory)
 	{
 		Category rc = new Category();
@@ -84,7 +84,7 @@ public class XmlCategoryFactory
 		return prc;
 	}
 	
-	public <L extends UtilsLang,D extends UtilsDescription,CU extends UtilsAclCategoryUsecase<L,D,CU,U>,U extends UtilsAclUsecase<L,D,CU,U>>
+	public <L extends UtilsLang,D extends UtilsDescription,CU extends UtilsAclCategoryUsecase<L,D,CU,U>,U extends UtilsAclView<L,D,CU,U>>
 		Category getUsecaseCategory(CU category)
 	{
 		Category xml = new Category();
@@ -103,10 +103,10 @@ public class XmlCategoryFactory
 			xml.setDescriptions(f.create(category.getDescription()));
 		}
 		
-		if(qC.isSetUsecases())
+		if(qC.isSetViews())
 		{
-			XmlUsecasesFactory f = new XmlUsecasesFactory(qC.getUsecases(), lang);
-			xml.setUsecases(f.getUsecases(category.getUsecases()));
+			XmlViewsFactory f = new XmlViewsFactory(qC.getViews(), lang);
+			xml.setViews(f.getUsecases(category.getUsecases()));
 		}
 		
 		return xml;

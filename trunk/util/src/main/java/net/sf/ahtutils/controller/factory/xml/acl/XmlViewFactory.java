@@ -3,31 +3,31 @@ package net.sf.ahtutils.controller.factory.xml.acl;
 import net.sf.ahtutils.controller.factory.xml.status.XmlDescriptionsFactory;
 import net.sf.ahtutils.controller.factory.xml.status.XmlLangsFactory;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
-import net.sf.ahtutils.model.interfaces.acl.UtilsAclUsecase;
+import net.sf.ahtutils.model.interfaces.acl.UtilsAclView;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
-import net.sf.ahtutils.xml.access.Usecase;
+import net.sf.ahtutils.xml.access.View;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class XmlUsecaseFactory
+public class XmlViewFactory
 {
-	final static Logger logger = LoggerFactory.getLogger(XmlUsecaseFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(XmlViewFactory.class);
 		
-	private Usecase qUc;
+	private View qUc;
 	private String lang;
 	
-	public XmlUsecaseFactory(Usecase qUc, String lang)
+	public XmlViewFactory(View qUc, String lang)
 	{
 		this.qUc=qUc;
 		this.lang=lang;
 	}
 	
-	public <L extends UtilsLang,D extends UtilsDescription,CU extends UtilsAclCategoryUsecase<L,D,CU,U>,U extends UtilsAclUsecase<L,D,CU,U>>
-		Usecase getUsecase(U usecase)
+	public <L extends UtilsLang,D extends UtilsDescription,CU extends UtilsAclCategoryUsecase<L,D,CU,U>,U extends UtilsAclView<L,D,CU,U>>
+		View getUsecase(U usecase)
 	{
-		Usecase xml = new Usecase();
+		View xml = new View();
 		
 		if(qUc.isSetCode()){xml.setCode(usecase.getCode());}
 		

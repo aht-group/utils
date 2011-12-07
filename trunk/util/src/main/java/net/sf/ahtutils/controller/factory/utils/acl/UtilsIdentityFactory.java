@@ -8,7 +8,7 @@ import net.sf.ahtutils.model.interfaces.EjbWithId;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryGroup;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclGroup;
-import net.sf.ahtutils.model.interfaces.acl.UtilsAclUsecase;
+import net.sf.ahtutils.model.interfaces.acl.UtilsAclView;
 import net.sf.ahtutils.model.interfaces.idm.UtilsIdentity;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
@@ -22,7 +22,7 @@ public class UtilsIdentityFactory  <I extends UtilsIdentity<L,D,CU,UC,U>,
 									CU extends UtilsAclCategoryUsecase<L,D,CU,UC>,
 									CR extends UtilsAclCategoryGroup<L,D,CU,CR,UC,R>,
 									R extends UtilsAclGroup<L,D,CU,CR,UC,R>,
-									UC extends UtilsAclUsecase<L,D,CU,UC>,
+									UC extends UtilsAclView<L,D,CU,UC>,
 									U extends EjbWithId>
 {
 	final static Logger logger = LoggerFactory.getLogger(UtilsIdentityFactory.class);
@@ -61,7 +61,7 @@ public class UtilsIdentityFactory  <I extends UtilsIdentity<L,D,CU,UC,U>,
 					CU extends UtilsAclCategoryUsecase<L,D,CU,UC>,
 					CR extends UtilsAclCategoryGroup<L,D,CU,CR,UC,R>,
 					R extends UtilsAclGroup<L,D,CU,CR,UC,R>,
-					UC extends UtilsAclUsecase<L,D,CU,UC>,
+					UC extends UtilsAclView<L,D,CU,UC>,
 					U extends EjbWithId> UtilsIdentityFactory<I,L,D,CU,CR,R,UC,U>
 	factory(final Class<I> clIdentity,
 					final Class<L> clLang,

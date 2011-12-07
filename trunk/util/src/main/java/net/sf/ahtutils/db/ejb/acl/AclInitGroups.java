@@ -13,7 +13,7 @@ import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryGroup;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclGroup;
-import net.sf.ahtutils.model.interfaces.acl.UtilsAclUsecase;
+import net.sf.ahtutils.model.interfaces.acl.UtilsAclView;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
@@ -21,7 +21,7 @@ import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.Group;
 import net.sf.ahtutils.xml.access.Groups;
-import net.sf.ahtutils.xml.access.Usecase;
+import net.sf.ahtutils.xml.access.View;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +30,7 @@ public class AclInitGroups <	S extends UtilsStatus<L>,
 							L extends UtilsLang,
 							D extends UtilsDescription,
 							CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
-							U extends UtilsAclUsecase<L,D,CU,U>,
+							U extends UtilsAclView<L,D,CU,U>,
 							CR extends UtilsAclCategoryGroup<L,D,CU,CR,U,R>,
 							R extends UtilsAclGroup<L,D,CU,CR,U,R>>
 {
@@ -51,7 +51,7 @@ public class AclInitGroups <	S extends UtilsStatus<L>,
 	private EjbLangFactory<L> ejbLangFactory;
 	
 	public static <S extends UtilsStatus<L>,L extends UtilsLang,D extends UtilsDescription,
-				   CU extends UtilsAclCategoryUsecase<L,D,CU,U>, U extends UtilsAclUsecase<L,D,CU,U>,
+				   CU extends UtilsAclCategoryUsecase<L,D,CU,U>, U extends UtilsAclView<L,D,CU,U>,
 				   CR extends UtilsAclCategoryGroup<L,D,CU,CR,U,R>,R extends UtilsAclGroup<L,D,CU,CR,U,R>>
 		AclInitGroups<S, L, D,CU,U,CR,R>
 		factory(final Class<S> statusClass,final Class<L> langClass,final Class<D> descriptionClass,
@@ -214,9 +214,9 @@ public class AclInitGroups <	S extends UtilsStatus<L>,
 //				aclRole.setDescription(ejbFactory.getDescriptionMap(role.getDescriptions()));
 				aclRole.setCategory(roleCategory);
 				
-				if(role.isSetUsecases() && role.getUsecases().isSetUsecase())
+				if(role.isSetViews() && role.getViews().isSetView())
 				{
-					for(Usecase usecase : role.getUsecases().getUsecase())
+					for(View usecase : role.getViews().getView())
 					{
 						try {aclRole.getUsecases().add(fAcl.fAhtUtilsByCode(usecaseClass,usecase.getCode()));}
 						catch (AhtUtilsNotFoundException e) {logger.error("",e);}

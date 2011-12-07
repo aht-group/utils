@@ -33,7 +33,7 @@
                 <xsd:element ref="s:descriptions" maxOccurs="1"/>
                 <xsd:element ref="a:groups" maxOccurs="1"/>
                 <xsd:element ref="a:roles" maxOccurs="1"/>
-                <xsd:element ref="a:usecases" maxOccurs="1"/>
+                <xsd:element ref="a:views" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="code" type="xsd:string"/>
             <xsd:attribute name="index" type="xsd:int"/>
@@ -73,20 +73,20 @@
             <xsd:sequence>
                 <xsd:element ref="s:descriptions" maxOccurs="1"/>
                 <xsd:element ref="s:langs" maxOccurs="1"/>
-                <xsd:element ref="a:usecases" maxOccurs="1"/>
+                <xsd:element ref="a:views" maxOccurs="1"/>
                 <xsd:element ref="a:groups" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="code" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
-    <xsd:element name="usecases">
+    <xsd:element name="views">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="a:usecase" maxOccurs="unbounded"/>
+                <xsd:element ref="a:view" maxOccurs="unbounded"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
-    <xsd:element name="usecase">
+    <xsd:element name="view">
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element ref="s:descriptions" maxOccurs="1"/>

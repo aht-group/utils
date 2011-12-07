@@ -11,24 +11,24 @@ import net.sf.ahtutils.controller.factory.ejb.status.EjbLangFactory;
 import net.sf.ahtutils.controller.interfaces.AhtAclFacade;
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
-import net.sf.ahtutils.model.interfaces.acl.UtilsAclUsecase;
+import net.sf.ahtutils.model.interfaces.acl.UtilsAclView;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Category;
-import net.sf.ahtutils.xml.access.Usecase;
+import net.sf.ahtutils.xml.access.View;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AclInitUsecase <S extends UtilsStatus<L>,
+public class AclInitViews <S extends UtilsStatus<L>,
 							L extends UtilsLang,
 							D extends UtilsDescription,
 							CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
-							U extends UtilsAclUsecase<L,D,CU,U>>
+							U extends UtilsAclView<L,D,CU,U>>
 {
-	final static Logger logger = LoggerFactory.getLogger(AclInitUsecase.class);
+	final static Logger logger = LoggerFactory.getLogger(AclInitViews.class);
 	public static enum ExtractId {aclUseCases,aclRoles,aclRoleAutoAssign,aclProjectRoles}
 	
 	final Class<S> statusClass;
@@ -45,8 +45,8 @@ public class AclInitUsecase <S extends UtilsStatus<L>,
 				   L extends UtilsLang,
 				   D extends UtilsDescription,
 				   CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
-				   U extends UtilsAclUsecase<L,D,CU,U>>
-		AclInitUsecase<S, L, D,CU,U>
+				   U extends UtilsAclView<L,D,CU,U>>
+		AclInitViews<S, L, D,CU,U>
 		factory(final Class<S> statusClass,
 				final Class<L> langClass,
 				final Class<D> descriptionClass,
@@ -54,10 +54,10 @@ public class AclInitUsecase <S extends UtilsStatus<L>,
 				final Class<U> usecaseClass,
 				AhtAclFacade fAcl)
 	{
-		return new AclInitUsecase<S, L, D, CU, U>(statusClass, langClass, descriptionClass, categoryUsecaseClass, usecaseClass,fAcl);
+		return new AclInitViews<S, L, D, CU, U>(statusClass, langClass, descriptionClass, categoryUsecaseClass, usecaseClass,fAcl);
 	}
 	
-	public AclInitUsecase(final Class<S> statusClass, final Class<L> langClass, final Class<D> descriptionClass,
+	public AclInitViews(final Class<S> statusClass, final Class<L> langClass, final Class<D> descriptionClass,
 			final Class<CU> categoryUsecaseClass, final Class<U> usecaseClass,
 			AhtAclFacade fAcl)
 	{       
@@ -133,9 +133,9 @@ public class AclInitUsecase <S extends UtilsStatus<L>,
 //				usecaseCategory.setDescription(ejbFactory.getDescriptionMap(category.getDescriptions()));
 				usecaseCategory=fAcl.updateAhtUtilsStatus(usecaseCategory);
 				
-				if(category.isSetUsecases() && category.getUsecases().isSetUsecase())
+				if(category.isSetViews() && category.getViews().isSetView())
 				{
-					for(Usecase usecase : category.getUsecases().getUsecase())
+					for(View usecase : category.getViews().getView())
 					{
 						ejbUcUpdate.actualAdd(usecase.getCode());
 						initUpdateUsecase(usecaseCategory, usecase);
@@ -154,7 +154,7 @@ public class AclInitUsecase <S extends UtilsStatus<L>,
 		logger.trace("initUpdateUsecaseCategories finished");
 	}
 	
-	public void initUpdateUsecase(CU usecaseCategory, Usecase usecase) throws AhtUtilsConfigurationException
+	public void initUpdateUsecase(CU usecaseCategory, View usecase) throws AhtUtilsConfigurationException
 	{
 		U aclUsecase;
 		try

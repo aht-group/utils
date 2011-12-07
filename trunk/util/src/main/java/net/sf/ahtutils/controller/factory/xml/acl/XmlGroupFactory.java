@@ -5,7 +5,7 @@ import net.sf.ahtutils.controller.factory.xml.status.XmlLangsFactory;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryGroup;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclGroup;
-import net.sf.ahtutils.model.interfaces.acl.UtilsAclUsecase;
+import net.sf.ahtutils.model.interfaces.acl.UtilsAclView;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.xml.access.Group;
@@ -27,7 +27,7 @@ public class XmlGroupFactory
 		this.lang=lang;
 	}
 	
-	public <L extends UtilsLang,D extends UtilsDescription,CU extends UtilsAclCategoryUsecase<L,D,CU,U>,CR extends UtilsAclCategoryGroup<L,D,CU,CR,U,R>,U extends UtilsAclUsecase<L,D,CU,U>,R extends UtilsAclGroup<L,D,CU,CR,U,R>>
+	public <L extends UtilsLang,D extends UtilsDescription,CU extends UtilsAclCategoryUsecase<L,D,CU,U>,CR extends UtilsAclCategoryGroup<L,D,CU,CR,U,R>,U extends UtilsAclView<L,D,CU,U>,R extends UtilsAclGroup<L,D,CU,CR,U,R>>
 		Group getRole(R aclRole)
 	{
 		Group role = new Group();
@@ -52,10 +52,10 @@ public class XmlGroupFactory
 			role.setGroups(f.getRoles(aclRole.getRoles()));
 		}
 		
-		if(qRole.isSetUsecases())
+		if(qRole.isSetViews())
 		{
-			XmlUsecasesFactory f = new XmlUsecasesFactory(qRole.getUsecases(), lang);
-			role.setUsecases(f.getUsecases(aclRole.getUsecases()));
+			XmlViewsFactory f = new XmlViewsFactory(qRole.getViews(), lang);
+			role.setViews(f.getUsecases(aclRole.getUsecases()));
 		}
 		
 		return role;

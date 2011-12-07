@@ -9,7 +9,7 @@ import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryProjectRole;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclGroup;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclRole;
-import net.sf.ahtutils.model.interfaces.acl.UtilsAclUsecase;
+import net.sf.ahtutils.model.interfaces.acl.UtilsAclView;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.xml.access.AclQuery;
@@ -22,7 +22,7 @@ public interface AhtAclFacade extends AhtUtilsFacade
 	 D extends UtilsDescription, 
 	 CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
 	 CR extends UtilsAclCategoryGroup<L,D,CU,CR,U,R>,
-	 U extends UtilsAclUsecase<L,D,CU,U>,
+	 U extends UtilsAclView<L,D,CU,U>,
 	 R extends UtilsAclGroup<L,D,CU,CR,U,R>>
 	List<R> fAclRoles(Class<R> type, List<Group> lRoles) throws AhtUtilsNotFoundException;
 	
@@ -31,7 +31,7 @@ public interface AhtAclFacade extends AhtUtilsFacade
 	 D extends UtilsDescription, 
 	 CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
 	 CR extends UtilsAclCategoryGroup<L,D,CU,CR,U,R>,
-	 U extends UtilsAclUsecase<L,D,CU,U>,
+	 U extends UtilsAclView<L,D,CU,U>,
 	 R extends UtilsAclGroup<L,D,CU,CR,U,R>>
 	Set<String> findUsecaseCodesForRoles(List<R> roles);
 	
@@ -39,7 +39,7 @@ public interface AhtAclFacade extends AhtUtilsFacade
 	 D extends UtilsDescription, 
 	 CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
 	 CR extends UtilsAclCategoryGroup<L,D,CU,CR,U,R>,
-	 U extends UtilsAclUsecase<L,D,CU,U>,
+	 U extends UtilsAclView<L,D,CU,U>,
 	 R extends UtilsAclGroup<L,D,CU,CR,U,R>>
 	Set<U> findUsecasesForRoles(List<R> roles);
 		
@@ -47,10 +47,10 @@ public interface AhtAclFacade extends AhtUtilsFacade
 	
 	//***************************   XML Factory   *************************************
 	
-	<L extends UtilsLang,D extends UtilsDescription,CU extends UtilsAclCategoryUsecase<L,D,CU,U>,U extends UtilsAclUsecase<L,D,CU,U>>
+	<L extends UtilsLang,D extends UtilsDescription,CU extends UtilsAclCategoryUsecase<L,D,CU,U>,U extends UtilsAclView<L,D,CU,U>>
 	Category getUsecaseCategory(CU aclUsecaseCategory, AclQuery qAcl);
 	
-	<L extends UtilsLang,D extends UtilsDescription,CU extends UtilsAclCategoryUsecase<L,D,CU,U>,CR extends UtilsAclCategoryGroup<L,D,CU,CR,U,R>,U extends UtilsAclUsecase<L,D,CU,U>,R extends UtilsAclGroup<L,D,CU,CR,U,R>>
+	<L extends UtilsLang,D extends UtilsDescription,CU extends UtilsAclCategoryUsecase<L,D,CU,U>,CR extends UtilsAclCategoryGroup<L,D,CU,CR,U,R>,U extends UtilsAclView<L,D,CU,U>,R extends UtilsAclGroup<L,D,CU,CR,U,R>>
 	Category getRoleCategory(CR aclRoleCategory, AclQuery qAcl);
 
 	<L extends UtilsLang,D extends UtilsDescription,C extends UtilsAclCategoryProjectRole<L,D,C,R>,R extends UtilsAclRole<L,D,C,R>>

@@ -41,7 +41,7 @@ public class TestXmlGroup extends AbstractXmlAccessTest
     	{
     		xml.setLangs(TestXmlLangs.create(false));
     		xml.setDescriptions(TestXmlDescriptions.create(false));
-    		xml.setUsecases(TestXmlUsecases.create(false));
+    		xml.setViews(TestXmlViews.create(false));
     		xml.setGroups(TestXmlGroups.create(false));
     	}
     	return xml;
