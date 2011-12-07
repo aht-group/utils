@@ -2,6 +2,6 @@
 <acl:group xmlns:s="http://ahtutils.aht-group.com/status" xmlns:acl="http://ahtutils.aht-group.com/access" code="myCode">
     <s:descriptions/>
     <s:langs/>
-    <acl:usecases/>
+    <acl:views/>
     <acl:groups/>
 </acl:group>
