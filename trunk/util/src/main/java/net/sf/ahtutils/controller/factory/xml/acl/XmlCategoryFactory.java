@@ -83,4 +83,32 @@ public class XmlCategoryFactory
 		
 		return prc;
 	}
+	
+	public <L extends UtilsLang,D extends UtilsDescription,CU extends UtilsAclCategoryUsecase<L,D,CU,U>,U extends UtilsAclUsecase<L,D,CU,U>>
+		Category getUsecaseCategory(CU category)
+	{
+		Category xml = new Category();
+		
+		if(qC.isSetCode()){xml.setCode(category.getCode());}
+		
+		if(qC.isSetLangs())
+		{
+			XmlLangsFactory f = new XmlLangsFactory(qC.getLangs());
+			xml.setLangs(f.getUtilsLangs(category.getName()));
+		}
+		
+		if(qC.isSetDescriptions())
+		{
+			XmlDescriptionsFactory f = new XmlDescriptionsFactory(qC.getDescriptions());
+			xml.setDescriptions(f.create(category.getDescription()));
+		}
+		
+		if(qC.isSetUsecases())
+		{
+			XmlUsecasesFactory f = new XmlUsecasesFactory(qC.getUsecases(), lang);
+			xml.setUsecases(f.getUsecases(category.getUsecases()));
+		}
+		
+		return xml;
+	}
 }

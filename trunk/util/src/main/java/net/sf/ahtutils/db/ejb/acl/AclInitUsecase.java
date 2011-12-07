@@ -15,10 +15,9 @@ import net.sf.ahtutils.model.interfaces.acl.UtilsAclUsecase;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
-import net.sf.ahtutils.xml.access.AclContainer;
+import net.sf.ahtutils.xml.access.Access;
+import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.Usecase;
-import net.sf.ahtutils.xml.access.UsecaseCategory;
-import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,18 +72,17 @@ public class AclInitUsecase <S extends UtilsStatus<L>,
 		ejbLangFactory = EjbLangFactory.createFactory(langClass);
 	}
 	
-	public void iuUsecaseCategory(String xmlFile) throws FileNotFoundException, AhtUtilsConfigurationException
+	public void iuUsecases(Access access) throws FileNotFoundException, AhtUtilsConfigurationException
 	{
+		logger.debug("i/u "+Category.class.getSimpleName()+" with "+access.getCategory().size()+" categories");
+		
 		AhtDbEjbUpdater<CU> ejbUccUpdate = AhtDbEjbUpdater.createFactory(categoryUsecaseClass);
 		AhtDbEjbUpdater<U> ejbUcUpdate = AhtDbEjbUpdater.createFactory(usecaseClass);
 		
 		ejbUccUpdate.dbEjbs(fAcl.all(categoryUsecaseClass));
 		ejbUcUpdate.dbEjbs(fAcl.all(usecaseClass));
 
-		logger.debug("iuUsecaseCategory with "+xmlFile);
-		AclContainer aclContainer = (AclContainer)JaxbUtil.loadJAXB(xmlFile, AclContainer.class);
-
-		for(UsecaseCategory category : aclContainer.getUsecaseCategory())
+		for(Category category : access.getCategory())
 		{
 			logger.debug("Processing category: "+category.getCode());
 			ejbUccUpdate.actualAdd(category.getCode());

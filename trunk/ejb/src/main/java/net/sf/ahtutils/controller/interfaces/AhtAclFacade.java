@@ -15,7 +15,6 @@ import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.xml.access.AclQuery;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.Group;
-import net.sf.ahtutils.xml.access.UsecaseCategory;
 
 public interface AhtAclFacade extends AhtUtilsFacade
 {	
@@ -49,7 +48,7 @@ public interface AhtAclFacade extends AhtUtilsFacade
 	//***************************   XML Factory   *************************************
 	
 	<L extends UtilsLang,D extends UtilsDescription,CU extends UtilsAclCategoryUsecase<L,D,CU,U>,U extends UtilsAclUsecase<L,D,CU,U>>
-	UsecaseCategory getUsecaseCategory(CU aclUsecaseCategory, AclQuery qAcl);
+	Category getUsecaseCategory(CU aclUsecaseCategory, AclQuery qAcl);
 	
 	<L extends UtilsLang,D extends UtilsDescription,CU extends UtilsAclCategoryUsecase<L,D,CU,U>,CR extends UtilsAclCategoryGroup<L,D,CU,CR,U,R>,U extends UtilsAclUsecase<L,D,CU,U>,R extends UtilsAclGroup<L,D,CU,CR,U,R>>
 	Category getRoleCategory(CR aclRoleCategory, AclQuery qAcl);
@@ -57,7 +56,7 @@ public interface AhtAclFacade extends AhtUtilsFacade
 	<L extends UtilsLang,D extends UtilsDescription,C extends UtilsAclCategoryProjectRole<L,D,C,R>,R extends UtilsAclRole<L,D,C,R>>
 	Category getProjectRoleCategory(C aclProjectRoleCategory, AclQuery qAcl);
 	
-	List<UsecaseCategory> getUsecaseCategories(AclQuery qAcl);
+	List<Category> getUsecaseCategories(AclQuery qAcl);
 	List<Category> getRoleCategories(AclQuery qAcl);
 	List<Category> getProjectRoleCategories(AclQuery qAcl);
 }

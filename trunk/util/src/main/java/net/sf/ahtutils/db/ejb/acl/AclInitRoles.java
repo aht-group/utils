@@ -58,13 +58,13 @@ public class AclInitRoles <L extends UtilsLang,
 	
 	public void iuRoles(Access access) throws AhtUtilsConfigurationException
 	{
+		logger.debug("i/u "+Category.class.getSimpleName()+" with "+access.getCategory().size()+" categories");
+		
 		AhtDbEjbUpdater<C> updateCategory = AhtDbEjbUpdater.createFactory(categoryClass);
 		AhtDbEjbUpdater<R> updateRole = AhtDbEjbUpdater.createFactory(roleClass);
 		
 		updateCategory.dbEjbs(fAcl.all(categoryClass));
 		updateRole.dbEjbs(fAcl.all(roleClass));
-		
-		logger.debug("i/u "+Category.class.getSimpleName()+" with "+access.getCategory().size()+" categories");
 
 		for(Category category : access.getCategory())
 		{
@@ -122,7 +122,6 @@ public class AclInitRoles <L extends UtilsLang,
 						initUpdateProjectRole(aclCategory, role);
 					}
 				}
-				
 			}
 			catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
 			catch (InstantiationException e) {logger.error("",e);}
