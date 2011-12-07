@@ -114,14 +114,19 @@ public class ReportCompiler
     	return compilation;
     }
     
-    public static int[] execute(String configFile, String reportRoot, String targetDir) 
+    public static int[] execute(String configFile, String reportRoot, String targetDir)
+    {
+    	logger.info("Using " +configFile +" for report configuration");
+    	Reports reports = null;
+ 		try {reports = JaxbUtil.loadJAXB(configFile, Reports.class);}
+ 		catch (FileNotFoundException e) {logger.error(e.getMessage());}
+ 		return execute(reports, reportRoot, targetDir);
+    }
+    
+    public static int[] execute(Reports reports, String reportRoot, String targetDir) 
     {
     	int[] compiledCounter = {0,0,0};
-    	logger.info("Using " +configFile +" for report configuration");
- 		
- 		Reports reports = null;
- 		try {reports = (Reports)JaxbUtil.loadJAXB(configFile, Reports.class);}
- 		catch (FileNotFoundException e) {logger.error(e.getMessage());}
+    	 		
  		
  		//Compiling reports
  		logger.info("Pre-Compiling "+reports.getReport().size()+" Report(s)");
