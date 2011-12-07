@@ -2,7 +2,7 @@ package net.sf.ahtutils.xml.xpath.access;
 
 import net.sf.ahtutils.test.AbstractXmlTest;
 import net.sf.ahtutils.xml.access.AclContainer;
-import net.sf.ahtutils.xml.access.Role;
+import net.sf.ahtutils.xml.access.Group;
 import net.sf.ahtutils.xml.access.RoleAutoAssign;
 import net.sf.ahtutils.xml.xpath.AccessXpath;
 import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
@@ -28,13 +28,13 @@ public class TestXPathAccessAutoAssign extends AbstractXmlTest
 		raa.setCode(code);
 		
 		RoleAutoAssign.Add add = new RoleAutoAssign.Add();
-		Role r1 = new Role();r1.setCode("r1");add.getRole().add(r1);
-		Role r2 = new Role();r2.setCode("r2");add.getRole().add(r2);
+		Group g1 = new Group();g1.setCode("g1");add.getGroup().add(g1);
+		Group g2 = new Group();g2.setCode("g2");add.getGroup().add(g2);
 		
 		RoleAutoAssign.Rm rm = new RoleAutoAssign.Rm();
 		rm.setImmediate(false);
-		Role r3 = new Role();r3.setCode("r3");rm.getRole().add(r3);
-		Role r4 = new Role();r4.setCode("r4");rm.getRole().add(r4);
+		Group g3 = new Group();g3.setCode("g3");rm.getGroup().add(g3);
+		Group g4 = new Group();g4.setCode("g4");rm.getGroup().add(g4);
 		
 		raa.setAdd(add);
 		raa.setRm(rm);

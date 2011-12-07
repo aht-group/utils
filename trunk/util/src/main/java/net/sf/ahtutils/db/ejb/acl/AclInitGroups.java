@@ -10,7 +10,7 @@ import net.sf.ahtutils.controller.exception.AhtUtilsNotFoundException;
 import net.sf.ahtutils.controller.factory.ejb.status.EjbLangFactory;
 import net.sf.ahtutils.controller.interfaces.AhtAclFacade;
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
-import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryRole;
+import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryGroup;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclGroup;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclUsecase;
@@ -19,22 +19,22 @@ import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Category;
-import net.sf.ahtutils.xml.access.Role;
-import net.sf.ahtutils.xml.access.Roles;
+import net.sf.ahtutils.xml.access.Group;
+import net.sf.ahtutils.xml.access.Groups;
 import net.sf.ahtutils.xml.access.Usecase;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AclInitRole <	S extends UtilsStatus<L>,
+public class AclInitGroups <	S extends UtilsStatus<L>,
 							L extends UtilsLang,
 							D extends UtilsDescription,
 							CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
 							U extends UtilsAclUsecase<L,D,CU,U>,
-							CR extends UtilsAclCategoryRole<L,D,CU,CR,U,R>,
+							CR extends UtilsAclCategoryGroup<L,D,CU,CR,U,R>,
 							R extends UtilsAclGroup<L,D,CU,CR,U,R>>
 {
-	final static Logger logger = LoggerFactory.getLogger(AclInitRole.class);
+	final static Logger logger = LoggerFactory.getLogger(AclInitGroups.class);
 	public static enum ExtractId {aclUseCases,aclRoles,aclRoleAutoAssign,aclProjectRoles}
 	
 	final Class<S> statusClass;
@@ -52,17 +52,17 @@ public class AclInitRole <	S extends UtilsStatus<L>,
 	
 	public static <S extends UtilsStatus<L>,L extends UtilsLang,D extends UtilsDescription,
 				   CU extends UtilsAclCategoryUsecase<L,D,CU,U>, U extends UtilsAclUsecase<L,D,CU,U>,
-				   CR extends UtilsAclCategoryRole<L,D,CU,CR,U,R>,R extends UtilsAclGroup<L,D,CU,CR,U,R>>
-		AclInitRole<S, L, D,CU,U,CR,R>
+				   CR extends UtilsAclCategoryGroup<L,D,CU,CR,U,R>,R extends UtilsAclGroup<L,D,CU,CR,U,R>>
+		AclInitGroups<S, L, D,CU,U,CR,R>
 		factory(final Class<S> statusClass,final Class<L> langClass,final Class<D> descriptionClass,
 				final Class<CU> categoryUsecaseClass,final Class<U> usecaseClass,
 				final Class<CR> categoryRoleClass,final Class<R> roleClass,
 				AhtAclFacade fAcl)
 	{
-		return new AclInitRole<S, L, D, CU, U,CR,R>(statusClass,langClass,descriptionClass,categoryUsecaseClass,usecaseClass,categoryRoleClass,roleClass,fAcl);
+		return new AclInitGroups<S, L, D, CU, U,CR,R>(statusClass,langClass,descriptionClass,categoryUsecaseClass,usecaseClass,categoryRoleClass,roleClass,fAcl);
 	}
 	
-	public AclInitRole(final Class<S> statusClass, final Class<L> langClass, final Class<D> descriptionClass,
+	public AclInitGroups(final Class<S> statusClass, final Class<L> langClass, final Class<D> descriptionClass,
 			final Class<CU> categoryUsecaseClass, final Class<U> usecaseClass,
 			final Class<CR> categoryRoleClass,final Class<R> roleClass,
 			AhtAclFacade fAcl)
@@ -136,9 +136,9 @@ public class AclInitRole <	S extends UtilsStatus<L>,
 				aclRoleCategory.setName(ejbLangFactory.getLangMap(category.getLangs()));
 //				aclRoleCategory.setDescription(ejbFactory.getDescriptionMap(category.getDescriptions()));
 				aclRoleCategory=(CR)fAcl.updateAhtUtilsStatus(aclRoleCategory);
-				if(category.isSetRoles() && category.getRoles().isSetRole())
+				if(category.isSetGroups() && category.getGroups().isSetGroup())
 				{
-					initUpdateRole(aclRoleCategory, category.getRoles(), false);
+					initUpdateRole(aclRoleCategory, category.getGroups(), false);
 				}
 			}
 			catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
@@ -150,16 +150,16 @@ public class AclInitRole <	S extends UtilsStatus<L>,
 	}
 	
 
-	private void initUpdateRole(CR aclRoleCategory, Roles roles, boolean refRoles) throws AhtUtilsConfigurationException
+	private void initUpdateRole(CR aclRoleCategory, Groups group, boolean refRoles) throws AhtUtilsConfigurationException
 	{
 		logger.warn("No removing of Roles");
-		for(Role role : roles.getRole())
+		for(Group role : group.getGroup())
 		{
 			initUpdateRole(aclRoleCategory, role, refRoles);
 		}
 	}
 	
-	private void initUpdateRole(CR roleCategory, Role role, boolean refRoles) throws AhtUtilsConfigurationException
+	private void initUpdateRole(CR roleCategory, Group role, boolean refRoles) throws AhtUtilsConfigurationException
 	{
 		logger.trace("initUpdateRole "+roleCategory.getCode()+"-"+role.getCode()+" (refRolse="+refRoles+")");
 		R aclRole;
@@ -235,9 +235,9 @@ public class AclInitRole <	S extends UtilsStatus<L>,
 			aclRole.setRoles(null);
 			try{aclRole=(R)fAcl.updateAhtUtilsStatus(aclRole);}
 			catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
-			if(role.isSetRoles() && role.getRoles().isSetRole())
+			if(role.isSetGroups() && role.getGroups().isSetGroup())
 			{
-				for(Role subRole : role.getRoles().getRole())
+				for(Group subRole : role.getGroups().getGroup())
 				{
 					try
 					{

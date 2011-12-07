@@ -13,28 +13,28 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestXmlRole extends AbstractXmlAccessTest
+public class TestXmlGroup extends AbstractXmlAccessTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestXmlRole.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlGroup.class);
 	
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"role.xml");
+		fXml = new File(rootDir,"group.xml");
 	}
     
     @Test
     public void testAclContainer() throws FileNotFoundException
     {
-    	Role actual = create();
-    	Role expected = (Role)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Role.class);
+    	Group actual = create();
+    	Group expected = (Group)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Group.class);
     	assertJaxbEquals(expected, actual);
     }
     
-    private static Role create(){return create(true);}
-    public static Role create(boolean withChilds)
+    private static Group create(){return create(true);}
+    public static Group create(boolean withChilds)
     {
-    	Role xml = new Role();
+    	Group xml = new Group();
     	xml.setCode("myCode");
     	
     	if(withChilds)
@@ -42,7 +42,7 @@ public class TestXmlRole extends AbstractXmlAccessTest
     		xml.setLangs(TestXmlLangs.create(false));
     		xml.setDescriptions(TestXmlDescriptions.create(false));
     		xml.setUsecases(TestXmlUsecases.create(false));
-    		xml.setRoles(TestXmlRoles.create(false));
+    		xml.setGroups(TestXmlGroups.create(false));
     	}
     	return xml;
     }
@@ -55,8 +55,8 @@ public class TestXmlRole extends AbstractXmlAccessTest
 			loggerInit.addAltPath("src/test/resources/config");
 			loggerInit.init();		
 			
-		TestXmlRole.initFiles();	
-		TestXmlRole test = new TestXmlRole();
+		TestXmlGroup.initFiles();	
+		TestXmlGroup test = new TestXmlGroup();
 		test.save();
     }
 }

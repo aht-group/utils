@@ -5,7 +5,7 @@ import java.util.List;
 
 import net.sf.ahtutils.controller.interfaces.AhtAclFacade;
 import net.sf.ahtutils.model.interfaces.EjbWithId;
-import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryRole;
+import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryGroup;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclGroup;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclUsecase;
@@ -20,7 +20,7 @@ public class UtilsIdentityFactory  <I extends UtilsIdentity<L,D,CU,UC,U>,
 									L extends UtilsLang,
 									D extends UtilsDescription,
 									CU extends UtilsAclCategoryUsecase<L,D,CU,UC>,
-									CR extends UtilsAclCategoryRole<L,D,CU,CR,UC,R>,
+									CR extends UtilsAclCategoryGroup<L,D,CU,CR,UC,R>,
 									R extends UtilsAclGroup<L,D,CU,CR,UC,R>,
 									UC extends UtilsAclUsecase<L,D,CU,UC>,
 									U extends EjbWithId>
@@ -59,7 +59,7 @@ public class UtilsIdentityFactory  <I extends UtilsIdentity<L,D,CU,UC,U>,
 					L extends UtilsLang,
 					D extends UtilsDescription,
 					CU extends UtilsAclCategoryUsecase<L,D,CU,UC>,
-					CR extends UtilsAclCategoryRole<L,D,CU,CR,UC,R>,
+					CR extends UtilsAclCategoryGroup<L,D,CU,CR,UC,R>,
 					R extends UtilsAclGroup<L,D,CU,CR,UC,R>,
 					UC extends UtilsAclUsecase<L,D,CU,UC>,
 					U extends EjbWithId> UtilsIdentityFactory<I,L,D,CU,CR,R,UC,U>

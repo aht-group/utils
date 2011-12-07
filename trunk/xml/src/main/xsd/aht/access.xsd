@@ -35,7 +35,7 @@
             <xsd:sequence>
                 <xsd:element ref="s:langs" maxOccurs="1"/>
                 <xsd:element ref="s:descriptions" maxOccurs="1"/>
-                <xsd:element ref="a:roles" maxOccurs="1"/>
+                <xsd:element ref="a:groups" maxOccurs="1"/>
                 <xsd:element ref="a:projectRoles" maxOccurs="1"/>
                 <xsd:element ref="a:usecases" maxOccurs="1"/>
             </xsd:sequence>
@@ -71,14 +71,14 @@
                 <xsd:element name="add" maxOccurs="1">
                     <xsd:complexType>
                         <xsd:sequence>
-                            <xsd:element ref="a:role" maxOccurs="unbounded"/>
+                            <xsd:element ref="a:group" maxOccurs="unbounded"/>
                         </xsd:sequence>
                     </xsd:complexType>
                 </xsd:element>
                 <xsd:element name="rm" maxOccurs="1">
                     <xsd:complexType>
                         <xsd:sequence>
-                            <xsd:element ref="a:role" maxOccurs="unbounded"/>
+                            <xsd:element ref="a:group" maxOccurs="unbounded"/>
                         </xsd:sequence>
                         <xsd:attribute name="immediate" type="xsd:boolean"/>
                     </xsd:complexType>
@@ -87,20 +87,20 @@
             <xsd:attribute name="code" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
-    <xsd:element name="roles">
+    <xsd:element name="groups">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="a:role" maxOccurs="unbounded"/>
+                <xsd:element ref="a:group" maxOccurs="unbounded"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
-    <xsd:element name="role">
+    <xsd:element name="group">
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element ref="s:descriptions" maxOccurs="1"/>
                 <xsd:element ref="s:langs" maxOccurs="1"/>
                 <xsd:element ref="a:usecases" maxOccurs="1"/>
-                <xsd:element ref="a:roles" maxOccurs="1"/>
+                <xsd:element ref="a:groups" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="code" type="xsd:string"/>
         </xsd:complexType>

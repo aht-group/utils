@@ -2,35 +2,35 @@ package net.sf.ahtutils.controller.factory.xml.acl;
 
 import net.sf.ahtutils.controller.factory.xml.status.XmlDescriptionsFactory;
 import net.sf.ahtutils.controller.factory.xml.status.XmlLangsFactory;
-import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryRole;
+import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryGroup;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclGroup;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclUsecase;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
-import net.sf.ahtutils.xml.access.Role;
+import net.sf.ahtutils.xml.access.Group;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class XmlRoleFactory
+public class XmlGroupFactory
 {
-	final static Logger logger = LoggerFactory.getLogger(XmlRoleFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(XmlGroupFactory.class);
 		
-	private Role qRole;
+	private Group qRole;
 	
 	private String lang;
 	
-	public XmlRoleFactory(Role qRole, String lang)
+	public XmlGroupFactory(Group qRole, String lang)
 	{
 		this.qRole=qRole;
 		this.lang=lang;
 	}
 	
-	public <L extends UtilsLang,D extends UtilsDescription,CU extends UtilsAclCategoryUsecase<L,D,CU,U>,CR extends UtilsAclCategoryRole<L,D,CU,CR,U,R>,U extends UtilsAclUsecase<L,D,CU,U>,R extends UtilsAclGroup<L,D,CU,CR,U,R>>
-		Role getRole(R aclRole)
+	public <L extends UtilsLang,D extends UtilsDescription,CU extends UtilsAclCategoryUsecase<L,D,CU,U>,CR extends UtilsAclCategoryGroup<L,D,CU,CR,U,R>,U extends UtilsAclUsecase<L,D,CU,U>,R extends UtilsAclGroup<L,D,CU,CR,U,R>>
+		Group getRole(R aclRole)
 	{
-		Role role = new Role();
+		Group role = new Group();
 		
 		if(qRole.isSetCode()){role.setCode(aclRole.getCode());}
 		
@@ -46,10 +46,10 @@ public class XmlRoleFactory
 			role.setDescriptions(f.create(aclRole.getDescription()));
 		}
 		
-		if(qRole.isSetRoles())
+		if(qRole.isSetGroups())
 		{
-			XmlRolesFactory f = new XmlRolesFactory(qRole.getRoles(), lang);
-			role.setRoles(f.getRoles(aclRole.getRoles()));
+			XmlGroupsFactory f = new XmlGroupsFactory(qRole.getGroups(), lang);
+			role.setGroups(f.getRoles(aclRole.getRoles()));
 		}
 		
 		if(qRole.isSetUsecases())

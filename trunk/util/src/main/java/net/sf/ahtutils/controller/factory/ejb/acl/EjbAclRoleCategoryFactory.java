@@ -1,6 +1,6 @@
 package net.sf.ahtutils.controller.factory.ejb.acl;
 
-import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryRole;
+import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryGroup;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclGroup;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclUsecase;
@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 public class EjbAclRoleCategoryFactory <L extends UtilsLang,
 										D extends UtilsDescription,
 										CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
-										CR extends UtilsAclCategoryRole<L,D,CU,CR,U,R>,
+										CR extends UtilsAclCategoryGroup<L,D,CU,CR,U,R>,
 										U extends UtilsAclUsecase<L,D,CU,U>,
 										R extends UtilsAclGroup<L,D,CU,CR,U,R>>
 {
@@ -29,7 +29,7 @@ public class EjbAclRoleCategoryFactory <L extends UtilsLang,
     public static <L extends UtilsLang,
 					D extends UtilsDescription,
 					CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
-					CR extends UtilsAclCategoryRole<L,D,CU,CR,U,R>,
+					CR extends UtilsAclCategoryGroup<L,D,CU,CR,U,R>,
 					U extends UtilsAclUsecase<L,D,CU,U>,
 					R extends UtilsAclGroup<L,D,CU,CR,U,R>>
     	EjbAclRoleCategoryFactory<L,D,CU,CR,U,R> factory(final Class<L> clLang,final Class<D> clDescription,final Class<CU> clCategoryUsecase,final Class<CR> clCategoryRole,final Class<U> clUsecase,final Class<R> clRole)
