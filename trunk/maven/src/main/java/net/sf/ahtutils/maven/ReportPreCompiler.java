@@ -1,11 +1,15 @@
 package net.sf.ahtutils.maven;
 
-import java.util.ArrayList;
+import java.text.DecimalFormat;
 
 import net.sf.ahtutils.report.ReportCompiler;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.joda.time.DateTime;
+import org.joda.time.Period;
 
 /**
  * Goal which compiles a set of JasperReports jrxml files to .jasper file. Creates a rtl language and a ltr language version of all reports.
@@ -18,33 +22,53 @@ public class ReportPreCompiler extends AbstractMojo
 {
 	/**
      * Location of the file.
-     * @parameter expression="reports.xml"
+     * @parameter expression="src/main/resources/reports.${project.artifactId}/reports.xml"
      * @required
      */
     private String configFile;
     
     /**
      * Location of the file.
-     * @parameter expression="src/main/resources/reports.${project.artifactId}"
+     * @parameter expression="src/main/reports.${project.artifactId}"
      * @required
      */
-    private String reportRoot;
+    private String source;
     
     /**
      * Location of the file.
-     * @parameter expression="${project.build.directory}/reports.${project.artifactId}"
+     * @parameter expression="${project.build.directory}/classes/reports.${project.artifactId}"
      * @required
      */
-    private String targetDir;
+    private String target;
+    
+    /**
+     * Location of the file.
+     * @parameter expression="WARN"
+     * @required
+     */
+    private String log;
 	
     public void execute() throws MojoExecutionException
     {
-    	getLog().info("Using data from " +reportRoot +" for report processing.");
-    	getLog().info("Using target: " +targetDir);
-    	ArrayList<String> log = ReportCompiler.execute(configFile, reportRoot, targetDir);
-    	for (String str : log)
-    	{
-    		getLog().info(str);
-    	}
+    	BasicConfigurator.configure();
+    	org.apache.log4j.Logger.getRootLogger().setLevel(Level.toLevel(log));
+    	
+    	getLog().info("Using configFile " +configFile);
+    	getLog().info("Using jrxml from " +source);
+    	getLog().info("Compiling jasper to " +target);
+    	
+    	DateTime start = new DateTime();
+    	int[] counter = ReportCompiler.execute(configFile, source, target);
+    	Period duration = new Period(start,new DateTime());
+    	
+    	DecimalFormat df = new DecimalFormat("#00");
+    	df.setDecimalSeparatorAlwaysShown(false);
+    	
+    	StringBuffer sb = new StringBuffer();
+    	sb.append("Compiled ").append(counter[0]).append(" reports");
+    	sb.append(" (media:"+counter[1]+" jr:"+counter[2]+")");
+    	sb.append(" in ").append(df.format(duration.getMinutes())).append(":").append(df.format(duration.getSeconds())).append(" minutes");
+    	    	
+    	getLog().info(sb.toString());
     }
 }

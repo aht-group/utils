@@ -3,7 +3,6 @@ package net.sf.ahtutils.report;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
 import net.sf.ahtutils.xml.report.Jr;
 import net.sf.ahtutils.xml.report.Media;
@@ -21,7 +20,6 @@ public class ReportCompiler
 {
 	final static Logger logger = LoggerFactory.getLogger(ReportController.class);
 	
-    static ArrayList<String> log;
     static String currentHash;
     
     public static Boolean compileReport(String jrxml, String jasper)
@@ -110,75 +108,62 @@ public class ReportCompiler
 //			log.add("Compiled  " +jrxml +" to " +jasper);
 //	    }
     	
-	    try {
-			JasperCompileManager.compileReportToFile(jrxml, jasper);
-			
-		} catch (JRException e) {
-			logger.error(e.getMessage());
-			log.add(e.getMessage());
-		}
-	    log.add("Target File was " +jasper);
+	    try {JasperCompileManager.compileReportToFile(jrxml, jasper);}
+	    catch (JRException e) {logger.error(e.getMessage());}
+	    logger.debug("Target File was " +jasper);
     	return compilation;
     }
     
-    public static ArrayList<String> execute(String configFile, String reportRoot, String targetDir) 
+    public static int[] execute(String configFile, String reportRoot, String targetDir) 
     {
-    	log = new ArrayList<String>();
-    	
-    	logger.info("Using " +configFile +" for report configuration.");
- 		log.add("Using " +configFile +" for report configuration.");
+    	int[] compiledCounter = {0,0,0};
+    	logger.info("Using " +configFile +" for report configuration");
  		
  		Reports reports = null;
- 		try {reports = (Reports)JaxbUtil.loadJAXB(reportRoot +"/" +configFile, Reports.class);}
+ 		try {reports = (Reports)JaxbUtil.loadJAXB(configFile, Reports.class);}
  		catch (FileNotFoundException e) {logger.error(e.getMessage());}
  		
  		//Compiling reports
  		logger.info("Pre-Compiling "+reports.getReport().size()+" Report(s)");
  		for(Report report : reports.getReport())
  		{
+ 			compiledCounter[0]++;
  			logger.info("Report: "+report.getId() +" (" +report.getMedia().size() + " media outputs)");
  			for (Media media : report.getMedia())
  			{
+ 				compiledCounter[1]++;
  				logger.info("Compiling " +media.getJr().size() +" reports for output -" +media.getType() +"-");
  				for (Jr jr : media.getJr())
  				{
+ 					compiledCounter[2]++;
  					logger.info(jr.getName());
  					//Compiling for left to right and right to left languages
  					String jrxml  = reportRoot +"/" +"jrxml"  +"/" +report.getDir() +"/" + media.getType() + "/" + jr.getType() + jr.getName() +".jrxml";
- 					if (report.isSetLtr())
+ 					if(report.isSetLtr() && report.isLtr())
  					{
- 					//Compiling ltr version
-	 					if (report.isLtr())
-	 					{
-		 					String jasperLtr = targetDir +"/" +"jasper" +"/" +report.getDir() +"/" + media.getType() + "/ltr/" + jr.getType() + jr.getName() +".jasper";
-		 					log.add("target file: " +jasperLtr);
-		 					new File(targetDir +"/" +"jasper"  +"/" +report.getDir() +"/" + media.getType() + "/ltr/").mkdirs();
-		 					compileReport(jrxml, jasperLtr);
-	 					}
+	 					String jasperLtr = targetDir +"/" +"jasper" +"/" +report.getDir() +"/" + media.getType() + "/ltr/" + jr.getType() + jr.getName() +".jasper";
+	 					logger.info("Compiling LTR " +jrxml +" to " +jasperLtr);
+	 					new File(targetDir +"/" +"jasper"  +"/" +report.getDir() +"/" + media.getType() + "/ltr/").mkdirs();
+	 					compileReport(jrxml, jasperLtr);
  					}
  					
- 					//Compiling rtl version
- 					if (report.isSetRtl())
- 					{
-	 					if (report.isRtl())
-	 					{
-	 						String jasperRtl = targetDir +"/" +"jasper" +"/" +report.getDir() +"/" + media.getType() + "/rtl/" + jr.getType() + jr.getName() +".jasper";
-	 	 					logger.info("Compiling " +jrxml +" to " +jasperRtl);
-	 	 					log.add("Compiled  " +jrxml +" to " +jasperRtl);
-	 	 					
-	 	 					new File(targetDir +"/" +"jasper"  +"/" +report.getDir() +"/" + media.getType() + "/rtl/").mkdirs();
-	 	 					InputStream in = null;
-	 	 					try {
-	 	 						in = ReportUtilRtl.LeftToRightConversion(jrxml);
-	 	 					} catch (JDOMException e) {
-	 	 						logger.error("Problem converting to right-to-left language.");
-	 	 					}
-	 	 					compileReport(in, jrxml, jasperRtl);
-	 					}
+ 					if(report.isSetRtl() && report.isRtl())
+ 					{	
+ 						String jasperRtl = targetDir +"/" +"jasper" +"/" +report.getDir() +"/" + media.getType() + "/rtl/" + jr.getType() + jr.getName() +".jasper";
+ 						logger.info("Compiling RTL " +jrxml +" to " +jasperRtl);
+ 	
+ 	 					new File(targetDir +"/" +"jasper"  +"/" +report.getDir() +"/" + media.getType() + "/rtl/").mkdirs();
+ 	 					InputStream in = null;
+ 	 					try {
+ 	 						in = ReportUtilRtl.LeftToRightConversion(jrxml);
+ 	 					} catch (JDOMException e) {
+ 	 						logger.error("Problem converting to right-to-left language.");
+ 	 					}
+ 	 					compileReport(in, jrxml, jasperRtl);
  					}
  				}
  			}
  		}
- 		return log;
+ 		return compiledCounter;
  	}
 }
