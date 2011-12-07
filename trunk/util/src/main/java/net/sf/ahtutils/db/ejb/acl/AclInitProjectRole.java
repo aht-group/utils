@@ -14,9 +14,9 @@ import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryProjectRole;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclProjectRole;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
-import net.sf.ahtutils.xml.access.AclContainer;
+import net.sf.ahtutils.xml.access.Access;
+import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.ProjectRole;
-import net.sf.ahtutils.xml.access.ProjectRoleCategory;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.slf4j.Logger;
@@ -67,10 +67,10 @@ public class AclInitProjectRole <L extends UtilsLang,
 		updateCategory.dbEjbs(fAcl.all(categoryClass));
 		updateRole.dbEjbs(fAcl.all(roleClass));
 		
-		logger.trace("i/u "+ProjectRoleCategory.class.getSimpleName()+" with "+xmlFile);
-		AclContainer aclContainer = (AclContainer)JaxbUtil.loadJAXB(xmlFile, AclContainer.class);
+		logger.trace("i/u "+Category.class.getSimpleName()+" with "+xmlFile);
+		Access access = JaxbUtil.loadJAXB(xmlFile, Access.class);
 
-		for(ProjectRoleCategory category : aclContainer.getProjectRoleCategory())
+		for(Category category : access.getCategory())
 		{
 			updateCategory.actualAdd(category.getCode());
 			

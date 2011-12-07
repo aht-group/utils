@@ -3,8 +3,10 @@ package net.sf.ahtutils.controller.factory.xml.acl;
 import net.sf.ahtutils.controller.factory.xml.status.XmlDescriptionsFactory;
 import net.sf.ahtutils.controller.factory.xml.status.XmlLangsFactory;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryGroup;
+import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryProjectRole;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclGroup;
+import net.sf.ahtutils.model.interfaces.acl.UtilsAclProjectRole;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclUsecase;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
@@ -52,5 +54,33 @@ public class XmlCategoryFactory
 		}
 		
 		return rc;
+	}
+	
+	public <L extends UtilsLang,D extends UtilsDescription,C extends UtilsAclCategoryProjectRole<L,D,C,R>,R extends UtilsAclProjectRole<L,D,C,R>>
+	Category getProjectRoleCategory(C aclPrc)
+	{
+		Category prc = new Category();
+		
+		if(qC.isSetCode()){prc.setCode(aclPrc.getCode());}
+		
+		if(qC.isSetLangs())
+		{
+			XmlLangsFactory f = new XmlLangsFactory(qC.getLangs());
+			prc.setLangs(f.getUtilsLangs(aclPrc.getName()));
+		}
+		
+		if(qC.isSetDescriptions())
+		{
+			XmlDescriptionsFactory f = new XmlDescriptionsFactory(qC.getDescriptions());
+			prc.setDescriptions(f.create(aclPrc.getDescription()));
+		}
+		
+		if(qC.isSetProjectRoles())
+		{
+			XmlAclProjectRolesFactory f = new XmlAclProjectRolesFactory(qC.getProjectRoles(), lang);
+			prc.setProjectRoles(f.getProjectRoles(aclPrc.getRoles()));
+		}
+		
+		return prc;
 	}
 }
