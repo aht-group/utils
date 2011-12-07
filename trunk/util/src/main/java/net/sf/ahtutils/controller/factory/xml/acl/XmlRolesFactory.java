@@ -4,7 +4,7 @@ import java.util.List;
 
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryRole;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
-import net.sf.ahtutils.model.interfaces.acl.UtilsAclRole;
+import net.sf.ahtutils.model.interfaces.acl.UtilsAclGroup;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclUsecase;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
@@ -26,7 +26,7 @@ public class XmlRolesFactory
 		this.lang=lang;
 	}
 	
-	public <L extends UtilsLang,D extends UtilsDescription,CU extends UtilsAclCategoryUsecase<L,D,CU,U>,CR extends UtilsAclCategoryRole<L,D,CU,CR,U,R>,U extends UtilsAclUsecase<L,D,CU,U>,R extends UtilsAclRole<L,D,CU,CR,U,R>>
+	public <L extends UtilsLang,D extends UtilsDescription,CU extends UtilsAclCategoryUsecase<L,D,CU,U>,CR extends UtilsAclCategoryRole<L,D,CU,CR,U,R>,U extends UtilsAclUsecase<L,D,CU,U>,R extends UtilsAclGroup<L,D,CU,CR,U,R>>
 		Roles getRoles(List<R> lRoles)
 	{
 		Roles roles = new Roles();

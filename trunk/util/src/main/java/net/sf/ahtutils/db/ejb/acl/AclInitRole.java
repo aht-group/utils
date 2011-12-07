@@ -12,7 +12,7 @@ import net.sf.ahtutils.controller.interfaces.AhtAclFacade;
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryRole;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
-import net.sf.ahtutils.model.interfaces.acl.UtilsAclRole;
+import net.sf.ahtutils.model.interfaces.acl.UtilsAclGroup;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclUsecase;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
@@ -32,7 +32,7 @@ public class AclInitRole <	S extends UtilsStatus<L>,
 							CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
 							U extends UtilsAclUsecase<L,D,CU,U>,
 							CR extends UtilsAclCategoryRole<L,D,CU,CR,U,R>,
-							R extends UtilsAclRole<L,D,CU,CR,U,R>>
+							R extends UtilsAclGroup<L,D,CU,CR,U,R>>
 {
 	final static Logger logger = LoggerFactory.getLogger(AclInitRole.class);
 	public static enum ExtractId {aclUseCases,aclRoles,aclRoleAutoAssign,aclProjectRoles}
@@ -52,7 +52,7 @@ public class AclInitRole <	S extends UtilsStatus<L>,
 	
 	public static <S extends UtilsStatus<L>,L extends UtilsLang,D extends UtilsDescription,
 				   CU extends UtilsAclCategoryUsecase<L,D,CU,U>, U extends UtilsAclUsecase<L,D,CU,U>,
-				   CR extends UtilsAclCategoryRole<L,D,CU,CR,U,R>,R extends UtilsAclRole<L,D,CU,CR,U,R>>
+				   CR extends UtilsAclCategoryRole<L,D,CU,CR,U,R>,R extends UtilsAclGroup<L,D,CU,CR,U,R>>
 		AclInitRole<S, L, D,CU,U,CR,R>
 		factory(final Class<S> statusClass,final Class<L> langClass,final Class<D> descriptionClass,
 				final Class<CU> categoryUsecaseClass,final Class<U> usecaseClass,

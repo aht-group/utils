@@ -13,7 +13,7 @@ public interface UtilsAclCategoryRole<L extends UtilsLang,
 									  CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
 									  CR extends UtilsAclCategoryRole<L,D,CU,CR,U,R>,
 									  U extends UtilsAclUsecase<L,D,CU,U>,
-									  R extends UtilsAclRole<L,D,CU,CR,U,R>>
+									  R extends UtilsAclGroup<L,D,CU,CR,U,R>>
 			extends EjbWithCode,EjbWithLang<L>,EjbWithDescription<D>
 {
 	public List<R> getRoles();
