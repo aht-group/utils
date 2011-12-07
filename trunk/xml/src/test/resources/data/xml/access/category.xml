@@ -3,6 +3,6 @@
     <s:langs/>
     <s:descriptions/>
     <acl:groups/>
-    <acl:projectRoles/>
+    <acl:roles/>
     <acl:usecases/>
 </acl:category>

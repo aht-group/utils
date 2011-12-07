@@ -13,28 +13,28 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestXmlProjectRole extends AbstractXmlAccessTest
+public class TestXmlRole extends AbstractXmlAccessTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestXmlProjectRole.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlRole.class);
 	
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"projectRole.xml");
+		fXml = new File(rootDir,"role.xml");
 	}
     
     @Test
     public void testXml() throws FileNotFoundException
     {
-    	ProjectRole actual = create();
-    	ProjectRole expected = (ProjectRole)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), ProjectRole.class);
+    	Role actual = create();
+    	Role expected = (Role)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Role.class);
     	assertJaxbEquals(expected, actual);
     }
     
-    private static ProjectRole create(){return create(true);}
-    public static ProjectRole create(boolean withChilds)
+    private static Role create(){return create(true);}
+    public static Role create(boolean withChilds)
     {
-    	ProjectRole xml = new ProjectRole();
+    	Role xml = new Role();
     	xml.setCode("myCode");
     	xml.setName("myName");
     	
@@ -54,8 +54,8 @@ public class TestXmlProjectRole extends AbstractXmlAccessTest
 			loggerInit.addAltPath("src/test/resources/config");
 			loggerInit.init();		
 			
-		TestXmlProjectRole.initFiles();	
-		TestXmlProjectRole test = new TestXmlProjectRole();
+		TestXmlRole.initFiles();	
+		TestXmlRole test = new TestXmlRole();
 		test.save();
     }
 }

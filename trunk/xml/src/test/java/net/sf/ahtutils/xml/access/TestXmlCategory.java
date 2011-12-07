@@ -42,7 +42,7 @@ public class TestXmlCategory extends AbstractXmlAccessTest
     	{
     		xml.setLangs(TestXmlLangs.create(false));
     		xml.setDescriptions(TestXmlDescriptions.create(false));
-    		xml.setProjectRoles(TestXmlProjectRoles.create(false));
+    		xml.setRoles(TestXmlRoles.create(false));
     		xml.setGroups(TestXmlGroups.create(false));
     		xml.setUsecases(TestXmlUsecases.create(false));
     	}

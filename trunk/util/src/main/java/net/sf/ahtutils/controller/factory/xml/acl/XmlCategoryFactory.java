@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 
 public class XmlCategoryFactory
 {
-	final static Logger logger = LoggerFactory.getLogger(XmlAclProjectRoleFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(XmlAclRoleFactory.class);
 		
 	private Category qC;
 	private String lang;
@@ -75,10 +75,10 @@ public class XmlCategoryFactory
 			prc.setDescriptions(f.create(aclPrc.getDescription()));
 		}
 		
-		if(qC.isSetProjectRoles())
+		if(qC.isSetRoles())
 		{
-			XmlAclProjectRolesFactory f = new XmlAclProjectRolesFactory(qC.getProjectRoles(), lang);
-			prc.setProjectRoles(f.getProjectRoles(aclPrc.getRoles()));
+			XmlAclRolesFactory f = new XmlAclRolesFactory(qC.getRoles(), lang);
+			prc.setRoles(f.getProjectRoles(aclPrc.getRoles()));
 		}
 		
 		return prc;

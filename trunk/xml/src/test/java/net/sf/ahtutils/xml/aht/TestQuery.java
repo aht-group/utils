@@ -3,7 +3,7 @@ package net.sf.ahtutils.xml.aht;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.xml.access.TestXmlProjectRole;
+import net.sf.ahtutils.xml.access.TestXmlRole;
 import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.xml.JaxbUtil;
 
@@ -38,7 +38,7 @@ public class TestQuery extends AbstractXmlAhtTest
     	
     	if(withChilds)
     	{
-    		xml.setProjectRole(TestXmlProjectRole.create(false));
+    		xml.setRole(TestXmlRole.create(false));
     	}
     	
     	return xml;

@@ -5,30 +5,30 @@ import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryProjectRole;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclRole;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
-import net.sf.ahtutils.xml.access.ProjectRole;
+import net.sf.ahtutils.xml.access.Role;
 import net.sf.ahtutils.xml.aht.Query;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class XmlAclProjectRoleFactory
+public class XmlAclRoleFactory
 {
-	final static Logger logger = LoggerFactory.getLogger(XmlAclProjectRoleFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(XmlAclRoleFactory.class);
 		
-	private ProjectRole q;
+	private Role q;
 	private String lang;
 	
-	public XmlAclProjectRoleFactory(Query uQ){this(uQ.getProjectRole(),uQ.getLang());}
-	public XmlAclProjectRoleFactory(ProjectRole q,String lang)
+	public XmlAclRoleFactory(Query uQ){this(uQ.getRole(),uQ.getLang());}
+	public XmlAclRoleFactory(Role q,String lang)
 	{
 		this.q=q;
 		this.lang=lang;
 	}
 	
     public <L extends UtilsLang,D extends UtilsDescription,C extends UtilsAclCategoryProjectRole<L,D,C,R>,R extends UtilsAclRole<L,D,C,R>>
-    ProjectRole create(UtilsAclRole<L,D,C,R> ejb)
+    Role create(UtilsAclRole<L,D,C,R> ejb)
     {
-    	ProjectRole xml = new ProjectRole();
+    	Role xml = new Role();
     	if(q.isSetCode()){xml.setCode(ejb.getCode());}
     	if(q.isSetName())
     	{

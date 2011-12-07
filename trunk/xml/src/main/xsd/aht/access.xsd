@@ -34,7 +34,7 @@
                 <xsd:element ref="s:langs" maxOccurs="1"/>
                 <xsd:element ref="s:descriptions" maxOccurs="1"/>
                 <xsd:element ref="a:groups" maxOccurs="1"/>
-                <xsd:element ref="a:projectRoles" maxOccurs="1"/>
+                <xsd:element ref="a:roles" maxOccurs="1"/>
                 <xsd:element ref="a:usecases" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -109,14 +109,14 @@
             <xsd:attribute name="index" type="xsd:int"/>
         </xsd:complexType>
     </xsd:element>
-    <xsd:element name="projectRoles">
+    <xsd:element name="roles">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="a:projectRole" maxOccurs="unbounded"/>
+                <xsd:element ref="a:role" maxOccurs="unbounded"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
-    <xsd:element name="projectRole">
+    <xsd:element name="role">
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element ref="s:descriptions" maxOccurs="1"/>

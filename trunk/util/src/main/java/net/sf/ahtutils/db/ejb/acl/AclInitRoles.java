@@ -15,7 +15,7 @@ import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Category;
-import net.sf.ahtutils.xml.access.ProjectRole;
+import net.sf.ahtutils.xml.access.Role;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -114,9 +114,9 @@ public class AclInitRoles <L extends UtilsLang,
 //				aclCategory.setDescription(ejbFactory.getDescriptionMap(category.getDescriptions()));
 				aclCategory=(C)fAcl.updateAhtUtilsStatus(aclCategory);
 				
-				if(category.isSetProjectRoles() && category.getProjectRoles().isSetProjectRole())
+				if(category.isSetRoles() && category.getRoles().isSetRole())
 				{
-					for(ProjectRole role : category.getProjectRoles().getProjectRole())
+					for(Role role : category.getRoles().getRole())
 					{
 						updateRole.actualAdd(role.getCode());
 						initUpdateProjectRole(aclCategory, role);
@@ -135,7 +135,7 @@ public class AclInitRoles <L extends UtilsLang,
 		logger.trace("initUpdateUsecaseCategories finished");
 	}
 	
-	public void initUpdateProjectRole(C category, ProjectRole role) throws AhtUtilsConfigurationException
+	public void initUpdateProjectRole(C category, Role role) throws AhtUtilsConfigurationException
 	{
 		R aclRole;
 		try

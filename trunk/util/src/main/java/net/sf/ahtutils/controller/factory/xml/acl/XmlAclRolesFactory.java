@@ -6,36 +6,36 @@ import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryProjectRole;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclRole;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
-import net.sf.ahtutils.xml.access.ProjectRoles;
+import net.sf.ahtutils.xml.access.Roles;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class XmlAclProjectRolesFactory
+public class XmlAclRolesFactory
 {
-	final static Logger logger = LoggerFactory.getLogger(XmlAclProjectRolesFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(XmlAclRolesFactory.class);
 		
-	private ProjectRoles qProjectRoles;
+	private Roles qProjectRoles;
 	
 	private String lang;
 	
-	public XmlAclProjectRolesFactory(ProjectRoles qProjectRoles, String lang)
+	public XmlAclRolesFactory(Roles qProjectRoles, String lang)
 	{
 		this.qProjectRoles=qProjectRoles;
 		this.lang=lang;
 	}
 	
 	public <L extends UtilsLang,D extends UtilsDescription,C extends UtilsAclCategoryProjectRole<L,D,C,R>,R extends UtilsAclRole<L,D,C,R>>
-			ProjectRoles getProjectRoles(List<R> lRoles)
+			Roles getProjectRoles(List<R> lRoles)
 	{
-		ProjectRoles roles = new ProjectRoles();
+		Roles roles = new Roles();
 		
-		if(qProjectRoles.isSetProjectRole())
+		if(qProjectRoles.isSetRole())
 		{
-			XmlAclProjectRoleFactory f = new XmlAclProjectRoleFactory(qProjectRoles.getProjectRole().get(0),lang);
+			XmlAclRoleFactory f = new XmlAclRoleFactory(qProjectRoles.getRole().get(0),lang);
 			for(R aclProjectRole : lRoles)
 			{
-				roles.getProjectRole().add(f.create(aclProjectRole));
+				roles.getRole().add(f.create(aclProjectRole));
 			}
 		}
 		return roles;

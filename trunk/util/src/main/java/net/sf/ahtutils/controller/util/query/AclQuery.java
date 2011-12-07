@@ -3,7 +3,7 @@ package net.sf.ahtutils.controller.util.query;
 import java.util.Hashtable;
 import java.util.Map;
 
-import net.sf.ahtutils.xml.access.ProjectRole;
+import net.sf.ahtutils.xml.access.Role;
 import net.sf.ahtutils.xml.aht.Query;
 
 public class AclQuery
@@ -29,12 +29,12 @@ public class AclQuery
 	
 	public static Query createProjectRole()
 	{
-		ProjectRole r = new ProjectRole();
+		Role r = new Role();
 		r.setCode("");
 		r.setName("");
     	
 		Query q = new Query();
-    	q.setProjectRole(r);
+    	q.setRole(r);
     	return q;
 	}
 }
