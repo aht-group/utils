@@ -1,6 +1,5 @@
 package net.sf.ahtutils.db.ejb.acl;
 
-import java.io.FileNotFoundException;
 import java.util.Map;
 
 import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
@@ -11,13 +10,12 @@ import net.sf.ahtutils.controller.factory.ejb.status.EjbLangFactory;
 import net.sf.ahtutils.controller.interfaces.AhtAclFacade;
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryProjectRole;
-import net.sf.ahtutils.model.interfaces.acl.UtilsAclProjectRole;
+import net.sf.ahtutils.model.interfaces.acl.UtilsAclRole;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.ProjectRole;
-import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +23,7 @@ import org.slf4j.LoggerFactory;
 public class AclInitRoles <L extends UtilsLang,
 								D extends UtilsDescription, 
 								C extends UtilsAclCategoryProjectRole<L,D,C,R>,
-								R extends UtilsAclProjectRole<L,D,C,R>>
+								R extends UtilsAclRole<L,D,C,R>>
 {
 	final static Logger logger = LoggerFactory.getLogger(AclInitRoles.class);
 	public static enum ExtractId {aclUseCases,aclRoles,aclRoleAutoAssign,aclProjectRoles}
@@ -39,7 +37,7 @@ public class AclInitRoles <L extends UtilsLang,
 	private AhtAclFacade fAcl;
 	private EjbLangFactory<L> ejbLangFactory;
 	
-	public static <L extends UtilsLang,D extends UtilsDescription,C extends UtilsAclCategoryProjectRole<L,D,C,R>,R extends UtilsAclProjectRole<L,D,C,R>>
+	public static <L extends UtilsLang,D extends UtilsDescription,C extends UtilsAclCategoryProjectRole<L,D,C,R>,R extends UtilsAclRole<L,D,C,R>>
 		AclInitRoles<L,D,C,R>
 		factory(final Class<L> langClass,final Class<D> descriptionClass,final Class<C> categoryClass,final Class<R> roleClass,AhtAclFacade fAcl)
 	{

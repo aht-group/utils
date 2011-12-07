@@ -6,13 +6,13 @@ import net.sf.ahtutils.model.interfaces.EjbWithLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 
-public interface UtilsAclProjectRole<L extends UtilsLang,
+public interface UtilsAclRole<L extends UtilsLang,
 						 D extends UtilsDescription, 
 						 C extends UtilsAclCategoryProjectRole<L,D,C,R>,
-						 R extends UtilsAclProjectRole<L,D,C,R>>
+						 R extends UtilsAclRole<L,D,C,R>>
 			extends EjbWithCode,EjbWithLang<L>,EjbWithDescription<D>
 {
-	public static final String extractId = "aclProjectRoles";
+	public static final String extractId = "aclRoles";
 	
 	public C getCategory();
 	public void setCategory(C category);

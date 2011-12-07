@@ -2,7 +2,7 @@ package net.sf.ahtutils.controller.factory.xml.acl;
 
 import net.sf.ahtutils.controller.factory.xml.status.XmlLangsFactory;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryProjectRole;
-import net.sf.ahtutils.model.interfaces.acl.UtilsAclProjectRole;
+import net.sf.ahtutils.model.interfaces.acl.UtilsAclRole;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.xml.access.ProjectRole;
@@ -25,8 +25,8 @@ public class XmlAclProjectRoleFactory
 		this.lang=lang;
 	}
 	
-    public <L extends UtilsLang,D extends UtilsDescription,C extends UtilsAclCategoryProjectRole<L,D,C,R>,R extends UtilsAclProjectRole<L,D,C,R>>
-    ProjectRole create(UtilsAclProjectRole<L,D,C,R> ejb)
+    public <L extends UtilsLang,D extends UtilsDescription,C extends UtilsAclCategoryProjectRole<L,D,C,R>,R extends UtilsAclRole<L,D,C,R>>
+    ProjectRole create(UtilsAclRole<L,D,C,R> ejb)
     {
     	ProjectRole xml = new ProjectRole();
     	if(q.isSetCode()){xml.setCode(ejb.getCode());}

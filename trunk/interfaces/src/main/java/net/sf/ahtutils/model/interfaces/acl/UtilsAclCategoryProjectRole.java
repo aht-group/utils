@@ -11,7 +11,7 @@ import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 public interface UtilsAclCategoryProjectRole<L extends UtilsLang,
 									  D extends UtilsDescription,
 									  C extends UtilsAclCategoryProjectRole<L,D,C,R>,
-									  R extends UtilsAclProjectRole<L,D,C,R>>
+									  R extends UtilsAclRole<L,D,C,R>>
 			extends EjbWithCode,EjbWithLang<L>,EjbWithDescription<D>
 {
 	public List<R> getRoles();
