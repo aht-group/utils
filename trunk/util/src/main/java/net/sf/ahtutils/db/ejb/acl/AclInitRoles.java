@@ -22,12 +22,12 @@ import net.sf.exlp.util.xml.JaxbUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AclInitProjectRole <L extends UtilsLang,
+public class AclInitRoles <L extends UtilsLang,
 								D extends UtilsDescription, 
 								C extends UtilsAclCategoryProjectRole<L,D,C,R>,
 								R extends UtilsAclProjectRole<L,D,C,R>>
 {
-	final static Logger logger = LoggerFactory.getLogger(AclInitProjectRole.class);
+	final static Logger logger = LoggerFactory.getLogger(AclInitRoles.class);
 	public static enum ExtractId {aclUseCases,aclRoles,aclRoleAutoAssign,aclProjectRoles}
 	
     final Class<L> langClass;
@@ -40,13 +40,13 @@ public class AclInitProjectRole <L extends UtilsLang,
 	private EjbLangFactory<L> ejbLangFactory;
 	
 	public static <L extends UtilsLang,D extends UtilsDescription,C extends UtilsAclCategoryProjectRole<L,D,C,R>,R extends UtilsAclProjectRole<L,D,C,R>>
-		AclInitProjectRole<L,D,C,R>
+		AclInitRoles<L,D,C,R>
 		factory(final Class<L> langClass,final Class<D> descriptionClass,final Class<C> categoryClass,final Class<R> roleClass,AhtAclFacade fAcl)
 	{
-		return new AclInitProjectRole<L,D,C,R>(langClass, descriptionClass, categoryClass, roleClass,fAcl);
+		return new AclInitRoles<L,D,C,R>(langClass, descriptionClass, categoryClass, roleClass,fAcl);
 	}
 	
-	public AclInitProjectRole(final Class<L> langClass, final Class<D> descriptionClass,final Class<C> categoryClass,final Class<R> roleClass,AhtAclFacade fAcl)
+	public AclInitRoles(final Class<L> langClass, final Class<D> descriptionClass,final Class<C> categoryClass,final Class<R> roleClass,AhtAclFacade fAcl)
 	{       
         this.langClass = langClass;
         this.descriptionClass = descriptionClass;
@@ -58,8 +58,7 @@ public class AclInitProjectRole <L extends UtilsLang,
 		ejbLangFactory = EjbLangFactory.createFactory(langClass);
 	}
 	
-	// Project Roles
-	public void initUpdateProjectRoleCategories(String xmlFile) throws FileNotFoundException, AhtUtilsConfigurationException
+	public void iuRoles(Access access) throws AhtUtilsConfigurationException
 	{
 		AhtDbEjbUpdater<C> updateCategory = AhtDbEjbUpdater.createFactory(categoryClass);
 		AhtDbEjbUpdater<R> updateRole = AhtDbEjbUpdater.createFactory(roleClass);
@@ -67,8 +66,7 @@ public class AclInitProjectRole <L extends UtilsLang,
 		updateCategory.dbEjbs(fAcl.all(categoryClass));
 		updateRole.dbEjbs(fAcl.all(roleClass));
 		
-		logger.trace("i/u "+Category.class.getSimpleName()+" with "+xmlFile);
-		Access access = JaxbUtil.loadJAXB(xmlFile, Access.class);
+		logger.debug("i/u "+Category.class.getSimpleName()+" with "+access.getCategory().size()+" categories");
 
 		for(Category category : access.getCategory())
 		{

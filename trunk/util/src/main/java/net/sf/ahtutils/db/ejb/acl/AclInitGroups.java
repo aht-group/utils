@@ -80,7 +80,7 @@ public class AclInitGroups <	S extends UtilsStatus<L>,
 		ejbLangFactory = EjbLangFactory.createFactory(langClass);
 	}
 	
-	public void iuRoleCategory(Access access) throws FileNotFoundException, AhtUtilsConfigurationException
+	public void iuGroups(Access access) throws FileNotFoundException, AhtUtilsConfigurationException
 	{
 		AhtDbEjbUpdater<CR> updateRoleCategory = AhtDbEjbUpdater.createFactory(categoryRoleClass);
 		AhtDbEjbUpdater<R> updateRole = AhtDbEjbUpdater.createFactory(roleClass);
