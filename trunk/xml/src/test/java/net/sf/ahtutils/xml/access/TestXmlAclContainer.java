@@ -37,7 +37,6 @@ public class TestXmlAclContainer extends AbstractXmlAccessTest
     	if(withChilds)
     	{
     		xml.getProjectRoleCategory().add(TestXmlProjectRoleCategory.create(false));
-    		xml.getRoleCategory().add(TestXmlRoleCategory.create(false));
     		xml.getUsecaseCategory().add(TestXmlUsecaseCategory.create(false));
     		xml.getRoleAutoAssign().add(TestXmlRoleAutoAssign.create(false));
     	}

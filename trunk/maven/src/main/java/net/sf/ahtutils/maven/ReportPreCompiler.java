@@ -22,14 +22,14 @@ public class ReportPreCompiler extends AbstractMojo
 {
 	/**
      * Location of the file.
-     * @parameter expression="src/main/resources/reports.${project.artifactId}/reports.xml"
+     * @parameter expression="${project.basedir}/src/main/resources/reports.${project.artifactId}/reports.xml"
      * @required
      */
     private String configFile;
     
     /**
      * Location of the file.
-     * @parameter expression="src/main/reports.${project.artifactId}"
+     * @parameter expression="${project.basedir}/src/main/reports"
      * @required
      */
     private String source;
