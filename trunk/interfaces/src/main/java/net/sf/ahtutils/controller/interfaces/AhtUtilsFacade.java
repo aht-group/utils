@@ -16,6 +16,8 @@ public interface AhtUtilsFacade
 	<T extends Object> T fAhtUtilsEntity(Class<T> type, long id) throws AhtUtilsNotFoundException;
 	<T extends EjbRemoveable> void rmAhtUtilsEntity(T o) throws AhtUtilsContraintViolationException;
 	
+	<T extends Object> List<T> all(Class<T> type);
+	
 	<T extends EjbWithCode> T fAhtUtilsByCode(Class<T> type, String code) throws AhtUtilsNotFoundException;
 	<T extends UtilsStatus<L>,L extends UtilsLang> T fAhtUtilsStatusByCode(Class<T> type, String code) throws AhtUtilsNotFoundException;
 	<T extends UtilsStatus<L>,L extends UtilsLang> List<T> allAhtUtilsStatus(Class<T> type);

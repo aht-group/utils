@@ -17,6 +17,6 @@ public interface UtilsSecurityView<L extends UtilsLang,
 {
 	public static final String extractId = "aclViews";
 	
-	public C getCategory();
-	public void setCategory(C category);
+//	public C getCategory();
+//	public void setCategory(C category);
 }

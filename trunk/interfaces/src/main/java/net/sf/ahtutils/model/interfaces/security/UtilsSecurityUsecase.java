@@ -15,8 +15,8 @@ public interface UtilsSecurityUsecase<L extends UtilsLang,
  									  A extends UtilsSecurityAction<L,D,C,R,V,U,A>>
 			extends EjbWithCode,EjbWithLang<L>,EjbWithDescription<D>
 {
-	public static final String extractId = "aclViews";
+	public static final String extractId = "securityUsecases";
 	
-	public C getCategory();
-	public void setCategory(C category);
+//	public C getCategory();
+//	public void setCategory(C category);
 }

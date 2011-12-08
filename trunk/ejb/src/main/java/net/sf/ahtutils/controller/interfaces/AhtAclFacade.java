@@ -42,8 +42,6 @@ public interface AhtAclFacade extends AhtUtilsFacade
 	 U extends UtilsAclView<L,D,CU,U>,
 	 R extends UtilsAclGroup<L,D,CU,CR,U,R>>
 	Set<U> findUsecasesForRoles(List<R> roles);
-		
-	<T extends Object> List<T> all(Class<T> type);
 	
 	//***************************   XML Factory   *************************************
 	

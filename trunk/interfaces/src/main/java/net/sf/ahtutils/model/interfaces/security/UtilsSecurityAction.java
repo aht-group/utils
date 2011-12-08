@@ -17,6 +17,6 @@ public interface UtilsSecurityAction<L extends UtilsLang,
 {
 	public static final String extractId = "securityActions";
 	
-	public C getCategory();
-	public void setCategory(C category);
+	public V getView();
+	public void setView(V view);
 }
