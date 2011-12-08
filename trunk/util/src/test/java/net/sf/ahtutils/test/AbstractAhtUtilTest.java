@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 
-import net.sf.ahtutils.controller.factory.java.AbstractJavaFactoryTest;
+import net.sf.ahtutils.controller.factory.java.acl.AbstractJavaAclFactoryTest;
 import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
 import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.io.RelativePathFactory;
@@ -12,6 +12,7 @@ import net.sf.exlp.util.io.StringIO;
 import net.sf.exlp.util.xml.JaxbUtil;
 import net.sf.exlp.xml.ns.NsPrefixMapperInterface;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.openfuxml.renderer.processor.latex.util.OfxLatexRenderer;
@@ -24,11 +25,11 @@ public class AbstractAhtUtilTest
 	
 	protected static NsPrefixMapperInterface nsPrefixMapper;
 	protected File f;
-	private boolean saveReference=false;
+	protected boolean saveReference=false;
 
 	protected static File fTarget;
 	
-	protected static void setfTarget(File fTarget) {AbstractJavaFactoryTest.fTarget = fTarget;}
+	protected static void setfTarget(File fTarget) {AbstractJavaAclFactoryTest.fTarget = fTarget;}
 
 	@BeforeClass
 	public static void initFile()
@@ -92,13 +93,32 @@ public class AbstractAhtUtilTest
 		}
 	}
 	
-	protected void assertText(OfxLatexRenderer renderer, File f) throws IOException
+	protected void assertText(OfxLatexRenderer renderer, File fExpected) throws IOException
 	{
 		StringWriter actual = new StringWriter();
 		renderer.write(actual);
+		assertText(fExpected, actual.toString());
+	}
+	
+	private void assertText(File fExpected, String actual)
+	{
 		
-		String expected = StringIO.loadTxt(f);
-		Assert.assertEquals(expected, actual.toString());
+		
+		String expected = StringIO.loadTxt(fExpected);		
+		Assert.assertEquals("Texts are different",expected, actual);
+	}
+	
+	protected void assertText(File fExpected, File fActual) throws IOException
+	{
+		if(saveReference)
+		{
+			FileUtils.copyFile(fActual, fExpected);
+			System.out.println(StringIO.loadTxt(fActual));
+		}
+		
+		String expected = StringIO.loadTxt(fExpected);
+		String actual = StringIO.loadTxt(fActual);
+		Assert.assertEquals("Texts are different",expected, actual);
 	}
 	
 	public void setSaveReference(boolean saveReference) {this.saveReference = saveReference;}

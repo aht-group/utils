@@ -9,6 +9,9 @@ import java.io.OutputStream;
 import net.sf.ahtutils.report.ReportUtilXls;
 import net.sf.ahtutils.test.AbstractAhtUtilTest;
 
+import org.junit.Ignore;
+
+@Ignore("Needs to be implemented: UTILS-74")
 public class TestRemoveEmptyCells extends AbstractAhtUtilTest{
 	
 	public void convert(){
