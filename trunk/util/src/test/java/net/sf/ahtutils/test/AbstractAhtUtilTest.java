@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 
+import net.sf.ahtutils.controller.factory.java.AbstractJavaFactoryTest;
 import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
 import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.io.RelativePathFactory;
@@ -25,6 +26,17 @@ public class AbstractAhtUtilTest
 	protected File f;
 	private boolean saveReference=false;
 
+	protected static File fTarget;
+	
+	protected static void setfTarget(File fTarget) {AbstractJavaFactoryTest.fTarget = fTarget;}
+
+	@BeforeClass
+	public static void initFile()
+	{
+		setfTarget(new File(System.getProperty("targetDir")));
+		logger.debug(fTarget.getAbsolutePath());
+	}
+	
 	@BeforeClass
     public static void initLogger()
 	{
