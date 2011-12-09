@@ -1,4 +1,4 @@
-package net.sf.ahtutils.controller.factory.ofx.acl;
+package net.sf.ahtutils.controller.factory.ofx.security;
 
 import java.io.File;
 import java.io.IOException;

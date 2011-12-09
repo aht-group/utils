@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import net.sf.ahtutils.controller.factory.ofx.security.OfxCategoryListFactory;
 import net.sf.ahtutils.test.AhtUtilsTstBootstrap;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.TestXmlCategory;
