@@ -90,10 +90,14 @@ public class SecurityInitUsecases <L extends UtilsLang,
 			ebj.setDescription(ejbDescriptionFactory.create(usecase.getDescriptions()));
 			ebj.setCategory(category);
 			ebj=fSecurity.updateAhtUtilsStatus(ebj);
+			
+			ebj = iuListViews(ebj, usecase.getViews());
+			ebj = iuListActions(ebj, usecase.getActions());
 		}
 		catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
 		catch (InstantiationException e) {logger.error("",e);}
 		catch (IllegalAccessException e) {logger.error("",e);}
 		catch (AhtUtilsIntegrityException e) {logger.error("",e);}
+		catch (AhtUtilsNotFoundException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
 	}
 }

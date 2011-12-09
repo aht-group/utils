@@ -17,10 +17,16 @@ import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityRole;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityUsecase;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityView;
+import net.sf.ahtutils.model.interfaces.security.UtilsSecurityWithActions;
+import net.sf.ahtutils.model.interfaces.security.UtilsSecurityWithViews;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.xml.access.Access;
+import net.sf.ahtutils.xml.access.Action;
+import net.sf.ahtutils.xml.access.Actions;
 import net.sf.ahtutils.xml.access.Category;
+import net.sf.ahtutils.xml.access.View;
+import net.sf.ahtutils.xml.access.Views;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -187,5 +193,37 @@ public class AbstractSecurityInit <L extends UtilsLang,
 			try {fSecurity.rmAhtUtilsEntity(desc);}
 			catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
 		}
+	}
+	
+	protected <T extends UtilsSecurityWithViews<L,D,C,R,V,U,A>> T iuListViews(T ejb, Views views) throws AhtUtilsContraintViolationException, AhtUtilsNotFoundException
+	{
+		ejb.getViews().clear();
+		ejb = fSecurity.updateAhtUtilsStatus(ejb);
+		if(views!=null)
+		{
+			for(View view : views.getView())
+			{
+				V ejbView = fSecurity.fAhtUtilsByCode(cV, view.getCode());
+				ejb.getViews().add(ejbView);
+			}
+			ejb = fSecurity.updateAhtUtilsStatus(ejb);
+		}
+		return ejb;
+	}
+	
+	protected <T extends UtilsSecurityWithActions<L,D,C,R,V,U,A>> T iuListActions(T ejb, Actions actions) throws AhtUtilsContraintViolationException, AhtUtilsNotFoundException
+	{
+		ejb.getActions().clear();
+		ejb = fSecurity.updateAhtUtilsStatus(ejb);
+		if(actions!=null)
+		{
+			for(Action action : actions.getAction())
+			{
+				A ejbAction = fSecurity.fAhtUtilsByCode(cA, action.getCode());
+				ejb.getActions().add(ejbAction);
+			}
+			ejb = fSecurity.updateAhtUtilsStatus(ejb);
+		}
+		return ejb;
 	}
 }

@@ -16,6 +16,8 @@ import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.Role;
+import net.sf.ahtutils.xml.access.Usecase;
+import net.sf.ahtutils.xml.access.Usecases;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,11 +79,11 @@ public class SecurityInitRoles <L extends UtilsLang,
 				aclRole = cR.newInstance();
 				aclRole.setCategory(category);
 				aclRole.setCode(role.getCode());
-				aclRole = fSecurity.persistAhtUtilsStatus(aclRole);
+				aclRole = fSecurity.persistAhtUtilsStatus(aclRole);				
 			}
 			catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
 			catch (IllegalAccessException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
-			catch (AhtUtilsContraintViolationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}	
+			catch (AhtUtilsContraintViolationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
 		}
 		
 		try
@@ -90,10 +92,31 @@ public class SecurityInitRoles <L extends UtilsLang,
 			aclRole.setDescription(ejbDescriptionFactory.create(role.getDescriptions()));
 			aclRole.setCategory(category);
 			aclRole=fSecurity.updateAhtUtilsStatus(aclRole);
+
+			aclRole = iuListViews(aclRole, role.getViews());
+			aclRole = iuListActions(aclRole, role.getActions());
+			aclRole = iuUsecasesForRole(aclRole, role.getUsecases());
 		}
 		catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
 		catch (InstantiationException e) {logger.error("",e);}
 		catch (IllegalAccessException e) {logger.error("",e);}
 		catch (AhtUtilsIntegrityException e) {logger.error("",e);}
+		catch (AhtUtilsNotFoundException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
+	}
+	
+	private R iuUsecasesForRole(R ejb, Usecases usecases) throws AhtUtilsContraintViolationException, AhtUtilsNotFoundException
+	{
+		ejb.getUsecases().clear();
+		ejb = fSecurity.updateAhtUtilsStatus(ejb);
+		if(usecases!=null)
+		{
+			for(Usecase usecase : usecases.getUsecase())
+			{
+				U ejbUsecase = fSecurity.fAhtUtilsByCode(cU, usecase.getCode());
+				ejb.getUsecases().add(ejbUsecase);
+			}
+			ejb = fSecurity.updateAhtUtilsStatus(ejb);
+		}
+		return ejb;
 	}
 }

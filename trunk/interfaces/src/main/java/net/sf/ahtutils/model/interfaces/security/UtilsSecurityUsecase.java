@@ -13,7 +13,7 @@ public interface UtilsSecurityUsecase<L extends UtilsLang,
  									  V extends UtilsSecurityView<L,D,C,R,V,U,A>,
  									  U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,
  									  A extends UtilsSecurityAction<L,D,C,R,V,U,A>>
-			extends EjbWithCode,EjbWithLang<L>,EjbWithDescription<D>
+			extends EjbWithCode,EjbWithLang<L>,EjbWithDescription<D>,UtilsSecurityWithViews<L,D,C,R,V,U,A>,UtilsSecurityWithActions<L,D,C,R,V,U,A>
 {
 	public static final String extractId = "securityUsecases";
 	
