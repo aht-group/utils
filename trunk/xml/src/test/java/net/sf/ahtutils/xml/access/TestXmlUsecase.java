@@ -3,6 +3,8 @@ package net.sf.ahtutils.xml.access;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import net.sf.ahtutils.xml.status.TestXmlDescriptions;
+import net.sf.ahtutils.xml.status.TestXmlLangs;
 import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.xml.JaxbUtil;
 
@@ -11,32 +13,34 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestXmlViews extends AbstractXmlAccessTest
+public class TestXmlUsecase extends AbstractXmlAccessTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestXmlViews.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlUsecase.class);
 	
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"views.xml");
+		fXml = new File(rootDir,"usecase.xml");
 	}
     
     @Test
     public void testAclContainer() throws FileNotFoundException
     {
-    	Views actual = create();
-    	Views expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Views.class);
+    	Usecase actual = create();
+    	Usecase expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Usecase.class);
     	assertJaxbEquals(expected, actual);
     }
     
-    private static Views create(){return create(true);}
-    public static Views create(boolean withChilds)
+    private static Usecase create(){return create(true);}
+    public static Usecase create(boolean withChilds)
     {
-    	Views xml = new Views();
+    	Usecase xml = new Usecase();
+    	xml.setCode("myCode");
     	
     	if(withChilds)
     	{
-    		xml.getView().add(TestXmlView.create(false));
+    		xml.setLangs(TestXmlLangs.create(false));
+    		xml.setDescriptions(TestXmlDescriptions.create(false));
     	}
     	return xml;
     }
@@ -49,8 +53,8 @@ public class TestXmlViews extends AbstractXmlAccessTest
 			loggerInit.addAltPath("src/test/resources/config");
 			loggerInit.init();		
 			
-		TestXmlViews.initFiles();	
-		TestXmlViews test = new TestXmlViews();
+		TestXmlUsecase.initFiles();	
+		TestXmlUsecase test = new TestXmlUsecase();
 		test.save();
     }
 }

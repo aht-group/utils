@@ -6,6 +6,7 @@ import net.sf.ahtutils.controller.exception.AhtUtilsContraintViolationException;
 import net.sf.ahtutils.controller.exception.AhtUtilsNotFoundException;
 import net.sf.ahtutils.model.interfaces.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.EjbWithCode;
+import net.sf.ahtutils.model.interfaces.EjbWithType;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 
@@ -17,8 +18,9 @@ public interface AhtUtilsFacade
 	<T extends EjbRemoveable> void rmAhtUtilsEntity(T o) throws AhtUtilsContraintViolationException;
 	
 	<T extends Object> List<T> all(Class<T> type);
+	<T extends EjbWithType> List<T> allUtilsForType(Class<T> claszz, String type);
 	
-	<T extends EjbWithCode> T fAhtUtilsByCode(Class<T> type, String code) throws AhtUtilsNotFoundException;
+	<T extends EjbWithCode> T fAhtUtilsByCode(Class<T> classType, String code) throws AhtUtilsNotFoundException;
 	<T extends UtilsStatus<L>,L extends UtilsLang> T fAhtUtilsStatusByCode(Class<T> type, String code) throws AhtUtilsNotFoundException;
 	<T extends UtilsStatus<L>,L extends UtilsLang> List<T> allAhtUtilsStatus(Class<T> type);
 }

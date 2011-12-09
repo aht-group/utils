@@ -27,7 +27,7 @@ public class TestXmlView extends AbstractXmlAccessTest
     public void testAclContainer() throws FileNotFoundException
     {
     	View actual = create();
-    	View expected = (View)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), View.class);
+    	View expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), View.class);
     	assertJaxbEquals(expected, actual);
     }
     

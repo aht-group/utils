@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://ahtutils.aht-group.com/access}view" maxOccurs="unbounded"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/access}usecase" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -39,52 +39,52 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "view"
+    "usecase"
 })
-@XmlRootElement(name = "views")
-public class Views
+@XmlRootElement(name = "usecases")
+public class Usecases
     implements Serializable
 {
 
     private final static long serialVersionUID = 1L;
     @XmlElement(required = true)
-    protected List<View> view;
+    protected List<Usecase> usecase;
 
     /**
-     * Gets the value of the view property.
+     * Gets the value of the usecase property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the view property.
+     * This is why there is not a <CODE>set</CODE> method for the usecase property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getView().add(newItem);
+     *    getUsecase().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link View }
+     * {@link Usecase }
      * 
      * 
      */
-    public List<View> getView() {
-        if (view == null) {
-            view = new ArrayList<View>();
+    public List<Usecase> getUsecase() {
+        if (usecase == null) {
+            usecase = new ArrayList<Usecase>();
         }
-        return this.view;
+        return this.usecase;
     }
 
-    public boolean isSetView() {
-        return ((this.view!= null)&&(!this.view.isEmpty()));
+    public boolean isSetUsecase() {
+        return ((this.usecase!= null)&&(!this.usecase.isEmpty()));
     }
 
-    public void unsetView() {
-        this.view = null;
+    public void unsetUsecase() {
+        this.usecase = null;
     }
 
 }

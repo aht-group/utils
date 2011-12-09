@@ -33,7 +33,7 @@ import net.sf.ahtutils.xml.status.Langs;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}langs"/>
  *       &lt;/sequence>
  *       &lt;attribute name="code" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="index" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *       &lt;attribute name="name" type="{http://www.w3.org/2001/XMLSchema}string" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -46,8 +46,8 @@ import net.sf.ahtutils.xml.status.Langs;
     "descriptions",
     "langs"
 })
-@XmlRootElement(name = "view")
-public class View
+@XmlRootElement(name = "usecase")
+public class Usecase
     implements Serializable
 {
 
@@ -58,8 +58,8 @@ public class View
     protected Langs langs;
     @XmlAttribute(name = "code")
     protected String code;
-    @XmlAttribute(name = "index")
-    protected Integer index;
+    @XmlAttribute(name = "name")
+    protected String name;
 
     /**
      * Gets the value of the descriptions property.
@@ -146,35 +146,31 @@ public class View
     }
 
     /**
-     * Gets the value of the index property.
+     * Gets the value of the name property.
      * 
      * @return
      *     possible object is
-     *     {@link Integer }
+     *     {@link String }
      *     
      */
-    public int getIndex() {
-        return index;
+    public String getName() {
+        return name;
     }
 
     /**
-     * Sets the value of the index property.
+     * Sets the value of the name property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Integer }
+     *     {@link String }
      *     
      */
-    public void setIndex(int value) {
-        this.index = value;
+    public void setName(String value) {
+        this.name = value;
     }
 
-    public boolean isSetIndex() {
-        return (this.index!= null);
-    }
-
-    public void unsetIndex() {
-        this.index = null;
+    public boolean isSetName() {
+        return (this.name!= null);
     }
 
 }

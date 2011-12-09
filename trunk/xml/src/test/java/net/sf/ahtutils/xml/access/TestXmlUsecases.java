@@ -11,32 +11,32 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestXmlViews extends AbstractXmlAccessTest
+public class TestXmlUsecases extends AbstractXmlAccessTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestXmlViews.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlUsecases.class);
 	
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"views.xml");
+		fXml = new File(rootDir,"usecases.xml");
 	}
     
     @Test
     public void testAclContainer() throws FileNotFoundException
     {
-    	Views actual = create();
-    	Views expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Views.class);
+    	Usecases actual = create();
+    	Usecases expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Usecases.class);
     	assertJaxbEquals(expected, actual);
     }
     
-    private static Views create(){return create(true);}
-    public static Views create(boolean withChilds)
+    private static Usecases create(){return create(true);}
+    public static Usecases create(boolean withChilds)
     {
-    	Views xml = new Views();
+    	Usecases xml = new Usecases();
     	
     	if(withChilds)
     	{
-    		xml.getView().add(TestXmlView.create(false));
+    		xml.getUsecase().add(TestXmlUsecase.create(false));
     	}
     	return xml;
     }
@@ -49,8 +49,8 @@ public class TestXmlViews extends AbstractXmlAccessTest
 			loggerInit.addAltPath("src/test/resources/config");
 			loggerInit.init();		
 			
-		TestXmlViews.initFiles();	
-		TestXmlViews test = new TestXmlViews();
+		TestXmlUsecases.initFiles();	
+		TestXmlUsecases test = new TestXmlUsecases();
 		test.save();
     }
 }

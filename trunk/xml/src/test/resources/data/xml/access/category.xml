@@ -5,4 +5,5 @@
     <acl:groups/>
     <acl:roles/>
     <acl:views/>
+    <acl:usecases/>
 </acl:category>

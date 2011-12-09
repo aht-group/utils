@@ -15,12 +15,12 @@ import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Category;
-import net.sf.ahtutils.xml.access.Role;
+import net.sf.ahtutils.xml.access.View;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SecurityInitRoles <L extends UtilsLang,
+public class SecurityInitViews <L extends UtilsLang,
  								D extends UtilsDescription, 
  								C extends UtilsSecurityCategory<L,D,C,R,V,U,A>,
  								R extends UtilsSecurityRole<L,D,C,R,V,U,A>,
@@ -29,23 +29,23 @@ public class SecurityInitRoles <L extends UtilsLang,
  								A extends UtilsSecurityAction<L,D,C,R,V,U,A>>
 		extends AbstractSecurityInit<L,D,C,R,V,U,A>
 {
-	final static Logger logger = LoggerFactory.getLogger(SecurityInitRoles.class);
+	final static Logger logger = LoggerFactory.getLogger(SecurityInitViews.class);
 	
-	private AhtDbEjbUpdater<R> updateRole;
+	private AhtDbEjbUpdater<V> updateView;
 	
-	public SecurityInitRoles(final Class<L> cL, final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV,final Class<U> cU,final Class<A> cA,AhtSecurityFacade fAcl)
+	public SecurityInitViews(final Class<L> cL, final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV,final Class<U> cU,final Class<A> cA,AhtSecurityFacade fAcl)
 	{       
         super(cL,cD,cC,cR,cV,cU,cA,fAcl);
 	}
 	
-	public void iuRoles(Access access) throws AhtUtilsConfigurationException
+	public void iuViews(Access access) throws AhtUtilsConfigurationException
 	{
-		updateRole = AhtDbEjbUpdater.createFactory(cR);
-		updateRole.dbEjbs(fSecurity.all(cR));
+		updateView = AhtDbEjbUpdater.createFactory(cV);
+		updateView.dbEjbs(fSecurity.all(cV));
 
-		iuCategory(access, UtilsSecurityCategory.Type.role);
+		iuCategory(access, UtilsSecurityCategory.Type.view);
 		
-		updateRole.remove(fSecurity);
+		updateView.remove(fSecurity);
 		logger.trace("iuRoles finished");
 	}
 	
@@ -53,31 +53,31 @@ public class SecurityInitRoles <L extends UtilsLang,
 	{
 		if(category.isSetRoles() && category.getRoles().isSetRole())
 		{
-			for(Role role : category.getRoles().getRole())
+			for(View view : category.getViews().getView())
 			{
-				updateRole.actualAdd(role.getCode());
-				iuRole(aclCategory, role);
+				updateView.actualAdd(view.getCode());
+				iuView(aclCategory, view);
 			}
 		}
 	}
 	
-	private void iuRole(C category, Role role) throws AhtUtilsConfigurationException
+	private void iuView(C category, View view) throws AhtUtilsConfigurationException
 	{
-		R aclRole;
+		V ebj;
 		try
 		{
-			aclRole = fSecurity.fAhtUtilsByCode(cR,role.getCode());
-			rmLang(aclRole);
-			rmDescription(aclRole);
+			ebj = fSecurity.fAhtUtilsByCode(cV,view.getCode());
+			rmLang(ebj);
+			rmDescription(ebj);
 		}
 		catch (AhtUtilsNotFoundException e)
 		{
 			try
 			{
-				aclRole = cR.newInstance();
-				aclRole.setCategory(category);
-				aclRole.setCode(role.getCode());
-				aclRole = fSecurity.persistAhtUtilsStatus(aclRole);
+				ebj = cV.newInstance();
+				ebj.setCategory(category);
+				ebj.setCode(view.getCode());
+				ebj = fSecurity.persistAhtUtilsStatus(ebj);
 			}
 			catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
 			catch (IllegalAccessException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
@@ -86,10 +86,10 @@ public class SecurityInitRoles <L extends UtilsLang,
 		
 		try
 		{
-			aclRole.setName(ejbLangFactory.getLangMap(role.getLangs()));
-			aclRole.setDescription(ejbDescriptionFactory.create(role.getDescriptions()));
-			aclRole.setCategory(category);
-			aclRole=fSecurity.updateAhtUtilsStatus(aclRole);
+			ebj.setName(ejbLangFactory.getLangMap(view.getLangs()));
+			ebj.setDescription(ejbDescriptionFactory.create(view.getDescriptions()));
+			ebj.setCategory(category);
+			ebj=fSecurity.updateAhtUtilsStatus(ebj);
 		}
 		catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
 		catch (InstantiationException e) {logger.error("",e);}
