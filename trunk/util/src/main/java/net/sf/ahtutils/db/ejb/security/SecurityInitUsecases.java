@@ -16,7 +16,6 @@ import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.Usecase;
-import net.sf.ahtutils.xml.access.View;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +31,7 @@ public class SecurityInitUsecases <L extends UtilsLang,
 {
 	final static Logger logger = LoggerFactory.getLogger(SecurityInitUsecases.class);
 	
-	private AhtDbEjbUpdater<U> updateView;
+	private AhtDbEjbUpdater<U> updateUsecases;
 	
 	public SecurityInitUsecases(final Class<L> cL, final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV,final Class<U> cU,final Class<A> cA,AhtSecurityFacade fAcl)
 	{       
@@ -41,22 +40,22 @@ public class SecurityInitUsecases <L extends UtilsLang,
 	
 	public void iuUsecases(Access access) throws AhtUtilsConfigurationException
 	{
-		updateView = AhtDbEjbUpdater.createFactory(cU);
-		updateView.dbEjbs(fSecurity.all(cU));
+		updateUsecases = AhtDbEjbUpdater.createFactory(cU);
+		updateUsecases.dbEjbs(fSecurity.all(cU));
 
 		iuCategory(access, UtilsSecurityCategory.Type.usecase);
 		
-		updateView.remove(fSecurity);
+		updateUsecases.remove(fSecurity);
 		logger.trace("iuRoles finished");
 	}
 	
 	@Override protected void iuChilds(C aclCategory, Category category) throws AhtUtilsConfigurationException
 	{
-		if(category.isSetRoles() && category.getRoles().isSetRole())
+		if(category.isSetUsecases() && category.getUsecases().isSetUsecase())
 		{
 			for(Usecase usecase : category.getUsecases().getUsecase())
 			{
-				updateView.actualAdd(usecase.getCode());
+				updateUsecases.actualAdd(usecase.getCode());
 				iuUsecase(aclCategory, usecase);
 			}
 		}

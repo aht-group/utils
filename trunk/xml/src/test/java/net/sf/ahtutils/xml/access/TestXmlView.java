@@ -42,6 +42,7 @@ public class TestXmlView extends AbstractXmlAccessTest
     	{
     		xml.setLangs(TestXmlLangs.create(false));
     		xml.setDescriptions(TestXmlDescriptions.create(false));
+    		xml.setActions(TestXmlActions.create(false));
     	}
     	return xml;
     }

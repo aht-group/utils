@@ -14,6 +14,7 @@ import net.sf.ahtutils.model.interfaces.security.UtilsSecurityView;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.xml.access.Access;
+import net.sf.ahtutils.xml.access.Action;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.View;
 
@@ -32,6 +33,7 @@ public class SecurityInitViews <L extends UtilsLang,
 	final static Logger logger = LoggerFactory.getLogger(SecurityInitViews.class);
 	
 	private AhtDbEjbUpdater<V> updateView;
+	private AhtDbEjbUpdater<A> updateAction;
 	
 	public SecurityInitViews(final Class<L> cL, final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV,final Class<U> cU,final Class<A> cA,AhtSecurityFacade fAcl)
 	{       
@@ -41,11 +43,15 @@ public class SecurityInitViews <L extends UtilsLang,
 	public void iuViews(Access access) throws AhtUtilsConfigurationException
 	{
 		updateView = AhtDbEjbUpdater.createFactory(cV);
+		updateAction = AhtDbEjbUpdater.createFactory(cA);
+		
 		updateView.dbEjbs(fSecurity.all(cV));
+		updateAction.dbEjbs(fSecurity.all(cA));
 
 		iuCategory(access, UtilsSecurityCategory.Type.view);
 		
 		updateView.remove(fSecurity);
+		updateAction.remove(fSecurity);
 		logger.trace("iuRoles finished");
 	}
 	
@@ -89,6 +95,51 @@ public class SecurityInitViews <L extends UtilsLang,
 			ebj.setName(ejbLangFactory.getLangMap(view.getLangs()));
 			ebj.setDescription(ejbDescriptionFactory.create(view.getDescriptions()));
 			ebj.setCategory(category);
+			ebj=fSecurity.updateAhtUtilsStatus(ebj);
+			
+			if(view.isSetActions() && view.getActions().isSetAction())
+			{
+				for(Action action : view.getActions().getAction())
+				{
+					updateAction.actualAdd(action.getCode());
+					iuAction(ebj, action);
+				}
+			}
+		}
+		catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
+		catch (InstantiationException e) {logger.error("",e);}
+		catch (IllegalAccessException e) {logger.error("",e);}
+		catch (AhtUtilsIntegrityException e) {logger.error("",e);}
+	}
+	
+	private void iuAction(V ejbView, Action action) throws AhtUtilsConfigurationException
+	{
+		A ebj;
+		try
+		{
+			ebj = fSecurity.fAhtUtilsByCode(cA,action.getCode());
+			rmLang(ebj);
+			rmDescription(ebj);
+		}
+		catch (AhtUtilsNotFoundException e)
+		{
+			try
+			{
+				ebj = cA.newInstance();
+				ebj.setView(ejbView);
+				ebj.setCode(action.getCode());
+				ebj = fSecurity.persistAhtUtilsStatus(ebj);
+			}
+			catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
+			catch (IllegalAccessException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
+			catch (AhtUtilsContraintViolationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}	
+		}
+		
+		try
+		{
+			ebj.setName(ejbLangFactory.getLangMap(action.getLangs()));
+			ebj.setDescription(ejbDescriptionFactory.create(action.getDescriptions()));
+			ebj.setView(ejbView);
 			ebj=fSecurity.updateAhtUtilsStatus(ebj);
 		}
 		catch (AhtUtilsContraintViolationException e) {logger.error("",e);}

@@ -15,8 +15,6 @@ public interface UtilsSecurityAction<L extends UtilsLang,
 								   A extends UtilsSecurityAction<L,D,C,R,V,U,A>>
 			extends EjbWithCode,EjbWithLang<L>,EjbWithDescription<D>
 {
-	public static final String extractId = "securityActions";
-	
 	public V getView();
 	public void setView(V view);
 }
