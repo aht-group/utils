@@ -15,12 +15,13 @@ import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Category;
+import net.sf.ahtutils.xml.access.Usecase;
 import net.sf.ahtutils.xml.access.View;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SecurityInitViews <L extends UtilsLang,
+public class SecurityInitUsecases <L extends UtilsLang,
  								D extends UtilsDescription, 
  								C extends UtilsSecurityCategory<L,D,C,R,V,U,A>,
  								R extends UtilsSecurityRole<L,D,C,R,V,U,A>,
@@ -29,21 +30,21 @@ public class SecurityInitViews <L extends UtilsLang,
  								A extends UtilsSecurityAction<L,D,C,R,V,U,A>>
 		extends AbstractSecurityInit<L,D,C,R,V,U,A>
 {
-	final static Logger logger = LoggerFactory.getLogger(SecurityInitViews.class);
+	final static Logger logger = LoggerFactory.getLogger(SecurityInitUsecases.class);
 	
-	private AhtDbEjbUpdater<V> updateView;
+	private AhtDbEjbUpdater<U> updateView;
 	
-	public SecurityInitViews(final Class<L> cL, final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV,final Class<U> cU,final Class<A> cA,AhtSecurityFacade fAcl)
+	public SecurityInitUsecases(final Class<L> cL, final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV,final Class<U> cU,final Class<A> cA,AhtSecurityFacade fAcl)
 	{       
         super(cL,cD,cC,cR,cV,cU,cA,fAcl);
 	}
 	
-	public void iuViews(Access access) throws AhtUtilsConfigurationException
+	public void iuUsecases(Access access) throws AhtUtilsConfigurationException
 	{
-		updateView = AhtDbEjbUpdater.createFactory(cV);
-		updateView.dbEjbs(fSecurity.all(cV));
+		updateView = AhtDbEjbUpdater.createFactory(cU);
+		updateView.dbEjbs(fSecurity.all(cU));
 
-		iuCategory(access, UtilsSecurityCategory.Type.view);
+		iuCategory(access, UtilsSecurityCategory.Type.usecase);
 		
 		updateView.remove(fSecurity);
 		logger.trace("iuRoles finished");
@@ -51,22 +52,22 @@ public class SecurityInitViews <L extends UtilsLang,
 	
 	@Override protected void iuChilds(C aclCategory, Category category) throws AhtUtilsConfigurationException
 	{
-		if(category.isSetViews() && category.getViews().isSetView())
+		if(category.isSetRoles() && category.getRoles().isSetRole())
 		{
-			for(View view : category.getViews().getView())
+			for(Usecase usecase : category.getUsecases().getUsecase())
 			{
-				updateView.actualAdd(view.getCode());
-				iuView(aclCategory, view);
+				updateView.actualAdd(usecase.getCode());
+				iuUsecase(aclCategory, usecase);
 			}
 		}
 	}
 	
-	private void iuView(C category, View view) throws AhtUtilsConfigurationException
+	private void iuUsecase(C category, Usecase usecase) throws AhtUtilsConfigurationException
 	{
-		V ebj;
+		U ebj;
 		try
 		{
-			ebj = fSecurity.fAhtUtilsByCode(cV,view.getCode());
+			ebj = fSecurity.fAhtUtilsByCode(cU,usecase.getCode());
 			rmLang(ebj);
 			rmDescription(ebj);
 		}
@@ -74,9 +75,9 @@ public class SecurityInitViews <L extends UtilsLang,
 		{
 			try
 			{
-				ebj = cV.newInstance();
+				ebj = cU.newInstance();
 				ebj.setCategory(category);
-				ebj.setCode(view.getCode());
+				ebj.setCode(usecase.getCode());
 				ebj = fSecurity.persistAhtUtilsStatus(ebj);
 			}
 			catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
@@ -86,8 +87,8 @@ public class SecurityInitViews <L extends UtilsLang,
 		
 		try
 		{
-			ebj.setName(ejbLangFactory.getLangMap(view.getLangs()));
-			ebj.setDescription(ejbDescriptionFactory.create(view.getDescriptions()));
+			ebj.setName(ejbLangFactory.getLangMap(usecase.getLangs()));
+			ebj.setDescription(ejbDescriptionFactory.create(usecase.getDescriptions()));
 			ebj.setCategory(category);
 			ebj=fSecurity.updateAhtUtilsStatus(ebj);
 		}

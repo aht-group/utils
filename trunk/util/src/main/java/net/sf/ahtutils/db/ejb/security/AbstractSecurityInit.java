@@ -70,7 +70,20 @@ public class AbstractSecurityInit <L extends UtilsLang,
 		SecurityInitViews<L,D,C,R,V,U,A>
 		factoryViews(final Class<L> cL,final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV, final Class<U> cU, final Class<A> cA, AhtSecurityFacade fAcl)
 	{
-	return new SecurityInitViews<L,D,C,R,V,U,A>(cL,cD,cC,cR,cV,cU,cA,fAcl);
+		return new SecurityInitViews<L,D,C,R,V,U,A>(cL,cD,cC,cR,cV,cU,cA,fAcl);
+	}
+	
+	public static <L extends UtilsLang,
+	   			   D extends UtilsDescription, 
+	   			   C extends UtilsSecurityCategory<L,D,C,R,V,U,A>,
+	   			   R extends UtilsSecurityRole<L,D,C,R,V,U,A>,
+	   			   V extends UtilsSecurityView<L,D,C,R,V,U,A>,
+	   			   U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,
+	   			   A extends UtilsSecurityAction<L,D,C,R,V,U,A>>
+		SecurityInitUsecases<L,D,C,R,V,U,A>
+		factoryUsecases(final Class<L> cL,final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV, final Class<U> cU, final Class<A> cA, AhtSecurityFacade fAcl)
+	{
+		return new SecurityInitUsecases<L,D,C,R,V,U,A>(cL,cD,cC,cR,cV,cU,cA,fAcl);
 	}
 	
 	public AbstractSecurityInit(final Class<L> cL, final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV,final Class<U> cU,final Class<A> cA,AhtSecurityFacade fAcl)

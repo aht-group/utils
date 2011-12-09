@@ -17,6 +17,6 @@ public interface UtilsSecurityUsecase<L extends UtilsLang,
 {
 	public static final String extractId = "securityUsecases";
 	
-//	public C getCategory();
-//	public void setCategory(C category);
+	public C getCategory();
+	public void setCategory(C category);
 }
