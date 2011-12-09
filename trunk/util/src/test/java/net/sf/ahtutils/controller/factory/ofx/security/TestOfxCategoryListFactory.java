@@ -1,4 +1,4 @@
-package net.sf.ahtutils.controller.factory.ofx.acl;
+package net.sf.ahtutils.controller.factory.ofx.security;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,7 +24,7 @@ import org.openfuxml.xml.content.list.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestOfxCategoryListFactory extends AbstractOfxAclFactoryTest
+public class TestOfxCategoryListFactory extends AbstractOfxSecurityFactoryTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestOfxCategoryListFactory.class);
 	
