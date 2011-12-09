@@ -13,42 +13,35 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestXmlCategory extends AbstractXmlAccessTest
+public class TestXmlAction extends AbstractXmlAccessTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestXmlCategory.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlAction.class);
 	
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"category.xml");
+		fXml = new File(rootDir,"action.xml");
 	}
     
     @Test
-    public void testXml() throws FileNotFoundException
+    public void testAclContainer() throws FileNotFoundException
     {
-    	Category actual = create();
-    	Category expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Category.class);
+    	Action actual = create();
+    	Action expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Action.class);
     	assertJaxbEquals(expected, actual);
     }
     
-    private static Category create(){return create(true);}
-    public static Category create(boolean withChilds)
+    private static Action create(){return create(true);}
+    public static Action create(boolean withChilds)
     {
-    	Category xml = new Category();
+    	Action xml = new Action();
     	xml.setCode("myCode");
-    	xml.setIndex(1);
     	
     	if(withChilds)
     	{
     		xml.setLangs(TestXmlLangs.create(false));
     		xml.setDescriptions(TestXmlDescriptions.create(false));
-    		xml.setRoles(TestXmlRoles.create(false));
-    		xml.setGroups(TestXmlGroups.create(false));
-    		xml.setViews(TestXmlViews.create(false));
-    		xml.setUsecases(TestXmlUsecases.create(false));
-    		xml.setActions(TestXmlActions.create(false));
     	}
-    	
     	return xml;
     }
     
@@ -60,8 +53,8 @@ public class TestXmlCategory extends AbstractXmlAccessTest
 			loggerInit.addAltPath("src/test/resources/config");
 			loggerInit.init();		
 			
-		TestXmlCategory.initFiles();	
-		TestXmlCategory test = new TestXmlCategory();
+		TestXmlAction.initFiles();	
+		TestXmlAction test = new TestXmlAction();
 		test.save();
     }
 }

@@ -6,4 +6,5 @@
     <acl:roles/>
     <acl:views/>
     <acl:usecases/>
+    <acl:actions/>
 </acl:category>
