@@ -60,6 +60,7 @@ public abstract class AbstractReportControl
 		this.rId=rId;
 	}
 	
+	@Deprecated
 	public void setReportRoot(String reportRoot)
 	{
 		this.reportRoot = reportRoot;
