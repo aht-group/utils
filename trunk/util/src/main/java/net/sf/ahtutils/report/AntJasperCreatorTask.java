@@ -1,5 +1,7 @@
 package net.sf.ahtutils.report;
 
+import java.io.FileNotFoundException;
+
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import org.slf4j.Logger;
@@ -13,7 +15,11 @@ public class AntJasperCreatorTask extends Task
 	
     public void execute() throws BuildException
     {
-    	ReportCompiler.execute(configFile, reportRoot, targetDir);
+    	try {
+			ReportCompiler.execute(configFile, reportRoot, targetDir);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
   	}
 
 	public static void main(String[] args) {
