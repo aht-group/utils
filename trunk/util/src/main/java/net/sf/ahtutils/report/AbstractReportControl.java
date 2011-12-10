@@ -47,6 +47,7 @@ public abstract class AbstractReportControl
 	public AbstractReportControl(Reports config)
 	{
 		this.config=config;
+		this.reportRoot = config.getDir();
 		mrl = new MultiResourceLoader();
 		mapReportParameter = new Hashtable<String,Object>();
 		jPrint = new JasperPrint();
