@@ -114,12 +114,11 @@ public class ReportCompiler
     	return compilation;
     }
     
-    public static int[] execute(String configFile, String reportRoot, String targetDir)
+    public static int[] execute(String configFile, String reportRoot, String targetDir) throws FileNotFoundException
     {
     	logger.info("Using " +configFile +" for report configuration");
     	Reports reports = null;
- 		try {reports = JaxbUtil.loadJAXB(configFile, Reports.class);}
- 		catch (FileNotFoundException e) {logger.error(e.getMessage());}
+ 		reports = JaxbUtil.loadJAXB(configFile, Reports.class);
  		return execute(reports, reportRoot, targetDir);
     }
     

@@ -1,5 +1,6 @@
 package net.sf.ahtutils.maven;
 
+import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
 
 import net.sf.ahtutils.report.ReportCompiler;
@@ -58,7 +59,12 @@ public class ReportPreCompiler extends AbstractMojo
     	getLog().info("Compiling jasper to " +target);
     	
     	DateTime start = new DateTime();
-    	int[] counter = ReportCompiler.execute(configFile, source, target);
+    	int[] counter;
+		try {
+			counter = ReportCompiler.execute(configFile, source, target);
+		} catch (FileNotFoundException e) {
+			throw new MojoExecutionException("Report file not found.");
+		}
     	Period duration = new Period(start,new DateTime());
     	
     	DecimalFormat df = new DecimalFormat("#00");
