@@ -21,7 +21,7 @@ public class FreemarkerConfigBuilder
 	
 	public Mail build(String id, String lang, String type)
 	{
-		Mail mail = XmlMailFactory.create(id, "de", "txt");
+		Mail mail = XmlMailFactory.create(id, lang, type);
 		return mail;
 	}
 }

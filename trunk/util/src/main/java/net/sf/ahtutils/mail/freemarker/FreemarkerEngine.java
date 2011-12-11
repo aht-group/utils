@@ -86,6 +86,7 @@ public class FreemarkerEngine
 		Document jdom = JaxbUtil.toDocument(xml);
 		jdom=JDomUtil.unsetNameSpace(jdom);
 		 
+//		JDomUtil.debug(jdom);
 		Map root = new HashMap();
 		root.put("doc", freemarker.ext.dom.NodeModel.parse(new InputSource(JDomUtil.toInputStream(jdom, Format.getPrettyFormat()))));
 	     
