@@ -3,6 +3,7 @@
     <report id="testReport" ltr="true" dir="test">
         <r:media type="pdf" dir="">
             <r:jr type="mr" name="Test"/>
+            <r:jr type="sr" name="Charts"/>
         </r:media>
         <example>src/test/resources/data/xml/report/testData.xml</example>
     </report>

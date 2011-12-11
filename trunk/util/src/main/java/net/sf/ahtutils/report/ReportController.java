@@ -61,6 +61,7 @@ public class ReportController extends AbstractReportControl
 		this.output = output;
 		direction = dir;
 		JasperReport report = getMasterReport(output,dir);
+		compileSubReports(output,dir);
 		fillParameterMap(doc);
 		try {jPrint  = JasperFillManager.fillReport(report, mapReportParameter);}
 		catch (JRException e) {e.printStackTrace();}

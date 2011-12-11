@@ -70,6 +70,7 @@ public abstract class AbstractReportControl
 	{
 		JasperPrint  print = new JasperPrint();
 		JasperReport report = getMasterReport(output,dir);
+		compileSubReports(output, dir);
 		try {print  = JasperFillManager.fillReport(report, mapReportParameter);}
 		catch (JRException e) {e.printStackTrace();}
 		return print;
@@ -82,6 +83,7 @@ public abstract class AbstractReportControl
 		Report  report  = (Report)JXPathContext.newContext(config).getValue("report[id='" +rId +"']");
 		for (Media media : report.getMedia())
 		{
+			logger.info("Found reports for " +media.getType() +": " +media.getJr().size());
 			String rDir = reportRoot +"/jrxml/"+report.getDir() +"/" +media.getType() +"/";
 			for (Jr jr : media.getJr())
 			{
@@ -89,9 +91,9 @@ public abstract class AbstractReportControl
 				{
 					String rName    = "";
 					String fileName = jr.getType() +jr.getName();
-					logger.debug("Compiling " +fileName);
+					logger.info("Compiling " +fileName);
 					JasperReport jreport = getReport(rDir, fileName,dir);
-					mapReportParameter.put(rName, jreport);
+					mapReportParameter.put(fileName, jreport);
 				}
 			}
 		}
