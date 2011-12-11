@@ -110,7 +110,6 @@ public abstract class AbstractReportControl
 		} catch (FileNotFoundException e) {
 			logger.warn("File Not Found - compiling Report!");
 			report = getReport(rDir, "mr"+rName,dir);
-			e.printStackTrace();
 		} catch (JRException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

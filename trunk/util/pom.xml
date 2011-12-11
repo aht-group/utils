@@ -193,6 +193,10 @@
 	 		<groupId>org.openfuxml</groupId>
 	 		<artifactId>ofx-core</artifactId>
 	 	</dependency>
+	 	<dependency>
+   	   		<groupId>commons-collections</groupId>
+   	   		<artifactId>commons-collections</artifactId>
+    	</dependency>
 	</dependencies>
    
 </project>

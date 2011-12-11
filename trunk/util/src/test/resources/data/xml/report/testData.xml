@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<report>
+    <info>
+        <title>Test Report</title>
+        <record>2011-10-18T12:35:02</record>
+        <subtitle>... with a subtitle</subtitle>
+        <footer>Footer Information goes here</footer>
+    </info>
+    <data>
+    	<item>Data 1</item>
+    	<item>Data 2</item>
+    </data>
+</report>

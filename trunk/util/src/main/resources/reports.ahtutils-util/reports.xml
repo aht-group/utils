@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<r:reports xmlns:r="http://ahtutils.aht-group.com/report" dir="src/main/resources/reports.ahtutils-util">
+    <report id="testReport" ltr="true" dir="test">
+        <r:media type="pdf" dir="">
+            <r:jr type="mr" name="Test"/>
+        </r:media>
+        <example>src/test/resources/data/xml/report/testData.xml</example>
+    </report>
+</r:reports>
