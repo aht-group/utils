@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<m:mail xmlns:m="http://ahtutils.aht-group.com/mail" id="myId" msgId="myMsgID" dir="myDir">
+<m:mail xmlns:m="http://ahtutils.aht-group.com/mail" id="myId" msgId="myMsgID" dir="myDir" test="true">
     <example>myExample</example>
     <template lang="myLang" type="myType" file="myFile"/>
     <template lang="myLang" type="myType" file="myFile"/>

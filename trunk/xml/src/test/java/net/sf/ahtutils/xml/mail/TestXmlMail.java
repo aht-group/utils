@@ -38,6 +38,7 @@ public class TestXmlMail extends AbstractXmlMailTest
     	xml.setMsgId("myMsgID");
     	xml.setDir("myDir");
     	xml.setExample("myExample");
+    	xml.setTest(true);
     	
     	if(withChilds)
     	{

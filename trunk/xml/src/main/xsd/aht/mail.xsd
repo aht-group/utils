@@ -25,6 +25,7 @@
             <xsd:attribute name="id" type="xsd:string"/>
             <xsd:attribute name="msgId" type="xsd:string"/>
             <xsd:attribute name="dir" type="xsd:string"/>
+            <xsd:attribute name="test" type="xsd:boolean"/>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="template">
