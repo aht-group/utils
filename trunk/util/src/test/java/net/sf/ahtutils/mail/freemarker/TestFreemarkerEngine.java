@@ -6,8 +6,12 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import net.sf.ahtutils.controller.exception.AhtUtilsDeveloperException;
 import net.sf.ahtutils.test.AbstractFileProcessingTest;
+import net.sf.ahtutils.xml.mail.Mail;
+import net.sf.ahtutils.xml.mail.Mails;
+import net.sf.ahtutils.xml.mail.Template;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -22,11 +26,24 @@ public class TestFreemarkerEngine extends AbstractFileProcessingTest
 	
 	private FreemarkerEngine fme;
 	
+	private Mails mails;
 	
 	@Before
 	public void init()
 	{	
-		fme = new FreemarkerEngine(null);
+		mails = new Mails();
+		
+		Mail mail = new Mail();
+		mail.setId("id");
+		
+		Template template = new Template();
+		template.setLang("de");
+		template.setType("html");
+		
+		mail.getTemplate().add(template);
+		mails.getMail().add(mail);
+		
+		fme = new FreemarkerEngine(mails);
 	}
 	
 	@After
@@ -39,6 +56,14 @@ public class TestFreemarkerEngine extends AbstractFileProcessingTest
     public void devException() throws SAXException, IOException, ParserConfigurationException, TemplateException
     {
     	fme.process("test");
+    }
+    
+    @Test
+    public void isAvailable() throws SAXException, IOException, ParserConfigurationException, TemplateException
+    {
+    	Assert.assertFalse(fme.isAvailable("null", "de", "txt"));
+    	Assert.assertFalse(fme.isAvailable("id", "de", "txt"));
+    	Assert.assertTrue(fme.isAvailable("id", "de", "html"));
     }
 	
 }

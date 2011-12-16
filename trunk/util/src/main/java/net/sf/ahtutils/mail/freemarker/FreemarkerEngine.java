@@ -34,19 +34,21 @@ public class FreemarkerEngine
 	private Mails mails;
 	private Template ftl;
 	private Configuration freemarkerConfiguration;
+	private FreemarkerConfigBuilder fcb;
 	
 	public FreemarkerEngine(Mails mails)
 	{
 		this.mails=mails;
 		freemarkerConfiguration = new Configuration();
 		freemarkerConfiguration.setClassForTemplateLoading(this.getClass(), "/");
+		fcb = new FreemarkerConfigBuilder(mails);
 	}
 	
 	public void createTemplate(String id, String lang, String type)
 	{
 		try
 		{
-			FreemarkerConfigBuilder fcb = new FreemarkerConfigBuilder(mails);
+			
 			initTemplate(fcb.build(id, lang, type));
 		}
 		catch (IOException e)
@@ -95,5 +97,18 @@ public class FreemarkerEngine
 		sw.flush();
 	     
 		return sw.toString();
+	}
+	
+	public boolean isAvailable(String id, String lang, String type)
+	{
+		try
+		{
+			Mail mail = MailXpath.getMail(mails, id);
+			MailXpath.getTemplate(mail, lang, type);
+			return true;
+		}
+		catch (ExlpXpathNotFoundException e) {}
+		catch (ExlpXpathNotUniqueException e) {}
+		return false;
 	}
 }
