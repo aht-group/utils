@@ -81,11 +81,16 @@ public class FreemarkerEngine
 		catch (ExlpXpathNotUniqueException e) {logger.error("Mail.id="+cfgMail.getId()+" "+e.getMessage());}
 	}
  
+	public String processXml(Object xml) throws SAXException, IOException, ParserConfigurationException, TemplateException
+	{
+		Document jdom = JaxbUtil.toDocument(xml);
+		return process(jdom);
+	}
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public String process(Object xml) throws SAXException, IOException, ParserConfigurationException, TemplateException
+	public String process(Document jdom) throws SAXException, IOException, ParserConfigurationException, TemplateException
 	{
 		if(ftl==null){throw new AhtUtilsDeveloperException("You forgot to init the template");}
-		Document jdom = JaxbUtil.toDocument(xml);
 		jdom=JDomUtil.unsetNameSpace(jdom);
 		 
 //		JDomUtil.debug(jdom);

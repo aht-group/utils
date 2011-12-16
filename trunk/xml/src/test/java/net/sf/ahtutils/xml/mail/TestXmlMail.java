@@ -44,6 +44,8 @@ public class TestXmlMail extends AbstractXmlMailTest
     	{
     		xml.getTemplate().add(TestXmlTemplate.create(false));
     		xml.getTemplate().add(TestXmlTemplate.create(false));
+    		xml.getAttachment().add(TestXmlAttachment.create(false));
+    		xml.getAttachment().add(TestXmlAttachment.create(false));
     	}
     	
     	return xml;

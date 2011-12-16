@@ -16,18 +16,18 @@ import net.sf.ahtutils.xml.mail.From;
 import net.sf.ahtutils.xml.mail.Header;
 import net.sf.ahtutils.xml.mail.To;
 
-public class MailMessageCreator
+public class MimeMessageCreator
 {
 	private MimeMessage msg;
 	private String encoding;
 	
-	public MailMessageCreator(MimeMessage msg)
+	public MimeMessageCreator(MimeMessage msg)
 	{
 		this("UTF-8",msg);
 		
 	}
 	
-	public MailMessageCreator(String encoding, MimeMessage msg)
+	public MimeMessageCreator(String encoding, MimeMessage msg)
 	{
 		this.msg=msg;
 		this.encoding=encoding;

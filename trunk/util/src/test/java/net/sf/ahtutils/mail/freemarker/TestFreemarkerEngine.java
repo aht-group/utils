@@ -55,7 +55,7 @@ public class TestFreemarkerEngine extends AbstractFileProcessingTest
     @Test(expected=AhtUtilsDeveloperException.class)
     public void devException() throws SAXException, IOException, ParserConfigurationException, TemplateException
     {
-    	fme.process("test");
+    	fme.processXml("test");
     }
     
     @Test
