@@ -36,7 +36,7 @@ public class MimeContentCreator
 	public void createContent(String lang, Document xml, Mail mail) throws MessagingException
 	{		
 		Multipart mpAlternative = new MimeMultipart("alternative");
-		mpAlternative.addBodyPart(createTxt(lang,xml,mail));
+		if(fme.isAvailable(mail.getId(), lang, "txt")){mpAlternative.addBodyPart(createTxt(lang,xml,mail));}
 		if(fme.isAvailable(mail.getId(), lang, "html")){mpAlternative.addBodyPart(createHtml(lang,xml,mail));}
 	   
 	    
