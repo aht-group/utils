@@ -1,5 +1,6 @@
 package net.sf.ahtutils.controller.facade;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -7,6 +8,8 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
@@ -14,6 +17,9 @@ import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.model.interfaces.EjbWithCode;
+import net.sf.ahtutils.model.interfaces.EjbWithName;
+import net.sf.ahtutils.model.interfaces.EjbWithType;
+import net.sf.ahtutils.model.interfaces.EjbWithValidFrom;
 
 public class UtilsFacadeBean
 {
@@ -158,5 +164,50 @@ public class UtilsFacadeBean
 			}
 			throw(e);
 		}
+	}
+	
+	public <T extends EjbWithType> List<T> allForType(Class<T> clazz, String type)
+	{
+		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(clazz);
+        Root<T> root = criteriaQuery.from(clazz);
+        criteriaQuery = criteriaQuery.where(root.<T>get("type").in(type));
+        
+		TypedQuery<T> typedQuery = em.createQuery(criteriaQuery);
+		return typedQuery.getResultList();
+	}
+	
+	public <T extends EjbWithName> T fByName(Class<T> type, String name) throws UtilsNotFoundException
+	{
+		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(type);
+        Root<T> root = criteriaQuery.from(type);
+        criteriaQuery = criteriaQuery.where(root.<T>get("name").in(name));
+
+		TypedQuery<T> q = em.createQuery(criteriaQuery); 
+		try	{return q.getSingleResult();}
+		catch (NoResultException ex){throw new UtilsNotFoundException("No "+type.getSimpleName()+" for name="+name);}
+	}
+	
+	public <T extends EjbWithValidFrom> T fFirstValidFrom(Class<T> type, String parentName, long id, Date validFrom) throws UtilsNotFoundException
+	{
+//		log.info("-------------------------> fFirstValidFrom "+validFrom);
+		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+		
+	    CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(type);
+	    Root<T> fromType = criteriaQuery.from(type);
+	    Path<Object> pathParent = fromType.get(parentName);
+
+	    Expression<Date> fromDate = fromType.get("validFrom");
+	    
+	    CriteriaQuery<T> select = criteriaQuery.select(fromType);
+	    select.where( criteriaBuilder.equal(pathParent, id),
+	    		      criteriaBuilder.lessThanOrEqualTo(fromDate, validFrom));
+	    select.orderBy(criteriaBuilder.desc(fromDate));
+	    
+		TypedQuery<T> q = em.createQuery(select);
+		q.setMaxResults(1);
+		try	{return q.getSingleResult();}
+		catch (NoResultException ex){throw new UtilsNotFoundException("No "+type.getSimpleName()+" for "+parentName+".id="+id+" validFrom="+validFrom);}
 	}
 }
