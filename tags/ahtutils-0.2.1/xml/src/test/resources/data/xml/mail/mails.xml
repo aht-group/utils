@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<m:mails xmlns:m="http://ahtutils.aht-group.com/mail" dir="myDir">
+    <mail id="myId" msgId="myMsgID" dir="myDir" test="true">
+        <example>myExample</example>
+    </mail>
+</m:mails>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://ahtutils.aht-group.com/report"
+    xmlns:r="http://ahtutils.aht-group.com/report"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="reports">
+	    <xsd:complexType>
+	            <xsd:sequence>
+		            <xsd:element ref="r:report" maxOccurs="unbounded"/>
+				</xsd:sequence>
+				<xsd:attribute name="dir" type="xsd:string"/>
+		</xsd:complexType>    
+    </xsd:element>
+    <xsd:element name="report">
+        <xsd:complexType>
+            <xsd:sequence>
+	            <xsd:element ref="r:media" maxOccurs="2"/>
+	           	<xsd:element name="example">
+	           		<xsd:simpleType>
+		               	<xsd:restriction base="xsd:string"/>
+		            </xsd:simpleType>
+		        </xsd:element>
+            </xsd:sequence>
+            <xsd:attribute name="id" type="xsd:string"/>
+            <xsd:attribute name="dir" type="xsd:string"/>
+            <xsd:attribute name="ltr" type="xsd:boolean"/>
+            <xsd:attribute name="rtl" type="xsd:boolean"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="resources">
+        <xsd:complexType>
+            <xsd:sequence>
+	            <xsd:element ref="r:resource" maxOccurs="unbounded"/>
+            </xsd:sequence>
+            <xsd:attribute name="dir" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="resource">
+        <xsd:complexType>
+            <xsd:sequence>
+	            <xsd:element name="value" maxOccurs="1">
+	            	<xsd:complexType>
+                        <xsd:simpleContent>
+                            <xsd:extension base="xsd:string"/>
+                        </xsd:simpleContent>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+            <xsd:attribute name="type">
+	            <xsd:simpleType>
+		            <xsd:restriction base="xsd:string">
+						<xsd:enumeration value="image"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="name"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="media">
+        <xsd:complexType>
+            <xsd:sequence>
+	            <xsd:element ref="r:jr" maxOccurs="unbounded"/>
+            </xsd:sequence>
+            <xsd:attribute name="dir" type="xsd:string"/>
+	        <xsd:attribute name="type">
+	            <xsd:simpleType>
+		            <xsd:restriction base="xsd:string">
+						<xsd:enumeration value="pdf"/>
+						<xsd:enumeration value="xls"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+     <xsd:element name="jr">
+        <xsd:complexType>
+            <xsd:attribute name="type">
+	            <xsd:simpleType>
+		            <xsd:restriction base="xsd:string">
+						<xsd:enumeration value="mr"/>
+						<xsd:enumeration value="sr"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+            <xsd:attribute name="name" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="info">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="title">
+                    <xsd:complexType>
+                        <xsd:simpleContent>
+                            <xsd:extension base="xsd:string"/>
+                        </xsd:simpleContent>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="record">
+                    <xsd:complexType>
+                        <xsd:simpleContent>
+                            <xsd:extension base="xsd:dateTime"/>
+                        </xsd:simpleContent>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="subtitle">
+                    <xsd:complexType>
+                        <xsd:simpleContent>
+                            <xsd:extension base="xsd:string"/>
+                        </xsd:simpleContent>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="footer">
+                    <xsd:complexType>
+                        <xsd:simpleContent>
+                            <xsd:extension base="xsd:string"/>
+                        </xsd:simpleContent>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

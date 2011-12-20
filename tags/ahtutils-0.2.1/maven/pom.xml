@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+    	<groupId>net.sf.ahtutils</groupId>
+    	<artifactId>ahtutils</artifactId>
+    	<version>0.2.1</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>ahtutils-maven</artifactId>
+	<packaging>maven-plugin</packaging>
+	<name>AHT-Utils - Maven Plugins</name>
+	<url>http://sourceforge.net/projects/ahtutils</url>
+  
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-plugin-plugin</artifactId>
+        		<version>${maven-plugin-plugin.version}</version>
+	        	<configuration>
+	          		<goalPrefix>ahtutils</goalPrefix>
+	        	</configuration>
+      		</plugin>
+    	</plugins>
+	</build>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-plugin-api</artifactId>
+			<version>${maven-plugin-api.version}</version>
+	    </dependency>
+	    <dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+	    </dependency>
+	    <dependency>
+			<groupId>org.apache.ant</groupId>
+			<artifactId>ant</artifactId>
+			<version>${ant.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+    		<groupId>net.sf.exlp</groupId>
+    		<artifactId>exlp-util</artifactId>
+    		<type>jar</type>
+    		<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.ahtutils</groupId>
+			<artifactId>ahtutils-util</artifactId>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.0</version>
+		</dependency>
+	</dependencies>
+
+</project>
