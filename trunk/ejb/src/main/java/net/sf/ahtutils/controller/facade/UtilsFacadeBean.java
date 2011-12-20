@@ -12,16 +12,18 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
+import net.sf.ahtutils.controller.interfaces.UtilsFacade;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.model.interfaces.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.EjbWithCode;
 import net.sf.ahtutils.model.interfaces.EjbWithName;
 import net.sf.ahtutils.model.interfaces.EjbWithType;
 import net.sf.ahtutils.model.interfaces.EjbWithValidFrom;
 
-public class UtilsFacadeBean
+public class UtilsFacadeBean implements UtilsFacade
 {
 	protected EntityManager em;
 	
@@ -100,8 +102,7 @@ public class UtilsFacadeBean
 		CriteriaQuery<T> select = criteriaQuery.select(from);
 		
 		TypedQuery<T> typedQuery = em.createQuery(select);
-		List<T> resultList = typedQuery.getResultList();
-		return resultList;
+		return typedQuery.getResultList();
 	}
 	
 	public <T extends Object> T update(T o) throws UtilsContraintViolationException, UtilsLockingException
@@ -147,6 +148,8 @@ public class UtilsFacadeBean
 		}
 		return o;
 	}
+	
+	@Override public <T extends EjbRemoveable> void rm(T o) throws UtilsIntegrityException {rmProtected(o);}
 	
 	public <T extends Object> void rmProtected(T o) throws UtilsIntegrityException
 	{
