@@ -8,6 +8,7 @@ import net.sf.ahtutils.controller.interfaces.AhtAclFacade;
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
+import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryProjectRole;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclRole;
@@ -73,26 +74,27 @@ public class AclInitRoles <L extends UtilsLang,
 			C aclCategory;
 			try
 			{
-				aclCategory = fAcl.fAhtUtilsByCode(categoryClass,category.getCode());
+				aclCategory = fAcl.fByCode(categoryClass,category.getCode());
 				
 				Map<String,L> langMap = aclCategory.getName();
 				Map<String,D> descMap = aclCategory.getDescription();
 				aclCategory.setName(null);
 				aclCategory.setDescription(null);
 				
-				try{aclCategory=(C)fAcl.updateAhtUtilsStatus(aclCategory);}
+				try{aclCategory=(C)fAcl.update(aclCategory);}
 				catch (UtilsContraintViolationException e) {logger.error("",e);}
+				catch (UtilsLockingException e) {logger.error("",e);}
 				
 				for(L lang : langMap.values())
 				{
-					try {fAcl.rmAhtUtilsEntity(lang);}
-					catch (UtilsContraintViolationException e) {logger.error("",e);}
+					try {fAcl.rm(lang);}
+					catch (UtilsIntegrityException e) {logger.error("",e);}
 				}
 				
 				for(D desc : descMap.values())
 				{
-					try {fAcl.rmAhtUtilsEntity(desc);}
-					catch (UtilsContraintViolationException e) {logger.error("",e);}
+					try {fAcl.rm(desc);}
+					catch (UtilsIntegrityException e) {logger.error("",e);}
 				}
 			}
 			catch (UtilsNotFoundException e)
@@ -101,7 +103,7 @@ public class AclInitRoles <L extends UtilsLang,
 				{
 					aclCategory = categoryClass.newInstance();
 					aclCategory.setCode(category.getCode());
-					aclCategory = (C)fAcl.persistAhtUtilsStatus(aclCategory);
+					aclCategory = (C)fAcl.persist(aclCategory);
 				}
 				catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
 				catch (IllegalAccessException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
@@ -112,7 +114,7 @@ public class AclInitRoles <L extends UtilsLang,
 			{
 				aclCategory.setName(ejbLangFactory.getLangMap(category.getLangs()));
 //				aclCategory.setDescription(ejbFactory.getDescriptionMap(category.getDescriptions()));
-				aclCategory=(C)fAcl.updateAhtUtilsStatus(aclCategory);
+				aclCategory=(C)fAcl.update(aclCategory);
 				
 				if(category.isSetRoles() && category.getRoles().isSetRole())
 				{
@@ -127,6 +129,7 @@ public class AclInitRoles <L extends UtilsLang,
 			catch (InstantiationException e) {logger.error("",e);}
 			catch (IllegalAccessException e) {logger.error("",e);}
 			catch (UtilsIntegrityException e) {logger.error("",e);}
+			catch (UtilsLockingException e) {logger.error("",e);}
 		}
 		
 		updateCategory.remove(fAcl);
@@ -139,26 +142,27 @@ public class AclInitRoles <L extends UtilsLang,
 		R aclRole;
 		try
 		{
-			aclRole = fAcl.fAhtUtilsByCode(roleClass,role.getCode());
+			aclRole = fAcl.fByCode(roleClass,role.getCode());
 			
 			Map<String,L> langMap = aclRole.getName();
 			Map<String,D> descMap = aclRole.getDescription();
 			aclRole.setName(null);
 			aclRole.setDescription(null);
 			
-			try{aclRole=(R)fAcl.updateAhtUtilsStatus(aclRole);}
+			try{aclRole=(R)fAcl.update(aclRole);}
 			catch (UtilsContraintViolationException e) {logger.error("",e);}
+			catch (UtilsLockingException e) {logger.error("",e);}
 			
 			for(L lang : langMap.values())
 			{
-				try {fAcl.rmAhtUtilsEntity(lang);}
-				catch (UtilsContraintViolationException e) {logger.error("",e);}
+				try {fAcl.rm(lang);}
+				catch (UtilsIntegrityException e) {logger.error("",e);}
 			}
 			
 			for(D desc : descMap.values())
 			{
-				try {fAcl.rmAhtUtilsEntity(desc);}
-				catch (UtilsContraintViolationException e) {logger.error("",e);}
+				try {fAcl.rm(desc);}
+				catch (UtilsIntegrityException e) {logger.error("",e);}
 			}
 		}
 		catch (UtilsNotFoundException e)
@@ -168,7 +172,7 @@ public class AclInitRoles <L extends UtilsLang,
 				aclRole = roleClass.newInstance();
 				aclRole.setCategory(category);
 				aclRole.setCode(role.getCode());
-				aclRole = (R)fAcl.persistAhtUtilsStatus(aclRole);
+				aclRole = (R)fAcl.persist(aclRole);
 			}
 			catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
 			catch (IllegalAccessException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
@@ -180,11 +184,12 @@ public class AclInitRoles <L extends UtilsLang,
 			aclRole.setName(ejbLangFactory.getLangMap(role.getLangs()));
 //			aclRole.setDescription(ejbFactory.getDescriptionMap(role.getDescriptions()));
 			aclRole.setCategory(category);
-			aclRole=(R)fAcl.updateAhtUtilsStatus(aclRole);
+			aclRole=(R)fAcl.update(aclRole);
 		}
 		catch (UtilsContraintViolationException e) {logger.error("",e);}
 		catch (InstantiationException e) {logger.error("",e);}
 		catch (IllegalAccessException e) {logger.error("",e);}
 		catch (UtilsIntegrityException e) {logger.error("",e);}
+		catch (UtilsLockingException e) {logger.error("",e);}
 	}
 }

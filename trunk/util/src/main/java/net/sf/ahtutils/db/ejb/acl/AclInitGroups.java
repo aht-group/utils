@@ -9,6 +9,7 @@ import net.sf.ahtutils.controller.interfaces.AhtAclFacade;
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
+import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryGroup;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
@@ -95,26 +96,27 @@ public class AclInitGroups <	S extends UtilsStatus<L>,
 			CR aclRoleCategory;
 			try
 			{
-				aclRoleCategory = fAcl.fAhtUtilsByCode(categoryRoleClass,category.getCode());
+				aclRoleCategory = fAcl.fByCode(categoryRoleClass,category.getCode());
 				
 				Map<String,L> langMap = aclRoleCategory.getName();
 				Map<String,D> descMap = aclRoleCategory.getDescription();
 				aclRoleCategory.setName(null);
 				aclRoleCategory.setDescription(null);
 				
-				try{aclRoleCategory=(CR)fAcl.updateAhtUtilsStatus(aclRoleCategory);}
+				try{aclRoleCategory=(CR)fAcl.update(aclRoleCategory);}
 				catch (UtilsContraintViolationException e) {logger.error("",e);}
+				catch (UtilsLockingException e) {logger.error("",e);}
 				
 				for(L lang : langMap.values())
 				{
-					try {fAcl.rmAhtUtilsEntity(lang);}
-					catch (UtilsContraintViolationException e) {logger.error("",e);}
+					try {fAcl.rm(lang);}
+					catch (UtilsIntegrityException e)  {logger.error("",e);}
 				}
 				
 				for(D desc : descMap.values())
 				{
-					try {fAcl.rmAhtUtilsEntity(desc);}
-					catch (UtilsContraintViolationException e) {logger.error("",e);}
+					try {fAcl.rm(desc);}
+					catch (UtilsIntegrityException e) {logger.error("",e);}
 				}
 			}
 			catch (UtilsNotFoundException e)
@@ -123,7 +125,7 @@ public class AclInitGroups <	S extends UtilsStatus<L>,
 				{
 					aclRoleCategory = categoryRoleClass.newInstance();
 					aclRoleCategory.setCode(category.getCode());
-					aclRoleCategory = (CR)fAcl.persistAhtUtilsStatus(aclRoleCategory);
+					aclRoleCategory = (CR)fAcl.persist(aclRoleCategory);
 					
 				}
 				catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
@@ -135,13 +137,14 @@ public class AclInitGroups <	S extends UtilsStatus<L>,
 			{
 				aclRoleCategory.setName(ejbLangFactory.getLangMap(category.getLangs()));
 //				aclRoleCategory.setDescription(ejbFactory.getDescriptionMap(category.getDescriptions()));
-				aclRoleCategory=(CR)fAcl.updateAhtUtilsStatus(aclRoleCategory);
+				aclRoleCategory=(CR)fAcl.update(aclRoleCategory);
 				if(category.isSetGroups() && category.getGroups().isSetGroup())
 				{
 					initUpdateRole(aclRoleCategory, category.getGroups(), false);
 				}
 			}
 			catch (UtilsContraintViolationException e) {logger.error("",e);}
+			catch (UtilsLockingException e) {logger.error("",e);}
 			catch (InstantiationException e) {logger.error("",e);}
 			catch (IllegalAccessException e) {logger.error("",e);}
 			catch (UtilsIntegrityException e) {logger.error("",e);}
@@ -165,7 +168,7 @@ public class AclInitGroups <	S extends UtilsStatus<L>,
 		R aclRole;
 		try
 		{
-			aclRole = fAcl.fAhtUtilsByCode(roleClass,role.getCode());
+			aclRole = fAcl.fByCode(roleClass,role.getCode());
 			
 			if(!refRoles)
 			{
@@ -175,19 +178,20 @@ public class AclInitGroups <	S extends UtilsStatus<L>,
 				aclRole.setDescription(null);
 				aclRole.setUsecases(null);
 				
-				try{aclRole=(R)fAcl.updateAhtUtilsStatus(aclRole);}
+				try{aclRole=(R)fAcl.update(aclRole);}
 				catch (UtilsContraintViolationException e) {logger.error("",e);}
+				catch (UtilsLockingException e) {logger.error("",e);}
 				
 				for(L lang : langMap.values())
 				{
-					try {fAcl.rmAhtUtilsEntity(lang);}
-					catch (UtilsContraintViolationException e) {logger.error("",e);}
+					try {fAcl.rm(lang);}
+					catch (UtilsIntegrityException e) {logger.error("",e);}
 				}
 				
 				for(D desc : descMap.values())
 				{
-					try {fAcl.rmAhtUtilsEntity(desc);}
-					catch (UtilsContraintViolationException e) {logger.error("",e);}
+					try {fAcl.rm(desc);}
+					catch (UtilsIntegrityException e) {logger.error("",e);}
 				}
 			}
 		}
@@ -198,7 +202,7 @@ public class AclInitGroups <	S extends UtilsStatus<L>,
 			{
 				aclRole = roleClass.newInstance();
 				aclRole.setCode(role.getCode());
-				aclRole = (R)fAcl.persistAhtUtilsStatus(aclRole);
+				aclRole = (R)fAcl.persist(aclRole);
 			}
 			catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
 			catch (IllegalAccessException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
@@ -218,13 +222,14 @@ public class AclInitGroups <	S extends UtilsStatus<L>,
 				{
 					for(View usecase : role.getViews().getView())
 					{
-						try {aclRole.getUsecases().add(fAcl.fAhtUtilsByCode(usecaseClass,usecase.getCode()));}
+						try {aclRole.getUsecases().add(fAcl.fByCode(usecaseClass,usecase.getCode()));}
 						catch (UtilsNotFoundException e) {logger.error("",e);}
 					}
 				}
-				aclRole=(R)fAcl.updateAhtUtilsStatus(aclRole);
+				aclRole=(R)fAcl.update(aclRole);
 			}
 			catch (UtilsContraintViolationException e) {logger.error("",e);}
+			catch (UtilsLockingException e) {logger.error("",e);}
 			catch (InstantiationException e) {logger.error("",e);}
 			catch (IllegalAccessException e) {logger.error("",e);}
 			catch (UtilsIntegrityException e) {logger.error("",e);}
@@ -233,21 +238,24 @@ public class AclInitGroups <	S extends UtilsStatus<L>,
 		{
 			logger.debug("Ref.Roles for "+aclRole.getCode());
 			aclRole.setRoles(null);
-			try{aclRole=(R)fAcl.updateAhtUtilsStatus(aclRole);}
+			try{aclRole=(R)fAcl.update(aclRole);}
 			catch (UtilsContraintViolationException e) {logger.error("",e);}
+			catch (UtilsLockingException e) {logger.error("",e);}
+			
 			if(role.isSetGroups() && role.getGroups().isSetGroup())
 			{
 				for(Group subRole : role.getGroups().getGroup())
 				{
 					try
 					{
-						R aclSubRole = fAcl.fAhtUtilsByCode(roleClass,subRole.getCode());
+						R aclSubRole = fAcl.fByCode(roleClass,subRole.getCode());
 						aclRole.getRoles().add(aclSubRole);
 					}
 					catch (UtilsNotFoundException e) {{logger.error("Sub.Role "+subRole.getCode()+" not found! Exit.");System.exit(-1);}}
 				}
-				try{aclRole=(R)fAcl.updateAhtUtilsStatus(aclRole);}
+				try{aclRole=(R)fAcl.update(aclRole);}
 				catch (UtilsContraintViolationException e) {logger.error("",e);}
+				catch (UtilsLockingException e) {logger.error("",e);}
 			}
 		}
 	}

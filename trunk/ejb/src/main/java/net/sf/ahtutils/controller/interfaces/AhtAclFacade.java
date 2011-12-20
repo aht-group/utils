@@ -16,7 +16,7 @@ import net.sf.ahtutils.xml.access.AclQuery;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.Group;
 
-public interface AhtAclFacade extends AhtUtilsFacade
+public interface AhtAclFacade extends UtilsFacade
 {	
 	<L extends UtilsLang,
 	 D extends UtilsDescription, 

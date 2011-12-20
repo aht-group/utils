@@ -9,6 +9,7 @@ import net.sf.ahtutils.controller.interfaces.AhtSecurityFacade;
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
+import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.model.interfaces.EjbWithDescription;
 import net.sf.ahtutils.model.interfaces.EjbWithLang;
@@ -124,7 +125,7 @@ public class AbstractSecurityInit <L extends UtilsLang,
 			C aclCategory;
 			try
 			{
-				aclCategory = fSecurity.fAhtUtilsByCode(cC,category.getCode());
+				aclCategory = fSecurity.fByCode(cC,category.getCode());
 				rmLang(aclCategory);
 				rmDescription(aclCategory);
 			}
@@ -135,7 +136,7 @@ public class AbstractSecurityInit <L extends UtilsLang,
 					aclCategory = cC.newInstance();
 					aclCategory.setType(type.toString());
 					aclCategory.setCode(category.getCode());
-					aclCategory = (C)fSecurity.persistAhtUtilsStatus(aclCategory);
+					aclCategory = (C)fSecurity.persist(aclCategory);
 				}
 				catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
 				catch (IllegalAccessException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
@@ -146,7 +147,7 @@ public class AbstractSecurityInit <L extends UtilsLang,
 			{
 				aclCategory.setName(ejbLangFactory.getLangMap(category.getLangs()));
 				aclCategory.setDescription(ejbDescriptionFactory.create(category.getDescriptions()));
-				aclCategory=(C)fSecurity.updateAhtUtilsStatus(aclCategory);
+				aclCategory=(C)fSecurity.update(aclCategory);
 				iuChilds(aclCategory,category);
 				
 			}
@@ -154,6 +155,7 @@ public class AbstractSecurityInit <L extends UtilsLang,
 			catch (InstantiationException e) {logger.error("",e);}
 			catch (IllegalAccessException e) {logger.error("",e);}
 			catch (UtilsIntegrityException e) {logger.error("",e);}
+			catch (UtilsLockingException e) {logger.error("",e);}
 		}
 		
 		updateCategory.remove(fSecurity);
@@ -170,13 +172,14 @@ public class AbstractSecurityInit <L extends UtilsLang,
 		Map<String,L> langMap = ejb.getName();
 		ejb.setName(null);
 		
-		try{ejb=fSecurity.updateAhtUtilsStatus(ejb);}
+		try{ejb=fSecurity.update(ejb);}
 		catch (UtilsContraintViolationException e) {logger.error("",e);}
+		catch (UtilsLockingException e) {logger.error("",e);}
 		
 		for(L lang : langMap.values())
 		{
-			try {fSecurity.rmAhtUtilsEntity(lang);}
-			catch (UtilsContraintViolationException e) {logger.error("",e);}
+			try {fSecurity.rm(lang);}
+			catch (UtilsIntegrityException e) {logger.error("",e);}
 		}
 	}
 	
@@ -185,44 +188,45 @@ public class AbstractSecurityInit <L extends UtilsLang,
 		Map<String,D> descMap = ejb.getDescription();
 		ejb.setDescription(null);
 		
-		try{ejb=fSecurity.updateAhtUtilsStatus(ejb);}
+		try{ejb=fSecurity.update(ejb);}
 		catch (UtilsContraintViolationException e) {logger.error("",e);}
+		catch (UtilsLockingException e) {logger.error("",e);}
 		
 		for(D desc : descMap.values())
 		{
-			try {fSecurity.rmAhtUtilsEntity(desc);}
-			catch (UtilsContraintViolationException e) {logger.error("",e);}
+			try {fSecurity.rm(desc);}
+			catch (UtilsIntegrityException e) {logger.error("",e);}
 		}
 	}
 	
-	protected <T extends UtilsSecurityWithViews<L,D,C,R,V,U,A>> T iuListViews(T ejb, Views views) throws UtilsContraintViolationException, UtilsNotFoundException
+	protected <T extends UtilsSecurityWithViews<L,D,C,R,V,U,A>> T iuListViews(T ejb, Views views) throws UtilsContraintViolationException, UtilsNotFoundException, UtilsLockingException
 	{
 		ejb.getViews().clear();
-		ejb = fSecurity.updateAhtUtilsStatus(ejb);
+		ejb = fSecurity.update(ejb);
 		if(views!=null)
 		{
 			for(View view : views.getView())
 			{
-				V ejbView = fSecurity.fAhtUtilsByCode(cV, view.getCode());
+				V ejbView = fSecurity.fByCode(cV, view.getCode());
 				ejb.getViews().add(ejbView);
 			}
-			ejb = fSecurity.updateAhtUtilsStatus(ejb);
+			ejb = fSecurity.update(ejb);
 		}
 		return ejb;
 	}
 	
-	protected <T extends UtilsSecurityWithActions<L,D,C,R,V,U,A>> T iuListActions(T ejb, Actions actions) throws UtilsContraintViolationException, UtilsNotFoundException
+	protected <T extends UtilsSecurityWithActions<L,D,C,R,V,U,A>> T iuListActions(T ejb, Actions actions) throws UtilsContraintViolationException, UtilsNotFoundException, UtilsLockingException
 	{
 		ejb.getActions().clear();
-		ejb = fSecurity.updateAhtUtilsStatus(ejb);
+		ejb = fSecurity.update(ejb);
 		if(actions!=null)
 		{
 			for(Action action : actions.getAction())
 			{
-				A ejbAction = fSecurity.fAhtUtilsByCode(cA, action.getCode());
+				A ejbAction = fSecurity.fByCode(cA, action.getCode());
 				ejb.getActions().add(ejbAction);
 			}
-			ejb = fSecurity.updateAhtUtilsStatus(ejb);
+			ejb = fSecurity.update(ejb);
 		}
 		return ejb;
 	}

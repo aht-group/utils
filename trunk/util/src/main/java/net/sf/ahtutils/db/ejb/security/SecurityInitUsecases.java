@@ -5,6 +5,7 @@ import net.sf.ahtutils.controller.interfaces.AhtSecurityFacade;
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
+import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
@@ -66,7 +67,7 @@ public class SecurityInitUsecases <L extends UtilsLang,
 		U ebj;
 		try
 		{
-			ebj = fSecurity.fAhtUtilsByCode(cU,usecase.getCode());
+			ebj = fSecurity.fByCode(cU,usecase.getCode());
 			rmLang(ebj);
 			rmDescription(ebj);
 		}
@@ -77,7 +78,7 @@ public class SecurityInitUsecases <L extends UtilsLang,
 				ebj = cU.newInstance();
 				ebj.setCategory(category);
 				ebj.setCode(usecase.getCode());
-				ebj = fSecurity.persistAhtUtilsStatus(ebj);
+				ebj = fSecurity.persist(ebj);
 			}
 			catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
 			catch (IllegalAccessException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
@@ -89,7 +90,7 @@ public class SecurityInitUsecases <L extends UtilsLang,
 			ebj.setName(ejbLangFactory.getLangMap(usecase.getLangs()));
 			ebj.setDescription(ejbDescriptionFactory.create(usecase.getDescriptions()));
 			ebj.setCategory(category);
-			ebj=fSecurity.updateAhtUtilsStatus(ebj);
+			ebj=fSecurity.update(ebj);
 			
 			ebj = iuListViews(ebj, usecase.getViews());
 			ebj = iuListActions(ebj, usecase.getActions());
@@ -99,5 +100,6 @@ public class SecurityInitUsecases <L extends UtilsLang,
 		catch (IllegalAccessException e) {logger.error("",e);}
 		catch (UtilsIntegrityException e) {logger.error("",e);}
 		catch (UtilsNotFoundException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
+		catch (UtilsLockingException e) {logger.error("",e);}
 	}
 }

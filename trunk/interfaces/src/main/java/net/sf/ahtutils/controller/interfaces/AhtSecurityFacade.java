@@ -1,10 +1,10 @@
 package net.sf.ahtutils.controller.interfaces;
 
+import java.util.List;
 
-public interface AhtSecurityFacade extends AhtUtilsFacade
+import net.sf.ahtutils.model.interfaces.EjbWithType;
+
+public interface AhtSecurityFacade extends UtilsFacade
 {	
-	
-	//***************************   XML Factory   *************************************
-	
-
+	<T extends EjbWithType> List<T> allUtilsForType(Class<T> claszz, String type);
 }

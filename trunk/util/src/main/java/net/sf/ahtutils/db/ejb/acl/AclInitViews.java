@@ -9,6 +9,7 @@ import net.sf.ahtutils.controller.interfaces.AhtAclFacade;
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
+import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclView;
@@ -90,7 +91,7 @@ public class AclInitViews <S extends UtilsStatus<L>,
 			CU usecaseCategory;
 			try
 			{
-				usecaseCategory = fAcl.fAhtUtilsByCode(categoryUsecaseClass, category.getCode());
+				usecaseCategory = fAcl.fByCode(categoryUsecaseClass, category.getCode());
 				
 				logger.trace("removing existing langs: "+category.getCode());
 				Map<String,L> langMap = usecaseCategory.getName();
@@ -98,19 +99,20 @@ public class AclInitViews <S extends UtilsStatus<L>,
 				usecaseCategory.setName(null);
 				usecaseCategory.setDescription(null);
 				
-				try{usecaseCategory=(CU)fAcl.updateAhtUtilsStatus(usecaseCategory);}
+				try{usecaseCategory=(CU)fAcl.update(usecaseCategory);}
 				catch (UtilsContraintViolationException e) {logger.error("",e);}
+				catch (UtilsLockingException e) {logger.error("",e);}
 				
 				for(L lang : langMap.values())
 				{
-					try {fAcl.rmAhtUtilsEntity(lang);}
-					catch (UtilsContraintViolationException e) {logger.error("",e);}
+					try {fAcl.rm(lang);}
+					catch (UtilsIntegrityException e) {logger.error("",e);}
 				}
 				
 				for(D desc : descMap.values())
 				{
-					try {fAcl.rmAhtUtilsEntity(desc);}
-					catch (UtilsContraintViolationException e) {logger.error("",e);}
+					try {fAcl.rm(desc);}
+					catch (UtilsIntegrityException e) {logger.error("",e);}
 				}
 				logger.trace("removed existing langs: "+category.getCode());
 			}
@@ -120,7 +122,7 @@ public class AclInitViews <S extends UtilsStatus<L>,
 				{
 					usecaseCategory = categoryUsecaseClass.newInstance();
 					usecaseCategory.setCode(category.getCode());
-					usecaseCategory = fAcl.persistAhtUtilsStatus(usecaseCategory);
+					usecaseCategory = fAcl.persist(usecaseCategory);
 				}
 				catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
 				catch (IllegalAccessException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
@@ -131,7 +133,7 @@ public class AclInitViews <S extends UtilsStatus<L>,
 			{
 				usecaseCategory.setName(ejbLangFactory.getLangMap(category.getLangs()));
 //				usecaseCategory.setDescription(ejbFactory.getDescriptionMap(category.getDescriptions()));
-				usecaseCategory=fAcl.updateAhtUtilsStatus(usecaseCategory);
+				usecaseCategory=fAcl.update(usecaseCategory);
 				
 				if(category.isSetViews() && category.getViews().isSetView())
 				{
@@ -146,6 +148,7 @@ public class AclInitViews <S extends UtilsStatus<L>,
 			catch (InstantiationException e) {logger.error("",e);}
 			catch (IllegalAccessException e) {logger.error("",e);}
 			catch (UtilsIntegrityException e) {logger.error("",e);}
+			catch (UtilsLockingException e) {logger.error("",e);}
 		}
 		
 		ejbUcUpdate.remove(fAcl);
@@ -159,26 +162,27 @@ public class AclInitViews <S extends UtilsStatus<L>,
 		U aclUsecase;
 		try
 		{
-			aclUsecase = fAcl.fAhtUtilsByCode(usecaseClass, usecase.getCode());
+			aclUsecase = fAcl.fByCode(usecaseClass, usecase.getCode());
 			
 			Map<String,L> langMap = aclUsecase.getName();
 			Map<String,D> descMap = aclUsecase.getDescription();
 			aclUsecase.setName(null);
 			aclUsecase.setDescription(null);
 			
-			try{aclUsecase=fAcl.updateAhtUtilsStatus(aclUsecase);}
+			try{aclUsecase=fAcl.update(aclUsecase);}
+			catch (UtilsLockingException e) {logger.error("",e);}
 			catch (UtilsContraintViolationException e) {logger.error("",e);}
 			
 			for(L lang : langMap.values())
 			{
-				try {fAcl.rmAhtUtilsEntity(lang);}
-				catch (UtilsContraintViolationException e) {logger.error("",e);}
+				try {fAcl.rm(lang);}
+				catch (UtilsIntegrityException e) {logger.error("",e);}
 			}
 			
 			for(D desc : descMap.values())
 			{
-				try {fAcl.rmAhtUtilsEntity(desc);}
-				catch (UtilsContraintViolationException e) {logger.error("",e);}
+				try {fAcl.rm(desc);}
+				catch (UtilsIntegrityException e) {logger.error("",e);}
 			}
 		}
 		catch (UtilsNotFoundException e)
@@ -187,7 +191,7 @@ public class AclInitViews <S extends UtilsStatus<L>,
 			{
 				aclUsecase = usecaseClass.newInstance();
 				aclUsecase.setCode(usecase.getCode());
-				aclUsecase = fAcl.persistAhtUtilsStatus(aclUsecase);
+				aclUsecase = fAcl.persist(aclUsecase);
 			}
 			catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
 			catch (IllegalAccessException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
@@ -199,11 +203,12 @@ public class AclInitViews <S extends UtilsStatus<L>,
 			aclUsecase.setName(ejbLangFactory.getLangMap(usecase.getLangs()));
 //			aclUsecase.setDescription(ejbFactory.getDescriptionMap(usecase.getDescriptions()));
 			aclUsecase.setCategory(usecaseCategory);
-			aclUsecase=fAcl.updateAhtUtilsStatus(aclUsecase);
+			aclUsecase=fAcl.update(aclUsecase);
 		}
 		catch (UtilsContraintViolationException e) {logger.error("",e);}
 		catch (InstantiationException e) {logger.error("",e);}
 		catch (IllegalAccessException e) {logger.error("",e);}
 		catch (UtilsIntegrityException e) {logger.error("",e);}
+		catch (UtilsLockingException e) {logger.error("",e);}
 	}
 }

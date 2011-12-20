@@ -5,6 +5,7 @@ import net.sf.ahtutils.controller.interfaces.AhtSecurityFacade;
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
+import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
@@ -72,7 +73,7 @@ public class SecurityInitViews <L extends UtilsLang,
 		V ebj;
 		try
 		{
-			ebj = fSecurity.fAhtUtilsByCode(cV,view.getCode());
+			ebj = fSecurity.fByCode(cV,view.getCode());
 			rmLang(ebj);
 			rmDescription(ebj);
 		}
@@ -83,7 +84,7 @@ public class SecurityInitViews <L extends UtilsLang,
 				ebj = cV.newInstance();
 				ebj.setCategory(category);
 				ebj.setCode(view.getCode());
-				ebj = fSecurity.persistAhtUtilsStatus(ebj);
+				ebj = fSecurity.persist(ebj);
 			}
 			catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
 			catch (IllegalAccessException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
@@ -95,7 +96,7 @@ public class SecurityInitViews <L extends UtilsLang,
 			ebj.setName(ejbLangFactory.getLangMap(view.getLangs()));
 			ebj.setDescription(ejbDescriptionFactory.create(view.getDescriptions()));
 			ebj.setCategory(category);
-			ebj=fSecurity.updateAhtUtilsStatus(ebj);
+			ebj=fSecurity.update(ebj);
 			
 			if(view.isSetActions() && view.getActions().isSetAction())
 			{
@@ -110,6 +111,7 @@ public class SecurityInitViews <L extends UtilsLang,
 		catch (InstantiationException e) {logger.error("",e);}
 		catch (IllegalAccessException e) {logger.error("",e);}
 		catch (UtilsIntegrityException e) {logger.error("",e);}
+		catch (UtilsLockingException e) {logger.error("",e);}
 	}
 	
 	private void iuAction(V ejbView, Action action) throws AhtUtilsConfigurationException
@@ -117,7 +119,7 @@ public class SecurityInitViews <L extends UtilsLang,
 		A ebj;
 		try
 		{
-			ebj = fSecurity.fAhtUtilsByCode(cA,action.getCode());
+			ebj = fSecurity.fByCode(cA,action.getCode());
 			rmLang(ebj);
 			rmDescription(ebj);
 		}
@@ -128,7 +130,7 @@ public class SecurityInitViews <L extends UtilsLang,
 				ebj = cA.newInstance();
 				ebj.setView(ejbView);
 				ebj.setCode(action.getCode());
-				ebj = fSecurity.persistAhtUtilsStatus(ebj);
+				ebj = fSecurity.persist(ebj);
 			}
 			catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
 			catch (IllegalAccessException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
@@ -140,11 +142,12 @@ public class SecurityInitViews <L extends UtilsLang,
 			ebj.setName(ejbLangFactory.getLangMap(action.getLangs()));
 			ebj.setDescription(ejbDescriptionFactory.create(action.getDescriptions()));
 			ebj.setView(ejbView);
-			ebj=fSecurity.updateAhtUtilsStatus(ebj);
+			ebj=fSecurity.update(ebj);
 		}
 		catch (UtilsContraintViolationException e) {logger.error("",e);}
 		catch (InstantiationException e) {logger.error("",e);}
 		catch (IllegalAccessException e) {logger.error("",e);}
 		catch (UtilsIntegrityException e) {logger.error("",e);}
+		catch (UtilsLockingException e) {logger.error("",e);}
 	}
 }

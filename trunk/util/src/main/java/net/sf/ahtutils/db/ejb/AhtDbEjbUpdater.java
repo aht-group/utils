@@ -5,8 +5,9 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.ahtutils.controller.interfaces.AhtUtilsFacade;
+import net.sf.ahtutils.controller.interfaces.UtilsFacade;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.model.interfaces.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.EjbWithCode;
 
@@ -55,7 +56,7 @@ public class AhtDbEjbUpdater<C extends EjbWithCode>
 		return result;
 	}
 	
-	public void remove(AhtUtilsFacade fUtils)
+	public void remove(UtilsFacade fUtils)
 	{
 		if(getEjbForRemove().size()>0)
 		{
@@ -64,8 +65,8 @@ public class AhtDbEjbUpdater<C extends EjbWithCode>
 			{
 				if(pc instanceof EjbRemoveable)
 				{
-					try {fUtils.rmAhtUtilsEntity((EjbRemoveable)pc);}
-					catch (UtilsContraintViolationException e) {e.printStackTrace();}
+					try {fUtils.rm((EjbRemoveable)pc);}
+					catch (UtilsIntegrityException e) {e.printStackTrace();}
 				}
 				else
 				{

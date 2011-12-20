@@ -5,6 +5,7 @@ import net.sf.ahtutils.controller.interfaces.AhtSecurityFacade;
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
+import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
@@ -68,7 +69,7 @@ public class SecurityInitRoles <L extends UtilsLang,
 		R aclRole;
 		try
 		{
-			aclRole = fSecurity.fAhtUtilsByCode(cR,role.getCode());
+			aclRole = fSecurity.fByCode(cR,role.getCode());
 			rmLang(aclRole);
 			rmDescription(aclRole);
 		}
@@ -79,7 +80,7 @@ public class SecurityInitRoles <L extends UtilsLang,
 				aclRole = cR.newInstance();
 				aclRole.setCategory(category);
 				aclRole.setCode(role.getCode());
-				aclRole = fSecurity.persistAhtUtilsStatus(aclRole);				
+				aclRole = fSecurity.persist(aclRole);				
 			}
 			catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
 			catch (IllegalAccessException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
@@ -91,7 +92,7 @@ public class SecurityInitRoles <L extends UtilsLang,
 			aclRole.setName(ejbLangFactory.getLangMap(role.getLangs()));
 			aclRole.setDescription(ejbDescriptionFactory.create(role.getDescriptions()));
 			aclRole.setCategory(category);
-			aclRole=fSecurity.updateAhtUtilsStatus(aclRole);
+			aclRole=fSecurity.update(aclRole);
 
 			aclRole = iuListViews(aclRole, role.getViews());
 			aclRole = iuListActions(aclRole, role.getActions());
@@ -102,20 +103,21 @@ public class SecurityInitRoles <L extends UtilsLang,
 		catch (IllegalAccessException e) {logger.error("",e);}
 		catch (UtilsIntegrityException e) {logger.error("",e);}
 		catch (UtilsNotFoundException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
+		catch (UtilsLockingException e) {logger.error("",e);}
 	}
 	
-	private R iuUsecasesForRole(R ejb, Usecases usecases) throws UtilsContraintViolationException, UtilsNotFoundException
+	private R iuUsecasesForRole(R ejb, Usecases usecases) throws UtilsContraintViolationException, UtilsNotFoundException, UtilsLockingException
 	{
 		ejb.getUsecases().clear();
-		ejb = fSecurity.updateAhtUtilsStatus(ejb);
+		ejb = fSecurity.update(ejb);
 		if(usecases!=null)
 		{
 			for(Usecase usecase : usecases.getUsecase())
 			{
-				U ejbUsecase = fSecurity.fAhtUtilsByCode(cU, usecase.getCode());
+				U ejbUsecase = fSecurity.fByCode(cU, usecase.getCode());
 				ejb.getUsecases().add(ejbUsecase);
 			}
-			ejb = fSecurity.updateAhtUtilsStatus(ejb);
+			ejb = fSecurity.update(ejb);
 		}
 		return ejb;
 	}

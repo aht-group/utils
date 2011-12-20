@@ -10,9 +10,10 @@ import java.util.Map;
 import java.util.Set;
 
 import net.sf.ahtutils.controller.factory.ejb.status.EjbStatusFactory;
-import net.sf.ahtutils.controller.interfaces.AhtUtilsFacade;
+import net.sf.ahtutils.controller.interfaces.UtilsFacade;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
+import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
@@ -104,7 +105,7 @@ public class AhtStatusDbInit
 		return result;
 	}
 	
-	public <S extends UtilsStatus<L>,L extends UtilsLang> void deleteUnusedStatus(AhtUtilsFacade fStatus, Class<S> cStatus, Class<L> cLang)
+	public <S extends UtilsStatus<L>,L extends UtilsLang> void deleteUnusedStatus(UtilsFacade fStatus, Class<S> cStatus, Class<L> cLang)
 	{
 		logger.debug("Deleing unused Status/Langs");
 		for(long id : sDeleteLangs)
@@ -112,11 +113,11 @@ public class AhtStatusDbInit
 			try
 			{
 				logger.trace("Deleting lang: "+id);
-				L lang = fStatus.fAhtUtilsEntity(cLang, id);
-				fStatus.rmAhtUtilsEntity(lang);
+				L lang = fStatus.find(cLang, id);
+				fStatus.rm(lang);
 			}
-			catch (UtilsContraintViolationException e) {logger.error("",e);}
 			catch (UtilsNotFoundException e) {logger.error("",e);}
+			catch (UtilsIntegrityException e) {logger.error("",e);}
 		}
 		
 		 for(String group : mDbAvailableStatus.keySet())
@@ -128,16 +129,16 @@ public class AhtStatusDbInit
 				 try
 				 {
 					 logger.trace("Deleting status: "+id);
-						S status = fStatus.fAhtUtilsEntity(cStatus, id);
-					 fStatus.rmAhtUtilsEntity(status);
+						S status = fStatus.find(cStatus, id);
+					 fStatus.rm(status);
 				 }
-				 catch (UtilsContraintViolationException e) {logger.error("",e);}
+				 catch (UtilsIntegrityException e) {logger.error("",e);}
 				 catch (UtilsNotFoundException e) {logger.error("",e);}
 			 }
 		 }
 	}
 	
-	public <S extends UtilsStatus<L>,L extends UtilsLang> void iuStatus(List<Status> list, AhtUtilsFacade fStatus, Class<S> cStatus, Class<L> cLang)
+	public <S extends UtilsStatus<L>,L extends UtilsLang> void iuStatus(List<Status> list, UtilsFacade fStatus, Class<S> cStatus, Class<L> cLang)
 	{
 		for(Status status : list)
 		{
@@ -148,16 +149,16 @@ public class AhtStatusDbInit
 				if(!isGroupInMap(status.getGroup()))
 				{
 					List<UtilsStatus> l = new ArrayList<UtilsStatus>();
-					for(S s : fStatus.allAhtUtilsStatus(cStatus)){l.add(s);}
+					for(S s : fStatus.all(cStatus)){l.add(s);}
 					savePreviousDbEntries(status.getGroup(), l);
 					logger.trace("Delete Pool: "+mDbAvailableStatus.get(status.getGroup()).size());
 				}
 				try
 				{
-					ejbStatus = fStatus.fAhtUtilsStatusByCode(cStatus,status.getCode());
+					ejbStatus = fStatus.fByCode(cStatus,status.getCode());
 					ejbStatus = (S)removeData(ejbStatus);
-					ejbStatus = fStatus.updateAhtUtilsStatus(ejbStatus);
-					ejbStatus = fStatus.fAhtUtilsEntity(cStatus, ejbStatus.getId());
+					ejbStatus = fStatus.update(ejbStatus);
+					ejbStatus = fStatus.find(cStatus, ejbStatus.getId());
 					removeStatusFromDelete(status.getGroup(), ejbStatus.getId());
 					logger.trace("Now in Pool: "+mDbAvailableStatus.get(status.getGroup()).size());
 					logger.trace("Found: "+ejbStatus);
@@ -166,7 +167,7 @@ public class AhtStatusDbInit
 				{
 					ejbStatus = cStatus.newInstance();
 					ejbStatus.setCode(status.getCode());
-					ejbStatus = fStatus.persistAhtUtilsStatus(ejbStatus);
+					ejbStatus = fStatus.persist(ejbStatus);
 					logger.trace("Added: "+ejbStatus);
 				}
 				
@@ -180,11 +181,12 @@ public class AhtStatusDbInit
 				catch (InstantiationException e) {logger.error("",e);}
 				catch (IllegalAccessException e) {logger.error("",e);}
 				catch (UtilsIntegrityException e) {logger.error("",e);}
-				ejbStatus = fStatus.updateAhtUtilsStatus(ejbStatus);
+				ejbStatus = fStatus.update(ejbStatus);
 			}
 			catch (UtilsContraintViolationException e){logger.error("",e);}
 			catch (InstantiationException e) {logger.error("",e);}
 			catch (IllegalAccessException e) {logger.error("",e);}
+			catch (UtilsLockingException e) {logger.error("",e);}
 		}
 	}
 	
