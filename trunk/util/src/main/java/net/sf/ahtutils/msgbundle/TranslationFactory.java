@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsNotFoundException;
+import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Translation;
 import net.sf.ahtutils.xml.status.Translations;
@@ -41,7 +41,7 @@ public class TranslationFactory
 		processedFiles = 0;
 	}
 	
-	public void writeMessageResourceBundles(String bundleName, String bundlePackage, String targetDirectory) throws FileNotFoundException, AhtUtilsNotFoundException
+	public void writeMessageResourceBundles(String bundleName, String bundlePackage, String targetDirectory) throws FileNotFoundException, UtilsNotFoundException
 	{
 		File baseDir = new File(targetDirectory);
 		if(!baseDir.exists() || !baseDir.isDirectory())
@@ -122,7 +122,7 @@ public class TranslationFactory
 			sb.append("    ").append(langKey).append(": ");
 			int number = 0;
 			try {number = tMap.getTranslationKeys(langKey).size();}
-			catch (AhtUtilsNotFoundException e) {logger.error("",e);}
+			catch (UtilsNotFoundException e) {logger.error("",e);}
 			sb.append(number).append(" translations");
 			result.add(sb.toString());
 		}

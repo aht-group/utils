@@ -33,16 +33,16 @@
 	
 	<dependencies>
 		<dependency>
-	        	<groupId>net.sf.exlp</groupId>
-	        	<artifactId>exlp-util</artifactId>
-	        	<type>jar</type>
-	        	<scope>compile</scope>
-	        	<exclusions>
-	        		<exclusion>
-	        			<artifactId>commons-collections</artifactId>
-	        			<groupId>commons-collections</groupId>
-	        		</exclusion>
-	        	</exclusions>
+        	<groupId>net.sf.exlp</groupId>
+        	<artifactId>exlp-util</artifactId>
+        	<type>jar</type>
+        	<scope>compile</scope>
+        	<exclusions>
+        		<exclusion>
+        			<artifactId>commons-collections</artifactId>
+        			<groupId>commons-collections</groupId>
+        		</exclusion>
+        	</exclusions>
 	        </dependency>
 	        <dependency>
 	        	<groupId>net.sf.ahtutils</groupId>
@@ -197,6 +197,18 @@
    	   		<groupId>commons-collections</groupId>
    	   		<artifactId>commons-collections</artifactId>
     	</dependency>
+    	<dependency>
+        	<groupId>org.hibernate</groupId>
+        	<artifactId>hibernate-core</artifactId>
+        	<type>jar</type>
+        	<scope>provided</scope>
+        	<exclusions>
+        		<exclusion>
+        			<artifactId>xml-apis</artifactId>
+        			<groupId>xml-apis</groupId>
+        		</exclusion>
+        	</exclusions>
+        </dependency>
 	</dependencies>
    
 </project>

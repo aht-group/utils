@@ -4,7 +4,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsIntegrityException;
+import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
@@ -41,16 +41,16 @@ public class EjbStatusFactory<S extends UtilsStatus<L>, L extends UtilsLang, D e
         return new EjbStatusFactory<S, L, D>(statusClass, langClass, descriptionClass);
     }
     
-	public S create(Status status) throws InstantiationException, IllegalAccessException, AhtUtilsIntegrityException
+	public S create(Status status) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
 	{
-		if(!status.isSetLangs()){throw new AhtUtilsIntegrityException("No <langs> available for "+JaxbUtil.toString(status));}
+		if(!status.isSetLangs()){throw new UtilsIntegrityException("No <langs> available for "+JaxbUtil.toString(status));}
         S s = statusClass.newInstance();
         s.setCode(status.getCode());
         s.setName(ejbLangFactory.getLangMap(status.getLangs()));
         return s;
     }
 	
-	public S create(String code) throws InstantiationException, IllegalAccessException, AhtUtilsIntegrityException
+	public S create(String code) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
 	{
         S s = statusClass.newInstance();
         s.setCode(code);

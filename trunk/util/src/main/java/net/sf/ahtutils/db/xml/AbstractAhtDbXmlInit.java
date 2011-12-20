@@ -3,8 +3,8 @@ package net.sf.ahtutils.db.xml;
 import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
-import net.sf.ahtutils.controller.exception.AhtUtilsIntegrityException;
 import net.sf.ahtutils.db.xml.AhtDbXmlInit.Priority;
+import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.xml.dbseed.Db;
 
 import org.slf4j.Logger;
@@ -24,7 +24,7 @@ public abstract class AbstractAhtDbXmlInit extends AbstractAhtDbXmlUtil
 		this.asdi=asdi;
 	}
 	
-	public void initFromXml(Priority priority) throws FileNotFoundException,AhtUtilsIntegrityException, AhtUtilsConfigurationException
+	public void initFromXml(Priority priority) throws FileNotFoundException,UtilsIntegrityException, AhtUtilsConfigurationException
 	{
 		switch(priority)
 		{
@@ -35,8 +35,8 @@ public abstract class AbstractAhtDbXmlInit extends AbstractAhtDbXmlUtil
 		}
 	}
 	
-	protected void initStatics() throws FileNotFoundException,AhtUtilsIntegrityException,AhtUtilsConfigurationException{}
-	protected void initRequired() throws FileNotFoundException,AhtUtilsIntegrityException,AhtUtilsConfigurationException{}
-	protected void initMandatory() throws FileNotFoundException,AhtUtilsIntegrityException,AhtUtilsConfigurationException{}
-	protected void initOptional() throws FileNotFoundException,AhtUtilsIntegrityException,AhtUtilsConfigurationException{}
+	protected void initStatics() throws FileNotFoundException,UtilsIntegrityException,AhtUtilsConfigurationException{}
+	protected void initRequired() throws FileNotFoundException,UtilsIntegrityException,AhtUtilsConfigurationException{}
+	protected void initMandatory() throws FileNotFoundException,UtilsIntegrityException,AhtUtilsConfigurationException{}
+	protected void initOptional() throws FileNotFoundException,UtilsIntegrityException,AhtUtilsConfigurationException{}
 }

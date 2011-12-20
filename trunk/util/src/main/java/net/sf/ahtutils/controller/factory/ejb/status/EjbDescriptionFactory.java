@@ -4,7 +4,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsIntegrityException;
+import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.xml.status.Description;
 import net.sf.ahtutils.xml.status.Descriptions;
@@ -41,12 +41,12 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
     	return d;
 	}
 	
-	public Map<String,D> create(Descriptions descriptions) throws InstantiationException, IllegalAccessException, AhtUtilsIntegrityException
+	public Map<String,D> create(Descriptions descriptions) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
 	{
 		return create(descriptions.getDescription()); 
 	}
 	
-	public Map<String,D> create(List<Description> lDescriptions) throws InstantiationException, IllegalAccessException, AhtUtilsIntegrityException
+	public Map<String,D> create(List<Description> lDescriptions) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
 	{
 		Map<String,D> map = new Hashtable<String,D>();
 		for(Description desc : lDescriptions)

@@ -4,7 +4,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsIntegrityException;
+import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
 import net.sf.ahtutils.xml.status.Lang;
@@ -30,12 +30,12 @@ public class EjbLangFactory<L extends UtilsLang>
         return new EjbLangFactory<L>(langClass);
     }
 	
-	public Map<String,L> getLangMap(Langs langs) throws InstantiationException, IllegalAccessException, AhtUtilsIntegrityException
+	public Map<String,L> getLangMap(Langs langs) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
 	{
 		return getLangMap(langs.getLang()); 
 	}
 	
-	public Map<String,L> getLangMap(List<Lang> langList) throws InstantiationException, IllegalAccessException, AhtUtilsIntegrityException
+	public Map<String,L> getLangMap(List<Lang> langList) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
 	{
 		Map<String,L> map = new Hashtable<String,L>();
 		for(Lang lang : langList)
@@ -61,10 +61,10 @@ public class EjbLangFactory<L extends UtilsLang>
 		return l;
 	}
 	
-	public L createLang(Lang lang) throws InstantiationException, IllegalAccessException, AhtUtilsIntegrityException
+	public L createLang(Lang lang) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
 	{
-		if(lang.getKey()==null){throw new AhtUtilsIntegrityException("Key not set for: "+JaxbUtil.toString(lang, new AhtUtilsNsPrefixMapper()));}
-		if(lang.getTranslation()==null){throw new AhtUtilsIntegrityException("Translation not set for: "+JaxbUtil.toString(lang, new AhtUtilsNsPrefixMapper()));}
+		if(lang.getKey()==null){throw new UtilsIntegrityException("Key not set for: "+JaxbUtil.toString(lang, new AhtUtilsNsPrefixMapper()));}
+		if(lang.getTranslation()==null){throw new UtilsIntegrityException("Translation not set for: "+JaxbUtil.toString(lang, new AhtUtilsNsPrefixMapper()));}
 		return createLang(lang.getKey(), lang.getTranslation());
 	}
 }

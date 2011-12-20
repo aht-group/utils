@@ -3,7 +3,7 @@ package net.sf.ahtutils.controller.interfaces;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsNotFoundException;
+import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryGroup;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryProjectRole;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
@@ -24,7 +24,7 @@ public interface AhtAclFacade extends AhtUtilsFacade
 	 CR extends UtilsAclCategoryGroup<L,D,CU,CR,U,R>,
 	 U extends UtilsAclView<L,D,CU,U>,
 	 R extends UtilsAclGroup<L,D,CU,CR,U,R>>
-	List<R> fAclRoles(Class<R> type, List<Group> lRoles) throws AhtUtilsNotFoundException;
+	List<R> fAclRoles(Class<R> type, List<Group> lRoles) throws UtilsNotFoundException;
 	
 	@Deprecated// ERP-275
 	<L extends UtilsLang,

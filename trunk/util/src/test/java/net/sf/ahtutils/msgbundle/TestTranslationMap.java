@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import junit.framework.Assert;
-import net.sf.ahtutils.controller.exception.AhtUtilsNotFoundException;
+import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.test.AbstractAhtUtilTest;
 
 import org.junit.Before;
@@ -64,15 +64,15 @@ public class TestTranslationMap extends AbstractAhtUtilTest
     }
 	
 	@Test
-	public void sizeKeys() throws AhtUtilsNotFoundException
+	public void sizeKeys() throws UtilsNotFoundException
 	{
 		addAllTranslations();
 		Assert.assertEquals(2, tMap.sizeKeys("de"));
 		Assert.assertEquals(1, tMap.sizeKeys("en"));
 	}
 	
-	@Test(expected=AhtUtilsNotFoundException.class)
-	public void sizeKeysUnknown() throws AhtUtilsNotFoundException
+	@Test(expected=UtilsNotFoundException.class)
+	public void sizeKeysUnknown() throws UtilsNotFoundException
 	{
 		tMap.sizeKeys("-1");
 	}
@@ -87,15 +87,15 @@ public class TestTranslationMap extends AbstractAhtUtilTest
 		}
 	}
 	
-	@Test(expected=AhtUtilsNotFoundException.class)
-	public void translateUnknowLang() throws AhtUtilsNotFoundException
+	@Test(expected=UtilsNotFoundException.class)
+	public void translateUnknowLang() throws UtilsNotFoundException
 	{
 		addAllTranslations();
 		tMap.translateWithException("-1","-1");
 	}
 	
-	@Test(expected=AhtUtilsNotFoundException.class)
-	public void translateUnknowKey() throws AhtUtilsNotFoundException
+	@Test(expected=UtilsNotFoundException.class)
+	public void translateUnknowKey() throws UtilsNotFoundException
 	{
 		addAllTranslations();
 		tMap.translateWithException("de","-1");
@@ -114,7 +114,7 @@ public class TestTranslationMap extends AbstractAhtUtilTest
 	}
 	
 	@Test
-	public void getTranslationKeys() throws AhtUtilsNotFoundException
+	public void getTranslationKeys() throws UtilsNotFoundException
 	{
 		addAllTranslations();
 		List<String> list = tMap.getTranslationKeys("de");
@@ -126,8 +126,8 @@ public class TestTranslationMap extends AbstractAhtUtilTest
 		}
 	}
 	
-	@Test(expected=AhtUtilsNotFoundException.class)
-	public void getTranslationKeysUnknows() throws AhtUtilsNotFoundException
+	@Test(expected=UtilsNotFoundException.class)
+	public void getTranslationKeysUnknows() throws UtilsNotFoundException
 	{
 		tMap.getTranslationKeys("-1");
 	}

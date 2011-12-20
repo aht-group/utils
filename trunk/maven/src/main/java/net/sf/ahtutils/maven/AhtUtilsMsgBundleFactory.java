@@ -3,7 +3,7 @@ package net.sf.ahtutils.maven;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsNotFoundException;
+import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.msgbundle.TranslationFactory;
 
 import org.apache.log4j.BasicConfigurator;
@@ -66,7 +66,7 @@ public class AhtUtilsMsgBundleFactory extends AbstractMojo
 			}
 		}
 		catch (FileNotFoundException e) {e.printStackTrace();}
-		catch (AhtUtilsNotFoundException e) {e.printStackTrace();}
+		catch (UtilsNotFoundException e) {e.printStackTrace();}
     }
     
     private File createTargetDir() throws MojoExecutionException

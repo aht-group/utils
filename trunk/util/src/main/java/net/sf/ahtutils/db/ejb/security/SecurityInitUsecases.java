@@ -1,11 +1,11 @@
 package net.sf.ahtutils.db.ejb.security;
 
 import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
-import net.sf.ahtutils.controller.exception.AhtUtilsContraintViolationException;
-import net.sf.ahtutils.controller.exception.AhtUtilsIntegrityException;
-import net.sf.ahtutils.controller.exception.AhtUtilsNotFoundException;
 import net.sf.ahtutils.controller.interfaces.AhtSecurityFacade;
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
+import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
+import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityRole;
@@ -70,7 +70,7 @@ public class SecurityInitUsecases <L extends UtilsLang,
 			rmLang(ebj);
 			rmDescription(ebj);
 		}
-		catch (AhtUtilsNotFoundException e)
+		catch (UtilsNotFoundException e)
 		{
 			try
 			{
@@ -81,7 +81,7 @@ public class SecurityInitUsecases <L extends UtilsLang,
 			}
 			catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
 			catch (IllegalAccessException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
-			catch (AhtUtilsContraintViolationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}	
+			catch (UtilsContraintViolationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}	
 		}
 		
 		try
@@ -94,10 +94,10 @@ public class SecurityInitUsecases <L extends UtilsLang,
 			ebj = iuListViews(ebj, usecase.getViews());
 			ebj = iuListActions(ebj, usecase.getActions());
 		}
-		catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
+		catch (UtilsContraintViolationException e) {logger.error("",e);}
 		catch (InstantiationException e) {logger.error("",e);}
 		catch (IllegalAccessException e) {logger.error("",e);}
-		catch (AhtUtilsIntegrityException e) {logger.error("",e);}
-		catch (AhtUtilsNotFoundException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
+		catch (UtilsIntegrityException e) {logger.error("",e);}
+		catch (UtilsNotFoundException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
 	}
 }

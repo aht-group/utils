@@ -5,7 +5,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsNotFoundException;
+import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +25,7 @@ public class TranslationMap
 	{
 		String result;
 		try {result = translateWithException(langKey, key);}
-		catch (AhtUtilsNotFoundException e)
+		catch (UtilsNotFoundException e)
 		{
 			result = "??? "+e.getMessage()+" ???";
 		}
@@ -33,7 +33,7 @@ public class TranslationMap
 		return result;
 	}
 	
-	public String translateWithException(String langKey, String key) throws AhtUtilsNotFoundException
+	public String translateWithException(String langKey, String key) throws UtilsNotFoundException
 	{
 		if(tMap.containsKey(langKey))
 		{
@@ -44,12 +44,12 @@ public class TranslationMap
 			}
 			else
 			{
-				throw new AhtUtilsNotFoundException("No Translation for lang="+langKey+" and key="+key);
+				throw new UtilsNotFoundException("No Translation for lang="+langKey+" and key="+key);
 			}
 		}
 		else
 		{
-			throw new AhtUtilsNotFoundException("No Translations for lang="+langKey);
+			throw new UtilsNotFoundException("No Translations for lang="+langKey);
 		}
 	}
 	
@@ -78,7 +78,7 @@ public class TranslationMap
 		return tMap.size();
 	}
 	
-	public int sizeKeys(String langKey) throws AhtUtilsNotFoundException
+	public int sizeKeys(String langKey) throws UtilsNotFoundException
 	{
 		if(tMap.containsKey(langKey))
 		{
@@ -86,7 +86,7 @@ public class TranslationMap
 		}
 		else
 		{
-			throw new AhtUtilsNotFoundException("No Translations for lang="+langKey);
+			throw new UtilsNotFoundException("No Translations for lang="+langKey);
 		}
 	}
 	
@@ -100,7 +100,7 @@ public class TranslationMap
 		return result;
 	}
 	
-	public List<String> getTranslationKeys(String langKey) throws AhtUtilsNotFoundException
+	public List<String> getTranslationKeys(String langKey) throws UtilsNotFoundException
 	{
 		if(tMap.containsKey(langKey))
 		{
@@ -113,7 +113,7 @@ public class TranslationMap
 		}
 		else
 		{
-			throw new AhtUtilsNotFoundException("No Translations for lang="+langKey);
+			throw new UtilsNotFoundException("No Translations for lang="+langKey);
 		}
 	}
 }

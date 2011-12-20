@@ -5,8 +5,8 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsContraintViolationException;
 import net.sf.ahtutils.controller.interfaces.AhtUtilsFacade;
+import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.model.interfaces.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.EjbWithCode;
 
@@ -65,7 +65,7 @@ public class AhtDbEjbUpdater<C extends EjbWithCode>
 				if(pc instanceof EjbRemoveable)
 				{
 					try {fUtils.rmAhtUtilsEntity((EjbRemoveable)pc);}
-					catch (AhtUtilsContraintViolationException e) {e.printStackTrace();}
+					catch (UtilsContraintViolationException e) {e.printStackTrace();}
 				}
 				else
 				{

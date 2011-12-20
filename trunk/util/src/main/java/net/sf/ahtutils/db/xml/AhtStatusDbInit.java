@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsContraintViolationException;
-import net.sf.ahtutils.controller.exception.AhtUtilsIntegrityException;
-import net.sf.ahtutils.controller.exception.AhtUtilsNotFoundException;
 import net.sf.ahtutils.controller.factory.ejb.status.EjbStatusFactory;
 import net.sf.ahtutils.controller.interfaces.AhtUtilsFacade;
+import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
+import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.xml.aht.Aht;
@@ -77,7 +77,7 @@ public class AhtStatusDbInit
 		return ejbStatus;
 	}
 	
-	public UtilsStatus<UtilsLang> addLangs(UtilsStatus ejbStatus, Status status) throws InstantiationException, IllegalAccessException, AhtUtilsIntegrityException
+	public UtilsStatus<UtilsLang> addLangs(UtilsStatus ejbStatus, Status status) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
 	{
 		UtilsStatus ejbUpdateInfo = (UtilsStatus)statusEjbFactory.create(status);
 		ejbStatus.setName(ejbUpdateInfo.getName());
@@ -115,8 +115,8 @@ public class AhtStatusDbInit
 				L lang = fStatus.fAhtUtilsEntity(cLang, id);
 				fStatus.rmAhtUtilsEntity(lang);
 			}
-			catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
-			catch (AhtUtilsNotFoundException e) {logger.error("",e);}
+			catch (UtilsContraintViolationException e) {logger.error("",e);}
+			catch (UtilsNotFoundException e) {logger.error("",e);}
 		}
 		
 		 for(String group : mDbAvailableStatus.keySet())
@@ -131,8 +131,8 @@ public class AhtStatusDbInit
 						S status = fStatus.fAhtUtilsEntity(cStatus, id);
 					 fStatus.rmAhtUtilsEntity(status);
 				 }
-				 catch (AhtUtilsContraintViolationException e) {logger.error("",e);}
-				 catch (AhtUtilsNotFoundException e) {logger.error("",e);}
+				 catch (UtilsContraintViolationException e) {logger.error("",e);}
+				 catch (UtilsNotFoundException e) {logger.error("",e);}
 			 }
 		 }
 	}
@@ -162,7 +162,7 @@ public class AhtStatusDbInit
 					logger.trace("Now in Pool: "+mDbAvailableStatus.get(status.getGroup()).size());
 					logger.trace("Found: "+ejbStatus);
 				}
-				catch (AhtUtilsNotFoundException e)
+				catch (UtilsNotFoundException e)
 				{
 					ejbStatus = cStatus.newInstance();
 					ejbStatus.setCode(status.getCode());
@@ -179,10 +179,10 @@ public class AhtStatusDbInit
 				}
 				catch (InstantiationException e) {logger.error("",e);}
 				catch (IllegalAccessException e) {logger.error("",e);}
-				catch (AhtUtilsIntegrityException e) {logger.error("",e);}
+				catch (UtilsIntegrityException e) {logger.error("",e);}
 				ejbStatus = fStatus.updateAhtUtilsStatus(ejbStatus);
 			}
-			catch (AhtUtilsContraintViolationException e){logger.error("",e);}
+			catch (UtilsContraintViolationException e){logger.error("",e);}
 			catch (InstantiationException e) {logger.error("",e);}
 			catch (IllegalAccessException e) {logger.error("",e);}
 		}

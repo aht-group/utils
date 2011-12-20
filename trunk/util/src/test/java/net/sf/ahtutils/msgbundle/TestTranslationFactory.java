@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import junit.framework.Assert;
-import net.sf.ahtutils.controller.exception.AhtUtilsNotFoundException;
+import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.test.AbstractAhtUtilTest;
 
 import org.apache.commons.io.FileUtils;
@@ -40,7 +40,7 @@ public class TestTranslationFactory extends AbstractAhtUtilTest
 	}
 	
 	@Test
-	public void targetCreation() throws FileNotFoundException, AhtUtilsNotFoundException
+	public void targetCreation() throws FileNotFoundException, UtilsNotFoundException
     {	
 		tFactory.add("src/test/resources/data/xml/msgBundle/translation1.xml");
 		tFactory.writeMessageResourceBundles(bundleName,bundlePackage,fTarget.getAbsolutePath());
@@ -52,7 +52,7 @@ public class TestTranslationFactory extends AbstractAhtUtilTest
     }
 	
 	@Test
-	public void langFiles() throws FileNotFoundException, AhtUtilsNotFoundException
+	public void langFiles() throws FileNotFoundException, UtilsNotFoundException
     {	
 		tFactory.add("src/test/resources/data/xml/msgBundle/translation1.xml");
 		tFactory.writeMessageResourceBundles(bundleName,bundlePackage,fTarget.getAbsolutePath());
@@ -66,7 +66,7 @@ public class TestTranslationFactory extends AbstractAhtUtilTest
     }
 	
 	@Test
-	public void multipleTranslationFiles() throws FileNotFoundException, AhtUtilsNotFoundException
+	public void multipleTranslationFiles() throws FileNotFoundException, UtilsNotFoundException
     {	
 		tFactory.add("src/test/resources/data/xml/msgBundle/translation1.xml");
 		tFactory.add("src/test/resources/data/xml/msgBundle/translation2.xml");
@@ -80,7 +80,7 @@ public class TestTranslationFactory extends AbstractAhtUtilTest
     }
 	
 	@Test
-	public void rekursiveDirectory() throws FileNotFoundException, AhtUtilsNotFoundException
+	public void rekursiveDirectory() throws FileNotFoundException, UtilsNotFoundException
     {	
 		tFactory.rekursiveDirectory("src/test/resources/data/xml/msgBundle");
 		tFactory.writeMessageResourceBundles(bundleName,bundlePackage,fTarget.getAbsolutePath());
