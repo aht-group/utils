@@ -10,6 +10,7 @@ import net.sf.ahtutils.xml.access.View;
 import net.sf.ahtutils.xml.access.Views;
 import net.sf.ahtutils.xml.status.TestXmlDescription;
 import net.sf.ahtutils.xml.status.TestXmlLang;
+import net.sf.ahtutils.xml.status.Translations;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.Before;
@@ -17,7 +18,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openfuxml.content.ofx.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
-import org.openfuxml.renderer.processor.latex.content.table.LatexGridTableFactory;
+import org.openfuxml.renderer.processor.latex.content.table.LatexGridTableRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,18 +28,22 @@ public class TestOfxViewTableFactory extends AbstractOfxSecurityFactoryTest
 	
 	private OfxViewTableFactory fOfx;
 	private final String lang ="de";
+	private static Translations translations;
+	private String[] headerKeys = {"key1","key1"};
 	
 	@BeforeClass
-	public static void initFiles()
+	public static void initFiles() throws FileNotFoundException
 	{
 		fXml = new File(rootDir,"tableView.xml");
 		fTxt = new File(rootDir,"tableView.tex");
+		
+		translations = JaxbUtil.loadJAXB("src/test/resources/data/xml/dummyTranslations.xml", Translations.class);
 	}
 	
 	@Before
 	public void init()
 	{	
-		fOfx = new OfxViewTableFactory(lang);
+		fOfx = new OfxViewTableFactory(lang, translations);
 	}
 	
 	private Views createViews()
@@ -58,7 +63,7 @@ public class TestOfxViewTableFactory extends AbstractOfxSecurityFactoryTest
 	{
 		Views views = createViews();
 		
-		Table actual = fOfx.toOfx(views.getView());
+		Table actual = fOfx.toOfx(views.getView(),headerKeys);
 		saveXml(actual,fXml,false);
 		Table expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Table.class);
 		assertJaxbEquals(expected, actual);
@@ -67,8 +72,8 @@ public class TestOfxViewTableFactory extends AbstractOfxSecurityFactoryTest
 	@Test
 	public void testLatex() throws OfxAuthoringException, IOException
 	{
-		Table actual = fOfx.toOfx(createViews().getView());
-		LatexGridTableFactory renderer = new LatexGridTableFactory();
+		Table actual = fOfx.toOfx(createViews().getView(),headerKeys);
+		LatexGridTableRenderer renderer = new LatexGridTableRenderer();
 		renderer.render(actual);
     	debug(renderer);
     	save(renderer,fTxt);

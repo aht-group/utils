@@ -6,6 +6,8 @@ import net.sf.ahtutils.xml.status.Description;
 import net.sf.ahtutils.xml.status.Descriptions;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Langs;
+import net.sf.ahtutils.xml.status.Translation;
+import net.sf.ahtutils.xml.status.Translations;
 import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
 
@@ -43,5 +45,25 @@ public class StatusXpath
 		if(listResult.size()==0){throw new ExlpXpathNotFoundException("No "+Description.class.getSimpleName()+" for key="+key);}
 		else if(listResult.size()>1){throw new ExlpXpathNotUniqueException("Multiple "+Description.class.getSimpleName()+" for key="+key);}
 		return listResult.get(0);
+	}
+	
+	public static synchronized Translation getTranslation(Translations translations,String key) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
+	{
+		JXPathContext context = JXPathContext.newContext(translations);
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append("translation[@key='").append(key).append("']");
+		
+		@SuppressWarnings("unchecked")
+		List<Translation> listResult = (List<Translation>)context.selectNodes(sb.toString());
+		if(listResult.size()==0){throw new ExlpXpathNotFoundException("No "+Translation.class.getSimpleName()+" for key="+key);}
+		else if(listResult.size()>1){throw new ExlpXpathNotUniqueException("Multiple "+Translation.class.getSimpleName()+" for key="+key);}
+		return listResult.get(0);
+	}
+	
+	public static synchronized Lang getLang(Translations translations,String keyTranslation, String keyLang) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
+	{
+		Translation translation = getTranslation(translations,keyTranslation);
+		return getLang(translation.getLangs(),keyLang);
 	}
 }
