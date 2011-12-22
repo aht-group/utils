@@ -1,92 +1,99 @@
 package net.sf.ahtutils.controller.factory.utils.security;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.sf.ahtutils.controller.interfaces.AhtAclFacade;
-import net.sf.ahtutils.model.interfaces.EjbWithId;
-import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryGroup;
-import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
-import net.sf.ahtutils.model.interfaces.acl.UtilsAclGroup;
-import net.sf.ahtutils.model.interfaces.acl.UtilsAclView;
+import net.sf.ahtutils.controller.interfaces.UtilsSecurityFacade;
 import net.sf.ahtutils.model.interfaces.idm.UtilsIdentity;
+import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
+import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
+import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
+import net.sf.ahtutils.model.interfaces.security.UtilsSecurityRole;
+import net.sf.ahtutils.model.interfaces.security.UtilsSecurityUsecase;
+import net.sf.ahtutils.model.interfaces.security.UtilsSecurityView;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UtilsIdentityFactory  <I extends UtilsIdentity<L,D,CU,UC,U>,
-									L extends UtilsLang,
-									D extends UtilsDescription,
-									CU extends UtilsAclCategoryUsecase<L,D,CU,UC>,
-									CR extends UtilsAclCategoryGroup<L,D,CU,CR,UC,R>,
-									R extends UtilsAclGroup<L,D,CU,CR,UC,R>,
-									UC extends UtilsAclView<L,D,CU,UC>,
-									U extends EjbWithId>
+public class UtilsIdentityFactory <I extends UtilsIdentity<L,D,C,R,V,U,A,US>,
+								   L extends UtilsLang,
+								   D extends UtilsDescription,
+								   C extends UtilsSecurityCategory<L,D,C,R,V,U,A>,
+								   R extends UtilsSecurityRole<L,D,C,R,V,U,A>,
+								   V extends UtilsSecurityView<L,D,C,R,V,U,A>,
+								   U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,
+								   A extends UtilsSecurityAction<L,D,C,R,V,U,A>,
+								   US extends UtilsUser<L,D,C,R,V,U,A>>
 {
+
 	final static Logger logger = LoggerFactory.getLogger(UtilsIdentityFactory.class);
 
-	final Class<I> clIdentity;
-	final Class<L> clLang;
-	final Class<D> clDescription;
-	final Class<CU> clCategory;
-	final Class<CR> clCategoryRole;
-	final Class<R> clRole;
-	final Class<UC> clUsecase;
-	final Class<U> clUser;
+	final Class<I>  clIdentity;
+	final Class<L>  clLang;
+	final Class<D>  clDescription;
+	final Class<C>  clCategory;
+	final Class<R>  clRole;
+	final Class<V>  clView;
+	final Class<U> 	clUsecase;
+	final Class<A> 	clAction;
+	final Class<US>  clUser;
 
 	public UtilsIdentityFactory(final Class<I> clIdentity,
 								final Class<L> clLang,
 								final Class<D> clDescription,
-								final Class<CU> clCategory,
-								final Class<CR> clCategoryRole,
+								final Class<C> clCategory,
 								final Class<R> clRole,
-								final Class<UC> clUsecase,
-								final Class<U> clUser)
+								final Class<V> clView,
+								final Class<U> clUsecase,
+								final Class<A> clAction,
+								final Class<US> clUser)
 	{
 		this.clIdentity=clIdentity;
 		this.clLang=clLang;
 		this.clDescription=clDescription;
 		this.clCategory=clCategory;
-		this.clCategoryRole=clCategoryRole;
 		this.clRole=clRole;
+		this.clView=clView;
 		this.clUsecase=clUsecase;
+		this.clAction=clAction;
 		this.clUser = clUser;
 	} 
 
-	public static <I extends UtilsIdentity<L,D,CU,UC,U>,
-					L extends UtilsLang,
-					D extends UtilsDescription,
-					CU extends UtilsAclCategoryUsecase<L,D,CU,UC>,
-					CR extends UtilsAclCategoryGroup<L,D,CU,CR,UC,R>,
-					R extends UtilsAclGroup<L,D,CU,CR,UC,R>,
-					UC extends UtilsAclView<L,D,CU,UC>,
-					U extends EjbWithId> UtilsIdentityFactory<I,L,D,CU,CR,R,UC,U>
-	factory(final Class<I> clIdentity,
-					final Class<L> clLang,
-					final Class<D> clDescription,
-					final Class<CU> clCategory,
-					final Class<CR> clCategoryRole,
-					final Class<R> clRole,
-					final Class<UC> clUsecase,
-					final Class<U> clUser)
+	public static <I extends UtilsIdentity<L,D,C,R,V,U,A,US>,
+	   			   L extends UtilsLang,
+	   			   D extends UtilsDescription,
+	   			   C extends UtilsSecurityCategory<L,D,C,R,V,U,A>,
+	   			   R extends UtilsSecurityRole<L,D,C,R,V,U,A>,
+	   			   V extends UtilsSecurityView<L,D,C,R,V,U,A>,
+	   			   U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,
+	   			   A extends UtilsSecurityAction<L,D,C,R,V,U,A>,
+	   			   US extends UtilsUser<L,D,C,R,V,U,A>>
+	UtilsIdentityFactory<I,L,D,C,R,V,U,A,US> factory(final Class<I> clIdentity,
+													 final Class<L> clLang,
+													 final Class<D> clDescription,
+													 final Class<C> clCategory,
+													 final Class<R> clRole,
+													 final Class<V> clView,
+													 final Class<U> clUsecase,
+													 final Class<A> clAction,
+													 final Class<US> clUser)
 	{
-		return new UtilsIdentityFactory<I,L,D,CU,CR,R,UC,U>(clIdentity,clLang,clDescription,clCategory,clCategoryRole,clRole,clUsecase,clUser);
+		return new UtilsIdentityFactory<I,L,D,C,R,V,U,A,US>(clIdentity,clLang,clDescription,clCategory,clRole,clView,clUsecase,clAction,clUser);
 	}
 
-	public I create(AhtAclFacade fAcl, U user) throws InstantiationException, IllegalAccessException
-	{
-		return create(fAcl, user, new ArrayList<R>());
-	}
-	public I create(AhtAclFacade fAcl, U user, List<R> roles) throws InstantiationException, IllegalAccessException
-	{
+	public I create(UtilsSecurityFacade fSecurity, US user) throws InstantiationException, IllegalAccessException
+	{		
 		I identity = clIdentity.newInstance();
 		identity.setUser(user);
 		
-		for(UC uc : fAcl.findUsecasesForRoles(roles))
+//		for(UC uc : fAcl.findUsecasesForRoles(roles))
+//		{
+//			identity.allowUsecase(uc);
+//		}
+		
+		
+		for(V v : fSecurity.allViewsForUser(clUser,user))
 		{
-			identity.allowUsecase(uc);
+			identity.allowView(v);
 		}
 		
 		return identity;
