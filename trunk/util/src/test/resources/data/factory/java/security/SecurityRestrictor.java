@@ -9,5 +9,5 @@ import my.package.xx.UtilsMyCode;
 
 public class Restrictor extends AbstractRestrictor
 {
-	public @Secures @UtilsMyCode boolean isUtilsMyCode(Identity identity) {return super.secure(identity, "myCode");}
+	public @Secures @UtilsMyCode boolean isUtilsMyCode(Identity identity) {return super.secureView(identity, "myCode");}
 }

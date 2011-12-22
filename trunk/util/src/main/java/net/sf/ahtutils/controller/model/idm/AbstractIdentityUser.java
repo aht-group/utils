@@ -53,5 +53,6 @@ public class AbstractIdentityUser <L extends UtilsLang,
 		return false;
 	}
 	
-	public int sizeUsecases() {return mapUsecases.size();}
+	public int sizeAllowedUsecases() {return mapUsecases.size();}
+	public int sizeAllowedViews() {return mapViews.size();}
 }

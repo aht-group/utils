@@ -12,6 +12,6 @@ import ${x.import};
 public class ${className} extends ${abstract}
 {
 <#list codes as x>
-	public @Secures @${x.class} boolean is${x.class}(Identity identity) {return super.secure(identity, "${x.code}");}
+	public @Secures @${x.class} boolean is${x.class}(Identity identity) {return super.secureView(identity, "${x.code}");}
 </#list> 	
 }

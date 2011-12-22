@@ -23,7 +23,8 @@ public interface UtilsIdentity <L extends UtilsLang,
 	boolean hasUsecase(String usecaseCode);
 	boolean hasView(String code);
 	
-	int sizeUsecases();
+	int sizeAllowedUsecases();
+	int sizeAllowedViews();
 	
 	void allowView(V v);
 }
