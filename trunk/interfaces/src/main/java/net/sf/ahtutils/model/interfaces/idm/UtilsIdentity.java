@@ -17,11 +17,13 @@ public interface UtilsIdentity <L extends UtilsLang,
 								A extends UtilsSecurityAction<L,D,C,R,V,U,A>,
 								US extends UtilsUser<L,D,C,R,V,U,A>>
 {	
-	public US getUser();
-	public void setUser(US user);
+	US getUser();
+	void setUser(US user);
 		
-	public boolean hasUsecase(String usecaseCode);
+	boolean hasUsecase(String usecaseCode);
+	boolean hasView(String code);
+	
 	int sizeUsecases();
 	
-	public void allowView(V v);
+	void allowView(V v);
 }

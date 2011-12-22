@@ -44,5 +44,14 @@ public class AbstractIdentityUser <L extends UtilsLang,
 		return false;
 	}
 	
+	public boolean hasView(String code)
+	{
+		if(mapViews.containsKey(code))
+		{
+			return mapViews.get(code);
+		}
+		return false;
+	}
+	
 	public int sizeUsecases() {return mapUsecases.size();}
 }
