@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 
-import net.sf.ahtutils.controller.factory.java.acl.AbstractJavaAclFactoryTest;
+import net.sf.ahtutils.controller.factory.java.security.AbstractJavaAclFactoryTest;
 import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
 import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.io.RelativePathFactory;

@@ -1,4 +1,4 @@
-package net.sf.ahtutils.controller.factory.java.acl;
+package net.sf.ahtutils.controller.factory.java.security;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,9 +8,7 @@ import java.util.List;
 import junit.framework.Assert;
 import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
 import net.sf.ahtutils.test.AhtUtilsTstBootstrap;
-import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.View;
-import net.sf.ahtutils.xml.access.Views;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
@@ -21,14 +19,12 @@ import org.slf4j.LoggerFactory;
 
 import freemarker.template.TemplateException;
 
-public class TestJavaAclIdentifierFactory extends AbstractJavaAclFactoryTest
+public class TestJavaSecurityIdentifierFactory extends AbstractJavaAclFactoryTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestJavaAclIdentifierFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(TestJavaSecurityIdentifierFactory.class);
 	
-	private JavaAclIdentifierFactory idFactory;
+	private JavaSecurityViewIdentifierFactory idFactory;
 	
-	private Category c1;
-	private View v1;
 	private File fPackage;
 	private String classPrefix;
 	
@@ -38,14 +34,7 @@ public class TestJavaAclIdentifierFactory extends AbstractJavaAclFactoryTest
 		classPrefix = "Utils";
 		fPackage = new File(fTarget,"idFactory");
 		fPackage.mkdir();
-		idFactory = new JavaAclIdentifierFactory(fPackage,"net.sf.ahtutils",classPrefix);
-		
-		v1 = new View();
-		v1.setCode("myCode");
-		
-		c1 = new Category();c1.setCode("xx");
-		c1.setViews(new Views());
-		c1.getViews().getView().add(v1);
+		idFactory = new JavaSecurityViewIdentifierFactory(fPackage,"net.sf.ahtutils",classPrefix);
 	}
 	
 	@After
@@ -153,8 +142,9 @@ public class TestJavaAclIdentifierFactory extends AbstractJavaAclFactoryTest
     {
 		AhtUtilsTstBootstrap.init();
 		
-		TestJavaAclIdentifierFactory test = new TestJavaAclIdentifierFactory();
+		TestJavaSecurityIdentifierFactory test = new TestJavaSecurityIdentifierFactory();
 		test.setSaveReference(true);
+		test.initViews();
 		test.init();
 		test.createIdentifier();
 

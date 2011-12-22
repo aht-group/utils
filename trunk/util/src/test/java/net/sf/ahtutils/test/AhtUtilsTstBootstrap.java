@@ -1,5 +1,7 @@
 package net.sf.ahtutils.test;
 
+import java.io.File;
+
 import net.sf.exlp.util.io.LoggerInit;
 
 import org.slf4j.Logger;
@@ -11,6 +13,8 @@ public class AhtUtilsTstBootstrap
 	
 	public static void init()
 	{
+		AbstractAhtUtilTest.setfTarget(new File("target"));
+		
 		LoggerInit loggerInit = new LoggerInit("log4j.xml");
 		loggerInit.addAltPath("config");
 		loggerInit.init();

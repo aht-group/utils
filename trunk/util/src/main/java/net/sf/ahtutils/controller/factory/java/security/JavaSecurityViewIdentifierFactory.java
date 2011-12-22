@@ -1,4 +1,4 @@
-package net.sf.ahtutils.controller.factory.java.acl;
+package net.sf.ahtutils.controller.factory.java.security;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -27,18 +27,18 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-public class JavaAclIdentifierFactory
+public class JavaSecurityViewIdentifierFactory
 {
-	final static Logger logger = LoggerFactory.getLogger(JavaAclIdentifierFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(JavaSecurityViewIdentifierFactory.class);
 		
 	private File fPackage;
-	private String basePackage,classPrefix;
+	private String viewQualifierBasePackage,classPrefix;
 	private Configuration freemarkerConfiguration;
 	
-	public JavaAclIdentifierFactory(File fPackage, String basePackage, String classPrefix)
+	public JavaSecurityViewIdentifierFactory(File fPackage, String viewQualifierBasePackage, String classPrefix)
 	{
 		this.fPackage=fPackage;
-		this.basePackage=basePackage;
+		this.viewQualifierBasePackage=viewQualifierBasePackage;
 		this.classPrefix=classPrefix;
 		freemarkerConfiguration = new Configuration();
 		freemarkerConfiguration.setClassForTemplateLoading(this.getClass(), "/");
@@ -55,15 +55,9 @@ public class JavaAclIdentifierFactory
 		checkBaseDir();
 		for(Category category : lCategory)
 		{
-			try {
-				create(category);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (TemplateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			try {create(category);}
+			catch (IOException e) {e.printStackTrace();}
+			catch (TemplateException e) {e.printStackTrace();}
 		}
 	}
 	
@@ -103,10 +97,10 @@ public class JavaAclIdentifierFactory
 		fJava.createNewFile();
 		
 		Map<String,String> root = new HashMap<String,String>();
-        root.put("packageName", basePackage+"."+subPackage);
+        root.put("packageName", viewQualifierBasePackage+"."+subPackage);
         root.put("className", createClassName(view.getCode()));
 		
-		Template ftl = freemarkerConfiguration.getTemplate("acl.ahtutils-util/securityIdentifier.ftl","UTF-8");
+		Template ftl = freemarkerConfiguration.getTemplate("security.ahtutils-util/identifier.ftl","UTF-8");
 		ftl.setEncoding("UTF-8");
 		
 		StringWriter sw = new StringWriter();
@@ -123,8 +117,13 @@ public class JavaAclIdentifierFactory
 	
 	protected String createClassName(String code)
 	{
+		return createClassName(classPrefix,code);
+	}
+	
+	public static String createClassName(String prefix, String code)
+	{
 		StringBuffer sb = new StringBuffer();
-		sb.append(classPrefix);
+		sb.append(prefix);
 		sb.append(code.subSequence(0, 1).toString().toUpperCase());
 		sb.append(code.substring(1, code.length()));
 		return sb.toString();
