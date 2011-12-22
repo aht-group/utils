@@ -194,7 +194,6 @@ public class UtilsFacadeBean implements UtilsFacade
 	
 	public <T extends EjbWithValidFrom> T fFirstValidFrom(Class<T> type, String parentName, long id, Date validFrom) throws UtilsNotFoundException
 	{
-//		log.info("-------------------------> fFirstValidFrom "+validFrom);
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
 		
 	    CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(type);

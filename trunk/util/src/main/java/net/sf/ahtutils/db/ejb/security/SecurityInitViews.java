@@ -1,7 +1,7 @@
 package net.sf.ahtutils.db.ejb.security;
 
 import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
-import net.sf.ahtutils.controller.interfaces.AhtSecurityFacade;
+import net.sf.ahtutils.controller.interfaces.UtilsSecurityFacade;
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
@@ -36,7 +36,7 @@ public class SecurityInitViews <L extends UtilsLang,
 	private AhtDbEjbUpdater<V> updateView;
 	private AhtDbEjbUpdater<A> updateAction;
 	
-	public SecurityInitViews(final Class<L> cL, final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV,final Class<U> cU,final Class<A> cA,AhtSecurityFacade fAcl)
+	public SecurityInitViews(final Class<L> cL, final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV,final Class<U> cU,final Class<A> cA,UtilsSecurityFacade fAcl)
 	{       
         super(cL,cD,cC,cR,cV,cU,cA,fAcl);
 	}

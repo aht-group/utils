@@ -5,7 +5,7 @@ import java.util.Map;
 import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
 import net.sf.ahtutils.controller.factory.ejb.status.EjbDescriptionFactory;
 import net.sf.ahtutils.controller.factory.ejb.status.EjbLangFactory;
-import net.sf.ahtutils.controller.interfaces.AhtSecurityFacade;
+import net.sf.ahtutils.controller.interfaces.UtilsSecurityFacade;
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
@@ -50,7 +50,7 @@ public class AbstractSecurityInit <L extends UtilsLang,
     protected final Class<U> cU;
     protected  final Class<A> cA;
 	
-	protected AhtSecurityFacade fSecurity;
+	protected UtilsSecurityFacade fSecurity;
 	protected EjbLangFactory<L> ejbLangFactory;
 	protected EjbDescriptionFactory<D> ejbDescriptionFactory;
 	
@@ -62,7 +62,7 @@ public class AbstractSecurityInit <L extends UtilsLang,
 	   			   U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,
 	   			   A extends UtilsSecurityAction<L,D,C,R,V,U,A>>
 		SecurityInitRoles<L,D,C,R,V,U,A>
-		factoryRoles(final Class<L> cL,final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV, final Class<U> cU, final Class<A> cA, AhtSecurityFacade fAcl)
+		factoryRoles(final Class<L> cL,final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV, final Class<U> cU, final Class<A> cA, UtilsSecurityFacade fAcl)
 	{
 		return new SecurityInitRoles<L,D,C,R,V,U,A>(cL,cD,cC,cR,cV,cU,cA,fAcl);
 	}
@@ -75,7 +75,7 @@ public class AbstractSecurityInit <L extends UtilsLang,
 	   			   U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,
 	   			   A extends UtilsSecurityAction<L,D,C,R,V,U,A>>
 		SecurityInitViews<L,D,C,R,V,U,A>
-		factoryViews(final Class<L> cL,final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV, final Class<U> cU, final Class<A> cA, AhtSecurityFacade fAcl)
+		factoryViews(final Class<L> cL,final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV, final Class<U> cU, final Class<A> cA, UtilsSecurityFacade fAcl)
 	{
 		return new SecurityInitViews<L,D,C,R,V,U,A>(cL,cD,cC,cR,cV,cU,cA,fAcl);
 	}
@@ -88,12 +88,12 @@ public class AbstractSecurityInit <L extends UtilsLang,
 	   			   U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,
 	   			   A extends UtilsSecurityAction<L,D,C,R,V,U,A>>
 		SecurityInitUsecases<L,D,C,R,V,U,A>
-		factoryUsecases(final Class<L> cL,final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV, final Class<U> cU, final Class<A> cA, AhtSecurityFacade fAcl)
+		factoryUsecases(final Class<L> cL,final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV, final Class<U> cU, final Class<A> cA, UtilsSecurityFacade fAcl)
 	{
 		return new SecurityInitUsecases<L,D,C,R,V,U,A>(cL,cD,cC,cR,cV,cU,cA,fAcl);
 	}
 	
-	public AbstractSecurityInit(final Class<L> cL, final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV,final Class<U> cU,final Class<A> cA,AhtSecurityFacade fAcl)
+	public AbstractSecurityInit(final Class<L> cL, final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV,final Class<U> cU,final Class<A> cA,UtilsSecurityFacade fAcl)
 	{       
         this.cL = cL;
         this.cD = cD;
@@ -115,8 +115,7 @@ public class AbstractSecurityInit <L extends UtilsLang,
 		
 		AhtDbEjbUpdater<C> updateCategory = AhtDbEjbUpdater.createFactory(cC);
 		
-		updateCategory.dbEjbs(fSecurity.allUtilsForType(cC,type.toString()));
-//		updateCategory.dbEjbs(fSecurity.all(cC));
+		updateCategory.dbEjbs(fSecurity.allForType(cC,type.toString()));
 
 		for(Category category : access.getCategory())
 		{

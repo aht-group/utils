@@ -1,4 +1,4 @@
-package net.sf.ahtutils.controller.factory.utils.acl;
+package net.sf.ahtutils.controller.factory.utils.security;
 
 import java.util.ArrayList;
 import java.util.List;
