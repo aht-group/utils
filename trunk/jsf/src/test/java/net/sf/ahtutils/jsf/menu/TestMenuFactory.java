@@ -3,7 +3,7 @@ package net.sf.ahtutils.jsf.menu;
 import junit.framework.Assert;
 import net.sf.ahtutils.controller.factory.xml.acl.XmlViewFactory;
 import net.sf.ahtutils.controller.factory.xml.status.XmlLangFactory;
-import net.sf.ahtutils.test.AbstractAhtUtilsJsfTest;
+import net.sf.ahtutils.test.AbstractAhtUtilsJsfTst;
 import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.View;
@@ -17,7 +17,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestMenuFactory extends AbstractAhtUtilsJsfTest
+public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 {
 	final static Logger logger = LoggerFactory.getLogger(TestMenuFactory.class);
 	

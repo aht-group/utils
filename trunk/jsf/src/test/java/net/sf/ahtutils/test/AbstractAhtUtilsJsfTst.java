@@ -8,9 +8,9 @@ import org.junit.BeforeClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AbstractAhtUtilsJsfTest
+public class AbstractAhtUtilsJsfTst
 {
-	final static Logger logger = LoggerFactory.getLogger(AbstractAhtUtilsJsfTest.class);
+	final static Logger logger = LoggerFactory.getLogger(AbstractAhtUtilsJsfTst.class);
 	
 	protected static NsPrefixMapperInterface nsPrefixMapper;
 	
