@@ -2,6 +2,7 @@ package net.sf.ahtutils.jsf.menu;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.View;
@@ -23,10 +24,12 @@ public class MenuFactory
 	
 	private String lang;
 	private Access access;
+	private Map<String,Boolean> mapViewAllowed;
 	
-	public MenuFactory(Access access, String lang)
+	public MenuFactory(Access access, Map<String,Boolean> mapViewAllowed, String lang)
 	{
 		this.access=access;
+		this.mapViewAllowed=mapViewAllowed;
 		this.lang=lang;
 	}
 	
@@ -45,7 +48,18 @@ public class MenuFactory
 		
 		for(MenuItem mi :origs)
 		{
-			result.add(processItem(mi));
+			if(mi.isSetView())
+			{
+				if(mapViewAllowed.containsKey(mi.getView().getCode()) && mapViewAllowed.get(mi.getView().getCode()))
+				{
+					result.add(processItem(mi));
+				}
+			}
+			else
+			{
+				result.add(processItem(mi));
+			}
+			
 		}
 		
 		return result;

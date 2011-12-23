@@ -1,5 +1,8 @@
 package net.sf.ahtutils.jsf.menu;
 
+import java.util.Hashtable;
+import java.util.Map;
+
 import junit.framework.Assert;
 import net.sf.ahtutils.controller.factory.xml.acl.XmlViewFactory;
 import net.sf.ahtutils.controller.factory.xml.status.XmlLangFactory;
@@ -22,6 +25,7 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 	final static Logger logger = LoggerFactory.getLogger(TestMenuFactory.class);
 	
 	private Access access;
+	private Map<String,Boolean> mapViewAllowed;
 	
 	private Menu menu;
 	private View v1;
@@ -37,15 +41,18 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 	{
 		initAccess();
 		initMenu();
-		mf = new MenuFactory(access,lang);
+		mf = new MenuFactory(access,mapViewAllowed,lang);
 	}
 	
 	private void initAccess()
 	{
+		mapViewAllowed = new Hashtable<String,Boolean>();
+		
 		v1 = XmlViewFactory.create(viewCode);
 		v1.setLangs(new Langs());
 		v1.getLangs().getLang().add(XmlLangFactory.create(lang, "viewTranslation"));
 		v1.getLangs().getLang().add(XmlLangFactory.create("en", "dummyTranslation"));
+		mapViewAllowed.put(viewCode, true);
 		
 		Category c1 = new Category();
 		c1.setViews(new Views());
@@ -87,5 +94,14 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 		MenuItem actual = actualMenu.getMenuItem().get(1);
 		Assert.assertTrue(actual.isSetName());
 		Assert.assertEquals(v1.getLangs().getLang().get(0).getTranslation(), actual.getName());
+	}
+	
+	@Test
+	public void testWithViewDenied()
+	{
+		mapViewAllowed.put(viewCode, false);
+		mf = new MenuFactory(access,mapViewAllowed,lang);
+		Menu actualMenu = mf.create(menu);
+		Assert.assertEquals(menu.getMenuItem().size()-1, actualMenu.getMenuItem().size());
 	}
 }
