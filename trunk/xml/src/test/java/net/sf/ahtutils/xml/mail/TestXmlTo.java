@@ -25,7 +25,7 @@ public class TestXmlTo extends AbstractXmlMailTest
     public void xml() throws FileNotFoundException
     {
     	To actual = create();
-    	To expected = (To)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), To.class);
+    	To expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), To.class);
     	assertJaxbEquals(expected, actual);
     }  
     

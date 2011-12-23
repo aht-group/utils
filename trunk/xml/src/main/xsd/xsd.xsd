@@ -3,6 +3,7 @@
     xmlns:aht="http://ahtutils.aht-group.com"
     xmlns:s="http://ahtutils.aht-group.com/status"
     xmlns:m="http://ahtutils.aht-group.com/mail"
+    xmlns:n="http://ahtutils.aht-group.com/navigation"
     xmlns:a="http://ahtutils.aht-group.com/access"
     xmlns:db="http://ahtutils.aht-group.com/dbseed"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -14,6 +15,7 @@
     <xsd:import namespace="http://ahtutils.aht-group.com/access" schemaLocation="aht/access.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/dbseed" schemaLocation="aht/dbseed.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/mail" schemaLocation="aht/mail.xsd"/>
+    <xsd:import namespace="http://ahtutils.aht-group.com/navigation" schemaLocation="aht/navigation.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/cloud/facebook" schemaLocation="cloud/facebook.xsd"/>
     <xsd:annotation>
         <xsd:appinfo>

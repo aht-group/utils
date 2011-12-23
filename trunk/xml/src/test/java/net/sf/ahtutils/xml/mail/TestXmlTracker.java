@@ -25,7 +25,7 @@ public class TestXmlTracker extends AbstractXmlMailTest
     public void xml() throws FileNotFoundException
     {
     	Tracker actual = create();
-    	Tracker expected = (Tracker)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Tracker.class);
+    	Tracker expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Tracker.class);
     	assertJaxbEquals(expected, actual);
     }  
     

@@ -25,7 +25,7 @@ public class TestXmlTemplate extends AbstractXmlMailTest
     public void xml() throws FileNotFoundException
     {
     	Template actual = create();
-    	Template expected = (Template)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Template.class);
+    	Template expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Template.class);
     	assertJaxbEquals(expected, actual);
     }  
     

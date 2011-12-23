@@ -1,4 +1,4 @@
-package net.sf.ahtutils.xml.mail;
+package net.sf.ahtutils.xml.navigation;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,35 +11,30 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestXmlBcc extends AbstractXmlMailTest
+public class TestXmlUrlMapping extends AbstractXmlNavigationTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestXmlBcc.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlUrlMapping.class);
 	
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"bcc.xml");
+		fXml = new File(rootDir,"urlMapping.xml");
 	}
     
     @Test
     public void xml() throws FileNotFoundException
     {
-    	Bcc actual = create();
-    	Bcc expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Bcc.class);
+    	UrlMapping actual = create();
+    	UrlMapping expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), UrlMapping.class);
     	assertJaxbEquals(expected, actual);
     }  
     
-    private static Bcc create() {return create(true);}
-    public static Bcc create(boolean withChilds)
+    private static UrlMapping create() {return create(true);}
+    public static UrlMapping create(boolean withChilds)
     {
-    	Bcc xml = new Bcc();
-
-    	if(withChilds)
-    	{
-    		xml.getEmailAddress().add(TestXmlEmailAddress.createEmailAddress(false));
-    		xml.getEmailAddress().add(TestXmlEmailAddress.createEmailAddress(false));
-    	}
-    	    	
+    	UrlMapping xml = new UrlMapping();
+    	xml.setValue("myUrlMapping");
+    	
     	return xml;
     }
     
@@ -51,9 +46,9 @@ public class TestXmlBcc extends AbstractXmlMailTest
 			loggerInit.addAltPath("src/test/resources/config");
 			loggerInit.init();		
 			
-		TestXmlBcc.initPrefixMapper();
-		TestXmlBcc.initFiles();	
-		TestXmlBcc test = new TestXmlBcc();
+		TestXmlUrlMapping.initPrefixMapper();
+		TestXmlUrlMapping.initFiles();	
+		TestXmlUrlMapping test = new TestXmlUrlMapping();
 		test.save();
     }
 }

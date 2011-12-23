@@ -1,4 +1,4 @@
-package net.sf.ahtutils.xml.mail;
+package net.sf.ahtutils.xml.navigation;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,35 +11,30 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestXmlBcc extends AbstractXmlMailTest
+public class TestXmlViewPattern extends AbstractXmlNavigationTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestXmlBcc.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlViewPattern.class);
 	
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"bcc.xml");
+		fXml = new File(rootDir,"viewPattern.xml");
 	}
     
     @Test
     public void xml() throws FileNotFoundException
     {
-    	Bcc actual = create();
-    	Bcc expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Bcc.class);
+    	ViewPattern actual = create();
+    	ViewPattern expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), ViewPattern.class);
     	assertJaxbEquals(expected, actual);
     }  
     
-    private static Bcc create() {return create(true);}
-    public static Bcc create(boolean withChilds)
+    private static ViewPattern create() {return create(true);}
+    public static ViewPattern create(boolean withChilds)
     {
-    	Bcc xml = new Bcc();
-
-    	if(withChilds)
-    	{
-    		xml.getEmailAddress().add(TestXmlEmailAddress.createEmailAddress(false));
-    		xml.getEmailAddress().add(TestXmlEmailAddress.createEmailAddress(false));
-    	}
-    	    	
+    	ViewPattern xml = new ViewPattern();
+    	xml.setValue("myViewPattern");
+    	
     	return xml;
     }
     
@@ -51,9 +46,9 @@ public class TestXmlBcc extends AbstractXmlMailTest
 			loggerInit.addAltPath("src/test/resources/config");
 			loggerInit.init();		
 			
-		TestXmlBcc.initPrefixMapper();
-		TestXmlBcc.initFiles();	
-		TestXmlBcc test = new TestXmlBcc();
+		TestXmlViewPattern.initPrefixMapper();
+		TestXmlViewPattern.initFiles();	
+		TestXmlViewPattern test = new TestXmlViewPattern();
 		test.save();
     }
 }

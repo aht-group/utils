@@ -39,6 +39,12 @@
             <jxb:package name="net.sf.ahtutils.xml.mail"/>
         </jxb:schemaBindings>
     </jxb:bindings>
+
+   	<jxb:bindings schemaLocation="../xsd/aht/navigation.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="net.sf.ahtutils.xml.navigation"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
     
    	<jxb:bindings schemaLocation="../xsd/cloud/facebook.xsd" node="/xsd:schema">
         <jxb:schemaBindings>

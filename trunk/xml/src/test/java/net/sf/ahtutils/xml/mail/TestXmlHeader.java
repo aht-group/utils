@@ -25,7 +25,7 @@ public class TestXmlHeader extends AbstractXmlMailTest
     public void xml() throws FileNotFoundException
     {
     	Header actual = createHeader();
-    	Header expected = (Header)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Header.class);
+    	Header expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Header.class);
     	assertJaxbEquals(expected, actual);
     }  
     

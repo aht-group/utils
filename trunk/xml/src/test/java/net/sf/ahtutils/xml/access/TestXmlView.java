@@ -3,6 +3,7 @@ package net.sf.ahtutils.xml.access;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import net.sf.ahtutils.xml.navigation.TestXmlNavigation;
 import net.sf.ahtutils.xml.status.TestXmlDescriptions;
 import net.sf.ahtutils.xml.status.TestXmlLangs;
 import net.sf.exlp.util.io.LoggerInit;
@@ -43,6 +44,7 @@ public class TestXmlView extends AbstractXmlAccessTest
     		xml.setLangs(TestXmlLangs.create(false));
     		xml.setDescriptions(TestXmlDescriptions.create(false));
     		xml.setActions(TestXmlActions.create(false));
+    		xml.setNavigation(TestXmlNavigation.create(false));
     	}
     	return xml;
     }
