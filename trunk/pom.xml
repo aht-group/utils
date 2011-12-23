@@ -16,6 +16,15 @@
 	<url>http://sourceforge.net/projects/ahtutils</url>
 	<description>Utilities and Helper for JavaEE Developments</description>
 
+	<modules>
+		<module>ejb</module>
+		<module>util</module>
+		<module>xml</module>
+		<module>interfaces</module>
+		<module>jsf</module>
+		<module>maven</module>
+	</modules>
+
 	<properties>	
 		<my.build.directory>target</my.build.directory>	
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -193,15 +202,6 @@
 	
 	<issueManagement>
 	</issueManagement>
-
-	<modules>
-		<module>ejb</module>
-		<module>util</module>
-		<module>xml</module>
-		<module>interfaces</module>
-		
-		<module>maven</module>
-	</modules>
 	
 	<repositories>
         <!-- The JBoss Community public repository is a composite repository of several major repositories -->
