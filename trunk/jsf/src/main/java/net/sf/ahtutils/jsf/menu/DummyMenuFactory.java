@@ -1,14 +1,14 @@
 package net.sf.ahtutils.jsf.menu;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import net.sf.ahtutils.xml.navigation.Menu;
 import net.sf.ahtutils.xml.navigation.MenuItem;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class DummyMenuFactory
 {
-	final static Logger logger = LoggerFactory.getLogger(TstMenu.class);
+	final static Logger logger = LoggerFactory.getLogger(DummyMenuFactory.class);
 	
 	public static Menu create()
 	{
