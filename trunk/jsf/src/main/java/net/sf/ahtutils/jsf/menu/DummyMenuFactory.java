@@ -1,10 +1,15 @@
 package net.sf.ahtutils.jsf.menu;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import net.sf.ahtutils.xml.navigation.Menu;
 import net.sf.ahtutils.xml.navigation.MenuItem;
 
 public class DummyMenuFactory
 {
+	final static Logger logger = LoggerFactory.getLogger(TstMenu.class);
+	
 	public static Menu create()
 	{
 		MenuItem m1 = createItem("Top1");

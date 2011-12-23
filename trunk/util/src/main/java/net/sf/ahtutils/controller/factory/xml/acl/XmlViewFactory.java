@@ -45,4 +45,11 @@ public class XmlViewFactory
 		
 		return xml;
 	}
+	
+	public static View create(String code)
+	{
+		View xml = new View();
+		xml.setCode(code);
+		return xml;
+	}
 }

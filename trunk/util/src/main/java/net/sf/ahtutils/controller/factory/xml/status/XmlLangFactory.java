@@ -25,4 +25,12 @@ public class XmlLangFactory
 		return lang;
 	}
 	
+	public static Lang create(String key, String translation)
+	{
+		Lang lang = new Lang();
+		lang.setKey(key);
+		lang.setTranslation(translation);
+		return lang;
+	}
+	
 }
