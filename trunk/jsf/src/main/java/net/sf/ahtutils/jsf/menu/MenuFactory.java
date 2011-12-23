@@ -8,18 +8,16 @@ import net.sf.ahtutils.xml.navigation.Menu;
 import net.sf.ahtutils.xml.navigation.MenuItem;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Langs;
-import net.sf.ahtutils.xml.status.Translation;
 import net.sf.ahtutils.xml.xpath.StatusXpath;
 import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
-import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MenuFactory
 {
-	final static Logger logger = LoggerFactory.getLogger(TestMenuFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(MenuFactory.class);
 	
 	private String lang;
 	
