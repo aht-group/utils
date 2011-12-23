@@ -3,11 +3,13 @@ package net.sf.ahtutils.jsf.menu;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.View;
 import net.sf.ahtutils.xml.navigation.Menu;
 import net.sf.ahtutils.xml.navigation.MenuItem;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Langs;
+import net.sf.ahtutils.xml.xpath.AccessXpath;
 import net.sf.ahtutils.xml.xpath.StatusXpath;
 import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
@@ -20,9 +22,11 @@ public class MenuFactory
 	final static Logger logger = LoggerFactory.getLogger(MenuFactory.class);
 	
 	private String lang;
+	private Access access;
 	
-	public MenuFactory(String lang)
+	public MenuFactory(Access access, String lang)
 	{
+		this.access=access;
 		this.lang=lang;
 	}
 	
@@ -82,9 +86,16 @@ public class MenuFactory
 		return name;
 	}
 	
-	private String getNameFromViews(View view)
+	private String getNameFromViews(View viewCode)
 	{
-		String result = "TBD";
-		return result;
+		Langs langs=null;
+		try
+		{
+			View view = AccessXpath.getView(access, viewCode.getCode());
+			langs = view.getLangs();
+		}
+		catch (ExlpXpathNotFoundException e) {}
+		catch (ExlpXpathNotUniqueException e) {}
+		return getNameFromLangs(langs);
 	}
 }

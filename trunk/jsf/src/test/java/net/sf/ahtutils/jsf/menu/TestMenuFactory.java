@@ -35,9 +35,9 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 	@Before
 	public void init()
 	{
-		mf = new MenuFactory(lang);
 		initAccess();
 		initMenu();
+		mf = new MenuFactory(access,lang);
 	}
 	
 	private void initAccess()
@@ -79,13 +79,13 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 		Assert.assertTrue(actual.isSetName());
 		Assert.assertEquals(mWithLangs.getLangs().getLang().get(0).getTranslation(), actual.getName());
 	}
-	
+
 	@Test
 	public void testWithView()
 	{
 		Menu actualMenu = mf.create(menu);
 		MenuItem actual = actualMenu.getMenuItem().get(1);
 		Assert.assertTrue(actual.isSetName());
-//		Assert.assertEquals(mWithLangs.getLangs().getLang().get(0).getTranslation(), actual.getName());
+		Assert.assertEquals(v1.getLangs().getLang().get(0).getTranslation(), actual.getName());
 	}
 }
