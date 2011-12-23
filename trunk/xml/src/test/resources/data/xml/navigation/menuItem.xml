@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<menuItem xmlns="http://ahtutils.aht-group.com/navigation" xmlns:s="http://ahtutils.aht-group.com/status" xmlns:acl="http://ahtutils.aht-group.com/access" code="myCode" active="true">
-    <menuItem code="myCode" active="true"/>
-    <menuItem code="myCode" active="true"/>
+<menuItem xmlns="http://ahtutils.aht-group.com/navigation" xmlns:s="http://ahtutils.aht-group.com/status" xmlns:acl="http://ahtutils.aht-group.com/access" name="myName" code="myCode" active="true">
+    <menuItem name="myName" code="myCode" active="true"/>
+    <menuItem name="myName" code="myCode" active="true"/>
     <s:descriptions/>
     <s:langs/>
 </menuItem>

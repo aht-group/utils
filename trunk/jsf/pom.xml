@@ -44,7 +44,6 @@
    	   	<dependency>
    	   		<groupId>net.sf.ahtutils</groupId>
    	   		<artifactId>ahtutils-xml</artifactId>
-   	   		<scope>test</scope>
    	   	</dependency>
 	</dependencies>
 	

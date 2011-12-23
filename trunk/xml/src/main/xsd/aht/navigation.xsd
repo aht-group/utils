@@ -47,6 +47,7 @@
                 <xsd:element ref="s:langs" maxOccurs="1"/>
                 <xsd:element ref="a:view" maxOccurs="1"/>
             </xsd:sequence>
+            <xsd:attribute name="name" type="xsd:string"/>
             <xsd:attribute name="code" type="xsd:string"/>
             <xsd:attribute name="active" type="xsd:boolean"/>
         </xsd:complexType>

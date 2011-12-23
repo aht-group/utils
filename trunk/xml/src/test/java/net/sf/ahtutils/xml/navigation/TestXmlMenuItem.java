@@ -37,6 +37,7 @@ public class TestXmlMenuItem extends AbstractXmlNavigationTest
     	MenuItem xml = new MenuItem();
       	xml.setActive(true);
       	xml.setCode("myCode");
+      	xml.setName("myName");
     	
     	if(withChilds)
     	{
