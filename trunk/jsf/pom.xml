@@ -9,7 +9,7 @@
         <relativePath>../pom.xml</relativePath>
 	</parent>
 	
-    <artifactId>ahtutils</artifactId>
+    <artifactId>ahtutils-jsf</artifactId>
     <name>AHT Utils - JSF</name>
 	<packaging>jar</packaging>
 	
