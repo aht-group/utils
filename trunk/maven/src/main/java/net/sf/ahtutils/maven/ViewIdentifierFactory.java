@@ -77,7 +77,6 @@ public class ViewIdentifierFactory extends AbstractMojo
     	if(viewsXml.equals("null")){throw new MojoExecutionException("configuration parameter 'viewsXml' not defined!");}
     	if(classPrefix.equals("null")){throw new MojoExecutionException("configuration parameter 'classPrefix' not defined!");}
     	
-    	
     	executeIdentifierFactory();
     	executeRestrictorFactory();
     }
@@ -99,7 +98,7 @@ public class ViewIdentifierFactory extends AbstractMojo
     	JavaSecurityViewIdentifierFactory idFactory = new JavaSecurityViewIdentifierFactory(fPackage,packageBase,classPrefix);
     	try
     	{
-			idFactory.create(viewsXml);
+			idFactory.processViews(viewsXml);
 		}
     	catch (FileNotFoundException e) {throw new MojoExecutionException(e.getMessage());}
     	catch (AhtUtilsConfigurationException e) {throw new MojoExecutionException(e.getMessage());}
@@ -123,7 +122,7 @@ public class ViewIdentifierFactory extends AbstractMojo
     	try
     	{
     		JavaSecurityViewRestrictorFactory restrictorFactory = new JavaSecurityViewRestrictorFactory(fRestrictorClass,classRestrictor,classAbstractRestrictor,packageBase,classPrefix);
-			restrictorFactory.create(viewsXml);
+			restrictorFactory.processViews(viewsXml);
 		}
     	catch (FileNotFoundException e) {throw new MojoExecutionException(e.getMessage());}
     	catch (AhtUtilsConfigurationException e) {throw new MojoExecutionException(e.getMessage());}

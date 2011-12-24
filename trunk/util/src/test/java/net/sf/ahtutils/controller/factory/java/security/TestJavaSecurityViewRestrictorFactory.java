@@ -44,7 +44,7 @@ public class TestJavaSecurityViewRestrictorFactory extends AbstractJavaAclFactor
 	@Test
 	public void createIdentifier() throws AhtUtilsConfigurationException, IOException, TemplateException
 	{
-		restrictorFactory.create(lC);
+		restrictorFactory.processCategories(lC);
 
 		Assert.assertTrue("File should exist: "+fRestrictorClass.getAbsolutePath(),fRestrictorClass.exists());
 		Assert.assertTrue(fRestrictorClass.isFile());

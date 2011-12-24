@@ -9,6 +9,8 @@ import junit.framework.Assert;
 import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
 import net.sf.ahtutils.test.AhtUtilsTstBootstrap;
 import net.sf.ahtutils.xml.access.View;
+import net.sf.exlp.util.exception.ExlpConfigurationException;
+import net.sf.exlp.util.io.dir.DirChecker;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
@@ -45,19 +47,19 @@ public class TestJavaSecurityIdentifierFactory extends AbstractJavaAclFactoryTes
 		idFactory = null;
 	}
 	
-	@Test(expected=AhtUtilsConfigurationException.class)
-	public void noDir() throws AhtUtilsConfigurationException
+	@Test(expected=ExlpConfigurationException.class)
+	public void noDir() throws ExlpConfigurationException
 	{
 		fPackage.delete();
-		idFactory.checkBaseDir();
+		DirChecker.checkFileIsDirectory(fPackage);
 	}
 	
-	@Test(expected=AhtUtilsConfigurationException.class)
-	public void isFile() throws AhtUtilsConfigurationException, IOException
+	@Test(expected=ExlpConfigurationException.class)
+	public void isFile() throws IOException, ExlpConfigurationException
 	{
 		FileUtils.deleteDirectory(fPackage);
 		fPackage.createNewFile();
-		idFactory.checkBaseDir();
+		DirChecker.checkFileIsDirectory(fPackage);
 	}
 	
 	@Test(expected=AhtUtilsConfigurationException.class)
@@ -135,7 +137,6 @@ public class TestJavaSecurityIdentifierFactory extends AbstractJavaAclFactoryTes
 		{
 			Assert.assertEquals(test[1], idFactory.createClassName(test[0]));
 		}
-		
 	}
 	
 	public static void main(String[] args) throws Exception
@@ -147,6 +148,5 @@ public class TestJavaSecurityIdentifierFactory extends AbstractJavaAclFactoryTes
 		test.initViews();
 		test.init();
 		test.createIdentifier();
-
     }
 }

@@ -34,16 +34,22 @@ public class AbstractAhtUtilTest
 	@BeforeClass
 	public static void initFile()
 	{
-		setfTarget(new File(System.getProperty("targetDir")));
-		logger.debug(fTarget.getAbsolutePath());
+		if(!LoggerInit.isLog4jInited()){initLogger();}
+		String dirTarget = System.getProperty("targetDir");
+		if(dirTarget==null){dirTarget="target";}
+		setfTarget(new File(dirTarget));
+		logger.debug("Using targeDir "+fTarget.getAbsolutePath());
 	}
 	
 	@BeforeClass
     public static void initLogger()
 	{
-		LoggerInit loggerInit = new LoggerInit("log4junit.xml");	
-		loggerInit.addAltPath("src/test/resources/config");
-		loggerInit.init();
+		if(!LoggerInit.isLog4jInited())
+		{
+			LoggerInit loggerInit = new LoggerInit("log4junit.xml");	
+			loggerInit.addAltPath("config");
+			loggerInit.init();
+		}
     }
 	
 	protected void assertJaxbEquals(Object expected, Object actual)

@@ -1,70 +1,48 @@
 package net.sf.ahtutils.controller.factory.java.security;
 
 import java.io.File;
-import java.io.FileFilter;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
-import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.View;
-import net.sf.exlp.util.io.StringIO;
-import net.sf.exlp.util.xml.JaxbUtil;
+import net.sf.exlp.util.exception.ExlpConfigurationException;
+import net.sf.exlp.util.io.dir.DirChecker;
+import net.sf.exlp.util.io.dir.RecursiveFileRemover;
 
-import org.apache.commons.io.DirectoryWalker;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import freemarker.template.Configuration;
-import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-public class JavaSecurityViewIdentifierFactory
+public class JavaSecurityViewIdentifierFactory extends AbstractJavaSecurityFileFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(JavaSecurityViewIdentifierFactory.class);
 		
 	private File fPackage;
-	private String viewQualifierBasePackage,classPrefix;
-	private Configuration freemarkerConfiguration;
+	private String viewQualifierBasePackage;
+	
 	
 	public JavaSecurityViewIdentifierFactory(File fPackage, String viewQualifierBasePackage, String classPrefix)
 	{
+		super(classPrefix);
 		this.fPackage=fPackage;
 		this.viewQualifierBasePackage=viewQualifierBasePackage;
-		this.classPrefix=classPrefix;
-		freemarkerConfiguration = new Configuration();
-		freemarkerConfiguration.setClassForTemplateLoading(this.getClass(), "/");
-	}
-	
-	public void create(String fXml) throws FileNotFoundException, AhtUtilsConfigurationException
-	{
-		Access access = JaxbUtil.loadJAXB(fXml, Access.class);
-		create(access.getCategory());
 	}
 
-	public void create(List<Category> lCategory) throws AhtUtilsConfigurationException
+	@Override
+	protected void processCategories(List<Category> lCategory) throws AhtUtilsConfigurationException
 	{
-		checkBaseDir();
+		try{DirChecker.checkFileIsDirectory(fPackage);}
+		catch (ExlpConfigurationException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
 		for(Category category : lCategory)
 		{
 			try {create(category);}
 			catch (IOException e) {e.printStackTrace();}
 			catch (TemplateException e) {e.printStackTrace();}
 		}
-	}
-	
-	protected void checkBaseDir() throws AhtUtilsConfigurationException
-	{
-		if(!fPackage.exists()){throw new AhtUtilsConfigurationException("Directory "+fPackage.getAbsolutePath()+" does not exist");}
-		if(!fPackage.isDirectory()){throw new AhtUtilsConfigurationException(fPackage.getAbsolutePath()+" is not a directory");}
 	}
 	
 	protected void create(Category category) throws AhtUtilsConfigurationException, IOException, TemplateException
@@ -91,68 +69,25 @@ public class JavaSecurityViewIdentifierFactory
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void createIdentifier(File fSub, View view,String subPackage) throws IOException, TemplateException
 	{
+		
+		freemarkerNodeModel.clear();
+		freemarkerNodeModel.put("packageName", viewQualifierBasePackage+"."+subPackage);
+		freemarkerNodeModel.put("className", createClassName(view.getCode()));
+		
 		File fJava = new File(fSub,createFileName(view.getCode()));
 		fJava.createNewFile();
 		
-		Map<String,String> root = new HashMap<String,String>();
-        root.put("packageName", viewQualifierBasePackage+"."+subPackage);
-        root.put("className", createClassName(view.getCode()));
-		
-		Template ftl = freemarkerConfiguration.getTemplate("security.ahtutils-util/identifier.ftl","UTF-8");
-		ftl.setEncoding("UTF-8");
-		
-		StringWriter sw = new StringWriter();
-		ftl.process(root, sw);
-		sw.flush();
-		
-		StringIO.writeTxt(fJava, sw.toString());
+		this.createFile(fJava, "security.ahtutils-util/identifier.ftl");
 	}
 	
-	protected String createFileName(String code)
-	{
-		return createClassName(code)+".java";
-	}
 	
-	protected String createClassName(String code)
-	{
-		return createClassName(classPrefix,code);
-	}
-	
-	public static String createClassName(String prefix, String code)
-	{
-		StringBuffer sb = new StringBuffer();
-		sb.append(prefix);
-		sb.append(code.subSequence(0, 1).toString().toUpperCase());
-		sb.append(code.substring(1, code.length()));
-		return sb.toString();
-	}
 	
 	protected void cleanCategoryDir(File fCategory) throws IOException
 	{		
-		JavaFileCleaner cleaner = new JavaFileCleaner(FileFilterUtils.suffixFileFilter(".java"));
+		RecursiveFileRemover cleaner = new RecursiveFileRemover(FileFilterUtils.suffixFileFilter(".java"));
 		cleaner.clean(fCategory);
-	}
-	
-	private class JavaFileCleaner extends DirectoryWalker<File>
-	{
-		public JavaFileCleaner(FileFilter filter)
-	    {
-			super(filter, -1);
-	    }
-
-		public List<File> clean(File startDirectory) throws IOException
-		{
-			List<File> results = new ArrayList<File>();
-			walk(startDirectory, results);
-			return results;
-	    }
-
-	    protected void handleFile(File file, int depth, Collection<File> results)
-	    {
-	    	file.delete();
-	    	results.add(file);
-	    }
 	}
 }
