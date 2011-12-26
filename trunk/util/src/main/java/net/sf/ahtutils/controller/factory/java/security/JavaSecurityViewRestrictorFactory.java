@@ -26,9 +26,9 @@ public class JavaSecurityViewRestrictorFactory extends AbstractJavaSecurityFileF
 	private File fJavaRestrictor;
 	private String classRestrictor,viewQualifierBasePackage,classAbstractRestrictor;
 	
-	public JavaSecurityViewRestrictorFactory(File fJavaRestrictor, String classRestrictor, String classAbstractRestrictor, String viewQualifierBasePackage, String classPrefix)
+	public JavaSecurityViewRestrictorFactory(File fTmpDir, File fJavaRestrictor, String classRestrictor, String classAbstractRestrictor, String viewQualifierBasePackage, String classPrefix)
 	{
-		super(classPrefix);
+		super(fTmpDir,classPrefix);
 		this.fJavaRestrictor=fJavaRestrictor;
 		this.classRestrictor=classRestrictor;
 		this.classAbstractRestrictor=classAbstractRestrictor;

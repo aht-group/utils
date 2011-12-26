@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 public class XmlLangFactory
 {
-	final static Logger logger = LoggerFactory.getLogger(XmlLangsFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(XmlLangFactory.class);
 		
 	private Lang q;
 	

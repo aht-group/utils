@@ -31,7 +31,7 @@ public class TestJavaSecurityViewRestrictorFactory extends AbstractJavaAclFactor
 		classRestrictor = "util.Restrictor";
 		classAbstractRestrictor = "util.AbstractRestrictor";
 		fRestrictorClass = new File(fTarget,classRestrictor+".java");
-		restrictorFactory = new JavaSecurityViewRestrictorFactory(fRestrictorClass,classRestrictor,classAbstractRestrictor,viewQualifierBasePackage,"Utils");
+		restrictorFactory = new JavaSecurityViewRestrictorFactory(fTmpDir,fRestrictorClass,classRestrictor,classAbstractRestrictor,viewQualifierBasePackage,"Utils");
 	}
 	
 	@After

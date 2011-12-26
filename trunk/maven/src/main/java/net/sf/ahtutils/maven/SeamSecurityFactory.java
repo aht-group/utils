@@ -2,11 +2,15 @@ package net.sf.ahtutils.maven;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
 import net.sf.ahtutils.controller.factory.java.security.JavaSecurityViewIdentifierFactory;
 import net.sf.ahtutils.controller.factory.java.security.JavaSecurityViewRestrictorFactory;
+import net.sf.exlp.util.exception.ExlpConfigurationException;
+import net.sf.exlp.util.io.dir.DirChecker;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.SystemUtils;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
@@ -16,9 +20,9 @@ import org.apache.maven.plugin.MojoExecutionException;
 /**
  * Goal create Anootations for ViewIdentifier
  *
- * @goal createViewIdentifier
+ * @goal createSeamSecurity
  */
-public class ViewIdentifierFactory extends AbstractMojo
+public class SeamSecurityFactory extends AbstractMojo
 {
     /**
      * Logger Level
@@ -26,6 +30,13 @@ public class ViewIdentifierFactory extends AbstractMojo
      * @required
      */
     private String log;
+    
+    /**
+     * Location of the file.
+     * @parameter expression="${project.build.directory}/security.${project.artifactId}"
+     * @required
+     */
+    private String targetDir;
 	
 	/**
      * Location of the file.
@@ -77,11 +88,22 @@ public class ViewIdentifierFactory extends AbstractMojo
     	if(viewsXml.equals("null")){throw new MojoExecutionException("configuration parameter 'viewsXml' not defined!");}
     	if(classPrefix.equals("null")){throw new MojoExecutionException("configuration parameter 'classPrefix' not defined!");}
     	
-    	executeIdentifierFactory();
-    	executeRestrictorFactory();
+    	File fTmpDir = new File(targetDir);
+    	try
+    	{
+    		DirChecker.checkParentIsAnDir(new File(targetDir));
+    		if(!fTmpDir.exists()){fTmpDir.mkdir();}
+    	}
+    	catch (ExlpConfigurationException e) {throw new MojoExecutionException(e.getMessage());}
+    	
+    	executeIdentifierFactory(fTmpDir);
+    	executeRestrictorFactory(fTmpDir);
+    	
+    	try {FileUtils.deleteDirectory(fTmpDir);}
+    	catch (IOException e) {throw new MojoExecutionException(e.getMessage());}
     }
     
-    private void executeIdentifierFactory() throws MojoExecutionException
+    private void executeIdentifierFactory(File fTmpDir) throws MojoExecutionException
     {
     	String[] pack = packageBase.split("\\.");
     	StringBuffer sb = new StringBuffer();
@@ -95,7 +117,7 @@ public class ViewIdentifierFactory extends AbstractMojo
     	getLog().info("packageBase " +packageBase+" ("+fPackage.getAbsolutePath()+")");
     	getLog().info("viewsXml " +viewsXml);
     	    	
-    	JavaSecurityViewIdentifierFactory idFactory = new JavaSecurityViewIdentifierFactory(fPackage,packageBase,classPrefix);
+    	JavaSecurityViewIdentifierFactory idFactory = new JavaSecurityViewIdentifierFactory(fTmpDir,fPackage,packageBase,classPrefix);
     	try
     	{
 			idFactory.processViews(viewsXml);
@@ -104,7 +126,7 @@ public class ViewIdentifierFactory extends AbstractMojo
     	catch (AhtUtilsConfigurationException e) {throw new MojoExecutionException(e.getMessage());}
     }
     
-    private void executeRestrictorFactory() throws MojoExecutionException
+    private void executeRestrictorFactory(File fTmpDir) throws MojoExecutionException
     {
     	getLog().info("classAbstractRestrictor " +classAbstractRestrictor);
     	getLog().info("classRestrictor " +classRestrictor);
@@ -121,7 +143,7 @@ public class ViewIdentifierFactory extends AbstractMojo
     	
     	try
     	{
-    		JavaSecurityViewRestrictorFactory restrictorFactory = new JavaSecurityViewRestrictorFactory(fRestrictorClass,classRestrictor,classAbstractRestrictor,packageBase,classPrefix);
+    		JavaSecurityViewRestrictorFactory restrictorFactory = new JavaSecurityViewRestrictorFactory(fTmpDir,fRestrictorClass,classRestrictor,classAbstractRestrictor,packageBase,classPrefix);
 			restrictorFactory.processViews(viewsXml);
 		}
     	catch (FileNotFoundException e) {throw new MojoExecutionException(e.getMessage());}

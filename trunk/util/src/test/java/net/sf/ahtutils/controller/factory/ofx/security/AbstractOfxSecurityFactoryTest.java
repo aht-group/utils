@@ -11,7 +11,7 @@ public class AbstractOfxSecurityFactoryTest extends AbstractAhtUtilTest
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractOfxSecurityFactoryTest.class);	
 	
-	protected static final String rootDir = "src/test/resources/data/factory/ofx/acl";
+	protected static final String rootDir = "src/test/resources/data/factory/ofx/security";
 	protected static File fXml,fTxt;
 	
 }

@@ -1,5 +1,7 @@
 package net.sf.ahtutils.controller.factory.java.security;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +10,10 @@ import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.View;
 import net.sf.ahtutils.xml.access.Views;
 
+import org.apache.commons.io.FileUtils;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +22,8 @@ public class AbstractJavaAclFactoryTest extends AbstractAhtUtilTest
 	final static Logger logger = LoggerFactory.getLogger(AbstractJavaAclFactoryTest.class);	
 	
 	protected static final String rootDir = "src/test/resources/data/factory/java/security";
+	
+	protected static File fTmpDir;
 	
 	protected List<Category> lC;
 	protected Category c1;
@@ -34,5 +41,18 @@ public class AbstractJavaAclFactoryTest extends AbstractAhtUtilTest
 		
 		lC = new ArrayList<Category>();
 		lC.add(c1);
+	}
+	
+	@BeforeClass
+	public static void initTmpDir()
+	{
+		fTmpDir = new File(fTarget,"securityTmp");
+		if(!fTmpDir.exists()){fTmpDir.mkdir();}
+	}
+	
+	@AfterClass
+	public static void rmTmpDir() throws IOException
+	{
+		FileUtils.deleteDirectory(fTmpDir);
 	}
 }

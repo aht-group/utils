@@ -25,9 +25,9 @@ public class JavaSecurityViewIdentifierFactory extends AbstractJavaSecurityFileF
 	private String viewQualifierBasePackage;
 	
 	
-	public JavaSecurityViewIdentifierFactory(File fPackage, String viewQualifierBasePackage, String classPrefix)
+	public JavaSecurityViewIdentifierFactory(File fTmpDir, File fPackage, String viewQualifierBasePackage, String classPrefix)
 	{
-		super(classPrefix);
+		super(fTmpDir,classPrefix);
 		this.fPackage=fPackage;
 		this.viewQualifierBasePackage=viewQualifierBasePackage;
 	}

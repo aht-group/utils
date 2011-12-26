@@ -36,7 +36,7 @@ public class TestJavaSecurityIdentifierFactory extends AbstractJavaAclFactoryTes
 		classPrefix = "Utils";
 		fPackage = new File(fTarget,"idFactory");
 		fPackage.mkdir();
-		idFactory = new JavaSecurityViewIdentifierFactory(fPackage,"net.sf.ahtutils",classPrefix);
+		idFactory = new JavaSecurityViewIdentifierFactory(fTmpDir,fPackage,"net.sf.ahtutils",classPrefix);
 	}
 	
 	@After

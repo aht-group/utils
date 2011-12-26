@@ -42,8 +42,6 @@ public class TestOfxMenuTreeFactory extends AbstractOfxNavigationFactoryTest
 		menu.getMenuItem().add(XmlMenuItemFactory.create("myLabel"));
 		menu.getMenuItem().add(XmlMenuItemFactory.create("myLabel2"));
 		menu.getMenuItem().get(0).getMenuItem().add(XmlMenuItemFactory.create("myLabel1.1"));
-		
-		JaxbUtil.debug(menu);
 	}
 	
 	@Test
