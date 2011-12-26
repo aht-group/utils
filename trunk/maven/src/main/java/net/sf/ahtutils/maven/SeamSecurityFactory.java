@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
+import net.sf.ahtutils.controller.factory.java.security.JavaSecuritySeamPagesFactory;
 import net.sf.ahtutils.controller.factory.java.security.JavaSecurityViewIdentifierFactory;
 import net.sf.ahtutils.controller.factory.java.security.JavaSecurityViewRestrictorFactory;
 import net.sf.exlp.util.exception.ExlpConfigurationException;
@@ -79,6 +80,20 @@ public class SeamSecurityFactory extends AbstractMojo
      * @required
      */
     private String classRestrictor;
+    
+    /**
+     * Location of the file.
+     * @parameter expression="login.jsf"
+     * @required
+     */
+    private String loginView;
+    
+    /**
+     * Location of the file.
+     * @parameter expression="denied.jsf"
+     * @required
+     */
+    private String accessDeniedView;
 	
     public void execute() throws MojoExecutionException
     {
@@ -98,6 +113,7 @@ public class SeamSecurityFactory extends AbstractMojo
     	
     	executeIdentifierFactory(fTmpDir);
     	executeRestrictorFactory(fTmpDir);
+    	executeSeamPages(fTmpDir);
     	
     	try {FileUtils.deleteDirectory(fTmpDir);}
     	catch (IOException e) {throw new MojoExecutionException(e.getMessage());}
@@ -145,6 +161,19 @@ public class SeamSecurityFactory extends AbstractMojo
     	{
     		JavaSecurityViewRestrictorFactory restrictorFactory = new JavaSecurityViewRestrictorFactory(fTmpDir,fRestrictorClass,classRestrictor,classAbstractRestrictor,packageBase,classPrefix);
 			restrictorFactory.processViews(viewsXml);
+		}
+    	catch (FileNotFoundException e) {throw new MojoExecutionException(e.getMessage());}
+    	catch (AhtUtilsConfigurationException e) {throw new MojoExecutionException(e.getMessage());}
+    }
+    
+    private void executeSeamPages(File fTmpDir) throws MojoExecutionException
+    {
+    	File fSrcDir = new File(srcDir);
+    	    	
+    	JavaSecuritySeamPagesFactory seamPagesFactory = new JavaSecuritySeamPagesFactory(fTmpDir,classPrefix,fSrcDir,loginView,accessDeniedView,packageBase);
+    	try
+    	{
+    		seamPagesFactory.processViews(viewsXml);
 		}
     	catch (FileNotFoundException e) {throw new MojoExecutionException(e.getMessage());}
     	catch (AhtUtilsConfigurationException e) {throw new MojoExecutionException(e.getMessage());}

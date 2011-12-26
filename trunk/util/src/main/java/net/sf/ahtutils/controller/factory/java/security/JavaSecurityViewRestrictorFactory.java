@@ -38,8 +38,8 @@ public class JavaSecurityViewRestrictorFactory extends AbstractJavaSecurityFileF
 	@Override
 	protected void processCategories(List<Category> lCategory) throws AhtUtilsConfigurationException
 	{
-		try {DirChecker.checkParentIsAnDir(fJavaRestrictor);
-		} catch (ExlpConfigurationException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
+		try {DirChecker.checkParentIsAnDir(fJavaRestrictor);}
+		catch (ExlpConfigurationException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
 		
 		freemarkerNodeModel.put("packageName", classRestrictor.substring(0,classRestrictor.lastIndexOf(".")));
 		freemarkerNodeModel.put("className", classRestrictor.substring(classRestrictor.lastIndexOf(".")+1,classRestrictor.length()));
