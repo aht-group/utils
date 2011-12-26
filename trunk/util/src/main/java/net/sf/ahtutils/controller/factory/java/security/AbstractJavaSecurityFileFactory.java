@@ -99,6 +99,6 @@ public class AbstractJavaSecurityFileFactory
 		}
 		
 		if(doCopy){FileUtils.copyFile(fTmp, f);}
-		else{logger.warn("Dont copy");}
+		else{logger.debug("Dont copy");}
 	}
 }

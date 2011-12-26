@@ -2,14 +2,17 @@ package net.sf.ahtutils.controller.factory.java.security;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.View;
 import net.sf.exlp.util.exception.ExlpConfigurationException;
 import net.sf.exlp.util.io.dir.DirChecker;
-import net.sf.exlp.util.io.dir.RecursiveFileRemover;
+import net.sf.exlp.util.io.dir.RecursiveFileFinder;
 
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.slf4j.Logger;
@@ -58,21 +61,38 @@ public class JavaSecurityViewIdentifierFactory extends AbstractJavaSecurityFileF
 			fCategory.mkdir();
 			logger.debug("Create directory "+fCategory.getAbsolutePath());
 		}
-		cleanCategoryDir(fCategory);
+		
+		RecursiveFileFinder finder = new RecursiveFileFinder(FileFilterUtils.suffixFileFilter(".java"));
+    	List<File> list = finder.find(fCategory);
+		Set<String> sPrevious = new HashSet<String>();
+		for(File f : list){sPrevious.add(f.getAbsolutePath());}
 		
 		if(category.isSetViews())
 		{
 			for(View view : category.getViews().getView())
 			{
-				createIdentifier(fCategory,view,category.getCode());
+				File fProcessed = createIdentifier(fCategory,view,category.getCode());
+				if(sPrevious.contains(fProcessed.getAbsolutePath())){sPrevious.remove(fProcessed.getAbsolutePath());}
 			}
+		}
+		if(sPrevious.size()>0)
+		{
+			logger.debug("Deleting unused Identifier");
+			Iterator<String> iterator = sPrevious.iterator();
+			while(iterator.hasNext())
+			{
+				String key = iterator.next();
+				File f = new File(key);
+				f.delete();
+				logger.warn("\t"+key);
+			}
+			
 		}
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void createIdentifier(File fSub, View view,String subPackage) throws IOException, TemplateException
-	{
-		
+	private File createIdentifier(File fSub, View view,String subPackage) throws IOException, TemplateException
+	{	
 		freemarkerNodeModel.clear();
 		freemarkerNodeModel.put("packageName", viewQualifierBasePackage+"."+subPackage);
 		freemarkerNodeModel.put("className", createClassName(view.getCode()));
@@ -81,13 +101,6 @@ public class JavaSecurityViewIdentifierFactory extends AbstractJavaSecurityFileF
 		fJava.createNewFile();
 		
 		this.createFile(fJava, "security.ahtutils-util/identifier.ftl");
-	}
-	
-	
-	
-	protected void cleanCategoryDir(File fCategory) throws IOException
-	{		
-		RecursiveFileRemover cleaner = new RecursiveFileRemover(FileFilterUtils.suffixFileFilter(".java"));
-		cleaner.clean(fCategory);
+		return fJava;
 	}
 }

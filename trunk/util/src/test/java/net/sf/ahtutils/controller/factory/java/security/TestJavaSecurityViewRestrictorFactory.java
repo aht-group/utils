@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import freemarker.template.TemplateException;
 
-public class TestJavaSecurityViewRestrictorFactory extends AbstractJavaAclFactoryTest
+public class TestJavaSecurityViewRestrictorFactory extends AbstractJavaSecurityFactoryTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestJavaSecurityViewRestrictorFactory.class);
 	

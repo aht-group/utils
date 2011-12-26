@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import freemarker.template.TemplateException;
 
-public class TestJavaSecurityIdentifierFactory extends AbstractJavaAclFactoryTest
+public class TestJavaSecurityIdentifierFactory extends AbstractJavaSecurityFactoryTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestJavaSecurityIdentifierFactory.class);
 	
@@ -93,36 +93,6 @@ public class TestJavaSecurityIdentifierFactory extends AbstractJavaAclFactoryTes
 			File expected = new File(rootDir,"aclIdentifier-"+v.getCode()+".java");
 			assertText(expected, actual);
 		}
-	}
-	
-	@Test
-	public void deleteExisting() throws AhtUtilsConfigurationException, IOException, TemplateException
-	{
-		idFactory.create(c1);
-		File fSub = new File(fPackage,c1.getCode());
-		idFactory.cleanCategoryDir(fSub);
-		for(File f : fSub.listFiles())
-		{
-			System.out.println("f: "+f);
-			Assert.assertFalse("File exists: "+f.getName(),f.getName().endsWith(".java"));
-		}
-	}
-	
-	@Test
-	public void deleteExistingButIgnoreOther() throws AhtUtilsConfigurationException, IOException, TemplateException
-	{
-		String testName = "test.txt";
-		idFactory.create(c1);
-		File fSub = new File(fPackage,c1.getCode());
-		File fTest = new File(fSub,testName);
-		fTest.createNewFile();
-		idFactory.cleanCategoryDir(fSub);
-		boolean fTestFound = false;
-		for(File f : fSub.listFiles())
-		{
-			if(f.getName().equals(testName)){fTestFound = true;}
-		}
-		Assert.assertTrue(fTestFound);
 	}
 	
 	@Test
