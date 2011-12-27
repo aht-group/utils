@@ -8,8 +8,6 @@ import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
 import net.sf.ahtutils.controller.factory.java.security.JavaSecuritySeamPagesFactory;
 import net.sf.ahtutils.controller.factory.java.security.JavaSecurityViewIdentifierFactory;
 import net.sf.ahtutils.controller.factory.java.security.JavaSecurityViewRestrictorFactory;
-import net.sf.exlp.util.exception.ExlpConfigurationException;
-import net.sf.exlp.util.io.dir.DirChecker;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.SystemUtils;
@@ -104,12 +102,7 @@ public class SeamSecurityFactory extends AbstractMojo
     	if(classPrefix.equals("null")){throw new MojoExecutionException("configuration parameter 'classPrefix' not defined!");}
     	
     	File fTmpDir = new File(targetDir);
-    	try
-    	{
-    		DirChecker.checkParentIsAnDir(new File(targetDir));
-    		if(!fTmpDir.exists()){fTmpDir.mkdir();}
-    	}
-    	catch (ExlpConfigurationException e) {throw new MojoExecutionException(e.getMessage());}
+    	if(!fTmpDir.exists()){fTmpDir.mkdirs();}
     	
     	executeIdentifierFactory(fTmpDir);
     	executeRestrictorFactory(fTmpDir);
