@@ -2,5 +2,5 @@
 <s:status xmlns:s="http://ahtutils.aht-group.com/status" code="myCode" group="myGroup" dscr="myDescription" visible="true">
     <s:langs/>
     <s:descriptions/>
-    <s:lang key="myKey" translation="myTranslation"/>
+    <s:lang version="1" key="myKey" translation="myTranslation"/>
 </s:status>
