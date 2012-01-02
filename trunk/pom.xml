@@ -35,7 +35,6 @@
         <jboss-javaee6-spec.version>1.0.0.Final</jboss-javaee6-spec.version>
         <jboss.version>6.0.0.Final</jboss.version>   
         <junit.version>4.10</junit.version>
-        <commons-io.version>2.1</commons-io.version>
         <poi.version>3.8-beta3</poi.version>
         <jasperreports.version>4.0.0</jasperreports.version>
        	<groovy.version>1.8.1</groovy.version>
@@ -90,6 +89,33 @@
     	   		<artifactId>commons-lang</artifactId>
     	   		<version>2.6</version>
     	   	</dependency>
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>2.1</version>
+			</dependency>
+			<dependency>
+	    		<groupId>commons-configuration</groupId>
+	    		<artifactId>commons-configuration</artifactId>
+	    		<version>1.7</version>
+	    	</dependency>
+	    	<dependency>
+	    		<groupId>commons-codec</groupId>
+	    		<artifactId>commons-codec</artifactId>
+	    		<version>1.6</version>
+	    	</dependency>
+	    	
+			<dependency>
+	    		<groupId>org.apache.httpcomponents</groupId>
+	    		<artifactId>httpclient</artifactId>
+	    		<version>4.1.2</version>
+	    	</dependency>
+			<dependency>
+	  			<groupId>org.freemarker</groupId>
+	  			<artifactId>freemarker</artifactId>
+				<version>2.3.18</version>
+			</dependency>
+			
     	   	<dependency>
     	   		<groupId>net.sf.exlp</groupId>
     	   		<artifactId>exlp-xml</artifactId>
