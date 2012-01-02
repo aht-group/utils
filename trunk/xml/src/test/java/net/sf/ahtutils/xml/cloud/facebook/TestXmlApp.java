@@ -3,7 +3,7 @@ package net.sf.ahtutils.xml.cloud.facebook;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.exlp.util.io.LoggerInit;
+import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
 import net.sf.exlp.util.xml.JaxbUtil;
 import net.sf.exlp.xml.net.Url;
 
@@ -54,9 +54,7 @@ public class TestXmlApp extends AbstractXmlFacebookTest
 	
 	public static void main(String[] args)
     {
-		LoggerInit loggerInit = new LoggerInit("log4j.xml");	
-			loggerInit.addAltPath("src/test/resources/config");
-			loggerInit.init();	
+		UtilsXmlTstBootstrap.init();
 		
 		TestXmlApp test = new TestXmlApp();
 		test.save();

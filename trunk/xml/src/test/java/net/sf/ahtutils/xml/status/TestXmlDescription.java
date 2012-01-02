@@ -3,7 +3,7 @@ package net.sf.ahtutils.xml.status;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.exlp.util.io.LoggerInit;
+import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;
@@ -34,6 +34,7 @@ public class TestXmlDescription extends AbstractXmlStatusTest
     public static Description create(boolean withChilds, String key, String description)
     {
     	Description xml = new Description();
+    	xml.setVersion(1);
     	xml.setKey(key);
     	xml.setValue(description);
     	return xml;
@@ -43,9 +44,7 @@ public class TestXmlDescription extends AbstractXmlStatusTest
 	
 	public static void main(String[] args)
     {
-		LoggerInit loggerInit = new LoggerInit("log4j.xml");	
-			loggerInit.addAltPath("src/test/resources/config");
-			loggerInit.init();		
+		UtilsXmlTstBootstrap.init();
 			
 		TestXmlDescription.initFiles();	
 		TestXmlDescription test = new TestXmlDescription();

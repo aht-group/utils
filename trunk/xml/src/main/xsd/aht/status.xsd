@@ -24,6 +24,7 @@
     </xsd:element>
     <xsd:element name="lang">
         <xsd:complexType>
+        	<xsd:attribute name="version" type="xsd:int"/>
             <xsd:attribute name="key" type="xsd:string"/>
             <xsd:attribute name="translation" type="xsd:string"/>
         </xsd:complexType>
@@ -39,6 +40,7 @@
         <xsd:complexType>
             <xsd:simpleContent>
                 <xsd:extension base="xsd:string">
+                	<xsd:attribute name="version" type="xsd:int"/>
                     <xsd:attribute name="key" type="xsd:string"/>
                 </xsd:extension>
             </xsd:simpleContent>

@@ -3,9 +3,9 @@ package net.sf.ahtutils.xml.access;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
 import net.sf.ahtutils.xml.status.TestXmlDescriptions;
 import net.sf.ahtutils.xml.status.TestXmlLangs;
-import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;
@@ -55,9 +55,7 @@ public class TestXmlCategory extends AbstractXmlAccessTest
 	
 	public static void main(String[] args)
     {
-		LoggerInit loggerInit = new LoggerInit("log4j.xml");	
-			loggerInit.addAltPath("src/test/resources/config");
-			loggerInit.init();		
+		UtilsXmlTstBootstrap.init();
 			
 		TestXmlCategory.initFiles();	
 		TestXmlCategory test = new TestXmlCategory();
