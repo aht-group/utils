@@ -10,23 +10,22 @@ import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractAhtDbXmlUtil
+public class AhtDbXmlSeedUtil
 {
-	final static Logger logger = LoggerFactory.getLogger(AbstractAhtDbXmlUtil.class);
+	final static Logger logger = LoggerFactory.getLogger(AhtDbXmlSeedUtil.class);
 	
 	public static enum DataSource{ide,jar}
 	
 	protected Db dbSeed;
 	protected String prefix;
 		
-	public AbstractAhtDbXmlUtil(Db dbSeed, DataSource datasource)
+	public AhtDbXmlSeedUtil(Db dbSeed, DataSource datasource)
 	{
 		this.dbSeed=dbSeed;
 		prefix=dbSeed.getPath();
 	}
 	
-	
-	protected String getContentName(String extractId) throws AhtUtilsConfigurationException
+	public String getContentName(String extractId) throws AhtUtilsConfigurationException
 	{
 		try
 		{
@@ -37,7 +36,7 @@ public abstract class AbstractAhtDbXmlUtil
 		catch (ExlpXpathNotUniqueException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
 	}
 	
-	protected String getExtractName(String extractId) throws AhtUtilsConfigurationException
+	public String getExtractName(String extractId) throws AhtUtilsConfigurationException
 	{
 		return prefix+"/"+getContentName(extractId);
 	}

@@ -10,7 +10,7 @@ import net.sf.ahtutils.xml.dbseed.Db;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractAhtDbXmlInit extends AbstractAhtDbXmlUtil
+public abstract class AbstractAhtDbXmlInit extends AhtDbXmlSeedUtil
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractAhtDbXmlInit.class);
 

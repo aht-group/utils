@@ -12,7 +12,7 @@ import net.sf.exlp.util.io.compression.JarStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractAhtDbXmlExtract extends AbstractAhtDbXmlUtil
+public abstract class AbstractAhtDbXmlExtract extends AhtDbXmlSeedUtil
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractAhtDbXmlExtract.class);
 
