@@ -70,8 +70,10 @@ public class OfxLangStatisticTableFactory
 	private Specification createSpecifications()
 	{
 		Columns cols = new Columns();
+		cols.getColumn().add(OfxColumnFactory.createCol(30));
 		cols.getColumn().add(OfxColumnFactory.createCol(10));
-		cols.getColumn().add(OfxColumnFactory.createCol(20));
+		cols.getColumn().add(OfxColumnFactory.createCol(10));
+		cols.getColumn().add(OfxColumnFactory.createCol(10));
 		
 		Specification specification = new Specification();
 		specification.setColumns(cols);
@@ -107,7 +109,9 @@ public class OfxLangStatisticTableFactory
 	{		
 		Row row = new Row();
 		row.getCell().add(OfxCellFactory.createParagraphCell(stat.getFile()));
-		row.getCell().add(OfxCellFactory.createParagraphCell(""+stat.getAllTranslations()));
+		row.getCell().add(OfxCellFactory.createParagraphCell(stat.getAllTranslations()));
+		row.getCell().add(OfxCellFactory.createParagraphCell(stat.getVersionOutdated()));
+		row.getCell().add(OfxCellFactory.createParagraphCell(stat.getMissing()));
 		return row;
 	}	
 }

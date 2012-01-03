@@ -3,15 +3,20 @@ package net.sf.ahtutils.controller.factory.latex;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
 import net.sf.ahtutils.controller.factory.ofx.status.OfxLangStatisticTableFactory;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.model.pojo.status.TranslationStatistic;
+import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Langs;
 import net.sf.ahtutils.xml.status.Translations;
 import net.sf.exlp.util.exception.ExlpConfigurationException;
+import net.sf.exlp.util.io.RelativePathFactory;
+import net.sf.exlp.util.io.RelativePathFactory.PathSeparator;
 import net.sf.exlp.util.io.dir.DirChecker;
 import net.sf.exlp.util.io.dir.RecursiveFileFinder;
 import net.sf.exlp.util.xml.JDomUtil;
@@ -22,8 +27,6 @@ import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.Namespace;
 import org.jdom.xpath.XPath;
-import org.openfuxml.exception.OfxAuthoringException;
-import org.openfuxml.renderer.processor.latex.content.table.LatexGridTableRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,9 +39,10 @@ public class LatexStatusFactory
 	private final static String dirViewTabs = "tab/status";
 	
 	private String baseLatexDir;
+	private RelativePathFactory rpf;
 	
 	private Translations translations;
-	private String[] headerKeys = {"viewTableHeaderViewId","viewTableHeaderName"};
+	private String[] headerKeys = {"langStatTableHeaderFile","langStatTableHeaderCount","langStatTableHeaderVersion","langStatTableHeaderMissing"};
 	private String[] langs;
 	
 	public LatexStatusFactory(Translations translations,String baseLatexDir,String[] langs)
@@ -48,12 +52,13 @@ public class LatexStatusFactory
 		this.langs=langs;
 	}
 	
-	public void langStatistic(String searchDir) throws AhtUtilsConfigurationException
+	public void langStatistic(String texName, String searchDir) throws AhtUtilsConfigurationException
 	{
 		try
 		{
 			File fDir = new File(searchDir);
 			DirChecker.checkFileIsDirectory(fDir);
+			rpf = new RelativePathFactory(fDir,PathSeparator.UNIX);
 			logger.info("Creating statistic for baseDir "+fDir.getAbsolutePath());
 			
 			RecursiveFileFinder finder = new RecursiveFileFinder(FileFilterUtils.suffixFileFilter(".xml"));
@@ -70,7 +75,7 @@ public class LatexStatusFactory
 	    		catch (UtilsNotFoundException e) {}
 	    	}
 	    	
-	    	File f = new File(baseLatexDir,"de/"+dirViewTabs+"/x.tex");
+	    	File f = new File(baseLatexDir,"de/"+dirViewTabs+"/"+texName);
 	    	OfxLangStatisticTableFactory fOfx = new OfxLangStatisticTableFactory("de", translations);
 	    	fOfx.saveDescription(f, stats, headerKeys);	
 		}
@@ -86,6 +91,7 @@ public class LatexStatusFactory
 		
 		List<Langs> langs = getLangs(doc);
 		TranslationStatistic stat = createStatistic(langs);
+		stat.setFile(rpf.relativate(f));
 		return stat;
 	}
 
@@ -119,11 +125,31 @@ public class LatexStatusFactory
 		return result;
 	}
 	
-	public TranslationStatistic createStatistic(List<Langs> langs)
+	public TranslationStatistic createStatistic(List<Langs> listLangs)
 	{
 		TranslationStatistic row = new TranslationStatistic();
-		row.setFile("testFile");
-		row.setAllTranslations(langs.size());
+		row.setAllTranslations(listLangs.size());
+		row.setVersionOutdated(0);
+		row.setMissing(0);
+		
+		for(Langs xmlLangs : listLangs)
+		{
+			boolean versionOutdated=false;
+			Integer version = null;
+			Set<String> sLangs = new HashSet<String>();
+			for(String s : langs){sLangs.add(s);}
+			for(Lang lang : xmlLangs.getLang())
+			{
+				if(!lang.isSetVersion()){versionOutdated=true;}
+				if(version!=null && lang.getVersion()!=version){versionOutdated=true;}
+				
+				if(sLangs.contains(lang.getKey())){sLangs.remove(lang.getKey());}
+			}
+			
+			if(versionOutdated){row.setVersionOutdated(1+row.getVersionOutdated());}
+			if(sLangs.size()>0){row.setMissing(1+row.getMissing());}
+		}
+		
 		return row;
 	}
 }
