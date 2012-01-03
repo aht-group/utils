@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
+import net.sf.ahtutils.controller.factory.ofx.status.OfxLangStatisticTableFactory;
+import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.model.pojo.status.TranslationStatistic;
 import net.sf.ahtutils.xml.status.Langs;
 import net.sf.ahtutils.xml.status.Translations;
 import net.sf.exlp.util.exception.ExlpConfigurationException;
@@ -19,6 +22,8 @@ import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.Namespace;
 import org.jdom.xpath.XPath;
+import org.openfuxml.exception.OfxAuthoringException;
+import org.openfuxml.renderer.processor.latex.content.table.LatexGridTableRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +33,7 @@ public class LatexStatusFactory
 	
 	private Namespace nsLangs = Namespace.getNamespace("s", "http://ahtutils.aht-group.com/status");
 	
-	private final static String dirViewTabs = "tab/security";
+	private final static String dirViewTabs = "tab/status";
 	
 	private String baseLatexDir;
 	
@@ -54,15 +59,34 @@ public class LatexStatusFactory
 			RecursiveFileFinder finder = new RecursiveFileFinder(FileFilterUtils.suffixFileFilter(".xml"));
 	    	List<File> list = finder.find(fDir);
 	    	logger.info("Found "+list.size()+" potential files");
-	    	for(File f : list){process(f);}
+	    	
+	    	List<TranslationStatistic> stats = new ArrayList<TranslationStatistic>();
+	    	for(File f : list)
+	    	{
+	    		try
+	    		{
+	    			stats.add(process(f));
+				}
+	    		catch (UtilsNotFoundException e) {}
+	    	}
+	    	
+	    	File f = new File(baseLatexDir,"de/"+dirViewTabs+"/x.tex");
+	    	OfxLangStatisticTableFactory fOfx = new OfxLangStatisticTableFactory("de", translations);
+	    	fOfx.saveDescription(f, stats, headerKeys);	
 		}
 		catch (ExlpConfigurationException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
 		catch (IOException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
 	}
 	
-	private void process(File f)
+	private TranslationStatistic process(File f) throws UtilsNotFoundException
 	{
+		Document doc = JDomUtil.load(f);
+		if(!hasLangs(doc)){throw new UtilsNotFoundException();}
 		logger.debug("Processing "+f);
+		
+		List<Langs> langs = getLangs(doc);
+		TranslationStatistic stat = createStatistic(langs);
+		return stat;
 	}
 
 	protected boolean hasLangs(Document doc)
@@ -93,5 +117,13 @@ public class LatexStatusFactory
 		}
 		catch (JDOMException e) {logger.error("Exception while counting for langs",e);}
 		return result;
+	}
+	
+	public TranslationStatistic createStatistic(List<Langs> langs)
+	{
+		TranslationStatistic row = new TranslationStatistic();
+		row.setFile("testFile");
+		row.setAllTranslations(langs.size());
+		return row;
 	}
 }

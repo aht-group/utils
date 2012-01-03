@@ -1,7 +1,9 @@
 package net.sf.ahtutils.controller.factory.latex;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.ahtutils.model.pojo.status.TranslationStatistic;
 import net.sf.ahtutils.test.AbstractAhtUtilTest;
 import net.sf.ahtutils.xml.status.Langs;
 
@@ -24,6 +26,14 @@ public class TestLatexStatusFactory extends AbstractAhtUtilTest
 	private Namespace nsLang;
 	private Element langs;
 	
+	public static TestLatexStatusFactory factory()
+	{
+		TestLatexStatusFactory factory = new TestLatexStatusFactory();
+		factory.init();
+		
+		return factory;
+	}
+	
 	@Before
 	public void init()
 	{	
@@ -35,6 +45,16 @@ public class TestLatexStatusFactory extends AbstractAhtUtilTest
 
 		doc = new Document();
 		doc.setRootElement(new Element("root"));
+	}
+	
+	public List<TranslationStatistic> createStatistic()
+	{
+		Langs langs = new Langs();
+		List<Langs> listLangs = new ArrayList<Langs>();
+		
+		List<TranslationStatistic> stats = new ArrayList<TranslationStatistic>();
+		stats.add(factory.createStatistic(listLangs));
+		return stats;
 	}
 	
 	private Element createLangs()
