@@ -49,7 +49,6 @@ public class TestLatexStatusFactory extends AbstractAhtUtilTest
 	
 	public List<TranslationStatistic> createStatistic()
 	{
-		Langs langs = new Langs();
 		List<Langs> listLangs = new ArrayList<Langs>();
 		
 		List<TranslationStatistic> stats = new ArrayList<TranslationStatistic>();

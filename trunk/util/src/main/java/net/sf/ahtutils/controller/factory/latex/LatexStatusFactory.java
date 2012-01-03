@@ -128,6 +128,7 @@ public class LatexStatusFactory
 	public TranslationStatistic createStatistic(List<Langs> listLangs)
 	{
 		TranslationStatistic row = new TranslationStatistic();
+		row.setFile("dummy");
 		row.setAllTranslations(listLangs.size());
 		row.setVersionOutdated(0);
 		row.setMissing(0);
