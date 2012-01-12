@@ -19,7 +19,9 @@ import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.model.interfaces.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.EjbWithCode;
+import net.sf.ahtutils.model.interfaces.EjbWithId;
 import net.sf.ahtutils.model.interfaces.EjbWithName;
+import net.sf.ahtutils.model.interfaces.EjbWithNr;
 import net.sf.ahtutils.model.interfaces.EjbWithType;
 import net.sf.ahtutils.model.interfaces.EjbWithValidFrom;
 
@@ -192,11 +194,29 @@ public class UtilsFacadeBean implements UtilsFacade
 		catch (NoResultException ex){throw new UtilsNotFoundException("No "+type.getSimpleName()+" for name="+name);}
 	}
 	
+	public <T extends EjbWithNr, P extends EjbWithId> T fByNr(Class<T> type, String parentName, P parent, int nr) throws UtilsNotFoundException
+	{
+		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+	    CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(type);
+	    
+	    Root<T> from = criteriaQuery.from(type);
+	    Path<Object> pathParent = from.get(parentName);
+	    Path<Object> pathNr = from.get("nr");
+	    
+	    CriteriaQuery<T> select = criteriaQuery.select(from);
+	    select.where( criteriaBuilder.equal(pathParent, parent.getId()),
+	    		      criteriaBuilder.equal(pathNr, nr));
+
+		TypedQuery<T> q = em.createQuery(select); 
+		try	{return q.getSingleResult();}
+		catch (NoResultException ex){throw new UtilsNotFoundException("No "+type.getSimpleName()+" for nr="+nr);}
+	}
+	
 	public <T extends EjbWithValidFrom> T fFirstValidFrom(Class<T> type, String parentName, long id, Date validFrom) throws UtilsNotFoundException
 	{
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-		
 	    CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(type);
+	    
 	    Root<T> fromType = criteriaQuery.from(type);
 	    Path<Object> pathParent = fromType.get(parentName);
 

@@ -8,12 +8,17 @@ import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.model.interfaces.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.EjbWithCode;
+import net.sf.ahtutils.model.interfaces.EjbWithId;
+import net.sf.ahtutils.model.interfaces.EjbWithName;
+import net.sf.ahtutils.model.interfaces.EjbWithNr;
 import net.sf.ahtutils.model.interfaces.EjbWithType;
 
 public interface UtilsFacade
 {
 	<T extends Object> T find(Class<T> type, long id) throws UtilsNotFoundException;
 	<T extends EjbWithCode> T fByCode(Class<T> type, String code) throws UtilsNotFoundException;
+	<T extends EjbWithName> T fByName(Class<T> type, String name) throws UtilsNotFoundException;
+	<T extends EjbWithNr, P extends EjbWithId> T fByNr(Class<T> type, String parentName, P parent, int nr) throws UtilsNotFoundException;
 	
 	<T extends Object> List<T> all(Class<T> type);
 	<T extends EjbWithType> List<T> allForType(Class<T> clazz, String type);
