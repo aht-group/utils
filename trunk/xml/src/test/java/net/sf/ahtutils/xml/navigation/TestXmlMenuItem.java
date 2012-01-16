@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
+import net.sf.ahtutils.xml.access.TestXmlView;
 import net.sf.ahtutils.xml.status.TestXmlDescriptions;
 import net.sf.ahtutils.xml.status.TestXmlLangs;
 import net.sf.exlp.util.xml.JaxbUtil;
@@ -38,6 +39,7 @@ public class TestXmlMenuItem extends AbstractXmlNavigationTest
       	xml.setActive(true);
       	xml.setCode("myCode");
       	xml.setName("myName");
+      	xml.setHref("myHref");
     	
     	if(withChilds)
     	{
@@ -45,6 +47,7 @@ public class TestXmlMenuItem extends AbstractXmlNavigationTest
     		xml.getMenuItem().add(TestXmlMenuItem.create(false));
     		xml.setLangs(TestXmlLangs.create(false));
     		xml.setDescriptions(TestXmlDescriptions.create(false));
+    		xml.setView(TestXmlView.create(false));
     	}
     	
     	return xml;

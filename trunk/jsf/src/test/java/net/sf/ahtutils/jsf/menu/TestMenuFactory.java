@@ -13,6 +13,8 @@ import net.sf.ahtutils.xml.access.View;
 import net.sf.ahtutils.xml.access.Views;
 import net.sf.ahtutils.xml.navigation.Menu;
 import net.sf.ahtutils.xml.navigation.MenuItem;
+import net.sf.ahtutils.xml.navigation.Navigation;
+import net.sf.ahtutils.xml.navigation.UrlMapping;
 import net.sf.ahtutils.xml.status.Langs;
 
 import org.junit.Before;
@@ -29,7 +31,7 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 	
 	private Menu menu;
 	private View v1;
-	private MenuItem mWithLangs,mWithView;
+	private MenuItem mWithLangs,mWithView,mWithHref;
 	
 	private final String lang = "de";
 	private final String viewCode = "testView";
@@ -52,6 +54,9 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 		v1.setLangs(new Langs());
 		v1.getLangs().getLang().add(XmlLangFactory.create(lang, "viewTranslation"));
 		v1.getLangs().getLang().add(XmlLangFactory.create("en", "dummyTranslation"));
+		v1.setNavigation(new Navigation());
+		v1.getNavigation().setUrlMapping(new UrlMapping());
+		v1.getNavigation().getUrlMapping().setValue("myViewUrlHref");
 		mapViewAllowed.put(viewCode, true);
 		
 		Category c1 = new Category();
@@ -75,6 +80,10 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 		mWithView = new MenuItem();
 		mWithView.setView(XmlViewFactory.create(viewCode));
 		menu.getMenuItem().add(mWithView);
+		
+		mWithHref = new MenuItem();
+		mWithHref.setHref("myHref");
+		menu.getMenuItem().add(mWithHref);
 	}
 	
 	@Test
@@ -103,5 +112,26 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 		mf = new MenuFactory(access,mapViewAllowed,lang);
 		Menu actualMenu = mf.create(menu);
 		Assert.assertEquals(menu.getMenuItem().size()-1, actualMenu.getMenuItem().size());
+	}
+	
+	@Test
+	public void testHrefDirect()
+	{
+		Menu actualMenu = mf.create(menu);
+		Assert.assertEquals("#", actualMenu.getMenuItem().get(0).getHref());
+		
+		MenuItem actual = actualMenu.getMenuItem().get(2);
+		Assert.assertTrue("href not set",actual.isSetHref());
+		Assert.assertEquals(mWithHref.getHref(), actual.getHref());
+	}
+	
+	@Test
+	public void testHrefInView()
+	{
+		Menu actualMenu = mf.create(menu);
+		
+		MenuItem actual = actualMenu.getMenuItem().get(1);
+		Assert.assertTrue("href not set",actual.isSetHref());
+		Assert.assertEquals(v1.getNavigation().getUrlMapping().getValue(), actual.getHref());
 	}
 }

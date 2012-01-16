@@ -14,6 +14,7 @@ import net.sf.ahtutils.xml.xpath.AccessXpath;
 import net.sf.ahtutils.xml.xpath.StatusXpath;
 import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +60,6 @@ public class MenuFactory
 			{
 				result.add(processItem(mi));
 			}
-			
 		}
 		
 		return result;
@@ -69,15 +69,23 @@ public class MenuFactory
 	{
 		MenuItem mi = new MenuItem();
 		
-		String name;
-		if(miOrig.isSetLangs()){name = getNameFromLangs(miOrig.getLangs());}
-		else if(miOrig.isSetView()){name = getNameFromViews(miOrig.getView());}
+		if(miOrig.isSetLangs())
+		{
+			mi.setName(getNameFromLangs(miOrig.getLangs()));
+		}
+		else if(miOrig.isSetView())
+		{
+			mi.setName(getNameFromViews(miOrig.getView()));
+		}
 		else
 		{
 			logger.warn("Translation missing!!");
-			name = "Translation missing";
+			mi.setName("Translation missing");	
 		}
-		mi.setName(name);			
+		if(miOrig.isSetHref()) {mi.setHref(miOrig.getHref());}
+		else if(miOrig.isSetView()) {mi.setHref(getHrefFromViews(miOrig.getView()));}
+		else {mi.setHref("#");}
+		
 		
 		mi.getMenuItem().addAll(processChilds(miOrig.getMenuItem()));
 		return mi;
@@ -111,5 +119,21 @@ public class MenuFactory
 		catch (ExlpXpathNotFoundException e) {}
 		catch (ExlpXpathNotUniqueException e) {}
 		return getNameFromLangs(langs);
+	}
+	
+	private String getHrefFromViews(View viewCode)
+	{
+		try
+		{
+			View view = AccessXpath.getView(access, viewCode.getCode());
+			if(view.isSetNavigation() && view.getNavigation().isSetUrlMapping())
+			{
+				
+				return view.getNavigation().getUrlMapping().getValue();
+			}
+		}
+		catch (ExlpXpathNotFoundException e) {}
+		catch (ExlpXpathNotUniqueException e) {}
+		return "#";
 	}
 }
