@@ -24,4 +24,12 @@ public class XmlDescriptionFactory
 		if(q.isSetKey()){xml.setKey(ejb.getLkey());}
 		return xml;
 	}
+	
+	public static Description create(String key, String translation)
+	{
+		Description xml = new Description();
+		xml.setKey(key);
+		xml.setValue(translation);
+		return xml;
+	}
 }

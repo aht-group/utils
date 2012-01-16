@@ -30,9 +30,9 @@ import org.jdom.xpath.XPath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LatexStatusFactory
+public class LatexTranslationStatFactory
 {	
-	final static Logger logger = LoggerFactory.getLogger(LatexStatusFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(LatexTranslationStatFactory.class);
 	
 	private Namespace nsLangs = Namespace.getNamespace("s", "http://ahtutils.aht-group.com/status");
 	
@@ -45,7 +45,7 @@ public class LatexStatusFactory
 	private String[] headerKeys = {"langStatTableHeaderFile","langStatTableHeaderCount","langStatTableHeaderVersion","langStatTableHeaderMissing"};
 	private String[] langs;
 	
-	public LatexStatusFactory(Translations translations,String baseLatexDir,String[] langs)
+	public LatexTranslationStatFactory(Translations translations,String baseLatexDir,String[] langs)
 	{
 		this.translations=translations;
 		this.baseLatexDir=baseLatexDir;

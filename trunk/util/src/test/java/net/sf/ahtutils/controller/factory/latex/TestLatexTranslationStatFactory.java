@@ -16,19 +16,19 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestLatexStatusFactory extends AbstractAhtUtilTest
+public class TestLatexTranslationStatFactory extends AbstractAhtUtilTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestLatexStatusFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(TestLatexTranslationStatFactory.class);
 	
-	private LatexStatusFactory factory;
+	private LatexTranslationStatFactory factory;
 	private Document doc;
 
 	private Namespace nsLang;
 	private Element langs;
 	
-	public static TestLatexStatusFactory factory()
+	public static TestLatexTranslationStatFactory factory()
 	{
-		TestLatexStatusFactory factory = new TestLatexStatusFactory();
+		TestLatexTranslationStatFactory factory = new TestLatexTranslationStatFactory();
 		factory.init();
 		
 		return factory;
@@ -37,7 +37,7 @@ public class TestLatexStatusFactory extends AbstractAhtUtilTest
 	@Before
 	public void init()
 	{	
-		factory = new LatexStatusFactory(null,null,null);
+		factory = new LatexTranslationStatFactory(null,null,null);
 		
 		nsLang = Namespace.getNamespace("s", "http://ahtutils.aht-group.com/status");
 		

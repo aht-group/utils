@@ -27,10 +27,9 @@ public class XmlLangFactory
 	
 	public static Lang create(String key, String translation)
 	{
-		Lang lang = new Lang();
-		lang.setKey(key);
-		lang.setTranslation(translation);
-		return lang;
+		Lang xml = new Lang();
+		xml.setKey(key);
+		xml.setTranslation(translation);
+		return xml;
 	}
-	
 }

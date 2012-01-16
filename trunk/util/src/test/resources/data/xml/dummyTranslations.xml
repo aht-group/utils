@@ -6,4 +6,16 @@
     		<s:lang key="en" translation="en-key1"/>
     	</s:langs>
     </s:translation>
+	<s:translation key="key2">
+		<s:langs>
+			<s:lang key="de" translation="de-key3"/>
+			<s:lang key="en" translation="en-key3"/>
+		</s:langs>
+	</s:translation>
+	<s:translation key="key3">
+		<s:langs>
+			<s:lang key="de" translation="de-key3"/>
+			<s:lang key="en" translation="en-key3"/>
+		</s:langs>
+	</s:translation>
 </s:translations>
