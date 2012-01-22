@@ -3,9 +3,7 @@ package net.sf.ahtutils.test.reflection;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.Random;
 
-import net.sf.ahtutils.controller.util.Ranking;
 import net.sf.ahtutils.model.ejb.status.AhtUtilsStatus;
 
 import org.slf4j.Logger;
@@ -15,14 +13,11 @@ public class TstReflection
 {
 	final static Logger logger = LoggerFactory.getLogger(TstReflection.class);
 	
-	private Ranking ranking;
-	private Random rnd;
-	
 	public static void main(String args[])
     {
        try
        {
-          Class c = Class.forName(AhtUtilsStatus.class.getName());
+          Class<?> c = Class.forName(AhtUtilsStatus.class.getName());
           
           Annotation a[] = c.getAnnotations();
           for (int i = 0; i < a.length; i++)
