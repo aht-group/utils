@@ -128,7 +128,14 @@ public class OfxErDiagramFactory
 	private void createEdge(Node source, Cardinality cardinality,Node target)
 	{
 		Edge e = new Edge();
-		e.setDirected(true);
+		switch(cardinality)
+		{
+			case OneToOne:  e.setDirected(false);break;
+			case OneToMany: e.setDirected(true);break;
+			case ManyToOne: e.setDirected(true);break;
+			case ManyToMany:e.setDirected(false);break;
+		}
+		
 		e.setFrom(source.getId());
 		e.setTo(target.getId());
 		e.setType(cardinality.toString());
@@ -149,23 +156,37 @@ public class OfxErDiagramFactory
 		Object[] keys = mapEdges.keySet().toArray();
 		for(Object o : keys)
 		{
-			String key = (String)o;
-			if(mapEdges.containsKey(key))
+			String keyF = (String)o;
+			if(mapEdges.containsKey(keyF))
 			{
-				Edge eF = mapEdges.get(key);
-				String keyReverse = eF.getTo()+"-"+eF.getFrom();
-				if(mapEdges.containsKey(keyReverse))
+				Edge eF = mapEdges.get(keyF);
+				Cardinality cF = Cardinality.valueOf(eF.getType());
+				String keyR = eF.getTo()+"-"+eF.getFrom();
+				if(mapEdges.containsKey(keyR))
 				{
-					Edge eR = mapEdges.get(keyReverse);
-					Cardinality cF = Cardinality.valueOf(eF.getType());
-					Cardinality cR = Cardinality.valueOf(eR.getType());
-					boolean rm = false;
-					if(cF==Cardinality.OneToOne && cR == Cardinality.OneToOne){rm=true;}
-					else if(cF==Cardinality.ManyToMany && cR == Cardinality.ManyToMany){rm=true;}
-					else if(cF==Cardinality.OneToMany && cR == Cardinality.ManyToOne){rm=true;}
-					else if(cF==Cardinality.ManyToOne && cR == Cardinality.OneToMany){rm=true;}
+					Edge eR = mapEdges.get(keyR);
 					
-					if(rm){mapEdges.remove(keyReverse);}
+					Cardinality cR = Cardinality.valueOf(eR.getType());
+					boolean rmF = false;
+					boolean rmR = false;
+					if(cF==Cardinality.OneToOne && cR == Cardinality.OneToOne){rmR=true;}
+					else if(cF==Cardinality.ManyToMany && cR == Cardinality.ManyToMany){rmR=true;}
+					else if(cF==Cardinality.OneToMany && cR == Cardinality.ManyToOne){rmR=true;}
+					else if(cF==Cardinality.ManyToOne && cR == Cardinality.OneToMany){rmF=true;}
+					
+					if(rmF){mapEdges.remove(keyF);}
+					if(rmR){mapEdges.remove(keyR);}
+				}
+				else
+				{
+					if(cF==Cardinality.ManyToOne)
+					{
+						long from = eF.getFrom();
+						long to = eF.getTo();
+						eF.setTo(from);
+						eF.setFrom(to);
+						eF.setDirected(false);
+					}
 				}
 			}
 		}
