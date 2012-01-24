@@ -1,0 +1,4 @@
+ <facelet-taglib>
+ <namespace>http://ahtutils.sourceforge.net/jsf</namespace> 
+ <composite-library-name>ahtutils</composite-library-name> 
+ </facelet-taglib> 
