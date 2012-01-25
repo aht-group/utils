@@ -45,7 +45,7 @@ public class ReportController extends AbstractReportControl
 		mapReportParameter.put(key, value);
 	}
 	
-	public void generateReport(String reportId, Output output, Direction dir, Document data)
+	public void generateReportill(String reportId, Output output, Direction dir, Document data)
 	{
 		rId = reportId;
 		Document doc=data;

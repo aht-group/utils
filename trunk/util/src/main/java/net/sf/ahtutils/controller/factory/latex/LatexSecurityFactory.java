@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
 import net.sf.ahtutils.controller.factory.ofx.security.OfxCategoryListFactory;
+import net.sf.ahtutils.controller.factory.ofx.security.OfxRoleTableFactory;
 import net.sf.ahtutils.controller.factory.ofx.security.OfxViewTableFactory;
 import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Category;
@@ -19,6 +20,7 @@ public class LatexSecurityFactory
 	final static Logger logger = LoggerFactory.getLogger(LatexSecurityFactory.class);
 	
 	private final static String dirViewTabs = "tab/security";
+	private final static String dirRoleTabs = "tab/security";
 	private final static String dirCategoryDescriptions = "description/security";
 	
 	private String baseLatexDir;
@@ -43,16 +45,35 @@ public class LatexSecurityFactory
 			Access access = JaxbUtil.loadJAXB(xmlFile, Access.class);
 			for(Category category : access.getCategory())
 			{
-				for(String lang : langs){saveViewTabs(lang,category);}
+				for(String lang : langs)
+				{
+					File f = new File(baseLatexDir,lang+"/"+dirViewTabs+"/views-"+category.getCode()+".tex");
+					OfxViewTableFactory fOfx = new OfxViewTableFactory("de",translations);
+					fOfx.saveDescription(f, category.getViews().getView(),headerKeys);
+				}
 			}
 		}
 		catch (FileNotFoundException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
 	}
-	private void saveViewTabs(String lang, Category category) throws AhtUtilsConfigurationException
+
+	public void createRoleTabs(String xmlFile) throws AhtUtilsConfigurationException
 	{
-		File f = new File(baseLatexDir,lang+"/"+dirViewTabs+"/views-"+category.getCode()+".tex");
-		OfxViewTableFactory fOfx = new OfxViewTableFactory("de",translations);
-		fOfx.saveDescription(f, category.getViews().getView(),headerKeys);
+		logger.info("Creating view tables from "+xmlFile+" to LaTex");
+		
+		try
+		{
+			Access access = JaxbUtil.loadJAXB(xmlFile, Access.class);
+			for(Category category : access.getCategory())
+			{
+				for(String lang : langs)
+				{
+					File f = new File(baseLatexDir,lang+"/"+dirRoleTabs+"/role-"+category.getCode()+".tex");
+					OfxRoleTableFactory fOfx = new OfxRoleTableFactory("de",translations);
+					fOfx.saveDescription(f, category.getRoles().getRole(),headerKeys);
+				}
+			}
+		}
+		catch (FileNotFoundException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
 	}
 	
 	public void createCategoryDescriptions(String xmlFile, String extractId) throws AhtUtilsConfigurationException

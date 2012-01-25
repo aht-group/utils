@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.List;
 
-import net.sf.ahtutils.xml.access.View;
+import net.sf.ahtutils.xml.access.Role;
 import net.sf.ahtutils.xml.status.Description;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Translations;
@@ -28,26 +28,26 @@ import org.openfuxml.renderer.processor.latex.content.table.LatexGridTableRender
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class OfxViewTableFactory
+public class OfxRoleTableFactory
 {
-	final static Logger logger = LoggerFactory.getLogger(OfxViewTableFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(OfxRoleTableFactory.class);
 		
 	private String lang;
 	private Translations translations;
 	
-	public OfxViewTableFactory(String lang, Translations translations)
+	public OfxRoleTableFactory(String lang, Translations translations)
 	{
 		this.lang=lang;
 		this.translations=translations;
 	}
 	
-	public void saveDescription(File f, List<View> lViews, String[] headerKeys)
+	public void saveDescription(File f, List<Role> lRoles, String[] headerKeys)
 	{
 		try
 		{
 			logger.debug("Saving Reference to "+f);
 			LatexGridTableRenderer renderer = new LatexGridTableRenderer();
-			renderer.render(toOfx(lViews,headerKeys));
+			renderer.render(toOfx(lRoles,headerKeys));
 			StringWriter actual = new StringWriter();
 			renderer.write(actual);
 			StringIO.writeTxt(f, actual.toString());
@@ -56,12 +56,12 @@ public class OfxViewTableFactory
 		catch (IOException e) {logger.error("Cannot save the file to "+f.getAbsolutePath(),e);}
 	}
 	
-	public Table toOfx(List<View> lViews, String[] headerKeys)
+	public Table toOfx(List<Role> lRoles, String[] headerKeys)
 	{
 		Table table = new Table();
 		table.setSpecification(createSpecifications());
 		
-		try{table.setContent(createContent(lViews,headerKeys));}
+		try{table.setContent(createContent(lRoles,headerKeys));}
 		catch (ExlpXpathNotFoundException e) {e.printStackTrace();}
 		catch (ExlpXpathNotUniqueException e) {e.printStackTrace();}
 		
@@ -80,7 +80,7 @@ public class OfxViewTableFactory
 		return specification;
 	}
 	
-	private Content createContent(List<View> lViews, String[] headerKeys) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
+	private Content createContent(List<Role> lRoles, String[] headerKeys) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
 	{
 		Row row = new Row();
 		for(String headerKey : headerKeys)
@@ -92,9 +92,9 @@ public class OfxViewTableFactory
 		head.getRow().add(row);
 		
 		Body body = new Body();
-		for(View view : lViews)
+		for(Role role : lRoles)
 		{
-			body.getRow().add(createRow(view));
+			body.getRow().add(createRow(role));
 		}
 		
 		Content content = new Content();
@@ -104,10 +104,10 @@ public class OfxViewTableFactory
 		return content;
 	}
 	
-	private Row createRow(View view) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
+	private Row createRow(Role role) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
 	{
-		Lang l = StatusXpath.getLang(view.getLangs(), lang);
-		Description d = StatusXpath.getDescription(view.getDescriptions(), lang);
+		Lang l = StatusXpath.getLang(role.getLangs(), lang);
+		Description d = StatusXpath.getDescription(role.getDescriptions(), lang);
 		
 		Row row = new Row();
 		row.getCell().add(OfxCellFactory.createParagraphCell(l.getTranslation()));

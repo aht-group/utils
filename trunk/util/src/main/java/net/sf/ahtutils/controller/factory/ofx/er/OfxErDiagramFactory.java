@@ -8,7 +8,6 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import net.sf.ahtutils.model.qualifier.EjbErNode;
 import net.sf.exlp.util.io.ClassUtil;
@@ -33,6 +32,7 @@ public class OfxErDiagramFactory
 	
 	private Map<String,Node> mapNodes;
 	private Map<String,Edge> mapEdges;
+	private Map<String,Boolean> mapChilds;
 	private Graph graph;
 	
 	public OfxErDiagramFactory(File fBase)
@@ -41,6 +41,7 @@ public class OfxErDiagramFactory
 		
 		mapNodes = new Hashtable<String,Node>();
 		mapEdges = new Hashtable<String,Edge>();
+		mapChilds = new Hashtable<String,Boolean>();
 		graph = new Graph();
 		graph.setNodes(new Nodes());
 		graph.setEdges(new Edges());
@@ -96,36 +97,33 @@ public class OfxErDiagramFactory
 			{
 				Field field = fields[i];
 				Annotation annotations[] = field.getAnnotations();
-				for (int j = 0; j < annotations.length; j++)
+				Cardinality cardinality = getCardinality(annotations);
+				
+				if(cardinality!=null)
 				{
-					Annotation a = annotations[j];
-					Cardinality cardinality = getCardinality(a.annotationType());
-					
-					if(cardinality!=null)
+					boolean targetIsChild = isTargetChildAnnotated(annotations);
+					if(mapNodes.containsKey(field.getType().getName()))
 					{
-						if(mapNodes.containsKey(field.getType().getName()))
-						{
-							Node target = mapNodes.get(field.getType().getName());
-							createEdge(source, cardinality,target);
-						}
-						else if(field.getType().getName().equals(List.class.getName()))
-						{
-							ParameterizedType pT = (ParameterizedType) field.getGenericType();
-					        Class<?> gC = (Class<?>) pT.getActualTypeArguments()[0];
-					     
-					        if(mapNodes.containsKey(gC.getName()))
-					        {
-					        	Node target = mapNodes.get(gC.getName());
-					        	createEdge(source, cardinality,target);
-					        }
-						}
+						Node target = mapNodes.get(field.getType().getName());
+						createEdge(source, cardinality,target,targetIsChild);
+					}
+					else if(field.getType().getName().equals(List.class.getName()))
+					{
+						ParameterizedType pT = (ParameterizedType) field.getGenericType();
+				        Class<?> gC = (Class<?>) pT.getActualTypeArguments()[0];
+				     
+				        if(mapNodes.containsKey(gC.getName()))
+				        {
+				        	Node target = mapNodes.get(gC.getName());
+				        	createEdge(source, cardinality,target,targetIsChild);
+				        }
 					}
 				}
 			}
 		}
 	}
 	
-	private void createEdge(Node source, Cardinality cardinality,Node target)
+	private void createEdge(Node source, Cardinality cardinality,Node target,boolean targetIsChild)
 	{
 		Edge e = new Edge();
 		switch(cardinality)
@@ -139,16 +137,39 @@ public class OfxErDiagramFactory
 		e.setFrom(source.getId());
 		e.setTo(target.getId());
 		e.setType(cardinality.toString());
-		mapEdges.put(e.getFrom()+"-"+e.getTo(), e);
+		String key = e.getFrom()+"-"+e.getTo();
+		
+		mapEdges.put(key, e);
+		mapChilds.put(key, targetIsChild);
 	}
 	
-	private Cardinality getCardinality(Class<?> c)
+	private Cardinality getCardinality(Annotation annotations[])
 	{
-		if(c.getName().equals(javax.persistence.OneToOne.class.getName())){return Cardinality.OneToOne;}
-		if(c.getName().equals(javax.persistence.OneToMany.class.getName())){return Cardinality.OneToMany;}
-		if(c.getName().equals(javax.persistence.ManyToOne.class.getName())){return Cardinality.ManyToOne;}
-		if(c.getName().equals(javax.persistence.ManyToMany.class.getName())){return Cardinality.ManyToMany;}
-		return null;
+		Cardinality cardinality = null;
+		for (int j = 0; j < annotations.length; j++)
+		{
+			Annotation a = annotations[j];
+			if(a.annotationType().getName().equals(javax.persistence.OneToOne.class.getName())){cardinality = Cardinality.OneToOne;}
+			if(a.annotationType().getName().equals(javax.persistence.OneToMany.class.getName())){cardinality = Cardinality.OneToMany;}
+			if(a.annotationType().getName().equals(javax.persistence.ManyToOne.class.getName())){cardinality = Cardinality.ManyToOne;}
+			if(a.annotationType().getName().equals(javax.persistence.ManyToMany.class.getName())){cardinality = Cardinality.ManyToMany;}
+			if(cardinality!=null){return cardinality;}
+		}
+		return cardinality;
+	}
+	
+	private boolean isTargetChildAnnotated(Annotation annotations[])
+	{
+		boolean isChild = false;
+		for (int j = 0; j < annotations.length; j++)
+		{
+			Annotation a = annotations[j];
+			if(a.annotationType().getName().equals(net.sf.ahtutils.model.qualifier.EjbErNodeHierarchy.class.getName()))
+			{
+				isChild=true;
+			}
+		}
+		return isChild;
 	}
 	
 	private void mergeEdges()
@@ -157,14 +178,16 @@ public class OfxErDiagramFactory
 		for(Object o : keys)
 		{
 			String keyF = (String)o;
+			if(keyF.equals("15-2")){logger.warn(keyF+" .."+mapChilds.size()+" "+" "+mapChilds.get(keyF));}
 			if(mapEdges.containsKey(keyF))
 			{
 				Edge eF = mapEdges.get(keyF);
 				Cardinality cF = Cardinality.valueOf(eF.getType());
 				String keyR = eF.getTo()+"-"+eF.getFrom();
+				boolean isChildF = mapChilds.get(keyF);
 				if(mapEdges.containsKey(keyR))
 				{
-					Edge eR = mapEdges.get(keyR);
+					Edge eR = mapEdges.get(keyR);		
 					
 					Cardinality cR = Cardinality.valueOf(eR.getType());
 					boolean rmF = false;
@@ -174,12 +197,12 @@ public class OfxErDiagramFactory
 					else if(cF==Cardinality.OneToMany && cR == Cardinality.ManyToOne){rmR=true;}
 					else if(cF==Cardinality.ManyToOne && cR == Cardinality.OneToMany){rmF=true;}
 					
-					if(rmF){mapEdges.remove(keyF);}
-					if(rmR){mapEdges.remove(keyR);}
+					if(rmF) {mapEdges.remove(keyF);}
+					if(rmR) {mapEdges.remove(keyR);}
 				}
 				else
 				{
-					if(cF==Cardinality.ManyToOne)
+					if(!isChildF && cF==Cardinality.ManyToOne)
 					{
 						long from = eF.getFrom();
 						long to = eF.getTo();
