@@ -178,7 +178,6 @@ public class OfxErDiagramFactory
 		for(Object o : keys)
 		{
 			String keyF = (String)o;
-			if(keyF.equals("15-2")){logger.warn(keyF+" .."+mapChilds.size()+" "+" "+mapChilds.get(keyF));}
 			if(mapEdges.containsKey(keyF))
 			{
 				Edge eF = mapEdges.get(keyF);
@@ -187,6 +186,7 @@ public class OfxErDiagramFactory
 				boolean isChildF = mapChilds.get(keyF);
 				if(mapEdges.containsKey(keyR))
 				{
+					boolean isChildR = mapChilds.get(keyR);
 					Edge eR = mapEdges.get(keyR);		
 					
 					Cardinality cR = Cardinality.valueOf(eR.getType());
@@ -198,7 +198,7 @@ public class OfxErDiagramFactory
 					else if(cF==Cardinality.ManyToOne && cR == Cardinality.OneToMany){rmF=true;}
 					
 					if(rmF) {mapEdges.remove(keyF);}
-					if(rmR) {mapEdges.remove(keyR);}
+					else if(rmR && !isChildR) {mapEdges.remove(keyR);}
 				}
 				else
 				{
