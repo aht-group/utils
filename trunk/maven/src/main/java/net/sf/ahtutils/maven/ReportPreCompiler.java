@@ -30,7 +30,7 @@ public class ReportPreCompiler extends AbstractMojo
     
     /**
      * Location of the file.
-     * @parameter expression="${project.basedir}/src/main/reports"
+     * @parameter expression="${project.basedir}/src/main/reports.${project.artifactId}"
      * @required
      */
     private String source;
