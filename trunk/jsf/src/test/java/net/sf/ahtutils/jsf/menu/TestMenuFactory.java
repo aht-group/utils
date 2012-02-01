@@ -72,16 +72,19 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 		menu = new Menu();
 		
 		mWithLangs = new MenuItem();
+		mWithLangs.setCode("mWithLangs");
 		mWithLangs.setLangs(new Langs());
 		mWithLangs.getLangs().getLang().add(XmlLangFactory.create(lang, "myTranslation"));
 		mWithLangs.getLangs().getLang().add(XmlLangFactory.create("en", "dummyTranslation"));
 		menu.getMenuItem().add(mWithLangs);
 		
 		mWithView = new MenuItem();
+		mWithView.setCode("mWithView");
 		mWithView.setView(XmlViewFactory.create(viewCode));
 		menu.getMenuItem().add(mWithView);
 		
 		mWithHref = new MenuItem();
+		mWithHref.setCode("mWithHref");
 		mWithHref.setHref("myHref");
 		menu.getMenuItem().add(mWithHref);
 	}
@@ -89,7 +92,7 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 	@Test
 	public void testWithLangs()
 	{
-		Menu actualMenu = mf.create(menu);
+		Menu actualMenu = mf.create(menu,"test");
 		Assert.assertEquals(menu.getMenuItem().size(), actualMenu.getMenuItem().size());
 		MenuItem actual = actualMenu.getMenuItem().get(0);
 		Assert.assertTrue(actual.isSetName());
@@ -99,7 +102,7 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 	@Test
 	public void testWithView()
 	{
-		Menu actualMenu = mf.create(menu);
+		Menu actualMenu = mf.create(menu,"test");
 		MenuItem actual = actualMenu.getMenuItem().get(1);
 		Assert.assertTrue(actual.isSetName());
 		Assert.assertEquals(v1.getLangs().getLang().get(0).getTranslation(), actual.getName());
@@ -110,14 +113,14 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 	{
 		mapViewAllowed.put(viewCode, false);
 		mf = new MenuFactory(access,mapViewAllowed,lang);
-		Menu actualMenu = mf.create(menu);
+		Menu actualMenu = mf.create(menu,"test");
 		Assert.assertEquals(menu.getMenuItem().size()-1, actualMenu.getMenuItem().size());
 	}
 	
 	@Test
 	public void testHrefDirect()
 	{
-		Menu actualMenu = mf.create(menu);
+		Menu actualMenu = mf.create(menu,"test");
 		Assert.assertEquals("#", actualMenu.getMenuItem().get(0).getHref());
 		
 		MenuItem actual = actualMenu.getMenuItem().get(2);
@@ -128,7 +131,7 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 	@Test
 	public void testHrefInView()
 	{
-		Menu actualMenu = mf.create(menu);
+		Menu actualMenu = mf.create(menu,"test");
 		
 		MenuItem actual = actualMenu.getMenuItem().get(1);
 		Assert.assertTrue("href not set",actual.isSetHref());

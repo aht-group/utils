@@ -14,7 +14,6 @@ import net.sf.ahtutils.xml.xpath.AccessXpath;
 import net.sf.ahtutils.xml.xpath.StatusXpath;
 import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
-import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +24,7 @@ public class MenuFactory
 	
 	private String lang;
 	private Access access;
+	private boolean noRestrictions;
 	private Map<String,Boolean> mapViewAllowed;
 	
 	public MenuFactory(Access access, Map<String,Boolean> mapViewAllowed, String lang)
@@ -32,40 +32,51 @@ public class MenuFactory
 		this.access=access;
 		this.mapViewAllowed=mapViewAllowed;
 		this.lang=lang;
+		noRestrictions=false;
 	}
 	
-	public Menu create(Menu menu)
+	public MenuFactory(String lang)
+	{
+		this.lang=lang;
+		noRestrictions=true;
+	}
+	
+	public Menu create(Menu menu, String codeCurrent)
 	{
 		Menu result = new Menu();
 		
-		result.getMenuItem().addAll(processChilds(menu.getMenuItem()));
+		result.getMenuItem().addAll(processChilds(menu.getMenuItem(),codeCurrent));
 		
 		return result;
 	}
 	
-	private List<MenuItem> processChilds(List<MenuItem> origs)
+	private List<MenuItem> processChilds(List<MenuItem> origs, String codeCurrent)
 	{
 		List<MenuItem> result = new ArrayList<MenuItem>();
 		
 		for(MenuItem mi :origs)
 		{
+			MenuItem miAdd = null;
 			if(mi.isSetView())
 			{
-				if(mapViewAllowed.containsKey(mi.getView().getCode()) && mapViewAllowed.get(mi.getView().getCode()))
+				if(noRestrictions || (mapViewAllowed.containsKey(mi.getView().getCode()) && mapViewAllowed.get(mi.getView().getCode())))
 				{
-					result.add(processItem(mi));
+					miAdd = processItem(mi,codeCurrent);
 				}
 			}
-			else
+			else {miAdd = processItem(mi,codeCurrent);}
+			if(miAdd!=null)
 			{
-				result.add(processItem(mi));
+				if(mi.getCode().equals(codeCurrent)){miAdd.setActive(true);}
+				else{miAdd.setActive(false);}
+				result.add(miAdd);
 			}
 		}
 		
 		return result;
 	}
 	
-	private MenuItem processItem(MenuItem miOrig)
+	private MenuItem processItem(MenuItem miOrig, String codeCurrent)
 	{
 		MenuItem mi = new MenuItem();
 		
@@ -86,8 +97,7 @@ public class MenuFactory
 		else if(miOrig.isSetView()) {mi.setHref(getHrefFromViews(miOrig.getView()));}
 		else {mi.setHref("#");}
 		
-		
-		mi.getMenuItem().addAll(processChilds(miOrig.getMenuItem()));
+		mi.getMenuItem().addAll(processChilds(miOrig.getMenuItem(),codeCurrent));
 		return mi;
 	}
 	
@@ -128,7 +138,6 @@ public class MenuFactory
 			View view = AccessXpath.getView(access, viewCode.getCode());
 			if(view.isSetNavigation() && view.getNavigation().isSetUrlMapping())
 			{
-				
 				return view.getNavigation().getUrlMapping().getValue();
 			}
 		}
