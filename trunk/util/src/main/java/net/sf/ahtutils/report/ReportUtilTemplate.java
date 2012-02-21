@@ -1,11 +1,22 @@
 package net.sf.ahtutils.report;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import net.sf.ahtutils.xml.report.Field;
+import net.sf.ahtutils.xml.report.Media;
+import net.sf.ahtutils.xml.report.Report;
+import net.sf.ahtutils.xml.report.Template;
+import net.sf.ahtutils.xml.report.TestTemplate;
+import net.sf.exlp.util.xml.JaxbUtil;
 import net.sf.jasperreports.engine.JRBand;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRField;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
+import net.sf.jasperreports.engine.design.JRDesignField;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
-import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.design.JasperDesign; 
 import net.sf.jasperreports.engine.xml.JRXmlWriter;
 
 import org.slf4j.Logger;
@@ -15,10 +26,29 @@ public class ReportUtilTemplate
 {
 	final static Logger logger = LoggerFactory.getLogger(ReportUtilXls.class);
 	
-	public void create() throws JRException
+	public void applyTemplates(Report report)
 	{
-		//JasperDesign represents the in-memory JRXML report design
+		for (Media media : report.getMedia())
+		{
+			
+		}
+	}
+	
+	public void create(Template template) throws JRException
+	{
+		//JasperDesign  the in-memory JRXML report design
 		JasperDesign design = new JasperDesign();
+		
+		//Now, the standard fields need to be declared (holding title, subtitle, logo, footer and record date)
+		for (Field field : template.getField())
+		{
+			JRDesignField reportField = new JRDesignField();
+			reportField.setDescription("desc");
+			reportField.setName("Title");
+			reportField.setDescription("/report/title");
+			reportField.setValueClass(java.lang.String.class);
+			design.addField(reportField);
+		}
 		
 		//A JRDesignBand can represent different report parts like the DetailBand, the PageHeader/Footer, ...
 		JRBand header = new JRDesignBand();
@@ -51,10 +81,13 @@ public class ReportUtilTemplate
 		JRXmlWriter.writeReport(design, System.out, "UTF-8");
 	}
 	
-	public static void main(String[] args) throws JRException
+	public static void main(String[] args) throws JRException, FileNotFoundException
 	{
 		ReportUtilTemplate templater = new ReportUtilTemplate();
-		templater.create();
+		String rootDir = "../xml/src/test/resources/data/xml/report";
+		File fXml = new File(rootDir,"template.xml");
+		Template template = (Template)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Template.class);
+		templater.create(template);
 	}
 
 }
