@@ -43,9 +43,8 @@ public class ReportUtilTemplate
 		for (Field field : template.getField())
 		{
 			JRDesignField reportField = new JRDesignField();
-			reportField.setDescription("desc");
-			reportField.setName("Title");
-			reportField.setDescription("/report/title");
+			reportField.setName(field.getName());
+			reportField.setDescription(field.getExpression());
 			reportField.setValueClass(java.lang.String.class);
 			design.addField(reportField);
 		}
@@ -85,8 +84,14 @@ public class ReportUtilTemplate
 	{
 		ReportUtilTemplate templater = new ReportUtilTemplate();
 		String rootDir = "../xml/src/test/resources/data/xml/report";
+		
 		File fXml = new File(rootDir,"template.xml");
 		Template template = (Template)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Template.class);
+		
+		File fXml2 = new File(rootDir,"field.xml");
+		Field field = (Field)JaxbUtil.loadJAXB(fXml2.getAbsolutePath(), Field.class);
+		
+		template.getField().add(field);
 		templater.create(template);
 	}
 
