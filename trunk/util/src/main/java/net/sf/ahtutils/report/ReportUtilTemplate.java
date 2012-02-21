@@ -7,16 +7,14 @@ import net.sf.ahtutils.xml.report.Field;
 import net.sf.ahtutils.xml.report.Media;
 import net.sf.ahtutils.xml.report.Report;
 import net.sf.ahtutils.xml.report.Template;
-import net.sf.ahtutils.xml.report.TestTemplate;
 import net.sf.exlp.util.xml.JaxbUtil;
 import net.sf.jasperreports.engine.JRBand;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRField;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignField;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
-import net.sf.jasperreports.engine.design.JasperDesign; 
+import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlWriter;
 
 import org.slf4j.Logger;
