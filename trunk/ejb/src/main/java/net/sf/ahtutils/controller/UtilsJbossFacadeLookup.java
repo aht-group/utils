@@ -28,8 +28,13 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class UtilsJbossFacadeLookup
 {
+	final static Logger logger = LoggerFactory.getLogger(UtilsJbossFacadeLookup.class);
+	
 	private String appName;
 	private String moduleName;
 	
@@ -75,6 +80,29 @@ public class UtilsJbossFacadeLookup
         sb.append(beanName);
         sb.append("!").append(viewClassName);
                 
+        return (F) context.lookup(sb.toString());
+    }
+   
+   @SuppressWarnings("unchecked")
+   public <F extends Object> F lookup(Class<F> facade) throws NamingException
+    {
+        final Hashtable<String,String> jndiProperties = new Hashtable<String,String>();
+        jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
+        final Context context = new InitialContext(jndiProperties);
+    
+        final String distinctName = "";
+ 
+        final String beanName = facade.getSimpleName()+"Bean";
+        final String viewClassName = facade.getName();
+        
+        StringBuffer sb = new StringBuffer();
+        sb.append("ejb:");
+        sb.append(appName).append("/");
+        sb.append(moduleName).append("/");
+        sb.append(distinctName).append("/");
+        sb.append(beanName);
+        sb.append("!").append(viewClassName);
+        logger.trace("Trying: "+sb.toString());
         return (F) context.lookup(sb.toString());
     }
 }
