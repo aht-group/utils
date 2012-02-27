@@ -1,5 +1,6 @@
 package net.sf.ahtutils.controller.facade;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -231,5 +232,62 @@ public class UtilsFacadeBean implements UtilsFacade
 		q.setMaxResults(1);
 		try	{return q.getSingleResult();}
 		catch (NoResultException ex){throw new UtilsNotFoundException("No "+type.getSimpleName()+" for "+parentName+".id="+id+" validFrom="+validFrom);}
+	}
+	
+	public <T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> type, String p1Name, I p1)
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+	    CriteriaQuery<T> criteriaQuery = cB.createQuery(type);
+	    
+	    Root<T> fromType = criteriaQuery.from(type);
+	    Path<Object> p1Path = fromType.get(p1Name);
+	    
+	    CriteriaQuery<T> select = criteriaQuery.select(fromType);
+	    select.where( cB.equal(p1Path, p1.getId()));
+	    
+		TypedQuery<T> q = em.createQuery(select);
+		
+		try	{return q.getResultList();}
+		catch (NoResultException ex){return new ArrayList<T>();}
+	}
+	
+	public <T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> type, String p1Name, I p1, String p2Name, I p2)
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+	    CriteriaQuery<T> criteriaQuery = cB.createQuery(type);
+	    
+	    Root<T> fromType = criteriaQuery.from(type);
+	    Path<Object> p1Path = fromType.get(p1Name);
+	    Path<Object> p2Path = fromType.get(p2Name);
+	    
+	    CriteriaQuery<T> select = criteriaQuery.select(fromType);
+	    select.where( cB.and(cB.equal(p1Path, p1.getId()),
+	    					 cB.equal(p2Path, p2.getId())));
+	    
+		TypedQuery<T> q = em.createQuery(select);
+		
+		try	{return q.getResultList();}
+		catch (NoResultException ex){return new ArrayList<T>();}
+	}
+	
+	public <T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> type, String p1Name, I p1, String p2Name, I p2, String p3Name, I p3)
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+	    CriteriaQuery<T> criteriaQuery = cB.createQuery(type);
+	    
+	    Root<T> fromType = criteriaQuery.from(type);
+	    Path<Object> p1Path = fromType.get(p1Name);
+	    Path<Object> p2Path = fromType.get(p2Name);
+	    Path<Object> p3Path = fromType.get(p3Name);
+	    
+	    CriteriaQuery<T> select = criteriaQuery.select(fromType);
+	    select.where( cB.and(cB.equal(p1Path, p1.getId()),
+	    					 cB.equal(p2Path, p2.getId()),
+	    					 cB.equal(p3Path, p3.getId())));
+	    
+		TypedQuery<T> q = em.createQuery(select);
+		
+		try	{return q.getResultList();}
+		catch (NoResultException ex){return new ArrayList<T>();}
 	}
 }
