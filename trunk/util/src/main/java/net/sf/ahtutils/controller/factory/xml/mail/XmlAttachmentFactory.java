@@ -25,7 +25,6 @@ public class XmlAttachmentFactory
 		fis.close();
 		String mimeType = Magic.getMagicMatch(f, false).getMimeType();
 		return create(f.getName(), mimeType, data);
-		
 	}
 	
     public static Attachment create(String fileName, String mime, byte[] data)

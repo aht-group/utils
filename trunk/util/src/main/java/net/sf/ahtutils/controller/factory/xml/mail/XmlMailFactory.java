@@ -1,5 +1,6 @@
 package net.sf.ahtutils.controller.factory.xml.mail;
 
+import net.sf.ahtutils.xml.mail.Header;
 import net.sf.ahtutils.xml.mail.Mail;
 import net.sf.ahtutils.xml.mail.Template;
 
@@ -19,6 +20,15 @@ public class XmlMailFactory
     	Mail mail = new Mail();
     	mail.setId(id);
     	mail.getTemplate().add(template);
+    	
+    	return mail;
+    }
+    
+    public static Mail create(Header header, String content)
+    {   	   	
+    	Mail mail = new Mail();
+    	mail.setHeader(header);
+    	mail.setExample(content);
     	
     	return mail;
     }

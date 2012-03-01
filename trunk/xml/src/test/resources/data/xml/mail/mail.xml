@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <m:mail xmlns:m="http://ahtutils.aht-group.com/mail" xmlns:io="http://exlp.sf.net/io" id="myId" msgId="myMsgID" dir="myDir" test="true">
     <example>myExample</example>
+    <header>
+        <subject>mySubject</subject>
+    </header>
     <template lang="myLang" type="myType" file="myFile"/>
     <template lang="myLang" type="myType" file="myFile"/>
     <attachment/>

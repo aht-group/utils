@@ -1,15 +1,12 @@
-package net.sf.ahtutils.mail;
+package net.sf.ahtutils.mail.content;
 
 import java.io.IOException;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import javax.mail.util.ByteArrayDataSource;
 import javax.xml.parsers.ParserConfigurationException;
 
 import net.sf.ahtutils.mail.freemarker.FreemarkerEngine;
@@ -22,12 +19,12 @@ import org.xml.sax.SAXException;
 
 import freemarker.template.TemplateException;
 
-public class MimeContentCreator
+public class FreemarkerMimeContentCreator extends AbstractMimeContentCreator
 {
 	private MimeMessage message;
 	private FreemarkerEngine fme;
 	
-	public MimeContentCreator(MimeMessage message, FreemarkerEngine fme)
+	public FreemarkerMimeContentCreator(MimeMessage message, FreemarkerEngine fme)
 	{
 		this.message=message;
 		this.fme=fme;
@@ -100,14 +97,5 @@ public class MimeContentCreator
 		catch (TemplateException e) {e.printStackTrace();}
 		
 		return html;
-	}
-	
-	private MimeBodyPart createBinary(Attachment attachment) throws MessagingException
-	{
-		MimeBodyPart binary = new MimeBodyPart();
-		DataSource source = new ByteArrayDataSource(attachment.getData(), attachment.getFile().getMime());
-		binary.setDataHandler(new DataHandler(source));
-		binary.setFileName(attachment.getFile().getName());
-		return binary;
 	}
 }
