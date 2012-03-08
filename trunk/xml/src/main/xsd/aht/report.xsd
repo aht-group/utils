@@ -85,14 +85,20 @@
             <xsd:attribute name="name" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
+    <xsd:element name="templates">
+	    <xsd:complexType>
+	            <xsd:sequence>
+		            <xsd:element ref="r:template" maxOccurs="unbounded"/>
+				</xsd:sequence>
+		</xsd:complexType>    
+    </xsd:element>
      <xsd:element name="template">
         <xsd:complexType>
            <xsd:sequence>
                 <xsd:element ref="r:field" maxOccurs="unbounded"/>
+                <xsd:element ref="r:element" maxOccurs="unbounded"/>
             </xsd:sequence>
-            <xsd:attribute name="page" type="xsd:string"/>
-            <xsd:attribute name="header" type="xsd:string"/>
-            <xsd:attribute name="footer" type="xsd:string"/>
+            <xsd:attribute name="id" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
      <xsd:element name="field">
@@ -107,6 +113,20 @@
 			</xsd:attribute>
             <xsd:attribute name="expression" type="xsd:string"/>
             <xsd:attribute name="name" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+     <xsd:element name="element">
+        <xsd:complexType>
+            <xsd:attribute name="type">
+             <xsd:simpleType>
+		            <xsd:restriction base="xsd:string">
+						<xsd:enumeration value="page"/>
+						<xsd:enumeration value="header"/>
+						<xsd:enumeration value="footer"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+            <xsd:attribute name="file" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="info">
