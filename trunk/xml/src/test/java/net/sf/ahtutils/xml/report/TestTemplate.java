@@ -32,9 +32,8 @@ public class TestTemplate extends AbstractXmlReportTest
     public static Template create()
     {
     	Template template = new Template();
-    	template.setFooter("ahtutils-basic");
-    	template.setHeader("ahtutils-basic");
-    	template.setPage("ahtutils-basic");
+    	template.setId("ahtutils-basic-template");
+    	template.getElement().add(TestElement.create());
     	template.getField().add(TestField.create());
     	return template;
     }
