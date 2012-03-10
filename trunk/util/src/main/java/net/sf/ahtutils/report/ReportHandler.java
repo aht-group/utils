@@ -197,5 +197,31 @@ public class ReportHandler {
 		return mapReportParameter;
 	}
 	
-	
+	/**
+	 * Get a Map of all standard parameters plus the given locale and the included data XML file 
+	 * @throws ReportException
+	 */
+	@SuppressWarnings("unchecked")
+	public Map<String,Object> getSubreportsMap(String reportId, String format) throws ReportException
+	{	
+		Map<String,Object> mapReportParameter = new Hashtable<String,Object>();
+		
+		Report  report  = (Report)JXPathContext.newContext(config).getValue("report[id='" +reportId +"']");
+		ArrayList<Jr> reports = (ArrayList<Jr>) JXPathContext.newContext(config).getValue("jr[parent::media/parent::report/id='" +reportId +"' and parent::media/@type='" +format +"' and @type='sr']");
+		for (Jr jr : reports)
+		{
+					String location = report.getDir() +"/" +format +"/sr" +jr.getName() +".jrxml";
+					JasperDesign design;
+					try {
+						design = (JasperDesign)JRLoader.loadObject(mrl.searchIs(location));
+					} catch (FileNotFoundException e) {
+						throw new ReportException("Requested report design jrxml file for subreport " +jr.getName() +" of report " +reportId +" could not be found at " +location +"!");
+					} catch (JRException e) {
+						throw new ReportException("Internal JasperReports error when trying to load requested report design jrxml file for subreport " +jr.getName() +" of report " +reportId +": " +e.getMessage());
+					}
+					JasperReport jreport = getCompiledReport(design);
+					mapReportParameter.put("sr" +jr.getName(), jreport);
+		}
+		return mapReportParameter;
+	}
 }
