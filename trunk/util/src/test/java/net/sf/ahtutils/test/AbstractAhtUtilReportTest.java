@@ -30,6 +30,7 @@ public class AbstractAhtUtilReportTest extends AbstractAhtUtilTest
 	protected static String reportRoot;
 	protected static String configFile;
     protected static String resourcesFile;
+    protected static String reportId;
     
     protected static Reports reports;
     protected static Resources resources;
@@ -57,6 +58,7 @@ public class AbstractAhtUtilReportTest extends AbstractAhtUtilTest
 	
 	protected void initExample(String id) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
 	{
+		reportId = id;
 		report = ReportXpath.getReport(reports, id);
 		org.jdom.Document jdomDoc =  JDomUtil.load(report.getExample());
 		jdomDoc = JDomUtil.unsetNameSpace(jdomDoc);
