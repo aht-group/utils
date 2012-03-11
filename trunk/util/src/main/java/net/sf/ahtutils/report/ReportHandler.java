@@ -18,6 +18,7 @@ import net.sf.ahtutils.xml.report.Reports;
 import net.sf.ahtutils.xml.report.Resource;
 import net.sf.ahtutils.xml.report.Resources;
 import net.sf.ahtutils.xml.report.Templates;
+import net.sf.ahtutils.xml.xpath.ReportXpath;
 import net.sf.exlp.util.io.resourceloader.MultiResourceLoader;
 import net.sf.exlp.util.xml.JaxbUtil;
 import net.sf.jasperreports.engine.JRException;
@@ -70,7 +71,7 @@ public class ReportHandler {
 		mrl.addPath("src/main/resource/" +reportRoot);
 		mrl.addPath("src/main/" +reportRoot);
 		try {
-			mrl.searchIs(reportRoot +"reports.xml");
+			mrl.searchIs("reports.xml");
 		} catch (FileNotFoundException e1) {
 			throw new ReportException("Error: reportRoot " +reportRoot +" does not exist!");
 		}
@@ -89,7 +90,7 @@ public class ReportHandler {
 		//Reading resources file from reportRoot if available
 		try {
 			templates = (Templates)JaxbUtil.loadJAXB(reportRoot +"templates.xml", Templates.class);
-			logger.info("Read templates definitions from " +reportFile +"templates.xml");
+			logger.info("Read templates definitions from " +reportRoot +"templates.xml");
 		} catch (FileNotFoundException e) {
 			logger.warn("Problem loading templates.xml from " +reportRoot +" - no templates needed?");
 		}
@@ -132,7 +133,7 @@ public class ReportHandler {
 	 */
 	public JasperDesign getMasterReport(String id, String format) throws ReportException
 	{
-		Jr master = (Jr)JXPathContext.newContext(config).getValue("jr[parent::media/@format='" +format +" and @type='mr' + and parent::media/parent::report/@id='"+ id +"']");
+		Jr master = (Jr)JXPathContext.newContext(config).getValue("jr[parent::media/@type='" +format +"' and @type='mr' and parent::media/parent::report/@id='"+ id +"']");
 		String reportDir = (String)JXPathContext.newContext(config).getValue("report[@id='"+ id +"']/@dir");
 		String location = reportDir +"/" +format +"/mr" +master.getName() +".jrxml";
 		JasperDesign design;
@@ -201,13 +202,12 @@ public class ReportHandler {
 	 * Get a Map of all standard parameters plus the given locale and the included data XML file 
 	 * @throws ReportException
 	 */
-	@SuppressWarnings("unchecked")
 	public Map<String,Object> getSubreportsMap(String reportId, String format) throws ReportException
 	{	
 		Map<String,Object> mapReportParameter = new Hashtable<String,Object>();
 		
 		Report  report  = (Report)JXPathContext.newContext(config).getValue("report[id='" +reportId +"']");
-		ArrayList<Jr> reports = (ArrayList<Jr>) JXPathContext.newContext(config).getValue("jr[parent::media/parent::report/id='" +reportId +"' and parent::media/@type='" +format +"' and @type='sr']");
+		ArrayList<Jr> reports = ReportXpath.getSubreports(config, reportId, format);
 		for (Jr jr : reports)
 		{
 					String location = report.getDir() +"/" +format +"/sr" +jr.getName() +".jrxml";

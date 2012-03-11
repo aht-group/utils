@@ -1,7 +1,9 @@
 package net.sf.ahtutils.xml.xpath;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.ahtutils.xml.report.Jr;
 import net.sf.ahtutils.xml.report.Media;
 import net.sf.ahtutils.xml.report.Report;
 import net.sf.ahtutils.xml.report.Reports;
@@ -38,5 +40,12 @@ public class ReportXpath
 		if(listResult.size()==0){throw new ExlpXpathNotFoundException("No "+Report.class.getSimpleName()+" for id="+id);}
 		else if(listResult.size()>1){throw new ExlpXpathNotUniqueException("Multiple "+Report.class.getSimpleName()+" for id="+id);}
 		return listResult.get(0);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static synchronized ArrayList<Jr> getSubreports(Reports reports, String id, String format)
+	{
+		JXPathContext context = JXPathContext.newContext(reports);
+		return (ArrayList<Jr>) context.getValue("jr[parent::parent::report/id='" +id +"' and parent::media/@type='" +format +"' and @type='sr']");
 	}
 }
