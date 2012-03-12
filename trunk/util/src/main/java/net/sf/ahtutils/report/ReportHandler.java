@@ -1,8 +1,11 @@
 package net.sf.ahtutils.report;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Locale;
@@ -10,6 +13,8 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import net.sf.ahtutils.report.AbstractReportControl.Direction;
+import net.sf.ahtutils.report.AbstractReportControl.Output;
 import net.sf.ahtutils.report.exception.ReportException;
 import net.sf.ahtutils.xml.report.Jr;
 import net.sf.ahtutils.xml.report.Media;
@@ -24,8 +29,13 @@ import net.sf.exlp.util.xml.JaxbUtil;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
+import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import net.sf.jasperreports.engine.query.JRXPathQueryExecuterFactory;
 import net.sf.jasperreports.engine.util.JRLoader;
 
@@ -224,4 +234,72 @@ public class ReportHandler {
 		}
 		return mapReportParameter;
 	}
+	
+	/**
+	 * Get the JasperPrint object for a given JasperReport along with parameter map
+	 * @param report
+	 * @param mapReportParameter
+	 * @return
+	 * @throws ReportException
+	 */
+	public JasperPrint getJasperPrint(JasperReport report, Map<String,Object> mapReportParameter) throws ReportException
+	{
+		JasperPrint  print = new JasperPrint();
+		try {print  = JasperFillManager.fillReport(report, mapReportParameter);}
+		catch (JRException e)
+		{
+			throw new ReportException("Error when trying to create JasperPrint object from compiled JasperReport with given parameter map: " +e.getMessage());
+		}
+		return print;
+	}
+	
+	/**
+	 * Exports the given JasperPrint to an MS Excel xls sheet as ByteArrayOutputStream
+	 * @param JasperPrint to be exported
+	 * @return
+	 * @throws ReportException
+	 */
+	@SuppressWarnings("deprecation")
+	public ByteArrayOutputStream exportToXls(JasperPrint jPrint) throws ReportException
+	{
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		try
+		{	
+			logger.info("Exporting report to Excel Sheet");
+			JRXlsExporter exporterXLS = new JRXlsExporter();
+			exporterXLS.setParameter(JRXlsExporterParameter.JASPER_PRINT, jPrint);
+			exporterXLS.setParameter(JRXlsExporterParameter.OUTPUT_STREAM, os);
+			exporterXLS.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.TRUE);
+			exporterXLS.setParameter(JRXlsExporterParameter.IS_AUTO_DETECT_CELL_TYPE, Boolean.TRUE);
+			exporterXLS.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
+			exporterXLS.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
+			exporterXLS.exportReport();	
+		}
+		catch (JRException e) 
+		{
+			throw new ReportException("Error exporting JasperPrint to XLS ByteArrayOutputStream: " +e.getMessage());
+		}
+		return os;
+	}
+	
+	/**
+	 * Exports the given JasperPrint to an PDF format as ByteArrayOutputStream
+	 * @param JasperPrint to be exported
+	 * @return
+	 * @throws ReportException
+	 */
+	public ByteArrayOutputStream exportToPdf(JasperPrint jPrint) throws ReportException
+	{
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try
+		{	
+			logger.info("Exporting report to PDF");
+			JasperExportManager.exportReportToPdfStream(jPrint, baos);
+		}
+		catch (JRException e)
+		{
+			throw new ReportException("Error exporting JasperPrint to PDF ByteArrayOutputStream: " +e.getMessage());
+		}
+		return baos;
+	}	
 }

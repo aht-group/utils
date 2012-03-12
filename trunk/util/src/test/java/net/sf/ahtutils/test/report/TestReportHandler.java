@@ -1,5 +1,6 @@
 package net.sf.ahtutils.test.report;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.Map;
@@ -10,6 +11,7 @@ import net.sf.ahtutils.test.AbstractAhtUtilReportTest;
 import net.sf.ahtutils.test.AhtUtilTstBootstrap;
 import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
+import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 
@@ -45,7 +47,10 @@ public class TestReportHandler extends AbstractAhtUtilReportTest
 		reportParameterMap.putAll(reportHandler.getSubreportsMap(reportId, "pdf"));
 		
 		//4. Create the JasperPrint
+		JasperPrint print = reportHandler.getJasperPrint(masterReport, reportParameterMap);
 		
 		//5. Export the report to PDF and XLS
+		ByteArrayOutputStream pdf = reportHandler.exportToPdf(print);
+		ByteArrayOutputStream xls = reportHandler.exportToXls(print);
     }
 }
