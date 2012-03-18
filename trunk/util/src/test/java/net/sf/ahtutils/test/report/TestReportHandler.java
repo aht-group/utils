@@ -15,6 +15,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,8 @@ import org.slf4j.LoggerFactory;
 public class TestReportHandler extends AbstractAhtUtilReportTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestReportHandler.class);
-			
+		
+	@Ignore
 	@Test
 	public void test() throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException, ReportException, IOException
     {
