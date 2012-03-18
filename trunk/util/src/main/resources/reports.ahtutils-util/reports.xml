@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <r:reports xmlns:r="http://ahtutils.aht-group.com/report" dir="src/main/resources/reports.ahtutils-util">
     <report id="testReportChart" ltr="true" dir="test">
-        <r:media type="pdf" dir="">
+        <r:media type="pdf" dir="" id="test">
             <r:jr type="mr" name="SimpleCharts"/>
             <r:jr type="sr" name="Charts"/>
         </r:media>
         <example>src/test/resources/data/xml/report/testData.xml</example>
     </report>
     <report id="testReport" ltr="true" dir="test">
-        <r:media type="pdf" dir="">
+        <r:media type="pdf" dir="" template="test">
             <r:jr type="mr" name="Simple"/>
         </r:media>
         <example>src/test/resources/data/xml/report/testData.xml</example>
