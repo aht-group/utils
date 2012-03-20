@@ -24,6 +24,8 @@ import net.sf.ahtutils.xml.report.Resource;
 import net.sf.ahtutils.xml.report.Resources;
 import net.sf.ahtutils.xml.report.Templates;
 import net.sf.ahtutils.xml.xpath.ReportXpath;
+import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
+import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.util.io.resourceloader.MultiResourceLoader;
 import net.sf.exlp.util.xml.JaxbUtil;
 import net.sf.jasperreports.engine.JRException;
@@ -143,11 +145,21 @@ public class ReportHandler {
 	 */
 	public JasperDesign getMasterReport(String id, String format) throws ReportException
 	{
-		Jr master = (Jr)JXPathContext.newContext(config).getValue("jr[parent::media/@type='" +format +"' and @type='mr' and parent::media/parent::report/@id='"+ id +"']");
+		Jr master = null;
+		try {
+			master = ReportXpath.getMr(config, id, format);
+		} catch (ExlpXpathNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (ExlpXpathNotUniqueException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		String reportDir = (String)JXPathContext.newContext(config).getValue("report[@id='"+ id +"']/@dir");
 		String location = reportDir +"/" +format +"/mr" +master.getName() +".jrxml";
 		JasperDesign design;
-		try {
+		try
+		{
 			design = (JasperDesign)JRLoader.loadObject(mrl.searchIs(location));
 		} catch (FileNotFoundException e) {
 			throw new ReportException("Requested report design jrxml file for report " +id +" could not be found at " +location +"!");

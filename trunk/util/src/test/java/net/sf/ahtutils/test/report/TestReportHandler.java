@@ -25,7 +25,6 @@ public class TestReportHandler extends AbstractAhtUtilReportTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestReportHandler.class);
 		
-	@Ignore
 	@Test
 	public void test() throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException, ReportException, IOException
     {
