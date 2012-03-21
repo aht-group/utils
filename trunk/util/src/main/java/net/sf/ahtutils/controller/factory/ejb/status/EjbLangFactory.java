@@ -46,6 +46,16 @@ public class EjbLangFactory<L extends UtilsLang>
 		return map;
 	}
 	
+	public Map<String,L> createEmpty(String[] keys) throws InstantiationException, IllegalAccessException
+	{
+		Map<String,L> map = new Hashtable<String,L>();
+		for(String key : keys)
+		{
+			map.put(key, createLang(key,""));
+		}
+		return map;
+	}
+	
 	public Map<String,L> createLangMap(String key, String translation) throws InstantiationException, IllegalAccessException
 	{
 		Map<String,L> map = new Hashtable<String,L>();
