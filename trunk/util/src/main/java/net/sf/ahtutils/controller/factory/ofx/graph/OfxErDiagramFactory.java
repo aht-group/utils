@@ -1,4 +1,4 @@
-package net.sf.ahtutils.controller.factory.ofx.er;
+package net.sf.ahtutils.controller.factory.ofx.graph;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +12,6 @@ import java.util.Map;
 import net.sf.ahtutils.model.qualifier.EjbErNode;
 import net.sf.exlp.util.io.ClassUtil;
 import net.sf.exlp.util.io.dir.RecursiveFileFinder;
-import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.openfuxml.xml.addon.graph.Edge;
@@ -68,7 +67,6 @@ public class OfxErDiagramFactory
 	public Graph create()
 	{
 		mergeEdges();
-		JaxbUtil.debug(graph);
 		return graph;
 	}
 	
