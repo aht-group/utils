@@ -25,7 +25,7 @@ public class TestReportHandler extends AbstractAhtUtilReportTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestReportHandler.class);
 		
-	@Ignore
+	
 	@Test
 	public void test() throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException, ReportException, IOException
     {
@@ -50,12 +50,16 @@ public class TestReportHandler extends AbstractAhtUtilReportTest
 		
 		//3. a) fill the reports parameter map including the XML data file
 		Map<String, Object> reportParameterMap = reportHandler.getParameterMap(test.docReport, Locale.GERMAN);
+		Integer elements = reportParameterMap.size();
+		logger.info("Generated parameter map containing " +elements +" elements");
 		
 		//3. b) get all compiled subreports as referenced in reports.xml as elements of a map to be added to the parameters map
 		reportParameterMap.putAll(reportHandler.getSubreportsMap(reportId, "pdf"));
+		logger.info("Added " +(reportParameterMap.size()-elements) +" sub reports to the parameter map");
 		
 		//4. Create the JasperPrint
 		JasperPrint print = reportHandler.getJasperPrint(masterReport, reportParameterMap);
+		logger.info("Created JasperPrint object: " +print.getName());
 		
 		//5. Export the report to PDF and XLS
 		ByteArrayOutputStream pdf = reportHandler.exportToPdf(print);

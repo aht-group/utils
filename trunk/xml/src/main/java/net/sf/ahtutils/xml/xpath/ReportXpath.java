@@ -46,7 +46,9 @@ public class ReportXpath
 	public static synchronized ArrayList<Jr> getSubreports(Reports reports, String id, String format)
 	{
 		JXPathContext context = JXPathContext.newContext(reports);
-		return (ArrayList<Jr>) context.getValue("//jr[parent::parent::report/id='" +id +"' and parent::media/@type='" +format +"' and @type='sr']");
+		ArrayList<Jr> subReports = new ArrayList<Jr>();
+		subReports.addAll((ArrayList<Jr>) context.selectNodes("//jr[parent::media/parent::report/@id='" +id +"' and parent::media/@type='" +format +"' and @type='sr']"));
+		return subReports;
 	}
 	
 	@SuppressWarnings("unchecked")

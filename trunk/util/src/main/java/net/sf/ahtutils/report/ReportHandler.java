@@ -40,6 +40,7 @@ import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import net.sf.jasperreports.engine.query.JRXPathQueryExecuterFactory;
 import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 import org.apache.commons.jxpath.JXPathContext;
 import org.slf4j.Logger;
@@ -156,16 +157,17 @@ public class ReportHandler {
 			e1.printStackTrace();
 		}
 		String reportDir = (String)JXPathContext.newContext(config).getValue("report[@id='"+ id +"']/@dir");
-		String location = reportDir +"/" +format +"/mr" +master.getName() +".jrxml";
-		JasperDesign design;
+		String location = "jrxml/" +reportDir +"/" +format +"/mr" +master.getName() +".jrxml";
+		JasperDesign design = null;
 		try
 		{
-			design = (JasperDesign)JRLoader.loadObject(mrl.searchIs(location));
+			design = (JasperDesign)JRXmlLoader.load(mrl.searchIs(location));
 		} catch (FileNotFoundException e) {
 			throw new ReportException("Requested report design jrxml file for report " +id +" could not be found at " +location +"!");
 		} catch (JRException e) {
 			throw new ReportException("Internal JasperReports error when trying to load requested report design jrxml file for report " +id +": " +e.getMessage());
 		}
+		logger.info("lodaded report");
 		return design;
 	}
 	
@@ -209,7 +211,7 @@ public class ReportHandler {
 				{
 					BufferedImage image = null;
 					try {
-						String imgLocation = reportRoot +"/resources/" +res.getType() +"/" +res.getValue().getValue();
+						String imgLocation = "/resources/" +res.getType() +"/" +res.getValue().getValue();
 						logger.info("Including image resource: " +imgLocation);
 						image = ImageIO.read(mrl.searchIs(imgLocation));} 
 					catch (FileNotFoundException e) {logger.error(e.getMessage());}
