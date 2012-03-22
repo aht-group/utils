@@ -18,6 +18,13 @@
     </properties>
 
 	<dependencies>
+	<dependency>
+         <!--Sun istack problem   -->  
+        <groupId>com.sun.xml.ws</groupId>
+        <artifactId>policy</artifactId>
+        <version>2.2</version>
+         <scope>provided</scope>
+      </dependency> 
 		<dependency>
             <groupId>org.jboss.arquillian</groupId>
             <artifactId>arquillian-junit</artifactId>
