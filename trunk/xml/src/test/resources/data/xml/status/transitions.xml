@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<s:transitions xmlns:s="http://ahtutils.aht-group.com/status">
+    <s:status code="myCode" group="myGroup" dscr="myDescription" visible="true"/>
+    <s:status code="myCode" group="myGroup" dscr="myDescription" visible="true"/>
+</s:transitions>
