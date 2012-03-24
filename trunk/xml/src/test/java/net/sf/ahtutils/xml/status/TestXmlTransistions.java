@@ -24,14 +24,14 @@ public class TestXmlTransistions extends AbstractXmlStatusTest
     @Test
     public void testXml() throws FileNotFoundException
     {
-    	Transitions actual = create(true);
-    	Transitions expected = (Transitions)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Transitions.class);
+    	Transistions actual = create(true);
+    	Transistions expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Transistions.class);
     	assertJaxbEquals(expected, actual);
     }
     
-    public static Transitions create(boolean withChilds)
+    public static Transistions create(boolean withChilds)
     {
-    	Transitions xml = new Transitions();
+    	Transistions xml = new Transistions();
     	
     	if(withChilds)
     	{

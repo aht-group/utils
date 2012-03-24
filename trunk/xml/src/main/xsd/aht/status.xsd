@@ -5,7 +5,7 @@
     <xsd:element name="status">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="s:transitions" maxOccurs="1"/>
+                <xsd:element ref="s:transistions" maxOccurs="1"/>
                 <xsd:element ref="s:langs" maxOccurs="1"/>
                 <xsd:element ref="s:descriptions" maxOccurs="1"/>
                 <xsd:element ref="s:lang" maxOccurs="unbounded"/>
@@ -47,7 +47,7 @@
             </xsd:simpleContent>
         </xsd:complexType>
     </xsd:element>
-    <xsd:element name="transitions">
+    <xsd:element name="transistions">
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element ref="s:status" maxOccurs="unbounded"/>

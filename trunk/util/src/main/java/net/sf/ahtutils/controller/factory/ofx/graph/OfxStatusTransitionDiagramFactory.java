@@ -71,9 +71,9 @@ public class OfxStatusTransitionDiagramFactory
 	{
 		for(Status status : mapStatus.values())
 		{
-			if(status.isSetTransitions())
+			if(status.isSetTransistions())
 			{
-				for(Status s : status.getTransitions().getStatus())
+				for(Status s : status.getTransistions().getStatus())
 				{
 					Node src = mapNodes.get(status.getCode());
 					Node dst = mapNodes.get(s.getCode());
