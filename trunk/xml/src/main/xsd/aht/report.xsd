@@ -8,6 +8,8 @@
 		            <xsd:element ref="r:report" maxOccurs="unbounded"/>
 				</xsd:sequence>
 				<xsd:attribute name="dir" type="xsd:string"/>
+				<xsd:attribute name="resources" type="xsd:string"/>
+				<xsd:attribute name="templates" type="xsd:string"/>
 		</xsd:complexType>    
     </xsd:element>
     <xsd:element name="report">

@@ -33,6 +33,8 @@ public class TestReports extends AbstractXmlReportTest
     {
     	Reports reports = new Reports();
     	reports.setDir("testDir");
+    	reports.setResources("reports.ahtutils-util/resources.xml");
+    	reports.setTemplates("reports.ahtutils-util/templates.xml");
     	reports.getReport().add(TestReport.create());
     	return reports;
     }
