@@ -230,6 +230,7 @@ public class ReportHandler {
 	 * Compile a JasperDesign to a JasperReport
 	 * @throws ReportException
 	 */
+	@Deprecated
 	public JasperReport getCompiledReport(JasperDesign jasperDesign) throws ReportException
 	{
 		JasperReport report;
@@ -237,6 +238,36 @@ public class ReportHandler {
 			report = JasperCompileManager.compileReport(jasperDesign);
 		} catch (JRException e) {
 			throw new ReportException("Internal JasperReports error when compiling JasperDesign to JasperReport: " +e.getMessage());
+		}
+		return report;
+	}
+	
+	/**
+	 * Compile a JasperDesign to a JasperReport
+	 * @throws ReportException
+	 */
+	public JasperReport getCompiledReport(String reportId, String format) throws ReportException
+	{
+		Jr master = null;
+		try {
+			master = ReportXpath.getMr(reports, reportId, format);
+		} catch (ExlpXpathNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (ExlpXpathNotUniqueException e1) {
+			e1.printStackTrace();
+		}
+		String reportDir = (String)JXPathContext.newContext(reports).getValue("report[@id='"+ reportId +"']/@dir");
+		String location = "jasper/" +reportDir +"/" +format +"/mr" +master.getName() +".jasper";
+		JasperReport report = null;
+		try
+		{
+			report = (JasperReport)JRLoader.loadObject(mrl.searchIs(location));
+		} catch (FileNotFoundException e) {
+			logger.warn("Requested compiled report jasper file for report " +reportId +" could not be found at " +location +"! - Trying to recompile it from jrxml.");
+			JasperDesign design = getMasterReport(reportId, format);
+			report = (JasperReport) getCompiledReport(design);
+		} catch (JRException e) {
+			throw new ReportException("Internal JasperReports error when trying to get requested compiled report design for report " +reportId +": " +e.getMessage());
 		}
 		return report;
 	}
@@ -383,8 +414,9 @@ public class ReportHandler {
 	 */
 	public ByteArrayOutputStream create(String reportId, Document doc, Format format, Locale locale) throws ReportException
 	{
-		JasperDesign masterDesign = getMasterReport(reportId, format.name());
-		JasperReport masterReport = getCompiledReport(masterDesign);
+	//	JasperDesign masterDesign = getMasterReport(reportId, format.name());
+	//	JasperReport masterReport = getCompiledReport(masterDesign);
+		JasperReport masterReport = getCompiledReport(reportId, format.name());
 		Map<String, Object> reportParameterMap = getParameterMap(doc, locale);
 		reportParameterMap.putAll(getSubreportsMap(reportId, format.name()));
 		JasperPrint print = getJasperPrint(masterReport, reportParameterMap);
