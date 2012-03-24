@@ -50,7 +50,7 @@ import org.w3c.dom.Document;
 public class ReportHandler {
 	
 	final static Logger logger = LoggerFactory.getLogger(ReportHandler.class);
-	protected Reports config;
+	protected Reports reports;
 	protected Resources resources;
 	protected Templates templates;
 	protected String reportRoot;
@@ -71,14 +71,14 @@ public class ReportHandler {
 		configFileLocation = reportFile.substring(0, reportFile.lastIndexOf("/")) +"/";
 		
 		try {
-			config = JaxbUtil.loadJAXB(reportFile, Reports.class);
-			JaxbUtil.debug(Reports.class, config);
+			reports = JaxbUtil.loadJAXB(reportFile, Reports.class);
+			JaxbUtil.debug(Reports.class, reports);
 		} catch (FileNotFoundException e) {
 			throw new ReportException("Problem loading configuration file: " +e.getMessage());
 		}
 		
 		//Reading reportRoot directory from configuration file and add all directories covered by the conventions of the AHTUtils reporting system
-		reportRoot = config.getDir() +"/";
+		reportRoot = reports.getDir() +"/";
 		mrl.addPath(reportRoot);
 		mrl.addPath(configFileLocation);
 		mrl.addPath("src/main/resource/" +reportRoot);
@@ -90,7 +90,7 @@ public class ReportHandler {
 		}
 			
 		
-		logger.info("Read report configuration from " +configFileLocation +" containing " +config.getReport().size() +" reports.");
+		logger.info("Read report configuration from " +configFileLocation +" containing " +reports.getReport().size() +" reports.");
 		
 		//Reading resources file from reportRoot if available
 		try {
@@ -108,7 +108,58 @@ public class ReportHandler {
 			logger.warn("Problem loading templates.xml from " +reportRoot +" - no templates needed?");
 		}
 	}
+	
+	/**
+	 * This class contains methods to work with the elements configured in reports.xml, resources.xml and templates.xml - Additional functionality needs to be implemented in dedicated classes (e.g. working with specific data XML files, report)
+	 * @param reports Reports object
+	 * @param reports Resources object
+	 * @param reports Templates object
+	 * @throws ReportException
+	 */
+	public ReportHandler(Reports reports, Resources resources,Templates templates) throws ReportException
+	{
+		logger.info("Initializing report handling system with given configuration objects");
+		this.reports   = reports;
+		this.resources = resources;
+		this.templates = templates;
+	}
 
+	/**
+	 * This class contains methods to work with the elements configured in reports.xml, resources.xml and templates.xml - Additional functionality needs to be implemented in dedicated classes (e.g. working with specific data XML files, report)
+	 * @param reportFile Name of the configuration file
+	 * @throws ReportException
+	 */
+	public ReportHandler(Reports reports) throws ReportException
+	{
+		
+		logger.info("Initializing report handling system with given reports object");
+		mrl = new MultiResourceLoader();
+		
+		this.reports = reports;
+		
+		//Reading reportRoot directory from configuration file and add all directories covered by the conventions of the AHTUtils reporting system
+		reportRoot = reports.getDir() +"/";
+		mrl.addPath(reportRoot);
+		mrl.addPath("src/main/resource/" +reportRoot);
+		mrl.addPath("src/main/" +reportRoot);
+		
+		//Reading resources file from reportRoot if available
+		try {
+			resources = (Resources)JaxbUtil.loadJAXB(reports.getResources(), Resources.class);
+			logger.info("Read resources configuration from " +reports.getResources() +"resources.xml");
+		} catch (FileNotFoundException e) {
+			logger.warn("Problem loading resources.xml from " +reports.getResources() +" - no images etc. needed?");
+		}
+		
+		//Reading resources file from reportRoot if available
+		try {
+			templates = (Templates)JaxbUtil.loadJAXB(reports.getTemplates(), Templates.class);
+			logger.info("Read templates definitions from " +reports.getTemplates() +"templates.xml");
+		} catch (FileNotFoundException e) {
+			logger.warn("Problem loading templates.xml from " +reports.getTemplates() +" - no templates needed?");
+		}
+	}
+	
 	/**
 	 * Validating the report resources increases performance hence no compilation logic is executed without the needed files
 	 * @throws ReportException
@@ -117,7 +168,7 @@ public class ReportHandler {
 	{
 		//Checking for report layout files
 		ArrayList<String> missingReports = new ArrayList<String>(); 
-		for (Report report : config.getReport())
+		for (Report report : reports.getReport())
 		{
 			for (Media media : report.getMedia())
 			{
@@ -148,15 +199,13 @@ public class ReportHandler {
 	{
 		Jr master = null;
 		try {
-			master = ReportXpath.getMr(config, id, format);
+			master = ReportXpath.getMr(reports, id, format);
 		} catch (ExlpXpathNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (ExlpXpathNotUniqueException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		String reportDir = (String)JXPathContext.newContext(config).getValue("report[@id='"+ id +"']/@dir");
+		String reportDir = (String)JXPathContext.newContext(reports).getValue("report[@id='"+ id +"']/@dir");
 		String location = "jrxml/" +reportDir +"/" +format +"/mr" +master.getName() +".jrxml";
 		JasperDesign design = null;
 		try
@@ -230,9 +279,9 @@ public class ReportHandler {
 	{	
 		Map<String,Object> mapReportParameter = new Hashtable<String,Object>();
 		
-		Report  report  = (Report)JXPathContext.newContext(config).getValue("report[id='" +reportId +"']");
-		ArrayList<Jr> reports = ReportXpath.getSubreports(config, reportId, format);
-		for (Jr jr : reports)
+		Report  report  = (Report)JXPathContext.newContext(reports).getValue("report[id='" +reportId +"']");
+		ArrayList<Jr> results = ReportXpath.getSubreports(reports, reportId, format);
+		for (Jr jr : results)
 		{
 					String location = report.getDir() +"/" +format +"/sr" +jr.getName() +".jrxml";
 					JasperDesign design;
