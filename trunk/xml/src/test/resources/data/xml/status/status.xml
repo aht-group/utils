@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <s:status xmlns:s="http://ahtutils.aht-group.com/status" code="myCode" group="myGroup" dscr="myDescription" visible="true">
-    <s:transitions/>
+    <s:transistions/>
     <s:langs/>
     <s:descriptions/>
     <s:lang version="1" key="myKey" translation="myTranslation"/>

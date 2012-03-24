@@ -18,7 +18,7 @@ public class TestXmlTransistions extends AbstractXmlStatusTest
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"transitions.xml");
+		fXml = new File(rootDir,"transistions.xml");
 	}
     
     @Test
