@@ -47,6 +47,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
+/**
+ * @author helgehemmer
+ *
+ */
 public class ReportHandler {
 	
 	final static Logger logger = LoggerFactory.getLogger(ReportHandler.class);
@@ -55,7 +59,9 @@ public class ReportHandler {
 	protected Templates templates;
 	protected String reportRoot;
 	protected String configFileLocation;
-	protected MultiResourceLoader mrl;
+	protected MultiResourceLoader mrl;	
+	
+	public enum Format {pdf, xls};
 	
 	
 	/**
@@ -145,16 +151,16 @@ public class ReportHandler {
 		
 		//Reading resources file from reportRoot if available
 		try {
-			resources = (Resources)JaxbUtil.loadJAXB(reports.getResources(), Resources.class);
-			logger.info("Read resources configuration from " +reports.getResources() +"resources.xml");
+			resources = (Resources)JaxbUtil.loadJAXB(mrl.searchIs(reports.getResources()), Resources.class);
+			logger.info("Read resources configuration from " +reports.getResources());
 		} catch (FileNotFoundException e) {
 			logger.warn("Problem loading resources.xml from " +reports.getResources() +" - no images etc. needed?");
 		}
 		
 		//Reading resources file from reportRoot if available
 		try {
-			templates = (Templates)JaxbUtil.loadJAXB(reports.getTemplates(), Templates.class);
-			logger.info("Read templates definitions from " +reports.getTemplates() +"templates.xml");
+			templates = (Templates)JaxbUtil.loadJAXB(mrl.searchIs(reports.getTemplates()), Templates.class);
+			logger.info("Read templates definitions from " +reports.getTemplates());
 		} catch (FileNotFoundException e) {
 			logger.warn("Problem loading templates.xml from " +reports.getTemplates() +" - no templates needed?");
 		}
@@ -365,4 +371,23 @@ public class ReportHandler {
 		}
 		return baos;
 	}	
+	
+	/**
+	 * Method encapsulating the classical JasperReports workflow of JasperDesign -> JasperReport -> JasperPrint -> PDF/XLS export
+	 * @param reportId identifier of the requested report
+	 * @param doc XML data object
+	 * @param format output format defined by Format enum (PDF or Excel XLS)
+	 * @param locale Locale to be used for report exporting
+	 * @return
+	 * @throws ReportException
+	 */
+	public ByteArrayOutputStream create(String reportId, Document doc, Format format, Locale locale) throws ReportException
+	{
+		JasperDesign masterDesign = getMasterReport(reportId, format.name());
+		JasperReport masterReport = getCompiledReport(masterDesign);
+		Map<String, Object> reportParameterMap = getParameterMap(doc, locale);
+		reportParameterMap.putAll(getSubreportsMap(reportId, format.name()));
+		JasperPrint print = getJasperPrint(masterReport, reportParameterMap);
+		return exportToPdf(print);
+	}
 }
