@@ -1,8 +1,8 @@
-package net.sf.ahtutils.controller.exception;
+package net.sf.ahtutils.exception.xml;
 
 import java.io.Serializable;
 
-public class AhtUtilsXmlStructureException extends RuntimeException implements Serializable
+public class AhtUtilsXmlStructureException extends Exception implements Serializable
 {
 	private static final long serialVersionUID = 1;
 
