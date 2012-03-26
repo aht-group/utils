@@ -85,7 +85,7 @@ public class ReportHandler {
 		
 		//Reading reportRoot directory from configuration file and add all directories covered by the conventions of the AHTUtils reporting system
 		reportRoot = reports.getDir() +"/";
-		mrl.addPath(reportRoot);
+		mrl.addPath(reports.getDir());
 		mrl.addPath(configFileLocation);
 		mrl.addPath("src/main/resource/" +reportRoot);
 		mrl.addPath("src/main/" +reportRoot);
@@ -145,7 +145,7 @@ public class ReportHandler {
 		
 		//Reading reportRoot directory from configuration file and add all directories covered by the conventions of the AHTUtils reporting system
 		reportRoot = reports.getDir() +"/";
-		mrl.addPath(reportRoot);
+		mrl.addPath(reports.getDir());
 		mrl.addPath("src/main/resource/" +reportRoot);
 		mrl.addPath("src/main/" +reportRoot);
 		
@@ -257,7 +257,7 @@ public class ReportHandler {
 			e1.printStackTrace();
 		}
 		String reportDir = (String)JXPathContext.newContext(reports).getValue("report[@id='"+ reportId +"']/@dir");
-		String location = "jasper/" +reportDir +"/" +format +"/mr" +master.getName() +".jasper";
+		String location = "jaspers/" +reportDir +"/" +format +"/ltr/mr" +master.getName() +".jasper";
 		JasperReport report = null;
 		try
 		{
@@ -320,10 +320,10 @@ public class ReportHandler {
 		ArrayList<Jr> results = ReportXpath.getSubreports(reports, reportId, format);
 		for (Jr jr : results)
 		{
-					String location = report.getDir() +"/" +format +"/sr" +jr.getName() +".jrxml";
+					String location = "jrxml/" +report.getDir() +"/" +format +"/sr" +jr.getName() +".jrxml";
 					JasperDesign design;
 					try {
-						design = (JasperDesign)JRLoader.loadObject(mrl.searchIs(location));
+						design = (JasperDesign)JRXmlLoader.load(mrl.searchIs(location));
 					} catch (FileNotFoundException e) {
 						throw new ReportException("Requested report design jrxml file for subreport " +jr.getName() +" of report " +reportId +" could not be found at " +location +"!");
 					} catch (JRException e) {
