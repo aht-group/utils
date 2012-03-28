@@ -10,33 +10,32 @@ public class MavenArtifactResolver
                (System.getProperty("user.home") + File.separatorChar +
                ".m2" + File.separatorChar + "repository");
  
-   public static File resolve(final String groupId, final String artifactId,
-      final String version)
+   public static File resolve(final String groupId, final String artifactId, final String version, final String suffix)
    {
-      return resolve(groupId, artifactId, version, null);
+      return resolve(groupId, artifactId, version, null, suffix);
    }
  
-   public static File resolve(final String groupId, final String artifactId,
-      final String version, final String classifier)
+   public static File resolve(final String groupId, final String artifactId, final String version, final String classifier, final String suffix)
    {
       return new File(LOCAL_MAVEN_REPO + File.separatorChar +
             groupId.replace(".", File.separator) + File.separatorChar +
             artifactId + File.separatorChar +
             version + File.separatorChar +
             artifactId + "-" + version +
-            (classifier != null ? ("-" + classifier) : "") + ".jar");
+            (classifier != null ? ("-" + classifier) : "") + "."+suffix);
    }
  
-   public static File resolve(final String qualifiedArtifactId)
+   public static File resolve(final String qualifiedArtifactId){return resolve(qualifiedArtifactId, "jar");}
+   public static File resolve(final String qualifiedArtifactId, String suffix)
    {
       String[] segments = qualifiedArtifactId.split(":");
       if (segments.length == 3)
       {
-         return resolve(segments[0], segments[1], segments[2]);
+         return resolve(segments[0], segments[1], segments[2],suffix);
       }
       else if (segments.length == 4)
       {
-         return resolve(segments[0], segments[1], segments[2], segments[3]);
+         return resolve(segments[0], segments[1], segments[2], segments[3],suffix);
       }
       throw new IllegalArgumentException("Invalid qualified artifactId syntax: " +
          qualifiedArtifactId);
