@@ -39,6 +39,7 @@ public class TestXmlMail extends AbstractXmlMailTest
     	xml.setDir("myDir");
     	xml.setExample("myExample");
     	xml.setTest(true);
+    	xml.setCode("myCode");
     	
     	if(withChilds)
     	{

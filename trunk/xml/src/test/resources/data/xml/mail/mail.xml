@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<m:mail xmlns:m="http://ahtutils.aht-group.com/mail" xmlns:io="http://exlp.sf.net/io" id="myId" msgId="myMsgID" dir="myDir" test="true">
+<m:mail xmlns:m="http://ahtutils.aht-group.com/mail" xmlns:io="http://exlp.sf.net/io" id="myId" code="myCode" msgId="myMsgID" dir="myDir" test="true">
     <example>myExample</example>
     <header>
         <subject>mySubject</subject>
