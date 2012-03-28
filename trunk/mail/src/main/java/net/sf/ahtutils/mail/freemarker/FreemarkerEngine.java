@@ -48,7 +48,6 @@ public class FreemarkerEngine
 	{
 		try
 		{
-			
 			initTemplate(fcb.build(id, lang, type));
 		}
 		catch (IOException e)

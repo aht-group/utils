@@ -81,13 +81,18 @@
 				<artifactId>ahtutils-interfaces</artifactId>
 				<version>0.2.2-SNAPSHOT</version>
 			</dependency>
-			
+			<dependency>
+				<groupId>net.sf.ahtutils</groupId>
+				<artifactId>ahtutils-test</artifactId>
+				<version>0.2.2-SNAPSHOT</version>
+			</dependency>
 	        <dependency>
 	        	<groupId>net.sf.ahtutils</groupId>
 	        	<artifactId>ahtutils-xml</artifactId>
 				<version>0.2.2-SNAPSHOT</version>
 	        	<classifier>tests</classifier>
 	        </dependency>
+			
 			<dependency>
     	   		<groupId>commons-jxpath</groupId>
     	   		<artifactId>commons-jxpath</artifactId>

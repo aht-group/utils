@@ -227,6 +227,11 @@
 			<artifactId>poi</artifactId>
 			<version>3.8-beta5</version>
 		</dependency>
+    	<dependency>
+    		<groupId>net.sf.ahtutils</groupId>
+    		<artifactId>ahtutils-test</artifactId>
+    		<scope>test</scope>
+    	</dependency>
 	</dependencies>
    
 </project>
