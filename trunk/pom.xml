@@ -19,6 +19,7 @@
 	<modules>
 		<module>ejb</module>
 		<module>util</module>
+		<module>mail</module>
 		<module>xml</module>
 		<module>interfaces</module>
 		<module>jsf</module>
