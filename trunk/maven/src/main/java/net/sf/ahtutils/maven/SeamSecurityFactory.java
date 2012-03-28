@@ -4,10 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
 import net.sf.ahtutils.controller.factory.java.security.JavaSecuritySeamPagesFactory;
 import net.sf.ahtutils.controller.factory.java.security.JavaSecurityViewIdentifierFactory;
 import net.sf.ahtutils.controller.factory.java.security.JavaSecurityViewRestrictorFactory;
+import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.SystemUtils;
@@ -132,7 +132,7 @@ public class SeamSecurityFactory extends AbstractMojo
 			idFactory.processViews(viewsXml);
 		}
     	catch (FileNotFoundException e) {throw new MojoExecutionException(e.getMessage());}
-    	catch (AhtUtilsConfigurationException e) {throw new MojoExecutionException(e.getMessage());}
+    	catch (UtilsConfigurationException e) {throw new MojoExecutionException(e.getMessage());}
     }
     
     private void executeRestrictorFactory(File fTmpDir) throws MojoExecutionException
@@ -156,7 +156,7 @@ public class SeamSecurityFactory extends AbstractMojo
 			restrictorFactory.processViews(viewsXml);
 		}
     	catch (FileNotFoundException e) {throw new MojoExecutionException(e.getMessage());}
-    	catch (AhtUtilsConfigurationException e) {throw new MojoExecutionException(e.getMessage());}
+    	catch (UtilsConfigurationException e) {throw new MojoExecutionException(e.getMessage());}
     }
     
     private void executeSeamPages(File fTmpDir) throws MojoExecutionException
@@ -169,6 +169,6 @@ public class SeamSecurityFactory extends AbstractMojo
     		seamPagesFactory.processViews(viewsXml);
 		}
     	catch (FileNotFoundException e) {throw new MojoExecutionException(e.getMessage());}
-    	catch (AhtUtilsConfigurationException e) {throw new MojoExecutionException(e.getMessage());}
+    	catch (UtilsConfigurationException e) {throw new MojoExecutionException(e.getMessage());}
     }
 }

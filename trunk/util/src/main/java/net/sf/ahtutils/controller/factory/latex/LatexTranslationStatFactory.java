@@ -7,9 +7,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
 import net.sf.ahtutils.controller.factory.ofx.status.OfxLangStatisticTableFactory;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.model.pojo.status.TranslationStatistic;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Langs;
@@ -52,7 +52,7 @@ public class LatexTranslationStatFactory
 		this.langs=langs;
 	}
 	
-	public void langStatistic(String texName, String searchDir) throws AhtUtilsConfigurationException
+	public void langStatistic(String texName, String searchDir) throws UtilsConfigurationException
 	{
 		try
 		{
@@ -79,8 +79,8 @@ public class LatexTranslationStatFactory
 	    	OfxLangStatisticTableFactory fOfx = new OfxLangStatisticTableFactory("de", translations);
 	    	fOfx.saveDescription(f, stats, headerKeys);	
 		}
-		catch (ExlpConfigurationException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
-		catch (IOException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
+		catch (ExlpConfigurationException e) {throw new UtilsConfigurationException(e.getMessage());}
+		catch (IOException e) {throw new UtilsConfigurationException(e.getMessage());}
 	}
 	
 	private TranslationStatistic process(File f) throws UtilsNotFoundException

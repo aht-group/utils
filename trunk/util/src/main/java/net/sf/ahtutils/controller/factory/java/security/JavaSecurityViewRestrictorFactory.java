@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
+import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.View;
 import net.sf.exlp.util.exception.ExlpConfigurationException;
@@ -36,10 +36,10 @@ public class JavaSecurityViewRestrictorFactory extends AbstractJavaSecurityFileF
 	}
 
 	@Override
-	protected void processCategories(List<Category> lCategory) throws AhtUtilsConfigurationException
+	protected void processCategories(List<Category> lCategory) throws UtilsConfigurationException
 	{
 		try {DirChecker.checkParentIsAnDir(fJavaRestrictor);}
-		catch (ExlpConfigurationException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
+		catch (ExlpConfigurationException e) {throw new UtilsConfigurationException(e.getMessage());}
 		
 		freemarkerNodeModel.put("packageName", classRestrictor.substring(0,classRestrictor.lastIndexOf(".")));
 		freemarkerNodeModel.put("className", classRestrictor.substring(classRestrictor.lastIndexOf(".")+1,classRestrictor.length()));

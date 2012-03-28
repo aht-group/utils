@@ -1,12 +1,12 @@
 package net.sf.ahtutils.db.ejb.security;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
 import net.sf.ahtutils.controller.interfaces.UtilsSecurityFacade;
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityRole;
@@ -41,7 +41,7 @@ public class SecurityInitRoles <L extends UtilsLang,
         super(cL,cD,cC,cR,cV,cU,cA,fAcl);
 	}
 	
-	public void iuRoles(Access access) throws AhtUtilsConfigurationException
+	public void iuRoles(Access access) throws UtilsConfigurationException
 	{
 		updateRole = AhtDbEjbUpdater.createFactory(cR);
 		updateRole.dbEjbs(fSecurity.all(cR));
@@ -52,7 +52,7 @@ public class SecurityInitRoles <L extends UtilsLang,
 		logger.trace("iuRoles finished");
 	}
 	
-	@Override protected void iuChilds(C aclCategory, Category category) throws AhtUtilsConfigurationException
+	@Override protected void iuChilds(C aclCategory, Category category) throws UtilsConfigurationException
 	{
 		if(category.isSetRoles() && category.getRoles().isSetRole())
 		{
@@ -64,7 +64,7 @@ public class SecurityInitRoles <L extends UtilsLang,
 		}
 	}
 	
-	private void iuRole(C category, Role role) throws AhtUtilsConfigurationException
+	private void iuRole(C category, Role role) throws UtilsConfigurationException
 	{
 		R aclRole;
 		try
@@ -82,9 +82,9 @@ public class SecurityInitRoles <L extends UtilsLang,
 				aclRole.setCode(role.getCode());
 				aclRole = fSecurity.persist(aclRole);				
 			}
-			catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
-			catch (IllegalAccessException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
-			catch (UtilsContraintViolationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
+			catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+			catch (IllegalAccessException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+			catch (UtilsContraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
 		}
 		
 		try
@@ -102,7 +102,7 @@ public class SecurityInitRoles <L extends UtilsLang,
 		catch (InstantiationException e) {logger.error("",e);}
 		catch (IllegalAccessException e) {logger.error("",e);}
 		catch (UtilsIntegrityException e) {logger.error("",e);}
-		catch (UtilsNotFoundException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
+		catch (UtilsNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
 		catch (UtilsLockingException e) {logger.error("",e);}
 	}
 	

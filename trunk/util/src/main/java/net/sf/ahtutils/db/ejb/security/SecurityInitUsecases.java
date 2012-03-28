@@ -1,12 +1,12 @@
 package net.sf.ahtutils.db.ejb.security;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
 import net.sf.ahtutils.controller.interfaces.UtilsSecurityFacade;
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityRole;
@@ -39,7 +39,7 @@ public class SecurityInitUsecases <L extends UtilsLang,
         super(cL,cD,cC,cR,cV,cU,cA,fAcl);
 	}
 	
-	public void iuUsecases(Access access) throws AhtUtilsConfigurationException
+	public void iuUsecases(Access access) throws UtilsConfigurationException
 	{
 		updateUsecases = AhtDbEjbUpdater.createFactory(cU);
 		updateUsecases.dbEjbs(fSecurity.all(cU));
@@ -50,7 +50,7 @@ public class SecurityInitUsecases <L extends UtilsLang,
 		logger.trace("iuRoles finished");
 	}
 	
-	@Override protected void iuChilds(C aclCategory, Category category) throws AhtUtilsConfigurationException
+	@Override protected void iuChilds(C aclCategory, Category category) throws UtilsConfigurationException
 	{
 		if(category.isSetUsecases() && category.getUsecases().isSetUsecase())
 		{
@@ -62,7 +62,7 @@ public class SecurityInitUsecases <L extends UtilsLang,
 		}
 	}
 	
-	private void iuUsecase(C category, Usecase usecase) throws AhtUtilsConfigurationException
+	private void iuUsecase(C category, Usecase usecase) throws UtilsConfigurationException
 	{
 		U ebj;
 		try
@@ -80,9 +80,9 @@ public class SecurityInitUsecases <L extends UtilsLang,
 				ebj.setCode(usecase.getCode());
 				ebj = fSecurity.persist(ebj);
 			}
-			catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
-			catch (IllegalAccessException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
-			catch (UtilsContraintViolationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}	
+			catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+			catch (IllegalAccessException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+			catch (UtilsContraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
 		}
 		
 		try
@@ -99,7 +99,7 @@ public class SecurityInitUsecases <L extends UtilsLang,
 		catch (InstantiationException e) {logger.error("",e);}
 		catch (IllegalAccessException e) {logger.error("",e);}
 		catch (UtilsIntegrityException e) {logger.error("",e);}
-		catch (UtilsNotFoundException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
+		catch (UtilsNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
 		catch (UtilsLockingException e) {logger.error("",e);}
 	}
 }

@@ -3,8 +3,8 @@ package net.sf.ahtutils.controller.factory.latex;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
 import net.sf.ahtutils.controller.factory.ofx.status.OfxStatusTableFactory;
+import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.status.Translations;
 import net.sf.exlp.util.xml.JaxbUtil;
@@ -31,7 +31,7 @@ public class LatexStatusFactory
 		this.langs=langs;
 	}
 	
-	public void statusTable(String statusInput, String texName) throws AhtUtilsConfigurationException
+	public void statusTable(String statusInput, String texName) throws UtilsConfigurationException
 	{
 		try
 		{

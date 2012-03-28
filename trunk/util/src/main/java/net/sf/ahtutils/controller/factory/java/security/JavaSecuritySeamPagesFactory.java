@@ -8,7 +8,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
+import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.View;
 
@@ -40,7 +40,7 @@ public class JavaSecuritySeamPagesFactory extends AbstractJavaSecurityFileFactor
 	}
 
 	@Override
-	protected void processCategories(List<Category> lCategory) throws AhtUtilsConfigurationException
+	protected void processCategories(List<Category> lCategory) throws UtilsConfigurationException
 	{
 		for(Category category : lCategory)
 		{
@@ -48,10 +48,10 @@ public class JavaSecuritySeamPagesFactory extends AbstractJavaSecurityFileFactor
 			{
 				for(View view : category.getViews().getView())
 				{
-					if(!view.isSetNavigation()){throw new AhtUtilsConfigurationException("No <navigation> defined for view@code="+view.getCode());}
-					if(!view.getNavigation().isSetPackage()){throw new AhtUtilsConfigurationException("No <navigation@package> defined for view@code="+view.getCode());}
-					if(!view.getNavigation().isSetViewPattern()){throw new AhtUtilsConfigurationException("No <navigation.viewPattern> defined for view@code="+view.getCode());}
-					if(!view.getNavigation().isSetUrlMapping()){throw new AhtUtilsConfigurationException("No <navigation.urlMapping> defined for view@code="+view.getCode());}
+					if(!view.isSetNavigation()){throw new UtilsConfigurationException("No <navigation> defined for view@code="+view.getCode());}
+					if(!view.getNavigation().isSetPackage()){throw new UtilsConfigurationException("No <navigation@package> defined for view@code="+view.getCode());}
+					if(!view.getNavigation().isSetViewPattern()){throw new UtilsConfigurationException("No <navigation.viewPattern> defined for view@code="+view.getCode());}
+					if(!view.getNavigation().isSetUrlMapping()){throw new UtilsConfigurationException("No <navigation.urlMapping> defined for view@code="+view.getCode());}
 					
 					mCategoryPackage.put(view.getCode(), category.getCode());
 					getViewForPackage(view.getNavigation().getPackage()).add(view);
@@ -67,15 +67,15 @@ public class JavaSecuritySeamPagesFactory extends AbstractJavaSecurityFileFactor
 		catch (TemplateException e) {e.printStackTrace();}
 */	}
 	
-	private void processPackage() throws AhtUtilsConfigurationException
+	private void processPackage() throws UtilsConfigurationException
 	{
 		for(String key : mViews.keySet())
 		{
 			File fPackage = new File(srcDir,mViews.get(key).get(0).getNavigation().getPackage().replaceAll("\\.", "/"));
-			if(!fPackage.exists() || !fPackage.isDirectory()){{throw new AhtUtilsConfigurationException("Package directory "+fPackage.getAbsolutePath()+" does not exist");}}
+			if(!fPackage.exists() || !fPackage.isDirectory()){{throw new UtilsConfigurationException("Package directory "+fPackage.getAbsolutePath()+" does not exist");}}
 			try {createPages(fPackage,mViews.get(key));}
-			catch (IOException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
-			catch (TemplateException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
+			catch (IOException e) {throw new UtilsConfigurationException(e.getMessage());}
+			catch (TemplateException e) {throw new UtilsConfigurationException(e.getMessage());}
 		}
 	}
 	

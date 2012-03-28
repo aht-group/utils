@@ -7,7 +7,7 @@ import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsDeveloperException;
+import net.sf.ahtutils.exception.processing.UtilsDeveloperException;
 import net.sf.ahtutils.xml.mail.Mail;
 import net.sf.ahtutils.xml.mail.Mails;
 import net.sf.ahtutils.xml.xpath.MailXpath;
@@ -90,7 +90,7 @@ public class FreemarkerEngine
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public String process(Document jdom) throws SAXException, IOException, ParserConfigurationException, TemplateException
 	{
-		if(ftl==null){throw new AhtUtilsDeveloperException("You forgot to init the template");}
+		if(ftl==null){throw new UtilsDeveloperException("You forgot to init the template");}
 		jdom=JDomUtil.unsetNameSpace(jdom);
 		 
 //		JDomUtil.debug(jdom);

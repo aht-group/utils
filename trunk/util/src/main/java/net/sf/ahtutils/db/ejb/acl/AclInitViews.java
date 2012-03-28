@@ -3,7 +3,6 @@ package net.sf.ahtutils.db.ejb.acl;
 import java.io.FileNotFoundException;
 import java.util.Map;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
 import net.sf.ahtutils.controller.factory.ejb.status.EjbLangFactory;
 import net.sf.ahtutils.controller.interfaces.AhtAclFacade;
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
@@ -11,6 +10,7 @@ import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclView;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
@@ -73,7 +73,7 @@ public class AclInitViews <S extends UtilsStatus<L>,
 		ejbLangFactory = EjbLangFactory.createFactory(langClass);
 	}
 	
-	public void iuUsecases(Access access) throws FileNotFoundException, AhtUtilsConfigurationException
+	public void iuUsecases(Access access) throws FileNotFoundException, UtilsConfigurationException
 	{
 		logger.debug("i/u "+Category.class.getSimpleName()+" with "+access.getCategory().size()+" categories");
 		
@@ -124,9 +124,9 @@ public class AclInitViews <S extends UtilsStatus<L>,
 					usecaseCategory.setCode(category.getCode());
 					usecaseCategory = fAcl.persist(usecaseCategory);
 				}
-				catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
-				catch (IllegalAccessException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
-				catch (UtilsContraintViolationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}	
+				catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+				catch (IllegalAccessException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+				catch (UtilsContraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
 			}
 			
 			try
@@ -157,7 +157,7 @@ public class AclInitViews <S extends UtilsStatus<L>,
 		logger.trace("initUpdateUsecaseCategories finished");
 	}
 	
-	public void initUpdateUsecase(CU usecaseCategory, View usecase) throws AhtUtilsConfigurationException
+	public void initUpdateUsecase(CU usecaseCategory, View usecase) throws UtilsConfigurationException
 	{
 		U aclUsecase;
 		try
@@ -193,9 +193,9 @@ public class AclInitViews <S extends UtilsStatus<L>,
 				aclUsecase.setCode(usecase.getCode());
 				aclUsecase = fAcl.persist(aclUsecase);
 			}
-			catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
-			catch (IllegalAccessException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
-			catch (UtilsContraintViolationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}	
+			catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+			catch (IllegalAccessException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+			catch (UtilsContraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
 		}
 		
 		try

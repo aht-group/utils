@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
+import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.dbseed.Db;
 import net.sf.exlp.util.io.compression.JarExtractor;
 import net.sf.exlp.util.io.compression.JarStream;
@@ -35,14 +35,14 @@ public abstract class AbstractAhtDbXmlExtract extends AhtDbXmlSeedUtil
 		return null;//templateDir+"/"+config.getString("db/extract/file[@id='"+extractId+"']/@template");
 	}
 	
-	protected void addExtractId(String id) throws AhtUtilsConfigurationException
+	protected void addExtractId(String id) throws UtilsConfigurationException
 	{
 		logger.debug(id+" "+getTemplate(id)+" -> "+getExtractName(id));
 		if(extractedIds.contains(id)){logger.warn("extractedIds already containes "+id);}
 		extractedIds.add(id);
 	}
 	
-	public void ideUpdate() throws AhtUtilsConfigurationException
+	public void ideUpdate() throws UtilsConfigurationException
 	{
 		Iterator<String> iterator = extractedIds.iterator();
 		while(iterator.hasNext())
@@ -51,7 +51,7 @@ public abstract class AbstractAhtDbXmlExtract extends AhtDbXmlSeedUtil
 		}
 	}
 	
-	public void singleJarExtract(String extractId) throws AhtUtilsConfigurationException
+	public void singleJarExtract(String extractId) throws UtilsConfigurationException
 	{
 		String from = getExtractName(extractId);
 		logger.warn("NYI: singleJarExtract");

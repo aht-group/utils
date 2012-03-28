@@ -1,12 +1,12 @@
 package net.sf.ahtutils.db.ejb.security;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
 import net.sf.ahtutils.controller.interfaces.UtilsSecurityFacade;
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityRole;
@@ -41,7 +41,7 @@ public class SecurityInitViews <L extends UtilsLang,
         super(cL,cD,cC,cR,cV,cU,cA,fAcl);
 	}
 	
-	public void iuViews(Access access) throws AhtUtilsConfigurationException
+	public void iuViews(Access access) throws UtilsConfigurationException
 	{
 		updateView = AhtDbEjbUpdater.createFactory(cV);
 		updateAction = AhtDbEjbUpdater.createFactory(cA);
@@ -56,7 +56,7 @@ public class SecurityInitViews <L extends UtilsLang,
 		logger.trace("iuRoles finished");
 	}
 	
-	@Override protected void iuChilds(C aclCategory, Category category) throws AhtUtilsConfigurationException
+	@Override protected void iuChilds(C aclCategory, Category category) throws UtilsConfigurationException
 	{
 		if(category.isSetViews() && category.getViews().isSetView())
 		{
@@ -68,7 +68,7 @@ public class SecurityInitViews <L extends UtilsLang,
 		}
 	}
 	
-	private void iuView(C category, View view) throws AhtUtilsConfigurationException
+	private void iuView(C category, View view) throws UtilsConfigurationException
 	{
 		V ebj;
 		try
@@ -86,9 +86,9 @@ public class SecurityInitViews <L extends UtilsLang,
 				ebj.setCode(view.getCode());
 				ebj = fSecurity.persist(ebj);
 			}
-			catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
-			catch (IllegalAccessException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
-			catch (UtilsContraintViolationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}	
+			catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+			catch (IllegalAccessException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+			catch (UtilsContraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
 		}
 		
 		try
@@ -114,7 +114,7 @@ public class SecurityInitViews <L extends UtilsLang,
 		catch (UtilsLockingException e) {logger.error("",e);}
 	}
 	
-	private void iuAction(V ejbView, Action action) throws AhtUtilsConfigurationException
+	private void iuAction(V ejbView, Action action) throws UtilsConfigurationException
 	{
 		A ebj;
 		try
@@ -132,9 +132,9 @@ public class SecurityInitViews <L extends UtilsLang,
 				ebj.setCode(action.getCode());
 				ebj = fSecurity.persist(ebj);
 			}
-			catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
-			catch (IllegalAccessException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
-			catch (UtilsContraintViolationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}	
+			catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+			catch (IllegalAccessException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+			catch (UtilsContraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
 		}
 		
 		try

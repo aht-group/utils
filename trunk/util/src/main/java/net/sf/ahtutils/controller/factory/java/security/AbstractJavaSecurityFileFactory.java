@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
+import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.exlp.util.io.FileIO;
@@ -49,13 +49,13 @@ public class AbstractJavaSecurityFileFactory
 		return createClassName(code)+".java";
 	}
 	
-	public void processViews(String fXml) throws FileNotFoundException, AhtUtilsConfigurationException
+	public void processViews(String fXml) throws FileNotFoundException, UtilsConfigurationException
 	{
 		Access access = JaxbUtil.loadJAXB(fXml, Access.class);
 		processCategories(access.getCategory());
 	}
 	
-	protected void processCategories(List<Category> lCategory) throws AhtUtilsConfigurationException {}
+	protected void processCategories(List<Category> lCategory) throws UtilsConfigurationException {}
 	
 	protected String createClassName(String code)
 	{

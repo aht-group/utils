@@ -3,10 +3,10 @@ package net.sf.ahtutils.controller.factory.latex;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
 import net.sf.ahtutils.controller.factory.ofx.security.OfxCategoryListFactory;
 import net.sf.ahtutils.controller.factory.ofx.security.OfxRoleTableFactory;
 import net.sf.ahtutils.controller.factory.ofx.security.OfxViewTableFactory;
+import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.status.Translations;
@@ -36,7 +36,7 @@ public class LatexSecurityFactory
 		this.langs=langs;
 	}
 	
-	public void createViewTabs(String xmlFile) throws AhtUtilsConfigurationException
+	public void createViewTabs(String xmlFile) throws UtilsConfigurationException
 	{
 		logger.info("Creating view tables from "+xmlFile+" to LaTex");
 		
@@ -53,10 +53,10 @@ public class LatexSecurityFactory
 				}
 			}
 		}
-		catch (FileNotFoundException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
+		catch (FileNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
 	}
 
-	public void createRoleTabs(String xmlFile) throws AhtUtilsConfigurationException
+	public void createRoleTabs(String xmlFile) throws UtilsConfigurationException
 	{
 		logger.info("Creating view tables from "+xmlFile+" to LaTex");
 		
@@ -73,15 +73,15 @@ public class LatexSecurityFactory
 				}
 			}
 		}
-		catch (FileNotFoundException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
+		catch (FileNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
 	}
 	
-	public void createCategoryDescriptions(String xmlFile, String extractId) throws AhtUtilsConfigurationException
+	public void createCategoryDescriptions(String xmlFile, String extractId) throws UtilsConfigurationException
 	{
 		logger.info("Creating descriptions from "+xmlFile+" to LaTex");
 		for(String lang : langs){saveCategoryDescriptions(lang,xmlFile,extractId);}
 	}
-	private void saveCategoryDescriptions(String lang, String xmlFile, String extractId) throws AhtUtilsConfigurationException
+	private void saveCategoryDescriptions(String lang, String xmlFile, String extractId) throws UtilsConfigurationException
 	{
 		File f = new File(baseLatexDir,lang+"/"+dirCategoryDescriptions+"/"+extractId+".tex");
 		try
@@ -91,6 +91,6 @@ public class LatexSecurityFactory
 			OfxCategoryListFactory latexFactory = new OfxCategoryListFactory("de");
 			latexFactory.saveDescription(f, access.getCategory());
 		}
-		catch (FileNotFoundException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
+		catch (FileNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
 	}
 }

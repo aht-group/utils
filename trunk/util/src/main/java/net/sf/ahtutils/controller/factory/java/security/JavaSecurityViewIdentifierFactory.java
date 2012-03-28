@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
+import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.View;
 import net.sf.exlp.util.exception.ExlpConfigurationException;
@@ -36,10 +36,10 @@ public class JavaSecurityViewIdentifierFactory extends AbstractJavaSecurityFileF
 	}
 
 	@Override
-	protected void processCategories(List<Category> lCategory) throws AhtUtilsConfigurationException
+	protected void processCategories(List<Category> lCategory) throws UtilsConfigurationException
 	{
 		try{DirChecker.checkFileIsDirectory(fPackage);}
-		catch (ExlpConfigurationException e) {throw new AhtUtilsConfigurationException(e.getMessage());}
+		catch (ExlpConfigurationException e) {throw new UtilsConfigurationException(e.getMessage());}
 		for(Category category : lCategory)
 		{
 			try {create(category);}
@@ -48,13 +48,13 @@ public class JavaSecurityViewIdentifierFactory extends AbstractJavaSecurityFileF
 		}
 	}
 	
-	protected void create(Category category) throws AhtUtilsConfigurationException, IOException, TemplateException
+	protected void create(Category category) throws UtilsConfigurationException, IOException, TemplateException
 	{
 		File fCategory = new File(fPackage,category.getCode());
 		if(fCategory.exists())
 		{
 			if(fCategory.isDirectory()){logger.debug("Skipping. Directory exists "+fCategory.getAbsolutePath());}
-			else{throw new AhtUtilsConfigurationException(fCategory.getAbsolutePath()+" is not a directory");}
+			else{throw new UtilsConfigurationException(fCategory.getAbsolutePath()+" is not a directory");}
 		}
 		else
 		{

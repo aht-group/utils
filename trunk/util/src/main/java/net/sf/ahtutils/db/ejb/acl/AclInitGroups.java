@@ -3,7 +3,6 @@ package net.sf.ahtutils.db.ejb.acl;
 import java.io.FileNotFoundException;
 import java.util.Map;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
 import net.sf.ahtutils.controller.factory.ejb.status.EjbLangFactory;
 import net.sf.ahtutils.controller.interfaces.AhtAclFacade;
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
@@ -11,6 +10,7 @@ import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryGroup;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclGroup;
@@ -81,7 +81,7 @@ public class AclInitGroups <	S extends UtilsStatus<L>,
 		ejbLangFactory = EjbLangFactory.createFactory(langClass);
 	}
 	
-	public void iuGroups(Access access) throws FileNotFoundException, AhtUtilsConfigurationException
+	public void iuGroups(Access access) throws FileNotFoundException, UtilsConfigurationException
 	{
 		AhtDbEjbUpdater<CR> updateRoleCategory = AhtDbEjbUpdater.createFactory(categoryRoleClass);
 		AhtDbEjbUpdater<R> updateRole = AhtDbEjbUpdater.createFactory(roleClass);
@@ -128,9 +128,9 @@ public class AclInitGroups <	S extends UtilsStatus<L>,
 					aclRoleCategory = (CR)fAcl.persist(aclRoleCategory);
 					
 				}
-				catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
-				catch (IllegalAccessException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
-				catch (UtilsContraintViolationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}	
+				catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+				catch (IllegalAccessException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+				catch (UtilsContraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
 			}
 			
 			try
@@ -153,7 +153,7 @@ public class AclInitGroups <	S extends UtilsStatus<L>,
 	}
 	
 
-	private void initUpdateRole(CR aclRoleCategory, Groups group, boolean refRoles) throws AhtUtilsConfigurationException
+	private void initUpdateRole(CR aclRoleCategory, Groups group, boolean refRoles) throws UtilsConfigurationException
 	{
 		logger.warn("No removing of Roles");
 		for(Group role : group.getGroup())
@@ -162,7 +162,7 @@ public class AclInitGroups <	S extends UtilsStatus<L>,
 		}
 	}
 	
-	private void initUpdateRole(CR roleCategory, Group role, boolean refRoles) throws AhtUtilsConfigurationException
+	private void initUpdateRole(CR roleCategory, Group role, boolean refRoles) throws UtilsConfigurationException
 	{
 		logger.trace("initUpdateRole "+roleCategory.getCode()+"-"+role.getCode()+" (refRolse="+refRoles+")");
 		R aclRole;
@@ -204,9 +204,9 @@ public class AclInitGroups <	S extends UtilsStatus<L>,
 				aclRole.setCode(role.getCode());
 				aclRole = (R)fAcl.persist(aclRole);
 			}
-			catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
-			catch (IllegalAccessException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
-			catch (UtilsContraintViolationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}	
+			catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+			catch (IllegalAccessException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+			catch (UtilsContraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
 			
 		}
 		

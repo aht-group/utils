@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.Assert;
-import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
+import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.test.AhtUtilsTstBootstrap;
 import net.sf.ahtutils.xml.access.View;
 import net.sf.exlp.util.exception.ExlpConfigurationException;
@@ -62,8 +62,8 @@ public class TestJavaSecurityIdentifierFactory extends AbstractJavaSecurityFacto
 		DirChecker.checkFileIsDirectory(fPackage);
 	}
 	
-	@Test(expected=AhtUtilsConfigurationException.class)
-	public void categoryDirIsFile() throws AhtUtilsConfigurationException, IOException, TemplateException
+	@Test(expected=UtilsConfigurationException.class)
+	public void categoryDirIsFile() throws UtilsConfigurationException, IOException, TemplateException
 	{
 		File actual = new File(fPackage,c1.getCode());
 		actual.createNewFile();
@@ -71,7 +71,7 @@ public class TestJavaSecurityIdentifierFactory extends AbstractJavaSecurityFacto
 	}
 	
 	@Test
-	public void categoryDir() throws AhtUtilsConfigurationException, IOException, TemplateException
+	public void categoryDir() throws UtilsConfigurationException, IOException, TemplateException
 	{
 		idFactory.create(c1);
 		File actual = new File(fPackage,c1.getCode());
@@ -80,7 +80,7 @@ public class TestJavaSecurityIdentifierFactory extends AbstractJavaSecurityFacto
 	}
 	
 	@Test
-	public void createIdentifier() throws AhtUtilsConfigurationException, IOException, TemplateException
+	public void createIdentifier() throws UtilsConfigurationException, IOException, TemplateException
 	{
 		idFactory.create(c1);
 		File fSub = new File(fPackage,c1.getCode());

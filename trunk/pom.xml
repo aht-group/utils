@@ -20,6 +20,8 @@
 		<module>ejb</module>
 		<module>util</module>
 		<module>mail</module>
+		<module>report</module>
+		<module>test</module>
 		<module>xml</module>
 		<module>interfaces</module>
 		<module>jsf</module>
@@ -70,10 +72,16 @@
 	        	<type>ejb</type>
 	        </dependency>
 	        <dependency>
-			<groupId>net.sf.ahtutils</groupId>
-			<artifactId>ahtutils-util</artifactId>
-			<version>0.2.2-SNAPSHOT</version>
-		</dependency>
+				<groupId>net.sf.ahtutils</groupId>
+				<artifactId>ahtutils-util</artifactId>
+				<version>0.2.2-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>net.sf.ahtutils</groupId>
+				<artifactId>ahtutils-interfaces</artifactId>
+				<version>0.2.2-SNAPSHOT</version>
+			</dependency>
+			
 	        <dependency>
 	        	<groupId>net.sf.ahtutils</groupId>
 	        	<artifactId>ahtutils-xml</artifactId>
@@ -105,7 +113,11 @@
 	    		<artifactId>commons-codec</artifactId>
 	    		<version>1.6</version>
 	    	</dependency>
-	    	
+	    	<dependency>
+				<groupId>javax.mail</groupId>
+				<artifactId>mail</artifactId>
+				<version>1.4.5</version>
+			</dependency>
 			<dependency>
 	    		<groupId>org.apache.httpcomponents</groupId>
 	    		<artifactId>httpclient</artifactId>

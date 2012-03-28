@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import junit.framework.Assert;
-import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
+import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.View;
 import net.sf.exlp.util.exception.ExlpConfigurationException;
@@ -68,36 +68,36 @@ public class TestJavaSecuritySeamPagesFactory extends AbstractJavaSecurityFactor
 		DirChecker.checkFileIsDirectory(fPackage);
 	}
 	
-	@Test(expected=AhtUtilsConfigurationException.class)
-	public void withoutNavigation() throws AhtUtilsConfigurationException, IOException, TemplateException
+	@Test(expected=UtilsConfigurationException.class)
+	public void withoutNavigation() throws UtilsConfigurationException, IOException, TemplateException
 	{
 		lC.get(0).getViews().getView().get(0).setNavigation(null);
 		seamPagesFactory.processCategories(lC);
 	}
 	
-	@Test(expected=AhtUtilsConfigurationException.class)
-	public void withoutNavigationPackage() throws AhtUtilsConfigurationException, IOException, TemplateException
+	@Test(expected=UtilsConfigurationException.class)
+	public void withoutNavigationPackage() throws UtilsConfigurationException, IOException, TemplateException
 	{
 		lC.get(0).getViews().getView().get(0).getNavigation().setPackage(null);
 		seamPagesFactory.processCategories(lC);
 	}
 	
-	@Test(expected=AhtUtilsConfigurationException.class)
-	public void withoutNavigationViewPattern() throws AhtUtilsConfigurationException, IOException, TemplateException
+	@Test(expected=UtilsConfigurationException.class)
+	public void withoutNavigationViewPattern() throws UtilsConfigurationException, IOException, TemplateException
 	{
 		lC.get(0).getViews().getView().get(0).getNavigation().setViewPattern(null);
 		seamPagesFactory.processCategories(lC);
 	}
 	
-	@Test(expected=AhtUtilsConfigurationException.class)
-	public void withoutNavigatioUrlMapping() throws AhtUtilsConfigurationException, IOException, TemplateException
+	@Test(expected=UtilsConfigurationException.class)
+	public void withoutNavigatioUrlMapping() throws UtilsConfigurationException, IOException, TemplateException
 	{
 		lC.get(0).getViews().getView().get(0).getNavigation().setViewPattern(null);
 		seamPagesFactory.processCategories(lC);
 	}
 	
-	@Test(expected=AhtUtilsConfigurationException.class)
-	public void withoutTargetDir() throws AhtUtilsConfigurationException, IOException, TemplateException
+	@Test(expected=UtilsConfigurationException.class)
+	public void withoutTargetDir() throws UtilsConfigurationException, IOException, TemplateException
 	{
 		String tPackage = lC.get(0).getViews().getView().get(0).getNavigation().getPackage();
 		File fP = new File(fSrcDir,tPackage.replaceAll("\\.", "/"));
@@ -107,7 +107,7 @@ public class TestJavaSecuritySeamPagesFactory extends AbstractJavaSecurityFactor
 	}
 	
 	@Test
-	public void mapContent() throws AhtUtilsConfigurationException, IOException, TemplateException
+	public void mapContent() throws UtilsConfigurationException, IOException, TemplateException
 	{
 		seamPagesFactory.processCategories(lC);
 		Assert.assertEquals(2, seamPagesFactory.getmViews().size());
@@ -118,7 +118,7 @@ public class TestJavaSecuritySeamPagesFactory extends AbstractJavaSecurityFactor
 	
 //	@Rule public IgnoreOtherRule test = new IgnoreOtherRule("process");
 	@Test
-	public void process() throws AhtUtilsConfigurationException, IOException, TemplateException
+	public void process() throws UtilsConfigurationException, IOException, TemplateException
 	{
 		seamPagesFactory.processCategories(lC);
 	}

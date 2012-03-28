@@ -2,7 +2,6 @@ package net.sf.ahtutils.db.ejb.security;
 
 import java.util.Map;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
 import net.sf.ahtutils.controller.factory.ejb.status.EjbDescriptionFactory;
 import net.sf.ahtutils.controller.factory.ejb.status.EjbLangFactory;
 import net.sf.ahtutils.controller.interfaces.UtilsSecurityFacade;
@@ -11,6 +10,7 @@ import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.model.interfaces.EjbWithDescription;
 import net.sf.ahtutils.model.interfaces.EjbWithLang;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
@@ -109,7 +109,7 @@ public class AbstractSecurityInit <L extends UtilsLang,
 		ejbDescriptionFactory = EjbDescriptionFactory.createFactory(cD);
 	}
 	
-	protected void iuCategory(Access access, UtilsSecurityCategory.Type type) throws AhtUtilsConfigurationException
+	protected void iuCategory(Access access, UtilsSecurityCategory.Type type) throws UtilsConfigurationException
 	{
 		logger.debug("i/u "+Category.class.getSimpleName()+" with "+access.getCategory().size()+" categories");
 		
@@ -137,9 +137,9 @@ public class AbstractSecurityInit <L extends UtilsLang,
 					aclCategory.setCode(category.getCode());
 					aclCategory = (C)fSecurity.persist(aclCategory);
 				}
-				catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
-				catch (IllegalAccessException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
-				catch (UtilsContraintViolationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}	
+				catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+				catch (IllegalAccessException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+				catch (UtilsContraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
 			}
 			
 			try
@@ -161,7 +161,7 @@ public class AbstractSecurityInit <L extends UtilsLang,
 		logger.trace("initUpdateUsecaseCategories finished");
 	}
 	
-	protected void iuChilds(C aclCategory, Category category) throws AhtUtilsConfigurationException
+	protected void iuChilds(C aclCategory, Category category) throws UtilsConfigurationException
 	{
 		logger.error("This method *must* be overridden!");
 	}

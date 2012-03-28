@@ -2,7 +2,6 @@ package net.sf.ahtutils.db.ejb.acl;
 
 import java.util.Map;
 
-import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
 import net.sf.ahtutils.controller.factory.ejb.status.EjbLangFactory;
 import net.sf.ahtutils.controller.interfaces.AhtAclFacade;
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
@@ -10,6 +9,7 @@ import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryProjectRole;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclRole;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
@@ -57,7 +57,7 @@ public class AclInitRoles <L extends UtilsLang,
 		ejbLangFactory = EjbLangFactory.createFactory(langClass);
 	}
 	
-	public void iuRoles(Access access) throws AhtUtilsConfigurationException
+	public void iuRoles(Access access) throws UtilsConfigurationException
 	{
 		logger.debug("i/u "+Category.class.getSimpleName()+" with "+access.getCategory().size()+" categories");
 		
@@ -105,9 +105,9 @@ public class AclInitRoles <L extends UtilsLang,
 					aclCategory.setCode(category.getCode());
 					aclCategory = (C)fAcl.persist(aclCategory);
 				}
-				catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
-				catch (IllegalAccessException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
-				catch (UtilsContraintViolationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}	
+				catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+				catch (IllegalAccessException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+				catch (UtilsContraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
 			}
 			
 			try
@@ -137,7 +137,7 @@ public class AclInitRoles <L extends UtilsLang,
 		logger.trace("initUpdateUsecaseCategories finished");
 	}
 	
-	public void initUpdateProjectRole(C category, Role role) throws AhtUtilsConfigurationException
+	public void initUpdateProjectRole(C category, Role role) throws UtilsConfigurationException
 	{
 		R aclRole;
 		try
@@ -174,9 +174,9 @@ public class AclInitRoles <L extends UtilsLang,
 				aclRole.setCode(role.getCode());
 				aclRole = (R)fAcl.persist(aclRole);
 			}
-			catch (InstantiationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
-			catch (IllegalAccessException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}
-			catch (UtilsContraintViolationException e2) {throw new AhtUtilsConfigurationException(e2.getMessage());}	
+			catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+			catch (IllegalAccessException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+			catch (UtilsContraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
 		}
 		
 		try

@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import junit.framework.Assert;
-import net.sf.ahtutils.controller.exception.AhtUtilsConfigurationException;
+import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.test.AhtUtilsTstBootstrap;
 
 import org.junit.After;
@@ -42,7 +42,7 @@ public class TestJavaSecurityViewRestrictorFactory extends AbstractJavaSecurityF
 	}
 	
 	@Test
-	public void createIdentifier() throws AhtUtilsConfigurationException, IOException, TemplateException
+	public void createIdentifier() throws UtilsConfigurationException, IOException, TemplateException
 	{
 		restrictorFactory.processCategories(lC);
 
