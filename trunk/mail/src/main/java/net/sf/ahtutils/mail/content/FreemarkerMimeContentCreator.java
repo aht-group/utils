@@ -23,6 +23,7 @@ public class FreemarkerMimeContentCreator extends AbstractMimeContentCreator
 {
 	private MimeMessage message;
 	private FreemarkerEngine fme;
+	private static final String encoding = "ISO-8859-1";
 	
 	public FreemarkerMimeContentCreator(MimeMessage message, FreemarkerEngine fme)
 	{
@@ -36,7 +37,6 @@ public class FreemarkerMimeContentCreator extends AbstractMimeContentCreator
 		if(fme.isAvailable(mail.getId(), lang, "txt")){mpAlternative.addBodyPart(createTxt(lang,xml,mail));}
 		if(fme.isAvailable(mail.getId(), lang, "html")){mpAlternative.addBodyPart(createHtml(lang,xml,mail));}
 	   
-	    
 	    if(!mail.isSetAttachment())
 	    {
 	    	message.setContent(mpAlternative);
@@ -66,9 +66,9 @@ public class FreemarkerMimeContentCreator extends AbstractMimeContentCreator
 		{
 			if(mail.isSetAttachment())
 			{
-				txt.setContent(fme.process(xml)+SystemUtils.LINE_SEPARATOR, "text/plain; charset=\"ISO-8859-1\"");
+				txt.setContent(fme.process(xml)+SystemUtils.LINE_SEPARATOR, "text/plain; charset=\""+encoding+"\"");
 			}
-			else{txt.setContent(fme.process(xml), "text/plain; charset=\"ISO-8859-1\"");}
+			else{txt.setContent(fme.process(xml), "text/plain; charset=\""+encoding+"\"");}
 		}
 		catch (SAXException e) {e.printStackTrace();}
 		catch (IOException e) {e.printStackTrace();}
@@ -86,9 +86,10 @@ public class FreemarkerMimeContentCreator extends AbstractMimeContentCreator
 		{
 			if(mail.isSetAttachment())
 			{
-				html.setContent(fme.process(xml)+SystemUtils.LINE_SEPARATOR, "text/html");
+				html.setContent(fme.process(xml)+SystemUtils.LINE_SEPARATOR, "text/html; charset=\""+encoding+"\"");
+
 			}
-			else{html.setContent(fme.process(xml), "text/html");}
+			else{html.setContent(fme.process(xml), "text/html; charset=\""+encoding+"\"");}
 			
 		}
 		catch (SAXException e) {e.printStackTrace();}

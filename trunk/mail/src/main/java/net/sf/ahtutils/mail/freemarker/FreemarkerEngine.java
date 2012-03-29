@@ -31,6 +31,7 @@ public class FreemarkerEngine
 {
 	final static Logger logger = LoggerFactory.getLogger(FreemarkerEngine.class);
 
+	private String encoding;
 	private Mails mails;
 	private Template ftl;
 	private Configuration freemarkerConfiguration;
@@ -38,6 +39,12 @@ public class FreemarkerEngine
 	
 	public FreemarkerEngine(Mails mails)
 	{
+		this("UTF-8",mails);
+	}
+	
+	public FreemarkerEngine(String encoding, Mails mails)
+	{
+		this.encoding=encoding;
 		this.mails=mails;
 		freemarkerConfiguration = new Configuration();
 		freemarkerConfiguration.setClassForTemplateLoading(this.getClass(), "/");
