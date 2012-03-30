@@ -23,8 +23,7 @@ public class MimeMessageCreator
 	
 	public MimeMessageCreator(MimeMessage msg)
 	{
-		this("UTF-8",msg);
-		
+		this("ISO-8859-1",msg);
 	}
 	
 	public MimeMessageCreator(String encoding, MimeMessage msg)
