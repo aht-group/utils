@@ -35,6 +35,7 @@
         <xsd:complexType>
         	<xsd:sequence>
                 <xsd:element ref="a:role" maxOccurs="1"/>
+        	    <xsd:element ref="s:langs" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="lang" type="xsd:string"/>
         </xsd:complexType>
