@@ -11,7 +11,7 @@ import ${v.import};
 </#list>
 
 @ViewConfig
-public class SeamPages
+public interface SeamPages
 {
 <#list views as v>
 

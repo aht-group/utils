@@ -23,6 +23,10 @@ public class MenuFactory
 	final static Logger logger = LoggerFactory.getLogger(MenuFactory.class);
 	
 	private String lang;
+	private String contextRoot;
+	
+	public void setContextRoot(String contextRoot) {this.contextRoot = contextRoot;}
+
 	private Access access;
 	private boolean noRestrictions;
 	private Map<String,Boolean> mapViewAllowed;
@@ -33,6 +37,13 @@ public class MenuFactory
 		this.mapViewAllowed=mapViewAllowed;
 		this.lang=lang;
 		noRestrictions=false;
+	}
+	
+	public MenuFactory(Access access, String lang)
+	{
+		this.access=access;
+		this.lang=lang;
+		noRestrictions=true;
 	}
 	
 	public MenuFactory(String lang)
@@ -138,7 +149,13 @@ public class MenuFactory
 			View view = AccessXpath.getView(access, viewCode.getCode());
 			if(view.isSetNavigation() && view.getNavigation().isSetUrlMapping())
 			{
-				return view.getNavigation().getUrlMapping().getValue();
+				StringBuffer sb = new StringBuffer();
+				if(contextRoot!=null)
+				{
+					sb.append("/").append(contextRoot);
+				}
+				sb.append(view.getNavigation().getUrlMapping().getValue());
+				return sb.toString();
 			}
 		}
 		catch (ExlpXpathNotFoundException e) {}
