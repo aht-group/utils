@@ -8,9 +8,10 @@
     	<version>7</version>
 	</parent>
 	     
+	<version>0.2.2-SNAPSHOT</version>
+	     
 	<groupId>net.sf.ahtutils</groupId>
 	<artifactId>ahtutils</artifactId>
-	<version>0.2.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>AHT-Utils</name>
 	<url>http://sourceforge.net/projects/ahtutils</url>
@@ -26,6 +27,7 @@
 		<module>interfaces</module>
 		<module>jsf</module>
 		<module>maven</module>
+		<module>bom</module>
 	</modules>
 
 	<properties>	
