@@ -51,7 +51,21 @@
 				<artifactId>ahtutils-maven</artifactId>
 				<version>0.2.2-SNAPSHOT</version>
 		    </dependency>
+		    
+		    <dependency>
+	  			<groupId>org.freemarker</groupId>
+	  			<artifactId>freemarker</artifactId>
+				<version>2.3.19</version>
+			</dependency>
         
+        	<!-- Commons -->
+        	<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>2.2</version>
+			</dependency>
+        
+        	<!-- JBoss -->
             <dependency>
                 <groupId>org.jboss.as</groupId>
                 <artifactId>jboss-as-ejb-client-bom</artifactId>
@@ -131,11 +145,7 @@
     	   		<artifactId>junit</artifactId>
     	   		<version>4.10</version>
     	   	</dependency>
-	        <dependency>  
-	         	<groupId>org.primefaces</groupId>  
-	         	<artifactId>primefaces</artifactId>  
-	         	<version>3.0</version>  
-			</dependency>
+    	   	
 	        <dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
@@ -150,6 +160,13 @@
     			<groupId>org.slf4j</groupId>
    	 			<artifactId>jcl-over-slf4j</artifactId>
     			<version>1.6.4</version>
+			</dependency>
+			
+			<!-- JSF -->
+	        <dependency>  
+	         	<groupId>org.primefaces</groupId>  
+	         	<artifactId>primefaces</artifactId>  
+	         	<version>3.2</version>  
 			</dependency>
 			<dependency>
 		         <groupId>org.richfaces</groupId>
