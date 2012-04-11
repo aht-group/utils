@@ -19,37 +19,42 @@
         	<dependency>
 				<groupId>net.sf.ahtutils</groupId>
 				<artifactId>ahtutils-xml</artifactId>
-				<version>0.2.2-SNAPSHOT</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>net.sf.ahtutils</groupId>
 				<artifactId>ahtutils-util</artifactId>
-				<version>0.2.2-SNAPSHOT</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>net.sf.ahtutils</groupId>
 				<artifactId>ahtutils-ejb</artifactId>
-				<version>0.2.2-SNAPSHOT</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>net.sf.ahtutils</groupId>
 				<artifactId>ahtutils-interfaces</artifactId>
-				<version>0.2.2-SNAPSHOT</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 		         <groupId>net.sf.ahtutils</groupId>
 		         <artifactId>ahtutils-jsf</artifactId>
-		         <version>0.2.2-SNAPSHOT</version>
+		         <version>${project.version}</version>
 		      </dependency>
 			<dependency>
       			<groupId>net.sf.ahtutils</groupId>
       			<artifactId>ahtutils-test</artifactId>
-      			<version>0.2.2-SNAPSHOT</version>
+      			<version>${project.version}</version>
       		</dependency>
 			<dependency>
 				<groupId>net.sf.ahtutils</groupId>
 				<artifactId>ahtutils-maven</artifactId>
-				<version>0.2.2-SNAPSHOT</version>
+				<version>${project.version}</version>
+		    </dependency>
+			<dependency>
+				<groupId>net.sf.ahtutils</groupId>
+				<artifactId>ahtutils-mail</artifactId>
+				<version>${project.version}</version>
 		    </dependency>
 		    
 		    <!-- EXLP -->
