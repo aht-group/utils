@@ -12,6 +12,18 @@
     <artifactId>ahtutils-test</artifactId>
     <packaging>jar</packaging>
     <name>AHT-Utils - Test</name>
+
+	<dependencyManagement>
+		<dependencies>      	         
+			<dependency>
+				<groupId>net.sf.ahtutils</groupId>
+				<artifactId>ahtutils-bom</artifactId>
+				<version>0.2.2-SNAPSHOT</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	
 	<dependencies>
 
