@@ -39,7 +39,7 @@
         <arquillian.version>1.0.0.Alpha5</arquillian.version>
         <jboss-javaee6-spec.version>1.0.0.Final</jboss-javaee6-spec.version>
         <jboss.version>6.0.0.Final</jboss.version>   
-        <junit.version>4.10</junit.version>
+
         <poi.version>3.8-beta3</poi.version>
         <jasperreports.version>4.0.0</jasperreports.version>
        	<groovy.version>1.8.1</groovy.version>
@@ -147,47 +147,13 @@
     	   		<artifactId>exlp-util</artifactId>
     	   		<version>0.1.6-SNAPSHOT</version>
     	   	</dependency>
-    	   	<dependency>
-    	   		<groupId>javax.xml.bind</groupId>
-    	   		<artifactId>jaxb-api</artifactId>
-    	   		<version>2.2.2</version>
-    	   	</dependency>
-    	   	<dependency>
-    	   		<groupId>com.sun.xml.bind</groupId>
-    	   		<artifactId>jaxb-impl</artifactId>
-    	   		<version>2.2.2</version>
-    	   	</dependency>
-    	   	<dependency>
-    	   		<groupId>com.sun.xml.bind</groupId>
-    	   		<artifactId>jaxb-xjc</artifactId>
-    	   		<version>2.2.2</version>
-    	   	</dependency>
-    	   	<dependency>
-    	   		<groupId>junit</groupId>
-    	   		<artifactId>junit</artifactId>
-    	   		<version>4.10</version>
-    	   	</dependency>
 
     	   	<dependency>
     	   		<groupId>org.jdom</groupId>
     	   		<artifactId>jdom</artifactId>
     	   		<version>1.1</version>
     	   	</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-api</artifactId>
-				<version>1.6.4</version>
-			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>jcl-over-slf4j</artifactId>
-				<version>1.6.4</version>
-			</dependency>
-			<dependency>
-		 		<groupId>org.slf4j</groupId>
-		 		<artifactId>slf4j-log4j12</artifactId>
-		 		<version>1.6.4</version>
-		 	</dependency>
+			
 			<dependency>
 				<groupId>org.openfuxml</groupId>
 				<artifactId>ofx-chart</artifactId>
