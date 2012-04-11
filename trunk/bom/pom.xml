@@ -58,6 +58,49 @@
                 <version>7.1.1.Final</version>
                 <type>pom</type>
             </dependency>
+            
+            <!-- SEAM -->
+            <dependency>
+	   			<groupId>org.jboss.seam.international</groupId>
+	   			<artifactId>seam-international-api</artifactId>
+	   			<version>3.1.0.Final</version>
+			</dependency>
+		  	<dependency>
+				<groupId>org.drools</groupId>
+				<artifactId>drools-core</artifactId>
+				<version>5.3.1.Final</version>
+		 	</dependency>
+		 	<dependency>
+				<groupId>org.drools</groupId>
+				<artifactId>drools-compiler</artifactId>
+				<version>5.3.1.Final</version>
+		  	</dependency>
+		  	<dependency>
+			    <groupId>org.jboss.seam.security</groupId>
+			    <artifactId>seam-security-api</artifactId>
+			    <version>3.1.0.Final</version>
+		  	</dependency>
+		  	<dependency>
+			    <groupId>org.jboss.seam.security</groupId>
+			    <artifactId>seam-security</artifactId>
+			    <version>3.1.0.Final</version>
+		  	</dependency>
+		   	<dependency>
+			   <groupId>org.jboss.seam.faces</groupId>
+			   <artifactId>seam-faces-api</artifactId>
+			   <version>3.1.0.Final</version>
+			</dependency>
+			<dependency>
+			   <groupId>org.jboss.seam.faces</groupId>
+			   <artifactId>seam-faces</artifactId>
+			   <version>3.1.0.Final</version>
+			</dependency>
+			<dependency>
+	   		   <groupId>com.ocpsoft</groupId>
+			   <artifactId>prettyfaces-jsf2</artifactId>
+			   <version>3.3.3</version>
+			</dependency>
+            
             <dependency>
     	   		<groupId>log4j</groupId>
     	   		<artifactId>log4j</artifactId>
