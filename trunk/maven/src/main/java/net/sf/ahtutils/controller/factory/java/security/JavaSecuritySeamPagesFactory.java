@@ -82,9 +82,11 @@ public class JavaSecuritySeamPagesFactory extends AbstractJavaSecurityFileFactor
 		freemarkerNodeModel.put("loginView", sLoginView);
 		freemarkerNodeModel.put("accessDeniedView", sAccessDeniedView);
 		
+		boolean onePrivate = false;
 		List<Map> mViews = new ArrayList<Map>();
 		for(View v : lViews)
 		{
+			if(!v.isPublic()){onePrivate=true;}
 			StringBuffer sbImport = new StringBuffer();
 			sbImport.append(viewQualifierBasePackage).append(".");
 			sbImport.append(mCategoryPackage.get(v.getCode())).append(".");
@@ -92,12 +94,23 @@ public class JavaSecuritySeamPagesFactory extends AbstractJavaSecurityFileFactor
 			
 			Map m = new HashMap();
 			m.put("import", sbImport.toString());
+			m.put("public", v.isPublic());
 			m.put("viewPattern", v.getNavigation().getViewPattern().getValue());
 			m.put("urlMapping", v.getNavigation().getUrlMapping().getValue());
 			m.put("identifier", createClassName(v.getCode()));
 			m.put("enum", "ENUM"+v.getCode().toUpperCase());
 			mViews.add(m);
 		}
+		
+		List<String> classImports = new ArrayList<String>();
+		if(onePrivate)
+		{
+			classImports.add("import org.jboss.seam.faces.security.AccessDeniedView;");
+			classImports.add("import org.jboss.seam.faces.security.LoginView;");
+			classImports.add("import org.jboss.seam.faces.security.RestrictAtPhase;");
+			classImports.add("import org.jboss.seam.faces.event.PhaseIdType;");
+		}
+		freemarkerNodeModel.put("classImports", classImports);
 		
 		freemarkerNodeModel.put("views", mViews);
 		
