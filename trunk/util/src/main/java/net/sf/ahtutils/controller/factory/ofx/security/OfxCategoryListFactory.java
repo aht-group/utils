@@ -76,14 +76,29 @@ public class OfxCategoryListFactory
 	
 	private Item createItem(Category category) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
 	{
-		Lang l = StatusXpath.getLang(category.getLangs(), lang);
-		Description d = StatusXpath.getDescription(category.getDescriptions(), lang);
+		String description,text;
+		
+		try
+		{
+			Lang l = StatusXpath.getLang(category.getLangs(), lang);
+			description = l.getTranslation();
+		}
+		catch (ExlpXpathNotFoundException e){description = e.getMessage();}
+		catch (ExlpXpathNotUniqueException e){description = e.getMessage();}
+		
+		try
+		{
+			Description d = StatusXpath.getDescription(category.getDescriptions(), lang);
+			text = d.getValue();
+		}
+		catch (ExlpXpathNotFoundException e){text = e.getMessage();}
+		catch (ExlpXpathNotUniqueException e){text = e.getMessage();}		
 		
 		Paragraph p = new Paragraph();
-		p.getContent().add(d.getValue());
+		p.getContent().add(text);
 		
 		Item item = new Item();
-		item.setName(l.getTranslation());
+		item.setName(description);
 		item.getContent().add(p);
 		
 		return item;

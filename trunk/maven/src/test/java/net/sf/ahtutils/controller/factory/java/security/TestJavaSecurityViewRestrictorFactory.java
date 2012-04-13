@@ -5,17 +5,19 @@ import java.io.IOException;
 
 import junit.framework.Assert;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
-import net.sf.ahtutils.test.AhtUtilsTstBootstrap;
+import net.sf.ahtutils.test.UtilsMavenTstBootstrap;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import freemarker.template.TemplateException;
 
-public class TestJavaSecurityViewRestrictorFactory extends AbstractJavaSecurityFactoryTest
+@Ignore
+public class TestJavaSecurityViewRestrictorFactory extends AbstractJavaSecurityFactoryTst
 {
 	final static Logger logger = LoggerFactory.getLogger(TestJavaSecurityViewRestrictorFactory.class);
 	
@@ -55,7 +57,7 @@ public class TestJavaSecurityViewRestrictorFactory extends AbstractJavaSecurityF
 	
 	public static void main(String[] args) throws Exception
     {
-		AhtUtilsTstBootstrap.init();
+		UtilsMavenTstBootstrap.init();
 		
 		TestJavaSecurityViewRestrictorFactory test = new TestJavaSecurityViewRestrictorFactory();
 		test.setSaveReference(true);

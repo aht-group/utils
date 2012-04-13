@@ -48,7 +48,7 @@ public class LatexSecurityFactory
 				for(String lang : langs)
 				{
 					File f = new File(baseLatexDir,lang+"/"+dirViewTabs+"/views-"+category.getCode()+".tex");
-					OfxViewTableFactory fOfx = new OfxViewTableFactory("de",translations);
+					OfxViewTableFactory fOfx = new OfxViewTableFactory(lang,translations);
 					fOfx.saveDescription(f, category.getViews().getView(),headerKeys);
 				}
 			}
@@ -68,7 +68,7 @@ public class LatexSecurityFactory
 				for(String lang : langs)
 				{
 					File f = new File(baseLatexDir,lang+"/"+dirRoleTabs+"/role-"+category.getCode()+".tex");
-					OfxRoleTableFactory fOfx = new OfxRoleTableFactory("de",translations);
+					OfxRoleTableFactory fOfx = new OfxRoleTableFactory(lang,translations);
 					fOfx.saveDescription(f, category.getRoles().getRole(),headerKeys);
 				}
 			}
@@ -88,7 +88,7 @@ public class LatexSecurityFactory
 		{
 			logger.debug("Converting "+xmlFile+" to LaTex ("+f.getAbsolutePath());
 			Access access = JaxbUtil.loadJAXB(xmlFile, Access.class);
-			OfxCategoryListFactory latexFactory = new OfxCategoryListFactory("de");
+			OfxCategoryListFactory latexFactory = new OfxCategoryListFactory(lang);
 			latexFactory.saveDescription(f, access.getCategory());
 		}
 		catch (FileNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}

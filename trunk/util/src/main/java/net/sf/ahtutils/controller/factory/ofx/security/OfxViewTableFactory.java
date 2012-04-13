@@ -28,17 +28,13 @@ import org.openfuxml.renderer.processor.latex.content.table.LatexGridTableRender
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class OfxViewTableFactory
+public class OfxViewTableFactory extends AbstractOfxSecurityTabelFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(OfxViewTableFactory.class);
 		
-	private String lang;
-	private Translations translations;
-	
 	public OfxViewTableFactory(String lang, Translations translations)
 	{
-		this.lang=lang;
-		this.translations=translations;
+		super(lang,translations);
 	}
 	
 	public void saveDescription(File f, List<View> lViews, String[] headerKeys)
@@ -61,9 +57,7 @@ public class OfxViewTableFactory
 		Table table = new Table();
 		table.setSpecification(createSpecifications());
 		
-		try{table.setContent(createContent(lViews,headerKeys));}
-		catch (ExlpXpathNotFoundException e) {e.printStackTrace();}
-		catch (ExlpXpathNotUniqueException e) {e.printStackTrace();}
+		table.setContent(createContent(lViews,headerKeys));
 		
 		return table;
 	}
@@ -80,16 +74,10 @@ public class OfxViewTableFactory
 		return specification;
 	}
 	
-	private Content createContent(List<View> lViews, String[] headerKeys) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
-	{
-		Row row = new Row();
-		for(String headerKey : headerKeys)
-		{
-			row.getCell().add(OfxCellFactory.createParagraphCell(StatusXpath.getLang(translations, headerKey, lang).getTranslation()));
-		}
-		
+	private Content createContent(List<View> lViews, String[] headerKeys)
+	{	
 		Head head = new Head();
-		head.getRow().add(row);
+		head.getRow().add(createHeaderRow(headerKeys));
 		
 		Body body = new Body();
 		for(View view : lViews)
@@ -104,14 +92,29 @@ public class OfxViewTableFactory
 		return content;
 	}
 	
-	private Row createRow(View view) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
+	private Row createRow(View view)
 	{
-		Lang l = StatusXpath.getLang(view.getLangs(), lang);
-		Description d = StatusXpath.getDescription(view.getDescriptions(), lang);
+		String code,description;
+		
+		try
+		{
+			Lang l = StatusXpath.getLang(view.getLangs(), lang);
+			code = l.getTranslation();
+		}
+		catch (ExlpXpathNotFoundException e){code = e.getMessage();}
+		catch (ExlpXpathNotUniqueException e){code = e.getMessage();}
+		
+		try
+		{
+			Description d = StatusXpath.getDescription(view.getDescriptions(), lang);
+			description = d.getValue();
+		}
+		catch (ExlpXpathNotFoundException e){description = e.getMessage();}
+		catch (ExlpXpathNotUniqueException e){description = e.getMessage();}		
 		
 		Row row = new Row();
-		row.getCell().add(OfxCellFactory.createParagraphCell(l.getTranslation()));
-		row.getCell().add(OfxCellFactory.createParagraphCell(d.getValue()));
+		row.getCell().add(OfxCellFactory.createParagraphCell(code));
+		row.getCell().add(OfxCellFactory.createParagraphCell(description));
 		return row;
 	}	
 }

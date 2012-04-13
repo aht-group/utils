@@ -28,17 +28,13 @@ import org.openfuxml.renderer.processor.latex.content.table.LatexGridTableRender
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class OfxRoleTableFactory
+public class OfxRoleTableFactory extends AbstractOfxSecurityTabelFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(OfxRoleTableFactory.class);
-		
-	private String lang;
-	private Translations translations;
 	
 	public OfxRoleTableFactory(String lang, Translations translations)
 	{
-		this.lang=lang;
-		this.translations=translations;
+		super(lang,translations);
 	}
 	
 	public void saveDescription(File f, List<Role> lRoles, String[] headerKeys)
@@ -61,9 +57,7 @@ public class OfxRoleTableFactory
 		Table table = new Table();
 		table.setSpecification(createSpecifications());
 		
-		try{table.setContent(createContent(lRoles,headerKeys));}
-		catch (ExlpXpathNotFoundException e) {e.printStackTrace();}
-		catch (ExlpXpathNotUniqueException e) {e.printStackTrace();}
+		table.setContent(createContent(lRoles,headerKeys));
 		
 		return table;
 	}
@@ -80,16 +74,10 @@ public class OfxRoleTableFactory
 		return specification;
 	}
 	
-	private Content createContent(List<Role> lRoles, String[] headerKeys) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
+	private Content createContent(List<Role> lRoles, String[] headerKeys)
 	{
-		Row row = new Row();
-		for(String headerKey : headerKeys)
-		{
-			row.getCell().add(OfxCellFactory.createParagraphCell(StatusXpath.getLang(translations, headerKey, lang).getTranslation()));
-		}
-		
 		Head head = new Head();
-		head.getRow().add(row);
+		head.getRow().add(createHeaderRow(headerKeys));
 		
 		Body body = new Body();
 		for(Role role : lRoles)
@@ -104,14 +92,29 @@ public class OfxRoleTableFactory
 		return content;
 	}
 	
-	private Row createRow(Role role) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
+	private Row createRow(Role role)
 	{
-		Lang l = StatusXpath.getLang(role.getLangs(), lang);
-		Description d = StatusXpath.getDescription(role.getDescriptions(), lang);
+		String code,description;
+		
+		try
+		{
+			Lang l = StatusXpath.getLang(role.getLangs(), lang);
+			code = l.getTranslation();
+		}
+		catch (ExlpXpathNotFoundException e){code = e.getMessage();}
+		catch (ExlpXpathNotUniqueException e){code = e.getMessage();}
+		
+		try
+		{
+			Description d = StatusXpath.getDescription(role.getDescriptions(), lang);
+			description = d.getValue();
+		}
+		catch (ExlpXpathNotFoundException e){description = e.getMessage();}
+		catch (ExlpXpathNotUniqueException e){description = e.getMessage();}		
 		
 		Row row = new Row();
-		row.getCell().add(OfxCellFactory.createParagraphCell(l.getTranslation()));
-		row.getCell().add(OfxCellFactory.createParagraphCell(d.getValue()));
+		row.getCell().add(OfxCellFactory.createParagraphCell(code));
+		row.getCell().add(OfxCellFactory.createParagraphCell(description));
 		return row;
 	}	
 }

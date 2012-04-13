@@ -56,12 +56,14 @@ public class MenuFactory
 	{
 		Menu result = new Menu();
 		
-		result.getMenuItem().addAll(processChilds(menu.getMenuItem(),codeCurrent));
+		try {result.getMenuItem().addAll(processChilds(menu.getMenuItem(),codeCurrent));}
+		catch (ExlpXpathNotFoundException e) {logger.warn(e.getMessage());}
+		catch (ExlpXpathNotUniqueException e) {logger.warn(e.getMessage());}
 		
 		return result;
 	}
 	
-	private List<MenuItem> processChilds(List<MenuItem> origs, String codeCurrent)
+	private List<MenuItem> processChilds(List<MenuItem> origs, String codeCurrent) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
 	{
 		List<MenuItem> result = new ArrayList<MenuItem>();
 		
@@ -70,12 +72,13 @@ public class MenuFactory
 			MenuItem miAdd = null;
 			if(mi.isSetView())
 			{
-				if(noRestrictions || (mapViewAllowed.containsKey(mi.getView().getCode()) && mapViewAllowed.get(mi.getView().getCode())))
+				View view = AccessXpath.getView(access, mi.getView().getCode());
+				if(noRestrictions || view.isPublic() || (mapViewAllowed.containsKey(mi.getView().getCode()) && mapViewAllowed.get(mi.getView().getCode())))
 				{
-					miAdd = processItem(mi,codeCurrent);
+					miAdd = processItem(mi,codeCurrent,view);
 				}
 			}
-			else {miAdd = processItem(mi,codeCurrent);}
+			else {miAdd = processItem(mi,codeCurrent,null);}
 			if(miAdd!=null)
 			{
 				if(mi.getCode().equals(codeCurrent)){miAdd.setActive(true);}
@@ -87,17 +90,17 @@ public class MenuFactory
 		return result;
 	}
 	
-	private MenuItem processItem(MenuItem miOrig, String codeCurrent)
+	private MenuItem processItem(MenuItem miOrig, String codeCurrent, View view) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
 	{
 		MenuItem mi = new MenuItem();
-		
+		mi.setCode(miOrig.getCode());
 		if(miOrig.isSetLangs())
 		{
 			mi.setName(getNameFromLangs(miOrig.getLangs()));
 		}
 		else if(miOrig.isSetView())
 		{
-			mi.setName(getNameFromViews(miOrig.getView()));
+			mi.setName(getNameFromViews(view));
 		}
 		else
 		{
@@ -129,16 +132,9 @@ public class MenuFactory
 		return name;
 	}
 	
-	private String getNameFromViews(View viewCode)
+	private String getNameFromViews(View view)
 	{
-		Langs langs=null;
-		try
-		{
-			View view = AccessXpath.getView(access, viewCode.getCode());
-			langs = view.getLangs();
-		}
-		catch (ExlpXpathNotFoundException e) {}
-		catch (ExlpXpathNotUniqueException e) {}
+		Langs langs = view.getLangs();
 		return getNameFromLangs(langs);
 	}
 	

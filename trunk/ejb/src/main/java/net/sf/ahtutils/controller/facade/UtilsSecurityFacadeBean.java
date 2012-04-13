@@ -1,6 +1,9 @@
 package net.sf.ahtutils.controller.facade;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 
@@ -25,8 +28,19 @@ public class UtilsSecurityFacadeBean extends UtilsFacadeBean implements UtilsSec
 	public <L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L, D, C, R, V, U, A>, R extends UtilsSecurityRole<L, D, C, R, V, U, A>, V extends UtilsSecurityView<L, D, C, R, V, U, A>, U extends UtilsSecurityUsecase<L, D, C, R, V, U, A>, A extends UtilsSecurityAction<L, D, C, R, V, U, A>,US extends UtilsUser<L,D,C,R,V,U,A>>
 		List<V>	allViewsForUser(Class<US> clUser, US user)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		user = em.find(clUser, user.getId());
+		Map<Long,V> views = new HashMap<Long,V>();
+		for(R r : user.getRoles())
+		{
+			for(V v : r.getViews())
+			{
+				views.put(v.getId(), v);
+			}
+		}
+		
+		List<V> result = new ArrayList<V>();
+		for(V v : views.values()){result.add(v);}
+		return result;
 	}
 	
 	

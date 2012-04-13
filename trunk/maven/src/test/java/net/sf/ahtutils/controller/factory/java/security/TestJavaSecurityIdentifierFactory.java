@@ -7,7 +7,7 @@ import java.util.List;
 
 import junit.framework.Assert;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
-import net.sf.ahtutils.test.AhtUtilsTstBootstrap;
+import net.sf.ahtutils.test.UtilsMavenTstBootstrap;
 import net.sf.ahtutils.xml.access.View;
 import net.sf.exlp.util.exception.ExlpConfigurationException;
 import net.sf.exlp.util.io.dir.DirChecker;
@@ -15,13 +15,15 @@ import net.sf.exlp.util.io.dir.DirChecker;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import freemarker.template.TemplateException;
 
-public class TestJavaSecurityIdentifierFactory extends AbstractJavaSecurityFactoryTest
+@Ignore
+public class TestJavaSecurityIdentifierFactory extends AbstractJavaSecurityFactoryTst
 {
 	final static Logger logger = LoggerFactory.getLogger(TestJavaSecurityIdentifierFactory.class);
 	
@@ -111,7 +113,7 @@ public class TestJavaSecurityIdentifierFactory extends AbstractJavaSecurityFacto
 	
 	public static void main(String[] args) throws Exception
     {
-		AhtUtilsTstBootstrap.init();
+		UtilsMavenTstBootstrap.init();
 		
 		TestJavaSecurityIdentifierFactory test = new TestJavaSecurityIdentifierFactory();
 		test.setSaveReference(true);

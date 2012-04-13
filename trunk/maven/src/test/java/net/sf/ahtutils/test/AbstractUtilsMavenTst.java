@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 
+import net.sf.ahtutils.controller.factory.java.security.AbstractJavaSecurityFactoryTst;
 import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
 import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.io.RelativePathFactory;
@@ -18,9 +19,9 @@ import org.openfuxml.renderer.processor.latex.util.OfxLatexRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AbstractAhtUtilTest
+public class AbstractUtilsMavenTst
 {
-	final static Logger logger = LoggerFactory.getLogger(AbstractAhtUtilTest.class);
+	final static Logger logger = LoggerFactory.getLogger(AbstractUtilsMavenTst.class);
 	
 	protected static NsPrefixMapperInterface nsPrefixMapper;
 	protected File f;
@@ -28,7 +29,7 @@ public class AbstractAhtUtilTest
 
 	protected static File fTarget;
 	
-	protected static void setfTarget(File myTarget) {fTarget=myTarget;}
+	protected static void setfTarget(File fTarget) {AbstractJavaSecurityFactoryTst.fTarget = fTarget;}
 
 	@BeforeClass
 	public static void initFile()
@@ -46,7 +47,7 @@ public class AbstractAhtUtilTest
 		if(!LoggerInit.isLog4jInited())
 		{
 			LoggerInit loggerInit = new LoggerInit("log4junit.xml");	
-			loggerInit.addAltPath("config.ahtutils-util.test");
+			loggerInit.addAltPath("config.ahtutils-maven.test");
 			loggerInit.init();
 		}
     }

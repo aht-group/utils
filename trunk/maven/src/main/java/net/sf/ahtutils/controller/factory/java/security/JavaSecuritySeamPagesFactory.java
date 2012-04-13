@@ -48,6 +48,7 @@ public class JavaSecuritySeamPagesFactory extends AbstractJavaSecurityFileFactor
 			{
 				for(View view : category.getViews().getView())
 				{
+					if(!view.isSetPublic()){throw new UtilsConfigurationException("No @public view@code="+view.getCode());}
 					if(!view.isSetNavigation()){throw new UtilsConfigurationException("No <navigation> defined for view@code="+view.getCode());}
 					if(!view.getNavigation().isSetPackage()){throw new UtilsConfigurationException("No <navigation@package> defined for view@code="+view.getCode());}
 					if(!view.getNavigation().isSetViewPattern()){throw new UtilsConfigurationException("No <navigation.viewPattern> defined for view@code="+view.getCode());}
@@ -59,13 +60,7 @@ public class JavaSecuritySeamPagesFactory extends AbstractJavaSecurityFileFactor
 			}
 		}
 		processPackage();
-/*		try
-		{
-			this.createFile(fJavaRestrictor, "security.ahtutils-util/viewRestrictor.ftl");
-		}
-		catch (IOException e) {e.printStackTrace();}
-		catch (TemplateException e) {e.printStackTrace();}
-*/	}
+	}
 	
 	private void processPackage() throws UtilsConfigurationException
 	{

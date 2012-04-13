@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.ahtutils.test.AbstractAhtUtilTest;
+import net.sf.ahtutils.test.AbstractUtilsMavenTst;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.View;
 import net.sf.ahtutils.xml.access.Views;
@@ -19,9 +19,9 @@ import org.junit.BeforeClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AbstractJavaSecurityFactoryTest extends AbstractAhtUtilTest
+public class AbstractJavaSecurityFactoryTst extends AbstractUtilsMavenTst
 {
-	final static Logger logger = LoggerFactory.getLogger(AbstractJavaSecurityFactoryTest.class);	
+	final static Logger logger = LoggerFactory.getLogger(AbstractJavaSecurityFactoryTst.class);	
 	
 	protected static final String rootDir = "src/test/resources/data/factory/java/security";
 	

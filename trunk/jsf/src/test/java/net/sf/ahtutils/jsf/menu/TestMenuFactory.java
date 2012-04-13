@@ -16,6 +16,7 @@ import net.sf.ahtutils.xml.navigation.MenuItem;
 import net.sf.ahtutils.xml.navigation.Navigation;
 import net.sf.ahtutils.xml.navigation.UrlMapping;
 import net.sf.ahtutils.xml.status.Langs;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -51,6 +52,7 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 		mapViewAllowed = new Hashtable<String,Boolean>();
 		
 		v1 = XmlViewFactory.create(viewCode);
+		v1.setPublic(false);
 		v1.setLangs(new Langs());
 		v1.getLangs().getLang().add(XmlLangFactory.create(lang, "viewTranslation"));
 		v1.getLangs().getLang().add(XmlLangFactory.create("en", "dummyTranslation"));
@@ -58,7 +60,7 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 		v1.getNavigation().setUrlMapping(new UrlMapping());
 		v1.getNavigation().getUrlMapping().setValue("myViewUrlHref");
 		mapViewAllowed.put(viewCode, true);
-		
+				
 		Category c1 = new Category();
 		c1.setViews(new Views());
 		c1.getViews().getView().add(v1);
