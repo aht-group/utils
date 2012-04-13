@@ -13,14 +13,12 @@ import net.sf.exlp.util.io.dir.DirChecker;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import freemarker.template.TemplateException;
 
-@Ignore
 public class TestJavaSecuritySeamPagesFactory extends AbstractJavaSecurityFactoryTst
 {
 	final static Logger logger = LoggerFactory.getLogger(TestJavaSecuritySeamPagesFactory.class);

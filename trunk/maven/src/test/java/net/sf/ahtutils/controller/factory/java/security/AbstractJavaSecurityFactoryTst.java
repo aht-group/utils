@@ -39,6 +39,7 @@ public class AbstractJavaSecurityFactoryTst extends AbstractUtilsMavenTst
 		n1.setUrlMapping(new UrlMapping());n1.getUrlMapping().setValue("url1");
 		n1.setViewPattern(new ViewPattern());n1.getViewPattern().setValue("view1");
 		v1 = new View();
+		v1.setPublic(false);
 		v1.setCode("myCode");
 		v1.setNavigation(n1);
 		v1.getNavigation().setPackage("my.package1");
@@ -47,6 +48,7 @@ public class AbstractJavaSecurityFactoryTst extends AbstractUtilsMavenTst
 		n2.setUrlMapping(new UrlMapping());n2.getUrlMapping().setValue("url2");
 		n2.setViewPattern(new ViewPattern());n2.getViewPattern().setValue("view2");
 		v2 = new View();
+		v2.setPublic(false);
 		v2.setCode("myCode2");
 		v2.setNavigation(n2);
 		v2.getNavigation().setPackage("my.package1");
@@ -55,6 +57,7 @@ public class AbstractJavaSecurityFactoryTst extends AbstractUtilsMavenTst
 		n3.setUrlMapping(new UrlMapping());n3.getUrlMapping().setValue("url2");
 		n3.setViewPattern(new ViewPattern());n3.getViewPattern().setValue("view2");
 		v3 = new View();
+		v3.setPublic(false);
 		v3.setCode("myCode3");
 		v3.setNavigation(n3);
 		v3.getNavigation().setPackage("my.package2");

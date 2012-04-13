@@ -9,14 +9,12 @@ import net.sf.ahtutils.test.UtilsMavenTstBootstrap;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import freemarker.template.TemplateException;
 
-@Ignore
 public class TestJavaSecurityViewRestrictorFactory extends AbstractJavaSecurityFactoryTst
 {
 	final static Logger logger = LoggerFactory.getLogger(TestJavaSecurityViewRestrictorFactory.class);
