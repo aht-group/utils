@@ -18,4 +18,7 @@ public interface UtilsStatus<T extends UtilsLang> extends EjbRemoveable,EjbWithC
 	
 	public boolean isVisible();
 	public void setVisible(boolean visible);
+	
+	public String getImage();
+	public void setImage(String image);
 }

@@ -43,6 +43,8 @@ public class AhtUtilsStatus implements UtilsStatus<AhtUtilsLang>,EjbRemoveable,S
 	protected String code;
 	
 	protected boolean visible;
+	
+	protected String image;
 
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>Getters and Setters<<<<<<<<<<<<<<<<<
 	
@@ -57,6 +59,9 @@ public class AhtUtilsStatus implements UtilsStatus<AhtUtilsLang>,EjbRemoveable,S
 	
 	public boolean isVisible() {return visible;}
 	public void setVisible(boolean visible) {this.visible = visible;}
+	
+	public String getImage() {return image;}
+	public void setImage(String image) {this.image = image;}
 	
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>Methods<<<<<<<<<<<<<<<<<<<<<<<<<<<	
 	
