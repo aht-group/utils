@@ -176,6 +176,7 @@ public class AhtStatusDbInit
 //					logger.trace("Updating Info ... "+ejbStatus);
 //					logger.debug(ejbStatus.getName().get("de").getId());
 					addLangs(ejbStatus,status);
+					if(status.isSetImage()){ejbStatus.setImage(status.getImage());}
 //					logger.debug(ejbStatus.getName().get("de").getId());
 				}
 				catch (InstantiationException e) {logger.error("",e);}
