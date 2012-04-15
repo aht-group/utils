@@ -27,4 +27,6 @@ public interface UtilsFacade
 	<T extends Object> T update(T o) throws UtilsContraintViolationException,UtilsLockingException;
 	
 	<T extends EjbRemoveable> void rm(T o) throws UtilsIntegrityException;
+	
+	<T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> type, String p1Name, I p1, String p2Name, I p2);
 }

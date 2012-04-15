@@ -2,6 +2,7 @@ package net.sf.ahtutils.model.interfaces.security;
 
 import net.sf.ahtutils.model.interfaces.EjbWithCode;
 import net.sf.ahtutils.model.interfaces.EjbWithDescription;
+import net.sf.ahtutils.model.interfaces.EjbWithId;
 import net.sf.ahtutils.model.interfaces.EjbWithLang;
 import net.sf.ahtutils.model.interfaces.EjbWithType;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
@@ -14,7 +15,7 @@ public interface UtilsSecurityCategory<L extends UtilsLang,
 									   V extends UtilsSecurityView<L,D,C,R,V,U,A>,
 									   U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,
 									   A extends UtilsSecurityAction<L,D,C,R,V,U,A>>
-			extends EjbWithCode,EjbWithType,EjbWithLang<L>,EjbWithDescription<D>
+			extends EjbWithId,EjbWithCode,EjbWithType,EjbWithLang<L>,EjbWithDescription<D>
 {
 	public static enum Type {role,view,usecase}
 	
