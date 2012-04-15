@@ -36,7 +36,8 @@ public class TestXmlStatus extends AbstractXmlStatusTest
     	xml.setCode("myCode");
     	xml.setVisible(true);
     	xml.setGroup("myGroup");
-    	xml.setDscr("myDescription");
+    	xml.setLabel("myLabel");
+    	xml.setImage("test/green.png");
     	
     	if(withChilds)
     	{

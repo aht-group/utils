@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<s:status xmlns:s="http://ahtutils.aht-group.com/status" code="myCode" group="myGroup" dscr="myDescription" visible="true">
+<s:status xmlns:s="http://ahtutils.aht-group.com/status" code="myCode" group="myGroup" label="myLabel" visible="true" image="test/green.png">
     <s:transistions/>
     <s:langs/>
     <s:descriptions/>

@@ -12,8 +12,9 @@
             </xsd:sequence>
             <xsd:attribute name="code" type="xsd:string"/>
             <xsd:attribute name="group" type="xsd:string"/>
-            <xsd:attribute name="dscr" type="xsd:string"/>
+            <xsd:attribute name="label" type="xsd:string"/>
             <xsd:attribute name="visible" type="xsd:boolean"/>
+            <xsd:attribute name="image" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
 	<xsd:element name="langs">
