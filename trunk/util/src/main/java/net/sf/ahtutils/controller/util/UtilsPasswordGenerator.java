@@ -11,7 +11,7 @@ public class UtilsPasswordGenerator
 		flags = BlankRemover.itrim(flags); 
 		String[] ar = flags.split(" "); 
 		PwGenerator generator = new PwGenerator(); 
-		generator.getDefaultBlacklistFilter().addToBlacklist("badpassword"); 
+		PwGenerator.getDefaultBlacklistFilter().addToBlacklist("badpassword"); 
 //		List<String> passwords = generator.generatePassword(arg0, arg1, arg2, arg3); 
 		return "pwd";
 	}
