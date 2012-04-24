@@ -9,21 +9,10 @@
     
    <composite:interface>
      <composite:attribute name="value"/>
+     <composite:attribute name="type"/>
    </composite:interface>
         
-  <composite:implementation>
-   	 
-<div id="menu">
-	<ul>
-    	<f:forEach var="menuItem" items="#{cc.attrs.value.menuItem}">
-        	<f:if test="#{menuItem.active}">
-        	  <li><a href="#{menuItem.href}" class="current">#{menuItem.name}</a></li>
-        	</f:if>
-        	<f:if test="#{!menuItem.active}">
-        	  <li><a href="#{menuItem.href}">#{menuItem.name}</a></li>
-        	</f:if>
-       </f:forEach>
-	</ul>
-</div>
-   </composite:implementation>
+<composite:implementation>
+<span class="label">#{cc.attrs.value}</span>
+</composite:implementation>
 </html>
