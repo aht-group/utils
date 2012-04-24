@@ -13,6 +13,6 @@ public interface UtilsLink<S extends UtilsStatus<L>, L extends UtilsLang> extend
 	S getType();
 	void setType(S type);
 	
-	String getTolen();
+	String getToken();
 	void setToken(String token);
 }
