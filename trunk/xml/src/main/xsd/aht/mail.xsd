@@ -112,7 +112,12 @@
     <xsd:element name="link">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element name="token">
+                <xsd:element name="code">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string"/>
+                    </xsd:simpleType>
+                </xsd:element>
+                <xsd:element name="url">
                     <xsd:simpleType>
                         <xsd:restriction base="xsd:string"/>
                     </xsd:simpleType>

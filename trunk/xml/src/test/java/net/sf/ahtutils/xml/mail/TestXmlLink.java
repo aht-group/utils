@@ -36,7 +36,8 @@ public class TestXmlLink extends AbstractXmlMailTest
     	xml.setId(123);
     	xml.setRefId(345);
     	xml.setType("myType");
-    	xml.setToken("sndjgkdjngkjngkjnweg");
+    	xml.setCode("myCode");
+    	xml.setUrl("myUrl");
     	    	
     	return xml;
     }

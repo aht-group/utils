@@ -26,7 +26,7 @@ public class EjbLinkFactory<LI extends UtilsLink<T,L>,T extends UtilsStatus<L>,L
         this.clLink = clLink;
     } 
     
-    public LI create(T type, long refId, String token, Date validUntil)
+    public LI create(T type, long refId, String code, Date validUntil)
     {
     	LI ejb = null;
     	
@@ -35,7 +35,7 @@ public class EjbLinkFactory<LI extends UtilsLink<T,L>,T extends UtilsStatus<L>,L
 			ejb = clLink.newInstance();
 			ejb.setType(type);
 			ejb.setRefId(refId);
-			ejb.setToken(token);
+			ejb.setCode(code);
 			ejb.setValidUntil(validUntil);
 		}
     	catch (InstantiationException e) {e.printStackTrace();}
