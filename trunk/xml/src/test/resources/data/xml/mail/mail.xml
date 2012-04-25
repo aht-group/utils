@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <m:mail xmlns:m="http://ahtutils.aht-group.com/mail" xmlns:io="http://exlp.sf.net/io" id="myId" code="myCode" msgId="myMsgID" dir="myDir" test="true">
     <example>myExample</example>
-    <header>
+    <m:header>
         <subject>mySubject</subject>
-    </header>
-    <template lang="myLang" type="myType" file="myFile"/>
-    <template lang="myLang" type="myType" file="myFile"/>
-    <attachment/>
-    <attachment/>
+    </m:header>
+    <m:template lang="myLang" type="myType" file="myFile"/>
+    <m:template lang="myLang" type="myType" file="myFile"/>
+    <m:attachment/>
+    <m:attachment/>
 </m:mail>
