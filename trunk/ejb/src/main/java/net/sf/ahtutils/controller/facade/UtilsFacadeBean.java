@@ -11,6 +11,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import net.sf.ahtutils.controller.interfaces.UtilsFacade;
@@ -25,6 +26,9 @@ import net.sf.ahtutils.model.interfaces.EjbWithName;
 import net.sf.ahtutils.model.interfaces.EjbWithNr;
 import net.sf.ahtutils.model.interfaces.EjbWithType;
 import net.sf.ahtutils.model.interfaces.EjbWithValidFrom;
+import net.sf.ahtutils.model.interfaces.status.UtilsLang;
+import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
+import net.sf.ahtutils.model.interfaces.with.EjbWithStatus;
 
 public class UtilsFacadeBean implements UtilsFacade
 {
@@ -289,5 +293,36 @@ public class UtilsFacadeBean implements UtilsFacade
 		
 		try	{return q.getResultList();}
 		catch (NoResultException ex){return new ArrayList<T>();}
+	}
+	
+	@Override
+	public <T extends EjbWithStatus, S extends UtilsStatus<L>, L extends UtilsLang>
+		   List<T> fForStatusSelection(Class<T> queryClass, Class<S> statusClass, String sName, List<Long> list)
+	{
+		if(list==null || list.size()==0){return new ArrayList<T>();}
+		
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+	    CriteriaQuery<T> criteriaQuery = cB.createQuery(queryClass);
+	    
+	    Root<T> from = criteriaQuery.from(queryClass);
+	    Path<Object> sPath = from.get(sName);
+	    
+	    List<Predicate> lPs = new ArrayList<Predicate>();
+	    lPs.add(cB.equal(sPath, 1));
+	    
+	    Predicate[] p = new Predicate[list.size()];
+	    for(int i=0;i<p.length;i++)
+	    {
+	    	p[i] = cB.equal(sPath, list.get(i));
+	    }
+	    
+	    Predicate pS = cB.or(p);
+	       
+	    CriteriaQuery<T> select = criteriaQuery.select(from);
+	    select.where(pS);
+	    
+		TypedQuery<T> q = em.createQuery(select);
+		
+		return q.getResultList();
 	}
 }
