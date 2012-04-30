@@ -19,6 +19,9 @@ public abstract class AbstractUtilsMailCreator
 	
 	protected boolean doneInjection,doneWork;
 	
+	protected EmailAddress fromAddress;
+	protected String subject;
+	
 	public AbstractUtilsMailCreator(String mailId)
 	{
 		lang = "de";
@@ -36,7 +39,7 @@ public abstract class AbstractUtilsMailCreator
 		if(doneWork==false){throw new UtilsConfigurationException("No Work defined");}
 	}
 	
-	protected void createHeader(String subject, EmailAddress fromAddress)
+	protected void createHeader()
 	{
 		header = new Header();
 		header.setSubject(subject);
