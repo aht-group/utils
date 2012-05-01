@@ -17,7 +17,7 @@ public class  PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataMod
 	final static Logger logger = LoggerFactory.getLogger(PrimefacesEjbIdDataModel.class);
 	
 	private Map<Long,Boolean> mapUnlock;
-  
+
     public Map<Long, Boolean> getMapUnlock(){return mapUnlock;}
 
 	public PrimefacesEjbIdDataModel(List<T> data)
@@ -25,7 +25,7 @@ public class  PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataMod
         super(data);
         mapUnlock = new Hashtable<Long,Boolean>();
     }  
-      
+
     @SuppressWarnings("unchecked")
     @Override  
     public T getRowData(String rowKey)

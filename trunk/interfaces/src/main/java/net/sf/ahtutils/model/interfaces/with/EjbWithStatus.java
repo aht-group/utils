@@ -1,6 +1,8 @@
 package net.sf.ahtutils.model.interfaces.with;
 
-public interface EjbWithStatus
+import net.sf.ahtutils.model.interfaces.EjbWithId;
+
+public interface EjbWithStatus extends EjbWithId
 {
 
 }
