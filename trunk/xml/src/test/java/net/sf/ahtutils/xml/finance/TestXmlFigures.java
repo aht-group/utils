@@ -1,4 +1,4 @@
-package net.sf.ahtutils.xml.mail;
+package net.sf.ahtutils.xml.finance;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,32 +11,32 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestXmlBcc extends AbstractXmlMailTest
+public class TestXmlFigures extends AbstractXmlFinanceTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestXmlBcc.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlFigures.class);
 	
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"bcc.xml");
+		fXml = new File(rootDir,"figures.xml");
 	}
     
     @Test
     public void xml() throws FileNotFoundException
     {
-    	Bcc actual = create(true);
-    	Bcc expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Bcc.class);
+    	Figures actual = create(true);
+    	Figures expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Figures.class);
     	assertJaxbEquals(expected, actual);
     }  
     
-    public static Bcc create(boolean withChilds)
+    public static Figures create(boolean withChilds)
     {
-    	Bcc xml = new Bcc();
+    	Figures xml = new Figures();
 
     	if(withChilds)
     	{
-    		xml.getEmailAddress().add(TestXmlEmailAddress.createEmailAddress(false));
-    		xml.getEmailAddress().add(TestXmlEmailAddress.createEmailAddress(false));
+    		xml.getFigure().add(TestXmlFigure.create(false));
+    		xml.getFigure().add(TestXmlFigure.create(false));
     	}
     	    	
     	return xml;
@@ -48,9 +48,9 @@ public class TestXmlBcc extends AbstractXmlMailTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestXmlBcc.initPrefixMapper();
-		TestXmlBcc.initFiles();	
-		TestXmlBcc test = new TestXmlBcc();
+		TestXmlFigures.initPrefixMapper();
+		TestXmlFigures.initFiles();	
+		TestXmlFigures test = new TestXmlFigures();
 		test.save();
     }
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://ahtutils.aht-group.com/finance"
+    xmlns:f="http://ahtutils.aht-group.com/finance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="figures">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="f:figure" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType> 
+    </xsd:element>
+    <xsd:element name="figure">
+        <xsd:complexType>
+            <xsd:attribute name="id" type="xsd:long"/>
+            <xsd:attribute name="code" type="xsd:string"/>
+            <xsd:attribute name="label" type="xsd:string"/>
+            <xsd:attribute name="value" type="xsd:double"/>
+            <xsd:attribute name="symbol" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
