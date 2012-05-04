@@ -18,7 +18,12 @@ public class AhtDbXmlSeedUtil
 	
 	protected Db dbSeed;
 	protected String prefix;
-		
+	
+	public AhtDbXmlSeedUtil(Db dbSeed)
+	{
+		this(dbSeed,DataSource.ide);
+	}
+	
 	public AhtDbXmlSeedUtil(Db dbSeed, DataSource datasource)
 	{
 		this.dbSeed=dbSeed;

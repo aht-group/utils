@@ -1,21 +1,13 @@
 package net.sf.ahtutils.controller.factory.ofx.graph;
 
-import java.io.File;
 import java.io.IOException;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.ahtutils.model.qualifier.EjbErNode;
 import net.sf.ahtutils.xml.status.Status;
-import net.sf.exlp.util.io.ClassUtil;
-import net.sf.exlp.util.io.dir.RecursiveFileFinder;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.openfuxml.xml.addon.graph.Edge;
 import org.openfuxml.xml.addon.graph.Edges;
 import org.openfuxml.xml.addon.graph.Graph;
@@ -44,7 +36,7 @@ public class OfxStatusTransitionDiagramFactory
 		graph.setEdges(new Edges());
 	}
 	
-	public void addStatus(List<Status> list) throws IOException, ClassNotFoundException
+	public void addStatus(List<Status> list) throws IOException
 	{
 		int i=0;
 		for(Status status : list)
