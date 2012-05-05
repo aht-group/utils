@@ -12,31 +12,43 @@
    </composite:interface>
         
   <composite:implementation>
-   	 
-<ul class="nav">
-  <f:forEach var="menuItem" items="#{cc.attrs.value.menuItem}">
-        	<f:if test="#{menuItem.active}">
-    			<li class="active">
-    			  <a href="#{menuItem.href}">#{menuItem.name}</a>
-      			  <ul class="dropdown-menu">
-      			  <f:forEach var="menuItemDD" items="#{menuItem.menuItem}">
-      					<li><a href="#{menuItemDD.href}">#{menuItemDD.name}</a></li>
-      			  </f:forEach>
-      			  </ul>
-    			</li>
-    		</f:if>
-    		<f:if test="#{!menuItem.active}">
-              <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">#{menuItem.name}<b class="caret"/></a>
-    			  <ul class="dropdown-menu">
-    			  <f:forEach var="menuItemDD" items="#{menuItem.menuItem}">
-    					<li><a href="#{menuItemDD.href}">#{menuItemDD.name}</a></li>
-				  </f:forEach>
-				  </ul>
-    			</li>
-    		</f:if>
-  </f:forEach>
-</ul>    		
-
+   <ul class="nav">
+	  <f:forEach var="menuItem" items="#{cc.attrs.value.menuItem}">
+	        	<f:if test="#{menuItem.active}">
+	    			<f:if test="#{menuItem.menuItem.size()==0}">
+	    				<li class="active">
+	    					<a href="#{menuItem.href}">#{menuItem.name}</a>
+	    				</li>
+	    			</f:if>
+	    			<f:if test="#{menuItem.menuItem.size()>0}">
+	    				<li class="dropdown">
+	    				<a href="#" class="dropdown-toggle" data-toggle="dropdown">#{menuItem.name}<b class="caret"/></a>
+		      			  <ul class="dropdown-menu">
+			      			  <f:forEach var="menuItemDD" items="#{menuItem.menuItem}">
+			      					<li><a href="#{menuItemDD.href}">#{menuItemDD.name}</a></li>
+			      			  </f:forEach>
+		      			  </ul>
+	    				</li>
+	    			</f:if>
+	    		</f:if>
+	    		<f:if test="#{!menuItem.active}">
+	    		<f:if test="#{menuItem.menuItem.size()==0}">
+	    				<li>
+	    					<a href="#{menuItem.href}">#{menuItem.name}</a>
+	    				</li>
+	    			</f:if>
+	    			<f:if test="#{menuItem.menuItem.size()>0}">
+	    				<li class="dropdown">
+	    				  <a href="#" class="dropdown-toggle" data-toggle="dropdown">#{menuItem.name}<b class="caret"/></a>
+		      			  <ul class="dropdown-menu">
+			      			  <f:forEach var="menuItemDD" items="#{menuItem.menuItem}">
+			      					<li><a href="#{menuItemDD.href}">#{menuItemDD.name}</a></li>
+			      			  </f:forEach>
+		      			  </ul>
+	    				</li>
+	    			</f:if>
+	             </f:if>
+	  </f:forEach>
+	</ul>    		
    </composite:implementation>
 </html>
