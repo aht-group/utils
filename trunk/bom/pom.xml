@@ -41,6 +41,11 @@
 		         <artifactId>ahtutils-jsf</artifactId>
 		         <version>${project.version}</version>
 		      </dependency>
+		      <dependency>
+		         <groupId>net.sf.ahtutils</groupId>
+		         <artifactId>ahtutils-report</artifactId>
+		         <version>${project.version}</version>
+		      </dependency>
 			<dependency>
       			<groupId>net.sf.ahtutils</groupId>
       			<artifactId>ahtutils-test</artifactId>

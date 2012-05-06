@@ -26,7 +26,60 @@
 	</dependencyManagement>
 	
 	<dependencies>
-
+			<dependency>
+			    <groupId>net.sf.jasperreports</groupId>
+			    <artifactId>jasperreports</artifactId>
+			    <version>${jasperreports.version}</version>
+			    <exclusions>
+			    	<exclusion>
+			    		<artifactId>commons-collections</artifactId>
+			    		<groupId>commons-collections</groupId>
+			    	</exclusion>
+			    	<exclusion>
+			    		<artifactId>commons-logging</artifactId>
+			    		<groupId>commons-logging</groupId>
+			    	</exclusion>
+			    	<exclusion>
+			    		<artifactId>xml-apis</artifactId>
+			    		<groupId>xml-apis</groupId>
+			    	</exclusion>
+			    </exclusions>
+			</dependency>
+			<dependency>
+			    <groupId>net.sf.jasperreports</groupId>
+			    <artifactId>jasperreports-fonts</artifactId>
+			    <version>${jasperreports.version}</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.codehaus.groovy</groupId>
+			    <artifactId>groovy-all</artifactId>
+			    <version>${groovy.version}</version>
+			</dependency>
+			<dependency>
+        	<groupId>net.sf.exlp</groupId>
+        	<artifactId>exlp-util</artifactId>
+        	<type>jar</type>
+        	<scope>compile</scope>
+        	<exclusions>
+        		<exclusion>
+        			<artifactId>commons-collections</artifactId>
+        			<groupId>commons-collections</groupId>
+        		</exclusion>
+        	</exclusions>
+	        </dependency>
+	        <dependency>
+	        	<groupId>net.sf.ahtutils</groupId>
+	        	<artifactId>ahtutils-xml</artifactId>
+	        	<type>jar</type>
+	        	<scope>compile</scope>
+	        </dependency>
+	        <dependency>
+				<groupId>org.apache.ant</groupId>
+				<artifactId>ant</artifactId>
+				<version>${ant.version}</version>
+				<type>jar</type>
+				<scope>compile</scope>
+			</dependency>
 	</dependencies>
    
 </project>
