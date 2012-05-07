@@ -37,6 +37,18 @@ public class UtilsJbossFacadeLookup
 	
 	private String appName;
 	private String moduleName;
+	private String host;
+	private String username;
+	private String password;
+	
+	public UtilsJbossFacadeLookup(String appName, String moduleName, String host, String username, String password)
+	{
+		this.appName=appName;
+		this.moduleName=moduleName;
+		this.host=host;
+		this.username=username;
+		this.password=password;
+	}
 	
 	public UtilsJbossFacadeLookup(String appName, String moduleName)
 	{
@@ -49,6 +61,9 @@ public class UtilsJbossFacadeLookup
     {
         final Hashtable<String,String> jndiProperties = new Hashtable<String,String>();
         jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
+        jndiProperties.put(Context.PROVIDER_URL, "remote://" +host +":4447");
+        jndiProperties.put(Context.SECURITY_PRINCIPAL, username);
+        jndiProperties.put(Context.SECURITY_CREDENTIALS, password);
         final Context context = new InitialContext(jndiProperties);
        
         // The app name is the application name of the deployed EJBs. This is typically the ear name
@@ -89,7 +104,7 @@ public class UtilsJbossFacadeLookup
         final Hashtable<String,String> jndiProperties = new Hashtable<String,String>();
         jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
         final Context context = new InitialContext(jndiProperties);
-    
+        
         final String distinctName = "";
  
         final String beanName = facade.getSimpleName()+"Bean";
