@@ -134,7 +134,7 @@
 					</exclusion>
 				</exclusions>
 			</dependency>
-	        <dependency>
+			 <dependency>
 	        	<groupId>junit</groupId>
 	        	<artifactId>junit</artifactId>
 	        	<scope>test</scope>
@@ -147,6 +147,26 @@
 	        	<groupId>org.slf4j</groupId>
 	        	<artifactId>slf4j-log4j12</artifactId>
 	        </dependency>
+			<dependency>
+				<groupId>org.openfuxml</groupId>
+				<artifactId>ofx-chart</artifactId>
+				<type>jar</type>
+				<scope>compile</scope>
+				<exclusions>
+					<exclusion>
+						<artifactId>commons-logging</artifactId>
+						<groupId>commons-logging</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+		 		<groupId>org.openfuxml</groupId>
+		 		<artifactId>ofx-core</artifactId>
+	 		</dependency>
+	 		<dependency>
+		 		<groupId>org.openfuxml</groupId>
+		 		<artifactId>ofx-xml</artifactId>
+	 		</dependency>
 	</dependencies>
    
 </project>
