@@ -131,5 +131,9 @@
     	   		<groupId>commons-jxpath</groupId>
     	   		<artifactId>commons-jxpath</artifactId>
     	   	</dependency>
+    	   	<dependency>
+    	   		<groupId>org.openfuxml</groupId>
+    	   		<artifactId>ofx-xml</artifactId>
+    	   	</dependency>
 	</dependencies>
 </project>

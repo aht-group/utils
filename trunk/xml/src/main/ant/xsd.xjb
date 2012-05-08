@@ -69,5 +69,11 @@
             <jxb:package name="net.sf.exlp.xml.io"/>
         </jxb:schemaBindings>
     </jxb:bindings>
+    
+	<jxb:bindings schemaLocation="../../../../../ofx/xml/src/main/xsd/addon/chart.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="org.openfuxml.addon.chart.data.jaxb"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
    
 </jxb:bindings>

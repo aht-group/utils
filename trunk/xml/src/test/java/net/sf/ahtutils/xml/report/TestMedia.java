@@ -8,6 +8,7 @@ import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.openfuxml.addon.chart.data.jaxb.Chart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,6 +37,7 @@ public class TestMedia extends AbstractXmlReportTest
     	media.setDir("testDir");
     	media.getJr().add(TestJr.create());
     	media.setType(type);
+    	media.setChart(new Chart());
     	return media;
     }
     
