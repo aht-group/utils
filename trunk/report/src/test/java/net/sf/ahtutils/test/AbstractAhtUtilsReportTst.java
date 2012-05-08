@@ -11,9 +11,9 @@ import org.junit.BeforeClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AbstractAhtUtilTest
+public class AbstractAhtUtilsReportTst
 {
-	final static Logger logger = LoggerFactory.getLogger(AbstractAhtUtilTest.class);
+	final static Logger logger = LoggerFactory.getLogger(AbstractAhtUtilsReportTst.class);
 	
 	protected static NsPrefixMapperInterface nsPrefixMapper;
 	protected File f;

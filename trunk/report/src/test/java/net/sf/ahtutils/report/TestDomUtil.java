@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import net.sf.ahtutils.test.AbstractAhtUtilTest;
+import net.sf.ahtutils.test.AbstractAhtUtilsReportTst;
 import net.sf.ahtutils.xml.report.Info;
 import net.sf.ahtutils.xml.report.Info.Title;
 import net.sf.exlp.util.xml.DomUtil;
@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public class TestDomUtil extends AbstractAhtUtilTest
+public class TestDomUtil extends AbstractAhtUtilsReportTst
 {
 	final static Logger logger = LoggerFactory.getLogger(TestDomUtil.class);
     	
