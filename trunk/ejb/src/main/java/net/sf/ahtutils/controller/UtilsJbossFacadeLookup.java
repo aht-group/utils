@@ -50,60 +50,16 @@ public class UtilsJbossFacadeLookup
 		this.password=password;
 	}
 	
-	public UtilsJbossFacadeLookup(String appName, String moduleName)
+	public UtilsJbossFacadeLookup(String host, String appName, String moduleName)
 	{
 		this.appName=appName;
 		this.moduleName=moduleName;
 	}
-	
-   @SuppressWarnings("unchecked")
-   public <F extends Object> F lookup(Class<F> facade, Class<?> bean) throws NamingException
+	   
+	@SuppressWarnings("unchecked")
+	public <F extends Object> F lookup(Class<F> facade) throws NamingException
     {
-        final Hashtable<String,String> jndiProperties = new Hashtable<String,String>();
-        jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
-        jndiProperties.put(Context.PROVIDER_URL, "remote://" +host +":4447");
-        jndiProperties.put(Context.SECURITY_PRINCIPAL, username);
-        jndiProperties.put(Context.SECURITY_CREDENTIALS, password);
-        final Context context = new InitialContext(jndiProperties);
-       
-        // The app name is the application name of the deployed EJBs. This is typically the ear name
-        // without the .ear suffix. However, the application name could be overridden in the application.xml of the
-        // EJB deployment on the server.
-        // Since we haven't deployed the application as a .ear, the app name for us will be an empty string
-        
-        // This is the module name of the deployed EJBs on the server. This is typically the jar name of the
-        // EJB deployment, without the .jar suffix, but can be overridden via the ejb-jar.xml
-        // In this example, we have deployed the EJBs in a jboss-as-ejb-remote-app.jar, so the module name is
-        // jboss-as-ejb-remote-app
-       
-        // AS7 allows each deployment to have an (optional) distinct name. We haven't specified a distinct name for
-        // our EJB deployment, so this is an empty string
-        final String distinctName = "";
-      
-        // The EJB name which by default is the simple class name of the bean implementation class
-        final String beanName = bean.getSimpleName();
-        // the remote view fully qualified class name
-        
-        final String viewClassName = facade.getName();
-        // let's do the lookup
-        
-        StringBuffer sb = new StringBuffer();
-        sb.append("ejb:");
-        sb.append(appName).append("/");
-        sb.append(moduleName).append("/");
-        sb.append(distinctName).append("/");
-        sb.append(beanName);
-        sb.append("!").append(viewClassName);
-                
-        return (F) context.lookup(sb.toString());
-    }
-   
-   @SuppressWarnings("unchecked")
-   public <F extends Object> F lookup(Class<F> facade) throws NamingException
-    {
-        final Hashtable<String,String> jndiProperties = new Hashtable<String,String>();
-        jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
-        final Context context = new InitialContext(jndiProperties);
+        final Context context = createContext();
         
         final String distinctName = "";
  
@@ -120,4 +76,14 @@ public class UtilsJbossFacadeLookup
         logger.trace("Trying: "+sb.toString());
         return (F) context.lookup(sb.toString());
     }
+   
+   private Context createContext() throws NamingException
+   {
+       final Hashtable<String,String> jndiProperties = new Hashtable<String,String>();
+       jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
+       jndiProperties.put(Context.PROVIDER_URL, "remote://" +host +":4447");
+       jndiProperties.put(Context.SECURITY_PRINCIPAL, username);
+       jndiProperties.put(Context.SECURITY_CREDENTIALS, password);
+       return new InitialContext(jndiProperties);
+   }
 }
