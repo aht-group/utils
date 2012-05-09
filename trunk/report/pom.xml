@@ -31,10 +31,12 @@
 			    <artifactId>jasperreports</artifactId>
 			    <version>${jasperreports.version}</version>
 			    <exclusions>
+			    	<!-- 
 			    	<exclusion>
 			    		<artifactId>commons-collections</artifactId>
 			    		<groupId>commons-collections</groupId>
 			    	</exclusion>
+			    	 -->
 			    	<exclusion>
 			    		<artifactId>commons-logging</artifactId>
 			    		<groupId>commons-logging</groupId>
@@ -63,14 +65,29 @@
 			    		 <groupId>bouncycastle</groupId>
   						 <artifactId>bcmail-jdk14</artifactId>
   		    		</exclusion>
+  		    		<!-- 
   		    		<exclusion>
   		    			<artifactId>commons-beanutils</artifactId>
   		    			<groupId>commons-beanutils</groupId>
   		    		</exclusion>
+  		    		 -->
+  		    		<!-- 
   		    		<exclusion>
   		    			<artifactId>commons-digester</artifactId>
   		    			<groupId>commons-digester</groupId>
   		    		</exclusion>
+  		    		 -->
+			    </exclusions>
+			</dependency>
+			<dependency>
+			    <groupId>xalan</groupId>
+			    <artifactId>xalan</artifactId>
+			    <version>${xalan.version}</version>
+			    <exclusions>
+			    	<exclusion>
+			    		<artifactId>xml-apis</artifactId>
+			    		<groupId>xml-apis</groupId>
+			    	</exclusion>
 			    </exclusions>
 			</dependency>
 			<dependency>
