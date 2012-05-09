@@ -1,17 +1,24 @@
 package net.sf.ahtutils.report;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 import net.sf.ahtutils.test.AbstractAhtUtilsReportTst;
 import net.sf.ahtutils.xml.report.Info;
+import net.sf.ahtutils.xml.report.Media;
 import net.sf.ahtutils.xml.report.Info.Title;
 import net.sf.exlp.util.xml.DomUtil;
+import net.sf.exlp.util.xml.JDomUtil;
 import net.sf.exlp.util.xml.JaxbUtil;
 
+import org.jdom.Namespace;
+import org.jfree.chart.JFreeChart;
 import org.junit.Before;
 import org.junit.Test;
+import org.openfuxml.addon.chart.OFxChartRenderControl;
+import org.openfuxml.addon.chart.data.jaxb.Chart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -43,6 +50,31 @@ public class TestDomUtil extends AbstractAhtUtilsReportTst
 	{
 		Info actual = DomUtil.toJaxb(root, Info.class);
 		this.assertJaxbEquals(expected, actual);
+	}
+	
+	@Test
+	public void chartReader()
+	{
+		//Read JDOM data document
+		org.jdom.Document jdomDoc =  JDomUtil.load("../util/src/test/resources/data/xml/report/testData.xml");
+		
+		//Get the root element (report)
+		org.jdom.Element reportElement = jdomDoc.getRootElement();
+		System.out.println("Root: " +reportElement.toString());
+		
+		//Get the info element as child of report element
+		org.jdom.Element infoElement   = reportElement.getChild("info", Namespace.getNamespace("http://ahtutils.aht-group.com/report"));
+		System.out.println("Info: " +infoElement.toString());
+		
+		Info info = (Info) JDomUtil.toJaxb(infoElement, Info.class);
+		
+		OFxChartRenderControl ofxRenderer = new OFxChartRenderControl();
+		for (Media media : info.getMedia())
+		{
+			Chart chart          = media.getChart();
+			JFreeChart jfreeChart = ofxRenderer.render(chart);
+			BufferedImage chartImage = jfreeChart.createBufferedImage(300, 400);
+		}
 	}
 	
 }
