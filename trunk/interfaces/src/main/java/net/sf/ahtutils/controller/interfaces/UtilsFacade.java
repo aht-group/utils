@@ -2,6 +2,7 @@ package net.sf.ahtutils.controller.interfaces;
 
 import java.util.List;
 
+import net.sf.ahtutils.controller.util.ParentPredicate;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
@@ -12,6 +13,7 @@ import net.sf.ahtutils.model.interfaces.EjbWithId;
 import net.sf.ahtutils.model.interfaces.EjbWithName;
 import net.sf.ahtutils.model.interfaces.EjbWithNr;
 import net.sf.ahtutils.model.interfaces.EjbWithType;
+import net.sf.ahtutils.model.interfaces.with.EjbWithStatus;
 
 public interface UtilsFacade
 {
@@ -29,5 +31,5 @@ public interface UtilsFacade
 	<T extends EjbRemoveable> void rm(T o) throws UtilsIntegrityException;
 	
 	<T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> type, String p1Name, I p1, String p2Name, I p2);
-//	<T extends EjbWithStatus, OR extends EjbWithId, AND extends EjbWithId> List<T> fForAndOrParents(Class<T> queryClass, List<UtilsParentPredicate<OR>> lpOr, List<UtilsParentPredicate<AND>> lpAnd);
+	<T extends EjbWithStatus, OR extends EjbWithId, AND extends EjbWithId> List<T> fForAndOrParents(Class<T> queryClass, List<ParentPredicate<OR>> lpOr, List<ParentPredicate<AND>> lpAnd);
 }
