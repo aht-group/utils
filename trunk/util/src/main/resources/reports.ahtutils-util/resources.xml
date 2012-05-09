@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<r:resources xmlns:r="http://ahtutils.aht-group.com/report" dir="src/main/resources/report/resources">
-    <r:resource type="image" name="logo">
-        <value>publicdomain.png</value>
-    </r:resource>
-</r:resources>
