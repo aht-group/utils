@@ -286,6 +286,7 @@ public class ReportHandler {
 	 * Get a Map of all standard parameters plus the given locale and the included data XML file 
 	 * @throws ReportException
 	 */
+	@Deprecated
 	public Map<String,Object> getParameterMap(Document doc, Locale locale)
 	{	
 		Map<String,Object> mapReportParameter = new Hashtable<String,Object>();
@@ -493,6 +494,7 @@ public class ReportHandler {
 	 * @return
 	 * @throws ReportException
 	 */
+	@Deprecated
 	public ByteArrayOutputStream create(String reportId, Document doc, Format format, Locale locale) throws ReportException
 	{
 		logger.info("TEST");
