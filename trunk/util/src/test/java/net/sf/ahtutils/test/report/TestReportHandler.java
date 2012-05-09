@@ -45,7 +45,8 @@ public class TestReportHandler extends AbstractAhtUtilReportTest
 		TestReportHandler test = new TestReportHandler();
 		test.initExample("testReport");
 		
-		ByteArrayOutputStream pdf = reportHandler.create(reportId, test.docReport, ReportHandler.Format.pdf, Locale.GERMAN);
+		//ByteArrayOutputStream pdf = reportHandler.create(reportId, test.docReport, ReportHandler.Format.pdf, Locale.GERMAN);
+		ByteArrayOutputStream pdf = reportHandler.createUsingJDom(reportId, test.jdomReport, ReportHandler.Format.pdf, Locale.GERMAN);
 		String pdfFile = "target/" +reportId +".pdf";
 		OutputStream outputStream = new FileOutputStream (pdfFile);
 		pdf.writeTo(outputStream);

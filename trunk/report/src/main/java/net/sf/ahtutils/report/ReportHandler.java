@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -13,9 +14,8 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import net.sf.ahtutils.report.AbstractReportControl.Direction;
-import net.sf.ahtutils.report.AbstractReportControl.Output;
 import net.sf.ahtutils.report.exception.ReportException;
+import net.sf.ahtutils.xml.report.Info;
 import net.sf.ahtutils.xml.report.Jr;
 import net.sf.ahtutils.xml.report.Media;
 import net.sf.ahtutils.xml.report.Report;
@@ -27,6 +27,8 @@ import net.sf.ahtutils.xml.xpath.ReportXpath;
 import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.util.io.resourceloader.MultiResourceLoader;
+import net.sf.exlp.util.xml.DomUtil;
+import net.sf.exlp.util.xml.JDomUtil;
 import net.sf.exlp.util.xml.JaxbUtil;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
@@ -43,9 +45,17 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 import org.apache.commons.jxpath.JXPathContext;
+import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.JFreeChart;
+import org.openfuxml.addon.chart.OFxChartRenderControl;
+import org.openfuxml.addon.chart.data.jaxb.Chart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
+import org.jdom.Element;
+import org.jdom.Namespace;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * @author helgehemmer
@@ -305,6 +315,77 @@ public class ReportHandler {
 					mapReportParameter.put(res.getName(), image);
 				}
 		}
+		for (Object key : mapReportParameter.keySet())
+		{
+			String keyString = (String) key;
+			String valueString = mapReportParameter.get(key).toString();
+			logger.info("Report Parameter: " +keyString +" = " +valueString);
+		}
+		return mapReportParameter;
+	}
+	
+	/**
+	 * Get a Map of all standard parameters plus the given locale and the included data XML file 
+	 * @throws ReportException
+	 */
+	public Map<String,Object> getParameterMapJDom(org.jdom.Document doc, Locale locale)
+	{	
+		Map<String,Object> mapReportParameter = new Hashtable<String,Object>();
+		
+		//Set standard parameters
+		mapReportParameter.put(JRXPathQueryExecuterFactory.XML_DATE_PATTERN, "yyyy-MM-dd");
+		mapReportParameter.put(JRXPathQueryExecuterFactory.XML_NUMBER_PATTERN, "#,##0.00");
+		mapReportParameter.put(JRXPathQueryExecuterFactory.XML_LOCALE, Locale.ENGLISH);
+		mapReportParameter.put(JRParameter.REPORT_LOCALE, locale);
+		mapReportParameter.put("REPORT_LOCALE", locale);
+		
+		//Add charts if included in report info block
+		
+		//Get the root element (report)
+		org.jdom.Element reportElement = doc.getRootElement();
+		
+		//Get the info element as child of report element
+		org.jdom.Element infoElement   = reportElement.getChild("info", Namespace.getNamespace("http://ahtutils.aht-group.com/report"));
+		
+		Info info = (Info) JDomUtil.toJaxb(infoElement, Info.class);
+		
+		OFxChartRenderControl ofxRenderer = new OFxChartRenderControl();
+		for (Media media : info.getMedia())
+		{
+			Chart chart          = media.getChart();
+			JFreeChart jfreeChart = ofxRenderer.render(chart);
+			BufferedImage chartImage = jfreeChart.createBufferedImage(320, 240);
+			mapReportParameter.put(media.getCode(), chartImage);
+		}
+	
+		//Add the data document
+		doc = JDomUtil.unsetNameSpace(doc);
+		Document docReport = JDomUtil.toW3CDocument(doc);
+		mapReportParameter.put(JRXPathQueryExecuterFactory.PARAMETER_XML_DATA_DOCUMENT, docReport);
+		
+		//Add all resources configured in resources.xml
+		for (Resource res : resources.getResource())
+		{
+			logger.info("Adding resource of type " +res.getType() +" with id='" +res.getName() +"' loaded from " +res.getValue().getValue());
+			if (res.getType().equals("image"))
+				
+				{
+					BufferedImage image = null;
+					try {
+						String imgLocation = "/resources/" +res.getType() +"/" +res.getValue().getValue();
+						logger.info("Including image resource: " +imgLocation);
+						image = ImageIO.read(mrl.searchIs(imgLocation));} 
+					catch (FileNotFoundException e) {logger.error(e.getMessage());}
+					catch (IOException e) {logger.error(e.getMessage());}
+					mapReportParameter.put(res.getName(), image);
+				}
+		}
+		for (Object key : mapReportParameter.keySet())
+		{
+			String keyString = (String) key;
+			String valueString = mapReportParameter.get(key).toString();
+			logger.info("Report Parameter: " +keyString +" = " +valueString);
+		}
 		return mapReportParameter;
 	}
 	
@@ -414,10 +495,32 @@ public class ReportHandler {
 	 */
 	public ByteArrayOutputStream create(String reportId, Document doc, Format format, Locale locale) throws ReportException
 	{
+		logger.info("TEST");
 	//	JasperDesign masterDesign = getMasterReport(reportId, format.name());
 	//	JasperReport masterReport = getCompiledReport(masterDesign);
 		JasperReport masterReport = getCompiledReport(reportId, format.name());
 		Map<String, Object> reportParameterMap = getParameterMap(doc, locale);
+		reportParameterMap.putAll(getSubreportsMap(reportId, format.name()));
+		JasperPrint print = getJasperPrint(masterReport, reportParameterMap);
+		return exportToPdf(print);
+	}
+	
+	/**
+	 * Method encapsulating the classical JasperReports workflow of JasperDesign -> JasperReport -> JasperPrint -> PDF/XLS export
+	 * @param reportId identifier of the requested report
+	 * @param doc XML data object
+	 * @param format output format defined by Format enum (PDF or Excel XLS)
+	 * @param locale Locale to be used for report exporting
+	 * @return
+	 * @throws ReportException
+	 */
+	public ByteArrayOutputStream createUsingJDom(String reportId, org.jdom.Document doc, Format format, Locale locale) throws ReportException
+	{
+		logger.info("Using JDom data document.");
+	//	JasperDesign masterDesign = getMasterReport(reportId, format.name());
+	//	JasperReport masterReport = getCompiledReport(masterDesign);
+		JasperReport masterReport = getCompiledReport(reportId, format.name());
+		Map<String, Object> reportParameterMap = getParameterMapJDom(doc, locale);
 		reportParameterMap.putAll(getSubreportsMap(reportId, format.name()));
 		JasperPrint print = getJasperPrint(masterReport, reportParameterMap);
 		return exportToPdf(print);

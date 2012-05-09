@@ -61,10 +61,13 @@ public class AbstractAhtUtilReportTest extends AbstractAhtUtilTest
 	{
 		reportId = id;
 		report = ReportXpath.getReport(reports, id);
-		org.jdom.Document jdomDoc =  JDomUtil.load(report.getExample());
-		jdomReport = jdomDoc;
-		jdomDoc = JDomUtil.unsetNameSpace(jdomDoc);
 		
+		//Load the JDom representation of the example for further processing in ReportHandler
+		jdomReport = JDomUtil.load(report.getExample());
+		
+		//Load example and convert to doc for direct use in ReportHandler
+		org.jdom.Document jdomDoc =  JDomUtil.load(report.getExample());
+		jdomDoc = JDomUtil.unsetNameSpace(jdomDoc);
 		docReport = JDomUtil.toW3CDocument(jdomDoc);
 	}
 	
