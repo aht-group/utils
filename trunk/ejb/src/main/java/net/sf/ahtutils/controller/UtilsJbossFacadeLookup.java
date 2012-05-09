@@ -82,8 +82,8 @@ public class UtilsJbossFacadeLookup
        final Hashtable<String,String> jndiProperties = new Hashtable<String,String>();
        jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
        jndiProperties.put(Context.PROVIDER_URL, "remote://" +host +":4447");
-       jndiProperties.put(Context.SECURITY_PRINCIPAL, username);
-       jndiProperties.put(Context.SECURITY_CREDENTIALS, password);
+       if(username!=null){jndiProperties.put(Context.SECURITY_PRINCIPAL, username);}
+       if(password!=null){jndiProperties.put(Context.SECURITY_CREDENTIALS, password);}
        return new InitialContext(jndiProperties);
    }
 }
