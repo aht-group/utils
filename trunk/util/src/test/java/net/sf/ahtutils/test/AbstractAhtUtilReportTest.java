@@ -36,6 +36,7 @@ public class AbstractAhtUtilReportTest extends AbstractAhtUtilTest
     protected static Resources resources;
     
     protected Document docReport;
+    protected org.jdom.Document jdomReport;
     protected Report report;
     protected ReportController reportController;
 	
@@ -61,6 +62,7 @@ public class AbstractAhtUtilReportTest extends AbstractAhtUtilTest
 		reportId = id;
 		report = ReportXpath.getReport(reports, id);
 		org.jdom.Document jdomDoc =  JDomUtil.load(report.getExample());
+		jdomReport = jdomDoc;
 		jdomDoc = JDomUtil.unsetNameSpace(jdomDoc);
 		
 		docReport = JDomUtil.toW3CDocument(jdomDoc);
