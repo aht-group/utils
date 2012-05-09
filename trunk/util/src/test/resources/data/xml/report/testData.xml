@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<report xmlns:r="http://ahtutils.aht-group.com/report">
-    <r:info xmlns:r="http://www.openfuxml.org/chart">
+<r:report xmlns:r="http://ahtutils.aht-group.com/report">
+    <r:info>
         <r:title>Test Report</r:title>
         <r:record>2011-10-18T12:35:02</r:record>
         <r:subtitle>... with a subtitle</r:subtitle>
@@ -24,4 +24,4 @@
     	<item>Data 1</item>
     	<item>Data 2</item>
     </data>
-</report>
+</r:report>
