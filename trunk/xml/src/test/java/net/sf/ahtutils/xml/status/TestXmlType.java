@@ -11,27 +11,27 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestXmlStatus extends AbstractXmlStatusTest
+public class TestXmlType extends AbstractXmlStatusTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestXmlStatus.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlType.class);
 	
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"status.xml");
+		fXml = new File(rootDir,"type.xml");
 	}
     
     @Test
     public void testXml() throws FileNotFoundException
     {
-    	Status actual = create(true);
-    	Status expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Status.class);
+    	Type actual = create(true);
+    	Type expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Type.class);
     	assertJaxbEquals(expected, actual);
     }
     
-    public static Status create(boolean withChilds)
+    public static Type create(boolean withChilds)
     {
-    	Status xml = new Status();
+    	Type xml = new Type();
     	xml.setCode("myCode");
     	xml.setVisible(true);
     	xml.setGroup("myGroup");
@@ -55,8 +55,8 @@ public class TestXmlStatus extends AbstractXmlStatusTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestXmlStatus.initFiles();	
-		TestXmlStatus test = new TestXmlStatus();
+		TestXmlType.initFiles();	
+		TestXmlType test = new TestXmlType();
 		test.save();
     }
 }
