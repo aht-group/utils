@@ -14,7 +14,6 @@
 
     <dependencyManagement>
         <dependencies>
-        
         	<!-- AHT Utils -->
         	<dependency>
 				<groupId>net.sf.ahtutils</groupId>
@@ -86,6 +85,23 @@
 				<artifactId>commons-io</artifactId>
 				<version>2.2</version>
 			</dependency>
+        	<dependency>
+        		<groupId>commons-configuration</groupId>
+        		<artifactId>commons-configuration</artifactId>
+        		<version>1.8</version>
+        	</dependency>
+        	<dependency>
+        		<groupId>commons-codec</groupId>
+        		<artifactId>commons-codec</artifactId>
+        		<version>1.6</version>
+        	</dependency>
+        	
+        	<!-- Apache -->
+        	<dependency>
+        		<groupId>org.apache.poi</groupId>
+        		<artifactId>poi</artifactId>
+        		<version>3.8</version>
+        	</dependency>
         
         	<!-- JBoss -->
             <dependency>
