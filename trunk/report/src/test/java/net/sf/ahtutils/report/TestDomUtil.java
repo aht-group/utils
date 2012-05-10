@@ -56,7 +56,7 @@ public class TestDomUtil extends AbstractAhtUtilsReportTst
 	public void chartReader()
 	{
 		//Read JDOM data document
-		org.jdom.Document jdomDoc =  JDomUtil.load("../util/src/test/resources/data/xml/report/testData.xml");
+		org.jdom.Document jdomDoc =  JDomUtil.load("src/test/resources/data/xml/report/testData.xml");
 		
 		//Get the root element (report)
 		org.jdom.Element reportElement = jdomDoc.getRootElement();
