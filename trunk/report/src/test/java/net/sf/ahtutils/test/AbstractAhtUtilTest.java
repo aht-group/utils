@@ -14,6 +14,7 @@ import net.sf.exlp.xml.ns.NsPrefixMapperInterface;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Test;
 import org.openfuxml.renderer.processor.latex.util.OfxLatexRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,10 +47,13 @@ public class AbstractAhtUtilTest
 		if(!LoggerInit.isLog4jInited())
 		{
 			LoggerInit loggerInit = new LoggerInit("log4junit.xml");	
-			loggerInit.addAltPath("config.ahtutils-util.test");
+			loggerInit.addAltPath("config.ahtutils-report.test");
 			loggerInit.init();
 		}
     }
+	
+	@Test
+	public void dummy(){}
 	
 	protected void assertJaxbEquals(Object expected, Object actual)
 	{
