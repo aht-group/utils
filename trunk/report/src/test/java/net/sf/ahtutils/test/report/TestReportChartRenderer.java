@@ -18,14 +18,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class TestReportRenderer extends AbstractAhtUtilsReportTst
+public class TestReportChartRenderer extends AbstractAhtUtilsReportTst
 {
-	final static Logger logger = LoggerFactory.getLogger(TestReportRenderer.class);
+	final static Logger logger = LoggerFactory.getLogger(TestReportChartRenderer.class);
     
 	@Before
 	public void initExample() throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
 	{
-		initExample("testReport");
+		initExample("testReportChart");
 	}
 	
 	@Test
@@ -47,8 +47,8 @@ public class TestReportRenderer extends AbstractAhtUtilsReportTst
 		TestReportRenderer.initReport();
 		ReportHandler reportHandler = new ReportHandler("src/main/resources/reports.ahtutils-report/reports.xml");
 		
-		TestReportRenderer test = new TestReportRenderer();
-		test.initExample("testReport");
+		TestReportChartRenderer test = new TestReportChartRenderer();
+		test.initExample("testReportChart");
 		
 
 		ByteArrayOutputStream pdf = reportHandler.createUsingJDom(reportId, test.jdomReport, ReportHandler.Format.pdf, Locale.GERMAN);
