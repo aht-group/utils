@@ -88,7 +88,6 @@
 			<dependency>
 			    <groupId>net.sf.jasperreports</groupId>
 			    <artifactId>jasperreports</artifactId>
-			    <version>${jasperreports.version}</version>
 			    <exclusions>
 			    	<exclusion>
 			    		<artifactId>commons-collections</artifactId>
@@ -107,17 +106,14 @@
 			<dependency>
 			    <groupId>net.sf.jasperreports</groupId>
 			    <artifactId>jasperreports-fonts</artifactId>
-			    <version>${jasperreports.version}</version>
 			</dependency>
 			<dependency>
 			    <groupId>org.codehaus.groovy</groupId>
 			    <artifactId>groovy-all</artifactId>
-			    <version>${groovy.version}</version>
 			</dependency>
 			<dependency>
 			    <groupId>xalan</groupId>
 			    <artifactId>xalan</artifactId>
-			    <version>${xalan.version}</version>
 			    <exclusions>
 			    	<exclusion>
 			    		<artifactId>xml-apis</artifactId>
@@ -135,14 +131,12 @@
 			<dependency>
 				<groupId>org.apache.ant</groupId>
 				<artifactId>ant</artifactId>
-				<version>${ant.version}</version>
 				<type>jar</type>
 				<scope>compile</scope>
 			</dependency>
 			<dependency>
 			    <groupId>com.google.guava</groupId>
 			    <artifactId>guava</artifactId>
-			    <version>${guava.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.openfuxml</groupId>
