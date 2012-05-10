@@ -18,7 +18,7 @@ import org.openfuxml.renderer.processor.latex.util.OfxLatexRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AbstractAhtUtilTest
+public class AbstractAhtUtilTest extends AbstractAhtUtilsTest
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractAhtUtilTest.class);
 	

@@ -6,7 +6,7 @@ import java.util.List;
 import junit.framework.Assert;
 
 import net.sf.ahtutils.model.ejb.utils.UtilsValidFrom;
-import net.sf.ahtutils.test.AbstractAhtUtilTest;
+import net.sf.ahtutils.test.AbstractAhtUtilsTest;
 
 import org.joda.time.DateTime;
 import org.junit.Before;
@@ -14,7 +14,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestValidFromProcessor extends AbstractAhtUtilTest
+public class TestValidFromProcessor extends AbstractAhtUtilsTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestValidFromProcessor.class);
 	
