@@ -16,4 +16,12 @@ public class XmlFigureFactory
 		xml.setValue(ejb.getValue());
 		return xml;
 	}
+	
+	public static Figure create(String code, double value)
+	{
+		Figure xml = new Figure();
+		xml.setCode(code);
+		xml.setValue(value);
+		return xml;
+	}
 }
