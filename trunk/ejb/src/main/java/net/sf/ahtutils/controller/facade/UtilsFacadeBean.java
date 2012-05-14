@@ -27,7 +27,6 @@ import net.sf.ahtutils.model.interfaces.EjbWithName;
 import net.sf.ahtutils.model.interfaces.EjbWithNr;
 import net.sf.ahtutils.model.interfaces.EjbWithType;
 import net.sf.ahtutils.model.interfaces.EjbWithValidFrom;
-import net.sf.ahtutils.model.interfaces.with.EjbWithStatus;
 
 public class UtilsFacadeBean implements UtilsFacade
 {
@@ -294,7 +293,7 @@ public class UtilsFacadeBean implements UtilsFacade
 		catch (NoResultException ex){return new ArrayList<T>();}
 	}
 	
-	public <T extends EjbWithStatus, OR extends EjbWithId, AND extends EjbWithId> List<T> fForAndOrParents(Class<T> queryClass, List<ParentPredicate<OR>> lpOr, List<ParentPredicate<AND>> lpAnd)
+	public <T extends EjbWithId, OR extends EjbWithId, AND extends EjbWithId> List<T> fForAndOrParents(Class<T> queryClass, List<ParentPredicate<AND>> lpAnd, List<ParentPredicate<OR>> lpOr)
 	{
 		if(lpOr==null || lpOr.size()==0){return new ArrayList<T>();}
 		

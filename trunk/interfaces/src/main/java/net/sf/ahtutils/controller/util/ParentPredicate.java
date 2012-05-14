@@ -56,6 +56,11 @@ public class ParentPredicate <P extends EjbWithId> implements Serializable
 		return result;
 	}
 	
+	public static <T extends EjbWithId> List<ParentPredicate<T>> empty()
+	{
+		return new ArrayList<ParentPredicate<T>>();
+	}
+	
 	public static <T extends EjbWithId, P extends EjbWithId> Predicate[] array(CriteriaBuilder cB, Root<T> from, List<ParentPredicate<P>> list)
 	{
 		int size=0;

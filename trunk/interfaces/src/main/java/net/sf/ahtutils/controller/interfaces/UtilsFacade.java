@@ -13,7 +13,6 @@ import net.sf.ahtutils.model.interfaces.EjbWithId;
 import net.sf.ahtutils.model.interfaces.EjbWithName;
 import net.sf.ahtutils.model.interfaces.EjbWithNr;
 import net.sf.ahtutils.model.interfaces.EjbWithType;
-import net.sf.ahtutils.model.interfaces.with.EjbWithStatus;
 
 public interface UtilsFacade
 {
@@ -31,5 +30,5 @@ public interface UtilsFacade
 	<T extends EjbRemoveable> void rm(T o) throws UtilsIntegrityException;
 	
 	<T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> type, String p1Name, I p1, String p2Name, I p2);
-	<T extends EjbWithStatus, OR extends EjbWithId, AND extends EjbWithId> List<T> fForAndOrParents(Class<T> queryClass, List<ParentPredicate<OR>> lpOr, List<ParentPredicate<AND>> lpAnd);
+	<T extends EjbWithId, OR extends EjbWithId, AND extends EjbWithId> List<T> fForAndOrParents(Class<T> queryClass, List<ParentPredicate<AND>> lpAnd, List<ParentPredicate<OR>> lpOr);
 }
