@@ -295,22 +295,28 @@ public class UtilsFacadeBean implements UtilsFacade
 	
 	public <T extends EjbWithId, OR extends EjbWithId, AND extends EjbWithId> List<T> fForAndOrParents(Class<T> queryClass, List<ParentPredicate<AND>> lpAnd, List<ParentPredicate<OR>> lpOr)
 	{
-		if(lpOr==null || lpOr.size()==0){return new ArrayList<T>();}
+		//if(lpOr==null || lpOr.size()==0){return new ArrayList<T>();}
 		
 		CriteriaBuilder cB = em.getCriteriaBuilder();
-		 CriteriaQuery<T> criteriaQuery = cB.createQuery(queryClass);
+		CriteriaQuery<T> criteriaQuery = cB.createQuery(queryClass);
 		 
-		 Root<T> from = criteriaQuery.from(queryClass);
+		Root<T> from = criteriaQuery.from(queryClass);
 
-		 Predicate pOr = cB.or(ParentPredicate.array(cB, from, lpOr));
-		 Predicate pAnd = cB.and(ParentPredicate.array(cB, from, lpAnd));
+		Predicate pOr = cB.or(ParentPredicate.array(cB, from, lpOr));
+		Predicate pAnd = cB.and(ParentPredicate.array(cB, from, lpAnd));
 		    
-		 CriteriaQuery<T> select = criteriaQuery.select(from);
-		 select.where(cB.and(pOr,pAnd));
+		CriteriaQuery<T> select = criteriaQuery.select(from);
+		if(lpOr==null || lpOr.size()==0)
+		{
+			select.where(pAnd);
+		}
+		else
+		{
+			select.where(cB.and(pAnd,pOr));
+		}
 		 
-			TypedQuery<T> q = em.createQuery(select);
-			
-			return q.getResultList();
+		TypedQuery<T> q = em.createQuery(select);
+		return q.getResultList();
 	}
 	
 }
