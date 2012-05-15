@@ -1,10 +1,15 @@
 package net.sf.ahtutils.test;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Locale;
 
-import net.sf.ahtutils.report.ReportController;
+import net.sf.ahtutils.report.ReportHandler;
+import net.sf.ahtutils.report.exception.ReportException;
 import net.sf.ahtutils.xml.report.Report;
 import net.sf.ahtutils.xml.report.Reports;
 import net.sf.ahtutils.xml.report.Resources;
@@ -49,7 +54,9 @@ public class AbstractAhtUtilsReportTst
     protected Document docReport;
     protected org.jdom.Document jdomReport;
     protected Report report;
-    protected ReportController reportController;
+    protected ReportHandler reportHandler;
+    protected ByteArrayOutputStream pdf;
+    protected String reportFileLocation = "src/main/resources/reports.ahtutils-report/reports.xml";
 	
 	@BeforeClass
 	public static void initFile()
@@ -72,21 +79,11 @@ public class AbstractAhtUtilsReportTst
 		}
     }
 	
-	@BeforeClass
-    public static void initReport() throws FileNotFoundException
-	{
-		reportRoot    ="src/main/resources/reports.ahtutils-report/";
-		configFile    ="reports.xml";
-	    resourcesFile ="resources.xml";
-	    
-		reports = (Reports)JaxbUtil.loadJAXB(reportRoot +configFile, Reports.class);
-		resources = (Resources)JaxbUtil.loadJAXB(reportRoot +resourcesFile, Resources.class);
-    }
-	
 	@Before
-	public void initController()
+	public void initHandler() throws ReportException, FileNotFoundException
 	{
-		reportController = new ReportController(reports, resources);
+		reportHandler = new ReportHandler(reportFileLocation);
+		reports       = reportHandler.getReports();
 	}
 	
 	protected void initExample(String id) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
@@ -101,6 +98,18 @@ public class AbstractAhtUtilsReportTst
 		org.jdom.Document jdomDoc =  JDomUtil.load(report.getExample());
 		jdomDoc = JDomUtil.unsetNameSpace(jdomDoc);
 		docReport = JDomUtil.toW3CDocument(jdomDoc);
+	}
+	
+	protected void createPdf() throws ReportException
+	{
+		pdf = reportHandler.createUsingJDom(reportId, this.jdomReport, ReportHandler.Format.pdf, Locale.GERMAN);
+	}
+	
+	protected void writePdf() throws IOException
+	{
+		String pdfFile = "target/" +reportId +".pdf";
+		OutputStream outputStream = new FileOutputStream (pdfFile);
+		pdf.writeTo(outputStream);
 	}
 	
 	protected void assertEmptyPage(byte[] data) throws IOException
