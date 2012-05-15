@@ -527,4 +527,9 @@ public class ReportHandler {
 		JasperPrint print = getJasperPrint(masterReport, reportParameterMap);
 		return exportToPdf(print);
 	}
+	
+	public Reports getReports()
+	{
+		return reports;
+	}
 }
