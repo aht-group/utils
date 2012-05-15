@@ -60,11 +60,11 @@ public class TestDomUtil extends AbstractAhtUtilsReportTst
 		
 		//Get the root element (report)
 		org.jdom.Element reportElement = jdomDoc.getRootElement();
-		System.out.println("Root: " +reportElement.toString());
+		//System.out.println("Root: " +reportElement.toString());
 		
 		//Get the info element as child of report element
 		org.jdom.Element infoElement   = reportElement.getChild("info", Namespace.getNamespace("http://ahtutils.aht-group.com/report"));
-		System.out.println("Info: " +infoElement.toString());
+		//System.out.println("Info: " +infoElement.toString());
 		
 		Info info = (Info) JDomUtil.toJaxb(infoElement, Info.class);
 		
