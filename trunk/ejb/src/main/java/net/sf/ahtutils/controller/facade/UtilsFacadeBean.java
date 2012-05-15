@@ -28,8 +28,13 @@ import net.sf.ahtutils.model.interfaces.EjbWithNr;
 import net.sf.ahtutils.model.interfaces.EjbWithType;
 import net.sf.ahtutils.model.interfaces.EjbWithValidFrom;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class UtilsFacadeBean implements UtilsFacade
 {
+	final static Logger logger = LoggerFactory.getLogger(UtilsFacadeBean.class);
+	
 	protected EntityManager em;
 	
 	public UtilsFacadeBean(EntityManager em)
@@ -295,7 +300,14 @@ public class UtilsFacadeBean implements UtilsFacade
 	
 	public <T extends EjbWithId, OR extends EjbWithId, AND extends EjbWithId> List<T> fForAndOrParents(Class<T> queryClass, List<ParentPredicate<AND>> lpAnd, List<ParentPredicate<OR>> lpOr)
 	{
-		//if(lpOr==null || lpOr.size()==0){return new ArrayList<T>();}
+		if(logger.isTraceEnabled())
+		{
+			logger.trace("****** fForAndOrParents");
+			logger.trace("QueryClass:" +queryClass.getName());
+			logger.trace("AND "+lpAnd.size());
+			logger.trace("OR "+lpOr.size());
+			logger.trace("************************");
+		}
 		
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<T> criteriaQuery = cB.createQuery(queryClass);
