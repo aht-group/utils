@@ -68,7 +68,7 @@ public class AbstractUtilsMavenTst
 		if(saveReference)
 		{
 			logger.debug("Saving Reference XML");
-			JaxbUtil.debug2(this.getClass(),xml, getPrefixMapper());
+			JaxbUtil.debug(this.getClass(),xml, getPrefixMapper());
 			JaxbUtil.save(f, xml, getPrefixMapper(), formatted);
 		}
 	}
