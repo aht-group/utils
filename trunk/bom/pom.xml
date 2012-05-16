@@ -74,41 +74,11 @@
 		    </dependency>
 		    
 		    
-		    
-<!-- 		    
-		    <dependency>
-	        	<groupId>net.sf.ahtutils</groupId>
-	        	<artifactId>ahtutils-xml</artifactId>
-	        	<version>${project.version}</version>
-	        </dependency>
-	        <dependency>
-	        	<groupId>net.sf.ahtutils</groupId>
-	        	<artifactId>ahtutils-ejb</artifactId>
-	        	<version>${project.version}</version>
-	        	<type>ejb</type>
-	        </dependency>
-	        <dependency>
-				<groupId>net.sf.ahtutils</groupId>
-				<artifactId>ahtutils-util</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>net.sf.ahtutils</groupId>
-				<artifactId>ahtutils-interfaces</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>net.sf.ahtutils</groupId>
-				<artifactId>ahtutils-test</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-	        -->
-		    
 		    <!-- Manages BOMs -->
 		    <dependency>
     	   		<groupId>net.sf.exlp</groupId>
     	   		<artifactId>exlp-bom</artifactId>
-    	   		<version>0.1.7-SNAPSHOT</version>
+    	   		<version>0.1.8-SNAPSHOT</version>
     	   		<type>pom</type>
 				<scope>import</scope>
     	   	</dependency>
