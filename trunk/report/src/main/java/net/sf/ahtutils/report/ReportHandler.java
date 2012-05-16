@@ -86,10 +86,13 @@ public class ReportHandler {
 		mrl = new MultiResourceLoader();
 		configFileLocation = reportFile.substring(0, reportFile.lastIndexOf("/")) +"/";
 		
-		try {
+		try
+		{
 			reports = JaxbUtil.loadJAXB(reportFile, Reports.class);
-			JaxbUtil.debug(Reports.class, reports);
-		} catch (FileNotFoundException e) {
+//			JaxbUtil.debug(this.getClass(), reports);
+		}
+		catch (FileNotFoundException e)
+		{
 			throw new ReportException("Problem loading configuration file: " +e.getMessage());
 		}
 		
@@ -348,6 +351,7 @@ public class ReportHandler {
 		//Get the info element as child of report element
 		org.jdom.Element infoElement   = reportElement.getChild("info", Namespace.getNamespace("http://ahtutils.aht-group.com/report"));
 		
+		logger.trace("infoElement==null?"+(infoElement==null));
 		Info info = (Info) JDomUtil.toJaxb(infoElement, Info.class);
 		
 		OFxChartRenderControl ofxRenderer = new OFxChartRenderControl();
