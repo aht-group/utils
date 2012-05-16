@@ -111,19 +111,11 @@
         	<!-- REST -->
         	<dependency>
         		<groupId>org.jboss.resteasy</groupId>
-        		<artifactId>resteasy-cdi</artifactId>
+        		<artifactId>resteasy-bom</artifactId>
         		<version>2.3.1.GA</version>
-        	</dependency>
-        	<dependency>
-        		<groupId>org.jboss.resteasy</groupId>
-        		<artifactId>resteasy-jaxb-provider</artifactId>
-        		<version>2.3.1.GA</version>
-        	</dependency>
-        	<dependency>
-        		<groupId>org.jboss.resteasy</groupId>
-        		<artifactId>resteasy-jaxrs</artifactId>
-        		<version>2.3.1.GA</version>
-        	</dependency>
+        		<type>pom</type>
+				<scope>import</scope>
+        	</dependency> 
         
         	<!-- JBoss -->
             <dependency>
