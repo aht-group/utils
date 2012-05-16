@@ -60,84 +60,45 @@
 			<dependency>
 	        	<groupId>net.sf.ahtutils</groupId>
 	        	<artifactId>ahtutils-xml</artifactId>
-	        	<version>0.2.2-SNAPSHOT</version>
+	        	<version>${project.version}</version>
 	        </dependency>
 	        <dependency>
 	        	<groupId>net.sf.ahtutils</groupId>
 	        	<artifactId>ahtutils-ejb</artifactId>
-	        	<version>0.2.2-SNAPSHOT</version>
+	        	<version>${project.version}</version>
 	        	<type>ejb</type>
 	        </dependency>
 	        <dependency>
 				<groupId>net.sf.ahtutils</groupId>
 				<artifactId>ahtutils-util</artifactId>
-				<version>0.2.2-SNAPSHOT</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>net.sf.ahtutils</groupId>
 				<artifactId>ahtutils-interfaces</artifactId>
-				<version>0.2.2-SNAPSHOT</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>net.sf.ahtutils</groupId>
 				<artifactId>ahtutils-test</artifactId>
-				<version>0.2.2-SNAPSHOT</version>
+				<version>${project.version}</version>
 			</dependency>
 	        <dependency>
 	        	<groupId>net.sf.ahtutils</groupId>
 	        	<artifactId>ahtutils-xml</artifactId>
-				<version>0.2.2-SNAPSHOT</version>
+				<version>${project.version}</version>
 	        	<classifier>tests</classifier>
-	        </dependency>
+	        </dependency>			
+
 			
-			
-			<dependency>
-    	   		<groupId>commons-jxpath</groupId>
-    	   		<artifactId>commons-jxpath</artifactId>
-    	   		<version>1.3</version>
-    	   	</dependency>
-			<dependency>
-    	   		<groupId>commons-lang</groupId>
-    	   		<artifactId>commons-lang</artifactId>
-    	   		<version>2.6</version>
-    	   	</dependency>			
-	    	<dependency>
-				<groupId>javax.mail</groupId>
-				<artifactId>mail</artifactId>
-				<version>1.4.5</version>
-			</dependency>
+
 			<dependency>
 	    		<groupId>org.apache.httpcomponents</groupId>
 	    		<artifactId>httpclient</artifactId>
 	    		<version>4.1.2</version>
 	    	</dependency>
 
-    	   	<dependency>
-    	   		<groupId>org.jdom</groupId>
-    	   		<artifactId>jdom</artifactId>
-    	   		<version>1.1</version>
-    	   	</dependency>
 			
-			<dependency>
-				<groupId>org.openfuxml</groupId>
-				<artifactId>ofx-chart</artifactId>
-				<version>1.3.2-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>org.openfuxml</groupId>
-				<artifactId>ofx-xml</artifactId>
-				<version>1.3.2-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>org.openfuxml</groupId>
-				<artifactId>ofx-core</artifactId>
-				<version>1.3.2-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-	   	   		<groupId>commons-collections</groupId>
-	   	   		<artifactId>commons-collections</artifactId>
-	   	   		<version>3.2.1</version>
-    		</dependency>
 			<dependency>
         		<groupId>org.hibernate</groupId>
         		<artifactId>hibernate-core</artifactId>

@@ -79,16 +79,17 @@
    			<artifactId>primefaces</artifactId>
    			<scope>provided</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-cdi</artifactId>
+			<artifactId>resteasy-jaxrs</artifactId>
 			<scope>provided</scope>
 			<exclusions>
-			<exclusion>
-				<artifactId>commons-logging</artifactId>
-				<groupId>commons-logging</groupId>
-			</exclusion>
-		</exclusions>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 	
