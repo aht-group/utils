@@ -2,11 +2,8 @@ package net.sf.ahtutils.report;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Locale;
@@ -27,7 +24,6 @@ import net.sf.ahtutils.xml.xpath.ReportXpath;
 import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.util.io.resourceloader.MultiResourceLoader;
-import net.sf.exlp.util.xml.DomUtil;
 import net.sf.exlp.util.xml.JDomUtil;
 import net.sf.exlp.util.xml.JaxbUtil;
 import net.sf.jasperreports.engine.JRException;
@@ -45,17 +41,13 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 import org.apache.commons.jxpath.JXPathContext;
-import org.jfree.chart.ChartUtilities;
+import org.jdom.Namespace;
 import org.jfree.chart.JFreeChart;
 import org.openfuxml.addon.chart.OFxChartRenderControl;
 import org.openfuxml.addon.chart.data.jaxb.Chart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
-import org.jdom.Element;
-import org.jdom.Namespace;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
  * @author helgehemmer
@@ -350,9 +342,11 @@ public class ReportHandler {
 		
 		//Get the info element as child of report element
 		org.jdom.Element infoElement   = reportElement.getChild("info", Namespace.getNamespace("http://ahtutils.aht-group.com/report"));
-		
-		logger.trace("infoElement==null?"+(infoElement==null));
-		Info info = (Info) JDomUtil.toJaxb(infoElement, Info.class);
+		Info info = new Info();
+		if (infoElement!=null)
+		{
+			info = (Info) JDomUtil.toJaxb(infoElement, Info.class);
+		}
 		
 		OFxChartRenderControl ofxRenderer = new OFxChartRenderControl();
 		for (Media media : info.getMedia())
