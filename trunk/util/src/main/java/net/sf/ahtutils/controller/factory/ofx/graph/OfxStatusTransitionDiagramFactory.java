@@ -55,7 +55,7 @@ public class OfxStatusTransitionDiagramFactory
 	public Graph create()
 	{
 		createEdges();
-		JaxbUtil.debug(this.getClass(),graph);
+		JaxbUtil.debug(graph);
 		return graph;
 	}
 	

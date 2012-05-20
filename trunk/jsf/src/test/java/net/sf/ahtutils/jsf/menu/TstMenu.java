@@ -20,7 +20,7 @@ public class TstMenu
 	{
 		logger.debug("Debugging XML menu");
 		Menu menu = DummyMenuFactory.create();
-		JaxbUtil.debug(this.getClass(),menu);
+		JaxbUtil.debug(menu);
 	}
 	
 	public static void main(String[] args)

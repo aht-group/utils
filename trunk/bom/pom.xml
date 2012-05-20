@@ -73,7 +73,6 @@
 				<version>${project.version}</version>
 		    </dependency>
 		    
-		    
 		    <!-- Manages BOMs -->
 		    <dependency>
     	   		<groupId>net.sf.exlp</groupId>

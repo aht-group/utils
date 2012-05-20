@@ -81,7 +81,7 @@ public class ReportHandler {
 		try
 		{
 			reports = JaxbUtil.loadJAXB(reportFile, Reports.class);
-//			JaxbUtil.debug(this.getClass(), reports);
+//			JaxbUtil.debug2(reports);
 		}
 		catch (FileNotFoundException e)
 		{
