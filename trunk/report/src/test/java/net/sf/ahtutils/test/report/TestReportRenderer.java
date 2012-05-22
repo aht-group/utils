@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import net.sf.ahtutils.report.exception.ReportException;
-import net.sf.ahtutils.test.AbstractAhtUtilsReportTst;
+import net.sf.ahtutils.test.AbstractAhtUtilsReportTest;
 import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
 
@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class TestReportRenderer extends AbstractAhtUtilsReportTst
+public class TestReportRenderer extends AbstractAhtUtilsReportTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestReportRenderer.class);
     

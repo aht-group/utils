@@ -1,4 +1,4 @@
-package net.sf.ahtutils.test;
+package net.sf.ahtutils.report;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Locale;
 
-import net.sf.ahtutils.report.ReportHandler;
 import net.sf.ahtutils.report.exception.ReportException;
 import net.sf.ahtutils.xml.report.Report;
 import net.sf.ahtutils.xml.report.Reports;
@@ -56,9 +55,10 @@ public class AbstractAhtUtilsReportTst
     protected Report report;
     protected ReportHandler reportHandler;
     protected ByteArrayOutputStream pdf;
-    protected String reportFileLocation = "src/main/resources/reports.ahtutils-report/reports.xml";
+    protected static String reportFileLocation;
+    protected static String loggerConfigFile;
+    protected static String loggerConfigPath;
 	
-	@BeforeClass
 	public static void initFile()
 	{
 		if(!LoggerInit.isLog4jInited()){initLogger();}
@@ -68,13 +68,12 @@ public class AbstractAhtUtilsReportTst
 		logger.debug("Using targeDir "+fTarget.getAbsolutePath());
 	}
 	
-	@BeforeClass
-    public static void initLogger()
+	public static void initLogger()
 	{
 		if(!LoggerInit.isLog4jInited())
 		{
-			LoggerInit loggerInit = new LoggerInit("log4junit.xml");	
-			loggerInit.addAltPath("config.ahtutils-report.test");
+			LoggerInit loggerInit = new LoggerInit(loggerConfigFile);
+			loggerInit.addAltPath(loggerConfigPath);
 			loggerInit.init();
 		}
     }

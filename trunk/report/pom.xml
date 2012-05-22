@@ -27,6 +27,10 @@
 	
 	<dependencies>
 			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jcl-over-slf4j</artifactId>
+			</dependency>
+			<dependency>
 			    <groupId>net.sf.jasperreports</groupId>
 			    <artifactId>jasperreports</artifactId>
 			    <exclusions>
@@ -35,7 +39,7 @@
 			    		<artifactId>commons-collections</artifactId>
 			    		<groupId>commons-collections</groupId>
 			    	</exclusion>
-			    	 -->
+			    	-->
 			    	<exclusion>
 			    		<artifactId>commons-logging</artifactId>
 			    		<groupId>commons-logging</groupId>
@@ -151,7 +155,7 @@
 			 <dependency>
 	        	<groupId>junit</groupId>
 	        	<artifactId>junit</artifactId>
-	        	<scope>test</scope>
+	        	<scope>provided</scope>
 	        </dependency>
 	        <dependency>
 	        	<groupId>org.slf4j</groupId>
