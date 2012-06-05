@@ -129,11 +129,11 @@ public class AhtStatusDbInit
 				 try
 				 {
 					 logger.trace("Deleting status: "+id);
-						S status = fStatus.find(cStatus, id);
+					 S status = fStatus.find(cStatus, id);
 					 fStatus.rm(status);
 				 }
-				 catch (UtilsIntegrityException e) {logger.error("",e);}
-				 catch (UtilsNotFoundException e) {logger.error("",e);}
+				 catch (UtilsIntegrityException e) {logger.error("Error with following ID:"+id,e);}
+				 catch (UtilsNotFoundException e)  {logger.error("Error with following ID:"+id,e);}
 			 }
 		 }
 	}

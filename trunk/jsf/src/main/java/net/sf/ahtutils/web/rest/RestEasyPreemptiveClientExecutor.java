@@ -57,6 +57,5 @@ public class RestEasyPreemptiveClientExecutor
 	        authState.setAuthScheme(new BasicScheme());
 			
 		}
-
 	}
 }

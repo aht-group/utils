@@ -41,6 +41,10 @@ public class UtilsJbossFacadeLookup
 	private String username;
 	private String password;
 	
+	public UtilsJbossFacadeLookup(String appName, String moduleName, String host)
+	{
+		this(appName,moduleName,host,null,null);
+	}
 	public UtilsJbossFacadeLookup(String appName, String moduleName, String host, String username, String password)
 	{
 		this.appName=appName;
@@ -48,12 +52,6 @@ public class UtilsJbossFacadeLookup
 		this.host=host;
 		this.username=username;
 		this.password=password;
-	}
-	
-	public UtilsJbossFacadeLookup(String host, String appName, String moduleName)
-	{
-		this.appName=appName;
-		this.moduleName=moduleName;
 	}
 	   
 	@SuppressWarnings("unchecked")
