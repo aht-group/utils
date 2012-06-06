@@ -32,6 +32,7 @@ public class AhtStatusDbInit
 	private Set<Long> sDeleteLangs;
 
 	private EjbStatusFactory statusEjbFactory;
+	private UtilsFacade fStatus;
 
 	public AhtStatusDbInit()
 	{
@@ -105,7 +106,7 @@ public class AhtStatusDbInit
 		return result;
 	}
 	
-	public <S extends UtilsStatus<L>,L extends UtilsLang> void deleteUnusedStatus(UtilsFacade fStatus, Class<S> cStatus, Class<L> cLang)
+	public <S extends UtilsStatus<L>,L extends UtilsLang> void deleteUnusedStatus(Class<S> cStatus, Class<L> cLang)
 	{
 		logger.debug("Deleing unused Status/Langs");
 		for(long id : sDeleteLangs)
@@ -138,7 +139,7 @@ public class AhtStatusDbInit
 		 }
 	}
 	
-	public <S extends UtilsStatus<L>,L extends UtilsLang> void iuStatus(List<Status> list, UtilsFacade fStatus, Class<S> cStatus, Class<L> cLang)
+	public <S extends UtilsStatus<L>,L extends UtilsLang> void iuStatus(List<Status> list, Class<S> cStatus, Class<L> cLang)
 	{
 		for(Status status : list)
 		{
@@ -192,4 +193,5 @@ public class AhtStatusDbInit
 	}
 	
 	public void setStatusEjbFactory(EjbStatusFactory statusEjbFactory) {this.statusEjbFactory = statusEjbFactory;}
+	public void setFacade(UtilsFacade fStatus){this.fStatus=fStatus;}
 }
