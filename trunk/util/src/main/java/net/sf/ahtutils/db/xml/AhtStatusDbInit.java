@@ -40,6 +40,9 @@ public class AhtStatusDbInit
 		sDeleteLangs = new HashSet<Long>();
 	}
 	
+	public void setStatusEjbFactory(EjbStatusFactory statusEjbFactory) {this.statusEjbFactory = statusEjbFactory;}
+	public void setFacade(UtilsFacade fStatus){this.fStatus=fStatus;}
+	
 	public List<Status> getStatus(String xmlFile) throws FileNotFoundException
 	{
 		Aht aht = (Aht)JaxbUtil.loadJAXB(xmlFile, Aht.class);
@@ -141,6 +144,17 @@ public class AhtStatusDbInit
 	
 	public <S extends UtilsStatus<L>,L extends UtilsLang> void iuStatus(List<Status> list, Class<S> cStatus, Class<L> cLang)
 	{
+		if(fStatus==null)
+		{
+			logger.warn("No Handler available");
+		}
+		else {logger.info("Updating "+cStatus.getSimpleName()+" with "+list.size()+" entries");}
+		if(fStatus!=null){iuStatusEJB(list, cStatus, cLang);}
+
+	}
+	
+	private <S extends UtilsStatus<L>,L extends UtilsLang> void iuStatusEJB(List<Status> list, Class<S> cStatus, Class<L> cLang)
+	{
 		for(Status status : list)
 		{
 			try
@@ -174,11 +188,8 @@ public class AhtStatusDbInit
 				
 				try
 				{
-//					logger.trace("Updating Info ... "+ejbStatus);
-//					logger.debug(ejbStatus.getName().get("de").getId());
 					addLangs(ejbStatus,status);
 					if(status.isSetImage()){ejbStatus.setImage(status.getImage());}
-//					logger.debug(ejbStatus.getName().get("de").getId());
 				}
 				catch (InstantiationException e) {logger.error("",e);}
 				catch (IllegalAccessException e) {logger.error("",e);}
@@ -192,6 +203,4 @@ public class AhtStatusDbInit
 		}
 	}
 	
-	public void setStatusEjbFactory(EjbStatusFactory statusEjbFactory) {this.statusEjbFactory = statusEjbFactory;}
-	public void setFacade(UtilsFacade fStatus){this.fStatus=fStatus;}
 }

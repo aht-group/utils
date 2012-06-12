@@ -36,8 +36,13 @@
 		   <type>pom</type>
 		   <scope>provided</scope>
 		</dependency>
-   
-    </dependencies>
+
+		<dependency>
+			<groupId>net.sf.ahtutils</groupId>
+			<artifactId>ahtutils-xml</artifactId>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
 
     <build>
         <plugins>
