@@ -24,4 +24,12 @@ public class XmlFigureFactory
 		xml.setValue(value);
 		return xml;
 	}
+	
+	public static Figure create(String code, String label)
+	{
+		Figure xml = new Figure();
+		xml.setCode(code);
+		xml.setLabel(label);
+		return xml;
+	}
 }
