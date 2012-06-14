@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsp/jstl/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:composite="http://java.sun.com/jsf/composite">
+    
+   <composite:interface>
+     <composite:attribute name="value"/>
+   </composite:interface>
+        
+  <composite:implementation>
+  <div id="menuHolder">
+	<ul class="menu">
+		<f:forEach var="rootLevelItem" items="#{cc.attrs.value.menuItem}">
+  		<li class="sub"><a class="aTop" href="#{rootLevelItem.href}"><span>#{rootLevelItem.name}</span><b></b></a>
+  			<f:if test="#{rootLevelItem.menuItem.size()>0}">
+    		<div class="col3 drop">
+      			<dl>
+	    			<f:forEach var="menuItem" items="#{rootLevelItem.menuItem}">
+            			<dt><a href="#{menuItem.href}">#{menuItem.name}</a></dt>
+            			<f:if test="#{menuItem.menuItem.size()>0}">
+	        				<f:forEach var="menuItemSub" items="#{menuItem.menuItem}">
+	        					<dd><a href="#{menuItemSub.href}">#{menuItemSub.name}</a></dd>
+	        				</f:forEach>
+	        			</f:if>
+     				</f:forEach>
+		     	</dl>
+    		</div>
+    		</f:if>
+  		</li>
+  		</f:forEach>
+	</ul>
+</div>
+   </composite:implementation>
+</html>
