@@ -20,8 +20,8 @@ public class XmlLangFactory
 	public <L extends UtilsLang> Lang getUtilsLang(L ejb)
 	{
 		Lang lang = new Lang();
-		if(q.isSetKey()){lang.setKey(ejb.getLang());}
-		if(q.isSetTranslation()){lang.setTranslation(ejb.getLkey());}
+		if(q.isSetKey()){lang.setKey(ejb.getLkey());}
+		if(q.isSetTranslation()){lang.setTranslation(ejb.getLang());}
 		return lang;
 	}
 	

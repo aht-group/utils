@@ -57,21 +57,14 @@ public class AhtStatusDbInit
 	
 	public void savePreviousDbEntries(String key, List<UtilsStatus> availableStatus)
 	{
-		logger.trace("Adding available DB entries: "+key);
+		
 		Set<Long> dbStatus = new HashSet<Long>();
 		for(UtilsStatus<UtilsLang> ejbStatus : availableStatus)
 		{
 			dbStatus.add(ejbStatus.getId());
 		}
+		logger.debug("Saved existing DB entries for "+key+": "+dbStatus.size());
 		mDbAvailableStatus.put(key, dbStatus);
-	}
-	
-	public UtilsStatus removeData(UtilsStatus ejbStatus)
-	{
-		Map<String,UtilsLang> dbLangMap = ejbStatus.getName();
-		ejbStatus.setName(null);
-		for(UtilsLang lang : dbLangMap.values()){sDeleteLangs.add(lang.getId());}
-		return ejbStatus;
 	}
 	
 	public UtilsStatus<UtilsLang> addVisible(UtilsStatus<UtilsLang> ejbStatus, Status status)
@@ -144,10 +137,7 @@ public class AhtStatusDbInit
 	
 	public <S extends UtilsStatus<L>,L extends UtilsLang> void iuStatus(List<Status> list, Class<S> cStatus, Class<L> cLang)
 	{
-		if(fStatus==null)
-		{
-			logger.warn("No Handler available");
-		}
+		if(fStatus==null){logger.warn("No Handler available");}
 		else {logger.info("Updating "+cStatus.getSimpleName()+" with "+list.size()+" entries");}
 		if(fStatus!=null){iuStatusEJB(list, cStatus, cLang);}
 
@@ -203,4 +193,11 @@ public class AhtStatusDbInit
 		}
 	}
 	
+	private UtilsStatus removeData(UtilsStatus ejbStatus)
+	{
+		Map<String,UtilsLang> dbLangMap = ejbStatus.getName();
+		ejbStatus.setName(null);
+		for(UtilsLang lang : dbLangMap.values()){sDeleteLangs.add(lang.getId());}
+		return ejbStatus;
+	}
 }

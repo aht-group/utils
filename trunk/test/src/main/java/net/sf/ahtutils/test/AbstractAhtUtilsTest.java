@@ -11,6 +11,11 @@ public class AbstractAhtUtilsTest
 	
 	protected static Random rnd;
 	
+	protected long rndL()
+	{
+		if(rnd==null){rnd = new Random();}
+		return rnd.nextLong();
+	}
 	protected int rndI()
 	{
 		if(rnd==null){rnd = new Random();}

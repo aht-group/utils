@@ -6,10 +6,11 @@ import java.util.Map;
 import net.sf.ahtutils.xml.aht.Query;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Langs;
+import net.sf.ahtutils.xml.status.Status;
 
 public class StatusQuery
 {
-	public static enum Key {Langs}
+	public static enum Key {StatusExport,Langs}
 	
 	private static Map<Key,Query> mQueries;
 	
@@ -21,6 +22,7 @@ public class StatusQuery
 			Query q = new Query();
 			switch(key)
 			{
+				case StatusExport: q.setStatus(statusExport());break;
 				case Langs: q.setLangs(langs());break;
 			}
 			mQueries.put(key, q);
@@ -28,6 +30,14 @@ public class StatusQuery
 		Query q = mQueries.get(key);
 		q.setLang(lang);
 		return q;
+	}
+	
+	public static Status statusExport()
+	{
+		Status xml = new Status();
+		xml.setCode("");
+		xml.setLangs(langs());
+		return xml;
 	}
 	
 	public static Langs langs()
