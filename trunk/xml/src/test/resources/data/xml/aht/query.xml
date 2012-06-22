@@ -2,5 +2,5 @@
 <aht:query xmlns:s="http://ahtutils.aht-group.com/status" xmlns:acl="http://ahtutils.aht-group.com/access" xmlns:ns3="http://ahtutils.aht-group.com/navigation" xmlns:aht="http://ahtutils.aht-group.com" lang="myLang">
     <acl:role code="myCode" name="myName"/>
     <s:langs/>
-    <s:status code="myCode" group="myGroup" label="myLabel" visible="true" image="test/green.png"/>
+    <s:status id="123" code="myCode" group="myGroup" label="myLabel" visible="true" image="test/green.png"/>
 </aht:query>

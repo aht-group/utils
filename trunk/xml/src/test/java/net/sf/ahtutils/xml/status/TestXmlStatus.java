@@ -32,6 +32,7 @@ public class TestXmlStatus extends AbstractXmlStatusTest
     public static Status create(boolean withChilds)
     {
     	Status xml = new Status();
+    	xml.setId(123);
     	xml.setCode("myCode");
     	xml.setVisible(true);
     	xml.setGroup("myGroup");
