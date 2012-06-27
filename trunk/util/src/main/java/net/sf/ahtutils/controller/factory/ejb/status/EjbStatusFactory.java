@@ -46,6 +46,8 @@ public class EjbStatusFactory<S extends UtilsStatus<L>, L extends UtilsLang, D e
 		if(!status.isSetLangs()){throw new UtilsIntegrityException("No <langs> available for "+JaxbUtil.toString(status));}
         S s = statusClass.newInstance();
         s.setCode(status.getCode());
+        if(status.isSetPosition()){s.setPosition(status.getPosition());}
+        else{s.setPosition(0);}
         s.setName(ejbLangFactory.getLangMap(status.getLangs()));
         return s;
     }

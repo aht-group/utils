@@ -21,6 +21,7 @@ public class XmlStatusFactory
 	{
 		Status xml = new Status();
 		if(q.isSetCode()){xml.setCode(ejb.getCode());}
+		if(q.isSetPosition()){xml.setPosition(ejb.getPosition());}
 		
 		if(q.isSetLangs())
 		{

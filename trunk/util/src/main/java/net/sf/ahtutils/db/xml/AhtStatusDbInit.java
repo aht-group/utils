@@ -184,6 +184,9 @@ public class AhtStatusDbInit
 				catch (InstantiationException e) {logger.error("",e);}
 				catch (IllegalAccessException e) {logger.error("",e);}
 				catch (UtilsIntegrityException e) {logger.error("",e);}
+		        
+				if(status.isSetPosition()){ejbStatus.setPosition(status.getPosition());}
+		        else{ejbStatus.setPosition(0);}
 				ejbStatus = fStatus.update(ejbStatus);
 			}
 			catch (UtilsContraintViolationException e){logger.error("",e);}

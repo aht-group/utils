@@ -21,7 +21,7 @@ public class XmlConditionFactory
 	{
 		Condition xml = new Condition();
 		if(q.isSetCode()){xml.setCode(ejb.getCode());}
-		
+		if(q.isSetPosition()){xml.setPosition(ejb.getPosition());}
 		if(q.isSetLangs())
 		{
 			XmlLangsFactory f = new XmlLangsFactory(q.getLangs());
