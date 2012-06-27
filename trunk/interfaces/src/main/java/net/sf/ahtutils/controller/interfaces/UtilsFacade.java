@@ -13,6 +13,7 @@ import net.sf.ahtutils.model.interfaces.EjbWithId;
 import net.sf.ahtutils.model.interfaces.EjbWithName;
 import net.sf.ahtutils.model.interfaces.EjbWithNr;
 import net.sf.ahtutils.model.interfaces.EjbWithType;
+import net.sf.ahtutils.model.interfaces.with.EjbWithPosition;
 
 public interface UtilsFacade
 {
@@ -22,6 +23,7 @@ public interface UtilsFacade
 	<T extends EjbWithNr, P extends EjbWithId> T fByNr(Class<T> type, String parentName, P parent, int nr) throws UtilsNotFoundException;
 	
 	<T extends Object> List<T> all(Class<T> type);
+	<T extends EjbWithPosition> List<T> allOrdered(Class<T> type);
 	<T extends EjbWithType> List<T> allForType(Class<T> clazz, String type);
 	
 	<T extends Object> T persist(T o) throws UtilsContraintViolationException;

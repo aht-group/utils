@@ -27,6 +27,7 @@ import net.sf.ahtutils.model.interfaces.EjbWithName;
 import net.sf.ahtutils.model.interfaces.EjbWithNr;
 import net.sf.ahtutils.model.interfaces.EjbWithType;
 import net.sf.ahtutils.model.interfaces.EjbWithValidFrom;
+import net.sf.ahtutils.model.interfaces.with.EjbWithPosition;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -110,6 +111,21 @@ public class UtilsFacadeBean implements UtilsFacade
 		Root<T> from = criteriaQuery.from(type);
 		
 		CriteriaQuery<T> select = criteriaQuery.select(from);
+		
+		TypedQuery<T> typedQuery = em.createQuery(select);
+		return typedQuery.getResultList();
+	}
+	
+	public <T extends EjbWithPosition> List<T> allOrdered(Class<T> type)
+	{
+		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(type);
+		Root<T> from = criteriaQuery.from(type);
+		
+		Expression<Date> ePosition = from.get("position");
+		
+		CriteriaQuery<T> select = criteriaQuery.select(from);
+		select.orderBy(criteriaBuilder.asc(ePosition));
 		
 		TypedQuery<T> typedQuery = em.createQuery(select);
 		return typedQuery.getResultList();
