@@ -37,6 +37,7 @@ public class TestXmlCondition extends AbstractXmlStatusTest
     	xml.setGroup("myGroup");
     	xml.setLabel("myLabel");
     	xml.setImage("test/green.png");
+    	xml.setPosition(1);
     	
     	if(withChilds)
     	{

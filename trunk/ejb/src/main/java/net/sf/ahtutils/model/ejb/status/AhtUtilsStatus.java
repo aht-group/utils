@@ -45,6 +45,8 @@ public class AhtUtilsStatus implements UtilsStatus<AhtUtilsLang>,EjbRemoveable,S
 	protected boolean visible;
 	
 	protected String image;
+	
+	protected int position;
 
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>Getters and Setters<<<<<<<<<<<<<<<<<
 	
@@ -63,6 +65,9 @@ public class AhtUtilsStatus implements UtilsStatus<AhtUtilsLang>,EjbRemoveable,S
 	public String getImage() {return image;}
 	public void setImage(String image) {this.image = image;}
 	
+	public int getPosition() {return position;}
+	public void setPosition(int position) {this.position = position;}
+	
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>Methods<<<<<<<<<<<<<<<<<<<<<<<<<<<	
 	
 	public String toString()
@@ -72,4 +77,5 @@ public class AhtUtilsStatus implements UtilsStatus<AhtUtilsLang>,EjbRemoveable,S
 			sb.append(" code="+code);
 		return sb.toString();
 	}
+
 }

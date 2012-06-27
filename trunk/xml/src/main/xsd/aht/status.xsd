@@ -16,6 +16,7 @@
             <xsd:attribute name="label" type="xsd:string"/>
             <xsd:attribute name="visible" type="xsd:boolean"/>
             <xsd:attribute name="image" type="xsd:string"/>
+            <xsd:attribute name="position" type="xsd:int"/>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="type">
@@ -31,6 +32,7 @@
             <xsd:attribute name="label" type="xsd:string"/>
             <xsd:attribute name="visible" type="xsd:boolean"/>
             <xsd:attribute name="image" type="xsd:string"/>
+            <xsd:attribute name="position" type="xsd:int"/>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="condition">
@@ -46,6 +48,7 @@
             <xsd:attribute name="label" type="xsd:string"/>
             <xsd:attribute name="visible" type="xsd:boolean"/>
             <xsd:attribute name="image" type="xsd:string"/>
+            <xsd:attribute name="position" type="xsd:int"/>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="category">
@@ -61,6 +64,7 @@
             <xsd:attribute name="label" type="xsd:string"/>
             <xsd:attribute name="visible" type="xsd:boolean"/>
             <xsd:attribute name="image" type="xsd:string"/>
+            <xsd:attribute name="position" type="xsd:int"/>
         </xsd:complexType>
     </xsd:element>
 	<xsd:element name="langs">

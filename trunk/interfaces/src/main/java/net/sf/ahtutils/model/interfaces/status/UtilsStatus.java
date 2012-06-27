@@ -21,4 +21,7 @@ public interface UtilsStatus<T extends UtilsLang> extends EjbRemoveable,EjbWithC
 	
 	public String getImage();
 	public void setImage(String image);
+	
+	public int getPosition();
+	public void setPosition(int position);
 }
