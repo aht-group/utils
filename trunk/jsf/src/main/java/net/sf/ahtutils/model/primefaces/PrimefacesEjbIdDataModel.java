@@ -17,13 +17,13 @@ public class  PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataMod
 	final static Logger logger = LoggerFactory.getLogger(PrimefacesEjbIdDataModel.class);
 	
 	private Map<Long,Boolean> mapUnlock;
-
-    public Map<Long, Boolean> getMapUnlock(){return mapUnlock;}
-
+	private Map<Long,Boolean> mapSelect;
+   
 	public PrimefacesEjbIdDataModel(List<T> data)
     {  
         super(data);
         mapUnlock = new Hashtable<Long,Boolean>();
+        mapSelect = new Hashtable<Long,Boolean>();
     }  
 
     @SuppressWarnings("unchecked")
@@ -47,6 +47,7 @@ public class  PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataMod
     public Object getRowKey(T item) {return item.getId();}
     
     public void unlock(T item) {mapUnlock.put(item.getId(), true);}
+    public void select(T item, boolean value) {mapSelect.put(item.getId(), value);}
     
     @SuppressWarnings("unchecked")
     public void update(T item)
@@ -57,4 +58,7 @@ public class  PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataMod
 		this.setWrappedData(list);
 		this.setRowIndex(index);
     }
+    
+    public Map<Long, Boolean> getMapUnlock(){return mapUnlock;}
+    public Map<Long, Boolean> getMapSelect() {return mapSelect;}
 }
