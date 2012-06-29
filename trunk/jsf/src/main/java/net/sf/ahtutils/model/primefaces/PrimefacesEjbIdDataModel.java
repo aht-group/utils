@@ -24,6 +24,11 @@ public class  PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataMod
         super(data);
         mapUnlock = new Hashtable<Long,Boolean>();
         mapSelect = new Hashtable<Long,Boolean>();
+        for(T t : data)
+        {
+        	mapUnlock.put(t.getId(), false);
+        	mapSelect.put(t.getId(), false);
+        }
     }  
 
     @SuppressWarnings("unchecked")
@@ -49,6 +54,14 @@ public class  PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataMod
     public void unlock(T item) {mapUnlock.put(item.getId(), true);}
     public void select(T item, boolean value) {mapSelect.put(item.getId(), value);}
     
+    public void selectAll(boolean value)
+    {
+    	for(long key : mapSelect.keySet())
+    	{
+    		mapSelect.put(key, value);
+    	}
+    }
+    
     @SuppressWarnings("unchecked")
     public void update(T item)
     {
@@ -61,4 +74,10 @@ public class  PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataMod
     
     public Map<Long, Boolean> getMapUnlock(){return mapUnlock;}
     public Map<Long, Boolean> getMapSelect() {return mapSelect;}
+    
+    public boolean isSelected(long id)
+    {
+    	if(mapSelect.containsKey(id)){return mapSelect.get(id);}
+    	else {return false;}
+    }
 }
