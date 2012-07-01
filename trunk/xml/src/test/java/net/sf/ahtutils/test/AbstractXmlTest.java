@@ -5,11 +5,10 @@ import java.util.Date;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
 import net.sf.exlp.util.DateUtil;
 import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.xml.JaxbUtil;
-import net.sf.exlp.xml.ns.NsPrefixMapperInterface;
+import net.sf.exlp.xml.ns.ExlpNsPrefixMapper;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -20,14 +19,6 @@ public abstract class AbstractXmlTest
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractXmlTest.class);
 	
-	protected static NsPrefixMapperInterface nsPrefixMapper;
-	
-	@BeforeClass
-	public static void initPrefixMapper()
-	{
-		nsPrefixMapper = new AhtUtilsNsPrefixMapper();
-	}
-	
 	@BeforeClass
     public static void initLogger()
 	{
@@ -35,6 +26,12 @@ public abstract class AbstractXmlTest
 		loggerInit.addAltPath("src/test/resources/config");
 		loggerInit.init();
     }
+	
+	@BeforeClass
+	public static void initPrefixMapper()
+	{
+		JaxbUtil.setNsPrefixMapper(new ExlpNsPrefixMapper());
+	}
 	
 	protected void assertJaxbEquals(Object expected, Object actual)
 	{
@@ -50,16 +47,10 @@ public abstract class AbstractXmlTest
 		return DateUtil.getDateFromInt(2011, 11, 11, 11, 11, 11);
 	}
 	
-	protected NsPrefixMapperInterface getPrefixMapper()
-	{
-		if(nsPrefixMapper==null){nsPrefixMapper = new AhtUtilsNsPrefixMapper();}
-		return nsPrefixMapper;
-	}
-	
 	protected void save(Object xml, File f)
 	{
 		logger.debug("Saving Reference XML");
-		JaxbUtil.debug(xml, getPrefixMapper());
-    	JaxbUtil.save(f, xml, getPrefixMapper(), true);
+		JaxbUtil.debug(xml);
+    	JaxbUtil.save(f, xml, true);
 	}
 }

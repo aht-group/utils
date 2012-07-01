@@ -67,7 +67,7 @@ public class TestAccessTokenFactory extends AbstractFileProcessingTest
 		Token testToken = atf.toXml(inRaw);
 		if(saveReference)
 		{
-			JaxbUtil.save(fRef, testToken, new AhtUtilsNsPrefixMapper(), true);
+			JaxbUtil.save(fRef, testToken, true);
 		}
 		else
 		{
@@ -82,7 +82,8 @@ public class TestAccessTokenFactory extends AbstractFileProcessingTest
 		LoggerInit loggerInit = new LoggerInit("log4j.xml");	
 			loggerInit.addAltPath("src/test/resources/config");
 			loggerInit.init();	
-		
+		JaxbUtil.setNsPrefixMapper(new AhtUtilsNsPrefixMapper());
+			
 		boolean saveReference = true;
 		int id = -1;
 		int index = 0;

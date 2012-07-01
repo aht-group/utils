@@ -9,7 +9,6 @@ import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.io.RelativePathFactory;
 import net.sf.exlp.util.io.StringIO;
 import net.sf.exlp.util.xml.JaxbUtil;
-import net.sf.exlp.xml.ns.NsPrefixMapperInterface;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
@@ -22,7 +21,6 @@ public class AbstractAhtUtilTest extends AbstractAhtUtilsTest
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractAhtUtilTest.class);
 	
-	protected static NsPrefixMapperInterface nsPrefixMapper;
 	protected File f;
 	protected boolean saveReference=false;
 
@@ -51,15 +49,15 @@ public class AbstractAhtUtilTest extends AbstractAhtUtilsTest
 		}
     }
 	
+	@BeforeClass
+	public static void initPrefixMapper()
+	{
+		JaxbUtil.setNsPrefixMapper(new AhtUtilsNsPrefixMapper());
+	}
+	
 	protected void assertJaxbEquals(Object expected, Object actual)
 	{
 		Assert.assertEquals("actual XML differes from expected XML",JaxbUtil.toString(expected),JaxbUtil.toString(actual));
-	}
-	
-	protected NsPrefixMapperInterface getPrefixMapper()
-	{
-		if(nsPrefixMapper==null){nsPrefixMapper = new AhtUtilsNsPrefixMapper();}
-		return nsPrefixMapper;
 	}
 	
 	protected void saveXml(Object xml, File f, boolean formatted)
@@ -67,8 +65,8 @@ public class AbstractAhtUtilTest extends AbstractAhtUtilsTest
 		if(saveReference)
 		{
 			logger.debug("Saving Reference XML");
-			JaxbUtil.debug(xml, getPrefixMapper());
-			JaxbUtil.save(f, xml, getPrefixMapper(), formatted);
+			JaxbUtil.debug(xml);
+			JaxbUtil.save(f, xml, formatted);
 		}
 	}
 	

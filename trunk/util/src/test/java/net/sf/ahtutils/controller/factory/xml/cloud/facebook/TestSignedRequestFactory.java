@@ -89,7 +89,7 @@ public class TestSignedRequestFactory extends AbstractFileProcessingTest
 		SignedRequest reqTest = srf.decode(inRaw);
 		if(saveReference)
 		{
-			JaxbUtil.save(fRef, reqTest, new AhtUtilsNsPrefixMapper(), true);
+			JaxbUtil.save(fRef, reqTest, true);
 		}
 		else
 		{
@@ -103,7 +103,8 @@ public class TestSignedRequestFactory extends AbstractFileProcessingTest
 		LoggerInit loggerInit = new LoggerInit("log4j.xml");	
 			loggerInit.addAltPath("src/test/resources/config");
 			loggerInit.init();	
-		
+		JaxbUtil.setNsPrefixMapper(new AhtUtilsNsPrefixMapper());
+			
 		boolean saveReference = true;
 		int id = -1;
 		int index = 0;

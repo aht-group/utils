@@ -81,7 +81,7 @@ public class TestOfxChartRenderer
     {	
 		TestOfxChartRenderer test = new TestOfxChartRenderer();
 		Chart chart = test.getTimeSeries();
-		JaxbUtil.debug(chart, new OfxNsPrefixMapper());
+		JaxbUtil.debug(chart);
 			
 		OFxChartRenderControl ofxRenderer = new OFxChartRenderControl();
 		JFreeChart jfreeChart = ofxRenderer.render(chart);
@@ -95,6 +95,7 @@ public class TestOfxChartRenderer
 		LoggerInit loggerInit = new LoggerInit("log4j.xml");	
 			loggerInit.addAltPath("config");
 			loggerInit.init();
+		JaxbUtil.setNsPrefixMapper(new OfxNsPrefixMapper());
 		
 		TestOfxChartRenderer test = new TestOfxChartRenderer();
 		test.renderDirect();
