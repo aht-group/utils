@@ -23,11 +23,17 @@
 package net.sf.ahtutils.controller;
 
 import java.util.Hashtable;
+import java.util.Properties;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import org.jboss.ejb.client.ContextSelector;
+import org.jboss.ejb.client.EJBClientConfiguration;
+import org.jboss.ejb.client.EJBClientContext;
+import org.jboss.ejb.client.PropertiesBasedEJBClientConfiguration;
+import org.jboss.ejb.client.remoting.ConfigBasedEJBClientContextSelector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,6 +46,7 @@ public class UtilsJbossFacadeLookup
 	private String host;
 	private String username;
 	private String password;
+	private Properties properties = new Properties();
 	
 	public UtilsJbossFacadeLookup(String appName, String moduleName, String host)
 	{
@@ -52,6 +59,21 @@ public class UtilsJbossFacadeLookup
 		this.host=host;
 		this.username=username;
 		this.password=password;
+		
+		properties.put("remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED", "false");
+		properties.put("remote.connections", "default");
+
+		properties.put("remote.connection.default.host", host);
+		properties.put("remote.connection.default.port", "4447");
+
+		properties.put("remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS", "false");
+		properties.put("remote.connection.default.username", username);
+		properties.put("remote.connection.default.password", password);
+		
+		EJBClientConfiguration clientConfiguration = new PropertiesBasedEJBClientConfiguration(properties);
+		ContextSelector<EJBClientContext> contextSelector = new ConfigBasedEJBClientContextSelector(clientConfiguration);
+
+		EJBClientContext.setSelector(contextSelector);
 	}
 	   
 	@SuppressWarnings("unchecked")
