@@ -43,11 +43,12 @@ public class UtilsJbossFacadeLookup
 	
 	private String appName;
 	private String moduleName;
-	private String host;
-	private String username;
-	private String password;
 	private Properties properties = new Properties();
 	
+	public UtilsJbossFacadeLookup(String appName, String moduleName)
+	{
+		this(appName,moduleName,null,null,null);
+	}
 	public UtilsJbossFacadeLookup(String appName, String moduleName, String host)
 	{
 		this(appName,moduleName,host,null,null);
@@ -56,19 +57,18 @@ public class UtilsJbossFacadeLookup
 	{
 		this.appName=appName;
 		this.moduleName=moduleName;
-		this.host=host;
-		this.username=username;
-		this.password=password;
 		
 		properties.put("remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED", "false");
 		properties.put("remote.connections", "default");
 
+		if(host==null){host="localhost";}
+		logger.info("Connecting to "+host);
 		properties.put("remote.connection.default.host", host);
 		properties.put("remote.connection.default.port", "4447");
 
 		properties.put("remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS", "false");
-		properties.put("remote.connection.default.username", username);
-		properties.put("remote.connection.default.password", password);
+		if(username!=null){properties.put("remote.connection.default.username", username);}
+		if(password!=null){properties.put("remote.connection.default.password", password);}
 		
 		EJBClientConfiguration clientConfiguration = new PropertiesBasedEJBClientConfiguration(properties);
 		ContextSelector<EJBClientContext> contextSelector = new ConfigBasedEJBClientContextSelector(clientConfiguration);
