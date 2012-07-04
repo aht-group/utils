@@ -36,9 +36,11 @@ public class XmlTypeFactory
 		return xml;
 	}
 	
-	public static Type create(String code)
+	public static Type create(String code){return create(null,code);}
+	public static Type create(String key, String code)
 	{
 		Type xml = new Type();
+		xml.setKey(key);
 		xml.setCode(code);
 		return xml;
 	}
