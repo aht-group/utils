@@ -62,6 +62,7 @@ public class SecurityInitViews <L extends UtilsLang,
 		{
 			for(View view : category.getViews().getView())
 			{
+				logger.trace("View: "+view.getCode());
 				updateView.actualAdd(view.getCode());
 				iuView(aclCategory, view);
 			}
