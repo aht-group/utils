@@ -32,6 +32,7 @@ public class TestXmlType extends AbstractXmlStatusTest
     public static Type create(boolean withChilds)
     {
     	Type xml = new Type();
+    	xml.setKey("myKey");
     	xml.setCode("myCode");
     	xml.setVisible(true);
     	xml.setGroup("myGroup");

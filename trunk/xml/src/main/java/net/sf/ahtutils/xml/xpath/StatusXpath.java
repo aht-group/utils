@@ -8,6 +8,8 @@ import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Langs;
 import net.sf.ahtutils.xml.status.Translation;
 import net.sf.ahtutils.xml.status.Translations;
+import net.sf.ahtutils.xml.status.Type;
+import net.sf.ahtutils.xml.status.Types;
 import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
 
@@ -65,5 +67,19 @@ public class StatusXpath
 	{
 		Translation translation = getTranslation(translations,keyTranslation);
 		return getLang(translation.getLangs(),keyLang);
+	}
+	
+	public static synchronized Type getType(Types types,String key) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
+	{
+		JXPathContext context = JXPathContext.newContext(types);
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append("type[@key='").append(key).append("']");
+		
+		@SuppressWarnings("unchecked")
+		List<Type> listResult = (List<Type>)context.selectNodes(sb.toString());
+		if(listResult.size()==0){throw new ExlpXpathNotFoundException("No "+Type.class.getSimpleName()+" for key="+key);}
+		else if(listResult.size()>1){throw new ExlpXpathNotUniqueException("Multiple "+Type.class.getSimpleName()+" for key="+key);}
+		return listResult.get(0);
 	}
 }

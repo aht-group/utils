@@ -19,6 +19,13 @@
             <xsd:attribute name="position" type="xsd:int"/>
         </xsd:complexType>
     </xsd:element>
+    <xsd:element name="types">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="s:type" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
     <xsd:element name="type">
         <xsd:complexType>
             <xsd:sequence>
@@ -27,6 +34,7 @@
                 <xsd:element ref="s:descriptions" maxOccurs="1"/>
                 <xsd:element ref="s:lang" maxOccurs="unbounded"/>
             </xsd:sequence>
+            <xsd:attribute name="key" type="xsd:string"/>
             <xsd:attribute name="code" type="xsd:string"/>
             <xsd:attribute name="group" type="xsd:string"/>
             <xsd:attribute name="label" type="xsd:string"/>
