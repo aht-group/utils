@@ -16,11 +16,11 @@
         
 <composite:implementation>
 <h:panelGroup>
-  <h:graphicImage rendered="#{cc.attrs.bean.cvm.visible['#{cc.attrs.for}']}" value="#{iconBean.icon(12,'editActivated')}">
-    <p:ajax update=":#{cc.attrs.update}" event="click" listener="#{cc.attrs.bean.cvm.edit('#{cc.attrs.for}',false)}"/>
+  <h:graphicImage rendered="#{cc.attrs.bean.cvm.visible[cc.attrs.for]}" value="#{iconBean.icon(12,'editActivated')}">
+    <p:ajax update="#{cc.attrs.update}" event="click" listener="#{cc.attrs.bean.cvm.edit(cc.attrs.for,false)}"/>
   </h:graphicImage>
-  <h:graphicImage rendered="#{!cc.attrs.bean.cvm.visible['#{cc.attrs.for}']}" value="#{iconBean.icon(12,'editDeactivated')}">
-    <p:ajax update=":#{cc.attrs.update}" event="click" listener="#{cc.attrs.bean.cvm.edit('#{cc.attrs.for}',true)}"/>
+  <h:graphicImage rendered="#{!cc.attrs.bean.cvm.visible[cc.attrs.for]}" value="#{iconBean.icon(12,'editDeactivated')}">
+    <p:ajax update="#{cc.attrs.update}" event="click" listener="#{cc.attrs.bean.cvm.edit(cc.attrs.for,true)}"/>
   </h:graphicImage>
 </h:panelGroup>
 </composite:implementation>
