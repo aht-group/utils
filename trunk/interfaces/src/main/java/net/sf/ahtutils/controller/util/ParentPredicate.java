@@ -73,6 +73,12 @@ public class ParentPredicate <P extends EjbWithId> implements Serializable
 		return result;
 	}
 	
+	public static <T extends EjbWithId> List<ParentPredicate<T>> createFromList(Class<T> clT, String name, List<T> list)
+	{
+		List<Long> lLong = new ArrayList<Long>();
+		for(T t : list){lLong.add(t.getId());}
+		return create(clT, name, lLong);
+	}
 	public static <T extends EjbWithId> List<ParentPredicate<T>> create(Class<T> clT, String name, List<Long> lLong)
 	{
 		List<ParentPredicate<T>> result = new ArrayList<ParentPredicate<T>>();

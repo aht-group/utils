@@ -1,6 +1,8 @@
 package net.sf.ahtutils.model.primefaces;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -79,5 +81,17 @@ public class  PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataMod
     {
     	if(mapSelect.containsKey(id)){return mapSelect.get(id);}
     	else {return false;}
+    }
+    
+    public List<T> toSelection()
+    {
+    	List<T> listSelected = new ArrayList<T>();
+    	Iterator<T> iterator = this.iterator();
+    	while(iterator.hasNext())
+    	{
+    		T t = iterator.next();
+    		if(mapSelect.get(t.getId())){listSelected.add(t);}
+    	}
+    	return listSelected;
     }
 }
