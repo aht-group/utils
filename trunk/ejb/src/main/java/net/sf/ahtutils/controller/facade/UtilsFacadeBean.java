@@ -347,4 +347,41 @@ public class UtilsFacadeBean implements UtilsFacade
 		return q.getResultList();
 	}
 	
+	public <T extends EjbWithId, P extends EjbWithId, OR extends EjbWithId, AND extends EjbWithId> List<T> fForAndOrGrandParents(Class<T> queryClass, Class<P> parentClass, String parentName, List<ParentPredicate<AND>> lpAnd, List<ParentPredicate<OR>> lpOr)
+	{
+		if(logger.isTraceEnabled())
+		{
+			logger.trace("****** fForAndOrPGrandParents");
+			logger.trace("QueryClass:" +queryClass.getName());
+			logger.trace("AND "+lpAnd.size());
+			logger.trace("OR "+lpOr.size());
+			logger.trace("************************");
+		}
+		
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<T> criteriaQuery = cB.createQuery(queryClass);
+		 
+		Root<T> from = criteriaQuery.from(queryClass);
+		Root<P> fromParent = criteriaQuery.from(parentClass);
+		
+		Path<Object> pathToParent = from.get(parentName);
+	    Path<Object> pathParentId = fromParent.get("id");
+		
+		Predicate pOr = cB.or(ParentPredicate.array(cB, fromParent, lpOr));
+		Predicate pAnd = cB.and(ParentPredicate.array(cB, fromParent, lpAnd));
+		    
+		CriteriaQuery<T> select = criteriaQuery.select(from);
+		if(lpOr==null || lpOr.size()==0)
+		{
+			select.where(pAnd,cB.equal(pathToParent, pathParentId));
+		}
+		else
+		{
+			select.where(cB.and(pAnd,pOr),cB.equal(pathToParent, pathParentId));
+		}
+		 
+		TypedQuery<T> q = em.createQuery(select);
+		return q.getResultList();
+	}
+	
 }
