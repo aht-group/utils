@@ -13,11 +13,11 @@
         
   <composite:implementation>
   <div id="menuHolder">
-	<ul class="menu">
 		<f:forEach var="rootLevelItem" items="#{cc.attrs.value.menuItem}">
+		<ul class="menu">
   		<li class="sub"><a class="aTop" href="#{rootLevelItem.href}"><span>#{rootLevelItem.name}</span><b></b></a>
   			<f:if test="#{rootLevelItem.menuItem.size()>0}">
-    		<div class="col3 drop">
+    		<div class="col1 drop">
       			<dl>
 	    			<f:forEach var="menuItem" items="#{rootLevelItem.menuItem}">
             			<dt><a href="#{menuItem.href}">#{menuItem.name}</a></dt>
@@ -31,8 +31,8 @@
     		</div>
     		</f:if>
   		</li>
+  		</ul>
   		</f:forEach>
-	</ul>
 </div>
    </composite:implementation>
 </html>
