@@ -12,23 +12,34 @@
    </composite:interface>
         
   <composite:implementation>
+  
   <div id="menuHolder">
 		<f:forEach var="rootLevelItem" items="#{cc.attrs.value.menuItem}">
 		<ul class="menu">
+		<f:set var="submenuItems" value="0"/>
   		<li class="sub"><a class="aTop" href="#{rootLevelItem.href}"><span>#{rootLevelItem.name}</span><b></b></a>
   			<f:if test="#{rootLevelItem.menuItem.size()>0}">
-    		<div class="col1 drop">
-      			<dl>
-	    			<f:forEach var="menuItem" items="#{rootLevelItem.menuItem}">
-            			<dt><a href="#{menuItem.href}">#{menuItem.name}</a></dt>
-            			<f:if test="#{menuItem.menuItem.size()>0}">
-	        				<f:forEach var="menuItemSub" items="#{menuItem.menuItem}">
-	        					<dd><a href="#{menuItemSub.href}">#{menuItemSub.name}</a></dd>
-	        				</f:forEach>
-	        			</f:if>
-     				</f:forEach>
-		     	</dl>
-    		</div>
+  					<f:forEach var="firstLevelItem" items="#{rootLevelItem.menuItem}">
+  						<f:set var="submenuItems" value="1"/>
+  						<f:forEach var="secondLevelItem" items="#{firstLevelItem.menuItem}">
+  							<f:set var="submenuItems" value="2"/>
+  						</f:forEach>
+  						<f:forEach var="thirdLevelItem" items="#{thirdLevelItem.menuItem}">
+  							<f:set var="submenuItems" value="3"/>
+  						</f:forEach>
+  					</f:forEach>
+  				<div class="col#{submenuItems} drop">
+	      			<dl>
+		    			<f:forEach var="menuItem" items="#{rootLevelItem.menuItem}">
+	            			<dt><a href="#{menuItem.href}">#{menuItem.name}</a></dt>
+	            			<f:if test="#{menuItem.menuItem.size()>0}">
+		        				<f:forEach var="menuItemSub" items="#{menuItem.menuItem}">
+		        					<dd><a href="#{menuItemSub.href}">#{menuItemSub.name}</a></dd>
+		        				</f:forEach>
+		        			</f:if>
+	     				</f:forEach>
+			     	</dl>
+	    		</div>
     		</f:if>
   		</li>
   		</ul>
