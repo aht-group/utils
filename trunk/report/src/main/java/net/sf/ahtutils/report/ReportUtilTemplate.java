@@ -11,11 +11,11 @@ import net.sf.ahtutils.xml.report.Report;
 import net.sf.ahtutils.xml.report.Reports;
 import net.sf.ahtutils.xml.report.Template;
 import net.sf.exlp.util.xml.JaxbUtil;
-import net.sf.jasperreports.engine.JRBand;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignField;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.util.JRLoader;
@@ -29,7 +29,7 @@ public class ReportUtilTemplate
 	final static Logger logger = LoggerFactory.getLogger(ReportUtilXls.class);
 	
 	public ReportUtilTemplate(String reportRoot) throws FileNotFoundException{
-		Reports reports = JaxbUtil.loadJAXB(reportRoot +"reports.xml", Reports.class);
+		Reports reports = JaxbUtil.loadJAXB(reportRoot +"/reports.xml", Reports.class);
 	}
 	
 	public void applyTemplates(Report report)
@@ -41,6 +41,46 @@ public class ReportUtilTemplate
 				
 			}
 		}
+	}
+	
+	public JasperDesign create()
+	{
+		//JasperDesign  the in-memory JRXML report design
+		JasperDesign design = new JasperDesign();
+		design.setName("demoReport");
+		JRDesignQuery query = new JRDesignQuery();
+		query.setText("//*");
+		query.setLanguage("XPath");
+		design.setQuery(query);
+		
+		//A JRDesignBand can represent different report parts like the DetailBand, the PageHeader/Footer, ...
+		JRDesignBand header = new JRDesignBand();
+		header.setHeight(50);
+		
+		//Example of a dynamic text field
+		JRDesignTextField textField=new JRDesignTextField();
+		textField.setStretchWithOverflow(true);
+		textField.setBlankWhenNull(true);
+		textField.setX(0);
+		textField.setY(4);
+		textField.setWidth(100);
+		textField.setHeight(13);
+		textField.setKey("header");
+	
+		//TextField expression
+		JRDesignExpression designExpression=new JRDesignExpression();
+		designExpression.setValueClass(String.class);
+		designExpression.setText("\"Welcome to the report.\"");
+
+		//Setting the expression
+		textField.setExpression(designExpression);
+		
+		//Add element to header band
+		header.getChildren().add(textField);
+		
+		//A band is then set as a part of the report design
+		design.setPageHeader(header);
+		return design;
 	}
 	
 	public void create(Template template) throws JRException
