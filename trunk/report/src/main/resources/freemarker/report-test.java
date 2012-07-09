@@ -10,6 +10,7 @@ import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.Ignore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +26,7 @@ public class ${classname} extends AbstractAhtUtilsReportTest
 		initExample("${reportId}");
 	}
 	
+	@Ignore
 	@Test
 	public void emptyPages() throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException, ReportException, IOException
 	{

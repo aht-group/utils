@@ -383,5 +383,4 @@ public class UtilsFacadeBean implements UtilsFacade
 		TypedQuery<T> q = em.createQuery(select);
 		return q.getResultList();
 	}
-	
 }
