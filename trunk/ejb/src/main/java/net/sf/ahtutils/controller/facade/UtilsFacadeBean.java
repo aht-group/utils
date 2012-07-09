@@ -383,4 +383,43 @@ public class UtilsFacadeBean implements UtilsFacade
 		TypedQuery<T> q = em.createQuery(select);
 		return q.getResultList();
 	}
+	
+	public <T extends EjbWithId, P extends EjbWithId, OR1 extends EjbWithId, OR2 extends EjbWithId> List<T> fGrandParents(Class<T> queryClass, Class<P> parentClass, String parentName, List<ParentPredicate<OR1>> lpOr1, List<ParentPredicate<OR2>> lpOr2)
+	{
+		if(logger.isTraceEnabled())
+		{
+			logger.trace("****** fGrandParents");
+			logger.trace("QueryClass:" +queryClass.getName());
+			logger.trace("OR1 "+lpOr1.size());
+			logger.trace("OR2 "+lpOr2.size());
+			logger.trace("************************");
+		}
+		
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<T> criteriaQuery = cB.createQuery(queryClass);
+		 
+		Root<T> from = criteriaQuery.from(queryClass);
+		Root<P> fromParent = criteriaQuery.from(parentClass);
+		
+		Path<Object> pathToParent = from.get(parentName);
+	    Path<Object> pathParentId = fromParent.get("id");
+		
+		Predicate pOr1 = cB.or(ParentPredicate.array(cB, fromParent, lpOr1));
+		Predicate pOr2 = cB.or(ParentPredicate.array(cB, fromParent, lpOr2));
+		    
+		CriteriaQuery<T> select = criteriaQuery.select(from);
+		if(lpOr1==null || lpOr2==null || lpOr1.size()==0 || lpOr2.size()==0)
+		{
+			logger.trace("Returning empty List");
+			return new ArrayList<T>();
+		}
+		else
+		{
+			logger.trace("Executing");
+			select.where(pOr1,pOr2,cB.equal(pathToParent, pathParentId));
+		}
+		 
+		TypedQuery<T> q = em.createQuery(select);
+		return q.getResultList();
+	}
 }
