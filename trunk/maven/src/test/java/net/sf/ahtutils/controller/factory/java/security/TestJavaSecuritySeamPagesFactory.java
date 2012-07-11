@@ -69,13 +69,6 @@ public class TestJavaSecuritySeamPagesFactory extends AbstractJavaSecurityFactor
 	}
 	
 	@Test(expected=UtilsConfigurationException.class)
-	public void withoutNavigation() throws UtilsConfigurationException, IOException, TemplateException
-	{
-		lC.get(0).getViews().getView().get(0).setNavigation(null);
-		seamPagesFactory.processCategories(lC);
-	}
-	
-	@Test(expected=UtilsConfigurationException.class)
 	public void withoutNavigationPackage() throws UtilsConfigurationException, IOException, TemplateException
 	{
 		lC.get(0).getViews().getView().get(0).getNavigation().setPackage(null);

@@ -49,13 +49,15 @@ public class JavaSecuritySeamPagesFactory extends AbstractJavaSecurityFileFactor
 				for(View view : category.getViews().getView())
 				{
 					if(!view.isSetPublic()){throw new UtilsConfigurationException("No @public view@code="+view.getCode());}
-					if(!view.isSetNavigation()){throw new UtilsConfigurationException("No <navigation> defined for view@code="+view.getCode());}
-					if(!view.getNavigation().isSetPackage()){throw new UtilsConfigurationException("No <navigation@package> defined for view@code="+view.getCode());}
-					if(!view.getNavigation().isSetViewPattern()){throw new UtilsConfigurationException("No <navigation.viewPattern> defined for view@code="+view.getCode());}
-					if(!view.getNavigation().isSetUrlMapping()){throw new UtilsConfigurationException("No <navigation.urlMapping> defined for view@code="+view.getCode());}
-					
-					mCategoryPackage.put(view.getCode(), category.getCode());
-					getViewForPackage(view.getNavigation().getPackage()).add(view);
+					if(view.isSetNavigation())
+					{
+						if(!view.getNavigation().isSetPackage()){throw new UtilsConfigurationException("No <navigation@package> defined for view@code="+view.getCode());}
+						if(!view.getNavigation().isSetViewPattern()){throw new UtilsConfigurationException("No <navigation.viewPattern> defined for view@code="+view.getCode());}
+						if(!view.getNavigation().isSetUrlMapping()){throw new UtilsConfigurationException("No <navigation.urlMapping> defined for view@code="+view.getCode());}
+						
+						mCategoryPackage.put(view.getCode(), category.getCode());
+						getViewForPackage(view.getNavigation().getPackage()).add(view);
+					}
 				}
 			}
 		}
