@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import net.sf.ahtutils.report.ReportUtilCreator;
 import net.sf.ahtutils.test.AbstractAhtUtilsReportTest;
+import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
+import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
 import net.sf.jasperreports.engine.JRException;
 
 import org.junit.Test;
@@ -19,7 +21,7 @@ public class TestReportCreator extends AbstractAhtUtilsReportTest
 	final static Logger logger = LoggerFactory.getLogger(TestReportCreator.class);
     
 	@Test
-	public void createReport() throws JRException, TemplateException, IOException
+	public void createReport() throws JRException, TemplateException, IOException, ExlpXpathNotFoundException, ExlpXpathNotUniqueException
 	{
 		ReportUtilCreator creator = new ReportUtilCreator();
 		creator.setConfigFile(reportFileLocation +"/");
@@ -27,6 +29,7 @@ public class TestReportCreator extends AbstractAhtUtilsReportTest
 		creator.setJrxmlDir("src/main/resources/reports.ahtutils-report/jrxml");
 		creator.setReportId("demo");
 		creator.setTestPackage("net.sf.ahtutils.test.report");
+		creator.setProductive(false);
 		creator.execute();
 	}
 }

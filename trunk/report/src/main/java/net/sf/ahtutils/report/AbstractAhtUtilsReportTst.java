@@ -19,6 +19,7 @@ import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.xml.JDomUtil;
 import net.sf.exlp.util.xml.JaxbUtil;
 import net.sf.exlp.xml.ns.NsPrefixMapperInterface;
+import net.sf.jasperreports.engine.query.JRXPathQueryExecuterFactory;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -95,6 +96,9 @@ public class AbstractAhtUtilsReportTst
 		
 		//Load example and convert to doc for direct use in ReportHandler
 		org.jdom.Document jdomDoc =  JDomUtil.load(report.getExample());
+		
+				logger.info("Reading XML demo data from:" +report.getExample());
+				JDomUtil.debug(jdomDoc);
 		jdomDoc = JDomUtil.unsetNameSpace(jdomDoc);
 		docReport = JDomUtil.toW3CDocument(jdomDoc);
 	}
