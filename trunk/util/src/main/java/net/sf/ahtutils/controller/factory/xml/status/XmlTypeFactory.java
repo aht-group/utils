@@ -16,12 +16,13 @@ public class XmlTypeFactory
 	{
 		this.q=q;
 	}
-	
-	public <S extends UtilsStatus> Type build(S ejb)
+	public <S extends UtilsStatus> Type build(S ejb){return build(ejb,null);}
+	public <S extends UtilsStatus> Type build(S ejb, String group)
 	{
 		Type xml = new Type();
 		if(q.isSetCode()){xml.setCode(ejb.getCode());}
 		if(q.isSetPosition()){xml.setPosition(ejb.getPosition());}
+		xml.setGroup(group);
 		
 		if(q.isSetLangs())
 		{
