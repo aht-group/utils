@@ -17,9 +17,11 @@ public class XmlStatusFactory
 		this.q=q;
 	}
 	
-	public <S extends UtilsStatus> Status build(S ejb)
+	public <S extends UtilsStatus> Status build(S ejb){return build(ejb,null);}
+	public <S extends UtilsStatus> Status build(S ejb, String group)
 	{
 		Status xml = new Status();
+		xml.setGroup(group);
 		if(q.isSetCode()){xml.setCode(ejb.getCode());}
 		if(q.isSetPosition()){xml.setPosition(ejb.getPosition());}
 		
