@@ -422,4 +422,11 @@ public class UtilsFacadeBean implements UtilsFacade
 		TypedQuery<T> q = em.createQuery(select);
 		return q.getResultList();
 	}
+
+	@Override
+	public <T extends EjbWithId> T save(T o) throws UtilsContraintViolationException,UtilsLockingException
+	{
+		if(o.getId()==0){return this.persist(o);}
+		else{return this.update(o);}
+	}
 }

@@ -26,6 +26,7 @@ public interface UtilsFacade
 	<T extends EjbWithPosition> List<T> allOrdered(Class<T> type);
 	<T extends EjbWithType> List<T> allForType(Class<T> clazz, String type);
 	
+	<T extends EjbWithId> T save(T o) throws UtilsContraintViolationException,UtilsLockingException;
 	<T extends Object> T persist(T o) throws UtilsContraintViolationException;
 	<T extends Object> T update(T o) throws UtilsContraintViolationException,UtilsLockingException;
 	
