@@ -6,18 +6,18 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
-import net.sf.ahtutils.model.interfaces.EjbWithId;
+import net.sf.ahtutils.model.interfaces.EjbWithCode;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractEjbIdConverter <I extends EjbWithId> implements Converter
+public abstract class AbstractEjbCodeConverter <I extends EjbWithCode> implements Converter
 {    
-	final static Logger logger = LoggerFactory.getLogger(AbstractEjbIdConverter.class);
+	final static Logger logger = LoggerFactory.getLogger(AbstractEjbCodeConverter.class);
 	
 	final Class<I> clEjb;
 	
-	public AbstractEjbIdConverter(final Class<I> clEjb)
+	public AbstractEjbCodeConverter(final Class<I> clEjb)
 	{
 		this.clEjb=clEjb;
 	}
@@ -31,9 +31,13 @@ public abstract class AbstractEjbIdConverter <I extends EjbWithId> implements Co
         {  
             try
             {   
-                long id = Long.valueOf(submittedValue);
+            	String[] token = submittedValue.split("-");
+                long id = Long.valueOf(token[0]);
+                String code = token[1];
+//                logger.warn("CREATING WITH CODE: "+id+"-"+code);
                 I ejb = clEjb.newInstance();
                 ejb.setId(id);
+                ejb.setCode(code);
                 return ejb;
             }
             catch(NumberFormatException e)
@@ -67,9 +71,9 @@ public abstract class AbstractEjbIdConverter <I extends EjbWithId> implements Co
         }
         else
         {
-        	EjbWithId ejb = (EjbWithId)value;
+        	EjbWithCode ejb = (EjbWithCode)value;
 //        	logger.warn(clEjb.getSimpleName()+" return: "+ejb.getId());
-        	return ""+ejb.getId(); 
+        	return ejb.getId()+"-"+ejb.getCode(); 
         }  
     }  
 }  
