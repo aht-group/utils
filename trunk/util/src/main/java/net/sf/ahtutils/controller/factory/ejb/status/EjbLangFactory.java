@@ -73,15 +73,22 @@ public class EjbLangFactory<L extends UtilsLang>
 		return map;
 	}
 	
-	public L createLang(String key, String translation) throws InstantiationException, IllegalAccessException
+	public L createLang(String key, String translation)
 	{
-		L l = langClass.newInstance();
-		l.setLkey(key);
-		l.setLang(translation);
-		return l;
+		try
+		{
+			L l = langClass.newInstance();
+			l.setLkey(key);
+			l.setLang(translation);
+			return l;
+		}
+		catch (InstantiationException e) {e.printStackTrace();}
+		catch (IllegalAccessException e) {e.printStackTrace();}
+		logger.error("Something went terribly wrong, see stacktrace. Unfortunately null is returned here!");
+		return null;
 	}
 	
-	public L createLang(Lang lang) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+	public L createLang(Lang lang) throws UtilsIntegrityException
 	{
 		if(lang.getKey()==null){throw new UtilsIntegrityException("Key not set for: "+JaxbUtil.toString(lang, new AhtUtilsNsPrefixMapper()));}
 		if(lang.getTranslation()==null){throw new UtilsIntegrityException("Translation not set for: "+JaxbUtil.toString(lang, new AhtUtilsNsPrefixMapper()));}
