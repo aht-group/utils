@@ -86,6 +86,17 @@ public class  PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataMod
     	else {return false;}
     }
     
+    public List<T> toData()
+    {
+    	List<T> allData = new ArrayList<T>();
+    	Iterator<T> iterator = this.iterator();
+    	while(iterator.hasNext())
+    	{
+    		allData.add(iterator.next());
+    	}
+    	return allData;
+    }
+    
     public List<T> toSelection()
     {
     	List<T> listSelected = new ArrayList<T>();
