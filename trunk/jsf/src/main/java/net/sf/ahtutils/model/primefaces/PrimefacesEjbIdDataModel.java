@@ -54,6 +54,9 @@ public class  PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataMod
     public Object getRowKey(T item) {return item.getId();}
     
     public void unlock(T item) {mapUnlock.put(item.getId(), true);}
+    public void unlock(T item, boolean value) {mapUnlock.put(item.getId(), value);}
+    
+    // *********** SELECT ************
     public void select(T item, boolean value) {mapSelect.put(item.getId(), value);}
     
     public void selectAll(boolean value)
