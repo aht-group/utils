@@ -1,5 +1,6 @@
 package net.sf.ahtutils.controller.factory.xml.acl;
 
+import net.sf.ahtutils.controller.factory.xml.security.XmlRoleFactory;
 import net.sf.ahtutils.controller.factory.xml.status.XmlDescriptionsFactory;
 import net.sf.ahtutils.controller.factory.xml.status.XmlLangsFactory;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryGroup;
@@ -17,7 +18,7 @@ import org.slf4j.LoggerFactory;
 
 public class XmlCategoryFactory
 {
-	final static Logger logger = LoggerFactory.getLogger(XmlAclRoleFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(XmlRoleFactory.class);
 		
 	private Category qC;
 	private String lang;

@@ -21,7 +21,7 @@ public class  PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataMod
 	private Map<Long,Boolean> mapUnlock;
 	private Map<Long,Boolean> mapSelect;
 	private Map<Long,Boolean> mapInfo;
-   
+
 	public PrimefacesEjbIdDataModel(List<T> data)
     {  
         super(data);
@@ -59,7 +59,6 @@ public class  PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataMod
     public void unlock(T item) {mapUnlock.put(item.getId(), true);}
     public void unlock(T item, boolean value) {mapUnlock.put(item.getId(), value);}
     
-    
     // *********** INFO ************
     
     public void info(T item, boolean value) {mapInfo.put(item.getId(), value);}
@@ -87,6 +86,7 @@ public class  PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataMod
     
     public Map<Long, Boolean> getMapUnlock(){return mapUnlock;}
     public Map<Long, Boolean> getMapSelect() {return mapSelect;}
+    public Map<Long, Boolean> getMapInfo() {return mapInfo;}
     
     public boolean isSelected(long id)
     {

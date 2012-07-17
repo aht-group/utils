@@ -1,4 +1,4 @@
-package net.sf.ahtutils.controller.factory.xml.acl;
+package net.sf.ahtutils.controller.factory.xml.security;
 
 import net.sf.ahtutils.controller.factory.xml.status.XmlLangsFactory;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryProjectRole;
@@ -11,15 +11,15 @@ import net.sf.ahtutils.xml.aht.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class XmlAclRoleFactory
+public class XmlRoleFactory
 {
-	final static Logger logger = LoggerFactory.getLogger(XmlAclRoleFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(XmlRoleFactory.class);
 		
 	private Role q;
 	private String lang;
 	
-	public XmlAclRoleFactory(Query uQ){this(uQ.getRole(),uQ.getLang());}
-	public XmlAclRoleFactory(Role q,String lang)
+	public XmlRoleFactory(Query uQ){this(uQ.getRole(),uQ.getLang());}
+	public XmlRoleFactory(Role q,String lang)
 	{
 		this.q=q;
 		this.lang=lang;
