@@ -97,8 +97,8 @@ public class AbstractAhtUtilsReportTst
 		//Load example and convert to doc for direct use in ReportHandler
 		org.jdom.Document jdomDoc =  JDomUtil.load(report.getExample());
 		
-				logger.info("Reading XML demo data from:" +report.getExample());
-				JDomUtil.debug(jdomDoc);
+		//		logger.info("Reading XML demo data from:" +report.getExample());
+		//		JDomUtil.debug(jdomDoc);
 		jdomDoc = JDomUtil.unsetNameSpace(jdomDoc);
 		docReport = JDomUtil.toW3CDocument(jdomDoc);
 	}
