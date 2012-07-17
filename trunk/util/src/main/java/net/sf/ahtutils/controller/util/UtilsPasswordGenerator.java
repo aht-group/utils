@@ -1,18 +1,31 @@
 package net.sf.ahtutils.controller.util;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import de.rrze.jpwgen.flags.PwGeneratorFlagBuilder;
 import de.rrze.jpwgen.impl.PwGenerator;
-import de.rrze.jpwgen.utils.BlankRemover;
 
 public class UtilsPasswordGenerator
 {
-	public static String getPwd()
+	final static Logger logger = LoggerFactory.getLogger(UtilsPasswordGenerator.class);
+	
+	public static String random()
 	{
-		String flags = "-N 1 -M 10000  -m -q -s 10"; 
-		flags = BlankRemover.itrim(flags); 
-		String[] ar = flags.split(" "); 
-		PwGenerator generator = new PwGenerator(); 
-		PwGenerator.getDefaultBlacklistFilter().addToBlacklist("badpassword"); 
-//		List<String> passwords = generator.generatePassword(arg0, arg1, arg2, arg3); 
-		return "pwd";
+		return random(10);
+	}
+	
+	public static String random(int size)
+	{
+		PwGeneratorFlagBuilder flags = new PwGeneratorFlagBuilder(); 
+		flags.setIncludeNumerals();
+//		flags.setIncludeCapitals(); 
+//		flags.setIncludeReducedSymbols();
+		flags.setFilterAmbiguous(); 
+		
+		List<String> passwords = PwGenerator.generate(size, 1, 1000, flags.build(), null, null); 
+		return passwords.get(0);
 	}
 }

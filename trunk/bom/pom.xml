@@ -225,6 +225,13 @@
         		<artifactId>ant</artifactId>
         		<version>1.8.2</version>
         	</dependency>
+        	
+        	<!-- Utils -->
+			<dependency>
+	    		<groupId>de.rrze</groupId>
+	    		<artifactId>jpwgen</artifactId>
+	    		<version>1.2.0</version>
+	    	</dependency>
         </dependencies>
     </dependencyManagement>
 </project>

@@ -225,12 +225,10 @@
     	<dependency>
     		<groupId>jaxen</groupId>
     		<artifactId>jaxen</artifactId>
-    		<version>1.1.1</version>
     	</dependency>
     	<dependency>
     		<groupId>de.rrze</groupId>
     		<artifactId>jpwgen</artifactId>
-    		<version>1.2.0</version>
     	</dependency>
     	<dependency>
 			<groupId>org.apache.poi</groupId>

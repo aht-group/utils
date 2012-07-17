@@ -12,7 +12,7 @@ public class AhtUtilTstBootstrap
 	public static void init()
 	{
 		LoggerInit loggerInit = new LoggerInit("log4j.xml");
-		loggerInit.addAltPath("config");
+		loggerInit.addAltPath("config.ahtutils-util.test");
 		loggerInit.init();
 	}
 }
