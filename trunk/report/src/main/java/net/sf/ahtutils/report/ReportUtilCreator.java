@@ -97,8 +97,11 @@ public class ReportUtilCreator
 		
 		JasperDesign design = templateManager.create();
 		//JRXmlWriter cares about writing the in-memory design to an OutputStream
-		Boolean dirCreated = new File(jrxmlDir +"/" +reportId +"/pdf/").mkdirs();
-		logger.info("Creation of new jrxml directory reports: " +dirCreated);
+		if (productive)
+		{
+			Boolean dirCreated = new File(jrxmlDir +"/" +reportId +"/pdf/").mkdirs();
+			logger.info("Creation of new jrxml directory reports: " +dirCreated);
+		}
 		String jrxmlFilename = jrxmlDir +"/" +reportId +"/pdf/mr" +reportId +".jrxml";
 		if (!productive)
 		{
