@@ -7,10 +7,11 @@ import net.sf.ahtutils.xml.aht.Query;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Langs;
 import net.sf.ahtutils.xml.status.Status;
+import net.sf.ahtutils.xml.status.Type;
 
 public class StatusQuery
 {
-	public static enum Key {StatusExport,Langs}
+	public static enum Key {StatusExport,Langs,extractType}
 	
 	private static Map<Key,Query> mQueries;
 	
@@ -24,6 +25,7 @@ public class StatusQuery
 			{
 				case StatusExport: q.setStatus(statusExport());break;
 				case Langs: q.setLangs(langs());break;
+				case extractType: q.setType(extractType());break;
 			}
 			mQueries.put(key, q);
 		}
@@ -51,5 +53,13 @@ public class StatusQuery
 		xml.getLang().add(l);
 		
     	return xml;
+	}
+	
+	public static Type extractType()
+	{
+		Type xml = new Type();
+		xml.setCode("");
+		xml.setLangs(langs());
+		return xml;
 	}
 }

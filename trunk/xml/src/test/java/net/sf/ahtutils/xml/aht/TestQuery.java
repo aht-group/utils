@@ -7,6 +7,7 @@ import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
 import net.sf.ahtutils.xml.access.TestXmlRole;
 import net.sf.ahtutils.xml.status.TestXmlLangs;
 import net.sf.ahtutils.xml.status.TestXmlStatus;
+import net.sf.ahtutils.xml.status.TestXmlType;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;
@@ -43,6 +44,7 @@ public class TestQuery extends AbstractXmlAhtTest
     		xml.setRole(TestXmlRole.create(false));
     		xml.setLangs(TestXmlLangs.create(false));
     		xml.setStatus(TestXmlStatus.create(false));
+    		xml.setType(TestXmlType.create(false));
     	}
     	
     	return xml;

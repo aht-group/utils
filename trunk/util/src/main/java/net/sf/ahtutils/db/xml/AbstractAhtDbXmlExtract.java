@@ -19,6 +19,7 @@ public abstract class AbstractAhtDbXmlExtract extends AhtDbXmlSeedUtil
 	protected String templateDir;
 	protected JarStream jarStream;
 	private Set<String> extractedIds;
+	protected boolean xmlOut;
 	
 	public AbstractAhtDbXmlExtract(Db dbSeed, DataSource datasource, JarStream jarStream)
 	{
@@ -27,6 +28,7 @@ public abstract class AbstractAhtDbXmlExtract extends AhtDbXmlSeedUtil
 		logger.warn("NYI: TemplateDir");
 //		templateDir=config.getString("db/extract/@dirTemplate");
 		extractedIds = new HashSet<String>();
+		xmlOut = false;
 	}
 	
 	protected String getTemplate(String extractId)
