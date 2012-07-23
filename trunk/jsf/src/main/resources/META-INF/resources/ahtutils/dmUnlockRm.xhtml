@@ -11,18 +11,18 @@
    <composite:interface>
      <composite:attribute name="bean"/>
      <composite:attribute name="dm"/>
-     <composite:attribute name="var"/>
      <composite:attribute name="updateUnlock"/>
      <composite:attribute name="updateRm"/>
+     <composite:attribute name="for"/>
    </composite:interface>
         
 <composite:implementation>
 <h:panelGroup>
-  <h:graphicImage rendered="!#{cc.attrs.bean[cc.attrs.dm].mapUnlock[cc.attrs.var.id]}" value="#{iconBean.icon(12,'unlockDeactivated')}">
-    <p:ajax update="#{cc.attrs.updateUnlock}" event="click" listener="#{cc.attrs.bean.region.unlock(cc.attrs.var)}"/>
+  <h:graphicImage rendered="#{!cc.attrs.dm.mapUnlock[cc.attrs.for.id]}" value="#{iconBean.icon(12,'unlockDeactivated')}">
+    <p:ajax update="#{cc.attrs.updateUnlock}" event="click" listener="#{cc.attrs.dm.unlock(cc.attrs.for)}"/>
   </h:graphicImage>
-  <h:graphicImage id="mDel" rendered="#{cc.attrs.bean[cc.attrs.dm].mapUnlock[cc.attrs.var.id]}" value="#{iconBean.icon(12,'unlock')}">
-    <p:ajax update="#{cc.attrs.updateRm}" event="click" listener="#{cc.attrs.bean.rm(cc.attrs.var)}"/>
+  <h:graphicImage rendered="#{cc.attrs.dm.mapUnlock[cc.attrs.for.id]}" value="#{iconBean.icon(12,'unlock')}">
+    <p:ajax update="#{cc.attrs.updateRm}" event="click" listener="#{cc.attrs.bean.rm(cc.attrs.for)}"/>
   </h:graphicImage>
 </h:panelGroup>
 </composite:implementation>

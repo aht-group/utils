@@ -56,19 +56,18 @@ public abstract class AbstractAhtDbXmlExtract extends AhtDbXmlSeedUtil
 	public void singleJarExtract(String extractId) throws UtilsConfigurationException
 	{
 		String from = getExtractName(extractId);
-		logger.warn("NYI: singleJarExtract");
 		String to = null;//= config.getString("db/prefix[@type='ide']")+"/"+getContentName(extractId);
-		singleJarExtract(from, to);
+		
+//		singleJarExtract(from, to);
 	}
 	
 	public void singleJarExtract(String from, String to)
 	{
-		logger.warn("NYI: singleJarExtract");
 		String jarName = null;//config.getString("db/prefix[@type='jar']/@file");
 		StringBuffer sb = new StringBuffer();
 			sb.append("Extracting "+jarName);
 			sb.append(" from jar to "+to);
-		logger.debug(sb.toString());
+		logger.info(sb.toString());
 		JarExtractor.extract(jarName, from,to);
 	}
 }
