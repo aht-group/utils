@@ -17,7 +17,13 @@
 		<f:forEach var="rootLevelItem" items="#{cc.attrs.value.menuItem}">
 		<ul class="menu">
 		<f:set var="submenuItems" value="0"/>
-  		<li class="sub"><a class="aTop" href="#{rootLevelItem.href}"><span>#{rootLevelItem.name}</span><b></b></a>
+  		<li class="sub">
+			<f:if test="#{rootLevelItem.active}">
+			  <a class="active" href="#{rootLevelItem.href}"><span>#{rootLevelItem.name}</span><b></b></a>
+			</f:if>
+			<f:if test="#{!rootLevelItem.active}">
+			  <a class="aTop" href="#{rootLevelItem.href}"><span>#{rootLevelItem.name}</span><b></b></a>
+  			</f:if>
   			<f:if test="#{rootLevelItem.menuItem.size()>0}">
   					<f:forEach var="firstLevelItem" items="#{rootLevelItem.menuItem}">
   						<f:set var="submenuItems" value="1"/>
