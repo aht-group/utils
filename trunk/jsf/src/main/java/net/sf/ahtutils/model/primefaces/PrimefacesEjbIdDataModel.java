@@ -8,19 +8,24 @@ import java.util.Map;
 
 import javax.faces.model.ListDataModel;
 
+import net.sf.ahtutils.jsf.interfaces.dm.DmAllSelect;
+import net.sf.ahtutils.jsf.interfaces.dm.DmSingleSelect;
 import net.sf.ahtutils.model.interfaces.EjbWithId;
 
 import org.primefaces.model.SelectableDataModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class  PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataModel<T> implements SelectableDataModel<T>
+public class PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataModel<T> implements SelectableDataModel<T>
 {    
 	final static Logger logger = LoggerFactory.getLogger(PrimefacesEjbIdDataModel.class);
 	
 	private Map<Long,Boolean> mapUnlock;
 	private Map<Long,Boolean> mapSelect;
 	private Map<Long,Boolean> mapInfo;
+	
+	private DmSingleSelect<T> singleSelectCallback;
+	private DmAllSelect<T> allSelectCallback;
 
 	public PrimefacesEjbIdDataModel(List<T> data)
     {  
@@ -64,7 +69,12 @@ public class  PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataMod
     public void info(T item, boolean value) {mapInfo.put(item.getId(), value);}
     
     // *********** SELECT ************
-    public void select(T item, boolean value) {mapSelect.put(item.getId(), value);}
+    
+    public void select(T item, boolean value)
+    {
+    	mapSelect.put(item.getId(), value);
+    	if(singleSelectCallback!=null){singleSelectCallback.dmSingleSelected(item);}
+    }
     
     public void selectAll(boolean value)
     {
@@ -72,6 +82,7 @@ public class  PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataMod
     	{
     		mapSelect.put(key, value);
     	}
+    	if(allSelectCallback!=null){allSelectCallback.dmAllSelected();}
     }
     
     @SuppressWarnings("unchecked")
@@ -116,4 +127,7 @@ public class  PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataMod
     	}
     	return listSelected;
     }
+    
+    public void setSingleSelectCallback(DmSingleSelect<T> singleSelectCallback) {this.singleSelectCallback = singleSelectCallback;}
+    public void setAllSelectCallback(DmAllSelect<T> allSelectCallback) {this.allSelectCallback = allSelectCallback;}
 }
