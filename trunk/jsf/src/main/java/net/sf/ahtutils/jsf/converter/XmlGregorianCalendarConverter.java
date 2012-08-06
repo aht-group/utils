@@ -22,7 +22,7 @@ public class XmlGregorianCalendarConverter implements Converter
 
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
-	    String pattern = "dd.MM.yy hh:mm";
+	    String pattern = "dd.MM.yy HH:mm";
 	    XMLGregorianCalendar xmlGregCal = (XMLGregorianCalendar) value;
 	    DateFormat df;
 	    df = new SimpleDateFormat(pattern);

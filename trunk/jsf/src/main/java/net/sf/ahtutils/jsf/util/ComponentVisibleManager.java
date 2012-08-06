@@ -17,7 +17,7 @@ public class ComponentVisibleManager<E extends Enum<E>>
 		visible = new Hashtable<String,Boolean>();
 	   	for(E v : e.getEnumConstants())
 	   	{
-	   		logger.info(""+v);
+	   		logger.info("contrucz "+v);
 	   	}
 	}
 	
