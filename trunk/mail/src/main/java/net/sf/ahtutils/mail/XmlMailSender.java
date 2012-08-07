@@ -1,6 +1,8 @@
 package net.sf.ahtutils.mail;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.MessagingException;
@@ -9,13 +11,17 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import net.sf.ahtutils.exception.processing.UtilsMailException;
 import net.sf.ahtutils.exception.processing.UtilsProcessingException;
 import net.sf.ahtutils.mail.content.FreemarkerMimeContentCreator;
 import net.sf.ahtutils.mail.content.XmlMimeContentCreator;
 import net.sf.ahtutils.mail.freemarker.FreemarkerEngine;
+import net.sf.ahtutils.xml.mail.Bcc;
+import net.sf.ahtutils.xml.mail.EmailAddress;
 import net.sf.ahtutils.xml.mail.Header;
 import net.sf.ahtutils.xml.mail.Mail;
 import net.sf.exlp.util.xml.JDomUtil;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.jdom.Document;
 import org.jdom.Element;
@@ -27,10 +33,24 @@ public class XmlMailSender
 	final static Logger logger = LoggerFactory.getLogger(XmlMailSender.class);
 	
 	private String smtpHost;
-
+	private FreemarkerEngine fme;
+	private List<EmailAddress> alwaysBcc;
+	private EmailAddress overrideOnlyTo;
+	
+	public void setOverrideOnlyTo(EmailAddress overrideOnlyTo) {this.overrideOnlyTo = overrideOnlyTo;}
+	public void addBcc(EmailAddress bcc){alwaysBcc.add(bcc);}
+	
+	@Deprecated
 	public XmlMailSender(String smtpHost)
 	{
+		this(null,smtpHost);
+	}
+	public XmlMailSender(FreemarkerEngine fme,String smtpHost)
+	{
+		this.fme=fme;
 		this.smtpHost=smtpHost;
+		alwaysBcc = new ArrayList<EmailAddress>();
+		overrideOnlyTo = null;
 	}
 	
 	public void send(Mail mail) throws MessagingException, UnsupportedEncodingException
@@ -39,20 +59,26 @@ public class XmlMailSender
 		props.put("mail.smtp.host", smtpHost);
 		Session session = Session.getDefaultInstance(props, null);
 		session.setDebug(false);
-
+		
 		MimeMessage msg = new MimeMessage(session);
 		msg.setFrom(new InternetAddress(mail.getHeader().getFrom().getEmailAddress().getEmail()));
 
 		MimeMessageCreator mmc = new MimeMessageCreator(msg);
 		mmc.createHeader(mail.getHeader());
-		
+				
 		XmlMimeContentCreator mcc = new XmlMimeContentCreator(msg);
 		mcc.createContent(mail);
 		
 		Transport.send(msg);
 	}
 	
-	public void send(FreemarkerEngine fme, String lang, Document doc) throws UnsupportedEncodingException, MessagingException, UtilsProcessingException
+	@Deprecated
+	public void send(FreemarkerEngine fme, String lang, Document doc) throws UnsupportedEncodingException, MessagingException, UtilsProcessingException, UtilsMailException
+	{
+		this.fme=fme;
+		send(lang, doc);
+	}
+	public void send(String lang, Document doc) throws UnsupportedEncodingException, MessagingException, UtilsProcessingException, UtilsMailException
 	{
 		Properties props = System.getProperties();
 		props.put("mail.smtp.host", smtpHost);
@@ -62,10 +88,23 @@ public class XmlMailSender
 		MimeMessage message = new MimeMessage(session);
 		MimeMessageCreator mmc = new MimeMessageCreator(message);
 		
-		mmc.createHeader(getHeader(doc.getRootElement()));
-
+		Header header = getHeader(doc.getRootElement());
+		if(overrideOnlyTo!=null)
+		{
+			header.setBcc(null);
+			header.setCc(null);
+			header.getTo().getEmailAddress().clear();
+			header.getTo().getEmailAddress().add(overrideOnlyTo);
+		}
+		else
+		{
+			if(!header.isSetBcc()){header.setBcc(new Bcc());}
+			header.getBcc().getEmailAddress().addAll(alwaysBcc);
+		}
+		mmc.createHeader(header);
+		
 		Mail mail = getMailAndDetachAtt(doc.getRootElement());
-				
+		
 		FreemarkerMimeContentCreator mcc = new FreemarkerMimeContentCreator(message, fme);
 		mcc.createContent("de",doc,mail);
 		

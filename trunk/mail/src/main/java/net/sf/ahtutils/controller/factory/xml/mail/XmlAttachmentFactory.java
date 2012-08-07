@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 public class XmlAttachmentFactory
 {
-	final static Logger logger = LoggerFactory.getLogger(EmailAddressXmlFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(XmlEmailAddressFactory.class);
 	
 	public static Attachment create(File f) throws IOException, MagicParseException, MagicMatchNotFoundException, MagicException
 	{

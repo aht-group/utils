@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 public class XmlTrackerFactory
 {
-	final static Logger logger = LoggerFactory.getLogger(EmailAddressXmlFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(XmlEmailAddressFactory.class);
 	
 	private Tracker q;
 	

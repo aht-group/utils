@@ -9,18 +9,23 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.xml.parsers.ParserConfigurationException;
 
+import net.sf.ahtutils.exception.processing.UtilsMailException;
 import net.sf.ahtutils.mail.freemarker.FreemarkerEngine;
 import net.sf.ahtutils.xml.mail.Attachment;
 import net.sf.ahtutils.xml.mail.Mail;
 
 import org.apache.commons.lang.SystemUtils;
 import org.jdom.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
 import freemarker.template.TemplateException;
 
 public class FreemarkerMimeContentCreator extends AbstractMimeContentCreator
 {
+	final static Logger logger = LoggerFactory.getLogger(FreemarkerMimeContentCreator.class);
+	
 	private MimeMessage message;
 	private FreemarkerEngine fme;
 	private static final String encoding = "ISO-8859-1";
@@ -31,12 +36,25 @@ public class FreemarkerMimeContentCreator extends AbstractMimeContentCreator
 		this.fme=fme;
 	}
 	
-	public void createContent(String lang, Document xml, Mail mail) throws MessagingException
+	public void createContent(String lang, Document xml, Mail mail) throws MessagingException, UtilsMailException
 	{		
 		Multipart mpAlternative = new MimeMultipart("alternative");
-		if(fme.isAvailable(mail.getId(), lang, "txt")){mpAlternative.addBodyPart(createTxt(lang,xml,mail));}
-		if(fme.isAvailable(mail.getId(), lang, "html")){mpAlternative.addBodyPart(createHtml(lang,xml,mail));}
-	   
+		
+		boolean someContentAvailable = false;
+		if(fme.isAvailable(mail.getId(), lang, "txt"))
+		{
+			logger.trace("Adding txt body part");
+			mpAlternative.addBodyPart(createTxt(lang,xml,mail));
+			someContentAvailable=true;
+		}
+		if(fme.isAvailable(mail.getId(), lang, "html"))
+		{
+			logger.trace("Adding html body part");
+			mpAlternative.addBodyPart(createHtml(lang,xml,mail));
+			someContentAvailable=true;
+		}
+		if(!someContentAvailable){throw new UtilsMailException("No template available for "+mail.getId()+"/"+lang);}
+		
 	    if(!mail.isSetAttachment())
 	    {
 	    	message.setContent(mpAlternative);

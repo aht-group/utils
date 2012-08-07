@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 public class XmlHeaderFactory
 {
-	final static Logger logger = LoggerFactory.getLogger(EmailAddressXmlFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(XmlEmailAddressFactory.class);
 	
     public static Header create(String subject, String from, String to)
     {
@@ -17,11 +17,11 @@ public class XmlHeaderFactory
     	xml.setSubject(subject);
     	
     	From xmlFrom = new From();
-    	xmlFrom.setEmailAddress(EmailAddressXmlFactory.create(from));
+    	xmlFrom.setEmailAddress(XmlEmailAddressFactory.create(from));
     	xml.setFrom(xmlFrom);
     	
     	To xmlTo = new To();
-    	xmlTo.getEmailAddress().add(EmailAddressXmlFactory.create(to));
+    	xmlTo.getEmailAddress().add(XmlEmailAddressFactory.create(to));
     	xml.setTo(xmlTo);
     	
     	return xml;

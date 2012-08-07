@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 public class XmlMailFactory
 {
-	final static Logger logger = LoggerFactory.getLogger(EmailAddressXmlFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(XmlEmailAddressFactory.class);
 	
     public static Mail create(String id, String lang, String type)
     {

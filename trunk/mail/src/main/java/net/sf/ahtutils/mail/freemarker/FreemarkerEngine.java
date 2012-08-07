@@ -73,12 +73,11 @@ public class FreemarkerEngine
 			net.sf.ahtutils.xml.mail.Template utilsTemplate = MailXpath.getTemplate(mail, cfgTemplate.getLang(), cfgTemplate.getType());
 			
 			StringBuffer sb = new StringBuffer();
-			sb.append(mails.getDir());
-			sb.append("/").append(mail.getDir()).append("/");
-			sb.append(mail.getId()).append("/");
-			sb.append(utilsTemplate.getLang()).append("-");
-			sb.append(utilsTemplate.getType()).append("-");
-			sb.append(utilsTemplate.getFile());
+				sb.append(mails.getDir());
+				sb.append("/").append(mail.getDir()).append("/");
+				sb.append(utilsTemplate.getLang()).append("-");
+				sb.append(utilsTemplate.getType()).append("-");
+				sb.append(utilsTemplate.getFile());
 			
 			ftl = freemarkerConfiguration.getTemplate(sb.toString(),"UTF-8");
 			ftl.setEncoding("UTF-8");
