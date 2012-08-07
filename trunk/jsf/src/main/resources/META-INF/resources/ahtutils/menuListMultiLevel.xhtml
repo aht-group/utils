@@ -14,6 +14,8 @@
   <composite:implementation>
   
   <div id="menuHolder">
+  		<f:forEach var="rootLevelItem2" items="#{cc.attrs.value.menuItem}">
+  		</f:forEach>
 		<f:forEach var="rootLevelItem" items="#{cc.attrs.value.menuItem}">
 		<ul class="menu">
 		<f:set var="submenuItems" value="0"/>
