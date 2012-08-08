@@ -8,9 +8,9 @@ ${i}
 </#list>
 
 <#list views as v>
-<#if !v.public><#if !v.onlyLoginRequired>
+<#if !v.public || !v.onlyLoginRequired>
 import ${v.import};
-</#if></#if>
+</#if>
 </#list>
 
 @ViewConfig
