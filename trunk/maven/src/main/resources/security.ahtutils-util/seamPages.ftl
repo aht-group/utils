@@ -8,7 +8,7 @@ ${i}
 </#list>
 
 <#list views as v>
-<#if !v.public || !v.onlyLoginRequired>
+<#if !v.public || v.onlyLoginRequired>
 import ${v.import};
 </#if>
 </#list>
@@ -27,10 +27,12 @@ public interface SeamPages
         @AccessDeniedView("${accessDeniedView}")
         @RestrictAtPhase(PhaseIdType.RESTORE_VIEW)
 </#if>
-<#if v.onlyLoginRequired>        
-        @${loginIdentifier}
-<#else>
-		@${v.identifier}
+<#if !v.public>
+	<#if v.onlyLoginRequired>
+		@${loginIdentifier}
+	<#else>
+		@${v.identifier}     
+     </#if>
 </#if>
         ${v.enum};
     }
