@@ -100,6 +100,7 @@
             <xsd:attribute name="code" type="xsd:string"/>
             <xsd:attribute name="index" type="xsd:int"/>
             <xsd:attribute name="public" type="xsd:boolean"/>
+            <xsd:attribute name="onlyLoginRequired" type="xsd:boolean"/>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="roles">

@@ -83,12 +83,17 @@ public class JavaSecuritySeamPagesFactory extends AbstractJavaSecurityFileFactor
 		freemarkerNodeModel.put("packageName", lViews.get(0).getNavigation().getPackage());
 		freemarkerNodeModel.put("loginView", sLoginView);
 		freemarkerNodeModel.put("accessDeniedView", sAccessDeniedView);
+		freemarkerNodeModel.put("loginIdentifier", "LoggedIn");
+		
 		
 		boolean onePrivate = false;
+		boolean oneOnlyLoggedIn = false;
 		List<Map> mViews = new ArrayList<Map>();
 		for(View v : lViews)
 		{
+			if(!v.isSetOnlyLoginRequired()){v.setOnlyLoginRequired(false);}
 			if(!v.isPublic()){onePrivate=true;}
+			if(v.isOnlyLoginRequired()){oneOnlyLoggedIn=true;}
 			StringBuffer sbImport = new StringBuffer();
 			sbImport.append(viewQualifierBasePackage).append(".");
 			sbImport.append(mCategoryPackage.get(v.getCode())).append(".");
@@ -97,6 +102,7 @@ public class JavaSecuritySeamPagesFactory extends AbstractJavaSecurityFileFactor
 			Map m = new HashMap();
 			m.put("import", sbImport.toString());
 			m.put("public", v.isPublic());
+			m.put("onlyLoginRequired", v.isOnlyLoginRequired());
 			m.put("viewPattern", v.getNavigation().getViewPattern().getValue());
 			m.put("urlMapping", v.getNavigation().getUrlMapping().getValue());
 			m.put("identifier", createClassName(v.getCode()));
@@ -105,6 +111,10 @@ public class JavaSecuritySeamPagesFactory extends AbstractJavaSecurityFileFactor
 		}
 		
 		List<String> classImports = new ArrayList<String>();
+		if(oneOnlyLoggedIn)
+		{
+			classImports.add("import org.jboss.seam.security.annotations.LoggedIn;");
+		}
 		if(onePrivate)
 		{
 			classImports.add("import org.jboss.seam.faces.security.AccessDeniedView;");
@@ -113,7 +123,6 @@ public class JavaSecuritySeamPagesFactory extends AbstractJavaSecurityFileFactor
 			classImports.add("import org.jboss.seam.faces.event.PhaseIdType;");
 		}
 		freemarkerNodeModel.put("classImports", classImports);
-		
 		freemarkerNodeModel.put("views", mViews);
 		
 		File fJava = new File(fPackage,"SeamPages.java");

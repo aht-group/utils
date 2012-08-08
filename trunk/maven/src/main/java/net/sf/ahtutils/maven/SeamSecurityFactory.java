@@ -92,7 +92,7 @@ public class SeamSecurityFactory extends AbstractMojo
      * @required
      */
     private String accessDeniedView;
-	
+    	
     public void execute() throws MojoExecutionException
     {
     	BasicConfigurator.configure();
