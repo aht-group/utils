@@ -46,10 +46,17 @@ public class AhtUtilsMsgBundleFactory extends AbstractMojo
     
     /**
      * Location of the file.
-     * @parameter expression="${basedir}/src/main/msg.${project.artifactId}"
+     * @parameter expression="${basedir}/src/main/resources/msg.${project.artifactId}"
      * @required
      */
     private String reportRoot;
+    
+    /**
+     * Location of the file.
+     * @parameter expression="${project.artifactId}"
+     * @required
+     */
+    private String artifactId;
 	
     public void execute() throws MojoExecutionException
     {
@@ -71,6 +78,7 @@ public class AhtUtilsMsgBundleFactory extends AbstractMojo
 		try
 		{
 			Dir dir = tFactory.rekursiveDirectory(fRoot.getAbsolutePath());
+			dir.setName("msg."+artifactId);
 			File fTranslations = new File(fTargetRoot,"translation.xml");
 			getLog().info("Saving to f"+fTranslations.getAbsolutePath());
 			JaxbUtil.save(fTranslations,dir,true);

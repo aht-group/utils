@@ -102,12 +102,21 @@ public class TranslationFactory
 		return translationRepo;
 	}
 	
-	protected void add(String xmlFile) throws FileNotFoundException
+	public void add(ClassLoader cl, String xmlFile) throws FileNotFoundException
+	{
+		Translations translations = (Translations)JaxbUtil.loadJAXB(cl, xmlFile, Translations.class);
+		logger.debug("Loaded "+translations.getTranslation().size()+" Elements from "+xmlFile);
+		add(translations);
+	}
+	public void add(String xmlFile) throws FileNotFoundException
 	{
 		Translations translations = (Translations)JaxbUtil.loadJAXB(xmlFile, Translations.class);
-
-		logger.info("Loaded "+translations.getTranslation().size()+" Elements from "+xmlFile);
-			
+		logger.debug("Loaded "+translations.getTranslation().size()+" Elements from "+xmlFile);
+		add(translations);
+	}
+	
+	private void add(Translations translations)
+	{	
 		for(Translation translation : translations.getTranslation())
 		{
 			for(Lang lang : translation.getLangs().getLang())
@@ -144,7 +153,7 @@ public class TranslationFactory
 	}
 	
 	public void setOutEncoding(String outEncoding) {this.outEncoding = outEncoding;}
-	protected TranslationMap gettMap(){return tMap;}
+	public TranslationMap gettMap(){return tMap;}
 	
 	protected class TranslationFileFinder extends DirectoryWalker<File>
 	{
