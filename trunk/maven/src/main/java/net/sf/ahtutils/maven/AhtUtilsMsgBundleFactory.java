@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.msgbundle.TranslationFactory;
+import net.sf.exlp.util.xml.JaxbUtil;
+import net.sf.exlp.xml.io.Dir;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
@@ -37,6 +39,13 @@ public class AhtUtilsMsgBundleFactory extends AbstractMojo
     
     /**
      * Location of the file.
+     * @parameter expression="${project.build.directory}/classes"
+     * @required
+     */
+    private String targetRoot;
+    
+    /**
+     * Location of the file.
      * @parameter expression="${basedir}/src/main/msg.${project.artifactId}"
      * @required
      */
@@ -52,13 +61,19 @@ public class AhtUtilsMsgBundleFactory extends AbstractMojo
     	File fRoot = new File(reportRoot);
     	if(!fRoot.exists()){throw new MojoExecutionException("msg.bundle directory does not exist: "+fRoot.getAbsolutePath());}
     	
+    	File fTargetRoot = new File(targetRoot);
+    	if(!fTargetRoot.exists()){throw new MojoExecutionException("targt directory does not exist: "+fTargetRoot.getAbsolutePath());}
+    	
     	getLog().info("Creating MessageBundle "+bundlePackage+".msg_<lang>.txt from "+reportRoot);
     	
     	TranslationFactory tFactory = new TranslationFactory();
 		tFactory.setOutEncoding("UTF-8");
 		try
 		{
-			tFactory.rekursiveDirectory(fRoot.getAbsolutePath());
+			Dir dir = tFactory.rekursiveDirectory(fRoot.getAbsolutePath());
+			File fTranslations = new File(fTargetRoot,"translation.xml");
+			getLog().info("Saving to f"+fTranslations.getAbsolutePath());
+			JaxbUtil.save(fTranslations,dir,true);
 			tFactory.writeMessageResourceBundles("msg",bundlePackage,fTarget.getAbsolutePath());
 			for(String s : tFactory.getStats())
 			{

@@ -15,7 +15,9 @@ import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Translation;
 import net.sf.ahtutils.xml.status.Translations;
+import net.sf.exlp.util.io.RelativePathFactory;
 import net.sf.exlp.util.xml.JaxbUtil;
+import net.sf.exlp.xml.io.Dir;
 
 import org.apache.commons.io.DirectoryWalker;
 import org.slf4j.Logger;
@@ -79,24 +81,28 @@ public class TranslationFactory
 		}
 	}
 	
-	public void rekursiveDirectory(String directory) throws FileNotFoundException
+	public Dir rekursiveDirectory(String directory) throws FileNotFoundException
 	{
 		File startDirectory = new File(directory);
+		RelativePathFactory rpf = new RelativePathFactory(startDirectory,RelativePathFactory.PathSeparator.CURRENT);
 		TranslationFileFinder tff = new TranslationFileFinder();
+		Dir translationRepo = new Dir();
 		try
 		{
 			for(File f : tff.find(startDirectory))
 			{
+				net.sf.exlp.xml.io.File xmlF = new net.sf.exlp.xml.io.File();
+				xmlF.setName(rpf.relativate(f));
+				translationRepo.getFile().add(xmlF);
+				
 				add(f.getAbsolutePath());
 			}
 		}
-		catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		catch (IOException e) {logger.error(e.getMessage());}
+		return translationRepo;
 	}
 	
-	public void add(String xmlFile) throws FileNotFoundException
+	protected void add(String xmlFile) throws FileNotFoundException
 	{
 		Translations translations = (Translations)JaxbUtil.loadJAXB(xmlFile, Translations.class);
 
