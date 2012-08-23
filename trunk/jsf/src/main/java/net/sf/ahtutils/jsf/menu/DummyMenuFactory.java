@@ -12,21 +12,24 @@ public class DummyMenuFactory
 	
 	public static Menu create()
 	{
-		MenuItem m1 = createItem("Top1","hr-t1");
+		MenuItem m1 = createItem("Top1","hr-t1",true);
 		
 		MenuItem sub11 = createItem("Sub-1.1");
 		sub11.getMenuItem().add(createItem("Sub-1.1.1","hr-1.1.1"));
 		sub11.getMenuItem().add(createItem("Sub-1.1.2","hr-1.1.2"));
 		m1.getMenuItem().add(sub11);
 		
-		MenuItem sub12 = createItem("Sub-1.2");
+		MenuItem sub12 = createItem("Sub-1.2","hr-1.2",true);
 		sub12.getMenuItem().add(createItem("Sub-1.2.1","hr-1.2.1"));
-		sub12.getMenuItem().add(createItem("Sub-1.2.2","hr-1.2.2"));
+		sub12.getMenuItem().add(createItem("Sub-1.2.2","hr-1.2.2",true));
 		m1.getMenuItem().add(sub12);
 		
-		MenuItem m2 = createItem("Top2","hr-t2",true);
+		MenuItem m2 = createItem("Top2","hr-t2",false);
 		m2.getMenuItem().add(createItem("Sub-2.1","hr-2.1"));
-		m2.getMenuItem().add(createItem("Sub-2.2","hr-2.2"));
+		
+		MenuItem sub22 = createItem("Sub-2.2","hr-2.2");
+		sub22.getMenuItem().add(createItem("Sub-2.2.1","hr-2.2.1"));
+		m2.getMenuItem().add(sub22);
 		
 		Menu menu = new Menu();
 		menu.getMenuItem().add(m1);
