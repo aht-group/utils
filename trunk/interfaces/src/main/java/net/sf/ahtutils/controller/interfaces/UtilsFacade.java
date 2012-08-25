@@ -24,10 +24,10 @@ public interface UtilsFacade
 	<T extends EjbWithName> T fByName(Class<T> type, String name) throws UtilsNotFoundException;
 	<T extends EjbWithNr, P extends EjbWithId> T fByNr(Class<T> type, String parentName, P parent, int nr) throws UtilsNotFoundException;
 	
-	<T extends UtilsProperty> String valueStringForKey(Class<T> type, String key, String defaultValue);
-	<T extends UtilsProperty> Integer valueIntForKey(Class<T> type, String key, Integer defaultValue);
-	<T extends UtilsProperty> Boolean valueBooleanForKey(Class<T> type, String key, Boolean defaultValue);
-	<T extends UtilsProperty> Date valueDateForKey(Class<T> type, String key, Date defaultValue);
+	<T extends UtilsProperty> String valueStringForKey(Class<T> type, String key, String defaultValue) throws UtilsNotFoundException;
+	<T extends UtilsProperty> Integer valueIntForKey(Class<T> type, String key, Integer defaultValue) throws UtilsNotFoundException;
+	<T extends UtilsProperty> Boolean valueBooleanForKey(Class<T> type, String key, Boolean defaultValue) throws UtilsNotFoundException;
+	<T extends UtilsProperty> Date valueDateForKey(Class<T> type, String key, Date defaultValue) throws UtilsNotFoundException;
 	
 	<T extends Object> List<T> all(Class<T> type);
 	<T extends EjbWithPosition> List<T> allOrdered(Class<T> type);

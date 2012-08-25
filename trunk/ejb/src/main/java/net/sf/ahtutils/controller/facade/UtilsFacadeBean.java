@@ -106,46 +106,62 @@ public class UtilsFacadeBean implements UtilsFacade
 	}
 	
 	@Override
-	public <T extends UtilsProperty> Integer valueIntForKey(Class<T> type, String key, Integer defaultValue)
+	public <T extends UtilsProperty> Integer valueIntForKey(Class<T> type, String key, Integer defaultValue) throws UtilsNotFoundException
 	{
 		try
 		{
 			T t = valueForKey(type, key);
 			return new Integer(t.getValue());
 		}
-		catch (UtilsNotFoundException e){return defaultValue;}
+		catch (UtilsNotFoundException e)
+		{
+			if(defaultValue!=null){return defaultValue;}
+			else{throw e;}
+		}
 	}
 
 	@Override
-	public <T extends UtilsProperty> Boolean valueBooleanForKey(Class<T> type, String key, Boolean defaultValue)
+	public <T extends UtilsProperty> Boolean valueBooleanForKey(Class<T> type, String key, Boolean defaultValue) throws UtilsNotFoundException
 	{
 		try
 		{
 			T t = valueForKey(type, key);
 			return new Boolean(t.getValue());
 		}
-		catch (UtilsNotFoundException e){return defaultValue;}
+		catch (UtilsNotFoundException e)
+		{
+			if(defaultValue!=null){return defaultValue;}
+			else{throw e;}
+		}
 	}
 
 	@Override
-	public <T extends UtilsProperty> Date valueDateForKey(Class<T> type, String key, Date defaultValue)
+	public <T extends UtilsProperty> Date valueDateForKey(Class<T> type, String key, Date defaultValue) throws UtilsNotFoundException
 	{
 		try
 		{
 			T t = valueForKey(type, key);
 			return new Date(new Long(t.getValue()));
 		}
-		catch (UtilsNotFoundException e){return defaultValue;}
+		catch (UtilsNotFoundException e)
+		{
+			if(defaultValue!=null){return defaultValue;}
+			else{throw e;}
+		}
 	}
 	@Override
-	public <T extends UtilsProperty> String valueStringForKey(Class<T> type, String key, String defaultValue)
+	public <T extends UtilsProperty> String valueStringForKey(Class<T> type, String key, String defaultValue) throws UtilsNotFoundException
 	{
 		try
 		{
 			T t = valueForKey(type, key);
 			return t.getValue();
 		}
-		catch (UtilsNotFoundException e){return defaultValue;}
+		catch (UtilsNotFoundException e)
+		{
+			if(defaultValue!=null){return defaultValue;}
+			else{throw e;}
+		}
 	}
 	private <T extends UtilsProperty> T valueForKey(Class<T> type, String key) throws UtilsNotFoundException
 	{
