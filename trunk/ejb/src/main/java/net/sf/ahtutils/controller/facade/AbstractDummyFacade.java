@@ -1,5 +1,6 @@
 package net.sf.ahtutils.controller.facade;
 
+import java.util.Date;
 import java.util.List;
 
 import net.sf.ahtutils.controller.interfaces.UtilsFacade;
@@ -11,6 +12,7 @@ import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.model.interfaces.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.EjbWithCode;
 import net.sf.ahtutils.model.interfaces.EjbWithId;
+import net.sf.ahtutils.model.interfaces.UtilsProperty;
 import net.sf.ahtutils.model.interfaces.EjbWithName;
 import net.sf.ahtutils.model.interfaces.EjbWithNr;
 import net.sf.ahtutils.model.interfaces.EjbWithType;
@@ -130,6 +132,34 @@ public class AbstractDummyFacade implements UtilsFacade
 	public <T extends EjbWithId, P extends EjbWithId, OR1 extends EjbWithId, OR2 extends EjbWithId> List<T> fGrandParents(
 			Class<T> queryClass, Class<P> parentClass, String parentName,
 			List<ParentPredicate<OR1>> lpOr1, List<ParentPredicate<OR2>> lpOr2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T extends UtilsProperty> String valueStringForKey(Class<T> type,
+			String key, String defaultValue) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T extends UtilsProperty> Integer valueIntForKey(Class<T> type,
+			String key, Integer defaultValue) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T extends UtilsProperty> Boolean valueBooleanForKey(
+			Class<T> type, String key, Boolean defaultValue) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T extends UtilsProperty> Date valueDateForKey(Class<T> type,
+			String key, Date defaultValue) {
 		// TODO Auto-generated method stub
 		return null;
 	}

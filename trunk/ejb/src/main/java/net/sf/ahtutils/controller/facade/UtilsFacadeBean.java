@@ -23,6 +23,7 @@ import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.model.interfaces.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.EjbWithCode;
 import net.sf.ahtutils.model.interfaces.EjbWithId;
+import net.sf.ahtutils.model.interfaces.UtilsProperty;
 import net.sf.ahtutils.model.interfaces.EjbWithName;
 import net.sf.ahtutils.model.interfaces.EjbWithNr;
 import net.sf.ahtutils.model.interfaces.EjbWithType;
@@ -101,6 +102,62 @@ public class UtilsFacadeBean implements UtilsFacade
 		TypedQuery<T> q = em.createQuery(criteriaQuery); 
 		try	{result=(T)q.getSingleResult();}
 		catch (NoResultException ex){throw new UtilsNotFoundException("Nothing found "+type.getSimpleName()+" for code="+code);}
+		return result;
+	}
+	
+	@Override
+	public <T extends UtilsProperty> Integer valueIntForKey(Class<T> type, String key, Integer defaultValue)
+	{
+		try
+		{
+			T t = valueForKey(type, key);
+			return new Integer(t.getValue());
+		}
+		catch (UtilsNotFoundException e){return defaultValue;}
+	}
+
+	@Override
+	public <T extends UtilsProperty> Boolean valueBooleanForKey(Class<T> type, String key, Boolean defaultValue)
+	{
+		try
+		{
+			T t = valueForKey(type, key);
+			return new Boolean(t.getValue());
+		}
+		catch (UtilsNotFoundException e){return defaultValue;}
+	}
+
+	@Override
+	public <T extends UtilsProperty> Date valueDateForKey(Class<T> type, String key, Date defaultValue)
+	{
+		try
+		{
+			T t = valueForKey(type, key);
+			return new Date(new Long(t.getValue()));
+		}
+		catch (UtilsNotFoundException e){return defaultValue;}
+	}
+	@Override
+	public <T extends UtilsProperty> String valueStringForKey(Class<T> type, String key, String defaultValue)
+	{
+		try
+		{
+			T t = valueForKey(type, key);
+			return t.getValue();
+		}
+		catch (UtilsNotFoundException e){return defaultValue;}
+	}
+	private <T extends UtilsProperty> T valueForKey(Class<T> type, String key) throws UtilsNotFoundException
+	{
+		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(type);
+        Root<T> root = criteriaQuery.from(type);
+        criteriaQuery = criteriaQuery.where(root.<T>get("key").in(key));
+
+		T result=null;
+		TypedQuery<T> q = em.createQuery(criteriaQuery); 
+		try	{result=(T)q.getSingleResult();}
+		catch (NoResultException ex){throw new UtilsNotFoundException("Nothing found "+type.getSimpleName()+" for key="+key);}
 		return result;
 	}
 	

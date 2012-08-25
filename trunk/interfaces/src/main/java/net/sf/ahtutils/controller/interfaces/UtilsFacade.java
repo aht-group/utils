@@ -1,5 +1,6 @@
 package net.sf.ahtutils.controller.interfaces;
 
+import java.util.Date;
 import java.util.List;
 
 import net.sf.ahtutils.controller.util.ParentPredicate;
@@ -10,6 +11,7 @@ import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.model.interfaces.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.EjbWithCode;
 import net.sf.ahtutils.model.interfaces.EjbWithId;
+import net.sf.ahtutils.model.interfaces.UtilsProperty;
 import net.sf.ahtutils.model.interfaces.EjbWithName;
 import net.sf.ahtutils.model.interfaces.EjbWithNr;
 import net.sf.ahtutils.model.interfaces.EjbWithType;
@@ -21,6 +23,11 @@ public interface UtilsFacade
 	<T extends EjbWithCode> T fByCode(Class<T> type, String code) throws UtilsNotFoundException;
 	<T extends EjbWithName> T fByName(Class<T> type, String name) throws UtilsNotFoundException;
 	<T extends EjbWithNr, P extends EjbWithId> T fByNr(Class<T> type, String parentName, P parent, int nr) throws UtilsNotFoundException;
+	
+	<T extends UtilsProperty> String valueStringForKey(Class<T> type, String key, String defaultValue);
+	<T extends UtilsProperty> Integer valueIntForKey(Class<T> type, String key, Integer defaultValue);
+	<T extends UtilsProperty> Boolean valueBooleanForKey(Class<T> type, String key, Boolean defaultValue);
+	<T extends UtilsProperty> Date valueDateForKey(Class<T> type, String key, Date defaultValue);
 	
 	<T extends Object> List<T> all(Class<T> type);
 	<T extends EjbWithPosition> List<T> allOrdered(Class<T> type);
