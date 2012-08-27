@@ -10,8 +10,8 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-@FacesConverter("net.sf.ahtutils.jsf.converter.XmlGregorianCalendarConverter")
-public class XmlGregorianCalendarConverter implements Converter
+@FacesConverter("net.sf.ahtutils.jsf.converter.XmlGregorianCalendarConverter-dateTime")
+public class XmlGregorianCalendarConverterDate implements Converter
 {
 
 	@Override
