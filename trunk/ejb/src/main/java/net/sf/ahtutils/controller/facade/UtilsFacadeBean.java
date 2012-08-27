@@ -119,6 +119,20 @@ public class UtilsFacadeBean implements UtilsFacade
 			else{throw e;}
 		}
 	}
+	@Override
+	public <T extends UtilsProperty> Long valueLongForKey(Class<T> type, String key, Long defaultValue) throws UtilsNotFoundException
+	{
+		try
+		{
+			T t = valueForKey(type, key);
+			return new Long(t.getValue());
+		}
+		catch (UtilsNotFoundException e)
+		{
+			if(defaultValue!=null){return defaultValue;}
+			else{throw e;}
+		}
+	}
 
 	@Override
 	public <T extends UtilsProperty> Boolean valueBooleanForKey(Class<T> type, String key, Boolean defaultValue) throws UtilsNotFoundException

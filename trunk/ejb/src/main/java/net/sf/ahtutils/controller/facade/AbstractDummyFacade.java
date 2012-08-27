@@ -163,6 +163,13 @@ public class AbstractDummyFacade implements UtilsFacade
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public <T extends UtilsProperty> Long valueLongForKey(Class<T> type,
+			String key, Long defaultValue) throws UtilsNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }
