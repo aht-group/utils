@@ -11,11 +11,12 @@ import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.model.interfaces.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.EjbWithCode;
 import net.sf.ahtutils.model.interfaces.EjbWithId;
-import net.sf.ahtutils.model.interfaces.UtilsProperty;
 import net.sf.ahtutils.model.interfaces.EjbWithName;
 import net.sf.ahtutils.model.interfaces.EjbWithNr;
 import net.sf.ahtutils.model.interfaces.EjbWithType;
+import net.sf.ahtutils.model.interfaces.UtilsProperty;
 import net.sf.ahtutils.model.interfaces.with.EjbWithPosition;
+import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 
 public interface UtilsFacade
 {
@@ -31,7 +32,8 @@ public interface UtilsFacade
 	<T extends UtilsProperty> Date valueDateForKey(Class<T> type, String key, Date defaultValue) throws UtilsNotFoundException;
 	
 	<T extends Object> List<T> all(Class<T> type);
-	<T extends EjbWithPosition> List<T> allOrdered(Class<T> type);
+	<T extends EjbWithPosition> List<T> allOrderedPosition(Class<T> type);
+	<T extends EjbWithRecord> List<T> allOrderedRecord(Class<T> type, boolean ascending);
 	<T extends EjbWithType> List<T> allForType(Class<T> clazz, String type);
 	
 	<T extends EjbWithId> T save(T o) throws UtilsContraintViolationException,UtilsLockingException;

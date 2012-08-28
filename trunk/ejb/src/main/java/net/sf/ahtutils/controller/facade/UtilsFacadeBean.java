@@ -23,12 +23,13 @@ import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.model.interfaces.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.EjbWithCode;
 import net.sf.ahtutils.model.interfaces.EjbWithId;
-import net.sf.ahtutils.model.interfaces.UtilsProperty;
 import net.sf.ahtutils.model.interfaces.EjbWithName;
 import net.sf.ahtutils.model.interfaces.EjbWithNr;
 import net.sf.ahtutils.model.interfaces.EjbWithType;
 import net.sf.ahtutils.model.interfaces.EjbWithValidFrom;
+import net.sf.ahtutils.model.interfaces.UtilsProperty;
 import net.sf.ahtutils.model.interfaces.with.EjbWithPosition;
+import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -203,7 +204,7 @@ public class UtilsFacadeBean implements UtilsFacade
 		return typedQuery.getResultList();
 	}
 	
-	public <T extends EjbWithPosition> List<T> allOrdered(Class<T> type)
+	public <T extends EjbWithPosition> List<T> allOrderedPosition(Class<T> type)
 	{
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
 		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(type);
@@ -213,6 +214,22 @@ public class UtilsFacadeBean implements UtilsFacade
 		
 		CriteriaQuery<T> select = criteriaQuery.select(from);
 		select.orderBy(criteriaBuilder.asc(ePosition));
+		
+		TypedQuery<T> typedQuery = em.createQuery(select);
+		return typedQuery.getResultList();
+	}
+	
+	public <T extends EjbWithRecord> List<T> allOrderedRecord(Class<T> type, boolean ascending)
+	{
+		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(type);
+		Root<T> from = criteriaQuery.from(type);
+		
+		Expression<Date> eRecord = from.get("record");
+		
+		CriteriaQuery<T> select = criteriaQuery.select(from);
+		if(ascending){select.orderBy(criteriaBuilder.asc(eRecord));}
+		else{select.orderBy(criteriaBuilder.desc(eRecord));}
 		
 		TypedQuery<T> typedQuery = em.createQuery(select);
 		return typedQuery.getResultList();

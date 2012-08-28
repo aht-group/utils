@@ -17,6 +17,7 @@ import net.sf.ahtutils.model.interfaces.EjbWithName;
 import net.sf.ahtutils.model.interfaces.EjbWithNr;
 import net.sf.ahtutils.model.interfaces.EjbWithType;
 import net.sf.ahtutils.model.interfaces.with.EjbWithPosition;
+import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +60,7 @@ public class AbstractDummyFacade implements UtilsFacade
 	}
 
 	@Override
-	public <T extends EjbWithPosition> List<T> allOrdered(Class<T> type) {
+	public <T extends EjbWithPosition> List<T> allOrderedPosition(Class<T> type) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -167,6 +168,13 @@ public class AbstractDummyFacade implements UtilsFacade
 	@Override
 	public <T extends UtilsProperty> Long valueLongForKey(Class<T> type,
 			String key, Long defaultValue) throws UtilsNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T extends EjbWithRecord> List<T> allOrderedRecord(Class<T> type,
+			boolean asc) {
 		// TODO Auto-generated method stub
 		return null;
 	}
