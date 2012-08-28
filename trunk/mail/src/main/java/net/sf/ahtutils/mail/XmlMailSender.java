@@ -21,7 +21,6 @@ import net.sf.ahtutils.xml.mail.EmailAddress;
 import net.sf.ahtutils.xml.mail.Header;
 import net.sf.ahtutils.xml.mail.Mail;
 import net.sf.exlp.util.xml.JDomUtil;
-import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.jdom.Document;
 import org.jdom.Element;
@@ -111,6 +110,7 @@ public class XmlMailSender
 		Transport transport = session.getTransport("smtp");
 		transport.connect();
 		transport.sendMessage(message, message.getAllRecipients());
+		transport.close();
 	}
 	
 	private Header getHeader(Element root) throws UtilsProcessingException
