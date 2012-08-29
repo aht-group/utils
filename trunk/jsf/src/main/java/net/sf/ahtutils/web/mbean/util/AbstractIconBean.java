@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Hashtable;
 import java.util.Map;
 
-import net.sf.ahtutils.controller.interfaces.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 
 import org.slf4j.Logger;
@@ -15,7 +14,6 @@ public class AbstractIconBean implements Serializable
 	final static Logger logger = LoggerFactory.getLogger(AbstractIconBean.class);
 	private static final long serialVersionUID = 1L;
 	
-	private UtilsFacade fUtils;
 	private String imagePath;
 	
 	private Map<Long,String> mapImages;
@@ -23,9 +21,8 @@ public class AbstractIconBean implements Serializable
 	
 	//******* Methods *******************************
 
-    public void initFacade(UtilsFacade fUtils, String imagePath)
+    public void initPath(String imagePath)
     {
-		this.fUtils=fUtils;
 		this.imagePath=imagePath;
 		mapImages = new Hashtable<Long,String>();
 		mapStatic = new Hashtable<String,String>();
@@ -34,6 +31,7 @@ public class AbstractIconBean implements Serializable
     @SuppressWarnings("rawtypes")
 	public String url(int size,  UtilsStatus status)
 	{
+    	if(logger.isTraceEnabled()){logger.trace("size:"+size+" status:"+status);}
     	if(!mapImages.containsKey(status.getId())){generate(size, status);}
 		return mapImages.get(status.getId());
 	}

@@ -17,8 +17,13 @@ public class ComponentVisibleManager<E extends Enum<E>>
 		visible = new Hashtable<String,Boolean>();
 	   	for(E v : e.getEnumConstants())
 	   	{
-	   		logger.info("contrucz "+v);
+	   		logger.trace("construct with "+v);
 	   	}
+	}
+	
+	public void clear()
+	{
+		visible.clear();
 	}
 	
 	public void edit(E e, boolean value)
@@ -27,7 +32,7 @@ public class ComponentVisibleManager<E extends Enum<E>>
 	}
 	public void edit(String key , boolean value)
 	{
-		logger.info("edit key:"+key+" value:"+value);
+		logger.trace("edit key:"+key+" value:"+value);
 		visible.put(key, value);
 	}
 	
