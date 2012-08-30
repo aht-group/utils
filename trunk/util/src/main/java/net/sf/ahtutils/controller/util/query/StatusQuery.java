@@ -4,6 +4,8 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import net.sf.ahtutils.xml.aht.Query;
+import net.sf.ahtutils.xml.status.Description;
+import net.sf.ahtutils.xml.status.Descriptions;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Langs;
 import net.sf.ahtutils.xml.status.Status;
@@ -39,7 +41,21 @@ public class StatusQuery
 		Status xml = new Status();
 		xml.setCode("");
 		xml.setLangs(langs());
+		xml.setDescriptions(descriptions());
 		return xml;
+	}
+	
+	public static Descriptions descriptions()
+	{
+		Descriptions xml = new Descriptions();
+		
+		Description d = new Description();
+		d.setKey("");
+		d.setValue("");
+		
+		xml.getDescription().add(d);
+		
+    	return xml;
 	}
 	
 	public static Langs langs()

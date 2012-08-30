@@ -26,7 +26,7 @@ public class EjbAuditTrailFactory <L extends UtilsLang,
 										 A extends UtilsSecurityAction<L,D,C,R,V,U,A>,
 										 US extends UtilsUser<L,D,C,R,V,U,A>,
 							 			 T extends UtilsAuditTrail<L,D,C,R,V,U,A,US,TY>,
-							 			 TY extends UtilsStatus<L>>
+							 			 TY extends UtilsStatus<L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbAuditTrailFactory.class);
 	
@@ -50,7 +50,7 @@ public class EjbAuditTrailFactory <L extends UtilsLang,
 	 			   A extends UtilsSecurityAction<L,D,C,R,V,U,A>,
 	 			   US extends UtilsUser<L,D,C,R,V,U,A>,
 	 			   T extends UtilsAuditTrail<L,D,C,R,V,U,A,US,TY>,
-	 			   TY extends UtilsStatus<L>>
+	 			   TY extends UtilsStatus<L,D>>
     	EjbAuditTrailFactory<L,D,C,R,V,U,A,US,T,TY> factory(final Class<L> clLang,final Class<D> clDescription,final Class<C> clCategory,final Class<R> clRole,final Class<V> clView,final Class<U> clUsecase,final Class<A> clAction,final Class<US> clUser, final Class<T> clTrail,final Class<TY> clType)
     {
         return new EjbAuditTrailFactory<L,D,C,R,V,U,A,US,T,TY>(clLang,clDescription,clCategory,clRole,clView,clUsecase,clAction,clUser,clTrail,clType);

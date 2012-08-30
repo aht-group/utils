@@ -3,15 +3,17 @@ package net.sf.ahtutils.model.interfaces.tracker;
 import java.util.Date;
 
 import net.sf.ahtutils.model.interfaces.EjbWithId;
+import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 
-public interface UtilsUserTrackerLog<TR extends UtilsUserTracker<TR,UL,U,T,S,L>,
-								 UL extends UtilsUserTrackerLog<TR,UL,U,T,S,L>,
+public interface UtilsUserTrackerLog<TR extends UtilsUserTracker<TR,UL,U,T,S,L,D>,
+								 UL extends UtilsUserTrackerLog<TR,UL,U,T,S,L,D>,
 								 U extends EjbWithId,
-								 T extends UtilsStatus<L>,
-								 S extends UtilsStatus<L>,
-								 L extends UtilsLang>
+								 T extends UtilsStatus<L,D>,
+								 S extends UtilsStatus<L,D>,
+								 L extends UtilsLang,
+								 D extends UtilsDescription>
 		extends EjbWithId
 {
 	TR getTracker();

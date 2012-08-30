@@ -3,10 +3,10 @@ package net.sf.ahtutils.model.interfaces.status;
 import net.sf.ahtutils.model.interfaces.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.EjbWithId;
 
-public interface UtilsStatusDefinition<S extends UtilsStatus<L>, L extends UtilsLang, D extends EjbWithId> extends EjbWithId,EjbRemoveable
+public interface UtilsStatusDefinition<S extends UtilsStatus<L,D>, L extends UtilsLang, D extends UtilsDescription, DEF extends EjbWithId> extends EjbWithId,EjbRemoveable
 {	
-	public D getDefinition();
-	public void setDefinition(D definition);
+	public DEF getDefinition();
+	public void setDefinition(DEF definition);
 	
 	public S getAllowed();
 	public void setAllowed(S allowed);

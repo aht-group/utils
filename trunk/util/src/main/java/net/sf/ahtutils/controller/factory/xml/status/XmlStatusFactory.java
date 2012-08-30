@@ -32,7 +32,8 @@ public class XmlStatusFactory
 		}
 		if(q.isSetDescriptions())
 		{
-
+			XmlDescriptionsFactory f = new XmlDescriptionsFactory(q.getDescriptions());
+//			xml.setDescriptions(f.create(ejb.g));
 		}
 		
 		return xml;

@@ -16,7 +16,7 @@ import net.sf.exlp.util.xml.JaxbUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbStatusFactory<S extends UtilsStatus<L>, L extends UtilsLang, D extends UtilsDescription>
+public class EjbStatusFactory<S extends UtilsStatus<L,D>, L extends UtilsLang, D extends UtilsDescription>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbStatusFactory.class);
 	
@@ -35,7 +35,7 @@ public class EjbStatusFactory<S extends UtilsStatus<L>, L extends UtilsLang, D e
         ejbLangFactory = EjbLangFactory.createFactory(langClass);
     } 
     
-    public static <S extends UtilsStatus<L>, L extends UtilsLang, D extends UtilsDescription> EjbStatusFactory<S, L, D>
+    public static <S extends UtilsStatus<L,D>, L extends UtilsLang, D extends UtilsDescription> EjbStatusFactory<S, L, D>
     		createFactory(final Class<S> statusClass, final Class<L> langClass, final Class<D> descriptionClass)
     {
         return new EjbStatusFactory<S, L, D>(statusClass, langClass, descriptionClass);

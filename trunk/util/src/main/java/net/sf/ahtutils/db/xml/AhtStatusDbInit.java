@@ -15,6 +15,7 @@ import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.xml.aht.Aht;
@@ -59,7 +60,7 @@ public class AhtStatusDbInit
 	{
 		
 		Set<Long> dbStatus = new HashSet<Long>();
-		for(UtilsStatus<UtilsLang> ejbStatus : availableStatus)
+		for(UtilsStatus<UtilsLang,UtilsDescription> ejbStatus : availableStatus)
 		{
 			dbStatus.add(ejbStatus.getId());
 		}
@@ -67,7 +68,7 @@ public class AhtStatusDbInit
 		mDbAvailableStatus.put(key, dbStatus);
 	}
 	
-	public UtilsStatus<UtilsLang> addVisible(UtilsStatus<UtilsLang> ejbStatus, Status status)
+	public UtilsStatus<UtilsLang,UtilsDescription> addVisible(UtilsStatus<UtilsLang,UtilsDescription> ejbStatus, Status status)
 	{
 		boolean visible=true;
 		if(status.isSetVisible()){visible=status.isVisible();}
@@ -75,7 +76,7 @@ public class AhtStatusDbInit
 		return ejbStatus;
 	}
 	
-	public UtilsStatus<UtilsLang> addLangs(UtilsStatus ejbStatus, Status status) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+	public UtilsStatus<UtilsLang,UtilsDescription> addLangs(UtilsStatus ejbStatus, Status status) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
 	{
 		UtilsStatus ejbUpdateInfo = (UtilsStatus)statusEjbFactory.create(status);
 		ejbStatus.setName(ejbUpdateInfo.getName());
@@ -102,7 +103,7 @@ public class AhtStatusDbInit
 		return result;
 	}
 	
-	public <S extends UtilsStatus<L>,L extends UtilsLang> void deleteUnusedStatus(Class<S> cStatus, Class<L> cLang)
+	public <S extends UtilsStatus<L,D>,L extends UtilsLang, D extends UtilsDescription> void deleteUnusedStatus(Class<S> cStatus, Class<L> cLang)
 	{
 		logger.debug("Deleing unused Status/Langs");
 		for(long id : sDeleteLangs)
@@ -135,7 +136,7 @@ public class AhtStatusDbInit
 		 }
 	}
 	
-	public <S extends UtilsStatus<L>,L extends UtilsLang> void iuStatus(List<Status> list, Class<S> cStatus, Class<L> cLang)
+	public <S extends UtilsStatus<L,D>,L extends UtilsLang, D extends UtilsDescription> void iuStatus(List<Status> list, Class<S> cStatus, Class<L> cLang)
 	{
 		if(fStatus==null){logger.warn("No Handler available");}
 		else {logger.info("Updating "+cStatus.getSimpleName()+" with "+list.size()+" entries");}
@@ -143,7 +144,7 @@ public class AhtStatusDbInit
 
 	}
 	
-	private <S extends UtilsStatus<L>,L extends UtilsLang> void iuStatusEJB(List<Status> list, Class<S> cStatus, Class<L> cLang)
+	private <S extends UtilsStatus<L,D>,L extends UtilsLang, D extends UtilsDescription> void iuStatusEJB(List<Status> list, Class<S> cStatus, Class<L> cLang)
 	{
 		for(Status status : list)
 		{

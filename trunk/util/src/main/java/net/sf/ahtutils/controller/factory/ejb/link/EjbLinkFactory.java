@@ -3,22 +3,23 @@ package net.sf.ahtutils.controller.factory.ejb.link;
 import java.util.Date;
 
 import net.sf.ahtutils.model.interfaces.link.UtilsLink;
+import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbLinkFactory<LI extends UtilsLink<T,L>,T extends UtilsStatus<L>,L extends UtilsLang>
+public class EjbLinkFactory<LI extends UtilsLink<T,L,D>,T extends UtilsStatus<L,D>,L extends UtilsLang,D extends UtilsDescription>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbLinkFactory.class);
 	
     final Class<LI> clLink;
 	
-    public static <LI extends UtilsLink<T,L>,T extends UtilsStatus<L>,L extends UtilsLang>
-    EjbLinkFactory<LI,T,L> createFactory(final Class<LI> clLink)
+    public static <LI extends UtilsLink<T,L,D>,T extends UtilsStatus<L,D>,L extends UtilsLang, D extends UtilsDescription>
+    	EjbLinkFactory<LI,T,L,D> createFactory(final Class<LI> clLink)
   {
-      return new EjbLinkFactory<LI,T,L>(clLink);
+      return new EjbLinkFactory<LI,T,L,D>(clLink);
   }
     
     public EjbLinkFactory(final Class<LI> clLink)

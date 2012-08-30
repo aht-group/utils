@@ -16,7 +16,7 @@ public interface UtilsAuditTrail<L extends UtilsLang,
 								 U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,
 								 A extends UtilsSecurityAction<L,D,C,R,V,U,A>,
 								 US extends UtilsUser<L,D,C,R,V,U,A>,
-								 TY extends UtilsStatus<L>>
+								 TY extends UtilsStatus<L,D>>
 					extends EjbWithId
 {
 	public US getUser();
