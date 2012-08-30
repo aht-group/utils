@@ -7,6 +7,8 @@ import net.sf.ahtutils.model.ejb.status.AhtUtilsLang;
 import net.sf.ahtutils.model.ejb.status.AhtUtilsStatus;
 import net.sf.ahtutils.test.AbstractAhtUtilTest;
 import net.sf.ahtutils.test.controller.util.TestRankComparator;
+import net.sf.ahtutils.xml.status.Description;
+import net.sf.ahtutils.xml.status.Descriptions;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Langs;
 import net.sf.ahtutils.xml.status.Status;
@@ -59,35 +61,55 @@ public class TestUtilsStatusEjbFactory extends AbstractAhtUtilTest
     {
     	AhtUtilsStatus ejb = (AhtUtilsStatus)facStatus.create(status);
     	Assert.assertEquals(status.getLangs().getLang().size(), ejb.getName().size());
+    	Assert.assertEquals(status.getDescriptions().getDescription().size(), ejb.getDescription().size());
     }
     
     @Test
-    public void testTranslation() throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+    public void testTranslationValue() throws InstantiationException, IllegalAccessException, UtilsIntegrityException
     {
     	Lang lang = status.getLangs().getLang().get(0);
+    	Description desc = status.getDescriptions().getDescription().get(0);
     	AhtUtilsStatus ejb = (AhtUtilsStatus)facStatus.create(status);
     	Assert.assertEquals(lang.getTranslation(), ejb.getName().get(lang.getKey()).getLang());
+    	Assert.assertEquals(desc.getValue(), ejb.getDescription().get(lang.getKey()).getLang());
     }
     
     @Test(expected=UtilsIntegrityException.class)
-    public void testMissingKey() throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+    public void testMissingKeyLang() throws InstantiationException, IllegalAccessException, UtilsIntegrityException
     {
     	status.getLangs().getLang().get(0).setKey(null);
     	facStatus.create(status);
     }
     
     @Test(expected=UtilsIntegrityException.class)
-    public void testMissingTranslation() throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+    public void testMissingKeyDescription() throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+    {
+    	status.getDescriptions().getDescription().get(0).setKey(null);
+    	facStatus.create(status);
+    }
+    
+    @Test(expected=UtilsIntegrityException.class)
+    public void testMissingLangTranslation() throws InstantiationException, IllegalAccessException, UtilsIntegrityException
     {
     	status.getLangs().getLang().get(0).setTranslation(null);
     	facStatus.create(status);
     }
+    
+    @Test(expected=UtilsIntegrityException.class)
+    public void testMissingDescriptionValue() throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+    {
+    	status.getDescriptions().getDescription().get(0).setValue(null);
+    	facStatus.create(status);
+    }
+    
+    //**********************************************
     
     private Status createStatus()
     {
     	Status status = new Status();
     	status.setCode("testCode");
     	status.setLangs(getLangs());
+    	status.setDescriptions(getDescriptions());
     	return status;
     }
     
@@ -97,6 +119,14 @@ public class TestUtilsStatusEjbFactory extends AbstractAhtUtilTest
     	Lang l1 = new Lang();l1.setKey("en");l1.setTranslation("t1");langs.getLang().add(l1);
     	Lang l2 = new Lang();l2.setKey("de");l2.setTranslation("t2");langs.getLang().add(l2);
     	return langs;
+    }
+    
+    private Descriptions getDescriptions()
+    {
+    	Descriptions descriptions = new Descriptions();
+    	Description d1 = new Description();d1.setKey("en");d1.setValue("v1");descriptions.getDescription().add(d1);
+    	Description d2 = new Description();d2.setKey("de");d2.setValue("v2");descriptions.getDescription().add(d2);
+    	return descriptions;
     }
 	
 	public static void main(String[] args) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
@@ -112,7 +142,7 @@ public class TestUtilsStatusEjbFactory extends AbstractAhtUtilTest
 		test.testMapSize();
 //		test.testMissingKey();
 //		test.testMissingTranslation();
-		test.testTranslation();
+		test.testMissingLangTranslation();
 		test.close();
     }
 }

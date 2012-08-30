@@ -30,7 +30,7 @@ public class AhtStatusDbInit
 	final static Logger logger = LoggerFactory.getLogger(AhtStatusDbInit.class);
 	
 	private Map<String,Set<Long>> mDbAvailableStatus;
-	private Set<Long> sDeleteLangs;
+	private Set<Long> sDeleteLangs,sDeleteDescriptions;
 
 	private EjbStatusFactory statusEjbFactory;
 	private UtilsFacade fStatus;
@@ -39,6 +39,7 @@ public class AhtStatusDbInit
 	{
 		mDbAvailableStatus = new Hashtable<String,Set<Long>>();
 		sDeleteLangs = new HashSet<Long>();
+		sDeleteDescriptions = new HashSet<Long>();
 	}
 	
 	public void setStatusEjbFactory(EjbStatusFactory statusEjbFactory) {this.statusEjbFactory = statusEjbFactory;}
@@ -76,10 +77,11 @@ public class AhtStatusDbInit
 		return ejbStatus;
 	}
 	
-	public UtilsStatus<UtilsLang,UtilsDescription> addLangs(UtilsStatus ejbStatus, Status status) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+	public UtilsStatus<UtilsLang,UtilsDescription> addLangsAndDescriptions(UtilsStatus ejbStatus, Status status) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
 	{
 		UtilsStatus ejbUpdateInfo = (UtilsStatus)statusEjbFactory.create(status);
 		ejbStatus.setName(ejbUpdateInfo.getName());
+		ejbStatus.setDescription(ejbUpdateInfo.getDescription());
 		return ejbStatus;
 	}
 	
@@ -103,16 +105,27 @@ public class AhtStatusDbInit
 		return result;
 	}
 	
-	public <S extends UtilsStatus<L,D>,L extends UtilsLang, D extends UtilsDescription> void deleteUnusedStatus(Class<S> cStatus, Class<L> cLang)
+	public <S extends UtilsStatus<L,D>,L extends UtilsLang, D extends UtilsDescription> void deleteUnusedStatus(Class<S> cStatus, Class<L> cLang, Class<D> cDescription)
 	{
-		logger.debug("Deleing unused Status/Langs");
+		logger.debug("Deleing unused childs of Status: "+cLang.getName()+":"+sDeleteLangs.size());
 		for(long id : sDeleteLangs)
 		{
 			try
 			{
-				logger.trace("Deleting lang: "+id);
+				logger.trace("Deleting "+cLang.getName()+": "+id);
 				L lang = fStatus.find(cLang, id);
 				fStatus.rm(lang);
+			}
+			catch (UtilsNotFoundException e) {logger.error("",e);}
+			catch (UtilsIntegrityException e) {logger.error("",e);}
+		}
+		for(long id : sDeleteDescriptions)
+		{
+			try
+			{
+				logger.info("Deleting "+cDescription.getName()+": "+id);
+				D d = fStatus.find(cDescription, id);
+				fStatus.rm(d);
 			}
 			catch (UtilsNotFoundException e) {logger.error("",e);}
 			catch (UtilsIntegrityException e) {logger.error("",e);}
@@ -179,7 +192,7 @@ public class AhtStatusDbInit
 				
 				try
 				{
-					addLangs(ejbStatus,status);
+					addLangsAndDescriptions(ejbStatus,status);
 					if(status.isSetImage()){ejbStatus.setImage(status.getImage());}
 				}
 				catch (InstantiationException e) {logger.error("",e);}
@@ -202,6 +215,14 @@ public class AhtStatusDbInit
 		Map<String,UtilsLang> dbLangMap = ejbStatus.getName();
 		ejbStatus.setName(null);
 		for(UtilsLang lang : dbLangMap.values()){sDeleteLangs.add(lang.getId());}
+		
+		if(ejbStatus.getDescription()!=null)
+		{
+			Map<String,UtilsDescription> dbDescrMap = ejbStatus.getDescription();
+			ejbStatus.setDescription(null);
+			for(UtilsDescription d : dbDescrMap.values()){sDeleteDescriptions.add(d.getId());}
+		}
+		
 		return ejbStatus;
 	}
 }

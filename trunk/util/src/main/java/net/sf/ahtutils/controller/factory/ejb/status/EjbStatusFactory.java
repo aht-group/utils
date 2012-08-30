@@ -25,6 +25,7 @@ public class EjbStatusFactory<S extends UtilsStatus<L,D>, L extends UtilsLang, D
     final Class<D> descriptionClass;
     
     private EjbLangFactory<L> ejbLangFactory;
+    private EjbDescriptionFactory<D> ejbDescFactory;
 	
     public EjbStatusFactory(final Class<S> statusClass, final Class<L> langClass, final Class<D> descriptionClass)
     {
@@ -33,6 +34,7 @@ public class EjbStatusFactory<S extends UtilsStatus<L,D>, L extends UtilsLang, D
         this.descriptionClass = descriptionClass;
         
         ejbLangFactory = EjbLangFactory.createFactory(langClass);
+        ejbDescFactory = EjbDescriptionFactory.createFactory(descriptionClass);
     } 
     
     public static <S extends UtilsStatus<L,D>, L extends UtilsLang, D extends UtilsDescription> EjbStatusFactory<S, L, D>
@@ -49,6 +51,7 @@ public class EjbStatusFactory<S extends UtilsStatus<L,D>, L extends UtilsLang, D
         if(status.isSetPosition()){s.setPosition(status.getPosition());}
         else{s.setPosition(0);}
         s.setName(ejbLangFactory.getLangMap(status.getLangs()));
+        s.setDescription(ejbDescFactory.create(status.getDescriptions()));
         return s;
     }
 	
