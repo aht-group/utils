@@ -2,6 +2,7 @@ package net.sf.ahtutils.web.mbean.util;
 
 import java.io.FileNotFoundException;
 import java.io.Serializable;
+import java.util.List;
 
 import net.sf.ahtutils.msgbundle.TranslationFactory;
 import net.sf.ahtutils.msgbundle.TranslationMap;
@@ -17,10 +18,12 @@ public class AbstractTranslationBean implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	private TranslationMap tm;
+	private List<String> langKeys;
 	
 	//******* Methods *******************************
 	
-    public void initMap(ClassLoader cl, String fXml) throws FileNotFoundException
+ 
+	public void initMap(ClassLoader cl, String fXml) throws FileNotFoundException
     {
 		logger.info("Init "+TranslationMap.class.getSimpleName()+" with "+fXml);
 		Dir dir = JaxbUtil.loadJAXB(cl,fXml, Dir.class);
@@ -31,11 +34,15 @@ public class AbstractTranslationBean implements Serializable
 			tFactory.add(cl,dir.getName()+"/"+f.getName());
 		}
 		tm = tFactory.gettMap();
-		
+		langKeys = tm.getLangKeys();
     }
     
     public String get(String lang, String key)
     {
     	return tm.translate(lang, key);
     }
+    public List<String> getLangKeys()
+    {
+		return langKeys;
+	}
 }
