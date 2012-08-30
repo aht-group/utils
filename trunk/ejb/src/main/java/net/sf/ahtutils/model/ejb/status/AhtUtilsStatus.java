@@ -40,6 +40,13 @@ public class AhtUtilsStatus implements UtilsStatus<AhtUtilsLang,AhtUtilsDescript
 	@MapKey(name = "lkey")
 	protected Map<String, AhtUtilsLang> name;
 	
+	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@MapKey(name = "lkey")
+	protected Map<String, AhtUtilsDescription> description;
+	
+	public Map<String, AhtUtilsDescription> getDescription() {return description;}
+	public void setDescription(Map<String, AhtUtilsDescription> description) {this.description = description;}
+	
 	protected String code;
 	
 	protected boolean visible;

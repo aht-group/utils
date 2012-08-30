@@ -10,6 +10,9 @@ public interface UtilsStatus<L extends UtilsLang, D extends UtilsDescription> ex
 	public void setId(long id);
 	public long getId();
 	
+	public Map<String, D> getDescription();
+	public void setDescription(Map<String, D> description);
+	
 	public Map<String, L> getName();
 	public void setName(Map<String, L> name);
 	
