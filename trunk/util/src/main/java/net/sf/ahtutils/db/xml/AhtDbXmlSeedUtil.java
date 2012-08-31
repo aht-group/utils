@@ -17,7 +17,7 @@ public class AhtDbXmlSeedUtil
 	public static enum DataSource{ide,jar}
 	
 	protected Db dbSeed;
-	protected String prefix;
+	protected String seedPath,pathPrefix;
 	
 	public AhtDbXmlSeedUtil(Db dbSeed)
 	{
@@ -27,7 +27,7 @@ public class AhtDbXmlSeedUtil
 	public AhtDbXmlSeedUtil(Db dbSeed, DataSource datasource)
 	{
 		this.dbSeed=dbSeed;
-		prefix=dbSeed.getPath();
+		seedPath=dbSeed.getPath();
 	}
 	
 	public String getContentName(String extractId) throws UtilsConfigurationException
@@ -43,6 +43,12 @@ public class AhtDbXmlSeedUtil
 	
 	public String getExtractName(String extractId) throws UtilsConfigurationException
 	{
-		return prefix+"/"+getContentName(extractId);
+		StringBuffer sb = new StringBuffer();
+		if(pathPrefix!=null){sb.append(pathPrefix).append("/");}
+		sb.append(seedPath).append("/");
+		sb.append(getContentName(extractId));
+		return sb.toString();
 	}
+	
+	public void setPathPrefix(String pathPrefix) {this.pathPrefix = pathPrefix;}
 }
