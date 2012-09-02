@@ -26,15 +26,32 @@ public class ComponentVisibleManager<E extends Enum<E>>
 		visible.clear();
 	}
 	
+	private void verifyFalse(E e)
+	{
+		if(!visible.containsKey(e.toString())){visible.put(e.toString(), false);}
+	}
+	
 	public void edit(E e, boolean value)
 	{
 		edit(e.toString(),value);
 	}
 	public void edit(String key , boolean value)
 	{
-		logger.trace("edit key:"+key+" value:"+value);
+		logger.info("edit key:"+key+" value:"+value);
 		visible.put(key, value);
 	}
 	
 	public Map<String, Boolean> getVisible() {return visible;}
+	public boolean isShow(E e)
+	{
+		verifyFalse(e);
+		return visible.get(e.toString());
+	}
+	
+	public void toggle(E e)
+	{
+		verifyFalse(e);
+		if(visible.get(e.toString())) {edit(e,false);}
+		else {edit(e,true);}
+	}
 }
