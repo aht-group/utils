@@ -27,5 +27,8 @@ public interface UtilsSecurityRole<L extends UtilsLang,
 	public List<U> getUsecases();
 	public void setUsecases(List<U> usecases);
 	
+	List<USER> getUsers();
+	void setUsers(List<USER> users);
+	
 
 }
