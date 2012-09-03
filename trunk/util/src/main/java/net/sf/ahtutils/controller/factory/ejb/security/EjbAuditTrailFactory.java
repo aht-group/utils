@@ -19,13 +19,13 @@ import org.slf4j.LoggerFactory;
 
 public class EjbAuditTrailFactory <L extends UtilsLang,
 										 D extends UtilsDescription,
-										 C extends UtilsSecurityCategory<L,D,C,R,V,U,A>,
-										 R extends UtilsSecurityRole<L,D,C,R,V,U,A>,
-										 V extends UtilsSecurityView<L,D,C,R,V,U,A>,
-										 U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,
-										 A extends UtilsSecurityAction<L,D,C,R,V,U,A>,
-										 US extends UtilsUser<L,D,C,R,V,U,A>,
-							 			 T extends UtilsAuditTrail<L,D,C,R,V,U,A,US,TY>,
+										 C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
+										 R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
+										 V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
+										 U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
+										 A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
+										 USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
+							 			 T extends UtilsAuditTrail<L,D,C,R,V,U,A,USER,TY>,
 							 			 TY extends UtilsStatus<L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbAuditTrailFactory.class);
@@ -37,26 +37,26 @@ public class EjbAuditTrailFactory <L extends UtilsLang,
     final Class<V> clView;
     final Class<U> clUsecase;
     final Class<A> clAction;
-    final Class<US> clUser;
+    final Class<USER> clUser;
     final Class<T> clTrail;
     final Class<TY> clType;
 	
     public static <L extends UtilsLang,
 	 			   D extends UtilsDescription,
-	 			   C extends UtilsSecurityCategory<L,D,C,R,V,U,A>,
-	 			   R extends UtilsSecurityRole<L,D,C,R,V,U,A>,
-	 			   V extends UtilsSecurityView<L,D,C,R,V,U,A>,
-	 			   U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,
-	 			   A extends UtilsSecurityAction<L,D,C,R,V,U,A>,
-	 			   US extends UtilsUser<L,D,C,R,V,U,A>,
-	 			   T extends UtilsAuditTrail<L,D,C,R,V,U,A,US,TY>,
+	 			   C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
+	 			   R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
+	 			   V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
+	 			   U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
+	 			   A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
+	 			  USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
+	 			   T extends UtilsAuditTrail<L,D,C,R,V,U,A,USER,TY>,
 	 			   TY extends UtilsStatus<L,D>>
-    	EjbAuditTrailFactory<L,D,C,R,V,U,A,US,T,TY> factory(final Class<L> clLang,final Class<D> clDescription,final Class<C> clCategory,final Class<R> clRole,final Class<V> clView,final Class<U> clUsecase,final Class<A> clAction,final Class<US> clUser, final Class<T> clTrail,final Class<TY> clType)
+    	EjbAuditTrailFactory<L,D,C,R,V,U,A,USER,T,TY> factory(final Class<L> clLang,final Class<D> clDescription,final Class<C> clCategory,final Class<R> clRole,final Class<V> clView,final Class<U> clUsecase,final Class<A> clAction,final Class<USER> clUser, final Class<T> clTrail,final Class<TY> clType)
     {
-        return new EjbAuditTrailFactory<L,D,C,R,V,U,A,US,T,TY>(clLang,clDescription,clCategory,clRole,clView,clUsecase,clAction,clUser,clTrail,clType);
+        return new EjbAuditTrailFactory<L,D,C,R,V,U,A,USER,T,TY>(clLang,clDescription,clCategory,clRole,clView,clUsecase,clAction,clUser,clTrail,clType);
     }
     
-    public EjbAuditTrailFactory(final Class<L> clLang,final Class<D> clDescription,final Class<C> clCategory,final Class<R> clRole,final Class<V> clView,final Class<U> clUsecase,final Class<A> clAction,final Class<US> clUser, final Class<T> clTrail,final Class<TY> clType)
+    public EjbAuditTrailFactory(final Class<L> clLang,final Class<D> clDescription,final Class<C> clCategory,final Class<R> clRole,final Class<V> clView,final Class<U> clUsecase,final Class<A> clAction,final Class<USER> clUser, final Class<T> clTrail,final Class<TY> clType)
     {
         this.clLang = clLang;
         this.clDescription = clDescription;
@@ -70,7 +70,7 @@ public class EjbAuditTrailFactory <L extends UtilsLang,
         this.clType = clType;
     } 
     
-    public T create(US user, TY type)
+    public T create(USER user, TY type)
     {
     	T ejb = null;
     	

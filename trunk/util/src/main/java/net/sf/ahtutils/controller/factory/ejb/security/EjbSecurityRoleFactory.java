@@ -1,5 +1,6 @@
 package net.sf.ahtutils.controller.factory.ejb.security;
 
+import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityRole;
@@ -13,11 +14,12 @@ import org.slf4j.LoggerFactory;
 
 public class EjbSecurityRoleFactory <L extends UtilsLang,
 										 D extends UtilsDescription,
-										 C extends UtilsSecurityCategory<L,D,C,R,V,U,A>,
-										 R extends UtilsSecurityRole<L,D,C,R,V,U,A>,
-										 V extends UtilsSecurityView<L,D,C,R,V,U,A>,
-										 U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,
-										 A extends UtilsSecurityAction<L,D,C,R,V,U,A>>
+										 C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
+										 R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
+										 V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
+										 U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
+										 A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
+										 USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbSecurityRoleFactory.class);
 	
@@ -28,20 +30,22 @@ public class EjbSecurityRoleFactory <L extends UtilsLang,
     final Class<V> clView;
     final Class<U> clUsecase;
     final Class<A> clAction;
+    final Class<USER> clUser;
 	
     public static <L extends UtilsLang,
 	 			   D extends UtilsDescription,
-	 			   C extends UtilsSecurityCategory<L,D,C,R,V,U,A>,
-	 			   R extends UtilsSecurityRole<L,D,C,R,V,U,A>,
-	 			   V extends UtilsSecurityView<L,D,C,R,V,U,A>,
-	 			   U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,
-	 			   A extends UtilsSecurityAction<L,D,C,R,V,U,A>>
-    	EjbSecurityRoleFactory<L,D,C,R,V,U,A> factory(final Class<L> clLang,final Class<D> clDescription,final Class<C> clCategory,final Class<R> clRole,final Class<V> clView,final Class<U> clUsecase,final Class<A> clAction)
+	 			   C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
+	 			   R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
+	 			   V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
+	 			   U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
+	 			   A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
+	 			   USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
+    	EjbSecurityRoleFactory<L,D,C,R,V,U,A,USER> factory(final Class<L> clLang,final Class<D> clDescription,final Class<C> clCategory,final Class<R> clRole,final Class<V> clView,final Class<U> clUsecase,final Class<A> clAction,final Class<USER> clUser)
     {
-        return new EjbSecurityRoleFactory<L,D,C,R,V,U,A>(clLang,clDescription,clCategory,clRole,clView,clUsecase,clAction);
+        return new EjbSecurityRoleFactory<L,D,C,R,V,U,A,USER>(clLang,clDescription,clCategory,clRole,clView,clUsecase,clAction,clUser);
     }
     
-    public EjbSecurityRoleFactory(final Class<L> clLang,final Class<D> clDescription,final Class<C> clCategory,final Class<R> clRole,final Class<V> clView,final Class<U> clUsecase,final Class<A> clAction)
+    public EjbSecurityRoleFactory(final Class<L> clLang,final Class<D> clDescription,final Class<C> clCategory,final Class<R> clRole,final Class<V> clView,final Class<U> clUsecase,final Class<A> clAction,final Class<USER> clUser)
     {
         this.clLang = clLang;
         this.clDescription = clDescription;
@@ -50,6 +54,7 @@ public class EjbSecurityRoleFactory <L extends UtilsLang,
         this.clView = clView;
         this.clUsecase = clUsecase;
         this.clAction = clAction;
+        this.clUser = clUser;
     } 
     
     public R create(C category, String code)

@@ -3,7 +3,7 @@ package net.sf.ahtutils.controller.model.idm;
 import java.util.Hashtable;
 import java.util.Map;
 
-import net.sf.ahtutils.model.interfaces.EjbWithId;
+import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityRole;
@@ -14,12 +14,12 @@ import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 
 public class AbstractIdentityUser <L extends UtilsLang,
 								   D extends UtilsDescription,
-								   C extends UtilsSecurityCategory<L,D,C,R,V,U,A>,
-								   R extends UtilsSecurityRole<L,D,C,R,V,U,A>,
-								   V extends UtilsSecurityView<L,D,C,R,V,U,A>,
-								   U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,
-								   A extends UtilsSecurityAction<L,D,C,R,V,U,A>,
-								   US extends EjbWithId>
+								   C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
+								   R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
+								   V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
+								   U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
+								   A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
+								   USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
 {
 	public static final long serialVersionUID=1;
 

@@ -10,17 +10,17 @@ import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 
 public interface UtilsAuditTrail<L extends UtilsLang,
 								 D extends UtilsDescription,
-								 C extends UtilsSecurityCategory<L,D,C,R,V,U,A>,
-								 R extends UtilsSecurityRole<L,D,C,R,V,U,A>,
-								 V extends UtilsSecurityView<L,D,C,R,V,U,A>,
-								 U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,
-								 A extends UtilsSecurityAction<L,D,C,R,V,U,A>,
-								 US extends UtilsUser<L,D,C,R,V,U,A>,
+								 C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
+								 R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
+								 V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
+								 U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
+								 A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
+								 USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
 								 TY extends UtilsStatus<L,D>>
 					extends EjbWithId
 {
-	public US getUser();
-	public void setUser(US user);
+	public USER getUser();
+	public void setUser(USER user);
 	
 	public TY getType();
 	public void setType(TY type);

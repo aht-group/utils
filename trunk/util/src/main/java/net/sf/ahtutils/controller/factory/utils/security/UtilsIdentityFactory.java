@@ -14,15 +14,15 @@ import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UtilsIdentityFactory <I extends UtilsIdentity<L,D,C,R,V,U,A,US>,
+public class UtilsIdentityFactory <I extends UtilsIdentity<L,D,C,R,V,U,A,USER>,
 								   L extends UtilsLang,
 								   D extends UtilsDescription,
-								   C extends UtilsSecurityCategory<L,D,C,R,V,U,A>,
-								   R extends UtilsSecurityRole<L,D,C,R,V,U,A>,
-								   V extends UtilsSecurityView<L,D,C,R,V,U,A>,
-								   U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,
-								   A extends UtilsSecurityAction<L,D,C,R,V,U,A>,
-								   US extends UtilsUser<L,D,C,R,V,U,A>>
+								   C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
+								   R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
+								   V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
+								   U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
+								   A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
+								   USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
 {
 
 	final static Logger logger = LoggerFactory.getLogger(UtilsIdentityFactory.class);
@@ -35,7 +35,7 @@ public class UtilsIdentityFactory <I extends UtilsIdentity<L,D,C,R,V,U,A,US>,
 	final Class<V>  clView;
 	final Class<U> 	clUsecase;
 	final Class<A> 	clAction;
-	final Class<US>  clUser;
+	final Class<USER>  clUser;
 
 	public UtilsIdentityFactory(final Class<I> clIdentity,
 								final Class<L> clLang,
@@ -45,7 +45,7 @@ public class UtilsIdentityFactory <I extends UtilsIdentity<L,D,C,R,V,U,A,US>,
 								final Class<V> clView,
 								final Class<U> clUsecase,
 								final Class<A> clAction,
-								final Class<US> clUser)
+								final Class<USER> clUser)
 	{
 		this.clIdentity=clIdentity;
 		this.clLang=clLang;
@@ -58,16 +58,16 @@ public class UtilsIdentityFactory <I extends UtilsIdentity<L,D,C,R,V,U,A,US>,
 		this.clUser = clUser;
 	} 
 
-	public static <I extends UtilsIdentity<L,D,C,R,V,U,A,US>,
+	public static <I extends UtilsIdentity<L,D,C,R,V,U,A,USER>,
 	   			   L extends UtilsLang,
 	   			   D extends UtilsDescription,
-	   			   C extends UtilsSecurityCategory<L,D,C,R,V,U,A>,
-	   			   R extends UtilsSecurityRole<L,D,C,R,V,U,A>,
-	   			   V extends UtilsSecurityView<L,D,C,R,V,U,A>,
-	   			   U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,
-	   			   A extends UtilsSecurityAction<L,D,C,R,V,U,A>,
-	   			   US extends UtilsUser<L,D,C,R,V,U,A>>
-	UtilsIdentityFactory<I,L,D,C,R,V,U,A,US> factory(final Class<I> clIdentity,
+	   			   C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
+	   			   R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
+	   			   V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
+	   			   U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
+	   			   A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
+	   			USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
+	UtilsIdentityFactory<I,L,D,C,R,V,U,A,USER> factory(final Class<I> clIdentity,
 													 final Class<L> clLang,
 													 final Class<D> clDescription,
 													 final Class<C> clCategory,
@@ -75,12 +75,12 @@ public class UtilsIdentityFactory <I extends UtilsIdentity<L,D,C,R,V,U,A,US>,
 													 final Class<V> clView,
 													 final Class<U> clUsecase,
 													 final Class<A> clAction,
-													 final Class<US> clUser)
+													 final Class<USER> clUser)
 	{
-		return new UtilsIdentityFactory<I,L,D,C,R,V,U,A,US>(clIdentity,clLang,clDescription,clCategory,clRole,clView,clUsecase,clAction,clUser);
+		return new UtilsIdentityFactory<I,L,D,C,R,V,U,A,USER>(clIdentity,clLang,clDescription,clCategory,clRole,clView,clUsecase,clAction,clUser);
 	}
 
-	public I create(UtilsSecurityFacade fSecurity, US user) throws InstantiationException, IllegalAccessException
+	public I create(UtilsSecurityFacade fSecurity, USER user) throws InstantiationException, IllegalAccessException
 	{		
 		I identity = clIdentity.newInstance();
 		identity.setUser(user);

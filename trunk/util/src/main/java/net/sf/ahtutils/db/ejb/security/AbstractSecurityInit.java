@@ -13,6 +13,7 @@ import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.model.interfaces.EjbWithDescription;
 import net.sf.ahtutils.model.interfaces.EjbWithLang;
+import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityRole;
@@ -34,11 +35,12 @@ import org.slf4j.LoggerFactory;
 
 public class AbstractSecurityInit <L extends UtilsLang,
  								D extends UtilsDescription, 
- 								C extends UtilsSecurityCategory<L,D,C,R,V,U,A>,
- 								R extends UtilsSecurityRole<L,D,C,R,V,U,A>,
- 								V extends UtilsSecurityView<L,D,C,R,V,U,A>,
- 								U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,
- 								A extends UtilsSecurityAction<L,D,C,R,V,U,A>>
+ 								C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
+ 								R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
+ 								V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
+ 								U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
+ 								A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
+ 								USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractSecurityInit.class);
 	
@@ -48,7 +50,8 @@ public class AbstractSecurityInit <L extends UtilsLang,
     protected final Class<R> cR;
     protected final Class<V> cV;
     protected final Class<U> cU;
-    protected  final Class<A> cA;
+    protected final Class<A> cA;
+    protected final Class<USER> cUser;
 	
 	protected UtilsSecurityFacade fSecurity;
 	protected EjbLangFactory<L> ejbLangFactory;
@@ -56,44 +59,47 @@ public class AbstractSecurityInit <L extends UtilsLang,
 	
 	public static <L extends UtilsLang,
 	   			   D extends UtilsDescription, 
-	   			   C extends UtilsSecurityCategory<L,D,C,R,V,U,A>,
-	   			   R extends UtilsSecurityRole<L,D,C,R,V,U,A>,
-	   			   V extends UtilsSecurityView<L,D,C,R,V,U,A>,
-	   			   U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,
-	   			   A extends UtilsSecurityAction<L,D,C,R,V,U,A>>
-		SecurityInitRoles<L,D,C,R,V,U,A>
-		factoryRoles(final Class<L> cL,final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV, final Class<U> cU, final Class<A> cA, UtilsSecurityFacade fAcl)
+	   			   C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
+	   			   R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
+	   			   V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
+	   			   U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
+	   			   A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
+	   			   USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
+		SecurityInitRoles<L,D,C,R,V,U,A,USER>
+		factoryRoles(final Class<L> cL,final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV, final Class<U> cU, final Class<A> cA, final Class<USER> cUser, UtilsSecurityFacade fAcl)
 	{
-		return new SecurityInitRoles<L,D,C,R,V,U,A>(cL,cD,cC,cR,cV,cU,cA,fAcl);
+		return new SecurityInitRoles<L,D,C,R,V,U,A,USER>(cL,cD,cC,cR,cV,cU,cA,cUser,fAcl);
 	}
 	
 	public static <L extends UtilsLang,
 	   			   D extends UtilsDescription, 
-	   			   C extends UtilsSecurityCategory<L,D,C,R,V,U,A>,
-	   			   R extends UtilsSecurityRole<L,D,C,R,V,U,A>,
-	   			   V extends UtilsSecurityView<L,D,C,R,V,U,A>,
-	   			   U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,
-	   			   A extends UtilsSecurityAction<L,D,C,R,V,U,A>>
-		SecurityInitViews<L,D,C,R,V,U,A>
-		factoryViews(final Class<L> cL,final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV, final Class<U> cU, final Class<A> cA, UtilsSecurityFacade fAcl)
+	   			   C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
+	   			   R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
+	   			   V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
+	   			   U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
+	   			   A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
+	   			USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
+		SecurityInitViews<L,D,C,R,V,U,A,USER>
+		factoryViews(final Class<L> cL,final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV, final Class<U> cU, final Class<A> cA, final Class<USER> cUser, UtilsSecurityFacade fAcl)
 	{
-		return new SecurityInitViews<L,D,C,R,V,U,A>(cL,cD,cC,cR,cV,cU,cA,fAcl);
+		return new SecurityInitViews<L,D,C,R,V,U,A,USER>(cL,cD,cC,cR,cV,cU,cA,cUser,fAcl);
 	}
 	
 	public static <L extends UtilsLang,
 	   			   D extends UtilsDescription, 
-	   			   C extends UtilsSecurityCategory<L,D,C,R,V,U,A>,
-	   			   R extends UtilsSecurityRole<L,D,C,R,V,U,A>,
-	   			   V extends UtilsSecurityView<L,D,C,R,V,U,A>,
-	   			   U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,
-	   			   A extends UtilsSecurityAction<L,D,C,R,V,U,A>>
-		SecurityInitUsecases<L,D,C,R,V,U,A>
-		factoryUsecases(final Class<L> cL,final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV, final Class<U> cU, final Class<A> cA, UtilsSecurityFacade fAcl)
+	   			   C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
+	   			   R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
+	   			   V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
+	   			   U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
+	   			   A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
+	   			USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
+		SecurityInitUsecases<L,D,C,R,V,U,A,USER>
+		factoryUsecases(final Class<L> cL,final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV, final Class<U> cU, final Class<A> cA, final Class<USER> cUser, UtilsSecurityFacade fAcl)
 	{
-		return new SecurityInitUsecases<L,D,C,R,V,U,A>(cL,cD,cC,cR,cV,cU,cA,fAcl);
+		return new SecurityInitUsecases<L,D,C,R,V,U,A,USER>(cL,cD,cC,cR,cV,cU,cA,cUser,fAcl);
 	}
 	
-	public AbstractSecurityInit(final Class<L> cL, final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV,final Class<U> cU,final Class<A> cA,UtilsSecurityFacade fAcl)
+	public AbstractSecurityInit(final Class<L> cL, final Class<D> cD,final Class<C> cC,final Class<R> cR, final Class<V> cV,final Class<U> cU,final Class<A> cA,final Class<USER> cUser,UtilsSecurityFacade fAcl)
 	{       
         this.cL = cL;
         this.cD = cD;
@@ -102,6 +108,7 @@ public class AbstractSecurityInit <L extends UtilsLang,
         this.cV = cV;
         this.cU = cU;
         this.cA = cA;
+        this.cUser = cUser;
         
         this.fSecurity=fAcl;
 		
@@ -198,7 +205,7 @@ public class AbstractSecurityInit <L extends UtilsLang,
 		}
 	}
 	
-	protected <T extends UtilsSecurityWithViews<L,D,C,R,V,U,A>> T iuListViews(T ejb, Views views) throws UtilsContraintViolationException, UtilsNotFoundException, UtilsLockingException
+	protected <T extends UtilsSecurityWithViews<L,D,C,R,V,U,A,USER>> T iuListViews(T ejb, Views views) throws UtilsContraintViolationException, UtilsNotFoundException, UtilsLockingException
 	{
 		ejb.getViews().clear();
 		ejb = fSecurity.update(ejb);
@@ -214,7 +221,7 @@ public class AbstractSecurityInit <L extends UtilsLang,
 		return ejb;
 	}
 	
-	protected <T extends UtilsSecurityWithActions<L,D,C,R,V,U,A>> T iuListActions(T ejb, Actions actions) throws UtilsContraintViolationException, UtilsNotFoundException, UtilsLockingException
+	protected <T extends UtilsSecurityWithActions<L,D,C,R,V,U,A,USER>> T iuListActions(T ejb, Actions actions) throws UtilsContraintViolationException, UtilsNotFoundException, UtilsLockingException
 	{
 		ejb.getActions().clear();
 		ejb = fSecurity.update(ejb);

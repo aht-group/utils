@@ -29,7 +29,7 @@ public class UtilsSecurityFacadeBean extends UtilsFacadeBean implements UtilsSec
 	}
 
 	@Override
-	public <L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L, D, C, R, V, U, A>, R extends UtilsSecurityRole<L, D, C, R, V, U, A>, V extends UtilsSecurityView<L, D, C, R, V, U, A>, U extends UtilsSecurityUsecase<L, D, C, R, V, U, A>, A extends UtilsSecurityAction<L, D, C, R, V, U, A>, US extends UtilsUser<L, D, C, R, V, U, A>>
+	public <L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>, R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>, V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>, U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>, A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>, USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
 	R load(Class<R> cRole, R role)
 	{
 		role = em.find(cRole, role.getId());
@@ -38,8 +38,8 @@ public class UtilsSecurityFacadeBean extends UtilsFacadeBean implements UtilsSec
 	}
 	
 	@Override
-	public <L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L, D, C, R, V, U, A>, R extends UtilsSecurityRole<L, D, C, R, V, U, A>, V extends UtilsSecurityView<L, D, C, R, V, U, A>, U extends UtilsSecurityUsecase<L, D, C, R, V, U, A>, A extends UtilsSecurityAction<L, D, C, R, V, U, A>,US extends UtilsUser<L,D,C,R,V,U,A>>
-		List<V>	allViewsForUser(Class<US> clUser, US user)
+	public <L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>, R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>, V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>, U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>, A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
+		List<V>	allViewsForUser(Class<USER> clUser, USER user)
 	{
 		user = em.find(clUser, user.getId());
 		Map<Long,V> views = new HashMap<Long,V>();
@@ -57,15 +57,15 @@ public class UtilsSecurityFacadeBean extends UtilsFacadeBean implements UtilsSec
 	}
 	
 	@Override
-	public <WC extends UtilsSecurityWithCategory<L, D, C, R, V, U, A>, L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L, D, C, R, V, U, A>, R extends UtilsSecurityRole<L, D, C, R, V, U, A>, V extends UtilsSecurityView<L, D, C, R, V, U, A>, U extends UtilsSecurityUsecase<L, D, C, R, V, U, A>, A extends UtilsSecurityAction<L, D, C, R, V, U, A>, US extends UtilsUser<L, D, C, R, V, U, A>>
-	List<WC> allForCategory(Class<WC> clWc, Class<C> clC, String code) throws UtilsNotFoundException
+	public <WC extends UtilsSecurityWithCategory<L,D,C,R,V,U,A,USER>, L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>, R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>, V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>, U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>, A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>, USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
+		List<WC> allForCategory(Class<WC> clWc, Class<C> clC, String code) throws UtilsNotFoundException
 	{
 		C category = this.fByCode(clC, code);
 		return this.allForParent(clWc, "category", category);
 	}	
 	
 	@Override
-	public <L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L, D, C, R, V, U, A>, R extends UtilsSecurityRole<L, D, C, R, V, U, A>, V extends UtilsSecurityView<L, D, C, R, V, U, A>, U extends UtilsSecurityUsecase<L, D, C, R, V, U, A>, A extends UtilsSecurityAction<L, D, C, R, V, U, A>, S extends UtilsStaff<L, D, C, R, V, U, A, P, E>, P extends EjbWithId, E extends EjbWithId> List<S>
-		fStaff(Class<S> clStaff, P pool)
+	public <L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>, R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>, V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>, U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>, A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>, S extends UtilsStaff<L,D,C,R,V,U,A,P,E,USER>, P extends EjbWithId, E extends EjbWithId,USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
+	List<S>	fStaff(Class<S> clStaff, P pool)
 	{return allForParent(clStaff, "pool", pool);}
 }
