@@ -29,6 +29,15 @@ public class UtilsSecurityFacadeBean extends UtilsFacadeBean implements UtilsSec
 	}
 
 	@Override
+	public <L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L, D, C, R, V, U, A>, R extends UtilsSecurityRole<L, D, C, R, V, U, A>, V extends UtilsSecurityView<L, D, C, R, V, U, A>, U extends UtilsSecurityUsecase<L, D, C, R, V, U, A>, A extends UtilsSecurityAction<L, D, C, R, V, U, A>, US extends UtilsUser<L, D, C, R, V, U, A>>
+	R load(Class<R> cRole, R role)
+	{
+		role = em.find(cRole, role.getId());
+		
+		return role;
+	}
+	
+	@Override
 	public <L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L, D, C, R, V, U, A>, R extends UtilsSecurityRole<L, D, C, R, V, U, A>, V extends UtilsSecurityView<L, D, C, R, V, U, A>, U extends UtilsSecurityUsecase<L, D, C, R, V, U, A>, A extends UtilsSecurityAction<L, D, C, R, V, U, A>,US extends UtilsUser<L,D,C,R,V,U,A>>
 		List<V>	allViewsForUser(Class<US> clUser, US user)
 	{

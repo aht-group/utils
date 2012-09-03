@@ -17,12 +17,46 @@ import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 
 public interface UtilsSecurityFacade extends UtilsFacade
 {	
-	<L extends UtilsLang,D extends UtilsDescription,C extends UtilsSecurityCategory<L,D,C,R,V,U,A>,R extends UtilsSecurityRole<L,D,C,R,V,U,A>,V extends UtilsSecurityView<L,D,C,R,V,U,A>,U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,A extends UtilsSecurityAction<L,D,C,R,V,U,A>,US extends UtilsUser<L,D,C,R,V,U,A>>
+	<L extends UtilsLang,
+	D extends UtilsDescription,
+	C extends UtilsSecurityCategory<L,D,C,R,V,U,A>,
+	R extends UtilsSecurityRole<L,D,C,R,V,U,A>,
+	V extends UtilsSecurityView<L,D,C,R,V,U,A>,
+	U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,
+	A extends UtilsSecurityAction<L,D,C,R,V,U,A>,
+	US extends UtilsUser<L,D,C,R,V,U,A>>
+		R load(Class<R> cRole, R role);
+	
+	<L extends UtilsLang,
+	D extends UtilsDescription,
+	C extends UtilsSecurityCategory<L,D,C,R,V,U,A>,
+	R extends UtilsSecurityRole<L,D,C,R,V,U,A>,
+	V extends UtilsSecurityView<L,D,C,R,V,U,A>,
+	U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,
+	A extends UtilsSecurityAction<L,D,C,R,V,U,A>,
+	US extends UtilsUser<L,D,C,R,V,U,A>>
 		List<V> allViewsForUser(Class<US> clUser, US user);
 	
-	<WC extends UtilsSecurityWithCategory<L,D,C,R,V,U,A>, L extends UtilsLang,D extends UtilsDescription,C extends UtilsSecurityCategory<L,D,C,R,V,U,A>,R extends UtilsSecurityRole<L,D,C,R,V,U,A>,V extends UtilsSecurityView<L,D,C,R,V,U,A>,U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,A extends UtilsSecurityAction<L,D,C,R,V,U,A>,US extends UtilsUser<L,D,C,R,V,U,A>>
+	<WC extends UtilsSecurityWithCategory<L,D,C,R,V,U,A>,
+	L extends UtilsLang,
+	D extends UtilsDescription,
+	C extends UtilsSecurityCategory<L,D,C,R,V,U,A>,
+	R extends UtilsSecurityRole<L,D,C,R,V,U,A>,
+	V extends UtilsSecurityView<L,D,C,R,V,U,A>,
+	U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,
+	A extends UtilsSecurityAction<L,D,C,R,V,U,A>,
+	US extends UtilsUser<L,D,C,R,V,U,A>>
 		List<WC> allForCategory(Class<WC> clWc, Class<C> clC, String catCode) throws UtilsNotFoundException;
 	
-	<L extends UtilsLang,D extends UtilsDescription,C extends UtilsSecurityCategory<L,D,C,R,V,U,A>,R extends UtilsSecurityRole<L,D,C,R,V,U,A>,V extends UtilsSecurityView<L,D,C,R,V,U,A>,U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,A extends UtilsSecurityAction<L,D,C,R,V,U,A>,S extends UtilsStaff<L,D,C,R,V,U,A,P,E>,P extends EjbWithId,E extends EjbWithId>
+	<L extends UtilsLang,
+	D extends UtilsDescription,
+	C extends UtilsSecurityCategory<L,D,C,R,V,U,A>,
+	R extends UtilsSecurityRole<L,D,C,R,V,U,A>,
+	V extends UtilsSecurityView<L,D,C,R,V,U,A>,
+	U extends UtilsSecurityUsecase<L,D,C,R,V,U,A>,
+	A extends UtilsSecurityAction<L,D,C,R,V,U,A>,
+	S extends UtilsStaff<L,D,C,R,V,U,A,P,E>,
+	P extends EjbWithId,
+	E extends EjbWithId>
 		List<S> fStaff(Class<S> clStaff, P pool);
 }
