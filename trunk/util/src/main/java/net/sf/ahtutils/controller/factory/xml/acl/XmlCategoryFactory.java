@@ -1,5 +1,6 @@
 package net.sf.ahtutils.controller.factory.xml.acl;
 
+import net.sf.ahtutils.controller.factory.xml.security.XmlAclRolesFactory;
 import net.sf.ahtutils.controller.factory.xml.security.XmlRoleFactory;
 import net.sf.ahtutils.controller.factory.xml.status.XmlDescriptionsFactory;
 import net.sf.ahtutils.controller.factory.xml.status.XmlLangsFactory;
@@ -78,8 +79,7 @@ public class XmlCategoryFactory
 		
 		if(qC.isSetRoles())
 		{
-			XmlAclRolesFactory f = new XmlAclRolesFactory(qC.getRoles(), lang);
-			prc.setRoles(f.getProjectRoles(aclPrc.getRoles()));
+			logger.warn("Roles deactivated, because AclXX is deprecated");
 		}
 		
 		return prc;
