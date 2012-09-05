@@ -37,7 +37,7 @@ public class ComponentVisibleManager<E extends Enum<E>>
 	}
 	public void edit(String key , boolean value)
 	{
-		logger.info("edit key:"+key+" value:"+value);
+		logger.trace("edit key:"+key+" value:"+value);
 		visible.put(key, value);
 	}
 	
