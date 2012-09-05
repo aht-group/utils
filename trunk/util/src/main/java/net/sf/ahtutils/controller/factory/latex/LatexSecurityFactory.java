@@ -26,7 +26,7 @@ public class LatexSecurityFactory
 	private String baseLatexDir;
 	
 	private Translations translations;
-	private String[] headerKeys = {"viewTableHeaderViewId","viewTableHeaderName"};
+	private String[] headerKeys = {"tableHeaderName","tableHeaderDescription"};
 	private String[] langs;
 	
 	public LatexSecurityFactory(Translations translations,String baseLatexDir,String[] langs)
