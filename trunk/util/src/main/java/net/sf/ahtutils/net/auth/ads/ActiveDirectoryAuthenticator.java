@@ -10,14 +10,14 @@ import javax.naming.ldap.InitialLdapContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AdsAuth
+public class ActiveDirectoryAuthenticator
 {
-	final static Logger logger = LoggerFactory.getLogger(AdsAuth.class);
+	final static Logger logger = LoggerFactory.getLogger(ActiveDirectoryAuthenticator.class);
 	
 	private String domain;
 	private String ldapHost;
 	
-	public AdsAuth(String domain, String ldapHost)
+	public ActiveDirectoryAuthenticator(String domain, String ldapHost)
 	{
 		this.domain = domain;
 		this.ldapHost = ldapHost;
@@ -25,6 +25,7 @@ public class AdsAuth
 	
 	public boolean authenticate(String user, String pass)
 	{
+		if(pass==null || pass.length()==0){return false;}
 		Hashtable<String,String> env = new Hashtable<String,String>();
 		env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
 		env.put(Context.SECURITY_AUTHENTICATION, "simple");

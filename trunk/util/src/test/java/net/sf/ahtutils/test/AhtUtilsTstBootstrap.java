@@ -16,7 +16,7 @@ public class AhtUtilsTstBootstrap
 		AbstractAhtUtilTest.setfTarget(new File("target"));
 		
 		LoggerInit loggerInit = new LoggerInit("log4j.xml");
-		loggerInit.addAltPath("config");
-		loggerInit.init();
+			loggerInit.addAltPath("config.ahtutils-util.test");
+			loggerInit.init();
 	}
 }
