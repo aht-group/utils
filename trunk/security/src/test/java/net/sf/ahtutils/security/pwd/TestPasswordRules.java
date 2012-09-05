@@ -5,9 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import junit.framework.Assert;
-import net.sf.ahtutils.test.AbstractAhtUtilsSecurityTest;
+import net.sf.ahtutils.test.AbstractAhtUtilsSecurityJUnit;
 import net.sf.ahtutils.test.AhtUtilsSecurityTestBootstrap;
-import net.sf.ahtutils.xml.security.Password;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +28,7 @@ import edu.vt.middleware.password.RuleResult;
 import edu.vt.middleware.password.RuleResultDetail;
 import edu.vt.middleware.password.UppercaseCharacterRule;
 
-public class TestPasswordRules extends AbstractAhtUtilsSecurityTest
+public class TestPasswordRules extends AbstractAhtUtilsSecurityJUnit
 {
 	final static Logger logger = LoggerFactory.getLogger(TestPasswordRules.class);
 	
@@ -42,12 +41,19 @@ public class TestPasswordRules extends AbstractAhtUtilsSecurityTest
 	private PasswordAnalyser pa;
 	
 	@Test
-	public void test()
+	public void length()
 	{
-		Password result = pa.test("test");
-		Assert.assertNotNull(result);
+		pa.clearRules();
+		
+		pa.lengthRule(true, 5, 10);
+		Assert.assertFalse(pa.test(getSizedString(4)).isValid());
+		
+		pa.lengthRule(true, 5, 10);
+		Assert.assertTrue(pa.test(getSizedString(6)).isValid());
+		
+		pa.lengthRule(true, 5, 10);
+		Assert.assertFalse(pa.test(getSizedString(12)).isValid());
 	}
-	
 	
 	public static void main(String[] args)
 	{

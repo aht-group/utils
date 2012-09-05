@@ -5,10 +5,10 @@ import java.util.Date;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import net.sf.ahtutils.xml.AhtUtilsNsPrefixMapper;
 import net.sf.exlp.util.DateUtil;
 import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.xml.JaxbUtil;
-import net.sf.exlp.xml.ns.ExlpNsPrefixMapper;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -30,7 +30,7 @@ public abstract class AbstractXmlTest
 	@BeforeClass
 	public static void initPrefixMapper()
 	{
-		JaxbUtil.setNsPrefixMapper(new ExlpNsPrefixMapper());
+		JaxbUtil.setNsPrefixMapper(new AhtUtilsNsPrefixMapper());
 	}
 	
 	protected void assertJaxbEquals(Object expected, Object actual)

@@ -8,12 +8,12 @@
     <xsd:import namespace="http://ahtutils.aht-group.com/access" schemaLocation="access.xsd"/>
     <xsd:element name="navigation">
 	    <xsd:complexType>
-	            <xsd:sequence>
-					<xsd:element ref="n:viewPattern" maxOccurs="1"/>
-					<xsd:element ref="n:urlMapping" maxOccurs="1"/>
-				</xsd:sequence>
-				<xsd:attribute name="code" type="xsd:string"/>
-				<xsd:attribute name="package" type="xsd:string"/>
+            <xsd:sequence>
+				<xsd:element ref="n:viewPattern" maxOccurs="1"/>
+				<xsd:element ref="n:urlMapping" maxOccurs="1"/>
+			</xsd:sequence>
+			<xsd:attribute name="code" type="xsd:string"/>
+			<xsd:attribute name="package" type="xsd:string"/>
 		</xsd:complexType>    
     </xsd:element>
     <xsd:element name="viewPattern">

@@ -2,14 +2,23 @@
 <xsd:schema targetNamespace="http://ahtutils.aht-group.com/security"
     xmlns:sec="http://ahtutils.aht-group.com/security"
     xmlns:s="http://ahtutils.aht-group.com/status"
-    xmlns:n="http://ahtutils.aht-group.com/navigation"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <xsd:element name="password">
         <xsd:complexType>
             <xsd:sequence>
-                
+                <xsd:element ref="sec:rule" maxOccurs="unbounded"/>
             </xsd:sequence>
+            <xsd:attribute name="valid" type="xsd:boolean"/>
         </xsd:complexType>
     </xsd:element>
- 
+    <xsd:element name="rule">
+        <xsd:complexType>
+            <xsd:attribute name="type" type="xsd:string"/>
+            <xsd:attribute name="code" type="xsd:string"/>
+            <xsd:attribute name="valid" type="xsd:boolean"/>
+            <xsd:attribute name="min" type="xsd:int"/>
+            <xsd:attribute name="max" type="xsd:int"/>
+            <xsd:attribute name="actual" type="xsd:int"/>
+        </xsd:complexType>    
+    </xsd:element>
 </xsd:schema>

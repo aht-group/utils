@@ -1,6 +1,6 @@
 package net.sf.ahtutils.test;
 
-import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
+import net.sf.ahtutils.xml.AhtUtilsNsPrefixMapper;
 import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.xml.JaxbUtil;
 

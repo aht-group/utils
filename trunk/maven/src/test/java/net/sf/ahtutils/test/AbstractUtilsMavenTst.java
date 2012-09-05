@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 
 import net.sf.ahtutils.controller.factory.java.security.AbstractJavaSecurityFactoryTst;
-import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
+import net.sf.ahtutils.xml.AhtUtilsNsPrefixMapper;
 import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.io.RelativePathFactory;
 import net.sf.exlp.util.io.StringIO;

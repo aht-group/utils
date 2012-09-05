@@ -26,4 +26,14 @@ public class AbstractAhtUtilsTest
 		if(rnd==null){rnd = new Random();}
 		return rnd.nextInt(max);
 	}
+	
+	protected String getSizedString(int size)
+    {
+    	StringBuffer sb = new StringBuffer();
+    	for(int i=0;i<size;i++)
+    	{
+    		sb.append("a");
+    	}
+    	return sb.toString();
+    }
 }

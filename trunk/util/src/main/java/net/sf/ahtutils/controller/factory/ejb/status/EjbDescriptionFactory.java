@@ -6,7 +6,7 @@ import java.util.Map;
 
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
-import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
+import net.sf.ahtutils.xml.AhtUtilsNsPrefixMapper;
 import net.sf.ahtutils.xml.status.Description;
 import net.sf.ahtutils.xml.status.Descriptions;
 import net.sf.exlp.util.xml.JaxbUtil;

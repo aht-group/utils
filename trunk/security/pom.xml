@@ -34,7 +34,6 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
-			<scope>test</scope>
 		</dependency>
 	 	<dependency>
 	 		<groupId>org.slf4j</groupId>
@@ -44,6 +43,12 @@
 			<groupId>edu.vt.middleware</groupId>
 			<artifactId>vt-password</artifactId>
 			<version>3.1.1</version>
+			<exclusions>
+		    	<exclusion>
+		    		<artifactId>commons-logging</artifactId>
+		    		<groupId>commons-logging</groupId>
+		    	</exclusion>
+		    </exclusions>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.ahtutils</groupId>
@@ -53,6 +58,15 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.ahtutils</groupId>
+			<artifactId>ahtutils-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
 		</dependency>
 	</dependencies>
 

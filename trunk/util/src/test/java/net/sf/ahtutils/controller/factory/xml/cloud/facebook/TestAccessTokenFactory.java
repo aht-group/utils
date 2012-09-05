@@ -5,8 +5,8 @@ import java.io.FileNotFoundException;
 import java.util.Collection;
 
 import net.sf.ahtutils.test.AbstractFileProcessingTest;
+import net.sf.ahtutils.xml.AhtUtilsNsPrefixMapper;
 import net.sf.ahtutils.xml.cloud.facebook.Token;
-import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
 import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.io.StringIO;
 import net.sf.exlp.util.xml.JaxbUtil;

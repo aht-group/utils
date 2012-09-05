@@ -1,6 +1,6 @@
 package net.sf.ahtutils.test;
 
-import net.sf.ahtutils.xml.ns.AhtUtilsNsPrefixMapper;
+import net.sf.ahtutils.xml.AhtUtilsNsPrefixMapper;
 import net.sf.exlp.util.io.LoggerInit;
 import net.sf.exlp.util.xml.JaxbUtil;
 
@@ -8,9 +8,9 @@ import org.junit.BeforeClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AbstractAhtUtilsSecurityTest
+public class AbstractAhtUtilsSecurityJUnit extends AbstractAhtUtilsTest
 {
-	final static Logger logger = LoggerFactory.getLogger(AbstractAhtUtilsSecurityTest.class);
+	final static Logger logger = LoggerFactory.getLogger(AbstractAhtUtilsSecurityJUnit.class);
 	
 	@BeforeClass
     public static void initLogger()
