@@ -43,7 +43,7 @@ public class PasswordAnalyser
 		}
 	}
 	
-	public Password test(String password)
+	public Password analyse(String password)
 	{
 		xmlPwdAnalyse = new Password();
 		buildRules();

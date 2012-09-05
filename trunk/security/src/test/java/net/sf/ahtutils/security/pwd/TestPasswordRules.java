@@ -46,13 +46,13 @@ public class TestPasswordRules extends AbstractAhtUtilsSecurityJUnit
 		pa.clearRules();
 		
 		pa.lengthRule(true, 5, 10);
-		Assert.assertFalse(pa.test(getSizedString(4)).isValid());
+		Assert.assertFalse(pa.analyse(getSizedString(4)).isValid());
 		
 		pa.lengthRule(true, 5, 10);
-		Assert.assertTrue(pa.test(getSizedString(6)).isValid());
+		Assert.assertTrue(pa.analyse(getSizedString(6)).isValid());
 		
 		pa.lengthRule(true, 5, 10);
-		Assert.assertFalse(pa.test(getSizedString(12)).isValid());
+		Assert.assertFalse(pa.analyse(getSizedString(12)).isValid());
 	}
 	
 	public static void main(String[] args)
