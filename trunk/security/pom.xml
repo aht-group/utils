@@ -25,7 +25,35 @@
 	</dependencyManagement>
 
 	<dependencies>
-		
+		<dependency>
+        	<groupId>net.sf.exlp</groupId>
+        	<artifactId>exlp-util</artifactId>
+        	<type>jar</type>
+        	<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<scope>test</scope>
+		</dependency>
+	 	<dependency>
+	 		<groupId>org.slf4j</groupId>
+	 		<artifactId>slf4j-log4j12</artifactId>
+	 	</dependency>
+		<dependency>
+			<groupId>edu.vt.middleware</groupId>
+			<artifactId>vt-password</artifactId>
+			<version>3.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.ahtutils</groupId>
+			<artifactId>ahtutils-xml</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 </project>

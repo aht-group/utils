@@ -6,6 +6,7 @@
     xmlns:f="http://ahtutils.aht-group.com/finance"
     xmlns:n="http://ahtutils.aht-group.com/navigation"
     xmlns:a="http://ahtutils.aht-group.com/access"
+    xmlns:sec="http://ahtutils.aht-group.com/security"
     xmlns:db="http://ahtutils.aht-group.com/dbseed"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
@@ -14,6 +15,7 @@
     <xsd:import namespace="http://ahtutils.aht-group.com/status" schemaLocation="aht/status.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/report" schemaLocation="aht/report.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/access" schemaLocation="aht/access.xsd"/>
+    <xsd:import namespace="http://ahtutils.aht-group.com/security" schemaLocation="aht/security.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/finance" schemaLocation="aht/finance.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/dbseed" schemaLocation="aht/dbseed.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/mail" schemaLocation="aht/mail.xsd"/>
