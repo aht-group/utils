@@ -28,38 +28,38 @@ import edu.vt.middleware.password.RuleResult;
 import edu.vt.middleware.password.RuleResultDetail;
 import edu.vt.middleware.password.UppercaseCharacterRule;
 
-public class TestPasswordRules extends AbstractAhtUtilsSecurityJUnit
+public class TestPasswordRuleBuilder extends AbstractAhtUtilsSecurityJUnit
 {
-	final static Logger logger = LoggerFactory.getLogger(TestPasswordRules.class);
+	final static Logger logger = LoggerFactory.getLogger(TestPasswordRuleBuilder.class);
 	
 	@Before
 	public void init()
 	{
-		pa = new PasswordAnalyser();
+		prb = new PasswordRuleBuilder();
 	}
 	
-	private PasswordAnalyser pa;
+	private PasswordRuleBuilder prb;
 	
 	@Test
 	public void length()
 	{
-		pa.clearRules();
+		prb.clearRules();
 		
-		pa.lengthRule(true, 5, 10);
-		Assert.assertFalse(pa.analyse(getSizedString(4)).isValid());
+		prb.lengthRule(5, 10);
+		Assert.assertFalse(prb.createAnalyser().analyse(getSizedString(4)).isValid());
 		
-		pa.lengthRule(true, 5, 10);
-		Assert.assertTrue(pa.analyse(getSizedString(6)).isValid());
+		prb.lengthRule(5, 10);
+		Assert.assertTrue(prb.createAnalyser().analyse(getSizedString(6)).isValid());
 		
-		pa.lengthRule(true, 5, 10);
-		Assert.assertFalse(pa.analyse(getSizedString(12)).isValid());
+		prb.lengthRule(5, 10);
+		Assert.assertFalse(prb.createAnalyser().analyse(getSizedString(12)).isValid());
 	}
 	
 	public static void main(String[] args)
 	{
 		AhtUtilsSecurityTestBootstrap.init();
 		
-		LengthRule lengthRule = new LengthRule(8, 16);
+		LengthRule lengthRule = new LengthRule(18, 19);
 
 		// don't allow whitespace
 //		WhitepaceRule whitespaceRule = new WhitespaceRule();
@@ -114,6 +114,7 @@ public class TestPasswordRules extends AbstractAhtUtilsSecurityJUnit
 		  
 		  for(RuleResultDetail rrd : result.getDetails())
 		  {
+			  logger.debug(rrd.getErrorCode());
 			  for(Object o : rrd.getValues())
 			  {
 				  System.out.println("  "+o);

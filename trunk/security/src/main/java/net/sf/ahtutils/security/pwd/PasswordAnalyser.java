@@ -19,56 +19,31 @@ import edu.vt.middleware.password.RuleResult;
 public class PasswordAnalyser
 {
 	final static Logger logger = LoggerFactory.getLogger(PasswordAnalyser.class);
-	
-	public static enum Code{length};
-	private Map<Code,Boolean> mapRules;
-	
-	private List<Rule> ruleList;
+		
+	private PasswordValidator validator;
 	private Password xmlPwdAnalyse;
 	
-	private int lengthMin,lengthMax;
-	
-	public PasswordAnalyser()
+	public PasswordAnalyser(List<Rule> ruleList)
 	{
-		mapRules = new Hashtable<Code,Boolean>();
-		clearRules();
-		lengthRule(true, 6, 250);
-	}
-	
-	public void clearRules()
-	{
-		for(Code code : Code.values())
-		{
-			mapRules.put(code, false);
-		}
+		validator = new PasswordValidator(ruleList);
 	}
 	
 	public Password analyse(String password)
 	{
 		xmlPwdAnalyse = new Password();
-		buildRules();
-		PasswordValidator validator = new PasswordValidator(ruleList);
+		
 		PasswordData passwordData = new PasswordData(new edu.vt.middleware.password.Password(password));
 
 		RuleResult result = validator.validate(passwordData);
 		xmlPwdAnalyse.setValid(result.isValid());
+		if(!result.isValid())
+		{
+			PasswordResultBuilder prb = new PasswordResultBuilder(result,password);
+			xmlPwdAnalyse.getRule().addAll(prb.build());
+		}
 		logger.trace("PWD is valid: "+result.isValid());
 				
 		return xmlPwdAnalyse;
 		
-	}
-	
-	private void buildRules()
-	{
-		ruleList = new ArrayList<Rule>();
-		
-		if(mapRules.get(Code.length)){ruleList.add(new LengthRule(lengthMin, lengthMax));}
-	}
-	
-	public void lengthRule(boolean active, int min, int max)
-	{
-		mapRules.put(Code.length, active);
-		lengthMin = min;
-		lengthMax = max;
 	}
 }

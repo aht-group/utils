@@ -14,7 +14,7 @@ public class AhtUtilsSecurityTestBootstrap
 	public static void init()
 	{		
 		LoggerInit loggerInit = new LoggerInit("log4j.xml");
-		loggerInit.addAltPath("config.ahtutils-security");
+		loggerInit.addAltPath("config.ahtutils-security.test");
 		loggerInit.init();
 		
 		JaxbUtil.setNsPrefixMapper(new AhtUtilsNsPrefixMapper());
