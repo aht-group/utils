@@ -14,8 +14,8 @@
         
 <composite:implementation>
   	
-  	<p:commandButton rendered="#{cc.attrs.ejb.id eq 0}" value="#{msg.Save}"   actionListener="#{cc.attrs.bean}" update="#{cc.attrs.update}" icon="ui-icon-disk" />
-  	<p:commandButton rendered="#{cc.attrs.ejb.id gt 0}" value="#{msg.Update}" actionListener="#{cc.attrs.bean}" update="#{cc.attrs.update}" icon="ui-icon-disk" />
+  	<p:commandButton rendered="#{cc.attrs.ejb.id eq 0}" value="#{msg.Save}"   actionListener="#{cc.attrs.bean.save}" update="#{cc.attrs.update}" icon="ui-icon-disk" />
+  	<p:commandButton rendered="#{cc.attrs.ejb.id gt 0}" value="#{msg.Update}" actionListener="#{cc.attrs.bean.save}" update="#{cc.attrs.update}" icon="ui-icon-disk" />
    
 </composite:implementation>
 </html>
