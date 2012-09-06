@@ -8,9 +8,13 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import edu.vt.middleware.password.AlphabeticalSequenceRule;
 import edu.vt.middleware.password.DigitCharacterRule;
 import edu.vt.middleware.password.LengthRule;
 import edu.vt.middleware.password.LowercaseCharacterRule;
+import edu.vt.middleware.password.NumericalSequenceRule;
+import edu.vt.middleware.password.QwertySequenceRule;
+import edu.vt.middleware.password.RepeatCharacterRegexRule;
 import edu.vt.middleware.password.Rule;
 import edu.vt.middleware.password.UppercaseCharacterRule;
 
@@ -18,11 +22,12 @@ public class PasswordRuleBuilder
 {
 	final static Logger logger = LoggerFactory.getLogger(PasswordRuleBuilder.class);
 	
-	public static enum Code{length,charDigit,charUpper,charLower};
+	public static enum Code{length,charDigit,charUpper,charLower,repChar,seqNum,seqChar,seqQwerty};
 	private Map<Code,Boolean> mapRules;
 	
 	private int lengthMin,lengthMax;
 	private int charDigitMin,charUpperMin,charLowerMin;
+	private int repeatCharMax,seqNumMax,seqCharMax,seqQwertyMax;
 	
 	public PasswordRuleBuilder()
 	{
@@ -46,6 +51,10 @@ public class PasswordRuleBuilder
 		if(mapRules.get(Code.charDigit)){ruleList.add(new DigitCharacterRule(charDigitMin));}
 		if(mapRules.get(Code.charUpper)){ruleList.add(new UppercaseCharacterRule(charUpperMin));}
 		if(mapRules.get(Code.charLower)){ruleList.add(new LowercaseCharacterRule(charLowerMin));}
+		if(mapRules.get(Code.repChar)){ruleList.add(new RepeatCharacterRegexRule(repeatCharMax));}
+		if(mapRules.get(Code.seqNum)){ruleList.add(new NumericalSequenceRule(seqNumMax,true));}
+		if(mapRules.get(Code.seqChar)){ruleList.add(new AlphabeticalSequenceRule(seqCharMax,true));}
+		if(mapRules.get(Code.seqQwerty)){ruleList.add(new QwertySequenceRule(seqQwertyMax,true));}
 		
 		return ruleList;
 	}
@@ -88,6 +97,48 @@ public class PasswordRuleBuilder
 		}
 		else{mapRules.put(Code.charLower, false);}
 	}
+	
+	public void repeatChar(int repeatCharMax)
+	{
+		if(repeatCharMax>0)
+		{
+			mapRules.put(Code.repChar, true);
+			this.repeatCharMax=repeatCharMax;
+		}
+		else{mapRules.put(Code.repChar, false);}
+	}
+	
+	public void seqNum(int seqNumMax)
+	{
+		if(seqNumMax>0)
+		{
+			mapRules.put(Code.seqNum, true);
+			this.seqNumMax=seqNumMax;
+		}
+		else{mapRules.put(Code.seqNum, false);}
+	}
+	
+	public void seqChar(int seqCharMax)
+	{
+		if(seqCharMax>0)
+		{
+			mapRules.put(Code.seqChar, true);
+			this.seqCharMax=seqCharMax;
+		}
+		else{mapRules.put(Code.seqChar, false);}
+	}
+	
+	public void seqQwerty(int seqQwertyMax)
+	{
+		if(seqQwertyMax>0)
+		{
+			mapRules.put(Code.seqQwerty, true);
+			this.seqQwertyMax=seqQwertyMax;
+		}
+		else{mapRules.put(Code.seqQwerty, false);}
+	}
+	
+	
 	
 	// ********* Analyser ******
 	

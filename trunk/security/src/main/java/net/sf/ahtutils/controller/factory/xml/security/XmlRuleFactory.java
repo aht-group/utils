@@ -9,15 +9,15 @@ public class XmlRuleFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlRuleFactory.class);
 		
-	public static Rule build(boolean valid, String type, String code, int min, Integer max, int acutal)
+	public static Rule build(boolean valid, String type, String code, Integer min, Integer max, Integer acutal)
 	{
 		Rule xml = new Rule();
 		xml.setValid(valid);
 		xml.setType(type);
 		xml.setCode(code);
-		xml.setMin(min);
+		if(min!=null){xml.setMin(min);}
 		if(max!=null){xml.setMax(max);}
-		xml.setActual(acutal);
+		if(acutal!=null){xml.setActual(acutal);}
 		return xml;
 	}
 }

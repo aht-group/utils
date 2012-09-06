@@ -20,6 +20,7 @@ import edu.vt.middleware.password.DigitCharacterRule;
 import edu.vt.middleware.password.LengthRule;
 import edu.vt.middleware.password.LowercaseCharacterRule;
 import edu.vt.middleware.password.NonAlphanumericCharacterRule;
+import edu.vt.middleware.password.NumericalSequenceRule;
 import edu.vt.middleware.password.PasswordData;
 import edu.vt.middleware.password.PasswordValidator;
 import edu.vt.middleware.password.QwertySequenceRule;
@@ -77,6 +78,51 @@ public class TestPasswordRuleBuilder extends AbstractAhtUtilsSecurityJUnit
 		prb.charLower(1);Assert.assertTrue(prb.createAnalyser().analyse("aaAaa").isValid());
 	}
 	
+	@Test
+	public void repeatChar()
+	{
+		prb.clearRules();
+		prb.repeatChar(0);Assert.assertTrue(prb.createAnalyser().analyse("aaaa").isValid());
+		prb.repeatChar(3);Assert.assertFalse(prb.createAnalyser().analyse("baaab").isValid());
+		prb.repeatChar(3);Assert.assertFalse(prb.createAnalyser().analyse("babbbaab").isValid());
+		prb.repeatChar(3);Assert.assertTrue(prb.createAnalyser().analyse("aabaa").isValid());
+		prb.repeatChar(3);Assert.assertTrue(prb.createAnalyser().analyse("aabaab").isValid());
+	}
+	
+	@Test
+	public void seqNum()
+	{
+		prb.clearRules();
+		prb.seqNum(0);Assert.assertTrue(prb.createAnalyser().analyse("1234").isValid());
+		prb.seqNum(3);Assert.assertFalse(prb.createAnalyser().analyse("1235").isValid());
+		prb.seqNum(3);Assert.assertFalse(prb.createAnalyser().analyse("124567").isValid());
+		prb.seqNum(3);Assert.assertTrue(prb.createAnalyser().analyse("124578").isValid());
+		prb.seqNum(3);Assert.assertTrue(prb.createAnalyser().analyse("12a45").isValid());
+	}
+	
+	@Test
+	public void seqChar()
+	{
+		prb.clearRules();
+		prb.seqChar(0);Assert.assertTrue(prb.createAnalyser().analyse("abcde").isValid());
+		prb.seqChar(3);Assert.assertFalse(prb.createAnalyser().analyse("abcf").isValid());
+		prb.seqChar(3);Assert.assertFalse(prb.createAnalyser().analyse("abdefg").isValid());
+		prb.seqChar(3);Assert.assertTrue(prb.createAnalyser().analyse("abdeh").isValid());
+		prb.seqChar(3);Assert.assertTrue(prb.createAnalyser().analyse("ab3de").isValid());
+	}
+	
+	@Test
+	public void seqQwerty()
+	{
+		prb.clearRules();
+		prb.seqQwerty(0);Assert.assertTrue(prb.createAnalyser().analyse("asdfgh").isValid());
+		prb.seqQwerty(3);Assert.assertFalse(prb.createAnalyser().analyse("asdf").isValid());
+		prb.seqQwerty(3);Assert.assertFalse(prb.createAnalyser().analyse("asvbn").isValid());
+		prb.seqQwerty(3);Assert.assertFalse(prb.createAnalyser().analyse("hgfd").isValid());
+		prb.seqQwerty(3);Assert.assertTrue(prb.createAnalyser().analyse("aservb").isValid());
+		prb.seqQwerty(3);Assert.assertTrue(prb.createAnalyser().analyse("ghcvre").isValid());
+	}
+	
 	public static void main(String[] args)
 	{
 		AhtUtilsSecurityTestBootstrap.init();
@@ -100,13 +146,13 @@ public class TestPasswordRuleBuilder extends AbstractAhtUtilsSecurityJUnit
 		charRule.setNumberOfCharacteristics(3);
 
 		// don't allow alphabetical sequences
-		AlphabeticalSequenceRule alphaSeqRule = new AlphabeticalSequenceRule();
+		AlphabeticalSequenceRule alphaSeqRule = new AlphabeticalSequenceRule(3,true);
 
 		// don't allow numerical sequences of length 3
-//		NumericalSequenceRule numSeqRule = new NumericalSequenceRule(3);
+		NumericalSequenceRule numSeqRule = new NumericalSequenceRule(3,true);
 
 		// don't allow qwerty sequences
-		QwertySequenceRule qwertySeqRule = new QwertySequenceRule();
+		QwertySequenceRule qwertySeqRule = new QwertySequenceRule(3,true);
 
 		// don't allow 4 repeat characters
 		RepeatCharacterRegexRule repeatRule = new RepeatCharacterRegexRule(4);
@@ -122,7 +168,7 @@ public class TestPasswordRuleBuilder extends AbstractAhtUtilsSecurityJUnit
 		ruleList.add(repeatRule);
 
 		PasswordValidator validator = new PasswordValidator(ruleList);
-		PasswordData passwordData = new PasswordData(new edu.vt.middleware.password.Password("testpassword"));
+		PasswordData passwordData = new PasswordData(new edu.vt.middleware.password.Password("dfgh"));
 
 		RuleResult result = validator.validate(passwordData);
 		if (result.isValid())

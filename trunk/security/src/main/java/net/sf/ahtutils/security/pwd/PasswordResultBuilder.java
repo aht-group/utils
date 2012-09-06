@@ -35,6 +35,9 @@ public class PasswordResultBuilder
 			logger.debug(rrd.getErrorCode());
 			if(rrd.getErrorCode().equals("INSUFFICIENT_CHARACTERS")){insufficientCharacter(rrd);}
 			else if(rrd.getErrorCode().equals("TOO_SHORT")){length(rrd);}
+			else if(rrd.getErrorCode().equals("ILLEGAL_MATCH")){illegalMatch(rrd);}
+			else if(rrd.getErrorCode().equals("ILLEGAL_SEQUENCE")){illegalSequence(rrd);}
+			else{logger.error("NYI: "+rrd.getErrorCode());}
 		}
 		return list;
 	}
@@ -59,6 +62,28 @@ public class PasswordResultBuilder
 				new Integer(rrd.getParameters().get("minimumRequired").toString()),
 				null,
 				new Integer(rrd.getParameters().get("validCharacterCount").toString()));
+		list.add(xml);
+	}
+	
+	private void illegalMatch(RuleResultDetail rrd)
+	{
+		Rule xml = XmlRuleFactory.build(false,
+				"MATCH",
+				rrd.getParameters().get("match").toString(),
+				null,
+				null,
+				null);
+		list.add(xml);
+	}
+	
+	private void illegalSequence(RuleResultDetail rrd)
+	{
+		Rule xml = XmlRuleFactory.build(false,
+				"SEQUENCE",
+				rrd.getParameters().get("sequence").toString(),
+				null,
+				null,
+				null);
 		list.add(xml);
 	}
 }
