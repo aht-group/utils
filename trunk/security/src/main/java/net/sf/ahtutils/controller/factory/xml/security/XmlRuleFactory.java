@@ -16,7 +16,7 @@ public class XmlRuleFactory
 		xml.setType(type);
 		xml.setCode(code);
 		xml.setMin(min);
-		xml.setMax(max);
+		if(max!=null){xml.setMax(max);}
 		xml.setActual(acutal);
 		return xml;
 	}

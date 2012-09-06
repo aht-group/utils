@@ -9,6 +9,7 @@ import net.sf.ahtutils.test.AbstractAhtUtilsSecurityJUnit;
 import net.sf.ahtutils.test.AhtUtilsSecurityTestBootstrap;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,15 +45,36 @@ public class TestPasswordRuleBuilder extends AbstractAhtUtilsSecurityJUnit
 	public void length()
 	{
 		prb.clearRules();
-		
-		prb.lengthRule(5, 10);
-		Assert.assertFalse(prb.createAnalyser().analyse(getSizedString(4)).isValid());
-		
-		prb.lengthRule(5, 10);
-		Assert.assertTrue(prb.createAnalyser().analyse(getSizedString(6)).isValid());
-		
-		prb.lengthRule(5, 10);
-		Assert.assertFalse(prb.createAnalyser().analyse(getSizedString(12)).isValid());
+		prb.lengthRule(5, 10);Assert.assertFalse(prb.createAnalyser().analyse(getSizedString(4)).isValid());
+		prb.lengthRule(5, 10);Assert.assertTrue(prb.createAnalyser().analyse(getSizedString(6)).isValid());	
+		prb.lengthRule(5, 10);Assert.assertFalse(prb.createAnalyser().analyse(getSizedString(12)).isValid());
+	}
+	
+	@Test
+	public void charDigit()
+	{
+		prb.clearRules();
+		prb.charDigit(1);Assert.assertFalse(prb.createAnalyser().analyse("aaaaa").isValid());
+		prb.charDigit(0);Assert.assertTrue(prb.createAnalyser().analyse("aaaaa").isValid());
+		prb.charDigit(1);Assert.assertTrue(prb.createAnalyser().analyse("aa1aa").isValid());
+	}
+	
+	@Test
+	public void charUpper()
+	{
+		prb.clearRules();
+		prb.charUpper(1);Assert.assertFalse(prb.createAnalyser().analyse("aaaaa").isValid());
+		prb.charUpper(0);Assert.assertTrue(prb.createAnalyser().analyse("aaaaa").isValid());
+		prb.charUpper(1);Assert.assertTrue(prb.createAnalyser().analyse("aaAaa").isValid());
+	}
+	
+	@Test
+	public void charLower()
+	{
+		prb.clearRules();
+		prb.charLower(1);Assert.assertFalse(prb.createAnalyser().analyse("AAAA").isValid());
+		prb.charLower(0);Assert.assertTrue(prb.createAnalyser().analyse("AAAA").isValid());
+		prb.charLower(1);Assert.assertTrue(prb.createAnalyser().analyse("aaAaa").isValid());
 	}
 	
 	public static void main(String[] args)

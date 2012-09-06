@@ -32,7 +32,7 @@ public class PasswordResultBuilder
 		
 		for(RuleResultDetail rrd : result.getDetails())
 		{
-			logger.error(rrd.getErrorCode());
+			logger.debug(rrd.getErrorCode());
 			if(rrd.getErrorCode().equals("INSUFFICIENT_CHARACTERS")){insufficientCharacter(rrd);}
 			else if(rrd.getErrorCode().equals("TOO_SHORT")){length(rrd);}
 		}
@@ -54,7 +54,7 @@ public class PasswordResultBuilder
 	private void insufficientCharacter(RuleResultDetail rrd)
 	{
 		Rule xml = XmlRuleFactory.build(false,
-				"INSUFFICIENT_CHARACTERS",
+				"CHARACTERS",
 				rrd.getParameters().get("characterType").toString(),
 				new Integer(rrd.getParameters().get("minimumRequired").toString()),
 				null,

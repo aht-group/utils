@@ -1,16 +1,12 @@
 package net.sf.ahtutils.security.pwd;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
-import java.util.Map;
 
 import net.sf.ahtutils.xml.security.Password;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.vt.middleware.password.LengthRule;
 import edu.vt.middleware.password.PasswordData;
 import edu.vt.middleware.password.PasswordValidator;
 import edu.vt.middleware.password.Rule;
@@ -40,6 +36,14 @@ public class PasswordAnalyser
 		{
 			PasswordResultBuilder prb = new PasswordResultBuilder(result,password);
 			xmlPwdAnalyse.getRule().addAll(prb.build());
+			
+			if(logger.isTraceEnabled())
+			{
+				 for (String msg : validator.getMessages(result))
+				 {
+					 logger.trace(msg);
+				 }
+			}
 		}
 		logger.trace("PWD is valid: "+result.isValid());
 				
