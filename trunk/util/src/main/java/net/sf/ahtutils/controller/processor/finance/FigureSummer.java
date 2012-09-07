@@ -2,7 +2,7 @@ package net.sf.ahtutils.controller.processor.finance;
 
 import java.util.List;
 
-import net.sf.ahtutils.controller.factory.xml.finance.XmlFigureFactory;
+import net.sf.ahtutils.controller.factory.xml.finance.XmlFinanceFactory;
 import net.sf.ahtutils.xml.finance.Finance;
 
 import org.apache.commons.jxpath.JXPathContext;
@@ -24,7 +24,7 @@ public class FigureSummer
 		{
 			sum=sum+f.getValue();
 		}
-		return XmlFigureFactory.create(resultCode, sum);
+		return XmlFinanceFactory.create(resultCode, sum);
 	}
 }
 

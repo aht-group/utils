@@ -6,9 +6,9 @@ import net.sf.ahtutils.xml.finance.Finance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class XmlFigureFactory
+public class XmlFinanceFactory
 {
-	final static Logger logger = LoggerFactory.getLogger(XmlFigureFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(XmlFinanceFactory.class);
 	
 	public static <F extends UtilsFinance> Finance create(F ejb)
 	{
