@@ -6,16 +6,14 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:composite="http://java.sun.com/jsf/composite">
     
-<composite:interface>
-	<composite:attribute name="ejb"/>
-   	<composite:attribute name="bean"/>
-	<composite:attribute name="update"/>
-</composite:interface>
-        
-<composite:implementation>
-  	
-  	<p:commandButton rendered="#{cc.attrs.ejb.id eq 0}" value="#{msg.Save}"   actionListener="#{cc.attrs.bean.save}" update="#{cc.attrs.update}" icon="ui-icon-disk" />
-  	<p:commandButton rendered="#{cc.attrs.ejb.id gt 0}" value="#{msg.Update}" actionListener="#{cc.attrs.bean.save}" update="#{cc.attrs.update}" icon="ui-icon-disk" />
-   
-</composite:implementation>
+	<composite:interface componentType="net.sf.ahtutils.jsf.components.PfSaveUpdate">
+		<composite:attribute name="ejb"/>
+		<composite:attribute name="actionListener" required="true" method-signature="void listener(javax.faces.event.AjaxBehaviorEvent)"/>
+		<composite:attribute name="update"/>
+	</composite:interface>
+	        
+	<composite:implementation>
+		<p:commandButton rendered="#{cc.attrs.ejb.id eq 0}" value="#{msg.Save}"   actionListener="#{cc.actionListener}" update="#{cc.attrs.update}" icon="ui-icon-disk" />
+		<p:commandButton rendered="#{cc.attrs.ejb.id gt 0}" value="#{msg.Update}" actionListener="#{cc.actionListener}" update="#{cc.attrs.update}" icon="ui-icon-disk" />
+	</composite:implementation>
 </html>
