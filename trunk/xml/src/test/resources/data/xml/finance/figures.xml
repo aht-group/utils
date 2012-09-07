@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <f:figures xmlns:f="http://ahtutils.aht-group.com/finance">
-    <f:figure id="123" code="myCode" label="myLabel" value="567.89" symbol="mySymbol"/>
-    <f:figure id="123" code="myCode" label="myLabel" value="567.89" symbol="mySymbol"/>
+    <f:finance id="123" code="myCode" label="myLabel" value="567.89" symbol="mySymbol"/>
+    <f:finance id="123" code="myCode" label="myLabel" value="567.89" symbol="mySymbol"/>
     <f:time id="123" code="myCode" label="myLabel" record="2011-11-11"/>
     <f:time id="123" code="myCode" label="myLabel" record="2011-11-11"/>
 </f:figures>

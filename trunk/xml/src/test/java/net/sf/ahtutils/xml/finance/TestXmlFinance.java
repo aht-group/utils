@@ -18,7 +18,7 @@ public class TestXmlFinance extends AbstractXmlFinanceTest
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,Finance.class+".xml");
+		fXml = new File(rootDir,Finance.class.getSimpleName()+".xml");
 	}
     
     @Test

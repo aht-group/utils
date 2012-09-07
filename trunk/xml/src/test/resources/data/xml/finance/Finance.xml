@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<f:finance xmlns:f="http://ahtutils.aht-group.com/finance" id="123" code="myCode" label="myLabel" value="567.89" symbol="mySymbol"/>
