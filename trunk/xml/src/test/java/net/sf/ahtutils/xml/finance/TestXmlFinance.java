@@ -11,27 +11,27 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestXmlFigure extends AbstractXmlFinanceTest
+public class TestXmlFinance extends AbstractXmlFinanceTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestXmlFigure.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlFinance.class);
 	
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"figure.xml");
+		fXml = new File(rootDir,Finance.class+".xml");
 	}
     
     @Test
     public void xml() throws FileNotFoundException
     {
-    	Figure actual = create(true);
-    	Figure expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Figure.class);
+    	Finance actual = create(true);
+    	Finance expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Finance.class);
     	assertJaxbEquals(expected, actual);
     }  
     
-    public static Figure create(boolean withChilds)
+    public static Finance create(boolean withChilds)
     {
-    	Figure xml = new Figure();
+    	Finance xml = new Finance();
     	xml.setId(123);
     	xml.setCode("myCode");
     	xml.setLabel("myLabel");
@@ -47,9 +47,9 @@ public class TestXmlFigure extends AbstractXmlFinanceTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestXmlFigure.initPrefixMapper();
-		TestXmlFigure.initFiles();	
-		TestXmlFigure test = new TestXmlFigure();
+		TestXmlFinance.initPrefixMapper();
+		TestXmlFinance.initFiles();	
+		TestXmlFinance test = new TestXmlFinance();
 		test.save();
     }
 }

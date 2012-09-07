@@ -35,8 +35,8 @@ public class TestXmlFigures extends AbstractXmlFinanceTest
 
     	if(withChilds)
     	{
-    		xml.getFigure().add(TestXmlFigure.create(false));
-    		xml.getFigure().add(TestXmlFigure.create(false));
+    		xml.getFinance().add(TestXmlFinance.create(false));
+    		xml.getFinance().add(TestXmlFinance.create(false));
     		xml.getTime().add(TestXmlTime.create(false));
     		xml.getTime().add(TestXmlTime.create(false));
     	}

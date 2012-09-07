@@ -1,7 +1,7 @@
 package net.sf.ahtutils.controller.factory.xml.finance;
 
-import net.sf.ahtutils.model.interfaces.finance.UtilsFigure;
-import net.sf.ahtutils.xml.finance.Figure;
+import net.sf.ahtutils.model.interfaces.finance.UtilsFinance;
+import net.sf.ahtutils.xml.finance.Finance;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,24 +10,24 @@ public class XmlFigureFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlFigureFactory.class);
 	
-	public static <F extends UtilsFigure> Figure create(F ejb)
+	public static <F extends UtilsFinance> Finance create(F ejb)
 	{
-		Figure xml = new Figure();
+		Finance xml = new Finance();
 		xml.setValue(ejb.getValue());
 		return xml;
 	}
 	
-	public static Figure create(String code, double value)
+	public static Finance create(String code, double value)
 	{
-		Figure xml = new Figure();
+		Finance xml = new Finance();
 		xml.setCode(code);
 		xml.setValue(value);
 		return xml;
 	}
 	
-	public static Figure create(String code, String label)
+	public static Finance create(String code, String label)
 	{
-		Figure xml = new Figure();
+		Finance xml = new Finance();
 		xml.setCode(code);
 		xml.setLabel(label);
 		return xml;
