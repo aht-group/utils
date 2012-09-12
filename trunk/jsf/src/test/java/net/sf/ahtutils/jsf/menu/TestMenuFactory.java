@@ -35,7 +35,7 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 	
 	private Menu menu;
 	private View v1;
-	private MenuItem mWithLangs,mWithView,mWithHref;
+	private MenuItem mWithLangs,mWithView,mWithHref,mTest;
 	
 	private final String lang = "de";
 	private final String viewCode = "testView";
@@ -92,12 +92,17 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 		mWithHref.setCode("mWithHref");
 		mWithHref.setHref("myHref");
 		menu.getMenuItem().add(mWithHref);
+		
+		mTest = new MenuItem();
+		mTest.setCode("test");
+		mTest.setHref("myHrefTest");
+		menu.getMenuItem().add(mTest);
 	}
 	
 	@Test
 	public void testWithLangs()
 	{
-		Menu actualMenu = mf.create(menu,"test");
+		Menu actualMenu = mf.create(menu,mTest.getCode());
 		Assert.assertEquals(menu.getMenuItem().size(), actualMenu.getMenuItem().size());
 		MenuItem actual = actualMenu.getMenuItem().get(0);
 		Assert.assertTrue(actual.isSetName());
@@ -107,7 +112,7 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 	@Test
 	public void testWithView()
 	{
-		Menu actualMenu = mf.create(menu,"test");
+		Menu actualMenu = mf.create(menu,mTest.getCode());
 		MenuItem actual = actualMenu.getMenuItem().get(1);
 		Assert.assertTrue(actual.isSetName());
 		Assert.assertEquals(v1.getLangs().getLang().get(0).getTranslation(), actual.getName());
@@ -118,14 +123,14 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 	{
 		mapViewAllowed.put(viewCode, false);
 		mf = new MenuFactory(access,mapViewAllowed,lang);
-		Menu actualMenu = mf.create(menu,"test");
+		Menu actualMenu = mf.create(menu,mTest.getCode());
 		Assert.assertEquals(menu.getMenuItem().size()-1, actualMenu.getMenuItem().size());
 	}
 	
 	@Test
 	public void testHrefDirect()
 	{
-		Menu actualMenu = mf.create(menu,"test");
+		Menu actualMenu = mf.create(menu,mTest.getCode());
 		Assert.assertEquals("#", actualMenu.getMenuItem().get(0).getHref());
 		
 		MenuItem actual = actualMenu.getMenuItem().get(2);
@@ -136,20 +141,19 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 	@Test
 	public void testHrefInView()
 	{
-		Menu actualMenu = mf.create(menu,"test");
+		Menu actualMenu = mf.create(menu,mTest.getCode());
 		
 		MenuItem actual = actualMenu.getMenuItem().get(1);
 		Assert.assertTrue("href not set",actual.isSetHref());
 		Assert.assertEquals(v1.getNavigation().getUrlMapping().getValue(), actual.getHref());
 	}
 	
-	@Rule public IgnoreOtherRule test = new IgnoreOtherRule("speed");
 	@Test
 	public void speed()
 	{
 		ProcessClock pc = new ProcessClock();	
 		pc.add("start");
-		mf.create(menu,"test");
+		mf.create(menu,mTest.getCode());
 		pc.add("stop");
 		pc.info(logger);
 	}

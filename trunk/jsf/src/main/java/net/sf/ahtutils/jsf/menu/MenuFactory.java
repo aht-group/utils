@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.xml.access.Access;
@@ -16,6 +17,10 @@ import net.sf.ahtutils.xml.xpath.AccessXpath;
 import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
 
+import org.jgrapht.DirectedGraph;
+import org.jgrapht.alg.DijkstraShortestPath;
+import org.jgrapht.graph.DefaultDirectedGraph;
+import org.jgrapht.graph.DefaultEdge;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,6 +38,11 @@ public class MenuFactory
 	private Map<String,Boolean> mapViewAllowed;
 	private Map<String,String> translationsMenu,translationsAccess;
 	private Map<String,View> mapView;
+	
+	private static final String rootNode = UUID.randomUUID().toString();
+	private DirectedGraph<String, DefaultEdge> graph;
+	
+	private int alwaysUpToLevel;
 	
 	public MenuFactory(String lang){this(null,lang);}	
 	public MenuFactory(Access access, String lang)
@@ -52,8 +62,10 @@ public class MenuFactory
 		mapView = new Hashtable<String,View>();
 		translationsAccess = new Hashtable<String,String>();
 		createAccessMaps();
-		
+		alwaysUpToLevel = 1;
 	}
+	
+	public void setAlwaysUpToLevel(int alwaysUpToLevel) {this.alwaysUpToLevel = alwaysUpToLevel;}
 	
 	private void createAccessMaps()
 	{
@@ -76,16 +88,22 @@ public class MenuFactory
 		}
 	}
 	
-	private void createTranslationsMenu(Menu menu)
+	private void processMenu(Menu menu)
 	{
+		graph = new DefaultDirectedGraph<String, DefaultEdge>(DefaultEdge.class);
+		graph.addVertex(rootNode);
+	     	
 		for(MenuItem mi : menu.getMenuItem())
 		{
-			createTranslationsMenu(mi);
+			processMenuItem(rootNode,mi);
 		}
 	}
 	
-	private void createTranslationsMenu(MenuItem mi)
+	private void processMenuItem(String parentNode, MenuItem mi)
 	{
+		graph.addVertex(mi.getCode());
+		graph.addEdge(parentNode, mi.getCode());
+		
 		if(mi.isSetLangs())
 		{
 			for(Lang l : mi.getLangs().getLang())
@@ -95,22 +113,22 @@ public class MenuFactory
 		}
 		for(MenuItem miChild : mi.getMenuItem())
 		{
-			createTranslationsMenu(miChild);
+			processMenuItem(mi.getCode(),miChild);
 		}
 	}
 	
 	public Menu create(Menu menu, String codeCurrent)
 	{
-		createTranslationsMenu(menu);
+		processMenu(menu);
 		Menu result = new Menu();
 		
-		try {result.getMenuItem().addAll(processChilds(menu.getMenuItem(),codeCurrent));}
+		try {result.getMenuItem().addAll(processChilds(1,menu.getMenuItem(),codeCurrent));}
 		catch (UtilsNotFoundException e) {logger.warn(e.getMessage());}
 		
 		return result;
 	}
 	
-	private List<MenuItem> processChilds(List<MenuItem> origs, String codeCurrent) throws UtilsNotFoundException
+	private List<MenuItem> processChilds(int level, List<MenuItem> origs, String codeCurrent) throws UtilsNotFoundException
 	{
 		List<MenuItem> result = new ArrayList<MenuItem>();
 		
@@ -129,8 +147,26 @@ public class MenuFactory
 			else {miAdd = processItem(mi,codeCurrent,null);}
 			if(miAdd!=null)
 			{
-				if(mi.getCode().equals(codeCurrent)){miAdd.setActive(true);}
+				if(mi.getCode().equals(codeCurrent))
+				{
+					miAdd.setActive(true);
+				}
 				else{miAdd.setActive(false);}
+				
+				boolean currentIsChild = false;
+				DijkstraShortestPath<String, DefaultEdge> dsp = new DijkstraShortestPath<String, DefaultEdge>(graph, mi.getCode(), codeCurrent);
+				List<DefaultEdge> path = dsp.getPathEdgeList();
+				
+				if(path!=null)
+				{
+					currentIsChild = true;
+					miAdd.setActive(true);
+				}
+				
+				if(level<alwaysUpToLevel || currentIsChild)
+				{
+					miAdd.getMenuItem().addAll(processChilds(level+1,mi.getMenuItem(),codeCurrent));
+				}
 				result.add(miAdd);
 			}
 		}
@@ -157,8 +193,6 @@ public class MenuFactory
 		if(miOrig.isSetHref()) {mi.setHref(miOrig.getHref());}
 		else if(miOrig.isSetView()) {mi.setHref(getHrefFromViews(miOrig.getView()));}
 		else {mi.setHref("#");}
-		
-		mi.getMenuItem().addAll(processChilds(miOrig.getMenuItem(),codeCurrent));
 		return mi;
 	}
 	
