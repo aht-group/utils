@@ -7,7 +7,6 @@ import junit.framework.Assert;
 import net.sf.ahtutils.controller.factory.xml.acl.XmlViewFactory;
 import net.sf.ahtutils.controller.factory.xml.status.XmlLangFactory;
 import net.sf.ahtutils.test.AbstractAhtUtilsJsfTst;
-import net.sf.ahtutils.test.IgnoreOtherRule;
 import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.View;
@@ -18,10 +17,8 @@ import net.sf.ahtutils.xml.navigation.Navigation;
 import net.sf.ahtutils.xml.navigation.UrlMapping;
 import net.sf.ahtutils.xml.status.Langs;
 import net.sf.exlp.util.process.ProcessClock;
-import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

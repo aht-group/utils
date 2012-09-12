@@ -117,6 +117,11 @@ public class MenuFactory
 		}
 	}
 	
+	public Menu create(Menu menu)
+	{
+		return create(menu,rootNode);
+	}
+	
 	public Menu create(Menu menu, String codeCurrent)
 	{
 		processMenu(menu);
