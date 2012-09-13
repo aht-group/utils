@@ -34,6 +34,7 @@ public class MenuFactory
 	public void setContextRoot(String contextRoot) {this.contextRoot = contextRoot;}
 
 	private Access access;
+	private Menu menu;
 	private boolean noRestrictions;
 	private Map<String,Boolean> mapViewAllowed;
 	private Map<String,String> translationsMenu,translationsAccess;
@@ -44,20 +45,16 @@ public class MenuFactory
 	
 	private int alwaysUpToLevel;
 	
-	public MenuFactory(String lang){this(null,lang);}	
-	public MenuFactory(Access access, String lang)
-	{
-		this(access,null,lang);
-		noRestrictions=true;
-	}
+	public MenuFactory(Menu menu,String lang){this(menu,null,lang);}	
 	
-	public MenuFactory(Access access, Map<String,Boolean> mapViewAllowed, String lang)
+	public MenuFactory(Menu menu, Access access,String lang)
 	{
+		this.menu=menu;
 		this.access=access;
-		this.mapViewAllowed=mapViewAllowed;
 		this.lang=lang;
 		noRestrictions=false;
 		translationsMenu = new Hashtable<String,String>();
+		processMenu(menu);
 		
 		mapView = new Hashtable<String,View>();
 		translationsAccess = new Hashtable<String,String>();
@@ -117,14 +114,23 @@ public class MenuFactory
 		}
 	}
 	
-	public Menu create(Menu menu)
+	public Menu build()
 	{
-		return create(menu,rootNode);
+		noRestrictions=true;
+		return build(null,rootNode);
+	}
+	public Menu build(String codeCurrent)
+	{
+		return build(null,codeCurrent);
+	}
+	public Menu build(Map<String,Boolean> mapViewAllowed)
+	{
+		return build(mapViewAllowed,rootNode);
 	}
 	
-	public Menu create(Menu menu, String codeCurrent)
+	public Menu build(Map<String,Boolean> mapViewAllowed, String codeCurrent)
 	{
-		processMenu(menu);
+		this.mapViewAllowed=mapViewAllowed;
 		Menu result = new Menu();
 		
 		try {result.getMenuItem().addAll(processChilds(1,menu.getMenuItem(),codeCurrent));}

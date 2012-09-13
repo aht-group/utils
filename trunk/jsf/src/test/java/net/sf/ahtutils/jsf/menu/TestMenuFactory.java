@@ -44,7 +44,7 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 	{
 		initAccess();
 		initMenu();
-		mf = new MenuFactory(access,mapViewAllowed,lang);
+		mf = new MenuFactory(menu,access,lang);
 	}
 	
 	private void initAccess()
@@ -99,7 +99,7 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 	@Test
 	public void testWithLangs()
 	{
-		Menu actualMenu = mf.create(menu,mTest.getCode());
+		Menu actualMenu = mf.build(mapViewAllowed,mTest.getCode());
 		Assert.assertEquals(menu.getMenuItem().size(), actualMenu.getMenuItem().size());
 		MenuItem actual = actualMenu.getMenuItem().get(0);
 		Assert.assertTrue(actual.isSetName());
@@ -109,7 +109,7 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 	@Test
 	public void testWithView()
 	{
-		Menu actualMenu = mf.create(menu,mTest.getCode());
+		Menu actualMenu = mf.build(mapViewAllowed,mTest.getCode());
 		MenuItem actual = actualMenu.getMenuItem().get(1);
 		Assert.assertTrue(actual.isSetName());
 		Assert.assertEquals(v1.getLangs().getLang().get(0).getTranslation(), actual.getName());
@@ -119,15 +119,15 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 	public void testWithViewDenied()
 	{
 		mapViewAllowed.put(viewCode, false);
-		mf = new MenuFactory(access,mapViewAllowed,lang);
-		Menu actualMenu = mf.create(menu,mTest.getCode());
+		mf = new MenuFactory(menu,access,lang);
+		Menu actualMenu = mf.build(mapViewAllowed,mTest.getCode());
 		Assert.assertEquals(menu.getMenuItem().size()-1, actualMenu.getMenuItem().size());
 	}
 	
 	@Test
 	public void testHrefDirect()
 	{
-		Menu actualMenu = mf.create(menu,mTest.getCode());
+		Menu actualMenu = mf.build(mapViewAllowed,mTest.getCode());
 		Assert.assertEquals("#", actualMenu.getMenuItem().get(0).getHref());
 		
 		MenuItem actual = actualMenu.getMenuItem().get(2);
@@ -138,7 +138,7 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 	@Test
 	public void testHrefInView()
 	{
-		Menu actualMenu = mf.create(menu,mTest.getCode());
+		Menu actualMenu = mf.build(mapViewAllowed,mTest.getCode());
 		
 		MenuItem actual = actualMenu.getMenuItem().get(1);
 		Assert.assertTrue("href not set",actual.isSetHref());
@@ -150,7 +150,7 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 	{
 		ProcessClock pc = new ProcessClock();	
 		pc.add("start");
-		mf.create(menu,mTest.getCode());
+		mf.build(mapViewAllowed,mTest.getCode());
 		pc.add("stop");
 		pc.info(logger);
 	}
