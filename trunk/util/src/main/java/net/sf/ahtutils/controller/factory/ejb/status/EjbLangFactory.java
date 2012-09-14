@@ -4,7 +4,11 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.ahtutils.controller.interfaces.UtilsFacade;
+import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
+import net.sf.ahtutils.exception.ejb.UtilsLockingException;
+import net.sf.ahtutils.model.interfaces.EjbWithLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.xml.AhtUtilsNsPrefixMapper;
 import net.sf.ahtutils.xml.status.Lang;
@@ -93,5 +97,25 @@ public class EjbLangFactory<L extends UtilsLang>
 		if(lang.getKey()==null){throw new UtilsIntegrityException("Key not set for: "+JaxbUtil.toString(lang, new AhtUtilsNsPrefixMapper()));}
 		if(lang.getTranslation()==null){throw new UtilsIntegrityException("Translation not set for: "+JaxbUtil.toString(lang, new AhtUtilsNsPrefixMapper()));}
 		return createLang(lang.getKey(), lang.getTranslation());
+	}
+	
+	public <T extends EjbWithLang<L>> T persistMissingLangs(UtilsFacade fUtils, String[] keys, T ejb)
+	{
+		for(String key : keys)
+		{
+			if(!ejb.getName().containsKey(key))
+			{
+				try
+				{
+					L l = fUtils.persist(createLang(key, ""));
+					ejb.getName().put(key, l);
+					ejb = fUtils.update(ejb);
+					System.out.println("YYY");
+				}
+				catch (UtilsContraintViolationException e) {e.printStackTrace();}
+				catch (UtilsLockingException e) {e.printStackTrace();}
+			}
+		}
+		return ejb;
 	}
 }

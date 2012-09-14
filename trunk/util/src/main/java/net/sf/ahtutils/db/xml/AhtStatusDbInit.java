@@ -57,9 +57,8 @@ public class AhtStatusDbInit
 		return mDbAvailableStatus.containsKey(group);
 	}
 	
-	public void savePreviousDbEntries(String key, List<UtilsStatus> availableStatus)
+	private void savePreviousDbEntries(String key, List<UtilsStatus> availableStatus)
 	{
-		
 		Set<Long> dbStatus = new HashSet<Long>();
 		for(UtilsStatus<UtilsLang,UtilsDescription> ejbStatus : availableStatus)
 		{
@@ -107,13 +106,14 @@ public class AhtStatusDbInit
 	
 	public <S extends UtilsStatus<L,D>,L extends UtilsLang, D extends UtilsDescription> void deleteUnusedStatus(Class<S> cStatus, Class<L> cLang, Class<D> cDescription)
 	{
-		logger.debug("Deleing unused childs of Status: "+cLang.getName()+":"+sDeleteLangs.size());
+		logger.debug("Deleting unused childs of Status: "+cLang.getName()+":"+sDeleteLangs.size());
 		for(long id : sDeleteLangs)
 		{
 			try
 			{
-				logger.trace("Deleting "+cLang.getName()+": "+id);
+				logger.debug("Deleting "+cLang.getName()+": "+id);
 				L lang = fStatus.find(cLang, id);
+				logger.debug("\t"+lang);
 				fStatus.rm(lang);
 			}
 			catch (UtilsNotFoundException e) {logger.error("",e);}
@@ -151,9 +151,9 @@ public class AhtStatusDbInit
 	
 	public <S extends UtilsStatus<L,D>,L extends UtilsLang, D extends UtilsDescription> void iuStatus(List<Status> list, Class<S> cStatus, Class<L> cLang)
 	{
-		if(fStatus==null){logger.warn("No Handler available");}
+		if(fStatus==null){logger.warn("No Handler available");return;}
 		else {logger.info("Updating "+cStatus.getSimpleName()+" with "+list.size()+" entries");}
-		if(fStatus!=null){iuStatusEJB(list, cStatus, cLang);}
+		iuStatusEJB(list, cStatus, cLang);
 
 	}
 	
@@ -166,15 +166,18 @@ public class AhtStatusDbInit
 				logger.debug("Processing "+status.getGroup()+" with "+status.getCode());
 				S ejbStatus;
 				if(!isGroupInMap(status.getGroup()))
-				{
+				{	// If a new group occurs, all entities are saved in a (delete) pool where
+					// they will be deleted if in the current list no entity with this key exists.
 					List<UtilsStatus> l = new ArrayList<UtilsStatus>();
 					for(S s : fStatus.all(cStatus)){l.add(s);}
 					savePreviousDbEntries(status.getGroup(), l);
-					logger.trace("Delete Pool: "+mDbAvailableStatus.get(status.getGroup()).size());
+					logger.debug("Delete Pool: "+mDbAvailableStatus.get(status.getGroup()).size());
 				}
 				try
 				{
 					ejbStatus = fStatus.fByCode(cStatus,status.getCode());
+					
+					//UTILS-145 Don't do unnecessary entity updates in AhtStatusDbInit
 					ejbStatus = (S)removeData(ejbStatus);
 					ejbStatus = fStatus.update(ejbStatus);
 					ejbStatus = fStatus.find(cStatus, ejbStatus.getId());

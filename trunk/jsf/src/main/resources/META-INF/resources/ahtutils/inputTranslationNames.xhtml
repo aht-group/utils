@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:c="http://java.sun.com/jsp/jstl/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:composite="http://java.sun.com/jsf/composite">
+    
+  <composite:interface>
+     <composite:attribute name="value"/>
+   </composite:interface>
+        
+  <composite:implementation>
+    <h:panelGrid columns="2">
+      <c:forEach var="l" items="#{cc.attrs.value.name}">
+        <h:outputText value="#{l.value.lkey}"/>
+        <h:inputText value="#{l.value.lang}"/>
+      </c:forEach>
+    </h:panelGrid>
+  </composite:implementation>
+</html>

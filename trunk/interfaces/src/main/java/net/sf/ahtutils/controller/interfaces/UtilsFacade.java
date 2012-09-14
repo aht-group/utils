@@ -36,9 +36,9 @@ public interface UtilsFacade
 	<T extends EjbWithRecord> List<T> allOrderedRecord(Class<T> type, boolean ascending);
 	<T extends EjbWithType> List<T> allForType(Class<T> clazz, String type);
 	
-	<T extends EjbWithId> T save(T o) throws UtilsContraintViolationException,UtilsLockingException;
 	<T extends Object> T persist(T o) throws UtilsContraintViolationException;
 	<T extends Object> T update(T o) throws UtilsContraintViolationException,UtilsLockingException;
+	<T extends EjbWithId> T save(T o) throws UtilsContraintViolationException,UtilsLockingException;
 	
 	<T extends EjbRemoveable> void rm(T o) throws UtilsIntegrityException;
 	
