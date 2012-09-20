@@ -1,0 +1,27 @@
+.container
+{
+	width: 1400px;
+	font-family: Verdana, sans-serif;
+}
+.nav
+{
+	width: 300px;
+	float: left;
+	height: 500px;
+	font-family: Verdana, sans-serif;
+}
+.main
+{
+	float: left;
+	width: 900px;
+	height: 500px;
+	font-family: Verdana, sans-serif;
+}
+.editor { 
+        position: relative;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 150px;
+    }

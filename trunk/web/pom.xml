@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+    	<groupId>net.sf.ahtutils</groupId>
+    	<artifactId>ahtutils</artifactId>
+    	<version>0.2.2-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+	</parent>
+	
+    <artifactId>ahtutils-web</artifactId>
+    <name>AHTUtils - Demo WebApp</name>
+   
+   <properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jboss.domain>default</jboss.domain>
+	</properties>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<inherited>true</inherited>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jboss-maven-plugin</artifactId>
+				<version>1.4.1</version>
+				<configuration>
+					<jbossHome>${jboss.home}</jbossHome>
+					<serverName>${jboss.domain}</serverName>
+					<fileNames>
+						<fileName>${project.build.directory}/${project.build.finalName}.war</fileName>
+					</fileNames>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<dependencies>
+	     <dependency>
+			<groupId>org.jboss.spec</groupId>
+			<artifactId>jboss-javaee-6.0</artifactId>
+			<version>1.0.0.Final</version>
+			<scope>provided</scope>
+			<type>pom</type>
+		</dependency>  
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.0.0.GA</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		 <dependency>
+	 		<groupId>net.sf.ahtutils</groupId>
+    		<artifactId>ahtutils-jsf</artifactId>
+    		<version>0.2.2-SNAPSHOT</version>
+	 	</dependency>
+	</dependencies>
+   
+	<packaging>war</packaging>
+</project>
