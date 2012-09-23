@@ -22,6 +22,7 @@
 
 package net.sf.ahtutils.controller;
 
+import java.security.Security;
 import java.util.Hashtable;
 import java.util.Properties;
 
@@ -34,6 +35,7 @@ import org.jboss.ejb.client.EJBClientConfiguration;
 import org.jboss.ejb.client.EJBClientContext;
 import org.jboss.ejb.client.PropertiesBasedEJBClientConfiguration;
 import org.jboss.ejb.client.remoting.ConfigBasedEJBClientContextSelector;
+import org.jboss.sasl.JBossSaslProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,6 +59,8 @@ public class UtilsJbossFacadeLookup
 	{
 		this.appName=appName;
 		this.moduleName=moduleName;
+		
+		Security.addProvider(new JBossSaslProvider());
 		
 		properties.put("remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED", "false");
 		properties.put("remote.connections", "default");
