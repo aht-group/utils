@@ -7,14 +7,15 @@
   xmlns:composite="http://java.sun.com/jsf/composite">
     
   <composite:interface>
-     <composite:attribute name="value"/>
-   </composite:interface>
+    <composite:attribute name="value"/>
+    <composite:attribute name="disabled" required="false" default="false"/>
+  </composite:interface>
         
   <composite:implementation>
     <h:panelGrid columns="2">
       <c:forEach var="l" items="#{cc.attrs.value.name}">
         <h:outputText value="#{l.value.lkey}"/>
-        <h:inputText value="#{l.value.lang}"/>
+        <p:inputText disabled="#{cc.attrs.disabled}" value="#{l.value.lang}" size="45"/>
       </c:forEach>
     </h:panelGrid>
   </composite:implementation>

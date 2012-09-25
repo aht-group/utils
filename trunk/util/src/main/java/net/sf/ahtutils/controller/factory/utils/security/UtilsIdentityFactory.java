@@ -90,6 +90,10 @@ public class UtilsIdentityFactory <I extends UtilsIdentity<L,D,C,R,V,U,A,USER>,
 //			identity.allowUsecase(uc);
 //		}
 		
+		for(R r : fSecurity.allRolesForUser(clUser,user))
+		{
+			identity.allowRole(r);
+		}
 		
 		for(V v : fSecurity.allViewsForUser(clUser,user))
 		{

@@ -23,17 +23,18 @@ public class AbstractIdentityUser <L extends UtilsLang,
 {
 	public static final long serialVersionUID=1;
 
-	private Map<String,Boolean> mapUsecases;
-	private Map<String,Boolean> mapViews;
+	private Map<String,Boolean> mapUsecases,mapViews,mapRoles;
 	
 	public AbstractIdentityUser()
 	{
 		mapUsecases = new Hashtable<String,Boolean>();
 		mapViews = new Hashtable<String,Boolean>();
+		mapRoles = new Hashtable<String,Boolean>();
 	}
 	
 	public void allowUsecase(U usecase) {mapUsecases.put(usecase.getCode(), true);}
 	public void allowView(V view) {mapViews.put(view.getCode(), true);}
+	public void allowRole(R role) {mapRoles.put(role.getCode(), true);}
 	
 	public boolean hasUsecase(String code)
 	{
@@ -53,9 +54,20 @@ public class AbstractIdentityUser <L extends UtilsLang,
 		return false;
 	}
 	
+	public boolean hasRole(String code)
+	{
+		if(mapRoles.containsKey(code))
+		{
+			return mapRoles.get(code);
+		}
+		return false;
+	}
+	
 	public int sizeAllowedUsecases() {return mapUsecases.size();}
 	public int sizeAllowedViews() {return mapViews.size();}
+	public int sizeAllowedRoles() {return mapRoles.size();}
 	
 	public Map<String, Boolean> getMapUsecases() {return mapUsecases;}
 	public Map<String, Boolean> getMapViews() {return mapViews;}
+	public Map<String, Boolean> getMapRoles() {return mapRoles;}
 }

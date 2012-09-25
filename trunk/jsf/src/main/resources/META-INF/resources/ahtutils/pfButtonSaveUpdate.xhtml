@@ -10,10 +10,11 @@
 		<composite:attribute name="ejb"/>
 		<composite:attribute name="actionListener" required="true" method-signature="void listener(javax.faces.event.AjaxBehaviorEvent)"/>
 		<composite:attribute name="update"/>
+		<composite:attribute name="disabled" required="false" default="false"/>
 	</composite:interface>
 	        
 	<composite:implementation>
-		<p:commandButton rendered="#{cc.attrs.ejb.id eq 0}" value="#{msg.Save}"   actionListener="#{cc.actionListener}" update="#{cc.attrs.update}" icon="ui-icon-disk" />
-		<p:commandButton rendered="#{cc.attrs.ejb.id gt 0}" value="#{msg.Update}" actionListener="#{cc.actionListener}" update="#{cc.attrs.update}" icon="ui-icon-disk" />
+		<p:commandButton disabled="#{cc.attrs.disabled}" rendered="#{cc.attrs.ejb.id eq 0}" value="#{msg.Save}"   actionListener="#{cc.actionListener}" update="#{cc.attrs.update}" icon="ui-icon-disk" />
+		<p:commandButton disabled="#{cc.attrs.disabled}" rendered="#{cc.attrs.ejb.id gt 0}" value="#{msg.Update}" actionListener="#{cc.actionListener}" update="#{cc.attrs.update}" icon="ui-icon-disk" />
 	</composite:implementation>
 </html>

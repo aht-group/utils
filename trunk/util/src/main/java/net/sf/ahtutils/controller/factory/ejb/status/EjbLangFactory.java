@@ -110,7 +110,6 @@ public class EjbLangFactory<L extends UtilsLang>
 					L l = fUtils.persist(createLang(key, ""));
 					ejb.getName().put(key, l);
 					ejb = fUtils.update(ejb);
-					System.out.println("YYY");
 				}
 				catch (UtilsContraintViolationException e) {e.printStackTrace();}
 				catch (UtilsLockingException e) {e.printStackTrace();}
