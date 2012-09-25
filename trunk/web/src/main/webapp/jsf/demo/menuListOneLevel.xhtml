@@ -15,7 +15,7 @@
         right: 0;
         bottom: 0;
         left: 0;
-        height: 200px;
+        height: 250px;
     }
 </style>
    	  <h2>MenuListOneLevel</h2>
@@ -23,11 +23,16 @@
    		  &lt;aht:menuListOneLevel value="\#{webDemoBean.menu}"/&gt;
    	  </pre>
 	  <script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-   	  <script>
+   	  <script type="text/javascript">
 		    var editor = ace.edit("editor");
 		    editor.getSession().setMode("ace/mode/javascript");
+		    editor.setReadOnly(true);
+		    var req = new XMLHttpRequest();
+		    req.open('GET', 'http://localhost:8088/ahtutils-web-0.2.2-SNAPSHOT/jsf/demo/example/menuListOneLevel.xhtml', false);
+		    req.send(null);
+		    if (req.readyState==4) editor.setValue(req.responseText);
 	  </script>	
-      <aht:menuListOneLevel value="#{webDemoBean.menu}"/>
+      <ui:include src="example/menuListOneLevel.xhtml" />
       <hr/>
    </ui:define>
 </ui:composition>
