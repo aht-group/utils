@@ -12,6 +12,11 @@ public class FacesContextMessage
 		addMessage(fm);
 	}
 	
+	public static void warn(String summary, String detail)
+	{
+		addMessage(new FacesMessage(FacesMessage.SEVERITY_WARN,summary,detail));
+	}
+	
 	public static void error(String summary, String detail)
 	{
 		addMessage(new FacesMessage(FacesMessage.SEVERITY_ERROR,summary,detail));
