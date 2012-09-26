@@ -41,14 +41,19 @@ public class EjbCurrencyFactory<C extends UtilsCurrency<L>, L extends UtilsLang>
         return c;
     }
 	
-	public C create(Currency xml) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+	public C create(Currency xml) throws UtilsIntegrityException
 	{
 		if(!xml.isSetLangs()){throw new UtilsIntegrityException("No <langs> available for "+JaxbUtil.toString(xml));}
 		if(!xml.isSetCode()){throw new UtilsIntegrityException("No @code available for "+JaxbUtil.toString(xml));}
 		if(!xml.isSetSymbol()){throw new UtilsIntegrityException("No @symbol available for "+JaxbUtil.toString(xml));}
-        
-		C c = create(xml.getCode(),xml.getSymbol()); 
-		c.setName(ejbLangFactory.getLangMap(xml.getLangs()));
-        return c;
+		
+		try
+		{
+			C c= create(xml.getCode(),xml.getSymbol());
+			c.setName(ejbLangFactory.getLangMap(xml.getLangs()));
+			return c;
+		}
+		catch (InstantiationException e) {throw new UtilsIntegrityException(e.getMessage());}
+		catch (IllegalAccessException e) {throw new UtilsIntegrityException(e.getMessage());}
     }
 }
