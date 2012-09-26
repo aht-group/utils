@@ -4,6 +4,8 @@ import net.sf.ahtutils.controller.factory.ejb.status.EjbLangFactory;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.model.interfaces.finance.UtilsCurrency;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
+import net.sf.ahtutils.xml.finance.Currency;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +38,17 @@ public class EjbCurrencyFactory<C extends UtilsCurrency<L>, L extends UtilsLang>
         C c = clCurrency.newInstance();
         c.setCode(code);
         c.setSymbol(symbol);
+        return c;
+    }
+	
+	public C create(Currency xml) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+	{
+		if(!xml.isSetLangs()){throw new UtilsIntegrityException("No <langs> available for "+JaxbUtil.toString(xml));}
+		if(!xml.isSetCode()){throw new UtilsIntegrityException("No @code available for "+JaxbUtil.toString(xml));}
+		if(!xml.isSetSymbol()){throw new UtilsIntegrityException("No @symbol available for "+JaxbUtil.toString(xml));}
+        
+		C c = create(xml.getCode(),xml.getSymbol()); 
+		c.setName(ejbLangFactory.getLangMap(xml.getLangs()));
         return c;
     }
 }

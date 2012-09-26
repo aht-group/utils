@@ -28,12 +28,11 @@ public class TestQuery extends AbstractXmlAhtTest
     @Test
     public void xml() throws FileNotFoundException
     {
-    	Query actual = create();
-    	Query expected = (Query)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Query.class);
+    	Query actual = create(true);
+    	Query expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Query.class);
     	assertJaxbEquals(expected, actual);
     }  
     
-    private static Query create() {return create(true);}
     public static Query create(boolean withChilds)
     {
     	Query xml = new Query();
@@ -50,7 +49,7 @@ public class TestQuery extends AbstractXmlAhtTest
     	return xml;
     }
     
-    public void save() {save(create(),fXml);}
+    public void save() {save(create(true),fXml);}
 	
 	public static void main(String[] args)
     {
