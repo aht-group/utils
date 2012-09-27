@@ -12,6 +12,7 @@ import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.View;
 import net.sf.ahtutils.xml.navigation.Menu;
 import net.sf.ahtutils.xml.navigation.MenuItem;
+import net.sf.ahtutils.xml.navigation.UrlMapping;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.xpath.AccessXpath;
 import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
@@ -201,9 +202,19 @@ public class MenuFactory
 			logger.warn("Translation missing!!");
 			mi.setName("Translation missing");	
 		}
-		if(miOrig.isSetHref()) {mi.setHref(miOrig.getHref());}
-		else if(miOrig.isSetView()) {mi.setHref(getHrefFromViews(miOrig.getView()));}
-		else {mi.setHref("#");}
+		
+		if(miOrig.isSetHref())
+		{
+			mi.setHref(miOrig.getHref());
+		}
+		else if(miOrig.isSetView())
+		{
+			mi.setHref(getHrefFromViews(miOrig.getView()));
+		}
+		else
+		{
+			mi.setHref("#");
+		}
 		return mi;
 	}
 	
@@ -226,12 +237,19 @@ public class MenuFactory
 			View view = AccessXpath.getView(access, viewCode.getCode());
 			if(view.isSetNavigation() && view.getNavigation().isSetUrlMapping())
 			{
+				UrlMapping urlMapping = view.getNavigation().getUrlMapping();
 				StringBuffer sb = new StringBuffer();
 				if(contextRoot!=null)
 				{
 					sb.append("/").append(contextRoot);
 				}
-				sb.append(view.getNavigation().getUrlMapping().getValue());
+				if(urlMapping.isSetUrl())
+				{
+					
+					sb.append(urlMapping.getUrl());
+					if(viewCode.isSetUrlParameter()){sb.append(viewCode.getUrlParameter());}
+				}
+				else{sb.append(urlMapping.getValue());}
 				return sb.toString();
 			}
 		}

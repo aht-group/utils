@@ -101,6 +101,7 @@
             <xsd:attribute name="index" type="xsd:int"/>
             <xsd:attribute name="public" type="xsd:boolean"/>
             <xsd:attribute name="onlyLoginRequired" type="xsd:boolean"/>
+            <xsd:attribute name="urlParameter" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="roles">
