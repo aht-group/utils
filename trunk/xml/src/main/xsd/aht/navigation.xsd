@@ -28,6 +28,7 @@
         <xsd:complexType>
             <xsd:simpleContent>
                 <xsd:extension base="xsd:string">
+                    <xsd:attribute name="url" type="xsd:string"/>
                 </xsd:extension>
             </xsd:simpleContent>
         </xsd:complexType>

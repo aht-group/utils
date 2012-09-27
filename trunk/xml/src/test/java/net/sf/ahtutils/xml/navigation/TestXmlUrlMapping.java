@@ -34,6 +34,7 @@ public class TestXmlUrlMapping extends AbstractXmlNavigationTest
     {
     	UrlMapping xml = new UrlMapping();
     	xml.setValue("myUrlMapping");
+    	xml.setUrl("myUrl");
     	
     	return xml;
     }

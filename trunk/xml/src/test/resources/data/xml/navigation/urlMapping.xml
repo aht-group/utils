@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<urlMapping xmlns="http://ahtutils.aht-group.com/navigation">myUrlMapping</urlMapping>
+<urlMapping xmlns="http://ahtutils.aht-group.com/navigation" url="myUrl">myUrlMapping</urlMapping>
