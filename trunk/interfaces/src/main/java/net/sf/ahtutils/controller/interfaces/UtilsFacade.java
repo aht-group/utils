@@ -36,6 +36,9 @@ public interface UtilsFacade
 	<T extends EjbWithRecord> List<T> allOrderedRecord(Class<T> type, boolean ascending);
 	<T extends EjbWithType> List<T> allForType(Class<T> clazz, String type);
 	
+	// ORDERING
+	<T extends EjbWithRecord, AND extends EjbWithId, OR extends EjbWithId> List<T> allOrderedForParents(Class<T> queryClass, List<ParentPredicate<AND>> lpAnd, List<ParentPredicate<OR>> lpOr,boolean ascending);
+	
 	<T extends Object> T persist(T o) throws UtilsContraintViolationException;
 	<T extends Object> T update(T o) throws UtilsContraintViolationException,UtilsLockingException;
 	<T extends EjbWithId> T save(T o) throws UtilsContraintViolationException,UtilsLockingException;

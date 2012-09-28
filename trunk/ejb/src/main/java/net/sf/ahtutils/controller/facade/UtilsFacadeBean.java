@@ -219,22 +219,6 @@ public class UtilsFacadeBean implements UtilsFacade
 		return typedQuery.getResultList();
 	}
 	
-	public <T extends EjbWithRecord> List<T> allOrderedRecord(Class<T> type, boolean ascending)
-	{
-		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(type);
-		Root<T> from = criteriaQuery.from(type);
-		
-		Expression<Date> eRecord = from.get("record");
-		
-		CriteriaQuery<T> select = criteriaQuery.select(from);
-		if(ascending){select.orderBy(criteriaBuilder.asc(eRecord));}
-		else{select.orderBy(criteriaBuilder.desc(eRecord));}
-		
-		TypedQuery<T> typedQuery = em.createQuery(select);
-		return typedQuery.getResultList();
-	}
-	
 	public <T extends Object> T update(T o) throws UtilsContraintViolationException, UtilsLockingException
 	{
 		try
@@ -377,6 +361,63 @@ public class UtilsFacadeBean implements UtilsFacade
 		try	{return q.getResultList();}
 		catch (NoResultException ex){return new ArrayList<T>();}
 	}
+	
+	//******************** ORDERED *****************
+	
+	public <T extends EjbWithRecord> List<T> allOrderedRecord(Class<T> type, boolean ascending)
+	{
+		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(type);
+		Root<T> from = criteriaQuery.from(type);
+		
+		Expression<Date> eRecord = from.get("record");
+		
+		CriteriaQuery<T> select = criteriaQuery.select(from);
+		if(ascending){select.orderBy(criteriaBuilder.asc(eRecord));}
+		else{select.orderBy(criteriaBuilder.desc(eRecord));}
+		
+		TypedQuery<T> typedQuery = em.createQuery(select);
+		return typedQuery.getResultList();
+	}
+	
+	public <T extends EjbWithRecord, AND extends EjbWithId, OR extends EjbWithId> List<T> allOrderedForParents(Class<T> queryClass, List<ParentPredicate<AND>> lpAnd, List<ParentPredicate<OR>> lpOr,boolean ascending)
+	{
+		if(logger.isTraceEnabled())
+		{
+			logger.trace("****** allOrderedForParents");
+			logger.trace("QueryClass:" +queryClass.getName());
+			logger.trace("ascending:" +ascending);
+			logger.trace("AND "+lpAnd.size());
+			logger.trace("OR "+lpOr.size());
+			logger.trace("************************");
+		}
+		
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<T> criteriaQuery = cB.createQuery(queryClass);
+		 
+		Root<T> from = criteriaQuery.from(queryClass);
+		Expression<Date> eRecord = from.get("record");
+		
+		Predicate pOr = cB.or(ParentPredicate.array(cB, from, lpOr));
+		Predicate pAnd = cB.and(ParentPredicate.array(cB, from, lpAnd));
+		    
+		CriteriaQuery<T> select = criteriaQuery.select(from);
+		if(ascending){select.orderBy(cB.asc(eRecord));}
+		else{select.orderBy(cB.desc(eRecord));}
+		if(lpOr==null || lpOr.size()==0)
+		{
+			select.where(pAnd);
+		}
+		else
+		{
+			select.where(cB.and(pAnd,pOr));
+		}
+		 
+		TypedQuery<T> q = em.createQuery(select);
+		return q.getResultList();
+	}
+	
+	// ************************************
 	
 	public <T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> type, String p1Name, I p1, String p2Name, I p2)
 	{
