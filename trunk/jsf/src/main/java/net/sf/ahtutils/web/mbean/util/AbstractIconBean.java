@@ -31,6 +31,7 @@ public class AbstractIconBean implements Serializable
     @SuppressWarnings("rawtypes")
 	public String url(int size,  UtilsStatus status)
 	{
+    	if(status==null){return "";}
     	if(logger.isTraceEnabled()){logger.trace("size:"+size+" status:"+status);}
     	if(!mapImages.containsKey(status.getId())){generate(size, status);}
 		return mapImages.get(status.getId());
