@@ -186,4 +186,10 @@ public class AbstractDummyFacade implements UtilsFacade
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public <T> List<T> allOrdered(Class<T> cl, String by, boolean ascending) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -32,6 +32,7 @@ public interface UtilsFacade
 	<T extends UtilsProperty> Date valueDateForKey(Class<T> type, String key, Date defaultValue) throws UtilsNotFoundException;
 	
 	<T extends Object> List<T> all(Class<T> type);
+	<T extends Object> List<T> allOrdered(Class<T> cl, String by, boolean ascending);
 	<T extends EjbWithPosition> List<T> allOrderedPosition(Class<T> type);
 	<T extends EjbWithRecord> List<T> allOrderedRecord(Class<T> type, boolean ascending);
 	<T extends EjbWithType> List<T> allForType(Class<T> clazz, String type);

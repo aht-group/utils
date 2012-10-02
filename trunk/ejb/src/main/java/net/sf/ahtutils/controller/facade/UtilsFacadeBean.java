@@ -204,16 +204,23 @@ public class UtilsFacadeBean implements UtilsFacade
 		return typedQuery.getResultList();
 	}
 	
-	public <T extends EjbWithPosition> List<T> allOrderedPosition(Class<T> type)
+	public <T extends EjbWithPosition> List<T> allOrderedPosition(Class<T> cl)
+	{
+		return allOrdered(cl, "position", true);
+	}
+	
+	@Override
+	public <T extends Object> List<T> allOrdered(Class<T> cl, String by, boolean ascending)
 	{
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(type);
-		Root<T> from = criteriaQuery.from(type);
+		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(cl);
+		Root<T> from = criteriaQuery.from(cl);
 		
-		Expression<Date> ePosition = from.get("position");
+		Expression<Date> eOrder = from.get(by);
 		
 		CriteriaQuery<T> select = criteriaQuery.select(from);
-		select.orderBy(criteriaBuilder.asc(ePosition));
+		if(ascending){select.orderBy(criteriaBuilder.asc(eOrder));}
+		else{select.orderBy(criteriaBuilder.desc(eOrder));}
 		
 		TypedQuery<T> typedQuery = em.createQuery(select);
 		return typedQuery.getResultList();
@@ -574,6 +581,8 @@ public class UtilsFacadeBean implements UtilsFacade
 		if(o.getId()==0){return this.persist(o);}
 		else{return this.update(o);}
 	}
+
+
 
 
 }
