@@ -1,5 +1,7 @@
 package net.sf.ahtutils.controller.factory.xml.status;
 
+import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
+import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.xml.status.Status;
 
@@ -17,13 +19,15 @@ public class XmlStatusFactory
 		this.q=q;
 	}
 	
-	public <S extends UtilsStatus> Status build(S ejb){return build(ejb,null);}
-	public <S extends UtilsStatus> Status build(S ejb, String group)
+	public <S extends UtilsStatus<L,D>, L extends UtilsLang, D extends UtilsDescription> Status build(S ejb){return build(ejb,null);}
+	public <S extends UtilsStatus<L,D>, L extends UtilsLang, D extends UtilsDescription> Status build(S ejb, String group)
 	{
 		Status xml = new Status();
 		xml.setGroup(group);
 		if(q.isSetCode()){xml.setCode(ejb.getCode());}
 		if(q.isSetPosition()){xml.setPosition(ejb.getPosition());}
+		if(q.isSetImage()){xml.setImage(ejb.getImage());}
+		if(q.isSetVisible()){xml.setVisible(ejb.isVisible());}
 		
 		if(q.isSetLangs())
 		{

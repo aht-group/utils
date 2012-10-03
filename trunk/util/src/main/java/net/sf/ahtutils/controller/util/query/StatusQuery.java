@@ -40,6 +40,9 @@ public class StatusQuery
 	{
 		Status xml = new Status();
 		xml.setCode("");
+		xml.setImage("");
+		xml.setPosition(0);
+		xml.setVisible(true);
 		xml.setLangs(langs());
 		xml.setDescriptions(descriptions());
 		return xml;
