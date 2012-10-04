@@ -200,4 +200,11 @@ public class AbstractDummyFacade implements UtilsFacade
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public <T extends EjbWithId, I extends EjbWithId> T oneForParent(
+			Class<T> type, String p1Name, I p1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
