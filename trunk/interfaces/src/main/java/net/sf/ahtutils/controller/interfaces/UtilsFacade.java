@@ -38,6 +38,7 @@ public interface UtilsFacade
 	
 	// ORDERING
 	<T extends Object> List<T> allOrdered(Class<T> cl, String by, boolean ascending);
+	<T extends Object,I extends EjbWithId> List<T> allOrderedParent(Class<T> cl, String by, boolean ascending,String p1Name, I p1);
 	<T extends EjbWithPosition> List<T> allOrderedPosition(Class<T> type);
 	<T extends EjbWithPositionVisible> List<T> allOrderedPositionVisible(Class<T> type);
 	<T extends EjbWithRecord> List<T> allOrderedRecord(Class<T> type, boolean ascending);

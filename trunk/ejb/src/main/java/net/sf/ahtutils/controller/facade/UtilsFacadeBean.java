@@ -211,6 +211,25 @@ public class UtilsFacadeBean implements UtilsFacade
 	}
 	
 	@Override
+	public <T, I extends EjbWithId> List<T> allOrderedParent(Class<T> cl,String by, boolean ascending, String p1Name, I p1)
+	{
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<T> criteriaQuery = cb.createQuery(cl);
+		Root<T> from = criteriaQuery.from(cl);
+		
+		Path<Object> p1Path = from.get(p1Name);
+		
+		Expression<Date> eOrder = from.get(by);
+		
+		CriteriaQuery<T> select = criteriaQuery.select(from);
+		if(ascending){select.orderBy(cb.asc(eOrder));}
+		else{select.orderBy(cb.desc(eOrder));}
+		select.where(cb.equal(p1Path, p1.getId()));
+		
+		return em.createQuery(select).getResultList();
+	}
+	
+	@Override
 	public <T extends EjbWithPositionVisible> List<T> allOrderedPositionVisible(Class<T> cl)
 	{
 		CriteriaBuilder cb = em.getCriteriaBuilder();
