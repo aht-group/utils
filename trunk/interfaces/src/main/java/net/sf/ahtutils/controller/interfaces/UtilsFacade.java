@@ -16,6 +16,7 @@ import net.sf.ahtutils.model.interfaces.EjbWithNr;
 import net.sf.ahtutils.model.interfaces.EjbWithType;
 import net.sf.ahtutils.model.interfaces.UtilsProperty;
 import net.sf.ahtutils.model.interfaces.with.EjbWithPosition;
+import net.sf.ahtutils.model.interfaces.with.EjbWithPositionVisible;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 
 public interface UtilsFacade
@@ -32,12 +33,14 @@ public interface UtilsFacade
 	<T extends UtilsProperty> Date valueDateForKey(Class<T> type, String key, Date defaultValue) throws UtilsNotFoundException;
 	
 	<T extends Object> List<T> all(Class<T> type);
-	<T extends Object> List<T> allOrdered(Class<T> cl, String by, boolean ascending);
-	<T extends EjbWithPosition> List<T> allOrderedPosition(Class<T> type);
-	<T extends EjbWithRecord> List<T> allOrderedRecord(Class<T> type, boolean ascending);
+	
 	<T extends EjbWithType> List<T> allForType(Class<T> clazz, String type);
 	
 	// ORDERING
+	<T extends Object> List<T> allOrdered(Class<T> cl, String by, boolean ascending);
+	<T extends EjbWithPosition> List<T> allOrderedPosition(Class<T> type);
+	<T extends EjbWithPositionVisible> List<T> allOrderedPositionVisible(Class<T> type);
+	<T extends EjbWithRecord> List<T> allOrderedRecord(Class<T> type, boolean ascending);
 	<T extends EjbWithRecord, AND extends EjbWithId, OR extends EjbWithId> List<T> allOrderedForParents(Class<T> queryClass, List<ParentPredicate<AND>> lpAnd, List<ParentPredicate<OR>> lpOr,boolean ascending);
 	
 	<T extends Object> T persist(T o) throws UtilsContraintViolationException;

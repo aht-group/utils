@@ -17,6 +17,7 @@ import net.sf.ahtutils.model.interfaces.EjbWithName;
 import net.sf.ahtutils.model.interfaces.EjbWithNr;
 import net.sf.ahtutils.model.interfaces.EjbWithType;
 import net.sf.ahtutils.model.interfaces.with.EjbWithPosition;
+import net.sf.ahtutils.model.interfaces.with.EjbWithPositionVisible;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 
 import org.slf4j.Logger;
@@ -189,6 +190,13 @@ public class AbstractDummyFacade implements UtilsFacade
 
 	@Override
 	public <T> List<T> allOrdered(Class<T> cl, String by, boolean ascending) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T extends EjbWithPositionVisible> List<T> allOrderedPositionVisible(
+			Class<T> type) {
 		// TODO Auto-generated method stub
 		return null;
 	}

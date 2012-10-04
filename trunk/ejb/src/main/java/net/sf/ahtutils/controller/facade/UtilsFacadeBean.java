@@ -29,6 +29,7 @@ import net.sf.ahtutils.model.interfaces.EjbWithType;
 import net.sf.ahtutils.model.interfaces.EjbWithValidFrom;
 import net.sf.ahtutils.model.interfaces.UtilsProperty;
 import net.sf.ahtutils.model.interfaces.with.EjbWithPosition;
+import net.sf.ahtutils.model.interfaces.with.EjbWithPositionVisible;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 
 import org.slf4j.Logger;
@@ -210,20 +211,42 @@ public class UtilsFacadeBean implements UtilsFacade
 	}
 	
 	@Override
+	public <T extends EjbWithPositionVisible> List<T> allOrderedPositionVisible(Class<T> cl)
+	{
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<T> criteriaQuery = cb.createQuery(cl);
+		Root<T> from = criteriaQuery.from(cl);
+		Path<Object> pathVisible = from.get("visible");
+		
+		Expression<Date> eOrder = from.get("position");
+		
+		CriteriaQuery<T> select = criteriaQuery.select(from);
+		select.orderBy(cb.asc(eOrder));
+		select.where(cb.equal(pathVisible, true));
+		
+		return em.createQuery(select).getResultList();
+	}
+	
+	@Override
 	public <T extends Object> List<T> allOrdered(Class<T> cl, String by, boolean ascending)
 	{
-		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(cl);
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<T> select = cqOrdered(cb, cl, by, ascending);
+		return em.createQuery(select).getResultList();
+	}
+	
+	private <T extends Object> CriteriaQuery<T> cqOrdered(CriteriaBuilder cb, Class<T> cl, String by, boolean ascending)
+	{
+		CriteriaQuery<T> criteriaQuery = cb.createQuery(cl);
 		Root<T> from = criteriaQuery.from(cl);
 		
 		Expression<Date> eOrder = from.get(by);
 		
 		CriteriaQuery<T> select = criteriaQuery.select(from);
-		if(ascending){select.orderBy(criteriaBuilder.asc(eOrder));}
-		else{select.orderBy(criteriaBuilder.desc(eOrder));}
+		if(ascending){select.orderBy(cb.asc(eOrder));}
+		else{select.orderBy(cb.desc(eOrder));}
 		
-		TypedQuery<T> typedQuery = em.createQuery(select);
-		return typedQuery.getResultList();
+		return select;
 	}
 	
 	public <T extends Object> T update(T o) throws UtilsContraintViolationException, UtilsLockingException
@@ -581,8 +604,4 @@ public class UtilsFacadeBean implements UtilsFacade
 		if(o.getId()==0){return this.persist(o);}
 		else{return this.update(o);}
 	}
-
-
-
-
 }
