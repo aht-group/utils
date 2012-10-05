@@ -41,21 +41,29 @@ public class MenuFactory
 	private Map<String,String> translationsMenu,translationsAccess;
 	private Map<String,View> mapView;
 	
-	private static final String rootNode = UUID.randomUUID().toString();
+	private String rootNode;
 	private DirectedGraph<String, DefaultEdge> graph;
 	
 	private int alwaysUpToLevel;
 	
-	public MenuFactory(Menu menu,String lang){this(menu,null,lang);}	
+	public MenuFactory(Menu menu,String lang){this(menu,null,lang, UUID.randomUUID().toString());}	
 	
-	public MenuFactory(Menu menu, Access access,String lang)
+	public MenuFactory(Menu menu, Access access,String lang){this(menu,access,lang, UUID.randomUUID().toString());}
+	
+	public MenuFactory(Menu menu, Access access,String lang, String rootNode)
 	{
 		this.menu=menu;
 		this.access=access;
 		this.lang=lang;
+		this.rootNode=rootNode;
 		noRestrictions=false;
 		translationsMenu = new Hashtable<String,String>();
 		processMenu(menu);
+		
+		if(logger.isTraceEnabled())
+		{
+			logger.trace("Graph: "+graph);
+		}
 		
 		mapView = new Hashtable<String,View>();
 		translationsAccess = new Hashtable<String,String>();
@@ -90,6 +98,8 @@ public class MenuFactory
 	{
 		graph = new DefaultDirectedGraph<String, DefaultEdge>(DefaultEdge.class);
 		graph.addVertex(rootNode);
+		
+		logger.trace("Added Root: "+rootNode);
 	     	
 		for(MenuItem mi : menu.getMenuItem())
 		{
@@ -101,6 +111,8 @@ public class MenuFactory
 	{
 		graph.addVertex(mi.getCode());
 		graph.addEdge(parentNode, mi.getCode());
+		
+		logger.trace("Added Vertex: "+mi.getCode());
 		
 		if(mi.isSetLangs())
 		{
@@ -120,27 +132,22 @@ public class MenuFactory
 		noRestrictions=true;
 		return build(null,rootNode);
 	}
-	public Menu build(String codeCurrent)
+	public Menu build(String codeCurrent) {return build(null,codeCurrent);}
+	public Menu build(Map<String,Boolean> mapViewAllowed) {return build(mapViewAllowed,rootNode);}
+	public Menu build(Map<String,Boolean> mapViewAllowed, String codeCurrent){return build(mapViewAllowed,codeCurrent,false);}
+	public Menu build(Map<String,Boolean> mapViewAllowed, String codeCurrent, boolean isLoggedIn)
 	{
-		return build(null,codeCurrent);
-	}
-	public Menu build(Map<String,Boolean> mapViewAllowed)
-	{
-		return build(mapViewAllowed,rootNode);
-	}
-	
-	public Menu build(Map<String,Boolean> mapViewAllowed, String codeCurrent)
-	{
+		logger.trace("Building ("+rootNode+"): "+codeCurrent);
 		this.mapViewAllowed=mapViewAllowed;
 		Menu result = new Menu();
 		
-		try {result.getMenuItem().addAll(processChilds(1,menu.getMenuItem(),codeCurrent));}
+		try {result.getMenuItem().addAll(processChilds(1,menu.getMenuItem(),codeCurrent,isLoggedIn));}
 		catch (UtilsNotFoundException e) {logger.warn(e.getMessage());}
 		
 		return result;
 	}
 	
-	private List<MenuItem> processChilds(int level, List<MenuItem> origs, String codeCurrent) throws UtilsNotFoundException
+	private List<MenuItem> processChilds(int level, List<MenuItem> origs, String codeCurrent, boolean isLoggedIn) throws UtilsNotFoundException
 	{
 		List<MenuItem> result = new ArrayList<MenuItem>();
 		
@@ -151,7 +158,10 @@ public class MenuFactory
 			{
 				if(!mapView.containsKey(mi.getView().getCode())){throw new UtilsNotFoundException("No view with code="+mi.getView().getCode());}
 				View view = mapView.get(mi.getView().getCode());
-				if(noRestrictions || view.isPublic() || (mapViewAllowed.containsKey(mi.getView().getCode()) && mapViewAllowed.get(mi.getView().getCode())))
+				if(noRestrictions
+						|| view.isPublic()
+						|| (view.isSetOnlyLoginRequired() && view.isOnlyLoginRequired() && isLoggedIn)
+						|| (mapViewAllowed.containsKey(mi.getView().getCode()) && mapViewAllowed.get(mi.getView().getCode())))
 				{
 					miAdd = processItem(mi,codeCurrent,view);
 				}
@@ -177,7 +187,7 @@ public class MenuFactory
 				
 				if(level<alwaysUpToLevel || currentIsChild)
 				{
-					miAdd.getMenuItem().addAll(processChilds(level+1,mi.getMenuItem(),codeCurrent));
+					miAdd.getMenuItem().addAll(processChilds(level+1,mi.getMenuItem(),codeCurrent,isLoggedIn));
 				}
 				result.add(miAdd);
 			}
