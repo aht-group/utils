@@ -232,8 +232,21 @@ public class UtilsFacadeBean implements UtilsFacade
 	@Override
 	public <T extends EjbWithRecord, I extends EjbWithId> List<T> allOrderedParentRecordBetween(Class<T> cl, String by, boolean ascending, String p1Name, I p1,Date from, Date to)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<T> cQ = cB.createQuery(cl);
+		Root<T> fromRoot = cQ.from(cl);
+		
+		Path<Object> p1Path = fromRoot.get(p1Name);
+		
+		Expression<Date> eOrder = fromRoot.get(by);
+		
+		CriteriaQuery<T> select = cQ.select(fromRoot);
+		if(ascending){select.orderBy(cB.asc(eOrder));}
+		else{select.orderBy(cB.desc(eOrder));}
+		select.where(cB.equal(p1Path, p1.getId())
+					);
+		
+		return em.createQuery(select).getResultList();
 	}
 	
 	@Override
