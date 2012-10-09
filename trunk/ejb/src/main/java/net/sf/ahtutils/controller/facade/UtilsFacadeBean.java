@@ -213,20 +213,27 @@ public class UtilsFacadeBean implements UtilsFacade
 	@Override
 	public <T, I extends EjbWithId> List<T> allOrderedParent(Class<T> cl,String by, boolean ascending, String p1Name, I p1)
 	{
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<T> criteriaQuery = cb.createQuery(cl);
-		Root<T> from = criteriaQuery.from(cl);
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<T> cQ = cB.createQuery(cl);
+		Root<T> from = cQ.from(cl);
 		
 		Path<Object> p1Path = from.get(p1Name);
 		
 		Expression<Date> eOrder = from.get(by);
 		
-		CriteriaQuery<T> select = criteriaQuery.select(from);
-		if(ascending){select.orderBy(cb.asc(eOrder));}
-		else{select.orderBy(cb.desc(eOrder));}
-		select.where(cb.equal(p1Path, p1.getId()));
+		CriteriaQuery<T> select = cQ.select(from);
+		if(ascending){select.orderBy(cB.asc(eOrder));}
+		else{select.orderBy(cB.desc(eOrder));}
+		select.where(cB.equal(p1Path, p1.getId()));
 		
 		return em.createQuery(select).getResultList();
+	}
+	
+	@Override
+	public <T extends EjbWithRecord, I extends EjbWithId> List<T> allOrderedParentRecordBetween(Class<T> cl, String by, boolean ascending, String p1Name, I p1,Date from, Date to)
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	@Override
@@ -631,4 +638,6 @@ public class UtilsFacadeBean implements UtilsFacade
 		if(o.getId()==0){return this.persist(o);}
 		else{return this.update(o);}
 	}
+
+
 }
