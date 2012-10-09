@@ -230,21 +230,23 @@ public class UtilsFacadeBean implements UtilsFacade
 	}
 	
 	@Override
-	public <T extends EjbWithRecord, I extends EjbWithId> List<T> allOrderedParentRecordBetween(Class<T> cl, String by, boolean ascending, String p1Name, I p1,Date from, Date to)
+	public <T extends EjbWithRecord, I extends EjbWithId> List<T> allOrderedParentRecordBetween(Class<T> cl, String by, boolean ascending, String p1Name, I p1,Date fromRecord, Date toRecord)
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<T> cQ = cB.createQuery(cl);
-		Root<T> fromRoot = cQ.from(cl);
+		Root<T> from = cQ.from(cl);
 		
-		Path<Object> p1Path = fromRoot.get(p1Name);
+		Path<Object> p1Path = from.get(p1Name);
+		Expression<Date> eRecord = from.get("record");
 		
-		Expression<Date> eOrder = fromRoot.get(by);
+		Expression<Date> eOrder = from.get(by);
 		
-		CriteriaQuery<T> select = cQ.select(fromRoot);
+		CriteriaQuery<T> select = cQ.select(from);
 		if(ascending){select.orderBy(cB.asc(eOrder));}
 		else{select.orderBy(cB.desc(eOrder));}
-		select.where(cB.equal(p1Path, p1.getId())
-					);
+		select.where(cB.equal(p1Path, p1.getId()),
+				cB.lessThanOrEqualTo(eRecord, toRecord),
+				cB.greaterThanOrEqualTo(eRecord, fromRecord));
 		
 		return em.createQuery(select).getResultList();
 	}
@@ -395,8 +397,8 @@ public class UtilsFacadeBean implements UtilsFacade
 	
 	public <T extends EjbWithValidFrom> T fFirstValidFrom(Class<T> type, String parentName, long id, Date validFrom) throws UtilsNotFoundException
 	{
-		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-	    CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(type);
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+	    CriteriaQuery<T> criteriaQuery = cB.createQuery(type);
 	    
 	    Root<T> fromType = criteriaQuery.from(type);
 	    Path<Object> pathParent = fromType.get(parentName);
@@ -404,9 +406,9 @@ public class UtilsFacadeBean implements UtilsFacade
 	    Expression<Date> fromDate = fromType.get("validFrom");
 	    
 	    CriteriaQuery<T> select = criteriaQuery.select(fromType);
-	    select.where( criteriaBuilder.equal(pathParent, id),
-	    		      criteriaBuilder.lessThanOrEqualTo(fromDate, validFrom));
-	    select.orderBy(criteriaBuilder.desc(fromDate));
+	    select.where( cB.equal(pathParent, id),
+	    		      cB.lessThanOrEqualTo(fromDate, validFrom));
+	    select.orderBy(cB.desc(fromDate));
 	    
 		TypedQuery<T> q = em.createQuery(select);
 		q.setMaxResults(1);
