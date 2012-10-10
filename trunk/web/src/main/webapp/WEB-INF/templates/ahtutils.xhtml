@@ -1,32 +1,118 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-   xmlns:h="http://java.sun.com/jsf/html"
-   xmlns:ui="http://java.sun.com/jsf/facelets"
-   xmlns:f="http://java.sun.com/jsf/core"
-   xmlns:p="http://primefaces.org/ui"
-   xmlns:aht="http://java.sun.com/jsf/components/ahtutils">
-<h:head>
-    <title>AHTUtils JSF Showcase</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" type="text/css" href="/ahtutils-web-0.2.2-SNAPSHOT/resources/css/ahtutils-web.css" />
-</h:head>
-<h:body>
-	<f:view id="rootView">
-		<div id="container">
-		            <div id="header">
-		             <h1>AHTUtils Showcase   </h1>
-		            </div>
-		            <div class="nav">
-		                <ui:insert name="nav">
-		                	<ui:include src="navigation.xhtml" />
-		                </ui:insert>
-		            </div>
-		            <div class="main">
-		                <ui:insert name="content"></ui:insert>
-		            </div>
-		</div>
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:erp="http://www.aht-group.com/erp">
+
+	<head>
+			
+		<!-- Basic Page Needs -->
+		<meta charset="utf-8"/>
+		<title>AHT Utils</title>
+		<meta name="description" content=""/>
+		<meta name="author" content=""/>
+						
+		<!-- Mobile Specific Metas -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+							
+		<!-- CSS -->
+		<link rel="stylesheet" href="/ahtutils-web/stylesheets/base.css"/>
+		<link rel="stylesheet" href="/ahtutils-web/stylesheets/skeleton.css"/>
+		<link rel="stylesheet" href="/ahtutils-web/stylesheets/layout.css"/>
+
+																											
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+												
+		<!-- Favicons -->
+		<link rel="shortcut icon" href="images/favicon.ico"/>
+		<link rel="apple-touch-icon" href="images/apple-touch-icon.png"/>
+		<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png"/>
+		<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"/>
+																
+	</head>
+	<body>	
+			
+		<header id="header" class="site-header" role="banner">
+			<div id="header-inner" class="container sixteen columns over">
+				<hgroup class="one-third column alpha">
+					<h1 id="site-title" class="site-title">
+						<a href="index.html" id="logo"><img src="/ahtutils-web/images/ahtutils-logo.png" alt="AHT Utils logo" height="63"  /></a>
+					</h1>
+				</hgroup>
+				<nav id="main-nav" class="two thirds column omega">
+					<ul id="main-nav-menu" class="nav-menu">
+						<li><a href="index.html">Home</a></li>
+			
+						<li class="current"><a href="/ahtutils-web/index.jsf">Showcase</a></li>
+						<li><a href="contact.html">Contact</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+			
+			<div class="container">
+				<aside class="six columns left-sidebar">
+					<div class="sidebar-widget">
+						<h2>Showcase</h2>
+						<p>Out showcase.</p>
+					</div>
+					<div class="sidebar-widget">
+						<ui:insert name="nav">
+							<ui:include src="navigation.xhtml" />
+						</ui:insert>
+					</div>
+				</aside>
+
+				<article class="ten columns main-content">
+					<ui:insert name="content"></ui:insert>					
+				</article>
+
+			</div>
+			
+			<footer>
+				<div class="footer-inner container">
+					<div class="social footer-columns one-third column">
+						<h2><i class="icon-bullhorn icon-large"></i> Get Social</h2>
+						<p>Want to stalk us? That would be super:</p>
+						<ul>
+							<li><a href="http://www.twitter.com/"><i class="icon-twitter-sign icon-large"></i> Twitter</a></li>
+							<li><a href="http://www.facebook.com"><i class="icon-facebook-sign icon-large"></i> Facebook</a></li>
+							<li><a href="https://plus.google.com"><i class="icon-google-plus-sign icon-large"></i> Google+</a></li>
+						</ul>
+					</div>
+					
+					<div class="footer-columns one-third column">
+						<h2><i class="icon-book icon-large"></i> License</h2>
+						<p>AHT Utils  is free under the GPL license</p>
+						
+					</div>
+					
+					<div class="footer-columns one-third column">
+						<h2><i class="icon-user icon-large"></i> About Us</h2>
+						<p>This is where you tell the world how awesome you are.</p>
+					</div>
+					
+				</div>
+				
+				<div id="footer-base">
+					<div class="container">
+						
+						<div class="eight columns far-edge">
+							Design by <a href="http://www.opendesigns.org">Open Designs</a>
+						</div>
+					</div>
+				</div>
+				
+			</footer>
+			
+			<!-- End Document
+================================================== -->
+			
+			
+		</body>
 	
-	</f:view>
-</h:body>
 </html>

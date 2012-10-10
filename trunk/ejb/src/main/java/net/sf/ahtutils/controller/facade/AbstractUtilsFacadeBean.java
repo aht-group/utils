@@ -9,6 +9,7 @@ import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.model.interfaces.EjbWithCode;
 import net.sf.ahtutils.model.interfaces.EjbWithId;
 import net.sf.ahtutils.model.interfaces.EjbWithName;
+import net.sf.ahtutils.model.interfaces.EjbWithType;
 import net.sf.ahtutils.model.interfaces.UtilsProperty;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 
@@ -20,6 +21,10 @@ public class AbstractUtilsFacadeBean
 	final static Logger logger = LoggerFactory.getLogger(AbstractUtilsFacadeBean.class);
 	
 	protected UtilsFacadeBean fUtils;
+	
+	// All
+	public <T extends Object> List<T> all(Class<T> type) {return fUtils.all(type);}
+	public <T extends EjbWithType> List<T> allForType(Class<T> cl, String type) {return fUtils.allForType(cl, type);}
 	
 	// Persist
 	public <T extends EjbWithId> T save(T o) throws UtilsContraintViolationException,UtilsLockingException {return fUtils.save(o);}
