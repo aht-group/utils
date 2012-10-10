@@ -68,6 +68,18 @@
 			        <groupId>com.ibm.icu</groupId>
 			        <artifactId>icu4j</artifactId>
 			    </exclusion>
+			    <exclusion>
+			        <groupId>net.sf.ahtutils</groupId>
+			        <artifactId>ahtutils-xml</artifactId>
+			    </exclusion>
+			    <exclusion>
+			        <groupId>net.sf.ahtutils</groupId>
+			        <artifactId>ahtutils-util</artifactId>
+			    </exclusion>
+			    <exclusion>
+			    	<groupId>org.jgrapht</groupId>
+					<artifactId>jgrapht</artifactId>
+			    </exclusion>
 			</exclusions>
 	 	</dependency>
 	 	<dependency>  
