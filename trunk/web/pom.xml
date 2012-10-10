@@ -70,10 +70,6 @@
 			    </exclusion>
 			    <exclusion>
 			        <groupId>net.sf.ahtutils</groupId>
-			        <artifactId>ahtutils-xml</artifactId>
-			    </exclusion>
-			    <exclusion>
-			        <groupId>net.sf.ahtutils</groupId>
 			        <artifactId>ahtutils-util</artifactId>
 			    </exclusion>
 			    <exclusion>
