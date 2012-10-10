@@ -20,7 +20,7 @@
 	</properties>
 	
 	<build>
-       <finalName>${project.artifactId}</finalName>
+       <finalName>ahtutils</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -63,7 +63,18 @@
 	 		<groupId>net.sf.ahtutils</groupId>
     		<artifactId>ahtutils-jsf</artifactId>
     		<version>0.2.2-SNAPSHOT</version>
+    		<exclusions>
+			    <exclusion>
+			        <groupId>com.ibm.icu</groupId>
+			        <artifactId>icu4j</artifactId>
+			    </exclusion>
+			</exclusions>
 	 	</dependency>
+	 	<dependency>  
+   			<groupId>org.primefaces</groupId>  
+   			<artifactId>primefaces</artifactId>
+   			<version>3.4.1</version>
+		</dependency>
 	</dependencies>
 	<packaging>war</packaging>
 </project>
