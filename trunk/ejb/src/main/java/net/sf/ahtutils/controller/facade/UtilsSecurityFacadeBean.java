@@ -110,4 +110,15 @@ public class UtilsSecurityFacadeBean extends UtilsFacadeBean implements UtilsSec
 		user = em.merge(user);
 		role = em.merge(role);
 	}
+
+	@Override
+	public <L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L, D, C, R, V, U, A, USER>, R extends UtilsSecurityRole<L, D, C, R, V, U, A, USER>, V extends UtilsSecurityView<L, D, C, R, V, U, A, USER>, U extends UtilsSecurityUsecase<L, D, C, R, V, U, A, USER>, A extends UtilsSecurityAction<L, D, C, R, V, U, A, USER>, USER extends UtilsUser<L, D, C, R, V, U, A, USER>>
+	boolean hasRole(Class<USER> clUser, Class<R> clRole, USER user, R role)
+	{
+		for(R r: allRolesForUser(clUser, user))
+		{
+			if(r.getId() == role.getId()){return true;}
+		}
+		return false;
+	}
 }

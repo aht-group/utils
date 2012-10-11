@@ -49,10 +49,7 @@ public class PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataMode
          
         for(T ejb : list)
         {  
-            if(ejb.getId()==(new Integer(rowKey)))
-            {
-            	return ejb;
-            }  
+            if(ejb.getId()==(new Integer(rowKey))){return ejb; }  
         }
           
         return null;  
