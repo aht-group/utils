@@ -59,6 +59,11 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
+		<dependency>
+	 		<groupId>net.sf.ahtutils</groupId>
+    		<artifactId>ahtutils-interfaces</artifactId>
+    		<version>0.2.2-SNAPSHOT</version>
+         </dependency>
 		 <dependency>
 	 		<groupId>net.sf.ahtutils</groupId>
     		<artifactId>ahtutils-jsf</artifactId>
