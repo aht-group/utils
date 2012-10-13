@@ -1,41 +1,30 @@
 package net.sf.ahtutils.web.demo;
 
+import java.util.Hashtable;
+import java.util.Map;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 
-import net.sf.ahtutils.model.interfaces.UtilsProperty;
-import net.sf.ahtutils.model.interfaces.mbean.JiraConfig;
+import net.sf.ahtutils.controller.interfaces.mbean.JiraConfig;
+import net.sf.ahtutils.web.mbean.util.AbstractJiraBean;
 
 @ManagedBean
-public class JiraConfigBean implements JiraConfig {
-	
-	private UtilsProperty jiraHost;
-	private UtilsProperty jiraScriptPath;
+public class JiraConfigBean extends AbstractJiraBean implements JiraConfig
+{
+	private static final long serialVersionUID = 1L;
+
+	public final String[] collectorKeys = {"General,Feedback"};
 	
 	@PostConstruct
 	public void init()
 	{
-		jiraHost = new AhtUtilsProperty();
-		jiraHost.setId(0);
-		jiraHost.setKey("jiraHost");
-		jiraHost.setValue("https://foo.bar");
+		jiraHost = "https://foo.bar";
+		jiraScriptPath = "en_US-egflvs-123456789/123/123/1.2.3";
 		
-		jiraScriptPath = new AhtUtilsProperty();
-		jiraScriptPath.setId(0);
-		jiraScriptPath.setKey("jiraScriptPath");
-		jiraScriptPath.setValue("en_US-egflvs-123456789/123/123/1.2.3");
+		for(String key : collectorKeys)
+		{
+			collectorId.put(key, "myCode");
+		}
 	}
-
-	@Override
-	public UtilsProperty getJiraHost() {
-		return jiraHost;
-	}
-
-	@Override
-	public UtilsProperty getJiraScriptPath() {
-		return jiraScriptPath;
-	}
-	
-	
-
 }
