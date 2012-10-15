@@ -9,6 +9,7 @@
     
    <composite:interface>
      <composite:attribute name="file"/>
+     <composite:attribute name="readonly"/>
    </composite:interface>
         
   <composite:implementation>
@@ -21,7 +22,7 @@
    	  <script type="text/javascript">
 		    var editor = ace.edit("editor");
 		    editor.getSession().setMode("ace/mode/javascript");
-		    editor.setReadOnly(true);
+		    editor.setReadOnly(#{cc.attrs.readonly});
 	  </script>	
   	
   </f:if>
@@ -33,7 +34,7 @@
    	  <script type="text/javascript">
 		    var editor = ace.edit("editor");
 		    editor.getSession().setMode("ace/mode/javascript");
-		    editor.setReadOnly(true);
+		    editor.setReadOnly(#{cc.attrs.readonly});
 		    var req = new XMLHttpRequest();
 		    req.open('GET', 'http://' +document.location.hostname +':' +document.location.port +'#{cc.attrs.file}', false);
 		    req.send(null);
