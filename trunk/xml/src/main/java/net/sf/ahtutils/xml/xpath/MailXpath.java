@@ -16,14 +16,14 @@ public class MailXpath
 {
 	final static Logger logger = LoggerFactory.getLogger(MailXpath.class);
 
-	public static synchronized Mail getMail(Mails mails, String id) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
+	public static synchronized Mail getMail(Mails mails, String code) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
 	{
 		JXPathContext context = JXPathContext.newContext(mails);
 		
 		@SuppressWarnings("unchecked")
-		List<Mail> listResult = (List<Mail>)context.selectNodes("mail[@id='"+id+"']");
-		if(listResult.size()==0){throw new ExlpXpathNotFoundException("No "+Mail.class.getSimpleName()+" for id="+id);}
-		else if(listResult.size()>1){throw new ExlpXpathNotUniqueException("Multiple "+Mail.class.getSimpleName()+" for id="+id);}
+		List<Mail> listResult = (List<Mail>)context.selectNodes("mail[@code='"+code+"']");
+		if(listResult.size()==0){throw new ExlpXpathNotFoundException("No "+Mail.class.getSimpleName()+" for code="+code);}
+		else if(listResult.size()>1){throw new ExlpXpathNotUniqueException("Multiple "+Mail.class.getSimpleName()+" for code="+code);}
 		return listResult.get(0);
 	}
 	

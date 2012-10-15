@@ -67,7 +67,7 @@ public class FreemarkerEngine
 	{
 		try
 		{
-			Mail mail = MailXpath.getMail(mails, cfgMail.getId());
+			Mail mail = MailXpath.getMail(mails, cfgMail.getCode());
 
 			net.sf.ahtutils.xml.mail.Template cfgTemplate =  cfgMail.getTemplate().get(0);
 			net.sf.ahtutils.xml.mail.Template utilsTemplate = MailXpath.getTemplate(mail, cfgTemplate.getLang(), cfgTemplate.getType());

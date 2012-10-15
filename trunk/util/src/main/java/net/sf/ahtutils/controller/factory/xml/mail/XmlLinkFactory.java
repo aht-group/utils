@@ -20,5 +20,4 @@ public class XmlLinkFactory
 		xml.setUrl(url);
 		return xml;
 	}
-	
 }

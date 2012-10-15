@@ -1,5 +1,7 @@
 package net.sf.ahtutils.controller.factory.xml.mail;
 
+import javax.mail.Message;
+
 import net.sf.ahtutils.xml.mail.Header;
 import net.sf.ahtutils.xml.mail.Mail;
 import net.sf.ahtutils.xml.mail.Template;
@@ -11,14 +13,14 @@ public class XmlMailFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlEmailAddressFactory.class);
 	
-    public static Mail create(String id, String lang, String type)
+    public static Mail create(String code, String lang, String type)
     {
     	Template template = new Template();
     	template.setLang(lang);
     	template.setType(type);
     	
     	Mail mail = new Mail();
-    	mail.setId(id);
+    	mail.setCode(code);
     	mail.getTemplate().add(template);
     	
     	return mail;
@@ -29,6 +31,14 @@ public class XmlMailFactory
     	Mail mail = new Mail();
     	mail.setHeader(header);
     	mail.setExample(content);
+    	
+    	return mail;
+    }
+    
+    public Mail build(Message message)
+    {
+    	Mail mail = new Mail();
+    	
     	
     	return mail;
     }

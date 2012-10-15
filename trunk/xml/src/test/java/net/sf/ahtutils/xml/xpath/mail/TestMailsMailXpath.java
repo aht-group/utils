@@ -7,6 +7,7 @@ import net.sf.ahtutils.xml.mail.TestXmlMail;
 import net.sf.ahtutils.xml.xpath.MailXpath;
 import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,19 +30,20 @@ public class TestMailsMailXpath extends AbstractXmlTest
 		xml2 = TestXmlMail.create("t2",false);mails.getMail().add(xml2);
 		xml3 = TestXmlMail.create("t3",false);mails.getMail().add(xml3);
 		xml4 = TestXmlMail.create("t3",false);mails.getMail().add(xml4);
+		JaxbUtil.error(mails);
 	}
 	
 	@Test
 	public void testId1() throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
 	{
-		Mail actual = MailXpath.getMail(mails, xml1.getId());
+		Mail actual = MailXpath.getMail(mails, xml1.getCode());
 		assertJaxbEquals(xml1, actual);
 	}
 	    
 	@Test
 	public void testId2() throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
 	{
-		Mail actual = MailXpath.getMail(mails, xml2.getId());
+		Mail actual = MailXpath.getMail(mails, xml2.getCode());
 		assertJaxbEquals(xml2, actual);
 	}
 
@@ -54,6 +56,6 @@ public class TestMailsMailXpath extends AbstractXmlTest
 	@Test(expected=ExlpXpathNotUniqueException.class)
 	public void testUnique() throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
 	{
-		MailXpath.getMail(mails, xml3.getId());
+		MailXpath.getMail(mails, xml3.getCode());
 	}
 }

@@ -41,13 +41,13 @@ public class FreemarkerMimeContentCreator extends AbstractMimeContentCreator
 		Multipart mpAlternative = new MimeMultipart("alternative");
 		
 		boolean someContentAvailable = false;
-		if(fme.isAvailable(mail.getId(), lang, "txt"))
+		if(fme.isAvailable(mail.getCode(), lang, "txt"))
 		{
 			logger.trace("Adding txt body part");
 			mpAlternative.addBodyPart(createTxt(lang,xml,mail));
 			someContentAvailable=true;
 		}
-		if(fme.isAvailable(mail.getId(), lang, "html"))
+		if(fme.isAvailable(mail.getCode(), lang, "html"))
 		{
 			logger.trace("Adding html body part");
 			mpAlternative.addBodyPart(createHtml(lang,xml,mail));
@@ -76,7 +76,7 @@ public class FreemarkerMimeContentCreator extends AbstractMimeContentCreator
 	
 	private MimeBodyPart createTxt(String lang, Document xml, Mail mail) throws MessagingException
 	{
-		fme.createTemplate(mail.getId(), lang, "txt");
+		fme.createTemplate(mail.getCode(), lang, "txt");
 		
 		MimeBodyPart txt = new MimeBodyPart();
 	
@@ -98,7 +98,7 @@ public class FreemarkerMimeContentCreator extends AbstractMimeContentCreator
 	
 	private MimeBodyPart createHtml(String lang,Document xml, Mail mail) throws MessagingException
 	{
-		fme.createTemplate(mail.getId(), lang, "html");
+		fme.createTemplate(mail.getCode(), lang, "html");
 		MimeBodyPart html = new MimeBodyPart();
 		try
 		{

@@ -30,16 +30,16 @@ public class TestXmlMail extends AbstractXmlMailTest
     }  
     
     private static Mail create() {return create(true);}
-    public static Mail create(boolean withChilds){return create("myId", withChilds);}
-    public static Mail create(String id, boolean withChilds)
+    public static Mail create(boolean withChilds){return create("myCode", withChilds);}
+    public static Mail create(String code, boolean withChilds)
     {
     	Mail xml = new Mail();
-    	xml.setId(id);
+    	xml.setId(123);
+    	xml.setCode(code);
     	xml.setMsgId("myMsgID");
     	xml.setDir("myDir");
     	xml.setExample("myExample");
     	xml.setTest(true);
-    	xml.setCode("myCode");
     	
     	if(withChilds)
     	{

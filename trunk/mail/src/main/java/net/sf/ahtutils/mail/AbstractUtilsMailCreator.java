@@ -15,17 +15,17 @@ public abstract class AbstractUtilsMailCreator
 		
 	protected String lang;
 	protected Header header;
-	protected String mailId;
+	protected String mailCode;
 	
 	protected boolean doneInjection,doneWork;
 	
 	protected EmailAddress fromAddress;
 	protected String subject;
 	
-	public AbstractUtilsMailCreator(String mailId)
+	public AbstractUtilsMailCreator(String mailCode)
 	{
 		lang = "de";
-		this.mailId=mailId;
+		this.mailCode=mailCode;
 		doneInjection=false;
 		doneWork=false;
 	}

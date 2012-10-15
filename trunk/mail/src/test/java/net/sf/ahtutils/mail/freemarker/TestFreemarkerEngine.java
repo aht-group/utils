@@ -37,7 +37,7 @@ public class TestFreemarkerEngine extends AbstractAhtUtilsMailTest
 		mails = new Mails();
 		
 		Mail mail = new Mail();
-		mail.setId("id");
+		mail.setCode("id");
 		
 		Template template = new Template();
 		template.setLang("de");
