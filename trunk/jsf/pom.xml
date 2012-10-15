@@ -69,6 +69,10 @@
    	   		<groupId>net.sf.ahtutils</groupId>
    	   		<artifactId>ahtutils-util</artifactId>
    	   	</dependency>
+   	   		<dependency>
+   	   		<groupId>net.sf.ahtutils</groupId>
+   	   		<artifactId>ahtutils-interfaces</artifactId>
+   	   	</dependency>
    	   	<dependency>
    	   		<groupId>com.sun.faces</groupId>
    	   		<artifactId>jsf-api</artifactId>
