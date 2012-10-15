@@ -1,8 +1,5 @@
 package net.sf.ahtutils.web.demo;
 
-import java.util.Hashtable;
-import java.util.Map;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 
@@ -14,7 +11,7 @@ public class JiraConfigBean extends AbstractJiraBean implements JiraConfig
 {
 	private static final long serialVersionUID = 1L;
 
-	public final String[] collectorKeys = {"General,Feedback"};
+	public final String[] collectorKeys = {"General"};
 	
 	@PostConstruct
 	public void init()
@@ -24,7 +21,7 @@ public class JiraConfigBean extends AbstractJiraBean implements JiraConfig
 		
 		for(String key : collectorKeys)
 		{
-			collectorId.put(key, "myCode");
+			collectorId.put(key, "v1234567");
 		}
 	}
 }

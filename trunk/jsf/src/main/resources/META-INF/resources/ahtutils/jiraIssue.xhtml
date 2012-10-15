@@ -11,6 +11,7 @@
      <composite:attribute name="for"/>
      <composite:attribute name="jiraHost"/>
      <composite:attribute name="scriptPath"/>
+     <composite:attribute name="collector"/>
      <composite:attribute name="collectorId"/>
      <composite:attribute name="bean"/>
    </composite:interface>
@@ -20,7 +21,7 @@
   <f:if test="#{!empty cc.attrs.bean}">
   	<script>
         jQuery.ajax({
-            url: "#{cc.attrs.bean.jiraHost.value}/s/#{cc.attrs.bean.jiraScriptPath.value}/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs.js?collectorId=#{cc.attrs.collectorId}",
+            url: "#{cc.attrs.bean.jiraHost}/s/#{cc.attrs.bean.jiraScriptPath}/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs.js?collectorId=#{cc.attrs.bean.collectorId[cc.attrs.collector]}",
             type: "get",
             cache: true,
             dataType: "script"
