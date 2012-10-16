@@ -1,11 +1,9 @@
 package net.sf.ahtutils.mail.imap;
 
-import java.util.Enumeration;
 import java.util.Properties;
 
 import javax.mail.Flags;
 import javax.mail.Folder;
-import javax.mail.Header;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -44,7 +42,7 @@ public class XmlImapStore
 	{
 		Session session = Session.getDefaultInstance(new Properties(), null);
 		store = session.getStore(hostScheme);
-		store.connect("imap.aht-group.com", user, password);
+		store.connect(hostName, user, password);
 	}
 	
 	public void useInbox() throws MessagingException {useFolder("Inbox");}
@@ -72,6 +70,7 @@ public class XmlImapStore
 		{
 			Mail mail = f.build(message); 
 			mails.getMail().add(mail);
+/*			
 			System.out.println(message.getMessageNumber()+" "+message.getHeader("Message-ID")[0]);
 			
 			Enumeration<Header> enu = message.getAllHeaders();
@@ -80,7 +79,7 @@ public class XmlImapStore
 				Header h = enu.nextElement();
 				System.out.println("  "+h.getName()+": "+h.getValue());
 			}
-		}
+*/		}
 		return mails;
 	}
 	
