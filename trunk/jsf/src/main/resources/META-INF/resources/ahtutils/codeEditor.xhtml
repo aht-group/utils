@@ -7,32 +7,35 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:composite="http://java.sun.com/jsf/composite">
     
-   <composite:interface>
+   <composite:interface  componentType="net.sf.ahtutils.jsf.components.CodeEditor">
      <composite:attribute name="file"/>
      <composite:attribute name="readonly"/>
    </composite:interface>
         
   <composite:implementation>
-  
+     <h:outputStylesheet library="css" name="ahtutils.css" target="head"/>
+     <link type="text/css" rel="stylesheet" href="/ahtutils/javax.faces.resource/ahtutils.css.jsf?ln=css" />
+			
+  <!--    <h:outputStylesheet value="#{resource['this:ahtutils.css']}"/> -->
   <f:if test="#{empty cc.attrs.file}">
-  <pre id="editor">
+  <pre id="#{cc.codeId}" class="codeEditor">
    		  <composite:insertChildren/>
    	  </pre>
 	  <script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
    	  <script type="text/javascript">
-		    var editor = ace.edit("editor");
+		    var editor = ace.edit("#{cc.codeId}");
 		    editor.getSession().setMode("ace/mode/javascript");
 		    editor.setReadOnly(#{cc.attrs.readonly});
 	  </script>	
   	
   </f:if>
   <f:if test="#{!empty cc.attrs.file}">
-  	<pre id="editor">
+  	<pre id="#{cc.codeId}" class="codeEditor">
    		  Loading input file...
    	  </pre>
 	  <script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
    	  <script type="text/javascript">
-		    var editor = ace.edit("editor");
+		    var editor = ace.edit("#{cc.codeId}");
 		    editor.getSession().setMode("ace/mode/javascript");
 		    editor.setReadOnly(#{cc.attrs.readonly});
 		    var req = new XMLHttpRequest();
