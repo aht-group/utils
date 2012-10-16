@@ -14,7 +14,7 @@
         
   <composite:implementation>
      <h:outputStylesheet library="css" name="ahtutils.css" target="head"/>
-     <link type="text/css" rel="stylesheet" href="/ahtutils/javax.faces.resource/ahtutils.css.jsf?ln=css" />
+     <link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/javax.faces.resource/ahtutils.css.jsf?ln=css" />
 			
   <!--    <h:outputStylesheet value="#{resource['this:ahtutils.css']}"/> -->
   <f:if test="#{empty cc.attrs.file}">
