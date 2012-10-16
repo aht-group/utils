@@ -12,6 +12,8 @@ import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.search.FlagTerm;
 
+import net.sf.ahtutils.controller.factory.xml.mail.XmlMailFactory;
+import net.sf.ahtutils.xml.mail.Mail;
 import net.sf.ahtutils.xml.mail.Mails;
 
 import org.slf4j.Logger;
@@ -63,16 +65,20 @@ public class XmlImapStore
 		FlagTerm ft = new FlagTerm(new Flags(Flags.Flag.SEEN), false);
 		Message messages[] = folder.search(ft);
 		
+		XmlMailFactory f = new XmlMailFactory();
+		
 		Mails mails = new Mails();
 		for(Message message:messages)
 		{
-			
+			Mail mail = f.build(message); 
+			mails.getMail().add(mail);
 			System.out.println(message.getMessageNumber()+" "+message.getHeader("Message-ID")[0]);
+			
 			Enumeration<Header> enu = message.getAllHeaders();
 			while(enu.hasMoreElements())
 			{
 				Header h = enu.nextElement();
-		//		System.out.println("  "+h.getName()+": "+h.getValue());
+				System.out.println("  "+h.getName()+": "+h.getValue());
 			}
 		}
 		return mails;

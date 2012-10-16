@@ -1,6 +1,7 @@
 package net.sf.ahtutils.controller.factory.xml.mail;
 
 import javax.mail.Message;
+import javax.mail.MessagingException;
 
 import net.sf.ahtutils.xml.mail.Header;
 import net.sf.ahtutils.xml.mail.Mail;
@@ -35,10 +36,14 @@ public class XmlMailFactory
     	return mail;
     }
     
-    public Mail build(Message message)
+    public Mail build(Message message) throws MessagingException
     {
     	Mail mail = new Mail();
+    	mail.setId(message.getMessageNumber());
+    	mail.setMsgId(message.getHeader("Message-ID")[0]);
     	
+    	XmlHeaderFactory f = new XmlHeaderFactory();
+    	mail.setHeader(f.build(message));
     	
     	return mail;
     }
