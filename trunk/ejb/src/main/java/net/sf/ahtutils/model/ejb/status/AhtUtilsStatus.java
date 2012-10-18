@@ -53,6 +53,8 @@ public class AhtUtilsStatus implements UtilsStatus<AhtUtilsLang,AhtUtilsDescript
 	
 	protected String image;
 	
+	protected String style;
+
 	protected int position;
 
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>Getters and Setters<<<<<<<<<<<<<<<<<
@@ -74,6 +76,9 @@ public class AhtUtilsStatus implements UtilsStatus<AhtUtilsLang,AhtUtilsDescript
 	
 	public int getPosition() {return position;}
 	public void setPosition(int position) {this.position = position;}
+	
+	public String getStyle() {return style;}
+	public void setStyle(String style) {this.style = style;}
 	
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>Methods<<<<<<<<<<<<<<<<<<<<<<<<<<<	
 	

@@ -17,4 +17,7 @@ public interface UtilsStatus<L extends UtilsLang, D extends UtilsDescription> ex
 	
 	public String getImage();
 	public void setImage(String image);
+	
+	public String getStyle();
+	public void setStyle(String style);
 }
