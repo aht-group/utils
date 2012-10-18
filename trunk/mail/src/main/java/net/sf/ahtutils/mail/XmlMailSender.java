@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import javax.mail.Authenticator;
 import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -31,7 +33,11 @@ public class XmlMailSender
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlMailSender.class);
 	
-	private String smtpHost;
+	private String smtpHost,smtpUser,smtpPassword;
+	private int smtpPort;
+	
+	private boolean tlsPwd;
+	
 	private FreemarkerEngine fme;
 	private List<EmailAddress> alwaysBcc;
 	private EmailAddress overrideOnlyTo;
@@ -44,20 +50,60 @@ public class XmlMailSender
 	{
 		this(null,smtpHost);
 	}
-	public XmlMailSender(FreemarkerEngine fme,String smtpHost)
+	public XmlMailSender(FreemarkerEngine fme,String smtpHost){this(fme,smtpHost,25);}
+	public XmlMailSender(FreemarkerEngine fme,String smtpHost, int smtpPort)
 	{
 		this.fme=fme;
 		this.smtpHost=smtpHost;
+		this.smtpPort=smtpPort;
 		alwaysBcc = new ArrayList<EmailAddress>();
 		overrideOnlyTo = null;
+		tlsPwd = false;
+	}
+	
+	public void tlsPasswordAuthentication(String smtpUser, String smtpPassword)
+	{
+		this.smtpUser=smtpUser;
+		this.smtpPassword=smtpPassword;
+		tlsPwd = true;
+	}
+	
+	private Session buildSession()
+	{
+		Properties props = System.getProperties();
+		props.put("mail.smtp.host", smtpHost);
+		props.put("mail.smtp.port", smtpPort);
+		Session session;
+		
+		if(tlsPwd)
+		{
+			props.put("mail.transport.protocol","smtp");
+			props.put("mail.smtp.auth", "true");
+			props.put("mail.smtp.starttls.enable", "true");
+			props.put("mail.smtp.tls", "true");
+			props.put("mail.smtp.user", "t.kisner@aht-group.com");
+			props.put("mail.password", "trek2heck2mo9gleurp3am5uth");
+			
+			Authenticator auth = new Authenticator()
+			{
+				@Override public PasswordAuthentication getPasswordAuthentication()
+				{
+					return new PasswordAuthentication(smtpUser,smtpPassword);
+				}
+			};
+			session = Session.getDefaultInstance(props, auth);
+		}
+		else
+		{
+			session = Session.getDefaultInstance(props, null);
+		}		
+		session.setDebug(false);
+		return session;
 	}
 	
 	public void send(Mail mail) throws MessagingException, UnsupportedEncodingException
 	{
-		Properties props = System.getProperties();
-		props.put("mail.smtp.host", smtpHost);
-		Session session = Session.getDefaultInstance(props, null);
-		session.setDebug(false);
+		Session session = buildSession();
 		
 		MimeMessage msg = new MimeMessage(session);
 		msg.setFrom(new InternetAddress(mail.getHeader().getFrom().getEmailAddress().getEmail()));
@@ -79,11 +125,8 @@ public class XmlMailSender
 	}
 	public void send(String lang, Document doc) throws UnsupportedEncodingException, MessagingException, UtilsProcessingException, UtilsMailException
 	{
-		Properties props = System.getProperties();
-		props.put("mail.smtp.host", smtpHost);
-//		props.put("mail.smtp.port", "25");
-		Session session = Session.getDefaultInstance(props, null);
-		session.setDebug(false);
+		Session session = buildSession();
+		
 		MimeMessage message = new MimeMessage(session);
 		MimeMessageCreator mmc = new MimeMessageCreator(message);
 		
