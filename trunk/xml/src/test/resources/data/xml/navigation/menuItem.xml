@@ -4,5 +4,5 @@
     <menuItem name="myName" code="myCode" href="myHref" active="true"/>
     <s:descriptions/>
     <s:langs/>
-    <acl:view code="myCode" index="1" public="true" onlyLoginRequired="true" urlParameter="myUrlParameter"/>
+    <acl:view code="myCode" index="1" public="true" onlyLoginRequired="true" urlParameter="myUrlParameter" label="myLabel"/>
 </menuItem>

@@ -41,6 +41,7 @@ public class TestXmlView extends AbstractXmlAccessTest
     	xml.setIndex(1);
     	xml.setPublic(true);
     	xml.setOnlyLoginRequired(true);
+    	xml.setLabel("myLabel");
     	
     	if(withChilds)
     	{

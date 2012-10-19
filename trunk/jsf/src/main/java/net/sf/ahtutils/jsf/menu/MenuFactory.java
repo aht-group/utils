@@ -205,7 +205,7 @@ public class MenuFactory
 		}
 		else if(miOrig.isSetView())
 		{
-			mi.setName(getNameFromViews(view));
+			mi.setName(getNameFromViews(view,miOrig.getView()));
 		}
 		else
 		{
@@ -234,10 +234,18 @@ public class MenuFactory
 		else {return translationsMenu.get(code);}
 	}
 	
-	private String getNameFromViews(View view)
+	private String getNameFromViews(View view, View viewCode)
 	{
-		if(!translationsAccess.containsKey(view.getCode())){return "???"+view.getCode()+"???";}
-		else {return translationsAccess.get(view.getCode());}
+		StringBuffer sbLabel = new StringBuffer();
+		if(!translationsAccess.containsKey(view.getCode())){sbLabel.append("???"+view.getCode()+"???");}
+		else {sbLabel.append(translationsAccess.get(view.getCode()));}
+		
+		if(viewCode.isSetLabel())
+		{
+			if(sbLabel.length()>0){sbLabel.append(" ");}
+			sbLabel.append(viewCode.getLabel());	
+		}
+		return sbLabel.toString();
 	}
 	
 	private String getHrefFromViews(View viewCode)

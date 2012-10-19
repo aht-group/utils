@@ -102,6 +102,7 @@
             <xsd:attribute name="public" type="xsd:boolean"/>
             <xsd:attribute name="onlyLoginRequired" type="xsd:boolean"/>
             <xsd:attribute name="urlParameter" type="xsd:string"/>
+            <xsd:attribute name="label" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="roles">
