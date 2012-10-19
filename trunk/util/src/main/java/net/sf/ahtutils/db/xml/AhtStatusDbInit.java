@@ -197,6 +197,7 @@ public class AhtStatusDbInit
 				{
 					addLangsAndDescriptions(ejbStatus,status);
 					if(status.isSetImage()){ejbStatus.setImage(status.getImage());}
+					if(status.isSetStyle()){ejbStatus.setStyle(status.getStyle());}
 				}
 				catch (InstantiationException e) {logger.error("",e);}
 				catch (IllegalAccessException e) {logger.error("",e);}
