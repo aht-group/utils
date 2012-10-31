@@ -6,9 +6,9 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:composite="http://java.sun.com/jsf/composite">
     
-	<composite:interface>
+	<composite:interface componentType="net.sf.ahtutils.jsf.components.IconSaveUpdate">
 		<composite:attribute name="ejb"/>
-		<composite:attribute name="listener" required="true"/>
+		<composite:attribute name="listener" required="true" method-signature="void listener(javax.faces.event.AjaxBehaviorEvent)"/>
 		<composite:attribute name="update"/>
 		<composite:attribute name="styleClass"/>
 		<composite:attribute name="disabled" required="false" default="false"/>
