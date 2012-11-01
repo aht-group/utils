@@ -25,7 +25,7 @@ public abstract class AbstractEjbIdConverter <I extends EjbWithId> implements Co
     public Object getAsObject(FacesContext facesContext, UIComponent component, String submittedValue)
     {
     	submittedValue = submittedValue.trim();
-//    	logger.warn(clEjb.getSimpleName()+" submittedValue: "+submittedValue);
+//    	logger.warn(clEjb.getSimpleName()+" getAsObject submittedValue: "+submittedValue);
         if (submittedValue.equals("")) {return null;}
         else
         {  
@@ -34,6 +34,7 @@ public abstract class AbstractEjbIdConverter <I extends EjbWithId> implements Co
                 long id = Long.valueOf(submittedValue);
                 I ejb = clEjb.newInstance();
                 ejb.setId(id);
+//                logger.warn(clEjb.getSimpleName()+" getAsObject return "+ejb);
                 return ejb;
             }
             catch(NumberFormatException e)
@@ -62,7 +63,7 @@ public abstract class AbstractEjbIdConverter <I extends EjbWithId> implements Co
 //  	logger.warn(clEjb.getSimpleName()+" value: "+value);
         if (value == null || value.equals(""))
         {
-//        	logger.warn("Returning NULL");
+        	logger.warn("Returning NULL");
         	return "";
         }
         else

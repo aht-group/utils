@@ -203,6 +203,15 @@
           			</execution>
         		</executions>
 			</plugin>
+			<plugin>
+              	<groupId>org.jboss.as.plugins</groupId>
+              	<artifactId>jboss-as-maven-plugin</artifactId>
+           		<version>7.1.0.Final</version>
+              	<inherited>true</inherited>
+              	<configuration>
+               	  	<skip>true</skip>
+              	</configuration>
+           	</plugin>
 		</plugins>
 	</build>
     
@@ -255,6 +264,26 @@
     		</build>
   		</profile>
     	<profile>
+       		<id>remote-deploy</id>
+       		<build>
+       			<plugins>
+       			<plugin>
+              	<groupId>org.jboss.as.plugins</groupId>
+              	<artifactId>jboss-as-maven-plugin</artifactId>
+           		<version>7.1.0.Final</version>
+              	<inherited>true</inherited>
+              	<configuration>
+               	  	<skip>true</skip>
+               	  	<hostname>${deploy.host}</hostname>
+                    <port>9999</port>
+                    <username>admin</username>
+                    <password>admin123</password>
+              	</configuration>
+           	</plugin>
+           	</plugins>
+       		</build>
+   		</profile>
+   		<profile>
        		<id>ram</id>
        		<build>
        			<directory>${my.build.directory}</directory>
