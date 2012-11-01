@@ -2,6 +2,7 @@ package net.sf.ahtutils.jsf.menu;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -40,6 +41,7 @@ public class MenuFactory
 	private Map<String,Boolean> mapViewAllowed;
 	private Map<String,String> translationsMenu,translationsAccess;
 	private Map<String,View> mapView;
+	private Map<String,MenuItem> mapMenuItems;
 	
 	private String rootNode;
 	private DirectedGraph<String, DefaultEdge> graph;
@@ -58,40 +60,19 @@ public class MenuFactory
 		this.rootNode=rootNode;
 		noRestrictions=false;
 		translationsMenu = new Hashtable<String,String>();
+		mapMenuItems = new Hashtable<String,MenuItem>();
 		processMenu(menu);
 		
-		if(logger.isTraceEnabled())
+		if(logger.isInfoEnabled())
 		{
-			logger.trace("Graph: "+graph);
+			logger.info("Graph: "+graph);
+			logger.info("mapMenuItems.size()"+mapMenuItems.size());
 		}
 		
 		mapView = new Hashtable<String,View>();
 		translationsAccess = new Hashtable<String,String>();
 		createAccessMaps();
 		alwaysUpToLevel = 1;
-	}
-	
-	public void setAlwaysUpToLevel(int alwaysUpToLevel) {this.alwaysUpToLevel = alwaysUpToLevel;}
-	
-	private void createAccessMaps()
-	{
-		for(Category c : access.getCategory())
-		{
-			if(c.isSetViews())
-			{
-				for(View v : c.getViews().getView())
-				{
-					mapView.put(v.getCode(), v);
-					if(v.isSetLangs())
-					{
-						for(Lang l : v.getLangs().getLang())
-						{
-							if(l.getKey().equals(lang)){translationsAccess.put(v.getCode(), l.getTranslation());}
-						}
-					}
-				}
-			}
-		}
 	}
 	
 	private void processMenu(Menu menu)
@@ -125,7 +106,34 @@ public class MenuFactory
 		{
 			processMenuItem(mi.getCode(),miChild);
 		}
+		mi.getMenuItem().clear();
+		mapMenuItems.put(mi.getCode(), mi);
 	}
+	
+	public void setAlwaysUpToLevel(int alwaysUpToLevel) {this.alwaysUpToLevel = alwaysUpToLevel;}
+	
+	private void createAccessMaps()
+	{
+		for(Category c : access.getCategory())
+		{
+			if(c.isSetViews())
+			{
+				for(View v : c.getViews().getView())
+				{
+					mapView.put(v.getCode(), v);
+					if(v.isSetLangs())
+					{
+						for(Lang l : v.getLangs().getLang())
+						{
+							if(l.getKey().equals(lang)){translationsAccess.put(v.getCode(), l.getTranslation());}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+
 	
 	public Menu build()
 	{
@@ -141,19 +149,22 @@ public class MenuFactory
 		this.mapViewAllowed=mapViewAllowed;
 		Menu result = new Menu();
 		
-		try {result.getMenuItem().addAll(processChilds(1,menu.getMenuItem(),codeCurrent,isLoggedIn));}
+		try {result.getMenuItem().addAll(processChilds(1,rootNode,codeCurrent,isLoggedIn));}
 		catch (UtilsNotFoundException e) {logger.warn(e.getMessage());}
 		
 		return result;
 	}
 	
-	private List<MenuItem> processChilds(int level, List<MenuItem> origs, String codeCurrent, boolean isLoggedIn) throws UtilsNotFoundException
+	private List<MenuItem> processChilds(int level, String node, String codeCurrent, boolean isLoggedIn) throws UtilsNotFoundException
 	{
 		List<MenuItem> result = new ArrayList<MenuItem>();
 		
-		for(MenuItem mi :origs)
+		Iterator<DefaultEdge> iterator = graph.outgoingEdgesOf(node).iterator();
+		while(iterator.hasNext())
 		{
+			DefaultEdge edge = iterator.next();
 			MenuItem miAdd = null;
+			MenuItem mi = mapMenuItems.get(graph.getEdgeTarget(edge));
 			if(mi.isSetView())
 			{
 				if(!mapView.containsKey(mi.getView().getCode())){throw new UtilsNotFoundException("No view with code="+mi.getView().getCode());}
@@ -187,7 +198,7 @@ public class MenuFactory
 				
 				if(level<alwaysUpToLevel || currentIsChild)
 				{
-					miAdd.getMenuItem().addAll(processChilds(level+1,mi.getMenuItem(),codeCurrent,isLoggedIn));
+					miAdd.getMenuItem().addAll(processChilds(level+1,mi.getCode(),codeCurrent,isLoggedIn));
 				}
 				result.add(miAdd);
 			}
