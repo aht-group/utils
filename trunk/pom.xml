@@ -276,8 +276,8 @@
                	  	<skip>true</skip>
                	  	<hostname>${deploy.host}</hostname>
                     <port>9999</port>
-                    <username>admin</username>
-                    <password>admin123</password>
+              		<username>${deploy.username}</username>
+              		<password>${deploy.password}</password>
               	</configuration>
            	</plugin>
            	</plugins>
