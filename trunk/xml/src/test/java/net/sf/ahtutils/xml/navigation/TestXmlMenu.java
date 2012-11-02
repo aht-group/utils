@@ -33,7 +33,8 @@ public class TestXmlMenu extends AbstractXmlNavigationTest
     public static Menu create(boolean withChilds)
     {
     	Menu xml = new Menu();
-      	
+      	xml.setCode("myCode");
+    	
     	if(withChilds)
     	{
     		xml.getMenuItem().add(TestXmlMenuItem.create(false));

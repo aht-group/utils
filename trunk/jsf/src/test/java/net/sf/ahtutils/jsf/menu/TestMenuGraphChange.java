@@ -69,7 +69,7 @@ public class TestMenuGraphChange extends AbstractAhtUtilsJsfTst
 	}
 	
 	@Test
-	public void rmEdge()
+	public void rmChildEdges()
 	{
 		Assert.assertEquals(6, graph.vertexSet().size());
 		Assert.assertEquals(5, graph.edgeSet().size());
@@ -82,5 +82,22 @@ public class TestMenuGraphChange extends AbstractAhtUtilsJsfTst
 		graph.removeAllEdges(list);
 		Assert.assertEquals(6, graph.vertexSet().size());
 		Assert.assertEquals(4, graph.edgeSet().size());
+	}
+	
+	@Test
+	public void rmTemplateEdges()
+	{
+		Assert.assertEquals(6, graph.vertexSet().size());
+		Assert.assertEquals(5, graph.edgeSet().size());
+		Iterator<DefaultEdge> iterator = graph.getAllEdges(node1, node1a).iterator();
+		List<DefaultEdge> list = new ArrayList<DefaultEdge>();
+		while(iterator.hasNext())
+		{
+			list.add(iterator.next());
+		}
+		graph.removeAllEdges(list);
+		Assert.assertEquals(6, graph.vertexSet().size());
+		Assert.assertEquals(4, graph.edgeSet().size());
+		logger.info(graph.toString());
 	}
 }

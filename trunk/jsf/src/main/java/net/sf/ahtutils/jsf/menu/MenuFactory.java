@@ -36,7 +36,6 @@ public class MenuFactory
 	public void setContextRoot(String contextRoot) {this.contextRoot = contextRoot;}
 
 	private Access access;
-	private Menu menu;
 	private boolean noRestrictions;
 	private Map<String,Boolean> mapViewAllowed;
 	private Map<String,String> translationsMenu,translationsAccess;
@@ -54,7 +53,6 @@ public class MenuFactory
 	
 	public MenuFactory(Menu menu, Access access,String lang, String rootNode)
 	{
-		this.menu=menu;
 		this.access=access;
 		this.lang=lang;
 		this.rootNode=rootNode;
@@ -63,7 +61,7 @@ public class MenuFactory
 		mapMenuItems = new Hashtable<String,MenuItem>();
 		processMenu(menu);
 		
-		if(logger.isInfoEnabled())
+		if(logger.isTraceEnabled())
 		{
 			logger.info("Graph: "+graph);
 			logger.info("mapMenuItems.size()"+mapMenuItems.size());
@@ -285,5 +283,26 @@ public class MenuFactory
 		catch (ExlpXpathNotFoundException e) {}
 		catch (ExlpXpathNotUniqueException e) {}
 		return "#";
+	}
+	
+	private void removeEdgeToTemplate(String dynamicRoot, String templateNode)
+	{
+		Iterator<DefaultEdge> iterator = graph.getAllEdges(dynamicRoot, templateNode).iterator();
+		List<DefaultEdge> list = new ArrayList<DefaultEdge>();
+		while(iterator.hasNext()){list.add(iterator.next());}
+		graph.removeAllEdges(list);
+	}
+	
+	public void addDynamicNodes(Menu dynamicMenu)
+	{
+		for(MenuItem mi : dynamicMenu.getMenuItem())
+		{
+			removeEdgeToTemplate(dynamicMenu.getCode(), mi.getView().getCode());
+			
+			graph.addVertex(mi.getCode());
+			graph.addEdge(dynamicMenu.getCode(), mi.getCode());
+			
+			mapMenuItems.put(mi.getCode(), mi);
+		}
 	}
 }
