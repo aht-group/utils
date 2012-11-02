@@ -32,8 +32,11 @@
   						<f:forEach var="secondLevelItem" items="#{firstLevelItem.menuItem}">
   							<f:set var="submenuItems" value="2"/>
   						</f:forEach>
-  						<f:forEach var="thirdLevelItem" items="#{thirdLevelItem.menuItem}">
+  						<f:forEach var="thirdLevelItem" items="#{secondLevelItem.menuItem}">
   							<f:set var="submenuItems" value="3"/>
+  							<f:forEach var="FourthLevelItem" items="#{ThirdLevelItem.menuItem}">
+  								<f:set var="submenuItems" value="4"/>
+  						</f:forEach>
   						</f:forEach>
   					</f:forEach>
   				<div class="col#{submenuItems} drop">
@@ -43,6 +46,16 @@
 	            			<f:if test="#{menuItem.menuItem.size()>0}">
 		        				<f:forEach var="menuItemSub" items="#{menuItem.menuItem}">
 		        					<dd><a href="#{menuItemSub.href}">#{menuItemSub.name}</a></dd>
+		        					<f:if test="#{menuItemSub.menuItem.size()>0}">
+			        				<f:forEach var="menuItemSub2" items="#{menuItemSub.menuItem}">
+			        					<dd><a href="#{menuItemSub2.href}">#{menuItemSub2.name}</a></dd>
+			        					<f:if test="#{menuItemSub2.menuItem.size()>0}">
+				        				<f:forEach var="menuItemSub3" items="#{menuItemSub2.menuItem}">
+				        					<dd><a href="#{menuItemSub3.href}">#{menuItemSub3.name}</a></dd>
+				        				</f:forEach>
+			        					</f:if>
+			        				</f:forEach>
+		        					</f:if>
 		        				</f:forEach>
 		        			</f:if>
 	     				</f:forEach>
