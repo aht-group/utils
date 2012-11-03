@@ -1,5 +1,7 @@
 package net.sf.ahtutils.controller.factory.xml.status;
 
+import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
+import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.xml.status.Scope;
 
@@ -17,7 +19,7 @@ public class XmlScopeFactory
 		this.q=q;
 	}
 	
-	public <S extends UtilsStatus> Scope build(S ejb)
+	public <S extends UtilsStatus<L,D>,L extends UtilsLang, D extends UtilsDescription> Scope build(S ejb)
 	{
 		Scope xml = new Scope();
 		if(q.isSetCode()){xml.setCode(ejb.getCode());}

@@ -1,5 +1,7 @@
 package net.sf.ahtutils.controller.factory.xml.status;
 
+import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
+import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.xml.status.Condition;
 
@@ -17,7 +19,7 @@ public class XmlConditionFactory
 		this.q=q;
 	}
 	
-	public <S extends UtilsStatus> Condition build(S ejb)
+	public <S extends UtilsStatus<L,D>,L extends UtilsLang, D extends UtilsDescription> Condition build(S ejb)
 	{
 		Condition xml = new Condition();
 		if(q.isSetCode()){xml.setCode(ejb.getCode());}

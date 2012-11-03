@@ -61,7 +61,16 @@
             <xsd:attribute name="position" type="xsd:int"/>
         </xsd:complexType>
     </xsd:element>
-        <xsd:element name="scope">
+    <xsd:element name="scopes">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="s:scope" maxOccurs="unbounded"/>
+            </xsd:sequence>
+            <xsd:attribute name="group" type="xsd:string"/>
+            <xsd:attribute name="size" type="xsd:int"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="scope">
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element ref="s:transistions" maxOccurs="1"/>
