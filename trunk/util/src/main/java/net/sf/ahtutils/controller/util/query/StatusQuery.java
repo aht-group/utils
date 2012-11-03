@@ -8,6 +8,8 @@ import net.sf.ahtutils.xml.status.Description;
 import net.sf.ahtutils.xml.status.Descriptions;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Langs;
+import net.sf.ahtutils.xml.status.Scope;
+import net.sf.ahtutils.xml.status.Scopes;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.ahtutils.xml.status.Type;
 
@@ -46,6 +48,17 @@ public class StatusQuery
 		xml.setLangs(langs());
 		xml.setDescriptions(descriptions());
 		return xml;
+	}
+	
+	public static Scopes scopes()
+	{
+		Scope scope = new Scope();
+		scope.setCode("");
+		scope.setLabel("");
+		
+		Scopes scopes = new Scopes();
+		scopes.getScope().add(scope);
+		return scopes;
 	}
 	
 	public static Descriptions descriptions()

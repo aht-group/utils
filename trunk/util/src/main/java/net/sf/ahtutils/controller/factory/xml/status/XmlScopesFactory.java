@@ -2,6 +2,7 @@ package net.sf.ahtutils.controller.factory.xml.status;
 
 import java.util.List;
 
+import net.sf.ahtutils.exception.xml.UtilsXmlStructureException;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
@@ -15,13 +16,15 @@ public class XmlScopesFactory
 	final static Logger logger = LoggerFactory.getLogger(XmlScopesFactory.class);
 		
 	private Scopes q;
+	private String lang;
 	
-	public XmlScopesFactory(Scopes q)
+	public XmlScopesFactory(Scopes q, String lang)
 	{
 		this.q=q;
+		this.lang=lang;
 	}
 	
-	public <S extends UtilsStatus<L,D>,L extends UtilsLang, D extends UtilsDescription> Scopes build(List<S> ejbs)
+	public <S extends UtilsStatus<L,D>,L extends UtilsLang, D extends UtilsDescription> Scopes build(List<S> ejbs) throws UtilsXmlStructureException
 	{
 		Scopes xml = new Scopes();
 		
@@ -35,7 +38,7 @@ public class XmlScopesFactory
 		{
 			if(ejbs!=null)
 			{
-				XmlScopeFactory f = new XmlScopeFactory(q.getScope().get(0));
+				XmlScopeFactory f = new XmlScopeFactory(q.getScope().get(0),lang);
 				for(S s : ejbs)
 				{
 					xml.getScope().add(f.build(s));
