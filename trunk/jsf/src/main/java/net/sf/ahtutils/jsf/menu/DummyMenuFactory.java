@@ -12,28 +12,26 @@ public class DummyMenuFactory
 	
 	public static Menu create()
 	{
-		MenuItem m1 = createItem("Top1","hr-t1",true);
+		MenuItem rootLevel = createItem("Top","hr-t1",true);
 		
-		MenuItem sub11 = createItem("Sub-1.1");
-		sub11.getMenuItem().add(createItem("Sub-1.1.1","hr-1.1.1"));
-		sub11.getMenuItem().add(createItem("Sub-1.1.2","hr-1.1.2"));
-		m1.getMenuItem().add(sub11);
+		MenuItem sublevel1 = createItem("SubLevel1");
+		sublevel1.getMenuItem().add(createItem("ItemOfSublevel1-a","hr-1.1.1"));
+		sublevel1.getMenuItem().add(createItem("ItemOfSublevel1-b","hr-1.1.2"));
 		
-		MenuItem sub12 = createItem("Sub-1.2","hr-1.2",true);
-		sub12.getMenuItem().add(createItem("Sub-1.2.1","hr-1.2.1"));
-		sub12.getMenuItem().add(createItem("Sub-1.2.2","hr-1.2.2",true));
-		m1.getMenuItem().add(sub12);
+		MenuItem sublevel2 = createItem("SubLevel2","hr-1.2",true);
+		sublevel2.getMenuItem().add(createItem("ItemOfSublevel2-a","hr-1.2.1"));
+		sublevel2.getMenuItem().add(createItem("ItemOfSublevel2-b","hr-1.2.2",true));
 		
-		MenuItem m2 = createItem("Top2","hr-t2",false);
-		m2.getMenuItem().add(createItem("Sub-2.1","hr-2.1"));
+		MenuItem sublevel3 = createItem("SubLevel3","hr-5.2",true);
+		sublevel3.getMenuItem().add(createItem("ItemOfSublevel3-a","hr-5.2.5"));
+		sublevel3.getMenuItem().add(createItem("ItemOfSublevel3-b","hr-5.2.2",true));
 		
-		MenuItem sub22 = createItem("Sub-2.2","hr-2.2");
-		sub22.getMenuItem().add(createItem("Sub-2.2.1","hr-2.2.1"));
-		m2.getMenuItem().add(sub22);
+		sublevel2.getMenuItem().add(sublevel3);
+		sublevel1.getMenuItem().add(sublevel2);
+		rootLevel.getMenuItem().add(sublevel1);
 		
 		Menu menu = new Menu();
-		menu.getMenuItem().add(m1);
-		menu.getMenuItem().add(m2);
+		menu.getMenuItem().add(rootLevel);
 		
 		return menu;
 	}
