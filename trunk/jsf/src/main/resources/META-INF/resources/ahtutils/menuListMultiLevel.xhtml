@@ -15,10 +15,7 @@
   
   <div id="menuHolder">
   
-  		<!-- Workaround for lanching the init function -->
-  		
-  		
-  		<!-- This is maybe needed for havong the correct iteration order? -->
+  		<!-- This is maybe needed for having the correct iteration order? -->
   		<f:forEach var="rootLevelItem2" items="#{cc.attrs.value.menuItem}">
   		</f:forEach>
 		<f:forEach var="rootLevelItem" items="#{cc.attrs.value.menuItem}">
@@ -34,16 +31,17 @@
 					  <a class="aTop" href="#{rootLevelItem.href}"><span>#{rootLevelItem.name}</span><b></b></a>
 		  			</f:if>
 		  			
-		  					<div class="col#{cc.noOfSubmenus} drop">
-		  					    <f:forEach var="submenuRoot" items="#{cc.subMenus}">
-			  					    <dl>
-			  					      <dd>
-			  					      	 <a href="#{submenuRoot.href}">#{submenuRoot.name}</a>
-			  					      	 <f:forEach var="submenuItem" items="#{submenuRoot.menuItem}">
+		  					<div class="col#{cc.submenus(rootLevelItem).size()} drop">
+		  					    <f:forEach var="submenuRoot" items="#{cc.submenus(rootLevelItem)}">
+			  					    
+			  					      <dl>
+			  					      	 <f:forEach var="submenuItem" items="#{submenuRoot}">
+			  					      	 <dd>
 			  					      	    #{submenuItem.name}
+			  					      	 </dd>
 			  					      	 </f:forEach>
-			  					      </dd>
-			  					    </dl>
+			  					      </dl>
+			  					    
 		  					    </f:forEach>    
 							</div>
 		  		</li>
