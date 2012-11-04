@@ -39,10 +39,10 @@
 			  					      	 <dd>
 			  					      	 <f:if test="#{status.count==1}">
 				  					      	 <f:if test="#{submenuRoot[i].active}">
-						  						<a class="active" style="color: red;" href=" #{submenuRoot[i].href}"><span> #{submenuRoot[i].name}</span><b></b></a>
+						  						<dt>#{submenuRoot[i].name}</dt>
 											</f:if>
 											 <f:if test="#{!submenuRoot[i].active}">
-						  						<a style="color: red;" href=" #{submenuRoot[i].href}"><span> #{submenuRoot[i].name}</span><b></b></a>
+						  						<dt>#{submenuRoot[i].name}</dt>
 											</f:if>
 		  								</f:if>
 		  								<f:if test="#{!(status.count==1)}">
