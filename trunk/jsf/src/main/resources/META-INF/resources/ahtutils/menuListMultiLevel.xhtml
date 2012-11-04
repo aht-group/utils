@@ -38,10 +38,20 @@
 			  					      	 <f:forEach var="i" varStatus="status" begin="0" end="#{submenuRoot.size()}">
 			  					      	 <dd>
 			  					      	 <f:if test="#{status.count==1}">
-					  						<span style="color: red;">#{submenuRoot[i].name}</span>
+				  					      	 <f:if test="#{submenuRoot[i].active}">
+						  						<a class="active" style="color: red;" href=" #{submenuRoot[i].href}"><span> #{submenuRoot[i].name}</span><b></b></a>
+											</f:if>
+											 <f:if test="#{!submenuRoot[i].active}">
+						  						<a style="color: red;" href=" #{submenuRoot[i].href}"><span> #{submenuRoot[i].name}</span><b></b></a>
+											</f:if>
 		  								</f:if>
 		  								<f:if test="#{!(status.count==1)}">
-			  					      	    #{submenuRoot[i].name}
+		  								    <f:if test="#{submenuRoot[i].active}">
+						  						<a class="active" href=" #{submenuRoot[i].href}"><span> #{submenuRoot[i].name}</span><b></b></a>
+											</f:if>
+			  					      	    <f:if test="#{!submenuRoot[i].active}">
+						  						<a href=" #{submenuRoot[i].href}"><span> #{submenuRoot[i].name}</span><b></b></a>
+											</f:if>
 			  					      	</f:if>
 			  					      	 </dd>
 			  					      	 </f:forEach>
