@@ -35,9 +35,14 @@
 		  					    <f:forEach var="submenuRoot" items="#{cc.submenus(rootLevelItem)}">
 			  					    
 			  					      <dl>
-			  					      	 <f:forEach var="submenuItem" items="#{submenuRoot}">
+			  					      	 <f:forEach var="i" varStatus="status" begin="0" end="#{submenuRoot.size()}">
 			  					      	 <dd>
-			  					      	    #{submenuItem.name}
+			  					      	 <f:if test="#{status.count==1}">
+					  						<span style="color: red;">#{submenuRoot[i].name}</span>
+		  								</f:if>
+		  								<f:if test="#{!(status.count==1)}">
+			  					      	    #{submenuRoot[i].name}
+			  					      	</f:if>
 			  					      	 </dd>
 			  					      	 </f:forEach>
 			  					      </dl>
