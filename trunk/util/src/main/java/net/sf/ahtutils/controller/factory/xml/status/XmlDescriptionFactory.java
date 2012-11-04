@@ -32,4 +32,11 @@ public class XmlDescriptionFactory
 		xml.setValue(translation);
 		return xml;
 	}
+	
+	public static Description build(String text)
+	{
+		Description xml = new Description();
+		xml.setValue(text);
+		return xml;
+	}
 }
