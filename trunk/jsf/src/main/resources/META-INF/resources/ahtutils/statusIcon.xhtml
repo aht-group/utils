@@ -9,10 +9,11 @@
 	<composite:interface>
 		<composite:attribute name="status" required="true"/>
 		<composite:attribute name="lang" required="true"/>
+		<composite:attribute name="styleClass" required="false"/>
 	</composite:interface>
 	        
 	<composite:implementation>
-		<h:panelGroup rendered="#{not empty cc.attrs.status}">
+		<h:panelGroup rendered="#{not empty cc.attrs.status}" styleClass="#{cc.attrs.styleClass}">
 			<p:graphicImage id="icon" value="#{iconBean.url(12,cc.attrs.status)}"/>
 			<p:tooltip for="icon" value="#{cc.attrs.status.name[cc.attrs.lang].lang}" showEffect="fade" hideEffect="fade" />  
 		</h:panelGroup>

@@ -5,8 +5,8 @@ import javax.faces.component.FacesComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 
-@FacesComponent(value="net.sf.ahtutils.jsf.components.IconAdd")
-public class IconAdd extends UINamingContainer
+@FacesComponent(value="net.sf.ahtutils.jsf.components.IconListener")
+public class IconListener extends UINamingContainer
 {
     public void listener()
     {

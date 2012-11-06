@@ -19,6 +19,7 @@ import net.sf.ahtutils.model.interfaces.EjbWithType;
 import net.sf.ahtutils.model.interfaces.with.EjbWithPosition;
 import net.sf.ahtutils.model.interfaces.with.EjbWithPositionVisible;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
+import net.sf.ahtutils.model.interfaces.with.EjbWithTimeline;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -219,6 +220,21 @@ public class AbstractDummyFacade implements UtilsFacade
 	public <T extends EjbWithRecord, I extends EjbWithId> List<T> allOrderedParentRecordBetween(
 			Class<T> cl, String by, boolean ascending, String p1Name, I p1,
 			Date from, Date to) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T extends EjbWithTimeline> List<T> between(Class<T> clTracker,
+			Date from, Date to) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T extends EjbWithTimeline, AND extends EjbWithId, OR extends EjbWithId> List<T> between(
+			Class<T> clTimeline, Date from, Date to,
+			List<ParentPredicate<AND>> lpAnd, List<ParentPredicate<OR>> lpOr) {
 		// TODO Auto-generated method stub
 		return null;
 	}

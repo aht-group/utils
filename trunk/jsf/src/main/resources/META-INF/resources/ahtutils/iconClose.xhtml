@@ -10,19 +10,12 @@
 		<composite:attribute name="listener" required="true" method-signature="void listener(javax.faces.event.AjaxBehaviorEvent)"/>
 		<composite:attribute name="update"/>
 		<composite:attribute name="styleClass"/>
-		<composite:attribute name="disabled" required="false" default="false"/>
 	</composite:interface>
 	        
 	<composite:implementation>
-		
 		<h:graphicImage styleClass="#{cc.attrs.styleClass}"
-			rendered="#{!cc.attrs.disabled}"
-			value="#{iconBean.icon(12,'add')}">
-			<p:ajax event="click" update="#{cc.attrs.update}" listener="#{cc.listener}"/>
+			value="#{iconBean.icon(12,'close')}">
+			<p:ajax event="click" update="#{cc.attrs.update}" listener="#{cc.listener}" process="@this"/>
 		</h:graphicImage>
-		<h:graphicImage styleClass="#{cc.attrs.styleClass}"
-			rendered="#{cc.attrs.disabled}" 
-			value="#{iconBean.icon(12,'addDisabled')}"/>
-
 	</composite:implementation>
 </html>

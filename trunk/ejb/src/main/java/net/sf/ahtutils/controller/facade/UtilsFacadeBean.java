@@ -31,6 +31,7 @@ import net.sf.ahtutils.model.interfaces.UtilsProperty;
 import net.sf.ahtutils.model.interfaces.with.EjbWithPosition;
 import net.sf.ahtutils.model.interfaces.with.EjbWithPositionVisible;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
+import net.sf.ahtutils.model.interfaces.with.EjbWithTimeline;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -652,6 +653,60 @@ public class UtilsFacadeBean implements UtilsFacade
 	{
 		if(o.getId()==0){return this.persist(o);}
 		else{return this.update(o);}
+	}
+
+	@Override
+	public <T extends EjbWithTimeline> List<T> between(Class<T> clTimeline, Date from, Date to)
+	{
+		return between(clTimeline, from, to, ParentPredicate.empty(), ParentPredicate.empty());
+	}
+	
+	@Override
+	public <T extends EjbWithTimeline, AND extends EjbWithId, OR extends EjbWithId> List<T> between(Class<T> clTimeline,Date from, Date to, List<ParentPredicate<AND>> lpAnd, List<ParentPredicate<OR>> lpOr)
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<T> cQ = cB.createQuery(clTimeline);
+		Root<T> root = cQ.from(clTimeline);
+		
+		Expression<Date> dStart = root.get("startDate");
+		Expression<Date> dEnd   = root.get("endDate");
+		
+		//After
+	    Predicate startAfterFrom = cB.greaterThanOrEqualTo(dStart, from);
+	    Predicate endAfterFrom = cB.greaterThanOrEqualTo(dEnd, from);
+	    Predicate endAfterTo = cB.greaterThanOrEqualTo(dEnd, to);
+	    
+	    //Before
+	    Predicate startBeforeTo = cB.lessThan(dStart, to);
+	    Predicate startBeforeFrom = cB.lessThan(dStart, from);
+	    Predicate endBeforeTo = cB.lessThan(dEnd, to);
+		
+		Predicate pOnlyStartAndStartInRange = cB.and(cB.isNull(dEnd),startAfterFrom,startBeforeTo);
+		Predicate pStartAndEndInRange = cB.and(cB.isNotNull(dEnd),startAfterFrom,endBeforeTo);
+		Predicate pStartOutsideEndInRange = cB.and(cB.isNotNull(dEnd),startBeforeFrom,endAfterFrom,endBeforeTo);
+		Predicate pStartInRangeEndOutside = cB.and(cB.isNotNull(dEnd),startAfterFrom,startBeforeTo,endAfterTo);
+		Predicate pStartBeforeRangeEndAfterRange = cB.and(cB.isNotNull(dEnd),startBeforeFrom,endAfterTo);
+			
+		Predicate pTime = cB.or(pOnlyStartAndStartInRange,pStartAndEndInRange,pStartOutsideEndInRange,pStartInRangeEndOutside,pStartBeforeRangeEndAfterRange);
+		
+		Predicate pAnd = cB.and(ParentPredicate.array(cB, root, lpAnd));
+		Predicate pOr = cB.or(ParentPredicate.array(cB, root, lpOr));
+				    
+		CriteriaQuery<T> select = cQ.select(root);
+		
+		boolean noAnd = (lpAnd==null || lpAnd.size()==0);
+		boolean noOr = (lpOr==null || lpOr.size()==0);
+		
+		if(noOr && noAnd) {select.where(pTime);}
+		else if(noOr && !noAnd) {select.where(pTime,pAnd);}
+		else if(!noOr && noAnd) {select.where(pTime,pOr);}
+		else {select.where(pTime,pOr,pAnd);}
+		
+//		select.where(pTime);
+		select.orderBy(cB.asc(dStart));
+		
+		TypedQuery<T> q = em.createQuery(select);
+		return q.getResultList();
 	}
 
 
