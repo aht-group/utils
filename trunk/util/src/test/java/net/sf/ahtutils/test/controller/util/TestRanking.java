@@ -97,6 +97,7 @@ public class TestRanking extends AbstractAhtUtilTest
     	}	
     }
     
+    @Ignore
     @Test
     public void testRandom()
     {
