@@ -75,6 +75,7 @@ public class TestRanking extends AbstractAhtUtilTest
     @Test
     public void testDoubleLow()
     {
+    	
     	int[] points = {3,5,3};
     	int[] expected = {2,1,2};
     	int[] actual = ranking.rank(points);
@@ -83,7 +84,7 @@ public class TestRanking extends AbstractAhtUtilTest
     		Assert.assertEquals(expected[i], actual[i]);
     	}	
     }
-    @Ignore
+   
     @Test
     public void testDoubleHigh()
     {

@@ -9,8 +9,6 @@ import com.google.common.primitives.Ints;
 
 public class Ranking
 {
-	public final Integer[] iA = {};
-	
 	public Ranking()
 	{
 		
@@ -26,10 +24,10 @@ public class Ranking
 	public List<Integer> rank(List<Integer> listPoints)
 	{
 		List <Rank> rankList = new ArrayList<Rank>();
-		int[] tmpresult = new int[listPoints.size()]; 
+		Rank[] sortList = new Rank[listPoints.size()]; 
 		List <Integer> result = new ArrayList<Integer>();
 		
-		int zaehler = 0, zaehler1 = 0, l=0;
+		int zaehler = 0; 
 		
 		for (Integer i: listPoints)
 		{
@@ -37,42 +35,44 @@ public class Ranking
 			zaehler++;
 		}
 		
-		Collections.sort(rankList, new Rank());
-		
-		for (Rank j: rankList)
-		{  //bis hier korrekt
-			
-			if (zaehler1>0){
-				if(rankList.get(zaehler1).getPoints() == rankList.get(zaehler1-1).getPoints())
-				{
-					for(Rank k: rankList)
-						if (rankList.get(zaehler1).getPoints() == rankList.get(zaehler-1).getPoints())
-							
-					
-					tmpresult[zaehler1] = rankList.get(zaehler1).getIndex()+l;			
-					result.add(tmpresult[zaehler1]);
-					zaehler1++;
-					l++;
-				}
-				else
-				{
-					tmpresult[zaehler1] = rankList.get(zaehler1).getIndex()+1;			
-					result.add(tmpresult[zaehler1]);
-					zaehler1++;
-				}
-			}
-			
-			else
-			{
-				tmpresult[zaehler1] = rankList.get(zaehler1).getIndex()+1;			
-				result.add(tmpresult[zaehler1]);
-				zaehler1++;
-			}
-			
-		}	
+		Collections.sort(rankList, new Rank());	
 		
 		return result;
 	}
+	
+	int getNumberOfEqualPoints (Rank[] rankList)
+	{
+		int points=0, anzahl=0;
+		
+		for (int i=0; i<= rankList.length; i++)
+		{
+			points = rankList[i].getPoints();
+			
+			for (int j=0; j<=rankList.length;j++)
+			{
+				if(rankList[j].getPoints()==points)
+				{
+					anzahl++;
+				}
+			}
+		}
+		return anzahl;
+	}
+	
+	public Rank[] setRank(Rank[] rankList)
+	{
+		int rankZaehler = 0, anz = 0;
+		
+		for (int i=rankZaehler; i<=rankZaehler+anz;)
+		{
+			anz = getNumberOfEqualPoints(rankList);
+			rankList[i].index = rankZaehler;
+			rankZaehler = rankZaehler+anz;
+		}
+		
+		return rankList;
+	}
+		
 	
 	public class Rank implements Comparator<Rank>
 	{
@@ -90,27 +90,14 @@ public class Ranking
 
 		public int getPoints() {return points;}
 		public void setPoints(int points) {this.points = points;}
-
 		@Override
 		public int compare(Rank a, Rank b)
 		{
 			// TODO Auto-generated method stub
-			
-			
 			return(new Integer(a.getPoints())).compareTo(b.getPoints())*-1;
 			
-			/*if (a.getPoints()<b.getPoints())
-			{
-				return 1;
-			}
-			else
-			if (a.getPoints()>b.getPoints())
-			{
-				return -1;
-			}
-			
-			return 0;*/
-		}	
+		}
+
 
 	}
 }
