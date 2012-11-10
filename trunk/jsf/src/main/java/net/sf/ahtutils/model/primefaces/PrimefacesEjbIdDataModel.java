@@ -67,6 +67,16 @@ public class PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataMode
     
     // *********** SELECT ************
     
+    public void toggleSelection(T item)
+    {
+    	if(!mapSelect.containsKey(item.getId())){select(item, false);}
+    	else
+    	{
+    		if(mapSelect.get(item.getId())){select(item, false);}
+    		else{select(item, true);}
+    	}
+    }
+    
     public void select(T item, boolean value)
     {
     	mapSelect.put(item.getId(), value);
