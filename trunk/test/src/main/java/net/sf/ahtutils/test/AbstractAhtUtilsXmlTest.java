@@ -1,5 +1,7 @@
 package net.sf.ahtutils.test;
 
+import java.io.File;
+
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import net.sf.exlp.util.DateUtil;
@@ -21,5 +23,12 @@ public class AbstractAhtUtilsXmlTest
 	protected static XMLGregorianCalendar getDefaultXmlDate()
 	{
 		return DateUtil.getXmlGc4D(DateUtil.getDateFromInt(2011, 11, 11, 11, 11, 11));
+	}
+	
+	protected void save(Object xml, File f)
+	{
+		logger.debug("Saving Reference XML");
+		JaxbUtil.debug(xml);
+    	JaxbUtil.save(f, xml, true);
 	}
 }
