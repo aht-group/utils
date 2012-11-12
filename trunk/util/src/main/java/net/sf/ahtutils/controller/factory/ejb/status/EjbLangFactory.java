@@ -36,11 +36,13 @@ public class EjbLangFactory<L extends UtilsLang>
 	
 	public Map<String,L> getLangMap(Langs langs) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
 	{
+		if(langs==null){throw new UtilsIntegrityException(Langs.class.getSimpleName()+" is null");}
 		return getLangMap(langs.getLang()); 
 	}
 	
 	public Map<String,L> getLangMap(List<Lang> langList) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
 	{
+		if(langList.size()<1){throw new UtilsIntegrityException(Langs.class.getSimpleName()+" with 0 "+Lang.class.getSimpleName());}
 		Map<String,L> map = new Hashtable<String,L>();
 		for(Lang lang : langList)
 		{
