@@ -70,8 +70,8 @@ public class SecurityInitUsecases <L extends UtilsLang,
 		try
 		{
 			ebj = fSecurity.fByCode(cU,usecase.getCode());
-			rmLang(ebj);
-			rmDescription(ebj);
+			ejbLangFactory.rmLang(fSecurity,ebj);
+			ejbDescriptionFactory.rmDescription(fSecurity,ebj);
 		}
 		catch (UtilsNotFoundException e)
 		{

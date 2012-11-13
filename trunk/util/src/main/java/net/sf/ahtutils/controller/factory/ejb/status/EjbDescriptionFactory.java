@@ -4,7 +4,11 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.ahtutils.controller.interfaces.UtilsFacade;
+import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
+import net.sf.ahtutils.exception.ejb.UtilsLockingException;
+import net.sf.ahtutils.model.interfaces.EjbWithDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.xml.AhtUtilsNsPrefixMapper;
 import net.sf.ahtutils.xml.status.Description;
@@ -72,5 +76,21 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
 			map.put(key, create(key,""));
 		}
 		return map;
+	}
+	
+	public <M extends EjbWithDescription<D>> void rmDescription(UtilsFacade fUtils, M ejb)
+	{
+		Map<String,D> descMap = ejb.getDescription();
+		ejb.setDescription(null);
+		
+		try{ejb=fUtils.update(ejb);}
+		catch (UtilsContraintViolationException e) {logger.error("",e);}
+		catch (UtilsLockingException e) {logger.error("",e);}
+		
+		for(D desc : descMap.values())
+		{
+			try {fUtils.rm(desc);}
+			catch (UtilsIntegrityException e) {logger.error("",e);}
+		}
 	}
 }

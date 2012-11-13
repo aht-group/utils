@@ -1,7 +1,5 @@
 package net.sf.ahtutils.db.ejb.security;
 
-import java.util.Map;
-
 import net.sf.ahtutils.controller.factory.ejb.status.EjbDescriptionFactory;
 import net.sf.ahtutils.controller.factory.ejb.status.EjbLangFactory;
 import net.sf.ahtutils.controller.interfaces.UtilsSecurityFacade;
@@ -11,8 +9,6 @@ import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
-import net.sf.ahtutils.model.interfaces.EjbWithDescription;
-import net.sf.ahtutils.model.interfaces.EjbWithLang;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
@@ -132,8 +128,8 @@ public class AbstractSecurityInit <L extends UtilsLang,
 			try
 			{
 				aclCategory = fSecurity.fByCode(cC,category.getCode());
-				rmLang(aclCategory);
-				rmDescription(aclCategory);
+				ejbLangFactory.rmLang(fSecurity,aclCategory);
+				ejbDescriptionFactory.rmDescription(fSecurity,aclCategory);
 			}
 			catch (UtilsNotFoundException e)
 			{
@@ -171,38 +167,6 @@ public class AbstractSecurityInit <L extends UtilsLang,
 	protected void iuChilds(C aclCategory, Category category) throws UtilsConfigurationException
 	{
 		logger.error("This method *must* be overridden!");
-	}
-	
-	protected <M extends EjbWithLang<L>> void rmLang(M ejb)
-	{
-		Map<String,L> langMap = ejb.getName();
-		ejb.setName(null);
-		
-		try{ejb=fSecurity.update(ejb);}
-		catch (UtilsContraintViolationException e) {logger.error("",e);}
-		catch (UtilsLockingException e) {logger.error("",e);}
-		
-		for(L lang : langMap.values())
-		{
-			try {fSecurity.rm(lang);}
-			catch (UtilsIntegrityException e) {logger.error("",e);}
-		}
-	}
-	
-	protected <M extends EjbWithDescription<D>> void rmDescription(M ejb)
-	{
-		Map<String,D> descMap = ejb.getDescription();
-		ejb.setDescription(null);
-		
-		try{ejb=fSecurity.update(ejb);}
-		catch (UtilsContraintViolationException e) {logger.error("",e);}
-		catch (UtilsLockingException e) {logger.error("",e);}
-		
-		for(D desc : descMap.values())
-		{
-			try {fSecurity.rm(desc);}
-			catch (UtilsIntegrityException e) {logger.error("",e);}
-		}
 	}
 	
 	protected <T extends UtilsSecurityWithViews<L,D,C,R,V,U,A,USER>> T iuListViews(T ejb, Views views) throws UtilsContraintViolationException, UtilsNotFoundException, UtilsLockingException

@@ -72,8 +72,8 @@ public class SecurityInitRoles <L extends UtilsLang,
 		try
 		{
 			aclRole = fSecurity.fByCode(cR,role.getCode());
-			rmLang(aclRole);
-			rmDescription(aclRole);
+			ejbLangFactory.rmLang(fSecurity,aclRole);
+			ejbDescriptionFactory.rmDescription(fSecurity,aclRole);
 		}
 		catch (UtilsNotFoundException e)
 		{

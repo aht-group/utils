@@ -119,4 +119,20 @@ public class EjbLangFactory<L extends UtilsLang>
 		}
 		return ejb;
 	}
+	
+	public <M extends EjbWithLang<L>> void rmLang(UtilsFacade fUtils, M ejb)
+	{
+		Map<String,L> langMap = ejb.getName();
+		ejb.setName(null);
+		
+		try{ejb=fUtils.update(ejb);}
+		catch (UtilsContraintViolationException e) {logger.error("",e);}
+		catch (UtilsLockingException e) {logger.error("",e);}
+		
+		for(L lang : langMap.values())
+		{
+			try {fUtils.rm(lang);}
+			catch (UtilsIntegrityException e) {logger.error("",e);}
+		}
+	}
 }
