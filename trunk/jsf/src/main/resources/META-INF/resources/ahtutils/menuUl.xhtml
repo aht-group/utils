@@ -9,14 +9,16 @@
     
   <composite:interface>
     <composite:attribute name="value"/>
+    <composite:attribute name="sc1"/>
+    <composite:attribute name="scActive"/>
   </composite:interface>
         
   <composite:implementation>
    	 
-    <ul class="menu">
+    <ul class="#{cc.attrs.sc1}">
       <f:forEach var="menuItem" items="#{cc.attrs.value.menuItem}">
         <f:if test="#{menuItem.active}">
-          <li class="active"><a href="#{facesContext.externalContext.requestContextPath}#{menuItem.href}" >#{menuItem.name}</a></li>
+          <li class="#{cc.attrs.scActive}"><a href="#{facesContext.externalContext.requestContextPath}#{menuItem.href}" >#{menuItem.name}</a></li>
         </f:if>
         <f:if test="#{!menuItem.active}">
           <li><a href="#{facesContext.externalContext.requestContextPath}#{menuItem.href}">#{menuItem.name}</a></li>
