@@ -47,7 +47,8 @@ public class MenuFactory
 	
 	private int alwaysUpToLevel;
 	
-	public MenuFactory(Menu menu,String lang){this(menu,null,lang, UUID.randomUUID().toString());}	
+	public MenuFactory(Menu menu,String lang){this(menu,null,lang, UUID.randomUUID().toString());}
+	public MenuFactory(Menu menu,String lang, String rootNode){this(menu,null,lang,rootNode);}	
 	
 	public MenuFactory(Menu menu, Access access,String lang){this(menu,access,lang, UUID.randomUUID().toString());}
 	
@@ -69,7 +70,7 @@ public class MenuFactory
 		
 		mapView = new Hashtable<String,View>();
 		translationsAccess = new Hashtable<String,String>();
-		createAccessMaps();
+		if(access!=null){createAccessMaps();}
 		alwaysUpToLevel = 1;
 	}
 	
