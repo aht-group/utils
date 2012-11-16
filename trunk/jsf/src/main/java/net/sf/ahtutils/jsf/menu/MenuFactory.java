@@ -50,7 +50,7 @@ public class MenuFactory
 	public MenuFactory(Menu menu,String lang){this(menu,null,lang, UUID.randomUUID().toString(),true);}
 	public MenuFactory(Menu menu,String lang, String rootNode){this(menu,null,lang,rootNode,true);}	
 	public MenuFactory(Menu menu, Access access,String lang){this(menu,access,lang, UUID.randomUUID().toString(),false);}
-	public MenuFactory(Menu menu, Access access,String lang, String rootNode){this(menu,access,lang, UUID.randomUUID().toString(),false);}
+	public MenuFactory(Menu menu, Access access,String lang, String rootNode){this(menu,access,lang, rootNode,false);}
 	public MenuFactory(Menu menu, Access access,String lang, String rootNode, boolean noRestrictions)
 	{
 
@@ -167,7 +167,6 @@ public class MenuFactory
 			{
 				if(!mapView.containsKey(mi.getView().getCode())){throw new UtilsNotFoundException("No view with code="+mi.getView().getCode());}
 				View view = mapView.get(mi.getView().getCode());
-				logger.info("noRestrictions "+noRestrictions);
 				if(noRestrictions
 						|| view.isPublic()
 						|| (view.isSetOnlyLoginRequired() && view.isOnlyLoginRequired() && isLoggedIn)
@@ -186,6 +185,7 @@ public class MenuFactory
 				else{miAdd.setActive(false);}
 				
 				boolean currentIsChild = false;
+				
 				DijkstraShortestPath<String, DefaultEdge> dsp = new DijkstraShortestPath<String, DefaultEdge>(graph, mi.getCode(), codeCurrent);
 				List<DefaultEdge> path = dsp.getPathEdgeList();
 				
