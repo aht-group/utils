@@ -31,20 +31,32 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 	private Map<String,Boolean> mapViewAllowed;
 	
 	private Menu menu;
+
 	private View v1;
 	private MenuItem mWithLangs,mWithView,mWithHref,mTest;
 	
-	private final String lang = "de";
-	private final String viewCode = "testView";
+	public static final String lang = "de";
+	public static final String rootNode = "root";
+	public static final String viewCode = "testView";
 	
-	private MenuFactory mf;
+	public static final String code1 = "menuLevel1";
+	public static final String code2 = "menuLevel2";
+	
+	private MenuFactory mf; public MenuFactory getMf() {return mf;}
+
+	public static TestMenuFactory factory()
+	{
+		TestMenuFactory f = new TestMenuFactory();
+		f.init();
+		return f;
+	}
 	
 	@Before
 	public void init()
 	{
 		initAccess();
 		initMenu();
-		mf = new MenuFactory(menu,access,lang);
+		mf = new MenuFactory(menu,access,lang,rootNode);
 	}
 	
 	private void initAccess()
@@ -90,9 +102,14 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 		mWithHref.setHref("myHref");
 		menu.getMenuItem().add(mWithHref);
 		
+		MenuItem mL2 = new MenuItem();
+		mL2.setCode(code2);
+		mL2.setHref("myHrefTest");
+		
 		mTest = new MenuItem();
-		mTest.setCode("test");
+		mTest.setCode(code1);
 		mTest.setHref("myHrefTest");
+		mTest.getMenuItem().add(mL2);
 		menu.getMenuItem().add(mTest);
 	}
 	

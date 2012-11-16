@@ -47,23 +47,24 @@ public class MenuFactory
 	
 	private int alwaysUpToLevel;
 	
-	public MenuFactory(Menu menu,String lang){this(menu,null,lang, UUID.randomUUID().toString());}
-	public MenuFactory(Menu menu,String lang, String rootNode){this(menu,null,lang,rootNode);}	
-	
-	public MenuFactory(Menu menu, Access access,String lang){this(menu,access,lang, UUID.randomUUID().toString());}
-	
-	public MenuFactory(Menu menu, Access access,String lang, String rootNode)
+	public MenuFactory(Menu menu,String lang){this(menu,null,lang, UUID.randomUUID().toString(),true);}
+	public MenuFactory(Menu menu,String lang, String rootNode){this(menu,null,lang,rootNode,true);}	
+	public MenuFactory(Menu menu, Access access,String lang){this(menu,access,lang, UUID.randomUUID().toString(),false);}
+	public MenuFactory(Menu menu, Access access,String lang, String rootNode){this(menu,access,lang, UUID.randomUUID().toString(),false);}
+	public MenuFactory(Menu menu, Access access,String lang, String rootNode, boolean noRestrictions)
 	{
+
 		this.access=access;
 		this.lang=lang;
 		this.rootNode=rootNode;
-		noRestrictions=false;
+		this.noRestrictions=noRestrictions;
 		translationsMenu = new Hashtable<String,String>();
 		mapMenuItems = new Hashtable<String,MenuItem>();
 		processMenu(menu);
 		
 		if(logger.isTraceEnabled())
 		{
+			
 			logger.info("Graph: "+graph);
 			logger.info("mapMenuItems.size()"+mapMenuItems.size());
 		}
@@ -132,8 +133,6 @@ public class MenuFactory
 		}
 	}
 	
-
-	
 	public Menu build()
 	{
 		noRestrictions=true;
@@ -168,10 +167,11 @@ public class MenuFactory
 			{
 				if(!mapView.containsKey(mi.getView().getCode())){throw new UtilsNotFoundException("No view with code="+mi.getView().getCode());}
 				View view = mapView.get(mi.getView().getCode());
+				logger.info("noRestrictions "+noRestrictions);
 				if(noRestrictions
 						|| view.isPublic()
 						|| (view.isSetOnlyLoginRequired() && view.isOnlyLoginRequired() && isLoggedIn)
-						|| (mapViewAllowed.containsKey(mi.getView().getCode()) && mapViewAllowed.get(mi.getView().getCode())))
+						|| (mapViewAllowed!=null && mapViewAllowed.containsKey(mi.getView().getCode()) && mapViewAllowed.get(mi.getView().getCode())))
 				{
 					miAdd = processItem(mi,codeCurrent,view);
 				}
@@ -199,6 +199,8 @@ public class MenuFactory
 				{
 					miAdd.getMenuItem().addAll(processChilds(level+1,mi.getCode(),codeCurrent,isLoggedIn));
 				}
+				mapMenuItems.get(miAdd.getCode()).setName(miAdd.getName());
+				mapMenuItems.get(miAdd.getCode()).setHref(miAdd.getHref());
 				result.add(miAdd);
 			}
 		}
@@ -305,5 +307,25 @@ public class MenuFactory
 			
 			mapMenuItems.put(mi.getCode(), mi);
 		}
+	}
+	
+	public List<MenuItem> breadcrumb(String code){return breadcrumb(false,code);}
+	public List<MenuItem> breadcrumb(boolean withRoot, String code)
+	{
+		List<MenuItem> result = new ArrayList<MenuItem>();
+		
+		DijkstraShortestPath<String, DefaultEdge> dsp = new DijkstraShortestPath<String, DefaultEdge>(graph,rootNode, code);
+		List<DefaultEdge> path = dsp.getPathEdgeList();
+		if(path.size()>0)
+		{
+			result.add(mapMenuItems.get(graph.getEdgeSource(path.get(0))));
+		}
+		for(DefaultEdge de : path)
+		{
+			String src = graph.getEdgeTarget(de);
+			result.add(mapMenuItems.get(src));
+		}
+		if(!withRoot){result.remove(0);}
+		return result;
 	}
 }
