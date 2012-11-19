@@ -16,6 +16,7 @@ import net.sf.ahtutils.xml.navigation.MenuItem;
 import net.sf.ahtutils.xml.navigation.UrlMapping;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.xpath.AccessXpath;
+import net.sf.ahtutils.xml.xpath.NavigationXpath;
 import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
 
@@ -328,4 +329,15 @@ public class MenuFactory
 		if(!withRoot){result.remove(0);}
 		return result;
 	}
+	
+	public MenuItem subMenu(Menu menu, String code)
+	{
+		MenuItem result;
+		try {result = NavigationXpath.getMenuItem(menu, code);}
+		catch (ExlpXpathNotFoundException e) {result = new MenuItem();}
+		catch (ExlpXpathNotUniqueException e) {result = new MenuItem();}
+		return result;
+	}
+	
+
 }
