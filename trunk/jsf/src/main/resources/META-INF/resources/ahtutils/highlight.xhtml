@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsp/jstl/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:composite="http://java.sun.com/jsf/composite">
+    
+  <composite:interface componentType="net.sf.ahtutils.jsf.components.Highlight">
+    <composite:attribute name="resource"/>
+  </composite:interface>
+        
+  <composite:implementation>
+	<h:outputStylesheet library="highlight" name="default.min.css" target="head"/>
+	<h:outputScript library="highlight" name="highlight.min.js" target="head"/>
+	
+	<script>hljs.initHighlightingOnLoad();</script>
+	
+    <pre><code class="xml"><h:outputText value="#{cc.style(cc.attrs.resource)}" /></code></pre>
+    
+   </composite:implementation>
+</html>
