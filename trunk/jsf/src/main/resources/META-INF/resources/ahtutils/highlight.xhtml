@@ -7,6 +7,7 @@
     
   <composite:interface componentType="net.sf.ahtutils.jsf.components.Highlight">
     <composite:attribute name="resource"/>
+    <composite:attribute name="lang" required="false" default="xml"/>
   </composite:interface>
         
   <composite:implementation>
@@ -15,7 +16,7 @@
 	
 	<script>hljs.initHighlightingOnLoad();</script>
 	
-    <pre><code class="xml"><h:outputText value="#{cc.style(cc.attrs.resource)}" /></code></pre>
+    <pre><code class="#{cc.attrs.lang}"><h:outputText value="#{cc.style(cc.attrs.resource)}" /></code></pre>
     
    </composite:implementation>
 </html>
