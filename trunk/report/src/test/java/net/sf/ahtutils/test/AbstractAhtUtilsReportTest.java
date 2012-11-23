@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public class AbstractAhtUtilsReportTest extends AbstractAhtUtilsReportTst
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractAhtUtilsReportTest.class);

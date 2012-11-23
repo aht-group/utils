@@ -62,11 +62,6 @@
 	        	<type>jar</type>
 	        	<scope>compile</scope>
 	        </dependency>
-	        <dependency>
-	        	<groupId>net.sf.ahtutils</groupId>
-	        	<artifactId>ahtutils-report</artifactId>
-	        	<scope>test</scope>
-	        </dependency>
 			<dependency>
 	        	<groupId>net.sf.ahtutils</groupId>
 	        	<artifactId>ahtutils-xml</artifactId>
@@ -79,11 +74,6 @@
 	        	<artifactId>ahtutils-ejb</artifactId>
 	        	<type>ejb</type>
 	        	<scope>compile</scope>
-	        </dependency>
-	        <dependency>
-	        	<groupId>junit</groupId>
-	        	<artifactId>junit</artifactId>
-	        	<scope>provided</scope>
 	        </dependency>
 	        <!-- 
 			<dependency>
@@ -126,15 +116,8 @@
 			<dependency>
 			    <groupId>org.jboss.spec</groupId>
 			    <artifactId>jboss-javaee-6.0</artifactId>
-			    <version>${jboss-javaee6-spec.version}</version>
 			    <type>pom</type>
 			    <scope>provided</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.ant</groupId>
-				<artifactId>ant</artifactId>
-				<type>jar</type>
-				<scope>compile</scope>
 			</dependency>
 			<dependency>
 			    <groupId>com.google.guava</groupId>
@@ -161,16 +144,6 @@
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
 			</dependency>
-			<dependency>
-	    		<groupId>commons-configuration</groupId>
-	    		<artifactId>commons-configuration</artifactId>
-	    		<exclusions>
-					<exclusion>
-						<artifactId>commons-logging</artifactId>
-						<groupId>commons-logging</groupId>
-					</exclusion>
-				</exclusions>
-	    	</dependency>
 	    	<dependency>
 	    		<groupId>commons-codec</groupId>
 	    		<artifactId>commons-codec</artifactId>
@@ -189,10 +162,6 @@
 			<artifactId>jcl-over-slf4j</artifactId>
 			<scope>test</scope>
 		</dependency>
-	 	<dependency>
-	 		<groupId>org.slf4j</groupId>
-	 		<artifactId>slf4j-log4j12</artifactId>
-	 	</dependency>
 	 	<dependency>
 	 		<groupId>org.openfuxml</groupId>
 	 		<artifactId>ofx-core</artifactId>
@@ -222,11 +191,11 @@
 			</exclusions>
     		<scope>provided</scope>
     	</dependency>
-    	<dependency>
+<!--     	<dependency>
     		<groupId>jaxen</groupId>
     		<artifactId>jaxen</artifactId>
     	</dependency>
-    	<dependency>
+ -->    	<dependency>
     		<groupId>de.rrze</groupId>
     		<artifactId>jpwgen</artifactId>
     	</dependency>
@@ -243,6 +212,11 @@
     	<dependency>
     		<groupId>joda-time</groupId>
     		<artifactId>joda-time</artifactId>
+    	</dependency>
+    	<dependency>
+    		<groupId>jaxen</groupId>
+    		<artifactId>jaxen</artifactId>
+    		<scope>test</scope>
     	</dependency>
 	</dependencies>
    
