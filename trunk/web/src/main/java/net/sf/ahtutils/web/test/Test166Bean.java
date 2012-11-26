@@ -1,6 +1,7 @@
 package net.sf.ahtutils.web.test;
 
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +20,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Named @ViewScoped
-public class Test166Bean
+public class Test166Bean implements Serializable
 {
+	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(Test166Bean.class);
 	
 	private PrimefacesEjbIdDataModel<AhtUtilsStatus> dmStatus;

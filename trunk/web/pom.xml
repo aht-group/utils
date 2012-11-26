@@ -24,20 +24,8 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-   
-   <properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jboss.domain>default</jboss.domain>
-	</properties>
 		
 	<dependencies>
-	     <dependency>
-			<groupId>org.jboss.spec</groupId>
-			<artifactId>jboss-javaee-6.0</artifactId>
-			<version>1.0.0.Final</version>
-			<scope>provided</scope>
-			<type>pom</type>
-		</dependency>  
 		<dependency>
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
@@ -79,6 +67,39 @@
 	 		<groupId>net.sf.ahtutils</groupId>
 	 		<artifactId>ahtutils-util</artifactId>
 	 	</dependency>
+	 	
+	     <dependency>
+			<groupId>org.jboss.spec</groupId>
+			<artifactId>jboss-javaee-6.0</artifactId>
+			<scope>provided</scope>
+			<type>pom</type>
+		</dependency>  
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		 
+		 <dependency>
+		 	<groupId>org.slf4j</groupId>
+		 	<artifactId>slf4j-api</artifactId>
+		 </dependency>
+		 
+		 <dependency>
+		   <groupId>com.ocpsoft</groupId>
+		   <artifactId>prettyfaces-jsf2</artifactId>
+		</dependency>
+		 
+		<dependency>  
+			<groupId>org.primefaces</groupId>  
+			<artifactId>primefaces</artifactId>   
+		</dependency>
+	 	
 	</dependencies>
 	
 	<build>
