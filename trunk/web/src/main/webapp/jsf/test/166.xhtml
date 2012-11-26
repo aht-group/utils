@@ -11,6 +11,18 @@
     <h:form id="form">
       <h:outputText value="#{test166Bean.test}"/>
    
+       <h:form id="form">
+         <p:dataTable var="i" value="#{test166Bean.dmStatus}">
+           <p:column>
+             <f:facet name="header"><h:outputText value="Name"/></f:facet>
+             <h:outputText value="#{i.code}"/>
+           </p:column>
+           <p:column>
+             <aht:dmSelectSingle dm="#{test166Bean.dmStatus}" update=":form" for="#{i}"/>
+           </p:column>
+         </p:dataTable> 	 
+       </h:form>
+      
      
     </h:form>
     

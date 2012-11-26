@@ -133,13 +133,41 @@
                 <version>7.1.1.Final</version>
                 <type>pom</type>
             </dependency>
-            
+            <dependency>
+	            <groupId>org.jboss.spec</groupId>
+	            <artifactId>jboss-javaee-web-6.0</artifactId>
+	            <version>2.0.0.Final</version>
+	            <type>pom</type>
+	            <scope>import</scope>
+	         </dependency>
             <dependency>
 			   <groupId>org.jboss.spec</groupId>
 			   <artifactId>jboss-javaee-6.0</artifactId>
 			   <version>1.0.0.Final</version>
 			   <type>pom</type>
 			</dependency>
+			<dependency>
+				<groupId>org.jboss.arquillian.junit</groupId>
+				<artifactId>arquillian-junit-container</artifactId>
+				<version>1.0.0.CR7</version>
+				<scope>test</scope>
+			</dependency>
+			
+			<!-- JSR-303 (Bean Validation) Implementation -->
+			<!-- Provides portable constraints such as @Email Hibernate Validator is shipped in JBoss AS 7 -->
+	        <dependency>
+	            <groupId>org.hibernate</groupId>
+	            <artifactId>hibernate-validator</artifactId>
+	            <version>4.1.0.Final</version>
+	            <scope>provided</scope>
+	            <exclusions>
+	               <exclusion>
+	                  <groupId>org.slf4j</groupId>
+	                  <artifactId>slf4j-api</artifactId>
+	               </exclusion>
+	            </exclusions>
+	         </dependency>
+	         
             
             <!-- SEAM -->
             <dependency>

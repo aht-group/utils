@@ -11,13 +11,75 @@
 	
     <artifactId>ahtutils-web</artifactId>
     <name>AHT-Utils - Demo WebApp</name>
+    <packaging>war</packaging>
    
-  
+  	<dependencyManagement>
+		<dependencies>      	         
+			<dependency>
+				<groupId>net.sf.ahtutils</groupId>
+				<artifactId>ahtutils-bom</artifactId>
+				<version>${project.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
    
    <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jboss.domain>default</jboss.domain>
 	</properties>
+		
+	<dependencies>
+	     <dependency>
+			<groupId>org.jboss.spec</groupId>
+			<artifactId>jboss-javaee-6.0</artifactId>
+			<version>1.0.0.Final</version>
+			<scope>provided</scope>
+			<type>pom</type>
+		</dependency>  
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+	 		<groupId>net.sf.ahtutils</groupId>
+    		<artifactId>ahtutils-interfaces</artifactId>
+         </dependency>
+		 <dependency>
+	 		<groupId>net.sf.ahtutils</groupId>
+    		<artifactId>ahtutils-jsf</artifactId>
+    		<exclusions>
+			    <exclusion>
+			        <groupId>com.ibm.icu</groupId>
+			        <artifactId>icu4j</artifactId>
+			    </exclusion>
+			    <exclusion>
+			        <groupId>net.sf.ahtutils</groupId>
+			        <artifactId>ahtutils-util</artifactId>
+			    </exclusion>
+			    <exclusion>
+			    	<groupId>org.jgrapht</groupId>
+					<artifactId>jgrapht</artifactId>
+			    </exclusion>
+			</exclusions>
+	 	</dependency>
+	 	<dependency>  
+   			<groupId>org.primefaces</groupId>  
+   			<artifactId>primefaces</artifactId>
+   			<version>3.4.1</version>
+		</dependency>
+	 	<dependency>
+	 		<groupId>net.sf.ahtutils</groupId>
+	 		<artifactId>ahtutils-ejb</artifactId>
+	 		<type>ejb</type>
+	 	</dependency>
+	 	<dependency>
+	 		<groupId>net.sf.ahtutils</groupId>
+	 		<artifactId>ahtutils-util</artifactId>
+	 	</dependency>
+	</dependencies>
 	
 	<build>
        <finalName>ahtutils</finalName>
@@ -39,55 +101,4 @@
          	</plugin>
 		</plugins>
 	</build>
-	
-	<dependencies>
-	     <dependency>
-			<groupId>org.jboss.spec</groupId>
-			<artifactId>jboss-javaee-6.0</artifactId>
-			<version>1.0.0.Final</version>
-			<scope>provided</scope>
-			<type>pom</type>
-		</dependency>  
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>4.0.0.GA</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>jstl</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
-		<dependency>
-	 		<groupId>net.sf.ahtutils</groupId>
-    		<artifactId>ahtutils-interfaces</artifactId>
-    		<version>0.2.2-SNAPSHOT</version>
-         </dependency>
-		 <dependency>
-	 		<groupId>net.sf.ahtutils</groupId>
-    		<artifactId>ahtutils-jsf</artifactId>
-    		<version>0.2.2-SNAPSHOT</version>
-    		<exclusions>
-			    <exclusion>
-			        <groupId>com.ibm.icu</groupId>
-			        <artifactId>icu4j</artifactId>
-			    </exclusion>
-			    <exclusion>
-			        <groupId>net.sf.ahtutils</groupId>
-			        <artifactId>ahtutils-util</artifactId>
-			    </exclusion>
-			    <exclusion>
-			    	<groupId>org.jgrapht</groupId>
-					<artifactId>jgrapht</artifactId>
-			    </exclusion>
-			</exclusions>
-	 	</dependency>
-	 	<dependency>  
-   			<groupId>org.primefaces</groupId>  
-   			<artifactId>primefaces</artifactId>
-   			<version>3.4.1</version>
-		</dependency>
-	</dependencies>
-	<packaging>war</packaging>
 </project>
