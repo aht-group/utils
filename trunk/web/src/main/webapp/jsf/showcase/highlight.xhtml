@@ -9,5 +9,8 @@
     <ui:define name="menu"><aht:menuUl value="#{menuBean.menu('showcase')}" scActive="current" sc1="nav-menu"/></ui:define>
     <ui:define name="content">
    	  <h2>Highlight</h2>
+     <aht:highlight resource="/code.ahtutils-web/showcase/highlight/pom.xml"/>
+     
+     <aht:highlight resource="/code.ahtutils-web/showcase/highlight/pom.xml" from="1" to="2"/>
    </ui:define>
 </ui:composition>
