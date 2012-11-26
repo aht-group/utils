@@ -47,10 +47,6 @@
 			        <groupId>net.sf.ahtutils</groupId>
 			        <artifactId>ahtutils-util</artifactId>
 			    </exclusion>
-			    <exclusion>
-			    	<groupId>org.jgrapht</groupId>
-					<artifactId>jgrapht</artifactId>
-			    </exclusion>
 			</exclusions>
 	 	</dependency>
 	 	<dependency>  

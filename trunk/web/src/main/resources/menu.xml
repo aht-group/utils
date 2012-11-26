@@ -1,0 +1,11 @@
+<menu xmlns="http://ahtutils.aht-group.com/navigation" xmlns:s="http://ahtutils.aht-group.com/status" xmlns:a="http://ahtutils.aht-group.com/access">
+    <menuItem code="welcome" href="/index.jsf">
+        <s:langs><s:lang key="en" version="1" translation="Welcome" /></s:langs>
+    </menuItem>
+    <menuItem code="showcase" href="/showcase">
+        <s:langs><s:lang key="en" version="1" translation="Showcase" /></s:langs>
+    </menuItem>
+    <menuItem code="tutorial" href="/tutorial">
+        <s:langs><s:lang key="en" version="1" translation="Tutorial" /></s:langs>
+    </menuItem>
+</menu>
