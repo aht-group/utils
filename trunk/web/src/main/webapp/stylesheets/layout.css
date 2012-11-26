@@ -22,24 +22,45 @@
 	#FontAwesome 
 	#Contact Form*/
 
-/* #Header
-================================================== */
-
-#header { border-bottom: 1px solid #E3E3E8; margin-bottom: 10px; }
-h1 a { text-indent: -9999px; }
-#site-title { padding-top: 0;
-	margin-top: 5px;
+/* HEADER */
+.header {
+	margin-top: 0;
+	border-bottom: 1px solid #E3E3E8;
+	margin-bottom: 10px;
+	padding-top: 5px;
+	display: block;
 }
 
 /* #Navigation
 ================================================== */
 
-#main-nav { float: right; }
-#main-nav ul, #main-nav li { list-style: none; padding: 0; margin: 0; display: inline; } 
-#main-nav ul li { float: left; position: relative; }
-#main-nav ul li a { display: inline-block; padding: 23px 10px 17px; margin: 0 5px; text-decoration: none; font-size: 12px; border-bottom: 3px solid transparent; }
+#main-nav { float: right;
+	margin-top: 14px;
+}
+#main-nav ul, #main-nav li {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: inline;
+} 
+#main-nav ul li {
+	float: left;
+	position: relative;
+}
+#main-nav ul li a {
+	display: inline-block;
+	padding: 10px 10px 5px;
+	margin: 0 5px;
+	text-decoration:none;
+	font-size: 13px;
+	border-bottom: 3px solid transparent;
+}
 #main-nav ul li:hover { border-bottom: 3px solid #2c88c9 !important; }
-.current { font-weight: bold !important; color: #444 !important; border-bottom: 3px solid #2c88c9 !important; }
+.current {
+	font-weight: bold !important;
+	color: #444 !important;
+	border-bottom: 3px solid #2c88c9 !important;
+}
 
 
 /* #Site Styles

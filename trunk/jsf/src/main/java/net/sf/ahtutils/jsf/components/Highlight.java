@@ -49,12 +49,7 @@ public class Highlight extends UINamingContainer
 				catch (IOException e){logger.error(e.getMessage());e.printStackTrace();}
 			}		
 			String s = writer.toString();
-			try {
-				writer.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			try {writer.close();} catch (IOException e) {e.printStackTrace();}
 			return s;
 		}
 		else

@@ -6,11 +6,37 @@
    xmlns:p="http://primefaces.org/ui"
    xmlns:aht="http://ahtutils.sourceforge.net/jsf"
    template="/WEB-INF/templates/ahtutils.xhtml">
-    <ui:define name="menu"><aht:menuUl value="#{menuBean.menu('showcase')}" scActive="current" sc1="nav-menu"/></ui:define>
-    <ui:define name="content">
-   	  <h2>Highlight</h2>
-     <aht:highlight resource="/code.ahtutils-web/showcase/highlight/pom.xml"/>
-     
-     <aht:highlight resource="/code.ahtutils-web/showcase/highlight/pom.xml" from="1" to="2"/>
-   </ui:define>
+  <ui:define name="menu"><aht:menuUl value="#{menuBean.menu('showcase')}" scActive="current" sc1="nav-menu"/></ui:define>
+  <ui:define name="sidebar"><ui:include src="/WEB-INF/templates/showcase.xhtml" /></ui:define>
+  <ui:define name="content">
+    <article class="thirteen columns main-content">
+      <h2>Highlight</h2>
+      <ui:include src="/WEB-INF/showcase/highlight.xhtml" />
+      <p:spacer hight="10px"/>
+      <p:tabView id="tabView">  
+        
+        <p:tab id="tab1" title="XHTML">  
+          <aht:highlight resource="/composition.ahtutils-web/highlight.xhtml" from="6" to="11"/>
+        </p:tab>  
+        
+        <p:tab id="tab3" title="Attributes">  
+          <p:dataTable var="a" value="#{showcaseHighlightBean.component.attribute}">
+            <p:column>
+              <f:facet name="header"><h:outputText value="Name"/></f:facet>
+              <h:outputText value="#{a.name}"/>
+            </p:column>
+            <p:column>
+              <f:facet name="header"><h:outputText value="Required"/></f:facet>
+              <h:outputText value="#{a.required}"/>
+            </p:column>
+            <p:column>
+              <f:facet name="header"><h:outputText value="Default"/></f:facet>
+              <h:outputText value="#{a.default}"/>
+            </p:column>
+          </p:dataTable>
+        </p:tab>  
+        
+      </p:tabView> 
+    </article>
+ </ui:define>
 </ui:composition>

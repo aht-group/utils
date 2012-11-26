@@ -7,6 +7,9 @@
 <h:body>
     <ui:composition>
         <div id="menu">
+            
+            <aht:menuUl value="#{menuBean.sub('showcase')}" scActive=""/>
+            
             <ul>                 
             <h:outputText value="Concepts"></h:outputText>                                                                  
             	<li><a href="/ahtutils/jsf/info/datamodel.jsf">Extended PrimeFaces Datamodel</a></li>

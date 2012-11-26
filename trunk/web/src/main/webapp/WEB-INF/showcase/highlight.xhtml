@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:aht="http://ahtutils.sourceforge.net/jsf">
+<h:body>
+<ui:composition>
+    Resource must be available in the classpath:
+    <aht:highlight resource="/code.ahtutils-web/showcase/highlight/pom.xml"/>
+    Only line 1 to 2 will be shown:
+    <aht:highlight resource="/code.ahtutils-web/showcase/highlight/pom.xml" from="1" to="2"/>
+</ui:composition>
+</h:body>
+</html>
