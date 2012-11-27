@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:aht="http://ahtutils.sourceforge.net/jsf"
+   xmlns:ofx="http://www.openfuxml.org/jsf"
+   template="/WEB-INF/templates/ahtutils.xhtml">
+  <ui:define name="menu"><aht:menuUl value="#{menuBean.menu('showcase')}" scActive="current" sc1="nav-menu"/></ui:define>
+  <ui:define name="sidebar"><ui:include src="/WEB-INF/templates/showcase.xhtml" /></ui:define>
+  <ui:define name="content">
+    <article class="thirteen columns main-content">
+      <h2>timeago</h2>
+      <ui:include src="/WEB-INF/showcase/timeago.xhtml" />
+      <p:spacer hight="10px"/>
+      <p:tabView>  
+        <p:tab title="XHTML">  
+          <aht:highlight resource="/composition.ahtutils-web/timeago.xhtml" from="6" to="11"/>
+        </p:tab>  
+        <p:tab title="Attributes">  
+          <ofx:component value="#{showcaseBean.component['timeago']}"/>
+        </p:tab>  
+      </p:tabView> 
+    </article>
+ </ui:define>
+</ui:composition>

@@ -31,6 +31,7 @@ public class ShowcaseBean implements Serializable
 		build("highlight");
 		build("menuUl");
 		build("breadcrumb");
+		build("timeago");
 	}
 
 	private void build(String code)

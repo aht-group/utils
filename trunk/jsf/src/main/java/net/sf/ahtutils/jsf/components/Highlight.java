@@ -19,8 +19,8 @@ public class Highlight extends UINamingContainer
 	
 	public String text(String input, int from, int to)
 	{
-		logger.info("Looking for Resource "+input);
-		logger.info("from:"+from+" "+"to:"+to);
+		logger.trace("Looking for Resource "+input);
+		logger.trace("from:"+from+" "+"to:"+to);
 		InputStream is = this.getClass().getResourceAsStream(input);
 		
 		if(is!=null)
@@ -54,7 +54,11 @@ public class Highlight extends UINamingContainer
 		}
 		else
 		{
-			return "Resource not found: "+input;
+			StringBuffer sb = new StringBuffer();
+			sb.append("Resource not found: ").append(IOUtils.LINE_SEPARATOR_UNIX);
+			sb.append(input).append(IOUtils.LINE_SEPARATOR_UNIX);
+			sb.append(" must be available in the classpath");
+			return sb.toString();
 		}
 	}
 	

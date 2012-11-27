@@ -2,22 +2,25 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:schemaLocation="http://ocpsoft.org/prettyfaces/3.3.3 http://ocpsoft.org/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.3.3.xsd">
     
-    <url-mapping id="showcase">
-        <pattern value="/showcase" />
-        <view-id value="/jsf/showcase/showcase.jsf" />
-    </url-mapping>
-    <url-mapping id="showcaseHighlight">
-        <pattern value="/showcase/highlight" />
-        <view-id value="/jsf/showcase/highlight.jsf" />
-    </url-mapping>
-    <url-mapping id="showcaseMenuUl">
-        <pattern value="/showcase/menuUl" />
-        <view-id value="/jsf/showcase/menuUl.jsf" />
-    </url-mapping>
-    <url-mapping id="showcaseBreadcrumb">
-        <pattern value="/showcase/breadcrumb" />
-        <view-id value="/jsf/showcase/breadcrumb.jsf" />
-    </url-mapping>
-    
+	<url-mapping id="showcase">
+		<pattern value="/showcase" />
+		<view-id value="/jsf/showcase/showcase.jsf" />
+	</url-mapping>
+	<url-mapping id="showcaseHighlight">
+		<pattern value="/showcase/highlight" />
+		<view-id value="/jsf/showcase/highlight.jsf" />
+	</url-mapping>
+	<url-mapping id="showcaseMenuUl">
+		<pattern value="/showcase/menuUl" />
+		<view-id value="/jsf/showcase/menuUl.jsf" />
+	</url-mapping>
+	<url-mapping id="showcaseBreadcrumb">
+		<pattern value="/showcase/breadcrumb" />
+		<view-id value="/jsf/showcase/breadcrumb.jsf" />
+	</url-mapping>
+	<url-mapping id="showcaseTimeago">
+		<pattern value="/showcase/timeago" />
+		<view-id value="/jsf/showcase/timeago.jsf" />
+	</url-mapping>
     
 </pretty-config>
