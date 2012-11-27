@@ -54,7 +54,7 @@ public class Highlight extends UINamingContainer
 		}
 		else
 		{
-			return "Resource not found";
+			return "Resource not found: "+input;
 		}
 		
 	}

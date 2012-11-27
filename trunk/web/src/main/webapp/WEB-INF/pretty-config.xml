@@ -10,5 +10,14 @@
         <pattern value="/showcase/highlight" />
         <view-id value="/jsf/showcase/highlight.jsf" />
     </url-mapping>
+    <url-mapping id="showcaseMenuUl">
+        <pattern value="/showcase/menuUl" />
+        <view-id value="/jsf/showcase/menuUl.jsf" />
+    </url-mapping>
+    <url-mapping id="showcaseBreadcrumb">
+        <pattern value="/showcase/breadcrumb" />
+        <view-id value="/jsf/showcase/breadcrumb.jsf" />
+    </url-mapping>
+    
     
 </pretty-config>

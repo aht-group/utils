@@ -11,16 +11,24 @@
   <ui:define name="sidebar"><ui:include src="/WEB-INF/templates/showcase.xhtml" /></ui:define>
   <ui:define name="content">
     <article class="thirteen columns main-content">
-      <h2>Highlight</h2>
-      <ui:include src="/WEB-INF/showcase/highlight.xhtml" />
+      <h2>menuUl</h2>
+      menuUl is a multipurpose component for rendering a menus to a structure like this:     
+      <aht:highlight resource="/code.ahtutils-web/showcase/menuUl/menu.html"/>
       <p:spacer hight="10px"/>
       <p:tabView>  
+        
         <p:tab title="XHTML">  
-          <aht:highlight resource="/composition.ahtutils-web/highlight.xhtml" from="6" to="11"/>
-        </p:tab>  
+          <aht:highlight resource="/composition.ahtutils-web/menuUl.xhtml" from="6" to="8"/>
+        </p:tab>
+        
+        <p:tab title="Bean">  
+          <aht:highlight lang="java" resource="/java.ahtutils-web/net/sf/ahtutils/web/util/MenuBean.java" from="15" to="31"/>
+        </p:tab> 
+        
         <p:tab title="Attributes">  
-          <ofx:component value="#{showcaseBean.component['highlight']}"/>
+          <ofx:component value="#{showcaseBean.component['breadcrumb']}"/>
         </p:tab>  
+        
       </p:tabView> 
     </article>
  </ui:define>
