@@ -10,13 +10,18 @@
     <composite:attribute name="lang" required="false" default="xml"/>
     <composite:attribute name="from" required="false" default="0"/>
     <composite:attribute name="to" required="false" default="-1"/>
+  	<composite:attribute name="tab" required="false" default="2"/>
   </composite:interface>
         
   <composite:implementation>
 	<h:outputStylesheet library="highlight" name="default.min.css" target="head"/>
 	<h:outputScript library="highlight" name="highlight.min.js" target="head"/>
 	
-	<script>hljs.initHighlightingOnLoad();</script>
+	<script>
+	  hljs.tabReplace = "#{cc.tab(cc.attrs.tab)}";
+	  hljs.initHighlightingOnLoad();
+	  
+	</script>
 	
     <pre><code class="#{cc.attrs.lang}"><h:outputText value="#{cc.text(cc.attrs.resource,cc.attrs.from,cc.attrs.to)}" /></code></pre>
     

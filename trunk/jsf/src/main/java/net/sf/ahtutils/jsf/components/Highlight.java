@@ -56,6 +56,15 @@ public class Highlight extends UINamingContainer
 		{
 			return "Resource not found: "+input;
 		}
-		
+	}
+	
+	public String tab(int tab)
+	{
+		StringBuffer sb = new StringBuffer();
+		for(int i=0;i<tab;i++)
+		{
+			sb.append(" ");
+		}
+		return sb.toString();
 	}
 }
