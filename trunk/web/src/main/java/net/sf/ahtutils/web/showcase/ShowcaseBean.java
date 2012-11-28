@@ -32,6 +32,7 @@ public class ShowcaseBean implements Serializable
 		build("menuUl");
 		build("breadcrumb");
 		build("timeago");
+		build("tabTranslationEditor");
 	}
 
 	private void build(String code)

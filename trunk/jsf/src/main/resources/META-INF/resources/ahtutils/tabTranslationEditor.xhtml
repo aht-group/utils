@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:c="http://java.sun.com/jsp/jstl/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:composite="http://java.sun.com/jsf/composite">
+    
+  <composite:interface>
+    <composite:attribute name="value" required="true"/>
+  	<composite:attribute name="keys" required="true"/>
+  	<composite:attribute name="labelTranslation" required="false" default="Translation"/>
+  	<composite:attribute name="labelDescription" required="false" default="Description"/>
+  	<composite:attribute name="withDescription" required="false" default="false"/>
+  </composite:interface>
+        
+  <composite:implementation>
+  	<p:tabView id="tabView" var="t" value="#{cc.attrs.keys}">  
+  		<p:tab title="#{t}">  
+  			<h:outputText value="#{cc.attrs.labelTranslation}"/>
+  			<p:inputTextarea value="#{cc.attrs.value.name[t].lang}"
+  				maxlength="254" style="width:100%"/>
+  			<c:if test="#{cc.attrs.withDescription}">
+  				<h:outputText value="#{cc.attrs.labelDescription}"/>
+  				<p:inputTextarea value="#{cc.attrs.value.description[t].lang}"
+  					maxlength="254" style="width:100%"/>
+  			</c:if>
+  			
+  		</p:tab>  
+  	</p:tabView> 
+  </composite:implementation>
+</html>

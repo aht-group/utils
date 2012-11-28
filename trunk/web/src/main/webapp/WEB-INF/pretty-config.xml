@@ -22,5 +22,10 @@
 		<pattern value="/showcase/timeago" />
 		<view-id value="/jsf/showcase/timeago.jsf" />
 	</url-mapping>
+	<url-mapping id="showcaseTabTranslationEditor">
+		<pattern value="/showcase/tabTranslationEditor" />
+		<view-id value="/jsf/showcase/tabTranslationEditor.jsf" />
+	</url-mapping>
+	
     
 </pretty-config>

@@ -8,6 +8,7 @@
         <menuItem code="showcaseMenuUl" href="/showcase/menuUl"><s:langs><s:lang key="en" version="1" translation="menuUl" /></s:langs></menuItem>
         <menuItem code="showcaseBreadcrumb" href="/showcase/breadcrumb"><s:langs><s:lang key="en" version="1" translation="breadcrumb" /></s:langs></menuItem>
     		<menuItem code="showcaseTimeago" href="/showcase/timeago"><s:langs><s:lang key="en" version="1" translation="timeago" /></s:langs></menuItem>
+    	<menuItem code="showcaseTabTranslationEditor" href="/showcase/tabTranslationEditor"><s:langs><s:lang key="en" version="1" translation="tabTranslationEditor" /></s:langs></menuItem>
     </menuItem>
     <menuItem code="tutorial" href="/tutorial">
         <s:langs><s:lang key="en" version="1" translation="Tutorial" /></s:langs>

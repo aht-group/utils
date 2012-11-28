@@ -43,10 +43,7 @@ public class AhtUtilsStatus implements UtilsStatus<AhtUtilsLang,AhtUtilsDescript
 	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	@MapKey(name = "lkey")
 	protected Map<String, AhtUtilsDescription> description;
-	
-	public Map<String, AhtUtilsDescription> getDescription() {return description;}
-	public void setDescription(Map<String, AhtUtilsDescription> description) {this.description = description;}
-	
+		
 	protected String code;
 	
 	protected boolean visible;
@@ -64,6 +61,9 @@ public class AhtUtilsStatus implements UtilsStatus<AhtUtilsLang,AhtUtilsDescript
 	
 	public Map<String, AhtUtilsLang> getName(){if(name==null){name = new Hashtable<String, AhtUtilsLang>();}return name;}
 	public void setName(Map<String, AhtUtilsLang> name) {this.name = name;}
+	
+	public Map<String, AhtUtilsDescription> getDescription() {if(description==null){description = new Hashtable<String, AhtUtilsDescription>();}return description;}
+	public void setDescription(Map<String, AhtUtilsDescription> description) {this.description = description;}
 	
 	public String getCode() {return code;}
 	public void setCode(String code) {this.code = code;}
