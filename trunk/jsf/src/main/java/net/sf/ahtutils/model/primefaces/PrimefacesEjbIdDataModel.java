@@ -77,10 +77,11 @@ public class PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataMode
     	}
     }
     
-    public void select(T item, boolean value)
+    public void select(T item, boolean value){select(item, value,true);}
+    public void select(T item, boolean value, boolean withCallback)
     {
     	mapSelect.put(item.getId(), value);
-    	if(singleSelectCallback!=null){singleSelectCallback.dmSingleSelected(item);}
+    	if(withCallback && singleSelectCallback!=null){singleSelectCallback.dmSingleSelected(item);}
     }
     
     public void selectAll(boolean value)
