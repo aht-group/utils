@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:aht="http://ahtutils.sourceforge.net/jsf"
+   xmlns:ofx="http://www.openfuxml.org/jsf"
+   template="/WEB-INF/templates/ahtutils.xhtml">
+	<ui:define name="menu"><aht:menuUl value="#{menuBean.menu('functions')}" scActive="current" sc1="nav-menu"/></ui:define>
+	<ui:define name="sidebar"><ui:include src="/WEB-INF/templates/functions.xhtml" /></ui:define>
+	<ui:define name="content">
+    	<article class="thirteen columns main-content">
+      		<h2>prettyUrl</h2>
+     		<ui:include src="/WEB-INF/functions/prettyUrl.xhtml" />
+			<p:spacer hight="10px"/>
+      		<p:tabView>  
+       			<p:tab title="XHTML">  
+          			<aht:highlight resource="/composition.ahtutils-web/functions/prettyUrl.xhtml" from="6" to="8"/>
+        		</p:tab>
+    		</p:tabView>
+		</article>
+	</ui:define>
+</ui:composition>

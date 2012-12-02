@@ -137,7 +137,7 @@
 	              			<outputDirectory>${project.build.directory}/classes/composition.ahtutils-web</outputDirectory>
 	              			<resources>          
 	                			<resource>
-	                  				<directory>src/main/webapp/WEB-INF/showcase</directory>
+	                  				<directory>src/main/webapp/WEB-INF</directory>
 	                  				<filtering>true</filtering>
 	                			</resource>
 	              			</resources>              

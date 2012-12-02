@@ -27,5 +27,13 @@
 		<view-id value="/jsf/showcase/tabTranslationEditor.jsf" />
 	</url-mapping>
 	
+	<url-mapping id="functions">
+		<pattern value="/functions" />
+		<view-id value="/jsf/functions/functions.jsf" />
+	</url-mapping>
+	<url-mapping id="functionPrettyUrl">
+		<pattern value="/functions/prettyUrl" />
+		<view-id value="/jsf/functions/prettyUrl.jsf" />
+	</url-mapping>
     
 </pretty-config>
