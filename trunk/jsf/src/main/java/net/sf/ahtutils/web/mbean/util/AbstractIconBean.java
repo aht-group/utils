@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Hashtable;
 import java.util.Map;
 
-import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
+import net.sf.ahtutils.model.interfaces.with.EjbWithImage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,25 +28,23 @@ public class AbstractIconBean implements Serializable
 		mapStatic = new Hashtable<String,String>();
     }
 
-    @SuppressWarnings("rawtypes")
-	public String url(int size,  UtilsStatus status)
+	public String url(int size,  EjbWithImage image)
 	{
-    	if(status==null){return "";}
-    	if(logger.isTraceEnabled()){logger.trace("size:"+size+" status:"+status);}
-    	if(!mapImages.containsKey(status.getId())){generate(size, status);}
-		return mapImages.get(status.getId());
+    	if(image==null){return "";}
+    	if(logger.isTraceEnabled()){logger.trace("size:"+size+" image:"+image);}
+    	if(!mapImages.containsKey(image.getId())){generate(size, image);}
+		return mapImages.get(image.getId());
 	}
     
-    @SuppressWarnings("rawtypes")
-    private void generate(int size,  UtilsStatus status)
+    private void generate(int size,  EjbWithImage image)
     {
     	StringBuffer sb = new StringBuffer();
     	sb.append("/").append(imagePath);
     	sb.append("/").append(size);
     	sb.append("/");
-    	if(status.getImage()!=null){sb.append(status.getImage());}
+    	if(image.getImage()!=null){sb.append(image.getImage());}
     	else{sb.append("noImage.png");}
-    	mapImages.put(status.getId(), sb.toString());
+    	mapImages.put(image.getId(), sb.toString());
     }
     
 	public String icon(int size,  String key)
