@@ -16,7 +16,7 @@ public class AbstractIconBean implements Serializable
 	
 	private String imagePath;
 	
-	private Map<Long,String> mapImages;
+	private Map<String,Map<Long,String>> mapImages;
 	protected Map<String,String> mapStatic;
 	
 	//******* Methods *******************************
@@ -24,27 +24,40 @@ public class AbstractIconBean implements Serializable
     public void initPath(String imagePath)
     {
 		this.imagePath=imagePath;
-		mapImages = new Hashtable<Long,String>();
+		mapImages = new Hashtable<String,Map<Long,String>>();
 		mapStatic = new Hashtable<String,String>();
     }
 
-	public String url(int size,  EjbWithImage image)
+	public String url(Integer size,  EjbWithImage image)
 	{
     	if(image==null){return "";}
+    	String key = image.getClass().getSimpleName();
     	if(logger.isTraceEnabled()){logger.trace("size:"+size+" image:"+image);}
-    	if(!mapImages.containsKey(image.getId())){generate(size, image);}
-		return mapImages.get(image.getId());
+    	if(!mapImages.containsKey(key))
+    	{
+    		generate(size, image, key);
+    	}
+    	else
+    	{
+    		if(!mapImages.get(key).containsKey(image.getId())){generate(size, image, key);}
+    	}
+    	
+		return mapImages.get(key).get(image.getId());
 	}
     
-    private void generate(int size,  EjbWithImage image)
+    private void generate(int size,  EjbWithImage image, String key)
     {
+    	if(!mapImages.containsKey(key))
+    	{
+    		mapImages.put(key, new Hashtable<Long,String>());
+    	}
     	StringBuffer sb = new StringBuffer();
     	sb.append("/").append(imagePath);
     	sb.append("/").append(size);
     	sb.append("/");
     	if(image.getImage()!=null){sb.append(image.getImage());}
     	else{sb.append("noImage.png");}
-    	mapImages.put(image.getId(), sb.toString());
+    	mapImages.get(key).put(image.getId(), sb.toString());
     }
     
 	public String icon(int size,  String key)
