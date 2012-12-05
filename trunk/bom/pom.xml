@@ -9,7 +9,7 @@
     </parent>
     
     <artifactId>ahtutils-bom</artifactId>
-    <packaging>pom</packaging>
+    <packaging>ear</packaging>
     <name>AHT-Utils - BOM</name>
 
     <dependencyManagement>
@@ -221,7 +221,7 @@
 	        <dependency>  
 	         	<groupId>org.primefaces</groupId>  
 	         	<artifactId>primefaces</artifactId>  
-	         	<version>3.2</version>  
+	         	<version>3.4.2</version>  
 			</dependency>
 			<dependency>
 				<groupId>org.primefaces.extensions</groupId>
