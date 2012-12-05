@@ -9,7 +9,7 @@
     </parent>
     
     <artifactId>ahtutils-bom</artifactId>
-    <packaging>ear</packaging>
+    <packaging>pom</packaging>
     <name>AHT-Utils - BOM</name>
 
     <dependencyManagement>
