@@ -7,61 +7,64 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:composite="http://java.sun.com/jsf/composite">
     
-   <composite:interface componentType="net.sf.ahtutils.jsf.components.MenuListMultiLevel">
+   <composite:interface>
      <composite:attribute name="value"/>
    </composite:interface>
         
   <composite:implementation>
   
   <div id="menuHolder">
-  
-  		<!-- This is maybe needed for having the correct iteration order? -->
   		<f:forEach var="rootLevelItem2" items="#{cc.attrs.value.menuItem}">
   		</f:forEach>
 		<f:forEach var="rootLevelItem" items="#{cc.attrs.value.menuItem}">
-		
-			<!-- The actual rendering instructions -->
-			<ul class="menu">
-		  		<li class="sub">
-		  		
-					<f:if test="#{rootLevelItem.active}">
-					  <a class="active" href="#{rootLevelItem.href}"><span>#{rootLevelItem.name}</span><b></b></a>
-					</f:if>
-					<f:if test="#{!rootLevelItem.active}">
-					  <a class="aTop" href="#{rootLevelItem.href}"><span>#{rootLevelItem.name}</span><b></b></a>
-		  			</f:if>
-		  			
-		  					<div class="col#{cc.submenus(rootLevelItem).size()} drop">
-		  					    <f:forEach var="submenuRoot" items="#{cc.submenus(rootLevelItem)}">
-			  					    
-			  					      <dl>
-			  					      	 <f:forEach var="i" varStatus="status" begin="0" end="#{submenuRoot.size()}">
-			  					      	 <dd>
-			  					      	 <f:if test="#{status.count==1}">
-				  					      	 <f:if test="#{submenuRoot[i].active}">
-						  						<dt>#{submenuRoot[i].name}</dt>
-											</f:if>
-											 <f:if test="#{!submenuRoot[i].active}">
-						  						<dt>#{submenuRoot[i].name}</dt>
-											</f:if>
-		  								</f:if>
-		  								<f:if test="#{!(status.count==1)}">
-		  								    <f:if test="#{submenuRoot[i].active}">
-						  						<a class="active" href=" #{submenuRoot[i].href}"><span> #{submenuRoot[i].name}</span><b></b></a>
-											</f:if>
-			  					      	    <f:if test="#{!submenuRoot[i].active}">
-						  						<a href=" #{submenuRoot[i].href}"><span> #{submenuRoot[i].name}</span><b></b></a>
-											</f:if>
-			  					      	</f:if>
-			  					      	 </dd>
-			  					      	 </f:forEach>
-			  					      </dl>
-			  					    
-		  					    </f:forEach>    
-							</div>
-		  		</li>
-	  		</ul>
+		<ul class="menu">
+		<f:set var="submenuItems" value="0"/>
+  		<li class="sub">
+			<f:if test="#{rootLevelItem.active}">
+			  <a class="active" href="#{rootLevelItem.href}"><span>#{rootLevelItem.name}</span><b></b></a>
+			</f:if>
+			<f:if test="#{!rootLevelItem.active}">
+			  <a class="aTop" href="#{rootLevelItem.href}"><span>#{rootLevelItem.name}</span><b></b></a>
+  			</f:if>
+  			<f:if test="#{rootLevelItem.menuItem.size()>0}">
+  					<f:forEach var="firstLevelItem" items="#{rootLevelItem.menuItem}">
+  						<f:set var="submenuItems" value="1"/>
+  						<f:forEach var="secondLevelItem" items="#{firstLevelItem.menuItem}">
+  							<f:set var="submenuItems" value="2"/>
+  						</f:forEach>
+  						<f:forEach var="thirdLevelItem" items="#{secondLevelItem.menuItem}">
+  							<f:set var="submenuItems" value="3"/>
+  							<f:forEach var="FourthLevelItem" items="#{ThirdLevelItem.menuItem}">
+  								<f:set var="submenuItems" value="4"/>
+  						</f:forEach>
+  						</f:forEach>
+  					</f:forEach>
+  				<div class="col1 drop">
+	      			<dl>
+		    			<f:forEach var="menuItem" items="#{rootLevelItem.menuItem}">
+	            			<dt><a href="#{menuItem.href}">#{menuItem.name}</a></dt>
+	            			<f:if test="#{menuItem.menuItem.size()>0}">
+		        				<f:forEach var="menuItemSub" items="#{menuItem.menuItem}">
+		        					<dd><a href="#{menuItemSub.href}">#{menuItemSub.name}</a></dd>
+		        					<f:if test="#{menuItemSub.menuItem.size()>0}">
+			        				<f:forEach var="menuItemSub2" items="#{menuItemSub.menuItem}">
+			        					<dd><a href="#{menuItemSub2.href}">#{menuItemSub2.name}</a></dd>
+			        					<f:if test="#{menuItemSub2.menuItem.size()>0}">
+				        				<f:forEach var="menuItemSub3" items="#{menuItemSub2.menuItem}">
+				        					<dd><a href="#{menuItemSub3.href}">#{menuItemSub3.name}</a></dd>
+				        				</f:forEach>
+			        					</f:if>
+			        				</f:forEach>
+		        					</f:if>
+		        				</f:forEach>
+		        			</f:if>
+	     				</f:forEach>
+			     	</dl>
+	    		</div>
+    		</f:if>
+  		</li>
+  		</ul>
   		</f:forEach>
-	</div>
+</div>
    </composite:implementation>
 </html>
