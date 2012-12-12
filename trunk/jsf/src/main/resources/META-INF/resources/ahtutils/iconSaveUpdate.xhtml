@@ -12,14 +12,15 @@
 		<composite:attribute name="update"/>
 		<composite:attribute name="styleClass"/>
 		<composite:attribute name="disabled" required="false" default="false"/>
+		<composite:attribute name="oncomplete" required="false"/>
 	</composite:interface>
 	        
 	<composite:implementation>
 		<h:graphicImage rendered="#{cc.attrs.ejb.id eq 0 and not cc.attrs.disabled}" styleClass="#{cc.attrs.styleClass}" value="#{iconBean.icon(12,'saveNew')}">
-			<p:ajax event="click" update="#{cc.attrs.update}" listener="#{cc.listener}" process="@form"/>
+			<p:ajax event="click" update="#{cc.attrs.update}" listener="#{cc.listener}" process="@form" oncomplete="#{cc.attrs.oncomplete}"/>
 		</h:graphicImage>
 		<h:graphicImage rendered="#{cc.attrs.ejb.id gt 0 and not cc.attrs.disabled}" styleClass="#{cc.attrs.styleClass}" value="#{iconBean.icon(12,'saveExisting')}">
-			<p:ajax event="click" update="#{cc.attrs.update}" listener="#{cc.listener}" process="@form"/>
+			<p:ajax event="click" update="#{cc.attrs.update}" listener="#{cc.listener}" process="@form" oncomplete="#{cc.attrs.oncomplete}"/>
 		</h:graphicImage>
 		<h:graphicImage rendered="#{cc.attrs.ejb.id eq 0 and cc.attrs.disabled}" styleClass="#{cc.attrs.styleClass}" value="#{iconBean.icon(12,'saveNewDisabled')}">
 			

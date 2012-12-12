@@ -10,12 +10,13 @@
 		<composite:attribute name="listener" required="true" method-signature="void listener(javax.faces.event.AjaxBehaviorEvent)"/>
 		<composite:attribute name="update"/>
 		<composite:attribute name="styleClass"/>
+		<composite:attribute name="oncomplete" required="false"/>
 	</composite:interface>
 	        
 	<composite:implementation>
 		<h:graphicImage styleClass="#{cc.attrs.styleClass}"
 			value="#{iconBean.icon(12,'delete')}">
-			<p:ajax event="click" update="#{cc.attrs.update}" listener="#{cc.listener}" process="@this"/>
+			<p:ajax event="click" update="#{cc.attrs.update}" listener="#{cc.listener}" process="@this" oncomplete="#{cc.attrs.oncomplete}"/>
 		</h:graphicImage>
 	</composite:implementation>
 </html>
