@@ -44,15 +44,15 @@ public class ParentPredicate <P extends EjbWithId> implements Serializable
 		return cB.equal(pPath, parent.getId());
 	}
 	
-	public static <T extends EjbWithId> List<ParentPredicate<T>> list(ParentPredicate<T>... aP)
+	public static <T extends EjbWithId> List<ParentPredicate<T>> list(ParentPredicate<T> pp)
 	{
 		List<ParentPredicate<T>> result = new ArrayList<ParentPredicate<T>>();
 		
-		for(int i=0;i<aP.length;i++)
+/*		for(int i=0;i<aP.length;i++)
 		{
 			result.add(aP[i]);
 		}
-		
+*/		result.add(pp);
 		return result;
 	}
 	

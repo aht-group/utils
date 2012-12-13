@@ -238,4 +238,20 @@ public class AbstractDummyFacade implements UtilsFacade
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public <T extends EjbWithId, P extends EjbWithId> T oneForParents(
+			Class<T> cl, List<ParentPredicate<P>> parents)
+			throws UtilsNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T extends EjbWithId, I extends EjbWithId> T oneForParents(
+			Class<T> cl, String p1Name, I p1, String p2Name, I p2)
+			throws UtilsNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

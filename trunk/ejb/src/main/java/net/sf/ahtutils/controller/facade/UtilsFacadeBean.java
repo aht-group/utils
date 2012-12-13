@@ -424,6 +424,22 @@ public class UtilsFacadeBean implements UtilsFacade
 		if(list.size()==0){throw new UtilsNotFoundException("No "+cl.getSimpleName()+" found for "+p1Name+"=="+p1);}
 		return list.get(0);
 	}
+	@Override
+	public <T extends EjbWithId, I extends EjbWithId> T oneForParents(Class<T> cl, String p1Name, I p1, String p2Name, I p2) throws UtilsNotFoundException
+	{
+		List<T> list = allForParent(cl, p1Name, p1, p2Name, p2);
+		if(list.size()>1){throw new UtilsNotFoundException("More than one result found for "+cl.getSimpleName()+" and "+p1Name+"=="+p1+" and "+p2Name+"=="+p2);}
+		if(list.size()==0){throw new UtilsNotFoundException("No "+cl.getSimpleName()+" found for "+p1Name+"=="+p2+" and "+p1Name+"=="+p2);}
+		return list.get(0);
+	}
+	
+	@Override public <T extends EjbWithId, P extends EjbWithId> T oneForParents(Class<T> cl, List<ParentPredicate<P>> parents) throws UtilsNotFoundException
+	{
+		List<T> list = this.fForAndOrParents(cl, parents, ParentPredicate.empty());
+		if(list.size()>1){throw new UtilsNotFoundException("More than one result found for Query");}
+		if(list.size()==0){throw new UtilsNotFoundException("No "+cl.getSimpleName()+" found for Query");}
+		return list.get(0);
+	}
 	
 	public <T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> type, String p1Name, I p1)
 	{
@@ -708,6 +724,4 @@ public class UtilsFacadeBean implements UtilsFacade
 		TypedQuery<T> q = em.createQuery(select);
 		return q.getResultList();
 	}
-
-
 }
