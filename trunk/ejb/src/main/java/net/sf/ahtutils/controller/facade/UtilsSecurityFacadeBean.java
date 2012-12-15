@@ -67,8 +67,26 @@ public class UtilsSecurityFacadeBean extends UtilsFacadeBean implements UtilsSec
 	public <L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L, D, C, R, V, U, A, USER>, R extends UtilsSecurityRole<L, D, C, R, V, U, A, USER>, V extends UtilsSecurityView<L, D, C, R, V, U, A, USER>, U extends UtilsSecurityUsecase<L, D, C, R, V, U, A, USER>, A extends UtilsSecurityAction<L, D, C, R, V, U, A, USER>, USER extends UtilsUser<L, D, C, R, V, U, A, USER>>
 		List<A> allActionsForUser(Class<USER> clUser, USER user)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		user = em.find(clUser, user.getId());
+		Map<Long,A> actions = new HashMap<Long,A>();
+		for(R r : user.getRoles())
+		{
+			for(A a : r.getActions())
+			{
+				actions.put(a.getId(), a);
+			}
+			for(U u : r.getUsecases())
+			{
+				for(A a : u.getActions())
+				{
+					actions.put(a.getId(), a);
+				}
+			}
+		}
+		
+		List<A> result = new ArrayList<A>();
+		for(A a : actions.values()){result.add(a);}
+		return result;
 	}
 	
 	@Override

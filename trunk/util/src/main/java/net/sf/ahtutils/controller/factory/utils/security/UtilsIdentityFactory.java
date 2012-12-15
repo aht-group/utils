@@ -85,20 +85,9 @@ public class UtilsIdentityFactory <I extends UtilsIdentity<L,D,C,R,V,U,A,USER>,
 		I identity = clIdentity.newInstance();
 		identity.setUser(user);
 		
-//		for(U u : fSecurity.all)
-		{
-//			identity.allowUsecase(uc);
-		}
-		
-		for(R r : fSecurity.allRolesForUser(clUser,user))
-		{
-			identity.allowRole(r);
-		}
-		
-		for(V v : fSecurity.allViewsForUser(clUser,user))
-		{
-			identity.allowView(v);
-		}
+		for(A a : fSecurity.allActionsForUser(clUser, user)){identity.allowAction(a);}		
+		for(R r : fSecurity.allRolesForUser(clUser,user)){identity.allowRole(r);}
+		for(V v : fSecurity.allViewsForUser(clUser,user)){identity.allowView(v);}
 		
 		return identity;
 	}
