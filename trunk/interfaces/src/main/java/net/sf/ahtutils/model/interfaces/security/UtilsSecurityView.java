@@ -16,7 +16,8 @@ public interface UtilsSecurityView<L extends UtilsLang,
 								   A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
 								   USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
 			extends EjbWithCode,EjbWithLang<L>,EjbWithDescription<D>,
-					UtilsSecurityWithCategory<L,D,C,R,V,U,A,USER>
+					UtilsSecurityWithCategory<L,D,C,R,V,U,A,USER>,
+					UtilsSecurityWithActions<L,D,C,R,V,U,A,USER>
 {
 	public static final String extractId = "securityViews";
 	
