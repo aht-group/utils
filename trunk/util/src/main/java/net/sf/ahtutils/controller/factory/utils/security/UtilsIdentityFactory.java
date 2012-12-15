@@ -85,10 +85,10 @@ public class UtilsIdentityFactory <I extends UtilsIdentity<L,D,C,R,V,U,A,USER>,
 		I identity = clIdentity.newInstance();
 		identity.setUser(user);
 		
-//		for(UC uc : fAcl.findUsecasesForRoles(roles))
-//		{
+//		for(U u : fSecurity.all)
+		{
 //			identity.allowUsecase(uc);
-//		}
+		}
 		
 		for(R r : fSecurity.allRolesForUser(clUser,user))
 		{
