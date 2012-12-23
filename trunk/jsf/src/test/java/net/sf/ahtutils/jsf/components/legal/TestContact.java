@@ -2,11 +2,8 @@ package net.sf.ahtutils.jsf.components.legal;
 
 import java.util.Scanner;
 
-import net.sf.ahtutils.jsf.menu.TstMenu;
 import net.sf.ahtutils.test.AbstractAhtUtilsJsfTst;
 import net.sf.ahtutils.test.UtilsJsfTstBootstrap;
-import net.sf.ahtutils.xml.navigation.Menu;
-import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.Before;
 import org.junit.Test;
