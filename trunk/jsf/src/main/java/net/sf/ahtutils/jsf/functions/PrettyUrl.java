@@ -11,7 +11,9 @@ public final class PrettyUrl
     	input=input.replace("---", "-");
     	input=input.replace("-", "-");
     	input=input.replace(":-", ":");
+    	input=input.replace("ä", "ae");
+    	input=input.replace("ö", "oe");
+    	input=input.replace("ü", "ue");
         return input;
     }
-
 }
