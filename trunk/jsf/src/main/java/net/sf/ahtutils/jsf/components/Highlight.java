@@ -112,6 +112,16 @@ public class Highlight extends UINamingContainer
 		return writer.toString();
 	}
 	
+	public String tab(int tab)
+	{
+		StringBuffer sb = new StringBuffer();
+		for(int i=0;i<tab;i++)
+		{
+			sb.append(" ");
+		}
+		return sb.toString();
+	}
+	
 	private String resourceNotFound(String input)
 	{
 		StringBuffer sb = new StringBuffer();
