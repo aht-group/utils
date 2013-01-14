@@ -214,7 +214,7 @@
 	        <dependency>
     	   		<groupId>junit</groupId>
     	   		<artifactId>junit</artifactId>
-    	   		<version>4.10</version>
+    	   		<version>4.11</version>
     	   	</dependency>
 			
 			<!-- JSF -->
@@ -226,7 +226,7 @@
 			<dependency>
 				<groupId>org.primefaces.extensions</groupId>
 				<artifactId>primefaces-extensions</artifactId>
-				<version>0.6.1</version>
+				<version>0.6.2</version>
 			</dependency>
 			<dependency>
 		         <groupId>org.richfaces</groupId>
@@ -262,7 +262,7 @@
         	<dependency>
         		<groupId>org.apache.ant</groupId>
         		<artifactId>ant</artifactId>
-        		<version>1.8.2</version>
+        		<version>1.8.4</version>
         	</dependency>
         	
         	<!-- Utils -->
