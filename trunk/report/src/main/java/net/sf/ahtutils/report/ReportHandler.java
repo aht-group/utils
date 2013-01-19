@@ -262,7 +262,7 @@ public class ReportHandler {
 			e1.printStackTrace();
 		}
 		String reportDir = (String)JXPathContext.newContext(reports).getValue("report[@id='"+ reportId +"']/@dir");
-		String location = "jaspers/" +reportDir +"/" +format +"/ltr/mr" +master.getName() +".jasper";
+		String location = "jasper/" +reportDir +"/" +format +"/ltr/mr" +master.getName() +".jasper";
 		JasperReport report = null;
 		try
 		{
