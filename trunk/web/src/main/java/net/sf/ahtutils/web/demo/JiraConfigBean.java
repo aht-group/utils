@@ -1,12 +1,12 @@
 package net.sf.ahtutils.web.demo;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
+import javax.inject.Named;
 
 import net.sf.ahtutils.controller.interfaces.mbean.JiraConfig;
 import net.sf.ahtutils.web.mbean.util.AbstractJiraBean;
 
-@ManagedBean
+@Named
 public class JiraConfigBean extends AbstractJiraBean implements JiraConfig
 {
 	private static final long serialVersionUID = 1L;
