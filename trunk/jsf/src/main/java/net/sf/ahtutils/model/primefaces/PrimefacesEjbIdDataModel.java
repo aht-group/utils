@@ -30,6 +30,7 @@ public class PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataMode
 	public PrimefacesEjbIdDataModel(List<T> data)
     {  
         super(data);
+        details = false;
         mapUnlock = new Hashtable<Long,Boolean>();
         mapSelect = new Hashtable<Long,Boolean>();
         mapInfo = new Hashtable<Long,Boolean>();
@@ -138,4 +139,19 @@ public class PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataMode
     
     public void setSingleSelectCallback(DmSingleSelect<T> singleSelectCallback) {this.singleSelectCallback = singleSelectCallback;}
     public void setAllSelectCallback(DmAllSelect<T> allSelectCallback) {this.allSelectCallback = allSelectCallback;}
+    
+    //*** Detail toggle
+    
+    private boolean details;
+
+	public boolean isDetails() {return details;}
+	public void setDetails(boolean details) {this.details = details;}
+
+	public void toggleDetails()
+	{
+		if(details){details=false;}
+		else{details=true;}
+		logger.info("Toggled details to "+details);
+	}
+	
 }
