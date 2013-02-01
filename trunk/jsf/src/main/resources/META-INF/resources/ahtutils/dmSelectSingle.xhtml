@@ -12,6 +12,9 @@
      <composite:attribute name="update" required="false"/>
      <composite:attribute name="dm"/>
      <composite:attribute name="for"/>
+      <composite:clientBehavior name="click" 
+                              event="click"
+                            targets="#{cc.clientId}"/>
    </composite:interface>
         
 <composite:implementation>
