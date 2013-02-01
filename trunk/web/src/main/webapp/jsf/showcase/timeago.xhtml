@@ -12,7 +12,11 @@
   <ui:define name="content">
     <article class="thirteen columns main-content">
       <h2>timeago</h2>
-      <ui:include src="/WEB-INF/showcase/timeago.xhtml" />
+      <h:outputText value="Timeago rendered output:"/>
+      <b>
+      	<ui:include src="/WEB-INF/showcase/timeago.xhtml" />
+      </b>
+      <br/>
       <p:spacer hight="10px"/>
       <p:tabView>  
         <p:tab title="XHTML">  
