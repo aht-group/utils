@@ -9,6 +9,7 @@ import java.util.Map;
 import net.sf.ahtutils.jsf.menu.MenuFactory;
 import net.sf.ahtutils.xml.navigation.Menu;
 import net.sf.ahtutils.xml.navigation.MenuItem;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,8 @@ public class AbstractMenuBean implements Serializable
 	protected Map<String,Menu> mapMenu;
 	protected Map<String,MenuItem> mapSub;
 	protected Map<String,List<MenuItem>> mapBreadcrumb;
+	
+	protected Map<String,Boolean> mapViewAllowed;
 
     public void initMaps() throws FileNotFoundException
     {
@@ -35,26 +38,45 @@ public class AbstractMenuBean implements Serializable
 		mapMenu.clear();
 		mapSub.clear();
 		mapBreadcrumb.clear();
+		mapViewAllowed = null;
 	}
 	
-	protected Menu createMenu(String code,MenuFactory mf)
+	protected void buildViewAllowedMap()
 	{
-		logger.trace("createMenu for "+code);
-		return mf.build(code);	
+		logger.error("This should never been called here. A @Override in extended class is required");
 	}
-	
+		
+	// ******************************************
+	// Menu
 	public Menu menu(MenuFactory mf, String code)
 	{
+		buildViewAllowedMap();
 		synchronized(mf)
 		{
 			if(!mapMenu.containsKey(code))
 			{
-				mapMenu.put(code, createMenu(code,mf));
+				mapMenu.put(code, mf.build(code));
 			}
 			return mapMenu.get(code);
 		}
 	}
+	public Menu menu(MenuFactory mf, String code, boolean loggedIn)
+	{
+		buildViewAllowedMap();
+		if(code.length()==0){code=rootMain;}
+		if(!mapMenu.containsKey(code))
+		{
+			synchronized(mf)
+			{
+				mapMenu.put(code, mf.build(mapViewAllowed,code,loggedIn));
+			}
+		}
+		return mapMenu.get(code);
+	}
 	
+	
+	// ******************************************
+	// Breadcrumb
 	public List<MenuItem> breadcrumb(MenuFactory mf,String code)
 	{
 		synchronized(mf)
@@ -68,6 +90,8 @@ public class AbstractMenuBean implements Serializable
 		}
 	}
 	
+	// ******************************************
+	// SubMenu
 	public MenuItem sub(MenuFactory mf, String code)
 	{
 		synchronized(mf)
@@ -75,7 +99,10 @@ public class AbstractMenuBean implements Serializable
 			if(!mapSub.containsKey(code))
 			{
 				if(!mapMenu.containsKey(code)){menu(mf,code);}
-				mapSub.put(code,mf.subMenu(mapMenu.get(code),code));
+				Menu m = mapMenu.get(code);
+				logger.info("This is the menu-entry for "+code);
+				JaxbUtil.info(m);
+				mapSub.put(code,mf.subMenu(m,code));
 			}
 			return mapSub.get(code);
 		}
