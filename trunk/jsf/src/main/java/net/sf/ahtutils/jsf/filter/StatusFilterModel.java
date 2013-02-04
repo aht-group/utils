@@ -1,4 +1,4 @@
-package net.sf.ahtutils.model;
+package net.sf.ahtutils.jsf.filter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +21,26 @@ public class StatusFilterModel <L extends UtilsLang, D extends UtilsDescription,
 		list = new ArrayList<UtilsStatusFilter<L,D,S>>();
         for(S s : data)
         {
-        	list.add(new UtilsStatusFilter<L,D,S>(s,false));
+        	list.add(new UtilsStatusFilter<L,D,S>(s,true));
         }
-    }  
+    }
+	
+	public void toggle(UtilsStatusFilter<L,D,S> sf)
+	{
+//		logger.info("Toggle");
+		UtilsStatusFilter<L,D,S> sfList = list.get(list.indexOf(sf));
+		sfList.setActive(!sfList.isActive());	
+	}
 
 	public List<UtilsStatusFilter<L,D,S>> getValues(){return list;}
 	
+	public List<S> toSelection()
+	{
+		List<S> result = new ArrayList<S>();
+		for(UtilsStatusFilter<L,D,S> sf : list)
+		{
+			if(sf.isActive()){result.add(sf.getValue());}
+		}
+		return result;
+	}
 }

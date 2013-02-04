@@ -1,4 +1,4 @@
-package net.sf.ahtutils.model;
+package net.sf.ahtutils.jsf.filter;
 
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
@@ -11,6 +11,7 @@ public class UtilsStatusFilter<L extends UtilsLang, D extends UtilsDescription, 
 	
 	public UtilsStatusFilter(S value, boolean active)
 	{
+		this.active=active;
 		this.value=value;
 	}
 	

@@ -9,7 +9,6 @@ import java.util.Map;
 import net.sf.ahtutils.jsf.menu.MenuFactory;
 import net.sf.ahtutils.xml.navigation.Menu;
 import net.sf.ahtutils.xml.navigation.MenuItem;
-import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -100,8 +99,6 @@ public class AbstractMenuBean implements Serializable
 			{
 				if(!mapMenu.containsKey(code)){menu(mf,code);}
 				Menu m = mapMenu.get(code);
-				logger.info("This is the menu-entry for "+code);
-				JaxbUtil.info(m);
 				mapSub.put(code,mf.subMenu(m,code));
 			}
 			return mapSub.get(code);
