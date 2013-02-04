@@ -16,9 +16,10 @@ public interface UtilsStatus<L extends UtilsLang, D extends UtilsDescription>
 	
 	public Map<String, L> getName();
 	public void setName(Map<String, L> name);
-	
-
-	
+		
 	public String getStyle();
 	public void setStyle(String style);
+	
+	String getImageAlt();
+	void setImageAlt(String image);
 }

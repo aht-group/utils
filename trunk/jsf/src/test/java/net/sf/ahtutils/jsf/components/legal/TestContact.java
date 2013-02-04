@@ -5,6 +5,7 @@ import java.util.Scanner;
 import net.sf.ahtutils.test.AbstractAhtUtilsJsfTst;
 import net.sf.ahtutils.test.UtilsJsfTstBootstrap;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -27,9 +28,14 @@ public class TestContact extends AbstractAhtUtilsJsfTst
 	{
 		String input = "Mein Test";
 		String base64 = contact.encode(input);
-		logger.info("Input: "+input);
-		logger.info("Base64: "+base64);
-		logger.info("Clear: "+contact.decode(base64));
+		String back = contact.decode(base64);
+		
+		Assert.assertEquals("TWVpbiBUZXN0", base64);
+		Assert.assertEquals(input, back);
+		
+		logger.debug("Input: "+input);
+		logger.debug("Base64: "+base64);
+		logger.debug("Clear: "+back);
 	}
 	
 	public static void main(String[] args)

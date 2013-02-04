@@ -48,7 +48,7 @@ public class AhtUtilsStatus implements UtilsStatus<AhtUtilsLang,AhtUtilsDescript
 	
 	protected boolean visible;
 	
-	protected String image;
+	protected String image,imageAlt;
 	
 	protected String style;
 
@@ -74,6 +74,9 @@ public class AhtUtilsStatus implements UtilsStatus<AhtUtilsLang,AhtUtilsDescript
 	public String getImage() {return image;}
 	public void setImage(String image) {this.image = image;}
 	
+	@Override public String getImageAlt() {return imageAlt;}
+	@Override public void setImageAlt(String imageAlt) {this.imageAlt=imageAlt;}
+	
 	public int getPosition() {return position;}
 	public void setPosition(int position) {this.position = position;}
 	
@@ -89,5 +92,4 @@ public class AhtUtilsStatus implements UtilsStatus<AhtUtilsLang,AhtUtilsDescript
 			sb.append(" code="+code);
 		return sb.toString();
 	}
-
 }
