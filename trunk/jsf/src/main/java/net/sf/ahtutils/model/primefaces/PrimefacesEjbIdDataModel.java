@@ -140,6 +140,16 @@ public class PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataMode
     public void setSingleSelectCallback(DmSingleSelect<T> singleSelectCallback) {this.singleSelectCallback = singleSelectCallback;}
     public void setAllSelectCallback(DmAllSelect<T> allSelectCallback) {this.allSelectCallback = allSelectCallback;}
     
+    public boolean contains(T t)
+    {
+    	Iterator<T> iterator = this.iterator();
+    	while(iterator.hasNext())
+    	{
+    		if(t.getId()==iterator.next().getId()){return true;}
+    	}
+    	return false;
+    }
+    
     //*** Detail toggle
     
     private boolean details;
