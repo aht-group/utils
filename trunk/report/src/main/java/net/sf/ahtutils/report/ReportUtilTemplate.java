@@ -1,7 +1,11 @@
 package net.sf.ahtutils.report;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import net.sf.ahtutils.xml.report.Element;
 import net.sf.ahtutils.xml.report.Field;
@@ -15,20 +19,26 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignField;
+import net.sf.jasperreports.engine.design.JRDesignParameter;
 import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
 import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.xml.JRXmlDigesterFactory;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.engine.xml.JRXmlWriter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xml.sax.SAXException;
 
 public class ReportUtilTemplate
 {
 	final static Logger logger = LoggerFactory.getLogger(ReportUtilXls.class);
 	
+	private String reportRoot;
+	
 	public ReportUtilTemplate(String reportRoot) throws FileNotFoundException{
+		this.reportRoot = reportRoot; 
 		Reports reports = JaxbUtil.loadJAXB(reportRoot +"/reports.xml", Reports.class);
 	}
 	
@@ -52,6 +62,10 @@ public class ReportUtilTemplate
 		query.setText("//*");
 		query.setLanguage("XPath");
 		design.setQuery(query);
+		design.setBottomMargin(72);
+		design.setTopMargin(72);
+		design.setLeftMargin(72);
+		design.setRightMargin(72);
 		
 		//A JRDesignBand can represent different report parts like the DetailBand, the PageHeader/Footer, ...
 		JRDesignBand header = new JRDesignBand();
@@ -83,21 +97,38 @@ public class ReportUtilTemplate
 		return design;
 	}
 	
-	public void create(Template template) throws JRException
+	public JasperDesign create(Template template) throws JRException, ParserConfigurationException, SAXException, FileNotFoundException, ClassNotFoundException
 	{
 		//JasperDesign  the in-memory JRXML report design
 		JasperDesign design = new JasperDesign();
 		
+		//Create basic elements
+		design.setName(template.getId());
+		JRDesignQuery query = new JRDesignQuery();
+		query.setText("//*");
+		query.setLanguage("XPath");
+		design.setQuery(query);
+		design.setBottomMargin(72);
+		design.setTopMargin(72);
+		design.setLeftMargin(72);
+		design.setRightMargin(72);
+		design.setLanguage("Groovy");
+		design.setColumnWidth(450);
+		
 		//Load the elements from template
 		for (Element element : template.getElement())
 		{
-			JasperDesign elementDesign = (JasperDesign) JRLoader.loadObject(element.getFile());
+			InputStream is             = new FileInputStream(new File(reportRoot +"/templates/" +element.getFile() +".jrxml"));
+			JRXmlLoader jlo            = new JRXmlLoader(JRXmlDigesterFactory.createDigester());
+			JasperDesign elementDesign = jlo.loadXML(is); 
 			if (element.getType().equals("header"))
 			{
-				design.setPageHeader(elementDesign.getPageHeader());
+				logger.debug("entering header section");
+				design.setPageHeader(elementDesign.getTitle());
 			}
 			if (element.getType().equals("footer"))
 			{
+				logger.debug("entering footer section");
 				design.setPageFooter(elementDesign.getPageFooter());
 			}
 		}
@@ -105,18 +136,34 @@ public class ReportUtilTemplate
 		//Now, the standard fields need to be declared (holding title, subtitle, logo, footer and record date)
 		for (Field field : template.getField())
 		{
-			JRDesignField reportField = new JRDesignField();
-			reportField.setName(field.getName());
-			reportField.setDescription(field.getExpression());
-			reportField.setValueClass(java.lang.String.class);
-			design.addField(reportField);
+			if (field.getType().equals("field"))
+			{
+				JRDesignField reportField = new JRDesignField();
+				reportField.setName(field.getName());
+				reportField.setDescription(field.getExpression());
+				reportField.setValueClassName(field.getClassName());
+				design.addField(reportField);
+			}
+			else if (field.getType().equals("parameter"))
+			{
+				JRDesignParameter parameter = new JRDesignParameter();
+				parameter.setName(field.getName());
+				parameter.setValueClassName(field.getClassName());
+				design.addParameter(parameter);
+			}
 		}
 		
 		//JRXmlWriter cares about writing the in-memory design to an OutputStream
 		JRXmlWriter.writeReport(design, System.out, "UTF-8");
+		return design;
 	}
 	
-	public static void main(String[] args) throws JRException, FileNotFoundException
+	public void applyTemplate(JasperDesign design, Template template)
+	{
+		//Replace the elements in the design with the information from the template
+	}
+	
+	public static void main(String[] args) throws JRException, FileNotFoundException, ParserConfigurationException, SAXException, ClassNotFoundException
 	{
 		ReportUtilTemplate templater = new ReportUtilTemplate(null);
 		String rootDir = "../xml/src/test/resources/data/xml/report";

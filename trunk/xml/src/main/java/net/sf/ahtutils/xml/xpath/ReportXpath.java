@@ -3,10 +3,12 @@ package net.sf.ahtutils.xml.xpath;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.ahtutils.xml.report.Template;
 import net.sf.ahtutils.xml.report.Jr;
 import net.sf.ahtutils.xml.report.Media;
 import net.sf.ahtutils.xml.report.Report;
 import net.sf.ahtutils.xml.report.Reports;
+import net.sf.ahtutils.xml.report.Templates;
 import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
 
@@ -63,6 +65,16 @@ public class ReportXpath
 		List<Jr> listResult = (List<Jr>)context.selectNodes(sb.toString());
 		if(listResult.size()==0){throw new ExlpXpathNotFoundException("No "+Report.class.getSimpleName()+" for id="+id);}
 		else if(listResult.size()>1){throw new ExlpXpathNotUniqueException("Multiple "+Report.class.getSimpleName()+" for id="+id);}
+		return listResult.get(0);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static synchronized Template getTemplate(Templates templates, String id) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
+	{
+		JXPathContext context = JXPathContext.newContext(templates);
+		List<Template> listResult = (List<Template>)context.selectNodes("//template[@id='" +id +"']");
+		if(listResult.size()==0){throw new ExlpXpathNotFoundException("No "+Template.class.getSimpleName()+" for id="+id);}
+		else if(listResult.size()>1){throw new ExlpXpathNotUniqueException("Multiple "+Template.class.getSimpleName()+" for id="+id);}
 		return listResult.get(0);
 	}
 }

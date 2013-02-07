@@ -121,7 +121,9 @@
 			</xsd:attribute>
             <xsd:attribute name="expression" type="xsd:string"/>
             <xsd:attribute name="name" type="xsd:string"/>
+            <xsd:attribute name="className" type="xsd:string"/>
         </xsd:complexType>
+        
     </xsd:element>
      <xsd:element name="element">
         <xsd:complexType>

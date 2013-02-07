@@ -8,10 +8,13 @@ import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import net.sf.ahtutils.xml.report.Jr;
 import net.sf.ahtutils.xml.report.Media;
 import net.sf.ahtutils.xml.report.Report;
 import net.sf.ahtutils.xml.report.Reports;
+import net.sf.ahtutils.xml.report.Templates;
 import net.sf.ahtutils.xml.xpath.ReportXpath;
 import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
@@ -25,6 +28,7 @@ import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xml.sax.SAXException;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -36,6 +40,7 @@ public class ReportUtilCreator
 	private Logger logger = LoggerFactory.getLogger(ReportUtilCreator.class);
 	
 	private String configFile;
+	private String templateFile;
 	private String jrxmlDir;
     private String resourcesFile;
     private String reportId;
@@ -43,7 +48,7 @@ public class ReportUtilCreator
     private Boolean productive;
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void execute() throws JRException, TemplateException, IOException, ExlpXpathNotFoundException, ExlpXpathNotUniqueException
+	public void execute() throws JRException, TemplateException, IOException, ExlpXpathNotFoundException, ExlpXpathNotUniqueException, ParserConfigurationException, SAXException, ClassNotFoundException
     {	
 		logger.info("Using " +configFile +" for report configuration.");
 		logger.warn("Running in TEST mode - look for generated files in target directory. To create files in project directories use setProductive(true).");
@@ -95,7 +100,12 @@ public class ReportUtilCreator
 		
 		String reportFilename = reports.getDir() +"/" +reportId +"/" +"mr" +reportId +".jrxml";
 		
-		JasperDesign design = templateManager.create();
+		//Load the template given by template name
+		Templates templates = (Templates)JaxbUtil.loadJAXB(templateFile, Templates.class);
+		net.sf.ahtutils.xml.report.Template template = ReportXpath.getTemplate(templates, getReportId());
+		
+		
+		JasperDesign design = templateManager.create(template);
 		//JRXmlWriter cares about writing the in-memory design to an OutputStream
 		if (productive)
 		{
@@ -190,6 +200,14 @@ public class ReportUtilCreator
 
 	public void setProductive(Boolean productive) {
 		this.productive = productive;
+	}
+
+	public String getTemplateFile() {
+		return templateFile;
+	}
+
+	public void setTemplateFile(String templateFile) {
+		this.templateFile = templateFile;
 	}
 
 }
