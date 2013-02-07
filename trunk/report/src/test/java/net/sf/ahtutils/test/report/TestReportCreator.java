@@ -33,7 +33,7 @@ public class TestReportCreator extends AbstractAhtUtilsReportTest
 		creator.setJrxmlDir("src/main/resources/reports.ahtutils-report/jrxml");
 		creator.setReportId("sectest");
 		creator.setTestPackage("net.sf.ahtutils.test.report");
-		creator.setProductive(false);
+		creator.setProductive(true);
 		creator.execute();
 	}
 }

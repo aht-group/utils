@@ -112,7 +112,7 @@ public class ReportUtilTemplate
 		design.setTopMargin(72);
 		design.setLeftMargin(72);
 		design.setRightMargin(72);
-		design.setLanguage("Groovy");
+		design.setLanguage("groovy");
 		design.setColumnWidth(450);
 		
 		//Load the elements from template

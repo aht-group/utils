@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<r:reports xmlns:r="http://ahtutils.aht-group.com/report" template="template.xml" resources="resources.xml" dir="src/main/resources/reports.ahtutils-report">
-    <r:report id="testReportChart" ltr="true" dir="test">
-        <r:media type="pdf" dir="" id="test">
-            <r:jr type="mr" name="SimpleCharts"/>
-            <r:jr type="sr" name="Charts"/>
-        </r:media>
+<ns2:reports xmlns:ns2="http://ahtutils.aht-group.com/report" xmlns:ns3="http://www.openfuxml.org/chart" dir="src/main/resources/reports.ahtutils-report" resources="resources.xml">
+    <ns2:report id="testReportChart" dir="test" ltr="true">
+        <ns2:media dir="" type="pdf">
+            <ns2:jr type="mr" name="SimpleCharts"/>
+            <ns2:jr type="sr" name="Charts"/>
+        </ns2:media>
         <example>src/test/resources/data/xml/report/testData.xml</example>
-    </r:report>
-    <r:report id="testReport" ltr="true" template="template.xml" resources="resources.xml" dir="test">
-        <r:media type="pdf" dir="" template="test">
-            <r:jr type="mr" name="Simple"/>
-        </r:media>
+    </ns2:report>
+    <ns2:report id="testReport" dir="test" ltr="true">
+        <ns2:media dir="" type="pdf">
+            <ns2:jr type="mr" name="Simple"/>
+        </ns2:media>
         <example>src/test/resources/data/xml/report/testData.xml</example>
-    </r:report>
-</r:reports>
+    </ns2:report>
+    <ns2:report id="sectest" dir="sectest" ltr="true">
+        <ns2:media type="pdf">
+            <ns2:jr type="mr" name="sectest"/>
+        </ns2:media>
+        <example>src/test/resources/data/xml/report/sectest.xml</example>
+    </ns2:report>
+</ns2:reports>

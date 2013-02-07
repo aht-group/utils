@@ -46,44 +46,38 @@
 			</textField>
 		</band>
 	</title>
-	<pageFooter>
+		<pageFooter>
 		<band height="13">
 			<textField>
-				<reportElement x="415" y="3" width="22" height="10"/>
-				<box>
-					<topPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Right">
+				<reportElement x="209" y="3" width="22" height="10"/>
+				<textElement textAlignment="Right" lineSpacing="Single">
 					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$V{PAGE_NUMBER} +"/"]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd.MM.yyyy HH:mm">
-				<reportElement positionType="Float" x="337" y="3" width="78" height="10"/>
+				<reportElement positionType="Float" x="273" y="3" width="178" height="10"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Right">
+				<textElement textAlignment="Right" lineSpacing="Single">
 					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.util.Date"><![CDATA[javax.xml.bind.DatatypeConverter.parseDateTime($F{generated}).getTime()]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[javax.xml.bind.DatatypeConverter.parseDateTime($F{generated}).getTime()]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="437" y="3" width="14" height="10"/>
-				<box>
-					<topPen lineWidth="0.5"/>
-				</box>
-				<textElement>
+				<reportElement x="231" y="3" width="42" height="10"/>
+				<textElement lineSpacing="Single">
 					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement positionType="Float" x="0" y="3" width="337" height="10"/>
+				<reportElement positionType="Float" x="0" y="3" width="273" height="10"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 				</box>
-				<textElement>
+				<textElement lineSpacing="Single">
 					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{footer}]]></textFieldExpression>

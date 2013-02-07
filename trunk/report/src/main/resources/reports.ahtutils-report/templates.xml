@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <r:templates xmlns:r="http://ahtutils.aht-group.com/report">
     <r:template id="sectest">
-        <r:field type="field" expression="/report/title" name="title"/>
-        <r:field type="field" expression="/report/subtitle" name="subtitle"/>
-        <r:field type="field" expression="/report/footer" name="footer"/>
-        <r:field type="field" expression="/report/generated" name="generated"/>
+        <r:field type="field" expression="/report/info/title" name="title"/>
+        <r:field type="field" expression="/report/info/subtitle" name="subtitle"/>
+        <r:field type="field" expression="/report/info/footer" name="footer"/>
+        <r:field type="field" expression="/report/info/record" name="generated"/>
         <r:field type="parameter" className="java.awt.Image" name="logo"/>
         <r:element type="header" file="ahtutils"/>
         <r:element type="footer" file="ahtutils"/>
