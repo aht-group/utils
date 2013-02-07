@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
-import net.sf.ahtutils.xml.access.TestXmlRoles;
+import net.sf.ahtutils.xml.access.TestXmlCategory;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;
@@ -36,7 +36,7 @@ public class TestUtils extends AbstractXmlUtilsTest
         	
     	if(withChilds)
     	{
-    		xml.getRoles().add(TestXmlRoles.create(false));
+    		xml.getCategory().add(TestXmlCategory.create(false));xml.getCategory().add(TestXmlCategory.create(false));
     	}
     	
     	return xml;
