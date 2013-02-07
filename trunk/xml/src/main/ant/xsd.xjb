@@ -51,6 +51,12 @@
             <jxb:package name="net.sf.ahtutils.xml.finance"/>
         </jxb:schemaBindings>
     </jxb:bindings>
+    
+       	<jxb:bindings schemaLocation="../xsd/aht/utils.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="net.sf.ahtutils.xml.utils"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
 
    	<jxb:bindings schemaLocation="../xsd/aht/navigation.xsd" node="/xsd:schema">
         <jxb:schemaBindings>

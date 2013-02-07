@@ -1,4 +1,4 @@
-package net.sf.ahtutils.xml.aht;
+package net.sf.ahtutils.xml.utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestUtils extends AbstractXmlAhtTest
+public class TestUtils extends AbstractXmlUtilsTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestUtils.class);
 	
