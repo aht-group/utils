@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<r:report xmlns:r="http://ahtutils.aht-group.com/report">
+    <r:info>
+        <title>Security Report</title>
+        <record>2013-02-07T11:06:05</record>
+        <subtitle></subtitle>
+        <footer>Security Report</footer>
+    </r:info>
+    <au:utils>
+    	<acl:category code="System">
+    		<acl:roles>
+    			<acl:role name="Staff">
+    				<acl:views>
+    					<acl:view label="Settings"/>
+    					<acl:view label="Projects"/>
+    					<acl:view label="Finance"/>
+    					<acl:view label="Management"/>
+    					<acl:view label="Staff"/>
+    					<acl:view label="Time Tracking"/>
+    				</acl:views>
+    			</acl:role>
+    			<acl:role name="Administrator">
+    				<acl:views>
+    					<acl:view label="Accounts"/>
+    					<acl:view label="Users"/>
+    					<acl:view label="Roles"/>
+    					<acl:view label="Validation"/>
+    				</acl:views>
+    			</acl:role>
+    			<acl:role name="Controlling">
+    				<acl:views>
+    					<acl:view label="Time Tracking"/>
+    					<acl:view label="Projects"/>
+    					<acl:view label="Fees"/>
+    				</acl:views>
+    			</acl:role>
+    		</acl:roles>
+    	</acl:category>
+        <acl:category code="Projects">
+            <acl:roles>
+                <acl:role name="Manager">
+                	<acl:views>
+                		<acl:view label="Projects"/>
+                	</acl:views>
+                </acl:role>
+                <acl:role name="Experte">
+                	<acl:views>
+                		<acl:view label="Projects"/>
+                	</acl:views>
+                </acl:role>
+                <acl:role name="Finance">
+                	<acl:views>
+                		<acl:view label="Finance"/>
+                	</acl:views>
+                </acl:role>
+            </acl:roles>
+        </acl:category>
+    </au:utils>
+</r:report>
