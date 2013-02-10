@@ -17,6 +17,6 @@
         <ns2:media type="pdf">
             <ns2:jr type="mr" name="sectest"/>
         </ns2:media>
-        <example>src/test/resources/data/xml/report/sectest.xml</example>
+        <example>src/test/resources/data/xml/report/securityRoles.xml</example>
     </ns2:report>
 </ns2:reports>

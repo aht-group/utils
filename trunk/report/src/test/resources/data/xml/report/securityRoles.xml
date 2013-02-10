@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<r:report xmlns:r="http://ahtutils.aht-group.com/report">
-    <r:info>
+<report>
+    <info>
         <title>Security Report</title>
         <record>2013-02-07T11:06:05</record>
         <subtitle></subtitle>
         <footer>Security Report</footer>
-    </r:info>
-    <au:utils>
-    	<acl:category code="System">
-    		<acl:roles>
-    			<acl:role name="Staff">
-    				<acl:views>
-    					<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Settings"/>
-    					<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Projects"/>
-    					<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Finance"/>
-    					<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Management"/>
-    					<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Staff"/>
-    					<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Time Tracking"/>
-    				</acl:views>
-    			</acl:role>
-    			<acl:role name="Administrator">
-    				<acl:views>
-    					<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Accounts"/>
-    					<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Users"/>
-    					<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Roles"/>
-    					<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Validation"/>
-    				</acl:views>
-    			</acl:role>
-    			<acl:role name="Controlling">
-    				<acl:views>
-    					<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Time Tracking"/>
-    					<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Projects"/>
-    					<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Fees"/>
-    				</acl:views>
-    			</acl:role>
-    		</acl:roles>
-    	</acl:category>
-        <acl:category code="Projects">
-            <acl:roles>
-                <acl:role name="Manager">
-                	<acl:views>
-                		<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Projects"/>
-                	</acl:views>
-                </acl:role>
-                <acl:role name="Experte">
-                	<acl:views>
-                		<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Projects"/>
-                	</acl:views>
-                </acl:role>
-                <acl:role name="Finance">
-                	<acl:views>
-                		<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Finance"/>
-                	</acl:views>
-                </acl:role>
-            </acl:roles>
-        </acl:category>
-    </au:utils>
-</r:report>
+    </info>
+    <utils>
+    	<category code="System">
+    		<roles>
+    			<role name="Staff">
+    				<views>
+    					<view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Settings"/>
+    					<view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Projects"/>
+    					<view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Finance"/>
+    					<view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Management"/>
+    					<view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Staff"/>
+    					<view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Time Tracking"/>
+    				</views>
+    			</role>
+    			<role name="Administrator">
+    				<views>
+    					<view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Accounts"/>
+    					<view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Users"/>
+    					<view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Roles"/>
+    					<view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Validation"/>
+    				</views>
+    			</role>
+    			<role name="Controlling">
+    				<views>
+    					<view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Time Tracking"/>
+    					<view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Projects"/>
+    					<view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Fees"/>
+    				</views>
+    			</role>
+    		</roles>
+    	</category>
+        <category code="Projects">
+            <roles>
+                <role name="Manager">
+                	<views>
+                		<view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Projects"/>
+                	</views>
+                </role>
+                <role name="Experte">
+                	<views>
+                		<view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Projects"/>
+                	</views>
+                </role>
+                <role name="Finance">
+                	<views>
+                		<view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Finance"/>
+                	</views>
+                </role>
+            </roles>
+        </category>
+    </utils>
+</report>
