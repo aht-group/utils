@@ -11,27 +11,27 @@
     		<acl:roles>
     			<acl:role name="Staff">
     				<acl:views>
-    					<acl:view label="Settings"/>
-    					<acl:view label="Projects"/>
-    					<acl:view label="Finance"/>
-    					<acl:view label="Management"/>
-    					<acl:view label="Staff"/>
-    					<acl:view label="Time Tracking"/>
+    					<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Settings"/>
+    					<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Projects"/>
+    					<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Finance"/>
+    					<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Management"/>
+    					<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Staff"/>
+    					<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Time Tracking"/>
     				</acl:views>
     			</acl:role>
     			<acl:role name="Administrator">
     				<acl:views>
-    					<acl:view label="Accounts"/>
-    					<acl:view label="Users"/>
-    					<acl:view label="Roles"/>
-    					<acl:view label="Validation"/>
+    					<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Accounts"/>
+    					<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Users"/>
+    					<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Roles"/>
+    					<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Validation"/>
     				</acl:views>
     			</acl:role>
     			<acl:role name="Controlling">
     				<acl:views>
-    					<acl:view label="Time Tracking"/>
-    					<acl:view label="Projects"/>
-    					<acl:view label="Fees"/>
+    					<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Time Tracking"/>
+    					<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Projects"/>
+    					<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Fees"/>
     				</acl:views>
     			</acl:role>
     		</acl:roles>
@@ -40,17 +40,17 @@
             <acl:roles>
                 <acl:role name="Manager">
                 	<acl:views>
-                		<acl:view label="Projects"/>
+                		<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Projects"/>
                 	</acl:views>
                 </acl:role>
                 <acl:role name="Experte">
                 	<acl:views>
-                		<acl:view label="Projects"/>
+                		<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Projects"/>
                 	</acl:views>
                 </acl:role>
                 <acl:role name="Finance">
                 	<acl:views>
-                		<acl:view label="Finance"/>
+                		<acl:view info="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna" label="Finance"/>
                 	</acl:views>
                 </acl:role>
             </acl:roles>
