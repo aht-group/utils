@@ -187,8 +187,19 @@ public class MenuFactory
 				
 				boolean currentIsChild = false;
 				
-				DijkstraShortestPath<String, DefaultEdge> dsp = new DijkstraShortestPath<String, DefaultEdge>(graph, mi.getCode(), codeCurrent);
-				List<DefaultEdge> path = dsp.getPathEdgeList();
+				DijkstraShortestPath<String, DefaultEdge> dsp;
+				List<DefaultEdge> path = null;
+				
+				try
+				{
+					dsp = new DijkstraShortestPath<String, DefaultEdge>(graph, mi.getCode(), codeCurrent);
+					path = dsp.getPathEdgeList();
+				}
+				catch (IllegalArgumentException e)
+				{
+					logger.error("Error in graph from "+mi.getCode()+" to "+codeCurrent);
+					logger.error(e.getMessage());
+				}
 				
 				if(path!=null)
 				{

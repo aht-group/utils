@@ -1,29 +1,27 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+<?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://java.sun.com/jsp/jstl/core"
+ 	xmlns:c="http://java.sun.com/jsp/jstl/core"
+   	xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:composite="http://java.sun.com/jsf/composite">
     
-  <composite:interface>
+  <composite:interface componentType="net.sf.ahtutils.jsf.components.MenuUl">
     <composite:attribute name="value"/>
     <composite:attribute name="sc1"/>
     <composite:attribute name="scActive"/>
+    <composite:attribute name="styleClassFirst" required="false"/>
+    <composite:attribute name="styleClassLast" required="false"/>
   </composite:interface>
         
   <composite:implementation>
    	 
     <ul class="#{cc.attrs.sc1}">
-      <f:forEach var="menuItem" items="#{cc.attrs.value.menuItem}">
-        <f:if test="#{menuItem.active}">
-          <li class="#{cc.attrs.scActive}"><a href="#{facesContext.externalContext.requestContextPath}#{menuItem.href}" >#{menuItem.name}</a></li>
-        </f:if>
-        <f:if test="#{!menuItem.active}">
-          <li><a href="#{facesContext.externalContext.requestContextPath}#{menuItem.href}">#{menuItem.name}</a></li>
-        </f:if>
-      </f:forEach>
+      <ui:repeat var="menuItem" value="#{cc.attrs.value.menuItem}" varStatus="vs">
+      	<li class="#{cc.styleClass(menuItem.active,vs.first,vs.last,cc.attrs.scActive,cc.attrs.styleClassFirst,cc.attrs.styleClassLast)}">
+      		<a href="#{facesContext.externalContext.requestContextPath}#{menuItem.href}" >#{menuItem.name}</a>
+      	</li>
+      </ui:repeat>
       
       <composite:insertChildren/> 
       
