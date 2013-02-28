@@ -43,8 +43,8 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.apache.commons.jxpath.JXPathContext;
 import org.jdom.Namespace;
 import org.jfree.chart.JFreeChart;
-import org.openfuxml.addon.chart.OFxChartRenderControl;
-import org.openfuxml.addon.chart.data.jaxb.Chart;
+import org.openfuxml.addon.chart.OfxChartRenderer;
+import org.openfuxml.xml.addon.chart.Chart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -348,7 +348,7 @@ public class ReportHandler {
 			info = (Info) JDomUtil.toJaxb(infoElement, Info.class);
 		}
 		
-		OFxChartRenderControl ofxRenderer = new OFxChartRenderControl();
+		OfxChartRenderer ofxRenderer = new OfxChartRenderer();
 		for (Media media : info.getMedia())
 		{
 			Chart chart          = media.getChart();

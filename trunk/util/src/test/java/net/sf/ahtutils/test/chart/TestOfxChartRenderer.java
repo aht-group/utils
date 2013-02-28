@@ -13,12 +13,12 @@ import net.sf.exlp.util.xml.JaxbUtil;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.junit.Test;
-import org.openfuxml.addon.chart.OFxChartRenderControl;
-import org.openfuxml.addon.chart.data.jaxb.Chart;
-import org.openfuxml.addon.chart.data.jaxb.Charttype;
-import org.openfuxml.addon.chart.data.jaxb.Container;
-import org.openfuxml.addon.chart.data.jaxb.Data;
+import org.openfuxml.addon.chart.OfxChartRenderer;
 import org.openfuxml.xml.OfxNsPrefixMapper;
+import org.openfuxml.xml.addon.chart.Chart;
+import org.openfuxml.xml.addon.chart.Renderer;
+import org.openfuxml.xml.addon.chart.DataSet;
+import org.openfuxml.xml.addon.chart.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +39,7 @@ public class TestOfxChartRenderer
 		chart.setCharttype(getType());
 		chart.setGrid(getGrid());
 		
-		chart.getContainer().add(getX("a"));
+		chart.getDataSet().add(getX("a"));
 		return chart;
 	}
 	
@@ -51,20 +51,20 @@ public class TestOfxChartRenderer
 		return grid;
 	}
 	
-	private Charttype getType()
+	private Renderer getType()
 	{
-		Charttype type = new Charttype();
-		Charttype.Timebar tBar = new Charttype.Timebar();
+		Renderer type = new Renderer();
+		Renderer.Timebar tBar = new Renderer.Timebar();
 		tBar.setShadow(false);
 		tBar.setGradient(false);
 		type.setTimebar(tBar);
 		return type;
 	}
 	
-	private Container getX(String label)
+	private DataSet getX(String label)
 	{
 		Random rnd = new Random();
-		Container x = new Container();
+		DataSet x = new DataSet();
 		x.setLabel(label);
 		for(int i=1;i<5;i++)
 		{
@@ -83,7 +83,7 @@ public class TestOfxChartRenderer
 		Chart chart = test.getTimeSeries();
 		JaxbUtil.debug(chart);
 			
-		OFxChartRenderControl ofxRenderer = new OFxChartRenderControl();
+		OfxChartRenderer ofxRenderer = new OfxChartRenderer();
 		JFreeChart jfreeChart = ofxRenderer.render(chart);
 		
 		OutputStream os = new FileOutputStream(new File("target/chart.png"));

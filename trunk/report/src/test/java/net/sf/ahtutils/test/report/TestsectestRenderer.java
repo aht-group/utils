@@ -26,6 +26,7 @@ public class TestsectestRenderer extends AbstractAhtUtilsReportTest
 		initExample("sectest");
 	}
 	
+	@Ignore
 	@Test
 	public void emptyPages() throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException, ReportException, IOException
 	{

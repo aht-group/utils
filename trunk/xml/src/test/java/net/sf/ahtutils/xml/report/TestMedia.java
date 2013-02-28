@@ -8,7 +8,7 @@ import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openfuxml.addon.chart.data.jaxb.Chart;
+import org.openfuxml.xml.addon.chart.Chart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
