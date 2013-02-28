@@ -36,7 +36,7 @@ public class TestOfxChartRenderer
 		Chart chart = new Chart();
 		chart.setLegend(true);
 		
-		chart.setCharttype(getType());
+		chart.setRenderer(getType());
 		chart.setGrid(getGrid());
 		
 		chart.getDataSet().add(getX("a"));
