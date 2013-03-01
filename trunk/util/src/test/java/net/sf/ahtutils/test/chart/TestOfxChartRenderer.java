@@ -16,9 +16,10 @@ import org.junit.Test;
 import org.openfuxml.addon.chart.OfxChartRenderer;
 import org.openfuxml.xml.OfxNsPrefixMapper;
 import org.openfuxml.xml.addon.chart.Chart;
-import org.openfuxml.xml.addon.chart.Renderer;
-import org.openfuxml.xml.addon.chart.DataSet;
 import org.openfuxml.xml.addon.chart.Data;
+import org.openfuxml.xml.addon.chart.DataSet;
+import org.openfuxml.xml.addon.chart.Grid;
+import org.openfuxml.xml.addon.chart.Renderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,9 +44,9 @@ public class TestOfxChartRenderer
 		return chart;
 	}
 	
-	private Chart.Grid getGrid()
+	private Grid getGrid()
 	{
-		Chart.Grid grid = new Chart.Grid();
+		Grid grid = new Grid();
 		grid.setDomain(false);
 		grid.setRange(false);
 		return grid;
