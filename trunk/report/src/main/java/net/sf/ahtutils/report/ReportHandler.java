@@ -342,19 +342,18 @@ public class ReportHandler {
 		
 		//Get the info element as child of report element
 		org.jdom.Element infoElement   = reportElement.getChild("info", Namespace.getNamespace("http://ahtutils.aht-group.com/report"));
-		Info info = new Info();
 		if (infoElement!=null)
 		{
-			info = (Info) JDomUtil.toJaxb(infoElement, Info.class);
-		}
-		
-		OfxChartRenderer ofxRenderer = new OfxChartRenderer();
-		for (Media media : info.getMedia())
-		{
-			Chart chart          = media.getChart();
-			JFreeChart jfreeChart = ofxRenderer.render(chart);
-			BufferedImage chartImage = jfreeChart.createBufferedImage(320, 240);
-			mapReportParameter.put(media.getCode(), chartImage);
+			Info info = JDomUtil.toJaxb(infoElement, Info.class);
+			
+			OfxChartRenderer ofxRenderer = new OfxChartRenderer();
+			for (Media media : info.getMedia())
+			{
+				Chart chart          = media.getChart();
+				JFreeChart jfreeChart = ofxRenderer.render(chart);
+				BufferedImage chartImage = jfreeChart.createBufferedImage(320, 240);
+				mapReportParameter.put(media.getCode(), chartImage);
+			}
 		}
 	
 		//Add the data document

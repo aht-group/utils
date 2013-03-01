@@ -67,6 +67,7 @@ public class TestDomUtil extends AbstractAhtUtilsReportTest
 		//System.out.println("Info: " +infoElement.toString());
 		
 		Info info = (Info) JDomUtil.toJaxb(infoElement, Info.class);
+		JaxbUtil.error(info);
 		
 		OfxChartRenderer ofxRenderer = new OfxChartRenderer();
 		for (Media media : info.getMedia())
