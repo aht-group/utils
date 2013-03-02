@@ -73,6 +73,8 @@ public class TestDomUtil extends AbstractAhtUtilsReportTest
 		for (Media media : info.getMedia())
 		{
 			Chart chart          = media.getChart();
+			logger.error("Test chart");
+			JaxbUtil.error(chart);
 			JFreeChart jfreeChart = ofxRenderer.render(chart);
 			BufferedImage chartImage = jfreeChart.createBufferedImage(300, 400);
 		}

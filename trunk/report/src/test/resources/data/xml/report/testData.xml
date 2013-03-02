@@ -10,13 +10,13 @@
 				<chart:renderer>		
 					<timebar shadow="false" gradient="false"/>
 				</chart:renderer>
-				<grid range="false" domain="false"/>
-				<chart:container label="a">
+				<chart:grid range="false" domain="false"/>
+				<chart:dataSet label="a">
 					<chart:data y="1.0" record="2010-01-01T00:00:00"/>
 					<chart:data y="2.0" record="2010-01-02T00:00:00"/>
 					<chart:data y="1.0" record="2010-01-03T00:00:00"/>
 					<chart:data y="4.0" record="2010-01-04T00:00:00"/>
-				</chart:container>
+				</chart:dataSet>
 			</chart:chart>
 		</r:media>
 	</r:info>
