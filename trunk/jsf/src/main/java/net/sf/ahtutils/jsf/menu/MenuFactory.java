@@ -300,6 +300,22 @@ public class MenuFactory
 		return "#";
 	}
 	
+	public void removeChilds(String dynamicRoot, String dynKey)
+	{
+		Iterator<DefaultEdge> iterator = graph.outgoingEdgesOf(dynamicRoot).iterator();
+		List<DefaultEdge> list = new ArrayList<DefaultEdge>();
+		while(iterator.hasNext())
+		{
+			DefaultEdge edge = iterator.next();
+			String target = graph.getEdgeTarget(edge);
+			if(target.startsWith(dynKey))
+			{
+				list.add(edge);
+			}
+		}
+		graph.removeAllEdges(list);
+	}
+	
 	private void removeEdgeToTemplate(String dynamicRoot, String templateNode)
 	{
 		Iterator<DefaultEdge> iterator = graph.getAllEdges(dynamicRoot, templateNode).iterator();
@@ -349,6 +365,4 @@ public class MenuFactory
 		catch (ExlpXpathNotUniqueException e) {result = new MenuItem();}
 		return result;
 	}
-	
-
 }
