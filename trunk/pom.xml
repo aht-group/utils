@@ -108,7 +108,7 @@
 	</developers>
 
 	<prerequisites>
-		<maven>2.0.9</maven>
+		<maven>3.0.3</maven>
 	</prerequisites>
 
 	
