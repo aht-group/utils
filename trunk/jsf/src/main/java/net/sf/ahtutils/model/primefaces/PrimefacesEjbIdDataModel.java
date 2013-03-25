@@ -20,6 +20,8 @@ public class PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataMode
 {    
 	final static Logger logger = LoggerFactory.getLogger(PrimefacesEjbIdDataModel.class);
 	
+	private boolean details;
+	
 	private Map<Long,Boolean> mapUnlock;
 	private Map<Long,Boolean> mapSelect;
 	private Map<Long,Boolean> mapInfo;
@@ -151,9 +153,6 @@ public class PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataMode
     }
     
     //*** Detail toggle
-    
-    private boolean details;
-
 	public boolean isDetails() {return details;}
 	public void setDetails(boolean details) {this.details = details;}
 
@@ -161,7 +160,7 @@ public class PrimefacesEjbIdDataModel <T extends EjbWithId> extends ListDataMode
 	{
 		if(details){details=false;}
 		else{details=true;}
-		logger.info("Toggled details to "+details);
+		logger.trace("Toggled details to "+details);
 	}
 	
 }
