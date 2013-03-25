@@ -1,4 +1,0 @@
-<dependency>
-    <groupId>net.sf.ahtutils</groupId>
-    <artifactId>ahtutils-jsf</artifactId>
-</dependency>
