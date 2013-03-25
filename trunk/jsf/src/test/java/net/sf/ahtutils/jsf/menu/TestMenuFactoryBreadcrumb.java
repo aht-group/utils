@@ -2,11 +2,10 @@ package net.sf.ahtutils.jsf.menu;
 
 import java.util.List;
 
-import junit.framework.Assert;
 import net.sf.ahtutils.test.AbstractAhtUtilsJsfTst;
 import net.sf.ahtutils.xml.navigation.MenuItem;
-import net.sf.exlp.util.xml.JaxbUtil;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;

@@ -3,7 +3,6 @@ package net.sf.ahtutils.jsf.menu;
 import java.util.Hashtable;
 import java.util.Map;
 
-import junit.framework.Assert;
 import net.sf.ahtutils.controller.factory.xml.acl.XmlViewFactory;
 import net.sf.ahtutils.controller.factory.xml.status.XmlLangFactory;
 import net.sf.ahtutils.test.AbstractAhtUtilsJsfTst;
@@ -18,6 +17,7 @@ import net.sf.ahtutils.xml.navigation.UrlMapping;
 import net.sf.ahtutils.xml.status.Langs;
 import net.sf.exlp.util.process.ProcessClock;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;

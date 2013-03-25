@@ -3,12 +3,11 @@ package net.sf.ahtutils.controller.processor;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.Assert;
-
 import net.sf.ahtutils.model.ejb.utils.UtilsValidFrom;
 import net.sf.ahtutils.test.AbstractAhtUtilsTest;
 
 import org.joda.time.DateTime;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;

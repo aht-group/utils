@@ -9,9 +9,7 @@ import net.sf.ahtutils.test.AbstractAhtUtilsMailTest;
 import net.sf.ahtutils.xml.mail.Mail;
 import net.sf.ahtutils.xml.mail.Mails;
 import net.sf.ahtutils.xml.mail.Template;
-import net.sf.exlp.util.xml.JaxbUtil;
 
-import org.jdom.Document;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

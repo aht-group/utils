@@ -1,9 +1,8 @@
 package net.sf.ahtutils.controller.util.poi;
 
-import junit.framework.Assert;
-import net.sf.ahtutils.controller.util.poi.PoiRowColNumerator;
 import net.sf.ahtutils.test.AbstractAhtUtilsTest;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

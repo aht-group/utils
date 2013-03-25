@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import junit.framework.Assert;
 import net.sf.ahtutils.controller.util.Ranking;
 import net.sf.ahtutils.test.AbstractAhtUtilTest;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;

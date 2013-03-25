@@ -3,11 +3,11 @@ package net.sf.ahtutils.controller.factory.java.security;
 import java.io.File;
 import java.io.IOException;
 
-import junit.framework.Assert;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.test.UtilsMavenTstBootstrap;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;

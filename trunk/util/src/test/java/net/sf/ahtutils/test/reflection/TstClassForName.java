@@ -1,10 +1,5 @@
 package net.sf.ahtutils.test.reflection;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-
-import net.sf.ahtutils.model.ejb.status.AhtUtilsStatus;
 import net.sf.ahtutils.xml.aht.Aht;
 
 import org.slf4j.Logger;

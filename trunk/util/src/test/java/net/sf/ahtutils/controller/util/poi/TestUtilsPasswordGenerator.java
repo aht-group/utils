@@ -1,11 +1,11 @@
 package net.sf.ahtutils.controller.util.poi;
 
-import junit.framework.Assert;
 import net.sf.ahtutils.controller.util.UtilsPasswordGenerator;
 import net.sf.ahtutils.test.AhtUtilsTstBootstrap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class TestUtilsPasswordGenerator

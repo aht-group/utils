@@ -1,6 +1,5 @@
 package net.sf.ahtutils.test.report;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
