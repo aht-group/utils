@@ -11,10 +11,11 @@ public class MenuUl extends UINamingContainer
 {
 	final static Logger logger = LoggerFactory.getLogger(MenuUl.class);
 
-	public String styleClass(boolean active, boolean first, boolean last, String cssActive, String cssFirst, String cssLast)
+	public String styleClassLi(boolean active, boolean first, boolean last, String cssActive, String cssLi, String cssFirst, String cssLast)
 	{
 		StringBuffer sb = new StringBuffer();
 		if(active){sb.append(cssActive);}
+		if(cssLi!=null){sb.append(" ").append(cssLi);}
 		if(first && cssFirst!=null){sb.append(" ").append(cssFirst);}
 		if(last && cssLast!=null){sb.append(" ").append(cssLast);}
 		return sb.toString();
