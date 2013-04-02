@@ -1,0 +1,22 @@
+/* @override 
+	http://localhost:8080/metachart/javax.faces.resource/layout.css.jsf;jsessionid=QFxMHoXFuDNBYt2UQ6j70VKn.undefined?ln=ahtutilsCss
+	http://localhost:8080/metachart/javax.faces.resource/layout.css.jsf?ln=ahtutilsCss */
+
+.auLayoutSlot  {
+        height: 25px;
+}
+
+.auLayoutSlotColor1 {background-color: purple;}
+.auLayoutSlotColor2 {background-color: silver;}
+.auLayoutSlotColor3 {background-color: gray;}
+.auLayoutSlotColor4 {background-color: maroon;}
+.auLayoutSlotColor5 {background-color: red;}
+.auLayoutSlotColor6 {background-color: orange;}
+.auLayoutSlotColor7 {background-color: yellow;}
+.auLayoutSlotColor8 {background-color: olive;}
+.auLayoutSlotColor9 {background-color: green;}
+.auLayoutSlotColor10 {background-color: teal;}
+.auLayoutSlotColor11 {background-color: lime;}
+.auLayoutSlotColor12 {background-color: aqua;}
+
+.auLayoutBorder  {border: 1px solid black;}

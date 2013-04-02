@@ -7,11 +7,12 @@
     xmlns:composite="http://java.sun.com/jsf/composite">
     
 	<composite:interface>
-
+		<composite:attribute name="styleClass" required="false"/>
 	</composite:interface>
 	        
 	<composite:implementation>
-		<div class="container_12">
+		<h:outputStylesheet library="ahtutilsCss" name="960.css" target="head"/>
+		<div class="container_12 #{cc.attrs.styleClass}">
 			<composite:insertChildren/>
 		</div>
 	</composite:implementation>

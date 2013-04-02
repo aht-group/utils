@@ -8,10 +8,11 @@
     
 	<composite:interface>
 		<composite:attribute name="width"/>
+		<composite:attribute name="styleClass"/>
 	</composite:interface>
 	        
 	<composite:implementation>
-		<h:panelGroup styleClass="grid_#{cc.attrs.width}" layout="block">
+		<h:panelGroup styleClass="grid_#{cc.attrs.width} #{cc.attrs.styleClass}" layout="block">
             <composite:insertChildren/>
         </h:panelGroup>
 	</composite:implementation>
