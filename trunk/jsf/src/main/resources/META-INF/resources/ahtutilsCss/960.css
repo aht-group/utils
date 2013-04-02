@@ -51,7 +51,7 @@ body {
 .grid_14,
 .grid_15,
 .grid_16 {
-  display: inline;
+  display: table;
   float: left;
   margin-left: 5px;
   margin-right: 5px;
@@ -76,6 +76,12 @@ body {
 }
 
 [class*="grid"] {margin-top: 10px;}
+
+[class*="grid"] > div {margin-bottom: 10px;}
+[class*="grid"] > div:last-child {margin-bottom: 0px;}
+
+[class*="grid"] > form {margin-bottom: 10px;}
+[class*="grid"] > form:last-child {margin-bottom: 0px;}
 
 
 /* `Grid >> Children (Alpha ~ First, Omega ~ Last)
