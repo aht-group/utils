@@ -34,7 +34,7 @@ public class CssGridFactory extends AbstractMojo
 	
 	/**
      * Location of the file.
-     * @parameter expression="${project.basedir}/src/main/resources/META-INF/resources/ahtutilsCss"
+     * @parameter expression="${project.build.directory}/classes/META-INF/resources/ahtutilsCss"
      * @required
      */
     private String resourceDir;

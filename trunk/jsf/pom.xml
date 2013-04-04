@@ -217,7 +217,6 @@
 						<goals>
 							<goal>createCssGrid</goal>
 						</goals>
-						
 					</execution>
 				</executions>
 			</plugin>
