@@ -5,18 +5,27 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui"
     xmlns:aht="http://ahtutils.sourceforge.net/jsf"
+    xmlns:layout="http://ahtutils.sourceforge.net/layout"
     xmlns:composite="http://java.sun.com/jsf/composite">
     
 	<composite:interface>
-		<composite:attribute name="width" required="false" default="70"/>
-		<composite:attribute name="gutter" required="false" default="5"/>
+
 	</composite:interface>
 	        
 	<composite:implementation>
 		<h:outputStylesheet library="ahtutilsCss" name="layout.css" target="head"/>
-		<aht:grid styleClass="auLayoutBorder" width="#{cc.attrs.width}" gutter="#{cc.attrs.gutter}">
+		<aht:grid styleClass="auLayoutBorder">
         	<aht:row>
-				<aht:slot width="12" styleClass="auLayoutSlot auLayoutSlotColor12">12</aht:slot>
+				<aht:slot width="3">
+					<h1>Test 123</h1>
+					<layout:loremIpsum/>
+				</aht:slot>
+				<aht:slot width="3">
+					<h1></h1>
+				</aht:slot>
+				<aht:slot width="3">
+					<h1></h1>
+				</aht:slot>
 			</aht:row>
 			<aht:row>
 				<aht:slot width="1" styleClass="auLayoutSlot auLayoutSlotColor1">1</aht:slot>

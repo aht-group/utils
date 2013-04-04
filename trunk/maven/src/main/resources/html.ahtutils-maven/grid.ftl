@@ -1,8 +1,11 @@
 /*
-  960 Grid System ~ Core CSS.
-  Learn more ~ http://960.gs/
+	Created by AhtUtils JSF Grid. http://ahtutils.sourceforge.net
+	
+	Based on 
+ 	960 Grid System ~ Core CSS.
+  	Learn more ~ http://960.gs/
 
-  Licensed under GPL and MIT.
+  	Licensed under GPL and MIT.
 */
 
 /*
@@ -13,7 +16,7 @@
   Note: IE6 works fine without this fix.
 */
 
-body {min-width: 960px;}
+body {min-width: ${width}px;}
 
 /* `Container
 ----------------------------------------------------------------------------------------------------*/
@@ -21,8 +24,8 @@ body {min-width: 960px;}
 {
   margin-left: auto;
   margin-right: auto;
-  width: 960px;
-  padding-bottom: 10px;
+  width: ${width}px;
+  padding-bottom: ${doublegutter}px;
 }
 
 /* `Grid >> Global
@@ -30,8 +33,8 @@ body {min-width: 960px;}
 [class*="grid"] {
   display: table;
   float: left;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: ${gutter}px;
+  margin-right: ${gutter}px;
 }
 
 .push_1, .pull_1,
@@ -57,28 +60,28 @@ body {min-width: 960px;}
 .alpha {margin-left: 0;}
 .omega {margin-right: 0;}
 
-[class*="grid"] {margin-top: 10px;}
+[class*="grid"] {margin-top: ${doublegutter}px;}
 
-[class*="grid"] > div {margin-bottom: 10px;}
+[class*="grid"] > div {margin-bottom: ${doublegutter}px;}
 [class*="grid"] > div:last-child {margin-bottom: 0px;}
 
-[class*="grid"] > form {margin-bottom: 10px;}
+[class*="grid"] > form {margin-bottom: ${doublegutter}px;}
 [class*="grid"] > form:last-child {margin-bottom: 0px;}
 
 /* `Grid >> 12 Columns
 ----------------------------------------------------------------------------------------------------*/
-.container_12 .grid_1  {width: 70px;}
-.container_12 .grid_2  {width: 150px;}
-.container_12 .grid_3  {width: 230px;}
-.container_12 .grid_4  {width: 310px;}
-.container_12 .grid_5  {width: 390px;}
-.container_12 .grid_6  {width: 470px;}
-.container_12 .grid_7  {width: 550px;}
-.container_12 .grid_8  {width: 630px;}
-.container_12 .grid_9  {width: 710px;}
-.container_12 .grid_10 {width: 790px;}
-.container_12 .grid_11 {width: 870px;}
-.container_12 .grid_12 {width: 950px;}
+.container_12 .grid_1  {width: ${slot1}px;}
+.container_12 .grid_2  {width: ${slot2}px;}
+.container_12 .grid_3  {width: ${slot3}px;}
+.container_12 .grid_4  {width: ${slot4}px;}
+.container_12 .grid_5  {width: ${slot5}px;}
+.container_12 .grid_6  {width: ${slot6}px;}
+.container_12 .grid_7  {width: ${slot7}px;}
+.container_12 .grid_8  {width: ${slot8}px;}
+.container_12 .grid_9  {width: ${slot9}px;}
+.container_12 .grid_10 {width: ${slot10}px;}
+.container_12 .grid_11 {width: ${slot11}px;}
+.container_12 .grid_12 {width: ${slot12}px;}
 
 /* `Prefix Extra Space >> 12 Columns
 ----------------------------------------------------------------------------------------------------*/

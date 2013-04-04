@@ -189,6 +189,74 @@
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 		</dependency>
+		
+		<dependency>
+    		<groupId>de.sven-jacobs</groupId>
+    		<artifactId>loremipsum</artifactId>
+		</dependency>
 	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<inherited>true</inherited>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+         	<plugin>
+				<groupId>net.sf.ahtutils</groupId>
+				<artifactId>ahtutils-maven</artifactId>
+				<version>0.2.2-SNAPSHOT</version>
+				<executions>
+ 					<execution>
+						<id>createCssGrid</id>
+						<phase>process-resources</phase> 
+						<goals>
+							<goal>createCssGrid</goal>
+						</goals>
+						
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											net.sf.ahtutils
+										</groupId>
+										<artifactId>
+											ahtutils-maven
+										</artifactId>
+										<versionRange>
+											[0.2.2-SNAPSHOT,)
+										</versionRange>
+										<goals>
+											<goal>createCssGrid</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>	
 	
 </project>

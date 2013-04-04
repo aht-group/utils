@@ -8,10 +8,12 @@
     
 	<composite:interface>
 		<composite:attribute name="styleClass" required="false"/>
+		<composite:attribute name="width" required="false" default="70"/>
+		<composite:attribute name="gutter" required="false" default="5"/>
 	</composite:interface>
 	        
 	<composite:implementation>
-		<h:outputStylesheet library="ahtutilsCss" name="960.css" target="head"/>
+		<h:outputStylesheet library="ahtutilsCss" name="grid-#{cc.attrs.width}-#{cc.attrs.gutter}.css" target="head"/>
 		<div class="container_12 #{cc.attrs.styleClass}">
 			<composite:insertChildren/>
 		</div>
