@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+ 	xmlns:c="http://java.sun.com/jsp/jstl/core"
+   	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:composite="http://java.sun.com/jsf/composite">
+    
+  <composite:interface>
+    <composite:attribute name="value"/>
+  </composite:interface>
+        
+  <composite:implementation>
+   	 
+    <ul>
+      <ui:repeat var="mi1" value="#{cc.attrs.value.menuItem}" varStatus="vs1">
+      	<li>
+      		<a href="#{facesContext.externalContext.requestContextPath}#{mi1.href}">#{mi1.name}</a>
+      	</li>
+      </ui:repeat>
+    </ul>
+
+   </composite:implementation>
+</html>
