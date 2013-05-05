@@ -1,5 +1,5 @@
 
-package net.sf.ahtutils.xml.access;
+package net.sf.ahtutils.xml.security;
 
 import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -8,6 +8,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import net.sf.ahtutils.xml.access.Actions;
+import net.sf.ahtutils.xml.access.Usecases;
+import net.sf.ahtutils.xml.access.Views;
 import net.sf.ahtutils.xml.status.Descriptions;
 import net.sf.ahtutils.xml.status.Langs;
 
@@ -29,7 +32,7 @@ import net.sf.ahtutils.xml.status.Langs;
  *         &lt;element ref="{http://ahtutils.aht-group.com/access}usecases"/>
  *       &lt;/sequence>
  *       &lt;attribute name="code" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="name" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="label" type="{http://www.w3.org/2001/XMLSchema}string" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -55,16 +58,16 @@ public class Role
     protected Descriptions descriptions;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
     protected Langs langs;
-    @XmlElement(required = true)
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/access", required = true)
     protected Views views;
-    @XmlElement(required = true)
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/access", required = true)
     protected Actions actions;
-    @XmlElement(required = true)
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/access", required = true)
     protected Usecases usecases;
     @XmlAttribute(name = "code")
     protected String code;
-    @XmlAttribute(name = "name")
-    protected String name;
+    @XmlAttribute(name = "label")
+    protected String label;
 
     /**
      * Gets the value of the descriptions property.
@@ -235,31 +238,31 @@ public class Role
     }
 
     /**
-     * Gets the value of the name property.
+     * Gets the value of the label property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getName() {
-        return name;
+    public String getLabel() {
+        return label;
     }
 
     /**
-     * Sets the value of the name property.
+     * Sets the value of the label property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setName(String value) {
-        this.name = value;
+    public void setLabel(String value) {
+        this.label = value;
     }
 
-    public boolean isSetName() {
-        return (this.name!= null);
+    public boolean isSetLabel() {
+        return (this.label!= null);
     }
 
 }
