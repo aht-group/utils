@@ -23,7 +23,7 @@ public class TestXmlRole extends AbstractXmlSecurityTest
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"role.xml");
+		fXml = new File(rootDir,Role.class.getSimpleName()+".xml");
 	}
     
     @Test
