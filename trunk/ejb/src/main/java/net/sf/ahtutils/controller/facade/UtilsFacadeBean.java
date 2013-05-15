@@ -66,20 +66,28 @@ public class UtilsFacadeBean implements UtilsFacade
 			{
 				throw new UtilsContraintViolationException(e.getMessage());
 			}
-			if( e instanceof javax.persistence.PersistenceException)
+			if(e instanceof javax.persistence.PersistenceException)
 			{
 				if(e.getCause() instanceof org.hibernate.exception.ConstraintViolationException)
 				{
 					throw new UtilsContraintViolationException(e.getCause().getMessage());
 				}
+				if(e.getCause() instanceof org.hibernate.PersistentObjectException)
+				{
+					throw new UtilsContraintViolationException(e.getCause().getMessage());
+				}
 				else
 				{
-					System.err.println("This Error is not handled: "+e.getClass().getName());
+					StringBuffer sb = new StringBuffer();
+					sb.append("Not handled error:").append(javax.persistence.PersistenceException.class.getName());
+					sb.append(" with cause:").append(e.getCause().getClass().getName());
+					logger.error(sb.toString());
 					e.printStackTrace();
 				}
 			}
 			else
 			{
+				logger.error("It's not a "+javax.persistence.PersistenceException.class.getName()+" ...");
 				System.err.println("This Error is not handled: "+e.getClass().getName());
 				e.printStackTrace();
 			}
