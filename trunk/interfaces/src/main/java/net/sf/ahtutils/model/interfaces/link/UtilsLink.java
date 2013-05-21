@@ -1,11 +1,11 @@
 package net.sf.ahtutils.model.interfaces.link;
 
-import net.sf.ahtutils.model.interfaces.EjbWithCode;
-import net.sf.ahtutils.model.interfaces.EjbWithId;
 import net.sf.ahtutils.model.interfaces.date.EjbWithValidUntil;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
+import net.sf.ahtutils.model.interfaces.with.EjbWithCode;
+import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface UtilsLink<S extends UtilsStatus<L,D>,
 							L extends UtilsLang,

@@ -2,7 +2,6 @@ package net.sf.ahtutils.model.interfaces.with;
 
 import java.util.Date;
 
-import net.sf.ahtutils.model.interfaces.EjbWithId;
 
 public interface EjbWithTimeline extends EjbWithId
 {

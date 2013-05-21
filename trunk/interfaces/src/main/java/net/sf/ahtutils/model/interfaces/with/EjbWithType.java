@@ -1,4 +1,5 @@
-package net.sf.ahtutils.model.interfaces;
+package net.sf.ahtutils.model.interfaces.with;
+
 
 public interface EjbWithType extends EjbWithId
 {	

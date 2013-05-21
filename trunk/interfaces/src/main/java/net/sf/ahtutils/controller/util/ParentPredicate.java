@@ -9,7 +9,7 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import net.sf.ahtutils.model.interfaces.EjbWithId;
+import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class ParentPredicate <P extends EjbWithId> implements Serializable
 {

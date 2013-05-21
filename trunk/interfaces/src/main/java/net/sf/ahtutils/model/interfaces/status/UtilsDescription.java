@@ -1,6 +1,6 @@
 package net.sf.ahtutils.model.interfaces.status;
 
-import net.sf.ahtutils.model.interfaces.EjbRemoveable;
+import net.sf.ahtutils.model.interfaces.crud.EjbRemoveable;
 
 public interface UtilsDescription extends EjbRemoveable
 {

@@ -1,7 +1,7 @@
 package net.sf.ahtutils.jsf.util;
 
 import net.sf.ahtutils.model.event.GlobalCdiEvent;
-import net.sf.ahtutils.model.interfaces.EjbWithId;
+import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class GlobalCdiEventTypeFactory
 {

@@ -8,8 +8,8 @@ import java.util.Map;
 import net.sf.ahtutils.controller.interfaces.UtilsFacade;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
-import net.sf.ahtutils.model.interfaces.EjbRemoveable;
-import net.sf.ahtutils.model.interfaces.EjbWithCode;
+import net.sf.ahtutils.model.interfaces.crud.EjbRemoveable;
+import net.sf.ahtutils.model.interfaces.with.EjbWithCode;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

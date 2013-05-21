@@ -7,13 +7,13 @@ import net.sf.ahtutils.controller.util.ParentPredicate;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
-import net.sf.ahtutils.model.interfaces.EjbWithCode;
-import net.sf.ahtutils.model.interfaces.EjbWithId;
-import net.sf.ahtutils.model.interfaces.EjbWithName;
-import net.sf.ahtutils.model.interfaces.EjbWithType;
 import net.sf.ahtutils.model.interfaces.UtilsProperty;
+import net.sf.ahtutils.model.interfaces.with.EjbWithCode;
+import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 import net.sf.ahtutils.model.interfaces.with.EjbWithTimeline;
+import net.sf.ahtutils.model.interfaces.with.EjbWithType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

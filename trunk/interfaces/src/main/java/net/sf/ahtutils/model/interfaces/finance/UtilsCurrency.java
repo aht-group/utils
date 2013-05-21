@@ -1,9 +1,9 @@
 package net.sf.ahtutils.model.interfaces.finance;
 
-import net.sf.ahtutils.model.interfaces.EjbWithCode;
-import net.sf.ahtutils.model.interfaces.EjbWithId;
-import net.sf.ahtutils.model.interfaces.EjbWithLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
+import net.sf.ahtutils.model.interfaces.with.EjbWithCode;
+import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 
 public interface UtilsCurrency<L extends UtilsLang>
 			extends EjbWithId,EjbWithCode,EjbWithLang<L>

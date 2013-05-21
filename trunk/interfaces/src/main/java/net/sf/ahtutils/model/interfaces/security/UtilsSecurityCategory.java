@@ -1,13 +1,13 @@
 package net.sf.ahtutils.model.interfaces.security;
 
-import net.sf.ahtutils.model.interfaces.EjbWithCode;
-import net.sf.ahtutils.model.interfaces.EjbWithDescription;
-import net.sf.ahtutils.model.interfaces.EjbWithId;
-import net.sf.ahtutils.model.interfaces.EjbWithLang;
-import net.sf.ahtutils.model.interfaces.EjbWithType;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
+import net.sf.ahtutils.model.interfaces.with.EjbWithCode;
+import net.sf.ahtutils.model.interfaces.with.EjbWithDescription;
+import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
+import net.sf.ahtutils.model.interfaces.with.EjbWithType;
 
 public interface UtilsSecurityCategory<L extends UtilsLang,
 									   D extends UtilsDescription,

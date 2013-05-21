@@ -13,13 +13,13 @@ import javax.persistence.criteria.Root;
 
 import net.sf.ahtutils.controller.interfaces.UtilsTrackerFacade;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
-import net.sf.ahtutils.model.interfaces.EjbWithId;
 import net.sf.ahtutils.model.interfaces.mail.UtilsMailTracker;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.tracker.UtilsTracker;
 import net.sf.ahtutils.model.interfaces.tracker.UtilsTrackerLog;
+import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class UtilsTrackerFacadeBean extends UtilsFacadeBean implements UtilsTrackerFacade
 {	

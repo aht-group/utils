@@ -2,10 +2,10 @@ package net.sf.ahtutils.model.interfaces.tracker;
 
 import java.util.List;
 
-import net.sf.ahtutils.model.interfaces.EjbWithId;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
+import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface UtilsTracker<TR extends UtilsTracker<TR,TL,T,S,L,D>,
 							  TL extends UtilsTrackerLog<TR,TL,T,S,L,D>,

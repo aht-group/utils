@@ -1,10 +1,10 @@
 package net.sf.ahtutils.controller.factory.xml.mail;
 
-import net.sf.ahtutils.model.interfaces.EjbWithId;
 import net.sf.ahtutils.model.interfaces.mail.UtilsMailTracker;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
+import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.xml.mail.Tracker;
 import net.sf.exlp.util.DateUtil;
 

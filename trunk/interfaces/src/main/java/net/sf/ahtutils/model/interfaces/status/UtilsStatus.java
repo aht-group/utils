@@ -2,9 +2,9 @@ package net.sf.ahtutils.model.interfaces.status;
 
 import java.util.Map;
 
-import net.sf.ahtutils.model.interfaces.EjbRemoveable;
-import net.sf.ahtutils.model.interfaces.EjbWithCode;
-import net.sf.ahtutils.model.interfaces.EjbWithId;
+import net.sf.ahtutils.model.interfaces.crud.EjbRemoveable;
+import net.sf.ahtutils.model.interfaces.with.EjbWithCode;
+import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithImage;
 import net.sf.ahtutils.model.interfaces.with.EjbWithPositionVisible;
 

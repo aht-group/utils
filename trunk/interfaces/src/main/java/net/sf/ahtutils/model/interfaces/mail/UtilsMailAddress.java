@@ -1,7 +1,7 @@
 package net.sf.ahtutils.model.interfaces.mail;
 
-import net.sf.ahtutils.model.interfaces.EjbWithId;
-import net.sf.ahtutils.model.interfaces.EjbWithName;
+import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 
 public interface UtilsMailAddress extends EjbWithId,EjbWithName
 {

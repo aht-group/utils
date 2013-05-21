@@ -9,7 +9,6 @@ import javax.persistence.EntityManager;
 
 import net.sf.ahtutils.controller.interfaces.UtilsSecurityFacade;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
-import net.sf.ahtutils.model.interfaces.EjbWithId;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
@@ -20,6 +19,7 @@ import net.sf.ahtutils.model.interfaces.security.UtilsSecurityWithCategory;
 import net.sf.ahtutils.model.interfaces.security.UtilsStaff;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
+import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class UtilsSecurityFacadeBean extends UtilsFacadeBean implements UtilsSecurityFacade
 {	

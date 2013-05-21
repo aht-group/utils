@@ -2,11 +2,11 @@ package net.sf.ahtutils.controller.factory.ejb.mail;
 
 import java.util.Date;
 
-import net.sf.ahtutils.model.interfaces.EjbWithId;
 import net.sf.ahtutils.model.interfaces.mail.UtilsMailTracker;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
+import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
