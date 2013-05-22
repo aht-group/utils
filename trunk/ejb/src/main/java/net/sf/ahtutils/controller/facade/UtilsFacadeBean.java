@@ -21,6 +21,7 @@ import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.model.interfaces.UtilsProperty;
+import net.sf.ahtutils.model.interfaces.crud.EjbMergeable;
 import net.sf.ahtutils.model.interfaces.crud.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.with.EjbWithCode;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
@@ -45,6 +46,12 @@ public class UtilsFacadeBean implements UtilsFacade
 	public UtilsFacadeBean(EntityManager em)
 	{
 		this.em=em;
+	}
+	
+//	@Override
+	public <T extends EjbMergeable> T merge(T o) throws UtilsContraintViolationException, UtilsLockingException
+	{
+		return this.update(o);
 	}
 	
 	public <T extends Object> T find(Class<T> type, long id) throws UtilsNotFoundException
