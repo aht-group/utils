@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<s:translations xmlns:s="http://ahtutils.aht-group.com/status">
+    <s:translation key="key1">
+    	<s:langs>
+    		<s:lang key="de" translation="de-key1"/>
+    		<s:lang key="en" translation="en-key1"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="key2">
+		<s:langs>
+			<s:lang key="de" translation="de-key3"/>
+			<s:lang key="en" translation="en-key3"/>
+		</s:langs>
+	</s:translation>
+	<s:translation key="key3">
+		<s:langs>
+			<s:lang key="de" translation="de-key3"/>
+			<s:lang key="en" translation="en-key3"/>
+		</s:langs>
+	</s:translation>
+</s:translations>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+    	<groupId>net.sf.ahtutils</groupId>
+    	<artifactId>ahtutils</artifactId>
+    	<version>0.2.4</version>
+        <relativePath>../pom.xml</relativePath>
+	</parent>
+	
+    <artifactId>ahtutils-test</artifactId>
+    <packaging>jar</packaging>
+    <name>AHT-Utils - Test</name>
+
+	<dependencyManagement>
+		<dependencies>      	         
+			<dependency>
+				<groupId>net.sf.ahtutils</groupId>
+				<artifactId>ahtutils-bom</artifactId>
+				<version>${project.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
+	<dependencies>
+
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<scope>provided</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-api</artifactId>
+		<scope>provided</scope>
+	</dependency>
+	<dependency>
+		<groupId>net.sf.exlp</groupId>
+		<artifactId>exlp-util</artifactId>
+		<scope>provided</scope>
+	</dependency>
+	</dependencies>
+   
+</project>

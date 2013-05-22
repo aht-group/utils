@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsp/jstl/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:composite="http://java.sun.com/jsf/composite">
+    
+   <composite:interface  componentType="net.sf.ahtutils.jsf.components.CodeEditor">
+     <composite:attribute name="file"/>
+     <composite:attribute name="readonly"/>
+   </composite:interface>
+        
+  <composite:implementation>
+     <h:outputStylesheet library="css" name="ahtutils.css" target="head"/>
+     <link type="text/css" rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/javax.faces.resource/ahtutils.css.jsf?ln=css" />
+			
+  <!--    <h:outputStylesheet value="#{resource['this:ahtutils.css']}"/> -->
+  <f:if test="#{empty cc.attrs.file}">
+  <pre id="#{cc.codeId}" class="codeEditor">
+   		  <composite:insertChildren/>
+   	  </pre>
+	  <script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+   	  <script type="text/javascript">
+		    var editor = ace.edit("#{cc.codeId}");
+		    editor.getSession().setMode("ace/mode/javascript");
+		    editor.setReadOnly(#{cc.attrs.readonly});
+	  </script>	
+  	
+  </f:if>
+  <f:if test="#{!empty cc.attrs.file}">
+  	<pre id="#{cc.codeId}" class="codeEditor">
+   		  Loading input file...
+   	  </pre>
+	  <script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+   	  <script type="text/javascript">
+		    var editor = ace.edit("#{cc.codeId}");
+		    editor.getSession().setMode("ace/mode/javascript");
+		    editor.setReadOnly(#{cc.attrs.readonly});
+		    var req = new XMLHttpRequest();
+		    req.open('GET', 'http://' +document.location.hostname +':' +document.location.port +'#{cc.attrs.file}', false);
+		    req.send(null);
+		    if (req.readyState==4) editor.setValue(req.responseText);
+	  </script>	
+  </f:if>
+   </composite:implementation>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsp/jstl/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:composite="http://java.sun.com/jsf/composite">
+    
+   <composite:interface>
+     <composite:attribute name="value"/>
+   </composite:interface>
+        
+  <composite:implementation>
+   	 
+<div id="menu">
+	<ul>
+    	<f:forEach var="menuItem" items="#{cc.attrs.value.menuItem}">
+        	<f:if test="#{menuItem.active}">
+        	  <li><a href="#{menuItem.href}" class="current">#{menuItem.name}</a></li>
+        	</f:if>
+        	<f:if test="#{!menuItem.active}">
+        	  <li><a href="#{menuItem.href}">#{menuItem.name}</a></li>
+        	</f:if>
+       </f:forEach>
+	</ul>
+</div>
+   </composite:implementation>
+</html>

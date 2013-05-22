@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sectest" language="groovy" pageWidth="595" pageHeight="842" columnWidth="450" leftMargin="72" rightMargin="72" topMargin="72" bottomMargin="72">
+	<parameter name="logo" class="java.awt.Image"/>
+	<queryString language="XPath">
+		<![CDATA[//*]]>
+	</queryString>
+	<field name="title">
+		<fieldDescription><![CDATA[/report/info/title]]></fieldDescription>
+	</field>
+	<field name="subtitle">
+		<fieldDescription><![CDATA[/report/info/subtitle]]></fieldDescription>
+	</field>
+	<field name="footer">
+		<fieldDescription><![CDATA[/report/info/footer]]></fieldDescription>
+	</field>
+	<field name="generated">
+		<fieldDescription><![CDATA[/report/info/record]]></fieldDescription>
+	</field>
+	<pageHeader>
+		<band height="61">
+			<image hAlign="Right">
+				<reportElement x="301" y="15" width="150" height="26"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="30" width="365" height="13"/>
+				<textElement>
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subtitle}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="15" width="365" height="15"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{title}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<pageFooter>
+		<band height="13">
+			<textField>
+				<reportElement x="209" y="3" width="22" height="10"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER} +"/"]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd.MM.yyyy HH:mm">
+				<reportElement positionType="Float" x="273" y="3" width="178" height="10"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[javax.xml.bind.DatatypeConverter.parseDateTime($F{generated}).getTime()]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="231" y="3" width="42" height="10"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement positionType="Float" x="0" y="3" width="273" height="10"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{footer}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

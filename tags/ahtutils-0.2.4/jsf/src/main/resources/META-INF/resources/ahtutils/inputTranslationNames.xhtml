@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:c="http://java.sun.com/jsp/jstl/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:composite="http://java.sun.com/jsf/composite">
+    
+  <composite:interface>
+    <composite:attribute name="value"/>
+    <composite:attribute name="disabled" required="false" default="false"/>
+  </composite:interface>
+        
+  <composite:implementation>
+    <h:panelGrid columns="2">
+      <c:forEach var="l" items="#{cc.attrs.value.name}">
+        <h:outputText value="#{l.value.lkey}"/>
+        <p:inputText disabled="#{cc.attrs.disabled}" value="#{l.value.lang}" size="45"/>
+      </c:forEach>
+    </h:panelGrid>
+  </composite:implementation>
+</html>

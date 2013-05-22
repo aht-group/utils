@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://ahtutils.aht-group.com/utils"
+    xmlns:a="http://ahtutils.aht-group.com/access"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://ahtutils.aht-group.com/access" schemaLocation="access.xsd"/>
+	<xsd:element name="utils">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="a:category" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

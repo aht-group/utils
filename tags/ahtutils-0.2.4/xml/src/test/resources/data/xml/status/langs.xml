@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<s:langs xmlns:s="http://ahtutils.aht-group.com/status">
+    <s:lang version="1" key="myKey" translation="myTranslation"/>
+</s:langs>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<aht:query xmlns:s="http://ahtutils.aht-group.com/status" xmlns:acl="http://ahtutils.aht-group.com/access" xmlns:ns3="http://ahtutils.aht-group.com/navigation" xmlns:aht="http://ahtutils.aht-group.com" lang="myLang">
+    <acl:role code="myCode" name="myName"/>
+    <s:langs/>
+    <s:status id="123" code="myCode" group="myGroup" label="myLabel" visible="true" image="test/green.png" style="myStyle" position="1"/>
+    <s:type key="myKey" code="myCode" group="myGroup" label="myLabel" visible="true" image="test/green.png" position="1"/>
+</aht:query>

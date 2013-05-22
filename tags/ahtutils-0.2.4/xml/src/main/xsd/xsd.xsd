@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://ahtutils.aht-group.com"
+    xmlns:aht="http://ahtutils.aht-group.com"
+    xmlns:s="http://ahtutils.aht-group.com/status"
+    xmlns:m="http://ahtutils.aht-group.com/mail"
+    xmlns:f="http://ahtutils.aht-group.com/finance"
+    xmlns:n="http://ahtutils.aht-group.com/navigation"
+    xmlns:a="http://ahtutils.aht-group.com/access"
+    xmlns:u="http://ahtutils.aht-group.com/utils"
+    xmlns:sec="http://ahtutils.aht-group.com/security"
+    xmlns:db="http://ahtutils.aht-group.com/dbseed"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+    xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" jaxb:extensionBindingPrefixes="xjc"
+    jaxb:version="2.0">
+    <xsd:import namespace="http://ahtutils.aht-group.com/status" schemaLocation="aht/status.xsd"/>
+    <xsd:import namespace="http://ahtutils.aht-group.com/report" schemaLocation="aht/report.xsd"/>
+    <xsd:import namespace="http://ahtutils.aht-group.com/access" schemaLocation="aht/access.xsd"/>
+    <xsd:import namespace="http://ahtutils.aht-group.com/security" schemaLocation="aht/security.xsd"/>
+    <xsd:import namespace="http://ahtutils.aht-group.com/finance" schemaLocation="aht/finance.xsd"/>
+    <xsd:import namespace="http://ahtutils.aht-group.com/dbseed" schemaLocation="aht/dbseed.xsd"/>
+    <xsd:import namespace="http://ahtutils.aht-group.com/mail" schemaLocation="aht/mail.xsd"/>
+	<xsd:import namespace="http://ahtutils.aht-group.com/utils" schemaLocation="aht/utils.xsd"/>
+    <xsd:import namespace="http://ahtutils.aht-group.com/navigation" schemaLocation="aht/navigation.xsd"/>
+    <xsd:import namespace="http://ahtutils.aht-group.com/cloud/facebook" schemaLocation="cloud/facebook.xsd"/>
+    <xsd:annotation>
+        <xsd:appinfo>
+            <jaxb:globalBindings generateIsSetMethod="true">
+                <xjc:serializable uid="1"/>
+            </jaxb:globalBindings>
+        </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:element name="aht">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="s:status" maxOccurs="unbounded"/>
+                <xsd:element ref="f:currency" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+	
+    <xsd:element name="query">
+        <xsd:complexType>
+        	<xsd:sequence>
+                <xsd:element ref="a:role" maxOccurs="1"/>
+        	    <xsd:element ref="s:langs" maxOccurs="1"/>
+        	    <xsd:element ref="s:status" maxOccurs="1"/>
+        	    <xsd:element ref="s:type" maxOccurs="1"/>
+            </xsd:sequence>
+            <xsd:attribute name="lang" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

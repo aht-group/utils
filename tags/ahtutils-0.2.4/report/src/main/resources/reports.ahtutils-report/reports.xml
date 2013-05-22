@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:reports xmlns:ns2="http://ahtutils.aht-group.com/report" xmlns:ns3="http://www.openfuxml.org/chart" dir="src/main/resources/reports.ahtutils-report" resources="resources.xml">
+    <ns2:report id="testReportChart" dir="test" ltr="true">
+        <ns2:media dir="" type="pdf">
+            <ns2:jr type="mr" name="SimpleCharts"/>
+            <ns2:jr type="sr" name="Charts"/>
+        </ns2:media>
+        <example>src/test/resources/data/xml/report/testData.xml</example>
+    </ns2:report>
+    <ns2:report id="testReport" dir="test" ltr="true">
+        <ns2:media dir="" type="pdf">
+            <ns2:jr type="mr" name="Simple"/>
+        </ns2:media>
+        <example>src/test/resources/data/xml/report/testData.xml</example>
+    </ns2:report>
+    <ns2:report id="sectest" dir="sectest" ltr="true">
+        <ns2:media type="pdf">
+            <ns2:jr type="mr" name="sectest"/>
+        </ns2:media>
+        <example>src/test/resources/data/xml/report/securityRoles.xml</example>
+    </ns2:report>
+</ns2:reports>

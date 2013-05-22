@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsp/jstl/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:composite="http://java.sun.com/jsf/composite">
+    
+   <composite:interface>
+     <composite:attribute name="for"/>
+     <composite:attribute name="jiraHost"/>
+     <composite:attribute name="scriptPath"/>
+     <composite:attribute name="collector"/>
+     <composite:attribute name="collectorId"/>
+     <composite:attribute name="bean"/>
+   </composite:interface>
+        
+  <composite:implementation>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script>
+        jQuery.ajax({
+            url: "#{!empty cc.attrs.jiraHost ? cc.attrs.jiraHost : cc.attrs.bean.jiraHost}/s/#{!empty cc.attrs.scriptPath ? cc.attrs.scriptPath : cc.attrs.bean.jiraScriptPath}/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs.js?collectorId=#{!empty cc.attrs.collectorId ? cc.attrs.collectorId : cc.attrs.bean.collectorId[cc.attrs.collector]}",
+            type: "get",
+            cache: true,
+            dataType: "script"
+        });
+
+         window.ATL_JQ_PAGE_PROPS =  {
+        	"triggerFunction": function(showCollectorDialog) {
+        		jQuery("##{cc.attrs.for}").click(function(e) {
+        			e.preventDefault();
+        			showCollectorDialog();
+        		});
+        	}};
+  </script>
+  
+   </composite:implementation>
+</html>

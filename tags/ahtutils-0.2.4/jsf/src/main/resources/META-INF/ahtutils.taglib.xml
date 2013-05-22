@@ -1,0 +1,31 @@
+<facelet-taglib version="2.0"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd">
+	<namespace>http://ahtutils.sourceforge.net/jsf</namespace>
+	<composite-library-name>ahtutils</composite-library-name>
+	
+	<function>
+		<function-name>prettyUrl</function-name>
+		<function-class>net.sf.ahtutils.jsf.functions.PrettyUrl</function-class>
+		<function-signature>java.lang.String prettyUrl(java.lang.String)</function-signature>
+	</function>
+	
+	<function>
+		<function-name>dateDifference</function-name>
+		<function-class>net.sf.ahtutils.jsf.functions.DateDifference</function-class>
+		<function-signature>java.lang.Integer dateDifference(java.util.Date,java.util.Date)</function-signature>
+	</function>
+	<function>
+		<function-name>dayDeviation</function-name>
+		<function-class>net.sf.ahtutils.jsf.functions.DateDifference</function-class>
+		<function-signature>java.lang.Integer dayDeviation(java.util.Date,java.util.Date,java.lang.Integer)</function-signature>
+	</function>
+	<function>
+		<function-name>plusDay</function-name>
+		<function-class>net.sf.ahtutils.jsf.functions.DateDifference</function-class>
+		<function-signature>java.util.Date plusDay(java.util.Date,java.lang.Integer)</function-signature>
+	</function>
+	
+</facelet-taglib> 

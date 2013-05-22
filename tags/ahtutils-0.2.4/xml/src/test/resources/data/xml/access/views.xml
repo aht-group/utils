@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:views xmlns="http://ahtutils.aht-group.com/status" xmlns:ns2="http://ahtutils.aht-group.com/access" xmlns:ns3="http://ahtutils.aht-group.com/navigation">
+    <ns2:view code="myCode" index="1" public="true" onlyLoginRequired="true" urlParameter="myUrlParameter" label="myLabel"/>
+</ns2:views>

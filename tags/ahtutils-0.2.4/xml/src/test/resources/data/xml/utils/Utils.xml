@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns4:utils xmlns:s="http://ahtutils.aht-group.com/status" xmlns:acl="http://ahtutils.aht-group.com/access" xmlns:ns3="http://ahtutils.aht-group.com/navigation" xmlns:ns4="http://ahtutils.aht-group.com/utils">
+    <acl:category code="myCode" index="1"/>
+    <acl:category code="myCode" index="1"/>
+</ns4:utils>
