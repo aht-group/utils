@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import freemarker.template.TemplateException;
 
-@SuppressWarnings({"rawtypes","unchecked"})
+@SuppressWarnings({"unchecked"})
 public class CssGridBuilder extends AbstractFreemarkerFileFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(CssGridBuilder.class);
@@ -25,7 +25,7 @@ public class CssGridBuilder extends AbstractFreemarkerFileFactory
 
 	public void buildCss()
 	{
-		for(int slot=30;slot<=100;slot=slot+5)
+		for(int slot=30;slot<=100;slot=slot+1)
 		{
 			for(int gutter=1;gutter<=5;gutter++)
 			{
@@ -50,12 +50,12 @@ public class CssGridBuilder extends AbstractFreemarkerFileFactory
 	{
 		logger.debug("fillModel for slot="+slot+" gutter="+gutter);
 		freemarkerNodeModel.clear();
-		freemarkerNodeModel.put("width", ((slot+(2*gutter))*12));
-		freemarkerNodeModel.put("gutter", gutter);
-		freemarkerNodeModel.put("doublegutter", gutter*2);
+		
+		freemarkerNodeModel.put("width", ""+((slot+(2*gutter))*12));
+		freemarkerNodeModel.put("gutter", ""+gutter);
+		freemarkerNodeModel.put("doublegutter", ""+gutter*2);
+		
 		createSlots(slot, gutter);
-		
-		
 	}
 	
 	private void createSlots(int slot, int gutter)
@@ -65,7 +65,7 @@ public class CssGridBuilder extends AbstractFreemarkerFileFactory
 		{
 			int px = i*slot;
 			px = px + (i-1)*margin;
-			freemarkerNodeModel.put("slot"+i, px);
+			freemarkerNodeModel.put("slot"+i, ""+px);
 		}
 	}
 }

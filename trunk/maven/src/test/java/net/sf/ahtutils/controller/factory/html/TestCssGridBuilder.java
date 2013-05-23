@@ -74,7 +74,7 @@ public class TestCssGridBuilder extends AbstractUtilsMavenTst
 	@Test
 	public void create()
 	{
-		gridFactory.buildCss(70,5);
+		gridFactory.buildCss(75,5);
 	}
 	
 	public static void main(String[] args) throws Exception
