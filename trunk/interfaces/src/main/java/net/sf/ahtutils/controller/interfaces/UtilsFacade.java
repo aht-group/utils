@@ -9,7 +9,6 @@ import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.model.interfaces.UtilsProperty;
-import net.sf.ahtutils.model.interfaces.crud.EjbMergeable;
 import net.sf.ahtutils.model.interfaces.crud.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.with.EjbWithCode;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
@@ -24,6 +23,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithType;
 public interface UtilsFacade
 {
 	<T extends Object> T find(Class<T> type, long id) throws UtilsNotFoundException;
+	<T extends EjbWithId> T find(Class<T> type, T t);
 	<T extends EjbWithCode> T fByCode(Class<T> type, String code) throws UtilsNotFoundException;
 	<T extends EjbWithName> T fByName(Class<T> type, String name) throws UtilsNotFoundException;
 	<T extends EjbWithNr, P extends EjbWithId> T fByNr(Class<T> type, String parentName, P parent, int nr) throws UtilsNotFoundException;

@@ -34,6 +34,7 @@ public class AbstractUtilsFacadeBean
 	public <T extends Object> T update(T o) throws UtilsContraintViolationException, UtilsLockingException {return fUtils.update(o);}
 	
 	// Finder
+	public <T extends EjbWithId> T find(Class<T> type, T t) {return fUtils.find(type, t);}
 	public <T extends Object> T find(Class<T> type, long id) throws UtilsNotFoundException {return fUtils.find(type, id);}
 	public <T extends EjbWithCode> T fByCode(Class<T> type, String code) throws UtilsNotFoundException {return fUtils.fByCode(type, code);}
 	public <T extends EjbWithName> T fByName(Class<T> type, String name) throws UtilsNotFoundException {return fUtils.fByName(type, name);}

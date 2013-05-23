@@ -54,6 +54,11 @@ public class UtilsFacadeBean implements UtilsFacade
 		return this.update(o);
 	}
 	
+	public <T extends EjbWithId> T find(Class<T> type, T t)
+	{
+		T o = em.find(type,t.getId());
+		return o;
+	}
 	public <T extends Object> T find(Class<T> type, long id) throws UtilsNotFoundException
 	{
 		T o = em.find(type,id);
