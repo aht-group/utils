@@ -10,6 +10,7 @@ import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
 import net.sf.jasperreports.engine.JRException;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,12 +18,11 @@ import org.xml.sax.SAXException;
 
 import freemarker.template.TemplateException;
 
-
 public class TestReportCreator extends AbstractAhtUtilsReportTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestReportCreator.class);
     
-	@Test
+	@Test @Ignore
 	public void createReport() throws JRException, TemplateException, IOException, ExlpXpathNotFoundException, ExlpXpathNotUniqueException, ParserConfigurationException, SAXException, ClassNotFoundException
 	{
 		ReportUtilCreator creator = new ReportUtilCreator();
