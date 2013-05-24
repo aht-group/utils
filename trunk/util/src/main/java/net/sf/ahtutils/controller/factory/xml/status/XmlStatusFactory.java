@@ -13,9 +13,14 @@ public class XmlStatusFactory
 	final static Logger logger = LoggerFactory.getLogger(XmlStatusFactory.class);
 		
 	private Status q;
+	private String lang;
 	
-	public XmlStatusFactory(Status q)
+	@Deprecated
+	public XmlStatusFactory(Status q){this("en",q);}
+	
+	public XmlStatusFactory(String lang,Status q)
 	{
+		this.lang=lang;
 		this.q=q;
 	}
 	
@@ -38,6 +43,26 @@ public class XmlStatusFactory
 		{
 			XmlDescriptionsFactory f = new XmlDescriptionsFactory(q.getDescriptions());
 			xml.setDescriptions(f.create(ejb.getDescription()));
+		}
+		
+		if(q.isSetLabel())
+		{
+			if(ejb.getName()!=null)
+			{
+				if(ejb.getName().containsKey(lang)){xml.setLabel(ejb.getName().get(lang).getLang());}
+				else
+				{
+					String msg = "No translation "+lang+" available in "+ejb;
+					logger.warn(msg);
+					xml.setLabel(msg);
+				}
+			}
+			else
+			{
+				String msg = "No @name available in "+ejb;
+				logger.warn(msg);
+				xml.setLabel(msg);
+			}
 		}
 		
 		return xml;
