@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;/sequence>
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" />
  *       &lt;attribute name="code" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="lang" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="type" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="msgId" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="dir" type="{http://www.w3.org/2001/XMLSchema}string" />
@@ -70,6 +71,8 @@ public class Mail
     protected Long id;
     @XmlAttribute(name = "code")
     protected String code;
+    @XmlAttribute(name = "lang")
+    protected String lang;
     @XmlAttribute(name = "type")
     protected String type;
     @XmlAttribute(name = "msgId")
@@ -267,6 +270,34 @@ public class Mail
 
     public boolean isSetCode() {
         return (this.code!= null);
+    }
+
+    /**
+     * Gets the value of the lang property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getLang() {
+        return lang;
+    }
+
+    /**
+     * Sets the value of the lang property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setLang(String value) {
+        this.lang = value;
+    }
+
+    public boolean isSetLang() {
+        return (this.lang!= null);
     }
 
     /**

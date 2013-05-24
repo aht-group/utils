@@ -65,9 +65,10 @@ public class ReportHandler {
 	
 	public enum Format {pdf, xls};
 	
-	
 	/**
-	 * This class contains methods to work with the elements configured in reports.xml, resources.xml and templates.xml - Additional functionality needs to be implemented in dedicated classes (e.g. working with specific data XML files, report)
+	 * This class contains methods to work with the elements configured in reports.xml,
+	 * resources.xml and templates.xml - Additional functionality needs to be implemented
+	 * in dedicated classes (e.g. working with specific data XML files, report)
 	 * @param reportFile Name of the configuration file
 	 * @throws ReportException
 	 */
@@ -104,10 +105,14 @@ public class ReportHandler {
 		logger.info("Read report configuration from " +configFileLocation +" containing " +reports.getReport().size() +" reports.");
 		
 		//Reading resources file from reportRoot if available
-		try {
+		try
+		{
 			resources = (Resources)JaxbUtil.loadJAXB(reportRoot +"resources.xml", Resources.class);
 			logger.info("Read resources configuration from " +reportRoot +"resources.xml");
-		} catch (FileNotFoundException e) {
+		}
+		catch (FileNotFoundException e)
+		{
+			resources = new Resources();
 			logger.warn("Problem loading resources.xml from " +reportRoot +" - no images etc. needed?");
 		}
 		
@@ -142,7 +147,6 @@ public class ReportHandler {
 	 */
 	public ReportHandler(Reports reports) throws ReportException
 	{
-		
 		logger.info("Initializing report handling system with given reports object");
 		mrl = new MultiResourceLoader();
 		
@@ -155,18 +159,25 @@ public class ReportHandler {
 		mrl.addPath("src/main/" +reportRoot);
 		
 		//Reading resources file from reportRoot if available
-		try {
-			resources = (Resources)JaxbUtil.loadJAXB(mrl.searchIs(reports.getResources()), Resources.class);
+		resources = new Resources();
+		try
+		{
+			resources = JaxbUtil.loadJAXB(mrl.searchIs(reports.getResources()), Resources.class);
 			logger.info("Read resources configuration from " +reports.getResources());
-		} catch (FileNotFoundException e) {
+		}
+		catch (FileNotFoundException e)
+		{
 			logger.warn("Problem loading resources.xml from " +reports.getResources() +" - no images etc. needed?");
 		}
 		
 		//Reading resources file from reportRoot if available
-		try {
+		try
+		{
 			templates = (Templates)JaxbUtil.loadJAXB(mrl.searchIs(reports.getTemplates()), Templates.class);
 			logger.info("Read templates definitions from " +reports.getTemplates());
-		} catch (FileNotFoundException e) {
+		}
+		catch (FileNotFoundException e)
+		{
 			logger.warn("Problem loading templates.xml from " +reports.getTemplates() +" - no templates needed?");
 		}
 	}
@@ -209,13 +220,13 @@ public class ReportHandler {
 	public JasperDesign getMasterReport(String id, String format) throws ReportException
 	{
 		Jr master = null;
-		try {
+		try
+		{
 			master = ReportXpath.getMr(reports, id, format);
-		} catch (ExlpXpathNotFoundException e1) {
-			e1.printStackTrace();
-		} catch (ExlpXpathNotUniqueException e1) {
-			e1.printStackTrace();
 		}
+		catch (ExlpXpathNotFoundException e) {e.printStackTrace();}
+		catch (ExlpXpathNotUniqueException e) {e.printStackTrace();}
+		
 		String reportDir = (String)JXPathContext.newContext(reports).getValue("report[@id='"+ id +"']/@dir");
 		String location = "jrxml/" +reportDir +"/" +format +"/mr" +master.getName() +".jrxml";
 		JasperDesign design = null;

@@ -36,24 +36,24 @@ public class FreemarkerMimeContentCreator extends AbstractMimeContentCreator
 		this.fme=fme;
 	}
 	
-	public void createContent(String lang, Document xml, Mail mail) throws MessagingException, UtilsMailException
+	public void createContent(Document xml, Mail mail) throws MessagingException, UtilsMailException
 	{		
 		Multipart mpAlternative = new MimeMultipart("alternative");
 		
 		boolean someContentAvailable = false;
-		if(fme.isAvailable(mail.getCode(), lang, "txt"))
+		if(fme.isAvailable(mail.getCode(), mail.getLang(), "txt"))
 		{
 			logger.trace("Adding txt body part");
-			mpAlternative.addBodyPart(createTxt(lang,xml,mail));
+			mpAlternative.addBodyPart(createTxt(mail.getLang(),xml,mail));
 			someContentAvailable=true;
 		}
-		if(fme.isAvailable(mail.getCode(), lang, "html"))
+		if(fme.isAvailable(mail.getCode(), mail.getLang(), "html"))
 		{
 			logger.trace("Adding html body part");
-			mpAlternative.addBodyPart(createHtml(lang,xml,mail));
+			mpAlternative.addBodyPart(createHtml(mail.getLang(),xml,mail));
 			someContentAvailable=true;
 		}
-		if(!someContentAvailable){throw new UtilsMailException("No template available for "+mail.getId()+"/"+lang);}
+		if(!someContentAvailable){throw new UtilsMailException("No template available for "+mail.getCode()+"/"+mail.getLang());}
 		
 	    if(!mail.isSetAttachment())
 	    {

@@ -36,7 +36,7 @@ public class XmlMailSender
 	private String smtpHost,smtpUser,smtpPassword;
 	private int smtpPort;
 	
-	private boolean tlsPwd;
+	private boolean tlsPwd,smtpDebug;
 	
 	private FreemarkerEngine fme;
 	private List<EmailAddress> alwaysBcc;
@@ -59,6 +59,7 @@ public class XmlMailSender
 		alwaysBcc = new ArrayList<EmailAddress>();
 		overrideOnlyTo = null;
 		tlsPwd = false;
+		smtpDebug = false;
 	}
 	
 	public void tlsPasswordAuthentication(String smtpUser, String smtpPassword)
@@ -73,6 +74,7 @@ public class XmlMailSender
 		Properties props = System.getProperties();
 		props.put("mail.smtp.host", smtpHost);
 		props.put("mail.smtp.port", smtpPort);
+		props.put("mail.smtp.auth", "false");
 		Session session;
 		
 		if(tlsPwd)
@@ -81,8 +83,8 @@ public class XmlMailSender
 			props.put("mail.smtp.auth", "true");
 			props.put("mail.smtp.starttls.enable", "true");
 			props.put("mail.smtp.tls", "true");
-			props.put("mail.smtp.user", "t.kisner@aht-group.com");
-			props.put("mail.password", "trek2heck2mo9gleurp3am5uth");
+			props.put("mail.smtp.user", smtpUser);
+			props.put("mail.password", smtpPassword);
 			
 			Authenticator auth = new Authenticator()
 			{
@@ -97,7 +99,7 @@ public class XmlMailSender
 		{
 			session = Session.getDefaultInstance(props, null);
 		}		
-		session.setDebug(false);
+		session.setDebug(smtpDebug);
 		return session;
 	}
 	
@@ -123,7 +125,17 @@ public class XmlMailSender
 		this.fme=fme;
 		send(lang, doc);
 	}
+	
+	@Deprecated
 	public void send(String lang, Document doc) throws UnsupportedEncodingException, MessagingException, UtilsProcessingException, UtilsMailException
+	{
+		send(doc,lang);
+	}
+	public void send(Document doc) throws UnsupportedEncodingException, MessagingException, UtilsProcessingException, UtilsMailException
+	{
+		send(doc,null);
+	}
+	private void send(Document doc, String lang) throws UnsupportedEncodingException, MessagingException, UtilsProcessingException, UtilsMailException
 	{
 		Session session = buildSession();
 		
@@ -147,8 +159,15 @@ public class XmlMailSender
 		
 		Mail mail = getMailAndDetachAtt(doc.getRootElement());
 		
+		if(!mail.isSetLang())
+		{
+			if(lang!=null){mail.setLang(lang);}
+			else{mail.setLang("de");}
+			logger.warn("No @lang is set in this mail! Setting to "+mail.getLang());
+		}
+		
 		FreemarkerMimeContentCreator mcc = new FreemarkerMimeContentCreator(message, fme);
-		mcc.createContent("de",doc,mail);
+		mcc.createContent(doc,mail);
 		
 		Transport transport = session.getTransport("smtp");
 		transport.connect();
@@ -186,4 +205,6 @@ public class XmlMailSender
 		}
 		throw new UtilsProcessingException("No <mail> Element found");
 	}
+	
+	public void setSmtpDebug(boolean smtpDebug) {this.smtpDebug = smtpDebug;}
 }
