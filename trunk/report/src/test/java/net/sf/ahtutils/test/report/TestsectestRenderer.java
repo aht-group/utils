@@ -14,7 +14,6 @@ import org.junit.Ignore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public class TestsectestRenderer extends AbstractAhtUtilsReportTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestReportRenderer.class);
@@ -22,8 +21,8 @@ public class TestsectestRenderer extends AbstractAhtUtilsReportTest
 	@Before
 	public void initExample() throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException, FileNotFoundException, ReportException
 	{
-		initHandler();
-		initExample("sectest");
+//		initHandler();
+//		initExample("sectest");
 	}
 	
 	@Ignore
