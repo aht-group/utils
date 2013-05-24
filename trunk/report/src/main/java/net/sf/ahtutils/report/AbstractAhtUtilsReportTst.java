@@ -52,7 +52,7 @@ public class AbstractAhtUtilsReportTst
     protected static Resources resources;
     
     protected Document docReport;
-    protected org.jdom.Document jdomReport;
+    protected org.jdom2.Document jdomReport;
     protected Report report;
     protected ReportHandler reportHandler;
     protected ByteArrayOutputStream pdf;
@@ -95,7 +95,7 @@ public class AbstractAhtUtilsReportTst
 		jdomReport = JDomUtil.load(report.getExample());
 		
 		//Load example and convert to doc for direct use in ReportHandler
-		org.jdom.Document jdomDoc =  JDomUtil.load(report.getExample());
+		org.jdom2.Document jdomDoc =  JDomUtil.load(report.getExample());
 		
 		//		logger.info("Reading XML demo data from:" +report.getExample());
 		//		JDomUtil.debug(jdomDoc);

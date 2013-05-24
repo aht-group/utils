@@ -21,7 +21,7 @@ import net.sf.jasperreports.engine.util.JRLoader;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.jxpath.JXPathContext;
-import org.jdom.JDOMException;
+import org.jdom2.JDOMException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

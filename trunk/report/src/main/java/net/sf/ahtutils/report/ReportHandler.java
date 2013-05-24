@@ -41,7 +41,7 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 import org.apache.commons.jxpath.JXPathContext;
-import org.jdom.Namespace;
+import org.jdom2.Namespace;
 import org.jfree.chart.JFreeChart;
 import org.openfuxml.addon.chart.OfxChartRenderer;
 import org.openfuxml.xml.addon.chart.Chart;
@@ -335,7 +335,7 @@ public class ReportHandler {
 	 * Get a Map of all standard parameters plus the given locale and the included data XML file 
 	 * @throws ReportException
 	 */
-	public Map<String,Object> getParameterMapJDom(org.jdom.Document doc, Locale locale)
+	public Map<String,Object> getParameterMapJDom(org.jdom2.Document doc, Locale locale)
 	{	
 		Map<String,Object> mapReportParameter = new Hashtable<String,Object>();
 		
@@ -349,10 +349,10 @@ public class ReportHandler {
 		//Add charts if included in report info block
 		
 		//Get the root element (report)
-		org.jdom.Element reportElement = doc.getRootElement();
+		org.jdom2.Element reportElement = doc.getRootElement();
 		
 		//Get the info element as child of report element
-		org.jdom.Element infoElement   = reportElement.getChild("info", Namespace.getNamespace("http://ahtutils.aht-group.com/report"));
+		org.jdom2.Element infoElement   = reportElement.getChild("info", Namespace.getNamespace("http://ahtutils.aht-group.com/report"));
 		if (infoElement!=null)
 		{
 			Info info = JDomUtil.toJaxb(infoElement, Info.class);
@@ -525,7 +525,7 @@ public class ReportHandler {
 	 * @return
 	 * @throws ReportException
 	 */
-	public ByteArrayOutputStream createUsingJDom(String reportId, org.jdom.Document doc, Format format, Locale locale) throws ReportException
+	public ByteArrayOutputStream createUsingJDom(String reportId, org.jdom2.Document doc, Format format, Locale locale) throws ReportException
 	{
 		logger.info("Using JDom data document.");
 	//	JasperDesign masterDesign = getMasterReport(reportId, format.name());

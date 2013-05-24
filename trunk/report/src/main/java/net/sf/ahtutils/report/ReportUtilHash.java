@@ -49,7 +49,7 @@ public class ReportUtilHash
 	public ReportUtilHash(String jrxml)
 	{
 		//Read jrxml file to w3c document
-    	org.jdom.Document jdomDoc =  JDomUtil.load(jrxml);
+    	org.jdom2.Document jdomDoc =  JDomUtil.load(jrxml);
 		document =JDomUtil.toW3CDocument(jdomDoc);
 		report = new File(jrxml);
 	}

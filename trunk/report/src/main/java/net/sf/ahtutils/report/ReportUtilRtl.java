@@ -6,11 +6,13 @@ import java.util.List;
 
 import net.sf.exlp.util.xml.JDomUtil;
 
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.output.Format;
-import org.jdom.xpath.XPath;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.filter.Filters;
+import org.jdom2.output.Format;
+import org.jdom2.xpath.XPathExpression;
+import org.jdom2.xpath.XPathFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +28,9 @@ public class ReportUtilRtl
 		logger.info("Page has a width of " +pageWidth);	
 		logger.info("Converting x position of elements by: x(rtl) = pageWidth - (x(ltr)+width(ltr)+(2*margin)) ");
 			
-		List<Element> ergebnis = XPath.selectNodes(doc, "//*" );
+		
+		XPathExpression<Element> xpath = XPathFactory.instance().compile("//*", Filters.element());
+		List<Element> ergebnis = xpath.evaluate(doc);
 		
 		for (Element element : ergebnis)
 		{	if (!(element.getAttribute("x")== null))

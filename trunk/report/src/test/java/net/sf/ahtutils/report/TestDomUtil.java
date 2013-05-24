@@ -13,7 +13,7 @@ import net.sf.exlp.util.xml.DomUtil;
 import net.sf.exlp.util.xml.JDomUtil;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-import org.jdom.Namespace;
+import org.jdom2.Namespace;
 import org.jfree.chart.JFreeChart;
 import org.junit.Before;
 import org.junit.Test;
@@ -56,14 +56,14 @@ public class TestDomUtil extends AbstractAhtUtilsReportTest
 	public void chartReader()
 	{
 		//Read JDOM data document
-		org.jdom.Document jdomDoc =  JDomUtil.load("src/test/resources/data/xml/report/testData.xml");
+		org.jdom2.Document jdomDoc =  JDomUtil.load("src/test/resources/data/xml/report/testData.xml");
 		
 		//Get the root element (report)
-		org.jdom.Element reportElement = jdomDoc.getRootElement();
+		org.jdom2.Element reportElement = jdomDoc.getRootElement();
 		//System.out.println("Root: " +reportElement.toString());
 		
 		//Get the info element as child of report element
-		org.jdom.Element infoElement   = reportElement.getChild("info", Namespace.getNamespace("http://ahtutils.aht-group.com/report"));
+		org.jdom2.Element infoElement   = reportElement.getChild("info", Namespace.getNamespace("http://ahtutils.aht-group.com/report"));
 		//System.out.println("Info: " +infoElement.toString());
 		
 		Info info = (Info) JDomUtil.toJaxb(infoElement, Info.class);

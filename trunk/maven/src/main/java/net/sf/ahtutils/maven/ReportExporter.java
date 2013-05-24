@@ -84,7 +84,7 @@ public class ReportExporter extends AbstractMojo
 			
 			DomUtil.debugDocument(document);
 			
-			org.jdom.Document jdomDoc =  JDomUtil.load(exampleXML);
+			org.jdom2.Document jdomDoc =  JDomUtil.load(exampleXML);
 			jdomDoc = JDomUtil.unsetNameSpace(jdomDoc);
 			
 			document =JDomUtil.toW3CDocument(jdomDoc);

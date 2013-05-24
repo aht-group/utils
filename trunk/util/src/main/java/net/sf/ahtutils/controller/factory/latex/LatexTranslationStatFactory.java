@@ -22,11 +22,13 @@ import net.sf.exlp.util.io.dir.RecursiveFileFinder;
 import net.sf.exlp.util.xml.JDomUtil;
 
 import org.apache.commons.io.filefilter.FileFilterUtils;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.Namespace;
-import org.jdom.xpath.XPath;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.Namespace;
+import org.jdom2.filter.Filters;
+import org.jdom2.xpath.XPathExpression;
+import org.jdom2.xpath.XPathFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -110,18 +112,13 @@ public class LatexTranslationStatFactory
 		}
 		return langs;
 	}
-	
-	@SuppressWarnings("unchecked")
 	protected List<Element> getLangsElements(Document doc)
 	{
 		List<Element> result = new ArrayList<Element>();
-		try
-		{
-			XPath xpath = XPath.newInstance("//s:langs");
-			xpath.addNamespace(nsLangs);
-			result = xpath.selectNodes(doc);
-		}
-		catch (JDOMException e) {logger.error("Exception while counting for langs",e);}
+
+		XPathExpression<Element> xpath = XPathFactory.instance().compile("//s:langs", Filters.element());
+		List<Element> elements = xpath.evaluate(doc);
+		result.addAll(elements);
 		return result;
 	}
 	

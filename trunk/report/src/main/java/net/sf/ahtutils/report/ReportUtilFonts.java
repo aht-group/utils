@@ -3,6 +3,7 @@ package net.sf.ahtutils.report;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import net.sf.ahtutils.report.exception.ReportException;
 import net.sf.ahtutils.xml.report.Jr;
@@ -11,10 +12,12 @@ import net.sf.ahtutils.xml.report.Report;
 import net.sf.ahtutils.xml.report.Reports;
 import net.sf.exlp.util.xml.JDomUtil;
 
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.output.XMLOutputter;
-import org.jdom.xpath.XPath;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.filter.Filters;
+import org.jdom2.output.XMLOutputter;
+import org.jdom2.xpath.XPathExpression;
+import org.jdom2.xpath.XPathFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +33,6 @@ public class ReportUtilFonts {
 		reportRoot = reports.getDir() +"/";
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void replaceAll(String oldFont, String newFont, Boolean productive) throws JDOMException, IOException
 	{
 		for(Report report : reports.getReport())
@@ -42,10 +44,16 @@ public class ReportUtilFonts {
  					String jrxml  = reportRoot +"/" +"jrxml"  +"/" +report.getDir() +"/" + media.getType() + "/" + jr.getType() + jr.getName() +".jrxml";
  					logger.debug("Inspecting " +jrxml +" to find Font attributes.");
  					
- 					org.jdom.Document jdomDoc =  JDomUtil.load(jrxml);
- 					XPath xpath = XPath.newInstance("//*[local-name()='font']");
- 					ArrayList<Element> nodes = new ArrayList<Element>();
- 					nodes.addAll((ArrayList<Element>) xpath.selectNodes(jdomDoc));
+ 					org.jdom2.Document jdomDoc =  JDomUtil.load(jrxml);
+ 					
+ 					XPathExpression<Element> xpath = XPathFactory.instance().compile("//*[local-name()='font']", Filters.element());
+ 					List<Element> nodes = xpath.evaluate(jdomDoc);
+ 					logger.warn("*************");
+ 					logger.warn("This has been migrated to jdom2. Needs to be tested!");
+ 					logger.warn("*************");
+// 					XPath xpath = XPath.newInstance("//*[local-name()='font']");
+// 					ArrayList<Element> nodes = new ArrayList<Element>();
+ //					nodes.addAll((ArrayList<Element>) xpath.selectNodes(jdomDoc));
  					Boolean changed = false;
  					for (Element node : nodes)
  					{
@@ -60,7 +68,7 @@ public class ReportUtilFonts {
  					}
  					if (changed)
  					{
- 						XMLOutputter xmlOutput = new XMLOutputter(org.jdom.output.Format.getPrettyFormat());
+ 						XMLOutputter xmlOutput = new XMLOutputter(org.jdom2.output.Format.getPrettyFormat());
  						if (productive)
  						{
  							xmlOutput.output(jdomDoc, new FileWriter(jrxml));

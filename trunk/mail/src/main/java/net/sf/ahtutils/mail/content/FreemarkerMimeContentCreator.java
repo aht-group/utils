@@ -15,7 +15,7 @@ import net.sf.ahtutils.xml.mail.Attachment;
 import net.sf.ahtutils.xml.mail.Mail;
 
 import org.apache.commons.lang.SystemUtils;
-import org.jdom.Document;
+import org.jdom2.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
