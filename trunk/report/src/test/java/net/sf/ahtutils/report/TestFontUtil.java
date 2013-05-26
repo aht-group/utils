@@ -16,7 +16,7 @@ public class TestFontUtil extends AbstractAhtUtilsReportTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestFontUtil.class);
     		
-	@Test @Ignore
+	@Test
 	public void fontUtil() throws ReportException, IOException, JDOMException
 	{
 		ReportUtilFonts fontUtil = new ReportUtilFonts(reports);
