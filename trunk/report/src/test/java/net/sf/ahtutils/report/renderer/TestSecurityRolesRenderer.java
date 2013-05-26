@@ -10,7 +10,6 @@ import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Ignore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,17 +20,16 @@ public class TestSecurityRolesRenderer extends AbstractAhtUtilsReportTest
 	@Before
 	public void initExample() throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException, FileNotFoundException, ReportException
 	{
-//		initHandler();
-//		initExample("sectest");
+		initHandler();
+		initExample("sectest");
 	}
 	
-	@Ignore
 	@Test
 	public void emptyPages() throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException, ReportException, IOException
 	{
-//		createPdf();
-//		writePdf();
-//		assertEmptyPage(pdf.toByteArray());	    
+		createPdf();
+		writePdf();
+		assertEmptyPage(pdf.toByteArray());	    
 	}
 			
 	public static void main(String[] args) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException, ReportException, IOException
