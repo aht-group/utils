@@ -72,6 +72,11 @@
 				<artifactId>ahtutils-mail</artifactId>
 				<version>${project.version}</version>
 		    </dependency>
+		    <dependency>
+				<groupId>net.sf.ahtutils</groupId>
+				<artifactId>ahtutils-doc</artifactId>
+				<version>${project.version}</version>
+		    </dependency>
         	<dependency>
         		<groupId>net.sf.ahtutils</groupId>
         		<artifactId>ahtutils-security</artifactId>
