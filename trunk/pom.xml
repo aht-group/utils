@@ -18,6 +18,7 @@
 	<description>Utilities and Helper for JavaEE Developments</description>
 
 	<modules>
+		<module>doc</module>
 		<module>ejb</module>
 		<module>util</module>
 		<module>mail</module>
