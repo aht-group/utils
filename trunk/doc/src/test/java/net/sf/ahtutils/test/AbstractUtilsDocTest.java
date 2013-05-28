@@ -7,6 +7,7 @@ import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,4 +65,6 @@ public class AbstractUtilsDocTest
 	}
 	
 	public void setSaveReference(boolean saveReference) {this.saveReference = saveReference;}
+	
+	@Test public void dummy(){}
 }
