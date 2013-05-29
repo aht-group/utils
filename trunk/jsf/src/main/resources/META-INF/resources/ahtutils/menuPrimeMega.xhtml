@@ -20,7 +20,7 @@
 				  	<p:column>
 						<p:submenu label="#{mi2.name}">
 						  <c:forEach var="mi3" items="#{mi2.menuItem}">
-						  	<p:menuitem value="#{mi3.name}" url="#{facesContext.externalContext.requestContextPath}#{mi3.href}" />  
+						  	<p:menuitem value="#{mi3.name}" url="#{mi3.href}" />  
 						  </c:forEach>
 						</p:submenu>
 						</p:column>
