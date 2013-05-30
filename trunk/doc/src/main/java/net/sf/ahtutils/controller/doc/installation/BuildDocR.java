@@ -1,9 +1,11 @@
 package net.sf.ahtutils.controller.doc.installation;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.ahtutils.controller.doc.AbstractDocumentationFactory;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.openfuxml.content.ofx.Section;
@@ -15,7 +17,7 @@ import org.openfuxml.renderer.util.OfxContentDebugger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BuildDocR 
+public class BuildDocR extends AbstractDocumentationFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(BuildDocR.class);
 	
@@ -48,6 +50,10 @@ public class BuildDocR
 		content.addAll(latexSectionFactory.getContent());
 		
 		OfxContentDebugger.debug(content);
+		
+		File fDst = this.getFile(dstName);
+		this.write(content, fDst);
+		
 	}
 	
 }

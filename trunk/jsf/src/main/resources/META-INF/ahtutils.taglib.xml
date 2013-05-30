@@ -6,6 +6,25 @@
 	<namespace>http://ahtutils.sourceforge.net/jsf</namespace>
 	<composite-library-name>ahtutils</composite-library-name>
 	
+	<tag>
+        <tag-name>slot</tag-name>
+        <component>
+            <component-type>net.sf.ahtutils.jsf.components.layout.Slot</component-type>
+        </component>
+    </tag>
+    <tag>
+        <tag-name>row</tag-name>
+        <component>
+            <component-type>net.sf.ahtutils.jsf.components.layout.Row</component-type>
+        </component>
+    </tag>
+    <tag>
+        <tag-name>grid</tag-name>
+        <component>
+            <component-type>net.sf.ahtutils.jsf.components.layout.Grid</component-type>
+        </component>
+    </tag>
+	
 	<function>
 		<function-name>prettyUrl</function-name>
 		<function-class>net.sf.ahtutils.jsf.functions.PrettyUrl</function-class>

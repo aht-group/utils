@@ -10,10 +10,6 @@ public class BuildDocInstallation
 	public static String modifyWarning = "Do no modify this file, it is automatically generated!";
 
 	
-	public BuildDocInstallation()
-	{
-		
-	}
 	
 
 	
