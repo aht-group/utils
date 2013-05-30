@@ -8,12 +8,13 @@
     xmlns:composite="http://java.sun.com/jsf/composite">
     
 	<composite:interface>
-
+		<composite:attribute name="width" required="false" default="70"/>
+		<composite:attribute name="gutter" required="false" default="5"/>
 	</composite:interface>
 	        
 	<composite:implementation>
 		<h:outputStylesheet library="ahtutilsCss" name="layout.css" target="head"/>
-		<aht:grid styleClass="auLayoutBorder">
+		<aht:grid styleClass="auLayoutBorder" width="#{cc.attrs.width}" gutter="#{cc.attrs.gutter}">
 			<aht:row>
 				<aht:slot width="12" styleClass="auLayoutSlot auLayoutSlotColor12">12</aht:slot>
 			</aht:row>
@@ -25,7 +26,8 @@
 					<h:panelGroup styleClass="auLayoutSlot auLayoutSlotColor2" layout="block"/>
 				</aht:slot>
 				<aht:slot width="2">
-					<p:panel header="Panel"/>
+					<p:panel header="Panel 1/2"/>
+					<p:panel header="Panel 2/2"/>
 				</aht:slot>
 				<aht:slot width="2">
 					<h:panelGroup styleClass="auLayoutSlot auLayoutSlotColor2" layout="block"/>
@@ -34,11 +36,24 @@
 					<p:dataTable/>
 				</aht:slot>
 				<aht:slot width="2">
-					<h:panelGroup styleClass="auLayoutSlot auLayoutSlotColor2" layout="block"/>
-				</aht:slot>
-				<aht:slot width="2">
 					<h:form>
-						<p:panel header="Form"/>
+						<p:panel header="Form 1/2 Panel 1/1"/>
+					</h:form>
+					<h:form>
+						<p:panel header="Form 2/2 Panel 1/1"/>
+					</h:form>
+				</aht:slot>
+				
+			</aht:row>
+			<aht:row>
+				<aht:slot width="9">
+					<h:form styleClass="auGridSpace">
+						<p:panel header="Form 1/2 Panel 1/3"/>
+						<p:panel header="Form 1/2 Panel 2/3"/>
+						<p:panel header="Form 1/2 Panel 3/3"/>
+					</h:form>
+					<h:form>
+						<p:panel header="Form 2/2 Panel 1/1"/>
 					</h:form>
 				</aht:slot>
 			</aht:row>

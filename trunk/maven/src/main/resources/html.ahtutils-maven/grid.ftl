@@ -55,7 +55,7 @@ body {min-width: ${width}px;}
   position: relative;
 }
 
-/* `Grid >> Children (Alpha ~ First, Omega ~ Last)
+/* Grid >> Children (Alpha ~ First, Omega ~ Last)
 ----------------------------------------------------------------------------------------------------*/
 .alpha {margin-left: 0;}
 .omega {margin-right: 0;}
@@ -67,6 +67,9 @@ body {min-width: ${width}px;}
 
 [class*="grid"] > form {margin-bottom: ${doublegutter}px;}
 [class*="grid"] > form:last-child {margin-bottom: 0px;}
+
+[class*="auGridSpace"] > div {margin-bottom: ${doublegutter}px;}
+[class*="auGridSpace"] > div:last-child {margin-bottom: 0px;}
 
 /* `Grid >> 12 Columns
 ----------------------------------------------------------------------------------------------------*/

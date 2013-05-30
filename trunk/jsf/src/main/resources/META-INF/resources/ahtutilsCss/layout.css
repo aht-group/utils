@@ -2,9 +2,7 @@
 	http://localhost:8080/metachart/javax.faces.resource/layout.css.jsf;jsessionid=QFxMHoXFuDNBYt2UQ6j70VKn.undefined?ln=ahtutilsCss
 	http://localhost:8080/metachart/javax.faces.resource/layout.css.jsf?ln=ahtutilsCss */
 
-.auLayoutSlot  {
-        height: 25px;
-}
+.auLayoutSlot  {height: 25px;}
 
 .auLayoutSlotColor1 {background-color: purple;}
 .auLayoutSlotColor2 {background-color: silver;}
