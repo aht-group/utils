@@ -15,6 +15,7 @@ public class Row extends UIPanel
 	{
 		ResponseWriter responseWriter = context.getResponseWriter();
 		responseWriter.startElement("div", this);
+		responseWriter.writeAttribute("id",getClientId(context),"id");
 	}
 
 	@Override

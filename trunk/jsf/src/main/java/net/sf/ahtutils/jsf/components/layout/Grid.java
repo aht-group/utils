@@ -60,7 +60,7 @@ public class Grid extends UIPanel
 		
 		ResponseWriter responseWriter = context.getResponseWriter();
 		responseWriter.startElement("div", this);
-		
+		responseWriter.writeAttribute("id",getClientId(context),"id");
 		
 		StringBuffer sbStyleClass = new StringBuffer();
 		sbStyleClass.append("container_12");

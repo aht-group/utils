@@ -8,18 +8,24 @@ import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @FacesComponent("net.sf.ahtutils.jsf.components.layout.Slot")
 public class Slot extends UIPanel
 {
-	private static enum Properties {width,styleClass}
+	final static Logger logger = LoggerFactory.getLogger(Slot.class);
+	private static enum Properties {id,width,styleClass}
 	
 	@Override
 	public void encodeBegin(FacesContext context) throws IOException
 	{
+		Map<String,Object> map = getAttributes();
+		
 		ResponseWriter responseWriter = context.getResponseWriter();
 		responseWriter.startElement("div", this);
+		responseWriter.writeAttribute("id",getClientId(context),"id");
 		
-		Map<String,Object> map = getAttributes();
 		StringBuffer sbStyleClass = new StringBuffer();
 		sbStyleClass.append("grid_");
 		if(map.containsKey(Properties.width.toString()))
