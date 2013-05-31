@@ -82,6 +82,11 @@
         		<artifactId>ahtutils-security</artifactId>
         		<version>${project.version}</version>
         	</dependency>
+        	<dependency>
+        		<groupId>net.sf.ahtutils</groupId>
+        		<artifactId>ahtutils-rengine</artifactId>
+        		<version>${project.version}</version>
+        	</dependency>
 		    
 		    <!-- Manages BOMs -->
 		    <dependency>
