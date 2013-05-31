@@ -71,7 +71,7 @@ body {min-width: ${width}px;}
 [class*="auGridSpace"] > div {margin-bottom: ${doublegutter}px;}
 [class*="auGridSpace"] > div:last-child {margin-bottom: 0px;}
 
-/* `Grid >> 12 Columns
+/* Grid >> 12 Columns
 ----------------------------------------------------------------------------------------------------*/
 .container_12 .grid_1  {width: ${slot1}px;}
 .container_12 .grid_2  {width: ${slot2}px;}
