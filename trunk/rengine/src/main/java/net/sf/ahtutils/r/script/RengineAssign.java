@@ -27,6 +27,11 @@ public class RengineAssign implements Serializable,RengineCommand
 		re.assign(var, value);
 	}
 	
+	public String render()
+	{
+		return ("re.assign(" +var +", " +value +");");
+	}
+	
 	public void debug()
 	{
 		StringBuffer sb = new StringBuffer();

@@ -26,6 +26,11 @@ public class RengineEval implements Serializable,RengineCommand
 		re.eval(eval);
 	}
 	
+	public String render()
+	{
+		return ("re.eval(" +eval +");");
+	}
+	
 	public void debug()
 	{
 		StringBuffer sb = new StringBuffer();

@@ -30,10 +30,13 @@ public class RengineScript implements Serializable
 	
 	public void execute(Rengine re) throws REngineException
 	{
+		StringBuffer cmdBuffer = new StringBuffer();
 		for(RengineCommand cmd : commands)
 		{
+			cmdBuffer.append(cmd.render() +"\n");
 			cmd.execute(re);
 		}
+		re.eval(cmdBuffer.toString());
 	}
 	
 	public void debug()
