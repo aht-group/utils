@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import net.sf.ahtutils.controller.interfaces.r.RengineCommand;
 
-import org.rosuda.JRI.Rengine;
-import org.rosuda.REngine.REngineException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,14 +20,16 @@ public class RengineAssign implements Serializable,RengineCommand
 		this.value=value;
 	}
 	
-	public void execute(Rengine re) throws REngineException
+	public void execute() throws Exception
 	{
-		re.assign(var, value);
+		RengineScript script = new RengineScript();
+		script.addCommand(this);
+		script.execute();
 	}
 	
-	public String render()
+	public String renderR()
 	{
-		return ("re.assign(" +var +", " +value +");");
+		return (var +" <- " +value);
 	}
 	
 	public void debug()

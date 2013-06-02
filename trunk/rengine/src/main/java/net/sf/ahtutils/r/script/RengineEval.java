@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import net.sf.ahtutils.controller.interfaces.r.RengineCommand;
 
-import org.rosuda.JRI.Rengine;
-import org.rosuda.REngine.REngineException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,14 +19,16 @@ public class RengineEval implements Serializable,RengineCommand
 		this.eval=eval;
 	}
 	
-	public void execute(Rengine re) throws REngineException
+	public void execute() throws Exception
 	{
-		re.eval(eval);
+		RengineScript script = new RengineScript();
+		script.addCommand(this);
+		script.execute();
 	}
 	
-	public String render()
+	public String renderR()
 	{
-		return ("re.eval(" +eval +");");
+		return (eval);
 	}
 	
 	public void debug()

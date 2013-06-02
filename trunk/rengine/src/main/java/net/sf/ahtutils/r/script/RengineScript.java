@@ -6,10 +6,11 @@ import java.util.List;
 
 import net.sf.ahtutils.controller.interfaces.r.RengineCommand;
 
-import org.rosuda.JRI.Rengine;
-import org.rosuda.REngine.REngineException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import rcaller.RCaller;
+import rcaller.RCode;
 
 public class RengineScript implements Serializable
 {
@@ -27,16 +28,20 @@ public class RengineScript implements Serializable
 	{
 		commands.add(command);
 	}
-	
-	public void execute(Rengine re) throws REngineException
+		
+	public void execute() throws Exception
 	{
-		StringBuffer cmdBuffer = new StringBuffer();
+		RCaller rc = new RCaller();
+		rc.setRscriptExecutable("/usr/bin/Rscript");
+		rc.cleanRCode();
+		RCode code = new RCode();
 		for(RengineCommand cmd : commands)
 		{
-			cmdBuffer.append(cmd.render() +"\n");
-			cmd.execute(re);
+			logger.debug("Adding code for execution in R: " +cmd.renderR());
+			code.addRCode(cmd.renderR() +"\n");
 		}
-		re.eval(cmdBuffer.toString());
+		rc.setRCode(code);
+		rc.runOnly();
 	}
 	
 	public void debug()
