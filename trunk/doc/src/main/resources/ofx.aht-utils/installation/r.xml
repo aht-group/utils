@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ofx:section xmlns:ofx="http://www.openfuxml.org" id="how">
-	<ofx:title>How does it work?</ofx:title>
-	<ofx:paragraph>Test-Paragraph</ofx:paragraph>
+	<ofx:title lang="en">Installation of R</ofx:title>
+	<ofx:paragraph lang="de">
+		Zunächst die aktuelle R Version von der Seite des http://www.r-project.org
+		herunterladen und den Installer ausführen.
+	</ofx:paragraph>
+	<ofx:paragraph lang="de">
+		Zur Interaktion mit dem R-System wird die Kommandokonsole genutzt.
+		Unter Windows und Mac OS richtet der Installer dazu das Programm R ein,
+		das einen Zugang zur R-Konsole darstellt. Unter Mac OS und Debian ist es auch möglich,
+		die Konsole direkt über die Systemkonsole mit dem Befehl "R" zu nutzen.
+	</ofx:paragraph>
 	<ofx:section>
-		<ofx:title>Linux (Debian)</ofx:title>
-		<ofx:paragraph>xx</ofx:paragraph>
+		<ofx:title>OS specific tasks</ofx:title>
+		<ofx:section>
+			<ofx:title>Linux (Debian)</ofx:title>
+			<ofx:paragraph>xx</ofx:paragraph>
+		</ofx:section>
+		<ofx:section>
+			<ofx:title>Windows</ofx:title>
+			<ofx:paragraph lang="de">
+				Unter steht diese Möglichkeit auch zur Verfügung, allerdings wird der Pfad zu R
+				nicht automatisch zu den Pfaden hinzugefügt, in denen nach ausführbaren Dateien gesucht wird.
+				Bei Bedarf kann man allerdings das Verzeichnis mit den ausführbaren
+				R-Dateien (z.B. C:\\Program Files\R\R-3.0.1\bin) manuell zu Pfad hinzufügen.  
+			</ofx:paragraph>
+		</ofx:section>
+	</ofx:section>
+	<ofx:section>
+		<ofx:title lang="en">Required packages</ofx:title>
+		<ofx:paragraph>install.packages("sqldf")</ofx:paragraph>
+		<ofx:paragraph>install.packages("raster")</ofx:paragraph>
+		<ofx:paragraph>install.packages("rgdal")</ofx:paragraph>
+		<ofx:paragraph>install.packages("Runiversal")</ofx:paragraph>
+		
 	</ofx:section>
 </ofx:section>

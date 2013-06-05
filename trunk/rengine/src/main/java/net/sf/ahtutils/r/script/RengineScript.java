@@ -19,8 +19,12 @@ public class RengineScript implements Serializable
 	
 	private List<RengineCommand> commands;
 	
-	public RengineScript()
+	private String exeRscript;
+	
+	public RengineScript() {this("/usr/bin/Rscript");}
+	public RengineScript(String exeRscript)
 	{
+		this.exeRscript=exeRscript;
 		commands = new ArrayList<RengineCommand>();
 	}
 
@@ -32,7 +36,7 @@ public class RengineScript implements Serializable
 	public void execute() throws Exception
 	{
 		RCaller rc = new RCaller();
-		rc.setRscriptExecutable("/usr/bin/Rscript");
+		rc.setRscriptExecutable(exeRscript);
 		rc.cleanRCode();
 		RCode code = new RCode();
 		for(RengineCommand cmd : commands)

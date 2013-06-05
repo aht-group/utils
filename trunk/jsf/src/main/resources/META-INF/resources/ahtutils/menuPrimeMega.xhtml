@@ -9,11 +9,13 @@
     
   <composite:interface>
     <composite:attribute name="value"/>
+    <composite:attribute name="autoDisplay" required="false" default="true"/>
+    
   </composite:interface>
         
 	<composite:implementation>
    	 
-		<p:megaMenu>
+		<p:megaMenu autoDisplay="#{cc.attrs.autoDisplay}">
 			<c:forEach var="mi1" items="#{cc.attrs.value.menuItem}">
 				<p:submenu label="#{mi1.name}">
 				  <c:forEach var="mi2" items="#{mi1.menuItem}">
