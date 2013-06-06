@@ -53,9 +53,15 @@ public class RScript implements Serializable
 	
 	public void debug()
 	{
+		logger.debug("Debugging "+this.getClass().getSimpleName());
+		logger.debug("********************************************");
 		for(RengineCommand cmd : commands)
 		{
-			cmd.debug();
+			for(String s : cmd.render())
+			{
+				logger.debug(s);
+			}
 		}
+		logger.debug("********************************************");
 	}
 }
