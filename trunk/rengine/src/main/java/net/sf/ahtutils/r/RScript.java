@@ -1,4 +1,4 @@
-package net.sf.ahtutils.r.script;
+package net.sf.ahtutils.r;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,17 +12,17 @@ import org.slf4j.LoggerFactory;
 import rcaller.RCaller;
 import rcaller.RCode;
 
-public class RengineScript implements Serializable
+public class RScript implements Serializable
 {
-	final static Logger logger = LoggerFactory.getLogger(RengineScript.class);
+	final static Logger logger = LoggerFactory.getLogger(RScript.class);
 	private static final long serialVersionUID = 1L;
 	
 	private List<RengineCommand> commands;
 	
 	private String exeRscript;
 	
-	public RengineScript() {this("/usr/bin/Rscript");}
-	public RengineScript(String exeRscript)
+	public RScript() {this("/usr/bin/Rscript");}
+	public RScript(String exeRscript)
 	{
 		this.exeRscript=exeRscript;
 		commands = new ArrayList<RengineCommand>();

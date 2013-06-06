@@ -20,7 +20,7 @@
 		<ofx:section>
 			<ofx:title>Windows</ofx:title>
 			<ofx:paragraph lang="de">
-				Unter steht diese Möglichkeit auch zur Verfügung, allerdings wird der Pfad zu R
+				Unter Windows steht diese Möglichkeit auch zur Verfügung, allerdings wird der Pfad zu R
 				nicht automatisch zu den Pfaden hinzugefügt, in denen nach ausführbaren Dateien gesucht wird.
 				Bei Bedarf kann man allerdings das Verzeichnis mit den ausführbaren
 				R-Dateien (z.B. C:\\Program Files\R\R-3.0.1\bin) manuell zu Pfad hinzufügen.  
@@ -33,6 +33,7 @@
 		<ofx:paragraph>install.packages("raster")</ofx:paragraph>
 		<ofx:paragraph>install.packages("rgdal")</ofx:paragraph>
 		<ofx:paragraph>install.packages("Runiversal")</ofx:paragraph>
+		<ofx:paragraph>install.packages("RColorBrewer")</ofx:paragraph>
 		
 	</ofx:section>
 </ofx:section>

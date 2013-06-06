@@ -1,17 +1,17 @@
 package net.sf.ahtutils.controller.factory.r;
 
-import net.sf.ahtutils.r.script.RengineAssign;
-import net.sf.ahtutils.r.script.RengineEval;
+import net.sf.ahtutils.r.commands.RAssign;
+import net.sf.ahtutils.r.commands.REval;
 
 public class RengineCommandFactory
 {
-	public static RengineAssign assign(String var, String value)
+	public static RAssign assign(String var, String value)
 	{
-		return new RengineAssign(var,value);
+		return new RAssign(var,value);
 	}
 	
-	public static RengineEval eval(String eval)
+	public static REval eval(String eval)
 	{
-		return new RengineEval(eval);
+		return new REval(eval);
 	}
 }

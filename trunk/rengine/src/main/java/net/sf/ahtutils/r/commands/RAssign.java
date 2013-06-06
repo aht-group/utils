@@ -1,20 +1,21 @@
-package net.sf.ahtutils.r.script;
+package net.sf.ahtutils.r.commands;
 
 import java.io.Serializable;
 
 import net.sf.ahtutils.controller.interfaces.r.RengineCommand;
+import net.sf.ahtutils.r.RScript;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class RengineAssign implements Serializable,RengineCommand
+public class RAssign implements Serializable,RengineCommand
 {
-	final static Logger logger = LoggerFactory.getLogger(RengineScript.class);
+	final static Logger logger = LoggerFactory.getLogger(RScript.class);
 	private static final long serialVersionUID = 1L;
 	
 	private String var,value;
 	
-	public RengineAssign(String var, String value)
+	public RAssign(String var, String value)
 	{
 		this.var=var;
 		this.value=value;
@@ -22,7 +23,7 @@ public class RengineAssign implements Serializable,RengineCommand
 	
 	public void execute() throws Exception
 	{
-		RengineScript script = new RengineScript();
+		RScript script = new RScript();
 		script.addCommand(this);
 		script.execute();
 	}
