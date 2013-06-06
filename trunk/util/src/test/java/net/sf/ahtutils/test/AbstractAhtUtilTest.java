@@ -70,59 +70,7 @@ public class AbstractAhtUtilTest extends AbstractAhtUtilsTest
 		}
 	}
 	
-	protected void debug(OfxLatexRenderer renderer)
-	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("Debugging "+renderer.getClass().getSimpleName());
-			System.out.println("************************************");
-			for(String s : renderer.getContent())
-			{
-				System.out.println(s);
-			}
-			System.out.println("************************************");
-		}
-	}
 	
-	protected void save(OfxLatexRenderer renderer, File f) throws IOException
-	{
-		if(saveReference)
-		{
-			RelativePathFactory rpf = new RelativePathFactory(new File("src/test/resources"),RelativePathFactory.PathSeparator.CURRENT);
-			logger.debug("Saving Reference to "+rpf.relativate(f));
-			StringWriter actual = new StringWriter();
-			renderer.write(actual);
-			StringIO.writeTxt(f, actual.toString());
-		}
-	}
-	
-	protected void assertText(OfxLatexRenderer renderer, File fExpected) throws IOException
-	{
-		StringWriter actual = new StringWriter();
-		renderer.write(actual);
-		assertText(fExpected, actual.toString());
-	}
-	
-	private void assertText(File fExpected, String actual)
-	{
-		
-		
-		String expected = StringIO.loadTxt(fExpected);		
-		Assert.assertEquals("Texts are different",expected, actual);
-	}
-	
-	protected void assertText(File fExpected, File fActual) throws IOException
-	{
-		if(saveReference)
-		{
-			FileUtils.copyFile(fActual, fExpected);
-			System.out.println(StringIO.loadTxt(fActual));
-		}
-		
-		String expected = StringIO.loadTxt(fExpected);
-		String actual = StringIO.loadTxt(fActual);
-		Assert.assertEquals("Texts are different",expected, actual);
-	}
 	
 	public void setSaveReference(boolean saveReference) {this.saveReference = saveReference;}
 }

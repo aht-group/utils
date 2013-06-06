@@ -34,6 +34,8 @@
 		<ofx:paragraph>install.packages("rgdal")</ofx:paragraph>
 		<ofx:paragraph>install.packages("Runiversal")</ofx:paragraph>
 		<ofx:paragraph>install.packages("RColorBrewer")</ofx:paragraph>
-		
+		<ofx:paragraph>install.packages("latticeExtra")</ofx:paragraph>
+		<ofx:paragraph>install.packages("maptools")</ofx:paragraph>
+		<ofx:paragraph>install.packages("rgeos")</ofx:paragraph>
 	</ofx:section>
 </ofx:section>

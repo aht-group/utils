@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import net.sf.ahtutils.test.AhtUtilsTstBootstrap;
+import net.sf.ahtutils.test.AhtUtilsDocBootstrap;
 import net.sf.ahtutils.xml.access.TestXmlView;
 import net.sf.ahtutils.xml.access.View;
 import net.sf.ahtutils.xml.access.Views;
@@ -83,7 +83,7 @@ public class TestOfxViewTableFactory extends AbstractOfxSecurityFactoryTest
 	
 	public static void main(String[] args) throws Exception
     {
-		AhtUtilsTstBootstrap.init();
+		AhtUtilsDocBootstrap.init();
 		
 		TestOfxViewTableFactory.initFiles();
 		TestOfxViewTableFactory test = new TestOfxViewTableFactory();

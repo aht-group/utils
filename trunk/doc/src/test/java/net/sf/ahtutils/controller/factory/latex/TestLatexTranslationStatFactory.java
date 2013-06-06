@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.ahtutils.model.pojo.status.TranslationStatistic;
-import net.sf.ahtutils.test.AbstractAhtUtilTest;
+import net.sf.ahtutils.test.AbstractUtilsDocTest;
 import net.sf.ahtutils.xml.status.Langs;
 
 import org.jdom2.Document;
@@ -17,7 +17,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestLatexTranslationStatFactory extends AbstractAhtUtilTest
+public class TestLatexTranslationStatFactory extends AbstractUtilsDocTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestLatexTranslationStatFactory.class);
 	

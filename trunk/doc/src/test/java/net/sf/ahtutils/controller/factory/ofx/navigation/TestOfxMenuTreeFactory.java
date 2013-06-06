@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import net.sf.ahtutils.controller.factory.xml.navigation.XmlMenuItemFactory;
-import net.sf.ahtutils.test.AhtUtilsTstBootstrap;
+import net.sf.ahtutils.test.AhtUtilsDocBootstrap;
 import net.sf.ahtutils.xml.navigation.Menu;
 import net.sf.exlp.util.xml.JaxbUtil;
 
@@ -66,7 +66,7 @@ public class TestOfxMenuTreeFactory extends AbstractOfxNavigationFactoryTest
 	
 	public static void main(String[] args) throws Exception
     {
-		AhtUtilsTstBootstrap.init();
+		AhtUtilsDocBootstrap.init();
 		
 		TestOfxMenuTreeFactory.initFiles();
 		TestOfxMenuTreeFactory test = new TestOfxMenuTreeFactory();

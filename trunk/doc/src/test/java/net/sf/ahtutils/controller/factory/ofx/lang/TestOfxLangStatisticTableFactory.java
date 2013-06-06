@@ -3,16 +3,12 @@ package net.sf.ahtutils.controller.factory.ofx.lang;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.ahtutils.controller.factory.ofx.status.OfxStatusTableFactory;
-import net.sf.ahtutils.controller.factory.xml.status.XmlDescriptionFactory;
-import net.sf.ahtutils.controller.factory.xml.status.XmlLangFactory;
-import net.sf.ahtutils.test.AhtUtilsTstBootstrap;
-import net.sf.ahtutils.xml.status.Descriptions;
-import net.sf.ahtutils.xml.status.Langs;
-import net.sf.ahtutils.xml.status.Status;
+import net.sf.ahtutils.controller.factory.latex.TestLatexTranslationStatFactory;
+import net.sf.ahtutils.controller.factory.ofx.status.OfxLangStatisticTableFactory;
+import net.sf.ahtutils.model.pojo.status.TranslationStatistic;
+import net.sf.ahtutils.test.AhtUtilsDocBootstrap;
 import net.sf.ahtutils.xml.status.Translations;
 import net.sf.exlp.util.xml.JaxbUtil;
 
@@ -25,45 +21,38 @@ import org.openfuxml.renderer.processor.latex.content.table.LatexGridTableRender
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestOfxStatusTableFactory extends AbstractOfxStatusFactoryTest
+public class TestOfxLangStatisticTableFactory extends AbstractOfxStatusFactoryTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestOfxStatusTableFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(TestOfxLangStatisticTableFactory.class);
 	
-	private OfxStatusTableFactory fOfx;
+	private OfxLangStatisticTableFactory fOfx;
 	private final String lang ="de";
-	private static List<Status> lStatus;
 	private static Translations translations;
-	private String[] headerKeys = {"key1","key2","key3"};
+	private String[] headerKeys = {"key1","key1"};
+	private List<TranslationStatistic> lStats;
 	
 	@BeforeClass
 	public static void initFiles() throws FileNotFoundException
 	{
-		fXml = new File(rootDir,"tableStatus.xml");
-		fTxt = new File(rootDir,"tableStatus.tex");
+		fXml = new File(rootDir,"tableView.xml");
+		fTxt = new File(rootDir,"tableView.tex");
+		
 		translations = JaxbUtil.loadJAXB("src/test/resources/data/xml/dummyTranslations.xml", Translations.class);
 	}
 	
 	@Before
 	public void init()
-	{			
-		Status status = new Status();
-		status.setCode("myCode");
-		status.setLangs(new Langs());
-		status.setDescriptions(new Descriptions());
+	{	
+		fOfx = new OfxLangStatisticTableFactory(lang, translations);
 		
-		status.getLangs().getLang().add(XmlLangFactory.create(lang, "myLang"));
-		status.getDescriptions().getDescription().add(XmlDescriptionFactory.create(lang, "myDescription"));
-		
-		lStatus = new ArrayList<Status>();
-		lStatus.add(status);
-		
-		fOfx = new OfxStatusTableFactory(lStatus,headerKeys,translations);
+		TestLatexTranslationStatFactory tLs = TestLatexTranslationStatFactory.factory();
+		lStats = tLs.createStatistic();
 	}
 	
 	@Test
 	public void testOfx() throws FileNotFoundException
-	{	
-		Table actual = fOfx.toOfx(lang);
+	{		
+		Table actual = fOfx.toOfx(lStats,headerKeys);
 		saveXml(actual,fXml,false);
 		Table expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Table.class);
 		assertJaxbEquals(expected, actual);
@@ -72,7 +61,7 @@ public class TestOfxStatusTableFactory extends AbstractOfxStatusFactoryTest
 	@Test
 	public void testLatex() throws OfxAuthoringException, IOException
 	{
-		Table actual = fOfx.toOfx(lang);
+		Table actual = fOfx.toOfx(lStats,headerKeys);
 		LatexGridTableRenderer renderer = new LatexGridTableRenderer();
 		renderer.render(actual);
     	debug(renderer);
@@ -82,10 +71,10 @@ public class TestOfxStatusTableFactory extends AbstractOfxStatusFactoryTest
 	
 	public static void main(String[] args) throws Exception
     {
-		AhtUtilsTstBootstrap.init();
+		AhtUtilsDocBootstrap.init();
 		
-		TestOfxStatusTableFactory.initFiles();
-		TestOfxStatusTableFactory test = new TestOfxStatusTableFactory();
+		TestOfxLangStatisticTableFactory.initFiles();
+		TestOfxLangStatisticTableFactory test = new TestOfxLangStatisticTableFactory();
 		test.setSaveReference(true);
 		test.init();
 	
