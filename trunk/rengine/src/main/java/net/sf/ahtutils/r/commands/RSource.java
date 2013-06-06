@@ -4,23 +4,24 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.ahtutils.controller.factory.r.RCommandFactory;
 import net.sf.ahtutils.controller.interfaces.r.RengineCommand;
 import net.sf.ahtutils.r.RScript;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class RAssign implements Serializable,RengineCommand
+public class RSource implements Serializable,RengineCommand
 {
 	final static Logger logger = LoggerFactory.getLogger(RScript.class);
 	private static final long serialVersionUID = 1L;
 	
-	private String var,value;
+	private REval eval;
+	private String source;
 	
-	public RAssign(String var, String value)
+	public RSource(String source)
 	{
-		this.var=var;
-		this.value=value;
+		this.source=source;
 	}
 	
 	public void execute() throws Exception
@@ -33,17 +34,16 @@ public class RAssign implements Serializable,RengineCommand
 	public List<String> render()
 	{
 		List<String> result = new ArrayList<String>();
-		result.add(var +" <- " +value);
-		return result;
+		eval = RCommandFactory.eval("source(\""+source+"\")");
+		result.addAll(eval.render());
+		return (result);
 	}
 	
 	public void debug()
 	{
 		StringBuffer sb = new StringBuffer();
-		sb.append("Assign: ");
-		sb.append(var);
-		sb.append(" ");
-		sb.append(value);
+		sb.append("Source: ");
+		sb.append(source);
 		logger.info(sb.toString());
 	}
 }

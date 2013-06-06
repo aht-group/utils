@@ -41,8 +41,11 @@ public class RScript implements Serializable
 		RCode code = new RCode();
 		for(RengineCommand cmd : commands)
 		{
-			logger.debug("Adding code for execution in R: " +cmd.renderR());
-			code.addRCode(cmd.renderR() +"\n");
+			logger.debug("Adding code for execution in R: ");
+			for(String s : cmd.render())
+			{
+				code.addRCode(s +"\n");
+			}
 		}
 		rc.setRCode(code);
 		rc.runOnly();

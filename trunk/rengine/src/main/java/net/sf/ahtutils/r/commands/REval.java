@@ -1,6 +1,8 @@
 package net.sf.ahtutils.r.commands;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.sf.ahtutils.controller.interfaces.r.RengineCommand;
 import net.sf.ahtutils.r.RScript;
@@ -27,9 +29,11 @@ public class REval implements Serializable,RengineCommand
 		script.execute();
 	}
 	
-	public String renderR()
+	public List<String> render()
 	{
-		return (eval);
+		List<String> result = new ArrayList<String>();
+		result.add(eval);
+		return (result);
 	}
 	
 	public void debug()
