@@ -8,4 +8,6 @@
     <m:template lang="myLang" type="myType" file="myFile"/>
     <m:attachment/>
     <m:attachment/>
+    <m:image cid="myCid"/>
+    <m:image cid="myCid"/>
 </m:mail>

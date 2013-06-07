@@ -23,6 +23,7 @@
                 <xsd:element ref="m:header" maxOccurs="1"/>
 		        <xsd:element ref="m:template" maxOccurs="unbounded"/>
 		        <xsd:element ref="m:attachment" maxOccurs="unbounded"/>
+		        <xsd:element ref="m:image" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -50,6 +51,19 @@
 		        </xsd:element>
 		        <xsd:element ref="io:file" maxOccurs="1"/>
             </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="image">
+        <xsd:complexType>
+            <xsd:sequence>
+	           	<xsd:element name="data">
+	           		<xsd:simpleType>
+		               	<xsd:restriction base="xsd:hexBinary"/>
+		            </xsd:simpleType>
+		        </xsd:element>
+		        <xsd:element ref="io:file" maxOccurs="1"/>
+            </xsd:sequence>
+            <xsd:attribute name="cid" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="tracker">

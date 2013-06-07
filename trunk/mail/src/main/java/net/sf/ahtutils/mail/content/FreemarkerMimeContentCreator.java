@@ -2,6 +2,7 @@ package net.sf.ahtutils.mail.content;
 
 import java.io.IOException;
 
+import javax.mail.BodyPart;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.internet.MimeBodyPart;
@@ -12,6 +13,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import net.sf.ahtutils.exception.processing.UtilsMailException;
 import net.sf.ahtutils.mail.freemarker.FreemarkerEngine;
 import net.sf.ahtutils.xml.mail.Attachment;
+import net.sf.ahtutils.xml.mail.Image;
 import net.sf.ahtutils.xml.mail.Mail;
 
 import org.apache.commons.lang.SystemUtils;
@@ -38,37 +40,44 @@ public class FreemarkerMimeContentCreator extends AbstractMimeContentCreator
 	
 	public void createContent(Document xml, Mail mail) throws MessagingException, UtilsMailException
 	{		
+		boolean txtBody = fme.isAvailable(mail.getCode(), mail.getLang(), "txt");
+		boolean htmlBody = fme.isAvailable(mail.getCode(), mail.getLang(), "html");
+		if(!txtBody && !htmlBody){throw new UtilsMailException("No template available for "+mail.getCode()+"/"+mail.getLang());}
+		
+		MimeBodyPart mbpTxt=null;
+		MimeBodyPart mbpHtml=null;
+		
+		if(txtBody){mbpTxt = createTxt(mail.getLang(),xml,mail);}
+		if(htmlBody)
+		{
+			mbpHtml = createHtml(mail.getLang(),xml,mail);
+//			mbpHtml.setDisposition(BodyPart.INLINE);
+		}
+		
 		Multipart mpAlternative = new MimeMultipart("alternative");
+    	if(txtBody){mpAlternative.addBodyPart(mbpTxt);}
+    	if(htmlBody){mpAlternative.addBodyPart(mbpHtml);}
 		
-		boolean someContentAvailable = false;
-		if(fme.isAvailable(mail.getCode(), mail.getLang(), "txt"))
-		{
-			logger.trace("Adding txt body part");
-			mpAlternative.addBodyPart(createTxt(mail.getLang(),xml,mail));
-			someContentAvailable=true;
-		}
-		if(fme.isAvailable(mail.getCode(), mail.getLang(), "html"))
-		{
-			logger.trace("Adding html body part");
-			mpAlternative.addBodyPart(createHtml(mail.getLang(),xml,mail));
-			someContentAvailable=true;
-		}
-		if(!someContentAvailable){throw new UtilsMailException("No template available for "+mail.getCode()+"/"+mail.getLang());}
-		
-	    if(!mail.isSetAttachment())
+	    if(!mail.isSetAttachment() && !mail.isSetImage())
 	    {
+	    	
 	    	message.setContent(mpAlternative);
 	    }
 	    else
 	    {
 	    	Multipart mixed = new MimeMultipart("mixed");
 	        MimeBodyPart wrap = new MimeBodyPart();
-	        wrap.setContent(mpAlternative);    // HERE'S THE KEY
+	        wrap.setContent(mpAlternative);
 	        mixed.addBodyPart(wrap);
 	       
 	        for(Attachment attachment : mail.getAttachment())
 	        {
 	        	mixed.addBodyPart(createBinary(attachment));
+	        }
+	        for(Image image : mail.getImage())
+	        {
+	        	logger.error("Adding image");
+	        	mixed.addBodyPart(createImage(image));
 	        }
 	        message.setContent(mixed);
 	    }

@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element ref="{http://ahtutils.aht-group.com/mail}header"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/mail}template" maxOccurs="unbounded"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/mail}attachment" maxOccurs="unbounded"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/mail}image" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" />
  *       &lt;attribute name="code" type="{http://www.w3.org/2001/XMLSchema}string" />
@@ -51,7 +52,8 @@ import javax.xml.bind.annotation.XmlType;
     "example",
     "header",
     "template",
-    "attachment"
+    "attachment",
+    "image"
 })
 @XmlRootElement(name = "mail")
 public class Mail
@@ -67,6 +69,8 @@ public class Mail
     protected List<Template> template;
     @XmlElement(required = true)
     protected List<Attachment> attachment;
+    @XmlElement(required = true)
+    protected List<Image> image;
     @XmlAttribute(name = "id")
     protected Long id;
     @XmlAttribute(name = "code")
@@ -210,6 +214,43 @@ public class Mail
 
     public void unsetAttachment() {
         this.attachment = null;
+    }
+
+    /**
+     * Gets the value of the image property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the image property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getImage().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Image }
+     * 
+     * 
+     */
+    public List<Image> getImage() {
+        if (image == null) {
+            image = new ArrayList<Image>();
+        }
+        return this.image;
+    }
+
+    public boolean isSetImage() {
+        return ((this.image!= null)&&(!this.image.isEmpty()));
+    }
+
+    public void unsetImage() {
+        this.image = null;
     }
 
     /**

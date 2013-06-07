@@ -7,12 +7,18 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 import net.sf.ahtutils.xml.mail.Attachment;
+import net.sf.ahtutils.xml.mail.Image;
 import net.sf.ahtutils.xml.mail.Mail;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.apache.commons.lang.SystemUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class XmlMimeContentCreator extends AbstractMimeContentCreator
 {
+	final static Logger logger = LoggerFactory.getLogger(XmlMimeContentCreator.class);
+	
 	private MimeMessage message;
 	
 	public XmlMimeContentCreator(MimeMessage message)
@@ -22,10 +28,11 @@ public class XmlMimeContentCreator extends AbstractMimeContentCreator
 	
 	public void createContent(Mail mail) throws MessagingException
 	{		
+		JaxbUtil.info(mail);
 		Multipart mpAlternative = new MimeMultipart("alternative");
 		mpAlternative.addBodyPart(createTxt(mail));	   
 	    
-	    if(!mail.isSetAttachment())
+	    if(!mail.isSetAttachment() && !mail.isSetImage())
 	    {
 	    	message.setContent(mpAlternative);
 	    }
@@ -40,6 +47,11 @@ public class XmlMimeContentCreator extends AbstractMimeContentCreator
 	        for(Attachment attachment : mail.getAttachment())
 	        {
 	        	mixed.addBodyPart(createBinary(attachment));
+	        }
+	        for(Image image : mail.getImage())
+	        {
+	        	logger.warn("Untested here");
+	        	mixed.addBodyPart(createImage(image));
 	        }
 	        message.setContent(mixed);
 	    }

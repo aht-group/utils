@@ -135,6 +135,7 @@ public class XmlMailSender
 	{
 		send(doc,null);
 	}
+	
 	private void send(Document doc, String lang) throws UnsupportedEncodingException, MessagingException, UtilsProcessingException, UtilsMailException
 	{
 		Session session = buildSession();

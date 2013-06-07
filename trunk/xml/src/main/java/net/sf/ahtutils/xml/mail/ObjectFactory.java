@@ -30,6 +30,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Template }
+     * 
+     */
+    public Template createTemplate() {
+        return new Template();
+    }
+
+    /**
      * Create an instance of {@link To }
      * 
      */
@@ -43,14 +51,6 @@ public class ObjectFactory {
      */
     public EmailAddress createEmailAddress() {
         return new EmailAddress();
-    }
-
-    /**
-     * Create an instance of {@link Template }
-     * 
-     */
-    public Template createTemplate() {
-        return new Template();
     }
 
     /**
@@ -102,11 +102,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Mails }
+     * Create an instance of {@link Image }
      * 
      */
-    public Mails createMails() {
-        return new Mails();
+    public Image createImage() {
+        return new Image();
     }
 
     /**
@@ -115,6 +115,14 @@ public class ObjectFactory {
      */
     public Link createLink() {
         return new Link();
+    }
+
+    /**
+     * Create an instance of {@link Mails }
+     * 
+     */
+    public Mails createMails() {
+        return new Mails();
     }
 
     /**
