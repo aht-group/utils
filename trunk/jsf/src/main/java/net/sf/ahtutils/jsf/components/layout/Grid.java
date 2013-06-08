@@ -27,13 +27,10 @@ public class Grid extends AbstractUtilsGrid
 //		 logger.info("processEvent "+event.getClass().getName());
 		 if(event instanceof PostAddToViewEvent)
 		 {
-			 Map<String,Object> map = getAttributes();
-			
-			int width=70;
-			int gutter=5;
+			Map<String,Object> map = getAttributes();	
 			if(map.containsKey(Properties.width.toString())) {width = new Integer(map.get(Properties.width.toString()).toString());}
 			if(map.containsKey(Properties.gutter.toString())){gutter = new Integer(map.get(Properties.gutter.toString()).toString());}
-			super.useCss(width, gutter);
+			super.pushCssToHead();
 		 }
 		super.processEvent(event);
 	}
@@ -44,24 +41,13 @@ public class Grid extends AbstractUtilsGrid
 		Map<String,Object> map = getAttributes();
 		
 		ResponseWriter responseWriter = context.getResponseWriter();
-		responseWriter.startElement("div", this);
-		responseWriter.writeAttribute("id",getClientId(context),"id");
-		
-		StringBuffer sbStyleClass = new StringBuffer();
-		sbStyleClass.append("container_12");
-		if(map.containsKey(Properties.styleClass.toString()))
-		{
-			sbStyleClass.append(" ").append(map.get(Properties.styleClass.toString()));
-		}
-		responseWriter.writeAttribute("class",sbStyleClass.toString(),null);
-		
-		
+		super.writeGridBegin(context, responseWriter, map);
 	}
 
 	@Override
 	public void encodeEnd(FacesContext context) throws IOException
 	{
 		ResponseWriter responseWriter = context.getResponseWriter();
-		responseWriter.endElement("div");
+		super.writeGridEnd(responseWriter);
 	}
 }
