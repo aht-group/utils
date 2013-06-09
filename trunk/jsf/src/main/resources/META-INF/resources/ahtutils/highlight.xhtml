@@ -13,24 +13,24 @@
     <composite:attribute name="to" required="false" default="-1"/>
   	<composite:attribute name="tab" required="false" default="2"/>
   	<composite:attribute name="relativeTab" required="false" default="true"/>
-  </composite:interface>
+	</composite:interface>
         
-  <composite:implementation>
-	<h:outputStylesheet library="highlight" name="default.min.css" target="head"/>
-	<h:outputScript library="highlight" name="highlight.min.js" target="head"/>
+ 	<composite:implementation>
+  
+		<h:outputStylesheet library="ahtutilsCss" name="highlight.min.css" target="head"/>
+		<h:outputScript library="ahtutilsJs" name="highlight.min.js" target="head"/>
 	
-	<script>
-	  hljs.tabReplace = "#{cc.tab(cc.attrs.tab)}";
-	  hljs.initHighlightingOnLoad();
-	  
-	</script>
-  	<c:if test="#{empty cc.attrs.between}">
-  		<pre><code class="#{cc.attrs.lang}"><h:outputText value="#{cc.text(cc.attrs.resource,cc.attrs.from,cc.attrs.to,cc.attrs.relativeTab)}" /></code></pre>  		
-  	</c:if>
-  	<c:if test="#{not empty cc.attrs.between}">
-  		<pre><code class="#{cc.attrs.lang}"><h:outputText value="#{cc.between(cc.attrs.resource,cc.attrs.between,cc.attrs.relativeTab)}" /></code></pre>
-  	</c:if>
+		<script>
+	  		hljs.tabReplace = "#{cc.tab(cc.attrs.tab)}";
+	  		hljs.initHighlightingOnLoad();
+		</script>
+	
+ 		<c:if test="#{empty cc.attrs.between}">
+  			<pre><code class="#{cc.attrs.lang}"><h:outputText value="#{cc.text(cc.attrs.resource,cc.attrs.from,cc.attrs.to,cc.attrs.relativeTab)}" /></code></pre>  		
+  		</c:if>
+		<c:if test="#{not empty cc.attrs.between}">
+  			<pre><code class="#{cc.attrs.lang}"><h:outputText value="#{cc.between(cc.attrs.resource,cc.attrs.between,cc.attrs.relativeTab)}" /></code></pre>
+		</c:if>
 
-       
    </composite:implementation>
 </html>

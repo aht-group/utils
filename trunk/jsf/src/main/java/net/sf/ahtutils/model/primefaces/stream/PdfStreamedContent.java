@@ -6,8 +6,12 @@ import java.util.Date;
 
 import net.sf.ahtutils.jsf.interfaces.AhtStreamedContent;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class PdfStreamedContent implements AhtStreamedContent, Serializable
 {	
+	final static Logger logger = LoggerFactory.getLogger(PdfStreamedContent.class);
 	private static final long serialVersionUID = 1L;
 
 	private InputStream stream;
@@ -21,6 +25,14 @@ public class PdfStreamedContent implements AhtStreamedContent, Serializable
 		record = new Date();
 		this.stream = stream;
 		this.name = name;
+	}
+	
+	@Override
+	public String getContentEncoding()
+	{
+		logger.warn("The method getContentEncoding() must be overriden since PF 3.5");
+		logger.warn("Returning null here. This is UNTESTED!!");
+		return null;
 	}
 
 	public InputStream getStream() {return stream;}
