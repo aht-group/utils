@@ -9,7 +9,7 @@
 	<tag>
         <tag-name>grid</tag-name>
         <component>
-            <component-type>net.sf.ahtutils.web.prototype.component.Grid</component-type>
+            <component-type>net.sf.ahtutils.prototype.web.component.Grid</component-type>
         </component>
     </tag>
 	

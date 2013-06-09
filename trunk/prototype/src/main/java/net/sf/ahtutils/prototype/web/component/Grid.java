@@ -1,4 +1,4 @@
-package net.sf.ahtutils.web.prototype.component;
+package net.sf.ahtutils.prototype.web.component;
 
 import java.io.IOException;
 import java.util.Map;
@@ -16,7 +16,7 @@ import net.sf.ahtutils.jsf.components.layout.AbstractUtilsGrid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@FacesComponent("net.sf.ahtutils.web.prototype.component.Grid")
+@FacesComponent("net.sf.ahtutils.prototype.web.component.Grid")
 @ListenerFor(systemEventClass=PostAddToViewEvent.class)
 public class Grid extends AbstractUtilsGrid
 {	
