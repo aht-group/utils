@@ -72,21 +72,21 @@ a:hover { color: #333; text-decoration: none; }
 	margin-left: 10px;
 }
 
-	#middlecont
-	{
+#middlecont
+{
 		padding: 6px 20px;
 		margin: 10px;
 		background: #B90000;
 }
 	
-		#middlecont p
-		{
-			font-size: 15px;
-			color: #FFF;
-			font-weight: bold;
-			letter-spacing: -1px;
-			text-align: right;
-		}
+#middlecont p
+{
+	font-size: 15px;
+	color: #FFF;
+	font-weight: bold;
+	letter-spacing: -1px;
+	text-align: right;
+}
 		
 .maincontent
 {
@@ -113,47 +113,6 @@ margin-top: 8px;
 
 .maincontent blockquote { background: #EEE; border-left: 3px solid #D82B00; padding: 15px; margin: 0 0 15px 0; font-style: italic; line-height: 18px; }
 
-
-.row {
-  margin-left: -10px;
-  *zoom: 1;
-}
-.rowNext {margin-top: 10px;}
-.row:before,
-.row:after {
-  display: table;
-  content: "";
-}
-.row:after {
-  clear: both;
-}
-[class*="span"] {
-  float: left;
-  margin-left: 10px;
-  margin-top: -10px;
-
-}
-
-[class*="span"] > div{margin-top: 10px;}
-[class*="span"] > form{margin-top: 10px;}
-[class*="span"] > h1{margin-top: 10px;}
-
-.erpTopSpace {margin-top: 10px;}
-
-.span12 {width: 830px;}
-.span11 {width: 760px;}
-.span10 {width: 690px;}
-.span9 {width: 620px;}
-.span8 {width: 550px;}
-.span7 {width: 480px;}
-.span6 {width: 410px;}
-.span5 {width: 340px;}
-.span4 {width: 270px;}
-.span3 {width: 200px;}
-.span2 {width: 130px;}
-.span1 {width: 60px;}
-
-
 #maincont #mainleft
 {
 	float: left;
@@ -166,7 +125,6 @@ margin-top: 8px;
 {
 	float: left;
 	width: 169px;
-
 	padding: 5px;
 }
 
@@ -181,7 +139,8 @@ margin-top: 8px;
 .sidemenu ul {margin:0; padding:0;}
 .sidemenu li {list-style: none;}
 .sidemenu ul.top-level {background: #EEE;}
-.sidemenu ul.top-level li {
+.sidemenu ul.top-level li
+{
  border-bottom: #fff solid;
  border-top: #fff solid;
  border-width: 1px;
