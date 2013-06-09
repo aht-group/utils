@@ -66,6 +66,10 @@
 			<artifactId>el-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>net.sf.ahtutils</groupId>
+			<artifactId>ahtutils-jsf</artifactId>
+		</dependency>
 	</dependencies>
 	
 	<build>

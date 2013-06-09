@@ -1,0 +1,252 @@
+body
+{
+	background: #DDD;
+	color: #333;
+	font-family: "Arial", Verdana, Helvetica, sans-serif;
+	font-size: 12px;
+	padding: 10px 0;
+}
+
+a { color: #D82B00; text-decoration: none; }
+a:hover { color: #333; text-decoration: none; }
+
+/* Main Styles */
+
+#container
+{
+	margin: 0 auto;
+	width: 982px;
+	background: #FFF;
+	padding: 0 0 20px 0;
+	
+	-moz-box-shadow: 0 0 10px #AAA; -webkit-box-shadow: 0 0 10px #AAA; box-shadow: 0 0 10px #AAA;
+}
+
+
+/* HEADER */
+.header {
+	width: 970px;
+	height: 36px;
+	padding: 3px 0 0 0;
+	border-bottom: 2px solid #EEE;
+	background: #FFF;
+}
+.header ul {
+	float: right;
+	width: auto;
+	margin: 0 15px 0 0;
+	list-style-type: none;
+	overflow: hidden;
+}		
+.header ul li {
+	display: inline;
+}		
+.header ul li a {
+	float: left;
+	line-height: 36px;
+	padding: 0 10px;
+	margin: 0 0 0 10px;
+	font-weight: bold;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-size: 11px;
+	color: #333;
+	background: #FFF;
+}
+.header ul li.active > a {
+	background: #FFF;
+	border-bottom: 2px solid #D82B00;
+	color: #D82B00;
+}
+
+.header li a:hover
+{
+	background: #FFF;
+	border-bottom: 2px solid #D82B00;
+	color: #333;
+}
+.logo{
+	float: left;
+	z-index: 9994;
+	margin-top: 5px;
+	margin-left: 10px;
+}
+
+	#middlecont
+	{
+		padding: 6px 20px;
+		margin: 10px;
+		background: #B90000;
+}
+	
+		#middlecont p
+		{
+			font-size: 15px;
+			color: #FFF;
+			font-weight: bold;
+			letter-spacing: -1px;
+			text-align: right;
+		}
+		
+.maincontent
+{
+	width: 100%x;
+	line-height: 22px;
+	background: url("../images/bg-maincont.png") repeat-y;
+	padding: 5px 10px 0;
+}
+	
+.maincontent p {
+	margin: 0 0 15px 0;
+}
+.maincontent h1, .maincontent h2, .maincontent h3, .maincontent h4, .maincontent h5 {
+	letter-spacing: -1px;
+	font-weight: bold;
+}
+.maincontent h1 { font-size: 20px;}
+.maincontent h2 { font-size: 18px; }
+.maincontent h3 { font-size: 16px;
+margin-top: 8px;
+}
+.maincontent h4 { font-size: 14px; }
+.maincontent h5 { font-size: 12px; }
+
+.maincontent blockquote { background: #EEE; border-left: 3px solid #D82B00; padding: 15px; margin: 0 0 15px 0; font-style: italic; line-height: 18px; }
+
+
+.row {
+  margin-left: -10px;
+  *zoom: 1;
+}
+.rowNext {margin-top: 10px;}
+.row:before,
+.row:after {
+  display: table;
+  content: "";
+}
+.row:after {
+  clear: both;
+}
+[class*="span"] {
+  float: left;
+  margin-left: 10px;
+  margin-top: -10px;
+
+}
+
+[class*="span"] > div{margin-top: 10px;}
+[class*="span"] > form{margin-top: 10px;}
+[class*="span"] > h1{margin-top: 10px;}
+
+.erpTopSpace {margin-top: 10px;}
+
+.span12 {width: 830px;}
+.span11 {width: 760px;}
+.span10 {width: 690px;}
+.span9 {width: 620px;}
+.span8 {width: 550px;}
+.span7 {width: 480px;}
+.span6 {width: 410px;}
+.span5 {width: 340px;}
+.span4 {width: 270px;}
+.span3 {width: 200px;}
+.span2 {width: 130px;}
+.span1 {width: 60px;}
+
+
+#maincont #mainleft
+{
+	float: left;
+	width: 190px;
+	padding: 0 15px;
+	font-size: 11px;
+}
+
+.mainLeft
+{
+	float: left;
+	width: 169px;
+
+	padding: 5px;
+}
+
+.mainRight
+{
+	float: left;
+}
+
+/* SIDEBAR MENU */
+
+.sidemenu {width:100%;}
+.sidemenu ul {margin:0; padding:0;}
+.sidemenu li {list-style: none;}
+.sidemenu ul.top-level {background: #EEE;}
+.sidemenu ul.top-level li {
+ border-bottom: #fff solid;
+ border-top: #fff solid;
+ border-width: 1px;
+}
+
+.sidemenu a {
+ color: #D82B00;
+ cursor: pointer;
+ display:block;
+ height:25px;
+ line-height: 25px;
+ text-indent: 10px;                   
+ text-decoration:none;
+ width:100%;
+}
+.sidemenu a:hover{
+ color: #FFF;
+ background: #D82B00;
+}
+
+
+		
+		#maincont #mainright
+		{
+			float: left;
+			width: 580px;
+			padding: 0 0 0 20px;
+		}
+		
+	#footercont
+	{
+		margin: 0 auto;
+		width: 970px;
+		padding: 10px;
+		font-size: 11px;
+		color: #777;
+	}
+	
+		#footercont #footerleft
+		{
+			float: left;
+			width: 410px;
+		}
+			
+			#footercont #footerleft ul li
+			{
+				display: inline;
+			}
+			
+			#footercont #footerleft ul li a
+			{
+				float: left;
+				padding: 0 20px 0 0;
+				color: #666;
+				text-transform: uppercase;
+			}
+			
+			#footercont #footerleft ul li a:hover
+			{
+				color: #222;
+			}
+
+		#footercont #footerright
+		{
+			float: left;
+			width: 410px;
+			text-align: right;
+		}
