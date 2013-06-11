@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org" id="how">
+	<ofx:title lang="en">Installation of ownCloud</ofx:title>
+	<ofx:section>
+			<ofx:title>Linux (Debian)</ofx:title>
+			<ofx:paragraph>
+				echo 'deb http://download.opensuse.org/repositories/isv:ownCloud:community/Debian_7.0/ /' >> /etc/apt/sources.list.d/owncloud.list
+				echo 'deb http://download.opensuse.org/repositories/isv:ownCloud:devel/Debian_7.0/ /' >> /etc/apt/sources.list.d/owncloud.list 
+				wget -O - http://download.opensuse.org/repositories/isv:/ownCloud:/ownCloud2012/xUbuntu_12.04/Release.key | apt-key add -
+			
+				apt-get install python git
+			
+			    git clone https://github.com/csawyerYumaed/pyOwnCloud.git
+				cd pyOwnCloud
+				
+				export http_proxy=http://proxy:3128 (optional)
+				sudo python setup.py install
+				
+				cd  /home/user
+				mkdir .local
+				mkdir .local/share
+				mkdir .local/share/data
+				mkdir .local/share/data/ownCloud
+				touch .local/share/data/ownCloud/owncloud.cfg
+			</ofx:paragraph>
+		</ofx:section>
+</ofx:section>

@@ -20,7 +20,19 @@ public class RAssign implements Serializable,RengineCommand
 	public RAssign(String var, String value)
 	{
 		this.var=var;
-		this.value=value;
+		this.value="\""+value+"\"";
+	}
+	
+	public RAssign(String var, Integer value)
+	{
+		this.var=var;
+		this.value=value.toString();
+	}
+	
+	public RAssign(String var, Boolean value)
+	{
+		this.var=var;
+		this.value=value.toString().toUpperCase();
 	}
 	
 	public void execute() throws Exception

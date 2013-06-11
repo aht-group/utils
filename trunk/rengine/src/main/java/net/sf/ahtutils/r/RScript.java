@@ -33,7 +33,7 @@ public class RScript implements Serializable
 		commands.add(command);
 	}
 		
-	public void execute() throws Exception
+	public void execute()
 	{
 		RCaller rc = new RCaller();
 		rc.setRscriptExecutable(exeRscript);
@@ -41,7 +41,7 @@ public class RScript implements Serializable
 		RCode code = new RCode();
 		for(RengineCommand cmd : commands)
 		{
-			logger.debug("Adding code for execution in R: ");
+//			logger.debug("Adding code for execution in R: ");
 			for(String s : cmd.render())
 			{
 				code.addRCode(s +"\n");
@@ -59,7 +59,7 @@ public class RScript implements Serializable
 		{
 			for(String s : cmd.render())
 			{
-				logger.debug(s);
+				System.out.println(s);
 			}
 		}
 		logger.debug("********************************************");
