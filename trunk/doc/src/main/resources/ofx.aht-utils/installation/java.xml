@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org" id="how">
+	<ofx:title lang="en">Java</ofx:title>
+	<ofx:section>
+		<ofx:title lang="en">Linux (Debian Wheezy)</ofx:title>
+		<ofx:paragraph lang="en">
+			Get Java from http://www.oracle.com/technetwork/java/javase/downloads/index.html
+		</ofx:paragraph>
+		<ofx:paragraph>
+			cd /opt
+			tar -xvzf path_to_download/jdk-7u3-linux-x64.tar.gz
+			
+			update-alternatives --install /usr/bin/java java /opt/jdk1.7.0_21/bin/java 1
+			update-alternatives --install /usr/bin/javac javac /opt/jdk1.7.0_21/bin/javac 1
+			update-alternatives --set java /opt/jdk1.7.0_21/bin/java
+			update-alternatives --set javac /opt/jdk1.7.0_21/bin/javac
+		</ofx:paragraph>
+	</ofx:section>
+</ofx:section>

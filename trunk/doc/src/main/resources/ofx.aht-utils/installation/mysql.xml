@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org" id="how">
+	<ofx:title lang="en">MySQL</ofx:title>
+	<ofx:section>
+		<ofx:title>OS specific tasks</ofx:title>
+		<ofx:section>
+			<ofx:title lang="en">Linux (Debian Wheezy)</ofx:title>
+			<ofx:paragraph>
+				apt-get install mysql-server
+			</ofx:paragraph>
+		</ofx:section>
+	</ofx:section>
+	<ofx:section>
+		<ofx:title lang="en">Database creation</ofx:title>
+		<ofx:paragraph>
+			DROP DATABASE IF EXISTS xxx;
+			CREATE DATABASE xxx charset utf8;
+			GRANT all ON xxx.* TO xxx@localhost IDENTIFIED BY 'xxx';
+			FLUSH privileges;
+		</ofx:paragraph>
+	</ofx:section>
+</ofx:section>
