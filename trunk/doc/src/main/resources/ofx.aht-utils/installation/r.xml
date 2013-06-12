@@ -20,10 +20,8 @@
 				echo 'deb http://cran.r-mirror.de/bin/linux/debian wheezy-cran3/' > /etc/apt/sources.list.d/r.list
 				apt-key adv --keyserver subkeys.pgp.net --recv-key 381BA480
 				apt-get update
-				
-				Unbekannt: libxt-dev
-				
-				apt-get -t wheezy-cran3 install r-base r-base-core libgdal-dev libproj-dev libcairo2-dev
+
+				apt-get -t wheezy-cran3 install r-base r-base-core libgdal-dev libproj-dev libcairo2-dev libxt-dev
 				R --version
 			</ofx:paragraph>
 			<ofx:paragraph lang="en">
