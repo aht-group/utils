@@ -24,6 +24,7 @@ public class RSource implements Serializable,RengineCommand
 	
 	private MultiResourceLoader mrl;
 	private String source;
+	private String encoding = "UTF-8";
 	
 	public RSource(String source)
 	{
@@ -51,8 +52,14 @@ public class RSource implements Serializable,RengineCommand
 	
 	public List<String> renderSource()
 	{
+		StringBuffer sb = new StringBuffer();
+		sb.append("source(");
+		sb.append("\"").append(source).append("\"");
+		sb.append(", encoding=\""+encoding+"\"");
+		sb.append(")");
+		
 		List<String> result = new ArrayList<String>();
-		REval eval = RCommandFactory.eval("source(\""+source+"\")");
+		REval eval = RCommandFactory.eval(sb.toString());
 		result.addAll(eval.render());
 		return (result);
 	}

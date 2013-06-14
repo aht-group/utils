@@ -17,6 +17,12 @@ public class RAssign implements Serializable,RengineCommand
 	
 	private String var,value;
 	
+	public RAssign(String var)
+	{
+		this.var=var;
+		this.value="NULL";
+	}
+	
 	public RAssign(String var, String value)
 	{
 		this.var=var;
