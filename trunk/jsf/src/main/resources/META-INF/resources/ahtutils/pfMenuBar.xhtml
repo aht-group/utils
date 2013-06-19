@@ -10,11 +10,12 @@
     
    <composite:interface>
      <composite:attribute name="value"/>
+     <composite:attribute name="autoDisplay" required="false" default="true"/>
    </composite:interface>
         
   <composite:implementation>
   
-  <p:menubar>
+  <p:menubar autoDisplay="#{cc.attrs.autoDisplay}">
   	<f:forEach var="rootLevelItem" items="#{cc.attrs.value.menuItem}">
   		<f:if test="#{rootLevelItem.menuItem.size()>0}">
   			<p:submenu label="#{rootLevelItem.name}">
