@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://java.sun.com/jsp/jstl/core"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:composite="http://java.sun.com/jsf/composite">
     
   <composite:interface>
     <composite:attribute name="value"/>
+    <composite:attribute name="styleClass"/>
   </composite:interface>
         
-  <composite:implementation>
+	<composite:implementation>
 
-    <f:forEach var="menuItem" items="#{cc.attrs.value}">
-      #{menuItem.name}
-    </f:forEach>
+	<ul class="#{cc.attrs.styleClass}" style="#{cc.attrs.style}">
+		<c:forEach var="menuItem" items="#{cc.attrs.value}">
+	    	<li><a href="">#{menuItem.name}</a></li>
+	    </c:forEach>
+	</ul>
     
    </composite:implementation>
 </html>

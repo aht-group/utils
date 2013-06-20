@@ -73,17 +73,18 @@ public class AbstractMenuBean implements Serializable
 		return mapMenu.get(code);
 	}
 	
-	
-	// ******************************************
-	// Breadcrumb
-	public List<MenuItem> breadcrumb(MenuFactory mf,String code)
+	/**
+	 * Breadcrumb
+	 */
+	public List<MenuItem> breadcrumb(MenuFactory mf,String code){return breadcrumb(mf,false,code);}
+	public List<MenuItem> breadcrumb(MenuFactory mf,boolean withRoot, String code)
 	{
 		synchronized(mf)
 		{
 			if(!mapBreadcrumb.containsKey(code))
 			{
 				if(!mapMenu.containsKey(code)){menu(mf,code);}
-				mapBreadcrumb.put(code,mf.breadcrumb(code));
+				mapBreadcrumb.put(code,mf.breadcrumb(withRoot,code));
 			}
 			return mapBreadcrumb.get(code);
 		}
