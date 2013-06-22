@@ -35,6 +35,12 @@ public class AbstractAhtUtilsTest
 		}
 	}
 	
+	@BeforeClass
+	public static void initRnd()
+	{
+		rnd = new Random();
+	}
+	
 	protected static void initLogger()
 	{
 		System.err.println("Must be overridden!!");
@@ -43,17 +49,17 @@ public class AbstractAhtUtilsTest
 	
 	protected long rndL()
 	{
-		if(rnd==null){rnd = new Random();}
+		if(rnd==null){initRnd();}
 		return rnd.nextLong();
 	}
 	protected int rndI()
 	{
-		if(rnd==null){rnd = new Random();}
+		if(rnd==null){initRnd();}
 		return rnd.nextInt();
 	}
 	protected int rndI(int max)
 	{
-		if(rnd==null){rnd = new Random();}
+		if(rnd==null){initRnd();}
 		return rnd.nextInt(max);
 	}
 	
