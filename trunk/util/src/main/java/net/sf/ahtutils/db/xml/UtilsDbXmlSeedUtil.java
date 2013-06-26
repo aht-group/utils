@@ -1,30 +1,44 @@
 package net.sf.ahtutils.db.xml;
 
+import java.io.FileNotFoundException;
+
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.dbseed.Db;
 import net.sf.ahtutils.xml.dbseed.Seed;
 import net.sf.ahtutils.xml.xpath.DbseedXpath;
 import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
+import net.sf.exlp.util.xml.JaxbUtil;
 
+import org.apache.commons.configuration.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AhtDbXmlSeedUtil
+public class UtilsDbXmlSeedUtil
 {
-	final static Logger logger = LoggerFactory.getLogger(AhtDbXmlSeedUtil.class);
+	final static Logger logger = LoggerFactory.getLogger(UtilsDbXmlSeedUtil.class);
 	
 	public static enum DataSource{ide,jar}
+	public static String configKeySeed = "db.seed";
 	
 	protected Db dbSeed;
 	protected String seedPath,pathPrefix;
 	
-	public AhtDbXmlSeedUtil(Db dbSeed)
+	public UtilsDbXmlSeedUtil(Configuration config) throws FileNotFoundException
+	{
+		String dbSeedFile = config.getString(configKeySeed);
+		logger.info("Using seed: "+dbSeedFile);
+		Db dbSeed = JaxbUtil.loadJAXB(dbSeedFile, Db.class);
+		this.dbSeed=dbSeed;
+		seedPath=dbSeed.getPath();
+	}
+	
+	public UtilsDbXmlSeedUtil(Db dbSeed)
 	{
 		this(dbSeed,DataSource.ide);
 	}
 	
-	public AhtDbXmlSeedUtil(Db dbSeed, DataSource datasource)
+	public UtilsDbXmlSeedUtil(Db dbSeed, DataSource datasource)
 	{
 		this.dbSeed=dbSeed;
 		seedPath=dbSeed.getPath();
