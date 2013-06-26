@@ -1,11 +1,11 @@
-package net.sf.ahtutils.db.xml;
+package net.sf.ahtutils.controller.interfaces.db;
 
 import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 
-public interface AhtDbXmlInit
+public interface UtilsDbXmlInit
 {
 	public static enum Priority{statics,required,mandatory,optional}
 	

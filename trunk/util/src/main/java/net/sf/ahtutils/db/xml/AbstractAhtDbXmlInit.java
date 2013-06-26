@@ -2,7 +2,7 @@ package net.sf.ahtutils.db.xml;
 
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.db.xml.AhtDbXmlInit.Priority;
+import net.sf.ahtutils.controller.interfaces.db.UtilsDbXmlInit.Priority;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.dbseed.Db;
