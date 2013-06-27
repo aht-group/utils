@@ -690,6 +690,28 @@ public class UtilsFacadeBean implements UtilsFacade
 		if(o.getId()==0){return this.persist(o);}
 		else{return this.update(o);}
 	}
+	
+	public <T extends EjbWithRecord> List<T> inInterval(Class<T> clRecord, Date from, Date to)
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<T> cQ = cB.createQuery(clRecord);
+		Root<T> root = cQ.from(clRecord);
+		
+		Expression<Date> dRecord = root.get("record");
+		
+		Predicate startAfterFrom = cB.greaterThanOrEqualTo(dRecord, from);
+		Predicate startBeforeTo = cB.lessThan(dRecord, to);
+		
+		Predicate predicate = cB.and(startAfterFrom,startBeforeTo);
+		
+		CriteriaQuery<T> select = cQ.select(root);
+		select.where(predicate);
+		
+		select.orderBy(cB.asc(dRecord));
+		
+		TypedQuery<T> q = em.createQuery(select);
+		return q.getResultList();
+	}
 
 	@Override
 	public <T extends EjbWithTimeline> List<T> between(Class<T> clTimeline, Date from, Date to)
@@ -738,7 +760,6 @@ public class UtilsFacadeBean implements UtilsFacade
 		else if(!noOr && noAnd) {select.where(pTime,pOr);}
 		else {select.where(pTime,pOr,pAnd);}
 		
-//		select.where(pTime);
 		select.orderBy(cB.asc(dStart));
 		
 		TypedQuery<T> q = em.createQuery(select);

@@ -2,7 +2,6 @@ package net.sf.ahtutils.model.interfaces.with;
 
 import java.util.Date;
 
-
 public interface EjbWithTimeline extends EjbWithId
 {
 	public Date getStartDate();
