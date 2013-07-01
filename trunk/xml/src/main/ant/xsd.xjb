@@ -88,6 +88,12 @@
         </jxb:schemaBindings>
     </jxb:bindings>
     
+    <jxb:bindings schemaLocation="../../../../../exlp/xml/src/main/xsd/util/identity.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="net.sf.exlp.xml.identity"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
+    
 	<jxb:bindings schemaLocation="../../../../../ofx/xml/src/main/xsd/addon/chart.xsd" node="/xsd:schema">
         <jxb:schemaBindings>
             <jxb:package name="org.openfuxml.xml.addon.chart"/>

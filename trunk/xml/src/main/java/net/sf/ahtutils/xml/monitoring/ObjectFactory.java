@@ -37,4 +37,12 @@ public class ObjectFactory {
         return new Monitoring();
     }
 
+    /**
+     * Create an instance of {@link Transmission }
+     * 
+     */
+    public Transmission createTransmission() {
+        return new Transmission();
+    }
+
 }

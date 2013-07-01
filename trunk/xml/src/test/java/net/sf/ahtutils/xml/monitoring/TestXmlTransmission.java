@@ -4,40 +4,39 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
-import net.sf.ahtutils.xml.mail.AbstractXmlMailTest;
 import net.sf.exlp.util.xml.JaxbUtil;
+import net.sf.exlp.xml.identity.User;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestXmlMonitoring extends AbstractXmlMonitoringTest
+public class TestXmlTransmission extends AbstractXmlMonitoringTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestXmlMonitoring.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlTransmission.class);
 	
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,Monitoring.class.getSimpleName()+".xml");
+		fXml = new File(rootDir,Transmission.class.getSimpleName()+".xml");
 	}
     
     @Test
     public void xml() throws FileNotFoundException
     {
-    	Monitoring actual = create(false);
-    	Monitoring expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Monitoring.class);
+    	Transmission actual = create(false);
+    	Transmission expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Transmission.class);
     	assertJaxbEquals(expected, actual);
     }  
     
-    public static Monitoring create(boolean withChilds)
+    public static Transmission create(boolean withChilds)
     {
-    	Monitoring xml = new Monitoring();
-    	xml.setId(123);
+    	Transmission xml = new Transmission();
     	
     	if(withChilds)
     	{
-
+    		xml.setUser(new User());
     	}
     	
     	return xml;
@@ -49,9 +48,9 @@ public class TestXmlMonitoring extends AbstractXmlMonitoringTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestXmlMonitoring.initPrefixMapper();
-		TestXmlMonitoring.initFiles();	
-		TestXmlMonitoring test = new TestXmlMonitoring();
+		TestXmlTransmission.initPrefixMapper();
+		TestXmlTransmission.initFiles();	
+		TestXmlTransmission test = new TestXmlTransmission();
 		test.save();
     }
 }

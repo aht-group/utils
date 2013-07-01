@@ -24,7 +24,6 @@ import net.sf.exlp.util.xml.JDomUtil;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.jdom2.Document;
 import org.jdom2.Element;
-import org.jdom2.JDOMException;
 import org.jdom2.Namespace;
 import org.jdom2.filter.Filters;
 import org.jdom2.xpath.XPathExpression;

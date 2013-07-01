@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema targetNamespace="http://ahtutils.aht-group.com/monitoring"
 	xmlns:mo="http://ahtutils.aht-group.com/monitoring"
+	xmlns:id="http://exlp.sf.net/identity"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://exlp.sf.net/identity" schemaLocation="../../../../../../exlp/xml/src/main/xsd/util/identity.xsd"/>
 	<xsd:element name="monitoring">
         <xsd:complexType>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="transmission">
+        <xsd:complexType>
+        	<xsd:sequence>
+                <xsd:element ref="id:user" maxOccurs="1"/>
+            </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
 </xsd:schema>
