@@ -5,6 +5,7 @@
     xmlns:m="http://ahtutils.aht-group.com/mail"
     xmlns:f="http://ahtutils.aht-group.com/finance"
     xmlns:n="http://ahtutils.aht-group.com/navigation"
+    xmlns:mo="http://ahtutils.aht-group.com/monitoring"
     xmlns:a="http://ahtutils.aht-group.com/access"
     xmlns:u="http://ahtutils.aht-group.com/utils"
     xmlns:sec="http://ahtutils.aht-group.com/security"
@@ -22,6 +23,7 @@
     <xsd:import namespace="http://ahtutils.aht-group.com/mail" schemaLocation="aht/mail.xsd"/>
 	<xsd:import namespace="http://ahtutils.aht-group.com/utils" schemaLocation="aht/utils.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/navigation" schemaLocation="aht/navigation.xsd"/>
+    <xsd:import namespace="http://ahtutils.aht-group.com/monitoring" schemaLocation="aht/monitoring.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/cloud/facebook" schemaLocation="cloud/facebook.xsd"/>
     <xsd:annotation>
         <xsd:appinfo>
