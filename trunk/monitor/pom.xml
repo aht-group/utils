@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+    	<groupId>net.sf.ahtutils</groupId>
+    	<artifactId>ahtutils</artifactId>
+    	<version>0.2.5-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+	</parent>
+	
+    <artifactId>ahtutils-monitor</artifactId>
+    <packaging>jar</packaging>
+    <name>AHT-Utils - Monitor</name>
+	
+	<dependencyManagement>
+		<dependencies>      	         
+			<dependency>
+				<groupId>net.sf.ahtutils</groupId>
+				<artifactId>ahtutils-bom</artifactId>
+				<version>${project.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
+	<dependencies>
+
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-api</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>net.sf.ahtutils</groupId>
+		<artifactId>ahtutils-xml</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>javax.mail</groupId>
+		<artifactId>mail</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.freemarker</groupId>
+		<artifactId>freemarker</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>net.sf.ahtutils</groupId>
+		<artifactId>ahtutils-interfaces</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>commons-lang</groupId>
+		<artifactId>commons-lang</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>commons-io</groupId>
+		<artifactId>commons-io</artifactId>
+	</dependency>
+	<dependency>
+			<groupId>jmimemagic</groupId>
+			<artifactId>jmimemagic</artifactId>
+			<version>0.1.2</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>xercesImpl</artifactId>
+					<groupId>xerces</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>xml-apis</artifactId>
+					<groupId>xml-apis</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>xmlParserAPIs</artifactId>
+					<groupId>xml-apis</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>net.sf.ahtutils</groupId>
+		<artifactId>ahtutils-test</artifactId>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-log4j12</artifactId>
+		<scope>test</scope>
+	</dependency>
+
+	<dependency>
+		<groupId>commons-configuration</groupId>
+		<artifactId>commons-configuration</artifactId>
+		<exclusions>
+			<exclusion>
+				<artifactId>commons-logging</artifactId>
+				<groupId>commons-logging</groupId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>jcl-over-slf4j</artifactId>
+	</dependency>
+	</dependencies>
+   
+</project>

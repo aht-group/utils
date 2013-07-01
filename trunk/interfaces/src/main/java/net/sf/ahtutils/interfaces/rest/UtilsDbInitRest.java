@@ -1,4 +1,4 @@
-package net.sf.ahtutils.controller.interfaces.rest;
+package net.sf.ahtutils.interfaces.rest;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;

@@ -24,6 +24,7 @@
 		<module>mail</module>
 		<module>report</module>
 		<module>rengine</module>
+		<module>monitor</module>
 		<module>test</module>
 		<module>xml</module>
 		<module>interfaces</module>
