@@ -1,7 +1,7 @@
 package net.sf.ahtutils.monitor.task.net.dns;
 
-import net.sf.ahtutils.monitor.task.net.dns.DnsResult;
-import net.sf.ahtutils.monitor.task.net.dns.DnsTask;
+import net.sf.ahtutils.monitor.result.net.DnsResult;
+import net.sf.ahtutils.monitor.task.net.DnsTask;
 import net.sf.ahtutils.test.UtilsMonitorTestBootstrap;
 
 import org.junit.Assert;

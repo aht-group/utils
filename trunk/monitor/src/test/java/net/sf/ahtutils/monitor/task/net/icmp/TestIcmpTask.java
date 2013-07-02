@@ -1,7 +1,7 @@
 package net.sf.ahtutils.monitor.task.net.icmp;
 
-import net.sf.ahtutils.monitor.task.net.icmp.IcmpResult;
-import net.sf.ahtutils.monitor.task.net.icmp.IcmpTask;
+import net.sf.ahtutils.monitor.result.net.IcmpResult;
+import net.sf.ahtutils.monitor.task.net.IcmpTask;
 import net.sf.ahtutils.test.UtilsMonitorTestBootstrap;
 
 import org.junit.Assert;

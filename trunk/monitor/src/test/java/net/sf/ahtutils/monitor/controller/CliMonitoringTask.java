@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import net.sf.ahtutils.monitor.controller.MonitoringTask;
+import net.sf.ahtutils.monitor.factory.MonitoringTask;
 import net.sf.ahtutils.test.UtilsMonitorTestBootstrap;
 
 import org.slf4j.Logger;

@@ -13,9 +13,14 @@
 		<level value="DEBUG"/>
 		<appender-ref ref="A1"/>
 	</logger>
-    
+	
+	<logger name="org.hibernate" additivity="false">
+		<level value="INFO"/>
+		<appender-ref ref="A1"/>
+	</logger>
+	
 	<root>
-		<priority value="INFO" />
+		<priority value="DEBUG" />
 		<appender-ref ref="A1" />
 	</root>
 
