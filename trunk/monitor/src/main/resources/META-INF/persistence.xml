@@ -4,8 +4,8 @@
              version="2.0">
     <persistence-unit name="exlp" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <class>net.sf.ahtutils.monitor.task.net.dns.DnsResult</class>
-        <class>net.sf.ahtutils.monitor.task.net.icmp.IcmpResult</class>
+        <class>net.sf.ahtutils.monitor.result.net.DnsResult</class>
+        <class>net.sf.ahtutils.monitor.result.net.IcmpResult</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
