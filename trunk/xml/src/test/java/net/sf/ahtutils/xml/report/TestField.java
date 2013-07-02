@@ -44,7 +44,7 @@ public class TestField extends AbstractXmlReportTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestField.initPrefixMapper();
+		TestField.initJaxb();
 		TestField.initFiles();	
 		TestField test = new TestField();
 		test.save();

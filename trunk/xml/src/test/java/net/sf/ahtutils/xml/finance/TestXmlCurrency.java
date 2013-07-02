@@ -52,7 +52,7 @@ public class TestXmlCurrency extends AbstractXmlFinanceTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestXmlCurrency.initPrefixMapper();
+		TestXmlCurrency.initJaxb();
 		TestXmlCurrency.initFiles();	
 		TestXmlCurrency test = new TestXmlCurrency();
 		test.save();

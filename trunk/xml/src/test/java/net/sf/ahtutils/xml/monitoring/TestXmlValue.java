@@ -43,7 +43,7 @@ public class TestXmlValue extends AbstractXmlMonitoringTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestXmlValue.initPrefixMapper();
+		TestXmlValue.initJaxb();
 		TestXmlValue.initFiles();	
 		TestXmlValue test = new TestXmlValue();
 		test.save();

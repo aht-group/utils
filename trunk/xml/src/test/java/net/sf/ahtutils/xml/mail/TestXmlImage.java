@@ -50,7 +50,7 @@ public class TestXmlImage extends AbstractXmlMailTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestXmlImage.initPrefixMapper();
+		TestXmlImage.initJaxb();
 		TestXmlImage.initFiles();	
 		TestXmlImage test = new TestXmlImage();
 		test.save();

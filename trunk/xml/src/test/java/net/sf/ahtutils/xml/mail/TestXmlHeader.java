@@ -52,7 +52,7 @@ public class TestXmlHeader extends AbstractXmlMailTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestXmlHeader.initPrefixMapper();
+		TestXmlHeader.initJaxb();
 		TestXmlHeader.initFiles();	
 		TestXmlHeader test = new TestXmlHeader();
 		test.save();

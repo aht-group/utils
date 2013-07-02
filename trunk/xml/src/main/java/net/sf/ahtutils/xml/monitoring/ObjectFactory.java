@@ -38,6 +38,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link DataSet }
+     * 
+     */
+    public DataSet createDataSet() {
+        return new DataSet();
+    }
+
+    /**
+     * Create an instance of {@link Data }
+     * 
+     */
+    public Data createData() {
+        return new Data();
+    }
+
+    /**
+     * Create an instance of {@link Value }
+     * 
+     */
+    public Value createValue() {
+        return new Value();
+    }
+
+    /**
      * Create an instance of {@link Monitoring }
      * 
      */
@@ -62,35 +86,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Value }
-     * 
-     */
-    public Value createValue() {
-        return new Value();
-    }
-
-    /**
-     * Create an instance of {@link Data }
-     * 
-     */
-    public Data createData() {
-        return new Data();
-    }
-
-    /**
      * Create an instance of {@link Transmission }
      * 
      */
     public Transmission createTransmission() {
         return new Transmission();
-    }
-
-    /**
-     * Create an instance of {@link DataSet }
-     * 
-     */
-    public DataSet createDataSet() {
-        return new DataSet();
     }
 
 }

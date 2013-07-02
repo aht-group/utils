@@ -48,7 +48,7 @@ public class TestXmlFrom extends AbstractXmlMailTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestXmlFrom.initPrefixMapper();
+		TestXmlFrom.initJaxb();
 		TestXmlFrom.initFiles();	
 		TestXmlFrom test = new TestXmlFrom();
 		test.save();

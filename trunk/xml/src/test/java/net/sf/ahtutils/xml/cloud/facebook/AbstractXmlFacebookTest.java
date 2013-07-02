@@ -3,6 +3,7 @@ package net.sf.ahtutils.xml.cloud.facebook;
 import java.io.File;
 
 import net.sf.ahtutils.test.AbstractXmlTest;
+import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
 import net.sf.exlp.util.io.LoggerInit;
 
 import org.slf4j.Logger;
@@ -17,9 +18,8 @@ public abstract class AbstractXmlFacebookTest extends AbstractXmlTest
 	
 	public static void main(String[] args)
     {
-		LoggerInit loggerInit = new LoggerInit("log4j.xml");	
-			loggerInit.addAltPath("src/test/resources/config");
-			loggerInit.init();	
+		UtilsXmlTstBootstrap.init();
+		AbstractXmlTest.initJaxb();
 		
 		TestXmlApp.initFiles();
 		TestXmlApp tA = new TestXmlApp();

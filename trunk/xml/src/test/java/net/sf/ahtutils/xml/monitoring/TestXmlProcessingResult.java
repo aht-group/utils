@@ -44,7 +44,7 @@ public class TestXmlProcessingResult extends AbstractXmlMonitoringTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestXmlProcessingResult.initPrefixMapper();
+		TestXmlProcessingResult.initJaxb();
 		TestXmlProcessingResult.initFiles();	
 		TestXmlProcessingResult test = new TestXmlProcessingResult();
 		test.save();

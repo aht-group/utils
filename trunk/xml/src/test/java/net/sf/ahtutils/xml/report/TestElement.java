@@ -43,7 +43,7 @@ public class TestElement extends AbstractXmlReportTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestElement.initPrefixMapper();
+		TestElement.initJaxb();
 		TestElement.initFiles();	
 		TestElement test = new TestElement();
 		test.save();

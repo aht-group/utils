@@ -49,7 +49,7 @@ public class TestXmlMails extends AbstractXmlMailTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestXmlMails.initPrefixMapper();
+		TestXmlMails.initJaxb();
 		TestXmlMails.initFiles();	
 		TestXmlMails test = new TestXmlMails();
 		test.save();

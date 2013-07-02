@@ -45,7 +45,7 @@ public class TestXmlEmailAddress extends AbstractXmlMailTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestXmlEmailAddress.initPrefixMapper();
+		TestXmlEmailAddress.initJaxb();
 		TestXmlEmailAddress.initFiles();	
 		TestXmlEmailAddress test = new TestXmlEmailAddress();
 		test.save();

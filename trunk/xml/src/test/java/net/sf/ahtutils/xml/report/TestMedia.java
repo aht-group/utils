@@ -47,7 +47,7 @@ public class TestMedia extends AbstractXmlReportTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestMedia.initPrefixMapper();
+		TestMedia.initJaxb();
 		TestMedia.initFiles();	
 		TestMedia test = new TestMedia();
 		test.save();

@@ -49,7 +49,7 @@ public class TestReport extends AbstractXmlReportTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestReport.initPrefixMapper();
+		TestReport.initJaxb();
 		TestReport.initFiles();	
 		TestReport test = new TestReport();
 		test.save();

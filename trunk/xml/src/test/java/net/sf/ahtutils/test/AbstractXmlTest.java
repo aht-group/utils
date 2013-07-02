@@ -28,9 +28,10 @@ public abstract class AbstractXmlTest
     }
 	
 	@BeforeClass
-	public static void initPrefixMapper()
+	public static void initJaxb()
 	{
 		JaxbUtil.setNsPrefixMapper(new AhtUtilsNsPrefixMapper());
+		DateUtil.ignoreTimeZone=true;
 	}
 	
 	protected void assertJaxbEquals(Object expected, Object actual)
@@ -40,7 +41,7 @@ public abstract class AbstractXmlTest
 	
 	protected static XMLGregorianCalendar getXmlDefaultDate()
 	{
-		return DateUtil.getXmlGc4D(getDefaultDate());
+		return DateUtil.toXmlGc(getDefaultDate());
 	}
 	protected static Date getDefaultDate()
 	{

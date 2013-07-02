@@ -45,7 +45,7 @@ public class TestJr extends AbstractXmlReportTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestJr.initPrefixMapper();
+		TestJr.initJaxb();
 		TestJr.initFiles();	
 		TestJr test = new TestJr();
 		test.save();

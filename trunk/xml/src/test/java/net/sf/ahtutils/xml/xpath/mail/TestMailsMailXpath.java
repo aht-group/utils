@@ -30,7 +30,7 @@ public class TestMailsMailXpath extends AbstractXmlTest
 		xml2 = TestXmlMail.create("t2",false);mails.getMail().add(xml2);
 		xml3 = TestXmlMail.create("t3",false);mails.getMail().add(xml3);
 		xml4 = TestXmlMail.create("t3",false);mails.getMail().add(xml4);
-		JaxbUtil.error(mails);
+		JaxbUtil.trace(mails);
 	}
 	
 	@Test

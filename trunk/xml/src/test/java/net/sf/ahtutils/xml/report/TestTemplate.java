@@ -44,7 +44,7 @@ public class TestTemplate extends AbstractXmlReportTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestTemplate.initPrefixMapper();
+		TestTemplate.initJaxb();
 		TestTemplate.initFiles();	
 		TestTemplate test = new TestTemplate();
 		test.save();

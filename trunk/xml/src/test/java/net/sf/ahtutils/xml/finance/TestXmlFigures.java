@@ -3,6 +3,7 @@ package net.sf.ahtutils.xml.finance;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import net.sf.ahtutils.test.AbstractXmlTest;
 import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
 import net.sf.exlp.util.xml.JaxbUtil;
 
@@ -49,8 +50,8 @@ public class TestXmlFigures extends AbstractXmlFinanceTest
 	public static void main(String[] args)
     {
 		UtilsXmlTstBootstrap.init();
-			
-		TestXmlFigures.initPrefixMapper();
+		AbstractXmlTest.initJaxb();
+		
 		TestXmlFigures.initFiles();	
 		TestXmlFigures test = new TestXmlFigures();
 		test.save();

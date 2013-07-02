@@ -59,7 +59,7 @@ public class TestXmlMenuItem extends AbstractXmlNavigationTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestXmlMenuItem.initPrefixMapper();
+		TestXmlMenuItem.initJaxb();
 		TestXmlMenuItem.initFiles();	
 		TestXmlMenuItem test = new TestXmlMenuItem();
 		test.save();

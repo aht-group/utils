@@ -45,7 +45,7 @@ public class TestXmlUrlMapping extends AbstractXmlNavigationTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestXmlUrlMapping.initPrefixMapper();
+		TestXmlUrlMapping.initJaxb();
 		TestXmlUrlMapping.initFiles();	
 		TestXmlUrlMapping test = new TestXmlUrlMapping();
 		test.save();

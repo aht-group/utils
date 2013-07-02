@@ -49,7 +49,7 @@ public class TestDb extends AbstractXmlDbseedTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestDb.initPrefixMapper();
+		TestDb.initJaxb();
 		TestDb.initFiles();	
 		TestDb test = new TestDb();
 		test.save();

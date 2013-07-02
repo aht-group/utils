@@ -48,7 +48,7 @@ public class TestUtils extends AbstractXmlUtilsTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestUtils.initPrefixMapper();
+		TestUtils.initJaxb();
 		TestUtils.initFiles();	
 		TestUtils test = new TestUtils();
 		test.save();

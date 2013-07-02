@@ -50,7 +50,7 @@ public class TestAht extends AbstractXmlAhtTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestAht.initPrefixMapper();
+		TestAht.initJaxb();
 		TestAht.initFiles();	
 		TestAht test = new TestAht();
 		test.save();

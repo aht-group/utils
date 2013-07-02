@@ -38,7 +38,7 @@ public class TestXmlIndicator extends AbstractXmlMonitoringTest
     	
     	if(withChilds)
     	{
-    		
+    		xml.getDataSet().add(TestXmlDataSet.create(false));xml.getDataSet().add(TestXmlDataSet.create(false));
     	}
     	
     	return xml;
@@ -50,7 +50,7 @@ public class TestXmlIndicator extends AbstractXmlMonitoringTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestXmlIndicator.initPrefixMapper();
+		TestXmlIndicator.initJaxb();
 		TestXmlIndicator.initFiles();	
 		TestXmlIndicator test = new TestXmlIndicator();
 		test.save();

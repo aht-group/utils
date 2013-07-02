@@ -50,7 +50,7 @@ public class TestXmlComponent extends AbstractXmlMonitoringTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestXmlComponent.initPrefixMapper();
+		TestXmlComponent.initJaxb();
 		TestXmlComponent.initFiles();	
 		TestXmlComponent test = new TestXmlComponent();
 		test.save();

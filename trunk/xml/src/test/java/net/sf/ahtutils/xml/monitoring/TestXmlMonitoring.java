@@ -48,7 +48,7 @@ public class TestXmlMonitoring extends AbstractXmlMonitoringTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestXmlMonitoring.initPrefixMapper();
+		TestXmlMonitoring.initJaxb();
 		TestXmlMonitoring.initFiles();	
 		TestXmlMonitoring test = new TestXmlMonitoring();
 		test.save();

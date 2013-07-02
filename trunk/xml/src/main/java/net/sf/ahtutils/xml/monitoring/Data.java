@@ -9,7 +9,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -26,6 +28,8 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element ref="{http://ahtutils.aht-group.com/monitoring}value" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" />
+ *       &lt;attribute name="record" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
+ *       &lt;attribute name="range" type="{http://www.w3.org/2001/XMLSchema}long" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -50,6 +54,11 @@ public class Data
     protected List<Value> value;
     @XmlAttribute(name = "id")
     protected Long id;
+    @XmlAttribute(name = "record")
+    @XmlSchemaType(name = "dateTime")
+    protected XMLGregorianCalendar record;
+    @XmlAttribute(name = "range")
+    protected Long range;
 
     /**
      * Gets the value of the indicator property.
@@ -146,6 +155,66 @@ public class Data
 
     public void unsetId() {
         this.id = null;
+    }
+
+    /**
+     * Gets the value of the record property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public XMLGregorianCalendar getRecord() {
+        return record;
+    }
+
+    /**
+     * Sets the value of the record property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public void setRecord(XMLGregorianCalendar value) {
+        this.record = value;
+    }
+
+    public boolean isSetRecord() {
+        return (this.record!= null);
+    }
+
+    /**
+     * Gets the value of the range property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Long }
+     *     
+     */
+    public long getRange() {
+        return range;
+    }
+
+    /**
+     * Sets the value of the range property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Long }
+     *     
+     */
+    public void setRange(long value) {
+        this.range = value;
+    }
+
+    public boolean isSetRange() {
+        return (this.range!= null);
+    }
+
+    public void unsetRange() {
+        this.range = null;
     }
 
 }

@@ -45,7 +45,7 @@ public class TestSeed extends AbstractXmlDbseedTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestSeed.initPrefixMapper();
+		TestSeed.initJaxb();
 		TestSeed.initFiles();	
 		TestSeed test = new TestSeed();
 		test.save();

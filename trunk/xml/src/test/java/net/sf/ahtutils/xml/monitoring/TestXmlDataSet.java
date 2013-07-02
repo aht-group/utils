@@ -3,6 +3,7 @@ package net.sf.ahtutils.xml.monitoring;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import net.sf.ahtutils.test.AbstractXmlTest;
 import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
 import net.sf.exlp.util.xml.JaxbUtil;
 
@@ -50,8 +51,8 @@ public class TestXmlDataSet extends AbstractXmlMonitoringTest
 	public static void main(String[] args)
     {
 		UtilsXmlTstBootstrap.init();
-			
-		TestXmlDataSet.initPrefixMapper();
+		AbstractXmlTest.initJaxb();
+		
 		TestXmlDataSet.initFiles();	
 		TestXmlDataSet test = new TestXmlDataSet();
 		test.save();

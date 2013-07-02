@@ -48,7 +48,7 @@ public class TestXmlBcc extends AbstractXmlMailTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestXmlBcc.initPrefixMapper();
+		TestXmlBcc.initJaxb();
 		TestXmlBcc.initFiles();	
 		TestXmlBcc test = new TestXmlBcc();
 		test.save();

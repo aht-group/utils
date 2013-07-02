@@ -47,7 +47,7 @@ public class TestResource extends AbstractXmlReportTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestResource.initPrefixMapper();
+		TestResource.initJaxb();
 		TestResource.initFiles();	
 		TestResource test = new TestResource();
 		test.save();

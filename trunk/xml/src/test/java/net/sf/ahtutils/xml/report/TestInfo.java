@@ -54,7 +54,7 @@ public class TestInfo extends AbstractXmlReportTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestInfo.initPrefixMapper();
+		TestInfo.initJaxb();
 		TestInfo.initFiles();	
 		TestInfo test = new TestInfo();
 		test.save();

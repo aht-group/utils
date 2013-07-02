@@ -47,7 +47,7 @@ public class TestXmlPassword extends AbstractXmlSecurityTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestXmlPassword.initPrefixMapper();
+		TestXmlPassword.initJaxb();
 		TestXmlPassword.initFiles();	
 		TestXmlPassword test = new TestXmlPassword();
 		test.save();

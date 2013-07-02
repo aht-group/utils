@@ -47,7 +47,7 @@ public class TestXmlFinance extends AbstractXmlFinanceTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestXmlFinance.initPrefixMapper();
+		TestXmlFinance.initJaxb();
 		TestXmlFinance.initFiles();	
 		TestXmlFinance test = new TestXmlFinance();
 		test.save();

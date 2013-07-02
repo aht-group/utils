@@ -48,7 +48,7 @@ public class TestXmlLink extends AbstractXmlMailTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestXmlLink.initPrefixMapper();
+		TestXmlLink.initJaxb();
 		TestXmlLink.initFiles();	
 		TestXmlLink test = new TestXmlLink();
 		test.save();

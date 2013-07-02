@@ -55,7 +55,7 @@ public class TestQuery extends AbstractXmlAhtTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestQuery.initPrefixMapper();
+		TestQuery.initJaxb();
 		TestQuery.initFiles();	
 		TestQuery test = new TestQuery();
 		test.save();

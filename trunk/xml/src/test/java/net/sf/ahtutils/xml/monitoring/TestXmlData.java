@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
+import net.sf.exlp.util.DateUtil;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;
@@ -33,6 +34,8 @@ public class TestXmlData extends AbstractXmlMonitoringTest
     {
     	Data xml = new Data();
     	xml.setId(123);
+    	xml.setRange(1000);
+    	xml.setRecord(getXmlDefaultDate());
     	
     	if(withChilds)
     	{
@@ -48,8 +51,9 @@ public class TestXmlData extends AbstractXmlMonitoringTest
 	public static void main(String[] args)
     {
 		UtilsXmlTstBootstrap.init();
-			
-		TestXmlData.initPrefixMapper();
+		DateUtil.ignoreTimeZone=true;
+		
+		TestXmlData.initJaxb();
 		TestXmlData.initFiles();	
 		TestXmlData test = new TestXmlData();
 		test.save();

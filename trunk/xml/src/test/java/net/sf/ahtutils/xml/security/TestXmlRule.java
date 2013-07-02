@@ -50,7 +50,7 @@ public class TestXmlRule extends AbstractXmlSecurityTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestXmlRule.initPrefixMapper();
+		TestXmlRule.initJaxb();
 		TestXmlRule.initFiles();	
 		TestXmlRule test = new TestXmlRule();
 		test.save();

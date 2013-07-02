@@ -51,7 +51,7 @@ public class TestXmlNavigation extends AbstractXmlNavigationTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestXmlNavigation.initPrefixMapper();
+		TestXmlNavigation.initJaxb();
 		TestXmlNavigation.initFiles();	
 		TestXmlNavigation test = new TestXmlNavigation();
 		test.save();

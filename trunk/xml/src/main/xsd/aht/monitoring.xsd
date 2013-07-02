@@ -36,6 +36,9 @@
     </xsd:element>
     <xsd:element name="indicator">
         <xsd:complexType>
+        	<xsd:sequence>
+                <xsd:element ref="mo:dataSet" maxOccurs="unbounded"/>
+            </xsd:sequence>
         	<xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
             <xsd:attribute name="label" type="xsd:string"/>
@@ -59,6 +62,8 @@
                 <xsd:element ref="mo:value" maxOccurs="unbounded"/>
             </xsd:sequence>
         	<xsd:attribute name="id" type="xsd:long"/>
+        	<xsd:attribute name="record" type="xsd:dateTime"/>
+        	<xsd:attribute name="range" type="xsd:long"/>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="value">
