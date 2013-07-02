@@ -4,8 +4,8 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.concurrent.CompletionService;
 
-import net.sf.ahtutils.monitor.task.net.dns.DnsResult;
-import net.sf.ahtutils.monitor.task.net.icmp.IcmpResult;
+import net.sf.ahtutils.monitor.result.net.DnsResult;
+import net.sf.ahtutils.monitor.result.net.IcmpResult;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

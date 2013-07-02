@@ -3,10 +3,10 @@ package net.sf.ahtutils.monitor.controller;
 import java.util.TimerTask;
 import java.util.concurrent.CompletionService;
 
-import net.sf.ahtutils.monitor.task.net.dns.DnsResult;
-import net.sf.ahtutils.monitor.task.net.dns.DnsTask;
-import net.sf.ahtutils.monitor.task.net.icmp.IcmpResult;
-import net.sf.ahtutils.monitor.task.net.icmp.IcmpTask;
+import net.sf.ahtutils.monitor.result.net.DnsResult;
+import net.sf.ahtutils.monitor.result.net.IcmpResult;
+import net.sf.ahtutils.monitor.task.net.DnsTask;
+import net.sf.ahtutils.monitor.task.net.IcmpTask;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
