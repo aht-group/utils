@@ -11,7 +11,7 @@
 	
     <artifactId>ahtutils-rengine</artifactId>
     <packaging>jar</packaging>
-    <name>AHT-Utils - R-Engine</name>
+    <name>UTILS - R-Engine</name>
 	
 	<dependencyManagement>
 		<dependencies>      	         

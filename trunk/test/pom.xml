@@ -11,7 +11,7 @@
 	
     <artifactId>ahtutils-test</artifactId>
     <packaging>jar</packaging>
-    <name>AHT-Utils - Test</name>
+    <name>UTILS - Test</name>
 
 	<dependencyManagement>
 		<dependencies>      	         

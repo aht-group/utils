@@ -10,7 +10,7 @@
 
     <artifactId>ahtutils-ejb</artifactId>
     <packaging>ejb</packaging>
-    <name>AHT-Utils - EJB</name>
+    <name>UTILS - EJB</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>

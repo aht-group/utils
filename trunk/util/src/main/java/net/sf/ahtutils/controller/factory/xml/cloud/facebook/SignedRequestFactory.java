@@ -21,7 +21,7 @@ public class SignedRequestFactory
 
 	private String txtRaw;
 	private String txtPayload;
-
+	
 	public SignedRequestFactory()
 	{
 
@@ -52,13 +52,13 @@ public class SignedRequestFactory
 			{
 				Date issuedAt = new Date(json.getLong("issued_at")*1000);
 				logger.trace("IssuedAt: "+issuedAt);
-				signedRequest.setIssuedAt(DateUtil.getXmlGc4D(issuedAt));
+				signedRequest.setIssuedAt(DateUtil.toXmlGc(issuedAt));
 			}
 			if(json.has("expires"))
 			{
 				Date exipires = new Date(json.getLong("expires")*1000);
 				logger.trace("Expires: "+exipires);
-				signedRequest.setExpires(DateUtil.getXmlGc4D(exipires));
+				signedRequest.setExpires(DateUtil.toXmlGc(exipires));
 			}
 			if(json.has("user_id"))
 			{

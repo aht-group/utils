@@ -11,7 +11,7 @@
 	
     <artifactId>ahtutils-mail</artifactId>
     <packaging>jar</packaging>
-    <name>AHT-Utils - Mail</name>
+    <name>UTILS - Mail</name>
 	
 	<dependencyManagement>
 		<dependencies>      	         

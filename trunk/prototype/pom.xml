@@ -10,7 +10,7 @@
 	</parent>
 	
     <artifactId>ahtutils-prototype</artifactId>
-    <name>AhtUtils - Prototype</name>
+    <name>UTILS - Prototype</name>
 	<packaging>jar</packaging>
 	
 	<dependencyManagement>

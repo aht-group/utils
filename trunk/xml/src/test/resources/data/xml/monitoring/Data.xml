@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mo:data xmlns:mo="http://ahtutils.aht-group.com/monitoring" id="123">
+    <mo:indicator id="123" code="myCode" label="myLabel"/>
+    <mo:value type="myType">myValue</mo:value>
+    <mo:value type="myType">myValue</mo:value>
+</mo:data>

@@ -1,19 +1,21 @@
-package net.sf.ahtutils.controller.factory.xml.cloud.facebook;
+package net.sf.ahtutils.factory.xml.cloud.facebook;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Collection;
 
+import net.sf.ahtutils.controller.factory.xml.cloud.facebook.SignedRequestFactory;
 import net.sf.ahtutils.test.AbstractFileProcessingTest;
-import net.sf.ahtutils.xml.AhtUtilsNsPrefixMapper;
+import net.sf.ahtutils.test.AhtUtilsTstBootstrap;
 import net.sf.ahtutils.xml.cloud.facebook.SignedRequest;
-import net.sf.exlp.util.io.LoggerInit;
+import net.sf.exlp.util.DateUtil;
 import net.sf.exlp.util.io.StringIO;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -31,6 +33,12 @@ public class TestSignedRequestFactory extends AbstractFileProcessingTest
 	private static final String dstDirNameDec = "src/test/resources/data/xml/cloud/facebook/request/decode";
 	private static final String dstDirNameReq = "src/test/resources/data/xml/cloud/facebook/request/xml";
 
+	@BeforeClass
+	public static void initStatic()
+	{
+		DateUtil.ignoreTimeZone=true;
+	}
+	
 	public TestSignedRequestFactory(File fTest)
 	{
 		this.fTest = fTest;
@@ -86,25 +94,24 @@ public class TestSignedRequestFactory extends AbstractFileProcessingTest
 		setRefFile("xml",dstDirNameReq);
 		logger.debug(fTest.getAbsolutePath());
 		String inRaw = StringIO.loadTxt(fTest);
-		SignedRequest reqTest = srf.decode(inRaw);
+		SignedRequest actual = srf.decode(inRaw);
 		if(saveReference)
 		{
-			JaxbUtil.save(fRef, reqTest, true);
+			JaxbUtil.save(fRef, actual, true);
 		}
 		else
 		{
-			SignedRequest reqRef = (SignedRequest)JaxbUtil.loadJAXB(fRef.getAbsolutePath(), SignedRequest.class);
-			Assert.assertEquals(JaxbUtil.toString(reqRef),JaxbUtil.toString(reqTest));
+			SignedRequest expected = JaxbUtil.loadJAXB(fRef.getAbsolutePath(), SignedRequest.class);
+			assertJaxbEquals(expected,actual);
+			
 		}	
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException
     {
-		LoggerInit loggerInit = new LoggerInit("log4j.xml");	
-			loggerInit.addAltPath("src/test/resources/config");
-			loggerInit.init();	
-		JaxbUtil.setNsPrefixMapper(new AhtUtilsNsPrefixMapper());
-			
+		AhtUtilsTstBootstrap.init();
+		TestSignedRequestFactory.initStatic();	
+		
 		boolean saveReference = true;
 		int id = -1;
 		int index = 0;

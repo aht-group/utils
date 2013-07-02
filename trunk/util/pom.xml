@@ -11,7 +11,7 @@
 	
     <artifactId>ahtutils-util</artifactId>
     <packaging>jar</packaging>
-    <name>AHT-Utils - Util</name>
+    <name>UTILS - Util</name>
 	
 	<build>
 		<plugins>
@@ -157,11 +157,18 @@
 			<scope>compile</scope>
 		</dependency>
 		
+		<!-- Logging -->
 	 	<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+    		<groupId>org.slf4j</groupId>
+    		<artifactId>slf4j-log4j12</artifactId>
+    		<scope>test</scope>
+    	</dependency>
+		
 	 	<dependency>
 	 		<groupId>org.openfuxml</groupId>
 	 		<artifactId>ofx-core</artifactId>

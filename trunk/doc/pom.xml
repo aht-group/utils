@@ -10,7 +10,7 @@
 
     <artifactId>ahtutils-doc</artifactId>
     <packaging>jar</packaging>
-    <name>AHT-Utils - Documentation</name>
+    <name>UTILS - Documentation</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

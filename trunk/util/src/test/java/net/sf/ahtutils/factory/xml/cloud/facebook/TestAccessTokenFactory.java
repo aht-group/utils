@@ -1,9 +1,10 @@
-package net.sf.ahtutils.controller.factory.xml.cloud.facebook;
+package net.sf.ahtutils.factory.xml.cloud.facebook;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Collection;
 
+import net.sf.ahtutils.controller.factory.xml.cloud.facebook.AccessTokenFactory;
 import net.sf.ahtutils.test.AbstractFileProcessingTest;
 import net.sf.ahtutils.xml.AhtUtilsNsPrefixMapper;
 import net.sf.ahtutils.xml.cloud.facebook.Token;

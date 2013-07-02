@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mo:dataSet xmlns:mo="http://ahtutils.aht-group.com/monitoring" id="123" code="myCode" label="myLabel">
+    <mo:indicator id="123" code="myCode" label="myLabel"/>
+    <mo:data id="123"/>
+    <mo:data id="123"/>
+</mo:dataSet>

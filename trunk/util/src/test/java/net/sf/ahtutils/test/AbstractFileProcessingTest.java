@@ -10,7 +10,7 @@ import org.junit.BeforeClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractFileProcessingTest
+public abstract class AbstractFileProcessingTest extends AbstractAhtUtilsXmlTest
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractFileProcessingTest.class);
 	
@@ -21,7 +21,7 @@ public abstract class AbstractFileProcessingTest
     public static void initLogger()
 	{
 		LoggerInit loggerInit = new LoggerInit("log4junit.xml");	
-		loggerInit.addAltPath("src/test/resources/config");
+		loggerInit.addAltPath("src/test/resources/config.ahtutils-util.test");
 		loggerInit.init();
     }
 	

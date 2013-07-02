@@ -11,7 +11,7 @@
 	
     <artifactId>ahtutils-report</artifactId>
     <packaging>jar</packaging>
-    <name>AHT-Utils - Report</name>
+    <name>UTILS - Report</name>
 	
 	<dependencyManagement>
 		<dependencies>      	         

@@ -11,7 +11,7 @@
 	
     <artifactId>ahtutils-xml</artifactId>
     <packaging>jar</packaging>
-    <name>AHT-Utils - XML</name>
+    <name>UTILS - XML</name>
     
 	<build>
 		<plugins>

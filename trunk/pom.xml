@@ -13,7 +13,7 @@
 	<groupId>net.sf.ahtutils</groupId>
 	<artifactId>ahtutils</artifactId>
     <packaging>pom</packaging>
-    <name>AHT-Utils</name>
+    <name>UTILS (AHT Utils)</name>
 	<url>http://sourceforge.net/projects/ahtutils</url>
 	<description>Utilities and Helper for JavaEE Developments</description>
 

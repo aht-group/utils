@@ -25,7 +25,7 @@ public class TestXmlTransmission extends AbstractXmlMonitoringTest
     @Test
     public void xml() throws FileNotFoundException
     {
-    	Transmission actual = create(false);
+    	Transmission actual = create(true);
     	Transmission expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Transmission.class);
     	assertJaxbEquals(expected, actual);
     }  
@@ -37,18 +37,18 @@ public class TestXmlTransmission extends AbstractXmlMonitoringTest
     	if(withChilds)
     	{
     		xml.setUser(new User());
+    		xml.getComponent().add(TestXmlComponent.create(false));xml.getComponent().add(TestXmlComponent.create(false));
     	}
     	
     	return xml;
     }
     
-    public void save() {save(create(false),fXml);}
+    public void save() {save(create(true),fXml);}
 	
 	public static void main(String[] args)
     {
 		UtilsXmlTstBootstrap.init();
-			
-		TestXmlTransmission.initPrefixMapper();
+
 		TestXmlTransmission.initFiles();	
 		TestXmlTransmission test = new TestXmlTransmission();
 		test.save();

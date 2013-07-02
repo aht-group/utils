@@ -10,7 +10,7 @@
 
     <artifactId>ahtutils-interfaces</artifactId>
     <packaging>jar</packaging>
-    <name>AHT-Utils - Interfaces</name>
+    <name>UTILS - Interfaces</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

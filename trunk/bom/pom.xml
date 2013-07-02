@@ -10,7 +10,7 @@
     
     <artifactId>ahtutils-bom</artifactId>
     <packaging>pom</packaging>
-    <name>AHT-Utils - BOM</name>
+    <name>UTILS - BOM</name>
 
     <dependencyManagement>
         <dependencies>
@@ -90,6 +90,11 @@
         	<dependency>
         		<groupId>net.sf.ahtutils</groupId>
         		<artifactId>ahtutils-prototype</artifactId>
+        		<version>${project.version}</version>
+        	</dependency>
+        	<dependency>
+        		<groupId>net.sf.ahtutils</groupId>
+        		<artifactId>ahtutils-monitor</artifactId>
         		<version>${project.version}</version>
         	</dependency>
 		    

@@ -10,7 +10,7 @@
 	</parent>
 	
     <artifactId>ahtutils-jsf</artifactId>
-    <name>AHT Utils - JSF</name>
+    <name>UTILS - JSF</name>
 	<packaging>jar</packaging>
 	
 	<dependencyManagement>

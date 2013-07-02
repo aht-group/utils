@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
-import net.sf.ahtutils.xml.mail.AbstractXmlMailTest;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;

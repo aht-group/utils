@@ -30,6 +30,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Indicator }
+     * 
+     */
+    public Indicator createIndicator() {
+        return new Indicator();
+    }
+
+    /**
      * Create an instance of {@link Monitoring }
      * 
      */
@@ -38,11 +46,51 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Component }
+     * 
+     */
+    public Component createComponent() {
+        return new Component();
+    }
+
+    /**
+     * Create an instance of {@link ProcessingResult }
+     * 
+     */
+    public ProcessingResult createProcessingResult() {
+        return new ProcessingResult();
+    }
+
+    /**
+     * Create an instance of {@link Value }
+     * 
+     */
+    public Value createValue() {
+        return new Value();
+    }
+
+    /**
+     * Create an instance of {@link Data }
+     * 
+     */
+    public Data createData() {
+        return new Data();
+    }
+
+    /**
      * Create an instance of {@link Transmission }
      * 
      */
     public Transmission createTransmission() {
         return new Transmission();
+    }
+
+    /**
+     * Create an instance of {@link DataSet }
+     * 
+     */
+    public DataSet createDataSet() {
+        return new DataSet();
     }
 
 }
