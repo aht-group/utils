@@ -1,6 +1,6 @@
 package net.sf.ahtutils.model.interfaces.link;
 
-import net.sf.ahtutils.model.interfaces.date.EjbWithValidUntil;
+import net.sf.ahtutils.interfaces.model.date.EjbWithValidUntil;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;

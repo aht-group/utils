@@ -21,7 +21,7 @@ public class CliMonitoringRest
 		UtilsMonitorTestBootstrap.init();
 		
 		 ResteasyClient client = new ResteasyClientBuilder().build();
-         ResteasyWebTarget target = client.target("http://localhost:8080/erp");
+         ResteasyWebTarget target = client.target("http://localhost:8080/lis");
 
          UtilsMonitoringRest rest = target.proxy(UtilsMonitoringRest.class);
          ProcessingResult result = rest.upload(new Transmission());

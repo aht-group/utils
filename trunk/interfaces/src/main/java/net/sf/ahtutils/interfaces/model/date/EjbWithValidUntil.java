@@ -1,4 +1,4 @@
-package net.sf.ahtutils.model.interfaces.date;
+package net.sf.ahtutils.interfaces.model.date;
 
 import java.util.Date;
 
