@@ -2,7 +2,9 @@ package net.sf.ahtutils.monitor;
 
 import net.sf.ahtutils.interfaces.rest.UtilsMonitoringRest;
 import net.sf.ahtutils.test.UtilsMonitorTestBootstrap;
+import net.sf.ahtutils.xml.monitoring.ProcessingResult;
 import net.sf.ahtutils.xml.monitoring.Transmission;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
@@ -19,10 +21,10 @@ public class CliMonitoringRest
 		UtilsMonitorTestBootstrap.init();
 		
 		 ResteasyClient client = new ResteasyClientBuilder().build();
-         ResteasyWebTarget target = client.target("http://example.com/base/uri");
+         ResteasyWebTarget target = client.target("http://localhost:8080/erp");
 
-         UtilsMonitoringRest simple = target.proxy(UtilsMonitoringRest.class);
-         simple.upload(new Transmission());
-
+         UtilsMonitoringRest rest = target.proxy(UtilsMonitoringRest.class);
+         ProcessingResult result = rest.upload(new Transmission());
+         JaxbUtil.info(result);
 	  }
 }

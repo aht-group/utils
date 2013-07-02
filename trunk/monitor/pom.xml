@@ -26,10 +26,6 @@
 	</dependencyManagement>
 	
 	<dependencies>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-		</dependency>
 		
 		<!-- Utils -->
    		<dependency>
@@ -46,6 +42,21 @@
         	<groupId>net.sf.ahtutils</groupId>
         	<artifactId>ahtutils-xml</artifactId>
         	<type>jar</type>
+        </dependency>
+        
+        <!-- Logging -->
+        <dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+        <dependency>
+        	<groupId>org.slf4j</groupId>
+        	<artifactId>slf4j-log4j12</artifactId>
+        	<scope>test</scope>
+        </dependency>
+        <dependency>
+        	<groupId>org.slf4j</groupId>
+        	<artifactId>jcl-over-slf4j</artifactId>
         </dependency>
    		
    		<!-- Hibernate -->
@@ -108,11 +119,8 @@
         	<artifactId>junit</artifactId>
         	<scope>test</scope>
         </dependency>
-        <dependency>
-        	<groupId>org.slf4j</groupId>
-        	<artifactId>slf4j-log4j12</artifactId>
-        	<scope>test</scope>
-        </dependency>
+        
+        
 	</dependencies>
    
 </project>
