@@ -10,7 +10,7 @@ import net.sf.ahtutils.bootstrap.UtilsMonitorBootstrap;
 import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.controller.interfaces.UtilsFacade;
 import net.sf.ahtutils.monitor.controller.MonitoringTask;
-import net.sf.ahtutils.monitor.task.net.dns.DnsResult;
+import net.sf.ahtutils.monitor.result.net.DnsResult;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

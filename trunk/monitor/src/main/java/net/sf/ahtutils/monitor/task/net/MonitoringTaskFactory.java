@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.concurrent.CompletionService;
 
-import net.sf.ahtutils.monitor.factory.MonitoringTask;
+import net.sf.ahtutils.monitor.controller.MonitoringTask;
 import net.sf.ahtutils.monitor.result.net.DnsResult;
 import net.sf.ahtutils.monitor.result.net.IcmpResult;
 
