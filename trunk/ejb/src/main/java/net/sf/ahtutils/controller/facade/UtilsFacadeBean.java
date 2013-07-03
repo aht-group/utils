@@ -712,6 +712,25 @@ public class UtilsFacadeBean implements UtilsFacade
 		TypedQuery<T> q = em.createQuery(select);
 		return q.getResultList();
 	}
+	
+	@Override public <T extends EjbWithRecord> T fFirst(Class<T> clRecord){return fSingle(clRecord,true);}
+	@Override public <T extends EjbWithRecord> T fLast(Class<T> clRecord){return fSingle(clRecord,false);}
+	private <T extends EjbWithRecord> T fSingle(Class<T> clRecord, boolean first)
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<T> cQ = cB.createQuery(clRecord);
+		Root<T> root = cQ.from(clRecord);
+		
+		Expression<Date> dRecord = root.get("record");
+		
+		CriteriaQuery<T> select = cQ.select(root);
+		if(first){select.orderBy(cB.asc(dRecord));}
+		else{select.orderBy(cB.desc(dRecord));}
+		
+		TypedQuery<T> q = em.createQuery(select);
+		q.setMaxResults(1);
+		return q.getSingleResult();
+	}
 
 	@Override
 	public <T extends EjbWithTimeline> List<T> between(Class<T> clTimeline, Date from, Date to)

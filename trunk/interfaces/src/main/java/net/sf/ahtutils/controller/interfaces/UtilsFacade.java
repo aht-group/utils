@@ -66,6 +66,8 @@ public interface UtilsFacade
 	
 	//Record
 	<T extends EjbWithRecord> List<T> inInterval(Class<T> clRecord, Date from, Date to);
+	<T extends EjbWithRecord> T fFirst(Class<T> clRecord);
+	<T extends EjbWithRecord> T fLast(Class<T> clRecord);
 	
 	//Timeline
 	<T extends EjbWithTimeline> List<T> between(Class<T> clTracker, Date from, Date to);

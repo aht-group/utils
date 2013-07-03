@@ -266,4 +266,16 @@ public class AbstractDummyFacade implements UtilsFacade
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public <T extends EjbWithRecord> T fFirst(Class<T> clRecord) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T extends EjbWithRecord> T fLast(Class<T> clRecord) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

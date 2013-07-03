@@ -55,6 +55,7 @@ public class AbstractUtilsFacadeBean
 
 	//Record
 	public <T extends EjbWithRecord> List<T> inInterval(Class<T> clRecord, Date from, Date to) {return fUtils.inInterval(clRecord, from, to);}
+	public <T extends EjbWithRecord> T fFirst(Class<T> clRecord) {return fUtils.fFirst(clRecord);}
 	
 	//Timeline
 	public <T extends EjbWithTimeline> List<T> between(Class<T> clTimeline, Date from, Date to) {return fUtils.between(clTimeline, from, to);}

@@ -44,9 +44,10 @@ public class DnsResult implements Serializable,EjbWithId,EjbWithRecord
 	public String toString()
 	{
 		StringBuffer sb = new StringBuffer();
-		sb.append(" ").append(code.toString());
-		sb.append(" ").append(record);
+		sb.append("[").append(id).append("]");
 		sb.append(" ").append(duration);
+		sb.append(" ").append(record);
+		sb.append(" ").append(code.toString());
 		return sb.toString();
 	}
 }
