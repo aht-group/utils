@@ -5,6 +5,7 @@ body
 	font-family: "Arial", Verdana, Helvetica, sans-serif;
 	font-size: 12px;
 	padding: 10px 0;
+	background: #DDD url("#{resource['aupGfx:background.jpg']}") repeat fixed;
 }
 
 a { color: #D82B00; text-decoration: none; }
@@ -92,7 +93,6 @@ a:hover { color: #333; text-decoration: none; }
 {
 	width: 100%x;
 	line-height: 22px;
-	background: url("../images/bg-maincont.png") repeat-y;
 	padding: 5px 10px 0;
 }
 	
