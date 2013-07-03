@@ -13,7 +13,7 @@ import net.sf.ahtutils.xml.navigation.MenuItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AbstractMenuBean implements Serializable
+public abstract class AbstractMenuBean implements Serializable
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractMenuBean.class);
 	private static final long serialVersionUID = 1L;
@@ -47,22 +47,11 @@ public class AbstractMenuBean implements Serializable
 		
 	// ******************************************
 	// Menu
-	public Menu menu(MenuFactory mf, String code)
+	protected Menu menu(MenuFactory mf, String code) {return menu(mf,code,false);}
+	protected Menu menu(MenuFactory mf, String code, boolean loggedIn)
 	{
 		buildViewAllowedMap();
-		synchronized(mf)
-		{
-			if(!mapMenu.containsKey(code))
-			{
-				mapMenu.put(code, mf.build(code));
-			}
-			return mapMenu.get(code);
-		}
-	}
-	public Menu menu(MenuFactory mf, String code, boolean loggedIn)
-	{
-		buildViewAllowedMap();
-		if(code.length()==0){code=rootMain;}
+		if(code==null || code.length()==0){code=rootMain;}
 		if(!mapMenu.containsKey(code))
 		{
 			synchronized(mf)

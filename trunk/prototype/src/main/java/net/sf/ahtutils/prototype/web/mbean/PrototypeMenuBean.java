@@ -21,9 +21,6 @@ public class PrototypeMenuBean extends AbstractMenuBean implements Serializable
 	final static Logger logger = LoggerFactory.getLogger(PrototypeMenuBean.class);
 	private static final long serialVersionUID = 1L;
 	
-//	@Inject private Identity identity;
-//	@Inject private String localeCode;
-
 	protected Menu menu;
 	protected MenuFactory mfMain;
 	
@@ -41,14 +38,14 @@ public class PrototypeMenuBean extends AbstractMenuBean implements Serializable
 			logger.info("main.root="+rootMain);
 		}
 
-		mfMain = new MenuFactory(xmlMenuMain,xmlAccess,"en",rootMain);
+		mfMain = new MenuFactory(xmlMenuMain,xmlAccess,getLang(),rootMain);
 		mfMain.setAlwaysUpToLevel(99);
     }
 	
-	@Override protected void buildViewAllowedMap() {}
+	protected String getLang(){return "en";}
 	
 	public Menu build() {return super.menu(mfMain, rootMain);}
-	public Menu build(String code) {return super.menu(mfMain, code);}
+	public Menu build(String code){return super.menu(mfMain, code);}
 	public List<MenuItem> breadcrumb(String code){return super.breadcrumb(mfMain, code);}
 	public MenuItem sub(String code){return super.sub(mfMain, code);}
 }
