@@ -1,4 +1,4 @@
-package net.sf.ahtutils.monitor.controller;
+package net.sf.ahtutils.monitor.factory;
 
 import java.util.Date;
 import java.util.Timer;
@@ -6,6 +6,7 @@ import java.util.concurrent.CompletionService;
 
 import net.sf.ahtutils.monitor.result.net.DnsResult;
 import net.sf.ahtutils.monitor.result.net.IcmpResult;
+import net.sf.ahtutils.monitor.task.MonitoringTask;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

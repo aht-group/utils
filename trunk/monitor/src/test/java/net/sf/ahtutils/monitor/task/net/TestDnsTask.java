@@ -1,4 +1,4 @@
-package net.sf.ahtutils.monitor.task.net.dns;
+package net.sf.ahtutils.monitor.task.net;
 
 import net.sf.ahtutils.monitor.result.net.DnsResult;
 import net.sf.ahtutils.monitor.task.net.DnsTask;

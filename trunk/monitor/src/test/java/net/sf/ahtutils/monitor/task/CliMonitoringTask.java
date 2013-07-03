@@ -1,9 +1,10 @@
-package net.sf.ahtutils.monitor.controller;
+package net.sf.ahtutils.monitor.task;
 
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import net.sf.ahtutils.monitor.task.MonitoringTask;
 import net.sf.ahtutils.test.UtilsMonitorTestBootstrap;
 
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package net.sf.ahtutils.monitor.task.net.icmp;
+package net.sf.ahtutils.monitor.task.net;
 
 import net.sf.ahtutils.monitor.result.net.IcmpResult;
 import net.sf.ahtutils.monitor.task.net.IcmpTask;

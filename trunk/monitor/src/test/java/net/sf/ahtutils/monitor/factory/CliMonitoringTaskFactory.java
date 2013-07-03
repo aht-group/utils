@@ -1,6 +1,6 @@
-package net.sf.ahtutils.monitor.controller;
+package net.sf.ahtutils.monitor.factory;
 
-import net.sf.ahtutils.monitor.task.net.MonitoringTaskFactory;
+import net.sf.ahtutils.monitor.factory.MonitoringTaskFactory;
 import net.sf.ahtutils.test.UtilsMonitorTestBootstrap;
 
 import org.slf4j.Logger;

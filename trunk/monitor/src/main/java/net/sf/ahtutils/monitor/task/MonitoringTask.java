@@ -1,4 +1,4 @@
-package net.sf.ahtutils.monitor.controller;
+package net.sf.ahtutils.monitor.task;
 
 import java.util.TimerTask;
 import java.util.concurrent.CompletionService;

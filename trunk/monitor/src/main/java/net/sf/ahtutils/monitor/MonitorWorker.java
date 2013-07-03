@@ -11,12 +11,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 import net.sf.ahtutils.bootstrap.UtilsMonitorBootstrap;
-import net.sf.ahtutils.monitor.controller.MonitoringTask;
-import net.sf.ahtutils.monitor.controller.MonitoringTaskFactory;
+import net.sf.ahtutils.monitor.factory.MonitoringTaskFactory;
 import net.sf.ahtutils.monitor.processor.net.DnsResultProcessor;
 import net.sf.ahtutils.monitor.processor.net.IcmpResultProcessor;
 import net.sf.ahtutils.monitor.result.net.DnsResult;
 import net.sf.ahtutils.monitor.result.net.IcmpResult;
+import net.sf.ahtutils.monitor.task.MonitoringTask;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
