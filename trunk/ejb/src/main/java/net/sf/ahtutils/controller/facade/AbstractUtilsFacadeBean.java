@@ -18,7 +18,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AbstractUtilsFacadeBean
+public class AbstractUtilsFacadeBean //implements UtilsFacade
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractUtilsFacadeBean.class);
 	
@@ -27,6 +27,9 @@ public class AbstractUtilsFacadeBean
 	// All
 	public <T extends Object> List<T> all(Class<T> type) {return fUtils.all(type);}
 	public <T extends EjbWithType> List<T> allForType(Class<T> cl, String type) {return fUtils.allForType(cl, type);}
+	
+	// Parent
+	public <T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> type, String p1Name, I p1){return fUtils.allForParent(type, p1Name, p1);}
 	
 	// Persist
 	public <T extends EjbWithId> T save(T o) throws UtilsContraintViolationException,UtilsLockingException {return fUtils.save(o);}
@@ -56,6 +59,7 @@ public class AbstractUtilsFacadeBean
 	//Record
 	public <T extends EjbWithRecord> List<T> inInterval(Class<T> clRecord, Date from, Date to) {return fUtils.inInterval(clRecord, from, to);}
 	public <T extends EjbWithRecord> T fFirst(Class<T> clRecord) {return fUtils.fFirst(clRecord);}
+	public <T extends EjbWithRecord> T fLast(Class<T> clRecord) {return fUtils.fLast(clRecord);}
 	
 	//Timeline
 	public <T extends EjbWithTimeline> List<T> between(Class<T> clTimeline, Date from, Date to) {return fUtils.between(clTimeline, from, to);}

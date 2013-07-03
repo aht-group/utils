@@ -7,7 +7,7 @@ import javax.persistence.EntityManagerFactory;
 
 import net.sf.ahtutils.bootstrap.UtilsMonitorBootstrap;
 import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
-import net.sf.ahtutils.controller.interfaces.UtilsFacade;
+import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.monitor.result.net.DnsResult;
 import net.sf.ahtutils.monitor.result.net.IcmpResult;
 import net.sf.ahtutils.monitor.task.MonitoringTask;

@@ -1,4 +1,4 @@
-package net.sf.ahtutils.controller.interfaces;
+package net.sf.ahtutils.interfaces.facade;
 
 import java.util.Date;
 import java.util.List;

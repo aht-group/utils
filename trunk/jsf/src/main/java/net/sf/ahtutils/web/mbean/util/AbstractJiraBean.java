@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.Hashtable;
 import java.util.Map;
 
-import net.sf.ahtutils.controller.interfaces.UtilsFacade;
 import net.sf.ahtutils.controller.interfaces.mbean.JiraConfig;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.UtilsProperty;
 
 import org.slf4j.Logger;
