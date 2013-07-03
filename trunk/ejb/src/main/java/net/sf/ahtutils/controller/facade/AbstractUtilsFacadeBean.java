@@ -11,6 +11,7 @@ import net.sf.ahtutils.model.interfaces.UtilsProperty;
 import net.sf.ahtutils.model.interfaces.with.EjbWithCode;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithName;
+import net.sf.ahtutils.model.interfaces.with.EjbWithNr;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 import net.sf.ahtutils.model.interfaces.with.EjbWithTimeline;
 import net.sf.ahtutils.model.interfaces.with.EjbWithType;
@@ -32,6 +33,7 @@ public class AbstractUtilsFacadeBean //implements UtilsFacade
 	public <T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> type, String p1Name, I p1Object){return fUtils.allForParent(type, p1Name, p1Object);}
 	public <T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> type, String p1Name, I p1, String p2Name, I p2){return fUtils.allForParent(type, p1Name, p1, p2Name, p2);}
 	public <T extends EjbWithId, I extends EjbWithId> T oneForParent(Class<T> cl, String p1Name, I p1) throws UtilsNotFoundException {return fUtils.oneForParent(cl, p1Name, p1);}
+	public <T extends EjbWithNr, P extends EjbWithId> T fByNr(Class<T> type, String parentName, P parent, int nr) throws UtilsNotFoundException {return fUtils.fByNr(type, parentName, parent, nr);}
 	
 	// Persist
 	public <T extends EjbWithId> T save(T o) throws UtilsContraintViolationException,UtilsLockingException {return fUtils.save(o);}
@@ -45,6 +47,7 @@ public class AbstractUtilsFacadeBean //implements UtilsFacade
 	public <T extends EjbWithName> T fByName(Class<T> type, String name) throws UtilsNotFoundException {return fUtils.fByName(type, name);}
 	
 	// Ordering
+	public <T extends Object> List<T> allOrdered(Class<T> cl, String by, boolean ascending) {return fUtils.allOrdered(cl, by, ascending);}
 	public <T extends EjbWithRecord, I extends EjbWithId> List<T> allOrderedParentRecordBetween(Class<T> cl, String by, boolean ascending, String p1Name, I p1,Date from, Date to) {return fUtils.allOrderedParentRecordBetween(cl, by, ascending, p1Name, p1, from, to);}
 
 	// Parent
