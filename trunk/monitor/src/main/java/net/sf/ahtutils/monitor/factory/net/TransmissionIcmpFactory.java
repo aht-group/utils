@@ -32,7 +32,7 @@ public class TransmissionIcmpFactory extends AbstractTransmissionFactory
 	{
 		DataSet ds = new DataSet();
 		
-		for(IcmpResult icmp : ufb.all(IcmpResult.class))
+		for(IcmpResult icmp : fUm.all(IcmpResult.class))
         {
         	ds.getData().add(buildData(icmp));
         }
