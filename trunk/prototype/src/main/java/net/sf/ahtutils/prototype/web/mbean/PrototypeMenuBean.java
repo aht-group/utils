@@ -27,7 +27,7 @@ public class PrototypeMenuBean extends AbstractMenuBean implements Serializable
 	@PostConstruct
     public void init() throws FileNotFoundException
     {
-		logger.info("@PostConstruct");
+		logger.debug("@PostConstruct");
 		super.initMaps();
 		
 		Access xmlAccess = JaxbUtil.loadJAXB(this.getClass().getClassLoader(),"/views.xml", Access.class);
@@ -41,6 +41,8 @@ public class PrototypeMenuBean extends AbstractMenuBean implements Serializable
 		mfMain = new MenuFactory(xmlMenuMain,xmlAccess,getLang(),rootMain);
 		mfMain.setAlwaysUpToLevel(99);
     }
+	
+	@Override protected void buildViewAllowedMap() {}
 	
 	protected String getLang(){return "en";}
 	

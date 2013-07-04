@@ -1,6 +1,6 @@
 package net.sf.ahtutils.monitor;
 
-import net.sf.ahtutils.monitor.AnalysisTransmission;
+import net.sf.ahtutils.monitor.IndicatorWorker;
 import net.sf.ahtutils.test.UtilsMonitorTestBootstrap;
 
 import org.slf4j.Logger;
@@ -14,7 +14,7 @@ public class CliAnalysisApp
 	{
 		UtilsMonitorTestBootstrap.init();
 		
-	    new AnalysisTransmission();
+	    new IndicatorWorker();
 
 	  }
 }

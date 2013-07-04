@@ -66,6 +66,5 @@ public class MonitorWorker implements Runnable
 		threads.add(new Thread(mtf));
 		threads.add(new Thread(new DnsResultProcessor(emf.createEntityManager(),csDns)));
 		threads.add(new Thread(new IcmpResultProcessor(emf.createEntityManager(),csIcmp)));
-       
 	}
 }

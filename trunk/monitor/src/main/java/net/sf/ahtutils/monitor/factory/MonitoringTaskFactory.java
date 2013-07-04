@@ -17,12 +17,10 @@ public class MonitoringTaskFactory implements Runnable
 
 	private CompletionService<DnsResult> csDns;
 	private CompletionService<IcmpResult> csIcmp;
-
-	private boolean active;
 	
     public MonitoringTaskFactory()
     {
-  	    active=true;
+
     }
 
 	@Override

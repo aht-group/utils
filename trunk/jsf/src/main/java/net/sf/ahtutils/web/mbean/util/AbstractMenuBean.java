@@ -42,7 +42,7 @@ public abstract class AbstractMenuBean implements Serializable
 	
 	protected void buildViewAllowedMap()
 	{
-		logger.error("This should never been called here. A @Override in extended class is required");
+		logger.warn("This should never been called here. A @Override in extended class is required");
 	}
 		
 	// ******************************************
