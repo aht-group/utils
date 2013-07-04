@@ -13,7 +13,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 import net.sf.ahtutils.monitor.DbCleaner;
 import net.sf.ahtutils.monitor.RestTransmission;
 import net.sf.ahtutils.monitor.factory.TransmissionFactory;
-import net.sf.ahtutils.monitor.factory.net.TransmissionIcmpFactory;
+import net.sf.ahtutils.monitor.factory.net.TxIcmpFactory;
 import net.sf.ahtutils.monitor.result.net.IcmpResult;
 import net.sf.ahtutils.monitor.util.IntervalHelper;
 import net.sf.ahtutils.xml.monitoring.Indicator;
@@ -35,7 +35,7 @@ public class AnalysisTask  implements Runnable
 	private EntityManager em;
 	private UtilsMonitoringFacade fUm;
 	
-	private TransmissionIcmpFactory fIcmp;
+	private TxIcmpFactory fIcmp;
 	private List<Indicator> listIndicators;
 	private DbCleaner dbCleaner;
 	
@@ -48,7 +48,7 @@ public class AnalysisTask  implements Runnable
 		
 		dbCleaner = new DbCleaner(em);
 		listIndicators = new ArrayList<Indicator>();
-		fIcmp = new TransmissionIcmpFactory(fUm,dbCleaner);
+		fIcmp = new TxIcmpFactory(fUm,dbCleaner);
 	}
 	
 	public void run()
@@ -105,8 +105,9 @@ public class AnalysisTask  implements Runnable
 		logger.info("last-floor:   "+floorLast);
 		
 		Duration tripleRange = range;
-		tripleRange = tripleRange.plus(range);
-		tripleRange = tripleRange.plus(range);
+		logger.warn("Range needs to be tripled");
+//		tripleRange = tripleRange.plus(range);
+//		tripleRange = tripleRange.plus(range);
 		
 		if(d.isLongerThan(tripleRange))
 		{

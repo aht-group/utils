@@ -31,7 +31,6 @@ public class MonitorWorker implements Runnable
 	public MonitorWorker()
 	{
     	emf = UtilsMonitorBootstrap.buildEmf(true);
-        EntityManager em = emf.createEntityManager();
     
         threads = new ArrayList<Thread>();
         initTasks();

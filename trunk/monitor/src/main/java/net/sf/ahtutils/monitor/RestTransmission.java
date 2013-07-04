@@ -18,6 +18,6 @@ public class RestTransmission
 	
 	public void send(Transmission transmission)
 	{
-//		JaxbUtil.info(transmission);
+		JaxbUtil.info(transmission);
 	}
 }

@@ -28,7 +28,7 @@ public class TestDnsTask
 	{
 		UtilsMonitorTestBootstrap.init();
 		
-		DnsTask dnsTask = new DnsTask("8.8.8.8","www.google.com");
+		DnsTask dnsTask = new DnsTask("192.168.1.11","www.heise.de");
 		DnsResult dnsResult = dnsTask.call();
 		
 		logger.info(dnsResult.toString());

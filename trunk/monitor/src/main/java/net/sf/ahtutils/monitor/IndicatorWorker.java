@@ -30,14 +30,6 @@ public class IndicatorWorker
         logger.info("First is "+ufb.fFirst(IcmpResult.class).toString());
         logger.info("Last is "+ufb.fLast(IcmpResult.class).toString());
         
-        List<IcmpResult> list = ufb.all(IcmpResult.class);
-        logger.debug("Size: "+list.size());
-        
-        for(IcmpResult item : list)
-        {
-        	logger.debug(item.toString());
-        }
-        
         Duration range = Duration.standardHours(1);
         Duration sleep = Duration.standardSeconds(30);
         
