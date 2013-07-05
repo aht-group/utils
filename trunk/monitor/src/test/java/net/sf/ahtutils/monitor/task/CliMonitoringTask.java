@@ -18,7 +18,7 @@ public class CliMonitoringTask
 	{
 		UtilsMonitorTestBootstrap.init();
 		
-	    TimerTask fetchMail  = new MonitoringTask(1);
+	    TimerTask fetchMail  = new MonitoringTask();
 
 	    Timer timer = new Timer();
 	    timer.scheduleAtFixedRate(fetchMail, new Date(), 1000);

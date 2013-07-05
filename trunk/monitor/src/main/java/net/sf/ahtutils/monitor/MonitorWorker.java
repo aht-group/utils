@@ -7,7 +7,6 @@ import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 import net.sf.ahtutils.bootstrap.UtilsMonitorBootstrap;
@@ -15,7 +14,7 @@ import net.sf.ahtutils.monitor.factory.MonitoringTaskFactory;
 import net.sf.ahtutils.monitor.processor.net.DnsResultProcessor;
 import net.sf.ahtutils.monitor.processor.net.IcmpResultProcessor;
 import net.sf.ahtutils.monitor.result.net.DnsResult;
-import net.sf.ahtutils.monitor.result.net.IcmpResult;
+import net.sf.ahtutils.monitor.result.net.IcmpResults;
 import net.sf.ahtutils.monitor.task.MonitoringTask;
 
 import org.slf4j.Logger;
@@ -55,7 +54,7 @@ public class MonitorWorker implements Runnable
 	{
 		ExecutorService taskExecutor = Executors.newFixedThreadPool(100);
         CompletionService<DnsResult> csDns = new ExecutorCompletionService<DnsResult>(taskExecutor);
-        CompletionService<IcmpResult> csIcmp = new ExecutorCompletionService<IcmpResult>(taskExecutor);
+        CompletionService<IcmpResults> csIcmp = new ExecutorCompletionService<IcmpResults>(taskExecutor);
         
         logger.debug("Creating "+MonitoringTaskFactory.class.getSimpleName());
         MonitoringTaskFactory mtf = new MonitoringTaskFactory();

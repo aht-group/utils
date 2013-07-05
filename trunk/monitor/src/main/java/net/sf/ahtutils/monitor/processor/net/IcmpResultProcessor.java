@@ -7,6 +7,7 @@ import java.util.concurrent.Future;
 import javax.persistence.EntityManager;
 
 import net.sf.ahtutils.monitor.result.net.IcmpResult;
+import net.sf.ahtutils.monitor.result.net.IcmpResults;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,9 +17,9 @@ public class IcmpResultProcessor implements Runnable
 	final static Logger logger = LoggerFactory.getLogger(IcmpResultProcessor.class);
 
 	private EntityManager em;
-	private CompletionService<IcmpResult> csIcmp;
+	private CompletionService<IcmpResults> csIcmp;
 	
-    public IcmpResultProcessor(EntityManager em, CompletionService<IcmpResult> csIcmp)
+    public IcmpResultProcessor(EntityManager em, CompletionService<IcmpResults> csIcmp)
     {
   	    this.em=em;
   	    this.csIcmp=csIcmp;
@@ -31,11 +32,14 @@ public class IcmpResultProcessor implements Runnable
         {
             try
             {
-                Future<IcmpResult> future = csIcmp.take();
-                IcmpResult result = future.get();
+                Future<IcmpResults> future = csIcmp.take();
+                IcmpResults results = future.get();
                 
                 em.getTransaction().begin();
-                em.persist(result);
+                for(IcmpResult result : results.getList())
+                {
+                	em.persist(result);
+                }
                 em.getTransaction().commit();
             }
             catch (InterruptedException e) {e.printStackTrace();}

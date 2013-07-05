@@ -5,7 +5,7 @@ import java.util.Timer;
 import java.util.concurrent.CompletionService;
 
 import net.sf.ahtutils.monitor.result.net.DnsResult;
-import net.sf.ahtutils.monitor.result.net.IcmpResult;
+import net.sf.ahtutils.monitor.result.net.IcmpResults;
 import net.sf.ahtutils.monitor.task.MonitoringTask;
 
 import org.slf4j.Logger;
@@ -16,7 +16,7 @@ public class MonitoringTaskFactory implements Runnable
 	final static Logger logger = LoggerFactory.getLogger(MonitoringTaskFactory.class);
 
 	private CompletionService<DnsResult> csDns;
-	private CompletionService<IcmpResult> csIcmp;
+	private CompletionService<IcmpResults> csIcmp;
 	
     public MonitoringTaskFactory()
     {
@@ -26,7 +26,7 @@ public class MonitoringTaskFactory implements Runnable
 	@Override
 	public void run()
 	{
-        MonitoringTask monitoringTask  = new MonitoringTask(1);
+        MonitoringTask monitoringTask  = new MonitoringTask();
     	monitoringTask.setCsDns(csDns);
     	monitoringTask.setCsIcmp(csIcmp);
 
@@ -42,5 +42,5 @@ public class MonitoringTaskFactory implements Runnable
 	}
 	
 	public void setCsDns(CompletionService<DnsResult> csDns) {this.csDns = csDns;}
-	public void setCsIcmp(CompletionService<IcmpResult> csIcmp) {this.csIcmp = csIcmp;}
+	public void setCsIcmp(CompletionService<IcmpResults> csIcmp) {this.csIcmp = csIcmp;}
 }
