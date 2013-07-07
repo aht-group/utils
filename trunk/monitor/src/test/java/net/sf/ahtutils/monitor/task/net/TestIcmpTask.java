@@ -29,16 +29,11 @@ public class TestIcmpTask
 	{
 		UtilsMonitorTestBootstrap.init();
 		
-		logger.info("60" + 0%60);
-		
-		for(int i=0;i<5;i++)
+		IcmpTask task = new IcmpTask("192.168.1.11");
+		IcmpResults results = task.call();
+		for(IcmpResult result : results.getList())
 		{
-			IcmpTask task = new IcmpTask("www.google.com");
-			IcmpResults results = task.call();
-			for(IcmpResult result : results.getList())
-			{
-				logger.info(result.toString());
-			}
+			logger.info(result.toString());
 		}
 	}
 }

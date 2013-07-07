@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import net.sf.ahtutils.monitor.result.net.IcmpResult;
 import net.sf.ahtutils.monitor.result.net.IcmpResults;
 import net.sf.exlp.core.handler.EhList;
 import net.sf.exlp.interfaces.LogEvent;
@@ -13,7 +14,7 @@ import net.sf.exlp.interfaces.LogEventHandler;
 import net.sf.exlp.shell.spawn.ping.IcmpPing;
 import net.sf.exlp.shell.spawn.ping.PingEvent;
 
-import org.joda.time.DateTime;
+import org.joda.time.MutableDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +32,7 @@ public class IcmpTask implements Callable<IcmpResults>
 	@Override
 	public IcmpResults call()
 	{
-		DateTime dt = new DateTime();
+		MutableDateTime mdt = new MutableDateTime();
 		
 		IcmpResults results = new IcmpResults();
 		
@@ -41,13 +42,19 @@ public class IcmpTask implements Callable<IcmpResults>
 			iaHost = getAddress();
 			List<LogEvent> list = new ArrayList<LogEvent>();
 			LogEventHandler leh = new EhList(list);
-			IcmpPing ping = new IcmpPing(iaHost.getHostAddress(),60);
+			IcmpPing ping = new IcmpPing(iaHost.getHostAddress(),5);
 			ping.ping(leh);
 			
-			for(LogEvent event : list)
+			for(LogEvent le : list)
 			{
-				PingEvent pe = (PingEvent)event;
-				logger.info(pe.toString());
+				logger.info("Recogniting pingevent");
+				PingEvent pe = (PingEvent)le;
+				IcmpResult result = new IcmpResult();
+				result.setDuration((new Double(pe.getTime())).longValue());
+				result.setCode(IcmpResult.Code.REACHABLE);
+				result.setRecord(mdt.toDate());
+				results.add(result);
+				mdt.addSeconds(1);
 			}
 		}
 		catch (UnknownHostException e) {
