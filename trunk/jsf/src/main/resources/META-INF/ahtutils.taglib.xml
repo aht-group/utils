@@ -46,5 +46,10 @@
 		<function-class>net.sf.ahtutils.jsf.functions.DateDifference</function-class>
 		<function-signature>java.util.Date plusDay(java.util.Date,java.lang.Integer)</function-signature>
 	</function>
+	<function>
+		<function-name>byteCount</function-name>
+		<function-class>net.sf.exlp.util.io.ByteCount</function-class>
+		<function-signature>java.util.String human(java.lang.Long,java.lang.Boolean)</function-signature>
+	</function>
 	
 </facelet-taglib> 
