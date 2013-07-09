@@ -55,26 +55,34 @@
         			<groupId>commons-collections</groupId>
         		</exclusion>
         	</exclusions>
-	        </dependency>
-	        <dependency>
-	        	<groupId>net.sf.ahtutils</groupId>
-	        	<artifactId>ahtutils-xml</artifactId>
-	        	<type>jar</type>
-	        	<scope>compile</scope>
-	        </dependency>
-			<dependency>
-	        	<groupId>net.sf.ahtutils</groupId>
-	        	<artifactId>ahtutils-xml</artifactId>
-	        	<type>jar</type>
-	        	<scope>test</scope>
-	        	<classifier>tests</classifier>
-	        </dependency>
-	        <dependency>
-	        	<groupId>net.sf.ahtutils</groupId>
-	        	<artifactId>ahtutils-ejb</artifactId>
-	        	<type>ejb</type>
-	        	<scope>compile</scope>
-	        </dependency>
+        </dependency>
+        <dependency>
+        	<groupId>net.sf.ahtutils</groupId>
+        	<artifactId>ahtutils-xml</artifactId>
+        	<type>jar</type>
+        	<scope>compile</scope>
+        </dependency>
+		<dependency>
+        	<groupId>net.sf.ahtutils</groupId>
+        	<artifactId>ahtutils-xml</artifactId>
+        	<type>jar</type>
+        	<scope>test</scope>
+        	<classifier>tests</classifier>
+        </dependency>
+        <dependency>
+        	<groupId>net.sf.ahtutils</groupId>
+        	<artifactId>ahtutils-ejb</artifactId>
+        	<type>ejb</type>
+        	<scope>compile</scope>
+        </dependency>
+	        
+	    <!-- XML -->
+		<dependency>
+   	   		<groupId>com.sun.xml.bind</groupId>
+   	   		<artifactId>jaxb-impl</artifactId>
+   	   		<scope>provided</scope>
+   	   	</dependency>
+	        
 	        <!-- 
 			<dependency>
 			    <groupId>net.sf.jasperreports</groupId>

@@ -44,6 +44,14 @@
 			<artifactId>maven-plugin-api</artifactId>
 			<version>${maven-plugin-api.version}</version>
 	    </dependency>
+	    
+	   	<!-- XML -->
+		<dependency>
+   	   		<groupId>com.sun.xml.bind</groupId>
+   	   		<artifactId>jaxb-impl</artifactId>
+   	   		<scope>provided</scope>
+   	   	</dependency>
+	    
 	    <dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
