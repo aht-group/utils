@@ -6,8 +6,8 @@ import net.sf.ahtutils.xml.dbseed.Seed;
 import net.sf.ahtutils.xml.dbseed.TestDb;
 import net.sf.ahtutils.xml.dbseed.TestSeed;
 import net.sf.ahtutils.xml.xpath.DbseedXpath;
-import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
-import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
+import net.sf.exlp.exception.ExlpXpathNotFoundException;
+import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 
 import org.junit.Assert;
 import org.junit.Before;

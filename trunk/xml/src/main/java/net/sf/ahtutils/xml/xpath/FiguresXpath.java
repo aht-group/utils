@@ -4,8 +4,8 @@ import java.util.List;
 
 import net.sf.ahtutils.xml.finance.Figures;
 import net.sf.ahtutils.xml.finance.Finance;
-import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
-import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
+import net.sf.exlp.exception.ExlpXpathNotFoundException;
+import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 
 import org.apache.commons.jxpath.JXPathContext;
 import org.slf4j.Logger;

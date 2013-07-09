@@ -17,8 +17,8 @@ import net.sf.ahtutils.xml.navigation.UrlMapping;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.xpath.AccessXpath;
 import net.sf.ahtutils.xml.xpath.NavigationXpath;
-import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
-import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
+import net.sf.exlp.exception.ExlpXpathNotFoundException;
+import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.alg.DijkstraShortestPath;

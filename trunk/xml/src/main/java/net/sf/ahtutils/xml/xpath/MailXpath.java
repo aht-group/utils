@@ -5,8 +5,8 @@ import java.util.List;
 import net.sf.ahtutils.xml.mail.Mail;
 import net.sf.ahtutils.xml.mail.Mails;
 import net.sf.ahtutils.xml.mail.Template;
-import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
-import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
+import net.sf.exlp.exception.ExlpXpathNotFoundException;
+import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 
 import org.apache.commons.jxpath.JXPathContext;
 import org.slf4j.Logger;

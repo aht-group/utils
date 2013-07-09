@@ -2,8 +2,8 @@ package net.sf.ahtutils.controller.factory.ofx.security;
 
 import net.sf.ahtutils.xml.status.Translations;
 import net.sf.ahtutils.xml.xpath.StatusXpath;
-import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
-import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
+import net.sf.exlp.exception.ExlpXpathNotFoundException;
+import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 
 import org.openfuxml.content.ofx.table.Row;
 import org.openfuxml.factory.table.OfxCellFactory;

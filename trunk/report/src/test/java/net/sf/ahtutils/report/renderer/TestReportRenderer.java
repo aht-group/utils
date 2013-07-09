@@ -5,8 +5,8 @@ import java.io.IOException;
 
 import net.sf.ahtutils.report.exception.ReportException;
 import net.sf.ahtutils.test.AbstractAhtUtilsReportTest;
-import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
-import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
+import net.sf.exlp.exception.ExlpXpathNotFoundException;
+import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 
 import org.junit.Before;
 import org.junit.Test;

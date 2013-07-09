@@ -10,8 +10,8 @@ import net.sf.ahtutils.xml.status.Translation;
 import net.sf.ahtutils.xml.status.Translations;
 import net.sf.ahtutils.xml.status.Type;
 import net.sf.ahtutils.xml.status.Types;
-import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
-import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
+import net.sf.exlp.exception.ExlpXpathNotFoundException;
+import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 
 import org.apache.commons.jxpath.JXPathContext;
 import org.slf4j.Logger;

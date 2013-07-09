@@ -5,8 +5,8 @@ import net.sf.ahtutils.xml.mail.Mail;
 import net.sf.ahtutils.xml.mail.Mails;
 import net.sf.ahtutils.xml.mail.TestXmlMail;
 import net.sf.ahtutils.xml.xpath.MailXpath;
-import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
-import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
+import net.sf.exlp.exception.ExlpXpathNotFoundException;
+import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.Before;

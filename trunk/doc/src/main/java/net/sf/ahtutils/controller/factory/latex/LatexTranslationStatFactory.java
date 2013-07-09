@@ -14,7 +14,7 @@ import net.sf.ahtutils.model.pojo.status.TranslationStatistic;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Langs;
 import net.sf.ahtutils.xml.status.Translations;
-import net.sf.exlp.util.exception.ExlpConfigurationException;
+import net.sf.exlp.exception.ExlpConfigurationException;
 import net.sf.exlp.util.io.RelativePathFactory;
 import net.sf.exlp.util.io.RelativePathFactory.PathSeparator;
 import net.sf.exlp.util.io.dir.DirChecker;

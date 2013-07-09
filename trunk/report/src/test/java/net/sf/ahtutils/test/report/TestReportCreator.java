@@ -6,8 +6,8 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import net.sf.ahtutils.report.ReportUtilCreator;
 import net.sf.ahtutils.test.AbstractAhtUtilsReportTest;
-import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
-import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
+import net.sf.exlp.exception.ExlpXpathNotFoundException;
+import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 import net.sf.jasperreports.engine.JRException;
 
 import org.junit.Ignore;

@@ -6,8 +6,8 @@ import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.AclContainer;
 import net.sf.ahtutils.xml.access.RoleAutoAssign;
 import net.sf.ahtutils.xml.access.View;
-import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
-import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
+import net.sf.exlp.exception.ExlpXpathNotFoundException;
+import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 
 import org.apache.commons.jxpath.JXPathContext;
 import org.slf4j.Logger;

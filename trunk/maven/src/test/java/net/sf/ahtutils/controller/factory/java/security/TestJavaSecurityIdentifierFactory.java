@@ -8,7 +8,7 @@ import java.util.List;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.test.UtilsMavenTstBootstrap;
 import net.sf.ahtutils.xml.access.View;
-import net.sf.exlp.util.exception.ExlpConfigurationException;
+import net.sf.exlp.exception.ExlpConfigurationException;
 import net.sf.exlp.util.io.dir.DirChecker;
 
 import org.apache.commons.io.FileUtils;

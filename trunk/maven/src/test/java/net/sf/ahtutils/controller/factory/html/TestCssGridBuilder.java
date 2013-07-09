@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import net.sf.ahtutils.test.AbstractUtilsMavenTst;
 import net.sf.ahtutils.test.UtilsMavenTstBootstrap;
-import net.sf.exlp.util.exception.ExlpConfigurationException;
+import net.sf.exlp.exception.ExlpConfigurationException;
 import net.sf.exlp.util.io.dir.DirChecker;
 
 import org.apache.commons.io.FileUtils;

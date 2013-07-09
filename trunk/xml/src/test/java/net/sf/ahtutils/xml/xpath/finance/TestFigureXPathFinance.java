@@ -6,8 +6,8 @@ import net.sf.ahtutils.xml.finance.Finance;
 import net.sf.ahtutils.xml.finance.TestXmlFigures;
 import net.sf.ahtutils.xml.finance.TestXmlFinance;
 import net.sf.ahtutils.xml.xpath.FiguresXpath;
-import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
-import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
+import net.sf.exlp.exception.ExlpXpathNotFoundException;
+import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 
 import org.junit.Assert;
 import org.junit.Before;

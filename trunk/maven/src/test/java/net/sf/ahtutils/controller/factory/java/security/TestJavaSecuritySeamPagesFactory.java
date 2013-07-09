@@ -6,7 +6,7 @@ import java.io.IOException;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.View;
-import net.sf.exlp.util.exception.ExlpConfigurationException;
+import net.sf.exlp.exception.ExlpConfigurationException;
 import net.sf.exlp.util.io.dir.DirChecker;
 
 import org.apache.commons.io.FileUtils;

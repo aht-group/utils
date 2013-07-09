@@ -7,8 +7,8 @@ import net.sf.ahtutils.test.AbstractXmlTest;
 import net.sf.ahtutils.xml.report.Media;
 import net.sf.ahtutils.xml.report.TestMedia;
 import net.sf.ahtutils.xml.xpath.ReportXpath;
-import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
-import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
+import net.sf.exlp.exception.ExlpXpathNotFoundException;
+import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.Assert;

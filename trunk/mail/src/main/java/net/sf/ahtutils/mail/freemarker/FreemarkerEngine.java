@@ -11,8 +11,8 @@ import net.sf.ahtutils.exception.processing.UtilsDeveloperException;
 import net.sf.ahtutils.xml.mail.Mail;
 import net.sf.ahtutils.xml.mail.Mails;
 import net.sf.ahtutils.xml.xpath.MailXpath;
-import net.sf.exlp.util.exception.ExlpXpathNotFoundException;
-import net.sf.exlp.util.exception.ExlpXpathNotUniqueException;
+import net.sf.exlp.exception.ExlpXpathNotFoundException;
+import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.util.xml.JDomUtil;
 import net.sf.exlp.util.xml.JaxbUtil;
 
