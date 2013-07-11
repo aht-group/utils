@@ -20,10 +20,8 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 import net.sf.ahtutils.model.interfaces.with.EjbWithTimeline;
 import net.sf.ahtutils.model.interfaces.with.EjbWithType;
 
-public interface UtilsFacade
+public interface UtilsFacade extends UtilsIdFacade
 {
-	<T extends Object> T find(Class<T> type, long id) throws UtilsNotFoundException;
-	<T extends EjbWithId> T find(Class<T> type, T t);
 	<T extends EjbWithCode> T fByCode(Class<T> type, String code) throws UtilsNotFoundException;
 	<T extends EjbWithName> T fByName(Class<T> type, String name) throws UtilsNotFoundException;
 	<T extends EjbWithNr, P extends EjbWithId> T fByNr(Class<T> type, String parentName, P parent, int nr) throws UtilsNotFoundException;
