@@ -48,6 +48,12 @@
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>net.sf.ahtutils</groupId>
+				<artifactId>ahtutils-interfaces</artifactId>
+                <version>${project.version}</version>
+                <classifier>sources</classifier>
+            </dependency>
+			<dependency>
 		         <groupId>net.sf.ahtutils</groupId>
 		         <artifactId>ahtutils-jsf</artifactId>
 		         <version>${project.version}</version>
