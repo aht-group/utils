@@ -12,9 +12,9 @@
         
 	<composite:implementation>
 
-	<ul class="#{cc.attrs.styleClass}" style="#{cc.attrs.style}">
+	<ul class="#{cc.attrs.styleClass}">
 		<c:forEach var="menuItem" items="#{cc.attrs.value}">
-	    	<li><a href="">#{menuItem.name}</a></li>
+	    	<li><a href="#{facesContext.externalContext.requestContextPath}#{menuItem.href}">#{menuItem.name}</a></li>
 	    </c:forEach>
 	</ul>
     

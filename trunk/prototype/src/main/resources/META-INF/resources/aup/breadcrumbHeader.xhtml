@@ -12,6 +12,7 @@
 	<composite:attribute name="code" required="true"/>
 </composite:interface>
 <composite:implementation>
-	<aht:breadcrumb value="#{menuBean.breadcrumb(cc.attrs.code)}"/>
+	<h:outputStylesheet library="aupCss" name="breadcrumb.css" target="head"/>
+	<aht:breadcrumb value="#{menuBean.breadcrumb(cc.attrs.code)}" styleClass="aupBreadcrumbs"/>
 </composite:implementation>
 </html>

@@ -1,3 +1,6 @@
+/* @override 
+	http://localhost:8080/geojsf/javax.faces.resource/geometry.css.jsf?ln=aupCss */
+
 body
 {
 	background: #DDD;
@@ -66,6 +69,7 @@ a:hover { color: #333; text-decoration: none; }
 	border-bottom: 2px solid #D82B00;
 	color: #333;
 }
+
 .logo{
 	float: left;
 	z-index: 9994;
@@ -73,21 +77,19 @@ a:hover { color: #333; text-decoration: none; }
 	margin-left: 10px;
 }
 
-#middlecont
-{
-		padding: 6px 20px;
-		margin: 10px;
-		background: #B90000;
-}
-	
-#middlecont p
-{
+.aupHeadline{
+
+	padding: 6px 20px;
+	margin: 10px;
+	background: #B90000;
 	font-size: 15px;
 	color: #FFF;
 	font-weight: bold;
 	letter-spacing: -1px;
 	text-align: right;
+	height: 18px;
 }
+.aupHeadline a{color: #FFF;}
 		
 .maincontent
 {
