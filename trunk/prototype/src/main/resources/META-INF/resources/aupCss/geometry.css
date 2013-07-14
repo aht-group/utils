@@ -1,5 +1,6 @@
 /* @override 
-	http://localhost:8080/geojsf/javax.faces.resource/geometry.css.jsf?ln=aupCss */
+	http://localhost:8080/geojsf/javax.faces.resource/geometry.css.jsf?ln=aupCss
+	http://localhost:8080/ahtutils/javax.faces.resource/geometry.css.jsf?ln=aupCss */
 
 body
 {
@@ -211,3 +212,15 @@ margin-top: 8px;
 			width: 410px;
 			text-align: right;
 		}
+	
+.w100 {width: 100%;}	
+		
+/* PF Font size */
+.ui-widget, .ui-widget .ui-widget {font-size: 11px !important;}
+
+/* Linebreak in PF-3.5 tables */
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td {white-space: normal !important;} 
+
+/* PF selectonemenu */
+.ui-selectonemenu-label {width:100% !important;}
+.ui-selectonemenu{width:100% !important;}

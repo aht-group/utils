@@ -1,0 +1,41 @@
+.auPanelGrid{
+
+	width: 100%;
+	background-color: yellow;
+	display: table;
+}
+
+.auPanelGridRow{
+	display: table-row;
+}
+
+.aupgrow:first-child div
+{
+	padding-top: 5px;
+}
+
+.aupgrow div {
+	padding-top: 2px;
+}
+
+.aupgrow:last-child div
+{
+	padding-bottom: 5px;
+}
+
+
+.aupg1{
+	min-width:130px;
+
+	background-color: red;
+	display: table-cell;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.aupg2{
+	display: table-cell;
+	background-color: aqua;
+	width: 100%;
+	padding-left: 5px;
+	padding-right: 5px;
+}

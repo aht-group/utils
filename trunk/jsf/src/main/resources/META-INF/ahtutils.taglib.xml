@@ -24,6 +24,12 @@
             <component-type>net.sf.ahtutils.jsf.components.layout.Grid</component-type>
         </component>
     </tag>
+    <tag>
+        <tag-name>panelGrid</tag-name>
+        <component>
+            <component-type>net.sf.ahtutils.jsf.components.layout.PanelGrid</component-type>
+        </component>
+    </tag>
 	
 	<function>
 		<function-name>prettyUrl</function-name>
