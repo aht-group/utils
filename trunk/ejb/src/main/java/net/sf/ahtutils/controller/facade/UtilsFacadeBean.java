@@ -597,7 +597,14 @@ public class UtilsFacadeBean implements UtilsFacade
 		CriteriaQuery<T> select = criteriaQuery.select(from);
 		if(lpOr==null || lpOr.size()==0)
 		{
-			select.where(pAnd);
+			if(lpAnd==null || lpAnd.size()==0)
+			{
+				return new ArrayList<T>();
+			}
+			else
+			{
+				select.where(pAnd);
+			}
 		}
 		else
 		{

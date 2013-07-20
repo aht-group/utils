@@ -20,8 +20,8 @@ public class AbstractIconBean <L extends UtilsLang, D extends UtilsDescription, 
 	
 	private String imagePath;
 	
-	private Map<String,Map<Long,String>> mapImages;
-	private Map<String,Map<Long,String>> mapImagesAlt;
+	private Map<String,Map<Long,String>> mapImages,mapResource;
+	private Map<String,Map<Long,String>> mapImagesAlt,mapResourceAlternative;
 	protected Map<String,String> mapStatic;
 	
 	//******* Methods *******************************
@@ -30,10 +30,13 @@ public class AbstractIconBean <L extends UtilsLang, D extends UtilsDescription, 
     {
 		this.imagePath=imagePath;
 		mapImages = new Hashtable<String,Map<Long,String>>();
-		mapImagesAlt = new Hashtable<String,Map<Long,String>>(); 
+		mapImagesAlt = new Hashtable<String,Map<Long,String>>();
+		mapResource = new Hashtable<String,Map<Long,String>>();
+		mapResourceAlternative = new Hashtable<String,Map<Long,String>>();
 		mapStatic = new Hashtable<String,String>();
     }
 
+    @Deprecated
     public String urlFilter(Integer size, UtilsStatusFilter<L,D,S> filter)
     {
 //    	logger.info("URL for "+filter.getValue().getCode()+" active="+filter.isActive());
@@ -51,6 +54,42 @@ public class AbstractIconBean <L extends UtilsLang, D extends UtilsDescription, 
     	}
     }
     
+    public String filter(Integer size, UtilsStatusFilter<L,D,S> filter)
+    {
+//    	logger.info("Filter for "+filter.getValue().getCode()+" active="+filter.isActive());
+    	if(filter.isActive()){return resource(size,filter.getValue());}
+    	else
+    	{
+    		String key = filter.getValue().getClass().getSimpleName();
+        	if(!mapResourceAlternative.containsKey(key))
+        	{
+        		generateResource(mapResourceAlternative,size, filter.getValue().getId(), filter.getValue().getImageAlt(), key);
+        	}
+        	else if(!mapResourceAlternative.get(key).containsKey(filter.getValue().getId()))
+    		{
+    			generateResource(mapResourceAlternative,size, filter.getValue().getId(), filter.getValue().getImageAlt(), key);
+    		}
+        	
+    		return mapResourceAlternative.get(key).get(filter.getValue().getId());
+    	}
+    }
+    
+    public String resource(Integer size, EjbWithImage image)
+	{
+    	String key = image.getClass().getSimpleName();
+    	if(!mapResource.containsKey(key))
+    	{
+    		generateResource(mapResource, size, image.getId(), image.getImage(), key);
+    	}
+    	else if(!mapResource.get(key).containsKey(image.getId()))
+    	{
+    		generateResource(mapResource, size, image.getId(), image.getImage(), key);
+    	}
+    	
+		return mapResource.get(key).get(image.getId());
+	}
+    
+    @Deprecated
 	public String url(Integer size, EjbWithImage image)
 	{
     	String key = image.getClass().getSimpleName();
@@ -63,6 +102,7 @@ public class AbstractIconBean <L extends UtilsLang, D extends UtilsDescription, 
 		return mapImages.get(key).get(image.getId());
 	}
     
+	@Deprecated
     private void generate(Map<String,Map<Long,String>> map, int size, long id, String image, String key)
     {
     	if(!map.containsKey(key))
@@ -72,6 +112,19 @@ public class AbstractIconBean <L extends UtilsLang, D extends UtilsDescription, 
     	StringBuffer sb = new StringBuffer();
     	sb.append("/").append(imagePath);
     	sb.append("/").append(size);
+    	sb.append("/");
+    	if(image!=null){sb.append(image);}
+    	else{sb.append("noImage.png");}
+    	map.get(key).put(id, sb.toString());
+    }
+    
+    private void generateResource(Map<String,Map<Long,String>> map, int size, long id, String image, String key)
+    {
+    	if(!map.containsKey(key)){map.put(key, new Hashtable<Long,String>());}
+    	StringBuffer sb = new StringBuffer();
+//    	sb.append("/").append(imagePath);
+//    	sb.append("/");
+    	sb.append(size);
     	sb.append("/");
     	if(image!=null){sb.append(image);}
     	else{sb.append("noImage.png");}
