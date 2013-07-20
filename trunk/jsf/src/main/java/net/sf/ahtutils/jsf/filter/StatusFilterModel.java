@@ -16,12 +16,13 @@ public class StatusFilterModel <L extends UtilsLang, D extends UtilsDescription,
 	
 	private List<UtilsStatusFilter<L,D,S>> list;
 
-	public StatusFilterModel(List<S> data)
+	
+	public StatusFilterModel(List<S> data, boolean visible)
     {  
 		list = new ArrayList<UtilsStatusFilter<L,D,S>>();
         for(S s : data)
         {
-        	list.add(new UtilsStatusFilter<L,D,S>(s,true));
+        	list.add(new UtilsStatusFilter<L,D,S>(s,visible));
         }
     }
 	
@@ -30,6 +31,18 @@ public class StatusFilterModel <L extends UtilsLang, D extends UtilsDescription,
 //		logger.info("Toggle");
 		UtilsStatusFilter<L,D,S> sfList = list.get(list.indexOf(sf));
 		sfList.setActive(!sfList.isActive());	
+	}
+	
+	public void toggle(UtilsStatus<L,D> status)
+	{
+		logger.info("Toggle: "+status);
+		for(UtilsStatusFilter<L,D,S> usf : list)
+		{
+			if(usf.getValue().equals(status))
+			{
+				usf.setActive(!usf.isActive());	
+			}
+		}	
 	}
 
 	public List<UtilsStatusFilter<L,D,S>> getValues(){return list;}
