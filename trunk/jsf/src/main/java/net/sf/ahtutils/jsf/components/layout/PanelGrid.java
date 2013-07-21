@@ -87,6 +87,5 @@ public class PanelGrid extends UIPanel
 			
 			responseWriter.endElement("div");
 		}
-	}
-	
+	}	
 }

@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.faces.component.FacesComponent;
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+
+import net.sf.ahtutils.jsf.util.ComponentAttribute;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +18,20 @@ import org.slf4j.LoggerFactory;
 public class Slot extends UIPanel
 {
 	final static Logger logger = LoggerFactory.getLogger(Slot.class);
-	private static enum Properties {id,width,styleClass}
+	private static enum Properties {id,width,styleClass,renderChildren}
 	
+	@Override public boolean getRendersChildren(){return true;}
+	
+	private Boolean renderChilds;
+	
+	public Boolean getRenderChilds() {
+		return renderChilds;
+	}
+
+	public void setRenderChilds(Boolean renderChilds) {
+		this.renderChilds = renderChilds;
+	}
+
 	@Override
 	public void encodeBegin(FacesContext context) throws IOException
 	{
@@ -45,5 +60,17 @@ public class Slot extends UIPanel
 	{
 		ResponseWriter responseWriter = context.getResponseWriter();
 		responseWriter.endElement("div");
+	}
+	
+	@Override
+	public void encodeChildren(FacesContext context) throws IOException
+	{
+		if(ComponentAttribute.getBoolean(Properties.renderChildren.toString(), true, context, this))
+		{
+			for(UIComponent uic : this.getChildren())
+			{
+				uic.encodeAll(context);
+			}
+		}
 	}
 }
