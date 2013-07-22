@@ -10,11 +10,17 @@
    <composite:interface>
      <composite:attribute name="since" shortDescription="A java.util.Date from which the elapsed time should be calculated"/>
      <composite:attribute name="locale" shortDescription="The given locale is used for choosing the correct translation"/>
+     <composite:attribute name="includeJquery" dafault="false" shortDescription="Indicates if jQuery should be loaded by this instance of the component"/>
    </composite:interface>
         
   <composite:implementation>
-     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-   	 <script src="http://timeago.yarp.com/jquery.timeago.js" type="text/javascript" charset="utf-8"></script>
+     <f:if test="#{cc.attrs.includeJquery}">
+     	<h:outputScript library="ahtutilsJs" name="jquery.1.10.2.js" target="head"/>
+     </f:if>
+   	 <h:outputScript library="ahtutilsJs" name="jquery.timeago.js" target="head"/>
+   	 <!-- Deprecated (see above)
+   	 	<script src="http://timeago.yarp.com/jquery.timeago.js" type="text/javascript" charset="utf-8"></script>
+   	  -->
    	 <abbr class="timeago" title="#{cc.attrs.since.toGMTString()}">July 17, 2008</abbr>
      <script type="text/javascript">
 			jQuery(document).ready(function() {
