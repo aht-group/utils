@@ -1,11 +1,9 @@
 package net.sf.ahtutils.jsf.components.layout;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 import javax.faces.component.FacesComponent;
-import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
@@ -30,7 +28,6 @@ public class PanelGrid extends UIPanel
 	@Override
 	public void processEvent(ComponentSystemEvent event) throws AbortProcessingException
 	{
-		logger.info("processEvent "+event.getClass().getName());
 		if(event instanceof PostAddToViewEvent)
 		{
 			UIOutput css = new UIOutput();
@@ -47,8 +44,6 @@ public class PanelGrid extends UIPanel
 	@Override
 	public void encodeBegin(FacesContext context) throws IOException
 	{
-		Map<String,Object> map = getAttributes();
-		
 		ResponseWriter responseWriter = context.getResponseWriter();
 		responseWriter.startElement("div", this);
 		responseWriter.writeAttribute("class","auPanelGrid",null);
@@ -65,7 +60,6 @@ public class PanelGrid extends UIPanel
 	public void encodeChildren(FacesContext context) throws IOException
 	{
 		ResponseWriter responseWriter = context.getResponseWriter();
-		logger.info("encodeChildren");
 		
 		int rows = this.getChildCount()/2;
 		if(this.getChildCount()%2!=0){rows=rows+1;}
@@ -76,16 +70,22 @@ public class PanelGrid extends UIPanel
 			responseWriter.writeAttribute("class","auPanelGridRow",null);
 			
 			responseWriter.startElement("div", this);
-			responseWriter.writeAttribute("class","aupg1",null);
+			responseWriter.writeAttribute("class","auPgCell1",null);
+			responseWriter.writeAttribute("style","min-width:20%;",null);
 			this.getChildren().get(row*2).encodeAll(context);
 			responseWriter.endElement("div");
 			
 			responseWriter.startElement("div", this);
-			responseWriter.writeAttribute("class","aupg2",null);
+			responseWriter.writeAttribute("class","auPgCell2",null);
+			responseWriter.writeAttribute("style","width:80%;",null);
 			this.getChildren().get(row*2+1).encodeAll(context);
 			responseWriter.endElement("div");
 			
 			responseWriter.endElement("div");
-		}
-	}	
+/*			
+			responseWriter.startElement("script", this);
+			responseWriter.write(getScript());
+			responseWriter.endElement("script");
+*/		}
+	}
 }

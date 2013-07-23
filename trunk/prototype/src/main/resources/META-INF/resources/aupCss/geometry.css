@@ -1,6 +1,7 @@
 /* @override 
 	http://localhost:8080/geojsf/javax.faces.resource/geometry.css.jsf?ln=aupCss
-	http://localhost:8080/ahtutils/javax.faces.resource/geometry.css.jsf?ln=aupCss */
+	http://localhost:8080/ahtutils/javax.faces.resource/geometry.css.jsf?ln=aupCss
+	http://localhost:8080/tg/javax.faces.resource/geometry.css.jsf?ln=aupCss */
 
 body
 {
@@ -215,11 +216,16 @@ margin-top: 8px;
 	
 .w100 {width: 100%;}	
 		
-/* PF Font size */
-.ui-widget, .ui-widget .ui-widget {font-size: 11px !important;}
+/* PF-3.5 Font size */
+.ui-widget {font-size: 90%;}
+.ui-widget .ui-widget {font-size: 100%;}
 
 /* Linebreak in PF-3.5 tables */
 .ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td {white-space: normal !important;} 
+
+/* PF-3.5 Titlebar too big */
+.ui-panel-titlebar{height: 12px;}
+.ui-panel-title{top: -5px;position: relative;}
 
 /* PF selectonemenu */
 .ui-selectonemenu-label {width:100% !important;}
