@@ -1,7 +1,6 @@
 package net.sf.ahtutils.jsf.components.layout;
 
 import java.io.IOException;
-import java.util.Map;
 
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIOutput;

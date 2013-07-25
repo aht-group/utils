@@ -124,6 +124,9 @@ public class UtilsSecurityFacadeBean extends UtilsFacadeBean implements UtilsSec
 	public <L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L, D, C, R, V, U, A, USER>, R extends UtilsSecurityRole<L, D, C, R, V, U, A, USER>, V extends UtilsSecurityView<L, D, C, R, V, U, A, USER>, U extends UtilsSecurityUsecase<L, D, C, R, V, U, A, USER>, A extends UtilsSecurityAction<L, D, C, R, V, U, A, USER>, USER extends UtilsUser<L, D, C, R, V, U, A, USER>>
 	void grantRole(Class<USER> clUser, Class<R> clRole, USER user, R role, boolean grant)
 	{
+		logger.info("grantRole "+grant);
+		user = em.find(clUser,user.getId());
+		role = em.find(clRole,role.getId());
 		if(grant){addRole(clUser,clRole,user, role);}
 		else{rmRole(clUser,clRole,user, role);}
 		em.merge(user);
@@ -132,8 +135,6 @@ public class UtilsSecurityFacadeBean extends UtilsFacadeBean implements UtilsSec
 	private <L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L, D, C, R, V, U, A, USER>, R extends UtilsSecurityRole<L, D, C, R, V, U, A, USER>, V extends UtilsSecurityView<L, D, C, R, V, U, A, USER>, U extends UtilsSecurityUsecase<L, D, C, R, V, U, A, USER>, A extends UtilsSecurityAction<L, D, C, R, V, U, A, USER>, USER extends UtilsUser<L, D, C, R, V, U, A, USER>>
 	void addRole(Class<USER> clUser, Class<R> clRole, USER user, R role)
 	{
-		user = em.find(clUser,user.getId());
-		role = em.find(clRole,role.getId());
 		if(!user.getRoles().contains(role))
 		{
 			role.getUsers().add(user);
@@ -145,8 +146,6 @@ public class UtilsSecurityFacadeBean extends UtilsFacadeBean implements UtilsSec
 	private <L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L, D, C, R, V, U, A, USER>, R extends UtilsSecurityRole<L, D, C, R, V, U, A, USER>, V extends UtilsSecurityView<L, D, C, R, V, U, A, USER>, U extends UtilsSecurityUsecase<L, D, C, R, V, U, A, USER>, A extends UtilsSecurityAction<L, D, C, R, V, U, A, USER>, USER extends UtilsUser<L, D, C, R, V, U, A, USER>>
 	void rmRole(Class<USER> clUser, Class<R> clRole, USER user, R role)
 	{
-		user = em.find(clUser, user.getId());
-		role = em.find(clRole, role.getId());
 		if(user.getRoles().contains(role)){user.getRoles().remove(role);}
 		if(role.getUsers().contains(user)){role.getUsers().remove(user);}
 		user = em.merge(user);
