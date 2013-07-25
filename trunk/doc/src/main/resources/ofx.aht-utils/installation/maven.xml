@@ -8,9 +8,9 @@
 		</ofx:paragraph>
 		<ofx:paragraph>
 			cd /opt
-			tar -xvzf path_to_download/jdk-7u3-linux-x64.tar.gz
+			tar -xvzf path_to_download/apache-maven-3.1.0-bin.tar.gz
 			
-			Add PATH=$PATH:/opt/apache-maven-3.0.5/bin
+			Add PATH=$PATH:/opt/apache-maven-3.1.0/bin
 			before the export PATH in /etc/profile
 		</ofx:paragraph>
 	</ofx:section>
