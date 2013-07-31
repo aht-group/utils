@@ -15,12 +15,19 @@ public abstract class AbstractEjbIdConverter <I extends EjbWithId> implements Co
 {    
 	final static Logger logger = LoggerFactory.getLogger(AbstractEjbIdConverter.class);
 	
-	final Class<I> clEjb;
-	
+	private Class<I> clEjb;
+
 	public AbstractEjbIdConverter(final Class<I> clEjb)
 	{
 		this.clEjb=clEjb;
 	}
+	
+	public AbstractEjbIdConverter()
+	{
+
+	}
+	public void setClEjb(Class<I> clEjb) {this.clEjb = clEjb;}	
+	
 	
     public Object getAsObject(FacesContext facesContext, UIComponent component, String submittedValue)
     {
