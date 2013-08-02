@@ -61,8 +61,8 @@ public class CssGridFactory extends AbstractMojo
     	if(!fResourceDir.isDirectory()){throw new MojoExecutionException(fResourceDir.getAbsolutePath()+" is not a directory");}
     	
     	File fVcsTestFile = new File(vcsTest);
-    	if(!fVcsTestFile.getParentFile().exists()){throw new MojoExecutionException(fVcsTestFile.getParentFile()+" does not exist");}
-    	if(!fVcsTestFile.getParentFile().isDirectory()){throw new MojoExecutionException(fVcsTestFile.getParentFile()+" is not a directory");}
+    	if(!fVcsTestFile.getParentFile().exists()){fVcsTestFile=null;}
+    	if(fVcsTestFile!=null && !fVcsTestFile.getParentFile().isDirectory()){fVcsTestFile=null;}
     	
     	executeCssBuilder(fTmpDir,fResourceDir,fVcsTestFile);
    
@@ -76,8 +76,11 @@ public class CssGridFactory extends AbstractMojo
     	CssGridBuilder gridFactory = new CssGridBuilder(fTmpDir,fResourceDir);
     	gridFactory.buildCss();
     	
-    	RelativePathFactory rpf = new RelativePathFactory(new File("."),PathSeparator.CURRENT);
-    	getLog().info("Saving test-file in "+rpf.relativate(fVcsTestFile));
-    	gridFactory.buildVcsTestFile(fVcsTestFile);
+    	if(fVcsTestFile!=null)
+    	{
+    		RelativePathFactory rpf = new RelativePathFactory(new File("."),PathSeparator.CURRENT);
+        	getLog().info("Saving test-file in "+rpf.relativate(fVcsTestFile));
+        	gridFactory.buildVcsTestFile(fVcsTestFile);
+    	}
     }
 }
