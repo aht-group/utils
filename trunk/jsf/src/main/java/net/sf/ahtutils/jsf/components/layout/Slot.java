@@ -42,7 +42,7 @@ public class Slot extends UIPanel
 		responseWriter.writeAttribute("id",getClientId(context),"id");
 		
 		StringBuffer sbStyleClass = new StringBuffer();
-		sbStyleClass.append("grid_");
+		sbStyleClass.append("auGrid_");
 		if(map.containsKey(Properties.width.toString()))
 		{
 			sbStyleClass.append(map.get(Properties.width.toString()));

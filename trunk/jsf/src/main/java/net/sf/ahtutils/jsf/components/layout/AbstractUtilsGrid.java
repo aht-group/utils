@@ -31,11 +31,20 @@ public class AbstractUtilsGrid extends UIPanel
 		sbCss.append("grid-");
 		sbCss.append(width).append("-").append(gutter);
 		sbCss.append(".css");
-		
+		pushCssToHead(sbCss.toString());
+	}
+	
+	protected void pushCssToHead(String name)
+	{
+		pushCssToHead("ahtutilsCss", name);
+	}
+	
+	protected void pushCssToHead(String library, String name)
+	{
 		UIOutput css = new UIOutput();
 		css.setRendererType("javax.faces.resource.Stylesheet");
-		css.getAttributes().put("library", "ahtutilsCss");
-		css.getAttributes().put("name", sbCss.toString());
+		css.getAttributes().put("library", library);
+		css.getAttributes().put("name", name);
 		
 		FacesContext context = this.getFacesContext();
 		context.getViewRoot().addComponentResource(context, css, "head");

@@ -60,31 +60,31 @@ body {min-width: ${width}px;}
 .alpha {margin-left: 0;}
 .omega {margin-right: 0;}
 
-[class*="grid"] {margin-top: ${doublegutter}px;}
+[class*="auGrid"] {margin-top: ${doublegutter}px;}
 
-[class*="grid"] > div {margin-bottom: ${doublegutter}px;}
-[class*="grid"] > div:last-child {margin-bottom: 0px;}
+[class*="auGrid"] > div {margin-bottom: ${doublegutter}px;}
+[class*="auGrid"] > div:last-child {margin-bottom: 0px;}
 
-[class*="grid"] > form {margin-bottom: ${doublegutter}px;}
-[class*="grid"] > form:last-child {margin-bottom: 0px;}
+[class*="auGrid"] > form {margin-bottom: ${doublegutter}px;}
+[class*="auGrid"] > form:last-child {margin-bottom: 0px;}
 
 [class*="auGridSpace"] > div {margin-bottom: ${doublegutter}px;}
 [class*="auGridSpace"] > div:last-child {margin-bottom: 0px;}
 
 /* Grid >> 12 Columns
 ----------------------------------------------------------------------------------------------------*/
-.container_12 .grid_1  {width: ${slot1}px;}
-.container_12 .grid_2  {width: ${slot2}px;}
-.container_12 .grid_3  {width: ${slot3}px;}
-.container_12 .grid_4  {width: ${slot4}px;}
-.container_12 .grid_5  {width: ${slot5}px;}
-.container_12 .grid_6  {width: ${slot6}px;}
-.container_12 .grid_7  {width: ${slot7}px;}
-.container_12 .grid_8  {width: ${slot8}px;}
-.container_12 .grid_9  {width: ${slot9}px;}
-.container_12 .grid_10 {width: ${slot10}px;}
-.container_12 .grid_11 {width: ${slot11}px;}
-.container_12 .grid_12 {width: ${slot12}px;}
+.container_12 .auGrid_1  {width: ${slot1}px;}
+.container_12 .auGrid_2  {width: ${slot2}px;}
+.container_12 .auGrid_3  {width: ${slot3}px;}
+.container_12 .auGrid_4  {width: ${slot4}px;}
+.container_12 .auGrid_5  {width: ${slot5}px;}
+.container_12 .auGrid_6  {width: ${slot6}px;}
+.container_12 .auGrid_7  {width: ${slot7}px;}
+.container_12 .auGrid_8  {width: ${slot8}px;}
+.container_12 .auGrid_9  {width: ${slot9}px;}
+.container_12 .auGrid_10 {width: ${slot10}px;}
+.container_12 .auGrid_11 {width: ${slot11}px;}
+.container_12 .auGrid_12 {width: ${slot12}px;}
 
 /* `Prefix Extra Space >> 12 Columns
 ----------------------------------------------------------------------------------------------------*/

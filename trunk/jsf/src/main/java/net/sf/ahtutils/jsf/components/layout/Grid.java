@@ -30,7 +30,8 @@ public class Grid extends AbstractUtilsGrid
 			Map<String,Object> map = getAttributes();	
 			if(map.containsKey(Properties.width.toString())) {width = new Integer(map.get(Properties.width.toString()).toString());}
 			if(map.containsKey(Properties.gutter.toString())){gutter = new Integer(map.get(Properties.gutter.toString()).toString());}
-//			super.pushCssToHead();
+			super.pushCssToHead();
+//			super.pushCssToHead("auGrid.css");
 		 }
 		super.processEvent(event);
 	}
