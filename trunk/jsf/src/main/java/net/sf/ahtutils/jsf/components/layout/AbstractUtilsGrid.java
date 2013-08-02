@@ -56,7 +56,7 @@ public class AbstractUtilsGrid extends UIPanel
 		responseWriter.writeAttribute("id",getClientId(context),"id");
 		
 		StringBuffer sbStyleClass = new StringBuffer();
-		sbStyleClass.append("container_12");
+		sbStyleClass.append("auContainer");
 		if(mapAttribute.containsKey(Properties.styleClass.toString()))
 		{
 			sbStyleClass.append(" ").append(mapAttribute.get(Properties.styleClass.toString()));
