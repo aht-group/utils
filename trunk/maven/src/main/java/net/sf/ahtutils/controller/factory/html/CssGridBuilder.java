@@ -34,6 +34,17 @@ public class CssGridBuilder extends AbstractFreemarkerFileFactory
 		}
 	}
 	
+	public void buildVcsTestFile(File vcsFile)
+	{
+		fillModel(50,5);
+		try
+		{
+			this.createFile(vcsFile, "html.ahtutils-maven/grid.ftl");
+		}
+		catch (IOException e) {e.printStackTrace();}
+		catch (TemplateException e) {e.printStackTrace();}
+	}
+	
 	protected void buildCss(int slot, int gutter)
 	{
 		fillModel(slot,gutter);

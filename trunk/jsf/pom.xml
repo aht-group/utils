@@ -218,6 +218,10 @@
 						<goals>
 							<goal>createCssGrid</goal>
 						</goals>
+						<configuration>
+							<log>INFO</log>
+	              			<vcsTest>${project.basedir}/src/main/resources/META-INF/resources/ahtUtilsCss/auGrid.css</vcsTest>
+	              		</configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -234,15 +238,9 @@
 							<pluginExecutions>
 								<pluginExecution>
 									<pluginExecutionFilter>
-										<groupId>
-											net.sf.ahtutils
-										</groupId>
-										<artifactId>
-											ahtutils-maven
-										</artifactId>
-										<versionRange>
-											[0.2.2-SNAPSHOT,)
-										</versionRange>
+										<groupId>net.sf.ahtutils</groupId>
+										<artifactId>ahtutils-maven</artifactId>
+										<versionRange>[0.2.2-SNAPSHOT,)</versionRange>
 										<goals>
 											<goal>createCssGrid</goal>
 										</goals>

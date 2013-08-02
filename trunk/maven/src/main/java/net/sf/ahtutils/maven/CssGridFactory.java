@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 
 import net.sf.ahtutils.controller.factory.html.CssGridBuilder;
+import net.sf.exlp.util.io.RelativePathFactory;
+import net.sf.exlp.util.io.RelativePathFactory.PathSeparator;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.BasicConfigurator;
@@ -38,6 +40,13 @@ public class CssGridFactory extends AbstractMojo
      * @required
      */
     private String resourceDir;
+    
+	/**
+     * Test-Grid
+     * @parameter expression="${project.build.directory}/classes/META-INF/resources/ahtutilsCss/testGrid.css"
+     * @required
+     */
+    private String vcsTest;
     	
     public void execute() throws MojoExecutionException
     {
@@ -51,17 +60,24 @@ public class CssGridFactory extends AbstractMojo
     	if(!fResourceDir.exists()){throw new MojoExecutionException(fResourceDir.getAbsolutePath()+" does not exist");}
     	if(!fResourceDir.isDirectory()){throw new MojoExecutionException(fResourceDir.getAbsolutePath()+" is not a directory");}
     	
-    	executeCssBuilder(fTmpDir,fResourceDir);
+    	File fVcsTestFile = new File(vcsTest);
+    	if(!fVcsTestFile.getParentFile().exists()){throw new MojoExecutionException(fVcsTestFile.getParentFile()+" does not exist");}
+    	if(!fVcsTestFile.getParentFile().isDirectory()){throw new MojoExecutionException(fVcsTestFile.getParentFile()+" is not a directory");}
+    	
+    	executeCssBuilder(fTmpDir,fResourceDir,fVcsTestFile);
    
     	try {FileUtils.deleteDirectory(fTmpDir);}
     	catch (IOException e) {throw new MojoExecutionException(e.getMessage());}
     }
     
-    private void executeCssBuilder(File fTmpDir,File fResourceDir) throws MojoExecutionException
+    private void executeCssBuilder(File fTmpDir,File fResourceDir,File fVcsTestFile) throws MojoExecutionException
     {
     	getLog().info("Executing CssBuilder");
     	CssGridBuilder gridFactory = new CssGridBuilder(fTmpDir,fResourceDir);
     	gridFactory.buildCss();
     	
+    	RelativePathFactory rpf = new RelativePathFactory(new File("."),PathSeparator.CURRENT);
+    	getLog().info("Saving test-file in "+rpf.relativate(fVcsTestFile));
+    	gridFactory.buildVcsTestFile(fVcsTestFile);
     }
 }
