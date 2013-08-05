@@ -45,6 +45,7 @@ public class TestXmlMail extends AbstractXmlMailTest
     	
     	if(withChilds)
     	{
+    		xml.setMail(TestXmlMail.create(false));
     		xml.setHeader(TestXmlHeader.createHeader(false));
     		xml.getTemplate().add(TestXmlTemplate.create(false));
     		xml.getTemplate().add(TestXmlTemplate.create(false));

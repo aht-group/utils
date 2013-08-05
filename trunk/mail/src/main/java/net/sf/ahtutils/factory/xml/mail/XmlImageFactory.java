@@ -1,4 +1,4 @@
-package net.sf.ahtutils.controller.factory.xml.mail;
+package net.sf.ahtutils.factory.xml.mail;
 
 import net.sf.ahtutils.xml.mail.Image;
 

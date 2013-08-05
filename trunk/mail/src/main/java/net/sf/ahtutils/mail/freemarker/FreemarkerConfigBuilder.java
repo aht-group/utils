@@ -1,6 +1,6 @@
 package net.sf.ahtutils.mail.freemarker;
 
-import net.sf.ahtutils.controller.factory.xml.mail.XmlMailFactory;
+import net.sf.ahtutils.factory.xml.mail.XmlMailFactory;
 import net.sf.ahtutils.xml.mail.Mail;
 import net.sf.ahtutils.xml.mail.Mails;
 

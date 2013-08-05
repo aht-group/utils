@@ -23,9 +23,12 @@ import net.sf.ahtutils.xml.mail.EmailAddress;
 import net.sf.ahtutils.xml.mail.Header;
 import net.sf.ahtutils.xml.mail.Mail;
 import net.sf.exlp.util.xml.JDomUtil;
+import net.sf.exlp.util.xml.JaxbUtil;
 
+import org.jdom2.Content;
 import org.jdom2.Document;
 import org.jdom2.Element;
+import org.jdom2.Namespace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,6 +47,7 @@ public class XmlMailSender
 	
 	public void setOverrideOnlyTo(EmailAddress overrideOnlyTo) {this.overrideOnlyTo = overrideOnlyTo;}
 	public void addBcc(EmailAddress bcc){alwaysBcc.add(bcc);}
+	private Namespace nsMail;
 	
 	@Deprecated
 	public XmlMailSender(String smtpHost)
@@ -60,6 +64,7 @@ public class XmlMailSender
 		overrideOnlyTo = null;
 		tlsPwd = false;
 		smtpDebug = false;
+		nsMail = Namespace.getNamespace("http://ahtutils.aht-group.com/mail");
 	}
 	
 	public void tlsPasswordAuthentication(String smtpUser, String smtpPassword)
@@ -159,6 +164,7 @@ public class XmlMailSender
 		mmc.createHeader(header);
 		
 		Mail mail = getMailAndDetachAtt(doc.getRootElement());
+		JaxbUtil.info(mail);
 		
 		if(!mail.isSetLang())
 		{
@@ -184,24 +190,33 @@ public class XmlMailSender
 			Element e = (Element)o;
 			if(e.getName().equals("header"))
 			{
+				logger.warn("This should be avaoided, see UTILS-200");
 				return JDomUtil.toJaxb(e, Header.class);
 			}
 		}
-		throw new UtilsProcessingException("No <header> Element found");
+		Element mail = root.getChild("mail", nsMail);
+		if(mail!=null)
+		{
+			Element header = mail.getChild("header", nsMail);
+			if(header!=null){return JDomUtil.toJaxb(header, Header.class);}
+		}
+		logger.info(mail.toString());
+		throw new UtilsProcessingException("No <header> (or <mail><header/></mail>) Element found");
 	}
 	
 	private Mail getMailAndDetachAtt(Element root) throws UtilsProcessingException
 	{
-		logger.trace("Parsing Mail");
-		for(Object o: root.getContent())
+		logger.info("Parsing Mail");
+		for(Content content: root.getContent())
 		{
-			Element e = (Element)o;
+			Element e = (Element)content;
 			if(e.getName().equals("mail"))
 			{
-				Mail mail = JDomUtil.toJaxb(e, Mail.class);
-				logger.warn("Detach att NYI");
-//				e.detach();
-				return mail;
+				for(Element att : e.getChildren("attachment", nsMail))
+				{
+		//			att.detach();
+				}
+				return JDomUtil.toJaxb(e, Mail.class);
 			}
 		}
 		throw new UtilsProcessingException("No <mail> Element found");

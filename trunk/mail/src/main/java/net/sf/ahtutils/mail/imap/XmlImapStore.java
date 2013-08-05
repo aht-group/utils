@@ -10,7 +10,7 @@ import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.search.FlagTerm;
 
-import net.sf.ahtutils.controller.factory.xml.mail.XmlMailFactory;
+import net.sf.ahtutils.factory.xml.mail.XmlMailFactory;
 import net.sf.ahtutils.xml.mail.Mail;
 import net.sf.ahtutils.xml.mail.Mails;
 

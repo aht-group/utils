@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/mail}mail"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/mail}header"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/mail}template" maxOccurs="unbounded"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/mail}attachment" maxOccurs="unbounded"/>
@@ -50,6 +51,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "example",
+    "mail",
     "header",
     "template",
     "attachment",
@@ -63,6 +65,8 @@ public class Mail
     private final static long serialVersionUID = 1L;
     @XmlElement(namespace = "", required = true)
     protected String example;
+    @XmlElement(required = true)
+    protected Mail mail;
     @XmlElement(required = true)
     protected Header header;
     @XmlElement(required = true)
@@ -112,6 +116,34 @@ public class Mail
 
     public boolean isSetExample() {
         return (this.example!= null);
+    }
+
+    /**
+     * Gets the value of the mail property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Mail }
+     *     
+     */
+    public Mail getMail() {
+        return mail;
+    }
+
+    /**
+     * Sets the value of the mail property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Mail }
+     *     
+     */
+    public void setMail(Mail value) {
+        this.mail = value;
+    }
+
+    public boolean isSetMail() {
+        return (this.mail!= null);
     }
 
     /**

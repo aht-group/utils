@@ -2,7 +2,6 @@ package net.sf.ahtutils.mail.content;
 
 import java.io.IOException;
 
-import javax.mail.BodyPart;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.internet.MimeBodyPart;
@@ -60,7 +59,6 @@ public class FreemarkerMimeContentCreator extends AbstractMimeContentCreator
 		
 	    if(!mail.isSetAttachment() && !mail.isSetImage())
 	    {
-	    	
 	    	message.setContent(mpAlternative);
 	    }
 	    else

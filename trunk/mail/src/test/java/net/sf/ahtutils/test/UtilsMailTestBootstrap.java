@@ -23,7 +23,7 @@ public class UtilsMailTestBootstrap
 	public static Configuration init(String configFile)
 	{
 		LoggerInit loggerInit = new LoggerInit("log4j.xml");	
-		loggerInit.addAltPath("src/test/resources/config.ahtutils-mail.test");
+		loggerInit.addAltPath("config.ahtutils-mail.test");
 		loggerInit.init();
 		
 		JaxbUtil.setNsPrefixMapper(new AhtUtilsNsPrefixMapper());
