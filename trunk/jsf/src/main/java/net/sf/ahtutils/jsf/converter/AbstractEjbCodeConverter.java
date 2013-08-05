@@ -1,4 +1,4 @@
-package net.sf.ahtutils.jsf;
+package net.sf.ahtutils.jsf.converter;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -15,12 +15,15 @@ public abstract class AbstractEjbCodeConverter <I extends EjbWithCode> implement
 {    
 	final static Logger logger = LoggerFactory.getLogger(AbstractEjbCodeConverter.class);
 	
-	final Class<I> clEjb;
+	private Class<I> clEjb;
 	
 	public AbstractEjbCodeConverter(final Class<I> clEjb)
 	{
 		this.clEjb=clEjb;
 	}
+	
+	public AbstractEjbCodeConverter(){}
+	public void setClEjb(Class<I> clEjb) {this.clEjb = clEjb;}	
 	
     public Object getAsObject(FacesContext facesContext, UIComponent component, String submittedValue)
     {

@@ -1,4 +1,4 @@
-package net.sf.ahtutils.jsf;
+package net.sf.ahtutils.jsf.converter;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -22,10 +22,7 @@ public abstract class AbstractEjbIdConverter <I extends EjbWithId> implements Co
 		this.clEjb=clEjb;
 	}
 	
-	public AbstractEjbIdConverter()
-	{
-
-	}
+	public AbstractEjbIdConverter(){}
 	public void setClEjb(Class<I> clEjb) {this.clEjb = clEjb;}	
 	
 	
