@@ -23,7 +23,6 @@ import net.sf.ahtutils.xml.mail.EmailAddress;
 import net.sf.ahtutils.xml.mail.Header;
 import net.sf.ahtutils.xml.mail.Mail;
 import net.sf.exlp.util.xml.JDomUtil;
-import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.jdom2.Content;
 import org.jdom2.Document;
@@ -164,7 +163,6 @@ public class XmlMailSender
 		mmc.createHeader(header);
 		
 		Mail mail = getMailAndDetachAtt(doc.getRootElement());
-		JaxbUtil.info(mail);
 		
 		if(!mail.isSetLang())
 		{
