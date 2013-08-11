@@ -79,9 +79,9 @@ public class ComponentAttribute
 	public static String get(String attribute, String defaultValue, FacesContext context, UIComponent component)
 	{
 		String value = null;
-		if(context.getAttributes().containsKey(attribute))
+		if(component.getAttributes().containsKey(attribute))
 		{
-			value = context.getAttributes().get(attribute).toString();
+			value = component.getAttributes().get(attribute).toString();
 		}
 		else
 		{

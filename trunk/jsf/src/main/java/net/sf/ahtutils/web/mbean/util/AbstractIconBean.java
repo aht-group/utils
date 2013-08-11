@@ -69,7 +69,6 @@ public class AbstractIconBean <L extends UtilsLang, D extends UtilsDescription, 
     		{
     			generateResource(mapResourceAlternative,size, filter.getValue().getId(), filter.getValue().getImageAlt(), key);
     		}
-        	
     		return mapResourceAlternative.get(key).get(filter.getValue().getId());
     	}
     }
