@@ -16,4 +16,18 @@
 			update-alternatives --set javac /opt/jdk1.7.0_25/bin/javac
 		</ofx:paragraph>
 	</ofx:section>
+	<ofx:section>
+		<ofx:title lang="en">Linux (Raspbian)</ofx:title>
+		<ofx:paragraph lang="en">
+			http://www.oracle.com/technetwork/java/embedded/downloads/javase/index.html
+			ARMv7 Linux version (headless or headful)
+		</ofx:paragraph>
+		<ofx:paragraph>
+			cd /opt
+			sudo tar -xvzf /home/pi/ejre-7u21-fcs-b11-linux-arm-vfp-client_headless-04_apr_2013.tar.gz
+			
+			sudo update-alternatives --install /usr/bin/java java /opt/ejre1.7.0_21/bin/java 1
+			sudo update-alternatives --set java /opt/ejre1.7.0_21/bin/java
+		</ofx:paragraph>
+	</ofx:section>
 </ofx:section>

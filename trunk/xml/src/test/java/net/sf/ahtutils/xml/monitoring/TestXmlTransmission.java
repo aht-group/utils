@@ -37,7 +37,7 @@ public class TestXmlTransmission extends AbstractXmlMonitoringTest
     	if(withChilds)
     	{
     		xml.setUser(new User());
-    		xml.getComponent().add(TestXmlComponent.create(false));xml.getComponent().add(TestXmlComponent.create(false));
+    		xml.getDataSet().add(TestXmlDataSet.create(false));xml.getDataSet().add(TestXmlDataSet.create(false));
     	}
     	
     	return xml;

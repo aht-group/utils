@@ -82,14 +82,18 @@ public class ComponentAttribute
 		if(component.getAttributes().containsKey(attribute))
 		{
 			value = component.getAttributes().get(attribute).toString();
+//			logger.info("Value for "+attribute+" found in component.map: "+value);
 		}
 		else
 		{
+//			logger.info("Searching ValueExpression for "+attribute);
 			ValueExpression ve = component.getValueExpression(attribute);
 			if(ve!=null)
 			{
 				value=ve.getValue(context.getELContext()).toString();
+//				logger.info("Found ValuieExpression: "+value);
 			}
+//			logger.info("Value is now: "+value);
 		}
 		if(value==null){value=defaultValue;}
 		return value;

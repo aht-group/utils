@@ -204,7 +204,7 @@ public class XmlMailSender
 	
 	private Mail getMailAndDetachAtt(Element root) throws UtilsProcessingException
 	{
-		logger.info("Parsing Mail");
+		logger.trace("Parsing Mail");
 		for(Content content: root.getContent())
 		{
 			Element e = (Element)content;

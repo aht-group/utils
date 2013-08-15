@@ -93,4 +93,12 @@ public class ObjectFactory {
         return new Transmission();
     }
 
+    /**
+     * Create an instance of {@link Observer }
+     * 
+     */
+    public Observer createObserver() {
+        return new Observer();
+    }
+
 }

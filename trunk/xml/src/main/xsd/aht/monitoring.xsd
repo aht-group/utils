@@ -14,7 +14,7 @@
         <xsd:complexType>
         	<xsd:sequence>
                 <xsd:element ref="id:user" maxOccurs="1"/>
-                <xsd:element ref="mo:component" maxOccurs="unbounded"/>
+                <xsd:element ref="mo:dataSet" maxOccurs="unbounded"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
@@ -39,6 +39,13 @@
         	<xsd:sequence>
                 <xsd:element ref="mo:dataSet" maxOccurs="unbounded"/>
             </xsd:sequence>
+        	<xsd:attribute name="id" type="xsd:long"/>
+            <xsd:attribute name="code" type="xsd:string"/>
+            <xsd:attribute name="label" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="observer">
+        <xsd:complexType>
         	<xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
             <xsd:attribute name="label" type="xsd:string"/>

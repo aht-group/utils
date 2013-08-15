@@ -23,7 +23,7 @@ import net.sf.exlp.xml.identity.User;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element ref="{http://exlp.sf.net/identity}user"/>
- *         &lt;element ref="{http://ahtutils.aht-group.com/monitoring}component" maxOccurs="unbounded"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/monitoring}dataSet" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,7 +35,7 @@ import net.sf.exlp.xml.identity.User;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "user",
-    "component"
+    "dataSet"
 })
 @XmlRootElement(name = "transmission")
 public class Transmission
@@ -46,7 +46,7 @@ public class Transmission
     @XmlElement(namespace = "http://exlp.sf.net/identity", required = true)
     protected User user;
     @XmlElement(required = true)
-    protected List<Component> component;
+    protected List<DataSet> dataSet;
 
     /**
      * Gets the value of the user property.
@@ -77,40 +77,40 @@ public class Transmission
     }
 
     /**
-     * Gets the value of the component property.
+     * Gets the value of the dataSet property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the component property.
+     * This is why there is not a <CODE>set</CODE> method for the dataSet property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getComponent().add(newItem);
+     *    getDataSet().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Component }
+     * {@link DataSet }
      * 
      * 
      */
-    public List<Component> getComponent() {
-        if (component == null) {
-            component = new ArrayList<Component>();
+    public List<DataSet> getDataSet() {
+        if (dataSet == null) {
+            dataSet = new ArrayList<DataSet>();
         }
-        return this.component;
+        return this.dataSet;
     }
 
-    public boolean isSetComponent() {
-        return ((this.component!= null)&&(!this.component.isEmpty()));
+    public boolean isSetDataSet() {
+        return ((this.dataSet!= null)&&(!this.dataSet.isEmpty()));
     }
 
-    public void unsetComponent() {
-        this.component = null;
+    public void unsetDataSet() {
+        this.dataSet = null;
     }
 
 }

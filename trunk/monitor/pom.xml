@@ -11,7 +11,7 @@
 	
     <artifactId>ahtutils-monitor</artifactId>
     <packaging>jar</packaging>
-    <name>UTILS - Monitor</name>
+    <name>UTILS - Monitoring and Evaluation</name>
 	
 	<dependencyManagement>
 		<dependencies>      	         

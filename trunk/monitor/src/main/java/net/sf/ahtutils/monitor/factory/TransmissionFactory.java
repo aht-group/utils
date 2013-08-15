@@ -22,7 +22,7 @@ public class TransmissionFactory extends AbstractTransmissionFactory
 	public Transmission build(List<Indicator> indicators)
 	{
 		Transmission transmission = new Transmission();		
-		transmission.getComponent().add(buildComponent(indicators));
+	
 		return transmission;
 	}
 	
