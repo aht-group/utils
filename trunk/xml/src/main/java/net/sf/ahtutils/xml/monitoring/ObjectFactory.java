@@ -46,6 +46,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Observer }
+     * 
+     */
+    public Observer createObserver() {
+        return new Observer();
+    }
+
+    /**
      * Create an instance of {@link Data }
      * 
      */
@@ -91,14 +99,6 @@ public class ObjectFactory {
      */
     public Transmission createTransmission() {
         return new Transmission();
-    }
-
-    /**
-     * Create an instance of {@link Observer }
-     * 
-     */
-    public Observer createObserver() {
-        return new Observer();
     }
 
 }

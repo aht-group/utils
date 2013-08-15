@@ -55,6 +55,7 @@
         <xsd:complexType>
        		<xsd:sequence>
                 <xsd:element ref="mo:indicator" maxOccurs="1"/>
+                <xsd:element ref="mo:observer" maxOccurs="1"/>
                 <xsd:element ref="mo:data" maxOccurs="unbounded"/>
             </xsd:sequence>
         	<xsd:attribute name="id" type="xsd:long"/>
@@ -66,6 +67,7 @@
         <xsd:complexType>
         	<xsd:sequence>
                 <xsd:element ref="mo:indicator" maxOccurs="1"/>
+                <xsd:element ref="mo:observer" maxOccurs="1"/>
                 <xsd:element ref="mo:value" maxOccurs="unbounded"/>
             </xsd:sequence>
         	<xsd:attribute name="id" type="xsd:long"/>

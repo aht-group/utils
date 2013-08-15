@@ -23,6 +23,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element ref="{http://ahtutils.aht-group.com/monitoring}indicator"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/monitoring}observer"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/monitoring}data" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" />
@@ -38,6 +39,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "indicator",
+    "observer",
     "data"
 })
 @XmlRootElement(name = "dataSet")
@@ -48,6 +50,8 @@ public class DataSet
     private final static long serialVersionUID = 1L;
     @XmlElement(required = true)
     protected Indicator indicator;
+    @XmlElement(required = true)
+    protected Observer observer;
     @XmlElement(required = true)
     protected List<Data> data;
     @XmlAttribute(name = "id")
@@ -83,6 +87,34 @@ public class DataSet
 
     public boolean isSetIndicator() {
         return (this.indicator!= null);
+    }
+
+    /**
+     * Gets the value of the observer property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Observer }
+     *     
+     */
+    public Observer getObserver() {
+        return observer;
+    }
+
+    /**
+     * Sets the value of the observer property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Observer }
+     *     
+     */
+    public void setObserver(Observer value) {
+        this.observer = value;
+    }
+
+    public boolean isSetObserver() {
+        return (this.observer!= null);
     }
 
     /**

@@ -40,6 +40,7 @@ public class TestXmlData extends AbstractXmlMonitoringTest
     	if(withChilds)
     	{
     		xml.setIndicator(TestXmlIndicator.create(false));
+    		xml.setObserver(TestXmlObserver.create(false));
     		xml.getValue().add(TestXmlValue.create());xml.getValue().add(TestXmlValue.create());
     	}
     	
