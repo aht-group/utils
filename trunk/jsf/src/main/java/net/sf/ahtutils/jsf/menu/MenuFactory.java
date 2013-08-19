@@ -342,18 +342,26 @@ public class MenuFactory
 	{
 		List<MenuItem> result = new ArrayList<MenuItem>();
 		
-		DijkstraShortestPath<String, DefaultEdge> dsp = new DijkstraShortestPath<String, DefaultEdge>(graph,rootNode, code);
-		List<DefaultEdge> path = dsp.getPathEdgeList();
-		if(path.size()>0)
+		try
 		{
-			result.add(mapMenuItems.get(graph.getEdgeSource(path.get(0))));
+			DijkstraShortestPath<String, DefaultEdge> dsp = new DijkstraShortestPath<String, DefaultEdge>(graph,rootNode, code);
+			List<DefaultEdge> path = dsp.getPathEdgeList();
+			if(path.size()>0)
+			{
+				result.add(mapMenuItems.get(graph.getEdgeSource(path.get(0))));
+			}
+			for(DefaultEdge de : path)
+			{
+				String src = graph.getEdgeTarget(de);
+				result.add(mapMenuItems.get(src));
+			}
+			if(!withRoot){result.remove(0);}
 		}
-		for(DefaultEdge de : path)
+		catch(IllegalArgumentException e)
 		{
-			String src = graph.getEdgeTarget(de);
-			result.add(mapMenuItems.get(src));
+			logger.error("Breadcrumb from "+rootNode+"->"+code+" "+e.getMessage());
+			logger.error(graph.toString());
 		}
-		if(!withRoot){result.remove(0);}
 		return result;
 	}
 	
