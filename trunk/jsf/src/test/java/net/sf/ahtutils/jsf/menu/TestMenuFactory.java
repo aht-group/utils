@@ -145,7 +145,7 @@ public class TestMenuFactory extends AbstractAhtUtilsJsfTst
 	public void testHrefDirect()
 	{
 		Menu actualMenu = mf.build(mapViewAllowed,mTest.getCode());
-		Assert.assertEquals("#", actualMenu.getMenuItem().get(0).getHref());
+		Assert.assertNull(actualMenu.getMenuItem().get(0).getHref());
 		
 		MenuItem actual = actualMenu.getMenuItem().get(2);
 		Assert.assertTrue("href not set",actual.isSetHref());

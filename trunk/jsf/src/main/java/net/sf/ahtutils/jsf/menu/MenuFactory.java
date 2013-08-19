@@ -247,7 +247,7 @@ public class MenuFactory
 		}
 		else
 		{
-			mi.setHref("#");
+//			mi.setHref("#");
 		}
 		return mi;
 	}
@@ -297,7 +297,7 @@ public class MenuFactory
 		}
 		catch (ExlpXpathNotFoundException e) {}
 		catch (ExlpXpathNotUniqueException e) {}
-		return "#";
+		return null;
 	}
 	
 	public void removeChilds(String dynamicRoot, String dynKey)

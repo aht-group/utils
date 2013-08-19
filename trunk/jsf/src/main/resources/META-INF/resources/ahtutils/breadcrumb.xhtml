@@ -14,7 +14,14 @@
 
 	<ul class="#{cc.attrs.styleClass}">
 		<c:forEach var="menuItem" items="#{cc.attrs.value}">
-	    	<li><a href="#{facesContext.externalContext.requestContextPath}#{menuItem.href}">#{menuItem.name}</a></li>
+	    	<li>
+	    		<c:if test="#{!empty menuItem.href}">
+	    			<a href="#{facesContext.externalContext.requestContextPath}#{menuItem.href}">#{menuItem.name}</a>
+	    		</c:if>
+	    		<c:if test="#{empty menuItem.href}">
+	    			#{menuItem.name}
+	    		</c:if>
+	    	</li>
 	    </c:forEach>
 	</ul>
     
