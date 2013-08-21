@@ -32,6 +32,7 @@ public class MenuFactory
 	final static Logger logger = LoggerFactory.getLogger(MenuFactory.class);
 	
 	private String lang;
+
 	private String contextRoot;
 	
 	public void setContextRoot(String contextRoot) {this.contextRoot = contextRoot;}
@@ -39,7 +40,7 @@ public class MenuFactory
 	private Access access;
 	private boolean noRestrictions;
 	private Map<String,Boolean> mapViewAllowed;
-	private Map<String,String> translationsMenu,translationsAccess;
+	private Map<String,Map<String,String>> translationsMenu,translationsAccess;
 	private Map<String,View> mapView;
 	private Map<String,MenuItem> mapMenuItems;
 	
@@ -54,13 +55,16 @@ public class MenuFactory
 	public MenuFactory(Menu menu, Access access,String lang, String rootNode){this(menu,access,lang, rootNode,false);}
 	public MenuFactory(Menu menu, Access access,String lang, String rootNode, boolean noRestrictions)
 	{
-
 		this.access=access;
-		this.lang=lang;
 		this.rootNode=rootNode;
 		this.noRestrictions=noRestrictions;
-		translationsMenu = new Hashtable<String,String>();
+		
+		translationsMenu = new Hashtable<String,Map<String,String>>();
+		translationsAccess = new Hashtable<String,Map<String,String>>();
 		mapMenuItems = new Hashtable<String,MenuItem>();
+		
+		this.switchLang(lang);
+		
 		processMenu(menu);
 		
 		if(logger.isTraceEnabled())
@@ -71,7 +75,7 @@ public class MenuFactory
 		}
 		
 		mapView = new Hashtable<String,View>();
-		translationsAccess = new Hashtable<String,String>();
+		
 		if(access!=null){createAccessMaps();}
 		alwaysUpToLevel = 1;
 	}
@@ -100,7 +104,8 @@ public class MenuFactory
 		{
 			for(Lang l : mi.getLangs().getLang())
 			{
-				if(l.getKey().equals(lang)){translationsMenu.put(mi.getCode(), l.getTranslation());}
+				checkLang(l.getKey());
+				translationsMenu.get(l.getKey()).put(mi.getCode(), l.getTranslation());
 			}
 		}
 		for(MenuItem miChild : mi.getMenuItem())
@@ -126,7 +131,8 @@ public class MenuFactory
 					{
 						for(Lang l : v.getLangs().getLang())
 						{
-							if(l.getKey().equals(lang)){translationsAccess.put(v.getCode(), l.getTranslation());}
+							checkLang(l.getKey());
+							translationsAccess.get(l.getKey()).put(v.getCode(), l.getTranslation());
 						}
 					}
 				}
@@ -254,15 +260,17 @@ public class MenuFactory
 	
 	private String getNameFromMenuItem(String code)
 	{
-		if(!translationsMenu.containsKey(code)){return "???"+code+"???";}
-		else {return translationsMenu.get(code);}
+		if(!translationsMenu.containsKey(lang)){return "???no-lang-for-"+lang+"???";}
+		else if(!translationsMenu.get(lang).containsKey(code)){return "???"+code+"???";}
+		else {return translationsMenu.get(lang).get(code);}
 	}
 	
 	private String getNameFromViews(View view, View viewCode)
 	{
 		StringBuffer sbLabel = new StringBuffer();
-		if(!translationsAccess.containsKey(view.getCode())){sbLabel.append("???"+view.getCode()+"???");}
-		else {sbLabel.append(translationsAccess.get(view.getCode()));}
+		if(!translationsAccess.containsKey(lang)){return "???no-lang-for-"+lang+"???";}
+		else if(!translationsAccess.get(lang).containsKey(view.getCode())){sbLabel.append("???"+view.getCode()+"???");}
+		else {sbLabel.append(translationsAccess.get(lang).get(view.getCode()));}
 		
 		if(viewCode.isSetLabel())
 		{
@@ -372,5 +380,16 @@ public class MenuFactory
 		catch (ExlpXpathNotFoundException e) {result = new MenuItem();}
 		catch (ExlpXpathNotUniqueException e) {result = new MenuItem();}
 		return result;
+	}
+	
+	public void switchLang(String lang)
+	{
+		this.lang = lang;
+	}
+	
+	private void checkLang(String checkLanguage)
+	{
+		if(!translationsMenu.containsKey(checkLanguage)){translationsMenu.put(checkLanguage, new Hashtable<String,String>());}
+		if(!translationsAccess.containsKey(checkLanguage)){translationsAccess.put(checkLanguage, new Hashtable<String,String>());}
 	}
 }
