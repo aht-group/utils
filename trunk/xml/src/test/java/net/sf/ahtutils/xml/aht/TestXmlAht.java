@@ -13,9 +13,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestAht extends AbstractXmlAhtTest
+public class TestXmlAht extends AbstractXmlAhtTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestAht.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlAht.class);
 	
 	@BeforeClass
 	public static void initFiles()
@@ -50,9 +50,9 @@ public class TestAht extends AbstractXmlAhtTest
     {
 		UtilsXmlTstBootstrap.init();
 			
-		TestAht.initJaxb();
-		TestAht.initFiles();	
-		TestAht test = new TestAht();
+		TestXmlAht.initJaxb();
+		TestXmlAht.initFiles();	
+		TestXmlAht test = new TestXmlAht();
 		test.save();
     }
 }

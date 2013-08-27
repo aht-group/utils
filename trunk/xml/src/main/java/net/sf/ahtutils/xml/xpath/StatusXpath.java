@@ -2,10 +2,12 @@ package net.sf.ahtutils.xml.xpath;
 
 import java.util.List;
 
+import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.status.Description;
 import net.sf.ahtutils.xml.status.Descriptions;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Langs;
+import net.sf.ahtutils.xml.status.Status;
 import net.sf.ahtutils.xml.status.Translation;
 import net.sf.ahtutils.xml.status.Translations;
 import net.sf.ahtutils.xml.status.Type;
@@ -81,5 +83,28 @@ public class StatusXpath
 		if(listResult.size()==0){throw new ExlpXpathNotFoundException("No "+Type.class.getSimpleName()+" for key="+key);}
 		else if(listResult.size()>1){throw new ExlpXpathNotUniqueException("Multiple "+Type.class.getSimpleName()+" for key="+key);}
 		return listResult.get(0);
+	}
+	
+	public static Status getStatus(List<Status> list, String code) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
+	{
+		Aht aht = new Aht();
+		aht.getStatus().addAll(list);
+		JXPathContext context = JXPathContext.newContext(aht);
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append("status[@code='").append(code).append("']");
+		
+		@SuppressWarnings("unchecked")
+		List<Status> listResult = (List<Status>)context.selectNodes(sb.toString());
+		if(listResult.size()==0){throw new ExlpXpathNotFoundException("No "+Status.class.getSimpleName()+" for code="+code);}
+		else if(listResult.size()>1){throw new ExlpXpathNotUniqueException("Multiple "+Status.class.getSimpleName()+" for code="+code);}
+		return listResult.get(0);
+	}
+	
+	public static String getTranslationString(List<Status> list, String code, String langKey) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
+	{
+		Status status = StatusXpath.getStatus(list, code);
+		Lang lang = StatusXpath.getLang(status.getLangs(), langKey);
+		return lang.getTranslation();
 	}
 }
