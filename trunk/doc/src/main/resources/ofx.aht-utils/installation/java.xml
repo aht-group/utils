@@ -20,7 +20,6 @@
 		<ofx:title lang="en">Linux (Raspbian)</ofx:title>
 		<ofx:paragraph lang="en">
 			http://www.oracle.com/technetwork/java/embedded/downloads/javase/index.html
-			ARMv7 Linux version (headless or headful)
 		</ofx:paragraph>
 		<ofx:paragraph>
 			cd /opt

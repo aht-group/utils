@@ -42,10 +42,13 @@ public class UtilsFacadeBean implements UtilsFacade
 	final static Logger logger = LoggerFactory.getLogger(UtilsFacadeBean.class);
 	
 	protected EntityManager em;
+	private boolean handleTransaction;
 	
-	public UtilsFacadeBean(EntityManager em)
+	public UtilsFacadeBean(EntityManager em){this(em,false);}
+	public UtilsFacadeBean(EntityManager em, boolean handleTransaction)
 	{
 		this.em=em;
+		this.handleTransaction=handleTransaction;
 	}
 	
 //	@Override
@@ -54,26 +57,24 @@ public class UtilsFacadeBean implements UtilsFacade
 		return this.update(o);
 	}
 	
-	public <T extends EjbWithId> T find(Class<T> type, T t)
+	@Override
+	public <T extends EjbWithId> T save(T o) throws UtilsContraintViolationException,UtilsLockingException
 	{
-		T o = em.find(type,t.getId());
-		return o;
-	}
-	public <T extends Object> T find(Class<T> type, long id) throws UtilsNotFoundException
-	{
-		T o = em.find(type,id);
-		if(o==null){throw new UtilsNotFoundException("No entity "+type+" with id="+id);}
-		return o;
+		if(o.getId()==0){return this.persist(o);}
+		else{return this.update(o);}
 	}
 	
 	public <T extends Object> T persist(T o) throws UtilsContraintViolationException
 	{
 		try
 		{
+			if(handleTransaction){em.getTransaction().begin();}
 			em.persist(o);
+			if(handleTransaction){em.getTransaction().commit();}
 		}
 		catch (Exception e)
 		{
+			if(handleTransaction){em.getTransaction().rollback();}
 			if(e instanceof javax.validation.ConstraintViolationException)
 			{
 				throw new UtilsContraintViolationException(e.getMessage());
@@ -112,6 +113,65 @@ public class UtilsFacadeBean implements UtilsFacade
 //			else {throw ex;}
 		}
 	    return o;
+	}
+	
+	public <T extends Object> T update(T o) throws UtilsContraintViolationException, UtilsLockingException
+	{
+		try
+		{
+			if(handleTransaction){em.getTransaction().begin();}
+			em.merge(o);
+			em.flush();
+			if(handleTransaction){em.getTransaction().commit();}
+		}
+		catch (Exception e)
+		{
+			if(handleTransaction){em.getTransaction().rollback();}
+//			System.out.println("Exception in update");
+//			e.printStackTrace();
+			
+//			System.err.println(javax.validation.ConstraintViolationException.class.getSimpleName()+" "+(e instanceof javax.validation.ConstraintViolationException));
+//			System.err.println(javax.persistence.PersistenceException.class.getSimpleName()+" "+(e instanceof javax.persistence.PersistenceException));
+//			System.err.println(javax.persistence.OptimisticLockException.class.getSimpleName()+" "+(e instanceof javax.persistence.OptimisticLockException));
+			
+			if(e instanceof javax.validation.ConstraintViolationException)
+			{
+				throw new UtilsContraintViolationException(e.getMessage());
+			}
+			if(e instanceof javax.persistence.OptimisticLockException)
+			{
+				throw new UtilsLockingException(e.getMessage());
+			}
+			if(e instanceof javax.persistence.PersistenceException)
+			{
+				if(e.getCause() instanceof org.hibernate.exception.ConstraintViolationException)
+				{
+					throw new UtilsContraintViolationException(e.getCause().getMessage());
+				}
+				else
+				{
+					System.err.println("This Error is not handled: "+e.getClass().getName());
+					e.printStackTrace();
+				}
+			}
+			
+			System.err.println("(end) This Error is not handled: "+e.getClass().getName());
+			e.printStackTrace();
+			
+		}
+		return o;
+	}
+	
+	public <T extends EjbWithId> T find(Class<T> type, T t)
+	{
+		T o = em.find(type,t.getId());
+		return o;
+	}
+	public <T extends Object> T find(Class<T> type, long id) throws UtilsNotFoundException
+	{
+		T o = em.find(type,id);
+		if(o==null){throw new UtilsNotFoundException("No entity "+type+" with id="+id);}
+		return o;
 	}
 	
 	public <T extends EjbWithCode> T fByCode(Class<T> type, String code) throws UtilsNotFoundException
@@ -311,49 +371,7 @@ public class UtilsFacadeBean implements UtilsFacade
 		return select;
 	}
 	
-	public <T extends Object> T update(T o) throws UtilsContraintViolationException, UtilsLockingException
-	{
-		try
-		{
-			em.merge(o);
-			em.flush();
-		}
-		catch (Exception e)
-		{
-//			System.out.println("Exception in update");
-//			e.printStackTrace();
-			
-//			System.err.println(javax.validation.ConstraintViolationException.class.getSimpleName()+" "+(e instanceof javax.validation.ConstraintViolationException));
-//			System.err.println(javax.persistence.PersistenceException.class.getSimpleName()+" "+(e instanceof javax.persistence.PersistenceException));
-//			System.err.println(javax.persistence.OptimisticLockException.class.getSimpleName()+" "+(e instanceof javax.persistence.OptimisticLockException));
-			
-			if(e instanceof javax.validation.ConstraintViolationException)
-			{
-				throw new UtilsContraintViolationException(e.getMessage());
-			}
-			if(e instanceof javax.persistence.OptimisticLockException)
-			{
-				throw new UtilsLockingException(e.getMessage());
-			}
-			if(e instanceof javax.persistence.PersistenceException)
-			{
-				if(e.getCause() instanceof org.hibernate.exception.ConstraintViolationException)
-				{
-					throw new UtilsContraintViolationException(e.getCause().getMessage());
-				}
-				else
-				{
-					System.err.println("This Error is not handled: "+e.getClass().getName());
-					e.printStackTrace();
-				}
-			}
-			
-			System.err.println("(end) This Error is not handled: "+e.getClass().getName());
-			e.printStackTrace();
-			
-		}
-		return o;
-	}
+	
 	
 	@Override public <T extends EjbRemoveable> void rm(T o) throws UtilsIntegrityException {rmProtected(o);}
 	
@@ -689,13 +707,6 @@ public class UtilsFacadeBean implements UtilsFacade
 		 
 		TypedQuery<T> q = em.createQuery(select);
 		return q.getResultList();
-	}
-
-	@Override
-	public <T extends EjbWithId> T save(T o) throws UtilsContraintViolationException,UtilsLockingException
-	{
-		if(o.getId()==0){return this.persist(o);}
-		else{return this.update(o);}
 	}
 	
 	public <T extends EjbWithRecord> List<T> inInterval(Class<T> clRecord, Date from, Date to)
