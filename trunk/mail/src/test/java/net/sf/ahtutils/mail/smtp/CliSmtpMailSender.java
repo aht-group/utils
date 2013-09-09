@@ -13,7 +13,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import net.sf.ahtutils.test.UtilsMailTestBootstrap;
-import net.sf.exlp.util.config.ConfigKey;
+import net.sf.exlp.interfaces.util.ConfigKey;
 
 import org.apache.commons.configuration.Configuration;
 import org.slf4j.Logger;

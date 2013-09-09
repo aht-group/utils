@@ -18,7 +18,7 @@ import net.sf.ahtutils.test.UtilsMailTestBootstrap;
 import net.sf.ahtutils.xml.mail.Header;
 import net.sf.ahtutils.xml.mail.Mail;
 import net.sf.ahtutils.xml.mail.Mails;
-import net.sf.exlp.util.config.ConfigKey;
+import net.sf.exlp.interfaces.util.ConfigKey;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.apache.commons.configuration.Configuration;

@@ -1,4 +1,4 @@
-package net.sf.ahtutils.controller.interfaces.db;
+package net.sf.ahtutils.interfaces.db;
 
 import java.io.FileNotFoundException;
 
