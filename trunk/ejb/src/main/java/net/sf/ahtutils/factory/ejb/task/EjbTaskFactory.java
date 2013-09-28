@@ -30,7 +30,7 @@ public class EjbTaskFactory<T extends UtilsTask<T>>
 		try
 		{
 			T t = clTask.newInstance();
-			
+			t.setParent(parent);
 			t.setCode(code);
 		    return t;
 		}

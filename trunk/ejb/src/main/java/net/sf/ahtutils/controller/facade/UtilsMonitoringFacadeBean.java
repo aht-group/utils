@@ -39,4 +39,18 @@ public class UtilsMonitoringFacadeBean extends UtilsFacadeBean implements UtilsM
 		}
 		return ejb.getTask();
 	}
+
+	@Override
+	public <T extends UtilsTask<T>> T load(Class<T> clTask, T task)
+	{
+		task = em.find(clTask, task.getId());
+		if(task.getChilds()!=null && task.getChilds().size()>0)
+		{
+			for(T t : task.getChilds())
+			{
+				t = this.load(clTask, t);
+			}
+		}
+		return task;
+	}
 }
