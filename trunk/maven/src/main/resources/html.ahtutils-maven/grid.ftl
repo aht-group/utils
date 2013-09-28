@@ -144,6 +144,10 @@ body {min-width: ${width}px;}
 .auContainer .pull_10 {left: -800px;}
 .auContainer .pull_11 {left: -880px;}
 
+/* PrimeFaces hacks
+----------------------------------------------------------------------------------------------------*/
+.auFieldSetTop {margin-top: ${doublegutter}px;}
+
 /* `Clear Floated Elements
 ----------------------------------------------------------------------------------------------------*/
 /* http://sonspring.com/journal/clearing-floats */
