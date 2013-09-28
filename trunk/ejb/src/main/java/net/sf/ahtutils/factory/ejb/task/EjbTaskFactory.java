@@ -1,11 +1,11 @@
 package net.sf.ahtutils.factory.ejb.task;
 
-import net.sf.ahtutils.interfaces.model.task.Task;
+import net.sf.ahtutils.interfaces.model.monitoring.UtilsTask;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbTaskFactory<T extends Task>
+public class EjbTaskFactory<T extends UtilsTask<T>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbTaskFactory.class);
 	
@@ -16,16 +16,21 @@ public class EjbTaskFactory<T extends Task>
         this.clTask = clTask;
     } 
     
-    public static <T extends Task> EjbTaskFactory<T> factory(final Class<T> clTask)
+    public static <T extends UtilsTask<T>> EjbTaskFactory<T> factory(final Class<T> clTask)
     {
         return new EjbTaskFactory<T>(clTask);
     }
     	
-	public T build(String code)
+    public T build() {return build(null,null);}
+    public T buildCode(String code) {return build(null,code);}
+    public T build(T parent) {return build(parent,null);}
+    
+	public T build(T parent, String code)
 	{
 		try
 		{
 			T t = clTask.newInstance();
+			
 			t.setCode(code);
 		    return t;
 		}
