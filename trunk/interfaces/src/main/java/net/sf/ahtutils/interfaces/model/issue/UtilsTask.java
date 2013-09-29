@@ -1,4 +1,4 @@
-package net.sf.ahtutils.interfaces.model.monitoring;
+package net.sf.ahtutils.interfaces.model.issue;
 
 import java.util.List;
 

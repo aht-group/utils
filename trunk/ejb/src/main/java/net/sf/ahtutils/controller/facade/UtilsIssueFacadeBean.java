@@ -12,11 +12,11 @@ import net.sf.ahtutils.interfaces.model.with.EjbWithTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UtilsMonitoringFacadeBean extends UtilsFacadeBean implements UtilsMonitoringFacade
+public class UtilsIssueFacadeBean extends UtilsFacadeBean implements UtilsMonitoringFacade
 {
-	final static Logger logger = LoggerFactory.getLogger(UtilsMonitoringFacadeBean.class);
+	final static Logger logger = LoggerFactory.getLogger(UtilsIssueFacadeBean.class);
 	
-	public UtilsMonitoringFacadeBean(EntityManager em)
+	public UtilsIssueFacadeBean(EntityManager em)
 	{
 		super(em);
 	}

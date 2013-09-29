@@ -1,6 +1,6 @@
-package net.sf.ahtutils.factory.ejb.task;
+package net.sf.ahtutils.factory.ejb.issue;
 
-import net.sf.ahtutils.interfaces.model.monitoring.UtilsTask;
+import net.sf.ahtutils.interfaces.model.issue.UtilsTask;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
