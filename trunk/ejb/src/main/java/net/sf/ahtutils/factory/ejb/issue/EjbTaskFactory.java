@@ -1,6 +1,7 @@
 package net.sf.ahtutils.factory.ejb.issue;
 
 import net.sf.ahtutils.interfaces.model.issue.UtilsTask;
+import net.sf.ahtutils.xml.issue.Task;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,17 +22,21 @@ public class EjbTaskFactory<T extends UtilsTask<T>>
         return new EjbTaskFactory<T>(clTask);
     }
     	
-    public T build() {return build(null,null);}
-    public T buildCode(String code) {return build(null,code);}
-    public T build(T parent) {return build(parent,null);}
+    public T build() {return build(null,null,null);}
+    public T buildCode(String code) {return build(null,code,null);}
+    public T buildCode(T parent,String code) {return build(parent,code,null);}
+    public T build(T parent) {return build(parent,null,null);}
     
-	public T build(T parent, String code)
+    public T build(T parent, Task task) {return build(parent, task.getCode(), task.getName());}
+    
+	public T build(T parent, String code, String name)
 	{
 		try
 		{
 			T t = clTask.newInstance();
 			t.setParent(parent);
 			t.setCode(code);
+			t.setName(name);
 		    return t;
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
