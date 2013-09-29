@@ -5,14 +5,14 @@ import javax.persistence.EntityManager;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.factory.ejb.issue.EjbTaskFactory;
-import net.sf.ahtutils.interfaces.facade.UtilsMonitoringFacade;
+import net.sf.ahtutils.interfaces.facade.UtilsIssueFacade;
 import net.sf.ahtutils.interfaces.model.issue.UtilsTask;
 import net.sf.ahtutils.interfaces.model.with.EjbWithTask;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UtilsIssueFacadeBean extends UtilsFacadeBean implements UtilsMonitoringFacade
+public class UtilsIssueFacadeBean extends UtilsFacadeBean implements UtilsIssueFacade
 {
 	final static Logger logger = LoggerFactory.getLogger(UtilsIssueFacadeBean.class);
 	
