@@ -30,6 +30,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Task }
+     * 
+     */
+    public Task createTask() {
+        return new Task();
+    }
+
+    /**
      * Create an instance of {@link Tasks }
      * 
      */
