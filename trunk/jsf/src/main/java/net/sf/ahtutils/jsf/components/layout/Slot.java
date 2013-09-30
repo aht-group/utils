@@ -24,13 +24,8 @@ public class Slot extends UIPanel
 	
 	private Boolean renderChilds;
 	
-	public Boolean getRenderChilds() {
-		return renderChilds;
-	}
-
-	public void setRenderChilds(Boolean renderChilds) {
-		this.renderChilds = renderChilds;
-	}
+	public Boolean getRenderChilds() {return renderChilds;}
+	public void setRenderChilds(Boolean renderChilds) {this.renderChilds = renderChilds;}
 
 	@Override
 	public void encodeBegin(FacesContext context) throws IOException

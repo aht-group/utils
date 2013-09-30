@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
+import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.factory.ejb.issue.EjbTaskFactory;
 import net.sf.ahtutils.interfaces.facade.UtilsIssueFacade;
 import net.sf.ahtutils.interfaces.model.issue.UtilsTask;
@@ -29,6 +30,7 @@ public class UtilsIssueFacadeBean extends UtilsFacadeBean implements UtilsIssueF
 		{
 			EjbTaskFactory<T> efTask = EjbTaskFactory.factory(clTask);
 			T task = efTask.build(null);
+			task.setCode(clWithTask.getSimpleName()+":"+ejb.getId());
 			ejb.setTask(task);
 			try
 			{
@@ -52,5 +54,14 @@ public class UtilsIssueFacadeBean extends UtilsFacadeBean implements UtilsIssueF
 			}
 		}
 		return task;
+	}
+
+	@Override
+	public <T extends UtilsTask<T>, WT extends EjbWithTask<T>> T fTask(Class<T> clTask, Class<WT> clWithTask, WT ejb)
+			throws UtilsNotFoundException
+	{
+		ejb = em.find(clWithTask, ejb.getId());
+		if(ejb.getTask()==null){throw new UtilsNotFoundException("No Task found for "+ejb.toString());}
+		else{return ejb.getTask();}
 	}
 }
