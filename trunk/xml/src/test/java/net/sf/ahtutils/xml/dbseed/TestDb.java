@@ -33,7 +33,8 @@ public class TestDb extends AbstractXmlDbseedTest
     public static Db create(boolean withChilds)
     {
     	Db xml = new Db();
-    	xml.setPath("myPath");
+    	xml.setPathIde("myPathIde");
+    	xml.setPathExport("myPathExport");
     	
     	if(withChilds)
     	{

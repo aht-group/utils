@@ -1,6 +1,8 @@
 package net.sf.ahtutils.db.xml;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.NoSuchElementException;
 
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.dbseed.Db;
@@ -18,19 +20,21 @@ public class UtilsDbXmlSeedUtil
 {
 	final static Logger logger = LoggerFactory.getLogger(UtilsDbXmlSeedUtil.class);
 	
-	public static enum DataSource{ide,jar}
+	public static enum DataSource{ide,jar,path}
 	public static String configKeySeed = "db.seed";
+	public static String configKeyPathExport = "db.export.path";
 	
 	protected Db dbSeed;
-	protected String seedPath,pathPrefix;
+	protected String seedPath;
+	protected String pathPrefix;
 	
 	public UtilsDbXmlSeedUtil(Configuration config) throws FileNotFoundException
 	{
 		String dbSeedFile = config.getString(configKeySeed);
 		logger.info("Using seed: "+dbSeedFile);
-		Db dbSeed = JaxbUtil.loadJAXB(dbSeedFile, Db.class);
-		this.dbSeed=dbSeed;
-		seedPath=dbSeed.getPath();
+		dbSeed = JaxbUtil.loadJAXB(dbSeedFile, Db.class);
+		try{dbSeed.setPathExport(config.getString(configKeyPathExport));} catch (NoSuchElementException e){}
+		seedPath=dbSeed.getPathIde();
 	}
 	
 	public UtilsDbXmlSeedUtil(Db dbSeed)
@@ -41,7 +45,7 @@ public class UtilsDbXmlSeedUtil
 	public UtilsDbXmlSeedUtil(Db dbSeed, DataSource datasource)
 	{
 		this.dbSeed=dbSeed;
-		seedPath=dbSeed.getPath();
+		seedPath=dbSeed.getPathIde();
 	}
 	
 	public String getContentName(String extractId) throws UtilsConfigurationException
@@ -55,14 +59,39 @@ public class UtilsDbXmlSeedUtil
 		catch (ExlpXpathNotUniqueException e) {throw new UtilsConfigurationException(e.getMessage());}
 	}
 	
-	public String getExtractName(String extractId) throws UtilsConfigurationException
+	public String getExtractName(String extractId) throws UtilsConfigurationException {return getExtractName(DataSource.ide,extractId);}
+	public String getExtractName(DataSource ds, String extractId) throws UtilsConfigurationException
 	{
 		StringBuffer sb = new StringBuffer();
 		if(pathPrefix!=null){sb.append(pathPrefix).append("/");}
-		sb.append(seedPath).append("/");
+		
+		switch(ds)
+		{
+			case ide: sb.append(seedPath);break;
+			case path: sb.append(dbSeed.getPathExport());break;
+			default: logger.warn("NYI ds="+ds);
+		}
+		
+		sb.append("/");
 		sb.append(getContentName(extractId));
+		
+		switch(ds)
+		{
+			case path: checkPath(sb.toString());break;
+			default: ;
+		}
+		
 		return sb.toString();
 	}
 	
 	public void setPathPrefix(String pathPrefix) {this.pathPrefix = pathPrefix;}
+	
+	private void checkPath(String fileName) throws UtilsConfigurationException
+	{
+		File base = new File(dbSeed.getPathExport());
+		if(!base.exists() || !base.isDirectory()){throw new UtilsConfigurationException("Path "+dbSeed.getPathExport()+" does not exist");}
+		
+		File f = new File(fileName);
+		if(!f.getParentFile().exists()){f.getParentFile().mkdirs();}
+	}
 }

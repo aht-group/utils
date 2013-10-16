@@ -7,7 +7,8 @@
             <xsd:sequence>
                 <xsd:element ref="db:seed" maxOccurs="unbounded"/>
             </xsd:sequence>
-            <xsd:attribute name="path" type="xsd:string"/>
+            <xsd:attribute name="pathIde" type="xsd:string"/>
+            <xsd:attribute name="pathExport" type="xsd:string"/>
         </xsd:complexType>    
     </xsd:element>
     <xsd:element name="seed">

@@ -24,7 +24,8 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element ref="{http://ahtutils.aht-group.com/dbseed}seed" maxOccurs="unbounded"/>
  *       &lt;/sequence>
- *       &lt;attribute name="path" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="pathIde" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="pathExport" type="{http://www.w3.org/2001/XMLSchema}string" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -44,8 +45,10 @@ public class Db
     private final static long serialVersionUID = 1L;
     @XmlElement(required = true)
     protected List<Seed> seed;
-    @XmlAttribute(name = "path")
-    protected String path;
+    @XmlAttribute(name = "pathIde")
+    protected String pathIde;
+    @XmlAttribute(name = "pathExport")
+    protected String pathExport;
 
     /**
      * Gets the value of the seed property.
@@ -85,31 +88,59 @@ public class Db
     }
 
     /**
-     * Gets the value of the path property.
+     * Gets the value of the pathIde property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getPath() {
-        return path;
+    public String getPathIde() {
+        return pathIde;
     }
 
     /**
-     * Sets the value of the path property.
+     * Sets the value of the pathIde property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setPath(String value) {
-        this.path = value;
+    public void setPathIde(String value) {
+        this.pathIde = value;
     }
 
-    public boolean isSetPath() {
-        return (this.path!= null);
+    public boolean isSetPathIde() {
+        return (this.pathIde!= null);
+    }
+
+    /**
+     * Gets the value of the pathExport property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getPathExport() {
+        return pathExport;
+    }
+
+    /**
+     * Sets the value of the pathExport property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setPathExport(String value) {
+        this.pathExport = value;
+    }
+
+    public boolean isSetPathExport() {
+        return (this.pathExport!= null);
     }
 
 }
