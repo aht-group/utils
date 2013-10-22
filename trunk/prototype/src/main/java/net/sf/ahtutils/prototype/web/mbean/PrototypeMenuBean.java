@@ -25,21 +25,28 @@ public class PrototypeMenuBean extends AbstractMenuBean implements Serializable
 	protected MenuFactory mfMain;
 	
 	@PostConstruct
-    public void init() throws FileNotFoundException
+    public void init()
     {
 		logger.debug("@PostConstruct");
-		super.initMaps();
 		
-		Access xmlAccess = JaxbUtil.loadJAXB(this.getClass().getClassLoader(),"/views.xml", Access.class);
-		Menu xmlMenuMain = JaxbUtil.loadJAXB(this.getClass().getClassLoader(),"/menu.xml", Menu.class);
-		
-		if(logger.isTraceEnabled())
-		{
-			logger.info("main.root="+rootMain);
-		}
+		// GEO-75 Remove Exception for Compatibility
+		try {
+			super.initMaps();
+			Access xmlAccess = JaxbUtil.loadJAXB(this.getClass().getClassLoader(),"/views.xml", Access.class);
+			Menu xmlMenuMain = JaxbUtil.loadJAXB(this.getClass().getClassLoader(),"/menu.xml", Menu.class);
+			
+			if(logger.isTraceEnabled())
+			{
+				logger.info("main.root="+rootMain);
+			}
 
-		mfMain = new MenuFactory(xmlMenuMain,xmlAccess,getLang(),rootMain);
-		mfMain.setAlwaysUpToLevel(99);
+			mfMain = new MenuFactory(xmlMenuMain,xmlAccess,getLang(),rootMain);
+			mfMain.setAlwaysUpToLevel(99);
+		} catch (FileNotFoundException e) {
+			throw new IllegalStateException("Class: " +e.getClass().getName() +" Message: " +e.getMessage());
+		}
+		
+		
     }
 	
 	@Override protected void buildViewAllowedMap() {}
