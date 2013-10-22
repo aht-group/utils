@@ -66,5 +66,12 @@ public class XmlStatusFactory
 		}
 		
 		return xml;
-	}	
+	}
+	
+	public static Status create(String code)
+	{
+		Status xml = new Status();
+		xml.setCode(code);
+		return xml;
+	}
 }
