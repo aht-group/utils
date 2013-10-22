@@ -1,7 +1,5 @@
 package net.sf.ahtutils.db.ejb.security;
 
-import net.sf.ahtutils.controller.factory.ejb.status.EjbDescriptionFactory;
-import net.sf.ahtutils.controller.factory.ejb.status.EjbLangFactory;
 import net.sf.ahtutils.controller.interfaces.UtilsSecurityFacade;
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
@@ -9,6 +7,8 @@ import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
+import net.sf.ahtutils.factory.ejb.status.EjbDescriptionFactory;
+import net.sf.ahtutils.factory.ejb.status.EjbLangFactory;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;

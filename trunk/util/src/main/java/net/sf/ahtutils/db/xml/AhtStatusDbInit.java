@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import net.sf.ahtutils.controller.factory.ejb.status.EjbStatusFactory;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.factory.ejb.status.EjbStatusFactory;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;

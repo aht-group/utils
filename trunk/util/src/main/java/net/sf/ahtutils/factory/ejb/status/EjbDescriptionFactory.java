@@ -1,4 +1,4 @@
-package net.sf.ahtutils.controller.factory.ejb.status;
+package net.sf.ahtutils.factory.ejb.status;
 
 import java.util.Hashtable;
 import java.util.List;
@@ -87,10 +87,13 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
 		catch (UtilsContraintViolationException e) {logger.error("",e);}
 		catch (UtilsLockingException e) {logger.error("",e);}
 		
-		for(D desc : descMap.values())
+		if(descMap!=null)
 		{
-			try {fUtils.rm(desc);}
-			catch (UtilsIntegrityException e) {logger.error("",e);}
+			for(D desc : descMap.values())
+			{
+				try {fUtils.rm(desc);}
+				catch (UtilsIntegrityException e) {logger.error("",e);}
+			}
 		}
 	}
 }

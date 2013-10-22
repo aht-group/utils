@@ -1,7 +1,7 @@
 package net.sf.ahtutils.controller.factory.ejb.finance;
 
-import net.sf.ahtutils.controller.factory.ejb.status.EjbLangFactory;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
+import net.sf.ahtutils.factory.ejb.status.EjbLangFactory;
 import net.sf.ahtutils.model.interfaces.finance.UtilsCurrency;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.xml.finance.Currency;

@@ -1,4 +1,4 @@
-package net.sf.ahtutils.controller.factory.ejb.status;
+package net.sf.ahtutils.factory.ejb.status;
 
 import java.util.Hashtable;
 import java.util.List;

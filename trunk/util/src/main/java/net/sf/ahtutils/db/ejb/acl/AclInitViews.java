@@ -3,7 +3,6 @@ package net.sf.ahtutils.db.ejb.acl;
 import java.io.FileNotFoundException;
 import java.util.Map;
 
-import net.sf.ahtutils.controller.factory.ejb.status.EjbLangFactory;
 import net.sf.ahtutils.controller.interfaces.AhtAclFacade;
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
@@ -11,6 +10,7 @@ import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
+import net.sf.ahtutils.factory.ejb.status.EjbLangFactory;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclView;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;

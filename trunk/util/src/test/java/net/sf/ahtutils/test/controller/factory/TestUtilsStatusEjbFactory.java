@@ -1,7 +1,7 @@
 package net.sf.ahtutils.test.controller.factory;
 
-import net.sf.ahtutils.controller.factory.ejb.status.EjbStatusFactory;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
+import net.sf.ahtutils.factory.ejb.status.EjbStatusFactory;
 import net.sf.ahtutils.model.ejb.status.AhtUtilsDescription;
 import net.sf.ahtutils.model.ejb.status.AhtUtilsLang;
 import net.sf.ahtutils.model.ejb.status.AhtUtilsStatus;
