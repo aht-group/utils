@@ -52,8 +52,7 @@
 		<dependency>
    	   		<groupId>net.sf.exlp</groupId>
    	   		<artifactId>exlp-util</artifactId>
-   	   		<type>jar</type>
-   	   		<scope>provided</scope>
+   	   		<scope>test</scope>
    	   		<exclusions>
    	   			<exclusion>
    	   				<artifactId>commons-lang</artifactId>
@@ -79,12 +78,8 @@
    	   				<artifactId>commons-io</artifactId>
    	   				<groupId>commons-io</groupId>
    	   			</exclusion>
-   	   			<exclusion>
-   	   				<groupId>org.jdom</groupId>
-   	   				<artifactId>jdom</artifactId>
-   	   			</exclusion>
    	   		</exclusions>
-   	   	</dependency>
+		</dependency>
    	   	
    	   	<dependency>
    	   		<groupId>commons-lang</groupId>
@@ -113,10 +108,6 @@
    	   	</dependency>
 		
 		<!-- XML -->
-		<dependency>
-   	   		<groupId>org.jdom</groupId>
-   	   		<artifactId>jdom</artifactId>
-   	   	</dependency>
       	<dependency>
     	   	<groupId>javax.xml.bind</groupId>
     	   	<artifactId>jaxb-api</artifactId>
