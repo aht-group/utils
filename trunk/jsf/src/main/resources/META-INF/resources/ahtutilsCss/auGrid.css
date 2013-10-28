@@ -147,6 +147,8 @@ body {min-width: 720px;}
 /* PrimeFaces hacks
 ----------------------------------------------------------------------------------------------------*/
 .auFieldSetTop {margin-top: 10px;}
+.auManualTop {margin-top: 10px;}
+.auManualBottom {margin-bottom: 10px;}
 
 /* `Clear Floated Elements
 ----------------------------------------------------------------------------------------------------*/
