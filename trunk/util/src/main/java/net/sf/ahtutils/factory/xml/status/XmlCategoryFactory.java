@@ -1,4 +1,4 @@
-package net.sf.ahtutils.controller.factory.xml.status;
+package net.sf.ahtutils.factory.xml.status;
 
 import net.sf.ahtutils.xml.status.Category;
 

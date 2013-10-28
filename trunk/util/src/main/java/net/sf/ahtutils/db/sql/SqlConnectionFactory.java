@@ -3,6 +3,7 @@ package net.sf.ahtutils.db.sql;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.NoSuchElementException;
 
 import org.apache.commons.configuration.Configuration;
 import org.slf4j.Logger;
@@ -31,13 +32,13 @@ public class SqlConnectionFactory
 		
 		type = config.getString("net.db."+code+".type");
 		host = config.getString("net.db."+code+".host");
-		port = config.getInt("net.db."+code+".port");
 		db = config.getString("net.db."+code+".database");
+		
+		try{port = config.getInt("net.db."+code+".port");}
+		catch (NoSuchElementException e){port=3306;}
 		
 		username = config.getString("net.db."+code+".username");
 		password = config.getString("net.db."+code+".password");
-	
-//		logger.info(getConnInfo());
 		
 		DbType dbType = DbType.valueOf(type);
 		switch(dbType)
@@ -54,7 +55,7 @@ public class SqlConnectionFactory
 	    try
 	    {
 	    	logger.debug("Connecting ... "+getConnInfo());
-	    	Class.forName("org.postgresql.Driver");
+	    	Class.forName("com.mysql.jdbc.Driver");
 			c=DriverManager.getConnection(getConnInfo(),username, password);
 		}
 	    catch (ClassNotFoundException e) {logger.error(e.getMessage());}

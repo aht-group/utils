@@ -1,7 +1,7 @@
 package net.sf.ahtutils.controller.factory.xml.acl;
 
-import net.sf.ahtutils.controller.factory.xml.status.XmlDescriptionsFactory;
-import net.sf.ahtutils.controller.factory.xml.status.XmlLangsFactory;
+import net.sf.ahtutils.factory.xml.status.XmlDescriptionsFactory;
+import net.sf.ahtutils.factory.xml.status.XmlLangsFactory;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryGroup;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclGroup;

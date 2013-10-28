@@ -4,7 +4,7 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import net.sf.ahtutils.controller.factory.xml.acl.XmlViewFactory;
-import net.sf.ahtutils.controller.factory.xml.status.XmlLangFactory;
+import net.sf.ahtutils.factory.xml.status.XmlLangFactory;
 import net.sf.ahtutils.test.AbstractAhtUtilsJsfTst;
 import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Category;

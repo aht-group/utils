@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.ahtutils.controller.factory.ofx.status.OfxStatusTableFactory;
-import net.sf.ahtutils.controller.factory.xml.status.XmlDescriptionFactory;
-import net.sf.ahtutils.controller.factory.xml.status.XmlLangFactory;
+import net.sf.ahtutils.factory.xml.status.XmlDescriptionFactory;
+import net.sf.ahtutils.factory.xml.status.XmlLangFactory;
 import net.sf.ahtutils.test.AhtUtilsDocBootstrap;
 import net.sf.ahtutils.xml.status.Descriptions;
 import net.sf.ahtutils.xml.status.Langs;

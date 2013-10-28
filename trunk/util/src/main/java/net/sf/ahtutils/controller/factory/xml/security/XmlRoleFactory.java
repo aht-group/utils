@@ -1,6 +1,6 @@
 package net.sf.ahtutils.controller.factory.xml.security;
 
-import net.sf.ahtutils.controller.factory.xml.status.XmlLangsFactory;
+import net.sf.ahtutils.factory.xml.status.XmlLangsFactory;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
