@@ -110,6 +110,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Class }
+     * 
+     */
+    public Class createClass() {
+        return new Class();
+    }
+
+    /**
      * Create an instance of {@link Scopes }
      * 
      */
@@ -123,6 +131,22 @@ public class ObjectFactory {
      */
     public Category createCategory() {
         return new Category();
+    }
+
+    /**
+     * Create an instance of {@link Order }
+     * 
+     */
+    public Order createOrder() {
+        return new Order();
+    }
+
+    /**
+     * Create an instance of {@link Family }
+     * 
+     */
+    public Family createFamily() {
+        return new Family();
     }
 
     /**
