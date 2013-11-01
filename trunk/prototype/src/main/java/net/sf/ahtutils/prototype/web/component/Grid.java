@@ -79,6 +79,7 @@ public class Grid extends AbstractUtilsGrid
 		{
 			responseWriter.startElement("div", this);
 			responseWriter.writeAttribute("class","aupContentRight",null);
+			logger.info("Encoding right Facet");
 			this.getFacet("right").encodeChildren(context);
 			responseWriter.endElement("div");
 		}
