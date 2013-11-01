@@ -25,7 +25,9 @@
 				R --version
 			</ofx:paragraph>
 			<ofx:paragraph lang="en">
-				The version should be R version 3.0.1 (2013-05-16) -- "Good Sport"
+				The version should be
+				R version 3.0.1 (2013-05-16) -- "Good Sport"
+				R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"
 			</ofx:paragraph>
 			
 		</ofx:section>

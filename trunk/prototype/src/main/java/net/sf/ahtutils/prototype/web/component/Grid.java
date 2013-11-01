@@ -34,11 +34,9 @@ public class Grid extends AbstractUtilsGrid
 	{
 		if(event instanceof PostAddToViewEvent)
 		{
-			if(event.getComponent().getFacets().containsKey("menu"))
-			{
-				width=55;
-				gutter=5;
-			}
+			if(event.getComponent().getFacets().containsKey("left")) {width=width-15;}
+			if(event.getComponent().getFacets().containsKey("right")) {width=width-15;}
+					
 			super.pushCssToHead();
 		 }
 		super.processEvent(event);
@@ -50,15 +48,18 @@ public class Grid extends AbstractUtilsGrid
 		Map<String,Object> map = getAttributes();
 		
 		ResponseWriter responseWriter = context.getResponseWriter();
-		if(this.getFacets().containsKey("menu"))
+		if(this.getFacets().containsKey("left"))
 		{
 			responseWriter.startElement("div", this);
-			responseWriter.writeAttribute("class","mainLeft",null);
-			this.getFacet("menu").encodeChildren(context);
+			responseWriter.writeAttribute("class","aupContentLeft",null);
+			this.getFacet("left").encodeChildren(context);
 			responseWriter.endElement("div");
-			
+		}
+		
+		if(this.getFacets().containsKey("left") || this.getFacets().containsKey("right"))
+		{
 			responseWriter.startElement("div", this);
-			responseWriter.writeAttribute("class","mainRight",null);
+			responseWriter.writeAttribute("class","aupContentCenter",null);
 		}
 		super.writeGridBegin(context, responseWriter, map);
 	}
@@ -67,9 +68,18 @@ public class Grid extends AbstractUtilsGrid
 	public void encodeEnd(FacesContext context) throws IOException
 	{
 		ResponseWriter responseWriter = context.getResponseWriter();
+		
 		super.writeGridEnd(responseWriter);
-		if(this.getFacets().containsKey("menu"))
+		if(this.getFacets().containsKey("left") || this.getFacets().containsKey("right"))
 		{
+			responseWriter.endElement("div");
+		}
+		
+		if(this.getFacets().containsKey("right"))
+		{
+			responseWriter.startElement("div", this);
+			responseWriter.writeAttribute("class","aupContentRight",null);
+			this.getFacet("right").encodeChildren(context);
 			responseWriter.endElement("div");
 		}
 	}

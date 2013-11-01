@@ -18,7 +18,7 @@ public class AbstractTranslationBean implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	private TranslationMap tm;
-	private List<String> langKeys;
+	protected List<String> langKeys;
 	
 	//******* Methods *******************************
 	
@@ -36,13 +36,16 @@ public class AbstractTranslationBean implements Serializable
 		tm = tFactory.gettMap();
 		langKeys = tm.getLangKeys();
     }
+	
+	 public void overrideLangKeys(String... key)
+	    {
+	    	langKeys.clear();
+	    	for(String s : key)
+	    	{
+	    		langKeys.add(s);
+	    	}
+	    }
     
-    public String get(String lang, String key)
-    {
-    	return tm.translate(lang, key);
-    }
-    public List<String> getLangKeys()
-    {
-		return langKeys;
-	}
+    public String get(String lang, String key){return tm.translate(lang, key);}
+    public List<String> getLangKeys(){return langKeys;}
 }

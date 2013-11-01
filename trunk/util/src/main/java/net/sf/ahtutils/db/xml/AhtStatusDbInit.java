@@ -111,9 +111,9 @@ public class AhtStatusDbInit
 		{
 			try
 			{
-				logger.debug("Deleting "+cLang.getName()+": "+id);
+				logger.trace("Deleting "+cLang.getName()+": "+id);
 				L lang = fStatus.find(cLang, id);
-				logger.debug("\t"+lang);
+				logger.trace("\t"+lang);
 				fStatus.rm(lang);
 			}
 			catch (UtilsNotFoundException e) {logger.error("",e);}
@@ -154,7 +154,6 @@ public class AhtStatusDbInit
 		if(fStatus==null){logger.warn("No Handler available");return;}
 		else {logger.info("Updating "+cStatus.getSimpleName()+" with "+list.size()+" entries");}
 		iuStatusEJB(list, cStatus, cLang);
-
 	}
 	
 	private <S extends UtilsStatus<L,D>,L extends UtilsLang, D extends UtilsDescription> void iuStatusEJB(List<Status> list, Class<S> cStatus, Class<L> cLang)
@@ -163,7 +162,7 @@ public class AhtStatusDbInit
 		{
 			try
 			{
-				logger.debug("Processing "+status.getGroup()+" with "+status.getCode());
+				logger.trace("Processing "+status.getGroup()+" with "+status.getCode());
 				S ejbStatus;
 				if(!isGroupInMap(status.getGroup()))
 				{	// If a new group occurs, all entities are saved in a (delete) pool where

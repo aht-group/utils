@@ -1,7 +1,8 @@
 /* @override 
 	http://localhost:8080/geojsf/javax.faces.resource/geometry.css.jsf?ln=aupCss
 	http://localhost:8080/ahtutils/javax.faces.resource/geometry.css.jsf?ln=aupCss
-	http://localhost:8080/tg/javax.faces.resource/geometry.css.jsf?ln=aupCss */
+	http://localhost:8080/tg/javax.faces.resource/geometry.css.jsf?ln=aupCss
+	http://localhost:8080/ahtutils/javax.faces.resource/aupGeometry.css.jsf?ln=aupCss */
 
 body
 {
@@ -125,16 +126,20 @@ margin-top: 8px;
 	font-size: 11px;
 }
 
-.mainLeft
-{
+.aupContentLeft {
 	float: left;
-	width: 169px;
+	width: 172px;
 	padding: 5px;
 }
 
-.mainRight
-{
+.aupContentCenter {
 	float: left;
+}
+
+.aupContentRight {
+	float: left;
+	width: 172px;
+	padding: 5px;
 }
 
 /* SIDEBAR MENU */
