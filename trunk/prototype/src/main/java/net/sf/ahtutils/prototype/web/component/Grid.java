@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.faces.component.FacesComponent;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.AbortProcessingException;
@@ -52,7 +53,12 @@ public class Grid extends AbstractUtilsGrid
 		{
 			responseWriter.startElement("div", this);
 			responseWriter.writeAttribute("class","aupContentLeft",null);
-			this.getFacet("left").encodeChildren(context);
+			for (UIComponent child : this.getFacet("left").getChildren())
+			{
+				child.encodeAll(context);
+			}
+			// Replaced by the code above to fix UTILS-206
+			// this.getFacet("left").encodeChildren(context);
 			responseWriter.endElement("div");
 		}
 		
@@ -79,8 +85,12 @@ public class Grid extends AbstractUtilsGrid
 		{
 			responseWriter.startElement("div", this);
 			responseWriter.writeAttribute("class","aupContentRight",null);
-			logger.info("Encoding right Facet");
-			this.getFacet("right").encodeChildren(context);
+			for (UIComponent child : this.getFacet("right").getChildren())
+			{
+				child.encodeAll(context);
+			}
+			// Replaced by the code above to fix UTILS-206
+			// this.getFacet("right").encodeChildren(context);
 			responseWriter.endElement("div");
 		}
 	}
