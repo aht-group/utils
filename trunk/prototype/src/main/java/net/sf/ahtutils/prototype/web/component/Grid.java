@@ -53,12 +53,7 @@ public class Grid extends AbstractUtilsGrid
 		{
 			responseWriter.startElement("div", this);
 			responseWriter.writeAttribute("class","aupContentLeft",null);
-			for (UIComponent child : this.getFacet("left").getChildren())
-			{
-				child.encodeAll(context);
-			}
-			// Replaced by the code above to fix UTILS-206
-			// this.getFacet("left").encodeChildren(context);
+			 this.getFacet("left").encodeAll(context);
 			responseWriter.endElement("div");
 		}
 		
@@ -85,12 +80,7 @@ public class Grid extends AbstractUtilsGrid
 		{
 			responseWriter.startElement("div", this);
 			responseWriter.writeAttribute("class","aupContentRight",null);
-			for (UIComponent child : this.getFacet("right").getChildren())
-			{
-				child.encodeAll(context);
-			}
-			// Replaced by the code above to fix UTILS-206
-			// this.getFacet("right").encodeChildren(context);
+			 this.getFacet("right").encodeAll(context);
 			responseWriter.endElement("div");
 		}
 	}
