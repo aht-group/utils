@@ -30,11 +30,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Rule }
+     * Create an instance of {@link Roles }
      * 
      */
-    public Rule createRule() {
-        return new Rule();
+    public Roles createRoles() {
+        return new Roles();
     }
 
     /**
@@ -43,6 +43,14 @@ public class ObjectFactory {
      */
     public Role createRole() {
         return new Role();
+    }
+
+    /**
+     * Create an instance of {@link Rule }
+     * 
+     */
+    public Rule createRule() {
+        return new Rule();
     }
 
     /**

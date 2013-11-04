@@ -24,7 +24,13 @@
             <xsd:attribute name="actual" type="xsd:int"/>
         </xsd:complexType>    
     </xsd:element>
-    
+    <xsd:element name="roles">
+        <xsd:complexType>
+            <xsd:sequence>
+            	<xsd:element ref="sec:role" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
     <xsd:element name="role">
         <xsd:complexType>
             <xsd:sequence>

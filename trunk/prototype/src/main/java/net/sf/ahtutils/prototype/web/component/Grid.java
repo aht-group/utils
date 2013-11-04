@@ -53,7 +53,7 @@ public class Grid extends AbstractUtilsGrid
 		{
 			responseWriter.startElement("div", this);
 			responseWriter.writeAttribute("class","aupContentLeft",null);
-			 this.getFacet("left").encodeAll(context);
+			this.getFacet("left").encodeAll(context);
 			responseWriter.endElement("div");
 		}
 		
@@ -80,7 +80,7 @@ public class Grid extends AbstractUtilsGrid
 		{
 			responseWriter.startElement("div", this);
 			responseWriter.writeAttribute("class","aupContentRight",null);
-			 this.getFacet("right").encodeAll(context);
+			this.getFacet("right").encodeAll(context);
 			responseWriter.endElement("div");
 		}
 	}
