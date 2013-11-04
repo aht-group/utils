@@ -47,6 +47,7 @@ public class TestXmlStatus extends AbstractXmlStatusTest
     		xml.setDescriptions(TestXmlDescriptions.create(false));
     		xml.getLang().add(TestXmlLang.create(false));
     		xml.setTransistions(TestXmlTransistions.create(false));
+    		xml.setParent(TestXmlParent.create(false));
     	}
     	
     	return xml;

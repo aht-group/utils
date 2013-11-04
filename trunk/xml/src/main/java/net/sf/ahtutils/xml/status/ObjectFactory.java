@@ -78,6 +78,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Parent }
+     * 
+     */
+    public Parent createParent() {
+        return new Parent();
+    }
+
+    /**
      * Create an instance of {@link Type }
      * 
      */
