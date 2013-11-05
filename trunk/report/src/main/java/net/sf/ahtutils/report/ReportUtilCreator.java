@@ -129,7 +129,7 @@ public class ReportUtilCreator
 		datamodel.put("testPackage", testPackage);
 		datamodel.put("classname", "Test" +reportId +"Renderer");
 		Configuration cfg = new Configuration();
-		Template tpl = cfg.getTemplate("src/main/resources/freemarker/report-test.java");
+		Template tpl = cfg.getTemplate("src/main/resources/freemarker/report-test.jva");
 		String testFileName = "src/test/java/" +testPackage.replaceAll("\\.", "/") +"/" +"Test" +reportId +"Renderer.java";
 		
 		File testFile = new File(testFileName);
