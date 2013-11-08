@@ -35,6 +35,16 @@ public class AbstractAhtUtilsXmlTest
     	JaxbUtil.save(f, xml, true);
 	}
 	
+	protected static void setXmlFile(String dirSuffix, Class<?> cl)
+	{
+		setXmlFile(dirSuffix,cl.getSimpleName());
+	}
+	
+	protected static void setXmlFile(String dirSuffix, String namePrefix)
+	{
+		fXml = new File(getXmlDir(dirSuffix),namePrefix+".xml");
+	}
+	
 	protected static File getXmlDir(String suffix)
     {
         File f = new File(".");
