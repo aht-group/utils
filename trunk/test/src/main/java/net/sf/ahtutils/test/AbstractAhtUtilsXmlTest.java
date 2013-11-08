@@ -7,6 +7,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import net.sf.exlp.util.DateUtil;
 import net.sf.exlp.util.xml.JaxbUtil;
 
+import org.apache.commons.io.FilenameUtils;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,8 @@ import org.slf4j.LoggerFactory;
 public class AbstractAhtUtilsXmlTest
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractAhtUtilsXmlTest.class);
+	
+	protected static File fXml;
 	
 	protected void assertJaxbEquals(Object expected, Object actual)
 	{
@@ -31,4 +34,16 @@ public class AbstractAhtUtilsXmlTest
 		JaxbUtil.debug(xml);
     	JaxbUtil.save(f, xml, true);
 	}
+	
+	protected static File getXmlDir(String suffix)
+    {
+        File f = new File(".");
+        String s = FilenameUtils.normalizeNoEndSeparator(f.getAbsolutePath());
+
+        // This hack is for intelliJ
+        if(!s.endsWith("xml")){f = new File(s,"xml");}
+        else {f = new File(s);}
+
+        return new File(f,"src"+File.separator+"test"+File.separator+"resources"+File.separator+"data"+File.separator+"xml"+File.separator+suffix);
+    }
 }
