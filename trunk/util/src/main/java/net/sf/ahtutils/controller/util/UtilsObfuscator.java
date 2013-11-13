@@ -1,17 +1,17 @@
-package net.sf.ahtutils.report.util;
+package net.sf.ahtutils.controller.util;
 
 import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ReportPrivacy
+public class UtilsObfuscator
 {
-	final static Logger logger = LoggerFactory.getLogger(ReportPrivacy.class);
+	final static Logger logger = LoggerFactory.getLogger(UtilsObfuscator.class);
 	
 	private Random rnd; 
 	
-	public ReportPrivacy()
+	public UtilsObfuscator()
 	{
 		rnd = new Random();
 	}
