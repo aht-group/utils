@@ -15,7 +15,7 @@ import org.junit.BeforeClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractXmlTest
+public abstract class AbstractXmlTest extends AbstractAhtUtilsXmlTest
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractXmlTest.class);
 	

@@ -131,5 +131,15 @@
    	   		<type>jar</type>
    	   		<scope>test</scope>
    	   	</dependency>
+		<dependency>
+			<groupId>net.sf.ahtutils</groupId>
+			<artifactId>ahtutils-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 </project>

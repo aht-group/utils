@@ -126,6 +126,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Statuses }
+     * 
+     */
+    public Statuses createStatuses() {
+        return new Statuses();
+    }
+
+    /**
      * Create an instance of {@link Scopes }
      * 
      */

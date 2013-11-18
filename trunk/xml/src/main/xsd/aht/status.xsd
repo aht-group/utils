@@ -2,7 +2,15 @@
 <xsd:schema targetNamespace="http://ahtutils.aht-group.com/status"
     xmlns:s="http://ahtutils.aht-group.com/status"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <xsd:element name="status">
+	<xsd:element name="statuses">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="s:status" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="group" type="xsd:string"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="status">
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element ref="s:transistions" maxOccurs="1"/>
