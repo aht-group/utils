@@ -416,7 +416,7 @@ public class UtilsFacadeBean implements UtilsFacade
 		catch (NoResultException ex){throw new UtilsNotFoundException("No "+type.getSimpleName()+" for name="+name);}
 	}
 	
-	public <T extends EjbWithNr, P extends EjbWithId> T fByNr(Class<T> type, String parentName, P parent, int nr) throws UtilsNotFoundException
+	public <T extends EjbWithNr, P extends EjbWithId> T fByNr(Class<T> type, String parentName, P parent, long nr) throws UtilsNotFoundException
 	{
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
 	    CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(type);

@@ -56,7 +56,7 @@ public class AbstractDummyFacade implements UtilsFacade
 
 	@Override
 	public <T extends EjbWithNr, P extends EjbWithId> T fByNr(Class<T> type,
-			String parentName, P parent, int nr) throws UtilsNotFoundException {
+			String parentName, P parent, long nr) throws UtilsNotFoundException {
 		// TODO Auto-generated method stub
 		return null;
 	}

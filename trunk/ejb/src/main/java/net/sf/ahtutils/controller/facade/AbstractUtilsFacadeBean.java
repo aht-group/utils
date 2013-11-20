@@ -54,7 +54,7 @@ public class AbstractUtilsFacadeBean implements UtilsFacade
 	public <T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> type, String p1Name, I p1Object){return fUtils.allForParent(type, p1Name, p1Object);}
 	public <T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> type, String p1Name, I p1, String p2Name, I p2){return fUtils.allForParent(type, p1Name, p1, p2Name, p2);}
 	public <T extends EjbWithId, I extends EjbWithId> T oneForParent(Class<T> cl, String p1Name, I p1) throws UtilsNotFoundException {return fUtils.oneForParent(cl, p1Name, p1);}
-	public <T extends EjbWithNr, P extends EjbWithId> T fByNr(Class<T> type, String parentName, P parent, int nr) throws UtilsNotFoundException {return fUtils.fByNr(type, parentName, parent, nr);}
+	public <T extends EjbWithNr, P extends EjbWithId> T fByNr(Class<T> type, String parentName, P parent, long nr) throws UtilsNotFoundException {return fUtils.fByNr(type, parentName, parent, nr);}
 	
 	// Ordering
 	public <T extends EjbWithPosition> List<T> allOrderedPosition(Class<T> type) {return fUtils.allOrderedPosition(type);}
