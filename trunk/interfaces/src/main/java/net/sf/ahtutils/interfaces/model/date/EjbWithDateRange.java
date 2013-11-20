@@ -11,7 +11,4 @@ public interface EjbWithDateRange extends EjbWithId
 	
 	public Date getEndDate();
 	public void setEndDate(Date endDate);
-	
-	public boolean isAllDay();
-	public void setAllDay(boolean allDay);
 }
