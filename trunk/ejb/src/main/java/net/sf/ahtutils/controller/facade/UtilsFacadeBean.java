@@ -20,6 +20,7 @@ import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
+import net.sf.ahtutils.interfaces.model.date.EjbWithTimeline;
 import net.sf.ahtutils.model.interfaces.UtilsProperty;
 import net.sf.ahtutils.model.interfaces.crud.EjbMergeable;
 import net.sf.ahtutils.model.interfaces.crud.EjbRemoveable;
@@ -30,7 +31,6 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithNr;
 import net.sf.ahtutils.model.interfaces.with.EjbWithPosition;
 import net.sf.ahtutils.model.interfaces.with.EjbWithPositionVisible;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
-import net.sf.ahtutils.model.interfaces.with.EjbWithTimeline;
 import net.sf.ahtutils.model.interfaces.with.EjbWithType;
 import net.sf.ahtutils.model.interfaces.with.EjbWithValidFrom;
 

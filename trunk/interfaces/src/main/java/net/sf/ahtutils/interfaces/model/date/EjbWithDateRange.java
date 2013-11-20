@@ -1,8 +1,10 @@
-package net.sf.ahtutils.model.interfaces.with;
+package net.sf.ahtutils.interfaces.model.date;
 
 import java.util.Date;
 
-public interface EjbWithTimeline extends EjbWithId
+import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+
+public interface EjbWithDateRange extends EjbWithId
 {
 	public Date getStartDate();
 	public void setStartDate(Date startDate);
