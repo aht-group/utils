@@ -1,4 +1,4 @@
-package net.sf.ahtutils.model.interfaces.with;
+package net.sf.ahtutils.interfaces.model.with;
 
 public interface EjbWithNr
 {	
