@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
 import net.sf.ahtutils.xml.finance.TestXmlCurrency;
+import net.sf.ahtutils.xml.project.TestXmlUser;
 import net.sf.ahtutils.xml.status.TestXmlStatus;
 import net.sf.exlp.util.xml.JaxbUtil;
 
@@ -39,6 +40,7 @@ public class TestXmlAht extends AbstractXmlAhtTest
     	{
     		xml.getStatus().add(TestXmlStatus.create(false));xml.getStatus().add(TestXmlStatus.create(false));
     		xml.getCurrency().add(TestXmlCurrency.create(false));xml.getCurrency().add(TestXmlCurrency.create(false));
+    		xml.getUser().add(TestXmlUser.create(false));xml.getUser().add(TestXmlUser.create(false));
     	}
     	
     	return xml;

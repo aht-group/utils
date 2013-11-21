@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import net.sf.ahtutils.xml.finance.Currency;
+import net.sf.ahtutils.xml.project.User;
 import net.sf.ahtutils.xml.status.Status;
 
 
@@ -25,6 +26,7 @@ import net.sf.ahtutils.xml.status.Status;
  *       &lt;sequence>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}status" maxOccurs="unbounded"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/finance}currency" maxOccurs="unbounded"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/project}user" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,7 +38,8 @@ import net.sf.ahtutils.xml.status.Status;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "status",
-    "currency"
+    "currency",
+    "user"
 })
 @XmlRootElement(name = "aht")
 public class Aht
@@ -48,6 +51,8 @@ public class Aht
     protected List<Status> status;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/finance", required = true)
     protected List<Currency> currency;
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/project", required = true)
+    protected List<User> user;
 
     /**
      * Gets the value of the status property.
@@ -121,6 +126,43 @@ public class Aht
 
     public void unsetCurrency() {
         this.currency = null;
+    }
+
+    /**
+     * Gets the value of the user property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the user property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getUser().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link User }
+     * 
+     * 
+     */
+    public List<User> getUser() {
+        if (user == null) {
+            user = new ArrayList<User>();
+        }
+        return this.user;
+    }
+
+    public boolean isSetUser() {
+        return ((this.user!= null)&&(!this.user.isEmpty()));
+    }
+
+    public void unsetUser() {
+        this.user = null;
     }
 
 }
