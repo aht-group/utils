@@ -30,19 +30,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Roles }
-     * 
-     */
-    public Roles createRoles() {
-        return new Roles();
-    }
-
-    /**
      * Create an instance of {@link Role }
      * 
      */
     public Role createRole() {
         return new Role();
+    }
+
+    /**
+     * Create an instance of {@link Roles }
+     * 
+     */
+    public Roles createRoles() {
+        return new Roles();
     }
 
     /**
