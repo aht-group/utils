@@ -14,7 +14,11 @@
 	</composite:interface>
 	        
 	<composite:implementation>
-		<p:commandButton disabled="#{cc.attrs.disabled}" rendered="#{cc.attrs.ejb.id eq 0}" value="#{msg.Save}"   actionListener="#{cc.actionListener}" update="#{cc.attrs.update}" icon="ui-icon-disk" />
-		<p:commandButton disabled="#{cc.attrs.disabled}" rendered="#{cc.attrs.ejb.id gt 0}" value="#{msg.Update}" actionListener="#{cc.actionListener}" update="#{cc.attrs.update}" icon="ui-icon-disk" />
+		<p:commandButton disabled="#{cc.attrs.disabled}" rendered="#{cc.attrs.ejb.id eq 0}"
+		                 value="#{msg.Save}"   actionListener="#{cc.actionListener}"
+		                 update="#{cc.attrs.update}" icon="ui-icon-disk" />
+		<p:commandButton disabled="#{cc.attrs.disabled}" rendered="#{cc.attrs.ejb.id gt 0}"
+		                 value="#{msg.Update}" actionListener="#{cc.actionListener}"
+		                 update="#{cc.attrs.update}" icon="ui-icon-disk" />
 	</composite:implementation>
 </html>
