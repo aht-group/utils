@@ -8,12 +8,12 @@
 		</ofx:paragraph>
 		<ofx:paragraph>
 			cd /opt
-			tar -xvzf path_to_download/jdk-7u3-linux-x64.tar.gz
+			tar -xvzf path_to_download/jdk-7u45-linux-x64.tar.gz
 			
-			update-alternatives --install /usr/bin/java java /opt/jdk1.7.0_25/bin/java 1
-			update-alternatives --install /usr/bin/javac javac /opt/jdk1.7.0_25/bin/javac 1
-			update-alternatives --set java /opt/jdk1.7.0_25/bin/java
-			update-alternatives --set javac /opt/jdk1.7.0_25/bin/javac
+			update-alternatives --install /usr/bin/java java /opt/jdk1.7.0_45/bin/java 1
+			update-alternatives --install /usr/bin/javac javac /opt/jdk1.7.0_45/bin/javac 1
+			update-alternatives --set java /opt/jdk1.7.0_45/bin/java
+			update-alternatives --set javac /opt/jdk1.7.0_45/bin/javac
 		</ofx:paragraph>
 	</ofx:section>
 	<ofx:section>

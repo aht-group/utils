@@ -21,6 +21,7 @@ import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.date.EjbWithTimeline;
+import net.sf.ahtutils.interfaces.model.date.EjbWithYear;
 import net.sf.ahtutils.interfaces.model.with.EjbWithNr;
 import net.sf.ahtutils.model.interfaces.UtilsProperty;
 import net.sf.ahtutils.model.interfaces.crud.EjbMergeable;
@@ -801,5 +802,27 @@ public class UtilsFacadeBean implements UtilsFacade
 		
 		TypedQuery<T> q = em.createQuery(select);
 		return q.getResultList();
+	}
+	
+	//Year
+	@Override
+	public <T extends EjbWithYear, P extends EjbWithId> T fByYear(Class<T> type, String parentName, P p, int year) throws UtilsNotFoundException
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+	    CriteriaQuery<T> criteriaQuery = cB.createQuery(type);
+	    
+	    Root<T> fromType = criteriaQuery.from(type);
+	    Path<Object> pathParent = fromType.get(parentName);
+
+	    Expression<Integer> fromYear = fromType.get("year");
+	    
+	    CriteriaQuery<T> select = criteriaQuery.select(fromType);
+	    select.where( cB.equal(pathParent, p.getId()),
+	    		      cB.equal(fromYear, year));
+	    
+	    TypedQuery<T> q = em.createQuery(select);
+		q.setMaxResults(1);
+		try	{return q.getSingleResult();}
+		catch (NoResultException ex){throw new UtilsNotFoundException("No "+type.getSimpleName()+" for "+parentName+".id="+p.getId()+" year="+year);}
 	}
 }
