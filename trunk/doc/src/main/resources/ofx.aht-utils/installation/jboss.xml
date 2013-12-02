@@ -8,7 +8,7 @@
 			(oder \texttt{standalone.bat}) gestartet. Der Startprozess sollte fehlerfrei durchlaufen und
 			mit folgender Meldung abgeschlossen werden:
 		</ofx:paragraph>
-		<ofx:paragraph lang="de">
+		<ofx:paragraph lang="fr">
 			Le serveur d'applications est démarré dans le répertoire  \texttt{bin} avec la commande \texttt{standalone.sh} (ou \texttt{standalone.bat}). Le processus de démarrage devrait fonctionner sans accroc et se terminer avec l'indication suivante:
 		</ofx:paragraph>
 		<ofx:paragraph lang="de">

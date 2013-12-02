@@ -14,7 +14,7 @@ import net.sf.exlp.util.xml.JaxbUtil;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.openfuxml.renderer.processor.latex.util.OfxLatexRenderer;
+import org.openfuxml.interfaces.OfxLatexRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

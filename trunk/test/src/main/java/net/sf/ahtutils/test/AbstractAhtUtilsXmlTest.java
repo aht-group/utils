@@ -15,8 +15,14 @@ import org.slf4j.LoggerFactory;
 public class AbstractAhtUtilsXmlTest
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractAhtUtilsXmlTest.class);
-	
+
+	private boolean debug;
 	protected static File fXml;
+	
+	public AbstractAhtUtilsXmlTest()
+	{
+		debug=true;
+	}
 	
 	protected void assertJaxbEquals(Object expected, Object actual)
 	{
@@ -32,7 +38,7 @@ public class AbstractAhtUtilsXmlTest
 	protected void save(Object xml, File f, boolean formatted)
 	{
 		logger.debug("Saving Reference XML");
-		JaxbUtil.debug(xml);
+		if(debug){JaxbUtil.info(xml);}
     	JaxbUtil.save(f, xml, true);
 	}
 	

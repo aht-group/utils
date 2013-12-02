@@ -9,7 +9,7 @@ import net.sf.ahtutils.xml.navigation.MenuItem;
 import net.sf.exlp.util.io.StringIO;
 
 import org.openfuxml.exception.OfxAuthoringException;
-import org.openfuxml.renderer.processor.latex.addon.graph.LatexTreeRenderer;
+import org.openfuxml.renderer.latex.content.graph.LatexTreeRenderer;
 import org.openfuxml.xml.addon.graph.Node;
 import org.openfuxml.xml.addon.graph.Tree;
 import org.slf4j.Logger;

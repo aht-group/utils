@@ -21,7 +21,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openfuxml.content.ofx.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
-import org.openfuxml.renderer.processor.latex.content.table.LatexGridTableRenderer;
+import org.openfuxml.renderer.latex.content.table.LatexGridTableRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

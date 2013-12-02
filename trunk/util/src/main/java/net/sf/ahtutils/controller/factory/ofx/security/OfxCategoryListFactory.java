@@ -14,8 +14,8 @@ import net.sf.exlp.util.io.StringIO;
 
 import org.openfuxml.content.ofx.Paragraph;
 import org.openfuxml.exception.OfxAuthoringException;
-import org.openfuxml.renderer.processor.latex.content.SectionFactory;
-import org.openfuxml.renderer.processor.latex.content.list.LatexListFactory;
+import org.openfuxml.renderer.latex.content.SectionFactory;
+import org.openfuxml.renderer.latex.content.list.LatexListFactory;
 import org.openfuxml.xml.content.list.Item;
 import org.openfuxml.xml.content.list.List;
 import org.openfuxml.xml.content.list.Type;

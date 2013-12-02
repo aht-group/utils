@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openfuxml.exception.OfxAuthoringException;
-import org.openfuxml.renderer.processor.latex.addon.graph.LatexTreeRenderer;
+import org.openfuxml.renderer.latex.content.graph.LatexTreeRenderer;
 import org.openfuxml.xml.addon.graph.Tree;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
