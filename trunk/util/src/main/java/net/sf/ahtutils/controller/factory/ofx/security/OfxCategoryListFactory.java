@@ -14,8 +14,8 @@ import net.sf.exlp.util.io.StringIO;
 
 import org.openfuxml.content.ofx.Paragraph;
 import org.openfuxml.exception.OfxAuthoringException;
-import org.openfuxml.renderer.latex.content.SectionFactory;
 import org.openfuxml.renderer.latex.content.list.LatexListFactory;
+import org.openfuxml.renderer.latex.content.structure.LatexSectionRenderer;
 import org.openfuxml.xml.content.list.Item;
 import org.openfuxml.xml.content.list.List;
 import org.openfuxml.xml.content.list.Type;
@@ -39,7 +39,7 @@ public class OfxCategoryListFactory
 		{
 			logger.debug("Saving Reference to "+f);
 			LatexListFactory renderer = new LatexListFactory();
-			renderer.render(create(lRc),new SectionFactory(0,null));
+			renderer.render(create(lRc),new LatexSectionRenderer(0,null));
 			StringWriter actual = new StringWriter();
 			renderer.write(actual);
 			StringIO.writeTxt(f, actual.toString());

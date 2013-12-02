@@ -17,8 +17,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.interfaces.OfxLatexRenderer;
-import org.openfuxml.renderer.latex.content.SectionFactory;
 import org.openfuxml.renderer.latex.content.list.LatexListFactory;
+import org.openfuxml.renderer.latex.content.structure.LatexSectionRenderer;
 import org.openfuxml.xml.content.list.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +46,7 @@ public class TestOfxCategoryListFactory extends AbstractOfxSecurityFactoryTest
 	@Before
 	public void init()
 	{	
-		parentSection = new SectionFactory(0,null);
+		parentSection = new LatexSectionRenderer(0,null);
 		factory = new OfxCategoryListFactory(lang);
 		list = new ArrayList<Category>();
 		rc1 = createCategory(1);list.add(rc1);

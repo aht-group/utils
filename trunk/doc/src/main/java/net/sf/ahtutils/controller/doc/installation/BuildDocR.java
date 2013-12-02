@@ -10,7 +10,7 @@ import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.exception.OfxAuthoringException;
-import org.openfuxml.renderer.latex.content.SectionFactory;
+import org.openfuxml.renderer.latex.content.structure.LatexSectionRenderer;
 import org.openfuxml.renderer.latex.preamble.LatexPreamble;
 import org.openfuxml.renderer.latex.util.OfxLatexComment;
 import org.openfuxml.renderer.util.OfxContentDebugger;
@@ -24,7 +24,7 @@ public class BuildDocR extends AbstractDocumentationFactory
 	public static String resourceName = "ofx.aht-utils/installation/r.xml";
 	
 	private Section section;
-	private SectionFactory latexSectionFactory;
+	private LatexSectionRenderer latexSectionFactory;
 	
 	public BuildDocR()
 	{
@@ -39,7 +39,7 @@ public class BuildDocR extends AbstractDocumentationFactory
 		}
 		JaxbUtil.debug(section);
 		
-		latexSectionFactory = new SectionFactory(1,new LatexPreamble());
+		latexSectionFactory = new LatexSectionRenderer(1,new LatexPreamble());
 	}
 	
 	public void renderLatex(String dstName) throws OfxAuthoringException, FileNotFoundException
