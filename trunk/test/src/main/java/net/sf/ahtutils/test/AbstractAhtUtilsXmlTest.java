@@ -28,7 +28,8 @@ public class AbstractAhtUtilsXmlTest
 		return DateUtil.getXmlGc4D(DateUtil.getDateFromInt(2011, 11, 11, 11, 11, 11));
 	}
 	
-	protected void save(Object xml, File f)
+	protected void save(Object xml, File f){save(xml,f,true);}
+	protected void save(Object xml, File f, boolean formatted)
 	{
 		logger.debug("Saving Reference XML");
 		JaxbUtil.debug(xml);
