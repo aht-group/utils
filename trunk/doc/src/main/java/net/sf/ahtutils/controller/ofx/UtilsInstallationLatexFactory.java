@@ -41,7 +41,7 @@ public class UtilsInstallationLatexFactory
         map.put(Type.JBOSS, "ofx.aht-utils/installation/jboss.xml");
         map.put(Type.MAVEN, "ofx.aht-utils/installation/maven.xml");
         map.put(Type.MYSQL, "ofx.aht-utils/installation/mysql.xml");
-        map.put(Type.OWNCLOUD, "ofx.aht-utils/installation/owncloud.xml");
+        map.put(Type.OWNCLOUD, "ofx.aht-utils/installation/ownCloud.xml");
         map.put(Type.POSTGRES, "ofx.aht-utils/installation/postgres.xml");
 		map.put(Type.R, "ofx.aht-utils/installation/r.xml");
 
