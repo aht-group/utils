@@ -26,11 +26,14 @@ public class BuildDocR extends AbstractDocumentationFactory
 	private Section section;
 	private LatexSectionRenderer latexSectionFactory;
 	
-	public BuildDocR()
+	public BuildDocR(String lang)
 	{
+		super(lang);
 		try
 		{
 			section = JaxbUtil.loadJAXB(resourceName, Section.class);
+			section = multiLangFilter.filterLang(section);
+			JaxbUtil.info(section);
 		}
 		catch (FileNotFoundException e)
 		{

@@ -32,7 +32,7 @@ public class TestInstallationDocR extends AbstractUtilsDocTest
 	{
 		AhtUtilsDocBootstrap.init();
 		
-		BuildDocR build = new BuildDocR();
+		BuildDocR build = new BuildDocR("de");
 		build.renderLatex(null);
 	}
 }

@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ofx:section xmlns:ofx="http://www.openfuxml.org" id="how">
-	<ofx:title lang="en">Maven</ofx:title>
+	<ofx:title>Maven</ofx:title>
 	<ofx:section>
-		<ofx:title lang="en">Linux (Debian Wheezy)</ofx:title>
+		<ofx:title>Linux (Debian Wheezy)</ofx:title>
 		<ofx:paragraph lang="en">
 			Get Maven from http://maven.apache.org/download.cgi
 		</ofx:paragraph>
 		<ofx:paragraph>
 			cd /opt
 			tar -xvzf path_to_download/apache-maven-3.1.0-bin.tar.gz
-			
-			Add PATH=$PATH:/opt/apache-maven-3.1.0/bin
-			before the export PATH in /etc/profile
+		</ofx:paragraph>
+		<ofx:paragraph lang="de">
+			Danach muss folgender Eintrag in der Datei /etc/profile vor dem Befehk export PATH hinzugefügt werden.
+		</ofx:paragraph>
+		<ofx:paragraph>
+			PATH=$PATH:/opt/apache-maven-3.1.0/bin
 		</ofx:paragraph>
 	</ofx:section>
 </ofx:section>
