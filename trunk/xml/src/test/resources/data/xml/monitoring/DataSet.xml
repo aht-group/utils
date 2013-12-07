@@ -2,6 +2,6 @@
 <mo:dataSet xmlns:mo="http://ahtutils.aht-group.com/monitoring" id="123" code="myCode" label="myLabel">
     <mo:indicator id="123" code="myCode" label="myLabel"/>
     <mo:observer id="123" code="myCode" label="myLabel"/>
-    <mo:data id="123" record="2011-11-11T10:11:11.000Z" range="1000"/>
-    <mo:data id="123" record="2011-11-11T10:11:11.000Z" range="1000"/>
+    <mo:data id="123" record="2011-11-11T11:11:11" range="1000"/>
+    <mo:data id="123" record="2011-11-11T11:11:11" range="1000"/>
 </mo:dataSet>

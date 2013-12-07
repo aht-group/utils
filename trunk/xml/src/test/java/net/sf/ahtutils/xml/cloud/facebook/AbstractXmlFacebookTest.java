@@ -1,10 +1,7 @@
 package net.sf.ahtutils.xml.cloud.facebook;
 
-import java.io.File;
-
 import net.sf.ahtutils.test.AbstractXmlTest;
-import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
-import net.sf.exlp.util.io.LoggerInit;
+import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,11 +11,11 @@ public abstract class AbstractXmlFacebookTest extends AbstractXmlTest
 	final static Logger logger = LoggerFactory.getLogger(AbstractXmlFacebookTest.class);
 	
 	protected static final String rootDir = "src/test/resources/data/xml/cloud/facebook";
-	protected static File fXml;
+    protected static final String dirSuffix = "cloud/facebook";
 	
 	public static void main(String[] args)
     {
-		UtilsXmlTstBootstrap.init();
+		UtilsXmlTestBootstrap.init();
 		AbstractXmlTest.initJaxb();
 		
 		TestXmlApp.initFiles();

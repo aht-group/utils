@@ -1,10 +1,9 @@
 package net.sf.ahtutils.xml.finance;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.AbstractXmlTest;
-import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
+import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;
@@ -19,7 +18,7 @@ public class TestXmlFigures extends AbstractXmlFinanceTest
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"figures.xml");
+        setXmlFile(dirSuffix,"figures");
 	}
     
     @Test
@@ -49,7 +48,7 @@ public class TestXmlFigures extends AbstractXmlFinanceTest
 	
 	public static void main(String[] args)
     {
-		UtilsXmlTstBootstrap.init();
+		UtilsXmlTestBootstrap.init();
 		AbstractXmlTest.initJaxb();
 		
 		TestXmlFigures.initFiles();	

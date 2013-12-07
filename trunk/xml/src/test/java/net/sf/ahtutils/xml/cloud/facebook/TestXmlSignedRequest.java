@@ -1,9 +1,9 @@
 package net.sf.ahtutils.xml.cloud.facebook;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
+import net.sf.ahtutils.test.AbstractAhtUtilsXmlTest;
+import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;
@@ -18,7 +18,7 @@ public class TestXmlSignedRequest extends AbstractXmlFacebookTest
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"signedRequest.xml");
+        setXmlFile(dirSuffix,"signedRequest");
 	}
     
     @Test
@@ -33,8 +33,8 @@ public class TestXmlSignedRequest extends AbstractXmlFacebookTest
     public  SignedRequest create(boolean withChilds)
     {
     	SignedRequest xml = new SignedRequest();
-    	xml.setExpires(getXmlDefaultDate());
-    	xml.setIssuedAt(getXmlDefaultDate());
+    	xml.setExpires(AbstractAhtUtilsXmlTest.getDefaultXmlDate());
+    	xml.setIssuedAt(AbstractAhtUtilsXmlTest.getDefaultXmlDate());
     	
     	if(withChilds)
     	{
@@ -48,7 +48,7 @@ public class TestXmlSignedRequest extends AbstractXmlFacebookTest
 	
 	public static void main(String[] args)
     {
-		UtilsXmlTstBootstrap.init();
+		UtilsXmlTestBootstrap.init();
 		
 		TestXmlSignedRequest.initFiles();
 		TestXmlSignedRequest test = new TestXmlSignedRequest();

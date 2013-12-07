@@ -3,7 +3,7 @@ package net.sf.ahtutils.xml.aht;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
+import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
 import net.sf.ahtutils.xml.finance.TestXmlCurrency;
 import net.sf.ahtutils.xml.project.TestXmlUser;
 import net.sf.ahtutils.xml.status.TestXmlStatus;
@@ -50,7 +50,7 @@ public class TestXmlAht extends AbstractXmlAhtTest
 	
 	public static void main(String[] args)
     {
-		UtilsXmlTstBootstrap.init();
+		UtilsXmlTestBootstrap.init();
 			
 		TestXmlAht.initJaxb();
 		TestXmlAht.initFiles();	

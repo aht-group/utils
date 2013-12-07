@@ -1,9 +1,9 @@
 package net.sf.ahtutils.xml.monitoring;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
+import net.sf.ahtutils.test.AbstractAhtUtilsXmlTest;
+import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
 import net.sf.exlp.util.DateUtil;
 import net.sf.exlp.util.xml.JaxbUtil;
 
@@ -19,7 +19,7 @@ public class TestXmlData extends AbstractXmlMonitoringTest
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,Data.class.getSimpleName()+".xml");
+        setXmlFile(dirSuffix,Data.class);
 	}
     
     @Test
@@ -35,7 +35,7 @@ public class TestXmlData extends AbstractXmlMonitoringTest
     	Data xml = new Data();
     	xml.setId(123);
     	xml.setRange(1000);
-    	xml.setRecord(getXmlDefaultDate());
+    	xml.setRecord(AbstractAhtUtilsXmlTest.getDefaultXmlDate());
     	
     	if(withChilds)
     	{
@@ -51,7 +51,7 @@ public class TestXmlData extends AbstractXmlMonitoringTest
 	
 	public static void main(String[] args)
     {
-		UtilsXmlTstBootstrap.init();
+		UtilsXmlTestBootstrap.init();
 		DateUtil.ignoreTimeZone=true;
 		
 		TestXmlData.initJaxb();

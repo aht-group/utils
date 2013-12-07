@@ -1,10 +1,10 @@
 package net.sf.ahtutils.xml.finance;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
+import net.sf.ahtutils.test.AbstractAhtUtilsXmlTest;
 import net.sf.ahtutils.test.AbstractXmlTest;
-import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
+import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;
@@ -19,7 +19,7 @@ public class TestXmlTime extends AbstractXmlFinanceTest
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,Time.class.getSimpleName()+".xml");
+        setXmlFile(dirSuffix,Time.class);
 	}
     
     @Test
@@ -36,7 +36,7 @@ public class TestXmlTime extends AbstractXmlFinanceTest
     	xml.setId(123);
     	xml.setCode("myCode");
     	xml.setLabel("myLabel");
-    	xml.setRecord(getXmlDefaultDate());
+    	xml.setRecord(AbstractAhtUtilsXmlTest.getDefaultXmlDate());
     	    	
     	return xml;
     }
@@ -45,7 +45,7 @@ public class TestXmlTime extends AbstractXmlFinanceTest
 	
 	public static void main(String[] args)
     {
-		UtilsXmlTstBootstrap.init();
+		UtilsXmlTestBootstrap.init();
 		AbstractXmlTest.initJaxb();
 		
 		TestXmlTime.initFiles();	

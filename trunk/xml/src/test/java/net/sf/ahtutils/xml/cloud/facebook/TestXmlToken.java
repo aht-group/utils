@@ -1,8 +1,10 @@
 package net.sf.ahtutils.xml.cloud.facebook;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
+import net.sf.ahtutils.test.AbstractAhtUtilsXmlTest;
+import net.sf.ahtutils.test.AbstractXmlTest;
+import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;
@@ -17,7 +19,7 @@ public class TestXmlToken extends AbstractXmlFacebookTest
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"token.xml");
+        setXmlFile(dirSuffix,"token");
 	}
     
     @Test
@@ -34,10 +36,20 @@ public class TestXmlToken extends AbstractXmlFacebookTest
     	Token xml = new Token();
     	xml.setCode("myCode");
     	xml.setValue("myValue");
-    	xml.setExpires(getXmlDefaultDate());
+    	xml.setExpires(AbstractAhtUtilsXmlTest.getDefaultXmlDate());
     	xml.setExpiresIn(10);
     	return xml;
     }
     
     public void save() {save(create(),fXml);}
+
+    public static void main(String[] args)
+    {
+        UtilsXmlTestBootstrap.init();
+        AbstractXmlTest.initJaxb();
+
+        TestXmlToken.initFiles();
+        TestXmlToken test = new TestXmlToken();
+        test.save();
+    }
 }

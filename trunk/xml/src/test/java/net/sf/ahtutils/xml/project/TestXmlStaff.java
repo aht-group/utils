@@ -3,7 +3,7 @@ package net.sf.ahtutils.xml.project;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
+import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
 import net.sf.ahtutils.xml.security.TestXmlRole;
 import net.sf.ahtutils.xml.status.TestXmlStatus;
 import net.sf.exlp.util.xml.JaxbUtil;
@@ -47,7 +47,7 @@ public class TestXmlStaff extends AbstractXmlProjectTest
 	
 	public static void main(String[] args)
     {
-		UtilsXmlTstBootstrap.init();
+		UtilsXmlTestBootstrap.init();
 			
 		TestXmlStaff.initFiles();
 		TestXmlStaff test = new TestXmlStaff();

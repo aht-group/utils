@@ -3,8 +3,8 @@ package net.sf.ahtutils.xml.report;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
-import net.sf.exlp.util.DateUtil;
+import net.sf.ahtutils.test.AbstractAhtUtilsXmlTest;
+import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;
@@ -43,7 +43,7 @@ public class TestInfo extends AbstractXmlReportTest
     	footer.setValue("testFooter");
     	info.setFooter(footer);
     	Info.Record record = new Info.Record();
-    	record.setValue(DateUtil.getXmlGc4D(getDefaultDate()));
+    	record.setValue(AbstractAhtUtilsXmlTest.getDefaultXmlDate());
     	info.setRecord(record);
     	return info;
     }
@@ -52,7 +52,7 @@ public class TestInfo extends AbstractXmlReportTest
 	
 	public static void main(String[] args)
     {
-		UtilsXmlTstBootstrap.init();
+		UtilsXmlTestBootstrap.init();
 			
 		TestInfo.initJaxb();
 		TestInfo.initFiles();	

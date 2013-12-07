@@ -3,7 +3,7 @@ package net.sf.ahtutils.xml.security;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
+import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
 import net.sf.ahtutils.xml.access.TestXmlActions;
 import net.sf.ahtutils.xml.access.TestXmlUsecases;
 import net.sf.ahtutils.xml.access.TestXmlViews;
@@ -56,7 +56,7 @@ public class TestXmlRole extends AbstractXmlSecurityTest
 	
 	public static void main(String[] args)
     {
-		UtilsXmlTstBootstrap.init();
+		UtilsXmlTestBootstrap.init();
 			
 		TestXmlRole.initFiles();	
 		TestXmlRole test = new TestXmlRole();

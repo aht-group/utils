@@ -3,7 +3,7 @@ package net.sf.ahtutils.xml.aht;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
+import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
 import net.sf.ahtutils.xml.access.TestXmlRole;
 import net.sf.ahtutils.xml.status.TestXmlLangs;
 import net.sf.ahtutils.xml.status.TestXmlStatus;
@@ -53,7 +53,7 @@ public class TestQuery extends AbstractXmlAhtTest
 	
 	public static void main(String[] args)
     {
-		UtilsXmlTstBootstrap.init();
+		UtilsXmlTestBootstrap.init();
 			
 		TestQuery.initJaxb();
 		TestQuery.initFiles();	

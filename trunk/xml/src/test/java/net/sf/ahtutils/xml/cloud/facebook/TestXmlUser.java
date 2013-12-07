@@ -3,7 +3,7 @@ package net.sf.ahtutils.xml.cloud.facebook;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
+import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;
@@ -41,7 +41,7 @@ public class TestXmlUser extends AbstractXmlFacebookTest
 	
 	public static void main(String[] args)
     {
-		UtilsXmlTstBootstrap.init();
+		UtilsXmlTestBootstrap.init();
 		
 		TestXmlUser.initFiles();
 		TestXmlUser test = new TestXmlUser();

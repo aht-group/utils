@@ -3,7 +3,7 @@ package net.sf.ahtutils.xml.status;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
+import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;
@@ -44,7 +44,7 @@ public class TestXmlDescription extends AbstractXmlStatusTest
 	
 	public static void main(String[] args)
     {
-		UtilsXmlTstBootstrap.init();
+		UtilsXmlTestBootstrap.init();
 			
 		TestXmlDescription.initFiles();	
 		TestXmlDescription test = new TestXmlDescription();

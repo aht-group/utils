@@ -3,8 +3,10 @@ package net.sf.ahtutils.xml.mail;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import net.sf.ahtutils.test.AbstractAhtUtilsXmlTest;
 import net.sf.ahtutils.test.AbstractXmlTest;
-import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
+import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
+import net.sf.ahtutils.xml.monitoring.DataSet;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;
@@ -19,7 +21,7 @@ public class TestXmlTracker extends AbstractXmlMailTest
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"tracker.xml");
+        setXmlFile(dirSuffix,"tracker");
 	}
     
     @Test
@@ -37,8 +39,8 @@ public class TestXmlTracker extends AbstractXmlMailTest
     	xml.setId(123);
     	xml.setRefId(345);
     	xml.setType("myType");
-    	xml.setCreated(getXmlDefaultDate());
-    	xml.setSent(getXmlDefaultDate());
+    	xml.setCreated(AbstractAhtUtilsXmlTest.getDefaultXmlDate());
+    	xml.setSent(AbstractAhtUtilsXmlTest.getDefaultXmlDate());
     	xml.setRetryCounter(1);
     	return xml;
     }
@@ -47,7 +49,7 @@ public class TestXmlTracker extends AbstractXmlMailTest
 	
 	public static void main(String[] args)
     {
-		UtilsXmlTstBootstrap.init();
+		UtilsXmlTestBootstrap.init();
 		AbstractXmlTest.initJaxb();
 		
 		TestXmlTracker.initFiles();	

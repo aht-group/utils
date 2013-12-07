@@ -3,7 +3,7 @@ package net.sf.ahtutils.xml.report;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
+import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;
@@ -35,7 +35,7 @@ public class TestReports extends AbstractXmlReportTest
     	reports.setDir("testDir");
     	reports.setResources("reports.ahtutils-util/resources.xml");
     	reports.setTemplates("reports.ahtutils-util/templates.xml");
-    	reports.getReport().add(TestReport.create());
+    	reports.getReport().add(TestXmlReport.create());
     	return reports;
     }
     
@@ -43,7 +43,7 @@ public class TestReports extends AbstractXmlReportTest
 	
 	public static void main(String[] args)
     {
-		UtilsXmlTstBootstrap.init();
+		UtilsXmlTestBootstrap.init();
 			
 		TestReports.initJaxb();
 		TestReports.initFiles();	

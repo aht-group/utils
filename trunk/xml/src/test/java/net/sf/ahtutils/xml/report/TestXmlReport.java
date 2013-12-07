@@ -1,9 +1,8 @@
 package net.sf.ahtutils.xml.report;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
+import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;
@@ -11,14 +10,14 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestReport extends AbstractXmlReportTest
+public class TestXmlReport extends AbstractXmlReportTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestReport.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlReport.class);
 	
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"report.xml");
+        setXmlFile(dirSuffix,"report");
 	}
     
     @Test
@@ -47,11 +46,11 @@ public class TestReport extends AbstractXmlReportTest
 	
 	public static void main(String[] args)
     {
-		UtilsXmlTstBootstrap.init();
+		UtilsXmlTestBootstrap.init();
 			
-		TestReport.initJaxb();
-		TestReport.initFiles();	
-		TestReport test = new TestReport();
+		TestXmlReport.initJaxb();
+		TestXmlReport.initFiles();
+		TestXmlReport test = new TestXmlReport();
 		test.save();
     }
 }

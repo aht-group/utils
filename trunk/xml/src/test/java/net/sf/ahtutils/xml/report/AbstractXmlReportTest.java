@@ -1,7 +1,5 @@
 package net.sf.ahtutils.xml.report;
 
-import java.io.File;
-
 import net.sf.ahtutils.test.AbstractXmlTest;
 
 import org.slf4j.Logger;
@@ -12,5 +10,5 @@ public abstract class AbstractXmlReportTest extends AbstractXmlTest
 	final static Logger logger = LoggerFactory.getLogger(AbstractXmlReportTest.class);
 	
 	protected static final String rootDir = "src/test/resources/data/xml/report";
-	protected static File fXml;
+    protected static final String dirSuffix = "report";
 }

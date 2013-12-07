@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<mo:data xmlns:mo="http://ahtutils.aht-group.com/monitoring" id="123" record="2011-11-11T10:11:11.000Z" range="1000">
+<mo:data xmlns:mo="http://ahtutils.aht-group.com/monitoring" id="123" record="2011-11-11T11:11:11" range="1000">
     <mo:indicator id="123" code="myCode" label="myLabel"/>
     <mo:observer id="123" code="myCode" label="myLabel"/>
     <mo:value type="myType">myValue</mo:value>

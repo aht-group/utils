@@ -3,7 +3,7 @@ package net.sf.ahtutils.xml.access;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.test.UtilsXmlTstBootstrap;
+import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
 import net.sf.ahtutils.xml.navigation.TestXmlNavigation;
 import net.sf.ahtutils.xml.status.TestXmlDescriptions;
 import net.sf.ahtutils.xml.status.TestXmlLangs;
@@ -57,7 +57,7 @@ public class TestXmlView extends AbstractXmlAccessTest
 	
 	public static void main(String[] args)
     {
-		UtilsXmlTstBootstrap.init();
+		UtilsXmlTestBootstrap.init();
 			
 		TestXmlView.initFiles();	
 		TestXmlView test = new TestXmlView();

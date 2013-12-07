@@ -3,7 +3,7 @@ package net.sf.ahtutils.xml.xpath.report;
 import net.sf.ahtutils.test.AbstractXmlTest;
 import net.sf.ahtutils.xml.report.Report;
 import net.sf.ahtutils.xml.report.Reports;
-import net.sf.ahtutils.xml.report.TestReport;
+import net.sf.ahtutils.xml.report.TestXmlReport;
 import net.sf.ahtutils.xml.xpath.ReportXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
@@ -25,10 +25,10 @@ public class TestReportsReportXpath extends AbstractXmlTest
 	{
 		reports = new Reports();
 		
-		xml1 = TestReport.create("t1");reports.getReport().add(xml1);
-		xml2 = TestReport.create("t2");reports.getReport().add(xml2);
-		xml3 = TestReport.create("t3");reports.getReport().add(xml3);
-		xml4 = TestReport.create("t3");reports.getReport().add(xml4);
+		xml1 = TestXmlReport.create("t1");reports.getReport().add(xml1);
+		xml2 = TestXmlReport.create("t2");reports.getReport().add(xml2);
+		xml3 = TestXmlReport.create("t3");reports.getReport().add(xml3);
+		xml4 = TestXmlReport.create("t3");reports.getReport().add(xml4);
 	}
 	
 	@Test
