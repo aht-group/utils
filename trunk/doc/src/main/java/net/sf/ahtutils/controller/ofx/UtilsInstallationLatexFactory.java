@@ -29,9 +29,6 @@ public class UtilsInstallationLatexFactory
 	
 	protected OfxMultilangFilter multiLangFilter;
 	
-	private Section section;
-	private LatexSectionRenderer latexSectionFactory;
-	
 	public UtilsInstallationLatexFactory(String lang)
 	{
 		multiLangFilter = new OfxMultilangFilter(lang);
@@ -44,8 +41,6 @@ public class UtilsInstallationLatexFactory
         map.put(Type.OWNCLOUD, "ofx.aht-utils/installation/ownCloud.xml");
         map.put(Type.POSTGRES, "ofx.aht-utils/installation/postgres.xml");
 		map.put(Type.R, "ofx.aht-utils/installation/r.xml");
-
-		latexSectionFactory = new LatexSectionRenderer(1,new LatexPreamble());
 	}
 
     public String getResource(Type type)
@@ -56,12 +51,13 @@ public class UtilsInstallationLatexFactory
 	public void renderLatex(Type type, File dstFile) throws OfxAuthoringException
 	{
 		logger.info("Processing "+map.get(type));
-        loadSection(type);
-        renderLatex(dstFile);
+        Section section = loadSection(type);
+        renderLatex(section,dstFile);
 	}
 
-    private void loadSection(Type type)
+    private Section loadSection(Type type)
     {
+        Section section = null;
         try
         {
             section = JaxbUtil.loadJAXB(getResource(type), Section.class);
@@ -73,10 +69,12 @@ public class UtilsInstallationLatexFactory
             logger.error(e.getMessage());
         }
         JaxbUtil.debug(section);
+        return section;
     }
 	
-	private void renderLatex(File dstFile) throws OfxAuthoringException
+	public void renderLatex(Section section, File dstFile) throws OfxAuthoringException
     {
+        LatexSectionRenderer latexSectionFactory = new LatexSectionRenderer(1,new LatexPreamble());
 		latexSectionFactory.render(section);
 		List<String> content = new ArrayList<String>();
 		content.addAll(OfxLatexComment.comment("Do no modify this file, it is automatically generated!",true));
@@ -86,6 +84,8 @@ public class UtilsInstallationLatexFactory
 
 		this.write(content, dstFile);
 	}
+
+
 
     protected void write(List<String> content, File f)
     {
