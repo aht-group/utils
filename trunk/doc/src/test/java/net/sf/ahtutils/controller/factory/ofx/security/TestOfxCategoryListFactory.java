@@ -17,7 +17,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.interfaces.OfxLatexRenderer;
-import org.openfuxml.renderer.latex.content.list.LatexListFactory;
+import org.openfuxml.renderer.latex.content.list.LatexListRenderer;
 import org.openfuxml.renderer.latex.content.structure.LatexSectionRenderer;
 import org.openfuxml.xml.content.list.List;
 import org.slf4j.Logger;
@@ -73,7 +73,7 @@ public class TestOfxCategoryListFactory extends AbstractOfxSecurityFactoryTest
 	public void testLatex() throws OfxAuthoringException, IOException
 	{
 		List actual = factory.create(list);
-		LatexListFactory renderer = new LatexListFactory();
+		LatexListRenderer renderer = new LatexListRenderer();
 		renderer.render(actual,parentSection);
     	debug(renderer);
     	save(renderer,fTxt);

@@ -4,29 +4,34 @@
 	<ofx:section>
 		<ofx:title>OS specific tasks</ofx:title>
 		<ofx:section>
-			<ofx:title lang="en">Linux (Debian Wheezy)</ofx:title>
-			<ofx:paragraph>
-				export http_proxy=http://proxy:3128 (optional)
-				wget http://download.osgeo.org/postgis/source/postgis-2.0.3.tar.gz
-				tar xfvz postgis-2.0.3.tar.gz
-				cd postgis-2.0.3
-				./configure
-				make
-				sudo make install
-				sudo ldconfig
-				sudo make comments-install
-			</ofx:paragraph>
+			<ofx:title>Linux (Debian Wheezy)</ofx:title>
+			<ofx:listing>
+				<ofx:raw>
+					export http_proxy=http://proxy:3128 (optional)
+					wget http://download.osgeo.org/postgis/source/postgis-2.0.3.tar.gz
+					tar xfvz postgis-2.0.3.tar.gz
+					cd postgis-2.0.3
+					./configure
+					make
+					sudo make install
+					sudo ldconfig
+					sudo make comments-install
+				</ofx:raw>
+			</ofx:listing>
 		</ofx:section>
 	</ofx:section>
 	<ofx:section>
+		<ofx:title lang="de">Erstellung der Datenbank</ofx:title>
 		<ofx:title lang="en">Database creation</ofx:title>
-		<ofx:paragraph>
-			http://trac.osgeo.org/postgis/wiki/UsersWikiPostGIS20Debian70src
-			
-			CREATE USER geo WITH PASSWORD 'geo'; 
-			CREATE DATABASE lis OWNER geo TEMPLATE template_postgis ENCODING 'UTF8';
-			GRANT ALL PRIVILEGES ON DATABASE geo TO geo;
-			createlang plpgsql geo;
-		</ofx:paragraph>
+		<ofx:listing>
+			<ofx:raw>
+				http://trac.osgeo.org/postgis/wiki/UsersWikiPostGIS20Debian70src
+		
+				CREATE USER geo WITH PASSWORD 'geo'; 
+				CREATE DATABASE lis OWNER geo TEMPLATE template_postgis ENCODING 'UTF8';
+				GRANT ALL PRIVILEGES ON DATABASE geo TO geo;
+				createlang plpgsql geo;
+			</ofx:raw>
+		</ofx:listing>
 	</ofx:section>
 </ofx:section>

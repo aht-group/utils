@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ofx:section xmlns:ofx="http://www.openfuxml.org" id="installation.r">
-	<ofx:title lang="en">Installation of R</ofx:title>
 	<ofx:title lang="de">Installation von R</ofx:title>
+	<ofx:title lang="en">Installation of R</ofx:title>
+	<ofx:title lang="fr">Installation of R</ofx:title>
 	<ofx:paragraph lang="de">
 		Zunächst die aktuelle R Version von der Seite des http://www.r-project.org
 		herunterladen und den Installer ausführen.

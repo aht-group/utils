@@ -3,9 +3,9 @@
 	<ofx:title>Requirements</ofx:title>
 
 	<ofx:section id="installation.requirement.hardware">
-		<ofx:title>Hardware</ofx:title>
-
-
+		<ofx:title lang="de">Hardware</ofx:title>
+		<ofx:title lang="en">Hardware</ofx:title>
+		<ofx:title lang="fr">Hardware</ofx:title>
 	</ofx:section>
 
 </ofx:section>
