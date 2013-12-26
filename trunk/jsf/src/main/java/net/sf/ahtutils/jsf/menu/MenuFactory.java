@@ -11,6 +11,7 @@ import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.View;
+import net.sf.ahtutils.xml.navigation.Breadcrumb;
 import net.sf.ahtutils.xml.navigation.Menu;
 import net.sf.ahtutils.xml.navigation.MenuItem;
 import net.sf.ahtutils.xml.navigation.UrlMapping;
@@ -345,10 +346,10 @@ public class MenuFactory
 		}
 	}
 	
-	public List<MenuItem> breadcrumb(String code){return breadcrumb(false,code);}
-	public List<MenuItem> breadcrumb(boolean withRoot, String code)
+	public Breadcrumb breadcrumb(String code){return breadcrumb(false,code);}
+	public Breadcrumb breadcrumb(boolean withRoot, String code)
 	{
-		List<MenuItem> result = new ArrayList<MenuItem>();
+		Breadcrumb result = new Breadcrumb();
 		
 		try
 		{
@@ -356,14 +357,14 @@ public class MenuFactory
 			List<DefaultEdge> path = dsp.getPathEdgeList();
 			if(path.size()>0)
 			{
-				result.add(mapMenuItems.get(graph.getEdgeSource(path.get(0))));
+				result.getMenuItem().add(mapMenuItems.get(graph.getEdgeSource(path.get(0))));
 			}
 			for(DefaultEdge de : path)
 			{
 				String src = graph.getEdgeTarget(de);
-				result.add(mapMenuItems.get(src));
+				result.getMenuItem().add(mapMenuItems.get(src));
 			}
-			if(!withRoot){result.remove(0);}
+			if(!withRoot){result.getMenuItem().remove(0);}
 		}
 		catch(IllegalArgumentException e)
 		{

@@ -3,6 +3,7 @@ package net.sf.ahtutils.jsf.menu;
 import java.util.List;
 
 import net.sf.ahtutils.test.AbstractAhtUtilsJsfTst;
+import net.sf.ahtutils.xml.navigation.Breadcrumb;
 import net.sf.ahtutils.xml.navigation.MenuItem;
 
 import org.junit.Assert;
@@ -28,37 +29,37 @@ public class TestMenuFactoryBreadcrumb extends AbstractAhtUtilsJsfTst
 	@Test
 	public void withRoutRootLevel1()
 	{
-		List<MenuItem> actual = mf.breadcrumb(false,TestMenuFactory.code1);
-		Assert.assertEquals(1, actual.size());
+		Breadcrumb actual = mf.breadcrumb(false,TestMenuFactory.code1);
+		Assert.assertEquals(1, actual.getMenuItem().size());
 	}
 	
 	@Test
 	public void name()
 	{
 		mf.build(TestMenuFactory.code2);
-		List<MenuItem> actual = mf.breadcrumb(false,TestMenuFactory.code2);
-		MenuItem mi = actual.get(0);
+		Breadcrumb actual = mf.breadcrumb(false,TestMenuFactory.code2);
+		MenuItem mi = actual.getMenuItem().get(0);
 		Assert.assertNotNull(mi.getName());
 	}
 	
 	@Test
 	public void withRootLevel1()
 	{
-		List<MenuItem> actual = mf.breadcrumb(true,TestMenuFactory.code1);
-		Assert.assertEquals(2, actual.size());
+		Breadcrumb actual = mf.breadcrumb(true,TestMenuFactory.code1);
+		Assert.assertEquals(2, actual.getMenuItem().size());
 	}
 	
 	@Test
 	public void withoutRootLevel2()
 	{
-		List<MenuItem> actual = mf.breadcrumb(false,TestMenuFactory.code2);
-		Assert.assertEquals(2, actual.size());
+		Breadcrumb actual = mf.breadcrumb(false,TestMenuFactory.code2);
+		Assert.assertEquals(2, actual.getMenuItem().size());
 	}
 	
 	@Test
 	public void withRootLevel2()
 	{
-		List<MenuItem> actual = mf.breadcrumb(true,TestMenuFactory.code2);
-		Assert.assertEquals(3, actual.size());
+		Breadcrumb actual = mf.breadcrumb(true,TestMenuFactory.code2);
+		Assert.assertEquals(3, actual.getMenuItem().size());
 	}
 }

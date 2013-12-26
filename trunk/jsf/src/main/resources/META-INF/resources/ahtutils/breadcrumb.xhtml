@@ -5,15 +5,17 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:composite="http://java.sun.com/jsf/composite">
     
-  <composite:interface>
-    <composite:attribute name="value"/>
-    <composite:attribute name="styleClass"/>
-  </composite:interface>
+	<composite:interface>
+		<composite:attribute name="value"/>
+		<composite:attribute name="styleClass" required="false"
+  								shortDescription="The style class is applied to the ul element."/>
+	</composite:interface>
         
+
 	<composite:implementation>
 
 	<ul class="#{cc.attrs.styleClass}">
-		<c:forEach var="menuItem" items="#{cc.attrs.value}">
+		<c:forEach var="menuItem" items="#{cc.attrs.value.menuItem}">
 	    	<li>
 	    		<c:if test="#{!empty menuItem.href}">
 	    			<a href="#{facesContext.externalContext.requestContextPath}#{menuItem.href}">#{menuItem.name}</a>

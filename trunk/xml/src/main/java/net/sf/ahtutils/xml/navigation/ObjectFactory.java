@@ -69,4 +69,12 @@ public class ObjectFactory {
         return new Menu();
     }
 
+    /**
+     * Create an instance of {@link Breadcrumb }
+     * 
+     */
+    public Breadcrumb createBreadcrumb() {
+        return new Breadcrumb();
+    }
+
 }

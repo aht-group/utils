@@ -1,6 +1,5 @@
 package net.sf.ahtutils.xml.navigation;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
@@ -18,7 +17,7 @@ public class TestXmlUrlMapping extends AbstractXmlNavigationTest
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"urlMapping.xml");
+		setXmlFile(dirSuffix, "urlMapping");
 	}
     
     @Test

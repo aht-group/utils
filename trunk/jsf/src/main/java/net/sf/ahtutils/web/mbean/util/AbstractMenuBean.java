@@ -3,10 +3,10 @@ package net.sf.ahtutils.web.mbean.util;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Map;
 
 import net.sf.ahtutils.jsf.menu.MenuFactory;
+import net.sf.ahtutils.xml.navigation.Breadcrumb;
 import net.sf.ahtutils.xml.navigation.Menu;
 import net.sf.ahtutils.xml.navigation.MenuItem;
 
@@ -21,7 +21,7 @@ public abstract class AbstractMenuBean implements Serializable
 	protected static final String rootMain = "root";
 	protected Map<String,Menu> mapMenu;
 	protected Map<String,MenuItem> mapSub;
-	protected Map<String,List<MenuItem>> mapBreadcrumb;
+	protected Map<String,Breadcrumb> mapBreadcrumb;
 	
 	protected Map<String,Boolean> mapViewAllowed;
 
@@ -29,7 +29,7 @@ public abstract class AbstractMenuBean implements Serializable
     {
 		mapMenu = new Hashtable<String,Menu>();
 		mapSub = new Hashtable<String,MenuItem>();
-		mapBreadcrumb = new Hashtable<String,List<MenuItem>>();
+		mapBreadcrumb = new Hashtable<String,Breadcrumb>();
     }
     
 	public void clear()
@@ -65,8 +65,8 @@ public abstract class AbstractMenuBean implements Serializable
 	/**
 	 * Breadcrumb
 	 */
-	public List<MenuItem> breadcrumb(MenuFactory mf,String code){return breadcrumb(mf,false,code);}
-	public List<MenuItem> breadcrumb(MenuFactory mf,boolean withRoot, String code)
+	public Breadcrumb breadcrumb(MenuFactory mf,String code){return breadcrumb(mf,false,code);}
+	public Breadcrumb breadcrumb(MenuFactory mf,boolean withRoot, String code)
 	{
 		synchronized(mf)
 		{

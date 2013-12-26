@@ -10,29 +10,28 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestXmlMenu extends AbstractXmlNavigationTest
+public class TestXmlBreadcrumb extends AbstractXmlNavigationTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestXmlMenu.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlBreadcrumb.class);
 	
 	@BeforeClass
 	public static void initFiles()
 	{
-		setXmlFile(dirSuffix, "menu");
+		setXmlFile(dirSuffix, Breadcrumb.class);
 	}
     
     @Test
     public void xml() throws FileNotFoundException
     {
-    	Menu actual = create();
-    	Menu expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Menu.class);
+    	Breadcrumb actual = create();
+    	Breadcrumb expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Breadcrumb.class);
     	assertJaxbEquals(expected, actual);
     }  
     
-    private static Menu create() {return create(true);}
-    public static Menu create(boolean withChilds)
+    private static Breadcrumb create() {return create(true);}
+    public static Breadcrumb create(boolean withChilds)
     {
-    	Menu xml = new Menu();
-      	xml.setCode("myCode");
+    	Breadcrumb xml = new Breadcrumb();
     	
     	if(withChilds)
     	{
@@ -49,9 +48,9 @@ public class TestXmlMenu extends AbstractXmlNavigationTest
     {
 		UtilsXmlTestBootstrap.init();
 			
-		TestXmlMenu.initJaxb();
-		TestXmlMenu.initFiles();	
-		TestXmlMenu test = new TestXmlMenu();
+		TestXmlBreadcrumb.initJaxb();
+		TestXmlBreadcrumb.initFiles();	
+		TestXmlBreadcrumb test = new TestXmlBreadcrumb();
 		test.save();
     }
 }

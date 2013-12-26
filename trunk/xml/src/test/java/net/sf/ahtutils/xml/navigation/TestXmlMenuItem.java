@@ -1,6 +1,5 @@
 package net.sf.ahtutils.xml.navigation;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
@@ -21,7 +20,7 @@ public class TestXmlMenuItem extends AbstractXmlNavigationTest
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"menuItem.xml");
+		setXmlFile(dirSuffix, "menuItem");
 	}
     
     @Test

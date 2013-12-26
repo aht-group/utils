@@ -2,13 +2,13 @@ package net.sf.ahtutils.prototype.web.mbean;
 
 import java.io.FileNotFoundException;
 import java.io.Serializable;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 
 import net.sf.ahtutils.jsf.menu.MenuFactory;
 import net.sf.ahtutils.web.mbean.util.AbstractMenuBean;
 import net.sf.ahtutils.xml.access.Access;
+import net.sf.ahtutils.xml.navigation.Breadcrumb;
 import net.sf.ahtutils.xml.navigation.Menu;
 import net.sf.ahtutils.xml.navigation.MenuItem;
 import net.sf.exlp.util.xml.JaxbUtil;
@@ -30,7 +30,8 @@ public class PrototypeMenuBean extends AbstractMenuBean implements Serializable
 		logger.debug("@PostConstruct");
 		
 		// GEO-75 Remove Exception for Compatibility
-		try {
+		try
+		{
 			super.initMaps();
 			Access xmlAccess = JaxbUtil.loadJAXB(this.getClass().getClassLoader(),"/views.xml", Access.class);
 			Menu xmlMenuMain = JaxbUtil.loadJAXB(this.getClass().getClassLoader(),"/menu.xml", Menu.class);
@@ -42,7 +43,9 @@ public class PrototypeMenuBean extends AbstractMenuBean implements Serializable
 
 			mfMain = new MenuFactory(xmlMenuMain,xmlAccess,getLang(),rootMain);
 			mfMain.setAlwaysUpToLevel(99);
-		} catch (FileNotFoundException e) {
+		}
+		catch (FileNotFoundException e)
+		{
 			throw new IllegalStateException("Class: " +e.getClass().getName() +" Message: " +e.getMessage());
 		}
 		
@@ -55,6 +58,6 @@ public class PrototypeMenuBean extends AbstractMenuBean implements Serializable
 	
 	public Menu build() {return super.menu(mfMain, rootMain);}
 	public Menu build(String code){return super.menu(mfMain, code);}
-	public List<MenuItem> breadcrumb(String code){return super.breadcrumb(mfMain, code);}
+	public Breadcrumb breadcrumb(String code){return super.breadcrumb(mfMain, code);}
 	public MenuItem sub(String code){return super.sub(mfMain, code);}
 }
