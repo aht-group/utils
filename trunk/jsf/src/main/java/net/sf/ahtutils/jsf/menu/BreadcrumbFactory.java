@@ -3,6 +3,7 @@ package net.sf.ahtutils.jsf.menu;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.ahtutils.xml.navigation.Breadcrumb;
 import net.sf.ahtutils.xml.navigation.MenuItem;
 
 import org.slf4j.Logger;
@@ -19,16 +20,19 @@ public class BreadcrumbFactory
 		list = new ArrayList<MenuItem>();
 	}
 	
-	public void add(String label)
+	public void add(String label,String href)
 	{
 		MenuItem mi = new MenuItem();
 		mi.setName(label);
+		mi.setHref(href);
 		list.add(mi);
 	}
 	
-	public List<MenuItem> build()
+	public Breadcrumb build()
 	{
-		return list;
+		Breadcrumb breadcrumb = new Breadcrumb();
+		breadcrumb.getMenuItem().addAll(list);
+		return breadcrumb;
 	}
 
 }
