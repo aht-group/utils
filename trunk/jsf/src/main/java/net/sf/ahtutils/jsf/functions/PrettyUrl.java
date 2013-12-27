@@ -2,11 +2,24 @@ package net.sf.ahtutils.jsf.functions;
 
 public final class PrettyUrl
 {
-    private PrettyUrl() { }
+	private static PrettyUrl instance;
+	
+	private String blankReplace;
+
+	public PrettyUrl()
+    {
+		blankReplace = "-";
+    }
     
     public static String prettyUrl(String input)
     {
-    	input=input.replace(" ", "-");
+    	if(instance==null){instance = new PrettyUrl();}
+    	return instance.format(input);
+    }
+    
+    public String format(String input)
+    {
+    	input=input.replace(" ", blankReplace);
     	input=input.replace("----", "-");
     	input=input.replace("---", "-");
     	input=input.replace("-", "-");
@@ -16,4 +29,6 @@ public final class PrettyUrl
     	input=input.replace("ü", "ue");
         return input;
     }
+    
+    public void setBlankReplace(String blankReplace) {this.blankReplace = blankReplace;}
 }
