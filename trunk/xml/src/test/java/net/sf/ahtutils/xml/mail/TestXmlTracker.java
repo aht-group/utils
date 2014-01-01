@@ -1,12 +1,10 @@
 package net.sf.ahtutils.xml.mail;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.AbstractAhtUtilsXmlTest;
 import net.sf.ahtutils.test.AbstractXmlTest;
 import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
-import net.sf.ahtutils.xml.monitoring.DataSet;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;
