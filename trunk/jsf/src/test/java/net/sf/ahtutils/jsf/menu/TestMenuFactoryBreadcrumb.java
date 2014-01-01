@@ -1,7 +1,5 @@
 package net.sf.ahtutils.jsf.menu;
 
-import java.util.List;
-
 import net.sf.ahtutils.test.AbstractAhtUtilsJsfTst;
 import net.sf.ahtutils.xml.navigation.Breadcrumb;
 import net.sf.ahtutils.xml.navigation.MenuItem;

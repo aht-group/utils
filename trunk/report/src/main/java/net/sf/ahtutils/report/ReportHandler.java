@@ -449,7 +449,6 @@ public class ReportHandler {
 	 * @return
 	 * @throws ReportException
 	 */
-	@SuppressWarnings("deprecation")
 	public ByteArrayOutputStream exportToXls(JasperPrint jPrint) throws ReportException
 	{
 		ByteArrayOutputStream os = new ByteArrayOutputStream();

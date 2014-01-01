@@ -1,19 +1,13 @@
 package net.sf.ahtutils.test;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.StringWriter;
 
 import net.sf.ahtutils.xml.AhtUtilsNsPrefixMapper;
 import net.sf.exlp.util.io.LoggerInit;
-import net.sf.exlp.util.io.RelativePathFactory;
-import net.sf.exlp.util.io.StringIO;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.openfuxml.interfaces.OfxLatexRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

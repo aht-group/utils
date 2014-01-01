@@ -22,7 +22,6 @@ public class OfxStatusTransitionDiagramFactory
 	
 	private Map<Integer,Status> mapStatus;
 	private Map<String,Node> mapNodes;
-	private Map<String,Edge> mapEdges;
 	
 	private Graph graph;
 	
@@ -30,7 +29,6 @@ public class OfxStatusTransitionDiagramFactory
 	{
 		mapStatus = new Hashtable<Integer,Status>();
 		mapNodes = new Hashtable<String,Node>();
-		mapEdges = new Hashtable<String,Edge>();
 		graph = new Graph();
 		graph.setNodes(new Nodes());
 		graph.setEdges(new Edges());

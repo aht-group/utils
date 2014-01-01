@@ -103,8 +103,6 @@ public class DummyMenuFactory
 		return top4;
 	}
 	
-	private static MenuItem createItem(String name){return createItem(name,null,false);}
-	private static MenuItem createItem(String name, String href){return createItem(name,href,false);}
 	private static MenuItem createItem(String name, String href, boolean active)
 	{
 		MenuItem item = new MenuItem();

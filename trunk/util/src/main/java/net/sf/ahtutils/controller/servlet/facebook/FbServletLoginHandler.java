@@ -49,7 +49,6 @@ public class FbServletLoginHandler
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void login(FbLoginCallback calback, HttpServletRequest request , HttpServletResponse response)
 	{
 		HttpSession session = request.getSession();

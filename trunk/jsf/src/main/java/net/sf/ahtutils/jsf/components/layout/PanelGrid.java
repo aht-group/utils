@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 public class PanelGrid extends UIPanel
 {	
 	final static Logger logger = LoggerFactory.getLogger(PanelGrid.class);
-	private static enum Properties {width,gutter,styleClass}
+	public static enum Properties {width,gutter,styleClass}
 	
 	@Override public boolean getRendersChildren(){return true;}
 	

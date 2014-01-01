@@ -144,7 +144,6 @@ public class ReportController extends AbstractReportControl
 		catch (JRException e) {logger.error("Error in JasperReport creation: " +e.getMessage());}
 	}
 	
-	@SuppressWarnings("deprecation")
 	public void exportXls() throws ReportException
 	{
 		if (!output.equals(Output.xls))
