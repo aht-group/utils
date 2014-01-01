@@ -20,4 +20,16 @@
 			<ofx:raw>ATH=$PATH:/opt/apache-maven-3.1.0/bin</ofx:raw>
 		</ofx:listing>
 	</ofx:section>
+	<ofx:section>
+		<ofx:title>OSX</ofx:title>
+		<ofx:paragraph lang="en">
+			Install Homebrew and follow the instructions during the setup script.
+		</ofx:paragraph>
+		<ofx:listing>
+			<ofx:raw>
+				ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+				brew install maven
+			</ofx:raw>
+		</ofx:listing>
+	</ofx:section>
 </ofx:section>
