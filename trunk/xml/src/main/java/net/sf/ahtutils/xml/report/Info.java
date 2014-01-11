@@ -57,6 +57,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *           &lt;/complexType>
  *         &lt;/element>
  *         &lt;element ref="{http://ahtutils.aht-group.com/report}media" maxOccurs="unbounded"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/report}file"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -71,7 +72,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "record",
     "subtitle",
     "footer",
-    "media"
+    "media",
+    "file"
 })
 @XmlRootElement(name = "info")
 public class Info
@@ -89,6 +91,8 @@ public class Info
     protected Info.Footer footer;
     @XmlElement(required = true)
     protected List<Media> media;
+    @XmlElement(required = true)
+    protected File file;
 
     /**
      * Gets the value of the title property.
@@ -237,6 +241,34 @@ public class Info
 
     public void unsetMedia() {
         this.media = null;
+    }
+
+    /**
+     * Gets the value of the file property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link File }
+     *     
+     */
+    public File getFile() {
+        return file;
+    }
+
+    /**
+     * Sets the value of the file property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link File }
+     *     
+     */
+    public void setFile(File value) {
+        this.file = value;
+    }
+
+    public boolean isSetFile() {
+        return (this.file!= null);
     }
 
 

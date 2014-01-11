@@ -1,6 +1,5 @@
 package net.sf.ahtutils.xml.report;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.AbstractAhtUtilsXmlTest;
@@ -12,40 +11,42 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestInfo extends AbstractXmlReportTest
+public class TestXmlInfo extends AbstractXmlReportTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestInfo.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlInfo.class);
 	
 	@BeforeClass
 	public static void initFiles()
 	{
-		fXml = new File(rootDir,"info.xml");
+		setXmlFile(dirSuffix,"info");
 	}
     
     @Test
     public void testInfo() throws FileNotFoundException
     {
     	Info test = create();
-    	Info ref = (Info)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Info.class);
+    	Info ref = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Info.class);
     	assertJaxbEquals(ref, test);
     }
     
     public static Info create()
     {
-    	Info info = new Info();
+    	Info xml = new Info();
     	Info.Title title = new Info.Title();
     	title.setValue("testTitle");
-    	info.setTitle(title);
+    	xml.setTitle(title);
     	Info.Subtitle subtitle = new Info.Subtitle();
     	subtitle.setValue("testSubTitle");
-    	info.setSubtitle(subtitle);
+    	xml.setSubtitle(subtitle);
     	Info.Footer footer = new Info.Footer();
     	footer.setValue("testFooter");
-    	info.setFooter(footer);
+    	xml.setFooter(footer);
     	Info.Record record = new Info.Record();
     	record.setValue(AbstractAhtUtilsXmlTest.getDefaultXmlDate());
-    	info.setRecord(record);
-    	return info;
+    	xml.setRecord(record);
+    	
+    	xml.setFile(TestXmlFile.create());
+    	return xml;
     }
     
     public void save() {save(create(),fXml);}
@@ -54,9 +55,9 @@ public class TestInfo extends AbstractXmlReportTest
     {
 		UtilsXmlTestBootstrap.init();
 			
-		TestInfo.initJaxb();
-		TestInfo.initFiles();	
-		TestInfo test = new TestInfo();
+		TestXmlInfo.initJaxb();
+		TestXmlInfo.initFiles();	
+		TestXmlInfo test = new TestXmlInfo();
 		test.save();
     }
 }
