@@ -3,16 +3,25 @@ package net.sf.ahtutils.xml.xpath;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.ahtutils.xml.report.Template;
+import net.sf.ahtutils.xml.AhtUtilsNsPrefixMapper;
+import net.sf.ahtutils.xml.report.Info;
 import net.sf.ahtutils.xml.report.Jr;
 import net.sf.ahtutils.xml.report.Media;
 import net.sf.ahtutils.xml.report.Report;
 import net.sf.ahtutils.xml.report.Reports;
+import net.sf.ahtutils.xml.report.Template;
 import net.sf.ahtutils.xml.report.Templates;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
+import net.sf.exlp.util.xml.JDomUtil;
 
 import org.apache.commons.jxpath.JXPathContext;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.Namespace;
+import org.jdom2.filter.Filters;
+import org.jdom2.xpath.XPathExpression;
+import org.jdom2.xpath.XPathFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,5 +85,15 @@ public class ReportXpath
 		if(listResult.size()==0){throw new ExlpXpathNotFoundException("No "+Template.class.getSimpleName()+" for id="+id);}
 		else if(listResult.size()>1){throw new ExlpXpathNotUniqueException("Multiple "+Template.class.getSimpleName()+" for id="+id);}
 		return listResult.get(0);
+	}
+	
+	public static Info getReportInfo(Document jdomDocument)
+	{
+		XPathExpression<Element> xpath = XPathFactory.instance().compile("/report/info", Filters.element());
+		Element eInfo = xpath.evaluateFirst(jdomDocument);
+		
+		eInfo = JDomUtil.setNameSpaceRecursive(eInfo, AhtUtilsNsPrefixMapper.nsReport);
+		Info info = JDomUtil.toJaxb(eInfo, Info.class);
+		return info;
 	}
 }

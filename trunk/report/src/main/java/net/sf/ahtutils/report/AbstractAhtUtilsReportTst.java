@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.util.Locale;
 
 import net.sf.ahtutils.report.exception.ReportException;
+import net.sf.ahtutils.xml.report.Info;
 import net.sf.ahtutils.xml.report.Report;
 import net.sf.ahtutils.xml.report.Reports;
 import net.sf.ahtutils.xml.report.Resources;
@@ -92,13 +93,9 @@ public class AbstractAhtUtilsReportTst
 		//Load the JDom representation of the example for further processing in ReportHandler
 		jdomReport = JDomUtil.load(report.getExample());
 		
-		//Load example and convert to doc for direct use in ReportHandler
-		org.jdom2.Document jdomDoc =  JDomUtil.load(report.getExample());
-		
 		//		logger.info("Reading XML demo data from:" +report.getExample());
 		//		JDomUtil.debug(jdomDoc);
-		jdomDoc = JDomUtil.unsetNameSpace(jdomDoc);
-		docReport = JDomUtil.toW3CDocument(jdomDoc);
+		docReport = JDomUtil.toW3CDocument(JDomUtil.unsetNameSpace(jdomReport));
 	}
 	
 	protected void createPdf() throws ReportException
@@ -108,8 +105,21 @@ public class AbstractAhtUtilsReportTst
 	
 	protected void writePdf() throws IOException
 	{
-		String pdfFile = "target/" +reportId +".pdf";
-		OutputStream outputStream = new FileOutputStream (pdfFile);
+		Info info = ReportXpath.getReportInfo(jdomReport);
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append("target/");
+		if(info!=null && info.isSetFile() && info.getFile().getValue().length()>0)
+		{
+			sb.append(info.getFile().getValue());
+		}
+		else
+		{
+			sb.append(reportId);
+		}
+		sb.append(".pdf");
+		
+		OutputStream outputStream = new FileOutputStream (sb.toString());
 		pdf.writeTo(outputStream);
 	}
 	

@@ -1,11 +1,15 @@
 package net.sf.ahtutils.xml;
 
+import org.jdom2.Namespace;
+
 import net.sf.exlp.xml.ns.NsPrefixMapperInterface;
 
 import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
 
 public class AhtUtilsNsPrefixMapper extends NamespacePrefixMapper implements NsPrefixMapperInterface
 {
+	public static Namespace nsReport = Namespace.getNamespace("r","http://ahtutils.aht-group.com/report");
+	
     public String getPreferredPrefix(String namespaceUri, String suggestion, boolean requirePrefix)
     {
         if("http://ahtutils.aht-group.com".equals(namespaceUri) ){return "aht";}

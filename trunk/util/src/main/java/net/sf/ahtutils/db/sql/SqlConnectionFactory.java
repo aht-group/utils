@@ -13,7 +13,7 @@ public class SqlConnectionFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(SqlConnectionFactory.class);
 	
-	private static enum DbType{mysql,postgresql};
+	private static enum DbType{mysql,postgresql,sqlite};
 	
 	private Connection c;
 	private String type,host,db,username,password;
@@ -28,9 +28,42 @@ public class SqlConnectionFactory
 	
 	public Connection getConnection(String code)
 	{
-		logger.debug("Using connection code: "+code);
+		logger.debug("Using connection: "+code);
 		
 		type = config.getString("net.db."+code+".type");
+		DbType dbType = DbType.valueOf(type);
+		logger.debug("type");
+		
+		switch(dbType)
+		{
+			case mysql: connectMySQL(code); break;
+			case postgresql: connectPostgreSQL(code); break;
+			case sqlite: connectSqlite(code);
+		}
+		
+		return c;
+	}
+	
+	private void connectSqlite(String code)
+	{
+		db = config.getString("net.db."+code+".database");
+	    try
+	    {
+	    	StringBuffer sb = new StringBuffer();
+	    	sb.append("jdbc:sqlite:");
+	    	sb.append(db);
+	    	
+	    	logger.info("Connecting ... "+sb.toString());
+	    	
+	    	Class.forName("org.sqlite.JDBC");
+	    	c = DriverManager.getConnection("jdbc:sqlite:"+db);
+		}
+	    catch (ClassNotFoundException e) {logger.error(e.getMessage());}
+	    catch (SQLException e) {logger.error(e.getMessage());}
+	}
+
+	private void connectMySQL(String code)
+	{
 		host = config.getString("net.db."+code+".host");
 		db = config.getString("net.db."+code+".database");
 		
@@ -40,18 +73,6 @@ public class SqlConnectionFactory
 		username = config.getString("net.db."+code+".username");
 		password = config.getString("net.db."+code+".password");
 		
-		DbType dbType = DbType.valueOf(type);
-		switch(dbType)
-		{
-			case mysql: connectMySQL(); break;
-			case postgresql: connectPostgreSQL(); break;
-		}
-		
-		return c;
-	}
-
-	private void connectMySQL()
-	{
 	    try
 	    {
 	    	logger.debug("Connecting ... "+getConnInfo());
@@ -61,9 +82,18 @@ public class SqlConnectionFactory
 	    catch (ClassNotFoundException e) {logger.error(e.getMessage());}
 	    catch (SQLException e) {logger.error(e.getMessage());}
 	}
-	
-	private void connectPostgreSQL()
+		
+	private void connectPostgreSQL(String code)
 	{
+		host = config.getString("net.db."+code+".host");
+		db = config.getString("net.db."+code+".database");
+		
+		try{port = config.getInt("net.db."+code+".port");}
+		catch (NoSuchElementException e){port=3306;}
+		
+		username = config.getString("net.db."+code+".username");
+		password = config.getString("net.db."+code+".password");
+		
 	    try
 	    {
 	    	logger.debug("Connecting ... "+getConnInfo());
