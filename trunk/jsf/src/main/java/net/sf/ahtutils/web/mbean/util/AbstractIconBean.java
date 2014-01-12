@@ -24,9 +24,11 @@ public class AbstractIconBean <L extends UtilsLang, D extends UtilsDescription, 
 	private Map<String,Map<Long,String>> mapImagesAlt,mapResourceAlternative;
 	protected Map<String,String> mapStatic;
 	
+	private Map<Integer,Map<String,String>> icon;
+	
 	//******* Methods *******************************
 
-    public void initPath(String imagePath)
+	public void initPath(String imagePath)
     {
 		this.imagePath=imagePath;
 		mapImages = new Hashtable<String,Map<Long,String>>();
@@ -34,6 +36,8 @@ public class AbstractIconBean <L extends UtilsLang, D extends UtilsDescription, 
 		mapResource = new Hashtable<String,Map<Long,String>>();
 		mapResourceAlternative = new Hashtable<String,Map<Long,String>>();
 		mapStatic = new Hashtable<String,String>();
+		
+		icon = new Hashtable<Integer,Map<String,String>>();
     }
 
     @Deprecated
@@ -54,6 +58,7 @@ public class AbstractIconBean <L extends UtilsLang, D extends UtilsDescription, 
     	}
     }
     
+    @Deprecated
     public String filter(Integer size, UtilsStatusFilter<L,D,S> filter)
     {
 //    	logger.info("Filter for "+filter.getValue().getCode()+" active="+filter.isActive());
@@ -73,6 +78,7 @@ public class AbstractIconBean <L extends UtilsLang, D extends UtilsDescription, 
     	}
     }
     
+    @Deprecated
     public String resource(Integer size, EjbWithImage image)
 	{
     	String key = image.getClass().getSimpleName();
@@ -130,6 +136,7 @@ public class AbstractIconBean <L extends UtilsLang, D extends UtilsDescription, 
     	map.get(key).put(id, sb.toString());
     }
     
+    @Deprecated
 	public String icon(int size,  String key)
 	{
 		StringBuffer sb = new StringBuffer();
@@ -138,4 +145,19 @@ public class AbstractIconBean <L extends UtilsLang, D extends UtilsDescription, 
     	sb.append("/").append(mapStatic.get(key));
 		return sb.toString();
 	}
+    
+    protected void generateIconMap(Integer... sizes)
+    {
+    	for(int size : sizes)
+    	{
+    		Map<String,String> mapSize = new Hashtable<String,String>();
+    		for(String key : mapStatic.keySet())
+    		{
+    			mapSize.put(key, size+"/"+mapStatic.get(key));
+    		}
+    		icon.put(size, mapSize);
+    	}
+    }
+	
+	public Map<Integer, Map<String, String>> getIcon() {return icon;}
 }
