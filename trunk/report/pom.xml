@@ -197,7 +197,13 @@
 	 		<dependency>
 				<groupId>org.freemarker</groupId>
 				<artifactId>freemarker</artifactId>
-				</dependency>
+		</dependency>
+		
+   	   	<dependency>
+   	   		<groupId>com.sun.xml.bind</groupId>
+   	   		<artifactId>jaxb-impl</artifactId>
+   	   		<scope>test</scope>
+   	   	</dependency>
 	</dependencies>
    
 </project>
