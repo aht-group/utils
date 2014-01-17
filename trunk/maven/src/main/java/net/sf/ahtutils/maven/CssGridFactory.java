@@ -72,7 +72,7 @@ public class CssGridFactory extends AbstractMojo
     
     private void executeCssBuilder(File fTmpDir,File fResourceDir,File fVcsTestFile) throws MojoExecutionException
     {
-    	getLog().info("Executing CssBuilder");
+    	getLog().info("Executing CssBuilder (Grid)");
     	CssGridBuilder gridFactory = new CssGridBuilder(fTmpDir,fResourceDir);
     	gridFactory.buildCss();
     	

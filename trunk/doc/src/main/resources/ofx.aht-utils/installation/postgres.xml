@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ofx:section xmlns:ofx="http://www.openfuxml.org" id="how">
-	<ofx:title lang="en">MySQL</ofx:title>
+	<ofx:title lang="en">PostgresSQL</ofx:title>
 	<ofx:section>
-		<ofx:title>OS specific tasks</ofx:title>
+		<ofx:title lang="en">OS specific tasks</ofx:title>
 		<ofx:section>
 			<ofx:title>Linux (Debian Wheezy)</ofx:title>
 			<ofx:listing>
@@ -16,6 +16,15 @@
 					sudo make install
 					sudo ldconfig
 					sudo make comments-install
+				</ofx:raw>
+			</ofx:listing>
+		</ofx:section>
+		<ofx:section>
+			<ofx:title>Linux (Debian Squeeze)</ofx:title>
+			<ofx:listing>
+				<ofx:raw>
+					apt-cache search postgis
+					apt-get install postgresql-9.1-postgis
 				</ofx:raw>
 			</ofx:listing>
 		</ofx:section>

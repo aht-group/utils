@@ -17,7 +17,7 @@
 			Danach muss folgender Eintrag in der Datei /etc/profile vor dem Befehk export PATH hinzugefügt werden.
 		</ofx:paragraph>
 		<ofx:listing>
-			<ofx:raw>ATH=$PATH:/opt/apache-maven-3.1.0/bin</ofx:raw>
+			<ofx:raw>PATH=$PATH:/opt/apache-maven-3.1.0/bin</ofx:raw>
 		</ofx:listing>
 	</ofx:section>
 	<ofx:section>
