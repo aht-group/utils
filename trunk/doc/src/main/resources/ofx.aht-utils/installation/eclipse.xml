@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org" id="installation.r">
+	<ofx:title lang="en">Installation of Eclipse</ofx:title>
+	
+	<ofx:section>
+		<ofx:title lang="en">FAQ</ofx:title>
+		<ofx:paragraph lang="en">
+			Hanging during start
+		</ofx:paragraph>
+		<ofx:listing>
+			<ofx:raw>
+				apt-get install ssh
+			</ofx:raw>
+		</ofx:listing>
+	</ofx:section>
+</ofx:section>

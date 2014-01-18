@@ -3,12 +3,12 @@
 	Please do not modify this file to avoid inconsistencies!
 	
 	These parameters a defined by the custom maven configuration:
-	light: ${colorLight}
 	dark: ${colorDark}
+	light: ${colorLight}
 */
 
 .aupHeadlineBreadcrumb a{
-	background-image: linear-gradient(to right, ${colorLight}, ${colorDark});
+	background-image: linear-gradient(to right, ${colorDark}, ${colorLight});
 }
 
 .aupHeadlineBreadcrumb{
@@ -32,7 +32,7 @@
 	color: #FFFFFF;
 	position: relative;
 	background-color: #ddd;
-	background-image: linear-gradient(to right, ${colorLight}, ${colorDark});
+	background-image: linear-gradient(to right, ${colorDark}, ${colorLight});
 }
 
 .aupHeadlineBreadcrumb li:first-child a{
@@ -40,7 +40,7 @@
 }
 
 .aupHeadlineBreadcrumb a:hover{
-	background: ${colorLight};
+	background: ${colorDark};
 }
 
 .aupHeadlineBreadcrumb a::after,
@@ -57,17 +57,17 @@
 
 .aupHeadlineBreadcrumb a::after{ 
 	z-index: 2;
-	border-left-color: ${colorDark};  
+	border-left-color: ${colorLight};  
 }
 
 .aupHeadlineBreadcrumb a::before{
-	border-left-color: ${colorDark};  
+	border-left-color: ${colorLight};  
 	right: -1.1em;
 	z-index: 1; 
 }
 
 .aupHeadlineBreadcrumb a:hover::after{
-	border-left-color: ${colorLight};
+	border-left-color: ${colorDark};
 }
 
 .aupHeadlineBreadcrumb .current,

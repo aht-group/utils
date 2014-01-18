@@ -56,18 +56,17 @@ public class CssPrototypeGoal extends AbstractMojo
     
     /**
      * Location of the file.
-     * @parameter expression="#B90000"
-     * @required
-     */
-    private String colorLight;
-    
-    /**
-     * Location of the file.
      * @parameter expression="#F00014"
      * @required
      */
     private String colorDark;
     
+    /**
+     * Location of the file.
+     * @parameter expression="#B90000"
+     * @required
+     */
+    private String colorLight;
     	
     public void execute() throws MojoExecutionException
     {    	
