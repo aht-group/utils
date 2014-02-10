@@ -88,10 +88,19 @@ public class UtilsDbXmlSeedUtil
 	
 	private void checkPath(String fileName) throws UtilsConfigurationException
 	{
+		if(!dbSeed.isSetPathExport()){throw new UtilsConfigurationException("Config element "+configKeyPathExport+" is not set!");}
 		File base = new File(dbSeed.getPathExport());
 		if(!base.exists() || !base.isDirectory()){throw new UtilsConfigurationException("Path "+dbSeed.getPathExport()+" does not exist");}
 		
 		File f = new File(fileName);
 		if(!f.getParentFile().exists()){f.getParentFile().mkdirs();}
+	}
+	
+	public void writeXml(DataSource ds, String key, Object o) throws UtilsConfigurationException
+	{
+		String fileName = getExtractName(ds,key);
+		logger.info("Writing "+fileName);
+		JaxbUtil.info(o);
+		JaxbUtil.save(new File(fileName), o, true);
 	}
 }
