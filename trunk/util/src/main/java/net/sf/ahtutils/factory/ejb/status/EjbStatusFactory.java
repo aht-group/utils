@@ -55,10 +55,17 @@ public class EjbStatusFactory<S extends UtilsStatus<L,D>, L extends UtilsLang, D
         return s;
     }
 	
-	public S create(String code) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+	public S create(String code)
 	{
-        S s = statusClass.newInstance();
-        s.setCode(code);
+        S s;
+		try
+		{
+			s = statusClass.newInstance();
+			s.setCode(code);
+		}
+		catch (InstantiationException e) {throw new RuntimeException(e);}
+		catch (IllegalAccessException e) {throw new RuntimeException(e);}
+        
         return s;
     }
 	
