@@ -55,13 +55,15 @@ public class EjbStatusFactory<S extends UtilsStatus<L,D>, L extends UtilsLang, D
         return s;
     }
 	
-	public S create(String code)
+	public S create(String code){return create(code,null);}
+	public S create(String code, String[] langKeys)
 	{
         S s;
 		try
 		{
 			s = statusClass.newInstance();
 			s.setCode(code);
+			if(langKeys!=null){s.setName(ejbLangFactory.createEmpty(langKeys));}
 		}
 		catch (InstantiationException e) {throw new RuntimeException(e);}
 		catch (IllegalAccessException e) {throw new RuntimeException(e);}
