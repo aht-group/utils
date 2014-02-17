@@ -35,6 +35,12 @@ public class RAssign implements Serializable,RengineCommand
 		this.value=value.toString();
 	}
 	
+	public RAssign(String var, Integer r1, Integer r2)
+	{
+		this.var=var;
+		this.value=r1.toString()+":"+r2.toString();
+	}
+	
 	public RAssign(String var, Boolean value)
 	{
 		this.var=var;

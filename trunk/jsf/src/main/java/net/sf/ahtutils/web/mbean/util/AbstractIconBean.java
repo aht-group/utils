@@ -158,6 +158,8 @@ public class AbstractIconBean <L extends UtilsLang, D extends UtilsDescription, 
     		icon.put(size, mapSize);
     	}
     }
+    
+    
 	
 	public Map<Integer, Map<String, String>> getIcon() {return icon;}
 	public Map<String, String> getIcon12() {return icon.get(12);}
