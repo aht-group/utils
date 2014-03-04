@@ -4,10 +4,11 @@ public class ProcessingTimeTracker
 {
 	private long start;
 	private long stop;
+	private int counter;
 	
 	public ProcessingTimeTracker()
 	{
-		
+		counter=0;
 	}
 	
 	public void start()
@@ -19,6 +20,13 @@ public class ProcessingTimeTracker
 	{
 		stop = System.currentTimeMillis();
 	}
+	
+	public void round()
+	{
+		counter++;
+	}
+	
+	public int getCounter() {return counter;}
 	
 	public String toTotalTime()
 	{
