@@ -36,7 +36,7 @@
 			<ofx:raw>
 				http://trac.osgeo.org/postgis/wiki/UsersWikiPostGIS20Debian70src
 		
-				CREATE USER geo WITH PASSWORD 'geo'; 
+				CREATE USER geo WITH PASSWORD 'geo';
 				CREATE DATABASE lis OWNER geo TEMPLATE template_postgis ENCODING 'UTF8';
 				GRANT ALL PRIVILEGES ON DATABASE geo TO geo;
 				createlang plpgsql geo;
