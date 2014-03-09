@@ -63,7 +63,12 @@ public class EjbStatusFactory<S extends UtilsStatus<L,D>, L extends UtilsLang, D
 		{
 			s = statusClass.newInstance();
 			s.setCode(code);
-			if(langKeys!=null){s.setName(ejbLangFactory.createEmpty(langKeys));}
+			try
+			{
+				if(langKeys!=null){s.setName(ejbLangFactory.createEmpty(langKeys));}
+				if(langKeys!=null){s.setDescription(ejbDescFactory.createEmpty(langKeys));}
+			}
+			catch (UtilsIntegrityException e) {e.printStackTrace();}
 		}
 		catch (InstantiationException e) {throw new RuntimeException(e);}
 		catch (IllegalAccessException e) {throw new RuntimeException(e);}
