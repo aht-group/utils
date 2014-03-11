@@ -214,11 +214,16 @@ margin-top: 8px;
 			text-align: right;
 		}
 	
-.w100 {width: 100%;}	
-		
-/* PF-3.5 Font size */
+.w100 {width: 100%;}
+
+
+/* PF Font size */
+.ui-widget, .ui-widget .ui-widget {font-size: 11px !important;}
+
+/* PF-3.5 Font size
 .ui-widget {font-size: 90%;}
 .ui-widget .ui-widget {font-size: 100%;}
+*/
 
 /* Linebreak in PF-3.5 tables */
 .ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td {white-space: normal !important;} 
