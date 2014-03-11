@@ -44,6 +44,7 @@ public class MenuFactory
 	private Map<String,Map<String,String>> translationsMenu,translationsAccess;
 	private Map<String,View> mapView;
 	private Map<String,MenuItem> mapMenuItems;
+	private Map<String,String> mapParent;
 	
 	private String rootNode;
 	private DirectedGraph<String, DefaultEdge> graph;
@@ -63,6 +64,7 @@ public class MenuFactory
 		translationsMenu = new Hashtable<String,Map<String,String>>();
 		translationsAccess = new Hashtable<String,Map<String,String>>();
 		mapMenuItems = new Hashtable<String,MenuItem>();
+		mapParent = new Hashtable<String,String>();
 		
 		this.switchLang(lang);
 		
@@ -70,7 +72,6 @@ public class MenuFactory
 		
 		if(logger.isTraceEnabled())
 		{
-			
 			logger.info("Graph: "+graph);
 			logger.info("mapMenuItems.size()"+mapMenuItems.size());
 		}
@@ -96,6 +97,7 @@ public class MenuFactory
 	
 	private void processMenuItem(String parentNode, MenuItem mi)
 	{
+		mapParent.put(mi.getCode(), parentNode);
 		graph.addVertex(mi.getCode());
 		graph.addEdge(parentNode, mi.getCode());
 		
@@ -392,5 +394,10 @@ public class MenuFactory
 	{
 		if(!translationsMenu.containsKey(checkLanguage)){translationsMenu.put(checkLanguage, new Hashtable<String,String>());}
 		if(!translationsAccess.containsKey(checkLanguage)){translationsAccess.put(checkLanguage, new Hashtable<String,String>());}
+	}
+	
+	public String getParent(String code)
+	{
+		return mapParent.get(code);
 	}
 }

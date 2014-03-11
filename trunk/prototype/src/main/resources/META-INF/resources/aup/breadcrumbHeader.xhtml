@@ -15,10 +15,10 @@
 <composite:implementation>
 	<h:outputStylesheet library="aupCss" name="aupBreadcrumb.css" target="head"/>
 	<ui:fragment rendered="#{not empty cc.attrs.code}">
-		<aht:breadcrumb value="#{menuBean.breadcrumb(cc.attrs.code)}" styleClass="aupHeadlineBreadcrumb"/>
+		<aht:breadcrumb value="#{menuBean.breadcrumb(cc.attrs.code)}" styleClass="aupHeadlineBreadcrumb" withChildren="true"/>
 	</ui:fragment>
 	<ui:fragment rendered="#{not empty cc.attrs.value}">
-		<aht:breadcrumb value="#{cc.attrs.value}" styleClass="aupHeadlineBreadcrumb"/>
+		<aht:breadcrumb value="#{cc.attrs.value}" styleClass="aupHeadlineBreadcrumb" withChildren="true"/>
 	</ui:fragment>
 </composite:implementation>
 </html>

@@ -33,76 +33,113 @@ color: #FFF;
 background: ${colorDark};
 }
 
-.aupHeadlineBreadcrumb a{
-background-image: linear-gradient(to right, ${colorDark}, ${colorLight});
+
+/* BREADCRUMBS */
+ul.aupHeadlineBreadcrumb {
+  float:right;
+  position: relative;
+  right: -20px;
+  top: -6px;
+}
+ul.aupHeadlineBreadcrumb,
+.aupHeadlineBreadcrumb ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+/* .aupHeadlineBreadcrumb li a , .aupHeadlineBreadcrumb li ul li a { */
+.aupHeadlineBreadcrumb a {
+  position: relative;
+
+  /* display: inline-block; */
+  display: block;
+  white-space: nowrap;
+
+  background-color: #DDDDDD;
+  background-image: linear-gradient(to right, #607CAF, #BDBEDC);
+  color: #FFFFFF;
+  padding: 7px 1em 6px 2em;
 }
 
-.aupHeadlineBreadcrumb{
-background: #eee;
-border-style: solid;
-overflow: hidden;
-float: right;
-top: -6px;
-position: relative;
-right: -20px;
+.aupHeadlineBreadcrumb a:hover {
+    background: none repeat scroll 0 0 #607CAF;
+}
+/* .aupHeadlineBreadcrumb a:after, .aupHeadlineBreadcrumb a:before */
+.aupHeadlineBreadcrumb > li > a:after, .aupHeadlineBreadcrumb > li > a:before,
+.aupHeadlineBreadcrumb > li > ul > li > a:after, .aupHeadlineBreadcrumb > li > ul > li > a:before {
+    border-bottom: 1.0em solid rgba(0, 0, 0, 0);
+    border-left: 1em solid;
+    border-top: 1.0em solid rgba(0, 0, 0, 0);
+    content: "";
+    margin-top: -1.0em;
+    position: absolute;
+    right: -1em;
+    top: 50%;
+}
+/* .aupHeadlineBreadcrumb a:after { */
+.aupHeadlineBreadcrumb > li > a:after, .aupHeadlineBreadcrumb > li > ul > li > a:after {
+    border-left-color: #BDBEDC;
+    z-index: 2;
+}
+/* .aupHeadlineBreadcrumb a:before { */
+.aupHeadlineBreadcrumb > li > a:before, .aupHeadlineBreadcrumb > li > ul > li > a:before {
+    border-left-color: #BDBEDC;
+    right: -1.1em;
+    z-index: 1;
+}
+/* .aupHeadlineBreadcrumb a:hover:after { */
+.aupHeadlineBreadcrumb > li > a:hover:after, .aupHeadlineBreadcrumb > li > ul > li > a:hover:after  {
+    border-left-color: #607CAF;
+}
+.aupHeadlineBreadcrumb > li:last-child a {
+  /* Next line trims the last child */
+  overflow: hidden;
+}
+.aupHeadlineBreadcrumb .current, .aupHeadlineBreadcrumb .current:hover {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    font-weight: bold;
+}
+.aupHeadlineBreadcrumb .current:after, .aupHeadlineBreadcrumb .current:before {
+    content: normal;
 }
 
-.aupHeadlineBreadcrumb li{
-float: left;
-}
 
-.aupHeadlineBreadcrumb a{
-padding: 7px 1em 6px 2em;
-float: left;
-text-decoration: none;
-color: #FFFFFF;
-position: relative;
-background-color: #ddd;
-background-image: linear-gradient(to right, ${colorDark}, ${colorLight});
-}
 
-.aupHeadlineBreadcrumb li:first-child a{
-padding-left: 1em;
-}
 
-.aupHeadlineBreadcrumb a:hover{
-background: ${colorDark};
-}
 
-.aupHeadlineBreadcrumb a::after,
-.aupHeadlineBreadcrumb a::before{
-content: "";
-position: absolute;
-top: 50%;
-margin-top: -1.5em;
-border-top: 1.5em solid transparent;
-border-bottom: 1.5em solid transparent;
-border-left: 1em solid;
-right: -1em;
-}
 
-.aupHeadlineBreadcrumb a::after{
-z-index: 2;
-border-left-color: ${colorLight};
-}
 
-.aupHeadlineBreadcrumb a::before{
-border-left-color: ${colorLight};
-right: -1.1em;
-z-index: 1;
+.aupHeadlineBreadcrumb > li {
+  position: relative;
+  float: left;
+  text-wrap:none;
 }
-
-.aupHeadlineBreadcrumb a:hover::after{
-border-left-color: ${colorDark};
+.aupHeadlineBreadcrumb > li:hover ul {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition-delay: 0s, 0s;
+  -moz-transition-delay: 0s, 0s;
+  -o-transition-delay: 0s, 0s;
+  transition-delay: 0s, 0s;
 }
+.aupHeadlineBreadcrumb ul {
+  text-align:right;
+  right:0;
 
-.aupHeadlineBreadcrumb .current,
-.aupHeadlineBreadcrumb .current:hover{
-font-weight: bold;
-background: none;
-}
-
-.aupHeadlineBreadcrumb .current::after,
-.aupHeadlineBreadcrumb .current::before{
-content: normal;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1;
+  position: absolute;
+  -webkit-transition-property: opacity, visibility;
+  -moz-transition-property: opacity, visibility;
+  -o-transition-property: opacity, visibility;
+  transition-property: opacity, visibility;
+  -webkit-transition-duration: .2s, 0s;
+  -moz-transition-duration: .2s, 0s;
+  -o-transition-duration: .2s, 0s;
+  transition-duration: .2s, 0s;
+  -webkit-transition-delay: 0s, .2s;
+  -moz-transition-delay: 0s, .2s;
+  -o-transition-delay: 0s, .2s;
+  transition-delay: 0s, .2s;
 }

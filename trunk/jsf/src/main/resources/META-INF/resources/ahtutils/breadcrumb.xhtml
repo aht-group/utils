@@ -9,6 +9,8 @@
 		<composite:attribute name="value"/>
 		<composite:attribute name="styleClass" required="false"
   								shortDescription="The style class is applied to the ul element."/>
+  		<composite:attribute name="withChildren" required="false" default="false"
+  								shortDescription="Renders direct children of each breadcrumb."/>
 	</composite:interface>
         
 
@@ -22,6 +24,20 @@
 	    		</c:if>
 	    		<c:if test="#{empty menuItem.href}">
 	    			#{menuItem.name}
+	    		</c:if>
+	    		<c:if test="#{cc.attrs.withChildren}">
+	    			<ul>
+					    <c:forEach var="childItem" items="#{menuItem.menuItem}">
+					    	<li>
+					    		<c:if test="#{!empty childItem.href}">
+					    			<a href="#{facesContext.externalContext.requestContextPath}#{childItem.href}">#{childItem.name}</a>
+					    		</c:if>
+					    		<c:if test="#{empty childItem.href}">
+					    			#{menuItem.name}
+					    		</c:if>
+					    	</li>
+					    </c:forEach>
+	    			</ul>
 	    		</c:if>
 	    	</li>
 	    </c:forEach>

@@ -9,6 +9,7 @@ import net.sf.ahtutils.jsf.menu.MenuFactory;
 import net.sf.ahtutils.xml.navigation.Breadcrumb;
 import net.sf.ahtutils.xml.navigation.Menu;
 import net.sf.ahtutils.xml.navigation.MenuItem;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,33 +66,67 @@ public abstract class AbstractMenuBean implements Serializable
 	/**
 	 * Breadcrumb
 	 */
-	public Breadcrumb breadcrumb(MenuFactory mf,String code){return breadcrumb(mf,false,code);}
-	public Breadcrumb breadcrumb(MenuFactory mf,boolean withRoot, String code)
+	public Breadcrumb breadcrumb(MenuFactory mf,String code){return breadcrumb(mf,false,code,false,false);}
+	public Breadcrumb breadcrumb(MenuFactory mf,boolean withRoot, String code, boolean withFirst, boolean withChilds)
 	{
-		synchronized(mf)
+		if(!mapBreadcrumb.containsKey(code))
 		{
-			if(!mapBreadcrumb.containsKey(code))
+			synchronized(mf)
 			{
 				if(!mapMenu.containsKey(code)){menu(mf,code);}
-				mapBreadcrumb.put(code,mf.breadcrumb(withRoot,code));
+				Breadcrumb bOrig = mf.breadcrumb(withRoot,code);
+				Breadcrumb bClone = new Breadcrumb();
+				int startIndex=0;
+				if(bOrig.getMenuItem().size()>1 && !withFirst){startIndex=1;}
+				for(int i=startIndex;i<bOrig.getMenuItem().size();i++)
+				{
+					MenuItem miOrig = bOrig.getMenuItem().get(i);
+					MenuItem miClone = new MenuItem();
+					miClone.setName(miOrig.getName());
+					miClone.setHref(miOrig.getHref());
+					miClone.setCode(miOrig.getCode());
+					bClone.getMenuItem().add(miClone);
+				}
+				//TODO WITHFIRST
+		/*		if(b.getMenuItem().size()>1 && !withFirst)
+				{
+					b.getMenuItem().remove(0);
+				}
+				*/
+				if(withChilds)
+				{
+					for(MenuItem mi : bClone.getMenuItem())
+					{
+						String parentCode = mf.getParent(mi.getCode());
+						for(MenuItem subOrig : sub(mf, parentCode).getMenuItem())
+						{
+							MenuItem subClone = new MenuItem();
+							subClone.setName(subOrig.getName());
+							subClone.setHref(subOrig.getHref());
+							mi.getMenuItem().add(subClone);
+						}
+					}
+				}
+				mapBreadcrumb.put(code,bClone);
+				JaxbUtil.info(mapBreadcrumb.get(code));
 			}
-			return mapBreadcrumb.get(code);
 		}
+		return mapBreadcrumb.get(code);
 	}
 	
 	// ******************************************
 	// SubMenu
 	public MenuItem sub(MenuFactory mf, String code)
 	{
-		synchronized(mf)
+		if(!mapSub.containsKey(code))
 		{
-			if(!mapSub.containsKey(code))
+			synchronized(mf)
 			{
 				if(!mapMenu.containsKey(code)){menu(mf,code);}
 				Menu m = mapMenu.get(code);
 				mapSub.put(code,mf.subMenu(m,code));
 			}
-			return mapSub.get(code);
 		}
+		return mapSub.get(code);
 	}
 }
