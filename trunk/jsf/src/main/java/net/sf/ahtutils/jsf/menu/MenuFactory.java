@@ -379,7 +379,16 @@ public class MenuFactory
 	public MenuItem subMenu(Menu menu, String code)
 	{
 		MenuItem result;
-		try {result = NavigationXpath.getMenuItem(menu, code);}
+		try
+		{
+			if(code.equals(rootNode))
+			{
+				result = new MenuItem();
+				result.getMenuItem().addAll(menu.getMenuItem());
+				return result;
+			}
+			result = NavigationXpath.getMenuItem(menu, code);
+		}
 		catch (ExlpXpathNotFoundException e) {result = new MenuItem();}
 		catch (ExlpXpathNotUniqueException e) {result = new MenuItem();}
 		return result;

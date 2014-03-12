@@ -56,13 +56,13 @@ ul.aupHeadlineBreadcrumb,
   white-space: nowrap;
 
   background-color: #DDDDDD;
-  background-image: linear-gradient(to right, #607CAF, #BDBEDC);
+  background-image: linear-gradient(to right, ${colorDark}, ${colorLight});
   color: #FFFFFF;
   padding: 7px 1em 6px 2em;
 }
 
 .aupHeadlineBreadcrumb a:hover {
-    background: none repeat scroll 0 0 #607CAF;
+    background: none repeat scroll 0 0 ${colorDark};
 }
 /* .aupHeadlineBreadcrumb a:after, .aupHeadlineBreadcrumb a:before */
 .aupHeadlineBreadcrumb > li > a:after, .aupHeadlineBreadcrumb > li > a:before,
@@ -78,18 +78,18 @@ ul.aupHeadlineBreadcrumb,
 }
 /* .aupHeadlineBreadcrumb a:after { */
 .aupHeadlineBreadcrumb > li > a:after, .aupHeadlineBreadcrumb > li > ul > li > a:after {
-    border-left-color: #BDBEDC;
+    border-left-color: ${colorLight};
     z-index: 2;
 }
 /* .aupHeadlineBreadcrumb a:before { */
 .aupHeadlineBreadcrumb > li > a:before, .aupHeadlineBreadcrumb > li > ul > li > a:before {
-    border-left-color: #BDBEDC;
+    border-left-color: ${colorLight};
     right: -1.1em;
     z-index: 1;
 }
 /* .aupHeadlineBreadcrumb a:hover:after { */
 .aupHeadlineBreadcrumb > li > a:hover:after, .aupHeadlineBreadcrumb > li > ul > li > a:hover:after  {
-    border-left-color: #607CAF;
+    border-left-color: ${colorDark};
 }
 .aupHeadlineBreadcrumb > li:last-child a {
   /* Next line trims the last child */
@@ -102,11 +102,6 @@ ul.aupHeadlineBreadcrumb,
 .aupHeadlineBreadcrumb .current:after, .aupHeadlineBreadcrumb .current:before {
     content: normal;
 }
-
-
-
-
-
 
 
 .aupHeadlineBreadcrumb > li {

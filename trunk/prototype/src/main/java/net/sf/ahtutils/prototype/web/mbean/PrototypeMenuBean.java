@@ -58,6 +58,6 @@ public class PrototypeMenuBean extends AbstractMenuBean implements Serializable
 	
 	public Menu build() {return super.menu(mfMain, rootMain);}
 	public Menu build(String code){return super.menu(mfMain, code);}
-	public Breadcrumb breadcrumb(String code){return super.breadcrumb(mfMain, false, code, false, true);}
+	public Breadcrumb breadcrumb(String code){return super.breadcrumb(mfMain, false, code, true, true);}
 	public MenuItem sub(String code){return super.sub(mfMain, code);}
 }
