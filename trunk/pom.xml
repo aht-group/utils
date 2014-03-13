@@ -8,7 +8,7 @@
     	<version>7</version>
 	</parent>
 	     
-	<version>0.2.5</version>
+	<version>0.2.6-SNAPSHOT</version>
 	     
 	<groupId>net.sf.ahtutils</groupId>
 	<artifactId>ahtutils</artifactId>
@@ -91,9 +91,9 @@
 	</licenses>
 
 	<scm>
-    	<connection>scm:svn:https://svn.code.sf.net/p/ahtutils/code/tags/ahtutils-0.2.5</connection>
-    	<developerConnection>scm:svn:https://svn.code.sf.net/p/ahtutils/code/tags/ahtutils-0.2.5</developerConnection>
-    	<url>https://svn.code.sf.net/p/ahtutils/code/tags/ahtutils-0.2.5</url>
+    	<connection>scm:svn:https://svn.code.sf.net/p/ahtutils/code/trunk</connection>
+    	<developerConnection>scm:svn:https://svn.code.sf.net/p/ahtutils/code/trunk</developerConnection>
+    	<url>https://svn.code.sf.net/p/ahtutils/code/trunk</url>
 	</scm>
 	
 	<developers>
