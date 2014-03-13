@@ -24,7 +24,7 @@ public class EjbFeedbackFactory<L extends UtilsLang,
 								U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
 								A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
 								USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
-								TYPE extends UtilsStatus<L,D>,
+								TYPE extends UtilsStatus<TYPE,L,D>,
 								F extends UtilsFeedback<L,D,C,R,V,U,A,USER,TYPE>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbFeedbackFactory.class);
@@ -44,7 +44,7 @@ public class EjbFeedbackFactory<L extends UtilsLang,
 					U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
 					A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
 					USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
-					TYPE extends UtilsStatus<L,D>,
+					TYPE extends UtilsStatus<TYPE,L,D>,
 					F extends UtilsFeedback<L,D,C,R,V,U,A,USER,TYPE>>
     	EjbFeedbackFactory<L,D,C,R,V,U,A,USER,TYPE,F> factory(final Class<F> clFeedback)
     {

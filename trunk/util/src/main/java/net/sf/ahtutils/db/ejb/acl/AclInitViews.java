@@ -23,7 +23,7 @@ import net.sf.ahtutils.xml.access.View;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AclInitViews <S extends UtilsStatus<L,D>,
+public class AclInitViews <S extends UtilsStatus<S,L,D>,
 							L extends UtilsLang,
 							D extends UtilsDescription,
 							CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
@@ -42,7 +42,7 @@ public class AclInitViews <S extends UtilsStatus<L,D>,
 	private AhtAclFacade fAcl;
 	private EjbLangFactory<L> ejbLangFactory;
 	
-	public static <S extends UtilsStatus<L,D>,
+	public static <S extends UtilsStatus<S,L,D>,
 				   L extends UtilsLang,
 				   D extends UtilsDescription,
 				   CU extends UtilsAclCategoryUsecase<L,D,CU,U>,

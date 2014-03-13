@@ -7,7 +7,7 @@ import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithCode;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface UtilsLink<S extends UtilsStatus<L,D>,
+public interface UtilsLink<S extends UtilsStatus<S,L,D>,
 							L extends UtilsLang,
 							D extends UtilsDescription>
 						extends EjbWithId,EjbWithCode,EjbWithValidUntil

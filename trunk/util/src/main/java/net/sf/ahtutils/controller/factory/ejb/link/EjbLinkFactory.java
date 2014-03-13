@@ -10,13 +10,13 @@ import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbLinkFactory<LI extends UtilsLink<T,L,D>,T extends UtilsStatus<L,D>,L extends UtilsLang,D extends UtilsDescription>
+public class EjbLinkFactory<LI extends UtilsLink<T,L,D>,T extends UtilsStatus<T,L,D>,L extends UtilsLang,D extends UtilsDescription>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbLinkFactory.class);
 	
     final Class<LI> clLink;
 	
-    public static <LI extends UtilsLink<T,L,D>,T extends UtilsStatus<L,D>,L extends UtilsLang, D extends UtilsDescription>
+    public static <LI extends UtilsLink<T,L,D>,T extends UtilsStatus<T,L,D>,L extends UtilsLang, D extends UtilsDescription>
     	EjbLinkFactory<LI,T,L,D> createFactory(final Class<LI> clLink)
   {
       return new EjbLinkFactory<LI,T,L,D>(clLink);

@@ -24,8 +24,8 @@ public class XmlStatusFactory
 		this.q=q;
 	}
 	
-	public <S extends UtilsStatus<L,D>, L extends UtilsLang, D extends UtilsDescription> Status build(S ejb){return build(ejb,null);}
-	public <S extends UtilsStatus<L,D>, L extends UtilsLang, D extends UtilsDescription> Status build(S ejb, String group)
+	public <S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription> Status build(S ejb){return build(ejb,null);}
+	public <S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription> Status build(S ejb, String group)
 	{
 		Status xml = new Status();
 		xml.setGroup(group);

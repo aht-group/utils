@@ -19,7 +19,7 @@ public class XmlConditionFactory
 		this.q=q;
 	}
 	
-	public <S extends UtilsStatus<L,D>,L extends UtilsLang, D extends UtilsDescription> Condition build(S ejb)
+	public <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription> Condition build(S ejb)
 	{
 		Condition xml = new Condition();
 		if(q.isSetCode()){xml.setCode(ejb.getCode());}

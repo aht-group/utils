@@ -60,7 +60,7 @@ public class AhtStatusDbInit
 	private void savePreviousDbEntries(String key, List<UtilsStatus> availableStatus)
 	{
 		Set<Long> dbStatus = new HashSet<Long>();
-		for(UtilsStatus<UtilsLang,UtilsDescription> ejbStatus : availableStatus)
+		for(UtilsStatus ejbStatus : availableStatus)
 		{
 			dbStatus.add(ejbStatus.getId());
 		}
@@ -68,7 +68,7 @@ public class AhtStatusDbInit
 		mDbAvailableStatus.put(key, dbStatus);
 	}
 	
-	public UtilsStatus<UtilsLang,UtilsDescription> addVisible(UtilsStatus<UtilsLang,UtilsDescription> ejbStatus, Status status)
+	public UtilsStatus addVisible(UtilsStatus ejbStatus, Status status)
 	{
 		boolean visible=true;
 		if(status.isSetVisible()){visible=status.isVisible();}
@@ -76,7 +76,7 @@ public class AhtStatusDbInit
 		return ejbStatus;
 	}
 	
-	public UtilsStatus<UtilsLang,UtilsDescription> addLangsAndDescriptions(UtilsStatus ejbStatus, Status status) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+	public UtilsStatus addLangsAndDescriptions(UtilsStatus ejbStatus, Status status) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
 	{
 		UtilsStatus ejbUpdateInfo = (UtilsStatus)statusEjbFactory.create(status);
 		ejbStatus.setName(ejbUpdateInfo.getName());
@@ -104,7 +104,7 @@ public class AhtStatusDbInit
 		return result;
 	}
 	
-	public <S extends UtilsStatus<L,D>,L extends UtilsLang, D extends UtilsDescription> void deleteUnusedStatus(Class<S> cStatus, Class<L> cLang, Class<D> cDescription)
+	public <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription> void deleteUnusedStatus(Class<S> cStatus, Class<L> cLang, Class<D> cDescription)
 	{
 		logger.debug("Deleting unused childs of Status: "+cLang.getName()+":"+sDeleteLangs.size());
 		for(long id : sDeleteLangs)
@@ -149,14 +149,14 @@ public class AhtStatusDbInit
 		 }
 	}
 	
-	public <S extends UtilsStatus<L,D>,L extends UtilsLang, D extends UtilsDescription> void iuStatus(List<Status> list, Class<S> cStatus, Class<L> cLang)
+	public <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription> void iuStatus(List<Status> list, Class<S> cStatus, Class<L> cLang)
 	{
 		if(fStatus==null){logger.warn("No Handler available");return;}
 		else {logger.info("Updating "+cStatus.getSimpleName()+" with "+list.size()+" entries");}
 		iuStatusEJB(list, cStatus, cLang);
 	}
 	
-	private <S extends UtilsStatus<L,D>,L extends UtilsLang, D extends UtilsDescription> void iuStatusEJB(List<Status> list, Class<S> cStatus, Class<L> cLang)
+	private <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription> void iuStatusEJB(List<Status> list, Class<S> cStatus, Class<L> cLang)
 	{
 		for(Status status : list)
 		{

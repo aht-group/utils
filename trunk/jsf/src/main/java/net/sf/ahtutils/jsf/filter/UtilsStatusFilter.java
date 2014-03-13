@@ -4,7 +4,7 @@ import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 
-public class UtilsStatusFilter<L extends UtilsLang, D extends UtilsDescription, S extends UtilsStatus<L,D>>		
+public class UtilsStatusFilter<L extends UtilsLang, D extends UtilsDescription, S extends UtilsStatus<S,L,D>>		
 {		
 	private S value;
 	private boolean active;

@@ -7,7 +7,7 @@ import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface UtilsMailTracker<S extends UtilsStatus<L,D>,
+public interface UtilsMailTracker<S extends UtilsStatus<S,L,D>,
 									L extends UtilsLang,
 									U extends EjbWithId,
 									D extends UtilsDescription>

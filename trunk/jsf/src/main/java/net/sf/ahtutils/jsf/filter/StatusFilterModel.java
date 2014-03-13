@@ -10,7 +10,7 @@ import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class StatusFilterModel <L extends UtilsLang, D extends UtilsDescription, S extends UtilsStatus<L,D>>
+public class StatusFilterModel <L extends UtilsLang, D extends UtilsDescription, S extends UtilsStatus<S,L,D>>
 {    
 	final static Logger logger = LoggerFactory.getLogger(StatusFilterModel.class);
 	
@@ -33,7 +33,7 @@ public class StatusFilterModel <L extends UtilsLang, D extends UtilsDescription,
 		sfList.setActive(!sfList.isActive());	
 	}
 	
-	public void toggle(UtilsStatus<L,D> status)
+	public void toggle(UtilsStatus<S,L,D> status)
 	{
 		logger.info("Toggle: "+status);
 		for(UtilsStatusFilter<L,D,S> usf : list)

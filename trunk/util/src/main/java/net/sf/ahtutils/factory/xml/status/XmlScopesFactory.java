@@ -24,7 +24,7 @@ public class XmlScopesFactory
 		this.lang=lang;
 	}
 	
-	public <S extends UtilsStatus<L,D>,L extends UtilsLang, D extends UtilsDescription> Scopes build(List<S> ejbs) throws UtilsXmlStructureException
+	public <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription> Scopes build(List<S> ejbs) throws UtilsXmlStructureException
 	{
 		Scopes xml = new Scopes();
 		

@@ -20,7 +20,7 @@ public interface UtilsFeedback<L extends UtilsLang,
 								U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
 								A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
 								USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
-								TYPE extends UtilsStatus<L,D>>
+								TYPE extends UtilsStatus<TYPE,L,D>>
 						extends EjbWithId,EjbWithRecord
 {	
 	TYPE getType();

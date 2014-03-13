@@ -13,7 +13,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithImage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AbstractIconBean <L extends UtilsLang, D extends UtilsDescription, S extends UtilsStatus<L,D>>	 implements Serializable
+public class AbstractIconBean <L extends UtilsLang, D extends UtilsDescription, S extends UtilsStatus<S,L,D>>	 implements Serializable
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractIconBean.class);
 	private static final long serialVersionUID = 1L;

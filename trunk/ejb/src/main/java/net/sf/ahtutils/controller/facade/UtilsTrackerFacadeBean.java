@@ -28,7 +28,7 @@ public class UtilsTrackerFacadeBean extends UtilsFacadeBean implements UtilsTrac
 		super(em);
 	}
 	
-	@Override public <TR extends UtilsTracker<TR, TL, T, S, L, D>, TL extends UtilsTrackerLog<TR, TL, T, S, L, D>, T extends UtilsStatus<L,D>, S extends UtilsStatus<L,D>, L extends UtilsLang, D extends UtilsDescription>
+	@Override public <TR extends UtilsTracker<TR, TL, T, S, L, D>, TL extends UtilsTrackerLog<TR, TL, T, S, L, D>, T extends UtilsStatus<T,L,D>, S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription>
 		List<TR> allTrackerForType(Class<TR> clTracker, Class<T> clType, T type)
 	{
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
@@ -49,7 +49,7 @@ public class UtilsTrackerFacadeBean extends UtilsFacadeBean implements UtilsTrac
 	}
 
 	@Override
-	public <TR extends UtilsTracker<TR,TL,T,S,L,D>, TL extends UtilsTrackerLog<TR, TL, T, S, L,D>, T extends UtilsStatus<L,D>, S extends UtilsStatus<L,D>, L extends UtilsLang,D extends UtilsDescription>
+	public <TR extends UtilsTracker<TR,TL,T,S,L,D>, TL extends UtilsTrackerLog<TR, TL, T, S, L,D>, T extends UtilsStatus<T,L,D>, S extends UtilsStatus<S,L,D>, L extends UtilsLang,D extends UtilsDescription>
 		TR fTracker(Class<TR> clTracker, Class<T> clType, T type, long refId) throws UtilsNotFoundException
 	{
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
@@ -73,7 +73,7 @@ public class UtilsTrackerFacadeBean extends UtilsFacadeBean implements UtilsTrac
 	}
 	
 	@Override
-	public <TR extends UtilsMailTracker<T,L,U,D>,T extends UtilsStatus<L,D>, L extends UtilsLang, U extends EjbWithId, D extends UtilsDescription> 
+	public <TR extends UtilsMailTracker<T,L,U,D>,T extends UtilsStatus<T,L,D>, L extends UtilsLang, U extends EjbWithId, D extends UtilsDescription> 
 		List<TR> fMailTracker(Class<TR> clTracker, Class<T> clType, T type, long refId) throws UtilsNotFoundException
 	{
 		CriteriaQuery<TR> select = getTrackerCQ(clTracker, clType, type, refId);
@@ -85,7 +85,7 @@ public class UtilsTrackerFacadeBean extends UtilsFacadeBean implements UtilsTrac
 	}
 
 	@Override
-	public <TR extends UtilsMailTracker<T, L, U,D>, T extends UtilsStatus<L,D>, L extends UtilsLang, U extends EjbWithId, D extends UtilsDescription>
+	public <TR extends UtilsMailTracker<T, L, U,D>, T extends UtilsStatus<T,L,D>, L extends UtilsLang, U extends EjbWithId, D extends UtilsDescription>
 		TR fLastMailTracker(Class<TR> clTracker, Class<T> clType, T type, long refId) throws UtilsNotFoundException
 	{
 		CriteriaQuery<TR> select = getTrackerCQ(clTracker, clType, type, refId);
@@ -95,7 +95,7 @@ public class UtilsTrackerFacadeBean extends UtilsFacadeBean implements UtilsTrac
 		catch (NoResultException ex){throw new UtilsNotFoundException("No "+clTracker.getSimpleName()+" found for refId="+refId+" and type="+type.getCode());}
 	}
 	
-	private <TR extends UtilsMailTracker<T, L, U,D>, T extends UtilsStatus<L,D>, L extends UtilsLang, U extends EjbWithId,D extends UtilsDescription>
+	private <TR extends UtilsMailTracker<T, L, U,D>, T extends UtilsStatus<T,L,D>, L extends UtilsLang, U extends EjbWithId,D extends UtilsDescription>
 		CriteriaQuery<TR> getTrackerCQ(Class<TR> clTracker, Class<T> clType, T type, long refId)
 	{
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();

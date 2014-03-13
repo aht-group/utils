@@ -27,7 +27,7 @@ import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 @DiscriminatorColumn(name="type")
 @DiscriminatorValue("generic")
 @Table(name = "UtilsStatus", uniqueConstraints = @UniqueConstraint(columnNames = {"type","code"}))
-public class AhtUtilsStatus implements UtilsStatus<AhtUtilsLang,AhtUtilsDescription>,EjbRemoveable,Serializable
+public class AhtUtilsStatus implements UtilsStatus<AhtUtilsStatus,AhtUtilsLang,AhtUtilsDescription>,EjbRemoveable,Serializable
 {
 	private static final long serialVersionUID = 1;
 	

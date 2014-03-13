@@ -13,7 +13,7 @@ public class XmlLinkFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlLinkFactory.class);
 	
-	public static <S extends UtilsStatus<L,D>, L extends UtilsLang, LI extends UtilsLink<S,L,D>, D extends UtilsDescription> Link create(LI ejb, String url)
+	public static <S extends UtilsStatus<S,L,D>, L extends UtilsLang, LI extends UtilsLink<S,L,D>, D extends UtilsDescription> Link create(LI ejb, String url)
 	{
 		Link xml = new Link();
 		xml.setCode(ejb.getCode());

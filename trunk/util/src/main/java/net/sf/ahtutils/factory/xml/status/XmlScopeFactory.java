@@ -22,7 +22,7 @@ public class XmlScopeFactory
 		this.lang=lang;
 	}
 	
-	public <S extends UtilsStatus<L,D>,L extends UtilsLang, D extends UtilsDescription> Scope build(S ejb) throws UtilsXmlStructureException
+	public <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription> Scope build(S ejb) throws UtilsXmlStructureException
 	{
 		Scope xml = new Scope();
 		if(q.isSetCode()){xml.setCode(ejb.getCode());}

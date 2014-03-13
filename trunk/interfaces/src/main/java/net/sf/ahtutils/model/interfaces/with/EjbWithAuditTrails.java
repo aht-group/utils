@@ -22,7 +22,7 @@ public interface EjbWithAuditTrails <L extends UtilsLang,
 									A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
 									USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
 									T extends UtilsAuditTrail<L,D,C,R,V,U,A,USER,TY>,
-									TY extends UtilsStatus<L,D>>
+									TY extends UtilsStatus<TY,L,D>>
 {
 	List<T> getAuditTrails();
 	void setAuditTrails(List<T> auditTrails);
