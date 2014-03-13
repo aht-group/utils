@@ -3,6 +3,7 @@ package net.sf.ahtutils.factory.xml.status;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
+import net.sf.ahtutils.xml.status.Parent;
 import net.sf.ahtutils.xml.status.Status;
 
 import org.slf4j.Logger;
@@ -63,6 +64,13 @@ public class XmlStatusFactory
 				logger.warn(msg);
 				xml.setLabel(msg);
 			}
+		}
+		
+		if(q.isSetParent() && ejb.getParent()!=null)
+		{
+			Parent parent = new Parent();
+			parent.setCode(ejb.getParent().getCode());
+			xml.setParent(parent);
 		}
 		
 		return xml;

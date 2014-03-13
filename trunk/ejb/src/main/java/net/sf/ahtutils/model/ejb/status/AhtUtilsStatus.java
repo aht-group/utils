@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -21,6 +22,7 @@ import javax.persistence.UniqueConstraint;
 
 import net.sf.ahtutils.model.interfaces.crud.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
+import net.sf.ahtutils.model.interfaces.with.EjbWithCode;
 
 @Entity
 @Inheritance(strategy= InheritanceType.SINGLE_TABLE)
@@ -92,4 +94,9 @@ public class AhtUtilsStatus implements UtilsStatus<AhtUtilsStatus,AhtUtilsLang,A
 			sb.append(" code="+code);
 		return sb.toString();
 	}
+	
+	@ManyToOne
+	protected AhtUtilsStatus parent;
+	public <P extends EjbWithCode> P getParent() {return (P)parent;}
+	public <P extends EjbWithCode> void setParent(P parent) {this.parent=(AhtUtilsStatus)parent;}
 }
