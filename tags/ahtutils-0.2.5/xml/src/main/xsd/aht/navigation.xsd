@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://ahtutils.aht-group.com/navigation"
+	xmlns:a="http://ahtutils.aht-group.com/access"
+    xmlns:n="http://ahtutils.aht-group.com/navigation"
+    xmlns:s="http://ahtutils.aht-group.com/status"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://ahtutils.aht-group.com/status" schemaLocation="status.xsd"/>
+    <xsd:import namespace="http://ahtutils.aht-group.com/access" schemaLocation="access.xsd"/>
+    <xsd:element name="navigation">
+	    <xsd:complexType>
+            <xsd:sequence>
+				<xsd:element ref="n:viewPattern" maxOccurs="1"/>
+				<xsd:element ref="n:urlMapping" maxOccurs="1"/>
+			</xsd:sequence>
+			<xsd:attribute name="code" type="xsd:string"/>
+			<xsd:attribute name="package" type="xsd:string"/>
+		</xsd:complexType>    
+    </xsd:element>
+    <xsd:element name="viewPattern">
+        <xsd:complexType>
+            <xsd:simpleContent>
+                <xsd:extension base="xsd:string">
+                </xsd:extension>
+            </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="urlMapping">
+        <xsd:complexType>
+            <xsd:simpleContent>
+                <xsd:extension base="xsd:string">
+                    <xsd:attribute name="url" type="xsd:string"/>
+                </xsd:extension>
+            </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="menu">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="n:menuItem" maxOccurs="unbounded"/>
+            </xsd:sequence>
+            <xsd:attribute name="code" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="breadcrumb">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="n:menuItem" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="menuItem">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="n:menuItem" maxOccurs="unbounded"/>
+				<xsd:element ref="s:descriptions" maxOccurs="1"/>
+                <xsd:element ref="s:langs" maxOccurs="1"/>
+                <xsd:element ref="a:view" maxOccurs="1"/>
+            </xsd:sequence>
+            <xsd:attribute name="name" type="xsd:string"/>
+            <xsd:attribute name="code" type="xsd:string"/>
+            <xsd:attribute name="href" type="xsd:string"/>
+            <xsd:attribute name="active" type="xsd:boolean"/>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

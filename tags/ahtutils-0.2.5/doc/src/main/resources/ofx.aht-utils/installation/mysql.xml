@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org" id="installation.mysql">
+	<ofx:title lang="en">Database MySQL</ofx:title>
+	<ofx:title lang="de">Datenbank MySQL</ofx:title>
+	<ofx:title lang="fr">Datenbank MySQL</ofx:title>
+	<ofx:section>
+		<ofx:title>Linux (Debian Wheezy)</ofx:title>
+		<ofx:paragraph lang="de">
+			MySQL wird unter Debian mit folgendem Befehl installiert:
+		</ofx:paragraph>
+		<ofx:listing>
+			<ofx:raw>
+				apt-get install mysql-server
+			</ofx:raw>
+		</ofx:listing>
+		<ofx:paragraph lang="de">
+			Anschließend wird das Kennwort für den Datenbankadministrator festgelegt.
+		</ofx:paragraph>
+	</ofx:section>
+	<ofx:section>
+		<ofx:title lang="en">Database creation</ofx:title>
+		<ofx:title lang="de">Erstellung der Datenbank</ofx:title>
+		<ofx:title lang="fr">Erstellung der Datenbank</ofx:title>
+		<ofx:listing>
+			<ofx:raw>
+				DROP DATABASE IF EXISTS xxx;
+				CREATE DATABASE xxx charset utf8;
+				GRANT all ON xxx.* TO xxx@localhost IDENTIFIED BY 'xxx';
+				FLUSH privileges;
+			</ofx:raw>
+		</ofx:listing>
+		<ofx:paragraph lang="de">
+			Das Kennwort kann frei gewählt werden, gilt dann jeodch für alle Zugriffe auf die MySQL Datenbank und
+			muss entsprechend in den weiteren Konfigurationsdateien eingetragen werden.
+		</ofx:paragraph>
+	</ofx:section>
+</ofx:section>

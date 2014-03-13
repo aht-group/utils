@@ -1,0 +1,216 @@
+
+body
+{
+	background: #DDD;
+	color: #333;
+	font-family: "Arial", Verdana, Helvetica, sans-serif;
+	font-size: 12px;
+	padding: 10px 0;
+	background: #DDD url("#{resource['aupGfx:background.jpg']}") repeat fixed;
+}
+
+a { color: #D82B00; text-decoration: none; }
+a:hover { color: #333; text-decoration: none; }
+
+/* Main Styles */
+
+#container
+{
+	margin: 0 auto;
+	width: 982px;
+	background: #FFF;
+	padding: 0 0 20px 0;
+	
+	-moz-box-shadow: 0 0 10px #AAA; -webkit-box-shadow: 0 0 10px #AAA; box-shadow: 0 0 10px #AAA;
+}
+
+
+/* HEADER */
+.header {
+	width: 970px;
+	height: 36px;
+	padding: 3px 0 0 0;
+	border-bottom: 2px solid #EEE;
+	background: #FFF;
+}
+.header ul {
+	float: right;
+	width: auto;
+	margin: 0 15px 0 0;
+	list-style-type: none;
+	overflow: hidden;
+}		
+.header ul li {
+	display: inline;
+}		
+.header ul li a {
+	float: left;
+	line-height: 36px;
+	padding: 0 10px;
+	margin: 0 0 0 10px;
+	font-weight: bold;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-size: 11px;
+	color: #333;
+	background: #FFF;
+}
+.header ul li.active > a {
+	background: #FFF;
+	border-bottom: 2px solid #D82B00;
+	color: #D82B00;
+}
+
+.header li a:hover
+{
+	background: #FFF;
+	border-bottom: 2px solid #D82B00;
+	color: #333;
+}
+
+.logo{
+	float: left;
+	z-index: 9994;
+	margin-top: 5px;
+	margin-left: 10px;
+}
+
+.aupHeadline{
+
+	padding: 6px 20px;
+	margin: 10px;
+	background: #B90000;
+	font-size: 15px;
+	color: #FFF;
+	font-weight: bold;
+	letter-spacing: -1px;
+	text-align: right;
+	height: 18px;
+}
+.aupHeadline a{color: #FFF;}
+		
+.maincontent
+{
+	width: 100%x;
+	line-height: 22px;
+	padding: 5px 10px 0;
+}
+	
+.maincontent p {
+	margin: 0 0 15px 0;
+}
+.maincontent h1, .maincontent h2, .maincontent h3, .maincontent h4, .maincontent h5 {
+	letter-spacing: -1px;
+	font-weight: bold;
+}
+.maincontent h1 { font-size: 20px;}
+.maincontent h2 { font-size: 18px; }
+.maincontent h3 { font-size: 16px;
+margin-top: 8px;
+}
+.maincontent h4 { font-size: 14px; }
+.maincontent h5 { font-size: 12px; }
+
+.maincontent blockquote { background: #EEE; border-left: 3px solid #D82B00; padding: 15px; margin: 0 0 15px 0; font-style: italic; line-height: 18px; }
+
+#maincont #mainleft
+{
+	float: left;
+	width: 190px;
+	padding: 0 15px;
+	font-size: 11px;
+}
+
+.aupContentLeft {
+	float: left;
+	width: 171px;
+	padding: 5px;
+}
+
+.aupContentCenter {
+	float: left;
+}
+
+.aupContentRight {
+	float: left;
+	width: 171px;
+	padding: 5px;
+}
+
+/* SIDEBAR MENU */
+
+.sidemenu {width:100%;}
+.sidemenu ul {margin:0; padding:0;}
+.sidemenu li {list-style: none;}
+.sidemenu ul.top-level {background: #EEE;}
+.sidemenu ul.top-level li
+{
+ border-bottom: #fff solid;
+ border-top: #fff solid;
+ border-width: 1px;
+}
+
+.sidemenu a {
+ color: #D82B00;
+ cursor: pointer;
+ display:block;
+ height:25px;
+ line-height: 25px;
+ text-indent: 10px;                   
+ text-decoration:none;
+ width:100%;
+}
+.sidemenu a:hover{
+ color: #FFF;
+ background: #D82B00;
+}
+
+
+		
+		#maincont #mainright
+		{
+			float: left;
+			width: 580px;
+			padding: 0 0 0 20px;
+		}
+		
+.aupFooter{
+	margin: 0 auto;
+	width: 970px;
+	padding: 10px;
+	font-size: 11px;
+	color: #777;
+}
+	
+.aupFooter .aupFooterLeft{
+	float: left;
+	width: 410px;
+}
+		
+.aupFooter .aupFooterRight{
+	float: right;
+	width: 400px;
+	text-align: right;
+}
+	
+.w100 {width: 100%;}
+
+
+/* PF Font size */
+.ui-widget, .ui-widget .ui-widget {font-size: 11px !important;}
+
+/* PF-3.5 Font size
+.ui-widget {font-size: 90%;}
+.ui-widget .ui-widget {font-size: 100%;}
+*/
+
+/* Linebreak in PF-3.5 tables */
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td {white-space: normal !important;} 
+
+/* PF-3.5 Titlebar too big */
+.ui-panel-titlebar{height: 12px;}
+.ui-panel-title{top: -5px;position: relative;}
+
+/* PF selectonemenu */
+.ui-selectonemenu-label {width:100% !important;}
+.ui-selectonemenu{width:100% !important;}

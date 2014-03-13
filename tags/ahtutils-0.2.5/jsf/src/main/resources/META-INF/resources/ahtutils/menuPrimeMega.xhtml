@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+ 	xmlns:c="http://java.sun.com/jsp/jstl/core"
+   	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:composite="http://java.sun.com/jsf/composite">
+    
+  <composite:interface>
+    <composite:attribute name="value"/>
+    <composite:attribute name="autoDisplay" required="false" default="true"/>
+    
+  </composite:interface>
+        
+	<composite:implementation>
+   	 
+		<p:megaMenu autoDisplay="#{cc.attrs.autoDisplay}">
+			<c:forEach var="mi1" items="#{cc.attrs.value.menuItem}">
+				<p:submenu label="#{mi1.name}">
+				  <c:forEach var="mi2" items="#{mi1.menuItem}">
+				  	<p:column>
+						<p:submenu label="#{mi2.name}">
+						  <c:forEach var="mi3" items="#{mi2.menuItem}">
+						  	<p:menuitem value="#{mi3.name}" url="#{mi3.href}" />  
+						  </c:forEach>
+						</p:submenu>
+						</p:column>
+					</c:forEach>
+				</p:submenu>
+			</c:forEach>
+    </p:megaMenu> 
+
+   </composite:implementation>
+</html>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<r:info xmlns:r="http://ahtutils.aht-group.com/report" xmlns:chart="http://www.openfuxml.org/chart">
+    <title>testTitle</title>
+    <record>2011-11-11T11:11:11</record>
+    <subtitle>testSubTitle</subtitle>
+    <footer>testFooter</footer>
+    <r:file>myFileName</r:file>
+</r:info>

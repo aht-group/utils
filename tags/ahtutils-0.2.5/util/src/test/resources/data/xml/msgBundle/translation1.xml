@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<s:translations xmlns:s="http://ahtutils.aht-group.com/status">
+    <s:translation key="myKey">
+    	<s:langs>
+    		<s:lang key="de" translation="German"/>
+    		<s:lang key="en" translation="English"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="umlaut">
+    	<s:langs>
+    		<s:lang key="de" translation="Düüüse"/>
+    		<s:lang key="en" translation="English"/>
+    	</s:langs>
+    </s:translation>
+</s:translations>

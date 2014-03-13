@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<r:report xmlns:r="http://ahtutils.aht-group.com/report">
+    <r:info>
+        <r:title>Test Report</r:title>
+        <r:record>2011-10-18T12:35:02</r:record>
+        <r:subtitle>... with a subtitle</r:subtitle>
+        <r:footer>Footer Information goes here</r:footer>
+        <r:media type="chart" code="testChart">
+	        <chart:chart xmlns:chart="http://www.openfuxml.org/chart" legend="true">
+			    <chart:charttype>		
+			        <timebar shadow="false" gradient="false"/>
+			    </chart:charttype>
+			    <grid range="false" domain="false"/>
+			    <chart:container label="a">
+			        <chart:data y="1.0" record="2010-01-01T00:00:00"/>
+			        <chart:data y="2.0" record="2010-01-02T00:00:00"/>
+			        <chart:data y="1.0" record="2010-01-03T00:00:00"/>
+			        <chart:data y="4.0" record="2010-01-04T00:00:00"/>
+			    </chart:container>
+			</chart:chart>
+        </r:media>
+    </r:info>
+    <data>
+    	<item>Data 1</item>
+    	<item>Data 2</item>
+    </data>
+</r:report>

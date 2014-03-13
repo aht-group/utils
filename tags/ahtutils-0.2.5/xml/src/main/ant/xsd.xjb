@@ -1,0 +1,115 @@
+<jxb:bindings version="1.0"
+	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+	xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:com.fnf="http://www.fnf.com/xes">
+    
+    <jxb:bindings schemaLocation="../xsd/xsd.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="net.sf.ahtutils.xml.aht"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
+    
+    <jxb:bindings schemaLocation="../xsd/aht/status.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="net.sf.ahtutils.xml.status"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
+    
+    <jxb:bindings schemaLocation="../xsd/aht/report.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="net.sf.ahtutils.xml.report"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
+    
+    <jxb:bindings schemaLocation="../xsd/aht/monitoring.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="net.sf.ahtutils.xml.monitoring"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
+    
+    <jxb:bindings schemaLocation="../xsd/aht/access.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="net.sf.ahtutils.xml.access"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
+    
+    <jxb:bindings schemaLocation="../xsd/aht/security.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="net.sf.ahtutils.xml.security"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>    
+    
+    <jxb:bindings schemaLocation="../xsd/aht/dbseed.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="net.sf.ahtutils.xml.dbseed"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
+    
+   	<jxb:bindings schemaLocation="../xsd/aht/mail.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="net.sf.ahtutils.xml.mail"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
+
+   	<jxb:bindings schemaLocation="../xsd/aht/issue.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="net.sf.ahtutils.xml.issue"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
+
+   	<jxb:bindings schemaLocation="../xsd/aht/finance.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="net.sf.ahtutils.xml.finance"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
+    
+    <jxb:bindings schemaLocation="../xsd/aht/project.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="net.sf.ahtutils.xml.project"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
+    
+    <jxb:bindings schemaLocation="../xsd/aht/utils.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="net.sf.ahtutils.xml.utils"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
+
+   	<jxb:bindings schemaLocation="../xsd/aht/navigation.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="net.sf.ahtutils.xml.navigation"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
+    
+   	<jxb:bindings schemaLocation="../xsd/cloud/facebook.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="net.sf.ahtutils.xml.cloud.facebook"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
+    
+    <jxb:bindings schemaLocation="../../../../../exlp/xml/src/main/xsd/util/net.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="net.sf.exlp.xml.net"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
+    
+    <jxb:bindings schemaLocation="../../../../../exlp/xml/src/main/xsd/util/io.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="net.sf.exlp.xml.io"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
+    
+    <jxb:bindings schemaLocation="../../../../../exlp/xml/src/main/xsd/util/identity.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="net.sf.exlp.xml.identity"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
+    
+	<jxb:bindings schemaLocation="../../../../../ofx/xml/src/main/xsd/addon/chart.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="org.openfuxml.xml.addon.chart"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
+   
+</jxb:bindings>

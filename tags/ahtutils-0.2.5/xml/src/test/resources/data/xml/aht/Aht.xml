@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<aht:aht xmlns:s="http://ahtutils.aht-group.com/status" xmlns:f="http://ahtutils.aht-group.com/finance" xmlns:p="http://ahtutils.aht-group.com/project" xmlns:aht="http://ahtutils.aht-group.com">
+    <s:status id="123" code="myCode" group="myGroup" label="myLabel" visible="true" image="test/green.png" style="myStyle" position="1"/>
+    <s:status id="123" code="myCode" group="myGroup" label="myLabel" visible="true" image="test/green.png" style="myStyle" position="1"/>
+    <f:currency id="123" code="myCode" symbol="mySymbol" label="myLabel"/>
+    <f:currency id="123" code="myCode" symbol="mySymbol" label="myLabel"/>
+    <p:user firstName="myFirst" lastName="myLast"/>
+    <p:user firstName="myFirst" lastName="myLast"/>
+</aht:aht>

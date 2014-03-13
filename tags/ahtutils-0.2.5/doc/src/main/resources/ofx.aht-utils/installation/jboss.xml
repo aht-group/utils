@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org" id="how">
+	<ofx:title lang="en">JBoss AS</ofx:title>
+	<ofx:section>
+		<ofx:title lang="en">AS7</ofx:title>
+		<ofx:paragraph lang="de">
+			Der Applikationsserver wird im Verzeichnis \texttt{bin} mit dem Befehl \texttt{standalone.sh}
+			(oder \texttt{standalone.bat}) gestartet. Der Startprozess sollte fehlerfrei durchlaufen und
+			mit folgender Meldung abgeschlossen werden:
+		</ofx:paragraph>
+		<ofx:paragraph lang="fr">
+			Le serveur d'applications est démarré dans le répertoire  \texttt{bin} avec la commande \texttt{standalone.sh}
+			(ou \texttt{standalone.bat}). Le processus de démarrage devrait fonctionner sans accroc et se terminer avec
+			l'indication suivante:
+		</ofx:paragraph>
+		
+		<ofx:paragraph lang="de">
+			Die ZIP-Datei \texttt{lgp-jboss-modules.zip} muss nun im Verzeichnis \texttt{modules} entpackt werden, so dass folgende Struktur entsteht:
+		</ofx:paragraph>
+		<ofx:paragraph lang="fr">
+			Le fichier ZIP \texttt{lgp-jboss-modules.zip} doit être déchargé dans le répertoire \texttt{modules} de telle manière à ce que l'on ait la structure suivante:
+		</ofx:paragraph>
+	</ofx:section>
+	
+	<ofx:section>
+		<ofx:title lang="en">EAP 6.1</ofx:title>
+		<ofx:paragraph lang="de">
+			In der Datei /bin/standalone.conf sollte die Sprache fest eingestellt werden
+		</ofx:paragraph>
+		
+		<ofx:listing>
+			<ofx:raw>JAVA_OPTS = ... -Duser.language=en</ofx:raw>
+		</ofx:listing>			
+	</ofx:section>
+</ofx:section>

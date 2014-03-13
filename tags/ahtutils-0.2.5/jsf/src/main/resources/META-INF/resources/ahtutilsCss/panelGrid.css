@@ -1,0 +1,42 @@
+/* @override 
+	http://localhost:8080/tg/javax.faces.resource/panelGrid.css.jsf?ln=ahtutilsCss */
+
+.auPanelGrid{
+	width: 100%;
+}
+
+.auPanelGridRow{
+	display: table-row;
+}
+
+.aupgrow:first-child div{
+	padding-top: 5px;
+}
+
+.aupgrow div{
+	padding-top: 2px;
+}
+
+.aupgrow:last-child div{
+	padding-bottom: 5px;
+}
+
+
+.auPgCell1{
+	float: left;
+}
+
+.auPgCell2{
+	float: left;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+/* PF Fix for menu-one-padding */
+.auPgCell2 > div.ui-selectonemenu{margin-bottom: -5px;height: 21px;margin-top: 0;}
+.auPgCell2 > div.ui-selectonemenu > div.ui-selectonemenu-trigger{height: 23px;}
+.auPgCell2 > div.ui-selectonemenu > label{padding-top: 1px;margin-top: -1px;}
+
+.auPgCell2 > input{width: 100%;}
+.auPgCell2 > div {width: 100%;}

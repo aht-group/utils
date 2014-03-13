@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org" id="installation.r">
+	<ofx:title lang="de">Installation von R</ofx:title>
+	<ofx:title lang="en">Installation of R</ofx:title>
+	<ofx:title lang="fr">Installation of R</ofx:title>
+	<ofx:paragraph lang="de">
+		Zunächst die aktuelle R Version von der Seite des http://www.r-project.org
+		herunterladen und den Installer ausführen.
+	</ofx:paragraph>
+	<ofx:paragraph lang="de">
+		Zur Interaktion mit dem R-System wird die Kommandokonsole genutzt.
+		Unter Windows und Mac OS richtet der Installer dazu das Programm R ein,
+		das einen Zugang zur R-Konsole darstellt. Unter Mac OS und Debian ist es auch möglich,
+		die Konsole direkt über die Systemkonsole mit dem Befehl "R" zu nutzen.
+	</ofx:paragraph>
+	<ofx:section>
+		<ofx:title lang="en">OS specific tasks</ofx:title>
+		<ofx:title lang="de">Betriebssystem spezifische Aufgaben</ofx:title>
+		<ofx:section id="installation.r.os.linux">
+			<ofx:title>Linux (Debian Wheezy)</ofx:title>
+			<ofx:listing>
+				<ofx:raw>
+					export http_proxy=http://proxy:3128 (optional)
+					echo 'deb http://cran.r-mirror.de/bin/linux/debian wheezy-cran3/' > /etc/apt/sources.list.d/r.list
+					apt-key adv --keyserver subkeys.pgp.net --recv-key 381BA480
+					apt-get update
+
+					apt-get -t wheezy-cran3 install r-base r-base-core libgdal-dev libproj-dev libcairo2-dev libxt-dev
+					R --version
+				</ofx:raw>
+			</ofx:listing>
+
+			<ofx:paragraph lang="en">
+				After starting R, one of the following versions should be printed:
+			</ofx:paragraph>
+			<ofx:paragraph lang="de">
+				Nach dem Start von R sollte eine der folgenden Versionen angegeben sein:
+			</ofx:paragraph>
+			<ofx:listing>
+				<ofx:raw>
+					R version 3.0.1 (2013-05-16) -- "Good Sport"
+					R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"
+				</ofx:raw>
+			</ofx:listing>
+		</ofx:section>
+		
+		<ofx:section id="installation.r.os.win">
+			<ofx:title>MS Windows</ofx:title>
+			<ofx:paragraph lang="de">
+				Unter Windows steht diese Möglichkeit auch zur Verfügung, allerdings wird der Pfad zu R
+				nicht automatisch zu den Pfaden hinzugefügt, in denen nach ausführbaren Dateien gesucht wird.
+				Bei Bedarf kann man allerdings das Verzeichnis mit den ausführbaren
+				R-Dateien (z.B. C:\\Program Files\R\R-3.0.1\bin) manuell zu Pfad hinzufügen.  
+			</ofx:paragraph>
+		</ofx:section>
+	</ofx:section>
+
+	<ofx:section>
+		<ofx:title lang="de">Notwendige R Pakete</ofx:title>
+		<ofx:title lang="en">Required R packages</ofx:title>
+		
+		<ofx:paragraph lang="de">
+			Die folgenden Pakete müssen manuell in der R Kommandozeile installiert werden:
+		</ofx:paragraph>
+		<ofx:paragraph lang="fr">
+			The following packages have to be installed manually in the R command line:
+		</ofx:paragraph>
+		<ofx:listing>
+			<ofx:raw>
+				install.packages("sp")
+				install.packages("sqldf")
+				install.packages("raster")
+				install.packages("rgdal")
+				install.packages("Runiversal")
+				install.packages("RColorBrewer")
+				install.packages("latticeExtra")
+				install.packages("Cairo")
+				install.packages("maptools")
+				install.packages("rgeos")
+			</ofx:raw>
+		</ofx:listing>
+
+	</ofx:section>
+</ofx:section>

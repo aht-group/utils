@@ -1,0 +1,1 @@
+{"algorithm":"HMAC-SHA256","issued_at":1305107080,"user":{"country":"de","locale":"de_DE","age":{"min":21}}}

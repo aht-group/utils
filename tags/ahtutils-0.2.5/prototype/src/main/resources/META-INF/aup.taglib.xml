@@ -1,0 +1,16 @@
+<facelet-taglib version="2.0"
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+        http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd">
+	<namespace>http://ahtutils.sourceforge.net/prototype</namespace>
+	<composite-library-name>aup</composite-library-name>   
+	
+	<tag>
+        <tag-name>grid</tag-name>
+        <component>
+            <component-type>net.sf.ahtutils.prototype.web.component.Grid</component-type>
+        </component>
+    </tag>
+	
+</facelet-taglib> 

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<it:tasks xmlns:it="http://ahtutils.aht-group.com/issue">
+    <it:task id="123" code="myCode" name="myName"/>
+    <it:task id="123" code="myCode" name="myName"/>
+</it:tasks>
