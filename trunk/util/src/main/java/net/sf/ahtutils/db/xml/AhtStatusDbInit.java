@@ -153,63 +153,78 @@ public class AhtStatusDbInit
 	{
 		if(fStatus==null){logger.warn("No Handler available");return;}
 		else {logger.info("Updating "+cStatus.getSimpleName()+" with "+list.size()+" entries");}
-		iuStatusEJB(list, cStatus, cLang);
+		iuStatusEJB(list, cStatus, cLang,null);
 	}
 	
-	private <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription> void iuStatusEJB(List<Status> list, Class<S> cStatus, Class<L> cLang)
+	public <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription, P extends UtilsStatus<P,L,D>> void iuStatus(List<Status> list, Class<S> cStatus, Class<L> cLang, Class<P> cParent)
 	{
-		for(Status status : list)
+		if(fStatus==null){logger.warn("No Handler available");return;}
+		else {logger.info("Updating "+cStatus.getSimpleName()+" with "+list.size()+" entries");}
+		iuStatusEJB(list, cStatus, cLang, cParent);
+	}
+	
+	private <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription, P extends UtilsStatus<P,L,D>> void iuStatusEJB(List<Status> list, Class<S> cStatus, Class<L> cLang, Class<P> cParent)
+	{
+		for(Status xml : list)
 		{
 			try
 			{
-				logger.trace("Processing "+status.getGroup()+" with "+status.getCode());
+				logger.trace("Processing "+xml.getGroup()+" with "+xml.getCode());
 				S ejbStatus;
-				if(!isGroupInMap(status.getGroup()))
+				if(!isGroupInMap(xml.getGroup()))
 				{	// If a new group occurs, all entities are saved in a (delete) pool where
 					// they will be deleted if in the current list no entity with this key exists.
 					List<UtilsStatus> l = new ArrayList<UtilsStatus>();
 					for(S s : fStatus.all(cStatus)){l.add(s);}
-					savePreviousDbEntries(status.getGroup(), l);
-					logger.debug("Delete Pool: "+mDbAvailableStatus.get(status.getGroup()).size());
+					savePreviousDbEntries(xml.getGroup(), l);
+					logger.debug("Delete Pool: "+mDbAvailableStatus.get(xml.getGroup()).size());
 				}
 				try
 				{
-					ejbStatus = fStatus.fByCode(cStatus,status.getCode());
+					ejbStatus = fStatus.fByCode(cStatus,xml.getCode());
 					
 					//UTILS-145 Don't do unnecessary entity updates in AhtStatusDbInit
 					ejbStatus = (S)removeData(ejbStatus);
 					ejbStatus = fStatus.update(ejbStatus);
 					ejbStatus = fStatus.find(cStatus, ejbStatus.getId());
-					removeStatusFromDelete(status.getGroup(), ejbStatus.getId());
-					logger.trace("Now in Pool: "+mDbAvailableStatus.get(status.getGroup()).size());
+					removeStatusFromDelete(xml.getGroup(), ejbStatus.getId());
+					logger.trace("Now in Pool: "+mDbAvailableStatus.get(xml.getGroup()).size());
 					logger.trace("Found: "+ejbStatus);
 				}
 				catch (UtilsNotFoundException e)
 				{
 					ejbStatus = cStatus.newInstance();
-					ejbStatus.setCode(status.getCode());
+					ejbStatus.setCode(xml.getCode());
 					ejbStatus = fStatus.persist(ejbStatus);
 					logger.trace("Added: "+ejbStatus);
 				}
 				
 				try
 				{
-					addLangsAndDescriptions(ejbStatus,status);
-					if(status.isSetImage()){ejbStatus.setImage(status.getImage());}
-					if(status.isSetStyle()){ejbStatus.setStyle(status.getStyle());}
+					addLangsAndDescriptions(ejbStatus,xml);
+					if(xml.isSetImage()){ejbStatus.setImage(xml.getImage());}
+					if(xml.isSetStyle()){ejbStatus.setStyle(xml.getStyle());}
 				}
 				catch (InstantiationException e) {logger.error("",e);}
 				catch (IllegalAccessException e) {logger.error("",e);}
 				catch (UtilsIntegrityException e) {logger.error("",e);}
 		        
-				if(status.isSetPosition()){ejbStatus.setPosition(status.getPosition());}
+				if(xml.isSetPosition()){ejbStatus.setPosition(xml.getPosition());}
 		        else{ejbStatus.setPosition(0);}
+				
+				if(xml.isSetParent() && cParent!=null)
+				{
+					logger.warn("Parent: "+xml.getParent().getCode());
+					ejbStatus.setParent(fStatus.fByCode(cParent, xml.getParent().getCode()));
+				}
+				
 				ejbStatus = fStatus.update(ejbStatus);
 			}
 			catch (UtilsContraintViolationException e){logger.error("",e);}
 			catch (InstantiationException e) {logger.error("",e);}
 			catch (IllegalAccessException e) {logger.error("",e);}
 			catch (UtilsLockingException e) {logger.error("",e);}
+			catch (UtilsNotFoundException e) {logger.error("",e);}
 		}
 	}
 	
