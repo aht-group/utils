@@ -32,8 +32,6 @@
 		<module>jsf</module>
 		<module>maven</module>
 		<module>bom</module>
-		
-		<!-- Deactivated UTILS-210 -->
 		<module>prototype</module>  
 	</modules>
 
