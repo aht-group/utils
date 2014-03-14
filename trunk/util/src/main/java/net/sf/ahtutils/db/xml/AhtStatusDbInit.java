@@ -212,6 +212,9 @@ public class AhtStatusDbInit
 				if(xml.isSetPosition()){ejbStatus.setPosition(xml.getPosition());}
 		        else{ejbStatus.setPosition(0);}
 				
+				if(xml.isSetVisible()){ejbStatus.setVisible(xml.isVisible());}
+				else{ejbStatus.setVisible(false);}
+				
 				if(xml.isSetParent() && cParent!=null)
 				{
 					logger.warn("Parent: "+xml.getParent().getCode());
