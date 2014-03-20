@@ -1,3 +1,4 @@
+
 .pf-panel-header-action-icon{
     float:right;
     cursor:pointer;
@@ -9,4 +10,9 @@
 	margin-left: 5px;
 	float: right;
 	padding-top: 5px;
+}
+
+.pf-dataTable-footer-action-icon{
+    cursor:pointer;
+	text-align: right;
 }
