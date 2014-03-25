@@ -4,6 +4,7 @@ Please do not modify this file to avoid inconsistencies!
 
 These parameters a defined by the custom maven configuration:
 dark: ${colorDark}
+medium: ${colorMedium}
 light: ${colorLight}
 */
 
@@ -103,7 +104,6 @@ ul.aupHeadlineBreadcrumb,
     content: normal;
 }
 
-
 .aupHeadlineBreadcrumb > li {
   position: relative;
   float: left;
@@ -139,56 +139,60 @@ ul.aupHeadlineBreadcrumb,
   transition-delay: 0s, .2s;
 }
 
-
 /* ------------------------------------------------ */
 
 .aupStatusBar {
-  /* height:28px; */
   height:25px;
-  margin:10px;
+  /* margin: 10px; */
+  margin:-10px 10px 10px 10px;
   color:#FFFFFF;
   /* W3C for :  vertical gradient from dark to light blue (on the first 10px, remaining should be light blue) */
-  background: linear-gradient(to bottom, #375099 0%,#8DAAFF 40%,#8DAAFF 100%);
+  background: linear-gradient(to bottom, ${colorDark} 0%,${colorMedium} 40%,${colorMedium} 100%);
 }
 
 /* Equivalent to CSS selector .aupHeadlineBreadcrumb */
 .aupStatusBar > ul {
+  clear:both;
+  display:block;
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
 .aupStatusBar > ul > li:hover {
-  background: linear-gradient(to bottom, #375099 0%,#6C91FF 40%,#6C91FF 100%);
+  background: ${colorDark};
   /* Prevent bledd on hover */
   height:12px;
 }
 
 .aupStatusBar > ul > li > ul > li:hover {
-    background: none repeat scroll 0 0 #6C91FF;
+    background: none repeat scroll 0 0 ${colorDark};
+}
+
+.aupStatusBar > ul > li.aupStatusBarLeft,
+.aupStatusBar > ul > li.aupStatusBarRight {
+  position: relative;
+  /* This margin pushes the next li far enough to squeeze in a CSS separator */
+  margin-right:5px;
+  /* push the ul down to offset the position due to the parent ul's clear:both */
+  top:-6px;
 }
 
 .aupStatusBar > ul > li.aupStatusBarLeft {
   float:left;
-  position: relative;
-  /* This margin pushes the next li far enough to squeeze in a CSS separator */
-  margin-right:5px;
 }
 
 .aupStatusBar > ul > li.aupStatusBarRight {
   float:right;
-  position: relative;
-  /* This margin pushes the next li far enough to squeeze in a CSS separator */
-  margin-right:5px;
 }
 
 /* Separator for li. These must use different selectors or the results look weird */
-.aupStatusBar > ul > li.aupStatusBarLeft:nth-child(odd):after,
-.aupStatusBar > ul > li.aupStatusBarRight:nth-child(even):after {
+.aupStatusBar > ul > li.aupStatusBarLeft:not(:first-child):before,
+.aupStatusBar > ul > li.aupStatusBarRight:not(:last-child):after {
     content: "|";   
     position: absolute;
     /* The next line pushes the CSS separator just outside of this li but outside of the next li */
-    right:-5px;
+    left:-5px;
     /* The next line positions the CSS separator somewhere in the middle of the horizontal div */
     top:5px;
 }
@@ -249,7 +253,7 @@ ul.aupHeadlineBreadcrumb,
 .aupStatusBar > ul > li > ul > li {
   display: block;
   white-space: nowrap;
-  background-color: #8DAAFF;
+  background-color: ${colorMedium};
 }
 
 /* Reverse the padding horizontally for the left floating li */
@@ -257,4 +261,3 @@ ul.aupHeadlineBreadcrumb,
 .aupStatusBar > ul > li.aupStatusBarLeft > ul > li {
   padding: 7px 1.2em 6px 1em;
 }
-

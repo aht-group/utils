@@ -63,6 +63,13 @@ public class CssPrototypeGoal extends AbstractMojo
     
     /**
      * Location of the file.
+     * @parameter expression="#B91212"
+     * @required
+     */
+    private String colorMedium;
+    
+    /**
+     * Location of the file.
      * @parameter expression="#B90000"
      * @required
      */
@@ -91,7 +98,6 @@ public class CssPrototypeGoal extends AbstractMojo
     	executeCssBuilder(fTmpDir,fResourceDir);
    
     	RelativePathFactory rpf = new RelativePathFactory(fBuildDir);
-    	
     	getLog().info("Executing CssBuilder (Prototype): "+rpf.relativate(fResourceDir)+"/"+cssName);
     	try {FileUtils.deleteDirectory(fTmpDir);}
     	catch (IOException e) {throw new MojoExecutionException(e.getMessage());}
@@ -100,6 +106,6 @@ public class CssPrototypeGoal extends AbstractMojo
     private void executeCssBuilder(File fTmpDir, File fResourceDir) throws MojoExecutionException
     {
     	CssPrototypeBuilder cssBuilder = new CssPrototypeBuilder(fTmpDir,fResourceDir,cssName);
-    	cssBuilder.buildCss(colorLight,colorDark);
+    	cssBuilder.buildCss(colorLight,colorMedium,colorDark);
     }
 }

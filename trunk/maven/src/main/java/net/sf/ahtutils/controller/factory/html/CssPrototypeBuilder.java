@@ -25,9 +25,9 @@ public class CssPrototypeBuilder extends AbstractFreemarkerFileFactory
 		this.cssName=cssName;
 	}
 		
-	public void buildCss(String colorLight, String colorDark)
+	public void buildCss(String colorLight, String colorMedium, String colorDark)
 	{
-		fillModel(colorLight,colorDark);
+		fillModel(colorLight,colorMedium,colorDark);
 		try
 		{
 			File fResource = new File(resourceDir,cssName);
@@ -37,12 +37,13 @@ public class CssPrototypeBuilder extends AbstractFreemarkerFileFactory
 		catch (TemplateException e) {e.printStackTrace();}
 	}
 	
-	private void fillModel(String colorLight, String colorDark)
+	private void fillModel(String colorLight, String colorMedium, String colorDark)
 	{
 		logger.trace("fillModel");
 		freemarkerNodeModel.clear();
 		
 		freemarkerNodeModel.put("colorLight", colorLight);
+		freemarkerNodeModel.put("colorMedium",colorMedium);
 		freemarkerNodeModel.put("colorDark", colorDark);
 	}
 }

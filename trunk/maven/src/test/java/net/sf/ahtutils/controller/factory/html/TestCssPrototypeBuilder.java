@@ -66,7 +66,7 @@ public class TestCssPrototypeBuilder extends AbstractUtilsMavenTst
 	@Test
 	public void create()
 	{
-		cssBuilder.buildCss("#A","#B");
+		cssBuilder.buildCss("#A","#B","#C");
 	}
 	
 	public static void main(String[] args) throws Exception
