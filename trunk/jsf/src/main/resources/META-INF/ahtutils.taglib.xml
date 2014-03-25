@@ -30,6 +30,13 @@
             <component-type>net.sf.ahtutils.jsf.components.layout.PanelGrid</component-type>
         </component>
     </tag>
+    
+        <tag>
+        <tag-name>li</tag-name>
+        <component>
+            <component-type>net.sf.ahtutils.jsf.components.html.Li</component-type>
+        </component>
+    </tag>
 	
 	<function>
 		<function-name>prettyUrl</function-name>

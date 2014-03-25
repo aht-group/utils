@@ -108,7 +108,10 @@ public abstract class AbstractMenuBean implements Serializable
 					}
 				}
 				mapBreadcrumb.put(code,bClone);
-				JaxbUtil.info(mapBreadcrumb.get(code));
+				if(logger.isTraceEnabled())
+				{
+					JaxbUtil.info(mapBreadcrumb.get(code));
+				}
 			}
 		}
 		return mapBreadcrumb.get(code);
