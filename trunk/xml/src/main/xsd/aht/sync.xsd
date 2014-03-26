@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://ahtutils.aht-group.com/sync"
+    xmlns:sync="http://ahtutils.aht-group.com/sync"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="mapper">
+        <xsd:complexType>
+            <xsd:attribute name="oldId" type="xsd:long"/>
+            <xsd:attribute name="newId" type="xsd:long"/>
+            <xsd:attribute name="class" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

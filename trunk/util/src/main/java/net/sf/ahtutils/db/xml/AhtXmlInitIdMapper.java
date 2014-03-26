@@ -3,6 +3,7 @@ package net.sf.ahtutils.db.xml;
 import java.util.Hashtable;
 import java.util.Map;
 
+@Deprecated
 public class AhtXmlInitIdMapper
 {
 	private Map<String,Map<Long,Long>> mIdMapper;

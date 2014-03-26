@@ -35,4 +35,13 @@ public class ProcessingTimeTracker
 		sb.append(" ms");
 		return sb.toString();
 	}
+	
+	public String buildDefaultDebug(String prefix)
+	{
+		StringBuffer sb = new StringBuffer();
+		sb.append(prefix);
+		sb.append(" ").append(counter).append(" times");
+		sb.append(" in ").append(toTotalTime());
+		return sb.toString();
+	}
 }

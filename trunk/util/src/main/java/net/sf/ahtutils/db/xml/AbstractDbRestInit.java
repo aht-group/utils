@@ -18,11 +18,13 @@ public abstract class AbstractDbRestInit extends UtilsDbXmlSeedUtil
 	final static Logger logger = LoggerFactory.getLogger(AbstractDbRestInit.class);
 	
 	protected Configuration config;
+	protected UtilsIdMapper idMapper;
 	
-	public AbstractDbRestInit(Db dbSeed, DataSource datasource, Configuration config)
+	public AbstractDbRestInit(Db dbSeed, DataSource datasource, Configuration config, UtilsIdMapper idMapper)
 	{
 		super(dbSeed, datasource);
 		this.config=config;
+		this.idMapper=idMapper;
 	}
 	
 	public void initFromXml(Priority priority) throws FileNotFoundException,UtilsIntegrityException, UtilsConfigurationException

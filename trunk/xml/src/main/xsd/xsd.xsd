@@ -25,6 +25,7 @@
     <xsd:import namespace="http://ahtutils.aht-group.com/dbseed" schemaLocation="aht/dbseed.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/mail" schemaLocation="aht/mail.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/issue" schemaLocation="aht/issue.xsd"/>
+    <xsd:import namespace="http://ahtutils.aht-group.com/sync" schemaLocation="aht/sync.xsd"/>
 	<xsd:import namespace="http://ahtutils.aht-group.com/utils" schemaLocation="aht/utils.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/navigation" schemaLocation="aht/navigation.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/monitoring" schemaLocation="aht/monitoring.xsd"/>

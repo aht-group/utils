@@ -9,12 +9,12 @@ public abstract class AbstractAhtDbXmlInit extends AbstractDbRestInit
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractAhtDbXmlInit.class);
 
-	protected AhtXmlInitIdMapper idMapper;
+	protected UtilsIdMapper idMapper;
 	protected AhtStatusDbInit asdi;
 	
-	public AbstractAhtDbXmlInit(Db dbSeed, DataSource datasource, AhtXmlInitIdMapper idMapper, AhtStatusDbInit asdi)
+	public AbstractAhtDbXmlInit(Db dbSeed, DataSource datasource, UtilsIdMapper idMapper, AhtStatusDbInit asdi)
 	{
-		super(dbSeed, datasource,null);
+		super(dbSeed, datasource,null,idMapper);
 		this.idMapper=idMapper;
 		this.asdi=asdi;
 	}

@@ -82,6 +82,12 @@
         </jxb:schemaBindings>
     </jxb:bindings>
     
+   <jxb:bindings schemaLocation="../xsd/aht/sync.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="net.sf.ahtutils.xml.sync"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
+    
    	<jxb:bindings schemaLocation="../xsd/cloud/facebook.xsd" node="/xsd:schema">
         <jxb:schemaBindings>
             <jxb:package name="net.sf.ahtutils.xml.cloud.facebook"/>
