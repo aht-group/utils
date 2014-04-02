@@ -1,10 +1,11 @@
-package net.sf.ahtutils.controller.factory.ofx.security;
+package net.sf.ahtutils.doc.security;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.List;
 
+import net.sf.ahtutils.controller.factory.ofx.security.AbstractOfxSecurityTabelFactory;
 import net.sf.ahtutils.xml.access.View;
 import net.sf.ahtutils.xml.status.Description;
 import net.sf.ahtutils.xml.status.Lang;
@@ -13,6 +14,7 @@ import net.sf.ahtutils.xml.xpath.StatusXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.util.io.StringIO;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.openfuxml.content.ofx.table.Body;
 import org.openfuxml.content.ofx.table.Columns;
@@ -24,7 +26,7 @@ import org.openfuxml.content.ofx.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.table.OfxCellFactory;
 import org.openfuxml.factory.table.OfxColumnFactory;
-import org.openfuxml.renderer.latex.content.table.LatexGridTableRenderer;
+import org.openfuxml.renderer.latex.content.table.LatexTableRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,15 +43,37 @@ public class OfxViewTableFactory extends AbstractOfxSecurityTabelFactory
 	{
 		try
 		{
-			logger.debug("Saving Reference to "+f);
-			LatexGridTableRenderer renderer = new LatexGridTableRenderer();
-			renderer.render(toOfx(lViews,headerKeys));
+			logger.warn("Saving Reference to "+f);
+			LatexTableRenderer tableRenderer = new LatexTableRenderer();
+			
+			Table table = toOfx(lViews,headerKeys);
+			JaxbUtil.trace(table);
+			tableRenderer.render(table);
+			
 			StringWriter actual = new StringWriter();
-			renderer.write(actual);
+			tableRenderer.write(actual);
+			
+			
 			StringIO.writeTxt(f, actual.toString());
-		}
+			
+/*			List<String> headers = new ArrayList<String>();
+			headers.add("a");
+			headers.add("b");
+			DoubleLineTexLongTable dltlt = new DoubleLineTexLongTable(f.getParent(),f.getName());
+			dltlt.setHeader("c|c", headers);
+			
+			String[] test = {"a","bb"};
+			for(int i=0;i<100;i++)
+			{
+			dltlt.addDataRow(test);
+			}
+			dltlt.setFooter();
+			dltlt.write();
+			logger.info("f: "+f.getAbsolutePath());
+*/		}
 		catch (OfxAuthoringException e) {logger.error("Something went wrong during ofx/latex transformation ",e);}
 		catch (IOException e) {logger.error("Cannot save the file to "+f.getAbsolutePath(),e);}
+		System.exit(-1);
 	}
 	
 	public Table toOfx(List<View> lViews, String[] headerKeys)

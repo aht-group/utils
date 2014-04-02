@@ -1,4 +1,4 @@
-package net.sf.ahtutils.report.latex.table;
+package net.sf.ahtutils.doc.latex.table;
 
 import java.util.List;
 

@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.controller.factory.ofx.security.OfxCategoryListFactory;
 import net.sf.ahtutils.controller.factory.ofx.security.OfxRoleTableFactory;
-import net.sf.ahtutils.controller.factory.ofx.security.OfxViewTableFactory;
+import net.sf.ahtutils.doc.security.OfxViewTableFactory;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Category;

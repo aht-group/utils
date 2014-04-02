@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import net.sf.ahtutils.doc.security.OfxViewTableFactory;
 import net.sf.ahtutils.test.AhtUtilsDocBootstrap;
 import net.sf.ahtutils.xml.access.TestXmlView;
 import net.sf.ahtutils.xml.access.View;
