@@ -1,4 +1,4 @@
-package net.sf.ahtutils.controller.factory.ofx.security;
+package net.sf.ahtutils.doc.security;
 
 import java.io.File;
 
