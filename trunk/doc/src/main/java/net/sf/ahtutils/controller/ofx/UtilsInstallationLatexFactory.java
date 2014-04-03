@@ -12,9 +12,9 @@ import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.exception.OfxAuthoringException;
+import org.openfuxml.renderer.latex.content.LatexCommentRenderer;
 import org.openfuxml.renderer.latex.content.structure.LatexSectionRenderer;
 import org.openfuxml.renderer.latex.preamble.LatexPreamble;
-import org.openfuxml.renderer.latex.util.OfxLatexComment;
 import org.openfuxml.renderer.util.OfxContentDebugger;
 import org.openfuxml.util.OfxMultilangFilter;
 import org.slf4j.Logger;
@@ -77,7 +77,7 @@ public class UtilsInstallationLatexFactory
         LatexSectionRenderer latexSectionFactory = new LatexSectionRenderer(1,new LatexPreamble());
 		latexSectionFactory.render(section);
 		List<String> content = new ArrayList<String>();
-		content.addAll(OfxLatexComment.comment("Do no modify this file, it is automatically generated!",true));
+		content.addAll(LatexCommentRenderer.comment("Do no modify this file, it is automatically generated!",true));
 		content.addAll(latexSectionFactory.getContent());
 		
 		OfxContentDebugger.debug(content);

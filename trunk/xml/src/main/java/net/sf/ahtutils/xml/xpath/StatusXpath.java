@@ -14,6 +14,7 @@ import net.sf.ahtutils.xml.status.Type;
 import net.sf.ahtutils.xml.status.Types;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.apache.commons.jxpath.JXPathContext;
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ public class StatusXpath
 		
 		@SuppressWarnings("unchecked")
 		List<Lang> listResult = (List<Lang>)context.selectNodes(sb.toString());
-		if(listResult.size()==0){throw new ExlpXpathNotFoundException("No "+Lang.class.getSimpleName()+" for key="+key);}
+		if(listResult.size()==0){throw new ExlpXpathNotFoundException("No "+Lang.class.getSimpleName()+" for key="+key+" in "+JaxbUtil.toString(langs));}
 		else if(listResult.size()>1){throw new ExlpXpathNotUniqueException("Multiple "+Lang.class.getSimpleName()+" for key="+key);}
 		return listResult.get(0);
 	}

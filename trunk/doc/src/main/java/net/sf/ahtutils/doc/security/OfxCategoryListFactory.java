@@ -1,19 +1,21 @@
-package net.sf.ahtutils.controller.factory.ofx.security;
+package net.sf.ahtutils.doc.security;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.status.Description;
 import net.sf.ahtutils.xml.status.Lang;
+import net.sf.ahtutils.xml.status.Translations;
 import net.sf.ahtutils.xml.xpath.StatusXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
-import net.sf.exlp.util.io.StringIO;
 
+import org.apache.commons.configuration.Configuration;
+import org.openfuxml.content.ofx.Comment;
 import org.openfuxml.content.ofx.Paragraph;
 import org.openfuxml.exception.OfxAuthoringException;
+import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.renderer.latex.content.list.LatexListRenderer;
 import org.openfuxml.renderer.latex.content.structure.LatexSectionRenderer;
 import org.openfuxml.xml.content.list.Item;
@@ -22,36 +24,35 @@ import org.openfuxml.xml.content.list.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class OfxCategoryListFactory
+public class OfxCategoryListFactory extends AbstractOfxSecurityFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(OfxCategoryListFactory.class);
-		
-	private String lang;
 	
-	public OfxCategoryListFactory(String lang)
+	public OfxCategoryListFactory(Configuration config,String lang, Translations translations)
 	{
-		this.lang=lang;
+		super(config,lang,translations);
 	}
 	
-	public void saveDescription(File f, java.util.List<Category> lRc)
+	public String saveDescription(java.util.List<Category> lRc) throws OfxAuthoringException
 	{
 		try
 		{
-			logger.debug("Saving Reference to "+f);
 			LatexListRenderer renderer = new LatexListRenderer();
 			renderer.render(create(lRc),new LatexSectionRenderer(0,null));
-			StringWriter actual = new StringWriter();
-			renderer.write(actual);
-			StringIO.writeTxt(f, actual.toString());
-			
+			StringWriter sw = new StringWriter();
+			renderer.write(sw);
+			return sw.toString();
 		}
-		catch (OfxAuthoringException e) {logger.error("Something went wrong during ofx/latex transformation ",e);}
-		catch (IOException e) {logger.error("Cannot save the file to "+f.getAbsolutePath(),e);}
+		catch (IOException e) {throw new OfxAuthoringException(e.getMessage());}
 	}
 	
 	public List create(java.util.List<Category> lRc)
 	{
+	
+		Comment comment = XmlCommentFactory.build();
+		
 		List result = createList();
+		result.setComment(comment);
 		
 		for(Category category : lRc)
 		{

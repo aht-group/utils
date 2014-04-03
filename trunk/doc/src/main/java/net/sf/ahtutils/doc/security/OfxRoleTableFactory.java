@@ -1,10 +1,11 @@
-package net.sf.ahtutils.controller.factory.ofx.security;
+package net.sf.ahtutils.doc.security;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.List;
 
+import net.sf.ahtutils.doc.UtilsDocumentation;
+import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.Role;
 import net.sf.ahtutils.xml.status.Description;
 import net.sf.ahtutils.xml.status.Lang;
@@ -12,8 +13,10 @@ import net.sf.ahtutils.xml.status.Translations;
 import net.sf.ahtutils.xml.xpath.StatusXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
-import net.sf.exlp.util.io.StringIO;
+import net.sf.exlp.util.xml.JaxbUtil;
 
+import org.apache.commons.configuration.Configuration;
+import org.openfuxml.content.ofx.Comment;
 import org.openfuxml.content.ofx.table.Body;
 import org.openfuxml.content.ofx.table.Columns;
 import org.openfuxml.content.ofx.table.Content;
@@ -24,32 +27,56 @@ import org.openfuxml.content.ofx.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.table.OfxCellFactory;
 import org.openfuxml.factory.table.OfxColumnFactory;
-import org.openfuxml.renderer.latex.content.table.LatexGridTableRenderer;
+import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
+import org.openfuxml.factory.xml.ofx.content.XmlRawFactory;
+import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
+import org.openfuxml.renderer.latex.content.table.LatexTableRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class OfxRoleTableFactory extends AbstractOfxSecurityTabelFactory
+public class OfxRoleTableFactory extends AbstractOfxSecurityFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(OfxRoleTableFactory.class);
+	private static String keyCaptionPrefix = "auTableRoleCaptionPrefix";
 	
-	public OfxRoleTableFactory(String lang, Translations translations)
+	public OfxRoleTableFactory(Configuration config, String lang, Translations translations)
 	{
-		super(lang,translations);
+		super(config,lang,translations);
 	}
 	
-	public void saveDescription(File f, List<Role> lRoles, String[] headerKeys)
+	public String saveDescription(Category category, String[] headerKeys) throws OfxAuthoringException
 	{
 		try
 		{
-			logger.debug("Saving Reference to "+f);
-			LatexGridTableRenderer renderer = new LatexGridTableRenderer();
-			renderer.render(toOfx(lRoles,headerKeys));
-			StringWriter actual = new StringWriter();
-			renderer.write(actual);
-			StringIO.writeTxt(f, actual.toString());
+			String id = "table.admin.security.role."+category.getCode();
+			
+			Comment comment = XmlCommentFactory.build();
+			comment.getRaw().add(XmlRawFactory.build("The ID "+id+" is fixed for this table"));
+			if(config.containsKey(UtilsDocumentation.keyViews)){comment.getRaw().add(XmlRawFactory.build("Categories are defined in "+config.getString(UtilsDocumentation.keyViews)));}
+			if(config.containsKey(UtilsDocumentation.keyTranslationFile)){comment.getRaw().add(XmlRawFactory.build("Translation file for table header: "+config.getString(UtilsDocumentation.keyTranslationFile)));}
+			comment.getRaw().add(XmlRawFactory.build("Translation Keys used in this table:"));
+			for(String s : headerKeys){comment.getRaw().add(XmlRawFactory.build("- "+s));}
+			comment.getRaw().add(XmlRawFactory.build("- "+keyCaptionPrefix));
+			
+			Table table = toOfx(category.getRoles().getRole(),headerKeys);
+			table.setId(id);
+			table.setComment(comment);
+			
+			Lang lPrefix = StatusXpath.getLang(translations, keyCaptionPrefix, lang);
+			Lang lCategory = StatusXpath.getLang(category.getLangs(), lang);
+			table.setTitle(XmlTitleFactory.build(lPrefix.getTranslation()+" "+lCategory.getTranslation()));
+			
+			LatexTableRenderer tableRenderer = new LatexTableRenderer();
+			JaxbUtil.trace(table);
+			tableRenderer.render(table);
+			
+			StringWriter sw = new StringWriter();
+			tableRenderer.write(sw);
+			return sw.toString();
 		}
-		catch (OfxAuthoringException e) {logger.error("Something went wrong during ofx/latex transformation ",e);}
-		catch (IOException e) {logger.error("Cannot save the file to "+f.getAbsolutePath(),e);}
+		catch (IOException e) {throw new OfxAuthoringException(e.getMessage());}
+		catch (ExlpXpathNotFoundException e) {throw new OfxAuthoringException(e.getMessage());}
+		catch (ExlpXpathNotUniqueException e) {throw new OfxAuthoringException(e.getMessage());}
 	}
 	
 	public Table toOfx(List<Role> lRoles, String[] headerKeys)

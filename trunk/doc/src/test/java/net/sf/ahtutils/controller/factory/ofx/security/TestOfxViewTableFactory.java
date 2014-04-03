@@ -14,6 +14,9 @@ import net.sf.ahtutils.xml.status.TestXmlLang;
 import net.sf.ahtutils.xml.status.Translations;
 import net.sf.exlp.util.xml.JaxbUtil;
 
+import org.apache.commons.configuration.Configuration;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.DefaultConfigurationBuilder;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -27,24 +30,29 @@ public class TestOfxViewTableFactory extends AbstractOfxSecurityFactoryTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestOfxViewTableFactory.class);
 	
+	private static Configuration config;
+	private static Translations translations;
+	
 	private OfxViewTableFactory fOfx;
 	private final String lang ="de";
-	private static Translations translations;
+	
 	private String[] headerKeys = {"key1","key1"};
 	
 	@BeforeClass
-	public static void initFiles() throws FileNotFoundException
+	public static void initFiles() throws FileNotFoundException, ConfigurationException
 	{
 		fXml = new File(rootDir,"tableView.xml");
 		fTxt = new File(rootDir,"tableView.tex");
 		
+		DefaultConfigurationBuilder builder = new DefaultConfigurationBuilder();
+		config = builder.getConfiguration(false);
 		translations = JaxbUtil.loadJAXB("src/test/resources/data/xml/dummyTranslations.xml", Translations.class);
 	}
 	
 	@Before
 	public void init()
 	{	
-		fOfx = new OfxViewTableFactory(lang, translations);
+		fOfx = new OfxViewTableFactory(config,lang, translations);
 	}
 	
 	private Views createViews()
@@ -79,7 +87,6 @@ public class TestOfxViewTableFactory extends AbstractOfxSecurityFactoryTest
     	debug(renderer);
     	save(renderer,fTxt);
     	assertText(renderer,fTxt);
-		
 	}
 	
 	public static void main(String[] args) throws Exception

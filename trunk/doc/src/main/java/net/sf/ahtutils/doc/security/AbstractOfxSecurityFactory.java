@@ -1,24 +1,28 @@
-package net.sf.ahtutils.controller.factory.ofx.security;
+package net.sf.ahtutils.doc.security;
 
 import net.sf.ahtutils.xml.status.Translations;
 import net.sf.ahtutils.xml.xpath.StatusXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 
+import org.apache.commons.configuration.Configuration;
 import org.openfuxml.content.ofx.table.Row;
 import org.openfuxml.factory.table.OfxCellFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AbstractOfxSecurityTabelFactory
+public class AbstractOfxSecurityFactory
 {
-	final static Logger logger = LoggerFactory.getLogger(AbstractOfxSecurityTabelFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(AbstractOfxSecurityFactory.class);
 		
+	protected Configuration config;
+	
 	protected String lang;
 	protected Translations translations;
 	
-	public AbstractOfxSecurityTabelFactory(String lang, Translations translations)
+	public AbstractOfxSecurityFactory(Configuration config, String lang, Translations translations)
 	{
+		this.config=config;
 		this.lang=lang;
 		this.translations=translations;
 	}
@@ -37,13 +41,11 @@ public class AbstractOfxSecurityTabelFactory
 			catch (ExlpXpathNotFoundException e)
 			{
 				sb.append(e.getMessage());
-				sb.append(" and key="+headerKey);
 				logger.warn(sb.toString());
 			}
 			catch (ExlpXpathNotUniqueException e)
 			{
 				sb.append(e.getMessage());
-				sb.append(" and key="+headerKey);
 				logger.warn(sb.toString());
 			}
 			row.getCell().add(OfxCellFactory.createParagraphCell(sb.toString()));

@@ -5,13 +5,18 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import net.sf.ahtutils.doc.security.OfxCategoryListFactory;
 import net.sf.ahtutils.test.AhtUtilsDocBootstrap;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.TestXmlCategory;
 import net.sf.ahtutils.xml.status.TestXmlDescription;
 import net.sf.ahtutils.xml.status.TestXmlLang;
+import net.sf.ahtutils.xml.status.Translations;
 import net.sf.exlp.util.xml.JaxbUtil;
 
+import org.apache.commons.configuration.Configuration;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.DefaultConfigurationBuilder;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -27,6 +32,9 @@ public class TestOfxCategoryListFactory extends AbstractOfxSecurityFactoryTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestOfxCategoryListFactory.class);
 	
+	private static Configuration config;
+	private static Translations translations;
+	
 	private OfxCategoryListFactory factory;
 	
 	private final String lang ="de";
@@ -37,17 +45,21 @@ public class TestOfxCategoryListFactory extends AbstractOfxSecurityFactoryTest
 	private OfxLatexRenderer parentSection;
 	
 	@BeforeClass
-	public static void initFiles()
+	public static void initFiles() throws ConfigurationException, FileNotFoundException
 	{
 		fXml = new File(rootDir,"listRoleCategory.xml");
 		fTxt = new File(rootDir,"listRoleCategory.tex");
+		
+		DefaultConfigurationBuilder builder = new DefaultConfigurationBuilder();
+		config = builder.getConfiguration(false);
+		translations = JaxbUtil.loadJAXB("src/test/resources/data/xml/dummyTranslations.xml", Translations.class);
 	}
 	
 	@Before
 	public void init()
 	{	
 		parentSection = new LatexSectionRenderer(0,null);
-		factory = new OfxCategoryListFactory(lang);
+		factory = new OfxCategoryListFactory(config,lang,translations);
 		list = new ArrayList<Category>();
 		rc1 = createCategory(1);list.add(rc1);
 	}
