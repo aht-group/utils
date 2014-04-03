@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.List;
 
+import net.sf.ahtutils.doc.DocumentationCommentBuilder;
 import net.sf.ahtutils.doc.UtilsDocumentation;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.View;
@@ -51,12 +52,12 @@ public class OfxViewTableFactory extends AbstractOfxSecurityFactory
 			String id = "table.admin.security.view."+category.getCode();
 			
 			Comment comment = XmlCommentFactory.build();
-			comment.getRaw().add(XmlRawFactory.build("The ID "+id+" is fixed for this table"));
-			if(config.containsKey(UtilsDocumentation.keyViews)){comment.getRaw().add(XmlRawFactory.build("Categories are defined in "+config.getString(UtilsDocumentation.keyViews)));}
-			if(config.containsKey(UtilsDocumentation.keyTranslationFile)){comment.getRaw().add(XmlRawFactory.build("Translation file for table header: "+config.getString(UtilsDocumentation.keyTranslationFile)));}
-			comment.getRaw().add(XmlRawFactory.build("Translation Keys used in this table:"));
-			for(String s : headerKeys){comment.getRaw().add(XmlRawFactory.build("- "+s));}
-			comment.getRaw().add(XmlRawFactory.build("- "+keyCaptionPrefix));
+			DocumentationCommentBuilder.fixedId(comment, id);
+			DocumentationCommentBuilder.configKeyReference(comment, config, UtilsDocumentation.keyViews, "Views are defined in");
+			DocumentationCommentBuilder.translationKeys(comment,config,UtilsDocumentation.keyTranslationFile);
+			DocumentationCommentBuilder.tableHeaders(comment,headerKeys);
+			DocumentationCommentBuilder.tableKey(comment,keyCaptionPrefix,"Table Caption Prefix");
+			DocumentationCommentBuilder.doNotModify(comment);
 			
 			Table table = toOfx(category.getViews().getView(),headerKeys);
 			table.setId(id);

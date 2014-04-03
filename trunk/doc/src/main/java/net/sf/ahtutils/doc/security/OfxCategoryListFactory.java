@@ -3,6 +3,7 @@ package net.sf.ahtutils.doc.security;
 import java.io.IOException;
 import java.io.StringWriter;
 
+import net.sf.ahtutils.doc.DocumentationCommentBuilder;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.status.Description;
 import net.sf.ahtutils.xml.status.Lang;
@@ -48,20 +49,20 @@ public class OfxCategoryListFactory extends AbstractOfxSecurityFactory
 	
 	public List create(java.util.List<Category> lRc)
 	{
-	
 		Comment comment = XmlCommentFactory.build();
+		DocumentationCommentBuilder.doNotModify(comment);
 		
-		List result = createList();
-		result.setComment(comment);
+		List list = createList();
+		list.setComment(comment);
 		
 		for(Category category : lRc)
 		{
-			try {result.getItem().add(createItem(category));}
+			try {list.getItem().add(createItem(category));}
 			catch (ExlpXpathNotFoundException e) {e.printStackTrace();}
 			catch (ExlpXpathNotUniqueException e) {e.printStackTrace();}
 		}
 		
-		return result;
+		return list;
 	}
 	
 	private List createList()

@@ -3,6 +3,7 @@ package net.sf.ahtutils.controller.factory.latex;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import net.sf.ahtutils.doc.UtilsDocumentation;
 import net.sf.ahtutils.doc.security.OfxCategoryListFactory;
 import net.sf.ahtutils.doc.security.OfxRoleTableFactory;
 import net.sf.ahtutils.doc.security.OfxViewTableFactory;
@@ -31,16 +32,15 @@ public class LatexSecurityFactory
 	private String baseLatexDir;
 	
 	private Translations translations;
-	private String[] headerKeys = {"tableHeaderName","tableHeaderDescription"};
 	
 	private String[] langs;
 	
-	public LatexSecurityFactory(Configuration config, Translations translations,String baseLatexDir,String[] langs)
+	public LatexSecurityFactory(Configuration config, Translations translations,String[] langs)
 	{
 		this.config=config;
 		this.translations=translations;
-		this.baseLatexDir=baseLatexDir;
 		this.langs=langs;
+		baseLatexDir=config.getString(UtilsDocumentation.keyBaseDocDir);
 	}
 	
 	public void createViewTabs(String xmlFile) throws UtilsConfigurationException

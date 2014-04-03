@@ -6,7 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.ahtutils.controller.factory.ofx.status.OfxStatusTableFactory;
+import net.sf.ahtutils.doc.UtilsDocumentation;
+import net.sf.ahtutils.doc.status.OfxStatusTableFactory;
 import net.sf.ahtutils.factory.xml.status.XmlDescriptionFactory;
 import net.sf.ahtutils.factory.xml.status.XmlLangFactory;
 import net.sf.ahtutils.test.AhtUtilsDocBootstrap;
@@ -16,6 +17,9 @@ import net.sf.ahtutils.xml.status.Status;
 import net.sf.ahtutils.xml.status.Translations;
 import net.sf.exlp.util.xml.JaxbUtil;
 
+import org.apache.commons.configuration.Configuration;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.DefaultConfigurationBuilder;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -29,6 +33,8 @@ public class TestOfxStatusTableFactory extends AbstractOfxStatusFactoryTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestOfxStatusTableFactory.class);
 	
+	private static Configuration config;
+	
 	private OfxStatusTableFactory fOfx;
 	private final String lang ="de";
 	private static List<Status> lStatus;
@@ -36,10 +42,15 @@ public class TestOfxStatusTableFactory extends AbstractOfxStatusFactoryTest
 	private String[] headerKeys = {"key1","key2","key3"};
 	
 	@BeforeClass
-	public static void initFiles() throws FileNotFoundException
+	public static void initFiles() throws FileNotFoundException, ConfigurationException
 	{
 		fXml = new File(rootDir,"tableStatus.xml");
 		fTxt = new File(rootDir,"tableStatus.tex");
+		
+		DefaultConfigurationBuilder builder = new DefaultConfigurationBuilder();
+		config = builder.getConfiguration(false);
+		config.setProperty(UtilsDocumentation.keyBaseDocDir, "target");
+		
 		translations = JaxbUtil.loadJAXB("src/test/resources/data/xml/dummyTranslations.xml", Translations.class);
 	}
 	
@@ -57,13 +68,13 @@ public class TestOfxStatusTableFactory extends AbstractOfxStatusFactoryTest
 		lStatus = new ArrayList<Status>();
 		lStatus.add(status);
 		
-		fOfx = new OfxStatusTableFactory(lStatus,headerKeys,translations);
+		fOfx = new OfxStatusTableFactory(config,lang,translations);
 	}
 	
 	@Test
 	public void testOfx() throws FileNotFoundException
 	{	
-		Table actual = fOfx.toOfx(lang);
+		Table actual = fOfx.toOfx(lStatus,headerKeys);
 		saveXml(actual,fXml,false);
 		Table expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Table.class);
 		assertJaxbEquals(expected, actual);
@@ -72,7 +83,7 @@ public class TestOfxStatusTableFactory extends AbstractOfxStatusFactoryTest
 	@Test
 	public void testLatex() throws OfxAuthoringException, IOException
 	{
-		Table actual = fOfx.toOfx(lang);
+		Table actual = fOfx.toOfx(lStatus,headerKeys);
 		LatexGridTableRenderer renderer = new LatexGridTableRenderer();
 		renderer.render(actual);
     	debug(renderer);
