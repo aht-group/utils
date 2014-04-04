@@ -4,6 +4,7 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import net.sf.ahtutils.factory.xml.sync.XmlMapperFactory;
+import net.sf.ahtutils.xml.sync.DataUpdate;
 import net.sf.ahtutils.xml.sync.Mapper;
 
 import org.slf4j.Logger;
@@ -18,6 +19,14 @@ public class UtilsIdMapper
 	public UtilsIdMapper()
 	{
 		map = new Hashtable<Class<?>,Map<Long,Long>>();
+	}
+	
+	public void add(DataUpdate dataUpdate)
+	{
+		for(Mapper mapper : dataUpdate.getMapper())
+		{
+			add(mapper);
+		}
 	}
 	
 	public void add(Mapper mapper)

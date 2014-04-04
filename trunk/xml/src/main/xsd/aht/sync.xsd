@@ -2,6 +2,13 @@
 <xsd:schema targetNamespace="http://ahtutils.aht-group.com/sync"
     xmlns:sync="http://ahtutils.aht-group.com/sync"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="dataUpdate">
+        <xsd:complexType>
+        	<xsd:sequence>
+                <xsd:element ref="sync:mapper" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
 	<xsd:element name="mapper">
         <xsd:complexType>
             <xsd:attribute name="oldId" type="xsd:long"/>

@@ -37,4 +37,12 @@ public class ObjectFactory {
         return new Mapper();
     }
 
+    /**
+     * Create an instance of {@link DataUpdate }
+     * 
+     */
+    public DataUpdate createDataUpdate() {
+        return new DataUpdate();
+    }
+
 }
