@@ -47,7 +47,12 @@ public class LatexStatusFactory
 		catch (FileNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
 	}
 	
-	public void statusTable(String seedKey) throws UtilsConfigurationException
+	public void buildStatusTable(String seedKey) throws UtilsConfigurationException
+	{
+		buildStatusTable(seedKey, 10,30,40);
+	}
+	
+	public void buildStatusTable(String seedKey, int... colWidths) throws UtilsConfigurationException
 	{
 		String[] headerKeys = {"auTableStatusCode","auTableStatusName","auTableStatusDescription"};
 		try
@@ -60,8 +65,9 @@ public class LatexStatusFactory
 			for(String lang : langs)
 			{
 				OfxStatusTableFactory fOfx = new OfxStatusTableFactory(config,lang,translations);
-				File f = new File(baseLatexDir+"/"+lang+"/"+dirStatus+"/"+texName+".tex");
+				fOfx.setColWidths(colWidths);
 				String content = fOfx.saveTable(texName.replaceAll("/", "."),aht.getStatus(), headerKeys);
+				File f = new File(baseLatexDir+"/"+lang+"/"+dirStatus+"/"+texName+".tex");
 				StringIO.writeTxt(f, content);
 			}
 		}

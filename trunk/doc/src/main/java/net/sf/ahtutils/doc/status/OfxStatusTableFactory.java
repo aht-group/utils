@@ -38,9 +38,11 @@ public class OfxStatusTableFactory extends AbstractOfxSecurityFactory
 	
 	private static String keyCaption = "auTableStatusCaption";
 	
+	private int[] colWidths = {10,20,30};
+
 	public OfxStatusTableFactory(Configuration config, String lang, Translations translations)
 	{
-		super(config,lang,translations);
+		super(config,lang,translations);		
 	}
 	
 	public String saveTable(String id, List<Status> lStatus, String[] headerKeys) throws OfxAuthoringException
@@ -99,9 +101,10 @@ public class OfxStatusTableFactory extends AbstractOfxSecurityFactory
 	private Specification createSpecifications()
 	{
 		Columns cols = new Columns();
-		cols.getColumn().add(OfxColumnFactory.createCol(10));
-		cols.getColumn().add(OfxColumnFactory.createCol(20));
-		cols.getColumn().add(OfxColumnFactory.createCol(30));
+		for(int i : colWidths)
+		{
+			cols.getColumn().add(OfxColumnFactory.createCol(i));
+		}
 		
 		Specification specification = new Specification();
 		specification.setColumns(cols);
@@ -143,5 +146,8 @@ public class OfxStatusTableFactory extends AbstractOfxSecurityFactory
 		row.getCell().add(OfxCellFactory.createParagraphCell(StatusXpath.getDescription(status.getDescriptions(), lang).getValue()));
 		
 		return row;
-	}	
+	}
+	
+	public int[] getColWidths() {return colWidths;}
+	public void setColWidths(int[] colWidths) {this.colWidths = colWidths;}
 }

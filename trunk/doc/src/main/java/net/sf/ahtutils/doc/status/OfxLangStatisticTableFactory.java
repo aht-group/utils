@@ -1,4 +1,4 @@
-package net.sf.ahtutils.controller.factory.ofx.status;
+package net.sf.ahtutils.doc.status;
 
 import java.io.File;
 import java.io.IOException;
