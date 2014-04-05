@@ -23,16 +23,13 @@ public class LatexSecurityFactory
 {	
 	final static Logger logger = LoggerFactory.getLogger(LatexSecurityFactory.class);
 	
-	private final static String dirViewTabs = "tab/security";
-	private final static String dirRoleTabs = "tab/security";
-	private final static String dirCategoryDescriptions = "description/security";
+	private final static String dirTabs = "tab/security";
+	private final static String dirDescriptions = "description/security";
 	
 	private Configuration config;
 	
 	private String baseLatexDir;
-	
 	private Translations translations;
-	
 	private String[] langs;
 	
 	public LatexSecurityFactory(Configuration config, Translations translations,String[] langs)
@@ -54,7 +51,7 @@ public class LatexSecurityFactory
 			{
 				for(String lang : langs)
 				{
-					File f = new File(baseLatexDir,lang+"/"+dirViewTabs+"/views-"+category.getCode()+".tex");
+					File f = new File(baseLatexDir,lang+"/"+dirTabs+"/views-"+category.getCode()+".tex");
 					OfxViewTableFactory fOfx = new OfxViewTableFactory(config,lang,translations);
 					String content = fOfx.buildLatexViewTable(category,headerKeysViews);
 					StringIO.writeTxt(f, content);
@@ -76,7 +73,7 @@ public class LatexSecurityFactory
 			{
 				for(String lang : langs)
 				{
-					File f = new File(baseLatexDir,lang+"/"+dirRoleTabs+"/role-"+category.getCode()+".tex");
+					File f = new File(baseLatexDir,lang+"/"+dirTabs+"/role-"+category.getCode()+".tex");
 					OfxRoleTableFactory fOfx = new OfxRoleTableFactory(config,lang,translations);
 					String content = fOfx.saveDescription(category,headerKeysRoles);
 					StringIO.writeTxt(f, content);
@@ -92,7 +89,7 @@ public class LatexSecurityFactory
 		logger.info("Creating descriptions from "+xmlFile+" to LaTex");
 		for(String lang : langs)
 		{
-			File f = new File(baseLatexDir,lang+"/"+dirCategoryDescriptions+"/"+extractId+".tex");
+			File f = new File(baseLatexDir,lang+"/"+dirDescriptions+"/"+extractId+".tex");
 			
 			try
 			{
