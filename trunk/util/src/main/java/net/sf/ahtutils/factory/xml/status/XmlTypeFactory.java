@@ -18,6 +18,7 @@ public class XmlTypeFactory
 	{
 		this.q=q;
 	}
+	
 	public <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription> Type build(S ejb){return build(ejb,null);}
 	public <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription> Type build(S ejb, String group)
 	{
