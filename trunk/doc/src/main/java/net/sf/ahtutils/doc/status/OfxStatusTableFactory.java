@@ -137,7 +137,7 @@ public class OfxStatusTableFactory extends AbstractOfxSecurityFactory
 				if(parentString.equals(previousParentString)){parentString="";}
 				else{previousParentString=parentString;}
 			}
-			boolean line = !firstRow && parentString.length()>0;
+			boolean line = !firstRow && xmlParents!=null && parentString.length()>0;
 			body.getRow().add(createRow(status,parentString,line));
 			
 			firstRow=false;
@@ -165,7 +165,6 @@ public class OfxStatusTableFactory extends AbstractOfxSecurityFactory
 		{
 			row.getCell().add(OfxCellFactory.createParagraphCell(parentString));
 		}
-		else{logger.info("Parent==nul");}
 		
 		row.getCell().add(OfxCellFactory.createParagraphCell(status.getCode()));
 		row.getCell().add(OfxCellFactory.createParagraphCell(StatusXpath.getLang(status.getLangs(), lang).getTranslation()));
@@ -176,13 +175,13 @@ public class OfxStatusTableFactory extends AbstractOfxSecurityFactory
 	
 	private Specification createSpecifications(boolean withParent) throws UtilsConfigurationException
 	{
-		logger.info("customColWidths: "+customColWidths);
+		logger.trace("customColWidths: "+customColWidths);
 		if(!customColWidths)
 		{
 			if(withParent){colWidths=colWidths3;}
 			else{colWidths=colWidths4;}
 		}
-		logger.info("colums.length: "+colWidths.length);
+		logger.trace("colums.length: "+colWidths.length);
 		if(withParent && colWidths.length!=4){throw new UtilsConfigurationException("Need 4 column widths");}
 		
 		Columns cols = new Columns();

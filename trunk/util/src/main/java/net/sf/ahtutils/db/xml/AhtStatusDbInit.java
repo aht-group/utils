@@ -217,7 +217,7 @@ public class AhtStatusDbInit
 				
 				if(xml.isSetParent() && cParent!=null)
 				{
-					logger.warn("Parent: "+xml.getParent().getCode());
+					logger.trace("Parent: "+xml.getParent().getCode());
 					ejbStatus.setParent(fStatus.fByCode(cParent, xml.getParent().getCode()));
 				}
 				

@@ -166,6 +166,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Original }
+     * 
+     */
+    public Original createOriginal() {
+        return new Original();
+    }
+
+    /**
      * Create an instance of {@link Translations }
      * 
      */
@@ -187,6 +195,14 @@ public class ObjectFactory {
      */
     public Types createTypes() {
         return new Types();
+    }
+
+    /**
+     * Create an instance of {@link Copy }
+     * 
+     */
+    public Copy createCopy() {
+        return new Copy();
     }
 
 }
