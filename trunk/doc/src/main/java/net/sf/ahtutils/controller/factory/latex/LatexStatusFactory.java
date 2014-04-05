@@ -47,26 +47,44 @@ public class LatexStatusFactory
 		catch (FileNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
 	}
 	
-	public void buildStatusTable(String seedKey) throws UtilsConfigurationException
+	public void buildStatusTable(String seedKeyStatus) throws UtilsConfigurationException
 	{
-		buildStatusTable(seedKey, 10,30,40);
+		buildStatusTable(seedKeyStatus, 10,30,40);
+	}
+	public void buildStatusTable(String seedKeyStatus, String seedKeyParent) throws UtilsConfigurationException
+	{
+		buildStatusTable(seedKeyStatus, seedKeyParent, 15,10,30,40);
 	}
 	
-	public void buildStatusTable(String seedKey, int... colWidths) throws UtilsConfigurationException
+	public void buildStatusTable(String seedKeyStatus, int... colWidths) throws UtilsConfigurationException
 	{
-		String[] headerKeys = {"auTableStatusCode","auTableStatusName","auTableStatusDescription"};
+		buildStatusTable(seedKeyStatus, null, colWidths);
+	}
+	public void buildStatusTable(String seedKeyStatus, String seedKeyParent, int... colWidths) throws UtilsConfigurationException
+	{
+		String[] headerKeys3 = {"auTableStatusCode","auTableStatusName","auTableStatusDescription"};
+		String[] headerKeys4 = {"auTableStatusParent","auTableStatusCode","auTableStatusName","auTableStatusDescription"};
+		
+		String[] headerKeys;
+		if(seedKeyParent==null){headerKeys=headerKeys3;}
+		else{headerKeys=headerKeys4;}
+		
+		Aht athStatus;
+		Aht ahtParents = null;
+		
 		try
 		{
-			Aht aht = JaxbUtil.loadJAXB(seedUtil.getExtractName(seedKey), Aht.class);
-		
-			String texName = seedUtil.getContentName(seedKey);
+			athStatus = JaxbUtil.loadJAXB(seedUtil.getExtractName(seedKeyStatus), Aht.class);
+			if(seedKeyParent!=null){ahtParents = JaxbUtil.loadJAXB(seedUtil.getExtractName(seedKeyParent), Aht.class);}
+			
+			String texName = seedUtil.getContentName(seedKeyStatus);
 			texName = texName.substring(0, texName.indexOf(".xml"));
 			logger.info(texName);
 			for(String lang : langs)
 			{
 				OfxStatusTableFactory fOfx = new OfxStatusTableFactory(config,lang,translations);
 				fOfx.setColWidths(colWidths);
-				String content = fOfx.saveTable(texName.replaceAll("/", "."),aht.getStatus(), headerKeys);
+				String content = fOfx.saveTable(texName.replaceAll("/", "."),athStatus, headerKeys, ahtParents);
 				File f = new File(baseLatexDir+"/"+lang+"/"+dirStatus+"/"+texName+".tex");
 				StringIO.writeTxt(f, content);
 			}

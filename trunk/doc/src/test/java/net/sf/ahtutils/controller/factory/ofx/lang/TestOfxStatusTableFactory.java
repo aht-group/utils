@@ -3,14 +3,14 @@ package net.sf.ahtutils.controller.factory.ofx.lang;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import net.sf.ahtutils.doc.UtilsDocumentation;
 import net.sf.ahtutils.doc.status.OfxStatusTableFactory;
+import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.factory.xml.status.XmlDescriptionFactory;
 import net.sf.ahtutils.factory.xml.status.XmlLangFactory;
 import net.sf.ahtutils.test.AhtUtilsDocBootstrap;
+import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.status.Descriptions;
 import net.sf.ahtutils.xml.status.Langs;
 import net.sf.ahtutils.xml.status.Status;
@@ -37,7 +37,7 @@ public class TestOfxStatusTableFactory extends AbstractOfxStatusFactoryTest
 	
 	private OfxStatusTableFactory fOfx;
 	private final String lang ="de";
-	private static List<Status> lStatus;
+	private Aht xmlStatus;
 	private static Translations translations;
 	private String[] headerKeys = {"key1","key2","key3"};
 	
@@ -65,25 +65,25 @@ public class TestOfxStatusTableFactory extends AbstractOfxStatusFactoryTest
 		status.getLangs().getLang().add(XmlLangFactory.create(lang, "myLang"));
 		status.getDescriptions().getDescription().add(XmlDescriptionFactory.create(lang, "myDescription"));
 		
-		lStatus = new ArrayList<Status>();
-		lStatus.add(status);
+		xmlStatus = new Aht();
+		xmlStatus.getStatus().add(status);
 		
 		fOfx = new OfxStatusTableFactory(config,lang,translations);
 	}
 	
 	@Test
-	public void testOfx() throws FileNotFoundException
+	public void testOfx() throws FileNotFoundException, UtilsConfigurationException
 	{	
-		Table actual = fOfx.toOfx(lStatus,headerKeys);
+		Table actual = fOfx.toOfx(xmlStatus,headerKeys);
 		saveXml(actual,fXml,false);
 		Table expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Table.class);
 		assertJaxbEquals(expected, actual);
 	}
 	
 	@Test
-	public void testLatex() throws OfxAuthoringException, IOException
+	public void testLatex() throws OfxAuthoringException, IOException, UtilsConfigurationException
 	{
-		Table actual = fOfx.toOfx(lStatus,headerKeys);
+		Table actual = fOfx.toOfx(xmlStatus,headerKeys);
 		LatexGridTableRenderer renderer = new LatexGridTableRenderer();
 		renderer.render(actual);
     	debug(renderer);
