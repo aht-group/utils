@@ -38,7 +38,7 @@ public class OfxCategoryListFactory extends AbstractOfxSecurityFactory
 	{
 		try
 		{
-			LatexListRenderer renderer = new LatexListRenderer();
+			LatexListRenderer renderer = new LatexListRenderer(false);
 			renderer.render(create(lRc),new LatexSectionRenderer(0,null));
 			StringWriter sw = new StringWriter();
 			renderer.write(sw);

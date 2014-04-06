@@ -54,6 +54,6 @@ public class DocumentationCommentBuilder
 	public static void doNotModify(Comment comment)
 	{
 		comment.getRaw().add(XmlRawFactory.build(""));
-		comment.getRaw().add(XmlRawFactory.build("Do not modify this file, it is automatically generated."));
+		comment.getRaw().add(XmlRawFactory.build("Do not modify this file, it is automatically generated. Changes in this file will be overwritten without warning."));
 	}
 }

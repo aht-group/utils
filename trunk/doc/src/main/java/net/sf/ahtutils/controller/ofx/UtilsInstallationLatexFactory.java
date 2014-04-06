@@ -12,8 +12,8 @@ import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.exception.OfxAuthoringException;
-import org.openfuxml.renderer.latex.content.LatexCommentRenderer;
 import org.openfuxml.renderer.latex.content.structure.LatexSectionRenderer;
+import org.openfuxml.renderer.latex.content.text.LatexCommentRenderer;
 import org.openfuxml.renderer.latex.preamble.LatexPreamble;
 import org.openfuxml.renderer.util.OfxContentDebugger;
 import org.openfuxml.util.OfxMultilangFilter;

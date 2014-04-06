@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org" xmlns:l="http://www.openfuxml.org/list" id="installation.r">
+	
+	<ofx:paragraph lang="de">
+		Dieses Informationssystem implemen ein <ofx:emphasis italic="true">mehrstufiges Sicherheitskonzept</ofx:emphasis>, dass den Seitenzugriff sowie
+		den Zugriff auf Informationen, und die Möglichkeit Benutzeraktionen durchzuführen, steuert.
+	</ofx:paragraph>
+	<ofx:paragraph lang="en">
+		This information system has implemented a <ofx:emphasis italic="true">multi-level security concept</ofx:emphasis> which controls the page access as well as
+		the access to information and the ability to perform actions. 
+	</ofx:paragraph>
+	
+	<l:list>
+	    <l:type description="true"/>
+	    
+	    <l:item name="Sichten" lang="de">
+	    	<ofx:paragraph>
+				Eine Sicht (engl. View) ist eine einzelne Web-Seite des Systems, beispielsweise die Willkommens-Seite
+				oder die Administrator-Seite. 
+			</ofx:paragraph>
+	    </l:item>
+	    <l:item name="Views" lang="en">
+	    	<ofx:paragraph>
+				A view is a single web-page of the system. Examples for a view is the welcome-page or the administrator-page.
+			</ofx:paragraph>
+	    </l:item>
+	    
+	    <l:item name="Aktionen" lang="de">
+	    	<ofx:paragraph>
+				beziehen sich immer auf eine Sicht und legen fest, welche Funktionen auf einer Seite zur Verfügung stehen.
+			</ofx:paragraph>
+	    </l:item>
+	  	<l:item name="Actions" lang="en">
+	    	<ofx:paragraph>
+				are always related to a single View and are user interactions which can be permitted for all users or only for
+				a restricted user group.
+			</ofx:paragraph>
+	    </l:item>
+	    
+	    <l:item name="Rollen" lang="de">
+	    	<ofx:paragraph>
+				beschreiben die Rechte eines Benutzers innerhalb einer Kategorie wie global der Internetseite
+				oder spezielle innerhalb eines Projektes oder der Verwaltung des Systems. Die globale Definition kann
+				z.B. die Rechte eines Benutzers für bestimmte Sichten einschränken, wärehend durch Projekt-Rollen erlaubte Aktionen
+				eingeschränkt werden. Die Einschränkung einer Sicht kann z.B. bedeuten, dass für die Sicht Projektmitarbeiter
+				alle Benutzer die Mitarbeiter sehen können, ein Projektmanager zusätzlich auch weitere Mitarbeiter hinzufügen darf.
+				stehen. Beispielsweise kann ein Benutzer Daten ansehen, während ein Administrator sie auch löschen darf.
+			</ofx:paragraph>
+	    </l:item>
+	    <l:item name="Roles" lang="en">
+	    	<ofx:paragraph>
+				are describing the access rights of a user in the system.
+			</ofx:paragraph>
+	    </l:item>
+	    
+	    <l:item name="Anwendungsfälle" lang="de">
+	    	<ofx:paragraph>
+				sind Rollen zugehörig und stellen eine Möglichkeit dar,
+					den Zugriff auf mehrere Sichten/Aktionen durch eine einzelne Definition zu steuern.  
+			</ofx:paragraph>
+	    </l:item>
+	    <l:item name="Use-Cases" lang="en">
+	    	<ofx:paragraph>
+				belong to roles and allow to bundle several roles and actions to a single use-case.  
+			</ofx:paragraph>
+	    </l:item>
+	    
+	    
+	</l:list>
+	
+	<ofx:paragraph lang="en" version="1">
+		The <ofx:emphasis italic="true">Administrator</ofx:emphasis> only has to deal with the assignment of
+		<ofx:emphasis bold="true">Roles</ofx:emphasis> to users. The definition of
+		<ofx:emphasis bold="true">Views</ofx:emphasis>, <ofx:emphasis bold="true">Actions</ofx:emphasis> and
+		<ofx:emphasis bold="true">Actions</ofx:emphasis> is implemented by the system developers.
+	</ofx:paragraph>
+	
+</ofx:section>
