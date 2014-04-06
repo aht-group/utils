@@ -87,7 +87,7 @@ public class OfxStatusTableFactory extends AbstractOfxSecurityFactory
 			Lang lCaption = StatusXpath.getLang(translations, captionKey, lang);
 			table.setTitle(XmlTitleFactory.build(lCaption.getTranslation()));
 			
-			LatexTableRenderer renderer = new LatexTableRenderer();
+			LatexTableRenderer renderer = new LatexTableRenderer(false);
 			renderer.render(table);
 			StringWriter actual = new StringWriter();
 			renderer.write(actual);

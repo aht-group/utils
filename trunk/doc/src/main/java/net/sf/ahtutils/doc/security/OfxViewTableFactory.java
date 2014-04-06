@@ -67,7 +67,7 @@ public class OfxViewTableFactory extends AbstractOfxSecurityFactory
 			Lang lCategory = StatusXpath.getLang(category.getLangs(), lang);
 			table.setTitle(XmlTitleFactory.build(lPrefix.getTranslation()+" "+lCategory.getTranslation()));
 			
-			LatexTableRenderer tableRenderer = new LatexTableRenderer();
+			LatexTableRenderer tableRenderer = new LatexTableRenderer(false);
 			JaxbUtil.trace(table);
 			tableRenderer.render(table);
 			
