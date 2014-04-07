@@ -110,22 +110,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Condition }
-     * 
-     */
-    public Condition createCondition() {
-        return new Condition();
-    }
-
-    /**
-     * Create an instance of {@link Class }
-     * 
-     */
-    public Class createClass() {
-        return new Class();
-    }
-
-    /**
      * Create an instance of {@link Statuses }
      * 
      */
@@ -139,14 +123,6 @@ public class ObjectFactory {
      */
     public Scopes createScopes() {
         return new Scopes();
-    }
-
-    /**
-     * Create an instance of {@link Category }
-     * 
-     */
-    public Category createCategory() {
-        return new Category();
     }
 
     /**
@@ -166,30 +142,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Original }
-     * 
-     */
-    public Original createOriginal() {
-        return new Original();
-    }
-
-    /**
-     * Create an instance of {@link Translations }
-     * 
-     */
-    public Translations createTranslations() {
-        return new Translations();
-    }
-
-    /**
-     * Create an instance of {@link Categories }
-     * 
-     */
-    public Categories createCategories() {
-        return new Categories();
-    }
-
-    /**
      * Create an instance of {@link Types }
      * 
      */
@@ -203,6 +155,78 @@ public class ObjectFactory {
      */
     public Copy createCopy() {
         return new Copy();
+    }
+
+    /**
+     * Create an instance of {@link Responsible }
+     * 
+     */
+    public Responsible createResponsible() {
+        return new Responsible();
+    }
+
+    /**
+     * Create an instance of {@link Condition }
+     * 
+     */
+    public Condition createCondition() {
+        return new Condition();
+    }
+
+    /**
+     * Create an instance of {@link Class }
+     * 
+     */
+    public Class createClass() {
+        return new Class();
+    }
+
+    /**
+     * Create an instance of {@link SubPhase }
+     * 
+     */
+    public SubPhase createSubPhase() {
+        return new SubPhase();
+    }
+
+    /**
+     * Create an instance of {@link Category }
+     * 
+     */
+    public Category createCategory() {
+        return new Category();
+    }
+
+    /**
+     * Create an instance of {@link Translations }
+     * 
+     */
+    public Translations createTranslations() {
+        return new Translations();
+    }
+
+    /**
+     * Create an instance of {@link Original }
+     * 
+     */
+    public Original createOriginal() {
+        return new Original();
+    }
+
+    /**
+     * Create an instance of {@link Categories }
+     * 
+     */
+    public Categories createCategories() {
+        return new Categories();
+    }
+
+    /**
+     * Create an instance of {@link Phase }
+     * 
+     */
+    public Phase createPhase() {
+        return new Phase();
     }
 
 }
