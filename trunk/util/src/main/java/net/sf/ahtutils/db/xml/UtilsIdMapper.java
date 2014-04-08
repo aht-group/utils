@@ -3,6 +3,7 @@ package net.sf.ahtutils.db.xml;
 import java.util.Hashtable;
 import java.util.Map;
 
+import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.factory.xml.sync.XmlMapperFactory;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 import net.sf.ahtutils.xml.sync.Mapper;
@@ -40,6 +41,13 @@ public class UtilsIdMapper
 		catch (ClassNotFoundException e) {e.printStackTrace();}
 	}
 	
+	public long getMappedId(Class<?> c,long oldId) throws UtilsConfigurationException
+	{
+		if(!map.containsKey(c)){throw new UtilsConfigurationException(this.getClass().getSimpleName()+" does contain information for "+c.getSimpleName());}
+		if(!map.get(c).containsKey(oldId)){throw new UtilsConfigurationException("Map for "+c.getSimpleName()+" does not have an entry for "+oldId);}
+		return map.get(c).get(oldId);
+	}
+	
 	public void debug()
 	{
 		logger.info(this.getClass().getSimpleName()+" with "+map.keySet().size()+" classes");
@@ -47,7 +55,5 @@ public class UtilsIdMapper
 		{
 			logger.info("\t"+c.getSimpleName()+" "+map.get(c).keySet().size());
 		}
-		
 	}
-	
 }
