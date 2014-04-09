@@ -3,6 +3,7 @@ package net.sf.ahtutils.factory.xml.status;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
+import net.sf.ahtutils.xml.status.Status;
 import net.sf.ahtutils.xml.status.Type;
 
 import org.slf4j.Logger;
@@ -47,5 +48,14 @@ public class XmlTypeFactory
 		xml.setKey(key);
 		xml.setCode(code);
 		return xml;
+	}
+	
+	public static Type build(Status status)
+	{
+		Type type = new Type();
+		type.setCode(status.getCode());
+		type.setDescriptions(status.getDescriptions());
+		type.setLangs(status.getLangs());
+		return type;
 	}
 }
