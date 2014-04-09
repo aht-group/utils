@@ -93,8 +93,8 @@ public class LatexDocFactory
 	
 	private void applyConfigCodes()
 	{
-		addConfig(Code.accessIntroduction,"ofx.aht-utils/administration/access/introduction.xml","admin/access-introduction");
-		addConfig(Code.systemLogIntroduction,"ofx.aht-utils/administration/logging/introduction.xml","admin/logging-introduction");
+		addConfig(Code.accessIntroduction,"ofx.aht-utils/administration/access/introduction.xml","admin/access/introduction");
+		addConfig(Code.systemLogIntroduction,"ofx.aht-utils/administration/logging/introduction.xml","admin/system/logging/introduction");
 	}
 	
 	private void addConfig(Code code, String source, String destination)
