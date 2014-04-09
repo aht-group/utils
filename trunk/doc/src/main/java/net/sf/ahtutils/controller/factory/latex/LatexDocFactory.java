@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.Hashtable;
+import java.util.Map;
 
 import net.sf.ahtutils.doc.DocumentationCommentBuilder;
 import net.sf.ahtutils.doc.UtilsDocumentation;
@@ -26,11 +28,15 @@ public class LatexDocFactory
 {	
 	final static Logger logger = LoggerFactory.getLogger(LatexDocFactory.class);
 	
-	private static enum Code {accessIntroduction};
+	private static enum Code {accessIntroduction,
+								
+							systemLogIntroduction
+							 };
 	
 	private final static String dirTexts = "txt";
 	
 	private Configuration config;
+	private Map<Code,String> dstFiles;
 	
 	private String baseLatexDir;
 	private String[] langs;
@@ -40,6 +46,7 @@ public class LatexDocFactory
 		this.config=config;
 		this.langs=langs;
 		baseLatexDir=config.getString(UtilsDocumentation.keyBaseDocDir);
+		dstFiles = new Hashtable<Code,String>();
 		applyConfigCodes();
 	}
 	
@@ -48,16 +55,16 @@ public class LatexDocFactory
 		logger.info("buildDoc");
 		try
 		{
-			renderSection("admin/access-introduction",Code.accessIntroduction);
+			renderSection(Code.accessIntroduction);
+			renderSection(Code.systemLogIntroduction);
 		}
 		catch (FileNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
 		catch (OfxAuthoringException e) {throw new UtilsConfigurationException(e.getMessage());}
 		catch (IOException e) {throw new UtilsConfigurationException(e.getMessage());}
 	}
 
-	private void renderSection(String fileName, Code code) throws OfxAuthoringException, IOException
+	private void renderSection(Code code) throws OfxAuthoringException, IOException
 	{
-		
 		Section section = JaxbUtil.loadJAXB(config.getString(code.toString()), Section.class);
 
 		Comment comment = XmlCommentFactory.build();
@@ -71,7 +78,7 @@ public class LatexDocFactory
 			{
 				OfxMultilangFilter omf = new OfxMultilangFilter(lang);
 				Section sectionlang = omf.filterLang(section);
-				File f = new File(baseLatexDir,lang+"/"+dirTexts+"/"+fileName+".tex");
+				File f = new File(baseLatexDir,lang+"/"+dirTexts+"/"+dstFiles.get(code)+".tex");
 				LatexSectionRenderer renderer = new LatexSectionRenderer(1,new LatexPreamble());
 				renderer.render(sectionlang);
 				StringWriter actual = new StringWriter();
@@ -86,7 +93,14 @@ public class LatexDocFactory
 	
 	private void applyConfigCodes()
 	{
-		config.addProperty(Code.accessIntroduction.toString(), "ofx.aht-utils/administration/access/introduction.xml");
+		addConfig(Code.accessIntroduction,"ofx.aht-utils/administration/access/introduction.xml","admin/access-introduction");
+		addConfig(Code.systemLogIntroduction,"ofx.aht-utils/administration/logging/introduction.xml","admin/logging-introduction");
+	}
+	
+	private void addConfig(Code code, String source, String destination)
+	{
+		config.addProperty(code.toString(), source);
+		dstFiles.put(code, destination);
 	}
 	
 }

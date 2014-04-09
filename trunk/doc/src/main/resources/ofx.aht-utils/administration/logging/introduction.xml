@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org"
+			xmlns:l="http://www.openfuxml.org/list"
+			xmlns:layout="http://www.openfuxml.org/layout"
+			xmlns:t="http://www.openfuxml.org/table"
+			id="installation.r">
+	
+	<ofx:paragraph lang="de">
+		Dieses Informationssystem implemen ein <ofx:emphasis italic="true">mehrstufiges Sicherheitskonzept</ofx:emphasis>, dass den Seitenzugriff sowie
+		den Zugriff auf Informationen, und die Möglichkeit Benutzeraktionen durchzuführen, steuert.
+	</ofx:paragraph>
+	<ofx:paragraph lang="en">
+		This information system has implemented a <ofx:emphasis italic="true">multi-level security concept</ofx:emphasis> which controls the page access as well as
+		the access to information and the ability to perform actions. 
+	</ofx:paragraph>
+	
+	<t:table id="table.admin.system.logs.type">
+	    <ofx:title>Logger Levels</ofx:title>
+	    <t:specification>
+	        <t:columns>
+	            <t:column>
+	                <layout:width>15.0</layout:width>
+	            </t:column>
+	            <t:column>
+	                <layout:width>85.0</layout:width>
+	            </t:column>
+	        </t:columns>
+	    </t:specification>
+	    <t:content>
+	        <t:head>
+	            <t:row>
+	                <t:cell>
+	                    <ofx:paragraph lang="en">Level</ofx:paragraph>
+	                </t:cell>
+	                <t:cell>
+	                    <ofx:paragraph lang="en">Description</ofx:paragraph>
+	                </t:cell>
+	            </t:row>
+	        </t:head>
+	        <t:body>
+	            <t:row>
+	                <t:cell>
+	                    <ofx:paragraph>ERROR</ofx:paragraph>
+	                </t:cell>
+	                <t:cell>
+	                    <ofx:paragraph lang="en">Only errors so critical that the application will malfunction</ofx:paragraph>
+	                </t:cell>
+	            </t:row>
+	            <t:row>
+	                <t:cell>
+	                    <ofx:paragraph>WARN</ofx:paragraph>
+	                </t:cell>
+	                <t:cell>
+	                    <ofx:paragraph lang="en">All other errors or unexpected events</ofx:paragraph>
+	                </t:cell>
+	            </t:row>
+	            <t:row>
+	                <t:cell>
+	                    <ofx:paragraph>INFO</ofx:paragraph>
+	                </t:cell>
+	                <t:cell>
+	                    <ofx:paragraph lang="en">Only lifecycle events</ofx:paragraph>
+	                </t:cell>
+	            </t:row>
+	            <t:row>
+	                <t:cell>
+	                    <ofx:paragraph>DEBUG</ofx:paragraph>
+	                </t:cell>
+	                <t:cell>
+	                    <ofx:paragraph lang="en">All other events (which might be worth logging)</ofx:paragraph>
+	                </t:cell>
+	            </t:row>
+	            <t:row>
+	                <t:cell>
+	                    <ofx:paragraph>TRACE</ofx:paragraph>
+	                </t:cell>
+	                <t:cell>
+	                    <ofx:paragraph lang="en">(Optionally) all method invocations with parameter and return values</ofx:paragraph>
+	                </t:cell>
+	            </t:row>
+	        </t:body>
+	    </t:content>
+	    
+	</t:table>
+	
+</ofx:section>
