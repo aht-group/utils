@@ -9,7 +9,7 @@ import net.sf.exlp.util.xml.JaxbUtil;
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.factory.xml.ofx.list.XmlListFactory;
 import org.openfuxml.factory.xml.ofx.list.XmlListItemFactory;
-import org.openfuxml.util.OfxMultilangFilter;
+import org.openfuxml.util.filter.OfxLangFilter;
 import org.openfuxml.xml.content.list.List;
 import org.openfuxml.xml.xpath.content.SectionXpath;
 import org.slf4j.Logger;
@@ -21,13 +21,13 @@ public class OfxInstallationRequirementFactory
 
 	
 	private static String idHardware ="installation.requirement.hardware";
-    private OfxMultilangFilter multiLangFilter;
+    private OfxLangFilter multiLangFilter;
 
     private Section section;
 
 	public OfxInstallationRequirementFactory(String lang)
 	{
-        multiLangFilter = new OfxMultilangFilter(lang);
+        multiLangFilter = new OfxLangFilter(lang);
 
         try
         {

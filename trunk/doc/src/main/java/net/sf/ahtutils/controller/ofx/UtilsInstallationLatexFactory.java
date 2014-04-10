@@ -16,7 +16,7 @@ import org.openfuxml.renderer.latex.content.structure.LatexSectionRenderer;
 import org.openfuxml.renderer.latex.content.text.LatexCommentRenderer;
 import org.openfuxml.renderer.latex.preamble.LatexPreamble;
 import org.openfuxml.renderer.util.OfxContentDebugger;
-import org.openfuxml.util.OfxMultilangFilter;
+import org.openfuxml.util.filter.OfxLangFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,11 +27,11 @@ public class UtilsInstallationLatexFactory
 	public static enum Type{JAVA,JBOSS,MAVEN,MYSQL,OWNCLOUD,POSTGRES,R};
 	private Map<Type,String> map;
 	
-	protected OfxMultilangFilter multiLangFilter;
+	protected OfxLangFilter multiLangFilter;
 	
 	public UtilsInstallationLatexFactory(String lang)
 	{
-		multiLangFilter = new OfxMultilangFilter(lang);
+		multiLangFilter = new OfxLangFilter(lang);
 		
 		map = new Hashtable<Type,String>();
         map.put(Type.JAVA, "ofx.aht-utils/installation/java.xml");

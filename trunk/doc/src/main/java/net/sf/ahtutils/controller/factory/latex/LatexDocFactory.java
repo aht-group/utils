@@ -20,7 +20,7 @@ import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.renderer.latex.content.structure.LatexSectionRenderer;
 import org.openfuxml.renderer.latex.preamble.LatexPreamble;
-import org.openfuxml.util.OfxMultilangFilter;
+import org.openfuxml.util.filter.OfxLangFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -83,7 +83,8 @@ public class LatexDocFactory
 		{
 			for(String lang : langs)
 			{
-				OfxMultilangFilter omf = new OfxMultilangFilter(lang);
+				
+				OfxLangFilter omf = new OfxLangFilter(lang);
 				Section sectionlang = omf.filterLang(section);
 				File f = new File(baseLatexDir,lang+"/"+dirTexts+"/"+dstFiles.get(code)+".tex");
 				LatexSectionRenderer renderer = new LatexSectionRenderer(1,new LatexPreamble());
@@ -92,8 +93,6 @@ public class LatexDocFactory
 				renderer.write(actual);
 				StringIO.writeTxt(f, actual.toString());
 			}
-			
-			
 		}
 //		catch (OfxAuthoringException e) {throw new UtilsConfigurationException(e.getMessage());}
 	}
