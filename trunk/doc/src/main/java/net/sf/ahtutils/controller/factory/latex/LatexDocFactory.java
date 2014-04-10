@@ -30,8 +30,12 @@ public class LatexDocFactory
 	
 	private static enum Code {accessIntroduction,
 								
-							systemLogIntroduction
+							systemLogIntroduction,
+							
+							installationDebian,installationJava,installationJBoss
 							 };
+							 
+							 
 	
 	private final static String dirTexts = "txt";
 	
@@ -55,8 +59,11 @@ public class LatexDocFactory
 		logger.info("buildDoc");
 		try
 		{
-			renderSection(Code.accessIntroduction);
-			renderSection(Code.systemLogIntroduction);
+//			renderSection(Code.accessIntroduction);
+//			renderSection(Code.systemLogIntroduction);
+			renderSection(Code.installationDebian);
+			renderSection(Code.installationJava);
+			renderSection(Code.installationJBoss);
 		}
 		catch (FileNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
 		catch (OfxAuthoringException e) {throw new UtilsConfigurationException(e.getMessage());}
@@ -95,6 +102,10 @@ public class LatexDocFactory
 	{
 		addConfig(Code.accessIntroduction,"ofx.aht-utils/administration/access/introduction.xml","admin/access/introduction");
 		addConfig(Code.systemLogIntroduction,"ofx.aht-utils/administration/logging/introduction.xml","admin/system/logging/introduction");
+		
+		addConfig(Code.installationDebian,"ofx.aht-utils/installation/debian.xml","admin/installation/debian");
+		addConfig(Code.installationJava,"ofx.aht-utils/installation/java.xml","admin/installation/java");
+		addConfig(Code.installationJBoss,"ofx.aht-utils/installation/jboss.xml","admin/installation/jboss");
 	}
 	
 	private void addConfig(Code code, String source, String destination)
