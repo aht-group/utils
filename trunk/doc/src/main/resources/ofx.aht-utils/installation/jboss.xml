@@ -2,8 +2,9 @@
 <ofx:section xmlns:ofx="http://www.openfuxml.org" id="section.admin.installation.jboss">
 	<ofx:title lang="en">JBoss Application Server</ofx:title>
 	
-	<ofx:section>
+	<ofx:section transparent="true" classifier="as7">
 		<ofx:title lang="en">AS7</ofx:title>
+		
 		<ofx:paragraph lang="de">
 			Der Applikationsserver wird im Verzeichnis \texttt{bin} mit dem Befehl \texttt{standalone.sh}
 			(oder \texttt{standalone.bat}) gestartet. Der Startprozess sollte fehlerfrei durchlaufen und
@@ -23,7 +24,7 @@
 		</ofx:paragraph>
 	</ofx:section>
 	
-	<ofx:section>
+	<ofx:section transparent="true" classifier="eap6">>
 		<ofx:title lang="en">EAP 6.1</ofx:title>
 		<ofx:paragraph lang="de">
 			In der Datei /bin/standalone.conf sollte die Sprache fest eingestellt werden

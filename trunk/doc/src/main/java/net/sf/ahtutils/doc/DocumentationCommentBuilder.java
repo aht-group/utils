@@ -4,10 +4,13 @@ import org.apache.commons.configuration.Configuration;
 import org.openfuxml.content.ofx.Comment;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.xml.ofx.content.XmlRawFactory;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DocumentationCommentBuilder
 {
+	final static Logger logger = LoggerFactory.getLogger(DocumentationCommentBuilder.class);
+	
 	public static void translationKeys(Comment comment, Configuration config, String key) throws OfxAuthoringException
 	{
 		configKeyReference(comment, config, key, "Translation Keys are defined in");
@@ -55,5 +58,18 @@ public class DocumentationCommentBuilder
 	{
 		comment.getRaw().add(XmlRawFactory.build(""));
 		comment.getRaw().add(XmlRawFactory.build("Do not modify this file, it is automatically generated. Changes in this file will be overwritten without warning."));
+	}
+	
+	public static void ofxClassifier(Comment comment,String[] classifier)
+	{
+		StringBuffer sb = new StringBuffer();
+		sb.append("The following ofx classifiers are used: ");
+		for(String s : classifier)
+		{
+			sb.append(s).append(", ");
+		}
+		sb.delete(sb.length()-2, sb.length());
+
+		comment.getRaw().add(XmlRawFactory.build(sb.toString()));
 	}
 }
