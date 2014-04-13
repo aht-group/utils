@@ -28,61 +28,85 @@ public class UtilsMsgBundleGoal extends AbstractMojo
      * @parameter expression="${project.groupId}"
      * @required
      */
-    private String bundlePackage;
+    private String groupId;
     
-    /**
+	/**
      * Location of the file.
-     * @parameter expression="${project.build.directory}/msg.${project.artifactId}"
+     * @parameter expression="${project.parent.artifactId}"
      * @required
      */
-    private String targetDir;
+    private String projectArtifactId;
     
-    /**
+	/**
      * Location of the file.
-     * @parameter expression="${project.build.directory}/classes"
+     * @parameter expression="${project.artifactId}"
      * @required
      */
-    private String targetRoot;
+    private String artifactId;
+    
+	/**
+     * Location of the file.
+     * @parameter expression="${project.build.directory}"
+     * @required
+     */
+    private String projectBuildDirectory;
     
     /**
      * Location of the file.
-     * @parameter expression="${basedir}/src/main/resources/msg.${project.artifactId}"
+     * This the deprecated location: ${basedir}/src/main/resources/msg.${project.artifactId}
+     * @parameter expression="${basedir}/../doc/src/main/resources/msg.${project.parent.artifactId}"
      * @required
      */
     private String msgSource;
     
     /**
      * Location of the file.
-     * @parameter expression="${project.artifactId}"
+     * This the deprecated location: ${project.build.directory}/msg.${project.artifactId}
+     * @parameter expression="${basedir}/src/main/resources/msg.${project.artifactId}"
      * @required
      */
-    private String artifactId;
+    private String targetDir;
+    
+    /**
+     * Location of the file.
+     * @parameter expression="translation.xml"
+     * @required
+     */
+    private String translationXml;
 	
+    
     public void execute() throws MojoExecutionException
     {
     	BasicConfigurator.configure();
     	Logger.getRootLogger().setLevel(Level.ERROR);
     	 
+    	getLog().info("groupId: "+groupId);
+    	getLog().info("projectArtifactId: "+projectArtifactId);
+    	getLog().info("artifactId: "+artifactId);
+    	getLog().info("msgSource: "+msgSource);
+    	getLog().info("projectBuildDirectory: "+projectBuildDirectory);
+    	getLog().info("targetDir: "+targetDir);
+    	getLog().info("translationXml: "+translationXml);
+    	
     	File fTarget = createTargetDir();
     	
     	File fRoot = new File(msgSource);
     	if(!fRoot.exists()){throw new MojoExecutionException("msg.bundle directory does not exist: "+fRoot.getAbsolutePath());}
     	
-    	File fTargetRoot = new File(targetRoot);
-    	if(!fTargetRoot.exists()){throw new MojoExecutionException("targt directory does not exist: "+fTargetRoot.getAbsolutePath());}
+    	File fTranslationsXml = new File(fTarget,translationXml);
     	
-    	getLog().info("Creating MessageBundle "+bundlePackage+".msg_<lang>.txt from "+msgSource);
+    	getLog().info("Creating MessageBundle "+groupId+".msg_<lang>.txt from "+msgSource);
     	
     	TranslationFactory tFactory = new TranslationFactory();
 		tFactory.setOutEncoding("UTF-8");
 		try
 		{
 			Dir dir = tFactory.rekursiveDirectory(fRoot.getAbsolutePath());
-			dir.setName("msg."+artifactId);
-			File fTranslations = new File(fTargetRoot,"translation.xml");
-			getLog().info("Saving to f"+fTranslations.getAbsolutePath());
-			JaxbUtil.save(fTranslations,dir,true);
-			tFactory.writeMessageResourceBundles("msg",bundlePackage,fTarget.getAbsolutePath());
+			dir.setName("msg."+projectArtifactId);
+			getLog().info("Saving XML summary file to"+fTranslationsXml.getAbsolutePath());
+			JaxbUtil.save(fTranslationsXml,dir,true);
+			
+			tFactory.writeMessageResourceBundles("msg",fTarget);
 			for(String s : tFactory.getStats())
 			{
 				getLog().info(s);

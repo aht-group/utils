@@ -18,11 +18,10 @@ public class TestTranslationFactory extends AbstractAhtUtilTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestTranslationFactory.class);
 	
-	private static final String targetDir = "target/msg-bundle.test";
+	private static final String targetDir = "msg-bundle.test";
 	private TranslationFactory tFactory;
-	private File fTarget,dirBundle;
+	private File fDstDir;
 	private String bundleName = "msg";
-	private String bundlePackage = "net.sf";
 	
 	@Before
 	public void init() throws IOException
@@ -30,36 +29,35 @@ public class TestTranslationFactory extends AbstractAhtUtilTest
 		tFactory = new TranslationFactory();
 		tFactory.setOutEncoding("UTF-8");
 		
-		fTarget = new File(targetDir);
-		if(fTarget.exists())
+		fDstDir = new File(fDstDir,targetDir);
+		if(fDstDir.exists())
 		{
-			FileUtils.deleteDirectory(fTarget);
+			FileUtils.deleteDirectory(fDstDir);
 		}
-		fTarget.mkdir();
-		dirBundle = new File(fTarget,bundlePackage.replaceAll("\\.", "/"));
+		fDstDir.mkdir();
 	}
 	
 	@Test
 	public void targetCreation() throws FileNotFoundException, UtilsNotFoundException
     {	
 		tFactory.add("src/test/resources/data/xml/msgBundle/translation1.xml");
-		tFactory.writeMessageResourceBundles(bundleName,bundlePackage,fTarget.getAbsolutePath());
-		Assert.assertTrue(fTarget.exists());
-		Assert.assertTrue(fTarget.isDirectory());
+		tFactory.writeMessageResourceBundles(bundleName,fDstDir);
+		Assert.assertTrue(fDstDir.exists());
+		Assert.assertTrue(fDstDir.isDirectory());
 		
-		Assert.assertTrue("Directory ("+bundlePackage+") does not exist: "+dirBundle.getAbsolutePath(),dirBundle.exists());
-		Assert.assertTrue("("+bundlePackage+") not a directory: "+dirBundle.getAbsolutePath(),dirBundle.isDirectory());
+		Assert.assertTrue("Directory ("+fDstDir+") does not exist: "+fDstDir.getAbsolutePath(),fDstDir.exists());
+		Assert.assertTrue("("+fDstDir+") not a directory: "+fDstDir.getAbsolutePath(),fDstDir.isDirectory());
     }
 	
 	@Test
 	public void langFiles() throws FileNotFoundException, UtilsNotFoundException
     {	
 		tFactory.add("src/test/resources/data/xml/msgBundle/translation1.xml");
-		tFactory.writeMessageResourceBundles(bundleName,bundlePackage,fTarget.getAbsolutePath());
+		tFactory.writeMessageResourceBundles(bundleName,fDstDir);
 		TranslationMap tMap = tFactory.gettMap();
 		for(String s : tMap.getLangKeys())
 		{
-			File f = new File(dirBundle,bundleName+"_"+s+"."+TranslationFactory.msgBundleSuffix);
+			File f = new File(fDstDir,bundleName+"_"+s+"."+TranslationFactory.msgBundleSuffix);
 			Assert.assertTrue("Should exist: "+f.getAbsolutePath(),f.exists());
 			Assert.assertTrue(f.isFile());
 		}
@@ -70,7 +68,7 @@ public class TestTranslationFactory extends AbstractAhtUtilTest
     {	
 		tFactory.add("src/test/resources/data/xml/msgBundle/translation1.xml");
 		tFactory.add("src/test/resources/data/xml/msgBundle/translation2.xml");
-		tFactory.writeMessageResourceBundles(bundleName,bundlePackage,fTarget.getAbsolutePath());
+		tFactory.writeMessageResourceBundles(bundleName,fDstDir);
 		TranslationMap tMap = tFactory.gettMap();
 		Assert.assertEquals(2,tMap.getLangKeys().size());
 		for(String s : tMap.getLangKeys())
@@ -83,7 +81,7 @@ public class TestTranslationFactory extends AbstractAhtUtilTest
 	public void rekursiveDirectory() throws FileNotFoundException, UtilsNotFoundException
     {	
 		tFactory.rekursiveDirectory("src/test/resources/data/xml/msgBundle");
-		tFactory.writeMessageResourceBundles(bundleName,bundlePackage,fTarget.getAbsolutePath());
+		tFactory.writeMessageResourceBundles(bundleName,fDstDir);
 		TranslationMap tMap = tFactory.gettMap();
 		Assert.assertEquals(2,tMap.getLangKeys().size());
 		for(String s : tMap.getLangKeys())

@@ -31,6 +31,7 @@ public class TranslationFactory
 	
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>Fields<<<<<<<<<<<<<<<<<<<<<<<<<<<	
 	
+	private File fDstDir;
 	private TranslationMap tMap;
 
 	private String outEncoding;
@@ -43,29 +44,18 @@ public class TranslationFactory
 		processedFiles = 0;
 	}
 	
-	public void writeMessageResourceBundles(String bundleName, String bundlePackage, String targetDirectory) throws FileNotFoundException, UtilsNotFoundException
-	{
-		File baseDir = new File(targetDirectory);
-		if(!baseDir.exists() || !baseDir.isDirectory())
-		{
-			throw new FileNotFoundException("Directory "+baseDir.getAbsolutePath()+" does not exist!");
-		}
-		
-		bundlePackage=bundlePackage.replaceAll("\\.", "/");
-		File bundleDir = new File(baseDir,bundlePackage);
-		if(!bundleDir.exists())
-		{
-			bundleDir.mkdirs();
-		}
+	public void writeMessageResourceBundles(String bundleName, File fDstDir) throws FileNotFoundException, UtilsNotFoundException
+	{		
+		this.fDstDir=fDstDir;
 		
 		for(String langKey : tMap.getLangKeys())
 		{
-			logger.info("Processing "+langKey);
+			logger.debug("Processing "+langKey);
 			String fName = bundleName+"_"+langKey+"."+msgBundleSuffix;
 					
 			try
 			{
-				File f = new File(bundleDir,fName);
+				File f = new File(fDstDir,fName);
 				OutputStream os = new FileOutputStream(f);
 				OutputStreamWriter osw = new OutputStreamWriter(os, outEncoding);
 				PrintWriter pw = new PrintWriter(osw, true); 
@@ -131,6 +121,7 @@ public class TranslationFactory
 	{
 		List<String> result = new ArrayList<String>();
 		result.add("Created Message Bundle (output ecoding: "+outEncoding+", processed files: "+processedFiles+")");
+		if(fDstDir!=null){result.add("   Destination dir: "+fDstDir.getAbsolutePath());}
 		for(String langKey : tMap.getLangKeys())
 		{
 			StringBuffer sb = new StringBuffer();

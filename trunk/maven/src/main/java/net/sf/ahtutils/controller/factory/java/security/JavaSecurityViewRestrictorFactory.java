@@ -75,6 +75,4 @@ public class JavaSecurityViewRestrictorFactory extends AbstractJavaSecurityFileF
 		catch (IOException e) {e.printStackTrace();}
 		catch (TemplateException e) {e.printStackTrace();}
 	}
-	
-	
 }

@@ -6,10 +6,8 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.sf.exlp.util.io.FileIO;
 import net.sf.exlp.util.io.StringIO;
 
-import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,25 +48,6 @@ public class AbstractFreemarkerFileFactory
 		ftl.process(freemarkerNodeModel, sw);
 		sw.flush();
 		
-		StringIO.writeTxt(fTmp, sw.toString());
-		
-		boolean doCopy = false;
-		if(!f.exists())
-		{
-			logger.debug(f.getAbsolutePath()+" does not exist, so COPY");
-			doCopy=true;
-		}
-		else
-		{
-			String hashExisting = FileIO.getHash(f);
-			String hashNew = FileIO.getHash(fTmp);
-			logger.debug("hashExisting "+hashExisting);
-			logger.debug("hashNew      "+hashNew);
-			if(!hashExisting.equals(hashNew)){doCopy=true;}
-			logger.debug("Hash evaluated: COPY:"+doCopy);
-		}
-		
-		if(doCopy){FileUtils.copyFile(fTmp, f);}
-		else{logger.debug("Dont copy");}
+		StringIO.writeTxtIfDiffers(sw.toString(), f);
 	}
 }

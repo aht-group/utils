@@ -18,18 +18,11 @@ public class AbstractAhtUtilTest extends AbstractAhtUtilsTest
 	protected File f;
 	protected boolean saveReference=false;
 
-	protected static File fTarget;
-	
-	protected static void setfTarget(File myTarget) {fTarget=myTarget;}
-
 	@BeforeClass
 	public static void initFile()
 	{
 		if(!LoggerInit.isLog4jInited()){initLogger();}
-		String dirTarget = System.getProperty("targetDir");
-		if(dirTarget==null){dirTarget="target";}
-		setfTarget(new File(dirTarget));
-		logger.debug("Using targeDir "+fTarget.getAbsolutePath());
+		AbstractAhtUtilsTest.initTargetDirectory();
 	}
 	
 	@BeforeClass
