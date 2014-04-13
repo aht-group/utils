@@ -21,7 +21,7 @@ import org.apache.maven.plugin.MojoExecutionException;
  * 
  * @phase initialize
  */
-public class AhtUtilsMsgBundleFactory extends AbstractMojo
+public class UtilsMsgBundleGoal extends AbstractMojo
 {
 	/**
      * Location of the file.
@@ -49,7 +49,7 @@ public class AhtUtilsMsgBundleFactory extends AbstractMojo
      * @parameter expression="${basedir}/src/main/resources/msg.${project.artifactId}"
      * @required
      */
-    private String reportRoot;
+    private String msgSource;
     
     /**
      * Location of the file.
@@ -65,13 +65,13 @@ public class AhtUtilsMsgBundleFactory extends AbstractMojo
     	 
     	File fTarget = createTargetDir();
     	
-    	File fRoot = new File(reportRoot);
+    	File fRoot = new File(msgSource);
     	if(!fRoot.exists()){throw new MojoExecutionException("msg.bundle directory does not exist: "+fRoot.getAbsolutePath());}
     	
     	File fTargetRoot = new File(targetRoot);
     	if(!fTargetRoot.exists()){throw new MojoExecutionException("targt directory does not exist: "+fTargetRoot.getAbsolutePath());}
     	
-    	getLog().info("Creating MessageBundle "+bundlePackage+".msg_<lang>.txt from "+reportRoot);
+    	getLog().info("Creating MessageBundle "+bundlePackage+".msg_<lang>.txt from "+msgSource);
     	
     	TranslationFactory tFactory = new TranslationFactory();
 		tFactory.setOutEncoding("UTF-8");
