@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org"
+			xmlns:t="http://www.openfuxml.org/table"
+			xmlns:layout="http://www.openfuxml.org/layout"
+			id="section.admin.requirements.hardware">
+	<ofx:title lang="en" version="1">Hardware</ofx:title>
+
+	<ofx:section id="installation.requirement.hardware.prototype">
+		<ofx:title lang="de" verison="1">Prototyp</ofx:title>
+		<ofx:title lang="en" verison="1">Prototype System</ofx:title>
+		<ofx:title lang="fr" verison="0">Hardware</ofx:title>
+		
+		<ofx:paragraph lang="en">
+			The recommended minimum requirements for the prototype setup
+			are summarized in the following table. All instances can be installed on a single
+			server.
+		</ofx:paragraph>
+		
+		<t:table id="table.admin.system.logs.type">
+		
+		    <ofx:title lang="en" version="1">Hardware Specifications (Prototype)</ofx:title>
+		    
+		    <t:specification>
+		        <t:columns>
+		            <t:column><layout:width>12.0</layout:width></t:column>
+		            <t:column><layout:width>88.0</layout:width></t:column>
+		        </t:columns>
+		    </t:specification>
+		    <t:content>
+		        <t:head>
+		            <t:row>
+		                <t:cell>
+		                    <ofx:paragraph lang="en">Item</ofx:paragraph>
+		                </t:cell>
+		                <t:cell>
+		                    <ofx:paragraph lang="en">Minimum</ofx:paragraph>
+		                </t:cell>
+		            </t:row>
+		        </t:head>
+		        <t:body>
+		            <t:row>
+		                <t:cell><ofx:paragraph>RAM</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>4 GB</ofx:paragraph></t:cell>
+		            </t:row>
+		            <t:row>
+		                <t:cell><ofx:paragraph>CPU</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>Core2 Duo, 2 GHz</ofx:paragraph></t:cell>
+		            </t:row>
+		            <t:row>
+		                <t:cell><ofx:paragraph>HDD</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>20 GB</ofx:paragraph></t:cell>
+		            </t:row>
+		            <t:row>
+		                <t:cell><ofx:paragraph>Network</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>Network adapter with one interface (100 Mbps)</ofx:paragraph></t:cell>
+		            </t:row>
+		            <t:row>
+		                <t:cell><ofx:paragraph>OS</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>Linux Debian Wheezy</ofx:paragraph></t:cell>
+		            </t:row>
+		        </t:body>
+		    </t:content>
+		</t:table>
+		
+	</ofx:section>
+	
+	<ofx:section id="installation.requirement.hardware.production" classifier="appDb">
+		<ofx:title lang="de" verison="1">Produktionsbetrieb</ofx:title>
+		<ofx:title lang="en" verison="1">Production System</ofx:title>
+		<ofx:title lang="fr" verison="0">Hardware</ofx:title>
+		
+		<ofx:paragraph lang="en">
+			The recommended minimum requirements for the production system
+			are summarized in the following table.
+		</ofx:paragraph>
+		<ofx:paragraph lang="en">
+			There are multiple server required for security aspects and best performance.
+		</ofx:paragraph>
+		
+		<t:table id="table.admin.system.logs.type">
+		
+		    <ofx:title lang="en" version="1">Hardware Specifications (Prototype)</ofx:title>
+		    
+		    <t:specification>
+		        <t:columns>
+		            <t:column><layout:width>12.0</layout:width></t:column>
+		            <t:column><layout:width>43.0</layout:width></t:column>
+		            <t:column><layout:width>43.0</layout:width></t:column>
+		        </t:columns>
+		    </t:specification>
+		    <t:content>
+		        <t:head>
+		            <t:row>
+		                <t:cell>
+		                    <ofx:paragraph lang="en">Item</ofx:paragraph>
+		                </t:cell>
+		                <t:cell>
+		                    <ofx:paragraph lang="en">Application Server</ofx:paragraph>
+		                </t:cell>
+		                <t:cell>
+		                    <ofx:paragraph lang="en">Database Server</ofx:paragraph>
+		                </t:cell>
+		            </t:row>
+		        </t:head>
+		        <t:body>
+		            <t:row>
+		                <t:cell><ofx:paragraph>RAM</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>64 GB or higher</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>64 GB or higher</ofx:paragraph></t:cell>
+		            </t:row>
+		            <t:row>
+		                <t:cell><ofx:paragraph>CPU</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>64-bit dual processor, each with 6 cores, 2.26 GHz or better</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>64-bit dual processor, each with 6 cores, 2.4 GHz or better</ofx:paragraph></t:cell>
+		            </t:row>
+		            <t:row>
+		                <t:cell><ofx:paragraph>HDD</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>4 or more 10.000 RPM SAS drives, each wich at least 600 GB disk space</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>4 or more 15.000 RPM SAS drives, each wich at least 400 GB disk space</ofx:paragraph></t:cell>
+		            </t:row>
+		            <t:row>
+		                <t:cell><ofx:paragraph>RAID</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>at least RAID 5, RAID 6 with one hot-standby drive is proposed</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>at least RAID 5, RAID 6 with one hot-standby drive is proposed</ofx:paragraph></t:cell>
+		            </t:row>
+		            <t:row>
+		                <t:cell><ofx:paragraph>Network</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>Network adapter with two interfaces (1 Gbps)</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>Network adapter with two interfaces (1 Gbps)</ofx:paragraph></t:cell>
+		            </t:row>
+		            <t:row>
+		                <t:cell><ofx:paragraph>OS</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>Linux Debian Wheezy</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>Linux Debian Wheezy</ofx:paragraph></t:cell>
+		            </t:row>
+		        </t:body>
+		    </t:content>
+		</t:table>
+		
+	</ofx:section>
+
+</ofx:section>

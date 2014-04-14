@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org"
+			xmlns:t="http://www.openfuxml.org/table"
+			xmlns:layout="http://www.openfuxml.org/layout"
+			 xmlns:l="http://www.openfuxml.org/list"
+			id="section.admin.requirements.introduction">
+
+	<ofx:paragraph lang="en">
+		Like for other systems, also this information system has several requirements on
+		different levels. The fulfillment of all requirements is a critical success factor
+		for the sustainable and safe operation of the system.
+	</ofx:paragraph>
+
+	<l:list>
+	    <l:type description="true"/>
+	    
+	    <!-- Hardware -->
+	    <l:item name="Hardware" lang="en" classifier="reqHardware">
+	    	<ofx:paragraph>
+				The system needs some
+			</ofx:paragraph>
+	    </l:item>
+	    
+	    <!-- Admin -->
+	    <l:item name="System Admnistrator" lang="en" classifier="reqAdmin">
+	    	<ofx:paragraph>
+				The administrator
+			</ofx:paragraph>
+	    </l:item>
+	    
+	    <!-- Developer -->
+	    <l:item name="Application Developer" lang="en" classifier="reqDeveloper">
+	    	<ofx:paragraph>
+				The developer
+			</ofx:paragraph>
+	    </l:item>
+	    
+	    <!-- Developer -->
+	    <l:item name="Metwork" lang="en" classifier="reqNetwork">
+	    	<ofx:paragraph>
+				The network ...
+			</ofx:paragraph>
+	    </l:item>
+	    
+	</l:list>
+
+</ofx:section>

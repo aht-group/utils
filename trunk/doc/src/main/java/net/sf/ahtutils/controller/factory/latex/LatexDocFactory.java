@@ -29,15 +29,16 @@ public class LatexDocFactory
 {	
 	final static Logger logger = LoggerFactory.getLogger(LatexDocFactory.class);
 	
-	private static enum Code {accessIntroduction,
-								
-							systemLogIntroduction,
-							 };
+	private static enum Code {accessIntroduction,};
 							 
-	public static enum InstallationCode {instDebian,instJava,instJboss,instPostGis,instMaven}
-	
+	public static enum MaintenanceCode {mLoggingIntroduction}							 
+							 
+	public static enum InstallationCode {instDebian,instJava,instJboss,instPostGis,instMaven,instGeoserver}
 	public static enum InstallationArchitecture {debianWheezy,debianSqueeze,debianRaspberry}
 	public static enum JBossVersion {as7,eap6}
+	
+	public static enum RequirementsCode {reqIntroduction,reqHardware,reqAdmin,reqDeveloper}
+	public static enum RequirementsClassifier {reqHardware,reqAdmin,reqDeveloper,reqNetwork}
 	
 	private final static String dirTexts = "txt";
 	
@@ -60,11 +61,11 @@ public class LatexDocFactory
 	{
 		logger.info("buildDoc");
 		render(Code.accessIntroduction.toString());
-		render(Code.systemLogIntroduction.toString());
 	}
 
-	public void render(InstallationCode code) throws UtilsConfigurationException{render(code.toString());}
+	public void render(MaintenanceCode code) throws UtilsConfigurationException{render(code.toString());}
 	
+	public void render(InstallationCode code) throws UtilsConfigurationException{render(code.toString());}
 	public void render(InstallationCode code, InstallationArchitecture... architectures) throws UtilsConfigurationException
 	{
 		String[] classifier = new String[architectures.length];
@@ -75,6 +76,14 @@ public class LatexDocFactory
 	{
 		String[] classifier = new String[versions.length];
 		for(int i=0;i<versions.length;i++){classifier[i]=versions[i].toString();}
+		render(code.toString(),classifier);
+	}
+	
+	public void render(RequirementsCode code) throws UtilsConfigurationException{render(code.toString());}
+	public void render(RequirementsCode code, RequirementsClassifier... reqClassifier) throws UtilsConfigurationException
+	{
+		String[] classifier = new String[reqClassifier.length];
+		for(int i=0;i<reqClassifier.length;i++){classifier[i]=reqClassifier[i].toString();}
 		render(code.toString(),classifier);
 	}
 	
@@ -130,7 +139,9 @@ public class LatexDocFactory
 	private void applyConfigCodes()
 	{
 		addConfig(Code.accessIntroduction.toString(),"ofx.aht-utils/administration/access/introduction.xml","admin/access/introduction");
-		addConfig(Code.systemLogIntroduction.toString(),"ofx.aht-utils/administration/logging/introduction.xml","admin/system/logging/introduction");
+		
+		//Maintenance
+		addConfig(MaintenanceCode.mLoggingIntroduction.toString(),"ofx.aht-utils/administration/logging/introduction.xml","admin/system/logging/introduction");
 		
 		//Installation
 		addConfig(InstallationCode.instDebian.toString(),"ofx.aht-utils/installation/debian.xml","admin/installation/debian");
@@ -138,6 +149,14 @@ public class LatexDocFactory
 		addConfig(InstallationCode.instJboss.toString(),"ofx.aht-utils/installation/jboss.xml","admin/installation/jboss");
 		addConfig(InstallationCode.instPostGis.toString(),"ofx.aht-utils/installation/postgres.xml","admin/installation/postgres");
 		addConfig(InstallationCode.instMaven.toString(),"ofx.aht-utils/installation/maven.xml","admin/installation/maven");
+		addConfig(InstallationCode.instGeoserver.toString(),"ofx.aht-utils/installation/geoserver.xml","admin/installation/geoserver");
+		
+		//Requirements
+		addConfig(RequirementsCode.reqIntroduction.toString(),"ofx.aht-utils/requirements/introduction.xml","admin/requirements/introduction");
+		addConfig(RequirementsCode.reqHardware.toString(),"ofx.aht-utils/requirements/hardware.xml","admin/requirements/hardware");
+		addConfig(RequirementsCode.reqAdmin.toString(),"ofx.aht-utils/requirements/administrator.xml","admin/requirements/administrator");
+		addConfig(RequirementsCode.reqDeveloper.toString(),"ofx.aht-utils/requirements/developer.xml","admin/requirements/developer");
+		
 	}
 	
 	private void addConfig(String code, String source, String destination)

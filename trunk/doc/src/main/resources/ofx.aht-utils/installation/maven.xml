@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ofx:section xmlns:ofx="http://www.openfuxml.org" id="section.admin.installation.maven">
-	<ofx:title>Maven</ofx:title>
+	<ofx:title>Apache Maven</ofx:title>
+	
+	<ofx:paragraph lang="en" version="1">
+		Maven is a build automation tool used primarily for Java projects.
+		Maven addresses two aspects of building software: First, it describes how software is built, and second, it describes its dependencies.
+	</ofx:paragraph>
+	
+	<ofx:paragraph lang="en" version="1">
+		Contrary to preceding tools like Apache Ant it uses conventions for the build procedure,
+		and only exceptions need to be written down.
+	</ofx:paragraph>
+	
+	<ofx:paragraph lang="en" version="1">
+		An XML file describes the software project being built, its dependencies on other external modules and components,
+		the build order, directories, and required plug-ins.
+		It comes with pre-defined targets for performing certain well-defined tasks such as compilation of code and
+		its packaging.
+	</ofx:paragraph>
+	
+	<ofx:paragraph lang="en" version="1">
+		Maven dynamically downloads Java libraries and Maven plug-ins from one or more repositories such as the Maven 2 Central Repository,
+		and stores them in a local cache. This local cache of downloaded artifacts can also be updated with artifacts created by local projects.
+		Public repositories can also be updated.
+	</ofx:paragraph>
 	
 	<ofx:section transparent="true" classifier="debianWheezy">>
 		<ofx:title>Linux (Debian Wheezy)</ofx:title>

@@ -2,6 +2,23 @@
 <ofx:section xmlns:ofx="http://www.openfuxml.org" id="section.admin.installation.postgresql">
 	<ofx:title lang="en">PostgresSQL</ofx:title>
 	
+	<ofx:paragraph lang="en" >
+			PostgreSQL, often simply "Postgres", is an object-relational database management system (ORDBMS)
+			with an emphasis on extensibility and standards-compliance.
+		</ofx:paragraph>
+		
+		<ofx:paragraph lang="en" >
+			As a database server, its primary function is to store data, securely and supporting best practices,
+			and retrieve it later, as requested by other software applications, be it those on the same computer
+			or those running on another computer across a network (including the Internet).
+		</ofx:paragraph>
+		
+		<ofx:paragraph lang="en" >
+			It can handle workloads ranging from small single-machine applications to large Internet-facing applications
+			with many concurrent users.
+			Recent versions also provide replication of the database itself for security and scalability.
+		</ofx:paragraph>
+	
 	<ofx:section>
 		<ofx:title lang="en">Installation</ofx:title>
 		

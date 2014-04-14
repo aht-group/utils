@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org"
+			xmlns:t="http://www.openfuxml.org/table"
+			xmlns:layout="http://www.openfuxml.org/layout"
+			 xmlns:l="http://www.openfuxml.org/list"
+			id="section.admin.requirements.admin">
+	<ofx:title lang="en" version="1">System Administrator</ofx:title>
+
+	<l:list>
+	    <l:type ordering="unordered"/>
+	    
+	    <l:item>
+	    	<ofx:paragraph lang="en">
+				Perform regular system monitoring, verifying the integrity and availability
+				of all hardware, server resources, systems and key processes, reviewing system
+				and application logs, and verifying completion of scheduled jobs such as
+				backups.
+			</ofx:paragraph>
+	    </l:item>
+	    
+	    <l:item>
+	    	<ofx:paragraph lang="en">
+				Perform regular security monitoring to identify any possible intrusions.
+			</ofx:paragraph>
+	    </l:item>
+	    
+	    <l:item>
+	    	<ofx:paragraph lang="en">
+				Perform regular backup operations, ensuring all required file systems
+				and system data are successfully backed up to the appropriate media.
+			</ofx:paragraph>
+	    </l:item>
+	    
+	    <l:item>
+	    	<ofx:paragraph lang="en">
+				Repair and recover from hardware or software failures.
+				Coordinate and communicate with impacted constituencies.
+			</ofx:paragraph>
+	    </l:item>
+	    
+	    <l:item>
+	    	<ofx:paragraph lang="en">
+				Apply OS patches and upgrades on a regular basis, and upgrade administrative tools and utilities. Configure / add new services as necessary.
+			</ofx:paragraph>
+	    </l:item>
+	    
+	    <l:item>
+	    	<ofx:paragraph lang="en">
+				Install new / rebuild existing servers and configure hardware,
+				peripherals, services, settings, directories, storage, etc.
+				in accordance with standards and project/operational requirements.
+			</ofx:paragraph>
+	    </l:item>
+	    
+	    <l:item>
+	    	<ofx:paragraph lang="en">
+				Install, configure and maintain applications such as MySQL, JBoss AS and/or GeoServer.
+			</ofx:paragraph>
+	    </l:item>
+	    
+	   	<l:item>
+	    	<ofx:paragraph lang="en">
+				Install, configure and maintain communication infrastructure such as routers, switches, mail servers.
+			</ofx:paragraph>
+	    </l:item>
+	    
+	    <l:item>
+	    	<ofx:paragraph lang="en">
+				Develop and maintain installation and configuration procedures.
+			</ofx:paragraph>
+	    </l:item>
+	    
+	    <l:item>
+	    	<ofx:paragraph lang="en">
+				Perform ongoing performance tuning, hardware upgrades, and resource optimization as required. Configure CPU, memory, and disk partitions as required.
+			</ofx:paragraph>
+	    </l:item>
+	    
+	    <l:item>
+	    	<ofx:paragraph lang="en">
+				Maintain data center environmental and monitoring equipment.
+			</ofx:paragraph>
+	    </l:item>
+	    
+	    <l:item>
+	    	<ofx:paragraph lang="en">
+				Maintain data center environmental and monitoring equipment.
+			</ofx:paragraph>
+	    </l:item>
+	    
+	   	<l:item>
+	    	<ofx:paragraph lang="en">
+				Configure and maintain Microsoft Windows Server. 
+			</ofx:paragraph>
+	    </l:item>
+	    
+	   	<l:item>
+	    	<ofx:paragraph lang="en">
+				Manage Microsoft Active Directory with users, groups and roles.
+			</ofx:paragraph>
+	    </l:item>
+	    
+	    <l:item>
+	    	<ofx:paragraph lang="en">
+				Configure and maintain Microsoft Windows client version.
+				Integration into Windows domain.
+			</ofx:paragraph>
+	    </l:item>
+	    
+	    <l:item>
+	    	<ofx:paragraph lang="en">
+				User support for Microsoft Windows and Microsoft Office.
+			</ofx:paragraph>
+	    </l:item>
+	    
+	</l:list>
+
+</ofx:section>

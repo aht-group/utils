@@ -3,27 +3,22 @@
 			xmlns:l="http://www.openfuxml.org/list"
 			xmlns:layout="http://www.openfuxml.org/layout"
 			xmlns:t="http://www.openfuxml.org/table"
-			id="installation.r">
+			id="section.admin.maintenance.logging.introduction">
 	
-	<ofx:paragraph lang="de">
-		Dieses Informationssystem implemen ein <ofx:emphasis italic="true">mehrstufiges Sicherheitskonzept</ofx:emphasis>, dass den Seitenzugriff sowie
-		den Zugriff auf Informationen, und die Möglichkeit Benutzeraktionen durchzuführen, steuert.
-	</ofx:paragraph>
 	<ofx:paragraph lang="en">
-		This information system has implemented a <ofx:emphasis italic="true">multi-level security concept</ofx:emphasis> which controls the page access as well as
-		the access to information and the ability to perform actions. 
+		In computing, a logfile (or simply log) is a file that records either the events
+		which happen while an operating system or other software runs, or the personal
+		messages between different users of a communication software.
+		The act of keeping a logfile is called logging. In the simplest case,
+		log messages are written to a single log file.
 	</ofx:paragraph>
 	
 	<t:table id="table.admin.system.logs.type">
 	    <ofx:title>Logger Levels</ofx:title>
 	    <t:specification>
 	        <t:columns>
-	            <t:column>
-	                <layout:width>15.0</layout:width>
-	            </t:column>
-	            <t:column>
-	                <layout:width>85.0</layout:width>
-	            </t:column>
+	            <t:column><layout:width>15.0</layout:width></t:column>
+	            <t:column><layout:width>85.0</layout:width></t:column>
 	        </t:columns>
 	    </t:specification>
 	    <t:content>
@@ -80,7 +75,14 @@
 	            </t:row>
 	        </t:body>
 	    </t:content>
-	    
 	</t:table>
+	
+	<ofx:paragraph lang="en">
+		Event logs record events taking place in the execution of a system in order to provide
+		an audit trail that can be used to understand the activity of the system and to
+		diagnose problems. They are essential to understand the activities of complex systems,
+		particularly in the case of applications with little user interaction
+		(such as server applications).
+	</ofx:paragraph>
 	
 </ofx:section>

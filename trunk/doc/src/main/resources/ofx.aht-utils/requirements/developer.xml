@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org"
+			xmlns:t="http://www.openfuxml.org/table"
+			xmlns:layout="http://www.openfuxml.org/layout"
+			 xmlns:l="http://www.openfuxml.org/list"
+			id="section.admin.requirements.developer">
+	<ofx:title lang="en" version="1">Application Developer</ofx:title>
+
+	<l:list>
+	    <l:type ordering="unordered"/>
+	    
+	    <l:item>
+	    	<ofx:paragraph lang="en">
+				Design and implementation of 3 Tier solutions using Java and JavaEE
+			</ofx:paragraph>
+	    </l:item>
+	    
+	   <l:item>
+	    	<ofx:paragraph lang="en">
+				Software Development including participation across all the software product life cycle
+			</ofx:paragraph>
+	    </l:item>
+	    
+	   	<l:item>
+	    	<ofx:paragraph lang="en">
+				Good skills and experiences in Java
+			</ofx:paragraph>
+	    </l:item>
+	    
+	  	<l:item>
+	    	<ofx:paragraph lang="en">
+				Knowledge of Web Application Development using Java/JavaEE and JSF
+			</ofx:paragraph>
+	    </l:item>
+	    
+	    <l:item>
+	    	<ofx:paragraph lang="en">
+				Knowledge of XML technology, e.g. JAXP, JAXB
+			</ofx:paragraph>
+	    </l:item>
+	    
+	    <l:item>
+	    	<ofx:paragraph lang="en">
+				Knowledge of Jasper Reports
+			</ofx:paragraph>
+	    </l:item>
+	    
+	</l:list>
+
+</ofx:section>

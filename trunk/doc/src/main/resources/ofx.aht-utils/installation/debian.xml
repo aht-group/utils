@@ -13,34 +13,76 @@
 		there are over 140 active Debian derivatives, one of the most popular ones is Ubuntu.
 	</ofx:paragraph>
 	
-	<ofx:section>
-		<ofx:title lang="en">Secure Shell (SSH)</ofx:title>
+	<ofx:section id="section.admin.installation.debian.base">
+		<ofx:title lang="en">Base Installation</ofx:title>
 		
-		<ofx:paragraph lang="en" version="1">
-			The Secure Shell (SSH) is a cryptographic network protocol for secure data communication,
-			remote command-line login, remote command execution, and other secure network services between
-			two networked computers. For this system it is used for the administrator to remotely login
-			to the system and excute shell commands.
-		</ofx:paragraph>
-	
-		<ofx:listing>
-			<ofx:raw>apt-get install ssh</ofx:raw>
-		</ofx:listing>
 	</ofx:section>
 	
-	<ofx:section>
-		<ofx:title lang="en">Less</ofx:title>
-		
-		<ofx:paragraph lang="en" version="1">
-			 The terminal pager program less is used to view (but not change) the contents of a text file one
-			 screen at a time. It is similar to more, but has the extended capability of allowing both forward
-			 and backward navigation through the file.
-			 Unlike most Unix text editors/viewers, less does not need to read the entire file before starting,
-			 resulting in faster load times with large files.
-		</ofx:paragraph>
+	<ofx:section id="section.admin.installation.debian.additional">
+		<ofx:title lang="en">Additional Packages</ofx:title>
 	
-		<ofx:listing>
-			<ofx:raw>apt-get install less</ofx:raw>
-		</ofx:listing>
+		<ofx:section>
+			<ofx:title lang="en">Secure Shell (SSH)</ofx:title>
+			
+			<ofx:paragraph lang="en" version="1">
+				The Secure Shell (SSH) is a cryptographic network protocol for secure data communication,
+				remote command-line login, remote command execution, and other secure network services between
+				two networked computers. For this system it is used for the administrator to remotely login
+				to the system and excute shell commands.
+			</ofx:paragraph>
+			
+			<ofx:paragraph lang="en" version="1">
+				SSH can be installed using the built-in tool "apt-get":
+			</ofx:paragraph>
+		
+			<ofx:listing>
+				<ofx:raw>apt-get install ssh</ofx:raw>
+			</ofx:listing>
+			
+			<ofx:paragraph lang="en" version="1">
+				A common used best practice for running SSH on a server is to deactivate the authentication by password
+				and the permission for the user <ofx:emphasis italic="true">root</ofx:emphasis> to log in remotely.
+			</ofx:paragraph>
+			
+			<ofx:paragraph lang="en" version="1">
+				First of all, a cryptographic key has to be generated on the computer of the user. This procedure varies
+				for different operating system, here the process for Linux is described.
+			</ofx:paragraph>
+			
+			<ofx:listing>
+				<ofx:raw>ssh-keygen ddd</ofx:raw>
+			</ofx:listing>
+			
+			<ofx:paragraph lang="en" version="1">
+				The public part of this key (key.pub) has to be appended to the file .authorizedkeys
+			</ofx:paragraph>
+			
+			<ofx:paragraph lang="en" version="1">
+				Then, the server configuration in etc.ssh.sshd has to be updated
+			</ofx:paragraph>
+			
+			<ofx:listing>
+				<ofx:raw>permitrootlogin
+challengeresponsepasswords</ofx:raw>
+			</ofx:listing>
+			
+		</ofx:section>
+		
+		<ofx:section>
+			<ofx:title lang="en">Less</ofx:title>
+			
+			<ofx:paragraph lang="en" version="1">
+				 The terminal pager program less is used to view (but not change) the contents of a text file one
+				 screen at a time. It is similar to more, but has the extended capability of allowing both forward
+				 and backward navigation through the file.
+				 Unlike most Unix text editors/viewers, less does not need to read the entire file before starting,
+				 resulting in faster load times with large files.
+			</ofx:paragraph>
+		
+			<ofx:listing>
+				<ofx:raw>apt-get install less</ofx:raw>
+			</ofx:listing>
+		</ofx:section>
+		
 	</ofx:section>
 </ofx:section>
