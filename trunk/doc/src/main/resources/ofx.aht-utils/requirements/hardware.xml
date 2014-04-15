@@ -115,8 +115,8 @@
 		            </t:row>
 		            <t:row>
 		                <t:cell><ofx:paragraph>HDD</ofx:paragraph></t:cell>
-		                <t:cell><ofx:paragraph>4 or more 10.000 RPM SAS drives, each wich at least 600 GB disk space</ofx:paragraph></t:cell>
-		                <t:cell><ofx:paragraph>4 or more 15.000 RPM SAS drives, each wich at least 400 GB disk space</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>4 or more 10.000 RPM SAS drives, each with at least 600 GB disk space</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>4 or more 15.000 RPM SAS drives, each with at least 400 GB disk space</ofx:paragraph></t:cell>
 		            </t:row>
 		            <t:row>
 		                <t:cell><ofx:paragraph>RAID</ofx:paragraph></t:cell>
