@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:composite="http://java.sun.com/jsf/composite">
+    
+	<composite:interface>
+		<composite:attribute name="value" required="true"/>
+	</composite:interface>
+        
+	<composite:implementation>
+        <p:dataTable var="e" value="#{cc.attrs.value.list}">
+			<p:column>
+				<f:facet name="header"><h:outputText value="#{msg.Date}"/></f:facet>
+				<h:outputText value="#{e.record}">
+					<f:convertDateTime pattern="HH:mm:ss" />
+				</h:outputText>
+			</p:column>
+			<p:column>
+				<f:facet name="header"><h:outputText value="#{msg.Type}"/></f:facet>
+				<h:outputText value="#{msg[e.type]}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header"><h:outputText value="#{msg.Details}"/></f:facet>
+				<h:outputText value="#{e.detail}" />
+			</p:column>
+		</p:dataTable>
+	</composite:implementation>
+</html>
