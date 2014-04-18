@@ -8,9 +8,13 @@ import java.util.Set;
 
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class UtilsBatchException extends Exception implements Serializable
 {
-	private static final long serialVersionUID = 1;
+	private static final long serialVersionUID = 1L;
+	final static Logger logger = LoggerFactory.getLogger(UtilsBatchException.class);
 
 	private List<Exception> exceptions;
 	private List<String> errors;
@@ -55,14 +59,19 @@ public class UtilsBatchException extends Exception implements Serializable
 	
 	public void uniquefyExceptions()
 	{
+		logger.info("Actual: "+exceptions.size());
 		Set<String> setIds = new HashSet<String>();
 		List<Exception> list = new ArrayList<Exception>();
 		for(Exception e : exceptions)
 		{
+			logger.info(e.toString());
 			if(e instanceof UtilsNotFoundException && ((UtilsNotFoundException) e).isWithDetails())
 			{
-				list.add(e);
-				setIds.add(((UtilsNotFoundException) e).toHash());
+				if(!setIds.contains(((UtilsNotFoundException) e).toHash()))
+				{
+					list.add(e);
+					setIds.add(((UtilsNotFoundException) e).toHash());
+				}
 			}
 			else
 			{
@@ -70,5 +79,6 @@ public class UtilsBatchException extends Exception implements Serializable
 			}
 		}
 		exceptions = list;
+		logger.info("Uniquefy: "+exceptions.size());
 	}
 }
