@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<sync:dataUpdate xmlns:sync="http://ahtutils.aht-group.com/sync">
+<sync:dataUpdate xmlns:sync="http://ahtutils.aht-group.com/sync" xmlns:s="http://ahtutils.aht-group.com/status">
     <sync:mapper oldId="123" newId="345" class="net.sf.ahtutils.xml.sync.TestXmlMapper"/>
     <sync:mapper oldId="123" newId="345" class="net.sf.ahtutils.xml.sync.TestXmlMapper"/>
+    <sync:result/>
 </sync:dataUpdate>

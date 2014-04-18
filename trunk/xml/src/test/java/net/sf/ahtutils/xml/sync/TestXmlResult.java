@@ -3,6 +3,7 @@ package net.sf.ahtutils.xml.sync;
 import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
+import net.sf.ahtutils.xml.status.TestXmlStatus;
 import net.sf.exlp.util.DateUtil;
 import net.sf.exlp.util.xml.JaxbUtil;
 
@@ -11,33 +12,31 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestXmlDataUpdate extends AbstractXmlSyncTest
+public class TestXmlResult extends AbstractXmlSyncTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestXmlDataUpdate.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlResult.class);
 	
 	@BeforeClass
 	public static void initFiles()
 	{
-        setXmlFile(dirSuffix,DataUpdate.class);
+        setXmlFile(dirSuffix,Result.class);
 	}
     
     @Test
     public void xml() throws FileNotFoundException
     {
-    	DataUpdate actual = create(true);
-    	DataUpdate expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), DataUpdate.class);
+    	Result actual = create(true);
+    	Result expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Result.class);
     	assertJaxbEquals(expected, actual);
     }  
     
-    public static DataUpdate create(boolean withChilds)
+    public static Result create(boolean withChilds)
     {
-    	DataUpdate xml = new DataUpdate();
+    	Result xml = new Result();
     	
     	if(withChilds)
     	{
-    		xml.getMapper().add(TestXmlMapper.create(false));
-    		xml.getMapper().add(TestXmlMapper.create(false));
-    		xml.setResult(TestXmlResult.create(false));
+    		xml.setStatus(TestXmlStatus.create(false));
     	}
     	
     	return xml;
@@ -50,9 +49,9 @@ public class TestXmlDataUpdate extends AbstractXmlSyncTest
 		UtilsXmlTestBootstrap.init();
 		DateUtil.ignoreTimeZone=true;
 		
-		TestXmlDataUpdate.initJaxb();
-		TestXmlDataUpdate.initFiles();	
-		TestXmlDataUpdate test = new TestXmlDataUpdate();
+		TestXmlResult.initJaxb();
+		TestXmlResult.initFiles();	
+		TestXmlResult test = new TestXmlResult();
 		test.save();
     }
 }

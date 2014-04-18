@@ -124,21 +124,21 @@ public class AbstractSecurityInit <L extends UtilsLang,
 		{
 			updateCategory.actualAdd(category.getCode());
 			
-			C aclCategory;
+			C ejbCategory;
 			try
 			{
-				aclCategory = fSecurity.fByCode(cC,category.getCode());
-				ejbLangFactory.rmLang(fSecurity,aclCategory);
-				ejbDescriptionFactory.rmDescription(fSecurity,aclCategory);
+				ejbCategory = fSecurity.fByCode(cC,category.getCode());
+				ejbLangFactory.rmLang(fSecurity,ejbCategory);
+				ejbDescriptionFactory.rmDescription(fSecurity,ejbCategory);
 			}
 			catch (UtilsNotFoundException e)
 			{
 				try
 				{
-					aclCategory = cC.newInstance();
-					aclCategory.setType(type.toString());
-					aclCategory.setCode(category.getCode());
-					aclCategory = (C)fSecurity.persist(aclCategory);
+					ejbCategory = cC.newInstance();
+					ejbCategory.setType(type.toString());
+					ejbCategory.setCode(category.getCode());
+					ejbCategory = (C)fSecurity.persist(ejbCategory);
 				}
 				catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
 				catch (IllegalAccessException e2) {throw new UtilsConfigurationException(e2.getMessage());}
@@ -147,11 +147,10 @@ public class AbstractSecurityInit <L extends UtilsLang,
 			
 			try
 			{
-				aclCategory.setName(ejbLangFactory.getLangMap(category.getLangs()));
-				aclCategory.setDescription(ejbDescriptionFactory.create(category.getDescriptions()));
-				aclCategory=(C)fSecurity.update(aclCategory);
-				iuChilds(aclCategory,category);
-				
+				ejbCategory.setName(ejbLangFactory.getLangMap(category.getLangs()));
+				ejbCategory.setDescription(ejbDescriptionFactory.create(category.getDescriptions()));
+				ejbCategory=(C)fSecurity.update(ejbCategory);
+				iuChilds(ejbCategory,category);
 			}
 			catch (UtilsContraintViolationException e) {logger.error("",e);}
 			catch (InstantiationException e) {logger.error("",e);}

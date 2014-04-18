@@ -7,6 +7,8 @@ import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
+import net.sf.ahtutils.factory.xml.sync.XmlDataUpdateFactory;
+import net.sf.ahtutils.factory.xml.sync.XmlResultFactory;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
@@ -18,6 +20,7 @@ import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.Usecase;
+import net.sf.ahtutils.xml.sync.DataUpdate;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,15 +44,27 @@ public class SecurityInitUsecases <L extends UtilsLang,
         super(cL,cD,cC,cR,cV,cU,cA,cUser,fAcl);
 	}
 	
-	public void iuUsecases(Access access) throws UtilsConfigurationException
+	public DataUpdate iuUsecases(Access access)
 	{
 		updateUsecases = AhtDbEjbUpdater.createFactory(cU);
 		updateUsecases.dbEjbs(fSecurity.all(cU));
 
-		iuCategory(access, UtilsSecurityCategory.Type.usecase);
+		DataUpdate du = XmlDataUpdateFactory.build();
+		try
+		{
+			iuCategory(access, UtilsSecurityCategory.Type.usecase);
+			du.setResult(XmlResultFactory.buildOk());
+		}
+		catch (UtilsConfigurationException e)
+		{
+			e.printStackTrace();
+			du.setResult(XmlResultFactory.buildFail());
+		}
 		
 		updateUsecases.remove(fSecurity);
 		logger.trace("iuRoles finished");
+
+		return du;
 	}
 	
 	@Override protected void iuChilds(C aclCategory, Category category) throws UtilsConfigurationException

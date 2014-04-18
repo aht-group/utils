@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element ref="{http://ahtutils.aht-group.com/sync}mapper" maxOccurs="unbounded"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/sync}result"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -32,7 +33,8 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "mapper"
+    "mapper",
+    "result"
 })
 @XmlRootElement(name = "dataUpdate")
 public class DataUpdate
@@ -42,6 +44,8 @@ public class DataUpdate
     private final static long serialVersionUID = 1L;
     @XmlElement(required = true)
     protected List<Mapper> mapper;
+    @XmlElement(required = true)
+    protected Result result;
 
     /**
      * Gets the value of the mapper property.
@@ -78,6 +82,34 @@ public class DataUpdate
 
     public void unsetMapper() {
         this.mapper = null;
+    }
+
+    /**
+     * Gets the value of the result property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Result }
+     *     
+     */
+    public Result getResult() {
+        return result;
+    }
+
+    /**
+     * Sets the value of the result property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Result }
+     *     
+     */
+    public void setResult(Result value) {
+        this.result = value;
+    }
+
+    public boolean isSetResult() {
+        return (this.result!= null);
     }
 
 }

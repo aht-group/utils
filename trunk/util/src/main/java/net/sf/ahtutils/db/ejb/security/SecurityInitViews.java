@@ -7,6 +7,8 @@ import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
+import net.sf.ahtutils.factory.xml.sync.XmlDataUpdateFactory;
+import net.sf.ahtutils.factory.xml.sync.XmlResultFactory;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
@@ -19,6 +21,7 @@ import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Action;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.View;
+import net.sf.ahtutils.xml.sync.DataUpdate;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +46,7 @@ public class SecurityInitViews <L extends UtilsLang,
         super(cL,cD,cC,cR,cV,cU,cA,cUser,fAcl);
 	}
 	
-	public void iuViews(Access access) throws UtilsConfigurationException
+	public DataUpdate iuViews(Access access)
 	{
 		updateView = AhtDbEjbUpdater.createFactory(cV);
 		updateAction = AhtDbEjbUpdater.createFactory(cA);
@@ -51,11 +54,23 @@ public class SecurityInitViews <L extends UtilsLang,
 		updateView.dbEjbs(fSecurity.all(cV));
 		updateAction.dbEjbs(fSecurity.all(cA));
 
-		iuCategory(access, UtilsSecurityCategory.Type.view);
+		DataUpdate du = XmlDataUpdateFactory.build();
+		try
+		{
+			iuCategory(access, UtilsSecurityCategory.Type.view);
+			du.setResult(XmlResultFactory.buildOk());
+		}
+		catch (UtilsConfigurationException e)
+		{
+			du.setResult(XmlResultFactory.buildFail());
+			e.printStackTrace();
+		}
 		
 		updateView.remove(fSecurity);
 		updateAction.remove(fSecurity);
 		logger.trace("iuRoles finished");
+		
+		return du;
 	}
 	
 	@Override protected void iuChilds(C aclCategory, Category category) throws UtilsConfigurationException

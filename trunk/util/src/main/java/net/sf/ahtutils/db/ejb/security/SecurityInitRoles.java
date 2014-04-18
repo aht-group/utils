@@ -7,6 +7,8 @@ import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
+import net.sf.ahtutils.factory.xml.sync.XmlDataUpdateFactory;
+import net.sf.ahtutils.factory.xml.sync.XmlResultFactory;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
@@ -20,6 +22,7 @@ import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.Role;
 import net.sf.ahtutils.xml.access.Usecase;
 import net.sf.ahtutils.xml.access.Usecases;
+import net.sf.ahtutils.xml.sync.DataUpdate;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,15 +46,27 @@ public class SecurityInitRoles <L extends UtilsLang,
         super(cL,cD,cC,cR,cV,cU,cA,cUser,fAcl);
 	}
 	
-	public void iuRoles(Access access) throws UtilsConfigurationException
+	public DataUpdate iuRoles(Access access)
 	{
 		updateRole = AhtDbEjbUpdater.createFactory(cR);
 		updateRole.dbEjbs(fSecurity.all(cR));
 
-		iuCategory(access, UtilsSecurityCategory.Type.role);
+		DataUpdate du = XmlDataUpdateFactory.build();
+		try
+		{
+			iuCategory(access, UtilsSecurityCategory.Type.role);
+			du.setResult(XmlResultFactory.buildOk());
+		}
+		catch (UtilsConfigurationException e)
+		{
+			e.printStackTrace();
+			du.setResult(XmlResultFactory.buildFail());
+		}
 		
 		updateRole.remove(fSecurity);
 		logger.trace("iuRoles finished");
+
+		return du;
 	}
 	
 	@Override protected void iuChilds(C aclCategory, Category category) throws UtilsConfigurationException
