@@ -50,6 +50,11 @@ public class UtilsBatchException extends Exception implements Serializable
 		return errors;
 	}
 	
+	public void addAll(List<Exception> exceptions)
+	{
+		this.exceptions.addAll(exceptions);
+	}
+	
 	public void add(Exception e)
 	{
 		exceptions.add(e);
