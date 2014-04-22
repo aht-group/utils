@@ -86,4 +86,9 @@ public class UtilsBatchException extends Exception implements Serializable
 		exceptions = list;
 		logger.info("Uniquefy: "+exceptions.size());
 	}
+	
+	public void throwIfErrors() throws UtilsBatchException
+	{
+		if(this.hasErrors()){throw this;}
+	}
 }
