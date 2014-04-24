@@ -34,7 +34,7 @@ public class LatexDocFactory
 	public static enum MaintenanceCode {mLoggingIntroduction}							 
 							 
 	public static enum InstallationCode {instDebian,instJava,instJboss,instPostGis,instMaven,instGeoserver}
-	public static enum InstallationArchitecture {debianWheezy,debianSqueeze,debianRaspberry}
+	public static enum InstallationArchitecture {debianWheezy,debianSqueeze,debianRaspberry,devJava7FX}
 	public static enum JBossVersion {as7,eap6}
 	
 	public static enum RequirementsCode {reqIntroduction,reqHardware,reqAdmin,reqDeveloper}

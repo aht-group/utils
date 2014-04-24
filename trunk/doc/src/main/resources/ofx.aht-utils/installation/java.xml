@@ -3,7 +3,7 @@
 	
 	<ofx:title>Java</ofx:title>
 	
-	<ofx:section transparent="true" classifier="debianWheezy">
+	<ofx:section transparent="false" classifier="debianWheezy">
 		<ofx:title lang="none">Linux (Debian Wheezy)</ofx:title>
 		
 		<ofx:paragraph lang="en">
@@ -36,5 +36,41 @@ sudo tar -xvzf /home/pi/ejre-7u21-fcs-b11-linux-arm-vfp-client_headless-04_apr_2
 sudo update-alternatives --install /usr/bin/java java /opt/ejre1.7.0_21/bin/java 1
 sudo update-alternatives --set java /opt/ejre1.7.0_21/bin/java</ofx:raw>
 		</ofx:listing>
+	</ofx:section>
+	
+	<ofx:section transparent="false" classifier="devJava7FX">
+		<ofx:title lang="en">JavaFX (Developer)</ofx:title>
+		
+		
+		<ofx:section transparent="true">
+			<ofx:title lang="en">Installation</ofx:title>
+			<ofx:paragraph lang="en">
+				The minimum versions are JDK 7 update 6 or later, and Maven 3.0 or later.
+				http://www.zenjava.com/2012/11/24/from-zero-to-javafx-in-5-minutes/
+			</ofx:paragraph>
+			<ofx:listing>
+				<ofx:raw>mvn com.zenjava:javafx-maven-plugin:2.0:fix-classpath</ofx:raw>
+			</ofx:listing>
+		</ofx:section>
+		
+		<ofx:section classifier="do-not-print">
+			<ofx:title lang="en">Test</ofx:title>
+			<ofx:paragraph lang="en">
+				Open a command prompt and go to a new workspace area (i.e. create a new directory to house your code),
+				then type:
+			</ofx:paragraph>
+			<ofx:listing>
+				<ofx:raw>mvn archetype:generate -DarchetypeGroupId=com.zenjava /
+-DarchetypeArtifactId=javafx-basic-archetype /
+-DarchetypeVersion=2.0.1</ofx:raw>
+			</ofx:listing>
+			<ofx:paragraph lang="en">
+				Change directory into your newly created project and use Maven to launch your application:
+			</ofx:paragraph>
+			<ofx:listing>
+				<ofx:raw>mvn jfx:run</ofx:raw>
+			</ofx:listing>
+		</ofx:section>
+		
 	</ofx:section>
 </ofx:section>
