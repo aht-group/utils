@@ -73,4 +73,17 @@ sudo update-alternatives --set java /opt/ejre1.7.0_21/bin/java</ofx:raw>
 		</ofx:section>
 		
 	</ofx:section>
+	
+	<ofx:section transparent="false" classifier="dev">
+		<ofx:title >Classpath OSX</ofx:title>
+		
+		<ofx:paragraph lang="en">
+			~/.profile
+		</ofx:paragraph>
+		
+		<ofx:listing>
+			<ofx:raw>export JAVA_HOME=$(/usr/libexec/java_home)</ofx:raw>
+		</ofx:listing>
+	</ofx:section>
+	
 </ofx:section>

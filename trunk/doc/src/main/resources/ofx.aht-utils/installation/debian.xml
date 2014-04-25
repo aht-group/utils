@@ -16,6 +16,67 @@
 	<ofx:section id="section.admin.installation.debian.base">
 		<ofx:title lang="en">Base Installation</ofx:title>
 		
+		<ofx:paragraph lang="en" version="1">
+			The network installation CD is sufficient for installation Debian. The ISO image can be obtained from
+		</ofx:paragraph>
+		
+		<ofx:paragraph lang="en" version="1">
+			Install
+			Language: English - English
+			country: your country
+			locale: en_US.UTF-8
+			key map: acutal keyboard mapping
+			Enter hostname (e.g. database)
+			Enter you domain
+			Enter a secure root pwd (twice)
+			Enter a developer account ("Develover") with username "dev"
+			(Setting up clock with network time server may fail)
+		</ofx:paragraph>
+		
+		<ofx:section id="section.admin.installation.debian.partition" classifier="simple">
+			<ofx:title lang="en">Partition disks</ofx:title>
+			
+			<ofx:paragraph lang="en" version="1">
+				Guided - use entire disk
+				Select HDD
+				"All files in one partition"
+				Finish partitioning and write changes to disk
+				Check configuration and confirm
+			</ofx:paragraph>
+						
+		</ofx:section>
+		
+		<ofx:section id="section.admin.installation.debian.mirror">
+			<ofx:title lang="en">Package manager (Mirror)</ofx:title>
+			
+			<ofx:paragraph lang="en" version="1">
+				Select country (or country with good connection to)
+				Select mirror
+				HTTP proxy (can be left blank if no proxy) CONTINUE
+				No participation in package usage survey
+			</ofx:paragraph>
+						
+		</ofx:section>
+		
+		<ofx:section id="section.admin.installation.debian.software">
+			<ofx:title lang="en">Software Selections</ofx:title>
+			
+			<ofx:paragraph lang="en" version="1">
+				all selections can be deactivatged
+			</ofx:paragraph>
+						
+		</ofx:section>
+		
+		<ofx:section id="section.admin.installation.debian.bootloader">
+			<ofx:title lang="en">Software Selections</ofx:title>
+			
+			<ofx:paragraph lang="en" version="1">
+				Install GRUB boot loader to the master boot record: YES
+				Then FINISH the installation
+			</ofx:paragraph>
+						
+		</ofx:section>
+		
 	</ofx:section>
 	
 	<ofx:section id="section.admin.installation.debian.additional">
