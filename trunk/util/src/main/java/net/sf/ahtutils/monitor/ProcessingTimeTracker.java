@@ -8,7 +8,12 @@ public class ProcessingTimeTracker
 	
 	public ProcessingTimeTracker()
 	{
+		this(false);
+	}
+	public ProcessingTimeTracker(boolean autoStart)
+	{
 		counter=0;
+		if(autoStart){start();}
 	}
 	
 	public void start()
