@@ -13,15 +13,15 @@ import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 
 import org.apache.commons.configuration.Configuration;
+import org.openfuxml.content.list.Item;
+import org.openfuxml.content.list.List;
+import org.openfuxml.content.list.Type;
 import org.openfuxml.content.ofx.Comment;
 import org.openfuxml.content.ofx.Paragraph;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.renderer.latex.content.list.LatexListRenderer;
 import org.openfuxml.renderer.latex.content.structure.LatexSectionRenderer;
-import org.openfuxml.xml.content.list.Item;
-import org.openfuxml.xml.content.list.List;
-import org.openfuxml.xml.content.list.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

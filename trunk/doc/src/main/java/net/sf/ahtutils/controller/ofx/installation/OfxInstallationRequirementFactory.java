@@ -6,11 +6,11 @@ import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.util.xml.JaxbUtil;
 
+import org.openfuxml.content.list.List;
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.factory.xml.ofx.list.XmlListFactory;
 import org.openfuxml.factory.xml.ofx.list.XmlListItemFactory;
 import org.openfuxml.util.filter.OfxLangFilter;
-import org.openfuxml.xml.content.list.List;
 import org.openfuxml.xml.xpath.content.SectionXpath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
