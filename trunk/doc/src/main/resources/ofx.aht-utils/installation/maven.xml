@@ -49,10 +49,11 @@ tar -xvzf path_to_download/apache-maven-3.1.0-bin.tar.gz</ofx:raw>
 		</ofx:listing>
 	</ofx:section>
 	
-	<ofx:section transparent="true" classifier="osxMl">
-		<ofx:title>OSX</ofx:title>
+	<ofx:section transparent="true" classifier="osxMavericks">
+		<ofx:title>OSX (Mavericks)</ofx:title>
 		<ofx:paragraph lang="en">
-			Install Homebrew and follow the instructions during the setup script.
+			Install Homebrew and follow the instructions during the setup script. Depending on the actual system the user
+			may be asked to install the "command line developer tools". This tools will be installed automatically.
 		</ofx:paragraph>
 		<ofx:listing>
 			<ofx:raw>ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"

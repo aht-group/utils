@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ofx:section xmlns:ofx="http://www.openfuxml.org" id="section.admin.installation.debian">
+<ofx:section xmlns:ofx="http://www.openfuxml.org"
+			 xmlns:media="http://www.openfuxml.org/media"
+			 xmlns:layout="http://www.openfuxml.org/layout"
+			 id="section.admin.installation.debian">
 	<ofx:title lang="en">Debian Linux</ofx:title>
 	
 	<ofx:paragraph lang="en" version="1">
@@ -13,7 +16,7 @@
 		there are over 140 active Debian derivatives, one of the most popular ones is Ubuntu.
 	</ofx:paragraph>
 	
-	<ofx:section id="section.admin.installation.debian.base">
+	<ofx:section id="section.admin.installation.debian.base.wheezy" classifier="debianWheezy">
 		<ofx:title lang="en">Base Installation</ofx:title>
 		
 		<ofx:paragraph lang="en" version="1">
@@ -33,7 +36,7 @@
 			(Setting up clock with network time server may fail)
 		</ofx:paragraph>
 		
-		<ofx:section id="section.admin.installation.debian.partition" classifier="simple">
+		<ofx:section id="section.admin.installation.debian.base.wheezy.partition" classifier="simple">
 			<ofx:title lang="en">Partition disks</ofx:title>
 			
 			<ofx:paragraph lang="en" version="1">
@@ -43,6 +46,12 @@
 				Finish partitioning and write changes to disk
 				Check configuration and confirm
 			</ofx:paragraph>
+			
+			<media:image id="image.admin.installation.debian.base.wheezy.partition">
+			    <ofx:title>My Test Title</ofx:title>
+			    <layout:alignment horizontal="center"/>
+			    <media:media src="pdf.aht-utils/unknown.pdf" dst="mDst.pdf"/>
+			</media:image>
 						
 		</ofx:section>
 		
