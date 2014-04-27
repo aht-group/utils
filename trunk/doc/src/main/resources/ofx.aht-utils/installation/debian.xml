@@ -50,7 +50,7 @@
 			<media:image id="image.admin.installation.debian.base.wheezy.partition">
 			    <ofx:title>My Test Title</ofx:title>
 			    <layout:alignment horizontal="center"/>
-			    <media:media src="pdf.aht-utils/unknown.pdf" dst="mDst.pdf"/>
+			    <media:media lang="en" src="pdf.aht-utils/under-construction.pdf" dst="en/admin/installation/debian/partition-simple"/>
 			</media:image>
 						
 		</ofx:section>

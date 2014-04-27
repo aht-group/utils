@@ -18,6 +18,8 @@ import org.openfuxml.content.ofx.Comment;
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
+import org.openfuxml.interfaces.CrossMediaManager;
+import org.openfuxml.media.cross.LatexCrossMediaManager;
 import org.openfuxml.renderer.latex.content.structure.LatexSectionRenderer;
 import org.openfuxml.renderer.latex.preamble.LatexPreamble;
 import org.openfuxml.util.filter.OfxClassifierFilter;
@@ -48,6 +50,8 @@ public class LatexDocFactory
 	private String baseLatexDir;
 	private String[] langs;
 	
+	private CrossMediaManager cmm;
+	
 	public LatexDocFactory(Configuration config, String[] langs)
 	{
 		this.config=config;
@@ -55,6 +59,8 @@ public class LatexDocFactory
 		baseLatexDir=config.getString(UtilsDocumentation.keyBaseDocDir);
 		dstFiles = new Hashtable<String,String>();
 		applyConfigCodes();
+		
+		cmm = new LatexCrossMediaManager(new File(baseLatexDir),config.getString(LatexCrossMediaManager.keyOfxLatexImageDir));
 	}
 	
 	public void buildDoc() throws UtilsConfigurationException
@@ -118,22 +124,22 @@ public class LatexDocFactory
 		DocumentationCommentBuilder.doNotModify(comment);
 		section.getContent().add(comment);
 		
-//		try
+		for(String lang : langs)
 		{
-			for(String lang : langs)
-			{
-				
-				OfxLangFilter omf = new OfxLangFilter(lang);
-				Section sectionlang = omf.filterLang(section);
-				File f = new File(baseLatexDir,lang+"/"+dirTexts+"/"+dstFiles.get(code)+".tex");
-				LatexSectionRenderer renderer = new LatexSectionRenderer(1,new LatexPreamble());
-				renderer.render(sectionlang);
-				StringWriter actual = new StringWriter();
-				renderer.write(actual);
-				StringIO.writeTxt(f, actual.toString());
-			}
+			OfxLangFilter omf = new OfxLangFilter(lang);
+			Section sectionlang = omf.filterLang(section);
+			File f = new File(baseLatexDir,lang+"/"+dirTexts+"/"+dstFiles.get(code)+".tex");
+			LatexSectionRenderer renderer = new LatexSectionRenderer(cmm,1,new LatexPreamble());
+			renderer.render(sectionlang);
+			StringWriter actual = new StringWriter();
+			renderer.write(actual);
+			StringIO.writeTxt(f, actual.toString());
 		}
-//		catch (OfxAuthoringException e) {throw new UtilsConfigurationException(e.getMessage());}
+	}
+	
+	public void crossMediaTranscode() throws OfxAuthoringException
+	{
+		cmm.transcode();
 	}
 	
 	private void applyConfigCodes()
