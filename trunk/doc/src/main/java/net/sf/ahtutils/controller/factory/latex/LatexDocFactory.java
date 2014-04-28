@@ -24,6 +24,7 @@ import org.openfuxml.renderer.latex.content.structure.LatexSectionRenderer;
 import org.openfuxml.renderer.latex.preamble.LatexPreamble;
 import org.openfuxml.util.filter.OfxClassifierFilter;
 import org.openfuxml.util.filter.OfxLangFilter;
+import org.openfuxml.util.media.MediaSourceModificationTracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,7 +53,7 @@ public class LatexDocFactory
 	
 	private CrossMediaManager cmm;
 	
-	public LatexDocFactory(Configuration config, String[] langs)
+	public LatexDocFactory(Configuration config, String[] langs,MediaSourceModificationTracker msmt)
 	{
 		this.config=config;
 		this.langs=langs;
@@ -60,7 +61,7 @@ public class LatexDocFactory
 		dstFiles = new Hashtable<String,String>();
 		applyConfigCodes();
 		
-		cmm = new LatexCrossMediaManager(new File(baseLatexDir),config.getString(LatexCrossMediaManager.keyOfxLatexImageDir));
+		cmm = new LatexCrossMediaManager(new File(baseLatexDir),config.getString(LatexCrossMediaManager.keyOfxLatexImageDir),msmt);
 	}
 	
 	public void buildDoc() throws UtilsConfigurationException
