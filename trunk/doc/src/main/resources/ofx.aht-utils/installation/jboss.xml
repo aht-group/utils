@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ofx:section xmlns:ofx="http://www.openfuxml.org"
+			xmlns:text="http://www.openfuxml.org/text"
 	id="section.admin.installation.jboss">
 	<ofx:title lang="en">JBoss Application Server</ofx:title>
 	
@@ -25,14 +26,81 @@
 		</ofx:paragraph>
 	</ofx:section>
 	
-	<ofx:section transparent="true" classifier="eap6">>
+	<ofx:section transparent="true" classifier="eap6">
 		<ofx:title lang="en">EAP 6.1</ofx:title>
-		<ofx:paragraph lang="de">
-			In der Datei /bin/standalone.conf sollte die Sprache fest eingestellt werden
-		</ofx:paragraph>
 		
-		<ofx:listing>
-			<ofx:raw>JAVA_OPTS = ... -Duser.language=en</ofx:raw>
-		</ofx:listing>			
+		<ofx:section>
+			<ofx:title lang="en">Configuration</ofx:title>
+			
+			<ofx:paragraph lang="de" version="1">
+				Um Ausgaben in einer anderen Sprache als Englush zu vermeiden,
+				sollte die Sprache in der Datei <text:emphasis style="typewriter">/bin/standalone.conf</text:emphasis>
+				explizit mit folgender Option gesetzt werden:
+			</ofx:paragraph>
+			<ofx:paragraph lang="en" version="1">
+				To avoid debug outputs in a language different thant english,
+				the language should be explicitly be set in the
+				file <text:emphasis style="typewriter">/bin/standalone.conf</text:emphasis> with the following option:
+			</ofx:paragraph>
+			<ofx:listing>
+				<ofx:raw>JAVA_OPTS = ... -Duser.language=en</ofx:raw>
+			</ofx:listing>
+		</ofx:section>
+		
+		
+		
+		<ofx:section>
+			<ofx:title lang="en">Data Source</ofx:title>
+			
+			<ofx:paragraph lang="en" version="1">
+				The data source describes the connection to the database and registeres it internally in
+				the application server. The password shown is the given listing is an example and should
+				be changed for production use.
+			</ofx:paragraph>
+			<ofx:listing external="listing/admin/installation/jboss/datasource.xml"/>
+		</ofx:section>
+	
+		<ofx:section classifier="postgis">
+			<ofx:title lang="en">PostGIS Database Driver</ofx:title>
+			
+			<ofx:paragraph lang="en" version="1">
+				The in the <text:emphasis style="typewriter">/standalone/configuration/standalone.conf</text:emphasis>
+				in the section <text:emphasis italic="true">server/profile/subsystem</text:emphasis> of the subsystem
+				<text:emphasis italic="true">urn:jboss:domain:datasources:1.1</text:emphasis> as a new driver:
+			</ofx:paragraph>
+			<ofx:listing external="listing/admin/installation/jboss/ds-driver-postgres.xml"/>
+			
+			<ofx:section>
+				<ofx:title lang="en">PostgreSQL Module</ofx:title>
+				
+				<ofx:paragraph lang="en" version="1">
+					Similar to the setup of other JDBC database drivers for JBoss,
+					a module <text:emphasis bold="true">org.postgresql</text:emphasis> has to be registered.
+					In the directory <text:emphasis style="typewriter">/modules/org/postgresql/main</text:emphasis>
+					the new file <text:emphasis style="typewriter">module.xml</text:emphasis> must be created
+					with the following content:
+				</ofx:paragraph>
+				<ofx:listing external="listing/admin/installation/jboss/module-postgres.xml"/>
+				<ofx:paragraph lang="en" version="1">
+					The specified jar files have to be saved in the same directory.
+				</ofx:paragraph>
+			</ofx:section>
+			
+			<ofx:section>
+				<ofx:title lang="en">Hibernate Module</ofx:title>
+				
+				<ofx:paragraph lang="en" version="1">
+					The module <text:emphasis bold="true">hibernate</text:emphasis> already exists in the directory
+					<text:emphasis style="typewriter">/modules/hibernate/main</text:emphasis>
+					and must be extended:
+				</ofx:paragraph>
+				<ofx:listing external="listing/admin/installation/jboss/module-hibernate.xml"/>
+				<ofx:paragraph lang="en" version="1">
+					The specified jar files have to be saved in the same directory.
+				</ofx:paragraph>
+			</ofx:section>
+			
+		</ofx:section>
+	
 	</ofx:section>
 </ofx:section>

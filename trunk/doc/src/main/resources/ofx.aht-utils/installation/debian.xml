@@ -2,6 +2,7 @@
 <ofx:section xmlns:ofx="http://www.openfuxml.org"
 			 xmlns:media="http://www.openfuxml.org/media"
 			 xmlns:layout="http://www.openfuxml.org/layout"
+			 xmlns:text="http://www.openfuxml.org/text"
 			 id="section.admin.installation.debian">
 	<ofx:title lang="en">Debian Linux</ofx:title>
 	
@@ -111,7 +112,7 @@
 			
 			<ofx:paragraph lang="en" version="1">
 				A common used best practice for running SSH on a server is to deactivate the authentication by password
-				and the permission for the user <ofx:emphasis italic="true">root</ofx:emphasis> to log in remotely.
+				and the permission for the user <text:emphasis italic="true">root</text:emphasis> to log in remotely.
 			</ofx:paragraph>
 			
 			<ofx:paragraph lang="en" version="1">

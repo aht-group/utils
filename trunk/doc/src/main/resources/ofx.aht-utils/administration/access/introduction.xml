@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ofx:section xmlns:ofx="http://www.openfuxml.org"
 			 xmlns:l="http://www.openfuxml.org/list"
+			 xmlns:text="http://www.openfuxml.org/text"
 			 id="installation.r">
 	
 	<ofx:paragraph lang="de">
-		Dieses Informationssystem implemen ein <ofx:emphasis italic="true">mehrstufiges Sicherheitskonzept</ofx:emphasis>, dass den Seitenzugriff sowie
+		Dieses Informationssystem implemen ein <text:emphasis italic="true">mehrstufiges Sicherheitskonzept</text:emphasis>, dass den Seitenzugriff sowie
 		den Zugriff auf Informationen, und die Möglichkeit Benutzeraktionen durchzuführen, steuert.
 	</ofx:paragraph>
 	<ofx:paragraph lang="en">
-		This information system has implemented a <ofx:emphasis italic="true">multi-level security concept</ofx:emphasis> which controls the page access as well as
+		This information system has implemented a <text:emphasis italic="true">multi-level security concept</text:emphasis> which controls the page access as well as
 		the access to information and the ability to perform actions. 
 	</ofx:paragraph>
 	
@@ -71,10 +72,10 @@
 	</l:list>
 	
 	<ofx:paragraph lang="en" version="1">
-		The <ofx:emphasis italic="true">Administrator</ofx:emphasis> only has to deal with the assignment of
-		<ofx:emphasis bold="true">Roles</ofx:emphasis> to users. The definition of
-		<ofx:emphasis bold="true">Views</ofx:emphasis>, <ofx:emphasis bold="true">Actions</ofx:emphasis> and
-		<ofx:emphasis bold="true">Actions</ofx:emphasis> is implemented by the system developers.
+		The <text:emphasis italic="true">Administrator</text:emphasis> only has to deal with the assignment of
+		<text:emphasis bold="true">Roles</text:emphasis> to users. The definition of
+		<text:emphasis bold="true">Views</text:emphasis>, <text:emphasis bold="true">Actions</text:emphasis> and
+		<text:emphasis bold="true">Actions</text:emphasis> is implemented by the system developers.
 	</ofx:paragraph>
 	
 </ofx:section>

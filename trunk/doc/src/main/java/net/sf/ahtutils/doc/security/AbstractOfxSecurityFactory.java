@@ -6,7 +6,7 @@ import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 
 import org.apache.commons.configuration.Configuration;
-import org.openfuxml.content.ofx.table.Row;
+import org.openfuxml.content.table.Row;
 import org.openfuxml.factory.table.OfxCellFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

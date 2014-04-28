@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.hibernate">
+    <resources>
+        <!-- Add this for Hibernate-spatial -->
+        <resource-root path="hibernate-spatial-4.0-M1.jar"/>
+        <resource-root path="jts-1.12.jar"/>
+    </resources>
+    <dependencies>
+        <!-- Add this for Hibernate-spatial -->
+        <module name="org.postgresql"/>
+    </dependencies>
+</module>

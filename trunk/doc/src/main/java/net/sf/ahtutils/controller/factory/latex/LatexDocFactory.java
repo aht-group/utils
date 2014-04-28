@@ -38,7 +38,8 @@ public class LatexDocFactory
 							 
 	public static enum InstallationCode {instDebian,instJava,instJboss,instPostGis,instMaven,instGeoserver}
 	public static enum InstallationArchitecture {debianWheezy,debianSqueeze,debianRaspberry,devJava7FX}
-	public static enum JBossVersion {as7,eap6}
+	
+	public static enum JBossClassifier {as7,eap6,mysql,postgis}
 	
 	public static enum RequirementsCode {reqIntroduction,reqHardware,reqAdmin,reqDeveloper}
 	public static enum RequirementsClassifier {reqHardware,reqAdmin,reqDeveloper,reqNetwork}
@@ -79,7 +80,7 @@ public class LatexDocFactory
 		for(int i=0;i<architectures.length;i++){classifier[i]=architectures[i].toString();}
 		render(code.toString(),classifier);
 	}
-	public void render(InstallationCode code, JBossVersion... versions) throws UtilsConfigurationException
+	public void render(InstallationCode code, JBossClassifier... versions) throws UtilsConfigurationException
 	{
 		String[] classifier = new String[versions.length];
 		for(int i=0;i<versions.length;i++){classifier[i]=versions[i].toString();}
