@@ -84,7 +84,7 @@ public class LatexStatusFactory
 			{
 				OfxStatusTableFactory fOfx = new OfxStatusTableFactory(config,lang,translations);
 				fOfx.setColWidths(colWidths);
-				String content = fOfx.saveTable(texName.replaceAll("/", "."),athStatus, headerKeys, ahtParents);
+				String content = fOfx.buildLatexTable(texName.replaceAll("/", "."),athStatus, headerKeys, ahtParents);
 				File f = new File(baseLatexDir+"/"+lang+"/"+dirStatus+"/"+texName+".tex");
 				StringIO.writeTxt(f, content);
 			}

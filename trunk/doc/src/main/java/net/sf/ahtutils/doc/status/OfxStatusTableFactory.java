@@ -53,12 +53,13 @@ public class OfxStatusTableFactory extends AbstractOfxSecurityFactory
 		customColWidths=false;
 	}
 	
-	public String saveTable(String id, Aht xmlStatus, String[] headerKeys) throws OfxAuthoringException, UtilsConfigurationException
+	public String buildLatexTable(String id, Aht xmlStatus, String[] headerKeys) throws OfxAuthoringException, UtilsConfigurationException
 	{
-		return saveTable(id, xmlStatus, headerKeys, null);
+		return buildLatexTable(id, xmlStatus, headerKeys, null);
 	}
-	public String saveTable(String id, Aht xmlStatus, String[] headerKeys, Aht xmlParents) throws OfxAuthoringException, UtilsConfigurationException
+	public String buildLatexTable(String id, Aht xmlStatus, String[] headerKeys, Aht xmlParents) throws OfxAuthoringException, UtilsConfigurationException
 	{
+		logger.trace("Parents? "+(xmlParents!=null));
 		try
 		{	
 			String captionKey = id;
@@ -175,24 +176,33 @@ public class OfxStatusTableFactory extends AbstractOfxSecurityFactory
 	
 	private Specification createSpecifications(boolean withParent) throws UtilsConfigurationException
 	{
-		logger.trace("customColWidths: "+customColWidths);
+		logger.debug("customColWidths: "+customColWidths);
 		if(!customColWidths)
 		{
-			if(withParent){colWidths=colWidths3;}
-			else{colWidths=colWidths4;}
+			if(withParent){colWidths=colWidths4;}
+			else{colWidths=colWidths3;}
 		}
-		logger.trace("colums.length: "+colWidths.length);
+		logger.debug("colums.length: "+colWidths.length);
 		if(withParent && colWidths.length!=4){throw new UtilsConfigurationException("Need 4 column widths");}
 		
 		Columns cols = new Columns();
-		for(int i : colWidths)
+		
+		if(withParent)
 		{
-			cols.getColumn().add(OfxColumnFactory.createCol(i));
+			cols.getColumn().add(OfxColumnFactory.flex(colWidths[0]));
+			cols.getColumn().add(OfxColumnFactory.percentage(colWidths[1]));
+			cols.getColumn().add(OfxColumnFactory.flex(colWidths[2]));
+			cols.getColumn().add(OfxColumnFactory.flex(colWidths[3]));
+		}
+		else
+		{
+			cols.getColumn().add(OfxColumnFactory.percentage(colWidths[0]));
+			cols.getColumn().add(OfxColumnFactory.flex(colWidths[1]));
+			cols.getColumn().add(OfxColumnFactory.flex(colWidths[2]));
 		}
 		
 		Specification specification = new Specification();
 		specification.setColumns(cols);
-		
 		return specification;
 	}
 	
