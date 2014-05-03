@@ -5,7 +5,7 @@ import java.io.StringWriter;
 
 import net.sf.ahtutils.doc.DocumentationCommentBuilder;
 import net.sf.ahtutils.doc.UtilsDocumentation;
-import net.sf.ahtutils.doc.security.AbstractOfxSecurityFactory;
+import net.sf.ahtutils.doc.ofx.AbstractUtilsOfxDocumentationFactory;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.status.Lang;
@@ -36,7 +36,7 @@ import org.openfuxml.renderer.latex.content.table.LatexTableRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class OfxStatusTableFactory extends AbstractOfxSecurityFactory
+public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(OfxStatusTableFactory.class);
 	

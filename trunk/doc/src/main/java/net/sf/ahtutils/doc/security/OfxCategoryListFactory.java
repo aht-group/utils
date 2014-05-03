@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 
 import net.sf.ahtutils.doc.DocumentationCommentBuilder;
+import net.sf.ahtutils.doc.ofx.AbstractUtilsOfxDocumentationFactory;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.status.Description;
 import net.sf.ahtutils.xml.status.Lang;
@@ -25,7 +26,7 @@ import org.openfuxml.renderer.latex.content.structure.LatexSectionRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class OfxCategoryListFactory extends AbstractOfxSecurityFactory
+public class OfxCategoryListFactory extends AbstractUtilsOfxDocumentationFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(OfxCategoryListFactory.class);
 	

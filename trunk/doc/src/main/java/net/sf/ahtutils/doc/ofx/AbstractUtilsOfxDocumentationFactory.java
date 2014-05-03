@@ -1,4 +1,4 @@
-package net.sf.ahtutils.doc.security;
+package net.sf.ahtutils.doc.ofx;
 
 import net.sf.ahtutils.xml.status.Translations;
 import net.sf.ahtutils.xml.xpath.StatusXpath;
@@ -11,16 +11,15 @@ import org.openfuxml.factory.table.OfxCellFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AbstractOfxSecurityFactory
+public class AbstractUtilsOfxDocumentationFactory
 {
-	final static Logger logger = LoggerFactory.getLogger(AbstractOfxSecurityFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(AbstractUtilsOfxDocumentationFactory.class);
 		
 	protected Configuration config;
-	
 	protected String lang;
 	protected Translations translations;
 	
-	public AbstractOfxSecurityFactory(Configuration config, String lang, Translations translations)
+	public AbstractUtilsOfxDocumentationFactory(Configuration config, String lang, Translations translations)
 	{
 		this.config=config;
 		this.lang=lang;

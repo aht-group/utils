@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.sf.ahtutils.doc.DocumentationCommentBuilder;
 import net.sf.ahtutils.doc.UtilsDocumentation;
+import net.sf.ahtutils.doc.ofx.AbstractUtilsOfxDocumentationFactory;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.Role;
 import net.sf.ahtutils.xml.status.Description;
@@ -35,7 +36,7 @@ import org.openfuxml.renderer.latex.content.table.LatexTableRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class OfxRoleTableFactory extends AbstractOfxSecurityFactory
+public class OfxRoleTableFactory extends AbstractUtilsOfxDocumentationFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(OfxRoleTableFactory.class);
 	private static String keyCaptionPrefix = "auTableRoleCaptionPrefix";
