@@ -23,7 +23,7 @@ public class XmlDescriptionsFactory
 	{
 		Descriptions xml = new Descriptions();
 		
-		if(q.isSetDescription())
+		if(q.isSetDescription() && mapEjb!=null)
 		{
 			XmlDescriptionFactory f = new XmlDescriptionFactory(q.getDescription().get(0));
 			for(D ejb : mapEjb.values())
