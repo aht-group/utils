@@ -96,4 +96,26 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
 			}
 		}
 	}
+	
+	public <T extends EjbWithDescription<D>> T persistMissingLangs(UtilsFacade fUtils, String[] keys, T ejb)
+	{
+		for(String key : keys)
+		{
+			if(!ejb.getDescription().containsKey(key))
+			{
+				try
+				{
+					D d = fUtils.persist(create(key, ""));
+					ejb.getDescription().put(key, d);
+					ejb = fUtils.update(ejb);
+				}
+				catch (UtilsContraintViolationException e) {e.printStackTrace();}
+				catch (UtilsLockingException e) {e.printStackTrace();}
+				catch (InstantiationException e) {e.printStackTrace();}
+				catch (IllegalAccessException e) {e.printStackTrace();}
+				catch (UtilsIntegrityException e) {e.printStackTrace();}
+			}
+		}
+		return ejb;
+	}
 }
