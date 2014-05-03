@@ -1,27 +1,3 @@
-
-% Rendering a Latex table with: LatexGridTableRenderer
-\begin{table}[htb]
-\centering
-
-\ifthenelse{\isundefined{\tabLenA}}{\newlength{\tabLenA}}{}
-\ifthenelse{\isundefined{\tabLenB}}{\newlength{\tabLenB}}{}
-\ifthenelse{\isundefined{\tabLenC}}{\newlength{\tabLenC}}{}
-\ifthenelse{\isundefined{\tabLenD}}{\newlength{\tabLenD}}{}
-
-\setlength{\tabLenA}{\textwidth}
-\setlength{\tabLenB}{\textwidth}
-\setlength{\tabLenC}{\textwidth}
-\setlength{\tabLenD}{\textwidth}
-
-\divide\tabLenA by 60000
-\multiply\tabLenA by 30000
-\divide\tabLenB by 60000
-\multiply\tabLenB by 10000
-\divide\tabLenC by 60000
-\multiply\tabLenC by 10000
-\divide\tabLenD by 60000
-\multiply\tabLenD by 10000
-\begin{tabular}{|p{\tabLenA}|p{\tabLenB}|p{\tabLenC}|p{\tabLenD}|}
 \hline
 
 de-key1
@@ -44,5 +20,3 @@ dummy
 0
 \\
 \hline
-\end{tabular}
-\end{table}
