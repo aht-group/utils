@@ -1,13 +1,9 @@
 package net.sf.ahtutils.doc.latex;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import net.sf.ahtutils.doc.UtilsDocumentation;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 
 import org.apache.commons.configuration.Configuration;
-import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.util.media.MediaSourceModificationTracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
