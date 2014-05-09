@@ -2,7 +2,7 @@
 <ofx:section xmlns:ofx="http://www.openfuxml.org"
 			xmlns:t="http://www.openfuxml.org/table"
 			xmlns:layout="http://www.openfuxml.org/layout"
-			 xmlns:l="http://www.openfuxml.org/list"
+			xmlns:l="http://www.openfuxml.org/list"
 			id="section.admin.requirements.developer">
 	<ofx:title lang="en" version="1">Application Developer</ofx:title>
 
