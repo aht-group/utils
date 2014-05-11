@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -24,6 +27,8 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element ref="{http://ahtutils.aht-group.com/sync}mapper" maxOccurs="unbounded"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/sync}result"/>
  *       &lt;/sequence>
+ *       &lt;attribute name="begin" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
+ *       &lt;attribute name="finished" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -46,6 +51,12 @@ public class DataUpdate
     protected List<Mapper> mapper;
     @XmlElement(required = true)
     protected Result result;
+    @XmlAttribute(name = "begin")
+    @XmlSchemaType(name = "dateTime")
+    protected XMLGregorianCalendar begin;
+    @XmlAttribute(name = "finished")
+    @XmlSchemaType(name = "dateTime")
+    protected XMLGregorianCalendar finished;
 
     /**
      * Gets the value of the mapper property.
@@ -110,6 +121,62 @@ public class DataUpdate
 
     public boolean isSetResult() {
         return (this.result!= null);
+    }
+
+    /**
+     * Gets the value of the begin property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public XMLGregorianCalendar getBegin() {
+        return begin;
+    }
+
+    /**
+     * Sets the value of the begin property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public void setBegin(XMLGregorianCalendar value) {
+        this.begin = value;
+    }
+
+    public boolean isSetBegin() {
+        return (this.begin!= null);
+    }
+
+    /**
+     * Gets the value of the finished property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public XMLGregorianCalendar getFinished() {
+        return finished;
+    }
+
+    /**
+     * Sets the value of the finished property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public void setFinished(XMLGregorianCalendar value) {
+        this.finished = value;
+    }
+
+    public boolean isSetFinished() {
+        return (this.finished!= null);
     }
 
 }

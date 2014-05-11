@@ -24,6 +24,8 @@ public class TxtDataUpdateFactory
 		}
 		sb.append("]");
 		
+		sb.append(" ").append(du.getResult().getSuccess()+"/"+du.getResult().getTotal());
+		
 		return sb.toString();
 	}
 }

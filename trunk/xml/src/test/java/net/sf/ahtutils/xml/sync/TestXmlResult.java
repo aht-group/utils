@@ -33,6 +33,9 @@ public class TestXmlResult extends AbstractXmlSyncTest
     public static Result create(boolean withChilds)
     {
     	Result xml = new Result();
+    	xml.setTotal(3);
+    	xml.setSuccess(2);
+    	xml.setFail(1);
     	
     	if(withChilds)
     	{

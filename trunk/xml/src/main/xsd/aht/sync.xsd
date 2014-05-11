@@ -10,6 +10,8 @@
                 <xsd:element ref="sync:mapper" maxOccurs="unbounded"/>
                 <xsd:element ref="sync:result" maxOccurs="1"/>
             </xsd:sequence>
+            <xsd:attribute name="begin" type="xsd:dateTime"/>
+            <xsd:attribute name="finished" type="xsd:dateTime"/>
         </xsd:complexType>
     </xsd:element>
 	<xsd:element name="mapper">
@@ -21,9 +23,12 @@
     </xsd:element>
     <xsd:element name="result">
         <xsd:complexType>
-        <xsd:sequence>
+        	<xsd:sequence>
                 <xsd:element ref="us:status" maxOccurs="1"/>
             </xsd:sequence>
+            <xsd:attribute name="total" type="xsd:long"/>
+            <xsd:attribute name="success" type="xsd:long"/>
+            <xsd:attribute name="fail" type="xsd:long"/>
         </xsd:complexType>
     </xsd:element>
 </xsd:schema>

@@ -2,6 +2,7 @@ package net.sf.ahtutils.xml.sync;
 
 import java.io.FileNotFoundException;
 
+import net.sf.ahtutils.test.AbstractAhtUtilsXmlTest;
 import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
 import net.sf.exlp.util.DateUtil;
 import net.sf.exlp.util.xml.JaxbUtil;
@@ -32,6 +33,8 @@ public class TestXmlDataUpdate extends AbstractXmlSyncTest
     public static DataUpdate create(boolean withChilds)
     {
     	DataUpdate xml = new DataUpdate();
+    	xml.setBegin(AbstractAhtUtilsXmlTest.getDefaultXmlDate());
+    	xml.setFinished(AbstractAhtUtilsXmlTest.getDefaultXmlDate());
     	
     	if(withChilds)
     	{
