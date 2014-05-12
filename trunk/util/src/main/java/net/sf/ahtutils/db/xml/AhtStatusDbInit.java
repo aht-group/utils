@@ -25,14 +25,14 @@ import net.sf.exlp.util.xml.JaxbUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AhtStatusDbInit
+public class AhtStatusDbInit <S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription>
 {
 	final static Logger logger = LoggerFactory.getLogger(AhtStatusDbInit.class);
 	
 	private Map<String,Set<Long>> mDbAvailableStatus;
 	private Set<Long> sDeleteLangs,sDeleteDescriptions;
 
-	private EjbStatusFactory statusEjbFactory;
+	private EjbStatusFactory<S,L,D> statusEjbFactory;
 	private UtilsFacade fStatus;
 
 	public AhtStatusDbInit()
@@ -42,7 +42,7 @@ public class AhtStatusDbInit
 		sDeleteDescriptions = new HashSet<Long>();
 	}
 	
-	public void setStatusEjbFactory(EjbStatusFactory statusEjbFactory) {this.statusEjbFactory = statusEjbFactory;}
+	public void setStatusEjbFactory(EjbStatusFactory<S,L,D> statusEjbFactory) {this.statusEjbFactory = statusEjbFactory;}
 	public void setFacade(UtilsFacade fStatus){this.fStatus=fStatus;}
 	
 	public List<Status> getStatus(String xmlFile) throws FileNotFoundException
@@ -149,21 +149,21 @@ public class AhtStatusDbInit
 		 }
 	}
 	
-	public <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription> void iuStatus(List<Status> list, Class<S> cStatus, Class<L> cLang)
+	public  void iuStatus(List<Status> list, Class<S> cStatus, Class<L> cLang)
 	{
 		if(fStatus==null){logger.warn("No Handler available");return;}
 		else {logger.info("Updating "+cStatus.getSimpleName()+" with "+list.size()+" entries");}
 		iuStatusEJB(list, cStatus, cLang,null);
 	}
 	
-	public <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription, P extends UtilsStatus<P,L,D>> void iuStatus(List<Status> list, Class<S> cStatus, Class<L> cLang, Class<P> cParent)
+	public <P extends UtilsStatus<P,L,D>> void iuStatus(List<Status> list, Class<S> cStatus, Class<L> cLang, Class<P> cParent)
 	{
 		if(fStatus==null){logger.warn("No Handler available");return;}
 		else {logger.info("Updating "+cStatus.getSimpleName()+" with "+list.size()+" entries");}
 		iuStatusEJB(list, cStatus, cLang, cParent);
 	}
 	
-	private <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription, P extends UtilsStatus<P,L,D>> void iuStatusEJB(List<Status> list, Class<S> cStatus, Class<L> cLang, Class<P> cParent)
+	private <P extends UtilsStatus<P,L,D>> void iuStatusEJB(List<Status> list, Class<S> cStatus, Class<L> cLang, Class<P> cParent)
 	{
 		for(Status xml : list)
 		{

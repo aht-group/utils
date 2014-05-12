@@ -50,6 +50,12 @@ public class DataUpdateTracker
 		update.getResult().setFail(update.getResult().getFail()+1);
 	}
 	
+	public void add(DataUpdate dataUpdate)
+	{
+		update.getResult().setFail(update.getResult().getFail()+dataUpdate.getResult().getFail());
+		update.getResult().setSuccess(update.getResult().getSuccess()+dataUpdate.getResult().getSuccess());
+	}
+	
 	public DataUpdate toDataUpdate()
 	{
 		if(!update.isSetFinished()){stop();}
