@@ -153,17 +153,35 @@ public class AhtStatusDbInit <S extends UtilsStatus<S,L,D>, L extends UtilsLang,
 	{
 		if(fStatus==null){logger.warn("No Handler available");return;}
 		else {logger.info("Updating "+cStatus.getSimpleName()+" with "+list.size()+" entries");}
-		iuStatusEJB(list, cStatus, cLang,null);
+		iuStatusEJB(list, cStatus, cLang);
 	}
 	
 	public <P extends UtilsStatus<P,L,D>> void iuStatus(List<Status> list, Class<S> cStatus, Class<L> cLang, Class<P> cParent)
 	{
 		if(fStatus==null){logger.warn("No Handler available");return;}
 		else {logger.info("Updating "+cStatus.getSimpleName()+" with "+list.size()+" entries");}
-		iuStatusEJB(list, cStatus, cLang, cParent);
+		iuStatusEJB(list, cStatus, cLang);
+		
+		for(Status xml : list)
+		{
+			try
+			{
+				if(xml.isSetParent() && cParent!=null)
+				{
+					logger.trace("Parent: "+xml.getParent().getCode());
+					S ejbStatus = fStatus.fByCode(cStatus,xml.getCode());
+					ejbStatus.setParent(fStatus.fByCode(cParent, xml.getParent().getCode()));
+					ejbStatus = fStatus.update(ejbStatus);
+				}
+			}
+			catch (UtilsContraintViolationException e){logger.error("",e);}
+			catch (UtilsLockingException e) {logger.error("",e);}
+			catch (UtilsNotFoundException e) {logger.error("",e);}
+		}
+		
 	}
 	
-	private <P extends UtilsStatus<P,L,D>> void iuStatusEJB(List<Status> list, Class<S> cStatus, Class<L> cLang, Class<P> cParent)
+	private void iuStatusEJB(List<Status> list, Class<S> cStatus, Class<L> cLang)
 	{
 		for(Status xml : list)
 		{
@@ -215,19 +233,12 @@ public class AhtStatusDbInit <S extends UtilsStatus<S,L,D>, L extends UtilsLang,
 				if(xml.isSetVisible()){ejbStatus.setVisible(xml.isVisible());}
 				else{ejbStatus.setVisible(false);}
 				
-				if(xml.isSetParent() && cParent!=null)
-				{
-					logger.trace("Parent: "+xml.getParent().getCode());
-					ejbStatus.setParent(fStatus.fByCode(cParent, xml.getParent().getCode()));
-				}
-				
 				ejbStatus = fStatus.update(ejbStatus);
 			}
 			catch (UtilsContraintViolationException e){logger.error("",e);}
 			catch (InstantiationException e) {logger.error("",e);}
 			catch (IllegalAccessException e) {logger.error("",e);}
 			catch (UtilsLockingException e) {logger.error("",e);}
-			catch (UtilsNotFoundException e) {logger.error("",e);}
 		}
 	}
 	
