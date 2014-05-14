@@ -1,20 +1,13 @@
 package net.sf.ahtutils.controller.factory.ofx.navigation;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 import net.sf.ahtutils.controller.factory.xml.navigation.XmlMenuItemFactory;
 import net.sf.ahtutils.test.AhtUtilsDocBootstrap;
 import net.sf.ahtutils.xml.navigation.Menu;
-import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
-import org.openfuxml.exception.OfxAuthoringException;
-import org.openfuxml.renderer.latex.content.graph.LatexTreeRenderer;
-import org.openfuxml.xml.addon.graph.Tree;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,7 +36,8 @@ public class TestOfxMenuTreeFactory extends AbstractOfxNavigationFactoryTest
 		menu.getMenuItem().add(XmlMenuItemFactory.create("myLabel2"));
 		menu.getMenuItem().get(0).getMenuItem().add(XmlMenuItemFactory.create("myLabel1.1"));
 	}
-	
+
+	/*
 	@Test
 	public void testOfx() throws FileNotFoundException
 	{
@@ -63,7 +57,7 @@ public class TestOfxMenuTreeFactory extends AbstractOfxNavigationFactoryTest
     	save(renderer,fTxt);
     	assertText(renderer,fTxt);	
 	}
-	
+*/	
 	public static void main(String[] args) throws Exception
     {
 		AhtUtilsDocBootstrap.init();
@@ -72,7 +66,7 @@ public class TestOfxMenuTreeFactory extends AbstractOfxNavigationFactoryTest
 		TestOfxMenuTreeFactory test = new TestOfxMenuTreeFactory();
 		test.setSaveReference(true);
 		test.init();
-		test.testOfx();
-		test.testLatex();
+//		test.testOfx();
+//		test.testLatex();
     }
 }

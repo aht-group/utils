@@ -8,10 +8,10 @@ import net.sf.ahtutils.xml.navigation.Menu;
 import net.sf.ahtutils.xml.navigation.MenuItem;
 import net.sf.exlp.util.io.StringIO;
 
+import org.metachart.xml.graph.Node;
+import org.metachart.xml.graph.Tree;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.renderer.latex.content.graph.LatexTreeRenderer;
-import org.openfuxml.xml.addon.graph.Node;
-import org.openfuxml.xml.addon.graph.Tree;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,13 +30,13 @@ public class OfxMenuTreeFactory
 		{
 			logger.debug("Saving Reference to "+f);
 			LatexTreeRenderer renderer = new LatexTreeRenderer();
-			renderer.render(create(menu));
+//			renderer.render(create(menu));
 			StringWriter actual = new StringWriter();
 			renderer.write(actual);
 			StringIO.writeTxt(f, actual.toString());
 			
 		}
-		catch (OfxAuthoringException e) {logger.error("Something went wrong during ofx/latex transformation ",e);}
+//		catch (OfxAuthoringException e) {logger.error("Something went wrong during ofx/latex transformation ",e);}
 		catch (IOException e) {logger.error("Cannot save the file to "+f.getAbsolutePath(),e);}
 	}
 	

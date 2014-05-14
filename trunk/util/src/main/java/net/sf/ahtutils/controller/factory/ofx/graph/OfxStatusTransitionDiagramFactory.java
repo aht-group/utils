@@ -8,11 +8,11 @@ import java.util.Map;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-import org.openfuxml.xml.addon.graph.Edge;
-import org.openfuxml.xml.addon.graph.Edges;
-import org.openfuxml.xml.addon.graph.Graph;
-import org.openfuxml.xml.addon.graph.Node;
-import org.openfuxml.xml.addon.graph.Nodes;
+import org.metachart.xml.graph.Edge;
+import org.metachart.xml.graph.Edges;
+import org.metachart.xml.graph.Graph;
+import org.metachart.xml.graph.Node;
+import org.metachart.xml.graph.Nodes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
