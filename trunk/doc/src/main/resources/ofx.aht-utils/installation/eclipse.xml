@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ofx:section xmlns:ofx="http://www.openfuxml.org" id="installation.r">
+<ofx:section xmlns:ofx="http://www.openfuxml.org" id="section.admin.installation.eclipse">
 	<ofx:title lang="en">Installation of Eclipse</ofx:title>
+	
+	<ofx:section id="section.admin.installation.eclipse.git" classifier="git">
+		<ofx:title lang="en">GIT</ofx:title>
+		
+		<ofx:paragraph lang="en">
+			m2e-git
+		</ofx:paragraph>
+		
+	</ofx:section>
+	
 	
 	<ofx:section>
 		<ofx:title lang="en">FAQ</ofx:title>
 		<ofx:paragraph lang="en">
-			Hanging during start
+			Hanging during start at mylyn
 		</ofx:paragraph>
-		<ofx:listing>
-			<ofx:raw>
-				apt-get install ssh
-			</ofx:raw>
-		</ofx:listing>
 	</ofx:section>
+	
 </ofx:section>
