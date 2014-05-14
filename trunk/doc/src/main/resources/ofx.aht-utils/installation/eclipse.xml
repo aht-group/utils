@@ -9,13 +9,18 @@
 			m2e-git
 		</ofx:paragraph>
 		
+		<ofx:paragraph lang="en">
+			Project - Exxplorer - (r.click) New - Other - Maven
+		</ofx:paragraph>
+		
 	</ofx:section>
 	
 	
 	<ofx:section>
 		<ofx:title lang="en">FAQ</ofx:title>
 		<ofx:paragraph lang="en">
-			Hanging during start at mylyn
+			Q: Hanging during start at org.eclipse.mylyn.tasks.ui
+			A: In most cases it's the best to restore the complete workspace from a backup.
 		</ofx:paragraph>
 	</ofx:section>
 	

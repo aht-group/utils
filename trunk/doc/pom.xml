@@ -62,6 +62,24 @@
 			<groupId>org.openfuxml</groupId>
 			<artifactId>ofx-core</artifactId>
 		</dependency>
+		
+		<!-- MetaChart -->
+		<dependency>
+			<groupId>org.metachart</groupId>
+			<artifactId>metachart-core</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		
+		<dependency>
+		    <groupId>org.jboss.spec</groupId>
+		    <artifactId>jboss-javaee-6.0</artifactId>
+		    <type>pom</type>
+		    <scope>provided</scope>
+		</dependency>
+			
+			
 		<dependency>
 			<groupId>net.sf.ahtutils</groupId>
 			<artifactId>ahtutils-xml</artifactId>

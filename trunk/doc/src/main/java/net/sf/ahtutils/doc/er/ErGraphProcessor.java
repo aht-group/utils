@@ -1,4 +1,4 @@
-package net.sf.ahtutils.controller.factory.ofx.graph;
+package net.sf.ahtutils.doc.er;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,18 +14,18 @@ import net.sf.exlp.util.io.ClassUtil;
 import net.sf.exlp.util.io.dir.RecursiveFileFinder;
 
 import org.apache.commons.io.filefilter.FileFilterUtils;
-import org.openfuxml.xml.addon.graph.Edge;
-import org.openfuxml.xml.addon.graph.Edges;
-import org.openfuxml.xml.addon.graph.Graph;
-import org.openfuxml.xml.addon.graph.Node;
-import org.openfuxml.xml.addon.graph.Nodes;
+import org.metachart.xml.graph.Edge;
+import org.metachart.xml.graph.Edges;
+import org.metachart.xml.graph.Graph;
+import org.metachart.xml.graph.Node;
+import org.metachart.xml.graph.Nodes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class OfxErDiagramFactory
+public class ErGraphProcessor
 {
 	private static enum Cardinality {OneToOne,OneToMany,ManyToOne,ManyToMany}
-	final static Logger logger = LoggerFactory.getLogger(OfxErDiagramFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(ErGraphProcessor.class);
 	
 	private File fBase;
 	
@@ -34,7 +34,7 @@ public class OfxErDiagramFactory
 	private Map<String,Boolean> mapChilds;
 	private Graph graph;
 	
-	public OfxErDiagramFactory(File fBase)
+	public ErGraphProcessor(File fBase)
 	{
 		this.fBase=fBase;
 		
