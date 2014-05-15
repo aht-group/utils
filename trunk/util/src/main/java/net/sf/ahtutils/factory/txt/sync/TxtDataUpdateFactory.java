@@ -13,6 +13,21 @@ public class TxtDataUpdateFactory
 	{
 		StringBuffer sb = new StringBuffer();
 		
+		if(du.isSetType())
+		{
+			if(du.getType().isSetLabel()){sb.append(du.getType().getLabel()).append(" ");}
+			if(du.getType().isSetCode())
+			{
+				try
+				{
+					Class<?> c;
+					c = Class.forName(du.getType().getCode());
+					sb.append(c.getSimpleName()).append(" ");
+				}
+				catch (ClassNotFoundException e) {}
+			}
+		}
+		
 		sb.append("[");
 		if(du.isSetResult() && du.getResult().isSetStatus() && du.getResult().getStatus().isSetCode())
 		{
