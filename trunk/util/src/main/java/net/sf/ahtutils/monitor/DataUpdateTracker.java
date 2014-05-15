@@ -3,6 +3,7 @@ package net.sf.ahtutils.monitor;
 import java.util.Date;
 
 import net.sf.ahtutils.factory.xml.status.XmlStatusFactory;
+import net.sf.ahtutils.xml.status.Type;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 import net.sf.ahtutils.xml.sync.Result;
 import net.sf.exlp.util.DateUtil;
@@ -54,6 +55,11 @@ public class DataUpdateTracker
 	{
 		update.getResult().setFail(update.getResult().getFail()+dataUpdate.getResult().getFail());
 		update.getResult().setSuccess(update.getResult().getSuccess()+dataUpdate.getResult().getSuccess());
+	}
+	
+	public void setType(Type type)
+	{
+		update.setType(type);
 	}
 	
 	public DataUpdate toDataUpdate()

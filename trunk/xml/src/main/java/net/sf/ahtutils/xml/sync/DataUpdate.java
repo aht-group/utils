@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
+import net.sf.ahtutils.xml.status.Type;
 
 
 /**
@@ -25,6 +26,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element ref="{http://ahtutils.aht-group.com/sync}mapper" maxOccurs="unbounded"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/status}type"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/sync}result"/>
  *       &lt;/sequence>
  *       &lt;attribute name="begin" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
@@ -39,6 +41,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "mapper",
+    "type",
     "result"
 })
 @XmlRootElement(name = "dataUpdate")
@@ -49,6 +52,8 @@ public class DataUpdate
     private final static long serialVersionUID = 1L;
     @XmlElement(required = true)
     protected List<Mapper> mapper;
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
+    protected Type type;
     @XmlElement(required = true)
     protected Result result;
     @XmlAttribute(name = "begin")
@@ -93,6 +98,34 @@ public class DataUpdate
 
     public void unsetMapper() {
         this.mapper = null;
+    }
+
+    /**
+     * Gets the value of the type property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Type }
+     *     
+     */
+    public Type getType() {
+        return type;
+    }
+
+    /**
+     * Sets the value of the type property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Type }
+     *     
+     */
+    public void setType(Type value) {
+        this.type = value;
+    }
+
+    public boolean isSetType() {
+        return (this.type!= null);
     }
 
     /**

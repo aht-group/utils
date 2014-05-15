@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.AbstractAhtUtilsXmlTest;
 import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
+import net.sf.ahtutils.xml.status.Type;
 import net.sf.exlp.util.DateUtil;
 import net.sf.exlp.util.xml.JaxbUtil;
 
@@ -41,6 +42,7 @@ public class TestXmlDataUpdate extends AbstractXmlSyncTest
     		xml.getMapper().add(TestXmlMapper.create(false));
     		xml.getMapper().add(TestXmlMapper.create(false));
     		xml.setResult(TestXmlResult.create(false));
+    		xml.setType(new Type());
     	}
     	
     	return xml;
