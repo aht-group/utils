@@ -28,11 +28,15 @@
 			
 		</ofx:section>
 		
-		<ofx:section id="section.admin.installation.eclipse.git.m2e">
-			<ofx:title lang="en">Checkout repository</ofx:title>
+		<ofx:section id="section.admin.installation.eclipse.checkout.git">
+			<ofx:title lang="en">Checkout GIT repository</ofx:title>
 		
 			<ofx:paragraph lang="en">
-				ProjectExplorer - (r.click) New - Other - Maven
+				ProjectExplorer - (r.click) New - Other - Maven - Checkout Maven Projects from SCM
+
+SCM URL: git    http...
+
+Next
 			</ofx:paragraph>
 		</ofx:section>
 	</ofx:section>
