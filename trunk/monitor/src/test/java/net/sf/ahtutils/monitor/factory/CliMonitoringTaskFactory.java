@@ -1,6 +1,6 @@
 package net.sf.ahtutils.monitor.factory;
 
-import net.sf.ahtutils.monitor.factory.MonitoringTaskFactory;
+import net.sf.ahtutils.monitor.worker.MonitoringScheduler;
 import net.sf.ahtutils.test.UtilsMonitorTestBootstrap;
 
 import org.slf4j.Logger;
@@ -14,7 +14,7 @@ public class CliMonitoringTaskFactory
 	{
 		UtilsMonitorTestBootstrap.init();
 		
-	    new MonitoringTaskFactory();
+	    new MonitoringScheduler();
 
 	  }
 }

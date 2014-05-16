@@ -4,10 +4,10 @@ import java.util.Date;
 import java.util.List;
 
 import net.sf.ahtutils.interfaces.facade.UtilsMonitoringFacade;
-import net.sf.ahtutils.monitor.DbCleaner;
 import net.sf.ahtutils.monitor.factory.AbstractTransmissionFactory;
 import net.sf.ahtutils.monitor.result.net.DnsResult;
 import net.sf.ahtutils.monitor.result.net.IcmpResult;
+import net.sf.ahtutils.monitor.util.DbCleaner;
 import net.sf.ahtutils.xml.monitoring.Data;
 import net.sf.ahtutils.xml.monitoring.DataSet;
 import net.sf.ahtutils.xml.monitoring.Indicator;
@@ -51,7 +51,6 @@ public class TxDnsFactory extends AbstractTransmissionFactory
 			mdtStart.add(range);
 			mdtEnd.add(range);
 		}
-		
 		
 		return indicator;
 	}

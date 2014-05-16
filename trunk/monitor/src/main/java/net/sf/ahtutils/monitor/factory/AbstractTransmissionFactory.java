@@ -1,7 +1,7 @@
 package net.sf.ahtutils.monitor.factory;
 
 import net.sf.ahtutils.interfaces.facade.UtilsMonitoringFacade;
-import net.sf.ahtutils.monitor.DbCleaner;
+import net.sf.ahtutils.monitor.util.DbCleaner;
 
 public class AbstractTransmissionFactory
 {

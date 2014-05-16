@@ -6,12 +6,13 @@ import java.util.concurrent.Future;
 
 import javax.persistence.EntityManager;
 
+import net.sf.ahtutils.interfaces.controller.MonitoringResultProcessor;
 import net.sf.ahtutils.monitor.result.net.DnsResult;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DnsResultProcessor implements Runnable
+public class DnsResultProcessor implements MonitoringResultProcessor
 {
 	final static Logger logger = LoggerFactory.getLogger(DnsResultProcessor.class);
 

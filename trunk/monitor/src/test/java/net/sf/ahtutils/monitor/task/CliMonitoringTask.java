@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import net.sf.ahtutils.monitor.task.MonitoringTask;
+import net.sf.ahtutils.monitor.worker.MonitoringTaskBuilder;
 import net.sf.ahtutils.test.UtilsMonitorTestBootstrap;
 
 import org.slf4j.Logger;
@@ -14,11 +14,11 @@ public class CliMonitoringTask
 {
 	final static Logger logger = LoggerFactory.getLogger(CliMonitoringTask.class);
 	
-	public static void main (String... arguments )
+	public static void main (String[] args)
 	{
 		UtilsMonitorTestBootstrap.init();
 		
-	    TimerTask fetchMail  = new MonitoringTask();
+	    TimerTask fetchMail  = new MonitoringTaskBuilder();
 
 	    Timer timer = new Timer();
 	    timer.scheduleAtFixedRate(fetchMail, new Date(), 1000);

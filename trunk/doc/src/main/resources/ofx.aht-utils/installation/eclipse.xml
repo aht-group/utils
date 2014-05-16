@@ -5,14 +5,36 @@
 	<ofx:section id="section.admin.installation.eclipse.git" classifier="git">
 		<ofx:title lang="en">GIT</ofx:title>
 		
-		<ofx:paragraph lang="en">
-			m2e-git
-		</ofx:paragraph>
+		<ofx:section id="section.admin.installation.eclipse.git.m2e">
+			<ofx:title lang="en">Maven Git Connector</ofx:title>
+			
+			<ofx:paragraph lang="en">
+			
+			ProjectExplorer - (r.click) New - Other - Maven - Checkout Maven Projects from  - Next
+	
+	Find more SCM connectors in the m2e Marketplace
+	
+	Find: "m2e"
+	
+	Select "m2e-egit"
+	
+	Finish - Next - Next
+	
+	"I accept the terms of the license agreements" - Finish
+	
+	Restart Eclipse
+	
+			</ofx:paragraph>
+			
+		</ofx:section>
 		
-		<ofx:paragraph lang="en">
-			Project - Exxplorer - (r.click) New - Other - Maven
-		</ofx:paragraph>
+		<ofx:section id="section.admin.installation.eclipse.git.m2e">
+			<ofx:title lang="en">Checkout repository</ofx:title>
 		
+			<ofx:paragraph lang="en">
+				ProjectExplorer - (r.click) New - Other - Maven
+			</ofx:paragraph>
+		</ofx:section>
 	</ofx:section>
 	
 	

@@ -10,12 +10,12 @@ import net.sf.ahtutils.controller.facade.UtilsMonitoringFacadeBean;
 import net.sf.ahtutils.exception.processing.UtilsProcessingException;
 import net.sf.ahtutils.interfaces.facade.UtilsMonitoringFacade;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
-import net.sf.ahtutils.monitor.DbCleaner;
-import net.sf.ahtutils.monitor.RestTransmission;
 import net.sf.ahtutils.monitor.factory.TransmissionFactory;
 import net.sf.ahtutils.monitor.factory.net.TxIcmpFactory;
 import net.sf.ahtutils.monitor.result.net.IcmpResult;
+import net.sf.ahtutils.monitor.util.DbCleaner;
 import net.sf.ahtutils.monitor.util.IntervalHelper;
+import net.sf.ahtutils.monitor.util.RestTransmission;
 import net.sf.ahtutils.xml.monitoring.Indicator;
 import net.sf.ahtutils.xml.monitoring.Transmission;
 

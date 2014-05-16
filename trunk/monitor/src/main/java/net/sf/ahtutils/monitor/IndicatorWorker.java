@@ -8,7 +8,7 @@ import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.monitor.result.net.IcmpResult;
 import net.sf.ahtutils.monitor.task.AnalysisTask;
-import net.sf.ahtutils.monitor.task.MonitoringTask;
+import net.sf.ahtutils.monitor.worker.MonitoringTaskBuilder;
 
 import org.joda.time.Duration;
 import org.slf4j.Logger;
@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 public class IndicatorWorker
 {
-	final static Logger logger = LoggerFactory.getLogger(MonitoringTask.class);
+	final static Logger logger = LoggerFactory.getLogger(MonitoringTaskBuilder.class);
 	
 	public IndicatorWorker()
 	{		

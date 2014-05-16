@@ -1,4 +1,4 @@
-package net.sf.ahtutils.monitor;
+package net.sf.ahtutils.monitor.util;
 
 import java.util.ArrayList;
 import java.util.Hashtable;

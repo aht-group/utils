@@ -1,4 +1,4 @@
-package net.sf.ahtutils.monitor;
+package net.sf.ahtutils.monitor.util;
 
 import net.sf.ahtutils.interfaces.facade.UtilsMonitoringFacade;
 import net.sf.ahtutils.xml.monitoring.Transmission;
