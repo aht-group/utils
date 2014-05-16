@@ -6,23 +6,23 @@ import java.util.concurrent.Future;
 
 import javax.persistence.EntityManager;
 
-import net.sf.ahtutils.interfaces.controller.MonitoringResultProcessor;
+import net.sf.ahtutils.interfaces.controller.monitoring.MonitoringResultProcessor;
 import net.sf.ahtutils.monitor.result.net.DnsResult;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DnsResultProcessor implements MonitoringResultProcessor
+public class DnsResultProcessor implements MonitoringResultProcessor<DnsResult>
 {
 	final static Logger logger = LoggerFactory.getLogger(DnsResultProcessor.class);
 
 	private EntityManager em;
-	private CompletionService<DnsResult> csDns;
+	private CompletionService<DnsResult> completionService;
 	
-    public DnsResultProcessor(EntityManager em, CompletionService<DnsResult> csDns)
+    public DnsResultProcessor(EntityManager em, CompletionService<DnsResult> completionService)
     {
   	    this.em=em;
-  	    this.csDns=csDns;
+  	    this.completionService=completionService;
     }
 
 	@Override
@@ -32,7 +32,7 @@ public class DnsResultProcessor implements MonitoringResultProcessor
         {
             try
             {
-                Future<DnsResult> future = csDns.take();
+                Future<DnsResult> future = completionService.take();
                 DnsResult result = future.get();
                 
                 em.getTransaction().begin();
@@ -43,4 +43,7 @@ public class DnsResultProcessor implements MonitoringResultProcessor
             catch (ExecutionException e) {e.printStackTrace();}
         }
 	}
+	
+	@Override public void setCompletionService(CompletionService<DnsResult> completionService){this.completionService=completionService;}
+
 }

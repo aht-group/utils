@@ -18,8 +18,6 @@ public class CliMonitoringWorker
 		MonitoringWorker mw = new MonitoringWorker(UtilsMonitorBootstrap.buildEmf(true));
 		mw.initHardWiredTasks();
 		
-//		mw.addResultProcessor(resultProcessor);
-		
 		Thread t = new Thread(mw);
 		t.start();
 	}

@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import net.sf.ahtutils.interfaces.controller.MonitoringResult;
+import net.sf.ahtutils.interfaces.controller.monitoring.MonitoringResult;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 

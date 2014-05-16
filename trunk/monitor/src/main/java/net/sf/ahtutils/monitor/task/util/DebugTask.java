@@ -13,9 +13,11 @@ public class DebugTask implements Callable<DebugResult>
 	final static Logger logger = LoggerFactory.getLogger(DebugTask.class);
 	
 	private Date record;
+	private String name;
 	
-	public DebugTask()
+	public DebugTask(String name)
 	{
+		this.name=name;
 		record = new Date();
 	}
 
@@ -24,7 +26,7 @@ public class DebugTask implements Callable<DebugResult>
 	{
 		DebugResult result = new DebugResult();
 		result.setRecord(record);
-	    
+	    result.setText(name);
 		return result;
 	}
 

@@ -1,9 +1,13 @@
 package net.sf.ahtutils.monitor.worker;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 import java.util.concurrent.CompletionService;
 
+import net.sf.ahtutils.interfaces.controller.monitoring.MonitoringResult;
+import net.sf.ahtutils.interfaces.controller.monitoring.MonitoringTaskFactory;
 import net.sf.ahtutils.monitor.result.net.DnsResult;
 import net.sf.ahtutils.monitor.result.net.IcmpResults;
 import net.sf.ahtutils.monitor.result.util.DebugResult;
@@ -11,28 +15,31 @@ import net.sf.ahtutils.monitor.result.util.DebugResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MonitoringScheduler implements Runnable
+public class MonitoringScheduler <R extends MonitoringResult> implements Runnable
 {
 	final static Logger logger = LoggerFactory.getLogger(MonitoringScheduler.class);
 
 	private CompletionService<DnsResult> csDns;
 	private CompletionService<IcmpResults> csIcmp;
-	
 	private CompletionService<DebugResult> csDebug;
+	
+	private List<MonitoringTaskFactory<R>> taskFactories;
 	
 
 	public MonitoringScheduler()
     {
-
+		taskFactories = new ArrayList<MonitoringTaskFactory<R>>();
     }
 
 	@Override
 	public void run()
 	{
-        MonitoringTaskBuilder monitoringTask  = new MonitoringTaskBuilder();
+        MonitoringTaskBuilder<R> monitoringTask  = new MonitoringTaskBuilder<R>();
     	monitoringTask.setCsDns(csDns);
     	monitoringTask.setCsIcmp(csIcmp);
     	monitoringTask.setCsDebug(csDebug);
+    	
+    	monitoringTask.setListMonitoringBundles(taskFactories);
 
  	    Timer timer = new Timer();
  	    logger.info("Starting timer");
@@ -43,6 +50,12 @@ public class MonitoringScheduler implements Runnable
 	public void shutdown()
 	{
 		
+	}
+	
+	public void addTaskFactory(MonitoringTaskFactory<R> taskFactory)
+	{
+		logger.trace("Adding TaskBundle");
+		taskFactories.add(taskFactory);
 	}
 	
 	public void setCsDns(CompletionService<DnsResult> csDns) {this.csDns = csDns;}

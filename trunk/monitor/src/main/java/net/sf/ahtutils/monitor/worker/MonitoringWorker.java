@@ -9,19 +9,18 @@ import java.util.concurrent.Executors;
 
 import javax.persistence.EntityManagerFactory;
 
-import net.sf.ahtutils.interfaces.controller.MonitoringResult;
-import net.sf.ahtutils.interfaces.controller.MonitoringResultProcessor;
+import net.sf.ahtutils.interfaces.controller.monitoring.MonitoringTaskFactory;
+import net.sf.ahtutils.interfaces.controller.monitoring.MonitoringResult;
+import net.sf.ahtutils.interfaces.controller.monitoring.MonitoringResultProcessor;
 import net.sf.ahtutils.monitor.processor.net.DnsResultProcessor;
 import net.sf.ahtutils.monitor.processor.net.IcmpResultProcessor;
-import net.sf.ahtutils.monitor.processor.util.DebugResultProcessor;
 import net.sf.ahtutils.monitor.result.net.DnsResult;
 import net.sf.ahtutils.monitor.result.net.IcmpResults;
-import net.sf.ahtutils.monitor.result.util.DebugResult;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MonitoringWorker implements Runnable
+public class MonitoringWorker <R extends MonitoringResult> implements Runnable
 {
 	final static Logger logger = LoggerFactory.getLogger(MonitoringTaskBuilder.class);
 	
@@ -29,7 +28,7 @@ public class MonitoringWorker implements Runnable
 	private List<Thread> threads;
 	
 	private ExecutorService taskExecutor;
-	private MonitoringScheduler mtf = new MonitoringScheduler();
+	private MonitoringScheduler<R> scheduler;
 	
 	public MonitoringWorker(){this(null);}
 	
@@ -40,8 +39,8 @@ public class MonitoringWorker implements Runnable
     	taskExecutor = Executors.newFixedThreadPool(100);
         threads = new ArrayList<Thread>();
         
-        mtf = new MonitoringScheduler();
-        threads.add(new Thread(mtf));
+        scheduler = new MonitoringScheduler<R>();
+        threads.add(new Thread(scheduler));
 	}
 
 	@Override
@@ -60,37 +59,31 @@ public class MonitoringWorker implements Runnable
 		}
 	}
 	
+	@Deprecated
 	public void initHardWiredTasks()
 	{
-        CompletionService<DnsResult> csDns = new ExecutorCompletionService<DnsResult>(taskExecutor);
-        CompletionService<IcmpResults> csIcmp = new ExecutorCompletionService<IcmpResults>(taskExecutor);
-        
-        logger.debug("Creating "+MonitoringScheduler.class.getSimpleName());
-       
-        mtf.setCsDns(csDns);
-        mtf.setCsIcmp(csIcmp);
-        
+		logger.debug("Creating initHardWiredTasks"+MonitoringScheduler.class.getSimpleName());
 		
-		threads.add(new Thread(new DnsResultProcessor(emf.createEntityManager(),csDns)));
+        CompletionService<DnsResult> csDns = new ExecutorCompletionService<DnsResult>(taskExecutor);
+        scheduler.setCsDns(csDns);
+        threads.add(new Thread(new DnsResultProcessor(emf.createEntityManager(),csDns)));
+        
+        CompletionService<IcmpResults> csIcmp = new ExecutorCompletionService<IcmpResults>(taskExecutor);
+        scheduler.setCsIcmp(csIcmp);
 		threads.add(new Thread(new IcmpResultProcessor(emf.createEntityManager(),csIcmp)));
 	}
 	
-	public void initDebugTasks()
+	public void addTaskFactory(MonitoringTaskFactory<R> taskFactory)
 	{
-		logger.debug("Creating Debgug "+MonitoringScheduler.class.getSimpleName());
-		CompletionService<DebugResult> csDebug = new ExecutorCompletionService<DebugResult>(taskExecutor);
+		logger.info("Adding TaskBundle");
 		
-		mtf.setCsDebug(csDebug);
+		CompletionService<R> completionService = new ExecutorCompletionService<R>(taskExecutor);
+		taskFactory.setCompletionService(completionService);
 		
-		threads.add(new Thread(new DebugResultProcessor(csDebug)));
-	}
-	
-	public <R extends MonitoringResult> void addResultProcessor(MonitoringResultProcessor resultProcessor, Class<R> clResult)
-	{
-		logger.info("Adding "+MonitoringResultProcessor.class.getSimpleName()+": "+resultProcessor.getClass().getSimpleName());
-		
-		CompletionService<DnsResult> csDns = new ExecutorCompletionService<DnsResult>(taskExecutor);
+		MonitoringResultProcessor<R> resultProcessor = taskFactory.getResultProcessor();
+		resultProcessor.setCompletionService(completionService);
 		
 		threads.add(new Thread(resultProcessor));
+		scheduler.addTaskFactory(taskFactory);
 	}
 }

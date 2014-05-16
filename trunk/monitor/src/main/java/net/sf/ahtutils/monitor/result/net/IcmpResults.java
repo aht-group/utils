@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IcmpResults implements Serializable
+import net.sf.ahtutils.interfaces.controller.monitoring.MonitoringResult;
+
+public class IcmpResults implements Serializable,MonitoringResult
 {
 	public static final long serialVersionUID=1;
 	

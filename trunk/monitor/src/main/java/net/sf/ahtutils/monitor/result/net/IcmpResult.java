@@ -8,11 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import net.sf.ahtutils.interfaces.controller.monitoring.MonitoringResult;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 
 @Entity
-public class IcmpResult implements Serializable,EjbWithId,EjbWithRecord
+public class IcmpResult implements Serializable,MonitoringResult,EjbWithId,EjbWithRecord
 {
 	public static final long serialVersionUID=1;
 	public static enum Code {REACHABLE,TIMEOUT,UNKNOWN_HOST,ERROR}
