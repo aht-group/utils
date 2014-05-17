@@ -31,6 +31,5 @@ public class TstActiveDirectoryAuthenticator
 		AhtUtilsTstBootstrap.init();
 		TstActiveDirectoryAuthenticator test = new TstActiveDirectoryAuthenticator();
 		test.direct();
-		
 	}
 }

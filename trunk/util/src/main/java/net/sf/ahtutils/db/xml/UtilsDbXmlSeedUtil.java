@@ -24,6 +24,8 @@ public class UtilsDbXmlSeedUtil
 	
 	public static String configKeySeed = "db.seed";
 	public static String configKeyPathExport = "db.export.path";
+	public static String configKeyRestExportUrl = "db.export.url";
+	public static String configKeyRestImportUrl = "db.import.url";
 	public static String cliDebug = "db.export.cli.debug";
     public static String cliSave = "db.export.cli.save";
 	

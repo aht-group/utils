@@ -62,6 +62,8 @@ public class DataUpdateTracker
 		update.setType(type);
 	}
 	
+	public DataUpdate getUpdate() {return update;}
+	
 	public DataUpdate toDataUpdate()
 	{
 		if(!update.isSetFinished()){stop();}
