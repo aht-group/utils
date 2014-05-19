@@ -4,4 +4,5 @@
     <sync:mapper oldId="123" newId="345" class="net.sf.ahtutils.xml.sync.TestXmlMapper"/>
     <s:type/>
     <sync:result total="3" success="2" fail="1"/>
+    <sync:exceptions/>
 </sync:dataUpdate>

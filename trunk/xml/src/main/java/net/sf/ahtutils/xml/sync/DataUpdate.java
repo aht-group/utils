@@ -28,6 +28,7 @@ import net.sf.ahtutils.xml.status.Type;
  *         &lt;element ref="{http://ahtutils.aht-group.com/sync}mapper" maxOccurs="unbounded"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}type"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/sync}result"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/sync}exceptions"/>
  *       &lt;/sequence>
  *       &lt;attribute name="begin" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
  *       &lt;attribute name="finished" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
@@ -42,7 +43,8 @@ import net.sf.ahtutils.xml.status.Type;
 @XmlType(name = "", propOrder = {
     "mapper",
     "type",
-    "result"
+    "result",
+    "exceptions"
 })
 @XmlRootElement(name = "dataUpdate")
 public class DataUpdate
@@ -56,6 +58,8 @@ public class DataUpdate
     protected Type type;
     @XmlElement(required = true)
     protected Result result;
+    @XmlElement(required = true)
+    protected Exceptions exceptions;
     @XmlAttribute(name = "begin")
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar begin;
@@ -154,6 +158,34 @@ public class DataUpdate
 
     public boolean isSetResult() {
         return (this.result!= null);
+    }
+
+    /**
+     * Gets the value of the exceptions property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Exceptions }
+     *     
+     */
+    public Exceptions getExceptions() {
+        return exceptions;
+    }
+
+    /**
+     * Sets the value of the exceptions property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Exceptions }
+     *     
+     */
+    public void setExceptions(Exceptions value) {
+        this.exceptions = value;
+    }
+
+    public boolean isSetExceptions() {
+        return (this.exceptions!= null);
     }
 
     /**

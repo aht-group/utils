@@ -7,11 +7,17 @@ public class UtilsContraintViolationException extends Exception implements Seria
 	private static final long serialVersionUID = 1;
 
 	public UtilsContraintViolationException() 
-	{ 
+	{
+		
 	} 
  
 	public UtilsContraintViolationException(String s) 
 	{ 
 		super(s); 
+	}
+	
+	public UtilsContraintViolationException(String s, Throwable t) 
+	{ 
+		super(s,t); 
 	} 
 }

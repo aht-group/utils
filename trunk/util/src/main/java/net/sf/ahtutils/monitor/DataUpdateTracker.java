@@ -3,6 +3,8 @@ package net.sf.ahtutils.monitor;
 import java.util.Date;
 
 import net.sf.ahtutils.factory.xml.status.XmlStatusFactory;
+import net.sf.ahtutils.factory.xml.sync.XmlExceptionFactory;
+import net.sf.ahtutils.factory.xml.sync.XmlExceptionsFactory;
 import net.sf.ahtutils.xml.status.Type;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 import net.sf.ahtutils.xml.sync.Result;
@@ -46,9 +48,12 @@ public class DataUpdateTracker
 		update.getResult().setSuccess(update.getResult().getSuccess()+1);
 	}
 	
-	public void fail()
+	public void fail(Throwable t, boolean printStackTrace)
 	{
+		if(printStackTrace){t.printStackTrace();}
 		update.getResult().setFail(update.getResult().getFail()+1);
+		if(!update.isSetExceptions()){update.setExceptions(XmlExceptionsFactory.build());}
+		update.getExceptions().getException().add(XmlExceptionFactory.build(t));
 	}
 	
 	public void add(DataUpdate dataUpdate)

@@ -30,6 +30,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Exceptions }
+     * 
+     */
+    public Exceptions createExceptions() {
+        return new Exceptions();
+    }
+
+    /**
+     * Create an instance of {@link Exception }
+     * 
+     */
+    public Exception createException() {
+        return new Exception();
+    }
+
+    /**
      * Create an instance of {@link Result }
      * 
      */
