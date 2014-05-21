@@ -17,7 +17,7 @@ public interface UtilsStaff<L extends UtilsLang,
 								   V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
 								   U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
 								   A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
-								   USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
+								   USER extends UtilsUser<L,D,C,R,V,U,A,USER>>//,DOMAIN extends EjbWithId>
 			extends EjbWithId
 {
 	public R getRole();
