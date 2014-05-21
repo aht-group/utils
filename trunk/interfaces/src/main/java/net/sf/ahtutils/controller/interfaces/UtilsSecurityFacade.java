@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
+import net.sf.ahtutils.interfaces.model.security.UtilsStaffPool;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
@@ -11,7 +12,6 @@ import net.sf.ahtutils.model.interfaces.security.UtilsSecurityRole;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityUsecase;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityView;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityWithCategory;
-import net.sf.ahtutils.model.interfaces.security.UtilsStaff;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
@@ -86,7 +86,7 @@ public interface UtilsSecurityFacade extends UtilsFacade
 	V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
 	U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
 	A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
-	S extends UtilsStaff<L,D,C,R,V,U,A,P,E,USER>,
+	S extends UtilsStaffPool<L,D,C,R,V,U,A,P,E,USER>,
 	P extends EjbWithId,
 	E extends EjbWithId,
 	USER extends UtilsUser<L,D,C,R,V,U,A,USER>>

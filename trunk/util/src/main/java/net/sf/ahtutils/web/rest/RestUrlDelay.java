@@ -15,6 +15,7 @@ public class RestUrlDelay
 		StringBuffer sb = new StringBuffer();
 		sb.append("REST connection to ");
 		sb.append(url);
+		sb.append(" (").append(key).append(")");
 		
 		boolean delay = false;
 		if(!url.contains("localhost"))
@@ -22,12 +23,17 @@ public class RestUrlDelay
 			sb.append("  .... delaying 5s");
 			delay=true;
 		}
-		logger.warn(sb.toString());
+		
 		
 		if(delay)
 		{
+			logger.warn(sb.toString());
 			try {Thread.sleep(5000);}
 			catch (InterruptedException e) {e.printStackTrace();}
+		}
+		else
+		{
+			logger.info(sb.toString());
 		}
 		
 		return url;

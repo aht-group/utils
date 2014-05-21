@@ -1,11 +1,16 @@
-package net.sf.ahtutils.model.interfaces.security;
+package net.sf.ahtutils.interfaces.model.security;
 
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
+import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
+import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
+import net.sf.ahtutils.model.interfaces.security.UtilsSecurityRole;
+import net.sf.ahtutils.model.interfaces.security.UtilsSecurityUsecase;
+import net.sf.ahtutils.model.interfaces.security.UtilsSecurityView;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface UtilsStaff<L extends UtilsLang,
+public interface UtilsStaffPool<L extends UtilsLang,
 								   D extends UtilsDescription,
 								   C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
 								   R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
