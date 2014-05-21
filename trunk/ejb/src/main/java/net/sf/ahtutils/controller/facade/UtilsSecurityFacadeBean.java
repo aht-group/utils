@@ -117,7 +117,7 @@ public class UtilsSecurityFacadeBean extends UtilsFacadeBean implements UtilsSec
 	
 	@Override
 	public <L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>, R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>, V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>, U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>, A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>, S extends UtilsStaffPool<L,D,C,R,V,U,A,P,E,USER>, P extends EjbWithId, E extends EjbWithId,USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
-		List<S>	fStaff(Class<S> clStaff, P pool)
+		List<S>	fStaffPool(Class<S> clStaff, P pool)
 	{return allForParent(clStaff, "pool", pool);}
 	
 	
@@ -132,15 +132,25 @@ public class UtilsSecurityFacadeBean extends UtilsFacadeBean implements UtilsSec
 		List<S> fStaff(Class<S> clStaff, R role)
 	{return allForParent(clStaff, "role", role);}
 	
-//	@Override
+	@Override
 	public <L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L, D, C, R, V, U, A, USER>, R extends UtilsSecurityRole<L, D, C, R, V, U, A, USER>, V extends UtilsSecurityView<L, D, C, R, V, U, A, USER>, U extends UtilsSecurityUsecase<L, D, C, R, V, U, A, USER>, A extends UtilsSecurityAction<L, D, C, R, V, U, A, USER>, S extends UtilsStaff<L,D,C,R,V,U,A,USER,DOMAIN>, USER extends UtilsUser<L, D, C, R, V, U, A, USER>, DOMAIN extends EjbWithId>
-		List<S> fStaff1(Class<S> clStaff, DOMAIN domain)
-	{return allForParent(clStaff, "domain",domain);}
+		List<S> fStaff(Class<S> clStaff, DOMAIN domain)
+	{return allForParent(clStaff, "domain", domain);}
 	
 	@Override
 	public <L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L, D, C, R, V, U, A, USER>, R extends UtilsSecurityRole<L, D, C, R, V, U, A, USER>, V extends UtilsSecurityView<L, D, C, R, V, U, A, USER>, U extends UtilsSecurityUsecase<L, D, C, R, V, U, A, USER>, A extends UtilsSecurityAction<L, D, C, R, V, U, A, USER>, S extends UtilsStaff<L,D,C,R,V,U,A,USER,DOMAIN>, USER extends UtilsUser<L, D, C, R, V, U, A, USER>, DOMAIN extends EjbWithId>
 		List<S> fStaff(Class<S> clStaff, USER user, R role)
 	{return allForParent(clStaff, "user", user, "role",role);}
+	
+	@Override
+	public <L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L, D, C, R, V, U, A, USER>, R extends UtilsSecurityRole<L, D, C, R, V, U, A, USER>, V extends UtilsSecurityView<L, D, C, R, V, U, A, USER>, U extends UtilsSecurityUsecase<L, D, C, R, V, U, A, USER>, A extends UtilsSecurityAction<L, D, C, R, V, U, A, USER>, S extends UtilsStaff<L,D,C,R,V,U,A,USER,DOMAIN>, USER extends UtilsUser<L, D, C, R, V, U, A, USER>, DOMAIN extends EjbWithId>
+		List<S> fStaff(Class<S> clStaff, USER user, DOMAIN domain)
+	{return allForParent(clStaff, "user", user, "domain",domain);}
+	
+	@Override
+	public <L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L, D, C, R, V, U, A, USER>, R extends UtilsSecurityRole<L, D, C, R, V, U, A, USER>, V extends UtilsSecurityView<L, D, C, R, V, U, A, USER>, U extends UtilsSecurityUsecase<L, D, C, R, V, U, A, USER>, A extends UtilsSecurityAction<L, D, C, R, V, U, A, USER>, S extends UtilsStaff<L,D,C,R,V,U,A,USER,DOMAIN>, USER extends UtilsUser<L, D, C, R, V, U, A, USER>, DOMAIN extends EjbWithId>
+		List<S> fStaff(Class<S> clStaff, R role, DOMAIN domain)
+	{return allForParent(clStaff, "role", role, "domain",domain);}
 	
 	@Override
 	public <L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L, D, C, R, V, U, A, USER>, R extends UtilsSecurityRole<L, D, C, R, V, U, A, USER>, V extends UtilsSecurityView<L, D, C, R, V, U, A, USER>, U extends UtilsSecurityUsecase<L, D, C, R, V, U, A, USER>, A extends UtilsSecurityAction<L, D, C, R, V, U, A, USER>, S extends UtilsStaff<L,D,C,R,V,U,A,USER,DOMAIN>, USER extends UtilsUser<L, D, C, R, V, U, A, USER>, DOMAIN extends EjbWithId>
