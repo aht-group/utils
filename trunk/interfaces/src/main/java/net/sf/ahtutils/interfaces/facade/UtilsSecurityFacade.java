@@ -196,5 +196,5 @@ public interface UtilsSecurityFacade extends UtilsFacade
 	S extends UtilsStaff<L,D,C,R,V,U,A,USER,DOMAIN>,
 	USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
 	DOMAIN extends EjbWithId>
-		List<S> fStaff(Class<S> clStaff, USER user, R role, DOMAIN domain);
+		S fStaff(Class<S> clStaff, USER user, R role, DOMAIN domain) throws UtilsNotFoundException;
 }
