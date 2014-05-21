@@ -1,6 +1,6 @@
 package net.sf.ahtutils.controller.factory.utils.security;
 
-import net.sf.ahtutils.controller.interfaces.UtilsSecurityFacade;
+import net.sf.ahtutils.interfaces.facade.UtilsSecurityFacade;
 import net.sf.ahtutils.model.interfaces.idm.UtilsIdentity;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;

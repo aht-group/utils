@@ -1,9 +1,8 @@
-package net.sf.ahtutils.controller.interfaces;
+package net.sf.ahtutils.interfaces.facade;
 
 import java.util.List;
 
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.security.UtilsStaff;
 import net.sf.ahtutils.interfaces.model.security.UtilsStaffPool;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
@@ -120,8 +119,9 @@ public interface UtilsSecurityFacade extends UtilsFacade
 	V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
 	U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
 	A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
-	S extends UtilsStaff<L,D,C,R,V,U,A,USER>,
-	USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
+	S extends UtilsStaff<L,D,C,R,V,U,A,USER,DOMAIN>,
+	USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
+	DOMAIN extends EjbWithId>
 		List<S> fStaff(Class<S> clStaff, R role);
 	
 	<L extends UtilsLang,
@@ -131,8 +131,9 @@ public interface UtilsSecurityFacade extends UtilsFacade
 	V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
 	U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
 	A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
-	S extends UtilsStaff<L,D,C,R,V,U,A,USER>,
-	USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
+	S extends UtilsStaff<L,D,C,R,V,U,A,USER,DOMAIN>,
+	USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
+	DOMAIN extends EjbWithId>
 		List<S> fStaff(Class<S> clStaff, USER user);
 	
 	<L extends UtilsLang,
@@ -142,7 +143,20 @@ public interface UtilsSecurityFacade extends UtilsFacade
 	V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
 	U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
 	A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
-	S extends UtilsStaff<L,D,C,R,V,U,A,USER>,
-	USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
+	S extends UtilsStaff<L,D,C,R,V,U,A,USER,DOMAIN>,
+	USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
+	DOMAIN extends EjbWithId>
 		List<S> fStaff(Class<S> clStaff, USER user, R role);
+	
+	<L extends UtilsLang,
+	D extends UtilsDescription,
+	C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
+	R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
+	V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
+	U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
+	A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
+	S extends UtilsStaff<L,D,C,R,V,U,A,USER,DOMAIN>,
+	USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
+	DOMAIN extends EjbWithId>
+		List<S> fStaff(Class<S> clStaff, USER user, R role, DOMAIN domain);
 }

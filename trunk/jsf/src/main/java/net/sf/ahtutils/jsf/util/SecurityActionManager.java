@@ -3,8 +3,8 @@ package net.sf.ahtutils.jsf.util;
 import java.util.Hashtable;
 import java.util.Map;
 
-import net.sf.ahtutils.controller.interfaces.UtilsSecurityFacade;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.interfaces.facade.UtilsSecurityFacade;
 import net.sf.ahtutils.model.interfaces.idm.UtilsIdentity;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
