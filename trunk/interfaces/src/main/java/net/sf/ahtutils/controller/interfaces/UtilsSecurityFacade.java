@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
+import net.sf.ahtutils.interfaces.model.security.UtilsStaff;
 import net.sf.ahtutils.interfaces.model.security.UtilsStaffPool;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
@@ -86,6 +87,26 @@ public interface UtilsSecurityFacade extends UtilsFacade
 	V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
 	U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
 	A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
+	USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
+		void grantRole(Class<USER> clUser, Class<R> clRole, USER user, R role, boolean grant);
+	
+	<L extends UtilsLang,
+	D extends UtilsDescription,
+	C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
+	R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
+	V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
+	U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
+	A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
+	USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
+		boolean hasRole(Class<USER> clUser, Class<R> clRole, USER user, R role);
+	
+	<L extends UtilsLang,
+	D extends UtilsDescription,
+	C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
+	R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
+	V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
+	U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
+	A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
 	S extends UtilsStaffPool<L,D,C,R,V,U,A,P,E,USER>,
 	P extends EjbWithId,
 	E extends EjbWithId,
@@ -99,16 +120,7 @@ public interface UtilsSecurityFacade extends UtilsFacade
 	V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
 	U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
 	A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
+	S extends UtilsStaff<L,D,C,R,V,U,A,USER>,
 	USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
-		void grantRole(Class<USER> clUser, Class<R> clRole, USER user, R role, boolean grant);
-	
-	<L extends UtilsLang,
-	D extends UtilsDescription,
-	C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
-	R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
-	V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
-	U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
-	A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
-	USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
-		boolean hasRole(Class<USER> clUser, Class<R> clRole, USER user, R role);
+		List<S> fStaffForRole(Class<S> clStaff, R role);
 }
