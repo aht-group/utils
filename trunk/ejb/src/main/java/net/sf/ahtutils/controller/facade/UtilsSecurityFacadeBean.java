@@ -156,8 +156,7 @@ public class UtilsSecurityFacadeBean extends UtilsFacadeBean implements UtilsSec
 	public <L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L, D, C, R, V, U, A, USER>, R extends UtilsSecurityRole<L, D, C, R, V, U, A, USER>, V extends UtilsSecurityView<L, D, C, R, V, U, A, USER>, U extends UtilsSecurityUsecase<L, D, C, R, V, U, A, USER>, A extends UtilsSecurityAction<L, D, C, R, V, U, A, USER>, S extends UtilsStaff<L,D,C,R,V,U,A,USER,DOMAIN>, USER extends UtilsUser<L, D, C, R, V, U, A, USER>, DOMAIN extends EjbWithId>
 		S fStaff(Class<S> clStaff, USER user, R role, DOMAIN domain) throws UtilsNotFoundException
 	{
-		logger.info("NYI");
-		return allForParent(clStaff, "user", user, "role",role,"domain",domain).get(0);
+		return oneForParents(clStaff,"user",user,"role",role,"domain",domain);
 	}
 	
 	

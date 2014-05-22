@@ -21,9 +21,12 @@ public interface UtilsStaff<L extends UtilsLang,
 								   DOMAIN extends EjbWithId>
 			extends EjbWithId
 {
-	public R getRole();
-	public void setRole(R role);
+	R getRole();
+	void setRole(R role);
 	
-	public USER getUser();
-	public void setUser(USER user);
+	USER getUser();
+	void setUser(USER user);
+	
+	DOMAIN getDomain();
+	void setDomain(DOMAIN domain);
 }
