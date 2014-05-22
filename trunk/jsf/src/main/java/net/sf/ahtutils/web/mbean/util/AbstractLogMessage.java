@@ -36,13 +36,21 @@ USER extends UtilsUser<L,D,C,R,V,U,A,USER>>	 implements Serializable
 	        return sb.toString();
 	 }
 
-	    public static <T extends EjbWithId> String addEntity(T t)
-	    {
-	        StringBuffer sb = new StringBuffer();
-	        sb.append("Adding ").append(t.getClass().getSimpleName());
-	        sb.append(": ").append(t.toString());
-	        return sb.toString();
-	    }
+	 public static <T extends EjbWithId> String addEntity(T t)
+	 {
+		 StringBuffer sb = new StringBuffer();
+		 sb.append("Adding ").append(t.getClass().getSimpleName());
+		 sb.append(": ").append(t.toString());
+		 return sb.toString();
+	 }
+	 
+	 public static <T extends EjbWithId> String rmEntity(T t)
+	 {
+		 StringBuffer sb = new StringBuffer();
+		 sb.append("Removing").append(t.getClass().getSimpleName());
+		 sb.append(": ").append(t.toString());
+		 return sb.toString();
+	 }
 
 	    public static <T extends EjbWithId> String selectEntity(T t)
 	    {
