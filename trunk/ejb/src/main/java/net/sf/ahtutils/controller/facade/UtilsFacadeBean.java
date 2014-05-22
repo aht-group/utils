@@ -600,6 +600,13 @@ public class UtilsFacadeBean implements UtilsFacade
 		catch (NoResultException ex){return new ArrayList<T>();}
 	}
 	
+	@Override
+	public <T extends EjbWithId, P extends EjbWithId> List<T> allForOrParents(Class<T> queryClass, List<ParentPredicate<P>> parents)
+	{
+		List<ParentPredicate<P>> lAnd = ParentPredicate.empty();
+		return fForAndOrParents(queryClass,  lAnd,parents);
+	}
+	
 	public <T extends EjbWithId, OR extends EjbWithId, AND extends EjbWithId> List<T> fForAndOrParents(Class<T> queryClass, List<ParentPredicate<AND>> lpAnd, List<ParentPredicate<OR>> lpOr)
 	{
 		if(logger.isTraceEnabled())
