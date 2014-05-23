@@ -1,5 +1,6 @@
 package net.sf.ahtutils.db.dump;
 
+import java.io.File;
 import java.util.NoSuchElementException;
 
 import net.sf.ahtutils.interfaces.db.UtilsDbDump;
@@ -14,6 +15,9 @@ public class AbstractDatabaseDump
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractDatabaseDump.class);
 	
+	protected Configuration config;
+	protected UtilsDbDump.Operation operation;
+	
 	protected String binDump;
 	
 	protected String dbHost;
@@ -24,11 +28,15 @@ public class AbstractDatabaseDump
 	
 	protected String dirSql;
 	
+	protected String[] tables;
+
 	protected ExlpTxtWriter txtWriter;
 	
 	
 	public AbstractDatabaseDump(Configuration config,UtilsDbDump.Operation operation)
 	{
+		this.config=config;
+		this.operation=operation;
 		binDump = config.getString(UtilsDbDump.cfgBinDump);
 		
 		try{dbHost = config.getString("db."+operation.toString()+".host");}
@@ -53,12 +61,12 @@ public class AbstractDatabaseDump
 	
 	public void debug()
 	{
-		logger.info("Bin: "+binDump);
-		logger.info("Host: "+dbHost);
-		logger.info("DB: "+dbName);
-		logger.info("User: "+dbUser);
-		logger.info("Pwd: "+dbPwd);
-		if(dbSchema!=null){logger.info("Schema: "+dbSchema);}
+		logger.info("Bin: "+binDump+" ("+UtilsDbDump.cfgBinDump+")");
+		logger.info("Host: "+dbHost+" (db."+operation.toString()+".user)");
+		logger.info("DB: "+dbName+" (db."+operation.toString()+".db)");
+		logger.info("User: "+dbUser+" (db."+operation.toString()+".user)");
+		logger.info("Pwd: "+dbPwd+" (db."+operation.toString()+".password)");
+		if(dbSchema!=null){logger.info("Schema: "+dbSchema+" (db."+operation.toString()+".schema)");}
 	}
 	
 	protected void addLine(String line)
@@ -70,4 +78,29 @@ public class AbstractDatabaseDump
 	{
 		return txtWriter;
 	}
+	
+	public String[] getTables() {
+		return tables;
+	}
+
+	public void setTables(String[] tables) {
+		this.tables = tables;
+	}
+	
+	public File getShellFile()
+	{
+		return new File(config.getString(UtilsDbDump.cfgDirShell),config.getString("db."+operation.toString()+".shell"));
+	}
+	
+	public void discoverTables()
+	{
+		switch(operation)
+		{
+			case dump: discoverTablesSql();break;
+			case restore: logger.warn("NYI");break;
+		}
+	}
+	
+	void discoverTablesSql(){};
+	
 }

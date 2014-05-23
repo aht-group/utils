@@ -37,7 +37,7 @@ public class SqlConnectionFactory
 		switch(dbType)
 		{
 			case mysql: connectMySQL(code); break;
-			case postgresql: connectPostgreSQL(code); break;
+			case postgresql: buildPostgresSqlConnection(code); break;
 			case sqlite: connectSqlite(code);
 		}
 		
@@ -83,7 +83,7 @@ public class SqlConnectionFactory
 	    catch (SQLException e) {logger.error(e.getMessage());}
 	}
 		
-	private void connectPostgreSQL(String code)
+	private void buildPostgresSqlConnection(String code)
 	{
 		host = config.getString("net.db."+code+".host");
 		db = config.getString("net.db."+code+".database");
@@ -94,9 +94,26 @@ public class SqlConnectionFactory
 		username = config.getString("net.db."+code+".username");
 		password = config.getString("net.db."+code+".password");
 		
-	    try
+		buildPostgreSqlConnection();
+	}
+	
+	public Connection buildPostgresSqlConnection(String host, String db, String username, String password)
+	{
+		type = DbType.postgresql.toString();
+		this.host=host;
+		this.db=db;
+		this.port=5432;
+		this.username=username;
+		this.password=password;
+		buildPostgreSqlConnection();
+		return c;
+	}
+	
+	private void buildPostgreSqlConnection()
+	{
+		try
 	    {
-	    	logger.debug("Connecting ... "+getConnInfo());
+	    	logger.info("Connecting ... "+getConnInfo());
 	    	Class.forName("org.postgresql.Driver");
 			c=DriverManager.getConnection(getConnInfo(),username, password);
 		}

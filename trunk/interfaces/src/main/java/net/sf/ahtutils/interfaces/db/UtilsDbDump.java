@@ -10,4 +10,8 @@ public interface UtilsDbDump
 	public static final String cfgDirSql = "db.dir.sql";
 	public static final String cfgDirShell = "db.dir.shell";
 	
+	public void buildCommands(boolean withStructure);
+	public void setTables(String[] tables);
+	public void discoverTables();
+	
 }
