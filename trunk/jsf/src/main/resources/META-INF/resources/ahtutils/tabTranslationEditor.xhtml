@@ -22,8 +22,7 @@
   				maxlength="254" style="width:100%"/>
   			<c:if test="#{cc.attrs.withDescription}">
   				<h:outputText value="#{cc.attrs.labelDescription}"/>
-  				<p:inputTextarea value="#{cc.attrs.value.description[t].lang}"
-  					maxlength="254" style="width:100%"/>
+  				<p:inputTextarea value="#{cc.attrs.value.description[t].lang}" style="width:100%"/>
   			</c:if>
   		</p:tab>  
   	</p:tabView> 
