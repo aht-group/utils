@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
 import net.sf.ahtutils.xml.security.TestXmlRoles;
+import net.sf.ahtutils.xml.security.TestXmlUser;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;
@@ -23,7 +24,7 @@ public class TestXmlResponsibilities extends AbstractXmlProjectTest
 	}
     
     @Test
-    public void testXml() throws FileNotFoundException
+    public void xml() throws FileNotFoundException
     {
     	Responsibilities actual = create(true);
     	Responsibilities expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Responsibilities.class);

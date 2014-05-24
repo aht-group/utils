@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
 import net.sf.ahtutils.xml.finance.TestXmlCurrency;
-import net.sf.ahtutils.xml.project.TestXmlUser;
+import net.sf.ahtutils.xml.security.TestXmlUser;
 import net.sf.ahtutils.xml.status.TestXmlStatus;
 import net.sf.exlp.util.xml.JaxbUtil;
 

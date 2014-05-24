@@ -48,6 +48,12 @@ public class XmlStaffFactory<L extends UtilsLang,
 		
 		if(q.isSetId()){xml.setId(staff.getId());}
 		
+		if(q.isSetUser())
+		{
+			XmlUserFactory<L,D,C,R,V,U,A,USER> f = new XmlUserFactory<L,D,C,R,V,U,A,USER>(q.getUser());
+			xml.setUser(f.build(staff.getUser()));
+		}
+		
 		if(q.isSetRole())
 		{
 			XmlRoleFactory<L,D,C,R,V,U,A,USER> f = new XmlRoleFactory<L,D,C,R,V,U,A,USER>(q.getRole());

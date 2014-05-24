@@ -31,11 +31,10 @@ public class QaQuery
 	
 	public static Staff staff()
 	{
-		
-		
 		Staff xml = new Staff();
 		xml.setId(0);
 		xml.setRole(SecurityQuery.role());
+		xml.setUser(SecurityQuery.user());
 		return xml;
 	}
 }

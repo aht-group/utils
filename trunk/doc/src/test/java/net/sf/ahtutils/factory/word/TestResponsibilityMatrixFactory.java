@@ -5,17 +5,17 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.ahtutils.factory.xml.project.XmlUserFactory;
 import net.sf.ahtutils.factory.xml.security.XmlRoleFactory;
+import net.sf.ahtutils.factory.xml.security.XmlUserFactory;
 import net.sf.ahtutils.factory.xml.status.XmlStatusFactory;
 import net.sf.ahtutils.test.AbstractUtilsDocTest;
 import net.sf.ahtutils.test.AhtUtilsDocBootstrap;
 import net.sf.ahtutils.xml.project.Responsibilities;
-import net.sf.ahtutils.xml.project.Staff;
-import net.sf.ahtutils.xml.project.Staffs;
-import net.sf.ahtutils.xml.project.User;
 import net.sf.ahtutils.xml.security.Role;
 import net.sf.ahtutils.xml.security.Roles;
+import net.sf.ahtutils.xml.security.Staff;
+import net.sf.ahtutils.xml.security.Staffs;
+import net.sf.ahtutils.xml.security.User;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.exlp.util.xml.JaxbUtil;
 

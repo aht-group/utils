@@ -1,5 +1,5 @@
 
-package net.sf.ahtutils.xml.project;
+package net.sf.ahtutils.xml.security;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://ahtutils.aht-group.com/project}staff" maxOccurs="unbounded"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/security}staff" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>

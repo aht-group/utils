@@ -1,5 +1,5 @@
 
-package net.sf.ahtutils.xml.project;
+package net.sf.ahtutils.xml.security;
 
 import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://ahtutils.aht-group.com/project}staffs"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/security}staffs"/>
  *       &lt;/sequence>
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" />
  *       &lt;attribute name="firstName" type="{http://www.w3.org/2001/XMLSchema}string" />

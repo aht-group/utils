@@ -21,6 +21,12 @@ public interface UtilsUser <L extends UtilsLang,
 							USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
 		extends EjbWithId
 {	
-	public List<R> getRoles();
-	public void setRoles(List<R> roles);
+	List<R> getRoles();
+	void setRoles(List<R> roles);
+	
+	String getFirstName();
+	void setFirstName(String firstName);
+	
+	String getLastName();
+	void setLastName(String lastName);
 }

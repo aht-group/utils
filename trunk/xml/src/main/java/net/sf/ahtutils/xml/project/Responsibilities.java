@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import net.sf.ahtutils.xml.security.Roles;
+import net.sf.ahtutils.xml.security.User;
 
 
 /**
@@ -23,7 +24,7 @@ import net.sf.ahtutils.xml.security.Roles;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element ref="{http://ahtutils.aht-group.com/security}roles"/>
- *         &lt;element ref="{http://ahtutils.aht-group.com/project}user" maxOccurs="unbounded"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/security}user" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -45,7 +46,7 @@ public class Responsibilities
     private final static long serialVersionUID = 1L;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/security", required = true)
     protected Roles roles;
-    @XmlElement(required = true)
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/security", required = true)
     protected List<User> user;
 
     /**

@@ -45,12 +45,31 @@
             <xsd:attribute name="label" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
+    <xsd:element name="staffs">
+        <xsd:complexType>
+        	<xsd:sequence>
+                <xsd:element ref="sec:staff" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
     <xsd:element name="staff">
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element ref="sec:role" maxOccurs="1"/>
+                <xsd:element ref="s:status" maxOccurs="1"/>
+                <xsd:element ref="sec:user" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="user">
+        <xsd:complexType>
+        	<xsd:sequence>
+                <xsd:element ref="sec:staffs" maxOccurs="1"/>
+            </xsd:sequence>
+            <xsd:attribute name="id" type="xsd:long"/>
+            <xsd:attribute name="firstName" type="xsd:string"/>
+            <xsd:attribute name="lastName" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
 </xsd:schema>

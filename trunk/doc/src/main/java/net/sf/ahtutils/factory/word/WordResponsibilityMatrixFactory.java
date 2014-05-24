@@ -10,11 +10,11 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import net.sf.ahtutils.xml.project.Responsibilities;
-import net.sf.ahtutils.xml.project.Staff;
-import net.sf.ahtutils.xml.project.Staffs;
-import net.sf.ahtutils.xml.project.User;
 import net.sf.ahtutils.xml.security.Role;
 import net.sf.ahtutils.xml.security.Roles;
+import net.sf.ahtutils.xml.security.Staff;
+import net.sf.ahtutils.xml.security.Staffs;
+import net.sf.ahtutils.xml.security.User;
 
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -31,9 +31,9 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.STTextDirection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class WordResponsibilityMatrixFactory {
-	final static Logger logger = LoggerFactory
-			.getLogger(WordResponsibilityMatrixFactory.class);
+public class WordResponsibilityMatrixFactory
+{
+	private final static Logger logger = LoggerFactory.getLogger(WordResponsibilityMatrixFactory.class);
 
 	private String staff = "staff";
 	private String colorcCode = "008000";
@@ -52,11 +52,10 @@ public class WordResponsibilityMatrixFactory {
 	public int otherColWidth  = 800;
 	public int rowheight      = 5000;
 
-	public static enum Status {
-		primary, secondary
-	}
+	public static enum Status {primary, secondary}
 
-	public WordResponsibilityMatrixFactory() {
+	public WordResponsibilityMatrixFactory()
+	{
 
 	}
 

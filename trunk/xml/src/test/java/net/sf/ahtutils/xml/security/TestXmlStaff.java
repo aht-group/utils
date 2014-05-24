@@ -32,6 +32,7 @@ public class TestXmlStaff extends AbstractXmlSecurityTest
     	if(withChilds)
     	{
     		xml.setRole(TestXmlRole.create(false));
+    		xml.setUser(TestXmlUser.create(false));
     	}
     	return xml;
     }

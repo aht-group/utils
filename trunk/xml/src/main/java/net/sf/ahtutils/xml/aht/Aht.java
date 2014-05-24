@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import net.sf.ahtutils.xml.finance.Currency;
-import net.sf.ahtutils.xml.project.User;
+import net.sf.ahtutils.xml.security.User;
 import net.sf.ahtutils.xml.status.Status;
 
 
@@ -26,7 +26,7 @@ import net.sf.ahtutils.xml.status.Status;
  *       &lt;sequence>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}status" maxOccurs="unbounded"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/finance}currency" maxOccurs="unbounded"/>
- *         &lt;element ref="{http://ahtutils.aht-group.com/project}user" maxOccurs="unbounded"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/security}user" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -51,7 +51,7 @@ public class Aht
     protected List<Status> status;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/finance", required = true)
     protected List<Currency> currency;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/project", required = true)
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/security", required = true)
     protected List<User> user;
 
     /**

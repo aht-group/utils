@@ -1,6 +1,5 @@
-package net.sf.ahtutils.xml.project;
+package net.sf.ahtutils.xml.security;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
@@ -11,18 +10,14 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestXmlUser extends AbstractXmlProjectTest
+public class TestXmlUser extends AbstractXmlSecurityTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestXmlUser.class);
 	
-	@BeforeClass
-	public static void initFiles()
-	{
-        fXml = new File(getXmlDir(dirSuffix),User.class.getSimpleName()+".xml");
-	}
+	@BeforeClass public static void initFiles() {setXmlFile(dirSuffix,User.class);}
     
     @Test
-    public void testXml() throws FileNotFoundException
+    public void xml() throws FileNotFoundException
     {
     	User actual = create(true);
     	User expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), User.class);
