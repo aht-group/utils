@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 
 import net.sf.ahtutils.doc.UtilsDocumentation;
+import net.sf.ahtutils.doc.ofx.qa.OfxQaCategorySectionFactory;
 import net.sf.ahtutils.doc.ofx.qa.OfxQaTeamTableFactory;
 import net.sf.ahtutils.xml.qa.Qa;
 import net.sf.ahtutils.xml.status.Translations;
@@ -54,6 +55,23 @@ public class LatexQmWriter
 		
 		OfxQaTeamTableFactory fOfx = new OfxQaTeamTableFactory(config,lang,translations);
 		Table table = fOfx.build(qa, headerKeys);
+		writeTable(table, f);
+	}
+	
+	public void writeQaCategories(Qa qa) throws OfxAuthoringException, IOException
+	{
+		for(String lang : langs)
+		{
+			writeQaCategories(qa, lang);
+		}
+	}
+	
+	public void writeQaCategories(Qa qa,String lang) throws OfxAuthoringException, IOException
+	{
+		File f = new File(baseLatexDir+"/"+lang+"/section/qa/categories.tex");
+		
+		OfxQaCategorySectionFactory fOfx = new OfxQaCategorySectionFactory(config,lang,translations);
+		Section section = fOfx.build(qa, headerKeys);
 		writeTable(table, f);
 	}
 	
