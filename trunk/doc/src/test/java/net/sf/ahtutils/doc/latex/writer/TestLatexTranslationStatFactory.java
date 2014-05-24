@@ -1,8 +1,9 @@
-package net.sf.ahtutils.controller.factory.latex;
+package net.sf.ahtutils.doc.latex.writer;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.ahtutils.doc.latex.writer.LatexTranslationStatisticWriter;
 import net.sf.ahtutils.model.pojo.status.TranslationStatistic;
 import net.sf.ahtutils.test.AbstractUtilsDocTest;
 import net.sf.ahtutils.xml.status.Langs;
@@ -21,7 +22,7 @@ public class TestLatexTranslationStatFactory extends AbstractUtilsDocTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestLatexTranslationStatFactory.class);
 	
-	private LatexTranslationStatFactory factory;
+	private LatexTranslationStatisticWriter factory;
 	private Document doc;
 
 	private Namespace nsLang;
@@ -38,7 +39,7 @@ public class TestLatexTranslationStatFactory extends AbstractUtilsDocTest
 	@Before
 	public void init()
 	{	
-		factory = new LatexTranslationStatFactory(null,null,null);
+		factory = new LatexTranslationStatisticWriter(null,null,null);
 		
 		nsLang = Namespace.getNamespace("s", "http://ahtutils.aht-group.com/status");
 		

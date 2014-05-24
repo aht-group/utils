@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
-import net.sf.ahtutils.controller.factory.latex.TestLatexTranslationStatFactory;
+import net.sf.ahtutils.doc.latex.writer.TestLatexTranslationStatFactory;
 import net.sf.ahtutils.doc.status.OfxLangStatisticTableFactory;
 import net.sf.ahtutils.model.pojo.status.TranslationStatistic;
 import net.sf.ahtutils.test.AhtUtilsDocBootstrap;

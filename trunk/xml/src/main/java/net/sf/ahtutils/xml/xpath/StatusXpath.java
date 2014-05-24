@@ -69,7 +69,14 @@ public class StatusXpath
 	public static synchronized Lang getLang(Translations translations,String keyTranslation, String keyLang) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
 	{
 		Translation translation = getTranslation(translations,keyTranslation);
-		return getLang(translation.getLangs(),keyLang);
+		try
+		{
+			Lang lang = getLang(translation.getLangs(),keyLang);
+			return lang;
+		}
+		catch (ExlpXpathNotFoundException e) {throw new ExlpXpathNotFoundException(translation.getKey()+" "+e.getMessage());}
+		catch (ExlpXpathNotUniqueException e) {throw e;}
+		
 	}
 	
 	public static synchronized Type getType(Types types,String key) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException

@@ -1,4 +1,4 @@
-package net.sf.ahtutils.controller.factory.latex;
+package net.sf.ahtutils.doc.latex.writer;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,9 +31,9 @@ import org.jdom2.xpath.XPathFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LatexTranslationStatFactory
+public class LatexTranslationStatisticWriter
 {	
-	final static Logger logger = LoggerFactory.getLogger(LatexTranslationStatFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(LatexTranslationStatisticWriter.class);
 	
 	private Namespace nsLangs = Namespace.getNamespace("s", "http://ahtutils.aht-group.com/status");
 	
@@ -46,7 +46,7 @@ public class LatexTranslationStatFactory
 	private String[] headerKeys = {"langStatTableHeaderFile","langStatTableHeaderCount","langStatTableHeaderVersion","langStatTableHeaderMissing"};
 	private String[] langs;
 	
-	public LatexTranslationStatFactory(Translations translations,String baseLatexDir,String[] langs)
+	public LatexTranslationStatisticWriter(Translations translations,String baseLatexDir,String[] langs)
 	{
 		this.translations=translations;
 		this.baseLatexDir=baseLatexDir;

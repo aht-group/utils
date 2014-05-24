@@ -86,11 +86,4 @@ public class UtilsLatexDocumentationBuilder extends AbstractLatexDocumentationBu
 		render(code.toString(),classifier);
 	}
 	
-	
-	
-	
-	
-
-	
-	
 }

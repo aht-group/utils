@@ -1,4 +1,4 @@
-package net.sf.ahtutils.controller.factory.latex;
+package net.sf.ahtutils.doc.latex.writer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,9 +18,9 @@ import org.openfuxml.exception.OfxAuthoringException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LatexStatusFactory
+public class LatexStatusWriter
 {	
-	final static Logger logger = LoggerFactory.getLogger(LatexStatusFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(LatexStatusWriter.class);
 	
 	private Configuration config;
 	private String baseLatexDir;
@@ -30,7 +30,7 @@ public class LatexStatusFactory
 	private String[] langs;
 	private UtilsDbXmlSeedUtil seedUtil;
 	
-	public LatexStatusFactory(Configuration config, Translations translations,String[] langs) throws UtilsConfigurationException
+	public LatexStatusWriter(Configuration config, Translations translations,String[] langs) throws UtilsConfigurationException
 	{
 		this.config=config;
 		this.translations=translations;

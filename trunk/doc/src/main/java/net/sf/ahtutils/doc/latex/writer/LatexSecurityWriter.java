@@ -1,4 +1,4 @@
-package net.sf.ahtutils.controller.factory.latex;
+package net.sf.ahtutils.doc.latex.writer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,9 +19,9 @@ import org.openfuxml.exception.OfxAuthoringException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LatexSecurityFactory
+public class LatexSecurityWriter
 {	
-	final static Logger logger = LoggerFactory.getLogger(LatexSecurityFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(LatexSecurityWriter.class);
 	
 	private final static String dirTabs = "tab/security";
 	private final static String dirDescriptions = "description/security";
@@ -32,7 +32,7 @@ public class LatexSecurityFactory
 	private Translations translations;
 	private String[] langs;
 	
-	public LatexSecurityFactory(Configuration config, Translations translations,String[] langs)
+	public LatexSecurityWriter(Configuration config, Translations translations,String[] langs)
 	{
 		this.config=config;
 		this.translations=translations;
