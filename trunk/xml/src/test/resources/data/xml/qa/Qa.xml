@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<qa xmlns="http://ahtutils.aht-group.com/qa">
+<qa xmlns="http://ahtutils.aht-group.com/qa" xmlns:s="http://ahtutils.aht-group.com/status" xmlns:acl="http://ahtutils.aht-group.com/access" xmlns:ns4="http://ahtutils.aht-group.com/navigation" xmlns:sec="http://ahtutils.aht-group.com/security">
     <category id="123" name="myName"/>
     <category id="123" name="myName"/>
+    <sec:staff id="123"/>
+    <sec:staff id="123"/>
 </qa>

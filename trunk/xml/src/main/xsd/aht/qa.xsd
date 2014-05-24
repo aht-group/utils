@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema targetNamespace="http://ahtutils.aht-group.com/qa"
     xmlns:qa="http://ahtutils.aht-group.com/qa"
+    xmlns:sec="http://ahtutils.aht-group.com/security"
     xmlns:us="http://ahtutils.aht-group.com/status"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <xsd:import namespace="http://ahtutils.aht-group.com/status" schemaLocation="status.xsd"/>
+    <xsd:import namespace="http://ahtutils.aht-group.com/security" schemaLocation="security.xsd"/>
 	<xsd:element name="qa">
         <xsd:complexType>
         	<xsd:sequence>
                 <xsd:element ref="qa:category" maxOccurs="unbounded"/>
+                <xsd:element ref="sec:staff" maxOccurs="unbounded"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>

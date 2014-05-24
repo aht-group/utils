@@ -14,11 +14,7 @@ public class TestXmlActor extends AbstractXmlMonitoringTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestXmlActor.class);
 	
-	@BeforeClass
-	public static void initFiles()
-	{
-		setXmlFile(dirSuffix,Actor.class);
-	}
+	@BeforeClass public static void initFiles() {setXmlFile(dirSuffix,Actor.class);}
     
     @Test
     public void xml() throws FileNotFoundException

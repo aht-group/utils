@@ -1,6 +1,5 @@
 package net.sf.ahtutils.xml.security;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
@@ -20,11 +19,7 @@ public class TestXmlRole extends AbstractXmlSecurityTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestXmlRole.class);
 	
-	@BeforeClass
-	public static void initFiles()
-	{
-		fXml = new File(rootDir,Role.class.getSimpleName()+".xml");
-	}
+	@BeforeClass public static void initFiles() {setXmlFile(dirSuffix,Role.class);}
     
     @Test
     public void testXml() throws FileNotFoundException
@@ -38,6 +33,7 @@ public class TestXmlRole extends AbstractXmlSecurityTest
     public static Role create(boolean withChilds)
     {
     	Role xml = new Role();
+    	xml.setId(123);
     	xml.setCode("myCode");
     	xml.setLabel("myLabel");
     	

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sec:staff xmlns:s="http://ahtutils.aht-group.com/status" xmlns:acl="http://ahtutils.aht-group.com/access" xmlns:ns3="http://ahtutils.aht-group.com/navigation" xmlns:sec="http://ahtutils.aht-group.com/security" id="123">
+    <sec:role id="123" code="myCode" label="myLabel"/>
+</sec:staff>

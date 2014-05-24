@@ -10,28 +10,28 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestXmlRoles extends AbstractXmlSecurityTest
+public class TestXmlStaff extends AbstractXmlSecurityTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestXmlRoles.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlStaff.class);
 	
-	@BeforeClass public static void initFiles() {setXmlFile(dirSuffix,Roles.class);}
+	@BeforeClass public static void initFiles() {setXmlFile(dirSuffix,Staff.class);}
     
     @Test
     public void testXml() throws FileNotFoundException
     {
-    	Roles actual = create(true);
-    	Roles expected = (Roles)JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Roles.class);
+    	Staff actual = create(true);
+    	Staff expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Staff.class);
     	assertJaxbEquals(expected, actual);
     }
     
-    public static Roles create(boolean withChilds)
+    public static Staff create(boolean withChilds)
     {
-    	Roles xml = new Roles();
+    	Staff xml = new Staff();
+    	xml.setId(123);
     	
     	if(withChilds)
     	{
-    		xml.getRole().add(TestXmlRole.create(false));
-    		xml.getRole().add(TestXmlRole.create(false));
+    		xml.setRole(TestXmlRole.create(false));
     	}
     	return xml;
     }
@@ -42,8 +42,8 @@ public class TestXmlRoles extends AbstractXmlSecurityTest
     {
 		UtilsXmlTestBootstrap.init();
 			
-		TestXmlRoles.initFiles();	
-		TestXmlRoles test = new TestXmlRoles();
+		TestXmlStaff.initFiles();	
+		TestXmlStaff test = new TestXmlStaff();
 		test.save();
     }
 }

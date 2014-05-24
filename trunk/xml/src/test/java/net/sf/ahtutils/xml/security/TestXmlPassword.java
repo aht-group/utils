@@ -1,6 +1,5 @@
 package net.sf.ahtutils.xml.security;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
@@ -15,11 +14,7 @@ public class TestXmlPassword extends AbstractXmlSecurityTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestXmlPassword.class);
 	
-	@BeforeClass
-	public static void initFiles()
-	{
-		fXml = new File(rootDir,Password.class.getSimpleName()+".xml");
-	}
+	@BeforeClass public static void initFiles() {setXmlFile(dirSuffix,Password.class);}
     
     @Test
     public void xml() throws FileNotFoundException
