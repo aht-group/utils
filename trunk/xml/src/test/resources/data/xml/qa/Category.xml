@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<category xmlns="http://ahtutils.aht-group.com/qa" id="123" name="myName"/>
+<qa:category xmlns:qa="http://ahtutils.aht-group.com/qa" id="123" name="myName" code="myCode"/>

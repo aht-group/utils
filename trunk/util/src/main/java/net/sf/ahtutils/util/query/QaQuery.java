@@ -4,6 +4,7 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import net.sf.ahtutils.xml.aht.Query;
+import net.sf.ahtutils.xml.qa.Category;
 import net.sf.ahtutils.xml.security.Staff;
 
 public class QaQuery
@@ -35,6 +36,15 @@ public class QaQuery
 		xml.setId(0);
 		xml.setRole(SecurityQuery.role());
 		xml.setUser(SecurityQuery.user());
+		return xml;
+	}
+	
+	public static Category category()
+	{
+		Category xml = new Category();
+		xml.setId(0);
+		xml.setCode("");
+		xml.setName("");
 		return xml;
 	}
 }

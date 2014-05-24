@@ -33,6 +33,7 @@ public class TestXmlCategory extends AbstractXmlQaTest
     	Category xml = new Category();
     	xml.setId(123);
     	xml.setName("myName");
+    	xml.setCode("myCode");
     	
     	if(withChilds)
     	{

@@ -11,7 +11,9 @@ import net.sf.ahtutils.model.interfaces.security.UtilsSecurityUsecase;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityView;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
+import net.sf.ahtutils.model.interfaces.with.EjbWithCode;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 
 public interface UtilsQaCategory<L extends UtilsLang,
 				D extends UtilsDescription,
@@ -25,7 +27,7 @@ public interface UtilsQaCategory<L extends UtilsLang,
 				QA extends UtilsQualityAssurarance<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT>,
 				QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT>,
 				QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT>>
-			extends EjbWithId
+			extends EjbWithId,EjbWithName,EjbWithCode
 {
 	QA getQa();
 	void setQa(QA qa);
