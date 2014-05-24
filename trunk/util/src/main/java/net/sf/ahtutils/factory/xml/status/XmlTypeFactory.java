@@ -30,7 +30,7 @@ public class XmlTypeFactory
 		
 		if(q.isSetLangs())
 		{
-			XmlLangsFactory f = new XmlLangsFactory(q.getLangs());
+			XmlLangsFactory<L> f = new XmlLangsFactory<L>(q.getLangs());
 			xml.setLangs(f.getUtilsLangs(ejb.getName()));
 		}
 		if(q.isSetDescriptions())

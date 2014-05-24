@@ -6,7 +6,7 @@ import net.sf.ahtutils.xml.status.Lang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class XmlLangFactory
+public class XmlLangFactory <L extends UtilsLang>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlLangFactory.class);
 		
@@ -17,7 +17,7 @@ public class XmlLangFactory
 		this.q=q;
 	}
 	
-	public <L extends UtilsLang> Lang getUtilsLang(L ejb)
+	public Lang getUtilsLang(L ejb)
 	{
 		Lang lang = new Lang();
 		if(q.isSetKey()){lang.setKey(ejb.getLkey());}

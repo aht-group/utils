@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import net.sf.ahtutils.xml.access.Role;
+import net.sf.ahtutils.xml.security.Staff;
 import net.sf.ahtutils.xml.status.Langs;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.ahtutils.xml.status.Type;
@@ -28,6 +29,7 @@ import net.sf.ahtutils.xml.status.Type;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}langs"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}status"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}type"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/security}staff"/>
  *       &lt;/sequence>
  *       &lt;attribute name="lang" type="{http://www.w3.org/2001/XMLSchema}string" />
  *     &lt;/restriction>
@@ -42,7 +44,8 @@ import net.sf.ahtutils.xml.status.Type;
     "role",
     "langs",
     "status",
-    "type"
+    "type",
+    "staff"
 })
 @XmlRootElement(name = "query")
 public class Query
@@ -58,6 +61,8 @@ public class Query
     protected Status status;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
     protected Type type;
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/security", required = true)
+    protected Staff staff;
     @XmlAttribute(name = "lang")
     protected String lang;
 
@@ -171,6 +176,34 @@ public class Query
 
     public boolean isSetType() {
         return (this.type!= null);
+    }
+
+    /**
+     * Gets the value of the staff property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Staff }
+     *     
+     */
+    public Staff getStaff() {
+        return staff;
+    }
+
+    /**
+     * Sets the value of the staff property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Staff }
+     *     
+     */
+    public void setStaff(Staff value) {
+        this.staff = value;
+    }
+
+    public boolean isSetStaff() {
+        return (this.staff!= null);
     }
 
     /**

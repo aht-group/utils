@@ -1,5 +1,6 @@
 package net.sf.ahtutils.factory.xml.security;
 
+import net.sf.ahtutils.factory.xml.status.XmlLangsFactory;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
@@ -44,6 +45,12 @@ public class XmlRoleFactory<L extends UtilsLang,
 		Role xml = new Role();
 		
 		if(q.isSetCode()){xml.setCode(role.getCode());}
+		
+		if(q.isSetLangs())
+		{
+			XmlLangsFactory<L> f = new XmlLangsFactory<L>(q.getLangs());
+			xml.setLangs(f.getUtilsLangs(role.getName()));
+		}
 		
 		return xml;
 		

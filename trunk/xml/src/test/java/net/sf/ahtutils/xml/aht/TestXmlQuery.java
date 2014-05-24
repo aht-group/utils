@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
 import net.sf.ahtutils.xml.access.TestXmlRole;
+import net.sf.ahtutils.xml.security.TestXmlStaff;
 import net.sf.ahtutils.xml.status.TestXmlLangs;
 import net.sf.ahtutils.xml.status.TestXmlStatus;
 import net.sf.ahtutils.xml.status.TestXmlType;
@@ -15,9 +16,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestQuery extends AbstractXmlAhtTest
+public class TestXmlQuery extends AbstractXmlAhtTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestQuery.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlQuery.class);
 	
 	@BeforeClass
 	public static void initFiles()
@@ -44,6 +45,7 @@ public class TestQuery extends AbstractXmlAhtTest
     		xml.setLangs(TestXmlLangs.create(false));
     		xml.setStatus(TestXmlStatus.create(false));
     		xml.setType(TestXmlType.create(false));
+    		xml.setStaff(TestXmlStaff.create(false));
     	}
     	
     	return xml;
@@ -55,9 +57,9 @@ public class TestQuery extends AbstractXmlAhtTest
     {
 		UtilsXmlTestBootstrap.init();
 			
-		TestQuery.initJaxb();
-		TestQuery.initFiles();	
-		TestQuery test = new TestQuery();
+		TestXmlQuery.initJaxb();
+		TestXmlQuery.initFiles();	
+		TestXmlQuery test = new TestXmlQuery();
 		test.save();
     }
 }

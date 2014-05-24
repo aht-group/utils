@@ -8,7 +8,7 @@ import net.sf.ahtutils.xml.status.Langs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class XmlLangsFactory
+public class XmlLangsFactory <L extends UtilsLang>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlLangsFactory.class);
 		
@@ -19,18 +19,19 @@ public class XmlLangsFactory
 		this.q=q;
 	}
 	
-	public <L extends UtilsLang> Langs getUtilsLangs(Map<String,L> mapLangs)
+	public Langs getUtilsLangs(Map<String,L> mapLangs)
 	{
-		net.sf.ahtutils.xml.status.Langs langs = new net.sf.ahtutils.xml.status.Langs();
+		Langs langs = new Langs();
 		
 		if(q.isSetLang())
 		{
-			XmlLangFactory f = new XmlLangFactory(q.getLang().get(0));
+			XmlLangFactory<L> f = new XmlLangFactory<L>(q.getLang().get(0));
 			for(L ahtLang : mapLangs.values())
 			{
 				langs.getLang().add(f.getUtilsLang(ahtLang));
 			}
 		}
+		
 		return langs;
 	}	
 }
