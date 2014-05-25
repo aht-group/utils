@@ -2,6 +2,8 @@
 <ofx:section xmlns:ofx="http://www.openfuxml.org"
 			 xmlns:l="http://www.openfuxml.org/list"
 			 xmlns:text="http://www.openfuxml.org/text"
+			 xmlns:media="http://www.openfuxml.org/media"
+			 xmlns:layout="http://www.openfuxml.org/layout"
 			 id="installation.r">
 	
 	<ofx:paragraph lang="de">
@@ -68,8 +70,13 @@
 			</ofx:paragraph>
 	    </l:item>
 	    
-	    
 	</l:list>
+	
+	<media:image id="image.admin.installation.debian.base.wheezy.partition">
+	    <ofx:title>My Test Title</ofx:title>
+	    <layout:alignment horizontal="center"/>
+	    <media:media src="svg.aht-utils/administration/security/security-er.svg" dst="admin/installation/security/er"/>
+	</media:image>
 	
 	<ofx:paragraph lang="en" version="1">
 		The <text:emphasis italic="true">Administrator</text:emphasis> only has to deal with the assignment of

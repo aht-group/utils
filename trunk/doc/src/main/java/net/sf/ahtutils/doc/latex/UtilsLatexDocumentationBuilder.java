@@ -14,7 +14,9 @@ public class UtilsLatexDocumentationBuilder extends AbstractLatexDocumentationBu
 	
 	private static enum Code {accessIntroduction};
 							 
-	public static enum MaintenanceCode {mLoggingIntroduction}							 
+	public static enum MaintenanceCode {mLoggingIntroduction}
+	
+	public static enum SecurityCode {sConceptIntroduction}
 							 
 	public static enum InstallationCode {instDebian,instJava,instJboss,instPostGis,instMaven}
 	public static enum InstallationArchitecture {debianWheezy,debianSqueeze,debianRaspberry,devJava7FX}
@@ -36,8 +38,10 @@ public class UtilsLatexDocumentationBuilder extends AbstractLatexDocumentationBu
 	
 	@Override protected void applyConfigCodes()
 	{
-		addConfig(Code.accessIntroduction.toString(),"ofx.aht-utils/administration/access/introduction.xml","admin/access/introduction");
 		
+		//Security
+		addConfig(SecurityCode.sConceptIntroduction.toString(),"ofx.aht-utils/administration/security/introduction.xml","admin/security/introduction");
+				
 		//Maintenance
 		addConfig(MaintenanceCode.mLoggingIntroduction.toString(),"ofx.aht-utils/administration/logging/introduction.xml","admin/system/logging/introduction");
 		
@@ -56,11 +60,14 @@ public class UtilsLatexDocumentationBuilder extends AbstractLatexDocumentationBu
 		addConfig(RequirementsCode.reqDeveloper.toString(),"ofx.aht-utils/requirements/developer.xml","admin/requirements/developer");
 	}
 	
+	@Deprecated
 	public void buildDoc() throws UtilsConfigurationException
 	{
 		logger.info("buildDoc");
 		render(Code.accessIntroduction.toString());
 	}
+	
+	public void render(SecurityCode code) throws UtilsConfigurationException{render(code.toString());}
 
 	public void render(MaintenanceCode code) throws UtilsConfigurationException{render(code.toString());}
 	
