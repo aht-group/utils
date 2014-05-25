@@ -73,9 +73,9 @@
 	</l:list>
 	
 	<media:image id="image.admin.installation.debian.base.wheezy.partition">
-	    <ofx:title>My Test Title</ofx:title>
+	    <ofx:title>Entity Relationship Diagram of Security Framework</ofx:title>
 	    <layout:alignment horizontal="center"/>
-	    <media:media src="svg.aht-utils/administration/security/security-er.svg" dst="admin/installation/security/er"/>
+	    <media:media src="svg.aht-utils/administration/security/security-er.svg" dst="admin/security/er"/>
 	</media:image>
 	
 	<ofx:paragraph lang="en" version="1">
