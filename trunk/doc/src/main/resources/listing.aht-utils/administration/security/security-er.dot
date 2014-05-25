@@ -1,0 +1,26 @@
+digraph b { 
+
+
+  ratio=0.9;
+  ranksep=0.2;
+  overlap=false;
+
+  Usecase [style=filled, colorscheme=reds7, fillcolor=5];
+  Role [style=filled, colorscheme=reds7, fillcolor=5];
+  View [style=filled, colorscheme=reds7, fillcolor=5];
+  Action [style=filled, colorscheme=reds7, fillcolor=4];
+  User [style=filled, colorscheme=greens7, fillcolor=5];
+  Category [style=filled, colorscheme=reds7, fillcolor=4];
+
+"Category" -> "Usecase" [dir=none];
+"User" -> "Role" [dir=none];
+"Usecase" -> "Action" [dir=none];
+"Usecase" -> "View" [dir=none];
+"Category" -> "Role" [dir=none];
+"Role" -> "Action" [dir=none];
+"Role" -> "View" [dir=none];
+"Category" -> "View" [dir=none];
+"Role" -> "Usecase" [dir=none];
+"View" -> "Action" ;
+}
+

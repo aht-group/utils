@@ -80,6 +80,11 @@ public class ErGraphProcessor
 			Node node = new Node();
 			node.setCode(c.getName());
 			node.setLabel(er.name());
+			if(er.category().length()>0)
+			{
+				node.setCategory(er.category());
+			}
+			
 			mapNodes.put(node.getCode(), node);
 		}
 	}

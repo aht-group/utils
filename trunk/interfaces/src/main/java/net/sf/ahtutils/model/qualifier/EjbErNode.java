@@ -10,6 +10,8 @@ import javax.inject.Qualifier;
 @Qualifier
 @Retention(value = RetentionPolicy.RUNTIME)
 @Target(value = { ElementType.TYPE })
-public @interface EjbErNode {
+public @interface EjbErNode
+{
    String name() default "";
+   String category() default "";
 }

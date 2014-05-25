@@ -34,7 +34,7 @@ import net.sf.ahtutils.model.qualifier.EjbErNode;
 @Table(name="UtilsMeis", uniqueConstraints= {
         @UniqueConstraint(name="unique-email", columnNames = {"email"})
 })
-@EjbErNode(name="User")
+@EjbErNode(name="User",category="user")
 @NamedQueries
 ({	
 	@NamedQuery(name="fUserByEmail",query="SELECT u FROM MeisUser u WHERE u.email = :email")

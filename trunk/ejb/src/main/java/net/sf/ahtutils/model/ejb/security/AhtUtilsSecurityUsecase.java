@@ -31,7 +31,7 @@ import net.sf.ahtutils.model.qualifier.EjbErNode;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"code"}))
-@EjbErNode(name="SecurityUsecase")
+@EjbErNode(name="Usecase",category="security")
 
 public class AhtUtilsSecurityUsecase implements EjbWithCode,Serializable,EjbRemoveable,EjbPersistable,
 			UtilsSecurityUsecase<AhtUtilsLang,AhtUtilsDescription,AhtUtilsSecurityCategory,AhtUtilsSecurityRole,AhtUtilsSecurityView,AhtUtilsSecurityUsecase,AhtUtilsSecurityAction,AhtUtilsUser>

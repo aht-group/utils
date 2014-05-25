@@ -30,7 +30,7 @@ import net.sf.ahtutils.model.qualifier.EjbErNode;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"code"}))
-@EjbErNode(name="SecurityView")
+@EjbErNode(name="View",category="security")
 
 public class AhtUtilsSecurityView implements EjbWithCode,Serializable,EjbRemoveable,EjbPersistable,
 		UtilsSecurityView<AhtUtilsLang,AhtUtilsDescription,AhtUtilsSecurityCategory,AhtUtilsSecurityRole,AhtUtilsSecurityView,AhtUtilsSecurityUsecase,AhtUtilsSecurityAction,AhtUtilsUser>

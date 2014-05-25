@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node xmlns="http://www.metachart.org/graph">
+	<node category="security" code="reds7" id="4">
+		<node code="Role" id="5"/>
+		<node code="View" id="5"/>
+		<node code="Usecase" id="5"/>
+	</node>
+	<node category="user" code="greens7" id="5"/>
+</node>
