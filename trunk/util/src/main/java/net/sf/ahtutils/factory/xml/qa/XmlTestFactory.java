@@ -12,12 +12,12 @@ import net.sf.ahtutils.model.interfaces.security.UtilsSecurityUsecase;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityView;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
-import net.sf.ahtutils.xml.qa.Category;
+import net.sf.ahtutils.xml.qa.Test;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class XmlCategoryFactory<L extends UtilsLang,
+public class XmlTestFactory<L extends UtilsLang,
 							D extends UtilsDescription,
 							C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
 							R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
@@ -30,29 +30,30 @@ public class XmlCategoryFactory<L extends UtilsLang,
 							QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT>,
 							QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT>>
 {
-	final static Logger logger = LoggerFactory.getLogger(XmlCategoryFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(XmlTestFactory.class);
 		
-	private Category q;
+	private Test q;
 	
-	public XmlCategoryFactory(Category q)
+	public XmlTestFactory(Test q)
 	{
 		this.q=q;
 	}
 	
-	public static Category build()
+	public static Test build()
 	{
-		Category xml = new Category();
+		Test xml = new Test();
 
 		return xml;
 	}
 	
-	public Category build(QAC category)
+	public Test build(QAT test)
 	{
-		Category xml = new Category();
+		Test xml = new Test();
 		
-		if(q.isSetId()){xml.setId(category.getId());}
-		if(q.isSetCode()){xml.setCode(category.getCode());}
-		if(q.isSetName()){xml.setName(category.getName());}
+		if(q.isSetId()){xml.setId(test.getId());}
+		if(q.isSetCode()){xml.setCode(test.getCode());}
+		if(q.isSetName()){xml.setName(test.getName());}
+
 		
 		return xml;
 		

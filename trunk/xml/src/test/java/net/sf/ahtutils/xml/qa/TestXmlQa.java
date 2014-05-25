@@ -15,11 +15,7 @@ public class TestXmlQa extends AbstractXmlQaTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestXmlQa.class);
 	
-	@BeforeClass
-	public static void initFiles()
-	{
-        setXmlFile(dirSuffix,Qa.class);
-	}
+	@BeforeClass public static void initFiles(){setXmlFile(dirSuffix,Qa.class);}
     
     @Test
     public void xml() throws FileNotFoundException

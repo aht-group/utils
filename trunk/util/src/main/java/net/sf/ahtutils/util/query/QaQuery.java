@@ -5,6 +5,7 @@ import java.util.Map;
 
 import net.sf.ahtutils.xml.aht.Query;
 import net.sf.ahtutils.xml.qa.Category;
+import net.sf.ahtutils.xml.qa.Test;
 import net.sf.ahtutils.xml.security.Staff;
 
 public class QaQuery
@@ -42,6 +43,15 @@ public class QaQuery
 	public static Category category()
 	{
 		Category xml = new Category();
+		xml.setId(0);
+		xml.setCode("");
+		xml.setName("");
+		return xml;
+	}
+	
+	public static Test test()
+	{
+		Test xml = new Test();
 		xml.setId(0);
 		xml.setCode("");
 		xml.setName("");
