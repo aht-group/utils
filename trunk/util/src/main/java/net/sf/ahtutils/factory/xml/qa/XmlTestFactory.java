@@ -12,6 +12,7 @@ import net.sf.ahtutils.model.interfaces.security.UtilsSecurityUsecase;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityView;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
+import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.xml.qa.Test;
 
 import org.slf4j.Logger;
@@ -26,9 +27,11 @@ public class XmlTestFactory<L extends UtilsLang,
 							A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
 							USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
 							STAFF extends UtilsStaff<L,D,C,R,V,U,A,USER,QA>,
-							QA extends UtilsQualityAssurarance<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT>,
-							QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT>,
-							QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT>>
+							QA extends UtilsQualityAssurarance<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,STATUS,CONDITION>,
+							QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,STATUS,CONDITION>,
+							QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,STATUS,CONDITION>,
+							STATUS extends UtilsStatus<STATUS,L,D>,
+							CONDITION extends UtilsStatus<CONDITION,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlTestFactory.class);
 		
