@@ -2,7 +2,7 @@
 <xsd:schema targetNamespace="http://ahtutils.aht-group.com/security"
     xmlns:sec="http://ahtutils.aht-group.com/security"
     xmlns:a="http://ahtutils.aht-group.com/access"
-    xmlns:s="http://ahtutils.aht-group.com/status"
+    xmlns:us="http://ahtutils.aht-group.com/status"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <xsd:import namespace="http://ahtutils.aht-group.com/access" schemaLocation="access.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/status" schemaLocation="status.xsd"/>
@@ -34,8 +34,8 @@
     <xsd:element name="role">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="s:descriptions" maxOccurs="1"/>
-                <xsd:element ref="s:langs" maxOccurs="1"/>
+                <xsd:element ref="us:descriptions" maxOccurs="1"/>
+                <xsd:element ref="us:langs" maxOccurs="1"/>
                 <xsd:element ref="a:views" maxOccurs="1"/>
                 <xsd:element ref="a:actions" maxOccurs="1"/>
                 <xsd:element ref="a:usecases" maxOccurs="1"/>
@@ -56,8 +56,10 @@
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element ref="sec:role" maxOccurs="1"/>
-                <xsd:element ref="s:status" maxOccurs="1"/>
                 <xsd:element ref="sec:user" maxOccurs="1"/>
+                <xsd:element ref="us:status" maxOccurs="1"/> <!-- Possibility to use this individually -->
+                <xsd:element ref="us:type" maxOccurs="1"/> <!-- Possibility to use this individually -->
+                <xsd:element ref="us:responsible" maxOccurs="1"/> <!-- Possibility to use this individually -->
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
         </xsd:complexType>

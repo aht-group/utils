@@ -61,4 +61,12 @@ public class XmlTypeFactory
 		type.setLangs(status.getLangs());
 		return type;
 	}
+	
+	public static Type buildLabel(String code, String label)
+	{
+		Type type = new Type();
+		type.setCode(code);
+		type.setLabel(label);
+		return type;
+	}
 }

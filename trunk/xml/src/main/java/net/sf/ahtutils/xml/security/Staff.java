@@ -8,7 +8,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import net.sf.ahtutils.xml.status.Responsible;
 import net.sf.ahtutils.xml.status.Status;
+import net.sf.ahtutils.xml.status.Type;
 
 
 /**
@@ -22,8 +24,10 @@ import net.sf.ahtutils.xml.status.Status;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element ref="{http://ahtutils.aht-group.com/security}role"/>
- *         &lt;element ref="{http://ahtutils.aht-group.com/status}status"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/security}user"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/status}status"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/status}type"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/status}responsible"/>
  *       &lt;/sequence>
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" />
  *     &lt;/restriction>
@@ -36,8 +40,10 @@ import net.sf.ahtutils.xml.status.Status;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "role",
+    "user",
     "status",
-    "user"
+    "type",
+    "responsible"
 })
 @XmlRootElement(name = "staff")
 public class Staff
@@ -47,10 +53,14 @@ public class Staff
     private final static long serialVersionUID = 1L;
     @XmlElement(required = true)
     protected Role role;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
-    protected Status status;
     @XmlElement(required = true)
     protected User user;
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
+    protected Status status;
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
+    protected Type type;
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
+    protected Responsible responsible;
     @XmlAttribute(name = "id")
     protected Long id;
 
@@ -83,6 +93,34 @@ public class Staff
     }
 
     /**
+     * Gets the value of the user property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link User }
+     *     
+     */
+    public User getUser() {
+        return user;
+    }
+
+    /**
+     * Sets the value of the user property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link User }
+     *     
+     */
+    public void setUser(User value) {
+        this.user = value;
+    }
+
+    public boolean isSetUser() {
+        return (this.user!= null);
+    }
+
+    /**
      * Gets the value of the status property.
      * 
      * @return
@@ -111,31 +149,59 @@ public class Staff
     }
 
     /**
-     * Gets the value of the user property.
+     * Gets the value of the type property.
      * 
      * @return
      *     possible object is
-     *     {@link User }
+     *     {@link Type }
      *     
      */
-    public User getUser() {
-        return user;
+    public Type getType() {
+        return type;
     }
 
     /**
-     * Sets the value of the user property.
+     * Sets the value of the type property.
      * 
      * @param value
      *     allowed object is
-     *     {@link User }
+     *     {@link Type }
      *     
      */
-    public void setUser(User value) {
-        this.user = value;
+    public void setType(Type value) {
+        this.type = value;
     }
 
-    public boolean isSetUser() {
-        return (this.user!= null);
+    public boolean isSetType() {
+        return (this.type!= null);
+    }
+
+    /**
+     * Gets the value of the responsible property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Responsible }
+     *     
+     */
+    public Responsible getResponsible() {
+        return responsible;
+    }
+
+    /**
+     * Sets the value of the responsible property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Responsible }
+     *     
+     */
+    public void setResponsible(Responsible value) {
+        this.responsible = value;
+    }
+
+    public boolean isSetResponsible() {
+        return (this.responsible!= null);
     }
 
     /**

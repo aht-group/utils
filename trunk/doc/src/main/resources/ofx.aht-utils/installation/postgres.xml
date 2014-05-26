@@ -22,7 +22,7 @@
 	<ofx:section>
 		<ofx:title lang="en">Installation</ofx:title>
 		
-		<ofx:section transparent="true" classifier="debianSqueeze">
+		<ofx:section container="true" classifier="debianSqueeze">
 			<ofx:title>Linux (Debian Wheezy)</ofx:title>
 			<ofx:listing>
 				<ofx:raw>export http_proxy=http://proxy:3128 (optional)
@@ -37,7 +37,7 @@ sudo make comments-install</ofx:raw>
 			</ofx:listing>
 		</ofx:section>
 		
-		<ofx:section transparent="true" classifier="debianWheezy">
+		<ofx:section container="true" classifier="debianWheezy">
 			<ofx:title>Linux (Debian Squeeze)</ofx:title>
 			<ofx:listing>
 				<ofx:raw>apt-cache search postgis

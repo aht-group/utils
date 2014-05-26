@@ -1,5 +1,7 @@
 package net.sf.ahtutils.doc;
 
+import java.util.List;
+
 import org.apache.commons.configuration.Configuration;
 import org.openfuxml.content.ofx.Comment;
 import org.openfuxml.exception.OfxAuthoringException;
@@ -29,6 +31,15 @@ public class DocumentationCommentBuilder
 	}
 	
 	public static void tableHeaders(Comment comment,String[] headerKeys)
+	{
+		int i=1;
+		for(String s : headerKeys)
+		{
+			tableKey(comment,s,"Table Header ("+i+")");
+			i++;
+		}	
+	}
+	public static void tableHeaders(Comment comment,List<String> headerKeys)
 	{
 		int i=1;
 		for(String s : headerKeys)

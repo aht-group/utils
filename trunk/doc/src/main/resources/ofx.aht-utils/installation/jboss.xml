@@ -4,7 +4,7 @@
 	id="section.admin.installation.jboss">
 	<ofx:title lang="en">JBoss Application Server</ofx:title>
 	
-	<ofx:section transparent="true" classifier="as7">
+	<ofx:section container="true" classifier="as7">
 		<ofx:title lang="en">AS7</ofx:title>
 		
 		<ofx:paragraph lang="de">
@@ -26,7 +26,7 @@
 		</ofx:paragraph>
 	</ofx:section>
 	
-	<ofx:section transparent="true" classifier="eap6">
+	<ofx:section container="true" classifier="eap6">
 		<ofx:title lang="en">EAP 6.1</ofx:title>
 		
 		<ofx:section>

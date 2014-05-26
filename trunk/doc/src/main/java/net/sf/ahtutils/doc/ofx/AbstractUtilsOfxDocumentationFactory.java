@@ -1,5 +1,8 @@
 package net.sf.ahtutils.doc.ofx;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.sf.ahtutils.xml.status.Translations;
 import net.sf.ahtutils.xml.xpath.StatusXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
@@ -26,7 +29,15 @@ public class AbstractUtilsOfxDocumentationFactory
 		this.translations=translations;
 	}
 	
+	@Deprecated
 	protected Row createHeaderRow(String[] headerKeys)
+	{
+		List<String> keys = new ArrayList<String>();
+		for(String key : headerKeys){keys.add(key);}
+		return createHeaderRow(keys);
+	}
+	
+	protected Row createHeaderRow(List<String> headerKeys)
 	{
 		Row row = new Row();
 		for(String headerKey : headerKeys)

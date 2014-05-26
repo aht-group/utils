@@ -75,6 +75,7 @@
 	<media:image id="image.admin.installation.debian.base.wheezy.partition">
 	    <ofx:title>Entity Relationship Diagram of Security Framework</ofx:title>
 	    <layout:alignment horizontal="center"/>
+	    <layout:width unit="cm">6</layout:width>
 	    <media:media src="svg.aht-utils/administration/security/security-er.svg" dst="admin/security/er"/>
 	</media:image>
 	

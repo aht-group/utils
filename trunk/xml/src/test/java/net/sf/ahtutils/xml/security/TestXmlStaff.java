@@ -3,6 +3,9 @@ package net.sf.ahtutils.xml.security;
 import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
+import net.sf.ahtutils.xml.status.TestXmlResponsible;
+import net.sf.ahtutils.xml.status.TestXmlStatus;
+import net.sf.ahtutils.xml.status.TestXmlType;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;
@@ -33,6 +36,10 @@ public class TestXmlStaff extends AbstractXmlSecurityTest
     	{
     		xml.setRole(TestXmlRole.create(false));
     		xml.setUser(TestXmlUser.create(false));
+    		
+    		xml.setStatus(TestXmlStatus.create(false));
+    		xml.setType(TestXmlType.create(false));
+    		xml.setResponsible(TestXmlResponsible.create(false));
     	}
     	return xml;
     }

@@ -39,7 +39,7 @@ public class OfxQaTeamTableFactory extends AbstractUtilsOfxDocumentationFactory
 		super(config,lang,translations);
 	}
 	
-	public Table build(Qa qa, String[] headerKeys) throws OfxAuthoringException
+	public Table build(Qa qa, List<String> headerKeys) throws OfxAuthoringException
 	{
 		try
 		{
@@ -61,21 +61,39 @@ public class OfxQaTeamTableFactory extends AbstractUtilsOfxDocumentationFactory
 		catch (ExlpXpathNotUniqueException e) {throw new OfxAuthoringException(e.getMessage());}
 	}
 	
-	public Table toOfx(List<Staff> lStaff, String[] headerKeys)
+	public Table toOfx(List<Staff> lStaff, List<String> headerKeys)
 	{
 		Table table = new Table();
-		table.setSpecification(createSpecifications());
+		table.setSpecification(createSpecifications(headerKeys.size()));
 		
 		table.setContent(createContent(lStaff,headerKeys));
 		
 		return table;
 	}
 	
-	private Specification createSpecifications()
+	private Specification createSpecifications(int columns)
 	{
 		Columns cols = new Columns();
-		cols.getColumn().add(OfxColumnFactory.flex(30));
-		cols.getColumn().add(OfxColumnFactory.flex(60));
+		if(columns==2)
+		{
+			cols.getColumn().add(OfxColumnFactory.flex(30));
+			cols.getColumn().add(OfxColumnFactory.flex(60));
+		}
+		else if(columns==3)
+		{
+			cols.getColumn().add(OfxColumnFactory.flex(25));
+			cols.getColumn().add(OfxColumnFactory.flex(35));
+			cols.getColumn().add(OfxColumnFactory.flex(40));
+		}
+		else if(columns==4)
+		{
+			cols.getColumn().add(OfxColumnFactory.flex(20));
+			cols.getColumn().add(OfxColumnFactory.flex(30));
+			cols.getColumn().add(OfxColumnFactory.flex(25));
+			cols.getColumn().add(OfxColumnFactory.flex(25));
+		}
+		else {logger.warn("Columns "+columns+" NYI");}
+			
 		
 		Specification specification = new Specification();
 		specification.setColumns(cols);
@@ -83,7 +101,7 @@ public class OfxQaTeamTableFactory extends AbstractUtilsOfxDocumentationFactory
 		return specification;
 	}
 	
-	private Content createContent(List<Staff> lStaff, String[] headerKeys)
+	private Content createContent(List<Staff> lStaff, List<String> headerKeys)
 	{
 		Head head = new Head();
 		head.getRow().add(createHeaderRow(headerKeys));
@@ -115,6 +133,13 @@ public class OfxQaTeamTableFactory extends AbstractUtilsOfxDocumentationFactory
 		Row row = new Row();
 		row.getCell().add(OfxCellFactory.createParagraphCell(roleName));
 		row.getCell().add(OfxCellFactory.createParagraphCell(staff.getUser().getFirstName()+" "+staff.getUser().getLastName()));
+		
+		if(staff.isSetResponsible()){row.getCell().add(OfxCellFactory.createParagraphCell(staff.getResponsible().getLabel()));}
+		else{row.getCell().add(OfxCellFactory.createParagraphCell(""));}
+		
+		if(staff.isSetType()){row.getCell().add(OfxCellFactory.createParagraphCell(staff.getType().getLabel()));}
+		else{row.getCell().add(OfxCellFactory.createParagraphCell(""));}
+		
 		return row;
 	}	
 }

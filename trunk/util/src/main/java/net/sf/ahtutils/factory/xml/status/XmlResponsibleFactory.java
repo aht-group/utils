@@ -46,4 +46,12 @@ public class XmlResponsibleFactory
 		xml.setCode(code);
 		return xml;
 	}
+	
+	public static Responsible buildLabel(String code, String label)
+	{
+		Responsible xml = new Responsible();
+		xml.setCode(code);
+		xml.setLabel(label);
+		return xml;
+	}
 }

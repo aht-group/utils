@@ -25,39 +25,44 @@
 		Public repositories can also be updated.
 	</ofx:paragraph>
 	
-	<ofx:section transparent="true" classifier="debianWheezy">>
-		<ofx:title>Linux (Debian Wheezy)</ofx:title>
-		
-		<ofx:paragraph lang="en" version="1">
-			Get Maven from http://maven.apache.org/download.cgi
-		</ofx:paragraph>
-		
-		<ofx:listing>
-			<ofx:raw>cd /opt
-tar -xvzf path_to_download/apache-maven-3.1.0-bin.tar.gz</ofx:raw>
-		</ofx:listing>
-		
-		<ofx:paragraph lang="de" version="1">
-			Danach muss folgender Eintrag in der Datei /etc/profile vor dem Befehk export PATH hinzugefügt werden.
-		</ofx:paragraph>
-		<ofx:paragraph lang="de" version="1">
-			Then the following entry has to added in /etc/profile before export PATH.
-		</ofx:paragraph>
-		
-		<ofx:listing>
-			<ofx:raw>PATH=$PATH:/opt/apache-maven-3.1.0/bin</ofx:raw>
-		</ofx:listing>
-	</ofx:section>
+	<ofx:section classifier="debianWheezy">>
+		<ofx:title lang="en">Installation</ofx:title>
 	
-	<ofx:section transparent="true" classifier="osxMavericks">
-		<ofx:title>OSX (Mavericks)</ofx:title>
-		<ofx:paragraph lang="en">
-			Install Homebrew and follow the instructions during the setup script. Depending on the actual system the user
-			may be asked to install the "command line developer tools". This tools will be installed automatically.
-		</ofx:paragraph>
-		<ofx:listing>
-			<ofx:raw>ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
-				brew install maven</ofx:raw>
-		</ofx:listing>
+		<ofx:section container="true" classifier="debianWheezy">>
+			<ofx:title>Linux (Debian Wheezy)</ofx:title>
+			
+			<ofx:paragraph lang="en" version="1">
+				Get Maven from http://maven.apache.org/download.cgi
+			</ofx:paragraph>
+			
+			<ofx:listing>
+				<ofx:raw>cd /opt
+tar -xvzf path_to_download/apache-maven-3.1.0-bin.tar.gz</ofx:raw>
+			</ofx:listing>
+			
+			<ofx:paragraph lang="de" version="1">
+				Danach muss folgender Eintrag in der Datei /etc/profile vor dem Befehk export PATH hinzugefügt werden.
+			</ofx:paragraph>
+			<ofx:paragraph lang="de" version="1">
+				Then the following entry has to added in /etc/profile before export PATH.
+			</ofx:paragraph>
+			
+			<ofx:listing>
+				<ofx:raw>PATH=$PATH:/opt/apache-maven-3.1.0/bin</ofx:raw>
+			</ofx:listing>
+		</ofx:section>
+		
+		<ofx:section container="true" classifier="osxMavericks">
+			<ofx:title>OSX (Mavericks)</ofx:title>
+			<ofx:paragraph lang="en">
+				Install Homebrew and follow the instructions during the setup script. Depending on the actual system the user
+				may be asked to install the "command line developer tools". This tools will be installed automatically.
+			</ofx:paragraph>
+			<ofx:listing>
+				<ofx:raw>ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+					brew install maven</ofx:raw>
+			</ofx:listing>
+		</ofx:section>
+	
 	</ofx:section>
 </ofx:section>
