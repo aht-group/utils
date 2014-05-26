@@ -3,6 +3,8 @@ package net.sf.ahtutils.xml.qa;
 import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
+import net.sf.ahtutils.xml.status.TestXmlCondition;
+import net.sf.ahtutils.xml.status.TestXmlStatus;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;
@@ -33,7 +35,14 @@ public class TestXmlTest extends AbstractXmlQaTest
     	
     	if(withChilds)
     	{
+    		xml.setStatus(TestXmlStatus.create(false));
+    		xml.setCondition(TestXmlCondition.create(false));
     		
+    		xml.setReference(TestXmlReference.create());
+    		xml.setSummary(TestXmlSummary.create());
+    		xml.setPreCondition(TestXmlPreCondition.create());
+    		xml.setSteps(TestXmlSteps.create());
+    		xml.setExpected(TestXmlExpected.create());
     	}
     	
     	return xml;

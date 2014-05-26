@@ -26,9 +26,58 @@
     </xsd:element>
     <xsd:element name="test">
         <xsd:complexType>
+        	<xsd:sequence>
+        		<xsd:element ref="us:status" maxOccurs="1"/>
+        		<xsd:element ref="us:condition" maxOccurs="1"/>
+                <xsd:element ref="qa:reference" maxOccurs="1"/>
+                <xsd:element ref="qa:summary" maxOccurs="1"/>
+                <xsd:element ref="qa:preCondition" maxOccurs="1"/>
+                <xsd:element ref="qa:steps" maxOccurs="1"/>
+                <xsd:element ref="qa:expected" maxOccurs="1"/>
+            </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="name" type="xsd:string"/>
             <xsd:attribute name="code" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="reference">
+        <xsd:complexType>
+            <xsd:simpleContent>
+                <xsd:extension base="xsd:string">
+                </xsd:extension>
+            </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="summary">
+        <xsd:complexType>
+            <xsd:simpleContent>
+                <xsd:extension base="xsd:string">
+                </xsd:extension>
+            </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="preCondition">
+        <xsd:complexType>
+            <xsd:simpleContent>
+                <xsd:extension base="xsd:string">
+                </xsd:extension>
+            </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="steps">
+        <xsd:complexType>
+            <xsd:simpleContent>
+                <xsd:extension base="xsd:string">
+                </xsd:extension>
+            </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="expected">
+        <xsd:complexType>
+            <xsd:simpleContent>
+                <xsd:extension base="xsd:string">
+                </xsd:extension>
+            </xsd:simpleContent>
         </xsd:complexType>
     </xsd:element>
 </xsd:schema>

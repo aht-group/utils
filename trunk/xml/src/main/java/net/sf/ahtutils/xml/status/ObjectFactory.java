@@ -94,6 +94,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Responsible }
+     * 
+     */
+    public Responsible createResponsible() {
+        return new Responsible();
+    }
+
+    /**
      * Create an instance of {@link Scope }
      * 
      */
@@ -155,14 +163,6 @@ public class ObjectFactory {
      */
     public Copy createCopy() {
         return new Copy();
-    }
-
-    /**
-     * Create an instance of {@link Responsible }
-     * 
-     */
-    public Responsible createResponsible() {
-        return new Responsible();
     }
 
     /**

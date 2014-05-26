@@ -29,18 +29,19 @@
             <xsd:attribute name="position" type="xsd:int"/>
         </xsd:complexType>
     </xsd:element>
+    <xsd:element name="parent">
+        <xsd:complexType>
+            <xsd:attribute name="id" type="xsd:long"/>
+            <xsd:attribute name="code" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+    
     <xsd:element name="types">
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element ref="s:type" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="group" type="xsd:string"/>
-        </xsd:complexType>
-    </xsd:element>
-    <xsd:element name="parent">
-        <xsd:complexType>
-            <xsd:attribute name="id" type="xsd:long"/>
-            <xsd:attribute name="code" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="type">

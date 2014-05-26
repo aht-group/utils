@@ -30,6 +30,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Summary }
+     * 
+     */
+    public Summary createSummary() {
+        return new Summary();
+    }
+
+    /**
+     * Create an instance of {@link Expected }
+     * 
+     */
+    public Expected createExpected() {
+        return new Expected();
+    }
+
+    /**
      * Create an instance of {@link Category }
      * 
      */
@@ -43,6 +59,30 @@ public class ObjectFactory {
      */
     public Test createTest() {
         return new Test();
+    }
+
+    /**
+     * Create an instance of {@link Reference }
+     * 
+     */
+    public Reference createReference() {
+        return new Reference();
+    }
+
+    /**
+     * Create an instance of {@link PreCondition }
+     * 
+     */
+    public PreCondition createPreCondition() {
+        return new PreCondition();
+    }
+
+    /**
+     * Create an instance of {@link Steps }
+     * 
+     */
+    public Steps createSteps() {
+        return new Steps();
     }
 
     /**
