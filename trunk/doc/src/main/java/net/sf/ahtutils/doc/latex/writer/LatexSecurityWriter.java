@@ -3,7 +3,6 @@ package net.sf.ahtutils.doc.latex.writer;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.doc.UtilsDocumentation;
 import net.sf.ahtutils.doc.security.OfxCategoryListFactory;
 import net.sf.ahtutils.doc.security.OfxRoleTableFactory;
 import net.sf.ahtutils.doc.security.OfxViewTableFactory;
@@ -16,28 +15,20 @@ import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.apache.commons.configuration.Configuration;
 import org.openfuxml.exception.OfxAuthoringException;
+import org.openfuxml.interfaces.CrossMediaManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LatexSecurityWriter
+public class LatexSecurityWriter extends AbstractDocumentationLatexWriter
 {	
 	final static Logger logger = LoggerFactory.getLogger(LatexSecurityWriter.class);
 	
 	private final static String dirTabs = "tab/security";
 	private final static String dirDescriptions = "description/security";
-	
-	private Configuration config;
-	
-	private String baseLatexDir;
-	private Translations translations;
-	private String[] langs;
-	
-	public LatexSecurityWriter(Configuration config, Translations translations,String[] langs)
+		
+	public LatexSecurityWriter(Configuration config, Translations translations,String[] langs, CrossMediaManager cmm)
 	{
-		this.config=config;
-		this.translations=translations;
-		this.langs=langs;
-		baseLatexDir=config.getString(UtilsDocumentation.keyBaseDocDir);
+		super(config,translations,langs,cmm);
 	}
 	
 	public void createViewTabs(String xmlFile) throws UtilsConfigurationException

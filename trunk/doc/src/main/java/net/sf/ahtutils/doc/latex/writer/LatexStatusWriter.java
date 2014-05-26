@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.db.xml.UtilsDbXmlSeedUtil;
-import net.sf.ahtutils.doc.UtilsDocumentation;
 import net.sf.ahtutils.doc.status.OfxStatusTableFactory;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.aht.Aht;
@@ -15,27 +14,21 @@ import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.apache.commons.configuration.Configuration;
 import org.openfuxml.exception.OfxAuthoringException;
+import org.openfuxml.interfaces.CrossMediaManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LatexStatusWriter
+public class LatexStatusWriter extends AbstractDocumentationLatexWriter
 {	
 	final static Logger logger = LoggerFactory.getLogger(LatexStatusWriter.class);
 	
-	private Configuration config;
-	private String baseLatexDir;
 	private final static String dirStatus = "tab/status";
 	
-	private Translations translations;
-	private String[] langs;
 	private UtilsDbXmlSeedUtil seedUtil;
 	
-	public LatexStatusWriter(Configuration config, Translations translations,String[] langs) throws UtilsConfigurationException
+	public LatexStatusWriter(Configuration config, Translations translations,String[] langs, CrossMediaManager cmm) throws UtilsConfigurationException
 	{
-		this.config=config;
-		this.translations=translations;
-		this.langs=langs;
-		baseLatexDir=config.getString(UtilsDocumentation.keyBaseDocDir);
+		super(config,translations,langs,cmm);
 		
 		String dbSeedFile = config.getString(UtilsDbXmlSeedUtil.configKeySeed);
 		logger.debug("Using seed: "+dbSeedFile);

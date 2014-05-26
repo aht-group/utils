@@ -1,10 +1,11 @@
-package net.sf.ahtutils.doc.latex;
+package net.sf.ahtutils.doc.latex.builder;
 
 import net.sf.ahtutils.doc.UtilsDocumentation;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
+import net.sf.ahtutils.xml.status.Translations;
 
 import org.apache.commons.configuration.Configuration;
-import org.openfuxml.util.media.MediaSourceModificationTracker;
+import org.openfuxml.interfaces.CrossMediaManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,9 +27,9 @@ public class UtilsLatexDocumentationBuilder extends AbstractLatexDocumentationBu
 	public static enum RequirementsCode {reqIntroduction,reqHardware,reqAdmin,reqDeveloper}
 	public static enum RequirementsClassifier {reqHardware,reqAdmin,reqDeveloper,reqNetwork}
 		
-	public UtilsLatexDocumentationBuilder(Configuration config, String[] langs,MediaSourceModificationTracker msmt)
+	public UtilsLatexDocumentationBuilder(Configuration config, Translations translations,String[] langs, CrossMediaManager cmm)
 	{
-		super(config,langs,msmt);
+		super(config,translations,langs,cmm);
 	}
 	
 	@Override protected void applyBaseLatexDir()

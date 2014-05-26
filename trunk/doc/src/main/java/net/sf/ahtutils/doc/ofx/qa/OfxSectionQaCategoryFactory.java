@@ -27,13 +27,13 @@ import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class OfxQaCategorySectionFactory extends AbstractUtilsOfxDocumentationFactory
+public class OfxSectionQaCategoryFactory extends AbstractUtilsOfxDocumentationFactory
 {
-	final static Logger logger = LoggerFactory.getLogger(OfxQaCategorySectionFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(OfxSectionQaCategoryFactory.class);
 
 	private String[] headerKeys;
 	
-	public OfxQaCategorySectionFactory(Configuration config, String lang, Translations translations)
+	public OfxSectionQaCategoryFactory(Configuration config, String lang, Translations translations)
 	{
 		super(config,lang,translations);
 	}
