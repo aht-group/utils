@@ -75,7 +75,8 @@ public class AbstractLatexDocumentationBuilder extends AbstractDocumentationLate
 	{
 		logger.trace("Rendering "+Section.class.getSimpleName()+": "+code);
 		Section section = JaxbUtil.loadJAXB(config.getString(code), Section.class);
-
+		applySectionSettings(code, section);
+		
 		Comment comment = XmlCommentFactory.build();
 		DocumentationCommentBuilder.configKeyReference(comment, config, code, "Source file");
 		
@@ -99,4 +100,5 @@ public class AbstractLatexDocumentationBuilder extends AbstractDocumentationLate
 		}
 	}
 	
+	protected void applySectionSettings(String code, Section section) {}
 }

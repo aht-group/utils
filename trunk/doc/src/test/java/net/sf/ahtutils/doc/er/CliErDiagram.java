@@ -7,7 +7,6 @@ import java.io.IOException;
 import net.sf.ahtutils.test.AhtUtilsDocBootstrap;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-import org.apache.commons.configuration.Configuration;
 import org.metachart.processor.graph.Graph2DotConverter;
 import org.metachart.xml.graph.Graph;
 import org.metachart.xml.graph.Node;
@@ -42,6 +41,7 @@ public class CliErDiagram
 		erGraph.addPackages("net/sf/ahtutils/model/ejb");
 		
 		Graph g = erGraph.create();
+		JaxbUtil.info(g);
 		
 		gdc.setOverlap(false);
 		gdc.setRatio(0.9);
@@ -56,7 +56,7 @@ public class CliErDiagram
 
 	public static void main(String args[]) throws Exception
 	{
-		Configuration config = AhtUtilsDocBootstrap.init();
+		AhtUtilsDocBootstrap.init();
 		
 		CliErDiagram er = new CliErDiagram();
 		er.withColorScheme();
