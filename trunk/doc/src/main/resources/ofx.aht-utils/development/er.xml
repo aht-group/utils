@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org"
+			xmlns:l="http://www.openfuxml.org/list"
+			xmlns:t="http://www.openfuxml.org/table"
+			xmlns:media="http://www.openfuxml.org/media"
+			xmlns:layout="http://www.openfuxml.org/layout"
+			id="section.admin.development.er">
+	<ofx:title lang="en">Entity Relationship Model</ofx:title>
+	
+	<ofx:paragraph lang="en">
+		An entity-relationship model is a systematic way of describing and defining a business process.
+		The process is modeled as components (entities) that are linked with each other by relationships that
+		express the dependencies and requirements between them, such as: one building may be divided into zero or
+		more apartments, but one apartment can only be located in one building. Entities may have various properties
+		(attributes) that characterize them. Diagrams created to represent these entities, attributes, and relationships
+		graphically are called entity–relationship diagrams.
+	</ofx:paragraph>
+	
+	<media:image id="image.admin.development.er">
+	    <ofx:title>Entity Relationship Diagram</ofx:title>
+	    <layout:alignment horizontal="center"/>
+	    <layout:width unit="percentage">100</layout:width>
+	    <media:media src="svg.aht-utils/administration/security/security-er.svg" dst="admin/development/er"/>
+	</media:image>
+	
+</ofx:section>
