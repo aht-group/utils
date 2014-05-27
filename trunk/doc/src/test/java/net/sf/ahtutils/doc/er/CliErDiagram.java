@@ -21,7 +21,7 @@ public class CliErDiagram
 	
 	public CliErDiagram()
 	{
-		gdc = new Graph2DotConverter("a","b");
+		gdc = new Graph2DotConverter("b");
 	}
 	
 	public void withColorScheme() throws FileNotFoundException

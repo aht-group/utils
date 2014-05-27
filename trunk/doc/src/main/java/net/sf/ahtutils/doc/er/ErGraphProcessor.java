@@ -84,6 +84,7 @@ public class ErGraphProcessor
 			{
 				node.setCategory(er.category());
 			}
+			node.setType(""+er.level());
 			
 			mapNodes.put(node.getCode(), node);
 		}

@@ -14,4 +14,5 @@ public @interface EjbErNode
 {
    String name() default "";
    String category() default "";
+   int level() default 1;
 }
