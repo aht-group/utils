@@ -57,7 +57,7 @@ public class CliErDiagram
 	public static void main(String args[]) throws Exception
 	{
 		AhtUtilsDocBootstrap.init();
-		
+		logger.info(System.getProperty("java.version"));
 		CliErDiagram er = new CliErDiagram();
 		er.withColorScheme();
 		er.create();

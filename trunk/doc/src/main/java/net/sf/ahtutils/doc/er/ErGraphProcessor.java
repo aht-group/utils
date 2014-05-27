@@ -51,7 +51,10 @@ public class ErGraphProcessor
 		File fPackage = new File(fBase,sEjbPackage);
 		RecursiveFileFinder finder = new RecursiveFileFinder(FileFilterUtils.suffixFileFilter(".java"));
     	List<File> list = finder.find(fPackage);
-		for(File f : list){createNode(f);}
+		for(File f : list)
+		{
+			createNode(f);
+		}
 		int i=0;
 		for(String key : mapNodes.keySet())
 		{
@@ -61,7 +64,10 @@ public class ErGraphProcessor
 			mapNodes.put(key, n);
 			graph.getNodes().getNode().add(n);
 		}
-		for(File f : list){createEdge(f);}
+		for(File f : list)
+		{
+			createEdge(f);
+		}
 	}
 	
 	public Graph create()
@@ -95,14 +101,16 @@ public class ErGraphProcessor
 		Class<?> c = ClassUtil.forFile(fBase, fClass);
 		if(mapNodes.containsKey(c.getName()))
 		{
+			logger.trace("Processing edges for "+c.getName());
 			Node source = mapNodes.get(c.getName());
 			Field fields[] = c.getDeclaredFields();
 			for (int i = 0; i < fields.length; i++)
 			{
 				Field field = fields[i];
+				logger.trace("Field "+field.getName());
 				Annotation annotations[] = field.getAnnotations();
 				Cardinality cardinality = getCardinality(annotations);
-				
+				logger.trace("Cardinality: "+cardinality);
 				if(cardinality!=null)
 				{
 					boolean targetIsChild = isTargetChildAnnotated(annotations);
@@ -149,10 +157,12 @@ public class ErGraphProcessor
 	
 	private Cardinality getCardinality(Annotation annotations[])
 	{
+		logger.trace("Annotation Length "+annotations.length);
 		Cardinality cardinality = null;
 		for (int j = 0; j < annotations.length; j++)
 		{
 			Annotation a = annotations[j];
+			logger.trace(a.annotationType().getName());
 			if(a.annotationType().getName().equals(javax.persistence.OneToOne.class.getName())){cardinality = Cardinality.OneToOne;}
 			if(a.annotationType().getName().equals(javax.persistence.OneToMany.class.getName())){cardinality = Cardinality.OneToMany;}
 			if(a.annotationType().getName().equals(javax.persistence.ManyToOne.class.getName())){cardinality = Cardinality.ManyToOne;}
