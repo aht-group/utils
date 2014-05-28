@@ -166,6 +166,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Declaration }
+     * 
+     */
+    public Declaration createDeclaration() {
+        return new Declaration();
+    }
+
+    /**
      * Create an instance of {@link Condition }
      * 
      */
@@ -187,6 +195,14 @@ public class ObjectFactory {
      */
     public SubPhase createSubPhase() {
         return new SubPhase();
+    }
+
+    /**
+     * Create an instance of {@link Statement }
+     * 
+     */
+    public Statement createStatement() {
+        return new Statement();
     }
 
     /**
