@@ -27,11 +27,10 @@ public class XmlCategoryFactory<L extends UtilsLang,
 								A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
 								USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
 								STAFF extends UtilsStaff<L,D,C,R,V,U,A,USER,QA>,
-								QA extends UtilsQualityAssurarance<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,STATUS,CONDITION>,
-								QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,STATUS,CONDITION>,
-								QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,STATUS,CONDITION>,
-								STATUS extends UtilsStatus<STATUS,L,D>,
-								CONDITION extends UtilsStatus<CONDITION,L,D>>
+								QA extends UtilsQualityAssurarance<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,STATUS>,
+								QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,STATUS>,
+								QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,STATUS>,
+								STATUS extends UtilsStatus<STATUS,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlCategoryFactory.class);
 		
