@@ -30,22 +30,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Staff }
-     * 
-     */
-    public Staff createStaff() {
-        return new Staff();
-    }
-
-    /**
-     * Create an instance of {@link Role }
-     * 
-     */
-    public Role createRole() {
-        return new Role();
-    }
-
-    /**
      * Create an instance of {@link User }
      * 
      */
@@ -59,6 +43,22 @@ public class ObjectFactory {
      */
     public Staffs createStaffs() {
         return new Staffs();
+    }
+
+    /**
+     * Create an instance of {@link Staff }
+     * 
+     */
+    public Staff createStaff() {
+        return new Staff();
+    }
+
+    /**
+     * Create an instance of {@link Role }
+     * 
+     */
+    public Role createRole() {
+        return new Role();
     }
 
     /**

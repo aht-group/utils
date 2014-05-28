@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema targetNamespace="http://ahtutils.aht-group.com/status"
     xmlns:s="http://ahtutils.aht-group.com/status"
+    xmlns:sec="http://ahtutils.aht-group.com/security"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://ahtutils.aht-group.com/security" schemaLocation="security.xsd"/>
 	<xsd:element name="statuses">
 		<xsd:complexType>
 			<xsd:sequence>
@@ -18,6 +20,7 @@
                 <xsd:element ref="s:descriptions" maxOccurs="1"/>
                 <xsd:element ref="s:lang" maxOccurs="unbounded"/>
                 <xsd:element ref="s:parent" maxOccurs="1"/>
+                <xsd:element ref="s:tracked" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -33,6 +36,18 @@
         <xsd:complexType>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:element name="tracked">
+        <xsd:complexType>
+        	<xsd:sequence>
+                <xsd:element ref="sec:user" maxOccurs="1"/>
+                <xsd:element ref="s:status" maxOccurs="1"/>
+                <xsd:element ref="s:statement" maxOccurs="1"/>
+                <xsd:element ref="s:declaration" maxOccurs="1"/>
+            </xsd:sequence>
+            <xsd:attribute name="record" type="xsd:dateTime"/>
         </xsd:complexType>
     </xsd:element>
     
@@ -327,6 +342,7 @@
             <xsd:sequence>
                 <xsd:element ref="s:langs" maxOccurs="1"/>
                 <xsd:element ref="s:descriptions" maxOccurs="1"/>
+                <xsd:element ref="s:tracked" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -343,6 +359,7 @@
             <xsd:sequence>
                 <xsd:element ref="s:langs" maxOccurs="1"/>
                 <xsd:element ref="s:descriptions" maxOccurs="1"/>
+                <xsd:element ref="s:tracked" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>

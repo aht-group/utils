@@ -39,6 +39,8 @@ public class TestXmlDeclaration extends AbstractXmlStatusTest
     	{
     		xml.setLangs(TestXmlLangs.create(false));
     		xml.setDescriptions(TestXmlDescriptions.create(false));
+    		
+    		xml.getTracked().add(TestXmlTracked.create(false));
     	}
     	
     	return xml;

@@ -86,6 +86,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Tracked }
+     * 
+     */
+    public Tracked createTracked() {
+        return new Tracked();
+    }
+
+    /**
      * Create an instance of {@link Type }
      * 
      */
@@ -99,6 +107,22 @@ public class ObjectFactory {
      */
     public Responsible createResponsible() {
         return new Responsible();
+    }
+
+    /**
+     * Create an instance of {@link Statement }
+     * 
+     */
+    public Statement createStatement() {
+        return new Statement();
+    }
+
+    /**
+     * Create an instance of {@link Declaration }
+     * 
+     */
+    public Declaration createDeclaration() {
+        return new Declaration();
     }
 
     /**
@@ -166,14 +190,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Declaration }
-     * 
-     */
-    public Declaration createDeclaration() {
-        return new Declaration();
-    }
-
-    /**
      * Create an instance of {@link Condition }
      * 
      */
@@ -195,14 +211,6 @@ public class ObjectFactory {
      */
     public SubPhase createSubPhase() {
         return new SubPhase();
-    }
-
-    /**
-     * Create an instance of {@link Statement }
-     * 
-     */
-    public Statement createStatement() {
-        return new Statement();
     }
 
     /**

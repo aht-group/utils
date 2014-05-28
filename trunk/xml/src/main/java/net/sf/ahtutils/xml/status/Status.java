@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}descriptions"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}lang" maxOccurs="unbounded"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}parent"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/status}tracked" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" />
  *       &lt;attribute name="code" type="{http://www.w3.org/2001/XMLSchema}string" />
@@ -49,7 +50,8 @@ import javax.xml.bind.annotation.XmlType;
     "langs",
     "descriptions",
     "lang",
-    "parent"
+    "parent",
+    "tracked"
 })
 @XmlRootElement(name = "status")
 public class Status
@@ -67,6 +69,8 @@ public class Status
     protected List<Lang> lang;
     @XmlElement(required = true)
     protected Parent parent;
+    @XmlElement(required = true)
+    protected List<Tracked> tracked;
     @XmlAttribute(name = "id")
     protected Long id;
     @XmlAttribute(name = "code")
@@ -231,6 +235,43 @@ public class Status
 
     public boolean isSetParent() {
         return (this.parent!= null);
+    }
+
+    /**
+     * Gets the value of the tracked property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the tracked property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getTracked().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Tracked }
+     * 
+     * 
+     */
+    public List<Tracked> getTracked() {
+        if (tracked == null) {
+            tracked = new ArrayList<Tracked>();
+        }
+        return this.tracked;
+    }
+
+    public boolean isSetTracked() {
+        return ((this.tracked!= null)&&(!this.tracked.isEmpty()));
+    }
+
+    public void unsetTracked() {
+        this.tracked = null;
     }
 
     /**

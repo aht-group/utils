@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<s:declaration xmlns:s="http://ahtutils.aht-group.com/status" code="myCode" group="myGroup" label="myLabel" visible="true" image="test/green.png" position="1">
+<s:declaration xmlns:s="http://ahtutils.aht-group.com/status" xmlns:acl="http://ahtutils.aht-group.com/access" xmlns:ns3="http://ahtutils.aht-group.com/navigation" xmlns:sec="http://ahtutils.aht-group.com/security" code="myCode" group="myGroup" label="myLabel" visible="true" image="test/green.png" position="1">
     <s:langs/>
     <s:descriptions/>
+    <s:tracked record="2011-11-11T11:11:11"/>
 </s:declaration>
