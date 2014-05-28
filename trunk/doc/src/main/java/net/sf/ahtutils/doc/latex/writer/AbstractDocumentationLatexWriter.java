@@ -51,9 +51,10 @@ public class AbstractDocumentationLatexWriter
 		StringIO.writeTxt(f, sw.toString());
 	}
 	
-	protected void writeSection(Section section, File f) throws OfxAuthoringException, IOException
+	protected void writeSection(Section section, File f) throws OfxAuthoringException, IOException {writeSection(1, section, f);}
+	protected void writeSection(int sectionLevel, Section section, File f) throws OfxAuthoringException, IOException
 	{
-		LatexSectionRenderer sectionRenderer = new LatexSectionRenderer(cmm,1,new LatexPreamble());
+		LatexSectionRenderer sectionRenderer = new LatexSectionRenderer(cmm,sectionLevel,new LatexPreamble());
 		sectionRenderer.render(section);
 		
 		StringWriter sw = new StringWriter();
