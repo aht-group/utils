@@ -2,6 +2,7 @@ package net.sf.ahtutils.factory.xml.qa;
 
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaCategory;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaTest;
+import net.sf.ahtutils.interfaces.model.qa.UtilsQaTestDiscussion;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQualityAssurarance;
 import net.sf.ahtutils.interfaces.model.security.UtilsStaff;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
@@ -27,9 +28,10 @@ public class XmlCategoryFactory<L extends UtilsLang,
 								A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
 								USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
 								STAFF extends UtilsStaff<L,D,C,R,V,U,A,USER,QA>,
-								QA extends UtilsQualityAssurarance<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,STATUS>,
-								QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,STATUS>,
-								QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,STATUS>,
+								QA extends UtilsQualityAssurarance<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QATD,STATUS>,
+								QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QATD,STATUS>,
+								QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QATD,STATUS>,
+								QATD extends UtilsQaTestDiscussion<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QATD,STATUS>,
 								STATUS extends UtilsStatus<STATUS,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlCategoryFactory.class);

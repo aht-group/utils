@@ -10,11 +10,10 @@ import net.sf.ahtutils.model.interfaces.security.UtilsSecurityView;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
-import net.sf.ahtutils.model.interfaces.with.EjbWithCode;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
-import net.sf.ahtutils.model.interfaces.with.EjbWithName;
+import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 
-public interface UtilsQaTest<L extends UtilsLang,
+public interface UtilsQaTestDiscussion<L extends UtilsLang,
 					D extends UtilsDescription,
 					C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
 					R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
@@ -28,15 +27,8 @@ public interface UtilsQaTest<L extends UtilsLang,
 					QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QATD,STATUS>,
 					QATD extends UtilsQaTestDiscussion<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QATD,STATUS>,
 					STATUS extends UtilsStatus<STATUS,L,D>>
-			extends EjbWithId,EjbWithName,EjbWithCode
+			extends EjbWithId,EjbWithRecord
 {
-	QAC getCategory();
-	void setCategory(QAC category);
-	
-	String getReference();
-	void setReference(String reference);
-	
-	String getDescription();
-	void setDescription(String description);
-	
+	QAT getTest();
+	void setTest(QAT test);
 }
