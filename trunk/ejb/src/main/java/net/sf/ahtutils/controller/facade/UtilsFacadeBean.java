@@ -350,8 +350,7 @@ public class UtilsFacadeBean implements UtilsFacade
 		return em.createQuery(select).getResultList();
 	}
 	
-	@Override
-	public <T extends Object> List<T> allOrdered(Class<T> cl, String by, boolean ascending)
+	@Override public <T extends Object> List<T> allOrdered(Class<T> cl, String by, boolean ascending)
 	{
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<T> select = cqOrdered(cb, cl, by, ascending);
@@ -371,8 +370,6 @@ public class UtilsFacadeBean implements UtilsFacade
 		
 		return select;
 	}
-	
-	
 	
 	@Override public <T extends EjbRemoveable> void rm(T o) throws UtilsIntegrityException {rmProtected(o);}
 	
