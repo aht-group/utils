@@ -68,7 +68,8 @@ public class OfxRoleTableFactory extends AbstractUtilsOfxDocumentationFactory
 			Lang lCategory = StatusXpath.getLang(category.getLangs(), lang);
 			table.setTitle(XmlTitleFactory.build(lPrefix.getTranslation()+" "+lCategory.getTranslation()));
 			
-			LatexTableRenderer tableRenderer = new LatexTableRenderer(false);
+			LatexTableRenderer tableRenderer = new LatexTableRenderer();
+			tableRenderer.setPreBlankLine(false);
 			JaxbUtil.trace(table);
 			tableRenderer.render(table);
 			

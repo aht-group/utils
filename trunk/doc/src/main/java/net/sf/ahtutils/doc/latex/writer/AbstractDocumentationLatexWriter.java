@@ -43,7 +43,8 @@ public class AbstractDocumentationLatexWriter
 	
 	protected void writeTable(Table table, File f) throws OfxAuthoringException, IOException
 	{
-		LatexTableRenderer tableRenderer = new LatexTableRenderer(false);
+		LatexTableRenderer tableRenderer = new LatexTableRenderer();
+		tableRenderer.setPreBlankLine(false);
 		tableRenderer.render(table);
 		
 		StringWriter sw = new StringWriter();
