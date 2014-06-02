@@ -17,6 +17,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openfuxml.content.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
+import org.openfuxml.media.cross.NoOpCrossMediaManager;
 import org.openfuxml.renderer.latex.content.table.LatexGridTableRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +63,7 @@ public class TestOfxLangStatisticTableFactory extends AbstractOfxStatusFactoryTe
 	public void testLatex() throws OfxAuthoringException, IOException
 	{
 		Table actual = fOfx.toOfx(lStats,headerKeys);
-		LatexGridTableRenderer renderer = new LatexGridTableRenderer();
+		LatexGridTableRenderer renderer = new LatexGridTableRenderer(new NoOpCrossMediaManager());
 		renderer.render(actual);
     	debug(renderer);
     	save(renderer,fTxt);

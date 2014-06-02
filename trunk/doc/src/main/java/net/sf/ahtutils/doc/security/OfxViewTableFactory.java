@@ -32,6 +32,7 @@ import org.openfuxml.factory.table.OfxColumnFactory;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.factory.xml.ofx.content.XmlRawFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
+import org.openfuxml.media.cross.NoOpCrossMediaManager;
 import org.openfuxml.renderer.latex.content.table.LatexTableRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,7 +69,7 @@ public class OfxViewTableFactory extends AbstractUtilsOfxDocumentationFactory
 			Lang lCategory = StatusXpath.getLang(category.getLangs(), lang);
 			table.setTitle(XmlTitleFactory.build(lPrefix.getTranslation()+" "+lCategory.getTranslation()));
 			
-			LatexTableRenderer tableRenderer = new LatexTableRenderer();
+			LatexTableRenderer tableRenderer = new LatexTableRenderer(new NoOpCrossMediaManager());
 			tableRenderer.setPreBlankLine(false);
 			JaxbUtil.trace(table);
 			tableRenderer.render(table);

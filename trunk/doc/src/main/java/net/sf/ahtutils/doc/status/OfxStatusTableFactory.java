@@ -32,6 +32,7 @@ import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
 import org.openfuxml.factory.xml.ofx.layout.XmlLayoutFactory;
 import org.openfuxml.factory.xml.ofx.layout.XmlLineFactory;
+import org.openfuxml.media.cross.NoOpCrossMediaManager;
 import org.openfuxml.renderer.latex.content.table.LatexTableRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -88,7 +89,7 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 			Lang lCaption = StatusXpath.getLang(translations, captionKey, lang);
 			table.setTitle(XmlTitleFactory.build(lCaption.getTranslation()));
 			
-			LatexTableRenderer renderer = new LatexTableRenderer();
+			LatexTableRenderer renderer = new LatexTableRenderer(new NoOpCrossMediaManager());
 			renderer.setPreBlankLine(false);
 			renderer.render(table);
 			StringWriter actual = new StringWriter();

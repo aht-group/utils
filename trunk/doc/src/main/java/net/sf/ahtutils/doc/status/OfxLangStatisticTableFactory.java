@@ -22,6 +22,7 @@ import org.openfuxml.content.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.table.OfxCellFactory;
 import org.openfuxml.factory.table.OfxColumnFactory;
+import org.openfuxml.media.cross.NoOpCrossMediaManager;
 import org.openfuxml.renderer.latex.content.table.LatexGridTableRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +45,7 @@ public class OfxLangStatisticTableFactory
 		try
 		{
 			logger.debug("Saving Reference to "+f);
-			LatexGridTableRenderer renderer = new LatexGridTableRenderer();
+			LatexGridTableRenderer renderer = new LatexGridTableRenderer(new NoOpCrossMediaManager());
 			renderer.render(toOfx(lLangs,headerKeys));
 			StringWriter actual = new StringWriter();
 			renderer.write(actual);
