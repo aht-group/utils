@@ -8,8 +8,8 @@
     </s:translation>
 	<s:translation key="key2">
 		<s:langs>
-			<s:lang key="de" translation="de-key3"/>
-			<s:lang key="en" translation="en-key3"/>
+			<s:lang key="de" translation="de-key2"/>
+			<s:lang key="en" translation="en-key2"/>
 		</s:langs>
 	</s:translation>
 	<s:translation key="key3">
