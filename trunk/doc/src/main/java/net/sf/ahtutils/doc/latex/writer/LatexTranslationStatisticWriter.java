@@ -24,7 +24,6 @@ import net.sf.exlp.util.xml.JDomUtil;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.jdom2.Document;
 import org.jdom2.Element;
-import org.jdom2.Namespace;
 import org.jdom2.filter.Filters;
 import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
@@ -34,8 +33,6 @@ import org.slf4j.LoggerFactory;
 public class LatexTranslationStatisticWriter
 {	
 	final static Logger logger = LoggerFactory.getLogger(LatexTranslationStatisticWriter.class);
-	
-	private Namespace nsLangs = Namespace.getNamespace("s", "http://ahtutils.aht-group.com/status");
 	
 	private final static String dirViewTabs = "tab/status";
 	

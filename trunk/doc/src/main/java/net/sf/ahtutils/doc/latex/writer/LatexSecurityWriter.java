@@ -2,6 +2,8 @@ package net.sf.ahtutils.doc.latex.writer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.sf.ahtutils.doc.ofx.security.OfxCategoryListFactory;
 import net.sf.ahtutils.doc.ofx.security.OfxRoleTableFactory;
@@ -26,15 +28,21 @@ public class LatexSecurityWriter extends AbstractDocumentationLatexWriter
 	private final static String dirTabs = "tab/security";
 	private final static String dirDescriptions = "description/security";
 		
+	private List<String> headerKeysViews;
+	
 	public LatexSecurityWriter(Configuration config, Translations translations,String[] langs, CrossMediaManager cmm)
 	{
 		super(config,translations,langs,cmm);
+		
+		headerKeysViews = new ArrayList<String>();
+		headerKeysViews.add("auSecurityTableViewName");
+		headerKeysViews.add("auSecurityTableViewDescription");
 	}
 	
 	public void createViewTabs(String xmlFile) throws UtilsConfigurationException
 	{
 		logger.info("Creating view tables from "+xmlFile+" to LaTex");
-		String[] headerKeysViews = {"auSecurityTableViewName","auSecurityTableViewDescription"};
+		
 		try
 		{
 			Access access = JaxbUtil.loadJAXB(xmlFile, Access.class);

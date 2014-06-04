@@ -30,7 +30,6 @@ import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.table.OfxCellFactory;
 import org.openfuxml.factory.table.OfxColumnFactory;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
-import org.openfuxml.factory.xml.ofx.content.XmlRawFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
 import org.openfuxml.media.cross.NoOpCrossMediaManager;
 import org.openfuxml.renderer.latex.content.table.LatexTableRenderer;
@@ -47,7 +46,7 @@ public class OfxViewTableFactory extends AbstractUtilsOfxDocumentationFactory
 		super(config,lang,translations);
 	}
 	
-	public String buildLatexViewTable(Category category, String[] headerKeys) throws OfxAuthoringException
+	public String buildLatexViewTable(Category category, List<String> headerKeys) throws OfxAuthoringException
 	{
 		try
 		{
@@ -83,7 +82,7 @@ public class OfxViewTableFactory extends AbstractUtilsOfxDocumentationFactory
 		catch (ExlpXpathNotUniqueException e) {throw new OfxAuthoringException(e.getMessage());}
 	}
 	
-	public Table toOfx(List<View> lViews, String[] headerKeys)
+	public Table toOfx(List<View> lViews, List<String> headerKeys)
 	{
 		Table table = new Table();
 		table.setSpecification(createSpecifications());
@@ -105,7 +104,7 @@ public class OfxViewTableFactory extends AbstractUtilsOfxDocumentationFactory
 		return specification;
 	}
 	
-	private Content createContent(List<View> lViews, String[] headerKeys)
+	private Content createContent(List<View> lViews, List<String> headerKeys)
 	{	
 		Head head = new Head();
 		head.getRow().add(createHeaderRow(headerKeys));

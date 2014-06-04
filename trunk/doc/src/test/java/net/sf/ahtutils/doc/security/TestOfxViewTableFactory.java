@@ -3,6 +3,8 @@ package net.sf.ahtutils.doc.security;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.sf.ahtutils.doc.ofx.security.OfxViewTableFactory;
 import net.sf.ahtutils.test.AhtUtilsDocBootstrap;
@@ -37,11 +39,15 @@ public class TestOfxViewTableFactory extends AbstractOfxSecurityFactoryTest
 	private OfxViewTableFactory fOfx;
 	private final String lang ="de";
 	
-	private String[] headerKeys = {"key1","key1"};
+	private static List<String> headerKeys;
 	
 	@BeforeClass
 	public static void initFiles() throws FileNotFoundException, ConfigurationException
 	{
+		headerKeys = new ArrayList<String>();
+		headerKeys.add("key1");
+		headerKeys.add("key2");
+		
 		fXml = new File(rootDir,"tableView.xml");
 		fTxt = new File(rootDir,"tableView.tex");
 		
