@@ -41,7 +41,7 @@ public class TestXmlTest extends AbstractXmlQaTest
     		xml.setStatement(TestXmlStatement.create(false));
     		
     		xml.setReference(TestXmlReference.create());
-    		xml.setSummary(TestXmlSummary.create());
+    		xml.setDescription(TestXmlDescription.create());
     		xml.setPreCondition(TestXmlPreCondition.create());
     		xml.setSteps(TestXmlSteps.create());
     		xml.setExpected(TestXmlExpected.create());

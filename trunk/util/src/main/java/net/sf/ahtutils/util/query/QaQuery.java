@@ -5,6 +5,10 @@ import java.util.Map;
 
 import net.sf.ahtutils.xml.aht.Query;
 import net.sf.ahtutils.xml.qa.Category;
+import net.sf.ahtutils.xml.qa.Description;
+import net.sf.ahtutils.xml.qa.PreCondition;
+import net.sf.ahtutils.xml.qa.Reference;
+import net.sf.ahtutils.xml.qa.Steps;
 import net.sf.ahtutils.xml.qa.Test;
 import net.sf.ahtutils.xml.security.Staff;
 
@@ -55,6 +59,11 @@ public class QaQuery
 		xml.setId(0);
 		xml.setCode("");
 		xml.setName("");
+		
+		xml.setReference(new Reference());
+		xml.setPreCondition(new PreCondition());
+		xml.setDescription(new Description());
+		xml.setSteps(new Steps());
 		return xml;
 	}
 }

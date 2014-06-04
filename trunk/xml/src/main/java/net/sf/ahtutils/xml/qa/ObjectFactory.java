@@ -30,14 +30,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Summary }
-     * 
-     */
-    public Summary createSummary() {
-        return new Summary();
-    }
-
-    /**
      * Create an instance of {@link Expected }
      * 
      */
@@ -67,6 +59,14 @@ public class ObjectFactory {
      */
     public Reference createReference() {
         return new Reference();
+    }
+
+    /**
+     * Create an instance of {@link Description }
+     * 
+     */
+    public Description createDescription() {
+        return new Description();
     }
 
     /**

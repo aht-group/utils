@@ -29,8 +29,8 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlType(name = "", propOrder = {
     "value"
 })
-@XmlRootElement(name = "summary")
-public class Summary
+@XmlRootElement(name = "description")
+public class Description
     implements Serializable
 {
 

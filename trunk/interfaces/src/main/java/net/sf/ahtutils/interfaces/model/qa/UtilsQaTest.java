@@ -39,4 +39,9 @@ public interface UtilsQaTest<L extends UtilsLang,
 	String getDescription();
 	void setDescription(String description);
 	
+	String getPreCondition();
+    void setPreCondition(String preCondition);
+    
+    String getSteps();
+	void setSteps(String steps);
 }

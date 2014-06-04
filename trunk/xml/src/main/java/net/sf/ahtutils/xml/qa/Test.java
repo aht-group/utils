@@ -27,7 +27,7 @@ import net.sf.ahtutils.xml.status.Status;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}declaration"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}statement"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/qa}reference"/>
- *         &lt;element ref="{http://ahtutils.aht-group.com/qa}summary"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/qa}description"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/qa}preCondition"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/qa}steps"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/qa}expected"/>
@@ -48,7 +48,7 @@ import net.sf.ahtutils.xml.status.Status;
     "declaration",
     "statement",
     "reference",
-    "summary",
+    "description",
     "preCondition",
     "steps",
     "expected"
@@ -68,7 +68,7 @@ public class Test
     @XmlElement(required = true)
     protected Reference reference;
     @XmlElement(required = true)
-    protected Summary summary;
+    protected Description description;
     @XmlElement(required = true)
     protected PreCondition preCondition;
     @XmlElement(required = true)
@@ -195,31 +195,31 @@ public class Test
     }
 
     /**
-     * Gets the value of the summary property.
+     * Gets the value of the description property.
      * 
      * @return
      *     possible object is
-     *     {@link Summary }
+     *     {@link Description }
      *     
      */
-    public Summary getSummary() {
-        return summary;
+    public Description getDescription() {
+        return description;
     }
 
     /**
-     * Sets the value of the summary property.
+     * Sets the value of the description property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Summary }
+     *     {@link Description }
      *     
      */
-    public void setSummary(Summary value) {
-        this.summary = value;
+    public void setDescription(Description value) {
+        this.description = value;
     }
 
-    public boolean isSetSummary() {
-        return (this.summary!= null);
+    public boolean isSetDescription() {
+        return (this.description!= null);
     }
 
     /**

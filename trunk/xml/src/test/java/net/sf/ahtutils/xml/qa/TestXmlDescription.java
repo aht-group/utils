@@ -10,25 +10,25 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestXmlSummary extends AbstractXmlQaTest
+public class TestXmlDescription extends AbstractXmlQaTest
 {
 	final static Logger logger = LoggerFactory.getLogger(net.sf.ahtutils.xml.qa.Test.class);
 	
-	@BeforeClass public static void initFiles(){setXmlFile(dirSuffix,Summary.class);}
+	@BeforeClass public static void initFiles(){setXmlFile(dirSuffix,Description.class);}
     
     @Test
     public void xml() throws FileNotFoundException
     {
-    	Summary actual = create();
-    	Summary expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Summary.class);
+    	Description actual = create();
+    	Description expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Description.class);
     	assertJaxbEquals(expected, actual);
     }  
     
-    public static Summary create()
+    public static Description create()
     {
-    	Summary xml = new Summary();
+    	Description xml = new Description();
     	
-    	xml.setValue("myReference");
+    	xml.setValue("myDescription");
     	
     	return xml;
     }
@@ -39,9 +39,9 @@ public class TestXmlSummary extends AbstractXmlQaTest
     {
 		UtilsXmlTestBootstrap.init();
 			
-		TestXmlSummary.initJaxb();
-		TestXmlSummary.initFiles();	
-		TestXmlSummary test = new TestXmlSummary();
+		TestXmlDescription.initJaxb();
+		TestXmlDescription.initFiles();	
+		TestXmlDescription test = new TestXmlDescription();
 		test.save();
     }
 }

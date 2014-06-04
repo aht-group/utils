@@ -28,10 +28,10 @@
         <xsd:complexType>
         	<xsd:sequence>
         		<xsd:element ref="us:status" maxOccurs="1"/>		<!-- Result of declaration and statement -->
-        		<xsd:element ref="us:declaration" maxOccurs="1"/>	<!-- .. of Client -->
-        		<xsd:element ref="us:statement" maxOccurs="1"/>		<!-- .. of Developer -->
+        		<xsd:element ref="us:declaration" maxOccurs="1"/>	<!-- Status for Client -->
+        		<xsd:element ref="us:statement" maxOccurs="1"/>		<!-- Status for Developer -->
                 <xsd:element ref="qa:reference" maxOccurs="1"/>
-                <xsd:element ref="qa:summary" maxOccurs="1"/>
+                <xsd:element ref="qa:description" maxOccurs="1"/>
                 <xsd:element ref="qa:preCondition" maxOccurs="1"/>
                 <xsd:element ref="qa:steps" maxOccurs="1"/>
                 <xsd:element ref="qa:expected" maxOccurs="1"/>
@@ -49,7 +49,7 @@
             </xsd:simpleContent>
         </xsd:complexType>
     </xsd:element>
-    <xsd:element name="summary">
+    <xsd:element name="description">
         <xsd:complexType>
             <xsd:simpleContent>
                 <xsd:extension base="xsd:string">

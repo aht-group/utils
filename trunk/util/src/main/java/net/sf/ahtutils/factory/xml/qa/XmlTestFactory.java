@@ -58,8 +58,11 @@ public class XmlTestFactory<L extends UtilsLang,
 		if(q.isSetCode()){xml.setCode(test.getCode());}
 		if(q.isSetName()){xml.setName(test.getName());}
 
+		if(q.isSetReference() && test.getReference()!=null){xml.setReference(XmlReferenceFactory.build(test.getReference()));}
+		if(q.isSetDescription() && test.getDescription()!=null){xml.setDescription(XmlDescriptionFactory.build(test.getDescription()));}
+		if(q.isSetPreCondition() && test.getPreCondition()!=null){xml.setPreCondition(XmlPreConditionFactory.build(test.getPreCondition()));}
+		if(q.isSetSteps() && test.getSteps()!=null){xml.setSteps(XmlStepsFactory.build(test.getSteps()));}
 		
 		return xml;
-		
 	}
 }
