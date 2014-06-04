@@ -1,4 +1,4 @@
-package net.sf.ahtutils.doc.status;
+package net.sf.ahtutils.doc.ofx.status;
 
 import java.io.File;
 import java.io.IOException;

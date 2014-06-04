@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 import net.sf.ahtutils.doc.latex.writer.TestLatexTranslationStatFactory;
-import net.sf.ahtutils.doc.status.OfxLangStatisticTableFactory;
+import net.sf.ahtutils.doc.ofx.status.OfxLangStatisticTableFactory;
 import net.sf.ahtutils.model.pojo.status.TranslationStatistic;
 import net.sf.ahtutils.test.AhtUtilsDocBootstrap;
 import net.sf.ahtutils.xml.status.Translations;

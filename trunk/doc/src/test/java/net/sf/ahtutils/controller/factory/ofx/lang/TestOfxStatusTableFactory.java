@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import net.sf.ahtutils.doc.UtilsDocumentation;
-import net.sf.ahtutils.doc.status.OfxStatusTableFactory;
+import net.sf.ahtutils.doc.ofx.status.OfxStatusTableFactory;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.factory.xml.status.XmlDescriptionFactory;
 import net.sf.ahtutils.factory.xml.status.XmlLangFactory;

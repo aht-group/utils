@@ -3,9 +3,9 @@ package net.sf.ahtutils.doc.latex.writer;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.doc.security.OfxCategoryListFactory;
-import net.sf.ahtutils.doc.security.OfxRoleTableFactory;
-import net.sf.ahtutils.doc.security.OfxViewTableFactory;
+import net.sf.ahtutils.doc.ofx.security.OfxCategoryListFactory;
+import net.sf.ahtutils.doc.ofx.security.OfxRoleTableFactory;
+import net.sf.ahtutils.doc.ofx.security.OfxViewTableFactory;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Category;

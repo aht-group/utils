@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.db.xml.UtilsDbXmlSeedUtil;
-import net.sf.ahtutils.doc.status.OfxStatusTableFactory;
+import net.sf.ahtutils.doc.ofx.status.OfxStatusTableFactory;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.dbseed.Db;

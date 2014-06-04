@@ -1,4 +1,4 @@
-package net.sf.ahtutils.doc.security;
+package net.sf.ahtutils.doc.ofx.security;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -8,7 +8,7 @@ import net.sf.ahtutils.doc.DocumentationCommentBuilder;
 import net.sf.ahtutils.doc.UtilsDocumentation;
 import net.sf.ahtutils.doc.ofx.AbstractUtilsOfxDocumentationFactory;
 import net.sf.ahtutils.xml.access.Category;
-import net.sf.ahtutils.xml.access.Role;
+import net.sf.ahtutils.xml.access.View;
 import net.sf.ahtutils.xml.status.Description;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Translations;
@@ -30,37 +30,38 @@ import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.table.OfxCellFactory;
 import org.openfuxml.factory.table.OfxColumnFactory;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
+import org.openfuxml.factory.xml.ofx.content.XmlRawFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
 import org.openfuxml.media.cross.NoOpCrossMediaManager;
 import org.openfuxml.renderer.latex.content.table.LatexTableRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class OfxRoleTableFactory extends AbstractUtilsOfxDocumentationFactory
+public class OfxViewTableFactory extends AbstractUtilsOfxDocumentationFactory
 {
-	final static Logger logger = LoggerFactory.getLogger(OfxRoleTableFactory.class);
-	private static String keyCaptionPrefix = "auTableRoleCaptionPrefix";
+	final static Logger logger = LoggerFactory.getLogger(OfxViewTableFactory.class);
+	private static String keyCaptionPrefix = "auTableViewCaptionPrefix";
 	
-	public OfxRoleTableFactory(Configuration config, String lang, Translations translations)
+	public OfxViewTableFactory(Configuration config, String lang, Translations translations)
 	{
 		super(config,lang,translations);
 	}
 	
-	public String saveDescription(Category category, String[] headerKeys) throws OfxAuthoringException
+	public String buildLatexViewTable(Category category, String[] headerKeys) throws OfxAuthoringException
 	{
 		try
 		{
-			String id = "table.admin.security.role."+category.getCode();
+			String id = "table.admin.security.view."+category.getCode();
 			
 			Comment comment = XmlCommentFactory.build();
 			DocumentationCommentBuilder.fixedId(comment, id);
-			DocumentationCommentBuilder.configKeyReference(comment, config, UtilsDocumentation.keyRoles, "Roles are defined in");
+			DocumentationCommentBuilder.configKeyReference(comment, config, UtilsDocumentation.keyViews, "Views are defined in");
 			DocumentationCommentBuilder.translationKeys(comment,config,UtilsDocumentation.keyTranslationFile);
 			DocumentationCommentBuilder.tableHeaders(comment,headerKeys);
 			DocumentationCommentBuilder.tableKey(comment,keyCaptionPrefix,"Table Caption Prefix");
 			DocumentationCommentBuilder.doNotModify(comment);
 			
-			Table table = toOfx(category.getRoles().getRole(),headerKeys);
+			Table table = toOfx(category.getViews().getView(),headerKeys);
 			table.setId(id);
 			table.setComment(comment);
 			
@@ -82,12 +83,12 @@ public class OfxRoleTableFactory extends AbstractUtilsOfxDocumentationFactory
 		catch (ExlpXpathNotUniqueException e) {throw new OfxAuthoringException(e.getMessage());}
 	}
 	
-	public Table toOfx(List<Role> lRoles, String[] headerKeys)
+	public Table toOfx(List<View> lViews, String[] headerKeys)
 	{
 		Table table = new Table();
 		table.setSpecification(createSpecifications());
 		
-		table.setContent(createContent(lRoles,headerKeys));
+		table.setContent(createContent(lViews,headerKeys));
 		
 		return table;
 	}
@@ -104,15 +105,15 @@ public class OfxRoleTableFactory extends AbstractUtilsOfxDocumentationFactory
 		return specification;
 	}
 	
-	private Content createContent(List<Role> lRoles, String[] headerKeys)
-	{
+	private Content createContent(List<View> lViews, String[] headerKeys)
+	{	
 		Head head = new Head();
 		head.getRow().add(createHeaderRow(headerKeys));
 		
 		Body body = new Body();
-		for(Role role : lRoles)
+		for(View view : lViews)
 		{
-			body.getRow().add(createRow(role));
+			body.getRow().add(createRow(view));
 		}
 		
 		Content content = new Content();
@@ -122,13 +123,13 @@ public class OfxRoleTableFactory extends AbstractUtilsOfxDocumentationFactory
 		return content;
 	}
 	
-	private Row createRow(Role role)
+	private Row createRow(View view)
 	{
 		String code,description;
 		
 		try
 		{
-			Lang l = StatusXpath.getLang(role.getLangs(), lang);
+			Lang l = StatusXpath.getLang(view.getLangs(), lang);
 			code = l.getTranslation();
 		}
 		catch (ExlpXpathNotFoundException e){code = e.getMessage();}
@@ -136,7 +137,7 @@ public class OfxRoleTableFactory extends AbstractUtilsOfxDocumentationFactory
 		
 		try
 		{
-			Description d = StatusXpath.getDescription(role.getDescriptions(), lang);
+			Description d = StatusXpath.getDescription(view.getDescriptions(), lang);
 			description = d.getValue();
 		}
 		catch (ExlpXpathNotFoundException e){description = e.getMessage();}

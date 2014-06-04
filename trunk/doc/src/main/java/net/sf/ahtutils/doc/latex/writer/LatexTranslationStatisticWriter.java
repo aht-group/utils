@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.ahtutils.doc.status.OfxLangStatisticTableFactory;
+import net.sf.ahtutils.doc.ofx.status.OfxLangStatisticTableFactory;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.model.pojo.status.TranslationStatistic;
