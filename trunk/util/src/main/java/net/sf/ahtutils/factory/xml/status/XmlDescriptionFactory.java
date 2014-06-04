@@ -25,18 +25,17 @@ public class XmlDescriptionFactory
 		return xml;
 	}
 	
-	public static Description create(String key, String translation)
+	public static Description create(String key, String value)
 	{
-		Description xml = new Description();
+		Description xml =build(value);
 		xml.setKey(key);
-		xml.setValue(translation);
 		return xml;
 	}
 	
-	public static Description build(String text)
+	public static Description build(String value)
 	{
 		Description xml = new Description();
-		xml.setValue(text);
+		xml.setValue(value);
 		return xml;
 	}
 }
