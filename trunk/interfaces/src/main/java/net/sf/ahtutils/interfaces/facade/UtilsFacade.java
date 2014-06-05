@@ -46,6 +46,7 @@ public interface UtilsFacade extends UtilsIdFacade
 	<T extends EjbWithRecord,I extends EjbWithId> List<T> allOrderedParentRecordBetween(Class<T> cl, String by, boolean ascending,String p1Name, I p1,Date from, Date to);
 	<T extends EjbWithPosition> List<T> allOrderedPosition(Class<T> type);
 	<T extends EjbWithPositionVisible> List<T> allOrderedPositionVisible(Class<T> type);
+	<T extends EjbWithPositionVisible, P extends EjbWithId> List<T> allOrderedPositionVisibleParent(Class<T> cl, P parent);
 	<T extends EjbWithRecord> List<T> allOrderedRecord(Class<T> type, boolean ascending);
 	<T extends EjbWithRecord, AND extends EjbWithId, OR extends EjbWithId> List<T> allOrderedForParents(Class<T> queryClass, List<ParentPredicate<AND>> lpAnd, List<ParentPredicate<OR>> lpOr,boolean ascending);
 	

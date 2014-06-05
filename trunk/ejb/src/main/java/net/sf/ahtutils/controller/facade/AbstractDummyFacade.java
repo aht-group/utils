@@ -309,4 +309,11 @@ public class AbstractDummyFacade implements UtilsFacade
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public <T extends EjbWithPositionVisible, P extends EjbWithId> List<T> allOrderedPositionVisibleParent(
+			Class<T> cl, P parent) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

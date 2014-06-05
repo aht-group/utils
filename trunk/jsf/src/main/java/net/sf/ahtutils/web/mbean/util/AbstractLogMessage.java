@@ -69,13 +69,21 @@ public class AbstractLogMessage <L extends UtilsLang,D extends UtilsDescription,
 		 return sb.toString();
 	 }
 
-	    public static <T extends EjbWithId> String selectEntity(T t)
-	    {
-	        StringBuffer sb = new StringBuffer();
-	        sb.append("Selecting ").append(t.getClass().getSimpleName());
-	        sb.append(": ").append(t.toString());
-	        return sb.toString();
-	    }
+	 // Select
+	 public static <T extends EjbWithId> String selectEntity(T t)
+	 {
+        StringBuffer sb = new StringBuffer();
+        sb.append("Selecting ").append(t.getClass().getSimpleName());
+        sb.append(": ").append(t.toString());
+        return sb.toString();
+	 }
+	 public static <T extends EjbWithId> String selectOneMenuChange(T t)
+	 {
+        StringBuffer sb = new StringBuffer();
+        sb.append("Change selectOneMenu ").append(t.getClass().getSimpleName());
+        sb.append(": ").append(t.toString());
+        return sb.toString();
+	 }
 
 	    public static <T extends EjbWithId> String saveEntity(T t)
 	    {

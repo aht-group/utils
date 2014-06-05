@@ -363,6 +363,23 @@ public class UtilsFacadeBean implements UtilsFacade
 		return em.createQuery(select).getResultList();
 	}
 	
+	@Override public <T extends EjbWithPositionVisible, P extends EjbWithId> List<T> allOrderedPositionVisibleParent(Class<T> cl, P parent)
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<T> cQ = cB.createQuery(cl);
+		Root<T> from = cQ.from(cl);
+		
+		Path<Object> p1Path = from.get("parent");
+		
+		Expression<Date> eOrder = from.get("position");
+		
+		CriteriaQuery<T> select = cQ.select(from);
+		select.orderBy(cB.asc(eOrder));
+		select.where(cB.equal(p1Path, parent.getId()));
+		
+		return em.createQuery(select).getResultList();
+	}
+	
 	@Override public <T extends Object> List<T> allOrdered(Class<T> cl, String by, boolean ascending)
 	{
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -848,4 +865,5 @@ public class UtilsFacadeBean implements UtilsFacade
 		try	{return q.getSingleResult();}
 		catch (NoResultException ex){throw new UtilsNotFoundException("No "+type.getSimpleName()+" for "+parentName+".id="+p.getId()+" year="+year);}
 	}
+	
 }
