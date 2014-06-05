@@ -85,11 +85,27 @@ public class AbstractLogMessage <L extends UtilsLang,D extends UtilsDescription,
         return sb.toString();
 	 }
 
-	    public static <T extends EjbWithId> String saveEntity(T t)
-	    {
-	        StringBuffer sb = new StringBuffer();
-	        sb.append("Save ").append(t.getClass().getSimpleName());
-	        sb.append(": ").append(t.toString());
-	        return sb.toString();
-	    }
+    public static <T extends EjbWithId> String saveEntity(T t)
+    {
+        StringBuffer sb = new StringBuffer();
+        sb.append("Save ").append(t.getClass().getSimpleName());
+        sb.append(": ").append(t.toString());
+        return sb.toString();
+    }
+    
+    public static  String autoComplete(Class<?> cl, String query)
+    {
+        StringBuffer sb = new StringBuffer();
+        sb.append("AutoComplete for ").append(cl.getSimpleName());
+        sb.append(": ").append(query);
+        return sb.toString();
+    }
+    
+    public static <T extends EjbWithId> String autoCompleteSelect(T t)
+    {
+        StringBuffer sb = new StringBuffer();
+        sb.append("AutoComplete Select; ");
+        sb.append(t.toString());
+        return sb.toString();
+    }
 }
