@@ -11,6 +11,7 @@ import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.date.EjbWithTimeline;
 import net.sf.ahtutils.interfaces.model.date.EjbWithYear;
+import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 import net.sf.ahtutils.interfaces.model.with.EjbWithNr;
 import net.sf.ahtutils.model.interfaces.UtilsProperty;
 import net.sf.ahtutils.model.interfaces.crud.EjbRemoveable;
@@ -298,6 +299,13 @@ public class AbstractDummyFacade implements UtilsFacade
 	@Override
 	public <T extends EjbWithId, P extends EjbWithId> List<T> allForOrParents(
 			Class<T> cl, List<ParentPredicate<P>> parents) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T extends EjbWithEmail> T fByEmail(Class<T> clazz, String email)
+			throws UtilsNotFoundException {
 		// TODO Auto-generated method stub
 		return null;
 	}

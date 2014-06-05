@@ -50,6 +50,9 @@ body {min-width: ${width}px;}
 [class*="auGrid"] > form {margin-bottom: ${doublegutter}px;}
 [class*="auGrid"] > form:last-child {margin-bottom: 0px;}
 
+[class*="auGrid"] > form > div {margin-bottom: ${doublegutter}px;}
+[class*="auGrid"] > form > div:last-child {margin-bottom: 0px;}
+
 [class*="auGridSpace"] > div {margin-bottom: ${doublegutter}px;}
 [class*="auGridSpace"] > div:last-child {margin-bottom: 0px;}
 
