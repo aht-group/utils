@@ -11,23 +11,23 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestXmlOriginal extends AbstractXmlStatusTest
+public class TestXmlFunction extends AbstractXmlStatusTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestXmlOriginal.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlFunction.class);
 	
-	@BeforeClass public static void initFiles(){fXml = new File(rootDir,Original.class.getSimpleName()+".xml");}
+	@BeforeClass public static void initFiles(){fXml = new File(rootDir,Function.class.getSimpleName()+".xml");}
     
     @Test
     public void testXml() throws FileNotFoundException
     {
-    	Original actual = create(true);
-    	Original expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Original.class);
+    	Function actual = create(true);
+    	Function expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Function.class);
     	assertJaxbEquals(expected, actual);
     }
     
-    public static Original create(boolean withChilds)
+    public static Function create(boolean withChilds)
     {
-    	Original xml = new Original();
+    	Function xml = new Function();
     	xml.setCode("myCode");
     	xml.setVisible(true);
     	xml.setGroup("myGroup");
@@ -50,8 +50,8 @@ public class TestXmlOriginal extends AbstractXmlStatusTest
     {
 		UtilsXmlTestBootstrap.init();
 			
-		TestXmlOriginal.initFiles();	
-		TestXmlOriginal test = new TestXmlOriginal();
+		TestXmlFunction.initFiles();	
+		TestXmlFunction test = new TestXmlFunction();
 		test.save();
     }
 }

@@ -150,6 +150,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Function }
+     * 
+     */
+    public Function createFunction() {
+        return new Function();
+    }
+
+    /**
      * Create an instance of {@link Scopes }
      * 
      */
@@ -195,6 +203,14 @@ public class ObjectFactory {
      */
     public Condition createCondition() {
         return new Condition();
+    }
+
+    /**
+     * Create an instance of {@link Organisation }
+     * 
+     */
+    public Organisation createOrganisation() {
+        return new Organisation();
     }
 
     /**
