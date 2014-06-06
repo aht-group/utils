@@ -39,7 +39,71 @@ public class UtilsQaFacadeBean extends UtilsFacadeBean implements UtilsQaFacade
 		super(em,handleTransaction);
 	}
 	
-	 public <L extends UtilsLang,
+	public <L extends UtilsLang,
+	D extends UtilsDescription,
+	C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
+	R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
+	V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
+	U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
+	A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
+	USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
+	STAFF extends UtilsStaff<L,D,C,R,V,U,A,USER,QA>,
+	QA extends UtilsQualityAssurarance<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QATD,STATUS>,
+	QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QATD,STATUS>,
+	QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QATD,STATUS>,
+	QATD extends UtilsQaTestDiscussion<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QATD,STATUS>,
+	STATUS extends UtilsStatus<STATUS,L,D>>
+		QA load(Class<QA> clQa, QA qa)
+	{		
+		qa = em.find(clQa, qa.getId());
+		qa.getCategories().size();
+		qa.getStaff().size();
+		return qa;
+	}
+	
+	public <L extends UtilsLang,
+	D extends UtilsDescription,
+	C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
+	R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
+	V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
+	U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
+	A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
+	USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
+	STAFF extends UtilsStaff<L,D,C,R,V,U,A,USER,QA>,
+	QA extends UtilsQualityAssurarance<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QATD,STATUS>,
+	QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QATD,STATUS>,
+	QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QATD,STATUS>,
+	QATD extends UtilsQaTestDiscussion<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QATD,STATUS>,
+	STATUS extends UtilsStatus<STATUS,L,D>>
+		QAC load(Class<QAC> clQac, QAC category)
+	{		
+		category = em.find(clQac, category.getId());
+		category.getTests().size();
+		return category;
+	}
+	
+	public <L extends UtilsLang,
+	D extends UtilsDescription,
+	C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
+	R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
+	V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
+	U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
+	A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
+	USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
+	STAFF extends UtilsStaff<L,D,C,R,V,U,A,USER,QA>,
+	QA extends UtilsQualityAssurarance<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QATD,STATUS>,
+	QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QATD,STATUS>,
+	QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QATD,STATUS>,
+	QATD extends UtilsQaTestDiscussion<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QATD,STATUS>,
+	STATUS extends UtilsStatus<STATUS,L,D>>
+		QAT load(Class<QAT> clQat, QAT test)
+	{		
+		test = em.find(clQat, test.getId());
+		test.getDiscussions().size();
+		return test;
+	}
+	
+	public <L extends UtilsLang,
 			D extends UtilsDescription,
 			C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
 			R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,

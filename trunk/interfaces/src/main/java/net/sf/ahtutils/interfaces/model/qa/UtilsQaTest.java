@@ -1,5 +1,7 @@
 package net.sf.ahtutils.interfaces.model.qa;
 
+import java.util.List;
+
 import net.sf.ahtutils.interfaces.model.security.UtilsStaff;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
@@ -44,4 +46,7 @@ public interface UtilsQaTest<L extends UtilsLang,
     
     String getSteps();
 	void setSteps(String steps);
+	
+	List<QATD> getDiscussions();
+	void setDiscussions(List<QATD> discussions);
 }
