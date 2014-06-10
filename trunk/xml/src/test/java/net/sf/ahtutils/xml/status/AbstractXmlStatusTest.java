@@ -1,7 +1,5 @@
 package net.sf.ahtutils.xml.status;
 
-import java.io.File;
-
 import net.sf.ahtutils.test.AbstractXmlTest;
 
 import org.slf4j.Logger;
@@ -13,5 +11,4 @@ public abstract class AbstractXmlStatusTest extends AbstractXmlTest
 
     protected static final String dirSuffix = "status";
 	protected static final String rootDir = "src/test/resources/data/xml/status";
-	protected static File fXml;
 }

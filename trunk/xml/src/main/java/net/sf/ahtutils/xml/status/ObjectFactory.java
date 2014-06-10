@@ -238,6 +238,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Legend }
+     * 
+     */
+    public Legend createLegend() {
+        return new Legend();
+    }
+
+    /**
      * Create an instance of {@link Translations }
      * 
      */
