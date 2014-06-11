@@ -36,8 +36,6 @@ public interface UtilsFacade extends UtilsIdFacade
 	<T extends UtilsProperty> Boolean valueBooleanForKey(Class<T> type, String key, Boolean defaultValue) throws UtilsNotFoundException;
 	<T extends UtilsProperty> Date valueDateForKey(Class<T> type, String key, Date defaultValue) throws UtilsNotFoundException;
 	
-	<T extends Object> List<T> all(Class<T> type);
-	
 	<T extends EjbWithType> List<T> allForType(Class<T> clazz, String type);
 	
 	// ORDERING

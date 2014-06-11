@@ -24,4 +24,15 @@ public class XmlMenuItemFactory
 		return xml;
 	}
 	
+	public static MenuItem build(MenuItem mi)
+	{
+		MenuItem xml = new MenuItem();
+		xml.setActive(mi.isSetActive() && mi.isActive());
+		xml.setCode(mi.getCode());
+		xml.setHref(mi.getHref());
+		xml.setName(mi.getName());
+		
+		return xml;
+	}
+	
 }

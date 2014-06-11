@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import net.sf.ahtutils.controller.factory.xml.navigation.XmlMenuItemFactory;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Category;
@@ -20,6 +21,7 @@ import net.sf.ahtutils.xml.xpath.AccessXpath;
 import net.sf.ahtutils.xml.xpath.NavigationXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.alg.DijkstraShortestPath;
@@ -378,16 +380,22 @@ public class MenuFactory
 	
 	public MenuItem subMenu(Menu menu, String code)
 	{
-		MenuItem result;
+		MenuItem result = new MenuItem();;
 		try
 		{
 			if(code.equals(rootNode))
 			{
-				result = new MenuItem();
+				
 				result.getMenuItem().addAll(menu.getMenuItem());
-				return result;
 			}
-			result = NavigationXpath.getMenuItem(menu, code);
+			else
+			{
+				for(MenuItem miT : NavigationXpath.getMenuItem(menu, code).getMenuItem())
+				{
+					MenuItem mi = XmlMenuItemFactory.build(miT);
+					result.getMenuItem().add(mi);
+				}
+			}
 		}
 		catch (ExlpXpathNotFoundException e) {result = new MenuItem();}
 		catch (ExlpXpathNotUniqueException e) {result = new MenuItem();}
