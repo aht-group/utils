@@ -104,7 +104,7 @@ public class AhtStatusDbInit <S extends UtilsStatus<S,L,D>, L extends UtilsLang,
 		return result;
 	}
 	
-	public <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription> void deleteUnusedStatus(Class<S> cStatus, Class<L> cLang, Class<D> cDescription)
+	public void deleteUnusedStatus(Class<S> cStatus, Class<L> cLang, Class<D> cDescription)
 	{
 		logger.debug("Deleting unused childs of Status: "+cLang.getName()+":"+sDeleteLangs.size());
 		for(long id : sDeleteLangs)
