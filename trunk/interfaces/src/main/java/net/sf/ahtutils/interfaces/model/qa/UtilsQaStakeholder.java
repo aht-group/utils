@@ -10,10 +10,11 @@ import net.sf.ahtutils.model.interfaces.security.UtilsSecurityView;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
+import net.sf.ahtutils.model.interfaces.with.EjbWithCode;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
-import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
+import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 
-public interface UtilsQaTestDiscussion<L extends UtilsLang,
+public interface UtilsQaStakeholder<L extends UtilsLang,
 					D extends UtilsDescription,
 					C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
 					R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
@@ -28,11 +29,8 @@ public interface UtilsQaTestDiscussion<L extends UtilsLang,
 					QAS extends UtilsQaStakeholder<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
 					QATD extends UtilsQaTestDiscussion<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
 					STATUS extends UtilsStatus<STATUS,L,D>>
-			extends EjbWithId,EjbWithRecord
+			extends EjbWithId,EjbWithName,EjbWithCode
 {
-	QAT getTest();
-	void setTest(QAT test);
-	
-	USER getUser();
-	void setUser(USER user);
+	QA getQa();
+	void setQa(QA qa);
 }
