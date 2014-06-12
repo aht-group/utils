@@ -20,7 +20,7 @@ public interface UtilsQaStaff<L extends UtilsLang,
 					U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
 					A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
 					USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
-					STAFF extends UtilsStaff<L,D,C,R,V,U,A,USER,QA>,
+					STAFF extends UtilsQaStaff<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
 					QA extends UtilsQualityAssurarance<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
 					QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
 					QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
@@ -29,5 +29,12 @@ public interface UtilsQaStaff<L extends UtilsLang,
 					STATUS extends UtilsStatus<STATUS,L,D>>
 			extends EjbWithId,UtilsStaff<L,D,C,R,V,U,A,USER,QA>
 {
+	QAS getStakeholder();
+	void setStakeholder(QAS stakeholder);
 	
+	String getDepartment();
+	void setDepartment(String department);
+
+	String getResponsibilities();
+	void setResponsibilities(String responsibilities);
 }

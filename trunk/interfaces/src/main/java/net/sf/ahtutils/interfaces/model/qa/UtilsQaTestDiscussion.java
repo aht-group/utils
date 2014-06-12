@@ -1,6 +1,5 @@
 package net.sf.ahtutils.interfaces.model.qa;
 
-import net.sf.ahtutils.interfaces.model.security.UtilsStaff;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
@@ -21,7 +20,7 @@ public interface UtilsQaTestDiscussion<L extends UtilsLang,
 					U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
 					A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
 					USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
-					STAFF extends UtilsStaff<L,D,C,R,V,U,A,USER,QA>,
+					STAFF extends UtilsQaStaff<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
 					QA extends UtilsQualityAssurarance<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
 					QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
 					QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
@@ -33,6 +32,6 @@ public interface UtilsQaTestDiscussion<L extends UtilsLang,
 	QAT getTest();
 	void setTest(QAT test);
 	
-	USER getUser();
-	void setUser(USER user);
+	STAFF getStaff();
+	void setStaff(STAFF staff);
 }
