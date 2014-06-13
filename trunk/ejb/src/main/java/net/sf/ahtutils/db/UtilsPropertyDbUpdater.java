@@ -1,13 +1,14 @@
 package net.sf.ahtutils.db;
 
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
-import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
+import net.sf.ahtutils.factory.ejb.util.EjbPropertyFactory;
+import net.sf.ahtutils.factory.xml.status.XmlTypeFactory;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.UtilsProperty;
+import net.sf.ahtutils.monitor.DataUpdateTracker;
 import net.sf.ahtutils.xml.sync.DataUpdate;
+import net.sf.ahtutils.xml.utils.Property;
 import net.sf.ahtutils.xml.utils.Utils;
 
 import org.slf4j.Logger;
@@ -32,67 +33,38 @@ public class UtilsPropertyDbUpdater <P extends UtilsProperty>
 		return new UtilsPropertyDbUpdater<P>(fUtils,cProperty);
 	}
 
-	public DataUpdate iuProperties(Utils utils) throws UtilsConfigurationException
+	public DataUpdate iuProperties(Utils utils)
 	{
-//		DataUpdateTracker dut = new DataUpdateTracker(true);
-//		dut.setType(XmlTypeFactory.build(cProperty.getName(),UtilsProperty.class.getSimpleName()"-DB Import"));
+		EjbPropertyFactory<P> f = EjbPropertyFactory.factory(cProperty);
+		
+		DataUpdateTracker dut = new DataUpdateTracker(true);
+		dut.setType(XmlTypeFactory.build(cProperty.getName(),UtilsProperty.class.getSimpleName()+"-DB Import"));
 		
 //		AhtDbEjbUpdater<P> updateLayer = AhtDbEjbUpdater.createFactory(cProperty);		
 //		updateLayer.dbEjbs(fUtils.all(cLayer));
 
-		/*
-		for(Layer layer : layers.getLayer())
+		
+		for(Property property : utils.getProperty())
 		{
-			updateLayer.actualAdd(layer.getCode());
+//			updateLayer.actualAdd(layer.getCode());
 			
-			SERVICE service;			
+			P ejb;			
 			try
 			{
-				service = fUtils.fByCode(cService, layer.getService().getCode());
+				fUtils.valueStringForKey(cProperty, property.getKey(),null);
 			}
-			catch (UtilsNotFoundException e1) {throw new UtilsConfigurationException(e1.getMessage());}
-			
-			
-			LAYER ejb;
-			try
+			catch (UtilsNotFoundException e1)
 			{
-				ejb = fUtils.fByCode(cLayer,layer.getCode());
-				ejbLangFactory.rmLang(fUtils,ejb);
-				ejbDescriptionFactory.rmDescription(fUtils,ejb);
-			}
-			catch (UtilsNotFoundException e)
-			{
+				ejb = f.build(property);
+				dut.success();
 				try
 				{
-					ejb = ejbLayerFactory.build(layer.getCode(), service, langKeys);					
-					ejb = (LAYER)fUtils.persist(ejb);
+					ejb = (P)fUtils.persist(ejb);
 				}
-
-				catch (UtilsContraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
-				catch (UtilsIntegrityException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+				catch (UtilsContraintViolationException e) {dut.fail(e, true);}
 			}
-			
-			try
-			{
-				ejb.setName(ejbLangFactory.getLangMap(layer.getLangs()));
-				ejb.setDescription(ejbDescriptionFactory.create(layer.getDescriptions()));
-				
-				ejb.setTemporalLayer(layer.isTemporal());
-				ejb.setService(fUtils.fByCode(cService, layer.getService().getCode()));
-				
-				ejb=(LAYER)fUtils.update(ejb);
-			}
-			catch (UtilsContraintViolationException e) {logger.error("",e);}
-			catch (InstantiationException e) {logger.error("",e);}
-			catch (IllegalAccessException e) {logger.error("",e);}
-			catch (UtilsIntegrityException e) {logger.error("",e);}
-			catch (UtilsLockingException e) {logger.error("",e);}
-			catch (UtilsNotFoundException e) {logger.error("",e);}
 		}
-		
-		updateLayer.remove(fUtils);
-		logger.trace("initUpdateUsecaseCategories finished");
-		*/
-		return new DataUpdate();
+
+		return dut.toDataUpdate();
 	}
 }
