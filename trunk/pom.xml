@@ -20,6 +20,7 @@
 	<modules>
 		<module>doc</module>
 		<module>ejb</module>
+		<module>entities</module>
 		<module>util</module>
 		<module>mail</module>
 		<module>report</module>
