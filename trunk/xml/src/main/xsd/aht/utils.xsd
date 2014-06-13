@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema targetNamespace="http://ahtutils.aht-group.com/utils"
+	xmlns:u="http://ahtutils.aht-group.com/utils"
     xmlns:a="http://ahtutils.aht-group.com/access"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <xsd:import namespace="http://ahtutils.aht-group.com/access" schemaLocation="access.xsd"/>
@@ -7,7 +8,17 @@
 		<xsd:complexType>
 			<xsd:sequence>
 				<xsd:element ref="a:category" maxOccurs="unbounded"/>
+				<xsd:element ref="u:property" maxOccurs="unbounded"/>
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
+	<xsd:element name="property">
+        <xsd:complexType>
+            <xsd:simpleContent>
+                <xsd:extension base="xsd:string">
+                    <xsd:attribute name="key" type="xsd:string"/>
+                </xsd:extension>
+            </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
 </xsd:schema>

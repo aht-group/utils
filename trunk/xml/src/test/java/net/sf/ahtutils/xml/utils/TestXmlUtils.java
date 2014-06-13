@@ -1,6 +1,5 @@
 package net.sf.ahtutils.xml.utils;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
@@ -12,15 +11,11 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestUtils extends AbstractXmlUtilsTest
+public class TestXmlUtils extends AbstractXmlUtilsTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestUtils.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlUtils.class);
 	
-	@BeforeClass
-	public static void initFiles()
-	{
-		fXml = new File(rootDir,Utils.class.getSimpleName()+".xml");
-	}
+	@BeforeClass public static void initFiles(){setXmlFile(dirSuffix, Utils.class);}
     
     @Test
     public void xml() throws FileNotFoundException
@@ -36,7 +31,8 @@ public class TestUtils extends AbstractXmlUtilsTest
         	
     	if(withChilds)
     	{
-    		xml.getCategory().add(TestXmlCategory.create(false));xml.getCategory().add(TestXmlCategory.create(false));
+    		xml.getCategory().add(TestXmlCategory.create(false));xml.getCategory().add(TestXmlCategory.create(false));  		
+    		xml.getProperty().add(TestXmlProperty.create(false));xml.getProperty().add(TestXmlProperty.create(false));
     	}
     	
     	return xml;
@@ -48,9 +44,9 @@ public class TestUtils extends AbstractXmlUtilsTest
     {
 		UtilsXmlTestBootstrap.init();
 			
-		TestUtils.initJaxb();
-		TestUtils.initFiles();	
-		TestUtils test = new TestUtils();
+		TestXmlUtils.initJaxb();
+		TestXmlUtils.initFiles();	
+		TestXmlUtils test = new TestXmlUtils();
 		test.save();
     }
 }

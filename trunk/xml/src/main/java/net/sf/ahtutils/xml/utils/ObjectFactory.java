@@ -37,4 +37,12 @@ public class ObjectFactory {
         return new Utils();
     }
 
+    /**
+     * Create an instance of {@link Property }
+     * 
+     */
+    public Property createProperty() {
+        return new Property();
+    }
+
 }
