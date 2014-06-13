@@ -30,7 +30,21 @@
 	</dependencyManagement>
 
 	<dependencies>
-	<dependency>
+	
+		<!-- AhtUtils -->
+		<dependency>
+         	<groupId>net.sf.ahtutils</groupId>
+         	<artifactId>ahtutils-interfaces</artifactId>
+         </dependency>
+         <!--  
+		<dependency>
+         	<groupId>net.sf.ahtutils</groupId>
+         	<artifactId>ahtutils-util</artifactId>
+         	<scope>provided</scope>
+         </dependency>
+	-->
+	
+		<dependency>
          <!--Sun istack problem   -->  
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>policy</artifactId>
@@ -118,10 +132,6 @@
         			<groupId>javax.xml.bind</groupId>
         		</exclusion>
         	</exclusions>
-         </dependency>
-         <dependency>
-         	<groupId>net.sf.ahtutils</groupId>
-         	<artifactId>ahtutils-interfaces</artifactId>
          </dependency>
 	</dependencies>
 

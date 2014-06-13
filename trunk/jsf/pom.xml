@@ -26,6 +26,13 @@
 	</dependencyManagement>
 	
 	<dependencies>
+		
+		<!-- AhtUtilks -->
+	   	<dependency>
+   	   		<groupId>net.sf.ahtutils</groupId>
+   	   		<artifactId>ahtutils-ejb</artifactId>
+   	   	</dependency>
+	
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
