@@ -1,0 +1,59 @@
+package net.sf.ahtutils.doc.msg;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+
+import net.sf.ahtutils.doc.UtilsDocumentation;
+import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
+import net.sf.ahtutils.xml.status.Translations;
+import net.sf.exlp.util.io.FileIO;
+import net.sf.exlp.util.io.resourceloader.MultiResourceLoader;
+import net.sf.exlp.util.xml.JDomUtil;
+import net.sf.exlp.util.xml.JaxbUtil;
+
+import org.apache.commons.configuration.Configuration;
+import org.apache.commons.io.IOUtils;
+import org.jdom2.Comment;
+import org.jdom2.Document;
+import org.jdom2.output.Format;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class UtilsMsgBuilder
+{	
+	public static final String srcAdminSystemProperty = "msg.aht-utils/admin/system/properties.xml";
+	
+	final static Logger logger = LoggerFactory.getLogger(UtilsMsgBuilder.class);
+		
+	private MultiResourceLoader mrl;
+	private File baseMsg;
+	
+	public UtilsMsgBuilder(Configuration config)
+	{
+		mrl = new MultiResourceLoader();
+		baseMsg = new File(config.getString(UtilsDocumentation.keyBaseMsgDir));
+		logger.info("Using msg.dir ("+UtilsDocumentation.keyBaseMsgDir+"): "+baseMsg.getAbsolutePath());
+	}
+	
+	public void copy(String src, String dst) throws UtilsConfigurationException
+	{
+		try
+		{
+			InputStream is = mrl.searchIs(src);
+			File fTarget = new File(baseMsg,dst);
+			
+			Translations t = JaxbUtil.loadJAXB(is, Translations.class);
+			Document doc = JaxbUtil.toDocument(t);
+			
+			Comment comment = new Comment("Do not modify this file, it is automatically generated!");
+			doc.addContent(0, comment);
+			
+			byte[] bytes = IOUtils.toByteArray(JDomUtil.toInputStream(doc, Format.getPrettyFormat()));
+			FileIO.writeFileIfDiffers(bytes, fTarget);
+		}
+		catch (FileNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
+		catch (IOException e) {throw new UtilsConfigurationException(e.getMessage());}
+	}
+}
