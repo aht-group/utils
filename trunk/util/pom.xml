@@ -254,12 +254,7 @@
     		<artifactId>jaxen</artifactId>
     		<scope>test</scope>
     	</dependency>
-		<dependency>
-        	<groupId>net.sf.ahtutils</groupId>
-        	<artifactId>ahtutils-ejb</artifactId>
-        	<type>jar</type>
-        	<scope>test</scope>
-        </dependency>
+
 		<dependency>
         	<groupId>net.sf.ahtutils</groupId>
         	<artifactId>ahtutils-entities</artifactId>
