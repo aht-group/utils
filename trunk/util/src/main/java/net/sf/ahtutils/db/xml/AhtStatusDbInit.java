@@ -13,13 +13,17 @@ import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.exception.processing.UtilsDeveloperException;
 import net.sf.ahtutils.factory.ejb.status.EjbStatusFactory;
+import net.sf.ahtutils.factory.xml.status.XmlTypeFactory;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
+import net.sf.ahtutils.monitor.DataUpdateTracker;
 import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.status.Status;
+import net.sf.ahtutils.xml.sync.DataUpdate;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.slf4j.Logger;
@@ -156,9 +160,12 @@ public class AhtStatusDbInit <S extends UtilsStatus<S,L,D>, L extends UtilsLang,
 		iuStatusEJB(list, cStatus, cLang);
 	}
 	
-	public <P extends UtilsStatus<P,L,D>> void iuStatus(List<Status> list, Class<S> cStatus, Class<L> cLang, Class<P> cParent)
+	public <P extends UtilsStatus<P,L,D>> DataUpdate iuStatus(List<Status> list, Class<S> cStatus, Class<L> cLang, Class<P> cParent)
 	{
-		if(fStatus==null){logger.warn("No Handler available");return;}
+		DataUpdateTracker dut = new DataUpdateTracker(true);
+		dut.setType(XmlTypeFactory.build(cStatus.getName(),"Status-DB Import"));
+		
+		if(fStatus==null){dut.fail(new UtilsDeveloperException("No Factory available for "+cStatus.getName()), true);}
 		else {logger.info("Updating "+cStatus.getSimpleName()+" with "+list.size()+" entries");}
 		iuStatusEJB(list, cStatus, cLang);
 		
@@ -172,13 +179,14 @@ public class AhtStatusDbInit <S extends UtilsStatus<S,L,D>, L extends UtilsLang,
 					S ejbStatus = fStatus.fByCode(cStatus,xml.getCode());
 					ejbStatus.setParent(fStatus.fByCode(cParent, xml.getParent().getCode()));
 					ejbStatus = fStatus.update(ejbStatus);
+					dut.success();
 				}
 			}
-			catch (UtilsContraintViolationException e){logger.error("",e);}
-			catch (UtilsLockingException e) {logger.error("",e);}
-			catch (UtilsNotFoundException e) {logger.error("",e);}
+			catch (UtilsContraintViolationException e){dut.fail(e,true);}
+			catch (UtilsLockingException e) {dut.fail(e,true);}
+			catch (UtilsNotFoundException e) {dut.fail(e,true);}
 		}
-		
+		return dut.toDataUpdate();
 	}
 	
 	private void iuStatusEJB(List<Status> list, Class<S> cStatus, Class<L> cLang)
