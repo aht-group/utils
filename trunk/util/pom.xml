@@ -79,14 +79,7 @@
         	<scope>test</scope>
         	<classifier>tests</classifier>
         </dependency>
-        
-        <dependency>
-        	<groupId>net.sf.ahtutils</groupId>
-        	<artifactId>ahtutils-ejb</artifactId>
-        	<type>jar</type>
-        	<scope>test</scope>
-        </dependency>
-	        
+            
 	    <!-- MetaChart -->
 		<dependency>
 			<groupId>org.metachart</groupId>
@@ -253,11 +246,26 @@
     		<groupId>joda-time</groupId>
     		<artifactId>joda-time</artifactId>
     	</dependency>
-    	<dependency>
+
+    	
+    	<!-- Test -->
+		<dependency>
     		<groupId>jaxen</groupId>
     		<artifactId>jaxen</artifactId>
     		<scope>test</scope>
     	</dependency>
+		<dependency>
+        	<groupId>net.sf.ahtutils</groupId>
+        	<artifactId>ahtutils-ejb</artifactId>
+        	<type>jar</type>
+        	<scope>test</scope>
+        </dependency>
+		<dependency>
+        	<groupId>net.sf.ahtutils</groupId>
+        	<artifactId>ahtutils-entities</artifactId>
+        	<type>jar</type>
+        	<scope>test</scope>
+        </dependency>
 	</dependencies>
    
 </project>
