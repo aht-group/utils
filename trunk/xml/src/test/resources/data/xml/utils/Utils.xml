@@ -2,6 +2,6 @@
 <u:utils xmlns:s="http://ahtutils.aht-group.com/status" xmlns:acl="http://ahtutils.aht-group.com/access" xmlns:ns3="http://ahtutils.aht-group.com/navigation" xmlns:u="http://ahtutils.aht-group.com/utils">
     <acl:category code="myCode" index="1"/>
     <acl:category code="myCode" index="1"/>
-    <u:property key="myKey"/>
-    <u:property key="myKey"/>
+    <u:property key="myKey">myValue</u:property>
+    <u:property key="myKey">myValue</u:property>
 </u:utils>

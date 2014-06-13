@@ -28,10 +28,11 @@ public class TestXmlProperty extends AbstractXmlUtilsTest
     {
     	Property xml = new Property();
         xml.setKey("myKey");
+        xml.setValue("myValue");
     	
     	if(withChilds)
     	{
-    		xml.setValue("myValue");
+    		
     	}
     	
     	return xml;
