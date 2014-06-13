@@ -35,6 +35,32 @@
          	<groupId>net.sf.ahtutils</groupId>
          	<artifactId>ahtutils-interfaces</artifactId>
          </dependency>
+         
+         <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
+       <dependency>
+		   <groupId>org.jboss.spec</groupId>
+		   <artifactId>jboss-javaee-6.0</artifactId>
+		   <version>${jboss-javaee6-spec.version}</version>
+		   <type>pom</type>
+		   <scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.as</groupId>
+			<artifactId>jboss-as-ejb-client-bom</artifactId>
+			<type>pom</type>
+			<scope>provided</scope>
+	  	</dependency>
 	</dependencies>
 
     <build>
