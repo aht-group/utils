@@ -24,6 +24,20 @@
 			The network installation CD is sufficient for installation Debian. The ISO image can be obtained from
 		</ofx:paragraph>
 		
+		<media:image id="image.admin.installation.debian.base.wheezy.boot">
+			<ofx:title lang="en">Debian installer boot menu</ofx:title>
+			<layout:alignment horizontal="center"/>
+			<layout:width unit="percentage">60</layout:width>
+			<media:media lang="en" src="png.aht-utils/installation/debian/wheezy/boot.png" dst="en/admin/installation/debian/boot"/>
+		</media:image>
+		
+		<media:image id="image.admin.installation.debian.base.wheezy.language">
+			<ofx:title lang="en">Language Selection</ofx:title>
+			<layout:alignment horizontal="center"/>
+			<layout:width unit="percentage">60</layout:width>
+			<media:media lang="en" src="png.aht-utils/installation/debian/wheezy/language.png" dst="en/admin/installation/debian/language"/>
+		</media:image>
+		
 		<ofx:paragraph lang="en" version="1">
 			Install
 			Language: English - English
@@ -40,6 +54,13 @@
 		<ofx:section id="section.admin.installation.debian.base.wheezy.partition" classifier="simple">
 			<ofx:title lang="en">Partition disks</ofx:title>
 			
+			<media:image id="image.admin.installation.debian.base.wheezy.partition.method">
+				<ofx:title lang="en">Partition Method</ofx:title>
+				<layout:alignment horizontal="center"/>
+				<layout:width unit="percentage">60</layout:width>
+				<media:media lang="en" src="png.aht-utils/installation/debian/wheezy/partition-method.png" dst="en/admin/installation/debian/partitionMethod"/>
+			</media:image>
+			
 			<ofx:paragraph lang="en" version="1">
 				Guided - use entire disk
 				Select HDD
@@ -48,10 +69,11 @@
 				Check configuration and confirm
 			</ofx:paragraph>
 			
-			<media:image id="image.admin.installation.debian.base.wheezy.partition">
-			    <ofx:title>My Test Title</ofx:title>
-			    <layout:alignment horizontal="center"/>
-			    <media:media lang="en" src="svg.aht-utils/under-construction.svg" dst="en/admin/installation/debian/partition-simple"/>
+			<media:image id="image.admin.installation.debian.base.wheezy.partition.scheme">
+				<ofx:title lang="en">Partition Scheme</ofx:title>
+				<layout:alignment horizontal="center"/>
+				<layout:width unit="percentage">60</layout:width>
+				<media:media lang="en" src="png.aht-utils/installation/debian/wheezy/partition-scheme.png" dst="en/admin/installation/debian/partitionScheme"/>
 			</media:image>
 						
 		</ofx:section>
@@ -65,25 +87,48 @@
 				HTTP proxy (can be left blank if no proxy) CONTINUE
 				No participation in package usage survey
 			</ofx:paragraph>
+			
+			<media:image id="image.admin.installation.debian.base.wheezy.mirror">
+				<ofx:title lang="en">Package Manager</ofx:title>
+				<layout:alignment horizontal="center"/>
+				<layout:width unit="percentage">60</layout:width>
+				<media:media lang="en" src="png.aht-utils/installation/debian/wheezy/mirror.png" dst="en/admin/installation/debian/mirror"/>
+			</media:image>
 						
 		</ofx:section>
 		
 		<ofx:section id="section.admin.installation.debian.software">
-			<ofx:title lang="en">Software Selections</ofx:title>
+			<ofx:title lang="en">Software Selection</ofx:title>
 			
 			<ofx:paragraph lang="en" version="1">
-				all selections can be deactivatged
+				All available environment can be de-selected. This ensures aht the installation will only have a minimal
+				number of packages and modules available. This minimizes the risks of errors or faulty configurations and 
+				facilitate future upgrade procedures.
 			</ofx:paragraph>
+			
+			<media:image id="image.admin.installation.debian.base.wheezy.software">
+				<layout:alignment horizontal="center"/>
+			    <ofx:title>Software Selection</ofx:title>
+			    <layout:width unit="percentage">60</layout:width>
+			    <media:media lang="en" src="png.aht-utils/installation/debian/wheezy/software-selection.png" dst="en/admin/installation/debian/software-selection"/>
+			</media:image>
 						
 		</ofx:section>
 		
 		<ofx:section id="section.admin.installation.debian.bootloader">
-			<ofx:title lang="en">Software Selections</ofx:title>
+			<ofx:title lang="en">Finishing Installation</ofx:title>
 			
 			<ofx:paragraph lang="en" version="1">
 				Install GRUB boot loader to the master boot record: YES
 				Then FINISH the installation
 			</ofx:paragraph>
+			
+			<media:image id="image.admin.installation.debian.base.wheezy.console">
+				<layout:alignment horizontal="center"/>
+				<layout:width unit="percentage">60</layout:width>
+			    <ofx:title>Debian Login console</ofx:title>
+				<media:media lang="en" src="svg.aht-utils/under-construction.svg" dst="en/admin/installation/debian/console"/>
+			</media:image>
 						
 		</ofx:section>
 		
