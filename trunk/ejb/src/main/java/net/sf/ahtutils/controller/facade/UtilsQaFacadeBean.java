@@ -12,6 +12,7 @@ import javax.persistence.criteria.Root;
 import net.sf.ahtutils.controller.util.ParentPredicate;
 import net.sf.ahtutils.interfaces.facade.UtilsQaFacade;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaCategory;
+import net.sf.ahtutils.interfaces.model.qa.UtilsQaResult;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaStaff;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaStakeholder;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaTest;
@@ -41,20 +42,22 @@ public class UtilsQaFacadeBean extends UtilsFacadeBean implements UtilsQaFacade
 	}
 	
 	public <L extends UtilsLang,
-			D extends UtilsDescription,
-			C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
-			R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
-			V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
-			U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
-			A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
-			USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
-			STAFF extends UtilsQaStaff<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			QA extends UtilsQualityAssurarance<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			QAS extends UtilsQaStakeholder<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			QATD extends UtilsQaTestDiscussion<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			STATUS extends UtilsStatus<STATUS,L,D>>
+				D extends UtilsDescription,
+				C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
+				R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
+				V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
+				U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
+				A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
+				USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
+				STAFF extends UtilsQaStaff<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QA extends UtilsQualityAssurarance<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QAR extends UtilsQaResult<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QAS extends UtilsQaStakeholder<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QATD extends UtilsQaTestDiscussion<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QATS extends UtilsStatus<QATS,L,D>,
+				QARS extends UtilsStatus<QARS,L,D>>
 		QA load(Class<QA> clQa, QA qa)
 	{		
 		qa = em.find(clQa, qa.getId());
@@ -65,20 +68,22 @@ public class UtilsQaFacadeBean extends UtilsFacadeBean implements UtilsQaFacade
 	}
 	
 	public <L extends UtilsLang,
-			D extends UtilsDescription,
-			C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
-			R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
-			V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
-			U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
-			A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
-			USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
-			STAFF extends UtilsQaStaff<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			QA extends UtilsQualityAssurarance<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			QAS extends UtilsQaStakeholder<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			QATD extends UtilsQaTestDiscussion<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			STATUS extends UtilsStatus<STATUS,L,D>>
+				D extends UtilsDescription,
+				C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
+				R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
+				V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
+				U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
+				A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
+				USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
+				STAFF extends UtilsQaStaff<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QA extends UtilsQualityAssurarance<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QAR extends UtilsQaResult<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QAS extends UtilsQaStakeholder<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QATD extends UtilsQaTestDiscussion<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QATS extends UtilsStatus<QATS,L,D>,
+				QARS extends UtilsStatus<QARS,L,D>>
 		QAC load(Class<QAC> clQac, QAC category)
 	{		
 		category = em.find(clQac, category.getId());
@@ -94,13 +99,15 @@ public class UtilsQaFacadeBean extends UtilsFacadeBean implements UtilsQaFacade
 			U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
 			A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
 			USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
-			STAFF extends UtilsQaStaff<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			QA extends UtilsQualityAssurarance<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			QAS extends UtilsQaStakeholder<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			QATD extends UtilsQaTestDiscussion<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			STATUS extends UtilsStatus<STATUS,L,D>>
+			STAFF extends UtilsQaStaff<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+			QA extends UtilsQualityAssurarance<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+			QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+			QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+			QAR extends UtilsQaResult<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+			QAS extends UtilsQaStakeholder<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+			QATD extends UtilsQaTestDiscussion<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+			QATS extends UtilsStatus<QATS,L,D>,
+			QARS extends UtilsStatus<QARS,L,D>>
 		QAT load(Class<QAT> clQat, QAT test)
 	{		
 		test = em.find(clQat, test.getId());
@@ -109,20 +116,22 @@ public class UtilsQaFacadeBean extends UtilsFacadeBean implements UtilsQaFacade
 	}
 	
 	public <L extends UtilsLang,
-			D extends UtilsDescription,
-			C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
-			R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
-			V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
-			U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
-			A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
-			USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
-			STAFF extends UtilsQaStaff<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			QA extends UtilsQualityAssurarance<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			QAS extends UtilsQaStakeholder<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			QATD extends UtilsQaTestDiscussion<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			STATUS extends UtilsStatus<STATUS,L,D>>
+				D extends UtilsDescription,
+				C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
+				R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
+				V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
+				U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
+				A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
+				USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
+				STAFF extends UtilsQaStaff<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QA extends UtilsQualityAssurarance<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QAR extends UtilsQaResult<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QAS extends UtilsQaStakeholder<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QATD extends UtilsQaTestDiscussion<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QATS extends UtilsStatus<QATS,L,D>,
+				QARS extends UtilsStatus<QARS,L,D>>
 		List<QAT> fQaTests(Class<QAT> clTest, Class<QAC> clCategory, Class<QA> clQa, QA qa)
 	{		
 		CriteriaBuilder cB = em.getCriteriaBuilder();
@@ -148,20 +157,22 @@ public class UtilsQaFacadeBean extends UtilsFacadeBean implements UtilsQaFacade
 	}
 	 
 	 public <L extends UtilsLang,
-			D extends UtilsDescription,
-			C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
-			R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
-			V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
-			U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
-			A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
-			USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
-			STAFF extends UtilsQaStaff<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			QA extends UtilsQualityAssurarance<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			QAS extends UtilsQaStakeholder<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			QATD extends UtilsQaTestDiscussion<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-			STATUS extends UtilsStatus<STATUS,L,D>>
+			 	D extends UtilsDescription,
+				C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
+				R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
+				V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
+				U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
+				A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
+				USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
+				STAFF extends UtilsQaStaff<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QA extends UtilsQualityAssurarance<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QAR extends UtilsQaResult<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QAS extends UtilsQaStakeholder<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QATD extends UtilsQaTestDiscussion<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+				QATS extends UtilsStatus<QATS,L,D>,
+				QARS extends UtilsStatus<QARS,L,D>>
 	 	List<QAT> fQaTests(Class<QAT> clTest, Class<QAC> clCategory, List<QAC> categories)
 	 {
 		 return this.allForOrParents(clTest, ParentPredicate.createFromList(clCategory, "category", categories));

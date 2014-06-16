@@ -1,6 +1,5 @@
 package net.sf.ahtutils.interfaces.model.qa;
 
-import net.sf.ahtutils.interfaces.model.security.UtilsStaff;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
@@ -11,8 +10,9 @@ import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 
-public interface UtilsQaStaff<L extends UtilsLang,
+public interface UtilsQaResult<L extends UtilsLang,
 				D extends UtilsDescription,
 				C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
 				R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
@@ -29,14 +29,11 @@ public interface UtilsQaStaff<L extends UtilsLang,
 				QATD extends UtilsQaTestDiscussion<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
 				QATS extends UtilsStatus<QATS,L,D>,
 				QARS extends UtilsStatus<QARS,L,D>>
-			extends EjbWithId,UtilsStaff<L,D,C,R,V,U,A,USER,QA>
+			extends EjbWithId,EjbWithRecord
 {
-	QAS getStakeholder();
-	void setStakeholder(QAS stakeholder);
+	QAT getTest();
+	void setTest(QAT test);
 	
-	String getDepartment();
-	void setDepartment(String department);
-
-	String getResponsibilities();
-	void setResponsibilities(String responsibilities);
+	STAFF getStaff();
+	void setStaff(STAFF staff);
 }

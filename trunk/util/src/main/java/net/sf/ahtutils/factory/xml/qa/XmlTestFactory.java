@@ -1,6 +1,7 @@
 package net.sf.ahtutils.factory.xml.qa;
 
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaCategory;
+import net.sf.ahtutils.interfaces.model.qa.UtilsQaResult;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaStaff;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaStakeholder;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaTest;
@@ -28,13 +29,15 @@ public class XmlTestFactory<L extends UtilsLang,
 							U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
 							A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
 							USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
-							STAFF extends UtilsQaStaff<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-							QA extends UtilsQualityAssurarance<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-							QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-							QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-							QAS extends UtilsQaStakeholder<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-							QATD extends UtilsQaTestDiscussion<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAS,QATD,STATUS>,
-							STATUS extends UtilsStatus<STATUS,L,D>>
+							STAFF extends UtilsQaStaff<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+							QA extends UtilsQualityAssurarance<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+							QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+							QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+							QAR extends UtilsQaResult<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+							QAS extends UtilsQaStakeholder<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+							QATD extends UtilsQaTestDiscussion<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
+							QATS extends UtilsStatus<QATS,L,D>,
+							QARS extends UtilsStatus<QARS,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlTestFactory.class);
 		
