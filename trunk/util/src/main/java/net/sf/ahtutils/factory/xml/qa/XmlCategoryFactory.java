@@ -6,6 +6,7 @@ import net.sf.ahtutils.interfaces.model.qa.UtilsQaStaff;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaStakeholder;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaTest;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaTestDiscussion;
+import net.sf.ahtutils.interfaces.model.qa.UtilsQaUsability;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQualityAssurarance;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
@@ -22,22 +23,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class XmlCategoryFactory<L extends UtilsLang,
-								D extends UtilsDescription,
-								C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
-								R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
-								V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
-								U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
-								A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
-								USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
-								STAFF extends UtilsQaStaff<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
-								QA extends UtilsQualityAssurarance<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
-								QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
-								QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
-								QAR extends UtilsQaResult<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
-								QAS extends UtilsQaStakeholder<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
-								QATD extends UtilsQaTestDiscussion<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAR,QAS,QATD,QATS,QARS>,
-								QATS extends UtilsStatus<QATS,L,D>,
-								QARS extends UtilsStatus<QARS,L,D>>
+		D extends UtilsDescription,
+		C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
+		R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
+		V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,
+		U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
+		A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
+		USER extends UtilsUser<L,D,C,R,V,U,A,USER>,
+		STAFF extends UtilsQaStaff<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAU,QAR,QAS,QATD,QATS,QARS,QAUS>,
+		QA extends UtilsQualityAssurarance<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAU,QAR,QAS,QATD,QATS,QARS,QAUS>,
+		QAC extends UtilsQaCategory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAU,QAR,QAS,QATD,QATS,QARS,QAUS>,
+		QAT extends UtilsQaTest<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAU,QAR,QAS,QATD,QATS,QARS,QAUS>,
+		QAU extends UtilsQaUsability<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAU,QAR,QAS,QATD,QATS,QARS,QAUS>,
+		QAR extends UtilsQaResult<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAU,QAR,QAS,QATD,QATS,QARS,QAUS>,
+		QAS extends UtilsQaStakeholder<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAU,QAR,QAS,QATD,QATS,QARS,QAUS>,
+		QATD extends UtilsQaTestDiscussion<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAU,QAR,QAS,QATD,QATS,QARS,QAUS>,
+		QATS extends UtilsStatus<QATS,L,D>,
+		QARS extends UtilsStatus<QARS,L,D>,
+		QAUS extends UtilsStatus<QAUS,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlCategoryFactory.class);
 		
