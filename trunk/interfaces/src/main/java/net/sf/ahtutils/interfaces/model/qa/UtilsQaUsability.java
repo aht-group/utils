@@ -1,7 +1,5 @@
 package net.sf.ahtutils.interfaces.model.qa;
 
-import java.util.List;
-
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
@@ -11,9 +9,7 @@ import net.sf.ahtutils.model.interfaces.security.UtilsSecurityView;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
-import net.sf.ahtutils.model.interfaces.with.EjbWithCode;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
-import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 
 public interface UtilsQaUsability<L extends UtilsLang,
 				D extends UtilsDescription,
@@ -35,23 +31,7 @@ public interface UtilsQaUsability<L extends UtilsLang,
 				QATS extends UtilsStatus<QATS,L,D>,
 				QARS extends UtilsStatus<QARS,L,D>,
 				QAUS extends UtilsStatus<QAUS,L,D>>
-			extends EjbWithId,EjbWithName,EjbWithCode
+			extends EjbWithId
 {
-	QAC getCategory();
-	void setCategory(QAC category);
 	
-	String getReference();
-	void setReference(String reference);
-	
-	String getDescription();
-	void setDescription(String description);
-	
-	String getPreCondition();
-    void setPreCondition(String preCondition);
-    
-    String getSteps();
-	void setSteps(String steps);
-	
-	List<QATD> getDiscussions();
-	void setDiscussions(List<QATD> discussions);
 }

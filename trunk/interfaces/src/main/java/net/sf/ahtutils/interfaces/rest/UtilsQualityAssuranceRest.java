@@ -6,13 +6,16 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import net.sf.ahtutils.xml.qa.Category;
 import net.sf.ahtutils.xml.qa.Qa;
 
 @Path("/rest/qa")
 public interface UtilsQualityAssuranceRest
 {
 	public static final String cfgRestUrl = "doc.qa.rest";
+	
+	@GET @Path("/roles")
+	@Produces(MediaType.APPLICATION_XML)
+	net.sf.ahtutils.xml.access.Category qaRoles();
 	
 	@GET @Path("/team/{id:[0-9]*}")
 	@Produces(MediaType.APPLICATION_XML)
@@ -24,5 +27,5 @@ public interface UtilsQualityAssuranceRest
 	
 	@GET @Path("/category/{id:[0-9]*}/tests")
 	@Produces(MediaType.APPLICATION_XML)
-	Category qaCategory(@PathParam("id") long categoryId);
+	net.sf.ahtutils.xml.qa.Category qaCategory(@PathParam("id") long categoryId);
 }
