@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.ahtutils.doc.ofx.qa.OfxQaCategoriesSectionFactory;
+import net.sf.ahtutils.doc.ofx.qa.OfxQaRoleTableFactory;
 import net.sf.ahtutils.doc.ofx.qa.OfxQaTeamTableFactory;
 import net.sf.ahtutils.doc.ofx.qa.OfxSectionQaCategoryFactory;
 import net.sf.ahtutils.xml.qa.Category;
 import net.sf.ahtutils.xml.qa.Qa;
 import net.sf.ahtutils.xml.status.Translations;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.apache.commons.configuration.Configuration;
 import org.openfuxml.content.ofx.Section;
@@ -47,6 +49,22 @@ public class LatexQmWriter extends AbstractDocumentationLatexWriter
 	}
 	
 	// *****************************************************************************
+	
+	public void writeQaRoles(net.sf.ahtutils.xml.security.Category securityCategory) throws OfxAuthoringException, IOException
+	{
+		for(String lang : langs)
+		{
+			writeQaRoles(securityCategory, lang);
+		}
+	}
+	public void writeQaRoles(net.sf.ahtutils.xml.security.Category securityCategory, String lang) throws OfxAuthoringException, IOException
+	{
+		File f = new File(baseLatexDir+"/"+lang+"/tab/qa/roles.tex");
+		
+		OfxQaRoleTableFactory fOfx = new OfxQaRoleTableFactory(config,lang,translations);
+		Table table = fOfx.build(securityCategory, buildHeaderKeys());
+		writeTable(table, f);
+	}
 	
 	public void writeQaTeam(Qa qa,boolean withResponsible, boolean withOrganisation) throws OfxAuthoringException, IOException
 	{

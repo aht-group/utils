@@ -37,6 +37,7 @@ public class SecurityQuery
 		xml.setId(0);
 		xml.setCode("");
 		xml.setLangs(StatusQuery.langs());
+		xml.setDescriptions(StatusQuery.descriptions());
 		return xml;
 	}
 	

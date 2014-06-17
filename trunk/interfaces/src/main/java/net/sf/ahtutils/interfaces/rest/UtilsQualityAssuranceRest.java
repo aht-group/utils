@@ -15,7 +15,7 @@ public interface UtilsQualityAssuranceRest
 	
 	@GET @Path("/roles")
 	@Produces(MediaType.APPLICATION_XML)
-	net.sf.ahtutils.xml.access.Category qaRoles();
+	net.sf.ahtutils.xml.security.Category qaRoles();
 	
 	@GET @Path("/team/{id:[0-9]*}")
 	@Produces(MediaType.APPLICATION_XML)
