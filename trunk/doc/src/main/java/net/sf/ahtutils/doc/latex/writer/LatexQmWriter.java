@@ -9,6 +9,9 @@ import net.sf.ahtutils.doc.ofx.qa.OfxQaCategoriesSectionFactory;
 import net.sf.ahtutils.doc.ofx.qa.OfxQaRoleTableFactory;
 import net.sf.ahtutils.doc.ofx.qa.OfxQaTeamTableFactory;
 import net.sf.ahtutils.doc.ofx.qa.OfxSectionQaCategoryFactory;
+import net.sf.ahtutils.doc.ofx.status.OfxStatusTableFactory;
+import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
+import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.qa.Category;
 import net.sf.ahtutils.xml.qa.Qa;
 import net.sf.ahtutils.xml.status.Translations;
@@ -48,6 +51,22 @@ public class LatexQmWriter extends AbstractDocumentationLatexWriter
 		return keys;
 	}
 	
+	private String[] buildStatusHeaderKeys()
+	{
+		List<String> keys = new ArrayList<String>();
+		
+		keys.add("auTableQaRole");
+		keys.add("auTableQaName");
+
+		String[] result = new String[keys.size()];
+		for(int i=0;i<keys.size();i++)
+		{
+			result[i] = keys.get(i);
+		}
+		
+		return result;
+	}
+	
 	// *****************************************************************************
 	
 	public void writeQaRoles(net.sf.ahtutils.xml.security.Category securityCategory) throws OfxAuthoringException, IOException
@@ -65,6 +84,23 @@ public class LatexQmWriter extends AbstractDocumentationLatexWriter
 		Table table = fOfx.build(securityCategory, buildHeaderKeys());
 		writeTable(table, f);
 	}
+	
+	public void writeQaStatusResult(Aht aht, String id, String file) throws OfxAuthoringException, UtilsConfigurationException, IOException
+	{
+		for(String lang : langs)
+		{
+			writeQaStatus(aht, lang,id,file);
+		}
+	}
+	public void writeQaStatus(Aht aht, String lang,String id, String file) throws OfxAuthoringException, UtilsConfigurationException, IOException
+	{
+		File f = new File(baseLatexDir+"/"+lang+"/tab/qa/status/"+file+".tex");
+		
+		OfxStatusTableFactory fOfx = new OfxStatusTableFactory(config, lang, translations);
+		Table table = fOfx.buildLatexTable(id,aht, buildStatusHeaderKeys());
+		writeTable(table, f);
+	}
+	
 	
 	public void writeQaTeam(Qa qa,boolean withResponsible, boolean withOrganisation) throws OfxAuthoringException, IOException
 	{

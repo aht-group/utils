@@ -6,6 +6,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.qa.Qa;
 
 @Path("/rest/qa")
@@ -16,6 +17,14 @@ public interface UtilsQualityAssuranceRest
 	@GET @Path("/roles")
 	@Produces(MediaType.APPLICATION_XML)
 	net.sf.ahtutils.xml.security.Category qaRoles();
+	
+	@GET @Path("/status/result")
+	@Produces(MediaType.APPLICATION_XML)
+	Aht qaStatusResult();
+	
+	@GET @Path("/status/test")
+	@Produces(MediaType.APPLICATION_XML)
+	Aht qaStatusTest();
 	
 	@GET @Path("/team/{id:[0-9]*}")
 	@Produces(MediaType.APPLICATION_XML)

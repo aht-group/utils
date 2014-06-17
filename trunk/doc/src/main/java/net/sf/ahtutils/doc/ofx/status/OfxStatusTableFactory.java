@@ -1,8 +1,5 @@
 package net.sf.ahtutils.doc.ofx.status;
 
-import java.io.IOException;
-import java.io.StringWriter;
-
 import net.sf.ahtutils.doc.DocumentationCommentBuilder;
 import net.sf.ahtutils.doc.UtilsDocumentation;
 import net.sf.ahtutils.doc.ofx.AbstractUtilsOfxDocumentationFactory;
@@ -32,8 +29,6 @@ import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
 import org.openfuxml.factory.xml.ofx.layout.XmlLayoutFactory;
 import org.openfuxml.factory.xml.ofx.layout.XmlLineFactory;
-import org.openfuxml.media.cross.NoOpCrossMediaManager;
-import org.openfuxml.renderer.latex.content.table.LatexTableRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,11 +49,11 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 		customColWidths=false;
 	}
 	
-	public String buildLatexTable(String id, Aht xmlStatus, String[] headerKeys) throws OfxAuthoringException, UtilsConfigurationException
+	public Table buildLatexTable(String id, Aht xmlStatus, String[] headerKeys) throws OfxAuthoringException, UtilsConfigurationException
 	{
 		return buildLatexTable(id, xmlStatus, headerKeys, null);
 	}
-	public String buildLatexTable(String id, Aht xmlStatus, String[] headerKeys, Aht xmlParents) throws OfxAuthoringException, UtilsConfigurationException
+	public Table buildLatexTable(String id, Aht xmlStatus, String[] headerKeys, Aht xmlParents) throws OfxAuthoringException, UtilsConfigurationException
 	{
 		logger.trace("Parents? "+(xmlParents!=null));
 		try
@@ -89,15 +84,8 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 			Lang lCaption = StatusXpath.getLang(translations, captionKey, lang);
 			table.setTitle(XmlTitleFactory.build(lCaption.getTranslation()));
 			
-			LatexTableRenderer renderer = new LatexTableRenderer(new NoOpCrossMediaManager());
-			renderer.setPreBlankLine(false);
-			renderer.render(table);
-			StringWriter actual = new StringWriter();
-			renderer.write(actual);
-			return actual.toString();
-			
+			return table;
 		}
-		catch (IOException e) {throw new OfxAuthoringException(e.getMessage());}
 		catch (ExlpXpathNotFoundException e) {throw new OfxAuthoringException(e.getMessage());}
 		catch (ExlpXpathNotUniqueException e) {throw new OfxAuthoringException(e.getMessage());}
 	}

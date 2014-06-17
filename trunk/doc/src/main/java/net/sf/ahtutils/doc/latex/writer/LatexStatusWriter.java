@@ -2,6 +2,7 @@ package net.sf.ahtutils.doc.latex.writer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import net.sf.ahtutils.db.xml.UtilsDbXmlSeedUtil;
 import net.sf.ahtutils.doc.ofx.status.OfxStatusTableFactory;
@@ -9,10 +10,10 @@ import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.dbseed.Db;
 import net.sf.ahtutils.xml.status.Translations;
-import net.sf.exlp.util.io.StringIO;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.apache.commons.configuration.Configuration;
+import org.openfuxml.content.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.interfaces.CrossMediaManager;
 import org.slf4j.Logger;
@@ -77,12 +78,14 @@ public class LatexStatusWriter extends AbstractDocumentationLatexWriter
 			{
 				OfxStatusTableFactory fOfx = new OfxStatusTableFactory(config,lang,translations);
 				fOfx.setColWidths(colWidths);
-				String content = fOfx.buildLatexTable(texName.replaceAll("/", "."),athStatus, headerKeys, ahtParents);
+				
+				Table table = fOfx.buildLatexTable(texName.replaceAll("/", "."),athStatus, headerKeys, ahtParents);
 				File f = new File(baseLatexDir+"/"+lang+"/"+dirStatus+"/"+texName+".tex");
-				StringIO.writeTxt(f, content);
+				writeTable(table, f);
 			}
 		}
 		catch (FileNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
 		catch (OfxAuthoringException e) {throw new UtilsConfigurationException(e.getMessage());}
+		catch (IOException e) {throw new UtilsConfigurationException(e.getMessage());}
 	}
 }
