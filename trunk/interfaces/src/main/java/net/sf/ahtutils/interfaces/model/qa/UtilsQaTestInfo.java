@@ -10,9 +10,8 @@ import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
-import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 
-public interface UtilsQaResult<L extends UtilsLang,
+public interface UtilsQaTestInfo<L extends UtilsLang,
 D extends UtilsDescription,
 C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
 R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
@@ -33,11 +32,7 @@ QATC extends UtilsStatus<QATC,L,D>,
 QATS extends UtilsStatus<QATS,L,D>,
 QARS extends UtilsStatus<QARS,L,D>,
 QAUS extends UtilsStatus<QAUS,L,D>>
-			extends EjbWithId,EjbWithRecord
+			extends EjbWithId
 {
-	QAT getTest();
-	void setTest(QAT test);
 	
-	STAFF getStaff();
-	void setStaff(STAFF staff);
 }
