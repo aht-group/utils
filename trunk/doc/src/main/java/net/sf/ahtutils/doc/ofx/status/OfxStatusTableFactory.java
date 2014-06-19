@@ -18,6 +18,7 @@ import org.openfuxml.content.media.Image;
 import org.openfuxml.content.media.Media;
 import org.openfuxml.content.ofx.Comment;
 import org.openfuxml.content.table.Body;
+import org.openfuxml.content.table.Cell;
 import org.openfuxml.content.table.Columns;
 import org.openfuxml.content.table.Content;
 import org.openfuxml.content.table.Head;
@@ -27,6 +28,8 @@ import org.openfuxml.content.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.table.OfxCellFactory;
 import org.openfuxml.factory.table.OfxColumnFactory;
+import org.openfuxml.factory.xml.layout.XmlAlignmentFactory;
+import org.openfuxml.factory.xml.layout.XmlHeightFactory;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
 import org.openfuxml.factory.xml.ofx.layout.XmlLayoutFactory;
@@ -68,6 +71,8 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 	private boolean withDescription;
 	public boolean isWithDescription() {return withDescription;}
 	public void setWithDescription(boolean withDescription) {this.withDescription = withDescription;}
+	
+	private Aht xmlP;
 
 	public OfxStatusTableFactory(Configuration config, String lang, Translations translations)
 	{
@@ -81,13 +86,14 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 		withDescription = true;
 	}
 	
+	public void activateParents(Aht parents)
+	{
+		withParent = true;
+		xmlP = parents;
+	}
+	
 	public Table buildLatexTable(String id, Aht xmlStatus, String[] headerKeys) throws OfxAuthoringException, UtilsConfigurationException
 	{
-		return buildLatexTable(id, xmlStatus, headerKeys, null);
-	}
-	public Table buildLatexTable(String id, Aht xmlStatus, String[] headerKeys, Aht xmlParents) throws OfxAuthoringException, UtilsConfigurationException
-	{
-		logger.trace("Parents? "+(xmlParents!=null));
 		try
 		{	
 			String captionKey = id;
@@ -98,7 +104,7 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 				captionKey = captionKey.substring(0,index)+captionKey.substring(index+1, index+2).toUpperCase()+captionKey.substring(index+2, captionKey.length());
 			}
 			captionKey = captionKey.substring(0, 1).toUpperCase()+captionKey.substring(1, captionKey.length());
-			if(xmlParents!=null){headerKeys[0]=headerKeys[0]+""+captionKey;}
+			if(withParent){headerKeys[0]=headerKeys[0]+""+captionKey;}
 			captionKey = keyCaption+captionKey;
 			id = "table.status."+id;
 			
@@ -109,7 +115,7 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 			DocumentationCommentBuilder.tableKey(comment,captionKey,"Table Caption");
 			DocumentationCommentBuilder.doNotModify(comment);
 			
-			Table table = toOfx(xmlStatus,headerKeys,xmlParents);
+			Table table = toOfx(xmlStatus,headerKeys);
 			table.setId(id);
 			table.setComment(comment);
 			
@@ -121,20 +127,19 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 		catch (ExlpXpathNotFoundException e) {throw new OfxAuthoringException(e.getMessage());}
 		catch (ExlpXpathNotUniqueException e) {throw new OfxAuthoringException(e.getMessage());}
 	}
-	public Table toOfx(Aht xmlStatus, String[] headerKeys) throws UtilsConfigurationException{return toOfx(xmlStatus, headerKeys,null);}
-	public Table toOfx(Aht xmlStatus, String[] headerKeys, Aht xmlParents) throws UtilsConfigurationException
+	public Table toOfx(Aht xmlStatus, String[] headerKeys) throws UtilsConfigurationException
 	{
 		Table table = new Table();
-		table.setSpecification(createSpecifications(xmlParents!=null));
+		table.setSpecification(createSpecifications());
 		
-		try{table.setContent(createContent(xmlStatus, headerKeys,xmlParents));}
+		try{table.setContent(createContent(xmlStatus, headerKeys));}
 		catch (ExlpXpathNotFoundException e) {e.printStackTrace();}
 		catch (ExlpXpathNotUniqueException e) {e.printStackTrace();}
 		
 		return table;
 	}
 	
-	private Content createContent(Aht xmlStatus, String[] headerKeys,Aht xmlParents) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException, UtilsConfigurationException
+	private Content createContent(Aht xmlStatus, String[] headerKeys) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException, UtilsConfigurationException
 	{
 		Row row = new Row();
 		for(String headerKey : headerKeys)
@@ -152,15 +157,15 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 		for(Status status : xmlStatus.getStatus())
 		{
 			String parentString = null;
-			if(xmlParents!=null)
+			if(withParent)
 			{
 				if(!status.isSetParent()){throw new UtilsConfigurationException("A parent is exprected for the status:"+status.getCode());}
-				Status parent = StatusXpath.getStatus(xmlParents.getStatus(), status.getParent().getCode());
+				Status parent = StatusXpath.getStatus(xmlP.getStatus(), status.getParent().getCode());
 				parentString = StatusXpath.getLang(parent.getLangs(), lang).getTranslation();
 				if(parentString.equals(previousParentString)){parentString="";}
 				else{previousParentString=parentString;}
 			}
-			boolean line = !firstRow && xmlParents!=null && parentString.length()>0;
+			boolean line = !firstRow && withParent && parentString.length()>0;
 			body.getRow().add(createRow(status,parentString,line));
 			
 			firstRow=false;
@@ -189,11 +194,15 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 			row.getCell().add(OfxCellFactory.createParagraphCell(parentString));
 		}
 		
-		row.getCell().add(OfxCellFactory.createParagraphCell(status.getCode()));
-/*		Cell cell = new Cell();
-		cell.getContent().add(buildImage(status));
-		row.getCell().add(cell);
-*/		
+//		row.getCell().add(OfxCellFactory.createParagraphCell(status.getCode()));
+		
+		if(withIcon)
+		{
+			Cell cell = new Cell();
+			cell.getContent().add(buildImage(status));
+			row.getCell().add(cell);
+		}
+		
 		row.getCell().add(OfxCellFactory.createParagraphCell(StatusXpath.getLang(status.getLangs(), lang).getTranslation()));
 		row.getCell().add(OfxCellFactory.createParagraphCell(StatusXpath.getDescription(status.getDescriptions(), lang).getValue()));
 		
@@ -217,55 +226,49 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 		
 		Image image = new Image();
 		image.setMedia(media);
+		image.setHeight(XmlHeightFactory.em(1));
 		return image;
 	}
 	
-	private Specification createSpecifications(boolean parentProvided) throws UtilsConfigurationException
+	private Specification createSpecifications() throws UtilsConfigurationException
 	{
 		logger.debug("customColWidths: "+customColWidths);
 		if(!customColWidths)
 		{
-			if(parentProvided){colWidths=colWidths4;}
+			if(withParent){colWidths=colWidths4;}
 			else{colWidths=colWidths3;}
 		}
 		logger.debug("colums.length: "+colWidths.length);
-		if(parentProvided && colWidths.length!=4){throw new UtilsConfigurationException("Need 4 column widths");}
+		if(withParent && colWidths.length!=4){throw new UtilsConfigurationException("Need 4 column widths");}
 		
-		int remaining = 100;
-		
+		int flexWidth=0;
 		Columns cols = new Columns();
 		
-		if(withParent && parentProvided)
+		if(withParent)
 		{
-			int widht = 15;
-			cols.getColumn().add(OfxColumnFactory.flex(widht));
-			remaining=remaining-widht;
+			int w=20;flexWidth=flexWidth+w;
+			cols.getColumn().add(OfxColumnFactory.flex(w));
 		}
 		
 		if(withIcon)
 		{
-			int widht = 5;
-			cols.getColumn().add(OfxColumnFactory.percentage(widht));
-			remaining=remaining-widht;
+			cols.getColumn().add(OfxColumnFactory.build(XmlAlignmentFactory.Horizontal.center));
 		}
 		
 		if(withCode)
 		{
-			int widht = 10;
-			cols.getColumn().add(OfxColumnFactory.flex(widht));
-			remaining=remaining-widht;
+			cols.getColumn().add(OfxColumnFactory.build(XmlAlignmentFactory.Horizontal.left));
 		}
 		
 		if(withName)
 		{
-			int widht = 15;
-			cols.getColumn().add(OfxColumnFactory.flex(widht));
-			remaining=remaining-widht;
+			int w=20;flexWidth=flexWidth+w;
+			cols.getColumn().add(OfxColumnFactory.flex(w));
 		}
 		
 		if(withDescription)
 		{
-			cols.getColumn().add(OfxColumnFactory.flex(remaining));
+			cols.getColumn().add(OfxColumnFactory.flex(100-flexWidth));
 		}
 		
 		Specification specification = new Specification();

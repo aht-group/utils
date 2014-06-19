@@ -26,6 +26,11 @@ public interface UtilsQualityAssuranceRest
 	@Produces(MediaType.APPLICATION_XML)
 	Aht qaStatusTest();
 	
+	@GET @Path("/status/condition")
+	@Produces(MediaType.APPLICATION_XML)
+	Aht qaStatusCondition();
+	
+	
 	@GET @Path("/team/{id:[0-9]*}")
 	@Produces(MediaType.APPLICATION_XML)
 	Qa qaTeam(@PathParam("id") long qaId);

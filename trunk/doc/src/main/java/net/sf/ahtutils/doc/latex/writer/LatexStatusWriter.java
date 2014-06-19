@@ -79,7 +79,9 @@ public class LatexStatusWriter extends AbstractDocumentationLatexWriter
 				OfxStatusTableFactory fOfx = new OfxStatusTableFactory(config,lang,translations);
 				fOfx.setColWidths(colWidths);
 				
-				Table table = fOfx.buildLatexTable(texName.replaceAll("/", "."),athStatus, headerKeys, ahtParents);
+				if(ahtParents!=null){fOfx.activateParents(ahtParents);}
+				
+				Table table = fOfx.buildLatexTable(texName.replaceAll("/", "."),athStatus, headerKeys);
 				File f = new File(baseLatexDir+"/"+lang+"/"+dirStatus+"/"+texName+".tex");
 				writeTable(table, f);
 			}

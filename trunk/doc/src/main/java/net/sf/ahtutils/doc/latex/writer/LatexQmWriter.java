@@ -101,6 +101,7 @@ public class LatexQmWriter extends AbstractDocumentationLatexWriter
 		File f = new File(baseLatexDir+"/"+lang+"/tab/qa/status/"+file+".tex");
 		
 		OfxStatusTableFactory fOfx = new OfxStatusTableFactory(config, lang, translations);
+		fOfx.setWithIcon(true);
 		fOfx.setImagePathPrefix(imagePathPrefix);
 		Table table = fOfx.buildLatexTable(id,aht, buildStatusHeaderKeys());
 		writeTable(table, f);

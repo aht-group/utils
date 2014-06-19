@@ -71,10 +71,10 @@ public class OfxLangStatisticTableFactory
 	private Specification createSpecifications()
 	{
 		Columns cols = new Columns();
-		cols.getColumn().add(OfxColumnFactory.createCol(30));
-		cols.getColumn().add(OfxColumnFactory.createCol(10));
-		cols.getColumn().add(OfxColumnFactory.createCol(10));
-		cols.getColumn().add(OfxColumnFactory.createCol(10));
+		cols.getColumn().add(OfxColumnFactory.relative(30));
+		cols.getColumn().add(OfxColumnFactory.relative(10));
+		cols.getColumn().add(OfxColumnFactory.relative(10));
+		cols.getColumn().add(OfxColumnFactory.relative(10));
 		
 		Specification specification = new Specification();
 		specification.setColumns(cols);
