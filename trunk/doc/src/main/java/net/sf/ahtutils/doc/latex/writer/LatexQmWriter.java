@@ -15,7 +15,6 @@ import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.qa.Category;
 import net.sf.ahtutils.xml.qa.Qa;
 import net.sf.ahtutils.xml.status.Translations;
-import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.apache.commons.configuration.Configuration;
 import org.openfuxml.content.ofx.Section;
@@ -30,11 +29,16 @@ public class LatexQmWriter extends AbstractDocumentationLatexWriter
 	final static Logger logger = LoggerFactory.getLogger(LatexQmWriter.class);
 	
 	private boolean withResponsible,withOrganisation;
+	
+	private String imagePathPrefix;
+	public String getImagePathPrefix() {return imagePathPrefix;}
+	public void setImagePathPrefix(String imagePathPrefix) {this.imagePathPrefix = imagePathPrefix;}
 
 	public LatexQmWriter(Configuration config, Translations translations,String[] langs, CrossMediaManager cmm)
 	{
 		super(config,translations,langs,cmm);
 		
+		imagePathPrefix = null;
 		withResponsible = false;
 		withOrganisation = false;
 	}
@@ -97,6 +101,7 @@ public class LatexQmWriter extends AbstractDocumentationLatexWriter
 		File f = new File(baseLatexDir+"/"+lang+"/tab/qa/status/"+file+".tex");
 		
 		OfxStatusTableFactory fOfx = new OfxStatusTableFactory(config, lang, translations);
+		fOfx.setImagePathPrefix(imagePathPrefix);
 		Table table = fOfx.buildLatexTable(id,aht, buildStatusHeaderKeys());
 		writeTable(table, f);
 	}

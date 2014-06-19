@@ -14,6 +14,8 @@ import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 
 import org.apache.commons.configuration.Configuration;
 import org.openfuxml.content.layout.Layout;
+import org.openfuxml.content.media.Image;
+import org.openfuxml.content.media.Media;
 import org.openfuxml.content.ofx.Comment;
 import org.openfuxml.content.table.Body;
 import org.openfuxml.content.table.Columns;
@@ -42,11 +44,41 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 	private boolean customColWidths;
 	private int[] colWidths3 = {10,20,30};
 	private int[] colWidths4 = {10,20,30};
+	
+	private String imagePathPrefix;
+	public String getImagePathPrefix() {return imagePathPrefix;}
+	public void setImagePathPrefix(String imagePathPrefix) {this.imagePathPrefix = imagePathPrefix;}
+	
+	private boolean withParent;
+	public boolean isWithParent() {return withParent;}
+	public void setWithParent(boolean withParent) {this.withParent = withParent;}
+
+	private boolean withCode;
+	public boolean isWithCode() {return withCode;}
+	public void setWithCode(boolean withCode) {this.withCode = withCode;}
+	
+	private boolean withIcon;
+	public boolean isWithIcon() {return withIcon;}
+	public void setWithIcon(boolean withIcon) {this.withIcon = withIcon;}
+	
+	private boolean withName;
+	public boolean isWithName() {return withName;}
+	public void setWithName(boolean withName) {this.withName = withName;}
+	
+	private boolean withDescription;
+	public boolean isWithDescription() {return withDescription;}
+	public void setWithDescription(boolean withDescription) {this.withDescription = withDescription;}
 
 	public OfxStatusTableFactory(Configuration config, String lang, Translations translations)
 	{
 		super(config,lang,translations);
 		customColWidths=false;
+		
+		withParent = false;
+		withIcon = false;
+		withCode = false;
+		withName = true;
+		withDescription = true;
 	}
 	
 	public Table buildLatexTable(String id, Aht xmlStatus, String[] headerKeys) throws OfxAuthoringException, UtilsConfigurationException
@@ -158,37 +190,82 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 		}
 		
 		row.getCell().add(OfxCellFactory.createParagraphCell(status.getCode()));
+/*		Cell cell = new Cell();
+		cell.getContent().add(buildImage(status));
+		row.getCell().add(cell);
+*/		
 		row.getCell().add(OfxCellFactory.createParagraphCell(StatusXpath.getLang(status.getLangs(), lang).getTranslation()));
 		row.getCell().add(OfxCellFactory.createParagraphCell(StatusXpath.getDescription(status.getDescriptions(), lang).getValue()));
 		
 		return row;
 	}
 	
-	private Specification createSpecifications(boolean withParent) throws UtilsConfigurationException
+	private Image buildImage(Status status)
+	{
+		int index = status.getImage().lastIndexOf(".");
+		String name = status.getImage().substring(0,index);
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append(imagePathPrefix).append("/");
+		sb.append(name);
+		sb.append(".svg");
+		logger.info(sb.toString());
+		
+		Media media = new Media();
+		media.setSrc(sb.toString());
+		media.setDst(name);
+		
+		Image image = new Image();
+		image.setMedia(media);
+		return image;
+	}
+	
+	private Specification createSpecifications(boolean parentProvided) throws UtilsConfigurationException
 	{
 		logger.debug("customColWidths: "+customColWidths);
 		if(!customColWidths)
 		{
-			if(withParent){colWidths=colWidths4;}
+			if(parentProvided){colWidths=colWidths4;}
 			else{colWidths=colWidths3;}
 		}
 		logger.debug("colums.length: "+colWidths.length);
-		if(withParent && colWidths.length!=4){throw new UtilsConfigurationException("Need 4 column widths");}
+		if(parentProvided && colWidths.length!=4){throw new UtilsConfigurationException("Need 4 column widths");}
+		
+		int remaining = 100;
 		
 		Columns cols = new Columns();
 		
-		if(withParent)
+		if(withParent && parentProvided)
 		{
-			cols.getColumn().add(OfxColumnFactory.flex(colWidths[0]));
-			cols.getColumn().add(OfxColumnFactory.percentage(colWidths[1]));
-			cols.getColumn().add(OfxColumnFactory.flex(colWidths[2]));
-			cols.getColumn().add(OfxColumnFactory.flex(colWidths[3]));
+			int widht = 15;
+			cols.getColumn().add(OfxColumnFactory.flex(widht));
+			remaining=remaining-widht;
 		}
-		else
+		
+		if(withIcon)
 		{
-			cols.getColumn().add(OfxColumnFactory.percentage(colWidths[0]));
-			cols.getColumn().add(OfxColumnFactory.flex(colWidths[1]));
-			cols.getColumn().add(OfxColumnFactory.flex(colWidths[2]));
+			int widht = 5;
+			cols.getColumn().add(OfxColumnFactory.percentage(widht));
+			remaining=remaining-widht;
+		}
+		
+		if(withCode)
+		{
+			int widht = 10;
+			cols.getColumn().add(OfxColumnFactory.flex(widht));
+			remaining=remaining-widht;
+		}
+		
+		if(withName)
+		{
+			int widht = 15;
+			cols.getColumn().add(OfxColumnFactory.flex(widht));
+			remaining=remaining-widht;
+		}
+		
+		if(withDescription)
+		{
+			cols.getColumn().add(OfxColumnFactory.flex(remaining));
 		}
 		
 		Specification specification = new Specification();
