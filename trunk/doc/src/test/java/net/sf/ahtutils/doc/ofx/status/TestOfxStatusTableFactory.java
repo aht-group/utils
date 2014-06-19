@@ -1,9 +1,10 @@
-package net.sf.ahtutils.controller.factory.ofx.lang;
+package net.sf.ahtutils.doc.ofx.status;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import net.sf.ahtutils.controller.factory.ofx.lang.AbstractOfxStatusFactoryTest;
 import net.sf.ahtutils.doc.UtilsDocumentation;
 import net.sf.ahtutils.doc.ofx.status.OfxStatusTableFactory;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
