@@ -1,5 +1,7 @@
 package net.sf.ahtutils.factory.xml.qa;
 
+import net.sf.ahtutils.factory.xml.status.XmlStatementFactory;
+import net.sf.ahtutils.factory.xml.status.XmlStatusFactory;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaCategory;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaResult;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaStaff;
@@ -73,6 +75,18 @@ QAUS extends UtilsStatus<QAUS,L,D>>
 		if(q.isSetDescription() && test.getDescription()!=null){xml.setDescription(XmlDescriptionFactory.build(test.getDescription()));}
 		if(q.isSetPreCondition() && test.getPreCondition()!=null){xml.setPreCondition(XmlPreConditionFactory.build(test.getPreCondition()));}
 		if(q.isSetSteps() && test.getSteps()!=null){xml.setSteps(XmlStepsFactory.build(test.getSteps()));}
+		
+		if(q.isSetStatement() && test.getClientStatus()!=null)
+		{
+			XmlStatementFactory<QATS,L,D> f = new XmlStatementFactory<QATS,L,D>(null,q.getStatement());
+			xml.setStatement(f.build(test.getClientStatus()));
+		}
+		
+		if(q.isSetStatus() && test.getDeveloperStatus()!=null)
+		{
+			XmlStatusFactory f = new XmlStatusFactory(null,q.getStatus());
+			xml.setStatus(f.build(test.getDeveloperStatus()));
+		}
 		
 		return xml;
 	}

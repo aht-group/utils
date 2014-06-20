@@ -17,11 +17,8 @@ import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 
 import org.apache.commons.configuration.Configuration;
 import org.openfuxml.content.layout.Layout;
-import org.openfuxml.content.media.Image;
-import org.openfuxml.content.media.Media;
 import org.openfuxml.content.ofx.Comment;
 import org.openfuxml.content.table.Body;
-import org.openfuxml.content.table.Cell;
 import org.openfuxml.content.table.Column;
 import org.openfuxml.content.table.Columns;
 import org.openfuxml.content.table.Content;
@@ -33,7 +30,6 @@ import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.table.OfxCellFactory;
 import org.openfuxml.factory.table.OfxColumnFactory;
 import org.openfuxml.factory.xml.layout.XmlAlignmentFactory;
-import org.openfuxml.factory.xml.layout.XmlHeightFactory;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
 import org.openfuxml.factory.xml.ofx.layout.XmlLayoutFactory;
@@ -233,9 +229,7 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 		
 		if(renderColumn.get(Code.icon))
 		{
-			Cell cell = new Cell();
-			cell.getContent().add(buildImage(status));
-			row.getCell().add(cell);
+			row.getCell().add(OfxCellFactory.image(OfxStatusImageFactory.build(imagePathPrefix,status)));
 		}
 		
 		row.getCell().add(OfxCellFactory.createParagraphCell(StatusXpath.getLang(status.getLangs(), lang).getTranslation()));
@@ -244,26 +238,7 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 		return row;
 	}
 	
-	private Image buildImage(Status status)
-	{
-		int index = status.getImage().lastIndexOf(".");
-		String name = status.getImage().substring(0,index);
-		
-		StringBuffer sb = new StringBuffer();
-		sb.append(imagePathPrefix).append("/");
-		sb.append(name);
-		sb.append(".svg");
-		logger.trace(sb.toString());
-		
-		Media media = new Media();
-		media.setSrc(sb.toString());
-		media.setDst(name);
-		
-		Image image = new Image();
-		image.setMedia(media);
-		image.setHeight(XmlHeightFactory.em(1));
-		return image;
-	}
+	
 	
 	private Specification createSpecifications() throws UtilsConfigurationException
 	{

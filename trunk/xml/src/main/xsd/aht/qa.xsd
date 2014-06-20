@@ -27,8 +27,7 @@
     <xsd:element name="test">
         <xsd:complexType>
         	<xsd:sequence>
-        		<xsd:element ref="us:status" maxOccurs="1"/>		<!-- Result of declaration and statement -->
-        		<xsd:element ref="us:declaration" maxOccurs="1"/>	<!-- Status for Client -->
+        		<xsd:element ref="us:status" maxOccurs="1"/>	<!-- Status for Client -->
         		<xsd:element ref="us:statement" maxOccurs="1"/>		<!-- Status for Developer -->
                 <xsd:element ref="qa:reference" maxOccurs="1"/>
                 <xsd:element ref="qa:description" maxOccurs="1"/>

@@ -43,21 +43,28 @@ public class AbstractUtilsOfxDocumentationFactory
 		for(String headerKey : headerKeys)
 		{
 			StringBuffer sb = new StringBuffer();
+			if(headerKey.length()>0)
+			{
+				try
+				{
+					sb.append(StatusXpath.getLang(translations, headerKey, lang).getTranslation());
+				}
+				catch (ExlpXpathNotFoundException e)
+				{
+					sb.append(e.getMessage());
+					logger.warn(sb.toString());
+				}
+				catch (ExlpXpathNotUniqueException e)
+				{
+					sb.append(e.getMessage());
+					logger.warn(sb.toString());
+				}
+			}
+			else
+			{
+				sb.append("");
+			}
 			
-			try
-			{
-				sb.append(StatusXpath.getLang(translations, headerKey, lang).getTranslation());
-			}
-			catch (ExlpXpathNotFoundException e)
-			{
-				sb.append(e.getMessage());
-				logger.warn(sb.toString());
-			}
-			catch (ExlpXpathNotUniqueException e)
-			{
-				sb.append(e.getMessage());
-				logger.warn(sb.toString());
-			}
 			row.getCell().add(OfxCellFactory.createParagraphCell(sb.toString()));
 		}
 		return row;

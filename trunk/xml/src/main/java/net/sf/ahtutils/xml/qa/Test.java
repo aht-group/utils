@@ -8,7 +8,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import net.sf.ahtutils.xml.status.Declaration;
 import net.sf.ahtutils.xml.status.Statement;
 import net.sf.ahtutils.xml.status.Status;
 
@@ -24,7 +23,6 @@ import net.sf.ahtutils.xml.status.Status;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}status"/>
- *         &lt;element ref="{http://ahtutils.aht-group.com/status}declaration"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}statement"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/qa}reference"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/qa}description"/>
@@ -45,7 +43,6 @@ import net.sf.ahtutils.xml.status.Status;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "status",
-    "declaration",
     "statement",
     "reference",
     "description",
@@ -61,8 +58,6 @@ public class Test
     private final static long serialVersionUID = 1L;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
     protected Status status;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
-    protected Declaration declaration;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
     protected Statement statement;
     @XmlElement(required = true)
@@ -108,34 +103,6 @@ public class Test
 
     public boolean isSetStatus() {
         return (this.status!= null);
-    }
-
-    /**
-     * Gets the value of the declaration property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Declaration }
-     *     
-     */
-    public Declaration getDeclaration() {
-        return declaration;
-    }
-
-    /**
-     * Sets the value of the declaration property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Declaration }
-     *     
-     */
-    public void setDeclaration(Declaration value) {
-        this.declaration = value;
-    }
-
-    public boolean isSetDeclaration() {
-        return (this.declaration!= null);
     }
 
     /**

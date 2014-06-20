@@ -55,4 +55,11 @@ QAUS extends UtilsStatus<QAUS,L,D>>
 	
 	List<QATD> getDiscussions();
 	void setDiscussions(List<QATD> discussions);
+	
+	QATS getClientStatus();
+	void setClientStatus(QATS clientStatus);
+	
+	QATS getDeveloperStatus();
+	void setDeveloperStatus(QATS developerStatus);
+	
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.ahtutils.doc.ofx.qa.OfxQaAgreementTableFactory;
 import net.sf.ahtutils.doc.ofx.qa.OfxQaCategoriesSectionFactory;
 import net.sf.ahtutils.doc.ofx.qa.OfxQaRoleTableFactory;
 import net.sf.ahtutils.doc.ofx.qa.OfxQaTeamTableFactory;
@@ -16,6 +17,7 @@ import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.qa.Category;
 import net.sf.ahtutils.xml.qa.Qa;
 import net.sf.ahtutils.xml.status.Translations;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.apache.commons.configuration.Configuration;
 import org.openfuxml.content.ofx.Section;
@@ -95,7 +97,6 @@ public class LatexQmWriter extends AbstractDocumentationLatexWriter
 		writeTable(table, f);
 	}
 	
-	
 	public void writeQaTeam(Qa qa,boolean withResponsible, boolean withOrganisation) throws OfxAuthoringException, IOException
 	{
 		setWithResponsible(withResponsible);
@@ -115,23 +116,44 @@ public class LatexQmWriter extends AbstractDocumentationLatexWriter
 		writeTable(table, f);
 	}
 	
-	// *****************************************************************************
-	
-	public void writeQaCategories(Qa qa) throws OfxAuthoringException, IOException
+	// Agreements
+	public void writeQaAgreement(Category c,Aht testStatus) throws OfxAuthoringException, IOException
 	{
 		for(String lang : langs)
 		{
-			writeQaCategories(qa, lang);
+			writeQaAgreement(c, testStatus,lang);
+		}
+	}
+	public void writeQaAgreement(Category c,Aht testStatus,String lang) throws OfxAuthoringException, IOException
+	{
+		File f = new File(baseLatexDir+"/"+lang+"/tab/qa/agreement/"+c.getCode()+".tex");
+		
+		OfxQaAgreementTableFactory fOfx = new OfxQaAgreementTableFactory(config,lang,translations);
+		fOfx.setImagePathPrefix(imagePathPrefix);
+		Table table = fOfx.build(c,testStatus);
+		JaxbUtil.trace(table);
+		writeTable(table, f);
+	}
+	
+	// *****************************************************************************
+	
+	public void writeQaCategoriesInputs(Qa qa) throws OfxAuthoringException, IOException
+	{
+		for(String lang : langs)
+		{
+			writeQaCategoriesInput(qa, lang);
 		}
 	}
 	
-	public void writeQaCategories(Qa qa,String lang) throws OfxAuthoringException, IOException
+	public void writeQaCategoriesInput(Qa qa,String lang) throws OfxAuthoringException, IOException
 	{
-		File f = new File(baseLatexDir+"/"+lang+"/section/qa/categories.tex");
+		File fCategories = new File(baseLatexDir+"/"+lang+"/section/qa/categories.tex");
+		File fAgreements = new File(baseLatexDir+"/"+lang+"/section/qa/agreements.tex");
 		
 		OfxQaCategoriesSectionFactory fOfx = new OfxQaCategoriesSectionFactory(config,lang,translations);
-		Section section = fOfx.build(qa,lang+"/section/qa/category");
-		writeSection(section, f);
+		
+		writeSection(fOfx.build(qa,lang+"/section/qa/category"), fCategories);
+		writeSection(fOfx.build(qa,lang+"/tab/qa/agreement"), fAgreements);
 	}
 	
 	// *****************************************************************************

@@ -3,6 +3,8 @@ package net.sf.ahtutils.util.query;
 import java.util.Hashtable;
 import java.util.Map;
 
+import net.sf.ahtutils.factory.xml.status.XmlStatementFactory;
+import net.sf.ahtutils.factory.xml.status.XmlStatusFactory;
 import net.sf.ahtutils.xml.aht.Query;
 import net.sf.ahtutils.xml.qa.Category;
 import net.sf.ahtutils.xml.qa.Description;
@@ -64,6 +66,10 @@ public class QaQuery
 		xml.setPreCondition(new PreCondition());
 		xml.setDescription(new Description());
 		xml.setSteps(new Steps());
+		
+		xml.setStatus(XmlStatusFactory.create(""));
+		xml.setStatement(XmlStatementFactory.build(""));
+		
 		return xml;
 	}
 }
