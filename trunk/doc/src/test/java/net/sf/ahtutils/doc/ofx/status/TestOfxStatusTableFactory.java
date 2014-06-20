@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import net.sf.ahtutils.controller.factory.ofx.lang.AbstractOfxStatusFactoryTest;
 import net.sf.ahtutils.doc.UtilsDocumentation;
-import net.sf.ahtutils.doc.ofx.status.OfxStatusTableFactory;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.factory.xml.status.XmlDescriptionFactory;
 import net.sf.ahtutils.factory.xml.status.XmlLangFactory;
@@ -41,7 +40,6 @@ public class TestOfxStatusTableFactory extends AbstractOfxStatusFactoryTest
 	private final String lang ="de";
 	private Aht xmlStatus;
 	private static Translations translations;
-	private String[] headerKeys = {"key1","key2","key3"};
 	
 	@BeforeClass
 	public static void initFiles() throws FileNotFoundException, ConfigurationException
@@ -53,7 +51,7 @@ public class TestOfxStatusTableFactory extends AbstractOfxStatusFactoryTest
 		config = builder.getConfiguration(false);
 		config.setProperty(UtilsDocumentation.keyBaseDocDir, "target");
 		
-		translations = JaxbUtil.loadJAXB("src/test/resources/data/xml/dummyTranslations.xml", Translations.class);
+		translations = JaxbUtil.loadJAXB("data/xml/dummyTranslations.xml", Translations.class);
 	}
 	
 	@Before
@@ -76,7 +74,7 @@ public class TestOfxStatusTableFactory extends AbstractOfxStatusFactoryTest
 	@Test
 	public void testOfx() throws FileNotFoundException, UtilsConfigurationException
 	{	
-		Table actual = fOfx.toOfx(xmlStatus,headerKeys);
+		Table actual = fOfx.toOfx(xmlStatus);
 		saveXml(actual,fXml,false);
 		Table expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Table.class);
 		assertJaxbEquals(expected, actual);
@@ -85,7 +83,7 @@ public class TestOfxStatusTableFactory extends AbstractOfxStatusFactoryTest
 	@Test
 	public void testLatex() throws OfxAuthoringException, IOException, UtilsConfigurationException
 	{
-		Table actual = fOfx.toOfx(xmlStatus,headerKeys);
+		Table actual = fOfx.toOfx(xmlStatus);
 		LatexGridTableRenderer renderer = new LatexGridTableRenderer(new NoOpCrossMediaManager());
 		renderer.render(actual);
     	debug(renderer);

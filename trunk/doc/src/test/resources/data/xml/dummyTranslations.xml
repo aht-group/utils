@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <s:translations xmlns:s="http://ahtutils.aht-group.com/status">
+	<s:translation key="auStatusTableName">
+		<s:langs>
+			<s:lang key="de" translation="de-auStatusTableName"/>
+			<s:lang key="en" translation="en-auStatusTableName"/>
+		</s:langs>
+	</s:translation>
+	<s:translation key="auStatusTableDescription">
+		<s:langs>
+			<s:lang key="de" translation="de-auStatusTableDescription"/>
+			<s:lang key="en" translation="en-auStatusTableDescription"/>
+		</s:langs>
+	</s:translation>
     <s:translation key="key1">
     	<s:langs>
     		<s:lang key="de" translation="de-key1"/>

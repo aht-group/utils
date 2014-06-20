@@ -24,6 +24,7 @@ import org.openfuxml.content.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.table.OfxCellFactory;
 import org.openfuxml.factory.table.OfxColumnFactory;
+import org.openfuxml.factory.xml.layout.XmlAlignmentFactory;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
 import org.slf4j.Logger;
@@ -74,7 +75,7 @@ public class OfxQaRoleTableFactory extends AbstractUtilsOfxDocumentationFactory
 	private Specification createSpecifications()
 	{
 		Columns cols = new Columns();
-		cols.getColumn().add(OfxColumnFactory.flex(20));
+		cols.getColumn().add(OfxColumnFactory.build(XmlAlignmentFactory.Horizontal.left));
 		cols.getColumn().add(OfxColumnFactory.flex(80));
 			
 		Specification specification = new Specification();

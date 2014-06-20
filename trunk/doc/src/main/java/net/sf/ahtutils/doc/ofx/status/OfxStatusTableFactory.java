@@ -1,5 +1,8 @@
 package net.sf.ahtutils.doc.ofx.status;
 
+import java.util.Hashtable;
+import java.util.Map;
+
 import net.sf.ahtutils.doc.DocumentationCommentBuilder;
 import net.sf.ahtutils.doc.UtilsDocumentation;
 import net.sf.ahtutils.doc.ofx.AbstractUtilsOfxDocumentationFactory;
@@ -19,6 +22,7 @@ import org.openfuxml.content.media.Media;
 import org.openfuxml.content.ofx.Comment;
 import org.openfuxml.content.table.Body;
 import org.openfuxml.content.table.Cell;
+import org.openfuxml.content.table.Column;
 import org.openfuxml.content.table.Columns;
 import org.openfuxml.content.table.Content;
 import org.openfuxml.content.table.Head;
@@ -41,7 +45,13 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(OfxStatusTableFactory.class);
 	
+	public static enum Code {parent,icon,code,name,description}
+	
+	public static final String translationKeyName = "auStatusTableName";
+	public static final String translationKeyDescription = "auStatusTableDescription";
+	
 	private static String keyCaption = "auTableStatusCaption";
+	
 	
 	private int[] colWidths;
 	private boolean customColWidths;
@@ -52,25 +62,9 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 	public String getImagePathPrefix() {return imagePathPrefix;}
 	public void setImagePathPrefix(String imagePathPrefix) {this.imagePathPrefix = imagePathPrefix;}
 	
-	private boolean withParent;
-	public boolean isWithParent() {return withParent;}
-	public void setWithParent(boolean withParent) {this.withParent = withParent;}
-
-	private boolean withCode;
-	public boolean isWithCode() {return withCode;}
-	public void setWithCode(boolean withCode) {this.withCode = withCode;}
-	
-	private boolean withIcon;
-	public boolean isWithIcon() {return withIcon;}
-	public void setWithIcon(boolean withIcon) {this.withIcon = withIcon;}
-	
-	private boolean withName;
-	public boolean isWithName() {return withName;}
-	public void setWithName(boolean withName) {this.withName = withName;}
-	
-	private boolean withDescription;
-	public boolean isWithDescription() {return withDescription;}
-	public void setWithDescription(boolean withDescription) {this.withDescription = withDescription;}
+	private Map<Code,Boolean> renderColumn;
+	private Map<Code,Column> columnDefinition;
+	private Map<Code,String> headers;
 	
 	private Aht xmlP;
 
@@ -79,20 +73,28 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 		super(config,lang,translations);
 		customColWidths=false;
 		
-		withParent = false;
-		withIcon = false;
-		withCode = false;
-		withName = true;
-		withDescription = true;
+		columnDefinition = new Hashtable<Code,Column>();
+		renderColumn = new Hashtable<Code,Boolean>();
+		renderColumn.put(Code.parent, false);
+		renderColumn.put(Code.icon, false);
+		renderColumn.put(Code.code, false);
+		renderColumn.put(Code.name, true);
+		renderColumn.put(Code.description, true);
+		
+		headers = new Hashtable<Code,String>();
+		headers.put(Code.parent, "auStatusTableParent");
+		headers.put(Code.code, "auStatusTableCode");
+		headers.put(Code.name, translationKeyName);
+		headers.put(Code.description, translationKeyDescription);
 	}
 	
 	public void activateParents(Aht parents)
 	{
-		withParent = true;
+		renderColumn.put(Code.parent, true);
 		xmlP = parents;
 	}
 	
-	public Table buildLatexTable(String id, Aht xmlStatus, String[] headerKeys) throws OfxAuthoringException, UtilsConfigurationException
+	public Table buildLatexTable(String id, Aht xmlStatus) throws OfxAuthoringException, UtilsConfigurationException
 	{
 		try
 		{	
@@ -104,18 +106,24 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 				captionKey = captionKey.substring(0,index)+captionKey.substring(index+1, index+2).toUpperCase()+captionKey.substring(index+2, captionKey.length());
 			}
 			captionKey = captionKey.substring(0, 1).toUpperCase()+captionKey.substring(1, captionKey.length());
-			if(withParent){headerKeys[0]=headerKeys[0]+""+captionKey;}
+			
+			
+			if(renderColumn.get(Code.parent))
+			{
+				headers.put(Code.parent, headers.get(Code.parent)+""+captionKey);
+			}
+			
 			captionKey = keyCaption+captionKey;
 			id = "table.status."+id;
 			
 			Comment comment = XmlCommentFactory.build();
 			DocumentationCommentBuilder.fixedId(comment, id);
 			DocumentationCommentBuilder.translationKeys(comment,config,UtilsDocumentation.keyTranslationFile);
-			DocumentationCommentBuilder.tableHeaders(comment,headerKeys);
+			DocumentationCommentBuilder.tableHeaders(comment,headers);
 			DocumentationCommentBuilder.tableKey(comment,captionKey,"Table Caption");
 			DocumentationCommentBuilder.doNotModify(comment);
 			
-			Table table = toOfx(xmlStatus,headerKeys);
+			Table table = toOfx(xmlStatus);
 			table.setId(id);
 			table.setComment(comment);
 			
@@ -127,28 +135,55 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 		catch (ExlpXpathNotFoundException e) {throw new OfxAuthoringException(e.getMessage());}
 		catch (ExlpXpathNotUniqueException e) {throw new OfxAuthoringException(e.getMessage());}
 	}
-	public Table toOfx(Aht xmlStatus, String[] headerKeys) throws UtilsConfigurationException
+	public Table toOfx(Aht xmlStatus) throws UtilsConfigurationException
 	{
-		Table table = new Table();
-		table.setSpecification(createSpecifications());
-		
-		try{table.setContent(createContent(xmlStatus, headerKeys));}
+		Table table = null;
+		try
+		{
+			table = new Table();
+			table.setSpecification(createSpecifications());
+			table.setContent(createContent(xmlStatus));
+			table.getContent().setHead(buildHead());
+		}
 		catch (ExlpXpathNotFoundException e) {e.printStackTrace();}
 		catch (ExlpXpathNotUniqueException e) {e.printStackTrace();}
 		
 		return table;
 	}
 	
-	private Content createContent(Aht xmlStatus, String[] headerKeys) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException, UtilsConfigurationException
+	private Head buildHead()
 	{
 		Row row = new Row();
-		for(String headerKey : headerKeys)
+		
+		for(Code code : Code.values())
 		{
-			row.getCell().add(OfxCellFactory.createParagraphCell(StatusXpath.getLang(translations, headerKey, lang).getTranslation()));
+			logger.trace(code+ " "+renderColumn.get(code));
+			if(renderColumn.get(code))
+			{
+				if(headers.containsKey(code))
+				{
+					try
+					{
+						row.getCell().add(OfxCellFactory.createParagraphCell(StatusXpath.getLang(translations, headers.get(code), lang).getTranslation()));
+					}
+					catch (ExlpXpathNotFoundException e) {e.printStackTrace();}
+					catch (ExlpXpathNotUniqueException e) {e.printStackTrace();}
+				}
+				else
+				{
+					row.getCell().add(OfxCellFactory.build());
+				}
+			}
 		}
 		
 		Head head = new Head();
 		head.getRow().add(row);
+		return head;
+	}
+	
+	private Content createContent(Aht xmlStatus) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException, UtilsConfigurationException
+	{
+		
 		
 		Body body = new Body();
 		
@@ -157,7 +192,7 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 		for(Status status : xmlStatus.getStatus())
 		{
 			String parentString = null;
-			if(withParent)
+			if(renderColumn.get(Code.parent))
 			{
 				if(!status.isSetParent()){throw new UtilsConfigurationException("A parent is exprected for the status:"+status.getCode());}
 				Status parent = StatusXpath.getStatus(xmlP.getStatus(), status.getParent().getCode());
@@ -165,7 +200,7 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 				if(parentString.equals(previousParentString)){parentString="";}
 				else{previousParentString=parentString;}
 			}
-			boolean line = !firstRow && withParent && parentString.length()>0;
+			boolean line = !firstRow && renderColumn.get(Code.parent) && parentString.length()>0;
 			body.getRow().add(createRow(status,parentString,line));
 			
 			firstRow=false;
@@ -173,7 +208,7 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 		
 		Content content = new Content();
 		content.getBody().add(body);
-		content.setHead(head);
+		
 		
 		return content;
 	}
@@ -196,7 +231,7 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 		
 //		row.getCell().add(OfxCellFactory.createParagraphCell(status.getCode()));
 		
-		if(withIcon)
+		if(renderColumn.get(Code.icon))
 		{
 			Cell cell = new Cell();
 			cell.getContent().add(buildImage(status));
@@ -235,38 +270,46 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 		logger.trace("customColWidths: "+customColWidths);
 		if(!customColWidths)
 		{
-			if(withParent){colWidths=colWidths4;}
+			if(renderColumn.get(Code.parent)){colWidths=colWidths4;}
 			else{colWidths=colWidths3;}
 		}
 		logger.debug("colums.length: "+colWidths.length);
-		if(withParent && colWidths.length!=4){throw new UtilsConfigurationException("Need 4 column widths");}
+		if(renderColumn.get(Code.parent) && colWidths.length!=4){throw new UtilsConfigurationException("Need 4 column widths");}
 		
 		int flexWidth=0;
 		Columns cols = new Columns();
 		
-		if(withParent)
+		if(renderColumn.get(Code.parent))
 		{
 			int w=20;flexWidth=flexWidth+w;
 			cols.getColumn().add(OfxColumnFactory.flex(w));
 		}
 		
-		if(withIcon)
+		if(renderColumn.get(Code.icon))
 		{
 			cols.getColumn().add(OfxColumnFactory.build(XmlAlignmentFactory.Horizontal.center));
 		}
 		
-		if(withCode)
+		if(renderColumn.get(Code.code))
 		{
 			cols.getColumn().add(OfxColumnFactory.build(XmlAlignmentFactory.Horizontal.left));
 		}
 		
-		if(withName)
+		Code code = Code.name;
+		if(renderColumn.get(code))
 		{
-			int w=20;flexWidth=flexWidth+w;
-			cols.getColumn().add(OfxColumnFactory.flex(w));
+			if(columnDefinition.containsKey(code))
+			{
+				cols.getColumn().add(columnDefinition.get(code));
+			}
+			else
+			{
+				int w=20;flexWidth=flexWidth+w;
+				cols.getColumn().add(OfxColumnFactory.flex(w));
+			}		
 		}
 		
-		if(withDescription)
+		if(renderColumn.get(Code.description))
 		{
 			cols.getColumn().add(OfxColumnFactory.flex(100-flexWidth));
 		}
@@ -280,5 +323,12 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 	{
 		customColWidths=true;
 		this.colWidths = colWidths;
+	}
+	
+	public void renderColumn(Code code, boolean render){renderColumn(code,render,null);}
+	public void renderColumn(Code code, boolean render,Column definition)
+	{
+		renderColumn.put(code, render);
+		if(definition!=null){columnDefinition.put(code, definition);}
 	}
 }

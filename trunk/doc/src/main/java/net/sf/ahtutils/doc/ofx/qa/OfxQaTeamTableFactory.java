@@ -24,6 +24,7 @@ import org.openfuxml.content.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.table.OfxCellFactory;
 import org.openfuxml.factory.table.OfxColumnFactory;
+import org.openfuxml.factory.xml.layout.XmlAlignmentFactory;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
 import org.slf4j.Logger;
@@ -76,18 +77,18 @@ public class OfxQaTeamTableFactory extends AbstractUtilsOfxDocumentationFactory
 		Columns cols = new Columns();
 		if(columns==2)
 		{
-			cols.getColumn().add(OfxColumnFactory.flex(30));
+			cols.getColumn().add(OfxColumnFactory.build(XmlAlignmentFactory.Horizontal.left));
 			cols.getColumn().add(OfxColumnFactory.flex(60));
 		}
 		else if(columns==3)
 		{
-			cols.getColumn().add(OfxColumnFactory.flex(25));
+			cols.getColumn().add(OfxColumnFactory.build(XmlAlignmentFactory.Horizontal.left));
 			cols.getColumn().add(OfxColumnFactory.flex(35));
 			cols.getColumn().add(OfxColumnFactory.flex(40));
 		}
 		else if(columns==4)
 		{
-			cols.getColumn().add(OfxColumnFactory.flex(20));
+			cols.getColumn().add(OfxColumnFactory.build(XmlAlignmentFactory.Horizontal.left));
 			cols.getColumn().add(OfxColumnFactory.flex(30));
 			cols.getColumn().add(OfxColumnFactory.flex(25));
 			cols.getColumn().add(OfxColumnFactory.flex(25));

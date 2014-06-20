@@ -1,6 +1,9 @@
 package net.sf.ahtutils.doc;
 
 import java.util.List;
+import java.util.Map;
+
+import net.sf.ahtutils.doc.ofx.status.OfxStatusTableFactory.Code;
 
 import org.apache.commons.configuration.Configuration;
 import org.openfuxml.content.ofx.Comment;
@@ -30,6 +33,15 @@ public class DocumentationCommentBuilder
 		}
 	}
 	
+	public static void tableHeaders(Comment comment,Map<Code,String> headers)
+	{
+		int i=1;
+		for(Code code : Code.values())
+		{
+			tableKey(comment,headers.get(code),"Table Header ("+i+")");
+			i++;
+		}	
+	}
 	public static void tableHeaders(Comment comment,String[] headerKeys)
 	{
 		int i=1;

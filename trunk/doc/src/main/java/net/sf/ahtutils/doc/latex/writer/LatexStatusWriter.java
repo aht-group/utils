@@ -55,14 +55,7 @@ public class LatexStatusWriter extends AbstractDocumentationLatexWriter
 		buildStatusTable(seedKeyStatus, null, colWidths);
 	}
 	public void buildStatusTable(String seedKeyStatus, String seedKeyParent, int... colWidths) throws UtilsConfigurationException
-	{
-		String[] headerKeys3 = {"auTableStatusCode","auTableStatusName","auTableStatusDescription"};
-		String[] headerKeys4 = {"auTableStatusParent","auTableStatusCode","auTableStatusName","auTableStatusDescription"};
-		
-		String[] headerKeys;
-		if(seedKeyParent==null){headerKeys=headerKeys3;}
-		else{headerKeys=headerKeys4;}
-		
+	{	
 		Aht athStatus;
 		Aht ahtParents = null;
 		
@@ -81,7 +74,7 @@ public class LatexStatusWriter extends AbstractDocumentationLatexWriter
 				
 				if(ahtParents!=null){fOfx.activateParents(ahtParents);}
 				
-				Table table = fOfx.buildLatexTable(texName.replaceAll("/", "."),athStatus, headerKeys);
+				Table table = fOfx.buildLatexTable(texName.replaceAll("/", "."),athStatus);
 				File f = new File(baseLatexDir+"/"+lang+"/"+dirStatus+"/"+texName+".tex");
 				writeTable(table, f);
 			}

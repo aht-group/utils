@@ -10,6 +10,7 @@ import net.sf.ahtutils.doc.ofx.qa.OfxQaRoleTableFactory;
 import net.sf.ahtutils.doc.ofx.qa.OfxQaTeamTableFactory;
 import net.sf.ahtutils.doc.ofx.qa.OfxSectionQaCategoryFactory;
 import net.sf.ahtutils.doc.ofx.status.OfxStatusTableFactory;
+import net.sf.ahtutils.doc.ofx.status.OfxStatusTableFactory.Code;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.qa.Category;
@@ -20,6 +21,8 @@ import org.apache.commons.configuration.Configuration;
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.content.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
+import org.openfuxml.factory.table.OfxColumnFactory;
+import org.openfuxml.factory.xml.layout.XmlAlignmentFactory;
 import org.openfuxml.interfaces.CrossMediaManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,27 +51,11 @@ public class LatexQmWriter extends AbstractDocumentationLatexWriter
 		List<String> keys = new ArrayList<String>();
 		
 		keys.add("auTableQaRole");
-		keys.add("auTableQaName");
+		keys.add(OfxStatusTableFactory.translationKeyDescription);
 		if(withResponsible){keys.add("auTableQaResponsibilities");}
 		if(withOrganisation){keys.add("auTableQaOrganisation");}
 		
 		return keys;
-	}
-	
-	private String[] buildStatusHeaderKeys()
-	{
-		List<String> keys = new ArrayList<String>();
-		
-		keys.add("auTableQaRole");
-		keys.add("auTableQaName");
-
-		String[] result = new String[keys.size()];
-		for(int i=0;i<keys.size();i++)
-		{
-			result[i] = keys.get(i);
-		}
-		
-		return result;
 	}
 	
 	// *****************************************************************************
@@ -101,9 +88,10 @@ public class LatexQmWriter extends AbstractDocumentationLatexWriter
 		File f = new File(baseLatexDir+"/"+lang+"/tab/qa/status/"+file+".tex");
 		
 		OfxStatusTableFactory fOfx = new OfxStatusTableFactory(config, lang, translations);
-		fOfx.setWithIcon(true);
+		fOfx.renderColumn(Code.icon, true);
+		fOfx.renderColumn(Code.name, true,OfxColumnFactory.build(XmlAlignmentFactory.Horizontal.left));
 		fOfx.setImagePathPrefix(imagePathPrefix);
-		Table table = fOfx.buildLatexTable(id,aht, buildStatusHeaderKeys());
+		Table table = fOfx.buildLatexTable(id,aht);
 		writeTable(table, f);
 	}
 	
