@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
 public class OfxQaRoleTableFactory extends AbstractUtilsOfxDocumentationFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(OfxQaRoleTableFactory.class);
-	private static String keyCaption = "auTableQmTeamCaption";
+	private static String keyCaption = "auTableQmRoles";
 	
 	public OfxQaRoleTableFactory(Configuration config, String lang, Translations translations)
 	{
@@ -51,7 +51,7 @@ public class OfxQaRoleTableFactory extends AbstractUtilsOfxDocumentationFactory
 			DocumentationCommentBuilder.fixedId(comment, table.getId());
 			DocumentationCommentBuilder.translationKeys(comment,config,UtilsDocumentation.keyTranslationFile);
 			DocumentationCommentBuilder.tableHeaders(comment,headerKeys);
-			DocumentationCommentBuilder.tableKey(comment,keyCaption,"Table Caption Prefix");
+			DocumentationCommentBuilder.tableKey(comment,keyCaption,"Table Caption");
 			DocumentationCommentBuilder.doNotModify(comment);
 			table.setComment(comment);
 			
@@ -117,7 +117,6 @@ public class OfxQaRoleTableFactory extends AbstractUtilsOfxDocumentationFactory
 		Row row = new Row();
 		row.getCell().add(OfxCellFactory.createParagraphCell(roleName));
 		row.getCell().add(OfxCellFactory.createParagraphCell(roleDesc));
-		
 		
 		return row;
 	}	

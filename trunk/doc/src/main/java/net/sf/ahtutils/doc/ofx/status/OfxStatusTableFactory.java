@@ -218,7 +218,7 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 		sb.append(imagePathPrefix).append("/");
 		sb.append(name);
 		sb.append(".svg");
-		logger.info(sb.toString());
+		logger.trace(sb.toString());
 		
 		Media media = new Media();
 		media.setSrc(sb.toString());
@@ -232,7 +232,7 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 	
 	private Specification createSpecifications() throws UtilsConfigurationException
 	{
-		logger.debug("customColWidths: "+customColWidths);
+		logger.trace("customColWidths: "+customColWidths);
 		if(!customColWidths)
 		{
 			if(withParent){colWidths=colWidths4;}
