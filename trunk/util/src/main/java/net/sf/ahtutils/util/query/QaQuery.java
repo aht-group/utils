@@ -7,10 +7,13 @@ import net.sf.ahtutils.factory.xml.status.XmlStatementFactory;
 import net.sf.ahtutils.factory.xml.status.XmlStatusFactory;
 import net.sf.ahtutils.xml.aht.Query;
 import net.sf.ahtutils.xml.qa.Category;
+import net.sf.ahtutils.xml.qa.Comment;
 import net.sf.ahtutils.xml.qa.Description;
+import net.sf.ahtutils.xml.qa.Info;
 import net.sf.ahtutils.xml.qa.PreCondition;
 import net.sf.ahtutils.xml.qa.Reference;
 import net.sf.ahtutils.xml.qa.Result;
+import net.sf.ahtutils.xml.qa.Results;
 import net.sf.ahtutils.xml.qa.Steps;
 import net.sf.ahtutils.xml.qa.Test;
 import net.sf.ahtutils.xml.security.Role;
@@ -18,10 +21,11 @@ import net.sf.ahtutils.xml.security.Staff;
 
 public class QaQuery
 {
-	public static enum Key {staff}
+	public static enum Key {staff,exTest}
 	
 	private static Map<Key,Query> mQueries;
 	
+	public static Query get(Key key){return get(key,null);}
 	public static Query get(Key key,String lang)
 	{
 		if(mQueries==null){mQueries = new Hashtable<Key,Query>();}
@@ -31,12 +35,28 @@ public class QaQuery
 			switch(key)
 			{
 				case staff: q.setStaff(staff());break;
+				case exTest: q.setTest(exTest());break;
 			}
 			mQueries.put(key, q);
 		}
 		Query q = mQueries.get(key);
 		q.setLang(lang);
 		return q;
+	}
+	
+	public static Test exTest()
+	{
+		Info info = new Info();
+		info.setComment(new Comment());
+		info.setStatus(XmlStatusFactory.create(""));
+		
+		Test xml = test();
+		xml.setResults(new Results());
+		xml.getResults().getResult().add(result());
+		xml.setInfo(info);
+		
+		
+		return xml;
 	}
 	
 	public static Staff staff()

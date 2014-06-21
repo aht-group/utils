@@ -88,6 +88,18 @@ QAUS extends UtilsStatus<QAUS,L,D>>
 			xml.setStatus(f.build(test.getDeveloperStatus()));
 		}
 		
+		if(q.isSetResults())
+		{
+			XmlResultsFactory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAU,QAR,QAS,QATD,QATI,QATC,QATS,QARS,QAUS> f = new XmlResultsFactory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAU,QAR,QAS,QATD,QATI,QATC,QATS,QARS,QAUS>(q.getResults());
+			xml.setResults(f.build(test));
+		}
+		
+		if(q.isSetInfo() && test.getInfo()!=null)
+		{
+			XmlInfoFactory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAU,QAR,QAS,QATD,QATI,QATC,QATS,QARS,QAUS> f = new XmlInfoFactory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAU,QAR,QAS,QATD,QATI,QATC,QATS,QARS,QAUS>(q.getInfo());
+			xml.setInfo(f.build(test.getInfo()));
+		}
+		
 		return xml;
 	}
 }

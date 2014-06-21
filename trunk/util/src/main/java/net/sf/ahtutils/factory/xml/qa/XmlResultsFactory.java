@@ -1,5 +1,14 @@
-package net.sf.ahtutils.interfaces.model.qa;
+package net.sf.ahtutils.factory.xml.qa;
 
+import net.sf.ahtutils.interfaces.model.qa.UtilsQaCategory;
+import net.sf.ahtutils.interfaces.model.qa.UtilsQaResult;
+import net.sf.ahtutils.interfaces.model.qa.UtilsQaStaff;
+import net.sf.ahtutils.interfaces.model.qa.UtilsQaStakeholder;
+import net.sf.ahtutils.interfaces.model.qa.UtilsQaTest;
+import net.sf.ahtutils.interfaces.model.qa.UtilsQaTestDiscussion;
+import net.sf.ahtutils.interfaces.model.qa.UtilsQaTestInfo;
+import net.sf.ahtutils.interfaces.model.qa.UtilsQaUsability;
+import net.sf.ahtutils.interfaces.model.qa.UtilsQualityAssurarance;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
@@ -9,9 +18,12 @@ import net.sf.ahtutils.model.interfaces.security.UtilsSecurityView;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import net.sf.ahtutils.xml.qa.Results;
 
-public interface UtilsQaTestInfo<L extends UtilsLang,
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class XmlResultsFactory<L extends UtilsLang,
 D extends UtilsDescription,
 C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
 R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
@@ -32,11 +44,30 @@ QATC extends UtilsStatus<QATC,L,D>,
 QATS extends UtilsStatus<QATS,L,D>,
 QARS extends UtilsStatus<QARS,L,D>,
 QAUS extends UtilsStatus<QAUS,L,D>>
-			extends EjbWithId
 {
-	QATC getCondition();
-	void setCondition(QATC condition);
+	final static Logger logger = LoggerFactory.getLogger(XmlResultsFactory.class);
+		
+	private Results q;
 	
-	String getDescription();
-    void setDescription(String description);
+	public XmlResultsFactory(Results q)
+	{
+		this.q=q;
+	}
+	
+	
+	public Results build(QAT test)
+	{
+		Results xml = new Results();
+	
+		if(q.isSetResult())
+		{
+			XmlResultFactory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAU,QAR,QAS,QATD,QATI,QATC,QATS,QARS,QAUS> f = new XmlResultFactory<L,D,C,R,V,U,A,USER,STAFF,QA,QAC,QAT,QAU,QAR,QAS,QATD,QATI,QATC,QATS,QARS,QAUS>(q.getResult().get(0));
+			for(QAR result : test.getResults())
+			{
+				xml.getResult().add(f.build(result));
+			}
+		}
+		
+		return xml;
+	}
 }

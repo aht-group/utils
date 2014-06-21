@@ -30,6 +30,7 @@ import net.sf.ahtutils.xml.status.Status;
  *         &lt;element ref="{http://ahtutils.aht-group.com/qa}steps"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/qa}expected"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/qa}results"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/qa}info"/>
  *       &lt;/sequence>
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" />
  *       &lt;attribute name="name" type="{http://www.w3.org/2001/XMLSchema}string" />
@@ -50,7 +51,8 @@ import net.sf.ahtutils.xml.status.Status;
     "preCondition",
     "steps",
     "expected",
-    "results"
+    "results",
+    "info"
 })
 @XmlRootElement(name = "test")
 public class Test
@@ -74,6 +76,8 @@ public class Test
     protected Expected expected;
     @XmlElement(required = true)
     protected Results results;
+    @XmlElement(required = true)
+    protected Info info;
     @XmlAttribute(name = "id")
     protected Long id;
     @XmlAttribute(name = "name")
@@ -303,6 +307,34 @@ public class Test
 
     public boolean isSetResults() {
         return (this.results!= null);
+    }
+
+    /**
+     * Gets the value of the info property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Info }
+     *     
+     */
+    public Info getInfo() {
+        return info;
+    }
+
+    /**
+     * Sets the value of the info property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Info }
+     *     
+     */
+    public void setInfo(Info value) {
+        this.info = value;
+    }
+
+    public boolean isSetInfo() {
+        return (this.info!= null);
     }
 
     /**

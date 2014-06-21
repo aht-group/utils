@@ -8,7 +8,7 @@ import javax.ws.rs.core.MediaType;
 
 import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.qa.Qa;
-import net.sf.ahtutils.xml.qa.Results;
+import net.sf.ahtutils.xml.qa.Test;
 
 @Path("/rest/qa")
 public interface UtilsQualityAssuranceRest
@@ -46,5 +46,5 @@ public interface UtilsQualityAssuranceRest
 	
 	@GET @Path("/test/{id:[0-9]*}")
 	@Produces(MediaType.APPLICATION_XML)
-	Results qaTest(@PathParam("id") long testId);
+	Test qaTest(@PathParam("id") long testId);
 }

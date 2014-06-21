@@ -57,6 +57,8 @@
         	    <xsd:element ref="s:status" maxOccurs="1"/>
         	    <xsd:element ref="s:type" maxOccurs="1"/>
         	    
+        	    <xsd:element ref="qa:test" maxOccurs="1"/>
+        	    
         	    <xsd:element ref="sec:staff" maxOccurs="1"/>
         	    
             </xsd:sequence>

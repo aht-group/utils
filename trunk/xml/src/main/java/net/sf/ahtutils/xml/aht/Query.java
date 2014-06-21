@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import net.sf.ahtutils.xml.access.Role;
+import net.sf.ahtutils.xml.qa.Test;
 import net.sf.ahtutils.xml.security.Staff;
 import net.sf.ahtutils.xml.status.Langs;
 import net.sf.ahtutils.xml.status.Status;
@@ -29,6 +30,7 @@ import net.sf.ahtutils.xml.status.Type;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}langs"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}status"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}type"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/qa}test"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/security}staff"/>
  *       &lt;/sequence>
  *       &lt;attribute name="lang" type="{http://www.w3.org/2001/XMLSchema}string" />
@@ -45,6 +47,7 @@ import net.sf.ahtutils.xml.status.Type;
     "langs",
     "status",
     "type",
+    "test",
     "staff"
 })
 @XmlRootElement(name = "query")
@@ -61,6 +64,8 @@ public class Query
     protected Status status;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
     protected Type type;
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/qa", required = true)
+    protected Test test;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/security", required = true)
     protected Staff staff;
     @XmlAttribute(name = "lang")
@@ -176,6 +181,34 @@ public class Query
 
     public boolean isSetType() {
         return (this.type!= null);
+    }
+
+    /**
+     * Gets the value of the test property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Test }
+     *     
+     */
+    public Test getTest() {
+        return test;
+    }
+
+    /**
+     * Sets the value of the test property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Test }
+     *     
+     */
+    public void setTest(Test value) {
+        this.test = value;
+    }
+
+    public boolean isSetTest() {
+        return (this.test!= null);
     }
 
     /**

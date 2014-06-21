@@ -30,46 +30,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Result }
-     * 
-     */
-    public Result createResult() {
-        return new Result();
-    }
-
-    /**
-     * Create an instance of {@link Comment }
-     * 
-     */
-    public Comment createComment() {
-        return new Comment();
-    }
-
-    /**
-     * Create an instance of {@link Actual }
-     * 
-     */
-    public Actual createActual() {
-        return new Actual();
-    }
-
-    /**
-     * Create an instance of {@link Expected }
-     * 
-     */
-    public Expected createExpected() {
-        return new Expected();
-    }
-
-    /**
-     * Create an instance of {@link Category }
-     * 
-     */
-    public Category createCategory() {
-        return new Category();
-    }
-
-    /**
      * Create an instance of {@link Test }
      * 
      */
@@ -110,11 +70,59 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Expected }
+     * 
+     */
+    public Expected createExpected() {
+        return new Expected();
+    }
+
+    /**
      * Create an instance of {@link Results }
      * 
      */
     public Results createResults() {
         return new Results();
+    }
+
+    /**
+     * Create an instance of {@link Result }
+     * 
+     */
+    public Result createResult() {
+        return new Result();
+    }
+
+    /**
+     * Create an instance of {@link Comment }
+     * 
+     */
+    public Comment createComment() {
+        return new Comment();
+    }
+
+    /**
+     * Create an instance of {@link Actual }
+     * 
+     */
+    public Actual createActual() {
+        return new Actual();
+    }
+
+    /**
+     * Create an instance of {@link Info }
+     * 
+     */
+    public Info createInfo() {
+        return new Info();
+    }
+
+    /**
+     * Create an instance of {@link Category }
+     * 
+     */
+    public Category createCategory() {
+        return new Category();
     }
 
     /**

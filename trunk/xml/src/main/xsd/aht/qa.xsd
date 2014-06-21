@@ -35,6 +35,7 @@
                 <xsd:element ref="qa:steps" maxOccurs="1"/>
                 <xsd:element ref="qa:expected" maxOccurs="1"/>
                 <xsd:element ref="qa:results" maxOccurs="1"/>
+                <xsd:element ref="qa:info" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="name" type="xsd:string"/>
@@ -95,6 +96,16 @@
         		<xsd:element ref="us:status" maxOccurs="1"/>
         		<xsd:element ref="qa:comment" maxOccurs="1"/>
         		<xsd:element ref="qa:actual" maxOccurs="1"/>
+            </xsd:sequence>
+            <xsd:attribute name="id" type="xsd:long"/>
+            <xsd:attribute name="record" type="xsd:dateTime"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="info">
+        <xsd:complexType>
+        	<xsd:sequence>
+        		<xsd:element ref="us:status" maxOccurs="1"/>
+        		<xsd:element ref="qa:comment" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="record" type="xsd:dateTime"/>
