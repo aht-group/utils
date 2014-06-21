@@ -127,6 +127,7 @@ public class UtilsQaFacadeBean extends UtilsFacadeBean implements UtilsQaFacade
 	{		
 		test = em.find(clQat, test.getId());
 		test.getDiscussions().size();
+		test.getResults().size();
 		return test;
 	}
 	

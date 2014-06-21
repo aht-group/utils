@@ -7,4 +7,5 @@
     <qa:preCondition>myPreCondition</qa:preCondition>
     <qa:steps>mySteps</qa:steps>
     <qa:expected>myExpected</qa:expected>
+    <qa:results/>
 </qa:test>

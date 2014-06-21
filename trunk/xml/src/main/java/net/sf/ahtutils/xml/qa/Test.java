@@ -29,6 +29,7 @@ import net.sf.ahtutils.xml.status.Status;
  *         &lt;element ref="{http://ahtutils.aht-group.com/qa}preCondition"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/qa}steps"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/qa}expected"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/qa}results"/>
  *       &lt;/sequence>
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" />
  *       &lt;attribute name="name" type="{http://www.w3.org/2001/XMLSchema}string" />
@@ -48,7 +49,8 @@ import net.sf.ahtutils.xml.status.Status;
     "description",
     "preCondition",
     "steps",
-    "expected"
+    "expected",
+    "results"
 })
 @XmlRootElement(name = "test")
 public class Test
@@ -70,6 +72,8 @@ public class Test
     protected Steps steps;
     @XmlElement(required = true)
     protected Expected expected;
+    @XmlElement(required = true)
+    protected Results results;
     @XmlAttribute(name = "id")
     protected Long id;
     @XmlAttribute(name = "name")
@@ -271,6 +275,34 @@ public class Test
 
     public boolean isSetExpected() {
         return (this.expected!= null);
+    }
+
+    /**
+     * Gets the value of the results property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Results }
+     *     
+     */
+    public Results getResults() {
+        return results;
+    }
+
+    /**
+     * Sets the value of the results property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Results }
+     *     
+     */
+    public void setResults(Results value) {
+        this.results = value;
+    }
+
+    public boolean isSetResults() {
+        return (this.results!= null);
     }
 
     /**

@@ -43,6 +43,8 @@ public class TestXmlTest extends AbstractXmlQaTest
     		xml.setPreCondition(TestXmlPreCondition.create());
     		xml.setSteps(TestXmlSteps.create());
     		xml.setExpected(TestXmlExpected.create());
+    		
+    		xml.setResults(TestXmlResults.create(false));
     	}
     	
     	return xml;

@@ -10,8 +10,10 @@ import net.sf.ahtutils.xml.qa.Category;
 import net.sf.ahtutils.xml.qa.Description;
 import net.sf.ahtutils.xml.qa.PreCondition;
 import net.sf.ahtutils.xml.qa.Reference;
+import net.sf.ahtutils.xml.qa.Result;
 import net.sf.ahtutils.xml.qa.Steps;
 import net.sf.ahtutils.xml.qa.Test;
+import net.sf.ahtutils.xml.security.Role;
 import net.sf.ahtutils.xml.security.Staff;
 
 public class QaQuery
@@ -43,6 +45,23 @@ public class QaQuery
 		xml.setId(0);
 		xml.setRole(SecurityQuery.role());
 		xml.setUser(SecurityQuery.user());
+		return xml;
+	}
+	
+	public static Result result()
+	{
+		Role role = new Role();
+		role.setCode("");
+		
+		Staff staff = new Staff();
+		staff.setId(0);
+		staff.setRole(role);
+		staff.setUser(SecurityQuery.user());
+		
+		Result xml = new Result();
+		xml.setStaff(staff);
+		xml.setId(0);
+		xml.setStatus(XmlStatusFactory.create(""));
 		return xml;
 	}
 	

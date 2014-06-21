@@ -13,6 +13,7 @@ import org.openfuxml.content.ofx.Comment;
 import org.openfuxml.content.ofx.Paragraph;
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.exception.OfxAuthoringException;
+import org.openfuxml.factory.table.OfxCellFactory;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.factory.xml.ofx.content.structure.XmlParagraphFactory;
 import org.openfuxml.factory.xml.ofx.content.structure.XmlSectionFactory;
@@ -58,9 +59,13 @@ public class OfxSectionQaCategoryFactory extends AbstractUtilsOfxDocumentationFa
 		Section section = XmlSectionFactory.build();
 		section.getContent().add(XmlTitleFactory.build(test.getName()));
 		
-		Paragraph p = XmlParagraphFactory.build();
-		p.getContent().add("Test");
-		section.getContent().add(p);
+		if(test.isSetDescription() && test.getDescription().isSetValue())
+		{
+			Paragraph p = XmlParagraphFactory.build();
+			p.getContent().add(test.getDescription().getValue());
+			section.getContent().add(p);
+		}
+		
 		section.getContent().add(fOfxTableTest.buildTestTable(test));
 		section.getContent().add(fOfxTableTestResult.buildTestTable(test));
 		

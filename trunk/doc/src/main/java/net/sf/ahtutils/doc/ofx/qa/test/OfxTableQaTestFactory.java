@@ -87,7 +87,7 @@ public class OfxTableQaTestFactory extends AbstractUtilsOfxDocumentationFactory
 		Body body = new Body();
 		body.getRow().add(buildTitle(test));
 		body.getRow().add(buildReference(test));
-		body.getRow().add(buildDescription(test));
+//		body.getRow().add(buildDescription(test));
 		body.getRow().add(buildPreCondition(test));
 		body.getRow().add(buildSteps(test));
 		
@@ -157,7 +157,7 @@ public class OfxTableQaTestFactory extends AbstractUtilsOfxDocumentationFactory
 		row.getCell().add(OfxCellFactory.createParagraphCell("Test Steps"));
 		if(test.isSetSteps() && test.getSteps().isSetValue())
 		{
-			logger.info("Steps");
+			logger.trace("Steps");
 			HtmlTranscoder transcoder = new HtmlTranscoder();
 			transcoder.transcode(test.getSteps().getValue());
 			Cell cell = OfxCellFactory.build();

@@ -34,6 +34,7 @@
                 <xsd:element ref="qa:preCondition" maxOccurs="1"/>
                 <xsd:element ref="qa:steps" maxOccurs="1"/>
                 <xsd:element ref="qa:expected" maxOccurs="1"/>
+                <xsd:element ref="qa:results" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="name" type="xsd:string"/>
@@ -73,6 +74,41 @@
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="expected">
+        <xsd:complexType>
+            <xsd:simpleContent>
+                <xsd:extension base="xsd:string">
+                </xsd:extension>
+            </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="results">
+        <xsd:complexType>
+        	<xsd:sequence>
+                <xsd:element ref="qa:result" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="result">
+        <xsd:complexType>
+        	<xsd:sequence>
+        		<xsd:element ref="sec:staff" maxOccurs="1"/>
+        		<xsd:element ref="us:status" maxOccurs="1"/>
+        		<xsd:element ref="qa:comment" maxOccurs="1"/>
+        		<xsd:element ref="qa:actual" maxOccurs="1"/>
+            </xsd:sequence>
+            <xsd:attribute name="id" type="xsd:long"/>
+            <xsd:attribute name="record" type="xsd:dateTime"/>
+        </xsd:complexType>
+    </xsd:element>
+	<xsd:element name="comment">
+        <xsd:complexType>
+            <xsd:simpleContent>
+                <xsd:extension base="xsd:string">
+                </xsd:extension>
+            </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="actual">
         <xsd:complexType>
             <xsd:simpleContent>
                 <xsd:extension base="xsd:string">
