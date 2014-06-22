@@ -84,7 +84,6 @@ public class OfxTableQaTestResultFactory extends AbstractUtilsOfxDocumentationFa
 		Body body = new Body();
 		if(test.isSetResults())
 		{
-			logger.info("Results");
 			for(Result result : test.getResults().getResult())
 			{
 				body.getRow().add(buildRow(result));

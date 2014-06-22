@@ -28,7 +28,6 @@ public class OfxSectionQaCategoryFactory extends AbstractUtilsOfxDocumentationFa
 {
 	final static Logger logger = LoggerFactory.getLogger(OfxSectionQaCategoryFactory.class);
 
-	private String[] headerKeys;
 	private OfxTableQaTestFactory fOfxTableTest;
 	private OfxTableQaTestResultFactory fOfxTableTestResult;
 	
