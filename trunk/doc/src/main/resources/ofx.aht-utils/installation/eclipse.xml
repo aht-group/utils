@@ -2,7 +2,38 @@
 <ofx:section xmlns:ofx="http://www.openfuxml.org" id="section.admin.installation.eclipse">
 	<ofx:title lang="en">Installation of Eclipse</ofx:title>
 	
-	<ofx:section id="section.admin.installation.eclipse.git" classifier="git">
+	<ofx:section container="true" classifier="luna">
+		Download eclipse-luna from www.eclipse.org
+		
+		<ofx:section id="section.admin.installation.eclipse.luna.svn" classifier="svn">
+			<ofx:title lang="en">Subversion (SVN)</ofx:title>
+		
+			<ofx:paragraph lang="en">
+				Help - Eclipse Marketplace
+				Find : "Subversive" - Go
+				Install SVN Team Provider 2.0
+				Confirm - (Proceed even if "Subversive SVN Team Provider 2.0" is not available)
+				- Accept  - Finish - Restart
+			</ofx:paragraph>
+			
+			<ofx:paragraph lang="en">
+				rojectExplorer - (r.click) New - Other - Maven - Checkout Maven Projects from  - Next
+					"Find more SCM connectors in the m2e Marketplace""
+	
+				Find: "subversive"
+				Select "m2e-subversive" - Finish
+				
+				Next - next - Accept - Finish
+				"unsigned content": OK - RESTART
+				
+				SVN KIT 1.8.5
+			</ofx:paragraph>
+			
+		</ofx:section>
+	</ofx:section>
+	
+	<ofx:section container="true" classifier="kepler">
+		<ofx:section id="section.admin.installation.eclipse.kepler" classifier="git">
 		<ofx:title lang="en">GIT</ofx:title>
 		
 		<ofx:section id="section.admin.installation.eclipse.git.m2e">
@@ -40,7 +71,19 @@ Next
 			</ofx:paragraph>
 		</ofx:section>
 	</ofx:section>
+	</ofx:section>
 	
+	<ofx:section id="section.admin.installation.eclipse.checkout.git">
+		<ofx:title lang="en">Checkout Project From SVN Repository</ofx:title>
+		
+		<ofx:paragraph lang="en">
+				Window - Show View - Other - SVN - SVN Repositories
+				
+				New - "Repository Location", enter URL, username and password. FINISH
+				
+				Select Trunk - "Checkout as Maven Project" - NEXT - FINISH
+		</ofx:paragraph>
+	</ofx:section>
 	
 	<ofx:section>
 		<ofx:title lang="en">FAQ</ofx:title>
