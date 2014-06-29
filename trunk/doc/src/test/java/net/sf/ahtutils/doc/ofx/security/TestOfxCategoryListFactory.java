@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import net.sf.ahtutils.doc.ofx.security.OfxCategoryListFactory;
 import net.sf.ahtutils.test.AhtUtilsDocBootstrap;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.TestXmlCategory;
@@ -22,7 +21,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openfuxml.content.list.List;
 import org.openfuxml.exception.OfxAuthoringException;
-import org.openfuxml.interfaces.OfxLatexRenderer;
+import org.openfuxml.interfaces.renderer.latex.OfxLatexRenderer;
 import org.openfuxml.renderer.latex.content.list.LatexListRenderer;
 import org.openfuxml.renderer.latex.content.structure.LatexSectionRenderer;
 import org.slf4j.Logger;

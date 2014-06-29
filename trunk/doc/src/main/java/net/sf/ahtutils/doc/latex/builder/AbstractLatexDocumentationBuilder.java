@@ -17,7 +17,7 @@ import org.openfuxml.content.ofx.Comment;
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
-import org.openfuxml.interfaces.CrossMediaManager;
+import org.openfuxml.interfaces.media.CrossMediaManager;
 import org.openfuxml.util.filter.OfxClassifierFilter;
 import org.openfuxml.util.filter.OfxLangFilter;
 import org.slf4j.Logger;

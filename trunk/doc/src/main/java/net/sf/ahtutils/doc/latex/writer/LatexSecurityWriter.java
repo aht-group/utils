@@ -17,7 +17,7 @@ import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.apache.commons.configuration.Configuration;
 import org.openfuxml.exception.OfxAuthoringException;
-import org.openfuxml.interfaces.CrossMediaManager;
+import org.openfuxml.interfaces.media.CrossMediaManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

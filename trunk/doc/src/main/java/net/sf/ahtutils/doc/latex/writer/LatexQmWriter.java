@@ -23,9 +23,9 @@ import org.apache.commons.configuration.Configuration;
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.content.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
-import org.openfuxml.factory.table.OfxColumnFactory;
 import org.openfuxml.factory.xml.layout.XmlAlignmentFactory;
-import org.openfuxml.interfaces.CrossMediaManager;
+import org.openfuxml.factory.xml.table.OfxColumnFactory;
+import org.openfuxml.interfaces.media.CrossMediaManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

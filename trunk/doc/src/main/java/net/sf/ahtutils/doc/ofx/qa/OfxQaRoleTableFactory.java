@@ -22,11 +22,11 @@ import org.openfuxml.content.table.Row;
 import org.openfuxml.content.table.Specification;
 import org.openfuxml.content.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
-import org.openfuxml.factory.table.OfxCellFactory;
-import org.openfuxml.factory.table.OfxColumnFactory;
 import org.openfuxml.factory.xml.layout.XmlAlignmentFactory;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
+import org.openfuxml.factory.xml.table.OfxCellFactory;
+import org.openfuxml.factory.xml.table.OfxColumnFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

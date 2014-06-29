@@ -5,7 +5,7 @@ import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.status.Translations;
 
 import org.apache.commons.configuration.Configuration;
-import org.openfuxml.interfaces.CrossMediaManager;
+import org.openfuxml.interfaces.media.CrossMediaManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
