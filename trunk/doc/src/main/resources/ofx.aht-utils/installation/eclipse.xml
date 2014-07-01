@@ -17,7 +17,7 @@
 			</ofx:paragraph>
 			
 			<ofx:paragraph lang="en">
-				rojectExplorer - (r.click) New - Other - Maven - Checkout Maven Projects from  - Next
+				Project Explorer - (r.click) New - Other - Maven - Checkout Maven Projects from SCM - Next -
 					"Find more SCM connectors in the m2e Marketplace""
 	
 				Find: "subversive"
