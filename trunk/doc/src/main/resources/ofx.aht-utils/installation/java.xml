@@ -3,24 +3,24 @@
 	
 	<ofx:title>Java</ofx:title>
 	
-	<ofx:section container="true" classifier="debianWheezy">
-		<ofx:title lang="none">Linux (Debian Wheezy)</ofx:title>
+		<ofx:section container="true" classifier="debian">
+		<ofx:title lang="none">Linux Debian: 6 Squeeze and 7 Wheezy)</ofx:title>
 		
 		<ofx:paragraph lang="en">
-			Get Java JDK from http://www.oracle.com/technetwork/java/javase/downloads/index.html
+			Get Java JDK (jdk-7u60-linux-x64.tar.gz) from http://www.oracle.com/technetwork/java/javase/downloads/index.html
 		</ofx:paragraph>
 		<ofx:paragraph lang="de">
-			Java JDK herunterladen http://www.oracle.com/technetwork/java/javase/downloads/index.html
+			Java JDK (jdk-7u60-linux-x64.tar.gz) herunterladen http://www.oracle.com/technetwork/java/javase/downloads/index.html
 		</ofx:paragraph>
 		
 		<ofx:listing>
 			<ofx:raw>cd /opt
-tar -xvzf path_to_download/jdk-7u45-linux-x64.tar.gz
+tar -xvzf path_to_download/jdk-7u60-linux-x64.tar.gz
 
-update-alternatives --install /usr/bin/java java /opt/jdk1.7.0_45/bin/java 1
-update-alternatives --install /usr/bin/javac javac /opt/jdk1.7.0_45/bin/javac 1
-update-alternatives --set java /opt/jdk1.7.0_45/bin/java
-update-alternatives --set javac /opt/jdk1.7.0_45/bin/javac</ofx:raw>
+update-alternatives --install /usr/bin/java java /opt/jdk1.7.0_60/bin/java 1
+update-alternatives --install /usr/bin/javac javac /opt/jdk1.7.0_60/bin/javac 1
+update-alternatives --set java /opt/jdk1.7.0_60/bin/java
+update-alternatives --set javac /opt/jdk1.7.0_60/bin/javac</ofx:raw>
 		</ofx:listing>
 	</ofx:section>
 	

@@ -20,7 +20,7 @@ public class UtilsLatexAdminDocumentationBuilder extends AbstractLatexDocumentat
 	public static enum SecurityCode {sConceptIntroduction}
 							 
 	public static enum InstallationCode {instDebian,instJava,instJboss,instPostGis,instMaven}
-	public static enum InstallationArchitecture {debianWheezy,debianSqueeze,debianRaspberry,devJava7FX}
+	public static enum InstallationArchitecture {debian,debianWheezy,debianSqueeze,debianRaspberry,devJava7FX}
 	
 	public static enum JBossClassifier {as7,eap6,mysql,postgis}
 	
