@@ -94,6 +94,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Domain }
+     * 
+     */
+    public Domain createDomain() {
+        return new Domain();
+    }
+
+    /**
      * Create an instance of {@link Type }
      * 
      */
@@ -246,19 +254,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Translations }
-     * 
-     */
-    public Translations createTranslations() {
-        return new Translations();
-    }
-
-    /**
      * Create an instance of {@link Original }
      * 
      */
     public Original createOriginal() {
         return new Original();
+    }
+
+    /**
+     * Create an instance of {@link Translations }
+     * 
+     */
+    public Translations createTranslations() {
+        return new Translations();
     }
 
     /**

@@ -10,23 +10,23 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestXmlCopy extends AbstractXmlStatusTest
+public class TestXmlDomain extends AbstractXmlStatusTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestXmlCopy.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlDomain.class);
 	
-	@BeforeClass public static void initFiles(){setXmlFile(dirSuffix, Copy.class);}
+	@BeforeClass public static void initFiles(){setXmlFile(dirSuffix, Domain.class);}
 	
     @Test
     public void testXml() throws FileNotFoundException
     {
-    	Copy actual = create(true);
-    	Copy expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Copy.class);
+    	Domain actual = create(true);
+    	Domain expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Domain.class);
     	assertJaxbEquals(expected, actual);
     }
     
-    public static Copy create(boolean withChilds)
+    public static Domain create(boolean withChilds)
     {
-    	Copy xml = new Copy();
+    	Domain xml = new Domain();
     	xml.setCode("myCode");
     	xml.setVisible(true);
     	xml.setGroup("myGroup");
@@ -49,8 +49,8 @@ public class TestXmlCopy extends AbstractXmlStatusTest
     {
 		UtilsXmlTestBootstrap.init();
 			
-		TestXmlCopy.initFiles();	
-		TestXmlCopy test = new TestXmlCopy();
+		TestXmlDomain.initFiles();	
+		TestXmlDomain test = new TestXmlDomain();
 		test.save();
     }
 }

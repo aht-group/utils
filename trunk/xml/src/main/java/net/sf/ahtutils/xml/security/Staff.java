@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import net.sf.ahtutils.xml.status.Domain;
 import net.sf.ahtutils.xml.status.Responsible;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.ahtutils.xml.status.Type;
@@ -25,6 +26,7 @@ import net.sf.ahtutils.xml.status.Type;
  *       &lt;sequence>
  *         &lt;element ref="{http://ahtutils.aht-group.com/security}role"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/security}user"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/status}domain"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}status"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}type"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}responsible"/>
@@ -41,6 +43,7 @@ import net.sf.ahtutils.xml.status.Type;
 @XmlType(name = "", propOrder = {
     "role",
     "user",
+    "domain",
     "status",
     "type",
     "responsible"
@@ -55,6 +58,8 @@ public class Staff
     protected Role role;
     @XmlElement(required = true)
     protected User user;
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
+    protected Domain domain;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
     protected Status status;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
@@ -118,6 +123,34 @@ public class Staff
 
     public boolean isSetUser() {
         return (this.user!= null);
+    }
+
+    /**
+     * Gets the value of the domain property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Domain }
+     *     
+     */
+    public Domain getDomain() {
+        return domain;
+    }
+
+    /**
+     * Sets the value of the domain property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Domain }
+     *     
+     */
+    public void setDomain(Domain value) {
+        this.domain = value;
+    }
+
+    public boolean isSetDomain() {
+        return (this.domain!= null);
     }
 
     /**

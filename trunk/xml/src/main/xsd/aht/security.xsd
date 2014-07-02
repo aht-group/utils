@@ -68,6 +68,7 @@
             <xsd:sequence>
                 <xsd:element ref="sec:role" maxOccurs="1"/>
                 <xsd:element ref="sec:user" maxOccurs="1"/>
+                <xsd:element ref="us:domain" maxOccurs="1"/> <!-- Possibility to use this individually -->
                 <xsd:element ref="us:status" maxOccurs="1"/> <!-- Possibility to use this individually -->
                 <xsd:element ref="us:type" maxOccurs="1"/> <!-- Possibility to use this individually -->
                 <xsd:element ref="us:responsible" maxOccurs="1"/> <!-- Possibility to use this individually -->

@@ -6,11 +6,13 @@ import java.util.Map;
 import net.sf.ahtutils.controller.util.query.StatusQuery;
 import net.sf.ahtutils.xml.aht.Query;
 import net.sf.ahtutils.xml.security.Role;
+import net.sf.ahtutils.xml.security.Staff;
 import net.sf.ahtutils.xml.security.User;
+import net.sf.ahtutils.xml.status.Domain;
 
 public class SecurityQuery
 {
-	public static enum Key {role}
+	public static enum Key {role,exStaff}
 	
 	private static Map<Key,Query> mQueries;
 	
@@ -47,6 +49,25 @@ public class SecurityQuery
 		xml.setId(0);
 		xml.setFirstName("");
 		xml.setLastName("");
+		return xml;
+	}
+	
+	public static Staff exStaff()
+	{
+		Role role = new Role();
+		role.setCode("");
+		
+		Domain domain = new Domain();
+		domain.setId(0);
+		
+		User user = new User();
+		user.setId(0);
+		
+		Staff xml = new Staff();
+		xml.setRole(role);
+		xml.setUser(user);
+		xml.setDomain(domain);
+		
 		return xml;
 	}
 }

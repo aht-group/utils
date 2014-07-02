@@ -11,6 +11,7 @@ import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.xml.security.Staff;
+import net.sf.ahtutils.xml.status.Domain;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,6 +59,13 @@ public class XmlStaffFactory<L extends UtilsLang,
 		{
 			XmlRoleFactory<L,D,C,R,V,U,A,USER> f = new XmlRoleFactory<L,D,C,R,V,U,A,USER>(q.getRole());
 			xml.setRole(f.build(staff.getRole()));
+		}
+		
+		if(q.isSetDomain())
+		{
+			Domain domain = new Domain();
+			domain.setId(staff.getDomain().getId());
+			xml.setDomain(domain);
 		}
 		
 		return xml;
