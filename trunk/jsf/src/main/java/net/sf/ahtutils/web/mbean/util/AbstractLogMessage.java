@@ -93,11 +93,13 @@ public class AbstractLogMessage <L extends UtilsLang,D extends UtilsDescription,
         return sb.toString();
     }
     
-    public static  String autoComplete(Class<?> cl, String query)
+    public static  String autoComplete(Class<?> cl, String query, int results)
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("AutoComplete for ").append(cl.getSimpleName());
-        sb.append(": ").append(query);
+        sb.append("AutoComplete");
+        sb.append(" ").append(cl.getSimpleName());
+        sb.append(" results:").append(results);
+        sb.append(" query: ").append(query);
         return sb.toString();
     }
     
