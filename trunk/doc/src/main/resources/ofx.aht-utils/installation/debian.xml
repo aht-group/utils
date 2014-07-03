@@ -21,7 +21,9 @@
 		<ofx:title lang="en">Base Installation</ofx:title>
 		
 		<ofx:paragraph lang="en" version="1">
-			The network installation CD is sufficient for installation Debian. The ISO image can be obtained from
+			The network installation CD is sufficient for installation Debian. The ISO image can be obtained from:
+			"http://www.debian.org/cd/netinst"
+			Choose the right installer, for your CPU architecture (e.g. amd64 for Intel Xeon, i3, i5, i7).
 		</ofx:paragraph>
 		
 		<media:image id="image.admin.installation.debian.base.wheezy.boot">
