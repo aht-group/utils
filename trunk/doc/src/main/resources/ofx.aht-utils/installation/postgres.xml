@@ -23,7 +23,7 @@
 		<ofx:title lang="en">Installation</ofx:title>
 		
 		<ofx:section container="true" classifier="debianSqueeze">
-			<ofx:title>Linux (Debian Wheezy)</ofx:title>
+			<ofx:title>Linux (Debian Squeeze)</ofx:title>
 			<ofx:listing>
 				<ofx:raw>export http_proxy=http://proxy:3128 (optional)
 wget http://download.osgeo.org/postgis/source/postgis-2.0.3.tar.gz
@@ -38,7 +38,7 @@ sudo make comments-install</ofx:raw>
 		</ofx:section>
 		
 		<ofx:section container="true" classifier="debianWheezy">
-			<ofx:title>Linux (Debian Squeeze)</ofx:title>
+			<ofx:title>Linux (Debian Wheezy)</ofx:title>
 			<ofx:listing>
 				<ofx:raw>apt-cache search postgis
 					apt-get install postgresql-9.1-postgis</ofx:raw>

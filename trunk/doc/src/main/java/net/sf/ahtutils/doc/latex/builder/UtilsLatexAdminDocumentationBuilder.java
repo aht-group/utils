@@ -19,7 +19,7 @@ public class UtilsLatexAdminDocumentationBuilder extends AbstractLatexDocumentat
 	
 	public static enum SecurityCode {sConceptIntroduction}
 							 
-	public static enum InstallationCode {instDebian,instJava,instJboss,instPostGis,instMaven}
+	public static enum InstallationCode {instDebian,instJava,instJboss,instPostGis,instMySql,instMaven}
 	public static enum InstallationArchitecture {debian,debianWheezy,debianSqueeze,debianRaspberry,devJava7FX}
 	
 	public static enum JBossClassifier {as7,eap6,mysql,postgis}
@@ -39,7 +39,6 @@ public class UtilsLatexAdminDocumentationBuilder extends AbstractLatexDocumentat
 	
 	@Override protected void applyConfigCodes()
 	{
-		
 		//Security
 		addConfig(SecurityCode.sConceptIntroduction.toString(),"ofx.aht-utils/administration/security/introduction.xml","admin/security/introduction");
 				
@@ -51,6 +50,7 @@ public class UtilsLatexAdminDocumentationBuilder extends AbstractLatexDocumentat
 		addConfig(InstallationCode.instJava.toString(),"ofx.aht-utils/installation/java.xml","admin/installation/java");
 		addConfig(InstallationCode.instJboss.toString(),"ofx.aht-utils/installation/jboss.xml","admin/installation/jboss");
 		addConfig(InstallationCode.instPostGis.toString(),"ofx.aht-utils/installation/postgres.xml","admin/installation/postgres");
+		addConfig(InstallationCode.instMySql.toString(),"ofx.aht-utils/installation/mysql.xml","admin/installation/mysql");
 		addConfig(InstallationCode.instMaven.toString(),"ofx.aht-utils/installation/maven.xml","admin/installation/maven");
 //		addConfig(InstallationCode.instGeoserver.toString(),"ofx.aht-utils/installation/geoserver.xml","admin/installation/geoserver");
 		
