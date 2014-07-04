@@ -190,6 +190,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link EvaluationMethod }
+     * 
+     */
+    public EvaluationMethod createEvaluationMethod() {
+        return new EvaluationMethod();
+    }
+
+    /**
      * Create an instance of {@link Types }
      * 
      */
@@ -203,6 +211,14 @@ public class ObjectFactory {
      */
     public Copy createCopy() {
         return new Copy();
+    }
+
+    /**
+     * Create an instance of {@link ProcurementMethod }
+     * 
+     */
+    public ProcurementMethod createProcurementMethod() {
+        return new ProcurementMethod();
     }
 
     /**
@@ -243,6 +259,14 @@ public class ObjectFactory {
      */
     public Category createCategory() {
         return new Category();
+    }
+
+    /**
+     * Create an instance of {@link Satisfaction }
+     * 
+     */
+    public Satisfaction createSatisfaction() {
+        return new Satisfaction();
     }
 
     /**
