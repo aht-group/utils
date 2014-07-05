@@ -151,6 +151,7 @@ body {min-width: ${width}px;}
 ----------------------------------------------------------------------------------------------------*/
 .auFieldSetTop {margin-top: ${doublegutter}px;}
 .auManualTop {margin-top: ${doublegutter}px;}
+.auNoTop {margin-top: -${doublegutter}px;}
 .auManualBottom {margin-bottom: ${doublegutter}px;}
 
 /* `Clear Floated Elements

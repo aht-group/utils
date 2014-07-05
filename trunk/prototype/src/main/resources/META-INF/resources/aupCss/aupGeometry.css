@@ -12,6 +12,11 @@ body
 a { color: #D82B00; text-decoration: none; }
 a:hover { color: #333; text-decoration: none; }
 
+/* PrimeFaces */
+.ui-outputlabel{
+	font-weight: bold;
+}
+
 /* Main Styles */
 
 #container
