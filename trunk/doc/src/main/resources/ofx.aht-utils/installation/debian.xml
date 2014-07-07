@@ -41,16 +41,16 @@
 		</media:image>
 		
 		<ofx:paragraph lang="en" version="1">
-			Install
-			Language: English - English
-			country: your country
-			locale: en_US.UTF-8
-			key map: acutal keyboard mapping
-			Enter hostname (e.g. database)
-			Enter you domain
-			Enter a secure root pwd (twice)
-			Enter a developer account ("Develover") with username "dev"
-			(Setting up clock with network time server may fail)
+			Your installation starts with the language selection. Please choose "Englisch - Englisch" for your base
+			installation and continue by selecting your current country. The next step is to install the keyboardlayout, 
+			which is "en_US.UTF-8" (select for key map: "actual keyboard mapping"). 
+			Now choose: 
+			-a valid hostname (e.g. "database")
+			-your domainname 
+			-secure root password (twice, at least 10 characters or more)
+			-a developer account ("Develover") with username "dev"
+			
+			Setting up clock with network time server may fail.		
 		</ofx:paragraph>
 		
 		<ofx:section id="section.admin.installation.debian.base.wheezy.partition" classifier="simple">
@@ -64,11 +64,9 @@
 			</media:image>
 			
 			<ofx:paragraph lang="en" version="1">
-				Guided - use entire disk
-				Select HDD
-				"All files in one partition"
-				Finish partitioning and write changes to disk
-				Check configuration and confirm
+				The installation continues with the partition method. Please select "Guided - use entire disk". Now select 
+				your HDD and choose "All files in one partition" and go on. After this move finish partitioning and write changes 
+				to disk. Check your configuration an confirm it.
 			</ofx:paragraph>
 			
 			<media:image id="image.admin.installation.debian.base.wheezy.partition.scheme">
@@ -84,10 +82,9 @@
 			<ofx:title lang="en">Package manager (Mirror)</ofx:title>
 			
 			<ofx:paragraph lang="en" version="1">
-				Select country (or country with good connection to)
-				Select mirror
-				HTTP proxy (can be left blank if no proxy) CONTINUE
-				No participation in package usage survey
+				For the package manager you have to select your country (or a country with good connection to). Select a
+				mirror, for example "ftp.(your country).debian.org/debian/". If there is a proxy server in your domain, 
+				add the proxy server information and continue (No participation in package usage survey).
 			</ofx:paragraph>
 			
 			<media:image id="image.admin.installation.debian.base.wheezy.mirror">
@@ -121,15 +118,14 @@
 			<ofx:title lang="en">Finishing Installation</ofx:title>
 			
 			<ofx:paragraph lang="en" version="1">
-				Install GRUB boot loader to the master boot record: YES
-				Then FINISH the installation
+				Install GRUB boot loader to the master boot record, press YES and FINISH the base installation of debian.
 			</ofx:paragraph>
 			
 			<media:image id="image.admin.installation.debian.base.wheezy.console">
 				<layout:alignment horizontal="center"/>
 				<layout:width unit="percentage">60</layout:width>
 			    <ofx:title>Debian Login console</ofx:title>
-				<media:media lang="en" src="svg.aht-utils/under-construction.svg" dst="en/admin/installation/debian/console"/>
+				<media:media lang="en" src="svg.aht-utils/installation/debian/wheezy/login.png" dst="en/admin/installation/debian/login"/>
 			</media:image>
 						
 		</ofx:section>
