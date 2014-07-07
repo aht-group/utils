@@ -16,9 +16,7 @@ public class XmlStatusFactory
 	private Status q;
 	private String lang;
 	
-	@Deprecated
-	public XmlStatusFactory(Status q){this("en",q);}
-	
+	public XmlStatusFactory(Status q){this(null,q);}
 	public XmlStatusFactory(String lang,Status q)
 	{
 		this.lang=lang;
@@ -46,7 +44,7 @@ public class XmlStatusFactory
 			xml.setDescriptions(f.create(ejb.getDescription()));
 		}
 		
-		if(q.isSetLabel())
+		if(q.isSetLabel() && lang!=null)
 		{
 			if(ejb.getName()!=null)
 			{

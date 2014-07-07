@@ -3,7 +3,6 @@ package net.sf.ahtutils.factory.xml.status;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
-import net.sf.ahtutils.xml.status.Phase;
 import net.sf.ahtutils.xml.status.Satisfaction;
 
 import org.slf4j.Logger;
@@ -37,13 +36,12 @@ public class XmlSatisfactionFactory <S extends UtilsStatus<S,L,D>,L extends Util
 		{
 
 		}
-		
 		return xml;
 	}
 	
-	public static Phase build(String code)
+	public static Satisfaction build(String code)
 	{
-		Phase xml = new Phase();
+		Satisfaction xml = new Satisfaction();
 		xml.setCode(code);
 		return xml;
 	}

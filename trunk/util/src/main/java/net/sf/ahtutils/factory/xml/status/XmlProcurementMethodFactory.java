@@ -3,7 +3,6 @@ package net.sf.ahtutils.factory.xml.status;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
-import net.sf.ahtutils.xml.status.Phase;
 import net.sf.ahtutils.xml.status.ProcurementMethod;
 
 import org.slf4j.Logger;
@@ -41,9 +40,9 @@ public class XmlProcurementMethodFactory <S extends UtilsStatus<S,L,D>,L extends
 		return xml;
 	}
 	
-	public static Phase build(String code)
+	public static ProcurementMethod build(String code)
 	{
-		Phase xml = new Phase();
+		ProcurementMethod xml = new ProcurementMethod();
 		xml.setCode(code);
 		return xml;
 	}
