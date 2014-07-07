@@ -30,17 +30,16 @@
 		<ofx:title lang="en">Database creation</ofx:title>
 		<ofx:title lang="de">Erstellung der Datenbank</ofx:title>
 		<ofx:title lang="fr">Erstellung der Datenbank</ofx:title>
-		<ofx:listing>
-			<ofx:raw>
-				DROP DATABASE IF EXISTS xxx;
-				CREATE DATABASE xxx charset utf8;
-				GRANT all ON xxx.* TO xxx@localhost IDENTIFIED BY 'xxx';
-				FLUSH privileges;
-			</ofx:raw>
-		</ofx:listing>
+		
+		<ofx:listing external="listing/admin/installation/mysql/create.sql"/>
+		
 		<ofx:paragraph lang="de">
 			Das Kennwort kann frei gewählt werden, gilt dann jeodch für alle Zugriffe auf die MySQL Datenbank und
 			muss entsprechend in den weiteren Konfigurationsdateien eingetragen werden.
+		</ofx:paragraph>
+		<ofx:paragraph lang="en">
+			The password can be choosen randomly, but of course must be entered in all following
+			configurations with regard to MySQL databse.
 		</ofx:paragraph>
 	</ofx:section>
 </ofx:section>
