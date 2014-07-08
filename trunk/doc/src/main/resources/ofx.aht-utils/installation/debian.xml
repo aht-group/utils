@@ -125,7 +125,7 @@
 				<layout:alignment horizontal="center"/>
 				<layout:width unit="percentage">60</layout:width>
 			    <ofx:title>Debian Login console</ofx:title>
-				<media:media lang="en" src="svg.aht-utils/installation/debian/wheezy/login.png" dst="en/admin/installation/debian/login"/>
+				<media:media lang="en" src="png.aht-utils/installation/debian/wheezy/console.png" dst="en/admin/installation/debian/console"/>
 			</media:image>
 						
 		</ofx:section>
