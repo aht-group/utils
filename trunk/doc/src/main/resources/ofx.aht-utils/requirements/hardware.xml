@@ -125,8 +125,8 @@
 		            </t:row>
 		            <t:row>
 		                <t:cell><ofx:paragraph>Network</ofx:paragraph></t:cell>
-		                <t:cell><ofx:paragraph>Network adapter with two interfaces (1 Gbps)</ofx:paragraph></t:cell>
-		                <t:cell><ofx:paragraph>Network adapter with two interfaces (1 Gbps)</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>Network adapter with 1 Gbps</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>Network adapter with 1 Gbps</ofx:paragraph></t:cell>
 		            </t:row>
 		            <t:row>
 		                <t:cell><ofx:paragraph>OS</ofx:paragraph></t:cell>

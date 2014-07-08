@@ -16,8 +16,9 @@ public class UtilsLatexDevelopmentDocumentationBuilder extends AbstractLatexDocu
 	final static Logger logger = LoggerFactory.getLogger(UtilsLatexDevelopmentDocumentationBuilder.class);
 					
 	public static final String cfgKeyErSvg = "doc.image.admin.development.er";
-	public static enum ErCode {erIntroduction}
 	
+	public static enum ErCode {erIntroduction}
+	public static enum EclipseClassifier {luna,svn,git}
 		
 	public UtilsLatexDevelopmentDocumentationBuilder(Configuration config, Translations translations,String[] langs, CrossMediaManager cmm)
 	{
@@ -31,12 +32,18 @@ public class UtilsLatexDevelopmentDocumentationBuilder extends AbstractLatexDocu
 	
 	@Override protected void applyConfigCodes()
 	{	
-		// ER
 		addConfig(ErCode.erIntroduction.toString(),"ofx.aht-utils/development/er.xml","admin/development/er");
+		addConfig("eclipse","ofx.aht-utils/development/environment/eclipse.xml","admin/development/environment/eclipse");
 	}
 
 	public void render(ErCode code) throws UtilsConfigurationException{render(code.toString());}
 	
+	public void renderEclipse(EclipseClassifier... versions) throws UtilsConfigurationException
+	{
+		String[] classifier = new String[versions.length];
+		for(int i=0;i<versions.length;i++){classifier[i]=versions[i].toString();}
+		render(2,"eclipse",classifier);
+	}
 	
 	protected void applySectionSettings(String code, Section section)
 	{

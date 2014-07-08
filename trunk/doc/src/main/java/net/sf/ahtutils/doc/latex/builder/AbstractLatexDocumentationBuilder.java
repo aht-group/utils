@@ -59,19 +59,21 @@ public class AbstractLatexDocumentationBuilder extends AbstractDocumentationLate
 		dstFiles.put(code, destination);
 	}
 	
-	protected void render(String code) throws UtilsConfigurationException{render(code,null);}
-	protected void render(String code,String classifier[]) throws UtilsConfigurationException
+	protected void render(String code) throws UtilsConfigurationException{render(1,code);}
+	protected void render(int lvl, String code) throws UtilsConfigurationException{render(lvl,code,null);}
+	protected void render(String code,String classifier[]) throws UtilsConfigurationException{render(1,code,classifier);}
+	protected void render(int lvl, String code,String classifier[]) throws UtilsConfigurationException
 	{
 		try
 		{
-			renderSection(code,classifier);
+			renderSection(lvl,code,classifier);
 		}
 		catch (FileNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
 		catch (OfxAuthoringException e) {throw new UtilsConfigurationException(e.getMessage());}
 		catch (IOException e) {throw new UtilsConfigurationException(e.getMessage());}
 	}
 	
-	protected void renderSection(String code, String classifier[]) throws OfxAuthoringException, IOException
+	protected void renderSection(int lvl,String code, String classifier[]) throws OfxAuthoringException, IOException
 	{
 		logger.trace("Rendering "+Section.class.getSimpleName()+": "+code);
 		Section section = JaxbUtil.loadJAXB(config.getString(code), Section.class);
@@ -96,7 +98,7 @@ public class AbstractLatexDocumentationBuilder extends AbstractDocumentationLate
 			Section sectionlang = omf.filterLang(section);
 			
 			File f = new File(baseLatexDir,lang+"/"+"section"+"/"+dstFiles.get(code)+".tex");
-			this.writeSection(sectionlang, f);
+			this.writeSection(lvl,sectionlang, f);
 		}
 	}
 	
