@@ -17,8 +17,10 @@ public class UtilsLatexDevelopmentDocumentationBuilder extends AbstractLatexDocu
 					
 	public static final String cfgKeyErSvg = "doc.image.admin.development.er";
 	
+	
 	public static enum ErCode {erIntroduction}
 	public static enum EclipseClassifier {luna,svn,git}
+	public static enum Code {latex}
 		
 	public UtilsLatexDevelopmentDocumentationBuilder(Configuration config, Translations translations,String[] langs, CrossMediaManager cmm)
 	{
@@ -34,8 +36,13 @@ public class UtilsLatexDevelopmentDocumentationBuilder extends AbstractLatexDocu
 	{	
 		addConfig(ErCode.erIntroduction.toString(),"ofx.aht-utils/development/er.xml","admin/development/er");
 		addConfig("eclipse","ofx.aht-utils/development/environment/eclipse.xml","admin/development/environment/eclipse");
+		
+		addConfig(Code.latex.toString(),"ofx.aht-utils/development/environment/latex.xml","admin/development/environment/latex");
 	}
 
+	public void render(Code code) throws UtilsConfigurationException{render(2,code);}
+	public void render(int lvl, Code code) throws UtilsConfigurationException{render(lvl,code.toString());}
+	
 	public void render(ErCode code) throws UtilsConfigurationException{render(code.toString());}
 	
 	public void renderEclipse(EclipseClassifier... versions) throws UtilsConfigurationException

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org" id="section.development.environment.latex">
+	
+	<ofx:title>Latex</ofx:title>
+	
+	<ofx:paragraph lang="en">
+		LaTeX is a document preparation system and document markup language.
+		It is widely used for the communication and publication of scientific documents in many fields,
+		including mathematics, physics, and computer science.
+		It also has a prominent role in the preparation and publication of books and articles that contain complex multilingual materials,
+		such as Sanskrit and Arabic.
+		LaTeX uses the TeX typesetting program for formatting its output, and is itself written in the TeX macro language.
+		LaTeX is not the name of a particular editing program,
+		but refers to the encoding or tagging conventions that are used in LaTeX documents.
+	</ofx:paragraph>
+	
+	<ofx:paragraph lang="en">
+		In this context, LaTeX is used as an intermediate format as part of a pipeline for translating XML-based content to PDF.
+		The typesetting system offers programmable desktop publishing features and extensive facilities for automating most aspects of
+		typesetting and desktop publishing,
+		including numbering and cross-referencing of tables and figures, chapter and section headings, the inclusion of graphics,
+		page layout, indexing and bibliographies.
+	</ofx:paragraph>
+	
+		
+</ofx:section>
