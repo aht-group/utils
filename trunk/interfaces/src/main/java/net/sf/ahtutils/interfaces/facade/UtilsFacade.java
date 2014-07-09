@@ -8,6 +8,7 @@ import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.date.EjbWithTimeline;
 import net.sf.ahtutils.interfaces.model.date.EjbWithYear;
 import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
@@ -59,7 +60,7 @@ public interface UtilsFacade extends UtilsIdFacade
 //	<T extends EjbMergeable> T merge(T o) throws UtilsContraintViolationException, UtilsLockingException;
 	<T extends Object> T persist(T o) throws UtilsContraintViolationException;
 	<T extends Object> T update(T o) throws UtilsContraintViolationException,UtilsLockingException;
-	<T extends EjbWithId> T save(T o) throws UtilsContraintViolationException,UtilsLockingException;
+	<T extends EjbSaveable> T save(T o) throws UtilsContraintViolationException,UtilsLockingException;
 	
 	<T extends EjbRemoveable> void rm(T o) throws UtilsIntegrityException;
 	

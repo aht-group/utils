@@ -9,6 +9,7 @@ import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
+import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.date.EjbWithTimeline;
 import net.sf.ahtutils.interfaces.model.date.EjbWithYear;
 import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
@@ -42,7 +43,7 @@ public class AbstractUtilsFacadeBean implements UtilsFacade
 	protected UtilsFacadeBean fUtils;
 	
 	// Persist
-	public <T extends EjbWithId> T save(T o) throws UtilsContraintViolationException,UtilsLockingException {return fUtils.save(o);}
+	public <T extends EjbSaveable> T save(T o) throws UtilsContraintViolationException,UtilsLockingException {return fUtils.save(o);}
 	public <T extends Object> T persist(T o) throws UtilsContraintViolationException {return fUtils.persist(o);}
 	public <T extends Object> T update(T o) throws UtilsContraintViolationException, UtilsLockingException {return fUtils.update(o);}
 	

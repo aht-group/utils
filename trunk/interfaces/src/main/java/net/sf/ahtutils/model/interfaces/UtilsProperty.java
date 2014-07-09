@@ -1,8 +1,8 @@
 package net.sf.ahtutils.model.interfaces;
 
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 
-public interface UtilsProperty extends EjbWithId
+public interface UtilsProperty extends EjbSaveable
 {
 	public String getKey();
 	public void setKey(String key);
