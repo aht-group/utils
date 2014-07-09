@@ -44,6 +44,7 @@ public class AbstractUtilsFacadeBean implements UtilsFacade
 	
 	// Persist
 	public <T extends EjbSaveable> T save(T o) throws UtilsContraintViolationException,UtilsLockingException {return fUtils.save(o);}
+	protected <T extends EjbWithId> T saveProtected(T o) throws UtilsContraintViolationException,UtilsLockingException {return fUtils.saveProtected(o);}
 	public <T extends Object> T persist(T o) throws UtilsContraintViolationException {return fUtils.persist(o);}
 	public <T extends Object> T update(T o) throws UtilsContraintViolationException, UtilsLockingException {return fUtils.update(o);}
 	

@@ -71,6 +71,10 @@ public class UtilsFacadeBean implements UtilsFacade
 	@Override
 	public <T extends EjbSaveable> T save(T o) throws UtilsContraintViolationException,UtilsLockingException
 	{
+		return saveProtected(o);
+	}
+	public <T extends EjbWithId> T saveProtected(T o) throws UtilsContraintViolationException, UtilsLockingException
+	{
 		if(o.getId()==0){return this.persist(o);}
 		else{return this.update(o);}
 	}
