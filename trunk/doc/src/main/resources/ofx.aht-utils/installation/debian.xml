@@ -3,6 +3,7 @@
 			 xmlns:media="http://www.openfuxml.org/media"
 			 xmlns:layout="http://www.openfuxml.org/layout"
 			 xmlns:text="http://www.openfuxml.org/text"
+			 xmlns:l="http://www.openfuxml.org/list"
 			 id="section.admin.installation.debian">
 	<ofx:title lang="en">Debian Linux</ofx:title>
 	
@@ -44,12 +45,32 @@
 			Your installation starts with the language selection. Please choose "Englisch - Englisch" for your base
 			installation and continue by selecting your current country. The next step is to install the keyboardlayout, 
 			which is "en_US.UTF-8" (select for key map: "actual keyboard mapping"). 
-			Now choose: 
-			-a valid hostname (e.g. "database")
-			-your domainname 
-			-secure root password (twice, at least 10 characters or more)
-			-a developer account ("Develover") with username "dev"
-			
+		</ofx:paragraph>
+		
+		<ofx:paragraph lang="en" version="1">Now choose: </ofx:paragraph>
+		
+		<l:list>
+	    	<l:type ordering="unordered"/>	
+	    		   		
+			<l:item>
+	    		<ofx:paragraph lang="en">a valid hostname (e.g. "database")</ofx:paragraph>
+	   		</l:item>
+	   		
+			<l:item>
+	    		<ofx:paragraph lang="en">your domainname </ofx:paragraph>
+	   		</l:item>
+	   		
+			<l:item>
+	    		<ofx:paragraph lang="en">secure root password (twice, at least 10 characters or more)</ofx:paragraph>
+	   		</l:item>
+	   		
+			<l:item>
+	    		<ofx:paragraph lang="en">a developer account ("Develover") with username "dev"</ofx:paragraph>
+	   		</l:item>
+	   		
+	   	</l:list>
+	   		
+		<ofx:paragraph lang="en" version="1">				
 			Setting up clock with network time server may fail.		
 		</ofx:paragraph>
 		
@@ -118,7 +139,8 @@
 			<ofx:title lang="en">Finishing Installation</ofx:title>
 			
 			<ofx:paragraph lang="en" version="1">
-				Install GRUB boot loader to the master boot record, press YES and FINISH the base installation of debian.
+				Install GRUB boot loader to the master boot record, press <text:emphasis style="typewriter">YES</text:emphasis> and
+				 FINISH the base installation of debian.
 			</ofx:paragraph>
 			
 			<media:image id="image.admin.installation.debian.base.wheezy.console">
@@ -158,28 +180,33 @@
 				and the permission for the user <text:emphasis italic="true">root</text:emphasis> to log in remotely.
 			</ofx:paragraph>
 			
+			<ofx:listing>
+				<ofx:raw>
+				<text:emphasis style="typewriter">nano etc/ssh/sshd-config</text:emphasis> 				
+				permitrootlogin no 
+				challengeresponsepasswords no 
+				</ofx:raw>
+			</ofx:listing>
+			
+			<ofx:title lang="en">Cryptographic Keys</ofx:title>
+			
 			<ofx:paragraph lang="en" version="1">
 				First of all, a cryptographic key has to be generated on the computer of the user. This procedure varies
 				for different operating system, here the process for Linux is described.
 			</ofx:paragraph>
 			
 			<ofx:listing>
-				<ofx:raw>ssh-keygen ddd</ofx:raw>
+				<ofx:raw>ssh-keygen -t rsa -b 2048</ofx:raw>
 			</ofx:listing>
-			
+				
 			<ofx:paragraph lang="en" version="1">
-				The public part of this key (key.pub) has to be appended to the file .authorizedkeys
+				The public part of this key (key.pub) has to be appended to the file .authorizedkeys.
 			</ofx:paragraph>
 			
 			<ofx:paragraph lang="en" version="1">
-				Then, the server configuration in etc.ssh.sshd has to be updated
+				Then, the server configuration <text:emphasis style="typewriter">"-config" in etc/ssh/sshd-config</text:emphasis> has to be updated.
 			</ofx:paragraph>
-			
-			<ofx:listing>
-				<ofx:raw>permitrootlogin
-challengeresponsepasswords</ofx:raw>
-			</ofx:listing>
-			
+					
 		</ofx:section>
 		
 		<ofx:section>
