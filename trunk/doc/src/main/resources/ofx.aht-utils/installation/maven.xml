@@ -41,14 +41,14 @@ tar -xvzf path_to_download/apache-maven-3.1.0-bin.tar.gz</ofx:raw>
 			</ofx:listing>
 			
 			<ofx:paragraph lang="de" version="1">
-				Danach muss folgender Eintrag in der Datei /etc/profile vor dem Befehk export PATH hinzugefügt werden.
+				Danach muss folgender Eintrag in der Datei /etc/profile vor dem Befeh export PATH (oder am Ende der Datei) hinzugefügt werden.
 			</ofx:paragraph>
 			<ofx:paragraph lang="de" version="1">
-				Then the following entry has to added in /etc/profile before export PATH.
+				Then the following entry has to added in /etc/profile before export PATH (or at the end of the file).
 			</ofx:paragraph>
 			
 			<ofx:listing>
-				<ofx:raw>PATH=$PATH:/opt/apache-maven-3.1.0/bin</ofx:raw>
+				<ofx:raw>PATH=$PATH:/opt/apache-maven-3.2.2/bin</ofx:raw>
 			</ofx:listing>
 		</ofx:section>
 		

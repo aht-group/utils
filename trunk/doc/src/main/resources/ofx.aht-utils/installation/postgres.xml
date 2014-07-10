@@ -41,7 +41,15 @@ sudo make comments-install</ofx:raw>
 			<ofx:title>Linux (Debian Wheezy)</ofx:title>
 			<ofx:listing>
 				<ofx:raw>apt-cache search postgis
-					apt-get install postgresql-9.1-postgis</ofx:raw>
+apt-get install postgresql-9.1-postgis</ofx:raw>
+			</ofx:listing>
+		</ofx:section>
+		
+		<ofx:section container="true" classifier="ubuntu14">
+			<ofx:title>Ubuntu (14.04 LTS)</ofx:title>
+			<ofx:listing>
+				<ofx:raw>sudo apt-cache search postgis
+sudo apt-get install postgresql-9.3-postgis-2.1</ofx:raw>
 			</ofx:listing>
 		</ofx:section>
 	</ofx:section>
@@ -54,10 +62,26 @@ sudo make comments-install</ofx:raw>
 			Detailed Information can be obtained here http://trac.osgeo.org/postgis/wiki/UsersWikiPostGIS20Debian70src
 		</ofx:paragraph>
 		<ofx:listing classifier="debianWheezy">
-			<ofx:raw>CREATE USER geo WITH PASSWORD 'geo';
-CREATE DATABASE lis OWNER geo TEMPLATE template_postgis ENCODING 'UTF8';
-GRANT ALL PRIVILEGES ON DATABASE geo TO geo;
-createlang plpgsql geo;</ofx:raw>
+			<ofx:raw>CREATE USER **dbName** WITH PASSWORD '**dbName**';
+CREATE DATABASE **dbName** OWNER **dbName** TEMPLATE template_postgis ENCODING 'UTF8';
+GRANT ALL PRIVILEGES ON DATABASE **dbName** TO **dbName**</ofx:raw>
+		</ofx:listing>
+		
+		<ofx:paragraph lang="en" classifier="ubuntu14">
+			As user "postgres":
+		</ofx:paragraph>
+		<ofx:listing classifier="ubuntu14">
+			<ofx:raw>CREATE USER **dbName** WITH PASSWORD '**dbName**';
+CREATE DATABASE **dbName** OWNER **dbName** ENCODING 'UTF8';
+GRANT ALL PRIVILEGES ON DATABASE **dbName** TO **dbName**;</ofx:raw>
+		</ofx:listing>
+		<ofx:paragraph lang="en" classifier="ubuntu14">
+			Then in the console
+		</ofx:paragraph>
+		<ofx:listing classifier="debianWheezy">
+			<ofx:raw>psql -U postgres -d **dbName** -f /usr/share/postgresql/9.3/contrib/postgis-2.1/postgis.sql
+psql -U postgres -d **dbName** -f /usr/share/postgresql/9.3/contrib/postgis-2.1/postgis_comments.sql
+psql -U postgres -d **dbName** -f /usr/share/postgresql/9.3/contrib/postgis-2.1/spatial_ref_sys.sql</ofx:raw>
 		</ofx:listing>
 		
 	</ofx:section>

@@ -4,6 +4,12 @@
 	id="section.admin.installation.jboss">
 	<ofx:title lang="en">JBoss Application Server</ofx:title>
 	
+	<ofx:paragraph lang="en">
+			JBossAS, or simply JBoss, is an application server authored by JBoss, now developed by Red Hat.
+			It is written in Java, and implements the Java Platform, Enterprise Edition (Java EE) specification.
+			It runs on multiple platforms. The software is free and open-source software, subject to the requirements of the GNU Lesser General Public License (LGPL).
+		</ofx:paragraph>
+	
 	<ofx:section container="true" classifier="as7">
 		<ofx:title lang="en">AS7</ofx:title>
 		
@@ -29,11 +35,17 @@
 	<ofx:section container="true" classifier="eap6">
 		<ofx:title lang="en">EAP 6.1</ofx:title>
 		
+		<ofx:paragraph lang="de" version="1">
+				Download EAP 6.1.0 GA from www.jboss.org and install to /opt. In /opt the access rights for the directory
+				have to adjusted:
+				sudo chown dev jboss-eap-6.1/ -R
+			</ofx:paragraph>
+		
 		<ofx:section>
 			<ofx:title lang="en">Configuration</ofx:title>
 			
 			<ofx:paragraph lang="de" version="1">
-				Um Ausgaben in einer anderen Sprache als Englush zu vermeiden,
+				Um Ausgaben in einer anderen Sprache als Englisch zu vermeiden,
 				sollte die Sprache in der Datei <text:emphasis style="typewriter">/bin/standalone.conf</text:emphasis>
 				explizit mit folgender Option gesetzt werden:
 			</ofx:paragraph>
@@ -45,62 +57,114 @@
 			<ofx:listing>
 				<ofx:raw>JAVA_OPTS = ... -Duser.language=en</ofx:raw>
 			</ofx:listing>
-		</ofx:section>
+			
+			<ofx:paragraph lang="en" version="1">
+				The applciations server needs
+				 <text:emphasis style="typewriter">jboss-6.1.0-postgis.tgz</text:emphasis> 
+				 
+				 Unpacking in <text:emphasis style="typewriter">jboss-eap-6.1/modules/system/layers/base</text:emphasis>
+			</ofx:paragraph>
+			
+			<ofx:section>
+				<ofx:title lang="en">Data Source</ofx:title>
+				
+				<ofx:paragraph lang="en" version="1">
+					The data source describes the connection to the database and registeres it internally in
+					the application server. The password shown is the given listing is an example and should
+					be changed for production use.
+				</ofx:paragraph>
+				<ofx:listing external="listing/admin/installation/jboss/datasource.xml"/>
+				
+				<ofx:section container="true" classifier="postgis">
+					<ofx:title lang="en">PostGIS Database Driver</ofx:title>
+					
+					<ofx:paragraph lang="en" version="1">
+						The database driver for PostgreSQL has to be registered in
+						<text:emphasis style="typewriter">/standalone/configuration/standalone.conf</text:emphasis>
+						in the section <text:emphasis italic="true">server/profile/subsystem</text:emphasis> of the subsystem
+						<text:emphasis italic="true">urn:jboss:domain:datasources:1.1</text:emphasis> as a new driver:
+					</ofx:paragraph>
+					<ofx:listing external="listing/admin/installation/jboss/ds-driver-postgres.xml"/>
+				</ofx:section>
+			</ofx:section>
+			
+			<ofx:section>
+				<ofx:title lang="en">Connection</ofx:title>
+				
+				<ofx:paragraph lang="en" version="1">
+					http all
+				</ofx:paragraph>
+				
+			</ofx:section>
+			
+			<ofx:section>
+				<ofx:title lang="en">Modules</ofx:title>
+				
+				<ofx:paragraph lang="en" version="1">
+					All modules can be automatically installed by unpacking the provided archive
+					<text:emphasis style="typewriter">jboss-modules-tgz</text:emphasis> in the directory
+					<text:emphasis style="typewriter">/opt/jboss-eap-6.1/modules/system/layers/base</text:emphasis>.
+					The following subsection describe the differences to the original configuration files.
+				</ofx:paragraph>
+				
+				<ofx:section classifier="postgis">
+					<ofx:title lang="en">PostgreSQL Module</ofx:title>
+					
+					<ofx:paragraph lang="en" version="1">
+						Similar to the setup of other JDBC database drivers for JBoss,
+						a module <text:emphasis bold="true">org.postgresql</text:emphasis> has to be registered.
+						In the directory <text:emphasis style="typewriter">/modules/org/postgresql/main</text:emphasis>
+						the new file <text:emphasis style="typewriter">module.xml</text:emphasis> must be created
+						with the following content:
+					</ofx:paragraph>
+					<ofx:listing external="listing/admin/installation/jboss/module-postgres.xml"/>
+				</ofx:section>
+				
+				<ofx:section classifier="mysql">
+					<ofx:title lang="en">MySQL Module</ofx:title>
+					
+					<ofx:paragraph lang="en" version="1">
+						TBD
+					</ofx:paragraph>
+					
+				</ofx:section>
+				
+				<ofx:section>
+					<ofx:title lang="en">Hibernate Module</ofx:title>
+					
+					<ofx:paragraph lang="en" version="1">
+						The module <text:emphasis bold="true">hibernate</text:emphasis> already exists in the directory
+						<text:emphasis style="typewriter">/modules/hibernate/main</text:emphasis>
+						and must be extended:
+					</ofx:paragraph>
+					<ofx:listing external="listing/admin/installation/jboss/module-hibernate.xml"/>
+				</ofx:section>
+				
+			</ofx:section>
 		
+		</ofx:section>
 		
 		
 		<ofx:section>
-			<ofx:title lang="en">Data Source</ofx:title>
+			<ofx:title lang="en">Deployment</ofx:title>
 			
 			<ofx:paragraph lang="en" version="1">
-				The data source describes the connection to the database and registeres it internally in
-				the application server. The password shown is the given listing is an example and should
-				be changed for production use.
+					The application is deployed using the command line tool
+					<text:emphasis style="typewriter">/opt/jboss-eap-6.1/bin/jboss-cli.sh</text:emphasis>
+					in the same directoy where the file
+					<text:emphasis style="typewriter">meis.ear</text:emphasis>
+					is located. Detailed instructions for deployment and undeployment are given in section 
+					<text:emphasis italic="true">System Maintenance</text:emphasis>.
 			</ofx:paragraph>
-			<ofx:listing external="listing/admin/installation/jboss/datasource.xml"/>
-		</ofx:section>
-	
-		<ofx:section classifier="postgis">
-			<ofx:title lang="en">PostGIS Database Driver</ofx:title>
 			
-			<ofx:paragraph lang="en" version="1">
-				The in the <text:emphasis style="typewriter">/standalone/configuration/standalone.conf</text:emphasis>
-				in the section <text:emphasis italic="true">server/profile/subsystem</text:emphasis> of the subsystem
-				<text:emphasis italic="true">urn:jboss:domain:datasources:1.1</text:emphasis> as a new driver:
-			</ofx:paragraph>
-			<ofx:listing external="listing/admin/installation/jboss/ds-driver-postgres.xml"/>
-			
-			<ofx:section>
-				<ofx:title lang="en">PostgreSQL Module</ofx:title>
-				
-				<ofx:paragraph lang="en" version="1">
-					Similar to the setup of other JDBC database drivers for JBoss,
-					a module <text:emphasis bold="true">org.postgresql</text:emphasis> has to be registered.
-					In the directory <text:emphasis style="typewriter">/modules/org/postgresql/main</text:emphasis>
-					the new file <text:emphasis style="typewriter">module.xml</text:emphasis> must be created
-					with the following content:
-				</ofx:paragraph>
-				<ofx:listing external="listing/admin/installation/jboss/module-postgres.xml"/>
-				<ofx:paragraph lang="en" version="1">
-					The specified jar files have to be saved in the same directory.
-				</ofx:paragraph>
-			</ofx:section>
-			
-			<ofx:section>
-				<ofx:title lang="en">Hibernate Module</ofx:title>
-				
-				<ofx:paragraph lang="en" version="1">
-					The module <text:emphasis bold="true">hibernate</text:emphasis> already exists in the directory
-					<text:emphasis style="typewriter">/modules/hibernate/main</text:emphasis>
-					and must be extended:
-				</ofx:paragraph>
-				<ofx:listing external="listing/admin/installation/jboss/module-hibernate.xml"/>
-				<ofx:paragraph lang="en" version="1">
-					The specified jar files have to be saved in the same directory.
-				</ofx:paragraph>
-			</ofx:section>
+			<ofx:listing>
+				<ofx:raw>You are disconnected at the moment. Type 'connect' to connect to the server or
+'help' for the list of supported commands.
+[disconnected /] connect
+[standalone@localhost:9999 /] deploy meis.ear
+[standalone@localhost:9999 /] undeploy meis.ear</ofx:raw>
+			</ofx:listing>
 			
 		</ofx:section>
-	
 	</ofx:section>
 </ofx:section>

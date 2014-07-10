@@ -4,6 +4,13 @@
 	<ofx:title lang="de">MySQL Datenbank</ofx:title>
 	<ofx:title lang="fr">MySQL Datenbank</ofx:title>
 	
+	<ofx:paragraph lang="en">
+			MySQL is (as of March 2014) the world's second most widely used open-source relational database management system (RDBMS).
+			The SQL phrase stands for Structured Query Language. The MySQL development project has made its source code available
+			under the terms of the GNU General Public License, as well as under a variety of proprietary agreements.
+			MySQL was owned and sponsored by a single for-profit firm, the Swedish company MySQL AB, now owned by Oracle Corporation.
+	</ofx:paragraph>
+	
 	<ofx:section container="true" classifier="debianWheezy">
 		<ofx:title>Linux (Debian Wheezy)</ofx:title>
 		
