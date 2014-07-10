@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org"
+			xmlns:l="http://www.openfuxml.org/list"
+			xmlns:t="http://www.openfuxml.org/table"
+			xmlns:media="http://www.openfuxml.org/media"
+			xmlns:layout="http://www.openfuxml.org/layout"
+			id="section.admin.development.er">
+	<ofx:title lang="en">Entity Relationship Model</ofx:title>
+	
+	<ofx:paragraph lang="en">
+		Cascading Style Sheets (CSS) is a style sheet language used for describing the look and formatting of a document written in a markup language.
+		While most often used to style web pages and user interfaces written in HTML and XHTML,
+		the language can be applied to any kind of XML document, including plain XML, SVG and XUL.
+		CSS is a cornerstone specification of the web and almost all web pages use CSS style sheets to describe their presentation.
+	</ofx:paragraph>
+	
+	<ofx:paragraph lang="en">
+		CSS is designed primarily to enable the separation of document content from document presentation,
+		including elements such as the layout, colors, and fonts.
+		This separation can improve content accessibility, provide more flexibility and control in the specification of presentation
+		characteristics, enable multiple pages to share formatting, and reduce complexity and repetition in the structural content.
+	</ofx:paragraph>
+	
+	<l:list>
+	    <l:type ordering="unordered"/>
+	    
+	    <l:item>
+	    	<ofx:paragraph lang="en">
+				reset.css: The goal of a reset stylesheet is to reduce browser inconsistencies in things like default line heights, margins and font sizes of headings, and so on.
+				The reset styles given here are intentionally very generic.
+				There isn't any default color or background set for the body element, for example.
+			</ofx:paragraph>
+	    </l:item>
+	    
+		<l:item>
+	    	<ofx:paragraph lang="en">
+				auPrimeFaces.css
+			</ofx:paragraph>
+	    </l:item>
+	    
+	    <l:item>
+	    	<ofx:paragraph lang="en">
+				aupGeometry.css
+			</ofx:paragraph>
+	    </l:item>
+	    
+		<l:item>
+	    	<ofx:paragraph lang="en">
+				screen.css
+			</ofx:paragraph>
+	    </l:item>
+	    
+		<l:item>
+	    	<ofx:paragraph lang="en">
+				aup.css
+			</ofx:paragraph>
+	    </l:item>			
+	    
+	</l:list>
+	
+</ofx:section>

@@ -27,7 +27,7 @@
 	
 	<dependencies>
 		
-		<!-- AhtUtilks -->
+		<!-- AhtUtils -->
 	   	<dependency>
    	   		<groupId>net.sf.ahtutils</groupId>
    	   		<artifactId>ahtutils-ejb</artifactId>

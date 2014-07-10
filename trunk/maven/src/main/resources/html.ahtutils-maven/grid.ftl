@@ -1,24 +1,18 @@
 /*
 	Created by AhtUtils JSF Grid. http://ahtutils.sourceforge.net
 	
-	Based on 
- 	960 Grid System ~ Core CSS.
-  	Learn more ~ http://960.gs/
-
+	Based on 960 Grid System ~ Core CSS. Learn more ~ http://960.gs/
   	Licensed under GPL and MIT.
 */
 
 /*
-  Forces backgrounds to span full width,
-  even if there is horizontal scrolling.
-  Increase this if your layout is wider.
-
+  Forces backgrounds to span full width, even if there is horizontal scrolling. Increase this if your layout is wider.
   Note: IE6 works fine without this fix.
 */
 
 body {min-width: ${width}px;}
 
-/* `Container
+/* Container
 ----------------------------------------------------------------------------------------------------*/
 .auContainer
 {

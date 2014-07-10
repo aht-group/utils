@@ -21,18 +21,42 @@ border-bottom: 2px solid ${colorDark};
 color: ${colorDark};
 }
 
-.aupHeadline {
-background-color: ${colorDark};
-}
+.aupHeadline {background-color: ${colorDark};}
 
+
+/* SIDEMENU /*
+.sidemenu {width: 100%;}
 .sidemenu a {
-color: ${colorDark};
+    display: block;
+
+    /* white-space: nowrap; */
+    max-width: 180px;
+
+    color:#FFFFFF;
+    border-bottom:solid 1px #EDEDED;
+
+    text-align:right;
+}
+.sidemenu ul {
+    margin: 0;
+    padding: 0;
+}
+.sidemenu > ul > li {
+    list-style: none outside none;
+}
+.sidemenu > ul > li > a {
+    background-image: linear-gradient(to left, ${colorMedium}, ${colorDark});
+    padding-right:10px;
+}
+.sidemenu > ul > li > ul > li > a {
+    background-image: linear-gradient(to left, ${colorLight}, ${colorMedium});
+    padding-right:20px;
+}
+.sidemenu > ul > li > ul > li > ul > li > a {
+    background-image: linear-gradient(to left, ${colorLight}, ${colorMedium});
+    padding-right:30px;
 }
 
-.sidemenu a:hover{
-color: #FFF;
-background: ${colorDark};
-}
 
 
 /* BREADCRUMBS */

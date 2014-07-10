@@ -1,30 +1,24 @@
 /*
 	Created by AhtUtils JSF Grid. http://ahtutils.sourceforge.net
 	
-	Based on 
- 	960 Grid System ~ Core CSS.
-  	Learn more ~ http://960.gs/
-
+	Based on 960 Grid System ~ Core CSS. Learn more ~ http://960.gs/
   	Licensed under GPL and MIT.
 */
 
 /*
-  Forces backgrounds to span full width,
-  even if there is horizontal scrolling.
-  Increase this if your layout is wider.
-
+  Forces backgrounds to span full width, even if there is horizontal scrolling. Increase this if your layout is wider.
   Note: IE6 works fine without this fix.
 */
 
-body {min-width: 720px;}
+body {min-width: 960px;}
 
-/* `Container
+/* Container
 ----------------------------------------------------------------------------------------------------*/
 .auContainer
 {
   margin-left: auto;
   margin-right: auto;
-  width: 720px;
+  width: 960px;
   padding-bottom: 10px;
 }
 
@@ -58,18 +52,18 @@ body {min-width: 720px;}
 
 /* Grid >> 12 Columns
 ----------------------------------------------------------------------------------------------------*/
-.auContainer .auGrid_1  {width: 50px;}
-.auContainer .auGrid_2  {width: 110px;}
-.auContainer .auGrid_3  {width: 170px;}
-.auContainer .auGrid_4  {width: 230px;}
-.auContainer .auGrid_5  {width: 290px;}
-.auContainer .auGrid_6  {width: 350px;}
-.auContainer .auGrid_7  {width: 410px;}
-.auContainer .auGrid_8  {width: 470px;}
-.auContainer .auGrid_9  {width: 530px;}
-.auContainer .auGrid_10 {width: 590px;}
-.auContainer .auGrid_11 {width: 650px;}
-.auContainer .auGrid_12 {width: 710px;}
+.auContainer .auGrid_1  {width: 70px;}
+.auContainer .auGrid_2  {width: 150px;}
+.auContainer .auGrid_3  {width: 230px;}
+.auContainer .auGrid_4  {width: 310px;}
+.auContainer .auGrid_5  {width: 390px;}
+.auContainer .auGrid_6  {width: 470px;}
+.auContainer .auGrid_7  {width: 550px;}
+.auContainer .auGrid_8  {width: 630px;}
+.auContainer .auGrid_9  {width: 710px;}
+.auContainer .auGrid_10 {width: 790px;}
+.auContainer .auGrid_11 {width: 870px;}
+.auContainer .auGrid_12 {width: 950px;}
 
 /* Grid >> Pull & Push
 ----------------------------------------------------------------------------------------------------*/
