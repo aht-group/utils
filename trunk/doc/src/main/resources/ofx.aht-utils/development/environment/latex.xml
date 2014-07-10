@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ofx:section xmlns:ofx="http://www.openfuxml.org" id="section.development.environment.latex">
+<ofx:section xmlns:ofx="http://www.openfuxml.org"
+		xmlns:text="http://www.openfuxml.org/text"
+	id="section.development.environment.latex">
 	
 	<ofx:title>Latex</ofx:title>
 	
@@ -21,6 +23,24 @@
 		including numbering and cross-referencing of tables and figures, chapter and section headings, the inclusion of graphics,
 		page layout, indexing and bibliographies.
 	</ofx:paragraph>
+	
+	<ofx:section>
+		<ofx:title lang="en">Installation</ofx:title>
+		
+		<ofx:paragraph lang="en" version="1">
+			The installation steps depend on the operating system.
+		</ofx:paragraph>
+		
+		<ofx:paragraph lang="en" version="1">
+			For Debian based operating systems, e.g. Ubuntu, the package <text:emphasis italic="true">TeX Live</text:emphasis> ist provided
+			and can be installed with:
+		</ofx:paragraph>
+		
+		<ofx:listing>
+			<ofx:raw>apt-get install texlive-full</ofx:raw>
+		</ofx:listing>
+		
+	</ofx:section>
 	
 		
 </ofx:section>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org"
+			xmlns:l="http://www.openfuxml.org/list"
+			xmlns:t="http://www.openfuxml.org/table"
+			xmlns:media="http://www.openfuxml.org/media"
+			xmlns:layout="http://www.openfuxml.org/layout"
+			id="section.admin.development.documentation">
+	<ofx:title lang="en">Documentation</ofx:title>
+	
+	<ofx:paragraph lang="en">
+		The complete source code for the documentation is located in the DOC modules. The generate the PDF files,
+		maven (mvn) has to be executed in the doc-directory.
+	</ofx:paragraph>
+	
+	<ofx:listing>
+		<ofx:raw>mvn clean latex:latex</ofx:raw>
+	</ofx:listing>
+	
+</ofx:section>

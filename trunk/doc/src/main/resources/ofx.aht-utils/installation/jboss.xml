@@ -44,26 +44,23 @@
 		<ofx:section>
 			<ofx:title lang="en">Configuration</ofx:title>
 			
-			<ofx:paragraph lang="de" version="1">
-				Um Ausgaben in einer anderen Sprache als Englisch zu vermeiden,
-				sollte die Sprache in der Datei <text:emphasis style="typewriter">/bin/standalone.conf</text:emphasis>
-				explizit mit folgender Option gesetzt werden:
-			</ofx:paragraph>
-			<ofx:paragraph lang="en" version="1">
-				To avoid debug outputs in a language different thant english,
-				the language should be explicitly be set in the
-				file <text:emphasis style="typewriter">/bin/standalone.conf</text:emphasis> with the following option:
-			</ofx:paragraph>
-			<ofx:listing>
-				<ofx:raw>JAVA_OPTS = ... -Duser.language=en</ofx:raw>
-			</ofx:listing>
-			
-			<ofx:paragraph lang="en" version="1">
-				The applciations server needs
-				 <text:emphasis style="typewriter">jboss-6.1.0-postgis.tgz</text:emphasis> 
-				 
-				 Unpacking in <text:emphasis style="typewriter">jboss-eap-6.1/modules/system/layers/base</text:emphasis>
-			</ofx:paragraph>
+			<ofx:section>
+				<ofx:title lang="en">Startup Settings</ofx:title>
+				
+				<ofx:paragraph lang="de" version="1">
+					Um Ausgaben in einer anderen Sprache als Englisch zu vermeiden,
+					sollte die Sprache in der Datei <text:emphasis style="typewriter">/bin/standalone.conf</text:emphasis>
+					explizit mit folgender Option gesetzt werden:
+				</ofx:paragraph>
+				<ofx:paragraph lang="en" version="1">
+					To avoid debug outputs in a language different thant english,
+					the language should be explicitly be set in the
+					file <text:emphasis style="typewriter">/bin/standalone.conf</text:emphasis> with the following option:
+				</ofx:paragraph>
+				<ofx:listing>
+					<ofx:raw>JAVA_OPTS = ... -Duser.language=en</ofx:raw>
+				</ofx:listing>
+			</ofx:section>
 			
 			<ofx:section>
 				<ofx:title lang="en">Data Source</ofx:title>
@@ -84,16 +81,30 @@
 						in the section <text:emphasis italic="true">server/profile/subsystem</text:emphasis> of the subsystem
 						<text:emphasis italic="true">urn:jboss:domain:datasources:1.1</text:emphasis> as a new driver:
 					</ofx:paragraph>
-					<ofx:listing external="listing/admin/installation/jboss/ds-driver-postgres.xml"/>
+					<ofx:listing>
+					<ofx:raw><![CDATA[<driver name="org.postgresql" module="org.postgresql">
+	<xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
+</driver>]]></ofx:raw>
+				</ofx:listing>
 				</ofx:section>
 			</ofx:section>
 			
 			<ofx:section>
-				<ofx:title lang="en">Connection</ofx:title>
+				<ofx:title lang="en">Network Connections</ofx:title>
 				
 				<ofx:paragraph lang="en" version="1">
-					http all
+					The default configuration of JBoss is to only listen on connections originated from
+					<text:emphasis italic="true">localhost</text:emphasis>. To enable access from other systems, the settings for the
+					<text:emphasis italic="true">public interface</text:emphasis> have to be changed in
+					<text:emphasis style="typewriter">/standalone/configuration/standalone.conf</text:emphasis> in the
+					<text:emphasis italic="true">interfaces</text:emphasis> section (near at the end of the file).
 				</ofx:paragraph>
+				
+				<ofx:listing>
+					<ofx:raw><![CDATA[<interface name="public">
+	<any-address/>
+</interface>]]></ofx:raw>
+				</ofx:listing>
 				
 			</ofx:section>
 			
@@ -117,7 +128,19 @@
 						the new file <text:emphasis style="typewriter">module.xml</text:emphasis> must be created
 						with the following content:
 					</ofx:paragraph>
-					<ofx:listing external="listing/admin/installation/jboss/module-postgres.xml"/>
+					<ofx:listing>
+						<ofx:raw><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.0" name="org.postgresql">
+	<resources>
+		<resource-root path="postgresql-9.1-903.jdbc4.jar"/>
+		<resource-root path="postgis-1.5.3.jar"/>
+	</resources>
+	<dependencies>
+		<module name="javax.api"/>
+		<module name="javax.transaction.api"/>
+	</dependencies>
+</module>]]></ofx:raw>
+				</ofx:listing>
 				</ofx:section>
 				
 				<ofx:section classifier="mysql">
@@ -126,6 +149,45 @@
 					<ofx:paragraph lang="en" version="1">
 						TBD
 					</ofx:paragraph>
+					<ofx:listing>
+						<ofx:raw><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.0" name="com.mysql">
+	<resources>
+		<resource-root path="mysql-connector-java-5.1.18-bin.jar"/>
+	</resources>
+	<dependencies>
+		<module name="javax.api"/>
+	</dependencies>
+</module>]]></ofx:raw>
+				</ofx:listing>
+					
+				</ofx:section>
+				
+				<ofx:section>
+					<ofx:title lang="en">Entity Versioning (EnVers)</ofx:title>
+					
+					<ofx:paragraph lang="en" version="1">
+						TBD
+					</ofx:paragraph>
+					
+										<ofx:listing>
+						<ofx:raw><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.hibernate.envers">
+    <resources>
+        <resource-root path="hibernate-envers-4.2.0.Final-redhat-1.jar"/>
+    </resources>
+    <dependencies>
+        <module name="org.hibernate"/>
+        <module name="org.jboss.logging"/>
+        <module name="org.dom4j"/>
+        <module name="javax.api"/>
+        <module name="javax.persistence.api"/>
+        <module name="javax.transaction.api"/>
+		<module name="org.hibernate.commons-annotations"/>
+        <module name="org.javassist"/>
+    </dependencies>
+</module>]]></ofx:raw>
+				</ofx:listing>
 					
 				</ofx:section>
 				
@@ -137,7 +199,37 @@
 						<text:emphasis style="typewriter">/modules/hibernate/main</text:emphasis>
 						and must be extended:
 					</ofx:paragraph>
-					<ofx:listing external="listing/admin/installation/jboss/module-hibernate.xml"/>
+															<ofx:listing>
+						<ofx:raw><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.hibernate">
+	<resources>
+		<resource-root path="hibernate-core-4.2.0.Final-redhat-1.jar"/>
+		<resource-root path="hibernate-entitymanager-4.2.0.Final-redhat-1.jar"/>
+		<resource-root path="hibernate-infinispan-4.2.0.Final-redhat-1.jar"/>
+		<resource-root path="hibernate-spatial-4.0-M1.jar"/>
+		<resource-root path="jts-1.12.jar"/>
+		<!-- Insert resources here -->
+	</resources>
+	<dependencies>
+		<module name="asm.asm"/>
+		<module name="javax.api"/>
+		<module name="javax.persistence.api"/>
+		<module name="javax.transaction.api"/>
+		<module name="javax.validation.api"/>
+		<module name="org.antlr"/>
+		<module name="org.apache.commons.collections"/>
+		<module name="org.dom4j"/>
+		<module name="org.infinispan" optional="true"/>
+		<module name="org.javassist"/>
+		<module name="org.jboss.as.jpa.hibernate" slot="4" optional="true"/>
+		<module name="org.jboss.logging"/>
+		<module name="org.postgresql"/>
+		<module name="org.hibernate.envers" services="import" optional="true"/>
+		<module name="org.hibernate.commons-annotations"/>
+	</dependencies>
+</module>
+]]></ofx:raw>
+				</ofx:listing>
 				</ofx:section>
 				
 			</ofx:section>
@@ -150,8 +242,9 @@
 			
 			<ofx:paragraph lang="en" version="1">
 					The application is deployed using the command line tool
-					<text:emphasis style="typewriter">/opt/jboss-eap-6.1/bin/jboss-cli.sh</text:emphasis>
-					in the same directoy where the file
+					<text:emphasis style="typewriter">/opt/jboss-eap-6.1/bin/jboss-cli.sh</text:emphasis>.
+					The easiest way is to start <text:emphasis style="typewriter">jboss-cli.sh</text:emphasis>
+					from the directoy where the file
 					<text:emphasis style="typewriter">meis.ear</text:emphasis>
 					is located. Detailed instructions for deployment and undeployment are given in section 
 					<text:emphasis italic="true">System Maintenance</text:emphasis>.
