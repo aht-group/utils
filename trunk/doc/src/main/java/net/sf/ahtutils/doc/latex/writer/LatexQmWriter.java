@@ -52,8 +52,8 @@ public class LatexQmWriter extends AbstractDocumentationLatexWriter
 	{
 		List<String> keys = new ArrayList<String>();
 		
+		keys.add("auTableQaName");
 		keys.add("auTableQaRole");
-		keys.add(OfxStatusTableFactory.translationKeyDescription);
 		if(withResponsible){keys.add("auTableQaResponsibilities");}
 		if(withOrganisation){keys.add("auTableQaOrganisation");}
 		

@@ -18,12 +18,12 @@ import net.sf.ahtutils.model.interfaces.security.UtilsSecurityView;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
-import net.sf.ahtutils.xml.qa.Category;
+import net.sf.ahtutils.xml.qa.Qa;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class XmlCategoryFactory<L extends UtilsLang,
+public class XmlQaFactory<L extends UtilsLang,
 D extends UtilsDescription,
 C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
 R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
@@ -45,29 +45,18 @@ QATS extends UtilsStatus<QATS,L,D>,
 QARS extends UtilsStatus<QARS,L,D>,
 QAUS extends UtilsStatus<QAUS,L,D>>
 {
-	final static Logger logger = LoggerFactory.getLogger(XmlCategoryFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(XmlQaFactory.class);
 		
-	private Category q;
+	private Qa q;
 	
-	public XmlCategoryFactory(Category q)
+	public XmlQaFactory(Qa q)
 	{
 		this.q=q;
 	}
 	
-	public Category build(QAC category)
+	public static Qa build()
 	{
-		Category xml = new Category();
-		
-		if(q.isSetId()){xml.setId(category.getId());}
-		if(q.isSetCode()){xml.setCode(category.getCode());}
-		if(q.isSetName()){xml.setName(category.getName());}
-		
-		return xml;
-	}
-	
-	public static Category build()
-	{
-		Category xml = new Category();
+		Qa xml = new Qa();
 
 		return xml;
 	}

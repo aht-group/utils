@@ -15,6 +15,7 @@ import net.sf.ahtutils.xml.status.Translations;
 import net.sf.ahtutils.xml.xpath.StatusXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.apache.commons.configuration.Configuration;
 import org.openfuxml.content.ofx.Comment;
@@ -54,9 +55,7 @@ public class OfxQaAgreementTableFactory extends AbstractUtilsOfxDocumentationFac
 		
 		headerKeys = new ArrayList<String>();
 		headerKeys.add("auTableQaTestCode");
-		headerKeys.add("auTableQaTestName");
-		headerKeys.add("");
-		headerKeys.add("");
+		headerKeys.add("auTableQaTestCase");
 	}
 	
 	public Table build(Category category,Aht testStatus) throws OfxAuthoringException
@@ -64,7 +63,7 @@ public class OfxQaAgreementTableFactory extends AbstractUtilsOfxDocumentationFac
 		this.testStatus=testStatus;
 		try
 		{	
-			Table table = toOfx(category.getTest());
+			Table table = toOfx(category);
 			table.setId("table.qa.agreements."+category.getCode());
 			
 			Lang lCaption = StatusXpath.getLang(translations, "auTableQmAgreement", lang);
@@ -84,11 +83,11 @@ public class OfxQaAgreementTableFactory extends AbstractUtilsOfxDocumentationFac
 		catch (ExlpXpathNotUniqueException e) {throw new OfxAuthoringException(e.getMessage());}
 	}
 	
-	public Table toOfx(List<Test> lTest)
+	public Table toOfx(Category category)
 	{
 		Table table = new Table();
 		table.setSpecification(createSpecifications());
-		table.setContent(createContent(lTest));
+		table.setContent(createContent(category));
 		return table;
 	}
 	
@@ -107,13 +106,15 @@ public class OfxQaAgreementTableFactory extends AbstractUtilsOfxDocumentationFac
 		return specification;
 	}
 	
-	private Content createContent(List<Test> lRole)
+	private Content createContent(Category category)
 	{
 		Head head = new Head();
 		head.getRow().add(createHeaderRow(headerKeys));
+		head.getRow().get(0).getCell().add(OfxCellFactory.createParagraphCell(category.getQa().getClient()));
+		head.getRow().get(0).getCell().add(OfxCellFactory.createParagraphCell(category.getQa().getDeveloper()));
 		
 		Body body = new Body();
-		for(Test staff : lRole)
+		for(Test staff : category.getTest())
 		{
 			body.getRow().add(createRow(staff));
 		}

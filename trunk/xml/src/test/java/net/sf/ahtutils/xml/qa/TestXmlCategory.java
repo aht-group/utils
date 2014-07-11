@@ -33,6 +33,7 @@ public class TestXmlCategory extends AbstractXmlQaTest
     	
     	if(withChilds)
     	{
+    		xml.setQa(TestXmlQa.create(false));
     		xml.getTest().add(TestXmlTest.create(false));
     	}
     	

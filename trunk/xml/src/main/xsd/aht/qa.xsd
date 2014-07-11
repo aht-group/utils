@@ -12,11 +12,15 @@
                 <xsd:element ref="qa:category" maxOccurs="unbounded"/>
                 <xsd:element ref="sec:staff" maxOccurs="unbounded"/>
             </xsd:sequence>
+            <xsd:attribute name="id" type="xsd:long"/>
+            <xsd:attribute name="client" type="xsd:string"/>
+            <xsd:attribute name="developer" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
 	<xsd:element name="category">
         <xsd:complexType>
         	<xsd:sequence>
+        		<xsd:element ref="qa:qa" maxOccurs="1"/>
                 <xsd:element ref="qa:test" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
@@ -127,4 +131,5 @@
             </xsd:simpleContent>
         </xsd:complexType>
     </xsd:element>
+    
 </xsd:schema>

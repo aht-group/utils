@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/qa}qa"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/qa}test" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" />
@@ -36,6 +37,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
+    "qa",
     "test"
 })
 @XmlRootElement(name = "category")
@@ -45,6 +47,8 @@ public class Category
 
     private final static long serialVersionUID = 1L;
     @XmlElement(required = true)
+    protected Qa qa;
+    @XmlElement(required = true)
     protected List<Test> test;
     @XmlAttribute(name = "id")
     protected Long id;
@@ -52,6 +56,34 @@ public class Category
     protected String name;
     @XmlAttribute(name = "code")
     protected String code;
+
+    /**
+     * Gets the value of the qa property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Qa }
+     *     
+     */
+    public Qa getQa() {
+        return qa;
+    }
+
+    /**
+     * Sets the value of the qa property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Qa }
+     *     
+     */
+    public void setQa(Qa value) {
+        this.qa = value;
+    }
+
+    public boolean isSetQa() {
+        return (this.qa!= null);
+    }
 
     /**
      * Gets the value of the test property.

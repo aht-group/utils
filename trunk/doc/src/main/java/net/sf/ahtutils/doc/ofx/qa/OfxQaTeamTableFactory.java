@@ -89,10 +89,11 @@ public class OfxQaTeamTableFactory extends AbstractUtilsOfxDocumentationFactory
 		}
 		else if(columns==4)
 		{
-			cols.getColumn().add(OfxColumnFactory.build(XmlAlignmentFactory.Horizontal.left));
+			
 			cols.getColumn().add(OfxColumnFactory.flex(30));
-			cols.getColumn().add(OfxColumnFactory.flex(25));
-			cols.getColumn().add(OfxColumnFactory.flex(25));
+			cols.getColumn().add(OfxColumnFactory.flex(15));
+			cols.getColumn().add(OfxColumnFactory.flex(35));
+			cols.getColumn().add(OfxColumnFactory.flex(20));
 		}
 		else {logger.warn("Columns "+columns+" NYI");}
 			
@@ -124,24 +125,28 @@ public class OfxQaTeamTableFactory extends AbstractUtilsOfxDocumentationFactory
 	
 	private Row createRow(Staff staff)
 	{
-		String roleName;
+		Row row = new Row();
 		
-		try
-		{
-			roleName = StatusXpath.getLang(staff.getRole().getLangs(), lang).getTranslation();
-		}
+		row.getCell().add(OfxCellFactory.createParagraphCell(staff.getUser().getFirstName()+" "+staff.getUser().getLastName()));
+		
+		String roleName;
+		try{roleName = StatusXpath.getLang(staff.getRole().getLangs(), lang).getTranslation();}
 		catch (ExlpXpathNotFoundException e){roleName = e.getMessage();}
 		catch (ExlpXpathNotUniqueException e){roleName = e.getMessage();}
-
-		Row row = new Row();
 		row.getCell().add(OfxCellFactory.createParagraphCell(roleName));
-		row.getCell().add(OfxCellFactory.createParagraphCell(staff.getUser().getFirstName()+" "+staff.getUser().getLastName()));
+		
+		
 		
 		if(staff.isSetResponsible()){row.getCell().add(OfxCellFactory.createParagraphCell(staff.getResponsible().getLabel()));}
 		else{row.getCell().add(OfxCellFactory.createParagraphCell(""));}
 		
-		if(staff.isSetType()){row.getCell().add(OfxCellFactory.createParagraphCell(staff.getType().getLabel()));}
-		else{row.getCell().add(OfxCellFactory.createParagraphCell(""));}
+		StringBuffer sb = new StringBuffer();
+		
+		if(staff.isSetStatus()){sb.append(staff.getStatus().getLabel());}
+		if(staff.isSetType() && staff.isSetStatus()){sb.append(", ");}
+		if(staff.isSetType()){sb.append(staff.getType().getLabel());}
+		
+		row.getCell().add(OfxCellFactory.createParagraphCell(sb.toString()));
 		
 		return row;
 	}	
