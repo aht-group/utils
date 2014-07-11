@@ -23,6 +23,7 @@ import org.openfuxml.content.table.Specification;
 import org.openfuxml.content.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.xml.layout.XmlAlignmentFactory;
+import org.openfuxml.factory.xml.layout.XmlFloatFactory;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
 import org.openfuxml.factory.xml.table.OfxCellFactory;
@@ -98,6 +99,7 @@ public class OfxQaTeamTableFactory extends AbstractUtilsOfxDocumentationFactory
 		
 		Specification specification = new Specification();
 		specification.setColumns(cols);
+		specification.setFloat(XmlFloatFactory.build(false));
 		
 		return specification;
 	}

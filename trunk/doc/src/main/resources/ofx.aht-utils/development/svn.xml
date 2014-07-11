@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org"
+			xmlns:l="http://www.openfuxml.org/list"
+			xmlns:t="http://www.openfuxml.org/table"
+			xmlns:media="http://www.openfuxml.org/media"
+			xmlns:layout="http://www.openfuxml.org/layout"
+			id="section.admin.development.svn">
+	<ofx:title lang="en">Version Control System (SVN)</ofx:title>
+	
+	<ofx:paragraph lang="en">
+		TBD: Descibe SVN usage
+	</ofx:paragraph>
+	
+</ofx:section>
