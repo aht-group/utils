@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ofx:section xmlns:ofx="http://www.openfuxml.org" id="installation.mysql">
+<ofx:section xmlns:ofx="http://www.openfuxml.org" id="installation.mysql"
+			 xmlns:media="http://www.openfuxml.org/media"
+			 xmlns:layout="http://www.openfuxml.org/layout"
+			 xmlns:text="http://www.openfuxml.org/text"
+			 xmlns:l="http://www.openfuxml.org/list">
 	<ofx:title lang="en">MySQL Database</ofx:title>
 	<ofx:title lang="de">MySQL Datenbank</ofx:title>
 	<ofx:title lang="fr">MySQL Datenbank</ofx:title>
