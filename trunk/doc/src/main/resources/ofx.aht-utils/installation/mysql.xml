@@ -38,6 +38,11 @@
 		<ofx:title lang="de">Erstellung der Datenbank</ofx:title>
 		<ofx:title lang="fr">Erstellung der Datenbank</ofx:title>
 		
+		<ofx:paragraph lang="en">
+		Login into your SQL-Database console.<text:emphasis style="typewriter">mysql -u root -p</text:emphasis>
+		</ofx:paragraph>
+		
+		
 		<ofx:listing external="listing/admin/installation/mysql/create.sql"/>
 		
 		<ofx:paragraph lang="de">

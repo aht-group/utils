@@ -171,6 +171,11 @@
 				SSH can be installed using the built-in tool "apt-get":
 			</ofx:paragraph>
 		
+			<ofx:paragraph lang="en" version="1"> 
+				To execute following commands, login as root to use the root console.
+				<text:emphasis style="typewriter">su -</text:emphasis> 
+			</ofx:paragraph>
+		
 			<ofx:listing>
 				<ofx:raw>apt-get install ssh</ofx:raw>
 			</ofx:listing>

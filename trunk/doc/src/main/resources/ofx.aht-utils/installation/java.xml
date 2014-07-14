@@ -24,6 +24,12 @@ update-alternatives --set javac /opt/jdk1.7.0_60/bin/javac</ofx:raw>
 		</ofx:listing>
 	</ofx:section>
 	
+	<ofx:paragraph> 
+		Check your installation with the following commands.
+		<text:emphasis style="typewriter">java -version</text:emphasis>
+		<text:emphasis style="typewriter">java c -version</text:emphasis> 
+	</ofx:paragraph>
+	
 	<ofx:section container="true" classifier="debianRaspberry">
 		<ofx:title lang="en">Linux (Raspbian)</ofx:title>
 		<ofx:paragraph lang="en">
