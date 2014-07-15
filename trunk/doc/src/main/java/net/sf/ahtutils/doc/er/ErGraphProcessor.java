@@ -90,6 +90,9 @@ public class ErGraphProcessor
 			{
 				node.setCategory(er.category());
 			}
+			node.setSizeRelative(true);
+			node.setSizeAdjustsColor(true);
+			node.setSize(1-er.level());
 			node.setType(""+er.level());
 			
 			mapNodes.put(node.getCode(), node);
