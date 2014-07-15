@@ -94,6 +94,7 @@ public class LatexQmWriter extends AbstractDocumentationLatexWriter
 		fOfx.renderColumn(Code.name, true,OfxColumnFactory.build(XmlAlignmentFactory.Horizontal.left));
 		fOfx.setImagePathPrefix(imagePathPrefix);
 		Table table = fOfx.buildLatexTable(id,aht);
+		JaxbUtil.info(table);
 		writeTable(table, f);
 	}
 	
@@ -131,7 +132,6 @@ public class LatexQmWriter extends AbstractDocumentationLatexWriter
 		OfxQaAgreementTableFactory fOfx = new OfxQaAgreementTableFactory(config,lang,translations);
 		fOfx.setImagePathPrefix(imagePathPrefix);
 		Table table = fOfx.build(c,testStatus);
-		JaxbUtil.trace(table);
 		writeTable(table, f);
 	}
 	

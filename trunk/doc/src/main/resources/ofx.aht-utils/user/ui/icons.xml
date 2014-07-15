@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org"
+			 xmlns:media="http://www.openfuxml.org/media"
+			 xmlns:table="http://www.openfuxml.org/table"
+			 xmlns:layout="http://www.openfuxml.org/layout"
+			 xmlns:text="http://www.openfuxml.org/text"
+			 xmlns:l="http://www.openfuxml.org/list"
+		id="section.user.ui.icons">
+	<ofx:title lang="en">Icons</ofx:title>
+	
+	<ofx:paragraph lang="en">
+		A computer icon is a pictogram displayed on a computer screen in order to help user navigate a computer system or mobile device.
+		A common understanding for icons are,
+		that "good icons should be more like road signs than illustrations,
+		easily comprehensible, and not cluttered with extraneous detail".
+	</ofx:paragraph>
+	
+	<ofx:paragraph lang="en">
+		Icons are part of the graphical user interface and the user can activate them using a mouse.
+		Their placement on the screen, also in relation to other icons, may provide further information to the user about their usage.
+	</ofx:paragraph>
+	
+	<table:table  id="table.user.ui.icons">
+	    <ofx:title lang="en">Summary of commonly used icons</ofx:title>
+	    <table:specification>
+	        <table:columns>
+	            <table:column>
+	                <layout:alignment horizontal="center"/>
+	            </table:column>
+	            <table:column>
+	                <layout:alignment horizontal="left"/>
+	            </table:column>
+	            <table:column>
+	                <layout:width flex="true">100.0</layout:width>
+	            </table:column>
+	        </table:columns>
+	    </table:specification>
+	    <table:content>
+	        <table:head>
+	            <table:row>
+	                <table:cell/>
+	                <table:cell>
+	                    <ofx:paragraph>Name</ofx:paragraph>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>Description</ofx:paragraph>
+	                </table:cell>
+	            </table:row>
+	        </table:head>
+	        <table:body>
+	        	<table:row>
+	                <table:cell>
+	                    <media:image>
+	                        <layout:height unit="em">1.0</layout:height>
+	                        <media:media src="svg.aht-utils/icon/ui/info.svg" dst="icon/ui/info"/>
+	                    </media:image>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>Info</ofx:paragraph>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>xxx</ofx:paragraph>
+	                </table:cell>
+	            </table:row>
+	            <table:row>
+	                <table:cell>
+	                    <media:image>
+	                        <layout:height unit="em">1.0</layout:height>
+	                        <media:media src="svg.aht-utils/icon/ui/add.svg" dst="icon/ui/add"/>
+	                    </media:image>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>Add</ofx:paragraph>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>xxx</ofx:paragraph>
+	                </table:cell>
+	            </table:row>
+	            <table:row>
+	                <table:cell>
+	                    <media:image>
+	                        <layout:height unit="em">1.0</layout:height>
+	                        <media:media src="svg.aht-utils/icon/ui/trash.svg" dst="icon/ui/trash"/>
+	                    </media:image>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>Delete</ofx:paragraph>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>xxx</ofx:paragraph>
+	                </table:cell>
+	            </table:row>
+	            <table:row>
+	                <table:cell>
+	                    <media:image>
+	                        <layout:height unit="em">1.0</layout:height>
+	                        <media:media src="svg.aht-utils/icon/ui/save.svg" dst="icon/ui/save"/>
+	                    </media:image>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>Save</ofx:paragraph>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>xxx</ofx:paragraph>
+	                </table:cell>
+	            </table:row>
+	            <table:row>
+	                <table:cell>
+	                    <media:image>
+	                        <layout:height unit="em">1.0</layout:height>
+	                        <media:media src="svg.aht-utils/icon/ui/cancel.svg" dst="icon/ui/cancel"/>
+	                    </media:image>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>Cancel</ofx:paragraph>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>xxx</ofx:paragraph>
+	                </table:cell>
+	            </table:row>
+	        </table:body>
+    	</table:content>
+	</table:table>
+</ofx:section>
