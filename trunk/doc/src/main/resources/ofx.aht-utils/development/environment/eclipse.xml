@@ -33,45 +33,50 @@
 		</ofx:section>
 	</ofx:section>
 	
-	<ofx:section container="true" classifier="kepler">
-		<ofx:section id="section.admin.installation.eclipse.kepler" classifier="git">
-		<ofx:title lang="en">GIT</ofx:title>
-		
-		<ofx:section id="section.admin.installation.eclipse.git.m2e">
-			<ofx:title lang="en">Maven Git Connector</ofx:title>
+	<ofx:section container="true" classifier="git">
+		<ofx:section id="section.admin.installation.eclipse.kepler" classifier="kepler">
+			<ofx:title lang="en">GIT</ofx:title>
 			
-			<ofx:paragraph lang="en">
+			<ofx:section id="section.admin.installation.eclipse.git.m2e">
+				<ofx:title lang="en">Maven GIT Connector</ofx:title>
+				
+				<ofx:paragraph lang="en">
+					ProjectExplorer - (r.click) New - Other - Maven - Checkout Maven Projects from  - Next
+					Find more SCM connectors in the m2e Marketplace
+					Find: "m2e"
+					Select "m2e-egit"
+					Finish - Next - Next
+					"I accept the terms of the license agreements" - Finish
+					Restart Eclipse
+				</ofx:paragraph>
+			</ofx:section>
 			
-			ProjectExplorer - (r.click) New - Other - Maven - Checkout Maven Projects from  - Next
-	
-	Find more SCM connectors in the m2e Marketplace
-	
-	Find: "m2e"
-	
-	Select "m2e-egit"
-	
-	Finish - Next - Next
-	
-	"I accept the terms of the license agreements" - Finish
-	
-	Restart Eclipse
-	
-			</ofx:paragraph>
+			<ofx:section id="section.admin.installation.eclipse.checkout.git">
+				<ofx:title lang="en">Checkout GIT repository</ofx:title>
+			
+				<ofx:paragraph lang="en">
+					ProjectExplorer - (r.click) New - Other - Maven - Checkout Maven Projects from SCM
+					SCM URL: git    http...
+					Next
+				</ofx:paragraph>
+			</ofx:section>
+		</ofx:section>
+		<ofx:section id="section.admin.installation.eclipse.kepler" classifier="luna">
+			<ofx:title lang="en">GIT</ofx:title>
+			
+			<ofx:section id="section.admin.installation.eclipse.git.m2e">
+				<ofx:title lang="en">Maven GIT Connector</ofx:title>
+				
+				<ofx:paragraph lang="en">
+					ProjectExplorer - (r.click) New - Other - Maven - Checkout Maven Projects from  - Next
+					Find more SCM connectors in the m2e Marketplace
+					Find: "m2e"
+					NOT AVAILABLE ????
+				</ofx:paragraph>
+			</ofx:section>
+			
 			
 		</ofx:section>
-		
-		<ofx:section id="section.admin.installation.eclipse.checkout.git">
-			<ofx:title lang="en">Checkout GIT repository</ofx:title>
-		
-			<ofx:paragraph lang="en">
-				ProjectExplorer - (r.click) New - Other - Maven - Checkout Maven Projects from SCM
-
-SCM URL: git    http...
-
-Next
-			</ofx:paragraph>
-		</ofx:section>
-	</ofx:section>
 	</ofx:section>
 	
 	<ofx:section id="section.admin.installation.eclipse.checkout.git">
