@@ -7,8 +7,28 @@
 	
 	<ofx:title lang="en" classifier="luna">Installation of Eclipse (Luna)</ofx:title>
 	
+	<ofx:paragraph lang="en">
+			In computer programming, Eclipse is an integrated development environment (IDE).
+			It contains a base workspace and an extensible plug-in system for customizing the environment.
+			Written mostly in Java, Eclipse can be used to develop applications in many different programming languages.
+	</ofx:paragraph>
+	
+	<ofx:paragraph lang="en">
+			The initial codebase originated from IBM VisualAge.
+			The Eclipse software development kit (SDK), which includes the Java development tools, is meant for Java developers.
+			Users can extend its abilities by installing plug-ins written for the Eclipse Platform,
+			such as development toolkits for other programming languages, and can write and contribute their own plug-in modules.
+			Released under the terms of the Eclipse Public License, Eclipse SDK is free and open source software.
+	</ofx:paragraph>
+	
 	<ofx:section container="true" classifier="luna">
-		Download eclipse-luna from www.eclipse.org
+	
+		<ofx:paragraph lang="en">
+			Download eclipse-luna from www.eclipse.org
+			Unpack
+			first start of eclipse
+			Workspace (unique ws for each eclipse version if multiple versions are used)
+		</ofx:paragraph>
 		
 		<ofx:section id="section.admin.installation.eclipse.luna.svn" classifier="svn">
 			<ofx:title lang="en">Subversion (SVN)</ofx:title>
@@ -21,15 +41,13 @@
 			</media:image>
 			
 			<ofx:paragraph lang="en">
-			
-			
 				Help - Eclipse Marketplace
 				Find : "Subversive" - Go
 				Install SVN Team Provider 2.0
 				Confirm - (Proceed even if "Subversive SVN Team Provider 2.0" is not available)
 				- Accept  - Finish - Restart
 			</ofx:paragraph>
-			
+		
 			<ofx:paragraph lang="en">
 				Project Explorer - (r.click) New - Other - Maven - Checkout Maven Projects from SCM - Next -
 					"Find more SCM connectors in the m2e Marketplace""
