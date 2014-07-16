@@ -25,6 +25,7 @@ import net.sf.ahtutils.interfaces.model.date.EjbWithTimeline;
 import net.sf.ahtutils.interfaces.model.date.EjbWithYear;
 import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 import net.sf.ahtutils.interfaces.model.with.EjbWithNr;
+import net.sf.ahtutils.interfaces.model.with.code.EjbWithNonUniqueCode;
 import net.sf.ahtutils.model.interfaces.UtilsProperty;
 import net.sf.ahtutils.model.interfaces.crud.EjbMergeable;
 import net.sf.ahtutils.model.interfaces.crud.EjbRemoveable;
@@ -189,18 +190,27 @@ public class UtilsFacadeBean implements UtilsFacade
 		return o;
 	}
 	
-	public <T extends EjbWithCode> T fByCode(Class<T> type, String code) throws UtilsNotFoundException
+	@Override public <T extends EjbWithCode> T fByCode(Class<T> type, String code) throws UtilsNotFoundException
 	{
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(type);
         Root<T> root = criteriaQuery.from(type);
         criteriaQuery = criteriaQuery.where(root.<T>get("code").in(code));
 
-		T result=null;
 		TypedQuery<T> q = em.createQuery(criteriaQuery); 
-		try	{result=(T)q.getSingleResult();}
+		try	{return q.getSingleResult();}
 		catch (NoResultException ex){throw new UtilsNotFoundException("Nothing found "+type.getSimpleName()+" for code="+code);}
-		return result;
+	}
+	
+	@Override public <T extends EjbWithNonUniqueCode> List<T> allByCode(Class<T> type, String code)
+	{
+		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(type);
+        Root<T> root = criteriaQuery.from(type);
+        criteriaQuery = criteriaQuery.where(root.<T>get("code").in(code));
+
+		TypedQuery<T> q = em.createQuery(criteriaQuery); 
+		return q.getResultList();
 	}
 	
 	@Override public <T extends EjbWithEmail> T fByEmail(Class<T> clazz, String email) throws UtilsNotFoundException
