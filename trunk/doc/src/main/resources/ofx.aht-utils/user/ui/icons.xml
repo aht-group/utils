@@ -66,6 +66,20 @@
 	                <table:cell>
 	                    <media:image>
 	                        <layout:height unit="em">1.0</layout:height>
+	                        <media:media src="svg.aht-utils/icon/ui/search.svg" dst="icon/ui/search"/>
+	                    </media:image>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>Search</ofx:paragraph>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>xxx</ofx:paragraph>
+	                </table:cell>
+	            </table:row>
+	            <table:row>
+	                <table:cell>
+	                    <media:image>
+	                        <layout:height unit="em">1.0</layout:height>
 	                        <media:media src="svg.aht-utils/icon/ui/add.svg" dst="icon/ui/add"/>
 	                    </media:image>
 	                </table:cell>
