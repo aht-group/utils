@@ -285,3 +285,17 @@ ul.aupHeadlineBreadcrumb,
 .aupStatusBar > ul > li.aupStatusBarLeft > ul > li {
   padding: 7px 1.2em 6px 1em;
 }
+
+.aupStatusBar > ul > li:hover > ul {
+  display:block;
+  float:left;
+  opacity:1;
+  visibility:visible;
+}
+
+.aupStatusBar > ul > li > ul > li >  a {
+  display:block;
+  color:#FFF;
+  cursor:pointer;
+  margin: 0px; display: block; width: 100%; height: 100%; 
+}
