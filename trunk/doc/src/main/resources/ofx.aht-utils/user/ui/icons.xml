@@ -132,6 +132,20 @@
 	                    <ofx:paragraph>xxx</ofx:paragraph>
 	                </table:cell>
 	            </table:row>
+	            <table:row>
+	                <table:cell>
+	                    <media:image>
+	                        <layout:height unit="em">1.0</layout:height>
+	                        <media:media src="svg.aht-utils/icon/ui/help.svg" dst="icon/ui/help"/>
+	                    </media:image>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>Help</ofx:paragraph>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>Send Message to Administrator or HelpDesk</ofx:paragraph>
+	                </table:cell>
+	            </table:row>
 	        </table:body>
     	</table:content>
 	</table:table>

@@ -30,7 +30,7 @@
 			The first thing you need to install, is Eclipse Luna. You can download it from: 
 			<text:emphasis style="typewriter">www.eclipse.org/downloads</text:emphasis>		
 			After finishing your download unpack Eclipse Luna to your installation path.
-			<text:emphasis style="typewriter">For example: C:\\programm files\eclipse\</text:emphasis>	
+			For example <text:emphasis style="typewriter">C:programm fileseclipse</text:emphasis>	
 			The next step, is to define your workspace. You need a unique one (e.g. workspaceLuna), if
 			you are using multiple version of eclipse.
 		</ofx:paragraph>

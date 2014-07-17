@@ -208,6 +208,7 @@ ul.aupHeadlineBreadcrumb,
 
 .aupStatusBar > ul > li.aupStatusBarRight {
   float:right;
+  padding: 5px 1em 6px 1.2em;
 }
 
 /* Separator for li. These must use different selectors or the results look weird */
@@ -294,8 +295,8 @@ ul.aupHeadlineBreadcrumb,
 }
 
 .aupStatusBar > ul > li > ul > li >  a {
-  display:block;
-  color:#FFF;
-  cursor:pointer;
-  margin: 0px; display: block; width: 100%; height: 100%; 
+color: #FFF;
+display: block;
+margin: -3px -15px -3px -20px;
+padding: 3px 15px 3px 20px;
 }
