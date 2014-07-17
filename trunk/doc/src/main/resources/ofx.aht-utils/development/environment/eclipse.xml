@@ -21,6 +21,8 @@
 			Released under the terms of the Eclipse Public License, Eclipse SDK is free and open source software.
 	</ofx:paragraph>
 	
+	
+	<!-- ########################################################################################################### -->
 	<ofx:section container="true" classifier="luna">
 	
 		<ofx:paragraph lang="en">
@@ -30,7 +32,7 @@
 			Workspace (unique ws for each eclipse version if multiple versions are used)
 		</ofx:paragraph>
 		
-		<ofx:section id="section.admin.installation.eclipse.luna.svn" classifier="svn">
+		<ofx:section id="section.admin.installation.eclipse.luna.svn.install" classifier="svn">
 			<ofx:title lang="en">Subversion (SVN)</ofx:title>
 		
 			<media:image id="image.admin.development.environment.marketplace">
@@ -62,6 +64,32 @@
 			</ofx:paragraph>
 			
 		</ofx:section>
+		
+		<ofx:section id="section.admin.installation.eclipse.luna.svn.checkout">
+			<ofx:title lang="en">Checkout Project From SVN Repository</ofx:title>
+			
+			<ofx:paragraph lang="en">
+					Window - Show View - Other - SVN - SVN Repositories
+					
+					New - "Repository Location", enter URL, username and password. FINISH
+					
+					Select Trunk - "Checkout as Maven Project" - NEXT - FINISH
+			</ofx:paragraph>
+			
+			<ofx:listing id="listing.admin.installation.eclipse.vcs.url">
+				<ofx:raw>https://www.example.com/svn/project</ofx:raw>
+			</ofx:listing>
+			
+		</ofx:section>
+		
+		<ofx:section id="section.admin.installation.eclipse.luna.texlipse" classifier="texlipse">
+			<ofx:title lang="en">TeXlipse</ofx:title>
+			
+			<ofx:paragraph lang="en">
+					Describe installation TeXlipse
+			</ofx:paragraph>
+		</ofx:section>
+		
 	</ofx:section>
 	
 	<ofx:section container="true" classifier="git">
@@ -110,17 +138,7 @@
 		</ofx:section>
 	</ofx:section>
 	
-	<ofx:section id="section.admin.installation.eclipse.checkout.git">
-		<ofx:title lang="en">Checkout Project From SVN Repository</ofx:title>
-		
-		<ofx:paragraph lang="en">
-				Window - Show View - Other - SVN - SVN Repositories
-				
-				New - "Repository Location", enter URL, username and password. FINISH
-				
-				Select Trunk - "Checkout as Maven Project" - NEXT - FINISH
-		</ofx:paragraph>
-	</ofx:section>
+	
 	
 	<ofx:section>
 		<ofx:title lang="en">FAQ</ofx:title>
