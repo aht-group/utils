@@ -231,5 +231,16 @@
 			</ofx:listing>
 		</ofx:section>
 		
+		<ofx:section id="section.admin.installation.debian.ubuntu14" classifier="ubuntu14">
+				<ofx:title lang="en">Setting the root password</ofx:title>
+			
+				<ofx:paragraph lang="en">
+					The next part of the installation is to "set the root password".
+					Open the teminal and type in, the following command:
+					<text:emphasis style="typewriter">sudo passwd root</text:emphasis>
+					Double check your password.
+				</ofx:paragraph>
+		</ofx:section>
+		
 	</ofx:section>
 </ofx:section>
