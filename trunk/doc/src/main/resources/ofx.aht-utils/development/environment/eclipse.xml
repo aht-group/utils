@@ -47,8 +47,8 @@
 			
 			<ofx:paragraph lang="en">
 				For the installation of "Subversive Team Provider 2.0", you have to go to the Eclipse Marketplace.
-				You will find it:<text:emphasis style="typewriter">Help -> Eclipse Markeplace</text:emphasis>
-				Search for "Subversive". Mark and install "SVN Team Provider 2.0".
+				You will find it: <text:emphasis style="typewriter">Help -> Eclipse Markeplace</text:emphasis>
+				Search for "Subversive". Mark and install "SVN Team Provider 2.0" (see figure below).
 				Follow these steps:
 			</ofx:paragraph>
 			
@@ -56,26 +56,27 @@
 	    		<l:type ordering="unordered"/>	
 	    		   		
 					<l:item>
-	    				<ofx:paragraph lang="en">Confirm</ofx:paragraph>
+	    				<ofx:paragraph lang="en">Please press <text:emphasis style="typewriter">Confirm</text:emphasis> to start the installation.</ofx:paragraph>
 	   				</l:item>
 	   		
 					<l:item>
-	    				<ofx:paragraph lang="en">Press OK (Proceed even if "Subversive SVN Team Provider 2.0" is not available)</ofx:paragraph>
+	    				<ofx:paragraph lang="en">Press <text:emphasis style="typewriter">OK</text:emphasis>(Proceed even if "Subversive SVN Team Provider 2.0" is not available).</ofx:paragraph>
 	   				</l:item>
 	   		
 					<l:item>
-	    				<ofx:paragraph lang="en">Accept</ofx:paragraph>
+	    				<ofx:paragraph lang="en">Press <text:emphasis style="typewriter">Accept</text:emphasis> to continue.</ofx:paragraph>
 			   		</l:item>
 	   		
 					<l:item>
-	    				<ofx:paragraph lang="en">Finish and restart</ofx:paragraph>
+	    				<ofx:paragraph lang="en">Now press <text:emphasis style="typewriter">Finish</text:emphasis> and restart eclipse to confirm your changes.</ofx:paragraph>
 			   		</l:item>
 	   		</l:list>
 			
 			<ofx:paragraph lang="en">
-				Now right click on your "Project Explorer", select "new", press "Other", search for "Maven" and "Checkout Maven Projects from SCM", press "Next"
+				Now right click on your "Project Explorer", select <text:emphasis style="typewriter">"New"</text:emphasis>, press <text:emphasis style="typewriter">"Other"</text:emphasis>,
+				search for "Maven" and "Checkout Maven Projects from SCM", press <text:emphasis style="typewriter">"Next"</text:emphasis>
 				and go for the writing "Find more SCM connectors in the m2e Marketplace". 
-				Find: "Subversive" and select "m2e-subversive" and press "finish".
+				Find: "Subversive" and select "m2e-subversive" and press <text:emphasis style="typewriter">"Finish"</text:emphasis>.
 				Follow these steps:
 			</ofx:paragraph>
 			
@@ -83,27 +84,27 @@
 	    		<l:type ordering="unordered"/>	
 	    		   		
 					<l:item>
-	    				<ofx:paragraph lang="en">Next</ofx:paragraph>
+	    				<ofx:paragraph lang="en">Please press <text:emphasis style="typewriter">Next</text:emphasis> to start the installation.</ofx:paragraph>
 	   				</l:item>
 	   		
 					<l:item>
-	    				<ofx:paragraph lang="en">Next</ofx:paragraph>
+	    				<ofx:paragraph lang="en">Press <text:emphasis style="typewriter">Next</text:emphasis> to continue.</ofx:paragraph>
 	   				</l:item>
 	   		
 					<l:item>
-	    				<ofx:paragraph lang="en">Accept</ofx:paragraph>
+	    				<ofx:paragraph lang="en">Press <text:emphasis style="typewriter">Accept</text:emphasis> to continue.</ofx:paragraph>
 			   		</l:item>
 			   		
 			   		<l:item>
-	    				<ofx:paragraph lang="en">Press OK, if there is a warning for "unsigned contend"</ofx:paragraph>
+	    				<ofx:paragraph lang="en">Press <text:emphasis style="typewriter">OK</text:emphasis>, if there is a warning for "unsigned contend" to proceed.</ofx:paragraph>
 			   		</l:item>
 	   		
 					<l:item>
-	    				<ofx:paragraph lang="en">Finish and restart</ofx:paragraph>
+	    				<ofx:paragraph lang="en">Now press <text:emphasis style="typewriter">Finish</text:emphasis> and restart eclipse to confirm your changes.</ofx:paragraph>
 			   		</l:item>
 	   		</l:list>
 	   		
-	   		<ofx:paragraph>If you were asked for a SVN KIT, please select "SVN KIT 1.8.5"</ofx:paragraph>
+	   		<ofx:paragraph>If you were asked for a SVN KIT, please select <text:emphasis style="typewriter">"SVN KIT 1.8.5"</text:emphasis>.</ofx:paragraph>
 			
 			<media:image id="image.admin.development.environment.connectors">
 				<ofx:title lang="en">Eclipse SCM connectors installation</ofx:title>
