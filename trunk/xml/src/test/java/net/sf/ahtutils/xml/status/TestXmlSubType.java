@@ -10,23 +10,23 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestXmlSubPhase extends AbstractXmlStatusTest
+public class TestXmlSubType extends AbstractXmlStatusTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestXmlSubPhase.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlSubType.class);
 	
-	@BeforeClass public static void initFiles(){setXmlFile(dirSuffix, SubPhase.class);}
+	@BeforeClass public static void initFiles(){setXmlFile(dirSuffix, SubType.class);}
     
     @Test
     public void testXml() throws FileNotFoundException
     {
-    	SubPhase actual = create(true);
-    	SubPhase expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), SubPhase.class);
+    	SubType actual = create(true);
+    	SubType expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), SubType.class);
     	assertJaxbEquals(expected, actual);
     }
     
-    public static SubPhase create(boolean withChilds)
+    public static SubType create(boolean withChilds)
     {
-    	SubPhase xml = new SubPhase();
+    	SubType xml = new SubType();
     	xml.setCode("myCode");
     	xml.setVisible(true);
     	xml.setGroup("myGroup");
@@ -49,8 +49,8 @@ public class TestXmlSubPhase extends AbstractXmlStatusTest
     {
 		UtilsXmlTestBootstrap.init();
 			
-		TestXmlSubPhase.initFiles();	
-		TestXmlSubPhase test = new TestXmlSubPhase();
+		TestXmlSubType.initFiles();	
+		TestXmlSubType test = new TestXmlSubType();
 		test.save();
     }
 }

@@ -278,6 +278,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link SubType }
+     * 
+     */
+    public SubType createSubType() {
+        return new SubType();
+    }
+
+    /**
      * Create an instance of {@link Original }
      * 
      */

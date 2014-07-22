@@ -24,7 +24,7 @@ color: ${colorDark};
 .aupHeadline {background-color: ${colorDark};}
 
 
-/* SIDEMENU /*
+/* SIDEMENU */
 .sidemenu {width: 100%;}
 .sidemenu a {
     display: block;
@@ -37,6 +37,11 @@ color: ${colorDark};
 
     text-align:right;
 }
+.sidemenu a:hover{
+ color: #FFF;
+ background: ${colorMedium};
+}
+
 .sidemenu ul {
     margin: 0;
     padding: 0;
