@@ -46,9 +46,9 @@
 			</media:image>
 			
 			<ofx:paragraph lang="en">
-				For the installation of "Subversive Team Provider 2.0", you have to go to the Eclipse Marketplace.
+				For the installation of <text:emphasis style="italic">"Subversive Team Provider 2.0"</text:emphasis>, you have to go to the Eclipse Marketplace.
 				You will find it: <text:emphasis style="typewriter">Help -> Eclipse Markeplace</text:emphasis>
-				Search for "Subversive". Mark and install "SVN Team Provider 2.0" (see figure below).
+				Search for <text:emphasis style="italic">"Subversive"</text:emphasis>. Mark and install <text:emphasis style="italic">"SVN Team Provider 2.0"</text:emphasis> (see figure below).
 				Follow these steps:
 			</ofx:paragraph>
 			
@@ -73,10 +73,10 @@
 	   		</l:list>
 			
 			<ofx:paragraph lang="en">
-				Now right click on your "Project Explorer", select <text:emphasis style="typewriter">"New"</text:emphasis>, press <text:emphasis style="typewriter">"Other"</text:emphasis>,
-				search for "Maven" and "Checkout Maven Projects from SCM", press <text:emphasis style="typewriter">"Next"</text:emphasis>
-				and go for the writing "Find more SCM connectors in the m2e Marketplace". 
-				Find: "Subversive" and select "m2e-subversive" and press <text:emphasis style="typewriter">"Finish"</text:emphasis>.
+				Now right click on your <text:emphasis style="italic">"Project Explorer"</text:emphasis>, select <text:emphasis style="typewriter">"New"</text:emphasis>, press <text:emphasis style="typewriter">"Other"</text:emphasis>,
+				search for "Maven" and <text:emphasis style="italic">"Checkout Maven Projects from SCM"</text:emphasis>, press <text:emphasis style="typewriter">"Next"</text:emphasis>
+				and go for the writing "Find more SCM connectors in the m2e Marketplace" (see figure below). 
+				Find: <text:emphasis style="italic">"Subversive"</text:emphasis> and select <text:emphasis style="italic">"m2e-subversive"</text:emphasis> and press <text:emphasis style="typewriter">"Finish"</text:emphasis>.
 				Follow these steps:
 			</ofx:paragraph>
 			
