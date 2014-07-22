@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.Hashtable;
 import java.util.Map;
 
+import net.sf.ahtutils.factory.xml.navigation.XmlMenuItemFactory;
 import net.sf.ahtutils.jsf.menu.MenuFactory;
 import net.sf.ahtutils.xml.navigation.Breadcrumb;
 import net.sf.ahtutils.xml.navigation.Menu;
@@ -80,13 +81,9 @@ public abstract class AbstractMenuBean implements Serializable
 				if(bOrig.getMenuItem().size()>1 && !withFirst){startIndex=1;}
 				for(int i=startIndex;i<bOrig.getMenuItem().size();i++)
 				{
-					MenuItem miOrig = bOrig.getMenuItem().get(i);
-					MenuItem miClone = new MenuItem();
-					miClone.setName(miOrig.getName());
-					miClone.setHref(miOrig.getHref());
-					miClone.setCode(miOrig.getCode());
-					bClone.getMenuItem().add(miClone);
+					bClone.getMenuItem().add(XmlMenuItemFactory.clone(bOrig.getMenuItem().get(i)));
 				}
+				JaxbUtil.trace(bClone);
 				//TODO WITHFIRST
 		/*		if(b.getMenuItem().size()>1 && !withFirst)
 				{
@@ -97,13 +94,9 @@ public abstract class AbstractMenuBean implements Serializable
 				{
 					for(MenuItem mi : bClone.getMenuItem())
 					{
-						String parentCode = mf.getParent(mi.getCode());
-						for(MenuItem subOrig : sub(mf, parentCode).getMenuItem())
+						for(MenuItem subOrig : sub(mf, mi.getCode()).getMenuItem())
 						{
-							MenuItem subClone = new MenuItem();
-							subClone.setName(subOrig.getName());
-							subClone.setHref(subOrig.getHref());
-							mi.getMenuItem().add(subClone);
+							mi.getMenuItem().add(XmlMenuItemFactory.clone(subOrig));
 						}
 					}
 				}
