@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org"
+			 xmlns:media="http://www.openfuxml.org/media"
+			 xmlns:table="http://www.openfuxml.org/table"
+			 xmlns:layout="http://www.openfuxml.org/layout"
+			 xmlns:text="http://www.openfuxml.org/text"
+			 xmlns:l="http://www.openfuxml.org/list"
+		id="section.user.ui.export.file">
+	<ofx:title lang="en">File Export</ofx:title>
+	
+	<ofx:paragraph lang="en">
+		export
+	</ofx:paragraph>
+
+	
+	<table:table  id="table.user.ui.export.file">
+	    <ofx:title lang="en">Summary of export formats</ofx:title>
+	    <table:specification>
+	        <table:columns>
+	            <table:column>
+	                <layout:alignment horizontal="center"/>
+	            </table:column>
+	            <table:column>
+	                <layout:alignment horizontal="left"/>
+	            </table:column>
+	            <table:column>
+	                <layout:width flex="true">100.0</layout:width>
+	            </table:column>
+	        </table:columns>
+	    </table:specification>
+	    <table:content>
+	        <table:head>
+	            <table:row>
+	                <table:cell/>
+	                <table:cell>
+	                    <ofx:paragraph>Type</ofx:paragraph>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>Description</ofx:paragraph>
+	                </table:cell>
+	            </table:row>
+	        </table:head>
+	        <table:body>
+	        	<table:row>
+	                <table:cell>
+	                    <media:image>
+	                        <layout:height unit="em">1.0</layout:height>
+	                        <media:media src="svg.aht-utils/icon/file/xls.svg" dst="icon/ui/export/xls"/>
+	                    </media:image>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>XLS</ofx:paragraph>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>xxx</ofx:paragraph>
+	                </table:cell>
+	            </table:row>
+	            <table:row>
+	                <table:cell>
+	                    <media:image>
+	                        <layout:height unit="em">1.0</layout:height>
+	                        <media:media src="svg.aht-utils/icon/file/pdf.svg" dst="icon/ui/export/pdf"/>
+	                    </media:image>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>PDF</ofx:paragraph>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>xxx</ofx:paragraph>
+	                </table:cell>
+	            </table:row>
+	            <table:row>
+	                <table:cell>
+	                    <media:image>
+	                        <layout:height unit="em">1.0</layout:height>
+	                        <media:media src="svg.aht-utils/icon/file/doc.svg" dst="icon/ui/export/doc"/>
+	                    </media:image>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>DOC</ofx:paragraph>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>xxx</ofx:paragraph>
+	                </table:cell>
+	            </table:row>
+	        </table:body>
+    	</table:content>
+	</table:table>
+</ofx:section>
