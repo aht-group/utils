@@ -5,9 +5,12 @@ import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import net.sf.ahtutils.model.qualifier.EjbErNode;
 import net.sf.exlp.util.io.ClassUtil;
@@ -48,12 +51,19 @@ public class ErGraphProcessor
 	
 	public void addPackages(String sEjbPackage) throws IOException, ClassNotFoundException
 	{
+		addPackages(sEjbPackage,new ArrayList<String>());
+	}
+	public void addPackages(String sEjbPackage, List<String> subset) throws IOException, ClassNotFoundException
+	{
+		Set<String> setSub = new HashSet<String>();
+		setSub.addAll(subset);
+		
 		File fPackage = new File(fBase,sEjbPackage);
 		RecursiveFileFinder finder = new RecursiveFileFinder(FileFilterUtils.suffixFileFilter(".java"));
     	List<File> list = finder.find(fPackage);
 		for(File f : list)
 		{
-			createNode(f);
+			createNode(f,setSub);
 		}
 		int i=0;
 		for(String key : mapNodes.keySet())
@@ -76,7 +86,7 @@ public class ErGraphProcessor
 		return graph;
 	}
 	
-	private void createNode(File f) throws ClassNotFoundException
+	private void createNode(File f,Set<String> subSet) throws ClassNotFoundException
 	{
 		Class<?> c = ClassUtil.forFile(fBase, f);
 		Annotation a = c.getAnnotation(EjbErNode.class);
@@ -95,7 +105,19 @@ public class ErGraphProcessor
 			node.setSize(1-er.level());
 			node.setType(""+er.level());
 			
-			mapNodes.put(node.getCode(), node);
+			boolean add = false;
+			if(subSet.size()==0){add=true;}
+			else if (er.subset().length()>0)
+			{
+				logger.trace("Subset available");
+				String[] items = er.subset().split(",");
+				for(String s : items)
+				{
+					if(subSet.contains(s)){add=true;}
+				}
+			}
+			
+			if(add){mapNodes.put(node.getCode(), node);}
 		}
 	}
 	
