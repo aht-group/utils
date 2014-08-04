@@ -697,6 +697,12 @@ public class UtilsFacadeBean implements UtilsFacade
 		return q.getResultList();
 	}
 	
+	@Override public <T extends EjbWithId, P extends EjbWithId, GP extends EjbWithId> List<T> allForGrandParent(Class<T> queryClass, Class<P> pClass, String pName, GP gpClass, String gpName)
+	{
+		ParentPredicate<GP> ppGrandparent = ParentPredicate.create(gpClass, gpName);
+		return fForAndOrGrandParents(queryClass,pClass,pName,ParentPredicate.list(ppGrandparent),ParentPredicate.empty());
+	}
+	
 	public <T extends EjbWithId, P extends EjbWithId, OR extends EjbWithId, AND extends EjbWithId> List<T> fForAndOrGrandParents(Class<T> queryClass, Class<P> parentClass, String parentName, List<ParentPredicate<AND>> lpAnd, List<ParentPredicate<OR>> lpOr)
 	{
 		if(logger.isTraceEnabled())
@@ -908,4 +914,5 @@ public class UtilsFacadeBean implements UtilsFacade
 	    TypedQuery<USER> q = em.createQuery(select);
 		return q.getResultList();
 	}
+	
 }

@@ -146,6 +146,34 @@
 	                    <ofx:paragraph>Send Message to Administrator or HelpDesk</ofx:paragraph>
 	                </table:cell>
 	            </table:row>
+	            <table:row>
+	                <table:cell>
+	                    <media:image>
+	                        <layout:height unit="em">1.0</layout:height>
+	                        <media:media src="svg.aht-utils/icon/ui/gear.svg" dst="icon/ui/gear"/>
+	                    </media:image>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>Process</ofx:paragraph>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>Start processing</ofx:paragraph>
+	                </table:cell>
+	            </table:row>
+	            <table:row>
+	                <table:cell>
+	                    <media:image>
+	                        <layout:height unit="em">1.0</layout:height>
+	                        <media:media src="svg.aht-utils/icon/ui/mail.svg" dst="icon/ui/mail"/>
+	                    </media:image>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>Mail</ofx:paragraph>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>Send Message by E-Mail</ofx:paragraph>
+	                </table:cell>
+	            </table:row>
 	        </table:body>
     	</table:content>
 	</table:table>

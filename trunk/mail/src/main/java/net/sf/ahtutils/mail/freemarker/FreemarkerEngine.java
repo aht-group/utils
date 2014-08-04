@@ -65,25 +65,26 @@ public class FreemarkerEngine
 	
 	private void initTemplate(Mail cfgMail) throws IOException
 	{
+		JaxbUtil.info(cfgMail);
 		try
 		{
 			Mail mail = MailXpath.getMail(mails, cfgMail.getCode());
 
-			net.sf.ahtutils.xml.mail.Template cfgTemplate =  cfgMail.getTemplate().get(0);
-			net.sf.ahtutils.xml.mail.Template utilsTemplate = MailXpath.getTemplate(mail, cfgTemplate.getLang(), cfgTemplate.getType());
+			net.sf.ahtutils.xml.mail.Template requestedTemplate =  cfgMail.getTemplate().get(0);
+			net.sf.ahtutils.xml.mail.Template template = MailXpath.getTemplate(mail, requestedTemplate.getLang(), requestedTemplate.getType());
 			
 			StringBuffer sb = new StringBuffer();
 				sb.append(mails.getDir());
 				sb.append("/").append(mail.getDir()).append("/");
-				sb.append(utilsTemplate.getLang()).append("-");
-				sb.append(utilsTemplate.getType()).append("-");
-				sb.append(utilsTemplate.getFile());
+				sb.append(template.getLang()).append("-");
+				sb.append(template.getType()).append("-");
+				sb.append(template.getFile());
 			
 			ftl = freemarkerConfiguration.getTemplate(sb.toString(),"UTF-8");
 			ftl.setEncoding("UTF-8");
 		}
-		catch (ExlpXpathNotFoundException e) {logger.error("Mail.id="+cfgMail.getId()+" "+e.getMessage());}
-		catch (ExlpXpathNotUniqueException e) {logger.error("Mail.id="+cfgMail.getId()+" "+e.getMessage());}
+		catch (ExlpXpathNotFoundException e) {logger.error("Mail.code="+cfgMail.getCode()+" "+e.getMessage());}
+		catch (ExlpXpathNotUniqueException e) {logger.error("Mail.code="+cfgMail.getCode()+" "+e.getMessage());}
 	}
  
 	public String processXml(Object xml) throws SAXException, IOException, ParserConfigurationException, TemplateException

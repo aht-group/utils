@@ -30,9 +30,9 @@ public class ParentPredicate <P extends EjbWithId> implements Serializable
 	public String getName() {return name;}
 	public void setName(String name) {this.name = name;}
 	
-	public static <P extends EjbWithId> ParentPredicate<P> create(P parent, String name)
+	public static <PARENT extends EjbWithId> ParentPredicate<PARENT> create(PARENT parent, String name)
 	{
-		ParentPredicate<P> pp = new ParentPredicate<P>();
+		ParentPredicate<PARENT> pp = new ParentPredicate<PARENT>();
 		pp.setParent(parent);
 		pp.setName(name);
 		return pp;
