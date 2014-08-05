@@ -31,6 +31,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithPosition;
 import net.sf.ahtutils.model.interfaces.with.EjbWithPositionVisible;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 import net.sf.ahtutils.model.interfaces.with.EjbWithType;
+import net.sf.ahtutils.model.interfaces.with.EjbWithValidFrom;
 
 public interface UtilsFacade extends UtilsIdFacade
 {
@@ -85,6 +86,9 @@ public interface UtilsFacade extends UtilsIdFacade
 	<T extends EjbWithRecord> List<T> inInterval(Class<T> clRecord, Date from, Date to);
 	<T extends EjbWithRecord> T fFirst(Class<T> clRecord);
 	<T extends EjbWithRecord> T fLast(Class<T> clRecord);
+	
+	//ValidFrom
+	<T extends EjbWithValidFrom> T fFirstValidFrom(Class<T> type, String parentName, long id, Date validFrom) throws UtilsNotFoundException;
 	
 	//Timeline
 	<T extends EjbWithTimeline> List<T> between(Class<T> clTracker, Date from, Date to);

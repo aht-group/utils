@@ -32,6 +32,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithPosition;
 import net.sf.ahtutils.model.interfaces.with.EjbWithPositionVisible;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 import net.sf.ahtutils.model.interfaces.with.EjbWithType;
+import net.sf.ahtutils.model.interfaces.with.EjbWithValidFrom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -343,6 +344,13 @@ public class AbstractDummyFacade implements UtilsFacade
 
 	@Override
 	public <T extends EjbWithId, P extends EjbWithId, GP extends EjbWithId> List<T> allForGrandParent(Class<T> queryClass, Class<P> pClass, String pName, GP grandParent, String gpName)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T extends EjbWithValidFrom> T fFirstValidFrom(Class<T> type, String parentName, long id, Date validFrom) throws UtilsNotFoundException
 	{
 		// TODO Auto-generated method stub
 		return null;
