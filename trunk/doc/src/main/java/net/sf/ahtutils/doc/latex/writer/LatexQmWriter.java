@@ -94,7 +94,7 @@ public class LatexQmWriter extends AbstractDocumentationLatexWriter
 		fOfx.renderColumn(Code.name, true,OfxColumnFactory.build(XmlAlignmentFactory.Horizontal.left));
 		fOfx.setImagePathPrefix(imagePathPrefix);
 		Table table = fOfx.buildLatexTable(id,aht);
-		JaxbUtil.info(table);
+		JaxbUtil.trace(table);
 		writeTable(table, f);
 	}
 	

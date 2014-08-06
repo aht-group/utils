@@ -50,13 +50,13 @@ public class OfxSectionQaCategoryFactory extends AbstractUtilsOfxDocumentationFa
 		
 		for(Test test : category.getTest())
 		{
-			section.getContent().add(buildSection(test));
+			section.getContent().add(buildSectionForTest(test));
 		}
 		
 		return section;
 	}
 	
-	private Section buildSection(Test test) throws OfxAuthoringException
+	private Section buildSectionForTest(Test test) throws OfxAuthoringException
 	{
 		Section section = XmlSectionFactory.build();
 		section.getContent().add(XmlTitleFactory.build(test.getName()));
@@ -68,7 +68,7 @@ public class OfxSectionQaCategoryFactory extends AbstractUtilsOfxDocumentationFa
 			section.getContent().add(p);
 		}
 
-		section.getContent().add(fOfxTableTest.buildTestTable(test));
+		section.getContent().add(fOfxTableTest.buildTableTestDetails(test));
 		
 		if(test.isSetInfo())
 		{

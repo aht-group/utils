@@ -53,6 +53,9 @@ QAUS extends UtilsStatus<QAUS,L,D>>
     String getSteps();
 	void setSteps(String steps);
 	
+	String getExpectedResult();
+	void setExpectedResult(String expectedResult);
+	
 	List<QATD> getDiscussions();
 	void setDiscussions(List<QATD> discussions);
 	

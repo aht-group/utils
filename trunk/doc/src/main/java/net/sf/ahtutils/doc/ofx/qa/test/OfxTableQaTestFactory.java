@@ -39,7 +39,7 @@ public class OfxTableQaTestFactory extends AbstractUtilsOfxDocumentationFactory
 		super(config,lang,translations);
 	}
 	
-	public Table buildTestTable(Test test) throws OfxAuthoringException
+	public Table buildTableTestDetails(Test test) throws OfxAuthoringException
 	{
 		
 		try
@@ -81,6 +81,8 @@ public class OfxTableQaTestFactory extends AbstractUtilsOfxDocumentationFactory
 	
 	private Content createTableContent(Test test)
 	{
+		JaxbUtil.info(test);
+		System.exit(-1);
 		Head head = new Head();
 		head.getRow().add(createHeaderRow(test));
 		

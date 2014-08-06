@@ -9,6 +9,7 @@ import net.sf.ahtutils.xml.aht.Query;
 import net.sf.ahtutils.xml.qa.Category;
 import net.sf.ahtutils.xml.qa.Comment;
 import net.sf.ahtutils.xml.qa.Description;
+import net.sf.ahtutils.xml.qa.Expected;
 import net.sf.ahtutils.xml.qa.Info;
 import net.sf.ahtutils.xml.qa.PreCondition;
 import net.sf.ahtutils.xml.qa.Reference;
@@ -105,6 +106,7 @@ public class QaQuery
 		xml.setPreCondition(new PreCondition());
 		xml.setDescription(new Description());
 		xml.setSteps(new Steps());
+		xml.setExpected(new Expected());
 		
 		xml.setStatus(XmlStatusFactory.create(""));
 		xml.setStatement(XmlStatementFactory.build(""));
