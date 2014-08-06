@@ -81,15 +81,14 @@ public class OfxTableQaTestFactory extends AbstractUtilsOfxDocumentationFactory
 	
 	private Content createTableContent(Test test)
 	{
-		JaxbUtil.info(test);
-		System.exit(-1);
+		JaxbUtil.trace(test);
+
 		Head head = new Head();
 		head.getRow().add(createHeaderRow(test));
 		
 		Body body = new Body();
 		body.getRow().add(buildTitle(test));
 		body.getRow().add(buildReference(test));
-//		body.getRow().add(buildDescription(test));
 		body.getRow().add(buildPreCondition(test));
 		body.getRow().add(buildSteps(test));
 		

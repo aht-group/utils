@@ -8,6 +8,7 @@ import net.sf.ahtutils.doc.ofx.AbstractUtilsOfxDocumentationFactory;
 import net.sf.ahtutils.doc.ofx.qa.test.OfxTableQaTestFactory;
 import net.sf.ahtutils.doc.ofx.qa.test.OfxTableQaTestResultFactory;
 import net.sf.ahtutils.xml.qa.Category;
+import net.sf.ahtutils.xml.qa.Expected;
 import net.sf.ahtutils.xml.qa.Info;
 import net.sf.ahtutils.xml.qa.Test;
 import net.sf.ahtutils.xml.status.Translations;
@@ -70,14 +71,22 @@ public class OfxSectionQaCategoryFactory extends AbstractUtilsOfxDocumentationFa
 
 		section.getContent().add(fOfxTableTest.buildTableTestDetails(test));
 		
-		if(test.isSetInfo())
-		{
-			section.getContent().addAll(infoParagraph(test.getInfo()));
-		}
+		
+		if(test.isSetExpected()){section.getContent().addAll(expectedParagraph(test.getExpected()));}
+		if(test.isSetInfo()){section.getContent().addAll(infoParagraph(test.getInfo()));}
 		
 		section.getContent().add(fOfxTableTestResult.buildTestTable(test));
 		
 		return section;
+	}
+	
+	private List<Paragraph> expectedParagraph(Expected expected)
+	{
+		List<Paragraph> list = new ArrayList<Paragraph>();
+		Paragraph p1 = XmlParagraphFactory.build();
+		p1.getContent().add("The expected result is: "+expected.getValue());
+		list.add(p1);
+		return list;
 	}
 	
 	private List<Paragraph> infoParagraph(Info info)
