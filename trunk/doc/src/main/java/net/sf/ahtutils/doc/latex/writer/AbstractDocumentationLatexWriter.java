@@ -60,6 +60,7 @@ public class AbstractDocumentationLatexWriter
 		
 		StringWriter sw = new StringWriter();
 		sectionRenderer.write(sw);
+		logger.info("Writing to : "+f.getAbsolutePath());
 		StringIO.writeTxt(f, sw.toString());
 	}
 }

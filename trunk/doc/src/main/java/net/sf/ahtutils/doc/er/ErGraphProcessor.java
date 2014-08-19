@@ -88,7 +88,12 @@ public class ErGraphProcessor
 	
 	private void createNode(File f,Set<String> subSet) throws ClassNotFoundException
 	{
-		Class<?> c = ClassUtil.forFile(fBase, f);
+		Class<?> c = ClassUtil.forFile(fBase, f);		
+		createNode(c,subSet);
+	}
+	
+	private void createNode(Class<?> c,Set<String> subSet)
+	{
 		Annotation a = c.getAnnotation(EjbErNode.class);
 		if(a!=null)
 		{
@@ -157,6 +162,14 @@ public class ErGraphProcessor
 					}
 				}
 			}
+			
+			Class<?> cSuper = c.getSuperclass();
+			if(mapNodes.containsKey(cSuper.getName()))
+			{
+				Node target = mapNodes.get(cSuper.getName());
+				createEdge(source, Cardinality.OneToOne,target,false);
+				
+			}			
 		}
 	}
 	
