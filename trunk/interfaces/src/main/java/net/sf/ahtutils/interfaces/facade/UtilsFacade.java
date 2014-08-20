@@ -61,6 +61,7 @@ public interface UtilsFacade extends UtilsIdFacade
 	<T extends EjbWithPositionVisible, P extends EjbWithId> List<T> allOrderedPositionVisibleParent(Class<T> cl, P parent);
 	<T extends EjbWithRecord> List<T> allOrderedRecord(Class<T> type, boolean ascending);
 	<T extends EjbWithRecord, AND extends EjbWithId, OR extends EjbWithId> List<T> allOrderedForParents(Class<T> queryClass, List<ParentPredicate<AND>> lpAnd, List<ParentPredicate<OR>> lpOr,boolean ascending);
+	<T extends EjbWithValidFrom> List<T> allOrderedValidFrom(Class<T> cl, boolean ascending);
 	
 //	<T extends EjbMergeable> T merge(T o) throws UtilsContraintViolationException, UtilsLockingException;
 	<T extends Object> T persist(T o) throws UtilsContraintViolationException;

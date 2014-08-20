@@ -323,11 +323,7 @@ public class UtilsFacadeBean implements UtilsFacade
 		return typedQuery.getResultList();
 	}
 	
-	public <T extends EjbWithPosition> List<T> allOrderedPosition(Class<T> cl)
-	{
-		return allOrdered(cl, "position", true);
-	}
-	
+
 	@Override
 	public <T, I extends EjbWithId> List<T> allOrderedParent(Class<T> cl,String by, boolean ascending, String p1Name, I p1)
 	{
@@ -402,27 +398,7 @@ public class UtilsFacadeBean implements UtilsFacade
 		
 		return em.createQuery(select).getResultList();
 	}
-	
-	@Override public <T extends Object> List<T> allOrdered(Class<T> cl, String by, boolean ascending)
-	{
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<T> select = cqOrdered(cb, cl, by, ascending);
-		return em.createQuery(select).getResultList();
-	}
-	
-	private <T extends Object> CriteriaQuery<T> cqOrdered(CriteriaBuilder cb, Class<T> cl, String by, boolean ascending)
-	{
-		CriteriaQuery<T> criteriaQuery = cb.createQuery(cl);
-		Root<T> from = criteriaQuery.from(cl);
 		
-		Expression<Date> eOrder = from.get(by);
-		
-		CriteriaQuery<T> select = criteriaQuery.select(from);
-		if(ascending){select.orderBy(cb.asc(eOrder));}
-		else{select.orderBy(cb.desc(eOrder));}
-		
-		return select;
-	}
 	
 	@Override public <T extends EjbRemoveable> void rm(T o) throws UtilsIntegrityException {rmProtected(o);}
 	
@@ -555,21 +531,45 @@ public class UtilsFacadeBean implements UtilsFacade
 	
 	//******************** ORDERED *****************
 	
-	public <T extends EjbWithRecord> List<T> allOrderedRecord(Class<T> type, boolean ascending)
+	public <T extends EjbWithPosition> List<T> allOrderedPosition(Class<T> cl)
 	{
-		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(type);
-		Root<T> from = criteriaQuery.from(type);
+		return allOrdered(cl, "position", true);
+	}
+	
+	public <T extends EjbWithRecord> List<T> allOrderedRecord(Class<T> cl, boolean ascending)
+	{
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<T> select = cqOrdered(cb, cl, "record", ascending);
+		return em.createQuery(select).getResultList();
+	}
+	@Override public <T extends EjbWithValidFrom> List<T> allOrderedValidFrom(Class<T> cl, boolean ascending)
+	{
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<T> select = cqOrdered(cb, cl, "validFrom", ascending);
+		return em.createQuery(select).getResultList();
+	}
+	
+	@Override public <T extends Object> List<T> allOrdered(Class<T> cl, String by, boolean ascending)
+	{
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<T> select = cqOrdered(cb, cl, by, ascending);
+		return em.createQuery(select).getResultList();
+	}
+	
+	private <T extends Object> CriteriaQuery<T> cqOrdered(CriteriaBuilder cb, Class<T> cl, String by, boolean ascending)
+	{
+		CriteriaQuery<T> criteriaQuery = cb.createQuery(cl);
+		Root<T> from = criteriaQuery.from(cl);
 		
-		Expression<Date> eRecord = from.get("record");
+		Expression<Date> eOrder = from.get(by);
 		
 		CriteriaQuery<T> select = criteriaQuery.select(from);
-		if(ascending){select.orderBy(criteriaBuilder.asc(eRecord));}
-		else{select.orderBy(criteriaBuilder.desc(eRecord));}
+		if(ascending){select.orderBy(cb.asc(eOrder));}
+		else{select.orderBy(cb.desc(eOrder));}
 		
-		TypedQuery<T> typedQuery = em.createQuery(select);
-		return typedQuery.getResultList();
+		return select;
 	}
+	
 	
 	public <T extends EjbWithRecord, AND extends EjbWithId, OR extends EjbWithId> List<T> allOrderedForParents(Class<T> queryClass, List<ParentPredicate<AND>> lpAnd, List<ParentPredicate<OR>> lpOr,boolean ascending)
 	{
@@ -914,5 +914,4 @@ public class UtilsFacadeBean implements UtilsFacade
 	    TypedQuery<USER> q = em.createQuery(select);
 		return q.getResultList();
 	}
-	
 }
