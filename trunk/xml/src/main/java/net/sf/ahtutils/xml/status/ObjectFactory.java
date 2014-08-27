@@ -174,6 +174,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Level }
+     * 
+     */
+    public Level createLevel() {
+        return new Level();
+    }
+
+    /**
      * Create an instance of {@link Order }
      * 
      */

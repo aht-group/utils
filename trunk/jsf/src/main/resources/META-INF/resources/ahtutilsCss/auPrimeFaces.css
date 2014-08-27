@@ -17,6 +17,17 @@
 }
 
 
+.pf-dialog-header-action-icon{
+	cursor:pointer;
+	padding-top: 5px;
+	margin-left: 5px;
+	float: right;
+}
+.pf-digalog-action .ui-dialog-title{
+	width: 100%;
+}
+
+
  /* http://stackoverflow.com/questions/6636813/best-practice-for-readonly-edition-modes-in-jsf */
 .pfInputTextDisabled {
     border: 0 !important;

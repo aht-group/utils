@@ -22,12 +22,13 @@ public class UtilsIdMapper
 		map = new Hashtable<Class<?>,Map<Long,Long>>();
 	}
 	
-	public void add(DataUpdate dataUpdate)
+	public DataUpdate add(DataUpdate dataUpdate)
 	{
 		for(Mapper mapper : dataUpdate.getMapper())
 		{
 			add(mapper);
 		}
+		return dataUpdate;
 	}
 	
 	public void add(Mapper mapper)
