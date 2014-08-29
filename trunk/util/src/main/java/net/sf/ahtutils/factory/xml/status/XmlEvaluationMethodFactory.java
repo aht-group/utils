@@ -4,6 +4,7 @@ import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.xml.status.EvaluationMethod;
+import net.sf.ahtutils.xml.status.Status;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,15 @@ public class XmlEvaluationMethodFactory <S extends UtilsStatus<S,L,D>,L extends 
 	{
 		EvaluationMethod xml = new EvaluationMethod();
 		xml.setCode(code);
+		return xml;
+	}
+	
+	public static EvaluationMethod build(Status status)
+	{
+		EvaluationMethod xml = new EvaluationMethod();
+		xml.setCode(status.getCode());
+		xml.setDescriptions(status.getDescriptions());
+		xml.setLangs(status.getLangs());
 		return xml;
 	}
 }
