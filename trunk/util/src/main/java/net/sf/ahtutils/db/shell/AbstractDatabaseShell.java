@@ -1,9 +1,12 @@
-package net.sf.ahtutils.db.dump;
+package net.sf.ahtutils.db.shell;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 import java.util.NoSuchElementException;
 
-import net.sf.ahtutils.interfaces.db.UtilsDbDump;
+import net.sf.ahtutils.interfaces.db.UtilsDbShell;
+import net.sf.exlp.interfaces.util.TextWriter;
 import net.sf.exlp.shell.os.OsBashFile;
 import net.sf.exlp.util.io.txt.ExlpTxtWriter;
 
@@ -11,14 +14,14 @@ import org.apache.commons.configuration.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AbstractDatabaseDump
+public class AbstractDatabaseShell
 {
-	final static Logger logger = LoggerFactory.getLogger(AbstractDatabaseDump.class);
+	final static Logger logger = LoggerFactory.getLogger(AbstractDatabaseShell.class);
 	
 	protected Configuration config;
-	protected UtilsDbDump.Operation operation;
+	protected UtilsDbShell.Operation operation;
 	
-	protected String binDump;
+	protected String shellCommand;
 	
 	protected String dbHost;
 	protected String dbName;
@@ -28,16 +31,16 @@ public class AbstractDatabaseDump
 	
 	protected String dirSql;
 	
-	protected String[] tables;
+	protected List<String> tables;
+	public List<String> getTables(){return tables;}
 
 	protected ExlpTxtWriter txtWriter;
 	
 	
-	public AbstractDatabaseDump(Configuration config,UtilsDbDump.Operation operation)
+	public AbstractDatabaseShell(Configuration config,UtilsDbShell.Operation operation)
 	{
 		this.config=config;
 		this.operation=operation;
-		binDump = config.getString(UtilsDbDump.cfgBinDump);
 		
 		try{dbHost = config.getString("db."+operation.toString()+".host");}
 		catch (NoSuchElementException e){dbHost="localhost";}
@@ -49,7 +52,7 @@ public class AbstractDatabaseDump
 		try{dbSchema = config.getString("db."+operation.toString()+".schema");}
 		catch (NoSuchElementException e){}
 		
-		dirSql = config.getString(UtilsDbDump.cfgDirSql);
+		dirSql = config.getString(UtilsDbShell.cfgDirSql);
 		
 		txtWriter = new ExlpTxtWriter();
 		
@@ -61,7 +64,7 @@ public class AbstractDatabaseDump
 	
 	public void debug()
 	{
-		logger.info("Bin: "+binDump+" ("+UtilsDbDump.cfgBinDump+")");
+		logger.info("Bin: "+shellCommand+" ("+UtilsDbShell.cfgBinDump+")");
 		logger.info("Host: "+dbHost+" (db."+operation.toString()+".user)");
 		logger.info("DB: "+dbName+" (db."+operation.toString()+".db)");
 		logger.info("User: "+dbUser+" (db."+operation.toString()+".user)");
@@ -74,33 +77,36 @@ public class AbstractDatabaseDump
 		txtWriter.add(line);
 	}
 	
-	public ExlpTxtWriter getWriter()
+	public TextWriter getWriter()
 	{
 		return txtWriter;
 	}
 	
-	public String[] getTables() {
-		return tables;
-	}
-
-	public void setTables(String[] tables) {
-		this.tables = tables;
-	}
 	
 	public File getShellFile()
 	{
-		return new File(config.getString(UtilsDbDump.cfgDirShell),config.getString("db."+operation.toString()+".shell"));
+		return new File(config.getString(UtilsDbShell.cfgDirShell),config.getString("db."+operation.toString()+".shell"));
 	}
 	
 	public void discoverTables()
 	{
-		switch(operation)
+		tables = Arrays.asList(config.getStringArray(UtilsDbShell.cfgDbTables));
+		
+		if(tables.size()==0)
 		{
-			case dump: discoverTablesSql();break;
-			case restore: logger.warn("NYI");break;
+			switch(operation)
+			{
+				case dump: discoverExportTables();break;
+				case restore: logger.warn("NYI");break;
+			}
 		}
 	}
 	
-	void discoverTablesSql(){};
+	public void discoverExportTables()
+	{
+		logger.info("No "+UtilsDbShell.cfgDbTables+" config. Discovering by SQL");
+		discoverTablesSql();
+	}
 	
+	protected void discoverTablesSql(){}
 }

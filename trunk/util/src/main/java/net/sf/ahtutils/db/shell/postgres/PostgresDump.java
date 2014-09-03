@@ -1,4 +1,4 @@
-package net.sf.ahtutils.db.dump;
+package net.sf.ahtutils.db.shell.postgres;
 
 import java.io.File;
 import java.sql.Connection;
@@ -6,44 +6,54 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 import net.sf.ahtutils.db.sql.SqlConnectionFactory;
-import net.sf.ahtutils.interfaces.db.UtilsDbDump;
+import net.sf.ahtutils.interfaces.db.UtilsDbShell;
+import net.sf.exlp.exception.ExlpUnsupportedOsException;
 
 import org.apache.commons.configuration.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PostgresDump extends AbstractDatabaseDump implements UtilsDbDump
+public class PostgresDump extends AbstractPostgresShell implements UtilsDbShell
 {
 	final static Logger logger = LoggerFactory.getLogger(PostgresDump.class);
 	
-	public PostgresDump(Configuration config,UtilsDbDump.Operation operation)
+	public PostgresDump(Configuration config)
     {
-		super(config,operation);
+		super(config,UtilsDbShell.Operation.dump);
+		
+		if(config.containsKey(UtilsDbShell.cfgBinDump)){shellCommand = config.getString(UtilsDbShell.cfgBinDump);}
+		else
+		{
+			shellCommand = "pg_dump";
+			logger.info("Using default command ("+shellCommand+"), can be overriden in "+UtilsDbShell.cfgBinDump);
+		}
     } 
 	
-	public void buildCommands(boolean withStructure)
+	public void buildCommands(boolean withStructure) throws ExlpUnsupportedOsException
 	{
+		super.cmdPre();
+		
 		for(String table : tables)
 		{
-			switch(operation)
-			{
-				case dump: dumpTable(table, withStructure);break;
-				case restore: resotreTable(table);break;
-			}	
+			dumpTable(table, withStructure);
 		}
+		
+		super.cmdPost();
 	}
 	
 	public String dumpTable(String table, boolean withStructure)
 	{
 		StringBuffer sb = new StringBuffer();
-		sb.append(binDump);
+		sb.append(shellCommand);
 		sb.append(" -h ").append(dbHost);
 		sb.append(" -U ").append(dbUser);
-		sb.append(" -F p -C --column-inserts -v");
-		sb.append(" -f ").append(dirSql+File.separator+table+".sql");
+		sb.append(" --blobs");
+		sb.append(" --format=c");
+		sb.append(" --verbose");
+//		sb.append(" -C --column-inserts -v");
+		sb.append(" --file=").append(dirSql+File.separator+table+".sql");
 		sb.append(" -t '"+table+"' "+dbName);
 		
 		super.addLine(sb.toString());
@@ -53,19 +63,19 @@ public class PostgresDump extends AbstractDatabaseDump implements UtilsDbDump
 	public String resotreTable(String table)
 	{
 		StringBuffer sb = new StringBuffer();
-		sb.append(binDump);
+		sb.append(shellCommand);
 		sb.append(" NYI");
 		
 		super.addLine(sb.toString());
 		return sb.toString();
 	}
-
+	
 	@Override public void discoverTablesSql()
 	{
 		SqlConnectionFactory scf = new SqlConnectionFactory(config);
 		Connection c = scf.buildPostgresSqlConnection(dbHost, dbName, dbUser, dbPwd);
 		
-		List<String> sTables = new ArrayList<String>();
+		tables = new ArrayList<String>();
 		try
 		{
 			Statement s = c.createStatement();
@@ -76,12 +86,11 @@ public class PostgresDump extends AbstractDatabaseDump implements UtilsDbDump
 			ResultSet rs = s.executeQuery(sql);
 			while(rs.next())
 			{	
-				sTables.add(rs.getString("table_name"));
+				tables.add(rs.getString("table_name"));
 		    }
 			s.close();
 		}
 		catch (SQLException e) {e.printStackTrace();}
-		tables = new String[sTables.size()];
-		for(int i=0;i<sTables.size();i++){tables[i]=sTables.get(i);}
+		logger.info("Discovered "+tables.size());
 	}
 }
