@@ -49,6 +49,8 @@ public class PostgresRestore extends AbstractPostgresShell implements UtilsDbShe
 		sb.append(" -d ").append(dbName);
 		sb.append(" ").append(dirSql+File.separator+table+".sql");
 		
+		// Trigger http://dba.stackexchange.com/questions/23000/disable-constraints-before-using-pg-restore-exe
+		
 		super.addLine(sb.toString());
 		return sb.toString();
 	}

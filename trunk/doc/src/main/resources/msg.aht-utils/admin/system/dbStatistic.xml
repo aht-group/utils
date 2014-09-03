@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<s:translations xmlns:s="http://ahtutils.aht-group.com/status">
+	<s:translation key="aupDbTable">
+    	<s:langs>
+    		<s:lang key="de" translation="Tabelle"/>
+    		<s:lang key="en" translation="Table"/>
+    		<s:lang key="fr" translation="Table"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="aupDbCount">
+    	<s:langs>
+    		<s:lang key="de" translation="Anzahl"/>
+    		<s:lang key="en" translation="Count"/>
+    		<s:lang key="fr" translation="Count"/>
+    	</s:langs>
+    </s:translation>
+</s:translations>

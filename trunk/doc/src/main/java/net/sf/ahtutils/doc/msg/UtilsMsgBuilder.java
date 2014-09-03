@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 public class UtilsMsgBuilder
 {	
 	public static final String srcAdminSystemProperty = "msg.aht-utils/admin/system/properties.xml";
+	public static final String srcAdminSystemDbStatistic = "msg.aht-utils/admin/system/dbStatistic.xml";
 	
 	final static Logger logger = LoggerFactory.getLogger(UtilsMsgBuilder.class);
 		
