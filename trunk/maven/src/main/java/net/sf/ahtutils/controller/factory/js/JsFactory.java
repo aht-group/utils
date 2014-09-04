@@ -10,6 +10,8 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.apache.commons.io.filefilter.SuffixFileFilter;
 import org.apache.commons.lang.SystemUtils;
@@ -26,11 +28,11 @@ public class JsFactory
 	private String charset;
 	private JavaScriptCompressor compressor;
 	
-	public JsFactory(File baseDir) throws EvaluatorException, IOException
+	public JsFactory(File baseDir, String[] libOrder) throws EvaluatorException, IOException
 	{
 		charset = "UTF-8";
 		
-		Reader in = fillReader(baseDir);
+		Reader in = fillReader(baseDir, libOrder);
 		compressor = new JavaScriptCompressor(in, new UtilsJsErrorReporter());
         in.close(); in = null;
  
@@ -59,15 +61,32 @@ public class JsFactory
         out.close();
 	}
 
-	private Reader fillReader(File dir) throws IOException
+	private Reader fillReader(File dir, String[] libOrder) throws IOException
 	{
 		StringBuffer sb = new StringBuffer();
+		
+		// Some libraries need to be added in a specific order
+		ArrayList<String> orderedLibraries = new ArrayList<String>();
+		orderedLibraries.addAll(Arrays.asList(libOrder));
+		
+		for (String library : orderedLibraries)
+		{
+			File f = new File(dir,library);
+			logger.info("Adding "+library);
+			sb.append(readFile(f)).append(SystemUtils.LINE_SEPARATOR);
+		}
+		
+		logger.info("-------------------");
+		
 		String[] files = dir.list(new SuffixFileFilter(".js"));
 		for (String s : files)
 		{
-			File f = new File(dir,s);
-			logger.info("Adding "+s);
-			sb.append(readFile(f)).append(SystemUtils.LINE_SEPARATOR);
+			if (!orderedLibraries.contains(s))
+			{
+				File f = new File(dir,s);
+				logger.info("Adding "+s);
+				sb.append(readFile(f)).append(SystemUtils.LINE_SEPARATOR);
+			}
 		}
 		
 	    Reader r = new StringReader(sb.toString());

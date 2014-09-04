@@ -22,7 +22,8 @@ public class TestJsBuilder extends AbstractUtilsMavenTst
 	public void init() throws EvaluatorException, IOException
 	{	
 		File src = new File("src/test/resources/data/factory/js");
-		jsFactory = new JsFactory(src);
+		String[] libOrder = new String[0];
+		jsFactory = new JsFactory(src, libOrder);
 		jsFactory.write(null);
 	}
 	

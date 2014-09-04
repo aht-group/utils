@@ -51,7 +51,14 @@ public class JsBuilder extends AbstractMojo
      * @required
      */
     private String targetFile;
-
+    
+    /**
+     * Order of libraries.
+     * @parameter
+     */
+    private String[] libOrder;
+    
+    
     public void execute() throws MojoExecutionException
     {
     	BasicConfigurator.configure();
@@ -78,7 +85,7 @@ public class JsBuilder extends AbstractMojo
     	
 		try
 		{
-			JsFactory jsFactory = new JsFactory(fJsDir);
+			JsFactory jsFactory = new JsFactory(fJsDir, libOrder);
 			jsFactory.write(fTarget);
 		}
 		catch (EvaluatorException e) {throw new MojoExecutionException(e.getMessage());}
