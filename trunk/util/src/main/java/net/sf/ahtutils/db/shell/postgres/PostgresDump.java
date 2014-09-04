@@ -35,12 +35,26 @@ public class PostgresDump extends AbstractPostgresShell implements UtilsDbShell
 	{
 		super.cmdPre();
 		
-		for(String table : tables)
-		{
-			dumpTable(table, withStructure);
-		}
+//		for(String table : tables){dumpTable(table, withStructure);}
+		dumpDatabase();
 		
 		super.cmdPost();
+	}
+	
+	public String dumpDatabase()
+	{
+		StringBuffer sb = new StringBuffer();
+		sb.append(shellCommand);
+		sb.append(" -h ").append(dbHost);
+		sb.append(" -U ").append(dbUser);
+		sb.append(" --blobs");
+		sb.append(" --format=c");
+		sb.append(" --verbose");
+		sb.append(" --file=").append(dirSql+File.separator+dbName+".sql");
+		sb.append(" ").append(dbName);
+		
+		super.addLine(sb.toString());
+		return sb.toString();
 	}
 	
 	public String dumpTable(String table, boolean withStructure)
@@ -54,7 +68,8 @@ public class PostgresDump extends AbstractPostgresShell implements UtilsDbShell
 		sb.append(" --verbose");
 //		sb.append(" -C --column-inserts -v");
 		sb.append(" --file=").append(dirSql+File.separator+table+".sql");
-		sb.append(" -t '"+table+"' "+dbName);
+		sb.append(" -t '"+table+"'");
+		sb.append(" ").append(dbName);
 		
 		super.addLine(sb.toString());
 		return sb.toString();

@@ -79,7 +79,7 @@ public class UtilsCliOption
 		if(line.hasOption(oDebug.getOpt())) {initLogger("log4j.debug.xml");}
         else
         {
-        	System.out.println("Using cli");
+//        	System.out.println("Using cli");
         	initLogger("log4j.cli.xml");
         }
 	}
@@ -127,10 +127,8 @@ public class UtilsCliOption
 		return ConfigLoader.init();
 	}
 	
-	
 	public Options getOptions() {return options;}
 	
 	public void setExlpApp(String exlpApp) {this.exlpApp = exlpApp;}
 	public void setExlpCode(String exlpCode) {this.exlpCode = exlpCode;}
-	
 }

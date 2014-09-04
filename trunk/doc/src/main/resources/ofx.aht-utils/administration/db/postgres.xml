@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org" id="section.admin.db.postgresql">
+	<ofx:title lang="en">PostgresSQL</ofx:title>
+	
+	<ofx:paragraph lang="en" >
+		A directory for the user postgres has to be created where all databse dumps are stored.
+	</ofx:paragraph>
+		
+	<ofx:listing external="listing/admin/db/postgres/preparation.sh"/>
+			
+	<ofx:paragraph lang="en" >
+		The database dump is created by the pgdump command line tool
+	</ofx:paragraph>
+		
+	<ofx:listing external="listing/admin/db/postgres/dump.sh"/>
+	
+	<ofx:paragraph lang="en" >
+		Then this command has to added to the crontabl of the user postgres. The database dump is created every hour
+	</ofx:paragraph>
+	
+	<ofx:listing external="listing/admin/db/postgres/cron.tab"/>
+		
+</ofx:section>

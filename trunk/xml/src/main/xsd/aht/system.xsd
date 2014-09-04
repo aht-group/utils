@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://ahtutils.aht-group.com/system"
+    xmlns:sys="http://ahtutils.aht-group.com/system"
+    xmlns:us="http://ahtutils.aht-group.com/status"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://ahtutils.aht-group.com/status" schemaLocation="status.xsd"/>
+	<xsd:element name="uptime">
+        <xsd:complexType>
+        	<xsd:sequence>
+                <xsd:element ref="us:type" maxOccurs="1"/>
+            </xsd:sequence>
+            <xsd:attribute name="since" type="xsd:dateTime"/>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
