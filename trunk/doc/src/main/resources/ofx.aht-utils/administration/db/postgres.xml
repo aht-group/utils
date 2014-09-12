@@ -1,23 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ofx:section xmlns:ofx="http://www.openfuxml.org" id="section.admin.db.postgresql">
+<ofx:section xmlns:ofx="http://www.openfuxml.org"
+			xmlns:text="http://www.openfuxml.org/text"
+		id="section.admin.db.postgresql">
 	<ofx:title lang="en">PostgresSQL</ofx:title>
 	
-	<ofx:paragraph lang="en" >
-		A directory for the user postgres has to be created where all databse dumps are stored.
+	<ofx:paragraph lang="en" version="1">
+		The RDBMS <text:emphasis italic="true">PostgreSQL</text:emphasis>
+		is shipped with several command line tools for backups  and restores of tables and databases.
+		All of these tools can be executed on the command line and it's easily possible to automate these procedures.
+		The backups should be executed by the system user <text:emphasis italic="true">postgres</text:emphasis>
+		who has the appropriate rights for accessing the database.
+	</ofx:paragraph>
+	
+	<ofx:paragraph lang="en" version="1">
+		First of all the target directories for the database dumps and the shell scripts need to be created: 
 	</ofx:paragraph>
 		
 	<ofx:listing external="listing/admin/db/postgres/preparation.sh"/>
 			
 	<ofx:paragraph lang="en" >
-		The database dump is created by the pgdump command line tool
+		The database dump is created by the <text:emphasis bold="true">pgdump</text:emphasis> command line tool.
+		To automate the process, the parameters of the tool are defined in a shell script which can be executed
+		manually or automatically by the cron daemon.
 	</ofx:paragraph>
 		
 	<ofx:listing external="listing/admin/db/postgres/dump.sh"/>
 	
 	<ofx:paragraph lang="en" >
-		Then this command has to added to the crontabl of the user postgres. The database dump is created every hour
+		To perform regularly database backups the shell script has to be added to the cron daemon
+		to be executed automatically.
+		With the logged-in user <text:emphasis italic="true">postgres</text:emphasis>
+		the crontab can be edited by <text:emphasis italic="true">crontab -e</text:emphasis>.
+		The following entry is executing the database dump every hour:
 	</ofx:paragraph>
 	
 	<ofx:listing external="listing/admin/db/postgres/cron.tab"/>
+		
+	<ofx:paragraph lang="en" >
+		The successfull editing of the crontab can be verified by listing all entries with the command
+		<text:emphasis italic="true">crontab -l</text:emphasis>.
+	</ofx:paragraph>
 		
 </ofx:section>

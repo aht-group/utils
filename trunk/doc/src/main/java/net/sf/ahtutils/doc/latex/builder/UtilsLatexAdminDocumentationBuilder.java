@@ -17,6 +17,8 @@ public class UtilsLatexAdminDocumentationBuilder extends AbstractLatexDocumentat
 							 
 	public static enum MaintenanceCode {mLoggingIntroduction}
 	
+	public static enum BackupCode {bPostgres}
+	
 	public static enum SecurityCode {sConceptIntroduction}
 							 
 	public static enum InstallationCode {instDebian,instJava,instJboss,instPostGis,instMySql,instMaven}
@@ -45,6 +47,9 @@ public class UtilsLatexAdminDocumentationBuilder extends AbstractLatexDocumentat
 		//Maintenance
 		addConfig(MaintenanceCode.mLoggingIntroduction.toString(),"ofx.aht-utils/administration/logging/introduction.xml","admin/system/logging/introduction");
 		
+		//Backup
+		addConfig(BackupCode.bPostgres.toString(),"ofx.aht-utils/administration/db/postgres.xml","admin/db/postgres");
+		
 		//Installation
 		addConfig(InstallationCode.instDebian.toString(),"ofx.aht-utils/installation/debian.xml","admin/installation/debian");
 		addConfig(InstallationCode.instJava.toString(),"ofx.aht-utils/installation/java.xml","admin/installation/java");
@@ -71,6 +76,7 @@ public class UtilsLatexAdminDocumentationBuilder extends AbstractLatexDocumentat
 	public void render(SecurityCode code) throws UtilsConfigurationException{render(code.toString());}
 
 	public void render(MaintenanceCode code) throws UtilsConfigurationException{render(code.toString());}
+	public void render(BackupCode code) throws UtilsConfigurationException{render(code.toString());}
 	
 	public void render(InstallationCode code) throws UtilsConfigurationException{render(code.toString());}
 	public void render(InstallationCode code, InstallationArchitecture... architectures) throws UtilsConfigurationException

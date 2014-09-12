@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<s:translations xmlns:s="http://ahtutils.aht-group.com/status">
+	<s:translation key="aupDbDumpName">
+    	<s:langs>
+    		<s:lang key="de" translation="Datei"/>
+    		<s:lang key="en" translation="File"/>
+    		<s:lang key="fr" translation="File"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="aupDbDumpSize">
+    	<s:langs>
+    		<s:lang key="de" translation="Größe"/>
+    		<s:lang key="en" translation="Size"/>
+    		<s:lang key="fr" translation="Size"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="aupDbDumpDate">
+    	<s:langs>
+    		<s:lang key="de" translation="Datum"/>
+    		<s:lang key="en" translation="Date"/>
+    		<s:lang key="fr" translation="Date"/>
+    	</s:langs>
+    </s:translation>
+</s:translations>

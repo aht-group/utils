@@ -149,8 +149,21 @@
 				<layout:width unit="percentage">60</layout:width>
 			    <ofx:title>Debian Login console</ofx:title>
 				<media:media lang="en" src="png.aht-utils/installation/debian/wheezy/console.png" dst="en/admin/installation/debian/console"/>
-			</media:image>
-						
+			</media:image>	
+		</ofx:section>
+		
+		<ofx:section id="section.admin.installation.debian.wheezy.update">
+			<ofx:title lang="en">Apply Updates</ofx:title>
+		
+			<ofx:paragraph lang="en" version="1">
+				The installation of the most recent version of all packages should be verfied, especially after
+				installation of the system from a DVD image.
+			</ofx:paragraph>
+			
+			<ofx:listing>
+				<ofx:raw>apt-get update</ofx:raw>
+			</ofx:listing>
+			
 		</ofx:section>
 		
 	</ofx:section>
@@ -228,6 +241,33 @@
 		
 			<ofx:listing>
 				<ofx:raw>apt-get install less</ofx:raw>
+			</ofx:listing>
+		</ofx:section>
+		
+		<ofx:section>
+			<ofx:title lang="en">Sudo</ofx:title>
+			
+			<ofx:paragraph lang="en" version="1">
+				 sudo  is a program for Unix-like computer operating systems that allows users to run
+				 programs with the security privileges of another user (normally the superuser, or root).
+				 Its name is a concatenation of "su" (substitute user) and "do", or take action.
+			</ofx:paragraph>
+			
+			<ofx:paragraph lang="en" version="1">
+				Unlike the su command, users typically supply their own password to sudo rather than the
+				root password. After authentication, and if the /usr/local/etc/sudoers
+				(sometimes found at /etc/sudoers) configuration file permits the user access,
+				then the system will invoke the requested command.
+				The sudoers configuration file enables a huge amount of configurability, including but not
+				limited to: enabling root commands only from the invoking terminal; not requiring a password
+				for certain commands; requiring a password per user or group; requiring re-entry of a password
+				every time or never requiring a password at all for a particular command line.
+				It can also be configured to permit passing arguments or multiple commands,
+				and even supports commands with regular expressions.
+			</ofx:paragraph>
+		
+			<ofx:listing>
+				<ofx:raw>apt-get install sudo</ofx:raw>
 			</ofx:listing>
 		</ofx:section>
 		

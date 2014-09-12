@@ -22,6 +22,9 @@ public class UtilsCliOption
 	private Options options;
 	private Option oHelp,oDebug,oConfig;
 	
+	private boolean appStarted;
+	public boolean isAppStarted(){return appStarted;}
+	
 	private String version;
 	private String[] log4jPaths;
 	
@@ -30,6 +33,7 @@ public class UtilsCliOption
 	public UtilsCliOption(String version)
 	{
 		this.version=version;
+		appStarted = false;
 		options = new Options();
 		
 		exlpApp = "unknown";
@@ -125,6 +129,12 @@ public class UtilsCliOption
 		ConfigLoader.add(defaultConfig);
 		
 		return ConfigLoader.init();
+	}
+	
+	public boolean allowAppStart()
+	{
+		if(!appStarted){appStarted = true;}
+		return appStarted;
 	}
 	
 	public Options getOptions() {return options;}

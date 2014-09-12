@@ -80,7 +80,7 @@ public class DocumentationCommentBuilder
 	public static void doNotModify(Comment comment)
 	{
 		comment.getRaw().add(XmlRawFactory.build(""));
-		comment.getRaw().add(XmlRawFactory.build("Do not modify this file, it is automatically generated. Changes in this file will be overwritten without warning."));
+		comment.getRaw().add(XmlRawFactory.build("Do not modify this auto-generated file, it will be overwritten without warning!"));
 	}
 	
 	public static void ofxClassifier(Comment comment,String[] classifier)

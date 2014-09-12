@@ -78,11 +78,22 @@ GRANT ALL PRIVILEGES ON DATABASE **dbName** TO **dbName**;</ofx:raw>
 		<ofx:paragraph lang="en" classifier="ubuntu14">
 			Then in the console
 		</ofx:paragraph>
-		<ofx:listing classifier="debianWheezy">
+		<ofx:listing classifier="ubuntu14">
 			<ofx:raw>psql -U postgres -d **dbName** -f /usr/share/postgresql/9.3/contrib/postgis-2.1/postgis.sql
 psql -U postgres -d **dbName** -f /usr/share/postgresql/9.3/contrib/postgis-2.1/postgis_comments.sql
 psql -U postgres -d **dbName** -f /usr/share/postgresql/9.3/contrib/postgis-2.1/spatial_ref_sys.sql</ofx:raw>
 		</ofx:listing>
 		
 	</ofx:section>
+	
+	<ofx:section>
+		<ofx:title lang="en">Correction of table owner</ofx:title>
+		
+		<ofx:listing classifier="ubuntu14">
+			<ofx:raw>ALTER TABLE geometry_columns OWNER TO dss;
+ALTER TABLE spatial_ref_sys OWNER TO dss;</ofx:raw>
+		</ofx:listing>
+		
+	</ofx:section>
+	
 </ofx:section>
