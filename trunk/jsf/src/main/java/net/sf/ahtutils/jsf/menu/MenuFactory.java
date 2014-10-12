@@ -21,7 +21,6 @@ import net.sf.ahtutils.xml.xpath.AccessXpath;
 import net.sf.ahtutils.xml.xpath.NavigationXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
-import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.alg.DijkstraShortestPath;
@@ -416,5 +415,13 @@ public class MenuFactory
 	public String getParent(String code)
 	{
 		return mapParent.get(code);
+	}
+	
+	public static MenuItem buildItem(String label,String href)
+	{
+		MenuItem mi = new MenuItem();
+		mi.setName(label);
+		mi.setHref(href);
+		return mi;
 	}
 }

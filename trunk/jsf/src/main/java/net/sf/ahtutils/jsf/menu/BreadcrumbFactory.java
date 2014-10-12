@@ -22,10 +22,12 @@ public class BreadcrumbFactory
 	
 	public void add(String label,String href)
 	{
-		MenuItem mi = new MenuItem();
-		mi.setName(label);
-		mi.setHref(href);
-		list.add(mi);
+		add(MenuFactory.buildItem(label, href));
+	}
+	
+	public void add(MenuItem item)
+	{
+		list.add(item);
 	}
 	
 	public Breadcrumb build()
@@ -34,5 +36,4 @@ public class BreadcrumbFactory
 		breadcrumb.getMenuItem().addAll(list);
 		return breadcrumb;
 	}
-
 }
