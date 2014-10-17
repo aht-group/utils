@@ -94,6 +94,20 @@
 	                <table:cell>
 	                    <media:image>
 	                        <layout:height unit="em">1.0</layout:height>
+	                        <media:media src="svg.aht-utils/icon/ui/remove.svg" dst="icon/ui/add"/>
+	                    </media:image>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>Remove</ofx:paragraph>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>xxx</ofx:paragraph>
+	                </table:cell>
+	            </table:row>
+	            <table:row>
+	                <table:cell>
+	                    <media:image>
+	                        <layout:height unit="em">1.0</layout:height>
 	                        <media:media src="svg.aht-utils/icon/ui/trash.svg" dst="icon/ui/trash"/>
 	                    </media:image>
 	                </table:cell>
