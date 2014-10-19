@@ -48,7 +48,7 @@ public class ComponentAttribute
 		return new Long(value);
 	}
 	
-	public static double getDouble(String attribute, boolean defaultValue, FacesContext context, UIComponent component)
+	public static double getDouble(String attribute, double defaultValue, FacesContext context, UIComponent component)
 	{
 		String value = get(attribute,null,context,component);
 		if(value==null){value=""+defaultValue;}
@@ -69,7 +69,7 @@ public class ComponentAttribute
 		return value;
 	}
 	
-	public static int getInteger(String attribute, boolean defaultValue, FacesContext context, UIComponent component)
+	public static int getInteger(String attribute, int defaultValue, FacesContext context, UIComponent component)
 	{
 		String value = get(attribute,null,context,component);
 		if(value==null){value=""+defaultValue;}
