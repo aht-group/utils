@@ -10,26 +10,30 @@
 	<composite:interface>
 		<composite:attribute name="size" required="false" default="12"/>
 		<composite:attribute name="styleClass" required="false"/>
+		<composite:attribute name="langEn" required="false" default="true"/>
+		<composite:attribute name="langFr" required="false" default="false"/>
+		<composite:attribute name="langDe" required="false" default="false"/>
 	</composite:interface>
 	        
-	<composite:implementation>
-		<h:panelGroup layout="block" styleClass="#{cc.attrs.styleClass}">
-	       <h:graphicImage rendered="#{userBean.localeCode ne 'fr'}" library="ahtutilsGfx" name="flags/12/france-grey.png">
-	           <p:ajax event="click" listener="#{userBean.setLocale('fr')}" oncomplete="javascript:location.reload(true)"/>
-	       </h:graphicImage>
-	       <h:graphicImage rendered="#{userBean.localeCode eq 'fr'}" library="ahtutilsGfx" name="flags/12/france.png"/>
-	       <p:spacer width="5"/>
+<composite:implementation>
+	<h:panelGroup layout="block" styleClass="#{cc.attrs.styleClass}">
+		
+		<h:graphicImage rendered="#{cc.attrs.langEn and userBean.localeCode ne 'en'}" library="ahtutilsGfx" name="flags/12/united_kingdom-grey.png">
+			<p:ajax event="click" listener="#{userBean.setLocale('en')}" oncomplete="javascript:location.reload(true)"/>
+		</h:graphicImage>
+		<h:graphicImage rendered="#{cc.attrs.langEn and userBean.localeCode eq 'en'}" library="ahtutilsGfx" name="flags/12/united_kingdom.png"/>
+		
+		<p:spacer width="5" rendered="#{cc.attrs.langFr}"/>
+		<h:graphicImage rendered="#{cc.attrs.langFr and userBean.localeCode ne 'fr'}" library="ahtutilsGfx" name="flags/12/france-grey.png">
+			<p:ajax event="click" listener="#{userBean.setLocale('fr')}" oncomplete="javascript:location.reload(true)"/>
+		</h:graphicImage>
+		<h:graphicImage rendered="#{cc.attrs.langFr and userBean.localeCode eq 'fr'}" library="ahtutilsGfx" name="flags/12/france.png"/>
 	       
-	       <h:graphicImage rendered="#{userBean.localeCode ne 'en'}" library="ahtutilsGfx" name="flags/12/united_kingdom-grey.png">
-	           <p:ajax event="click" listener="#{userBean.setLocale('en')}" oncomplete="javascript:location.reload(true)"/>
-	       </h:graphicImage>
-	       <h:graphicImage rendered="#{userBean.localeCode eq 'en'}" library="ahtutilsGfx" name="flags/12/united_kingdom.png"/>
-	       <p:spacer width="5"/>
-	       
-	       <h:graphicImage rendered="#{userBean.localeCode ne 'de'}" library="ahtutilsGfx" name="flags/12/germany-grey.png" >
+		<p:spacer width="5" rendered="#{cc.attrs.langDe}"/>
+		<h:graphicImage rendered="#{cc.attrs.langDe and userBean.localeCode ne 'de'}" library="ahtutilsGfx" name="flags/12/germany-grey.png" >
 	           <p:ajax event="click" listener="#{userBean.setLocale('de')}" oncomplete="javascript:location.reload(true)"/>
-	       </h:graphicImage>
-	       <h:graphicImage rendered="#{userBean.localeCode eq 'de'}" library="ahtutilsGfx" name="flags/12/germany.png" />
-	    </h:panelGroup>
-	</composite:implementation>
+		</h:graphicImage>
+		<h:graphicImage rendered="#{cc.attrs.langDe and userBean.localeCode eq 'de'}" library="ahtutilsGfx" name="flags/12/germany.png" />
+	</h:panelGroup>
+</composite:implementation>
 </html>
