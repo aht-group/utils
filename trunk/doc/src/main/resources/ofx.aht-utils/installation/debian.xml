@@ -43,9 +43,11 @@
 		</media:image>
 		
 		<ofx:paragraph lang="en" version="1">
-			Your installation starts with the language selection. Please choose "Englisch - Englisch" for your base
-			installation and continue by selecting your current country. The next step is to install the keyboardlayout, 
-			which is "en_US.UTF-8" (select for key map: "actual keyboard mapping"). 
+			Your installation starts with the boot menu, select "install" for the command-line version. 
+			Click language selection and choose "Englisch - Englisch" for your base
+			installation and continue by selecting your current country. The next step is to install the keyboard layout, 
+			which is "en_US.UTF-8". This step is required to ensure that your keyboard is working properly.
+			Select for key map: "actual keyboard mapping". 
 		</ofx:paragraph>
 		
 		<ofx:paragraph lang="en" version="1">Now choose: </ofx:paragraph>
@@ -54,25 +56,34 @@
 	    	<l:type ordering="unordered"/>	
 	    		   		
 			<l:item>
-	    		<ofx:paragraph lang="en">a valid hostname (e.g. "database")</ofx:paragraph>
+	    		<ofx:paragraph lang="en">
+	    		Select first a valid hostname (e.g. "database"). This step is necessary to identify your system
+	    		in your Local Area Network (LAN). 
+	    		
+	    		</ofx:paragraph>
 	   		</l:item>
 	   		
 			<l:item>
-	    		<ofx:paragraph lang="en">your domainname </ofx:paragraph>
+	    		<ofx:paragraph lang="en">Enter your domainname (if available). </ofx:paragraph>
 	   		</l:item>
 	   		
 			<l:item>
-	    		<ofx:paragraph lang="en">secure root password (twice, at least 10 characters or more)</ofx:paragraph>
+	    		<ofx:paragraph lang="en">Set a secure root password. Repeat it twice and make sure that it contains
+	    		at least 10 characters, numbers and additional characters.
+	    		</ofx:paragraph>
 	   		</l:item>
 	   		
 			<l:item>
-	    		<ofx:paragraph lang="en">a developer account ("Develover") with username "dev"</ofx:paragraph>
+	    		<ofx:paragraph lang="en">
+	    		Create a account to work with, this is your login. For example "Developer" with password "dev".
+	    		</ofx:paragraph>
 	   		</l:item>
 	   		
 	   	</l:list>
 	   		
 		<ofx:paragraph lang="en" version="1">				
-			Setting up clock with network time server may fail.		
+			Network Time Protocol (NTP) is a networking protocol for clock synchronization between computer systems. 
+			It may fails, if no Internet connection is established.		
 		</ofx:paragraph>
 		
 		<ofx:section id="section.admin.installation.debian.base.wheezy.partition" classifier="simple">
@@ -86,9 +97,15 @@
 			</media:image>
 			
 			<ofx:paragraph lang="en" version="1">
-				The installation continues with the partition method. Please select "Guided - use entire disk". Now select 
+				The installation continues with the partition method. 
+				Disk partitioning is the act of dividing a hard disk drive (HDD) into multiple logical storage units referred to as partitions,
+				to treat one physical disk drive as if it were multiple disks, so that a different file system can be used on each partition.
+				The total data storage space of a PC HDD can contain at most four primary partitions, 
+				or alternatively three primary partitions and an extended partition. A primary partition contains one file system.
+				
+				Please select "Guided - use entire disk". Now select 
 				your HDD and choose "All files in one partition" and go on. After this move finish partitioning and write changes 
-				to disk. Check your configuration an confirm it.
+				to disk. Check your configuration and confirm it.
 			</ofx:paragraph>
 			
 			<media:image id="image.admin.installation.debian.base.wheezy.partition.scheme">
@@ -104,9 +121,12 @@
 			<ofx:title lang="en">Package manager (Mirror)</ofx:title>
 			
 			<ofx:paragraph lang="en" version="1">
-				For the package manager you have to select your country (or a country with good connection to). Select a
+				A package manager is a collection of software tools that automates the process of installing, 
+				upgrading, configuring, and removing software packages for a computer's operating system.
+				
+				Select your country (or a country with good connection to). Choose a
 				mirror, for example "ftp.(your country).debian.org/debian/". If there is a proxy server in your domain, 
-				add the proxy server information and continue (No participation in package usage survey).
+				add the proxy server information and continue. No participation in package usage survey.
 			</ofx:paragraph>
 			
 			<media:image id="image.admin.installation.debian.base.wheezy.mirror">
@@ -122,9 +142,9 @@
 			<ofx:title lang="en">Software Selection</ofx:title>
 			
 			<ofx:paragraph lang="en" version="1">
-				All available environment can be de-selected. This ensures aht the installation will only have a minimal
+				All available software packages can be de-selected. This ensures aht the installation will only have a minimal
 				number of packages and modules available. This minimizes the risks of errors or faulty configurations and 
-				facilitate future upgrade procedures.
+				facilitate future upgrade procedures. All necessary packages will be installed manually.
 			</ofx:paragraph>
 			
 			<media:image id="image.admin.installation.debian.base.wheezy.software">
@@ -140,8 +160,9 @@
 			<ofx:title lang="en">Finishing Installation</ofx:title>
 			
 			<ofx:paragraph lang="en" version="1">
-				Install GRUB boot loader to the master boot record, press <text:emphasis style="typewriter">YES</text:emphasis> and
-				 FINISH the base installation of debian.
+				Install GRUB boot loader to the master boot record, this step is necessary to select the operating system after booting your system.
+				Press <text:emphasis style="typewriter">YES</text:emphasis> and <text:emphasis style="typewriter">FINISH</text:emphasis>.
+				The base installation of debian is now ready.
 			</ofx:paragraph>
 			
 			<media:image id="image.admin.installation.debian.base.wheezy.console">
@@ -182,7 +203,7 @@
 			</ofx:paragraph>
 			
 			<ofx:paragraph lang="en" version="1">
-				SSH can be installed using the built-in tool "apt-get":
+				SSH can be installed using the built-in tool <text:emphasis style="typewriter">"apt-get"</text:emphasis>:
 			</ofx:paragraph>
 		
 			<ofx:paragraph lang="en" version="1"> 
