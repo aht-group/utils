@@ -225,3 +225,6 @@ margin-top: 8px;
 /* PF selectonemenu */
 .ui-selectonemenu-label {width:100% !important;}
 .ui-selectonemenu{width:100% !important;}
+
+/* PF treenode line break problem */
+.ui-treenode-label {white-space: pre-line;}
