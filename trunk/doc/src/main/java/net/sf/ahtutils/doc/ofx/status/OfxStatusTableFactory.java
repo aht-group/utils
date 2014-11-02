@@ -67,6 +67,7 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 	public OfxStatusTableFactory(Configuration config, String lang, Translations translations)
 	{
 		super(config,lang,translations);
+		imagePathPrefix = config.getString("doc.ofx.imagePathPrefix");
 		customColWidths=false;
 		
 		columnDefinition = new Hashtable<Code,Column>();
@@ -179,8 +180,6 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 	
 	private Content createContent(Aht xmlStatus) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException, UtilsConfigurationException
 	{
-		
-		
 		Body body = new Body();
 		
 		String previousParentString = "-1";
@@ -204,7 +203,6 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 		
 		Content content = new Content();
 		content.getBody().add(body);
-		
 		
 		return content;
 	}
@@ -237,8 +235,6 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 		
 		return row;
 	}
-	
-	
 	
 	private Specification createSpecifications() throws UtilsConfigurationException
 	{

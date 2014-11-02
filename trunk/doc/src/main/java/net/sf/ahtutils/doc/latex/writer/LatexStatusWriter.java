@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import net.sf.ahtutils.db.xml.UtilsDbXmlSeedUtil;
 import net.sf.ahtutils.doc.ofx.status.OfxStatusTableFactory;
+import net.sf.ahtutils.doc.ofx.status.OfxStatusTableFactory.Code;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.dbseed.Db;
@@ -27,9 +28,14 @@ public class LatexStatusWriter extends AbstractDocumentationLatexWriter
 	
 	private UtilsDbXmlSeedUtil seedUtil;
 	
+	private String seedKey,seedKeyParent;
+	private boolean withIcon;
+	
 	public LatexStatusWriter(Configuration config, Translations translations,String[] langs, CrossMediaManager cmm) throws UtilsConfigurationException
 	{
 		super(config,translations,langs,cmm);
+		
+		withIcon = false;
 		
 		String dbSeedFile = config.getString(UtilsDbXmlSeedUtil.configKeySeed);
 		logger.debug("Using seed: "+dbSeedFile);
@@ -45,26 +51,50 @@ public class LatexStatusWriter extends AbstractDocumentationLatexWriter
 	{
 		buildStatusTable(seedKeyStatus, 10,30,40);
 	}
-	public void buildStatusTable(String seedKeyStatus, String seedKeyParent) throws UtilsConfigurationException
+	
+	public void table(boolean withIcon,String seedKey) throws UtilsConfigurationException
 	{
-		buildStatusTable(seedKeyStatus, seedKeyParent, 15,10,30,40);
+		this.withIcon=withIcon;
+		this.seedKey=seedKey;
+		this.seedKeyParent=null;
+		table(15,10,30,40);
 	}
 	
-	public void buildStatusTable(String seedKeyStatus, int... colWidths) throws UtilsConfigurationException
+	public void buildStatusTable(String seedKey, String seedKeyParent) throws UtilsConfigurationException
 	{
-		buildStatusTable(seedKeyStatus, null, colWidths);
+		this.withIcon=false;
+		this.seedKey=seedKey;
+		this.seedKeyParent=seedKeyParent;
+		table(15,10,30,40);
 	}
-	public void buildStatusTable(String seedKeyStatus, String seedKeyParent, int... colWidths) throws UtilsConfigurationException
+	
+	public void buildStatusTable(String seedKey, int... colWidths) throws UtilsConfigurationException
+	{
+		this.withIcon=false;
+		this.seedKey=seedKey;
+		this.seedKeyParent=null;
+		table(colWidths);
+	}
+	
+	public void buildStatusTable(String seedKey, String seedKeyParent, int... colWidths) throws UtilsConfigurationException
+	{
+		this.withIcon=false;
+		this.seedKey=seedKey;
+		this.seedKeyParent=seedKeyParent;
+		table(colWidths);
+	}
+	
+	private void table(int... colWidths) throws UtilsConfigurationException
 	{	
 		Aht athStatus;
 		Aht ahtParents = null;
 		
 		try
 		{
-			athStatus = JaxbUtil.loadJAXB(seedUtil.getExtractName(seedKeyStatus), Aht.class);
+			athStatus = JaxbUtil.loadJAXB(seedUtil.getExtractName(seedKey), Aht.class);
 			if(seedKeyParent!=null){ahtParents = JaxbUtil.loadJAXB(seedUtil.getExtractName(seedKeyParent), Aht.class);}
 			
-			String texName = seedUtil.getContentName(seedKeyStatus);
+			String texName = seedUtil.getContentName(seedKey);
 			texName = texName.substring(0, texName.indexOf(".xml"));
 			logger.info(texName);
 			for(String lang : langs)
@@ -73,6 +103,7 @@ public class LatexStatusWriter extends AbstractDocumentationLatexWriter
 				fOfx.setColWidths(colWidths);
 				
 				if(ahtParents!=null){fOfx.activateParents(ahtParents);}
+				fOfx.renderColumn(Code.icon, withIcon);
 				
 				Table table = fOfx.buildLatexTable(texName.replaceAll("/", "."),athStatus);
 				File f = new File(baseLatexDir+"/"+lang+"/"+dirStatus+"/"+texName+".tex");
