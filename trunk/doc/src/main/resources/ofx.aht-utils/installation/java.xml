@@ -6,10 +6,27 @@
 			 xmlns:l="http://www.openfuxml.org/list">
 	
 	<ofx:title>Java</ofx:title>
-	
+		<ofx:section container="true" classifier="windows">
+		<ofx:title lang="none">Microsoft Windows</ofx:title>
+		
+		<ofx:paragraph lang="en">
+			Download the Java Development Kit (JDK) - not only the basic Java Runtime Environment (JRE) - from the following website. Please select the x86 (32 bit) or x64 (64 bit) version depending on your Windows environment. 
+			To figure out which version of Windows you are running please press the shortkey Windows plus Pause to get to the system information screen. There you will
+			 find the information on what architecture (32 or 64 bit) your Windows version is made for. If you are unsure use the x86 version, it should work fine on both.
+			 After downloading the installation package please launch it and follow the setup wizard.
+			 http://www.oracle.com/technetwork/java/javase/downloads/index.html
+		</ofx:paragraph>
+		<ofx:paragraph lang="de">
+			Laden Sie das Java Development Kit (JDK) - nicht nur die reduzierte Ablaufumgebung Java Runtime Environment (JRE) - von der am Ende angegebenen Website herunter.´
+			Wählen Sie je nach Ihrer Windows Version die x86 (32 bit) oder x64 (64 bit) Varaiante des JDK. Um herauszufinden, welche Version Sie einsetzen drücken Sie die
+			 Windows Taste und die Pause Taste zusammen. Im dadurch gestarteten System-Informations Fenster sehen Sie die Architektur (32 oder 64 bit). Im Zweifel sollte 
+			 die 32 bit Version immer funktionieren. Nach dem Download starten Sie bitte den Installer und folgen Sie den Anweisungen.
+			 http://www.oracle.com/technetwork/java/javase/downloads/index.html und installieren Sie es
+		</ofx:paragraph>
+		</ofx:section>
 		<ofx:section container="true" classifier="debian">
 		<ofx:title lang="none">Linux Debian: 6 Squeeze and 7 Wheezy)</ofx:title>
-		
+	
 		<ofx:paragraph lang="en">
 			Get Java JDK (jdk-7u60-linux-x64.tar.gz) from http://www.oracle.com/technetwork/java/javase/downloads/index.html
 		</ofx:paragraph>
