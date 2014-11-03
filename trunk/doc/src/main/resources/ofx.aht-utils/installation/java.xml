@@ -28,6 +28,10 @@ update-alternatives --set javac /opt/jdk1.7.0_60/bin/javac</ofx:raw>
 		</ofx:listing>
 	</ofx:section>
 	
+	<ofx:section container="true" classifier="windows">
+		<ofx:title lang="none">Windows</ofx:title>
+	</ofx:section>
+	
 	<ofx:paragraph lang="en"> 
 		Check your installation with the following commands.
 		<text:emphasis style="typewriter">java -version</text:emphasis>
