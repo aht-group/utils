@@ -16,6 +16,7 @@ public class XmlScopeFactory
 	private Scope q;
 	private String lang;
 	
+	public XmlScopeFactory(Scope q){this(q,null);}
 	public XmlScopeFactory(Scope q, String lang)
 	{
 		this.q=q;
@@ -39,10 +40,18 @@ public class XmlScopeFactory
 		
 		if(q.isSetLabel())
 		{
+			if(lang==null){throw new UtilsXmlStructureException("lang is not set for Factory");}
 			if(!ejb.getName().containsKey(lang)){throw new UtilsXmlStructureException("Entity "+ejb+" does not contain lang="+lang);}
 			xml.setLabel(ejb.getName().get(lang).getLang());
 		}
 		
 		return xml;
-	}	
+	}
+	
+	public static Scope build(String code)
+	{
+		Scope xml = new Scope();
+		xml.setCode(code);
+		return xml;
+	}
 }
