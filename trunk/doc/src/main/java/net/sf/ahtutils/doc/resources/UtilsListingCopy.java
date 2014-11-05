@@ -27,6 +27,7 @@ public class UtilsListingCopy
 	public static final String dbPostgresPrepartion = "admin/db/postgres/preparation.sh";
 	public static final String dbPostgresDump = "admin/db/postgres/dump.sh";
 	public static final String dbPostgresCrontab = "admin/db/postgres/cron.tab";
+	public static final String dbPostgresCreateWheezy = "admin/db/postgres/create/wheezy.sql";
 	
 	
 	private MultiResourceLoader mrl;
