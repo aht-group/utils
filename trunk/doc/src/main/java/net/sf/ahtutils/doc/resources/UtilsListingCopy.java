@@ -29,6 +29,7 @@ public class UtilsListingCopy
 	public static final String dbPostgresCrontab = "admin/db/postgres/cron.tab";
 	public static final String dbPostgresCreateWheezy = "admin/db/postgres/create/wheezy.sql";
 	
+	public static final String jbService = "admin/installation/jboss/service.txt";
 	
 	private MultiResourceLoader mrl;
 	private File dirListing;
