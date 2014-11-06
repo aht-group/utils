@@ -21,7 +21,7 @@ public class UtilsLatexAdminDocumentationBuilder extends AbstractLatexDocumentat
 	
 	public static enum SecurityCode {sConceptIntroduction}
 							 
-	public static enum InstallationCode {instDebian,instJava,instJboss,instPostGis,instMySql,instMaven}
+	public static enum InstallationCode {instIntroduction,instDebian,instJava,instJboss,instPostGis,instMySql,instMaven}
 	public static enum InstallationArchitecture {debian,debianWheezy,debianSqueeze,debianRaspberry,devJava7FX}
 	
 	public static enum JBossClassifier {as7,eap6,mysql,postgis}
@@ -51,6 +51,7 @@ public class UtilsLatexAdminDocumentationBuilder extends AbstractLatexDocumentat
 		addConfig(BackupCode.bPostgres.toString(),"ofx.aht-utils/administration/db/postgres.xml","admin/db/postgres");
 		
 		//Installation
+		addConfig(InstallationCode.instIntroduction.toString(),"ofx.aht-utils/installation/introduction.xml","admin/installation/introduction");
 		addConfig(InstallationCode.instDebian.toString(),"ofx.aht-utils/installation/debian.xml","admin/installation/debian");
 		addConfig(InstallationCode.instJava.toString(),"ofx.aht-utils/installation/java.xml","admin/installation/java");
 		addConfig(InstallationCode.instJboss.toString(),"ofx.aht-utils/installation/jboss.xml","admin/installation/jboss");
