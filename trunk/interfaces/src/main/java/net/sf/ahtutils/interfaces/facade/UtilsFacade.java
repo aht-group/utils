@@ -36,7 +36,6 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithValidFrom;
 public interface UtilsFacade extends UtilsIdFacade
 {
 	<T extends EjbWithName> T fByName(Class<T> type, String name) throws UtilsNotFoundException;
-	<T extends EjbWithEmail> T fByEmail(Class<T> clazz, String email) throws UtilsNotFoundException;
 
 	//CODE
 	<T extends EjbWithCode> T fByCode(Class<T> type, String code) throws UtilsNotFoundException;
@@ -101,4 +100,5 @@ public interface UtilsFacade extends UtilsIdFacade
 	
 	//User
 	<L extends UtilsLang,D extends UtilsDescription,C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>, USER extends UtilsUser<L,D,C,R,V,U,A,USER>> List<USER> likeNameFirstLast(Class<USER> c, String query);
+	<T extends EjbWithEmail> T fByEmail(Class<T> clazz, String email) throws UtilsNotFoundException;
 }

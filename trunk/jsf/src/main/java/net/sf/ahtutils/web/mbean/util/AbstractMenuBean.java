@@ -26,7 +26,13 @@ public abstract class AbstractMenuBean implements Serializable
 	protected Map<String,Breadcrumb> mapBreadcrumb;
 	
 	protected Map<String,Boolean> mapViewAllowed;
+	protected boolean userLoggedIn;
 
+	public AbstractMenuBean()
+	{
+		userLoggedIn = false;
+	}
+	
     public void initMaps() throws FileNotFoundException
     {
 		mapMenu = new Hashtable<String,Menu>();
@@ -34,8 +40,10 @@ public abstract class AbstractMenuBean implements Serializable
 		mapBreadcrumb = new Hashtable<String,Breadcrumb>();
     }
     
-	public void clear()
+	public void clear(){clear(false);}
+	public void clear(boolean userLoggedIn)
 	{
+		this.userLoggedIn=userLoggedIn;
 		mapMenu.clear();
 		mapSub.clear();
 		mapBreadcrumb.clear();
@@ -49,7 +57,7 @@ public abstract class AbstractMenuBean implements Serializable
 		
 	// ******************************************
 	// Menu
-	protected Menu menu(MenuFactory mf, String code) {return menu(mf,code,false);}
+	protected Menu menu(MenuFactory mf, String code) {return menu(mf,code,userLoggedIn);}
 	protected Menu menu(MenuFactory mf, String code, boolean loggedIn)
 	{
 		buildViewAllowedMap();
