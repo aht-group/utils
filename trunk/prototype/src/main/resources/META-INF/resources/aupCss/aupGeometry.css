@@ -228,3 +228,12 @@ margin-top: 8px;
 
 /* PF treenode line break problem */
 .ui-treenode-label {white-space: pre-line;}
+
+/* PF version 5 has changed handling of table width. */
+.ui-datatable table, .ui-datatable-resizable table {
+    table-layout: auto !important;
+}
+
+.ui-datatable-scrollable table {
+    table-layout: fixed !important;
+}
