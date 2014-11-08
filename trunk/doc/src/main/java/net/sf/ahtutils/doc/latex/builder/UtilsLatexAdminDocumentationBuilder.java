@@ -5,6 +5,7 @@ import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.status.Translations;
 
 import org.apache.commons.configuration.Configuration;
+import org.openfuxml.interfaces.DefaultSettingsManager;
 import org.openfuxml.interfaces.media.CrossMediaManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,9 +30,9 @@ public class UtilsLatexAdminDocumentationBuilder extends AbstractLatexDocumentat
 	public static enum RequirementsCode {reqIntroduction,reqHardware,reqAdmin,reqDeveloper}
 	public static enum RequirementsClassifier {reqHardware,reqAdmin,reqDeveloper,reqNetwork}
 		
-	public UtilsLatexAdminDocumentationBuilder(Configuration config, Translations translations,String[] langs, CrossMediaManager cmm)
+	public UtilsLatexAdminDocumentationBuilder(Configuration config, Translations translations,String[] langs, CrossMediaManager cmm,DefaultSettingsManager dsm)
 	{
-		super(config,translations,langs,cmm);
+		super(config,translations,langs,cmm,dsm);
 	}
 	
 	@Override protected void applyBaseLatexDir()

@@ -12,6 +12,7 @@ import org.apache.commons.configuration.Configuration;
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.content.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
+import org.openfuxml.interfaces.DefaultSettingsManager;
 import org.openfuxml.interfaces.media.CrossMediaManager;
 import org.openfuxml.renderer.latex.content.structure.LatexSectionRenderer;
 import org.openfuxml.renderer.latex.content.table.LatexTableRenderer;
@@ -30,20 +31,22 @@ public class AbstractDocumentationLatexWriter
 	protected String[] langs;
 	
 	protected CrossMediaManager cmm;
+	protected DefaultSettingsManager dsm;
 	
-	public AbstractDocumentationLatexWriter(Configuration config, Translations translations,String[] langs, CrossMediaManager cmm)
+	public AbstractDocumentationLatexWriter(Configuration config, Translations translations,String[] langs, CrossMediaManager cmm,DefaultSettingsManager dsm)
 	{
 		this.config=config;
 		this.translations=translations;
 		this.langs=langs;
 		this.cmm=cmm;
+		this.dsm=dsm;
 		
 		baseLatexDir=config.getString(UtilsDocumentation.keyBaseDocDir);
 	}
 	
 	protected void writeTable(Table table, File f) throws OfxAuthoringException, IOException
 	{
-		LatexTableRenderer tableRenderer = new LatexTableRenderer(cmm);
+		LatexTableRenderer tableRenderer = new LatexTableRenderer(cmm,dsm);
 		tableRenderer.setPreBlankLine(false);
 		tableRenderer.render(table);
 		
@@ -55,7 +58,7 @@ public class AbstractDocumentationLatexWriter
 	protected void writeSection(Section section, File f) throws OfxAuthoringException, IOException {writeSection(1, section, f);}
 	protected void writeSection(int sectionLevel, Section section, File f) throws OfxAuthoringException, IOException
 	{
-		LatexSectionRenderer sectionRenderer = new LatexSectionRenderer(cmm,sectionLevel,new LatexPreamble(cmm));
+		LatexSectionRenderer sectionRenderer = new LatexSectionRenderer(cmm,dsm,sectionLevel,new LatexPreamble(cmm,dsm));
 		sectionRenderer.render(section);
 		
 		StringWriter sw = new StringWriter();

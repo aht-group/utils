@@ -25,6 +25,7 @@ import org.openfuxml.content.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.xml.layout.XmlAlignmentFactory;
 import org.openfuxml.factory.xml.table.OfxColumnFactory;
+import org.openfuxml.interfaces.DefaultSettingsManager;
 import org.openfuxml.interfaces.media.CrossMediaManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,9 +40,9 @@ public class LatexQmWriter extends AbstractDocumentationLatexWriter
 	public String getImagePathPrefix() {return imagePathPrefix;}
 	public void setImagePathPrefix(String imagePathPrefix) {this.imagePathPrefix = imagePathPrefix;}
 
-	public LatexQmWriter(Configuration config, Translations translations,String[] langs, CrossMediaManager cmm)
+	public LatexQmWriter(Configuration config, Translations translations,String[] langs, CrossMediaManager cmm,DefaultSettingsManager dsm)
 	{
-		super(config,translations,langs,cmm);
+		super(config,translations,langs,cmm,dsm);
 		
 		imagePathPrefix = null;
 		withResponsible = false;

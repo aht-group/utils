@@ -12,6 +12,7 @@ import org.metachart.xml.graph.Node;
 import org.metachart.xml.graph.Tree;
 import org.openfuxml.media.cross.NoOpCrossMediaManager;
 import org.openfuxml.renderer.latex.content.graph.LatexTreeRenderer;
+import org.openfuxml.util.settings.OfxDefaultSettingsProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +30,7 @@ public class OfxMenuTreeFactory
 		try
 		{
 			logger.debug("Saving Reference to "+f);
-			LatexTreeRenderer renderer = new LatexTreeRenderer(new NoOpCrossMediaManager());
+			LatexTreeRenderer renderer = new LatexTreeRenderer(new NoOpCrossMediaManager(),new OfxDefaultSettingsProvider());
 //			renderer.render(create(menu));
 			StringWriter actual = new StringWriter();
 			renderer.write(actual);

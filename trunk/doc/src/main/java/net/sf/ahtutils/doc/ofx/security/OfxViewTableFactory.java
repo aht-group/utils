@@ -31,8 +31,11 @@ import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
 import org.openfuxml.factory.xml.table.OfxCellFactory;
 import org.openfuxml.factory.xml.table.OfxColumnFactory;
+import org.openfuxml.interfaces.DefaultSettingsManager;
+import org.openfuxml.interfaces.media.CrossMediaManager;
 import org.openfuxml.media.cross.NoOpCrossMediaManager;
 import org.openfuxml.renderer.latex.content.table.LatexTableRenderer;
+import org.openfuxml.util.settings.OfxDefaultSettingsProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,9 +44,14 @@ public class OfxViewTableFactory extends AbstractUtilsOfxDocumentationFactory
 	final static Logger logger = LoggerFactory.getLogger(OfxViewTableFactory.class);
 	private static String keyCaptionPrefix = "auTableViewCaptionPrefix";
 	
+	private CrossMediaManager cmm;
+	private DefaultSettingsManager dsm;
+	
 	public OfxViewTableFactory(Configuration config, String lang, Translations translations)
 	{
 		super(config,lang,translations);
+		cmm = new NoOpCrossMediaManager();
+		dsm = new OfxDefaultSettingsProvider();
 	}
 	
 	public String buildLatexViewTable(Category category, List<String> headerKeys) throws OfxAuthoringException
@@ -68,7 +76,7 @@ public class OfxViewTableFactory extends AbstractUtilsOfxDocumentationFactory
 			Lang lCategory = StatusXpath.getLang(category.getLangs(), lang);
 			table.setTitle(XmlTitleFactory.build(lPrefix.getTranslation()+" "+lCategory.getTranslation()));
 			
-			LatexTableRenderer tableRenderer = new LatexTableRenderer(new NoOpCrossMediaManager());
+			LatexTableRenderer tableRenderer = new LatexTableRenderer(cmm,dsm);
 			tableRenderer.setPreBlankLine(false);
 			JaxbUtil.trace(table);
 			tableRenderer.render(table);

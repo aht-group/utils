@@ -17,6 +17,7 @@ import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.apache.commons.configuration.Configuration;
 import org.openfuxml.exception.OfxAuthoringException;
+import org.openfuxml.interfaces.DefaultSettingsManager;
 import org.openfuxml.interfaces.media.CrossMediaManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,9 +31,9 @@ public class LatexSecurityWriter extends AbstractDocumentationLatexWriter
 		
 	private List<String> headerKeysViews;
 	
-	public LatexSecurityWriter(Configuration config, Translations translations,String[] langs, CrossMediaManager cmm)
+	public LatexSecurityWriter(Configuration config, Translations translations,String[] langs, CrossMediaManager cmm, DefaultSettingsManager dsm)
 	{
-		super(config,translations,langs,cmm);
+		super(config,translations,langs,cmm,dsm);
 		
 		headerKeysViews = new ArrayList<String>();
 		headerKeysViews.add("auSecurityTableViewName");
@@ -94,7 +95,7 @@ public class LatexSecurityWriter extends AbstractDocumentationLatexWriter
 			{
 				logger.debug("Converting "+xmlFile+" to LaTex ("+f.getAbsolutePath());
 				Access access = JaxbUtil.loadJAXB(xmlFile, Access.class);
-				OfxCategoryListFactory latexFactory = new OfxCategoryListFactory(config,lang,translations,cmm);
+				OfxCategoryListFactory latexFactory = new OfxCategoryListFactory(config,lang,translations,cmm,dsm);
 				String content = latexFactory.saveDescription(access.getCategory());
 				StringIO.writeTxt(f, content);
 			}

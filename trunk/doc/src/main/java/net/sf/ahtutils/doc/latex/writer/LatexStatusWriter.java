@@ -16,6 +16,7 @@ import net.sf.exlp.util.xml.JaxbUtil;
 import org.apache.commons.configuration.Configuration;
 import org.openfuxml.content.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
+import org.openfuxml.interfaces.DefaultSettingsManager;
 import org.openfuxml.interfaces.media.CrossMediaManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,9 +32,9 @@ public class LatexStatusWriter extends AbstractDocumentationLatexWriter
 	private String seedKey,seedKeyParent;
 	private boolean withIcon;
 	
-	public LatexStatusWriter(Configuration config, Translations translations,String[] langs, CrossMediaManager cmm) throws UtilsConfigurationException
+	public LatexStatusWriter(Configuration config, Translations translations,String[] langs, CrossMediaManager cmm,DefaultSettingsManager dsm) throws UtilsConfigurationException
 	{
-		super(config,translations,langs,cmm);
+		super(config,translations,langs,cmm,dsm);
 		
 		withIcon = false;
 		

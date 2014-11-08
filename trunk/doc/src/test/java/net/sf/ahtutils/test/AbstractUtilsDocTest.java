@@ -13,7 +13,11 @@ import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.openfuxml.interfaces.DefaultSettingsManager;
+import org.openfuxml.interfaces.media.CrossMediaManager;
 import org.openfuxml.interfaces.renderer.latex.OfxLatexRenderer;
+import org.openfuxml.media.cross.NoOpCrossMediaManager;
+import org.openfuxml.util.settings.OfxDefaultSettingsProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,13 +25,15 @@ public class AbstractUtilsDocTest
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractUtilsDocTest.class);
 	
+	protected CrossMediaManager cmm;
+	protected DefaultSettingsManager dsm;
+	
 	protected File f;
 	protected boolean saveReference=false;
 
 	protected static File fTarget;
+	protected static void setfTarget(File myTarget) {fTarget=myTarget;}	
 	
-	protected static void setfTarget(File myTarget) {fTarget=myTarget;}
-
 	@BeforeClass
 	public static void initFile()
 	{
@@ -53,6 +59,12 @@ public class AbstractUtilsDocTest
 	public static void initPrefixMapper()
 	{
 //		JaxbUtil.setNsPrefixMapper(new AhtUtilsNsPrefixMapper());
+	}
+	
+	protected void initOfx()
+	{
+		cmm = new NoOpCrossMediaManager();
+		dsm = new OfxDefaultSettingsProvider();
 	}
 	
 	protected void assertJaxbEquals(Object expected, Object actual)

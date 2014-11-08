@@ -57,6 +57,7 @@ public class TestOfxStatusTableFactory extends AbstractOfxStatusFactoryTest
 	@Before
 	public void init()
 	{			
+		super.initOfx();
 		Status status = new Status();
 		status.setCode("myCode");
 		status.setLangs(new Langs());
@@ -84,7 +85,7 @@ public class TestOfxStatusTableFactory extends AbstractOfxStatusFactoryTest
 	public void testLatex() throws OfxAuthoringException, IOException, UtilsConfigurationException
 	{
 		Table actual = fOfx.toOfx(xmlStatus);
-		LatexGridTableRenderer renderer = new LatexGridTableRenderer(new NoOpCrossMediaManager());
+		LatexGridTableRenderer renderer = new LatexGridTableRenderer(cmm,dsm);
 		renderer.render(actual);
     	debug(renderer);
     	save(renderer,fTxt);

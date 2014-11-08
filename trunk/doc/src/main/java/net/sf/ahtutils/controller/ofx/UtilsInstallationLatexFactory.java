@@ -12,6 +12,7 @@ import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.exception.OfxAuthoringException;
+import org.openfuxml.interfaces.DefaultSettingsManager;
 import org.openfuxml.interfaces.media.CrossMediaManager;
 import org.openfuxml.renderer.latex.content.structure.LatexSectionRenderer;
 import org.openfuxml.renderer.latex.content.text.LatexCommentRenderer;
@@ -30,10 +31,12 @@ public class UtilsInstallationLatexFactory
 	
 	protected OfxLangFilter multiLangFilter;
 	private CrossMediaManager cmm;
+	private DefaultSettingsManager dsm;
 	
-	public UtilsInstallationLatexFactory(CrossMediaManager cmm,String lang)
+	public UtilsInstallationLatexFactory(CrossMediaManager cmm,DefaultSettingsManager dsm,String lang)
 	{
 		this.cmm=cmm;
+		this.dsm=dsm;
 		multiLangFilter = new OfxLangFilter(lang);
 		
 		map = new Hashtable<Type,String>();
@@ -77,7 +80,7 @@ public class UtilsInstallationLatexFactory
 	
 	public void renderLatex(Section section, File dstFile) throws OfxAuthoringException
     {
-        LatexSectionRenderer latexSectionFactory = new LatexSectionRenderer(cmm,1,new LatexPreamble(cmm));
+        LatexSectionRenderer latexSectionFactory = new LatexSectionRenderer(cmm,dsm,1,new LatexPreamble(cmm,dsm));
 		latexSectionFactory.render(section);
 		List<String> content = new ArrayList<String>();
 		content.addAll(LatexCommentRenderer.comment("Do no modify this file, it is automatically generated!",true));

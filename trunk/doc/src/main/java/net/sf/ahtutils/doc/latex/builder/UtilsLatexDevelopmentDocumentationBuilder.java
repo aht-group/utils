@@ -12,6 +12,7 @@ import org.apache.commons.configuration.Configuration;
 import org.openfuxml.content.media.Image;
 import org.openfuxml.content.ofx.Listing;
 import org.openfuxml.content.ofx.Section;
+import org.openfuxml.interfaces.DefaultSettingsManager;
 import org.openfuxml.interfaces.media.CrossMediaManager;
 import org.openfuxml.xml.xpath.content.SectionXpath;
 import org.slf4j.Logger;
@@ -29,9 +30,9 @@ public class UtilsLatexDevelopmentDocumentationBuilder extends AbstractLatexDocu
 	public static enum EclipseClassifier {luna,svn,git,texlipse}
 	public static enum Code {latex,doc}
 		
-	public UtilsLatexDevelopmentDocumentationBuilder(Configuration config, Translations translations,String[] langs, CrossMediaManager cmm)
+	public UtilsLatexDevelopmentDocumentationBuilder(Configuration config, Translations translations,String[] langs, CrossMediaManager cmm,DefaultSettingsManager dsm)
 	{
-		super(config,translations,langs,cmm);
+		super(config,translations,langs,cmm,dsm);
 	}
 	
 	@Override protected void applyBaseLatexDir()

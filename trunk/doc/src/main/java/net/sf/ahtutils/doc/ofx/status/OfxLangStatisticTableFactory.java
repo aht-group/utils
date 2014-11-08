@@ -22,8 +22,11 @@ import org.openfuxml.content.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.xml.table.OfxCellFactory;
 import org.openfuxml.factory.xml.table.OfxColumnFactory;
+import org.openfuxml.interfaces.DefaultSettingsManager;
+import org.openfuxml.interfaces.media.CrossMediaManager;
 import org.openfuxml.media.cross.NoOpCrossMediaManager;
 import org.openfuxml.renderer.latex.content.table.LatexGridTableRenderer;
+import org.openfuxml.util.settings.OfxDefaultSettingsProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,10 +37,18 @@ public class OfxLangStatisticTableFactory
 	private String lang;
 	private Translations translations;
 	
+	private CrossMediaManager cmm;
+	private DefaultSettingsManager dsm;
+	
 	public OfxLangStatisticTableFactory(String lang, Translations translations)
 	{
 		this.lang=lang;
 		this.translations=translations;
+		
+		cmm = new NoOpCrossMediaManager();
+		dsm = new OfxDefaultSettingsProvider();
+		
+		logger.warn("NYI CMM/DSM");
 	}
 	
 	public void saveDescription(File f, List<TranslationStatistic> lLangs, String[] headerKeys)
@@ -45,7 +56,7 @@ public class OfxLangStatisticTableFactory
 		try
 		{
 			logger.debug("Saving Reference to "+f);
-			LatexGridTableRenderer renderer = new LatexGridTableRenderer(new NoOpCrossMediaManager());
+			LatexGridTableRenderer renderer = new LatexGridTableRenderer(cmm,dsm);
 			renderer.render(toOfx(lLangs,headerKeys));
 			StringWriter actual = new StringWriter();
 			renderer.write(actual);
