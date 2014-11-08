@@ -21,6 +21,7 @@ import org.openfuxml.content.ofx.Comment;
 import org.openfuxml.content.ofx.Paragraph;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
+import org.openfuxml.interfaces.media.CrossMediaManager;
 import org.openfuxml.renderer.latex.content.list.LatexListRenderer;
 import org.openfuxml.renderer.latex.content.structure.LatexSectionRenderer;
 import org.slf4j.Logger;
@@ -30,17 +31,20 @@ public class OfxCategoryListFactory extends AbstractUtilsOfxDocumentationFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(OfxCategoryListFactory.class);
 	
-	public OfxCategoryListFactory(Configuration config,String lang, Translations translations)
+	private CrossMediaManager cmm;
+	
+	public OfxCategoryListFactory(Configuration config,String lang, Translations translations,CrossMediaManager cmm)
 	{
 		super(config,lang,translations);
+		this.cmm=cmm;
 	}
 	
 	public String saveDescription(java.util.List<Category> lRc) throws OfxAuthoringException
 	{
 		try
 		{
-			LatexListRenderer renderer = new LatexListRenderer(false);
-			renderer.render(create(lRc),new LatexSectionRenderer(0,null));
+			LatexListRenderer renderer = new LatexListRenderer(cmm,false);
+			renderer.render(create(lRc),new LatexSectionRenderer(cmm,0,null));
 			StringWriter sw = new StringWriter();
 			renderer.write(sw);
 			return sw.toString();

@@ -11,6 +11,7 @@ import net.sf.exlp.util.io.resourceloader.MultiResourceLoader;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.openfuxml.media.cross.NoOpCrossMediaManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +26,7 @@ public class TestUtilsInstallationFactory extends AbstractUtilsDocTest
 	public void init()
 	{	
 		mrl = new MultiResourceLoader();
-        uilf = new UtilsInstallationLatexFactory("");
+        uilf = new UtilsInstallationLatexFactory(new NoOpCrossMediaManager(),"");
 	}
 
     @Test
@@ -85,7 +86,7 @@ public class TestUtilsInstallationFactory extends AbstractUtilsDocTest
 
         File f = new File("target","latex.tex");
 
-		UtilsInstallationLatexFactory test = new UtilsInstallationLatexFactory("de");
+		UtilsInstallationLatexFactory test = new UtilsInstallationLatexFactory(new NoOpCrossMediaManager(),"de");
 		test.renderLatex(Type.R,f);
 	}
 }

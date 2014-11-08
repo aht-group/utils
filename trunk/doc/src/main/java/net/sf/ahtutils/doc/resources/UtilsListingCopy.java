@@ -27,9 +27,11 @@ public class UtilsListingCopy
 	public static final String dbPostgresPrepartion = "admin/db/postgres/preparation.sh";
 	public static final String dbPostgresDump = "admin/db/postgres/dump.sh";
 	public static final String dbPostgresCrontab = "admin/db/postgres/cron.tab";
-	public static final String dbPostgresCreateWheezy = "admin/db/postgres/create/wheezy.sql";
+	public static final String dbPostgresCreateDebianWheezy = "admin/db/postgres/create/debian/wheezy.sql";
+	public static final String dbPostgresCreateOsxYosemite = "admin/db/postgres/create/osx/yosemite.sql";
 	
 	public static final String jbService = "admin/installation/jboss/service.txt";
+	
 	
 	private MultiResourceLoader mrl;
 	private File dirListing;

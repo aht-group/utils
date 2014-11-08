@@ -52,6 +52,13 @@ apt-get install postgresql-9.1-postgis</ofx:raw>
 sudo apt-get install postgresql-9.3-postgis-2.1</ofx:raw>
 			</ofx:listing>
 		</ofx:section>
+		
+		<ofx:section container="true" classifier="osx">
+			<ofx:title>OSX Yosemite</ofx:title>
+			<ofx:listing>
+				<ofx:raw>brew install postgis</ofx:raw>
+			</ofx:listing>
+		</ofx:section>
 	</ofx:section>
 	
 	<ofx:section>
@@ -61,11 +68,7 @@ sudo apt-get install postgresql-9.3-postgis-2.1</ofx:raw>
 		<ofx:paragraph lang="en" classifier="debianWheezy">
 			Detailed Information can be obtained here http://trac.osgeo.org/postgis/wiki/UsersWikiPostGIS20Debian70src
 		</ofx:paragraph>
-		<ofx:listing classifier="debianWheezy">
-			<ofx:raw>CREATE USER **dbName** WITH PASSWORD '**dbName**';
-CREATE DATABASE **dbName** OWNER **dbName** TEMPLATE template_postgis ENCODING 'UTF8';
-GRANT ALL PRIVILEGES ON DATABASE **dbName** TO **dbName**</ofx:raw>
-		</ofx:listing>
+		<ofx:listing classifier="debianWheezy" external="listing/admin/db/postgres/create/debian/wheezy.sql"/>
 		
 		<ofx:paragraph lang="en" classifier="ubuntu14">
 			As user "postgres":
@@ -83,6 +86,8 @@ GRANT ALL PRIVILEGES ON DATABASE **dbName** TO **dbName**;</ofx:raw>
 psql -U postgres -d **dbName** -f /usr/share/postgresql/9.3/contrib/postgis-2.1/postgis_comments.sql
 psql -U postgres -d **dbName** -f /usr/share/postgresql/9.3/contrib/postgis-2.1/spatial_ref_sys.sql</ofx:raw>
 		</ofx:listing>
+		
+		<ofx:listing classifier="osxYosemite" external="listing/admin/db/postgres/create/osx/yosemite.sql"/>
 		
 	</ofx:section>
 	

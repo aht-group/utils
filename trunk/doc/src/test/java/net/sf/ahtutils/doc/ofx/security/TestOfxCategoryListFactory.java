@@ -21,7 +21,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openfuxml.content.list.List;
 import org.openfuxml.exception.OfxAuthoringException;
+import org.openfuxml.interfaces.media.CrossMediaManager;
 import org.openfuxml.interfaces.renderer.latex.OfxLatexRenderer;
+import org.openfuxml.media.cross.NoOpCrossMediaManager;
 import org.openfuxml.renderer.latex.content.list.LatexListRenderer;
 import org.openfuxml.renderer.latex.content.structure.LatexSectionRenderer;
 import org.slf4j.Logger;
@@ -41,6 +43,7 @@ public class TestOfxCategoryListFactory extends AbstractOfxSecurityFactoryTest
 //	private RoleCategory rc2;
 	private java.util.List<Category> list;
 	
+	private CrossMediaManager cmm;
 	private OfxLatexRenderer parentSection;
 	
 	@BeforeClass
@@ -57,8 +60,10 @@ public class TestOfxCategoryListFactory extends AbstractOfxSecurityFactoryTest
 	@Before
 	public void init()
 	{	
-		parentSection = new LatexSectionRenderer(0,null);
-		factory = new OfxCategoryListFactory(config,lang,translations);
+		cmm = new NoOpCrossMediaManager();
+		
+		parentSection = new LatexSectionRenderer(cmm,0,null);
+		factory = new OfxCategoryListFactory(config,lang,translations,cmm);
 		list = new ArrayList<Category>();
 		rc1 = createCategory(1);list.add(rc1);
 	}
@@ -84,7 +89,7 @@ public class TestOfxCategoryListFactory extends AbstractOfxSecurityFactoryTest
 	public void testLatex() throws OfxAuthoringException, IOException
 	{
 		List actual = factory.create(list);
-		LatexListRenderer renderer = new LatexListRenderer();
+		LatexListRenderer renderer = new LatexListRenderer(cmm);
 		renderer.render(actual,parentSection);
     	debug(renderer);
     	save(renderer,fTxt);

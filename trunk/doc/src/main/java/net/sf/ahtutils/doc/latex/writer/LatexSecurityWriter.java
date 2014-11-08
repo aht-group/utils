@@ -94,7 +94,7 @@ public class LatexSecurityWriter extends AbstractDocumentationLatexWriter
 			{
 				logger.debug("Converting "+xmlFile+" to LaTex ("+f.getAbsolutePath());
 				Access access = JaxbUtil.loadJAXB(xmlFile, Access.class);
-				OfxCategoryListFactory latexFactory = new OfxCategoryListFactory(config,lang,translations);
+				OfxCategoryListFactory latexFactory = new OfxCategoryListFactory(config,lang,translations,cmm);
 				String content = latexFactory.saveDescription(access.getCategory());
 				StringIO.writeTxt(f, content);
 			}
