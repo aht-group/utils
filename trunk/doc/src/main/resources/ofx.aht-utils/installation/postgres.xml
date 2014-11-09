@@ -47,8 +47,7 @@ sudo make comments-install</ofx:raw>
 		<ofx:section container="true" classifier="ubuntu14">
 			<ofx:title>Ubuntu (14.04 LTS)</ofx:title>
 			<ofx:listing>
-				<ofx:raw>sudo apt-cache search postgis
-sudo apt-get install postgresql-9.3-postgis-2.1</ofx:raw>
+				<ofx:raw>sudo apt-get install postgresql-9.3-postgis-2.1</ofx:raw>
 			</ofx:listing>
 		</ofx:section>
 		
@@ -67,38 +66,18 @@ sudo apt-get install postgresql-9.3-postgis-2.1</ofx:raw>
 		<ofx:paragraph lang="en" classifier="debianWheezy">
 			Detailed Information can be obtained here http://trac.osgeo.org/postgis/wiki/UsersWikiPostGIS20Debian70src
 		</ofx:paragraph>
-		<ofx:listing classifier="debianWheezy" setting="sql" external="listing/admin/db/postgres/create/debian/wheezy.sql"/>
 		
-		<ofx:paragraph lang="en" classifier="ubuntu14">
-			As user "postgres":
-		</ofx:paragraph>
-		<ofx:listing classifier="ubuntu14">
-			<ofx:raw>CREATE USER **dbName** WITH PASSWORD '**dbName**';
-CREATE DATABASE **dbName** OWNER **dbName** ENCODING 'UTF8';
-GRANT ALL PRIVILEGES ON DATABASE **dbName** TO **dbName**;</ofx:raw>
-		</ofx:listing>
-		<ofx:paragraph lang="en" classifier="ubuntu14">
-			Then in the console
-		</ofx:paragraph>
-		<ofx:listing classifier="ubuntu14">
-			<ofx:raw>psql -U postgres -d **dbName** -f /usr/share/postgresql/9.3/contrib/postgis-2.1/postgis.sql
-psql -U postgres -d **dbName** -f /usr/share/postgresql/9.3/contrib/postgis-2.1/postgis_comments.sql
-psql -U postgres -d **dbName** -f /usr/share/postgresql/9.3/contrib/postgis-2.1/spatial_ref_sys.sql</ofx:raw>
-		</ofx:listing>
-		
+		<ofx:listing classifier="debianWheezy" setting="sql" external="listing/admin/db/postgres/create/debian/wheezy.sql"/>		
+		<ofx:listing classifier="ubuntu14" external="listing/admin/db/postgres/create/ubuntu/14.sql"/>
 		<ofx:listing classifier="osxYosemite" external="listing/admin/db/postgres/create/osx/yosemite.sql"/>
 		
 	</ofx:section>
 	
 	<ofx:section>
-		<ofx:title lang="en">Correction of table owner</ofx:title>
-		
-		<ofx:listing classifier="ubuntu14">
-			<ofx:raw>ALTER TABLE geometry_columns OWNER TO dss;
-ALTER TABLE spatial_ref_sys OWNER TO dss;</ofx:raw>
-		</ofx:listing>
+		<ofx:title lang="en">Database optimization</ofx:title>
 		
 		<ofx:listing classifier="debianWheezy" external="listing/admin/db/postgres/tuning/debian/wheezy.sql"/>
+		<ofx:listing classifier="ubuntu14" external="listing/admin/db/postgres/tuning/ubuntu/14.sql"/>		
 		<ofx:listing classifier="osxYosemite" external="listing/admin/db/postgres/tuning/osx/yosemite.sql"/>
 		
 	</ofx:section>
