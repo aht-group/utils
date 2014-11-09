@@ -25,8 +25,8 @@ import org.openfuxml.factory.xml.table.OfxColumnFactory;
 import org.openfuxml.interfaces.DefaultSettingsManager;
 import org.openfuxml.interfaces.media.CrossMediaManager;
 import org.openfuxml.media.cross.NoOpCrossMediaManager;
+import org.openfuxml.processor.settings.OfxDefaultSettingsManager;
 import org.openfuxml.renderer.latex.content.table.LatexGridTableRenderer;
-import org.openfuxml.util.settings.OfxDefaultSettingsManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

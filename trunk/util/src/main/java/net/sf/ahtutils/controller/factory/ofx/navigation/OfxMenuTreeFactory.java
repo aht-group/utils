@@ -11,8 +11,8 @@ import net.sf.exlp.util.io.StringIO;
 import org.metachart.xml.graph.Node;
 import org.metachart.xml.graph.Tree;
 import org.openfuxml.media.cross.NoOpCrossMediaManager;
+import org.openfuxml.processor.settings.OfxDefaultSettingsManager;
 import org.openfuxml.renderer.latex.content.graph.LatexTreeRenderer;
-import org.openfuxml.util.settings.OfxDefaultSettingsManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
