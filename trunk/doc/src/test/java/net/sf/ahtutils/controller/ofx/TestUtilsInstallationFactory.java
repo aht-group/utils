@@ -12,7 +12,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openfuxml.media.cross.NoOpCrossMediaManager;
-import org.openfuxml.util.settings.OfxDefaultSettingsProvider;
+import org.openfuxml.util.settings.OfxDefaultSettingsManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -88,7 +88,7 @@ public class TestUtilsInstallationFactory extends AbstractUtilsDocTest
 
         File f = new File("target","latex.tex");
 
-		UtilsInstallationLatexFactory test = new UtilsInstallationLatexFactory(new NoOpCrossMediaManager(),new OfxDefaultSettingsProvider(),"de");
+		UtilsInstallationLatexFactory test = new UtilsInstallationLatexFactory(new NoOpCrossMediaManager(),new OfxDefaultSettingsManager(),"de");
 		test.renderLatex(Type.R,f);
 	}
 }
