@@ -68,7 +68,7 @@ sudo apt-get install postgresql-9.3-postgis-2.1</ofx:raw>
 		<ofx:paragraph lang="en" classifier="debianWheezy">
 			Detailed Information can be obtained here http://trac.osgeo.org/postgis/wiki/UsersWikiPostGIS20Debian70src
 		</ofx:paragraph>
-		<ofx:listing classifier="debianWheezy" external="listing/admin/db/postgres/create/debian/wheezy.sql"/>
+		<ofx:listing classifier="debianWheezy" setting="sql" external="listing/admin/db/postgres/create/debian/wheezy.sql"/>
 		
 		<ofx:paragraph lang="en" classifier="ubuntu14">
 			As user "postgres":

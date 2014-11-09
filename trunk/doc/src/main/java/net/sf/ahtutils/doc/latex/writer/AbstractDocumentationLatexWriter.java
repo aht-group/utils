@@ -12,6 +12,7 @@ import org.apache.commons.configuration.Configuration;
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.content.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
+import org.openfuxml.exception.OfxConfigurationException;
 import org.openfuxml.interfaces.DefaultSettingsManager;
 import org.openfuxml.interfaces.media.CrossMediaManager;
 import org.openfuxml.renderer.latex.content.structure.LatexSectionRenderer;
@@ -55,8 +56,8 @@ public class AbstractDocumentationLatexWriter
 		StringIO.writeTxt(f, sw.toString());
 	}
 	
-	protected void writeSection(Section section, File f) throws OfxAuthoringException, IOException {writeSection(1, section, f);}
-	protected void writeSection(int sectionLevel, Section section, File f) throws OfxAuthoringException, IOException
+	protected void writeSection(Section section, File f) throws OfxAuthoringException, IOException, OfxConfigurationException {writeSection(1, section, f);}
+	protected void writeSection(int sectionLevel, Section section, File f) throws OfxAuthoringException, IOException, OfxConfigurationException
 	{
 		LatexSectionRenderer sectionRenderer = new LatexSectionRenderer(cmm,dsm,sectionLevel,new LatexPreamble(cmm,dsm));
 		sectionRenderer.render(section);

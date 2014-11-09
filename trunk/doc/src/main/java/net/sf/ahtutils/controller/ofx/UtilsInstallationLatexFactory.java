@@ -12,6 +12,7 @@ import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.exception.OfxAuthoringException;
+import org.openfuxml.exception.OfxConfigurationException;
 import org.openfuxml.interfaces.DefaultSettingsManager;
 import org.openfuxml.interfaces.media.CrossMediaManager;
 import org.openfuxml.renderer.latex.content.structure.LatexSectionRenderer;
@@ -54,7 +55,7 @@ public class UtilsInstallationLatexFactory
         return map.get(type);
     }
 	
-	public void renderLatex(Type type, File dstFile) throws OfxAuthoringException
+	public void renderLatex(Type type, File dstFile) throws OfxAuthoringException, OfxConfigurationException
 	{
 		logger.info("Processing "+map.get(type));
         Section section = loadSection(type);
@@ -78,7 +79,7 @@ public class UtilsInstallationLatexFactory
         return section;
     }
 	
-	public void renderLatex(Section section, File dstFile) throws OfxAuthoringException
+	public void renderLatex(Section section, File dstFile) throws OfxAuthoringException, OfxConfigurationException
     {
         LatexSectionRenderer latexSectionFactory = new LatexSectionRenderer(cmm,dsm,1,new LatexPreamble(cmm,dsm));
 		latexSectionFactory.render(section);

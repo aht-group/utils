@@ -5,6 +5,7 @@ import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.status.Translations;
 
 import org.apache.commons.configuration.Configuration;
+import org.openfuxml.exception.OfxConfigurationException;
 import org.openfuxml.interfaces.DefaultSettingsManager;
 import org.openfuxml.interfaces.media.CrossMediaManager;
 import org.slf4j.Logger;
@@ -69,33 +70,33 @@ public class UtilsLatexAdminDocumentationBuilder extends AbstractLatexDocumentat
 	}
 	
 	@Deprecated
-	public void buildDoc() throws UtilsConfigurationException
+	public void buildDoc() throws UtilsConfigurationException, OfxConfigurationException
 	{
 		logger.info("buildDoc");
 		render(Code.accessIntroduction.toString());
 	}
 	
-	public void render(SecurityCode code) throws UtilsConfigurationException{render(code.toString());}
+	public void render(SecurityCode code) throws UtilsConfigurationException, OfxConfigurationException{render(code.toString());}
 
-	public void render(MaintenanceCode code) throws UtilsConfigurationException{render(code.toString());}
-	public void render(BackupCode code) throws UtilsConfigurationException{render(code.toString());}
+	public void render(MaintenanceCode code) throws UtilsConfigurationException, OfxConfigurationException{render(code.toString());}
+	public void render(BackupCode code) throws UtilsConfigurationException, OfxConfigurationException{render(code.toString());}
 	
-	public void render(InstallationCode code) throws UtilsConfigurationException{render(code.toString());}
-	public void render(InstallationCode code, InstallationArchitecture... architectures) throws UtilsConfigurationException
+	public void render(InstallationCode code) throws UtilsConfigurationException, OfxConfigurationException{render(code.toString());}
+	public void render(InstallationCode code, InstallationArchitecture... architectures) throws UtilsConfigurationException, OfxConfigurationException
 	{
 		String[] classifier = new String[architectures.length];
 		for(int i=0;i<architectures.length;i++){classifier[i]=architectures[i].toString();}
 		render(code.toString(),classifier);
 	}
-	public void render(InstallationCode code, JBossClassifier... versions) throws UtilsConfigurationException
+	public void render(InstallationCode code, JBossClassifier... versions) throws UtilsConfigurationException, OfxConfigurationException
 	{
 		String[] classifier = new String[versions.length];
 		for(int i=0;i<versions.length;i++){classifier[i]=versions[i].toString();}
 		render(code.toString(),classifier);
 	}
 	
-	public void render(RequirementsCode code) throws UtilsConfigurationException{render(code.toString());}
-	public void render(RequirementsCode code, RequirementsClassifier... reqClassifier) throws UtilsConfigurationException
+	public void render(RequirementsCode code) throws UtilsConfigurationException, OfxConfigurationException{render(code.toString());}
+	public void render(RequirementsCode code, RequirementsClassifier... reqClassifier) throws UtilsConfigurationException, OfxConfigurationException
 	{
 		String[] classifier = new String[reqClassifier.length];
 		for(int i=0;i<reqClassifier.length;i++){classifier[i]=reqClassifier[i].toString();}

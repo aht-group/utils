@@ -12,6 +12,7 @@ import org.apache.commons.configuration.Configuration;
 import org.openfuxml.content.media.Image;
 import org.openfuxml.content.ofx.Listing;
 import org.openfuxml.content.ofx.Section;
+import org.openfuxml.exception.OfxConfigurationException;
 import org.openfuxml.interfaces.DefaultSettingsManager;
 import org.openfuxml.interfaces.media.CrossMediaManager;
 import org.openfuxml.xml.xpath.content.SectionXpath;
@@ -49,12 +50,12 @@ public class UtilsLatexDevelopmentDocumentationBuilder extends AbstractLatexDocu
 		addConfig(Code.doc.toString(),"ofx.aht-utils/development/documentation.xml","admin/development/documentation");
 	}
 
-	public void render(Code code) throws UtilsConfigurationException{render(2,code);}
-	public void render(int lvl, Code code) throws UtilsConfigurationException{render(lvl,code.toString());}
+	public void render(Code code) throws UtilsConfigurationException, OfxConfigurationException{render(2,code);}
+	public void render(int lvl, Code code) throws UtilsConfigurationException, OfxConfigurationException{render(lvl,code.toString());}
 	
-	public void render(ErCode code) throws UtilsConfigurationException{render(code.toString());}
+	public void render(ErCode code) throws UtilsConfigurationException, OfxConfigurationException{render(code.toString());}
 	
-	public void renderEclipse(EclipseClassifier... versions) throws UtilsConfigurationException
+	public void renderEclipse(EclipseClassifier... versions) throws UtilsConfigurationException, OfxConfigurationException
 	{
 		String[] classifier = new String[versions.length];
 		for(int i=0;i<versions.length;i++){classifier[i]=versions[i].toString();}

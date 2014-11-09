@@ -5,6 +5,7 @@ import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.status.Translations;
 
 import org.apache.commons.configuration.Configuration;
+import org.openfuxml.exception.OfxConfigurationException;
 import org.openfuxml.interfaces.DefaultSettingsManager;
 import org.openfuxml.interfaces.media.CrossMediaManager;
 import org.slf4j.Logger;
@@ -35,6 +36,6 @@ public class UtilsLatexUserDocumentationBuilder extends AbstractLatexDocumentati
 		addConfig(Code.uiFileExport.toString(),"ofx.aht-utils/user/ui/export/file.xml","user/ui/fileExport");
 	}
 
-	public void render(Code code) throws UtilsConfigurationException{render(1,code);}
-	public void render(int lvl, Code code) throws UtilsConfigurationException{render(lvl,code.toString());}
+	public void render(Code code) throws UtilsConfigurationException, OfxConfigurationException{render(1,code);}
+	public void render(int lvl, Code code) throws UtilsConfigurationException, OfxConfigurationException{render(lvl,code.toString());}
 }

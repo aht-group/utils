@@ -23,6 +23,7 @@ import org.apache.commons.configuration.Configuration;
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.content.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
+import org.openfuxml.exception.OfxConfigurationException;
 import org.openfuxml.factory.xml.layout.XmlAlignmentFactory;
 import org.openfuxml.factory.xml.table.OfxColumnFactory;
 import org.openfuxml.interfaces.DefaultSettingsManager;
@@ -138,7 +139,7 @@ public class LatexQmWriter extends AbstractDocumentationLatexWriter
 	
 	// *****************************************************************************
 	
-	public void writeQaCategoriesInputs(Qa qa) throws OfxAuthoringException, IOException
+	public void writeQaCategoriesInputs(Qa qa) throws OfxAuthoringException, IOException, OfxConfigurationException
 	{
 		for(String lang : langs)
 		{
@@ -146,7 +147,7 @@ public class LatexQmWriter extends AbstractDocumentationLatexWriter
 		}
 	}
 	
-	public void writeQaCategoriesInput(Qa qa,String lang) throws OfxAuthoringException, IOException
+	public void writeQaCategoriesInput(Qa qa,String lang) throws OfxAuthoringException, IOException, OfxConfigurationException
 	{
 		File fCategories = new File(baseLatexDir+"/"+lang+"/section/qa/categories.tex");
 		File fAgreements = new File(baseLatexDir+"/"+lang+"/section/qa/agreements.tex");
@@ -159,7 +160,7 @@ public class LatexQmWriter extends AbstractDocumentationLatexWriter
 	
 	// *****************************************************************************
 	
-	public void writeQaCategory(Category category) throws OfxAuthoringException, IOException
+	public void writeQaCategory(Category category) throws OfxAuthoringException, IOException, OfxConfigurationException
 	{
 		for(String lang : langs)
 		{
@@ -167,7 +168,7 @@ public class LatexQmWriter extends AbstractDocumentationLatexWriter
 		}
 	}
 	
-	public void writeQaCategory(Category category, String lang) throws OfxAuthoringException, IOException
+	public void writeQaCategory(Category category, String lang) throws OfxAuthoringException, IOException, OfxConfigurationException
 	{
 		String path = lang+"/section/qa/category";
 		File f = new File(baseLatexDir+"/"+path+"/"+category.getCode()+".tex");

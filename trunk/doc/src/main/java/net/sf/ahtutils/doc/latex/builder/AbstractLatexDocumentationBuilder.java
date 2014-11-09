@@ -16,6 +16,7 @@ import org.apache.commons.configuration.Configuration;
 import org.openfuxml.content.ofx.Comment;
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.exception.OfxAuthoringException;
+import org.openfuxml.exception.OfxConfigurationException;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.interfaces.DefaultSettingsManager;
 import org.openfuxml.interfaces.media.CrossMediaManager;
@@ -60,10 +61,10 @@ public class AbstractLatexDocumentationBuilder extends AbstractDocumentationLate
 		dstFiles.put(code, destination);
 	}
 	
-	protected void render(String code) throws UtilsConfigurationException{render(1,code);}
-	protected void render(int lvl, String code) throws UtilsConfigurationException{render(lvl,code,null);}
-	protected void render(String code,String classifier[]) throws UtilsConfigurationException{render(1,code,classifier);}
-	protected void render(int lvl, String code,String classifier[]) throws UtilsConfigurationException
+	protected void render(String code) throws UtilsConfigurationException, OfxConfigurationException{render(1,code);}
+	protected void render(int lvl, String code) throws UtilsConfigurationException, OfxConfigurationException{render(lvl,code,null);}
+	protected void render(String code,String classifier[]) throws UtilsConfigurationException, OfxConfigurationException{render(1,code,classifier);}
+	protected void render(int lvl, String code,String classifier[]) throws UtilsConfigurationException, OfxConfigurationException
 	{
 		try
 		{
@@ -74,7 +75,7 @@ public class AbstractLatexDocumentationBuilder extends AbstractDocumentationLate
 		catch (IOException e) {throw new UtilsConfigurationException(e.getMessage());}
 	}
 	
-	protected void renderSection(int lvl,String code, String classifier[]) throws OfxAuthoringException, IOException
+	protected void renderSection(int lvl,String code, String classifier[]) throws OfxAuthoringException, IOException, OfxConfigurationException
 	{
 		logger.trace("Rendering "+Section.class.getSimpleName()+": "+code);
 		Section section = JaxbUtil.loadJAXB(config.getString(code), Section.class);
