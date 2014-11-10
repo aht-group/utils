@@ -24,9 +24,10 @@ public class UtilsListingCopy
 	
 	public static final String codeApp = "@@@APP@@@";
 	
-	public static final String dbPostgresPrepartion = "admin/db/postgres/preparation.sh";
-	public static final String dbPostgresDump = "admin/db/postgres/dump.sh";
-	public static final String dbPostgresCrontab = "admin/db/postgres/cron.tab";
+	public static final String dbPostgresPrepartionDebian = "admin/db/postgres/dump/debian/preparation.sh";
+	public static final String dbPostgresCronDebian = "admin/db/postgres/dump/debian/cron.tab";
+	public static final String dbPostgresDumpDebian = "admin/db/postgres/dump/debian/dump.sh";
+	
 	
 	public static final String dbPostgresCreateDebianWheezy = "admin/db/postgres/create/debian/wheezy.sql";
 	public static final String dbPostgresCreateOsxYosemite = "admin/db/postgres/create/osx/yosemite.sql";
