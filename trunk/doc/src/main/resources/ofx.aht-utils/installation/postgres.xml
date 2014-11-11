@@ -56,6 +56,12 @@ sudo make comments-install</ofx:raw>
 			<ofx:listing>
 				<ofx:raw>brew install postgis</ofx:raw>
 			</ofx:listing>
+			
+			<ofx:paragraph lang="en">
+				ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents
+    launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+    createuser --superuser postgres
+			</ofx:paragraph>
 		</ofx:section>
 	</ofx:section>
 	
