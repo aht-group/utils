@@ -198,12 +198,24 @@ margin-top: 8px;
 	text-align: right;
 }
 	
+/* Remove the padding within the panel*/            
+.auPanelWithGrid .ui-panel-content{
+	padding: 0 !important;
+/*    border-style: none !important;*/
+}
+
+/* Removes borders from cells of PanelGrid */
+.auCleanPanelGrid .ui-panelgrid-cell {
+	border-style: none !important;
+}
+
+/* Removes borders from PanelGrid rows */
+.auCleanPanelGrid .ui-widget-content {
+	border-style: none !important;
+}
 	
 	
-	
-	
-	
-	
+		
 .w100 {width: 100%;}
 
 
@@ -222,9 +234,12 @@ margin-top: 8px;
 .ui-panel-titlebar{height: 12px;}
 .ui-panel-title{top: -5px;position: relative;}
 
-/* PF selectonemenu */
-.ui-selectonemenu-label {width:100% !important;}
+/* PF selectonemenu */ 
 .ui-selectonemenu{width:100% !important;}
+
+/* PF: DONT SET THIS SINCE IT RUINS THE LAYOUT!
+.ui-selectonemenu-label {width:100% !important;}
+*/
 
 /* PF treenode line break problem */
 .ui-treenode-label {white-space: pre-line;}
