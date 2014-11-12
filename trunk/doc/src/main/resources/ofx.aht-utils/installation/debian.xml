@@ -203,7 +203,7 @@
 			</ofx:paragraph>
 			
 			<ofx:paragraph lang="en" version="1">
-				SSH can be installed using the built-in tool <text:emphasis style="typewriter">"apt-get"</text:emphasis>:
+				SSH can be installed using the built-in tool <text:emphasis style="typewriter">apt-get</text:emphasis>:
 			</ofx:paragraph>
 		
 			<ofx:paragraph lang="en" version="1"> 

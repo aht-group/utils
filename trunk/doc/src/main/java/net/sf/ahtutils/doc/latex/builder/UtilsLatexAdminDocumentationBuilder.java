@@ -17,7 +17,7 @@ public class UtilsLatexAdminDocumentationBuilder extends AbstractLatexDocumentat
 	
 	private static enum Code {accessIntroduction};
 							 
-	public static enum MaintenanceCode {mLoggingIntroduction}
+	public static enum MaintenanceCode {mLoggingIntroduction,mJboss}
 	
 	public static enum BackupCode {bPostgres}
 	
@@ -48,6 +48,7 @@ public class UtilsLatexAdminDocumentationBuilder extends AbstractLatexDocumentat
 				
 		//Maintenance
 		addConfig(MaintenanceCode.mLoggingIntroduction.toString(),"ofx.aht-utils/administration/logging/introduction.xml","admin/system/logging/introduction");
+		addConfig(MaintenanceCode.mJboss.toString(),"ofx.aht-utils/administration/as/jboss.xml","admin/as/jboss");
 		
 		//Backup
 		addConfig(BackupCode.bPostgres.toString(),"ofx.aht-utils/administration/db/postgres.xml","admin/db/postgres");

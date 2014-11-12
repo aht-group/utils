@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org"
+			xmlns:text="http://www.openfuxml.org/text"
+		id="section.admin.as.jboss">
+	<ofx:title lang="en">JBoss AS</ofx:title>
+	
+	<ofx:paragraph lang="en" version="1">
+		The log file of the application server is located in
+		<text:emphasis italic="true">/opt/jboss-eap/standalone/log/server.log</text:emphasis> 
+	</ofx:paragraph>
+	
+	
+	<ofx:section>
+		<ofx:title lang="en">Software Deployment</ofx:title>
+	
+		<ofx:paragraph lang="en" version="1">
+			Software deployment is all of the activities that make a software system available for use.
+			The general deployment process consists of several interrelated activities with possible transitions between them.
+			These activities can occur at the developer side or at the customer side or both.
+		</ofx:paragraph>
+		
+		<ofx:paragraph lang="en" version="1">
+			The deployment and undeployment steps are performed with the command line tool
+			<text:emphasis style="typewriter">jboss-cli.sh</text:emphasis> located in the
+			<text:emphasis italic="true">bin</text:emphasis> directory of the application server, this should be
+			<text:emphasis italic="true">/opt/jboss-eap/bin</text:emphasis>
+		</ofx:paragraph>
+	
+		<ofx:section>
+			<ofx:title lang="en">Release</ofx:title>
+		
+			<ofx:paragraph lang="en" version="1">
+				The release activity follows from the completed development process.
+				It includes all the operations to prepare a system for assembly and transfer to the customer site.
+				Therefore, it must determine the resources required to operate at the customer site and collect
+				information for carrying out subsequent activities of deployment process.
+			</ofx:paragraph>
+			
+		</ofx:section>
+		
+		<ofx:section>
+			<ofx:title lang="en">Install</ofx:title>
+		
+			<ofx:paragraph lang="en" version="1">
+				Installation is the activity of starting up the executable component of software.
+				For simple systems, it involves establishing some form of command for execution.
+				For complex systems, it should make all the supporting systems ready to use.
+			</ofx:paragraph>
+			
+			<ofx:listing setting="shell" external="listing/admin/installation/jboss/deployment/eap6/cli/deploy.sh"/>
+			
+			<ofx:paragraph lang="en" version="1">
+				After executing the <text:emphasis style="typewriter">deploy</text:emphasis> command,
+				there should be entries in the log file like this:
+			</ofx:paragraph>
+			
+			<ofx:listing setting="shell" external="listing/admin/installation/jboss/deployment/eap6/log/deploy.log"/>
+		
+		</ofx:section>
+		
+		<ofx:section>
+			<ofx:title lang="en">Update</ofx:title>
+		
+			<ofx:paragraph lang="en" version="1">
+				The update process replaces an earlier version of all or part of a software system with a newer release.
+				The steps to perform include the
+				<text:emphasis italic="true">uninstall</text:emphasis>
+				and
+				<text:emphasis italic="true">install</text:emphasis> steps.
+			</ofx:paragraph>
+		
+			<ofx:listing setting="shell" external="listing/admin/installation/jboss/deployment/eap6/cli/update.sh"/>
+		</ofx:section>
+		
+		<ofx:section>
+			<ofx:title lang="en">Uninstall</ofx:title>
+		
+			<ofx:paragraph lang="en" version="1">
+				Uninstallation is the inverse of installation.
+				It is the removal of a system that is no longer required.
+				It also involves some reconfiguration of other software systems in order to remove the uninstalled system’s files
+				and dependencies.
+			</ofx:paragraph>
+			
+			<ofx:listing setting="shell" external="listing/admin/installation/jboss/deployment/eap6/cli/undeploy.sh"/>
+			
+			<ofx:paragraph lang="en" version="1">
+				After executing the <text:emphasis style="typewriter">undeploy</text:emphasis> command,
+				there should be entries in the log file like this:
+			</ofx:paragraph>
+			
+			<ofx:listing setting="shell" external="listing/admin/installation/jboss/deployment/eap6/log/undeploy.log"/>
+		
+		</ofx:section>
+		
+	</ofx:section>	
+		
+</ofx:section>

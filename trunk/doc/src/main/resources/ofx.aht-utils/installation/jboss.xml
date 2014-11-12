@@ -245,6 +245,8 @@ sudo chown -R jboss:jboss /opt/jboss-eap-6.1</ofx:raw>
 		<ofx:section>
 			<ofx:title lang="en">Deployment</ofx:title>
 			
+			<ofx:listing setting="shell" external="listing/admin/installation/jboss/deployment/eap6/log/start.log"/>
+			
 			<ofx:paragraph lang="en" version="1">
 					The application is deployed using the command line tool
 					<text:emphasis style="typewriter">/opt/jboss-eap-6.1/bin/jboss-cli.sh</text:emphasis>.
@@ -272,20 +274,19 @@ sudo chown -R jboss:jboss /opt/jboss-eap-6.1</ofx:raw>
 					xxx
 			</ofx:paragraph>
 			
-			<ofx:listing>
-				<ofx:raw>sudo touch /etc/init.d/jboss
-sudo chmod 755 /etc/init.d/jboss
-sudo vi /etc/init.d/jboss</ofx:raw>
-			</ofx:listing>
+			<ofx:listing setting="shell" external="listing/admin/installation/jboss/service/preparation.txt"/>
+
 			
 			<ofx:paragraph lang="en" version="1">
 					xxx
 			</ofx:paragraph>
 			
-			<ofx:listing external="listing/admin/installation/jboss/service.txt"/>
+			<ofx:listing setting="shell" external="listing/admin/installation/jboss/service/etcInitD.txt"/>
 			
 		<ofx:paragraph lang="en" version="1">
-			Then I ran sudo update-rc.d jboss defaults so that JBoss automatically starts on system boot
+			To activate the service, the shell command
+			<text:emphasis style="typewriter">sudo update-rc.d jboss defaults</text:emphasis>
+			has to be executed.
 		</ofx:paragraph>
 			
 		</ofx:section>

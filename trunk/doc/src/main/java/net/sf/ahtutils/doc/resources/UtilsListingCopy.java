@@ -35,7 +35,15 @@ public class UtilsListingCopy
 	public static final String dbPostgresTuneDebianWheezy = "admin/db/postgres/tuning/debian/wheezy.sql";
 	public static final String dbPostgresTuneOsxYosemite = "admin/db/postgres/tuning/osx/yosemite.sql";
 	
-	public static final String jbService = "admin/installation/jboss/service.txt";
+	public static final String jbServicePreparation = "admin/installation/jboss/service/preparation.txt";
+	public static final String jbService = "admin/installation/jboss/service/etcInitD.txt";
+	
+	public static final String jbEap6StartLog = "admin/installation/jboss/deployment/eap6/log/start.log";
+	public static final String jbEap6DeployCli = "admin/installation/jboss/deployment/eap6/cli/deploy.sh";
+	public static final String jbEap6DeployLog = "admin/installation/jboss/deployment/eap6/log/deploy.log";
+	public static final String jbEap6UndeployCli = "admin/installation/jboss/deployment/eap6/cli/undeploy.sh";
+	public static final String jbEap6UndeployLog = "admin/installation/jboss/deployment/eap6/log/undeploy.log";
+	public static final String jbEap6UpdateCli = "admin/installation/jboss/deployment/eap6/cli/update.sh";
 	
 	
 	private MultiResourceLoader mrl;
