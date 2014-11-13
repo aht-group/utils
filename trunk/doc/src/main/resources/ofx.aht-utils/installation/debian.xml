@@ -6,7 +6,8 @@
 			 xmlns:text="http://www.openfuxml.org/text"
 			 xmlns:l="http://www.openfuxml.org/list"
 		id="section.admin.installation.debian">
-	<ofx:title lang="en">Debian Linux</ofx:title>
+		
+	<ofx:title lang="en">Operating System (Debian Linux)</ofx:title>
 	
 	<ofx:paragraph lang="en" version="1">
 		Debian is an operating system composed of free software mostly carrying the GNU General Public License.
@@ -19,14 +20,22 @@
 		there are over 140 active Debian derivatives, one of the most popular ones is Ubuntu.
 	</ofx:paragraph>
 	
+	<ofx:paragraph lang="en" version="1">
+		Since Debian can be used free of charge, it can easily be obtained from the projects website. There is a huge variety of installation methods to choose from.
+		A very convenient one is using the minimum installation CD. You can download the disk image for your architecture (mostly i386 for older 32-bit machines and amd64 for newer 64-bit CPUs like Intel Core processors and above) from http://www.debian.org/distrib/netinst. Then the image needs to be written to a CD or DVD recordable.
+		The Ubuntu project offers HowTos for all common operating systems like Microsoft Windows, Apple Mac OS X and Linux on how to actually burn this image to the disk at https://help.ubuntu.com/community/BurningIsoHowto.
+		Once the CD or DVD is prepared, the computer needs to be booted from the optical disk drive and the (non-graphical) installer should be selected from the boot screen.
+		The Debian installer then guides you through the complete setup process. 
+	</ofx:paragraph>
+	
 	<ofx:section id="section.admin.installation.debian.base.wheezy" classifier="debianWheezy">
 		<ofx:title lang="en">Base Installation</ofx:title>
 		
-		<ofx:paragraph lang="en" version="1">
+	<!-- <ofx:paragraph lang="en" version="1">
 			The network installation CD is sufficient for installation Debian. The ISO image can be obtained from:
 			"http://www.debian.org/cd/netinst"
 			Choose the right installer, for your CPU architecture (e.g. amd64 for Intel Xeon, i3, i5, i7).
-		</ofx:paragraph>
+		</ofx:paragraph>  -->	
 		
 		<media:image id="image.admin.installation.debian.base.wheezy.boot">
 			<ofx:title lang="en">Debian installer boot menu</ofx:title>
@@ -144,7 +153,7 @@
 			<ofx:paragraph lang="en" version="1">
 				All available software packages can be de-selected. This ensures aht the installation will only have a minimal
 				number of packages and modules available. This minimizes the risks of errors or faulty configurations and 
-				facilitate future upgrade procedures. All necessary packages will be installed manually.
+				facilitate future upgrade procedures. Press TAB and select <text:emphasis style="typewriter">CONTINUE</text:emphasis>. All necessary packages will be installed manually.
 			</ofx:paragraph>
 			
 			<media:image id="image.admin.installation.debian.base.wheezy.software">
@@ -161,7 +170,7 @@
 			
 			<ofx:paragraph lang="en" version="1">
 				Install GRUB boot loader to the master boot record, this step is necessary to select the operating system after booting your system.
-				Press <text:emphasis style="typewriter">YES</text:emphasis> and <text:emphasis style="typewriter">FINISH</text:emphasis>.
+				Press <text:emphasis style="typewriter">YES</text:emphasis>.
 				The base installation of debian is now ready.
 			</ofx:paragraph>
 			
@@ -178,7 +187,8 @@
 		
 			<ofx:paragraph lang="en" version="1">
 				The installation of the most recent version of all packages should be verfied, especially after
-				installation of the system from a DVD image.
+				installation of the system from a CD or DVD image.
+				As root user execute the following command:
 			</ofx:paragraph>
 			
 			<ofx:listing>
@@ -191,6 +201,10 @@
 	
 	<ofx:section id="section.admin.installation.debian.additional">
 		<ofx:title lang="en">Additional Packages</ofx:title>
+		
+		<ofx:paragraph lang="en" version="1">
+				Debian comes with a package manager called <text:emphasis style="typewriter">apt-get</text:emphasis> that can be used to download and install software automatically. The following utilities are required to be installed.
+			</ofx:paragraph>
 	
 		<ofx:section>
 			<ofx:title lang="en">Secure Shell (SSH)</ofx:title>
@@ -202,13 +216,14 @@
 				to the system and excute shell commands.
 			</ofx:paragraph>
 			
+			<!-- 
 			<ofx:paragraph lang="en" version="1">
 				SSH can be installed using the built-in tool <text:emphasis style="typewriter">apt-get</text:emphasis>:
 			</ofx:paragraph>
-		
+		    -->
+		    
 			<ofx:paragraph lang="en" version="1"> 
-				To execute following commands, login as root to use the root console.
-				<text:emphasis style="typewriter">su -</text:emphasis> 
+				Execute the following commands with root rights: <text:emphasis style="typewriter">su -</text:emphasis> 
 			</ofx:paragraph>
 		
 			<ofx:listing>
@@ -218,13 +233,14 @@
 			<ofx:paragraph lang="en" version="1">
 				A common used best practice for running SSH on a server is to deactivate the authentication by password
 				and the permission for the user <text:emphasis italic="true">root</text:emphasis> to log in remotely.
+				For editing the file below you can use the <text:emphasis italic="true">nano</text:emphasis> editor. To save changes press <text:emphasis italic="true">CTRL-O</text:emphasis> and to exit the editor press <text:emphasis italic="true">CTRL-X</text:emphasis>.
 			</ofx:paragraph>
 			
 			<ofx:listing>
 				<ofx:raw>
 				<text:emphasis style="typewriter">nano etc/ssh/sshd-config</text:emphasis> 				
-				permitrootlogin no 
-				challengeresponsepasswords no 
+			permitrootlogin no 
+			challengeresponsepasswords no 
 				</ofx:raw>
 			</ofx:listing>
 			
@@ -258,6 +274,7 @@
 				 and backward navigation through the file.
 				 Unlike most Unix text editors/viewers, less does not need to read the entire file before starting,
 				 resulting in faster load times with large files.
+				 As root user you can use the following command to install less:
 			</ofx:paragraph>
 		
 			<ofx:listing>
@@ -285,6 +302,8 @@
 				every time or never requiring a password at all for a particular command line.
 				It can also be configured to permit passing arguments or multiple commands,
 				and even supports commands with regular expressions.
+				
+				As root user you can use the following command to install sudo:
 			</ofx:paragraph>
 		
 			<ofx:listing>

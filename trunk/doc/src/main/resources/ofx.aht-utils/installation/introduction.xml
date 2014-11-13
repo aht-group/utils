@@ -10,7 +10,72 @@
 	<ofx:title lang="en">Introduction</ofx:title>
 	
 	<ofx:paragraph lang="en" version="1">
-		test
+		This web-based information system's architecture is based on several components that need to be set up in order to have a running instance of the software.
+		The following steps are required:
 	</ofx:paragraph>
+	
+	<l:list>
+	    	<l:type ordering="unordered"/>	
+    		   		
+			<l:item>
+	    		<ofx:paragraph lang="en">Setup the operating system and install a Java runtime environment.</ofx:paragraph>
+	   		</l:item>
+	   		
+	   		<l:item>
+	    		<ofx:paragraph lang="en">Setup the database</ofx:paragraph>
+	   		</l:item>
+	   		
+	   		<l:item>
+	    		<ofx:paragraph lang="en">Setup the service to serve and process geographical data stored in the database</ofx:paragraph>
+	   		</l:item>
+	   		
+			<l:item>
+	    		<ofx:paragraph lang="en">Setup the Java EE application server</ofx:paragraph>
+	   		</l:item>
+	   		
+	   		<l:item>
+	    		<ofx:paragraph lang="en">Deploy the application to the application server</ofx:paragraph>
+	   		</l:item>
+	</l:list>
+	
+	<!-- 
+	<media:image id="image.admin.installation.system-architecture">
+		<ofx:title lang="en">Basic Architecture of the web-based Application</ofx:title>
+		<layout:alignment horizontal="center"/>
+		<layout:width unit="percentage">60</layout:width>
+		<media:media lang="en" src="png.aht-utils/installation/system-architecture.png" dst="en/admin/installation/"/>
+	</media:image>
+	 -->
+	 
+	<ofx:paragraph lang="en" version="1">
+		To provide the needed infrastructure, the following products have been chosen for their stability, long-term support and robustness: 
+	</ofx:paragraph>
+	
+	<l:list>
+	    	<l:type ordering="unordered"/>	
+	    		   		
+			<l:item>
+	    		<ofx:paragraph lang="en"><text:emphasis bold="true">Debian Linux </text:emphasis>as operating system.</ofx:paragraph>
+	   		</l:item>
+	   		
+	   		<l:item>
+	    		<ofx:paragraph lang="en"><text:emphasis bold="true">PostgreSQL</text:emphasis> as database with <text:emphasis bold="true">PostGIS</text:emphasis> extention to store geospatial data</ofx:paragraph>
+	   		</l:item>
+	   		
+	   		<l:item>
+	    		<ofx:paragraph lang="en"><text:emphasis bold="true">GeoServer</text:emphasis> to serve and process geospatial data</ofx:paragraph>
+	   		</l:item>
+	   		
+			<l:item>
+	    		<ofx:paragraph lang="en"><text:emphasis bold="true">JBoss</text:emphasis> Application Server as runtime environment for the Java EE web application</ofx:paragraph>
+	   		</l:item>
+	</l:list>
+	
+	<ofx:paragraph lang="en" version="1">
+		Advanced users may choose to deploy the system to their own existing infrastructure, but may encounter issues that are not covered by this manual, since it describes the only 
+		supported setup to operate the software. 
+	</ofx:paragraph>
+
+	
 	
 </ofx:section>

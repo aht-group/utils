@@ -27,7 +27,7 @@
 	<ofx:section container="true" classifier="luna">
 	
 		<ofx:paragraph lang="en">
-			The first thing you need to install, is Eclipse Luna. You can download it from: 
+			The first thing you need to install, is Eclipse Luna for Java EE Developers. You can download it from: 
 			<text:emphasis style="typewriter">www.eclipse.org/downloads</text:emphasis>		
 			After finishing your download unpack Eclipse Luna to your installation path.
 			For example <text:emphasis style="typewriter">C:programm fileseclipse</text:emphasis>	
@@ -73,7 +73,7 @@
 	   		</l:list>
 			
 			<ofx:paragraph lang="en">
-				Now right click on your <text:emphasis style="italic">"Project Explorer"</text:emphasis>, select <text:emphasis style="typewriter">"New"</text:emphasis>, press <text:emphasis style="typewriter">"Other"</text:emphasis>,
+				Now select <text:emphasis style="typewriter">"New"</text:emphasis> from the <text:emphasis style="typewriter">File</text:emphasis> menu and choose <text:emphasis style="typewriter">"Other..."</text:emphasis>,
 				search for "Maven" and <text:emphasis style="italic">"Checkout Maven Projects from SCM"</text:emphasis>, press <text:emphasis style="typewriter">"Next"</text:emphasis>
 				and go for the writing "Find more SCM connectors in the m2e Marketplace" (see figure below). 
 				Find: <text:emphasis style="italic">"Subversive"</text:emphasis> and select <text:emphasis style="italic">"m2e-subversive"</text:emphasis> and press <text:emphasis style="typewriter">"Finish"</text:emphasis>.
@@ -104,7 +104,7 @@
 			   		</l:item>
 	   		</l:list>
 	   		
-	   		<ofx:paragraph>If you were asked for a SVN KIT, please select <text:emphasis style="typewriter">"SVN KIT 1.8.5"</text:emphasis>.</ofx:paragraph>
+	   		<ofx:paragraph>If you were asked for a SVN KIT, please select <text:emphasis style="typewriter">"SVN KIT 1.8.6"</text:emphasis>.</ofx:paragraph>
 			
 			<media:image id="image.admin.development.environment.connectors">
 				<ofx:title lang="en">Eclipse SCM connectors installation</ofx:title>
@@ -128,6 +128,11 @@
 			<ofx:listing id="listing.admin.installation.eclipse.vcs.url">
 				<ofx:raw>https://www.example.com/svn/project</ofx:raw>
 			</ofx:listing>
+			
+			<ofx:paragraph lang="en">
+					Since the Maven build tool is downloading all dependencies for the project while setting it up in eclipse, this process takes very long when triggered the first time.
+					
+			</ofx:paragraph>
 			
 		</ofx:section>
 		
