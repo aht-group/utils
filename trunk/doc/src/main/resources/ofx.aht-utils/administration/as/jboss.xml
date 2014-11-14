@@ -54,7 +54,7 @@
 				there should be entries in the log file like this:
 			</ofx:paragraph>
 			
-			<ofx:listing setting="shell" external="listing/admin/installation/jboss/deployment/eap6/log/deploy.log"/>
+			<ofx:listing setting="shell" external="listing/admin/installation/jboss/deployment/eap6/log/deploy.txt"/>
 		
 		</ofx:section>
 		
@@ -89,7 +89,7 @@
 				there should be entries in the log file like this:
 			</ofx:paragraph>
 			
-			<ofx:listing setting="shell" external="listing/admin/installation/jboss/deployment/eap6/log/undeploy.log"/>
+			<ofx:listing setting="shell" external="listing/admin/installation/jboss/deployment/eap6/log/undeploy.txt"/>
 		
 		</ofx:section>
 		

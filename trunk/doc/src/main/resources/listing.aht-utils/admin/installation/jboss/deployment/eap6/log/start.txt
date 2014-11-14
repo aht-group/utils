@@ -1,0 +1,6 @@
+[..] (MSC service thread 1-4) JBAS015012: Started FileSystemDeploymentService for directory /opt/jboss/standalone/deployments
+[..] (MSC service thread 1-6) JBAS017100: Listening on 127.0.0.1:9999
+[..] (MSC service thread 1-7) JBAS017100: Listening on 127.0.0.1:4447
+[..] (Controller Boot Thread) JBAS015961: Http management interface listening on http://127.0.0.1:9990/management
+[..] (Controller Boot Thread) JBAS015951: Admin console listening on http://127.0.0.1:9990
+[..] (Controller Boot Thread) JBAS015874: JBoss EAP 6.1.0.GA (AS 7.2.0.Final-redhat-8) started in 3726ms - Started 185 of 254 services (53 services are passive or on-demand)

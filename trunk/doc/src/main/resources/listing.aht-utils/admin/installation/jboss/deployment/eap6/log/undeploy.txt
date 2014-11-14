@@ -1,0 +1,10 @@
+[..] (ServerService Thread Pool -- 163) JBAS018224: Unregister web context: /@@@APP@@@
+[..] (ServerService Thread Pool -- 163) PrettyFilter shutting down...
+[..] (MSC service thread 1-2) JBAS016009: Stopping weld service for deployment @@@APP@@@.ear
+[..] (ServerService Thread Pool -- 158) JBAS011403: Stopping Persistence Unit Service '@@@APP@@@.ear/@@@APP@@@-entities-0.2-SNAPSHOT.jar#@@@APP@@@'
+[..] (MSC service thread 1-6) JBAS015877: Stopped deployment null (runtime-name: @@@APP@@@-beans.jar) in 69ms
+[..] (MSC service thread 1-2) JBAS015877: Stopped deployment null (runtime-name: @@@APP@@@-entities-0.2-SNAPSHOT.jar) in 70ms
+[..] (MSC service thread 1-6) JBAS015877: Stopped deployment null (runtime-name: @@@APP@@@-web-0.2-SNAPSHOT.war) in 230ms
+[..] (MSC service thread 1-6) JBAS015877: Stopped deployment @@@APP@@@.ear (runtime-name: @@@APP@@@.ear) in 288ms
+[..] (management-handler-thread - 14) JBAS014901: Content removed from location /opt/jboss/standalone/data/content/09/48/content
+[..] (management-handler-thread - 14) JBAS018558: Undeployed "@@@APP@@@.ear" (runtime-name: "@@@APP@@@.ear")

@@ -245,7 +245,7 @@ sudo chown -R jboss:jboss /opt/jboss-eap-6.1</ofx:raw>
 		<ofx:section>
 			<ofx:title lang="en">Deployment</ofx:title>
 			
-			<ofx:listing setting="shell" external="listing/admin/installation/jboss/deployment/eap6/log/start.log"/>
+			<ofx:listing setting="shell" external="listing/admin/installation/jboss/deployment/eap6/log/start.txt"/>
 			
 			<ofx:paragraph lang="en" version="1">
 					The application is deployed using the command line tool

@@ -1,0 +1,3 @@
+[..] (ServerService Thread Pool -- 51) JBAS018210: Register web context: /@@@APP@@@
+[..] (ServerService Thread Pool -- 51) Initializing Mojarra 2.1.19-jbossorg-1 20130304-0420 for context '/@@@APP@@@'
+[..] (management-handler-thread - 2) JBAS018559: Deployed "@@@APP@@@.ear" (runtime-name : "@@@APP@@@.ear")
