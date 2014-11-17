@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org"
+			xmlns:l="http://www.openfuxml.org/list"
+			xmlns:layout="http://www.openfuxml.org/layout"
+			xmlns:t="http://www.openfuxml.org/table"
+			id="section.admin.maintenance.recovery.disaster">
+	<ofx:title lang="en">Disaster Recovery</ofx:title>
+	
+	<ofx:paragraph lang="en">
+		In case of serious damage to the system, a disaster recovery procedure has to be applied.
+		Even with.
+	</ofx:paragraph>
+	
+	<ofx:paragraph lang="en">
+		If parts of the stored data are mistakenly deleted by users or administrators, this usually feels
+		like a disaster, but is not part of a disaster recovery procedure. Issues like this are handled
+		as a general restore procedure.
+	</ofx:paragraph>
+	
+	
+	<ofx:paragraph lang="en">
+		The procedure assumes that all system components are damaged or in general unavailable.
+		If certain components are available, the recovery steps can be skipped.
+	</ofx:paragraph>
+	
+	<ofx:section id="section.admin.maintenance.recovery.disaster.as">
+		<ofx:title lang="en">Application Server</ofx:title>
+	
+		<ofx:paragraph lang="en">
+			The setup steps for the application server do not differ much from the initial setup of the system.
+			Only difference is that init scripts for setting up the database do not need to be performed. 
+		</ofx:paragraph>
+	
+	</ofx:section>
+	
+		<ofx:section id="section.admin.maintenance.recovery.disaster.db">
+		<ofx:title lang="en">Database</ofx:title>
+	
+		<ofx:paragraph lang="en">
+			The complete database is regularly backed up to a single file. To restore the database,
+			database server and database itself has to be created in the same way as described for a regular
+			installation.
+		</ofx:paragraph>
+	
+	</ofx:section>
+	
+</ofx:section>
