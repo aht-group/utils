@@ -103,8 +103,8 @@ public class OfxRoleTableFactory extends AbstractUtilsOfxDocumentationFactory
 	private Specification createSpecifications()
 	{
 		Columns cols = new Columns();
-		cols.getColumn().add(OfxColumnFactory.relative(10));
-		cols.getColumn().add(OfxColumnFactory.relative(20));
+		cols.getColumn().add(OfxColumnFactory.flex(30,true));
+		cols.getColumn().add(OfxColumnFactory.flex(70));
 		
 		Specification specification = new Specification();
 		specification.setColumns(cols);

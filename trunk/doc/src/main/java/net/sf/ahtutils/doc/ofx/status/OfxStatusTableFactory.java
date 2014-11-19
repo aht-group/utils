@@ -104,7 +104,6 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 			}
 			captionKey = captionKey.substring(0, 1).toUpperCase()+captionKey.substring(1, captionKey.length());
 			
-			
 			if(renderColumn.get(Code.parent))
 			{
 				headers.put(Code.parent, headers.get(Code.parent)+""+captionKey);
@@ -275,8 +274,10 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 			}
 			else
 			{
-				int w=20;flexWidth=flexWidth+w;
-				cols.getColumn().add(OfxColumnFactory.flex(w));
+				int w=30;flexWidth=flexWidth+w;
+				Column c = OfxColumnFactory.flex(w);
+				c.getWidth().setNarrow(true);
+				cols.getColumn().add(c);
 			}		
 		}
 		
