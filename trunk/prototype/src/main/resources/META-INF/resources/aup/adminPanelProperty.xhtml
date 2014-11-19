@@ -12,11 +12,11 @@
 	</composite:interface>
         
 	<composite:implementation>
-		<p:panel header="#{msg.Property}" rendered="#{not empty adminSystemPropertyBean.property}">
+		<p:panel header="#{msg.Property}" rendered="#{not empty adminSystemPropertyBean.property}" styleClass="auNoTop,auPanelWithGrid">
 			<f:facet name="actions">
 				<aht:icon type="save" listener="#{adminSystemPropertyBean.save()}" update=":sProperties"/>
 			</f:facet>
-			<h:panelGrid columns="2">
+			<h:panelGrid columns="2" columnClasses="col1,col2" styleClass="auCleanPanelGrid">
 				<p:outputLabel value="#{msg.Key}"/>
 				<p:inputText disabled="true" value="#{adminSystemPropertyBean.property.key}" styleClass="pfInputTextDisabled"/>
 				<p:outputLabel value="#{msg.Value}"/>
