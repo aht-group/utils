@@ -5,17 +5,20 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.ahtutils.doc.ofx.menu.OfxMenuTreeFactory;
 import net.sf.ahtutils.doc.ofx.security.OfxCategoryListFactory;
 import net.sf.ahtutils.doc.ofx.security.OfxRoleTableFactory;
 import net.sf.ahtutils.doc.ofx.security.OfxViewTableFactory;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Category;
+import net.sf.ahtutils.xml.navigation.Menu;
 import net.sf.ahtutils.xml.status.Translations;
 import net.sf.exlp.util.io.StringIO;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.apache.commons.configuration.Configuration;
+import org.openfuxml.content.graph.Node;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.interfaces.DefaultSettingsManager;
 import org.openfuxml.interfaces.media.CrossMediaManager;
@@ -26,6 +29,7 @@ public class LatexSecurityWriter extends AbstractDocumentationLatexWriter
 {	
 	final static Logger logger = LoggerFactory.getLogger(LatexSecurityWriter.class);
 	
+	private final static String dirMenuTree = "tree/menu";
 	private final static String dirTabs = "tab/security";
 	private final static String dirDescriptions = "description/security";
 		
@@ -43,7 +47,6 @@ public class LatexSecurityWriter extends AbstractDocumentationLatexWriter
 	public void createViewTabs(String xmlFile) throws UtilsConfigurationException
 	{
 		logger.info("Creating view tables from "+xmlFile+" to LaTex");
-		
 		try
 		{
 			Access access = JaxbUtil.loadJAXB(xmlFile, Access.class);
@@ -55,6 +58,28 @@ public class LatexSecurityWriter extends AbstractDocumentationLatexWriter
 					OfxViewTableFactory fOfx = new OfxViewTableFactory(config,lang,translations);
 					String content = fOfx.buildLatexViewTable(category,headerKeysViews);
 					StringIO.writeTxt(f, content);
+				}
+			}
+		}
+		catch (FileNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
+		catch (OfxAuthoringException e) {throw new UtilsConfigurationException(e.getMessage());}
+	}
+	
+	public void writeMenuTrees(String xmlMenu, String xmlViews) throws UtilsConfigurationException
+	{
+		try
+		{
+			logger.info("Creating menu trees from "+xmlMenu+" to LaTex");
+			Menu menu = JaxbUtil.loadJAXB(xmlMenu,Menu.class);
+			Access access = JaxbUtil.loadJAXB(xmlViews, Access.class);
+			for(String lang : langs)
+			{
+				OfxMenuTreeFactory f = new OfxMenuTreeFactory(config,lang,translations);
+				org.openfuxml.content.graph.Tree tree = f.build(menu,access);
+				JaxbUtil.trace(tree);
+				for(Node node : tree.getNode().getNode())
+				{
+					logger.info(node.getCode());
 				}
 			}
 		}
