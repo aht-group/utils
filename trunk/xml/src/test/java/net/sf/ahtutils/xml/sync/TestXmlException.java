@@ -16,11 +16,7 @@ public class TestXmlException extends AbstractXmlSyncTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestXmlException.class);
 	
-	@BeforeClass
-	public static void initFiles()
-	{
-        setXmlFile(dirSuffix,Exception.class);
-	}
+	@BeforeClass public static void initFiles(){setXmlFile(dirSuffix,Exception.class);}
     
     @Test
     public void xml() throws FileNotFoundException

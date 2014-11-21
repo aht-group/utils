@@ -2,6 +2,7 @@
 <xsd:schema targetNamespace="http://ahtutils.aht-group.com"
     xmlns:aht="http://ahtutils.aht-group.com"
     xmlns:s  ="http://ahtutils.aht-group.com/status"
+    xmlns:t ="http://ahtutils.aht-group.com/text"
     xmlns:m  ="http://ahtutils.aht-group.com/mail"
     xmlns:p  ="http://ahtutils.aht-group.com/project"
     xmlns:f  ="http://ahtutils.aht-group.com/finance"
@@ -19,6 +20,7 @@
     xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" jaxb:extensionBindingPrefixes="xjc"
     jaxb:version="2.0">
     <xsd:import namespace="http://ahtutils.aht-group.com/status" schemaLocation="aht/status.xsd"/>
+    <xsd:import namespace="http://ahtutils.aht-group.com/text" schemaLocation="aht/text.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/report" schemaLocation="aht/report.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/project" schemaLocation="aht/project.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/access" schemaLocation="aht/access.xsd"/>
