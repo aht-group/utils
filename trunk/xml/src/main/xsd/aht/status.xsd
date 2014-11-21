@@ -325,7 +325,7 @@
         </xsd:complexType>
     </xsd:element>
     
-    <!-- Document -->
+    <!-- Document / Data -->
     <xsd:element name="original">
         <xsd:complexType>
             <xsd:sequence>
@@ -358,6 +358,39 @@
             <xsd:attribute name="position" type="xsd:int"/>
         </xsd:complexType>
     </xsd:element>
+    <xsd:element name="origin">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="s:langs" maxOccurs="1"/>
+                <xsd:element ref="s:descriptions" maxOccurs="1"/>
+            </xsd:sequence>
+            <xsd:attribute name="id" type="xsd:long"/>
+            <xsd:attribute name="code" type="xsd:string"/>
+            <xsd:attribute name="group" type="xsd:string"/>
+            <xsd:attribute name="label" type="xsd:string"/>
+            <xsd:attribute name="visible" type="xsd:boolean"/>
+            <xsd:attribute name="image" type="xsd:string"/>
+            <xsd:attribute name="style" type="xsd:string"/>
+            <xsd:attribute name="position" type="xsd:int"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="source">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="s:langs" maxOccurs="1"/>
+                <xsd:element ref="s:descriptions" maxOccurs="1"/>
+            </xsd:sequence>
+            <xsd:attribute name="id" type="xsd:long"/>
+            <xsd:attribute name="code" type="xsd:string"/>
+            <xsd:attribute name="group" type="xsd:string"/>
+            <xsd:attribute name="label" type="xsd:string"/>
+            <xsd:attribute name="visible" type="xsd:boolean"/>
+            <xsd:attribute name="image" type="xsd:string"/>
+            <xsd:attribute name="style" type="xsd:string"/>
+            <xsd:attribute name="position" type="xsd:int"/>
+        </xsd:complexType>
+    </xsd:element>
+    
     
 	<xsd:element name="legend">
         <xsd:complexType>
@@ -375,7 +408,23 @@
             <xsd:attribute name="position" type="xsd:int"/>
         </xsd:complexType>
     </xsd:element>
-    	<xsd:element name="unit">
+	<xsd:element name="unit">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="s:langs" maxOccurs="1"/>
+                <xsd:element ref="s:descriptions" maxOccurs="1"/>
+            </xsd:sequence>
+            <xsd:attribute name="id" type="xsd:long"/>
+            <xsd:attribute name="code" type="xsd:string"/>
+            <xsd:attribute name="group" type="xsd:string"/>
+            <xsd:attribute name="label" type="xsd:string"/>
+            <xsd:attribute name="visible" type="xsd:boolean"/>
+            <xsd:attribute name="image" type="xsd:string"/>
+            <xsd:attribute name="style" type="xsd:string"/>
+            <xsd:attribute name="position" type="xsd:int"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="frequency">
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element ref="s:langs" maxOccurs="1"/>

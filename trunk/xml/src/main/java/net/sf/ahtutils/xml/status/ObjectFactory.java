@@ -150,6 +150,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Frequency }
+     * 
+     */
+    public Frequency createFrequency() {
+        return new Frequency();
+    }
+
+    /**
      * Create an instance of {@link Statuses }
      * 
      */
@@ -246,6 +254,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Origin }
+     * 
+     */
+    public Origin createOrigin() {
+        return new Origin();
+    }
+
+    /**
      * Create an instance of {@link Class }
      * 
      */
@@ -275,6 +291,14 @@ public class ObjectFactory {
      */
     public Category createCategory() {
         return new Category();
+    }
+
+    /**
+     * Create an instance of {@link Source }
+     * 
+     */
+    public Source createSource() {
+        return new Source();
     }
 
     /**
