@@ -262,6 +262,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Unit }
+     * 
+     */
+    public Unit createUnit() {
+        return new Unit();
+    }
+
+    /**
      * Create an instance of {@link Category }
      * 
      */
