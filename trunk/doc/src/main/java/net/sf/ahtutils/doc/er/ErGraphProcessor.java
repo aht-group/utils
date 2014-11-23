@@ -6,11 +6,14 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javax.persistence.MappedSuperclass;
 
 import net.sf.ahtutils.model.qualifier.EjbErNode;
 import net.sf.exlp.util.io.ClassUtil;
@@ -133,10 +136,10 @@ public class ErGraphProcessor
 		{
 			logger.trace("Processing edges for "+c.getName());
 			Node source = mapNodes.get(c.getName());
-			Field fields[] = c.getDeclaredFields();
-			for (int i = 0; i < fields.length; i++)
+			List<Field> fields = getFields(c);
+			
+			for(Field field : fields)
 			{
-				Field field = fields[i];
 				logger.trace("Field "+field.getName());
 				Annotation annotations[] = field.getAnnotations();
 				Cardinality cardinality = getCardinality(annotations);
@@ -171,6 +174,21 @@ public class ErGraphProcessor
 				
 			}			
 		}
+	}
+	
+	private List<Field> getFields(Class<?> c)
+	{
+		List<Field> fields = new ArrayList<Field>();
+		fields.addAll(Arrays.asList(c.getDeclaredFields()));
+		
+		Class<?> cSuper = c.getSuperclass();
+		Annotation a = cSuper.getAnnotation(MappedSuperclass.class);
+		if(a!=null)
+		{
+			fields.addAll(getFields(cSuper));
+		}
+		
+		return fields;
 	}
 	
 	private void createEdge(Node source, Cardinality cardinality,Node target,boolean targetIsChild)
