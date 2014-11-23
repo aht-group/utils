@@ -11,7 +11,6 @@
 	</composite:interface>
 
 	<composite:implementation>
-		<h:graphicImage rendered="#{not empty cc.attrs.value and cc.attrs.value}" name="12/ui/mark/check.png" library="ahtutilsGfx"/>
-		<h:graphicImage rendered="#{not empty cc.attrs.value and !cc.attrs.value}" name="12/ui/mark/x.png" library="ahtutilsGfx"/>
+		<h:graphicImage rendered="#{(not empty cc.attrs.value) and cc.attrs.value}" name="12/ui/mark/stop.png" library="ahtutilsGfx"/>
 	</composite:implementation>
 </html>
