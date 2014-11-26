@@ -178,7 +178,6 @@ public class UtilsSecurityFacadeBean extends UtilsFacadeBean implements UtilsSec
 	{
 		if(!user.getRoles().contains(role))
 		{
-			role.getUsers().add(user);
 			user.getRoles().add(role);
 		}
 		user = em.merge(user);
