@@ -205,12 +205,12 @@ margin-top: 8px;
 }
 
 /* Removes borders from cells of PanelGrid */
-.auCleanPanelGrid .ui-panelgrid-cell {
+.auPanelWithGrid .ui-panelgrid .ui-panelgrid-cell {
 	border-style: none !important;
 }
 
 /* Removes borders from PanelGrid rows */
-.auCleanPanelGrid .ui-widget-content {
+.auPanelWithGrid .ui-panelgrid .ui-widget-content {
 	border-style: none !important;
 }
 	
