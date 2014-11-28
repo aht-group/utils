@@ -214,7 +214,10 @@ margin-top: 8px;
 	border-style: none !important;
 }
 	
-	
+/* Make the PanelGrid fill the whole Panel */
+.auPanelWithGrid .ui-panelgrid {
+	width: 100%;
+}
 .aupBold{font-weight: bold;}		
 .w100 {width: 100%;}
 
