@@ -34,3 +34,11 @@
     box-shadow: none !important;
     outline: 0 !important;
 }
+
+.pf-panel-with-tree {
+	.ui-panel-content.padding: 0px;
+}
+
+.pf-panel-with-tree .ui-tree {
+	border: none; width: 100%;
+}
