@@ -1,5 +1,6 @@
 package net.sf.ahtutils.model.interfaces.security;
 
+import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
@@ -15,7 +16,7 @@ public interface UtilsSecurityView<L extends UtilsLang,
 								   U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
 								   A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
 								   USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
-			extends EjbWithCode,EjbWithLang<L>,EjbWithDescription<D>,
+			extends EjbWithCode,EjbWithLang<L>,EjbWithDescription<D>,EjbSaveable,
 					UtilsSecurityWithCategory<L,D,C,R,V,U,A,USER>,
 					UtilsSecurityWithActions<L,D,C,R,V,U,A,USER>
 {

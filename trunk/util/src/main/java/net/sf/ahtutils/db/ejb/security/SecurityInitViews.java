@@ -22,6 +22,7 @@ import net.sf.ahtutils.xml.access.Action;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.View;
 import net.sf.ahtutils.xml.sync.DataUpdate;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,6 +76,7 @@ public class SecurityInitViews <L extends UtilsLang,
 	
 	@Override protected void iuChilds(C aclCategory, Category category) throws UtilsConfigurationException
 	{
+		logger.trace("iuChilds (views)");
 		if(category.isSetViews() && category.getViews().isSetView())
 		{
 			for(View view : category.getViews().getView())
@@ -115,7 +117,8 @@ public class SecurityInitViews <L extends UtilsLang,
 			ebj.setDescription(ejbDescriptionFactory.create(view.getDescriptions()));
 			ebj.setCategory(category);
 			ebj=fSecurity.update(ebj);
-			
+
+			logger.trace("Actions: "+view.getCode()+" "+view.isSetActions());
 			if(view.isSetActions() && view.getActions().isSetAction())
 			{
 				for(Action action : view.getActions().getAction())

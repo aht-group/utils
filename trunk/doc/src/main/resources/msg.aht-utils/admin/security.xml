@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<s:translations xmlns:s="http://ahtutils.aht-group.com/status">
+	<s:translation key="aupSecurityCode">
+    	<s:langs>
+    		<s:lang key="de" translation="Code"/>
+    		<s:lang key="en" translation="Code"/>
+    		<s:lang key="fr" translation="Code"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="aupSecurityCategory">
+    	<s:langs>
+    		<s:lang key="de" translation="Category"/>
+    		<s:lang key="en" translation="Category"/>
+    		<s:lang key="fr" translation="Category"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="aupSecurityView">
+    	<s:langs>
+    		<s:lang key="de" translation="View"/>
+    		<s:lang key="en" translation="View"/>
+    		<s:lang key="fr" translation="View"/>
+    	</s:langs>
+    </s:translation>
+    	<s:translation key="aupSecurityAction">
+    	<s:langs>
+    		<s:lang key="de" translation="Action"/>
+    		<s:lang key="en" translation="Action"/>
+    		<s:lang key="fr" translation="Action"/>
+    	</s:langs>
+    </s:translation>
+    
+</s:translations>

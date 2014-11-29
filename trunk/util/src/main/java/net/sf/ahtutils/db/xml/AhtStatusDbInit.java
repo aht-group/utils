@@ -127,7 +127,7 @@ public class AhtStatusDbInit <S extends UtilsStatus<S,L,D>, L extends UtilsLang,
 		{
 			try
 			{
-				logger.info("Deleting "+cDescription.getName()+": "+id);
+				logger.debug("Deleting "+cDescription.getName()+": "+id);
 				D d = fStatus.find(cDescription, id);
 				fStatus.rm(d);
 			}
@@ -156,7 +156,7 @@ public class AhtStatusDbInit <S extends UtilsStatus<S,L,D>, L extends UtilsLang,
 	public  void iuStatus(List<Status> list, Class<S> cStatus, Class<L> cLang)
 	{
 		if(fStatus==null){logger.warn("No Handler available");return;}
-		else {logger.info("Updating "+cStatus.getSimpleName()+" with "+list.size()+" entries");}
+		else {logger.debug("Updating "+cStatus.getSimpleName()+" with "+list.size()+" entries");}
 		iuStatusEJB(list, cStatus, cLang);
 	}
 	
@@ -166,7 +166,7 @@ public class AhtStatusDbInit <S extends UtilsStatus<S,L,D>, L extends UtilsLang,
 		dut.setType(XmlTypeFactory.build(cStatus.getName(),"Status-DB Import"));
 		
 		if(fStatus==null){dut.fail(new UtilsDeveloperException("No Factory available for "+cStatus.getName()), true);}
-		else {logger.info("Updating "+cStatus.getSimpleName()+" with "+list.size()+" entries");}
+		else {logger.debug("Updating "+cStatus.getSimpleName()+" with "+list.size()+" entries");}
 		iuStatusEJB(list, cStatus, cLang);
 		
 		for(Status xml : list)

@@ -27,6 +27,8 @@ public class UtilsMsgBuilder
 	public static final String srcAdminSystemDbStatistic = "msg.aht-utils/admin/system/dbStatistic.xml";
 	public static final String srcAdminSystemDbDump = "msg.aht-utils/admin/system/dbDump.xml";
 	
+	public static final String srcAdminSecurity = "msg.aht-utils/admin/security.xml";
+	
 	final static Logger logger = LoggerFactory.getLogger(UtilsMsgBuilder.class);
 		
 	private MultiResourceLoader mrl;
