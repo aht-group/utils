@@ -159,13 +159,11 @@ public class UtilsSecurityFacadeBean extends UtilsFacadeBean implements UtilsSec
 		return oneForParents(clStaff,"user",user,"role",role,"domain",domain);
 	}
 	
-	
-	// XXX
 	@Override
 	public <L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L, D, C, R, V, U, A, USER>, R extends UtilsSecurityRole<L, D, C, R, V, U, A, USER>, V extends UtilsSecurityView<L, D, C, R, V, U, A, USER>, U extends UtilsSecurityUsecase<L, D, C, R, V, U, A, USER>, A extends UtilsSecurityAction<L, D, C, R, V, U, A, USER>, USER extends UtilsUser<L, D, C, R, V, U, A, USER>>
 		void grantRole(Class<USER> clUser, Class<R> clRole, USER user, R role, boolean grant)
 	{
-		logger.trace("grantRole "+grant);
+		logger.trace("grantRole u:"+user.toString()+" r:"+role.toString()+" grand:"+grant);
 		user = em.find(clUser,user.getId());
 		role = em.find(clRole,role.getId());
 		if(grant){addRole(clUser,clRole,user, role);}
@@ -176,6 +174,7 @@ public class UtilsSecurityFacadeBean extends UtilsFacadeBean implements UtilsSec
 	private <L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L, D, C, R, V, U, A, USER>, R extends UtilsSecurityRole<L, D, C, R, V, U, A, USER>, V extends UtilsSecurityView<L, D, C, R, V, U, A, USER>, U extends UtilsSecurityUsecase<L, D, C, R, V, U, A, USER>, A extends UtilsSecurityAction<L, D, C, R, V, U, A, USER>, USER extends UtilsUser<L, D, C, R, V, U, A, USER>>
 	void addRole(Class<USER> clUser, Class<R> clRole, USER user, R role)
 	{
+		logger.trace("addRole u:"+user.toString()+" r:"+role.toString());
 		if(!user.getRoles().contains(role))
 		{
 			user.getRoles().add(role);
