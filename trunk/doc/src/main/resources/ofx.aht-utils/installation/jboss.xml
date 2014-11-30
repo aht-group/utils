@@ -52,18 +52,47 @@ sudo chown -R jboss:jboss /opt/jboss-eap-6.1</ofx:raw>
 			<ofx:section>
 				<ofx:title lang="en">Startup Settings</ofx:title>
 				
-				<ofx:paragraph lang="de" version="1">
-					Um Ausgaben in einer anderen Sprache als Englisch zu vermeiden,
-					sollte die Sprache in der Datei <text:emphasis style="typewriter">/bin/standalone.conf</text:emphasis>
-					explizit mit folgender Option gesetzt werden:
-				</ofx:paragraph>
 				<ofx:paragraph lang="en" version="1">
-					To avoid debug outputs in a language different thant english,
-					the language should be explicitly be set in the
-					file <text:emphasis style="typewriter">/bin/standalone.conf</text:emphasis> with the following option:
+					The startup settings for JBoss Application Server are stored in the file
+					<text:emphasis style="typewriter">jboss/bin/standalone.conf</text:emphasis>, changes should be done
+					in the section <text:emphasis italic="true">Specify options to pass to the Java VM</text:emphasis>
+					which has the following default settings:
 				</ofx:paragraph>
 				<ofx:listing>
-					<ofx:raw>JAVA_OPTS = ... -Duser.language=en</ofx:raw>
+					<ofx:raw>#
+# Specify options to pass to the Java VM.
+#
+if [ "x$JAVA_OPTS" = "x" ]; then
+   JAVA_OPTS="-Xms1024m -Xmx2048m -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true"
+   JAVA_OPTS="$JAVA_OPTS -Djboss.modules.system.pkgs=$JBOSS_MODULES_SYSTEM_PKGS"
+   JAVA_OPTS="$JAVA_OPTS -Djava.awt.headless=true -Duser.language=en"
+   JAVA_OPTS="$JAVA_OPTS -DGEOSERVER_DATA_DIR=/Applications/Development/geoserver"
+   # Add you configuration here
+else
+   echo "JAVA_OPTS already set in environment; overriding default settings with values: $JAVA_OPTS"
+fi</ofx:raw>
+				</ofx:listing>
+				
+				<ofx:paragraph lang="en" version="1">
+					The dafault memory settings are not sufficient to server multiple users at once and should be increased:
+				</ofx:paragraph>
+				<ofx:listing setting="shell" external="listing/admin/installation/jboss/config/eap6/standalone.mem.txt"/>
+
+				<ofx:paragraph lang="en" version="2">
+					In some cases internal algorihtms try to access a graphical user interface, which is not
+					neccasary in this setup. This will be prevented by starting in 
+					<text:emphasis bold="true">headless</text:emphasis> mode.
+					To avoid debug outputs in a language different than english,
+					the language should be explicitly be set to
+					<text:emphasis bold="true">en</text:emphasis>.
+				</ofx:paragraph>
+					<ofx:paragraph lang="de" version="1">
+					Um Ausgaben in einer anderen Sprache als Englisch zu vermeiden,
+					sollte die Sprache in der Datei <text:emphasis style="typewriter">$jboss/bin/standalone.conf</text:emphasis>
+					explizit mit folgender Option gesetzt werden:
+				</ofx:paragraph>
+				<ofx:listing>
+					<ofx:raw>JAVA_OPTS="$JAVA_OPTS -Djava.awt.headless=true -Duser.language=en"</ofx:raw>
 				</ofx:listing>
 			</ofx:section>
 			

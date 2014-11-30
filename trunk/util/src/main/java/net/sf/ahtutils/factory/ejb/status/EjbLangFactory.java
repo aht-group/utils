@@ -52,7 +52,7 @@ public class EjbLangFactory<L extends UtilsLang>
 		return map;
 	}
 	
-	public Map<String,L> createEmpty(String[] keys) throws InstantiationException, IllegalAccessException
+	public Map<String,L> createEmpty(String[] keys)
 	{
 		Map<String,L> map = new Hashtable<String,L>();
 		for(String key : keys)

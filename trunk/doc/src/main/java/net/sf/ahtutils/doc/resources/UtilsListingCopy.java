@@ -44,6 +44,7 @@ public class UtilsListingCopy
 	public static final String jbEap6UndeployCli = "admin/installation/jboss/deployment/eap6/cli/undeploy.sh";
 	public static final String jbEap6UndeployLog = "admin/installation/jboss/deployment/eap6/log/undeploy.txt";
 	public static final String jbEap6UpdateCli = "admin/installation/jboss/deployment/eap6/cli/update.sh";
+	public static final String jbEap6ConfigMem = "admin/installation/jboss/config/eap6/standalone.mem.txt";
 	
 	
 	private MultiResourceLoader mrl;

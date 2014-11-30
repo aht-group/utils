@@ -41,11 +41,17 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
     	return create(description.getKey(),description.getValue());
 	}
     
-	public D create(String key, String value) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+	public D create(String key, String value) throws UtilsIntegrityException
 	{
 		if(key==null){throw new UtilsIntegrityException("Key not set");}
 		if(value==null){throw new UtilsIntegrityException("Value not set");}
-		D d = clDescription.newInstance();
+		D d = null;
+		try
+		{
+			d = clDescription.newInstance();
+		}
+		catch (InstantiationException e) {e.printStackTrace();}
+		catch (IllegalAccessException e) {e.printStackTrace();}
     	d.setLang(value);
     	d.setLkey(key);
     	return d;
@@ -68,7 +74,7 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
 		return map;
 	}
 	
-	public Map<String,D> createEmpty(String[] keys) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+	public Map<String,D> createEmpty(String[] keys) throws UtilsIntegrityException
 	{
 		Map<String,D> map = new Hashtable<String,D>();
 		for(String key : keys)
@@ -111,8 +117,6 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
 				}
 				catch (UtilsContraintViolationException e) {e.printStackTrace();}
 				catch (UtilsLockingException e) {e.printStackTrace();}
-				catch (InstantiationException e) {e.printStackTrace();}
-				catch (IllegalAccessException e) {e.printStackTrace();}
 				catch (UtilsIntegrityException e) {e.printStackTrace();}
 			}
 		}

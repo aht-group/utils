@@ -14,17 +14,15 @@
 	</composite:interface>
 	
 	<composite:implementation>
-		<p:panel header="#{msg.aupSecurityView}" styleClass="auPanelWithGrid">
+		<p:panel header="#{msg.aupSecurityCategory}" styleClass="auPanelWithGrid">
 			<f:facet name="actions">
-				<aht:icon type="save" listener="#{adminSecurityViewsBean.saveView()}" update=":sViews"/>
+				<aht:icon type="save" listener="#{adminSecurityUsecaseBean.saveCategory()}" update=":sCategories"/>
 			</f:facet>
 			<h:panelGrid columns="2" columnClasses="col1,col2" styleClass="auCleanPanelGrid">
 				<p:outputLabel value="#{msg.aupSecurityCode}"/>
-				<h:outputText value="#{adminSecurityViewsBean.view.code}"/>
-				<p:outputLabel value="#{msg.Value}"/>
-				<p:inputText value="#{adminSecurityViewsBean.view.id}"/>
+				<p:inputText value="#{adminSecurityUsecaseBean.category.code}"/>
 			</h:panelGrid>
-			<aht:tabTranslationEditor value="#{adminSecurityViewsBean.view}"
+			<aht:tabTranslationEditor value="#{adminSecurityUsecaseBean.category}"
 					labelTranslation="#{msg.Name}" labelDescription="#{msg.Description}"
        				keys="#{translationBean.langKeys}" withDescription="true"/>
 		</p:panel>
