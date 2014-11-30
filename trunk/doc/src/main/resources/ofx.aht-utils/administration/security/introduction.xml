@@ -15,35 +15,59 @@
 		the access to information and the ability to perform actions. 
 	</ofx:paragraph>
 	
-	<l:list>
+	<l:list id="section.admin.security.introduction.list">
 	    <l:type description="true"/>
 	    
-	    <l:item name="Sichten" lang="de">
+	    <l:item name="Sichten" lang="de" version="1" id="section.admin.security.introduction.list.views">
 	    	<ofx:paragraph>
 				Eine Sicht (engl. View) ist eine einzelne Web-Seite des Systems, beispielsweise die Willkommens-Seite
 				oder die Administrator-Seite. 
 			</ofx:paragraph>
 	    </l:item>
-	    <l:item name="Views" lang="en">
+	    <l:item name="Views" lang="en" version="2" id="section.admin.security.introduction.list.views">
 	    	<ofx:paragraph>
 				A view is a single web-page of the system. Examples for a view is the welcome-page or the administrator-page.
+				Views are implemented and defined by the <text:emphasis italic="true">System Developers</text:emphasis>.
+				The <text:emphasis italic="true">System Administrators</text:emphasis> are not able to add new
+				views to the system, but are able to change the names and descriptions
+				(they are not allowed to change the codes).
 			</ofx:paragraph>
 	    </l:item>
 	    
-	    <l:item name="Aktionen" lang="de">
+	    <l:item name="Aktionen" lang="de" version="1" id="section.admin.security.introduction.list.actions">
 	    	<ofx:paragraph>
 				beziehen sich immer auf eine Sicht und legen fest, welche Funktionen auf einer Seite zur Verfügung stehen.
 			</ofx:paragraph>
-	    </l:item>
-	  	<l:item name="Actions" lang="en">
+		</l:item>
+		<l:item name="Actions" lang="en" version="2" id="section.admin.security.introduction.list.actions">
+			<ofx:paragraph>
+				are always related to a single View and can be interpreted as user interactions. They can be permitted
+				generally for all users allowed to access the view, but it's also possible to restrict the
+				action to specific user groups.
+				Actions are implemented and defined by the <text:emphasis italic="true">System Developers</text:emphasis>.
+				The <text:emphasis italic="true">System Administrators</text:emphasis> are not able to add new
+				actions to the system, but are able to change the names and descriptions
+				(they are not allowed to change the codes).
+			</ofx:paragraph>
+		</l:item>
+
+	    <l:item name="Anwendungsfälle" lang="de">
 	    	<ofx:paragraph>
-				are always related to a single View and are user interactions which can be permitted for all users or only for
-				a restricted user group.
+				sind Rollen zugehörig und stellen eine Möglichkeit dar, den Zugriff auf mehrere Sichten/Aktionen durch eine einzelne Definition zu steuern.
 			</ofx:paragraph>
 	    </l:item>
-	    
-	    <l:item name="Rollen" lang="de">
+	    <l:item name="Use-Cases" lang="en" version="2" id="section.admin.security.introduction.list.usecases">
 	    	<ofx:paragraph>
+				are initially implemented by the <text:emphasis italic="true">System Developers</text:emphasis>,
+				but <text:emphasis italic="true">System Administrators</text:emphasis> have full access to this configuration
+				and are able to add, remove or modify use-cases. Each use-case contains
+				multiple views or actions. This reflects the requirement that a user usually needs access to multiple pages
+				with several allowed user interactions to perform a complex use-case.
+			</ofx:paragraph>
+	    </l:item>
+
+		<l:item name="Rollen" lang="de" version="1" id="section.admin.security.introduction.list.roles">
+			<ofx:paragraph>
 				beschreiben die Rechte eines Benutzers innerhalb einer Kategorie wie global der Internetseite
 				oder spezielle innerhalb eines Projektes oder der Verwaltung des Systems. Die globale Definition kann
 				z.B. die Rechte eines Benutzers für bestimmte Sichten einschränken, wärehend durch Projekt-Rollen erlaubte Aktionen
@@ -51,26 +75,25 @@
 				alle Benutzer die Mitarbeiter sehen können, ein Projektmanager zusätzlich auch weitere Mitarbeiter hinzufügen darf.
 				stehen. Beispielsweise kann ein Benutzer Daten ansehen, während ein Administrator sie auch löschen darf.
 			</ofx:paragraph>
-	    </l:item>
-	    <l:item name="Roles" lang="en">
-	    	<ofx:paragraph>
+		</l:item>
+		<l:item name="Roles" lang="en" version="2" id="section.admin.security.introduction.list.roles">
+			<ofx:paragraph>
 				are describing the access rights of a user in the system.
 			</ofx:paragraph>
-	    </l:item>
-	    
-	    <l:item name="Anwendungsfälle" lang="de">
-	    	<ofx:paragraph>
-				sind Rollen zugehörig und stellen eine Möglichkeit dar,
-					den Zugriff auf mehrere Sichten/Aktionen durch eine einzelne Definition zu steuern.  
-			</ofx:paragraph>
-	    </l:item>
-	    <l:item name="Use-Cases" lang="en">
-	    	<ofx:paragraph>
-				belong to roles and allow to bundle several roles and actions to a single use-case.  
-			</ofx:paragraph>
-	    </l:item>
+		</l:item>
 	    
 	</l:list>
+
+	<ofx:paragraph lang="en">
+		The management of
+		<text:emphasis bold="true">Roles</text:emphasis> or <text:emphasis bold="true">Use-Cases</text:emphasis>
+		by the <text:emphasis italic="true">System Administrators</text:emphasis> needs to be rarely done. In most
+		cases it is required if the business processes or organisation structure changes to reflect these changes in the
+		information system. The assignment of <text:emphasis bold="true">Roles</text:emphasis> to
+		<text:emphasis bold="true">Users</text:emphasis> is a daily-work tasks for the
+		<text:emphasis italic="true">System Administrators</text:emphasis> while adding new users to the system.
+	</ofx:paragraph>
+
 	
 	<ofx:paragraph lang="en">
 		The entity relationship diagram of the security framework is shown in 
