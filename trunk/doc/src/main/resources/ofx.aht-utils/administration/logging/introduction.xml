@@ -17,8 +17,8 @@
 	    <ofx:title>Logger Levels</ofx:title>
 	    <t:specification>
 	        <t:columns>
-	            <t:column><layout:width>15.0</layout:width></t:column>
-	            <t:column><layout:width>85.0</layout:width></t:column>
+	            <t:column><layout:width unit="percentage" flex="true" narrow="true">25.0</layout:width></t:column>
+				<t:column><layout:width unit="percentage" flex="true" narrow="false">75.0</layout:width></t:column>
 	        </t:columns>
 	    </t:specification>
 	    <t:content>
