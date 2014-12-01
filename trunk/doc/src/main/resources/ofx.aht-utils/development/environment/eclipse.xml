@@ -217,7 +217,7 @@
 		<ofx:title lang="en">FAQ</ofx:title>
 		<ofx:paragraph lang="en">
 			Q: Hanging during start at org.eclipse.mylyn.tasks.ui
-			A: In most cases it's the best to restore the complete workspace from a backup.
+			A: Try to delete the file <text:emphasis style="typewriter">.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi</text:emphasis> in your workspace directory. Otherwise it's the best to restore the complete workspace from a backup.
 		</ofx:paragraph>
 	</ofx:section>
 	
