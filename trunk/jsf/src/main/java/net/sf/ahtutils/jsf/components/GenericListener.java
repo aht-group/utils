@@ -6,7 +6,7 @@ import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 
 @FacesComponent(value="net.sf.ahtutils.jsf.components.GenericListener")
-public class GenricListener extends UINamingContainer
+public class GenericListener extends UINamingContainer
 {
     public void listener()
     {

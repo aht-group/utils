@@ -216,6 +216,20 @@
 	                    <ofx:paragraph>Indicates, that the actual element is new and currently not saved to the database.</ofx:paragraph>
 	                </table:cell>
 	            </table:row>
+	            <table:row>
+	                <table:cell>
+	                    <media:image>
+	                        <layout:height unit="em">1.0</layout:height>
+	                        <media:media src="svg.aht-utils/icon/ui/revision.svg" dst="icon/ui/revision"/>
+	                    </media:image>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>Revision</ofx:paragraph>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>Indicates, the revision</ofx:paragraph>
+	                </table:cell>
+	            </table:row>
 	        </table:body>
     	</table:content>
 	</table:table>
