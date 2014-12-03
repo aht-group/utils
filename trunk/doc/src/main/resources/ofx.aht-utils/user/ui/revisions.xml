@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org"
+			 xmlns:media="http://www.openfuxml.org/media"
+			 xmlns:table="http://www.openfuxml.org/table"
+			 xmlns:layout="http://www.openfuxml.org/layout"
+			 xmlns:text="http://www.openfuxml.org/text"
+			 xmlns:l="http://www.openfuxml.org/list"
+		id="section.user.ui.icons">
+	<ofx:title lang="en">Revisions</ofx:title>
+	
+	
+	
+	<table:table  id="table.user.ui.icons">
+	    <ofx:title lang="en">Summary of commonly used icons</ofx:title>
+	    <table:specification>
+	        <table:columns>
+	            <table:column>
+	                <layout:alignment horizontal="center"/>
+	            </table:column>
+	            <table:column>
+	                <layout:alignment horizontal="left"/>
+	            </table:column>
+	            <table:column>
+	                <layout:width flex="true">100.0</layout:width>
+	            </table:column>
+	        </table:columns>
+	    </table:specification>
+	    <table:content>
+	        <table:head>
+	            <table:row>
+	                <table:cell/>
+	                <table:cell>
+	                    <ofx:paragraph>Name</ofx:paragraph>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>Description</ofx:paragraph>
+	                </table:cell>
+	            </table:row>
+	        </table:head>
+	        <table:body>
+	            <table:row>
+	                <table:cell>
+	                    <media:image>
+	                        <layout:height unit="em">1.0</layout:height>
+	                        <media:media src="svg.aht-utils/icon/ui/revision.svg" dst="icon/ui/revision"/>
+	                    </media:image>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>Revision</ofx:paragraph>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>Indicates, the revision</ofx:paragraph>
+	                </table:cell>
+	            </table:row>
+	        </table:body>
+    	</table:content>
+	</table:table>
+</ofx:section>

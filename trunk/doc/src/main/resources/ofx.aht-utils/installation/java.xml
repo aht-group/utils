@@ -40,10 +40,10 @@
 			<ofx:raw>cd /opt
 tar -xvzf path_to_download/jdk-7u60-linux-x64.tar.gz
 
-update-alternatives --install /usr/bin/java java /opt/jdk1.7.0_60/bin/java 1
-update-alternatives --install /usr/bin/javac javac /opt/jdk1.7.0_60/bin/javac 1
-update-alternatives --set java /opt/jdk1.7.0_60/bin/java
-update-alternatives --set javac /opt/jdk1.7.0_60/bin/javac</ofx:raw>
+update-alternatives --install /usr/bin/java java /opt/jdk1.7.0_71/bin/java 1
+update-alternatives --install /usr/bin/javac javac /opt/jdk1.7.0_71/bin/javac 1
+update-alternatives --set java /opt/jdk1.7.0_71/bin/java
+update-alternatives --set javac /opt/jdk1.7.0_71/bin/javac</ofx:raw>
 		</ofx:listing>
 	</ofx:section>
 	

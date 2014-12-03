@@ -1,8 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+<?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://java.sun.com/jsp/jstl/core"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui"
@@ -16,27 +14,36 @@
   <composite:implementation>
   
   <p:menubar autoDisplay="#{cc.attrs.autoDisplay}">
-  	<f:forEach var="rootLevelItem" items="#{cc.attrs.value.menuItem}">
-  		<f:if test="#{rootLevelItem.menuItem.size()>0}">
+  	<c:forEach var="rootLevelItem" items="#{cc.attrs.value.menuItem}">
+  		<c:if test="#{rootLevelItem.menuItem.size()>0}">
   			<p:submenu label="#{rootLevelItem.name}">
-  				<f:forEach var="secondLevelMenuItem" items="#{rootLevelItem.menuItem}">
-  					<f:if test="#{secondLevelMenuItem.menuItem.size()>0}">
+  				<c:forEach var="secondLevelMenuItem" items="#{rootLevelItem.menuItem}">
+  					<c:if test="#{secondLevelMenuItem.menuItem.size()>0}">
   						<p:submenu label="#{secondLevelMenuItem.name}">
-		  				<f:forEach var="thirdLevelMenuItem" items="#{secondLevelMenuItem.menuItem}">
-		  					<p:menuitem value="#{thirdLevelMenuItem.name}" url="#{thirdLevelMenuItem.href}" />
-		  				</f:forEach>  
+		  				<c:forEach var="thirdLevelMenuItem" items="#{secondLevelMenuItem.menuItem}">
+		  					<c:if test="#{thirdLevelMenuItem.menuItem.size()>0}">
+		  						<p:submenu label="#{thirdLevelMenuItem.name}">
+				  				<c:forEach var="fourthMenuItem" items="#{thirdLevelMenuItem.menuItem}">
+				  					<p:menuitem value="#{fourthMenuItem.name}" url="#{fourthMenuItem.href}" />
+				  				</c:forEach>
+				  				</p:submenu>
+				  			</c:if>
+				  			<c:if test="#{thirdLevelMenuItem.menuItem.size()==0}">
+		  						<p:menuitem value="#{thirdLevelMenuItem.name}" url="#{thirdLevelMenuItem.href}" />
+				  			</c:if>
+		  				</c:forEach>
 		  				</p:submenu>
-		  			</f:if>
-		  			<f:if test="#{secondLevelMenuItem.menuItem.size()==0}">
+		  			</c:if>
+		  			<c:if test="#{secondLevelMenuItem.menuItem.size()==0}">
   						<p:menuitem value="#{secondLevelMenuItem.name}" url="#{secondLevelMenuItem.href}" />
-		  			</f:if>
-		  		</f:forEach>
+		  			</c:if>
+		  		</c:forEach>
   			</p:submenu>
-		</f:if>
-		<f:if test="#{rootLevelItem.menuItem.size()==0}">
+		</c:if>
+		<c:if test="#{rootLevelItem.menuItem.size()==0}">
   			<p:menuitem value="#{rootLevelItem.name}" url="#{rootLevelItem.href}" />
-		</f:if>
-  	</f:forEach>
+		</c:if>
+  	</c:forEach>
   </p:menubar>
   
    </composite:implementation>
