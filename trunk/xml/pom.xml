@@ -86,15 +86,12 @@
    	   		<artifactId>commons-lang</artifactId>
    	   		<scope>test</scope>
    	   	</dependency>
-   	   	<dependency>
-   	   		<groupId>commons-jxpath</groupId>
-   	   		<artifactId>commons-jxpath</artifactId>
-   	   	</dependency>
 	
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
    	   		<groupId>log4j</groupId>
@@ -107,7 +104,7 @@
    	   		<scope>test</scope>
    	   	</dependency>
 		
-		<!-- XML -->
+		<!-- JAXB -->
       	<dependency>
     	   	<groupId>javax.xml.bind</groupId>
     	   	<artifactId>jaxb-api</artifactId>
@@ -121,6 +118,11 @@
    	   	<dependency>
    	   		<groupId>com.sun.xml.bind</groupId>
    	   		<artifactId>jaxb-xjc</artifactId>
+   	   		<scope>provided</scope>
+   	   	</dependency>
+   	   	<dependency>
+   	   		<groupId>commons-jxpath</groupId>
+   	   		<artifactId>commons-jxpath</artifactId>
    	   		<scope>provided</scope>
    	   	</dependency>
     	   	
