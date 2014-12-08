@@ -218,7 +218,8 @@ margin-top: 8px;
 .auPanelWithGrid .ui-panelgrid {
 	width: 100%;
 }
-.aupBold{font-weight: bold;}		
+.aupBold{font-weight: bold;}
+.aupRemark{color: red;}		
 .w100 {width: 100%;}
 
 
