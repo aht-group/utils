@@ -70,6 +70,11 @@ public class UtilsFacadeBean implements UtilsFacade
 	}
 	
 	@Override
+	public <T extends EjbSaveable> T saveTransaction(T o) throws UtilsContraintViolationException, UtilsLockingException
+	{
+		return saveProtected(o);
+	}
+	@Override
 	public <T extends EjbSaveable> T save(T o) throws UtilsContraintViolationException,UtilsLockingException
 	{
 		return saveProtected(o);
@@ -912,4 +917,5 @@ public class UtilsFacadeBean implements UtilsFacade
 	    TypedQuery<USER> q = em.createQuery(select);
 		return q.getResultList();
 	}
+
 }

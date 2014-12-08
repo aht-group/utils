@@ -3,6 +3,9 @@ package net.sf.ahtutils.controller.facade;
 import java.util.Date;
 import java.util.List;
 
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+
 import net.sf.ahtutils.controller.util.ParentPredicate;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
@@ -44,8 +47,11 @@ public class AbstractUtilsFacadeBean implements UtilsFacade
 	protected UtilsFacadeBean fUtils;
 	
 	// Persist
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public <T extends EjbSaveable> T saveTransaction(T o) throws UtilsContraintViolationException,UtilsLockingException {return fUtils.save(o);}
 	public <T extends EjbSaveable> T save(T o) throws UtilsContraintViolationException,UtilsLockingException {return fUtils.save(o);}
 	protected <T extends EjbWithId> T saveProtected(T o) throws UtilsContraintViolationException,UtilsLockingException {return fUtils.saveProtected(o);}
+	
 	public <T extends Object> T persist(T o) throws UtilsContraintViolationException {return fUtils.persist(o);}
 	public <T extends Object> T update(T o) throws UtilsContraintViolationException, UtilsLockingException {return fUtils.update(o);}
 	

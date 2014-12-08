@@ -66,6 +66,7 @@ public interface UtilsFacade extends UtilsIdFacade
 //	<T extends EjbMergeable> T merge(T o) throws UtilsContraintViolationException, UtilsLockingException;
 	<T extends Object> T persist(T o) throws UtilsContraintViolationException;
 	<T extends Object> T update(T o) throws UtilsContraintViolationException,UtilsLockingException;
+	<T extends EjbSaveable> T saveTransaction(T o) throws UtilsContraintViolationException,UtilsLockingException;
 	<T extends EjbSaveable> T save(T o) throws UtilsContraintViolationException,UtilsLockingException;
 	
 	<T extends EjbRemoveable> void rm(T o) throws UtilsIntegrityException;
