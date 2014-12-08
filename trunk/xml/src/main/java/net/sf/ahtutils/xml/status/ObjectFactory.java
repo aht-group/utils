@@ -270,6 +270,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link MainType }
+     * 
+     */
+    public MainType createMainType() {
+        return new MainType();
+    }
+
+    /**
      * Create an instance of {@link SubPhase }
      * 
      */
