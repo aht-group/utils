@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<s:translations xmlns:s="http://ahtutils.aht-group.com/status">
+	<s:translation key="aupOptionTables">
+    	<s:langs>
+    		<s:lang key="de" translation="Tabellen"/>
+    		<s:lang key="en" translation="Option Tables"/>
+    		<s:lang key="fr" translation="Option Tables"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="aupOptionCode">
+    	<s:langs>
+    		<s:lang key="de" translation="Code"/>
+    		<s:lang key="en" translation="Code"/>
+    		<s:lang key="fr" translation="Code"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="aupTranslation">
+    	<s:langs>
+    		<s:lang key="de" translation="Übersetzung"/>
+    		<s:lang key="en" translation="Translation"/>
+    		<s:lang key="fr" translation="Translation"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="aupDescription">
+    	<s:langs>
+			<s:lang version="2" key="de" translation="Beschreibung"/>
+			<s:lang version="2" key="en" translation="Description"/>
+			<s:lang version="2" key="fr" translation="Description"/>
+    	</s:langs>
+	</s:translation>
+	<s:translation key="aupOptionPosition">
+    	<s:langs>
+    		<s:lang key="de" translation="Position"/>
+    		<s:lang key="en" translation="Position"/>
+    		<s:lang key="fr" translation="Position"/>
+    	</s:langs>
+	</s:translation>
+	<s:translation key="aupOptionVisible">
+    	<s:langs>
+    		<s:lang key="de" translation="Sichtbar"/>
+    		<s:lang key="en" translation="Visible"/>
+    		<s:lang key="fr" translation="Visible"/>
+    	</s:langs>
+	</s:translation>
+		<s:translation key="aupOptionDetails">
+    	<s:langs>
+    		<s:lang key="de" translation="Details"/>
+    		<s:lang key="en" translation="Details"/>
+    		<s:lang key="fr" translation="Details"/>
+    	</s:langs>
+	</s:translation>
+</s:translations>
