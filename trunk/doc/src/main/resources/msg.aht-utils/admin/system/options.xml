@@ -42,11 +42,18 @@
     		<s:lang key="fr" translation="Visible"/>
     	</s:langs>
 	</s:translation>
-		<s:translation key="aupOptionDetails">
+	<s:translation key="aupOptionDetails">
     	<s:langs>
     		<s:lang key="de" translation="Details"/>
     		<s:lang key="en" translation="Details"/>
     		<s:lang key="fr" translation="Details"/>
+    	</s:langs>
+	</s:translation>
+	<s:translation key="aupOptionSymbol">
+    	<s:langs>
+    		<s:lang key="de" translation="Symbol"/>
+    		<s:lang key="en" translation="Symbol"/>
+    		<s:lang key="fr" translation="Symbol"/>
     	</s:langs>
 	</s:translation>
 </s:translations>

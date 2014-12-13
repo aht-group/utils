@@ -30,6 +30,7 @@ public class XmlStatusFactory
 		xml.setGroup(group);
 		if(q.isSetCode()){xml.setCode(ejb.getCode());}
 		if(q.isSetPosition()){xml.setPosition(ejb.getPosition());}
+		if(q.isSetStyle()){xml.setStyle(ejb.getStyle());}
 		if(q.isSetImage()){xml.setImage(ejb.getImage());}
 		if(q.isSetVisible()){xml.setVisible(ejb.isVisible());}
 		
