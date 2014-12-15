@@ -85,14 +85,16 @@ public class SqlConnectionFactory
 		
 	private void buildPostgresSqlConnection(String code)
 	{
-		host = config.getString("net.db."+code+".host");
-		db = config.getString("net.db."+code+".database");
+		String cnfPrefix = "net.db."+code+".";
+		logger.info("Using configuration prefix "+cnfPrefix);
+		host = config.getString(cnfPrefix+"host");
+		db = config.getString(cnfPrefix+"database");
 		
-		try{port = config.getInt("net.db."+code+".port");}
+		try{port = config.getInt(cnfPrefix+"port");}
 		catch (NoSuchElementException e){port=3306;}
 		
-		username = config.getString("net.db."+code+".username");
-		password = config.getString("net.db."+code+".password");
+		username = config.getString(cnfPrefix+"username");
+		password = config.getString(cnfPrefix+"password");
 		
 		buildPostgreSqlConnection();
 	}
