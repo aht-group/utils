@@ -41,7 +41,6 @@ public class OfxTableQaTestFactory extends AbstractUtilsOfxDocumentationFactory
 	
 	public Table buildTableTestDetails(Test test) throws OfxAuthoringException
 	{
-		
 		try
 		{
 			Table table = new Table();

@@ -1,6 +1,7 @@
 package net.sf.ahtutils.doc.ofx.qa.test;
 
 import net.sf.ahtutils.doc.ofx.AbstractUtilsOfxDocumentationFactory;
+import net.sf.ahtutils.doc.ofx.status.OfxStatusImageFactory;
 import net.sf.ahtutils.xml.qa.Result;
 import net.sf.ahtutils.xml.qa.Test;
 import net.sf.ahtutils.xml.status.Lang;
@@ -30,10 +31,12 @@ import org.slf4j.LoggerFactory;
 public class OfxTableQaTestResultFactory extends AbstractUtilsOfxDocumentationFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(OfxTableQaTestResultFactory.class);
+	private String imagePathPrefix;
 	
 	public OfxTableQaTestResultFactory(Configuration config, String lang, Translations translations)
 	{
 		super(config,lang,translations);
+		imagePathPrefix = config.getString("doc.ofx.imagePathPrefixQA");
 	}
 	
 	public Table buildTestTable(Test test) throws OfxAuthoringException
@@ -58,6 +61,8 @@ public class OfxTableQaTestResultFactory extends AbstractUtilsOfxDocumentationFa
 	{
 		Columns cols = new Columns();
 		cols.getColumn().add(OfxColumnFactory.build(XmlAlignmentFactory.Horizontal.left));
+		cols.getColumn().add(OfxColumnFactory.build(XmlAlignmentFactory.Horizontal.left));
+		cols.getColumn().add(OfxColumnFactory.flex(80));
 		cols.getColumn().add(OfxColumnFactory.flex(80));
 		
 		Specification specification = new Specification();
@@ -71,6 +76,8 @@ public class OfxTableQaTestResultFactory extends AbstractUtilsOfxDocumentationFa
 	{
 		Row row = new Row();
 		row.getCell().add(OfxCellFactory.createParagraphCell("User"));
+		row.getCell().add(OfxCellFactory.createParagraphCell("Result"));
+		row.getCell().add(OfxCellFactory.createParagraphCell("Actual"));
 		row.getCell().add(OfxCellFactory.createParagraphCell("Comment"));
 		
 		return row;
@@ -101,7 +108,9 @@ public class OfxTableQaTestResultFactory extends AbstractUtilsOfxDocumentationFa
 	{
 		Row row = new Row();
 		row.getCell().add(OfxCellFactory.createParagraphCell(result.getStaff().getUser().getLastName()));
-		row.getCell().add(OfxCellFactory.createParagraphCell(""));
+		row.getCell().add(OfxCellFactory.image(OfxStatusImageFactory.build(imagePathPrefix,result.getStatus())));
+		row.getCell().add(OfxCellFactory.createParagraphCell(result.getActual().getValue()));
+		row.getCell().add(OfxCellFactory.createParagraphCell(result.getComment().getValue()));
 		return row;
 	}
 	

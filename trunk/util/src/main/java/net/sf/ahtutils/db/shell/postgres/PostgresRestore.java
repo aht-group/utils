@@ -1,6 +1,7 @@
 package net.sf.ahtutils.db.shell.postgres;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import net.sf.ahtutils.interfaces.db.UtilsDbShell;
 import net.sf.exlp.exception.ExlpUnsupportedOsException;
@@ -27,6 +28,8 @@ public class PostgresRestore extends AbstractPostgresShell implements UtilsDbShe
 	
 	public void buildCommands(boolean withStructure) throws ExlpUnsupportedOsException
 	{
+		tables = new ArrayList<String>();
+		tables.add("stationsmet");
 		super.cmdPre();
 		
 		for(String table : tables)

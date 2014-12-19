@@ -43,4 +43,10 @@ QAUS extends UtilsStatus<QAUS,L,D>>
 	
 	QARS getStatus();
 	void setStatus(QARS status);
+	
+	String getActualResult();
+	void setActualResult(String actualResult);
+	
+	String getComment();
+	void setComment(String comment);
 }

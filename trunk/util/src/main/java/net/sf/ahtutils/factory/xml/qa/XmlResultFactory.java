@@ -20,6 +20,8 @@ import net.sf.ahtutils.model.interfaces.security.UtilsSecurityView;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
+import net.sf.ahtutils.xml.qa.Actual;
+import net.sf.ahtutils.xml.qa.Comment;
 import net.sf.ahtutils.xml.qa.Result;
 import net.sf.ahtutils.xml.qa.Test;
 
@@ -80,6 +82,25 @@ QAUS extends UtilsStatus<QAUS,L,D>>
 			xml.setStaff(f.build(result.getStaff()));
 		}
 		
+		if(q.isSetActual()){xml.setActual(buildActual(result.getActualResult()));}
+		if(q.isSetComment()){xml.setComment(buildComment(result.getComment()));}
+		
+		return xml;
+	}
+	
+	public static Actual buildActual(String actual)
+	{
+		Actual xml = new Actual();
+		if(actual==null){xml.setValue("");}
+		else{xml.setValue(actual);}
+		return xml;
+	}
+	
+	public static Comment buildComment(String comment)
+	{
+		Comment xml = new Comment();
+		if(comment==null){xml.setValue("");}
+		else{xml.setValue(comment);}
 		return xml;
 	}
 }

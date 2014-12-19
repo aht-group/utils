@@ -3,6 +3,7 @@ package net.sf.ahtutils.util.query;
 import java.util.Hashtable;
 import java.util.Map;
 
+import net.sf.ahtutils.factory.xml.qa.XmlResultFactory;
 import net.sf.ahtutils.factory.xml.status.XmlStatementFactory;
 import net.sf.ahtutils.factory.xml.status.XmlStatusFactory;
 import net.sf.ahtutils.xml.aht.Query;
@@ -19,6 +20,7 @@ import net.sf.ahtutils.xml.qa.Steps;
 import net.sf.ahtutils.xml.qa.Test;
 import net.sf.ahtutils.xml.security.Role;
 import net.sf.ahtutils.xml.security.Staff;
+import net.sf.ahtutils.xml.status.Status;
 
 public class QaQuery
 {
@@ -79,10 +81,16 @@ public class QaQuery
 		staff.setRole(role);
 		staff.setUser(SecurityQuery.user());
 		
+		Status status = XmlStatusFactory.create("");
+		status.setImage("");
+		
 		Result xml = new Result();
 		xml.setStaff(staff);
 		xml.setId(0);
-		xml.setStatus(XmlStatusFactory.create(""));
+		xml.setStatus(status);
+		xml.setActual(XmlResultFactory.buildActual(""));
+		xml.setComment(XmlResultFactory.buildComment(""));
+		
 		return xml;
 	}
 	

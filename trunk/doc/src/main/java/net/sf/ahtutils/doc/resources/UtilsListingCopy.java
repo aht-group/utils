@@ -73,7 +73,7 @@ public class UtilsListingCopy
 			{
 				line = line.replace(find,replace);
 				writer.add(line);
-				logger.info("Line: "+line);
+				logger.trace("Line: "+line);
 			}
 			File target = new File(dirListing,dst);
 			logger.info("Writing to :"+target.getAbsolutePath());
