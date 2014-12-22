@@ -8,10 +8,14 @@
     
 	<composite:interface>
 		<composite:attribute name="title"/>
+		<composite:facet name="header" required="false"/>
 	</composite:interface>
         
 	<composite:implementation>
         #{cc.attrs.title}
+        <c:if test="#{!empty cc.facets.header}">
+			<composite:renderFacet name="header"/>
+		</c:if>
         <div class="pf-dataTable-header-action-icon">
             <composite:insertChildren/>
         </div>

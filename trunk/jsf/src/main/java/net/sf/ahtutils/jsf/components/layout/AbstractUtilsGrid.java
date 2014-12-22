@@ -3,11 +3,14 @@ package net.sf.ahtutils.jsf.components.layout;
 import java.io.IOException;
 import java.util.Map;
 
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.AbortProcessingException;
+
+import net.sf.ahtutils.jsf.util.ComponentAttribute;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +18,8 @@ import org.slf4j.LoggerFactory;
 public class AbstractUtilsGrid extends UIPanel
 {	
 	final static Logger logger = LoggerFactory.getLogger(AbstractUtilsGrid.class);
-	protected static enum Properties {width,gutter,styleClass}
-	
+	protected static enum Properties {width,gutter,styleClass,renderChildren}
+
 	protected int width,gutter;
 	
 	public AbstractUtilsGrid()
@@ -67,5 +70,17 @@ public class AbstractUtilsGrid extends UIPanel
 	protected void writeGridEnd(ResponseWriter responseWriter) throws IOException
 	{
 		responseWriter.endElement("div");
+	}
+	
+	@Override
+	public void encodeChildren(FacesContext context) throws IOException
+	{
+		if(ComponentAttribute.getBoolean(Properties.renderChildren.toString(), true, context, this))
+		{
+			for(UIComponent uic : this.getChildren())
+			{
+				uic.encodeAll(context);
+			}
+		}
 	}
 }
