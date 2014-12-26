@@ -37,6 +37,19 @@
 		</ofx:paragraph>
 	</ofx:section>
 	
+	<ofx:section container="true" classifier="osx">
+		<ofx:title>OSX Yosemite</ofx:title>
+		<ofx:listing>
+			<ofx:raw>brew install mysql</ofx:raw>
+		</ofx:listing>
+			
+		<ofx:listing>
+			<ofx:raw>ln -sfv /usr/local/opt/mysql/*.plist ~/Library/LaunchAgents
+launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist</ofx:raw>
+		</ofx:listing>
+			
+	</ofx:section>
+	
 	<ofx:section>
 		<ofx:title lang="en">Database creation</ofx:title>
 		<ofx:title lang="de">Erstellung der Datenbank</ofx:title>

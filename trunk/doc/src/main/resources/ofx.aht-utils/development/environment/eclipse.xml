@@ -22,8 +22,6 @@
 			Released under the terms of the Eclipse Public License, Eclipse SDK is free and open source software.
 	</ofx:paragraph>
 	
-	
-	<!-- ########################################################################################################### -->
 	<ofx:section container="true" classifier="luna">
 	
 		<ofx:paragraph lang="en">
@@ -210,8 +208,6 @@
 			
 		</ofx:section>
 	</ofx:section>
-	
-	
 	
 	<ofx:section>
 		<ofx:title lang="en">FAQ</ofx:title>
