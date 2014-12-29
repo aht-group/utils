@@ -37,4 +37,12 @@ public class ObjectFactory {
         return new Remark();
     }
 
+    /**
+     * Create an instance of {@link Hint }
+     * 
+     */
+    public Hint createHint() {
+        return new Hint();
+    }
+
 }
