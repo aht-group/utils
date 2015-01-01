@@ -26,18 +26,17 @@
 	</dependencyManagement>
 	
 	<dependencies>
-			<dependency>
+	
+		<!-- XML -->
+		<dependency>
 				<groupId>org.jdom</groupId>
 				<artifactId>jdom</artifactId>
-			</dependency>
-			<dependency>
+		</dependency>
+		<dependency>
 				<groupId>jaxen</groupId>
 				<artifactId>jaxen</artifactId>
-			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>jcl-over-slf4j</artifactId>
-			</dependency>
+		</dependency>
+		
 			<dependency>
 			    <groupId>net.sf.jasperreports</groupId>
 			    <artifactId>jasperreports</artifactId>
@@ -142,8 +141,8 @@
         			<groupId>commons-codec</groupId>
         		</exclusion>
         	</exclusions>
-	        </dependency>
-	        <dependency>
+		</dependency>
+		<dependency>
 	        	<groupId>net.sf.ahtutils</groupId>
 	        	<artifactId>ahtutils-xml</artifactId>
 	        	<type>jar</type>
@@ -160,40 +159,53 @@
 						<artifactId>ant-launcher</artifactId>
 					</exclusion>
 				</exclusions>
-			</dependency>
-			 <dependency>
-	        	<groupId>junit</groupId>
-	        	<artifactId>junit</artifactId>
-	        	<scope>provided</scope>
-	        </dependency>
-	        <dependency>
+		</dependency>
+		
+		<!-- Logging -->
+		<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jcl-over-slf4j</artifactId>
+		</dependency>
+		
+		<!-- Test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- Logging -->
+		<dependency>
 	        	<groupId>org.slf4j</groupId>
 	        	<artifactId>slf4j-api</artifactId>
-	        </dependency>
-	        <dependency>
+		</dependency>
+		<dependency>
 	        	<groupId>org.slf4j</groupId>
 	        	<artifactId>slf4j-log4j12</artifactId>
-	        </dependency>
-			<dependency>
-				<groupId>org.openfuxml</groupId>
-				<artifactId>ofx-chart</artifactId>
-				<type>jar</type>
-				<scope>compile</scope>
-				<exclusions>
-					<exclusion>
-						<artifactId>commons-logging</artifactId>
-						<groupId>commons-logging</groupId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-		<dependency>
-		 		<groupId>org.openfuxml</groupId>
-		 		<artifactId>ofx-core</artifactId>
 		</dependency>
-	 		<dependency>
-		 		<groupId>org.openfuxml</groupId>
-		 		<artifactId>ofx-xml</artifactId>
-	 		</dependency>
+
+		<!-- Chart -->
+ 		<dependency>
+			<groupId>org.openfuxml</groupId>
+			<artifactId>ofx-chart</artifactId>
+			<type>jar</type>
+			<scope>compile</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.openfuxml</groupId>
+			<artifactId>ofx-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.openfuxml</groupId>
+			<artifactId>ofx-xml</artifactId>
+		</dependency>
+
 	 		
 	 	<!-- Commons -->
 		<dependency>
