@@ -3,7 +3,6 @@ package net.sf.ahtutils.factory.xml.status;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
-import net.sf.ahtutils.xml.status.Copy;
 import net.sf.ahtutils.xml.status.Organisation;
 import net.sf.ahtutils.xml.status.Status;
 
@@ -13,11 +12,13 @@ import org.slf4j.LoggerFactory;
 public class XmlOrganisationFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlOrganisationFactory.class);
-		
-	private Copy q;
 	
-	public XmlOrganisationFactory(Copy q)
+	private String lang;
+	private Organisation q;
+	
+	public XmlOrganisationFactory(String lang,Organisation q)
 	{
+		this.lang=lang;
 		this.q=q;
 	}
 	
@@ -38,6 +39,25 @@ public class XmlOrganisationFactory
 		{
 
 		}
+		if(q.isSetLabel() && lang!=null)
+		{
+			if(ejb.getName()!=null)
+			{
+				if(ejb.getName().containsKey(lang)){xml.setLabel(ejb.getName().get(lang).getLang());}
+				else
+				{
+					String msg = "No translation "+lang+" available in "+ejb;
+					logger.warn(msg);
+					xml.setLabel(msg);
+				}
+			}
+			else
+			{
+				String msg = "No @name available in "+ejb;
+				logger.warn(msg);
+				xml.setLabel(msg);
+			}
+		}
 		
 		return xml;
 	}
@@ -46,6 +66,14 @@ public class XmlOrganisationFactory
 	{
 		Organisation xml = new Organisation();
 		xml.setCode(code);
+		return xml;
+	}
+	
+	public static Organisation build(String code,String label)
+	{
+		Organisation xml = new Organisation();
+		xml.setCode(code);
+		xml.setLabel(label);
 		return xml;
 	}
 	

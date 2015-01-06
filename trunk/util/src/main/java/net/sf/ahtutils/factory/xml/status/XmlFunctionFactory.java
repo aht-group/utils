@@ -3,7 +3,6 @@ package net.sf.ahtutils.factory.xml.status;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
-import net.sf.ahtutils.xml.status.Copy;
 import net.sf.ahtutils.xml.status.Function;
 import net.sf.ahtutils.xml.status.Status;
 
@@ -14,10 +13,12 @@ public class XmlFunctionFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlFunctionFactory.class);
 		
-	private Copy q;
+	private String lang;
+	private Function q;
 	
-	public XmlFunctionFactory(Copy q)
+	public XmlFunctionFactory(String lang,Function q)
 	{
+		this.lang=lang;
 		this.q=q;
 	}
 	
@@ -39,6 +40,26 @@ public class XmlFunctionFactory
 
 		}
 		
+		if(q.isSetLabel() && lang!=null)
+		{
+			if(ejb.getName()!=null)
+			{
+				if(ejb.getName().containsKey(lang)){xml.setLabel(ejb.getName().get(lang).getLang());}
+				else
+				{
+					String msg = "No translation "+lang+" available in "+ejb;
+					logger.warn(msg);
+					xml.setLabel(msg);
+				}
+			}
+			else
+			{
+				String msg = "No @name available in "+ejb;
+				logger.warn(msg);
+				xml.setLabel(msg);
+			}
+		}
+		
 		return xml;
 	}
 	
@@ -46,6 +67,14 @@ public class XmlFunctionFactory
 	{
 		Function xml = new Function();
 		xml.setCode(code);
+		return xml;
+	}
+	
+	public static Function build(String code,String label)
+	{
+		Function xml = new Function();
+		xml.setCode(code);
+		xml.setLabel(label);
 		return xml;
 	}
 	
