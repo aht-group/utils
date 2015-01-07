@@ -1,4 +1,4 @@
-package net.sf.ahtutils.doc.ofx.qa;
+package net.sf.ahtutils.doc.ofx.qa.category;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,6 @@ import net.sf.ahtutils.xml.status.Translations;
 import net.sf.ahtutils.xml.xpath.StatusXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
-import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.apache.commons.configuration.Configuration;
 import org.openfuxml.content.ofx.Comment;
@@ -129,7 +128,6 @@ public class OfxQaAgreementTableFactory extends AbstractUtilsOfxDocumentationFac
 	private Row createRow(Test staff)
 	{
 		Row row = new Row();
-		
 		
 		try
 		{

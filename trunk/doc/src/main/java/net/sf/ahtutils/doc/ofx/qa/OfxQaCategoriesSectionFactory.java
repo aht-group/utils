@@ -35,7 +35,10 @@ public class OfxQaCategoriesSectionFactory extends AbstractUtilsOfxDocumentation
 		
 		for(Category c : qa.getCategory())
 		{
-			section.getContent().add(buildCategory(c,path));
+			if(!c.getCode().equals("T"))
+			{
+				section.getContent().add(buildCategory(c,path));
+			}
 		}
 		
 		return section;

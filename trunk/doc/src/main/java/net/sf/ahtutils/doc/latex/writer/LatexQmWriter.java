@@ -5,11 +5,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.ahtutils.doc.ofx.qa.OfxQaAgreementTableFactory;
 import net.sf.ahtutils.doc.ofx.qa.OfxQaCategoriesSectionFactory;
 import net.sf.ahtutils.doc.ofx.qa.OfxQaRoleTableFactory;
 import net.sf.ahtutils.doc.ofx.qa.OfxQaTeamTableFactory;
 import net.sf.ahtutils.doc.ofx.qa.OfxSectionQaCategoryFactory;
+import net.sf.ahtutils.doc.ofx.qa.category.OfxQaAgreementTableFactory;
+import net.sf.ahtutils.doc.ofx.qa.category.OfxQaSummaryTableFactory;
 import net.sf.ahtutils.doc.ofx.status.OfxStatusTableFactory;
 import net.sf.ahtutils.doc.ofx.status.OfxStatusTableFactory.Code;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
@@ -122,10 +123,7 @@ public class LatexQmWriter extends AbstractDocumentationLatexWriter
 	// Agreements
 	public void writeQaAgreement(Category c,Aht testStatus) throws OfxAuthoringException, IOException
 	{
-		for(String lang : langs)
-		{
-			writeQaAgreement(c, testStatus,lang);
-		}
+		for(String lang : langs){writeQaAgreement(c, testStatus,lang);}
 	}
 	public void writeQaAgreement(Category c,Aht testStatus,String lang) throws OfxAuthoringException, IOException
 	{
@@ -134,6 +132,17 @@ public class LatexQmWriter extends AbstractDocumentationLatexWriter
 		OfxQaAgreementTableFactory fOfx = new OfxQaAgreementTableFactory(config,lang,translations);
 		fOfx.setImagePathPrefix(imagePathPrefix);
 		Table table = fOfx.build(c,testStatus);
+		writeTable(table, f);
+	}
+	
+	// Summary
+	public void writeQaSummary(Category c,Aht testConditions,Aht resultStatus,String lang) throws OfxAuthoringException, IOException
+	{
+		File f = new File(baseLatexDir+"/"+lang+"/tab/qa/summary/"+c.getCode()+".tex");
+		
+		OfxQaSummaryTableFactory fOfx = new OfxQaSummaryTableFactory(config,lang,translations);
+		fOfx.setImagePathPrefix(imagePathPrefix);
+		Table table = fOfx.build(c,testConditions,resultStatus);
 		writeTable(table, f);
 	}
 	
@@ -151,11 +160,13 @@ public class LatexQmWriter extends AbstractDocumentationLatexWriter
 	{
 		File fCategories = new File(baseLatexDir+"/"+lang+"/section/qa/categories.tex");
 		File fAgreements = new File(baseLatexDir+"/"+lang+"/section/qa/agreements.tex");
+		File fSummary = new File(baseLatexDir+"/"+lang+"/section/qa/summary.tex");
 		
 		OfxQaCategoriesSectionFactory fOfx = new OfxQaCategoriesSectionFactory(config,lang,translations);
 		
 		writeSection(fOfx.build(qa,lang+"/section/qa/category"), fCategories);
 		writeSection(fOfx.build(qa,lang+"/tab/qa/agreement"), fAgreements);
+		writeSection(fOfx.build(qa,lang+"/tab/qa/summary"), fSummary);
 	}
 	
 	// *****************************************************************************
