@@ -13,10 +13,18 @@ public class XmlCopyFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlCopyFactory.class);
 		
+	private String lang;
 	private Copy q;
 	
+	@Deprecated
 	public XmlCopyFactory(Copy q)
 	{
+		this(null,q);
+	}
+	
+	public XmlCopyFactory(String lang,Copy q)
+	{
+		this.lang=lang;
 		this.q=q;
 	}
 	
@@ -36,6 +44,25 @@ public class XmlCopyFactory
 		if(q.isSetDescriptions())
 		{
 
+		}
+		if(q.isSetLabel() && lang!=null)
+		{
+			if(ejb.getName()!=null)
+			{
+				if(ejb.getName().containsKey(lang)){xml.setLabel(ejb.getName().get(lang).getLang());}
+				else
+				{
+					String msg = "No translation "+lang+" available in "+ejb;
+					logger.warn(msg);
+					xml.setLabel(msg);
+				}
+			}
+			else
+			{
+				String msg = "No @name available in "+ejb;
+				logger.warn(msg);
+				xml.setLabel(msg);
+			}
 		}
 		
 		return xml;

@@ -13,10 +13,18 @@ public class XmlOriginalFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlOriginalFactory.class);
 		
+	private String lang;
 	private Original q;
 	
+	@Deprecated
 	public XmlOriginalFactory(Original q)
 	{
+		this(null,q);
+	}
+	
+	public XmlOriginalFactory(String lang,Original q)
+	{
+		this.lang=lang;
 		this.q=q;
 	}
 	
@@ -36,6 +44,25 @@ public class XmlOriginalFactory
 		if(q.isSetDescriptions())
 		{
 
+		}
+		if(q.isSetLabel() && lang!=null)
+		{
+			if(ejb.getName()!=null)
+			{
+				if(ejb.getName().containsKey(lang)){xml.setLabel(ejb.getName().get(lang).getLang());}
+				else
+				{
+					String msg = "No translation "+lang+" available in "+ejb;
+					logger.warn(msg);
+					xml.setLabel(msg);
+				}
+			}
+			else
+			{
+				String msg = "No @name available in "+ejb;
+				logger.warn(msg);
+				xml.setLabel(msg);
+			}
 		}
 		
 		return xml;
