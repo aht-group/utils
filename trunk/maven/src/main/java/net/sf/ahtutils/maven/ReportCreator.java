@@ -25,7 +25,7 @@ public class ReportCreator extends AbstractMojo
 {
 	/**
      * Location of the file.
-     * @parameter expression="src/main/resources/reports/reports.xml"
+     * @parameter expression="src/main/resources/reports.${project.artifactId}/reports.xml"
      * @required
      */
     private String configFile;
@@ -43,13 +43,31 @@ public class ReportCreator extends AbstractMojo
      * @required
      */
     private String reportId;
+    
+    
+    /**
+     * Id of the report
+     * @parameter expression="${project.artifactId}"
+     * @required
+     */
+    private String artifactId;
 	
 	public void execute() throws MojoExecutionException
     {	
-		getLog().info("Using " +configFile +" for report configuration.");
-        Reports reports;
-		try {reports = (Reports)JaxbUtil.loadJAXB(configFile, Reports.class);}
-		catch (FileNotFoundException e) {throw new MojoExecutionException(e.getMessage());}
+		Reports reports;
+		try {
+			reports = (Reports)JaxbUtil.loadJAXB(configFile, Reports.class);
+			getLog().info("Using " +configFile +" for report configuration.");
+			}
+		catch (FileNotFoundException e) 
+			{
+			getLog().warn("Report File Not Found at " +configFile);
+			getLog().info("Creating new configuration at " +configFile +".");
+			reports = new Reports();
+			reports.setDir(configFile.substring(0, configFile.lastIndexOf("/")));
+			}
+		getLog().info("Called in artifact " +artifactId +".");
+		getLog().info("Current directory: " +System.getProperty("user.dir"));
 		ReportUtilTemplate templateManager = null;
 		try {
 			templateManager = new ReportUtilTemplate(reports.getDir());

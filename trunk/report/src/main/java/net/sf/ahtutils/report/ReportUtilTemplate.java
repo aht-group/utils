@@ -14,6 +14,7 @@ import net.sf.ahtutils.xml.report.Media;
 import net.sf.ahtutils.xml.report.Report;
 import net.sf.ahtutils.xml.report.Reports;
 import net.sf.ahtutils.xml.report.Template;
+import net.sf.exlp.util.io.resourceloader.MultiResourceLoader;
 import net.sf.exlp.util.xml.JaxbUtil;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.design.JRDesignBand;
@@ -36,10 +37,18 @@ public class ReportUtilTemplate
 	final static Logger logger = LoggerFactory.getLogger(ReportUtilXls.class);
 	
 	private String reportRoot;
+	private MultiResourceLoader mrl = new MultiResourceLoader();
 	
 	public ReportUtilTemplate(String reportRoot) throws FileNotFoundException{
-		this.reportRoot = reportRoot; 
-		Reports reports = JaxbUtil.loadJAXB(reportRoot +"/reports.xml", Reports.class);
+		this.reportRoot = reportRoot;
+		Reports reports = null;
+		try {
+			 reports = JaxbUtil.loadJAXB(mrl.searchIs(reportRoot +"/reports.xml"), Reports.class);
+		}
+		catch (Exception e)
+		{
+			reports = JaxbUtil.loadJAXB(mrl.searchIs("src/main/resources/" +reportRoot +"/reports.xml"), Reports.class);
+		}
 	}
 	
 	public void applyTemplates(Report report)
@@ -118,7 +127,7 @@ public class ReportUtilTemplate
 		//Load the elements from template
 		for (Element element : template.getElement())
 		{
-			InputStream is             = new FileInputStream(new File(reportRoot +"/templates/" +element.getFile() +".jrxml"));
+			InputStream is             = mrl.searchIs(reportRoot +"/templates/" +element.getFile() +".jrxml");
 			JRXmlLoader jlo            = new JRXmlLoader(JRXmlDigesterFactory.createDigester());
 			JasperDesign elementDesign = jlo.loadXML(is); 
 			if (element.getType().equals("header"))

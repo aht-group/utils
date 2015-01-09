@@ -21,11 +21,13 @@ import net.sf.ahtutils.xml.xpath.ReportXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.util.DateUtil;
+import net.sf.exlp.util.io.resourceloader.MultiResourceLoader;
 import net.sf.exlp.util.xml.JaxbUtil;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlWriter;
 
+import org.apache.commons.io.IOUtils;
 import org.jdom2.Element;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
@@ -33,6 +35,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
+import freemarker.cache.StringTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -49,6 +52,9 @@ public class ReportUtilCreator
     private String reportId;
     private String testPackage;
     private Boolean productive;
+    private String abstractTestclass;
+    
+    private MultiResourceLoader mrl = new MultiResourceLoader();
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void execute() throws JRException, TemplateException, IOException, ExlpXpathNotFoundException, ExlpXpathNotUniqueException, ParserConfigurationException, SAXException, ClassNotFoundException
@@ -104,7 +110,7 @@ public class ReportUtilCreator
 		String reportFilename = reports.getDir() +"/" +reportId +"/" +"mr" +reportId +".jrxml";
 		
 		//Load the template given by template name
-		Templates templates = (Templates)JaxbUtil.loadJAXB(templateFile, Templates.class);
+		Templates templates = JaxbUtil.loadJAXB(templateFile, Templates.class);
 		net.sf.ahtutils.xml.report.Template template = ReportXpath.getTemplate(templates, getReportId());
 		
 		
@@ -128,11 +134,20 @@ public class ReportUtilCreator
 		datamodel.put("reportId", reportId);
 		datamodel.put("testPackage", testPackage);
 		datamodel.put("classname", "Test" +reportId +"Renderer");
+		datamodel.put("abstracttest", abstractTestclass.substring(abstractTestclass.lastIndexOf(".")+1));
+		datamodel.put("abstracttestimport", abstractTestclass);
 		Configuration cfg = new Configuration();
-		Template tpl = cfg.getTemplate("src/main/resources/freemarker/report-test.jva");
-		String testFileName = "src/test/java/" +testPackage.replaceAll("\\.", "/") +"/" +"Test" +reportId +"Renderer.java";
+		StringTemplateLoader loader = new StringTemplateLoader();
+		loader.putTemplate("template", IOUtils.toString(mrl.searchIs("freemarker/report-test.jva"), "UTF-8"));
+		cfg.setTemplateLoader(loader);
+		Template tpl = cfg.getTemplate("template");
 		
-		File testFile = new File(testFileName);
+		String testFileName  = "Test" +reportId +"Renderer.java";
+		String testDirectory = "src/test/java/" +testPackage.replaceAll("\\.", "/") +"/";
+		new File(testDirectory).mkdirs();
+		
+		File testFile = new File(testDirectory +testFileName);
+		
 		if (!productive)
 		{
 			testFile = new File("target/Test" +reportId +"Renderer.java");
@@ -232,6 +247,14 @@ public class ReportUtilCreator
 
 	public void setTemplateFile(String templateFile) {
 		this.templateFile = templateFile;
+	}
+
+	public String getAbstractTestclass() {
+		return abstractTestclass;
+	}
+
+	public void setAbstractTestclass(String abstractTestclass) {
+		this.abstractTestclass = abstractTestclass;
 	}
 
 }
