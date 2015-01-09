@@ -217,18 +217,27 @@ public class ReportHandler {
 	 * Get the master report associated with the given report. The JasperDesign object will be loaded from a .jrxml file. 
 	 * @throws ReportException
 	 */
-	public JasperDesign getMasterReport(String id, String format) throws ReportException
+	public JasperDesign getReport(String id, String subreport, String format, String type) throws ReportException
 	{
-		Jr master = null;
+		Jr jr = null;
 		try
 		{
-			master = ReportXpath.getMr(reports, id, format);
+			if (type.equals("sr"))
+			{
+				// THIS IS WRONG!
+				jr = ReportXpath.getSr(reports, id, subreport, format);
+			}
+			else
+			{
+				jr = ReportXpath.getMr(reports, id, format);
+			}
+			
 		}
 		catch (ExlpXpathNotFoundException e) {e.printStackTrace();}
 		catch (ExlpXpathNotUniqueException e) {e.printStackTrace();}
 		
 		String reportDir = (String)JXPathContext.newContext(reports).getValue("report[@id='"+ id +"']/@dir");
-		String location = "jrxml/" +reportDir +"/" +format +"/mr" +master.getName() +".jrxml";
+		String location = "jrxml/" +reportDir +"/" +format +"/" +type +jr.getName() +".jrxml";
 		JasperDesign design = null;
 		try
 		{
@@ -262,30 +271,37 @@ public class ReportHandler {
 	 * Compile a JasperDesign to a JasperReport
 	 * @throws ReportException
 	 */
-	public JasperReport getCompiledReport(String reportId, String format) throws ReportException
+	public JasperReport getCompiledReport(String reportId, String subreport, String format, String type) throws ReportException
 	{
-		Jr master = null;
+		Jr report = null;
 		try {
-			master = ReportXpath.getMr(reports, reportId, format);
+			if (null != subreport)
+				{
+					report = ReportXpath.getSr(reports, reportId, subreport, format);
+				}
+			else
+				{
+					report = ReportXpath.getMr(reports, reportId, format);
+				}
 		} catch (ExlpXpathNotFoundException e1) {
 			e1.printStackTrace();
 		} catch (ExlpXpathNotUniqueException e1) {
 			e1.printStackTrace();
 		}
 		String reportDir = (String)JXPathContext.newContext(reports).getValue("report[@id='"+ reportId +"']/@dir");
-		String location = "jasper/" +reportDir +"/" +format +"/ltr/mr" +master.getName() +".jasper";
-		JasperReport report = null;
+		String location = "jasper/" +reportDir +"/" +format +"/ltr/"  +type +report.getName() +".jasper";
+		JasperReport reportCompiled = null;
 		try
 		{
-			report = (JasperReport)JRLoader.loadObject(mrl.searchIs(location));
+			reportCompiled = (JasperReport)JRLoader.loadObject(mrl.searchIs(location));
 		} catch (FileNotFoundException e) {
 			logger.warn("Requested compiled report jasper file for report " +reportId +" could not be found at " +location +"! - Trying to recompile it from jrxml.");
-			JasperDesign design = getMasterReport(reportId, format);
-			report = (JasperReport) getCompiledReport(design);
+			JasperDesign design = getReport(reportId, subreport, format, type);
+			reportCompiled      = (JasperReport) getCompiledReport(design);
 		} catch (JRException e) {
 			throw new ReportException("Internal JasperReports error when trying to get requested compiled report design for report " +reportId +": " +e.getMessage());
 		}
-		return report;
+		return reportCompiled;
 	}
 	
 	/**
@@ -410,16 +426,26 @@ public class ReportHandler {
 		ArrayList<Jr> results = ReportXpath.getSubreports(reports, reportId, format);
 		for (Jr jr : results)
 		{
-					String location = "jrxml/" +report.getDir() +"/" +format +"/sr" +jr.getName() +".jrxml";
-					JasperDesign design;
+					// String location       = "jrxml/" +report.getDir() +"/" +format +"/sr" +jr.getName() +".jrxml";
+					// String locationJasper = "jasper/" +report.getDir() +"/" +format +"/ltr" +"/sr" +jr.getName() +".jasper";
+					// JasperDesign design;
+					
+					// Other methods in here are deprecated since only JASPER files are available in deployed web apps by default
+					JasperReport jreport = getCompiledReport(reportId, jr.getName(), format, "sr");
+					
+					/*
 					try {
-						design = (JasperDesign)JRXmlLoader.load(mrl.searchIs(location));
+						jreport = (JasperReport)JRLoader.loadObject(mrl.searchIs(locationJasper));
 					} catch (FileNotFoundException e) {
+						// design = (JasperDesign)JRXmlLoader.load(mrl.searchIs(location));
 						throw new ReportException("Requested report design jrxml file for subreport " +jr.getName() +" of report " +reportId +" could not be found at " +location +"!");
 					} catch (JRException e) {
 						throw new ReportException("Internal JasperReports error when trying to load requested report design jrxml file for subreport " +jr.getName() +" of report " +reportId +": " +e.getMessage());
 					}
-					JasperReport jreport = getCompiledReport(design);
+					// jreport = getCompiledReport(design);
+					 
+					 */
+					
 					mapReportParameter.put("sr" +jr.getName(), jreport);
 		}
 		return mapReportParameter;
@@ -508,7 +534,7 @@ public class ReportHandler {
 		logger.info("TEST");
 	//	JasperDesign masterDesign = getMasterReport(reportId, format.name());
 	//	JasperReport masterReport = getCompiledReport(masterDesign);
-		JasperReport masterReport = getCompiledReport(reportId, format.name());
+		JasperReport masterReport = getCompiledReport(reportId, null, format.name(), "mr");
 		Map<String, Object> reportParameterMap = getParameterMap(doc, locale);
 		reportParameterMap.putAll(getSubreportsMap(reportId, format.name()));
 		JasperPrint print = getJasperPrint(masterReport, reportParameterMap);
@@ -529,7 +555,7 @@ public class ReportHandler {
 		logger.info("Using JDom data document.");
 	//	JasperDesign masterDesign = getMasterReport(reportId, format.name());
 	//	JasperReport masterReport = getCompiledReport(masterDesign);
-		JasperReport masterReport = getCompiledReport(reportId, format.name());
+		JasperReport masterReport = getCompiledReport(reportId, null, format.name(), "mr");
 		Map<String, Object> reportParameterMap = getParameterMapJDom(doc, locale);
 		reportParameterMap.putAll(getSubreportsMap(reportId, format.name()));
 		JasperPrint print = getJasperPrint(masterReport, reportParameterMap);
