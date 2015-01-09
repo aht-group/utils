@@ -310,6 +310,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Freeze }
+     * 
+     */
+    public Freeze createFreeze() {
+        return new Freeze();
+    }
+
+    /**
      * Create an instance of {@link Satisfaction }
      * 
      */
