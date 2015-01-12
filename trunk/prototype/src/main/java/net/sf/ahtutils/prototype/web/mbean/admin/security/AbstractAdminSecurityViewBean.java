@@ -3,9 +3,13 @@ package net.sf.ahtutils.prototype.web.mbean.admin.security;
 import java.io.Serializable;
 import java.util.List;
 
+import net.sf.ahtutils.controller.factory.ejb.security.EjbSecurityActionFactory;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.factory.ejb.status.EjbDescriptionFactory;
+import net.sf.ahtutils.factory.ejb.status.EjbLangFactory;
 import net.sf.ahtutils.interfaces.facade.UtilsSecurityFacade;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
@@ -35,8 +39,13 @@ public class AbstractAdminSecurityViewBean <L extends UtilsLang,
 	
 	protected UtilsSecurityFacade fSecurity;
 	
+	private EjbLangFactory<L> efLang;
+	private EjbDescriptionFactory<D> efDescription;
+	private EjbSecurityActionFactory<L,D,C,R,V,U,A,USER> efAction;
+	
 	private Class<C> cCategory;
 	private Class<V> cView;
+	private Class<A> cAction;
 	
 	private List<C> categories;
 	public List<C> getCategories() {return categories;}
@@ -59,33 +68,46 @@ public class AbstractAdminSecurityViewBean <L extends UtilsLang,
 	public A getAction(){return action;}
 	public void setAction(A action) {this.action = action;}
 	
-	public void initSuper(final Class<C> cCategory, final Class<V> cView)
+	private String[] langs;
+	
+	public void initSuper(final Class<L> cLang, final Class<D> cDescription, final Class<C> cCategory, final Class<R> cRole, final Class<V> cView, final Class<U> cUsecase, final Class<A> cAction, final Class<USER> cUser, String[] langs)
 	{
 		this.cCategory=cCategory;
 		this.cView=cView;
+		this.cAction=cAction;
+		this.langs=langs;
+		
+		efLang = new EjbLangFactory<L>(cLang);
+		efDescription = new EjbDescriptionFactory<D>(cDescription);
+		efAction = EjbSecurityActionFactory.factory(cLang,cDescription,cCategory,cRole,cView,cUsecase,cAction,cUser);
+		
 		reloadCategories();
 	}
 	
+	// SELECT
 	public void selectCategory() throws UtilsNotFoundException
 	{
 		logger.info(AbstractLogMessage.selectEntity(category));
+		category = efLang.persistMissingLangs(fSecurity,langs,category);
+		category = efDescription.persistMissingLangs(fSecurity,langs,category);
 		reloadViews();
 		view=null;
 		action=null;
 	}
-	
 	public void selectView()
 	{
 		logger.info(AbstractLogMessage.selectEntity(view));
+		view = efLang.persistMissingLangs(fSecurity,langs,view);
+		view = efDescription.persistMissingLangs(fSecurity,langs,view);
 		reloadActions();
 		action=null;
 	}
-	
 	public void selectAction()
 	{
 		logger.info(AbstractLogMessage.selectEntity(action));
+		action = efLang.persistMissingLangs(fSecurity,langs,action);
+		action = efDescription.persistMissingLangs(fSecurity,langs,action);
 	}
-	
 	
 	//RELOAD
 	private void reloadCategories()
@@ -95,6 +117,7 @@ public class AbstractAdminSecurityViewBean <L extends UtilsLang,
 	private void reloadViews() throws UtilsNotFoundException
 	{
 		views = fSecurity.allForCategory(cView,cCategory,category.getCode());
+		logger.info("Reloaded "+views.size());
 	}
 	private void reloadActions()
 	{
@@ -102,6 +125,7 @@ public class AbstractAdminSecurityViewBean <L extends UtilsLang,
 		actions = view.getActions();
 	}
 	
+	//SAVE
 	public void saveCategory() throws UtilsContraintViolationException, UtilsLockingException
 	{
 		logger.info(AbstractLogMessage.saveEntity(category));
@@ -121,5 +145,21 @@ public class AbstractAdminSecurityViewBean <L extends UtilsLang,
 		logger.info(AbstractLogMessage.saveEntity(action));
 		action = fSecurity.save(action);
 		reloadActions();
+	}
+	
+	//ACTION
+	public void addAction() throws UtilsIntegrityException
+	{
+		logger.info(AbstractLogMessage.addEntity(cAction));
+		action = efAction.create(view,"");
+		action.setName(efLang.createEmpty(langs));
+		action.setDescription(efDescription.createEmpty(langs));
+	}
+	
+	public void rmAction() throws UtilsIntegrityException
+	{
+		logger.info(AbstractLogMessage.rmEntity(action));
+		fSecurity.rm(action);
+		action=null;
 	}
 }

@@ -6,6 +6,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:aht="http://ahtutils.sourceforge.net/jsf"
 	xmlns:composite="http://java.sun.com/jsf/composite">
 	
 	<composite:interface>
@@ -15,6 +16,11 @@
 	<composite:implementation>
 		<p:dataTable var="a" value="#{adminSecurityViewsBean.actions}"
 			selection="#{adminSecurityViewsBean.action}" selectionMode="single" rowKey="#{a.id}">
+			<f:facet name="header">
+				<aht:pfDataTableHeader title="#{msg.aupSecurityActions}">
+					<aht:icon type="add" listener="#{adminSecurityViewsBean.addAction()}" update=":sActions"/>
+				</aht:pfDataTableHeader>
+			</f:facet>
 			<p:ajax event="rowSelect" update=":fAction" listener="#{adminSecurityViewsBean.selectAction}"/>  
             <p:column headerText="#{msg.aupSecurityAction}">  
 				<h:outputText value="#{a.name[userBean.localeCode].lang}"/>  

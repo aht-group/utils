@@ -4,7 +4,10 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import net.sf.ahtutils.controller.util.query.StatusQuery;
+import net.sf.ahtutils.xml.access.View;
+import net.sf.ahtutils.xml.access.Views;
 import net.sf.ahtutils.xml.aht.Query;
+import net.sf.ahtutils.xml.security.Category;
 import net.sf.ahtutils.xml.security.Role;
 import net.sf.ahtutils.xml.security.Staff;
 import net.sf.ahtutils.xml.security.User;
@@ -67,6 +70,25 @@ public class SecurityQuery
 		xml.setRole(role);
 		xml.setUser(user);
 		xml.setDomain(domain);
+		
+		return xml;
+	}
+	
+	public static Category exCategory()
+	{
+		Category xml = new Category();
+		xml.setCode("");
+		xml.setLangs(StatusQuery.langs());
+		xml.setDescriptions(StatusQuery.descriptions());
+		return xml;
+	}
+	
+	public static View exView()
+	{
+		View xml = new View();
+		xml.setCode("");
+		xml.setLangs(StatusQuery.langs());
+		xml.setDescriptions(StatusQuery.descriptions());
 		
 		return xml;
 	}

@@ -3,6 +3,7 @@ package net.sf.ahtutils.xml.security;
 import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
+import net.sf.ahtutils.xml.access.TestXmlViews;
 import net.sf.ahtutils.xml.status.TestXmlDescriptions;
 import net.sf.ahtutils.xml.status.TestXmlLangs;
 import net.sf.exlp.util.xml.JaxbUtil;
@@ -35,6 +36,8 @@ public class TestXmlCategory extends AbstractXmlSecurityTest
     		xml.setLangs(TestXmlLangs.create(false));
     		xml.setDescriptions(TestXmlDescriptions.create(false));
     		xml.setRoles(TestXmlRoles.create(false));
+    		
+    		xml.setViews(TestXmlViews.create(false));
     	}
     	
     	return xml;

@@ -86,6 +86,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Security }
+     * 
+     */
+    public Security createSecurity() {
+        return new Security();
+    }
+
+    /**
      * Create an instance of {@link Password }
      * 
      */

@@ -22,7 +22,6 @@ import net.sf.ahtutils.xml.access.Action;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.View;
 import net.sf.ahtutils.xml.sync.DataUpdate;
-import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,6 +48,7 @@ public class SecurityInitViews <L extends UtilsLang,
 	
 	public DataUpdate iuViews(Access access)
 	{
+		logger.trace("iuViews starting ...");
 		updateView = AhtDbEjbUpdater.createFactory(cV);
 		updateAction = AhtDbEjbUpdater.createFactory(cA);
 		
@@ -69,14 +69,14 @@ public class SecurityInitViews <L extends UtilsLang,
 		
 		updateView.remove(fSecurity);
 		updateAction.remove(fSecurity);
-		logger.trace("iuRoles finished");
+		logger.trace("iuViews finished");
 		
 		return du;
 	}
 	
 	@Override protected void iuChilds(C aclCategory, Category category) throws UtilsConfigurationException
 	{
-		logger.trace("iuChilds (views)");
+		logger.info("iuChilds (views)");
 		if(category.isSetViews() && category.getViews().isSetView())
 		{
 			for(View view : category.getViews().getView())

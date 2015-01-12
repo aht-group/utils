@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import net.sf.ahtutils.xml.access.Views;
 import net.sf.ahtutils.xml.status.Descriptions;
 import net.sf.ahtutils.xml.status.Langs;
 
@@ -25,6 +26,7 @@ import net.sf.ahtutils.xml.status.Langs;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}langs"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}descriptions"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/security}roles"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/access}views"/>
  *       &lt;/sequence>
  *       &lt;attribute name="code" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="index" type="{http://www.w3.org/2001/XMLSchema}int" />
@@ -39,7 +41,8 @@ import net.sf.ahtutils.xml.status.Langs;
 @XmlType(name = "", propOrder = {
     "langs",
     "descriptions",
-    "roles"
+    "roles",
+    "views"
 })
 @XmlRootElement(name = "category")
 public class Category
@@ -53,6 +56,8 @@ public class Category
     protected Descriptions descriptions;
     @XmlElement(required = true)
     protected Roles roles;
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/access", required = true)
+    protected Views views;
     @XmlAttribute(name = "code")
     protected String code;
     @XmlAttribute(name = "index")
@@ -140,6 +145,34 @@ public class Category
 
     public boolean isSetRoles() {
         return (this.roles!= null);
+    }
+
+    /**
+     * Gets the value of the views property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Views }
+     *     
+     */
+    public Views getViews() {
+        return views;
+    }
+
+    /**
+     * Sets the value of the views property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Views }
+     *     
+     */
+    public void setViews(Views value) {
+        this.views = value;
+    }
+
+    public boolean isSetViews() {
+        return (this.views!= null);
     }
 
     /**

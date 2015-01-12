@@ -21,11 +21,18 @@
     		<s:lang key="fr" translation="View"/>
     	</s:langs>
     </s:translation>
-    	<s:translation key="aupSecurityAction">
+	<s:translation key="aupSecurityAction">
     	<s:langs>
     		<s:lang key="de" translation="Action"/>
     		<s:lang key="en" translation="Action"/>
     		<s:lang key="fr" translation="Action"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="aupSecurityActions">
+    	<s:langs>
+    		<s:lang key="de" translation="Actions"/>
+    		<s:lang key="en" translation="Actions"/>
+    		<s:lang key="fr" translation="Actions"/>
     	</s:langs>
     </s:translation>
     

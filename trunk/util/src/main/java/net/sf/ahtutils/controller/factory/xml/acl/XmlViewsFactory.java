@@ -40,4 +40,9 @@ public class XmlViewsFactory
 		
 		return ucs;
 	}
+	
+	public static Views build()
+	{
+		return new Views();
+	}
 }

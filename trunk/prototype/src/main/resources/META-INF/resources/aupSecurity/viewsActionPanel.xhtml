@@ -16,11 +16,12 @@
 	<composite:implementation>
 		<p:panel header="#{msg.aupSecurityAction}" styleClass="auPanelWithGrid">
 			<f:facet name="actions">
+				<aht:icon type="delete" listener="#{adminSecurityViewsBean.rmAction()}" update=":sActions"/>
 				<aht:icon type="save" listener="#{adminSecurityViewsBean.saveAction()}" update=":sActions"/>
 			</f:facet>
 			<h:panelGrid columns="2" columnClasses="col1,col2" styleClass="auCleanPanelGrid">
 				<p:outputLabel value="#{msg.aupSecurityCode}"/>
-				<h:outputText value="#{adminSecurityViewsBean.action.code}"/>
+				<h:inputText value="#{adminSecurityViewsBean.action.code}"/>
 			</h:panelGrid>
 			<aht:tabTranslationEditor value="#{adminSecurityViewsBean.action}"
 					labelTranslation="#{msg.Name}" labelDescription="#{msg.Description}"

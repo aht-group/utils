@@ -2,10 +2,18 @@ package net.sf.ahtutils.controller.factory.xml.acl;
 
 import net.sf.ahtutils.factory.xml.status.XmlDescriptionsFactory;
 import net.sf.ahtutils.factory.xml.status.XmlLangsFactory;
+import net.sf.ahtutils.interfaces.model.security.UtilsStaff;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclView;
+import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
+import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
+import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
+import net.sf.ahtutils.model.interfaces.security.UtilsSecurityRole;
+import net.sf.ahtutils.model.interfaces.security.UtilsSecurityUsecase;
+import net.sf.ahtutils.model.interfaces.security.UtilsSecurityView;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
+import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.xml.access.View;
 
 import org.slf4j.Logger;
@@ -15,12 +23,12 @@ public class XmlViewFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlViewFactory.class);
 		
-	private View qUc;
+	private View q;
 	private String lang;
 	
-	public XmlViewFactory(View qUc, String lang)
+	public XmlViewFactory(View q, String lang)
 	{
-		this.qUc=qUc;
+		this.q=q;
 		this.lang=lang;
 	}
 	
@@ -29,18 +37,40 @@ public class XmlViewFactory
 	{
 		View xml = new View();
 		
-		if(qUc.isSetCode()){xml.setCode(usecase.getCode());}
+		if(q.isSetCode()){xml.setCode(usecase.getCode());}
 		
-		if(qUc.isSetLangs())
+		if(q.isSetLangs())
 		{
-			XmlLangsFactory f = new XmlLangsFactory(qUc.getLangs());
+			XmlLangsFactory f = new XmlLangsFactory(q.getLangs());
 			xml.setLangs(f.getUtilsLangs(usecase.getName()));
 		}
 		
-		if(qUc.isSetDescriptions())
+		if(q.isSetDescriptions())
 		{
-			XmlDescriptionsFactory f = new XmlDescriptionsFactory(qUc.getDescriptions());
+			XmlDescriptionsFactory f = new XmlDescriptionsFactory(q.getDescriptions());
 			xml.setDescriptions(f.create(usecase.getDescription()));
+		}
+		
+		return xml;
+	}
+	
+	public <L extends UtilsLang,D extends UtilsDescription,C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,USER extends UtilsUser<L,D,C,R,V,U,A,USER>,STAFF extends UtilsStaff<L,D,C,R,V,U,A,USER,DOMAIN>,DOMAIN extends EjbWithId>
+		View build(V view)
+	{
+		View xml = new View();
+		
+		if(q.isSetCode()){xml.setCode(view.getCode());}
+		
+		if(q.isSetLangs())
+		{
+			XmlLangsFactory<L> f = new XmlLangsFactory<L>(q.getLangs());
+			xml.setLangs(f.getUtilsLangs(view.getName()));
+		}
+		
+		if(q.isSetDescriptions())
+		{
+			XmlDescriptionsFactory f = new XmlDescriptionsFactory(q.getDescriptions());
+			xml.setDescriptions(f.create(view.getDescription()));
 		}
 		
 		return xml;

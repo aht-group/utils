@@ -15,7 +15,7 @@
 	<composite:implementation>
 		<p:dataTable var="v" value="#{adminSecurityViewsBean.views}"
 			selection="#{adminSecurityViewsBean.view}" selectionMode="single" rowKey="#{v.id}">
-			<p:ajax event="rowSelect" update=":fView :sActions" listener="#{adminSecurityViewsBean.selectView}"/>  
+			<p:ajax event="rowSelect" update=":sActions" listener="#{adminSecurityViewsBean.selectView}"/>  
             <p:column headerText="#{msg.aupSecurityView}">  
 				<h:outputText value="#{v.name[userBean.localeCode].lang}" />  
             </p:column>
