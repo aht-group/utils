@@ -3,4 +3,5 @@
     <s:langs/>
     <s:descriptions/>
     <sec:roles/>
+    <acl:views/>
 </sec:category>
