@@ -4,12 +4,14 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import net.sf.ahtutils.controller.util.query.StatusQuery;
-import net.sf.ahtutils.xml.access.Action;
+import net.sf.ahtutils.factory.xml.security.XmlActionsFactory;
+import net.sf.ahtutils.factory.xml.security.XmlViewsFactory;
 import net.sf.ahtutils.xml.access.View;
 import net.sf.ahtutils.xml.aht.Query;
 import net.sf.ahtutils.xml.security.Category;
 import net.sf.ahtutils.xml.security.Role;
 import net.sf.ahtutils.xml.security.Staff;
+import net.sf.ahtutils.xml.security.Usecase;
 import net.sf.ahtutils.xml.security.User;
 import net.sf.ahtutils.xml.status.Domain;
 
@@ -103,12 +105,36 @@ public class SecurityQuery
 		return xml;
 	}
 	
-	public static Action exAction()
+	public static net.sf.ahtutils.xml.security.Action exAction()
 	{
-		Action xml = new Action();
+		net.sf.ahtutils.xml.security.Action xml = new net.sf.ahtutils.xml.security.Action();
 		xml.setCode("");
 		xml.setLangs(StatusQuery.langs());
 		xml.setDescriptions(StatusQuery.descriptions());
+		return xml;
+	}
+	
+	public static net.sf.ahtutils.xml.access.Action exActionAcl()
+	{
+		net.sf.ahtutils.xml.access.Action xml = new net.sf.ahtutils.xml.access.Action();
+		xml.setCode("");
+		xml.setLangs(StatusQuery.langs());
+		xml.setDescriptions(StatusQuery.descriptions());
+		return xml;
+	}
+	
+	public static Usecase exUsecase()
+	{
+		net.sf.ahtutils.xml.security.Action action = new net.sf.ahtutils.xml.security.Action();action.setCode("");
+		net.sf.ahtutils.xml.security.View view = new net.sf.ahtutils.xml.security.View();view.setCode("");
+		
+		Usecase xml = new Usecase();
+		xml.setCode("");
+		xml.setLangs(StatusQuery.langs());
+		xml.setDescriptions(StatusQuery.descriptions());
+		xml.setActions(XmlActionsFactory.build());xml.getActions().getAction().add(action);
+		xml.setViews(XmlViewsFactory.build());xml.getViews().getView().add(view);
+		
 		return xml;
 	}
 }

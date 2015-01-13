@@ -10,12 +10,12 @@ import net.sf.ahtutils.model.interfaces.security.UtilsSecurityUsecase;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityView;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
-import net.sf.ahtutils.xml.security.Action;
+import net.sf.ahtutils.xml.security.Usecase;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class XmlActionFactory <L extends UtilsLang,
+public class XmlUsecaseFactory <L extends UtilsLang,
 								D extends UtilsDescription, 
 								C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
 								R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
@@ -24,56 +24,45 @@ public class XmlActionFactory <L extends UtilsLang,
 								A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
 								USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
 {
-	final static Logger logger = LoggerFactory.getLogger(XmlActionFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(XmlUsecaseFactory.class);
 		
-	private net.sf.ahtutils.xml.security.Action q;
-	private net.sf.ahtutils.xml.access.Action qAcl;
+	private Usecase q;
 	
-	public XmlActionFactory(net.sf.ahtutils.xml.security.Action q)
+	public XmlUsecaseFactory(Usecase q)
 	{
 		this.q=q;
 	}
-	public XmlActionFactory(net.sf.ahtutils.xml.access.Action qAcl)
-	{
-		this.qAcl=qAcl;
-	}
 	
 
-	public net.sf.ahtutils.xml.security.Action build(A action)
+	public Usecase build(U usecase)
 	{
-		Action xml = new Action();
-		if(q.isSetCode()){xml.setCode(action.getCode());}
+		Usecase xml = new Usecase();
+		if(q.isSetCode()){xml.setCode(usecase.getCode());}
 		
 		if(q.isSetLangs())
 		{
 			XmlLangsFactory<L> f = new XmlLangsFactory<L>(q.getLangs());
-			xml.setLangs(f.getUtilsLangs(action.getName()));
+			xml.setLangs(f.getUtilsLangs(usecase.getName()));
 		}
 		
 		if(q.isSetDescriptions())
 		{
 			XmlDescriptionsFactory<D> f = new XmlDescriptionsFactory<D>(q.getDescriptions());
-			xml.setDescriptions(f.create(action.getDescription()));
-		}
-		return xml;
-	}
-	
-	public net.sf.ahtutils.xml.access.Action create(A action)
-	{
-		net.sf.ahtutils.xml.access.Action xml = new net.sf.ahtutils.xml.access.Action();
-		if(qAcl.isSetCode()){xml.setCode(action.getCode());}
-		
-		if(qAcl.isSetLangs())
-		{
-			XmlLangsFactory<L> f = new XmlLangsFactory<L>(qAcl.getLangs());
-			xml.setLangs(f.getUtilsLangs(action.getName()));
+			xml.setDescriptions(f.create(usecase.getDescription()));
 		}
 		
-		if(qAcl.isSetDescriptions())
+		if(q.isSetViews())
 		{
-			XmlDescriptionsFactory<D> f = new XmlDescriptionsFactory<D>(qAcl.getDescriptions());
-			xml.setDescriptions(f.create(action.getDescription()));
+			XmlViewsFactory<L,D,C,R,V,U,A,USER> f = new XmlViewsFactory<L,D,C,R,V,U,A,USER>(q.getViews());
+			xml.setViews(f.build(usecase.getViews()));
 		}
+		
+		if(q.isSetActions())
+		{
+			XmlActionsFactory<L,D,C,R,V,U,A,USER> f = new XmlActionsFactory<L,D,C,R,V,U,A,USER>(q.getActions());
+			xml.setActions(f.build(usecase.getActions()));
+		}
+		
 		return xml;
 	}
 }

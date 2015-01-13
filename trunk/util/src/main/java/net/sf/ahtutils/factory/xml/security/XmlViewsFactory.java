@@ -10,12 +10,12 @@ import net.sf.ahtutils.model.interfaces.security.UtilsSecurityUsecase;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityView;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
-import net.sf.ahtutils.xml.security.Actions;
+import net.sf.ahtutils.xml.security.Views;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class XmlActionsFactory <L extends UtilsLang,
+public class XmlViewsFactory <L extends UtilsLang,
 								D extends UtilsDescription, 
 								C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,
 								R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,
@@ -24,35 +24,30 @@ public class XmlActionsFactory <L extends UtilsLang,
 								A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
 								USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
 {
-	final static Logger logger = LoggerFactory.getLogger(XmlActionsFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(XmlViewsFactory.class);
 		
-	private Actions q;
+	private Views q;
 	
-	public XmlActionsFactory(Actions q)
+	public XmlViewsFactory(Views q)
 	{
 		this.q=q;
 	}
 	
 
-	public Actions build(List<A> actions)
+	public  Views build(List<V> views)
 	{
-		XmlActionFactory<L,D,C,R,V,U,A,USER> f = new XmlActionFactory<L,D,C,R,V,U,A,USER>(q.getAction().get(0));
+		XmlViewFactory<L,D,C,R,V,U,A,USER> f = new XmlViewFactory<L,D,C,R,V,U,A,USER>(q.getView().get(0));
 		
-		Actions xml = build();
-		for(A action : actions)
+		Views xml = build();
+		for(V view : views)
 		{
-			xml.getAction().add(f.build(action));
+			xml.getView().add(f.build(view));
 		}
 		return xml;
 	}
 	
-	public static Actions build()
+	public static Views build()
 	{
-		return new Actions();
-	}
-	
-	public static net.sf.ahtutils.xml.access.Actions create()
-	{
-		return new net.sf.ahtutils.xml.access.Actions();
+		return new Views();
 	}
 }

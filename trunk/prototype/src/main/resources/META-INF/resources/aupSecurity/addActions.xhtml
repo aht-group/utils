@@ -11,23 +11,46 @@
 	
 	<composite:interface>
 		<composite:attribute name="bean" required="true"/>
-		<composite:attribute name="bean" required="true"/>
+		<composite:attribute name="actions" required="true"/>
 		<composite:attribute name="update" required="true"/>
 	</composite:interface>
 	
 	<composite:implementation>
-		<p:dataTable id="dtViews" var="v" value="#{adminSecurityRolesBean.role.views}"
-						 selection="#{projectCoverageBean.cell}" selectionMode="single" rowKey="#{v.id}">
-				<f:facet name="header">
-					<aht:pfDataTableHeader id="dth" title="#{msg.aupSecurityActions}">
-						<h:graphicImage id="giVillageSelection" styleClass="pf-panel-header-action-icon" library="gfx" name="#{iconBean.icon12['new']}"/>
-					</aht:pfDataTableHeader>
-				</f:facet>
-				<p:ajax event="rowSelect" update="#{cc.attrs.update}" listener="#{projectCoverageBean.selectCell}"/>
-				<p:column headerText="#{msg.aupSecurityView}">
-					<h:outputText value="#{v.id}" />
+		<p:dataTable id="dtActions" var="a" value="#{cc.attrs.actions}"
+						 selection="#{cc.attrs.bean.tblAction}" selectionMode="single" rowKey="#{a.id}">
+			<f:facet name="header">
+				<aht:pfDataTableHeader id="dth" title="#{msg.aupSecurityActions}">
+					<h:graphicImage id="giActionAdd" styleClass="pf-panel-header-action-icon" library="gfx" name="#{iconBean.icon12['new']}"/>
+				</aht:pfDataTableHeader>
+			</f:facet>
+			<p:ajax event="rowSelect" update="#{cc.attrs.update}" listener="#{cc.attrs.bean.selectTblAction}"/>
+			<p:column headerText="#{msg.aupSecurityView}" >
+				<h:outputText value="#{a.view.name[userBean.localeCode].lang}" />
+			</p:column>
+			<p:column headerText="#{msg.aupSecurityCode}">
+				<h:outputText value="#{a.code}" />
+			</p:column>
+			<p:column headerText="#{msg.aupSecurityAction}">
+				<h:outputText value="#{a.name[userBean.localeCode].lang}" />
+			</p:column>
+		</p:dataTable>
+		<p:overlayPanel for="dtActions:dth:giActionAdd" widgetVar="wvOpActionSelection" appendToBody="false">
+			<p:dataTable id="dtOpSector" var="a" value="#{cc.attrs.bean.opActions}" rowKey="#{a.id}"
+                         selection="#{cc.attrs.bean.opAction}" selectionMode="single"
+                         filteredValue="#{cc.attrs.bean.opFvActions}"
+                         rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+				<p:ajax event="rowSelect" update="#{cc.attrs.update}" listener="#{cc.attrs.bean.opAddAction}" oncomplete="PF('wvOpActionSelection').hide();"/>
+				<p:column headerText="#{msg.aupSecurityView}" sortBy="#{a.view.name[userBean.localeCode].lang}" filterBy="#{a.view.name[userBean.localeCode].lang}" filterMatchMode="contains">
+					<h:outputText value="#{a.view.name[userBean.localeCode].lang}" />
+				</p:column>
+				<p:column headerText="#{msg.aupSecurityCode}">
+					<h:outputText value="#{a.code}" />
+				</p:column>
+				<p:column headerText="#{msg.aupSecurityView}" sortBy="#{a.view.name[userBean.localeCode].lang}" filterBy="#{a.view.name[userBean.localeCode].lang}" filterMatchMode="contains">
+					<h:outputText value="#{a.name[userBean.localeCode].lang}" />
 				</p:column>
 			</p:dataTable>
+		</p:overlayPanel>
 			
 	</composite:implementation>
 </html>

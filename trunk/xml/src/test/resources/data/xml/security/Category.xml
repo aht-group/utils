@@ -3,5 +3,7 @@
     <s:langs/>
     <s:descriptions/>
     <sec:roles/>
+    <sec:actions/>
+    <sec:usecases/>
     <acl:views/>
 </sec:category>

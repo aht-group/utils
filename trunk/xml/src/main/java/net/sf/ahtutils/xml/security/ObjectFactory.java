@@ -62,6 +62,54 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Usecase }
+     * 
+     */
+    public Usecase createUsecase() {
+        return new Usecase();
+    }
+
+    /**
+     * Create an instance of {@link Actions }
+     * 
+     */
+    public Actions createActions() {
+        return new Actions();
+    }
+
+    /**
+     * Create an instance of {@link Action }
+     * 
+     */
+    public Action createAction() {
+        return new Action();
+    }
+
+    /**
+     * Create an instance of {@link Views }
+     * 
+     */
+    public Views createViews() {
+        return new Views();
+    }
+
+    /**
+     * Create an instance of {@link View }
+     * 
+     */
+    public View createView() {
+        return new View();
+    }
+
+    /**
+     * Create an instance of {@link Security }
+     * 
+     */
+    public Security createSecurity() {
+        return new Security();
+    }
+
+    /**
      * Create an instance of {@link Category }
      * 
      */
@@ -78,19 +126,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Rule }
+     * Create an instance of {@link Usecases }
      * 
      */
-    public Rule createRule() {
-        return new Rule();
-    }
-
-    /**
-     * Create an instance of {@link Security }
-     * 
-     */
-    public Security createSecurity() {
-        return new Security();
+    public Usecases createUsecases() {
+        return new Usecases();
     }
 
     /**
@@ -99,6 +139,14 @@ public class ObjectFactory {
      */
     public Password createPassword() {
         return new Password();
+    }
+
+    /**
+     * Create an instance of {@link Rule }
+     * 
+     */
+    public Rule createRule() {
+        return new Rule();
     }
 
 }

@@ -60,6 +60,25 @@ public class AbstractAdminSecurityBean <L extends UtilsLang,
 	public V getOpView(){return opView;}
 	public void setOpView(V opView){this.opView = opView;}
 	
+	protected V tblView;
+	public V getTblView(){return tblView;}
+	public void setTblView(V tblView){this.tblView = tblView;}
+	
+	//OP Actions
+	protected List<A> opActions;
+	public List<A> getOpActions(){return opActions;}
+	
+	private List<V> opFvActions;
+	public List<V> getOpFvActions(){return opFvActions;}
+	public void setOpFvActions(List<V> opFvActions){this.opFvActions = opFvActions;}
+
+	protected A opAction;
+	public A getOpAction(){return opAction;}
+	public void setOpAction(A opAction){this.opAction = opAction;}
+	
+	protected A tblAction;
+	public A getTblAction(){return tblAction;}
+	public void setTblAction(A tblAction){this.tblAction = tblAction;}
 	
 	protected String[] langs;
 	

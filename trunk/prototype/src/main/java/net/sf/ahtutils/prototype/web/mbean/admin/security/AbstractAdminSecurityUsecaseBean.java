@@ -52,6 +52,7 @@ public class AbstractAdminSecurityUsecaseBean <L extends UtilsLang,
 	{
 		initSecuritySuper(cLang,cDescription,cCategory,cRole,cView,cUsecase,cAction,cUser,langs);
 		opViews = fSecurity.all(cView);
+		opActions = fSecurity.all(cAction);
 		reloadCategories();
 	}
 	
@@ -122,6 +123,24 @@ public class AbstractAdminSecurityUsecaseBean <L extends UtilsLang,
 			usecase = fSecurity.save(usecase);
 			opView = null;
 			selectUsecase();
+		}
+	}
+	public void opAddAction() throws UtilsContraintViolationException, UtilsLockingException
+	{
+		logger.trace(AbstractLogMessage.selectOverlayPanel(opAction));
+		logger.trace("Size: "+usecase.getActions().size());
+		logger.trace("contains: "+usecase.getActions().contains(opAction));
+		if(!usecase.getActions().contains(opAction))
+		{
+			logger.trace("Adding");
+			usecase.getActions().add(opAction);
+			usecase = fSecurity.save(usecase);
+			opAction = null;
+			selectUsecase();
+		}
+		else
+		{
+			logger.trace("Already there");
 		}
 	}
 	

@@ -8,7 +8,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import net.sf.ahtutils.xml.access.Views;
 import net.sf.ahtutils.xml.status.Descriptions;
 import net.sf.ahtutils.xml.status.Langs;
 
@@ -23,15 +22,14 @@ import net.sf.ahtutils.xml.status.Langs;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://ahtutils.aht-group.com/status}langs"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}descriptions"/>
- *         &lt;element ref="{http://ahtutils.aht-group.com/security}roles"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/status}langs"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/security}actions"/>
- *         &lt;element ref="{http://ahtutils.aht-group.com/security}usecases"/>
- *         &lt;element ref="{http://ahtutils.aht-group.com/access}views"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/security}views"/>
  *       &lt;/sequence>
+ *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" />
  *       &lt;attribute name="code" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="index" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *       &lt;attribute name="label" type="{http://www.w3.org/2001/XMLSchema}string" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -41,63 +39,31 @@ import net.sf.ahtutils.xml.status.Langs;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "langs",
     "descriptions",
-    "roles",
+    "langs",
     "actions",
-    "usecases",
     "views"
 })
-@XmlRootElement(name = "category")
-public class Category
+@XmlRootElement(name = "usecase")
+public class Usecase
     implements Serializable
 {
 
     private final static long serialVersionUID = 1L;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
-    protected Langs langs;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
     protected Descriptions descriptions;
-    @XmlElement(required = true)
-    protected Roles roles;
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
+    protected Langs langs;
     @XmlElement(required = true)
     protected Actions actions;
     @XmlElement(required = true)
-    protected Usecases usecases;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/access", required = true)
     protected Views views;
+    @XmlAttribute(name = "id")
+    protected Long id;
     @XmlAttribute(name = "code")
     protected String code;
-    @XmlAttribute(name = "index")
-    protected Integer index;
-
-    /**
-     * Gets the value of the langs property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Langs }
-     *     
-     */
-    public Langs getLangs() {
-        return langs;
-    }
-
-    /**
-     * Sets the value of the langs property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Langs }
-     *     
-     */
-    public void setLangs(Langs value) {
-        this.langs = value;
-    }
-
-    public boolean isSetLangs() {
-        return (this.langs!= null);
-    }
+    @XmlAttribute(name = "label")
+    protected String label;
 
     /**
      * Gets the value of the descriptions property.
@@ -128,31 +94,31 @@ public class Category
     }
 
     /**
-     * Gets the value of the roles property.
+     * Gets the value of the langs property.
      * 
      * @return
      *     possible object is
-     *     {@link Roles }
+     *     {@link Langs }
      *     
      */
-    public Roles getRoles() {
-        return roles;
+    public Langs getLangs() {
+        return langs;
     }
 
     /**
-     * Sets the value of the roles property.
+     * Sets the value of the langs property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Roles }
+     *     {@link Langs }
      *     
      */
-    public void setRoles(Roles value) {
-        this.roles = value;
+    public void setLangs(Langs value) {
+        this.langs = value;
     }
 
-    public boolean isSetRoles() {
-        return (this.roles!= null);
+    public boolean isSetLangs() {
+        return (this.langs!= null);
     }
 
     /**
@@ -184,34 +150,6 @@ public class Category
     }
 
     /**
-     * Gets the value of the usecases property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Usecases }
-     *     
-     */
-    public Usecases getUsecases() {
-        return usecases;
-    }
-
-    /**
-     * Sets the value of the usecases property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Usecases }
-     *     
-     */
-    public void setUsecases(Usecases value) {
-        this.usecases = value;
-    }
-
-    public boolean isSetUsecases() {
-        return (this.usecases!= null);
-    }
-
-    /**
      * Gets the value of the views property.
      * 
      * @return
@@ -237,6 +175,38 @@ public class Category
 
     public boolean isSetViews() {
         return (this.views!= null);
+    }
+
+    /**
+     * Gets the value of the id property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Long }
+     *     
+     */
+    public long getId() {
+        return id;
+    }
+
+    /**
+     * Sets the value of the id property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Long }
+     *     
+     */
+    public void setId(long value) {
+        this.id = value;
+    }
+
+    public boolean isSetId() {
+        return (this.id!= null);
+    }
+
+    public void unsetId() {
+        this.id = null;
     }
 
     /**
@@ -268,35 +238,31 @@ public class Category
     }
 
     /**
-     * Gets the value of the index property.
+     * Gets the value of the label property.
      * 
      * @return
      *     possible object is
-     *     {@link Integer }
+     *     {@link String }
      *     
      */
-    public int getIndex() {
-        return index;
+    public String getLabel() {
+        return label;
     }
 
     /**
-     * Sets the value of the index property.
+     * Sets the value of the label property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Integer }
+     *     {@link String }
      *     
      */
-    public void setIndex(int value) {
-        this.index = value;
+    public void setLabel(String value) {
+        this.label = value;
     }
 
-    public boolean isSetIndex() {
-        return (this.index!= null);
-    }
-
-    public void unsetIndex() {
-        this.index = null;
+    public boolean isSetLabel() {
+        return (this.label!= null);
     }
 
 }

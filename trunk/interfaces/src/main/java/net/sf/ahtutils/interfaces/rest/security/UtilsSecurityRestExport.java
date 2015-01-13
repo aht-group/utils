@@ -16,4 +16,8 @@ public interface UtilsSecurityRestExport
 	@GET @Path("/security/roles")
 	@Produces(MediaType.APPLICATION_XML)
 	Security exportSecurityRoles();
+	
+	@GET @Path("/security/usecases")
+	@Produces(MediaType.APPLICATION_XML)
+	Security exportSecurityUsecases();
 }

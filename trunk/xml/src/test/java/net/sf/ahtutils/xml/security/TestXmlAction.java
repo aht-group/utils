@@ -3,9 +3,6 @@ package net.sf.ahtutils.xml.security;
 import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
-import net.sf.ahtutils.xml.access.TestXmlActions;
-import net.sf.ahtutils.xml.access.TestXmlUsecases;
-import net.sf.ahtutils.xml.access.TestXmlViews;
 import net.sf.ahtutils.xml.status.TestXmlDescriptions;
 import net.sf.ahtutils.xml.status.TestXmlLangs;
 import net.sf.exlp.util.xml.JaxbUtil;
@@ -15,23 +12,23 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestXmlRole extends AbstractXmlSecurityTest
+public class TestXmlAction extends AbstractXmlSecurityTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestXmlRole.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlAction.class);
 	
-	@BeforeClass public static void initFiles() {setXmlFile(dirSuffix,Role.class);}
+	@BeforeClass public static void initFiles() {setXmlFile(dirSuffix,Action.class);}
     
     @Test
     public void testXml() throws FileNotFoundException
     {
-    	Role actual = create(true);
-    	Role expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Role.class);
+    	Action actual = create(true);
+    	Action expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Action.class);
     	assertJaxbEquals(expected, actual);
     }
     
-    public static Role create(boolean withChilds)
+    public static Action create(boolean withChilds)
     {
-    	Role xml = new Role();
+    	Action xml = new Action();
     	xml.setId(123);
     	xml.setCode("myCode");
     	xml.setLabel("myLabel");
@@ -40,9 +37,7 @@ public class TestXmlRole extends AbstractXmlSecurityTest
     	{
     		xml.setLangs(TestXmlLangs.create(false));
     		xml.setDescriptions(TestXmlDescriptions.create(false));
-    		xml.setActions(TestXmlActions.create(false));
-    		xml.setViews(TestXmlViews.create(false));
-    		xml.setUsecases(TestXmlUsecases.create(false));
+
     	}
     	return xml;
     }
@@ -53,8 +48,8 @@ public class TestXmlRole extends AbstractXmlSecurityTest
     {
 		UtilsXmlTestBootstrap.init();
 			
-		TestXmlRole.initFiles();	
-		TestXmlRole test = new TestXmlRole();
+		TestXmlAction.initFiles();	
+		TestXmlAction test = new TestXmlAction();
 		test.save();
     }
 }
