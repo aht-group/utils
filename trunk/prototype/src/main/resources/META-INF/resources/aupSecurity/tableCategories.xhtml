@@ -6,23 +6,18 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:aht="http://ahtutils.sourceforge.net/jsf"
 	xmlns:composite="http://java.sun.com/jsf/composite">
 	
 	<composite:interface>
-
+		<composite:attribute name="bean" required="true"/>
+		<composite:attribute name="update" required="true"/>
 	</composite:interface>
 	
 	<composite:implementation>
-		<p:dataTable var="c" value="#{adminSecurityUsecaseBean.categories}"
-			selection="#{adminSecurityUsecaseBean.category}" selectionMode="single" rowKey="#{c.id}">
-			<f:facet name="header">
-				<aht:pfDataTableHeader title="#{msg.ComplianceTemplates}">
-					<aht:icon type="aupAdd" listener="#{adminSecurityUsecaseBean.addCategory()}" update=":fCategory"/>
-				</aht:pfDataTableHeader>
-			</f:facet>
-			<p:ajax event="rowSelect" update=":fCategory" listener="#{adminSecurityUsecaseBean.selectCategory}"/>  
-            <p:column headerText="#{msg.aupSecurityCode}">  
+		<p:dataTable var="c" value="#{cc.attrs.bean.categories}"
+			selection="#{cc.attrs.bean.category}" selectionMode="single" rowKey="#{c.id}">
+			<p:ajax event="rowSelect" update="#{cc.attrs.update}" listener="#{cc.attrs.bean.selectCategory}"/>  
+            <p:column headerText="#{msg.aupSecurityCategory}">  
 				<h:outputText value="#{c.name[userBean.localeCode].lang}" />  
             </p:column>
        	</p:dataTable>

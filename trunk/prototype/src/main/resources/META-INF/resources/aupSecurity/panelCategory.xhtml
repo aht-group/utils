@@ -10,19 +10,20 @@
 	xmlns:composite="http://java.sun.com/jsf/composite">
 	
 	<composite:interface>
-
+		<composite:attribute name="bean" required="true"/>
+		<composite:attribute name="update" required="true"/>
 	</composite:interface>
 	
 	<composite:implementation>
-		<p:panel header="#{msg.aupSecurityCategory}" styleClass="auPanelWithGrid">
+		<p:panel header="#{msg.aupSecurityCategory}" styleClass="auPanelWithGrid" rendered="#{not empty cc.attrs.bean.category}">
 			<f:facet name="actions">
-				<aht:icon type="save" listener="#{adminSecurityUsecaseBean.saveCategory()}" update=":sCategories"/>
+				<aht:icon type="save" listener="#{cc.attrs.bean.saveCategory()}" update=":sCategories"/>
 			</f:facet>
 			<h:panelGrid columns="2" columnClasses="col1,col2" styleClass="auCleanPanelGrid">
 				<p:outputLabel value="#{msg.aupSecurityCode}"/>
-				<p:inputText value="#{adminSecurityUsecaseBean.category.code}"/>
+				<h:outputText value="#{cc.attrs.bean.category.code}"/>
 			</h:panelGrid>
-			<aht:tabTranslationEditor value="#{adminSecurityUsecaseBean.category}"
+			<aht:tabTranslationEditor value="#{cc.attrs.bean.category}"
 					labelTranslation="#{msg.Name}" labelDescription="#{msg.Description}"
        				keys="#{translationBean.langKeys}" withDescription="true"/>
 		</p:panel>

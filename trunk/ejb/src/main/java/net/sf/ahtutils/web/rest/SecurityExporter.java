@@ -78,7 +78,7 @@ public class SecurityExporter <L extends UtilsLang,D extends UtilsDescription,C 
 		
 		for(C category : fSecurity.all(cCategory))
 		{
-			if(category.getType().equals("view"))
+			if(category.getType().equals(UtilsSecurityCategory.Type.view.toString()))
 			{
 				try
 				{
@@ -99,9 +99,32 @@ public class SecurityExporter <L extends UtilsLang,D extends UtilsDescription,C 
 					xml.getCategory().add(xmlCat);
 				}
 				catch (UtilsNotFoundException e) {e.printStackTrace();}
-
 			}
-			
+		}		
+		return xml;
+	}
+
+	@Override
+	public Security exportSecurityRoles()
+	{
+		Security xml = XmlSecurityFactory.build();
+		
+		XmlCategoryFactory<L,D,C,R,V,U,A,USER> f = new XmlCategoryFactory<L,D,C,R,V,U,A,USER>(null,SecurityQuery.exCategory());
+		XmlActionFactory<L,D,C,R,V,U,A,USER> fAction = new XmlActionFactory<L,D,C,R,V,U,A,USER>(SecurityQuery.exAction());
+		XmlViewFactory fView = new XmlViewFactory(SecurityQuery.exView(),null);
+		
+		for(C category : fSecurity.all(cCategory))
+		{
+			if(category.getType().equals(UtilsSecurityCategory.Type.role.toString()))
+			{
+//				try
+				{
+					net.sf.ahtutils.xml.security.Category xmlCat = f.build(category);
+					
+					xml.getCategory().add(xmlCat);
+				}
+//				catch (UtilsNotFoundException e) {e.printStackTrace();}
+			}
 		}		
 		return xml;
 	}
