@@ -13,6 +13,7 @@
 		<composite:attribute name="bean" required="true"/>
 		<composite:attribute name="views" required="true"/>
 		<composite:attribute name="update" required="true"/>
+		<composite:attribute name="withRemove" required="false" default="true"/>
 	</composite:interface>
 	
 	<composite:implementation>
@@ -21,6 +22,7 @@
 				<f:facet name="header">
 					<aht:pfDataTableHeader id="dth" title="#{msg.aupSecurityViews}">
 						<h:graphicImage id="giViewAdd" styleClass="pf-panel-header-action-icon" library="gfx" name="#{iconBean.icon12['new']}"/>
+						<aht:icon rendered="#{cc.attrs.withRemove and (not empty cc.attrs.bean.tblView)}" type="remove" listener="#{cc.attrs.bean.opRmView()}" update="#{cc.attrs.update}"/>
 					</aht:pfDataTableHeader>
 				</f:facet>
 				<p:ajax event="rowSelect" update="#{cc.attrs.update}" listener="#{cc.attrs.bean.selectTblView}"/>

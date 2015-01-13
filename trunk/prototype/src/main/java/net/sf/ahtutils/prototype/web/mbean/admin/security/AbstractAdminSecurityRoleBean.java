@@ -53,6 +53,8 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 	{
 		initSecuritySuper(cLang,cDescription,cCategory,cRole,cView,cUsecase,cAction,cUser,langs);
 		opViews = fSecurity.all(cView);
+		opActions = fSecurity.all(cAction);
+		opUsecases = fSecurity.all(cUsecase);
 		reloadCategories();
 	}
 	
@@ -113,6 +115,8 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 		role=null;
 	}
 	
+
+	
 	//OverlayPanel
 	public void opAddView() throws UtilsContraintViolationException, UtilsLockingException
 	{
@@ -124,5 +128,56 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 			selectRole();
 		}
 	}
+	public void opAddAction() throws UtilsContraintViolationException, UtilsLockingException
+	{
+		if(!role.getActions().contains(opAction))
+		{
+			role.getActions().add(opAction);
+			role = fSecurity.save(role);
+			opAction = null;
+			selectRole();
+		}
+	}
+	public void opAddUsecase() throws UtilsContraintViolationException, UtilsLockingException
+	{
+		if(!role.getUsecases().contains(opUsecase))
+		{
+			role.getUsecases().add(opUsecase);
+			role = fSecurity.save(role);
+			opUsecase = null;
+			selectRole();
+		}
+	}
 	
+	//Overlay-Rm
+	public void opRmView() throws UtilsContraintViolationException, UtilsLockingException
+	{
+		if(tblView!=null && role.getViews().contains(tblView))
+		{
+			role.getViews().remove(tblView);
+			role = fSecurity.save(role);
+			tblView = null;
+			selectRole();
+		}
+	}
+	public void opRmAction() throws UtilsContraintViolationException, UtilsLockingException
+	{
+		if(tblAction!=null && role.getActions().contains(tblAction))
+		{
+			role.getActions().remove(tblAction);
+			role = fSecurity.save(role);
+			tblAction = null;
+			selectRole();
+		}
+	}
+	public void opRmUsecase() throws UtilsContraintViolationException, UtilsLockingException
+	{
+		if(tblUsecase!=null && role.getUsecases().contains(tblUsecase))
+		{
+			role.getUsecases().remove(tblUsecase);
+			role = fSecurity.save(role);
+			tblUsecase = null;
+			selectRole();
+		}
+	}
 }

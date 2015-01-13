@@ -17,6 +17,7 @@ import net.sf.ahtutils.model.interfaces.security.UtilsSecurityUsecase;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityView;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
+import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,6 +81,23 @@ public class AbstractAdminSecurityBean <L extends UtilsLang,
 	public A getTblAction(){return tblAction;}
 	public void setTblAction(A tblAction){this.tblAction = tblAction;}
 	
+	//OP Usecases
+	protected List<U> opUsecases;
+	public List<U> getOpUsecases(){return opUsecases;}
+	
+	private List<U> opFvUsecases;
+	public List<U> getOpFvUsecases(){return opFvUsecases;}
+	public void setOpFvUsecases(List<U> opFvUsecases){this.opFvUsecases = opFvUsecases;}
+
+	protected U opUsecase;
+	public U getOpUsecase(){return opUsecase;}
+	public void setOpUsecase(U opUsecase){this.opUsecase = opUsecase;}
+	
+	protected U tblUsecase;
+	public U getTblUsecase(){return tblUsecase;}
+	public void setTblUsecase(U tblUsecase){this.tblUsecase = tblUsecase;}
+	
+	
 	protected String[] langs;
 	
 	public void initSecuritySuper(final Class<L> cLang, final Class<D> cDescription, final Class<C> cCategory, final Class<R> cRole, final Class<V> cView, final Class<U> cUsecase, final Class<A> cAction, final Class<USER> cUser, String[] langs)
@@ -97,5 +115,9 @@ public class AbstractAdminSecurityBean <L extends UtilsLang,
 		efRole = EjbSecurityRoleFactory.factory(cLang,cDescription,cCategory,cRole,cView,cUsecase,cAction,cUser);
 		efUsecase = EjbSecurityUsecaseFactory.factory(cLang,cDescription,cCategory,cRole,cView,cUsecase,cAction,cUser);
 	}
+	
+	public void selectTblAction() {logger.info(AbstractLogMessage.selectEntity(tblAction));}
+	public void selectTblView() {logger.info(AbstractLogMessage.selectEntity(tblView));}
+	public void selectTblUsecase() {logger.info(AbstractLogMessage.selectEntity(tblUsecase));}
 	
 }
