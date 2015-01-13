@@ -1,5 +1,6 @@
 package net.sf.ahtutils.model.interfaces.security;
 
+import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
@@ -18,11 +19,10 @@ public interface UtilsSecurityUsecase<L extends UtilsLang,
 			extends EjbWithCode,
 					EjbWithLang<L>,
 					EjbWithDescription<D>,
+					UtilsSecurityWithCategory<L,D,C,R,V,U,A,USER>,
 					UtilsSecurityWithViews<L,D,C,R,V,U,A,USER>,
-					UtilsSecurityWithActions<L,D,C,R,V,U,A,USER>
+					UtilsSecurityWithActions<L,D,C,R,V,U,A,USER>,
+					EjbSaveable
 {
 	public static final String extractId = "securityUsecases";
-	
-	public C getCategory();
-	public void setCategory(C category);
 }

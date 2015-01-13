@@ -21,6 +21,13 @@
     		<s:lang key="fr" translation="Category"/>
     	</s:langs>
     </s:translation>
+	<s:translation key="aupSecurityViews">
+    	<s:langs>
+    		<s:lang key="de" translation="Views"/>
+    		<s:lang key="en" translation="Views"/>
+    		<s:lang key="fr" translation="Views"/>
+    	</s:langs>
+    </s:translation>
 	<s:translation key="aupSecurityView">
     	<s:langs>
     		<s:lang key="de" translation="View"/>
@@ -60,5 +67,19 @@
     		<s:lang key="fr" translation="Actions"/>
     	</s:langs>
     </s:translation>
+	<s:translation key="aupSecurityUsecases">
+    	<s:langs>
+    		<s:lang key="de" translation="Use-Cases"/>
+    		<s:lang key="en" translation="Use-Cases"/>
+    		<s:lang key="fr" translation="Use-Cases"/>
+    	</s:langs>
+    </s:translation>    
+    	<s:translation key="aupSecurityUsecase">
+    	<s:langs>
+    		<s:lang key="de" translation="Use-Case"/>
+    		<s:lang key="en" translation="Use-Case"/>
+    		<s:lang key="fr" translation="Use-Case"/>
+    	</s:langs>
+    </s:translation> 
     
 </s:translations>

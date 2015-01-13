@@ -12,20 +12,20 @@
 	<composite:interface>
 		<composite:attribute name="bean" required="true"/>
 		<composite:attribute name="update" required="true"/>
-		<composite:attribute name="withAdd" required="false" default="false"/>
 	</composite:interface>
 	
 	<composite:implementation>
-		<p:dataTable var="c" value="#{cc.attrs.bean.categories}"
-			selection="#{cc.attrs.bean.category}" selectionMode="single" rowKey="#{c.id}">
+		<p:dataTable var="u" value="#{cc.attrs.bean.usecases}"
+			rendered="#{not empty cc.attrs.bean.category}"
+			selection="#{cc.attrs.bean.usecase}" selectionMode="single" rowKey="#{u.id}">
 			<f:facet name="header">
-				<aht:pfDataTableHeader title="#{msg.aupSecurityCategories}">
-					<aht:icon rendered="#{cc.attrs.withAdd}" type="add" listener="#{cc.attrs.bean.addCategory()}" update="#{cc.attrs.update}"/>
+				<aht:pfDataTableHeader title="#{msg.aupSecurityUsecases}">
+					<aht:icon type="add" listener="#{cc.attrs.bean.addUsecase()}" update="#{cc.attrs.update}"/>
 				</aht:pfDataTableHeader>
 			</f:facet>
-			<p:ajax event="rowSelect" update="#{cc.attrs.update}" listener="#{cc.attrs.bean.selectCategory}"/>  
-            <p:column headerText="#{msg.aupSecurityCategory}">  
-				<h:outputText value="#{c.name[userBean.localeCode].lang}" />  
+			<p:ajax event="rowSelect" update="#{cc.attrs.update}" listener="#{cc.attrs.bean.selectUsecase}"/>  
+            <p:column headerText="#{msg.aupSecurityUsecase}">  
+				<h:outputText value="#{u.name[userBean.localeCode].lang}" />  
             </p:column>
        	</p:dataTable>
 	</composite:implementation>
