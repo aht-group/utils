@@ -6,7 +6,7 @@ import net.sf.ahtutils.xml.status.Lang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class XmlLangFactory <L extends UtilsLang>
+public class XmlLangFactory<L extends UtilsLang>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlLangFactory.class);
 		

@@ -24,6 +24,7 @@ public class XmlViewFactory
 	final static Logger logger = LoggerFactory.getLogger(XmlViewFactory.class);
 		
 	private View q;
+	@SuppressWarnings("unused")
 	private String lang;
 	
 	public XmlViewFactory(View q, String lang)
@@ -41,13 +42,13 @@ public class XmlViewFactory
 		
 		if(q.isSetLangs())
 		{
-			XmlLangsFactory f = new XmlLangsFactory(q.getLangs());
+			XmlLangsFactory<L> f = new XmlLangsFactory<L>(q.getLangs());
 			xml.setLangs(f.getUtilsLangs(usecase.getName()));
 		}
 		
 		if(q.isSetDescriptions())
 		{
-			XmlDescriptionsFactory f = new XmlDescriptionsFactory(q.getDescriptions());
+			XmlDescriptionsFactory<D> f = new XmlDescriptionsFactory<D>(q.getDescriptions());
 			xml.setDescriptions(f.create(usecase.getDescription()));
 		}
 		
@@ -69,7 +70,7 @@ public class XmlViewFactory
 		
 		if(q.isSetDescriptions())
 		{
-			XmlDescriptionsFactory f = new XmlDescriptionsFactory(q.getDescriptions());
+			XmlDescriptionsFactory<D> f = new XmlDescriptionsFactory<D>(q.getDescriptions());
 			xml.setDescriptions(f.create(view.getDescription()));
 		}
 		

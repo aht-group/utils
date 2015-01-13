@@ -35,7 +35,7 @@ public class XmlRolesFactory <L extends UtilsLang,
 	}
 	
 
-	public  Roles build(List<R> roles)
+	public Roles build(List<R> roles)
 	{
 		Role qRole = q.getRole().get(0);
 		XmlRoleFactory<L,D,C,R,V,U,A,USER> f = new XmlRoleFactory<L,D,C,R,V,U,A,USER>(qRole);
@@ -46,6 +46,12 @@ public class XmlRolesFactory <L extends UtilsLang,
 			xml.getRole().add(f.build(role));
 		}
 		return xml;
+		
+	}
+	
+	public static Roles build()
+	{
+		return new Roles();
 		
 	}
 }

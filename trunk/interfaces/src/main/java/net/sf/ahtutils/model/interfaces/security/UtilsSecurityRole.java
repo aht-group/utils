@@ -2,6 +2,8 @@ package net.sf.ahtutils.model.interfaces.security;
 
 import java.util.List;
 
+import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
+import net.sf.ahtutils.model.interfaces.crud.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
@@ -20,7 +22,8 @@ public interface UtilsSecurityRole<L extends UtilsLang,
 			extends EjbWithCode,EjbWithLang<L>,EjbWithDescription<D>,
 					UtilsSecurityWithCategory<L,D,C,R,V,U,A,USER>,
 					UtilsSecurityWithViews<L,D,C,R,V,U,A,USER>,
-					UtilsSecurityWithActions<L,D,C,R,V,U,A,USER>
+					UtilsSecurityWithActions<L,D,C,R,V,U,A,USER>,
+					EjbSaveable,EjbRemoveable
 {
 	public static final String extractId = "securityRoles";
 	

@@ -93,6 +93,16 @@ public class SecurityQuery
 		return xml;
 	}
 	
+	public static Role exRole()
+	{
+		Role xml = new Role();
+		xml.setCode("");
+		xml.setLangs(StatusQuery.langs());
+		xml.setDescriptions(StatusQuery.descriptions());
+		
+		return xml;
+	}
+	
 	public static Action exAction()
 	{
 		Action xml = new Action();

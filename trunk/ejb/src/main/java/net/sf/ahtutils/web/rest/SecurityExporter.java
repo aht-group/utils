@@ -2,10 +2,12 @@ package net.sf.ahtutils.web.rest;
 
 import net.sf.ahtutils.controller.factory.xml.acl.XmlViewFactory;
 import net.sf.ahtutils.controller.factory.xml.acl.XmlViewsFactory;
+import net.sf.ahtutils.controller.factory.xml.security.XmlRoleFactory;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.factory.xml.security.XmlActionFactory;
 import net.sf.ahtutils.factory.xml.security.XmlActionsFactory;
 import net.sf.ahtutils.factory.xml.security.XmlCategoryFactory;
+import net.sf.ahtutils.factory.xml.security.XmlRolesFactory;
 import net.sf.ahtutils.factory.xml.security.XmlSecurityFactory;
 import net.sf.ahtutils.factory.xml.security.XmlStaffFactory;
 import net.sf.ahtutils.interfaces.facade.UtilsSecurityFacade;
@@ -22,6 +24,7 @@ import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.util.query.SecurityQuery;
 import net.sf.ahtutils.xml.access.View;
+import net.sf.ahtutils.xml.security.Role;
 import net.sf.ahtutils.xml.security.Security;
 import net.sf.ahtutils.xml.security.Staffs;
 
@@ -38,20 +41,22 @@ public class SecurityExporter <L extends UtilsLang,D extends UtilsDescription,C 
 	private final Class<STAFF> cStaff;
 	private final Class<C> cCategory;
 	private final Class<V> cView;
+	private final Class<R> cRole;
 	
-	private SecurityExporter(UtilsSecurityFacade fSecurity,final Class<C> cCategory,final Class<V> cView,final Class<STAFF> cStaff)
+	private SecurityExporter(UtilsSecurityFacade fSecurity,final Class<C> cCategory,final Class<V> cView,final Class<R> cRole,final Class<STAFF> cStaff)
 	{
 		this.fSecurity=fSecurity;
 		this.cStaff=cStaff;
 		this.cCategory=cCategory;
+		this.cRole=cRole;
 		this.cView=cView;
 	}
 	
 	public static <L extends UtilsLang,D extends UtilsDescription,C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,USER extends UtilsUser<L,D,C,R,V,U,A,USER>,STAFF extends UtilsStaff<L,D,C,R,V,U,A,USER,DOMAIN>,DOMAIN extends EjbWithId>
 	SecurityExporter<L,D,C,R,V,U,A,USER,STAFF,DOMAIN>
-		factory(UtilsSecurityFacade fSecurity, final Class<C> cCategory, final Class<V> cView, final Class<STAFF> cStaff)
+		factory(UtilsSecurityFacade fSecurity, final Class<C> cCategory, final Class<V> cView, final Class<R> cRole, final Class<STAFF> cStaff)
 	{
-		return new SecurityExporter<L,D,C,R,V,U,A,USER,STAFF,DOMAIN>(fSecurity,cCategory,cView,cStaff);
+		return new SecurityExporter<L,D,C,R,V,U,A,USER,STAFF,DOMAIN>(fSecurity,cCategory,cView,cRole,cStaff);
 	}
 
 	public Staffs exportStaffs()
@@ -110,20 +115,28 @@ public class SecurityExporter <L extends UtilsLang,D extends UtilsDescription,C 
 		Security xml = XmlSecurityFactory.build();
 		
 		XmlCategoryFactory<L,D,C,R,V,U,A,USER> f = new XmlCategoryFactory<L,D,C,R,V,U,A,USER>(null,SecurityQuery.exCategory());
-		XmlActionFactory<L,D,C,R,V,U,A,USER> fAction = new XmlActionFactory<L,D,C,R,V,U,A,USER>(SecurityQuery.exAction());
-		XmlViewFactory fView = new XmlViewFactory(SecurityQuery.exView(),null);
+		XmlRoleFactory<L,D,C,R,V,U,A,USER> fRole = new XmlRoleFactory<L,D,C,R,V,U,A,USER>(SecurityQuery.exRole(),null);
 		
 		for(C category : fSecurity.all(cCategory))
 		{
 			if(category.getType().equals(UtilsSecurityCategory.Type.role.toString()))
 			{
-//				try
+				try
 				{
 					net.sf.ahtutils.xml.security.Category xmlCat = f.build(category);
+					xmlCat.setRoles(XmlRolesFactory.build());
+					for(R role : fSecurity.allForCategory(cRole, cCategory, category.getCode()))
+					{
+						role = fSecurity.load(cRole,role);
+						Role xRole = fRole.build(role);
+						
+						
+						xmlCat.getRoles().getRole().add(xRole);
+					}
 					
 					xml.getCategory().add(xmlCat);
 				}
-//				catch (UtilsNotFoundException e) {e.printStackTrace();}
+				catch (UtilsNotFoundException e) {e.printStackTrace();}
 			}
 		}		
 		return xml;

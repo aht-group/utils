@@ -2,8 +2,6 @@ package net.sf.ahtutils.controller.factory.xml.security;
 
 import java.util.List;
 
-import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryProjectRole;
-import net.sf.ahtutils.model.interfaces.acl.UtilsAclRole;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
@@ -45,7 +43,7 @@ public class XmlAclRolesFactory
 		
 		if(qProjectRoles.isSetRole())
 		{
-			XmlRoleFactory f = new XmlRoleFactory(qProjectRoles.getRole().get(0),lang);
+			XmlRoleFactory<L,D,C,R,V,U,A,USER> f = new XmlRoleFactory<L,D,C,R,V,U,A,USER>(qProjectRoles.getRole().get(0),lang);
 			for(R aclProjectRole : lRoles)
 			{
 				roles.getRole().add(f.create(aclProjectRole));

@@ -3,7 +3,7 @@ package net.sf.ahtutils.prototype.web.mbean.admin.security;
 import java.io.Serializable;
 import java.util.List;
 
-import net.sf.ahtutils.controller.factory.ejb.security.EjbSecurityActionFactory;
+import net.sf.ahtutils.controller.factory.ejb.security.EjbSecurityRoleFactory;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
@@ -41,11 +41,10 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 	
 	private EjbLangFactory<L> efLang;
 	private EjbDescriptionFactory<D> efDescription;
+	private EjbSecurityRoleFactory<L,D,C,R,V,U,A,USER> efRole;
 	
 	private Class<C> cCategory;
 	private Class<R> cRole;
-	private Class<V> cView;
-	private Class<A> cAction;
 	
 	private List<C> categories;
 	public List<C> getCategories() {return categories;}
@@ -57,9 +56,9 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 	public void setCategory(C category) {this.category = category;}
 	public C getCategory() {return category;}
 	
-	private V view;
-	public V getView(){return view;}
-	public void setView(V view) {this.view = view;}
+	private R role;
+	public R getRole(){return role;}
+	public void setRole(R role) {this.role = role;}
 	
 	private String[] langs;
 	
@@ -67,12 +66,11 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 	{
 		this.cCategory=cCategory;
 		this.cRole=cRole;
-		this.cView=cView;
-		this.cAction=cAction;
 		this.langs=langs;
 		
 		efLang = new EjbLangFactory<L>(cLang);
 		efDescription = new EjbDescriptionFactory<D>(cDescription);
+		efRole = EjbSecurityRoleFactory.factory(cLang,cDescription,cCategory,cRole,cView,cUsecase,cAction,cUser);
 		
 		reloadCategories();
 	}
@@ -84,13 +82,13 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 		category = efLang.persistMissingLangs(fSecurity,langs,category);
 		category = efDescription.persistMissingLangs(fSecurity,langs,category);
 		reloadRoles();
-		view=null;
+		role=null;
 	}
-	public void selectView()
+	public void selectRole()
 	{
-		logger.info(AbstractLogMessage.selectEntity(view));
-		view = efLang.persistMissingLangs(fSecurity,langs,view);
-		view = efDescription.persistMissingLangs(fSecurity,langs,view);
+		logger.info(AbstractLogMessage.selectEntity(role));
+		role = efLang.persistMissingLangs(fSecurity,langs,role);
+		role = efDescription.persistMissingLangs(fSecurity,langs,role);
 	}
 	
 	//RELOAD
@@ -111,12 +109,26 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 		category = fSecurity.save(category);
 		reloadCategories();
 	}
-	
-	public void saveView() throws UtilsContraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void saveRole() throws UtilsContraintViolationException, UtilsLockingException, UtilsNotFoundException
 	{
-		logger.info(AbstractLogMessage.saveEntity(view));
-		view = fSecurity.save(view);
+		logger.info(AbstractLogMessage.saveEntity(role));
+		role = fSecurity.save(role);
 		reloadRoles();
 	}
 
+	//Role
+	public void addRole() throws UtilsIntegrityException
+	{
+		logger.info(AbstractLogMessage.addEntity(cRole));
+		role = efRole.create(category,"");
+		role.setName(efLang.createEmpty(langs));
+		role.setDescription(efDescription.createEmpty(langs));
+	}
+	
+	public void rmRole() throws UtilsIntegrityException
+	{
+		logger.info(AbstractLogMessage.rmEntity(role));
+		fSecurity.rm(role);
+		role=null;
+	}
 }

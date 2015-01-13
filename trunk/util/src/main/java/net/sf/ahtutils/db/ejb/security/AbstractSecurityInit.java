@@ -25,6 +25,7 @@ import net.sf.ahtutils.xml.access.Actions;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.View;
 import net.sf.ahtutils.xml.access.Views;
+import net.sf.ahtutils.xml.security.Security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -112,7 +113,7 @@ public class AbstractSecurityInit <L extends UtilsLang,
 		ejbDescriptionFactory = EjbDescriptionFactory.createFactory(cD);
 	}
 	
-	protected void iuCategory(Access access, UtilsSecurityCategory.Type type) throws UtilsConfigurationException
+	@Deprecated protected void iuCategory(Access access, UtilsSecurityCategory.Type type) throws UtilsConfigurationException
 	{
 		logger.debug("i/u "+Category.class.getSimpleName()+" with "+access.getCategory().size()+" categories");
 		
@@ -163,7 +164,62 @@ public class AbstractSecurityInit <L extends UtilsLang,
 		logger.trace("initUpdateUsecaseCategories finished");
 	}
 	
-	protected void iuChilds(C aclCategory, Category category) throws UtilsConfigurationException
+	protected void iuCategory(Security security, UtilsSecurityCategory.Type type) throws UtilsConfigurationException
+	{
+		logger.debug("i/u "+Category.class.getSimpleName()+" with "+security.getCategory().size()+" categories");
+		
+		AhtDbEjbUpdater<C> updateCategory = AhtDbEjbUpdater.createFactory(cC);
+		
+		updateCategory.dbEjbs(fSecurity.allForType(cC,type.toString()));
+
+		for(net.sf.ahtutils.xml.security.Category category : security.getCategory())
+		{
+			updateCategory.actualAdd(category.getCode());
+			
+			C ejbCategory;
+			try
+			{
+				ejbCategory = fSecurity.fByCode(cC,category.getCode());
+				ejbLangFactory.rmLang(fSecurity,ejbCategory);
+				ejbDescriptionFactory.rmDescription(fSecurity,ejbCategory);
+			}
+			catch (UtilsNotFoundException e)
+			{
+				try
+				{
+					ejbCategory = cC.newInstance();
+					ejbCategory.setType(type.toString());
+					ejbCategory.setCode(category.getCode());
+					ejbCategory = (C)fSecurity.persist(ejbCategory);
+				}
+				catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+				catch (IllegalAccessException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+				catch (UtilsContraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
+			}
+			
+			try
+			{
+				ejbCategory.setName(ejbLangFactory.getLangMap(category.getLangs()));
+				ejbCategory.setDescription(ejbDescriptionFactory.create(category.getDescriptions()));
+				ejbCategory=(C)fSecurity.update(ejbCategory);
+				iuChilds(ejbCategory,category);
+			}
+			catch (UtilsContraintViolationException e) {logger.error("",e);}
+			catch (InstantiationException e) {logger.error("",e);}
+			catch (IllegalAccessException e) {logger.error("",e);}
+			catch (UtilsIntegrityException e) {logger.error("",e);}
+			catch (UtilsLockingException e) {logger.error("",e);}
+		}
+		
+		updateCategory.remove(fSecurity);
+		logger.trace("initUpdateUsecaseCategories finished");
+	}
+	
+	@Deprecated protected void iuChilds(C aclCategory, Category category) throws UtilsConfigurationException
+	{
+		logger.error("This method *must* be overridden!");
+	}
+	protected void iuChilds(C aclCategory, net.sf.ahtutils.xml.security.Category category) throws UtilsConfigurationException
 	{
 		logger.error("This method *must* be overridden!");
 	}

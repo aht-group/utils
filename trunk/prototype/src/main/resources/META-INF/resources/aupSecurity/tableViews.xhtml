@@ -9,13 +9,15 @@
 	xmlns:composite="http://java.sun.com/jsf/composite">
 	
 	<composite:interface>
-
+		<composite:attribute name="bean" required="true"/>
+		<composite:attribute name="update" required="true"/>
 	</composite:interface>
 	
 	<composite:implementation>
-		<p:dataTable var="v" value="#{adminSecurityViewsBean.views}"
-			selection="#{adminSecurityViewsBean.view}" selectionMode="single" rowKey="#{v.id}">
-			<p:ajax event="rowSelect" update=":sActions" listener="#{adminSecurityViewsBean.selectView}"/>  
+		<p:dataTable var="v" value="#{cc.attrs.bean.views}"
+			rendered="#{not empty cc.attrs.bean.category}"
+			selection="#{cc.attrs.bean.view}" selectionMode="single" rowKey="#{v.id}">
+			<p:ajax event="rowSelect" update="#{cc.attrs.update}" listener="#{cc.attrs.bean.selectView}"/>  
             <p:column headerText="#{msg.aupSecurityView}">  
 				<h:outputText value="#{v.name[userBean.localeCode].lang}" />  
             </p:column>
