@@ -3,6 +3,8 @@ package net.sf.ahtutils.web.rest;
 import net.sf.ahtutils.controller.factory.xml.acl.XmlViewFactory;
 import net.sf.ahtutils.controller.factory.xml.acl.XmlViewsFactory;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.factory.xml.security.XmlActionFactory;
+import net.sf.ahtutils.factory.xml.security.XmlActionsFactory;
 import net.sf.ahtutils.factory.xml.security.XmlCategoryFactory;
 import net.sf.ahtutils.factory.xml.security.XmlSecurityFactory;
 import net.sf.ahtutils.factory.xml.security.XmlStaffFactory;
@@ -19,6 +21,7 @@ import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.util.query.SecurityQuery;
+import net.sf.ahtutils.xml.access.View;
 import net.sf.ahtutils.xml.security.Security;
 import net.sf.ahtutils.xml.security.Staffs;
 
@@ -70,6 +73,7 @@ public class SecurityExporter <L extends UtilsLang,D extends UtilsDescription,C 
 		Security xml = XmlSecurityFactory.build();
 		
 		XmlCategoryFactory<L,D,C,R,V,U,A,USER> f = new XmlCategoryFactory<L,D,C,R,V,U,A,USER>(null,SecurityQuery.exCategory());
+		XmlActionFactory<L,D,C,R,V,U,A,USER> fAction = new XmlActionFactory<L,D,C,R,V,U,A,USER>(SecurityQuery.exAction());
 		XmlViewFactory fView = new XmlViewFactory(SecurityQuery.exView(),null);
 		
 		for(C category : fSecurity.all(cCategory))
@@ -82,21 +86,23 @@ public class SecurityExporter <L extends UtilsLang,D extends UtilsDescription,C 
 					xmlCat.setViews(XmlViewsFactory.build());
 					for(V view : fSecurity.allForCategory(cView, cCategory, category.getCode()))
 					{
-						xmlCat.getViews().getView().add(fView.build(view));
+						view = fSecurity.load(cView,view);
+						View xView = fView.build(view);
+						xView.setActions(XmlActionsFactory.build());
+						for(A action : view.getActions())
+						{
+							xView.getActions().getAction().add(fAction.build(action));
+						}
+						xmlCat.getViews().getView().add(xView);
 					}
 					
 					xml.getCategory().add(xmlCat);
 				}
-				catch (UtilsNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				
+				catch (UtilsNotFoundException e) {e.printStackTrace();}
+
 			}
 			
-		}
-		
+		}		
 		return xml;
 	}
 }

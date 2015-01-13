@@ -21,26 +21,35 @@ public class UtilsSecurityMerger
 
 	}
 	
-	public void mergeViews(Access fileVersion, Security restVersion)
-	{
-		try
+	public void mergeViews(Access fileVersion, Security securityRest)
+	{	
+		for(Category cFile : fileVersion.getCategory())
 		{
-			for(Category cAcl : fileVersion.getCategory())
+			try
 			{
-				net.sf.ahtutils.xml.security.Category cRest = SecurityXpath.getCategory(restVersion,cAcl.getCode());
-				cAcl.setLangs(cRest.getLangs());
-				cAcl.setDescriptions(cRest.getDescriptions());
+				net.sf.ahtutils.xml.security.Category cRest = SecurityXpath.getCategory(securityRest,cFile.getCode());
+				cFile.setLangs(cRest.getLangs());
+				cFile.setDescriptions(cRest.getDescriptions());
+			}
+			catch (ExlpXpathNotFoundException e) {e.printStackTrace();}
+			catch (ExlpXpathNotUniqueException e) {e.printStackTrace();}
 
-				if(cAcl.isSetViews())
+			if(cFile.isSetViews())
+			{
+				for(View vFile : cFile.getViews().getView())
 				{
-					for(View vAcl : cAcl.getViews().getView())
+					try
 					{
+						View vRest = SecurityXpath.getView(securityRest,vFile.getCode());
+						vFile.setLangs(vRest.getLangs());
+						vFile.setDescriptions(vRest.getDescriptions());
 						
+						vFile.setActions(vRest.getActions());
 					}
+					catch (ExlpXpathNotFoundException e) {e.printStackTrace();}
+					catch (ExlpXpathNotUniqueException e) {e.printStackTrace();}	
 				}
 			}
 		}
-		catch (ExlpXpathNotFoundException e) {e.printStackTrace();}
-		catch (ExlpXpathNotUniqueException e) {e.printStackTrace();}
 	}
 }
