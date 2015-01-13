@@ -74,7 +74,7 @@ public class SecurityInitViews <L extends UtilsLang,
 		return du;
 	}
 	
-	@Override protected void iuChilds(C aclCategory, Category category) throws UtilsConfigurationException
+	@Deprecated @Override protected void iuChilds(C aclCategory, Category category) throws UtilsConfigurationException
 	{
 		logger.info("iuChilds (views)");
 		if(category.isSetViews() && category.getViews().isSetView())

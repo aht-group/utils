@@ -224,7 +224,7 @@ public class AbstractSecurityInit <L extends UtilsLang,
 		logger.error("This method *must* be overridden!");
 	}
 	
-	protected <T extends UtilsSecurityWithViews<L,D,C,R,V,U,A,USER>> T iuListViews(T ejb, Views views) throws UtilsContraintViolationException, UtilsNotFoundException, UtilsLockingException
+	@Deprecated protected <T extends UtilsSecurityWithViews<L,D,C,R,V,U,A,USER>> T iuListViews(T ejb, Views views) throws UtilsContraintViolationException, UtilsNotFoundException, UtilsLockingException
 	{
 		ejb.getViews().clear();
 		ejb = fSecurity.update(ejb);
@@ -239,14 +239,44 @@ public class AbstractSecurityInit <L extends UtilsLang,
 		}
 		return ejb;
 	}
+	protected <T extends UtilsSecurityWithViews<L,D,C,R,V,U,A,USER>> T iuListViews(T ejb, net.sf.ahtutils.xml.security.Views views) throws UtilsContraintViolationException, UtilsNotFoundException, UtilsLockingException
+	{
+		ejb.getViews().clear();
+		ejb = fSecurity.update(ejb);
+		if(views!=null)
+		{
+			for(net.sf.ahtutils.xml.security.View view : views.getView())
+			{
+				V ejbView = fSecurity.fByCode(cV, view.getCode());
+				ejb.getViews().add(ejbView);
+			}
+			ejb = fSecurity.update(ejb);
+		}
+		return ejb;
+	}
 	
-	protected <T extends UtilsSecurityWithActions<L,D,C,R,V,U,A,USER>> T iuListActions(T ejb, Actions actions) throws UtilsContraintViolationException, UtilsNotFoundException, UtilsLockingException
+	@Deprecated protected <T extends UtilsSecurityWithActions<L,D,C,R,V,U,A,USER>> T iuListActions(T ejb, Actions actions) throws UtilsContraintViolationException, UtilsNotFoundException, UtilsLockingException
 	{
 		ejb.getActions().clear();
 		ejb = fSecurity.update(ejb);
 		if(actions!=null)
 		{
 			for(Action action : actions.getAction())
+			{
+				A ejbAction = fSecurity.fByCode(cA, action.getCode());
+				ejb.getActions().add(ejbAction);
+			}
+			ejb = fSecurity.update(ejb);
+		}
+		return ejb;
+	}
+	protected <T extends UtilsSecurityWithActions<L,D,C,R,V,U,A,USER>> T iuListActions(T ejb, net.sf.ahtutils.xml.security.Actions actions) throws UtilsContraintViolationException, UtilsNotFoundException, UtilsLockingException
+	{
+		ejb.getActions().clear();
+		ejb = fSecurity.update(ejb);
+		if(actions!=null)
+		{
+			for(net.sf.ahtutils.xml.security.Action action : actions.getAction())
 			{
 				A ejbAction = fSecurity.fByCode(cA, action.getCode());
 				ejb.getActions().add(ejbAction);
