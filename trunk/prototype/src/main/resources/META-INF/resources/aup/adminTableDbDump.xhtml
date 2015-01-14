@@ -9,22 +9,28 @@
 	xmlns:composite="http://java.sun.com/jsf/composite">
 	
 	<composite:interface>
-
+		<composite:attribute name="dateTimePattern" required="false" default="dd.MM.yyyy"/>
 	</composite:interface>
 	
 	<composite:implementation>
 		<p:dataTable var="d" value="#{adminDbDumpBean.dumps}">
             <p:column headerText="#{msg.aupDbDumpName}">  
-				<h:outputText value="#{d.name}" />  
+				<h:outputText value="#{d.name}">
+					
+				</h:outputText>  
             </p:column>
             <p:column headerText="#{msg.aupDbDumpSize}">  
 				<h:outputText value="#{d.size}" />  
             </p:column>
             <p:column headerText="#{msg.aupDbDumpDateModified}">  
-				<h:outputText value="#{d.startDate}" />  
+				<h:outputText value="#{d.startDate}">
+					<f:convertDateTime pattern="#{cc.attrs.dateTimePattern}" />
+				</h:outputText>  
             </p:column>
 			<p:column headerText="#{msg.aupDbDumpDateDeleted}">  
-				<h:outputText value="#{d.endDate}" />  
+				<h:outputText value="#{d.endDate}">
+					<f:convertDateTime pattern="#{cc.attrs.dateTimePattern}" />
+				</h:outputText>  
             </p:column>
        	</p:dataTable>
 	</composite:implementation>

@@ -8,4 +8,7 @@ public interface UtilsDbDumpFile extends EjbWithId,EjbWithDateRange,EjbWithName
 {
 	long getSize();
 	void setSize(long size);
+	
+	boolean isDeleteable();
+	void setDeleteable(boolean deleteable);
 }
