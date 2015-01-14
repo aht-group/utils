@@ -14,6 +14,7 @@ import net.sf.ahtutils.interfaces.model.date.EjbWithTimeline;
 import net.sf.ahtutils.interfaces.model.date.EjbWithYear;
 import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 import net.sf.ahtutils.interfaces.model.with.EjbWithNr;
+import net.sf.ahtutils.interfaces.model.with.EjbWithTypeCode;
 import net.sf.ahtutils.interfaces.model.with.code.EjbWithNonUniqueCode;
 import net.sf.ahtutils.model.interfaces.UtilsProperty;
 import net.sf.ahtutils.model.interfaces.crud.EjbRemoveable;
@@ -372,6 +373,13 @@ public class AbstractDummyFacade implements UtilsFacade
 
 	@Override
 	public <T extends EjbSaveable> T saveTransaction(T o) throws UtilsContraintViolationException, UtilsLockingException
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T extends EjbWithTypeCode> T fByTypeCode(Class<T> c, String tpye, String code) throws UtilsNotFoundException
 	{
 		// TODO Auto-generated method stub
 		return null;

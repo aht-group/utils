@@ -1,14 +1,13 @@
 package net.sf.ahtutils.model.interfaces.security;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
+import net.sf.ahtutils.interfaces.model.with.EjbWithTypeCode;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
-import net.sf.ahtutils.model.interfaces.with.EjbWithCode;
 import net.sf.ahtutils.model.interfaces.with.EjbWithDescription;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
-import net.sf.ahtutils.model.interfaces.with.EjbWithType;
 
 public interface UtilsSecurityCategory<L extends UtilsLang,
 									   D extends UtilsDescription,
@@ -18,7 +17,7 @@ public interface UtilsSecurityCategory<L extends UtilsLang,
 									   U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,
 									   A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,
 									   USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
-			extends EjbWithId,EjbWithCode,EjbWithType,EjbWithLang<L>,EjbWithDescription<D>,EjbSaveable
+			extends EjbWithId,EjbWithTypeCode,EjbWithLang<L>,EjbWithDescription<D>,EjbSaveable
 {
 	public static enum Type {role,view,usecase}
 	

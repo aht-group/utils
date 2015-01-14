@@ -74,12 +74,14 @@ public class AbstractAdminSecurityUsecaseBean <L extends UtilsLang,
 	//Reload
 	private void reloadCategories()
 	{
+		logger.info("reloadCategories");
 		categories = fSecurity.allForType(cCategory,UtilsSecurityCategory.Type.usecase.toString());
 	}
 	private void reloadUsecases() throws UtilsNotFoundException
 	{
+		logger.info("reloadUsecases");
 		usecases = fSecurity.allForCategory(cUsecase,cCategory,category.getCode());
-		logger.info("Reloaded "+usecases.size());
+		
 	}
 	
 	//Add
