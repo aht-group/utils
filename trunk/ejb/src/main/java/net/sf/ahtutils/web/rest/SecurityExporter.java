@@ -29,7 +29,6 @@ import net.sf.ahtutils.xml.access.View;
 import net.sf.ahtutils.xml.security.Role;
 import net.sf.ahtutils.xml.security.Security;
 import net.sf.ahtutils.xml.security.Staffs;
-import net.sf.ahtutils.xml.security.Usecase;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

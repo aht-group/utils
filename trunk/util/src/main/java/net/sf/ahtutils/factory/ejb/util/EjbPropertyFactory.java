@@ -24,7 +24,7 @@ public class EjbPropertyFactory<P extends UtilsProperty>
     
 	public P build(Property property)
 	{
-		return build(property.getKey(),property.getValue());
+		return build(property.getKey(),property.getValue(),property.isFrozen());
     }
 	
 	public P build(String code, String value){return build(code,value,false);}
