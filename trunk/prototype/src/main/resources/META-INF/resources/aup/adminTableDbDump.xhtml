@@ -14,17 +14,17 @@
 	
 	<composite:implementation>
 		<p:dataTable var="d" value="#{adminDbDumpBean.dumps}">
+			<p:column headerText="#{msg.aupDbDumpDateModified}">  
+				<h:outputText value="#{d.startDate}">
+					<f:convertDateTime pattern="#{cc.attrs.dateTimePattern}" />
+				</h:outputText>  
+            </p:column>
+			<p:column headerText="#{msg.aupDbDumpSize}">  
+				<h:outputText value="#{d.size}" />  
+            </p:column>
             <p:column headerText="#{msg.aupDbDumpName}">  
 				<h:outputText value="#{d.name}">
 					
-				</h:outputText>  
-            </p:column>
-            <p:column headerText="#{msg.aupDbDumpSize}">  
-				<h:outputText value="#{d.size}" />  
-            </p:column>
-            <p:column headerText="#{msg.aupDbDumpDateModified}">  
-				<h:outputText value="#{d.startDate}">
-					<f:convertDateTime pattern="#{cc.attrs.dateTimePattern}" />
 				</h:outputText>  
             </p:column>
 			<p:column headerText="#{msg.aupDbDumpDateDeleted}">  

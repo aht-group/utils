@@ -30,6 +30,12 @@
             <component-type>net.sf.ahtutils.jsf.components.layout.PanelGrid</component-type>
         </component>
     </tag>
+	<tag>
+        <tag-name>security</tag-name>
+        <component>
+            <component-type>net.sf.ahtutils.jsf.components.Security</component-type>
+        </component>
+    </tag>
     
         <tag>
         <tag-name>li</tag-name>
