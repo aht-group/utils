@@ -1,5 +1,6 @@
 package net.sf.ahtutils.factory.ejb.db;
 
+import java.io.File;
 import java.util.Date;
 
 import net.sf.ahtutils.interfaces.model.db.UtilsDbDumpFile;
@@ -28,18 +29,24 @@ public class EjbDbDumpFileFactory<F extends UtilsDbDumpFile>
 		return build(file.getName(),file.getSize(),file.getLastModifed().toGregorianCalendar().getTime());
     }
 	
+	public F build(File file)
+	{
+		return build(file.getName(),file.length(),new Date(file.lastModified()));
+    }
+	
 	public F build(String name, long size, Date record)
 	{
 		F ejb = null;
 		try
 		{
 			 ejb = cDumpFile.newInstance();
+			 ejb.setName(name);
+			 ejb.setSize(size);
+			 ejb.setStartDate(record);
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();}
-		ejb.setName(name);
-		ejb.setSize(size);
-		ejb.setRecord(record);
+		
 		return ejb;
 	}
 

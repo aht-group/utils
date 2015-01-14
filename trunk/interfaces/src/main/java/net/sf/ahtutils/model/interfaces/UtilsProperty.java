@@ -9,4 +9,7 @@ public interface UtilsProperty extends EjbSaveable
 	
 	public String getValue();
 	public void setValue(String value);
+	
+	public boolean isFrozen();
+	public void setFrozen(boolean frozen);
 }

@@ -9,11 +9,12 @@ public class XmlPropertyFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlPropertyFactory.class);
 		
-	public static Property build(String code, String  value)
+	public static Property build(String code, String  value, boolean frozen)
 	{
 		Property xml = new Property();
 		xml.setKey(code);
 		xml.setValue(value);
+		xml.setFrozen(frozen);
 		return xml;
 	}
 }

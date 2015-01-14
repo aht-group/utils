@@ -20,8 +20,11 @@
             <p:column headerText="#{msg.aupDbDumpSize}">  
 				<h:outputText value="#{d.size}" />  
             </p:column>
-            <p:column headerText="#{msg.aupDbDumpDate}">  
-				<h:outputText value="#{d.record}" />  
+            <p:column headerText="#{msg.aupDbDumpDateModified}">  
+				<h:outputText value="#{d.startDate}" />  
+            </p:column>
+			<p:column headerText="#{msg.aupDbDumpDateDeleted}">  
+				<h:outputText value="#{d.endDate}" />  
             </p:column>
        	</p:dataTable>
 	</composite:implementation>

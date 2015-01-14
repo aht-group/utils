@@ -27,17 +27,20 @@ public class EjbPropertyFactory<P extends UtilsProperty>
 		return build(property.getKey(),property.getValue());
     }
 	
-	public P build(String code, String value)
+	public P build(String code, String value){return build(code,value,false);}
+	public P build(String code, String value, boolean frozen)
 	{
 		P ejb = null;
 		try
 		{
-			 ejb = cProperty.newInstance();
+			ejb = cProperty.newInstance();
+			ejb.setKey(code);
+			ejb.setValue(value);
+			ejb.setFrozen(frozen);
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();}
-		ejb.setKey(code);
-		ejb.setValue(value);
+		
 		return ejb;
 	}
 

@@ -17,6 +17,7 @@
             <xsd:simpleContent>
                 <xsd:extension base="xsd:string">
                     <xsd:attribute name="key" type="xsd:string"/>
+                    <xsd:attribute name="frozen" type="xsd:boolean"/>
                 </xsd:extension>
             </xsd:simpleContent>
         </xsd:complexType>

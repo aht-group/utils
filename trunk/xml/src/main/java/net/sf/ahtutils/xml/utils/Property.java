@@ -20,6 +20,7 @@ import javax.xml.bind.annotation.XmlValue;
  *   &lt;simpleContent>
  *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
  *       &lt;attribute name="key" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="frozen" type="{http://www.w3.org/2001/XMLSchema}boolean" />
  *     &lt;/extension>
  *   &lt;/simpleContent>
  * &lt;/complexType>
@@ -41,6 +42,8 @@ public class Property
     protected String value;
     @XmlAttribute(name = "key")
     protected String key;
+    @XmlAttribute(name = "frozen")
+    protected Boolean frozen;
 
     /**
      * Gets the value of the value property.
@@ -96,6 +99,38 @@ public class Property
 
     public boolean isSetKey() {
         return (this.key!= null);
+    }
+
+    /**
+     * Gets the value of the frozen property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public boolean isFrozen() {
+        return frozen;
+    }
+
+    /**
+     * Sets the value of the frozen property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setFrozen(boolean value) {
+        this.frozen = value;
+    }
+
+    public boolean isSetFrozen() {
+        return (this.frozen!= null);
+    }
+
+    public void unsetFrozen() {
+        this.frozen = null;
     }
 
 }
