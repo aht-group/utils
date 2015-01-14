@@ -2,5 +2,5 @@ package net.sf.ahtutils.interfaces.web;
 
 public interface UtilsJsfSecurityHandler
 {
-	boolean allow();
+	boolean allow(String actionCode);
 }

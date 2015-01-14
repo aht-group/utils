@@ -34,9 +34,9 @@ public class Security extends UIPanel
 		ValueExpression ve = this.getValueExpression(Properties.handler.toString());
 		UtilsJsfSecurityHandler handler = (UtilsJsfSecurityHandler)ve.getValue(context.getELContext());
 		
-		String action = ComponentAttribute.get("null",Properties.action.toString(),context,this);
-
-		if(handler.allow())
+		String action = ComponentAttribute.get(Properties.action.toString(),"null",context,this);
+		
+		if(handler.allow(action))
 		{
 			for(UIComponent uic : this.getChildren())
 			{
