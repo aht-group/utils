@@ -1,5 +1,7 @@
 package net.sf.ahtutils.controller.factory.xml.security;
 
+import net.sf.ahtutils.factory.xml.security.XmlActionsFactory;
+import net.sf.ahtutils.factory.xml.security.XmlViewsFactory;
 import net.sf.ahtutils.factory.xml.status.XmlDescriptionsFactory;
 import net.sf.ahtutils.factory.xml.status.XmlLangsFactory;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
@@ -78,6 +80,18 @@ public class XmlRoleFactory <L extends UtilsLang,
 		{
 			XmlDescriptionsFactory<D> f = new XmlDescriptionsFactory<D>(qSec.getDescriptions());
 			xml.setDescriptions(f.create(role.getDescription()));
+		}
+		
+		if(qSec.isSetViews())
+		{
+			XmlViewsFactory<L,D,C,R,V,U,A,USER> f = new XmlViewsFactory<L,D,C,R,V,U,A,USER>(qSec.getViews());
+			xml.setViews(f.build(role.getViews()));
+		}
+		
+		if(qSec.isSetActions())
+		{
+			XmlActionsFactory<L,D,C,R,V,U,A,USER> f = new XmlActionsFactory<L,D,C,R,V,U,A,USER>(qSec.getActions());
+			xml.setActions(f.build(role.getActions()));
 		}
     	
     	return xml;

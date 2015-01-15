@@ -52,4 +52,11 @@ public class XmlViewFactory <L extends UtilsLang,
 		}
 		return xml;
 	}
+	
+	public static View build(String code)
+	{
+		View xml = new View();
+		xml.setCode(code);
+		return xml;
+	}
 }

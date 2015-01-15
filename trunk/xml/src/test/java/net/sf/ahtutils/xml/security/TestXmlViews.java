@@ -3,8 +3,6 @@ package net.sf.ahtutils.xml.security;
 import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
-import net.sf.ahtutils.xml.status.TestXmlDescriptions;
-import net.sf.ahtutils.xml.status.TestXmlLangs;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;
@@ -16,28 +14,24 @@ public class TestXmlViews extends AbstractXmlSecurityTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestXmlViews.class);
 	
-	@BeforeClass public static void initFiles() {setXmlFile(dirSuffix,View.class);}
+	@BeforeClass public static void initFiles() {setXmlFile(dirSuffix,Views.class);}
     
     @Test
     public void testXml() throws FileNotFoundException
     {
-    	View actual = create(true);
-    	View expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), View.class);
+    	Views actual = create(true);
+    	Views expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Views.class);
     	assertJaxbEquals(expected, actual);
     }
     
-    public static View create(boolean withChilds)
+    public static Views create(boolean withChilds)
     {
-    	View xml = new View();
-    	xml.setId(123);
-    	xml.setCode("myCode");
-    	xml.setLabel("myLabel");
+    	Views xml = new Views();
+
     	
     	if(withChilds)
     	{
-    		xml.setLangs(TestXmlLangs.create(false));
-    		xml.setDescriptions(TestXmlDescriptions.create(false));
-
+    		xml.getView().add(TestXmlView.create(false));xml.getView().add(TestXmlView.create(false));
     	}
     	return xml;
     }

@@ -140,10 +140,8 @@ public class SecurityExporter <L extends UtilsLang,D extends UtilsDescription,C 
 						role = fSecurity.load(cRole,role);
 						Role xRole = fRole.build(role);
 						
-						
 						xmlCat.getRoles().getRole().add(xRole);
 					}
-					
 					xml.getCategory().add(xmlCat);
 				}
 				catch (UtilsNotFoundException e) {e.printStackTrace();}

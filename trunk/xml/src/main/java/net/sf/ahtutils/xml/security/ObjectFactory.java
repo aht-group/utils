@@ -62,11 +62,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Usecase }
+     * Create an instance of {@link Views }
      * 
      */
-    public Usecase createUsecase() {
-        return new Usecase();
+    public Views createViews() {
+        return new Views();
+    }
+
+    /**
+     * Create an instance of {@link View }
+     * 
+     */
+    public View createView() {
+        return new View();
     }
 
     /**
@@ -86,19 +94,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Views }
+     * Create an instance of {@link Usecases }
      * 
      */
-    public Views createViews() {
-        return new Views();
+    public Usecases createUsecases() {
+        return new Usecases();
     }
 
     /**
-     * Create an instance of {@link View }
+     * Create an instance of {@link Usecase }
      * 
      */
-    public View createView() {
-        return new View();
+    public Usecase createUsecase() {
+        return new Usecase();
     }
 
     /**
@@ -123,14 +131,6 @@ public class ObjectFactory {
      */
     public Roles createRoles() {
         return new Roles();
-    }
-
-    /**
-     * Create an instance of {@link Usecases }
-     * 
-     */
-    public Usecases createUsecases() {
-        return new Usecases();
     }
 
     /**

@@ -4,7 +4,9 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import net.sf.ahtutils.controller.util.query.StatusQuery;
+import net.sf.ahtutils.factory.xml.security.XmlActionFactory;
 import net.sf.ahtutils.factory.xml.security.XmlActionsFactory;
+import net.sf.ahtutils.factory.xml.security.XmlViewFactory;
 import net.sf.ahtutils.factory.xml.security.XmlViewsFactory;
 import net.sf.ahtutils.xml.access.View;
 import net.sf.ahtutils.xml.aht.Query;
@@ -101,6 +103,8 @@ public class SecurityQuery
 		xml.setCode("");
 		xml.setLangs(StatusQuery.langs());
 		xml.setDescriptions(StatusQuery.descriptions());
+		xml.setActions(XmlActionsFactory.build());xml.getActions().getAction().add(XmlActionFactory.build(""));
+		xml.setViews(XmlViewsFactory.build());xml.getViews().getView().add(XmlViewFactory.build(""));
 		
 		return xml;
 	}

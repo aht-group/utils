@@ -76,4 +76,11 @@ public class XmlActionFactory <L extends UtilsLang,
 		}
 		return xml;
 	}
+	
+	public static net.sf.ahtutils.xml.security.Action build(String code)
+	{
+		net.sf.ahtutils.xml.security.Action xml = new net.sf.ahtutils.xml.security.Action();
+		xml.setCode(code);
+		return xml;
+	}
 }

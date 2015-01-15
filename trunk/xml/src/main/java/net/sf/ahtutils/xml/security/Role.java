@@ -8,9 +8,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import net.sf.ahtutils.xml.access.Actions;
-import net.sf.ahtutils.xml.access.Usecases;
-import net.sf.ahtutils.xml.access.Views;
 import net.sf.ahtutils.xml.status.Descriptions;
 import net.sf.ahtutils.xml.status.Langs;
 
@@ -27,9 +24,9 @@ import net.sf.ahtutils.xml.status.Langs;
  *       &lt;sequence>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}descriptions"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}langs"/>
- *         &lt;element ref="{http://ahtutils.aht-group.com/access}views"/>
- *         &lt;element ref="{http://ahtutils.aht-group.com/access}actions"/>
- *         &lt;element ref="{http://ahtutils.aht-group.com/access}usecases"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/security}views"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/security}actions"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/security}usecases"/>
  *       &lt;/sequence>
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" />
  *       &lt;attribute name="code" type="{http://www.w3.org/2001/XMLSchema}string" />
@@ -59,11 +56,11 @@ public class Role
     protected Descriptions descriptions;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
     protected Langs langs;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/access", required = true)
+    @XmlElement(required = true)
     protected Views views;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/access", required = true)
+    @XmlElement(required = true)
     protected Actions actions;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/access", required = true)
+    @XmlElement(required = true)
     protected Usecases usecases;
     @XmlAttribute(name = "id")
     protected Long id;

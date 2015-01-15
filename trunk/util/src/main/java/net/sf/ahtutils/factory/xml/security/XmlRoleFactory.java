@@ -55,10 +55,22 @@ public class XmlRoleFactory<L extends UtilsLang,
 		
 		if(q.isSetDescriptions())
 		{
-			XmlDescriptionsFactory f = new XmlDescriptionsFactory(q.getDescriptions());
+			XmlDescriptionsFactory<D> f = new XmlDescriptionsFactory<D>(q.getDescriptions());
 			xml.setDescriptions(f.create(role.getDescription()));
 		}
 		
+		if(q.isSetViews())
+		{
+			XmlViewsFactory<L,D,C,R,V,U,A,USER> f = new XmlViewsFactory<L,D,C,R,V,U,A,USER>(q.getViews());
+			xml.setViews(f.build(role.getViews()));
+		}
+		
+		if(q.isSetActions())
+		{
+			XmlActionsFactory<L,D,C,R,V,U,A,USER> f = new XmlActionsFactory<L,D,C,R,V,U,A,USER>(q.getActions());
+			xml.setActions(f.build(role.getActions()));
+		}
+			
 		return xml;
 		
 	}

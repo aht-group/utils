@@ -1,6 +1,7 @@
 package net.sf.ahtutils.prototype.web.mbean.admin.security;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
@@ -52,7 +53,7 @@ public class AbstractAdminSecurityUsecaseBean <L extends UtilsLang,
 	{
 		initSecuritySuper(cLang,cDescription,cCategory,cRole,cView,cUsecase,cAction,cUser,langs);
 		opViews = fSecurity.all(cView);
-		opActions = fSecurity.all(cAction);
+		opActions = new ArrayList<A>();
 		reloadCategories();
 	}
 	
@@ -69,6 +70,7 @@ public class AbstractAdminSecurityUsecaseBean <L extends UtilsLang,
 		usecase = efLang.persistMissingLangs(fSecurity,langs,usecase);
 		usecase = efDescription.persistMissingLangs(fSecurity,langs,usecase);
 		usecase = fSecurity.find(cUsecase,usecase);
+		reloadActions();
 	}
 	
 	//Reload
@@ -81,7 +83,15 @@ public class AbstractAdminSecurityUsecaseBean <L extends UtilsLang,
 	{
 		logger.info("reloadUsecases");
 		usecases = fSecurity.allForCategory(cUsecase,cCategory,category.getCode());
-		
+	}
+	private void reloadActions()
+	{
+		opActions.clear();
+		for(V v : usecase.getViews())
+		{
+			v = fSecurity.load(cView,v);
+			opActions.addAll(v.getActions());
+		}
 	}
 	
 	//Add
@@ -139,24 +149,24 @@ public class AbstractAdminSecurityUsecaseBean <L extends UtilsLang,
 	}
 	
 	//Overlay-Rm
-		public void opRmView() throws UtilsContraintViolationException, UtilsLockingException
+	public void opRmView() throws UtilsContraintViolationException, UtilsLockingException
+	{
+		if(tblView!=null && usecase.getViews().contains(tblView))
 		{
-			if(tblView!=null && usecase.getViews().contains(tblView))
-			{
-				usecase.getViews().remove(tblView);
-				usecase = fSecurity.save(usecase);
-				tblView = null;
-				selectUsecase();
-			}
+			usecase.getViews().remove(tblView);
+			usecase = fSecurity.save(usecase);
+			tblView = null;
+			selectUsecase();
 		}
-		public void opRmAction() throws UtilsContraintViolationException, UtilsLockingException
+	}
+	public void opRmAction() throws UtilsContraintViolationException, UtilsLockingException
+	{
+		if(tblAction!=null && usecase.getActions().contains(tblAction))
 		{
-			if(tblAction!=null && usecase.getActions().contains(tblAction))
-			{
-				usecase.getActions().remove(tblAction);
-				usecase = fSecurity.save(usecase);
-				tblAction = null;
-				selectUsecase();
-			}
+			usecase.getActions().remove(tblAction);
+			usecase = fSecurity.save(usecase);
+			tblAction = null;
+			selectUsecase();
 		}
+	}
 }

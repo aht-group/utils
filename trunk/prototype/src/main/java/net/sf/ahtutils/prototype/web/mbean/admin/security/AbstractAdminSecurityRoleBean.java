@@ -1,6 +1,7 @@
 package net.sf.ahtutils.prototype.web.mbean.admin.security;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
@@ -53,7 +54,7 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 	{
 		initSecuritySuper(cLang,cDescription,cCategory,cRole,cView,cUsecase,cAction,cUser,langs);
 		opViews = fSecurity.all(cView);
-		opActions = fSecurity.all(cAction);
+		opActions = new ArrayList<A>();
 		opUsecases = fSecurity.all(cUsecase);
 		reloadCategories();
 	}
@@ -72,7 +73,13 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 		logger.info(AbstractLogMessage.selectEntity(role));
 		role = efLang.persistMissingLangs(fSecurity,langs,role);
 		role = efDescription.persistMissingLangs(fSecurity,langs,role);
+		
+		logger.info("role==null "+(role==null));
+		logger.info("role==null "+(cRole==null));
+		logger.info("fSecurity==null "+(fSecurity==null));
+		
 		role = fSecurity.load(cRole,role);
+		reloadActions();
 	}
 	
 	//RELOAD
@@ -84,6 +91,15 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 	{
 		roles = fSecurity.allForCategory(cRole,cCategory,category.getCode());
 		logger.info("Reloaded "+roles.size());
+	}
+	private void reloadActions()
+	{
+		opActions.clear();
+		for(V v : role.getViews())
+		{
+			v = fSecurity.load(cView,v);
+			opActions.addAll(v.getActions());
+		}
 	}
 	
 	//SAVE
