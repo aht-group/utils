@@ -70,6 +70,12 @@ public class XmlRoleFactory<L extends UtilsLang,
 			XmlActionsFactory<L,D,C,R,V,U,A,USER> f = new XmlActionsFactory<L,D,C,R,V,U,A,USER>(q.getActions());
 			xml.setActions(f.build(role.getActions()));
 		}
+		
+		if(q.isSetUsecases())
+		{
+			XmlUsecasesFactory<L,D,C,R,V,U,A,USER> f = new XmlUsecasesFactory<L,D,C,R,V,U,A,USER>(q.getUsecases());
+			xml.setUsecases(f.build(role.getUsecases()));
+		}
 			
 		return xml;
 		

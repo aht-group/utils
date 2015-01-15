@@ -122,8 +122,7 @@ public class SecurityExporter <L extends UtilsLang,D extends UtilsDescription,C 
 		return xml;
 	}
 
-	@Override
-	public Security exportSecurityRoles()
+	@Override public Security exportSecurityRoles()
 	{
 		Security xml = XmlSecurityFactory.build();
 

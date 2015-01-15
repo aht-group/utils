@@ -65,4 +65,11 @@ public class XmlUsecaseFactory <L extends UtilsLang,
 		
 		return xml;
 	}
+	
+	public static Usecase build(String code)
+	{
+		Usecase xml = new Usecase();
+		xml.setCode(code);
+		return xml;
+	}
 }

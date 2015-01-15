@@ -6,6 +6,8 @@ import java.util.Map;
 import net.sf.ahtutils.controller.util.query.StatusQuery;
 import net.sf.ahtutils.factory.xml.security.XmlActionFactory;
 import net.sf.ahtutils.factory.xml.security.XmlActionsFactory;
+import net.sf.ahtutils.factory.xml.security.XmlUsecaseFactory;
+import net.sf.ahtutils.factory.xml.security.XmlUsecasesFactory;
 import net.sf.ahtutils.factory.xml.security.XmlViewFactory;
 import net.sf.ahtutils.factory.xml.security.XmlViewsFactory;
 import net.sf.ahtutils.xml.access.View;
@@ -105,6 +107,7 @@ public class SecurityQuery
 		xml.setDescriptions(StatusQuery.descriptions());
 		xml.setActions(XmlActionsFactory.build());xml.getActions().getAction().add(XmlActionFactory.build(""));
 		xml.setViews(XmlViewsFactory.build());xml.getViews().getView().add(XmlViewFactory.build(""));
+		xml.setUsecases(XmlUsecasesFactory.build());xml.getUsecases().getUsecase().add(XmlUsecaseFactory.build(""));
 		
 		return xml;
 	}

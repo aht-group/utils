@@ -1,5 +1,7 @@
 package net.sf.ahtutils.factory.xml.security;
 
+import java.util.List;
+
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
@@ -24,6 +26,26 @@ public class XmlUsecasesFactory <L extends UtilsLang,
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlUsecasesFactory.class);
 		
+	private Usecases q;
+	
+	public XmlUsecasesFactory(Usecases q)
+	{
+		this.q=q;
+	}
+	
+
+	public  Usecases build(List<U> usecases)
+	{
+		XmlUsecaseFactory<L,D,C,R,V,U,A,USER> f = new XmlUsecaseFactory<L,D,C,R,V,U,A,USER>(q.getUsecase().get(0));
+		
+		Usecases xml = build();
+		for(U usecase : usecases)
+		{
+			xml.getUsecase().add(f.build(usecase));
+		}
+		return xml;
+	}
+	
 	public static Usecases build()
 	{
 		return new Usecases();
