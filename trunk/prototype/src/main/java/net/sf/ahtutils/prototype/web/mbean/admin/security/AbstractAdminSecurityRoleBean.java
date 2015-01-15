@@ -62,7 +62,7 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 	// SELECT
 	public void selectCategory() throws UtilsNotFoundException
 	{
-		logger.info(AbstractLogMessage.selectEntity(category));
+		logger.trace(AbstractLogMessage.selectEntity(category));
 		category = efLang.persistMissingLangs(fSecurity,langs,category);
 		category = efDescription.persistMissingLangs(fSecurity,langs,category);
 		reloadRoles();
@@ -70,14 +70,9 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 	}
 	public void selectRole()
 	{
-		logger.info(AbstractLogMessage.selectEntity(role));
+		logger.trace(AbstractLogMessage.selectEntity(role));
 		role = efLang.persistMissingLangs(fSecurity,langs,role);
-		role = efDescription.persistMissingLangs(fSecurity,langs,role);
-		
-		logger.info("role==null "+(role==null));
-		logger.info("role==null "+(cRole==null));
-		logger.info("fSecurity==null "+(fSecurity==null));
-		
+		role = efDescription.persistMissingLangs(fSecurity,langs,role);		
 		role = fSecurity.load(cRole,role);
 		reloadActions();
 	}
@@ -130,8 +125,6 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 		fSecurity.rm(role);
 		role=null;
 	}
-	
-
 	
 	//OverlayPanel
 	public void opAddView() throws UtilsContraintViolationException, UtilsLockingException

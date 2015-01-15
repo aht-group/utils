@@ -18,9 +18,6 @@ import net.sf.ahtutils.model.interfaces.security.UtilsSecurityUsecase;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityView;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
-import net.sf.ahtutils.xml.access.Access;
-import net.sf.ahtutils.xml.access.Category;
-import net.sf.ahtutils.xml.access.Usecase;
 import net.sf.ahtutils.xml.security.Security;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 
@@ -49,6 +46,7 @@ public class SecurityInitUsecases <L extends UtilsLang,
 	
 	@Override public DataUpdate iuSecurityUsecases(Security usecases)
 	{
+		logger.info("iuSecurityUsecases starting ..."+fSecurity.allForType(cC,UtilsSecurityCategory.Type.usecase.toString()).size());
 		updateUsecases = AhtDbEjbUpdater.createFactory(cU);
 		updateUsecases.dbEjbs(fSecurity.all(cU));
 
@@ -64,96 +62,26 @@ public class SecurityInitUsecases <L extends UtilsLang,
 			du.setResult(XmlResultFactory.buildFail());
 		}
 		
+		logger.info("Before: UC "+fSecurity.all(cU).size());
 		updateUsecases.remove(fSecurity);
-		logger.trace("iuRoles finished");
-
-		return du;
-	}
-	@Deprecated public DataUpdate iuUsecases(Access access)
-	{
-		updateUsecases = AhtDbEjbUpdater.createFactory(cU);
-		updateUsecases.dbEjbs(fSecurity.all(cU));
-
-		DataUpdate du = XmlDataUpdateFactory.build();
-		try
-		{
-			iuCategory(access, UtilsSecurityCategory.Type.usecase);
-			du.setResult(XmlResultFactory.buildOk());
-		}
-		catch (UtilsConfigurationException e)
-		{
-			e.printStackTrace();
-			du.setResult(XmlResultFactory.buildFail());
-		}
-		
-		updateUsecases.remove(fSecurity);
-		logger.trace("iuRoles finished");
+		logger.info("After: UC "+fSecurity.all(cU).size());
+		logger.info("iuSecurityUsecases finished "+fSecurity.allForType(cC,UtilsSecurityCategory.Type.usecase.toString()).size());
 
 		return du;
 	}
 	
-	@Deprecated @Override protected void iuChilds(C aclCategory, Category category) throws UtilsConfigurationException
-	{
-		if(category.isSetUsecases() && category.getUsecases().isSetUsecase())
-		{
-			for(Usecase usecase : category.getUsecases().getUsecase())
-			{
-				updateUsecases.actualAdd(usecase.getCode());
-				iuUsecase(aclCategory, usecase);
-			}
-		}
-	}
 	@Override protected void iuChilds(C aclCategory, net.sf.ahtutils.xml.security.Category category) throws UtilsConfigurationException
 	{
+		logger.info("iuChilds "+category.getCode());
 		if(category.isSetUsecases() && category.getUsecases().isSetUsecase())
 		{
+			logger.info("iuChilds "+category.getCode()+ " "+category.getUsecases().getUsecase().size());
 			for(net.sf.ahtutils.xml.security.Usecase usecase : category.getUsecases().getUsecase())
 			{
 				updateUsecases.actualAdd(usecase.getCode());
 				iuUsecase(aclCategory, usecase);
 			}
 		}
-	}
-	
-	@Deprecated private void iuUsecase(C category, Usecase usecase) throws UtilsConfigurationException
-	{
-		U ebj;
-		try
-		{
-			ebj = fSecurity.fByCode(cU,usecase.getCode());
-			ejbLangFactory.rmLang(fSecurity,ebj);
-			ejbDescriptionFactory.rmDescription(fSecurity,ebj);
-		}
-		catch (UtilsNotFoundException e)
-		{
-			try
-			{
-				ebj = cU.newInstance();
-				ebj.setCategory(category);
-				ebj.setCode(usecase.getCode());
-				ebj = fSecurity.persist(ebj);
-			}
-			catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
-			catch (IllegalAccessException e2) {throw new UtilsConfigurationException(e2.getMessage());}
-			catch (UtilsContraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
-		}
-		
-		try
-		{
-			ebj.setName(ejbLangFactory.getLangMap(usecase.getLangs()));
-			ebj.setDescription(ejbDescriptionFactory.create(usecase.getDescriptions()));
-			ebj.setCategory(category);
-			ebj=fSecurity.update(ebj);
-			
-			ebj = iuListViews(ebj, usecase.getViews());
-			ebj = iuListActions(ebj, usecase.getActions());
-		}
-		catch (UtilsContraintViolationException e) {logger.error("",e);}
-		catch (InstantiationException e) {logger.error("",e);}
-		catch (IllegalAccessException e) {logger.error("",e);}
-		catch (UtilsIntegrityException e) {logger.error("",e);}
-		catch (UtilsNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
-		catch (UtilsLockingException e) {logger.error("",e);}
 	}
 	
 	private void iuUsecase(C category, net.sf.ahtutils.xml.security.Usecase usecase) throws UtilsConfigurationException
@@ -186,7 +114,7 @@ public class SecurityInitUsecases <L extends UtilsLang,
 			ebj.setCategory(category);
 			ebj=fSecurity.update(ebj);
 			
-			ebj = iuListViews(ebj, usecase.getViews());
+			ebj = iuListViewsSecurity(ebj, usecase.getViews());
 			ebj = iuListActions(ebj, usecase.getActions());
 		}
 		catch (UtilsContraintViolationException e) {logger.error("",e);}

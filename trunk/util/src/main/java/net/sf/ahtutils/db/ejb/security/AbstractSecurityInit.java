@@ -115,7 +115,7 @@ public class AbstractSecurityInit <L extends UtilsLang,
 	
 	@Deprecated protected void iuCategory(Access access, UtilsSecurityCategory.Type type) throws UtilsConfigurationException
 	{
-		logger.debug("i/u "+Category.class.getSimpleName()+" with "+access.getCategory().size()+" categories");
+		logger.info("i/u "+type+" "+Category.class.getSimpleName()+" with "+access.getCategory().size()+" categories");
 		
 		AhtDbEjbUpdater<C> updateCategory = AhtDbEjbUpdater.createFactory(cC);
 		
@@ -163,10 +163,9 @@ public class AbstractSecurityInit <L extends UtilsLang,
 		updateCategory.remove(fSecurity);
 		logger.trace("initUpdateUsecaseCategories finished");
 	}
-	
 	protected void iuCategory(Security security, UtilsSecurityCategory.Type type) throws UtilsConfigurationException
 	{
-		logger.debug("i/u "+Category.class.getSimpleName()+" with "+security.getCategory().size()+" categories");
+		logger.info("i/u "+type+" "+Category.class.getSimpleName()+" with "+security.getCategory().size()+" categories");
 		
 		AhtDbEjbUpdater<C> updateCategory = AhtDbEjbUpdater.createFactory(cC);
 		
@@ -179,7 +178,7 @@ public class AbstractSecurityInit <L extends UtilsLang,
 			C ejbCategory;
 			try
 			{
-				ejbCategory = fSecurity.fByCode(cC,category.getCode());
+				ejbCategory = fSecurity.fByTypeCode(cC,type.toString(),category.getCode());
 				ejbLangFactory.rmLang(fSecurity,ejbCategory);
 				ejbDescriptionFactory.rmDescription(fSecurity,ejbCategory);
 			}
@@ -239,7 +238,7 @@ public class AbstractSecurityInit <L extends UtilsLang,
 		}
 		return ejb;
 	}
-	protected <T extends UtilsSecurityWithViews<L,D,C,R,V,U,A,USER>> T iuListViews(T ejb, net.sf.ahtutils.xml.security.Views views) throws UtilsContraintViolationException, UtilsNotFoundException, UtilsLockingException
+	protected <T extends UtilsSecurityWithViews<L,D,C,R,V,U,A,USER>> T iuListViewsSecurity(T ejb, net.sf.ahtutils.xml.security.Views views) throws UtilsContraintViolationException, UtilsNotFoundException, UtilsLockingException
 	{
 		ejb.getViews().clear();
 		ejb = fSecurity.update(ejb);
@@ -247,6 +246,7 @@ public class AbstractSecurityInit <L extends UtilsLang,
 		{
 			for(net.sf.ahtutils.xml.security.View view : views.getView())
 			{
+				logger.trace("Adding view "+view.getCode()+" to "+ejb.toString());
 				V ejbView = fSecurity.fByCode(cV, view.getCode());
 				ejb.getViews().add(ejbView);
 			}

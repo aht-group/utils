@@ -111,7 +111,7 @@ public class SecurityInitRoles <L extends UtilsLang,
 			aclRole.setCategory(category);
 			aclRole=fSecurity.update(aclRole);
 
-			aclRole = iuListViews(aclRole, role.getViews());
+			aclRole = iuListViewsSecurity(aclRole, role.getViews());
 			aclRole = iuListActions(aclRole, role.getActions());
 			aclRole = iuUsecasesForRole(aclRole, role.getUsecases());
 		}

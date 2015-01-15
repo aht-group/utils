@@ -48,7 +48,7 @@ public class SecurityInitViews <L extends UtilsLang,
 	
 	public DataUpdate iuViews(Access access)
 	{
-		logger.trace("iuViews starting ...");
+		logger.info("iuViews starting ...");
 		updateView = AhtDbEjbUpdater.createFactory(cV);
 		updateAction = AhtDbEjbUpdater.createFactory(cA);
 		
@@ -76,7 +76,7 @@ public class SecurityInitViews <L extends UtilsLang,
 	
 	@Deprecated @Override protected void iuChilds(C aclCategory, Category category) throws UtilsConfigurationException
 	{
-		logger.info("iuChilds (views)");
+		logger.info("iuChilds (access.views) "+category.getViews().getView().size());
 		if(category.isSetViews() && category.getViews().isSetView())
 		{
 			for(View view : category.getViews().getView())
