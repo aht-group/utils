@@ -255,8 +255,9 @@ ul.aupHeadlineBreadcrumb,
 
 /* .aupStatusBar > ul > li:hover ul { */
 .aupStatusBar input[type=checkbox] {display:none;}
+
+/* Position the top of the ul at the bottom of its parent */
 /*.aupStatusBar input[type=checkbox]:checked + ul { 
-  /* Position the top of the ul at the bottom of its parent */
   top:25px;
 
   opacity: 1;
