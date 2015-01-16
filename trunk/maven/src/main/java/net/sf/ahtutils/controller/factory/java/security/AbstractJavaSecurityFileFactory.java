@@ -10,6 +10,7 @@ import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.exlp.util.xml.JaxbUtil;
 
+import org.apache.commons.lang.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,5 +46,23 @@ public class AbstractJavaSecurityFileFactory extends AbstractFreemarkerFileFacto
 		sb.append(code.subSequence(0, 1).toString().toUpperCase());
 		sb.append(code.substring(1, code.length()));
 		return sb.toString();
+	}
+	
+	protected static String buildPackage(String code)
+	{
+		StringBuffer sb = new StringBuffer();
+		for (int i=0;i<code.length();i++)
+		{
+		    char c = code.charAt(i);
+		    if(Character.isUpperCase(c)){sb.append(".").append(Character.toLowerCase(c));}
+		    else{sb.append(c);}
+		}
+		return sb.toString();
+	}
+	
+	protected static String buildPackageFile(String code)
+	{
+		String dotPackage = buildPackage(code);
+		return dotPackage.replace(".",SystemUtils.FILE_SEPARATOR);
 	}
 }

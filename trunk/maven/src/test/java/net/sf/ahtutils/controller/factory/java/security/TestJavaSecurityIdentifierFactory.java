@@ -65,7 +65,7 @@ public class TestJavaSecurityIdentifierFactory extends AbstractJavaSecurityFacto
 	@Test(expected=UtilsConfigurationException.class)
 	public void categoryDirIsFile() throws UtilsConfigurationException, IOException, TemplateException
 	{
-		File actual = new File(fPackage,c1.getCode());
+		File actual = new File(fPackage,AbstractJavaSecurityFileFactory.buildPackage(c1.getCode()));
 		actual.createNewFile();
 		idFactory.create(c1);
 	}
@@ -74,7 +74,7 @@ public class TestJavaSecurityIdentifierFactory extends AbstractJavaSecurityFacto
 	public void categoryDir() throws UtilsConfigurationException, IOException, TemplateException
 	{
 		idFactory.create(c1);
-		File actual = new File(fPackage,c1.getCode());
+		File actual = new File(fPackage,AbstractJavaSecurityFileFactory.buildPackage(c1.getCode()));
 		Assert.assertTrue(actual.exists());
 		Assert.assertTrue(actual.isDirectory());
 	}
@@ -83,7 +83,7 @@ public class TestJavaSecurityIdentifierFactory extends AbstractJavaSecurityFacto
 	public void createIdentifier() throws UtilsConfigurationException, IOException, TemplateException
 	{
 		idFactory.create(c1);
-		File fSub = new File(fPackage,c1.getCode());
+		File fSub = new File(fPackage,AbstractJavaSecurityFileFactory.buildPackage(c1.getCode()));
 		for(View v : c1.getViews().getView())
 		{
 			File actual = new File(fSub,idFactory.createFileName(v.getCode()));

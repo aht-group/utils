@@ -73,6 +73,7 @@ public class AbstractUtilsMavenTst
 		if(saveReference)
 		{
 			FileUtils.copyFile(fActual, fExpected);
+			logger.info("*********************");
 			System.out.println(StringIO.loadTxt(fActual));
 		}
 		

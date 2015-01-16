@@ -56,7 +56,7 @@ public class JavaSecurityViewRestrictorFactory extends AbstractJavaSecurityFileF
 				{
 					StringBuffer sb = new StringBuffer();
 					sb.append(viewQualifierBasePackage);
-					sb.append(".").append(category.getCode()).append(".");
+					sb.append(".").append(AbstractJavaSecurityFileFactory.buildPackage(category.getCode())).append(".");
 					sb.append(createClassName(view.getCode()));
 					
 					Map m = new HashMap();

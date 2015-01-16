@@ -62,7 +62,7 @@ public class AbstractJavaSecurityFactoryTst extends AbstractUtilsMavenTst
 		v3.setNavigation(n3);
 		v3.getNavigation().setPackage("my.package2");
 		
-		c1 = new Category();c1.setCode("xx");
+		c1 = new Category();c1.setCode("adminSecurity");
 		c1.setViews(new Views());
 		c1.getViews().getView().add(v1);
 		c1.getViews().getView().add(v2);
