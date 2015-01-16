@@ -1,4 +1,4 @@
-package net.sf.ahtutils.xx;
+package net.sf.ahtutils.admin.security;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

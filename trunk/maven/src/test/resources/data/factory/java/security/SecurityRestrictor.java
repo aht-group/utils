@@ -5,9 +5,9 @@ import org.jboss.seam.security.annotations.Secures;
 
 import util.AbstractRestrictor;
 
-import my.package.xx.UtilsMyCode;
-import my.package.xx.UtilsMyCode2;
-import my.package.xx.UtilsMyCode3;
+import my.package.admin.security.UtilsMyCode;
+import my.package.admin.security.UtilsMyCode2;
+import my.package.admin.security.UtilsMyCode3;
 
 public class Restrictor extends AbstractRestrictor
 {
