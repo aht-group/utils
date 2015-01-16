@@ -96,7 +96,7 @@ public class JavaSecuritySeamPagesFactory extends AbstractJavaSecurityFileFactor
 			if(v.isOnlyLoginRequired()){oneOnlyLoggedIn=true;}
 			StringBuffer sbImport = new StringBuffer();
 			sbImport.append(viewQualifierBasePackage).append(".");
-			sbImport.append(mCategoryPackage.get(v.getCode())).append(".");
+			sbImport.append(buildPackage(mCategoryPackage.get(v.getCode()))).append(".");
 			sbImport.append(createClassName(v.getCode()));
 			
 			Map m = new HashMap();

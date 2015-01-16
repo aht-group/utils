@@ -49,7 +49,7 @@ public class JavaSecurityViewIdentifierFactory extends AbstractJavaSecurityFileF
 			RecursiveFileFinder finder = new RecursiveFileFinder(FileFilterUtils.suffixFileFilter(".java"));
 			for(File f : finder.find(fPackage))
 			{
-				logger.info("Finder: "+f.getAbsolutePath());
+				logger.debug("Finder: "+f.getAbsolutePath());
 				sPrevious.add(f.getAbsolutePath());
 			}
 		}
@@ -71,7 +71,7 @@ public class JavaSecurityViewIdentifierFactory extends AbstractJavaSecurityFileF
 			{
 				String key = iterator.next();
 				File f = new File(key);
-//				f.delete();
+				f.delete();
 				logger.warn("\t"+key);
 			}
 			
