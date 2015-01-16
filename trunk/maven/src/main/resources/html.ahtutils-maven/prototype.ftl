@@ -255,7 +255,7 @@ ul.aupHeadlineBreadcrumb,
 
 /* .aupStatusBar > ul > li:hover ul { */
 .aupStatusBar input[type=checkbox] {display:none;}
-.aupStatusBar input[type=checkbox]:checked + ul { 
+/*.aupStatusBar input[type=checkbox]:checked + ul { 
   /* Position the top of the ul at the bottom of its parent */
   top:25px;
 
@@ -265,7 +265,7 @@ ul.aupHeadlineBreadcrumb,
   -moz-transition-delay: 0s, 0s;
   -o-transition-delay: 0s, 0s;
   transition-delay: 0s, 0s;
-}
+}*/
 
 .aupStatusBar > ul > li.aupStatusBarLeft > ul {
   text-align:left;
