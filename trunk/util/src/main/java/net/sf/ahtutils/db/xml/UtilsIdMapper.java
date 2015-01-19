@@ -45,7 +45,7 @@ public class UtilsIdMapper
 	public long getMappedId(Class<?> c,long oldId) throws UtilsConfigurationException
 	{
 		if(!map.containsKey(c)){throw new UtilsConfigurationException(this.getClass().getSimpleName()+" does contain information for "+c.getSimpleName()+".id="+oldId);}
-		if(!map.get(c).containsKey(oldId)){throw new UtilsConfigurationException("Map for "+c.getSimpleName()+" does not have an entry for "+oldId);}
+		if(!map.get(c).containsKey(oldId)){throw new UtilsConfigurationException("Map for "+c.getSimpleName()+" does not have an entry for id="+oldId);}
 		return map.get(c).get(oldId);
 	}
 	

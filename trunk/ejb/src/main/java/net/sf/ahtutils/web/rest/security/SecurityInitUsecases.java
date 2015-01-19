@@ -1,4 +1,4 @@
-package net.sf.ahtutils.db.ejb.security;
+package net.sf.ahtutils.web.rest.security;
 
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
@@ -46,7 +46,7 @@ public class SecurityInitUsecases <L extends UtilsLang,
 	
 	@Override public DataUpdate iuSecurityUsecases(Security usecases)
 	{
-		logger.info("iuSecurityUsecases starting ..."+fSecurity.allForType(cC,UtilsSecurityCategory.Type.usecase.toString()).size());
+		logger.trace("iuSecurityUsecases starting ..."+fSecurity.allForType(cC,UtilsSecurityCategory.Type.usecase.toString()).size());
 		updateUsecases = AhtDbEjbUpdater.createFactory(cU);
 		updateUsecases.dbEjbs(fSecurity.all(cU));
 
@@ -62,20 +62,20 @@ public class SecurityInitUsecases <L extends UtilsLang,
 			du.setResult(XmlResultFactory.buildFail());
 		}
 		
-		logger.info("Before: UC "+fSecurity.all(cU).size());
+		logger.trace("Before: UC "+fSecurity.all(cU).size());
 		updateUsecases.remove(fSecurity);
-		logger.info("After: UC "+fSecurity.all(cU).size());
-		logger.info("iuSecurityUsecases finished "+fSecurity.allForType(cC,UtilsSecurityCategory.Type.usecase.toString()).size());
+		logger.trace("After: UC "+fSecurity.all(cU).size());
+		logger.trace("iuSecurityUsecases finished "+fSecurity.allForType(cC,UtilsSecurityCategory.Type.usecase.toString()).size());
 
 		return du;
 	}
 	
 	@Override protected void iuChilds(C aclCategory, net.sf.ahtutils.xml.security.Category category) throws UtilsConfigurationException
 	{
-		logger.info("iuChilds "+category.getCode());
+		logger.trace("iuChilds "+category.getCode());
 		if(category.isSetUsecases() && category.getUsecases().isSetUsecase())
 		{
-			logger.info("iuChilds "+category.getCode()+ " "+category.getUsecases().getUsecase().size());
+			logger.trace("iuChilds "+category.getCode()+ " "+category.getUsecases().getUsecase().size());
 			for(net.sf.ahtutils.xml.security.Usecase usecase : category.getUsecases().getUsecase())
 			{
 				updateUsecases.actualAdd(usecase.getCode());

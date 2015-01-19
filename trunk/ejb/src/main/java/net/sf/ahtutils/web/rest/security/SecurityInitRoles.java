@@ -1,4 +1,4 @@
-package net.sf.ahtutils.db.ejb.security;
+package net.sf.ahtutils.web.rest.security;
 
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;

@@ -1,4 +1,4 @@
-package net.sf.ahtutils.db.ejb.security;
+package net.sf.ahtutils.web.rest.security;
 
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
@@ -115,7 +115,7 @@ public class AbstractSecurityInit <L extends UtilsLang,
 	
 	@Deprecated protected void iuCategory(Access access, UtilsSecurityCategory.Type type) throws UtilsConfigurationException
 	{
-		logger.info("i/u "+type+" "+Category.class.getSimpleName()+" with "+access.getCategory().size()+" categories");
+		logger.info("i/u "+type+" with "+access.getCategory().size()+" categories");
 		
 		AhtDbEjbUpdater<C> updateCategory = AhtDbEjbUpdater.createFactory(cC);
 		
@@ -165,7 +165,7 @@ public class AbstractSecurityInit <L extends UtilsLang,
 	}
 	protected void iuCategory(Security security, UtilsSecurityCategory.Type type) throws UtilsConfigurationException
 	{
-		logger.info("i/u "+type+" "+Category.class.getSimpleName()+" with "+security.getCategory().size()+" categories");
+		logger.info("i/u "+type+" with "+security.getCategory().size()+" categories");
 		
 		AhtDbEjbUpdater<C> updateCategory = AhtDbEjbUpdater.createFactory(cC);
 		
