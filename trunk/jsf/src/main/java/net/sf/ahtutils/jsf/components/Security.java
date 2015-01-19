@@ -8,6 +8,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 
+import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.web.UtilsJsfSecurityHandler;
 import net.sf.ahtutils.jsf.util.ComponentAttribute;
 
@@ -18,7 +19,7 @@ import org.slf4j.LoggerFactory;
 public class Security extends UIPanel
 {
 	final static Logger logger = LoggerFactory.getLogger(Security.class);
-	private static enum Properties {action,handler}
+	private static enum Properties {action,handler,allow}
 	private static enum Facets {denied}
 	
 	@Override public boolean getRendersChildren(){return true;}
@@ -31,12 +32,25 @@ public class Security extends UIPanel
 	@Override
 	public void encodeChildren(FacesContext context) throws IOException
 	{
-		ValueExpression ve = this.getValueExpression(Properties.handler.toString());
-		UtilsJsfSecurityHandler handler = (UtilsJsfSecurityHandler)ve.getValue(context.getELContext());
 		
-		String action = ComponentAttribute.get(Properties.action.toString(),"null",context,this);
 		
-		if(handler.allow(action))
+		boolean accessGranted = false;
+		boolean accessGrantedAttribute = ComponentAttribute.getBoolean(Properties.allow.toString(),true,context,this);
+		try
+		{
+			ValueExpression ve = this.getValueExpression(Properties.handler.toString());
+			if(ve==null){throw new UtilsNotFoundException("");}
+			UtilsJsfSecurityHandler handler = (UtilsJsfSecurityHandler)ve.getValue(context.getELContext());
+			
+			String action = ComponentAttribute.get(Properties.action.toString(),context,this);
+			accessGranted = (handler.allow(action) && accessGrantedAttribute);
+		}
+		catch (UtilsNotFoundException e)
+		{
+			accessGranted = accessGrantedAttribute;
+		}
+			
+		if(accessGranted)
 		{
 			for(UIComponent uic : this.getChildren())
 			{
