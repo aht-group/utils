@@ -15,6 +15,7 @@ import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +48,7 @@ public class TestJavaSecurityIdentifierFactory extends AbstractJavaSecurityFacto
 		idFactory = null;
 	}
 	
+	@Ignore
 	@Test(expected=ExlpConfigurationException.class)
 	public void noDir() throws ExlpConfigurationException
 	{
@@ -54,6 +56,7 @@ public class TestJavaSecurityIdentifierFactory extends AbstractJavaSecurityFacto
 		DirChecker.checkFileIsDirectory(fPackage);
 	}
 	
+	@Ignore
 	@Test(expected=ExlpConfigurationException.class)
 	public void isFile() throws IOException, ExlpConfigurationException
 	{
@@ -62,6 +65,7 @@ public class TestJavaSecurityIdentifierFactory extends AbstractJavaSecurityFacto
 		DirChecker.checkFileIsDirectory(fPackage);
 	}
 	
+	@Ignore
 	@Test(expected=UtilsConfigurationException.class)
 	public void categoryDirIsFile() throws UtilsConfigurationException, IOException, TemplateException
 	{
@@ -70,6 +74,7 @@ public class TestJavaSecurityIdentifierFactory extends AbstractJavaSecurityFacto
 		idFactory.create(c1);
 	}
 	
+	@Ignore
 	@Test
 	public void categoryDir() throws UtilsConfigurationException, IOException, TemplateException
 	{
@@ -79,6 +84,7 @@ public class TestJavaSecurityIdentifierFactory extends AbstractJavaSecurityFacto
 		Assert.assertTrue(actual.isDirectory());
 	}
 	
+	@Ignore
 	@Test
 	public void createIdentifier() throws UtilsConfigurationException, IOException, TemplateException
 	{
@@ -95,6 +101,7 @@ public class TestJavaSecurityIdentifierFactory extends AbstractJavaSecurityFacto
 		}
 	}
 	
+	@Ignore
 	@Test
 	public void testClassNames()
 	{

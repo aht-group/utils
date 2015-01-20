@@ -12,6 +12,7 @@ import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
+import net.sf.ahtutils.interfaces.model.behaviour.EjbEquals;
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.date.EjbWithTimeline;
 import net.sf.ahtutils.interfaces.model.date.EjbWithYear;
@@ -46,6 +47,8 @@ public class AbstractUtilsFacadeBean implements UtilsFacade
 	final static Logger logger = LoggerFactory.getLogger(AbstractUtilsFacadeBean.class);
 	
 	protected UtilsFacadeBean fUtils;
+	
+	@Override public <E extends EjbEquals<T>, T extends EjbWithId> boolean equalsAttributes(Class<T> c,E object){return fUtils.equalsAttributes(c,object);}
 	
 	// Persist
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -125,6 +128,7 @@ public class AbstractUtilsFacadeBean implements UtilsFacade
 	//Year
 	public <T extends EjbWithYear, P extends EjbWithId> T fByYear(Class<T> type, String p1Name, P p, int year) throws UtilsNotFoundException {return fUtils.fByYear(type, p1Name, p, year);}
 	@Override public <L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L, D, C, R, V, U, A, USER>, R extends UtilsSecurityRole<L, D, C, R, V, U, A, USER>, V extends UtilsSecurityView<L, D, C, R, V, U, A, USER>, U extends UtilsSecurityUsecase<L, D, C, R, V, U, A, USER>, A extends UtilsSecurityAction<L, D, C, R, V, U, A, USER>, USER extends UtilsUser<L, D, C, R, V, U, A, USER>> List<USER> likeNameFirstLast(Class<USER> c, String query) {return fUtils.likeNameFirstLast(c,query);}
+
 
 	
 }

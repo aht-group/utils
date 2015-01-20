@@ -20,6 +20,7 @@ import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
+import net.sf.ahtutils.interfaces.model.behaviour.EjbEquals;
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.date.EjbWithTimeline;
 import net.sf.ahtutils.interfaces.model.date.EjbWithYear;
@@ -62,6 +63,13 @@ public class UtilsFacadeBean implements UtilsFacade
 	{
 		this.em=em;
 		this.handleTransaction=handleTransaction;
+	}
+	
+	@Override
+	public <E extends EjbEquals<T>, T extends EjbWithId> boolean equalsAttributes(Class<T> c, E object)
+	{
+		if(object.getId()==0){return false;}
+		else {return object.equalsAttributes(em.find(c,object.getId()));}
 	}
 	
 //	@Override
@@ -930,5 +938,4 @@ public class UtilsFacadeBean implements UtilsFacade
 	    TypedQuery<USER> q = em.createQuery(select);
 		return q.getResultList();
 	}
-
 }

@@ -8,6 +8,7 @@ import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.interfaces.model.behaviour.EjbEquals;
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.date.EjbWithTimeline;
 import net.sf.ahtutils.interfaces.model.date.EjbWithYear;
@@ -36,8 +37,13 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithValidFrom;
 
 public interface UtilsFacade extends UtilsIdFacade
 {
+	
+	//NAME
 	<T extends EjbWithName> T fByName(Class<T> type, String name) throws UtilsNotFoundException;
 
+	//EQUALS
+	<E extends EjbEquals<T>,T extends EjbWithId> boolean equalsAttributes(Class<T> c,E object); 
+	
 	//CODE
 	<T extends EjbWithCode> T fByCode(Class<T> type, String code) throws UtilsNotFoundException;
 	<T extends EjbWithTypeCode> T fByTypeCode(Class<T> c, String type, String code) throws UtilsNotFoundException;
