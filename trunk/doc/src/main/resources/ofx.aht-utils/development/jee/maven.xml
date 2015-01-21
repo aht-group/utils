@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org"
+			xmlns:l="http://www.openfuxml.org/list"
+			xmlns:t="http://www.openfuxml.org/table"
+			xmlns:media="http://www.openfuxml.org/media"
+			xmlns:layout="http://www.openfuxml.org/layout"
+			id="section.admin.development.er">
+	<ofx:title lang="en">Maven Structure</ofx:title>
+		
+	<l:list>
+	    <l:type ordering="unordered"/>
+	    
+	    <l:item>
+	    	<ofx:paragraph lang="en">
+				reset.css: The goal of a reset stylesheet is to reduce browser inconsistencies in things like default line heights, margins and font sizes of headings, and so on.
+				The reset styles given here are intentionally very generic.
+				There isn't any default color or background set for the body element, for example.
+			</ofx:paragraph>
+	    </l:item>		
+	    
+	</l:list>
+	
+</ofx:section>
