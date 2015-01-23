@@ -8,6 +8,17 @@ public class RestUrlDelay
 {
 	final static Logger logger = LoggerFactory.getLogger(RestUrlDelay.class);
 	
+	public static String getUrlNoDelay(Configuration config, String key)
+	{
+		String url = config.getString(key);
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append("REST connection to ");
+		sb.append(url);
+		sb.append(" (").append(key).append(")");
+		return url;
+	}
+	
 	public static String getUrl(Configuration config, String key)
 	{
 		String url = config.getString(key);
