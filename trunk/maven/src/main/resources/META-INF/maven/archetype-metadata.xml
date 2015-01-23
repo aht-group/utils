@@ -1,22 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<archetype-descriptor xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd" name="ahtutils"
-    xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <fileSets>
-    
-  </fileSets>
-  <modules>
-    <module id="${rootArtifactId}-doc" dir="doc" name="${rootArtifactId}-doc">
-      <fileSets>
-         <fileSet filtered="true" encoding="UTF-8">
-          <directory>src/main/resources</directory>
-          <includes>
-            <include>**/*.xml</include>
-          </includes>
-        </fileSet>
+<archetype-descriptor
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd"
+	name="ahtutils"
+	xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<fileSets>
 
-      </fileSets>
-    </module>
-    
-  </modules>
+	</fileSets>
+	<modules>
+		<module id="${rootArtifactId}-doc" dir="doc" name="${rootArtifactId}-doc">
+			<fileSets>
+				<fileSet filtered="true" encoding="UTF-8">
+					<directory>src/main/resources</directory>
+					<includes>
+						<include>**/*.xml</include>
+					</includes>
+				</fileSet>
+				<fileSet filtered="true" encoding="UTF-8">
+					<directory>src/main/latex</directory>
+					<includes>
+						<include>**/*.tex</include>
+					</includes>
+				</fileSet>
+			</fileSets>
+		</module>
+		<module id="${rootArtifactId}-entities" dir="entities"
+			name="${rootArtifactId}-entities">
+			<fileSets>
+				<fileSet filtered="true" encoding="UTF-8" packaged="true">
+					<directory>src/main/java</directory>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+				</fileSet>
+				<fileSet filtered="true" encoding="UTF-8" packaged="true">
+					<directory>src/main/resources</directory>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+				</fileSet>
+			</fileSets>
+		</module>
+	</modules>
+	
 </archetype-descriptor>
