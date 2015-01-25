@@ -4,7 +4,6 @@ import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.xml.status.SubType;
-import net.sf.ahtutils.xml.status.Type;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
