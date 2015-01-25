@@ -27,6 +27,7 @@ public class TestXmlMainType extends AbstractXmlStatusTest
     public static MainType create(boolean withChilds)
     {
     	MainType xml = new MainType();
+    	xml.setId(123);
     	xml.setCode("myCode");
     	xml.setVisible(true);
     	xml.setGroup("myGroup");

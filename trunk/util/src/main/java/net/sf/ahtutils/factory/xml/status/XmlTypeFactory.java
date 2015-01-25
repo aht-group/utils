@@ -31,6 +31,7 @@ public class XmlTypeFactory
 	public <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription> Type build(S ejb, String group)
 	{
 		Type xml = new Type();
+		if(q.isSetId()){xml.setId(ejb.getId());}
 		if(q.isSetCode()){xml.setCode(ejb.getCode());}
 		if(q.isSetPosition()){xml.setPosition(ejb.getPosition());}
 		xml.setGroup(group);
@@ -77,6 +78,13 @@ public class XmlTypeFactory
 		xml.setKey(key);
 		xml.setCode(code);
 		xml.setLabel(label);
+		return xml;
+	}
+	
+	public static Type id()
+	{
+		Type xml = new Type();
+		xml.setId(0);
 		return xml;
 	}
 	

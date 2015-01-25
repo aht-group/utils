@@ -4,6 +4,7 @@ import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.xml.status.SubType;
+import net.sf.ahtutils.xml.status.Type;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,7 @@ public class XmlSubTypeFactory
 	public <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription> SubType build(S ejb, String group)
 	{
 		SubType xml = new SubType();
+		if(q.isSetId()){xml.setId(ejb.getId());}
 		if(q.isSetCode()){xml.setCode(ejb.getCode());}
 		if(q.isSetPosition()){xml.setPosition(ejb.getPosition());}
 		xml.setGroup(group);
@@ -37,6 +39,13 @@ public class XmlSubTypeFactory
 
 		}
 		
+		return xml;
+	}
+	
+	public static SubType id()
+	{
+		SubType xml = new SubType();
+		xml.setId(0);
 		return xml;
 	}
 	

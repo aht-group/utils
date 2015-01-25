@@ -5,6 +5,7 @@ import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.xml.status.MainType;
 import net.sf.ahtutils.xml.status.Status;
+import net.sf.ahtutils.xml.status.SubType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,7 @@ public class XmlMainTypeFactory
 	public <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription> MainType build(S ejb, String group)
 	{
 		MainType xml = new MainType();
+		if(q.isSetId()){xml.setId(ejb.getId());}
 		if(q.isSetCode()){xml.setCode(ejb.getCode());}
 		if(q.isSetPosition()){xml.setPosition(ejb.getPosition());}
 		xml.setGroup(group);
@@ -38,6 +40,13 @@ public class XmlMainTypeFactory
 
 		}
 		
+		return xml;
+	}
+	
+	public static MainType id()
+	{
+		MainType xml = new MainType();
+		xml.setId(0);
 		return xml;
 	}
 	

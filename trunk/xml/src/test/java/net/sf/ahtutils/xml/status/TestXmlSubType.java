@@ -27,6 +27,7 @@ public class TestXmlSubType extends AbstractXmlStatusTest
     public static SubType create(boolean withChilds)
     {
     	SubType xml = new SubType();
+    	xml.setId(123);
     	xml.setCode("myCode");
     	xml.setVisible(true);
     	xml.setGroup("myGroup");

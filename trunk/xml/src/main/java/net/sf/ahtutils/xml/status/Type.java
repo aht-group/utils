@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}descriptions"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}lang" maxOccurs="unbounded"/>
  *       &lt;/sequence>
+ *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" />
  *       &lt;attribute name="key" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="code" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="group" type="{http://www.w3.org/2001/XMLSchema}string" />
@@ -62,6 +63,8 @@ public class Type
     protected Descriptions descriptions;
     @XmlElement(required = true)
     protected List<Lang> lang;
+    @XmlAttribute(name = "id")
+    protected Long id;
     @XmlAttribute(name = "key")
     protected String key;
     @XmlAttribute(name = "code")
@@ -196,6 +199,38 @@ public class Type
 
     public void unsetLang() {
         this.lang = null;
+    }
+
+    /**
+     * Gets the value of the id property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Long }
+     *     
+     */
+    public long getId() {
+        return id;
+    }
+
+    /**
+     * Sets the value of the id property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Long }
+     *     
+     */
+    public void setId(long value) {
+        this.id = value;
+    }
+
+    public boolean isSetId() {
+        return (this.id!= null);
+    }
+
+    public void unsetId() {
+        this.id = null;
     }
 
     /**
