@@ -28,6 +28,7 @@ public class XmlStatusFactory
 	{
 		Status xml = new Status();
 		xml.setGroup(group);
+		if(q.isSetId()){xml.setId(ejb.getId());}
 		if(q.isSetCode()){xml.setCode(ejb.getCode());}
 		if(q.isSetPosition()){xml.setPosition(ejb.getPosition());}
 		if(q.isSetStyle()){xml.setStyle(ejb.getStyle());}
@@ -87,6 +88,13 @@ public class XmlStatusFactory
 		Status xml = new Status();
 		xml.setCode(code);
 		xml.setLabel(label);
+		return xml;
+	}
+	
+	public static Status id()
+	{
+		Status xml = new Status();
+		xml.setId(0);
 		return xml;
 	}
 }
