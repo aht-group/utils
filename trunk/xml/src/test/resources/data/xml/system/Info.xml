@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sys:info xmlns:s="http://ahtutils.aht-group.com/status" xmlns:sec="http://ahtutils.aht-group.com/security" xmlns:sys="http://ahtutils.aht-group.com/system">
+    <sys:uptime since="2011-11-11T11:11:11"/>
+    <sys:uptime since="2011-11-11T11:11:11"/>
+    <sys:request counter="123"/>
+    <sys:request counter="123"/>
+</sys:info>

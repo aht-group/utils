@@ -30,11 +30,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Request }
+     * 
+     */
+    public Request createRequest() {
+        return new Request();
+    }
+
+    /**
      * Create an instance of {@link Uptime }
      * 
      */
     public Uptime createUptime() {
         return new Uptime();
+    }
+
+    /**
+     * Create an instance of {@link Info }
+     * 
+     */
+    public Info createInfo() {
+        return new Info();
     }
 
 }
