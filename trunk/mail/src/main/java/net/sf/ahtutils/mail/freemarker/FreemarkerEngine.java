@@ -65,7 +65,7 @@ public class FreemarkerEngine
 	
 	private void initTemplate(Mail cfgMail) throws IOException
 	{
-		JaxbUtil.info(cfgMail);
+		JaxbUtil.trace(cfgMail);
 		try
 		{
 			Mail mail = MailXpath.getMail(mails, cfgMail.getCode());

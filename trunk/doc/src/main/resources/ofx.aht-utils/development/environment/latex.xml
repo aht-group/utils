@@ -42,5 +42,23 @@
 		
 	</ofx:section>
 	
+	<ofx:section>
+		<ofx:title lang="en">Generation of Manuals</ofx:title>
+		
+		<ofx:paragraph lang="en" version="1">
+			The source for the manuals is located in the doc-module (the doc directory of the project).
+			In this directory the following command has to be excecuted:
+		</ofx:paragraph>
+		
+		<ofx:listing>
+			<ofx:raw>mvn clean latex:latex</ofx:raw>
+		</ofx:listing>
+		
+		<ofx:paragraph lang="en" version="1">
+			This produces the pdf in the doc/target folder
+		</ofx:paragraph>
+		
+	</ofx:section>
+	
 		
 </ofx:section>
