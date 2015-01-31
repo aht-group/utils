@@ -75,12 +75,10 @@ public class ReportExporter extends AbstractMojo
 			MultiResourceLoader mrl = new MultiResourceLoader();
 			getLog().info("XML available: "+mrl.isAvailable(exampleXML));
 			
-			try {
+			try
+			{
 				document = JRXmlUtils.parse(JRLoader.getLocationInputStream(exampleXML));
-			} catch (JRException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			} catch (JRException e1) {e1.printStackTrace();}
 			
 			DomUtil.debugDocument(document);
 			
@@ -96,16 +94,11 @@ public class ReportExporter extends AbstractMojo
 //			try {
 //				db = dbf.newDocumentBuilder();
 //				document = db.parse(file);
-//				} catch (SAXException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				} catch (ParserConfigurationException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
+//				}
+//			catch (SAXException e) {e.printStackTrace();}
+//			catch (IOException e) {e.printStackTrace();}
+//			catch (ParserConfigurationException e1) {e1.printStackTrace();}
+			
 			getLog().info("Using data: " +document.toString());
 			
 			
@@ -170,7 +163,7 @@ public class ReportExporter extends AbstractMojo
 			}
 		}
 		
-		//Filling and exporting reports TODO list
+		//Filling and exporting reports TODOs list
 		
 		// 1.) GetReport Jasperfile -check-
 		// 2.) GetSubreports Jasperfiles and add them to map

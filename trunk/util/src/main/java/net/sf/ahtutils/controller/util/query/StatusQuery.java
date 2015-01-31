@@ -20,6 +20,7 @@ public class StatusQuery
 	
 	private static Map<Key,Query> mQueries;
 	
+	public static Query get(Key key){return get(key,null);}
 	public static Query get(Key key,String lang)
 	{
 		if(mQueries==null){mQueries = new Hashtable<Key,Query>();}
@@ -41,6 +42,10 @@ public class StatusQuery
 	
 	public static Status statusExport()
 	{
+		Parent parent = new Parent();
+		parent.setId(0);
+		parent.setCode("");
+		
 		Status xml = new Status();
 		xml.setCode("");
 		xml.setImage("");
@@ -49,7 +54,7 @@ public class StatusQuery
 		xml.setVisible(true);
 		xml.setLangs(langs());
 		xml.setDescriptions(descriptions());
-		xml.setParent(new Parent());
+		xml.setParent(parent);
 		return xml;
 	}
 	

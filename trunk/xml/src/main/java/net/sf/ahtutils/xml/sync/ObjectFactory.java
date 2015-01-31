@@ -54,6 +54,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Sync }
+     * 
+     */
+    public Sync createSync() {
+        return new Sync();
+    }
+
+    /**
      * Create an instance of {@link Mapper }
      * 
      */

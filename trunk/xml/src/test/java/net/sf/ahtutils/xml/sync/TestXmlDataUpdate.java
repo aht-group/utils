@@ -44,6 +44,7 @@ public class TestXmlDataUpdate extends AbstractXmlSyncTest
     		xml.setResult(TestXmlResult.create(false));
     		xml.setType(new Type());
     		xml.setExceptions(TestXmlExceptions.create(false));
+    		xml.getSync().add(TestXmlSync.create(false));
     	}
     	
     	return xml;

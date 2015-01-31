@@ -93,11 +93,7 @@ public class Ranking
 		@Override
 		public int compare(Rank a, Rank b)
 		{
-			// TODO Auto-generated method stub
 			return(new Integer(a.getPoints())).compareTo(b.getPoints())*-1;
-			
 		}
-
-
 	}
 }

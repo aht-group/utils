@@ -10,46 +10,29 @@ public class RLoggingChannel  implements RMainLoopCallbacks{
 	final static Logger logger = LoggerFactory.getLogger(RLoggingChannel.class);
 
 	@Override
-	public void rBusy(Rengine arg0, int arg1) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void rBusy(Rengine arg0, int arg1) {}
 
 	@Override
 	public String rChooseFile(Rengine arg0, int arg1) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void rFlushConsole(Rengine arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void rFlushConsole(Rengine arg0) {}
 
 	@Override
-	public void rLoadHistory(Rengine arg0, String arg1) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void rLoadHistory(Rengine arg0, String arg1) {}
 
 	@Override
 	public String rReadConsole(Rengine arg0, String arg1, int arg2) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void rSaveHistory(Rengine arg0, String arg1) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void rSaveHistory(Rengine arg0, String arg1) {}
 
 	@Override
-	public void rShowMessage(Rengine arg0, String arg1) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void rShowMessage(Rengine arg0, String arg1) {}
 
 	@Override
 	public void rWriteConsole(Rengine arg0, String arg1, int arg2) {

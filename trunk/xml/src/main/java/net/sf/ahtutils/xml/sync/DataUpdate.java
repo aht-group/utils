@@ -28,6 +28,7 @@ import net.sf.ahtutils.xml.status.Type;
  *         &lt;element ref="{http://ahtutils.aht-group.com/sync}mapper" maxOccurs="unbounded"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}type"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/sync}result"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/sync}sync" maxOccurs="unbounded"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/sync}exceptions"/>
  *       &lt;/sequence>
  *       &lt;attribute name="begin" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
@@ -44,6 +45,7 @@ import net.sf.ahtutils.xml.status.Type;
     "mapper",
     "type",
     "result",
+    "sync",
     "exceptions"
 })
 @XmlRootElement(name = "dataUpdate")
@@ -58,6 +60,8 @@ public class DataUpdate
     protected Type type;
     @XmlElement(required = true)
     protected Result result;
+    @XmlElement(required = true)
+    protected List<Sync> sync;
     @XmlElement(required = true)
     protected Exceptions exceptions;
     @XmlAttribute(name = "begin")
@@ -158,6 +162,43 @@ public class DataUpdate
 
     public boolean isSetResult() {
         return (this.result!= null);
+    }
+
+    /**
+     * Gets the value of the sync property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the sync property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getSync().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Sync }
+     * 
+     * 
+     */
+    public List<Sync> getSync() {
+        if (sync == null) {
+            sync = new ArrayList<Sync>();
+        }
+        return this.sync;
+    }
+
+    public boolean isSetSync() {
+        return ((this.sync!= null)&&(!this.sync.isEmpty()));
+    }
+
+    public void unsetSync() {
+        this.sync = null;
     }
 
     /**

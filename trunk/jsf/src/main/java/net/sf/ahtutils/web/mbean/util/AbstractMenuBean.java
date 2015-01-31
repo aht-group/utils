@@ -92,7 +92,7 @@ public abstract class AbstractMenuBean implements Serializable
 					bClone.getMenuItem().add(XmlMenuItemFactory.clone(bOrig.getMenuItem().get(i)));
 				}
 				JaxbUtil.trace(bClone);
-				//TODO WITHFIRST
+				//Issue Utils-228
 		/*		if(b.getMenuItem().size()>1 && !withFirst)
 				{
 					b.getMenuItem().remove(0);

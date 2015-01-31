@@ -57,14 +57,7 @@ public class IcmpTask implements Callable<IcmpResults>
 				mdt.addSeconds(1);
 			}
 		}
-		catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-
-	    
+		catch (UnknownHostException e) {e.printStackTrace();}	    
 		return results;
 	}
 	

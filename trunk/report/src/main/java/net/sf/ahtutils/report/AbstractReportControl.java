@@ -89,7 +89,6 @@ public abstract class AbstractReportControl
 			{
 				if (jr.getType().equals("sr"))
 				{
-					String rName    = "";
 					String fileName = jr.getType() +jr.getName();
 					logger.info("Compiling " +fileName);
 					JasperReport jreport = getReport(rDir, fileName,dir);
@@ -107,15 +106,16 @@ public abstract class AbstractReportControl
 		String rName = jr.getName();
 		String rDir  = reportRoot +"/jrxml/"+(String)JXPathContext.newContext(config).getValue("report[id='" +rId +"']/@dir") +"/" +output.name();
 		String reportDir = reportRoot.replace("src/main/resources/", "");
-		try {
+		try
+		{
 			report = (JasperReport) JRLoader.loadObject(mrl.searchIs(reportDir +"/jasper/" +rep.getDir()+"/" +output.name() +"/" +dir.name() +"/mr" +rName +".jasper"));
-		} catch (FileNotFoundException e) {
+		}
+		catch (FileNotFoundException e)
+		{
 			logger.warn("File Not Found - compiling Report!");
 			report = getReport(rDir, "mr"+rName,dir);
-		} catch (JRException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		catch (JRException e) {e.printStackTrace();}
 		return report;
 		//return getReport(rDir, "mr"+rName,dir);
 	}

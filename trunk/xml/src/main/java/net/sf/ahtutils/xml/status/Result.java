@@ -2,6 +2,8 @@
 package net.sf.ahtutils.xml.status;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -20,17 +22,16 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/status}transistions"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}langs"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}descriptions"/>
- *         &lt;element ref="{http://ahtutils.aht-group.com/status}parent"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/status}lang" maxOccurs="unbounded"/>
  *       &lt;/sequence>
- *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" />
  *       &lt;attribute name="code" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="group" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="label" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="visible" type="{http://www.w3.org/2001/XMLSchema}boolean" />
  *       &lt;attribute name="image" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="style" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="position" type="{http://www.w3.org/2001/XMLSchema}int" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -41,24 +42,25 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
+    "transistions",
     "langs",
     "descriptions",
-    "parent"
+    "lang"
 })
-@XmlRootElement(name = "function")
-public class Function
+@XmlRootElement(name = "result")
+public class Result
     implements Serializable
 {
 
     private final static long serialVersionUID = 1L;
     @XmlElement(required = true)
+    protected Transistions transistions;
+    @XmlElement(required = true)
     protected Langs langs;
     @XmlElement(required = true)
     protected Descriptions descriptions;
     @XmlElement(required = true)
-    protected Parent parent;
-    @XmlAttribute(name = "id")
-    protected Long id;
+    protected List<Lang> lang;
     @XmlAttribute(name = "code")
     protected String code;
     @XmlAttribute(name = "group")
@@ -69,10 +71,36 @@ public class Function
     protected Boolean visible;
     @XmlAttribute(name = "image")
     protected String image;
-    @XmlAttribute(name = "style")
-    protected String style;
     @XmlAttribute(name = "position")
     protected Integer position;
+
+    /**
+     * Gets the value of the transistions property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Transistions }
+     *     
+     */
+    public Transistions getTransistions() {
+        return transistions;
+    }
+
+    /**
+     * Sets the value of the transistions property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Transistions }
+     *     
+     */
+    public void setTransistions(Transistions value) {
+        this.transistions = value;
+    }
+
+    public boolean isSetTransistions() {
+        return (this.transistions!= null);
+    }
 
     /**
      * Gets the value of the langs property.
@@ -131,63 +159,40 @@ public class Function
     }
 
     /**
-     * Gets the value of the parent property.
+     * Gets the value of the lang property.
      * 
-     * @return
-     *     possible object is
-     *     {@link Parent }
-     *     
-     */
-    public Parent getParent() {
-        return parent;
-    }
-
-    /**
-     * Sets the value of the parent property.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the lang property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link Parent }
-     *     
-     */
-    public void setParent(Parent value) {
-        this.parent = value;
-    }
-
-    public boolean isSetParent() {
-        return (this.parent!= null);
-    }
-
-    /**
-     * Gets the value of the id property.
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getLang().add(newItem);
+     * </pre>
      * 
-     * @return
-     *     possible object is
-     *     {@link Long }
-     *     
-     */
-    public long getId() {
-        return id;
-    }
-
-    /**
-     * Sets the value of the id property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link Long }
-     *     
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Lang }
+     * 
+     * 
      */
-    public void setId(long value) {
-        this.id = value;
+    public List<Lang> getLang() {
+        if (lang == null) {
+            lang = new ArrayList<Lang>();
+        }
+        return this.lang;
     }
 
-    public boolean isSetId() {
-        return (this.id!= null);
+    public boolean isSetLang() {
+        return ((this.lang!= null)&&(!this.lang.isEmpty()));
     }
 
-    public void unsetId() {
-        this.id = null;
+    public void unsetLang() {
+        this.lang = null;
     }
 
     /**
@@ -332,34 +337,6 @@ public class Function
 
     public boolean isSetImage() {
         return (this.image!= null);
-    }
-
-    /**
-     * Gets the value of the style property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getStyle() {
-        return style;
-    }
-
-    /**
-     * Sets the value of the style property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setStyle(String value) {
-        this.style = value;
-    }
-
-    public boolean isSetStyle() {
-        return (this.style!= null);
     }
 
     /**

@@ -42,7 +42,7 @@ public class XmlStatusFactory
 		}
 		if(q.isSetDescriptions())
 		{
-			XmlDescriptionsFactory f = new XmlDescriptionsFactory(q.getDescriptions());
+			XmlDescriptionsFactory<D> f = new XmlDescriptionsFactory<D>(q.getDescriptions());
 			xml.setDescriptions(f.create(ejb.getDescription()));
 		}
 		
@@ -65,6 +65,10 @@ public class XmlStatusFactory
 				xml.setLabel(msg);
 			}
 		}
+		
+		logger.info("Checking for Parent: "+ejb.getId());
+		logger.info(" q:"+(q.isSetParent()));
+		logger.info(" p:"+(ejb.getParent()!=null));
 		
 		if(q.isSetParent() && ejb.getParent()!=null)
 		{

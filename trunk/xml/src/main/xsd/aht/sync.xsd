@@ -10,10 +10,21 @@
                 <xsd:element ref="sync:mapper" maxOccurs="unbounded"/>
                 <xsd:element ref="us:type" maxOccurs="1"/>
                 <xsd:element ref="sync:result" maxOccurs="1"/>
+                <xsd:element ref="sync:sync" maxOccurs="unbounded"/>
                 <xsd:element ref="sync:exceptions" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="begin" type="xsd:dateTime"/>
             <xsd:attribute name="finished" type="xsd:dateTime"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="sync">
+        <xsd:complexType>
+			<xsd:sequence>
+                <xsd:element ref="us:status" maxOccurs="1"/>
+                <xsd:element ref="us:result" maxOccurs="1"/>
+           </xsd:sequence>
+           <xsd:attribute name="clientId" type="xsd:long"/>
+           <xsd:attribute name="serverId" type="xsd:long"/>
         </xsd:complexType>
     </xsd:element>
 	<xsd:element name="mapper">

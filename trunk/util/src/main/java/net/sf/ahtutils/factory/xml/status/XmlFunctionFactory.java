@@ -84,6 +84,7 @@ public class XmlFunctionFactory
 		xml.setCode(status.getCode());
 		xml.setDescriptions(status.getDescriptions());
 		xml.setLangs(status.getLangs());
+		if(status.isSetParent()){xml.setParent(status.getParent());}
 		return xml;
 	}
 }
