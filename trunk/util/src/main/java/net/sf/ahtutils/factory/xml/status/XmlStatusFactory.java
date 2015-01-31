@@ -66,10 +66,6 @@ public class XmlStatusFactory
 			}
 		}
 		
-		logger.info("Checking for Parent: "+ejb.getId());
-		logger.info(" q:"+(q.isSetParent()));
-		logger.info(" p:"+(ejb.getParent()!=null));
-		
 		if(q.isSetParent() && ejb.getParent()!=null)
 		{
 			Parent parent = new Parent();
