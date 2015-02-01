@@ -10,11 +10,15 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.factory.ejb.sync.EjbSyncFactory;
 import net.sf.ahtutils.interfaces.facade.UtilsSyncFacade;
 import net.sf.ahtutils.interfaces.model.sync.UtilsSync;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
+
+import org.joda.time.DateTime;
+import org.joda.time.Seconds;
 
 public class UtilsSyncFacadeBean <L extends UtilsLang,
 									D extends UtilsDescription,
@@ -47,6 +51,43 @@ public class UtilsSyncFacadeBean <L extends UtilsLang,
 		TypedQuery<SYNC> q = em.createQuery(cQ); 
 		try	{return q.getSingleResult();}
 		catch (NoResultException ex){throw new UtilsNotFoundException("Nothing found category:"+category.getCode()+" for code="+code);}
+	}
+
+	@Override
+	public SYNC fcSync(Class<SYNC> cSync, Class<STATUS> cStatus, CATEGORY category, String code)
+	{
+		SYNC sync = null;
+		
+		try
+		{
+			sync = fSync(cSync,category,code);
+		}
+		catch (UtilsNotFoundException e)
+		{
+			try
+			{
+				STATUS status = this.fByCode(cStatus,UtilsSync.Code.pending.toString());
+				
+				EjbSyncFactory<L,D,STATUS,CATEGORY,SYNC> ef = EjbSyncFactory.factory(cSync);
+				sync = ef.build(category,status,code);
+				em.persist(sync);
+			}
+			catch (UtilsNotFoundException e1) {e1.printStackTrace();}
+		}
+		return sync;
+	}
+
+	@Override
+	public boolean checkValid(Class<SYNC> cSync, SYNC sync, long seconds)
+	{
+		sync = em.find(cSync,sync.getId());
+		
+		DateTime dtSync = new DateTime(sync.getRecord());
+		DateTime dtNow = new DateTime(sync.getRecord());
+		
+		boolean diffOk = Seconds.secondsBetween(dtSync,dtNow).getSeconds()<seconds;
+		boolean statusOk = sync.getStatus().getCode().equals(UtilsSync.Code.success.toString());
+		return (diffOk && statusOk);
 	}
 
 	

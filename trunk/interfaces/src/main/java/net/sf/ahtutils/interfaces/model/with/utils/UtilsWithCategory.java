@@ -9,5 +9,5 @@ public interface UtilsWithCategory<L extends UtilsLang,D extends UtilsDescriptio
 						extends EjbWithId
 {	
 	CATEGORY getCategory();
-	void setCategory(CATEGORY catgory);
+	void setCategory(CATEGORY category);
 }
