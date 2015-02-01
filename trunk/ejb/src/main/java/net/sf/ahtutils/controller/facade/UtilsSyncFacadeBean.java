@@ -66,7 +66,7 @@ public class UtilsSyncFacadeBean <L extends UtilsLang,
 		{
 			try
 			{
-				STATUS status = this.fByCode(cStatus,UtilsSync.Code.pending.toString());
+				STATUS status = this.fByCode(cStatus,UtilsSync.Code.never.toString());
 				
 				EjbSyncFactory<L,D,STATUS,CATEGORY,SYNC> ef = EjbSyncFactory.factory(cSync);
 				sync = ef.build(category,status,code);

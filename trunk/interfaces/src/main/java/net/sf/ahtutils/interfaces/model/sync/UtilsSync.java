@@ -17,5 +17,5 @@ public interface UtilsSync<L extends UtilsLang,
 						UtilsWithStatus<L,D,STATUS>,
 						UtilsWithCategory<L,D,CATEGORY>
 {
-	public static enum Code{pending,success,fail};
+	public static enum Code{never,pending,success,fail};
 }

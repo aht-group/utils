@@ -1,4 +1,4 @@
-package net.sf.ahtutils.web.rest;
+package net.sf.ahtutils.web.rest.auth;
 
 import java.io.IOException;
 
