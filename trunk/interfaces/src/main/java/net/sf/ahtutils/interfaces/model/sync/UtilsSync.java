@@ -1,5 +1,7 @@
 package net.sf.ahtutils.interfaces.model.sync;
 
+import net.sf.ahtutils.interfaces.model.with.utils.UtilsWithCategory;
+import net.sf.ahtutils.interfaces.model.with.utils.UtilsWithStatus;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
@@ -10,13 +12,12 @@ public interface UtilsSync<L extends UtilsLang,
 							D extends UtilsDescription,
 							STATUS extends UtilsStatus<STATUS,L,D>,
 							CATEGORY extends UtilsStatus<CATEGORY,L,D>>
-			extends EjbWithId,EjbWithCode
+			extends EjbWithId,EjbWithCode,
+						UtilsWithStatus<L,D,STATUS>,
+						UtilsWithCategory<L,D,CATEGORY>
+						
+						
 {
-	STATUS getStatus();
-	void setStatus(STATUS status);
-	
-	CATEGORY getCategory();
-	void setCategory(CATEGORY catgory);
-	
+
 	
 }
