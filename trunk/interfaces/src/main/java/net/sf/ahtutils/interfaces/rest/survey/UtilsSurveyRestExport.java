@@ -1,0 +1,27 @@
+package net.sf.ahtutils.interfaces.rest.survey;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import net.sf.ahtutils.xml.aht.Aht;
+
+public interface UtilsSurveyRestExport
+{
+	@GET @Path("/survey/template/category")
+	@Produces(MediaType.APPLICATION_XML)
+	Aht exportSurveyTemplateCategory();
+	
+	@GET @Path("/survey/template/status")
+	@Produces(MediaType.APPLICATION_XML)
+	Aht exportSurveyTemplateStatus();
+	
+	@GET @Path("/survey/option/type")
+	@Produces(MediaType.APPLICATION_XML)
+	Aht exportSurveyOptionTypes();
+	
+	@GET @Path("/survey/status")
+	@Produces(MediaType.APPLICATION_XML)
+	Aht exportSurveyStatus();
+}

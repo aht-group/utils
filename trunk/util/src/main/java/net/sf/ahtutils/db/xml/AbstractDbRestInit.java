@@ -39,6 +39,7 @@ public abstract class AbstractDbRestInit extends UtilsDbXmlSeedUtil
 			case B: initB();break;
 			case C: initC();break;
 			case D: initD();break;
+			case E: initE();break;
 		}
 	}
 	
@@ -51,6 +52,7 @@ public abstract class AbstractDbRestInit extends UtilsDbXmlSeedUtil
 	protected void initB() throws FileNotFoundException,UtilsIntegrityException,UtilsConfigurationException{}
 	protected void initC() throws FileNotFoundException,UtilsIntegrityException,UtilsConfigurationException{}
 	protected void initD() throws FileNotFoundException,UtilsIntegrityException,UtilsConfigurationException{}
+	protected void initE() throws FileNotFoundException,UtilsIntegrityException,UtilsConfigurationException{}
 	
 	public static List<Priority> allPriorities()
 	{
@@ -64,6 +66,7 @@ public abstract class AbstractDbRestInit extends UtilsDbXmlSeedUtil
 		list.add(Priority.B);
 		list.add(Priority.C);
 		list.add(Priority.D);
+		list.add(Priority.E);
 		return list;
 	}
 }
