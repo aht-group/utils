@@ -1,18 +1,11 @@
 package net.sf.ahtutils.interfaces.model.survey;
 
-import java.util.List;
-
-import net.sf.ahtutils.interfaces.model.with.EjbWithRemark;
-import net.sf.ahtutils.interfaces.model.with.utils.UtilsWithCategory;
-import net.sf.ahtutils.interfaces.model.with.utils.UtilsWithStatus;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
-import net.sf.ahtutils.model.interfaces.with.EjbWithName;
-import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 
-public interface UtilsSurveyTemplate<L extends UtilsLang,
+public interface UtilsSurveyCorrelation<L extends UtilsLang,
 										D extends UtilsDescription,
 										SURVEY extends UtilsSurvey<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,OT,CORRELATION>,
 										SS extends UtilsStatus<SS,L,D>,
@@ -27,10 +20,7 @@ public interface UtilsSurveyTemplate<L extends UtilsLang,
 										OPTION extends UtilsSurveyOption<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,OT,CORRELATION>,
 										OT extends UtilsStatus<OT,L,D>,
 										CORRELATION extends UtilsSurveyCorrelation<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,OT,CORRELATION>>
-			extends EjbWithId,EjbWithRecord,EjbWithName,EjbWithRemark,
-						UtilsWithStatus<L,D,TS>,
-						UtilsWithCategory<L,D,TC>
+			extends EjbWithId
 {
-	List<SECTION> getSections();
-	void setSections(List<SECTION> sections);
+
 }

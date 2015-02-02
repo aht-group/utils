@@ -1,5 +1,7 @@
 package net.sf.ahtutils.interfaces.model.survey;
 
+import java.util.List;
+
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
@@ -19,9 +21,9 @@ public interface UtilsSurvey<L extends UtilsLang,
 							DATA extends UtilsSurveyData<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,OT,CORRELATION>,
 							OPTION extends UtilsSurveyOption<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,OT,CORRELATION>,
 							OT extends UtilsStatus<OT,L,D>,
-							CORRELATION extends EjbWithId>
+							CORRELATION extends UtilsSurveyCorrelation<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,OT,CORRELATION>>
 			extends EjbWithId
 {
-	DATA getData();
-	void setData(DATA data);
+	List<DATA> getSurveyData();
+	void setSurveyData(List<DATA> data);
 }

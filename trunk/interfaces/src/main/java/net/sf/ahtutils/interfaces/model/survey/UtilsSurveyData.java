@@ -21,10 +21,11 @@ public interface UtilsSurveyData<L extends UtilsLang,
 							DATA extends UtilsSurveyData<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,OT,CORRELATION>,
 							OPTION extends UtilsSurveyOption<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,OT,CORRELATION>,
 							OT extends UtilsStatus<OT,L,D>,
-							CORRELATION extends EjbWithId>
+							CORRELATION extends UtilsSurveyCorrelation<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,OT,CORRELATION>>
 			extends EjbWithId
 {
-	
+	SURVEY getSurvey();
+	void setSurvey(SURVEY survey);
 	
 	List<ANSWER> getAnswers();
 	void setAnswers(List<ANSWER> answers);
