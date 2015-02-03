@@ -21,5 +21,5 @@ public interface UtilsSurveyOption<L extends UtilsLang,
 							CORRELATION extends UtilsSurveyCorrelation<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>>
 			extends EjbWithId
 {
-
+	public static enum Units{yn,number}; 
 }
