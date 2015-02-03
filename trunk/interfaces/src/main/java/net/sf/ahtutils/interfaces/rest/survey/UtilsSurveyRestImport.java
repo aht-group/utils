@@ -17,8 +17,8 @@ public interface UtilsSurveyRestImport
 	@POST @Path("/survey/template/status") @Produces(MediaType.APPLICATION_XML) @Consumes(MediaType.APPLICATION_XML)
 	DataUpdate importSurveyTemplateStatus(Aht status);
 	
-	@POST @Path("/survey/option/type") @Produces(MediaType.APPLICATION_XML) @Consumes(MediaType.APPLICATION_XML)
-	DataUpdate importSurveyOptionType(Aht types);
+	@POST @Path("/survey/question/unit") @Produces(MediaType.APPLICATION_XML) @Consumes(MediaType.APPLICATION_XML)
+	DataUpdate importSurveyUnits(Aht units);
 	
 	@POST  @Path("/survey/status") @Produces(MediaType.APPLICATION_XML) @Consumes(MediaType.APPLICATION_XML)
 	DataUpdate importSurveyStatus(Aht status);

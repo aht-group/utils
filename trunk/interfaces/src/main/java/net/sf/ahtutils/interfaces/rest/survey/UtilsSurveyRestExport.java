@@ -17,9 +17,9 @@ public interface UtilsSurveyRestExport
 	@Produces(MediaType.APPLICATION_XML)
 	Aht exportSurveyTemplateStatus();
 	
-	@GET @Path("/survey/option/type")
+	@GET @Path("/survey/question/unit")
 	@Produces(MediaType.APPLICATION_XML)
-	Aht exportSurveyOptionTypes();
+	Aht exportSurveyUnits();
 	
 	@GET @Path("/survey/status")
 	@Produces(MediaType.APPLICATION_XML)
