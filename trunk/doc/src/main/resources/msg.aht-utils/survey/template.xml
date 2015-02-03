@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<s:translations xmlns:s="http://ahtutils.aht-group.com/status">
+	<s:translation key="aupSurveyTemplate">
+    	<s:langs>
+    		<s:lang key="de" translation="Template"/>
+    		<s:lang key="en" translation="Template"/>
+    		<s:lang key="fr" translation="Template"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="aupSurveyTemplateName">
+    	<s:langs>
+    		<s:lang key="de" translation="Name"/>
+    		<s:lang key="en" translation="Name"/>
+    		<s:lang key="fr" translation="Name"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="aupSurveySections">
+    	<s:langs>
+    		<s:lang key="de" translation="Sections"/>
+    		<s:lang key="en" translation="Sections"/>
+    		<s:lang key="fr" translation="Sections"/>
+    	</s:langs>
+    </s:translation>
+    	<s:translation key="aupSurveySection">
+    	<s:langs>
+    		<s:lang key="de" translation="Section"/>
+    		<s:lang key="en" translation="Section"/>
+    		<s:lang key="fr" translation="Section"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="aupSurveySectionName">
+    	<s:langs>
+    		<s:lang key="de" translation="Name"/>
+    		<s:lang key="en" translation="Name"/>
+    		<s:lang key="fr" translation="Name"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="aupSurveyQuestions">
+    	<s:langs>
+    		<s:lang key="de" translation="Questions"/>
+    		<s:lang key="en" translation="Questions"/>
+    		<s:lang key="fr" translation="Questions"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="aupSurveyQuestion">
+    	<s:langs>
+    		<s:lang key="de" translation="Question"/>
+    		<s:lang key="en" translation="Question"/>
+    		<s:lang key="fr" translation="Question"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="aupSurveyQuestionPosition">
+    	<s:langs>
+    		<s:lang key="de" translation="Position"/>
+    		<s:lang key="en" translation="Position"/>
+    		<s:lang key="fr" translation="Position"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="aupSurveyQuestionCode">
+    	<s:langs>
+    		<s:lang key="de" translation="Code"/>
+    		<s:lang key="en" translation="Code"/>
+    		<s:lang key="fr" translation="Code"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="aupSurveyQuestionUnit">
+    	<s:langs>
+    		<s:lang key="de" translation="Unit"/>
+    		<s:lang key="en" translation="Unit"/>
+    		<s:lang key="fr" translation="Unit"/>
+    	</s:langs>
+    </s:translation>
+ 	<s:translation key="aupSurveyRemark">
+    	<s:langs>
+    		<s:lang key="de" translation="Remark"/>
+    		<s:lang key="en" translation="Remark"/>
+    		<s:lang key="fr" translation="Remark"/>
+    	</s:langs>
+    </s:translation>   
+</s:translations>

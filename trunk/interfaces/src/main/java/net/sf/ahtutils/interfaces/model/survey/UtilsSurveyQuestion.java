@@ -6,6 +6,7 @@ import net.sf.ahtutils.interfaces.model.with.EjbWithRemark;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
+import net.sf.ahtutils.model.interfaces.with.EjbWithCode;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 import net.sf.ahtutils.model.interfaces.with.EjbWithPosition;
@@ -25,7 +26,7 @@ public interface UtilsSurveyQuestion<L extends UtilsLang,
 							DATA extends UtilsSurveyData<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>,
 							OPTION extends UtilsSurveyOption<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>,
 							CORRELATION extends UtilsSurveyCorrelation<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>>
-			extends EjbWithId,EjbWithName,EjbWithRemark,EjbWithPosition,EjbWithVisible
+			extends EjbWithId,EjbWithName,EjbWithRemark,EjbWithPosition,EjbWithVisible,EjbWithCode
 {
 	SECTION getSection();
 	void setSection(SECTION section);

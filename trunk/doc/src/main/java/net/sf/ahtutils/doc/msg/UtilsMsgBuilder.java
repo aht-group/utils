@@ -29,6 +29,8 @@ public class UtilsMsgBuilder
 	public static final String msgAdminSystemOptionTables = "msg.aht-utils/admin/system/options.xml";
 	public static final String srcAdminSecurity = "msg.aht-utils/admin/security.xml";
 	
+	public static final String msgSurveyTemplate = "msg.aht-utils/survey/template.xml";
+	
 	final static Logger logger = LoggerFactory.getLogger(UtilsMsgBuilder.class);
 		
 	private MultiResourceLoader mrl;

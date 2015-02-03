@@ -36,4 +36,7 @@ public interface UtilsSurveySection<L extends UtilsLang,
 	
 	List<SECTION> getSections();
 	void setSections(List<SECTION> sections);
+	
+	List<QUESTION> getQuestions();
+	void setQuestions(List<QUESTION> questions);
 }
