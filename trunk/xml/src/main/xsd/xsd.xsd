@@ -14,6 +14,7 @@
     xmlns:it  ="http://ahtutils.aht-group.com/issue"
     xmlns:sec="http://ahtutils.aht-group.com/security"
     xmlns:sys="http://ahtutils.aht-group.com/system"
+    xmlns:survey="http://ahtutils.aht-group.com/survey"
     xmlns:db ="http://ahtutils.aht-group.com/dbseed"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
@@ -32,6 +33,7 @@
     <xsd:import namespace="http://ahtutils.aht-group.com/issue" schemaLocation="aht/issue.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/sync" schemaLocation="aht/sync.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/system" schemaLocation="aht/system.xsd"/>
+    <xsd:import namespace="http://ahtutils.aht-group.com/survey" schemaLocation="aht/survey.xsd"/>
 	<xsd:import namespace="http://ahtutils.aht-group.com/utils" schemaLocation="aht/utils.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/navigation" schemaLocation="aht/navigation.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/monitoring" schemaLocation="aht/monitoring.xsd"/>
@@ -64,6 +66,8 @@
         	    <xsd:element ref="qa:test" maxOccurs="1"/>
         	    
         	    <xsd:element ref="sec:staff" maxOccurs="1"/>
+        	    
+        	    <xsd:element ref="survey:template" maxOccurs="1"/>
         	    
             </xsd:sequence>
             <xsd:attribute name="lang" type="xsd:string"/>

@@ -134,6 +134,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Category }
+     * 
+     */
+    public Category createCategory() {
+        return new Category();
+    }
+
+    /**
+     * Create an instance of {@link Unit }
+     * 
+     */
+    public Unit createUnit() {
+        return new Unit();
+    }
+
+    /**
      * Create an instance of {@link Result }
      * 
      */
@@ -291,22 +307,6 @@ public class ObjectFactory {
      */
     public SubPhase createSubPhase() {
         return new SubPhase();
-    }
-
-    /**
-     * Create an instance of {@link Unit }
-     * 
-     */
-    public Unit createUnit() {
-        return new Unit();
-    }
-
-    /**
-     * Create an instance of {@link Category }
-     * 
-     */
-    public Category createCategory() {
-        return new Category();
     }
 
     /**
