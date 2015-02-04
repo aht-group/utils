@@ -6,5 +6,8 @@
     <s:type id="123" key="myKey" code="myCode" group="myGroup" label="myLabel" visible="true" image="test/green.png" position="1"/>
     <qa:test id="123" name="myName" code="myCode"/>
     <sec:staff id="123"/>
+    <survey:templates/>
     <survey:template id="123" code="myCode"/>
+    <survey:surveys/>
+    <survey:survey id="123" name="myName" validFrom="2011-11-11" validTo="2011-11-11"/>
 </aht:query>

@@ -15,6 +15,7 @@ import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.xml.survey.Survey;
 import net.sf.exlp.util.DateUtil;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,7 +65,13 @@ public class XmlSurveyFactory<L extends UtilsLang,D extends UtilsDescription,SUR
 //			if(fSurvey!=null){f.lazyLoad(fSurvey,cSection);}
 			xml.setTemplate(f.build(ejb.getTemplate()));
 		}
-		
+		return xml;
+	}
+	
+	public static Survey id()
+	{
+		Survey xml = new Survey();
+		xml.setId(0);
 		return xml;
 	}
 }

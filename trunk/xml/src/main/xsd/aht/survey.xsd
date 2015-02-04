@@ -51,6 +51,13 @@
             <xsd:attribute name="topic" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
+    <xsd:element name="surveys">
+        <xsd:complexType>
+        	<xsd:sequence>
+        		<xsd:element ref="survey:survey" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
     <xsd:element name="survey">
         <xsd:complexType>
         	<xsd:sequence>

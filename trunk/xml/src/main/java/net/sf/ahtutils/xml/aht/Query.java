@@ -15,7 +15,9 @@ import net.sf.ahtutils.xml.status.Langs;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.ahtutils.xml.status.Type;
 import net.sf.ahtutils.xml.survey.Survey;
+import net.sf.ahtutils.xml.survey.Surveys;
 import net.sf.ahtutils.xml.survey.Template;
+import net.sf.ahtutils.xml.survey.Templates;
 
 
 /**
@@ -34,7 +36,9 @@ import net.sf.ahtutils.xml.survey.Template;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}type"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/qa}test"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/security}staff"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/survey}templates"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/survey}template"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/survey}surveys"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/survey}survey"/>
  *       &lt;/sequence>
  *       &lt;attribute name="lang" type="{http://www.w3.org/2001/XMLSchema}string" />
@@ -53,7 +57,9 @@ import net.sf.ahtutils.xml.survey.Template;
     "type",
     "test",
     "staff",
+    "templates",
     "template",
+    "surveys",
     "survey"
 })
 @XmlRootElement(name = "query")
@@ -75,7 +81,11 @@ public class Query
     @XmlElement(namespace = "http://ahtutils.aht-group.com/security", required = true)
     protected Staff staff;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/survey", required = true)
+    protected Templates templates;
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/survey", required = true)
     protected Template template;
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/survey", required = true)
+    protected Surveys surveys;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/survey", required = true)
     protected Survey survey;
     @XmlAttribute(name = "lang")
@@ -250,6 +260,34 @@ public class Query
     }
 
     /**
+     * Gets the value of the templates property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Templates }
+     *     
+     */
+    public Templates getTemplates() {
+        return templates;
+    }
+
+    /**
+     * Sets the value of the templates property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Templates }
+     *     
+     */
+    public void setTemplates(Templates value) {
+        this.templates = value;
+    }
+
+    public boolean isSetTemplates() {
+        return (this.templates!= null);
+    }
+
+    /**
      * Gets the value of the template property.
      * 
      * @return
@@ -275,6 +313,34 @@ public class Query
 
     public boolean isSetTemplate() {
         return (this.template!= null);
+    }
+
+    /**
+     * Gets the value of the surveys property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Surveys }
+     *     
+     */
+    public Surveys getSurveys() {
+        return surveys;
+    }
+
+    /**
+     * Sets the value of the surveys property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Surveys }
+     *     
+     */
+    public void setSurveys(Surveys value) {
+        this.surveys = value;
+    }
+
+    public boolean isSetSurveys() {
+        return (this.surveys!= null);
     }
 
     /**

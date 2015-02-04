@@ -8,6 +8,7 @@ import net.sf.ahtutils.factory.xml.status.XmlCategoryFactory;
 import net.sf.ahtutils.factory.xml.status.XmlDescriptionFactory;
 import net.sf.ahtutils.factory.xml.status.XmlStatusFactory;
 import net.sf.ahtutils.factory.xml.status.XmlUnitFactory;
+import net.sf.ahtutils.factory.xml.survey.XmlSurveyFactory;
 import net.sf.ahtutils.factory.xml.survey.XmlTemplateFactory;
 import net.sf.ahtutils.factory.xml.text.XmlQuestionFactory;
 import net.sf.ahtutils.factory.xml.text.XmlRemarkFactory;
@@ -15,12 +16,13 @@ import net.sf.ahtutils.xml.aht.Query;
 import net.sf.ahtutils.xml.survey.Question;
 import net.sf.ahtutils.xml.survey.Section;
 import net.sf.ahtutils.xml.survey.Survey;
+import net.sf.ahtutils.xml.survey.Surveys;
 import net.sf.ahtutils.xml.survey.Template;
 import net.sf.exlp.util.DateUtil;
 
 public class SurveyQuery
 {
-	public static enum Key {exTeplate,exSurvey}
+	public static enum Key {exTeplate,exSurveys,exSurvey}
 	
 	private static Map<Key,Query> mQueries;
 	
@@ -35,6 +37,7 @@ public class SurveyQuery
 			{
 				case exTeplate: q.setTemplate(exTeplate());break;
 				case exSurvey: q.setSurvey(exSurvey());break;
+				case exSurveys: q.setSurveys(exSurveys());break;
 			}
 			mQueries.put(key, q);
 		}
@@ -76,6 +79,14 @@ public class SurveyQuery
 		xml.setUnit(XmlUnitFactory.build(""));
 		xml.setQuestion(XmlQuestionFactory.build(""));
 		xml.setRemark(XmlRemarkFactory.build(""));
+		
+		return xml;
+	}
+	
+	public static Surveys exSurveys()
+	{				
+		Surveys xml = new Surveys();
+		xml.getSurvey().add(XmlSurveyFactory.id());
 		
 		return xml;
 	}
