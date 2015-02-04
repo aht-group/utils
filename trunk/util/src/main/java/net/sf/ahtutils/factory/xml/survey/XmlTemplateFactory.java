@@ -2,6 +2,7 @@ package net.sf.ahtutils.factory.xml.survey;
 
 import net.sf.ahtutils.factory.xml.status.XmlDescriptionFactory;
 import net.sf.ahtutils.factory.xml.text.XmlRemarkFactory;
+import net.sf.ahtutils.interfaces.facade.UtilsSurveyFacade;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurvey;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyAnswer;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyCorrelation;
@@ -21,7 +22,11 @@ import org.slf4j.LoggerFactory;
 public class XmlTemplateFactory<L extends UtilsLang,D extends UtilsDescription,SURVEY extends UtilsSurvey<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>,SS extends UtilsStatus<SS,L,D>,TEMPLATE extends UtilsSurveyTemplate<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>,TS extends UtilsStatus<TS,L,D>,TC extends UtilsStatus<TC,L,D>,SECTION extends UtilsSurveySection<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>,QUESTION extends UtilsSurveyQuestion<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>,UNIT extends UtilsStatus<UNIT,L,D>,ANSWER extends UtilsSurveyAnswer<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>,DATA extends UtilsSurveyData<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>,OPTION extends UtilsSurveyOption<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>,CORRELATION extends UtilsSurveyCorrelation<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlTemplateFactory.class);
-		
+	
+	private UtilsSurveyFacade<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION> fSurvey;
+	private Class<TEMPLATE> cTemplate;
+	private Class<SECTION> cSection;
+	
 	private Template q;
 	
 	public XmlTemplateFactory(Template q)
@@ -29,8 +34,18 @@ public class XmlTemplateFactory<L extends UtilsLang,D extends UtilsDescription,S
 		this.q=q;
 	}
 	
+	public void lazyLoad(UtilsSurveyFacade<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION> fSurvey,Class<TEMPLATE> cTemplate,Class<SECTION> cSection)
+	{
+		this.fSurvey=fSurvey;
+		this.cTemplate=cTemplate;
+		this.cSection=cSection;
+	}
+	
+	
 	public Template build(TEMPLATE ejb)
 	{
+		if(fSurvey!=null){ejb = fSurvey.load(cTemplate,ejb);}
+		
 		Template xml = new Template();
 		if(q.isSetId()){xml.setId(ejb.getId());}
 		
@@ -40,6 +55,8 @@ public class XmlTemplateFactory<L extends UtilsLang,D extends UtilsDescription,S
 		if(q.isSetSection())
 		{
 			XmlSectionFactory<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION> f = new XmlSectionFactory<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>(q.getSection().get(0));
+			if(fSurvey!=null){f.lazyLoad(fSurvey,cSection);}
+			
 			for(SECTION section : ejb.getSections())
 			{
 				xml.getSection().add(f.build(section));

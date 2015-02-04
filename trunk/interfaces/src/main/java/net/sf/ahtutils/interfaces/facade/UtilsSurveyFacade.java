@@ -28,5 +28,7 @@ public interface UtilsSurveyFacade <L extends UtilsLang,
 									CORRELATION extends UtilsSurveyCorrelation<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>>
 	extends UtilsFacade
 {	
-	
+	TEMPLATE load(Class<TEMPLATE> cTemplate, TEMPLATE template);
+	SECTION load(Class<SECTION> cSection, SECTION section);
+	TEMPLATE fcSurveyTemplate(Class<TEMPLATE> cTemplate, Class<TS> cTS, TC category);
 }

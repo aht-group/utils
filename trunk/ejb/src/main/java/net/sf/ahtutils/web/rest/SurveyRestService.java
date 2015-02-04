@@ -2,11 +2,10 @@ package net.sf.ahtutils.web.rest;
 
 import net.sf.ahtutils.controller.util.query.StatusQuery;
 import net.sf.ahtutils.db.xml.AhtStatusDbInit;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.factory.ejb.status.EjbStatusFactory;
 import net.sf.ahtutils.factory.xml.status.XmlStatusFactory;
 import net.sf.ahtutils.factory.xml.survey.XmlTemplateFactory;
-import net.sf.ahtutils.interfaces.facade.UtilsSecurityFacade;
+import net.sf.ahtutils.interfaces.facade.UtilsSurveyFacade;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurvey;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyAnswer;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyCorrelation;
@@ -47,14 +46,13 @@ public class SurveyRestService <L extends UtilsLang,
 {
 	final static Logger logger = LoggerFactory.getLogger(SurveyRestService.class);
 	
-	private UtilsSecurityFacade fSurvey;
+	private UtilsSurveyFacade<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION> fSurvey;
 	
 	private final Class<L> cL;
 	private final Class<D> cD;
 	
-	private final Class<TEMPLATE> cTEMPLATE;
 	private final Class<SS> cSS;
-	
+	private final Class<TEMPLATE> cTEMPLATE;
 	private final Class<TS> cTS;
 	private final Class<TC> cTC;
 	private final Class<UNIT> cUNIT;
@@ -62,7 +60,7 @@ public class SurveyRestService <L extends UtilsLang,
 	private XmlStatusFactory fStatus;
 	private XmlTemplateFactory<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION> fTemplate;
 	
-	private SurveyRestService(UtilsSecurityFacade fSurvey,final Class<L> cL,final Class<D> cD,final Class<SS> cSS,final Class<TEMPLATE> cTEMPLATE,final Class<TS> cTS,final Class<TC> cTC,final Class<UNIT> cUNIT)
+	private SurveyRestService(UtilsSurveyFacade<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION> fSurvey,final Class<L> cL,final Class<D> cD,final Class<SS> cSS,final Class<TEMPLATE> cTEMPLATE,final Class<TS> cTS,final Class<TC> cTC,final Class<SECTION> cSection,final Class<UNIT> cUNIT)
 	{
 		this.fSurvey=fSurvey;
 		this.cL=cL;
@@ -75,6 +73,8 @@ public class SurveyRestService <L extends UtilsLang,
 	
 		fStatus = new XmlStatusFactory(StatusQuery.get(StatusQuery.Key.StatusExport).getStatus());
 		fTemplate = new XmlTemplateFactory<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>(SurveyQuery.get(SurveyQuery.Key.exTeplate).getTemplate());
+		fTemplate.lazyLoad(fSurvey,cTEMPLATE,cSection);
+		
 	}
 	
 	public static <L extends UtilsLang,
@@ -93,9 +93,9 @@ public class SurveyRestService <L extends UtilsLang,
 					OT extends UtilsStatus<OT,L,D>,
 					CORRELATION extends UtilsSurveyCorrelation<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>>
 		SurveyRestService<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>
-			factory(UtilsSecurityFacade fSurvey,final Class<L> cL,final Class<D> cD,final Class<SS> cSS,final Class<TEMPLATE> cTEMPLATE,final Class<TS> cTS,final Class<TC> cTC,final Class<UNIT> cUNIT)
+			factory(UtilsSurveyFacade<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION> fSurvey,final Class<L> cL,final Class<D> cD,final Class<SS> cSS,final Class<TEMPLATE> cTEMPLATE,final Class<TS> cTS,final Class<TC> cTC,final Class<SECTION> cSECTION,final Class<UNIT> cUNIT)
 	{
-		return new SurveyRestService<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>(fSurvey,cL,cD,cSS,cTEMPLATE,cTS,cTC,cUNIT);
+		return new SurveyRestService<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>(fSurvey,cL,cD,cSS,cTEMPLATE,cTS,cTC,cSECTION,cUNIT);
 	}
 
 	@Override public Aht exportSurveyTemplateCategory()
@@ -147,14 +147,9 @@ public class SurveyRestService <L extends UtilsLang,
 	public Templates exportSurveyTemplates()
 	{
 		Templates xml = new Templates();
-		for(TEMPLATE ejb : fSurvey.all(cTEMPLATE))
+		for(TEMPLATE template : fSurvey.all(cTEMPLATE))
 		{
-			try
-			{
-				ejb = fSurvey.find(cTEMPLATE,ejb.getId());
-				xml.getTemplate().add(fTemplate.build(ejb));
-			}
-			catch (UtilsNotFoundException e) {e.printStackTrace();}
+			xml.getTemplate().add(fTemplate.build(template));
 		}
 		return xml;
 	}

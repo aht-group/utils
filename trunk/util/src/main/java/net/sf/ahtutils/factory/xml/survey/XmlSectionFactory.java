@@ -2,6 +2,7 @@ package net.sf.ahtutils.factory.xml.survey;
 
 import net.sf.ahtutils.factory.xml.status.XmlDescriptionFactory;
 import net.sf.ahtutils.factory.xml.text.XmlRemarkFactory;
+import net.sf.ahtutils.interfaces.facade.UtilsSurveyFacade;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurvey;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyAnswer;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyCorrelation;
@@ -22,6 +23,9 @@ public class XmlSectionFactory<L extends UtilsLang,D extends UtilsDescription,SU
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlSectionFactory.class);
 		
+	private UtilsSurveyFacade<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION> fSurvey;
+	private Class<SECTION> cSection;
+	
 	private Section q;
 	
 	public XmlSectionFactory(Section q)
@@ -29,8 +33,15 @@ public class XmlSectionFactory<L extends UtilsLang,D extends UtilsDescription,SU
 		this.q=q;
 	}
 	
+	public void lazyLoad(UtilsSurveyFacade<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION> fSurvey,Class<SECTION> cSection)
+	{
+		this.fSurvey=fSurvey;
+		this.cSection=cSection;
+	}
+	
 	public Section build(SECTION ejb)
 	{
+		if(fSurvey!=null){ejb = fSurvey.load(cSection,ejb);}
 		Section xml = new Section();
 		if(q.isSetId()){xml.setId(ejb.getId());}
 		if(q.isSetPosition()){xml.setPosition(ejb.getPosition());}
