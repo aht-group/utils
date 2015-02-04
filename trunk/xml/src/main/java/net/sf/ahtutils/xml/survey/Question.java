@@ -8,7 +8,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import net.sf.ahtutils.xml.status.Description;
 import net.sf.ahtutils.xml.status.Unit;
 import net.sf.ahtutils.xml.text.Remark;
 
@@ -23,13 +22,14 @@ import net.sf.ahtutils.xml.text.Remark;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://ahtutils.aht-group.com/status}description"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/text}question"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/text}remark"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}unit"/>
  *       &lt;/sequence>
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" />
  *       &lt;attribute name="position" type="{http://www.w3.org/2001/XMLSchema}int" />
  *       &lt;attribute name="code" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="topic" type="{http://www.w3.org/2001/XMLSchema}string" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -39,7 +39,7 @@ import net.sf.ahtutils.xml.text.Remark;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "description",
+    "question",
     "remark",
     "unit"
 })
@@ -49,8 +49,8 @@ public class Question
 {
 
     private final static long serialVersionUID = 1L;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
-    protected Description description;
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/text", required = true)
+    protected net.sf.ahtutils.xml.text.Question question;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/text", required = true)
     protected Remark remark;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
@@ -61,33 +61,35 @@ public class Question
     protected Integer position;
     @XmlAttribute(name = "code")
     protected String code;
+    @XmlAttribute(name = "topic")
+    protected String topic;
 
     /**
-     * Gets the value of the description property.
+     * Gets the value of the question property.
      * 
      * @return
      *     possible object is
-     *     {@link Description }
+     *     {@link net.sf.ahtutils.xml.text.Question }
      *     
      */
-    public Description getDescription() {
-        return description;
+    public net.sf.ahtutils.xml.text.Question getQuestion() {
+        return question;
     }
 
     /**
-     * Sets the value of the description property.
+     * Sets the value of the question property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Description }
+     *     {@link net.sf.ahtutils.xml.text.Question }
      *     
      */
-    public void setDescription(Description value) {
-        this.description = value;
+    public void setQuestion(net.sf.ahtutils.xml.text.Question value) {
+        this.question = value;
     }
 
-    public boolean isSetDescription() {
-        return (this.description!= null);
+    public boolean isSetQuestion() {
+        return (this.question!= null);
     }
 
     /**
@@ -236,6 +238,34 @@ public class Question
 
     public boolean isSetCode() {
         return (this.code!= null);
+    }
+
+    /**
+     * Gets the value of the topic property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getTopic() {
+        return topic;
+    }
+
+    /**
+     * Sets the value of the topic property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setTopic(String value) {
+        this.topic = value;
+    }
+
+    public boolean isSetTopic() {
+        return (this.topic!= null);
     }
 
 }

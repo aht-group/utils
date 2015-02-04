@@ -2,6 +2,7 @@ package net.sf.ahtutils.web.rest;
 
 import net.sf.ahtutils.controller.util.query.StatusQuery;
 import net.sf.ahtutils.db.xml.AhtStatusDbInit;
+import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.factory.ejb.status.EjbStatusFactory;
 import net.sf.ahtutils.factory.xml.status.XmlStatusFactory;
 import net.sf.ahtutils.factory.xml.survey.XmlTemplateFactory;
@@ -148,10 +149,13 @@ public class SurveyRestService <L extends UtilsLang,
 		Templates xml = new Templates();
 		for(TEMPLATE ejb : fSurvey.all(cTEMPLATE))
 		{
-			xml.getTemplate().add(fTemplate.build(ejb));
+			try
+			{
+				ejb = fSurvey.find(cTEMPLATE,ejb.getId());
+				xml.getTemplate().add(fTemplate.build(ejb));
+			}
+			catch (UtilsNotFoundException e) {e.printStackTrace();}
 		}
 		return xml;
 	}
-
-	
 }

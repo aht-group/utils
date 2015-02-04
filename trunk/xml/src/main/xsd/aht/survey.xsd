@@ -41,13 +41,14 @@
 	<xsd:element name="question">
         <xsd:complexType>
         	<xsd:sequence>
-                <xsd:element ref="us:description" maxOccurs="1"/>
+                <xsd:element ref="text:question" maxOccurs="1"/>
                 <xsd:element ref="text:remark" maxOccurs="1"/>
                 <xsd:element ref="us:unit" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="position" type="xsd:int"/>
             <xsd:attribute name="code" type="xsd:string"/>
+            <xsd:attribute name="topic" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
 </xsd:schema>

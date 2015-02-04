@@ -2,6 +2,6 @@
 <survey:section xmlns:s="http://ahtutils.aht-group.com/status" xmlns:text="http://ahtutils.aht-group.com/text" xmlns:survey="http://ahtutils.aht-group.com/survey" id="123" position="2" code="myCode">
     <s:description version="1" key="myKey">myValue</s:description>
     <text:remark version="1" key="myKey">myValue</text:remark>
-    <survey:question id="123" position="2" code="myCode"/>
-    <survey:question id="123" position="2" code="myCode"/>
+    <survey:question id="123" position="2" code="myCode" topic="myTopic"/>
+    <survey:question id="123" position="2" code="myCode" topic="myTopic"/>
 </survey:section>

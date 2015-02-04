@@ -3,7 +3,6 @@ package net.sf.ahtutils.xml.survey;
 import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
-import net.sf.ahtutils.xml.status.TestXmlDescription;
 import net.sf.ahtutils.xml.status.TestXmlUnit;
 import net.sf.ahtutils.xml.text.TestXmlRemark;
 import net.sf.exlp.util.DateUtil;
@@ -32,14 +31,16 @@ public class TestXmlQuestion extends AbstractXmlSurveyTest
     {
     	Question xml = new Question();
     	xml.setId(123);
-    	xml.setCode("myCode");
     	xml.setPosition(2);
+    	xml.setCode("myCode");
+    	xml.setTopic("myTopic");
+    	
     	
     	if(withChilds)
     	{
     		xml.setUnit(TestXmlUnit.create(false));
     		xml.setRemark(TestXmlRemark.create(false));
-    		xml.setDescription(TestXmlDescription.create(false));
+    		xml.setQuestion(net.sf.ahtutils.xml.text.TestXmlQuestion.create(false));
     	}
     	
     	return xml;

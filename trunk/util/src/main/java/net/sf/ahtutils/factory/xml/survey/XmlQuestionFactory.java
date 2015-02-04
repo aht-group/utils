@@ -1,6 +1,5 @@
 package net.sf.ahtutils.factory.xml.survey;
 
-import net.sf.ahtutils.factory.xml.status.XmlDescriptionFactory;
 import net.sf.ahtutils.factory.xml.status.XmlUnitFactory;
 import net.sf.ahtutils.factory.xml.text.XmlRemarkFactory;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurvey;
@@ -36,8 +35,9 @@ public class XmlQuestionFactory<L extends UtilsLang,D extends UtilsDescription,S
 		if(q.isSetId()){xml.setId(ejb.getId());}
 		if(q.isSetPosition()){xml.setPosition(ejb.getPosition());}
 		if(q.isSetCode()){xml.setCode(ejb.getCode());}
+		if(q.isSetTopic()){xml.setTopic(ejb.getTopic());}
 		
-		if(q.isSetDescription()){xml.setDescription(XmlDescriptionFactory.build(ejb.getName()));}
+		if(q.isSetQuestion() && ejb.getQuestion()!=null){xml.setQuestion(net.sf.ahtutils.factory.xml.text.XmlQuestionFactory.build(ejb.getQuestion()));}
 		if(q.isSetRemark() && ejb.getRemark()!=null){xml.setRemark(XmlRemarkFactory.build(ejb.getRemark()));}
 		
 		if(q.isSetUnit())

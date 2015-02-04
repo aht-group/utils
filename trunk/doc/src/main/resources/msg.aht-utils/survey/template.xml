@@ -63,6 +63,13 @@
     		<s:lang key="fr" translation="Code"/>
     	</s:langs>
     </s:translation>
+	<s:translation key="aupSurveyQuestionTopic">
+    	<s:langs>
+    		<s:lang key="de" translation="Topic"/>
+    		<s:lang key="en" translation="Topic"/>
+    		<s:lang key="fr" translation="Topic"/>
+    	</s:langs>
+    </s:translation>
 	<s:translation key="aupSurveyQuestionUnit">
     	<s:langs>
     		<s:lang key="de" translation="Unit"/>

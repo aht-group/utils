@@ -3,22 +3,15 @@ package net.sf.ahtutils.util.query;
 import java.util.Hashtable;
 import java.util.Map;
 
-import net.sf.ahtutils.factory.xml.qa.XmlResultFactory;
 import net.sf.ahtutils.factory.xml.status.XmlCategoryFactory;
-import net.sf.ahtutils.factory.xml.status.XmlStatementFactory;
+import net.sf.ahtutils.factory.xml.status.XmlDescriptionFactory;
 import net.sf.ahtutils.factory.xml.status.XmlStatusFactory;
+import net.sf.ahtutils.factory.xml.status.XmlUnitFactory;
+import net.sf.ahtutils.factory.xml.text.XmlQuestionFactory;
+import net.sf.ahtutils.factory.xml.text.XmlRemarkFactory;
 import net.sf.ahtutils.xml.aht.Query;
-import net.sf.ahtutils.xml.qa.Category;
-import net.sf.ahtutils.xml.qa.Description;
-import net.sf.ahtutils.xml.qa.Expected;
-import net.sf.ahtutils.xml.qa.PreCondition;
-import net.sf.ahtutils.xml.qa.Reference;
-import net.sf.ahtutils.xml.qa.Result;
-import net.sf.ahtutils.xml.qa.Steps;
-import net.sf.ahtutils.xml.qa.Test;
-import net.sf.ahtutils.xml.security.Role;
-import net.sf.ahtutils.xml.security.Staff;
-import net.sf.ahtutils.xml.status.Status;
+import net.sf.ahtutils.xml.survey.Question;
+import net.sf.ahtutils.xml.survey.Section;
 import net.sf.ahtutils.xml.survey.Template;
 
 public class SurveyQuery
@@ -52,66 +45,30 @@ public class SurveyQuery
 		xml.setCode("");
 		xml.setCategory(XmlCategoryFactory.create(""));
 		xml.setStatus(XmlStatusFactory.create(""));
-				
+		xml.getSection().add(exSection());
 		return xml;
 	}
 	
-	public static Staff staff()
-	{
-		Staff xml = new Staff();
-		xml.setId(0);
-		xml.setRole(SecurityQuery.role());
-		xml.setUser(SecurityQuery.user());
-		return xml;
-	}
-	
-	public static Result result()
-	{
-		Role role = new Role();
-		role.setCode("");
-		
-		Staff staff = new Staff();
-		staff.setId(0);
-		staff.setRole(role);
-		staff.setUser(SecurityQuery.user());
-		
-		Status status = XmlStatusFactory.create("");
-		status.setImage("");
-		
-		Result xml = new Result();
-		xml.setStaff(staff);
-		xml.setId(0);
-		xml.setStatus(status);
-		xml.setActual(XmlResultFactory.buildActual(""));
-		xml.setComment(XmlResultFactory.buildComment(""));
-		
-		return xml;
-	}
-	
-	public static Category category()
-	{
-		Category xml = new Category();
+	public static Section exSection()
+	{		
+		Section xml = new Section();
 		xml.setId(0);
 		xml.setCode("");
-		xml.setName("");
+		xml.setDescription(XmlDescriptionFactory.build(""));
+		xml.getQuestion().add(exQuestion());
 		return xml;
 	}
 	
-	public static Test test()
-	{
-		Test xml = new Test();
+	public static Question exQuestion()
+	{		
+		Question xml = new Question();
 		xml.setId(0);
+		xml.setPosition(0);
 		xml.setCode("");
-		xml.setName("");
-		
-		xml.setReference(new Reference());
-		xml.setPreCondition(new PreCondition());
-		xml.setDescription(new Description());
-		xml.setSteps(new Steps());
-		xml.setExpected(new Expected());
-		
-		xml.setStatus(XmlStatusFactory.create(""));
-		xml.setStatement(XmlStatementFactory.build(""));
+		xml.setTopic("");
+		xml.setUnit(XmlUnitFactory.build(""));
+		xml.setQuestion(XmlQuestionFactory.build(""));
+		xml.setRemark(XmlRemarkFactory.build(""));
 		
 		return xml;
 	}

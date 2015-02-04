@@ -26,10 +26,16 @@ public interface UtilsSurveyQuestion<L extends UtilsLang,
 							DATA extends UtilsSurveyData<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>,
 							OPTION extends UtilsSurveyOption<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>,
 							CORRELATION extends UtilsSurveyCorrelation<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>>
-			extends EjbWithId,EjbWithName,EjbWithRemark,EjbWithPosition,EjbWithVisible,EjbWithCode
+			extends EjbWithId,EjbWithCode,EjbWithRemark,EjbWithPosition,EjbWithVisible
 {
 	SECTION getSection();
 	void setSection(SECTION section);
+	
+	String getTopic();
+	void setTopic(String topic);
+	
+	String getQuestion();
+	void setQuestion(String question);
 	
 	UNIT getUnit();
 	void setUnit(UNIT unit); 
