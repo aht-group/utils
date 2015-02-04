@@ -11,6 +11,7 @@ import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyTemplate;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
+import net.sf.ahtutils.xml.survey.Section;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,13 +46,20 @@ public class EjbSurveySectionFactory<L extends UtilsLang,
 		return new EjbSurveySectionFactory<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>(cSection);
 	}
     
-	public SECTION build(TEMPLATE template)
+	public SECTION build(TEMPLATE template,Section xSection)
+	{
+		return build(template,xSection.getDescription().getValue(),xSection.getPosition());
+	}
+	
+	public SECTION build(TEMPLATE template,String name, int position)
 	{
 		SECTION ejb = null;
 		try
 		{
 			ejb = cSection.newInstance();
 			ejb.setTemplate(template);
+			ejb.setName(name);
+			ejb.setPosition(position);
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();}

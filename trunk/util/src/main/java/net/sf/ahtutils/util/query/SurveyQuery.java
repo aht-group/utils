@@ -43,6 +43,7 @@ public class SurveyQuery
 		Template xml = new Template();
 		xml.setId(0);
 		xml.setCode("");
+		xml.setDescription(XmlDescriptionFactory.build(""));
 		xml.setCategory(XmlCategoryFactory.create(""));
 		xml.setStatus(XmlStatusFactory.create(""));
 		xml.getSection().add(exSection());
@@ -54,6 +55,7 @@ public class SurveyQuery
 		Section xml = new Section();
 		xml.setId(0);
 		xml.setCode("");
+		xml.setPosition(0);
 		xml.setDescription(XmlDescriptionFactory.build(""));
 		xml.getQuestion().add(exQuestion());
 		return xml;

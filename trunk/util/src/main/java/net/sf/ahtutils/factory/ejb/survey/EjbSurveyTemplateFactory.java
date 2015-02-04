@@ -11,6 +11,7 @@ import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyTemplate;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
+import net.sf.ahtutils.xml.survey.Template;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,12 +46,18 @@ public class EjbSurveyTemplateFactory<L extends UtilsLang,
 		return new EjbSurveyTemplateFactory<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>(cTemplate);
 	}
     
-	public TEMPLATE build(TC category,TS status)
+	public TEMPLATE build(TC category,TS status, Template xTemplate)
+	{
+		return build(category,status,xTemplate.getDescription().getValue());
+	}
+	
+	public TEMPLATE build(TC category,TS status, String name)
 	{
 		TEMPLATE ejb = null;
 		try
 		{
 			ejb = cTemplate.newInstance();
+			ejb.setName(name);
 			ejb.setCategory(category);
 			ejb.setStatus(status);
 		}

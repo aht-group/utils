@@ -2,8 +2,14 @@ package net.sf.ahtutils.web.rest;
 
 import net.sf.ahtutils.controller.util.query.StatusQuery;
 import net.sf.ahtutils.db.xml.AhtStatusDbInit;
+import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.factory.ejb.status.EjbStatusFactory;
+import net.sf.ahtutils.factory.ejb.survey.EjbSurveyQuestionFactory;
+import net.sf.ahtutils.factory.ejb.survey.EjbSurveySectionFactory;
+import net.sf.ahtutils.factory.ejb.survey.EjbSurveyTemplateFactory;
 import net.sf.ahtutils.factory.xml.status.XmlStatusFactory;
+import net.sf.ahtutils.factory.xml.status.XmlTypeFactory;
 import net.sf.ahtutils.factory.xml.survey.XmlTemplateFactory;
 import net.sf.ahtutils.interfaces.facade.UtilsSurveyFacade;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurvey;
@@ -19,9 +25,13 @@ import net.sf.ahtutils.interfaces.rest.survey.UtilsSurveyRestImport;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
+import net.sf.ahtutils.monitor.DataUpdateTracker;
 import net.sf.ahtutils.util.query.SurveyQuery;
 import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.status.Status;
+import net.sf.ahtutils.xml.survey.Question;
+import net.sf.ahtutils.xml.survey.Section;
+import net.sf.ahtutils.xml.survey.Template;
 import net.sf.ahtutils.xml.survey.Templates;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 
@@ -60,7 +70,11 @@ public class SurveyRestService <L extends UtilsLang,
 	private XmlStatusFactory fStatus;
 	private XmlTemplateFactory<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION> fTemplate;
 	
-	private SurveyRestService(UtilsSurveyFacade<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION> fSurvey,final Class<L> cL,final Class<D> cD,final Class<SS> cSS,final Class<TEMPLATE> cTEMPLATE,final Class<TS> cTS,final Class<TC> cTC,final Class<SECTION> cSection,final Class<UNIT> cUNIT)
+	private EjbSurveyTemplateFactory<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION> efTemlate;
+	private EjbSurveySectionFactory<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION> efSection;
+	private EjbSurveyQuestionFactory<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION> efQuestion;
+	
+	private SurveyRestService(UtilsSurveyFacade<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION> fSurvey,final Class<L> cL,final Class<D> cD,final Class<SS> cSS,final Class<TEMPLATE> cTEMPLATE,final Class<TS> cTS,final Class<TC> cTC,final Class<SECTION> cSection,final Class<QUESTION> cQuestion,final Class<UNIT> cUNIT)
 	{
 		this.fSurvey=fSurvey;
 		this.cL=cL;
@@ -75,6 +89,9 @@ public class SurveyRestService <L extends UtilsLang,
 		fTemplate = new XmlTemplateFactory<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>(SurveyQuery.get(SurveyQuery.Key.exTeplate).getTemplate());
 		fTemplate.lazyLoad(fSurvey,cTEMPLATE,cSection);
 		
+		efTemlate = EjbSurveyTemplateFactory.factory(cTEMPLATE);
+		efSection = EjbSurveySectionFactory.factory(cSection);
+		efQuestion = EjbSurveyQuestionFactory.factory(cQuestion);
 	}
 	
 	public static <L extends UtilsLang,
@@ -93,9 +110,9 @@ public class SurveyRestService <L extends UtilsLang,
 					OT extends UtilsStatus<OT,L,D>,
 					CORRELATION extends UtilsSurveyCorrelation<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>>
 		SurveyRestService<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>
-			factory(UtilsSurveyFacade<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION> fSurvey,final Class<L> cL,final Class<D> cD,final Class<SS> cSS,final Class<TEMPLATE> cTEMPLATE,final Class<TS> cTS,final Class<TC> cTC,final Class<SECTION> cSECTION,final Class<UNIT> cUNIT)
+			factory(UtilsSurveyFacade<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION> fSurvey,final Class<L> cL,final Class<D> cD,final Class<SS> cSS,final Class<TEMPLATE> cTEMPLATE,final Class<TS> cTS,final Class<TC> cTC,final Class<SECTION> cSECTION,final Class<QUESTION> cQuestion,final Class<UNIT> cUNIT)
 	{
-		return new SurveyRestService<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>(fSurvey,cL,cD,cSS,cTEMPLATE,cTS,cTC,cSECTION,cUNIT);
+		return new SurveyRestService<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>(fSurvey,cL,cD,cSS,cTEMPLATE,cTS,cTC,cSECTION,cQuestion,cUNIT);
 	}
 
 	@Override public Aht exportSurveyTemplateCategory()
@@ -126,6 +143,19 @@ public class SurveyRestService <L extends UtilsLang,
 		return aht;
 	}
 
+	@Override
+	public Templates exportSurveyTemplates()
+	{
+		Templates xml = new Templates();
+		for(TEMPLATE template : fSurvey.all(cTEMPLATE))
+		{
+			xml.getTemplate().add(fTemplate.build(template));
+		}
+		return xml;
+	}
+	
+	//*******************************************************************************************
+	
 	@Override public DataUpdate importSurveyTemplateCategory(Aht categories){return importStatus(cTC,cL,cD,categories,null);}
 	@Override public DataUpdate importSurveyTemplateStatus(Aht categories){return importStatus(cTS,cL,cD,categories,null);}
 	@Override public DataUpdate importSurveyUnits(Aht categories){return importStatus(cUNIT,cL,cD,categories,null);}
@@ -144,13 +174,36 @@ public class SurveyRestService <L extends UtilsLang,
     }
 
 	@Override
-	public Templates exportSurveyTemplates()
+	public DataUpdate importSurveyTemplates(Templates templates)
 	{
-		Templates xml = new Templates();
-		for(TEMPLATE template : fSurvey.all(cTEMPLATE))
+		DataUpdateTracker dut = new DataUpdateTracker(true);
+		dut.setType(XmlTypeFactory.build(cTEMPLATE.getName(),"DB Import"));
+		for(Template xTemplate : templates.getTemplate())
 		{
-			xml.getTemplate().add(fTemplate.build(template));
+			try
+			{
+				TS status = fSurvey.fByCode(cTS,xTemplate.getStatus().getCode());
+				TC category = fSurvey.fByCode(cTC,xTemplate.getCategory().getCode());
+				TEMPLATE eTemplate = efTemlate.build(category,status,xTemplate);
+				eTemplate = fSurvey.persist(eTemplate);
+				
+				for(Section xSection : xTemplate.getSection())
+				{
+					SECTION eSection = efSection.build(eTemplate,xSection);
+					eSection = fSurvey.persist(eSection);
+					for(Question xQuestion : xSection.getQuestion())
+					{
+						UNIT unit = fSurvey.fByCode(cUNIT,xQuestion.getUnit().getCode());
+						QUESTION eQuestion = efQuestion.build(eSection,unit,xQuestion);
+						fSurvey.persist(eQuestion);
+					}
+				}
+				
+				dut.success();
+			}
+			catch (UtilsNotFoundException e) {dut.fail(e,true);}
+			catch (UtilsContraintViolationException e) {dut.fail(e,true);}
 		}
-		return xml;
+		return dut.toDataUpdate();
 	}
 }

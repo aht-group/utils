@@ -1,6 +1,8 @@
 package net.sf.ahtutils.factory.xml.survey;
 
+import net.sf.ahtutils.factory.xml.status.XmlCategoryFactory;
 import net.sf.ahtutils.factory.xml.status.XmlDescriptionFactory;
+import net.sf.ahtutils.factory.xml.status.XmlStatusFactory;
 import net.sf.ahtutils.factory.xml.text.XmlRemarkFactory;
 import net.sf.ahtutils.interfaces.facade.UtilsSurveyFacade;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurvey;
@@ -51,6 +53,17 @@ public class XmlTemplateFactory<L extends UtilsLang,D extends UtilsDescription,S
 		
 		if(q.isSetDescription()){xml.setDescription(XmlDescriptionFactory.build(ejb.getName()));}
 		if(q.isSetRemark() && ejb.getRemark()!=null){xml.setRemark(XmlRemarkFactory.build(ejb.getRemark()));}
+		
+		if(q.isSetCategory())
+		{
+			XmlCategoryFactory f = new XmlCategoryFactory(q.getCategory());
+			xml.setCategory(f.build(ejb.getCategory()));
+		}
+		if(q.isSetStatus())
+		{
+			XmlStatusFactory f = new XmlStatusFactory(q.getStatus());
+			xml.setStatus(f.build(ejb.getStatus()));
+		}
 		
 		if(q.isSetSection())
 		{

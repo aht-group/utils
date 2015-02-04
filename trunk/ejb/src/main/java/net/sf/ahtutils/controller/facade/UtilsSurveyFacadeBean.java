@@ -82,7 +82,7 @@ public class UtilsSurveyFacadeBean <L extends UtilsLang,
 			{
 				TS status = this.fByCode(cTS,UtilsSurveyOption.Status.open.toString());
 				EjbSurveyTemplateFactory<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION> fTemplate = EjbSurveyTemplateFactory.factory(cTemplate);
-				template = fTemplate.build(category,status);
+				template = fTemplate.build(category,status,"");
 				em.persist(template);
 			}
 			catch (UtilsNotFoundException e) {e.printStackTrace();}

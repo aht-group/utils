@@ -7,6 +7,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import net.sf.ahtutils.xml.aht.Aht;
+import net.sf.ahtutils.xml.survey.Templates;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 
 public interface UtilsSurveyRestImport
@@ -22,4 +23,7 @@ public interface UtilsSurveyRestImport
 	
 	@POST  @Path("/survey/status") @Produces(MediaType.APPLICATION_XML) @Consumes(MediaType.APPLICATION_XML)
 	DataUpdate importSurveyStatus(Aht status);
+	
+	@POST  @Path("/survey/templates") @Produces(MediaType.APPLICATION_XML) @Consumes(MediaType.APPLICATION_XML)
+	DataUpdate importSurveyTemplates(Templates templates);
 }

@@ -11,6 +11,7 @@ import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyTemplate;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
+import net.sf.ahtutils.xml.survey.Question;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,13 +46,34 @@ public class EjbSurveyQuestionFactory<L extends UtilsLang,
 		return new EjbSurveyQuestionFactory<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>(cQuestion);
 	}
     
+	public QUESTION build(SECTION section,UNIT unit, Question xQuestion)
+	{
+		return build(section,unit,
+				xQuestion.getCode(),
+				xQuestion.getPosition(),
+				xQuestion.getTopic(),
+				xQuestion.getQuestion().getValue(),
+				xQuestion.getRemark().getValue());
+	}
+	
 	public QUESTION build(SECTION section)
+	{
+		return build(section,null,null,0,null,null,null);
+	}
+	
+	public QUESTION build(SECTION section,UNIT unit, String code,int position,String topic,String question,String remark)
 	{
 		QUESTION ejb = null;
 		try
 		{
 			ejb = cQuestion.newInstance();
 			ejb.setSection(section);
+			ejb.setUnit(unit);
+			ejb.setCode(code);
+			ejb.setPosition(position);
+			ejb.setTopic(topic);
+			ejb.setQuestion(question);
+			ejb.setRemark(remark);
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();}
