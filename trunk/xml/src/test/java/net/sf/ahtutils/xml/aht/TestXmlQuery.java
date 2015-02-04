@@ -10,6 +10,7 @@ import net.sf.ahtutils.xml.security.TestXmlStaff;
 import net.sf.ahtutils.xml.status.TestXmlLangs;
 import net.sf.ahtutils.xml.status.TestXmlStatus;
 import net.sf.ahtutils.xml.status.TestXmlType;
+import net.sf.ahtutils.xml.survey.TestXmlSurvey;
 import net.sf.ahtutils.xml.survey.TestXmlTemplate;
 import net.sf.exlp.util.xml.JaxbUtil;
 
@@ -53,6 +54,7 @@ public class TestXmlQuery extends AbstractXmlAhtTest
     		xml.setStaff(TestXmlStaff.create(false));
     		
     		xml.setTemplate(TestXmlTemplate.create(false));
+    		xml.setSurvey(TestXmlSurvey.create(false));
     	}
     	
     	return xml;

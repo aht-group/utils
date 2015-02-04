@@ -2,10 +2,13 @@ package net.sf.ahtutils.interfaces.model.survey;
 
 import java.util.List;
 
+import net.sf.ahtutils.interfaces.model.date.EjbWithDateRange;
+import net.sf.ahtutils.interfaces.model.with.utils.UtilsWithStatus;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 
 public interface UtilsSurvey<L extends UtilsLang,
 							D extends UtilsDescription,
@@ -21,8 +24,12 @@ public interface UtilsSurvey<L extends UtilsLang,
 							DATA extends UtilsSurveyData<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>,
 							OPTION extends UtilsSurveyOption<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>,
 							CORRELATION extends UtilsSurveyCorrelation<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>>
-			extends EjbWithId
+			extends EjbWithId,EjbWithName,EjbWithDateRange,
+						UtilsWithStatus<L,D,SS>
 {
+	TEMPLATE getTemplate();
+	void setTemplate(TEMPLATE tempalte);
+	
 	List<DATA> getSurveyData();
 	void setSurveyData(List<DATA> data);
 }

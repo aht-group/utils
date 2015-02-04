@@ -54,6 +54,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Survey }
+     * 
+     */
+    public Survey createSurvey() {
+        return new Survey();
+    }
+
+    /**
      * Create an instance of {@link Templates }
      * 
      */

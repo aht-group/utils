@@ -14,6 +14,7 @@ import net.sf.ahtutils.xml.security.Staff;
 import net.sf.ahtutils.xml.status.Langs;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.ahtutils.xml.status.Type;
+import net.sf.ahtutils.xml.survey.Survey;
 import net.sf.ahtutils.xml.survey.Template;
 
 
@@ -34,6 +35,7 @@ import net.sf.ahtutils.xml.survey.Template;
  *         &lt;element ref="{http://ahtutils.aht-group.com/qa}test"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/security}staff"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/survey}template"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/survey}survey"/>
  *       &lt;/sequence>
  *       &lt;attribute name="lang" type="{http://www.w3.org/2001/XMLSchema}string" />
  *     &lt;/restriction>
@@ -51,7 +53,8 @@ import net.sf.ahtutils.xml.survey.Template;
     "type",
     "test",
     "staff",
-    "template"
+    "template",
+    "survey"
 })
 @XmlRootElement(name = "query")
 public class Query
@@ -73,6 +76,8 @@ public class Query
     protected Staff staff;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/survey", required = true)
     protected Template template;
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/survey", required = true)
+    protected Survey survey;
     @XmlAttribute(name = "lang")
     protected String lang;
 
@@ -270,6 +275,34 @@ public class Query
 
     public boolean isSetTemplate() {
         return (this.template!= null);
+    }
+
+    /**
+     * Gets the value of the survey property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Survey }
+     *     
+     */
+    public Survey getSurvey() {
+        return survey;
+    }
+
+    /**
+     * Sets the value of the survey property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Survey }
+     *     
+     */
+    public void setSurvey(Survey value) {
+        this.survey = value;
+    }
+
+    public boolean isSetSurvey() {
+        return (this.survey!= null);
     }
 
     /**

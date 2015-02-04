@@ -68,7 +68,7 @@
         	    <xsd:element ref="sec:staff" maxOccurs="1"/>
         	    
         	    <xsd:element ref="survey:template" maxOccurs="1"/>
-        	    
+        	    <xsd:element ref="survey:survey" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="lang" type="xsd:string"/>
         </xsd:complexType>
