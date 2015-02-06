@@ -26,6 +26,9 @@ public interface UtilsSurveyData<L extends UtilsLang,
 	SURVEY getSurvey();
 	void setSurvey(SURVEY survey);
 	
+	CORRELATION getCorrelation();
+	void setCorrelation(CORRELATION correlation);
+	
 	List<ANSWER> getAnswers();
 	void setAnswers(List<ANSWER> answers);
 }
