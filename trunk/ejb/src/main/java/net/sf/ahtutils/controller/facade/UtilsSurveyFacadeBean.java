@@ -1,6 +1,9 @@
 package net.sf.ahtutils.controller.facade;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -8,7 +11,9 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
+import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.factory.ejb.survey.EjbSurveyAnswerFactory;
 import net.sf.ahtutils.factory.ejb.survey.EjbSurveyTemplateFactory;
 import net.sf.ahtutils.interfaces.facade.UtilsSurveyFacade;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurvey;
@@ -39,6 +44,8 @@ public class UtilsSurveyFacadeBean <L extends UtilsLang,
 									CORRELATION extends UtilsSurveyCorrelation<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>>
 	extends UtilsFacadeBean implements UtilsSurveyFacade<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>
 {	
+	private EjbSurveyAnswerFactory<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION> efAnswer;
+	
 	public UtilsSurveyFacadeBean(EntityManager em)
 	{
 		super(em);
@@ -92,5 +99,32 @@ public class UtilsSurveyFacadeBean <L extends UtilsLang,
 		{
 			return list.get(0);
 		}
+	}
+
+	@Override
+	public List<ANSWER> fcAnswers(Class<DATA> cData, Class<ANSWER> cAnswer, DATA data)
+	{
+		data = em.find(cData,data.getId());
+		List<ANSWER> result = new ArrayList<ANSWER>();
+		efAnswer = EjbSurveyAnswerFactory.factory(cAnswer);
+		
+		Set<Long> existing = new HashSet<Long>();
+		for(ANSWER a : data.getAnswers()){existing.add(a.getQuestion().getId());result.add(a);}
+		for(SECTION s : data.getSurvey().getTemplate().getSections())
+		{
+			for(QUESTION q : s.getQuestions())
+			{
+				if(!existing.contains(q.getId()))
+				{
+					try
+					{
+						ANSWER answer = this.persist(efAnswer.build(q, data));
+						result.add(answer);
+					}
+					catch (UtilsContraintViolationException e) {e.printStackTrace();}
+				}
+			}
+		}
+		return result;
 	}
 }

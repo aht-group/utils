@@ -11,12 +11,11 @@ import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyTemplate;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
-import net.sf.ahtutils.xml.survey.Question;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbSurveyQuestionFactory<L extends UtilsLang,
+public class EjbSurveyAnswerFactory<L extends UtilsLang,
 										D extends UtilsDescription,
 										SURVEY extends UtilsSurvey<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>,
 										SS extends UtilsStatus<SS,L,D>,
@@ -31,49 +30,30 @@ public class EjbSurveyQuestionFactory<L extends UtilsLang,
 										OPTION extends UtilsSurveyOption<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>,
 										CORRELATION extends UtilsSurveyCorrelation<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>>
 {
-	final static Logger logger = LoggerFactory.getLogger(EjbSurveyQuestionFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(EjbSurveyAnswerFactory.class);
 	
-	final Class<QUESTION> cQuestion;
+	final Class<ANSWER> cAnswer;
     
-	public EjbSurveyQuestionFactory(final Class<QUESTION> cQuestion)
+	public EjbSurveyAnswerFactory(final Class<ANSWER> cAnswer)
 	{       
-        this.cQuestion = cQuestion;
+        this.cAnswer = cAnswer;
 	}
 	
 	public static <L extends UtilsLang,D extends UtilsDescription,SURVEY extends UtilsSurvey<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>,SS extends UtilsStatus<SS,L,D>,TEMPLATE extends UtilsSurveyTemplate<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>,TS extends UtilsStatus<TS,L,D>,TC extends UtilsStatus<TC,L,D>,SECTION extends UtilsSurveySection<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>,QUESTION extends UtilsSurveyQuestion<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>,UNIT extends UtilsStatus<UNIT,L,D>,ANSWER extends UtilsSurveyAnswer<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>,DATA extends UtilsSurveyData<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>,OPTION extends UtilsSurveyOption<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>,CORRELATION extends UtilsSurveyCorrelation<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>>
-	EjbSurveyQuestionFactory<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION> factory(final Class<QUESTION> cQuestion)
+	EjbSurveyAnswerFactory<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION> factory(final Class<ANSWER> cAnswer)
 	{
-		return new EjbSurveyQuestionFactory<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>(cQuestion);
+		return new EjbSurveyAnswerFactory<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>(cAnswer);
 	}
-    
-	public QUESTION build(SECTION section,UNIT unit, Question xQuestion)
-	{
-		return build(section,unit,
-				xQuestion.getCode(),
-				xQuestion.getPosition(),
-				xQuestion.getTopic(),
-				xQuestion.getQuestion().getValue(),
-				xQuestion.getRemark().getValue());
-	}
+   	
 	
-	public QUESTION build(SECTION section,UNIT unit)
+	public ANSWER build(QUESTION question, DATA data)
 	{
-		return build(section,unit,null,0,null,null,null);
-	}
-	
-	public QUESTION build(SECTION section,UNIT unit, String code,int position,String topic,String question,String remark)
-	{
-		QUESTION ejb = null;
+		ANSWER ejb = null;
 		try
 		{
-			ejb = cQuestion.newInstance();
-			ejb.setSection(section);
-			ejb.setUnit(unit);
-			ejb.setCode(code);
-			ejb.setPosition(position);
-			ejb.setTopic(topic);
+			ejb = cAnswer.newInstance();
 			ejb.setQuestion(question);
-			ejb.setRemark(remark);
+			ejb.setData(data);
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();}

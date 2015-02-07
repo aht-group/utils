@@ -1,5 +1,7 @@
 package net.sf.ahtutils.interfaces.facade;
 
+import java.util.List;
+
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurvey;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyAnswer;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyCorrelation;
@@ -31,4 +33,5 @@ public interface UtilsSurveyFacade <L extends UtilsLang,
 	TEMPLATE load(Class<TEMPLATE> cTemplate, TEMPLATE template);
 	SECTION load(Class<SECTION> cSection, SECTION section);
 	TEMPLATE fcSurveyTemplate(Class<TEMPLATE> cTemplate, Class<TS> cTS, TC category);
+	List<ANSWER> fcAnswers(Class<DATA> cData, Class<ANSWER> cAnswer, DATA data);
 }
