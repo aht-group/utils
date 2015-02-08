@@ -1,5 +1,7 @@
 package net.sf.ahtutils.interfaces.model.survey;
 
+import java.util.List;
+
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
@@ -27,9 +29,19 @@ public interface UtilsSurveyAnswer<L extends UtilsLang,
 	QUESTION getQuestion();
 	void setQuestion(QUESTION question);
 	
-	double getValue();
-	void setValue(double value);
 	
-	String getText();
-	void setText(String text);
+	Double getValueDouble();
+	void setValueDouble(Double valueDouble);
+	
+	Boolean getValueBoolean();
+	void setValueBoolean(Boolean valueBoolean);
+	
+	Integer getValueNumber();
+	void setValueNumber(Integer valueNumber);
+	
+	String getValueText();
+	void setValueText(String valueText);
+	
+	List<OPTION> getOptions();
+	void setOptions(List<OPTION> option);
 }
