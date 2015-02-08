@@ -29,9 +29,11 @@ public class TestXmlCorrelation extends AbstractXmlSurveyTest
     {
     	Correlation xml = new Correlation();
     	xml.setId(123);
+    	xml.setType("myType");
     	if(withChilds)
     	{    		
-    		
+    		xml.getCorrelation().add(TestXmlCorrelation.create(false));
+    		xml.getCorrelation().add(TestXmlCorrelation.create(false));
     	}
     	
     	return xml;

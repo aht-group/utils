@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<survey:correlation xmlns:survey="http://ahtutils.aht-group.com/survey" id="123"/>
+<survey:correlation xmlns:survey="http://ahtutils.aht-group.com/survey" id="123" type="myType">
+    <survey:correlation id="123" type="myType"/>
+    <survey:correlation id="123" type="myType"/>
+</survey:correlation>

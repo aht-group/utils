@@ -81,12 +81,14 @@
 			<xsd:attribute name="id" type="xsd:long"/>
 		</xsd:complexType>
    </xsd:element>
-   <xsd:element name="correlation">
-        <xsd:complexType>
-        	<xsd:sequence>
-            </xsd:sequence>
-            <xsd:attribute name="id" type="xsd:long"/>
-        </xsd:complexType>
+	<xsd:element name="correlation">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="survey:correlation" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="id" type="xsd:long"/>
+			<xsd:attribute name="type" type="xsd:string"/>
+		</xsd:complexType>
     </xsd:element>
     <xsd:element name="answer">
 		<xsd:complexType>
