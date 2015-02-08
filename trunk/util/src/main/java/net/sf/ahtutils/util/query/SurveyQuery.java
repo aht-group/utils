@@ -8,11 +8,14 @@ import net.sf.ahtutils.factory.xml.status.XmlCategoryFactory;
 import net.sf.ahtutils.factory.xml.status.XmlDescriptionFactory;
 import net.sf.ahtutils.factory.xml.status.XmlStatusFactory;
 import net.sf.ahtutils.factory.xml.status.XmlUnitFactory;
+import net.sf.ahtutils.factory.xml.survey.XmlCorrelationFactory;
+import net.sf.ahtutils.factory.xml.survey.XmlDataFactory;
 import net.sf.ahtutils.factory.xml.survey.XmlSurveyFactory;
 import net.sf.ahtutils.factory.xml.survey.XmlTemplateFactory;
 import net.sf.ahtutils.factory.xml.text.XmlQuestionFactory;
 import net.sf.ahtutils.factory.xml.text.XmlRemarkFactory;
 import net.sf.ahtutils.xml.aht.Query;
+import net.sf.ahtutils.xml.survey.Data;
 import net.sf.ahtutils.xml.survey.Question;
 import net.sf.ahtutils.xml.survey.Section;
 import net.sf.ahtutils.xml.survey.Survey;
@@ -100,7 +103,14 @@ public class SurveyQuery
 		xml.setValidTo(DateUtil.toXmlGc(new Date()));
 		xml.setStatus(XmlStatusFactory.create(""));
 		xml.setTemplate(XmlTemplateFactory.id());
-		
+		xml.getData().add(exData());
+		return xml;
+	}
+	
+	private static Data exData()
+	{		
+		Data xml = XmlDataFactory.id();
+		xml.setCorrelation(XmlCorrelationFactory.id());
 		return xml;
 	}
 }

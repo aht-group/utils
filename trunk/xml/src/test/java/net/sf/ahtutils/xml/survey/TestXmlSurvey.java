@@ -38,6 +38,8 @@ public class TestXmlSurvey extends AbstractXmlSurveyTest
     	{    		
     		xml.setTemplate(TestXmlTemplate.create(false));
     		xml.setStatus(TestXmlStatus.create(false));
+    		
+    		xml.getData().add(TestXmlData.create(false));xml.getData().add(TestXmlData.create(false));
     	}
     	
     	return xml;

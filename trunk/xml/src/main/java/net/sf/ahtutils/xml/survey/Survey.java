@@ -2,6 +2,8 @@
 package net.sf.ahtutils.xml.survey;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -25,6 +27,7 @@ import net.sf.ahtutils.xml.status.Status;
  *       &lt;sequence>
  *         &lt;element ref="{http://ahtutils.aht-group.com/survey}template"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}status"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/survey}data" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" />
  *       &lt;attribute name="name" type="{http://www.w3.org/2001/XMLSchema}string" />
@@ -40,7 +43,8 @@ import net.sf.ahtutils.xml.status.Status;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "template",
-    "status"
+    "status",
+    "data"
 })
 @XmlRootElement(name = "survey")
 public class Survey
@@ -52,6 +56,8 @@ public class Survey
     protected Template template;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
     protected Status status;
+    @XmlElement(required = true)
+    protected List<Data> data;
     @XmlAttribute(name = "id")
     protected Long id;
     @XmlAttribute(name = "name")
@@ -117,6 +123,43 @@ public class Survey
 
     public boolean isSetStatus() {
         return (this.status!= null);
+    }
+
+    /**
+     * Gets the value of the data property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the data property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getData().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Data }
+     * 
+     * 
+     */
+    public List<Data> getData() {
+        if (data == null) {
+            data = new ArrayList<Data>();
+        }
+        return this.data;
+    }
+
+    public boolean isSetData() {
+        return ((this.data!= null)&&(!this.data.isEmpty()));
+    }
+
+    public void unsetData() {
+        this.data = null;
     }
 
     /**

@@ -77,4 +77,20 @@ public class ObjectFactory {
         return new Survey();
     }
 
+    /**
+     * Create an instance of {@link Data }
+     * 
+     */
+    public Data createData() {
+        return new Data();
+    }
+
+    /**
+     * Create an instance of {@link Correlation }
+     * 
+     */
+    public Correlation createCorrelation() {
+        return new Correlation();
+    }
+
 }
