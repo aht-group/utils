@@ -117,4 +117,11 @@ public class AbstractLogMessage <L extends UtilsLang,D extends UtilsDescription,
         sb.append(t.toString());
         return sb.toString();
     }
+    
+	public static <T extends EjbWithId> String reloadEntity(T t)
+	{
+		StringBuffer sb = new StringBuffer();
+		sb.append("Reloading ").append(t.toString());
+		return sb.toString();
+	}
 }
