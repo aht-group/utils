@@ -25,8 +25,8 @@ public class XmlSurveyFactory<L extends UtilsLang,D extends UtilsDescription,SUR
 	final static Logger logger = LoggerFactory.getLogger(XmlSurveyFactory.class);
 	
 	private UtilsSurveyFacade<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION> fSurvey;
-	private Class<TEMPLATE> cTemplate;
-	private Class<SECTION> cSection;
+	private Class<SURVEY> cSurvey;
+	private Class<DATA> cData;
 	
 	private Survey q;
 	
@@ -35,17 +35,16 @@ public class XmlSurveyFactory<L extends UtilsLang,D extends UtilsDescription,SUR
 		this.q=q;
 	}
 	
-/*	public void lazyLoad(UtilsSurveyFacade<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION> fSurvey,Class<TEMPLATE> cTemplate,Class<SECTION> cSection)
+	public void lazyLoad(UtilsSurveyFacade<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION> fSurvey,Class<SURVEY> cSurvey,Class<DATA> cData)
 	{
 		this.fSurvey=fSurvey;
-		this.cTemplate=cTemplate;
-		this.cSection=cSection;
+		this.cSurvey=cSurvey;
+		this.cData=cData;
 	}
-*/	
 	
 	public Survey build(SURVEY ejb)
 	{
-//		if(fSurvey!=null){ejb = fSurvey.load(cTemplate,ejb);}
+		if(fSurvey!=null){ejb = fSurvey.load(cSurvey,ejb);}
 		
 		Survey xml = new Survey();
 		if(q.isSetId()){xml.setId(ejb.getId());}
@@ -64,6 +63,16 @@ public class XmlSurveyFactory<L extends UtilsLang,D extends UtilsDescription,SUR
 			XmlTemplateFactory<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION> f = new XmlTemplateFactory<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>(q.getTemplate());
 //			if(fSurvey!=null){f.lazyLoad(fSurvey,cSection);}
 			xml.setTemplate(f.build(ejb.getTemplate()));
+		}
+		
+		if(q.isSetData())
+		{
+			XmlDataFactory<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION> f = new XmlDataFactory<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>(q.getData().get(0));
+			f.lazyLoad(fSurvey, cData);
+			for(DATA data : ejb.getSurveyData())
+			{
+				xml.getData().add(f.build(data));
+			}
 		}
 		return xml;
 	}

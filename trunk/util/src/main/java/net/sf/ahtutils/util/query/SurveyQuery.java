@@ -8,13 +8,14 @@ import net.sf.ahtutils.factory.xml.status.XmlCategoryFactory;
 import net.sf.ahtutils.factory.xml.status.XmlDescriptionFactory;
 import net.sf.ahtutils.factory.xml.status.XmlStatusFactory;
 import net.sf.ahtutils.factory.xml.status.XmlUnitFactory;
+import net.sf.ahtutils.factory.xml.survey.XmlAnswerFactory;
 import net.sf.ahtutils.factory.xml.survey.XmlCorrelationFactory;
 import net.sf.ahtutils.factory.xml.survey.XmlDataFactory;
 import net.sf.ahtutils.factory.xml.survey.XmlSurveyFactory;
 import net.sf.ahtutils.factory.xml.survey.XmlTemplateFactory;
-import net.sf.ahtutils.factory.xml.text.XmlQuestionFactory;
 import net.sf.ahtutils.factory.xml.text.XmlRemarkFactory;
 import net.sf.ahtutils.xml.aht.Query;
+import net.sf.ahtutils.xml.survey.Answer;
 import net.sf.ahtutils.xml.survey.Data;
 import net.sf.ahtutils.xml.survey.Question;
 import net.sf.ahtutils.xml.survey.Section;
@@ -80,7 +81,7 @@ public class SurveyQuery
 		xml.setCode("");
 		xml.setTopic("");
 		xml.setUnit(XmlUnitFactory.build(""));
-		xml.setQuestion(XmlQuestionFactory.build(""));
+		xml.setQuestion(net.sf.ahtutils.factory.xml.text.XmlQuestionFactory.build(""));
 		xml.setRemark(XmlRemarkFactory.build(""));
 		
 		return xml;
@@ -111,6 +112,16 @@ public class SurveyQuery
 	{		
 		Data xml = XmlDataFactory.id();
 		xml.setCorrelation(XmlCorrelationFactory.id());
+		xml.getAnswer().add(exAnswer());
+		return xml;
+	}
+	
+	private static Answer exAnswer()
+	{
+		Answer xml = XmlAnswerFactory.id();
+		xml.setQuestion(net.sf.ahtutils.factory.xml.survey.XmlQuestionFactory.id());
+		xml.setValueBoolean(true);
+		xml.setValueNumber(0);
 		return xml;
 	}
 }

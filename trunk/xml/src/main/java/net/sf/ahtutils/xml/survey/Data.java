@@ -2,6 +2,8 @@
 package net.sf.ahtutils.xml.survey;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -22,6 +24,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element ref="{http://ahtutils.aht-group.com/survey}survey"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/survey}correlation"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/survey}answer" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" />
  *     &lt;/restriction>
@@ -34,7 +37,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "survey",
-    "correlation"
+    "correlation",
+    "answer"
 })
 @XmlRootElement(name = "data")
 public class Data
@@ -46,6 +50,8 @@ public class Data
     protected Survey survey;
     @XmlElement(required = true)
     protected Correlation correlation;
+    @XmlElement(required = true)
+    protected List<Answer> answer;
     @XmlAttribute(name = "id")
     protected Long id;
 
@@ -103,6 +109,43 @@ public class Data
 
     public boolean isSetCorrelation() {
         return (this.correlation!= null);
+    }
+
+    /**
+     * Gets the value of the answer property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the answer property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getAnswer().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Answer }
+     * 
+     * 
+     */
+    public List<Answer> getAnswer() {
+        if (answer == null) {
+            answer = new ArrayList<Answer>();
+        }
+        return this.answer;
+    }
+
+    public boolean isSetAnswer() {
+        return ((this.answer!= null)&&(!this.answer.isEmpty()));
+    }
+
+    public void unsetAnswer() {
+        this.answer = null;
     }
 
     /**

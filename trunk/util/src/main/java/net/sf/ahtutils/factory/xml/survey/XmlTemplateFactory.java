@@ -43,7 +43,6 @@ public class XmlTemplateFactory<L extends UtilsLang,D extends UtilsDescription,S
 		this.cSection=cSection;
 	}
 	
-	
 	public Template build(TEMPLATE ejb)
 	{
 		if(fSurvey!=null){ejb = fSurvey.load(cTemplate,ejb);}

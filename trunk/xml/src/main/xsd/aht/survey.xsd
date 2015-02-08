@@ -71,14 +71,14 @@
 			<xsd:attribute name="validTo" type="xsd:date"/>
 		</xsd:complexType>
 	</xsd:element>
-    <xsd:element name="data">
+	<xsd:element name="data">
 		<xsd:complexType>
         	<xsd:sequence>
         		<xsd:element ref="survey:survey" maxOccurs="1"/>
 				<xsd:element ref="survey:correlation" maxOccurs="1"/>
+				<xsd:element ref="survey:answer" maxOccurs="unbounded"/>
 			</xsd:sequence>
 			<xsd:attribute name="id" type="xsd:long"/>
-
 		</xsd:complexType>
    </xsd:element>
    <xsd:element name="correlation">
@@ -88,4 +88,15 @@
             <xsd:attribute name="id" type="xsd:long"/>
         </xsd:complexType>
     </xsd:element>
+    <xsd:element name="answer">
+		<xsd:complexType>
+        	<xsd:sequence>
+        		<xsd:element ref="survey:data" maxOccurs="1"/>
+				<xsd:element ref="survey:question" maxOccurs="1"/>
+			</xsd:sequence>
+			<xsd:attribute name="id" type="xsd:long"/>
+			<xsd:attribute name="valueBoolean" type="xsd:boolean"/>
+			<xsd:attribute name="valueNumber" type="xsd:int"/>
+		</xsd:complexType>
+   </xsd:element>
 </xsd:schema>

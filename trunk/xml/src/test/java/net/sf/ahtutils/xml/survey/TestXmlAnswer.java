@@ -11,31 +11,31 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestXmlData extends AbstractXmlSurveyTest
+public class TestXmlAnswer extends AbstractXmlSurveyTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestXmlData.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlAnswer.class);
 	
-	@BeforeClass public static void initFiles(){setXmlFile(dirSuffix,Data.class);}
+	@BeforeClass public static void initFiles(){setXmlFile(dirSuffix,Answer.class);}
     
     @Test
     public void xml() throws FileNotFoundException
     {
-    	Data actual = create(true);
-    	Data expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Data.class);
+    	Answer actual = create(true);
+    	Answer expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Answer.class);
     	assertJaxbEquals(expected, actual);
     }  
     
-    public static Data create(boolean withChilds)
+    public static Answer create(boolean withChilds)
     {
-    	Data xml = new Data();
+    	Answer xml = new Answer();
     	xml.setId(123);
+    	xml.setValueBoolean(true);
+    	xml.setValueNumber(123);
     	
     	if(withChilds)
-    	{    		
-    		xml.setSurvey(TestXmlSurvey.create(false));
-    		xml.setCorrelation(TestXmlCorrelation.create(false));
-    		
-    		xml.getAnswer().add(TestXmlAnswer.create(false));xml.getAnswer().add(TestXmlAnswer.create(false));
+    	{
+    		xml.setData(TestXmlData.create(false));
+    		xml.setQuestion(TestXmlQuestion.create(false));
     	}
     	
     	return xml;
@@ -48,9 +48,9 @@ public class TestXmlData extends AbstractXmlSurveyTest
 		UtilsXmlTestBootstrap.init();
 		DateUtil.ignoreTimeZone=true;
 		
-		TestXmlData.initJaxb();
-		TestXmlData.initFiles();	
-		TestXmlData test = new TestXmlData();
+		TestXmlAnswer.initJaxb();
+		TestXmlAnswer.initFiles();	
+		TestXmlAnswer test = new TestXmlAnswer();
 		test.save();
     }
 }

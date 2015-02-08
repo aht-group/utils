@@ -93,4 +93,12 @@ public class ObjectFactory {
         return new Correlation();
     }
 
+    /**
+     * Create an instance of {@link Answer }
+     * 
+     */
+    public Answer createAnswer() {
+        return new Answer();
+    }
+
 }

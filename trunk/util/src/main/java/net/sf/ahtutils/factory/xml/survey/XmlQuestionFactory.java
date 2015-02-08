@@ -49,5 +49,10 @@ public class XmlQuestionFactory<L extends UtilsLang,D extends UtilsDescription,S
 		return xml;
 	}
 	
-	
+	public static Question id()
+	{
+		Question xml = new Question();
+		xml.setId(0);
+		return xml;
+	}
 }

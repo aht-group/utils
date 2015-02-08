@@ -32,6 +32,9 @@ public interface UtilsSurveyFacade <L extends UtilsLang,
 {	
 	TEMPLATE load(Class<TEMPLATE> cTemplate, TEMPLATE template);
 	SECTION load(Class<SECTION> cSection, SECTION section);
+	SURVEY load(Class<SURVEY> cSurvey, SURVEY survey);
+	DATA load(Class<DATA> cData, DATA data);
+	
 	TEMPLATE fcSurveyTemplate(Class<TEMPLATE> cTemplate, Class<TS> cTS, TC category);
 	List<ANSWER> fcAnswers(Class<DATA> cData, Class<ANSWER> cAnswer, DATA data);
 }

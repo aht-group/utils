@@ -53,6 +53,7 @@ public class EjbSurveyDataFactory<L extends UtilsLang,
 			ejb = cData.newInstance();
 			ejb.setSurvey(survey);
 			ejb.setCorrelation(correlation);
+			ejb.getCorrelation().setData(ejb);
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();}

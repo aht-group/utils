@@ -51,21 +51,33 @@ public class UtilsSurveyFacadeBean <L extends UtilsLang,
 		super(em);
 	}
 
-	@Override
-	public TEMPLATE load(Class<TEMPLATE> cTemplate, TEMPLATE template)
+	@Override public TEMPLATE load(Class<TEMPLATE> cTemplate, TEMPLATE template)
 	{
 		template = em.find(cTemplate,template.getId());
 		template.getSections().size();
 		return template;
 	}
 	
-	@Override
-	public SECTION load(Class<SECTION> cSection, SECTION section)
+	@Override public SECTION load(Class<SECTION> cSection, SECTION section)
 	{
 		section = em.find(cSection,section.getId());
 		section.getSections().size();
 		section.getQuestions().size();
 		return section;
+	}
+	
+	@Override public SURVEY load(Class<SURVEY> cSurvey, SURVEY survey)
+	{
+		survey = em.find(cSurvey,survey.getId());
+		survey.getSurveyData().size();
+		return survey;
+	}
+
+	@Override public DATA load(Class<DATA> cData, DATA data)
+	{
+		data = em.find(cData,data.getId());
+		data.getAnswers().size();
+		return data;
 	}
 	
 	@Override
