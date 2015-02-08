@@ -7,6 +7,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import net.sf.ahtutils.xml.aht.Aht;
+import net.sf.ahtutils.xml.survey.Correlation;
 import net.sf.ahtutils.xml.survey.Survey;
 import net.sf.ahtutils.xml.survey.Templates;
 import net.sf.ahtutils.xml.sync.DataUpdate;
@@ -30,4 +31,7 @@ public interface UtilsSurveyRestImport
 	
 	@POST  @Path("/survey") @Produces(MediaType.APPLICATION_XML) @Consumes(MediaType.APPLICATION_XML)
 	DataUpdate importSurvey(Survey survey);
+	
+	@POST  @Path("/survey/correlations") @Produces(MediaType.APPLICATION_XML) @Consumes(MediaType.APPLICATION_XML)
+	DataUpdate importCorrelations(Correlation correlations);
 }

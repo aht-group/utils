@@ -11,6 +11,7 @@ import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyTemplate;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
+import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.xml.survey.Correlation;
 
 import org.slf4j.Logger;
@@ -38,6 +39,14 @@ public class XmlCorrelationFactory<L extends UtilsLang,D extends UtilsDescriptio
 	{
 		Correlation xml = new Correlation();
 		xml.setId(0);
+		return xml;
+	}
+	
+	public static <T extends EjbWithId> Correlation build(Class<?> c, T t)
+	{
+		Correlation xml = new Correlation();
+		xml.setId(t.getId());
+		xml.setType(c.getName());
 		return xml;
 	}
 }

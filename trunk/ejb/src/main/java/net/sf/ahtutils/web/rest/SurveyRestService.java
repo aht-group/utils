@@ -32,6 +32,7 @@ import net.sf.ahtutils.monitor.DataUpdateTracker;
 import net.sf.ahtutils.util.query.SurveyQuery;
 import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.status.Status;
+import net.sf.ahtutils.xml.survey.Correlation;
 import net.sf.ahtutils.xml.survey.Question;
 import net.sf.ahtutils.xml.survey.Section;
 import net.sf.ahtutils.xml.survey.Survey;
@@ -191,6 +192,13 @@ public class SurveyRestService <L extends UtilsLang,
 		return new Survey();
 	}
 	
+	@Override
+	public Correlation exportSurveyCorrelations()
+	{
+		logger.warn("This method should be never used here! You have to implement your project-specific method!");
+		return null;
+	}
+	
 	//*******************************************************************************************
 	
 	@Override public DataUpdate importSurveyTemplateCategory(Aht categories){return importStatus(cTC,cL,cD,categories,null);}
@@ -251,7 +259,6 @@ public class SurveyRestService <L extends UtilsLang,
 		DataUpdateTracker dut = new DataUpdateTracker(true);
 		dut.setType(XmlTypeFactory.build(cSurvey.getName(),"DB Import"));
 		
-		
 		try
 		{
 			SS status = fSurvey.fByCode(cSS,survey.getStatus().getCode());
@@ -264,5 +271,11 @@ public class SurveyRestService <L extends UtilsLang,
 		catch (UtilsContraintViolationException e) {dut.fail(e,true);}
 		
 		return dut.toDataUpdate();
+	}
+	
+	@Override public DataUpdate importCorrelations(Correlation correlations)
+	{
+		logger.warn("This method should be never used here! You have to implement your project-specific method!");
+		return null;
 	}
 }
