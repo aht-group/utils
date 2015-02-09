@@ -12,6 +12,7 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.factory.ejb.survey.EjbSurveyAnswerFactory;
 import net.sf.ahtutils.factory.ejb.survey.EjbSurveyTemplateFactory;
@@ -138,5 +139,15 @@ public class UtilsSurveyFacadeBean <L extends UtilsLang,
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public DATA saveData(Class<DATA> cData, Class<CORRELATION> cCorrelation, DATA data) throws UtilsContraintViolationException, UtilsLockingException
+	{
+		if(data.getCorrelation().getId()>0)
+		{
+			data.setCorrelation(em.find(cCorrelation,data.getCorrelation().getId()));
+		}
+		return this.saveProtected(data);
 	}
 }

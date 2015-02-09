@@ -17,6 +17,7 @@ import net.sf.ahtutils.interfaces.model.with.EjbWithNr;
 import net.sf.ahtutils.interfaces.model.with.EjbWithTypeCode;
 import net.sf.ahtutils.interfaces.model.with.code.EjbWithNonUniqueCode;
 import net.sf.ahtutils.model.interfaces.UtilsProperty;
+import net.sf.ahtutils.model.interfaces.crud.EjbMergeable;
 import net.sf.ahtutils.model.interfaces.crud.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
@@ -71,7 +72,8 @@ public interface UtilsFacade extends UtilsIdFacade
 	<T extends EjbWithRecord, AND extends EjbWithId, OR extends EjbWithId> List<T> allOrderedForParents(Class<T> queryClass, List<ParentPredicate<AND>> lpAnd, List<ParentPredicate<OR>> lpOr,boolean ascending);
 	<T extends EjbWithValidFrom> List<T> allOrderedValidFrom(Class<T> cl, boolean ascending);
 	
-//	<T extends EjbMergeable> T merge(T o) throws UtilsContraintViolationException, UtilsLockingException;
+	<T extends EjbMergeable> T merge(T o) throws UtilsContraintViolationException, UtilsLockingException;
+	<T extends EjbMergeable> T mergeTransaction(T o) throws UtilsContraintViolationException, UtilsLockingException;
 	<T extends Object> T persist(T o) throws UtilsContraintViolationException;
 	<T extends Object> T update(T o) throws UtilsContraintViolationException,UtilsLockingException;
 	<T extends EjbSaveable> T saveTransaction(T o) throws UtilsContraintViolationException,UtilsLockingException;

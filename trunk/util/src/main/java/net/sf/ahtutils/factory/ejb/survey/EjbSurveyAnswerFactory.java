@@ -11,6 +11,7 @@ import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyTemplate;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
+import net.sf.ahtutils.xml.survey.Answer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,8 +46,19 @@ public class EjbSurveyAnswerFactory<L extends UtilsLang,
 		return new EjbSurveyAnswerFactory<L,D,SURVEY,SS,TEMPLATE,TS,TC,SECTION,QUESTION,UNIT,ANSWER,DATA,OPTION,CORRELATION>(cAnswer);
 	}
    	
-	
+	public ANSWER build(QUESTION question, DATA data,Answer answer)
+	{
+		Boolean valueBoolean = null;if(answer.isSetValueBoolean()){valueBoolean=answer.isValueBoolean();}
+		Integer valueNumber = null;if(answer.isSetValueNumber()){valueNumber=answer.getValueNumber();}
+		return build(question, data,valueBoolean,valueNumber);
+	}
 	public ANSWER build(QUESTION question, DATA data)
+	{
+		return build(question, data,null,null);
+	}
+	
+	
+	public ANSWER build(QUESTION question, DATA data,Boolean valueBoolean,Integer valueNumber)
 	{
 		ANSWER ejb = null;
 		try
@@ -54,6 +66,8 @@ public class EjbSurveyAnswerFactory<L extends UtilsLang,
 			ejb = cAnswer.newInstance();
 			ejb.setQuestion(question);
 			ejb.setData(data);
+			ejb.setValueBoolean(valueBoolean);
+			ejb.setValueNumber(valueNumber);
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();}

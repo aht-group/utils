@@ -18,6 +18,7 @@ import net.sf.ahtutils.interfaces.model.with.EjbWithNr;
 import net.sf.ahtutils.interfaces.model.with.EjbWithTypeCode;
 import net.sf.ahtutils.interfaces.model.with.code.EjbWithNonUniqueCode;
 import net.sf.ahtutils.model.interfaces.UtilsProperty;
+import net.sf.ahtutils.model.interfaces.crud.EjbMergeable;
 import net.sf.ahtutils.model.interfaces.crud.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
@@ -391,5 +392,19 @@ public class AbstractDummyFacade implements UtilsFacade
 	{
 		
 		return false;
+	}
+
+	@Override
+	public <T extends EjbMergeable> T mergeTransaction(T o) throws UtilsContraintViolationException, UtilsLockingException
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T extends EjbMergeable> T merge(T o) throws UtilsContraintViolationException, UtilsLockingException
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

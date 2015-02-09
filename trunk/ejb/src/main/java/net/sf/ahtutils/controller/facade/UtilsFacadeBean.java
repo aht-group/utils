@@ -51,7 +51,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithValidFrom;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UtilsFacadeBean implements UtilsFacade
+public class UtilsFacadeBean implements UtilsFacade 
 {
 	final static Logger logger = LoggerFactory.getLogger(UtilsFacadeBean.class);
 	
@@ -72,17 +72,15 @@ public class UtilsFacadeBean implements UtilsFacade
 		else {return object.equalsAttributes(em.find(c,object.getId()));}
 	}
 	
-//	@Override
-	public <T extends EjbMergeable> T merge(T o) throws UtilsContraintViolationException, UtilsLockingException
-	{
-		return this.update(o);
-	}
+	@Override public <T extends EjbMergeable> T merge(T o) throws UtilsContraintViolationException, UtilsLockingException {return this.update(o);}
+	@Override public <T extends EjbMergeable> T mergeTransaction(T o) throws UtilsContraintViolationException, UtilsLockingException {return update(o);}
 	
 	@Override
 	public <T extends EjbSaveable> T saveTransaction(T o) throws UtilsContraintViolationException, UtilsLockingException
 	{
 		return saveProtected(o);
 	}
+	
 	@Override
 	public <T extends EjbSaveable> T save(T o) throws UtilsContraintViolationException,UtilsLockingException
 	{
@@ -187,7 +185,6 @@ public class UtilsFacadeBean implements UtilsFacade
 			
 			System.err.println("(end) This Error is not handled: "+e.getClass().getName());
 			e.printStackTrace();
-			
 		}
 		return o;
 	}
