@@ -4,4 +4,5 @@
     <s:langs/>
     <s:descriptions/>
     <s:lang version="1" key="myKey" translation="myTranslation"/>
+    <s:parent id="123" code="myCode"/>
 </s:type>

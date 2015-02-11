@@ -94,6 +94,7 @@ public class XmlTypeFactory
 		type.setCode(status.getCode());
 		type.setDescriptions(status.getDescriptions());
 		type.setLangs(status.getLangs());
+		if(status.isSetParent()){type.setParent(status.getParent());}
 		return type;
 	}
 	

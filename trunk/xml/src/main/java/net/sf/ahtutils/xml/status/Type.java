@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}langs"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}descriptions"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}lang" maxOccurs="unbounded"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/status}parent"/>
  *       &lt;/sequence>
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" />
  *       &lt;attribute name="key" type="{http://www.w3.org/2001/XMLSchema}string" />
@@ -47,7 +48,8 @@ import javax.xml.bind.annotation.XmlType;
     "transistions",
     "langs",
     "descriptions",
-    "lang"
+    "lang",
+    "parent"
 })
 @XmlRootElement(name = "type")
 public class Type
@@ -63,6 +65,8 @@ public class Type
     protected Descriptions descriptions;
     @XmlElement(required = true)
     protected List<Lang> lang;
+    @XmlElement(required = true)
+    protected Parent parent;
     @XmlAttribute(name = "id")
     protected Long id;
     @XmlAttribute(name = "key")
@@ -199,6 +203,34 @@ public class Type
 
     public void unsetLang() {
         this.lang = null;
+    }
+
+    /**
+     * Gets the value of the parent property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Parent }
+     *     
+     */
+    public Parent getParent() {
+        return parent;
+    }
+
+    /**
+     * Sets the value of the parent property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Parent }
+     *     
+     */
+    public void setParent(Parent value) {
+        this.parent = value;
+    }
+
+    public boolean isSetParent() {
+        return (this.parent!= null);
     }
 
     /**
