@@ -240,6 +240,10 @@
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+		</dependency>
     	<dependency>
     		<groupId>net.sf.ahtutils</groupId>
     		<artifactId>ahtutils-test</artifactId>
