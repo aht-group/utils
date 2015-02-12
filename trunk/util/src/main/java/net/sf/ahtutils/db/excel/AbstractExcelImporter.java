@@ -11,6 +11,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
 
+import net.sf.ahtutils.interfaces.facade.UtilsFacade;
+import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
+import net.sf.ahtutils.model.interfaces.status.UtilsLang;
+import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
+import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
@@ -19,13 +25,14 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractExcelImporter {
+public abstract class AbstractExcelImporter <S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription, C extends EjbWithId> {
 
 	final static Logger logger = LoggerFactory.getLogger(AbstractExcelImporter.class);
 	
 	private File                       excelFile;
 	private XSSFWorkbook               workbook;
 	private Sheet                      activeSheet;
+	private UtilsFacade                facade;
 	
 	public AbstractExcelImporter(String filename) throws IOException
 	{
@@ -35,6 +42,11 @@ public abstract class AbstractExcelImporter {
 		
 		// Read Excel workbook from given file(name)
 		this.workbook       = new XSSFWorkbook(fis);
+	}
+	
+	public void setFacade(UtilsFacade facade)
+	{
+		this.facade = facade;
 	}
 	
 	public void selectSheetByName(String name)
@@ -154,13 +166,10 @@ public abstract class AbstractExcelImporter {
 		return value;
 	}
 	
-	public ArrayList<Object> createEntitiesFromData(Hashtable<Short, String> associationTable, Boolean skipTitle, Object entityObject) throws Exception
+	public ArrayList<C> createEntitiesFromData(Hashtable<Short, String> associationTable, Boolean skipTitle, Class<C> entityObject) throws Exception
 	{
-		// Create the class for the entity
-		Class<?> clazz = Class.forName(entityObject.getClass().getCanonicalName());
-		
 		// Create a list to hold the Entity classes to be created
-		ArrayList<Object> entities = new ArrayList<Object>();
+		ArrayList<C> entities = new ArrayList<C>();
 		
 		// Define the rows to begin with and to end with, whether with or without first row
 		Integer end   = activeSheet.getLastRowNum();
@@ -174,7 +183,7 @@ public abstract class AbstractExcelImporter {
 			Row row = activeSheet.getRow(i);
 			
 			// Create a new Entity class
-			Object entity = clazz.newInstance();
+			C entity = entityObject.newInstance();
 			
 			// Iterate through the columns and assign data as given in the association table
 			for (short j = row.getFirstCellNum() ; j < row.getLastCellNum() ; j++)
@@ -193,32 +202,60 @@ public abstract class AbstractExcelImporter {
 				{
 					logger.trace("Setting value of type " +object.getClass().getCanonicalName());
 					invokeMethod("set" +propertyName,
-							      new Class[] { object.getClass() },
 							      new Object[] { object },
 							      entity.getClass(),
 							      entity);
 				}
 			}
+			//facade.save(entity);
 			entities.add(entity);
 		}
 		return entities;
 		
 	}
 		
-	 private static Object invokeMethod(String   methodName, 
-			 							Class[]  signature,
+	 private void invokeMethod(String   methodName, 
 			 							Object[] parameters,
 			 							Class    targetClass,
 			 							Object   target)        throws Exception
 	 {
 	 	logger.trace("Invoking " +methodName);
-        Method m = targetClass.getDeclaredMethod(methodName, signature);
-   
+	 	
+	 	// Now find the correct method
+	 	Method[] methods = targetClass.getMethods();
+	 	Class parameter  = null;
+	 	Method m         = null;
+	 	for (Method method : methods)
+	 	{
+	 		if (method.getName().equals(methodName))
+	 		{
+	 			parameter = method.getParameterTypes()[0];
+	 			m = method;
+	 		}
+	 	}
+	 	
         if (Modifier.isPrivate(m.getModifiers()))
         {
             m.setAccessible(true);
         }
-   
-        return m.invoke(target, parameters);
+        
+        // Determine parameter type of setter
+        // Type t = m.getGenericParameterTypes()[0];
+        // String parameterClass = t.getTypeName();
+        
+        String parameterClass = parameter.getCanonicalName();
+        
+        // Lets see if the setter is accepting a data type that is available in Excel (String, Double, Date)
+        // Otherwise assume that it is used with a lookup table
+        if (!(parameterClass.equals("java.lang.Double") || parameterClass.equals("java.util.Date") || parameterClass.equals("java.lang.String")))
+        {
+        	String code = (String) parameters[0];
+        	logger.debug("Searching for Entity with Code " +code);
+        	Class<S> lutClass = (Class<S>) Class.forName(parameterClass);
+        	Object lookupEntity = facade.fByCode(lutClass, code);
+        	parameters[0] = lookupEntity;
+        }
+        
+        m.invoke(target, parameters);
 	 }
 }

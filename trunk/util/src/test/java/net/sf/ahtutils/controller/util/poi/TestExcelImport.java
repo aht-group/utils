@@ -51,9 +51,8 @@ public class TestExcelImport extends AbstractAhtUtilsTest {
 		associationTable.put((short) 1, "ValueDate");
 		associationTable.put((short) 2, "ValueString");
 		
-		
 		// Let the importer set the given column values to entity properties and get a list of entities for all rows
-		ArrayList<Object> importedEntities = statusImporter.createEntitiesFromData(associationTable, true, new DummyEntity());
+		ArrayList<Object> importedEntities = statusImporter.createEntitiesFromData(associationTable, true, DummyEntity.class);
 		
 		// Specify how to format dates in debug output
 		DateFormat df = SimpleDateFormat.getDateInstance();
@@ -66,7 +65,6 @@ public class TestExcelImport extends AbstractAhtUtilsTest {
 			logger.info("Imported ValueDouble Property = " +entity.getValueDouble());
 			logger.info("Imported ValueDate   Property = " +df.format(entity.getValueDate()));
 		}
-		
 		
 	}
 
