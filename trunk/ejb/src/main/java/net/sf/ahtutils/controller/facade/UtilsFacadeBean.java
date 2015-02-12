@@ -718,6 +718,33 @@ public class UtilsFacadeBean implements UtilsFacade
 		return q.getResultList();
 	}
 	
+	@Override
+	public <T extends EjbWithId, OR1 extends EjbWithId, OR2 extends EjbWithId> List<T> allForOrOrParents(Class<T> cl, List<ParentPredicate<OR1>> or1, List<ParentPredicate<OR2>> or2)
+	{
+		if(logger.isTraceEnabled())
+		{
+			logger.trace("****** fForAndOrParents");
+			logger.trace("QueryClass:" +cl.getName());
+			logger.trace("OR1 "+or1.size());
+			logger.trace("OR2 "+or2.size());
+			logger.trace("************************");
+		}
+		
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<T> criteriaQuery = cB.createQuery(cl);
+		 
+		Root<T> from = criteriaQuery.from(cl);
+
+		Predicate pOr1 = cB.or(ParentPredicate.array(cB, from, or1));
+		Predicate pOr2 = cB.or(ParentPredicate.array(cB, from, or2));
+		    
+		CriteriaQuery<T> select = criteriaQuery.select(from);
+		select.where(cB.and(pOr1,pOr2));
+		 
+		TypedQuery<T> q = em.createQuery(select);
+		return q.getResultList();
+	}
+	
 	@Override public <T extends EjbWithId, P extends EjbWithId, GP extends EjbWithId> List<T> allForGrandParent(Class<T> queryClass, Class<P> pClass, String pName, GP gpClass, String gpName)
 	{
 		ParentPredicate<GP> ppGrandparent = ParentPredicate.create(gpClass, gpName);
@@ -935,4 +962,5 @@ public class UtilsFacadeBean implements UtilsFacade
 	    TypedQuery<USER> q = em.createQuery(select);
 		return q.getResultList();
 	}
+	
 }
