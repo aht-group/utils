@@ -3,6 +3,7 @@ package net.sf.ahtutils.db.excel;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.text.DateFormat;
@@ -15,7 +16,6 @@ import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
@@ -25,7 +25,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractExcelImporter <S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription, C extends EjbWithId, I extends ImportStrategy> {
+public abstract class AbstractExcelImporter <S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription, C extends Serializable, I extends ImportStrategy> {
 
 	final static Logger logger = LoggerFactory.getLogger(AbstractExcelImporter.class);
 	
@@ -34,6 +34,8 @@ public abstract class AbstractExcelImporter <S extends UtilsStatus<S,L,D>, L ext
 	private Sheet                      activeSheet;
 	private UtilsFacade                facade;
 	private Hashtable<String, Class>   handler;
+	private short                      primaryKey;
+	private Hashtable<String, C>       entities;
 	
 	public AbstractExcelImporter(String filename) throws IOException
 	{
@@ -48,6 +50,11 @@ public abstract class AbstractExcelImporter <S extends UtilsStatus<S,L,D>, L ext
 	public void setFacade(UtilsFacade facade)
 	{
 		this.facade = facade;
+	}
+	
+	public void setPrimaryKey(Integer columnNumber)
+	{
+		this.primaryKey = columnNumber.shortValue();
 	}
 	
 	public void setHandler(Hashtable<String, Class> strategies)
@@ -259,6 +266,9 @@ public abstract class AbstractExcelImporter <S extends UtilsStatus<S,L,D>, L ext
         	ImportStrategy strategy = (ImportStrategy) handler.get(parameterClass).newInstance();
         	strategy.setFacade(facade);
         	parameters[0] = strategy.handleObject(parameters[0], parameterClass);       	
+        	
+        	// If COLLECTION! ... dann einzelne Hinzufügen!
+        	// ggf. eine Art rekursion?
         }
         
         m.invoke(target, parameters);

@@ -1,11 +1,13 @@
 package net.sf.ahtutils.db.excel;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public class DummyEntity implements EjbWithId {
+public class DummyEntity implements EjbWithId, Serializable {
 		
+		private static final long serialVersionUID = 1L;
 		private String valueString;
 		private Double valueDouble;
 		private Date   valueDate;
