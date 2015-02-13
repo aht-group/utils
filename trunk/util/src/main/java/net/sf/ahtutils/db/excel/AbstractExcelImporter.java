@@ -25,7 +25,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractExcelImporter <S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription, C extends EjbWithId> {
+public abstract class AbstractExcelImporter <S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription, C extends EjbWithId, I extends ImportStrategy> {
 
 	final static Logger logger = LoggerFactory.getLogger(AbstractExcelImporter.class);
 	
@@ -33,6 +33,7 @@ public abstract class AbstractExcelImporter <S extends UtilsStatus<S,L,D>, L ext
 	private XSSFWorkbook               workbook;
 	private Sheet                      activeSheet;
 	private UtilsFacade                facade;
+	private Hashtable<String, Class>   handler;
 	
 	public AbstractExcelImporter(String filename) throws IOException
 	{
@@ -47,6 +48,11 @@ public abstract class AbstractExcelImporter <S extends UtilsStatus<S,L,D>, L ext
 	public void setFacade(UtilsFacade facade)
 	{
 		this.facade = facade;
+	}
+	
+	public void setHandler(Hashtable<String, Class> strategies)
+	{
+		this.handler = strategies;
 	}
 	
 	public void selectSheetByName(String name)
@@ -249,11 +255,10 @@ public abstract class AbstractExcelImporter <S extends UtilsStatus<S,L,D>, L ext
         // Otherwise assume that it is used with a lookup table
         if (!(parameterClass.equals("java.lang.Double") || parameterClass.equals("java.util.Date") || parameterClass.equals("java.lang.String")))
         {
-        	String code = (String) parameters[0];
-        	logger.debug("Searching for Entity with Code " +code);
-        	Class<S> lutClass = (Class<S>) Class.forName(parameterClass);
-        	Object lookupEntity = facade.fByCode(lutClass, code);
-        	parameters[0] = lookupEntity;
+        	logger.debug("Loading import strategy for " +parameterClass +" : " +handler.get(parameterClass).getCanonicalName());
+        	ImportStrategy strategy = (ImportStrategy) handler.get(parameterClass).newInstance();
+        	strategy.setFacade(facade);
+        	parameters[0] = strategy.handleObject(parameters[0], parameterClass);       	
         }
         
         m.invoke(target, parameters);
