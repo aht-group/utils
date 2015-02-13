@@ -265,10 +265,7 @@ public abstract class AbstractExcelImporter <S extends UtilsStatus<S,L,D>, L ext
         	logger.debug("Loading import strategy for " +parameterClass +" : " +handler.get(parameterClass).getCanonicalName());
         	ImportStrategy strategy = (ImportStrategy) handler.get(parameterClass).newInstance();
         	strategy.setFacade(facade);
-        	parameters[0] = strategy.handleObject(parameters[0], parameterClass);       	
-        	
-        	// If COLLECTION! ... dann einzelne Hinzufügen!
-        	// ggf. eine Art rekursion?
+        	parameters[0] = strategy.handleObject(parameters[0], parameterClass);
         }
         
         m.invoke(target, parameters);
