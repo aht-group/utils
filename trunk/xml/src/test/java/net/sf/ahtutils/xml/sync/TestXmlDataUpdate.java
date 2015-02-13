@@ -17,11 +17,7 @@ public class TestXmlDataUpdate extends AbstractXmlSyncTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestXmlDataUpdate.class);
 	
-	@BeforeClass
-	public static void initFiles()
-	{
-        setXmlFile(dirSuffix,DataUpdate.class);
-	}
+	@BeforeClass public static void initFiles(){setXmlFile(dirSuffix,DataUpdate.class);}
     
     @Test
     public void xml() throws FileNotFoundException

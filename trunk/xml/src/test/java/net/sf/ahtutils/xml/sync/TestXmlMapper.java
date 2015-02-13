@@ -15,11 +15,7 @@ public class TestXmlMapper extends AbstractXmlSyncTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestXmlMapper.class);
 	
-	@BeforeClass
-	public static void initFiles()
-	{
-        setXmlFile(dirSuffix,Mapper.class);
-	}
+	@BeforeClass public static void initFiles(){setXmlFile(dirSuffix,Mapper.class);}
     
     @Test
     public void xml() throws FileNotFoundException
@@ -35,6 +31,8 @@ public class TestXmlMapper extends AbstractXmlSyncTest
     	xml.setClazz(TestXmlMapper.class.getName());
     	xml.setOldId(123);
     	xml.setNewId(345);
+    	xml.setOldCode("mc1");
+    	xml.setNewCode("mc2");
     	
     	return xml;
     }

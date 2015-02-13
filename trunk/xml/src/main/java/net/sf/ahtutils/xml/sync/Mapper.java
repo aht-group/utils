@@ -21,6 +21,8 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;attribute name="oldId" type="{http://www.w3.org/2001/XMLSchema}long" />
  *       &lt;attribute name="newId" type="{http://www.w3.org/2001/XMLSchema}long" />
  *       &lt;attribute name="class" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="oldCode" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="newCode" type="{http://www.w3.org/2001/XMLSchema}string" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -42,6 +44,10 @@ public class Mapper
     protected Long newId;
     @XmlAttribute(name = "class")
     protected String clazz;
+    @XmlAttribute(name = "oldCode")
+    protected String oldCode;
+    @XmlAttribute(name = "newCode")
+    protected String newCode;
 
     /**
      * Gets the value of the oldId property.
@@ -133,6 +139,62 @@ public class Mapper
 
     public boolean isSetClazz() {
         return (this.clazz!= null);
+    }
+
+    /**
+     * Gets the value of the oldCode property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getOldCode() {
+        return oldCode;
+    }
+
+    /**
+     * Sets the value of the oldCode property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setOldCode(String value) {
+        this.oldCode = value;
+    }
+
+    public boolean isSetOldCode() {
+        return (this.oldCode!= null);
+    }
+
+    /**
+     * Gets the value of the newCode property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getNewCode() {
+        return newCode;
+    }
+
+    /**
+     * Sets the value of the newCode property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setNewCode(String value) {
+        this.newCode = value;
+    }
+
+    public boolean isSetNewCode() {
+        return (this.newCode!= null);
     }
 
 }

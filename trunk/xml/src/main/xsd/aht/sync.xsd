@@ -27,11 +27,20 @@
            <xsd:attribute name="serverId" type="xsd:long"/>
         </xsd:complexType>
     </xsd:element>
+    <xsd:element name="mappings">
+        <xsd:complexType>
+        	<xsd:sequence>
+                <xsd:element ref="sync:mapper" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
 	<xsd:element name="mapper">
         <xsd:complexType>
             <xsd:attribute name="oldId" type="xsd:long"/>
             <xsd:attribute name="newId" type="xsd:long"/>
             <xsd:attribute name="class" type="xsd:string"/>
+            <xsd:attribute name="oldCode" type="xsd:string"/>
+            <xsd:attribute name="newCode" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="result">
