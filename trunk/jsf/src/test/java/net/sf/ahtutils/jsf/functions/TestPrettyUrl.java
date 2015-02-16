@@ -20,6 +20,12 @@ public class TestPrettyUrl extends AbstractAhtUtilsJsfTst
 	}
 	
 	@Test
+	public void specialChars()
+	{
+		Assert.assertEquals("a-b", PrettyUrl.prettyUrl("a/b"));
+	}
+	
+	@Test
 	public void simpleObject()
 	{
 		String input = "a b";
