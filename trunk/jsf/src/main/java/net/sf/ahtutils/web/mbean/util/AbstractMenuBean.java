@@ -30,7 +30,7 @@ public abstract class AbstractMenuBean implements Serializable
 
 	public AbstractMenuBean()
 	{
-		userLoggedIn = false;
+		userLoggedIn = false;	
 	}
 	
     public void initMaps() throws FileNotFoundException
@@ -54,7 +54,8 @@ public abstract class AbstractMenuBean implements Serializable
 	{
 		logger.warn("This should never been called here. A @Override in extended class is required");
 	}
-		
+	
+
 	// ******************************************
 	// Menu
 	protected Menu menu(MenuFactory mf, String code) {return menu(mf,code,userLoggedIn);}
@@ -76,13 +77,21 @@ public abstract class AbstractMenuBean implements Serializable
 	 * Breadcrumb
 	 */
 	public Breadcrumb breadcrumb(MenuFactory mf,String code){return breadcrumb(mf,false,code,false,false);}
-	public Breadcrumb breadcrumb(MenuFactory mf,boolean withRoot, String code, boolean withFirst, boolean withChilds)
+	public Breadcrumb breadcrumb(MenuFactory mf,boolean withRoot, String code, boolean withFirst, boolean withChilds){return breadcrumb(mf,withRoot,code,withFirst,withChilds,null);}
+	public Breadcrumb breadcrumb(MenuFactory mf,boolean withRoot, String code, boolean withFirst, boolean withChilds, Menu dynamicMenu)
 	{
 		if(!mapBreadcrumb.containsKey(code))
 		{
 			synchronized(mf)
 			{
-				if(!mapMenu.containsKey(code)){menu(mf,code);}
+				boolean mapMenuContainsCode = mapMenu.containsKey(code);
+//				logger.info("breadcrumb contains "+code+"?"+mapMenuContainsCode);
+				if(!mapMenuContainsCode)
+				{
+//					logger.info("Building Menu");
+					if(dynamicMenu!=null){mf.addDynamicNodes(dynamicMenu);}
+					menu(mf,code);
+				}
 				Breadcrumb bOrig = mf.breadcrumb(withRoot,code);
 				Breadcrumb bClone = new Breadcrumb();
 				int startIndex=0;
@@ -120,16 +129,25 @@ public abstract class AbstractMenuBean implements Serializable
 	
 	// ******************************************
 	// SubMenu
-	public MenuItem sub(MenuFactory mf, String code)
+	public MenuItem sub(MenuFactory mf, String code){return subDyn(mf,code,null);}
+	public MenuItem subDyn(MenuFactory mf, String code, Menu dynamicMenu)
 	{
-		if(!mapSub.containsKey(code))
+		boolean mapSubContaines = mapSub.containsKey(code);
+//		logger.info("Creating sub... dynamic?"+(dynamicMenu!=null)+" mapContains:"+mapSubContaines);
+		
+		if(!mapSubContaines)
 		{
 			synchronized(mf)
 			{
-				if(!mapMenu.containsKey(code)){menu(mf,code);}
+				if(!mapMenu.containsKey(code))
+				{
+					if(dynamicMenu!=null){mf.addDynamicNodes(dynamicMenu);}
+					menu(mf,code);
+				}
 				Menu m = mapMenu.get(code);
 				mapSub.put(code,mf.subMenu(m,code));
 			}
+//			JaxbUtil.trace(mapSub.get(code));
 		}
 		return mapSub.get(code);
 	}

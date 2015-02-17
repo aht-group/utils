@@ -6,6 +6,7 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 
 import net.sf.ahtutils.jsf.menu.MenuFactory;
+import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 import net.sf.ahtutils.web.mbean.util.AbstractMenuBean;
 import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.navigation.Breadcrumb;
@@ -27,7 +28,7 @@ public class PrototypeMenuBean extends AbstractMenuBean implements Serializable
 	@PostConstruct
     public void init()
     {
-		logger.debug("@PostConstruct");
+		logger.info(AbstractLogMessage.postConstruct());
 		
 		// GEO-75 Remove Exception for Compatibility
 		try
@@ -54,10 +55,22 @@ public class PrototypeMenuBean extends AbstractMenuBean implements Serializable
 	
 	@Override protected void buildViewAllowedMap() {}
 	
+	public void clearAndRemoveChilds(String key, String dynKey)
+	{
+		mfMain.removeChilds(key,dynKey);
+		mapMenu.remove(key);
+		mapSub.remove(key);
+		mapBreadcrumb.remove(key);
+	}
+	
 	protected String getLang(){return "en";}
 	
 	public Menu build() {return super.menu(mfMain, rootMain);}
 	public Menu build(String code){return super.menu(mfMain, code);}
+	
 	public Breadcrumb breadcrumb(String code){return super.breadcrumb(mfMain, false, code, true, true);}
+	public Breadcrumb breadcrumbDyn(String code,Menu dynamic){return super.breadcrumb(mfMain, false, code, true, true, dynamic);}
+	
 	public MenuItem sub(String code){return super.sub(mfMain, code);}
+	public MenuItem subDyn(String code,Menu dynamic){return super.subDyn(mfMain,code,dynamic);}
 }

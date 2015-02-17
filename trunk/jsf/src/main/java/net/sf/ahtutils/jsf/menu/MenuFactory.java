@@ -102,8 +102,6 @@ public class MenuFactory
 		graph.addVertex(mi.getCode());
 		graph.addEdge(parentNode, mi.getCode());
 		
-		logger.trace("Added Vertex: "+mi.getCode());
-		
 		if(mi.isSetLangs())
 		{
 			for(Lang l : mi.getLangs().getLang())
@@ -328,9 +326,9 @@ public class MenuFactory
 		graph.removeAllEdges(list);
 	}
 	
-	private void removeEdgeToTemplate(String dynamicRoot, String templateNode)
+	private void removeEdgeToTemplate(String dynamicRoot, String templateCode)
 	{
-		Iterator<DefaultEdge> iterator = graph.getAllEdges(dynamicRoot, templateNode).iterator();
+		Iterator<DefaultEdge> iterator = graph.getAllEdges(dynamicRoot, templateCode).iterator();
 		List<DefaultEdge> list = new ArrayList<DefaultEdge>();
 		while(iterator.hasNext()){list.add(iterator.next());}
 		graph.removeAllEdges(list);
@@ -342,6 +340,11 @@ public class MenuFactory
 		{
 			removeEdgeToTemplate(dynamicMenu.getCode(), mi.getView().getCode());
 			
+			if(logger.isTraceEnabled())
+			{
+				logger.info("Adding Edge "+dynamicMenu.getCode() +" -> "+ mi.getCode());
+			}
+			
 			graph.addVertex(mi.getCode());
 			graph.addEdge(dynamicMenu.getCode(), mi.getCode());
 			
@@ -352,12 +355,25 @@ public class MenuFactory
 	public Breadcrumb breadcrumb(String code){return breadcrumb(false,code);}
 	public Breadcrumb breadcrumb(boolean withRoot, String code)
 	{
-		Breadcrumb result = new Breadcrumb();
-		
+		if(logger.isTraceEnabled())
+		{
+			logger.info("Breadcrumb withRoot:"+withRoot+" code:"+code);
+			logger.info("Graph contains root:"+rootNode+"?"+rootNode);
+			logger.info("Graph contains vertex:"+code+"? "+graph.containsVertex(code));
+			logger.info("Graph contains edge:"+graph.containsEdge("monitoringTransfers","monitoringTransfersDyntransfersAnalyst"));
+//			logger.info(graph.toString());
+		}
+
+		Breadcrumb result = new Breadcrumb();		
 		try
 		{
 			DijkstraShortestPath<String, DefaultEdge> dsp = new DijkstraShortestPath<String, DefaultEdge>(graph,rootNode, code);
 			List<DefaultEdge> path = dsp.getPathEdgeList();
+			if(logger.isTraceEnabled())
+			{
+				logger.info("Path!=null"+(path!=null));
+			}
+			
 			if(path.size()>0)
 			{
 				result.getMenuItem().add(mapMenuItems.get(graph.getEdgeSource(path.get(0))));
