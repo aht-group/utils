@@ -33,7 +33,6 @@ public class Security extends UIPanel
 	public void encodeChildren(FacesContext context) throws IOException
 	{
 		
-		
 		boolean accessGranted = false;
 		boolean accessGrantedAttribute = ComponentAttribute.getBoolean(Properties.allow.toString(),true,context,this);
 		try

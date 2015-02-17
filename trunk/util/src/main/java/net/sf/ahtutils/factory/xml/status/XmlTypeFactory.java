@@ -16,11 +16,7 @@ public class XmlTypeFactory
 	private String lang;
 	private Type q;
 	
-	@Deprecated
-	public XmlTypeFactory(Type q)
-	{
-		this(null,q);
-	}
+	public XmlTypeFactory(Type q){this(null,q);}
 	public XmlTypeFactory(String lang,Type q)
 	{
 		this.lang=lang;

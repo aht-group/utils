@@ -33,12 +33,14 @@ public class XmlRoleFactory <L extends UtilsLang,
 	private net.sf.ahtutils.xml.security.Role qSec;
 	private String lang;
 	
+	public XmlRoleFactory(Role q){this(q,null);}
 	public XmlRoleFactory(Role q,String lang)
 	{
 		this.q=q;
 		this.lang=lang;
 	}
 	
+	public XmlRoleFactory(net.sf.ahtutils.xml.security.Role qSec){this(qSec,null);}
 	public XmlRoleFactory(net.sf.ahtutils.xml.security.Role qSec,String lang)
 	{
 		this.qSec=qSec;
@@ -102,5 +104,19 @@ public class XmlRoleFactory <L extends UtilsLang,
 		}
     	
     	return xml;
+    }
+    
+    public static net.sf.ahtutils.xml.security.Role id()
+    {
+    	net.sf.ahtutils.xml.security.Role role = new net.sf.ahtutils.xml.security.Role();
+    	role.setId(0);
+    	return role;
+    }
+    
+    public static net.sf.ahtutils.xml.security.Role build(String code)
+    {
+    	net.sf.ahtutils.xml.security.Role role = new net.sf.ahtutils.xml.security.Role();
+    	role.setCode(code);
+    	return role;
     }
 }
