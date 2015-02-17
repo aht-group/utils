@@ -33,5 +33,10 @@ public class XmlLangsFactory <L extends UtilsLang>
 		}
 		
 		return langs;
-	}	
+	}
+	
+	public static Langs build()
+	{
+		return new Langs();
+	}
 }

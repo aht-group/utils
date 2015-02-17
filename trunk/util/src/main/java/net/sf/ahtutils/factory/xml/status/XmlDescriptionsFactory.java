@@ -33,4 +33,9 @@ public class XmlDescriptionsFactory<D extends UtilsDescription>
 		}
 		return xml;
 	}
+	
+	public static Descriptions build()
+	{
+		return new Descriptions();
+	}
 }
