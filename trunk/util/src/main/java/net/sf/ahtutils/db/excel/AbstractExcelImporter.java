@@ -36,6 +36,7 @@ public abstract class AbstractExcelImporter <S extends UtilsStatus<S,L,D>, L ext
 	private Hashtable<String, Class>   handler;
 	private short                      primaryKey;
 	private Hashtable<String, C>       entities;
+	private Hashtable<String, Object>  tempPropertyStore;
 	
 	public AbstractExcelImporter(String filename) throws IOException
 	{
@@ -195,8 +196,17 @@ public abstract class AbstractExcelImporter <S extends UtilsStatus<S,L,D>, L ext
 			// Get the next row
 			Row row = activeSheet.getRow(i);
 			
-			// Create a new Entity class
-			C entity = entityObject.newInstance();
+			// See if there is already an instance created for this key, otherwise create a new one
+			Object entityKey = row.getCell(primaryKey);
+			C entity = null;
+			if (this.entities.containsKey(entityKey))
+			{
+				entity = this.entities.get(entityKey);
+			}
+			else
+			{
+				entity = entityObject.newInstance();
+			}
 			
 			// Iterate through the columns and assign data as given in the association table
 			for (short j = row.getFirstCellNum() ; j < row.getLastCellNum() ; j++)
@@ -263,9 +273,18 @@ public abstract class AbstractExcelImporter <S extends UtilsStatus<S,L,D>, L ext
         if (!(parameterClass.equals("java.lang.Double") || parameterClass.equals("java.util.Date") || parameterClass.equals("java.lang.String")))
         {
         	logger.debug("Loading import strategy for " +parameterClass +" : " +handler.get(parameterClass).getCanonicalName());
+        	// Instantiate new strategy to handle import
         	ImportStrategy strategy = (ImportStrategy) handler.get(parameterClass).newInstance();
+        	
+        	// Pass database connection and current set of temporary properties
         	strategy.setFacade(facade);
-        	parameters[0] = strategy.handleObject(parameters[0], parameterClass);
+        	strategy.setTempPropertyStore(tempPropertyStore);
+        	
+        	// Process import step
+        	parameters[0]    = strategy.handleObject(parameters[0], parameterClass);
+        	
+        	// Sync new temporary properties if any added
+        	tempPropertyStore = strategy.getTempPropertyStore();
         }
         
         m.invoke(target, parameters);
