@@ -8,6 +8,7 @@ import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.interfaces.model.status.UtilsStatusFixedCode;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
@@ -49,6 +50,7 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 	public R getRole(){return role;}
 	public void setRole(R role) {this.role = role;}
 	
+	private boolean denyRemove; public boolean isDenyRemove(){return denyRemove;}
 	
 	public void initSuper(final Class<L> cLang, final Class<D> cDescription, final Class<C> cCategory, final Class<R> cRole, final Class<V> cView, final Class<U> cUsecase, final Class<A> cAction, final Class<USER> cUser, String[] langs)
 	{
@@ -75,6 +77,15 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 		role = efDescription.persistMissingLangs(fSecurity,langs,role);		
 		role = fSecurity.load(cRole,role);
 		reloadActions();
+		
+		denyRemove = false;
+		if(role instanceof UtilsStatusFixedCode)
+		{
+			for(String fixed : ((UtilsStatusFixedCode)role).getFixedCodes())
+			{
+				if(fixed.equals(role.getCode())){denyRemove=true;}
+			}
+		}
 	}
 	
 	//RELOAD
@@ -119,11 +130,12 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 		role.setName(efLang.createEmpty(langs));
 		role.setDescription(efDescription.createEmpty(langs));
 	}
-	public void rmRole() throws UtilsIntegrityException
+	public void rmRole() throws UtilsIntegrityException, UtilsNotFoundException
 	{
 		logger.info(AbstractLogMessage.rmEntity(role));
 		fSecurity.rm(role);
 		role=null;
+		reloadRoles();
 	}
 	
 	//OverlayPanel
