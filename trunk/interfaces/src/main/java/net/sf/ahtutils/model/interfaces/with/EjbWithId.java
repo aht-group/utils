@@ -1,6 +1,8 @@
 package net.sf.ahtutils.model.interfaces.with;
 
-public interface EjbWithId
+import java.io.Serializable;
+
+public interface EjbWithId extends Serializable
 {
 	public long getId();
 	public void setId(long id);

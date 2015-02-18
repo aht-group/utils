@@ -32,7 +32,7 @@ public abstract class AbstractExcelImporter <S extends UtilsStatus<S,L,D>, L ext
 	private File                       excelFile;
 	private XSSFWorkbook               workbook;
 	private Sheet                      activeSheet;
-	private UtilsFacade                facade;
+	public  UtilsFacade                facade;
 	private Hashtable<String, Class>   handler;
 	private short                      primaryKey;
 	private Hashtable<String, C>       entities = new Hashtable<String, C>();
