@@ -1,21 +1,21 @@
-package net.sf.ahtutils.controller.util.poi;
+package net.sf.ahtutils.report.revert;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Hashtable;
 
-import net.sf.ahtutils.AhtUtilsBootstrap;
-import net.sf.ahtutils.db.excel.DummyEntity;
-import net.sf.ahtutils.db.excel.ExcelStatusImporter;
-import net.sf.ahtutils.test.AbstractAhtUtilsTest;
+import net.sf.ahtutils.report.revert.excel.DummyEntity;
+import net.sf.ahtutils.report.revert.excel.ExcelStatusImporter;
+import net.sf.ahtutils.test.AbstractAhtUtilsReportTest;
+import net.sf.ahtutils.test.AhtUtilsReportBootstrap;
 
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestExcelImport extends AbstractAhtUtilsTest {
+public class TestExcelImport extends AbstractAhtUtilsReportTest {
 	
 	final static Logger logger = LoggerFactory.getLogger(TestExcelImport.class);
 
@@ -24,10 +24,10 @@ public class TestExcelImport extends AbstractAhtUtilsTest {
 	
 	
 	@Test
-	public void test() throws Exception {
+	public void test() throws IOException {
 		
 		// Initialize Logging
-		AhtUtilsBootstrap.init();
+		AhtUtilsReportBootstrap.init();
 		
 		// Initialize the importer
 		ExcelStatusImporter statusImporter = new ExcelStatusImporter(filename);

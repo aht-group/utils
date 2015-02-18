@@ -1,9 +1,9 @@
-package net.sf.ahtutils.db.excel.strategies;
+package net.sf.ahtutils.report.revert.excel.strategies;
 
 import java.util.Hashtable;
 
-import net.sf.ahtutils.db.excel.ImportStrategy;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
+import net.sf.ahtutils.report.revert.excel.ImportStrategy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
