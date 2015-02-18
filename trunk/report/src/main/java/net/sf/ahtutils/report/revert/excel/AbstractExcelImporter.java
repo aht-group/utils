@@ -35,7 +35,7 @@ public abstract class AbstractExcelImporter <S extends UtilsStatus<S,L,D>, L ext
 	private UtilsFacade                facade;
 	private Hashtable<String, Class>   handler;
 	private short                      primaryKey;
-	private Hashtable<String, C>       entities;
+	private Hashtable<String, C>       entities = new Hashtable<String, C>();
 	private Hashtable<String, Object>  tempPropertyStore;
 	
 	public AbstractExcelImporter(String filename) throws IOException

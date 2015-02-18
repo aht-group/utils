@@ -24,7 +24,7 @@ public class TestExcelImport extends AbstractAhtUtilsReportTest {
 	
 	
 	@Test
-	public void test() throws IOException {
+	public void test() throws Exception {
 		
 		// Initialize Logging
 		AhtUtilsReportBootstrap.init();

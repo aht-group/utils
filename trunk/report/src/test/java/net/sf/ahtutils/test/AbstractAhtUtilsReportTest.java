@@ -21,7 +21,7 @@ public class AbstractAhtUtilsReportTest extends AbstractAhtUtilsReportTst
 	}
 	
 	@Test
-	public void test()
+	public void test() throws Exception
 	{
 		
 	}
