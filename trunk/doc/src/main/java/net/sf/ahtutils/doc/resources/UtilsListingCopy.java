@@ -20,7 +20,7 @@ public class UtilsListingCopy
 {	
 	final static Logger logger = LoggerFactory.getLogger(UtilsListingCopy.class);
 		
-	private static final String prefix = "listing.aht-utils";
+	private String prefix = "listing.aht-utils";
 	
 	public static final String codeApp = "@@@APP@@@";
 	
@@ -54,6 +54,15 @@ public class UtilsListingCopy
 	{
 		mrl = new MultiResourceLoader();
 		File baseDoc = new File(config.getString(UtilsDocumentation.keyBaseDocDir));
+		dirListing = new File(baseDoc,"listing");
+		logger.info("Using base.dir ("+UtilsDocumentation.keyBaseDocDir+"): "+baseDoc.getAbsolutePath());
+		logger.info("Using listing.dir (base.dir/listing): "+dirListing.getAbsolutePath());
+	}
+	
+	public UtilsListingCopy(String prefix,File baseDoc)
+	{
+		this.prefix=prefix;
+		mrl = new MultiResourceLoader();
 		dirListing = new File(baseDoc,"listing");
 		logger.info("Using base.dir ("+UtilsDocumentation.keyBaseDocDir+"): "+baseDoc.getAbsolutePath());
 		logger.info("Using listing.dir (base.dir/listing): "+dirListing.getAbsolutePath());
