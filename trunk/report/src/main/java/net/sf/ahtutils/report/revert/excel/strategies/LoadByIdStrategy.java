@@ -8,9 +8,9 @@ import net.sf.ahtutils.report.revert.excel.ImportStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LoadByCodeStrategy implements ImportStrategy {
+public class LoadByIdStrategy implements ImportStrategy {
 	
-	final static Logger logger = LoggerFactory.getLogger(LoadByCodeStrategy.class);
+	final static Logger logger = LoggerFactory.getLogger(LoadByIdStrategy.class);
 	
 	private UtilsFacade facade;
 	
@@ -20,22 +20,18 @@ public class LoadByCodeStrategy implements ImportStrategy {
 
 	@Override
 	public Object handleObject(Object object, String parameterClass) {
-		String code = (String) object;
+		Long id              = (Long) object;
 		Class  lutClass      = null;
     	Object lookupEntity  = null;
     	
-		if (code == null && !tempPropertyStore.containsKey("createEntityForUnknown"))
+		if (id == null && !tempPropertyStore.containsKey("createEntityForUnknown"))
 		{
 			return null;
 		}
-		else if (code == null && tempPropertyStore.containsKey("createEntityForUnknown"))
-		{
-			code = "unknown";
-		}
-		logger.debug("Searching for Entity with Code " +code);
+		logger.debug("Searching for Entity with ID " +id);
     	try {
     		lutClass = (Class) Class.forName(parameterClass);
-	    	lookupEntity = facade.fByCode(lutClass, code);
+	    	lookupEntity = facade.find(lutClass, id);
 		} catch (Exception e) {
 			logger.error("An error occured while trying to import! " +e.getMessage());
 		}

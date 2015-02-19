@@ -13,9 +13,6 @@ import java.util.Date;
 import java.util.Hashtable;
 
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
-import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
-import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
@@ -25,7 +22,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractExcelImporter <S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription, C extends Serializable, I extends ImportStrategy> {
+public abstract class AbstractExcelImporter <C extends Serializable, I extends ImportStrategy> {
 
 	final static Logger logger = LoggerFactory.getLogger(AbstractExcelImporter.class);
 	
@@ -38,6 +35,10 @@ public abstract class AbstractExcelImporter <S extends UtilsStatus<S,L,D>, L ext
 	private Hashtable<String, C>       entities = new Hashtable<String, C>();
 	private Hashtable<String, Object>  tempPropertyStore;
 	
+	public  Integer                    enititesSaved = 0;	
+	public Integer getEnititesSaved() {return enititesSaved;}
+	public void setEnititesSaved(Integer enititesSaved) {this.enititesSaved = enititesSaved;}
+
 	public AbstractExcelImporter(String filename) throws IOException
 	{
 		// Prepare file to be read
@@ -221,7 +222,7 @@ public abstract class AbstractExcelImporter <S extends UtilsStatus<S,L,D>, L ext
 			
 			    // Assign the data to the entity using the setter
 				logger.trace("Cell " +row.getRowNum() +"," +j);
-				if (propertyName!=null)
+				if (propertyName!=null && object.getClass().getCanonicalName()!="java.lang.Object")
 				{
 					logger.trace("Setting value of type " +object.getClass().getCanonicalName());
 					invokeMethod("set" +propertyName,
@@ -270,6 +271,7 @@ public abstract class AbstractExcelImporter <S extends UtilsStatus<S,L,D>, L ext
         
         // Lets see if the setter is accepting a data type that is available in Excel (String, Double, Date)
         // Otherwise assume that it is used with a lookup table
+        
         if (!(parameterClass.equals("java.lang.Double") || parameterClass.equals("java.util.Date") || parameterClass.equals("java.lang.String")))
         {
         	logger.debug("Loading import strategy for " +parameterClass +" : " +handler.get(parameterClass).getCanonicalName());

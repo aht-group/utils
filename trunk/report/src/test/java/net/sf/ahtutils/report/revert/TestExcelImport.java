@@ -1,16 +1,16 @@
 package net.sf.ahtutils.report.revert;
 
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
 import net.sf.ahtutils.report.revert.excel.DummyEntity;
-import net.sf.ahtutils.report.revert.excel.ExcelStatusImporter;
+import net.sf.ahtutils.report.revert.excel.importers.ExcelEjbWithIdImporter;
 import net.sf.ahtutils.test.AbstractAhtUtilsReportTest;
 import net.sf.ahtutils.test.AhtUtilsReportBootstrap;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ public class TestExcelImport extends AbstractAhtUtilsReportTest {
 	private String filename = "src/test/resources/data/xlsx/importTest.xlsx";
 	
 	
-	
+	@Ignore
 	@Test
 	public void test() throws Exception {
 		
@@ -30,7 +30,7 @@ public class TestExcelImport extends AbstractAhtUtilsReportTest {
 		AhtUtilsReportBootstrap.init();
 		
 		// Initialize the importer
-		ExcelStatusImporter statusImporter = new ExcelStatusImporter(filename);
+		ExcelEjbWithIdImporter statusImporter = ExcelEjbWithIdImporter.factory(DummyEntity.class, filename);
 		
 		// Select the first sheet in Excel file to be the active one
 		statusImporter.selectFirstSheet();
