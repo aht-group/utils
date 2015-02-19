@@ -32,8 +32,9 @@ public abstract class AbstractExcelImporter <C extends Serializable, I extends I
 	public  UtilsFacade                facade;
 	private Hashtable<String, Class>   handler;
 	private short                      primaryKey;
-	private Hashtable<String, C>       entities = new Hashtable<String, C>();
-	private Hashtable<String, Object>  tempPropertyStore;
+	private Hashtable<String, C>       entities          = new Hashtable<String, C>();
+	private Hashtable<String, Object>  tempPropertyStore = new Hashtable<String, Object>();;
+	private Boolean                    hasPrimaryKey     = false;
 	
 	public  Integer                    enititesSaved = 0;	
 	public Integer getEnititesSaved() {return enititesSaved;}
@@ -56,7 +57,8 @@ public abstract class AbstractExcelImporter <C extends Serializable, I extends I
 	
 	public void setPrimaryKey(Integer columnNumber)
 	{
-		this.primaryKey = columnNumber.shortValue();
+		this.primaryKey    = columnNumber.shortValue();
+		this.hasPrimaryKey = true;
 	}
 	
 	public void setHandler(Hashtable<String, Class> strategies)
@@ -200,9 +202,12 @@ public abstract class AbstractExcelImporter <C extends Serializable, I extends I
 			// See if there is already an instance created for this key, otherwise create a new one
 			Object entityKey = row.getCell(primaryKey);
 			C entity = null;
-			if (this.entities.containsKey(entityKey))
+			if (hasPrimaryKey)
 			{
-				entity = this.entities.get(entityKey);
+				if ( this.entities.containsKey(entityKey))
+				{
+					entity = this.entities.get(entityKey);
+				}
 			}
 			else
 			{
@@ -268,13 +273,14 @@ public abstract class AbstractExcelImporter <C extends Serializable, I extends I
         // String parameterClass = t.getTypeName();
         
         String parameterClass = parameter.getCanonicalName();
+     //   logger.info(parameterClass);
+     //   logger.info(parameters[0].getClass().getCanonicalName());
         
         // Lets see if the setter is accepting a data type that is available in Excel (String, Double, Date)
         // Otherwise assume that it is used with a lookup table
-        
-        if (!(parameterClass.equals("java.lang.Double") || parameterClass.equals("java.util.Date") || parameterClass.equals("java.lang.String")))
+        if (!(parameterClass.equals("java.lang.Double") || parameterClass.equals("double") || parameterClass.equals("long") || parameterClass.equals("java.util.Date") || parameterClass.equals("java.lang.String")))
         {
-        	logger.debug("Loading import strategy for " +parameterClass +" : " +handler.get(parameterClass).getCanonicalName());
+        	logger.trace("Loading import strategy for " +parameterClass +": " +handler.get(parameterClass) +".");
         	// Instantiate new strategy to handle import
         	ImportStrategy strategy = (ImportStrategy) handler.get(parameterClass).newInstance();
         	
@@ -288,7 +294,14 @@ public abstract class AbstractExcelImporter <C extends Serializable, I extends I
         	// Sync new temporary properties if any added
         	tempPropertyStore = strategy.getTempPropertyStore();
         }
-        
+        if (parameterClass.equals("long"))
+        {
+        	Number number = (Number) parameters[0];
+        	parameters[0] = number.longValue();
+        }
         m.invoke(target, parameters);
 	 }
+	 
+	public Hashtable<String, Object> getTempPropertyStore() {return tempPropertyStore;}
+	public void setTempPropertyStore(Hashtable<String, Object> tempPropertyStore) {this.tempPropertyStore = tempPropertyStore;}
 }

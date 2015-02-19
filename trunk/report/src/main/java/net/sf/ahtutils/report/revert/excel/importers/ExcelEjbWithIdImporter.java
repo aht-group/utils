@@ -70,8 +70,8 @@ public class ExcelEjbWithIdImporter <E extends EjbWithId, I extends ImportStrate
 		}
 		catch (UtilsNotFoundException e)
 		{
-			logger.warn("Entity not found by Code. Initializing a new one.");
-			logger.warn("(" +e.getMessage() +")");
+			logger.trace("Entity not found by Code. Initializing a new one.");
+			logger.trace("(" +e.getMessage() +")");
 			
 			// The entity is saved and is returned with the new database ID assigned to it
 			entity   = facade.persist(pojo);
