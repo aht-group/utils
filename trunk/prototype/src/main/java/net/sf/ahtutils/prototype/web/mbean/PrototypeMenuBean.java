@@ -6,6 +6,7 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 
 import net.sf.ahtutils.jsf.menu.MenuFactory;
+import net.sf.ahtutils.monitor.ProcessingTimeTracker;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 import net.sf.ahtutils.web.mbean.util.AbstractMenuBean;
 import net.sf.ahtutils.xml.access.Access;
@@ -28,7 +29,7 @@ public class PrototypeMenuBean extends AbstractMenuBean implements Serializable
 	@PostConstruct
     public void init()
     {
-		logger.info(AbstractLogMessage.postConstruct());
+		ProcessingTimeTracker ptt = new ProcessingTimeTracker(true);
 		
 		// GEO-75 Remove Exception for Compatibility
 		try
@@ -50,7 +51,7 @@ public class PrototypeMenuBean extends AbstractMenuBean implements Serializable
 			throw new IllegalStateException("Class: " +e.getClass().getName() +" Message: " +e.getMessage());
 		}
 		
-		
+		logger.info(AbstractLogMessage.postConstruct(ptt));
     }
 	
 	@Override protected void buildViewAllowedMap() {}

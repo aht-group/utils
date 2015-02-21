@@ -115,14 +115,9 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 		category = fSecurity.save(category);
 		reloadCategories();
 	}
-	public void saveRole() throws UtilsContraintViolationException, UtilsLockingException, UtilsNotFoundException
-	{
-		logger.info(AbstractLogMessage.saveEntity(role));
-		role = fSecurity.save(role);
-		reloadRoles();
-	}
 
-	//ADD-RM
+
+	//Role
 	public void addRole() throws UtilsIntegrityException
 	{
 		logger.info(AbstractLogMessage.addEntity(cRole));
@@ -136,7 +131,17 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 		fSecurity.rm(role);
 		role=null;
 		reloadRoles();
+		roleUpdatePerformed();
 	}
+	public void saveRole() throws UtilsContraintViolationException, UtilsLockingException, UtilsNotFoundException
+	{
+		logger.info(AbstractLogMessage.saveEntity(role));
+		role = fSecurity.save(role);
+		reloadRoles();
+		roleUpdatePerformed();
+	}
+	
+	protected void roleUpdatePerformed(){}
 	
 	//OverlayPanel
 	public void opAddView() throws UtilsContraintViolationException, UtilsLockingException
