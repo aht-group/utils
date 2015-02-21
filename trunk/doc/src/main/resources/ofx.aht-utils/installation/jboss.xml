@@ -35,6 +35,30 @@
 	<ofx:section container="true" classifier="eap6">
 		<ofx:title lang="en">EAP 6.1</ofx:title>
 		
+		<ofx:section classifier="eap6Source">
+			<ofx:title lang="en">Build JBoss EAP 6 from source</ofx:title>
+			
+				<!-- https://github.com/hasalex/eap-build -->
+			
+				<ofx:paragraph lang="en">
+					Using the <text:emphasis italic="true">EAP Build Tools</text:emphasis> is a convenient way to compile and package
+					<text:emphasis italic="true">JBoss EAP 6</text:emphasis> from source. The prerequisites for the bash script are
+					<text:emphasis style="typewriter">wget</text:emphasis>,
+					<text:emphasis style="typewriter">unzip</text:emphasis>,
+					<text:emphasis style="typewriter">patch</text:emphasis>
+					and a installed <text:emphasis italic="true">Java JDK</text:emphasis>.
+					The bash script can be donwloaded by <text:emphasis style="typewriter">git</text:emphasis> and the command
+					<text:emphasis style="typewriter">build-eap.sh</text:emphasis> downloads and compiles the latest version available:
+				</ofx:paragraph>
+			
+					<ofx:listing>
+				<ofx:raw>git clone git://github.com/hasalex/eap-build.git
+cd eap-build
+./build-eap.sh</ofx:raw>
+			</ofx:listing>
+			
+		</ofx:section>
+		
 		<ofx:paragraph lang="de" version="1">
 				Download EAP 6.1.0 GA from www.jboss.org and install to /opt. In /opt the access rights for the directory
 				have to adjusted:
