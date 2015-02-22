@@ -42,10 +42,12 @@
 			
 				<ofx:paragraph lang="en">
 					Using the <text:emphasis italic="true">EAP Build Tools</text:emphasis> is a convenient way to compile and package
-					<text:emphasis italic="true">JBoss EAP 6</text:emphasis> from source. The prerequisites for the bash script are
+					<text:emphasis italic="true">JBoss EAP 6</text:emphasis> from source.
+					The prerequisites for the bash script are
 					<text:emphasis style="typewriter">wget</text:emphasis>,
 					<text:emphasis style="typewriter">unzip</text:emphasis>,
-					<text:emphasis style="typewriter">patch</text:emphasis>
+					<text:emphasis style="typewriter">patch</text:emphasis>,
+					<text:emphasis style="typewriter">Maven</text:emphasis>
 					and a installed <text:emphasis italic="true">Java JDK</text:emphasis>.
 					The bash script can be donwloaded by <text:emphasis style="typewriter">git</text:emphasis> and the command
 					<text:emphasis style="typewriter">build-eap.sh</text:emphasis> downloads and compiles the latest version available:
@@ -56,6 +58,20 @@
 cd eap-build
 ./build-eap.sh</ofx:raw>
 			</ofx:listing>
+			
+			<ofx:paragraph lang="en">
+				The build will take a while, especially when it will be executed at the first time.
+				Several files like the sources (36 MB) and the repository (561 MB) will be downloaded.
+				During the build process (<text:emphasis italic="true">Launching Maven build</text:emphasis>
+				multiple addidional Maven dependencies will be downloaded, too. The process can be observed with
+				<text:emphasis style="typewriter">tail -f eap-build/work/build.log</text:emphasis>.
+			</ofx:paragraph>
+			
+			<ofx:paragraph lang="en">
+				The result of the compile and packaging process will be available in the
+				<text:emphasis bold="true">dist</text:emphasis> as
+				<text:emphasis bold="true">jboss-eap-6.3.3.zip</text:emphasis>.
+			</ofx:paragraph>
 			
 		</ofx:section>
 		

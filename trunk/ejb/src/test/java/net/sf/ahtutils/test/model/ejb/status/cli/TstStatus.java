@@ -3,8 +3,8 @@ package net.sf.ahtutils.test.model.ejb.status.cli;
 import java.util.Random;
 
 import net.sf.ahtutils.model.ejb.status.AhtUtilsStatus;
+import net.sf.ahtutils.test.AhtUtilsEjbTestBootstrap;
 import net.sf.ahtutils.test.model.ejb.status.TestStatus;
-import net.sf.exlp.util.io.LoggerInit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,9 +28,7 @@ public class TstStatus
 	
 	public static void main(String[] args)
     {
-		LoggerInit loggerInit = new LoggerInit("log4j.xml");	
-			loggerInit.addAltPath("config");
-			loggerInit.init();	
+		AhtUtilsEjbTestBootstrap.init();
 
 		TstStatus test = new TstStatus();
 		test.create();
