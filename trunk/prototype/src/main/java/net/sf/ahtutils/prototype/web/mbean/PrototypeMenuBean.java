@@ -38,13 +38,10 @@ public class PrototypeMenuBean extends AbstractMenuBean implements Serializable
 			Access xmlAccess = JaxbUtil.loadJAXB(this.getClass().getClassLoader(),"/views.xml", Access.class);
 			Menu xmlMenuMain = JaxbUtil.loadJAXB(this.getClass().getClassLoader(),"/menu.xml", Menu.class);
 			
-			if(logger.isTraceEnabled())
-			{
-				logger.info("main.root="+rootMain);
-			}
+			if(logger.isTraceEnabled()){logger.info("main.root="+rootMain);}
 
 			mfMain = new MenuFactory(xmlMenuMain,xmlAccess,getLang(),rootMain);
-			mfMain.setAlwaysUpToLevel(99);
+			mfMain.setAlwaysUpToLevel(1);
 		}
 		catch (FileNotFoundException e)
 		{

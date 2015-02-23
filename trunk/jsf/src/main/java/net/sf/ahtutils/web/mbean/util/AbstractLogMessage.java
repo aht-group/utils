@@ -130,4 +130,13 @@ public class AbstractLogMessage <L extends UtilsLang,D extends UtilsDescription,
 		sb.append("Reloading ").append(t.toString());
 		return sb.toString();
 	}
+	
+	public static String time(String msg, ProcessingTimeTracker ptt)
+	{
+		ptt.stop();
+		StringBuffer sb = new StringBuffer();
+		sb.append(msg);
+		sb.append(" ").append(ptt.toTotalTime());
+		return sb.toString();
+	}
 }

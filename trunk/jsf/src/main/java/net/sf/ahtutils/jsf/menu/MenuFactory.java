@@ -9,6 +9,8 @@ import java.util.UUID;
 
 import net.sf.ahtutils.controller.factory.xml.navigation.XmlMenuItemFactory;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.monitor.ProcessingTimeTracker;
+import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.View;
@@ -152,12 +154,15 @@ public class MenuFactory
 	public Menu build(Map<String,Boolean> mapViewAllowed, String codeCurrent){return build(mapViewAllowed,codeCurrent,false);}
 	public Menu build(Map<String,Boolean> mapViewAllowed, String codeCurrent, boolean isLoggedIn)
 	{
-		logger.trace("Building ("+rootNode+"): "+codeCurrent);
+//		logger.info("Building Menu root:"+rootNode+" current:"+codeCurrent+" alwaysUpToLevel:"+alwaysUpToLevel);
 		this.mapViewAllowed=mapViewAllowed;
 		Menu result = new Menu();
 		
+		ProcessingTimeTracker ptt = null;
+		if(logger.isTraceEnabled()){ptt = new ProcessingTimeTracker(true);}
 		try {result.getMenuItem().addAll(processChilds(1,rootNode,codeCurrent,isLoggedIn));}
 		catch (UtilsNotFoundException e) {logger.warn(e.getMessage());}
+		if(logger.isTraceEnabled()){logger.info(AbstractLogMessage.time("build "+codeCurrent,ptt));}
 		
 		return result;
 	}
@@ -167,6 +172,7 @@ public class MenuFactory
 		List<MenuItem> result = new ArrayList<MenuItem>();
 		
 		Iterator<DefaultEdge> iterator = graph.outgoingEdgesOf(node).iterator();
+		
 		while(iterator.hasNext())
 		{
 			DefaultEdge edge = iterator.next();
@@ -187,10 +193,7 @@ public class MenuFactory
 			else {miAdd = processItem(mi,codeCurrent,null);}
 			if(miAdd!=null)
 			{
-				if(mi.getCode().equals(codeCurrent))
-				{
-					miAdd.setActive(true);
-				}
+				if(mi.getCode().equals(codeCurrent)){miAdd.setActive(true);}
 				else{miAdd.setActive(false);}
 				
 				boolean currentIsChild = false;

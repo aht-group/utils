@@ -7,6 +7,7 @@ import java.util.Map;
 
 import net.sf.ahtutils.factory.xml.navigation.XmlMenuItemFactory;
 import net.sf.ahtutils.jsf.menu.MenuFactory;
+import net.sf.ahtutils.monitor.ProcessingTimeTracker;
 import net.sf.ahtutils.xml.navigation.Breadcrumb;
 import net.sf.ahtutils.xml.navigation.Menu;
 import net.sf.ahtutils.xml.navigation.MenuItem;
@@ -65,10 +66,13 @@ public abstract class AbstractMenuBean implements Serializable
 		if(code==null || code.length()==0){code=rootMain;}
 		if(!mapMenu.containsKey(code))
 		{
+			ProcessingTimeTracker ptt = null;
+			if(logger.isTraceEnabled()){ptt = new ProcessingTimeTracker(true);}
 			synchronized(mf)
 			{
 				mapMenu.put(code, mf.build(mapViewAllowed,code,loggedIn));
 			}
+			if(logger.isTraceEnabled()){logger.trace(AbstractLogMessage.time("Menu creation for "+code,ptt));}
 		}
 		return mapMenu.get(code);
 	}
@@ -82,6 +86,8 @@ public abstract class AbstractMenuBean implements Serializable
 	{
 		if(!mapBreadcrumb.containsKey(code))
 		{
+			ProcessingTimeTracker ptt = null;
+			if(logger.isTraceEnabled()){ptt = new ProcessingTimeTracker(true);}
 			synchronized(mf)
 			{
 				boolean mapMenuContainsCode = mapMenu.containsKey(code);
@@ -123,6 +129,7 @@ public abstract class AbstractMenuBean implements Serializable
 					JaxbUtil.info(mapBreadcrumb.get(code));
 				}
 			}
+			if(logger.isTraceEnabled()){logger.trace(AbstractLogMessage.time("Breadcrumb creation for "+code,ptt));}
 		}
 		return mapBreadcrumb.get(code);
 	}
@@ -137,6 +144,8 @@ public abstract class AbstractMenuBean implements Serializable
 		
 		if(!mapSubContaines)
 		{
+			ProcessingTimeTracker ptt=null;
+			if(logger.isTraceEnabled()){ptt = new ProcessingTimeTracker(true);}
 			synchronized(mf)
 			{
 				if(!mapMenu.containsKey(code))
@@ -148,6 +157,7 @@ public abstract class AbstractMenuBean implements Serializable
 				mapSub.put(code,mf.subMenu(m,code));
 			}
 //			JaxbUtil.trace(mapSub.get(code));
+			if(logger.isTraceEnabled()){logger.trace(AbstractLogMessage.time("Submenu creation for "+code,ptt));}
 		}
 		return mapSub.get(code);
 	}
