@@ -29,6 +29,7 @@ public class UtilsMsgBuilder
 	public static final String msgAdminSystemOptionTables = "msg.aht-utils/admin/system/options.xml";
 	public static final String srcAdminSecurity = "msg.aht-utils/admin/user/security.xml";
 	public static final String srcAdminUser = "msg.aht-utils/admin/user/user.xml";
+	public static final String srcAdminStatus = "msg.aht-utils/admin/status.xml";
 	
 	public static final String msgSurveyTemplate = "msg.aht-utils/survey/template.xml";
 	

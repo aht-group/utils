@@ -38,7 +38,7 @@ public class XmlStatementFactory <S extends UtilsStatus<S,L,D>, L extends UtilsL
 		}
 		if(q.isSetDescriptions())
 		{
-			XmlDescriptionsFactory f = new XmlDescriptionsFactory(q.getDescriptions());
+			XmlDescriptionsFactory<D> f = new XmlDescriptionsFactory<D>(q.getDescriptions());
 			xml.setDescriptions(f.create(ejb.getDescription()));
 		}
 		

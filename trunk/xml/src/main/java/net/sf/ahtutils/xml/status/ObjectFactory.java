@@ -238,6 +238,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Gender }
+     * 
+     */
+    public Gender createGender() {
+        return new Gender();
+    }
+
+    /**
      * Create an instance of {@link Types }
      * 
      */

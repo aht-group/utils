@@ -24,4 +24,10 @@
 			<s:lang key="en" translation="Last Name"/>
 		</s:langs>
 	</s:translation>
+		<s:translation key="aupGender">
+		<s:langs>
+			<s:lang key="fr" translation="Gender"/>
+			<s:lang key="en" translation="Gender"/>
+		</s:langs>
+	</s:translation>
 </s:translations>

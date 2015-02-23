@@ -10,23 +10,23 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestXmlResult extends AbstractXmlStatusTest
+public class TestXmlGender extends AbstractXmlStatusTest
 {
-	final static Logger logger = LoggerFactory.getLogger(TestXmlResult.class);
+	final static Logger logger = LoggerFactory.getLogger(TestXmlGender.class);
 	
-	@BeforeClass public static void initFiles(){setXmlFile(dirSuffix, Result.class);}
+	@BeforeClass public static void initFiles(){setXmlFile(dirSuffix, Gender.class);}
     
     @Test
     public void testXml() throws FileNotFoundException
     {
-    	Result actual = create(true);
-    	Result expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Result.class);
+    	Gender actual = create(true);
+    	Gender expected = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Gender.class);
     	assertJaxbEquals(expected, actual);
     }
     
-    public static Result create(boolean withChilds)
+    public static Gender create(boolean withChilds)
     {
-    	Result xml = new Result();
+    	Gender xml = new Gender();
     	xml.setCode("myCode");
     	xml.setVisible(true);
     	xml.setGroup("myGroup");
@@ -38,7 +38,6 @@ public class TestXmlResult extends AbstractXmlStatusTest
     	{
     		xml.setLangs(TestXmlLangs.create(false));
     		xml.setDescriptions(TestXmlDescriptions.create(false));
-//    		xml.setParent(TestXmlParent.create(false));
     	}
     	
     	return xml;
@@ -50,8 +49,8 @@ public class TestXmlResult extends AbstractXmlStatusTest
     {
 		UtilsXmlTestBootstrap.init();
 			
-		TestXmlResult.initFiles();	
-		TestXmlResult test = new TestXmlResult();
+		TestXmlGender.initFiles();	
+		TestXmlGender test = new TestXmlGender();
 		test.save();
     }
 }
