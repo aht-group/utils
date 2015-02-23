@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<s:translations xmlns:s="http://ahtutils.aht-group.com/status">
+    <s:translation key="aupUsers">
+        <s:langs>
+            <s:lang key="de" translation="Users"/>
+            <s:lang key="en" translation="Users"/>
+        </s:langs>
+    </s:translation>
+	<s:translation key="aupUser">
+        <s:langs>
+            <s:lang key="de" translation="User"/>
+            <s:lang key="en" translation="User"/>
+        </s:langs>
+    </s:translation>
+    <s:translation key="aupFirstName">
+		<s:langs>
+			<s:lang key="fr" translation="First Name"/>
+			<s:lang key="en" translation="First Name"/>
+		</s:langs>
+	</s:translation>
+	<s:translation key="aupLastName">
+		<s:langs>
+			<s:lang key="fr" translation="Last Name"/>
+			<s:lang key="en" translation="Last Name"/>
+		</s:langs>
+	</s:translation>
+</s:translations>
