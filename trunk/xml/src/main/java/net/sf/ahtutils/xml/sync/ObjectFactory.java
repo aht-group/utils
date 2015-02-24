@@ -62,6 +62,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Entity }
+     * 
+     */
+    public Entity createEntity() {
+        return new Entity();
+    }
+
+    /**
      * Create an instance of {@link Mappings }
      * 
      */

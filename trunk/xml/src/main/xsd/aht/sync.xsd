@@ -43,6 +43,15 @@
             <xsd:attribute name="newCode" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
+	<xsd:element name="entity">
+        <xsd:complexType>
+            <xsd:simpleContent>
+                <xsd:extension base="xsd:string">
+                	<xsd:attribute name="version" type="xsd:int"/>
+                </xsd:extension>
+            </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
     <xsd:element name="result">
         <xsd:complexType>
         	<xsd:sequence>
