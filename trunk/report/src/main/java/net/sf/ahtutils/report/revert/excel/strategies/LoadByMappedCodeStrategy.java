@@ -11,9 +11,9 @@ import net.sf.ahtutils.report.revert.excel.ImportStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LoadByMappedIdStrategy implements ImportStrategy {
+public class LoadByMappedCodeStrategy implements ImportStrategy {
 	
-	final static Logger logger = LoggerFactory.getLogger(LoadByMappedIdStrategy.class);
+	final static Logger logger = LoggerFactory.getLogger(LoadByMappedCodeStrategy.class);
 	
 	private UtilsFacade facade;
 	
@@ -23,32 +23,29 @@ public class LoadByMappedIdStrategy implements ImportStrategy {
 
 	@Override
 	public Object handleObject(Object object, String parameterClass) {
-		Number number        = (Number) object;
-		Long id              = number.longValue();;
+		String code          = object.toString();
 		Class  lutClass      = null;
     	Object lookupEntity  = null;
-    	
-    	if (id == null && !tempPropertyStore.containsKey("createEntityForUnknown"))
+
+    	if (code == null && !tempPropertyStore.containsKey("createEntityForUnknown"))
 		{
 			return null;
 		}
 		try {
     		lutClass = (Class) Class.forName(parameterClass);
     		UtilsIdMapper mapper = (UtilsIdMapper) this.tempPropertyStore.get("idMapper");
-    		if (mapper.isObjectMapped(lutClass, id))
+    		if (mapper.isObjectMapped(lutClass, code))
     		{
-    			lookupEntity = mapper.getMappedObject(lutClass, id);
-    			logger.info("Found entity: " +id +lookupEntity.toString());
+    			lookupEntity = mapper.getMappedObject(lutClass, code);
     		}
     		else
     		{
     			lookupEntity = lutClass.newInstance();
-    			invokeMethod("setId",
-					      new Object[] { id },
+    			invokeMethod("setCode",
+					      new Object[] { code },
 					      lutClass,
 					      lookupEntity);
-    			mapper.addObjectForId(id, lookupEntity);
-    			logger.info("MAPPED");
+    			mapper.addObjectForCode(code, lookupEntity);
     		}
 	    	
 		} catch (Exception e) {

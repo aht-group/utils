@@ -17,12 +17,17 @@ public class UtilsIdMapper
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlMapperFactory.class);
 	
-	private Map<Class<?>,Map<Long,Long>> map;
+	// Mapping of IDs and CODEs
+	private Map<Class<?>,Map<Long,Long>>     map;
 	private Map<Class<?>,Map<String,String>> mapCode;
+	
+	// Mapping of Objects
+	private Map<Class<?>,Map<String,Object>> mapObjectByCode;
+	private Map<Class<?>,Map<Long  ,Object>> mapObjectById;
 	
 	public UtilsIdMapper()
 	{
-		map = new Hashtable<Class<?>,Map<Long,Long>>();
+		map     = new Hashtable<Class<?>,Map<Long,Long>>();
 		mapCode = new Hashtable<Class<?>,Map<String,String>>();
 	}
 	
@@ -100,5 +105,77 @@ public class UtilsIdMapper
 				logger.info("\t"+c.getSimpleName()+" "+mapCode.get(c).keySet().size());
 			}
 		}
+	}
+	
+	public Boolean isMapped(Class<?> c,Object code)
+	{
+		if(!mapCode.containsKey(c)){return false;}
+		if(!mapCode.get(c).containsKey(code)){return false;}
+		return true;
+	}
+	
+	public Boolean isObjectMapped(Class<?> c,Object object)
+	{
+		if(!mapObjectByCode.containsKey(c)                         || !mapObjectById.containsKey(c) )
+		{
+			return false;
+			
+		}
+		if(!mapObjectByCode.get(c).containsKey(object.toString())  || !mapObjectById.get(c).containsKey(new Long(object.toString())) )
+		{
+			return false;
+			
+		}
+		return true;
+	}
+	
+	public Object getMappedObject(Class<?> c,Object object)
+	{
+		Object o = null;
+		if(object.getClass().equals(java.lang.String.class))
+		{
+			o = mapObjectByCode.get(c).get(object.toString());
+			if (o==null)
+			{
+				
+			}
+		}
+		if(object.getClass().equals(java.lang.Long.class))
+		{
+			o = mapObjectById.get(c).get((Long) object);
+		}
+		logger.info(" returning " +o.toString());
+		return o;
+	}
+	
+	public void addObjectForCode(String code, Object o)
+	{
+		if (mapObjectByCode == null)
+		{
+			mapObjectByCode = new Hashtable<Class<?>,Map<String,Object>>();
+		}
+		if (mapObjectByCode.get(o.getClass()) == null)
+		{
+			Hashtable<String,Object> map = new Hashtable<String,Object>();
+			mapObjectByCode.put(o.getClass(), map);
+		}
+		Map<String, Object> objectMap = mapObjectByCode.get(o.getClass());
+		objectMap.put(code, o);
+	}
+	
+	public void addObjectForId(Long id, Object o)
+	{
+		if (mapObjectById == null)
+		{
+			mapObjectById = new Hashtable<Class<?>,Map<Long,Object>>();
+		}
+		if (mapObjectById.get(o.getClass()) == null)
+		{
+			Hashtable<Long,Object> map = new Hashtable<Long,Object>();
+			mapObjectById.put(o.getClass(), map);
+		}
+		Hashtable<Long, Object> objectMap = (Hashtable<Long, Object>) mapObjectById.get(o.getClass());
+		objectMap.put(id, o);
+		mapObjectById.put(o.getClass(), objectMap);
 	}
 }

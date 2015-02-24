@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.Hashtable;
 
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
+import net.sf.ahtutils.util.reflection.ReflectionsUtil;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
@@ -26,15 +27,15 @@ public abstract class AbstractExcelImporter <C extends Serializable, I extends I
 
 	final static Logger logger = LoggerFactory.getLogger(AbstractExcelImporter.class);
 	
-	private File                       excelFile;
-	private XSSFWorkbook               workbook;
-	private Sheet                      activeSheet;
+	protected File                       excelFile;
+	protected XSSFWorkbook               workbook;
+	protected Sheet                      activeSheet;
 	public  UtilsFacade                facade;
-	private Hashtable<String, Class>   handler;
-	private short                      primaryKey;
-	private Hashtable<String, C>       entities          = new Hashtable<String, C>();
-	private Hashtable<String, Object>  tempPropertyStore = new Hashtable<String, Object>();;
-	private Boolean                    hasPrimaryKey     = false;
+	protected Hashtable<String, Class>   handler;
+	protected short                      primaryKey;
+	protected Hashtable<String, C>       entities          = new Hashtable<String, C>();
+	protected Hashtable<String, Object>  tempPropertyStore = new Hashtable<String, Object>();
+	protected Boolean                    hasPrimaryKey     = false;
 	
 	public  Integer                    enititesSaved = 0;	
 	public Integer getEnititesSaved() {return enititesSaved;}
@@ -186,7 +187,7 @@ public abstract class AbstractExcelImporter <C extends Serializable, I extends I
 	public ArrayList<C> createEntitiesFromData(Hashtable<Short, String> associationTable, Boolean skipTitle, Class<C> entityObject) throws Exception
 	{
 		// Create a list to hold the Entity classes to be created
-		ArrayList<C> entities = new ArrayList<C>();
+		ArrayList<C> importedEntities = new ArrayList<C>();
 		
 		// Define the rows to begin with and to end with, whether with or without first row
 		Integer end   = activeSheet.getLastRowNum();
@@ -200,18 +201,14 @@ public abstract class AbstractExcelImporter <C extends Serializable, I extends I
 			Row row = activeSheet.getRow(i);
 			
 			// See if there is already an instance created for this key, otherwise create a new one
-			Object entityKey = row.getCell(primaryKey);
-			C entity = null;
+			String entityKey = getStringValue(getCellValue(row.getCell(primaryKey)));
+			C entity = entityObject.newInstance();
 			if (hasPrimaryKey)
 			{
 				if ( this.entities.containsKey(entityKey))
 				{
 					entity = this.entities.get(entityKey);
 				}
-			}
-			else
-			{
-				entity = entityObject.newInstance();
 			}
 			
 			// Iterate through the columns and assign data as given in the association table
@@ -230,20 +227,29 @@ public abstract class AbstractExcelImporter <C extends Serializable, I extends I
 				if (propertyName!=null && object.getClass().getCanonicalName()!="java.lang.Object")
 				{
 					logger.trace("Setting value of type " +object.getClass().getCanonicalName());
-					invokeMethod("set" +propertyName,
+					
+					Object parent   = entity;
+					String property = propertyName;
+					invokeMethod("set" +property,
 							      new Object[] { object },
 							      entity.getClass(),
 							      entity);
 				}
 			}
 			//facade.save(entity);
-			entities.add(entity);
+			importedEntities.add(entity);
+			if (hasPrimaryKey)
+			{
+				entities.put(entityKey, entity);
+			}
 		}
-		return entities;
+		return importedEntities;
 		
 	}
+	
+	
 		
-	 private void invokeMethod(String   methodName, 
+	 protected void invokeMethod(String   methodName, 
 			 							Object[] parameters,
 			 							Class    targetClass,
 			 							Object   target)        throws Exception
@@ -278,28 +284,38 @@ public abstract class AbstractExcelImporter <C extends Serializable, I extends I
         
         // Lets see if the setter is accepting a data type that is available in Excel (String, Double, Date)
         // Otherwise assume that it is used with a lookup table
-        if (!(parameterClass.equals("java.lang.Double") || parameterClass.equals("double") || parameterClass.equals("long") || parameterClass.equals("java.util.Date") || parameterClass.equals("java.lang.String")))
+        
+        if (ReflectionsUtil.hasMethod(target, methodName))
         {
-        	logger.trace("Loading import strategy for " +parameterClass +": " +handler.get(parameterClass) +".");
-        	// Instantiate new strategy to handle import
-        	ImportStrategy strategy = (ImportStrategy) handler.get(parameterClass).newInstance();
-        	
-        	// Pass database connection and current set of temporary properties
-        	strategy.setFacade(facade);
-        	strategy.setTempPropertyStore(tempPropertyStore);
-        	
-        	// Process import step
-        	parameters[0]    = strategy.handleObject(parameters[0], parameterClass);
-        	
-        	// Sync new temporary properties if any added
-        	tempPropertyStore = strategy.getTempPropertyStore();
+        	if (!(parameterClass.equals("java.lang.Double") || parameterClass.equals("double") || parameterClass.equals("long") || parameterClass.equals("java.util.Date") || parameterClass.equals("java.lang.String")))
+            {
+            	logger.trace("Loading import strategy for " +parameterClass +": " +handler.get(parameterClass) +".");
+            	// Instantiate new strategy to handle import
+            	ImportStrategy strategy = (ImportStrategy) handler.get(parameterClass).newInstance();
+            	
+            	// Pass database connection and current set of temporary properties
+            	strategy.setFacade(facade);
+            	strategy.setTempPropertyStore(tempPropertyStore);
+            	
+            	// Process import step
+            	parameters[0]    = strategy.handleObject(parameters[0], parameterClass);
+            	
+            	// Sync new temporary properties if any added
+            	tempPropertyStore = strategy.getTempPropertyStore();
+            }
+            if (parameterClass.equals("long"))
+            {
+            	Number number = (Number) parameters[0];
+            	parameters[0] = number.longValue();
+            }
+            m.invoke(target, parameters);
         }
-        if (parameterClass.equals("long"))
+        else
         {
-        	Number number = (Number) parameters[0];
-        	parameters[0] = number.longValue();
+        	logger.trace("Entity does not have the method " +methodName +". Initiating special treatment.");
+        	
         }
-        m.invoke(target, parameters);
+        
 	 }
 	 
 	public Hashtable<String, Object> getTempPropertyStore() {return tempPropertyStore;}
