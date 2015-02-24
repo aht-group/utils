@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import net.sf.ahtutils.test.MavenArtifactResolver;
+import net.sf.ahtutils.controller.util.MavenArtifactResolver;
 import net.sf.exlp.util.io.resourceloader.MultiResourceLoader;
 
 import org.apache.commons.io.FileUtils;

@@ -1,4 +1,4 @@
-package net.sf.ahtutils.test;
+package net.sf.ahtutils.controller.util;
 
 import java.io.File;
 
