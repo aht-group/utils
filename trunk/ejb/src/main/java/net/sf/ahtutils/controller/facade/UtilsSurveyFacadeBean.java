@@ -115,15 +115,16 @@ public class UtilsSurveyFacadeBean <L extends UtilsLang,
 	}
 
 	@Override
-	public List<ANSWER> fcAnswers(Class<DATA> cData, Class<ANSWER> cAnswer, DATA data)
+	public List<ANSWER> fcAnswers(Class<DATA> cData, Class<ANSWER> cAnswer, Class<TEMPLATE> cTemplate, DATA data)
 	{
 		data = em.find(cData,data.getId());
+		TEMPLATE template = em.find(cTemplate,data.getSurvey().getTemplate().getId());
 		List<ANSWER> result = new ArrayList<ANSWER>();
 		efAnswer = EjbSurveyAnswerFactory.factory(cAnswer);
 		
 		Set<Long> existing = new HashSet<Long>();
 		for(ANSWER a : data.getAnswers()){existing.add(a.getQuestion().getId());result.add(a);}
-		for(SECTION s : data.getSurvey().getTemplate().getSections())
+		for(SECTION s : template.getSections())
 		{
 			for(QUESTION q : s.getQuestions())
 			{

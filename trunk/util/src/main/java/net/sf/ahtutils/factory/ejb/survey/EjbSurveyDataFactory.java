@@ -1,5 +1,7 @@
 package net.sf.ahtutils.factory.ejb.survey;
 
+import java.util.Date;
+
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurvey;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyAnswer;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyCorrelation;
@@ -53,7 +55,7 @@ public class EjbSurveyDataFactory<L extends UtilsLang,
 			ejb = cData.newInstance();
 			ejb.setSurvey(survey);
 			ejb.setCorrelation(correlation);
-//			ejb.getCorrelation().setData(ejb);
+			ejb.setRecord(new Date());
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();}

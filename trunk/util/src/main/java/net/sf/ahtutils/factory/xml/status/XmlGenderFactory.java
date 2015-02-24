@@ -39,10 +39,14 @@ public class XmlGenderFactory <S extends UtilsStatus<S,L,D>,L extends UtilsLang,
 		return xml;
 	}
 	
+	public static Gender female() {return build("female");}
+	public static Gender male() {return build("male");}
 	public static Gender build(String code)
 	{
 		Gender xml = new Gender();
 		xml.setCode(code);
 		return xml;
 	}
+	
+	
 }
