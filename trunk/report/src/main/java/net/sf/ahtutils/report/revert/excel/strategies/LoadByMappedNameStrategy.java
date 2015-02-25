@@ -1,12 +1,11 @@
 package net.sf.ahtutils.report.revert.excel.strategies;
 
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.Hashtable;
 
 import net.sf.ahtutils.db.xml.UtilsIdMapper;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.report.revert.excel.ImportStrategy;
+import net.sf.ahtutils.util.reflection.ReflectionsUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +14,6 @@ public class LoadByMappedNameStrategy implements ImportStrategy {
 	
 	final static Logger logger = LoggerFactory.getLogger(LoadByMappedNameStrategy.class);
 	
-	private UtilsFacade facade;
-	
 	private Hashtable<String, Object> tempPropertyStore;
 	public  Hashtable<String, Object> getTempPropertyStore() {return tempPropertyStore;}
 	public void setTempPropertyStore(Hashtable<String, Object> tempPropertyStore) {this.tempPropertyStore = tempPropertyStore;}
@@ -24,66 +21,44 @@ public class LoadByMappedNameStrategy implements ImportStrategy {
 	@Override
 	public Object handleObject(Object object, String parameterClass) {
 		String code          = object.toString();
-		Class  lutClass      = null;
+		Class<?>  lutClass   = null;
     	Object lookupEntity  = null;
 
-    	if (code == null && !tempPropertyStore.containsKey("createEntityForUnknown"))
-		{
-			return null;
+    	try {
+    		lutClass = (Class<?>) Class.forName(parameterClass);
+	    	
+		} catch (Exception e) {
+			e.getStackTrace();
 		}
-		try {
-    		lutClass = (Class) Class.forName(parameterClass);
-    		UtilsIdMapper mapper = (UtilsIdMapper) this.tempPropertyStore.get("idMapper");
-    		if (mapper.isMapped(lutClass, code))
-    		{
-    			lookupEntity = mapper.getMappedObject(lutClass, code);
-    		}
-    		else
-    		{
-    			lookupEntity = lutClass.newInstance();
-    			invokeMethod("setName",
+		
+		UtilsIdMapper mapper = (UtilsIdMapper) this.tempPropertyStore.get("idMapper");
+		if (mapper.isObjectMapped(lutClass, code))
+		{
+			lookupEntity = mapper.getMappedObject(lutClass, code);
+		}
+		else
+		{
+			try {
+				lookupEntity = lutClass.newInstance();
+			} catch (Exception e) {
+				logger.error(e.getMessage());
+			}
+			try {
+				ReflectionsUtil.simpleInvokeMethod("setName",
 					      new Object[] { code },
 					      lutClass,
 					      lookupEntity);
-    			mapper.addObjectForCode(code, lookupEntity);
-    		}
-	    	
-		} catch (Exception e) {
-			logger.error("An error occured while trying to import! " +e.getMessage());
-			logger.trace("Creating new Entity of class " +parameterClass +" with Code " +code);
-			
+			} catch (Exception e) {
+				logger.error("Could not set ID for created " +lutClass.getSimpleName());
+				logger.error(e.getMessage());
+			}
+			mapper.addObjectForCode(code, lookupEntity);
 		}
     	return lookupEntity;
 	}
 
 	@Override
 	public void setFacade(UtilsFacade facade) {
-		this.facade = facade;
+		logger.trace("The strategy " +this.getClass().getSimpleName() +" is not depending on database operations - no Facade needed!");
 	}
-	
-	 private void invokeMethod(String   methodName, 
-				Object[] parameters,
-				Class    targetClass,
-				Object   target)        throws Exception
-		{
-		logger.trace("Invoking " +methodName);
-		
-		// Now find the correct method
-		Method[] methods = targetClass.getMethods();
-		Method m         = null;
-		for (Method method : methods)
-		{
-			if (method.getName().equals(methodName))
-			{
-				m = method;
-			}
-		}
-		
-		if (Modifier.isPrivate(m.getModifiers()))
-		{
-			m.setAccessible(true);
-		}
-			m.invoke(target, parameters);
-		}
-
 }

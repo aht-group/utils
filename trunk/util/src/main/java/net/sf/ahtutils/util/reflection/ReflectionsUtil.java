@@ -9,7 +9,13 @@ import org.slf4j.LoggerFactory;
 public class ReflectionsUtil {
 	
 	final static Logger logger = LoggerFactory.getLogger(ReflectionsUtil.class);
-	
+
+	/**
+	 * Inspect if an Object has some given method
+	 * @param object     The parent Object (e.g. Person)
+	 * @param methodName The name of the method (e.g. setName)
+	 * @return Is method there? (e.g. true)
+	 */
 	public static Boolean hasMethod(Object object, String methodName)
 	{
 		Method[] methods  = object.getClass().getMethods();
@@ -24,9 +30,14 @@ public class ReflectionsUtil {
 		return hasMethod;
 	}
 	
+	/**
+	 * Intended to get the class of the first argument to be passed to a method
+	 * @param object     The parent Object (e.g. Person)
+	 * @param methodName The name of the method (e.g. setName)
+	 * @return Class of the first parameter (e.g. java.lang.String)
+	 */
 	 public static Class<?> getParameterClass(Object object, String methodName)
 	 {
-		 
 		logger.trace("Getting parameter class for " +methodName +" in class " +object.getClass().getSimpleName());
 		
 		// Now find the correct method
@@ -42,6 +53,13 @@ public class ReflectionsUtil {
 		return parameter;
 	 }
 	 
+ 	/**
+	 * First skeleton for traversing through .-separated methods (get or create/set)
+	 * NOT READY YET!
+	 * @param parent      The parent Object
+	 * @param expression  .-separated fields (eg. person.name.lastName)
+	 * @return The parent Object now including the value to be set
+	 */
 	 public static Object resolveExpression(Object parent, String expression) throws Exception
 	 {
 		 String[] pathToProperty = expression.split(".");
@@ -66,11 +84,19 @@ public class ReflectionsUtil {
 			return parent;
 	 }
 	 
-	 private static Object simpleInvokeMethod(String   methodName, 
+	 /**
+		 * Invoke a method on a given object
+		 * @param methodName   Method to be invoked (e.g. "setId")
+		 * @param parameters   Array of parameters to be used as they appear in the method (e.g. [Long id])
+		 * @param targetClass  Targeted class
+		 * @param target       The actual object that holds the method to be invoked
+		 * @return The returned object (e.g. the long value of the ID)
+		 */
+	 public static Object simpleInvokeMethod(String   methodName, 
 				Object[] parameters,
-				Class    targetClass,
+				Class<?> targetClass,
 				Object   target)        throws Exception
-	{
+	    {
 		logger.trace("Invoking " +methodName);
 		
 		// Now find the correct method
@@ -88,7 +114,7 @@ public class ReflectionsUtil {
 		{
 			m.setAccessible(true);
 		}
-			return m.invoke(target, parameters);
+		return m.invoke(target, parameters);
 	}
 
 }
