@@ -27,8 +27,11 @@ public class UtilsIdMapper
 	
 	public UtilsIdMapper()
 	{
-		map     = new Hashtable<Class<?>,Map<Long,Long>>();
-		mapCode = new Hashtable<Class<?>,Map<String,String>>();
+		map             = new Hashtable<Class<?>,Map<Long,Long>>();
+		mapCode         = new Hashtable<Class<?>,Map<String,String>>();
+		
+		mapObjectByCode = new Hashtable<Class<?>,Map<String,Object>>();
+		mapObjectById   = new Hashtable<Class<?>,Map<Long  ,Object>>();
 	}
 	
 	public DataUpdate add(DataUpdate dataUpdate)
@@ -114,46 +117,72 @@ public class UtilsIdMapper
 		return true;
 	}
 	
-	public Boolean isObjectMapped(Class<?> c,Object object)
+	/**
+	 * See if an Object is mapped for the given class and the given key.
+	 * Method is auto-sensing whether to look for a mapped ID or Code key,
+	 * depending on the class of the key parameter
+	 * @param c   Class to be searched for
+	 * @param key Key to be searched for
+	 * @return Is there an object mapped for that key
+	 */
+	public Boolean isObjectMapped(Class<?> c,Object key)
 	{
-		if(!mapObjectByCode.containsKey(c)                         || !mapObjectById.containsKey(c) )
+		if(key.getClass().equals(java.lang.String.class))
 		{
-			return false;
-			
-		}
-		if(!mapObjectByCode.get(c).containsKey(object.toString())  || !mapObjectById.get(c).containsKey(new Long(object.toString())) )
-		{
-			return false;
-			
-		}
-		return true;
-	}
-	
-	public Object getMappedObject(Class<?> c,Object object)
-	{
-		Object o = null;
-		if(object.getClass().equals(java.lang.String.class))
-		{
-			o = mapObjectByCode.get(c).get(object.toString());
-			if (o==null)
+			if (mapObjectByCode.get(c) == null)
 			{
-				
+				return false;
+			}
+			else
+			{
+				return mapObjectByCode.get(c).containsKey(key);
 			}
 		}
-		if(object.getClass().equals(java.lang.Long.class))
+		else
 		{
-			o = mapObjectById.get(c).get((Long) object);
+			if (mapObjectById.get(c) == null)
+			{
+				return false;
+			}
+			else
+			{
+				return mapObjectById.get(c).containsKey(key);
+			}
 		}
-		logger.info(" returning " +o.toString());
+	}
+	
+	/**
+	 * Get an Object mapped for the given class and the given key.
+	 * Method is auto-sensing whether to look for a mapped ID or Code key,
+	 * depending on the class of the key parameter
+	 * @param c   Class to be searched for
+	 * @param key Key to be searched for
+	 * @return The mapped object
+	 */
+	public Object getMappedObject(Class<?> c,Object key)
+	{
+		logger.trace("Requesting " +key.toString() +" for class " +c.getName());
+		Object o = null;
+		if(key.getClass().equals(java.lang.String.class))
+		{
+			o = mapObjectByCode.get(c).get(key);
+		}
+		else
+		{
+			o = mapObjectById.get(c).get(key);
+		}
+		logger.trace("Returning " +o.toString());
 		return o;
 	}
 	
+	/**
+	 * Add an object with given code to the mapping
+	 * @param code  Code to be used for identification
+	 * @param o     Object to be mapped with the given code
+	 * @return The mapped object
+	 */
 	public void addObjectForCode(String code, Object o)
 	{
-		if (mapObjectByCode == null)
-		{
-			mapObjectByCode = new Hashtable<Class<?>,Map<String,Object>>();
-		}
 		if (mapObjectByCode.get(o.getClass()) == null)
 		{
 			Hashtable<String,Object> map = new Hashtable<String,Object>();
@@ -163,16 +192,18 @@ public class UtilsIdMapper
 		objectMap.put(code, o);
 	}
 	
+	/**
+	 * Add an object with given id to the mapping
+	 * @param id    Id to be used for identification
+	 * @param o     Object to be mapped with the given id
+	 * @return The mapped object
+	 */
 	public void addObjectForId(Long id, Object o)
 	{
-		if (mapObjectById == null)
-		{
-			mapObjectById = new Hashtable<Class<?>,Map<Long,Object>>();
-		}
 		if (mapObjectById.get(o.getClass()) == null)
 		{
-			Hashtable<Long,Object> map = new Hashtable<Long,Object>();
-			mapObjectById.put(o.getClass(), map);
+			Hashtable<Long,Object> mapForIds = new Hashtable<Long,Object>();
+			mapObjectById.put(o.getClass(), mapForIds);
 		}
 		Hashtable<Long, Object> objectMap = (Hashtable<Long, Object>) mapObjectById.get(o.getClass());
 		objectMap.put(id, o);
