@@ -18,7 +18,7 @@
 		
 		<t:table id="table.admin.system.logs.type">
 		
-		    <ofx:title lang="en" version="1">Hardware Specifications (Prototype)</ofx:title>
+		    <ofx:title lang="en" version="1">Hardware Specifications (Production System)</ofx:title>
 		    
 		    <t:specification>
 		        <t:columns> 
@@ -56,7 +56,7 @@
 		            </t:row>
 		            <t:row>
 		                <t:cell><ofx:paragraph>OS</ofx:paragraph></t:cell>
-		                <t:cell><ofx:paragraph>Linux Debian Wheezy</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>Linux Debian</ofx:paragraph></t:cell>
 		            </t:row>
 		        </t:body>
 		    </t:content>
@@ -79,7 +79,7 @@
 		
 		<t:table id="table.admin.system.logs.type">
 		
-		    <ofx:title lang="en" version="1">Hardware Specifications (Prototype)</ofx:title>
+		    <ofx:title lang="en" version="1">Hardware Specifications (Production System)</ofx:title>
 		    
 		    <t:specification>
 		        <t:columns>
@@ -130,8 +130,8 @@
 		            </t:row>
 		            <t:row>
 		                <t:cell><ofx:paragraph>OS</ofx:paragraph></t:cell>
-		                <t:cell><ofx:paragraph>Linux Debian Wheezy</ofx:paragraph></t:cell>
-		                <t:cell><ofx:paragraph>Linux Debian Wheezy</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>Linux Debian</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>Linux Debian</ofx:paragraph></t:cell>
 		            </t:row>
 		        </t:body>
 		    </t:content>

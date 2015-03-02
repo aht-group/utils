@@ -59,7 +59,7 @@
 	                    <ofx:paragraph>Info</ofx:paragraph>
 	                </table:cell>
 	                <table:cell>
-	                    <ofx:paragraph>xxx</ofx:paragraph>
+	                    <ofx:paragraph>Shows tooltips and useful advises</ofx:paragraph>
 	                </table:cell>
 	            </table:row>
 	            <table:row>
@@ -73,7 +73,7 @@
 	                    <ofx:paragraph>Search</ofx:paragraph>
 	                </table:cell>
 	                <table:cell>
-	                    <ofx:paragraph>xxx</ofx:paragraph>
+	                    <ofx:paragraph>Search through e.g. a table</ofx:paragraph>
 	                </table:cell>
 	            </table:row>
 	            <table:row>
@@ -87,21 +87,21 @@
 	                    <ofx:paragraph>Add</ofx:paragraph>
 	                </table:cell>
 	                <table:cell>
-	                    <ofx:paragraph>xxx</ofx:paragraph>
+	                    <ofx:paragraph>Creates or add a element to your current table</ofx:paragraph>
 	                </table:cell>
 	            </table:row>
 	            <table:row>
 	                <table:cell>
 	                    <media:image>
 	                        <layout:height unit="em">1.0</layout:height>
-	                        <media:media src="svg.aht-utils/icon/ui/remove.svg" dst="icon/ui/add"/>
+	                        <media:media src="svg.aht-utils/icon/ui/remove.svg" dst="icon/ui/remove"/>
 	                    </media:image>
 	                </table:cell>
 	                <table:cell>
 	                    <ofx:paragraph>Remove</ofx:paragraph>
 	                </table:cell>
 	                <table:cell>
-	                    <ofx:paragraph>xxx</ofx:paragraph>
+	                    <ofx:paragraph>Detach the current item of your table</ofx:paragraph>
 	                </table:cell>
 	            </table:row>
 	            <table:row>
@@ -129,7 +129,7 @@
 	                    <ofx:paragraph>Delete</ofx:paragraph>
 	                </table:cell>
 	                <table:cell>
-	                    <ofx:paragraph>xxx</ofx:paragraph>
+	                    <ofx:paragraph>Removes the current item from you table and deletes it</ofx:paragraph>
 	                </table:cell>
 	            </table:row>
 	            <table:row>
@@ -143,7 +143,7 @@
 	                    <ofx:paragraph>Save</ofx:paragraph>
 	                </table:cell>
 	                <table:cell>
-	                    <ofx:paragraph>xxx</ofx:paragraph>
+	                    <ofx:paragraph>Enter your current changes/modifications</ofx:paragraph>
 	                </table:cell>
 	            </table:row>
 	            <table:row>
@@ -157,7 +157,7 @@
 	                    <ofx:paragraph>Cancel</ofx:paragraph>
 	                </table:cell>
 	                <table:cell>
-	                    <ofx:paragraph>xxx</ofx:paragraph>
+	                    <ofx:paragraph>Abort your current process</ofx:paragraph>
 	                </table:cell>
 	            </table:row>
 	            <table:row>
@@ -171,7 +171,7 @@
 	                    <ofx:paragraph>Filter</ofx:paragraph>
 	                </table:cell>
 	                <table:cell>
-	                    <ofx:paragraph>xxx</ofx:paragraph>
+	                    <ofx:paragraph>Change the number of items shown by the system</ofx:paragraph>
 	                </table:cell>
 	            </table:row>
 	            <table:row>

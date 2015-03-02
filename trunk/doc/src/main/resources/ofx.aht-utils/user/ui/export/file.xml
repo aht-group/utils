@@ -52,7 +52,7 @@
 	                    <ofx:paragraph>XLS</ofx:paragraph>
 	                </table:cell>
 	                <table:cell>
-	                    <ofx:paragraph>xxx</ofx:paragraph>
+	                    <ofx:paragraph>Binary file format called Excel Binary File Format (.XLS), used by Microsoft Excel.</ofx:paragraph>
 	                </table:cell>
 	            </table:row>
 	            <table:row>
@@ -66,7 +66,7 @@
 	                    <ofx:paragraph>PDF</ofx:paragraph>
 	                </table:cell>
 	                <table:cell>
-	                    <ofx:paragraph>xxx</ofx:paragraph>
+	                    <ofx:paragraph>File format called Portable Document Format (.PDF), used to present documents.</ofx:paragraph>
 	                </table:cell>
 	            </table:row>
 	            <table:row>
@@ -80,7 +80,7 @@
 	                    <ofx:paragraph>DOC</ofx:paragraph>
 	                </table:cell>
 	                <table:cell>
-	                    <ofx:paragraph>xxx</ofx:paragraph>
+	                    <ofx:paragraph>File format called Document (.DOC), used to edit documents with Microsoft Word.</ofx:paragraph>
 	                </table:cell>
 	            </table:row>
 	            <table:row>
@@ -94,7 +94,7 @@
 	                    <ofx:paragraph>XML</ofx:paragraph>
 	                </table:cell>
 	                <table:cell>
-	                    <ofx:paragraph>xxx</ofx:paragraph>
+	                    <ofx:paragraph>File format called Extensible Markup Language (.XML), defines a set of rules for documents which are readable for humans and machines.</ofx:paragraph>
 	                </table:cell>
 	            </table:row>
 	        </table:body>
