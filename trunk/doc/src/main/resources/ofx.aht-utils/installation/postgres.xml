@@ -96,6 +96,10 @@ createuser --superuser postgres</ofx:raw>
 	<ofx:section>
 		<ofx:title lang="en">Database optimization</ofx:title>
 		
+		<ofx:paragraph lang="en">
+			The owners of some pre-defined tables have to modified to the owner of the database:
+		</ofx:paragraph>
+		
 		<ofx:listing classifier="debianWheezy" external="listing/admin/db/postgres/tuning/debian/wheezy.sql"/>
 		<ofx:listing classifier="ubuntu14" external="listing/admin/db/postgres/tuning/ubuntu/14.sql"/>		
 		<ofx:listing classifier="osxYosemite" external="listing/admin/db/postgres/tuning/osx/yosemite.sql"/>
