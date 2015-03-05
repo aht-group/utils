@@ -32,6 +32,10 @@ public class UtilsListingCopy
 	public static final String dbPostgresCreateDebianWheezy = "admin/db/postgres/create/debian/wheezy.sql";
 	public static final String dbPostgresCreateOsxYosemite = "admin/db/postgres/create/osx/yosemite.sql";
 	
+	public static final String dbPostgresTemplateDebianWheezy = "admin/db/postgres/template/debian/wheezy.sql";
+	
+	public static final String dbPostgresTerminateDebianWheezy = "admin/db/postgres/terminate/debian/wheezy.sql";
+	
 	public static final String dbPostgresTuneDebianWheezy = "admin/db/postgres/tuning/debian/wheezy.sql";
 	public static final String dbPostgresTuneOsxYosemite = "admin/db/postgres/tuning/osx/yosemite.sql";
 	

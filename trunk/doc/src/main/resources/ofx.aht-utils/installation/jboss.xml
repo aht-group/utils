@@ -33,7 +33,7 @@
 	</ofx:section>
 	
 	<ofx:section container="true" classifier="eap6">
-		<ofx:title lang="en">EAP 6.1</ofx:title>
+		<ofx:title lang="en">EAP 6.3</ofx:title>
 		
 		<ofx:section classifier="eap6Source">
 			<ofx:title lang="en">Build JBoss EAP 6 from source</ofx:title>
@@ -68,23 +68,29 @@ cd eap-build
 			</ofx:paragraph>
 			
 			<ofx:paragraph lang="en">
-				The result of the compile and packaging process will be available in the
-				<text:emphasis bold="true">dist</text:emphasis> as
-				<text:emphasis bold="true">jboss-eap-6.3.3.zip</text:emphasis>.
+				The result of the compile and packaging process is a ZIP file
+				<text:emphasis bold="true">jboss-eap-6.3.3.zip</text:emphasis> being available in the directory
+				<text:emphasis bold="true">dist</text:emphasis>.
 			</ofx:paragraph>
 			
 		</ofx:section>
 		
-		<ofx:paragraph lang="de" version="1">
-				Download EAP 6.1.0 GA from www.jboss.org and install to /opt. In /opt the access rights for the directory
-				have to adjusted:
-		</ofx:paragraph>
+		<ofx:section classifier="eap6Source">
+			<ofx:title lang="en">Installation</ofx:title>
 		
-		<ofx:listing>
+			<ofx:paragraph lang="de" version="1">
+				The Application server needs to be installed in
+				<text:emphasis italic="true">/opt</text:emphasis>. Before beginning the installation, a user will be added and
+				the access rights will be adjusted:
+			</ofx:paragraph>
+		
+			<ofx:listing>
 				<ofx:raw>sudo addgroup jboss
 sudo useradd -g jboss jboss  
-sudo chown -R jboss:jboss /opt/jboss-eap-6.1</ofx:raw>
+sudo chown -R jboss:jboss /opt/jboss-eap-6.3</ofx:raw>
 			</ofx:listing>
+			
+		</ofx:section>
 		
 		<ofx:section>
 			<ofx:title lang="en">Configuration</ofx:title>

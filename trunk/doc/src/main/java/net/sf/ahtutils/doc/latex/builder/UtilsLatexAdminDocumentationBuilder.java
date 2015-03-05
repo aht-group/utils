@@ -26,7 +26,7 @@ public class UtilsLatexAdminDocumentationBuilder extends AbstractLatexDocumentat
 	public static enum InstallationCode {instIntroduction,instDebian,instJava,instJboss,instPostGis,instMySql,instMaven}
 	public static enum InstallationArchitecture {debian,debianWheezy,debianSqueeze,debianRaspberry,devJava7FX}
 	
-	public static enum JBossClassifier {as7,eap6,mysql,postgis}
+	public static enum JBossClassifier {as7,eap6,eap6Source,mysql,postgis}
 	
 	public static enum RequirementsCode {reqIntroduction,reqHardware,reqAdmin,reqDeveloper}
 	public static enum RequirementsClassifier {reqHardware,reqAdmin,reqDeveloper,reqNetwork}

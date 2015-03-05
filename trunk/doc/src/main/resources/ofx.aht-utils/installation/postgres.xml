@@ -50,7 +50,6 @@ sudo make comments-install</ofx:raw>
 				<ofx:raw>sudo apt-get install postgresql-9.3-postgis-2.1</ofx:raw>
 			</ofx:listing>
 		</ofx:section>
-		
 		<ofx:section container="true" classifier="osx">
 			<ofx:title>OSX Yosemite</ofx:title>
 			<ofx:listing>
@@ -71,12 +70,26 @@ createuser --superuser postgres</ofx:raw>
 		<ofx:title lang="en">Database creation</ofx:title>
 		
 		<ofx:paragraph lang="en" classifier="debianWheezy">
-			Detailed Information can be obtained here http://trac.osgeo.org/postgis/wiki/UsersWikiPostGIS20Debian70src
+			The following example creates a template, which can be re-used for creating multiple spatially-enabled databases.
+			Log-in as postgres from root using "su - postgres", and use the following commands:
 		</ofx:paragraph>
+		<ofx:listing classifier="debianWheezy" setting="sql" external="listing/admin/db/postgres/template/debian/wheezy.sql"/>
 		
-		<ofx:listing classifier="debianWheezy" setting="sql" external="listing/admin/db/postgres/create/debian/wheezy.sql"/>		
+		<ofx:paragraph lang="en" classifier="debianWheezy">
+			Then the actual database can be createded with hte following commands
+		</ofx:paragraph>
+		<!-- http://trac.osgeo.org/postgis/wiki/UsersWikiPostGIS20Debian70src -->
+
+		<ofx:listing classifier="debianWheezy" setting="sql" external="listing/admin/db/postgres/create/debian/wheezy.sql"/>
 		<ofx:listing classifier="ubuntu14" external="listing/admin/db/postgres/create/ubuntu/14.sql"/>
 		<ofx:listing classifier="osxYosemite" external="listing/admin/db/postgres/create/osx/yosemite.sql"/>
+		
+		<ofx:paragraph lang="en">
+			If the system will be updated and the database will be dropped and then created again,
+			there are no logged users for the database allowed. The following command lists all users and terminates their connection
+			to the database.
+		</ofx:paragraph>
+		<ofx:listing classifier="debianWheezy" setting="sql" external="listing/admin/db/postgres/terminate/debian/wheezy.sql"/>
 		
 	</ofx:section>
 	

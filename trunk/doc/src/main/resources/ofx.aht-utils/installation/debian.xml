@@ -200,14 +200,30 @@
 	</ofx:section>
 	
 	<ofx:section id="section.admin.installation.debian.additional">
-		<ofx:title lang="en">Additional Packages</ofx:title>
+		<ofx:title lang="en">Package Manager</ofx:title>
 		
 		<ofx:paragraph lang="en" version="1">
-				Debian comes with a package manager called <text:emphasis style="typewriter">apt-get</text:emphasis> that can be used to download and install software automatically. The following utilities are required to be installed.
-			</ofx:paragraph>
+				Debian comes with a package manager called <text:emphasis style="typewriter">apt-get</text:emphasis>
+				that can be used to download and install software automatically.
+				The package manager will be used to install several additional packages.
+		</ofx:paragraph>
+		
+	</ofx:section>
 	
-		<ofx:section>
-			<ofx:title lang="en">Secure Shell (SSH)</ofx:title>
+	<ofx:section>
+		<ofx:title lang="en">Nano</ofx:title>
+		
+		<ofx:paragraph lang="en" version="1">
+			For editing the file below you can use the <text:emphasis italic="true">nano</text:emphasis> editor.
+			To save changes press <text:emphasis italic="true">CTRL-O</text:emphasis> and to exit the editor press
+			<text:emphasis italic="true">CTRL-X</text:emphasis>.
+		</ofx:paragraph>
+		
+	</ofx:section>
+	
+	
+	<ofx:section>
+		<ofx:title lang="en">Secure Shell (SSH)</ofx:title>
 			
 			<ofx:paragraph lang="en" version="1">
 				The Secure Shell (SSH) is a cryptographic network protocol for secure data communication,
@@ -233,35 +249,35 @@
 			<ofx:paragraph lang="en" version="1">
 				A common used best practice for running SSH on a server is to deactivate the authentication by password
 				and the permission for the user <text:emphasis italic="true">root</text:emphasis> to log in remotely.
-				For editing the file below you can use the <text:emphasis italic="true">nano</text:emphasis> editor. To save changes press <text:emphasis italic="true">CTRL-O</text:emphasis> and to exit the editor press <text:emphasis italic="true">CTRL-X</text:emphasis>.
+				For editing the file below you can use the <text:emphasis italic="true">nano</text:emphasis> editor.
+				<text:emphasis style="typewriter">nano /etc/ssh/sshd-config</text:emphasis> 			
 			</ofx:paragraph>
 			
 			<ofx:listing>
-				<ofx:raw>
-				<text:emphasis style="typewriter">nano etc/ssh/sshd-config</text:emphasis> 				
-			permitrootlogin no 
-			challengeresponsepasswords no 
-				</ofx:raw>
+				<ofx:raw>permitrootlogin no 
+challengeresponsepasswords no</ofx:raw>
 			</ofx:listing>
 			
-			<ofx:title lang="en">Cryptographic Keys</ofx:title>
-			
-			<ofx:paragraph lang="en" version="1">
-				First of all, a cryptographic key has to be generated on the computer of the user. This procedure varies
-				for different operating system, here the process for Linux is described.
-			</ofx:paragraph>
-			
-			<ofx:listing>
-				<ofx:raw>ssh-keygen -t rsa -b 2048</ofx:raw>
-			</ofx:listing>
+			<ofx:section>
+				<ofx:title lang="en">Cryptographic Keys</ofx:title>
 				
-			<ofx:paragraph lang="en" version="1">
-				The public part of this key (key.pub) has to be appended to the file .authorizedkeys.
-			</ofx:paragraph>
-			
-			<ofx:paragraph lang="en" version="1">
-				Then, the server configuration <text:emphasis style="typewriter">"-config" in etc/ssh/sshd-config</text:emphasis> has to be updated.
-			</ofx:paragraph>
+				<ofx:paragraph lang="en" version="1">
+					First of all, a cryptographic key has to be generated on the computer of the user. This procedure varies
+					for different operating system, here the process for Linux is described.
+				</ofx:paragraph>
+				
+				<ofx:listing>
+					<ofx:raw>ssh-keygen -t rsa -b 2048</ofx:raw>
+				</ofx:listing>
+					
+				<ofx:paragraph lang="en" version="1">
+					The public part of this key (key.pub) has to be appended to the file .authorizedkeys.
+				</ofx:paragraph>
+				
+				<ofx:paragraph lang="en" version="1">
+					Then, the server configuration <text:emphasis style="typewriter">"-config" in etc/ssh/sshd-config</text:emphasis> has to be updated.
+				</ofx:paragraph>
+			</ofx:section>
 					
 		</ofx:section>
 		
@@ -282,7 +298,7 @@
 			</ofx:listing>
 		</ofx:section>
 		
-		<ofx:section>
+		<ofx:section classifier="ubuntu14">
 			<ofx:title lang="en">Sudo</ofx:title>
 			
 			<ofx:paragraph lang="en" version="1">
@@ -321,6 +337,4 @@
 					Double check your password.
 				</ofx:paragraph>
 		</ofx:section>
-		
-	</ofx:section>
 </ofx:section>
