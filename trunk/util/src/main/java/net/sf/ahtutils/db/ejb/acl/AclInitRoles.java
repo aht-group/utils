@@ -126,8 +126,6 @@ public class AclInitRoles <L extends UtilsLang,
 				}
 			}
 			catch (UtilsContraintViolationException e) {logger.error("",e);}
-			catch (InstantiationException e) {logger.error("",e);}
-			catch (IllegalAccessException e) {logger.error("",e);}
 			catch (UtilsIntegrityException e) {logger.error("",e);}
 			catch (UtilsLockingException e) {logger.error("",e);}
 		}
@@ -187,8 +185,6 @@ public class AclInitRoles <L extends UtilsLang,
 			aclRole=(R)fAcl.update(aclRole);
 		}
 		catch (UtilsContraintViolationException e) {logger.error("",e);}
-		catch (InstantiationException e) {logger.error("",e);}
-		catch (IllegalAccessException e) {logger.error("",e);}
 		catch (UtilsIntegrityException e) {logger.error("",e);}
 		catch (UtilsLockingException e) {logger.error("",e);}
 	}

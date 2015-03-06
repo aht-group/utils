@@ -28,14 +28,14 @@ public class PostgresRestore extends AbstractPostgresShell implements UtilsDbShe
 	
 	public void buildCommands(boolean withStructure) throws ExlpUnsupportedOsException
 	{
-		tables = new ArrayList<String>();
-		tables.add("stationsmet");
+//		tables = new ArrayList<String>();	
+//		tables.add("stationsmet");
+		
 		super.cmdPre();
 		
-		for(String table : tables)
-		{
-			resotreTable(table);
-		}
+		for(String table : tables){resotreTable(table);}
+		for(String table : tables){fixPrimaryKey(table);}
+		
 		super.cmdPost();
 	}
 	
@@ -60,4 +60,18 @@ public class PostgresRestore extends AbstractPostgresShell implements UtilsDbShe
 		super.addLine(sb.toString());
 		return sb.toString();
 	}
+	
+	public String fixPrimaryKey(String table)
+	{
+		StringBuffer sb = new StringBuffer();
+		sb.append("psql");
+		sb.append(" -h ").append(dbHost);
+		sb.append(" -U ").append(dbUser);
+		sb.append(" -d ").append(dbName);
+		sb.append(" -c \"").append("ALTER TABLE ").append(table).append(" ADD PRIMARY KEY (id);").append("\"");
+		
+		super.addLine(sb.toString());
+		return sb.toString();
+	}
+	
 }

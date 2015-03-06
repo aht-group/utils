@@ -145,8 +145,6 @@ public class AclInitViews <S extends UtilsStatus<S,L,D>,
 				}
 			}
 			catch (UtilsContraintViolationException e) {logger.error("",e);}
-			catch (InstantiationException e) {logger.error("",e);}
-			catch (IllegalAccessException e) {logger.error("",e);}
 			catch (UtilsIntegrityException e) {logger.error("",e);}
 			catch (UtilsLockingException e) {logger.error("",e);}
 		}
@@ -206,8 +204,6 @@ public class AclInitViews <S extends UtilsStatus<S,L,D>,
 			aclUsecase=fAcl.update(aclUsecase);
 		}
 		catch (UtilsContraintViolationException e) {logger.error("",e);}
-		catch (InstantiationException e) {logger.error("",e);}
-		catch (IllegalAccessException e) {logger.error("",e);}
 		catch (UtilsIntegrityException e) {logger.error("",e);}
 		catch (UtilsLockingException e) {logger.error("",e);}
 	}

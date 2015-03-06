@@ -116,8 +116,6 @@ public class SecurityInitRoles <L extends UtilsLang,
 			aclRole = iuUsecasesForRole(aclRole, role.getUsecases());
 		}
 		catch (UtilsContraintViolationException e) {logger.error("",e);}
-		catch (InstantiationException e) {logger.error("",e);}
-		catch (IllegalAccessException e) {logger.error("",e);}
 		catch (UtilsIntegrityException e) {logger.error("",e);}
 		catch (UtilsNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
 		catch (UtilsLockingException e) {logger.error("",e);}

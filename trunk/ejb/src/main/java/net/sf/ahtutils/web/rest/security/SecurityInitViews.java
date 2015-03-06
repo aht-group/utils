@@ -129,8 +129,6 @@ public class SecurityInitViews <L extends UtilsLang,
 			}
 		}
 		catch (UtilsContraintViolationException e) {logger.error("",e);}
-		catch (InstantiationException e) {logger.error("",e);}
-		catch (IllegalAccessException e) {logger.error("",e);}
 		catch (UtilsIntegrityException e) {logger.error("",e);}
 		catch (UtilsLockingException e) {logger.error("",e);}
 	}
@@ -166,8 +164,6 @@ public class SecurityInitViews <L extends UtilsLang,
 			ebj=fSecurity.update(ebj);
 		}
 		catch (UtilsContraintViolationException e) {logger.error("",e);}
-		catch (InstantiationException e) {logger.error("",e);}
-		catch (IllegalAccessException e) {logger.error("",e);}
 		catch (UtilsIntegrityException e) {logger.error("",e);}
 		catch (UtilsLockingException e) {logger.error("",e);}
 	}

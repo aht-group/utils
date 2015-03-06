@@ -34,7 +34,7 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
         return new EjbDescriptionFactory<D>(clDescription);
     }
 	
-	public D create(Description description) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+	public D create(Description description) throws UtilsIntegrityException
 	{
 		if(!description.isSetKey()){throw new UtilsIntegrityException("Key not set: "+JaxbUtil.toString(description, new AhtUtilsNsPrefixMapper()));}
 		if(!description.isSetValue()){throw new UtilsIntegrityException("Value not set: "+JaxbUtil.toString(description, new AhtUtilsNsPrefixMapper()));}
@@ -57,13 +57,13 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
     	return d;
 	}
 	
-	public Map<String,D> create(Descriptions descriptions) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+	public Map<String,D> create(Descriptions descriptions) throws UtilsIntegrityException
 	{
 		if(descriptions!=null && descriptions.isSetDescription()){return create(descriptions.getDescription());}
 		else{return  new Hashtable<String,D>();}
 	}
 	
-	public Map<String,D> create(List<Description> lDescriptions) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+	public Map<String,D> create(List<Description> lDescriptions) throws UtilsIntegrityException
 	{
 		Map<String,D> map = new Hashtable<String,D>();
 		for(Description desc : lDescriptions)
