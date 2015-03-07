@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.sf.exlp.exception.ExlpUnsupportedOsException;
 import net.sf.exlp.interfaces.util.TextWriter;
+import net.sf.exlp.xml.config.Parameters;
 
 public interface UtilsDbShell
 {
@@ -24,4 +25,6 @@ public interface UtilsDbShell
 	void discoverTables();
 	public void buildCommands(boolean withStructure) throws ExlpUnsupportedOsException;
 	List<String> getTables();
+	
+	Parameters getConfigurationParameter();
 }

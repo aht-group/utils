@@ -6,9 +6,13 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import net.sf.ahtutils.interfaces.db.UtilsDbShell;
+import net.sf.exlp.factory.xml.config.XmlParameterFactory;
+import net.sf.exlp.factory.xml.config.XmlParametersFactory;
 import net.sf.exlp.interfaces.util.TextWriter;
 import net.sf.exlp.shell.os.OsBashFile;
 import net.sf.exlp.util.io.txt.ExlpTxtWriter;
+import net.sf.exlp.xml.config.Parameter;
+import net.sf.exlp.xml.config.Parameters;
 
 import org.apache.commons.configuration.Configuration;
 import org.slf4j.Logger;
@@ -21,38 +25,49 @@ public class AbstractDatabaseShell
 	protected Configuration config;
 	protected UtilsDbShell.Operation operation;
 	
-	protected String shellCommand;
+	protected Parameter pShellCommand;
 	
-	protected String dbHost;
-	protected String dbName;
-	protected String dbUser;
-	protected String dbPwd;
+	protected Parameter pDbHost,pDbName,pDbUser,pDbPwd;
+	
+	protected Parameter pSqlDir;
+	
 	protected String dbSchema;
-	
-	protected String dirSql;
 	
 	protected List<String> tables;
 	public List<String> getTables(){return tables;}
-
-	protected ExlpTxtWriter txtWriter;
 	
+	protected ExlpTxtWriter txtWriter;
 	
 	public AbstractDatabaseShell(Configuration config,UtilsDbShell.Operation operation)
 	{
 		this.config=config;
 		this.operation=operation;
 		
-		try{dbHost = config.getString("db."+operation.toString()+".host");}
-		catch (NoSuchElementException e){dbHost="localhost";}
+		configurationParamter = XmlParametersFactory.build();
 		
-		dbName = config.getString("db."+operation.toString()+".db");
-		dbUser = config.getString("db."+operation.toString()+".user");
-		dbPwd = config.getString("db."+operation.toString()+".password");
+		pDbHost = XmlParameterFactory.build("db."+operation.toString()+".host", "DB Host for "+operation.toString(), false);
+		try{pDbHost.setValue(config.getString(pDbHost.getKey()));}
+		catch (NoSuchElementException e){pDbHost.setValue("localhost");}
+		configurationParamter.getParameter().add(pDbHost);
+		
+		pDbName = XmlParameterFactory.build("db."+operation.toString()+".db", "DB Name for "+operation.toString(), true);
+		pDbName.setValue(config.getString(pDbName.getKey()));
+		configurationParamter.getParameter().add(pDbName);
+		
+		pDbUser = XmlParameterFactory.build("db."+operation.toString()+".user", "DB User for athentication of "+operation.toString(), true);
+		pDbUser.setValue(config.getString(pDbUser.getKey()));
+		configurationParamter.getParameter().add(pDbUser);
+		
+		pDbPwd = XmlParameterFactory.build("db."+operation.toString()+".password", "DB Password for athentication of "+operation.toString(), true);
+		pDbPwd.setValue(config.getString(pDbPwd.getKey()));
+		configurationParamter.getParameter().add(pDbPwd);
 		
 		try{dbSchema = config.getString("db."+operation.toString()+".schema");}
 		catch (NoSuchElementException e){}
 		
-		dirSql = config.getString(UtilsDbShell.cfgDirSql);
+		pSqlDir = XmlParameterFactory.build(UtilsDbShell.cfgDirSql, "Directory for SQL files", true);
+		pSqlDir.setValue(config.getString(pSqlDir.getKey()));
+		configurationParamter.getParameter().add(pSqlDir);
 		
 		txtWriter = new ExlpTxtWriter();
 		
@@ -64,11 +79,11 @@ public class AbstractDatabaseShell
 	
 	public void debug()
 	{
-		logger.info("Bin: "+shellCommand+" ("+UtilsDbShell.cfgBinDump+")");
-		logger.info("Host: "+dbHost+" (db."+operation.toString()+".user)");
-		logger.info("DB: "+dbName+" (db."+operation.toString()+".db)");
-		logger.info("User: "+dbUser+" (db."+operation.toString()+".user)");
-		logger.info("Pwd: "+dbPwd+" (db."+operation.toString()+".password)");
+		logger.info("Bin: "+pShellCommand.getValue()+" ("+UtilsDbShell.cfgBinDump+")");
+		logger.info("Host: "+pDbHost.getValue()+" (db."+operation.toString()+".user)");
+		logger.info("DB: "+pDbName.getValue()+" (db."+operation.toString()+".db)");
+		logger.info("User: "+pDbUser.getValue()+" (db."+operation.toString()+".user)");
+		logger.info("Pwd: "+pDbPwd.getValue()+" (db."+operation.toString()+".password)");
 		if(dbSchema!=null){logger.info("Schema: "+dbSchema+" (db."+operation.toString()+".schema)");}
 	}
 	
@@ -109,4 +124,8 @@ public class AbstractDatabaseShell
 	}
 	
 	protected void discoverTablesSql(){}
+	
+	//Configuration Parameter
+	protected Parameters configurationParamter;
+	public Parameters getConfigurationParameter(){return configurationParamter;}
 }

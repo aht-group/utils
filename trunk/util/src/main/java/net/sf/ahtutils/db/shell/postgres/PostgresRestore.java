@@ -2,9 +2,11 @@ package net.sf.ahtutils.db.shell.postgres;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 import net.sf.ahtutils.interfaces.db.UtilsDbShell;
 import net.sf.exlp.exception.ExlpUnsupportedOsException;
+import net.sf.exlp.factory.xml.config.XmlParameterFactory;
 
 import org.apache.commons.configuration.Configuration;
 import org.slf4j.Logger;
@@ -18,12 +20,10 @@ public class PostgresRestore extends AbstractPostgresShell implements UtilsDbShe
     {
 		super(config,UtilsDbShell.Operation.restore);
 		
-		if(config.containsKey(UtilsDbShell.cfgBinRestore)){shellCommand = config.getString(UtilsDbShell.cfgBinRestore);}
-		else
-		{
-			shellCommand = "pg_restore";
-			logger.info("Using default command ("+shellCommand+"), can be overriden in "+UtilsDbShell.cfgBinRestore);
-		}
+		pShellCommand = XmlParameterFactory.build(UtilsDbShell.cfgBinRestore, "Shell command for restore", false);
+		try{pShellCommand.setValue(config.getString(pShellCommand.getKey()));}
+		catch (NoSuchElementException e){pShellCommand.setValue("pg_restore");}
+		configurationParamter.getParameter().add(pShellCommand);
     } 
 	
 	public void buildCommands(boolean withStructure) throws ExlpUnsupportedOsException
@@ -43,16 +43,16 @@ public class PostgresRestore extends AbstractPostgresShell implements UtilsDbShe
 	public String resotreTable(String table)
 	{
 		StringBuffer sb = new StringBuffer();
-		sb.append(shellCommand);
+		sb.append(pShellCommand.getValue());
 		sb.append(" --clean");
 //		sb.append(" --create");
 		sb.append(" --verbose");
-		sb.append(" -h ").append(dbHost);
-		sb.append(" -U ").append(dbUser);
-		sb.append(" -d ").append(dbName);
+		sb.append(" -h ").append(pDbHost.getValue());
+		sb.append(" -U ").append(pDbUser.getValue());
+		sb.append(" -d ").append(pDbName.getValue());
 		sb.append(" --disable-triggers");
 		sb.append(" -t '"+table+"'");
-		sb.append(" ").append(dirSql+File.separator+dbName+".sql");
+		sb.append(" ").append(pSqlDir.getValue()+File.separator+pDbName.getValue()+".sql");
 		
 		// Trigger http://dba.stackexchange.com/questions/23000/disable-constraints-before-using-pg-restore-exe
 		// http://www.postgresonline.com/special_feature.php?sf_name=postgresql83_pg_dumprestore_cheatsheet
@@ -65,9 +65,9 @@ public class PostgresRestore extends AbstractPostgresShell implements UtilsDbShe
 	{
 		StringBuffer sb = new StringBuffer();
 		sb.append("psql");
-		sb.append(" -h ").append(dbHost);
-		sb.append(" -U ").append(dbUser);
-		sb.append(" -d ").append(dbName);
+		sb.append(" -h ").append(pDbHost.getValue());
+		sb.append(" -U ").append(pDbUser.getValue());
+		sb.append(" -d ").append(pDbName.getValue());
 		sb.append(" -c \"").append("ALTER TABLE ").append(table).append(" ADD PRIMARY KEY (id);").append("\"");
 		
 		super.addLine(sb.toString());

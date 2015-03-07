@@ -6,10 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 import net.sf.ahtutils.db.sql.SqlConnectionFactory;
 import net.sf.ahtutils.interfaces.db.UtilsDbShell;
 import net.sf.exlp.exception.ExlpUnsupportedOsException;
+import net.sf.exlp.factory.xml.config.XmlParameterFactory;
 
 import org.apache.commons.configuration.Configuration;
 import org.slf4j.Logger;
@@ -23,12 +25,10 @@ public class PostgresDump extends AbstractPostgresShell implements UtilsDbShell
     {
 		super(config,UtilsDbShell.Operation.dump);
 		
-		if(config.containsKey(UtilsDbShell.cfgBinDump)){shellCommand = config.getString(UtilsDbShell.cfgBinDump);}
-		else
-		{
-			shellCommand = "pg_dump";
-			logger.info("Using default command ("+shellCommand+"), can be overriden in "+UtilsDbShell.cfgBinDump);
-		}
+		pShellCommand = XmlParameterFactory.build(UtilsDbShell.cfgBinDump, "Shell command for dump", false);
+		try{pShellCommand.setValue(config.getString(pShellCommand.getKey()));}
+		catch (NoSuchElementException e){pShellCommand.setValue("pg_dump");}
+		configurationParamter.getParameter().add(pShellCommand);
     } 
 	
 	public void buildCommands(boolean withStructure) throws ExlpUnsupportedOsException
@@ -44,14 +44,14 @@ public class PostgresDump extends AbstractPostgresShell implements UtilsDbShell
 	public String dumpDatabase()
 	{
 		StringBuffer sb = new StringBuffer();
-		sb.append(shellCommand);
-		sb.append(" -h ").append(dbHost);
-		sb.append(" -U ").append(dbUser);
+		sb.append(pShellCommand.getValue());
+		sb.append(" -h ").append(pDbHost.getValue());
+		sb.append(" -U ").append(pDbUser.getValue());
 		sb.append(" --blobs");
 		sb.append(" --format=c");
 		sb.append(" --verbose");
-		sb.append(" --file=").append(dirSql+File.separator+dbName+".sql");
-		sb.append(" ").append(dbName);
+		sb.append(" --file=").append(pSqlDir.getValue()+File.separator+pDbName.getValue()+".sql");
+		sb.append(" ").append(pDbName.getValue());
 		
 		super.addLine(sb.toString());
 		return sb.toString();
@@ -60,16 +60,16 @@ public class PostgresDump extends AbstractPostgresShell implements UtilsDbShell
 	public String dumpTable(String table, boolean withStructure)
 	{
 		StringBuffer sb = new StringBuffer();
-		sb.append(shellCommand);
-		sb.append(" -h ").append(dbHost);
-		sb.append(" -U ").append(dbUser);
+		sb.append(pShellCommand.getValue());
+		sb.append(" -h ").append(pDbHost.getValue());
+		sb.append(" -U ").append(pDbUser.getValue());
 		sb.append(" --blobs");
 		sb.append(" --format=c");
 		sb.append(" --verbose");
 //		sb.append(" -C --column-inserts -v");
-		sb.append(" --file=").append(dirSql+File.separator+table+".sql");
+		sb.append(" --file=").append(pSqlDir.getValue()+File.separator+table+".sql");
 		sb.append(" -t '"+table+"'");
-		sb.append(" ").append(dbName);
+		sb.append(" ").append(pDbName.getValue());
 		
 		super.addLine(sb.toString());
 		return sb.toString();
@@ -78,7 +78,7 @@ public class PostgresDump extends AbstractPostgresShell implements UtilsDbShell
 	public String resotreTable(String table)
 	{
 		StringBuffer sb = new StringBuffer();
-		sb.append(shellCommand);
+		sb.append(pShellCommand.getValue());
 		sb.append(" NYI");
 		
 		super.addLine(sb.toString());
@@ -88,7 +88,7 @@ public class PostgresDump extends AbstractPostgresShell implements UtilsDbShell
 	@Override public void discoverTablesSql()
 	{
 		SqlConnectionFactory scf = new SqlConnectionFactory(config);
-		Connection c = scf.buildPostgresSqlConnection(dbHost, dbName, dbUser, dbPwd);
+		Connection c = scf.buildPostgresSqlConnection(pDbHost.getValue(), pDbName.getValue(), pDbUser.getValue(), pDbPwd.getValue());
 		
 		tables = new ArrayList<String>();
 		try
