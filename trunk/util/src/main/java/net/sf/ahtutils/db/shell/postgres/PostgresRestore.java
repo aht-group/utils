@@ -1,7 +1,7 @@
 package net.sf.ahtutils.db.shell.postgres;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 import net.sf.ahtutils.interfaces.db.UtilsDbShell;
@@ -24,19 +24,32 @@ public class PostgresRestore extends AbstractPostgresShell implements UtilsDbShe
 		try{pShellCommand.setValue(config.getString(pShellCommand.getKey()));}
 		catch (NoSuchElementException e){pShellCommand.setValue("pg_restore");}
 		configurationParamter.getParameter().add(pShellCommand);
-    } 
+    }
 	
 	public void buildCommands(boolean withStructure) throws ExlpUnsupportedOsException
-	{
-//		tables = new ArrayList<String>();	
-//		tables.add("stationsmet");
-		
+	{		
 		super.cmdPre();
-		
-		for(String table : tables){resotreTable(table);}
-		for(String table : tables){fixPrimaryKey(table);}
+
+//		for(String table : Arrays.asList(config.getStringArray(UtilsDbShell.cfgDbTablesDrop))){dropTable(table);}
+		for(String table : Arrays.asList(config.getStringArray(UtilsDbShell.cfgDbTablesRestore))){resotreTable(table);}
+//		for(String table : Arrays.asList(config.getStringArray(UtilsDbShell.cfgDbTablesKey))){fixPrimaryKey(table);}
 		
 		super.cmdPost();
+	}
+	
+	private String dropTable(String table)
+	{
+		StringBuffer sb = new StringBuffer();
+		sb.append("psql");
+		sb.append(" -h ").append(pDbHost.getValue());
+		sb.append(" -U ").append(pDbUser.getValue());
+		sb.append(" -d ").append(pDbName.getValue());
+		sb.append(" -c '");
+		sb.append("DROP TABLE IF EXISTS ").append(table);
+		sb.append(";'");
+		
+		super.addLine(sb.toString());
+		return sb.toString();
 	}
 	
 	
@@ -44,13 +57,17 @@ public class PostgresRestore extends AbstractPostgresShell implements UtilsDbShe
 	{
 		StringBuffer sb = new StringBuffer();
 		sb.append(pShellCommand.getValue());
-		sb.append(" --clean");
+//		sb.append(" --clean");
 //		sb.append(" --create");
 		sb.append(" --verbose");
 		sb.append(" -h ").append(pDbHost.getValue());
 		sb.append(" -U ").append(pDbUser.getValue());
 		sb.append(" -d ").append(pDbName.getValue());
-		sb.append(" --disable-triggers");
+//		sb.append(" --disable-triggers");
+		sb.append(" --no-privileges");
+		sb.append(" --no-owner");
+		sb.append(" --data-only");
+		
 		sb.append(" -t '"+table+"'");
 		sb.append(" ").append(pSqlDir.getValue()+File.separator+pDbName.getValue()+".sql");
 		

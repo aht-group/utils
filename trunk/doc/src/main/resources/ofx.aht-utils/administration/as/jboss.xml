@@ -38,8 +38,8 @@
 			
 		</ofx:section>
 		
-		<ofx:section>
-			<ofx:title lang="en">Install</ofx:title>
+		<ofx:section id="section.admin.as.jboss.deploy">
+			<ofx:title lang="en">Deployment</ofx:title>
 		
 			<ofx:paragraph lang="en" version="1">
 				Installation is the activity of starting up the executable component of software.
@@ -72,8 +72,8 @@
 			<ofx:listing setting="shell" external="listing/admin/installation/jboss/deployment/eap6/cli/update.sh"/>
 		</ofx:section>
 		
-		<ofx:section>
-			<ofx:title lang="en">Uninstall</ofx:title>
+		<ofx:section id="section.admin.as.jboss.undeploy">
+			<ofx:title lang="en">Undeployment</ofx:title>
 		
 			<ofx:paragraph lang="en" version="1">
 				Uninstallation is the inverse of installation.

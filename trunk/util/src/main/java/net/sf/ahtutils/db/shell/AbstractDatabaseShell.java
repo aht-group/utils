@@ -25,6 +25,10 @@ public class AbstractDatabaseShell
 	protected Configuration config;
 	protected UtilsDbShell.Operation operation;
 	
+	public void setOperation(UtilsDbShell.Operation operation) {
+		this.operation = operation;
+	}
+
 	protected Parameter pShellCommand;
 	
 	protected Parameter pDbHost,pDbName,pDbUser,pDbPwd;
@@ -97,33 +101,10 @@ public class AbstractDatabaseShell
 		return txtWriter;
 	}
 	
-	
 	public File getShellFile()
 	{
 		return new File(config.getString(UtilsDbShell.cfgDirShell),config.getString("db."+operation.toString()+".shell"));
 	}
-	
-	public void discoverTables()
-	{
-		tables = Arrays.asList(config.getStringArray(UtilsDbShell.cfgDbTables));
-		
-		if(tables.size()==0)
-		{
-			switch(operation)
-			{
-				case dump: discoverExportTables();break;
-				case restore: logger.warn("NYI");break;
-			}
-		}
-	}
-	
-	public void discoverExportTables()
-	{
-		logger.info("No "+UtilsDbShell.cfgDbTables+" config. Discovering by SQL");
-		discoverTablesSql();
-	}
-	
-	protected void discoverTablesSql(){}
 	
 	//Configuration Parameter
 	protected Parameters configurationParamter;

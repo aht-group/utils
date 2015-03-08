@@ -85,7 +85,7 @@ public class PostgresDump extends AbstractPostgresShell implements UtilsDbShell
 		return sb.toString();
 	}
 	
-	@Override public void discoverTablesSql()
+	public void discoverTablesSql()
 	{
 		SqlConnectionFactory scf = new SqlConnectionFactory(config);
 		Connection c = scf.buildPostgresSqlConnection(pDbHost.getValue(), pDbName.getValue(), pDbUser.getValue(), pDbPwd.getValue());

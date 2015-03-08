@@ -24,7 +24,7 @@ public class AbstractPostgresShell extends AbstractDatabaseShell
 	
 	public void cmdPre() throws ExlpUnsupportedOsException
 	{
-		super.addLine(ShellCmdExport.export(PGPWASSWORD,config.getString("db."+operation+".password")));
+		super.addLine(ShellCmdExport.export(PGPWASSWORD,pDbPwd.getValue()));
 		super.addLine("");
 	}
 	
