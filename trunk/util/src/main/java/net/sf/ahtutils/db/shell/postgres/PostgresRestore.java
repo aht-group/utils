@@ -32,26 +32,11 @@ public class PostgresRestore extends AbstractPostgresShell implements UtilsDbShe
 
 //		for(String table : Arrays.asList(config.getStringArray(UtilsDbShell.cfgDbTablesDrop))){dropTable(table);}
 		for(String table : Arrays.asList(config.getStringArray(UtilsDbShell.cfgDbTablesRestore))){resotreTable(table);}
+		for(String table : Arrays.asList(config.getStringArray(UtilsDbShell.cfgDbSequenceRestore))){restoreSequence(table);}
 //		for(String table : Arrays.asList(config.getStringArray(UtilsDbShell.cfgDbTablesKey))){fixPrimaryKey(table);}
 		
 		super.cmdPost();
 	}
-	
-	private String dropTable(String table)
-	{
-		StringBuffer sb = new StringBuffer();
-		sb.append("psql");
-		sb.append(" -h ").append(pDbHost.getValue());
-		sb.append(" -U ").append(pDbUser.getValue());
-		sb.append(" -d ").append(pDbName.getValue());
-		sb.append(" -c '");
-		sb.append("DROP TABLE IF EXISTS ").append(table);
-		sb.append(";'");
-		
-		super.addLine(sb.toString());
-		return sb.toString();
-	}
-	
 	
 	public String resotreTable(String table)
 	{
@@ -73,6 +58,21 @@ public class PostgresRestore extends AbstractPostgresShell implements UtilsDbShe
 		
 		// Trigger http://dba.stackexchange.com/questions/23000/disable-constraints-before-using-pg-restore-exe
 		// http://www.postgresonline.com/special_feature.php?sf_name=postgresql83_pg_dumprestore_cheatsheet
+		
+		super.addLine(sb.toString());
+		return sb.toString();
+	}
+	
+	public String restoreSequence(String seq)
+	{
+		String table = seq.substring(0,seq.indexOf("_"));
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append("psql");
+		sb.append(" -h ").append(pDbHost.getValue());
+		sb.append(" -U ").append(pDbUser.getValue());
+		sb.append(" -d ").append(pDbName.getValue());
+		sb.append(" -c \"").append("SELECT setval('"+seq+"', (SELECT MAX(id) FROM "+table+"));").append("\"");
 		
 		super.addLine(sb.toString());
 		return sb.toString();

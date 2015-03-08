@@ -30,6 +30,7 @@ public class PostgresDrop extends AbstractPostgresShell implements UtilsDbShell
 		super.cmdPre();
 
 		for(String table : Arrays.asList(config.getStringArray(UtilsDbShell.cfgDbTablesDrop))){dropTable(table);}
+		for(String seq : Arrays.asList(config.getStringArray(UtilsDbShell.cfgDbSequenceDrop))){dropSequence(seq);}
 		
 		super.cmdPost();
 	}
@@ -43,6 +44,21 @@ public class PostgresDrop extends AbstractPostgresShell implements UtilsDbShell
 		sb.append(" -d ").append(pDbName.getValue());
 		sb.append(" -c '");
 		sb.append("DROP TABLE IF EXISTS ").append(table);
+		sb.append(";'");
+		
+		super.addLine(sb.toString());
+		return sb.toString();
+	}
+	
+	private String dropSequence(String seq)
+	{
+		StringBuffer sb = new StringBuffer();
+		sb.append(pShellCommand.getValue());
+		sb.append(" -h ").append(pDbHost.getValue());
+		sb.append(" -U ").append(pDbUser.getValue());
+		sb.append(" -d ").append(pDbName.getValue());
+		sb.append(" -c '");
+		sb.append("DROP SEQUENCE IF EXISTS ").append(seq);
 		sb.append(";'");
 		
 		super.addLine(sb.toString());

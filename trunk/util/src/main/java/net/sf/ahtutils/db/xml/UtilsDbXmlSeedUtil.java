@@ -73,6 +73,7 @@ public class UtilsDbXmlSeedUtil
 		{
 			case ide: sb.append(dbSeed.getPathIde());break;
 			case path: sb.append(dbSeed.getPathExport());break;
+			case jar: break;
 			default: logger.warn("NYI ds="+ds);
 		}
 		return sb.toString();
@@ -91,6 +92,7 @@ public class UtilsDbXmlSeedUtil
 		switch(ds)
 		{
 			case path: checkPath(sb.toString());break;
+			case jar: sb = new StringBuffer();sb.append(getContentName(extractId));break;
 			default: ;
 		}
 		
