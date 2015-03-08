@@ -65,6 +65,7 @@ public class PostgresRestore extends AbstractPostgresShell implements UtilsDbShe
 	
 	public String restoreSequence(String seq)
 	{
+		//http://stackoverflow.com/questions/244243/how-to-reset-postgres-primary-key-sequence-when-it-falls-out-of-sync
 		String table = seq.substring(0,seq.indexOf("_"));
 		
 		StringBuffer sb = new StringBuffer();
