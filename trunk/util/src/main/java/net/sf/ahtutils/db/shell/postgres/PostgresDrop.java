@@ -1,11 +1,9 @@
 package net.sf.ahtutils.db.shell.postgres;
 
 import java.util.Arrays;
-import java.util.NoSuchElementException;
 
 import net.sf.ahtutils.interfaces.db.UtilsDbShell;
 import net.sf.exlp.exception.ExlpUnsupportedOsException;
-import net.sf.exlp.factory.xml.config.XmlParameterFactory;
 
 import org.apache.commons.configuration.Configuration;
 import org.slf4j.Logger;
@@ -18,11 +16,6 @@ public class PostgresDrop extends AbstractPostgresShell implements UtilsDbShell
 	public PostgresDrop(Configuration config)
     {
 		super(config,UtilsDbShell.Operation.restore);
-		
-		pShellCommand = XmlParameterFactory.build(UtilsDbShell.cfgBinDrop, "Shell command for drop", false);
-		try{pShellCommand.setValue(config.getString(pShellCommand.getKey()));}
-		catch (NoSuchElementException e){pShellCommand.setValue("psql");}
-		configurationParamter.getParameter().add(pShellCommand);
     }
 	
 	public void buildCommands(boolean withStructure) throws ExlpUnsupportedOsException
@@ -38,7 +31,7 @@ public class PostgresDrop extends AbstractPostgresShell implements UtilsDbShell
 	private String dropTable(String table)
 	{
 		StringBuffer sb = new StringBuffer();
-		sb.append(pShellCommand.getValue());
+		sb.append(pPsql.getValue());
 		sb.append(" -h ").append(pDbHost.getValue());
 		sb.append(" -U ").append(pDbUser.getValue());
 		sb.append(" -d ").append(pDbName.getValue());
@@ -53,7 +46,7 @@ public class PostgresDrop extends AbstractPostgresShell implements UtilsDbShell
 	private String dropSequence(String seq)
 	{
 		StringBuffer sb = new StringBuffer();
-		sb.append(pShellCommand.getValue());
+		sb.append(pPsql.getValue());
 		sb.append(" -h ").append(pDbHost.getValue());
 		sb.append(" -U ").append(pDbUser.getValue());
 		sb.append(" -d ").append(pDbName.getValue());
@@ -68,7 +61,7 @@ public class PostgresDrop extends AbstractPostgresShell implements UtilsDbShell
 	private String debugDatabase()
 	{
 		StringBuffer sb = new StringBuffer();
-		sb.append(pShellCommand.getValue());
+		sb.append(pPsql.getValue());
 		sb.append(" -h ").append(pDbHost.getValue());
 		sb.append(" -U ").append(pDbUser.getValue());
 		sb.append(" -d ").append(pDbName.getValue());

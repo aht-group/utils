@@ -69,7 +69,7 @@ public class PostgresRestore extends AbstractPostgresShell implements UtilsDbShe
 		String table = seq.substring(0,seq.indexOf("_"));
 		
 		StringBuffer sb = new StringBuffer();
-		sb.append("psql");
+		sb.append(pPsql.getValue());
 		sb.append(" -h ").append(pDbHost.getValue());
 		sb.append(" -U ").append(pDbUser.getValue());
 		sb.append(" -d ").append(pDbName.getValue());

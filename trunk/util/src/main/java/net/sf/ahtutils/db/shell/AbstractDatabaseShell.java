@@ -1,7 +1,6 @@
 package net.sf.ahtutils.db.shell;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -30,9 +29,7 @@ public class AbstractDatabaseShell
 	}
 
 	protected Parameter pShellCommand;
-	
 	protected Parameter pDbHost,pDbName,pDbUser,pDbPwd;
-	
 	protected Parameter pSqlDir;
 	
 	protected String dbSchema;
