@@ -515,8 +515,8 @@ public class UtilsFacadeBean implements UtilsFacade
 	@Override public <T extends EjbWithId, I extends EjbWithId> T oneForParents(Class<T> cl, String p1Name, I p1, String p2Name, I p2) throws UtilsNotFoundException
 	{
 		List<T> list = allForParent(cl, p1Name, p1, p2Name, p2);
-		if(list.size()>1){throw new UtilsNotFoundException("More than one result found for "+cl.getSimpleName()+" and "+p1Name+"=="+p1+" and "+p2Name+"=="+p2);}
-		if(list.size()==0){throw new UtilsNotFoundException("No "+cl.getSimpleName()+" found for "+p1Name+"=="+p2+" and "+p1Name+"=="+p2);}
+		if(list.size()>1){throw new UtilsNotFoundException("More than one "+cl.getSimpleName()+" found for "+p1Name+"={"+p1+"} and "+p2Name+"={"+p2+"}");}
+		if(list.size()==0){throw new UtilsNotFoundException("No "+cl.getSimpleName()+" found for "+p1Name+"={"+p1+"} and "+p2Name+"={"+p2+"}");}
 		return list.get(0);
 	}
 	@Override public <T extends EjbWithId, I extends EjbWithId> T oneForParents(Class<T> cl, String p1Name, I p1, String p2Name, I p2, String p3Name, I p3) throws UtilsNotFoundException

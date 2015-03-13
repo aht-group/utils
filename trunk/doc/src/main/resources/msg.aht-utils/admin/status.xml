@@ -7,6 +7,13 @@
     		<s:lang key="fr" translation="Code"/>
     	</s:langs>
     </s:translation>
+    <s:translation key="aupPosition">
+    	<s:langs>
+    		<s:lang key="de" translation="Position"/>
+    		<s:lang key="en" translation="Position"/>
+    		<s:lang key="fr" translation="Position"/>
+    	</s:langs>
+    </s:translation>
 	<s:translation key="aupScope">
     	<s:langs>
     		<s:lang key="de" translation="Scope"/>
