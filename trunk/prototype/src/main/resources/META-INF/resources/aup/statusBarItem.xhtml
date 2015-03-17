@@ -33,6 +33,9 @@
 						<composite:insertChildren/>
 					</li>
 				</ui:repeat>
+				<c:if test="#{!empty cc.facets.top}">
+                    <composite:renderFacet name="top"/>
+                </c:if>
 			</ul>
 		</aht:li>
 	</composite:implementation>
