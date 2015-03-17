@@ -24,6 +24,13 @@
             </xsd:simpleContent>
         </xsd:complexType>
     </xsd:element>
+    <xsd:element name="trafficLights">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="u:trafficLight" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
     <xsd:element name="trafficLight">
         <xsd:complexType>
             <xsd:sequence>

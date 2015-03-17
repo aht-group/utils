@@ -30,6 +30,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TrafficLights }
+     * 
+     */
+    public TrafficLights createTrafficLights() {
+        return new TrafficLights();
+    }
+
+    /**
+     * Create an instance of {@link TrafficLight }
+     * 
+     */
+    public TrafficLight createTrafficLight() {
+        return new TrafficLight();
+    }
+
+    /**
      * Create an instance of {@link Utils }
      * 
      */
@@ -43,14 +59,6 @@ public class ObjectFactory {
      */
     public Property createProperty() {
         return new Property();
-    }
-
-    /**
-     * Create an instance of {@link TrafficLight }
-     * 
-     */
-    public TrafficLight createTrafficLight() {
-        return new TrafficLight();
     }
 
 }
