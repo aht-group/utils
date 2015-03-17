@@ -45,4 +45,12 @@ public class ObjectFactory {
         return new Property();
     }
 
+    /**
+     * Create an instance of {@link TrafficLight }
+     * 
+     */
+    public TrafficLight createTrafficLight() {
+        return new TrafficLight();
+    }
+
 }

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<u:trafficLight xmlns:s="http://ahtutils.aht-group.com/status" xmlns:u="http://ahtutils.aht-group.com/utils" id="123" color="abc">
+    <s:langs/>
+    <s:descriptions/>
+</u:trafficLight>

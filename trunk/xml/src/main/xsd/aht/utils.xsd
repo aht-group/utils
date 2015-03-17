@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema targetNamespace="http://ahtutils.aht-group.com/utils"
 	xmlns:u="http://ahtutils.aht-group.com/utils"
+	xmlns:us="http://ahtutils.aht-group.com/status"
     xmlns:a="http://ahtutils.aht-group.com/access"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <xsd:import namespace="http://ahtutils.aht-group.com/access" schemaLocation="access.xsd"/>
+    <xsd:import namespace="http://ahtutils.aht-group.com/status" schemaLocation="status.xsd"/>
 	<xsd:element name="utils">
 		<xsd:complexType>
 			<xsd:sequence>
@@ -20,6 +22,17 @@
                     <xsd:attribute name="frozen" type="xsd:boolean"/>
                 </xsd:extension>
             </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="trafficLight">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="us:langs" maxOccurs="1"/>
+                <xsd:element ref="us:descriptions" maxOccurs="1"/>
+            </xsd:sequence>
+            <xsd:attribute name="id" type="xsd:long"/>
+            <xsd:attribute name="threshold" type="xsd:double"/>
+            <xsd:attribute name="color" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
 </xsd:schema>
