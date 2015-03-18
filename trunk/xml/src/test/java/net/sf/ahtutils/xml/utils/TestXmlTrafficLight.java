@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
 import net.sf.ahtutils.xml.status.TestXmlDescriptions;
 import net.sf.ahtutils.xml.status.TestXmlLangs;
+import net.sf.ahtutils.xml.status.TestXmlScope;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;
@@ -34,6 +35,7 @@ public class TestXmlTrafficLight extends AbstractXmlUtilsTest
     	
     	if(withChilds)
     	{
+    		xml.setScope(TestXmlScope.create(false));
     		xml.setLangs(TestXmlLangs.create(false));
     		xml.setDescriptions(TestXmlDescriptions.create(false));
     	}
