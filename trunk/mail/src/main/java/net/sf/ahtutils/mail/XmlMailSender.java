@@ -97,11 +97,11 @@ public class XmlMailSender
 					return new PasswordAuthentication(smtpUser,smtpPassword);
 				}
 			};
-			session = Session.getDefaultInstance(props, auth);
+			session = Session.getInstance(props, auth);
 		}
 		else
 		{
-			session = Session.getDefaultInstance(props, null);
+			session = Session.getInstance(props, null);
 		}		
 		session.setDebug(smtpDebug);
 		return session;
@@ -210,7 +210,7 @@ public class XmlMailSender
 			Element e = (Element)content;
 			if(e.getName().equals("mail"))
 			{
-				for(Element att : e.getChildren("attachment", nsMail))
+//				for(Element att : e.getChildren("attachment", nsMail))
 				{
 		//			att.detach();
 				}
