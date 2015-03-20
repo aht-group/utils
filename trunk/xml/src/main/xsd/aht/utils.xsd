@@ -40,7 +40,8 @@
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="threshold" type="xsd:double"/>
-            <xsd:attribute name="color" type="xsd:string"/>
+            <xsd:attribute name="colorText" type="xsd:string"/>
+            <xsd:attribute name="colorBackground" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
 </xsd:schema>

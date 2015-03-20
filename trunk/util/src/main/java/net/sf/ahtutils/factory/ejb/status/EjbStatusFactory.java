@@ -21,26 +21,24 @@ public class EjbStatusFactory<S extends UtilsStatus<S,L,D>, L extends UtilsLang,
 	final static Logger logger = LoggerFactory.getLogger(EjbStatusFactory.class);
 	
 	final Class<S> statusClass;
-    final Class<L> langClass;
-    final Class<D> descriptionClass;
+	final Class<D> cDescription;
     
-    private EjbLangFactory<L> ejbLangFactory;
-    private EjbDescriptionFactory<D> ejbDescFactory;
+    private EjbLangFactory<L> efLang;
+    private EjbDescriptionFactory<D> efDescription;
 	
-    public EjbStatusFactory(final Class<S> statusClass, final Class<L> langClass, final Class<D> descriptionClass)
+    public EjbStatusFactory(final Class<S> statusClass, final Class<L> cLang, final Class<D> cDescription)
     {
         this.statusClass = statusClass;
-        this.langClass = langClass;
-        this.descriptionClass = descriptionClass;
+        this.cDescription = cDescription;
         
-        ejbLangFactory = EjbLangFactory.createFactory(langClass);
-        ejbDescFactory = EjbDescriptionFactory.createFactory(descriptionClass);
+        efLang = EjbLangFactory.createFactory(cLang);
+        efDescription = EjbDescriptionFactory.createFactory(cDescription);
     } 
     
     public static <S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription> EjbStatusFactory<S, L, D>
-    		createFactory(final Class<S> statusClass, final Class<L> langClass, final Class<D> descriptionClass)
+    		createFactory(final Class<S> statusClass, final Class<L> cLang, final Class<D> descriptionClass)
     {
-        return new EjbStatusFactory<S, L, D>(statusClass, langClass, descriptionClass);
+        return new EjbStatusFactory<S, L, D>(statusClass, cLang, descriptionClass);
     }
     
 	public S create(Status status) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
@@ -50,8 +48,8 @@ public class EjbStatusFactory<S extends UtilsStatus<S,L,D>, L extends UtilsLang,
         s.setCode(status.getCode());
         if(status.isSetPosition()){s.setPosition(status.getPosition());}
         else{s.setPosition(0);}
-        s.setName(ejbLangFactory.getLangMap(status.getLangs()));
-        s.setDescription(ejbDescFactory.create(status.getDescriptions()));
+        s.setName(efLang.getLangMap(status.getLangs()));
+        s.setDescription(efDescription.create(status.getDescriptions()));
         return s;
     }
 	
@@ -65,8 +63,8 @@ public class EjbStatusFactory<S extends UtilsStatus<S,L,D>, L extends UtilsLang,
 			s.setCode(code);
 			try
 			{
-				if(langKeys!=null){s.setName(ejbLangFactory.createEmpty(langKeys));}
-				if(langKeys!=null){s.setDescription(ejbDescFactory.createEmpty(langKeys));}
+				if(langKeys!=null){s.setName(efLang.createEmpty(langKeys));}
+				if(langKeys!=null){s.setDescription(efDescription.createEmpty(langKeys));}
 			}
 			catch (UtilsIntegrityException e) {e.printStackTrace();}
 		}
@@ -93,7 +91,7 @@ public class EjbStatusFactory<S extends UtilsStatus<S,L,D>, L extends UtilsLang,
 		Map<String,D> mapDesc = new Hashtable<String,D>();
 		for(Description xmlD : descList)
 		{
-			D d = descriptionClass.newInstance();
+			D d = cDescription.newInstance();
 			d.setLkey(xmlD.getKey());
 			d.setLang(xmlD.getValue().trim());
 			mapDesc.put(d.getLkey(), d);

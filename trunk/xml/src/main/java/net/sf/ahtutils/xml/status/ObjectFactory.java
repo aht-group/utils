@@ -150,19 +150,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Result }
-     * 
-     */
-    public Result createResult() {
-        return new Result();
-    }
-
-    /**
      * Create an instance of {@link Scope }
      * 
      */
     public Scope createScope() {
         return new Scope();
+    }
+
+    /**
+     * Create an instance of {@link Result }
+     * 
+     */
+    public Result createResult() {
+        return new Result();
     }
 
     /**

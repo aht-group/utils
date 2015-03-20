@@ -1,0 +1,49 @@
+package net.sf.ahtutils.factory.xml.utils;
+
+import net.sf.ahtutils.factory.xml.status.XmlDescriptionsFactory;
+import net.sf.ahtutils.factory.xml.status.XmlLangsFactory;
+import net.sf.ahtutils.interfaces.model.util.UtilsTrafficLight;
+import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
+import net.sf.ahtutils.model.interfaces.status.UtilsLang;
+import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
+import net.sf.ahtutils.xml.aht.Query;
+import net.sf.ahtutils.xml.utils.TrafficLight;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class XmlTrafficLightFactory<L extends UtilsLang,D extends UtilsDescription,SCOPE extends UtilsStatus<SCOPE,L,D>,LIGHT extends UtilsTrafficLight<L,D,SCOPE>>
+{
+	final static Logger logger = LoggerFactory.getLogger(XmlTrafficLightFactory.class);
+		
+	private TrafficLight q;
+	
+	public XmlTrafficLightFactory(Query query){this(query.getTrafficLight());}
+	public XmlTrafficLightFactory(TrafficLight q)
+	{
+		this.q=q;
+	}
+	
+	public TrafficLight build(LIGHT ejb)
+	{
+		TrafficLight xml = new TrafficLight();
+		
+		if(q.isSetId()){xml.setId(ejb.getId());}
+		
+		if(q.isSetColorText()){xml.setColorBackground(ejb.getColorBackground());}
+		if(q.isSetColorBackground()){xml.setColorBackground(ejb.getColorBackground());}
+		
+		if(q.isSetLangs())
+		{
+			XmlLangsFactory<L> f = new XmlLangsFactory<L>(q.getLangs());
+			xml.setLangs(f.getUtilsLangs(ejb.getName()));
+		}
+		if(q.isSetDescriptions())
+		{
+			XmlDescriptionsFactory<D> f = new XmlDescriptionsFactory<D>(q.getDescriptions());
+			xml.setDescriptions(f.create(ejb.getDescription()));
+		}
+		
+		return xml;
+	}
+}

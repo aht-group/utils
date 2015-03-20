@@ -1,15 +1,13 @@
-package net.sf.ahtutils.interfaces.model.with.utils;
+package net.sf.ahtutils.interfaces.model.with.status;
 
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface UtilsWithStatus<L extends UtilsLang,D extends UtilsDescription,STATUS extends UtilsStatus<STATUS,L,D>>
+public interface UtilsWithScope<L extends UtilsLang,D extends UtilsDescription,SCOPE extends UtilsStatus<SCOPE,L,D>>
 						extends EjbWithId
 {	
-	//move to package status
-	
-	STATUS getStatus();
-	void setStatus(STATUS status);
+	SCOPE getScope();
+	void setScope(SCOPE scope);
 }

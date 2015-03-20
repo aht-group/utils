@@ -29,7 +29,8 @@ import net.sf.ahtutils.xml.status.Scope;
  *       &lt;/sequence>
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" />
  *       &lt;attribute name="threshold" type="{http://www.w3.org/2001/XMLSchema}double" />
- *       &lt;attribute name="color" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="colorText" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="colorBackground" type="{http://www.w3.org/2001/XMLSchema}string" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -59,8 +60,10 @@ public class TrafficLight
     protected Long id;
     @XmlAttribute(name = "threshold")
     protected Double threshold;
-    @XmlAttribute(name = "color")
-    protected String color;
+    @XmlAttribute(name = "colorText")
+    protected String colorText;
+    @XmlAttribute(name = "colorBackground")
+    protected String colorBackground;
 
     /**
      * Gets the value of the langs property.
@@ -211,31 +214,59 @@ public class TrafficLight
     }
 
     /**
-     * Gets the value of the color property.
+     * Gets the value of the colorText property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getColor() {
-        return color;
+    public String getColorText() {
+        return colorText;
     }
 
     /**
-     * Sets the value of the color property.
+     * Sets the value of the colorText property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setColor(String value) {
-        this.color = value;
+    public void setColorText(String value) {
+        this.colorText = value;
     }
 
-    public boolean isSetColor() {
-        return (this.color!= null);
+    public boolean isSetColorText() {
+        return (this.colorText!= null);
+    }
+
+    /**
+     * Gets the value of the colorBackground property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getColorBackground() {
+        return colorBackground;
+    }
+
+    /**
+     * Sets the value of the colorBackground property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setColorBackground(String value) {
+        this.colorBackground = value;
+    }
+
+    public boolean isSetColorBackground() {
+        return (this.colorBackground!= null);
     }
 
 }

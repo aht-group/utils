@@ -14,6 +14,8 @@ import net.sf.ahtutils.xml.survey.TestXmlSurvey;
 import net.sf.ahtutils.xml.survey.TestXmlSurveys;
 import net.sf.ahtutils.xml.survey.TestXmlTemplate;
 import net.sf.ahtutils.xml.survey.TestXmlTemplates;
+import net.sf.ahtutils.xml.utils.TestXmlTrafficLight;
+import net.sf.ahtutils.xml.utils.TestXmlTrafficLights;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.junit.BeforeClass;
@@ -59,6 +61,9 @@ public class TestXmlQuery extends AbstractXmlAhtTest
     		xml.setTemplate(TestXmlTemplate.create(false));
     		xml.setSurveys(TestXmlSurveys.create(false));
     		xml.setSurvey(TestXmlSurvey.create(false));
+    		
+    		xml.setTrafficLights(TestXmlTrafficLights.create(false));
+    		xml.setTrafficLight(TestXmlTrafficLight.create(false));
     	}
     	
     	return xml;

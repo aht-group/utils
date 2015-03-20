@@ -18,6 +18,8 @@ import net.sf.ahtutils.xml.survey.Survey;
 import net.sf.ahtutils.xml.survey.Surveys;
 import net.sf.ahtutils.xml.survey.Template;
 import net.sf.ahtutils.xml.survey.Templates;
+import net.sf.ahtutils.xml.utils.TrafficLight;
+import net.sf.ahtutils.xml.utils.TrafficLights;
 
 
 /**
@@ -40,6 +42,8 @@ import net.sf.ahtutils.xml.survey.Templates;
  *         &lt;element ref="{http://ahtutils.aht-group.com/survey}template"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/survey}surveys"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/survey}survey"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/utils}trafficLight"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/utils}trafficLights"/>
  *       &lt;/sequence>
  *       &lt;attribute name="lang" type="{http://www.w3.org/2001/XMLSchema}string" />
  *     &lt;/restriction>
@@ -60,7 +64,9 @@ import net.sf.ahtutils.xml.survey.Templates;
     "templates",
     "template",
     "surveys",
-    "survey"
+    "survey",
+    "trafficLight",
+    "trafficLights"
 })
 @XmlRootElement(name = "query")
 public class Query
@@ -88,6 +94,10 @@ public class Query
     protected Surveys surveys;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/survey", required = true)
     protected Survey survey;
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/utils", required = true)
+    protected TrafficLight trafficLight;
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/utils", required = true)
+    protected TrafficLights trafficLights;
     @XmlAttribute(name = "lang")
     protected String lang;
 
@@ -369,6 +379,62 @@ public class Query
 
     public boolean isSetSurvey() {
         return (this.survey!= null);
+    }
+
+    /**
+     * Gets the value of the trafficLight property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TrafficLight }
+     *     
+     */
+    public TrafficLight getTrafficLight() {
+        return trafficLight;
+    }
+
+    /**
+     * Sets the value of the trafficLight property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TrafficLight }
+     *     
+     */
+    public void setTrafficLight(TrafficLight value) {
+        this.trafficLight = value;
+    }
+
+    public boolean isSetTrafficLight() {
+        return (this.trafficLight!= null);
+    }
+
+    /**
+     * Gets the value of the trafficLights property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TrafficLights }
+     *     
+     */
+    public TrafficLights getTrafficLights() {
+        return trafficLights;
+    }
+
+    /**
+     * Sets the value of the trafficLights property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TrafficLights }
+     *     
+     */
+    public void setTrafficLights(TrafficLights value) {
+        this.trafficLights = value;
+    }
+
+    public boolean isSetTrafficLights() {
+        return (this.trafficLights!= null);
     }
 
     /**
