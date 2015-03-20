@@ -13,13 +13,13 @@
 		<module>util</module>
 		<module>interfaces</module>
 		
-		<module>beans</module>
 	<module>fx</module>  
 		<module>ussd</module>
 		<module>web</module>
 		<module>client</module>
 		<module>ear</module> -->
 		
+		<module>beans</module>
 		<module>entities</module>
 		<module>xml</module>
 		<module>doc</module>

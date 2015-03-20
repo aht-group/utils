@@ -11,7 +11,7 @@
 	
     <artifactId>rvtm-doc</artifactId>
     <packaging>jar</packaging>
-    <name>VRTM - Documentation</name>
+    <name>UTILS - Documentation</name>
    
 	<build>
 		<plugins>
