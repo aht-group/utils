@@ -9,16 +9,19 @@
 	<name>Verteilte raemliche temperatur Messungen</name>
    
 	<modules>
-<!--		<module>xml</module>
+<!--		
 		<module>util</module>
 		<module>interfaces</module>
-		<module>entities</module>
+		
 		<module>beans</module>
 	<module>fx</module>  
 		<module>ussd</module>
 		<module>web</module>
 		<module>client</module>
 		<module>ear</module> -->
+		
+		<module>entities</module>
+		<module>xml</module>
 		<module>doc</module>
 		
 	</modules>
