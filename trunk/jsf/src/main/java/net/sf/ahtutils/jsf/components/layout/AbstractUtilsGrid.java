@@ -72,6 +72,8 @@ public class AbstractUtilsGrid extends UIPanel
 		responseWriter.endElement("div");
 	}
 	
+	@Override public boolean getRendersChildren(){return true;}
+	
 	@Override
 	public void encodeChildren(FacesContext context) throws IOException
 	{

@@ -15,8 +15,6 @@ public class Row extends UIPanel
 {	
 	private static enum Properties {renderChildren}
 	
-	@Override public boolean getRendersChildren(){return true;}
-	
 	@Override
 	public void encodeBegin(FacesContext context) throws IOException
 	{
@@ -35,6 +33,8 @@ public class Row extends UIPanel
 		responseWriter.writeAttribute("class","clear",null);
 		responseWriter.endElement("div");
 	}
+	
+	@Override public boolean getRendersChildren(){return true;}
 	
 	@Override
 	public void encodeChildren(FacesContext context) throws IOException
