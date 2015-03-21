@@ -46,7 +46,12 @@ public class EjbTrafficLightFactory<L extends UtilsLang,D extends UtilsDescripti
 		{
 			ejb = cLight.newInstance();
 			ejb.setScope(scope);
-			ejb.setName(efLang.getLangMap(light.getLangs()));
+			ejb.setThreshold(light.getThreshold());
+			
+	        ejb.setColorBackground(light.getColorBackground());
+	        ejb.setColorText(light.getColorText());
+	        
+	        ejb.setName(efLang.getLangMap(light.getLangs()));
 	        ejb.setDescription(efDescription.create(light.getDescriptions()));
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
@@ -56,12 +61,13 @@ public class EjbTrafficLightFactory<L extends UtilsLang,D extends UtilsDescripti
         return ejb;
     }
 	
-	public LIGHT build(String[] langKeys)
+	public LIGHT build(String[] langKeys,SCOPE scope)
 	{
 		LIGHT ejb;
 		try
 		{
 			ejb = cLight.newInstance();
+			ejb.setScope(scope);
 			try
 			{
 				if(langKeys!=null){ejb.setName(efLang.createEmpty(langKeys));}

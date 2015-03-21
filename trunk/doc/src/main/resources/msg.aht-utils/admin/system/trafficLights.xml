@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<translations xmlns="http://ahtutils.aht-group.com/status">
+	<translation key="aupTrafficLightScopes">
+		<langs>
+			<lang key="de" translation="Traffic Light Scopes" />
+			<lang key="en" translation="Traffic Light Scopes" />
+			<lang key="fr" translation="Traffic Light Scopes" />
+		</langs>
+	</translation>
+	<translation key="aupTrafficLights">
+		<langs>
+			<lang key="de" translation="Ampeln" />
+			<lang key="en" translation="Traffic Lights" />
+			<lang key="fr" translation="Traffic Lights" />
+		</langs>
+	</translation>
+	<translation key="aupTrafficLightColorBackground">
+		<langs>
+			<lang key="de" translation="Hintergrundfarbe" />
+			<lang key="en" translation="Background Color" />
+			<lang key="fr" translation="Clé" />
+		</langs>
+	</translation>
+	<translation key="aupTrafficLightColorText">
+		<langs>
+			<lang key="de" translation="Textfarbe" />
+			<lang key="en" translation="Text Color" />
+			<lang key="fr" translation="Clé" />
+		</langs>
+	</translation>	
+	<translation key="aupTrafficLightThreshold">
+    <langs>
+      <lang key="de" translation="Schwellwert" />
+      <lang key="en" translation="Threshold" />
+      <lang key="fr" translation="Valeur" />
+    </langs>
+  </translation>
+
+</translations>

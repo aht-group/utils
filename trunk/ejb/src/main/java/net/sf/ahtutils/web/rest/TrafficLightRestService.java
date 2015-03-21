@@ -2,6 +2,7 @@ package net.sf.ahtutils.web.rest;
 
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.exception.xml.UtilsXmlStructureException;
 import net.sf.ahtutils.factory.ejb.util.EjbTrafficLightFactory;
 import net.sf.ahtutils.factory.xml.status.XmlTypeFactory;
 import net.sf.ahtutils.factory.xml.utils.XmlTrafficLightFactory;
@@ -58,9 +59,13 @@ public class TrafficLightRestService <L extends UtilsLang,D extends UtilsDescrip
 		TrafficLights xml = XmlTrafficLightsFactory.build();
 		for(LIGHT light : fUtils.all(cLight))
 		{
-			xml.getTrafficLight().add(xfLight.build(light));
+			try
+			{
+				xml.getTrafficLight().add(xfLight.build(light));
+			}
+			catch (UtilsXmlStructureException e) {e.printStackTrace();}
 		}
-		return null;
+		return xml;
 	}
 
 	@Override
@@ -75,7 +80,6 @@ public class TrafficLightRestService <L extends UtilsLang,D extends UtilsDescrip
 				SCOPE scope = fUtils.fByCode(cScope,xLight.getScope().getCode());
 				LIGHT eLight = efLight.build(scope,xLight);
 				eLight = fUtils.persist(eLight);
-
 				dut.success();
 			}
 			catch (UtilsNotFoundException e) {dut.fail(e,true);}

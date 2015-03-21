@@ -8,6 +8,6 @@ public interface UtilsMail
 	public final String smtpUser = "net.smtp.auth.user";
 	public final String smtpPwd = "net.smtp.auth.pwd";
 	
-	public final String smtpOverride = "net.smtp.override";
+	public final String smtpOverride   = "net.smtp.override.active";
 	public final String smtpOverrideTo = "net.smtp.override.to";
 }

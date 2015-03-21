@@ -14,7 +14,7 @@
 	<composite:implementation>
 		<p:panel header="#{msg.Property}" rendered="#{not empty adminSystemPropertyBean.property}" styleClass="auNoTop,auPanelWithGrid">
 			<f:facet name="actions">
-				<aht:icon rendered="#{!adminSystemPropertyBean.property.frozen}" type="save" listener="#{adminSystemPropertyBean.save()}" update=":sProperties"/>
+				<aht:icon type="aupSave" rendered="#{!adminSystemPropertyBean.property.frozen}"  listener="#{adminSystemPropertyBean.save()}" update=":sProperties"/>
 			</f:facet>
 			<h:panelGrid columns="2" columnClasses="col1,col2" styleClass="auCleanPanelGrid">
 				<p:outputLabel value="#{msg.Key}"/>

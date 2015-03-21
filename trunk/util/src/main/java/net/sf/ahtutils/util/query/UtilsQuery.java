@@ -4,6 +4,7 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import net.sf.ahtutils.controller.util.query.StatusQuery;
+import net.sf.ahtutils.factory.xml.status.XmlScopeFactory;
 import net.sf.ahtutils.factory.xml.utils.XmlTrafficLightsFactory;
 import net.sf.ahtutils.xml.aht.Query;
 import net.sf.ahtutils.xml.utils.TrafficLight;
@@ -45,7 +46,8 @@ public class UtilsQuery
 	{		
 		TrafficLight xml = new TrafficLight();
 		xml.setId(0);
-		xml.setThreshold(0);;
+		xml.setThreshold(0);
+		xml.setScope(XmlScopeFactory.build(""));
 		
 		xml.setColorBackground("");
 		xml.setColorText("");

@@ -1,7 +1,9 @@
 package net.sf.ahtutils.factory.xml.utils;
 
+import net.sf.ahtutils.exception.xml.UtilsXmlStructureException;
 import net.sf.ahtutils.factory.xml.status.XmlDescriptionsFactory;
 import net.sf.ahtutils.factory.xml.status.XmlLangsFactory;
+import net.sf.ahtutils.factory.xml.status.XmlScopeFactory;
 import net.sf.ahtutils.interfaces.model.util.UtilsTrafficLight;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
@@ -24,13 +26,13 @@ public class XmlTrafficLightFactory<L extends UtilsLang,D extends UtilsDescripti
 		this.q=q;
 	}
 	
-	public TrafficLight build(LIGHT ejb)
+	public TrafficLight build(LIGHT ejb) throws UtilsXmlStructureException
 	{
 		TrafficLight xml = new TrafficLight();
 		
 		if(q.isSetId()){xml.setId(ejb.getId());}
-		
-		if(q.isSetColorText()){xml.setColorBackground(ejb.getColorBackground());}
+		if(q.isSetThreshold()){xml.setThreshold(ejb.getThreshold());}
+		if(q.isSetColorText()){xml.setColorText(ejb.getColorText());}
 		if(q.isSetColorBackground()){xml.setColorBackground(ejb.getColorBackground());}
 		
 		if(q.isSetLangs())
@@ -42,6 +44,11 @@ public class XmlTrafficLightFactory<L extends UtilsLang,D extends UtilsDescripti
 		{
 			XmlDescriptionsFactory<D> f = new XmlDescriptionsFactory<D>(q.getDescriptions());
 			xml.setDescriptions(f.create(ejb.getDescription()));
+		}
+		if(q.isSetScope())
+		{
+			XmlScopeFactory f = new XmlScopeFactory(q.getScope());
+			xml.setScope(f.build(ejb.getScope()));
 		}
 		
 		return xml;
