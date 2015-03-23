@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<s:translations xmlns:s="http://ahtutils.aht-group.com/status">
+	<s:translation key="aupDate">
+    	<s:langs>
+    		<s:lang key="de" translation="Date"/>
+    		<s:lang key="en" translation="Date"/>
+    		<s:lang key="fr" translation="Date"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="aupDateStarted">
+    	<s:langs>
+    		<s:lang key="de" translation="Started"/>
+    		<s:lang key="en" translation="Started"/>
+    		<s:lang key="fr" translation="Started"/>
+    	</s:langs>
+    </s:translation>
+        <s:translation key="aupDateFinished">
+    	<s:langs>
+    		<s:lang key="de" translation="Finished"/>
+    		<s:lang key="en" translation="Finished"/>
+    		<s:lang key="fr" translation="Finished"/>
+    	</s:langs>
+    </s:translation>
+</s:translations>

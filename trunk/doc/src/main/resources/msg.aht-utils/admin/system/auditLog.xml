@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<translations xmlns="http://ahtutils.aht-group.com/status">
+	<translation key="aupAuditLog">
+		<langs>
+			<lang key="de" translation="Audit Log" />
+			<lang key="en" translation="Audit Log" />
+			<lang key="fr" translation="Audit Log" />
+		</langs>
+	</translation>
+	<translation key="aupAuditLogDateTime">
+		<langs>
+			<lang key="de" translation="Date/Time" />
+			<lang key="en" translation="Date/Time" />
+			<lang key="fr" translation="Date/Time" />
+		</langs>
+	</translation>
+	<translation key="aupAuditLogType">
+		<langs>
+			<lang key="de" translation="Type" />
+			<lang key="en" translation="Type" />
+			<lang key="fr" translation="Type" />
+		</langs>
+	</translation>
+		<translation key="aupAuditLogMessage">
+		<langs>
+			<lang key="de" translation="Message" />
+			<lang key="en" translation="Message" />
+			<lang key="fr" translation="Message" />
+		</langs>
+	</translation>
+</translations>

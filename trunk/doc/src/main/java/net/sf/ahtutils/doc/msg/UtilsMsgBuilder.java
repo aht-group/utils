@@ -24,6 +24,8 @@ import org.slf4j.LoggerFactory;
 public class UtilsMsgBuilder
 {	
 	public static final String srcGeneric = "msg.aht-utils/generic.xml";
+	public static final String srcDate = "msg.aht-utils/date.xml";
+	public static final String srcAdminAuditLog = "msg.aht-utils/admin/system/auditLog.xml";
 	public static final String srcAdminSystemProperty = "msg.aht-utils/admin/system/properties.xml";
 	public static final String srcAdminSystemTraffic = "msg.aht-utils/admin/system/trafficLights.xml";
 	public static final String srcAdminSystemDbStatistic = "msg.aht-utils/admin/system/dbStatistic.xml";

@@ -21,6 +21,20 @@
     		<s:lang key="fr" translation="Delay"/>
     	</s:langs>
     </s:translation>
+    <s:translation key="aupComments">
+    	<s:langs>
+    		<s:lang key="de" translation="Comments"/>
+    		<s:lang key="en" translation="Comments"/>
+    		<s:lang key="fr" translation="Comments"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="aupComment">
+    	<s:langs>
+    		<s:lang key="de" translation="Comment"/>
+    		<s:lang key="en" translation="Comment"/>
+    		<s:lang key="fr" translation="Comment"/>
+    	</s:langs>
+    </s:translation>
 	<s:translation key="aupRemark">
     	<s:langs>
     		<s:lang key="de" translation="Remark"/>
