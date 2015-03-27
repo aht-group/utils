@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<s:translations xmlns:s="http://ahtutils.aht-group.com/status">
+	<s:translation key="aupSynchronisation">
+    	<s:langs>
+    		<s:lang key="de" translation="Synchronisation"/>
+    		<s:lang key="en" translation="Synchronisation"/>
+    		<s:lang key="fr" translation="Synchronisation"/>
+    	</s:langs>
+    </s:translation>
+</s:translations>
