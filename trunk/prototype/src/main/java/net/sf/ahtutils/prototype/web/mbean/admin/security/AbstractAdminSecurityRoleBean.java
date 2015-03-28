@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatusFixedCode;
@@ -118,14 +117,14 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 
 
 	//Role
-	public void addRole() throws UtilsIntegrityException
+	public void addRole() throws UtilsContraintViolationException
 	{
 		logger.info(AbstractLogMessage.addEntity(cRole));
 		role = efRole.create(category,"");
 		role.setName(efLang.createEmpty(langs));
 		role.setDescription(efDescription.createEmpty(langs));
 	}
-	public void rmRole() throws UtilsIntegrityException, UtilsNotFoundException
+	public void rmRole() throws UtilsContraintViolationException, UtilsNotFoundException
 	{
 		logger.info(AbstractLogMessage.rmEntity(role));
 		fSecurity.rm(role);

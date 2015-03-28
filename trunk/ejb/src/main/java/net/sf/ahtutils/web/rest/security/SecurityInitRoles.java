@@ -2,7 +2,6 @@ package net.sf.ahtutils.web.rest.security;
 
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
@@ -116,7 +115,6 @@ public class SecurityInitRoles <L extends UtilsLang,
 			aclRole = iuUsecasesForRole(aclRole, role.getUsecases());
 		}
 		catch (UtilsContraintViolationException e) {logger.error("",e);}
-		catch (UtilsIntegrityException e) {logger.error("",e);}
 		catch (UtilsNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
 		catch (UtilsLockingException e) {logger.error("",e);}
 	}

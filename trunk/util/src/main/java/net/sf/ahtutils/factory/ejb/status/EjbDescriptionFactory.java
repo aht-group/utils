@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
@@ -34,17 +33,17 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
         return new EjbDescriptionFactory<D>(clDescription);
     }
 	
-	public D create(Description description) throws UtilsIntegrityException
+	public D create(Description description) throws UtilsContraintViolationException
 	{
-		if(!description.isSetKey()){throw new UtilsIntegrityException("Key not set: "+JaxbUtil.toString(description, new AhtUtilsNsPrefixMapper()));}
-		if(!description.isSetValue()){throw new UtilsIntegrityException("Value not set: "+JaxbUtil.toString(description, new AhtUtilsNsPrefixMapper()));}
+		if(!description.isSetKey()){throw new UtilsContraintViolationException("Key not set: "+JaxbUtil.toString(description, new AhtUtilsNsPrefixMapper()));}
+		if(!description.isSetValue()){throw new UtilsContraintViolationException("Value not set: "+JaxbUtil.toString(description, new AhtUtilsNsPrefixMapper()));}
     	return create(description.getKey(),description.getValue());
 	}
     
-	public D create(String key, String value) throws UtilsIntegrityException
+	public D create(String key, String value) throws UtilsContraintViolationException
 	{
-		if(key==null){throw new UtilsIntegrityException("Key not set");}
-		if(value==null){throw new UtilsIntegrityException("Value not set");}
+		if(key==null){throw new UtilsContraintViolationException("Key not set");}
+		if(value==null){throw new UtilsContraintViolationException("Value not set");}
 		D d = null;
 		try
 		{
@@ -57,13 +56,13 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
     	return d;
 	}
 	
-	public Map<String,D> create(Descriptions descriptions) throws UtilsIntegrityException
+	public Map<String,D> create(Descriptions descriptions) throws UtilsContraintViolationException
 	{
 		if(descriptions!=null && descriptions.isSetDescription()){return create(descriptions.getDescription());}
 		else{return  new Hashtable<String,D>();}
 	}
 	
-	public Map<String,D> create(List<Description> lDescriptions) throws UtilsIntegrityException
+	public Map<String,D> create(List<Description> lDescriptions) throws UtilsContraintViolationException
 	{
 		Map<String,D> map = new Hashtable<String,D>();
 		for(Description desc : lDescriptions)
@@ -74,7 +73,7 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
 		return map;
 	}
 	
-	public Map<String,D> createEmpty(String[] keys) throws UtilsIntegrityException
+	public Map<String,D> createEmpty(String[] keys) throws UtilsContraintViolationException
 	{
 		Map<String,D> map = new Hashtable<String,D>();
 		for(String key : keys)
@@ -98,7 +97,7 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
 			for(D desc : descMap.values())
 			{
 				try {fUtils.rm(desc);}
-				catch (UtilsIntegrityException e) {logger.error("",e);}
+				catch (UtilsContraintViolationException e) {logger.error("",e);}
 			}
 		}
 	}
@@ -117,7 +116,6 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
 				}
 				catch (UtilsContraintViolationException e) {e.printStackTrace();}
 				catch (UtilsLockingException e) {e.printStackTrace();}
-				catch (UtilsIntegrityException e) {e.printStackTrace();}
 			}
 		}
 		return ejb;

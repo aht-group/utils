@@ -1,7 +1,6 @@
 package net.sf.ahtutils.factory.xml.sync;
 
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.test.AbstractFileProcessingTest;
 import net.sf.exlp.util.xml.JaxbUtil;
@@ -17,14 +16,14 @@ public class TestXmlExceptionFactory extends AbstractFileProcessingTest
 	
 	private UtilsNotFoundException eSingle;
 	private UtilsContraintViolationException eMulti;
-	private UtilsIntegrityException eIntegrity;
+	private UtilsContraintViolationException eIntegrity;
 	
 	@Before
 	public void init()
 	{
 		eSingle = new UtilsNotFoundException();
 		
-		eIntegrity = new UtilsIntegrityException("TestIntegriy");
+		eIntegrity = new UtilsContraintViolationException("TestIntegriy");
 		eMulti = new UtilsContraintViolationException("TestMulti",eIntegrity);
 	}
 	

@@ -5,7 +5,6 @@ import java.util.List;
 
 import net.sf.ahtutils.controller.util.ParentPredicate;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
@@ -118,7 +117,7 @@ public class AbstractDummyFacade implements UtilsFacade
 
 	@Override
 	public <T extends EjbRemoveable> void rm(T o)
-			throws UtilsIntegrityException {
+			throws UtilsContraintViolationException {
 		
 		
 	}

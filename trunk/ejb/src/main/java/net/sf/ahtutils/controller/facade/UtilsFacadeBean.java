@@ -16,7 +16,6 @@ import javax.persistence.criteria.Root;
 
 import net.sf.ahtutils.controller.util.ParentPredicate;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
@@ -423,9 +422,9 @@ public class UtilsFacadeBean implements UtilsFacade
 	}
 		
 	
-	@Override public <T extends EjbRemoveable> void rm(T o) throws UtilsIntegrityException {rmProtected(o);}
+	@Override public <T extends EjbRemoveable> void rm(T o) throws UtilsContraintViolationException {rmProtected(o);}
 	
-	public <T extends Object> void rmProtected(T o) throws UtilsIntegrityException
+	public <T extends Object> void rmProtected(T o) throws UtilsContraintViolationException
 	{
 		try
 		{
@@ -437,7 +436,7 @@ public class UtilsFacadeBean implements UtilsFacade
 		{
 			if(e.getCause() instanceof org.hibernate.exception.ConstraintViolationException)
 			{
-				throw new UtilsIntegrityException("Delete Referential Integrity check failed for "+o.getClass().getSimpleName()+". Object may be used somewhere else: "+o);
+				throw new UtilsContraintViolationException("Delete Referential Integrity check failed for "+o.getClass().getSimpleName()+". Object may be used somewhere else: "+o);
 			}
 			throw(e);
 		}

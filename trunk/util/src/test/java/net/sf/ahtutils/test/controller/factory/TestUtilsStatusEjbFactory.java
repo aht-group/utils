@@ -1,6 +1,6 @@
 package net.sf.ahtutils.test.controller.factory;
 
-import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
+import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.factory.ejb.status.EjbStatusFactory;
 import net.sf.ahtutils.model.ejb.status.AhtUtilsDescription;
 import net.sf.ahtutils.model.ejb.status.AhtUtilsLang;
@@ -43,21 +43,21 @@ public class TestUtilsStatusEjbFactory extends AbstractAhtUtilTest
     }
  
     @Test
-    public void testClass() throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+    public void testClass() throws InstantiationException, IllegalAccessException, UtilsContraintViolationException
     {
     	Object o = facStatus.create(status);
     	Assert.assertTrue(o instanceof AhtUtilsStatus);
     }
     
     @Test
-    public void testCode() throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+    public void testCode() throws InstantiationException, IllegalAccessException, UtilsContraintViolationException
     {
     	AhtUtilsStatus ejb = (AhtUtilsStatus)facStatus.create(status);
     	Assert.assertEquals(status.getCode(), ejb.getCode());
     }
     
     @Test
-    public void testMapSize() throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+    public void testMapSize() throws InstantiationException, IllegalAccessException, UtilsContraintViolationException
     {
     	AhtUtilsStatus ejb = (AhtUtilsStatus)facStatus.create(status);
     	Assert.assertEquals(status.getLangs().getLang().size(), ejb.getName().size());
@@ -65,7 +65,7 @@ public class TestUtilsStatusEjbFactory extends AbstractAhtUtilTest
     }
     
     @Test
-    public void testTranslationValue() throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+    public void testTranslationValue() throws InstantiationException, IllegalAccessException, UtilsContraintViolationException
     {
     	Lang lang = status.getLangs().getLang().get(0);
     	Description desc = status.getDescriptions().getDescription().get(0);
@@ -74,29 +74,29 @@ public class TestUtilsStatusEjbFactory extends AbstractAhtUtilTest
     	Assert.assertEquals(desc.getValue(), ejb.getDescription().get(lang.getKey()).getLang());
     }
     
-    @Test(expected=UtilsIntegrityException.class)
-    public void testMissingKeyLang() throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+    @Test(expected=UtilsContraintViolationException.class)
+    public void testMissingKeyLang() throws InstantiationException, IllegalAccessException, UtilsContraintViolationException
     {
     	status.getLangs().getLang().get(0).setKey(null);
     	facStatus.create(status);
     }
     
-    @Test(expected=UtilsIntegrityException.class)
-    public void testMissingKeyDescription() throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+    @Test(expected=UtilsContraintViolationException.class)
+    public void testMissingKeyDescription() throws InstantiationException, IllegalAccessException, UtilsContraintViolationException
     {
     	status.getDescriptions().getDescription().get(0).setKey(null);
     	facStatus.create(status);
     }
     
-    @Test(expected=UtilsIntegrityException.class)
-    public void testMissingLangTranslation() throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+    @Test(expected=UtilsContraintViolationException.class)
+    public void testMissingLangTranslation() throws InstantiationException, IllegalAccessException, UtilsContraintViolationException
     {
     	status.getLangs().getLang().get(0).setTranslation(null);
     	facStatus.create(status);
     }
     
-    @Test(expected=UtilsIntegrityException.class)
-    public void testMissingDescriptionValue() throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+    @Test(expected=UtilsContraintViolationException.class)
+    public void testMissingDescriptionValue() throws InstantiationException, IllegalAccessException, UtilsContraintViolationException
     {
     	status.getDescriptions().getDescription().get(0).setValue(null);
     	facStatus.create(status);
@@ -129,7 +129,7 @@ public class TestUtilsStatusEjbFactory extends AbstractAhtUtilTest
     	return descriptions;
     }
 	
-	public static void main(String[] args) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+	public static void main(String[] args) throws InstantiationException, IllegalAccessException, UtilsContraintViolationException
     {
 		LoggerInit loggerInit = new LoggerInit("log4j.xml");	
 			loggerInit.addAltPath("src/test/resources/config");

@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
+import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsDeveloperException;
@@ -80,7 +80,7 @@ public class AhtStatusDbInit <S extends UtilsStatus<S,L,D>, L extends UtilsLang,
 		return ejbStatus;
 	}
 	
-	public UtilsStatus addLangsAndDescriptions(UtilsStatus ejbStatus, Status status) throws InstantiationException, IllegalAccessException, UtilsIntegrityException
+	public UtilsStatus addLangsAndDescriptions(UtilsStatus ejbStatus, Status status) throws InstantiationException, IllegalAccessException, UtilsContraintViolationException
 	{
 		UtilsStatus ejbUpdateInfo = (UtilsStatus)statusEjbFactory.create(status);
 		ejbStatus.setName(ejbUpdateInfo.getName());
@@ -121,7 +121,7 @@ public class AhtStatusDbInit <S extends UtilsStatus<S,L,D>, L extends UtilsLang,
 				fStatus.rm(lang);
 			}
 			catch (UtilsNotFoundException e) {logger.error("",e);}
-			catch (UtilsIntegrityException e) {logger.error("",e);}
+			catch (UtilsContraintViolationException e) {logger.error("",e);}
 		}
 		for(long id : sDeleteDescriptions)
 		{
@@ -132,7 +132,7 @@ public class AhtStatusDbInit <S extends UtilsStatus<S,L,D>, L extends UtilsLang,
 				fStatus.rm(d);
 			}
 			catch (UtilsNotFoundException e) {logger.error("",e);}
-			catch (UtilsIntegrityException e) {logger.error("",e);}
+			catch (UtilsContraintViolationException e) {logger.error("",e);}
 		}
 		
 		 for(String group : mDbAvailableStatus.keySet())
@@ -147,7 +147,7 @@ public class AhtStatusDbInit <S extends UtilsStatus<S,L,D>, L extends UtilsLang,
 					 S status = fStatus.find(cStatus, id);
 					 fStatus.rm(status);
 				 }
-				 catch (UtilsIntegrityException e) {logger.error("Error with following ID:"+id,e);}
+				 catch (UtilsContraintViolationException e) {logger.error("Error with following ID:"+id,e);}
 				 catch (UtilsNotFoundException e)  {logger.error("Error with following ID:"+id,e);}
 			 }
 		 }
@@ -233,7 +233,7 @@ public class AhtStatusDbInit <S extends UtilsStatus<S,L,D>, L extends UtilsLang,
 				}
 				catch (InstantiationException e) {logger.error("",e);}
 				catch (IllegalAccessException e) {logger.error("",e);}
-				catch (UtilsIntegrityException e) {logger.error("",e);}
+				catch (UtilsContraintViolationException e) {logger.error("",e);}
 		        
 				if(xml.isSetPosition()){ejbStatus.setPosition(xml.getPosition());}
 		        else{ejbStatus.setPosition(0);}

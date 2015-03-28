@@ -8,7 +8,6 @@ import javax.ejb.TransactionAttributeType;
 
 import net.sf.ahtutils.controller.util.ParentPredicate;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
@@ -78,8 +77,8 @@ public class AbstractUtilsFacadeBean implements UtilsFacade
 	@Override public <T extends EjbWithNonUniqueCode> List<T> allByCode(Class<T> type, String code) {return fUtils.allByCode(type,code);}
 	
 	// Remove
-	public <T extends EjbRemoveable> void rm(T o) throws UtilsIntegrityException {rmProtected(o);}
-	protected <T extends Object> void rmProtected(T o) throws UtilsIntegrityException {fUtils.rmProtected(o);}
+	public <T extends EjbRemoveable> void rm(T o) throws UtilsContraintViolationException {rmProtected(o);}
+	protected <T extends Object> void rmProtected(T o) throws UtilsContraintViolationException {fUtils.rmProtected(o);}
 	
 	// All
 	public <T extends Object> List<T> all(Class<T> type) {return fUtils.all(type);}

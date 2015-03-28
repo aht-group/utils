@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.factory.ejb.util.EjbTrafficLightFactory;
 import net.sf.ahtutils.interfaces.facade.UtilsTrafficLightFacade;
@@ -76,7 +75,7 @@ public class AbstractAdminTrafficLightBean <L extends UtilsLang,D extends UtilsD
 	public LIGHT getTrafficLight(){return trafficLight;}
 	public void setTrafficLight(LIGHT trafficLight){this.trafficLight = trafficLight;}
 	
-	public void addTrafficLight() throws UtilsIntegrityException
+	public void addTrafficLight() throws UtilsContraintViolationException
 	{
 		logger.debug(AbstractLogMessage.addEntity(cLight));
 		trafficLight = efLight.build(defaultLangs,scope);
@@ -94,7 +93,7 @@ public class AbstractAdminTrafficLightBean <L extends UtilsLang,D extends UtilsD
 		reloadTrafficLights();
 	}
 	
-	public void rm() throws UtilsIntegrityException
+	public void rm() throws UtilsContraintViolationException
 	{
 		logger.debug(AbstractLogMessage.rmEntity(trafficLight));
 		fUtils.rm(trafficLight);

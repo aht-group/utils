@@ -6,7 +6,6 @@ import java.util.Map;
 import net.sf.ahtutils.controller.interfaces.AhtAclFacade;
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
@@ -110,13 +109,13 @@ public class AclInitGroups <S extends UtilsStatus<S,L,D>,
 				for(L lang : langMap.values())
 				{
 					try {fAcl.rm(lang);}
-					catch (UtilsIntegrityException e)  {logger.error("",e);}
+					catch (UtilsContraintViolationException e)  {logger.error("",e);}
 				}
 				
 				for(D desc : descMap.values())
 				{
 					try {fAcl.rm(desc);}
-					catch (UtilsIntegrityException e) {logger.error("",e);}
+					catch (UtilsContraintViolationException e) {logger.error("",e);}
 				}
 			}
 			catch (UtilsNotFoundException e)
@@ -145,7 +144,6 @@ public class AclInitGroups <S extends UtilsStatus<S,L,D>,
 			}
 			catch (UtilsContraintViolationException e) {logger.error("",e);}
 			catch (UtilsLockingException e) {logger.error("",e);}
-			catch (UtilsIntegrityException e) {logger.error("",e);}
 		}
 		updateRoleCategory.remove(fAcl);
 	}
@@ -183,13 +181,13 @@ public class AclInitGroups <S extends UtilsStatus<S,L,D>,
 				for(L lang : langMap.values())
 				{
 					try {fAcl.rm(lang);}
-					catch (UtilsIntegrityException e) {logger.error("",e);}
+					catch (UtilsContraintViolationException e) {logger.error("",e);}
 				}
 				
 				for(D desc : descMap.values())
 				{
 					try {fAcl.rm(desc);}
-					catch (UtilsIntegrityException e) {logger.error("",e);}
+					catch (UtilsContraintViolationException e) {logger.error("",e);}
 				}
 			}
 		}
@@ -228,7 +226,6 @@ public class AclInitGroups <S extends UtilsStatus<S,L,D>,
 			}
 			catch (UtilsContraintViolationException e) {logger.error("",e);}
 			catch (UtilsLockingException e) {logger.error("",e);}
-			catch (UtilsIntegrityException e) {logger.error("",e);}
 		}
 		else
 		{

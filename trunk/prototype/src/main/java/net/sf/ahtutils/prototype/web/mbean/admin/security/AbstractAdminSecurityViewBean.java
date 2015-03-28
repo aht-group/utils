@@ -5,7 +5,6 @@ import java.util.List;
 
 import net.sf.ahtutils.controller.factory.ejb.security.EjbSecurityActionFactory;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.factory.ejb.status.EjbDescriptionFactory;
@@ -148,7 +147,7 @@ public class AbstractAdminSecurityViewBean <L extends UtilsLang,
 	}
 	
 	//ACTION
-	public void addAction() throws UtilsIntegrityException
+	public void addAction() throws UtilsContraintViolationException
 	{
 		logger.info(AbstractLogMessage.addEntity(cAction));
 		action = efAction.create(view,"");
@@ -156,7 +155,7 @@ public class AbstractAdminSecurityViewBean <L extends UtilsLang,
 		action.setDescription(efDescription.createEmpty(langs));
 	}
 	
-	public void rmAction() throws UtilsIntegrityException
+	public void rmAction() throws UtilsContraintViolationException
 	{
 		logger.info(AbstractLogMessage.rmEntity(action));
 		fSecurity.rm(action);

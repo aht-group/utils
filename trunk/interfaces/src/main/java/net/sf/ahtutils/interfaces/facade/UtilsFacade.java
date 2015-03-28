@@ -5,7 +5,6 @@ import java.util.List;
 
 import net.sf.ahtutils.controller.util.ParentPredicate;
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.behaviour.EjbEquals;
@@ -79,7 +78,7 @@ public interface UtilsFacade extends UtilsIdFacade
 	<T extends EjbSaveable> T saveTransaction(T o) throws UtilsContraintViolationException,UtilsLockingException;
 	<T extends EjbSaveable> T save(T o) throws UtilsContraintViolationException,UtilsLockingException;
 	
-	<T extends EjbRemoveable> void rm(T o) throws UtilsIntegrityException;
+	<T extends EjbRemoveable> void rm(T o) throws UtilsContraintViolationException;
 	
 	//Parent
 	<T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> type, String p1Name, I p1);

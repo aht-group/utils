@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsIntegrityException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
@@ -95,14 +94,14 @@ public class AbstractAdminSecurityUsecaseBean <L extends UtilsLang,
 	}
 	
 	//Add
-	public void addCategory() throws UtilsIntegrityException
+	public void addCategory() throws UtilsContraintViolationException
 	{
 		logger.info(AbstractLogMessage.addEntity(cCategory));
 		category = efCategory.create(null,UtilsSecurityCategory.Type.usecase.toString());
 		category.setName(efLang.createEmpty(langs));
 		category.setDescription(efDescription.createEmpty(langs));
 	}
-	public void addUsecase() throws UtilsIntegrityException
+	public void addUsecase() throws UtilsContraintViolationException
 	{
 		logger.info(AbstractLogMessage.addEntity(cUsecase));
 		usecase = efUsecase.create(category,"");
