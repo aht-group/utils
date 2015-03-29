@@ -36,8 +36,9 @@ public class TestXmlTypes extends AbstractXmlStatusTest
     	
     	if(withChilds)
     	{
-    		xml.getType().add(TestXmlType.create(false));
-    		xml.getType().add(TestXmlType.create(false));
+    		xml.getMainType().add(TestXmlMainType.create(false));xml.getMainType().add(TestXmlMainType.create(false));
+    		xml.getType().add(TestXmlType.create(false));xml.getType().add(TestXmlType.create(false));
+    		xml.getSubType().add(TestXmlSubType.create(false));xml.getSubType().add(TestXmlSubType.create(false));
     	}
     	return xml;
     }

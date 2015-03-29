@@ -254,6 +254,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link MainType }
+     * 
+     */
+    public MainType createMainType() {
+        return new MainType();
+    }
+
+    /**
+     * Create an instance of {@link SubType }
+     * 
+     */
+    public SubType createSubType() {
+        return new SubType();
+    }
+
+    /**
      * Create an instance of {@link Copy }
      * 
      */
@@ -302,14 +318,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link MainType }
-     * 
-     */
-    public MainType createMainType() {
-        return new MainType();
-    }
-
-    /**
      * Create an instance of {@link SubPhase }
      * 
      */
@@ -347,14 +355,6 @@ public class ObjectFactory {
      */
     public Legend createLegend() {
         return new Legend();
-    }
-
-    /**
-     * Create an instance of {@link SubType }
-     * 
-     */
-    public SubType createSubType() {
-        return new SubType();
     }
 
     /**

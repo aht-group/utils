@@ -73,6 +73,8 @@
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element ref="s:type" maxOccurs="unbounded"/>
+                <xsd:element ref="s:mainType" maxOccurs="unbounded"/>
+                <xsd:element ref="s:subType" maxOccurs="unbounded"/> 
             </xsd:sequence>
             <xsd:attribute name="group" type="xsd:string"/>
         </xsd:complexType>
