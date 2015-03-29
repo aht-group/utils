@@ -3,6 +3,7 @@ package net.sf.ahtutils.factory.xml.status;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
+import net.sf.ahtutils.xml.status.Status;
 import net.sf.ahtutils.xml.status.SubType;
 
 import org.slf4j.Logger;
@@ -53,5 +54,15 @@ public class XmlSubTypeFactory
 		SubType xml = new SubType();
 		xml.setCode(code);
 		return xml;
+	}
+	
+	public static SubType transform(Status status)
+	{
+		SubType type = new SubType();
+		type.setCode(status.getCode());
+		type.setDescriptions(status.getDescriptions());
+		type.setLangs(status.getLangs());
+//		if(status.isSetParent()){type.setParent(status.getParent());}
+		return type;
 	}
 }
