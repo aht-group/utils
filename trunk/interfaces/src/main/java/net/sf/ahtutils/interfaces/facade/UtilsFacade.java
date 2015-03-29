@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import net.sf.ahtutils.controller.util.ParentPredicate;
-import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.behaviour.EjbEquals;
@@ -71,14 +71,14 @@ public interface UtilsFacade extends UtilsIdFacade
 	<T extends EjbWithRecord, AND extends EjbWithId, OR extends EjbWithId> List<T> allOrderedForParents(Class<T> queryClass, List<ParentPredicate<AND>> lpAnd, List<ParentPredicate<OR>> lpOr,boolean ascending);
 	<T extends EjbWithValidFrom> List<T> allOrderedValidFrom(Class<T> cl, boolean ascending);
 	
-	<T extends EjbMergeable> T merge(T o) throws UtilsContraintViolationException, UtilsLockingException;
-	<T extends EjbMergeable> T mergeTransaction(T o) throws UtilsContraintViolationException, UtilsLockingException;
-	<T extends Object> T persist(T o) throws UtilsContraintViolationException;
-	<T extends Object> T update(T o) throws UtilsContraintViolationException,UtilsLockingException;
-	<T extends EjbSaveable> T saveTransaction(T o) throws UtilsContraintViolationException,UtilsLockingException;
-	<T extends EjbSaveable> T save(T o) throws UtilsContraintViolationException,UtilsLockingException;
+	<T extends EjbMergeable> T merge(T o) throws UtilsConstraintViolationException, UtilsLockingException;
+	<T extends EjbMergeable> T mergeTransaction(T o) throws UtilsConstraintViolationException, UtilsLockingException;
+	<T extends Object> T persist(T o) throws UtilsConstraintViolationException;
+	<T extends Object> T update(T o) throws UtilsConstraintViolationException,UtilsLockingException;
+	<T extends EjbSaveable> T saveTransaction(T o) throws UtilsConstraintViolationException,UtilsLockingException;
+	<T extends EjbSaveable> T save(T o) throws UtilsConstraintViolationException,UtilsLockingException;
 	
-	<T extends EjbRemoveable> void rm(T o) throws UtilsContraintViolationException;
+	<T extends EjbRemoveable> void rm(T o) throws UtilsConstraintViolationException;
 	
 	//Parent
 	<T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> type, String p1Name, I p1);

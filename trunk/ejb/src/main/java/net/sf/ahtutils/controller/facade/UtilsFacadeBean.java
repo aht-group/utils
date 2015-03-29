@@ -15,7 +15,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import net.sf.ahtutils.controller.util.ParentPredicate;
-import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
@@ -71,27 +71,27 @@ public class UtilsFacadeBean implements UtilsFacade
 		else {return object.equalsAttributes(em.find(c,object.getId()));}
 	}
 	
-	@Override public <T extends EjbMergeable> T merge(T o) throws UtilsContraintViolationException, UtilsLockingException {return this.update(o);}
-	@Override public <T extends EjbMergeable> T mergeTransaction(T o) throws UtilsContraintViolationException, UtilsLockingException {return update(o);}
+	@Override public <T extends EjbMergeable> T merge(T o) throws UtilsConstraintViolationException, UtilsLockingException {return this.update(o);}
+	@Override public <T extends EjbMergeable> T mergeTransaction(T o) throws UtilsConstraintViolationException, UtilsLockingException {return update(o);}
 	
 	@Override
-	public <T extends EjbSaveable> T saveTransaction(T o) throws UtilsContraintViolationException, UtilsLockingException
+	public <T extends EjbSaveable> T saveTransaction(T o) throws UtilsConstraintViolationException, UtilsLockingException
 	{
 		return saveProtected(o);
 	}
 	
 	@Override
-	public <T extends EjbSaveable> T save(T o) throws UtilsContraintViolationException,UtilsLockingException
+	public <T extends EjbSaveable> T save(T o) throws UtilsConstraintViolationException,UtilsLockingException
 	{
 		return saveProtected(o);
 	}
-	public <T extends EjbWithId> T saveProtected(T o) throws UtilsContraintViolationException, UtilsLockingException
+	public <T extends EjbWithId> T saveProtected(T o) throws UtilsConstraintViolationException, UtilsLockingException
 	{
 		if(o.getId()==0){return this.persist(o);}
 		else{return this.update(o);}
 	}
 	
-	public <T extends Object> T persist(T o) throws UtilsContraintViolationException
+	public <T extends Object> T persist(T o) throws UtilsConstraintViolationException
 	{
 		try
 		{
@@ -104,17 +104,17 @@ public class UtilsFacadeBean implements UtilsFacade
 			if(handleTransaction){em.getTransaction().rollback();}
 			if(e instanceof javax.validation.ConstraintViolationException)
 			{
-				throw new UtilsContraintViolationException(e.getMessage());
+				throw new UtilsConstraintViolationException(e.getMessage());
 			}
 			if(e instanceof javax.persistence.PersistenceException)
 			{
 				if(e.getCause() instanceof org.hibernate.exception.ConstraintViolationException)
 				{
-					throw new UtilsContraintViolationException(e.getCause().getMessage());
+					throw new UtilsConstraintViolationException(e.getCause().getMessage());
 				}
 				if(e.getCause() instanceof org.hibernate.PersistentObjectException)
 				{
-					throw new UtilsContraintViolationException(e.getCause().getMessage());
+					throw new UtilsConstraintViolationException(e.getCause().getMessage());
 				}
 				else
 				{
@@ -142,7 +142,7 @@ public class UtilsFacadeBean implements UtilsFacade
 	    return o;
 	}
 	
-	public <T extends Object> T update(T o) throws UtilsContraintViolationException, UtilsLockingException
+	public <T extends Object> T update(T o) throws UtilsConstraintViolationException, UtilsLockingException
 	{
 		try
 		{
@@ -163,7 +163,7 @@ public class UtilsFacadeBean implements UtilsFacade
 			
 			if(e instanceof javax.validation.ConstraintViolationException)
 			{
-				throw new UtilsContraintViolationException(e.getMessage());
+				throw new UtilsConstraintViolationException(e.getMessage());
 			}
 			if(e instanceof javax.persistence.OptimisticLockException)
 			{
@@ -173,7 +173,7 @@ public class UtilsFacadeBean implements UtilsFacade
 			{
 				if(e.getCause() instanceof org.hibernate.exception.ConstraintViolationException)
 				{
-					throw new UtilsContraintViolationException(e.getCause().getMessage());
+					throw new UtilsConstraintViolationException(e.getCause().getMessage());
 				}
 				else
 				{
@@ -422,9 +422,9 @@ public class UtilsFacadeBean implements UtilsFacade
 	}
 		
 	
-	@Override public <T extends EjbRemoveable> void rm(T o) throws UtilsContraintViolationException {rmProtected(o);}
+	@Override public <T extends EjbRemoveable> void rm(T o) throws UtilsConstraintViolationException {rmProtected(o);}
 	
-	public <T extends Object> void rmProtected(T o) throws UtilsContraintViolationException
+	public <T extends Object> void rmProtected(T o) throws UtilsConstraintViolationException
 	{
 		try
 		{
@@ -436,7 +436,7 @@ public class UtilsFacadeBean implements UtilsFacade
 		{
 			if(e.getCause() instanceof org.hibernate.exception.ConstraintViolationException)
 			{
-				throw new UtilsContraintViolationException("Delete Referential Integrity check failed for "+o.getClass().getSimpleName()+". Object may be used somewhere else: "+o);
+				throw new UtilsConstraintViolationException("Delete Referential Integrity check failed for "+o.getClass().getSimpleName()+". Object may be used somewhere else: "+o);
 			}
 			throw(e);
 		}

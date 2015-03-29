@@ -1,7 +1,7 @@
 package net.sf.ahtutils.web.rest.security;
 
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
-import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
@@ -107,7 +107,7 @@ public class SecurityInitViews <L extends UtilsLang,
 			}
 			catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
 			catch (IllegalAccessException e2) {throw new UtilsConfigurationException(e2.getMessage());}
-			catch (UtilsContraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
+			catch (UtilsConstraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
 		}
 		
 		try
@@ -127,7 +127,7 @@ public class SecurityInitViews <L extends UtilsLang,
 				}
 			}
 		}
-		catch (UtilsContraintViolationException e) {logger.error("",e);}
+		catch (UtilsConstraintViolationException e) {logger.error("",e);}
 		catch (UtilsLockingException e) {logger.error("",e);}
 	}
 	
@@ -151,7 +151,7 @@ public class SecurityInitViews <L extends UtilsLang,
 			}
 			catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
 			catch (IllegalAccessException e2) {throw new UtilsConfigurationException(e2.getMessage());}
-			catch (UtilsContraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
+			catch (UtilsConstraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
 		}
 		
 		try
@@ -161,7 +161,7 @@ public class SecurityInitViews <L extends UtilsLang,
 			ebj.setView(ejbView);
 			ebj=fSecurity.update(ebj);
 		}
-		catch (UtilsContraintViolationException e) {logger.error("",e);}
+		catch (UtilsConstraintViolationException e) {logger.error("",e);}
 		catch (UtilsLockingException e) {logger.error("",e);}
 	}
 }

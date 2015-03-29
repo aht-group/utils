@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import net.sf.ahtutils.controller.factory.ejb.security.EjbSecurityActionFactory;
-import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.factory.ejb.status.EjbDescriptionFactory;
@@ -125,21 +125,21 @@ public class AbstractAdminSecurityViewBean <L extends UtilsLang,
 	}
 	
 	//SAVE
-	public void saveCategory() throws UtilsContraintViolationException, UtilsLockingException
+	public void saveCategory() throws UtilsConstraintViolationException, UtilsLockingException
 	{
 		logger.info(AbstractLogMessage.saveEntity(category));
 		category = fSecurity.save(category);
 		reloadCategories();
 	}
 	
-	public void saveView() throws UtilsContraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void saveView() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
 	{
 		logger.info(AbstractLogMessage.saveEntity(view));
 		view = fSecurity.save(view);
 		reloadViews();
 	}
 	
-	public void saveAction() throws UtilsContraintViolationException, UtilsLockingException
+	public void saveAction() throws UtilsConstraintViolationException, UtilsLockingException
 	{
 		logger.info(AbstractLogMessage.saveEntity(action));
 		action = fSecurity.save(action);
@@ -147,7 +147,7 @@ public class AbstractAdminSecurityViewBean <L extends UtilsLang,
 	}
 	
 	//ACTION
-	public void addAction() throws UtilsContraintViolationException
+	public void addAction() throws UtilsConstraintViolationException
 	{
 		logger.info(AbstractLogMessage.addEntity(cAction));
 		action = efAction.create(view,"");
@@ -155,7 +155,7 @@ public class AbstractAdminSecurityViewBean <L extends UtilsLang,
 		action.setDescription(efDescription.createEmpty(langs));
 	}
 	
-	public void rmAction() throws UtilsContraintViolationException
+	public void rmAction() throws UtilsConstraintViolationException
 	{
 		logger.info(AbstractLogMessage.rmEntity(action));
 		fSecurity.rm(action);

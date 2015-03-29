@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
@@ -94,14 +94,14 @@ public class AbstractAdminSecurityUsecaseBean <L extends UtilsLang,
 	}
 	
 	//Add
-	public void addCategory() throws UtilsContraintViolationException
+	public void addCategory() throws UtilsConstraintViolationException
 	{
 		logger.info(AbstractLogMessage.addEntity(cCategory));
 		category = efCategory.create(null,UtilsSecurityCategory.Type.usecase.toString());
 		category.setName(efLang.createEmpty(langs));
 		category.setDescription(efDescription.createEmpty(langs));
 	}
-	public void addUsecase() throws UtilsContraintViolationException
+	public void addUsecase() throws UtilsConstraintViolationException
 	{
 		logger.info(AbstractLogMessage.addEntity(cUsecase));
 		usecase = efUsecase.create(category,"");
@@ -111,14 +111,14 @@ public class AbstractAdminSecurityUsecaseBean <L extends UtilsLang,
 	
 
 	//Save
-	public void saveCategory() throws UtilsNotFoundException, UtilsContraintViolationException, UtilsLockingException
+	public void saveCategory() throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException
 	{
 		logger.info(AbstractLogMessage.saveEntity(category));
 		category = fSecurity.save(category);
 		reloadCategories();
 		reloadUsecases();
 	}
-	public void saveUsecase() throws UtilsContraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void saveUsecase() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
 	{
 		logger.info(AbstractLogMessage.saveEntity(usecase));
 		usecase = fSecurity.save(usecase);
@@ -126,7 +126,7 @@ public class AbstractAdminSecurityUsecaseBean <L extends UtilsLang,
 	}
 	
 	//OverlayPanel
-	public void opAddView() throws UtilsContraintViolationException, UtilsLockingException
+	public void opAddView() throws UtilsConstraintViolationException, UtilsLockingException
 	{
 		if(!usecase.getViews().contains(opView))
 		{
@@ -136,7 +136,7 @@ public class AbstractAdminSecurityUsecaseBean <L extends UtilsLang,
 			selectUsecase();
 		}
 	}
-	public void opAddAction() throws UtilsContraintViolationException, UtilsLockingException
+	public void opAddAction() throws UtilsConstraintViolationException, UtilsLockingException
 	{
 		if(!usecase.getActions().contains(opAction))
 		{
@@ -148,7 +148,7 @@ public class AbstractAdminSecurityUsecaseBean <L extends UtilsLang,
 	}
 	
 	//Overlay-Rm
-	public void opRmView() throws UtilsContraintViolationException, UtilsLockingException
+	public void opRmView() throws UtilsConstraintViolationException, UtilsLockingException
 	{
 		if(tblView!=null && usecase.getViews().contains(tblView))
 		{
@@ -158,7 +158,7 @@ public class AbstractAdminSecurityUsecaseBean <L extends UtilsLang,
 			selectUsecase();
 		}
 	}
-	public void opRmAction() throws UtilsContraintViolationException, UtilsLockingException
+	public void opRmAction() throws UtilsConstraintViolationException, UtilsLockingException
 	{
 		if(tblAction!=null && usecase.getActions().contains(tblAction))
 		{

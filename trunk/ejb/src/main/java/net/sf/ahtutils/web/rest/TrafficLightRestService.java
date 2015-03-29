@@ -1,6 +1,6 @@
 package net.sf.ahtutils.web.rest;
 
-import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.xml.UtilsXmlStructureException;
 import net.sf.ahtutils.factory.ejb.util.EjbTrafficLightFactory;
@@ -83,7 +83,7 @@ public class TrafficLightRestService <L extends UtilsLang,D extends UtilsDescrip
 				dut.success();
 			}
 			catch (UtilsNotFoundException e) {dut.fail(e,true);}
-			catch (UtilsContraintViolationException e) {dut.fail(e,true);}
+			catch (UtilsConstraintViolationException e) {dut.fail(e,true);}
 		}
 		return dut.toDataUpdate();
 	}

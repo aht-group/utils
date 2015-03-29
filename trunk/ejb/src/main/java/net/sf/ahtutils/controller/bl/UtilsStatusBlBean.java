@@ -5,7 +5,7 @@ import java.util.Hashtable;
 import javax.persistence.EntityManager;
 
 import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
-import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.bl.UtilsStatusBl;
 import net.sf.ahtutils.interfaces.model.with.EjbWithLangDescription;
@@ -38,7 +38,7 @@ public class UtilsStatusBlBean extends UtilsFacadeBean implements UtilsStatusBl
 					t.getDescription().put(key, d);
 					t = this.update(t);
 				}
-				catch (UtilsContraintViolationException e) {e.printStackTrace();}
+				catch (UtilsConstraintViolationException e) {e.printStackTrace();}
 				catch (UtilsLockingException e) {e.printStackTrace();}
 				catch (InstantiationException e) {e.printStackTrace();}
 				catch (IllegalAccessException e) {e.printStackTrace();}

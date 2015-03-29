@@ -1,7 +1,7 @@
 package net.sf.ahtutils.web.rest.security;
 
 import net.sf.ahtutils.db.ejb.AhtDbEjbUpdater;
-import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
@@ -100,7 +100,7 @@ public class SecurityInitRoles <L extends UtilsLang,
 			}
 			catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
 			catch (IllegalAccessException e2) {throw new UtilsConfigurationException(e2.getMessage());}
-			catch (UtilsContraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+			catch (UtilsConstraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
 		}
 		
 		try
@@ -114,12 +114,12 @@ public class SecurityInitRoles <L extends UtilsLang,
 			aclRole = iuListActions(aclRole, role.getActions());
 			aclRole = iuUsecasesForRole(aclRole, role.getUsecases());
 		}
-		catch (UtilsContraintViolationException e) {logger.error("",e);}
+		catch (UtilsConstraintViolationException e) {logger.error("",e);}
 		catch (UtilsNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
 		catch (UtilsLockingException e) {logger.error("",e);}
 	}
 	
-	private R iuUsecasesForRole(R ejb, Usecases usecases) throws UtilsContraintViolationException, UtilsNotFoundException, UtilsLockingException
+	private R iuUsecasesForRole(R ejb, Usecases usecases) throws UtilsConstraintViolationException, UtilsNotFoundException, UtilsLockingException
 	{
 		ejb.getUsecases().clear();
 		ejb = fSecurity.update(ejb);

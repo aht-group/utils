@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.factory.ejb.db.EjbDbDumpFileFactory;
@@ -57,7 +57,7 @@ public class DbDumpService<D extends UtilsDbDumpFile> implements UtilsDbDumpRest
 					ejb = fDumpFile.build(f);
 					ejb = fDb.persist(ejb);
 				}
-				catch (UtilsContraintViolationException e1) {e1.printStackTrace();}
+				catch (UtilsConstraintViolationException e1) {e1.printStackTrace();}
 			}
 		}
 		logger.info("Size: "+set.size());
@@ -69,7 +69,7 @@ public class DbDumpService<D extends UtilsDbDumpFile> implements UtilsDbDumpRest
 				ejb.setEndDate(new Date());
 				fDb.update(ejb);
 			}
-			catch (UtilsContraintViolationException e) {e.printStackTrace();}
+			catch (UtilsConstraintViolationException e) {e.printStackTrace();}
 			catch (UtilsLockingException e) {e.printStackTrace();}
 		}
 		return new DataUpdate();
@@ -95,7 +95,7 @@ public class DbDumpService<D extends UtilsDbDumpFile> implements UtilsDbDumpRest
 					ejb = fDumpFile.build(f);
 					ejb = fDb.persist(ejb);
 				}
-				catch (UtilsContraintViolationException e1) {e1.printStackTrace();}
+				catch (UtilsConstraintViolationException e1) {e1.printStackTrace();}
 			}
 		}
 		logger.info("Size: "+set.size());
@@ -107,7 +107,7 @@ public class DbDumpService<D extends UtilsDbDumpFile> implements UtilsDbDumpRest
 				ejb.setEndDate(new Date());
 				fDb.update(ejb);
 			}
-			catch (UtilsContraintViolationException e) {e.printStackTrace();}
+			catch (UtilsConstraintViolationException e) {e.printStackTrace();}
 			catch (UtilsLockingException e) {e.printStackTrace();}
 		}
 	}

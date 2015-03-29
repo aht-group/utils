@@ -4,7 +4,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
@@ -33,15 +33,15 @@ public class EjbLangFactory<L extends UtilsLang>
         return new EjbLangFactory<L>(langClass);
     }
 	
-	public Map<String,L> getLangMap(Langs langs) throws UtilsContraintViolationException
+	public Map<String,L> getLangMap(Langs langs) throws UtilsConstraintViolationException
 	{
-		if(langs==null){throw new UtilsContraintViolationException(Langs.class.getSimpleName()+" is null");}
+		if(langs==null){throw new UtilsConstraintViolationException(Langs.class.getSimpleName()+" is null");}
 		return getLangMap(langs.getLang()); 
 	}
 	
-	public Map<String,L> getLangMap(List<Lang> langList) throws UtilsContraintViolationException
+	public Map<String,L> getLangMap(List<Lang> langList) throws UtilsConstraintViolationException
 	{
-		if(langList.size()<1){throw new UtilsContraintViolationException(Langs.class.getSimpleName()+" with 0 "+Lang.class.getSimpleName());}
+		if(langList.size()<1){throw new UtilsConstraintViolationException(Langs.class.getSimpleName()+" with 0 "+Lang.class.getSimpleName());}
 		Map<String,L> map = new Hashtable<String,L>();
 		for(Lang lang : langList)
 		{
@@ -93,10 +93,10 @@ public class EjbLangFactory<L extends UtilsLang>
 		return null;
 	}
 	
-	public L createLang(Lang lang) throws UtilsContraintViolationException
+	public L createLang(Lang lang) throws UtilsConstraintViolationException
 	{
-		if(lang.getKey()==null){throw new UtilsContraintViolationException("Key not set for: "+JaxbUtil.toString(lang, new AhtUtilsNsPrefixMapper()));}
-		if(lang.getTranslation()==null){throw new UtilsContraintViolationException("Translation not set for: "+JaxbUtil.toString(lang, new AhtUtilsNsPrefixMapper()));}
+		if(lang.getKey()==null){throw new UtilsConstraintViolationException("Key not set for: "+JaxbUtil.toString(lang, new AhtUtilsNsPrefixMapper()));}
+		if(lang.getTranslation()==null){throw new UtilsConstraintViolationException("Translation not set for: "+JaxbUtil.toString(lang, new AhtUtilsNsPrefixMapper()));}
 		return createLang(lang.getKey(), lang.getTranslation());
 	}
 	
@@ -112,7 +112,7 @@ public class EjbLangFactory<L extends UtilsLang>
 					ejb.getName().put(key, l);
 					ejb = fUtils.update(ejb);
 				}
-				catch (UtilsContraintViolationException e) {e.printStackTrace();}
+				catch (UtilsConstraintViolationException e) {e.printStackTrace();}
 				catch (UtilsLockingException e) {e.printStackTrace();}
 			}
 		}
@@ -125,13 +125,13 @@ public class EjbLangFactory<L extends UtilsLang>
 		ejb.setName(null);
 		
 		try{ejb=fUtils.update(ejb);}
-		catch (UtilsContraintViolationException e) {logger.error("",e);}
+		catch (UtilsConstraintViolationException e) {logger.error("",e);}
 		catch (UtilsLockingException e) {logger.error("",e);}
 		
 		for(L lang : langMap.values())
 		{
 			try {fUtils.rm(lang);}
-			catch (UtilsContraintViolationException e) {logger.error("",e);}
+			catch (UtilsConstraintViolationException e) {logger.error("",e);}
 		}
 	}
 }

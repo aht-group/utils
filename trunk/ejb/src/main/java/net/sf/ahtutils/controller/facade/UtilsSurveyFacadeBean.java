@@ -11,7 +11,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
-import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.factory.ejb.survey.EjbSurveyAnswerFactory;
@@ -135,7 +135,7 @@ public class UtilsSurveyFacadeBean <L extends UtilsLang,
 						ANSWER answer = this.persist(efAnswer.build(q, data));
 						result.add(answer);
 					}
-					catch (UtilsContraintViolationException e) {e.printStackTrace();}
+					catch (UtilsConstraintViolationException e) {e.printStackTrace();}
 				}
 			}
 		}
@@ -143,7 +143,7 @@ public class UtilsSurveyFacadeBean <L extends UtilsLang,
 	}
 
 	@Override
-	public DATA saveData(Class<DATA> cData, Class<CORRELATION> cCorrelation, DATA data) throws UtilsContraintViolationException, UtilsLockingException
+	public DATA saveData(Class<DATA> cData, Class<CORRELATION> cCorrelation, DATA data) throws UtilsConstraintViolationException, UtilsLockingException
 	{
 		if(data.getCorrelation().getId()>0)
 		{

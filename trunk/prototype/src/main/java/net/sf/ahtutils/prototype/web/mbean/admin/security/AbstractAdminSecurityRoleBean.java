@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatusFixedCode;
@@ -108,7 +108,7 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 	}
 	
 	//SAVE
-	public void saveCategory() throws UtilsContraintViolationException, UtilsLockingException
+	public void saveCategory() throws UtilsConstraintViolationException, UtilsLockingException
 	{
 		logger.info(AbstractLogMessage.saveEntity(category));
 		category = fSecurity.save(category);
@@ -117,14 +117,14 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 
 
 	//Role
-	public void addRole() throws UtilsContraintViolationException
+	public void addRole() throws UtilsConstraintViolationException
 	{
 		logger.info(AbstractLogMessage.addEntity(cRole));
 		role = efRole.create(category,"");
 		role.setName(efLang.createEmpty(langs));
 		role.setDescription(efDescription.createEmpty(langs));
 	}
-	public void rmRole() throws UtilsContraintViolationException, UtilsNotFoundException
+	public void rmRole() throws UtilsConstraintViolationException, UtilsNotFoundException
 	{
 		logger.info(AbstractLogMessage.rmEntity(role));
 		fSecurity.rm(role);
@@ -132,7 +132,7 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 		reloadRoles();
 		roleUpdatePerformed();
 	}
-	public void saveRole() throws UtilsContraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void saveRole() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
 	{
 		logger.info(AbstractLogMessage.saveEntity(role));
 		role = fSecurity.save(role);
@@ -143,7 +143,7 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 	protected void roleUpdatePerformed(){}
 	
 	//OverlayPanel
-	public void opAddView() throws UtilsContraintViolationException, UtilsLockingException
+	public void opAddView() throws UtilsConstraintViolationException, UtilsLockingException
 	{
 		if(!role.getViews().contains(opView))
 		{
@@ -153,7 +153,7 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 			selectRole();
 		}
 	}
-	public void opAddAction() throws UtilsContraintViolationException, UtilsLockingException
+	public void opAddAction() throws UtilsConstraintViolationException, UtilsLockingException
 	{
 		if(!role.getActions().contains(opAction))
 		{
@@ -163,7 +163,7 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 			selectRole();
 		}
 	}
-	public void opAddUsecase() throws UtilsContraintViolationException, UtilsLockingException
+	public void opAddUsecase() throws UtilsConstraintViolationException, UtilsLockingException
 	{
 		if(!role.getUsecases().contains(opUsecase))
 		{
@@ -175,7 +175,7 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 	}
 	
 	//Overlay-Rm
-	public void opRmView() throws UtilsContraintViolationException, UtilsLockingException
+	public void opRmView() throws UtilsConstraintViolationException, UtilsLockingException
 	{
 		if(tblView!=null && role.getViews().contains(tblView))
 		{
@@ -185,7 +185,7 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 			selectRole();
 		}
 	}
-	public void opRmAction() throws UtilsContraintViolationException, UtilsLockingException
+	public void opRmAction() throws UtilsConstraintViolationException, UtilsLockingException
 	{
 		if(tblAction!=null && role.getActions().contains(tblAction))
 		{
@@ -195,7 +195,7 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 			selectRole();
 		}
 	}
-	public void opRmUsecase() throws UtilsContraintViolationException, UtilsLockingException
+	public void opRmUsecase() throws UtilsConstraintViolationException, UtilsLockingException
 	{
 		if(tblUsecase!=null && role.getUsecases().contains(tblUsecase))
 		{

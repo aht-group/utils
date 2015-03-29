@@ -3,7 +3,7 @@ package net.sf.ahtutils.prototype.web.mbean.admin.utils;
 import java.io.Serializable;
 import java.util.List;
 
-import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.factory.ejb.util.EjbTrafficLightFactory;
 import net.sf.ahtutils.interfaces.facade.UtilsTrafficLightFacade;
@@ -75,7 +75,7 @@ public class AbstractAdminTrafficLightBean <L extends UtilsLang,D extends UtilsD
 	public LIGHT getTrafficLight(){return trafficLight;}
 	public void setTrafficLight(LIGHT trafficLight){this.trafficLight = trafficLight;}
 	
-	public void addTrafficLight() throws UtilsContraintViolationException
+	public void addTrafficLight() throws UtilsConstraintViolationException
 	{
 		logger.debug(AbstractLogMessage.addEntity(cLight));
 		trafficLight = efLight.build(defaultLangs,scope);
@@ -86,14 +86,14 @@ public class AbstractAdminTrafficLightBean <L extends UtilsLang,D extends UtilsD
 		logger.debug(AbstractLogMessage.selectEntity(trafficLight));
 	}
 	
-	public void save() throws UtilsLockingException, UtilsContraintViolationException
+	public void save() throws UtilsLockingException, UtilsConstraintViolationException
 	{
 		logger.debug(AbstractLogMessage.saveEntity(trafficLight));
 		trafficLight = fUtils.save(trafficLight);
 		reloadTrafficLights();
 	}
 	
-	public void rm() throws UtilsContraintViolationException
+	public void rm() throws UtilsConstraintViolationException
 	{
 		logger.debug(AbstractLogMessage.rmEntity(trafficLight));
 		fUtils.rm(trafficLight);

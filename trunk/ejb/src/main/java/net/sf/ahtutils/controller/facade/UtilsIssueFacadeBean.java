@@ -2,7 +2,7 @@ package net.sf.ahtutils.controller.facade;
 
 import javax.persistence.EntityManager;
 
-import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.factory.ejb.issue.EjbTaskFactory;
@@ -36,7 +36,7 @@ public class UtilsIssueFacadeBean extends UtilsFacadeBean implements UtilsIssueF
 			{
 				ejb = this.update(ejb);
 			}
-			catch (UtilsContraintViolationException e) {return fcTask(clTask, clWithTask, ejb);}
+			catch (UtilsConstraintViolationException e) {return fcTask(clTask, clWithTask, ejb);}
 			catch (UtilsLockingException e) {return fcTask(clTask, clWithTask, ejb);}
 		}
 		return ejb.getTask();

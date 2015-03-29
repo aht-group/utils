@@ -2,7 +2,7 @@ package net.sf.ahtutils.web.rest;
 
 import net.sf.ahtutils.controller.util.query.StatusQuery;
 import net.sf.ahtutils.db.xml.AhtStatusDbInit;
-import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.factory.ejb.status.EjbStatusFactory;
@@ -264,7 +264,7 @@ public class SurveyRestService <L extends UtilsLang,
 				dut.success();
 			}
 			catch (UtilsNotFoundException e) {dut.fail(e,true);}
-			catch (UtilsContraintViolationException e) {dut.fail(e,true);}
+			catch (UtilsConstraintViolationException e) {dut.fail(e,true);}
 		}
 		return dut.toDataUpdate();
 	}
@@ -300,7 +300,7 @@ public class SurveyRestService <L extends UtilsLang,
 			dut.success();
 		}
 		catch (UtilsNotFoundException e) {dut.fail(e,true);}
-		catch (UtilsContraintViolationException e) {dut.fail(e,true);}
+		catch (UtilsConstraintViolationException e) {dut.fail(e,true);}
 		catch (UtilsLockingException e) {dut.fail(e,true);}
 		
 		return dut.toDataUpdate();

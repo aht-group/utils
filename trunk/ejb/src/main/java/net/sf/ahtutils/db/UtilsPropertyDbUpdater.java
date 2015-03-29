@@ -1,6 +1,6 @@
 package net.sf.ahtutils.db;
 
-import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.factory.ejb.util.EjbPropertyFactory;
 import net.sf.ahtutils.factory.xml.status.XmlTypeFactory;
@@ -61,7 +61,7 @@ public class UtilsPropertyDbUpdater <P extends UtilsProperty>
 				{
 					ejb = (P)fUtils.persist(ejb);
 				}
-				catch (UtilsContraintViolationException e) {dut.fail(e, true);}
+				catch (UtilsConstraintViolationException e) {dut.fail(e, true);}
 			}
 		}
 

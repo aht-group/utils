@@ -1,6 +1,6 @@
 package net.sf.ahtutils.factory.ejb.util;
 
-import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.factory.ejb.status.EjbDescriptionFactory;
 import net.sf.ahtutils.factory.ejb.status.EjbLangFactory;
 import net.sf.ahtutils.interfaces.model.util.UtilsTrafficLight;
@@ -56,7 +56,7 @@ public class EjbTrafficLightFactory<L extends UtilsLang,D extends UtilsDescripti
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();}
-		catch (UtilsContraintViolationException e) {e.printStackTrace();}
+		catch (UtilsConstraintViolationException e) {e.printStackTrace();}
         
         return ejb;
     }
@@ -74,7 +74,7 @@ public class EjbTrafficLightFactory<L extends UtilsLang,D extends UtilsDescripti
 				if(langKeys!=null){ejb.setName(efLang.createEmpty(langKeys));}
 				if(langKeys!=null){ejb.setDescription(efDescription.createEmpty(langKeys));}
 			}
-			catch (UtilsContraintViolationException e) {e.printStackTrace();}
+			catch (UtilsConstraintViolationException e) {e.printStackTrace();}
 		}
 		catch (InstantiationException e) {throw new RuntimeException(e);}
 		catch (IllegalAccessException e) {throw new RuntimeException(e);}

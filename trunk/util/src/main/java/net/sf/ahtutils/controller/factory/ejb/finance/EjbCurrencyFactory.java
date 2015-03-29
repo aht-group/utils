@@ -1,6 +1,6 @@
 package net.sf.ahtutils.controller.factory.ejb.finance;
 
-import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.factory.ejb.status.EjbLangFactory;
 import net.sf.ahtutils.model.interfaces.finance.UtilsCurrency;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
@@ -41,11 +41,11 @@ public class EjbCurrencyFactory<C extends UtilsCurrency<L>, L extends UtilsLang>
         return c;
     }
 	
-	public C create(Currency xml) throws UtilsContraintViolationException
+	public C create(Currency xml) throws UtilsConstraintViolationException
 	{
-		if(!xml.isSetLangs()){throw new UtilsContraintViolationException("No <langs> available for "+JaxbUtil.toString(xml));}
-		if(!xml.isSetCode()){throw new UtilsContraintViolationException("No @code available for "+JaxbUtil.toString(xml));}
-		if(!xml.isSetSymbol()){throw new UtilsContraintViolationException("No @symbol available for "+JaxbUtil.toString(xml));}
+		if(!xml.isSetLangs()){throw new UtilsConstraintViolationException("No <langs> available for "+JaxbUtil.toString(xml));}
+		if(!xml.isSetCode()){throw new UtilsConstraintViolationException("No @code available for "+JaxbUtil.toString(xml));}
+		if(!xml.isSetSymbol()){throw new UtilsConstraintViolationException("No @symbol available for "+JaxbUtil.toString(xml));}
 		
 		try
 		{
@@ -53,7 +53,7 @@ public class EjbCurrencyFactory<C extends UtilsCurrency<L>, L extends UtilsLang>
 			c.setName(ejbLangFactory.getLangMap(xml.getLangs()));
 			return c;
 		}
-		catch (InstantiationException e) {throw new UtilsContraintViolationException(e.getMessage());}
-		catch (IllegalAccessException e) {throw new UtilsContraintViolationException(e.getMessage());}
+		catch (InstantiationException e) {throw new UtilsConstraintViolationException(e.getMessage());}
+		catch (IllegalAccessException e) {throw new UtilsConstraintViolationException(e.getMessage());}
     }
 }

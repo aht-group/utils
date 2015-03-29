@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import net.sf.ahtutils.controller.util.ParentPredicate;
-import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
@@ -97,19 +97,19 @@ public class AbstractDummyFacade implements UtilsFacade
 
 	@Override
 	public <T extends EjbSaveable> T save(T o)
-			throws UtilsContraintViolationException, UtilsLockingException {
+			throws UtilsConstraintViolationException, UtilsLockingException {
 		
 		return null;
 	}
 
 	@Override
-	public <T> T persist(T o) throws UtilsContraintViolationException {
+	public <T> T persist(T o) throws UtilsConstraintViolationException {
 		
 		return null;
 	}
 
 	@Override
-	public <T> T update(T o) throws UtilsContraintViolationException,
+	public <T> T update(T o) throws UtilsConstraintViolationException,
 			UtilsLockingException {
 		
 		return null;
@@ -117,7 +117,7 @@ public class AbstractDummyFacade implements UtilsFacade
 
 	@Override
 	public <T extends EjbRemoveable> void rm(T o)
-			throws UtilsContraintViolationException {
+			throws UtilsConstraintViolationException {
 		
 		
 	}
@@ -373,7 +373,7 @@ public class AbstractDummyFacade implements UtilsFacade
 	}
 
 	@Override
-	public <T extends EjbSaveable> T saveTransaction(T o) throws UtilsContraintViolationException, UtilsLockingException
+	public <T extends EjbSaveable> T saveTransaction(T o) throws UtilsConstraintViolationException, UtilsLockingException
 	{
 		
 		return null;
@@ -394,14 +394,14 @@ public class AbstractDummyFacade implements UtilsFacade
 	}
 
 	@Override
-	public <T extends EjbMergeable> T mergeTransaction(T o) throws UtilsContraintViolationException, UtilsLockingException
+	public <T extends EjbMergeable> T mergeTransaction(T o) throws UtilsConstraintViolationException, UtilsLockingException
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <T extends EjbMergeable> T merge(T o) throws UtilsContraintViolationException, UtilsLockingException
+	public <T extends EjbMergeable> T merge(T o) throws UtilsConstraintViolationException, UtilsLockingException
 	{
 		// TODO Auto-generated method stub
 		return null;

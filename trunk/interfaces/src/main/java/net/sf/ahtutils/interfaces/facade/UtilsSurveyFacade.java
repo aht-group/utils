@@ -2,7 +2,7 @@ package net.sf.ahtutils.interfaces.facade;
 
 import java.util.List;
 
-import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurvey;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyAnswer;
@@ -40,5 +40,5 @@ public interface UtilsSurveyFacade <L extends UtilsLang,
 	TEMPLATE fcSurveyTemplate(Class<TEMPLATE> cTemplate, Class<TS> cTS, TC category);
 	List<ANSWER> fcAnswers(Class<DATA> cData, Class<ANSWER> cAnswer, Class<TEMPLATE> cTemplate, DATA data);
 	
-	DATA saveData(Class<DATA> cData, Class<CORRELATION> cCorrelation, DATA data) throws UtilsContraintViolationException, UtilsLockingException;
+	DATA saveData(Class<DATA> cData, Class<CORRELATION> cCorrelation, DATA data) throws UtilsConstraintViolationException, UtilsLockingException;
 }

@@ -7,7 +7,7 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
 import net.sf.ahtutils.controller.util.ParentPredicate;
-import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
@@ -52,18 +52,18 @@ public class AbstractUtilsFacadeBean implements UtilsFacade
 	
 	// Persist
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public <T extends EjbSaveable> T saveTransaction(T o) throws UtilsContraintViolationException,UtilsLockingException {return fUtils.save(o);}
+	public <T extends EjbSaveable> T saveTransaction(T o) throws UtilsConstraintViolationException,UtilsLockingException {return fUtils.save(o);}
 	
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	@Override public <T extends EjbMergeable> T mergeTransaction(T o) throws UtilsContraintViolationException, UtilsLockingException {return fUtils.mergeTransaction(o);}
+	@Override public <T extends EjbMergeable> T mergeTransaction(T o) throws UtilsConstraintViolationException, UtilsLockingException {return fUtils.mergeTransaction(o);}
 
-	@Override public <T extends EjbMergeable> T merge(T o) throws UtilsContraintViolationException, UtilsLockingException{return fUtils.merge(o);}
+	@Override public <T extends EjbMergeable> T merge(T o) throws UtilsConstraintViolationException, UtilsLockingException{return fUtils.merge(o);}
 	
-	public <T extends EjbSaveable> T save(T o) throws UtilsContraintViolationException,UtilsLockingException {return fUtils.save(o);}
-	protected <T extends EjbWithId> T saveProtected(T o) throws UtilsContraintViolationException,UtilsLockingException {return fUtils.saveProtected(o);}
+	public <T extends EjbSaveable> T save(T o) throws UtilsConstraintViolationException,UtilsLockingException {return fUtils.save(o);}
+	protected <T extends EjbWithId> T saveProtected(T o) throws UtilsConstraintViolationException,UtilsLockingException {return fUtils.saveProtected(o);}
 	
-	public <T extends Object> T persist(T o) throws UtilsContraintViolationException {return fUtils.persist(o);}
-	public <T extends Object> T update(T o) throws UtilsContraintViolationException, UtilsLockingException {return fUtils.update(o);}
+	public <T extends Object> T persist(T o) throws UtilsConstraintViolationException {return fUtils.persist(o);}
+	public <T extends Object> T update(T o) throws UtilsConstraintViolationException, UtilsLockingException {return fUtils.update(o);}
 	
 	// Finder
 	public <T extends EjbWithId> T find(Class<T> type, T t) {return fUtils.find(type, t);}
@@ -77,8 +77,8 @@ public class AbstractUtilsFacadeBean implements UtilsFacade
 	@Override public <T extends EjbWithNonUniqueCode> List<T> allByCode(Class<T> type, String code) {return fUtils.allByCode(type,code);}
 	
 	// Remove
-	public <T extends EjbRemoveable> void rm(T o) throws UtilsContraintViolationException {rmProtected(o);}
-	protected <T extends Object> void rmProtected(T o) throws UtilsContraintViolationException {fUtils.rmProtected(o);}
+	public <T extends EjbRemoveable> void rm(T o) throws UtilsConstraintViolationException {rmProtected(o);}
+	protected <T extends Object> void rmProtected(T o) throws UtilsConstraintViolationException {fUtils.rmProtected(o);}
 	
 	// All
 	public <T extends Object> List<T> all(Class<T> type) {return fUtils.all(type);}

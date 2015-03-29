@@ -3,7 +3,7 @@ package net.sf.ahtutils.report.revert.excel.importers;
 import java.io.IOException;
 import java.io.Serializable;
 
-import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.factory.ejb.status.EjbStatusFactory;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
@@ -61,7 +61,7 @@ public class ExcelEjbWithCodeImporter <E extends EjbWithCode, I extends ImportSt
 	* @return       Database Entity object with ID and (if not available in database already empty) translations
 	*
 	*/
-	public E persistEntity(E pojo) throws UtilsContraintViolationException
+	public E persistEntity(E pojo) throws UtilsConstraintViolationException
 	{
 		// The Plain Old Java Object (pojo) holding the code will be transformed into an Entity that has an ID and is to be found in the database
 		E entity = null;

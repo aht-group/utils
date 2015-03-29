@@ -4,7 +4,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.ahtutils.exception.ejb.UtilsContraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
@@ -41,9 +41,9 @@ public class EjbStatusFactory<S extends UtilsStatus<S,L,D>, L extends UtilsLang,
         return new EjbStatusFactory<S, L, D>(statusClass, cLang, descriptionClass);
     }
     
-	public S create(Status status) throws InstantiationException, IllegalAccessException, UtilsContraintViolationException
+	public S create(Status status) throws InstantiationException, IllegalAccessException, UtilsConstraintViolationException
 	{
-		if(!status.isSetLangs()){throw new UtilsContraintViolationException("No <langs> available for "+JaxbUtil.toString(status));}
+		if(!status.isSetLangs()){throw new UtilsConstraintViolationException("No <langs> available for "+JaxbUtil.toString(status));}
         S s = statusClass.newInstance();
         s.setCode(status.getCode());
         if(status.isSetPosition()){s.setPosition(status.getPosition());}
@@ -66,7 +66,7 @@ public class EjbStatusFactory<S extends UtilsStatus<S,L,D>, L extends UtilsLang,
 				if(langKeys!=null){s.setName(efLang.createEmpty(langKeys));}
 				if(langKeys!=null){s.setDescription(efDescription.createEmpty(langKeys));}
 			}
-			catch (UtilsContraintViolationException e) {e.printStackTrace();}
+			catch (UtilsConstraintViolationException e) {e.printStackTrace();}
 		}
 		catch (InstantiationException e) {throw new RuntimeException(e);}
 		catch (IllegalAccessException e) {throw new RuntimeException(e);}
