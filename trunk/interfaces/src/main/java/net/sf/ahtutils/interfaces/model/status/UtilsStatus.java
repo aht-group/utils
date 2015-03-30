@@ -16,7 +16,8 @@ public interface UtilsStatus<S extends UtilsStatus<S,L,D>, L extends UtilsLang, 
 	String getImageAlt();
 	void setImageAlt(String image);
 	
-
+	String getSymbol();
+	void setSymbol(String symbol);
 	
 	public <P extends EjbWithCode> P getParent();
 	public <P extends EjbWithCode> void setParent(P parent);

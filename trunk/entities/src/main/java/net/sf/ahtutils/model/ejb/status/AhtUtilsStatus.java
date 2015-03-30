@@ -48,6 +48,10 @@ public class AhtUtilsStatus implements UtilsStatus<AhtUtilsStatus,AhtUtilsLang,A
 		
 	protected String code;
 	
+	private String symbol;
+	@Override public String getSymbol(){return symbol;}
+	@Override public void setSymbol(String symbol){this.symbol = symbol;}
+
 	protected boolean visible;
 	
 	protected String image,imageAlt;
