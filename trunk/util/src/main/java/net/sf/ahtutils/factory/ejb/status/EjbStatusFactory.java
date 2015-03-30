@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
-import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
+import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
+import net.sf.ahtutils.interfaces.model.status.UtilsLang;
+import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.status.Description;
 import net.sf.ahtutils.xml.status.Descriptions;
 import net.sf.ahtutils.xml.status.Status;

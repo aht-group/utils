@@ -48,5 +48,11 @@
     		<s:lang key="en" translation="Topic"/>
     		<s:lang key="fr" translation="Topic"/>
     	</s:langs>
-    </s:translation>
+    </s:translation> 
+	<s:translation key="aupListSize">
+		<s:langs>
+			<s:lang key="en" translation="Size"/>
+			<s:lang key="fr" translation="Size"/>
+		</s:langs>
+	</s:translation>
 </s:translations>

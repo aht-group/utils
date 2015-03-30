@@ -1,9 +1,9 @@
 package net.sf.ahtutils.model.interfaces.security;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
+import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
+import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
-import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithCode;
 import net.sf.ahtutils.model.interfaces.with.EjbWithDescription;
 import net.sf.ahtutils.model.interfaces.with.EjbWithLang;

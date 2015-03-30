@@ -1,6 +1,6 @@
 package net.sf.ahtutils.model.interfaces.finance;
 
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
+import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithCode;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithLang;

@@ -1,8 +1,8 @@
 package net.sf.ahtutils.interfaces.bl;
 
+import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
+import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.with.EjbWithLangDescription;
-import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 
 public interface UtilsStatusBl
 {	

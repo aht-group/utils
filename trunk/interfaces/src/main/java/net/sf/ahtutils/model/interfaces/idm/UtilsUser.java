@@ -2,13 +2,13 @@ package net.sf.ahtutils.model.interfaces.idm;
 
 import java.util.List;
 
+import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
+import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityRole;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityUsecase;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityView;
-import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface UtilsUser <L extends UtilsLang,

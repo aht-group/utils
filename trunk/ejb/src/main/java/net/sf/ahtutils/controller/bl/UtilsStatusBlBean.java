@@ -8,9 +8,9 @@ import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.bl.UtilsStatusBl;
+import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
+import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.with.EjbWithLangDescription;
-import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 
 public class UtilsStatusBlBean extends UtilsFacadeBean implements UtilsStatusBl
 {	

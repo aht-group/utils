@@ -1,4 +1,4 @@
-package net.sf.ahtutils.model.interfaces.status;
+package net.sf.ahtutils.interfaces.model.status;
 
 import net.sf.ahtutils.model.interfaces.crud.EjbRemoveable;
 

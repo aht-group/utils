@@ -1,8 +1,8 @@
 package net.sf.ahtutils.controller.factory.ejb.tracker;
 
-import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
-import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
+import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
+import net.sf.ahtutils.interfaces.model.status.UtilsLang;
+import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.tracker.UtilsTracker;
 import net.sf.ahtutils.model.interfaces.tracker.UtilsTrackerLog;
 

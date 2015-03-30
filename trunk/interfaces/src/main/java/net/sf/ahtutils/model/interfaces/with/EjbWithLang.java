@@ -2,7 +2,7 @@ package net.sf.ahtutils.model.interfaces.with;
 
 import java.util.Map;
 
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
+import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 
 public interface EjbWithLang<L extends UtilsLang>
 {	

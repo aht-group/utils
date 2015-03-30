@@ -1,4 +1,4 @@
-package net.sf.ahtutils.model.interfaces.status;
+package net.sf.ahtutils.interfaces.model.status;
 
 import net.sf.ahtutils.interfaces.model.with.EjbWithLangDescription;
 import net.sf.ahtutils.model.interfaces.crud.EjbRemoveable;
@@ -15,6 +15,8 @@ public interface UtilsStatus<S extends UtilsStatus<S,L,D>, L extends UtilsLang, 
 	
 	String getImageAlt();
 	void setImageAlt(String image);
+	
+
 	
 	public <P extends EjbWithCode> P getParent();
 	public <P extends EjbWithCode> void setParent(P parent);

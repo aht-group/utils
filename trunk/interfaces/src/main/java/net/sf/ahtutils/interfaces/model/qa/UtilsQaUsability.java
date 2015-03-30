@@ -1,14 +1,14 @@
 package net.sf.ahtutils.interfaces.model.qa;
 
+import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
+import net.sf.ahtutils.interfaces.model.status.UtilsLang;
+import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityRole;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityUsecase;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityView;
-import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
-import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface UtilsQaUsability<L extends UtilsLang,

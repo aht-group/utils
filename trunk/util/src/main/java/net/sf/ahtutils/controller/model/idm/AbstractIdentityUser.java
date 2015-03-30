@@ -3,14 +3,14 @@ package net.sf.ahtutils.controller.model.idm;
 import java.util.Hashtable;
 import java.util.Map;
 
+import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
+import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityRole;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityUsecase;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityView;
-import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 
 public class AbstractIdentityUser <L extends UtilsLang,
 								   D extends UtilsDescription,

@@ -2,12 +2,12 @@ package net.sf.ahtutils.interfaces.model.survey;
 
 import java.util.List;
 
+import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
+import net.sf.ahtutils.interfaces.model.status.UtilsLang;
+import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.with.EjbWithRemark;
 import net.sf.ahtutils.interfaces.model.with.utils.UtilsWithCategory;
 import net.sf.ahtutils.interfaces.model.with.utils.UtilsWithStatus;
-import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
-import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;

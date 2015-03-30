@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.Hashtable;
 import java.util.Map;
 
+import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
+import net.sf.ahtutils.interfaces.model.status.UtilsLang;
+import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.jsf.filter.UtilsStatusFilter;
-import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
-import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithImage;
 
 import org.slf4j.Logger;

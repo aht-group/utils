@@ -2,6 +2,9 @@ package net.sf.ahtutils.factory.ejb.survey;
 
 import java.util.Date;
 
+import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
+import net.sf.ahtutils.interfaces.model.status.UtilsLang;
+import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurvey;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyAnswer;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyCorrelation;
@@ -10,9 +13,6 @@ import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyOption;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyQuestion;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurveySection;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyTemplate;
-import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
-import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

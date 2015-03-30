@@ -4,6 +4,9 @@ import java.util.List;
 
 import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
+import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
+import net.sf.ahtutils.interfaces.model.status.UtilsLang;
+import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurvey;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyAnswer;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyCorrelation;
@@ -12,9 +15,6 @@ import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyOption;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyQuestion;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurveySection;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyTemplate;
-import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
-import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 
 public interface UtilsSurveyFacade <L extends UtilsLang,
 									D extends UtilsDescription,

@@ -13,10 +13,10 @@ import javax.persistence.criteria.Root;
 
 import net.sf.ahtutils.controller.interfaces.UtilsTrackerFacade;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
+import net.sf.ahtutils.interfaces.model.status.UtilsLang;
+import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.mail.UtilsMailTracker;
-import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
-import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.tracker.UtilsTracker;
 import net.sf.ahtutils.model.interfaces.tracker.UtilsTrackerLog;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;

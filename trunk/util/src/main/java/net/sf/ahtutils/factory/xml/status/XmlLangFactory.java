@@ -1,6 +1,6 @@
 package net.sf.ahtutils.factory.xml.status;
 
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
+import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.xml.status.Lang;
 
 import org.slf4j.Logger;

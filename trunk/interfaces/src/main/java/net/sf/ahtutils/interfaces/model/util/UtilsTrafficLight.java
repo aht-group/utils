@@ -1,12 +1,12 @@
 package net.sf.ahtutils.interfaces.model.util;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
+import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
+import net.sf.ahtutils.interfaces.model.status.UtilsLang;
+import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.with.EjbWithLangDescription;
 import net.sf.ahtutils.interfaces.model.with.status.UtilsWithScope;
 import net.sf.ahtutils.model.interfaces.crud.EjbRemoveable;
-import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
-import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface UtilsTrafficLight<L extends UtilsLang,

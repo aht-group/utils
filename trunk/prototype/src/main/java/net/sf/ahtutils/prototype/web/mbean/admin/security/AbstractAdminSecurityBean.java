@@ -9,14 +9,14 @@ import net.sf.ahtutils.controller.factory.ejb.security.EjbSecurityUsecaseFactory
 import net.sf.ahtutils.factory.ejb.status.EjbDescriptionFactory;
 import net.sf.ahtutils.factory.ejb.status.EjbLangFactory;
 import net.sf.ahtutils.interfaces.facade.UtilsSecurityFacade;
+import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
+import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityRole;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityUsecase;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityView;
-import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 import org.slf4j.Logger;

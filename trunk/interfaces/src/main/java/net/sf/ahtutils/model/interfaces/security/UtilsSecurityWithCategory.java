@@ -1,8 +1,8 @@
 package net.sf.ahtutils.model.interfaces.security;
 
+import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
+import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
-import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface UtilsSecurityWithCategory<L extends UtilsLang,

@@ -4,14 +4,14 @@ import net.sf.ahtutils.controller.factory.xml.security.XmlAclRolesFactory;
 import net.sf.ahtutils.controller.factory.xml.security.XmlRoleFactory;
 import net.sf.ahtutils.factory.xml.status.XmlDescriptionsFactory;
 import net.sf.ahtutils.factory.xml.status.XmlLangsFactory;
+import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
+import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryGroup;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryProjectRole;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclGroup;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclRole;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclView;
-import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.xml.access.Category;
 
 import org.slf4j.Logger;

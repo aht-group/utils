@@ -5,14 +5,14 @@ import java.util.Set;
 
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
+import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
+import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryGroup;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryProjectRole;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclGroup;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclRole;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclView;
-import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.xml.access.AclQuery;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.Group;

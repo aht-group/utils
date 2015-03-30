@@ -65,6 +65,7 @@ public class UtilsMsgBuilder
 			
 			byte[] bytes = IOUtils.toByteArray(JDomUtil.toInputStream(doc, Format.getPrettyFormat()));
 			FileIO.writeFileIfDiffers(bytes, fTarget);
+			logger.info("Written "+dst);
 		}
 		catch (FileNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
 		catch (IOException e) {throw new UtilsConfigurationException(e.getMessage());}

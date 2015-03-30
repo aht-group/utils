@@ -2,10 +2,10 @@ package net.sf.ahtutils.factory.ejb.sync;
 
 import java.util.Date;
 
+import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
+import net.sf.ahtutils.interfaces.model.status.UtilsLang;
+import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.sync.UtilsSync;
-import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
-import net.sf.ahtutils.model.interfaces.status.UtilsStatus;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

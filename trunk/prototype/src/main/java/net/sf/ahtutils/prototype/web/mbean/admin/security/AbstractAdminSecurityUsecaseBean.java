@@ -7,14 +7,14 @@ import java.util.List;
 import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
+import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.idm.UtilsUser;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityAction;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityCategory;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityRole;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityUsecase;
 import net.sf.ahtutils.model.interfaces.security.UtilsSecurityView;
-import net.sf.ahtutils.model.interfaces.status.UtilsDescription;
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 import org.slf4j.Logger;

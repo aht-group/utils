@@ -45,7 +45,7 @@
 	                <table:cell>
 	                    <media:image>
 	                        <layout:height unit="em">1.0</layout:height>
-	                        <media:media src="svg.aht-utils/icon/file/xls.svg" dst="icon/ui/export/xls"/>
+	                        <media:media src="svg.aht-utils/icon/ui/system/file/xls.svg" dst="icon/ui/export/xls"/>
 	                    </media:image>
 	                </table:cell>
 	                <table:cell>
@@ -59,7 +59,7 @@
 	                <table:cell>
 	                    <media:image>
 	                        <layout:height unit="em">1.0</layout:height>
-	                        <media:media src="svg.aht-utils/icon/file/pdf.svg" dst="icon/ui/export/pdf"/>
+	                        <media:media src="svg.aht-utils/icon/ui/system/file/pdf.svg" dst="icon/ui/system/file/pdf"/>
 	                    </media:image>
 	                </table:cell>
 	                <table:cell>
@@ -73,7 +73,7 @@
 	                <table:cell>
 	                    <media:image>
 	                        <layout:height unit="em">1.0</layout:height>
-	                        <media:media src="svg.aht-utils/icon/file/doc.svg" dst="icon/ui/export/doc"/>
+	                        <media:media src="svg.aht-utils/icon/ui/system/file/doc.svg" dst="icon/ui/export/doc"/>
 	                    </media:image>
 	                </table:cell>
 	                <table:cell>
@@ -87,7 +87,7 @@
 	                <table:cell>
 	                    <media:image>
 	                        <layout:height unit="em">1.0</layout:height>
-	                        <media:media src="svg.aht-utils/icon/file/xml.svg" dst="icon/ui/export/xml"/>
+	                        <media:media src="svg.aht-utils/icon/ui/system/file/xml.svg" dst="icon/ui/export/xml"/>
 	                    </media:image>
 	                </table:cell>
 	                <table:cell>

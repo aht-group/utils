@@ -2,7 +2,7 @@ package net.sf.ahtutils.factory.xml.status;
 
 import java.util.Map;
 
-import net.sf.ahtutils.model.interfaces.status.UtilsLang;
+import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.xml.status.Langs;
 
 import org.slf4j.Logger;
