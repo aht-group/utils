@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<sec:category xmlns:s="http://ahtutils.aht-group.com/status" xmlns:acl="http://ahtutils.aht-group.com/access" xmlns:ns3="http://ahtutils.aht-group.com/navigation" xmlns:sec="http://ahtutils.aht-group.com/security">
+<sec:category xmlns:s="http://ahtutils.aht-group.com/status" xmlns:sec="http://ahtutils.aht-group.com/security" xmlns:acl="http://ahtutils.aht-group.com/access" xmlns:ns4="http://ahtutils.aht-group.com/navigation">
     <s:langs/>
     <s:descriptions/>
-    <sec:roles/>
+    <sec:roles type="myType"/>
     <sec:actions/>
     <sec:usecases/>
     <acl:views/>

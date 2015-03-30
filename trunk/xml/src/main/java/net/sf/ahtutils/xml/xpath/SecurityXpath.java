@@ -6,6 +6,7 @@ import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.View;
 import net.sf.ahtutils.xml.access.Views;
+import net.sf.ahtutils.xml.security.Roles;
 import net.sf.ahtutils.xml.security.Security;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
@@ -29,6 +30,20 @@ public class SecurityXpath
 		List<View> listResult = (List<View>)context.selectNodes(sb.toString());
 		if(listResult.size()==0){throw new ExlpXpathNotFoundException("No "+View.class.getSimpleName()+" for code="+code);}
 		else if(listResult.size()>1){throw new ExlpXpathNotUniqueException("Multiple "+View.class.getSimpleName()+" for code="+code);}
+		return listResult.get(0);
+	}
+	
+	public static synchronized Roles getRoles(Roles roles,String type) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
+	{
+		JXPathContext context = JXPathContext.newContext(roles);
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append("/roles[@type='").append(type).append("']");
+		
+		@SuppressWarnings("unchecked")
+		List<Roles> listResult = (List<Roles>)context.selectNodes(sb.toString());
+		if(listResult.size()==0){throw new ExlpXpathNotFoundException("No "+Roles.class.getSimpleName()+" for type="+type);}
+		else if(listResult.size()>1){throw new ExlpXpathNotUniqueException("Multiple "+Roles.class.getSimpleName()+" for type="+type);}
 		return listResult.get(0);
 	}
 	

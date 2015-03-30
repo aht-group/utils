@@ -50,9 +50,11 @@ public class XmlRolesFactory <L extends UtilsLang,
 		
 	}
 	
-	public static Roles build()
+	public static Roles build(){return XmlRolesFactory.buildType(null);}
+	public static Roles buildType(String type)
 	{
-		return new Roles();
-		
+		Roles xml = new Roles();
+		xml.setType(type);
+		return xml;
 	}
 }
