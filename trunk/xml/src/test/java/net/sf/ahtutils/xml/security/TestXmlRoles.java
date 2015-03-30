@@ -27,11 +27,13 @@ public class TestXmlRoles extends AbstractXmlSecurityTest
     public static Roles create(boolean withChilds)
     {
     	Roles xml = new Roles();
+    	xml.setType("myType");
     	
     	if(withChilds)
     	{
-    		xml.getRole().add(TestXmlRole.create(false));
-    		xml.getRole().add(TestXmlRole.create(false));
+    		xml.getRoles().add(TestXmlRoles.create(false));xml.getRoles().add(TestXmlRoles.create(false));
+    		xml.getRole().add(TestXmlRole.create(false));xml.getRole().add(TestXmlRole.create(false));
+    		
     	}
     	return xml;
     }

@@ -33,14 +33,15 @@ public class XmlRolesFactory <L extends UtilsLang,
 	{
 		this.q=q;
 	}
-	
 
-	public Roles build(List<R> roles)
+	public Roles build(List<R> roles){return build(roles,null);}
+	public Roles build(List<R> roles,String type)
 	{
 		Role qRole = q.getRole().get(0);
 		XmlRoleFactory<L,D,C,R,V,U,A,USER> f = new XmlRoleFactory<L,D,C,R,V,U,A,USER>(qRole);
 		
 		Roles xml = new Roles();
+		xml.setType(type);
 		for(R role : roles)
 		{
 			xml.getRole().add(f.build(role));

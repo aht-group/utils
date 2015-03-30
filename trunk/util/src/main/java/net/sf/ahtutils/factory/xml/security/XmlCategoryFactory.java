@@ -43,7 +43,7 @@ public class XmlCategoryFactory <L extends UtilsLang,D extends UtilsDescription,
 		
 		if(q.isSetDescriptions())
 		{
-			XmlDescriptionsFactory f = new XmlDescriptionsFactory(q.getDescriptions());
+			XmlDescriptionsFactory<D> f = new XmlDescriptionsFactory<D>(q.getDescriptions());
 			xml.setDescriptions(f.create(category.getDescription()));
 		}
 		
