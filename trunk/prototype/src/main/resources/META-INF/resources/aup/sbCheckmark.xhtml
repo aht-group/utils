@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:aht="http://ahtutils.sourceforge.net/jsf"
+	xmlns:aup="http://ahtutils.sourceforge.net/prototype"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+	
+	<composite:interface>
+		<composite:attribute name="value" type="java.lang.Boolean" required="true"/>
+	</composite:interface>
+	
+	<composite:implementation>
+		<c:if test="#{not empty cc.attrs.value}">
+			<h:panelGroup style="font-family: Arial Unicode MS, Lucida Grande">
+   				&#9745;
+			</h:panelGroup>
+        </c:if>
+      	<c:if test="#{empty cc.attrs.value}">
+        	<h:panelGroup style="font-family: Arial Unicode MS, Lucida Grande">
+   				&#9744;
+			</h:panelGroup>
+      	</c:if>
+	</composite:implementation>
+</html>
