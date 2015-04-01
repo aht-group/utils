@@ -15,10 +15,10 @@
 	</composite:interface>
 	
 	<composite:implementation>
-		<h:panelGroup rendered="#{cc.attrs.value}" style="font-family: Arial Unicode MS, Lucida Grande">
+		<h:panelGroup rendered="#{cc.attrs.value}" styleClass="aupFontUnicode">
    				&#9745;
 		</h:panelGroup>
-        <h:panelGroup rendered="#{not cc.attrs.value}" style="font-family: Arial Unicode MS, Lucida Grande">
+        <h:panelGroup rendered="#{not cc.attrs.value}" styleClass="aupFontUnicode">
    				&#9744;
 		</h:panelGroup>
 	</composite:implementation>
