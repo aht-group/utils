@@ -15,15 +15,11 @@
 	</composite:interface>
 	
 	<composite:implementation>
-		<c:if test="#{not empty cc.attrs.value}">
-			<h:panelGroup style="font-family: Arial Unicode MS, Lucida Grande">
+		<h:panelGroup rendered="#{cc.attrs.value}" style="font-family: Arial Unicode MS, Lucida Grande">
    				&#9745;
-			</h:panelGroup>
-        </c:if>
-      	<c:if test="#{empty cc.attrs.value}">
-        	<h:panelGroup style="font-family: Arial Unicode MS, Lucida Grande">
+		</h:panelGroup>
+        <h:panelGroup rendered="#{not cc.attrs.value}" style="font-family: Arial Unicode MS, Lucida Grande">
    				&#9744;
-			</h:panelGroup>
-      	</c:if>
+		</h:panelGroup>
 	</composite:implementation>
 </html>
