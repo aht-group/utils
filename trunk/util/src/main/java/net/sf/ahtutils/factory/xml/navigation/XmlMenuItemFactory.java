@@ -1,5 +1,6 @@
 package net.sf.ahtutils.factory.xml.navigation;
 
+import net.sf.ahtutils.xml.access.View;
 import net.sf.ahtutils.xml.navigation.MenuItem;
 
 import org.slf4j.Logger;
@@ -18,4 +19,19 @@ public class XmlMenuItemFactory
 
 		return xml;
 	}
+	
+	public static MenuItem dynamic(String dynamicCode, String urlParameter, String label)
+	{
+		View view = new View();
+		view.setCode(dynamicCode);
+		view.setUrlParameter(urlParameter);
+		view.setLabel(label);
+
+		MenuItem item = new MenuItem();
+		item.setCode(dynamicCode+view.getUrlParameter());
+		item.setView(view);
+		return item;
+	}
+	
+	
 }
