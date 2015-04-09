@@ -56,6 +56,28 @@ public class JbossModuleConfigurator
 		}
 	}
 	
+	public void mysql() throws IOException
+	{
+		File baseDir = buildMobuleBase("com/mysql");
+		File moduleMain = new File(baseDir,"main");
+		File moduleXml = new File(moduleMain,"module.xml");
+		
+		if(!baseDir.exists()){baseDir.mkdir();}
+		if(!moduleMain.exists()){moduleMain.mkdir();}
+		if(!moduleXml.exists())
+		{
+			String src = srcBaseDir+"/"+product+"/"+version+"/mysql.xml";
+			logger.info("Available?"+mrl.isAvailable(src)+" "+src);
+			InputStream input = mrl.searchIs(src);
+			FileUtils.copyInputStreamToFile(input, moduleXml);
+		}
+		
+		if(version.equals("6.3"))
+		{
+			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("mysql:mysql-connector-java:5.1.18"),moduleMain);
+		}
+	}
+	
 	public void envers() throws IOException
 	{
 		File hibernateBase = buildMobuleBase("org/hibernate/envers");
