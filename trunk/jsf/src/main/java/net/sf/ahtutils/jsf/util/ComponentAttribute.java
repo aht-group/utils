@@ -5,6 +5,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -97,5 +98,37 @@ public class ComponentAttribute
 		}
 		if(value==null){value=defaultValue;}
 		return value;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T extends EjbWithId> T getObject(Class<T> c, String attribute, FacesContext context, UIComponent component)
+	{
+		T t = null;
+		ValueExpression ve = component.getValueExpression(attribute);
+		if(ve!=null)
+		{
+			t = (T)ve.getValue(context.getELContext());
+		}
+		return t;
+	}
+	
+	public static boolean available(String attribute, FacesContext context, UIComponent component)
+	{
+		if(component.getAttributes().containsKey(attribute))
+		{
+//			logger.info(attribute+" is a Attribute");
+			return true;
+		} 
+		else
+		{
+			ValueExpression ve = component.getValueExpression(attribute);
+			if(ve!=null)
+			{
+//				logger.info(attribute+" is a ValueExpression");
+				return true;
+			}
+		}
+//		logger.info(attribute+" is not available");
+		return false;
 	}
 }

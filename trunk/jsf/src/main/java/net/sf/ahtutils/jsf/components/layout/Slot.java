@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import net.sf.ahtutils.jsf.util.ComponentAttribute;
+import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,12 +19,11 @@ import org.slf4j.LoggerFactory;
 public class Slot extends UIPanel
 {
 	final static Logger logger = LoggerFactory.getLogger(Slot.class);
-	private static enum Properties {id,width,styleClass,renderChildren}
+	private static enum Properties {id,width,styleClass,renderChildren,renderChildrenIfEjb,renderChildrenIfEjbPersisted}
 	
 	@Override public boolean getRendersChildren(){return true;}
 	
 	private Boolean renderChilds;
-	
 	public Boolean getRenderChilds() {return renderChilds;}
 	public void setRenderChilds(Boolean renderChilds) {this.renderChilds = renderChilds;}
 
@@ -60,7 +60,22 @@ public class Slot extends UIPanel
 	@Override
 	public void encodeChildren(FacesContext context) throws IOException
 	{
-		if(ComponentAttribute.getBoolean(Properties.renderChildren.toString(), true, context, this))
+		boolean rChildren = ComponentAttribute.getBoolean(Properties.renderChildren.toString(), true, context, this);
+		
+		if(rChildren && ComponentAttribute.available(Properties.renderChildrenIfEjb.toString(),context,this))
+		{
+			EjbWithId ejb = ComponentAttribute.getObject(EjbWithId.class,Properties.renderChildrenIfEjb.toString(),context,this);
+			if(ejb==null){rChildren=false;}
+		}
+		
+		if(rChildren && ComponentAttribute.available(Properties.renderChildrenIfEjbPersisted.toString(),context,this))
+		{
+			EjbWithId ejb = ComponentAttribute.getObject(EjbWithId.class,Properties.renderChildrenIfEjbPersisted.toString(),context,this);
+			if(ejb==null){rChildren=false;}
+			else if(ejb.getId()==0){rChildren=false;}
+		}
+		
+		if(rChildren)
 		{
 			for(UIComponent uic : this.getChildren())
 			{

@@ -9,11 +9,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import net.sf.ahtutils.jsf.util.ComponentAttribute;
+import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 @FacesComponent("net.sf.ahtutils.jsf.components.layout.Row")
 public class Row extends UIPanel
 {	
-	private static enum Properties {renderChildren}
+	private static enum Properties {renderChildren,renderChildrenIfEjb,renderChildrenIfEjbPersisted}
 	
 	@Override
 	public void encodeBegin(FacesContext context) throws IOException
@@ -39,7 +40,22 @@ public class Row extends UIPanel
 	@Override
 	public void encodeChildren(FacesContext context) throws IOException
 	{
-		if(ComponentAttribute.getBoolean(Properties.renderChildren.toString(), true, context, this))
+		boolean rChildren = ComponentAttribute.getBoolean(Properties.renderChildren.toString(), true, context, this);
+		
+		if(rChildren && ComponentAttribute.available(Properties.renderChildrenIfEjb.toString(),context,this))
+		{
+			EjbWithId ejb = ComponentAttribute.getObject(EjbWithId.class,Properties.renderChildrenIfEjb.toString(),context,this);
+			if(ejb==null){rChildren=false;}
+		}
+		
+		if(rChildren && ComponentAttribute.available(Properties.renderChildrenIfEjbPersisted.toString(),context,this))
+		{
+			EjbWithId ejb = ComponentAttribute.getObject(EjbWithId.class,Properties.renderChildrenIfEjbPersisted.toString(),context,this);
+			if(ejb==null){rChildren=false;}
+			else if(ejb.getId()==0){rChildren=false;}
+		}
+		
+		if(rChildren)
 		{
 			for(UIComponent uic : this.getChildren())
 			{
