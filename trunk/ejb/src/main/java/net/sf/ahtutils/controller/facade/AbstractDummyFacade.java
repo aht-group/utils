@@ -2,6 +2,7 @@ package net.sf.ahtutils.controller.facade;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import net.sf.ahtutils.controller.util.ParentPredicate;
 import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
@@ -416,6 +417,13 @@ public class AbstractDummyFacade implements UtilsFacade
 
 	@Override
 	public <T extends EjbWithId> List<T> find(Class<T> type, List<Long> ids)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T extends EjbWithId> List<T> find(Class<T> type, Set<Long> ids)
 	{
 		// TODO Auto-generated method stub
 		return null;

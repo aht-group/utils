@@ -3,6 +3,7 @@ package net.sf.ahtutils.controller.facade;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -200,8 +201,12 @@ public class UtilsFacadeBean implements UtilsFacade
 		return o;
 	}
 	
-	@Override
-	public <T extends EjbWithId> List<T> find(Class<T> cl, List<Long> ids)
+	@Override public <T extends EjbWithId> List<T> find(Class<T> cl, Set<Long> ids)
+	{
+		return find(cl,new ArrayList<Long>(ids));
+	}
+	
+	@Override public <T extends EjbWithId> List<T> find(Class<T> cl, List<Long> ids)
 	{
 		if(ids==null || ids.size()==0){return new ArrayList<T>();}
 		CriteriaBuilder cB = em.getCriteriaBuilder();
