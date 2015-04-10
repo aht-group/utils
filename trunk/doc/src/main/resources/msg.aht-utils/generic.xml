@@ -62,4 +62,10 @@
 			<s:lang key="fr" translation="Size"/>
 		</s:langs>
 	</s:translation>
+		<s:translation key="aupToolbox">
+		<s:langs>
+			<s:lang key="en" translation="Toolbox"/>
+			<s:lang key="fr" translation="Toolbox"/>
+		</s:langs>
+	</s:translation>
 </s:translations>

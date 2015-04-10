@@ -200,6 +200,20 @@ public class UtilsFacadeBean implements UtilsFacade
 		return o;
 	}
 	
+	@Override
+	public <T extends EjbWithId> List<T> find(Class<T> cl, List<Long> ids)
+	{
+		if(ids==null || ids.size()==0){return new ArrayList<T>();}
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+        CriteriaQuery<T> cQ = cB.createQuery(cl);
+        Root<T> root = cQ.from(cl);
+        Path<Long> path = root.get("id");
+        cQ.where(cB.isTrue(path.in(ids)));
+
+		TypedQuery<T> q = em.createQuery(cQ); 
+		return q.getResultList();
+	}
+	
 	@Override public <T extends EjbWithCode> T fByCode(Class<T> type, String code) throws UtilsNotFoundException
 	{
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
@@ -961,5 +975,6 @@ public class UtilsFacadeBean implements UtilsFacade
 	    TypedQuery<USER> q = em.createQuery(select);
 		return q.getResultList();
 	}
+
 	
 }

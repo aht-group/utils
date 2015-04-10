@@ -413,4 +413,11 @@ public class AbstractDummyFacade implements UtilsFacade
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public <T extends EjbWithId> List<T> find(Class<T> type, List<Long> ids)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
