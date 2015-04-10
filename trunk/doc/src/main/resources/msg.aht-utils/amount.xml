@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<s:translations xmlns:s="http://ahtutils.aht-group.com/status">
+	<s:translation key="aupAmount">
+    	<s:langs>
+    		<s:lang key="de" translation="Amount"/>
+    		<s:lang key="en" translation="Amount"/>
+    		<s:lang key="fr" translation="Amount"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="aupAmountTotal">
+    	<s:langs>
+    		<s:lang key="de" translation="Total Amount"/>
+    		<s:lang key="en" translation="Total Amount"/>
+    		<s:lang key="fr" translation="Total Amount"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="aupAmountAvailable">
+    	<s:langs>
+    		<s:lang key="de" translation="Available Amount"/>
+    		<s:lang key="en" translation="Available Amount"/>
+    		<s:lang key="fr" translation="Available Amount"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="aupAmountEntitled">
+    	<s:langs>
+    		<s:lang key="de" translation="Entitled Amount"/>
+    		<s:lang key="en" translation="Entitled Amount"/>
+    		<s:lang key="fr" translation="Entitled Amount"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="aupAmountTransaction">
+    	<s:langs>
+    		<s:lang key="de" translation="Transaction Amount"/>
+    		<s:lang key="en" translation="Transaction Amount"/>
+    		<s:lang key="fr" translation="Transaction Amount"/>
+    	</s:langs>
+    </s:translation>
+</s:translations>

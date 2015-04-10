@@ -25,6 +25,7 @@ public class UtilsMsgBuilder
 {	
 	public static final String srcGeneric = "msg.aht-utils/generic.xml";
 	public static final String srcDate = "msg.aht-utils/date.xml";
+	public static final String srcAmount = "msg.aht-utils/amount.xml";
 	public static final String srcAdminAuditLog = "msg.aht-utils/admin/system/auditLog.xml";
 	public static final String srcAdminSync = "msg.aht-utils/admin/system/sync.xml";
 	public static final String srcAdminSystemProperty = "msg.aht-utils/admin/system/properties.xml";
