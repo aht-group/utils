@@ -266,6 +266,26 @@
 				<artifactId>jstl</artifactId>
 				<version>1.2</version>
 			</dependency>
+			
+			<!-- This should be removed -->
+			<dependency>
+		         <groupId>org.richfaces</groupId>
+		         <artifactId>richfaces-bom</artifactId>
+		         <version>4.2.1.Final</version>
+		         <scope>import</scope>
+		         <type>pom</type>
+	     	</dependency>
+	     	<!-- This is a replacement for richfaces-bom -->
+			<dependency>
+				<groupId>javax.faces</groupId>
+				<artifactId>javax.faces-api</artifactId>
+				<version>2.1</version>
+	      </dependency>
+	      <dependency>
+				<groupId>com.sun.faces</groupId>
+				<artifactId>jsf-api</artifactId>
+				<version>2.1.0</version>
+	      </dependency>
         	
         	<!-- XML -->
         	<dependency>
