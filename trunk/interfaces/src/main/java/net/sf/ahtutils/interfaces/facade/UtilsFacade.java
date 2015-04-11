@@ -71,12 +71,18 @@ public interface UtilsFacade extends UtilsIdFacade
 	<T extends EjbWithRecord, AND extends EjbWithId, OR extends EjbWithId> List<T> allOrderedForParents(Class<T> queryClass, List<ParentPredicate<AND>> lpAnd, List<ParentPredicate<OR>> lpOr,boolean ascending);
 	<T extends EjbWithValidFrom> List<T> allOrderedValidFrom(Class<T> cl, boolean ascending);
 	
-	<T extends EjbMergeable> T merge(T o) throws UtilsConstraintViolationException, UtilsLockingException;
-	<T extends EjbMergeable> T mergeTransaction(T o) throws UtilsConstraintViolationException, UtilsLockingException;
+	
+	//Persist
 	<T extends Object> T persist(T o) throws UtilsConstraintViolationException;
 	<T extends Object> T update(T o) throws UtilsConstraintViolationException,UtilsLockingException;
-	<T extends EjbSaveable> T saveTransaction(T o) throws UtilsConstraintViolationException,UtilsLockingException;
+	
+	<T extends EjbMergeable> T merge(T o) throws UtilsConstraintViolationException, UtilsLockingException;
+	<T extends EjbMergeable> T mergeTransaction(T o) throws UtilsConstraintViolationException, UtilsLockingException;
+	
 	<T extends EjbSaveable> T save(T o) throws UtilsConstraintViolationException,UtilsLockingException;
+	<T extends EjbSaveable> T saveTransaction(T o) throws UtilsConstraintViolationException,UtilsLockingException;
+	<T extends EjbSaveable> void save(List<T> list) throws UtilsConstraintViolationException,UtilsLockingException;
+	<T extends EjbSaveable> void saveTransaction(List<T> list) throws UtilsConstraintViolationException,UtilsLockingException;
 	
 	<T extends EjbRemoveable> void rm(T o) throws UtilsConstraintViolationException;
 	

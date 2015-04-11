@@ -428,4 +428,18 @@ public class AbstractDummyFacade implements UtilsFacade
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public <T extends EjbSaveable> void save(List<T> list)
+			throws UtilsConstraintViolationException, UtilsLockingException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public <T extends EjbSaveable> void saveTransaction(List<T> list)
+			throws UtilsConstraintViolationException, UtilsLockingException {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -65,6 +65,13 @@ public class UtilsFacadeBean implements UtilsFacade
 		this.handleTransaction=handleTransaction;
 	}
 	
+	//Persist
+	@Override public <T extends EjbSaveable> T saveTransaction(T o) throws UtilsConstraintViolationException, UtilsLockingException{return saveProtected(o);}
+	@Override public <T extends EjbSaveable> T save(T o) throws UtilsConstraintViolationException,UtilsLockingException {return saveProtected(o);}
+	
+	@Override public <T extends EjbSaveable> void save(List<T> list) throws UtilsConstraintViolationException,UtilsLockingException {for(T t : list){saveProtected(t);}}
+	@Override public <T extends EjbSaveable> void saveTransaction(List<T> list) throws UtilsConstraintViolationException,UtilsLockingException {for(T t : list){saveProtected(t);}}
+	
 	@Override
 	public <E extends EjbEquals<T>, T extends EjbWithId> boolean equalsAttributes(Class<T> c, E object)
 	{
@@ -75,17 +82,7 @@ public class UtilsFacadeBean implements UtilsFacade
 	@Override public <T extends EjbMergeable> T merge(T o) throws UtilsConstraintViolationException, UtilsLockingException {return this.update(o);}
 	@Override public <T extends EjbMergeable> T mergeTransaction(T o) throws UtilsConstraintViolationException, UtilsLockingException {return update(o);}
 	
-	@Override
-	public <T extends EjbSaveable> T saveTransaction(T o) throws UtilsConstraintViolationException, UtilsLockingException
-	{
-		return saveProtected(o);
-	}
-	
-	@Override
-	public <T extends EjbSaveable> T save(T o) throws UtilsConstraintViolationException,UtilsLockingException
-	{
-		return saveProtected(o);
-	}
+
 	public <T extends EjbWithId> T saveProtected(T o) throws UtilsConstraintViolationException, UtilsLockingException
 	{
 		if(o.getId()==0){return this.persist(o);}

@@ -51,11 +51,15 @@ public class AbstractUtilsFacadeBean implements UtilsFacade
 	
 	@Override public <E extends EjbEquals<T>, T extends EjbWithId> boolean equalsAttributes(Class<T> c,E object){return fUtils.equalsAttributes(c,object);}
 	
-	
-	
+
 	// Persist
+	@Override public <T extends EjbSaveable> void save(List<T> list) throws UtilsConstraintViolationException,UtilsLockingException {fUtils.save(list);}
+	
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public <T extends EjbSaveable> T saveTransaction(T o) throws UtilsConstraintViolationException,UtilsLockingException {return fUtils.save(o);}
+	@Override public <T extends EjbSaveable> T saveTransaction(T o) throws UtilsConstraintViolationException,UtilsLockingException {return fUtils.save(o);}
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	@Override public <T extends EjbSaveable> void saveTransaction(List<T> list) throws UtilsConstraintViolationException,UtilsLockingException {fUtils.save(list);}
 	
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	@Override public <T extends EjbMergeable> T mergeTransaction(T o) throws UtilsConstraintViolationException, UtilsLockingException {return fUtils.mergeTransaction(o);}
