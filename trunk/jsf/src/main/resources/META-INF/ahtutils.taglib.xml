@@ -77,6 +77,11 @@
 		<function-signature>java.util.String human(java.lang.Long,java.lang.Boolean)</function-signature>
 	</function>
 	<function>
+		<function-name>add</function-name>
+		<function-class>net.sf.ahtutils.jsf.functions.SimpleArithmetic</function-class>
+		<function-signature>java.util.Integer add(java.lang.Integer,java.lang.Integer)</function-signature>
+	</function>
+	<function>
 		<function-name>mobileDevice</function-name>
 		<function-class>net.sf.ahtutils.jsf.functions.MobileDevice</function-class>
 		<function-signature>java.lang.Boolean mobileDevice()</function-signature>
