@@ -62,7 +62,6 @@ public interface UtilsFacade extends UtilsIdFacade
 	// ORDERING
 	<T extends Object> List<T> allOrdered(Class<T> cl, String by, boolean ascending);
 	<T extends Object,I extends EjbWithId> List<T> allOrderedParent(Class<T> cl, String by, boolean ascending,String p1Name, I p1);
-	<T extends EjbWithRecord,I extends EjbWithId> List<T> allOrderedParentRecordBetween(Class<T> cl, String by, boolean ascending,String p1Name, I p1,Date from, Date to);
 	<T extends EjbWithCode> List<T> allOrderedCode(Class<T> cl);
 	<T extends EjbWithPosition> List<T> allOrderedPosition(Class<T> type);
 	<T extends EjbWithPositionVisible> List<T> allOrderedPositionVisible(Class<T> type);
@@ -70,7 +69,6 @@ public interface UtilsFacade extends UtilsIdFacade
 	<T extends EjbWithRecord> List<T> allOrderedRecord(Class<T> type, boolean ascending);
 	<T extends EjbWithRecord, AND extends EjbWithId, OR extends EjbWithId> List<T> allOrderedForParents(Class<T> queryClass, List<ParentPredicate<AND>> lpAnd, List<ParentPredicate<OR>> lpOr,boolean ascending);
 	<T extends EjbWithValidFrom> List<T> allOrderedValidFrom(Class<T> cl, boolean ascending);
-	
 	
 	//Persist
 	<T extends Object> T persist(T o) throws UtilsConstraintViolationException;
@@ -101,6 +99,7 @@ public interface UtilsFacade extends UtilsIdFacade
 	<T extends EjbWithId, P extends EjbWithId, OR1 extends EjbWithId, OR2 extends EjbWithId> List<T> fGrandParents(Class<T> queryClass, Class<P> parentClass, String parentName, List<ParentPredicate<OR1>> lpOr1, List<ParentPredicate<OR2>> lpOr2);
 	
 	//Record
+	<T extends EjbWithRecord,I extends EjbWithId> List<T> allOrderedParentRecordBetween(Class<T> cl, boolean ascending,String p1Name, I p1,Date from, Date to);
 	<T extends EjbWithRecord> List<T> inInterval(Class<T> clRecord, Date from, Date to);
 	<T extends EjbWithRecord> T fFirst(Class<T> clRecord);
 	<T extends EjbWithRecord> T fLast(Class<T> clRecord);

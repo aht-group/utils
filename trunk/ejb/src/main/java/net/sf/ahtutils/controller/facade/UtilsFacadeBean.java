@@ -382,7 +382,7 @@ public class UtilsFacadeBean implements UtilsFacade
 	}
 	
 	@Override
-	public <T extends EjbWithRecord, I extends EjbWithId> List<T> allOrderedParentRecordBetween(Class<T> cl, String by, boolean ascending, String p1Name, I p1,Date fromRecord, Date toRecord)
+	public <T extends EjbWithRecord, I extends EjbWithId> List<T> allOrderedParentRecordBetween(Class<T> cl, boolean ascending, String p1Name, I p1,Date fromRecord, Date toRecord)
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<T> cQ = cB.createQuery(cl);
@@ -391,11 +391,9 @@ public class UtilsFacadeBean implements UtilsFacade
 		Path<Object> p1Path = from.get(p1Name);
 		Expression<Date> eRecord = from.get("record");
 		
-		Expression<Date> eOrder = from.get(by);
-		
 		CriteriaQuery<T> select = cQ.select(from);
-		if(ascending){select.orderBy(cB.asc(eOrder));}
-		else{select.orderBy(cB.desc(eOrder));}
+		if(ascending){select.orderBy(cB.asc(eRecord));}
+		else{select.orderBy(cB.desc(eRecord));}
 		select.where(cB.equal(p1Path, p1.getId()),
 				cB.lessThanOrEqualTo(eRecord, toRecord),
 				cB.greaterThanOrEqualTo(eRecord, fromRecord));

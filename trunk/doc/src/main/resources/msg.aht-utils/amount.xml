@@ -35,4 +35,12 @@
     		<s:lang key="fr" translation="Transaction Amount"/>
     	</s:langs>
     </s:translation>
+    	<s:translation key="aupAmountOrdered">
+    	<s:langs>
+    		<s:lang key="de" translation="Ordered Amount"/>
+    		<s:lang key="en" translation="Ordered Amount"/>
+    		<s:lang key="fr" translation="Ordered Amount"/>
+    	</s:langs>
+    </s:translation>
+    
 </s:translations>
