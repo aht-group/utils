@@ -15,7 +15,6 @@ import net.sf.ahtutils.interfaces.model.survey.UtilsSurveySection;
 import net.sf.ahtutils.interfaces.model.survey.UtilsSurveyTemplate;
 import net.sf.ahtutils.xml.survey.Survey;
 import net.sf.exlp.util.DateUtil;
-import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

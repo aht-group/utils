@@ -1,6 +1,5 @@
 package net.sf.ahtutils.controller.factory.xml.acl;
 
-import net.sf.ahtutils.controller.factory.xml.security.XmlAclRolesFactory;
 import net.sf.ahtutils.controller.factory.xml.security.XmlRoleFactory;
 import net.sf.ahtutils.factory.xml.status.XmlDescriptionsFactory;
 import net.sf.ahtutils.factory.xml.status.XmlLangsFactory;

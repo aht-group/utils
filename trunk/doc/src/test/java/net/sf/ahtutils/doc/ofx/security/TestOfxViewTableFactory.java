@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.ahtutils.doc.ofx.security.OfxViewTableFactory;
 import net.sf.ahtutils.test.AhtUtilsDocBootstrap;
 import net.sf.ahtutils.xml.access.TestXmlView;
 import net.sf.ahtutils.xml.access.View;
@@ -24,7 +23,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openfuxml.content.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
-import org.openfuxml.media.cross.NoOpCrossMediaManager;
 import org.openfuxml.renderer.latex.content.table.LatexGridTableRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Set;
 
 import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsDeveloperException;
