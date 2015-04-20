@@ -26,10 +26,16 @@ public class XmlRoleFactory<L extends UtilsLang,
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlRoleFactory.class);
 		
+	private String lang;
 	private Role q;
 	
 	public XmlRoleFactory(Role q)
 	{
+		this.q=q;
+	}
+	public XmlRoleFactory(String lang, Role q)
+	{
+		this.lang=lang;
 		this.q=q;
 	}
 	
@@ -44,7 +50,7 @@ public class XmlRoleFactory<L extends UtilsLang,
 	public Role build(R role)
 	{
 		Role xml = new Role();
-		
+		if(q.isSetId()){xml.setId(role.getId());}
 		if(q.isSetCode()){xml.setCode(role.getCode());}
 		
 		if(q.isSetLangs())
@@ -75,6 +81,12 @@ public class XmlRoleFactory<L extends UtilsLang,
 		{
 			XmlUsecasesFactory<L,D,C,R,V,U,A,USER> f = new XmlUsecasesFactory<L,D,C,R,V,U,A,USER>(q.getUsecases());
 			xml.setUsecases(f.build(role.getUsecases()));
+		}
+		
+		if(q.isSetLabel() && lang!=null && role.getName().containsKey(lang))
+		{
+
+			xml.setLabel(role.getName().get(lang).getLang());
 		}
 			
 		return xml;

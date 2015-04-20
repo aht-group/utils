@@ -18,7 +18,7 @@
 			</f:facet>
 			<h:panelGrid columns="2" columnClasses="col1,col2" styleClass="auCleanPanelGrid">
 				<p:outputLabel value="#{msg.Key}"/>
-				<p:inputText disabled="true" value="#{adminSystemPropertyBean.property.key}" styleClass="pfInputTextDisabled"/>
+				<h:outputText value="#{adminSystemPropertyBean.property.key}"/>
 				<p:outputLabel value="#{msg.Value}"/>
 				<p:inputText rendered="#{!adminSystemPropertyBean.property.frozen}" value="#{adminSystemPropertyBean.property.value}"/>
 				<h:outputText rendered="#{adminSystemPropertyBean.property.frozen}" value="#{adminSystemPropertyBean.property.value}"/>

@@ -21,7 +21,7 @@ import net.sf.ahtutils.xml.status.Domain;
 
 public class SecurityQuery
 {
-	public static enum Key {role,exStaff}
+	public static enum Key {role,roleLabel,exStaff}
 	
 	private static Map<Key,Query> mQueries;
 	
@@ -49,6 +49,15 @@ public class SecurityQuery
 		xml.setCode("");
 		xml.setLangs(StatusQuery.langs());
 		xml.setDescriptions(StatusQuery.descriptions());
+		return xml;
+	}
+	
+	public static Role roleLabel()
+	{
+		Role xml = new Role();
+		xml.setId(0);
+		xml.setCode("");
+		xml.setLabel("");
 		return xml;
 	}
 	

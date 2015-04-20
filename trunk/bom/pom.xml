@@ -142,6 +142,13 @@
         		<version>3.9</version>
         	</dependency>
         	
+        	<!-- Google App Engine -->
+			<dependency>
+				<groupId>com.googlecode.objectify</groupId>
+				<artifactId>objectify</artifactId>
+				<version>5.1.5</version>
+			</dependency>
+        	
         	<!-- REST -->
         	<dependency> <!-- This is the bundled version in JBoss-7.1.1 -->
         		<groupId>org.jboss.resteasy</groupId>
