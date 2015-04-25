@@ -9,6 +9,7 @@ import org.apache.commons.configuration.Configuration;
 import org.openfuxml.content.ofx.Comment;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.xml.ofx.content.XmlRawFactory;
+import org.openfuxml.util.OfxCommentBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -72,15 +73,16 @@ public class DocumentationCommentBuilder
 		comment.getRaw().add(XmlRawFactory.build(sb.toString()));
 	}
 	
+	@Deprecated
 	public static void fixedId(Comment comment, String id)
 	{
-		comment.getRaw().add(XmlRawFactory.build("The ID (label) for this element is fixed: "+id));
+		OfxCommentBuilder.fixedId(comment, id);
 	}
 	
+	@Deprecated
 	public static void doNotModify(Comment comment)
 	{
-		comment.getRaw().add(XmlRawFactory.build(""));
-		comment.getRaw().add(XmlRawFactory.build("Do not modify this auto-generated file, it will be overwritten without warning!"));
+		OfxCommentBuilder.doNotModify(comment);
 	}
 	
 	public static void ofxClassifier(Comment comment,String[] classifier)
