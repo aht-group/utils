@@ -28,4 +28,19 @@
     		<s:lang key="fr" translation="Year"/>
     	</s:langs>
     </s:translation>
+    
+	<s:translation key="aupDateFrom">
+    	<s:langs>
+    		<s:lang key="de" translation="Von"/>
+    		<s:lang key="en" translation="From"/>
+    		<s:lang key="fr" translation="From"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="aupDateUntil">
+    	<s:langs>
+    		<s:lang key="de" translation="Bis"/>
+    		<s:lang key="en" translation="Until"/>
+    		<s:lang key="fr" translation="Until"/>
+    	</s:langs>
+    </s:translation>  
 </s:translations>
