@@ -80,14 +80,21 @@ public class UtilsIdentityFactory <I extends UtilsIdentity<L,D,C,R,V,U,A,USER>,
 		return new UtilsIdentityFactory<I,L,D,C,R,V,U,A,USER>(clIdentity,clLang,clDescription,clCategory,clRole,clView,clUsecase,clAction,clUser);
 	}
 
-	public I create(UtilsSecurityFacade fSecurity, USER user) throws InstantiationException, IllegalAccessException
+	public I create(UtilsSecurityFacade fSecurity, USER user)
 	{		
-		I identity = clIdentity.newInstance();
-		identity.setUser(user);
+		I identity = null;
 		
-		for(A a : fSecurity.allActionsForUser(clUser, user)){identity.allowAction(a);}		
-		for(R r : fSecurity.allRolesForUser(clUser,user)){identity.allowRole(r);}
-		for(V v : fSecurity.allViewsForUser(clUser,user)){identity.allowView(v);}
+		try
+		{
+			identity = clIdentity.newInstance();
+			identity.setUser(user);
+			
+			for(A a : fSecurity.allActionsForUser(clUser, user)){identity.allowAction(a);}		
+			for(R r : fSecurity.allRolesForUser(clUser,user)){identity.allowRole(r);}
+			for(V v : fSecurity.allViewsForUser(clUser,user)){identity.allowView(v);}
+		}
+		catch (InstantiationException e) {e.printStackTrace();}
+		catch (IllegalAccessException e) {e.printStackTrace();}
 		
 		return identity;
 	}

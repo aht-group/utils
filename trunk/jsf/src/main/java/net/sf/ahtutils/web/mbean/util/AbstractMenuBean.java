@@ -55,7 +55,6 @@ public abstract class AbstractMenuBean implements Serializable
 	{
 		logger.warn("This should never been called here. A @Override in extended class is required");
 	}
-	
 
 	// ******************************************
 	// Menu

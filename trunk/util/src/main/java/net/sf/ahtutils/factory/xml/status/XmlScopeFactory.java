@@ -1,6 +1,5 @@
 package net.sf.ahtutils.factory.xml.status;
 
-import net.sf.ahtutils.exception.xml.UtilsXmlStructureException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -23,7 +22,7 @@ public class XmlScopeFactory
 		this.lang=lang;
 	}
 	
-	public <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription> Scope build(S ejb) throws UtilsXmlStructureException
+	public <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription> Scope build(S ejb)
 	{
 		Scope xml = new Scope();
 		if(q.isSetCode()){xml.setCode(ejb.getCode());}
@@ -38,10 +37,8 @@ public class XmlScopeFactory
 
 		}
 		
-		if(q.isSetLabel())
+		if(q.isSetLabel() && lang!=null && ejb.getName()!=null && ejb.getName().containsKey(lang))
 		{
-			if(lang==null){throw new UtilsXmlStructureException("lang is not set for Factory");}
-			if(!ejb.getName().containsKey(lang)){throw new UtilsXmlStructureException("Entity "+ejb+" does not contain lang="+lang);}
 			xml.setLabel(ejb.getName().get(lang).getLang());
 		}
 		
