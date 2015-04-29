@@ -38,7 +38,6 @@
 
 	<properties>	
 		<my.build.directory>target</my.build.directory>	
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.build.timestamp.format>yyyyMMdd'T'HHmmss</maven.build.timestamp.format>
         <jboss.home>${env.JBOSS_HOME}</jboss.home>
         <jboss.domain>default</jboss.domain>
@@ -51,8 +50,6 @@
        	<jaxb.version>2.2.2</jaxb.version>
         
         <maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
-    	<compiler-source.version>1.7</compiler-source.version>
-    	<compiler-target.version>1.7</compiler-target.version>
     	<maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
     	<maven-javadoc-plugin.version>2.8</maven-javadoc-plugin.version>
     	<maven-source-plugin.version>2.1.2</maven-source-plugin.version>
@@ -172,11 +169,10 @@
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<inherited>true</inherited>
-				<version>${maven-compiler-plugin.version}</version>
 				<configuration>
-					<source>${compiler-source.version}</source>
-					<target>${compiler-target.version}</target>
-					<encoding>${project.build.sourceEncoding}</encoding>
+					<source>1.6</source>
+					<target>1.6</target>
+					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
 			<plugin>
