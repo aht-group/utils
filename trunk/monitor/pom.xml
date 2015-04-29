@@ -25,8 +25,7 @@
 		</dependencies>
 	</dependencyManagement>
 	
-	<dependencies>
-		
+	<dependencies>	
 		<!-- Utils -->
    		<dependency>
         	<groupId>net.sf.ahtutils</groupId>

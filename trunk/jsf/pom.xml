@@ -206,14 +206,6 @@
 	
 	<build>
 		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<inherited>true</inherited>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
          	<plugin>
 				<groupId>net.sf.ahtutils</groupId>
 				<artifactId>ahtutils-maven</artifactId>
