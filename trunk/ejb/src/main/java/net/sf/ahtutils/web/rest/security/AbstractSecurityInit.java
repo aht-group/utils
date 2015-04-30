@@ -123,11 +123,10 @@ public class AbstractSecurityInit <L extends UtilsLang,
 		for(Category category : access.getCategory())
 		{
 			updateCategory.actualAdd(category.getCode());
-			
 			C ejbCategory;
 			try
 			{
-				ejbCategory = fSecurity.fByCode(cC,category.getCode());
+				ejbCategory = fSecurity.fByTypeCode(cC,type.toString(),category.getCode());
 				ejbLangFactory.rmLang(fSecurity,ejbCategory);
 				ejbDescriptionFactory.rmDescription(fSecurity,ejbCategory);
 			}
@@ -138,6 +137,7 @@ public class AbstractSecurityInit <L extends UtilsLang,
 					ejbCategory = cC.newInstance();
 					ejbCategory.setType(type.toString());
 					ejbCategory.setCode(category.getCode());
+					logger.info("Persisting "+ejbCategory.toString());
 					ejbCategory = (C)fSecurity.persist(ejbCategory);
 				}
 				catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
@@ -150,6 +150,7 @@ public class AbstractSecurityInit <L extends UtilsLang,
 				ejbCategory.setName(ejbLangFactory.getLangMap(category.getLangs()));
 				ejbCategory.setDescription(ejbDescriptionFactory.create(category.getDescriptions()));
 				ejbCategory=(C)fSecurity.update(ejbCategory);
+				logger.trace("Proceeding with childs");
 				iuChilds(ejbCategory,category);
 			}
 			catch (UtilsConstraintViolationException e) {logger.error("",e);}

@@ -35,6 +35,47 @@
     outline: 0 !important;
 }
 
+
+/* Remove the padding within the panel*/            
+.auPanelWithGrid .ui-panel-content{
+	padding: 0 !important;
+/*    border-style: none !important;*/
+}
+
+/***********************************************************************************/
+/********************** Primefaces Panel               *****************************/
+/* Removes borders from cells of PanelGrid */
+.auPanelWithGrid .ui-panelgrid .ui-panelgrid-cell {border-style: none !important;}
+
+/* Removes borders from PanelGrid rows */
+.auPanelWithGrid .ui-panelgrid .ui-widget-content {border-style: none !important;}
+	
+/* Make the PanelGrid fill the whole Panel */
+.auPanelWithGrid .ui-panelgrid {width: 100%;}
+/***********************************************************************************/
+
+/* Defines the columns for multi-column standard layouts */
+.auPwg05 {width: 05% !important; border-style: none;}
+.auPwg10 {width: 10% !important; border-style: none;}
+.auPwg15 {width: 15% !important; border-style: none;}
+.auPwg20 {width: 20% !important; border-style: none;}
+.auPwg25 {width: 25% !important; border-style: none;}
+.auPwg30 {width: 30% !important; border-style: none;}
+.auPwg35 {width: 35% !important; border-style: none;}
+.auPwg40 {width: 40% !important; border-style: none;}
+.auPwg45 {width: 45% !important; border-style: none;}
+.auPwg50 {width: 50% !important; border-style: none;}
+.auPwg55 {width: 55% !important; border-style: none;}
+.auPwg60 {width: 60% !important; border-style: none;}
+.auPwg65 {width: 65% !important; border-style: none;}
+.auPwg70 {width: 70% !important; border-style: none;}
+.auPwg75 {width: 75% !important; border-style: none;}
+.auPwg80 {width: 80% !important; border-style: none;}
+.auPwg85 {width: 85% !important; border-style: none;}
+.auPwg90 {width: 90% !important; border-style: none;}
+.auPwg95 {width: 95% !important; border-style: none;}
+.auPwg100 {width: 100% !important; border-style: none;}
+
 .pf-panel-with-tree {
 	.ui-panel-content.padding: 0px;
 }

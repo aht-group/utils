@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -226,6 +227,7 @@ public class UtilsFacadeBean implements UtilsFacade
 		TypedQuery<T> q = em.createQuery(criteriaQuery); 
 		try	{return q.getSingleResult();}
 		catch (NoResultException ex){throw new UtilsNotFoundException("Nothing found "+type.getSimpleName()+" for code="+code);}
+		catch (NonUniqueResultException ex){throw new UtilsNotFoundException("Results for "+type.getSimpleName()+" and code="+code+" not unique");}
 	}
 	
 	@Override public <T extends EjbWithTypeCode> T fByTypeCode(Class<T> c, String type, String code) throws UtilsNotFoundException
