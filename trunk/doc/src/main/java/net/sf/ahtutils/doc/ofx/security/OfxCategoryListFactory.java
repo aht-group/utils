@@ -3,7 +3,6 @@ package net.sf.ahtutils.doc.ofx.security;
 import java.io.IOException;
 import java.io.StringWriter;
 
-import net.sf.ahtutils.doc.DocumentationCommentBuilder;
 import net.sf.ahtutils.doc.ofx.AbstractUtilsOfxDocumentationFactory;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.status.Description;
@@ -25,6 +24,7 @@ import org.openfuxml.interfaces.DefaultSettingsManager;
 import org.openfuxml.interfaces.media.CrossMediaManager;
 import org.openfuxml.renderer.latex.content.list.LatexListRenderer;
 import org.openfuxml.renderer.latex.content.structure.LatexSectionRenderer;
+import org.openfuxml.util.OfxCommentBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,7 +58,7 @@ public class OfxCategoryListFactory extends AbstractUtilsOfxDocumentationFactory
 	public List create(java.util.List<Category> lRc)
 	{
 		Comment comment = XmlCommentFactory.build();
-		DocumentationCommentBuilder.doNotModify(comment);
+		OfxCommentBuilder.doNotModify(comment);
 		
 		List list = createList();
 		list.setComment(comment);

@@ -34,6 +34,7 @@ import org.openfuxml.factory.xml.ofx.layout.XmlLayoutFactory;
 import org.openfuxml.factory.xml.ofx.layout.XmlLineFactory;
 import org.openfuxml.factory.xml.table.OfxCellFactory;
 import org.openfuxml.factory.xml.table.OfxColumnFactory;
+import org.openfuxml.util.OfxCommentBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -117,7 +118,7 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 			DocumentationCommentBuilder.translationKeys(comment,config,UtilsDocumentation.keyTranslationFile);
 			DocumentationCommentBuilder.tableHeaders(comment,headers);
 			DocumentationCommentBuilder.tableKey(comment,captionKey,"Table Caption");
-			DocumentationCommentBuilder.doNotModify(comment);
+			OfxCommentBuilder.doNotModify(comment);
 			
 			Table table = toOfx(xmlStatus);
 			table.setId(id);

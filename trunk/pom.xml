@@ -112,7 +112,7 @@
 	
 	<repositories>
 		<repository>
-			<id>aht-3rdparty</id>
+			<id>aht.3rdparty</id>
 			<name>AHT Nexus Third Party</name>
 			<url>https://www.aht-group.com/nexus/content/repositories/thirdparty</url>
 			<releases><enabled>true</enabled></releases>
@@ -126,7 +126,7 @@
 			<snapshots><enabled>true</enabled></snapshots>
 		</repository>
         <repository>
-            <id>jboss-public</id>
+            <id>jboss.public</id>
             <name>JBoss Repository</name>
             <url>http://repository.jboss.org/nexus/content/groups/public</url>
             <releases><updatePolicy>daily</updatePolicy></releases>
@@ -142,7 +142,8 @@
     		<name>EBR External Release Repository</name>
     		<url>http://repository.springsource.com/maven/bundles/external</url>
 		</repository>
-		<repository>
+		
+<!-- 		<repository>
 	      <id>jboss-deprecated-repository</id>
 	      <name>JBoss Deprecated Maven Repository</name>
 	      <url>https://repository.jboss.org/nexus/content/repositories/deprecated/</url>
@@ -162,7 +163,7 @@
 	        <url>http://repository.primefaces.org</url>  
 	        <layout>default</layout>  
     	</repository>  
-    </repositories>
+ -->    </repositories>
     
     <build>
 		<plugins>

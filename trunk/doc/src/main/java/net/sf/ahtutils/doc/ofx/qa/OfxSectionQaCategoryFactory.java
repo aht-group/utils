@@ -3,7 +3,6 @@ package net.sf.ahtutils.doc.ofx.qa;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.ahtutils.doc.DocumentationCommentBuilder;
 import net.sf.ahtutils.doc.ofx.AbstractUtilsOfxDocumentationFactory;
 import net.sf.ahtutils.doc.ofx.qa.test.OfxTableQaTestFactory;
 import net.sf.ahtutils.doc.ofx.qa.test.OfxTableQaTestResultFactory;
@@ -22,6 +21,7 @@ import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.factory.xml.ofx.content.structure.XmlParagraphFactory;
 import org.openfuxml.factory.xml.ofx.content.structure.XmlSectionFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
+import org.openfuxml.util.OfxCommentBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,7 +46,7 @@ public class OfxSectionQaCategoryFactory extends AbstractUtilsOfxDocumentationFa
 		section.getContent().add(XmlTitleFactory.build(category.getName()));
 		
 		Comment comment = XmlCommentFactory.build();
-		DocumentationCommentBuilder.doNotModify(comment);
+		OfxCommentBuilder.doNotModify(comment);
 		section.getContent().add(comment);
 		
 		for(Test test : category.getTest())

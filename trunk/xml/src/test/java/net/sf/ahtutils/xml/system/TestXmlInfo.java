@@ -3,7 +3,6 @@ package net.sf.ahtutils.xml.system;
 import java.io.FileNotFoundException;
 
 import net.sf.ahtutils.test.UtilsXmlTestBootstrap;
-import net.sf.ahtutils.xml.status.TestXmlType;
 import net.sf.exlp.util.DateUtil;
 import net.sf.exlp.util.xml.JaxbUtil;
 

@@ -36,6 +36,7 @@ import org.openfuxml.interfaces.media.CrossMediaManager;
 import org.openfuxml.media.cross.NoOpCrossMediaManager;
 import org.openfuxml.processor.settings.OfxDefaultSettingsManager;
 import org.openfuxml.renderer.latex.content.table.LatexTableRenderer;
+import org.openfuxml.util.OfxCommentBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,7 +67,7 @@ public class OfxRoleTableFactory extends AbstractUtilsOfxDocumentationFactory
 			DocumentationCommentBuilder.translationKeys(comment,config,UtilsDocumentation.keyTranslationFile);
 			DocumentationCommentBuilder.tableHeaders(comment,headerKeys);
 			DocumentationCommentBuilder.tableKey(comment,keyCaptionPrefix,"Table Caption Prefix");
-			DocumentationCommentBuilder.doNotModify(comment);
+			OfxCommentBuilder.doNotModify(comment);
 			
 			Table table = toOfx(category.getRoles().getRole(),headerKeys);
 			table.setId(id);

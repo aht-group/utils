@@ -20,6 +20,7 @@ import org.openfuxml.exception.OfxConfigurationException;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.interfaces.DefaultSettingsManager;
 import org.openfuxml.interfaces.media.CrossMediaManager;
+import org.openfuxml.util.OfxCommentBuilder;
 import org.openfuxml.util.filter.OfxClassifierFilter;
 import org.openfuxml.util.filter.OfxLangFilter;
 import org.slf4j.Logger;
@@ -92,7 +93,7 @@ public class AbstractLatexDocumentationBuilder extends AbstractDocumentationLate
 			DocumentationCommentBuilder.ofxClassifier(comment,classifier);
 		}
 		
-		DocumentationCommentBuilder.doNotModify(comment);
+		OfxCommentBuilder.doNotModify(comment);
 		section.getContent().add(comment);
 		
 		for(String lang : langs)

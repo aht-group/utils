@@ -1,6 +1,5 @@
 package net.sf.ahtutils.doc.ofx.qa;
 
-import net.sf.ahtutils.doc.DocumentationCommentBuilder;
 import net.sf.ahtutils.doc.ofx.AbstractUtilsOfxDocumentationFactory;
 import net.sf.ahtutils.xml.qa.Category;
 import net.sf.ahtutils.xml.qa.Qa;
@@ -12,6 +11,7 @@ import org.openfuxml.content.ofx.Section;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.factory.xml.ofx.content.structure.XmlSectionFactory;
+import org.openfuxml.util.OfxCommentBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +30,7 @@ public class OfxQaCategoriesSectionFactory extends AbstractUtilsOfxDocumentation
 		section.setContainer(true);
 		
 		Comment comment = XmlCommentFactory.build();
-		DocumentationCommentBuilder.doNotModify(comment);
+		OfxCommentBuilder.doNotModify(comment);
 		section.getContent().add(comment);
 		
 		for(Category c : qa.getCategory())

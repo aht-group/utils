@@ -34,6 +34,7 @@ import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
 import org.openfuxml.factory.xml.table.OfxCellFactory;
 import org.openfuxml.factory.xml.table.OfxColumnFactory;
+import org.openfuxml.util.OfxCommentBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -77,7 +78,7 @@ public class OfxQaSummaryTableFactory extends AbstractUtilsOfxDocumentationFacto
 			DocumentationCommentBuilder.translationKeys(comment,config,UtilsDocumentation.keyTranslationFile);
 			DocumentationCommentBuilder.tableHeaders(comment,headerKeys);
 			DocumentationCommentBuilder.tableKey(comment,keyCaptionPrefix,"Table Caption Prefix");
-			DocumentationCommentBuilder.doNotModify(comment);
+			OfxCommentBuilder.doNotModify(comment);
 			table.setComment(comment);
 			
 			return table;
