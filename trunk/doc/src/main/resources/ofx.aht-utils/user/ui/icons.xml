@@ -206,15 +206,11 @@
 	                <table:cell>
 	                    <media:image>
 	                        <layout:height unit="em">1.0</layout:height>
-	                        <media:media src="svg.aht-utils/icon/ui/mail.svg" dst="icon/ui/mail"/>
+	                        <media:media src="svg.aht-utils/icon/ui/action/mail.svg" dst="icon/ui/action/mail"/>
 	                    </media:image>
 	                </table:cell>
-	                <table:cell>
-	                    <ofx:paragraph>Mail</ofx:paragraph>
-	                </table:cell>
-	                <table:cell>
-	                    <ofx:paragraph>Send Message by E-Mail</ofx:paragraph>
-	                </table:cell>
+	                <table:cell><ofx:paragraph>Mail</ofx:paragraph></table:cell>
+	                <table:cell><ofx:paragraph>Send Message by E-Mail</ofx:paragraph></table:cell>
 	            </table:row>
 	            <table:row>
 	                <table:cell>

@@ -31,21 +31,23 @@
 	
 	
 		<ofx:paragraph lang="en">
-			Get Java JDK (jdk-7u60-linux-x64.tar.gz) from http://www.oracle.com/technetwork/java/javase/downloads/index.html
+			Get the 64 bit version of Java JDK (jdk-7u80-linux-x64.tar.gz) from
+			http://www.oracle.com/technetwork/java/javase/downloads/index.html
 		</ofx:paragraph>
 		<ofx:paragraph lang="de">
-			Java JDK (jdk-7u60-linux-x64.tar.gz) herunterladen http://www.oracle.com/technetwork/java/javase/downloads/index.html
+			Das Java JDK (jdk-7u80-linux-x64.tar.gz) in der 64 bit version kann hier heruntergelanden werden
+			herunterladen http://www.oracle.com/technetwork/java/javase/downloads/index.html
 		</ofx:paragraph>
 	 
 	 	
 		<ofx:listing>
 			<ofx:raw>cd /opt
-tar -xvzf path_to_download/jdk-7u60-linux-x64.tar.gz
+tar -xvzf path_to_download/jdk-7u68-linux-x64.tar.gz
 
-update-alternatives --install /usr/bin/java java /opt/jdk1.7.0_71/bin/java 1
-update-alternatives --install /usr/bin/javac javac /opt/jdk1.7.0_71/bin/javac 1
-update-alternatives --set java /opt/jdk1.7.0_71/bin/java
-update-alternatives --set javac /opt/jdk1.7.0_71/bin/javac</ofx:raw>
+update-alternatives --install /usr/bin/java java /opt/jdk1.7.0_80/bin/java 1
+update-alternatives --install /usr/bin/javac javac /opt/jdk1.7.0_80/bin/javac 1
+update-alternatives --set java /opt/jdk1.7.0_80/bin/java
+update-alternatives --set javac /opt/jdk1.7.0_80/bin/javac</ofx:raw>
 		</ofx:listing>
 	</ofx:section>
 	
@@ -55,7 +57,7 @@ update-alternatives --set javac /opt/jdk1.7.0_71/bin/javac</ofx:raw>
 	
 	<ofx:paragraph lang="en"> 
 		Check your installation with the following commands.
-		<text:emphasis style="typewriter">java -version</text:emphasis>
+		<text:emphasis style="typewriter">java -d64 -version</text:emphasis>
 		<text:emphasis style="typewriter">javac -version</text:emphasis> 
 	</ofx:paragraph>
 	

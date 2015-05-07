@@ -298,6 +298,47 @@ challengeresponsepasswords no</ofx:raw>
 			</ofx:listing>
 		</ofx:section>
 		
+		<ofx:section classifier="disabled">
+	
+	<ofx:title>Apache</ofx:title>
+		
+		<ofx:paragraph lang="en">
+			The Apache HTTP Server  is the world's most widely used web server software.
+			Originally based on the NCSA HTTPd server, development of Apache began in early 1995 after
+			work on the NCSA code stalled. Apache played a key role in the initial growth of the
+			World Wide Web, quickly overtaking NCSA HTTPd as the dominant HTTP server,
+			and has remained the most popular HTTP server since April 1996.
+			In 2009, it became the first web server software to serve more than 100 million websites.
+
+			Apache is developed and maintained by an open community of developers
+			under the auspices of the Apache Software Foundation.
+			Most commonly used on a Unix-like system (usually Linux),
+			the software is available for a wide variety of operating systems,
+			including Windows, OS X, Linux, Unix, FreeBSD, Solaris, NetWare, OS/2, TPF, OpenVMS and eComStation. Released under the Apache License, Apache is free and open-source software.
+
+		As of June 2013, Apache was estimated to serve 54.2% of all active website and 53.3%
+		of the top servers across all domains.
+			</ofx:paragraph>
+		
+		<ofx:section container="true" classifier="debian">
+			<ofx:title lang="none">Linux Debian: 6 Squeeze and 7 Wheezy)</ofx:title>
+
+		 	<ofx:listing>
+				<ofx:raw>apt-get install apache2</ofx:raw>
+			</ofx:listing>
+			
+		</ofx:section>
+
+	
+		<ofx:paragraph lang="en"> 
+			a2enmod proxy proxy_http
+			service apache2 restart
+		</ofx:paragraph>
+	
+	
+	
+		</ofx:section>
+		
 		<ofx:section classifier="ubuntu14">
 			<ofx:title lang="en">Sudo</ofx:title>
 			

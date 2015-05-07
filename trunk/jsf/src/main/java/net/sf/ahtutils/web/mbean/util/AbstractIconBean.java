@@ -13,7 +13,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithImage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AbstractIconBean <L extends UtilsLang, D extends UtilsDescription, S extends UtilsStatus<S,L,D>>	 implements Serializable
+public class AbstractIconBean implements Serializable
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractIconBean.class);
 	private static final long serialVersionUID = 1L;
@@ -41,7 +41,8 @@ public class AbstractIconBean <L extends UtilsLang, D extends UtilsDescription, 
     }
 
     @Deprecated
-    public String urlFilter(Integer size, UtilsStatusFilter<L,D,S> filter)
+    public <L extends UtilsLang, D extends UtilsDescription, S extends UtilsStatus<S,L,D>>
+    String urlFilter(Integer size, UtilsStatusFilter<L,D,S> filter)
     {
 //    	logger.info("URL for "+filter.getValue().getCode()+" active="+filter.isActive());
     	if(filter.isActive()){return url(size,filter.getValue());}
@@ -59,7 +60,8 @@ public class AbstractIconBean <L extends UtilsLang, D extends UtilsDescription, 
     }
     
     @Deprecated
-    public String filter(Integer size, UtilsStatusFilter<L,D,S> filter)
+    public <L extends UtilsLang, D extends UtilsDescription, S extends UtilsStatus<S,L,D>>
+    String filter(Integer size, UtilsStatusFilter<L,D,S> filter)
     {
 //    	logger.info("Filter for "+filter.getValue().getCode()+" active="+filter.isActive());
     	if(filter.isActive()){return resource(size,filter.getValue());}
@@ -161,4 +163,5 @@ public class AbstractIconBean <L extends UtilsLang, D extends UtilsDescription, 
 	
 	public Map<Integer, Map<String, String>> getIcon() {return icon;}
 	public Map<String, String> getIcon12() {return icon.get(12);}
+	public Map<String, String> getIcon16() {return icon.get(16);}
 }
