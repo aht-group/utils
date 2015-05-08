@@ -58,9 +58,10 @@ public class AbstractAhtUtilsXmlTest
         String s = FilenameUtils.normalizeNoEndSeparator(f.getAbsolutePath());
 
         // This hack is for intelliJ
-        if(!s.endsWith("xml")){f = new File(s,"xml");}
-        else {f = new File(s);}
+ //       if(!s.endsWith("xml")){f = new File(s,"xml");}
+//        else {f = new File(s);}
 
+        f = new File(s);
         return new File(f,"src"+File.separator+"test"+File.separator+"resources"+File.separator+"data"+File.separator+"xml"+File.separator+suffix);
     }
 }
