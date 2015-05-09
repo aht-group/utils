@@ -270,6 +270,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Capability }
+     * 
+     */
+    public Capability createCapability() {
+        return new Capability();
+    }
+
+    /**
      * Create an instance of {@link Copy }
      * 
      */
@@ -379,6 +387,14 @@ public class ObjectFactory {
      */
     public Categories createCategories() {
         return new Categories();
+    }
+
+    /**
+     * Create an instance of {@link Capabilities }
+     * 
+     */
+    public Capabilities createCapabilities() {
+        return new Capabilities();
     }
 
     /**
