@@ -60,10 +60,10 @@ public class AhtStatusDbInit <S extends UtilsStatus<S,L,D>, L extends UtilsLang,
 		return mDbAvailableStatus.containsKey(group);
 	}
 	
-	private void savePreviousDbEntries(String key, List<UtilsStatus> availableStatus)
+	private void savePreviousDbEntries(String key, List<UtilsStatus<S,L,D>> availableStatus)
 	{
 		Set<Long> dbStatus = new HashSet<Long>();
-		for(UtilsStatus ejbStatus : availableStatus)
+		for(UtilsStatus<S,L,D> ejbStatus : availableStatus)
 		{
 			dbStatus.add(ejbStatus.getId());
 		}
@@ -71,7 +71,7 @@ public class AhtStatusDbInit <S extends UtilsStatus<S,L,D>, L extends UtilsLang,
 		mDbAvailableStatus.put(key, dbStatus);
 	}
 	
-	public UtilsStatus addVisible(UtilsStatus ejbStatus, Status status)
+	public UtilsStatus<S,L,D> addVisible(UtilsStatus<S,L,D> ejbStatus, Status status)
 	{
 		boolean visible=true;
 		if(status.isSetVisible()){visible=status.isVisible();}
@@ -79,9 +79,9 @@ public class AhtStatusDbInit <S extends UtilsStatus<S,L,D>, L extends UtilsLang,
 		return ejbStatus;
 	}
 	
-	public UtilsStatus addLangsAndDescriptions(UtilsStatus ejbStatus, Status status) throws InstantiationException, IllegalAccessException, UtilsConstraintViolationException
+	public UtilsStatus<S,L,D> addLangsAndDescriptions(UtilsStatus<S,L,D> ejbStatus, Status status) throws InstantiationException, IllegalAccessException, UtilsConstraintViolationException
 	{
-		UtilsStatus ejbUpdateInfo = (UtilsStatus)statusEjbFactory.create(status);
+		UtilsStatus<S,L,D> ejbUpdateInfo = statusEjbFactory.create(status);
 		ejbStatus.setName(ejbUpdateInfo.getName());
 		ejbStatus.setDescription(ejbUpdateInfo.getDescription());
 		return ejbStatus;
@@ -199,7 +199,7 @@ public class AhtStatusDbInit <S extends UtilsStatus<S,L,D>, L extends UtilsLang,
 				if(!isGroupInMap(xml.getGroup()))
 				{	// If a new group occurs, all entities are saved in a (delete) pool where
 					// they will be deleted if in the current list no entity with this key exists.
-					List<UtilsStatus> l = new ArrayList<UtilsStatus>();
+					List<UtilsStatus<S,L,D>> l = new ArrayList<UtilsStatus<S,L,D>>();
 					for(S s : fStatus.all(cStatus)){l.add(s);}
 					savePreviousDbEntries(xml.getGroup(), l);
 					logger.debug("Delete Pool: "+mDbAvailableStatus.get(xml.getGroup()).size());
@@ -209,7 +209,7 @@ public class AhtStatusDbInit <S extends UtilsStatus<S,L,D>, L extends UtilsLang,
 					ejbStatus = fStatus.fByCode(cStatus,xml.getCode());
 					
 					//UTILS-145 Don't do unnecessary entity updates in AhtStatusDbInit
-					ejbStatus = (S)removeData(ejbStatus);
+					ejbStatus = removeData(ejbStatus);
 					ejbStatus = fStatus.update(ejbStatus);
 					ejbStatus = fStatus.find(cStatus, ejbStatus.getId());
 					removeStatusFromDelete(xml.getGroup(), ejbStatus.getId());
@@ -249,15 +249,15 @@ public class AhtStatusDbInit <S extends UtilsStatus<S,L,D>, L extends UtilsLang,
 		}
 	}
 	
-	private UtilsStatus removeData(UtilsStatus ejbStatus)
+	private S removeData(S ejbStatus)
 	{
-		Map<String,UtilsLang> dbLangMap = ejbStatus.getName();
+		Map<String,L> dbLangMap = ejbStatus.getName();
 		ejbStatus.setName(null);
 		for(UtilsLang lang : dbLangMap.values()){sDeleteLangs.add(lang.getId());}
 		
 		if(ejbStatus.getDescription()!=null)
 		{
-			Map<String,UtilsDescription> dbDescrMap = ejbStatus.getDescription();
+			Map<String,D> dbDescrMap = ejbStatus.getDescription();
 			ejbStatus.setDescription(null);
 			for(UtilsDescription d : dbDescrMap.values()){sDeleteDescriptions.add(d.getId());}
 		}

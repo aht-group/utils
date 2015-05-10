@@ -1,19 +1,13 @@
 package net.sf.ahtutils.doc.loc;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
-import java.util.Vector;
 
 import net.sf.ahtutils.doc.loc.CounterSelector.Lang;
 
-import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.Task;
-import org.apache.tools.ant.types.FileSet;
-
-public class LoccerTask extends Task
+public class LoccerTask 
 {
-	private Vector<FileSet> filesets = new Vector<FileSet>();
+	
 	private Loccer loccer; 
 	
 	public LoccerTask()
@@ -31,25 +25,6 @@ public class LoccerTask extends Task
 		catch (IOException e) {e.printStackTrace();}
 	}
 	
-	public static void main(String args[])
-	{
-		new LoccerTask("/Users/thorsten/Documents/workspace/3.5.0/MWI");
-	}
-	
-    public void execute() throws BuildException
-    {
-        for(FileSet fs : filesets)
-        {
-        	for(String s : fs.getDirectoryScanner().getIncludedFiles())
-        	{
-        		File f = new File(fs.getDir(),s);
-        		try {loccer.countLoc(f);}
-        		catch (IOException e) {e.printStackTrace();}
-        	}
-        }
-        printStats(loccer.getSummary());
-    }
-    
     private void printStats(Map<Lang,BasicFileInfo> stats)
     {
     	for(Lang lang : stats.keySet())
@@ -59,6 +34,8 @@ public class LoccerTask extends Task
     	}
     }
     
-    public void addFileset(FileSet fileset) {filesets.add(fileset);}
-    
+	public static void main(String args[])
+	{
+		new LoccerTask("/Users/thorsten/workspace/4.4/ahtutils");
+	}
 }
