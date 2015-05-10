@@ -112,8 +112,6 @@ public interface UtilsSecurityFacade extends UtilsFacade
 	USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
 		List<S> fStaffPool(Class<S> clStaff, P pool);
 	
-	
-	
 	<L extends UtilsLang,
 	D extends UtilsDescription,
 	C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,

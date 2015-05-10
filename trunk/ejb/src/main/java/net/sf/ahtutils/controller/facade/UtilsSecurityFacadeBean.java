@@ -188,7 +188,7 @@ public class UtilsSecurityFacadeBean extends UtilsFacadeBean implements UtilsSec
 	{
 		logger.trace("addRole u:"+user.toString()+" r:"+role.toString());
 		if(!user.getRoles().contains(role)){user.getRoles().add(role);}
-		if(!role.getUsers().contains(user)){role.getUsers().add(user);}
+//		if(!role.getUsers().contains(user)){role.getUsers().add(user);}
 		user = em.merge(user);
 	}
 	

@@ -13,6 +13,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Parameter;
 
 /**
  * Goal which compiles a set of JasperReports jrxml files to .jasper file. Creates a rtl language and a ltr language version of all reports.
@@ -69,14 +70,15 @@ public class UtilsMsgBundleGoal extends AbstractMojo
     
     /**
      * Location of the file.
-     * @parameter expression="translation.xml"
-     * @required
      */
+    @Parameter(property = "translationXml", defaultValue = "translation.xml" )
     private String translationXml;
 	
     
     public void execute() throws MojoExecutionException
     {
+    	if(translationXml==null){translationXml = "translation.xml";}
+    	
     	BasicConfigurator.configure();
     	Logger.getRootLogger().setLevel(Level.ERROR);
     	 
@@ -86,7 +88,7 @@ public class UtilsMsgBundleGoal extends AbstractMojo
     	getLog().info("msgSource: "+msgSource);
     	getLog().info("projectBuildDirectory: "+projectBuildDirectory);
     	getLog().info("targetDir: "+targetDir);
-    	getLog().info("translationXml: "+translationXml);
+    	getLog().info("translationXml: ?? "+translationXml);
     	
     	File fTarget = createTargetDir();
     	

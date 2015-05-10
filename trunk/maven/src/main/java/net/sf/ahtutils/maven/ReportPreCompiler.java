@@ -45,7 +45,6 @@ public class ReportPreCompiler extends AbstractMojo
     /**
      * Location of the file.
      * @parameter expression="WARN"
-     * @required
      */
     private String log;
 	

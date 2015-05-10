@@ -11,6 +11,7 @@ public class CliMonitoringWorker
 {
 	final static Logger logger = LoggerFactory.getLogger(CliMonitoringWorker.class);
 	
+	@SuppressWarnings({ "rawtypes", "deprecation" })
 	public static void main (String[] args)
 	{
 		UtilsMonitorTestBootstrap.init();

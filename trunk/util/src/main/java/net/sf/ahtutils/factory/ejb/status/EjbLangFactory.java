@@ -9,7 +9,6 @@ import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
-import net.sf.ahtutils.xml.AhtUtilsNsPrefixMapper;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Langs;
 import net.sf.exlp.util.xml.JaxbUtil;
@@ -95,8 +94,8 @@ public class EjbLangFactory<L extends UtilsLang>
 	
 	public L createLang(Lang lang) throws UtilsConstraintViolationException
 	{
-		if(lang.getKey()==null){throw new UtilsConstraintViolationException("Key not set for: "+JaxbUtil.toString(lang, new AhtUtilsNsPrefixMapper()));}
-		if(lang.getTranslation()==null){throw new UtilsConstraintViolationException("Translation not set for: "+JaxbUtil.toString(lang, new AhtUtilsNsPrefixMapper()));}
+		if(lang.getKey()==null){throw new UtilsConstraintViolationException("Key not set for: "+JaxbUtil.toString(lang));}
+		if(lang.getTranslation()==null){throw new UtilsConstraintViolationException("Translation not set for: "+JaxbUtil.toString(lang));}
 		return createLang(lang.getKey(), lang.getTranslation());
 	}
 	
