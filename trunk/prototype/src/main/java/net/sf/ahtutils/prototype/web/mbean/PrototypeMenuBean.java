@@ -2,6 +2,7 @@ package net.sf.ahtutils.prototype.web.mbean;
 
 import java.io.FileNotFoundException;
 import java.io.Serializable;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
@@ -31,7 +32,6 @@ public class PrototypeMenuBean extends AbstractMenuBean implements Serializable
     {
 		ProcessingTimeTracker ptt = new ProcessingTimeTracker(true);
 		
-		// GEO-75 Remove Exception for Compatibility
 		try
 		{
 			super.initMaps();
@@ -47,11 +47,16 @@ public class PrototypeMenuBean extends AbstractMenuBean implements Serializable
 		{
 			throw new IllegalStateException("Class: " +e.getClass().getName() +" Message: " +e.getMessage());
 		}
-		
 		logger.info(AbstractLogMessage.postConstruct(ptt));
     }
 	
 	@Override protected void buildViewAllowedMap() {}
+	
+	public void userLoggedIn(Map<String, Boolean> allowedViews)
+	{
+		this.clear(true);
+		mapViewAllowed = allowedViews;
+	}
 	
 	public void clearAndRemoveChilds(String key, String dynKey)
 	{

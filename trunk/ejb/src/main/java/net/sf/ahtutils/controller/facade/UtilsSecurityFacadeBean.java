@@ -53,24 +53,21 @@ public class UtilsSecurityFacadeBean extends UtilsFacadeBean implements UtilsSec
 	{
 		user = em.find(clUser, user.getId());
 		Map<Long,V> views = new HashMap<Long,V>();
-		for(R r : user.getRoles())
+		for(R role : user.getRoles())
 		{
-			for(V v : r.getViews())
+			for(V rView : role.getViews())
 			{
-				views.put(v.getId(), v);
+				views.put(rView.getId(), rView);
 			}
-			for(U u : r.getUsecases())
+			for(U u : role.getUsecases())
 			{
-				for(V v : u.getViews())
+				for(V uView : u.getViews())
 				{
-					views.put(v.getId(), v);
+					views.put(uView.getId(), uView);
 				}
 			}
 		}
-		
-		List<V> result = new ArrayList<V>();
-		for(V v : views.values()){result.add(v);}
-		return result;
+		return new ArrayList<V>(views.values());
 	}
 	
 	@Override
@@ -81,22 +78,19 @@ public class UtilsSecurityFacadeBean extends UtilsFacadeBean implements UtilsSec
 		Map<Long,A> actions = new HashMap<Long,A>();
 		for(R r : user.getRoles())
 		{
-			for(A a : r.getActions())
+			for(A rAction : r.getActions())
 			{
-				actions.put(a.getId(), a);
+				actions.put(rAction.getId(), rAction);
 			}
 			for(U u : r.getUsecases())
 			{
-				for(A a : u.getActions())
+				for(A uAction : u.getActions())
 				{
-					actions.put(a.getId(), a);
+					actions.put(uAction.getId(), uAction);
 				}
 			}
 		}
-		
-		List<A> result = new ArrayList<A>();
-		for(A a : actions.values()){result.add(a);}
-		return result;
+		return new ArrayList<A>(actions.values());
 	}
 	
 	@Override

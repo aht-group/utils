@@ -91,7 +91,13 @@ public class UtilsIdentityFactory <I extends UtilsIdentity<L,D,C,R,V,U,A,USER>,
 			
 			for(A a : fSecurity.allActionsForUser(clUser, user)){identity.allowAction(a);}		
 			for(R r : fSecurity.allRolesForUser(clUser,user)){identity.allowRole(r);}
-			for(V v : fSecurity.allViewsForUser(clUser,user)){identity.allowView(v);}
+			
+			if(logger.isTraceEnabled()){logger.info("Views");}
+			for(V v : fSecurity.allViewsForUser(clUser,user))
+			{
+				if(logger.isTraceEnabled()){logger.info("\t"+v.toString());}
+				identity.allowView(v);
+			}
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();}
