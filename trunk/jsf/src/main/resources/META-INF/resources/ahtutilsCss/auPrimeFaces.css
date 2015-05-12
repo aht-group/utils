@@ -83,3 +83,7 @@
 .pf-panel-with-tree .ui-tree {
 	border: none; width: 100%;
 }
+
+.auPfTcLeft {text-align:left}
+.auPfTcLeft {text-align:center}
+.auPfTcRight {text-align:right}
