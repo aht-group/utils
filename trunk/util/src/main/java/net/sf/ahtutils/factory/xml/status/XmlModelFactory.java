@@ -36,5 +36,12 @@ public class XmlModelFactory <S extends UtilsStatus<S,L,D>,L extends UtilsLang, 
 		}
 		
 		return xml;
-	}	
+	}
+	
+	public static Model build(String code)
+	{
+		Model xml = new Model();
+		xml.setCode(code);
+		return xml;
+	}
 }
