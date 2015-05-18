@@ -1,11 +1,10 @@
-package net.sf.ahtutils.doc.msg;
+package net.sf.ahtutils.doc;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-import net.sf.ahtutils.doc.UtilsDocumentation;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.status.Translations;
 import net.sf.exlp.util.io.FileIO;
@@ -37,7 +36,7 @@ public class UtilsMsgBuilder
 	public static final String srcAdminUser = "msg.aht-utils/admin/user/user.xml";
 	public static final String srcAdminStatus = "msg.aht-utils/admin/status.xml";
 	
-	public static final String msgSurveyTemplate = "msg.aht-utils/survey/template.xml";
+	public static final String srcSurvey = "msg.aht-utils/survey.xml";
 	
 	final static Logger logger = LoggerFactory.getLogger(UtilsMsgBuilder.class);
 		

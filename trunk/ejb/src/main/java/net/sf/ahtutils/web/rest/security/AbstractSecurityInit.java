@@ -137,7 +137,7 @@ public class AbstractSecurityInit <L extends UtilsLang,
 					ejbCategory = cC.newInstance();
 					ejbCategory.setType(type.toString());
 					ejbCategory.setCode(category.getCode());
-					logger.info("Persisting "+ejbCategory.toString());
+					logger.trace("Persisting "+ejbCategory.toString());
 					ejbCategory = (C)fSecurity.persist(ejbCategory);
 				}
 				catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}

@@ -7,6 +7,13 @@
     		<s:lang key="fr" translation="Template"/>
     	</s:langs>
     </s:translation>
+    	<s:translation key="aupSurveyCategory">
+    	<s:langs>
+    		<s:lang key="de" translation="Category"/>
+    		<s:lang key="en" translation="Category"/>
+    		<s:lang key="fr" translation="Category"/>
+    	</s:langs>
+    </s:translation>
 	<s:translation key="aupSurveyTemplateName">
     	<s:langs>
     		<s:lang key="de" translation="Name"/>

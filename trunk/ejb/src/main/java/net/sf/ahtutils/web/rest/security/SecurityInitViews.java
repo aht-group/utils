@@ -75,7 +75,7 @@ public class SecurityInitViews <L extends UtilsLang,
 	
 	@Deprecated @Override protected void iuChilds(C aclCategory, Category category) throws UtilsConfigurationException
 	{
-		logger.info("iuChilds (access.views) "+category.getViews().getView().size());
+		logger.trace("iuChilds (access.views) "+category.getViews().getView().size());
 		if(category.isSetViews() && category.getViews().isSetView())
 		{
 			for(View view : category.getViews().getView())
