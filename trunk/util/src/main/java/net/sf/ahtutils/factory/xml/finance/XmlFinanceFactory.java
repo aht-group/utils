@@ -1,4 +1,4 @@
-package net.sf.ahtutils.controller.factory.xml.finance;
+package net.sf.ahtutils.factory.xml.finance;
 
 import net.sf.ahtutils.model.interfaces.finance.UtilsFinance;
 import net.sf.ahtutils.xml.finance.Finance;
