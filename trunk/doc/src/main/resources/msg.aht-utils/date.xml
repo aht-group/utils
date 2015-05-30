@@ -42,5 +42,27 @@
     		<s:lang key="en" translation="Until"/>
     		<s:lang key="fr" translation="Until"/>
     	</s:langs>
-    </s:translation>  
+    </s:translation>
+	<s:translation key="aupDateRececeived">
+    	<s:langs>
+    		<s:lang key="de" translation="Empfangen"/>
+    		<s:lang key="en" translation="Received"/>
+    		<s:lang key="fr" translation="Received"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="aupDateSubmitted">
+    	<s:langs>
+    		<s:lang key="de" translation="Gesendet"/>
+    		<s:lang key="en" translation="Submitted"/>
+    		<s:lang key="fr" translation="Submitted"/>
+    	</s:langs>
+    </s:translation>
+    
+	<s:translation key="aupDuration">
+    	<s:langs>
+    		<s:lang key="de" translation="Dauer"/>
+    		<s:lang key="en" translation="Duration"/>
+    		<s:lang key="fr" translation="Durée"/>
+    	</s:langs>
+    </s:translation>
 </s:translations>

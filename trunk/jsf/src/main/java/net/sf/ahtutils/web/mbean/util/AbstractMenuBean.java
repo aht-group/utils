@@ -44,6 +44,7 @@ public abstract class AbstractMenuBean implements Serializable
 	public void clear(){clear(false);}
 	public void clear(boolean userLoggedIn)
 	{
+		logger.trace("Clearing hashtables ... userLoggedIn:"+userLoggedIn);
 		this.userLoggedIn=userLoggedIn;
 		mapMenu.clear();
 		mapSub.clear();

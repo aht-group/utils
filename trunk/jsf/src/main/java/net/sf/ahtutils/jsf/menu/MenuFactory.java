@@ -23,6 +23,7 @@ import net.sf.ahtutils.xml.xpath.AccessXpath;
 import net.sf.ahtutils.xml.xpath.NavigationXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.alg.DijkstraShortestPath;
@@ -398,17 +399,22 @@ public class MenuFactory
 	
 	public MenuItem subMenu(Menu menu, String code)
 	{
+		if(logger.isTraceEnabled())
+		{
+			logger.info("subMenu "+code);
+			JaxbUtil.info(menu);
+		}
 		MenuItem result = new MenuItem();;
 		try
 		{
 			if(code.equals(rootNode))
 			{
-				
 				result.getMenuItem().addAll(menu.getMenuItem());
 			}
 			else
 			{
-				for(MenuItem miT : NavigationXpath.getMenuItem(menu, code).getMenuItem())
+				MenuItem myMi = NavigationXpath.getMenuItem(menu, code);
+				for(MenuItem miT : myMi.getMenuItem())
 				{
 					MenuItem mi = XmlMenuItemFactory.build(miT);
 					result.getMenuItem().add(mi);
