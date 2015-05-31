@@ -21,6 +21,13 @@
     		<s:lang key="fr" translation="Scope"/>
     	</s:langs>
     </s:translation>
+    	<s:translation key="aupModel">
+    	<s:langs>
+    		<s:lang key="de" translation="Modell"/>
+    		<s:lang key="en" translation="Model"/>
+    		<s:lang key="fr" translation="Modèle"/>
+    	</s:langs>
+    </s:translation>
 	<s:translation key="aupType">
     	<s:langs>
     		<s:lang key="de" translation="Type"/>

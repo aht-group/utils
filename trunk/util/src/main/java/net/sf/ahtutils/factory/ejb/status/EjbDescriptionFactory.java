@@ -73,12 +73,16 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
 		return map;
 	}
 	
-	public Map<String,D> createEmpty(String[] keys) throws UtilsConstraintViolationException
+	public Map<String,D> createEmpty(String[] keys)
 	{
 		Map<String,D> map = new Hashtable<String,D>();
 		for(String key : keys)
 		{
-			map.put(key, create(key,""));
+			try
+			{
+				map.put(key, create(key,""));
+			}
+			catch (UtilsConstraintViolationException e) {e.printStackTrace();}
 		}
 		return map;
 	}

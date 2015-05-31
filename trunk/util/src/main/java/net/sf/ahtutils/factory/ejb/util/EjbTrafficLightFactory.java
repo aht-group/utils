@@ -69,12 +69,8 @@ public class EjbTrafficLightFactory<L extends UtilsLang,D extends UtilsDescripti
 			ejb = cLight.newInstance();
 			ejb.setScope(scope);
 			ejb.setColorText("FFFFFF");
-			try
-			{
-				if(langKeys!=null){ejb.setName(efLang.createEmpty(langKeys));}
-				if(langKeys!=null){ejb.setDescription(efDescription.createEmpty(langKeys));}
-			}
-			catch (UtilsConstraintViolationException e) {e.printStackTrace();}
+			if(langKeys!=null){ejb.setName(efLang.createEmpty(langKeys));}
+			if(langKeys!=null){ejb.setDescription(efDescription.createEmpty(langKeys));}
 		}
 		catch (InstantiationException e) {throw new RuntimeException(e);}
 		catch (IllegalAccessException e) {throw new RuntimeException(e);}
