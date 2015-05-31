@@ -230,6 +230,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Style }
+     * 
+     */
+    public Style createStyle() {
+        return new Style();
+    }
+
+    /**
      * Create an instance of {@link Family }
      * 
      */
