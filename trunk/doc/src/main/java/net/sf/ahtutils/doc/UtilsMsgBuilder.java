@@ -37,6 +37,7 @@ public class UtilsMsgBuilder
 	public static final String srcAdminSecurity = "msg.aht-utils/admin/user/security.xml";
 	public static final String srcAdminUser = "msg.aht-utils/admin/user/user.xml";
 	public static final String srcAdminStatus = "msg.aht-utils/admin/status.xml";
+	public static final String srcRevision = "msg.aht-utils/revision.xml";
 	
 	public static final String srcSurvey = "msg.aht-utils/survey.xml";
 	
