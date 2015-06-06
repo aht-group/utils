@@ -65,4 +65,11 @@
     		<s:lang key="fr" translation="Durée"/>
     	</s:langs>
     </s:translation>
+	<s:translation key="aupDelay">
+    	<s:langs>
+    		<s:lang key="de" translation="Delay"/>
+    		<s:lang key="en" translation="Delay"/>
+    		<s:lang key="fr" translation="Delay"/>
+    	</s:langs>
+    </s:translation>
 </s:translations>

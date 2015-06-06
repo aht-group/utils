@@ -158,38 +158,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Result }
-     * 
-     */
-    public Result createResult() {
-        return new Result();
-    }
-
-    /**
-     * Create an instance of {@link Model }
-     * 
-     */
-    public Model createModel() {
-        return new Model();
-    }
-
-    /**
-     * Create an instance of {@link Translation }
-     * 
-     */
-    public Translation createTranslation() {
-        return new Translation();
-    }
-
-    /**
-     * Create an instance of {@link Frequency }
-     * 
-     */
-    public Frequency createFrequency() {
-        return new Frequency();
-    }
-
-    /**
      * Create an instance of {@link Statuses }
      * 
      */
@@ -222,22 +190,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Order }
-     * 
-     */
-    public Order createOrder() {
-        return new Order();
-    }
-
-    /**
-     * Create an instance of {@link Style }
-     * 
-     */
-    public Style createStyle() {
-        return new Style();
-    }
-
-    /**
      * Create an instance of {@link Family }
      * 
      */
@@ -246,43 +198,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link EvaluationMethod }
-     * 
-     */
-    public EvaluationMethod createEvaluationMethod() {
-        return new EvaluationMethod();
-    }
-
-    /**
      * Create an instance of {@link Gender }
      * 
      */
     public Gender createGender() {
         return new Gender();
-    }
-
-    /**
-     * Create an instance of {@link Types }
-     * 
-     */
-    public Types createTypes() {
-        return new Types();
-    }
-
-    /**
-     * Create an instance of {@link MainType }
-     * 
-     */
-    public MainType createMainType() {
-        return new MainType();
-    }
-
-    /**
-     * Create an instance of {@link SubType }
-     * 
-     */
-    public SubType createSubType() {
-        return new SubType();
     }
 
     /**
@@ -302,6 +222,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Condition }
+     * 
+     */
+    public Condition createCondition() {
+        return new Condition();
+    }
+
+    /**
      * Create an instance of {@link ProcurementMethod }
      * 
      */
@@ -310,11 +238,115 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Condition }
+     * Create an instance of {@link Class }
      * 
      */
-    public Condition createCondition() {
-        return new Condition();
+    public Class createClass() {
+        return new Class();
+    }
+
+    /**
+     * Create an instance of {@link MainType }
+     * 
+     */
+    public MainType createMainType() {
+        return new MainType();
+    }
+
+    /**
+     * Create an instance of {@link Satisfaction }
+     * 
+     */
+    public Satisfaction createSatisfaction() {
+        return new Satisfaction();
+    }
+
+    /**
+     * Create an instance of {@link Translations }
+     * 
+     */
+    public Translations createTranslations() {
+        return new Translations();
+    }
+
+    /**
+     * Create an instance of {@link Translation }
+     * 
+     */
+    public Translation createTranslation() {
+        return new Translation();
+    }
+
+    /**
+     * Create an instance of {@link Phase }
+     * 
+     */
+    public Phase createPhase() {
+        return new Phase();
+    }
+
+    /**
+     * Create an instance of {@link Result }
+     * 
+     */
+    public Result createResult() {
+        return new Result();
+    }
+
+    /**
+     * Create an instance of {@link Model }
+     * 
+     */
+    public Model createModel() {
+        return new Model();
+    }
+
+    /**
+     * Create an instance of {@link Frequency }
+     * 
+     */
+    public Frequency createFrequency() {
+        return new Frequency();
+    }
+
+    /**
+     * Create an instance of {@link Style }
+     * 
+     */
+    public Style createStyle() {
+        return new Style();
+    }
+
+    /**
+     * Create an instance of {@link Order }
+     * 
+     */
+    public Order createOrder() {
+        return new Order();
+    }
+
+    /**
+     * Create an instance of {@link EvaluationMethod }
+     * 
+     */
+    public EvaluationMethod createEvaluationMethod() {
+        return new EvaluationMethod();
+    }
+
+    /**
+     * Create an instance of {@link Types }
+     * 
+     */
+    public Types createTypes() {
+        return new Types();
+    }
+
+    /**
+     * Create an instance of {@link SubType }
+     * 
+     */
+    public SubType createSubType() {
+        return new SubType();
     }
 
     /**
@@ -334,14 +366,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Class }
-     * 
-     */
-    public Class createClass() {
-        return new Class();
-    }
-
-    /**
      * Create an instance of {@link SubPhase }
      * 
      */
@@ -358,22 +382,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Freeze }
-     * 
-     */
-    public Freeze createFreeze() {
-        return new Freeze();
-    }
-
-    /**
-     * Create an instance of {@link Satisfaction }
-     * 
-     */
-    public Satisfaction createSatisfaction() {
-        return new Satisfaction();
-    }
-
-    /**
      * Create an instance of {@link Legend }
      * 
      */
@@ -382,19 +390,19 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Freeze }
+     * 
+     */
+    public Freeze createFreeze() {
+        return new Freeze();
+    }
+
+    /**
      * Create an instance of {@link Original }
      * 
      */
     public Original createOriginal() {
         return new Original();
-    }
-
-    /**
-     * Create an instance of {@link Translations }
-     * 
-     */
-    public Translations createTranslations() {
-        return new Translations();
     }
 
     /**
@@ -411,14 +419,6 @@ public class ObjectFactory {
      */
     public Capabilities createCapabilities() {
         return new Capabilities();
-    }
-
-    /**
-     * Create an instance of {@link Phase }
-     * 
-     */
-    public Phase createPhase() {
-        return new Phase();
     }
 
 }

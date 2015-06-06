@@ -71,4 +71,7 @@ QAUS extends UtilsStatus<QAUS,L,D>>
 	QATI getInfo();
 	void setInfo(QATI info);
 	
+	Double getWeight();
+	void setWeight(Double weight);
+	
 }
