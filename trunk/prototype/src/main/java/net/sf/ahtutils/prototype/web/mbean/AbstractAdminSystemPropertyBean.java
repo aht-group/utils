@@ -36,7 +36,7 @@ public class AbstractAdminSystemPropertyBean <P extends UtilsProperty>
 	
 	protected void refreshList()
 	{
-		properties = fUtils.all(cProperty);
+		properties = fUtils.allOrdered(cProperty,"key",true);
 	}
 	
 	public void selectProperty() throws UtilsNotFoundException

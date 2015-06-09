@@ -6,5 +6,12 @@
     		<s:lang key="en" translation="Revision History"/>
     		<s:lang key="fr" translation="Revision History"/>
     	</s:langs>
-    </s:translation>  
+    </s:translation>
+    	<s:translation key="aupRevisionTooltipToggleHistory">
+    	<s:langs>
+    		<s:lang key="de" translation="Toggle Revision History"/>
+    		<s:lang key="en" translation="Toggle Revision History"/>
+    		<s:lang key="fr" translation="Toggle Revision History"/>
+    	</s:langs>
+    </s:translation>
 </s:translations>

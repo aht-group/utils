@@ -26,6 +26,17 @@ public class UtilsSqlQueryHelper
 		return sb.substring(0,sb.length()-1);
 	}
 	
+	public static String inLongIds(List<Long> list)
+	{
+		StringBuffer sb = new StringBuffer();
+		for(Long id : list)
+		{
+			sb.append(id);
+			sb.append(",");
+		}
+		return sb.substring(0,sb.length()-1);
+	}
+	
 	public static String inCodes(EjbWithCode ejb)
 	{
 		StringBuffer sb = new StringBuffer();

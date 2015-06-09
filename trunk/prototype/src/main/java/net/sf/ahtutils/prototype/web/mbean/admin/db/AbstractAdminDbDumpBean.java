@@ -29,6 +29,6 @@ public class AbstractAdminDbDumpBean <D extends UtilsDbDumpFile> implements Seri
 	
 	protected void refreshList()
 	{
-		dumps = fDb.all(cDump);
+		dumps = fDb.allOrdered(cDump,"startDate",false);
 	}
 }
