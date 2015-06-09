@@ -241,3 +241,12 @@ margin-top: 8px;
 .ui-datatable-scrollable table {
     table-layout: fixed !important;
 }
+
+.aupTrafficLightColumn {
+    padding: 0px !important;
+    vertical-align: middle;
+}
+
+.aupTrafficLightColumn th{
+   padding: 4px 10px !important;
+}
