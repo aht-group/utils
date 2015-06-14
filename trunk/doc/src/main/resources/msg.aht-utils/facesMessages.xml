@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<s:translations xmlns:s="http://ahtutils.aht-group.com/status">
+	<s:translation key="aupFmInfo">
+		<s:langs>
+			<s:lang key="en" translation="INFO"/>
+			<s:lang key="fr" translation="INFO"/>
+		</s:langs>
+	</s:translation>
+	<s:translation key="aupFmWarn">
+		<s:langs>
+			<s:lang key="en" translation="WARN"/>
+			<s:lang key="fr" translation="WARN"/>
+		</s:langs>
+	</s:translation>
+	<s:translation key="aupFmError">
+		<s:langs>
+			<s:lang key="en" translation="ERROR"/>
+			<s:lang key="fr" translation="ERROR"/>
+		</s:langs>
+	</s:translation>
+	<s:translation key="aupFmSuccess">
+		<s:langs>
+			<s:lang key="en" translation="Success"/>
+			<s:lang key="fr" translation="Success"/>
+		</s:langs>
+	</s:translation>
+	<s:translation key="aupFmObjectSaved">
+		<s:langs>
+			<s:lang key="en" translation="Object saved"/>
+			<s:lang key="fr" translation="Object saved"/>
+		</s:langs>
+	</s:translation>
+	<s:translation key="aupFmObjectRemoved">
+		<s:langs>
+			<s:lang key="en" translation="Object removed"/>
+			<s:lang key="fr" translation="Object removed"/>
+		</s:langs>
+	</s:translation>
+	<s:translation key="aupFmConstraintViolation">
+		<s:langs>
+			<s:lang key="en" translation="Constraint Violation"/>
+			<s:lang key="fr" translation="Constraint Violation"/>
+		</s:langs>
+	</s:translation>
+	<s:translation key="aupFmConstraintViolationInUse">
+		<s:langs>
+			<s:lang key="en" translation="Constraint Violation: Object in use"/>
+			<s:lang key="fr" translation="Constraint Violation: Object in use"/>
+		</s:langs>
+	</s:translation>
+</s:translations>

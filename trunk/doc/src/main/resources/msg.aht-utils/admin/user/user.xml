@@ -43,4 +43,10 @@
 			<s:lang key="en" translation="Phone"/>
 		</s:langs>
 	</s:translation>
+	<s:translation key="aupPerson">
+		<s:langs>
+			<s:lang key="fr" translation="Person"/>
+			<s:lang key="en" translation="Person"/>
+		</s:langs>
+	</s:translation>
 </s:translations>

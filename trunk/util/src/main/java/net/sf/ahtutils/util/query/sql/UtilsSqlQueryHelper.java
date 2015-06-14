@@ -15,8 +15,9 @@ public class UtilsSqlQueryHelper
 		return sb.toString();
 	}
 	
-	public static String inIds(List<EjbWithId> list)
+	public static String inIdList(List<EjbWithId> list)
 	{
+		if(list==null || list.size()==0){return "0";}
 		StringBuffer sb = new StringBuffer();
 		for(EjbWithId ejb : list)
 		{
@@ -28,6 +29,7 @@ public class UtilsSqlQueryHelper
 	
 	public static String inLongIds(List<Long> list)
 	{
+		if(list==null || list.size()==0){return "0";}
 		StringBuffer sb = new StringBuffer();
 		for(Long id : list)
 		{
