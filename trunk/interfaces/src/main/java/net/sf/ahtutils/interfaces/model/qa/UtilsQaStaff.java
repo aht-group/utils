@@ -43,4 +43,7 @@ QAUS extends UtilsStatus<QAUS,L,D>>
 
 	String getResponsibilities();
 	void setResponsibilities(String responsibilities);
+	
+	Boolean getReportingRelevant();
+	void setReportingRelevant(Boolean reportingRelevant);
 }
