@@ -48,5 +48,26 @@
     		<s:lang key="en" translation="Rate"/>
     		<s:lang key="fr" translation="Rate"/>
     	</s:langs>
-    </s:translation>   
+    </s:translation>
+	<s:translation key="aupPercentageSymbol">
+    	<s:langs>
+    		<s:lang key="de" translation="%"/>
+    		<s:lang key="en" translation="%"/>
+    		<s:lang key="fr" translation="%"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="aupPayed">
+    	<s:langs>
+    		<s:lang key="de" translation="Payed"/>
+    		<s:lang key="en" translation="Payed"/>
+    		<s:lang key="fr" translation="Payed"/>
+    	</s:langs>
+    </s:translation>
+    	<s:translation key="aupInvoiced">
+    	<s:langs>
+    		<s:lang key="de" translation="In Rechnung"/>
+    		<s:lang key="en" translation="Invoiced"/>
+    		<s:lang key="fr" translation="Invoiced"/>
+    	</s:langs>
+    </s:translation>
 </s:translations>

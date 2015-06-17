@@ -21,7 +21,7 @@ public class UtilsLatexAdminDocumentationBuilder extends AbstractLatexDocumentat
 	
 	public static enum BackupCode {bPostgres}
 	
-	public static enum SecurityCode {sConceptIntroduction}
+	public static enum SecurityCode {sConceptIntroduction,secViews,secUsecases,secRoles}
 							 
 	public static enum InstallationCode {instIntroduction,instDebian,instJava,instJboss,instPostGis,instMySql,instMaven}
 	public static enum InstallationArchitecture {debian,debianWheezy,debianSqueeze,debianRaspberry,devJava7FX}
@@ -45,6 +45,9 @@ public class UtilsLatexAdminDocumentationBuilder extends AbstractLatexDocumentat
 	{
 		//Security
 		addConfig(SecurityCode.sConceptIntroduction.toString(),"ofx.aht-utils/administration/security/introduction.xml","admin/security/introduction");
+		addConfig(SecurityCode.secViews.toString(),"ofx.aht-utils/administration/security/views.xml","admin/security/views");
+		addConfig(SecurityCode.secUsecases.toString(),"ofx.aht-utils/administration/security/usecases.xml","admin/security/usecases");
+		addConfig(SecurityCode.secRoles.toString(),"ofx.aht-utils/administration/security/roles.xml","admin/security/roles");
 				
 		//Maintenance
 		addConfig(MaintenanceCode.mLoggingIntroduction.toString(),"ofx.aht-utils/administration/logging/introduction.xml","admin/system/logging/introduction");
@@ -79,6 +82,7 @@ public class UtilsLatexAdminDocumentationBuilder extends AbstractLatexDocumentat
 	}
 	
 	public void render(SecurityCode code) throws UtilsConfigurationException, OfxConfigurationException{render(code.toString());}
+	public void render(int lvl,SecurityCode code) throws UtilsConfigurationException, OfxConfigurationException{render(lvl,code.toString());}
 
 	public void render(MaintenanceCode code) throws UtilsConfigurationException, OfxConfigurationException{render(code.toString());}
 	public void render(BackupCode code) throws UtilsConfigurationException, OfxConfigurationException{render(code.toString());}

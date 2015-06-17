@@ -17,27 +17,17 @@
 	    <ofx:title lang="en">Summary of export formats</ofx:title>
 	    <table:specification>
 	        <table:columns>
-	            <table:column>
-	                <layout:alignment horizontal="center"/>
-	            </table:column>
-	            <table:column>
-	                <layout:alignment horizontal="left"/>
-	            </table:column>
-	            <table:column>
-	                <layout:width flex="true">100.0</layout:width>
-	            </table:column>
+	            <table:column><layout:alignment horizontal="center"/></table:column>
+	            <table:column><layout:alignment horizontal="left"/></table:column>
+	            <table:column><layout:width flex="true">100.0</layout:width></table:column>
 	        </table:columns>
 	    </table:specification>
 	    <table:content>
 	        <table:head>
 	            <table:row>
 	                <table:cell/>
-	                <table:cell>
-	                    <ofx:paragraph>Type</ofx:paragraph>
-	                </table:cell>
-	                <table:cell>
-	                    <ofx:paragraph>Description</ofx:paragraph>
-	                </table:cell>
+	                <table:cell><ofx:paragraph>Type</ofx:paragraph></table:cell>
+	                <table:cell><ofx:paragraph>Description</ofx:paragraph></table:cell>
 	            </table:row>
 	        </table:head>
 	        <table:body>
@@ -48,9 +38,7 @@
 	                        <media:media src="svg.aht-utils/icon/ui/system/file/xls.svg" dst="icon/ui/export/xls"/>
 	                    </media:image>
 	                </table:cell>
-	                <table:cell>
-	                    <ofx:paragraph>XLS</ofx:paragraph>
-	                </table:cell>
+	                <table:cell><ofx:paragraph>XLS</ofx:paragraph></table:cell>
 	                <table:cell>
 	                    <ofx:paragraph>Binary file format called Excel Binary File Format (.XLS), used by Microsoft Excel.</ofx:paragraph>
 	                </table:cell>
@@ -62,14 +50,12 @@
 	                        <media:media src="svg.aht-utils/icon/ui/system/file/pdf.svg" dst="icon/ui/system/file/pdf"/>
 	                    </media:image>
 	                </table:cell>
-	                <table:cell>
-	                    <ofx:paragraph>PDF</ofx:paragraph>
-	                </table:cell>
+	                <table:cell><ofx:paragraph>PDF</ofx:paragraph></table:cell>
 	                <table:cell>
 	                    <ofx:paragraph>File format called Portable Document Format (.PDF), used to present documents.</ofx:paragraph>
 	                </table:cell>
 	            </table:row>
-	            <table:row>
+<!--	            <table:row>
 	                <table:cell>
 	                    <media:image>
 	                        <layout:height unit="em">1.0</layout:height>
@@ -96,8 +82,8 @@
 	                <table:cell>
 	                    <ofx:paragraph>File format called Extensible Markup Language (.XML), defines a set of rules for documents which are readable for humans and machines.</ofx:paragraph>
 	                </table:cell>
-	            </table:row>
-	        </table:body>
+	            </table:row>	            
+ -->	        </table:body>
     	</table:content>
 	</table:table>
 </ofx:section>
