@@ -214,6 +214,36 @@
 	                    <ofx:paragraph>Indicates, that the actual element is new and currently not saved to the database.</ofx:paragraph>
 	                </table:cell>
 	            </table:row>
+	            
+	            <table:row>
+	                <table:cell>
+	                    <media:image>
+	                        <layout:height unit="em">1.0</layout:height>
+	                        <media:media src="svg.aht-utils/icon/ui/favorite.svg" dst="icon/ui/favorite"/>
+	                    </media:image>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>Favorite</ofx:paragraph>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>Indicates, that the actual element is marked as a favorite item.</ofx:paragraph>
+	                </table:cell>
+	            </table:row>
+	            
+	            <table:row>
+	                <table:cell>
+	                    <media:image>
+	                        <layout:height unit="em">1.0</layout:height>
+	                        <media:media src="svg.aht-utils/icon/ui/selection.svg" dst="icon/ui/selection"/>
+	                    </media:image>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>Selection</ofx:paragraph>
+	                </table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>Indicates, that the actual element is selected.</ofx:paragraph>
+	                </table:cell>
+	            </table:row>
 	        </table:body>
     	</table:content>
 	</table:table>

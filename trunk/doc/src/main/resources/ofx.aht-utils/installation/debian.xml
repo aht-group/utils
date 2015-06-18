@@ -230,6 +230,11 @@
 				remote command-line login, remote command execution, and other secure network services between
 				two networked computers. For this system it is used for the administrator to remotely login
 				to the system and excute shell commands.
+				
+				<ofx:listing>
+				<ofx:raw>ssh IP-ADRESS -l USERNAME</ofx:raw>
+				</ofx:listing>
+			
 			</ofx:paragraph>
 			
 			<!-- 
