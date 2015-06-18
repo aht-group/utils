@@ -11,58 +11,76 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg2"
    sodipodi:docname="selection.svg"
-   inkscape:export-filename="C:\Users\krueger\Desktop\selection.png"
-   viewBox="0 0 42.625548 42.62555"
-   sodipodi:version="0.32"
-   inkscape:export-xdpi="25.34"
-   version="1.0"
-   inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-ydpi="25.34"
+   viewBox="0 0 200.18879 200.1888"
+   version="1.1"
    inkscape:version="0.91 r13725"
-   width="42.625549"
-   height="42.625549">
+   width="200.1888"
+   height="200.1888"
+   inkscape:export-filename="C:\Users\krueger\Desktop\selection.png"
+   inkscape:export-xdpi="5.3899999"
+   inkscape:export-ydpi="5.3899999">
   <defs
-     id="defs12" />
+     id="defs4">
+    <linearGradient
+       id="linearGradient3148"
+       y2="577.08002"
+       gradientUnits="userSpaceOnUse"
+       x2="495.98001"
+       y1="771.03003"
+       x1="495.98001"
+       inkscape:collect="always"
+       gradientTransform="translate(36.541398,-0.9222115)">
+      <stop
+         id="stop3122"
+         style="stop-color:#ececec"
+         offset="0" />
+      <stop
+         id="stop3124"
+         style="stop-color:#ffffff"
+         offset="1" />
+    </linearGradient>
+  </defs>
   <sodipodi:namedview
      id="base"
      bordercolor="#666666"
      inkscape:pageshadow="2"
-     guidetolerance="10.0"
-     pagecolor="#ffffff"
-     gridtolerance="10.0"
-     inkscape:zoom="4.2395833"
-     objecttolerance="10.0"
-     borderopacity="1.0"
-     inkscape:current-layer="svg2"
-     inkscape:cx="-21.757683"
-     inkscape:cy="15.614564"
      inkscape:window-y="-8"
+     fit-margin-left="0"
+     pagecolor="#ffffff"
+     fit-margin-top="0"
+     inkscape:window-maximized="1"
+     inkscape:zoom="1"
      inkscape:window-x="-8"
      inkscape:window-height="1017"
-     inkscape:pageopacity="0.0"
-     inkscape:window-width="1920"
      showgrid="false"
-     fit-margin-top="0"
-     fit-margin-left="0"
+     borderopacity="1.0"
+     inkscape:current-layer="layer1"
+     inkscape:cx="-321.88439"
+     inkscape:cy="33.586887"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-maximized="1" />
+     inkscape:window-width="1920"
+     inkscape:pageopacity="0.0"
+     inkscape:document-units="px" />
   <g
      id="layer1"
-     transform="translate(-4.25,-0.53024933)">
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     transform="translate(-440.497,-572.46819)">
     <path
-       id="rect2160"
-       style="fill:#000000"
-       d="m 4.25,4.4688 0,38.687 38.688,0 0,-38.687 -38.688,-2e-4 z m 6.312,5.5622 26.063,0 0,27.594 -26.063,0 0,-27.594 z"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       style="opacity:0.18999999;fill:#000000"
+       d="m 475.7494,577.30999 0,172.16 c 14.831,-11.368 29.667,-22.729 44.5,-34.094 10.014,19.092 20.001,38.198 30.031,57.281 10.081,-7.4297 20.201,-14.808 30.25,-22.281 -8.9111,-15.189 -17.789,-30.397 -26.688,-45.594 17.198,-0.86213 34.395,-1.7452 51.594,-2.5938 -43.224,-43.245 -86.49,-86.448 -129.69,-129.72 l 0,4.8438 z"
+       id="path3128" />
     <path
-       id="path2170"
-       style="fill:none;stroke:#d40000;stroke-width:9"
-       d="M 16.039,15.645 21.898,32.485 43.247,3.379"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       style="fill:url(#linearGradient3148)"
+       sodipodi:nodetypes="cccccccc"
+       d="m 479.0514,744.47779 0,-168.09 123.08,123.08 -50.361,2.5326 27.43,46.907 -26.957,19.83 -30.023,-57.328 z"
+       id="path3118" />
   </g>
   <metadata
-     id="metadata10">
+     id="metadata20">
     <rdf:RDF>
       <cc:Work>
         <dc:format>image/svg+xml</dc:format>
@@ -76,31 +94,25 @@
             <dc:title>Openclipart</dc:title>
           </cc:Agent>
         </dc:publisher>
-        <dc:title></dc:title>
-        <dc:date>2008-01-16T09:51:22</dc:date>
-        <dc:description>Classic checkmark icon (“yes”) and its companion cross icon (“no”). Red tick and cross, black ballot box outlines. Ballot box internal is transparent.</dc:description>
-        <dc:source>https://openclipart.org/detail/11118/check-sign-and-cross-sign-by-jetxee</dc:source>
+        <dc:title />
+        <dc:date>2010-09-03T06:22:18</dc:date>
+        <dc:description>Cursor with wings</dc:description>
+        <dc:source>https://openclipart.org/detail/83455/cursor-flying-away-by-jhnri4</dc:source>
         <dc:creator>
           <cc:Agent>
-            <dc:title>jetxee</dc:title>
+            <dc:title>jhnri4</dc:title>
           </cc:Agent>
         </dc:creator>
         <dc:subject>
           <rdf:Bag>
-            <rdf:li>accept</rdf:li>
-            <rdf:li>black</rdf:li>
-            <rdf:li>cancel</rdf:li>
-            <rdf:li>check</rdf:li>
-            <rdf:li>checkbox</rdf:li>
-            <rdf:li>colour</rdf:li>
-            <rdf:li>cross</rdf:li>
-            <rdf:li>icon</rdf:li>
-            <rdf:li>okay</rdf:li>
-            <rdf:li>red</rdf:li>
-            <rdf:li>reject</rdf:li>
-            <rdf:li>sign</rdf:li>
-            <rdf:li>tick</rdf:li>
-            <rdf:li>yes</rdf:li>
+            <rdf:li>arrow</rdf:li>
+            <rdf:li>cursor</rdf:li>
+            <rdf:li>flying</rdf:li>
+            <rdf:li>goodbye</rdf:li>
+            <rdf:li>mouse</rdf:li>
+            <rdf:li>pointer</rdf:li>
+            <rdf:li>sky</rdf:li>
+            <rdf:li>wings</rdf:li>
           </rdf:Bag>
         </dc:subject>
       </cc:Work>
