@@ -18,7 +18,7 @@ public class UtilsLatexUserDocumentationBuilder extends AbstractLatexDocumentati
 	public static final String cfgKeyErSvg = "doc.image.admin.development.er";
 	
 	
-	public static enum Code {uiIcons,uiExport}
+	public static enum Code {uiIcons,uiExport,uiRevision}
 		
 	public UtilsLatexUserDocumentationBuilder(Configuration config, Translations translations,String[] langs, CrossMediaManager cmm,DefaultSettingsManager dsm)
 	{
@@ -34,6 +34,7 @@ public class UtilsLatexUserDocumentationBuilder extends AbstractLatexDocumentati
 	{		
 		addConfig(Code.uiIcons.toString(),"ofx.aht-utils/user/ui/icons.xml","user/ui/icons");
 		addConfig(Code.uiExport.toString(),"ofx.aht-utils/user/ui/export.xml","user/ui/fileExport");
+		addConfig(Code.uiRevision.toString(),"ofx.aht-utils/user/ui/revisions.xml","user/ui/revisions");
 	}
 
 	public void render(Code code) throws UtilsConfigurationException, OfxConfigurationException{render(1,code);}

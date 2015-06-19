@@ -9,7 +9,13 @@
 	<ofx:title lang="en">File Export</ofx:title>
 	
 	<ofx:paragraph lang="en">
-		export
+		The system is able to export data in different file formats. The export is started by
+		clicking the appropriate icon. The the system will generate the desired file and directly
+		start a download in the browser. The behavior on how this is handled on the client side
+		depends on the browser and personal settings of the user for his browser.
+		A common behavior is to store the file in 
+		<text:emphasis italic="true">Downloads</text:emphasis> folder or to directly
+		open it.
 	</ofx:paragraph>
 
 	

@@ -8,33 +8,30 @@
 		id="section.user.ui.icons">
 	<ofx:title lang="en">Revisions</ofx:title>
 	
-	
+	<ofx:paragraph lang="en">
+		Revisions are changes to data objects in the system. This includes
+		the <text:emphasis italic="true">creation</text:emphasis>,
+		<text:emphasis italic="true">modification</text:emphasis>
+		and <text:emphasis italic="true">deletion</text:emphasis> of these objects.
+		All of these changes are stored in the system with a global revision number stored together
+		with the timestamp and the user who has performed the action.
+	</ofx:paragraph>
 	
 	<table:table  id="table.user.ui.icons">
-	    <ofx:title lang="en">Summary of commonly used icons</ofx:title>
+	    <ofx:title lang="en">Icons for Revision History</ofx:title>
 	    <table:specification>
 	        <table:columns>
-	            <table:column>
-	                <layout:alignment horizontal="center"/>
-	            </table:column>
-	            <table:column>
-	                <layout:alignment horizontal="left"/>
-	            </table:column>
-	            <table:column>
-	                <layout:width flex="true">100.0</layout:width>
-	            </table:column>
+	            <table:column><layout:alignment horizontal="center"/></table:column>
+	            <table:column><layout:alignment horizontal="left"/></table:column>
+	            <table:column><layout:width flex="true">100.0</layout:width></table:column>
 	        </table:columns>
 	    </table:specification>
 	    <table:content>
 	        <table:head>
 	            <table:row>
 	                <table:cell/>
-	                <table:cell>
-	                    <ofx:paragraph>Name</ofx:paragraph>
-	                </table:cell>
-	                <table:cell>
-	                    <ofx:paragraph>Description</ofx:paragraph>
-	                </table:cell>
+	                <table:cell><ofx:paragraph>Name</ofx:paragraph></table:cell>
+	                <table:cell><ofx:paragraph>Description</ofx:paragraph></table:cell>
 	            </table:row>
 	        </table:head>
 	        <table:body>
@@ -42,14 +39,48 @@
 	                <table:cell>
 	                    <media:image>
 	                        <layout:height unit="em">1.0</layout:height>
-	                        <media:media src="svg.aht-utils/icon/ui/revision.svg" dst="icon/ui/revision"/>
+	                        <media:media src="svg.aht-utils/icon/ui/revision/revision.svg" dst="icon/ui/revision/revision"/>
 	                    </media:image>
 	                </table:cell>
+	                <table:cell><ofx:paragraph>Revision</ofx:paragraph></table:cell>
 	                <table:cell>
-	                    <ofx:paragraph>Revision</ofx:paragraph>
+	                    <ofx:paragraph>Indicates the latest revision of the selected element and toggles the revision list for this element.</ofx:paragraph>
 	                </table:cell>
+	            </table:row>
+	            <table:row>
 	                <table:cell>
-	                    <ofx:paragraph>Indicates, the revision</ofx:paragraph>
+	                    <media:image>
+	                        <layout:height unit="em">1.0</layout:height>
+	                        <media:media src="svg.aht-utils/icon/ui/revision/add.svg" dst="icon/ui/revision/add"/>
+	                    </media:image>
+	                </table:cell>
+	                <table:cell><ofx:paragraph>Added</ofx:paragraph></table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>The element was added to the database.</ofx:paragraph>
+	                </table:cell>
+	            </table:row>
+	            <table:row>
+	                <table:cell>
+	                    <media:image>
+	                        <layout:height unit="em">1.0</layout:height>
+	                        <media:media src="svg.aht-utils/icon/ui/revision/mod.svg" dst="icon/ui/revision/mod"/>
+	                    </media:image>
+	                </table:cell>
+	                <table:cell><ofx:paragraph>Modified</ofx:paragraph></table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>The element was modified.</ofx:paragraph>
+	                </table:cell>
+	            </table:row>
+				<table:row>
+	                <table:cell>
+	                    <media:image>
+	                        <layout:height unit="em">1.0</layout:height>
+	                        <media:media src="svg.aht-utils/icon/ui/revision/rm.svg" dst="icon/ui/revision/rm"/>
+	                    </media:image>
+	                </table:cell>
+	                <table:cell><ofx:paragraph>Removed</ofx:paragraph></table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>The element was removed.</ofx:paragraph>
 	                </table:cell>
 	            </table:row>
 	        </table:body>
