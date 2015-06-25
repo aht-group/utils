@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org"
+			xmlns:l="http://www.openfuxml.org/list"
+			xmlns:layout="http://www.openfuxml.org/layout"
+			xmlns:t="http://www.openfuxml.org/table"
+			id="section.admin.webservice.introduction">
+	
+	<ofx:paragraph lang="en">
+		A Web service is a method of communication between two electronic devices over a network.
+		It is a software function provided at a network address over the Web with the service always on
+		as in the concept of utility computing.
+		The W3C defines a Web service generally as a software system designed to support interoperable
+		machine-to-machine interaction over a network.
+	</ofx:paragraph>
+
+	<ofx:paragraph lang="en">
+		The W3C Web Services Architecture Working Group has identifeid two major classes of Web services:
+	</ofx:paragraph>
+
+	<l:list>
+	    <l:type ordering="unordered"/>
+	    
+	    <l:item>
+	    	<ofx:paragraph lang="en">
+				REST-compliant Web services, in which the primary purpose of the service is to manipulate
+				representations of Web resources using a uniform set of stateless operations.
+			</ofx:paragraph>
+	    </l:item>
+	    <l:item>
+	    	<ofx:paragraph lang="en">
+				Arbitrary Web services, in which the service may expose an arbitrary set of operations.
+				The Web service has an interface described in a machine-processable format (specifically WSDL).
+				Other systems interact with the Web service in a manner prescribed by its description using
+				SOAP (Simple Object Access Protocol) messages,
+				typically conveyed using HTTP with an XML serialization in conjunction with other
+				Web-related standards.
+			</ofx:paragraph>
+	    </l:item>
+	</l:list>
+	
+</ofx:section>

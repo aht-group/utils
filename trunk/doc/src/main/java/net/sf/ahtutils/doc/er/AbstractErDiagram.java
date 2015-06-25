@@ -34,10 +34,11 @@ public class AbstractErDiagram
 	
 	protected void buildSvg(String type, List<String> subset,File fDst, File fPdf) throws ClassNotFoundException, IOException, TranscoderException
 	{
-		ErGraphProcessor ofx = new ErGraphProcessor(fSrc);
-		ofx.addPackages(packages,subset);
+		ErGraphProcessor egp = new ErGraphProcessor(fSrc);
+		egp.addPackages(packages,subset);
 		
-		Graph g = ofx.create();
+		Graph g = egp.create();
+//		JaxbUtil.info(g);System.exit(-1);
 		
 		Node xml = JaxbUtil.loadJAXB(colorScheme, Node.class);
 		JaxbUtil.info(xml);

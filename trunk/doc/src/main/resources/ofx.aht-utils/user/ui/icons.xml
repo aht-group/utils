@@ -95,30 +95,24 @@
 	                    <ofx:paragraph>Remove the current item of your table</ofx:paragraph>
 	                </table:cell>
 	            </table:row>
-	            <table:row>
+<!--	            <table:row>
 	                <table:cell>
 	                    <media:image>
 	                        <layout:height unit="em">1.0</layout:height>
 	                        <media:media src="svg.aht-utils/icon/ui/edit.svg" dst="icon/ui/edit"/>
 	                    </media:image>
 	                </table:cell>
-	                <table:cell>
-	                    <ofx:paragraph>Edit</ofx:paragraph>
-	                </table:cell>
-	                <table:cell>
-	                    <ofx:paragraph>Switch to edit mode</ofx:paragraph>
-	                </table:cell>
+	                <table:cell><ofx:paragraph>Edit</ofx:paragraph></table:cell>
+	                <table:cell><ofx:paragraph>Switch to edit mode</ofx:paragraph></table:cell>
 	            </table:row>
-	            <table:row>
+ -->	            <table:row>
 	                <table:cell>
 	                    <media:image>
 	                        <layout:height unit="em">1.0</layout:height>
 	                        <media:media src="svg.aht-utils/icon/ui/trash.svg" dst="icon/ui/trash"/>
 	                    </media:image>
 	                </table:cell>
-	                <table:cell>
-	                    <ofx:paragraph>Delete</ofx:paragraph>
-	                </table:cell>
+	                <table:cell><ofx:paragraph>Delete</ofx:paragraph></table:cell>
 	                <table:cell>
 	                    <ofx:paragraph>Removes the current item from you table and deletes it</ofx:paragraph>
 	                </table:cell>
@@ -130,11 +124,21 @@
 	                        <media:media src="svg.aht-utils/icon/ui/save.svg" dst="icon/ui/save"/>
 	                    </media:image>
 	                </table:cell>
-	                <table:cell>
-	                    <ofx:paragraph>Save</ofx:paragraph>
-	                </table:cell>
+	                <table:cell><ofx:paragraph>Save</ofx:paragraph></table:cell>
 	                <table:cell>
 	                    <ofx:paragraph>Enter your current changes/modifications</ofx:paragraph>
+	                </table:cell>
+	            </table:row>
+	            <table:row>
+	                <table:cell>
+	                    <media:image>
+	                        <layout:height unit="em">1.0</layout:height>
+	                        <media:media src="svg.aht-utils/icon/ui/address-book.svg" dst="icon/ui/address"/>
+	                    </media:image>
+	                </table:cell>
+	                <table:cell><ofx:paragraph>Address Book</ofx:paragraph></table:cell>
+	                <table:cell>
+	                    <ofx:paragraph>Opens the address book to select elements</ofx:paragraph>
 	                </table:cell>
 	            </table:row>
 	            <table:row>
@@ -225,14 +229,11 @@
 	                        <media:media src="svg.aht-utils/icon/ui/favorite.svg" dst="icon/ui/favorite"/>
 	                    </media:image>
 	                </table:cell>
-	                <table:cell>
-	                    <ofx:paragraph>Favorite</ofx:paragraph>
-	                </table:cell>
+	                <table:cell><ofx:paragraph>Favorite</ofx:paragraph></table:cell>
 	                <table:cell>
 	                    <ofx:paragraph>Indicates, that the actual element is marked as a favorite item.</ofx:paragraph>
 	                </table:cell>
 	            </table:row>
-	            
 	            <table:row>
 	                <table:cell>
 	                    <media:image>
@@ -240,9 +241,7 @@
 	                        <media:media src="svg.aht-utils/icon/ui/selection.svg" dst="icon/ui/selection"/>
 	                    </media:image>
 	                </table:cell>
-	                <table:cell>
-	                    <ofx:paragraph>Selection</ofx:paragraph>
-	                </table:cell>
+	                <table:cell><ofx:paragraph>Selection</ofx:paragraph></table:cell>
 	                <table:cell>
 	                    <ofx:paragraph>Indicates, that the actual element is selected.</ofx:paragraph>
 	                </table:cell>

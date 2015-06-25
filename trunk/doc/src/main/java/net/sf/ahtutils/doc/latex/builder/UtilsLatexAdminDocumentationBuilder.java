@@ -30,6 +30,8 @@ public class UtilsLatexAdminDocumentationBuilder extends AbstractLatexDocumentat
 	
 	public static enum RequirementsCode {reqIntroduction,reqHardware,reqAdmin,reqDeveloper}
 	public static enum RequirementsClassifier {reqHardware,reqAdmin,reqDeveloper,reqNetwork}
+	
+	public static enum SystemCode {systemWs}
 		
 	public UtilsLatexAdminDocumentationBuilder(Configuration config, Translations translations,String[] langs, CrossMediaManager cmm,DefaultSettingsManager dsm)
 	{
@@ -72,6 +74,9 @@ public class UtilsLatexAdminDocumentationBuilder extends AbstractLatexDocumentat
 		addConfig(RequirementsCode.reqHardware.toString(),"ofx.aht-utils/requirements/hardware.xml","admin/requirements/hardware");
 		addConfig(RequirementsCode.reqAdmin.toString(),"ofx.aht-utils/requirements/administrator.xml","admin/requirements/administrator");
 		addConfig(RequirementsCode.reqDeveloper.toString(),"ofx.aht-utils/requirements/developer.xml","admin/requirements/developer");
+		
+		//System
+		addConfig(SystemCode.systemWs.toString(),"ofx.aht-utils/administration/system/webservice.xml","admin/system/webservice/introduction");
 	}
 	
 	@Deprecated
@@ -86,6 +91,9 @@ public class UtilsLatexAdminDocumentationBuilder extends AbstractLatexDocumentat
 
 	public void render(MaintenanceCode code) throws UtilsConfigurationException, OfxConfigurationException{render(code.toString());}
 	public void render(BackupCode code) throws UtilsConfigurationException, OfxConfigurationException{render(code.toString());}
+	
+	public void render(SystemCode code) throws UtilsConfigurationException, OfxConfigurationException{render(code.toString());}
+	public void render(int lvl,SystemCode code) throws UtilsConfigurationException, OfxConfigurationException{render(lvl,code.toString());}
 	
 	public void render(InstallationCode code) throws UtilsConfigurationException, OfxConfigurationException{render(code.toString());}
 	public void render(InstallationCode code, InstallationArchitecture... architectures) throws UtilsConfigurationException, OfxConfigurationException

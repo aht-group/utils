@@ -91,37 +91,31 @@
 		    <t:content>
 		        <t:head>
 		            <t:row>
-		                <t:cell>
-		                    <ofx:paragraph lang="en">Item</ofx:paragraph>
-		                </t:cell>
-		                <t:cell>
-		                    <ofx:paragraph lang="en">Application Server</ofx:paragraph>
-		                </t:cell>
-		                <t:cell>
-		                    <ofx:paragraph lang="en">Database Server</ofx:paragraph>
-		                </t:cell>
+		                <t:cell><ofx:paragraph lang="en">Item</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph lang="en">Application Server</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph lang="en">Database Server</ofx:paragraph></t:cell>
 		            </t:row>
 		        </t:head>
 		        <t:body>
 		            <t:row>
 		                <t:cell><ofx:paragraph>RAM</ofx:paragraph></t:cell>
-		                <t:cell><ofx:paragraph>64 GB or higher</ofx:paragraph></t:cell>
-		                <t:cell><ofx:paragraph>64 GB or higher</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>64 GB DDR3 ECC or more, at least 1600 MHz</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>64 GB DDR3 ECC or more, at least 1600 MHz</ofx:paragraph></t:cell>
 		            </t:row>
 		            <t:row>
 		                <t:cell><ofx:paragraph>CPU</ofx:paragraph></t:cell>
-		                <t:cell><ofx:paragraph>64-bit dual processor, each with 6 cores, 2.26 GHz or better</ofx:paragraph></t:cell>
-		                <t:cell><ofx:paragraph>64-bit dual processor, each with 6 cores, 2.4 GHz or better</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>64-bit dual processors (each at least 6 cores), 3.0 GHz or better</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>64-bit dual processors (each at least 6 cores), 2.6 GHz or better</ofx:paragraph></t:cell>
 		            </t:row>
 		            <t:row>
 		                <t:cell><ofx:paragraph>HDD</ofx:paragraph></t:cell>
-		                <t:cell><ofx:paragraph>4 or more 10.000 RPM SAS drives, each with at least 600 GB disk space</ofx:paragraph></t:cell>
-		                <t:cell><ofx:paragraph>4 or more 15.000 RPM SAS drives, each with at least 400 GB disk space</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>4 or more 10.000 RPM SAS drives, each with at least 6 TB disk space</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>4 or more 15.000 RPM SAS drives, each with at least 2 TB disk space</ofx:paragraph></t:cell>
 		            </t:row>
 		            <t:row>
 		                <t:cell><ofx:paragraph>RAID</ofx:paragraph></t:cell>
-		                <t:cell><ofx:paragraph>at least RAID 5, RAID 6 with one hot-standby drive is proposed</ofx:paragraph></t:cell>
-		                <t:cell><ofx:paragraph>at least RAID 5, RAID 6 with one hot-standby drive is proposed</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>at least RAID 5 with one hot-standby drive</ofx:paragraph></t:cell>
+		                <t:cell><ofx:paragraph>at least RAID 5 with one hot-standby drive</ofx:paragraph></t:cell>
 		            </t:row>
 		            <t:row>
 		                <t:cell><ofx:paragraph>Network</ofx:paragraph></t:cell>

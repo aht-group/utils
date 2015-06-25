@@ -102,4 +102,17 @@ public class SecurityXpath
 		else if(listResult.size()>1){throw new ExlpXpathNotUniqueException("Multiple "+net.sf.ahtutils.xml.security.Category.class.getSimpleName()+" for code="+code);}
 		return listResult.get(0);
 	}
+	public static synchronized net.sf.ahtutils.xml.security.Role getRole(Security security,String code) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
+	{
+		JXPathContext context = JXPathContext.newContext(security);
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append("//role[@code='").append(code).append("']");
+		
+		@SuppressWarnings("unchecked")
+		List<net.sf.ahtutils.xml.security.Role> listResult = (List<net.sf.ahtutils.xml.security.Role>)context.selectNodes(sb.toString());
+		if(listResult.size()==0){throw new ExlpXpathNotFoundException("No "+net.sf.ahtutils.xml.security.Role.class.getSimpleName()+" for code="+code);}
+		else if(listResult.size()>1){throw new ExlpXpathNotUniqueException("Multiple "+net.sf.ahtutils.xml.security.Role.class.getSimpleName()+" for code="+code);}
+		return listResult.get(0);
+	}
 }
