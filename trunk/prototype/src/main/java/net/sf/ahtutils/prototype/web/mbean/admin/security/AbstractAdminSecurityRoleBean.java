@@ -69,6 +69,7 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 		reloadRoles();
 		role=null;
 	}
+	
 	public void selectRole()
 	{
 		logger.trace(AbstractLogMessage.selectEntity(role));
@@ -76,6 +77,11 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang,
 		role = efDescription.persistMissingLangs(fSecurity,langs,role);		
 		role = fSecurity.load(cRole,role);
 		reloadActions();
+		
+		tblView=null;
+		tblAction=null;
+		tblUsecase=null;
+		
 		
 		denyRemove = false;
 		if(role instanceof UtilsStatusFixedCode)

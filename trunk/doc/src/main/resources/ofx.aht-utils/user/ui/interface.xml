@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org"
+			 xmlns:media="http://www.openfuxml.org/media"
+			 xmlns:table="http://www.openfuxml.org/table"
+			 xmlns:layout="http://www.openfuxml.org/layout"
+			 xmlns:text="http://www.openfuxml.org/text"
+			 xmlns:l="http://www.openfuxml.org/list"
+		id="section.user.ui.interface">
+	
+	<ofx:paragraph lang="en">
+		The user interface, in the design field of information systems,
+		is the space where interactions between humans and the software system occur.
+		The objective of this interaction is to allow effective operation and control of the system from the human end,
+		whilst the system simultaneously feeds back information that aids the operators' decision making process.
+	</ofx:paragraph>
+	
+	
+</ofx:section>

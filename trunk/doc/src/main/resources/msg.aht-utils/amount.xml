@@ -14,6 +14,20 @@
     		<s:lang key="fr" translation="Total Amount"/>
     	</s:langs>
     </s:translation>
+    <s:translation key="aupAmountInvoice">
+    	<s:langs>
+    		<s:lang key="de" translation="Invoice Amount"/>
+    		<s:lang key="en" translation="Invoice Amount"/>
+    		<s:lang key="fr" translation="Invoice Amount"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="aupAmountReduction">
+    	<s:langs>
+    		<s:lang key="de" translation="Reduction Amount"/>
+    		<s:lang key="en" translation="Reduction Amount"/>
+    		<s:lang key="fr" translation="Reduction Amount"/>
+    	</s:langs>
+    </s:translation>
 	<s:translation key="aupAmountAvailable">
     	<s:langs>
     		<s:lang key="de" translation="Available Amount"/>
