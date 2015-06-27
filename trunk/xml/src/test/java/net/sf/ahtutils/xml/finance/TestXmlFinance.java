@@ -33,6 +33,7 @@ public class TestXmlFinance extends AbstractXmlFinanceTest
     {
     	Finance xml = new Finance();
     	xml.setId(123);
+    	xml.setNr(1);
     	xml.setCode("myCode");
     	xml.setLabel("myLabel");
     	xml.setSymbol("mySymbol");

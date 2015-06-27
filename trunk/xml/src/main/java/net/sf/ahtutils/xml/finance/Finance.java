@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" />
+ *       &lt;attribute name="nr" type="{http://www.w3.org/2001/XMLSchema}int" />
  *       &lt;attribute name="code" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="label" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="value" type="{http://www.w3.org/2001/XMLSchema}double" />
@@ -40,6 +41,8 @@ public class Finance
     private final static long serialVersionUID = 1L;
     @XmlAttribute(name = "id")
     protected Long id;
+    @XmlAttribute(name = "nr")
+    protected Integer nr;
     @XmlAttribute(name = "code")
     protected String code;
     @XmlAttribute(name = "label")
@@ -79,6 +82,38 @@ public class Finance
 
     public void unsetId() {
         this.id = null;
+    }
+
+    /**
+     * Gets the value of the nr property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
+     */
+    public int getNr() {
+        return nr;
+    }
+
+    /**
+     * Sets the value of the nr property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Integer }
+     *     
+     */
+    public void setNr(int value) {
+        this.nr = value;
+    }
+
+    public boolean isSetNr() {
+        return (this.nr!= null);
+    }
+
+    public void unsetNr() {
+        this.nr = null;
     }
 
     /**
