@@ -15,11 +15,7 @@ public class TestXmlFigures extends AbstractXmlFinanceTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestXmlFigures.class);
 	
-	@BeforeClass
-	public static void initFiles()
-	{
-        setXmlFile(dirSuffix,"figures");
-	}
+	@BeforeClass public static void initFiles(){setXmlFile(dirSuffix,"figures");}
     
     @Test
     public void xml() throws FileNotFoundException
