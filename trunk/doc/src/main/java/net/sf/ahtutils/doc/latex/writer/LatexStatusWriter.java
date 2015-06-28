@@ -53,6 +53,12 @@ public class LatexStatusWriter extends AbstractDocumentationLatexWriter
 		buildStatusTable(seedKeyStatus, 10,30,40);
 	}
 	
+	public void table(boolean withIcon,Aht ahtStatus,String texName) throws UtilsConfigurationException
+	{
+		this.withIcon=withIcon;
+		if(withIcon){table(ahtStatus,null,texName,15,10,30,40);}
+		else{table(ahtStatus,null,texName,10,30,40);}
+	}
 	public void table(boolean withIcon,String seedKey) throws UtilsConfigurationException
 	{
 		this.withIcon=withIcon;
@@ -97,6 +103,16 @@ public class LatexStatusWriter extends AbstractDocumentationLatexWriter
 			
 			String texName = seedUtil.getContentName(seedKey);
 			texName = texName.substring(0, texName.indexOf(".xml"));
+			
+			table(athStatus, ahtParents, texName, colWidths);
+		}
+		catch (FileNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
+	}
+	
+	private void table(Aht athStatus, Aht ahtParents, String texName, int... colWidths) throws UtilsConfigurationException
+	{	
+		try
+		{
 			logger.info(texName);
 			for(String lang : langs)
 			{
@@ -111,7 +127,6 @@ public class LatexStatusWriter extends AbstractDocumentationLatexWriter
 				writeTable(table, f);
 			}
 		}
-		catch (FileNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
 		catch (OfxAuthoringException e) {throw new UtilsConfigurationException(e.getMessage());}
 		catch (IOException e) {throw new UtilsConfigurationException(e.getMessage());}
 	}
