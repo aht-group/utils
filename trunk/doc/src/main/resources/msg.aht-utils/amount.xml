@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <s:translations xmlns:s="http://ahtutils.aht-group.com/status">
-	<s:translation key="aupAmount">
+	<s:translation key="aupQuantity">
+    	<s:langs>
+    		<s:lang key="de" translation="Quantity"/>
+    		<s:lang key="en" translation="Quantity"/>
+    		<s:lang key="fr" translation="Quantity"/>
+    	</s:langs>
+    </s:translation>
+   	<s:translation key="aupAmount">
     	<s:langs>
     		<s:lang key="de" translation="Amount"/>
     		<s:lang key="en" translation="Amount"/>
@@ -77,11 +84,26 @@
     		<s:lang key="fr" translation="Payed"/>
     	</s:langs>
     </s:translation>
-    	<s:translation key="aupInvoiced">
+	<s:translation key="aupInvoiced">
     	<s:langs>
     		<s:lang key="de" translation="In Rechnung"/>
     		<s:lang key="en" translation="Invoiced"/>
     		<s:lang key="fr" translation="Invoiced"/>
+    	</s:langs>
+    </s:translation>
+    
+	<s:translation key="aupPriceUnit">
+    	<s:langs>
+    		<s:lang key="de" translation="Unit Price"/>
+    		<s:lang key="en" translation="Unit Price"/>
+    		<s:lang key="fr" translation="Unit Price"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="aupPriceTotal">
+    	<s:langs>
+    		<s:lang key="de" translation="Total Price"/>
+    		<s:lang key="en" translation="Total Price"/>
+    		<s:lang key="fr" translation="Total Price"/>
     	</s:langs>
     </s:translation>
 </s:translations>

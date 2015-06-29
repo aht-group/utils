@@ -9,6 +9,10 @@ public class XmlPropertyFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlPropertyFactory.class);
 		
+	public static Property build(String code, Boolean value, boolean frozen)
+	{	
+		return build(code,value.toString(),frozen);
+	}
 	public static Property build(String code, String  value, boolean frozen)
 	{
 		Property xml = new Property();
