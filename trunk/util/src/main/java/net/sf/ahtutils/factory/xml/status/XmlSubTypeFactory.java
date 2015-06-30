@@ -1,22 +1,25 @@
 package net.sf.ahtutils.factory.xml.status;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.ahtutils.xml.status.SubType;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class XmlSubTypeFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlSubTypeFactory.class);
 		
+	private String lang;
 	private SubType q;
 	
-	public XmlSubTypeFactory(SubType q)
+	public XmlSubTypeFactory(SubType q){this(null,q);}
+	public XmlSubTypeFactory(String lang,SubType q)
 	{
+		this.lang=lang;
 		this.q=q;
 	}
 	
@@ -39,6 +42,26 @@ public class XmlSubTypeFactory
 
 		}
 		
+		if(q.isSetLabel() && lang!=null)
+		{
+			if(ejb.getName()!=null)
+			{
+				if(ejb.getName().containsKey(lang)){xml.setLabel(ejb.getName().get(lang).getLang());}
+				else
+				{
+					String msg = "No translation "+lang+" available in "+ejb;
+					logger.warn(msg);
+					xml.setLabel(msg);
+				}
+			}
+			else
+			{
+				String msg = "No @name available in "+ejb;
+				logger.warn(msg);
+				xml.setLabel(msg);
+			}
+		}
+		
 		return xml;
 	}
 	
@@ -53,6 +76,14 @@ public class XmlSubTypeFactory
 	{
 		SubType xml = new SubType();
 		xml.setCode(code);
+		return xml;
+	}
+	
+	public static SubType buildLabel(String code, String label)
+	{
+		SubType xml = new SubType();
+		xml.setCode(code);
+		xml.setLabel(label);
 		return xml;
 	}
 	
