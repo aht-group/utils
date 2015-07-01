@@ -28,6 +28,7 @@ import net.sf.exlp.util.xml.JDomUtil;
 import net.sf.exlp.util.xml.JaxbUtil;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
+import net.sf.jasperreports.engine.JRTemplate;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -39,6 +40,7 @@ import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import net.sf.jasperreports.engine.query.JRXPathQueryExecuterFactory;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.engine.xml.JRXmlTemplateLoader;
 
 import org.apache.commons.jxpath.JXPathContext;
 import org.jdom2.Namespace;
@@ -324,8 +326,8 @@ public class ReportHandler {
 		//Add all resources configured in resources.xml
 		for (Resource res : resources.getResource())
 		{
-			logger.info("Adding resource of type " +res.getType() +" with id='" +res.getName() +"' loaded from " +res.getValue().getValue());
-			if (res.getType().equals("image"))
+                    logger.info("Adding resource of type " +res.getType() +" with id='" +res.getName() +"' loaded from " +res.getValue().getValue());
+                    if (res.getType().equals("image"))
 				
 				{
 					BufferedImage image = null;
@@ -336,6 +338,20 @@ public class ReportHandler {
 					catch (FileNotFoundException e) {logger.error(e.getMessage());}
 					catch (IOException e) {logger.error(e.getMessage());}
 					mapReportParameter.put(res.getName(), image);
+				}
+                        if (res.getType().equals("template"))
+                                
+				{
+                                    JRTemplate style = null;
+					try {
+						String templateLocation = "/resources/templates" +"/" +res.getValue().getValue();
+						logger.info("Including style template resource: " +templateLocation);
+						style = JRXmlTemplateLoader.load(mrl.searchIs(templateLocation));
+                                                mapReportParameter.put(res.getName() +"-style", style);
+                                        }
+					catch (FileNotFoundException e) {logger.error(e.getMessage());}
+					catch (IOException e) {logger.error(e.getMessage());}
+					
 				}
 		}
 		for (Object key : mapReportParameter.keySet())
@@ -387,7 +403,7 @@ public class ReportHandler {
 		doc = JDomUtil.unsetNameSpace(doc);
 		Document docReport = JDomUtil.toW3CDocument(doc);
 		mapReportParameter.put(JRXPathQueryExecuterFactory.PARAMETER_XML_DATA_DOCUMENT, docReport);
-		
+		ArrayList<JRTemplate> templates = new ArrayList<JRTemplate>();
 		//Add all resources configured in resources.xml
 		for (Resource res : resources.getResource())
 		{
@@ -404,7 +420,23 @@ public class ReportHandler {
 					catch (IOException e) {logger.error(e.getMessage());}
 					mapReportParameter.put(res.getName(), image);
 				}
+                        if (res.getType().equals("template"))
+                                
+				{
+                                    JRTemplate style = null;
+					try {
+						String templateLocation = "/resources/templates" +"/" +res.getValue().getValue();
+						logger.info("Including style template resource: " +templateLocation);
+						style = (JRTemplate) JRXmlTemplateLoader.load(mrl.searchIs(templateLocation));
+                                                mapReportParameter.put(res.getName() +"-style", style);
+                                                templates.add(style);
+                                        }
+					catch (FileNotFoundException e) {logger.error(e.getMessage());}
+					catch (IOException e) {logger.error(e.getMessage());}
+					
+				}
 		}
+                mapReportParameter.put("REPORT_TEMPLATES", templates);
 		for (Object key : mapReportParameter.keySet())
 		{
 			String keyString = (String) key;
