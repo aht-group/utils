@@ -1,21 +1,23 @@
 package net.sf.ahtutils.factory.xml.status;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.status.SubPhase;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class XmlSubPhaseFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlSubPhaseFactory.class);
 		
+	private String lang;
 	private SubPhase q;
 	
-	public XmlSubPhaseFactory(SubPhase q)
+	public XmlSubPhaseFactory(String lang,SubPhase q)
 	{
+		this.lang=lang;
 		this.q=q;
 	}
 	
@@ -37,6 +39,26 @@ public class XmlSubPhaseFactory
 
 		}
 		
+		if(q.isSetLabel() && lang!=null)
+		{
+			if(ejb.getName()!=null)
+			{
+				if(ejb.getName().containsKey(lang)){xml.setLabel(ejb.getName().get(lang).getLang());}
+				else
+				{
+					String msg = "No translation "+lang+" available in "+ejb;
+					logger.warn(msg);
+					xml.setLabel(msg);
+				}
+			}
+			else
+			{
+				String msg = "No @name available in "+ejb;
+				logger.warn(msg);
+				xml.setLabel(msg);
+			}
+		}
+		
 		return xml;
 	}
 	
@@ -44,6 +66,14 @@ public class XmlSubPhaseFactory
 	{
 		SubPhase xml = new SubPhase();
 		xml.setCode(code);
+		return xml;
+	}
+	
+	public static SubPhase buildLabel(String code, String label)
+	{
+		SubPhase xml = new SubPhase();
+		xml.setCode(code);
+		xml.setLabel(label);
 		return xml;
 	}
 }
