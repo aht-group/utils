@@ -36,6 +36,7 @@ public class TestJr extends AbstractXmlReportTest
     	Jr jr = new Jr();
     	jr.setName("testReportName");
     	jr.setType("mr");
+    	jr.setVisible(true);
     	return jr;
     }
     

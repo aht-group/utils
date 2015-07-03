@@ -91,6 +91,7 @@
 				</xsd:simpleType>
 			</xsd:attribute>
             <xsd:attribute name="name" type="xsd:string"/>
+            <xsd:attribute name="visible" type="xsd:boolean"/>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="templates">
@@ -170,6 +171,7 @@
                     </xsd:complexType>
                 </xsd:element>
                 <xsd:element ref="r:media" maxOccurs="unbounded"/>
+                <xsd:element ref="r:jr" maxOccurs="unbounded"/>
                 <xsd:element ref="r:file" maxOccurs="1"/>
             </xsd:sequence>
         </xsd:complexType>

@@ -4,5 +4,7 @@
     <record>2011-11-11T11:11:11</record>
     <subtitle>testSubTitle</subtitle>
     <footer>testFooter</footer>
+    <r:jr type="mr" name="testReportName" visible="true"/>
+    <r:jr type="mr" name="testReportName" visible="true"/>
     <r:file>myFileName</r:file>
 </r:info>

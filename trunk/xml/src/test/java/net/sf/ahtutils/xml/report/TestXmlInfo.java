@@ -24,12 +24,12 @@ public class TestXmlInfo extends AbstractXmlReportTest
     @Test
     public void testInfo() throws FileNotFoundException
     {
-    	Info test = create();
+    	Info test = create(true);
     	Info ref = JaxbUtil.loadJAXB(fXml.getAbsolutePath(), Info.class);
     	assertJaxbEquals(ref, test);
     }
     
-    public static Info create()
+    public static Info create(boolean withChildren)
     {
     	Info xml = new Info();
     	Info.Title title = new Info.Title();
@@ -45,11 +45,16 @@ public class TestXmlInfo extends AbstractXmlReportTest
     	record.setValue(AbstractAhtUtilsXmlTest.getDefaultXmlDate());
     	xml.setRecord(record);
     	
+    	if(withChildren)
+    	{
+    		xml.getJr().add(TestJr.create());xml.getJr().add(TestJr.create());
+    	}
+    	
     	xml.setFile(TestXmlFile.create());
     	return xml;
     }
     
-    public void save() {save(create(),fXml);}
+    public void save() {save(create(true),fXml);}
 	
 	public static void main(String[] args)
     {

@@ -57,6 +57,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *           &lt;/complexType>
  *         &lt;/element>
  *         &lt;element ref="{http://ahtutils.aht-group.com/report}media" maxOccurs="unbounded"/>
+ *         &lt;element ref="{http://ahtutils.aht-group.com/report}jr" maxOccurs="unbounded"/>
  *         &lt;element ref="{http://ahtutils.aht-group.com/report}file"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -73,6 +74,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "subtitle",
     "footer",
     "media",
+    "jr",
     "file"
 })
 @XmlRootElement(name = "info")
@@ -91,6 +93,8 @@ public class Info
     protected Info.Footer footer;
     @XmlElement(required = true)
     protected List<Media> media;
+    @XmlElement(required = true)
+    protected List<Jr> jr;
     @XmlElement(required = true)
     protected File file;
 
@@ -241,6 +245,43 @@ public class Info
 
     public void unsetMedia() {
         this.media = null;
+    }
+
+    /**
+     * Gets the value of the jr property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the jr property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getJr().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Jr }
+     * 
+     * 
+     */
+    public List<Jr> getJr() {
+        if (jr == null) {
+            jr = new ArrayList<Jr>();
+        }
+        return this.jr;
+    }
+
+    public boolean isSetJr() {
+        return ((this.jr!= null)&&(!this.jr.isEmpty()));
+    }
+
+    public void unsetJr() {
+        this.jr = null;
     }
 
     /**
