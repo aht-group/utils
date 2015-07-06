@@ -1,5 +1,8 @@
 package net.sf.ahtutils.web.rest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import net.sf.ahtutils.controller.factory.xml.acl.XmlViewFactory;
 import net.sf.ahtutils.controller.factory.xml.acl.XmlViewsFactory;
 import net.sf.ahtutils.controller.factory.xml.security.XmlRoleFactory;
@@ -30,17 +33,13 @@ import net.sf.ahtutils.xml.security.Role;
 import net.sf.ahtutils.xml.security.Security;
 import net.sf.ahtutils.xml.security.Staffs;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-public class SecurityExporter <L extends UtilsLang,D extends UtilsDescription,C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,USER extends UtilsUser<L,D,C,R,V,U,A,USER>,STAFF extends UtilsStaff<L,D,C,R,V,U,A,USER,DOMAIN>,DOMAIN extends EjbWithId>
+public class SecurityExporter <L extends UtilsLang,D extends UtilsDescription,C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
 				implements UtilsSecurityRestExport
 {
 	final static Logger logger = LoggerFactory.getLogger(SecurityExporter.class);
 	
 	private UtilsSecurityFacade fSecurity;
 	
-	private final Class<STAFF> cStaff;
 	private final Class<C> cCategory;
 	private final Class<V> cView;
 	private final Class<R> cRole;
@@ -52,10 +51,9 @@ public class SecurityExporter <L extends UtilsLang,D extends UtilsDescription,C 
 	private XmlActionFactory<L,D,C,R,V,U,A,USER> fAction,fActionAcl;
 	private XmlUsecaseFactory<L,D,C,R,V,U,A,USER> fUsecase;
 	
-	private SecurityExporter(UtilsSecurityFacade fSecurity,final Class<C> cCategory,final Class<V> cView,final Class<R> cRole,final Class<U> cUsecase,final Class<STAFF> cStaff)
+	private SecurityExporter(UtilsSecurityFacade fSecurity,final Class<C> cCategory,final Class<V> cView,final Class<R> cRole,final Class<U> cUsecase)
 	{
 		this.fSecurity=fSecurity;
-		this.cStaff=cStaff;
 		this.cCategory=cCategory;
 		this.cRole=cRole;
 		this.cView=cView;
@@ -69,14 +67,14 @@ public class SecurityExporter <L extends UtilsLang,D extends UtilsDescription,C 
 		fUsecase = new XmlUsecaseFactory<L,D,C,R,V,U,A,USER>(SecurityQuery.exUsecase());
 	}
 	
-	public static <L extends UtilsLang,D extends UtilsDescription,C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,USER extends UtilsUser<L,D,C,R,V,U,A,USER>,STAFF extends UtilsStaff<L,D,C,R,V,U,A,USER,DOMAIN>,DOMAIN extends EjbWithId>
-	SecurityExporter<L,D,C,R,V,U,A,USER,STAFF,DOMAIN>
-		factory(UtilsSecurityFacade fSecurity, final Class<C> cCategory, final Class<V> cView, final Class<R> cRole, final Class<U> cUsecase, final Class<STAFF> cStaff)
+	public static <L extends UtilsLang,D extends UtilsDescription,C extends UtilsSecurityCategory<L,D,C,R,V,U,A,USER>,R extends UtilsSecurityRole<L,D,C,R,V,U,A,USER>,V extends UtilsSecurityView<L,D,C,R,V,U,A,USER>,U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,USER>,A extends UtilsSecurityAction<L,D,C,R,V,U,A,USER>,USER extends UtilsUser<L,D,C,R,V,U,A,USER>>
+	SecurityExporter<L,D,C,R,V,U,A,USER>
+		factory(UtilsSecurityFacade fSecurity, final Class<C> cCategory, final Class<V> cView, final Class<R> cRole, final Class<U> cUsecase)
 	{
-		return new SecurityExporter<L,D,C,R,V,U,A,USER,STAFF,DOMAIN>(fSecurity,cCategory,cView,cRole,cUsecase,cStaff);
+		return new SecurityExporter<L,D,C,R,V,U,A,USER>(fSecurity,cCategory,cView,cRole,cUsecase);
 	}
 
-	public Staffs exportStaffs()
+	public <STAFF extends UtilsStaff<L,D,C,R,V,U,A,USER,DOMAIN>,DOMAIN extends EjbWithId> Staffs exportStaffs(Class<STAFF> cStaff)
 	{
 		XmlStaffFactory<L,D,C,R,V,U,A,USER,STAFF,DOMAIN> f = new XmlStaffFactory<L,D,C,R,V,U,A,USER,STAFF,DOMAIN>(SecurityQuery.exStaff());
 		
