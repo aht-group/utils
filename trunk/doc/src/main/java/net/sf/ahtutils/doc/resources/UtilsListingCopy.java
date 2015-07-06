@@ -6,15 +6,17 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Hashtable;
+import java.util.Map;
+
+import org.apache.commons.configuration.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.doc.UtilsDocumentation;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.exlp.util.io.resourceloader.MultiResourceLoader;
 import net.sf.exlp.util.io.txt.ExlpTxtWriter;
-
-import org.apache.commons.configuration.Configuration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class UtilsListingCopy
 {	
@@ -51,8 +53,10 @@ public class UtilsListingCopy
 	public static final String jbEap6ConfigMem = "admin/installation/jboss/config/eap6/standalone.mem.txt";
 	
 	public static final String apacheProxy = "admin/installation/apache/proxy.txt";
-	public static final String apacheRedirect = "admin/installation/apache/redirect.html";
 	
+	public static final String apacheRedirectListing = "admin/installation/apache/redirect.html";
+	public static final String apacheRedirectPattern = "@@@APACHE.REDIRECT.URL@@@";
+	public static final String apacheRedirectConfig = "@@@APACHE.REDIRECT.URL@@@";
 	
 	private MultiResourceLoader mrl;
 	private File dirListing;
@@ -77,6 +81,13 @@ public class UtilsListingCopy
 	
 	public void copy(String src, String dst, String find, String replace) throws UtilsConfigurationException
 	{
+		Map<String,String> map = new Hashtable<String,String>();
+		map.put(find, replace);
+		copy(src,dst,map);
+	}
+	
+	public void copy(String src, String dst, Map<String,String> replace) throws UtilsConfigurationException
+	{
 		try
 		{
 			InputStream is = mrl.searchIs(prefix+"/"+src);
@@ -87,7 +98,11 @@ public class UtilsListingCopy
 			String line; 
 			while(null != (line = bris.readLine()))
 			{
-				line = line.replace(find,replace);
+				for(String key : replace.keySet())
+				{
+					line = line.replace(key,replace.get(key));
+				}
+				
 				writer.add(line);
 				logger.trace("Line: "+line);
 			}
