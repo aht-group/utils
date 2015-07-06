@@ -303,6 +303,16 @@ challengeresponsepasswords no</ofx:raw>
 			</ofx:listing>
 		</ofx:section>
 		
+		<ofx:section>
+			<ofx:title lang="en">Unzip</ofx:title>
+			
+			
+		
+			<ofx:listing>
+				<ofx:raw>apt-get install unzip</ofx:raw>
+			</ofx:listing>
+		</ofx:section>
+		
 		<ofx:section classifier="disabled">
 			<ofx:title>Apache Webserver</ofx:title>
 				
@@ -337,7 +347,14 @@ challengeresponsepasswords no</ofx:raw>
 				</ofx:listing>
 				
 				<ofx:paragraph lang="en">
-					After installation the modules <text:emphasis style="typewriter">proxy</text:emphasis>
+					Apache can be configured to forward requests to the Application Server. This can be cofigured in
+					<text:emphasis style="typewriter">/etc/apache2/sites-available/default</text:emphasis>:
+				</ofx:paragraph>
+				
+				<ofx:listing external="listing/admin/installation/apache/proxy.txt"/>
+				
+				<ofx:paragraph lang="en">
+					After configuraiton, the modules <text:emphasis style="typewriter">proxy</text:emphasis>
 					and <text:emphasis style="typewriter">proxy_http</text:emphasis>
 					need to be activated.
 				</ofx:paragraph>
@@ -346,6 +363,13 @@ challengeresponsepasswords no</ofx:raw>
 					<ofx:raw>a2enmod proxy proxy_http
 service apache2 restart</ofx:raw>
 				</ofx:listing>
+				
+				<ofx:paragraph lang="en">
+					A automatic forwarding of the user to the application can be configured in 
+					<text:emphasis style="typewriter">/var/www/index.html</text:emphasis>:
+				</ofx:paragraph>
+				
+				<ofx:listing external="listing/admin/installation/apache/redirect.html"/>
 				
 			</ofx:section>
 

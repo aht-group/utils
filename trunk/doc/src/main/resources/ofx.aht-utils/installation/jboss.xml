@@ -85,9 +85,9 @@ cd eap-build
 			</ofx:paragraph>
 		
 			<ofx:listing>
-				<ofx:raw>sudo addgroup jboss
-sudo useradd -g jboss jboss  
-sudo chown -R jboss:jboss /opt/jboss-eap-6.3</ofx:raw>
+				<ofx:raw>addgroup jboss
+useradd -g jboss jboss
+chown -R jboss:jboss /opt/jboss-eap-6.3</ofx:raw>
 			</ofx:listing>
 			
 		</ofx:section>

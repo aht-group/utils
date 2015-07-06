@@ -50,6 +50,9 @@ public class UtilsListingCopy
 	public static final String jbEap6UpdateCli = "admin/installation/jboss/deployment/eap6/cli/update.sh";
 	public static final String jbEap6ConfigMem = "admin/installation/jboss/config/eap6/standalone.mem.txt";
 	
+	public static final String apacheProxy = "admin/installation/apache/proxy.txt";
+	public static final String apacheRedirect = "admin/installation/apache/redirect.html";
+	
 	
 	private MultiResourceLoader mrl;
 	private File dirListing;

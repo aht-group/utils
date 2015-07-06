@@ -10,7 +10,7 @@
 ### END INIT INFO
 
 #Defining JBOSS_HOME
-JBOSS_HOME=/opt/jboss-eap-6.1
+JBOSS_HOME=/opt/jboss-eap-6.3
 
 case "$1" in
 start)
@@ -19,7 +19,7 @@ start-stop-daemon --start --quiet --background --chuid jboss --exec ${JBOSS_HOME
 ;;
 stop)
 echo "Stopping JBoss AS"
-start-stop-daemon --start --quiet --background --chuid jboss --exec ${JBOSS_HOME}/bin/jboss-admin.sh -- --connect command=:shutdown
+start-stop-daemon --start --quiet --background --chuid jboss --exec ${JBOSS_HOME}/bin/jboss-cli.sh -- --connect command=:shutdown
 ;;
 log)
 echo "Showing server.log ..."

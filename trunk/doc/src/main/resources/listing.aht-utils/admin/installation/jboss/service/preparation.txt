@@ -1,3 +1,3 @@
-sudo touch /etc/init.d/jboss
-sudo chmod 755 /etc/init.d/jboss
-sudo vi /etc/init.d/jboss
+touch /etc/init.d/jboss
+chmod 755 /etc/init.d/jboss
+vi /etc/init.d/jboss
