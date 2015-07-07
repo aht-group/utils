@@ -27,7 +27,7 @@ public class XmlDescriptionFactory<D extends UtilsDescription>
 	
 	public static Description create(String key, String value)
 	{
-		Description xml =build(value);
+		Description xml = build(value);
 		xml.setKey(key);
 		return xml;
 	}
