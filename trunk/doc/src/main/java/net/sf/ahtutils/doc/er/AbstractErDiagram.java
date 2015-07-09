@@ -29,7 +29,8 @@ public class AbstractErDiagram
 	{
 		List<String> subset = new ArrayList<String>();
 		subset.add(key);
-		buildSvg("neato",subset,new File(fSvg,key+".svg"),new File(dPdf,key+".pdf"));
+		File fPdf = null;if(dPdf!=null){fPdf = new File(dPdf,key+".pdf");}
+		buildSvg("neato",subset,new File(fSvg,key+".svg"),fPdf);
 	}
 	
 	protected void buildSvg(String type, List<String> subset,File fDst, File fPdf) throws ClassNotFoundException, IOException, TranscoderException

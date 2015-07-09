@@ -56,7 +56,7 @@ public class UtilsListingCopy
 	
 	public static final String apacheRedirectListing = "admin/installation/apache/redirect.html";
 	public static final String apacheRedirectPattern = "@@@APACHE.REDIRECT.URL@@@";
-	public static final String apacheRedirectConfig = "@@@APACHE.REDIRECT.URL@@@";
+	public static final String apacheRedirectConfig = "doc.admin.apache.redirect.url";
 	
 	private MultiResourceLoader mrl;
 	private File dirListing;
