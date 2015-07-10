@@ -38,7 +38,7 @@ public class UtilsLatexDevelopmentDocumentationBuilder extends AbstractLatexDocu
 	
 	@Override protected void applyBaseLatexDir()
 	{
-		baseLatexDir=config.getString(UtilsDocumentation.keyBaseDocDir);
+		baseLatexDir=config.getString(UtilsDocumentation.keyBaseLatexDir);
 	}
 	
 	@Override protected void applyConfigCodes()

@@ -64,9 +64,9 @@ public class UtilsListingCopy
 	public UtilsListingCopy(Configuration config)
 	{
 		mrl = new MultiResourceLoader();
-		File baseDoc = new File(config.getString(UtilsDocumentation.keyBaseDocDir));
+		File baseDoc = new File(config.getString(UtilsDocumentation.keyBaseLatexDir));
 		dirListing = new File(baseDoc,"listing");
-		logger.info("Using base.dir ("+UtilsDocumentation.keyBaseDocDir+"): "+baseDoc.getAbsolutePath());
+		logger.info("Using base.dir ("+UtilsDocumentation.keyBaseLatexDir+"): "+baseDoc.getAbsolutePath());
 		logger.info("Using listing.dir (base.dir/listing): "+dirListing.getAbsolutePath());
 	}
 	
@@ -75,7 +75,7 @@ public class UtilsListingCopy
 		this.prefix=prefix;
 		mrl = new MultiResourceLoader();
 		dirListing = new File(baseDoc,"listing");
-		logger.info("Using base.dir ("+UtilsDocumentation.keyBaseDocDir+"): "+baseDoc.getAbsolutePath());
+		logger.info("Using base.dir ("+UtilsDocumentation.keyBaseLatexDir+"): "+baseDoc.getAbsolutePath());
 		logger.info("Using listing.dir (base.dir/listing): "+dirListing.getAbsolutePath());
 	}
 	

@@ -42,7 +42,7 @@ public class AbstractDocumentationLatexWriter
 		this.cmm=cmm;
 		this.dsm=dsm;
 		
-		baseLatexDir=config.getString(UtilsDocumentation.keyBaseDocDir);
+		baseLatexDir=config.getString(UtilsDocumentation.keyBaseLatexDir);
 	}
 	
 	protected void writeTable(Table table, File f) throws OfxAuthoringException, IOException

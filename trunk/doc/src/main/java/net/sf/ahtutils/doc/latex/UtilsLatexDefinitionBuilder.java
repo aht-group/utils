@@ -16,7 +16,7 @@ public class UtilsLatexDefinitionBuilder extends OfxLatexDefinitionBuilder
 	
 	public UtilsLatexDefinitionBuilder(Configuration config)
 	{
-		super(config.getString(UtilsDocumentation.keyBaseDocDir));
+		super(config.getString(UtilsDocumentation.keyBaseLatexDir));
 	}
 	
 	public void copyColors() throws OfxConfigurationException {copyResource("tex.aht-utils","colors");}

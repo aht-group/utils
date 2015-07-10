@@ -48,7 +48,7 @@ public class TestOfxStatusTableFactory extends AbstractOfxStatusFactoryTest
 		
 		DefaultConfigurationBuilder builder = new DefaultConfigurationBuilder();
 		config = builder.getConfiguration(false);
-		config.setProperty(UtilsDocumentation.keyBaseDocDir, "target");
+		config.setProperty(UtilsDocumentation.keyBaseLatexDir, "target");
 		
 		translations = JaxbUtil.loadJAXB("data/xml/dummyTranslations.xml", Translations.class);
 	}
