@@ -7,6 +7,7 @@ import org.apache.commons.configuration.Configuration;
 import org.openfuxml.content.layout.Layout;
 import org.openfuxml.content.ofx.Comment;
 import org.openfuxml.content.ofx.Paragraph;
+import org.openfuxml.content.ofx.Title;
 import org.openfuxml.content.table.Body;
 import org.openfuxml.content.table.Cell;
 import org.openfuxml.content.table.Column;
@@ -24,6 +25,7 @@ import org.openfuxml.factory.xml.ofx.layout.XmlLayoutFactory;
 import org.openfuxml.factory.xml.ofx.layout.XmlLineFactory;
 import org.openfuxml.factory.xml.table.OfxCellFactory;
 import org.openfuxml.factory.xml.table.OfxColumnFactory;
+import org.openfuxml.factory.xml.text.OfxTextFactory;
 import org.openfuxml.util.OfxCommentBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -129,9 +131,13 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 			table.setId(id);
 			table.setComment(comment);
 			
-			if(langs.length>1){logger.warn("Incorrect Assignment");}
-			Lang lCaption = StatusXpath.getLang(translations, captionKey, langs[0]);
-			table.setTitle(XmlTitleFactory.build(lCaption.getTranslation()));
+			Title title = XmlTitleFactory.build();
+			for(String lang : langs)
+			{
+				Lang lCaption = StatusXpath.getLang(translations, captionKey, lang);
+				title.getContent().add(OfxTextFactory.build(lang,lCaption.getTranslation()));
+			}
+			table.setTitle(title);
 			
 			return table;
 		}
