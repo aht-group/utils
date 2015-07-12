@@ -21,7 +21,11 @@ public class OfxQaCategoriesSectionFactory extends AbstractUtilsOfxDocumentation
 
 	public OfxQaCategoriesSectionFactory(Configuration config, String lang, Translations translations)
 	{
-		super(config,lang,translations);
+		this(config,new String[] {lang},translations);
+	}
+	public OfxQaCategoriesSectionFactory(Configuration config, String[] langs, Translations translations)
+	{
+		super(config,langs,translations);
 	}
 	
 	public Section build(Qa qa, String path) throws OfxAuthoringException

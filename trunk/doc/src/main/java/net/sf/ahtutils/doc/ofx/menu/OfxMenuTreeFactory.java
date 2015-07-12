@@ -26,9 +26,13 @@ public class OfxMenuTreeFactory extends AbstractUtilsOfxDocumentationFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(OfxMenuTreeFactory.class);
 		
-	public OfxMenuTreeFactory(Configuration config,String lang, Translations translations)
+	public OfxMenuTreeFactory(Configuration config, String lang, Translations translations)
 	{
-		super(config,lang,translations);
+		this(config,new String[] {lang},translations);
+	}
+	public OfxMenuTreeFactory(Configuration config,String[] langs, Translations translations)
+	{
+		super(config,langs,translations);
 	}
 	
 	public Tree build(Menu menu,Access access) throws OfxAuthoringException, UtilsConfigurationException
@@ -64,7 +68,8 @@ public class OfxMenuTreeFactory extends AbstractUtilsOfxDocumentationFactory
 			if(item.isSetView())
 			{
 				View view = SecurityXpath.getMenuItem(access,item.getView().getCode());
-				node.setLabel(StatusXpath.getLang(view.getLangs(),lang).getTranslation());
+				if(langs.length>1){logger.warn("Incorrect Assignment");}
+				node.setLabel(StatusXpath.getLang(view.getLangs(),langs[0]).getTranslation());
 			}
 			
 			return node;

@@ -19,9 +19,9 @@
 		<ofx:title lang="en">General</ofx:title>
 		
 		<ofx:paragraph lang="en">
-		Icons are part of the graphical user interface and the user can activate them using a mouse.
-		Their placement on the screen, also in relation to other icons, may provide further information to the user about their usage.
-	</ofx:paragraph>
+			Icons are part of the graphical user interface and the user can activate them using a mouse.
+			Their placement on the screen, also in relation to other icons, may provide further information to the user about their usage.
+		</ofx:paragraph>
 	
 	<table:table  id="table.user.ui.icons">
 	    <ofx:title lang="en">Summary of commonly used icons</ofx:title>

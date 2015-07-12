@@ -36,7 +36,11 @@ public class OfxTableQaTestFactory extends AbstractUtilsOfxDocumentationFactory
 	
 	public OfxTableQaTestFactory(Configuration config, String lang, Translations translations)
 	{
-		super(config,lang,translations);
+		this(config,new String[] {lang},translations);
+	}
+	public OfxTableQaTestFactory(Configuration config, String[] langs, Translations translations)
+	{
+		super(config,langs,translations);
 	}
 	
 	public Table buildTableTestDetails(Test test) throws OfxAuthoringException
@@ -44,7 +48,8 @@ public class OfxTableQaTestFactory extends AbstractUtilsOfxDocumentationFactory
 		try
 		{
 			Table table = new Table();
-			Lang lCaption = StatusXpath.getLang(translations, "auTableCaptionQaTest", lang);
+			if(langs.length>1){logger.warn("Incorrect Assignment");}
+			Lang lCaption = StatusXpath.getLang(translations, "auTableCaptionQaTest", langs[0]);
 			table.setTitle(XmlTitleFactory.build(lCaption.getTranslation()+" "+test.getCode()));
 			
 			table.setSpecification(createTableSpecifications());

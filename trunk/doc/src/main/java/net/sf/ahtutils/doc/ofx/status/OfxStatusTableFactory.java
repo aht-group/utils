@@ -3,22 +3,12 @@ package net.sf.ahtutils.doc.ofx.status;
 import java.util.Hashtable;
 import java.util.Map;
 
-import net.sf.ahtutils.doc.DocumentationCommentBuilder;
-import net.sf.ahtutils.doc.UtilsDocumentation;
-import net.sf.ahtutils.doc.ofx.AbstractUtilsOfxDocumentationFactory;
-import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
-import net.sf.ahtutils.xml.aht.Aht;
-import net.sf.ahtutils.xml.status.Lang;
-import net.sf.ahtutils.xml.status.Status;
-import net.sf.ahtutils.xml.status.Translations;
-import net.sf.ahtutils.xml.xpath.StatusXpath;
-import net.sf.exlp.exception.ExlpXpathNotFoundException;
-import net.sf.exlp.exception.ExlpXpathNotUniqueException;
-
 import org.apache.commons.configuration.Configuration;
 import org.openfuxml.content.layout.Layout;
 import org.openfuxml.content.ofx.Comment;
+import org.openfuxml.content.ofx.Paragraph;
 import org.openfuxml.content.table.Body;
+import org.openfuxml.content.table.Cell;
 import org.openfuxml.content.table.Column;
 import org.openfuxml.content.table.Columns;
 import org.openfuxml.content.table.Content;
@@ -38,6 +28,18 @@ import org.openfuxml.util.OfxCommentBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.sf.ahtutils.doc.DocumentationCommentBuilder;
+import net.sf.ahtutils.doc.UtilsDocumentation;
+import net.sf.ahtutils.doc.ofx.AbstractUtilsOfxDocumentationFactory;
+import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
+import net.sf.ahtutils.xml.aht.Aht;
+import net.sf.ahtutils.xml.status.Lang;
+import net.sf.ahtutils.xml.status.Status;
+import net.sf.ahtutils.xml.status.Translations;
+import net.sf.ahtutils.xml.xpath.StatusXpath;
+import net.sf.exlp.exception.ExlpXpathNotFoundException;
+import net.sf.exlp.exception.ExlpXpathNotUniqueException;
+
 public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(OfxStatusTableFactory.class);
@@ -48,7 +50,6 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 	public static final String translationKeyDescription = "auStatusTableDescription";
 	
 	private static String keyCaption = "auTableStatusCaption";
-	
 	
 	private int[] colWidths;
 	private boolean customColWidths;
@@ -67,7 +68,11 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 
 	public OfxStatusTableFactory(Configuration config, String lang, Translations translations)
 	{
-		super(config,lang,translations);
+		this(config,new String[] {lang},translations);
+	}
+	public OfxStatusTableFactory(Configuration config, String[] langs, Translations translations)
+	{
+		super(config,langs,translations);
 		imagePathPrefix = config.getString("doc.ofx.imagePathPrefix");
 		customColWidths=false;
 		
@@ -114,7 +119,7 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 			id = "table.status."+id;
 			
 			Comment comment = XmlCommentFactory.build();
-			DocumentationCommentBuilder.fixedId(comment, id);
+			OfxCommentBuilder.fixedId(comment, id);
 			DocumentationCommentBuilder.translationKeys(comment,config,UtilsDocumentation.keyTranslationFile);
 			DocumentationCommentBuilder.tableHeaders(comment,headers);
 			DocumentationCommentBuilder.tableKey(comment,captionKey,"Table Caption");
@@ -124,7 +129,8 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 			table.setId(id);
 			table.setComment(comment);
 			
-			Lang lCaption = StatusXpath.getLang(translations, captionKey, lang);
+			if(langs.length>1){logger.warn("Incorrect Assignment");}
+			Lang lCaption = StatusXpath.getLang(translations, captionKey, langs[0]);
 			table.setTitle(XmlTitleFactory.build(lCaption.getTranslation()));
 			
 			return table;
@@ -132,6 +138,7 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 		catch (ExlpXpathNotFoundException e) {throw new OfxAuthoringException(e.getMessage());}
 		catch (ExlpXpathNotUniqueException e) {throw new OfxAuthoringException(e.getMessage());}
 	}
+	
 	public Table toOfx(Aht xmlStatus) throws UtilsConfigurationException
 	{
 		Table table = null;
@@ -157,14 +164,23 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 			logger.trace(code+ " "+renderColumn.get(code));
 			if(renderColumn.get(code))
 			{
+				
 				if(headers.containsKey(code))
 				{
-					try
+					Cell cell = OfxCellFactory.build();
+					for(String lang : langs)
 					{
-						row.getCell().add(OfxCellFactory.createParagraphCell(StatusXpath.getLang(translations, headers.get(code), lang).getTranslation()));
+						try
+						{
+							Paragraph p = new Paragraph();
+							p.setLang(lang);
+							p.getContent().add(StatusXpath.getLang(translations, headers.get(code), lang).getTranslation());
+							cell.getContent().add(p);
+						}
+						catch (ExlpXpathNotFoundException e) {e.printStackTrace();}
+						catch (ExlpXpathNotUniqueException e) {e.printStackTrace();}
 					}
-					catch (ExlpXpathNotFoundException e) {e.printStackTrace();}
-					catch (ExlpXpathNotUniqueException e) {e.printStackTrace();}
+					row.getCell().add(cell);
 				}
 				else
 				{
@@ -191,7 +207,8 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 			{
 				if(!status.isSetParent()){throw new UtilsConfigurationException("A parent is exprected for the status:"+status.getCode());}
 				Status parent = StatusXpath.getStatus(xmlP.getStatus(), status.getParent().getCode());
-				parentString = StatusXpath.getLang(parent.getLangs(), lang).getTranslation();
+				if(langs.length>1){logger.warn("Incorrect Assignment");}
+				parentString = StatusXpath.getLang(parent.getLangs(), langs[0]).getTranslation();
 				if(parentString.equals(previousParentString)){parentString="";}
 				else{previousParentString=parentString;}
 			}
@@ -223,15 +240,27 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 			row.getCell().add(OfxCellFactory.createParagraphCell(parentString));
 		}
 		
-//		row.getCell().add(OfxCellFactory.createParagraphCell(status.getCode()));
-		
 		if(renderColumn.get(Code.icon))
 		{
 			row.getCell().add(OfxCellFactory.image(OfxStatusImageFactory.build(imagePathPrefix,status)));
 		}
 		
-		row.getCell().add(OfxCellFactory.createParagraphCell(StatusXpath.getLang(status.getLangs(), lang).getTranslation()));
-		row.getCell().add(OfxCellFactory.createParagraphCell(StatusXpath.getDescription(status.getDescriptions(), lang).getValue()));
+		Cell cellLabel = OfxCellFactory.build();
+		Cell cellDescription = OfxCellFactory.build();
+		
+		for(String lang : langs)
+		{
+			Paragraph pLabel = new Paragraph();pLabel.setLang(lang);
+			pLabel.getContent().add(StatusXpath.getLang(status.getLangs(), lang).getTranslation());
+			cellLabel.getContent().add(pLabel);
+			
+			Paragraph pDescription = new Paragraph();pDescription.setLang(lang);
+			pDescription.getContent().add(StatusXpath.getDescription(status.getDescriptions(), lang).getValue());
+			cellDescription.getContent().add(pDescription);
+		}
+		
+		row.getCell().add(cellLabel);
+		row.getCell().add(cellDescription);
 		
 		return row;
 	}

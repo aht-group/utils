@@ -35,9 +35,13 @@ public class OfxCategoryListFactory extends AbstractUtilsOfxDocumentationFactory
 	private CrossMediaManager cmm;
 	private DefaultSettingsManager dsm;
 	
-	public OfxCategoryListFactory(Configuration config,String lang, Translations translations,CrossMediaManager cmm,DefaultSettingsManager dsm)
+	public OfxCategoryListFactory(Configuration config, String lang, Translations translations,CrossMediaManager cmm,DefaultSettingsManager dsm)
 	{
-		super(config,lang,translations);
+		this(config,new String[] {lang},translations,cmm,dsm);
+	}
+	public OfxCategoryListFactory(Configuration config,String[] langs, Translations translations,CrossMediaManager cmm,DefaultSettingsManager dsm)
+	{
+		super(config,langs,translations);
 		this.cmm=cmm;
 		this.dsm=dsm;
 	}
@@ -90,7 +94,8 @@ public class OfxCategoryListFactory extends AbstractUtilsOfxDocumentationFactory
 		
 		try
 		{
-			Lang l = StatusXpath.getLang(category.getLangs(), lang);
+			if(langs.length>1){logger.warn("Incorrect Assignment");}
+			Lang l = StatusXpath.getLang(category.getLangs(), langs[0]);
 			description = l.getTranslation();
 		}
 		catch (ExlpXpathNotFoundException e){description = e.getMessage();}
@@ -98,7 +103,8 @@ public class OfxCategoryListFactory extends AbstractUtilsOfxDocumentationFactory
 		
 		try
 		{
-			Description d = StatusXpath.getDescription(category.getDescriptions(), lang);
+			if(langs.length>1){logger.warn("Incorrect Assignment");}
+			Description d = StatusXpath.getDescription(category.getDescriptions(), langs[0]);
 			text = d.getValue();
 		}
 		catch (ExlpXpathNotFoundException e){text = e.getMessage();}

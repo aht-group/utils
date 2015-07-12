@@ -39,7 +39,11 @@ public class OfxQaTeamTableFactory extends AbstractUtilsOfxDocumentationFactory
 	
 	public OfxQaTeamTableFactory(Configuration config, String lang, Translations translations)
 	{
-		super(config,lang,translations);
+		this(config,new String[] {lang},translations);
+	}
+	public OfxQaTeamTableFactory(Configuration config, String[] langs, Translations translations)
+	{
+		super(config,langs,translations);
 	}
 	
 	public Table build(Qa qa, List<String> headerKeys) throws OfxAuthoringException
@@ -48,7 +52,8 @@ public class OfxQaTeamTableFactory extends AbstractUtilsOfxDocumentationFactory
 		{
 			Table table = toOfx(qa.getStaff(),headerKeys);
 			table.setId("table.qa.team");
-			table.setTitle(XmlTitleFactory.build(StatusXpath.getLang(translations, keyCaption, lang).getTranslation()));
+			if(langs.length>1){logger.warn("Incorrect Assignment");}
+			table.setTitle(XmlTitleFactory.build(StatusXpath.getLang(translations, keyCaption, langs[0]).getTranslation()));
 			
 			Comment comment = XmlCommentFactory.build();
 			DocumentationCommentBuilder.fixedId(comment, table.getId());
@@ -131,7 +136,8 @@ public class OfxQaTeamTableFactory extends AbstractUtilsOfxDocumentationFactory
 		row.getCell().add(OfxCellFactory.createParagraphCell(staff.getUser().getFirstName()+" "+staff.getUser().getLastName()));
 		
 		String roleName;
-		try{roleName = StatusXpath.getLang(staff.getRole().getLangs(), lang).getTranslation();}
+		if(langs.length>1){logger.warn("Incorrect Assignment");}
+		try{roleName = StatusXpath.getLang(staff.getRole().getLangs(), langs[0]).getTranslation();}
 		catch (ExlpXpathNotFoundException e){roleName = e.getMessage();}
 		catch (ExlpXpathNotUniqueException e){roleName = e.getMessage();}
 		row.getCell().add(OfxCellFactory.createParagraphCell(roleName));

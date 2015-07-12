@@ -50,7 +50,11 @@ public class OfxRoleTableFactory extends AbstractUtilsOfxDocumentationFactory
 	
 	public OfxRoleTableFactory(Configuration config, String lang, Translations translations)
 	{
-		super(config,lang,translations);
+		this(config,new String[] {lang},translations);
+	}
+	public OfxRoleTableFactory(Configuration config, String[] langs, Translations translations)
+	{
+		super(config,langs,translations);
 		cmm = new NoOpCrossMediaManager();
 		dsm = new OfxDefaultSettingsManager();
 	}
@@ -62,7 +66,7 @@ public class OfxRoleTableFactory extends AbstractUtilsOfxDocumentationFactory
 			String id = "table.admin.security.role."+category.getCode();
 			
 			Comment comment = XmlCommentFactory.build();
-			DocumentationCommentBuilder.fixedId(comment, id);
+			OfxCommentBuilder.fixedId(comment, id);
 			DocumentationCommentBuilder.configKeyReference(comment, config, UtilsDocumentation.keyRoles, "Roles are defined in");
 			DocumentationCommentBuilder.translationKeys(comment,config,UtilsDocumentation.keyTranslationFile);
 			DocumentationCommentBuilder.tableHeaders(comment,headerKeys);
@@ -73,8 +77,9 @@ public class OfxRoleTableFactory extends AbstractUtilsOfxDocumentationFactory
 			table.setId(id);
 			table.setComment(comment);
 			
-			Lang lPrefix = StatusXpath.getLang(translations, keyCaptionPrefix, lang);
-			Lang lCategory = StatusXpath.getLang(category.getLangs(), lang);
+			if(langs.length>1){logger.warn("Incorrect Assignment");}
+			Lang lPrefix = StatusXpath.getLang(translations, keyCaptionPrefix, langs[0]);
+			Lang lCategory = StatusXpath.getLang(category.getLangs(), langs[0]);
 			table.setTitle(XmlTitleFactory.build(lPrefix.getTranslation()+" "+lCategory.getTranslation()));
 			
 			LatexTableRenderer tableRenderer = new LatexTableRenderer(cmm,dsm);
@@ -137,7 +142,8 @@ public class OfxRoleTableFactory extends AbstractUtilsOfxDocumentationFactory
 		
 		try
 		{
-			Lang l = StatusXpath.getLang(role.getLangs(), lang);
+			if(langs.length>1){logger.warn("Incorrect Assignment");}
+			Lang l = StatusXpath.getLang(role.getLangs(), langs[0]);
 			code = l.getTranslation();
 		}
 		catch (ExlpXpathNotFoundException e){code = e.getMessage();}
@@ -145,7 +151,8 @@ public class OfxRoleTableFactory extends AbstractUtilsOfxDocumentationFactory
 		
 		try
 		{
-			Description d = StatusXpath.getDescription(role.getDescriptions(), lang);
+			if(langs.length>1){logger.warn("Incorrect Assignment");}
+			Description d = StatusXpath.getDescription(role.getDescriptions(), langs[0]);
 			description = d.getValue();
 		}
 		catch (ExlpXpathNotFoundException e){description = e.getMessage();}

@@ -35,7 +35,11 @@ public class OfxTableQaTestResultFactory extends AbstractUtilsOfxDocumentationFa
 	
 	public OfxTableQaTestResultFactory(Configuration config, String lang, Translations translations)
 	{
-		super(config,lang,translations);
+		this(config,new String[] {lang},translations);
+	}
+	public OfxTableQaTestResultFactory(Configuration config, String[] langs, Translations translations)
+	{
+		super(config,langs,translations);
 		imagePathPrefix = config.getString("doc.ofx.imagePathPrefixQA");
 	}
 	
@@ -44,7 +48,8 @@ public class OfxTableQaTestResultFactory extends AbstractUtilsOfxDocumentationFa
 		try
 		{
 			Table table = new Table();
-			Lang lCaption = StatusXpath.getLang(translations, "auTableCaptionQaTestResults", lang);
+			if(langs.length>1){logger.warn("Incorrect Assignment");}
+			Lang lCaption = StatusXpath.getLang(translations, "auTableCaptionQaTestResults", langs[0]);
 			table.setTitle(XmlTitleFactory.build(lCaption.getTranslation()+" "+test.getCode()));
 			
 			table.setSpecification(createTableSpecifications());

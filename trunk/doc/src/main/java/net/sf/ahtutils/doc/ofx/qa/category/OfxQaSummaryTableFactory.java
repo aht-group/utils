@@ -54,7 +54,11 @@ public class OfxQaSummaryTableFactory extends AbstractUtilsOfxDocumentationFacto
 	
 	public OfxQaSummaryTableFactory(Configuration config, String lang, Translations translations)
 	{
-		super(config,lang,translations);
+		this(config,new String[] {lang},translations);
+	}
+	public OfxQaSummaryTableFactory(Configuration config, String[] langs, Translations translations)
+	{
+		super(config,langs,translations);
 		
 		headerKeys = new ArrayList<String>();
 		headerKeys.add("auTableQaTestCode");
@@ -70,7 +74,8 @@ public class OfxQaSummaryTableFactory extends AbstractUtilsOfxDocumentationFacto
 			Table table = toOfx(category);
 			table.setId("table.qa.agreements."+category.getCode());
 			
-			Lang lCaption = StatusXpath.getLang(translations, "auTableQmSummary", lang);
+			if(langs.length>1){logger.warn("Incorrect Assignment");}
+			Lang lCaption = StatusXpath.getLang(translations, "auTableQmSummary", langs[0]);
 			table.setTitle(XmlTitleFactory.build(lCaption.getTranslation()+": "+category.getName()+" ("+category.getCode()+")"));
 			
 			Comment comment = XmlCommentFactory.build();

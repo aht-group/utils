@@ -34,9 +34,13 @@ public class OfxSectionQaCategoryFactory extends AbstractUtilsOfxDocumentationFa
 	
 	public OfxSectionQaCategoryFactory(Configuration config, String lang, Translations translations)
 	{
-		super(config,lang,translations);
-		fOfxTableTest = new OfxTableQaTestFactory(config,lang,translations);
-		fOfxTableTestResult = new OfxTableQaTestResultFactory(config,lang,translations);
+		this(config,new String[] {lang},translations);
+	}
+	public OfxSectionQaCategoryFactory(Configuration config, String[] langs, Translations translations)
+	{
+		super(config,langs,translations);
+		fOfxTableTest = new OfxTableQaTestFactory(config,langs,translations);
+		fOfxTableTestResult = new OfxTableQaTestResultFactory(config,langs,translations);
 	}
 	
 	public Section build(Category category) throws OfxAuthoringException
