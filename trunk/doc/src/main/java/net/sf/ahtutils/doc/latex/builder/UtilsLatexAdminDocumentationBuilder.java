@@ -63,7 +63,7 @@ public class UtilsLatexAdminDocumentationBuilder extends AbstractLatexDocumentat
 		addConfig(InstallationCode.instIntroduction.toString(),"ofx.aht-utils/installation/introduction.xml","admin/installation/introduction");
 		addConfig(InstallationCode.instDebian.toString(),"ofx.aht-utils/installation/debian.xml","admin/installation/debian");
 		addConfig(InstallationCode.instJava.toString(),"ofx.aht-utils/installation/java.xml","admin/installation/java");
-		addConfig(InstallationCode.instJboss.toString(),"ofx.aht-utils/installation/jboss.xml","admin/installation/jboss");
+		addConfig(InstallationCode.instJboss.toString(),"ofx.aht-utils/installation/jboss/jboss.xml","admin/installation/jboss");
 		addConfig(InstallationCode.instPostGis.toString(),"ofx.aht-utils/installation/postgres.xml","admin/installation/postgres");
 		addConfig(InstallationCode.instMySql.toString(),"ofx.aht-utils/installation/mysql.xml","admin/installation/mysql");
 		addConfig(InstallationCode.instMaven.toString(),"ofx.aht-utils/installation/maven.xml","admin/installation/maven");

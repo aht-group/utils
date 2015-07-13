@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org"
+			xmlns:text="http://www.openfuxml.org/text"
+	id="section.admin.installation.jboss">
+	<ofx:title lang="en">JBoss Application Server</ofx:title>
+	
+	<ofx:paragraph lang="en">
+		JBoss Application Server, or simply JBoss, is an application server authored by JBoss, now developed by Red Hat.
+		It is written in Java, and implements the Java Platform, Enterprise Edition (Java EE) specification.
+		It runs on multiple platforms. The software is free and open-source software, subject to the requirements of the GNU Lesser General Public License (LGPL).
+	</ofx:paragraph>
+	
+	<ofx:section include="as7.xml"/>
+	<ofx:section include="eap6.xml"/>
+	
+</ofx:section>
