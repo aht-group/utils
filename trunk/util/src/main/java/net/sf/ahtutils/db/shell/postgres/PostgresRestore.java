@@ -4,13 +4,13 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
-import net.sf.ahtutils.interfaces.db.UtilsDbShell;
-import net.sf.exlp.exception.ExlpUnsupportedOsException;
-import net.sf.exlp.factory.xml.config.XmlParameterFactory;
-
 import org.apache.commons.configuration.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import net.sf.ahtutils.interfaces.db.UtilsDbShell;
+import net.sf.exlp.exception.ExlpUnsupportedOsException;
+import net.sf.exlp.factory.xml.config.XmlParameterFactory;
 
 public class PostgresRestore extends AbstractPostgresShell implements UtilsDbShell
 {
@@ -22,7 +22,7 @@ public class PostgresRestore extends AbstractPostgresShell implements UtilsDbShe
 		
 		pDbRestore = XmlParameterFactory.build(UtilsDbShell.cfgBinRestore, "Shell command for restore", false);
 		try{pDbRestore.setValue(config.getString(pDbRestore.getKey()));}
-		catch (NoSuchElementException e){pDbShell.setValue("pg_restore");}
+		catch (NoSuchElementException e){pDbRestore.setValue("pg_restore");}
 		configurationParamter.getParameter().add(pDbRestore);
     }
 	
@@ -30,7 +30,6 @@ public class PostgresRestore extends AbstractPostgresShell implements UtilsDbShe
 	{		
 		super.cmdPre();
 
-//		for(String table : Arrays.asList(config.getStringArray(UtilsDbShell.cfgDbTablesDrop))){dropTable(table);}
 		for(String table : Arrays.asList(config.getStringArray(UtilsDbShell.cfgDbTablesRestore))){resotreTable(table);}
 		for(String table : Arrays.asList(config.getStringArray(UtilsDbShell.cfgDbSequenceRestore))){restoreSequence(table);}
 //		for(String table : Arrays.asList(config.getStringArray(UtilsDbShell.cfgDbTablesKey))){fixPrimaryKey(table);}
