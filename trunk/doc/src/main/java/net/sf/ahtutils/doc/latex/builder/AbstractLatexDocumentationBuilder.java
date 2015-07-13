@@ -20,6 +20,7 @@ import org.openfuxml.exception.OfxConfigurationException;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.interfaces.DefaultSettingsManager;
 import org.openfuxml.interfaces.media.CrossMediaManager;
+import org.openfuxml.processor.pre.ExternalContentEagerLoader;
 import org.openfuxml.util.OfxCommentBuilder;
 import org.openfuxml.util.filter.OfxClassifierFilter;
 import org.openfuxml.util.filter.OfxLangFilter;
@@ -79,7 +80,11 @@ public class AbstractLatexDocumentationBuilder extends AbstractDocumentationLate
 	protected void renderSection(int lvl,String code, String classifier[]) throws OfxAuthoringException, IOException, OfxConfigurationException
 	{
 		logger.trace("Rendering "+Section.class.getSimpleName()+": "+code);
-		Section section = JaxbUtil.loadJAXB(config.getString(code), Section.class);
+		
+		ExternalContentEagerLoader ecel = new ExternalContentEagerLoader();
+		Section section = ecel.load(config.getString(code),Section.class);
+		
+//		Section section = JaxbUtil.loadJAXB(config.getString(code), Section.class);
 		JaxbUtil.trace(section);
 		applySectionSettings(code, section);
 		
