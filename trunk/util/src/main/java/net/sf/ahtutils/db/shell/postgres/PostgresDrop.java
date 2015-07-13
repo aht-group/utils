@@ -31,7 +31,7 @@ public class PostgresDrop extends AbstractPostgresShell implements UtilsDbShell
 	private String dropTable(String table)
 	{
 		StringBuffer sb = new StringBuffer();
-		sb.append(pPsql.getValue());
+		sb.append(pDbShell.getValue());
 		sb.append(" -h ").append(pDbHost.getValue());
 		sb.append(" -U ").append(pDbUser.getValue());
 		sb.append(" -d ").append(pDbName.getValue());
@@ -46,7 +46,7 @@ public class PostgresDrop extends AbstractPostgresShell implements UtilsDbShell
 	private String dropSequence(String seq)
 	{
 		StringBuffer sb = new StringBuffer();
-		sb.append(pPsql.getValue());
+		sb.append(pDbShell.getValue());
 		sb.append(" -h ").append(pDbHost.getValue());
 		sb.append(" -U ").append(pDbUser.getValue());
 		sb.append(" -d ").append(pDbName.getValue());
@@ -61,7 +61,7 @@ public class PostgresDrop extends AbstractPostgresShell implements UtilsDbShell
 	private String debugDatabase()
 	{
 		StringBuffer sb = new StringBuffer();
-		sb.append(pPsql.getValue());
+		sb.append(pDbShell.getValue());
 		sb.append(" -h ").append(pDbHost.getValue());
 		sb.append(" -U ").append(pDbUser.getValue());
 		sb.append(" -d ").append(pDbName.getValue());

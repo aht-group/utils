@@ -20,10 +20,10 @@ public class PostgresRestore extends AbstractPostgresShell implements UtilsDbShe
     {
 		super(config,UtilsDbShell.Operation.restore);
 		
-		pShellCommand = XmlParameterFactory.build(UtilsDbShell.cfgBinRestore, "Shell command for restore", false);
-		try{pShellCommand.setValue(config.getString(pShellCommand.getKey()));}
-		catch (NoSuchElementException e){pShellCommand.setValue("pg_restore");}
-		configurationParamter.getParameter().add(pShellCommand);
+		pDbRestore = XmlParameterFactory.build(UtilsDbShell.cfgBinRestore, "Shell command for restore", false);
+		try{pDbRestore.setValue(config.getString(pDbRestore.getKey()));}
+		catch (NoSuchElementException e){pDbShell.setValue("pg_restore");}
+		configurationParamter.getParameter().add(pDbRestore);
     }
 	
 	public void buildCommands(boolean withStructure) throws ExlpUnsupportedOsException
@@ -41,7 +41,7 @@ public class PostgresRestore extends AbstractPostgresShell implements UtilsDbShe
 	public String resotreTable(String table)
 	{
 		StringBuffer sb = new StringBuffer();
-		sb.append(pShellCommand.getValue());
+		sb.append(pDbRestore.getValue());
 //		sb.append(" --clean");
 //		sb.append(" --create");
 		sb.append(" --verbose");
@@ -69,7 +69,7 @@ public class PostgresRestore extends AbstractPostgresShell implements UtilsDbShe
 		String table = seq.substring(0,seq.indexOf("_"));
 		
 		StringBuffer sb = new StringBuffer();
-		sb.append(pPsql.getValue());
+		sb.append(pDbShell.getValue());
 		sb.append(" -h ").append(pDbHost.getValue());
 		sb.append(" -U ").append(pDbUser.getValue());
 		sb.append(" -d ").append(pDbName.getValue());
@@ -82,7 +82,7 @@ public class PostgresRestore extends AbstractPostgresShell implements UtilsDbShe
 	public String fixPrimaryKey(String table)
 	{
 		StringBuffer sb = new StringBuffer();
-		sb.append("psql");
+		sb.append(pDbShell.getValue());
 		sb.append(" -h ").append(pDbHost.getValue());
 		sb.append(" -U ").append(pDbUser.getValue());
 		sb.append(" -d ").append(pDbName.getValue());

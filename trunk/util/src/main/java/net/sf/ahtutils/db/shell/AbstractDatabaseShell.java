@@ -24,11 +24,12 @@ public class AbstractDatabaseShell
 	protected Configuration config;
 	protected UtilsDbShell.Operation operation;
 	
-	public void setOperation(UtilsDbShell.Operation operation) {
+	public void setOperation(UtilsDbShell.Operation operation)
+	{
 		this.operation = operation;
 	}
 
-	protected Parameter pShellCommand;
+	protected Parameter pDbShell,pDbDump,pDbRestore;
 	protected Parameter pDbHost,pDbName,pDbUser,pDbPwd;
 	protected Parameter pSqlDir;
 	
@@ -80,7 +81,7 @@ public class AbstractDatabaseShell
 	
 	public void debug()
 	{
-		logger.info("Bin: "+pShellCommand.getValue()+" ("+UtilsDbShell.cfgBinDump+")");
+		logger.info("Bin: "+pDbShell.getValue()+" ("+UtilsDbShell.cfgBinDump+")");
 		logger.info("Host: "+pDbHost.getValue()+" (db."+operation.toString()+".user)");
 		logger.info("DB: "+pDbName.getValue()+" (db."+operation.toString()+".db)");
 		logger.info("User: "+pDbUser.getValue()+" (db."+operation.toString()+".user)");

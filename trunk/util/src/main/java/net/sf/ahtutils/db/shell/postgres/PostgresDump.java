@@ -25,10 +25,10 @@ public class PostgresDump extends AbstractPostgresShell implements UtilsDbShell
     {
 		super(config,UtilsDbShell.Operation.dump);
 		
-		pShellCommand = XmlParameterFactory.build(UtilsDbShell.cfgBinDump, "Shell command for dump", false);
-		try{pShellCommand.setValue(config.getString(pShellCommand.getKey()));}
-		catch (NoSuchElementException e){pShellCommand.setValue("pg_dump");}
-		configurationParamter.getParameter().add(pShellCommand);
+		pDbShell = XmlParameterFactory.build(UtilsDbShell.cfgBinDump, "Shell command for dump", false);
+		try{pDbShell.setValue(config.getString(pDbShell.getKey()));}
+		catch (NoSuchElementException e){pDbShell.setValue("pg_dump");}
+		configurationParamter.getParameter().add(pDbShell);
     } 
 	
 	public void buildCommands(boolean withStructure) throws ExlpUnsupportedOsException
@@ -44,7 +44,7 @@ public class PostgresDump extends AbstractPostgresShell implements UtilsDbShell
 	public String dumpDatabase()
 	{
 		StringBuffer sb = new StringBuffer();
-		sb.append(pShellCommand.getValue());
+		sb.append(pDbShell.getValue());
 		sb.append(" -h ").append(pDbHost.getValue());
 		sb.append(" -U ").append(pDbUser.getValue());
 		sb.append(" --blobs");
@@ -60,7 +60,7 @@ public class PostgresDump extends AbstractPostgresShell implements UtilsDbShell
 	public String dumpTable(String table, boolean withStructure)
 	{
 		StringBuffer sb = new StringBuffer();
-		sb.append(pShellCommand.getValue());
+		sb.append(pDbShell.getValue());
 		sb.append(" -h ").append(pDbHost.getValue());
 		sb.append(" -U ").append(pDbUser.getValue());
 		sb.append(" --blobs");
@@ -78,7 +78,7 @@ public class PostgresDump extends AbstractPostgresShell implements UtilsDbShell
 	public String resotreTable(String table)
 	{
 		StringBuffer sb = new StringBuffer();
-		sb.append(pShellCommand.getValue());
+		sb.append(pDbShell.getValue());
 		sb.append(" NYI");
 		
 		super.addLine(sb.toString());

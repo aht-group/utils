@@ -2,17 +2,16 @@ package net.sf.ahtutils.db.shell.postgres;
 
 import java.util.NoSuchElementException;
 
+import org.apache.commons.configuration.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import net.sf.ahtutils.db.shell.AbstractDatabaseShell;
 import net.sf.ahtutils.interfaces.db.UtilsDbShell;
 import net.sf.exlp.exception.ExlpUnsupportedOsException;
 import net.sf.exlp.factory.xml.config.XmlParameterFactory;
 import net.sf.exlp.shell.cmd.ShellCmdExport;
 import net.sf.exlp.shell.cmd.ShellCmdUnset;
-import net.sf.exlp.xml.config.Parameter;
-
-import org.apache.commons.configuration.Configuration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class AbstractPostgresShell extends AbstractDatabaseShell
 {
@@ -20,16 +19,14 @@ public class AbstractPostgresShell extends AbstractDatabaseShell
 	
 	private static final String PGPWASSWORD = "PGPASSWORD";
 	
-	protected Parameter pPsql;
-	
 	public AbstractPostgresShell(Configuration config,UtilsDbShell.Operation operation)
     {
 		super(config,operation);
 		
-		pPsql = XmlParameterFactory.build(UtilsDbShell.cfgBinRestore, "Shell command psql", false);
-		try{pPsql.setValue(config.getString(pPsql.getKey()));}
-		catch (NoSuchElementException e){pPsql.setValue("psql");}
-		configurationParamter.getParameter().add(pPsql);
+		pDbShell = XmlParameterFactory.build(UtilsDbShell.cfgBinPsql, "Shell command psql", false);
+		try{pDbShell.setValue(config.getString(pDbShell.getKey()));}
+		catch (NoSuchElementException e){pDbShell.setValue("psql");}
+		configurationParamter.getParameter().add(pDbShell);
 		
     } 
 	
