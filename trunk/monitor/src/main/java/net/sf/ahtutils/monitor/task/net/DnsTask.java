@@ -53,6 +53,7 @@ public class DnsTask implements Callable<DnsResult>
 		return dnsResult;
 	}
 	
+	@SuppressWarnings("unused")
 	private void debugResult(int result)
 	{
 		 if(result==Lookup.HOST_NOT_FOUND){logger.info("HOST_NOT_FOUND");}

@@ -2,12 +2,11 @@ package net.sf.ahtutils.factory.xml.status;
 
 import java.util.Map;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.xml.status.Descriptions;
-import net.sf.ahtutils.xml.status.Langs;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
+import net.sf.ahtutils.xml.status.Descriptions;
 
 public class XmlDescriptionsFactory<D extends UtilsDescription>
 {

@@ -57,7 +57,7 @@ public class OfxQaRoleTableFactory extends AbstractUtilsOfxDocumentationFactory
 			table.setTitle(XmlTitleFactory.build(StatusXpath.getLang(translations, keyCaption, langs[0]).getTranslation()));
 			
 			Comment comment = XmlCommentFactory.build();
-			DocumentationCommentBuilder.fixedId(comment, table.getId());
+			OfxCommentBuilder.fixedId(comment, table.getId());
 			DocumentationCommentBuilder.translationKeys(comment,config,UtilsDocumentation.keyTranslationFile);
 			DocumentationCommentBuilder.tableHeaders(comment,headerKeys);
 			DocumentationCommentBuilder.tableKey(comment,keyCaption,"Table Caption");

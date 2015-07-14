@@ -75,7 +75,7 @@ public class OfxQaAgreementTableFactory extends AbstractUtilsOfxDocumentationFac
 			table.setTitle(XmlTitleFactory.build(lCaption.getTranslation()+": "+category.getName()+" ("+category.getCode()+")"));
 			
 			Comment comment = XmlCommentFactory.build();
-			DocumentationCommentBuilder.fixedId(comment, table.getId());
+			OfxCommentBuilder.fixedId(comment, table.getId());
 			DocumentationCommentBuilder.translationKeys(comment,config,UtilsDocumentation.keyTranslationFile);
 			DocumentationCommentBuilder.tableHeaders(comment,headerKeys);
 			DocumentationCommentBuilder.tableKey(comment,keyCaptionPrefix,"Table Caption Prefix");
