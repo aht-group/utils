@@ -42,7 +42,7 @@ public class UtilsInstallationLatexFactory
 		
 		map = new Hashtable<Type,String>();
         map.put(Type.JAVA, "ofx.aht-utils/installation/java.xml");
-        map.put(Type.JBOSS, "ofx.aht-utils/installation/jboss.xml");
+        map.put(Type.JBOSS, "ofx.aht-utils/installation/jboss/jboss.xml");
         map.put(Type.MAVEN, "ofx.aht-utils/installation/maven.xml");
         map.put(Type.MYSQL, "ofx.aht-utils/installation/mysql.xml");
         map.put(Type.OWNCLOUD, "ofx.aht-utils/installation/ownCloud.xml");
