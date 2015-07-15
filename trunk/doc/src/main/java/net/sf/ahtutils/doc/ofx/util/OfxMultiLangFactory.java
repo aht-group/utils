@@ -38,6 +38,27 @@ public class OfxMultiLangFactory
 		return title;
 	}
 	
+	public static List<Paragraph> paragraph(String[] keys, Langs langs)
+	{
+		List<Paragraph> paragraphs = new ArrayList<Paragraph>();
+		
+		for(String key : keys)
+		{
+			Paragraph p = XmlParagraphFactory.build(key);
+			String text = "!!!No-Translation!!!";
+			try
+			{
+				Lang lCaption = StatusXpath.getLang(langs,key);
+				text = lCaption.getTranslation();
+			}
+			catch (ExlpXpathNotFoundException e) {e.printStackTrace();}
+			catch (ExlpXpathNotUniqueException e) {e.printStackTrace();}
+			p.getContent().add(text);
+			paragraphs.add(p);
+		}
+		return paragraphs;
+	}
+	
 	public static List<Paragraph> paragraph(String[] keys, Descriptions descriptions)
 	{
 		List<Paragraph> paragraphs = new ArrayList<Paragraph>();
