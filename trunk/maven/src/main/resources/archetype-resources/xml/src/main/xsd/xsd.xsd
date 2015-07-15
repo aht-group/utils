@@ -5,7 +5,7 @@
     elementFormDefault="qualified" attributeFormDefault="unqualified"
     jaxb:extensionBindingPrefixes="xjc" jaxb:version="1.0">
     <xsd:import namespace="http://ahtutils.aht-group.com/status"    schemaLocation="../../../../../ahtutils/xml/src/main/xsd/aht/status.xsd"/>
-    <xsd:import namespace="http://www.geojsf.org"					schemaLocation="../../../../../geojsf/xml/src/main/xsd/geojsf/geojsf.xsd"/>
+    <xsd:import namespace="http://www.geojsf.org"					schemaLocation="../../../../../geojsf/entities/src/main/xsd/geojsf/geojsf.xsd"/>
     <xsd:annotation>
         <xsd:appinfo>
             <jaxb:globalBindings generateIsSetMethod="true">

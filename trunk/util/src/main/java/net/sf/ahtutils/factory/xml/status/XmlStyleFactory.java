@@ -9,21 +9,21 @@ import net.sf.ahtutils.xml.status.Style;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class XmlStyleFactory
+public class XmlStyleFactory<S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlStyleFactory.class);
 		
 	private String lang;
 	private Style q;
 		
-	public XmlStyleFactory(String lang,Style q)
+	public XmlStyleFactory(String lang, Style q)
 	{
 		this.lang=lang;
 		this.q=q;
 	}
 	
-	public <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription> Style build(S ejb){return build(ejb,null);}
-	public <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription> Style build(S ejb, String group)
+	public Style build(S ejb){return build(ejb,null);}
+	public Style build(S ejb, String group)
 	{
 		Style xml = new Style();
 		if(q.isSetCode()){xml.setCode(ejb.getCode());}
@@ -35,10 +35,13 @@ public class XmlStyleFactory
 			XmlLangsFactory<L> f = new XmlLangsFactory<L>(q.getLangs());
 			xml.setLangs(f.getUtilsLangs(ejb.getName()));
 		}
+		
 		if(q.isSetDescriptions())
 		{
-
+			XmlDescriptionsFactory<D> f = new XmlDescriptionsFactory<D>(q.getDescriptions());
+			xml.setDescriptions(f.create(ejb.getDescription()));
 		}
+		
 		if(q.isSetLabel() && lang!=null)
 		{
 			if(ejb.getName()!=null)

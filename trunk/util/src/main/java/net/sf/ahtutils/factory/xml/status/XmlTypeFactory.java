@@ -39,7 +39,8 @@ public class XmlTypeFactory
 		}
 		if(q.isSetDescriptions())
 		{
-
+			XmlDescriptionsFactory<D> f = new XmlDescriptionsFactory<D>(q.getDescriptions());
+			xml.setDescriptions(f.create(ejb.getDescription()));
 		}
 		
 		if(q.isSetLabel() && lang!=null)
