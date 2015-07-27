@@ -16,7 +16,10 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AbstractAdminTrafficLightBean <L extends UtilsLang,D extends UtilsDescription,SCOPE extends UtilsStatus<SCOPE,L,D>,LIGHT extends UtilsTrafficLight<L,D,SCOPE>>
+public class AbstractAdminTrafficLightBean <L extends UtilsLang,
+											D extends UtilsDescription,
+											SCOPE extends UtilsStatus<SCOPE,L,D>,
+											LIGHT extends UtilsTrafficLight<L,D,SCOPE>>
 	implements Serializable
 {
 	private static final long serialVersionUID = 1L;

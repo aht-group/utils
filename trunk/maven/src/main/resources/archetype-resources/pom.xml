@@ -238,7 +238,7 @@
 			<snapshots><enabled>false</enabled></snapshots>
         </repository>
         <repository>
-			<id>hibernate-spatial</id>
+			<id>hibernatespatial.org</id>
 			<name>Hibernate Spatial repo</name>
 			<url>http://www.hibernatespatial.org/repository</url>
 			<layout>default</layout>

@@ -7,7 +7,10 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithImage;
 import net.sf.ahtutils.model.interfaces.with.EjbWithPositionVisible;
 
-public interface UtilsStatus<S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription>
+public interface UtilsStatus<S extends UtilsStatus<S,L,D>,
+								L extends UtilsLang,
+								D extends UtilsDescription>
+							//	G extends UtilsGraphic>
 			extends EjbRemoveable,EjbWithId,EjbWithCode,EjbWithPositionVisible,EjbWithImage,EjbWithLangDescription<L,D>
 {					
 	public String getStyle();

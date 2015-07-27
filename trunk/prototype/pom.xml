@@ -12,19 +12,7 @@
     <artifactId>ahtutils-prototype</artifactId>
     <name>UTILS - Prototype</name>
 	<packaging>jar</packaging>
-	
-	<dependencyManagement>
-		<dependencies>      	         
-			<dependency>
-				<groupId>net.sf.ahtutils</groupId>
-				<artifactId>ahtutils-bom</artifactId>
-				<version>${project.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-	
+		
 	<dependencies>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -72,5 +60,29 @@
 			<artifactId>ahtutils-jsf</artifactId>
 		</dependency>
 	</dependencies>
+		
+	<dependencyManagement>
+		<dependencies>      	         
+			<dependency>
+				<groupId>net.sf.ahtutils</groupId>
+				<artifactId>ahtutils-bom</artifactId>
+				<version>${project.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
+	<build>
+        <plugins>
+            <plugin>
+		        <groupId>org.codehaus.mojo</groupId>
+		        <artifactId>versions-maven-plugin</artifactId>
+		        <configuration>
+					<rulesUri>file://${basedir}/../doc/src/main/resources/listing.aht-utils/development/maven-versions.xml</rulesUri>
+		        </configuration>
+			</plugin>
+        </plugins>
+    </build>
 		
 </project>

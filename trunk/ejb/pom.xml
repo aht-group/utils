@@ -17,20 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-	<dependencyManagement>
-		<dependencies>      	         
-			<dependency>
-				<groupId>net.sf.ahtutils</groupId>
-				<artifactId>ahtutils-bom</artifactId>
-				<version>${project.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
-	<dependencies>
-	
+	<dependencies>	
 		<!-- AhtUtils -->
 		<dependency>
          	<groupId>net.sf.ahtutils</groupId>
@@ -177,6 +164,18 @@
    	   	</dependency>
 	</dependencies>
 
+	<dependencyManagement>
+		<dependencies>      	         
+			<dependency>
+				<groupId>net.sf.ahtutils</groupId>
+				<artifactId>ahtutils-bom</artifactId>
+				<version>${project.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
     <build>
         <plugins>
             <plugin>
@@ -187,6 +186,13 @@
                     <ejbVersion>3.1</ejbVersion>
                 </configuration>
             </plugin>
+            <plugin>
+		        <groupId>org.codehaus.mojo</groupId>
+		        <artifactId>versions-maven-plugin</artifactId>
+		        <configuration>
+					<rulesUri>file://${basedir}/../doc/src/main/resources/listing.aht-utils/development/maven-versions.xml</rulesUri>
+		        </configuration>
+			</plugin>
         </plugins>
     </build>
 

@@ -25,10 +25,10 @@
 		Public repositories can also be updated.
 	</ofx:paragraph>
 	
-	<ofx:section classifier="debianWheezy">>
+	<ofx:section>
 		<ofx:title lang="en">Installation</ofx:title>
 	
-		<ofx:section container="true" classifier="debianWheezy">>
+		<ofx:section container="true" classifier="debian">
 			<ofx:title>Linux (Debian Wheezy)</ofx:title>
 			
 			<ofx:paragraph lang="en" version="1">
@@ -41,10 +41,12 @@ tar -xvzf path_to_download/apache-maven-3.3.3-bin.tar.gz</ofx:raw>
 			</ofx:listing>
 			
 			<ofx:paragraph lang="de" version="1">
-				Danach muss folgender Eintrag in der Datei /etc/profile vor dem Befeh export PATH (oder am Ende der Datei) hinzugefügt werden.
+				Danach muss folgender Eintrag in der Datei /etc/profile vor dem Befehl export
+				PATH (oder am Ende der Datei) hinzugefügt werden.
 			</ofx:paragraph>
 			<ofx:paragraph lang="de" version="1">
-				Then the following entry has to added in /etc/profile before export PATH (or at the end of the file).
+				Then the following entry has to added in /etc/profile before
+				export PATH (or at the end of the file).
 			</ofx:paragraph>
 			
 			<ofx:listing>

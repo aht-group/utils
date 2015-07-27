@@ -24,14 +24,14 @@ public class UtilsLatexAdminDocumentationBuilder extends AbstractLatexDocumentat
 	public static enum SecurityCode {sConceptIntroduction,secViews,secUsecases,secRoles}
 							 
 	public static enum InstallationCode {instIntroduction,instDebian,instJava,instJboss,instPostGis,instMySql,instMaven}
-	public static enum InstallationArchitecture {debian,debianWheezy,debianSqueeze,debianRaspberry,devJava7FX}
+	public static enum InstallationArchitecture {debian,debianSqueeze,debianWheezy,debianJessie,debianRaspberry,devJava7FX}
 	
 	public static enum JBossClassifier {as7,eap6,eap6Source,mysql,postgis}
 	
 	public static enum RequirementsCode {reqIntroduction,reqHardware,reqAdmin,reqDeveloper}
 	public static enum RequirementsClassifier {reqHardware,reqAdmin,reqDeveloper,reqNetwork}
 	
-	public static enum ToolsCode {toolsOsticket}
+	public static enum ToolsCode {toolsOsticket,toolsApache}
 	public static enum SystemCode {systemWs}
 		
 	public UtilsLatexAdminDocumentationBuilder(Configuration config, Translations translations,String[] langs, CrossMediaManager cmm,DefaultSettingsManager dsm)
@@ -62,7 +62,7 @@ public class UtilsLatexAdminDocumentationBuilder extends AbstractLatexDocumentat
 		
 		//Installation
 		addConfig(InstallationCode.instIntroduction.toString(),"ofx.aht-utils/installation/introduction.xml","admin/installation/introduction");
-		addConfig(InstallationCode.instDebian.toString(),"ofx.aht-utils/installation/debian.xml","admin/installation/debian");
+		addConfig(InstallationCode.instDebian.toString(),"ofx.aht-utils/installation/debian/debian.xml","admin/installation/debian");
 		addConfig(InstallationCode.instJava.toString(),"ofx.aht-utils/installation/java.xml","admin/installation/java");
 		addConfig(InstallationCode.instJboss.toString(),"ofx.aht-utils/installation/jboss/jboss.xml","admin/installation/jboss");
 		addConfig(InstallationCode.instPostGis.toString(),"ofx.aht-utils/installation/postgres.xml","admin/installation/postgres");
@@ -76,8 +76,9 @@ public class UtilsLatexAdminDocumentationBuilder extends AbstractLatexDocumentat
 		addConfig(RequirementsCode.reqAdmin.toString(),"ofx.aht-utils/requirements/administrator.xml","admin/requirements/administrator");
 		addConfig(RequirementsCode.reqDeveloper.toString(),"ofx.aht-utils/requirements/developer.xml","admin/requirements/developer");
 		
-		//Installation
+		//Tools
 		addConfig(ToolsCode.toolsOsticket.toString(),"ofx.aht-utils/installation/tools/osticket.xml","admin/installation/tools/osticket");
+		addConfig(ToolsCode.toolsApache.toString(),"ofx.aht-utils/installation/tools/apache.xml","admin/installation/tools/apache");
 		
 		//System
 		addConfig(SystemCode.systemWs.toString(),"ofx.aht-utils/administration/system/webservice.xml","admin/system/webservice/introduction");

@@ -25,7 +25,7 @@
 	        	<artifactId>ahtutils-xml</artifactId>
 				<version>${project.version}</version>
 	        	<classifier>tests</classifier>
-	        </dependency>			
+	        </dependency>
 			<dependency>
 				<groupId>net.sf.ahtutils</groupId>
 				<artifactId>ahtutils-util</artifactId>
@@ -119,6 +119,7 @@
 				<scope>import</scope>
     	   	</dependency>
 		    
+		    <!-- Mail -->
 		    <dependency>
 	  			<groupId>org.freemarker</groupId>
 	  			<artifactId>freemarker</artifactId>
@@ -288,13 +289,25 @@
 		         <version>4.2.1.Final</version>
 		         <scope>import</scope>
 		         <type>pom</type>
-	     	</dependency>
-	     	<!-- This is a replacement for richfaces-bom -->
+	     	</dependency> 
+	     	
+	     	<!-- This is a replacement for richfaces-bom
+	     	<dependency>
+				<groupId>javax.el</groupId>
+				<artifactId>el-api</artifactId>
+				<version></version>
+			</dependency> 
+	     	-->
+	     	<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>javax.servlet-api</artifactId>
+				<version>3.0.1</version>
+			</dependency> 
 			<dependency>
 				<groupId>javax.faces</groupId>
 				<artifactId>javax.faces-api</artifactId>
 				<version>2.1</version>
-	      </dependency>
+			</dependency>
 	      <dependency>
 				<groupId>com.sun.faces</groupId>
 				<artifactId>jsf-api</artifactId>

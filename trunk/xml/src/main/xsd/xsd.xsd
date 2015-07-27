@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema targetNamespace="http://ahtutils.aht-group.com"
     xmlns:aht="http://ahtutils.aht-group.com"
-    xmlns:s  ="http://ahtutils.aht-group.com/status"
-    xmlns:t ="http://ahtutils.aht-group.com/text"
-    xmlns:m  ="http://ahtutils.aht-group.com/mail"
-    xmlns:p  ="http://ahtutils.aht-group.com/project"
-    xmlns:f  ="http://ahtutils.aht-group.com/finance"
-    xmlns:n  ="http://ahtutils.aht-group.com/navigation"
-    xmlns:mo ="http://ahtutils.aht-group.com/monitoring"
-    xmlns:qa ="http://ahtutils.aht-group.com/qa"
-    xmlns:a  ="http://ahtutils.aht-group.com/access"
-    xmlns:u  ="http://ahtutils.aht-group.com/utils"
+    xmlns:s   ="http://ahtutils.aht-group.com/status"
+    xmlns:sym ="http://ahtutils.aht-group.com/symbol"
+    xmlns:t   ="http://ahtutils.aht-group.com/text"
+    xmlns:m   ="http://ahtutils.aht-group.com/mail"
+    xmlns:p   ="http://ahtutils.aht-group.com/project"
+    xmlns:f   ="http://ahtutils.aht-group.com/finance"
+    xmlns:n   ="http://ahtutils.aht-group.com/navigation"
+    xmlns:mo  ="http://ahtutils.aht-group.com/monitoring"
+    xmlns:qa  ="http://ahtutils.aht-group.com/qa"
+    xmlns:a   ="http://ahtutils.aht-group.com/access"
+    xmlns:u   ="http://ahtutils.aht-group.com/utils"
     xmlns:it  ="http://ahtutils.aht-group.com/issue"
     xmlns:sec="http://ahtutils.aht-group.com/security"
     xmlns:sys="http://ahtutils.aht-group.com/system"
     xmlns:survey="http://ahtutils.aht-group.com/survey"
     xmlns:db ="http://ahtutils.aht-group.com/dbseed"
+    xmlns:io ="http://exlp.sf.net/io"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" jaxb:extensionBindingPrefixes="xjc"
     jaxb:version="2.0">
     <xsd:import namespace="http://ahtutils.aht-group.com/status" schemaLocation="aht/status.xsd"/>
+    <xsd:import namespace="http://ahtutils.aht-group.com/symbol" schemaLocation="aht/symbol.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/text" schemaLocation="aht/text.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/report" schemaLocation="aht/report.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/project" schemaLocation="aht/project.xsd"/>
@@ -38,6 +41,7 @@
     <xsd:import namespace="http://ahtutils.aht-group.com/navigation" schemaLocation="aht/navigation.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/monitoring" schemaLocation="aht/monitoring.xsd"/>
     <xsd:import namespace="http://ahtutils.aht-group.com/cloud/facebook" schemaLocation="cloud/facebook.xsd"/>
+    <xsd:import namespace="http://exlp.sf.net/io" schemaLocation="../../../../../exlp/xml/src/main/xsd/util/io.xsd"/>
     <xsd:annotation>
         <xsd:appinfo>
             <jaxb:globalBindings generateIsSetMethod="true">

@@ -83,6 +83,17 @@ public class AbstractLogMessage <L extends UtilsLang,D extends UtilsDescription,
         sb.append(": ").append(t.toString());
         return sb.toString();
 	 }
+	 public static <A extends EjbWithId,B extends EjbWithId> String selectEntity(A a, B b)
+	 {
+        StringBuffer sb = new StringBuffer();
+        sb.append("Selecting ").append(a.getClass().getSimpleName());
+        sb.append(": ").append(a.toString());
+        if(b!=null)
+        {
+        	sb.append(" ... ").append(b.toString());
+        }
+        return sb.toString();
+	 }
 	 public static <T extends EjbWithId> String selectOneMenuChange(T t)
 	 {
         StringBuffer sb = new StringBuffer();

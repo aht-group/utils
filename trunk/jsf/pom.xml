@@ -26,8 +26,6 @@
 	</dependencyManagement>
 	
 	<dependencies>
-		
-		<!-- AhtUtils -->
 	   	<dependency>
    	   		<groupId>net.sf.ahtutils</groupId>
    	   		<artifactId>ahtutils-ejb</artifactId>
@@ -198,6 +196,27 @@
 			<artifactId>commons-codec</artifactId>
 		</dependency>
 		
+		<!-- SVG -->
+		<dependency>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>batik-transcoder</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>batik-codec</artifactId>
+			<version>1.7</version>
+		</dependency>
+   		<dependency>
+			<groupId>org.openfuxml</groupId>
+			<artifactId>ofx-core</artifactId>
+		</dependency>
+		
 		<dependency>
     		<groupId>de.sven-jacobs</groupId>
     		<artifactId>loremipsum</artifactId>
@@ -223,6 +242,13 @@
 	              		</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+		        <groupId>org.codehaus.mojo</groupId>
+		        <artifactId>versions-maven-plugin</artifactId>
+		        <configuration>
+					<rulesUri>file://${basedir}/../doc/src/main/resources/listing.aht-utils/development/maven-versions.xml</rulesUri>
+		        </configuration>
 			</plugin>
 		</plugins>
 		<pluginManagement>

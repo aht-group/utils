@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ofx:section xmlns:ofx="http://www.openfuxml.org" id="section.admin.installation.postgresql">
+<ofx:section xmlns:ofx="http://www.openfuxml.org"
+			xmlns:text="http://www.openfuxml.org/text"
+		id="section.admin.installation.postgresql">
 	<ofx:title lang="en">PostgreSQL</ofx:title>
 	
 	<ofx:paragraph lang="en" >
-			PostgreSQL, often simply "Postgres", is an object-relational database management system (ORDBMS)
-			with an emphasis on extensibility and standards-compliance.
-		</ofx:paragraph>
-		
-		<ofx:paragraph lang="en" >
-			As a database server, its primary function is to store data, securely and supporting best practices,
-			and retrieve it later, as requested by other software applications, be it those on the same computer
-			or those running on another computer across a network (including the Internet).
-		</ofx:paragraph>
-		
-		<ofx:paragraph lang="en" >
-			It can handle workloads ranging from small single-machine applications to large Internet-facing applications
-			with many concurrent users.
-			Recent versions also provide replication of the database itself for security and scalability.
-		</ofx:paragraph>
+		PostgreSQL, often simply "Postgres", is an object-relational database management system (ORDBMS)
+		with an emphasis on extensibility and standards-compliance.
+	</ofx:paragraph>	
+	<ofx:paragraph lang="en" >
+		As a database server, its primary function is to store data, securely and supporting best practices,
+		and retrieve it later, as requested by other software applications, be it those on the same computer
+		or those running on another computer across a network (including the Internet).
+	</ofx:paragraph>
+	<ofx:paragraph lang="en" >
+		It can handle workloads ranging from small single-machine applications to large Internet-facing applications
+		with many concurrent users.
+		Recent versions also provide replication of the database itself for security and scalability.
+	</ofx:paragraph>
 	
 	<ofx:section>
-		<ofx:title lang="en">Installation</ofx:title>
-		
+		<ofx:title lang="en">Installation</ofx:title>	
 		<ofx:section container="true" classifier="debianSqueeze">
 			<ofx:title>Linux (Debian Squeeze)</ofx:title>
 			<ofx:listing>
@@ -36,14 +35,12 @@ sudo ldconfig
 sudo make comments-install</ofx:raw>
 			</ofx:listing>
 		</ofx:section>
-		
 		<ofx:section container="true" classifier="debianWheezy">
 			<ofx:title>Linux (Debian Wheezy)</ofx:title>
 			<ofx:listing>
 				<ofx:raw>apt-get install postgresql-9.1-postgis</ofx:raw>
 			</ofx:listing>
 		</ofx:section>
-		
 		<ofx:section container="true" classifier="ubuntu14">
 			<ofx:title>Ubuntu (14.04 LTS)</ofx:title>
 			<ofx:listing>
@@ -70,15 +67,16 @@ createuser --superuser postgres</ofx:raw>
 		<ofx:title lang="en">Database creation</ofx:title>
 		
 		<ofx:paragraph lang="en" classifier="debianWheezy">
-			The following example creates a template, which can be re-used for creating multiple spatially-enabled databases.
-			Log-in as postgres from root using "su - postgres", and use the following commands:
+			The following example creates a template, which can be re-used for creating other
+			spatially-enabled databases.
+			The following commands need to be executed as user
+			<text:emphasis italic="true">postgres</text:emphasis>:
 		</ofx:paragraph>
 		<ofx:listing classifier="debianWheezy" setting="sql" external="listing/admin/db/postgres/template/debian/wheezy.sql"/>
 		
 		<ofx:paragraph lang="en" classifier="debianWheezy">
-			Then the actual database can be createded with hte following commands
+			Then the actual database can be created with the following commands
 		</ofx:paragraph>
-		<!-- http://trac.osgeo.org/postgis/wiki/UsersWikiPostGIS20Debian70src -->
 
 		<ofx:listing classifier="debianWheezy" setting="sql" external="listing/admin/db/postgres/create/debian/wheezy.sql"/>
 		<ofx:listing classifier="ubuntu14" external="listing/admin/db/postgres/create/ubuntu/14.sql"/>
@@ -90,14 +88,13 @@ createuser --superuser postgres</ofx:raw>
 			to the database.
 		</ofx:paragraph>
 		<ofx:listing classifier="debianWheezy" setting="sql" external="listing/admin/db/postgres/terminate/debian/wheezy.sql"/>
-		
 	</ofx:section>
 	
 	<ofx:section>
 		<ofx:title lang="en">Database optimization</ofx:title>
 		
 		<ofx:paragraph lang="en">
-			The owners of some pre-defined tables have to modified to the owner of the database:
+			The owners of some pre-defined tables have to changed to match the owner of the database:
 		</ofx:paragraph>
 		
 		<ofx:listing classifier="debianWheezy" external="listing/admin/db/postgres/tuning/debian/wheezy.sql"/>
@@ -105,5 +102,4 @@ createuser --superuser postgres</ofx:raw>
 		<ofx:listing classifier="osxYosemite" external="listing/admin/db/postgres/tuning/osx/yosemite.sql"/>
 		
 	</ofx:section>
-	
 </ofx:section>

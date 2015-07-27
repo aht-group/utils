@@ -13,36 +13,6 @@
     <packaging>jar</packaging>
     <name>UTILS - Util</name>
 	
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-    			<artifactId>maven-surefire-plugin</artifactId>
-    			<version>2.11</version>
-    			<configuration>
-        			<properties>
-            			<property>
-                			<name>listener</name>
-                			<value>net.sf.ahtutils.test.PrintIgnoreRunListener</value>
-            			</property>
-        			</properties>
-    			</configuration>
-			</plugin>
-		</plugins>
-	</build>
-	
-	<dependencyManagement>
-		<dependencies>      	         
-			<dependency>
-				<groupId>net.sf.ahtutils</groupId>
-				<artifactId>ahtutils-bom</artifactId>
-				<version>${project.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-	
 	<dependencies>
 		<dependency>
         	<groupId>net.sf.exlp</groupId>
@@ -187,6 +157,25 @@
 			<scope>compile</scope>
 		</dependency>
 		
+		<!-- Batik -->
+		<dependency>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>batik-transcoder</artifactId>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>batik-codec</artifactId>
+			<version>1.7</version>
+			<scope>test</scope>
+		</dependency>
+		
 		<!-- Logging -->
 	 	<dependency>
 			<groupId>org.slf4j</groupId>
@@ -270,5 +259,42 @@
         	<scope>test</scope>
         </dependency>
 	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>      	         
+			<dependency>
+				<groupId>net.sf.ahtutils</groupId>
+				<artifactId>ahtutils-bom</artifactId>
+				<version>${project.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+    			<artifactId>maven-surefire-plugin</artifactId>
+    			<version>2.11</version>
+    			<configuration>
+        			<properties>
+            			<property>
+                			<name>listener</name>
+                			<value>net.sf.ahtutils.test.PrintIgnoreRunListener</value>
+            			</property>
+        			</properties>
+    			</configuration>
+			</plugin>
+			<plugin>
+		        <groupId>org.codehaus.mojo</groupId>
+		        <artifactId>versions-maven-plugin</artifactId>
+		        <configuration>
+					<rulesUri>file://${basedir}/../doc/src/main/resources/listing.aht-utils/development/maven-versions.xml</rulesUri>
+		        </configuration>
+			</plugin>
+		</plugins>
+	</build>
    
 </project>

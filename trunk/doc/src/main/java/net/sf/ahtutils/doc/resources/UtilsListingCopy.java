@@ -32,13 +32,16 @@ public class UtilsListingCopy
 	
 	
 	public static final String dbPostgresCreateDebianWheezy = "admin/db/postgres/create/debian/wheezy.sql";
+	public static final String dbPostgresCreateDebianJessie = "admin/db/postgres/create/debian/jessie.sql";
 	public static final String dbPostgresCreateOsxYosemite = "admin/db/postgres/create/osx/yosemite.sql";
 	
 	public static final String dbPostgresTemplateDebianWheezy = "admin/db/postgres/template/debian/wheezy.sql";
 	
 	public static final String dbPostgresTerminateDebianWheezy = "admin/db/postgres/terminate/debian/wheezy.sql";
+	public static final String dbPostgresTerminateDebianJessie = "admin/db/postgres/terminate/debian/jessie.sql";
 	
 	public static final String dbPostgresTuneDebianWheezy = "admin/db/postgres/tuning/debian/wheezy.sql";
+	public static final String dbPostgresTuneDebianJessie = "admin/db/postgres/tuning/debian/jessie.sql";
 	public static final String dbPostgresTuneOsxYosemite = "admin/db/postgres/tuning/osx/yosemite.sql";
 	
 	public static final String jbServicePreparation = "admin/installation/jboss/service/preparation.txt";
@@ -57,6 +60,8 @@ public class UtilsListingCopy
 	public static final String apacheRedirectListing = "admin/installation/apache/redirect.html";
 	public static final String apacheRedirectPattern = "@@@APACHE.REDIRECT.URL@@@";
 	public static final String apacheRedirectConfig = "doc.admin.apache.redirect.url";
+	
+	public static final String mavenVersions = "development/maven-versions.xml";
 	
 	private MultiResourceLoader mrl;
 	private File dirListing;
@@ -83,6 +88,12 @@ public class UtilsListingCopy
 	{
 		Map<String,String> map = new Hashtable<String,String>();
 		map.put(find, replace);
+		copy(src,dst,map);
+	}
+	
+	public void copy(String src, String dst) throws UtilsConfigurationException
+	{
+		Map<String,String> map = new Hashtable<String,String>();
 		copy(src,dst,map);
 	}
 	

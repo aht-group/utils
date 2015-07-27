@@ -49,4 +49,39 @@
     		<s:lang key="fr" translation="Status"/>
     	</s:langs>
     </s:translation>
+	<s:translation key="aupGraphicStyle">
+		<s:langs>
+			<s:lang key="de" translation="Stil"/>
+			<s:lang key="en" translation="Style"/>
+			<s:lang key="fr" translation="Style"/>
+		</s:langs>
+	</s:translation>
+		<s:translation key="aupGraphicType">
+		<s:langs>
+			<s:lang key="de" translation="Typ"/>
+			<s:lang key="en" translation="Type"/>
+			<s:lang key="fr" translation="Type"/>
+		</s:langs>
+	</s:translation>
+	<s:translation key="aupGraphicSize">
+		<s:langs>
+			<s:lang key="de" translation="Größe"/>
+			<s:lang key="en" translation="Size"/>
+			<s:lang key="fr" translation="Size"/>
+		</s:langs>
+	</s:translation>
+	<s:translation key="aupGraphicColor">
+		<s:langs>
+			<s:lang key="de" translation="Color"/>
+			<s:lang key="en" translation="Color"/>
+			<s:lang key="fr" translation="Color"/>
+		</s:langs>
+	</s:translation>
+	<s:translation key="aupGraphicPreview">
+		<s:langs>
+			<s:lang key="de" translation="Preview"/>
+			<s:lang key="en" translation="Preview"/>
+			<s:lang key="fr" translation="Preview"/>
+		</s:langs>
+	</s:translation>
 </s:translations>

@@ -37,6 +37,29 @@
 		</ofx:paragraph>
 	</ofx:section>
 	
+	
+	<ofx:section container="true" classifier="debianJessie">
+		<ofx:title>Linux (Debian Wheezy)</ofx:title>
+		
+		<ofx:paragraph lang="de">
+			MySQL wird unter Debian mit folgendem Befehl installiert:
+		</ofx:paragraph>
+		<ofx:paragraph lang="en">
+			The following command installs the MySQL Database Server 5.5 on a Debian (Jessie) system:
+		</ofx:paragraph>
+		
+		<ofx:listing>
+			<ofx:raw>apt-get install mysql-server</ofx:raw>
+		</ofx:listing>
+		
+		<ofx:paragraph lang="de">
+			Anschließend wird das Kennwort für den Datenbankadministrator festgelegt.
+		</ofx:paragraph>
+		<ofx:paragraph lang="en">
+			Then the password for the database administrator has to be entered.
+		</ofx:paragraph>
+	</ofx:section>
+	
 	<ofx:section container="true" classifier="osx">
 		<ofx:title>OSX Yosemite</ofx:title>
 		<ofx:listing>
@@ -56,7 +79,7 @@ launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist</ofx:raw>
 		<ofx:title lang="fr">Erstellung der Datenbank</ofx:title>
 		
 		<ofx:paragraph lang="en">
-		Login into your SQL-Database console.<text:emphasis style="typewriter">mysql -u root -p</text:emphasis>
+		Login into your SQL-Database console <text:emphasis style="typewriter">mysql -u root -p</text:emphasis>
 		</ofx:paragraph>
 		
 		

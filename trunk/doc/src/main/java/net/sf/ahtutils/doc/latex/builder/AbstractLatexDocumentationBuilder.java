@@ -6,12 +6,6 @@ import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Map;
 
-import net.sf.ahtutils.doc.DocumentationCommentBuilder;
-import net.sf.ahtutils.doc.latex.writer.AbstractDocumentationLatexWriter;
-import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
-import net.sf.ahtutils.xml.status.Translations;
-import net.sf.exlp.util.xml.JaxbUtil;
-
 import org.apache.commons.configuration.Configuration;
 import org.openfuxml.content.ofx.Comment;
 import org.openfuxml.content.ofx.Section;
@@ -26,6 +20,11 @@ import org.openfuxml.util.filter.OfxClassifierFilter;
 import org.openfuxml.util.filter.OfxLangFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import net.sf.ahtutils.doc.DocumentationCommentBuilder;
+import net.sf.ahtutils.doc.latex.writer.AbstractDocumentationLatexWriter;
+import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
+import net.sf.ahtutils.xml.status.Translations;
 
 public class AbstractLatexDocumentationBuilder extends AbstractDocumentationLatexWriter
 {	
@@ -84,8 +83,6 @@ public class AbstractLatexDocumentationBuilder extends AbstractDocumentationLate
 		ExternalContentEagerLoader ecel = new ExternalContentEagerLoader();
 		Section section = ecel.load(config.getString(code),Section.class);
 		
-//		Section section = JaxbUtil.loadJAXB(config.getString(code), Section.class);
-		JaxbUtil.trace(section);
 		applySectionSettings(code, section);
 		
 		Comment comment = XmlCommentFactory.build();
@@ -93,6 +90,11 @@ public class AbstractLatexDocumentationBuilder extends AbstractDocumentationLate
 		
 		if(classifier!=null && classifier.length>0)
 		{
+			StringBuffer sb = new StringBuffer();
+			sb.append("Using classifier: ");
+			for(String c : classifier){sb.append(c).append(" ");}
+			logger.trace(sb.toString());
+			
 			OfxClassifierFilter mlf = new OfxClassifierFilter(classifier);
 			section = mlf.filterLang(section);
 			DocumentationCommentBuilder.ofxClassifier(comment,classifier);

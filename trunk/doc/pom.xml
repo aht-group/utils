@@ -12,22 +12,6 @@
     <packaging>jar</packaging>
     <name>UTILS - Documentation</name>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
-	<dependencyManagement>
-		<dependencies>      	         
-			<dependency>
-				<groupId>net.sf.ahtutils</groupId>
-				<artifactId>ahtutils-bom</artifactId>
-				<version>${project.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
 	<dependencies>
 
 		<dependency>
@@ -35,7 +19,7 @@
 			<artifactId>exlp-util</artifactId>
 		</dependency>
 	
-
+		<!-- SVG -->
 		<dependency>
 			<groupId>org.apache.xmlgraphics</groupId>
 			<artifactId>batik-transcoder</artifactId>
@@ -48,7 +32,6 @@
 			</exclusions>
 		</dependency>
 	
-		
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -138,5 +121,29 @@
 			<version>1.0</version>
 		</dependency>
 	</dependencies>
+	
+	<dependencyManagement>
+		<dependencies>      	         
+			<dependency>
+				<groupId>net.sf.ahtutils</groupId>
+				<artifactId>ahtutils-bom</artifactId>
+				<version>${project.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
+	<build>
+		<plugins>
+			<plugin>
+		        <groupId>org.codehaus.mojo</groupId>
+		        <artifactId>versions-maven-plugin</artifactId>
+		        <configuration>
+					<rulesUri>file://${basedir}/../doc/src/main/resources/listing.aht-utils/development/maven-versions.xml</rulesUri>
+		        </configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

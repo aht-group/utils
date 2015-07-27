@@ -25,7 +25,6 @@ public abstract class AbstractEjbIdConverter <I extends EjbWithId> implements Co
 	public AbstractEjbIdConverter(){}
 	public void setClEjb(Class<I> clEjb) {this.clEjb = clEjb;}	
 	
-	
     public Object getAsObject(FacesContext facesContext, UIComponent component, String submittedValue)
     {
     	submittedValue = submittedValue.trim();
@@ -38,7 +37,7 @@ public abstract class AbstractEjbIdConverter <I extends EjbWithId> implements Co
                 long id = Long.valueOf(submittedValue);
                 I ejb = clEjb.newInstance();
                 ejb.setId(id);
-//                logger.warn(clEjb.getSimpleName()+" getAsObject return "+ejb);
+//                logger.warn(clEjb.getSimpleName()+" getAsObject return "+ejb.toString());
                 return ejb;
             }
             catch(NumberFormatException e)
@@ -73,7 +72,7 @@ public abstract class AbstractEjbIdConverter <I extends EjbWithId> implements Co
         else
         {
         	EjbWithId ejb = (EjbWithId)value;
-//        	logger.warn(clEjb.getSimpleName()+" return: "+ejb.getId());
+ //       	logger.warn(clEjb.getSimpleName()+" return: "+ejb.getId());
         	return ""+ejb.getId(); 
         }  
     }  
