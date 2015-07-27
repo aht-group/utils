@@ -1,4 +1,4 @@
-package net.sf.ahtutils.factory.word;
+package net.sf.ahtutils.doc.word;
 
 import java.io.File;
 import java.io.FileNotFoundException;

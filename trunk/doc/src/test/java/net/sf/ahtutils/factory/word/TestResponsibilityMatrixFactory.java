@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.ahtutils.doc.word.WordResponsibilityMatrixFactory;
 import net.sf.ahtutils.factory.xml.security.XmlRoleFactory;
 import net.sf.ahtutils.factory.xml.security.XmlUserFactory;
 import net.sf.ahtutils.factory.xml.status.XmlStatusFactory;

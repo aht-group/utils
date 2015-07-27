@@ -3,7 +3,8 @@ package net.sf.ahtutils.controller.ofx;
 
 import java.io.File;
 
-import net.sf.ahtutils.controller.ofx.UtilsInstallationLatexFactory.Type;
+import net.sf.ahtutils.doc.UtilsInstallationLatexFactory;
+import net.sf.ahtutils.doc.UtilsInstallationLatexFactory.Type;
 import net.sf.ahtutils.test.AbstractUtilsDocTest;
 import net.sf.ahtutils.test.AhtUtilsDocBootstrap;
 import net.sf.exlp.util.io.resourceloader.MultiResourceLoader;

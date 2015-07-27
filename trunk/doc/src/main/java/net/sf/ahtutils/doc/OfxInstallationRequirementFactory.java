@@ -1,4 +1,4 @@
-package net.sf.ahtutils.controller.ofx.installation;
+package net.sf.ahtutils.doc;
 
 import java.io.FileNotFoundException;
 
