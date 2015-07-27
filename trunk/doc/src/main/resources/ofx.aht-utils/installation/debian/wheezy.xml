@@ -19,14 +19,14 @@
 			<ofx:title lang="en">Debian installer boot menu</ofx:title>
 			<layout:alignment horizontal="center"/>
 			<layout:width unit="percentage">60</layout:width>
-			<media:media lang="en" src="png.aht-utils/installation/debian/wheezy/boot.png" dst="en/admin/installation/debian/weezy/boot"/>
+			<media:media lang="en" src="png.aht-utils/installation/debian/wheezy/boot.png" dst="en/admin/installation/debian/wheezy/boot"/>
 		</media:image>
 		
 		<media:image id="image.admin.installation.debian.base.wheezy.language">
 			<ofx:title lang="en">Language Selection</ofx:title>
 			<layout:alignment horizontal="center"/>
 			<layout:width unit="percentage">60</layout:width>
-			<media:media lang="en" src="png.aht-utils/installation/debian/wheezy/language.png" dst="en/admin/installation/debian/weezy/language"/>
+			<media:media lang="en" src="png.aht-utils/installation/debian/wheezy/language.png" dst="en/admin/installation/debian/wheezy/language"/>
 		</media:image>
 		
 		<ofx:paragraph lang="en" version="1">
@@ -80,7 +80,7 @@
 				<ofx:title lang="en">Partition Method</ofx:title>
 				<layout:alignment horizontal="center"/>
 				<layout:width unit="percentage">60</layout:width>
-				<media:media lang="en" src="png.aht-utils/installation/debian/wheezy/partition-method.png" dst="en/admin/installation/debian/weezy/partitionMethod"/>
+				<media:media lang="en" src="png.aht-utils/installation/debian/wheezy/partition-method.png" dst="en/admin/installation/debian/wheezy/partitionMethod"/>
 			</media:image>
 			
 			<ofx:paragraph lang="en" version="1">
@@ -99,7 +99,7 @@
 				<ofx:title lang="en">Partition Scheme</ofx:title>
 				<layout:alignment horizontal="center"/>
 				<layout:width unit="percentage">60</layout:width>
-				<media:media lang="en" src="png.aht-utils/installation/debian/wheezy/partition-scheme.png" dst="en/admin/installation/debian/weezy/partitionScheme"/>
+				<media:media lang="en" src="png.aht-utils/installation/debian/wheezy/partition-scheme.png" dst="en/admin/installation/debian/wheezy/partitionScheme"/>
 			</media:image>
 						
 		</ofx:section>
@@ -120,7 +120,7 @@
 				<ofx:title lang="en">Package Manager</ofx:title>
 				<layout:alignment horizontal="center"/>
 				<layout:width unit="percentage">60</layout:width>
-				<media:media lang="en" src="png.aht-utils/installation/debian/wheezy/mirror.png" dst="en/admin/installation/debian/weezy/mirror"/>
+				<media:media lang="en" src="png.aht-utils/installation/debian/wheezy/mirror.png" dst="en/admin/installation/debian/wheezy/mirror"/>
 			</media:image>
 						
 		</ofx:section>
@@ -138,7 +138,7 @@
 				<layout:alignment horizontal="center"/>
 			    <ofx:title>Software Selection</ofx:title>
 			    <layout:width unit="percentage">60</layout:width>
-			    <media:media lang="en" src="png.aht-utils/installation/debian/wheezy/software-selection.png" dst="en/admin/installation/debian/weezy/software-selection"/>
+			    <media:media lang="en" src="png.aht-utils/installation/debian/wheezy/software-selection.png" dst="en/admin/installation/debian/wheezy/software-selection"/>
 			</media:image>
 						
 		</ofx:section>
@@ -156,7 +156,7 @@
 				<layout:alignment horizontal="center"/>
 				<layout:width unit="percentage">60</layout:width>
 			    <ofx:title>Debian Login console</ofx:title>
-				<media:media lang="en" src="png.aht-utils/installation/debian/wheezy/console.png" dst="en/admin/installation/debian/weezy/console"/>
+				<media:media lang="en" src="png.aht-utils/installation/debian/wheezy/console.png" dst="en/admin/installation/debian/wheezy/console"/>
 			</media:image>	
 		</ofx:section>
 		
