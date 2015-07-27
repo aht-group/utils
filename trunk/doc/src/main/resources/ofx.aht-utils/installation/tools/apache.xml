@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org"
+			 xmlns:media="http://www.openfuxml.org/media"
+			 xmlns:table="http://www.openfuxml.org/table"
+			 xmlns:layout="http://www.openfuxml.org/layout"
+			 xmlns:text="http://www.openfuxml.org/text"
+			 xmlns:l="http://www.openfuxml.org/list">
+	<ofx:title>Apache Webserver</ofx:title>
+				
+			<ofx:paragraph lang="en">
+				The Apache HTTP Server  is the world's most widely used web server software.
+				Originally based on the NCSA HTTPd server, development of Apache began in early 1995 after
+				work on the NCSA code stalled. Apache played a key role in the initial growth of the
+				World Wide Web, quickly overtaking NCSA HTTPd as the dominant HTTP server,
+				and has remained the most popular HTTP server since April 1996.
+				In 2009, it became the first web server software to serve more than 100 million websites.
+	
+				Apache is developed and maintained by an open community of developers
+				under the auspices of the Apache Software Foundation.
+				Most commonly used on a Unix-like system (usually Linux),
+				the software is available for a wide variety of operating systems,
+				including Windows, OS X, Linux, Unix, FreeBSD, Solaris, NetWare, OS/2, TPF, OpenVMS and eComStation. Released under the Apache License, Apache is free and open-source software.
+	
+				As of June 2013, Apache was estimated to serve 54.2% of all active website and 53.3%
+				of the top servers across all domains.
+			</ofx:paragraph>
+		
+			<ofx:section container="true" classifier="debian">
+				<ofx:title lang="none">Linux Debian: 6 Squeeze and 7 Wheezy)</ofx:title>
+	
+				<ofx:paragraph lang="en">
+					Apache can be installed with the command line tool
+					<text:emphasis style="typewriter">apt-get</text:emphasis>:
+				</ofx:paragraph>
+	
+			 	<ofx:listing>
+					<ofx:raw>apt-get install apache2</ofx:raw>
+				</ofx:listing>
+				
+				<ofx:paragraph lang="en">
+					Apache can be configured to forward requests to the Application Server. This can be cofigured in
+					<text:emphasis style="typewriter">/etc/apache2/sites-available/default</text:emphasis>:
+				</ofx:paragraph>
+				
+				<ofx:listing external="listing/admin/installation/apache/proxy.txt"/>
+				
+				<ofx:paragraph lang="en">
+					After configuraiton, the modules <text:emphasis style="typewriter">proxy</text:emphasis>
+					and <text:emphasis style="typewriter">proxy_http</text:emphasis>
+					need to be activated.
+				</ofx:paragraph>
+				
+				<ofx:listing>
+					<ofx:raw>a2enmod proxy proxy_http
+service apache2 restart</ofx:raw>
+				</ofx:listing>
+				
+				<ofx:paragraph lang="en">
+					A automatic forwarding of the user to the application can be configured in 
+					<text:emphasis style="typewriter">/var/www/index.html</text:emphasis>:
+				</ofx:paragraph>
+				
+				<ofx:listing external="listing/admin/installation/apache/redirect.html"/>
+				
+			</ofx:section>
+
+
+		</ofx:section>

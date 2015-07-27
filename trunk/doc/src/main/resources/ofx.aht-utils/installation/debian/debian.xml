@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org"
+			 xmlns:media="http://www.openfuxml.org/media"
+			 xmlns:table="http://www.openfuxml.org/table"
+			 xmlns:layout="http://www.openfuxml.org/layout"
+			 xmlns:text="http://www.openfuxml.org/text"
+			 xmlns:l="http://www.openfuxml.org/list"
+		id="section.admin.installation.debian">
+		
+	<ofx:title lang="en">Operating System (Debian Linux)</ofx:title>
+	
+	<ofx:paragraph lang="en" version="1">
+		Debian is an operating system composed of free software mostly carrying the GNU General Public License.
+		The operating system is developed by an Internet collaboration of volunteers aligned with The Debian Project.
+	</ofx:paragraph>
+	
+	<ofx:paragraph lang="en" version="1">
+		Debian GNU/Linux is one of the most popular Linux distributions for personal computers and network servers.
+		Debian is seen as a stable Linux distribution, and as a consequence has been used as a base for other Linux distributions,
+		there are over 140 active Debian derivatives, one of the most popular ones is Ubuntu.
+	</ofx:paragraph>
+	
+	<ofx:paragraph lang="en" version="1">
+		Since Debian can be used free of charge, it can easily be obtained from the projects website. There is a huge variety of installation methods to choose from.
+		A very convenient one is using the minimum installation CD. You can download the disk image for your architecture (mostly i386 for older 32-bit machines and amd64 for newer 64-bit CPUs like Intel Core processors and above) from http://www.debian.org/distrib/netinst. Then the image needs to be written to a CD or DVD recordable.
+		The Ubuntu project offers HowTos for all common operating systems like Microsoft Windows, Apple Mac OS X and Linux on how to actually burn this image to the disk at https://help.ubuntu.com/community/BurningIsoHowto.
+		Once the CD or DVD is prepared, the computer needs to be booted from the optical disk drive and the (non-graphical) installer should be selected from the boot screen.
+		The Debian installer then guides you through the complete setup process. 
+	</ofx:paragraph>
+	
+	<ofx:section include="wheezy.xml"/>
+	<ofx:section include="jessie.xml"/>
+	
+	<ofx:section id="section.admin.installation.debian.additional">
+		<ofx:title lang="en">Package Manager</ofx:title>
+		
+		<ofx:paragraph lang="en" version="1">
+				Debian comes with a package manager called <text:emphasis style="typewriter">apt-get</text:emphasis>
+				that can be used to download and install software automatically.
+				The package manager will be used to install several additional packages.
+		</ofx:paragraph>
+		
+	</ofx:section>
+	
+	<ofx:section include="../tools/nano.xml"/>
+	<ofx:section include="../tools/ssh.xml"/>
+	<ofx:section include="../tools/less.xml"/>
+	<ofx:section include="../tools/unzip.xml"/>
+			
+		
+		
+		<ofx:section classifier="ubuntu14">
+			<ofx:title lang="en">Sudo</ofx:title>
+			
+			<ofx:paragraph lang="en" version="1">
+				 sudo  is a program for Unix-like computer operating systems that allows users to run
+				 programs with the security privileges of another user (normally the superuser, or root).
+				 Its name is a concatenation of "su" (substitute user) and "do", or take action.
+			</ofx:paragraph>
+			
+			<ofx:paragraph lang="en" version="1">
+				Unlike the su command, users typically supply their own password to sudo rather than the
+				root password. After authentication, and if the /usr/local/etc/sudoers
+				(sometimes found at /etc/sudoers) configuration file permits the user access,
+				then the system will invoke the requested command.
+				The sudoers configuration file enables a huge amount of configurability, including but not
+				limited to: enabling root commands only from the invoking terminal; not requiring a password
+				for certain commands; requiring a password per user or group; requiring re-entry of a password
+				every time or never requiring a password at all for a particular command line.
+				It can also be configured to permit passing arguments or multiple commands,
+				and even supports commands with regular expressions.
+				
+				As root user you can use the following command to install sudo:
+			</ofx:paragraph>
+		
+			<ofx:listing>
+				<ofx:raw>apt-get install sudo</ofx:raw>
+			</ofx:listing>
+		</ofx:section>
+		
+		<ofx:section id="section.admin.installation.debian.ubuntu14" classifier="ubuntu14">
+				<ofx:title lang="en">Setting the root password</ofx:title>
+			
+				<ofx:paragraph lang="en">
+					The next part of the installation is to "set the root password".
+					Open the teminal and type in, the following command:
+					<text:emphasis style="typewriter">sudo passwd root</text:emphasis>
+					Double check your password.
+				</ofx:paragraph>
+		</ofx:section>
+</ofx:section>

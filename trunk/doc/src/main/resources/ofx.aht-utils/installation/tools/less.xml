@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org"
+			 xmlns:media="http://www.openfuxml.org/media"
+			 xmlns:table="http://www.openfuxml.org/table"
+			 xmlns:layout="http://www.openfuxml.org/layout"
+			 xmlns:text="http://www.openfuxml.org/text"
+			 xmlns:l="http://www.openfuxml.org/list">
+	<ofx:title lang="en">Less</ofx:title>
+			
+			<ofx:paragraph lang="en" version="1">
+				 The terminal pager program less is used to view (but not change) the contents of a text file one
+				 screen at a time. It is similar to more, but has the extended capability of allowing both forward
+				 and backward navigation through the file.
+				 Unlike most Unix text editors/viewers, less does not need to read the entire file before starting,
+				 resulting in faster load times with large files.
+				 As root user you can use the following command to install less:
+			</ofx:paragraph>
+		
+			<ofx:listing>
+				<ofx:raw>apt-get install less</ofx:raw>
+			</ofx:listing>
+</ofx:section>

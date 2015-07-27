@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ofx:section xmlns:ofx="http://www.openfuxml.org"
+			 xmlns:media="http://www.openfuxml.org/media"
+			 xmlns:table="http://www.openfuxml.org/table"
+			 xmlns:layout="http://www.openfuxml.org/layout"
+			 xmlns:text="http://www.openfuxml.org/text"
+			 xmlns:l="http://www.openfuxml.org/list"
+		id="section.admin.installation.debian.base.wheezy"
+		classifier="debianWheezy">
+	<ofx:title lang="en">Base Installation (Debian Wheezy)</ofx:title>
+		
+	<!-- <ofx:paragraph lang="en" version="1">
+			The network installation CD is sufficient for installation Debian. The ISO image can be obtained from:
+			"http://www.debian.org/cd/netinst"
+			Choose the right installer, for your CPU architecture (e.g. amd64 for Intel Xeon, i3, i5, i7).
+		</ofx:paragraph>  -->	
+		
+		<media:image id="image.admin.installation.debian.base.wheezy.boot">
+			<ofx:title lang="en">Debian installer boot menu</ofx:title>
+			<layout:alignment horizontal="center"/>
+			<layout:width unit="percentage">60</layout:width>
+			<media:media lang="en" src="png.aht-utils/installation/debian/wheezy/boot.png" dst="en/admin/installation/debian/weezy/boot"/>
+		</media:image>
+		
+		<media:image id="image.admin.installation.debian.base.wheezy.language">
+			<ofx:title lang="en">Language Selection</ofx:title>
+			<layout:alignment horizontal="center"/>
+			<layout:width unit="percentage">60</layout:width>
+			<media:media lang="en" src="png.aht-utils/installation/debian/wheezy/language.png" dst="en/admin/installation/debian/weezy/language"/>
+		</media:image>
+		
+		<ofx:paragraph lang="en" version="1">
+			Your installation starts with the boot menu, select "install" for the command-line version. 
+			Click language selection and choose "English - English" for your base
+			installation and continue by selecting your current country. The next step is to install the keyboard layout, 
+			which is "en_US.UTF-8". This step is required to ensure that your keyboard is working properly.
+			Select for key map: "actual keyboard mapping". 
+		</ofx:paragraph>
+		
+		<ofx:paragraph lang="en" version="1">Now choose: </ofx:paragraph>
+		
+		<l:list>
+	    	<l:type ordering="unordered"/>	
+	    		   		
+			<l:item>
+	    		<ofx:paragraph lang="en">
+	    		Select first a valid hostname (e.g. "database"). This step is necessary to identify your system
+	    		in your Local Area Network (LAN). 
+	    		
+	    		</ofx:paragraph>
+	   		</l:item>
+	   		
+			<l:item>
+	    		<ofx:paragraph lang="en">Enter your domainname (if available). </ofx:paragraph>
+	   		</l:item>
+	   		
+			<l:item>
+	    		<ofx:paragraph lang="en">Set a secure root password. Repeat it twice and make sure that it contains
+	    		at least 10 characters, numbers and additional characters.
+	    		</ofx:paragraph>
+	   		</l:item>
+	   		
+			<l:item>
+	    		<ofx:paragraph lang="en">
+	    		Create a account to work with, this is your login. For example "Developer" with password "dev".
+	    		</ofx:paragraph>
+	   		</l:item>
+	   		
+	   	</l:list>
+	   		
+		<ofx:paragraph lang="en" version="1">				
+			Network Time Protocol (NTP) is a networking protocol for clock synchronization between computer systems. 
+			It may fails, if no Internet connection is established.		
+		</ofx:paragraph>
+		
+		<ofx:section id="section.admin.installation.debian.base.wheezy.partition" classifier="simple">
+			<ofx:title lang="en">Partition disks</ofx:title>
+			
+			<media:image id="image.admin.installation.debian.base.wheezy.partition.method">
+				<ofx:title lang="en">Partition Method</ofx:title>
+				<layout:alignment horizontal="center"/>
+				<layout:width unit="percentage">60</layout:width>
+				<media:media lang="en" src="png.aht-utils/installation/debian/wheezy/partition-method.png" dst="en/admin/installation/debian/weezy/partitionMethod"/>
+			</media:image>
+			
+			<ofx:paragraph lang="en" version="1">
+				The installation continues with the partition method. 
+				Disk partitioning is the act of dividing a hard disk drive (HDD) into multiple logical storage units referred to as partitions,
+				to treat one physical disk drive as if it were multiple disks, so that a different file system can be used on each partition.
+				The total data storage space of a PC HDD can contain at most four primary partitions, 
+				or alternatively three primary partitions and an extended partition. A primary partition contains one file system.
+				
+				Please select "Guided - use entire disk". Now select 
+				your HDD and choose "All files in one partition" and go on. After this move finish partitioning and write changes 
+				to disk. Check your configuration and confirm it.
+			</ofx:paragraph>
+			
+			<media:image id="image.admin.installation.debian.base.wheezy.partition.scheme">
+				<ofx:title lang="en">Partition Scheme</ofx:title>
+				<layout:alignment horizontal="center"/>
+				<layout:width unit="percentage">60</layout:width>
+				<media:media lang="en" src="png.aht-utils/installation/debian/wheezy/partition-scheme.png" dst="en/admin/installation/debian/weezy/partitionScheme"/>
+			</media:image>
+						
+		</ofx:section>
+		
+		<ofx:section id="section.admin.installation.debian.mirror">
+			<ofx:title lang="en">Package manager (Mirror)</ofx:title>
+			
+			<ofx:paragraph lang="en" version="1">
+				A package manager is a collection of software tools that automates the process of installing, 
+				upgrading, configuring, and removing software packages for a computer's operating system.
+				
+				Select your country (or a country with good connection to). Choose a
+				mirror, for example "ftp.(your country).debian.org/debian/". If there is a proxy server in your domain, 
+				add the proxy server information and continue. No participation in package usage survey.
+			</ofx:paragraph>
+			
+			<media:image id="image.admin.installation.debian.base.wheezy.mirror">
+				<ofx:title lang="en">Package Manager</ofx:title>
+				<layout:alignment horizontal="center"/>
+				<layout:width unit="percentage">60</layout:width>
+				<media:media lang="en" src="png.aht-utils/installation/debian/wheezy/mirror.png" dst="en/admin/installation/debian/weezy/mirror"/>
+			</media:image>
+						
+		</ofx:section>
+		
+		<ofx:section id="section.admin.installation.debian.software">
+			<ofx:title lang="en">Software Selection</ofx:title>
+			
+			<ofx:paragraph lang="en" version="1">
+				All available software packages can be de-selected. This ensures aht the installation will only have a minimal
+				number of packages and modules available. This minimizes the risks of errors or faulty configurations and 
+				facilitate future upgrade procedures. Press TAB and select <text:emphasis style="typewriter">CONTINUE</text:emphasis>. All necessary packages will be installed manually.
+			</ofx:paragraph>
+			
+			<media:image id="image.admin.installation.debian.base.wheezy.software">
+				<layout:alignment horizontal="center"/>
+			    <ofx:title>Software Selection</ofx:title>
+			    <layout:width unit="percentage">60</layout:width>
+			    <media:media lang="en" src="png.aht-utils/installation/debian/wheezy/software-selection.png" dst="en/admin/installation/debian/weezy/software-selection"/>
+			</media:image>
+						
+		</ofx:section>
+		
+		<ofx:section id="section.admin.installation.debian.bootloader">
+			<ofx:title lang="en">Finishing Installation</ofx:title>
+			
+			<ofx:paragraph lang="en" version="1">
+				Install GRUB boot loader to the master boot record, this step is necessary to select the operating system after booting your system.
+				Press <text:emphasis style="typewriter">YES</text:emphasis>.
+				The base installation of debian is now ready.
+			</ofx:paragraph>
+			
+			<media:image id="image.admin.installation.debian.base.wheezy.console">
+				<layout:alignment horizontal="center"/>
+				<layout:width unit="percentage">60</layout:width>
+			    <ofx:title>Debian Login console</ofx:title>
+				<media:media lang="en" src="png.aht-utils/installation/debian/wheezy/console.png" dst="en/admin/installation/debian/weezy/console"/>
+			</media:image>	
+		</ofx:section>
+		
+		<ofx:section id="section.admin.installation.debian.wheezy.update">
+			<ofx:title lang="en">Apply Updates</ofx:title>
+		
+			<ofx:paragraph lang="en" version="1">
+				The installation of the most recent version of all packages should be verfied, especially after
+				installation of the system from a CD or DVD image.
+				As root user execute the following command:
+			</ofx:paragraph>
+			
+			<ofx:listing>
+				<ofx:raw>apt-get update</ofx:raw>
+			</ofx:listing>
+			
+		</ofx:section>
+		
+</ofx:section>	
