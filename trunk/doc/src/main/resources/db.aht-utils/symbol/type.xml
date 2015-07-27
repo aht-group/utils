@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<aht:aht xmlns:us="http://ahtutils.aht-group.com/status" xmlns:aht="http://ahtutils.aht-group.com">
+    <us:status code="symbol" group="symbolType" visible="true" position="1">
+        <us:langs>
+            <us:lang key="de" translation="Symbol"/>
+            <us:lang key="fr" translation="Symbol"/>
+            <us:lang key="en" translation="Symbol"/>
+        </us:langs>
+        <us:descriptions>
+            <us:description key="de">Symbol</us:description>
+            <us:description key="fr">Symbol</us:description>
+            <us:description key="en">Symbol</us:description>
+        </us:descriptions>
+    </us:status>
+    <us:status code="svg" group="symbolType" visible="true" position="1">
+        <us:langs>
+            <us:lang key="de" translation="SVG"/>
+            <us:lang key="fr" translation="SVG"/>
+            <us:lang key="en" translation="SVG"/>
+        </us:langs>
+        <us:descriptions>
+            <us:description key="de">SVG</us:description>
+            <us:description key="fr">SVG</us:description>
+            <us:description key="en">SVG</us:description>
+        </us:descriptions>
+    </us:status>
+</aht:aht>

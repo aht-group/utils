@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<aht:aht xmlns:us="http://ahtutils.aht-group.com/status" xmlns:aht="http://ahtutils.aht-group.com">
+    <us:status code="circle" group="sldStyle" visible="true" position="1">
+        <us:langs>
+            <us:lang key="de" translation="Kreis"/>
+            <us:lang key="fr" translation="Circle"/>
+            <us:lang key="en" translation="Circle"/>
+        </us:langs>
+        <us:descriptions>
+            <us:description key="de">Circle</us:description>
+            <us:description key="fr">Circle</us:description>
+            <us:description key="en">Circle</us:description>
+        </us:descriptions>
+    </us:status>
+        <us:status code="square" group="sldStyle" visible="true" position="2">
+        <us:langs>
+            <us:lang key="de" translation="Quadrat"/>
+            <us:lang key="fr" translation="Square"/>
+            <us:lang key="en" translation="Square"/>
+        </us:langs>
+        <us:descriptions>
+            <us:description key="de">Square</us:description>
+            <us:description key="fr">Square</us:description>
+            <us:description key="en">Square</us:description>
+        </us:descriptions>
+    </us:status>
+</aht:aht>
