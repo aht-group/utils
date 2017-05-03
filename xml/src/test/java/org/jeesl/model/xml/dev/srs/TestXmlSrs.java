@@ -14,12 +14,14 @@ public class TestXmlSrs extends AbstractXmlSrsTest<Srs>
     public Srs build(boolean withChildren)
     {
     	Srs xml = new Srs();
-    
+    	xml.setCode("myCode");
+    	
     	if(withChildren)
     	{
     		xml.setVersion(TestXmlVersion.create(false));
     		xml.setMeta(TestXmlMeta.create(false));
     		xml.setActors(TestXmlActors.create(false));
+    		xml.setReleases(TestXmlReleases.create(false));
     		
     		xml.getChapter().add(TestXmlChapter.create(false));
     		xml.getChapter().add(TestXmlChapter.create(false));

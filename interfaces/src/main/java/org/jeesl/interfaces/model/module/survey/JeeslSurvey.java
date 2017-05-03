@@ -2,6 +2,13 @@ package org.jeesl.interfaces.model.module.survey;
 
 import java.util.List;
 
+import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyAnswer;
+import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyData;
+import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyMatrix;
+import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyOption;
+import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyQuestion;
+import org.jeesl.interfaces.model.module.survey.data.JeeslSurveySection;
+
 import net.sf.ahtutils.interfaces.model.date.EjbWithDateRange;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -29,8 +36,10 @@ public interface JeeslSurvey<L extends UtilsLang,
 			extends EjbWithId,EjbWithName,EjbWithDateRange,
 						UtilsWithStatus<L,D,SS>
 {
+	public enum Attributes{id,status}
+	
 	TEMPLATE getTemplate();
-	void setTemplate(TEMPLATE tempalte);
+	void setTemplate(TEMPLATE template);
 	
 	List<DATA> getSurveyData();
 	void setSurveyData(List<DATA> data);
