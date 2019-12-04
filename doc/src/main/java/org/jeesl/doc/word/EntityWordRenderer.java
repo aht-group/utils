@@ -9,6 +9,7 @@ import java.util.Map;
 import org.apache.commons.io.FilenameUtils;
 import org.jeesl.model.xml.jeesl.Container;
 import org.jeesl.model.xml.system.revision.Attribute;
+import org.jeesl.model.xml.system.revision.Diagrams;
 import org.jeesl.model.xml.system.revision.Entities;
 import org.jeesl.model.xml.system.revision.Entity;
 import org.jeesl.util.query.xpath.RevisionXpath;
@@ -37,8 +38,11 @@ public final class EntityWordRenderer extends AbstractEntityWordRenderer
 	private final Container relationTypes;
 	private final Entities entities;
     private HashMap<String,Container> statusContainer;
-	
-	public EntityWordRenderer(final Document templateDoc,final Document templateTableDoc, final Entities entities, final Container categories, final Container relationTypes) throws Exception
+    private Diagrams diagrams;
+
+    public EntityWordRenderer(final Document templateDoc,final Document templateTableDoc, final Entities entities, final Container categories, final Container relationTypes) throws Exception {this.entityDoc=templateDoc;this.template=templateDoc;this.templateTable=templateTableDoc;this.categories=categories;this.relationTypes=relationTypes;this.entities=entities;this.statusContainer=new HashMap<String,Container>();this.diagrams=null;}
+    
+	public EntityWordRenderer(final Document templateDoc,final Document templateTableDoc, final Entities entities, final Container categories, final Container relationTypes, final Diagrams diagrams) throws Exception
 	{
 		this.entityDoc=templateDoc;	
 		this.template=templateDoc;
@@ -47,6 +51,7 @@ public final class EntityWordRenderer extends AbstractEntityWordRenderer
 		this.relationTypes=relationTypes;
 		this.entities=entities;
 		this.statusContainer=new HashMap<String,Container>();
+		this.diagrams=diagrams;
 	}
 
     public Document render(Entity entity, String savingDirectory, boolean renderStatus) throws Exception 
@@ -88,8 +93,8 @@ public final class EntityWordRenderer extends AbstractEntityWordRenderer
 		 
 		int rowHelper = 0; 
 		for (Attribute a: attrbs)
-		{										
-			int cellHelperRow5=0;
+		{
+		    int cellHelperRow5=0;
 			for (Cell c : rows.get(5+rowHelper).getCells())
 			{
 				c.getLastParagraph().getRuns().clear();
@@ -98,17 +103,27 @@ public final class EntityWordRenderer extends AbstractEntityWordRenderer
 				if (cellHelperRow5==1){renderRelationOrType(docBuilder, a);}	
 				if (cellHelperRow5 == 2 && a.getDescriptions().getDescription().get(0).getValue().toString() != "")
 				{
-                    logger.info("paragraphs count: " + c.getParagraphs().getCount());
-				    docBuilder.write(a.getDescriptions().getDescription().get(0).getValue().trim());
+				    logger.info("paragraphs count: " + c.getParagraphs().getCount());
 				    if (a.getRelation()!=null && a.getRelation().isSetEntity())
-				    {		
-				        docBuilder.writeln();
+				    {       
 				        Entity e = RevisionXpath.getEntity(entities, a.getRelation().getEntity().getCode());
+				        docBuilder.getFont().setColor(Color.black);docBuilder.getFont().setItalic(false);
+				        docBuilder.writeln(e.getDescriptions().getDescription().get(0).getValue().trim());
+
+				        String parentDiagram = ":";
+				        if (e.isSetDiagram())
+				        {
+				            try{parentDiagram=diagramForCode(diagrams,e.getDiagram().getCode())+ ":";}catch(Exception e1){e1.printStackTrace();}
+				        }
 				        docBuilder.getFont().setColor(Color.gray);docBuilder.getFont().setItalic(true);
-				        docBuilder.write("("+relationTypeForCode(relationTypes, a.getRelation().getType().getCode())+" to "+e.getLangs().getLang().get(0).getTranslation()+")");
+				        docBuilder.write("("+relationTypeForCode(relationTypes, a.getRelation().getType().getCode())+" to "+categoryForCode(categories, e.getCategory().getCode()) + ":" + parentDiagram +e.getLangs().getLang().get(0).getTranslation()+")");
 				        docBuilder.getFont().setColor(Color.black);docBuilder.getFont().setItalic(false);
 				    }	
-				    
+				    else if (a.getRelation()==null)
+				    {
+				        docBuilder.write(a.getDescriptions().getDescription().get(0).getValue().trim());
+				    }
+
 				    if (renderStatus) 
 				    {
 				        if (a.getRelation()!=null && a.getRelation().isSetDocOptionsTable()){makerStatusTable=true;attrbsStatusTable.add(a);}
@@ -121,22 +136,22 @@ public final class EntityWordRenderer extends AbstractEntityWordRenderer
 				}
 				cellHelperRow5++;
 			}
-			
+
 			int cellHelperRow6=0;
 			for (Cell c : rows.get(6+rowHelper).getCells())
 			{
 			    c.getParagraphs().get(0).getRuns().clear();;docBuilder.moveTo(c.getFirstParagraph());
-				if (cellHelperRow6==0)
-				{
-				    docBuilder.write(a.getLangs().getLang().get(0).getTranslation().toString());
-				}
-				cellHelperRow6++;
+			    if (cellHelperRow6==0)
+			    {
+			        docBuilder.write(a.getLangs().getLang().get(0).getTranslation().toString());
+			    }
+			    cellHelperRow6++;
 			}
 			table.appendChild(templateRows.get(5).deepClone(true));table.appendChild(templateRows.get(6).deepClone(true));	
 			rowHelper=rowHelper+2;
 		}		
 		table.getLastRow().remove();table.getLastRow().remove();
-		
+
 		if (renderStatus&&makerStatusTable){renderStatusTable(entity, docBuilder, attrbsStatusTable);}
 		return entityDoc;
 	}
@@ -149,6 +164,7 @@ public final class EntityWordRenderer extends AbstractEntityWordRenderer
         docBuilder.getFont().setUnderline(Underline.NONE);
         for (Status status : statusContainer.get(s).getStatus())
         { 
+            logger.info("info about status parent: " + status.getParent().getCode());
             docBuilder.writeln();
             if (status.isSetGraphic()&&status.getGraphic().getType().getCode().equals("svg")&&status.getGraphic().getFile().getData().getValue()!=null)
             {

@@ -103,8 +103,6 @@ public class AbstractErDiagram
 
 		Graph g = egp.create();
 		//JaxbUtil.info(g);System.exit(-1);
-
-
 		//JaxbUtil.trace(xml);
 
 		Graph2DotConverter gdc = new Graph2DotConverter(csm);

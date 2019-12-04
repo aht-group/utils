@@ -4,11 +4,15 @@ import java.util.ArrayList;
 
 import org.apache.commons.lang.StringUtils;
 import org.jeesl.model.xml.jeesl.Container;
+import org.jeesl.model.xml.system.revision.Diagram;
+import org.jeesl.model.xml.system.revision.Diagrams;
+import org.jeesl.model.xml.system.revision.Entities;
+import org.jeesl.model.xml.system.revision.Entity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.aspose.words.Document;
 import com.aspose.words.DocumentBuilder;
-import com.aspose.words.HorizontalAlignment;
-import com.aspose.words.RelativeHorizontalPosition;
 import com.aspose.words.Shape;
 import com.aspose.words.WrapType;
 
@@ -16,6 +20,8 @@ import net.sf.ahtutils.xml.status.Status;
 
 public abstract class AbstractEntityWordRenderer
 {
+    final static Logger logger = LoggerFactory.getLogger(AbstractEntityWordRenderer.class);
+    
     protected String categoryForCode(Container c, String code)
     {
         for (Status s : c.getStatus())
@@ -28,6 +34,19 @@ public abstract class AbstractEntityWordRenderer
         return "";
     }
 
+    protected String diagramForCode(Diagrams diagrams, String code)
+    {
+        for (Diagram d : diagrams.getDiagram())
+        {
+            if (d.isSetCode() && d.getCode() != "" && d.getCode().equals(code))
+            {
+                return d.getLangs().getLang().get(0).getTranslation();
+            }
+        }
+        return "";
+    }
+
+    
     protected String packageShrinker(String original, int numberOfWordsToShrink)
     {
         StringBuilder sb = new StringBuilder();

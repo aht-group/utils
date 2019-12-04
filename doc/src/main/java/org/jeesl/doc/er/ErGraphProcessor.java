@@ -174,10 +174,12 @@ public class ErGraphProcessor
 				}
 			}
 
-			if(add){
+			if(add)
+			{
+				logger.info(c.getName());
 				mapNodes.put(node.getCode(), node);
 				groupNode(node);
-				}
+			}
 		}
 	}
 

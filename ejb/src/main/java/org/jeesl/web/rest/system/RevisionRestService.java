@@ -125,7 +125,9 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 	@Override public Diagrams exportSystemRevisionDiagrams()
 	{
 		Diagrams xml = XmlDiagramsFactory.build();
-		for(ERD diagram : fRevision.all(fbRevision.getClassDiagram()))
+		List<ERD> list = fRevision.all(fbRevision.getClassDiagram());
+		Collections.sort(list, new PositionParentComparator<ERD>(fbRevision.getClassDiagram()));
+		for(ERD diagram : list)
 		{
 			xml.getDiagram().add(xfDiagram.build(diagram));
 		}
