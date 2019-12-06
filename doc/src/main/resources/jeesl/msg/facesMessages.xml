@@ -44,9 +44,16 @@
 			<s:lang key="fr" translation="Object saved **"/>
 		</s:langs>
 	</s:translation>
+	<s:translation key="jeeslFmNyi">
+		<s:langs>
+			<s:lang key="de" translation="Diese Action ist nicht implementiert"/>
+			<s:lang key="en" translation="This action is not implemented"/>
+			<s:lang key="fr" translation="This action is not implemented"/>
+		</s:langs>
+	</s:translation>
 	<s:translation key="jeeslFmObjectSaved">
 		<s:langs>
-			<s:lang key="en" translation="Objekt gespeichert"/>
+			<s:lang key="de" translation="Objekt gespeichert"/>
 			<s:lang key="en" translation="Object saved"/>
 			<s:lang key="fr" translation="Object saved"/>
 		</s:langs>

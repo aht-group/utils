@@ -6,18 +6,23 @@ import org.jeesl.api.bean.JeeslTranslationBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
+import net.sf.ahtutils.interfaces.model.status.UtilsLang;
+import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.jsf.util.FacesContextMessage;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public class AbstractMessageBean implements Serializable
+public class AbstractMessageBean <L extends UtilsLang, D extends UtilsDescription,
+									LOC extends UtilsStatus<LOC,L,D>>
+								implements Serializable
 {
 	private static final long serialVersionUID = 1;
 	final static Logger logger = LoggerFactory.getLogger(AbstractMessageBean.class);
 
-	private JeeslTranslationBean jeeslTranslationBean;
+	private JeeslTranslationBean<L,D,LOC> jeeslTranslationBean;
 	protected String jeeslLocaleCode;
 	
-	public void initJeesl(String localeCode, JeeslTranslationBean bTranslation)
+	public void initJeesl(String localeCode, JeeslTranslationBean<L,D,LOC> bTranslation)
 	{
 		this.jeeslLocaleCode=localeCode;
 		this.jeeslTranslationBean=bTranslation;
@@ -27,6 +32,8 @@ public class AbstractMessageBean implements Serializable
 	public void growlSuccessRemoved(){growlSuccess("fmObjectRemoved");}
 	
 	public <T extends EjbWithId> void growlSuccessSaved(T t){growlSuccess("jeeslFmObjectSaved");}
+	
+	public void growlNyi(){growlError("jeeslFmNyi");}
 	
 	public void growlError(String key)
 	{

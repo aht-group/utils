@@ -15,4 +15,9 @@ public class TxtFactory
 			return value.substring(0, length);
 		}
 	}
+	
+	public static boolean hasContent(String value)
+	{
+		return (value!=null && value.trim().length()>0);
+	}
 }
