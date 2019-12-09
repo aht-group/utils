@@ -10,21 +10,21 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.status.Phase;
 import net.sf.ahtutils.xml.status.Status;
 
-public class XmlPhaseFactory
+public class XmlPhaseFactory<L extends UtilsLang, D extends UtilsDescription, S extends UtilsStatus<S,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlPhaseFactory.class);
 		
 	private String lang;
 	private Phase q;
 	
-	public XmlPhaseFactory(String lang,Phase q)
+	public XmlPhaseFactory(String lang, Phase q)
 	{
 		this.lang=lang;
 		this.q=q;
 	}
 	
-	public <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription> Phase build(S ejb){return build(ejb,null);}
-	public <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription> Phase build(S ejb, String group)
+	public Phase build(S ejb){return build(ejb,null);}
+	public Phase build(S ejb, String group)
 	{
 		Phase xml = new Phase();
 		if(q.isSetCode()){xml.setCode(ejb.getCode());}

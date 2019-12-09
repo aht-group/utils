@@ -23,16 +23,7 @@ public class EjbStaffFactory <R extends JeeslSecurityRole<?,?,?,?,?,?,USER>,
 	final static Logger logger = LoggerFactory.getLogger(EjbStaffFactory.class);
 	
 	final Class<STAFF> cStaff;
-	
-    private static <R extends JeeslSecurityRole<?,?,?,?,?,?,USER>,
-					USER extends JeeslUser<R>,
-					STAFF extends JeeslStaff<R,USER,D1,D2>,
-					D1 extends EjbWithId, D2 extends EjbWithId>
-    	EjbStaffFactory<R,USER,STAFF,D1,D2> factory(final Class<STAFF> cStaff)
-    {
-        return new EjbStaffFactory<R,USER,STAFF,D1,D2>(cStaff);
-    }
-    
+	  
     public EjbStaffFactory(final Class<STAFF> cStaff)
     {
         this.cStaff = cStaff;
@@ -54,9 +45,18 @@ public class EjbStaffFactory <R extends JeeslSecurityRole<?,?,?,?,?,?,USER>,
     	return ejb;
     }
     
-    public static <
-					R extends JeeslSecurityRole<?,?,?,?,?,?,USER>,
-					
+    public Map<D1,List<STAFF>> toMapDomainStaff(List<STAFF> staffs)
+	{
+		Map<D1,List<STAFF>> map = new HashMap<>();
+		for(STAFF staff : staffs)
+		{
+			if(!map.containsKey(staff.getDomain())){map.put(staff.getDomain(), new ArrayList<STAFF>());}
+			if(!map.get(staff.getDomain()).contains(staff)){map.get(staff.getDomain()).add(staff);}
+		}
+		return map;
+	}
+    
+    public static <R extends JeeslSecurityRole<?,?,?,?,?,?,USER>,
 					USER extends JeeslUser<R>,
 					STAFF extends JeeslStaff<R,USER,D1,D2>,
 					D1 extends EjbWithId, D2 extends EjbWithId>
@@ -67,8 +67,7 @@ public class EjbStaffFactory <R extends JeeslSecurityRole<?,?,?,?,?,?,USER>,
     	return new ArrayList<USER>(set);
 	}
     
-    public static <
-			R extends JeeslSecurityRole<?,?,?,?,?,?,USER>,
+    public static <R extends JeeslSecurityRole<?,?,?,?,?,?,USER>,
 			USER extends JeeslUser<R>,
 			STAFF extends JeeslStaff<R,USER,D1,D2>,
 			D1 extends EjbWithId, D2 extends EjbWithId>

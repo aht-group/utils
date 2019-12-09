@@ -14,9 +14,6 @@ import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class SbSingleHandler <T extends EjbWithId> implements Serializable,SbSingleBean
@@ -133,8 +130,9 @@ public class SbSingleHandler <T extends EjbWithId> implements Serializable,SbSin
 		}
 	}
 
+	public <E extends Enum<E>, S extends EjbWithCode> void add(UtilsFacade fUtils, Class<S> c, E code){this.add(fUtils,c,code.toString());}
 	@SuppressWarnings("unchecked")
-	public <E extends Enum<E>, S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription> void add(UtilsFacade fUtils, Class<S> c, E code)
+	public <E extends Enum<E>, S extends EjbWithCode> void add(UtilsFacade fUtils, Class<S> c, String code)
 	{
 		try
 		{

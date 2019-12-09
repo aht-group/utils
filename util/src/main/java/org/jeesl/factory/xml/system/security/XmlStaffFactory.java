@@ -41,7 +41,6 @@ public class XmlStaffFactory<L extends UtilsLang, D extends UtilsDescription,
 	private XmlRoleFactory<L,D,C,R,V,U,A,AT,USER> xfRole;
 	private XmlUserFactory<USER> xfUser;
 	
-	
 	public XmlStaffFactory(QuerySecurity query)
 	{
 		this(query.getLocaleCode(),query.getStaff());

@@ -15,9 +15,6 @@ import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.exlp.util.io.StringUtil;
 
@@ -53,7 +50,7 @@ public class SbMultiHandler <T extends EjbWithId> implements Serializable
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <E extends Enum<E>, S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription> void add(UtilsFacade fUtils, Class<S> c, E code)
+	public <E extends Enum<E>, S extends EjbWithCode> void add(UtilsFacade fUtils, Class<S> c, E code)
 	{
 		if(list==null) {list = new ArrayList<T>();}
 		try

@@ -34,14 +34,21 @@ public class XmlRoleFactory<L extends UtilsLang, D extends UtilsDescription,
 	private XmlLangsFactory<L> xfLangs;
 	private XmlDescriptionsFactory<D> xfDescriptions;
 	
+	private XmlViewsFactory<L,D,C,R,V,U,A,AT,USER> xfView;
+	private XmlActionsFactory<L,D,C,R,V,U,A,AT,USER> xfAction;
+	private XmlUsecasesFactory<L,D,C,R,V,U,A,AT,USER> xfUsecase;
+	
 	public XmlRoleFactory(Role q){this(null,q);}
 	public XmlRoleFactory(String localeCode, Role q)
 	{
 		this.localeCode=localeCode;
 		this.q=q;
 		
-		if(q.isSetLangs()){xfLangs = new XmlLangsFactory<L>(q.getLangs());}
-		if(q.isSetDescriptions()){xfDescriptions = new XmlDescriptionsFactory<D>(q.getDescriptions());}
+		if(q.isSetLangs()) {xfLangs = new XmlLangsFactory<L>(q.getLangs());}
+		if(q.isSetDescriptions()) {xfDescriptions = new XmlDescriptionsFactory<D>(q.getDescriptions());}
+		if(q.isSetViews()) {xfView = new XmlViewsFactory<L,D,C,R,V,U,A,AT,USER>(q.getViews());}
+		if(q.isSetActions()) {xfAction = new XmlActionsFactory<L,D,C,R,V,U,A,AT,USER>(q.getActions());}
+		if(q.isSetUsecases()) {xfUsecase = new XmlUsecasesFactory<L,D,C,R,V,U,A,AT,USER>(q.getUsecases());}
 	}
 		
 	public Role build(R role)
@@ -65,23 +72,9 @@ public class XmlRoleFactory<L extends UtilsLang, D extends UtilsDescription,
 		if(q.isSetLangs()){xml.setLangs(xfLangs.getUtilsLangs(role.getName()));}
 		if(q.isSetDescriptions()) {xml.setDescriptions(xfDescriptions.create(role.getDescription()));}
 		
-		if(q.isSetViews())
-		{
-			XmlViewsFactory<L,D,C,R,V,U,A,AT,USER> f = new XmlViewsFactory<L,D,C,R,V,U,A,AT,USER>(q.getViews());
-			xml.setViews(f.build(role.getViews()));
-		}
-		
-		if(q.isSetActions())
-		{
-			XmlActionsFactory<L,D,C,R,V,U,A,AT,USER> f = new XmlActionsFactory<L,D,C,R,V,U,A,AT,USER>(q.getActions());
-			xml.setActions(f.build(role.getActions()));
-		}
-		
-		if(q.isSetUsecases())
-		{
-			XmlUsecasesFactory<L,D,C,R,V,U,A,AT,USER> f = new XmlUsecasesFactory<L,D,C,R,V,U,A,AT,USER>(q.getUsecases());
-			xml.setUsecases(f.build(role.getUsecases()));
-		}
+		if(q.isSetViews()) {xml.setViews(xfView.build(role.getViews()));}
+		if(q.isSetActions()){xml.setActions(xfAction.build(role.getActions()));}
+		if(q.isSetUsecases()){xml.setUsecases(xfUsecase.build(role.getUsecases()));}
 		
 		if(q.isSetLabel() && localeCode!=null && role.getName().containsKey(localeCode))
 		{

@@ -37,7 +37,7 @@ public class AbstractMessageBean <L extends UtilsLang, D extends UtilsDescriptio
 	
 	public void growlError(String key)
 	{
-		FacesContextMessage.info("growl", jeeslTranslationBean.get(jeeslLocaleCode, "fmError"), jeeslTranslationBean.get(jeeslLocaleCode, key));
+		FacesContextMessage.info("growl", jeeslTranslationBean.get(jeeslLocaleCode, "jeeslFmError"), jeeslTranslationBean.get(jeeslLocaleCode, key));
 	}
 	
 	public void growlSuccess(String key)

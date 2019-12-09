@@ -19,8 +19,9 @@
 			<s:lang key="fr" translation="WARN"/>
 		</s:langs>
 	</s:translation>
-	<s:translation key="aupFmError">
+	<s:translation key="jeeslFmError">
 		<s:langs>
+			<s:lang key="de" translation="FEHLER"/>
 			<s:lang key="en" translation="ERROR"/>
 			<s:lang key="fr" translation="ERROR"/>
 		</s:langs>
@@ -46,7 +47,7 @@
 	</s:translation>
 	<s:translation key="jeeslFmNyi">
 		<s:langs>
-			<s:lang key="de" translation="Diese Action ist nicht implementiert"/>
+			<s:lang key="de" translation="Diese Aktion ist nicht implementiert"/>
 			<s:lang key="en" translation="This action is not implemented"/>
 			<s:lang key="fr" translation="This action is not implemented"/>
 		</s:langs>
