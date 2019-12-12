@@ -49,8 +49,9 @@ public class SbMultiHandler <T extends EjbWithId> implements Serializable
 		map.clear();
 	}
 	
+	public <E extends Enum<E>, S extends EjbWithCode> void add(UtilsFacade fUtils, Class<S> c, E code){this.add(fUtils, c, code.toString());}
 	@SuppressWarnings("unchecked")
-	public <E extends Enum<E>, S extends EjbWithCode> void add(UtilsFacade fUtils, Class<S> c, E code)
+	public <E extends Enum<E>, S extends EjbWithCode> void add(UtilsFacade fUtils, Class<S> c, String code)
 	{
 		if(list==null) {list = new ArrayList<T>();}
 		try
