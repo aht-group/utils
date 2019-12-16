@@ -34,7 +34,7 @@ public class AbstractTranslationBean<L extends UtilsLang, D extends UtilsDescrip
 	private TranslationMap tm;
 	protected final List<String> langKeys; @Override public List<String> getLangKeys(){return langKeys;}
 	
-	private final List<LOC> locales; public List<LOC> getLocales() {return locales;}
+	protected final List<LOC> locales; public List<LOC> getLocales() {return locales;}
 	private final Map<String,LOC> mapLocales; public Map<String, LOC> getMapLocales() {return mapLocales;}
 	
 	public AbstractTranslationBean(StatusFactoryBuilder<L,D,LOC> fbStatus)

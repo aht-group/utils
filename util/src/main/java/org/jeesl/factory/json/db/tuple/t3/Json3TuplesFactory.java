@@ -89,6 +89,17 @@ public class Json3TuplesFactory <A extends EjbWithId, B extends EjbWithId, C ext
 		return json;
 	}
 	
+	public Json3Tuples<A,B,C> build3CountInterger(List<Tuple> tuples)
+	{
+		Json3Tuples<A,B,C> json = new Json3Tuples<A,B,C>();
+		for(Tuple t : tuples)
+        {
+        	json.getTuples().add(jtf.buildCountInteger(t));
+        }
+		ejbLoad(json);
+		return json;
+	}
+	
 	public void ejbLoad(Json3Tuples<A,B,C> json)
 	{
 		clear();
@@ -114,22 +125,4 @@ public class Json3TuplesFactory <A extends EjbWithId, B extends EjbWithId, C ext
 		}
 		this.tuples=json;
 	}
-	
-//	@Deprecated
-//	public void init1(UtilsFacade fUtils, Json3Tuples<A,B,C> json)
-//	{
-//		clear();
-//		this.tuples = json;
-//		
-//		for(Json3Tuple<A,B,C> t : json.getTuples())
-//		{
-//			setId1.add(t.getId1());
-//			setId2.add(t.getId2());
-//			setId3.add(t.getId3());
-//		}
-//		
-//		mapA.putAll(EjbIdFactory.toIdMap(fUtils.find(cA, setId1)));
-//		mapB.putAll(EjbIdFactory.toIdMap(fUtils.find(cB, setId2)));
-//		mapC.putAll(EjbIdFactory.toIdMap(fUtils.find(cC, setId3)));
-//	}
 }

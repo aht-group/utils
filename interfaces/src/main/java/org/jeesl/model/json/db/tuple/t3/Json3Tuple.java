@@ -40,4 +40,9 @@ public class Json3Tuple <A extends EjbWithId, B extends EjbWithId, C extends Ejb
 	private Long id3;
 	public Long getId3() {return id3;}
 	public void setId3(Long id3) {this.id3 = id3;}
+	
+	@JsonProperty("gi1")
+	private Integer gi1;
+	public Integer getGi1() {return gi1;}
+	public void setGi1(Integer gi1) {this.gi1 = gi1;}
 }

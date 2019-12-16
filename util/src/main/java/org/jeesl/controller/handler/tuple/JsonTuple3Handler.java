@@ -124,4 +124,17 @@ public class JsonTuple3Handler <A extends EjbWithId, B extends EjbWithId, C exte
 		sizeC = listC.size();
 		if(jppC!=null && jppC.provides(cC)){Collections.sort(listC, jppC.provide(cC));}
 	}
+	
+	public List<Json3Tuple<A,B,C>> toList(List<Json3Tuple<A,B,C>> list, A a, B b, C c)
+	{
+		List<Json3Tuple<A,B,C>> result = new ArrayList<>();
+		for(Json3Tuple<A,B,C> t : list)
+		{
+			if(t.getId1()==a.getId() && t.getId2()==b.getId() && t.getId3()== c.getId())
+			{
+				result.add(t);
+			}
+		}
+		return result;
+	}
 }
