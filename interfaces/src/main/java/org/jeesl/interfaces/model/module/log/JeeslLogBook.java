@@ -1,6 +1,7 @@
 package org.jeesl.interfaces.model.module.log;
 
 import java.io.Serializable;
+import java.util.List;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
@@ -10,4 +11,10 @@ public interface JeeslLogBook <SCOPE extends JeeslLogScope<?,?,SCOPE,?>,
 		extends Serializable,EjbSaveable,EjbWithId
 {
 	public enum Attributes{scope}
+	
+	SCOPE getScope();
+	void setScope(SCOPE scope);
+	
+	List<ITEM> getIssues();
+	void setIssues(List<ITEM> issues);
 }

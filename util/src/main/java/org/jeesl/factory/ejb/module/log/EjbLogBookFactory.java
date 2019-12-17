@@ -24,6 +24,7 @@ public class EjbLogBookFactory<LOG extends JeeslLogBook<SCOPE,?>,
 		try
 		{
 			ejb = cLog.newInstance();
+			ejb.setScope(scope);
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();}

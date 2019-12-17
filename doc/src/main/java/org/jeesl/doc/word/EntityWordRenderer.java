@@ -67,7 +67,7 @@ public final class EntityWordRenderer extends AbstractEntityWordRenderer
 		keys.add("_CATEGORY_");replacementTags.put("_CATEGORY_", categoryForCode(categories, entity.getCategory().getCode()));
 		keys.add("_CLASS1_");replacementTags.put("_CLASS1_",	packageShrinker(entity.getCode().replace(FilenameUtils.getExtension(entity.getCode()), ""), 5));
 		keys.add("_CLASS2_");replacementTags.put("_CLASS2_", FilenameUtils.getExtension(entity.getCode()));
-		keys.add("_DESCRIPTION_");replacementTags.put("_DESCRIPTION_", entity.getDescriptions().getDescription().get(0).getValue().toString());
+		keys.add("_DESCRIPTION_");replacementTags.put("_DESCRIPTION_", entity.getDescriptions().getDescription().get(0).getValue().toString().trim());
 			
 		for (String s : keys)
 		{
@@ -99,16 +99,24 @@ public final class EntityWordRenderer extends AbstractEntityWordRenderer
 			{
 				c.getLastParagraph().getRuns().clear();
 				docBuilder.moveTo(c.getFirstParagraph());				
-				if (cellHelperRow5==0){c.getParagraphs().get(0).getRuns().clear();docBuilder.write(a.getCode());}
+				if (cellHelperRow5==0){c.getParagraphs().get(0).getRuns().clear();docBuilder.write(a.getCode().trim());}
 				if (cellHelperRow5==1){renderRelationOrType(docBuilder, a);}	
-				if (cellHelperRow5 == 2 && a.getDescriptions().getDescription().get(0).getValue().toString() != "")
+				if (cellHelperRow5 == 2 && a.getDescriptions().getDescription().get(0).getValue().toString().trim() != "")
 				{
 				    logger.info("paragraphs count: " + c.getParagraphs().getCount());
 				    if (a.getRelation()!=null && a.getRelation().isSetEntity())
 				    {       
 				        Entity e = RevisionXpath.getEntity(entities, a.getRelation().getEntity().getCode());
 				        docBuilder.getFont().setColor(Color.black);docBuilder.getFont().setItalic(false);
-				        docBuilder.writeln(e.getDescriptions().getDescription().get(0).getValue().trim());
+				        
+				        if (a.getDescriptions().getDescription().get(0).getValue().trim()!="")
+				        {
+				            docBuilder.writeln(a.getDescriptions().getDescription().get(0).getValue().trim());
+				        }
+				        else if(a.getDescriptions().getDescription().get(0).getValue().trim()=="") 
+				        {
+				            docBuilder.writeln(e.getDescriptions().getDescription().get(0).getValue().trim());
+				        }
 
 				        String parentDiagram = ":";
 				        if (e.isSetDiagram())
