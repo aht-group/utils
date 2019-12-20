@@ -9,7 +9,7 @@ public class XmlFileFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlFileFactory.class);
 		
-	public static File create(String fileName)
+	public static File build(String fileName)
 	{
 		File xml = new File();
 		xml.setValue(fileName);

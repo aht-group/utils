@@ -16,7 +16,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.jsf.util.FacesContextMessage;
 
-public class AbstractConstraintMessageBean <L extends UtilsLang, D extends UtilsDescription,
+public class AbstractConstraintMessageBean <L extends UtilsLang, D extends UtilsDescription,LOC extends UtilsStatus<LOC,L,D>,
 											ALGCAT extends UtilsStatus<ALGCAT,L,D>,
 											ALGO extends JeeslConstraintAlgorithm<L,D,ALGCAT>,
 											SCOPE extends JeeslConstraintScope<L,D,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>,
@@ -25,7 +25,7 @@ public class AbstractConstraintMessageBean <L extends UtilsLang, D extends Utils
 											LEVEL extends UtilsStatus<LEVEL,L,D>,
 											TYPE extends UtilsStatus<TYPE,L,D>,
 											RESOLUTION extends JeeslConstraintResolution<L,D,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>>
-		extends AbstractMessageBean implements JeeslConstraintMessageBean<L,D,ALGCAT,ALGO,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>
+		extends AbstractMessageBean<L,D,LOC> implements JeeslConstraintMessageBean<L,D,ALGCAT,ALGO,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>
 {
 	private static final long serialVersionUID = 1;
 	final static Logger logger = LoggerFactory.getLogger(AbstractConstraintMessageBean.class);
@@ -34,7 +34,7 @@ public class AbstractConstraintMessageBean <L extends UtilsLang, D extends Utils
 	
 	private JeeslConstraintsBean<CONSTRAINT> bConstraint;
 	
-	protected void postConstruct(String localeCode, JeeslTranslationBean bTranslation, JeeslConstraintsBean<CONSTRAINT> bConstraint)
+	protected void postConstruct(String localeCode, JeeslTranslationBean<L,D,LOC> bTranslation, JeeslConstraintsBean<CONSTRAINT> bConstraint)
 	{
 		super.initJeesl(localeCode,bTranslation);
 		this.bConstraint=bConstraint;
