@@ -87,7 +87,7 @@ body {min-width: ${width}px;}
 .auContainer .auGrid_3  {width: ${slot3}px;}
 .auContainer .auGrid_4  {width: ${slot4}px;}
 .auContainer .auGrid_5  {width: ${slot5}px;}
-.auContainer .auGrid_6  {width: ${slot6}px;}
+.auContainer .auGrid_6  {width: ${slot6}px;  max-width: calc(${slot6}px - 1px);}
 .auContainer .auGrid_7  {width: ${slot7}px;}
 .auContainer .auGrid_8  {width: ${slot8}px;}
 .auContainer .auGrid_9  {width: ${slot9}px;}

@@ -2,6 +2,8 @@ package org.jeesl.interfaces.model.system.security.framework;
 
 import java.io.Serializable;
 
+import org.jeesl.interfaces.model.with.attribute.EjbWithVisibleMigration;
+
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.crud.EjbPersistable;
 import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
@@ -17,7 +19,7 @@ public interface JeeslSecurityArea<L extends UtilsLang, D extends UtilsDescripti
 								   V extends JeeslSecurityView<L,D,?,?,?,?>>
 			extends Serializable,EjbWithNonUniqueCode,EjbPersistable,EjbSaveable,EjbRemoveable,
 					EjbWithPosition,EjbWithParentAttributeResolver,
-					EjbWithLang<L>,EjbWithDescription<D>
+					EjbWithLang<L>,EjbWithDescription<D>,EjbWithVisibleMigration
 {	
 	public enum Attributes{view}
 	

@@ -22,6 +22,7 @@ import org.jeesl.interfaces.model.system.security.user.JeeslIdentity;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.interfaces.web.JeeslJsfSecurityHandler;
 import org.jeesl.util.comparator.ejb.system.security.SecurityActionComparator;
+import org.jeesl.util.comparator.pojo.BooleanComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,6 +63,7 @@ public abstract class AbstractJsfSecurityHandler <L extends UtilsLang, D extends
 	
 	protected final Map<R,Boolean> mapHasRole; @Override public Map<R,Boolean> getMapHasRole() {return mapHasRole;}
 	protected final Map<String,Boolean> mapAllow; public Map<String,Boolean> getMapAllow(){return mapAllow;}
+	protected final Map<AR,Boolean> mapAreaToggle; public Map<AR, Boolean> getMapAreaToggle() {return mapAreaToggle;}
 	
 	protected boolean noActions; public boolean isNoActions() {return noActions;}
 	protected boolean noRoles; public boolean isNoRoles() {return noRoles;}
@@ -82,8 +84,9 @@ public abstract class AbstractJsfSecurityHandler <L extends UtilsLang, D extends
 		noActions=true;
 		noRoles=true;
 		
-		mapAllow = new HashMap<String,Boolean>();
-		mapHasRole = new HashMap<R,Boolean>();
+		mapAllow = new HashMap<>();
+		mapAreaToggle = new HashMap<>();
+		mapHasRole = new HashMap<>();
 		actions = new ArrayList<A>();
 		areas = new ArrayList<AR>();
 		
@@ -102,6 +105,10 @@ public abstract class AbstractJsfSecurityHandler <L extends UtilsLang, D extends
 			noRoles = roles.size()==0;
 			
 			areas.addAll(fSecurity.allForParent(fbSecurity.getClassArea(),view));
+			for(AR a : areas)
+			{
+				mapAreaToggle.put(a,BooleanComparator.active(a.getVisible()));
+			}
 		}
 		catch (UtilsNotFoundException e) {e.printStackTrace();}
 	}
@@ -125,6 +132,7 @@ public abstract class AbstractJsfSecurityHandler <L extends UtilsLang, D extends
 		noRoles=true;
 		
 		mapAllow = new HashMap<String,Boolean>();
+		mapAreaToggle = new HashMap<>();
 		mapHasRole = new HashMap<R,Boolean>();
 		actions = new ArrayList<A>();
 		areas = new ArrayList<AR>();
@@ -160,6 +168,7 @@ public abstract class AbstractJsfSecurityHandler <L extends UtilsLang, D extends
 		areas.clear();
 		
 		mapAllow.clear();
+		mapAreaToggle.clear();
 		mapHasRole.clear();
 		
 		if(debugOnInfo) {logger.info("Checking Assignment of "+roles.size()+" "+fbSecurity.getClassRole().getSimpleName()+" for user");}
@@ -264,7 +273,7 @@ public abstract class AbstractJsfSecurityHandler <L extends UtilsLang, D extends
 			}
 			for(AR area : areas)
 			{
-				logger.info("\tAR\t"+area.toString());
+				logger.info("\tAR\t"+area.toString()+" "+BooleanComparator.active(mapAreaToggle.get(area)));
 			}
 		}
 	}
@@ -280,5 +289,24 @@ public abstract class AbstractJsfSecurityHandler <L extends UtilsLang, D extends
 			addActionWithSecurity(action, allow);
 		}
 		checkIcon();
+	}
+	
+	public <E extends Enum<E>> AR getArea(E code)
+	{
+		for(AR a : areas)
+		{
+			if(a.getCode().equals(code.toString())){return a;}
+		}
+		return null;
+	}
+	
+	public void toggleArea(AR area)
+	{
+		mapAreaToggle.put(area, !BooleanComparator.active(mapAreaToggle.get(area)));
+	}
+	
+	public boolean toggleActive(AR area)
+	{
+		return BooleanComparator.active(mapAreaToggle.get(area));
 	}
 }

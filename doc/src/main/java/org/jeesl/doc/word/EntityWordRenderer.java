@@ -101,11 +101,13 @@ public final class EntityWordRenderer extends AbstractEntityWordRenderer
 				docBuilder.moveTo(c.getFirstParagraph());				
 				if (cellHelperRow5==0){c.getParagraphs().get(0).getRuns().clear();docBuilder.write(a.getCode().trim());}
 				if (cellHelperRow5==1){renderRelationOrType(docBuilder, a);}	
-				if (cellHelperRow5 == 2 && a.getDescriptions().getDescription().get(0).getValue().toString().trim() != "")
+				if (cellHelperRow5 == 2)
 				{
+				    c.getParagraphs().get(0).getRuns().clear();
 				    logger.info("paragraphs count: " + c.getParagraphs().getCount());
 				    if (a.getRelation()!=null && a.getRelation().isSetEntity())
 				    {       
+				        
 				        Entity e = RevisionXpath.getEntity(entities, a.getRelation().getEntity().getCode());
 				        docBuilder.getFont().setColor(Color.black);docBuilder.getFont().setItalic(false);
 				        

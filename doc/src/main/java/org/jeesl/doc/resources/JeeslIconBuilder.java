@@ -88,6 +88,7 @@ public class JeeslIconBuilder
 		File base = new File(prefix+"/jeesl/doc/src/main/resources/jeesl/svg");
 		copy("svg",FilenameUtils.normalize(base.getAbsolutePath()),"icon/ui/system", "home");
 		copy("svg",FilenameUtils.normalize(base.getAbsolutePath()),"icon/ui/control", "clone");
+		copy("svg",FilenameUtils.normalize(base.getAbsolutePath()),"icon/ui/control/toggle", "overview","detail");
 	}
 	
 	private void copy(String suffix, String resourceDir, String targetDir, String... items) throws UtilsConfigurationException 
