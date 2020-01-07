@@ -5,7 +5,7 @@ import java.util.List;
 import org.jeesl.exception.JeeslWorkflowException;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowAction;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowBot;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslApprovalWorkflow;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWithWorkflow;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraint;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
@@ -22,7 +22,7 @@ public interface JeeslWorkflowActionHandler<WA extends JeeslWorkflowAction<?,AB,
 											AO extends EjbWithId,
 											RE extends JeeslRevisionEntity<?,?,?,?,RA,?>,
 											RA extends JeeslRevisionAttribute<?,?,RE,?,?>,
-											AW extends JeeslApprovalWorkflow<?,?,?>,
+											AW extends JeeslWorkflow<?,?,?>,
 											WCS extends JeeslConstraint<?,?,?,?,?,?,?,?>>
 {
 	void workflowPreconditions(List<WCS> constraints, JeeslWithWorkflow<?> entity, WA action) throws UtilsNotFoundException;

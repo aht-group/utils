@@ -7,26 +7,32 @@ import org.jeesl.factory.ejb.system.job.EjbJobRobotFactory;
 import org.jeesl.factory.ejb.system.job.EjbJobTemplateFactory;
 import org.jeesl.interfaces.model.system.job.JeeslJob;
 import org.jeesl.interfaces.model.system.job.JeeslJobCache;
+import org.jeesl.interfaces.model.system.job.JeeslJobCategory;
+import org.jeesl.interfaces.model.system.job.JeeslJobExpiration;
 import org.jeesl.interfaces.model.system.job.JeeslJobFeedback;
+import org.jeesl.interfaces.model.system.job.JeeslJobFeedbackType;
+import org.jeesl.interfaces.model.system.job.JeeslJobPriority;
 import org.jeesl.interfaces.model.system.job.JeeslJobRobot;
+import org.jeesl.interfaces.model.system.job.JeeslJobStatus;
 import org.jeesl.interfaces.model.system.job.JeeslJobTemplate;
+import org.jeesl.interfaces.model.system.job.JeeslJobType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 
 public class JobFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
-								TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY>,
-								CATEGORY extends UtilsStatus<CATEGORY,L,D>,
-								TYPE extends UtilsStatus<TYPE,L,D>,
+								TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY,EXPIRE>,
+								CATEGORY extends JeeslJobCategory<L,D,CATEGORY,?>,
+								TYPE extends JeeslJobType<L,D,TYPE,?>,
+								EXPIRE extends JeeslJobExpiration<L,D,EXPIRE,?>,
 								JOB extends JeeslJob<TEMPLATE,PRIORITY,FEEDBACK,STATUS,USER>,
-								PRIORITY extends UtilsStatus<PRIORITY,L,D>,
+								PRIORITY extends JeeslJobPriority<L,D,PRIORITY,?>,
 								FEEDBACK extends JeeslJobFeedback<JOB,FT,USER>,	
-								FT extends UtilsStatus<FT,L,D>,
-								STATUS extends UtilsStatus<STATUS,L,D>,
+								FT extends JeeslJobFeedbackType<L,D,FT,?>,
+								STATUS extends JeeslJobStatus<L,D,STATUS,?>,
 								ROBOT extends JeeslJobRobot<L,D>,
 								CACHE extends JeeslJobCache<TEMPLATE,?>,
 								USER extends EjbWithEmail
@@ -38,18 +44,22 @@ public class JobFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 	private final Class<TEMPLATE> cTemplate; public Class<TEMPLATE> getClassTemplate(){return cTemplate;}
 	private final Class<CATEGORY> cCategory; public Class<CATEGORY> getClassCategory(){return cCategory;}
 	private final Class<TYPE> cType; public Class<TYPE> getClassType(){return cType;}
+	private final Class<EXPIRE> cExpire; public Class<EXPIRE> getClassExpire(){return cExpire;}
 	private final Class<JOB> cJob; public Class<JOB> getClassJob(){return cJob;}
 	private final Class<PRIORITY> cPriority; public Class<PRIORITY> getClassPriority(){return cPriority;}
 	private final Class<STATUS> cStatus; public Class<STATUS> getClassStatus(){return cStatus;}
 	private final Class<ROBOT> cRobot; public Class<ROBOT> getClassRobot(){return cRobot;}
 	private final Class<CACHE> cCache; public Class<CACHE> getClassCache(){return cCache;}
 	
-	public JobFactoryBuilder(final Class<L> cL, final Class<D> cD, final Class<TEMPLATE> cTemplate, final Class<CATEGORY> cCategory, final Class<TYPE> cType, final Class<JOB> cJob, final Class<PRIORITY> cPriority, final Class<STATUS> cStatus, final Class<ROBOT> cRobot, final Class<CACHE> cCache)
+	public JobFactoryBuilder(final Class<L> cL, final Class<D> cD,
+			final Class<TEMPLATE> cTemplate, final Class<CATEGORY> cCategory, final Class<TYPE> cType, final Class<EXPIRE> cExpire,
+			final Class<JOB> cJob, final Class<PRIORITY> cPriority, final Class<STATUS> cStatus, final Class<ROBOT> cRobot, final Class<CACHE> cCache)
 	{
 		super(cL,cD);
 		this.cTemplate = cTemplate;
 		this.cCategory=cCategory;
 		this.cType=cType;
+		this.cExpire=cExpire;
 		this.cJob = cJob;
 		this.cPriority = cPriority;
 		this.cStatus=cStatus;
@@ -67,13 +77,6 @@ public class JobFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 		return new EjbJobFactory<L,D,TEMPLATE,CATEGORY,TYPE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,USER>(cJob);
 	}
 	
-	public EjbJobRobotFactory<L,D,TEMPLATE,CATEGORY,TYPE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,USER> robot()
-	{
-		return new EjbJobRobotFactory<L,D,TEMPLATE,CATEGORY,TYPE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,USER>(cRobot);
-	}
-	
-	public EjbJobCacheFactory<L,D,TEMPLATE,CATEGORY,TYPE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,USER> cache()
-	{
-		return new EjbJobCacheFactory<L,D,TEMPLATE,CATEGORY,TYPE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,USER>(cCache);
-	}
+	public EjbJobRobotFactory<ROBOT> robot(){return new EjbJobRobotFactory<>(cRobot);}
+	public EjbJobCacheFactory<TEMPLATE,CACHE> cache() {return new EjbJobCacheFactory<>(cCache);}
 }

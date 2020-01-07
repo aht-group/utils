@@ -1,6 +1,6 @@
 package org.jeesl.factory.ejb.module.workflow;
 
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslApprovalWorkflow;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStage;
 import org.slf4j.Logger;
@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 public class EjbWorkflowFactory<AP extends JeeslWorkflowProcess<?,?,?,WS>,
 								WS extends JeeslWorkflowStage<?,?,AP,?,?,?,?>,
-								AW extends JeeslApprovalWorkflow<AP,WS,?>
+								AW extends JeeslWorkflow<AP,WS,?>
 
 >
 {

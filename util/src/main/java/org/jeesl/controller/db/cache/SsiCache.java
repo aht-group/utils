@@ -5,9 +5,9 @@ import java.util.Map;
 
 import org.jeesl.api.facade.io.JeeslIoSsiFacade;
 import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiData;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiLink;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiMapping;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiData;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiLink;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -2,8 +2,8 @@ package org.jeesl.interfaces.controller.processor;
 
 import java.util.List;
 
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiData;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiMapping;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiData;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;
 
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 

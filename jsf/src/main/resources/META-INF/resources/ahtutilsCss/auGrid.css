@@ -87,7 +87,7 @@ body {min-width: 960px;}
 .auContainer .auGrid_3  {width: 230px;}
 .auContainer .auGrid_4  {width: 310px;}
 .auContainer .auGrid_5  {width: 390px;}
-.auContainer .auGrid_6  {width: 470px;}
+.auContainer .auGrid_6  {width: 470px;  max-width: calc(470px - 1px);}
 .auContainer .auGrid_7  {width: 550px;}
 .auContainer .auGrid_8  {width: 630px;}
 .auContainer .auGrid_9  {width: 710px;}

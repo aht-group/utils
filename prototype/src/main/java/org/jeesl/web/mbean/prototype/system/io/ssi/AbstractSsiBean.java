@@ -11,11 +11,11 @@ import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.controller.processor.SsiMappingProcessor;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiAttribute;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiData;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiLink;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiMapping;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiAttribute;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiData;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiLink;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

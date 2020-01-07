@@ -51,7 +51,7 @@ public class SurveyAnalysisFactoryBuilder<L extends UtilsLang, D extends UtilsDe
 				AQ extends JeeslSurveyAnalysisQuestion<L,D,QUESTION,ANALYSIS>,
 				TOOL extends JeeslSurveyAnalysisTool<L,D,QE,QUERY,DATTRIBUTE,AQ,TOOLT>,
 				TOOLT extends UtilsStatus<TOOLT,L,D>,
-				TOOLCACHETEMPLATE extends JeeslJobTemplate<L,D,?,?,?>>
+				TOOLCACHETEMPLATE extends JeeslJobTemplate<L,D,?,?,?,?>>
 			extends AbstractFactoryBuilder<L,D>
 {
 	final static Logger logger = LoggerFactory.getLogger(SurveyAnalysisFactoryBuilder.class);

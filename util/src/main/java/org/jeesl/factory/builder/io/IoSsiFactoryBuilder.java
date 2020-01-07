@@ -1,14 +1,14 @@
 package org.jeesl.factory.builder.io;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
-import org.jeesl.factory.ejb.system.io.ssi.EjbIoSsiAttributeFactory;
-import org.jeesl.factory.ejb.system.io.ssi.EjbIoSsiDataFactory;
-import org.jeesl.factory.ejb.system.io.ssi.EjbIoSsiSystemFactory;
+import org.jeesl.factory.ejb.system.io.ssi.data.EjbIoSsiAttributeFactory;
+import org.jeesl.factory.ejb.system.io.ssi.data.EjbIoSsiDataFactory;
+import org.jeesl.factory.ejb.system.io.ssi.data.EjbIoSsiSystemFactory;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiAttribute;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiData;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiMapping;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiAttribute;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiData;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

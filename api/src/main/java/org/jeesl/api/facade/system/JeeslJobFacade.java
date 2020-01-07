@@ -6,9 +6,14 @@ import java.util.List;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.job.JeeslJob;
 import org.jeesl.interfaces.model.system.job.JeeslJobCache;
+import org.jeesl.interfaces.model.system.job.JeeslJobCategory;
+import org.jeesl.interfaces.model.system.job.JeeslJobExpiration;
 import org.jeesl.interfaces.model.system.job.JeeslJobFeedback;
+import org.jeesl.interfaces.model.system.job.JeeslJobFeedbackType;
+import org.jeesl.interfaces.model.system.job.JeeslJobPriority;
 import org.jeesl.interfaces.model.system.job.JeeslJobRobot;
 import org.jeesl.interfaces.model.system.job.JeeslJobTemplate;
+import org.jeesl.interfaces.model.system.job.JeeslJobType;
 
 import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
@@ -20,13 +25,14 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 
 public interface JeeslJobFacade <L extends UtilsLang,D extends UtilsDescription,
-								TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY>,
-								CATEGORY extends UtilsStatus<CATEGORY,L,D>,
-								TYPE extends UtilsStatus<TYPE,L,D>,
+								TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY,EXPIRE>,
+								CATEGORY extends JeeslJobCategory<L,D,CATEGORY,?>,
+								TYPE extends JeeslJobType<L,D,TYPE,?>,
+								EXPIRE extends JeeslJobExpiration<L,D,EXPIRE,?>,
 								JOB extends JeeslJob<TEMPLATE,PRIORITY,FEEDBACK,STATUS,USER>,
-								PRIORITY extends UtilsStatus<PRIORITY,L,D>,
+								PRIORITY extends JeeslJobPriority<L,D,PRIORITY,?>,
 								FEEDBACK extends JeeslJobFeedback<JOB,FT,USER>,
-								FT extends UtilsStatus<FT,L,D>,
+								FT extends JeeslJobFeedbackType<L,D,FT,?>,
 								STATUS extends UtilsStatus<STATUS,L,D>,
 								ROBOT extends JeeslJobRobot<L,D>,
 								CACHE extends JeeslJobCache<TEMPLATE,CONTAINER>,

@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowCommunication;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslApprovalActivity;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslApprovalWorkflow;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWithWorkflow;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateDefinition;
@@ -26,8 +26,8 @@ public interface JeeslWorkflowMessageHandler<WC extends JeeslWorkflowCommunicati
 											MT extends JeeslIoTemplate<?,?,?,?,MD,?>,
 											MC extends JeeslTemplateChannel<?,?,MC,?>,
 											MD extends JeeslIoTemplateDefinition<?,MC,MT>,
-											WF extends JeeslApprovalWorkflow<?,?,?>,
-											WY extends JeeslApprovalActivity<?,WF,?,USER>,
+											WF extends JeeslWorkflow<?,?,?>,
+											WY extends JeeslWorkflowActivity<?,WF,?,USER>,
 											USER extends JeeslUser<SR>>
 							extends Serializable
 {

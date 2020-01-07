@@ -12,7 +12,7 @@ import org.jeesl.interfaces.model.system.io.db.JeeslDbReplicationColumn;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbReplicationState;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbReplicationSync;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbStatementColumn;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

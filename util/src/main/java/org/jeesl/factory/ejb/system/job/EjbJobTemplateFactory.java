@@ -1,18 +1,20 @@
 package org.jeesl.factory.ejb.system.job;
 
+import org.jeesl.interfaces.model.system.job.JeeslJobCategory;
+import org.jeesl.interfaces.model.system.job.JeeslJobPriority;
 import org.jeesl.interfaces.model.system.job.JeeslJobTemplate;
+import org.jeesl.interfaces.model.system.job.JeeslJobType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public class EjbJobTemplateFactory <L extends UtilsLang,D extends UtilsDescription,
-									TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY>,
-									CATEGORY extends UtilsStatus<CATEGORY,L,D>,
-									TYPE extends UtilsStatus<TYPE,L,D>,
-									PRIORITY extends UtilsStatus<PRIORITY,L,D>>
+									TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY,?>,
+									CATEGORY extends JeeslJobCategory<L,D,CATEGORY,?>,
+									TYPE extends JeeslJobType<L,D,TYPE,?>,
+									PRIORITY extends JeeslJobPriority<L,D,PRIORITY,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbJobTemplateFactory.class);
 	

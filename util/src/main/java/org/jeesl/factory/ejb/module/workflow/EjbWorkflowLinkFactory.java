@@ -1,15 +1,15 @@
 package org.jeesl.factory.ejb.module.workflow;
 
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslApprovalLink;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslApprovalWorkflow;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowLink;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWithWorkflow;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbWorkflowLinkFactory<RE extends JeeslRevisionEntity<?,?,?,?,?,?>,
-									AL extends JeeslApprovalLink<AW,RE>,
-									AW extends JeeslApprovalWorkflow<?,?,?>
+									AL extends JeeslWorkflowLink<AW,RE>,
+									AW extends JeeslWorkflow<?,?,?>
 >
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbWorkflowLinkFactory.class);

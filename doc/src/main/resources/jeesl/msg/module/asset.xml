@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<s:translations xmlns:s="http://ahtutils.aht-group.com/status">
+	<s:translation key="jeeslAssetManufacturers">
+    	<s:langs>
+    		<s:lang key="de" translation="Hersteller"/>
+    		<s:lang key="en" translation="Manufacturers"/>
+    		<s:lang key="fr" translation="Manufacturers"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslAssetManufacturer">
+    	<s:langs>
+    		<s:lang key="de" translation="Hersteller"/>
+    		<s:lang key="en" translation="Manufacturer"/>
+    		<s:lang key="fr" translation="Manufacturer"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslAssetManufacturerName">
+    	<s:langs>
+    		<s:lang key="de" translation="Name"/>
+    		<s:lang key="en" translation="Name"/>
+    		<s:lang key="fr" translation="Name"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslAssetManufacturerUrl">
+    	<s:langs>
+    		<s:lang key="de" translation="Webseite"/>
+    		<s:lang key="en" translation="Website"/>
+    		<s:lang key="fr" translation="Website"/>
+    	</s:langs>
+    </s:translation>
+</s:translations>

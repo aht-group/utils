@@ -31,7 +31,7 @@ public class Json3TupleFactory<A extends EjbWithId, B extends EjbWithId, C exten
     	return json;
 	}
 	
-	public Json3Tuple<A,B,C> buildCountInteger(Tuple tuple)
+	public Json3Tuple<A,B,C> buildCountInteger4(Tuple tuple)
 	{
 		Json3Tuple<A,B,C> json = build(tuple);
 		json.setGi1((Integer)tuple.get(3));

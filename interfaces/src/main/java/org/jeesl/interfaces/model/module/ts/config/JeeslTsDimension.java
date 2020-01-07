@@ -14,9 +14,8 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatusFixedCode;
 import net.sf.ahtutils.interfaces.model.status.UtilsWithSymbol;
 
-public interface JeeslTsDimension <S extends UtilsStatus<S,L,D>,
-									L extends UtilsLang,
-									D extends UtilsDescription,
+public interface JeeslTsDimension <L extends UtilsLang, D extends UtilsDescription,
+									S extends UtilsStatus<S,L,D>,
 									G extends JeeslGraphic<L,D,?,?,?>>
 					extends Serializable,EjbPersistable,
 								EjbWithCode,UtilsStatusFixedCode,UtilsWithSymbol,

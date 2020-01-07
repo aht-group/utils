@@ -11,9 +11,10 @@ import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
-public interface JeeslJobStatus <S extends UtilsStatus<S,L,D>,
-									L extends UtilsLang, D extends UtilsDescription,G extends JeeslGraphic<L,D,?,?,?>>
-		extends Serializable,EjbPersistable,JeeslOptionRestDownload,EjbWithCodeGraphic<G>
+public interface JeeslJobStatus <L extends UtilsLang, D extends UtilsDescription,
+									S extends UtilsStatus<S,L,D>,G extends JeeslGraphic<L,D,?,?,?>>
+		extends Serializable,EjbPersistable,JeeslOptionRestDownload,EjbWithCodeGraphic<G>,
+					UtilsStatus<S,L,D>
 {
 	public static enum Code{queue,timeout,working,completed,failed,obsolete};
 }

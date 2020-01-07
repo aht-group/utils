@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.system.io.ssi;
+package org.jeesl.interfaces.model.system.io.ssi.data;
 
 import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
 

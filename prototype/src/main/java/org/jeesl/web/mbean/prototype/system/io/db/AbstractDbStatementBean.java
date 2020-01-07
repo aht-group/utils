@@ -10,7 +10,7 @@ import org.jeesl.factory.builder.io.IoDbFactoryBuilder;
 import org.jeesl.factory.ejb.util.EjbCodeFactory;
 import org.jeesl.factory.txt.system.io.db.TxtSqlQueryFactory;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbStatementColumn;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
 import org.jeesl.model.json.system.io.db.JsonPostgresStatement;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;

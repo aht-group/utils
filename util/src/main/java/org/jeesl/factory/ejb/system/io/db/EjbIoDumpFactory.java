@@ -3,7 +3,7 @@ package org.jeesl.factory.ejb.system.io.db;
 import java.util.Date;
 
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDump;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

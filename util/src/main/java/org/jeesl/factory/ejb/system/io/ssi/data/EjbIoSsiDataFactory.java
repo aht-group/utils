@@ -1,7 +1,7 @@
-package org.jeesl.factory.ejb.system.io.ssi;
+package org.jeesl.factory.ejb.system.io.ssi.data;
 
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiData;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiMapping;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiData;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 

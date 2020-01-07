@@ -1,4 +1,4 @@
-package net.sf.ahtutils.factory.xml.status;
+package org.jeesl.factory.xml.system.status;
 
 import org.jeesl.factory.xml.system.lang.XmlLangsFactory;
 import org.slf4j.Logger;
@@ -27,40 +27,43 @@ public class XmlPhaseFactory<L extends UtilsLang, D extends UtilsDescription, S 
 	public Phase build(S ejb, String group)
 	{
 		Phase xml = new Phase();
-		if(q.isSetCode()){xml.setCode(ejb.getCode());}
-		if(q.isSetPosition()){xml.setPosition(ejb.getPosition());}
-		xml.setGroup(group);
-		
-		if(q.isSetLangs())
+		if(ejb!=null)
 		{
-			XmlLangsFactory<L> f = new XmlLangsFactory<L>(q.getLangs());
-			xml.setLangs(f.getUtilsLangs(ejb.getName()));
-		}
-		if(q.isSetDescriptions())
-		{
-
-		}
-		
-		if(q.isSetLabel() && lang!=null)
-		{
-			if(ejb.getName()!=null)
+			if(q.isSetCode()){xml.setCode(ejb.getCode());}
+			if(q.isSetPosition()){xml.setPosition(ejb.getPosition());}
+			xml.setGroup(group);
+			
+			if(q.isSetLangs())
 			{
-				if(ejb.getName().containsKey(lang)){xml.setLabel(ejb.getName().get(lang).getLang());}
+				XmlLangsFactory<L> f = new XmlLangsFactory<L>(q.getLangs());
+				xml.setLangs(f.getUtilsLangs(ejb.getName()));
+			}
+			if(q.isSetDescriptions())
+			{
+
+			}
+			
+			if(q.isSetLabel() && lang!=null)
+			{
+				if(ejb.getName()!=null)
+				{
+					if(ejb.getName().containsKey(lang)){xml.setLabel(ejb.getName().get(lang).getLang());}
+					else
+					{
+						String msg = "No translation "+lang+" available in "+ejb;
+						logger.warn(msg);
+						xml.setLabel(msg);
+					}
+				}
 				else
 				{
-					String msg = "No translation "+lang+" available in "+ejb;
+					String msg = "No @name available in "+ejb;
 					logger.warn(msg);
 					xml.setLabel(msg);
 				}
 			}
-			else
-			{
-				String msg = "No @name available in "+ejb;
-				logger.warn(msg);
-				xml.setLabel(msg);
-			}
+			else if(q.isSetLabel() && lang==null){logger.warn("Should render label, but lang is null");}
 		}
-		else if(q.isSetLabel() && lang==null){logger.warn("Should render label, but lang is null");}
 		
 		return xml;
 	}

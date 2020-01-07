@@ -5,9 +5,9 @@ import java.util.List;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowAction;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowBot;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowCommunication;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslApprovalActivity;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslApprovalLink;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslApprovalWorkflow;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowLink;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWithWorkflow;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowContext;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
@@ -52,9 +52,9 @@ public interface JeeslWorkflowFacade <L extends UtilsLang, D extends UtilsDescri
 										SR extends JeeslSecurityRole<L,D,?,?,?,?,?>,
 										RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
 										RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
-										WL extends JeeslApprovalLink<WF,RE>,
-										WF extends JeeslApprovalWorkflow<WP,WS,WY>,
-										WY extends JeeslApprovalActivity<WT,WF,FRC,USER>,
+										WL extends JeeslWorkflowLink<WF,RE>,
+										WF extends JeeslWorkflow<WP,WS,WY>,
+										WY extends JeeslWorkflowActivity<WT,WF,FRC,USER>,
 										FRC extends JeeslFileContainer<?,?>,
 										USER extends JeeslUser<SR>>
 			extends UtilsFacade

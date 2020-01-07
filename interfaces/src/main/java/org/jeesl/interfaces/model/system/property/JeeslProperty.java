@@ -14,6 +14,8 @@ public interface JeeslProperty <L extends UtilsLang, D extends UtilsDescription,
 								P extends JeeslProperty<L,D,C,P>>
 		extends Serializable,EjbSaveable,EjbWithLang<L>,EjbWithDescription<D>
 {
+	public enum Code{autoLogin}
+	
 	C getCategory();
 	void setCategory(C category);
 	

@@ -183,9 +183,7 @@
 			<plugin>
 		        <groupId>org.codehaus.mojo</groupId>
 		        <artifactId>versions-maven-plugin</artifactId>
-		        <configuration>
-					<rulesUri>${maven.ignore}</rulesUri>
-		        </configuration>
+		        <configuration><rulesUri>${maven.ignore.versions}</rulesUri></configuration>
 			</plugin>
 			<plugin>
         		<groupId>org.apache.maven.plugins</groupId>
@@ -208,16 +206,6 @@
           			</execution>
         		</executions>
 			</plugin>
-			<plugin>
-		        <groupId>org.codehaus.mojo</groupId>
-		        <artifactId>versions-maven-plugin</artifactId>
-		        <version>2.2</version>
-		        <configuration>
-					<rulesUri>file://${project.basedir}/src/main/resources/config.jetty/maven-versions.xml</rulesUri>
-		        </configuration>
-		      </plugin>
 		</plugins>
     </build>
-		
-   
 </project>

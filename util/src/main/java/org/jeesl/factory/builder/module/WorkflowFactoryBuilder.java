@@ -13,9 +13,9 @@ import org.jeesl.factory.ejb.module.workflow.EjbWorkflowFactory;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowAction;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowBot;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowCommunication;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslApprovalActivity;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslApprovalLink;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslApprovalWorkflow;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowLink;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowContext;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowModificationLevel;
@@ -58,9 +58,9 @@ public class WorkflowFactoryBuilder<L extends UtilsLang, D extends UtilsDescript
 									SR extends JeeslSecurityRole<L,D,?,?,?,?,?>,
 									RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
 									RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
-									AL extends JeeslApprovalLink<AW,RE>,
-									AW extends JeeslApprovalWorkflow<WP,WS,WY>,
-									WY extends JeeslApprovalActivity<WT,AW,FRC,USER>,
+									AL extends JeeslWorkflowLink<AW,RE>,
+									AW extends JeeslWorkflow<WP,WS,WY>,
+									WY extends JeeslWorkflowActivity<WT,AW,FRC,USER>,
 									FRC extends JeeslFileContainer<?,?>,
 									USER extends JeeslUser<SR>>
 				extends AbstractFactoryBuilder<L,D>

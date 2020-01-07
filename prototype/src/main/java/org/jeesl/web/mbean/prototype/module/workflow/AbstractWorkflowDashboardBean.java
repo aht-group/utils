@@ -18,9 +18,9 @@ import org.jeesl.interfaces.bean.sb.SbSingleBean;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowAction;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowBot;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowCommunication;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslApprovalActivity;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslApprovalLink;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslApprovalWorkflow;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowLink;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowContext;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowModificationLevel;
@@ -72,9 +72,9 @@ public abstract class AbstractWorkflowDashboardBean <L extends UtilsLang, D exte
 											SR extends JeeslSecurityRole<L,D,?,?,?,?,USER>,
 											RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
 											RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
-											AL extends JeeslApprovalLink<AW,RE>,
-											AW extends JeeslApprovalWorkflow<AP,WS,AY>,
-											AY extends JeeslApprovalActivity<WT,AW,FRC,USER>,
+											AL extends JeeslWorkflowLink<AW,RE>,
+											AW extends JeeslWorkflow<AP,WS,AY>,
+											AY extends JeeslWorkflowActivity<WT,AW,FRC,USER>,
 											FRC extends JeeslFileContainer<?,?>,
 											WCS extends JeeslConstraint<L,D,?,?,?,?,?,?>,
 											USER extends JeeslUser<SR>,

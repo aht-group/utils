@@ -13,6 +13,8 @@ import org.openfuxml.renderer.text.OfxTextSilentRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+
 public class BucketSizeCounter
 {
 	final static Logger logger = LoggerFactory.getLogger(BucketSizeCounter.class);
@@ -36,6 +38,7 @@ public class BucketSizeCounter
 		loop=0;
 	}
 	
+	public <C extends EjbWithId>void countClass(C ejb){add(ejb.getClass().getSimpleName(),1);}
 	public <C extends EjbWithCode> void add(C ejb){add(ejb.getCode(),1);}
 	public <C extends EjbWithCode> void add(C ejb, long size){add(ejb.getCode(),size);}
 	public <E extends Enum<E>> void add(E event, long size){add(event.toString(),size);}

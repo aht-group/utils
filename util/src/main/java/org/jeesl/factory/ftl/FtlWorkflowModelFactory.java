@@ -3,8 +3,8 @@ package org.jeesl.factory.ftl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslApprovalActivity;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslApprovalWorkflow;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStage;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
@@ -20,8 +20,8 @@ public class FtlWorkflowModelFactory <L extends UtilsLang, D extends UtilsDescri
 										WP extends JeeslWorkflowProcess<L,D,?,WS>,
 										WS extends JeeslWorkflowStage<L,D,WP,?,?,WT,?>,
 										WT extends JeeslWorkflowTransition<L,D,WS,?,?,?>,
-										WF extends JeeslApprovalWorkflow<WP,WS,WY>,
-										WY extends JeeslApprovalActivity<WT,WF,?,USER>,
+										WF extends JeeslWorkflow<WP,WS,WY>,
+										WY extends JeeslWorkflowActivity<WT,WF,?,USER>,
 										USER extends JeeslUser<?>
 >
 {

@@ -21,6 +21,13 @@
 			<lang key="fr" translation="Priority" />
 		</langs>
 	</translation>
+	<translation key="jeeslJobExpiration">
+		<langs>
+			<lang key="de" translation="Cache" />
+			<lang key="en" translation="Cache" />
+			<lang key="fr" translation="Cache" />
+		</langs>
+	</translation>
 	<translation key="jeeslJobDescription">
 		<langs>
 			<lang key="de" translation="Beschreibung" />

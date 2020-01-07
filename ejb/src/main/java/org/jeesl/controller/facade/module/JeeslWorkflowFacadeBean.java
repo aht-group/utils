@@ -16,9 +16,9 @@ import org.jeesl.factory.builder.module.WorkflowFactoryBuilder;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowAction;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowBot;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowCommunication;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslApprovalActivity;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslApprovalLink;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslApprovalWorkflow;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowLink;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWithWorkflow;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowContext;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
@@ -65,9 +65,9 @@ public class JeeslWorkflowFacadeBean<L extends UtilsLang, D extends UtilsDescrip
 									SR extends JeeslSecurityRole<L,D,?,?,?,?,?>,
 									RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
 									RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
-									WL extends JeeslApprovalLink<WF,RE>,
-									WF extends JeeslApprovalWorkflow<AP,WS,WY>,
-									WY extends JeeslApprovalActivity<WT,WF,FRC,USER>,
+									WL extends JeeslWorkflowLink<WF,RE>,
+									WF extends JeeslWorkflow<AP,WS,WY>,
+									WY extends JeeslWorkflowActivity<WT,WF,FRC,USER>,
 									FRC extends JeeslFileContainer<?,?>,
 									USER extends JeeslUser<SR>>
 					extends UtilsFacadeBean
@@ -113,7 +113,7 @@ public class JeeslWorkflowFacadeBean<L extends UtilsLang, D extends UtilsDescrip
 		CriteriaQuery<WL> cQ = cB.createQuery(fbWorkflow.getClassLink());
 		Root<WL> link = cQ.from(fbWorkflow.getClassLink());
 		
-		Join<WL,WF> jWorkflow = link.join(JeeslApprovalLink.Attributes.workflow.toString());
+		Join<WL,WF> jWorkflow = link.join(JeeslWorkflowLink.Attributes.workflow.toString());
 		
 		cQ.where(cB.and(cB.equal(jWorkflow,workflow)));
 		cQ.select(link);
@@ -141,9 +141,9 @@ public class JeeslWorkflowFacadeBean<L extends UtilsLang, D extends UtilsDescrip
 		CriteriaQuery<WL> cQ = cB.createQuery(fbWorkflow.getClassLink());
 		Root<WL> link = cQ.from(fbWorkflow.getClassLink());
 		
-		Join<WL,WF> jWorkflow = link.join(JeeslApprovalLink.Attributes.workflow.toString());
-		Path<AP> pProcess = jWorkflow.get(JeeslApprovalWorkflow.Attributes.process.toString());
-		Path<Long> pRefId = link.get(JeeslApprovalLink.Attributes.refId.toString());
+		Join<WL,WF> jWorkflow = link.join(JeeslWorkflowLink.Attributes.workflow.toString());
+		Path<AP> pProcess = jWorkflow.get(JeeslWorkflow.Attributes.process.toString());
+		Path<Long> pRefId = link.get(JeeslWorkflowLink.Attributes.refId.toString());
 		
 		cQ.where(cB.and(cB.equal(pRefId,owner.getId()),cB.equal(pProcess,process)));
 		cQ.select(link);
@@ -172,7 +172,7 @@ public class JeeslWorkflowFacadeBean<L extends UtilsLang, D extends UtilsDescrip
 		Root<WF> workflow = cQ.from(fbWorkflow.getClassWorkflow());
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		
-		Path<AP> pProcess = workflow.get(JeeslApprovalWorkflow.Attributes.process.toString());
+		Path<AP> pProcess = workflow.get(JeeslWorkflow.Attributes.process.toString());
 		predicates.add(cB.equal(pProcess,process));
 		
 		if(stages!=null)
@@ -180,7 +180,7 @@ public class JeeslWorkflowFacadeBean<L extends UtilsLang, D extends UtilsDescrip
 			if(stages.isEmpty()) {return new ArrayList<>();}
 			else
 			{
-				Join<WF,WS> jStage = workflow.join(JeeslApprovalWorkflow.Attributes.currentStage.toString());
+				Join<WF,WS> jStage = workflow.join(JeeslWorkflow.Attributes.currentStage.toString());
 				predicates.add(jStage.in(stages));
 			}
 		}

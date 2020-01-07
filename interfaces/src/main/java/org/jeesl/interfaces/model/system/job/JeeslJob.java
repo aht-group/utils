@@ -9,11 +9,10 @@ import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 import net.sf.ahtutils.interfaces.model.with.code.EjbWithNonUniqueCode;
-import net.sf.ahtutils.interfaces.model.with.parent.EjbWithParent;
 import net.sf.ahtutils.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface JeeslJob<TEMPLATE extends JeeslJobTemplate<?,?,?,?,?>,
+public interface JeeslJob<TEMPLATE extends JeeslJobTemplate<?,?,?,?,?,?>,
 							PRIORITY extends UtilsStatus<PRIORITY,?,?>,
 							FEEDBACK extends JeeslJobFeedback<?,?,USER>,
 							STATUS extends UtilsStatus<STATUS,?,?>,

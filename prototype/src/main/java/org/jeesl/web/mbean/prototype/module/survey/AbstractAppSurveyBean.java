@@ -67,7 +67,7 @@ public abstract class AbstractAppSurveyBean <L extends UtilsLang, D extends Util
 						OPTION extends JeeslSurveyOption<L,D>,
 						CORRELATION extends JeeslSurveyCorrelation<DATA>,
 						ATT extends UtilsStatus<ATT,L,D>,
-						TOOLCACHETEMPLATE extends JeeslJobTemplate<L,D,?,?,?>>
+						TOOLCACHETEMPLATE extends JeeslJobTemplate<L,D,?,?,?,?>>
 					implements Serializable,
 			JeeslSurveyBean<L,D,SURVEY,SS,SCHEME,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,CONDITION,VALIDATION,QE,SCORE,UNIT,ANSWER,MATRIX,DATA,OPTIONS,OPTION,CORRELATION,ATT>
 {

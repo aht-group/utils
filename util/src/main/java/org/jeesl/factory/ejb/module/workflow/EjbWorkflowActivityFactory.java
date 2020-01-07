@@ -2,16 +2,16 @@ package org.jeesl.factory.ejb.module.workflow;
 
 import java.util.Date;
 
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslApprovalActivity;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslApprovalWorkflow;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbWorkflowActivityFactory<WT extends JeeslWorkflowTransition<?,?,?,?,?,?>,
-										AW extends JeeslApprovalWorkflow<?,?,AY>,
-										AY extends JeeslApprovalActivity<WT,AW,?,USER>,
+										AW extends JeeslWorkflow<?,?,AY>,
+										AY extends JeeslWorkflowActivity<WT,AW,?,USER>,
 										USER extends JeeslUser<?>
 
 >
@@ -32,6 +32,10 @@ public class EjbWorkflowActivityFactory<WT extends JeeslWorkflowTransition<?,?,?
 	
 	public AY build(AW workflow, WT transition, USER user, Date date)
 	{
+		return build(workflow,transition,user,new Date(),null);
+	}
+	public AY build(AW workflow, WT transition, USER user, Date date, String remark)
+	{
 		AY ejb = null;
 		try
 		{
@@ -40,6 +44,7 @@ public class EjbWorkflowActivityFactory<WT extends JeeslWorkflowTransition<?,?,?
 			ejb.setTransition(transition);
 			ejb.setRecord(date);
 			ejb.setUser(user);
+			ejb.setRemark(remark);
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();}

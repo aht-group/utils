@@ -89,12 +89,12 @@ public class Json3TuplesFactory <A extends EjbWithId, B extends EjbWithId, C ext
 		return json;
 	}
 	
-	public Json3Tuples<A,B,C> build3CountInterger(List<Tuple> tuples)
+	public Json3Tuples<A,B,C> build3CountInterger4(List<Tuple> tuples)
 	{
 		Json3Tuples<A,B,C> json = new Json3Tuples<A,B,C>();
 		for(Tuple t : tuples)
         {
-        	json.getTuples().add(jtf.buildCountInteger(t));
+        	json.getTuples().add(jtf.buildCountInteger4(t));
         }
 		ejbLoad(json);
 		return json;

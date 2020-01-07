@@ -52,10 +52,11 @@ public class JeeslMsgBuilder
 	public static final String financePeriod = "jeesl/msg/finance/period.xml";
 	
 	//Modules
+	public static final String mAsset = "jeesl/msg/module/asset.xml";
+	public static final String mBb = "jeesl/msg/module/bb.xml";
 	public static final String mWorkflow = "jeesl/msg/module/workflow.xml";
 	public static final String mTimeseries = "jeesl/msg/module/timeseries.xml";
 	public static final String mSurvey = "jeesl/msg/module/survey.xml";
-	public static final String mBb = "jeesl/msg/module/bb.xml";
 	public static final String mMap = "jeesl/msg/module/map.xml";
 	public static final String mMonitoring = "jeesl/msg/module/monitoring.xml";
 	public static final String mCalendar = "jeesl/msg/module/calendar.xml";

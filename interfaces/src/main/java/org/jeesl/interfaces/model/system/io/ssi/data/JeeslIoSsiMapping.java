@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.system.io.ssi;
+package org.jeesl.interfaces.model.system.io.ssi.data;
 
 import java.io.Serializable;
 

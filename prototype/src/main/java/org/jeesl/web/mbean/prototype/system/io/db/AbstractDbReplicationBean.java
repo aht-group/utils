@@ -11,7 +11,7 @@ import org.jeesl.factory.ejb.util.EjbCodeFactory;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbReplicationColumn;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbReplicationState;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbReplicationSync;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
 import org.jeesl.model.json.system.io.db.JsonPostgresReplication;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.metachart.xml.chart.Chart;

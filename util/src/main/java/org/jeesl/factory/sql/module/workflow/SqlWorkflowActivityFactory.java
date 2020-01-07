@@ -1,6 +1,6 @@
 package org.jeesl.factory.sql.module.workflow;
 
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslApprovalActivity;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
 import org.jeesl.util.ReflectionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +11,7 @@ public class SqlWorkflowActivityFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(SqlWorkflowActivityFactory.class);
 	
-	public static <WY extends JeeslApprovalActivity<?,?,?,?>> String delete(Class<WY> c, WY wy)
+	public static <WY extends JeeslWorkflowActivity<?,?,?,?>> String delete(Class<WY> c, WY wy)
 	{
 		StringBuffer sb = new StringBuffer();
 		sb.append("DELETE FROM ");

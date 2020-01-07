@@ -101,8 +101,6 @@ public abstract class AbstractAdminRevisionBean <L extends UtilsLang, D extends 
 		efEntity = fbRevision.ejbEntity();
 		efMappingEntity = fbRevision.ejbMappingEntity();
 		efAttribute = fbRevision.ejbAttribute();
-		
-		
 	}
 	
 	protected void initRevisionSuper(String[] langs, JeeslFacesMessageBean bMessage,

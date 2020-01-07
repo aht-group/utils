@@ -1,33 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <s:translations xmlns:s="http://ahtutils.aht-group.com/status">
-	<s:translation key="RevisionCategory">
-		<s:langs>
-			<s:lang key="de" translation="Revisionskategorie"/>
-			<s:lang key="en" translation="Revision Category"/>
-			<s:lang key="fr" translation="Revision Category"/>
-		</s:langs>
-	</s:translation>
-	<s:translation key="RevisionAttributeType">
-		<s:langs>
-			<s:lang key="de" translation="Revision Attributtyp"/>
-			<s:lang key="en" translation="Revision Attribute Type"/>
-			<s:lang key="fr" translation="Revision Attribute Type"/>
-		</s:langs>
-	</s:translation>
-	<s:translation key="RevisionScopeType">
-		<s:langs>
-			<s:lang key="de" translation="Revision Bereichstyp"/>
-			<s:lang key="en" translation="Revision Scope Type"/>
-			<s:lang key="fr" translation="Revision Scope Type"/>
-		</s:langs>
-	</s:translation>
-	<s:translation key="RevisionEntityRelation">
-		<s:langs>
-			<s:lang key="de" translation="Revision Beziehung"/>
-			<s:lang key="en" translation="Revision Relation"/>
-			<s:lang key="fr" translation="Revision Relation"/>
-		</s:langs>
-	</s:translation>
 	<s:translation key="IoGraphicType">
 		<s:langs>
 			<s:lang key="de" translation="Graphik Typ"/>
@@ -334,90 +306,14 @@
 		</s:langs>
 	</s:translation>
 	
-	<s:translation key="TsCategory">
-		<s:langs>
-		 	<s:lang key="en" translation="Category"/>
-	        <s:lang key="fr" translation="Category"/>
-    		</s:langs>
-	</s:translation>
-	<s:translation key="TsInterval">
-		<s:langs>
-		 	<s:lang key="en" translation="Observation Interval"/>
-	        <s:lang key="fr" translation="Observation Interval"/>
-   	 	</s:langs>
-	</s:translation>
-	<s:translation key="TsScopeType">
-		<s:langs>
-		 	<s:lang key="en" translation="Scope Type"/>
-	        <s:lang key="fr" translation="Scope Type"/>
-   	 	</s:langs>
-	</s:translation>
-	<s:translation key="TsWorkspace">
-		<s:langs>
-		 	<s:lang key="en" translation="Workspace"/>
-	        <s:lang key="fr" translation="Workspace"/>
-    	</s:langs>
-	</s:translation>
-	<s:translation key="TsDimension">
-		<s:langs>
-			<s:lang key="de" translation="Dimension" />
-			<s:lang key="en" translation="Dimension" />
-			<s:lang key="fr" translation="Dimension" />
-    		</s:langs>
-	</s:translation>
-	<s:translation key="TsUnit">
-		<s:langs>
-			<s:lang key="de" translation="Einheit" />
-			<s:lang key="en" translation="Unit" />
-			<s:lang key="fr" translation="Unit" />
-		</s:langs>
-	</s:translation>
-	<s:translation key="TsInputMethod">
-		<s:langs>
-			<s:lang key="de" translation="Eingabe Methode" />
-			<s:lang key="en" translation="Input Method" />
-			<s:lang key="fr" translation="Input Method" />
-		</s:langs>
-	</s:translation>
-	<s:translation key="TsStatistic">
-		<s:langs>
-			<s:lang key="en" translation="Statistic" />
-			<s:lang key="fr" translation="Statistic" />
-    	</s:langs>
-	</s:translation>
-	<s:translation key="TsQaFlag">
-		<s:langs>
-			<s:lang key="en" translation="QA Flag" />
-			<s:lang key="fr" translation="QA Flag" />
-    	</s:langs>
-	</s:translation>
+
 	<s:translation key="TsEntityClass">
 		<s:langs>
 			<s:lang key="en" translation="Entity Class" />
 			<s:lang key="fr" translation="Entity Class" />
     		</s:langs>
 	</s:translation>
-	<s:translation key="TsDataSource">
-		<s:langs>
-			<s:lang key="de" translation="Datenursprung" />
-			<s:lang key="en" translation="Data Source" />
-			<s:lang key="fr" translation="Data Source" />
-		</s:langs>
-	</s:translation>
-	<s:translation key="TsInputMethod">
-		<s:langs>
-			<s:lang key="de" translation="Eingabemethode" />
-			<s:lang key="en" translation="Input Method" />
-			<s:lang key="fr" translation="Input Method" />
-		</s:langs>
-	</s:translation>
-	<s:translation key="TsDimension">
-		<s:langs>
-			<s:lang key="en" translation="Dimension" />
-			<s:lang key="en" translation="Dimension" />
-			<s:lang key="fr" translation="Dimension" />
-		</s:langs>
-	</s:translation>
+	
 	<s:translation key="ApprovalProcessCategory">
 		<s:langs>
 			<s:lang key="en" translation="Approval Process Category" />

@@ -115,6 +115,7 @@ public class AbstractAdminRevisionEntityBean <L extends UtilsLang, D extends Uti
 
 	private void reloadEntities()
 	{
+//		if(debugOnInfo) {logger.info("fRevision==null?"+(fRevision==null)+" sbhCategory==null?"+(sbhCategory==null)+" sbhCategory.getSelected()==null?"+(sbhCategory.getSelected()==null));}
 		entities = fRevision.findRevisionEntities(sbhCategory.getSelected(), true);
 		if(debugOnInfo){logger.info(AbstractLogMessage.reloaded(fbRevision.getClassEntity(),entities));}
 		Collections.sort(entities,comparatorEntity);

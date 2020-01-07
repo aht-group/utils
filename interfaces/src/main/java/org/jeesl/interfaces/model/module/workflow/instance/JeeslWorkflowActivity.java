@@ -14,8 +14,8 @@ import net.sf.ahtutils.interfaces.model.with.parent.EjbWithParentAttributeResolv
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 
-public interface JeeslApprovalActivity <AT extends JeeslWorkflowTransition<?,?,?,?,?,?>,
-										WF extends JeeslApprovalWorkflow<?,?,?>,
+public interface JeeslWorkflowActivity <AT extends JeeslWorkflowTransition<?,?,?,?,?,?>,
+										WF extends JeeslWorkflow<?,?,?>,
 										FRC extends JeeslFileContainer<?,?>,
 										USER extends JeeslUser<?>
 									>
