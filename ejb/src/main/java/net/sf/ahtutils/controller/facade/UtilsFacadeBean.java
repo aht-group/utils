@@ -64,6 +64,7 @@ import net.sf.ahtutils.interfaces.model.with.position.EjbWithPositionVisiblePare
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
+import net.sf.ahtutils.model.interfaces.with.EjbWithVisible;
 
 public class UtilsFacadeBean implements UtilsFacade 
 {
@@ -1272,5 +1273,20 @@ public class UtilsFacadeBean implements UtilsFacade
 		catch (NoResultException ex){return 0;}
 	}
 	
-	
+	//Visibility
+	@Override
+	public <T extends EjbWithVisible, P extends EjbWithId> List<T> allVisible(Class<T> cl)
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<T> cQ = cB.createQuery(cl);
+		Root<T> from = cQ.from(cl);
+		
+		CriteriaQuery<T> select = cQ.select(from);
+		
+		Path<Object> pathVisible = from.get("visible");		
+		select.where(cB.equal(pathVisible, true));
+		
+		return em.createQuery(select).getResultList();
+	}
+		
 }

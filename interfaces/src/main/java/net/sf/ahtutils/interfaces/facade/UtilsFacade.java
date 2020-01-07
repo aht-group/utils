@@ -46,6 +46,7 @@ import net.sf.ahtutils.interfaces.model.with.position.EjbWithPositionVisiblePare
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
+import net.sf.ahtutils.model.interfaces.with.EjbWithVisible;
 
 public interface UtilsFacade  extends UtilsIdFacade
 {
@@ -88,6 +89,9 @@ public interface UtilsFacade  extends UtilsIdFacade
 	<T extends EjbWithRecord> List<T> allOrderedRecord(Class<T> type, boolean ascending);
 	<T extends EjbWithRecord, AND extends EjbWithId, OR extends EjbWithId> List<T> allOrderedForParents(Class<T> queryClass, List<ParentPredicate<AND>> lpAnd, List<ParentPredicate<OR>> lpOr,boolean ascending);
 	<T extends EjbWithValidFrom> List<T> allOrderedValidFrom(Class<T> cl, boolean ascending);
+	
+	//Visibility
+	<T extends EjbWithVisible, P extends EjbWithId> List<T> allVisible(Class<T> cl);
 	
 	//Persist
 	<T extends Object> T persist(T o) throws UtilsConstraintViolationException;

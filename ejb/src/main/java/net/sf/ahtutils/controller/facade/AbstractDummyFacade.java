@@ -49,6 +49,7 @@ import net.sf.ahtutils.interfaces.model.with.position.EjbWithPositionVisiblePare
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
+import net.sf.ahtutils.model.interfaces.with.EjbWithVisible;
 
 public class AbstractDummyFacade implements UtilsFacade
 {
@@ -539,5 +540,7 @@ public class AbstractDummyFacade implements UtilsFacade
 	}
 
 	@Override public <C extends UtilsStatus<C,?,?>, W extends JeeslWithContext<C>> List<W> allForContext(Class<W> w, C category) {return null;}
+
+	@Override public <T extends EjbWithVisible, P extends EjbWithId> List<T> allVisible(Class<T> cl) {return null;}
 
 }

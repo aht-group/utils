@@ -52,6 +52,7 @@ import net.sf.ahtutils.interfaces.model.with.position.EjbWithPositionVisiblePare
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
+import net.sf.ahtutils.model.interfaces.with.EjbWithVisible;
 
 public class AbstractUtilsFacadeBean implements UtilsFacade
 {
@@ -174,7 +175,9 @@ public class AbstractUtilsFacadeBean implements UtilsFacade
 	
 	//Year
 	public <T extends EjbWithYear, P extends EjbWithId> T fByYear(Class<T> type, String p1Name, P p, int year) throws UtilsNotFoundException {return fUtils.fByYear(type, p1Name, p, year);}
-	
+
+	//Visibility
+	@Override public <T extends EjbWithVisible, P extends EjbWithId> List<T> allVisible(Class<T> cl) {return fUtils.allVisible(cl);}
 
 	//@Override public <L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L, D, C, R, V, U, A, USER>, R extends UtilsSecurityRole<L, D, C, R, V, U, A, USER>, V extends UtilsSecurityView<L, D, C, R, V, U, A, USER>, U extends UtilsSecurityUsecase<L, D, C, R, V, U, A, USER>, A extends UtilsSecurityAction<L, D, C, R, V, U, A, USER>, USER extends UtilsUser<L, D, C, R, V, U, A, USER>> List<USER> likeNameFirstLast(Class<USER> c, String query) {return fUtils.likeNameFirstLast(c,query);}
 }
