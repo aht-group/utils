@@ -149,18 +149,26 @@ public class XlsCellFactory <REPORT extends JeeslIoReport<?,?,?,WORKBOOK>,
 			if(value!=null)
 			{
 //				logger.info(dt+" "+value.toString()+" "+value.getClass().getSimpleName());
-				switch(dt)
+				try
 				{
-					case string: XlsCellFactory.build(xlsRow,columnNr,style,(String)value);	break;
-					case dble: 	XlsCellFactory.build(xlsRow,columnNr,style,(Double)value);	break;
-					case intgr:		Integer iValue;
-									if(value instanceof String){iValue = Integer.valueOf((String)value);}
-									else {iValue = (Integer)value;}
-									XlsCellFactory.build(xlsRow,columnNr,style,iValue);	break;
-					case lng: XlsCellFactory.build(xlsRow,columnNr,style,(Long)value);	break;
-					case dte: XlsCellFactory.build(xlsRow,columnNr,style,(XMLGregorianCalendar)value); break;
-					case bool: XlsCellFactory.build(xlsRow,columnNr,style,(Boolean)value); break;
-					default: XlsCellFactory.build(xlsRow,columnNr,style,(String)value);
+					switch(dt)
+					{
+						case string: XlsCellFactory.build(xlsRow,columnNr,style,(String)value);	break;
+						case dble: 	XlsCellFactory.build(xlsRow,columnNr,style,(Double)value);	break;
+						case intgr:		Integer iValue;
+										if(value instanceof String){iValue = Integer.valueOf((String)value);}
+										else {iValue = (Integer)value;}
+										XlsCellFactory.build(xlsRow,columnNr,style,iValue);	break;
+						case lng: XlsCellFactory.build(xlsRow,columnNr,style,(Long)value);	break;
+						case dte: XlsCellFactory.build(xlsRow,columnNr,style,(XMLGregorianCalendar)value); break;
+						case bool: XlsCellFactory.build(xlsRow,columnNr,style,(Boolean)value); break;
+						default: XlsCellFactory.build(xlsRow,columnNr,style,(String)value);
+					}
+				}
+				catch (ClassCastException e)
+				{
+					logger.error("Row: "+xlsRow+" Column:"+columnNr);
+					e.printStackTrace();
 				}
 			}
 			else {columnNr.add(1);}

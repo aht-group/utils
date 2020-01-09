@@ -38,6 +38,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Diagram }
+     * 
+     */
+    public Diagram createDiagram() {
+        return new Diagram();
+    }
+
+    /**
      * Create an instance of {@link Attribute }
      * 
      */
@@ -51,14 +59,6 @@ public class ObjectFactory {
      */
     public Relation createRelation() {
         return new Relation();
-    }
-
-    /**
-     * Create an instance of {@link Diagram }
-     * 
-     */
-    public Diagram createDiagram() {
-        return new Diagram();
     }
 
     /**

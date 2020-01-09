@@ -6,7 +6,6 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:p="http://primefaces.org/ui"
 >
-	
   	<p:inputTextarea value="#{value.content}" style="w100" autocomplete="off" rendered="#{value.type.code eq 'text'}"/>
 	<p:textEditor value="#{value.content}" height="300" style="margin-bottom:10px" rendered="#{value.type.code eq 'xhtml'}">
         <f:facet name="toolbar">
@@ -20,5 +19,4 @@
 			</span>
         </f:facet>
     </p:textEditor>
-	
 </ui:composition>

@@ -10,18 +10,23 @@ public class SsiCrendentials implements Serializable
 {
 	public static final long serialVersionUID=1;
 
-	@JsonProperty("url")
-	private String url;
-	public String getUrl() {return url;}
-	public void setUrl(String url) {this.url = url;}
-
-	@JsonProperty("url")
+	@JsonProperty("user")
 	private String user;
 	public String getUser() {return user;}
 	public void setUser(String user) {this.user = user;}
 
-	@JsonProperty("url")
+	@JsonProperty("pwd")
 	private String password;
 	public String getPassword() {return password;}
 	public void setPassword(String password) {this.password = password;}
+	
+	@JsonProperty("host")
+	private String host;
+	public String getHost() {return host;}
+	public void setHost(String host) {this.host = host;}
+
+	@JsonProperty("url")
+	private String url;
+	public String getUrl() {return url;}
+	public void setUrl(String url) {this.url = url;}
 }

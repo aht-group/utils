@@ -27,11 +27,11 @@ import org.jeesl.model.xml.text.Remark;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}category"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/revision}diagram"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}langs"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}descriptions"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/text}remark"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/revision}attribute" maxOccurs="unbounded"/&gt;
- *         &lt;element ref="{http://www.jeesl.org/revision}diagram"/&gt;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" /&gt;
  *       &lt;attribute name="code" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
@@ -49,11 +49,11 @@ import org.jeesl.model.xml.text.Remark;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "category",
+    "diagram",
     "langs",
     "descriptions",
     "remark",
-    "attribute",
-    "diagram"
+    "attribute"
 })
 @XmlRootElement(name = "entity")
 public class Entity
@@ -63,6 +63,8 @@ public class Entity
     private final static long serialVersionUID = 1L;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
     protected Category category;
+    @XmlElement(required = true)
+    protected Diagram diagram;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
     protected Langs langs;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
@@ -71,8 +73,6 @@ public class Entity
     protected Remark remark;
     @XmlElement(required = true)
     protected List<Attribute> attribute;
-    @XmlElement(required = true)
-    protected Diagram diagram;
     @XmlAttribute(name = "id")
     protected Long id;
     @XmlAttribute(name = "code")
@@ -112,6 +112,34 @@ public class Entity
 
     public boolean isSetCategory() {
         return (this.category!= null);
+    }
+
+    /**
+     * Gets the value of the diagram property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Diagram }
+     *     
+     */
+    public Diagram getDiagram() {
+        return diagram;
+    }
+
+    /**
+     * Sets the value of the diagram property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Diagram }
+     *     
+     */
+    public void setDiagram(Diagram value) {
+        this.diagram = value;
+    }
+
+    public boolean isSetDiagram() {
+        return (this.diagram!= null);
     }
 
     /**
@@ -233,34 +261,6 @@ public class Entity
 
     public void unsetAttribute() {
         this.attribute = null;
-    }
-
-    /**
-     * Gets the value of the diagram property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Diagram }
-     *     
-     */
-    public Diagram getDiagram() {
-        return diagram;
-    }
-
-    /**
-     * Sets the value of the diagram property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Diagram }
-     *     
-     */
-    public void setDiagram(Diagram value) {
-        this.diagram = value;
-    }
-
-    public boolean isSetDiagram() {
-        return (this.diagram!= null);
     }
 
     /**

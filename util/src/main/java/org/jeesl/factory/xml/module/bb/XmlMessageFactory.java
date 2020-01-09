@@ -9,4 +9,5 @@ public class XmlMessageFactory
 	final static Logger logger = LoggerFactory.getLogger(XmlMessageFactory.class);
 	
 	public static Message build() {return new Message();}
+	public static Message build(String subject) {Message xml = build(); xml.setSubject(subject); return xml;}
 }

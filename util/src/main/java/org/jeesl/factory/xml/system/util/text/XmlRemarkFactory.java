@@ -1,7 +1,9 @@
 package org.jeesl.factory.xml.system.util.text;
 
+import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.jeesl.model.xml.text.Remark;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,4 +43,6 @@ public class XmlRemarkFactory<L extends UtilsLang>
 		xml.setValue(value);
 		return xml;
 	}
+	
+	public static Remark build(List<String> values, String join) {return build(null,null,StringUtils.join(values,join));}
 }
