@@ -14,8 +14,8 @@
             <xsd:sequence>
                 <xsd:element ref="text:description" maxOccurs="1"/>
 			</xsd:sequence>
-				<xsd:attribute name="id" type="xsd:long"/>
-				<xsd:attribute name="code" type="xsd:string"/>
+			<xsd:attribute name="id" type="xsd:long"/>
+			<xsd:attribute name="code" type="xsd:string"/>
 		</xsd:complexType>    
     </xsd:element>
 	

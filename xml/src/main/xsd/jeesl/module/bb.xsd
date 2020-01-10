@@ -2,10 +2,12 @@
 <xsd:schema targetNamespace="http://www.jeesl.org/bb"
 	xmlns:bb="http://www.jeesl.org/bb"
 	xmlns:js="http://ahtutils.aht-group.com/status"
+	xmlns:jt="http://www.jeesl.org/text"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<xsd:import namespace="http://ahtutils.aht-group.com/status"   schemaLocation="../../jeesl/status.xsd"/>
-		<xsd:element name="messages">
-			<xsd:complexType>
+	<xsd:import namespace="http://www.jeesl.org/text"   schemaLocation="../../jeesl/text.xsd"/>
+	<xsd:element name="messages">
+		<xsd:complexType>
             <xsd:sequence>
             	<xsd:element ref="js:type" maxOccurs="1"/>
             	<xsd:element ref="bb:messages" maxOccurs="unbounded"/>
@@ -17,6 +19,7 @@
 		<xsd:complexType>
 			<xsd:sequence>
 	          <xsd:element ref="js:type" maxOccurs="1"/>
+	          <xsd:element ref="jt:markup" maxOccurs="1"/>
 			</xsd:sequence>
 			<xsd:attribute name="date" type="xsd:dateTime"/>
 			<xsd:attribute name="subject" type="xsd:string"/>

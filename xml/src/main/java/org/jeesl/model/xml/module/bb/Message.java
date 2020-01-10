@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 import net.sf.ahtutils.xml.status.Type;
+import org.jeesl.model.xml.text.Markup;
 
 
 /**
@@ -24,6 +25,7 @@ import net.sf.ahtutils.xml.status.Type;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}type"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/text}markup"/&gt;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="date" type="{http://www.w3.org/2001/XMLSchema}dateTime" /&gt;
  *       &lt;attribute name="subject" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
@@ -36,7 +38,8 @@ import net.sf.ahtutils.xml.status.Type;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "type"
+    "type",
+    "markup"
 })
 @XmlRootElement(name = "message")
 public class Message
@@ -46,6 +49,8 @@ public class Message
     private final static long serialVersionUID = 1L;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
     protected Type type;
+    @XmlElement(namespace = "http://www.jeesl.org/text", required = true)
+    protected Markup markup;
     @XmlAttribute(name = "date")
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar date;
@@ -78,6 +83,34 @@ public class Message
 
     public boolean isSetType() {
         return (this.type!= null);
+    }
+
+    /**
+     * Gets the value of the markup property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Markup }
+     *     
+     */
+    public Markup getMarkup() {
+        return markup;
+    }
+
+    /**
+     * Sets the value of the markup property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Markup }
+     *     
+     */
+    public void setMarkup(Markup value) {
+        this.markup = value;
+    }
+
+    public boolean isSetMarkup() {
+        return (this.markup!= null);
     }
 
     /**
