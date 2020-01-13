@@ -1,6 +1,6 @@
 package org.jeesl.interfaces.bean.th;
 
-public interface ThToggleFilter
+public interface ThMultiFilter
 {
 	
 }

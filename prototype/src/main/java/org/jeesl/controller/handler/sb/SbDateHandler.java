@@ -28,6 +28,9 @@ public class SbDateHandler implements Serializable
 		enforceStartOfDay = true;
 	}
 	
+	public static SbDateHandler build() {return new SbDateHandler();}
+	public SbDateHandler enforceStartOfDay(boolean enforce) {this.setEnforceStartOfDay(enforce);return this;}
+	
 	public void initMonthsToNow(int months)
 	{
 		DateTime dt = new DateTime();
@@ -95,7 +98,12 @@ public class SbDateHandler implements Serializable
 	
 	public void dateChanged()
 	{
-		logger.info("changed");
+		StringBuffer sb = new StringBuffer();
+		sb.append("dateChanged: ");
+		if(date1!=null) {sb.append(date1.toString());}
+		sb.append(" -> ");
+		if(date1!=null) {sb.append(date2.toString());}
+		logger.info(sb.toString());
 		if(bean!=null){bean.callbackDateChanged();}
 	}
 	

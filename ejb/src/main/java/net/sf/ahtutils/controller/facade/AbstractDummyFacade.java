@@ -67,12 +67,9 @@ public class AbstractDummyFacade implements UtilsFacade
 		return null;
 	}
 
-	@Override
-	public <T extends EjbWithCode> T fByCode(Class<T> type, String code)
-			throws UtilsNotFoundException {
-		
-		return null;
-	}
+	@Override public <T extends EjbWithCode, E extends Enum<E>> T fByEnum(Class<T> type, E code) {return null;}
+	@Override public <T extends EjbWithCode, E extends Enum<E>> T fByCode(Class<T> type, E code) throws UtilsNotFoundException {return null;}
+	@Override public <T extends EjbWithCode> T fByCode(Class<T> type, String code) throws UtilsNotFoundException {return null;}
 
 	@Override
 	public <T extends EjbWithName> T fByName(Class<T> type, String name)
@@ -388,12 +385,6 @@ public class AbstractDummyFacade implements UtilsFacade
 			throws UtilsConstraintViolationException, UtilsLockingException {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public <T extends EjbWithCode, E extends Enum<E>> T fByCode(Class<T> type, E code) throws UtilsNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

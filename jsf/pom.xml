@@ -281,7 +281,6 @@
 									<directory>${project.basedir}/../doc/src/main/resources/jeesl/svg/icon/ui</directory>
 									<includes>
 										<include>control/*.*</include>
-										<include>control/toggle/*.*</include>
 										<include>system/io/cms/*.*</include>
 										<include>system/io/revision/*.*</include>
 										<include>module/survey/*.*</include>

@@ -250,7 +250,14 @@ public class UtilsFacadeBean implements UtilsFacade
 		TypedQuery<T> q = em.createQuery(cQ); 
 		return q.getResultList();
 	}
-	
+	@Override public <T extends EjbWithCode, E extends Enum<E>> T fByEnum(Class<T> type, E code)
+	{
+		try {return this.fByCode(type, code.toString());} catch (UtilsNotFoundException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
 	@Override public <T extends EjbWithCode, E extends Enum<E>> T fByCode(Class<T> type, E code) throws UtilsNotFoundException {return this.fByCode(type, code.toString());}
 	@Override public <T extends EjbWithCode> T fByCode(Class<T> type, String code) throws UtilsNotFoundException
 	{
@@ -1170,11 +1177,11 @@ public class UtilsFacadeBean implements UtilsFacade
 		CriteriaQuery<T> cQ = cB.createQuery(c);
 		Root<T> root = cQ.from(c);
 		
-		Expression<Date> dStart = root.get(EjbWithValidFrom.Attributes.validFrom.toString());
-		Expression<Date> dEnd   = root.get(EjbWithValidUntil.Attributes.validUntil.toString());
+		Expression<Date> eStart = root.get(EjbWithValidFrom.Attributes.validFrom.toString());
+		Expression<Date> eEnd   = root.get(EjbWithValidUntil.Attributes.validUntil.toString());
 		
-		Predicate pLower = cB.lessThanOrEqualTo(dStart, record);
-	    Predicate pUpper = cB.greaterThan(dEnd, record);
+		Predicate pLower = cB.lessThanOrEqualTo(eStart, record);
+	    Predicate pUpper = cB.greaterThan(eEnd, record);
 				    
 		CriteriaQuery<T> select = cQ.select(root);
 		select.where(cB.and(pLower,pUpper));

@@ -51,7 +51,7 @@ public class EjbJobFactory <L extends UtilsLang,D extends UtilsDescription,
 			ejb.setUser(user);
 			ejb.setTemplate(template);
 			ejb.setStatus(status);
-			ejb.setPriority(template.getPriority());
+			if(template!=null) {ejb.setPriority(template.getPriority());}
 			ejb.setRecordCreation(new Date());
 			ejb.setCode(code);
 			ejb.setName(name);

@@ -17,6 +17,9 @@ public interface JeeslStaff<R extends JeeslSecurityRole<?,?,?,?,?,?,USER>,
 {
 	public enum Attributes {role,user,domain};
 	
+	Integer getPosition();
+	void setPosition(Integer position);
+	
 	R getRole();
 	void setRole(R role);
 	

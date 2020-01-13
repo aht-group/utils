@@ -103,6 +103,7 @@ public class AbstractUtilsFacadeBean implements UtilsFacade
 	@Override public <T extends EjbWithId> long maxId(Class<T> c) {return fUtils.maxId(c);}
 	
 	//Code
+	@Override public <T extends EjbWithCode, E extends Enum<E>> T fByEnum(Class<T> c, E code) {return fUtils.fByEnum(c,code);}
 	@Override public <T extends EjbWithCode, E extends Enum<E>> T fByCode(Class<T> c, E code) throws UtilsNotFoundException {return fUtils.fByCode(c, code);}
 	@Override public <T extends EjbWithCode> T fByCode(Class<T> c, String code) throws UtilsNotFoundException {return fUtils.fByCode(c, code);}
 	@Override public <T extends EjbWithNrString> T fByNr(Class<T> c, String nr) throws UtilsNotFoundException {return fUtils.fByNr(c, nr);}

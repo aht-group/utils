@@ -49,6 +49,7 @@ public class AbstractAdminTrafficLightBean <L extends UtilsLang, D extends Utils
 	{
 		this.defaultLangs=defaultLangs;
 		this.fTl=fTl;
+		this.bLight=bLight;
 		
 		 reloadTrafficLightScopes();
 	}
@@ -58,7 +59,6 @@ public class AbstractAdminTrafficLightBean <L extends UtilsLang, D extends Utils
 		trafficLightScopes = fTl.all(fbLight.getClassScope());
 		logger.trace("Results: " + trafficLightScopes.size() +" scopes loaded.");
 	}
-		
 	
 	public void selectScope()
 	{

@@ -30,6 +30,8 @@ public class AbstractSettingsBean implements Serializable,JeeslSettingsBean
 	protected String rowsPerPageTemplate; @Override public String getRowsPerPageTemplate(){return rowsPerPageTemplate;}
 	
 	protected String filterStyle; public String getFilterStyle() {return filterStyle;}
+	protected String title; public String getTitle() {return title;}
+	protected String titlePrefix; public String getTitlePrefix() {return titlePrefix;}
 
 	public AbstractSettingsBean()
 	{

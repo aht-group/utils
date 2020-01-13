@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.jeesl.interfaces.bean.th.ThToggleBean;
-import org.jeesl.interfaces.bean.th.ThToggleFilter;
+import org.jeesl.interfaces.bean.th.ThMultiFilterBean;
+import org.jeesl.interfaces.bean.th.ThMultiFilter;
 import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,21 +22,19 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.exlp.util.io.StringUtil;
 
-public class ThMultiFilter <T extends EjbWithId> implements Serializable,ThToggleFilter
+public class ThMultiFilterHandler <T extends EjbWithId> implements Serializable,ThMultiFilter
 {
-	final static Logger logger = LoggerFactory.getLogger(ThMultiFilter.class);
+	final static Logger logger = LoggerFactory.getLogger(ThMultiFilterHandler.class);
 	private static final long serialVersionUID = 1L;
 
-	private final Class<T> cT;
-	private final ThToggleBean bean; 
+	private final ThMultiFilterBean bean; 
 	
 	private final List<T> list; public List<T> getList() {return list;} public void setList(List<T> list) {this.list.clear();this.list.addAll(list);}
 	private final List<T> selected; public List<T> getSelected() {return selected;}
 	private Map<T,Boolean> map; public Map<T,Boolean> getMap() {return map;}
 	
-	public ThMultiFilter(final Class<T> cT, ThToggleBean bean)
+	public ThMultiFilterHandler(ThMultiFilterBean bean)
 	{
-		this.cT=cT;
 		this.bean=bean;
 		list = new ArrayList<>();
 		map = new ConcurrentHashMap<T,Boolean>();
@@ -82,7 +80,7 @@ public class ThMultiFilter <T extends EjbWithId> implements Serializable,ThToggl
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <E extends Enum<E>> void preSelect(E... codes)
+	public <E extends Enum<E>> void preSelect(Class<T> cT, E... codes)
 	{
 		if(EjbWithCode.class.isAssignableFrom(cT))
 		{
@@ -118,7 +116,7 @@ public class ThMultiFilter <T extends EjbWithId> implements Serializable,ThToggl
 	
 	private void callbackToggledToBean()
 	{
-		try {if(bean!=null){bean.toggled(this,cT);}}
+		try {if(bean!=null){bean.filtered(this);}}
 		catch (UtilsLockingException e) {e.printStackTrace();}
 		catch (UtilsConstraintViolationException e) {e.printStackTrace();}
 	}

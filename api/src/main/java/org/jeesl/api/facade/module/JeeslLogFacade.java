@@ -15,15 +15,15 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface JeeslLogFacade <L extends UtilsLang, D extends UtilsDescription,
-									LOG extends JeeslLogBook<SCOPE,ITEM>,
+									BOOK extends JeeslLogBook<SCOPE,ITEM>,
 									SCOPE extends JeeslLogScope<L,D,SCOPE,?>,
-									ITEM extends JeeslLogItem<L,D,?,?,LOG,IMPACT,CONF,USER>,
+									ITEM extends JeeslLogItem<L,D,?,?,BOOK,IMPACT,CONF,USER>,
 									IMPACT extends JeeslLogImpact<L,D,IMPACT,?>,
 									CONF extends JeeslLogConfidentiality<L,D,CONF,?>,
 									USER extends EjbWithId
 									>
 			extends UtilsFacade
 {	
-	List<ITEM> fLogItems(List<LOG> logs);
-	List<ITEM> fLogItems(List<SCOPE> scopes, List<CONF> confidentialities, Date startDate, Date endDate);
+	List<ITEM> fLogItems(List<BOOK> books);
+	List<ITEM> fLogItems(List<BOOK> books, List<SCOPE> scopes, List<CONF> confidentialities, Date startDate, Date endDate);
 }

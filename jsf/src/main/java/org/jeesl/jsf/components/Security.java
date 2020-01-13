@@ -22,7 +22,7 @@ public class Security extends UIPanel
 	final static Logger logger = LoggerFactory.getLogger(Security.class);
 	private boolean debugOnInfo = false;
 	
-	private static enum Properties {action,handler,allow,workflow}
+	private static enum Properties {action,actionSuffix,handler,allow,workflow}
 	private static enum Facets {denied}
 	
 	@Override public boolean getRendersChildren(){return true;}
@@ -49,7 +49,11 @@ public class Security extends UIPanel
 			if(ve==null){throw new UtilsNotFoundException("");}
 			JeeslJsfSecurityHandler<?,?,?,?,?,?> handler = (JeeslJsfSecurityHandler<?,?,?,?,?,?>)ve.getValue(context.getELContext());
 			
-			String action = ComponentAttribute.get(Properties.action.toString(),context,this);
+			String action;
+			String actionSuffix = ComponentAttribute.get(Properties.actionSuffix,null,context,this);
+			if(actionSuffix!=null) {action = handler.getPageCode()+"."+actionSuffix; logger.info("SUFFIX:"+action);}
+			else {action = ComponentAttribute.get(Properties.action.toString(),context,this);}
+			
 			accessGranted = (handler.allow(action) && accessGrantedAttribute);
 			if(debugOnInfo) {logger.info(JeeslJsfSecurityHandler.class.getSimpleName()+" evaluated accessGranted:"+accessGranted);}
 		}

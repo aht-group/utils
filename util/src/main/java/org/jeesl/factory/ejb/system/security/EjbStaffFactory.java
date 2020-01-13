@@ -38,6 +38,7 @@ public class EjbStaffFactory <R extends JeeslSecurityRole<?,?,?,?,?,?,USER>,
 			ejb.setUser(user);
 			ejb.setRole(role);
 			ejb.setDomain(domain);
+			ejb.setPosition(0);
 		}
     	catch (InstantiationException e) {e.printStackTrace();}
     	catch (IllegalAccessException e) {e.printStackTrace();}
