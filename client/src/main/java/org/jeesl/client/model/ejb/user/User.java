@@ -43,8 +43,12 @@ public class User implements JeeslUser<SecurityRole>
     public void setEmail(String email) {this.email = email;}
 	
 	protected String pwd;
-    public String getPwd() {return pwd;}
-    public void setPwd(String pwd) {this.pwd = pwd;}
+	public String getPwd() {return pwd;}
+	public void setPwd(String pwd) {this.pwd = pwd;}
+    
+	private String salt;
+	@Override public String getSalt() {return salt;}
+	@Override public void setSalt(String salt) {this.salt = salt;}
 
 	protected String firstName;
     public String getFirstName() {return firstName;}

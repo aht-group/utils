@@ -2,8 +2,10 @@ package org.jeesl.factory.json.util;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.jeesl.model.json.util.Day;
 import org.joda.time.DateTime;
@@ -57,5 +59,12 @@ public class JsonDayFactory
 			days.add(build(dt1.plusDays(i)));
 		}
 		return days;
+	}
+	
+	public static Map<Integer,Day> toMap(List<Day> list)
+	{
+		Map<Integer,Day> map = new HashMap<>();
+		for(Day day : list) {map.put(day.getNr(),day);}
+		return map;
 	}
 }

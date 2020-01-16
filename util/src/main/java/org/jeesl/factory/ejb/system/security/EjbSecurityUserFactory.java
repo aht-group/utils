@@ -1,5 +1,6 @@
 package org.jeesl.factory.ejb.system.security;
 
+import org.jeesl.factory.txt.system.security.TxtUserFactory;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,11 +19,11 @@ public class EjbSecurityUserFactory <USER extends JeeslUser<?>>
 	public USER build()
 	{
 		USER ejb = null;
-    	
     	try
     	{
 			ejb = cUser.newInstance();
 			ejb.setPermitLogin(false);
+			ejb.setSalt(TxtUserFactory.buildSalt());
 		}
     	catch (InstantiationException e) {e.printStackTrace();}
     	catch (IllegalAccessException e) {e.printStackTrace();}

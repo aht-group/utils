@@ -101,6 +101,8 @@ public class BucketSizeCounter
 		}
 	}
 	
+	public List<String> toCodes(){return new ArrayList<>(map.keySet());}
+	
 	public void debugLoop(int modulo){debugLoop(modulo,null);}
 	public void debugLoop(int modulo, Integer max)
 	{

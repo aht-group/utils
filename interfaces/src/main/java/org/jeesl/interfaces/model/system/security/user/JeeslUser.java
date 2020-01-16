@@ -27,4 +27,7 @@ public interface JeeslUser <R extends JeeslSecurityRole<?,?,?,?,?,?,?>
 	
 	List<R> getRoles();
 	void setRoles(List<R> roles);
+	
+	String getSalt();
+	void setSalt(String salt);
 }

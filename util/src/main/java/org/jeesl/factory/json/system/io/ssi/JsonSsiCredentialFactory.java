@@ -4,6 +4,7 @@ import org.jeesl.model.json.system.io.ssi.SsiCrendentials;
 
 public class JsonSsiCredentialFactory
 {
+	public static SsiCrendentials build(String user, String pwd){return build(null,user,pwd);}
 	public static SsiCrendentials build(String host, String user, String pwd)
 	{
 		SsiCrendentials json = new SsiCrendentials();

@@ -13,6 +13,7 @@ import org.jeesl.factory.ejb.system.security.EjbSecurityViewFactory;
 import org.jeesl.factory.ejb.system.security.EjbStaffFactory;
 import org.jeesl.factory.json.system.security.JsonPageFactory;
 import org.jeesl.factory.json.system.security.JsonPagesFactory;
+import org.jeesl.factory.sql.system.security.SqlUserFactory;
 import org.jeesl.factory.txt.system.security.TxtStaffFactory;
 import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityHelp;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
@@ -117,4 +118,6 @@ public class SecurityFactoryBuilder<L extends UtilsLang, D extends UtilsDescript
 	{
 		return new JsonPagesFactory<L,D,C,R,V,U,A,AT,M,AR,USER>(this);
 	}
+	
+	public SqlUserFactory<USER> sqlUser() {return new SqlUserFactory<>();}
 }

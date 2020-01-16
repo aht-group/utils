@@ -11,6 +11,7 @@ import org.jeesl.api.facade.core.JeeslUserFacade;
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.factory.ejb.system.security.EjbSecurityUserFactory;
+import org.jeesl.factory.txt.system.security.TxtUserFactory;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
@@ -66,12 +67,14 @@ public abstract class AbstractAdminSecurityUserBean <L extends UtilsLang,
 	protected String pwd2;public String getPwd2() {return pwd2;}public void setPwd2(String pwd2){this.pwd2 = pwd2;}
 	
 	protected UtilsRevisionPageFlow<USER,USER> revision; public UtilsRevisionPageFlow<USER, USER> getRevision() {return revision;}
-	
+	private boolean useSaltedHash; public boolean isUseSaltedHash() {return useSaltedHash;} public void setUseSaltedHash(boolean useSaltedHash) {this.useSaltedHash = useSaltedHash;}
+
 	public AbstractAdminSecurityUserBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,?,?,USER> fbSecurity)
 	{
 		super(fbSecurity.getClassL(),fbSecurity.getClassD());
 		this.fbSecurity=fbSecurity;
 		efUser = fbSecurity.ejbUser();
+		useSaltedHash = false;
 	}
 	
 	public void initSuper(JeeslUserFacade<USER> fUtilsUser, JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fUtilsSecurity, JeeslFacesMessageBean bMessage)
@@ -175,7 +178,8 @@ public abstract class AbstractAdminSecurityUserBean <L extends UtilsLang,
 					bMessage.growlSuccess("fmPwdChanged");
 					
 					EjbWithPwd ejb = (EjbWithPwd)user;
-					ejb.setPwd(pwd1);
+					if(!useSaltedHash) {ejb.setPwd(pwd1);}
+					else {ejb.setPwd(TxtUserFactory.toHash(pwd1,user.getSalt()));}
 				}
 				else
 				{
