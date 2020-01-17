@@ -5,8 +5,8 @@ import java.util.List;
 import org.jeesl.exception.JeeslWorkflowException;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowAction;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowBot;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWithWorkflow;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraint;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
@@ -30,6 +30,7 @@ public interface JeeslWorkflowActionsHandler<WT extends JeeslWorkflowTransition<
 	void setDebugOnInfo(boolean debugOnInfo);
 	
 	void checkRemark(List<WCS> constraints, WT transition, String remark);
+	boolean checkVeto(JeeslWithWorkflow<?> entity, WT transition);
 	void checkPreconditions(List<WCS> constraints, JeeslWithWorkflow<?> entity, List<WA> actions);
 	<W extends JeeslWithWorkflow<AW>> void abort(JeeslWithWorkflow<AW> entity);
 	<W extends JeeslWithWorkflow<AW>> JeeslWithWorkflow<AW> perform(JeeslWithWorkflow<AW> entity, List<WA> actions) throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException, UtilsProcessingException, JeeslWorkflowException;

@@ -1,4 +1,4 @@
-package org.jeesl.jsf.util;
+package org.jeesl.controller.handler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

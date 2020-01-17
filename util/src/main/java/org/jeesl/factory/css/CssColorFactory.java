@@ -54,6 +54,7 @@ public class CssColorFactory
 		if(sb!=null && light!=null)
 		{
 			sb.append(" background: #").append(light.getColorBackground()).append(";");
+			sb.append(" color: #").append(light.getColorText()).append(";");
 		}
 	}
 }

@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
+import org.jeesl.controller.handler.NullNumberBinder;
 import org.jeesl.factory.ejb.system.status.EjbDescriptionFactory;
 import org.jeesl.factory.ejb.system.status.EjbLangFactory;
 import org.jeesl.interfaces.web.JeeslJsfSecurityHandler;
-import org.jeesl.jsf.util.NullNumberBinder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

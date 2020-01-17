@@ -67,13 +67,10 @@ public class TrafficLightProcessor
 	public static <L extends UtilsLang,D extends UtilsDescription, LIGHT extends JeeslTrafficLight<L,D,SCOPE>,SCOPE extends UtilsStatus<SCOPE,L,D>>
 		void appendStyle(StringBuilder sb, FacesContext context, Map<String,Object> map, double value, Double ref)
 	{
-		if(ref!=null && ref!=0)
+		if(ref!=null)
 		{
-//			logger.info(StringUtil.stars());
-//			logger.info("Normalizing: value"+value);
-//			logger.info("Normalizing: ref"+ref);
-			value = (value/ref)*100;
-//			logger.info("Normalizing: result"+value);
+			if(ref!=0) {value = (value/ref)*100;}
+			else if(value==0) {value=100;}
 		}
 		appendStyle(sb,context,map,value);
 	}

@@ -21,10 +21,10 @@ import org.jeesl.interfaces.controller.handler.module.workflow.JeeslWorkflowMess
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowAction;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowBot;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowCommunication;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWithWorkflow;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowLink;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslWithWorkflow;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowContext;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowModificationLevel;
@@ -91,7 +91,7 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 
 	final static Logger logger = LoggerFactory.getLogger(JeeslWorkflowEngine.class);
 	
-	private boolean debugOnInfo; public void setDebugOnInfo(boolean debugOnInfo){this.debugOnInfo=debugOnInfo;if(actionsHandler!=null) {actionsHandler.setDebugOnInfo(debugOnInfo);}}
+	private boolean debugOnInfo; public void setDebugOnInfo(boolean debugOnInfo){this.debugOnInfo=debugOnInfo;if(actionHandler!=null) {actionHandler.setDebugOnInfo(debugOnInfo);}}
 	private boolean allowTransitions; public boolean isAllowTransitions() {return allowTransitions;} public void setAllowTransitions(boolean allowTransitions) {this.allowTransitions = allowTransitions;}
 	
 	private final JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER> fWorkflow;
@@ -102,12 +102,13 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 	private JeeslJsfSecurityHandler<SR,?,?,?,?,USER> security;
 	private JeeslFileRepositoryHandler<?,FRC,?> frh; public JeeslFileRepositoryHandler<?, FRC, ?> getFrh() {return frh;}
 	private final JeeslWorkflowCommunicator<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,MD,SR,RE,RA,WF,WY,FRC,USER> communicator;
-	private final JeeslWorkflowActionsHandler<WT,WA,AB,AO,RE,RA,WF,WCS> actionsHandler;
+	private final JeeslWorkflowActionsHandler<WT,WA,AB,AO,RE,RA,WF,WCS> actionHandler;
 	
 	private final Comparator<WY> cpActivity;
 	
 	private final Map<JeeslWithWorkflow<WF>,WF> mapWorkflow; public Map<JeeslWithWorkflow<WF>,WF> getMapWorkflow() {return mapWorkflow;}
 	private final Map<WY,byte[]> mapSignature; public Map<WY, byte[]> getMapSignature() {return mapSignature;}
+	private final Map<WT,Boolean> mapVeto; public Map<WT,Boolean> getMapVeto() {return mapVeto;}
 	
 	private final List<WY> activities; public List<WY> getActivities() {return activities;}
 	private final List<WT> transitions; public List<WT> getTransitions() {return transitions;}
@@ -152,6 +153,7 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 		
 		mapWorkflow = new HashMap<>();
 		mapSignature = new HashMap<>();
+		mapVeto = new HashMap<>();
 		
 		transitions = new ArrayList<>();
 		activities = new ArrayList<>();
@@ -163,7 +165,7 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 		communicator = new JeeslWorkflowCommunicator<>(recipientResolver);
 		communicator.setDebugOnInfo(debugOnInfo);
 		
-		this.actionsHandler=actionHandler;
+		this.actionHandler=actionHandler;
 		actionHandler.setDebugOnInfo(debugOnInfo);
 	}
 	
@@ -286,6 +288,7 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 		{
 			List<WT> availableTransitions = fWorkflow.allForParent(fbWorkflow.getClassTransition(), workflow.getCurrentStage());
 			if(debugOnInfo) {logger.info("Checking "+availableTransitions.size()+" "+fbWorkflow.getClassTransition().getSimpleName());}
+			mapVeto.clear();
 			for(WT t : availableTransitions)
 			{
 				StringBuilder sb = null;
@@ -304,6 +307,9 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 						if(hasSpecialRole) {transitions.add(t);}
 					}
 				}
+				boolean veto = actionHandler.checkVeto(entity,t);
+				mapVeto.put(t,veto);
+				if(debugOnInfo) {sb.append(" veto:").append(veto);}
 				if(debugOnInfo) {logger.info(sb.toString());}
 			}
 		}
@@ -337,7 +343,7 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 	public void prepareTransition(WT t, boolean autoPerform) throws UtilsConstraintViolationException, UtilsLockingException, UtilsProcessingException, JeeslWorkflowException, UtilsNotFoundException
 	{
 		transition = fWorkflow.find(fbWorkflow.getClassTransition(),t);
-		if(debugOnInfo) {logger.info("prepareTransition for "+transition.toString());}
+		if(debugOnInfo) {logger.info("Prepare Transition for "+transition.toString()+" using "+actionHandler.getClass().getName());}
 		
 		remark="";
 		screenSignature=null;
@@ -346,9 +352,18 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 		communications.clear();communications.addAll(fWorkflow.allForParent(fbWorkflow.getClassCommunication(),transition));
 		
 		constraints.clear();
-		actionsHandler.checkPreconditions(constraints,entity,actions);
+		actionHandler.checkPreconditions(constraints,entity,actions);
 		
-		if(debugOnInfo) {logger.info("Prepared "+fbWorkflow.getClassTransition().getSimpleName()+" to "+transition.toString()+": "+JeeslWorkflowCommunication.class.getSimpleName()+":"+communications.size()+" "+JeeslWorkflowAction.class.getSimpleName()+":"+actions.size());}
+		if(debugOnInfo)
+		{
+			StringBuilder sb = new StringBuilder();
+			sb.append("Prepared "+fbWorkflow.getClassTransition().getSimpleName());
+			sb.append(" with t=").append(transition.getId());
+			sb.append(" to "+transition.getDestination().getCode());
+			sb.append(" communications:").append(communications.size());
+			sb.append(" actions:").append(actions.size());
+			logger.info(sb.toString());
+		}
 		if(autoPerform && constraints.isEmpty()) {performTransition();}
 	}
 	
@@ -357,8 +372,8 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 		if(debugOnInfo) {logger.info("Perform "+fbWorkflow.getClassTransition().getSimpleName()+" to "+transition.getDestination().getCode());}
 		
 		constraints.clear();
-		actionsHandler.checkPreconditions(constraints,entity,actions);
-		actionsHandler.checkRemark(constraints,transition,remark);
+		actionHandler.checkPreconditions(constraints,entity,actions);
+		actionHandler.checkRemark(constraints,transition,remark);
 		
 		if(!constraints.isEmpty())
 		{
@@ -369,7 +384,7 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 		
 		try
 		{
-			actionsHandler.perform(entity,actions);
+			actionHandler.perform(entity,actions);
 			
 			workflow.setCurrentStage(transition.getDestination());
 			workflow = fWorkflow.save(workflow);
@@ -394,7 +409,7 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 		catch (JeeslWorkflowException e)
 		{
 			logger.warn(e.getMessage());
-			actionsHandler.abort(entity);
+			actionHandler.abort(entity);
 		}
 	}
 }

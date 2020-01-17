@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang.mutable.MutableBoolean;
 import org.jeesl.api.bean.msg.JeeslConstraintsBean;
 import org.jeesl.exception.JeeslWorkflowException;
 import org.jeesl.interfaces.controller.handler.module.workflow.JeeslWorkflowActionCallback;
@@ -47,11 +48,11 @@ public abstract class AbstractWorkflowActionHandler <WT extends JeeslWorkflowTra
 	protected final JeeslConstraintsBean<WC> bConstraint;
 	private final JeeslWorkflowActionCallback<WA> callback;
 
-	private final List<JeeslWorkflowActionHandler<WA,AB,AO,RE,RA,AW,WC>> actionHandlers;
+	private final List<JeeslWorkflowActionHandler<WT,WA,AB,AO,RE,RA,AW,WC>> actionHandlers;
 
 	public AbstractWorkflowActionHandler(JeeslConstraintsBean<WC> bConstraint,
 									JeeslWorkflowActionCallback<WA> callback,
-									JeeslWorkflowActionHandler<WA,AB,AO,RE,RA,AW,WC> actionHandler)
+									JeeslWorkflowActionHandler<WT,WA,AB,AO,RE,RA,AW,WC> actionHandler)
 	{
 		this.bConstraint=bConstraint;
 		this.callback=callback;
@@ -91,7 +92,7 @@ public abstract class AbstractWorkflowActionHandler <WT extends JeeslWorkflowTra
 		if(action.getBot().getCode().contentEquals("statusUpdate"))
 		{
 			statusUpdate(entity,action);
-			for(JeeslWorkflowActionHandler<WA,AB,AO,RE,RA,AW,WC> ah : actionHandlers)
+			for(JeeslWorkflowActionHandler<WT,WA,AB,AO,RE,RA,AW,WC> ah : actionHandlers)
 			{
 				entity = ah.statusUpdated(entity);
 			}
@@ -99,7 +100,7 @@ public abstract class AbstractWorkflowActionHandler <WT extends JeeslWorkflowTra
 		}
 		else if(action.getBot().getCode().contentEquals("callbackCommand"))
 		{
-			for(JeeslWorkflowActionHandler<WA,AB,AO,RE,RA,AW,WC> ah : actionHandlers)
+			for(JeeslWorkflowActionHandler<WT,WA,AB,AO,RE,RA,AW,WC> ah : actionHandlers)
 			{
 				entity = ah.perform(entity,action);
 			}
@@ -147,9 +148,19 @@ public abstract class AbstractWorkflowActionHandler <WT extends JeeslWorkflowTra
 		}
 	}
 
+	@Override public boolean checkVeto(JeeslWithWorkflow<?> entity, WT transition)
+	{
+		boolean veto = false;
+		for(JeeslWorkflowActionHandler<WT,WA,AB,AO,RE,RA,AW,WC> ah : actionHandlers)
+		{
+			if(ah.checkVeto(entity,transition)) {veto=true;}
+		}
+		return veto;
+	}
+	
 	@Override public void checkPreconditions(List<WC> constraints, JeeslWithWorkflow<?> entity, List<WA> actions)
 	{
-		for(JeeslWorkflowActionHandler<WA,AB,AO,RE,RA,AW,WC> ah : actionHandlers)
+		for(JeeslWorkflowActionHandler<WT,WA,AB,AO,RE,RA,AW,WC> ah : actionHandlers)
 		{
 			for(WA action : actions)
 			{
