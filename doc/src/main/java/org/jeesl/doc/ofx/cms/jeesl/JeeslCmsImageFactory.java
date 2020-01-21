@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.apache.xmlbeans.impl.common.IOUtil;
 import org.jeesl.doc.ofx.cms.generic.JeeslMarkupFactory;
-import org.jeesl.interfaces.controller.handler.JeeslFileRepositoryHandler;
+import org.jeesl.interfaces.controller.handler.system.io.JeeslFileRepositoryHandler;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsContent;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsElement;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;

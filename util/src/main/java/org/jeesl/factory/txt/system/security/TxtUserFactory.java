@@ -3,8 +3,11 @@ package org.jeesl.factory.txt.system.security;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang.StringUtils;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +28,16 @@ public class TxtUserFactory <USER extends JeeslUser<?>>
     	sb.append(" ");
     	sb.append(user.getLastName());
     	return sb.toString();
+    }
+    
+    public String names(List<USER> users)
+    {
+    	List<String> list = new ArrayList<>();
+		for(USER u : users)
+		{
+			list.add(u.getFirstName()+" "+u.getLastName());
+		}
+		return StringUtils.join(list,", "); 
     }
     
     

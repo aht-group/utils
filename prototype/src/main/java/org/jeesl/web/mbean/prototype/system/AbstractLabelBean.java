@@ -9,7 +9,7 @@ import org.apache.commons.collections.keyvalue.MultiKey;
 import org.jeesl.api.bean.JeeslLabelBean;
 import org.jeesl.api.bean.JeeslLabelResolver;
 import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
-import org.jeesl.controller.handler.TranslationHandler;
+import org.jeesl.controller.handler.system.TranslationHandler;
 import org.jeesl.controller.processor.FacadeLabelResolver;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;

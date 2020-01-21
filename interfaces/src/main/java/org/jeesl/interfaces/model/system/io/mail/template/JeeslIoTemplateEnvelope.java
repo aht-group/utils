@@ -9,10 +9,10 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public class JeeslIoTemplateEnvelope<L extends UtilsLang,D extends UtilsDescription,
 								CATEGORY extends UtilsStatus<CATEGORY,L,D>,
-								TYPE extends UtilsStatus<TYPE,L,D>,
+								CHANNEL extends JeeslTemplateChannel<L,D,CHANNEL,?>,
 								TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>,
 								SCOPE extends UtilsStatus<SCOPE,L,D>,
-								DEFINITION extends JeeslIoTemplateDefinition<D,TYPE,TEMPLATE>,
+								DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 								TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,?>
 								>
 			implements Serializable
@@ -27,9 +27,9 @@ public class JeeslIoTemplateEnvelope<L extends UtilsLang,D extends UtilsDescript
 	public TEMPLATE getTemplate() {return template;}
 	public void setTemplate(TEMPLATE template) {this.template = template;}
 	
-	private TYPE type;
-	public TYPE getType() {return type;}
-	public void setType(TYPE type) {this.type = type;}
+	private CHANNEL type;
+	public CHANNEL getType() {return type;}
+	public void setType(CHANNEL type) {this.type = type;}
 	
 	private Map<String,Object> model;
 	public Map<String,Object> getModel() {return model;}

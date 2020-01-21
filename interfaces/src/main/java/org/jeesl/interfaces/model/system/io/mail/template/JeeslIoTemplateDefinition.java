@@ -7,13 +7,12 @@ import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.crud.EjbPersistable;
 import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import net.sf.ahtutils.model.interfaces.with.EjbWithDescription;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface JeeslIoTemplateDefinition<D extends UtilsDescription,
-								TYPE extends UtilsStatus<TYPE,?,D>,
+								CHANNEL extends JeeslTemplateChannel<?,D,CHANNEL,?>,
 								TEMPLATE extends JeeslIoTemplate<?,D,?,?,?,?>
 								>
 		extends Serializable,EjbPersistable,
@@ -23,8 +22,8 @@ public interface JeeslIoTemplateDefinition<D extends UtilsDescription,
 	TEMPLATE getTemplate();
 	void setTemplate(TEMPLATE template);
 	
-	TYPE getType();
-	void setType(TYPE type);
+	CHANNEL getType();
+	void setType(CHANNEL type);
 	
 	public Map<String,D> getHeader();
 	public void setHeader(Map<String,D> header);

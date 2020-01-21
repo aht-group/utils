@@ -13,7 +13,7 @@ import net.sf.ahtutils.exception.processing.UtilsMailException;
 
 import org.apache.commons.lang.SystemUtils;
 import org.jdom2.Document;
-import org.jeesl.mail.freemarker.FreemarkerEngine;
+import org.jeesl.controller.mail.freemarker.FreemarkerEngine;
 import org.jeesl.mail.msg.AbstractMimeContentCreator;
 import org.jeesl.model.xml.system.io.mail.Attachment;
 import org.jeesl.model.xml.system.io.mail.Image;

@@ -4,6 +4,7 @@ import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateDefinition;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateEnvelope;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateToken;
+import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,10 +14,10 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public class TxtIoTemplateFactory<L extends UtilsLang,D extends UtilsDescription,
 									CATEGORY extends UtilsStatus<CATEGORY,L,D>,
-									TYPE extends UtilsStatus<TYPE,L,D>,
+									CHANNEL extends JeeslTemplateChannel<L,D,CHANNEL,?>,
 									TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>,
 									SCOPE extends UtilsStatus<SCOPE,L,D>,
-									DEFINITION extends JeeslIoTemplateDefinition<D,TYPE,TEMPLATE>,
+									DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 									TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(TxtIoTemplateFactory.class);
@@ -30,7 +31,13 @@ public class TxtIoTemplateFactory<L extends UtilsLang,D extends UtilsDescription
 		return sb.toString();
 	}
 	
-	public static <L extends UtilsLang,D extends UtilsDescription, CATEGORY extends UtilsStatus<CATEGORY,L,D>, TYPE extends UtilsStatus<TYPE,L,D>, TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>, SCOPE extends UtilsStatus<SCOPE,L,D>,DEFINITION extends JeeslIoTemplateDefinition<D,TYPE,TEMPLATE>, TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,?>>
+	public static <L extends UtilsLang,D extends UtilsDescription,
+					CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+					CHANNEL extends JeeslTemplateChannel<L,D,CHANNEL,?>,
+					TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>,
+					SCOPE extends UtilsStatus<SCOPE,L,D>,
+					DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
+					TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,?>>
 		String buildCode(DEFINITION definition, String localeCode)
 	{
 		StringBuffer sb = new StringBuffer();
@@ -40,7 +47,7 @@ public class TxtIoTemplateFactory<L extends UtilsLang,D extends UtilsDescription
 		return sb.toString();
 	}
 	
-	public String buildCode(TEMPLATE template, TYPE type, String localeCode)
+	public String buildCode(TEMPLATE template, CHANNEL type, String localeCode)
 	{
 		StringBuffer sb = new StringBuffer();
 		sb.append(template.getCode());
@@ -75,8 +82,14 @@ public class TxtIoTemplateFactory<L extends UtilsLang,D extends UtilsDescription
 		return sb.toString();
 	}
 	
-	public static <L extends UtilsLang,D extends UtilsDescription, CATEGORY extends UtilsStatus<CATEGORY,L,D>, TYPE extends UtilsStatus<TYPE,L,D>, TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>, SCOPE extends UtilsStatus<SCOPE,L,D>,DEFINITION extends JeeslIoTemplateDefinition<D,TYPE,TEMPLATE>, TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,?>>
-		String buildCode(JeeslIoTemplateEnvelope<L,D,CATEGORY,TYPE,TEMPLATE,SCOPE,DEFINITION,TOKEN> envelope)
+	public static <L extends UtilsLang,D extends UtilsDescription,
+					CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+					CHANNEL extends JeeslTemplateChannel<L,D,CHANNEL,?>,
+					TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>,
+					SCOPE extends UtilsStatus<SCOPE,L,D>,
+					DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
+					TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,?>>
+	String buildCode(JeeslIoTemplateEnvelope<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN> envelope)
 	{
 		StringBuffer sb = new StringBuffer();
 		sb.append(envelope.getTemplate().getCode());

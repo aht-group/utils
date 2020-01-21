@@ -9,7 +9,7 @@
 	<c:set var="rows"  value="#{not empty rows ? rows : 3}" />
 
 	<p:inputTextarea rendered="#{rendered}"
-					rows="#{rows}" styleClass="w100" value="#{value}">
+					rows="#{rows}" styleClass="w100" value="#{value}" autoResize="true" autocomplete="off">
 		<c:set var="id" value="#{id}" />
 	</p:inputTextarea>
 </ui:composition>

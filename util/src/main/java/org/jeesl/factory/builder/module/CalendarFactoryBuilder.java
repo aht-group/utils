@@ -1,7 +1,7 @@
 package org.jeesl.factory.builder.module;
 
 import org.jeesl.api.facade.module.JeeslCalendarFacade;
-import org.jeesl.controller.handler.CalendarItemHandler;
+import org.jeesl.controller.handler.module.CalendarItemHandler;
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
 import org.jeesl.factory.ejb.module.calendar.EjbTimeZoneFactory;
 import org.jeesl.factory.txt.module.calendar.TxtCalendarItemFactory;

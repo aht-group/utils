@@ -20,7 +20,7 @@ import org.jeesl.interfaces.model.module.log.JeeslLogConfidentiality;
 import org.jeesl.interfaces.model.module.log.JeeslLogImpact;
 import org.jeesl.interfaces.model.module.log.JeeslLogItem;
 import org.jeesl.interfaces.model.module.log.JeeslLogScope;
-import org.jeesl.interfaces.model.util.date.EjbWithValidFrom;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -94,7 +94,8 @@ public class JeeslLogFacadeBean<L extends UtilsLang, D extends UtilsDescription,
 		}
 		
 		Expression<Date> eRecord = item.get(JeeslLogItem.Attributes.record.toString());
-		if(startDate!=null) {predicates.add(cB.greaterThan(eRecord,startDate));}
+		if(startDate!=null) {predicates.add(cB.greaterThan(eRecord,new DateTime(startDate).withTimeAtStartOfDay().toDate()));}
+		if(endDate!=null) {predicates.add(cB.lessThan(eRecord,new DateTime(endDate).withTimeAtStartOfDay().plusDays(1).toDate()));}
 		
 //		ListJoin<ITEM,CONF> jConfidentiality = item.joinList(JeeslLogItem.Attributes.issues.toString());
 //		predicates.add(jConfidentiality.in(confidentialities));

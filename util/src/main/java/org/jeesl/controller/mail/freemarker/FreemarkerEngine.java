@@ -1,4 +1,4 @@
-package org.jeesl.mail.freemarker;
+package org.jeesl.controller.mail.freemarker;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -82,7 +82,7 @@ public class FreemarkerEngine
 				sb.append(template.getFile());
 			
 			ftl = freemarkerConfiguration.getTemplate(sb.toString(),"UTF-8");
-			ftl.setEncoding("UTF-8");
+//			ftl.setEncoding("UTF-8");
 		}
 		catch (ExlpXpathNotFoundException e) {logger.error("Mail.code="+cfgMail.getCode()+" "+e.getMessage());}
 		catch (ExlpXpathNotUniqueException e) {logger.error("Mail.code="+cfgMail.getCode()+" "+e.getMessage());}

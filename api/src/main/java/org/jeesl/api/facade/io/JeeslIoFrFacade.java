@@ -1,6 +1,6 @@
 package org.jeesl.api.facade.io;
 
-import org.jeesl.interfaces.controller.handler.JeeslFileRepositoryStore;
+import org.jeesl.interfaces.controller.handler.system.io.JeeslFileRepositoryStore;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileMeta;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorage;

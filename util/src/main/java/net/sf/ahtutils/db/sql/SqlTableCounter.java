@@ -45,9 +45,9 @@ public class SqlTableCounter
 		readData(f1,dbmap1);
 		readData(f2, dbmap2);
 
-		Map<String, String> done = new HashMap<String, String>();
+		Map<String,String> done = new HashMap<String, String>();
 		
-		for(Map.Entry<String, String> me : dbmap1.entrySet())
+		for(Map.Entry<String,String> me : dbmap1.entrySet())
 		{
 			if(!dbmap2.containsKey(me.getKey()))
             {

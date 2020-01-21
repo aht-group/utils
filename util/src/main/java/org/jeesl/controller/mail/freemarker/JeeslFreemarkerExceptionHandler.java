@@ -1,4 +1,4 @@
-package org.jeesl.mail.freemarker;
+package org.jeesl.controller.mail.freemarker;
 
 import java.io.IOException;
 

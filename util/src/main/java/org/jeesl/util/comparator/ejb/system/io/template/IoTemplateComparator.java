@@ -6,6 +6,7 @@ import org.apache.commons.lang.builder.CompareToBuilder;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateDefinition;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateToken;
+import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,10 +16,10 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public class IoTemplateComparator<L extends UtilsLang,D extends UtilsDescription,
 								CATEGORY extends UtilsStatus<CATEGORY,L,D>,
-								TYPE extends UtilsStatus<TYPE,L,D>,
+								CHANNEL extends JeeslTemplateChannel<L,D,CHANNEL,?>,
 								TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>,
 								SCOPE extends UtilsStatus<SCOPE,L,D>,
-								DEFINITION extends JeeslIoTemplateDefinition<D,TYPE,TEMPLATE>,
+								DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 								TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(IoTemplateComparator.class);
@@ -33,7 +34,7 @@ public class IoTemplateComparator<L extends UtilsLang,D extends UtilsDescription
     public Comparator<TEMPLATE> factory(Type type)
     {
         Comparator<TEMPLATE> c = null;
-        IoTemplateComparator<L,D,CATEGORY,TYPE,TEMPLATE,SCOPE,DEFINITION,TOKEN> factory = new IoTemplateComparator<L,D,CATEGORY,TYPE,TEMPLATE,SCOPE,DEFINITION,TOKEN>();
+        IoTemplateComparator<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN> factory = new IoTemplateComparator<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN>();
         switch (type)
         {
             case position: c = factory.new PositionCodeComparator();break;

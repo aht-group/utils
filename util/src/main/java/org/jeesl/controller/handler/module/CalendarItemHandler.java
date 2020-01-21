@@ -1,4 +1,4 @@
-package org.jeesl.controller.handler;
+package org.jeesl.controller.handler.module;
 
 import java.io.Serializable;
 

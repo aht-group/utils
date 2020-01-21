@@ -1,4 +1,4 @@
-package org.jeesl.controller.handler;
+package org.jeesl.controller.handler.module.survey;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,8 +11,6 @@ import java.util.Set;
 import org.jeesl.api.bean.JeeslSurveyBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.survey.JeeslSurveyCoreFacade;
-import org.jeesl.controller.handler.module.survey.SurveyConditionalHandler;
-import org.jeesl.controller.handler.module.survey.SurveyValidationHandler;
 import org.jeesl.factory.builder.module.survey.SurveyCoreFactoryBuilder;
 import org.jeesl.factory.ejb.module.survey.EjbSurveyAnswerFactory;
 import org.jeesl.factory.ejb.module.survey.EjbSurveyDataFactory;

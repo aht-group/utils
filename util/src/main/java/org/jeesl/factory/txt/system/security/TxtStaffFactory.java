@@ -44,4 +44,11 @@ public class TxtStaffFactory <L extends UtilsLang, D extends UtilsDescription,
     	for(STAFF staff : staffs) {list.add(staff.getUser().getFirstName()+" "+staff.getUser().getLastName());}
     	return StringUtils.join(list, ", ");
     }
+    
+    public String namesLast(List<STAFF> staffs)
+    {
+    	List<String> list = new ArrayList<String>();
+    	for(STAFF staff : staffs) {list.add(staff.getUser().getLastName());}
+    	return StringUtils.join(list, ", ");
+    }
 }

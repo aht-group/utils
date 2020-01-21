@@ -15,6 +15,7 @@ import org.jeesl.factory.builder.io.IoTemplateFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateDefinition;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateToken;
+import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,21 +28,21 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public class JeeslIoTemplateFacadeBean<L extends UtilsLang,D extends UtilsDescription,
 						CATEGORY extends UtilsStatus<CATEGORY,L,D>,
-						TYPE extends UtilsStatus<TYPE,L,D>,
+						CHANNEL extends JeeslTemplateChannel<L,D,CHANNEL,?>,
 						TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>,
 						SCOPE extends UtilsStatus<SCOPE,L,D>,
-						DEFINITION extends JeeslIoTemplateDefinition<D,TYPE,TEMPLATE>,
+						DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 						TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,TOKENTYPE>,
 						TOKENTYPE extends UtilsStatus<TOKENTYPE,L,D>>
 					extends UtilsFacadeBean
-					implements JeeslIoTemplateFacade<L,D,CATEGORY,TYPE,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE>
+					implements JeeslIoTemplateFacade<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE>
 {	
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(JeeslIoTemplateFacadeBean.class);
 
-	private final IoTemplateFactoryBuilder<L,D,CATEGORY,TYPE,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fbTemplate;
+	private final IoTemplateFactoryBuilder<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fbTemplate;
 	
-	public JeeslIoTemplateFacadeBean(EntityManager em,IoTemplateFactoryBuilder<L,D,CATEGORY,TYPE,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fbTemplate)
+	public JeeslIoTemplateFacadeBean(EntityManager em,IoTemplateFactoryBuilder<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fbTemplate)
 	{
 		super(em);
 		this.fbTemplate=fbTemplate;
@@ -97,7 +98,7 @@ public class JeeslIoTemplateFacadeBean<L extends UtilsLang,D extends UtilsDescri
 		return tQ.getResultList();
 	}
 
-	@Override public DEFINITION fDefinition(TYPE type, String code) throws UtilsNotFoundException
+	@Override public DEFINITION fDefinition(CHANNEL type, String code) throws UtilsNotFoundException
 	{
 		TEMPLATE t = this.fByCode(fbTemplate.getClassTemplate(), code);
 		for(DEFINITION d : t.getDefinitions())

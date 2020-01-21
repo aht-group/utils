@@ -1,43 +1,41 @@
-package org.jeesl.factory.txt.system.io.mail.template;
+package org.jeesl.interfaces.controller.handler.system.io;
 
-import java.util.HashMap;
+import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
+import org.jeesl.interfaces.controller.JeeslMail;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateDefinition;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateToken;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
-public class TxtIoTemplateTokenFactory <L extends UtilsLang,D extends UtilsDescription,
+public interface JeeslTemplateHandler <L extends UtilsLang,D extends UtilsDescription,LOC extends JeeslLocale<L,D,LOC,?>,
 										CATEGORY extends UtilsStatus<CATEGORY,L,D>,
 										CHANNEL extends JeeslTemplateChannel<L,D,CHANNEL,?>,
 										TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>,
 										SCOPE extends UtilsStatus<SCOPE,L,D>,
 										DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 										TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,TOKENTYPE>,
-										TOKENTYPE extends UtilsStatus<TOKENTYPE,L,D>>
+										TOKENTYPE extends UtilsStatus<TOKENTYPE,L,D>> extends Serializable
 {
-	final static Logger logger = LoggerFactory.getLogger(TxtIoTemplateTokenFactory.class);
-		
-	public Map<String,Object> buildModel(TEMPLATE template)
-	{
-		return buildModel(template.getTokens());
-	}
 	
-	public Map<String,Object> buildModel(List<TOKEN> tokens)
-	{
-		Map<String,Object> model = new HashMap<String,Object>();
-		for(TOKEN token : tokens)
-		{
-			model.put(token.getCode(), token.getExample());
-		}
-		return model;
-	}
+	JeeslMail<TEMPLATE> getMail();
+	
+	String getRecipients();
+	void setRecipients(String recipients);
+	
+	List<LOC> getLocales();
+	List<DEFINITION> getDefinitons();
+	List<TOKEN> getTokens();
+	
+	String toHeader(DEFINITION definition, LOC locale);
+	String toBody(DEFINITION definition, LOC locale);
+	
+	String getPreviewHeader();
+	String getPreviewBody();
 }

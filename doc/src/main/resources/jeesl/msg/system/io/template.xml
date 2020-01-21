@@ -63,4 +63,12 @@
 			<lang key="fr" translation="Channel" />
 		</langs>
 	</translation>
+	
+	<translation key="jeeslTemplateRecipients">
+		<langs>
+			<lang key="de" translation="Empfänger" />
+			<lang key="en" translation="Recipients" />
+			<lang key="fr" translation="Recipients" />
+		</langs>
+	</translation>
 </translations>

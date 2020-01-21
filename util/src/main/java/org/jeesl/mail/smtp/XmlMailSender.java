@@ -10,7 +10,7 @@ import javax.mail.internet.MimeMessage;
 import org.jdom2.Content;
 import org.jdom2.Document;
 import org.jdom2.Element;
-import org.jeesl.mail.freemarker.FreemarkerEngine;
+import org.jeesl.controller.mail.freemarker.FreemarkerEngine;
 import org.jeesl.mail.msg.FreemarkerMimeContentCreator;
 import org.jeesl.mail.msg.MimeMessageCreator;
 import org.jeesl.mail.msg.XmlMimeContentCreator;

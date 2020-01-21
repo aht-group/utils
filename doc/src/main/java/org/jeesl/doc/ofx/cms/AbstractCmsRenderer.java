@@ -9,7 +9,7 @@ import org.jeesl.doc.ofx.cms.jeesl.JeeslCmsParagraphFactory;
 import org.jeesl.doc.ofx.cms.module.workflow.OfxSectionWorkflow;
 import org.jeesl.doc.ofx.cms.system.status.JeeslCmsStatusListFactory;
 import org.jeesl.doc.ofx.cms.system.status.JeeslCmsStatusTableFactory;
-import org.jeesl.interfaces.controller.handler.JeeslFileRepositoryHandler;
+import org.jeesl.interfaces.controller.handler.system.io.JeeslFileRepositoryHandler;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCms;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsContent;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsElement;

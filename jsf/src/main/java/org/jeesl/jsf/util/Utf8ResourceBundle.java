@@ -1,4 +1,4 @@
-package net.sf.ahtutils.msgbundle;
+package org.jeesl.jsf.util;
 
 import java.io.IOException;
 import java.io.InputStream;

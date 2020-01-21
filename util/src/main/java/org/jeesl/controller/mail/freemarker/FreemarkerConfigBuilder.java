@@ -1,4 +1,4 @@
-package org.jeesl.mail.freemarker;
+package org.jeesl.controller.mail.freemarker;
 
 import org.jeesl.factory.xml.system.io.mail.XmlMailFactory;
 import org.jeesl.model.xml.system.io.mail.Mail;

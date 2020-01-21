@@ -21,6 +21,7 @@ import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateDefinition;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateToken;
+import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
 import org.jeesl.interfaces.web.JeeslJsfSecurityHandler;
 import org.jeesl.util.comparator.ejb.system.io.template.IoTemplateComparator;
 import org.jeesl.util.comparator.ejb.system.io.template.IoTemplateDefinitionComparator;
@@ -45,10 +46,10 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public abstract class AbstractSettingsIoTemplateBean <L extends UtilsLang,D extends UtilsDescription,LOC extends UtilsStatus<LOC,L,D>,
 											CATEGORY extends UtilsStatus<CATEGORY,L,D>,
-											TYPE extends UtilsStatus<TYPE,L,D>,
+											CHANNEL extends JeeslTemplateChannel<L,D,CHANNEL,?>,
 											TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>,
 											SCOPE extends UtilsStatus<SCOPE,L,D>,
-											DEFINITION extends JeeslIoTemplateDefinition<D,TYPE,TEMPLATE>,
+											DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 											TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,TOKENTYPE>,
 											TOKENTYPE extends UtilsStatus<TOKENTYPE,L,D>>
 					extends AbstractAdminBean<L,D>
@@ -57,11 +58,11 @@ public abstract class AbstractSettingsIoTemplateBean <L extends UtilsLang,D exte
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractSettingsIoTemplateBean.class);
 	
-	protected JeeslIoTemplateFacade<L,D,CATEGORY,TYPE,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fTemplate;
-	private final IoTemplateFactoryBuilder<L,D,CATEGORY,TYPE,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fbTemplate;
+	protected JeeslIoTemplateFacade<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fTemplate;
+	private final IoTemplateFactoryBuilder<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fbTemplate;
 	
 	private List<CATEGORY> categories; public List<CATEGORY> getCategories() {return categories;}
-	private final List<TYPE> types; public List<TYPE> getTypes() {return types;}
+	private final List<CHANNEL> types; public List<CHANNEL> getTypes() {return types;}
 	private List<SCOPE> scopes;public List<SCOPE> getScopes() {return scopes;}
 	private List<TEMPLATE> templates; public List<TEMPLATE> getTemplates() {return templates;}
 	private List<DEFINITION> definitions; public List<DEFINITION> getDefinitions() {return definitions;}
@@ -72,9 +73,9 @@ public abstract class AbstractSettingsIoTemplateBean <L extends UtilsLang,D exte
 	private DEFINITION definition; public DEFINITION getDefinition() {return definition;} public void setDefinition(DEFINITION definition) {this.definition = definition;}
 	private TOKEN token; public TOKEN getToken() {return token;} public void setToken(TOKEN token) {this.token = token;}
 	
-	private EjbIoTemplateFactory<L,D,CATEGORY,TYPE,TEMPLATE,SCOPE,DEFINITION,TOKEN> efTemplate;
-	private EjbIoTemplateDefinitionFactory<L,D,CATEGORY,TYPE,TEMPLATE,SCOPE,DEFINITION,TOKEN> efDefinition;
-	private EjbIoTemplateTokenFactory<L,D,CATEGORY,TYPE,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> efToken;
+	private EjbIoTemplateFactory<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN> efTemplate;
+	private EjbIoTemplateDefinitionFactory<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN> efDefinition;
+	private EjbIoTemplateTokenFactory<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> efToken;
 	
 	protected final SbMultiHandler<CATEGORY> sbhCategory; public SbMultiHandler<CATEGORY> getSbhCategory() {return sbhCategory;}
 	
@@ -91,18 +92,18 @@ public abstract class AbstractSettingsIoTemplateBean <L extends UtilsLang,D exte
 	private String previewHeader; public String getPreviewHeader() {return previewHeader;}
 	private String previewBody; public String getPreviewBody() {return previewBody;}
 	
-	public AbstractSettingsIoTemplateBean(IoTemplateFactoryBuilder<L,D,CATEGORY,TYPE,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fbTemplate)
+	public AbstractSettingsIoTemplateBean(IoTemplateFactoryBuilder<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fbTemplate)
 	{
 		super(fbTemplate.getClassL(),fbTemplate.getClassD());
 		this.fbTemplate=fbTemplate;
-		types = new ArrayList<TYPE>();
+		types = new ArrayList<>();
 		tokenTypes = new ArrayList<TOKENTYPE>();
 		sbhCategory = new SbMultiHandler<CATEGORY>(fbTemplate.getClassCategory(),this);
 		editTemplate = false;
 		templateConfig = new Configuration(Configuration.getVersion());
 	}
 	
-	protected void postConstructTemplate(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslIoTemplateFacade<L,D,CATEGORY,TYPE,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fTemplate)
+	protected void postConstructTemplate(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslIoTemplateFacade<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fTemplate)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fTemplate=fTemplate;
@@ -111,9 +112,9 @@ public abstract class AbstractSettingsIoTemplateBean <L extends UtilsLang,D exte
 		efDefinition = fbTemplate.ejbDefinition();
 		efToken = fbTemplate.ejbTtoken();
 		
-		comparatorTemplate = new IoTemplateComparator<L,D,CATEGORY,TYPE,TEMPLATE,SCOPE,DEFINITION,TOKEN>().factory(IoTemplateComparator.Type.position);
-		comparatorToken = new IoTemplateTokenComparator<L,D,CATEGORY,TYPE,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE>().factory(IoTemplateTokenComparator.Type.position);
-		comparatorDefinition = new IoTemplateDefinitionComparator<L,D,CATEGORY,TYPE,TEMPLATE,SCOPE,DEFINITION,TOKEN>().factory(IoTemplateDefinitionComparator.Type.position);
+		comparatorTemplate = new IoTemplateComparator<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN>().factory(IoTemplateComparator.Type.position);
+		comparatorToken = new IoTemplateTokenComparator<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE>().factory(IoTemplateTokenComparator.Type.position);
+		comparatorDefinition = new IoTemplateDefinitionComparator<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN>().factory(IoTemplateDefinitionComparator.Type.position);
 		
 		types.addAll(fTemplate.allOrderedPositionVisible(fbTemplate.getClassType()));
 		tokenTypes.addAll(fTemplate.allOrderedPositionVisible(fbTemplate.getClassTokenType()));

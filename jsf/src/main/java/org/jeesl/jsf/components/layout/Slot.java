@@ -1,4 +1,4 @@
-package net.sf.ahtutils.jsf.components.layout;
+package org.jeesl.jsf.components.layout;
 
 import java.io.IOException;
 import java.util.Map;
@@ -15,7 +15,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@FacesComponent("net.sf.ahtutils.jsf.components.layout.Slot")
+@FacesComponent("org.jeesl.jsf.components.layout.Slot")
 public class Slot extends UIPanel
 {
 	final static Logger logger = LoggerFactory.getLogger(Slot.class);
@@ -38,11 +38,12 @@ public class Slot extends UIPanel
 		
 		StringBuffer sbStyleClass = new StringBuffer();
 		sbStyleClass.append("auGrid_");
-		if(map.containsKey(Properties.width.toString()))
-		{
-			sbStyleClass.append(map.get(Properties.width.toString()));
-		}
-		else {sbStyleClass.append(12);}
+		sbStyleClass.append(ComponentAttribute.get(Properties.width,"12",context,this));
+//		if(map.containsKey(Properties.width.toString()))
+//		{
+//			sbStyleClass.append(map.get(Properties.width.toString()));
+//		}
+//		else {sbStyleClass.append(12);}
 		if(map.containsKey(Properties.styleClass.toString()))
 		{
 			sbStyleClass.append(" ").append(map.get(Properties.styleClass.toString()));

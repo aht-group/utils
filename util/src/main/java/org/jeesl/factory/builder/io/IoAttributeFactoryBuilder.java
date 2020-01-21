@@ -3,7 +3,7 @@ package org.jeesl.factory.builder.io;
 import org.jeesl.api.bean.JeeslAttributeBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoAttributeFacade;
-import org.jeesl.controller.handler.AttributeHandler;
+import org.jeesl.controller.handler.system.io.AttributeHandler;
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.attribute.EjbAttributeContainerFactory;
 import org.jeesl.factory.ejb.system.io.attribute.EjbAttributeCriteriaFactory;

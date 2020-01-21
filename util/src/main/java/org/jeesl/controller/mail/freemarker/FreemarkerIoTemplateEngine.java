@@ -1,4 +1,4 @@
-package org.jeesl.mail.freemarker;
+package org.jeesl.controller.mail.freemarker;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -10,6 +10,7 @@ import org.jeesl.factory.builder.io.IoTemplateFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateDefinition;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateToken;
+import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
@@ -28,23 +29,23 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public class FreemarkerIoTemplateEngine<L extends UtilsLang,D extends UtilsDescription,
 										CATEGORY extends UtilsStatus<CATEGORY,L,D>,
-										TYPE extends UtilsStatus<TYPE,L,D>,
+										CHANNEL extends JeeslTemplateChannel<L,D,CHANNEL,?>,
 										TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>,
 										SCOPE extends UtilsStatus<SCOPE,L,D>,
-										DEFINITION extends JeeslIoTemplateDefinition<D,TYPE,TEMPLATE>,
+										DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 										TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,TOKENTYPE>,
 										TOKENTYPE extends UtilsStatus<TOKENTYPE,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(FreemarkerIoTemplateEngine.class);
 
-	private IoTemplateFactoryBuilder<L,D,CATEGORY,TYPE,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fbTemplate;
+	private IoTemplateFactoryBuilder<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fbTemplate;
 	
 	private StringTemplateLoader fmStringTemplates;
 	private Configuration fmConfiguration;
 	
 	protected final Map<String,TEMPLATE> mapTemplate;
 	
-	public FreemarkerIoTemplateEngine(IoTemplateFactoryBuilder<L,D,CATEGORY,TYPE,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fbTemplate)
+	public FreemarkerIoTemplateEngine(IoTemplateFactoryBuilder<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fbTemplate)
 	{
 		this.fbTemplate=fbTemplate;
 		fmConfiguration = new Configuration(Configuration.getVersion());
