@@ -51,6 +51,8 @@ public class AbstractTimeSeriesProcessor<SCOPE extends JeeslTsScope<?,?,?,?,?,EC
 	protected INT interval;
 	protected EC ec;
 	
+	protected boolean debugOnInfo; public boolean isDebugOnInfo() {return debugOnInfo;} public void setDebugOnInfo(boolean debugOnInfo) {this.debugOnInfo = debugOnInfo;}
+
 	public AbstractTimeSeriesProcessor(TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,POINT,?,?,WS,?> fbTs,
 									JeeslTsFacade<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,POINT,?,?,WS,?> fTs)
 	{
@@ -59,6 +61,7 @@ public class AbstractTimeSeriesProcessor<SCOPE extends JeeslTsScope<?,?,?,?,?,EC
 		mfTs = new McTimeSeriesFactory<SCOPE,MP,TS,BRIDGE,EC,INT,STAT,DATA,POINT,WS>(fbTs,fTs);
 		efData = fbTs.data();
 		efPoint = fbTs.ejbDataPoint();
+		debugOnInfo = false;
 	}
 	
 	public <EWS extends Enum<EWS>, ESC extends Enum<ESC>, EIN extends Enum<EIN>> void init(EWS ews, ESC esc, EIN ein, Class<?> c)

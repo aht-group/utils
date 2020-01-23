@@ -80,7 +80,7 @@ public class TsDbBackupSizeProcessor<SYSTEM extends JeeslIoSsiSystem,
 	{
 		try
 		{
-			TS ts = fcTs(system);
+			TS ts = super.fcTs(system);
 			Set<Date> set = efData.toSetDate(fTs.fData(ws,ts));
 			List<DATA> add = new ArrayList<>();
 			for(DUMP dump : dumps)

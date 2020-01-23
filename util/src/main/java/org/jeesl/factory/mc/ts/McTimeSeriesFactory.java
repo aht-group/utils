@@ -113,6 +113,10 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 	public <T extends EjbWithId> Ds singleData(String localeCode, T entity, Date from, Date to) throws UtilsNotFoundException
 	{
 		BRIDGE bridge = fTs.fBridge(entityClass,entity);
+		return singleData(localeCode,bridge,from,to);
+	}
+	public <T extends EjbWithId> Ds singleData(String localeCode, BRIDGE bridge, Date from, Date to) throws UtilsNotFoundException
+	{
 		TS ts = fTs.fTimeSeries(scope,interval,bridge);
 		List<DATA> datas = fTs.fData(workspace,ts,from,to);
 		

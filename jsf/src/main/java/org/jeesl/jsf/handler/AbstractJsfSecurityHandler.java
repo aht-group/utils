@@ -246,7 +246,7 @@ public abstract class AbstractJsfSecurityHandler <L extends UtilsLang, D extends
 		return allowDomain;
 	}
 	
-	protected void checkIcon(){noActions = actions.size() == 0;}
+	protected void checkIcon(){noActions = actions.size()==0;}
 	
 	@Override public <E extends Enum<E>> boolean allowSuffixCode(E actionCode)
 	{
@@ -286,7 +286,7 @@ public abstract class AbstractJsfSecurityHandler <L extends UtilsLang, D extends
 			boolean allowDomain = hasDomainRole(action,staffRoles);
 
 			boolean allow = allowSystem || allowDomain;
-			addActionWithSecurity(action, allow);
+			addActionWithSecurity(action,allow);
 		}
 		checkIcon();
 	}
