@@ -8,6 +8,8 @@ import java.util.List;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoReportFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.system.ReportFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.report.EjbIoReportStyleFactory;
 import org.jeesl.interfaces.model.system.io.report.JeeslIoReport;
@@ -28,8 +30,6 @@ import org.jeesl.util.comparator.ejb.system.io.report.IoReportStyleComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -118,7 +118,7 @@ public class AbstractAdminIoReportStyleBean <L extends UtilsLang,D extends Utils
 		style = fReport.find(fbReport.getClassStyle(),style);
 	}
 	
-	public void selectStyle() throws UtilsConstraintViolationException, UtilsLockingException
+	public void selectStyle() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.selectEntity(style));}
 		style = fReport.find(fbReport.getClassStyle(), style);
@@ -129,7 +129,7 @@ public class AbstractAdminIoReportStyleBean <L extends UtilsLang,D extends Utils
 		reset(false);
 	}
 	
-	public void saveStyle() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveStyle() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(style));}
 		style = fReport.save(style);
@@ -153,7 +153,7 @@ public class AbstractAdminIoReportStyleBean <L extends UtilsLang,D extends Utils
 	public void cancelStyles() {reset(true);}
 	 
 	//*************************************************************************************
-	protected void reorderStyles() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fReport,styles);Collections.sort(styles,comparatorStyle);}
+	protected void reorderStyles() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fReport,styles);Collections.sort(styles,comparatorStyle);}
 	
 	protected void updatePerformed(){}	
 	

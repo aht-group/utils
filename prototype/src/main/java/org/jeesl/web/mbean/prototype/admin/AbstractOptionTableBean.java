@@ -15,6 +15,9 @@ import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.system.JeeslExportRestFacade;
 import org.jeesl.api.facade.system.graphic.JeeslGraphicFacade;
 import org.jeesl.api.rest.JeeslExportRest;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.factory.builder.system.StatusFactoryBuilder;
 import org.jeesl.factory.builder.system.SvgFactoryBuilder;
@@ -44,9 +47,6 @@ import org.primefaces.model.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
@@ -214,7 +214,7 @@ public class AbstractOptionTableBean <L extends UtilsLang, D extends UtilsDescri
 				RE e = fUtils.fByCode(fbRevision.getClassEntity(),fqcn);
 				mapEntity.put(p,e);
 			}
-			catch (UtilsNotFoundException e) {}
+			catch (JeeslNotFoundException e) {}
 		}
 	}
 	
@@ -241,7 +241,7 @@ public class AbstractOptionTableBean <L extends UtilsLang, D extends UtilsDescri
 		updateUiForCategory();
 		
 		try {entity = fUtils.fByCode(fbRevision.getClassEntity(), cl.getName());}
-		catch (UtilsNotFoundException e) {}
+		catch (JeeslNotFoundException e) {}
 		
 		uiAllowAdd = allowAdditionalElements.get(((EjbWithId)category).getId()) || hasDeveloperAction;
 		
@@ -268,7 +268,7 @@ public class AbstractOptionTableBean <L extends UtilsLang, D extends UtilsDescri
 	}
 	
 	@SuppressWarnings("unchecked")
-	public void add() throws UtilsConstraintViolationException, InstantiationException, IllegalAccessException, UtilsNotFoundException
+	public void add() throws JeeslConstraintViolationException, InstantiationException, IllegalAccessException, JeeslNotFoundException
 	{
 		logger.debug("add");
 		uiAllowCode=true;
@@ -289,7 +289,7 @@ public class AbstractOptionTableBean <L extends UtilsLang, D extends UtilsDescri
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void selectStatus() throws UtilsConstraintViolationException, UtilsNotFoundException, UtilsLockingException
+	public void selectStatus() throws JeeslConstraintViolationException, JeeslNotFoundException, JeeslLockingException
 	{
 		figures = null; figure=null;
 		status = fUtils.find(cl,(EjbWithId)status);
@@ -337,7 +337,7 @@ public class AbstractOptionTableBean <L extends UtilsLang, D extends UtilsDescri
 	}
 
 	@SuppressWarnings("unchecked")
-	public void save() throws ClassNotFoundException, UtilsNotFoundException
+	public void save() throws ClassNotFoundException, JeeslNotFoundException
     {
 		boolean debugSave=true;
 		try
@@ -374,14 +374,14 @@ public class AbstractOptionTableBean <L extends UtilsLang, D extends UtilsDescri
 			selectCategory(false);
 			bMessage.growlSuccessSaved();
 		}
-		catch (UtilsConstraintViolationException e)
+		catch (JeeslConstraintViolationException e)
 		{
-			logger.error(UtilsConstraintViolationException.class.getSimpleName()+" "+e.getMessage());
+			logger.error(JeeslConstraintViolationException.class.getSimpleName()+" "+e.getMessage());
 			bMessage.errorConstraintViolationInUse();
 		}
-		catch (UtilsLockingException e)
+		catch (JeeslLockingException e)
 		{
-			logger.error(UtilsLockingException.class.getSimpleName()+" "+e.getMessage());
+			logger.error(JeeslLockingException.class.getSimpleName()+" "+e.getMessage());
 			bMessage.errorConstraintViolationInUse();
 		}
 	}
@@ -396,7 +396,7 @@ public class AbstractOptionTableBean <L extends UtilsLang, D extends UtilsDescri
 			selectCategory();
 			bMessage.growlSuccessRemoved();
 		}
-		catch (UtilsConstraintViolationException e)
+		catch (JeeslConstraintViolationException e)
 		{
 			bMessage.errorConstraintViolationInUse();
 		}
@@ -412,8 +412,8 @@ public class AbstractOptionTableBean <L extends UtilsLang, D extends UtilsDescri
 	
 	protected void updateAppScopeBean2(Object o){}
 	
-	public void reorder() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fUtils, items);}
-	public void reorderFigures() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fUtils,figures);}
+	public void reorder() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fUtils, items);}
+	public void reorderFigures() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fUtils,figures);}
 	
 	@SuppressWarnings("unchecked")
 	public void handleFileUpload(FileUploadEvent event)
@@ -447,7 +447,7 @@ public class AbstractOptionTableBean <L extends UtilsLang, D extends UtilsDescri
 		logger.info("Select "+figure.toString());
 	}
 	
-	public void saveFigure() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveFigure() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info("Select "+figure.toString());
 		figure.setStyle(fUtils.find(fbSvg.getClassFigureStyle(),figure.getStyle()));
@@ -455,7 +455,7 @@ public class AbstractOptionTableBean <L extends UtilsLang, D extends UtilsDescri
 		reloadFigures();
 	}
 	
-	public void deleteFigure() throws UtilsConstraintViolationException, UtilsLockingException
+	public void deleteFigure() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		fUtils.rm(figure);
 		reset(false,true);
@@ -554,7 +554,7 @@ public class AbstractOptionTableBean <L extends UtilsLang, D extends UtilsDescri
 				}
 				entity = fUtils.save(entity);
 			}
-			catch (UtilsConstraintViolationException | UtilsLockingException e) {e.printStackTrace();}
+			catch (JeeslConstraintViolationException | JeeslLockingException e) {e.printStackTrace();}
 		}
 	}
 	@SuppressWarnings("unchecked")

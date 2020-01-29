@@ -4,9 +4,9 @@ import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,10 +14,10 @@ public class ComponentAttribute
 {
 	final static Logger logger = LoggerFactory.getLogger(ComponentAttribute.class);
 	
-	public static boolean getBoolean(String attribute, FacesContext context, UIComponent component) throws UtilsNotFoundException
+	public static boolean getBoolean(String attribute, FacesContext context, UIComponent component) throws JeeslNotFoundException
 	{
 		String value = get(attribute,null,context,component);
-		if(value==null){throw new UtilsNotFoundException("No attribute in component: "+attribute);}
+		if(value==null){throw new JeeslNotFoundException("No attribute in component: "+attribute);}
 		return new Boolean(value);
 	}
 	
@@ -29,10 +29,10 @@ public class ComponentAttribute
 		return new Boolean(value);
 	}
 	
-	public static int getInteger(String attribute, FacesContext context, UIComponent component) throws UtilsNotFoundException
+	public static int getInteger(String attribute, FacesContext context, UIComponent component) throws JeeslNotFoundException
 	{
 		String value = get(attribute,null,context,component);
-		if(value==null){throw new UtilsNotFoundException("No attribute in component: "+attribute);}
+		if(value==null){throw new JeeslNotFoundException("No attribute in component: "+attribute);}
 		return new Integer(value);
 	}
 	
@@ -43,10 +43,10 @@ public class ComponentAttribute
 		return new Long(value);
 	}
 	
-	public static long getLong(String attribute, FacesContext context, UIComponent component) throws UtilsNotFoundException
+	public static long getLong(String attribute, FacesContext context, UIComponent component) throws JeeslNotFoundException
 	{
 		String value = get(attribute,null,context,component);
-		if(value==null){throw new UtilsNotFoundException("No attribute in component: "+attribute);}
+		if(value==null){throw new JeeslNotFoundException("No attribute in component: "+attribute);}
 		return new Long(value);
 	}
 	
@@ -57,17 +57,17 @@ public class ComponentAttribute
 		return new Double(value);
 	}
 	
-	public static double getDouble(String attribute, FacesContext context, UIComponent component) throws UtilsNotFoundException
+	public static double getDouble(String attribute, FacesContext context, UIComponent component) throws JeeslNotFoundException
 	{
 		String value = get(attribute,null,context,component);
-		if(value==null){throw new UtilsNotFoundException("No attribute in component: "+attribute);}
+		if(value==null){throw new JeeslNotFoundException("No attribute in component: "+attribute);}
 		return new Double(value);
 	}
 	
-	public static String get(String attribute, FacesContext context, UIComponent component) throws UtilsNotFoundException
+	public static String get(String attribute, FacesContext context, UIComponent component) throws JeeslNotFoundException
 	{
 		String value = get(attribute,null,context,component);
-		if(value==null){throw new UtilsNotFoundException("No attribute in component: "+attribute);}
+		if(value==null){throw new JeeslNotFoundException("No attribute in component: "+attribute);}
 		return value;
 	}
 	

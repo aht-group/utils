@@ -7,6 +7,8 @@ import java.util.List;
 import org.jeesl.api.facade.io.JeeslIoSsiFacade;
 import org.jeesl.controller.handler.sb.SbMultiHandler;
 import org.jeesl.controller.handler.sb.SbSingleHandler;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.ssi.data.EjbIoSsiAttributeFactory;
@@ -20,8 +22,6 @@ import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -78,7 +78,7 @@ public class AbstractSettingsSsiAttributeBean <L extends UtilsLang,D extends Uti
 		sbhMapping.silentCallback();
 	}
 	
-	@Override public void selectSbSingle(EjbWithId item) throws UtilsLockingException, UtilsConstraintViolationException
+	@Override public void selectSbSingle(EjbWithId item) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		sbhEntity.setList(efAttribute.toListEntity(fSsi.allForParent(fbSsi.getClassAttribute(),sbhMapping.getSelection())));
 		sbhEntity.toggleAll();
@@ -87,7 +87,7 @@ public class AbstractSettingsSsiAttributeBean <L extends UtilsLang,D extends Uti
 	}
 	
 	@Override
-	public void toggled(Class<?> c) throws UtilsLockingException, UtilsConstraintViolationException
+	public void toggled(Class<?> c) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		reload();
 		reset(true);
@@ -118,7 +118,7 @@ public class AbstractSettingsSsiAttributeBean <L extends UtilsLang,D extends Uti
 		if(sbhEntity.getHasSelected()) {attribute.setEntity(sbhEntity.getSelected().get(0));}
 	}
 	
-	public void saveAttribute() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveAttribute() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		attribute.setMapping(fSsi.find(fbSsi.getClassMapping(),attribute.getMapping()));
 		attribute.setEntity(fSsi.find(fbRevision.getClassEntity(),attribute.getEntity()));
@@ -126,7 +126,7 @@ public class AbstractSettingsSsiAttributeBean <L extends UtilsLang,D extends Uti
 		reload();
 	}
 	
-	public void deleteAttribute() throws UtilsConstraintViolationException, UtilsLockingException
+	public void deleteAttribute() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		fSsi.rm(attribute);
 		reset(true);

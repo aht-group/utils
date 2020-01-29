@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.jeesl.api.bean.JeeslSecurityBean;
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.factory.txt.system.security.TxtSecurityActionFactory;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
@@ -26,7 +27,6 @@ import org.jeesl.util.comparator.pojo.BooleanComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 
@@ -110,7 +110,7 @@ public abstract class AbstractJsfSecurityHandler <L extends UtilsLang, D extends
 				mapAreaToggle.put(a,BooleanComparator.active(a.getVisible()));
 			}
 		}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 	}
 	
 	public AbstractJsfSecurityHandler(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,AR,?,USER> fbSecurity,

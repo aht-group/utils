@@ -17,6 +17,9 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
 import org.jeesl.interfaces.model.system.with.EjbWithGraphic;
@@ -38,9 +41,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.controller.util.ParentPredicate;
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.behaviour.EjbEquals;
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
@@ -100,11 +100,11 @@ public class UtilsFacadeBean implements UtilsFacade
 	}
 	
 	//Persist
-	@Override public <T extends EjbSaveable> T saveTransaction(T o) throws UtilsConstraintViolationException, UtilsLockingException{return saveProtected(o);}
-	@Override public <T extends EjbSaveable> T save(T o) throws UtilsConstraintViolationException,UtilsLockingException {return saveProtected(o);}
+	@Override public <T extends EjbSaveable> T saveTransaction(T o) throws JeeslConstraintViolationException, JeeslLockingException{return saveProtected(o);}
+	@Override public <T extends EjbSaveable> T save(T o) throws JeeslConstraintViolationException,JeeslLockingException {return saveProtected(o);}
 	
-	@Override public <T extends EjbSaveable> void save(List<T> list) throws UtilsConstraintViolationException,UtilsLockingException {for(T t : list){saveProtected(t);}}
-	@Override public <T extends EjbSaveable> void saveTransaction(List<T> list) throws UtilsConstraintViolationException,UtilsLockingException {for(T t : list){saveProtected(t);}}
+	@Override public <T extends EjbSaveable> void save(List<T> list) throws JeeslConstraintViolationException,JeeslLockingException {for(T t : list){saveProtected(t);}}
+	@Override public <T extends EjbSaveable> void saveTransaction(List<T> list) throws JeeslConstraintViolationException,JeeslLockingException {for(T t : list){saveProtected(t);}}
 	
 	@Override
 	public <E extends EjbEquals<T>, T extends EjbWithId> boolean equalsAttributes(Class<T> c, E object)
@@ -113,18 +113,18 @@ public class UtilsFacadeBean implements UtilsFacade
 		else {return object.equalsAttributes(em.find(c,object.getId()));}
 	}
 	
-	@Override public <T extends EjbMergeable> T mergeTransaction(T o) throws UtilsConstraintViolationException, UtilsLockingException {return update(o);}
-	@Override public <T extends EjbMergeable> T merge(T o) throws UtilsConstraintViolationException, UtilsLockingException {return this.update(o);}
+	@Override public <T extends EjbMergeable> T mergeTransaction(T o) throws JeeslConstraintViolationException, JeeslLockingException {return update(o);}
+	@Override public <T extends EjbMergeable> T merge(T o) throws JeeslConstraintViolationException, JeeslLockingException {return this.update(o);}
 	
 	
 
-	public <T extends EjbWithId> T saveProtected(T o) throws UtilsConstraintViolationException, UtilsLockingException
+	public <T extends EjbWithId> T saveProtected(T o) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(o.getId()==0){return this.persist(o);}
 		else{return this.update(o);}
 	}
 	
-	public <T extends Object> T persist(T o) throws UtilsConstraintViolationException
+	public <T extends Object> T persist(T o) throws JeeslConstraintViolationException
 	{
 		try
 		{
@@ -137,17 +137,17 @@ public class UtilsFacadeBean implements UtilsFacade
 			if(handleTransaction){em.getTransaction().rollback();}
 			if(e instanceof javax.validation.ConstraintViolationException)
 			{
-				throw new UtilsConstraintViolationException(e.getMessage());
+				throw new JeeslConstraintViolationException(e.getMessage());
 			}
 			if(e instanceof javax.persistence.PersistenceException)
 			{
 				if(e.getCause() instanceof org.hibernate.exception.ConstraintViolationException)
 				{
-					throw new UtilsConstraintViolationException(e.getCause().getMessage());
+					throw new JeeslConstraintViolationException(e.getCause().getMessage());
 				}
 				if(e.getCause() instanceof org.hibernate.PersistentObjectException)
 				{
-					throw new UtilsConstraintViolationException(e.getCause().getMessage());
+					throw new JeeslConstraintViolationException(e.getCause().getMessage());
 				}
 				else
 				{
@@ -175,7 +175,7 @@ public class UtilsFacadeBean implements UtilsFacade
 	    return o;
 	}
 	
-	public <T extends Object> T update(T o) throws UtilsConstraintViolationException, UtilsLockingException
+	public <T extends Object> T update(T o) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		try
 		{
@@ -196,17 +196,17 @@ public class UtilsFacadeBean implements UtilsFacade
 			
 			if(e instanceof javax.validation.ConstraintViolationException)
 			{
-				throw new UtilsConstraintViolationException(e.getMessage());
+				throw new JeeslConstraintViolationException(e.getMessage());
 			}
 			if(e instanceof javax.persistence.OptimisticLockException)
 			{
-				throw new UtilsLockingException(e.getMessage());
+				throw new JeeslLockingException(e.getMessage());
 			}
 			if(e instanceof javax.persistence.PersistenceException)
 			{
 				if(e.getCause() instanceof org.hibernate.exception.ConstraintViolationException)
 				{
-					throw new UtilsConstraintViolationException(e.getCause().getMessage());
+					throw new JeeslConstraintViolationException(e.getCause().getMessage());
 				}
 				else
 				{
@@ -226,10 +226,10 @@ public class UtilsFacadeBean implements UtilsFacade
 		T o = em.find(type,t.getId());
 		return o;
 	}
-	public <T extends Object> T find(Class<T> type, long id) throws UtilsNotFoundException
+	public <T extends Object> T find(Class<T> type, long id) throws JeeslNotFoundException
 	{
 		T o = em.find(type,id);
-		if(o==null){throw new UtilsNotFoundException("No entity "+type+" with id="+id);}
+		if(o==null){throw new JeeslNotFoundException("No entity "+type+" with id="+id);}
 		return o;
 	}
 	
@@ -252,14 +252,14 @@ public class UtilsFacadeBean implements UtilsFacade
 	}
 	@Override public <T extends EjbWithCode, E extends Enum<E>> T fByEnum(Class<T> type, E code)
 	{
-		try {return this.fByCode(type, code.toString());} catch (UtilsNotFoundException e)
+		try {return this.fByCode(type, code.toString());} catch (JeeslNotFoundException e)
 		{
 			e.printStackTrace();
 			return null;
 		}
 	}
-	@Override public <T extends EjbWithCode, E extends Enum<E>> T fByCode(Class<T> type, E code) throws UtilsNotFoundException {return this.fByCode(type, code.toString());}
-	@Override public <T extends EjbWithCode> T fByCode(Class<T> type, String code) throws UtilsNotFoundException
+	@Override public <T extends EjbWithCode, E extends Enum<E>> T fByCode(Class<T> type, E code) throws JeeslNotFoundException {return this.fByCode(type, code.toString());}
+	@Override public <T extends EjbWithCode> T fByCode(Class<T> type, String code) throws JeeslNotFoundException
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
         CriteriaQuery<T> cQ = cB.createQuery(type);
@@ -268,11 +268,11 @@ public class UtilsFacadeBean implements UtilsFacade
 
 		TypedQuery<T> q = em.createQuery(cQ); 
 		try	{return q.getSingleResult();}
-		catch (NoResultException ex){throw new UtilsNotFoundException("Nothing found "+type.getSimpleName()+" for code="+code);}
-		catch (NonUniqueResultException ex){throw new UtilsNotFoundException("Results for "+type.getSimpleName()+" and code="+code+" not unique");}
+		catch (NoResultException ex){throw new JeeslNotFoundException("Nothing found "+type.getSimpleName()+" for code="+code);}
+		catch (NonUniqueResultException ex){throw new JeeslNotFoundException("Results for "+type.getSimpleName()+" and code="+code+" not unique");}
 	}
 	
-	@Override public <T extends EjbWithNrString> T fByNr(Class<T> c, String nr) throws UtilsNotFoundException
+	@Override public <T extends EjbWithNrString> T fByNr(Class<T> c, String nr) throws JeeslNotFoundException
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
         CriteriaQuery<T> cQ = cB.createQuery(c);
@@ -281,11 +281,11 @@ public class UtilsFacadeBean implements UtilsFacade
 
 		TypedQuery<T> q = em.createQuery(cQ); 
 		try	{return q.getSingleResult();}
-		catch (NoResultException ex){throw new UtilsNotFoundException("Nothing found "+c.getSimpleName()+" for nr="+nr);}
-		catch (NonUniqueResultException ex){throw new UtilsNotFoundException("Results for "+c.getSimpleName()+" and code="+nr+" not unique");}
+		catch (NoResultException ex){throw new JeeslNotFoundException("Nothing found "+c.getSimpleName()+" for nr="+nr);}
+		catch (NonUniqueResultException ex){throw new JeeslNotFoundException("Results for "+c.getSimpleName()+" and code="+nr+" not unique");}
 	}
 	
-	@Override public <T extends EjbWithTypeCode> T fByTypeCode(Class<T> c, String type, String code) throws UtilsNotFoundException
+	@Override public <T extends EjbWithTypeCode> T fByTypeCode(Class<T> c, String type, String code) throws JeeslNotFoundException
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
         CriteriaQuery<T> cQ = cB.createQuery(c);
@@ -294,7 +294,7 @@ public class UtilsFacadeBean implements UtilsFacade
 
 		TypedQuery<T> q = em.createQuery(cQ); 
 		try	{return q.getSingleResult();}
-		catch (NoResultException ex){throw new UtilsNotFoundException("Nothing found "+c.getSimpleName()+" for code="+code+" type="+type);}
+		catch (NoResultException ex){throw new JeeslNotFoundException("Nothing found "+c.getSimpleName()+" for code="+code+" type="+type);}
 	}
 	
 	@Override public <T extends EjbWithNonUniqueCode> List<T> allByCode(Class<T> type, String code)
@@ -308,7 +308,7 @@ public class UtilsFacadeBean implements UtilsFacade
 		return q.getResultList();
 	}
 	
-	@Override public <T extends EjbWithEmail> T fByEmail(Class<T> clazz, String email) throws UtilsNotFoundException
+	@Override public <T extends EjbWithEmail> T fByEmail(Class<T> clazz, String email) throws JeeslNotFoundException
 	{
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(clazz);
@@ -317,7 +317,7 @@ public class UtilsFacadeBean implements UtilsFacade
 
 		TypedQuery<T> q = em.createQuery(criteriaQuery); 
 		try	{return q.getSingleResult();}
-		catch (NoResultException ex){throw new UtilsNotFoundException("No "+clazz.getSimpleName()+" for email="+email);}
+		catch (NoResultException ex){throw new JeeslNotFoundException("No "+clazz.getSimpleName()+" for email="+email);}
 	}
 	
 	@Override public <T extends Object> List<T> all(Class<T> type){return all(type,0);}
@@ -496,13 +496,13 @@ public class UtilsFacadeBean implements UtilsFacade
 		return em.createQuery(select).getResultList();
 	}
 	
-	@Override public <T extends EjbRemoveable> void rmTransaction(T o) throws UtilsConstraintViolationException {rmProtected(o);}
-	@Override public <T extends EjbRemoveable> void rm(T o) throws UtilsConstraintViolationException {rmProtected(o);}
-	@Override public <T extends EjbRemoveable> void rmTransaction(List<T> list) throws UtilsConstraintViolationException{for(T t : list){rm(t);}}
-	@Override public <T extends EjbRemoveable> void rm(Set<T> set) throws UtilsConstraintViolationException{rm(new ArrayList<T>(set));}
-	@Override public <T extends EjbRemoveable> void rm(List<T> list) throws UtilsConstraintViolationException{for(T t : list){rm(t);}}
+	@Override public <T extends EjbRemoveable> void rmTransaction(T o) throws JeeslConstraintViolationException {rmProtected(o);}
+	@Override public <T extends EjbRemoveable> void rm(T o) throws JeeslConstraintViolationException {rmProtected(o);}
+	@Override public <T extends EjbRemoveable> void rmTransaction(List<T> list) throws JeeslConstraintViolationException{for(T t : list){rm(t);}}
+	@Override public <T extends EjbRemoveable> void rm(Set<T> set) throws JeeslConstraintViolationException{rm(new ArrayList<T>(set));}
+	@Override public <T extends EjbRemoveable> void rm(List<T> list) throws JeeslConstraintViolationException{for(T t : list){rm(t);}}
 	
-	public <T extends Object> void rmProtected(T o) throws UtilsConstraintViolationException
+	public <T extends Object> void rmProtected(T o) throws JeeslConstraintViolationException
 	{
 		if(isLoggingEnabled){logger.info("Removing "+o.toString());}
 		try
@@ -523,7 +523,7 @@ public class UtilsFacadeBean implements UtilsFacade
 				sb.append("Referential Integrity Check failed for delete operation.");
 				sb.append(" Object: ").append(o.getClass().getSimpleName());
 				sb.append(" (").append(o.toString()).append(")");
-				throw new UtilsConstraintViolationException(sb.toString());
+				throw new JeeslConstraintViolationException(sb.toString());
 			}
 			throw(e);
 		}
@@ -612,7 +612,7 @@ public class UtilsFacadeBean implements UtilsFacade
 		return tQ.getResultList();
 	}
 	
-	public <T extends EjbWithName> T fByName(Class<T> type, String name) throws UtilsNotFoundException
+	public <T extends EjbWithName> T fByName(Class<T> type, String name) throws JeeslNotFoundException
 	{
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(type);
@@ -621,10 +621,10 @@ public class UtilsFacadeBean implements UtilsFacade
 
 		TypedQuery<T> q = em.createQuery(criteriaQuery); 
 		try	{return q.getSingleResult();}
-		catch (NoResultException ex){throw new UtilsNotFoundException("No "+type.getSimpleName()+" for name="+name);}
+		catch (NoResultException ex){throw new JeeslNotFoundException("No "+type.getSimpleName()+" for name="+name);}
 	}
 	
-	public <T extends EjbWithNr, P extends EjbWithId> T fByNr(Class<T> type, String parentName, P parent, long nr) throws UtilsNotFoundException
+	public <T extends EjbWithNr, P extends EjbWithId> T fByNr(Class<T> type, String parentName, P parent, long nr) throws JeeslNotFoundException
 	{
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
 	    CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(type);
@@ -639,10 +639,10 @@ public class UtilsFacadeBean implements UtilsFacade
 
 		TypedQuery<T> q = em.createQuery(select); 
 		try	{return q.getSingleResult();}
-		catch (NoResultException ex){throw new UtilsNotFoundException("No "+type.getSimpleName()+" for nr="+nr);}
+		catch (NoResultException ex){throw new JeeslNotFoundException("No "+type.getSimpleName()+" for nr="+nr);}
 	}
 	
-	public <T extends EjbWithValidFromAndParent, P extends EjbWithId> T fFirstValidFrom(Class<T> c, P parent, Date validFrom) throws UtilsNotFoundException
+	public <T extends EjbWithValidFromAndParent, P extends EjbWithId> T fFirstValidFrom(Class<T> c, P parent, Date validFrom) throws JeeslNotFoundException
 	{
 		T prototype = null;
 		try {prototype = c.newInstance();}
@@ -651,7 +651,7 @@ public class UtilsFacadeBean implements UtilsFacade
 		return fFirstValidFrom(c,prototype.resolveParentAttribute(),parent.getId(),validFrom);
 	}
 	
-	public <T extends EjbWithValidFrom> T fFirstValidFrom(Class<T> type, String parentName, long id, Date validFrom) throws UtilsNotFoundException
+	public <T extends EjbWithValidFrom> T fFirstValidFrom(Class<T> type, String parentName, long id, Date validFrom) throws JeeslNotFoundException
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 	    CriteriaQuery<T> criteriaQuery = cB.createQuery(type);
@@ -669,9 +669,9 @@ public class UtilsFacadeBean implements UtilsFacade
 		TypedQuery<T> q = em.createQuery(select);
 		q.setMaxResults(1);
 		try	{return q.getSingleResult();}
-		catch (NoResultException ex){throw new UtilsNotFoundException("No "+type.getSimpleName()+" for "+parentName+".id="+id+" validFrom="+validFrom);}
+		catch (NoResultException ex){throw new JeeslNotFoundException("No "+type.getSimpleName()+" for "+parentName+".id="+id+" validFrom="+validFrom);}
 	}
-	@Override public <T extends EjbWithParentAttributeResolver, P extends EjbWithId> T oneForParent(Class<T> type, P p1) throws UtilsNotFoundException
+	@Override public <T extends EjbWithParentAttributeResolver, P extends EjbWithId> T oneForParent(Class<T> type, P p1) throws JeeslNotFoundException
 	{
 		T prototype = null;
 		try {prototype = type.newInstance();}
@@ -679,37 +679,37 @@ public class UtilsFacadeBean implements UtilsFacade
 		catch (IllegalAccessException e) {e.printStackTrace();}
 		
 		List<T> list = allForParent(type,prototype.resolveParentAttribute(), p1);
-		if(list.size()>1){throw new UtilsNotFoundException("More than one result found for "+type.getSimpleName()+" and "+prototype.resolveParentAttribute()+"=="+p1);}
-		if(list.size()==0){throw new UtilsNotFoundException("No "+type.getSimpleName()+" found for "+prototype.resolveParentAttribute()+"=="+p1);}
+		if(list.size()>1){throw new JeeslNotFoundException("More than one result found for "+type.getSimpleName()+" and "+prototype.resolveParentAttribute()+"=="+p1);}
+		if(list.size()==0){throw new JeeslNotFoundException("No "+type.getSimpleName()+" found for "+prototype.resolveParentAttribute()+"=="+p1);}
 		return list.get(0);
 	}
-	@Override public <T extends EjbWithId, I extends EjbWithId> T oneForParent(Class<T> cl, String p1Name, I p1) throws UtilsNotFoundException
+	@Override public <T extends EjbWithId, I extends EjbWithId> T oneForParent(Class<T> cl, String p1Name, I p1) throws JeeslNotFoundException
 	{
 		List<T> list = allForParent(cl, p1Name, p1);
-		if(list.size()>1){throw new UtilsNotFoundException("More than one result found for "+cl.getSimpleName()+" and "+p1Name+"=="+p1);}
-		if(list.size()==0){throw new UtilsNotFoundException("No "+cl.getSimpleName()+" found for "+p1Name+"=="+p1);}
+		if(list.size()>1){throw new JeeslNotFoundException("More than one result found for "+cl.getSimpleName()+" and "+p1Name+"=="+p1);}
+		if(list.size()==0){throw new JeeslNotFoundException("No "+cl.getSimpleName()+" found for "+p1Name+"=="+p1);}
 		return list.get(0);
 	}
-	@Override public <T extends EjbWithId, I extends EjbWithId> T oneForParents(Class<T> cl, String p1Name, I p1, String p2Name, I p2) throws UtilsNotFoundException
+	@Override public <T extends EjbWithId, I extends EjbWithId> T oneForParents(Class<T> cl, String p1Name, I p1, String p2Name, I p2) throws JeeslNotFoundException
 	{
 		List<T> list = allForParent(cl, p1Name, p1, p2Name, p2);
-		if(list.size()>1){throw new UtilsNotFoundException("More than one "+cl.getSimpleName()+" found for "+p1Name+"={"+p1+"} and "+p2Name+"={"+p2+"}");}
-		if(list.size()==0){throw new UtilsNotFoundException("No "+cl.getSimpleName()+" found for "+p1Name+"={"+p1+"} and "+p2Name+"={"+p2+"}");}
+		if(list.size()>1){throw new JeeslNotFoundException("More than one "+cl.getSimpleName()+" found for "+p1Name+"={"+p1+"} and "+p2Name+"={"+p2+"}");}
+		if(list.size()==0){throw new JeeslNotFoundException("No "+cl.getSimpleName()+" found for "+p1Name+"={"+p1+"} and "+p2Name+"={"+p2+"}");}
 		return list.get(0);
 	}
-	@Override public <T extends EjbWithId, I extends EjbWithId> T oneForParents(Class<T> cl, String p1Name, I p1, String p2Name, I p2, String p3Name, I p3) throws UtilsNotFoundException
+	@Override public <T extends EjbWithId, I extends EjbWithId> T oneForParents(Class<T> cl, String p1Name, I p1, String p2Name, I p2, String p3Name, I p3) throws JeeslNotFoundException
 	{
 		List<T> list = allForParent(cl,p1Name,p1,p2Name,p2,p3Name,p3);
-		if(list.size()>1){throw new UtilsNotFoundException("More than one result found for "+cl.getSimpleName()+" and "+p1Name+"=="+p1+" and "+p2Name+"=="+p2+" and "+p3Name+"=="+p3);}
-		if(list.size()==0){throw new UtilsNotFoundException("No "+cl.getSimpleName()+" found for "+cl.getSimpleName()+" and "+p1Name+"=="+p1+" and "+p2Name+"=="+p2+" and "+p3Name+"=="+p3);}
+		if(list.size()>1){throw new JeeslNotFoundException("More than one result found for "+cl.getSimpleName()+" and "+p1Name+"=="+p1+" and "+p2Name+"=="+p2+" and "+p3Name+"=="+p3);}
+		if(list.size()==0){throw new JeeslNotFoundException("No "+cl.getSimpleName()+" found for "+cl.getSimpleName()+" and "+p1Name+"=="+p1+" and "+p2Name+"=="+p2+" and "+p3Name+"=="+p3);}
 		return list.get(0);
 	}
 	
-	@Override public <T extends EjbWithId, P extends EjbWithId> T oneForParents(Class<T> cl, List<ParentPredicate<P>> parents) throws UtilsNotFoundException
+	@Override public <T extends EjbWithId, P extends EjbWithId> T oneForParents(Class<T> cl, List<ParentPredicate<P>> parents) throws JeeslNotFoundException
 	{
 		List<T> list = this.fForAndOrParents(cl, parents, ParentPredicate.empty());
-		if(list.size()>1){throw new UtilsNotFoundException("More than one result found for Query");}
-		if(list.size()==0){throw new UtilsNotFoundException("No "+cl.getSimpleName()+" found for Query");}
+		if(list.size()>1){throw new JeeslNotFoundException("More than one result found for Query");}
+		if(list.size()==0){throw new JeeslNotFoundException("No "+cl.getSimpleName()+" found for Query");}
 		return list.get(0);
 	}
 	
@@ -1171,7 +1171,7 @@ public class UtilsFacadeBean implements UtilsFacade
 	}
 	
 	@Override
-	public <T extends EjbWithValidFromUntil> T oneInRange(Class<T> c,Date record) throws UtilsNotFoundException
+	public <T extends EjbWithValidFromUntil> T oneInRange(Class<T> c,Date record) throws JeeslNotFoundException
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<T> cQ = cB.createQuery(c);
@@ -1189,8 +1189,8 @@ public class UtilsFacadeBean implements UtilsFacade
 		TypedQuery<T> q = em.createQuery(select);
 		List<T> result = q.getResultList();
 		if(result.size()==1){return result.get(0);}
-		else if(result.size()==0){throw new UtilsNotFoundException("No result for "+record.toString());}
-		else {throw new UtilsNotFoundException("Mutliple results");}
+		else if(result.size()==0){throw new JeeslNotFoundException("No result for "+record.toString());}
+		else {throw new JeeslNotFoundException("Mutliple results");}
 	}
 	
 	@Override
@@ -1242,7 +1242,7 @@ public class UtilsFacadeBean implements UtilsFacade
 	
 	//Year
 	@Override
-	public <T extends EjbWithYear, P extends EjbWithId> T fByYear(Class<T> type, String parentName, P p, int year) throws UtilsNotFoundException
+	public <T extends EjbWithYear, P extends EjbWithId> T fByYear(Class<T> type, String parentName, P p, int year) throws JeeslNotFoundException
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 	    CriteriaQuery<T> criteriaQuery = cB.createQuery(type);
@@ -1259,7 +1259,7 @@ public class UtilsFacadeBean implements UtilsFacade
 	    TypedQuery<T> q = em.createQuery(select);
 		q.setMaxResults(1);
 		try	{return q.getSingleResult();}
-		catch (NoResultException ex){throw new UtilsNotFoundException("No "+type.getSimpleName()+" for "+parentName+".id="+p.getId()+" year="+year);}
+		catch (NoResultException ex){throw new JeeslNotFoundException("No "+type.getSimpleName()+" for "+parentName+".id="+p.getId()+" year="+year);}
 	}
 	
 	@Override

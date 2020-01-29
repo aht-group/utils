@@ -7,6 +7,9 @@ import java.util.List;
 
 import org.jeesl.api.facade.system.JeeslSystemPropertyFacade;
 import org.jeesl.controller.handler.sb.SbMultiHandler;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.PropertyFactoryBuilder;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
@@ -17,9 +20,6 @@ import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
@@ -68,18 +68,18 @@ public class AbstractSystemPropertyBean <L extends UtilsLang, D extends UtilsDes
 	}
 	
 	@Override
-	public void toggled(Class<?> c) throws UtilsLockingException, UtilsConstraintViolationException
+	public void toggled(Class<?> c) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		if(debugOnInfo){logger.info(SbMultiHandler.class.getSimpleName()+" toggled, but NYI");}
 	}
 	
-	public void selectProperty() throws UtilsNotFoundException
+	public void selectProperty() throws JeeslNotFoundException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.selectEntity(prop));}
 		prop = fProperty.find(fbProperty.getClassProperty(), prop);
 	}
 	
-	public void saveProperty() throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException
+	public void saveProperty() throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(prop));}
 		if(prop.getCategory()!=null){prop.setCategory(fProperty.find(fbProperty.getClassCategory(),prop.getCategory()));}

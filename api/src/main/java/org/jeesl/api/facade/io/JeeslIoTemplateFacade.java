@@ -2,12 +2,12 @@ package org.jeesl.api.facade.io;
 
 import java.util.List;
 
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateDefinition;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateToken;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -25,7 +25,7 @@ public interface JeeslIoTemplateFacade <L extends UtilsLang,D extends UtilsDescr
 {	
 	TEMPLATE load(TEMPLATE template);
 	
-	DEFINITION fDefinition(CHANNEL type, String code) throws UtilsNotFoundException;
+	DEFINITION fDefinition(CHANNEL type, String code) throws JeeslNotFoundException;
 	
 	<E extends Enum<E>> List<TEMPLATE> loadTemplates(E category);
 	List<TEMPLATE> fTemplates(List<CATEGORY> categories, boolean showInvisibleEntities);

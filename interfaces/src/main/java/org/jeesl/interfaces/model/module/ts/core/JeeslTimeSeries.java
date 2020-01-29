@@ -3,7 +3,6 @@ package org.jeesl.interfaces.model.module.ts.core;
 import java.io.Serializable;
 
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsBridge;
-import org.jeesl.interfaces.model.module.ts.stat.JeeslTsStatistic;
 
 import net.sf.ahtutils.interfaces.model.crud.EjbPersistable;
 import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;

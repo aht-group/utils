@@ -19,12 +19,12 @@ import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import org.jeesl.api.rest.system.io.db.JeeslIoDbRest;
 import org.jeesl.client.JeeslBootstrap;
 import org.jeesl.controller.processor.system.io.db.DatabaseBackupProcessor;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.exception.processing.UtilsProcessingException;
 import net.sf.ahtutils.util.cli.UtilsCliOption;
@@ -133,9 +133,9 @@ public class JeeslDbBackupNotifier
 		catch (ExlpUnsupportedOsException e) {e.printStackTrace();}
 		catch (NamingException e) {e.printStackTrace();}
 		catch (SQLException e) {e.printStackTrace();}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
-		catch (UtilsConstraintViolationException e) {e.printStackTrace();}
-		catch (UtilsLockingException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
+		catch (JeeslConstraintViolationException e) {e.printStackTrace();}
+		catch (JeeslLockingException e) {e.printStackTrace();}
 		catch (Exception e) {e.printStackTrace();}
 	}
 }

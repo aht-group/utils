@@ -7,6 +7,9 @@ import java.util.UUID;
 import org.jeesl.api.facade.io.JeeslIoReportFacade;
 import org.jeesl.controller.db.updater.JeeslDbDescriptionUpdater;
 import org.jeesl.controller.db.updater.JeeslDbLangUpdater;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.system.io.report.JeeslIoReport;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportCell;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportColumn;
@@ -22,9 +25,6 @@ import org.jeesl.util.query.xpath.ReportXpath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -92,7 +92,7 @@ public class EjbIoReportRowFactory<L extends UtilsLang,D extends UtilsDescriptio
 		return ejb;
 	}
 	
-	public ROW build(JeeslIoReportFacade<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION> fReport, SHEET sheet, Row row) throws UtilsNotFoundException
+	public ROW build(JeeslIoReportFacade<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION> fReport, SHEET sheet, Row row) throws JeeslNotFoundException
 	{
 		ROW ejb = null;
 		try
@@ -107,7 +107,7 @@ public class EjbIoReportRowFactory<L extends UtilsLang,D extends UtilsDescriptio
 		return ejb;
 	}
 		
-	public ROW update(JeeslIoReportFacade<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION> fReport, ROW eRow, Row xRow) throws UtilsNotFoundException
+	public ROW update(JeeslIoReportFacade<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION> fReport, ROW eRow, Row xRow) throws JeeslNotFoundException
 	{
 		CDT eDataType = null;if(xRow.isSetDataType()){eDataType = fReport.fByCode(cDataType, xRow.getDataType().getCode());}
 		TEMPLATE eTemplate = null;if(xRow.isSetTemplate()){eTemplate = fReport.fByCode(cTemplate, xRow.getTemplate().getCode());}
@@ -136,7 +136,7 @@ public class EjbIoReportRowFactory<L extends UtilsLang,D extends UtilsDescriptio
 		return eRow;
 	}
 		
-	public ROW updateLD(UtilsFacade fUtils, ROW eRow, Row xRow) throws UtilsConstraintViolationException, UtilsLockingException
+	public ROW updateLD(UtilsFacade fUtils, ROW eRow, Row xRow) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		eRow=dbuLang.handle(fUtils, eRow, xRow.getLangs());
 		eRow = fUtils.save(eRow);

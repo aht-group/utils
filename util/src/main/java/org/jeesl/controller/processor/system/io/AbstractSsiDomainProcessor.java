@@ -3,6 +3,9 @@ package org.jeesl.controller.processor.system.io;
 import java.util.List;
 
 import org.jeesl.api.facade.io.JeeslIoSsiFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.ssi.data.EjbIoSsiDataFactory;
 import org.jeesl.interfaces.controller.processor.SsiMappingProcessor;
@@ -15,9 +18,6 @@ import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -56,7 +56,7 @@ public abstract class AbstractSsiDomainProcessor<L extends UtilsLang,D extends U
 		efData = fbSsi.ejbData();
 	}
 	
-	public void initLinks() throws UtilsNotFoundException
+	public void initLinks() throws JeeslNotFoundException
 	{		
 		linkUnlinked = fSsi.fByCode(fbSsi.getClassLink(),JeeslIoSsiLink.Code.unlinked);
 		linkPrecondition = fSsi.fByCode(fbSsi.getClassLink(),JeeslIoSsiLink.Code.precondition);
@@ -84,6 +84,6 @@ public abstract class AbstractSsiDomainProcessor<L extends UtilsLang,D extends U
 			data.setLink(linkIgnore);
 			fSsi.save(data);
 		}
-		catch (UtilsConstraintViolationException | UtilsLockingException e) {e.printStackTrace();}
+		catch (JeeslConstraintViolationException | JeeslLockingException e) {e.printStackTrace();}
 	}
 }

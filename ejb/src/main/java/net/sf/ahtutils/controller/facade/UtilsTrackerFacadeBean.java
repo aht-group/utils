@@ -11,7 +11,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
+
 import net.sf.ahtutils.interfaces.facade.UtilsTrackerFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -50,7 +51,7 @@ public class UtilsTrackerFacadeBean extends UtilsFacadeBean implements UtilsTrac
 
 	@Override
 	public <TR extends UtilsTracker<TR,TL,T,S,L,D>, TL extends UtilsTrackerLog<TR, TL, T, S, L,D>, T extends UtilsStatus<T,L,D>, S extends UtilsStatus<S,L,D>, L extends UtilsLang,D extends UtilsDescription>
-		TR fTracker(Class<TR> clTracker, Class<T> clType, T type, long refId) throws UtilsNotFoundException
+		TR fTracker(Class<TR> clTracker, Class<T> clType, T type, long refId) throws JeeslNotFoundException
 	{
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
 		CriteriaQuery<TR> criteriaQuery = criteriaBuilder.createQuery(clTracker);
@@ -69,30 +70,30 @@ public class UtilsTrackerFacadeBean extends UtilsFacadeBean implements UtilsTrac
 		
 		TypedQuery<TR> q = em.createQuery(select); 
 		try	{return q.getSingleResult();}
-		catch (NoResultException ex){throw new UtilsNotFoundException("No "+clTracker.getSimpleName()+" (type="+clType.getSimpleName()+") found for refId="+refId);}
+		catch (NoResultException ex){throw new JeeslNotFoundException("No "+clTracker.getSimpleName()+" (type="+clType.getSimpleName()+") found for refId="+refId);}
 	}
 	
 	@Override
 	public <TR extends UtilsMailTracker<T,L,U,D>,T extends UtilsStatus<T,L,D>, L extends UtilsLang, U extends EjbWithId, D extends UtilsDescription> 
-		List<TR> fMailTracker(Class<TR> clTracker, Class<T> clType, T type, long refId) throws UtilsNotFoundException
+		List<TR> fMailTracker(Class<TR> clTracker, Class<T> clType, T type, long refId) throws JeeslNotFoundException
 	{
 		CriteriaQuery<TR> select = getTrackerCQ(clTracker, clType, type, refId);
 		
 		TypedQuery<TR> q = em.createQuery(select);
 		List<TR> result = q.getResultList();
-		if(result.size()==0){throw new UtilsNotFoundException("No "+clTracker.getSimpleName()+" found for refId="+refId+" and type="+type.getCode());}
+		if(result.size()==0){throw new JeeslNotFoundException("No "+clTracker.getSimpleName()+" found for refId="+refId+" and type="+type.getCode());}
 		return result;
 	}
 
 	@Override
 	public <TR extends UtilsMailTracker<T, L, U,D>, T extends UtilsStatus<T,L,D>, L extends UtilsLang, U extends EjbWithId, D extends UtilsDescription>
-		TR fLastMailTracker(Class<TR> clTracker, Class<T> clType, T type, long refId) throws UtilsNotFoundException
+		TR fLastMailTracker(Class<TR> clTracker, Class<T> clType, T type, long refId) throws JeeslNotFoundException
 	{
 		CriteriaQuery<TR> select = getTrackerCQ(clTracker, clType, type, refId);
 		TypedQuery<TR> q = em.createQuery(select);
 		q.setMaxResults(1);
 		try	{return q.getSingleResult();}
-		catch (NoResultException ex){throw new UtilsNotFoundException("No "+clTracker.getSimpleName()+" found for refId="+refId+" and type="+type.getCode());}
+		catch (NoResultException ex){throw new JeeslNotFoundException("No "+clTracker.getSimpleName()+" found for refId="+refId+" and type="+type.getCode());}
 	}
 	
 	private <TR extends UtilsMailTracker<T, L, U,D>, T extends UtilsStatus<T,L,D>, L extends UtilsLang, U extends EjbWithId,D extends UtilsDescription>

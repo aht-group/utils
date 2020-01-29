@@ -8,6 +8,9 @@ import java.util.Map;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.system.JeeslSystemNewsFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.NewsFactoryBuilder;
 import org.jeesl.factory.ejb.system.EjbSystemNewsFactory;
 import org.jeesl.interfaces.model.system.news.JeeslSystemNews;
@@ -15,9 +18,6 @@ import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -70,7 +70,7 @@ public class AbstractAdminSystemNewsBean <L extends UtilsLang, D extends UtilsDe
 		for(NEWS n : fNews.fActiveNews()){active.put(n,true);}	
 	}
 	
-	public void addNews() throws UtilsNotFoundException
+	public void addNews() throws JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.addEntity(fbNews.getClassNews()));}
 		news = efNews.build(null,user);
@@ -78,7 +78,7 @@ public class AbstractAdminSystemNewsBean <L extends UtilsLang, D extends UtilsDe
 		news.setDescription(efDescription.createEmpty(localeCodes));
 	}
 	
-	public void selectNews() throws UtilsNotFoundException
+	public void selectNews() throws JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.selectEntity(news));}
 		news = fNews.find(fbNews.getClassNews(),news);
@@ -86,7 +86,7 @@ public class AbstractAdminSystemNewsBean <L extends UtilsLang, D extends UtilsDe
 		news = efDescription.persistMissingLangs(fNews,bTranslation.getLocales(),news);
 	}
 	
-	public void saveNews() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void saveNews() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(news));}
 		if(news.getCategory()!=null){news.setCategory(fNews.find(fbNews.getClassCategory(), news.getCategory()));}
@@ -95,7 +95,7 @@ public class AbstractAdminSystemNewsBean <L extends UtilsLang, D extends UtilsDe
 		bMessage.growlSuccessSaved();
 	}
 	
-	public void rmNews() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void rmNews() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.rmEntity(news));}
 		fNews.rm(news);

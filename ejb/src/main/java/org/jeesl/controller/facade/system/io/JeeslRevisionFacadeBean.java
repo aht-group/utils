@@ -14,6 +14,9 @@ import org.hibernate.envers.AuditReaderFactory;
 import org.hibernate.envers.query.AuditEntity;
 import org.hibernate.envers.query.AuditQuery;
 import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.factory.json.system.revision.JsonRevisionFactory;
 import org.jeesl.interfaces.model.system.io.revision.EjbWithRevisionAttributes;
@@ -30,9 +33,6 @@ import org.jeesl.util.query.sql.SqlRevisionQueries;
 
 import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.controller.util.ParentPredicate;
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -109,7 +109,7 @@ public class JeeslRevisionFacadeBean<L extends UtilsLang,D extends UtilsDescript
 		return allForOrParents(fbRevision.getClassEntity(),ppCategory);
 	}
 	
-	@Override public void rm(Class<RVM> cMappingView, RVM mapping) throws UtilsConstraintViolationException
+	@Override public void rm(Class<RVM> cMappingView, RVM mapping) throws JeeslConstraintViolationException
 	{
 		mapping = em.find(cMappingView, mapping.getId());
 		mapping.getView().getMaps().remove(mapping);
@@ -117,7 +117,7 @@ public class JeeslRevisionFacadeBean<L extends UtilsLang,D extends UtilsDescript
 	}
 
 	@Override public <W extends EjbWithRevisionAttributes<RA>>
-			RA save(Class<W> cW, W entity, RA attribute) throws UtilsLockingException, UtilsConstraintViolationException
+			RA save(Class<W> cW, W entity, RA attribute) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		entity = this.find(cW, entity);
 		attribute = this.saveProtected(attribute);
@@ -130,7 +130,7 @@ public class JeeslRevisionFacadeBean<L extends UtilsLang,D extends UtilsDescript
 	}
 
 	@Override public <W extends EjbWithRevisionAttributes<RA>>
-			void rm(Class<W> cW, W entity, RA attribute) throws UtilsConstraintViolationException, UtilsLockingException
+			void rm(Class<W> cW, W entity, RA attribute) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		entity = this.find(cW, entity);
 		if(entity.getAttributes().contains(attribute))
@@ -141,7 +141,7 @@ public class JeeslRevisionFacadeBean<L extends UtilsLang,D extends UtilsDescript
 		this.rmProtected(attribute);		
 	}
 	
-	@Override public <T extends EjbWithId> T jpaTree(Class<T> c, String jpa, long id) throws UtilsNotFoundException
+	@Override public <T extends EjbWithId> T jpaTree(Class<T> c, String jpa, long id) throws JeeslNotFoundException
 	{
 		StringBuffer sb = new StringBuffer();
 		sb.append("SELECT c ");
@@ -153,7 +153,7 @@ public class JeeslRevisionFacadeBean<L extends UtilsLang,D extends UtilsDescript
 		q.setParameter("refId", id);
 		
 		try	{return q.getSingleResult();}
-		catch (NoResultException ex){throw new UtilsNotFoundException("Nothing found "+c.getSimpleName()+" for jpa="+jpa);}
+		catch (NoResultException ex){throw new JeeslNotFoundException("Nothing found "+c.getSimpleName()+" for jpa="+jpa);}
 	}
 	
 	@Override

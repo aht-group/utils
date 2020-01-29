@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jeesl.api.facade.io.JeeslIoJcrFacade;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.bean.JcrBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsProcessingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -63,7 +63,7 @@ public class JcrFileHandler<L extends UtilsLang,D extends UtilsDescription, T ex
 		file = null;
 	}
 	
-	public void loadFile() throws UtilsNotFoundException
+	public void loadFile() throws JeeslNotFoundException
 	{
 		file = fJcr.jcrFile(ejb,file.getName());
 	}
@@ -102,7 +102,7 @@ public class JcrFileHandler<L extends UtilsLang,D extends UtilsDescription, T ex
 		file = null;
 	}
 	
-	public void selectFile() throws UtilsNotFoundException
+	public void selectFile() throws JeeslNotFoundException
 	{
 		logger.info("selectFile");
 		loadFile();

@@ -12,6 +12,8 @@ import org.jeesl.api.facade.io.JeeslIoDmsFacade;
 import org.jeesl.api.facade.io.JeeslIoFrFacade;
 import org.jeesl.controller.handler.sb.SbSingleHandler;
 import org.jeesl.controller.handler.system.io.AttributeHandler;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.io.IoAttributeFactoryBuilder;
 import org.jeesl.factory.builder.io.IoDmsFactoryBuilder;
 import org.jeesl.factory.builder.io.IoFileRepositoryFactoryBuilder;
@@ -42,8 +44,6 @@ import org.primefaces.model.TreeNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -132,7 +132,7 @@ public abstract class AbstractDmsViewBean <L extends UtilsLang, D extends UtilsD
 	
 	
 	@Override @SuppressWarnings("unchecked")
-	public void selectSbSingle(EjbWithId item) throws UtilsLockingException, UtilsConstraintViolationException
+	public void selectSbSingle(EjbWithId item) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		logger.info(AbstractLogMessage.selectEntity(item));
 		this.dm = (DMS)item;
@@ -184,7 +184,7 @@ public abstract class AbstractDmsViewBean <L extends UtilsLang, D extends UtilsD
     		files = fDms.allForParent(fbDms.getClassFile(),section);
     }
 
-    public void addFile() throws UtilsConstraintViolationException, UtilsLockingException
+    public void addFile() throws JeeslConstraintViolationException, JeeslLockingException
     {
     		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbDms.getClassFile()));}
     		file = efFile.build(section, files);
@@ -193,7 +193,7 @@ public abstract class AbstractDmsViewBean <L extends UtilsLang, D extends UtilsD
     		fileHandler.init(dm.getStorage(),file);
     }
     	
-    public void saveFile() throws UtilsConstraintViolationException, UtilsLockingException
+    public void saveFile() throws JeeslConstraintViolationException, JeeslLockingException
     {
     		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(file));}
     		file = fDms.save(file);
@@ -201,7 +201,7 @@ public abstract class AbstractDmsViewBean <L extends UtilsLang, D extends UtilsD
     		attributeHandler.prepare(file);
     }
     
-    public void selectFile() throws UtilsConstraintViolationException, UtilsLockingException
+    public void selectFile() throws JeeslConstraintViolationException, JeeslLockingException
     {
     		if(debugOnInfo) {logger.info(AbstractLogMessage.selectEntity((file)));}
     		file = efLang.persistMissingLangs(fDms, sbhLocale.getList(), file);
@@ -210,17 +210,17 @@ public abstract class AbstractDmsViewBean <L extends UtilsLang, D extends UtilsD
     }
     
 	@Override
-	public void save(JeeslAttributeHandler<ACONTAINER> handler) throws UtilsConstraintViolationException, UtilsLockingException
+	public void save(JeeslAttributeHandler<ACONTAINER> handler) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		file.setAttributeContainer(handler.saveContainer());
 		file = fAttribute.save(file);
 	}
 	
-	@Override public void fileRepositoryContainerSaved(EjbWithId id) throws UtilsConstraintViolationException, UtilsLockingException
+	@Override public void fileRepositoryContainerSaved(EjbWithId id) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		file.setFrContainer(fileHandler.getContainer());
 		file = fFr.save(file);
 	}
 	
-	public void reorderFiles() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fDms, files);}
+	public void reorderFiles() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fDms, files);}
 }

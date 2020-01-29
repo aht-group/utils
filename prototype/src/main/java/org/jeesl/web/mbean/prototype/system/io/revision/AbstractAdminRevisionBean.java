@@ -7,6 +7,9 @@ import java.util.List;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
 import org.jeesl.controller.handler.sb.SbMultiHandler;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.revision.EjbRevisionAttributeFactory;
 import org.jeesl.factory.ejb.system.io.revision.EjbRevisionEntityFactory;
@@ -30,9 +33,6 @@ import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -118,12 +118,12 @@ public abstract class AbstractAdminRevisionBean <L extends UtilsLang, D extends 
 		sbhCategory = new SbMultiHandler<RC>(fbRevision.getClassCategory(),categories,this);
 	}
 	
-	@Override public void toggled(Class<?> c) throws UtilsLockingException, UtilsConstraintViolationException
+	@Override public void toggled(Class<?> c) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 
 	}
 	
-	public void addAttribute() throws UtilsNotFoundException
+	public void addAttribute() throws JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.addEntity(fbRevision.getClassAttribute()));}
 		attribute = efAttribute.build(null);
@@ -131,7 +131,7 @@ public abstract class AbstractAdminRevisionBean <L extends UtilsLang, D extends 
 		attribute.setDescription(efDescription.createEmpty(langs));
 	}
 	
-	public void selectAttribute() throws UtilsNotFoundException
+	public void selectAttribute() throws JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.selectEntity(attribute));}
 		attribute = fRevision.find(fbRevision.getClassAttribute(), attribute);

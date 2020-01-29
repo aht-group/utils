@@ -76,17 +76,17 @@ public class Json4TuplesFactory <A extends EjbWithId, B extends EjbWithId, C ext
 		
 		for(Json4Tuple<A,B,C,D> t : json.getTuples())
 		{
-			setId1.add(t.getId1());
-			setId2.add(t.getId2());
-			setId3.add(t.getId3());
+			setA.add(t.getId1());
+			setB.add(t.getId2());
+			setC.add(t.getId3());
 			setId4.add(t.getId4());
 		}
 		
 		logger.info("Futils:"+(fUtils!=null));
 		
-		mapA.putAll(EjbIdFactory.toIdMap(fUtils.find(cA, setId1)));
-		mapB.putAll(EjbIdFactory.toIdMap(fUtils.find(cB, setId2)));
-		mapC.putAll(EjbIdFactory.toIdMap(fUtils.find(cC, setId3)));
+		mapA.putAll(EjbIdFactory.toIdMap(fUtils.find(cA, setA)));
+		mapB.putAll(EjbIdFactory.toIdMap(fUtils.find(cB, setB)));
+		mapC.putAll(EjbIdFactory.toIdMap(fUtils.find(cC, setC)));
 		mapD.putAll(EjbIdFactory.toIdMap(fUtils.find(cD, setId4)));
 	}
 }

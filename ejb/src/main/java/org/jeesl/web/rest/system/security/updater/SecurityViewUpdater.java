@@ -3,6 +3,9 @@ package org.jeesl.web.rest.system.security.updater;
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
 import org.jeesl.controller.db.updater.JeeslDbCodeEjbUpdater;
 import org.jeesl.controller.monitor.DataUpdateTracker;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.factory.xml.system.io.sync.XmlDataUpdateFactory;
 import org.jeesl.factory.xml.system.io.sync.XmlResultFactory;
@@ -20,9 +23,6 @@ import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -148,7 +148,7 @@ public class SecurityViewUpdater <L extends UtilsLang,
 			efLang.rmLang(fSecurity,ejb);
 			efDescription.rmDescription(fSecurity,ejb);
 		}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			try
 			{
@@ -159,7 +159,7 @@ public class SecurityViewUpdater <L extends UtilsLang,
 			}
 			catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
 			catch (IllegalAccessException e2) {throw new UtilsConfigurationException(e2.getMessage());}
-			catch (UtilsConstraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
+			catch (JeeslConstraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
 		}
 		
 		try
@@ -203,8 +203,8 @@ public class SecurityViewUpdater <L extends UtilsLang,
 			}
 			dut.success();
 		}
-		catch (UtilsConstraintViolationException e) {dut.fail(e,false); }
-		catch (UtilsLockingException e) {dut.fail(e,false); }
+		catch (JeeslConstraintViolationException e) {dut.fail(e,false); }
+		catch (JeeslLockingException e) {dut.fail(e,false); }
 	}
 	private void iuView(C category, net.sf.ahtutils.xml.security.View view) throws UtilsConfigurationException
 	{
@@ -218,7 +218,7 @@ public class SecurityViewUpdater <L extends UtilsLang,
 			efLang.rmLang(fSecurity,ejb);
 			efDescription.rmDescription(fSecurity,ejb);
 		}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			try
 			{
@@ -229,7 +229,7 @@ public class SecurityViewUpdater <L extends UtilsLang,
 			}
 			catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
 			catch (IllegalAccessException e2) {throw new UtilsConfigurationException(e2.getMessage());}
-			catch (UtilsConstraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
+			catch (JeeslConstraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
 		}
 		
 		try
@@ -281,8 +281,8 @@ public class SecurityViewUpdater <L extends UtilsLang,
 			}
 			dut.success();
 		}
-		catch (UtilsConstraintViolationException e) {dut.fail(e,false); }
-		catch (UtilsLockingException e) {dut.fail(e,false); }
+		catch (JeeslConstraintViolationException e) {dut.fail(e,false); }
+		catch (JeeslLockingException e) {dut.fail(e,false); }
 	}
 	
 	@Deprecated private void iuAction(V ejbView, Action action) throws UtilsConfigurationException
@@ -294,7 +294,7 @@ public class SecurityViewUpdater <L extends UtilsLang,
 			efLang.rmLang(fSecurity,ebj);
 			efDescription.rmDescription(fSecurity,ebj);
 		}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			try
 			{
@@ -305,7 +305,7 @@ public class SecurityViewUpdater <L extends UtilsLang,
 			}
 			catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
 			catch (IllegalAccessException e2) {throw new UtilsConfigurationException(e2.getMessage());}
-			catch (UtilsConstraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
+			catch (JeeslConstraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
 		}
 		
 		try
@@ -318,8 +318,8 @@ public class SecurityViewUpdater <L extends UtilsLang,
 			ebj.setView(ejbView);
 			ebj=fSecurity.update(ebj);
 		}
-		catch (UtilsConstraintViolationException e) {logger.error("Action.Code:"+action.getCode(),e);}
-		catch (UtilsLockingException e) {logger.error("",e);}
+		catch (JeeslConstraintViolationException e) {logger.error("Action.Code:"+action.getCode(),e);}
+		catch (JeeslLockingException e) {logger.error("",e);}
 	}
 	private void iuAction(V ejbView, net.sf.ahtutils.xml.security.Action action) throws UtilsConfigurationException
 	{
@@ -330,7 +330,7 @@ public class SecurityViewUpdater <L extends UtilsLang,
 			efLang.rmLang(fSecurity,ebj);
 			efDescription.rmDescription(fSecurity,ebj);
 		}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			try
 			{
@@ -341,7 +341,7 @@ public class SecurityViewUpdater <L extends UtilsLang,
 			}
 			catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
 			catch (IllegalAccessException e2) {throw new UtilsConfigurationException(e2.getMessage());}
-			catch (UtilsConstraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
+			catch (JeeslConstraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
 		}
 		
 		try
@@ -354,7 +354,7 @@ public class SecurityViewUpdater <L extends UtilsLang,
 			ebj.setView(ejbView);
 			ebj=fSecurity.update(ebj);
 		}
-		catch (UtilsConstraintViolationException e) {logger.error("Action.Code:"+action.getCode(),e);}
-		catch (UtilsLockingException e) {logger.error("",e);}
+		catch (JeeslConstraintViolationException e) {logger.error("Action.Code:"+action.getCode(),e);}
+		catch (JeeslLockingException e) {logger.error("",e);}
 	}
 }

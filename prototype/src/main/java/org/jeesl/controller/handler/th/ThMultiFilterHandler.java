@@ -7,14 +7,14 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.jeesl.interfaces.bean.th.ThMultiFilterBean;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.bean.th.ThMultiFilter;
 import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -57,7 +57,7 @@ public class ThMultiFilterHandler <T extends EjbWithId> implements Serializable,
 			S status = fUtils.fByCode(c,code);
 			list.add((T)status);
 		}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			e.printStackTrace();
 		}
@@ -117,8 +117,8 @@ public class ThMultiFilterHandler <T extends EjbWithId> implements Serializable,
 	private void callbackToggledToBean()
 	{
 		try {if(bean!=null){bean.filtered(this);}}
-		catch (UtilsLockingException e) {e.printStackTrace();}
-		catch (UtilsConstraintViolationException e) {e.printStackTrace();}
+		catch (JeeslLockingException e) {e.printStackTrace();}
+		catch (JeeslConstraintViolationException e) {e.printStackTrace();}
 	}
 
 	private void refresh()

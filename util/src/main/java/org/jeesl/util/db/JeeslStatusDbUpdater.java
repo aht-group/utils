@@ -10,15 +10,15 @@ import java.util.Map;
 import java.util.Set;
 
 import org.jeesl.controller.monitor.DataUpdateTracker;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.ejb.system.status.EjbStatusFactory;
 import org.jeesl.factory.xml.system.status.XmlTypeFactory;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsDeveloperException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
@@ -80,7 +80,7 @@ public class JeeslStatusDbUpdater <L extends UtilsLang, D extends UtilsDescripti
 		return ejbStatus;
 	}
 	
-	private UtilsStatus<S,L,D> addLangsAndDescriptions(UtilsStatus<S,L,D> ejbStatus, Status status) throws InstantiationException, IllegalAccessException, UtilsConstraintViolationException
+	private UtilsStatus<S,L,D> addLangsAndDescriptions(UtilsStatus<S,L,D> ejbStatus, Status status) throws InstantiationException, IllegalAccessException, JeeslConstraintViolationException
 	{
 		UtilsStatus<S,L,D> ejbUpdateInfo = statusEjbFactory.create(status);		
 		ejbStatus.setName(ejbUpdateInfo.getName());
@@ -120,8 +120,8 @@ public class JeeslStatusDbUpdater <L extends UtilsLang, D extends UtilsDescripti
 				logger.trace("\t"+lang);
 				fStatus.rm(lang);
 			}
-			catch (UtilsNotFoundException e) {logger.error("",e);}
-			catch (UtilsConstraintViolationException e) {logger.error("",e);}
+			catch (JeeslNotFoundException e) {logger.error("",e);}
+			catch (JeeslConstraintViolationException e) {logger.error("",e);}
 		}
 		for(long id : sDeleteDescriptions)
 		{
@@ -131,8 +131,8 @@ public class JeeslStatusDbUpdater <L extends UtilsLang, D extends UtilsDescripti
 				D d = fStatus.find(cDescription, id);
 				fStatus.rm(d);
 			}
-			catch (UtilsNotFoundException e) {logger.error("",e);}
-			catch (UtilsConstraintViolationException e) {logger.error("",e);}
+			catch (JeeslNotFoundException e) {logger.error("",e);}
+			catch (JeeslConstraintViolationException e) {logger.error("",e);}
 		}
 		
 		 for(String group : mDbAvailableStatus.keySet())
@@ -147,8 +147,8 @@ public class JeeslStatusDbUpdater <L extends UtilsLang, D extends UtilsDescripti
 					 S status = fStatus.find(cStatus, id);
 					 fStatus.rm(status);
 				 }
-				 catch (UtilsConstraintViolationException e) {logger.error("Error with following ID:"+id,e);}
-				 catch (UtilsNotFoundException e)  {logger.error("Error with following ID:"+id,e);}
+				 catch (JeeslConstraintViolationException e) {logger.error("Error with following ID:"+id,e);}
+				 catch (JeeslNotFoundException e)  {logger.error("Error with following ID:"+id,e);}
 			 }
 		 }
 	}
@@ -182,9 +182,9 @@ public class JeeslStatusDbUpdater <L extends UtilsLang, D extends UtilsDescripti
 					dut.success();
 				}
 			}
-			catch (UtilsConstraintViolationException e){dut.fail(e,true);}
-			catch (UtilsLockingException e) {dut.fail(e,true);}
-			catch (UtilsNotFoundException e) {dut.fail(e,true);}
+			catch (JeeslConstraintViolationException e){dut.fail(e,true);}
+			catch (JeeslLockingException e) {dut.fail(e,true);}
+			catch (JeeslNotFoundException e) {dut.fail(e,true);}
 		}
 		return dut.toDataUpdate();
 	}
@@ -219,7 +219,7 @@ public class JeeslStatusDbUpdater <L extends UtilsLang, D extends UtilsDescripti
 					logger.trace("Now in Pool: "+mDbAvailableStatus.get(xml.getGroup()).size());
 					logger.trace("Found: "+ejb);
 				}
-				catch (UtilsNotFoundException e)
+				catch (JeeslNotFoundException e)
 				{
 					ejb = cStatus.newInstance();
 					ejb.setCode(xml.getCode());
@@ -236,7 +236,7 @@ public class JeeslStatusDbUpdater <L extends UtilsLang, D extends UtilsDescripti
 				}
 				catch (InstantiationException e) {logger.error("",e);}
 				catch (IllegalAccessException e) {logger.error("",e);}
-				catch (UtilsConstraintViolationException e) {logger.error("",e);}
+				catch (JeeslConstraintViolationException e) {logger.error("",e);}
 		        
 				if(xml.isSetPosition()){ejb.setPosition(xml.getPosition());}
 		        else{ejb.setPosition(0);}
@@ -247,10 +247,10 @@ public class JeeslStatusDbUpdater <L extends UtilsLang, D extends UtilsDescripti
 				ejb = fStatus.update(ejb);
 				
 			}
-			catch (UtilsConstraintViolationException e){logger.error("",e);}
+			catch (JeeslConstraintViolationException e){logger.error("",e);}
 			catch (InstantiationException e) {logger.error("",e);}
 			catch (IllegalAccessException e) {logger.error("",e);}
-			catch (UtilsLockingException e) {logger.error("",e);}
+			catch (JeeslLockingException e) {logger.error("",e);}
 		}
 	}
 	

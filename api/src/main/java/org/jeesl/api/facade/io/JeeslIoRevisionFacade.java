@@ -3,6 +3,9 @@ package org.jeesl.api.facade.io;
 import java.util.Date;
 import java.util.List;
 
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.system.io.revision.EjbWithRevisionAttributes;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionScope;
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
@@ -13,9 +16,6 @@ import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntityMapping;
 import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -50,12 +50,12 @@ public interface JeeslIoRevisionFacade <L extends UtilsLang,D extends UtilsDescr
 	
 //	<E extends Enum<E>> RA findRevisionAttribute(Class<?> c, E code);
 	
-	void rm(Class<RVM> cMappingView, RVM mapping) throws UtilsConstraintViolationException;
+	void rm(Class<RVM> cMappingView, RVM mapping) throws JeeslConstraintViolationException;
 	
-	<W extends EjbWithRevisionAttributes<RA>> RA save(Class<W> cW, W entity, RA attribute) throws UtilsLockingException, UtilsConstraintViolationException;
-	<W extends EjbWithRevisionAttributes<RA>> void rm(Class<W> cW, W entity, RA attribute) throws UtilsLockingException, UtilsConstraintViolationException;
+	<W extends EjbWithRevisionAttributes<RA>> RA save(Class<W> cW, W entity, RA attribute) throws JeeslLockingException, JeeslConstraintViolationException;
+	<W extends EjbWithRevisionAttributes<RA>> void rm(Class<W> cW, W entity, RA attribute) throws JeeslLockingException, JeeslConstraintViolationException;
 	
-	<T extends EjbWithId> T jpaTree(Class<T> c, String jpa, long id) throws UtilsNotFoundException;
+	<T extends EjbWithId> T jpaTree(Class<T> c, String jpa, long id) throws JeeslNotFoundException;
 	
 	<T extends EjbWithId> List<T> revisions(Class<T> c, List<Long> ids);
 	

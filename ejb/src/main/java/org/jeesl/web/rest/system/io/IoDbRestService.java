@@ -9,6 +9,9 @@ import org.jeesl.api.rest.system.io.db.JeeslIoDbRestExport;
 import org.jeesl.api.rest.system.io.db.JeeslIoDbRestImport;
 import org.jeesl.api.rest.system.io.db.JeeslIoDbRestInterface;
 import org.jeesl.controller.monitor.DataUpdateTracker;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoDbFactoryBuilder;
 import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.db.EjbDbDumpFileFactory;
@@ -24,9 +27,6 @@ import org.jeesl.web.rest.AbstractJeeslRestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.xml.aht.Aht;
@@ -89,14 +89,14 @@ public class IoDbRestService<L extends UtilsLang,D extends UtilsDescription,
 			eStatusStored = fDb.fByCode(fbDb.getClassDumpStatus(),JeeslDbDumpFile.Status.stored);
 			eStatusDeleted = fDb.fByCode(fbDb.getClassDumpStatus(),JeeslDbDumpFile.Status.deleted);
 		}
-		catch (UtilsNotFoundException e) {dut.fail(e, true);return dut.toDataUpdate();}
+		catch (JeeslNotFoundException e) {dut.fail(e, true);return dut.toDataUpdate();}
 		
 		HOST eHost;
 		try{eHost = fDb.fByCode(fbDb.getClassDumpHost(), directory.getCode());}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			try{eHost = fDb.persist(efHost.create(directory.getCode()));}
-			catch (UtilsConstraintViolationException e1) {dut.fail(e1, true);return dut.toDataUpdate();}
+			catch (JeeslConstraintViolationException e1) {dut.fail(e1, true);return dut.toDataUpdate();}
 		}
 		
 		Set<FILE> setExisting = new HashSet<FILE>(fDb.fDumpFiles(eHost));
@@ -105,7 +105,7 @@ public class IoDbRestService<L extends UtilsLang,D extends UtilsDescription,
 		{
 			DUMP eDump;
 			try{eDump = fDb.fByName(fbDb.getClassDump(), xFile.getName());}
-			catch (UtilsNotFoundException e)
+			catch (JeeslNotFoundException e)
 			{
 				try
 				{
@@ -114,15 +114,15 @@ public class IoDbRestService<L extends UtilsLang,D extends UtilsDescription,
 					eDump = fDb.persist(eDump);
 					
 				}
-				catch (UtilsConstraintViolationException e1) {dut.fail(e1, true);return dut.toDataUpdate();}
-				catch (UtilsNotFoundException e1) {dut.fail(e1, true);return dut.toDataUpdate();}
+				catch (JeeslConstraintViolationException e1) {dut.fail(e1, true);return dut.toDataUpdate();}
+				catch (JeeslNotFoundException e1) {dut.fail(e1, true);return dut.toDataUpdate();}
 			}
 			FILE eFile;
 			try {eFile = fDb.fDumpFile(eDump,eHost);}
-			catch (UtilsNotFoundException e)
+			catch (JeeslNotFoundException e)
 			{
 				try {eFile = fDb.persist(efDumpFile.build(eDump,eHost,eStatusStored));}
-				catch (UtilsConstraintViolationException e1) {dut.fail(e1, true);return dut.toDataUpdate();}
+				catch (JeeslConstraintViolationException e1) {dut.fail(e1, true);return dut.toDataUpdate();}
 			}
 			
 			try
@@ -131,8 +131,8 @@ public class IoDbRestService<L extends UtilsLang,D extends UtilsDescription,
 				eFile.setStatus(eStatusStored);
 				eFile = fDb.update(eFile);
 			}
-			catch (UtilsConstraintViolationException e) {dut.fail(e,true);return dut.toDataUpdate();}
-			catch (UtilsLockingException e) {dut.fail(e,true);return dut.toDataUpdate();}
+			catch (JeeslConstraintViolationException e) {dut.fail(e,true);return dut.toDataUpdate();}
+			catch (JeeslLockingException e) {dut.fail(e,true);return dut.toDataUpdate();}
 		}
 		
 		for(FILE f : new ArrayList<FILE>(setExisting))
@@ -142,8 +142,8 @@ public class IoDbRestService<L extends UtilsLang,D extends UtilsDescription,
 				f.setStatus(eStatusDeleted);
 				f = fDb.update(f);
 			}
-			catch (UtilsConstraintViolationException e) {dut.fail(e,true);}
-			catch (UtilsLockingException e) {dut.fail(e,true);}
+			catch (JeeslConstraintViolationException e) {dut.fail(e,true);}
+			catch (JeeslLockingException e) {dut.fail(e,true);}
 		}
 		
 		return dut.toDataUpdate();

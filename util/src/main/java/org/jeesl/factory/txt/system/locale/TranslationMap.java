@@ -5,8 +5,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
-
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +24,7 @@ public class TranslationMap
 	{
 		String result;
 		try {result = translateWithException(langKey, key);}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			result = "??? "+e.getMessage()+" ???";
 		}
@@ -33,7 +32,7 @@ public class TranslationMap
 		return result;
 	}
 	
-	public String translateWithException(String langKey, String key) throws UtilsNotFoundException
+	public String translateWithException(String langKey, String key) throws JeeslNotFoundException
 	{
 		if(tMap.containsKey(langKey))
 		{
@@ -44,12 +43,12 @@ public class TranslationMap
 			}
 			else
 			{
-				throw new UtilsNotFoundException("No Translation for lang="+langKey+" and key="+key);
+				throw new JeeslNotFoundException("No Translation for lang="+langKey+" and key="+key);
 			}
 		}
 		else
 		{
-			throw new UtilsNotFoundException("No Translations for lang="+langKey);
+			throw new JeeslNotFoundException("No Translations for lang="+langKey);
 		}
 	}
 	
@@ -78,7 +77,7 @@ public class TranslationMap
 		return tMap.size();
 	}
 	
-	public int sizeKeys(String langKey) throws UtilsNotFoundException
+	public int sizeKeys(String langKey) throws JeeslNotFoundException
 	{
 		if(tMap.containsKey(langKey))
 		{
@@ -86,7 +85,7 @@ public class TranslationMap
 		}
 		else
 		{
-			throw new UtilsNotFoundException("No Translations for lang="+langKey);
+			throw new JeeslNotFoundException("No Translations for lang="+langKey);
 		}
 	}
 	
@@ -100,7 +99,7 @@ public class TranslationMap
 		return result;
 	}
 	
-	public List<String> getTranslationKeys(String langKey) throws UtilsNotFoundException
+	public List<String> getTranslationKeys(String langKey) throws JeeslNotFoundException
 	{
 		if(tMap.containsKey(langKey))
 		{
@@ -113,7 +112,7 @@ public class TranslationMap
 		}
 		else
 		{
-			throw new UtilsNotFoundException("No Translations for lang="+langKey);
+			throw new JeeslNotFoundException("No Translations for lang="+langKey);
 		}
 	}
 }

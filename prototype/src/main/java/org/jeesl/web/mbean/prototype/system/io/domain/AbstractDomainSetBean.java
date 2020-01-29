@@ -6,6 +6,8 @@ import java.util.List;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoDomainFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.io.IoDomainFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.domain.JeeslDomain;
 import org.jeesl.interfaces.model.system.io.domain.JeeslDomainItem;
@@ -17,8 +19,6 @@ import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.jsf.util.PositionListReorderer;
@@ -77,7 +77,7 @@ public abstract class AbstractDomainSetBean <L extends UtilsLang, D extends Util
 		set.setDescription(efDescription.createEmpty(localeCodes));
 	}
 	
-	public void saveSet() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveSet() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info(AbstractLogMessage.saveEntity(set));
 		set.setDomain(fDomain.find(fbDomain.getClassDomain(),set.getDomain()));
@@ -108,7 +108,7 @@ public abstract class AbstractDomainSetBean <L extends UtilsLang, D extends Util
 		item = fbDomain.ejbItem().build(set,null,items);
 	}
 	
-	public void saveItem() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveItem() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info(AbstractLogMessage.saveEntity(item));
 		item.setQuery(fDomain.find(fbDomain.getClassDomainQuery(),item.getQuery()));
@@ -116,7 +116,7 @@ public abstract class AbstractDomainSetBean <L extends UtilsLang, D extends Util
 		reloadItems();
 	}
 	
-	public void deleteItem() throws UtilsConstraintViolationException, UtilsLockingException
+	public void deleteItem() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info(AbstractLogMessage.rmEntity(item));
 //		domain.setEntity(fAnalysis.find(fbAnalysis.getClassDomainEntity(),domain.getEntity()));
@@ -131,6 +131,6 @@ public abstract class AbstractDomainSetBean <L extends UtilsLang, D extends Util
 		logger.info(AbstractLogMessage.selectEntity(item));
 	}
 	
-	public void reorderSets() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fDomain, sets);}
-	public void reorderItems() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fDomain, items);}
+	public void reorderSets() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fDomain, sets);}
+	public void reorderItems() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fDomain, items);}
 }

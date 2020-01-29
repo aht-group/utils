@@ -7,6 +7,8 @@ import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoDmsFacade;
 import org.jeesl.controller.handler.sb.SbSingleHandler;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.io.IoDmsFactoryBuilder;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;
@@ -29,8 +31,6 @@ import org.primefaces.model.TreeNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -78,7 +78,7 @@ public abstract class AbstractAdminDmsTreeBean <L extends UtilsLang,D extends Ut
 	
 	
 	@Override @SuppressWarnings("unchecked")
-	public void selectSbSingle(EjbWithId item) throws UtilsLockingException, UtilsConstraintViolationException
+	public void selectSbSingle(EjbWithId item) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		logger.info(AbstractLogMessage.selectEntity(item));
 		this.dm = (DMS)item;
@@ -107,7 +107,7 @@ public abstract class AbstractAdminDmsTreeBean <L extends UtilsLang,D extends Ut
 
     
 	@SuppressWarnings("unchecked")
-	public void onDragDrop(TreeDragDropEvent event) throws UtilsConstraintViolationException, UtilsLockingException
+	public void onDragDrop(TreeDragDropEvent event) throws JeeslConstraintViolationException, JeeslLockingException
 	{
         TreeNode dragNode = event.getDragNode();
         TreeNode dropNode = event.getDropNode();
@@ -149,7 +149,7 @@ public abstract class AbstractAdminDmsTreeBean <L extends UtilsLang,D extends Ut
 		section.setDescription(efDescription.createEmpty(sbhLocale.getList()));
 	}
 	
-	public void saveSection() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveSection() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(section));}
 		boolean appendToTree = EjbIdFactory.isUnSaved(section);		

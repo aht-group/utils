@@ -15,6 +15,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.system.JeeslSystemConstraintFacade;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.ConstraintFactoryBuilder;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraint;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraintResolution;
@@ -22,7 +23,6 @@ import org.jeesl.interfaces.model.system.constraint.JeeslConstraintScope;
 import org.jeesl.interfaces.model.system.constraint.algorithm.JeeslConstraintAlgorithm;
 
 import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -48,7 +48,7 @@ public class JeeslSystemConstraintFacadeBean<L extends UtilsLang, D extends Util
 		this.fbConstraint=fbConstraint;
 	}
 	
-	@Override public CONSTRAINT fSystemConstraint(SCOPE scope, String code) throws UtilsNotFoundException
+	@Override public CONSTRAINT fSystemConstraint(SCOPE scope, String code) throws JeeslNotFoundException
 	{
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		CriteriaBuilder cB = em.getCriteriaBuilder();
@@ -66,7 +66,7 @@ public class JeeslSystemConstraintFacadeBean<L extends UtilsLang, D extends Util
 
 		TypedQuery<CONSTRAINT> tQ = em.createQuery(cQ);
 		try	{return tQ.getSingleResult();}
-		catch (NoResultException ex){throw new UtilsNotFoundException("No "+fbConstraint.getClassConstraint().getSimpleName()+" found for scope="+scope.toString()+" and code="+code);}
-		catch (NonUniqueResultException ex){throw new UtilsNotFoundException("No unique results in "+fbConstraint.getClassConstraint().getSimpleName()+" for type="+scope.toString()+" and code="+code);}
+		catch (NoResultException ex){throw new JeeslNotFoundException("No "+fbConstraint.getClassConstraint().getSimpleName()+" found for scope="+scope.toString()+" and code="+code);}
+		catch (NonUniqueResultException ex){throw new JeeslNotFoundException("No unique results in "+fbConstraint.getClassConstraint().getSimpleName()+" for type="+scope.toString()+" and code="+code);}
 	}
 }

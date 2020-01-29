@@ -4,15 +4,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.bean.sb.SbSingleBean;
 import org.jeesl.interfaces.controller.handler.tree.cache.JeeslTree1Cache;
 import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
@@ -69,13 +69,13 @@ public class SbSingleHandler <T extends EjbWithId> implements Serializable,SbSin
 				else{selectSbSingle(list.get(0));}
 			}
 		}
-		catch (UtilsLockingException e) {}
-		catch (UtilsConstraintViolationException e) {}
+		catch (JeeslLockingException e) {}
+		catch (JeeslConstraintViolationException e) {}
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void selectSbSingle(EjbWithId item) throws UtilsLockingException, UtilsConstraintViolationException
+	public void selectSbSingle(EjbWithId item) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		if(item==null)
 		{
@@ -139,7 +139,7 @@ public class SbSingleHandler <T extends EjbWithId> implements Serializable,SbSin
 			S status = fUtils.fByCode(c,code);
 			list.add((T)status);
 		}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			e.printStackTrace();
 		}

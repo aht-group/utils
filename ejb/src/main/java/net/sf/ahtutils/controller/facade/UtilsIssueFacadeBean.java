@@ -2,13 +2,13 @@ package net.sf.ahtutils.controller.facade;
 
 import javax.persistence.EntityManager;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.issue.UtilsTask;
 import net.sf.ahtutils.interfaces.model.with.EjbWithTask;
 
 import org.jeesl.api.facade.core.JeeslIssueFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.ejb.module.task.EjbTaskFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,8 +36,8 @@ public class UtilsIssueFacadeBean extends UtilsFacadeBean implements JeeslIssueF
 			{
 				ejb = this.update(ejb);
 			}
-			catch (UtilsConstraintViolationException e) {return fcTask(clTask, clWithTask, ejb);}
-			catch (UtilsLockingException e) {return fcTask(clTask, clWithTask, ejb);}
+			catch (JeeslConstraintViolationException e) {return fcTask(clTask, clWithTask, ejb);}
+			catch (JeeslLockingException e) {return fcTask(clTask, clWithTask, ejb);}
 		}
 		return ejb.getTask();
 	}
@@ -58,10 +58,10 @@ public class UtilsIssueFacadeBean extends UtilsFacadeBean implements JeeslIssueF
 
 	@Override
 	public <T extends UtilsTask<T>, WT extends EjbWithTask<T>> T fTask(Class<T> clTask, Class<WT> clWithTask, WT ejb)
-			throws UtilsNotFoundException
+			throws JeeslNotFoundException
 	{
 		ejb = em.find(clWithTask, ejb.getId());
-		if(ejb.getTask()==null){throw new UtilsNotFoundException("No Task found for "+ejb.toString());}
+		if(ejb.getTask()==null){throw new JeeslNotFoundException("No Task found for "+ejb.toString());}
 		else{return ejb.getTask();}
 	}
 }

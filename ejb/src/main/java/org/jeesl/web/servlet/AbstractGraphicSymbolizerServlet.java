@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.batik.svggen.SVGGraphics2D;
 import org.apache.batik.transcoder.TranscoderException;
 import org.jeesl.api.facade.system.graphic.JeeslGraphicFacade;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.SvgFactoryBuilder;
 import org.jeesl.factory.svg.SvgFigureFactory;
 import org.jeesl.factory.svg.SvgSymbolFactory;
@@ -22,7 +23,6 @@ import org.openfuxml.media.transcode.Svg2SvgTranscoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsProcessingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -81,7 +81,7 @@ public class AbstractGraphicSymbolizerServlet<L extends UtilsLang, D extends Uti
     			else {logger.error("Class "+c.getName()+" not assingable from "+EjbWithGraphic.class.getName());response.sendError(HttpServletResponse.SC_NOT_FOUND);}
     		}
     		catch (TranscoderException e) {logger.error(e.getMessage());response.sendError(HttpServletResponse.SC_NOT_FOUND);}
-    		catch (UtilsNotFoundException e) {logger.error(e.getMessage());response.sendError(HttpServletResponse.SC_NOT_FOUND);}
+    		catch (JeeslNotFoundException e) {logger.error(e.getMessage());response.sendError(HttpServletResponse.SC_NOT_FOUND);}
 	   		catch (UtilsProcessingException e) {logger.error(e.getMessage());response.sendError(HttpServletResponse.SC_NOT_FOUND);}
 	   		catch (ClassNotFoundException e) {logger.error(e.getMessage());response.sendError(HttpServletResponse.SC_NOT_FOUND);}
 	   	}

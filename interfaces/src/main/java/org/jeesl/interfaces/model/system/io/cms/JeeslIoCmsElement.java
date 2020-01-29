@@ -20,7 +20,7 @@ public interface JeeslIoCmsElement<
 									ET extends UtilsStatus<ET,?,?>,
 									C extends JeeslIoCmsContent<V,?,?>,
 									FC extends JeeslFileContainer<?,?>>
-		extends Serializable,EjbWithId,EjbPersistable,EjbSaveable,EjbRemoveable,EjbWithPositionParent,
+		extends Serializable,EjbWithId,EjbPersistable,EjbSaveable,EjbWithPositionParent,
 				JeeslWithFileRepositoryContainer<FC>
 {	
 	public enum Attributes{section}

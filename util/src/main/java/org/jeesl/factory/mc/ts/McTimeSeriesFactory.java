@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.jeesl.api.facade.module.JeeslTsFacade;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.factory.ejb.module.ts.EjbTsDataPointFactory;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
@@ -26,7 +27,6 @@ import org.metachart.xml.chart.Ds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.exlp.util.DateUtil;
@@ -65,10 +65,10 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 		efPoint = fbTs.ejbDataPoint();
 	}
 	
-	public <E extends Enum<E>> void initScope(E scope) throws UtilsNotFoundException {this.scope = fTs.fByCode(fbTs.getClassScope(), scope);}
-	public void initEntityClass(Class<?> c) throws UtilsNotFoundException {this.entityClass = fTs.fByCode(fbTs.getClassEntity(), c.getName());}
-	public <E extends Enum<E>> void initInterval(E interval) throws UtilsNotFoundException {this.interval = fTs.fByCode(fbTs.getClassInterval(), interval);}
-	public <E extends Enum<E>> void initWorkspace(E workspace) throws UtilsNotFoundException {this.workspace = fTs.fByCode(fbTs.getClassWorkspace(), workspace);}
+	public <E extends Enum<E>> void initScope(E scope) throws JeeslNotFoundException {this.scope = fTs.fByCode(fbTs.getClassScope(), scope);}
+	public void initEntityClass(Class<?> c) throws JeeslNotFoundException {this.entityClass = fTs.fByCode(fbTs.getClassEntity(), c.getName());}
+	public <E extends Enum<E>> void initInterval(E interval) throws JeeslNotFoundException {this.interval = fTs.fByCode(fbTs.getClassInterval(), interval);}
+	public <E extends Enum<E>> void initWorkspace(E workspace) throws JeeslNotFoundException {this.workspace = fTs.fByCode(fbTs.getClassWorkspace(), workspace);}
 
 	public Chart build(String localeCode) 
 	{
@@ -110,12 +110,12 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 		return ds;	
 	}
 	
-	public <T extends EjbWithId> Ds singleData(String localeCode, T entity, Date from, Date to) throws UtilsNotFoundException
+	public <T extends EjbWithId> Ds singleData(String localeCode, T entity, Date from, Date to) throws JeeslNotFoundException
 	{
 		BRIDGE bridge = fTs.fBridge(entityClass,entity);
 		return singleData(localeCode,bridge,from,to);
 	}
-	public <T extends EjbWithId> Ds singleData(String localeCode, BRIDGE bridge, Date from, Date to) throws UtilsNotFoundException
+	public <T extends EjbWithId> Ds singleData(String localeCode, BRIDGE bridge, Date from, Date to) throws JeeslNotFoundException
 	{
 		TS ts = fTs.fTimeSeries(scope,interval,bridge);
 		List<DATA> datas = fTs.fData(workspace,ts,from,to);
@@ -128,7 +128,7 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 		return xml;
 	}
 	
-	public <T extends EjbWithId> Ds multiPoint(String localeCode, T entity, Date from, Date to) throws UtilsNotFoundException
+	public <T extends EjbWithId> Ds multiPoint(String localeCode, T entity, Date from, Date to) throws JeeslNotFoundException
 	{
 		BRIDGE bridge = fTs.fBridge(entityClass,entity);
 		TS ts = fTs.fTimeSeries(scope,interval,bridge);

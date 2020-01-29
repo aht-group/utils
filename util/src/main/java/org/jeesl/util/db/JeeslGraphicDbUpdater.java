@@ -3,6 +3,9 @@ package org.jeesl.util.db;
 import java.util.List;
 
 import org.jeesl.api.facade.system.graphic.JeeslGraphicFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.SvgFactoryBuilder;
 import org.jeesl.factory.ejb.system.symbol.EjbGraphicFactory;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
@@ -11,9 +14,6 @@ import org.jeesl.interfaces.model.system.graphic.with.EjbWithCodeGraphic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.exlp.util.io.StringUtil;
@@ -64,13 +64,13 @@ public class JeeslGraphicDbUpdater <G extends JeeslGraphic<?,?,GT,?,?>, GT exten
 				}
 				
 			}
-			catch (UtilsNotFoundException e) {e.printStackTrace();}
-			catch (UtilsConstraintViolationException e) {e.printStackTrace();}
-			catch (UtilsLockingException e) {e.printStackTrace();}
+			catch (JeeslNotFoundException e) {e.printStackTrace();}
+			catch (JeeslConstraintViolationException e) {e.printStackTrace();}
+			catch (JeeslLockingException e) {e.printStackTrace();}
 		}
 	}
 	
-	public <W extends EjbWithCodeGraphic<G>> void updateSvg(Class<W> cStatus, W ejb, Status xml) throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException
+	public <W extends EjbWithCodeGraphic<G>> void updateSvg(Class<W> cStatus, W ejb, Status xml) throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException
 	{
 		GT svg = fGraphic.fByCode(fbGraphic.getClassGraphicType(), JeeslGraphicType.Code.svg);
 		
@@ -80,7 +80,7 @@ public class JeeslGraphicDbUpdater <G extends JeeslGraphic<?,?,GT,?,?>, GT exten
 			graphic = fGraphic.fGraphic(cStatus, ejb.getId());
 			graphic.setType(svg);
 		}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			if(debugOnInfo) {logger.info("Creating new "+fbGraphic.getClassGraphic());}
 			graphic = fGraphic.save(efGraphic.build(svg));
@@ -91,7 +91,7 @@ public class JeeslGraphicDbUpdater <G extends JeeslGraphic<?,?,GT,?,?>, GT exten
 		fGraphic.update(graphic);
 	}
 	
-	public <W extends EjbWithCodeGraphic<G>> void updateSymbol(Class<W> cStatus, W ejb, Status xml) throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException
+	public <W extends EjbWithCodeGraphic<G>> void updateSymbol(Class<W> cStatus, W ejb, Status xml) throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException
 	{
 		GT symbol = fGraphic.fByCode(fbGraphic.getClassGraphicType(), JeeslGraphicType.Code.symbol);
 		
@@ -101,7 +101,7 @@ public class JeeslGraphicDbUpdater <G extends JeeslGraphic<?,?,GT,?,?>, GT exten
 			graphic = fGraphic.fGraphic(cStatus, ejb.getId());
 			graphic.setType(symbol);
 		}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			if(debugOnInfo) {logger.info("Creating new "+fbGraphic.getClassGraphic());}
 			graphic = fGraphic.save(efGraphic.build(symbol));

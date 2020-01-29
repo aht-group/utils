@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowCommunication;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
@@ -16,9 +18,6 @@ import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.model.xml.system.io.mail.EmailAddress;
 import org.jeesl.model.xml.system.io.mail.Mail;
-
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 
 public interface JeeslWorkflowMessageHandler<WC extends JeeslWorkflowCommunication<?,MT,MC,SR,RE>,
 											SR extends JeeslSecurityRole<?,?,?,?,?,?,USER>,
@@ -41,6 +40,6 @@ public interface JeeslWorkflowMessageHandler<WC extends JeeslWorkflowCommunicati
 	
 	void completeModel(JeeslWithWorkflow<WF> entity, WY activity, WC communication, String localeCode, Map<String,Object> model);
 	
-	void spool(Mail mail) throws UtilsConstraintViolationException, UtilsNotFoundException;
+	void spool(Mail mail) throws JeeslConstraintViolationException, JeeslNotFoundException;
 	List<MD> getDefinitions(MT template);
 }

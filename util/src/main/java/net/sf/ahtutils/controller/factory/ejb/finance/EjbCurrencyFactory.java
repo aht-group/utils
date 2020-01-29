@@ -1,10 +1,10 @@
 package net.sf.ahtutils.controller.factory.ejb.finance;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.xml.finance.Currency;
 import net.sf.exlp.util.xml.JaxbUtil;
 
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.factory.ejb.system.status.EjbLangFactory;
 import org.jeesl.interfaces.model.module.currency.UtilsCurrency;
 import org.slf4j.Logger;
@@ -41,11 +41,11 @@ public class EjbCurrencyFactory<C extends UtilsCurrency<L>, L extends UtilsLang>
         return c;
     }
 	
-	public C create(Currency xml) throws UtilsConstraintViolationException
+	public C create(Currency xml) throws JeeslConstraintViolationException
 	{
-		if(!xml.isSetLangs()){throw new UtilsConstraintViolationException("No <langs> available for "+JaxbUtil.toString(xml));}
-		if(!xml.isSetCode()){throw new UtilsConstraintViolationException("No @code available for "+JaxbUtil.toString(xml));}
-		if(!xml.isSetSymbol()){throw new UtilsConstraintViolationException("No @symbol available for "+JaxbUtil.toString(xml));}
+		if(!xml.isSetLangs()){throw new JeeslConstraintViolationException("No <langs> available for "+JaxbUtil.toString(xml));}
+		if(!xml.isSetCode()){throw new JeeslConstraintViolationException("No @code available for "+JaxbUtil.toString(xml));}
+		if(!xml.isSetSymbol()){throw new JeeslConstraintViolationException("No @symbol available for "+JaxbUtil.toString(xml));}
 		
 		try
 		{
@@ -53,7 +53,7 @@ public class EjbCurrencyFactory<C extends UtilsCurrency<L>, L extends UtilsLang>
 			c.setName(ejbLangFactory.getLangMap(xml.getLangs()));
 			return c;
 		}
-		catch (InstantiationException e) {throw new UtilsConstraintViolationException(e.getMessage());}
-		catch (IllegalAccessException e) {throw new UtilsConstraintViolationException(e.getMessage());}
+		catch (InstantiationException e) {throw new JeeslConstraintViolationException(e.getMessage());}
+		catch (IllegalAccessException e) {throw new JeeslConstraintViolationException(e.getMessage());}
     }
 }

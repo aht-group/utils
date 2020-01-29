@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
 import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
@@ -21,9 +24,6 @@ import org.jeesl.interfaces.model.with.status.JeeslWithStatus;
 import org.jeesl.interfaces.model.with.status.JeeslWithType;
 
 import net.sf.ahtutils.controller.util.ParentPredicate;
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.behaviour.EjbEquals;
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.crud.EjbMergeable;
@@ -48,25 +48,25 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 import net.sf.ahtutils.model.interfaces.with.EjbWithVisible;
 
-public interface UtilsFacade  extends UtilsIdFacade
+public interface UtilsFacade extends UtilsIdFacade
 {
 	<L extends UtilsLang,D extends UtilsDescription, S extends EjbWithId,G extends JeeslGraphic<L,D,GT,F,FS>, GT extends UtilsStatus<GT,L,D>, F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends UtilsStatus<FS,L,D>> S loadGraphic(Class<S> cS, S status);
 	
 	//NAME
-	<T extends EjbWithName> T fByName(Class<T> type, String name) throws UtilsNotFoundException;
+	<T extends EjbWithName> T fByName(Class<T> type, String name) throws JeeslNotFoundException;
 
 	//EQUALS
 	<E extends EjbEquals<T>,T extends EjbWithId> boolean equalsAttributes(Class<T> c,E object); 
 	
 	//CODE
 	<T extends EjbWithCode, E extends Enum<E>> T fByEnum(Class<T> c, E code);
-	<T extends EjbWithCode, E extends Enum<E>> T fByCode(Class<T> c, E code) throws UtilsNotFoundException;
-	<T extends EjbWithCode> T fByCode(Class<T> c, String code) throws UtilsNotFoundException;
-	<T extends EjbWithNrString> T fByNr(Class<T> c, String nr) throws UtilsNotFoundException;
-	<T extends EjbWithTypeCode> T fByTypeCode(Class<T> c, String type, String code) throws UtilsNotFoundException;
+	<T extends EjbWithCode, E extends Enum<E>> T fByCode(Class<T> c, E code) throws JeeslNotFoundException;
+	<T extends EjbWithCode> T fByCode(Class<T> c, String code) throws JeeslNotFoundException;
+	<T extends EjbWithNrString> T fByNr(Class<T> c, String nr) throws JeeslNotFoundException;
+	<T extends EjbWithTypeCode> T fByTypeCode(Class<T> c, String type, String code) throws JeeslNotFoundException;
 	<T extends EjbWithNonUniqueCode> List<T> allByCode(Class<T> c, String code);
 	
-	<T extends EjbWithNr, P extends EjbWithId> T fByNr(Class<T> type, String parentName, P parent, long nr) throws UtilsNotFoundException;
+	<T extends EjbWithNr, P extends EjbWithId> T fByNr(Class<T> type, String parentName, P parent, long nr) throws JeeslNotFoundException;
 		
 	<T extends EjbWithType> List<T> allForType(Class<T> c, String type);
 	
@@ -95,22 +95,22 @@ public interface UtilsFacade  extends UtilsIdFacade
 	<T extends EjbWithVisible, P extends EjbWithId> List<T> allVisible(Class<T> cl);
 	
 	//Persist
-	<T extends Object> T persist(T o) throws UtilsConstraintViolationException;
-	<T extends Object> T update(T o) throws UtilsConstraintViolationException,UtilsLockingException;
+	<T extends Object> T persist(T o) throws JeeslConstraintViolationException;
+	<T extends Object> T update(T o) throws JeeslConstraintViolationException,JeeslLockingException;
 	
-	<T extends EjbMergeable> T merge(T o) throws UtilsConstraintViolationException, UtilsLockingException;
-	<T extends EjbMergeable> T mergeTransaction(T o) throws UtilsConstraintViolationException, UtilsLockingException;
+	<T extends EjbMergeable> T merge(T o) throws JeeslConstraintViolationException, JeeslLockingException;
+	<T extends EjbMergeable> T mergeTransaction(T o) throws JeeslConstraintViolationException, JeeslLockingException;
 	
-	<T extends EjbSaveable> T save(T o) throws UtilsConstraintViolationException,UtilsLockingException;
-	<T extends EjbSaveable> T saveTransaction(T o) throws UtilsConstraintViolationException,UtilsLockingException;
-	<T extends EjbSaveable> void save(List<T> list) throws UtilsConstraintViolationException,UtilsLockingException;
-	<T extends EjbSaveable> void saveTransaction(List<T> list) throws UtilsConstraintViolationException,UtilsLockingException;
+	<T extends EjbSaveable> T save(T o) throws JeeslConstraintViolationException,JeeslLockingException;
+	<T extends EjbSaveable> T saveTransaction(T o) throws JeeslConstraintViolationException,JeeslLockingException;
+	<T extends EjbSaveable> void save(List<T> list) throws JeeslConstraintViolationException,JeeslLockingException;
+	<T extends EjbSaveable> void saveTransaction(List<T> list) throws JeeslConstraintViolationException,JeeslLockingException;
 	
-	<T extends EjbRemoveable> void rmTransaction(T o) throws UtilsConstraintViolationException;
-	<T extends EjbRemoveable> void rm(T o) throws UtilsConstraintViolationException;
-	<T extends EjbRemoveable> void rm(List<T> list) throws UtilsConstraintViolationException;
-	<T extends EjbRemoveable> void rmTransaction(List<T> list) throws UtilsConstraintViolationException;
-	<T extends EjbRemoveable> void rm(Set<T> set) throws UtilsConstraintViolationException;
+	<T extends EjbRemoveable> void rmTransaction(T o) throws JeeslConstraintViolationException;
+	<T extends EjbRemoveable> void rm(T o) throws JeeslConstraintViolationException;
+	<T extends EjbRemoveable> void rm(List<T> list) throws JeeslConstraintViolationException;
+	<T extends EjbRemoveable> void rmTransaction(List<T> list) throws JeeslConstraintViolationException;
+	<T extends EjbRemoveable> void rm(Set<T> set) throws JeeslConstraintViolationException;
 	
 	//Parent
 	<T extends EjbWithParentAttributeResolver, P extends EjbWithId> List<T> allForParent(Class<T> c, P parent);
@@ -119,11 +119,11 @@ public interface UtilsFacade  extends UtilsIdFacade
 	<T extends EjbWithParentAttributeResolver, I extends EjbWithId> List<T> allForParents(Class<T> type, List<I> parents);
 	<T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> type, String p1Name, I p1);
 	<T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> type, String p1Name, I p1, int maxResults);
-	<T extends EjbWithParentAttributeResolver, I extends EjbWithId> T oneForParent(Class<T> cl, I p1) throws UtilsNotFoundException;
-	<T extends EjbWithId, I extends EjbWithId> T oneForParent(Class<T> cl, String p1Name, I p1) throws UtilsNotFoundException;
-	<T extends EjbWithId, I extends EjbWithId> T oneForParents(Class<T> cl, String p1Name, I p1, String p2Name, I p2) throws UtilsNotFoundException;
-	<T extends EjbWithId, I extends EjbWithId> T oneForParents(Class<T> cl, String p1Name, I p1, String p2Name, I p2, String p3Name, I p3) throws UtilsNotFoundException;
-	<T extends EjbWithId, P extends EjbWithId> T oneForParents(Class<T> cl, List<ParentPredicate<P>> parents) throws UtilsNotFoundException;
+	<T extends EjbWithParentAttributeResolver, I extends EjbWithId> T oneForParent(Class<T> cl, I p1) throws JeeslNotFoundException;
+	<T extends EjbWithId, I extends EjbWithId> T oneForParent(Class<T> cl, String p1Name, I p1) throws JeeslNotFoundException;
+	<T extends EjbWithId, I extends EjbWithId> T oneForParents(Class<T> cl, String p1Name, I p1, String p2Name, I p2) throws JeeslNotFoundException;
+	<T extends EjbWithId, I extends EjbWithId> T oneForParents(Class<T> cl, String p1Name, I p1, String p2Name, I p2, String p3Name, I p3) throws JeeslNotFoundException;
+	<T extends EjbWithId, P extends EjbWithId> T oneForParents(Class<T> cl, List<ParentPredicate<P>> parents) throws JeeslNotFoundException;
 	<T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> type, String p1Name, I p1, String p2Name, I p2);
 	<T extends EjbWithId, P extends EjbWithId> List<T> allForOrParents(Class<T> cl, List<ParentPredicate<P>> parents);
 	<T extends EjbWithId, OR1 extends EjbWithId, OR2 extends EjbWithId> List<T> allForOrOrParents(Class<T> cl, List<ParentPredicate<OR1>> or1, List<ParentPredicate<OR2>> or2);
@@ -140,18 +140,18 @@ public interface UtilsFacade  extends UtilsIdFacade
 	<T extends EjbWithRecord> T fLast(Class<T> clRecord);
 	
 	//ValidFrom
-	<T extends EjbWithValidFromUntil> T oneInRange(Class<T> c,Date record) throws UtilsNotFoundException;
-	<T extends EjbWithValidFromAndParent, P extends EjbWithId> T fFirstValidFrom(Class<T> c, P parent, Date validFrom) throws UtilsNotFoundException;
-	<T extends EjbWithValidFrom> T fFirstValidFrom(Class<T> type, String parentName, long id, Date validFrom) throws UtilsNotFoundException;
+	<T extends EjbWithValidFromUntil> T oneInRange(Class<T> c,Date record) throws JeeslNotFoundException;
+	<T extends EjbWithValidFromAndParent, P extends EjbWithId> T fFirstValidFrom(Class<T> c, P parent, Date validFrom) throws JeeslNotFoundException;
+	<T extends EjbWithValidFrom> T fFirstValidFrom(Class<T> type, String parentName, long id, Date validFrom) throws JeeslNotFoundException;
 	
 	//Timeline
 	<T extends EjbWithTimeline> List<T> between(Class<T> clTracker, Date from, Date to);
 	<T extends EjbWithTimeline, AND extends EjbWithId, OR extends EjbWithId> List<T> between(Class<T> clTimeline,Date from, Date to, List<ParentPredicate<AND>> lpAnd, List<ParentPredicate<OR>> lpOr);
 	
 	//Year
-	<T extends EjbWithYear,P extends EjbWithId> T fByYear(Class<T> type, String p1Name, P p, int year) throws UtilsNotFoundException;
+	<T extends EjbWithYear,P extends EjbWithId> T fByYear(Class<T> type, String p1Name, P p, int year) throws JeeslNotFoundException;
 	
 	//User
 //	<L extends UtilsLang,D extends UtilsDescription,C extends UtilsSecurityCategory<L,D,C,R,V,U,A,AT,USER>,R extends UtilsSecurityRole<L,D,C,R,V,U,A,AT,USER>,V extends UtilsSecurityView<L,D,C,R,V,U,A,AT,USER>,U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,AT,USER>,A extends UtilsSecurityAction<L,D,C,R,V,U,A,AT,USER>, USER extends UtilsUser<L,D,C,R,V,U,A,AT,USER>> List<USER> likeNameFirstLast(Class<USER> c, String query);
-	<T extends EjbWithEmail> T fByEmail(Class<T> clazz, String email) throws UtilsNotFoundException;
+	<T extends EjbWithEmail> T fByEmail(Class<T> clazz, String email) throws JeeslNotFoundException;
 }

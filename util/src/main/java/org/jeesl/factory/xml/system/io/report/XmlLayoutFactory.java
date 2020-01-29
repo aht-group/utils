@@ -21,6 +21,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.xml.report.Layout;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 public class XmlLayoutFactory<L extends UtilsLang,D extends UtilsDescription,
 								CATEGORY extends UtilsStatus<CATEGORY,L,D>,
@@ -71,7 +72,9 @@ public class XmlLayoutFactory<L extends UtilsLang,D extends UtilsDescription,
 		{
 			if(column.getColumWidth()!=null)
 			{
-				xml.getSize().add(XmlSizeFactory.build(JeeslReportLayout.Code.columnWidth, xfType.build(column.getColumWidth()), column.getColumSize()));
+				xml.getSize().add(XmlSizeFactory.build(JeeslReportLayout.Code.columnWidth,
+						xfType.build(column.getColumWidth()),
+						column.getColumSize()));
 			}
 		}
 		if(q.isSetStyles()){xml.setStyles(xfStyles.build(column));}

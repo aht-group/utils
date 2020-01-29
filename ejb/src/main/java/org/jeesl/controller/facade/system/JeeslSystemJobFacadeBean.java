@@ -17,6 +17,9 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.system.JeeslJobFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.JobFactoryBuilder;
 import org.jeesl.factory.ejb.system.job.EjbJobCacheFactory;
 import org.jeesl.factory.ejb.system.job.EjbJobFactory;
@@ -35,9 +38,6 @@ import org.jeesl.interfaces.model.system.job.JeeslJobType;
 import org.joda.time.DateTime;
 
 import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -77,7 +77,7 @@ public class JeeslSystemJobFacadeBean<L extends UtilsLang,D extends UtilsDescrip
 		efJob = fbJob.job();
 	}
 	
-	@Override public <E extends Enum<E>> TEMPLATE fJobTemplate(E type, String code) throws UtilsNotFoundException
+	@Override public <E extends Enum<E>> TEMPLATE fJobTemplate(E type, String code) throws JeeslNotFoundException
 	{
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		CriteriaBuilder cB = em.getCriteriaBuilder();
@@ -96,8 +96,8 @@ public class JeeslSystemJobFacadeBean<L extends UtilsLang,D extends UtilsDescrip
 
 		TypedQuery<TEMPLATE> tQ = em.createQuery(cQ);
 		try	{return tQ.getSingleResult();}
-		catch (NoResultException ex){throw new UtilsNotFoundException("No "+fbJob.getClassTemplate().getSimpleName()+" found for type="+type.toString()+" and code="+code);}
-		catch (NonUniqueResultException ex){throw new UtilsNotFoundException("No unique results in "+fbJob.getClassTemplate().getSimpleName()+" for type="+type.toString()+" and code="+code);}
+		catch (NoResultException ex){throw new JeeslNotFoundException("No "+fbJob.getClassTemplate().getSimpleName()+" found for type="+type.toString()+" and code="+code);}
+		catch (NonUniqueResultException ex){throw new JeeslNotFoundException("No unique results in "+fbJob.getClassTemplate().getSimpleName()+" for type="+type.toString()+" and code="+code);}
 	}
 	
 	@Override
@@ -159,7 +159,7 @@ public class JeeslSystemJobFacadeBean<L extends UtilsLang,D extends UtilsDescrip
 		return tQ.getResultList();
 	}
 	
-	@Override public JOB fActiveJob(TEMPLATE template, String code) throws UtilsNotFoundException
+	@Override public JOB fActiveJob(TEMPLATE template, String code) throws JeeslNotFoundException
 	{
 		List<STATUS> statuses = new ArrayList<STATUS>();
 		try
@@ -167,7 +167,7 @@ public class JeeslSystemJobFacadeBean<L extends UtilsLang,D extends UtilsDescrip
 			statuses.add(this.fByCode(fbJob.getClassStatus(),JeeslJobStatus.Code.queue));
 			statuses.add(this.fByCode(fbJob.getClassStatus(),JeeslJobStatus.Code.working));
 		}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 		
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		CriteriaBuilder cB = em.getCriteriaBuilder();
@@ -187,11 +187,11 @@ public class JeeslSystemJobFacadeBean<L extends UtilsLang,D extends UtilsDescrip
 
 		TypedQuery<JOB> tQ = em.createQuery(cQ);
 		List<JOB> results = tQ.getResultList();
-		if(results.isEmpty()){throw new UtilsNotFoundException("Nothing found for template:"+template.getCode()+" and job.code="+code);}
+		if(results.isEmpty()){throw new JeeslNotFoundException("Nothing found for template:"+template.getCode()+" and job.code="+code);}
 		else{return results.get(0);}
 	}
 
-	@Override public CACHE fJobCache(TEMPLATE template, String code) throws UtilsNotFoundException
+	@Override public CACHE fJobCache(TEMPLATE template, String code) throws JeeslNotFoundException
 	{
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		CriteriaBuilder cB = em.getCriteriaBuilder();
@@ -209,17 +209,17 @@ public class JeeslSystemJobFacadeBean<L extends UtilsLang,D extends UtilsDescrip
 
 		TypedQuery<CACHE> tQ = em.createQuery(cQ);
 		try	{return tQ.getSingleResult();}
-		catch (NoResultException ex){throw new UtilsNotFoundException("Nothing found for template:"+template.getCode()+"/"+template.getType().getCode()+" and cache.code="+code);}
-		catch (NonUniqueResultException ex){throw new UtilsNotFoundException("Results not unique for template:"+template.getCode()+"/"+template.getType().getCode()+" and cache.code="+code);}
+		catch (NoResultException ex){throw new JeeslNotFoundException("Nothing found for template:"+template.getCode()+"/"+template.getType().getCode()+" and cache.code="+code);}
+		catch (NonUniqueResultException ex){throw new JeeslNotFoundException("Results not unique for template:"+template.getCode()+"/"+template.getType().getCode()+" and cache.code="+code);}
 	}
 
 	@Override
-	public CACHE uJobCache(TEMPLATE template, String code, byte[] data) throws UtilsConstraintViolationException, UtilsLockingException
+	public CACHE uJobCache(TEMPLATE template, String code, byte[] data) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		CACHE cache = null;
 		
 		try {cache = fJobCache(template,code);}
-		catch (UtilsNotFoundException e){cache = efCache.build(template, code, data);}
+		catch (JeeslNotFoundException e){cache = efCache.build(template, code, data);}
 		
 		cache.setRecord(new Date());
 		cache.setData(data);
@@ -229,7 +229,7 @@ public class JeeslSystemJobFacadeBean<L extends UtilsLang,D extends UtilsDescrip
 	}
 
 	@Override
-	public JOB cJob(USER user, List<FEEDBACK> feedbacks, TEMPLATE template, String code, String name, String jsonFilter) throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException
+	public JOB cJob(USER user, List<FEEDBACK> feedbacks, TEMPLATE template, String code, String name, String jsonFilter) throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException
 	{
 		STATUS status = this.fByCode(fbJob.getClassStatus(),JeeslJobStatus.Code.queue);
 		JOB job = efJob.build(user,template,status,code,name,jsonFilter);

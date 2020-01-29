@@ -4,14 +4,13 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
 
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileMeta;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorage;
 import org.jeesl.interfaces.model.system.io.fr.JeeslWithFileRepositoryContainer;
-
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 
 public interface JeeslFileRepositoryHandler <STORAGE extends JeeslFileStorage<?,?,?,?>,
 											CONTAINER extends JeeslFileContainer<STORAGE,?>,
@@ -29,14 +28,14 @@ public interface JeeslFileRepositoryHandler <STORAGE extends JeeslFileStorage<?,
 	List<META> getMetas();
 	
 	<W extends JeeslWithFileRepositoryContainer<CONTAINER>> void initSilent(W with);
-	<W extends JeeslWithFileRepositoryContainer<CONTAINER>> void init(W with) throws UtilsConstraintViolationException, UtilsLockingException;
-	<W extends JeeslWithFileRepositoryContainer<CONTAINER>> void init(STORAGE storage, W with) throws UtilsConstraintViolationException, UtilsLockingException;
+	<W extends JeeslWithFileRepositoryContainer<CONTAINER>> void init(W with) throws JeeslConstraintViolationException, JeeslLockingException;
+	<W extends JeeslWithFileRepositoryContainer<CONTAINER>> void init(STORAGE storage, W with) throws JeeslConstraintViolationException, JeeslLockingException;
 	
-	InputStream download(META meta) throws UtilsNotFoundException;
+	InputStream download(META meta) throws JeeslNotFoundException;
 	
-	void copyTo(JeeslFileRepositoryHandler<STORAGE,CONTAINER,META> target) throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException;
+	void copyTo(JeeslFileRepositoryHandler<STORAGE,CONTAINER,META> target) throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException;
 	
-	void deleteFile() throws UtilsConstraintViolationException, UtilsLockingException;
+	void deleteFile() throws JeeslConstraintViolationException, JeeslLockingException;
 	
 //	StreamedContent fileStream() throws Exception;
 }

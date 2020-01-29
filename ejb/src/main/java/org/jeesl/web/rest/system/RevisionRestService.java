@@ -10,6 +10,9 @@ import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
 import org.jeesl.api.rest.system.io.revision.JeeslRevisionRestExport;
 import org.jeesl.api.rest.system.io.revision.JeeslRevisionRestImport;
 import org.jeesl.controller.monitor.DataUpdateTracker;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.revision.EjbRevisionAttributeFactory;
 import org.jeesl.factory.ejb.system.io.revision.EjbRevisionEntityFactory;
@@ -46,9 +49,6 @@ import org.metachart.xml.graph.Graph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -142,7 +142,7 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 			ERD diagram = fRevision.fByCode(fbRevision.getClassDiagram(),code);
 			g.setDot(XmlDotFactory.build(diagram.getDotGraph()));
 		}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 		
 		return g;
 	}
@@ -174,9 +174,9 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 				iuRevisionEntity(inDbRevisionEntity,xml,dbDeleteL,dbDeleteD);
 				dut.success();
 			}
-			catch (UtilsNotFoundException e) {dut.fail(e, true);}
-			catch (UtilsConstraintViolationException e) {dut.fail(e, true);}
-			catch (UtilsLockingException e) {dut.fail(e, true);}
+			catch (JeeslNotFoundException e) {dut.fail(e, true);}
+			catch (JeeslConstraintViolationException e) {dut.fail(e, true);}
+			catch (JeeslLockingException e) {dut.fail(e, true);}
 		}
 		
 		if(logger.isDebugEnabled())
@@ -191,11 +191,11 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 			fRevision.rm(dbDeleteL);
 			fRevision.rm(dbDeleteD);
 		}
-		catch (UtilsConstraintViolationException e) {e.printStackTrace();}
+		catch (JeeslConstraintViolationException e) {e.printStackTrace();}
 		return dut.toDataUpdate();
 	}
 	
-	private void iuRevisionEntity(Set<RE> inDbRevisionEntity, Entity xml, List<L> dbDeleteL, List<D> dbDeleteD) throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException
+	private void iuRevisionEntity(Set<RE> inDbRevisionEntity, Entity xml, List<L> dbDeleteL, List<D> dbDeleteD) throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException
 	{
 		RE re;
 		try
@@ -203,7 +203,7 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 			re = fRevision.fByCode(fbRevision.getClassEntity(), xml.getCode());
 			inDbRevisionEntity.remove(re);
 		}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			RC category = fRevision.fByCode(fbRevision.getClassCategory(), xml.getCategory().getCode());
 			re = efEntity.build(category,xml);
@@ -233,7 +233,7 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 		}
 	}
 	
-	private RA iuRevisionAttribute(RE ejbRevisionEntity, Attribute xml, List<L> dbDeleteL, List<D> dbDeleteD) throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException
+	private RA iuRevisionAttribute(RE ejbRevisionEntity, Attribute xml, List<L> dbDeleteL, List<D> dbDeleteD) throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException
 	{
 		RA ejbAttribute = null;
 		
@@ -307,14 +307,14 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 					diagram = fRevision.save(diagram);
 					return XmlDataUpdateFactory.build(XmlResultFactory.buildOk());
 				}
-				catch (UtilsConstraintViolationException | UtilsLockingException e)
+				catch (JeeslConstraintViolationException | JeeslLockingException e)
 				{
 					return XmlDataUpdateFactory.build(XmlResultFactory.buildFail());
 				}
 			}
 			else {return XmlDataUpdateFactory.build(XmlResultFactory.buildFail());}
 		}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{	
 			try
 			{
@@ -323,7 +323,7 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 				diagram = fRevision.save(diagram);
 				return XmlDataUpdateFactory.build(XmlResultFactory.buildOk());
 			}
-			catch (UtilsConstraintViolationException | UtilsLockingException e1)
+			catch (JeeslConstraintViolationException | JeeslLockingException e1)
 			{
 				return XmlDataUpdateFactory.build(XmlResultFactory.buildOk());
 			}

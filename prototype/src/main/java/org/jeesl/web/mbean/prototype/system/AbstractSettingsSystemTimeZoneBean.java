@@ -8,6 +8,9 @@ import java.util.List;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslCalendarFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.CalendarFactoryBuilder;
 import org.jeesl.factory.ejb.module.calendar.EjbTimeZoneFactory;
 import org.jeesl.interfaces.model.module.calendar.JeeslCalendar;
@@ -18,9 +21,6 @@ import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -71,18 +71,18 @@ public class AbstractSettingsSystemTimeZoneBean <L extends UtilsLang, D extends 
 		Collections.sort(zones,comparatorTimeZone);
 	}
 	
-	public void selectZone() throws UtilsNotFoundException
+	public void selectZone() throws JeeslNotFoundException
 	{
 		zone = fCalendar.find(fbCalendar.getClassZone(),zone);
 	}
 	
-	public void addZone() throws UtilsNotFoundException
+	public void addZone() throws JeeslNotFoundException
 	{
 		zone = efZone.build();
 		zone.setName(efLang.createEmpty(langs));
 	}
 	
-	public void saveZone() throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException
+	public void saveZone() throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(EjbTimeZoneFactory.supportedCode(zone.getCode()))
 		{

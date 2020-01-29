@@ -8,6 +8,8 @@ import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.system.JeeslSystemConstraintFacade;
 import org.jeesl.controller.handler.sb.SbMultiHandler;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.system.ConstraintFactoryBuilder;
 import org.jeesl.factory.ejb.system.constraint.algorithm.EjbConstraintAlgorithmFactory;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraint;
@@ -17,8 +19,6 @@ import org.jeesl.interfaces.model.system.constraint.algorithm.JeeslConstraintAlg
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -97,7 +97,7 @@ public abstract class AbstractSystemConstraintAlgorithmBean <L extends UtilsLang
 		reset(false);
 	}
 	
-	public void saveAlgorithm() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveAlgorithm() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(algorithm));}
 		algorithm.setCategory(fConstraint.find(fbConstraint.getClassAlgorithmCategory(),algorithm.getCategory()));
@@ -114,7 +114,7 @@ public abstract class AbstractSystemConstraintAlgorithmBean <L extends UtilsLang
 		reset(false);
 	}
 	
-	public void deleteAlgorithm() throws UtilsConstraintViolationException
+	public void deleteAlgorithm() throws JeeslConstraintViolationException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.rmEntity(algorithm));}
 		fConstraint.rm(algorithm);
@@ -122,5 +122,5 @@ public abstract class AbstractSystemConstraintAlgorithmBean <L extends UtilsLang
 		reset(true);
 	}
 	
-	protected void reorderAlgorithms() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fConstraint, fbConstraint.getClassAlgorithm(),algorithms);Collections.sort(algorithms,cpAlgorithm);}
+	protected void reorderAlgorithms() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fConstraint, fbConstraint.getClassAlgorithm(),algorithms);Collections.sort(algorithms,cpAlgorithm);}
 }

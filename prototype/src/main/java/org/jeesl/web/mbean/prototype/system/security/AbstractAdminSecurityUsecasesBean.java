@@ -9,6 +9,9 @@ import org.jeesl.api.bean.JeeslSecurityBean;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
@@ -23,9 +26,6 @@ import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -71,12 +71,12 @@ public class AbstractAdminSecurityUsecasesBean <L extends UtilsLang, D extends U
 		opActions = new ArrayList<A>();
 	}
 	
-	public void categorySelected() throws UtilsNotFoundException
+	public void categorySelected() throws JeeslNotFoundException
 	{
 		reloadUsecases();
 		usecase=null;
 	}
-	public void saveCategory() throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException
+	public void saveCategory() throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info(AbstractLogMessage.saveEntity(category));
 		category = fSecurity.save(category);
@@ -108,7 +108,7 @@ public class AbstractAdminSecurityUsecasesBean <L extends UtilsLang, D extends U
 		Collections.sort(roles,comparatorRole);
 	}
 	
-	private void reloadUsecases() throws UtilsNotFoundException
+	private void reloadUsecases() throws JeeslNotFoundException
 	{
 		logger.info("reloadUsecases");
 		usecases = fSecurity.allForCategory(fbSecurity.getClassUsecase(),fbSecurity.getClassCategory(),category.getCode());
@@ -125,14 +125,14 @@ public class AbstractAdminSecurityUsecasesBean <L extends UtilsLang, D extends U
 	}
 	
 	//Add
-	public void addCategory() throws UtilsConstraintViolationException
+	public void addCategory() throws JeeslConstraintViolationException
 	{
 		logger.info(AbstractLogMessage.addEntity(fbSecurity.getClassCategory()));
 		category = efCategory.create(null,JeeslSecurityCategory.Type.usecase.toString());
 		category.setName(efLang.createEmpty(localeCodes));
 		category.setDescription(efDescription.createEmpty(localeCodes));
 	}
-	public void addUsecase() throws UtilsConstraintViolationException
+	public void addUsecase() throws JeeslConstraintViolationException
 	{
 		logger.info(AbstractLogMessage.addEntity(fbSecurity.getClassUsecase()));
 		usecase = efUsecase.build(category,"");
@@ -142,7 +142,7 @@ public class AbstractAdminSecurityUsecasesBean <L extends UtilsLang, D extends U
 
 	//Save
 
-	public void saveUsecase() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void saveUsecase() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.saveEntity(usecase));
 		usecase.setCategory(fSecurity.find(fbSecurity.getClassCategory(), usecase.getCategory()));
@@ -153,7 +153,7 @@ public class AbstractAdminSecurityUsecasesBean <L extends UtilsLang, D extends U
 	}
 	
 	//OverlayPanel
-	public void opAddView() throws UtilsConstraintViolationException, UtilsLockingException
+	public void opAddView() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(!usecase.getViews().contains(opView))
 		{
@@ -164,7 +164,7 @@ public class AbstractAdminSecurityUsecasesBean <L extends UtilsLang, D extends U
 			bSecurity.update(usecase);
 		}
 	}
-	public void opAddAction() throws UtilsConstraintViolationException, UtilsLockingException
+	public void opAddAction() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(!usecase.getActions().contains(opAction))
 		{
@@ -177,7 +177,7 @@ public class AbstractAdminSecurityUsecasesBean <L extends UtilsLang, D extends U
 	}
 	
 	//Overlay-Rm
-	public void opRmView() throws UtilsConstraintViolationException, UtilsLockingException
+	public void opRmView() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(tblView!=null && usecase.getViews().contains(tblView))
 		{
@@ -188,7 +188,7 @@ public class AbstractAdminSecurityUsecasesBean <L extends UtilsLang, D extends U
 			bSecurity.update(usecase);
 		}
 	}
-	public void opRmAction() throws UtilsConstraintViolationException, UtilsLockingException
+	public void opRmAction() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(tblAction!=null && usecase.getActions().contains(tblAction))
 		{
@@ -200,5 +200,5 @@ public class AbstractAdminSecurityUsecasesBean <L extends UtilsLang, D extends U
 		}
 	}
 	
-	public void reorderUsecases() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fSecurity, usecases);}
+	public void reorderUsecases() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fSecurity, usecases);}
 }

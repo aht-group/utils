@@ -9,6 +9,9 @@ import java.util.Map;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.core.JeeslUserFacade;
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.factory.ejb.system.security.EjbSecurityUserFactory;
 import org.jeesl.factory.txt.system.security.TxtUserFactory;
@@ -25,9 +28,6 @@ import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.controller.audit.UtilsRevisionPageFlow;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -100,14 +100,14 @@ public abstract class AbstractAdminSecurityUserBean <L extends UtilsLang,
 		users = fUtilsUser.all(fbSecurity.getClassUser());
 	}
 
-	public void addUser() throws UtilsNotFoundException
+	public void addUser() throws JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.addEntity(fbSecurity.getClassUser()));}
 		user = efUser.build();
 		if(revision!=null){revision.pageFlowPrimaryAdd();}
 		postAdd();
 	}
-	protected abstract void postAdd() throws UtilsNotFoundException;
+	protected abstract void postAdd() throws JeeslNotFoundException;
 	
 	public void selectUser()
 	{
@@ -126,7 +126,7 @@ public abstract class AbstractAdminSecurityUserBean <L extends UtilsLang,
 	}
 	protected abstract void postReload();
 	
-	public void saveUser() throws UtilsLockingException
+	public void saveUser() throws JeeslLockingException
 	{
 		try
 		{
@@ -139,7 +139,7 @@ public abstract class AbstractAdminSecurityUserBean <L extends UtilsLang,
 			if(revision!=null){revision.pageFlowPrimarySave(user);}
 			userChangePerformed();
 		}
-		catch (UtilsConstraintViolationException e) {constraintViolationOnSave();}
+		catch (JeeslConstraintViolationException e) {constraintViolationOnSave();}
 	}
 	protected void preSave() {}
 	
@@ -155,7 +155,7 @@ public abstract class AbstractAdminSecurityUserBean <L extends UtilsLang,
 			if(revision!=null){revision.pageFlowPrimaryCancel();}
 			userChangePerformed();
 		}
-		catch (UtilsConstraintViolationException e){constraintViolationOnRemove();}
+		catch (JeeslConstraintViolationException e){constraintViolationOnRemove();}
 	}
 	
 	protected void userChangePerformed() {}
@@ -196,7 +196,7 @@ public abstract class AbstractAdminSecurityUserBean <L extends UtilsLang,
 	protected void constraintViolationOnRemove() {}
 	protected void passwordsDoNotMatch() {}
 	
-	public void grantRole(R role, boolean grant) throws UtilsConstraintViolationException, UtilsLockingException
+	public void grantRole(R role, boolean grant) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info("Grant ("+grant+") "+role.toString());}
 		fUtilsSecurity.grantRole(fbSecurity.getClassUser(),fbSecurity.getClassRole(),user,role,grant);

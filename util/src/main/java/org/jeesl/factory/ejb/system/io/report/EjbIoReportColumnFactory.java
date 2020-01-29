@@ -8,6 +8,9 @@ import java.util.UUID;
 import org.jeesl.api.facade.io.JeeslIoReportFacade;
 import org.jeesl.controller.db.updater.JeeslDbDescriptionUpdater;
 import org.jeesl.controller.db.updater.JeeslDbLangUpdater;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.system.io.report.JeeslIoReport;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportCell;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportColumn;
@@ -24,9 +27,6 @@ import org.jeesl.util.query.xpath.ReportXpath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -84,6 +84,7 @@ public class EjbIoReportColumnFactory<L extends UtilsLang,D extends UtilsDescrip
 			ejb.setCode(UUID.randomUUID().toString());
 			ejb.setGroup(group);
 			
+			ejb.setColumSize(0);
 			ejb.setVisible(false);
 			ejb.setShowLabel(true);
 			if(list==null) {ejb.setPosition(1);}
@@ -95,7 +96,7 @@ public class EjbIoReportColumnFactory<L extends UtilsLang,D extends UtilsDescrip
 		return ejb;
 	}
 	
-	public COLUMN build(JeeslIoReportFacade<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION> fReport, GROUP group, XlsColumn column) throws UtilsNotFoundException
+	public COLUMN build(JeeslIoReportFacade<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION> fReport, GROUP group, XlsColumn column) throws JeeslNotFoundException
 	{
 		COLUMN ejb = null;
 		try
@@ -111,7 +112,7 @@ public class EjbIoReportColumnFactory<L extends UtilsLang,D extends UtilsDescrip
 		return ejb;
 	}
 	
-	public COLUMN update(JeeslIoReportFacade<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION> fReport, GROUP group, COLUMN eColumn, XlsColumn xColumn) throws UtilsNotFoundException
+	public COLUMN update(JeeslIoReportFacade<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION> fReport, GROUP group, COLUMN eColumn, XlsColumn xColumn) throws JeeslNotFoundException
 	{
 		CDT eDataType = null;if(xColumn.getDataType()!=null){eDataType = fReport.fByCode(cDataType, xColumn.getDataType().getCode());}
 		eColumn.setGroup(group);
@@ -154,7 +155,7 @@ public class EjbIoReportColumnFactory<L extends UtilsLang,D extends UtilsDescrip
 		return eColumn;
 	}
 	
-	public COLUMN updateLD(UtilsFacade fUtils, COLUMN eColumn, XlsColumn xColumn) throws UtilsConstraintViolationException, UtilsLockingException
+	public COLUMN updateLD(UtilsFacade fUtils, COLUMN eColumn, XlsColumn xColumn) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		eColumn = dbuLang.handle(fUtils, eColumn, xColumn.getLangs());
 		eColumn = fUtils.save(eColumn);

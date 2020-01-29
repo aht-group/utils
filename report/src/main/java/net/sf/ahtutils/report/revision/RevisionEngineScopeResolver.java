@@ -2,6 +2,7 @@ package net.sf.ahtutils.report.revision;
 
 import org.apache.commons.jxpath.JXPathContext;
 import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevision;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionScope;
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
@@ -20,7 +21,6 @@ import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -71,7 +71,7 @@ public class RevisionEngineScopeResolver<L extends UtilsLang,D extends UtilsDesc
 		}
 		}
 		catch (ClassNotFoundException e){e.printStackTrace();}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 		return null;
 	}
 	
@@ -115,7 +115,7 @@ public class RevisionEngineScopeResolver<L extends UtilsLang,D extends UtilsDesc
 	}
 	
 	@SuppressWarnings("unchecked")
-	private Scope jpqlTree(String lang, RVM rvm, JXPathContext context, Object oChild) throws ClassNotFoundException, UtilsNotFoundException
+	private Scope jpqlTree(String lang, RVM rvm, JXPathContext context, Object oChild) throws ClassNotFoundException, JeeslNotFoundException
 	{
 		Long id = (Long)getXPathScopeObject(rvm,context,oChild);
 		Class<EjbWithId> c = (Class<EjbWithId>)Class.forName(rvm.getEntityMapping().getScope().getCode()).asSubclass(EjbWithId.class);

@@ -1,11 +1,11 @@
 package org.jeesl.api.facade.system;
 
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraint;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraintResolution;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraintScope;
 import org.jeesl.interfaces.model.system.constraint.algorithm.JeeslConstraintAlgorithm;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -22,5 +22,5 @@ public interface JeeslSystemConstraintFacade <L extends UtilsLang, D extends Uti
 									RESOLUTION extends JeeslConstraintResolution<L,D,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>>
 			extends UtilsFacade
 {	
-	CONSTRAINT fSystemConstraint(SCOPE scope, String code) throws UtilsNotFoundException;
+	CONSTRAINT fSystemConstraint(SCOPE scope, String code) throws JeeslNotFoundException;
 }

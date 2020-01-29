@@ -1,9 +1,9 @@
 package org.jeesl.interfaces.bean.th;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 
 public interface ThMultiFilterBean
 {
-	void filtered(ThMultiFilter filter) throws UtilsLockingException, UtilsConstraintViolationException;
+	void filtered(ThMultiFilter filter) throws JeeslLockingException, JeeslConstraintViolationException;
 }

@@ -10,9 +10,9 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.jsf.util.ComponentAttribute;
 
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,7 +42,7 @@ public class LogThis extends UINamingContainer
 		String value = null;
 		try {
 			value = ComponentAttribute.get(Attribute.value.toString(), ctx, this);
-		} catch (UtilsNotFoundException e) {
+		} catch (JeeslNotFoundException e) {
 			e.printStackTrace();
 		}
 		logger.info(value);

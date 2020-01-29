@@ -4,6 +4,9 @@ import org.jeesl.api.facade.system.JeeslSystemConstraintFacade;
 import org.jeesl.api.rest.system.constraint.JeeslConstraintRestExport;
 import org.jeesl.api.rest.system.constraint.JeeslConstraintRestImport;
 import org.jeesl.controller.monitor.DataUpdateTracker;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.ConstraintFactoryBuilder;
 import org.jeesl.factory.ejb.system.constraint.EjbConstraintFactory;
 import org.jeesl.factory.ejb.system.constraint.EjbConstraintScopeFactory;
@@ -16,9 +19,6 @@ import org.jeesl.web.rest.AbstractJeeslRestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -116,15 +116,15 @@ public class ConstraintRestService <L extends UtilsLang, D extends UtilsDescript
 						efConstraint.importOrUpdate(fConstraint,eScope,xConstraint);
 						dut.createSuccess(cConstraint);
 					}
-					catch (UtilsNotFoundException e) {dut.createFail(cConstraint,e);}
-					catch (UtilsConstraintViolationException e) {dut.createFail(cConstraint,e);}
-					catch (UtilsLockingException e) {dut.createFail(cConstraint,e);}
+					catch (JeeslNotFoundException e) {dut.createFail(cConstraint,e);}
+					catch (JeeslConstraintViolationException e) {dut.createFail(cConstraint,e);}
+					catch (JeeslLockingException e) {dut.createFail(cConstraint,e);}
 				}
 				
 			}
-			catch (UtilsNotFoundException e) {dut.createFail(cScope,e);}
-			catch (UtilsConstraintViolationException e) {dut.createFail(cScope,e);}
-			catch (UtilsLockingException e) {dut.createFail(cScope,e);}
+			catch (JeeslNotFoundException e) {dut.createFail(cScope,e);}
+			catch (JeeslConstraintViolationException e) {dut.createFail(cScope,e);}
+			catch (JeeslLockingException e) {dut.createFail(cScope,e);}
 		}
 		return dut.toDataUpdate();
 	}

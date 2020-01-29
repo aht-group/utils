@@ -13,6 +13,9 @@ import org.jeesl.api.facade.module.JeeslWorkflowFacade;
 import org.jeesl.api.facade.system.graphic.JeeslGraphicFacade;
 import org.jeesl.controller.handler.module.workflow.WorkflowProcesslResetHandler;
 import org.jeesl.controller.handler.sb.SbSingleHandler;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.factory.builder.io.IoTemplateFactoryBuilder;
 import org.jeesl.factory.builder.module.WorkflowFactoryBuilder;
@@ -50,9 +53,6 @@ import org.primefaces.model.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -195,7 +195,7 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 		modificationLevels.addAll(fApproval.allOrderedPositionVisible(fbWorkflow.getClassModificationLevel()));
 		
 		bots.addAll(fApproval.allOrderedPositionVisible(fbWorkflow.getClassBot()));
-		try{initEntities();} catch (UtilsNotFoundException e) {e.printStackTrace();}
+		try{initEntities();} catch (JeeslNotFoundException e) {e.printStackTrace();}
 		initPageSettings();
 		Collections.sort(roles,cpRole);
 		
@@ -207,7 +207,7 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 		}
 	}
 	
-	protected abstract void initEntities() throws UtilsNotFoundException;
+	protected abstract void initEntities() throws JeeslNotFoundException;
 	
 	protected void initPageSettings()
 	{
@@ -239,7 +239,7 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 	}
 	
 	@Override
-	public void selectSbSingle(EjbWithId item) throws UtilsLockingException, UtilsConstraintViolationException
+	public void selectSbSingle(EjbWithId item) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		reset(WorkflowProcesslResetHandler.build().all());
 		if(item instanceof JeeslWorkflowContext) 
@@ -267,7 +267,7 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 		stages.addAll(fWorkflow.allForParent(fbWorkflow.getClassStage(),process));
 	}
 
-	public void addProcess() throws UtilsNotFoundException
+	public void addProcess() throws JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.addEntity(fbWorkflow.getClassProcess()));
 		process = fbWorkflow.ejbProcess().build();
@@ -276,7 +276,7 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 		process.setContext(sbhContext.getSelection());
 	}
 	
-	public void selectProcess() throws UtilsNotFoundException
+	public void selectProcess() throws JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.selectEntity(process));
 		process = fWorkflow.find(fbWorkflow.getClassProcess(), process);
@@ -285,7 +285,7 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 		reloadStages();
 	}
 	
-	public void saveProcess() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void saveProcess() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.saveEntity(process));
 		process.setContext(fWorkflow.find(fbWorkflow.getClassContext(), process.getContext()));
@@ -293,7 +293,7 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 		reloadProcesses();
 	}
 	
-	public void deleteProcess() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void deleteProcess() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.rmEntity(process));
 		fWorkflow.rm(process);
@@ -312,7 +312,7 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 		editStage = true;
 	}
 	
-	public void saveStage() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void saveStage() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.saveEntity(stage));
 		reloadStageSelectOne();
@@ -320,7 +320,7 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 		reloadStages();
 	}
 	
-	public void handleFileUpload(FileUploadEvent event) throws  UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void handleFileUpload(FileUploadEvent event) throws  JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		UploadedFile file = event.getFile();
 		logger.info("Received file with a size of " +file.getSize());
@@ -330,7 +330,7 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 		{
 			graphic = fGraphic.fGraphic(fbWorkflow.getClassStage(),stage.getId());
 		}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			GT type = fWorkflow.fByCode(fbSvg.getClassGraphicType(), JeeslGraphicType.Code.svg);
 			graphic = fWorkflow.persist(fbSvg.efGraphic().build(type));
@@ -348,7 +348,7 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 		if(stage.getType()!=null) {stage.setType(fWorkflow.find(fbWorkflow.getClassStageType(),stage.getType()));}
 	}
 	
-	public void selectStage() throws UtilsNotFoundException
+	public void selectStage() throws JeeslNotFoundException
 	{
 		reset(WorkflowProcesslResetHandler.build().all().stages(false).stage(false));
 		logger.info(AbstractLogMessage.selectEntity(stage));
@@ -360,7 +360,7 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 		reloadPermissions();
 	}
 	
-	public void deleteStage() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void deleteStage() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.rmEntity(stage));
 		fWorkflow.rm(stage);
@@ -381,7 +381,7 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 		permission = fbWorkflow.ejbPermission().build(stage,permissions);
 	}
 	
-	public void savePermission() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void savePermission() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.saveEntity(permission));
 		permission.setRole(fWorkflow.find(fbSecurity.getClassRole(), permission.getRole()));
@@ -391,14 +391,14 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 		reloadPermissions();
 	}
 	
-	public void selectPermission() throws UtilsNotFoundException
+	public void selectPermission() throws JeeslNotFoundException
 	{
 		reset(WorkflowProcesslResetHandler.build().none());
 		logger.info(AbstractLogMessage.selectEntity(permission));
 		permission = fWorkflow.find(fbWorkflow.getClassPermission(),permission);
 	}
 	
-	public void deletePermission() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void deletePermission() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.rmEntity(permission));
 		fWorkflow.rm(permission);
@@ -422,7 +422,7 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 		editTransition = true;
 	}
 	
-	public void saveTransition() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void saveTransition() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.saveEntity(transition));
 		transition.setDestination(fWorkflow.find(fbWorkflow.getClassStage(), transition.getDestination()));
@@ -434,7 +434,7 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 		reloadCommunications();
 	}
 	
-	public void selectTransition() throws UtilsNotFoundException
+	public void selectTransition() throws JeeslNotFoundException
 	{
 		reset(WorkflowProcesslResetHandler.build().none().action(true).actions(true).communication(true).communications(true));
 		logger.info(AbstractLogMessage.selectEntity(transition));
@@ -446,7 +446,7 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 		reloadCommunications();
 	}
 	
-	public void deleteTransition() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void deleteTransition() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.rmEntity(transition));
 		fWorkflow.rm(transition);
@@ -467,7 +467,7 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 		communication = fbWorkflow.ejbCommunication().build(transition,communications);
 	}
 	
-	public void saveCommunication() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void saveCommunication() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.saveEntity(transition));
 		communication.setTemplate(fWorkflow.find(fbTemplate.getClassTemplate(), communication.getTemplate()));
@@ -478,14 +478,14 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 		reloadCommunications();
 	}
 	
-	public void selectCommunication() throws UtilsNotFoundException
+	public void selectCommunication() throws JeeslNotFoundException
 	{
 		reset(WorkflowProcesslResetHandler.build().none());
 		logger.info(AbstractLogMessage.selectEntity(communication));
 		communication = fWorkflow.find(fbWorkflow.getClassCommunication(),communication);
 	}
 	
-	public void deleteCommunication() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void deleteCommunication() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.rmEntity(communication));
 		fWorkflow.rm(communication);
@@ -508,7 +508,7 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 	}
 	
 	@SuppressWarnings("unchecked")
-	public void saveAction() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void saveAction() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.saveEntity(action)+" cmd:"+action.getCallbackCommand());
 		action.setBot(fWorkflow.find(fbWorkflow.getClassBot(), action.getBot()));
@@ -529,14 +529,14 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 		reloadActions();
 	}
 	
-	public void selectAction() throws UtilsNotFoundException
+	public void selectAction() throws JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.selectEntity(action));
 		action = fWorkflow.find(fbWorkflow.getClassAction(),action);
 		changeEntity();
 	}
 	
-	public void deleteAction() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void deleteAction() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.rmEntity(action));
 		fWorkflow.rm(action);
@@ -603,8 +603,8 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 		}
 	}
 	
-	public void reorderProcesses() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fWorkflow,sbhProcess.getList());}
-	public void reorderTransitions() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fWorkflow,transitions);}
-	public void reorderStages() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fWorkflow,stages);}
-	public void reorderPermissions() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fWorkflow,permissions);}
+	public void reorderProcesses() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fWorkflow,sbhProcess.getList());}
+	public void reorderTransitions() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fWorkflow,transitions);}
+	public void reorderStages() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fWorkflow,stages);}
+	public void reorderPermissions() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fWorkflow,permissions);}
 }

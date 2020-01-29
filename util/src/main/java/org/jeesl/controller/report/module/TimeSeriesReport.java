@@ -6,6 +6,7 @@ import java.util.List;
 import org.jeesl.api.facade.io.JeeslIoReportFacade;
 import org.jeesl.api.facade.module.JeeslTsFacade;
 import org.jeesl.controller.report.AbstractJeeslReport;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.ReportFactoryBuilder;
 import org.jeesl.factory.xml.module.ts.XmlDataFactory;
 import org.jeesl.factory.xml.module.ts.XmlTsFactory;
@@ -34,7 +35,6 @@ import org.jeesl.model.xml.module.ts.Ts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -101,7 +101,7 @@ public class TimeSeriesReport <L extends UtilsLang,D extends UtilsDescription,
 		this.fTs=fTs;
 	}
 	
-	public Report build(WS workspace, SCOPE scope, INT interval, BRIDGE bridge, Date from, Date to) throws UtilsNotFoundException
+	public Report build(WS workspace, SCOPE scope, INT interval, BRIDGE bridge, Date from, Date to) throws JeeslNotFoundException
 	{
 		TS ts = fTs.fTimeSeries(scope, interval, bridge);
 		List<DATA> tsData = fTs.fData(workspace,ts,from,to);

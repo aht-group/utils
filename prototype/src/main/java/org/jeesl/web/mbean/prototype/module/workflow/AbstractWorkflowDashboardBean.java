@@ -10,6 +10,8 @@ import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
 import org.jeesl.api.facade.module.JeeslWorkflowFacade;
 import org.jeesl.controller.handler.module.workflow.JeeslWorkflowEngine;
 import org.jeesl.controller.handler.sb.SbSingleHandler;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.factory.builder.io.IoTemplateFactoryBuilder;
 import org.jeesl.factory.builder.module.WorkflowFactoryBuilder;
@@ -44,8 +46,6 @@ import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -153,7 +153,7 @@ public abstract class AbstractWorkflowDashboardBean <L extends UtilsLang, D exte
 	}
 	
 	@Override
-	public void selectSbSingle(EjbWithId item) throws UtilsLockingException, UtilsConstraintViolationException
+	public void selectSbSingle(EjbWithId item) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		if(item instanceof JeeslWorkflowContext) {reloadProcesses();}
 		else if(item instanceof JeeslWorkflowProcess)

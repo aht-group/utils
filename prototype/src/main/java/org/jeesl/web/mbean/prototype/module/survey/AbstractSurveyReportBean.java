@@ -18,6 +18,7 @@ import org.jeesl.api.facade.system.JeeslJobFacade;
 import org.jeesl.controller.handler.module.survey.SurveyAnalysisCacheHandler;
 import org.jeesl.controller.handler.sb.SbSingleHandler;
 import org.jeesl.controller.processor.survey.analysis.SurveySelectOneProcessor;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.survey.SurveyAnalysisFactoryBuilder;
 import org.jeesl.factory.builder.module.survey.SurveyCoreFactoryBuilder;
 import org.jeesl.factory.builder.module.survey.SurveyTemplateFactoryBuilder;
@@ -70,7 +71,6 @@ import org.metachart.xml.chart.Ds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -362,7 +362,7 @@ public abstract class AbstractSurveyReportBean <L extends UtilsLang, D extends U
 					
 					mapTool.put(q,tools);
 				}
-				catch (UtilsNotFoundException e) {}
+				catch (JeeslNotFoundException e) {}
 			}
 			if(!mapQuestion.get(section).isEmpty()) {sections.add(section);}
 		}

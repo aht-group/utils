@@ -7,9 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
-
 import org.jeesl.AbstractJeeslUtilTest;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.txt.system.locale.TranslationMap;
 import org.junit.Assert;
 import org.junit.Before;
@@ -65,15 +64,15 @@ public class TestTranslationMap extends AbstractJeeslUtilTest
     }
 	
 	@Test
-	public void sizeKeys() throws UtilsNotFoundException
+	public void sizeKeys() throws JeeslNotFoundException
 	{
 		addAllTranslations();
 		Assert.assertEquals(2, tMap.sizeKeys("de"));
 		Assert.assertEquals(1, tMap.sizeKeys("en"));
 	}
 	
-	@Test(expected=UtilsNotFoundException.class)
-	public void sizeKeysUnknown() throws UtilsNotFoundException
+	@Test(expected=JeeslNotFoundException.class)
+	public void sizeKeysUnknown() throws JeeslNotFoundException
 	{
 		tMap.sizeKeys("-1");
 	}
@@ -88,15 +87,15 @@ public class TestTranslationMap extends AbstractJeeslUtilTest
 		}
 	}
 	
-	@Test(expected=UtilsNotFoundException.class)
-	public void translateUnknowLang() throws UtilsNotFoundException
+	@Test(expected=JeeslNotFoundException.class)
+	public void translateUnknowLang() throws JeeslNotFoundException
 	{
 		addAllTranslations();
 		tMap.translateWithException("-1","-1");
 	}
 	
-	@Test(expected=UtilsNotFoundException.class)
-	public void translateUnknowKey() throws UtilsNotFoundException
+	@Test(expected=JeeslNotFoundException.class)
+	public void translateUnknowKey() throws JeeslNotFoundException
 	{
 		addAllTranslations();
 		tMap.translateWithException("de","-1");
@@ -115,7 +114,7 @@ public class TestTranslationMap extends AbstractJeeslUtilTest
 	}
 	
 	@Test
-	public void getTranslationKeys() throws UtilsNotFoundException
+	public void getTranslationKeys() throws JeeslNotFoundException
 	{
 		addAllTranslations();
 		List<String> list = tMap.getTranslationKeys("de");
@@ -127,8 +126,8 @@ public class TestTranslationMap extends AbstractJeeslUtilTest
 		}
 	}
 	
-	@Test(expected=UtilsNotFoundException.class)
-	public void getTranslationKeysUnknows() throws UtilsNotFoundException
+	@Test(expected=JeeslNotFoundException.class)
+	public void getTranslationKeysUnknows() throws JeeslNotFoundException
 	{
 		tMap.getTranslationKeys("-1");
 	}

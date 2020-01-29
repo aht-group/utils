@@ -22,5 +22,5 @@ public interface JeeslAssetStatus <L extends UtilsLang, D extends UtilsDescripti
 								EjbWithCodeGraphic<G>,
 								UtilsStatus<S,L,D>
 {	
-	public enum Code{planned,operational}
+	public enum Code{na,planned,operational}
 }

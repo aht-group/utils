@@ -9,12 +9,12 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 import org.jeesl.api.facade.core.JeeslSyncFacade;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.ejb.system.sync.EjbSyncFactory;
 import org.jeesl.interfaces.model.system.io.db.JeeslSync;
 import org.joda.time.DateTime;
@@ -33,7 +33,7 @@ public class UtilsSyncFacadeBean <L extends UtilsLang,
 	}
 
 	@Override
-	public SYNC fSync(Class<SYNC> cSync, CATEGORY category, String code) throws UtilsNotFoundException
+	public SYNC fSync(Class<SYNC> cSync, CATEGORY category, String code) throws JeeslNotFoundException
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
         CriteriaQuery<SYNC> cQ = cB.createQuery(cSync);
@@ -50,7 +50,7 @@ public class UtilsSyncFacadeBean <L extends UtilsLang,
         
 		TypedQuery<SYNC> q = em.createQuery(cQ); 
 		try	{return q.getSingleResult();}
-		catch (NoResultException ex){throw new UtilsNotFoundException("Nothing found category:"+category.getCode()+" for code="+code);}
+		catch (NoResultException ex){throw new JeeslNotFoundException("Nothing found category:"+category.getCode()+" for code="+code);}
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class UtilsSyncFacadeBean <L extends UtilsLang,
 		{
 			sync = fSync(cSync,category,code);
 		}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			try
 			{
@@ -72,7 +72,7 @@ public class UtilsSyncFacadeBean <L extends UtilsLang,
 				sync = ef.build(category,status,code);
 				em.persist(sync);
 			}
-			catch (UtilsNotFoundException e1) {e1.printStackTrace();}
+			catch (JeeslNotFoundException e1) {e1.printStackTrace();}
 		}
 		return sync;
 	}

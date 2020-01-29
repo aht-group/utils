@@ -1,5 +1,8 @@
 package org.jeesl.api.facade.io;
 
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.controller.handler.system.io.JeeslFileRepositoryStore;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileMeta;
@@ -8,9 +11,6 @@ import org.jeesl.interfaces.model.system.io.fr.JeeslFileType;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
 import org.jeesl.model.json.db.tuple.two.Json2Tuples;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -25,6 +25,6 @@ public interface JeeslIoFrFacade <L extends UtilsLang, D extends UtilsDescriptio
 								TYPE extends JeeslFileType<L,D,TYPE,?>>
 		extends UtilsFacade,JeeslFileRepositoryStore<META>
 {
-	CONTAINER moveContainer(CONTAINER container, STORAGE destination) throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException;
+	CONTAINER moveContainer(CONTAINER container, STORAGE destination) throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException;
 	Json2Tuples<STORAGE,TYPE> tpIoFileByStorageType();
 }

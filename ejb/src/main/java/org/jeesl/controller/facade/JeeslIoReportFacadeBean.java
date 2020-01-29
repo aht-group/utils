@@ -12,6 +12,8 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.io.JeeslIoReportFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.system.io.report.JeeslIoReport;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportCell;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportColumn;
@@ -25,8 +27,6 @@ import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 
 import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.controller.util.ParentPredicate;
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -130,7 +130,7 @@ public class JeeslIoReportFacadeBean<L extends UtilsLang,D extends UtilsDescript
 		return template;
 	}
 	
-	@Override public SHEET fSheet(WORKBOOK workbook, String code) throws UtilsNotFoundException
+	@Override public SHEET fSheet(WORKBOOK workbook, String code) throws JeeslNotFoundException
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<SHEET> cQ = cB.createQuery(cSheet);
@@ -145,38 +145,38 @@ public class JeeslIoReportFacadeBean<L extends UtilsLang,D extends UtilsDescript
 
 		TypedQuery<SHEET> q = em.createQuery(cQ); 
 		try	{return q.getSingleResult();}
-		catch (NoResultException ex){throw new UtilsNotFoundException("Nothing found "+cSheet.getSimpleName()+" workbook:"+workbook.toString()+" code:"+code);}
+		catch (NoResultException ex){throw new JeeslNotFoundException("Nothing found "+cSheet.getSimpleName()+" workbook:"+workbook.toString()+" code:"+code);}
 	}
 	
-	@Override public void rmSheet(SHEET sheet) throws UtilsConstraintViolationException
+	@Override public void rmSheet(SHEET sheet) throws JeeslConstraintViolationException
 	{
 		sheet = em.find(cSheet, sheet.getId());
 		sheet.getWorkbook().getSheets().remove(sheet);
 		this.rmProtected(sheet);
 	}
 	
-	@Override public void rmGroup(GROUP group) throws UtilsConstraintViolationException
+	@Override public void rmGroup(GROUP group) throws JeeslConstraintViolationException
 	{
 		group = em.find(cGroup, group.getId());
 		group.getSheet().getGroups().remove(group);
 		this.rmProtected(group);
 	}
 	
-	@Override public void rmColumn(COLUMN column) throws UtilsConstraintViolationException
+	@Override public void rmColumn(COLUMN column) throws JeeslConstraintViolationException
 	{
 		column = em.find(cColumn, column.getId());
 		column.getGroup().getColumns().remove(column);
 		this.rmProtected(column);
 	}
 	
-	@Override public void rmRow(ROW row) throws UtilsConstraintViolationException
+	@Override public void rmRow(ROW row) throws JeeslConstraintViolationException
 	{
 		row = em.find(cRow, row.getId());
 		row.getSheet().getRows().remove(row);
 		this.rmProtected(row);
 	}
 	
-	@Override public void rmCell(CELL cell) throws UtilsConstraintViolationException
+	@Override public void rmCell(CELL cell) throws JeeslConstraintViolationException
 	{
 		cell = em.find(cCell, cell.getId());
 		cell.getTemplate().getCells().remove(cell);

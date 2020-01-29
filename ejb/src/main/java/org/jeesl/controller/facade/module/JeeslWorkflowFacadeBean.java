@@ -12,6 +12,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.module.JeeslWorkflowFacade;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.WorkflowFactoryBuilder;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowAction;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowBot;
@@ -40,7 +41,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -107,7 +107,7 @@ public class JeeslWorkflowFacadeBean<L extends UtilsLang, D extends UtilsDescrip
 		return null;
 	}
 	
-	@Override public WL fWorkflowLink(WF workflow) throws UtilsNotFoundException
+	@Override public WL fWorkflowLink(WF workflow) throws JeeslNotFoundException
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<WL> cQ = cB.createQuery(fbWorkflow.getClassLink());
@@ -131,11 +131,11 @@ public class JeeslWorkflowFacadeBean<L extends UtilsLang, D extends UtilsDescrip
 		}
 		else
 		{
-			throw new UtilsNotFoundException("No "+fbWorkflow.getClassLink()+" found for "+workflow.toString());
+			throw new JeeslNotFoundException("No "+fbWorkflow.getClassLink()+" found for "+workflow.toString());
 		}
 	}
 
-	@Override public <W extends JeeslWithWorkflow<WF>> WL fWorkflowLink(AP process, W owner) throws UtilsNotFoundException
+	@Override public <W extends JeeslWithWorkflow<WF>> WL fWorkflowLink(AP process, W owner) throws JeeslNotFoundException
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<WL> cQ = cB.createQuery(fbWorkflow.getClassLink());
@@ -161,7 +161,7 @@ public class JeeslWorkflowFacadeBean<L extends UtilsLang, D extends UtilsDescrip
 		}
 		else
 		{
-			{throw new UtilsNotFoundException("No "+fbWorkflow.getClassLink()+" found for "+owner);}
+			{throw new JeeslNotFoundException("No "+fbWorkflow.getClassLink()+" found for "+owner);}
 		}
 	}
 

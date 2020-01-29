@@ -9,6 +9,8 @@ import javax.persistence.Table;
 import org.jeesl.api.facade.io.JeeslIoDbFacade;
 import org.jeesl.api.facade.module.JeeslTsFacade;
 import org.jeesl.controller.processor.module.ts.AbstractTimeSeriesProcessor;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
@@ -26,8 +28,6 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public class TsDbCountProcessor<RE extends JeeslRevisionEntity<?,?,?,?,?,?>,
@@ -99,14 +99,14 @@ public class TsDbCountProcessor<RE extends JeeslRevisionEntity<?,?,?,?,?,?>,
 						count(transaction,date,entity,c);
 					}
 					catch (ClassNotFoundException e) {e.printStackTrace();}
-					catch (UtilsConstraintViolationException | UtilsLockingException e) {e.printStackTrace();}
+					catch (JeeslConstraintViolationException | JeeslLockingException e) {e.printStackTrace();}
 				}
 			}
-			catch (UtilsConstraintViolationException | UtilsLockingException e) {e.printStackTrace();}
+			catch (JeeslConstraintViolationException | JeeslLockingException e) {e.printStackTrace();}
 		}
 	}
 	
-	private void count(TRANSACTION transaction, Date date, RE entity, Class<?> c) throws UtilsConstraintViolationException, UtilsLockingException
+	private void count(TRANSACTION transaction, Date date, RE entity, Class<?> c) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		BRIDGE bridge = fTs.fcBridge(fbTs.getClassBridge(),ec,entity);
 		TS ts = fTs.fcTimeSeries(scope,interval,bridge);

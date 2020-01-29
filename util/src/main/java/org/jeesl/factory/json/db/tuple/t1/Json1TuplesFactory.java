@@ -23,7 +23,7 @@ public class Json1TuplesFactory <A extends EjbWithId>
 
 	private UtilsFacade fUtils; public void setfUtils(UtilsFacade fUtils) {this.fUtils = fUtils;}
 
-	private final Set<Long> setId;
+	private final Set<Long> setA;
 	private final Json1TupleFactory<A> jtf;
 	
 	protected final Map<Long,A> mapA; public Map<Long,A> getMapA() {return mapA;}
@@ -35,7 +35,7 @@ public class Json1TuplesFactory <A extends EjbWithId>
 	{
 		this.cA=cA;
 		this.fUtils=fUtils;
-		setId = new HashSet<Long>();
+		setA = new HashSet<Long>();
 		mapA = new HashMap<Long,A>();
 		
 		jtf = new Json1TupleFactory<A>();
@@ -48,15 +48,15 @@ public class Json1TuplesFactory <A extends EjbWithId>
 		
 		for(Json1Tuple<A> t : json.getTuples())
 		{
-			setId.add(t.getId());
+			setA.add(t.getId());
 		}
 		
-		mapA.putAll(EjbIdFactory.toIdMap(fUtils.find(cA, setId)));
+		mapA.putAll(EjbIdFactory.toIdMap(fUtils.find(cA, setA)));
 	}
 	
 	protected void clear()
 	{
-		setId.clear();
+		setA.clear();
 		mapA.clear();
 	}
 	
@@ -70,14 +70,14 @@ public class Json1TuplesFactory <A extends EjbWithId>
 	{
 		for(Json1Tuple<A> t : list)
 		{
-			if(!setId.contains(t.getId())) {setId.add(t.getId());}
+			if(!setA.contains(t.getId())) {setA.add(t.getId());}
 		}
 		return list;
 	}
 	
 	public List<A> toTuple1List(UtilsFacade fUtils)
 	{
-		return fUtils.find(cA,setId);
+		return fUtils.find(cA,setA);
 	}
 	
 	public List<A> toListA(Json1Tuples<A> tuples)
@@ -97,7 +97,7 @@ public class Json1TuplesFactory <A extends EjbWithId>
 		for(Tuple t : tuples)
         {
 			Json1Tuple<A> j = jtf.build(t);
-			setId.add(j.getId());
+			setA.add(j.getId());
         	json.getTuples().add(j);
         }
 		ejb1Load(json);	
@@ -111,7 +111,7 @@ public class Json1TuplesFactory <A extends EjbWithId>
 		for(Tuple t : tuples)
         {
 			Json1Tuple<A> j = jtf.buildSum(t);
-			setId.add(j.getId());
+			setA.add(j.getId());
         	json.getTuples().add(j);
         }
 		ejb1Load(json);
@@ -125,7 +125,7 @@ public class Json1TuplesFactory <A extends EjbWithId>
 		for(Tuple t : tuples)
         {
 			Json1Tuple<A> j = jtf.buildCount(t);
-			setId.add(j.getId());
+			setA.add(j.getId());
         	json.getTuples().add(j);
         }
 		ejb1Load(json);
@@ -138,7 +138,7 @@ public class Json1TuplesFactory <A extends EjbWithId>
 		for(Object o : list)
 		{
 			Json1Tuple<A> j = jtf.buildCountNative(o);
-			setId.add(j.getId());
+			setA.add(j.getId());
         	json.getTuples().add(j);
 		}
 		ejb1Load(json);
@@ -151,7 +151,7 @@ public class Json1TuplesFactory <A extends EjbWithId>
 		for(Object o : list)
 		{
 			Json1Tuple<A> j = jtf.buildCountNative(o);
-			setId.add(j.getId());
+			setA.add(j.getId());
         	json.getTuples().add(j);
 		}
 		ejb1Load(json);
@@ -165,7 +165,7 @@ public class Json1TuplesFactory <A extends EjbWithId>
 		for(Tuple t : tuples)
         {
 			Json1Tuple<A> j = jtf.build(t,fields);
-			setId.add(j.getId());
+			setA.add(j.getId());
         	json.getTuples().add(j);
         }
 		ejb1Load(json);
@@ -187,7 +187,7 @@ public class Json1TuplesFactory <A extends EjbWithId>
 		}
 		else
 		{	// Here we really load the objects from the DB
-			Map<Long,A> map = EjbIdFactory.toIdMap(fUtils.find(cA,setId));
+			Map<Long,A> map = EjbIdFactory.toIdMap(fUtils.find(cA,setA));
 			for(Json1Tuple<A> t : json.getTuples())
 			{
 				t.setEjb(map.get(t.getId()));

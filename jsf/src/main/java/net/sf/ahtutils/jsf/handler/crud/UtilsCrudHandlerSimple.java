@@ -2,11 +2,11 @@ package net.sf.ahtutils.jsf.handler.crud;
 
 import java.util.List;
 
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.crud.EjbCrud;
 import net.sf.ahtutils.interfaces.web.crud.CrudHandlerBean;
@@ -54,7 +54,7 @@ public class UtilsCrudHandlerSimple <T extends EjbCrud>
 		else {logger.warn("No Bean available!!");}
 	}
 	
-	public void save() throws UtilsConstraintViolationException, UtilsLockingException
+	public void save() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(bean!=null){entity = bean.crudPreSave(entity);}
 		entity = fUtils.save(entity);
@@ -69,7 +69,7 @@ public class UtilsCrudHandlerSimple <T extends EjbCrud>
 			entity=null;
 			reloadList();
 		}
-		catch (UtilsConstraintViolationException e)
+		catch (JeeslConstraintViolationException e)
 		{
 			bean.crudRmConstraintViolation(cT);
 		}

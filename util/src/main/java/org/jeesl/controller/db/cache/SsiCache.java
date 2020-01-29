@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.jeesl.api.facade.io.JeeslIoSsiFacade;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiData;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiLink;
@@ -11,7 +12,6 @@ import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
@@ -41,13 +41,13 @@ public class SsiCache <MAPPING extends JeeslIoSsiMapping<?,?>,
 
 	}
 	
-	public T ejb(String code) throws UtilsNotFoundException
+	public T ejb(String code) throws JeeslNotFoundException
 	{
 		if(!map.containsKey(code))
 		{
 			DATA data = fSsi.fIoSsiData(mapping,code);
-			if(!data.getLink().getCode().equals(JeeslIoSsiLink.Code.linked.toString())) {throw new UtilsNotFoundException("Not Linked");}
-			if(data.getLocalId()==null) {throw new UtilsNotFoundException("No LocalId");}
+			if(!data.getLink().getCode().equals(JeeslIoSsiLink.Code.linked.toString())) {throw new JeeslNotFoundException("Not Linked");}
+			if(data.getLocalId()==null) {throw new JeeslNotFoundException("No LocalId");}
 			T t = fSsi.find(cT,data.getLocalId());
 			map.put(code,t);
 		}

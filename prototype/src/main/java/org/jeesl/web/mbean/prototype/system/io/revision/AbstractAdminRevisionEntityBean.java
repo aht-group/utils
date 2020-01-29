@@ -9,6 +9,9 @@ import org.jeesl.api.bean.JeeslLabelBean;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionScope;
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
@@ -23,9 +26,6 @@ import org.jeesl.util.comparator.ejb.PositionParentComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -81,7 +81,7 @@ public class AbstractAdminRevisionEntityBean <L extends UtilsLang, D extends Uti
 		reloadEntities();
 	}
 	
-	@Override public void toggled(Class<?> c) throws UtilsLockingException, UtilsConstraintViolationException
+	@Override public void toggled(Class<?> c) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		logger.info(AbstractLogMessage.toggled(c));
 		super.toggled(c);
@@ -126,7 +126,7 @@ public class AbstractAdminRevisionEntityBean <L extends UtilsLang, D extends Uti
 		sbhDiagram.selectAll();
 	}
 	
-	public void addEntity() throws UtilsNotFoundException
+	public void addEntity() throws JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.addEntity(fbRevision.getClassEntity()));}
 		entity = efEntity.build(null,entities);
@@ -153,7 +153,7 @@ public class AbstractAdminRevisionEntityBean <L extends UtilsLang, D extends Uti
 		}
 	}
 	
-	public void selectEntity() throws UtilsNotFoundException
+	public void selectEntity() throws JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.selectEntity(entity));}
 		entity = fRevision.find(fbRevision.getClassEntity(), entity);
@@ -164,7 +164,7 @@ public class AbstractAdminRevisionEntityBean <L extends UtilsLang, D extends Uti
 		mapping=null;
 	}
 	
-	public void saveEntity() throws UtilsLockingException, UtilsNotFoundException
+	public void saveEntity() throws JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(entity));}
 		
@@ -179,11 +179,11 @@ public class AbstractAdminRevisionEntityBean <L extends UtilsLang, D extends Uti
 			bLabel.reload(entity);
 			updatePerformed();
 		}
-		catch (UtilsConstraintViolationException e) {bMessage.errorConstraintViolationDuplicateObject();}
+		catch (JeeslConstraintViolationException e) {bMessage.errorConstraintViolationDuplicateObject();}
 		
 	}
 	
-	public void rmEntity() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void rmEntity() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.rmEntity(entity));}
 		fRevision.rm(entity);
@@ -204,7 +204,7 @@ public class AbstractAdminRevisionEntityBean <L extends UtilsLang, D extends Uti
 	
 	//*************************************************************************************
 	
-	public void saveAttribute() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void saveAttribute() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(attribute));}
 		if(attribute.getType()!=null){attribute.setType(fRevision.find(fbRevision.getClassAttributeType(), attribute.getType()));}
@@ -216,7 +216,7 @@ public class AbstractAdminRevisionEntityBean <L extends UtilsLang, D extends Uti
 		updatePerformed();
 	}
 	
-	public void rmAttribute() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void rmAttribute() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.rmEntity(attribute));}
 		fRevision.rm(fbRevision.getClassEntity(),entity,attribute);
@@ -228,7 +228,7 @@ public class AbstractAdminRevisionEntityBean <L extends UtilsLang, D extends Uti
 	
 	//*************************************************************************************
 	
-	public void addMapping() throws UtilsNotFoundException
+	public void addMapping() throws JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.addEntity(fbRevision.getClassEntityMapping()));}
 		RST rst = null; if(!scopeTypes.isEmpty()){rst=scopeTypes.get(0);}
@@ -236,14 +236,14 @@ public class AbstractAdminRevisionEntityBean <L extends UtilsLang, D extends Uti
 		updateUi();
 	}
 	
-	public void selectMapping() throws UtilsNotFoundException
+	public void selectMapping() throws JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.selectEntity(mapping));}
 		mapping = fRevision.find(fbRevision.getClassEntityMapping(), mapping);
 		updateUi();
 	}
 	
-	public void saveMapping() throws UtilsLockingException, UtilsNotFoundException
+	public void saveMapping() throws JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(mapping));}
 		mapping.setScope(fRevision.find(fbRevision.getClassScope(),mapping.getScope()));
@@ -257,10 +257,10 @@ public class AbstractAdminRevisionEntityBean <L extends UtilsLang, D extends Uti
 			bMessage.growlSuccessSaved();
 			updatePerformed();
 		}
-		catch (UtilsConstraintViolationException e) {bMessage.errorConstraintViolationDuplicateObject();}
+		catch (JeeslConstraintViolationException e) {bMessage.errorConstraintViolationDuplicateObject();}
 	}
 	
-	public void rmMapping() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void rmMapping() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.rmEntity(mapping));}
 		fRevision.rm(mapping);
@@ -302,9 +302,9 @@ public class AbstractAdminRevisionEntityBean <L extends UtilsLang, D extends Uti
 		if(attribute.getEntity()!=null){attribute.setEntity(fRevision.find(fbRevision.getClassEntity(), attribute.getEntity()));}
 	}
 	
-	public void reorderEntites() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fRevision, fbRevision.getClassEntity(), entities);Collections.sort(entities, comparatorEntity);}
-	public void reorderAttributes() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fRevision, attributes);}
-	public void reorderMappings() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fRevision, entityMappings);}
+	public void reorderEntites() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fRevision, fbRevision.getClassEntity(), entities);Collections.sort(entities, comparatorEntity);}
+	public void reorderAttributes() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fRevision, attributes);}
+	public void reorderMappings() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fRevision, entityMappings);}
 	
 	protected void updatePerformed(){}	
 	

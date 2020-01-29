@@ -2,6 +2,8 @@ package org.jeesl.api.facade.io;
 
 import java.util.List;
 
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.system.io.report.JeeslIoReport;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportCell;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportColumn;
@@ -13,8 +15,6 @@ import org.jeesl.interfaces.model.system.io.report.JeeslReportTemplate;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportWorkbook;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -49,13 +49,13 @@ public interface JeeslIoReportFacade <L extends UtilsLang,D extends UtilsDescrip
 	GROUP load(GROUP group);
 	TEMPLATE load(TEMPLATE template);
 	
-	SHEET fSheet(WORKBOOK workbook, String code) throws UtilsNotFoundException;
+	SHEET fSheet(WORKBOOK workbook, String code) throws JeeslNotFoundException;
 	
-	void rmSheet(SHEET sheet) throws UtilsConstraintViolationException;
-	void rmGroup(GROUP group) throws UtilsConstraintViolationException;
-	void rmColumn(COLUMN column) throws UtilsConstraintViolationException;
-	void rmRow(ROW row) throws UtilsConstraintViolationException;
-	void rmCell(CELL cell) throws UtilsConstraintViolationException;
+	void rmSheet(SHEET sheet) throws JeeslConstraintViolationException;
+	void rmGroup(GROUP group) throws JeeslConstraintViolationException;
+	void rmColumn(COLUMN column) throws JeeslConstraintViolationException;
+	void rmRow(ROW row) throws JeeslConstraintViolationException;
+	void rmCell(CELL cell) throws JeeslConstraintViolationException;
 	
 	List<REPORT> fReports(List<CATEGORY> categories, boolean showInvisibleEntities);
 }

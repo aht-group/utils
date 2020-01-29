@@ -1,11 +1,11 @@
 package org.jeesl.factory.ejb.system.util;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.utils.TrafficLight;
 
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.factory.ejb.system.status.EjbDescriptionFactory;
 import org.jeesl.factory.ejb.system.status.EjbLangFactory;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
@@ -56,7 +56,7 @@ public class EjbTrafficLightFactory<L extends UtilsLang,D extends UtilsDescripti
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();}
-		catch (UtilsConstraintViolationException e) {e.printStackTrace();}
+		catch (JeeslConstraintViolationException e) {e.printStackTrace();}
         
         return ejb;
     }

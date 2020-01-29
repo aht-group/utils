@@ -7,6 +7,9 @@ import java.util.List;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslTsFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
@@ -22,9 +25,6 @@ import org.jeesl.interfaces.web.JeeslJsfSecurityHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -73,7 +73,7 @@ public class AbstractAdminTsEntityBean <L extends UtilsLang, D extends UtilsDesc
 		reloadClasses();
 	}
 	
-	@Override public void toggled(Class<?> c) throws UtilsLockingException, UtilsConstraintViolationException
+	@Override public void toggled(Class<?> c) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		super.toggled(c);
 		if(fbTs.getClassCategory().isAssignableFrom(c)){reloadClasses();cancel();}
@@ -86,7 +86,7 @@ public class AbstractAdminTsEntityBean <L extends UtilsLang, D extends UtilsDesc
 		Collections.sort(classes, comparatorClass);
 	}
 	
-	public void add() throws UtilsNotFoundException
+	public void add() throws JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.addEntity(fbTs.getClassEntity()));
 		entity = efClass.build(null);
@@ -94,7 +94,7 @@ public class AbstractAdminTsEntityBean <L extends UtilsLang, D extends UtilsDesc
 		entity.setDescription(efDescription.createEmpty(localeCodes));
 	}
 	
-	public void select() throws UtilsNotFoundException
+	public void select() throws JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.selectEntity(entity));
 		entity = fTs.find(fbTs.getClassEntity(), entity);
@@ -102,7 +102,7 @@ public class AbstractAdminTsEntityBean <L extends UtilsLang, D extends UtilsDesc
 		entity = efDescription.persistMissingLangs(fTs,localeCodes,entity);
 	}
 	
-	public void save() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void save() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.saveEntity(entity));
 		entity.setCategory(fTs.find(fbTs.getClassCategory(), entity.getCategory()));
@@ -111,7 +111,7 @@ public class AbstractAdminTsEntityBean <L extends UtilsLang, D extends UtilsDesc
 		updatePerformed();
 	}
 	
-	public void rm() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void rm() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.rmEntity(entity));
 		fTs.rm(entity);
@@ -124,7 +124,7 @@ public class AbstractAdminTsEntityBean <L extends UtilsLang, D extends UtilsDesc
 		entity = null;
 	}
 	
-	protected void reorderEntities() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fTs, fbTs.getClassEntity(), classes);Collections.sort(classes, comparatorClass);}
+	protected void reorderEntities() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fTs, fbTs.getClassEntity(), classes);Collections.sort(classes, comparatorClass);}
 	protected void updatePerformed(){}
 	
 	@Override protected void updateSecurity2(JeeslJsfSecurityHandler jsfSecurityHandler, String action)

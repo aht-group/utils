@@ -2,7 +2,8 @@ package org.jeesl.api.facade.io;
 
 import java.util.List;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
+
 import net.sf.ahtutils.exception.processing.UtilsProcessingException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
@@ -14,6 +15,6 @@ import net.sf.exlp.xml.io.Files;
 public interface JeeslIoJcrFacade <L extends UtilsLang,D extends UtilsDescription> extends UtilsFacade
 {
 	List<File> jcrFiles(EjbWithId ejb);
-	File jcrFile(EjbWithId ejb, String fileName) throws UtilsNotFoundException;
+	File jcrFile(EjbWithId ejb, String fileName) throws JeeslNotFoundException;
 	Files jcrUpload(EjbWithId ejb, File file) throws UtilsProcessingException;
 }

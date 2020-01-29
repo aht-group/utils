@@ -6,6 +6,8 @@ import java.util.List;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.system.JeeslJobFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.system.JobFactoryBuilder;
 import org.jeesl.factory.ejb.system.job.EjbJobTemplateFactory;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
@@ -24,8 +26,6 @@ import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
@@ -115,7 +115,7 @@ public class AbstractAdminJobTemplateBean <L extends UtilsLang, D extends UtilsD
 		template = efDescription.persistMissingLangsForCode(fJob, bTranslation.getLangKeys(), template);
 	}
 	
-	public void saveTemplate() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveTemplate() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(template));}
 		
@@ -128,7 +128,7 @@ public class AbstractAdminJobTemplateBean <L extends UtilsLang, D extends UtilsD
 		reloadTemplates();
 	}
 	
-	public void deleteTemplate() throws UtilsConstraintViolationException, UtilsLockingException
+	public void deleteTemplate() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.rmEntity(template));}
 		fJob.rm(template);
@@ -136,7 +136,7 @@ public class AbstractAdminJobTemplateBean <L extends UtilsLang, D extends UtilsD
 		reset(true);
 	}
 	
-	public void reorderTemplates() throws UtilsConstraintViolationException, UtilsLockingException
+	public void reorderTemplates() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 //		PositionListReorderer.reorder(fJob,templates);
 	}

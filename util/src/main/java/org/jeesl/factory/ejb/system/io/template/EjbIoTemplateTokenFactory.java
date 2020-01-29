@@ -3,6 +3,7 @@ package org.jeesl.factory.ejb.system.io.template;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.factory.ejb.system.status.EjbDescriptionFactory;
 import org.jeesl.factory.ejb.system.status.EjbLangFactory;
 import org.jeesl.factory.ejb.util.EjbPositionFactory;
@@ -14,7 +15,6 @@ import org.jeesl.model.xml.system.revision.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -52,7 +52,7 @@ public class EjbIoTemplateTokenFactory<L extends UtilsLang,D extends UtilsDescri
 			ejb.setName(efLang.getLangMap(xml.getLangs()));
 			ejb.setDescription(efDescription.create(xml.getDescriptions()));
 		}
-		catch (UtilsConstraintViolationException e) {e.printStackTrace();}
+		catch (JeeslConstraintViolationException e) {e.printStackTrace();}
 		return ejb;
 	}
     

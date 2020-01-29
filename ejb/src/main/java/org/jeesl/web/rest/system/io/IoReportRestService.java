@@ -10,6 +10,9 @@ import org.jeesl.api.rest.system.io.report.JeeslIoReportRestImport;
 import org.jeesl.controller.db.updater.JeeslDbCodeEjbUpdater;
 import org.jeesl.controller.monitor.DataUpdateTracker;
 import org.jeesl.controller.report.JeeslReportUpdater;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.ReportFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.report.EjbIoReportCellFactory;
 import org.jeesl.factory.ejb.system.io.report.EjbIoReportStyleFactory;
@@ -40,9 +43,6 @@ import org.jeesl.web.rest.AbstractJeeslRestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsProcessingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -209,7 +209,7 @@ public class IoReportRestService <L extends UtilsLang, D extends UtilsDescriptio
 			REPORT r = fReport.fByCode(cReport, code);
 			reports.getReport().add(xfReport.build(r));
 		}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 		return reports;
 	}
 	
@@ -263,9 +263,9 @@ public class IoReportRestService <L extends UtilsLang, D extends UtilsDescriptio
 				dbUpdaterTemplate.handled(eTemplate);
 				dut.success();
 			}
-			catch (UtilsNotFoundException e) {dut.fail(e, true);}
-			catch (UtilsConstraintViolationException e) {dut.fail(e, true);}
-			catch (UtilsLockingException e) {dut.fail(e, true);}
+			catch (JeeslNotFoundException e) {dut.fail(e, true);}
+			catch (JeeslConstraintViolationException e) {dut.fail(e, true);}
+			catch (JeeslLockingException e) {dut.fail(e, true);}
 			catch (UtilsProcessingException e) {dut.fail(e, true);}
 		}
 		dbUpdaterTemplate.remove(fReport);
@@ -273,11 +273,11 @@ public class IoReportRestService <L extends UtilsLang, D extends UtilsDescriptio
 		return dut.toDataUpdate();
 	}
 	
-	private TEMPLATE importSystemIoReportTemplate(Template xTemplate) throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException, UtilsProcessingException
+	private TEMPLATE importSystemIoReportTemplate(Template xTemplate) throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException, UtilsProcessingException
 	{
 		TEMPLATE eTemplate;
 		try {eTemplate = fReport.fByCode(cTemplate, xTemplate.getCode());}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			eTemplate = efTemplate.build(xTemplate);
 			eTemplate = fReport.save(eTemplate);
@@ -301,11 +301,11 @@ public class IoReportRestService <L extends UtilsLang, D extends UtilsDescriptio
 		return eTemplate;
 	}
 	
-	private CELL importCell(TEMPLATE eTemplate, Cell xCell) throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException, UtilsProcessingException
+	private CELL importCell(TEMPLATE eTemplate, Cell xCell) throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException, UtilsProcessingException
 	{
 		CELL eCell;
 		try {eCell = fReport.fByCode(cCell, xCell.getCode());}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			eCell = efCell.build(eTemplate,xCell);
 			eCell = fReport.save(eCell);
@@ -333,9 +333,9 @@ public class IoReportRestService <L extends UtilsLang, D extends UtilsDescriptio
 				dbuStyle.handled(eStyle);
 				dut.success();
 			}
-			catch (UtilsNotFoundException e) {dut.fail(e, true);}
-			catch (UtilsConstraintViolationException e) {dut.fail(e, true);}
-			catch (UtilsLockingException e) {dut.fail(e, true);}
+			catch (JeeslNotFoundException e) {dut.fail(e, true);}
+			catch (JeeslConstraintViolationException e) {dut.fail(e, true);}
+			catch (JeeslLockingException e) {dut.fail(e, true);}
 			catch (UtilsProcessingException e) {dut.fail(e, true);}
 		}
 		dbuStyle.remove(fReport);
@@ -343,11 +343,11 @@ public class IoReportRestService <L extends UtilsLang, D extends UtilsDescriptio
 		return dut.toDataUpdate();
 	}
 	
-	private STYLE importSystemIoReportStyle(Style xStyle) throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException, UtilsProcessingException
+	private STYLE importSystemIoReportStyle(Style xStyle) throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException, UtilsProcessingException
 	{
 		STYLE eStyle;
 		try {eStyle = fReport.fByCode(cStyle, xStyle.getCode());}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			eStyle = efStyle.build(xStyle);
 			eStyle = fReport.save(eStyle);
@@ -374,9 +374,9 @@ public class IoReportRestService <L extends UtilsLang, D extends UtilsDescriptio
 				dbUpdaterReport.handled(eReport);
 				dut.success();
 			}
-			catch (UtilsNotFoundException e) {dut.fail(e, true);}
-			catch (UtilsConstraintViolationException e) {dut.fail(e, true);}
-			catch (UtilsLockingException e) {dut.fail(e, true);}
+			catch (JeeslNotFoundException e) {dut.fail(e, true);}
+			catch (JeeslConstraintViolationException e) {dut.fail(e, true);}
+			catch (JeeslLockingException e) {dut.fail(e, true);}
 			catch (UtilsProcessingException e) {dut.fail(e, true);}
 		}
 		dbUpdaterReport.remove(fReport);
@@ -390,9 +390,9 @@ public class IoReportRestService <L extends UtilsLang, D extends UtilsDescriptio
 		DataUpdateTracker dut = new DataUpdateTracker(true);
 		dut.setType(XmlTypeFactory.build(cReport.getName(),"DB Import"));
 		try {reportUpdater.importSystemIoReport(report);}
-		catch (UtilsNotFoundException e) {dut.fail(e, true);}
-		catch (UtilsConstraintViolationException e) {dut.fail(e, true);}
-		catch (UtilsLockingException e) {dut.fail(e, true);}
+		catch (JeeslNotFoundException e) {dut.fail(e, true);}
+		catch (JeeslConstraintViolationException e) {dut.fail(e, true);}
+		catch (JeeslLockingException e) {dut.fail(e, true);}
 		catch (UtilsProcessingException e) {dut.fail(e, true);}
 		return dut.toDataUpdate();
 	}

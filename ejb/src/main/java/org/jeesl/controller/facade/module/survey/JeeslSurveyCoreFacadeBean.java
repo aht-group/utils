@@ -19,6 +19,9 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.module.survey.JeeslSurveyCoreFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.survey.SurveyCoreFactoryBuilder;
 import org.jeesl.factory.builder.module.survey.SurveyTemplateFactoryBuilder;
 import org.jeesl.factory.ejb.module.survey.EjbSurveyAnswerFactory;
@@ -52,9 +55,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -154,7 +154,7 @@ public class JeeslSurveyCoreFacadeBean <L extends UtilsLang, D extends UtilsDesc
 		return optionSet;
 	}
 	
-	@Override public SURVEY fSurvey(CORRELATION correlation) throws UtilsNotFoundException
+	@Override public SURVEY fSurvey(CORRELATION correlation) throws JeeslNotFoundException
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<SURVEY> cQ = cB.createQuery(fbCore.getClassSurvey());
@@ -167,11 +167,11 @@ public class JeeslSurveyCoreFacadeBean <L extends UtilsLang, D extends UtilsDesc
 		cQ.select(pathSurvey);
 		
 		try	{return em.createQuery(cQ).getSingleResult();}
-		catch (NoResultException e){e.printStackTrace(); throw new UtilsNotFoundException("No survey found for this correlation");}
-		catch (NonUniqueResultException e){e.printStackTrace(); throw new UtilsNotFoundException("Multiple surveys found for this correlation");}
+		catch (NoResultException e){e.printStackTrace(); throw new JeeslNotFoundException("No survey found for this correlation");}
+		catch (NonUniqueResultException e){e.printStackTrace(); throw new JeeslNotFoundException("Multiple surveys found for this correlation");}
 	}
 	
-	@Override public void deleteSurvey(SURVEY survey) throws UtilsConstraintViolationException, UtilsLockingException
+	@Override public void deleteSurvey(SURVEY survey) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 //		survey = em.find(cSurvey, survey.getId());
 		this.rmProtected(survey);
@@ -221,13 +221,13 @@ public class JeeslSurveyCoreFacadeBean <L extends UtilsLang, D extends UtilsDesc
 		return em.createQuery(cQ).getResultList();
 	}
 	
-	@Override public void rmVersion(VERSION version) throws UtilsConstraintViolationException
+	@Override public void rmVersion(VERSION version) throws JeeslConstraintViolationException
 	{
 		version = em.find(fbTemplate.getClassVersion(), version.getId());
 		this.rmProtected(version);
 	}
 	
-	@Override public OPTION saveOption(QUESTION question, OPTION option) throws UtilsConstraintViolationException, UtilsLockingException
+	@Override public OPTION saveOption(QUESTION question, OPTION option) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		question = em.find(fbTemplate.getClassQuestion(), question.getId());
 		option = this.saveProtected(option);
@@ -238,7 +238,7 @@ public class JeeslSurveyCoreFacadeBean <L extends UtilsLang, D extends UtilsDesc
 		}
 		return option;
 	}
-	@Override public OPTION saveOption(OPTIONS set, OPTION option) throws UtilsConstraintViolationException, UtilsLockingException
+	@Override public OPTION saveOption(OPTIONS set, OPTION option) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		set = em.find(fbCore.getOptionSetClass(), set.getId());
 		option = this.saveProtected(option);
@@ -250,7 +250,7 @@ public class JeeslSurveyCoreFacadeBean <L extends UtilsLang, D extends UtilsDesc
 		return option;
 	}
 	
-	@Override public void rmOption(QUESTION question, OPTION option) throws UtilsConstraintViolationException, UtilsLockingException
+	@Override public void rmOption(QUESTION question, OPTION option) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		question = em.find(fbTemplate.getClassQuestion(), question.getId());
 		option = em.find(fbTemplate.getClassOption(), option.getId());
@@ -261,7 +261,7 @@ public class JeeslSurveyCoreFacadeBean <L extends UtilsLang, D extends UtilsDesc
 		}
 		this.rmProtected(option);
 	}
-	@Override public void rmOption(OPTIONS set, OPTION option) throws UtilsConstraintViolationException, UtilsLockingException
+	@Override public void rmOption(OPTIONS set, OPTION option) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		set = em.find(fbCore.getOptionSetClass(), set.getId());
 		option = em.find(fbTemplate.getClassOption(), option.getId());
@@ -321,7 +321,7 @@ public class JeeslSurveyCoreFacadeBean <L extends UtilsLang, D extends UtilsDesc
 		return em.createQuery(cQ).getResultList();
 	}
 	
-	@Override public <W extends JeeslWithSurvey<SURVEY>> W fWithSurvey(Class<W> c, long surveyId) throws UtilsNotFoundException
+	@Override public <W extends JeeslWithSurvey<SURVEY>> W fWithSurvey(Class<W> c, long surveyId) throws JeeslNotFoundException
 	{
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		CriteriaBuilder cB = em.getCriteriaBuilder();
@@ -338,7 +338,7 @@ public class JeeslSurveyCoreFacadeBean <L extends UtilsLang, D extends UtilsDesc
 	
 		TypedQuery<W> tQ = em.createQuery(cQ);
 		try	{return tQ.getSingleResult();}
-		catch (NoResultException ex){throw new UtilsNotFoundException(c.getSimpleName()+" not found for "+JeeslSurvey.class.getSimpleName()+"."+JeeslSurvey.Attributes.id+"="+surveyId);}
+		catch (NoResultException ex){throw new JeeslNotFoundException(c.getSimpleName()+" not found for "+JeeslSurvey.class.getSimpleName()+"."+JeeslSurvey.Attributes.id+"="+surveyId);}
 	}
 	
 	@Override public List<VERSION> fVersions(TC category, Long refId)
@@ -479,14 +479,14 @@ public class JeeslSurveyCoreFacadeBean <L extends UtilsLang, D extends UtilsDesc
 						ANSWER answer = this.persist(efAnswer.build(q,data));
 						result.add(answer);
 					}
-					catch (UtilsConstraintViolationException e) {e.printStackTrace();}
+					catch (JeeslConstraintViolationException e) {e.printStackTrace();}
 				}
 			}
 			createAnswers(existing,s.getSections(),data,result);
 		}
 	}
 
-	@Override public DATA saveData(DATA data) throws UtilsConstraintViolationException, UtilsLockingException
+	@Override public DATA saveData(DATA data) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 //		logger.info("Testing Correlation: null?"+(data.getCorrelation()==null));
 //		logger.info("Testing Correlation: Saved?"+EjbIdFactory.isSaved(data.getCorrelation()));
@@ -504,7 +504,7 @@ public class JeeslSurveyCoreFacadeBean <L extends UtilsLang, D extends UtilsDesc
 		return this.allForGrandParent(fbCore.getClassAnswer(), fbCore.getClassData(), "data", survey, "survey");
 	}
 
-	@Override public DATA fData(CORRELATION correlation) throws UtilsNotFoundException
+	@Override public DATA fData(CORRELATION correlation) throws JeeslNotFoundException
 	{
 		return this.oneForParent(fbCore.getClassData(), "correlation", correlation);
 	}
@@ -527,13 +527,13 @@ public class JeeslSurveyCoreFacadeBean <L extends UtilsLang, D extends UtilsDesc
 		return tQ.getResultList();
 	}
 	
-	@Override public ANSWER saveAnswer(ANSWER answer) throws UtilsConstraintViolationException, UtilsLockingException
+	@Override public ANSWER saveAnswer(ANSWER answer) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(answer.getOption()!=null){answer.setOption(this.find(fbTemplate.getClassOption(),answer.getOption()));}
 		return this.saveProtected(answer);
 	}
 
-	@Override public void rmAnswer(ANSWER answer) throws UtilsConstraintViolationException
+	@Override public void rmAnswer(ANSWER answer) throws JeeslConstraintViolationException
 	{
 		answer = em.find(fbCore.getClassAnswer(), answer.getId());
 		answer.getData().getAnswers().remove(answer);

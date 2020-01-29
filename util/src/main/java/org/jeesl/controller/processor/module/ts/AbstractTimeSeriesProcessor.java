@@ -1,6 +1,8 @@
 package org.jeesl.controller.processor.module.ts;
 
 import org.jeesl.api.facade.module.JeeslTsFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.factory.ejb.module.ts.EjbTsDataFactory;
 import org.jeesl.factory.ejb.module.ts.EjbTsDataPointFactory;
@@ -17,8 +19,6 @@ import org.jeesl.interfaces.model.module.ts.stat.JeeslTsStatistic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
@@ -74,7 +74,7 @@ public class AbstractTimeSeriesProcessor<SCOPE extends JeeslTsScope<?,?,?,?,?,EC
 			ec = fTs.fByCode(fbTs.getClassEntity(),c.getName());
 			initMetachart();
 		}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 	}
 	
 	public void init(WS ws, SCOPE scope, INT interval, EC ec)
@@ -100,7 +100,7 @@ public class AbstractTimeSeriesProcessor<SCOPE extends JeeslTsScope<?,?,?,?,?,EC
 		return (ws!=null) && (scope!=null) && (interval!=null) && (ec!=null);
 	}
 	
-	public <T extends EjbWithId> TS fcTs(T t) throws UtilsConstraintViolationException
+	public <T extends EjbWithId> TS fcTs(T t) throws JeeslConstraintViolationException
 	{
 		BRIDGE bridge = fTs.fcBridge(fbTs.getClassBridge(),ec,t);
 		return fTs.fcTimeSeries(scope,interval,bridge);

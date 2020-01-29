@@ -5,6 +5,9 @@ import java.io.Serializable;
 
 import org.jeesl.api.facade.module.survey.JeeslSurveyAnalysisFacade;
 import org.jeesl.api.facade.system.JeeslJobFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.module.survey.analysis.JeeslSurveyAnalysis;
 import org.jeesl.interfaces.model.module.survey.analysis.JeeslSurveyAnalysisQuestion;
 import org.jeesl.interfaces.model.module.survey.analysis.JeeslSurveyAnalysisTool;
@@ -45,9 +48,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -110,7 +110,7 @@ public class SurveyAnalysisCacheHandler<L extends UtilsLang, D extends UtilsDesc
 		{
 			jobTemplate = fJob.fJobTemplate(JeeslJobType.Code.json, JeeslJobTemplate.Code.surveyAnalysis.toString());
 		}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 	}
 	
 	public void remove(TOOL tool)
@@ -125,11 +125,11 @@ public class SurveyAnalysisCacheHandler<L extends UtilsLang, D extends UtilsDesc
 					if(debugOnInfo) {logger.info("Deleting Cache "+cache.toString());}
 					fJob.rm(cache);
 				}
-				catch (UtilsNotFoundException e)
+				catch (JeeslNotFoundException e)
 				{
 					if(debugOnInfo) {logger.info("No cache availabe for "+tool.getClass().getSimpleName()+" "+tool.getId());}
 				}
-				catch (UtilsConstraintViolationException e) {logger.error(e.getMessage());}
+				catch (JeeslConstraintViolationException e) {logger.error(e.getMessage());}
 			}
 		}
 	}
@@ -144,7 +144,7 @@ public class SurveyAnalysisCacheHandler<L extends UtilsLang, D extends UtilsDesc
 				CACHE cache = fJob.fJobCache(jobTemplate, Long.valueOf(tool.getId()).toString());
 				ff = JsonUtil.read(JsonSurveyValues.class,cache.getData());
 			}
-			catch (UtilsNotFoundException e) {}
+			catch (JeeslNotFoundException e) {}
 			catch (JsonParseException e) {e.printStackTrace();}
 			catch (JsonMappingException e) {e.printStackTrace();}
 			catch (IOException e) {e.printStackTrace();}
@@ -159,8 +159,8 @@ public class SurveyAnalysisCacheHandler<L extends UtilsLang, D extends UtilsDesc
 					fJob.uJobCache(jobTemplate, Long.valueOf(tool.getId()).toString(), JsonUtil.toBytes(ff));
 				}
 				catch (JsonProcessingException e) {e.printStackTrace();}
-				catch (UtilsConstraintViolationException e) {e.printStackTrace();}
-				catch (UtilsLockingException e) {e.printStackTrace();}
+				catch (JeeslConstraintViolationException e) {e.printStackTrace();}
+				catch (JeeslLockingException e) {e.printStackTrace();}
 			}
 		}
 		return ff;
@@ -176,7 +176,7 @@ public class SurveyAnalysisCacheHandler<L extends UtilsLang, D extends UtilsDesc
 				CACHE cache = fJob.fJobCache(jobTemplate, Long.valueOf(tool.getId()).toString());
 				ff = JsonUtil.read(JsonFlatFigures.class,cache.getData());
 			}
-			catch (UtilsNotFoundException e) {}
+			catch (JeeslNotFoundException e) {}
 			catch (JsonParseException e) {e.printStackTrace();}
 			catch (JsonMappingException e) {e.printStackTrace();}
 			catch (IOException e) {e.printStackTrace();}
@@ -191,8 +191,8 @@ public class SurveyAnalysisCacheHandler<L extends UtilsLang, D extends UtilsDesc
 					fJob.uJobCache(jobTemplate, Long.valueOf(tool.getId()).toString(), JsonUtil.toBytes(ff));
 				}
 				catch (JsonProcessingException e) {e.printStackTrace();}
-				catch (UtilsConstraintViolationException e) {e.printStackTrace();}
-				catch (UtilsLockingException e) {e.printStackTrace();}
+				catch (JeeslConstraintViolationException e) {e.printStackTrace();}
+				catch (JeeslLockingException e) {e.printStackTrace();}
 			}
 		}
 		return ff;

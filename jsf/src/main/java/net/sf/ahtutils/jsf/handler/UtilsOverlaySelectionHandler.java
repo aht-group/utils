@@ -3,11 +3,11 @@ package net.sf.ahtutils.jsf.handler;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.web.OverlaySelectionBean;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
@@ -38,7 +38,7 @@ public class UtilsOverlaySelectionHandler <T extends EjbWithId>
 		subset = new ArrayList<T>();
     }
 	
-    public void selectItem() throws UtilsLockingException, UtilsConstraintViolationException
+    public void selectItem() throws JeeslLockingException, JeeslConstraintViolationException
     {
     	logger.warn("selectUi");
     }
@@ -52,7 +52,7 @@ public class UtilsOverlaySelectionHandler <T extends EjbWithId>
     	if(!subset.contains(t)){subset.add(t);}
     }
     
-    public void addItem() throws UtilsLockingException, UtilsConstraintViolationException
+    public void addItem() throws JeeslLockingException, JeeslConstraintViolationException
     {
     	jsfErrors();
     	bean.opCallbackAdd(selection);
@@ -60,7 +60,7 @@ public class UtilsOverlaySelectionHandler <T extends EjbWithId>
     	selection=null;
     }
         
-    public void removeItem() throws UtilsLockingException, UtilsConstraintViolationException
+    public void removeItem() throws JeeslLockingException, JeeslConstraintViolationException
     {
     	jsfErrors();
     	logger.warn("removeListener");

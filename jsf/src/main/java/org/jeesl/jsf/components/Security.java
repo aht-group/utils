@@ -8,12 +8,12 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.web.JeeslJsfSecurityHandler;
 import org.jeesl.interfaces.web.JeeslJsfWorkflowHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.jsf.util.ComponentAttribute;
 
 @FacesComponent("org.jeesl.jsf.components.Security")
@@ -46,7 +46,7 @@ public class Security extends UIPanel
 		try
 		{
 			ValueExpression ve = this.getValueExpression(Properties.handler.toString());
-			if(ve==null){throw new UtilsNotFoundException("");}
+			if(ve==null){throw new JeeslNotFoundException("");}
 			JeeslJsfSecurityHandler<?,?,?,?,?,?> handler = (JeeslJsfSecurityHandler<?,?,?,?,?,?>)ve.getValue(context.getELContext());
 			
 			String action;
@@ -57,7 +57,7 @@ public class Security extends UIPanel
 			accessGranted = (handler.allow(action) && accessGrantedAttribute);
 			if(debugOnInfo) {logger.info(JeeslJsfSecurityHandler.class.getSimpleName()+" evaluated accessGranted:"+accessGranted);}
 		}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			accessGranted = accessGrantedAttribute;
 			if(debugOnInfo) {logger.info("No "+JeeslJsfSecurityHandler.class.getSimpleName()+", so accessGranted:"+accessGranted);}

@@ -8,6 +8,7 @@ import java.util.Map;
 import org.jeesl.api.bean.JeeslCmsCacheBean;
 import org.jeesl.api.facade.io.JeeslIoCmsFacade;
 import org.jeesl.controller.provider.GenericLocaleProvider;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoCmsFactoryBuilder;
 import org.jeesl.interfaces.controller.JeeslCmsRenderer;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCms;
@@ -25,7 +26,6 @@ import org.openfuxml.exception.OfxAuthoringException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -52,7 +52,7 @@ public abstract class AbstractCmsCacheBean <L extends UtilsLang,D extends UtilsD
 	
 	private final IoCmsFactoryBuilder<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fbCms;
 	private JeeslCmsRenderer<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC> ofx;
-	private JeeslIoCmsFacade<L,D,CAT,CMS,V,S,E,EC,ET,C,MT,FC,LOC> fCms;
+	private JeeslIoCmsFacade<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fCms;
 	
 	private final Map<Long,S> mapId;
 	private final Map<S,Map<String,Section>> mapSection;
@@ -66,7 +66,7 @@ public abstract class AbstractCmsCacheBean <L extends UtilsLang,D extends UtilsD
 		mapId = new HashMap<Long,S>();
 	}
 	
-	protected void postConstructCms(JeeslIoCmsFacade<L,D,CAT,CMS,V,S,E,EC,ET,C,MT,FC,LOC> fCms,
+	protected void postConstructCms(JeeslIoCmsFacade<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fCms,
 									JeeslCmsRenderer<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC> ofx)
 	{
 		this.fCms=fCms;
@@ -79,7 +79,7 @@ public abstract class AbstractCmsCacheBean <L extends UtilsLang,D extends UtilsD
 		if(mapSection.containsKey(section)) {mapSection.remove(section);}
 	}
 	
-	public Section buildById(String localeCode, long id) throws UtilsNotFoundException
+	public Section buildById(String localeCode, long id) throws JeeslNotFoundException
 	{
 		if(mapId.containsKey(id)) {return buildBySection(localeCode,mapId.get(id));}
 		else
@@ -125,7 +125,7 @@ public abstract class AbstractCmsCacheBean <L extends UtilsLang,D extends UtilsD
 					mapSection.get(section).put(localeCode, ofxSection);
 				}
 				catch (OfxAuthoringException e){e.printStackTrace();}
-				catch (UtilsNotFoundException e) {e.printStackTrace();}
+				catch (JeeslNotFoundException e) {e.printStackTrace();}
 				return ofxSection;
 			}		
 		}

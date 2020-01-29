@@ -18,6 +18,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityHelp;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
@@ -36,7 +37,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.util.UtilsStaffPool;
@@ -245,7 +245,7 @@ public class JeeslSecurityFacadeBean<L extends UtilsLang,
 		return user.getRoles();
 	}
 	
-	@Override public <WC extends JeeslSecurityWithCategory<C>> List<WC> allForCategory(Class<WC> clWc, Class<C> clC, String code) throws UtilsNotFoundException
+	@Override public <WC extends JeeslSecurityWithCategory<C>> List<WC> allForCategory(Class<WC> clWc, Class<C> clC, String code) throws JeeslNotFoundException
 	{
 		if(logger.isTraceEnabled())
 		{
@@ -387,7 +387,7 @@ public class JeeslSecurityFacadeBean<L extends UtilsLang,
 	}
 	
 	@Override
-	public <S extends JeeslStaff<R,USER,D1,D2>, D1 extends EjbWithId, D2 extends EjbWithId> S fStaff(Class<S> clStaff, USER user, R role, D1 domain) throws UtilsNotFoundException
+	public <S extends JeeslStaff<R,USER,D1,D2>, D1 extends EjbWithId, D2 extends EjbWithId> S fStaff(Class<S> clStaff, USER user, R role, D1 domain) throws JeeslNotFoundException
 	{
 		return oneForParents(clStaff,"user",user,"role",role,JeeslStaff.Attributes.domain.toString(),domain);
 	}

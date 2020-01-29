@@ -9,6 +9,8 @@ import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.survey.JeeslSurveyAnalysisFacade;
 import org.jeesl.api.facade.module.survey.JeeslSurveyCoreFacade;
 import org.jeesl.api.facade.module.survey.JeeslSurveyTemplateFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.survey.SurveyAnalysisFactoryBuilder;
 import org.jeesl.factory.builder.module.survey.SurveyCoreFactoryBuilder;
 import org.jeesl.factory.builder.module.survey.SurveyTemplateFactoryBuilder;
@@ -48,8 +50,6 @@ import org.jeesl.interfaces.model.system.job.JeeslJobTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -146,7 +146,7 @@ public abstract class AbstractAdminSurveyValidationBean <L extends UtilsLang, D 
 		algorithm.setDescription(efDescription.createEmpty(localeCodes));
 	}
 	
-	public void saveAlgorithm() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveAlgorithm() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info(AbstractLogMessage.saveEntity(algorithm));
 		algorithm = fTemplate.save(algorithm);
@@ -160,5 +160,5 @@ public abstract class AbstractAdminSurveyValidationBean <L extends UtilsLang, D 
 		algorithm = efDescription.persistMissingLangs(fTemplate, localeCodes, algorithm);
 	}
 	
-	public void reorderAlgorithms() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fTemplate,algorithms);}
+	public void reorderAlgorithms() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fTemplate,algorithms);}
 }

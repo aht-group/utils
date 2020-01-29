@@ -10,6 +10,9 @@ import org.jeesl.api.facade.io.JeeslIoMailFacade;
 import org.jeesl.api.rest.system.io.mail.JeeslIoMailRestExport;
 import org.jeesl.api.rest.system.io.mail.JeeslIoMailRestImport;
 import org.jeesl.api.rest.system.io.mail.JeeslIoMailRestInterface;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.xml.system.io.mail.XmlMailFactory;
 import org.jeesl.factory.xml.system.io.mail.XmlMailsFactory;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
@@ -24,9 +27,6 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -108,10 +108,10 @@ public class IoMailRestService <L extends UtilsLang,D extends UtilsDescription,
 					xml.getMail().add(xMail);
 				}
 			}
-			catch (UtilsConstraintViolationException e) {e.printStackTrace();}
-			catch (UtilsLockingException e) {logger.warn(e.getMessage());}
+			catch (JeeslConstraintViolationException e) {e.printStackTrace();}
+			catch (JeeslLockingException e) {logger.warn(e.getMessage());}
 			catch (IOException e) {logger.error(e.getMessage());}
-			catch (UtilsNotFoundException e) {logger.error(e.getMessage());}
+			catch (JeeslNotFoundException e) {logger.error(e.getMessage());}
 		}		
 		return xml;
 	}
@@ -128,9 +128,9 @@ public class IoMailRestService <L extends UtilsLang,D extends UtilsDescription,
 			xMail.setId(eMail.getId());
 			xMail.setCode("confirmed");
 		}
-		catch (UtilsNotFoundException e) {xMail.setCode("error");}
-		catch (UtilsConstraintViolationException e) {xMail.setCode("error");}
-		catch (UtilsLockingException e) {xMail.setCode("error");}
+		catch (JeeslNotFoundException e) {xMail.setCode("error");}
+		catch (JeeslConstraintViolationException e) {xMail.setCode("error");}
+		catch (JeeslLockingException e) {xMail.setCode("error");}
 		return xMail;
 	}
 
@@ -143,7 +143,7 @@ public class IoMailRestService <L extends UtilsLang,D extends UtilsDescription,
 		
 		List<STATUS> status = new ArrayList<>();
 		try {status.add(fMail.fByCode(cStatus,JeeslMailStatus.Code.queue));}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 		
 		List<MAIL> mails = fMail.fMails(categories, status, retentions, null, dt.toDate(), null);
 		
@@ -158,7 +158,7 @@ public class IoMailRestService <L extends UtilsLang,D extends UtilsDescription,
 				}
 				fMail.save(mails);
 			}
-			catch (UtilsNotFoundException | UtilsConstraintViolationException | UtilsLockingException e) {e.printStackTrace();}
+			catch (JeeslNotFoundException | JeeslConstraintViolationException | JeeslLockingException e) {e.printStackTrace();}
 		}
 		
 		Mails xml = new Mails();

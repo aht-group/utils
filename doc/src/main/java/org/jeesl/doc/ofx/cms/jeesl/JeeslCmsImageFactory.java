@@ -8,6 +8,9 @@ import java.util.List;
 
 import org.apache.xmlbeans.impl.common.IOUtil;
 import org.jeesl.doc.ofx.cms.generic.JeeslMarkupFactory;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.controller.handler.system.io.JeeslFileRepositoryHandler;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsContent;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsElement;
@@ -24,9 +27,6 @@ import org.openfuxml.xml.xpath.content.SectionXpath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.xml.JaxbUtil;
 
@@ -81,11 +81,11 @@ public class JeeslCmsImageFactory<E extends JeeslIoCmsElement<?,?,?,?,C,FC>,
 				}
 				catch (FileNotFoundException e) {e.printStackTrace();}
 				catch (IOException e) {e.printStackTrace();}
-				catch (UtilsNotFoundException e) {e.printStackTrace();}
+				catch (JeeslNotFoundException e) {e.printStackTrace();}
 			}
 		}
-		catch (UtilsConstraintViolationException e) {e.printStackTrace();}
-		catch (UtilsLockingException e) {e.printStackTrace();}
+		catch (JeeslConstraintViolationException e) {e.printStackTrace();}
+		catch (JeeslLockingException e) {e.printStackTrace();}
 		
 		JaxbUtil.trace(xml);
 		return xml;

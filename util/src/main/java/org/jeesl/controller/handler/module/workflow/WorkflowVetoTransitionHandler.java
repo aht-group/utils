@@ -16,6 +16,13 @@ public class WorkflowVetoTransitionHandler<WS extends JeeslWorkflowStage<?,?,?,?
 		
 	}
 	
+	public <SRC extends Enum<SRC>, DST extends Enum<DST>>boolean isPath(SRC src, DST dst, WT transition)
+	{
+		boolean isSrc = transition.getSource().getCode().equals(src.toString());
+		boolean isDst = transition.getDestination().getCode().equals(dst.toString());
+		return isSrc && isDst;
+	}
+	
 	public <SRC extends Enum<SRC>, DST extends Enum<DST>>boolean onlyAllowed(SRC src, DST dst, WT transition)
 	{
 		if(transition.getSource().getCode().equals(src.toString()))

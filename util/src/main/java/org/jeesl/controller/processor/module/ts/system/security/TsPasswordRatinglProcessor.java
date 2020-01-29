@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.jeesl.api.facade.module.JeeslTsFacade;
 import org.jeesl.controller.processor.module.ts.AbstractTimeSeriesProcessor;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
@@ -22,8 +24,6 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public class TsPasswordRatinglProcessor<SYSTEM extends JeeslIoSsiSystem,
@@ -83,6 +83,6 @@ public class TsPasswordRatinglProcessor<SYSTEM extends JeeslIoSsiSystem,
 			}
 			
 		}
-		catch (UtilsConstraintViolationException | UtilsLockingException e) {e.printStackTrace();}
+		catch (JeeslConstraintViolationException | JeeslLockingException e) {e.printStackTrace();}
 	}
 }

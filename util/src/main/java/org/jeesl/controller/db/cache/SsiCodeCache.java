@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.jeesl.api.facade.io.JeeslIoSsiFacade;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiAttribute;
@@ -12,7 +13,6 @@ import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 
 public class SsiCodeCache <MAPPING extends JeeslIoSsiMapping<?,ENTITY>,
@@ -42,14 +42,14 @@ public class SsiCodeCache <MAPPING extends JeeslIoSsiMapping<?,ENTITY>,
 					T t = fSsi.fByCode(cT, a.getLocalCode());
 					map.put(a.getRemoteCode(),t);
 				}
-				catch (UtilsNotFoundException e) {e.printStackTrace();}
+				catch (JeeslNotFoundException e) {e.printStackTrace();}
 			}
 		}
 	}
 	
-	public T ejb(String code) throws UtilsNotFoundException
+	public T ejb(String code) throws JeeslNotFoundException
 	{
-		if(!map.containsKey(code)) {throw new UtilsNotFoundException();}
+		if(!map.containsKey(code)) {throw new JeeslNotFoundException();}
 		return map.get(code);
 	}
 }

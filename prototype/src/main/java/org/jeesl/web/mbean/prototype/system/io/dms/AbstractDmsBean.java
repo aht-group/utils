@@ -6,6 +6,8 @@ import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoDmsFacade;
 import org.jeesl.controller.handler.sb.SbSingleHandler;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.io.IoDmsFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.dms.EjbIoDmsDocumentFactory;
 import org.jeesl.factory.ejb.system.io.dms.EjbIoDmsSectionFactory;
@@ -25,8 +27,6 @@ import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -81,7 +81,7 @@ public abstract class AbstractDmsBean <L extends UtilsLang,D extends UtilsDescri
 		for(int i=0;i<sbhLocale.getList().size();i++) {localeCodes[i]=sbhLocale.getList().get(i).getCode();}
 	}
 	
-	@Override public void selectSbSingle(EjbWithId ejb) throws UtilsLockingException, UtilsConstraintViolationException
+	@Override public void selectSbSingle(EjbWithId ejb) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		
 	}

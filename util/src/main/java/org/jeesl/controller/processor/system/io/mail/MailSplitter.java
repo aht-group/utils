@@ -8,6 +8,9 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.jeesl.api.facade.io.JeeslIoMailFacade;
 import org.jeesl.controller.monitor.BucketSizeCounter;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoMailFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.io.mail.core.JeeslIoMail;
@@ -18,9 +21,6 @@ import org.jeesl.model.xml.system.io.mail.Mail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -57,7 +57,7 @@ public class MailSplitter<L extends UtilsLang,D extends UtilsDescription,
 		{
 			retentions.add(fMail.fByCode(fbMail.getClassRetention(), JeeslMailRetention.Code.fully));
 		}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 		
 		
 		int size=1;
@@ -83,7 +83,7 @@ public class MailSplitter<L extends UtilsLang,D extends UtilsDescription,
 					eMail.setRetention(fMail.fByCode(fbMail.getClassRetention(), JeeslMailRetention.Code.split));
 					fMail.save(eMail);
 				}
-				catch (IOException | UtilsNotFoundException | UtilsConstraintViolationException | UtilsLockingException e) {e.printStackTrace();}
+				catch (IOException | JeeslNotFoundException | JeeslConstraintViolationException | JeeslLockingException e) {e.printStackTrace();}
 			}
 		}
 		

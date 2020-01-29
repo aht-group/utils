@@ -10,6 +10,8 @@ import org.jeesl.api.bean.JeeslAttributeBean;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoAttributeFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.io.IoAttributeFactoryBuilder;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;
@@ -22,8 +24,6 @@ import org.jeesl.util.comparator.ejb.system.io.attribute.AttributeSetComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -107,7 +107,7 @@ public abstract class AbstractAdminIoAttributeSetBean <L extends UtilsLang, D ex
 		set.setDescription(efDescription.createEmpty(localeCodes));
 	}
 	
-	public void saveSet() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveSet() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(set));}
 		set.setCategory(fAttribute.find(fbAttribute.getClassCategory(),set.getCategory()));
@@ -116,7 +116,7 @@ public abstract class AbstractAdminIoAttributeSetBean <L extends UtilsLang, D ex
 		reloadItems();
 	}
 	
-	public void deleteSet() throws UtilsConstraintViolationException
+	public void deleteSet() throws JeeslConstraintViolationException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.rmEntity(set));}
 		fAttribute.rm(set);
@@ -145,7 +145,7 @@ public abstract class AbstractAdminIoAttributeSetBean <L extends UtilsLang, D ex
 		item = efItem.build(null,set,items);
 	}
 	
-	public void saveItem() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveItem() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(item));}
 		item.setItemSet(fAttribute.find(fbAttribute.getClassSet(),item.getItemSet()));
@@ -155,7 +155,7 @@ public abstract class AbstractAdminIoAttributeSetBean <L extends UtilsLang, D ex
 		bAttribute.updateSet(item.getItemSet());
 	}
 	
-	public void deleteItem() throws UtilsConstraintViolationException, UtilsLockingException
+	public void deleteItem() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.rmEntity(item));}
 		fAttribute.rm(item);
@@ -168,6 +168,6 @@ public abstract class AbstractAdminIoAttributeSetBean <L extends UtilsLang, D ex
 		if(debugOnInfo) {logger.info(AbstractLogMessage.selectEntity(item));}
 	}
 	
-	public void reorderSets() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fAttribute, fbAttribute.getClassSet(), sets);Collections.sort(sets, comparatorSet);}
-	public void reorderItems() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fAttribute, items);}
+	public void reorderSets() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fAttribute, fbAttribute.getClassSet(), sets);Collections.sort(sets, comparatorSet);}
+	public void reorderItems() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fAttribute, items);}
 }

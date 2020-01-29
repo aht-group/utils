@@ -2,13 +2,12 @@ package org.jeesl.controller.processor;
 
 import org.jeesl.api.bean.JeeslLabelResolver;
 import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 
 public class FacadeLabelResolver <RE extends JeeslRevisionEntity<?,?,?,?,RA,?>,
 								RA extends JeeslRevisionAttribute<?,?,RE,?,?>>
@@ -42,7 +41,7 @@ public class FacadeLabelResolver <RE extends JeeslRevisionEntity<?,?,?,?,RA,?>,
 //				logger.info("\t"+ra.toString()+" "+ra.getCode());
 			}
 		}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 		logger.warn("No XPATH devfined for "+c.getSimpleName()+" and attribute:"+code.toString());
 		return "@id";
 	}
@@ -54,7 +53,7 @@ public class FacadeLabelResolver <RE extends JeeslRevisionEntity<?,?,?,?,RA,?>,
 			RE entity = fRevision.fByCode(fbRevision.getClassEntity(), c.getName());
 			return entity.getName().get(localeCode).getLang();
 		}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 		return c.getSimpleName();
 	}
 }

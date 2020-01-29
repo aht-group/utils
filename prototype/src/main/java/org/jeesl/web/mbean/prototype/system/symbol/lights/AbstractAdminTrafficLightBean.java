@@ -5,14 +5,14 @@ import java.util.List;
 
 import org.jeesl.api.bean.JeeslTrafficLightBean;
 import org.jeesl.api.facade.system.graphic.JeeslTrafficLightFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.system.LightFactoryBuilder;
 import org.jeesl.factory.ejb.system.util.EjbTrafficLightFactory;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -77,7 +77,7 @@ public class AbstractAdminTrafficLightBean <L extends UtilsLang, D extends Utils
 	public LIGHT getTrafficLight(){return trafficLight;}
 	public void setTrafficLight(LIGHT trafficLight){this.trafficLight = trafficLight;}
 	
-	public void addTrafficLight() throws UtilsConstraintViolationException
+	public void addTrafficLight() throws JeeslConstraintViolationException
 	{
 		logger.debug(AbstractLogMessage.addEntity(fbLight.getClassLight()));
 		trafficLight = efLight.build(defaultLangs,scope);
@@ -88,7 +88,7 @@ public class AbstractAdminTrafficLightBean <L extends UtilsLang, D extends Utils
 		logger.debug(AbstractLogMessage.selectEntity(trafficLight));
 	}
 	
-	public void save() throws UtilsLockingException, UtilsConstraintViolationException
+	public void save() throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		logger.debug(AbstractLogMessage.saveEntity(trafficLight));
 		trafficLight = fTl.save(trafficLight);
@@ -96,7 +96,7 @@ public class AbstractAdminTrafficLightBean <L extends UtilsLang, D extends Utils
 		bLight.refreshTrafficLights();
 	}
 	
-	public void rm() throws UtilsConstraintViolationException
+	public void rm() throws JeeslConstraintViolationException
 	{
 		logger.debug(AbstractLogMessage.rmEntity(trafficLight));
 		fTl.rm(trafficLight);

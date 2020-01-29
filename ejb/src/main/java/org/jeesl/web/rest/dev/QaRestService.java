@@ -1,6 +1,7 @@
 package org.jeesl.web.rest.dev;
 
 import org.jeesl.api.facade.module.JeeslQaFacade;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.xml.dev.qa.XmlCategoryFactory;
 import org.jeesl.factory.xml.dev.qa.XmlGroupFactory;
 import org.jeesl.factory.xml.dev.qa.XmlGroupsFactory;
@@ -18,7 +19,6 @@ import org.jeesl.util.query.xml.module.QaQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.factory.xml.status.XmlResponsibleFactory;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaCategory;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaGroup;
@@ -151,7 +151,7 @@ public class QaRestService <L extends UtilsLang, D extends UtilsDescription,
 				qa.getGroups().getGroup().add(xGroup);
 			}
 		}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}	
+		catch (JeeslNotFoundException e) {e.printStackTrace();}	
 		return qa;
 	}
 	
@@ -181,7 +181,7 @@ public class QaRestService <L extends UtilsLang, D extends UtilsDescription,
 				qa.getGroups().getGroup().add(xGroup);
 			}
 		}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}	
+		catch (JeeslNotFoundException e) {e.printStackTrace();}	
 		return qa;
 	}
 	
@@ -198,7 +198,7 @@ public class QaRestService <L extends UtilsLang, D extends UtilsDescription,
 				qa.getCategory().add(xfCategory.build(category));
 			}
 		}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}	
+		catch (JeeslNotFoundException e) {e.printStackTrace();}	
 		return qa;
 	}
 	
@@ -225,7 +225,7 @@ public class QaRestService <L extends UtilsLang, D extends UtilsDescription,
 				qa.getCategory().add(c);
 			}
 		}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}	
+		catch (JeeslNotFoundException e) {e.printStackTrace();}	
 		return qa;
 	}
 	

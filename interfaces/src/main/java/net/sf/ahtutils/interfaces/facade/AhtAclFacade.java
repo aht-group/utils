@@ -3,7 +3,8 @@ package net.sf.ahtutils.interfaces.facade;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
+
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryGroup;

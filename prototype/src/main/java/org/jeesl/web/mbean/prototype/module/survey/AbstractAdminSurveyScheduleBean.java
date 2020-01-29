@@ -8,6 +8,9 @@ import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.survey.JeeslSurveyAnalysisFacade;
 import org.jeesl.api.facade.module.survey.JeeslSurveyCoreFacade;
 import org.jeesl.api.facade.module.survey.JeeslSurveyTemplateFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.survey.SurveyAnalysisFactoryBuilder;
 import org.jeesl.factory.builder.module.survey.SurveyCoreFactoryBuilder;
 import org.jeesl.factory.builder.module.survey.SurveyTemplateFactoryBuilder;
@@ -46,9 +49,6 @@ import org.jeesl.interfaces.model.system.job.JeeslJobTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -129,7 +129,7 @@ public abstract class AbstractAdminSurveyScheduleBean <L extends UtilsLang, D ex
 		sbhSurvey.setList(fCore.fSurveysForCategories(sbhCategory.getList()));
 	}
 	
-	public void addSurvey() throws UtilsNotFoundException
+	public void addSurvey() throws JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.addEntity(fbCore.getClassSurvey()));
 		TC category = sbhCategory.getList().get(0);
@@ -142,7 +142,7 @@ public abstract class AbstractAdminSurveyScheduleBean <L extends UtilsLang, D ex
 		survey = efSurvey.build(localeCodes,template,surveystatus);
 	}
 	
-	public void saveSurvey() throws UtilsLockingException, UtilsConstraintViolationException, UtilsNotFoundException
+	public void saveSurvey() throws JeeslLockingException, JeeslConstraintViolationException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.saveEntity(survey));
 		VERSION version = fCore.find(fbTemplate.getClassVersion(),template.getVersion());
@@ -154,7 +154,7 @@ public abstract class AbstractAdminSurveyScheduleBean <L extends UtilsLang, D ex
 		bMessage.growlSuccessSaved();
 	}
 	
-	public void deleteSurvey() throws UtilsLockingException, UtilsConstraintViolationException, UtilsNotFoundException
+	public void deleteSurvey() throws JeeslLockingException, JeeslConstraintViolationException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.rmEntity(survey));
 		fCore.deleteSurvey(survey);
@@ -163,7 +163,7 @@ public abstract class AbstractAdminSurveyScheduleBean <L extends UtilsLang, D ex
 		bMessage.growlSuccessRemoved();
 	}
 	
-	public void selectSurvey() throws UtilsNotFoundException
+	public void selectSurvey() throws JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.selectEntity(survey));
 		survey = fCore.find(fbCore.getClassSurvey(),survey);
@@ -173,7 +173,7 @@ public abstract class AbstractAdminSurveyScheduleBean <L extends UtilsLang, D ex
 		reloadAvailableSurveVersions();
 	}
 	
-	private void reloadAvailableSurveVersions() throws UtilsNotFoundException
+	private void reloadAvailableSurveVersions() throws JeeslNotFoundException
 	{
 		versions = fCore.fVersions(template.getCategory(),refId);
 		logger.info(AbstractLogMessage.reloaded(fbTemplate.getClassVersion(), versions)+" for category:"+template.getCategory().toString());

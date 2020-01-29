@@ -3,6 +3,7 @@ package org.jeesl.factory.sql.module.survey;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.survey.SurveyAnalysisFactoryBuilder;
 import org.jeesl.factory.builder.module.survey.SurveyCoreFactoryBuilder;
 import org.jeesl.interfaces.model.module.survey.analysis.JeeslSurveyAnalysis;
@@ -22,8 +23,6 @@ import org.jeesl.util.ReflectionUtil;
 import org.jeesl.util.comparator.pojo.BooleanComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 
 public class SqlSurveyAnalysisFactory <SURVEY extends JeeslSurvey<?,?,?,?,DATA>,
 									  QUESTION extends JeeslSurveyQuestion<?,?,?,?,?,?,?,?,?,?,?>,
@@ -67,7 +66,7 @@ public class SqlSurveyAnalysisFactory <SURVEY extends JeeslSurvey<?,?,?,?,DATA>,
 				mapTable.put(cl.getName(), ReflectionUtil.toTable(cl));
 			}
 			catch (ClassNotFoundException e) {e.printStackTrace();}
-			catch (UtilsNotFoundException e) {e.printStackTrace();}
+			catch (JeeslNotFoundException e) {e.printStackTrace();}
 		}
 		return mapTable.get(c);
 	}
@@ -172,7 +171,7 @@ public class SqlSurveyAnalysisFactory <SURVEY extends JeeslSurvey<?,?,?,?,DATA>,
 							sbCorelationJoin.append(ReflectionUtil.getReverseMapping(previousPath.getEntity().getCode(), "", p.getEntity().getCode()));
 							sbCorelationJoin.append("_id");
 						}
-						catch (UtilsNotFoundException e) {e.printStackTrace();}
+						catch (JeeslNotFoundException e) {e.printStackTrace();}
 						sbCorelationJoin.append("=");
 						sbCorelationJoin.append(getTableName(previousPath.getEntity().getCode())).append(".id\n");
 					}

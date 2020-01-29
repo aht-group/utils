@@ -18,6 +18,9 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.jeesl.api.bean.callback.JeeslFileRepositoryCallback;
 import org.jeesl.api.facade.io.JeeslIoFrFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoFileRepositoryFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.fr.EjbIoFrContainerFactory;
 import org.jeesl.factory.ejb.system.io.fr.EjbIoFrMetaFactory;
@@ -34,9 +37,6 @@ import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -145,7 +145,7 @@ public abstract class AbstractFileRepositoryHandler<L extends UtilsLang, D exten
 	{
 		try
 		{
-			if(fFr==null) {throw new UtilsNotFoundException("Facade is null");}
+			if(fFr==null) {throw new JeeslNotFoundException("Facade is null");}
 			setStorage(fFr.fByCode(fbFile.getClassStorage(), code));
 			if(debugOnInfo)
 			{
@@ -155,25 +155,25 @@ public abstract class AbstractFileRepositoryHandler<L extends UtilsLang, D exten
 				logger.info(sb.toString());
 			}
 		}
-		catch (UtilsNotFoundException e) {logger.error(e.getMessage());}
+		catch (JeeslNotFoundException e) {logger.error(e.getMessage());}
 	}
 	
 	@Override public <W extends JeeslWithFileRepositoryContainer<CONTAINER>> void initSilent(W with)
 	{
 		try {init(with);}
-		catch (UtilsConstraintViolationException | UtilsLockingException e) {e.printStackTrace();}
+		catch (JeeslConstraintViolationException | JeeslLockingException e) {e.printStackTrace();}
 	}
-	@Override public <W extends JeeslWithFileRepositoryContainer<CONTAINER>> void init(W with) throws UtilsConstraintViolationException, UtilsLockingException
+	@Override public <W extends JeeslWithFileRepositoryContainer<CONTAINER>> void init(W with) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		boolean reset = true;
 		init(storage,with,reset);
 	}
-	@Override public <W extends JeeslWithFileRepositoryContainer<CONTAINER>> void init(STORAGE initForStorage, W with) throws UtilsConstraintViolationException, UtilsLockingException
+	@Override public <W extends JeeslWithFileRepositoryContainer<CONTAINER>> void init(STORAGE initForStorage, W with) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		boolean reset = true;
 		init(initForStorage,with,reset);
 	}
-	private <W extends JeeslWithFileRepositoryContainer<CONTAINER>> void init(STORAGE initForStorage, W with, boolean reset) throws UtilsConstraintViolationException, UtilsLockingException
+	private <W extends JeeslWithFileRepositoryContainer<CONTAINER>> void init(STORAGE initForStorage, W with, boolean reset) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(reset)
 		{	// The reset is required for a special case in deferredMode
@@ -247,9 +247,9 @@ public abstract class AbstractFileRepositoryHandler<L extends UtilsLang, D exten
 		xmlFile = XmlFileFactory.build("");
 	}
 	
-	public void addFile(java.io.File f) throws UtilsNotFoundException, FileNotFoundException, IOException {addFile(f.getName(), IOUtils.toByteArray(new FileInputStream(f)), null);}
-	public void addFile(String name, byte[] bytes) throws UtilsNotFoundException {addFile(name, bytes, null);}
-	public void addFile(String name, byte[] bytes, String category) throws UtilsNotFoundException
+	public void addFile(java.io.File f) throws JeeslNotFoundException, FileNotFoundException, IOException {addFile(f.getName(), IOUtils.toByteArray(new FileInputStream(f)), null);}
+	public void addFile(String name, byte[] bytes) throws JeeslNotFoundException {addFile(name, bytes, null);}
+	public void addFile(String name, byte[] bytes, String category) throws JeeslNotFoundException
 	{
 		addFile();
 		xmlFile.setName(name);
@@ -275,7 +275,7 @@ public abstract class AbstractFileRepositoryHandler<L extends UtilsLang, D exten
 		meta = efDescription.persistMissingLangs(fFr,locales,meta);
 	}
 	
-	public void saveFile() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveFile() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo) {logger.info("Saving: "+xmlFile.getName()+" Mode:"+Mode.directSave);}
 		if(mode.equals(Mode.directSave))
@@ -295,7 +295,7 @@ public abstract class AbstractFileRepositoryHandler<L extends UtilsLang, D exten
 		reset(true);
     }
 	
-	public <W extends JeeslWithFileRepositoryContainer<CONTAINER>> void saveDeferred(W with) throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException
+	public <W extends JeeslWithFileRepositoryContainer<CONTAINER>> void saveDeferred(W with) throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo) {logger.info("Saving Defrred "+metas.size());}
 		this.init(storage,with,false);
@@ -324,7 +324,7 @@ public abstract class AbstractFileRepositoryHandler<L extends UtilsLang, D exten
 		reload(true);
 	}
 	
-	public void saveMeta() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveMeta() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo) {logger.info("save meta "+meta.toString());}
 		if(FilenameUtils.getExtension(fileName).equals(FilenameUtils.getExtension(meta.getFileName())))
@@ -347,7 +347,7 @@ public abstract class AbstractFileRepositoryHandler<L extends UtilsLang, D exten
 		reload();
 	}
 	
-	@Override public void deleteFile() throws UtilsConstraintViolationException, UtilsLockingException
+	@Override public void deleteFile() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo) {logger.info("DELETING: "+meta.toString());}
 		fFr.delteFileFromRepository(meta);
@@ -382,7 +382,7 @@ public abstract class AbstractFileRepositoryHandler<L extends UtilsLang, D exten
 		return bos.toByteArray();
 	}
 	
-	@Override public InputStream download(META m) throws UtilsNotFoundException
+	@Override public InputStream download(META m) throws JeeslNotFoundException
 	{
 		if(mode.equals(Mode.directSave) || EjbIdFactory.isSaved(m))
 		{
@@ -394,12 +394,12 @@ public abstract class AbstractFileRepositoryHandler<L extends UtilsLang, D exten
 		}
 	}
 	
-	protected InputStream toInputStream() throws UtilsNotFoundException
+	protected InputStream toInputStream() throws JeeslNotFoundException
 	{
 		return download(meta);
 	}
 	
-	public void copyTo(JeeslFileRepositoryHandler<STORAGE,CONTAINER,META> target) throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void copyTo(JeeslFileRepositoryHandler<STORAGE,CONTAINER,META> target) throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info("Copy To");
 		for(META oldMeta : metas)
@@ -412,7 +412,7 @@ public abstract class AbstractFileRepositoryHandler<L extends UtilsLang, D exten
 		}
 	}
 	
-	public void moveTo(STORAGE storage) throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException
+	public void moveTo(STORAGE storage) throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException
 	{
 		for(META m : metas)
 		{
@@ -422,7 +422,7 @@ public abstract class AbstractFileRepositoryHandler<L extends UtilsLang, D exten
 		}
 	}
 	
-	public void reorderMetas() throws UtilsConstraintViolationException, UtilsLockingException
+	public void reorderMetas() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.warn("NYI until META implements position");
 //		PositionListReorderer.reorder(fFr,metas);

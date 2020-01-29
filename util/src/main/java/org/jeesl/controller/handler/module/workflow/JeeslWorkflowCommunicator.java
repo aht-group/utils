@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.ftl.FtlWorkflowModelFactory;
 import org.jeesl.factory.xml.system.io.mail.XmlHeaderFactory;
 import org.jeesl.factory.xml.system.io.mail.XmlMailFactory;
@@ -44,8 +46,6 @@ import org.slf4j.LoggerFactory;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -113,7 +113,7 @@ public class JeeslWorkflowCommunicator <L extends UtilsLang, D extends UtilsDesc
 			{
 				messageHandler.spool(mail);
 			}
-			catch (UtilsConstraintViolationException | UtilsNotFoundException e) {e.printStackTrace();}
+			catch (JeeslConstraintViolationException | JeeslNotFoundException e) {e.printStackTrace();}
 		}
 	}
 	

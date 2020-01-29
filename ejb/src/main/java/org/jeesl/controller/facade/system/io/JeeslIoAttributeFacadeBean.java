@@ -14,6 +14,9 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.io.JeeslIoAttributeFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoAttributeFactoryBuilder;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCriteria;
@@ -25,9 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -138,11 +138,11 @@ public class JeeslIoAttributeFacadeBean<L extends UtilsLang, D extends UtilsDesc
 	}
 	
 	@Override
-	public DATA fAttributeData(CRITERIA criteria, CONTAINER container) throws UtilsNotFoundException
+	public DATA fAttributeData(CRITERIA criteria, CONTAINER container) throws JeeslNotFoundException
 	{
 		List<DATA> datas = fAttributeData(container);
 		for(DATA data : datas) {if(data.getCriteria().equals(criteria)) {return data;}}
-		throw new UtilsNotFoundException("no data for container");
+		throw new JeeslNotFoundException("no data for container");
 	}
 	
 	@Override
@@ -153,7 +153,7 @@ public class JeeslIoAttributeFacadeBean<L extends UtilsLang, D extends UtilsDesc
 		{
 			try {
 				result.add(fAttributeData(criteria,c));
-			} catch (UtilsNotFoundException e) {
+			} catch (JeeslNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -162,7 +162,7 @@ public class JeeslIoAttributeFacadeBean<L extends UtilsLang, D extends UtilsDesc
 	}
 
 	@Override
-	public CONTAINER copy(CONTAINER container) throws UtilsConstraintViolationException, UtilsLockingException
+	public CONTAINER copy(CONTAINER container) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		CONTAINER c = this.save(fbAttribute.ejbContainer().build(container.getSet()));
 		for(DATA data : this.fAttributeData(container))

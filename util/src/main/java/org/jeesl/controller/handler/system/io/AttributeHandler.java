@@ -9,6 +9,9 @@ import java.util.Map;
 import org.jeesl.api.bean.JeeslAttributeBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoAttributeFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoAttributeFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.attribute.EjbAttributeContainerFactory;
 import org.jeesl.factory.ejb.system.io.attribute.EjbAttributeDataFactory;
@@ -25,9 +28,6 @@ import org.jeesl.interfaces.model.module.attribute.JeeslWithAttributeContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -94,7 +94,7 @@ public class AttributeHandler<L extends UtilsLang, D extends UtilsDescription,
 	public <E extends Enum<E>> void init(E code)
 	{
 		try {init(fAttribute.fByCode(fbAttribute.getClassSet(), code));}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 	}
 	public  void init(SET attributeSet)
 	{
@@ -138,7 +138,7 @@ public class AttributeHandler<L extends UtilsLang, D extends UtilsDescription,
 		}
 	}
 	
-	public void save() throws UtilsConstraintViolationException, UtilsLockingException
+	public void save() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(this.getClass().getName()+" saveData");}
 		if(bean!=null) {bean.save(this);}
@@ -196,7 +196,7 @@ public class AttributeHandler<L extends UtilsLang, D extends UtilsDescription,
 		if(debugOnInfo) {logger.info(this.getClass().getSimpleName()+" prepared for "+attributeSet.getCode()+" with "+data.size()+" "+fbAttribute.getClassData());}
 	}
 	
-	public CONTAINER saveContainer() throws UtilsConstraintViolationException, UtilsLockingException
+	public CONTAINER saveContainer() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(EjbIdFactory.isUnSaved(container))
 		{

@@ -10,6 +10,9 @@ import org.jeesl.api.bean.JeeslSecurityBean;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityHelp;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
@@ -25,9 +28,6 @@ import org.jeesl.jsf.util.TriStateBinder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -78,24 +78,24 @@ public abstract class AbstractAdminSecurityViewBean <L extends UtilsLang, D exte
 		templates = fSecurity.allOrderedPositionVisible(fbSecurity.getClassTemplate());
 	}
 	
-	@Override public void categorySelected() throws UtilsNotFoundException
+	@Override public void categorySelected() throws JeeslNotFoundException
 	{
 		reloadViews();
 		view=null;
 		action=null;
 	}
-	@Override protected void categorySaved() throws UtilsNotFoundException
+	@Override protected void categorySaved() throws JeeslNotFoundException
 	{
 		reloadViews();
 	}
 	
-	protected boolean categoryRemoveable() throws UtilsNotFoundException
+	protected boolean categoryRemoveable() throws JeeslNotFoundException
 	{
 		views = fSecurity.allForCategory(fbSecurity.getClassView(),fbSecurity.getClassCategory(),category.getCode());
 		return views.isEmpty();
 	}
 	
-	private void reloadViews() throws UtilsNotFoundException
+	private void reloadViews() throws JeeslNotFoundException
 	{
 		views = fSecurity.allForCategory(fbSecurity.getClassView(),fbSecurity.getClassCategory(),category.getCode());
 		logger.info(AbstractLogMessage.reloaded(fbSecurity.getClassView(), views));
@@ -128,7 +128,7 @@ public abstract class AbstractAdminSecurityViewBean <L extends UtilsLang, D exte
 	}
 	
 	//Add
-	public void addCategory() throws UtilsConstraintViolationException
+	public void addCategory() throws JeeslConstraintViolationException
 	{
 		logger.info(AbstractLogMessage.addEntity(fbSecurity.getClassCategory()));
 		category = efCategory.create(null,JeeslSecurityCategory.Type.view.toString());
@@ -137,7 +137,7 @@ public abstract class AbstractAdminSecurityViewBean <L extends UtilsLang, D exte
 	}
 	
 	//VIEW
-	public void addView() throws UtilsConstraintViolationException
+	public void addView() throws JeeslConstraintViolationException
 	{
 		logger.info(AbstractLogMessage.addEntity(fbSecurity.getClassView()));
 		view = efView.build(category,"",views);
@@ -164,7 +164,7 @@ public abstract class AbstractAdminSecurityViewBean <L extends UtilsLang, D exte
 		action = efDescription.persistMissingLangs(fSecurity,localeCodes,action);
 	}
 	
-	public void saveView() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void saveView() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.saveEntity(view));
 		view.setCategory(fSecurity.find(fbSecurity.getClassCategory(), view.getCategory()));
@@ -177,7 +177,7 @@ public abstract class AbstractAdminSecurityViewBean <L extends UtilsLang, D exte
 		bSecurity.update(view);
 	}
 	
-	public void cloneView() throws UtilsConstraintViolationException
+	public void cloneView() throws JeeslConstraintViolationException
 	{
 		logger.info(AbstractLogMessage.addEntity(fbSecurity.getClassView()));
 		V clone = efView.clone(view);
@@ -189,7 +189,7 @@ public abstract class AbstractAdminSecurityViewBean <L extends UtilsLang, D exte
 	
 	protected abstract void propagateChanges();
 	
-	public void deleteView() throws UtilsConstraintViolationException, UtilsNotFoundException
+	public void deleteView() throws JeeslConstraintViolationException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.rmEntity(view));
 		
@@ -201,7 +201,7 @@ public abstract class AbstractAdminSecurityViewBean <L extends UtilsLang, D exte
 	}
 	
 	//ACTION
-	public void addAction() throws UtilsConstraintViolationException
+	public void addAction() throws JeeslConstraintViolationException
 	{
 		logger.info(AbstractLogMessage.addEntity(fbSecurity.getClassAction()));
 		action = efAction.build(view,"",actions);
@@ -209,7 +209,7 @@ public abstract class AbstractAdminSecurityViewBean <L extends UtilsLang, D exte
 		action.setDescription(efDescription.createEmpty(localeCodes));
 	}
 	
-	public void saveAction() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveAction() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info(AbstractLogMessage.saveEntity(action));
 		List<L> langs = new ArrayList<L>();
@@ -234,7 +234,7 @@ public abstract class AbstractAdminSecurityViewBean <L extends UtilsLang, D exte
 		bMessage.growlSuccessSaved();
 	}
 	
-	public void rmAction() throws UtilsConstraintViolationException
+	public void rmAction() throws JeeslConstraintViolationException
 	{
 		logger.info(AbstractLogMessage.rmEntity(action));
 		fSecurity.rm(action);
@@ -266,7 +266,7 @@ public abstract class AbstractAdminSecurityViewBean <L extends UtilsLang, D exte
 		areas = fSecurity.allForParent(fbSecurity.getClassArea(), view);
 	}
 	
-	public void addArea() throws UtilsConstraintViolationException
+	public void addArea() throws JeeslConstraintViolationException
 	{
 		logger.info(AbstractLogMessage.addEntity(fbSecurity.getClassArea()));
 		area = fbSecurity.ejbArea().build(view,areas);
@@ -274,7 +274,7 @@ public abstract class AbstractAdminSecurityViewBean <L extends UtilsLang, D exte
 		area.setDescription(efDescription.createEmpty(localeCodes));
 	}
 	
-	public void saveArea() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveArea() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info(AbstractLogMessage.saveEntity(area));
 		area = fSecurity.save(area);
@@ -283,14 +283,14 @@ public abstract class AbstractAdminSecurityViewBean <L extends UtilsLang, D exte
 		bMessage.growlSuccessSaved();
 	}
 	
-	public void selectArea() throws UtilsConstraintViolationException
+	public void selectArea() throws JeeslConstraintViolationException
 	{
 		logger.info(AbstractLogMessage.addEntity(fbSecurity.getClassArea()));
 		area = efLang.persistMissingLangs(fSecurity,localeCodes,area);
 		area = efDescription.persistMissingLangs(fSecurity,localeCodes,area);
 	}
 	
-	public void deleteArea() throws UtilsConstraintViolationException
+	public void deleteArea() throws JeeslConstraintViolationException
 	{
 		logger.info(AbstractLogMessage.rmEntity(area));
 		fSecurity.rm(area);
@@ -300,7 +300,7 @@ public abstract class AbstractAdminSecurityViewBean <L extends UtilsLang, D exte
 		bMessage.growlSuccessRemoved();
 	}
 	
-	public void reorderViews() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fSecurity,views);}
-	public void reorderActions() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fSecurity,actions);}
-	public void reorderAreas() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fSecurity, areas);}
+	public void reorderViews() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fSecurity,views);}
+	public void reorderActions() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fSecurity,actions);}
+	public void reorderAreas() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fSecurity, areas);}
 }

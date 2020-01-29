@@ -11,6 +11,9 @@ import java.util.Set;
 import org.jeesl.api.bean.JeeslSurveyBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.survey.JeeslSurveyCoreFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.survey.SurveyCoreFactoryBuilder;
 import org.jeesl.factory.ejb.module.survey.EjbSurveyAnswerFactory;
 import org.jeesl.factory.ejb.module.survey.EjbSurveyDataFactory;
@@ -37,9 +40,6 @@ import org.joda.time.Interval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -154,7 +154,7 @@ public class SurveyHandler<L extends UtilsLang, D extends UtilsDescription,
 		showAssessment = true;
 		if(SurveyHandler.debug){logger.warn("prepare fData()");try {Thread.sleep(SurveyHandler.debugDelay);} catch (InterruptedException e) {e.printStackTrace();}}
 		try {surveyData = fSurvey.fData(correlation);}
-		catch (UtilsNotFoundException e){surveyData = efData.build(survey,correlation);}
+		catch (JeeslNotFoundException e){surveyData = efData.build(survey,correlation);}
 		template = survey.getTemplate();
 		condition.init(template);
 		validation.init(template);
@@ -168,7 +168,7 @@ public class SurveyHandler<L extends UtilsLang, D extends UtilsDescription,
 		
 		showAssessment = true;
 		try {surveyData = fSurvey.fData(correlation);}
-		catch (UtilsNotFoundException e){surveyData = efData.build(survey,correlation);}
+		catch (JeeslNotFoundException e){surveyData = efData.build(survey,correlation);}
 		template = survey.getTemplate().getNested();
 		condition.init(template);
 		validation.init(template);
@@ -278,11 +278,11 @@ public class SurveyHandler<L extends UtilsLang, D extends UtilsDescription,
 		}
 	}
 	
-	public void save(CORRELATION correlation) throws UtilsConstraintViolationException, UtilsLockingException
+	public void save(CORRELATION correlation) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		save(correlation,null);
 	}
-	public void save(CORRELATION correlation, SECTION section) throws UtilsConstraintViolationException, UtilsLockingException
+	public void save(CORRELATION correlation, SECTION section) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(activeSection!=null) {activeSection=fSurvey.find(cSection,activeSection);}
 		if(SurveyHandler.debug){logger.warn("save");try {Thread.sleep(SurveyHandler.debugDelay);} catch (InterruptedException e) {e.printStackTrace();}}

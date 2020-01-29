@@ -5,6 +5,7 @@ import java.util.Comparator;
 
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
 import org.jeesl.api.rest.system.security.JeeslSecurityRestExport;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.factory.xml.system.security.XmlActionFactory;
 import org.jeesl.factory.xml.system.security.XmlActionsFactory;
@@ -41,7 +42,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.controller.factory.xml.acl.XmlViewsFactory;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.rest.security.UtilsSecurityViewImport;
@@ -188,7 +188,7 @@ public class SecurityRestService <L extends UtilsLang,D extends UtilsDescription
 					
 					xml.getCategory().add(xCategory);
 				}
-				catch (UtilsNotFoundException e) {e.printStackTrace();}
+				catch (JeeslNotFoundException e) {e.printStackTrace();}
 			}
 		}		
 		return xml;
@@ -220,7 +220,7 @@ public class SecurityRestService <L extends UtilsLang,D extends UtilsDescription
 					
 					xml.getCategory().add(xCategory);
 				}
-				catch (UtilsNotFoundException e) {e.printStackTrace();}
+				catch (JeeslNotFoundException e) {e.printStackTrace();}
 			}
 		}		
 		return xml;
@@ -246,7 +246,7 @@ public class SecurityRestService <L extends UtilsLang,D extends UtilsDescription
 					}
 					xml.getCategory().add(xCat);
 				}
-				catch (UtilsNotFoundException e) {e.printStackTrace();}
+				catch (JeeslNotFoundException e) {e.printStackTrace();}
 			}
 		}		
 		return xml;
@@ -270,7 +270,7 @@ public class SecurityRestService <L extends UtilsLang,D extends UtilsDescription
 					}
 					xml.getCategory().add(xmlCat);
 				}
-				catch (UtilsNotFoundException e) {e.printStackTrace();}
+				catch (JeeslNotFoundException e) {e.printStackTrace();}
 			}
 		}		
 		return xml;
@@ -297,7 +297,7 @@ public class SecurityRestService <L extends UtilsLang,D extends UtilsDescription
 					}
 					xml.getCategory().add(xmlCat);
 				}
-				catch (UtilsNotFoundException e) {e.printStackTrace();}
+				catch (JeeslNotFoundException e) {e.printStackTrace();}
 			}
 		}		
 		return xml;
@@ -337,7 +337,7 @@ public class SecurityRestService <L extends UtilsLang,D extends UtilsDescription
 					
 					xml.getCategory().add(xmlCat);
 				}
-				catch (UtilsNotFoundException e) {e.printStackTrace();}
+				catch (JeeslNotFoundException e) {e.printStackTrace();}
 			}
 		}		
 		return xml;
@@ -379,7 +379,7 @@ public class SecurityRestService <L extends UtilsLang,D extends UtilsDescription
 					xCategory.setViews(views);
 					xml.getCategory().add(xCategory);
 				}
-				catch (UtilsNotFoundException e) {e.printStackTrace();}
+				catch (JeeslNotFoundException e) {e.printStackTrace();}
 			}
 		}		
 		return xml;
@@ -403,7 +403,7 @@ public class SecurityRestService <L extends UtilsLang,D extends UtilsDescription
 					}
 					xml.getCategory().add(xmlCat);
 				}
-				catch (UtilsNotFoundException e) {e.printStackTrace();}
+				catch (JeeslNotFoundException e) {e.printStackTrace();}
 			}
 		}		
 		return xml;

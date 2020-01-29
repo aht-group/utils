@@ -22,7 +22,7 @@
 						</j:dtHeader>
 					</f:facet>
 					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectManufacturer()}" update=":#{cc.id}:sManufacturer"/>
-					<p:column headerText="#{msg.jeeslCode}">> 
+					<p:column headerText="#{msg.jeeslCode}">
 						<h:outputText value="#{m.code}"/>
 		            </p:column>
 					<p:column headerText="#{msg.jeeslAssetManufacturerName}">

@@ -7,6 +7,9 @@ import java.util.UUID;
 
 import org.jeesl.controller.db.updater.JeeslDbDescriptionUpdater;
 import org.jeesl.controller.db.updater.JeeslDbLangUpdater;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.ReportFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.report.JeeslIoReport;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportCell;
@@ -23,9 +26,6 @@ import org.jeesl.util.query.xpath.ReportXpath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -93,7 +93,7 @@ public class EjbIoReportSheetFactory<L extends UtilsLang,D extends UtilsDescript
 		return ejb;
 	}
 	
-	public SHEET build(UtilsFacade fReport, WORKBOOK workbook, XlsSheet sheet) throws UtilsNotFoundException
+	public SHEET build(UtilsFacade fReport, WORKBOOK workbook, XlsSheet sheet) throws JeeslNotFoundException
 	{
 		SHEET ejb = null;
 		try
@@ -109,10 +109,10 @@ public class EjbIoReportSheetFactory<L extends UtilsLang,D extends UtilsDescript
 		return ejb;
 	}
 	
-	public SHEET update(UtilsFacade fReport, SHEET eSheet, XlsSheet xSheet) throws UtilsNotFoundException
+	public SHEET update(UtilsFacade fReport, SHEET eSheet, XlsSheet xSheet) throws JeeslNotFoundException
 	{
 		try {eSheet.setImplementation(fReport.fByCode(cImplementation, ReportXpath.getImplementation(xSheet).getCode()));}
-		catch (ExlpXpathNotFoundException e) {throw new UtilsNotFoundException(e.getMessage());}
+		catch (ExlpXpathNotFoundException e) {throw new JeeslNotFoundException(e.getMessage());}
 		
 		eSheet.setPosition(xSheet.getPosition());
 		eSheet.setVisible(xSheet.isVisible());
@@ -129,7 +129,7 @@ public class EjbIoReportSheetFactory<L extends UtilsLang,D extends UtilsDescript
 		return eSheet;
 	}
 	
-	public SHEET updateLD(UtilsFacade fUtils, SHEET eSheet, XlsSheet xSheet) throws UtilsConstraintViolationException, UtilsLockingException, ExlpXpathNotFoundException
+	public SHEET updateLD(UtilsFacade fUtils, SHEET eSheet, XlsSheet xSheet) throws JeeslConstraintViolationException, JeeslLockingException, ExlpXpathNotFoundException
 	{
 		eSheet=dbuLang.handle(fUtils, eSheet, ReportXpath.getLangs(xSheet));
 		eSheet = fUtils.save(eSheet);

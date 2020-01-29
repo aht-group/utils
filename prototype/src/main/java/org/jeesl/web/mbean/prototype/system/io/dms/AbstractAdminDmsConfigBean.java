@@ -7,6 +7,8 @@ import java.util.List;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoDmsFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.io.IoAttributeFactoryBuilder;
 import org.jeesl.factory.builder.io.IoDmsFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.dms.EjbIoDmsFactory;
@@ -26,8 +28,6 @@ import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -111,7 +111,7 @@ public abstract class AbstractAdminDmsConfigBean <L extends UtilsLang,D extends 
 		dm.setRoot(efSection.build(null));
 	}
 	
-	public void saveDm() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveDm() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(dm));}
 		dm.setSet(fDms.find(fbAttribute.getClassSet(),dm.getSet()));
@@ -121,7 +121,7 @@ public abstract class AbstractAdminDmsConfigBean <L extends UtilsLang,D extends 
 		reloadDms();
 	}
 	
-	public void deleteDm() throws UtilsConstraintViolationException
+	public void deleteDm() throws JeeslConstraintViolationException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.rmEntity(dm));}
 //		fAttribute.rm(set);
@@ -152,7 +152,7 @@ public abstract class AbstractAdminDmsConfigBean <L extends UtilsLang,D extends 
 		dmsView.setName(efLang.createEmpty(localeCodes));
 	}
 	
-	public void saveView() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveView() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(dmsView));}
 

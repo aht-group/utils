@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jeesl.api.handler.OpEntitySelection;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.bean.op.OpEntityBean;
 import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
@@ -57,7 +57,7 @@ public abstract class AbstractOpSelectionHandler <T extends EjbWithId> implement
     
 	@Override public void selectTb() {}
 	
-	@Override public void addEntity(T item) throws UtilsLockingException, UtilsConstraintViolationException, UtilsNotFoundException
+	@Override public void addEntity(T item) throws JeeslLockingException, JeeslConstraintViolationException, JeeslNotFoundException
     {
     	op = item;
     	addEntity();
@@ -70,12 +70,12 @@ public abstract class AbstractOpSelectionHandler <T extends EjbWithId> implement
 		{
 			addEntity((T)fUtils.fByCode(c, code));
 		}
-		catch (UtilsLockingException e) {e.printStackTrace();}
-		catch (UtilsConstraintViolationException e) {e.printStackTrace();}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		catch (JeeslLockingException e) {e.printStackTrace();}
+		catch (JeeslConstraintViolationException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 	}
 
-    @Override public void addEntity() throws UtilsLockingException, UtilsConstraintViolationException, UtilsNotFoundException
+    @Override public void addEntity() throws JeeslLockingException, JeeslConstraintViolationException, JeeslNotFoundException
     {
         if(op!=null && !tbList.contains(op))
         {
@@ -85,7 +85,7 @@ public abstract class AbstractOpSelectionHandler <T extends EjbWithId> implement
         reset(false,true,true);
     }
 
-    @Override public void removeEntity() throws UtilsLockingException, UtilsConstraintViolationException, UtilsNotFoundException
+    @Override public void removeEntity() throws JeeslLockingException, JeeslConstraintViolationException, JeeslNotFoundException
     {
         if(tbList.contains(tb))
         {

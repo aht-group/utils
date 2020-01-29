@@ -1,9 +1,9 @@
 package org.jeesl.interfaces.bean.sb;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 
 public interface SbToggleBean
 {
-	void toggled(Class<?> c) throws UtilsLockingException, UtilsConstraintViolationException;
+	void toggled(Class<?> c) throws JeeslLockingException, JeeslConstraintViolationException;
 }

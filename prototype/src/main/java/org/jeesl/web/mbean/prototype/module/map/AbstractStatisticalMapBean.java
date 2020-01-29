@@ -6,6 +6,9 @@ import java.util.List;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.MapFactoryBuilder;
 import org.jeesl.interfaces.model.module.map.JeeslLocationLevel;
 import org.jeesl.interfaces.model.module.map.JeeslStatisticMapStatus;
@@ -18,9 +21,6 @@ import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -73,10 +73,10 @@ public abstract class AbstractStatisticalMapBean <L extends UtilsLang, D extends
 			initPageSettings();
 			reloadMaps();
 		}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 	}
 	
-	protected abstract void initPageSettings() throws UtilsNotFoundException;
+	protected abstract void initPageSettings() throws JeeslNotFoundException;
 	
 	public void cancelMap(){reset(true);}
 	private void reset(boolean rMap)
@@ -96,7 +96,7 @@ public abstract class AbstractStatisticalMapBean <L extends UtilsLang, D extends
 		}
 	}
 	
-	public void addMap() throws UtilsNotFoundException
+	public void addMap() throws JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.addEntity(fbMap.getClassMap()));}
 		map = fbMap.ejbMap().build(maps);
@@ -104,7 +104,7 @@ public abstract class AbstractStatisticalMapBean <L extends UtilsLang, D extends
 		map.setDescription(efDescription.createEmpty(localeCodes));
 	}
 	
-	public void selectMap() throws UtilsNotFoundException
+	public void selectMap() throws JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.selectEntity(map));}
 		map = fMap.find(fbMap.getClassMap(),map);
@@ -113,7 +113,7 @@ public abstract class AbstractStatisticalMapBean <L extends UtilsLang, D extends
 		reloadImplementations();
 	}
 	
-	public void saveMap() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void saveMap() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(map));}
 		
@@ -123,7 +123,7 @@ public abstract class AbstractStatisticalMapBean <L extends UtilsLang, D extends
 		bMessage.growlSuccessSaved();
 	}
 	
-	public void deleteMap() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void deleteMap() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.rmEntity(map));}
 		fMap.rm(map);
@@ -138,18 +138,18 @@ public abstract class AbstractStatisticalMapBean <L extends UtilsLang, D extends
 		implementations.addAll(fMap.allForParent(fbMap.getClassImplementation(), map));
 	}
 	
-	public void addImplementation() throws UtilsNotFoundException
+	public void addImplementation() throws JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.addEntity(fbMap.getClassImplementation()));}
 		implementation = fbMap.ejbImplementation().build(map);
 	}
 	
-	public void selectImplementation() throws UtilsNotFoundException
+	public void selectImplementation() throws JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.selectEntity(implementation));}
 	}
 	
-	public void saveImplementation() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void saveImplementation() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(map));}
 		implementation.setLevel(fMap.find(fbMap.getClassLevel(), implementation.getLevel()));

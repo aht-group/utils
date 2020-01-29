@@ -12,6 +12,7 @@ import org.apache.commons.jxpath.JXPathContext;
 import org.apache.commons.lang.StringUtils;
 import org.jeesl.api.facade.io.JeeslIoReportFacade;
 import org.jeesl.controller.processor.JobCodeProcessor;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.ReportFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.report.EjbIoReportColumnFactory;
 import org.jeesl.factory.ejb.system.io.report.EjbIoReportColumnGroupFactory;
@@ -45,7 +46,6 @@ import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -166,7 +166,7 @@ public abstract class AbstractJeeslReport<L extends UtilsLang,D extends UtilsDes
 			if(reportSettingTransformation==null)
 			{
 				try {reportSettingTransformation = fReport.fByCode(fbReport.getClassTransformation(), JeeslReportSetting.Transformation.none);}
-				catch (UtilsNotFoundException e) {logger.error(e.getMessage());}
+				catch (JeeslNotFoundException e) {logger.error(e.getMessage());}
 			}
 			
 			try
@@ -206,7 +206,7 @@ public abstract class AbstractJeeslReport<L extends UtilsLang,D extends UtilsDes
 					}
 				}
 			}
-			catch (UtilsNotFoundException e) {logger.error(e.getMessage());}
+			catch (JeeslNotFoundException e) {logger.error(e.getMessage());}
 			
 			if(debugOnInfo)
 			{

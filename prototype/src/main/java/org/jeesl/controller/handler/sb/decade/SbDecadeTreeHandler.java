@@ -9,6 +9,7 @@ import org.jeesl.controller.handler.sb.SbDateHandler;
 import org.jeesl.controller.handler.sb.tree.SbTree2Handler;
 import org.jeesl.controller.handler.tree.TreeUpdateParameter;
 import org.jeesl.controller.monitor.ProcessingTimeTracker;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.controller.handler.OutputXpathPattern;
 import org.jeesl.interfaces.controller.handler.tree.JeeslTreeSelected;
 import org.jeesl.interfaces.model.module.hydro.JeeslHydroDecade;
@@ -16,7 +17,6 @@ import org.jeesl.interfaces.model.module.hydro.JeeslHydroYear;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.exlp.util.io.StringUtil;
 
@@ -49,7 +49,7 @@ public class SbDecadeTreeHandler<HD extends JeeslHydroDecade, HY extends JeeslHy
 		sbDateHandler = new SbDateHandler(this);
 	}
 
-	public void update() throws UtilsNotFoundException
+	public void update() throws JeeslNotFoundException
 	{
 		ProcessingTimeTracker ptt = new ProcessingTimeTracker(true);
 		reset2();

@@ -2,9 +2,9 @@ package org.jeesl.api.facade.system;
 
 import java.util.Date;
 
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.system.property.JeeslProperty;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -15,9 +15,9 @@ public interface JeeslSystemPropertyFacade <L extends UtilsLang,D extends UtilsD
 											P extends JeeslProperty<L,D,C,P>>
 			extends UtilsFacade
 {	
-	String valueStringForKey(String key, String defaultValue) throws UtilsNotFoundException;
-	Integer valueIntForKey(String key, Integer defaultValue) throws UtilsNotFoundException;
-	Long valueLongForKey(String key, Long defaultValue) throws UtilsNotFoundException;
-	Boolean valueBooleanForKey(String key, Boolean defaultValue) throws UtilsNotFoundException;
-	Date valueDateForKey(String key, Date defaultValue) throws UtilsNotFoundException;
+	String valueStringForKey(String key, String defaultValue) throws JeeslNotFoundException;
+	Integer valueIntForKey(String key, Integer defaultValue) throws JeeslNotFoundException;
+	Long valueLongForKey(String key, Long defaultValue) throws JeeslNotFoundException;
+	Boolean valueBooleanForKey(String key, Boolean defaultValue) throws JeeslNotFoundException;
+	Date valueDateForKey(String key, Date defaultValue) throws JeeslNotFoundException;
 }

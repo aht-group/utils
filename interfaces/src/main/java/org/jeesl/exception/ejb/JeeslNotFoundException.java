@@ -1,9 +1,9 @@
-package net.sf.ahtutils.exception.ejb;
+package org.jeesl.exception.ejb;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class UtilsNotFoundException extends Exception implements Serializable
+public class JeeslNotFoundException extends Exception implements Serializable
 {
 	private static final long serialVersionUID = 1;
 	
@@ -13,15 +13,15 @@ public class UtilsNotFoundException extends Exception implements Serializable
 	private String whereKey,whereDetail;
 	private String whatKey,whatDetail;
 
-	public UtilsNotFoundException(String s)
+	public JeeslNotFoundException(String s)
 	{ 
 		super(s);
 		withDetails=false;
 	}
 	
-	public UtilsNotFoundException() 
+	public JeeslNotFoundException() 
 	{
-		super("Something is not found, additional infos set in extended attributes of "+UtilsNotFoundException.class.getSimpleName());
+		super("Something is not found, additional infos set in extended attributes of "+JeeslNotFoundException.class.getSimpleName());
 		when = new Date();
 		withDetails=true;
 	}

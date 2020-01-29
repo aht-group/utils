@@ -6,13 +6,13 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import org.jeesl.api.facade.system.JeeslSystemPropertyFacade;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.bean.JiraBean;
 import org.jeesl.interfaces.model.system.property.JeeslProperty;
 import org.jeesl.model.json.system.jira.Issue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -37,7 +37,7 @@ public class AbstractJiraBean <L extends UtilsLang,D extends UtilsDescription,
 		mapIssue = new HashMap<String,Issue>();
 	}
 	
-    public void init(JeeslSystemPropertyFacade<L,D,C,P> fUtils, Class<P> cl, String[] collectorKeys) throws UtilsNotFoundException
+    public void init(JeeslSystemPropertyFacade<L,D,C,P> fUtils, Class<P> cl, String[] collectorKeys) throws JeeslNotFoundException
     {
     	jiraHost = fUtils.valueStringForKey(JiraBean.Code.jiraHost.toString(), null);
     	jiraScriptPath = fUtils.valueStringForKey(JiraBean.Code.jiraScriptPath.toString(), null);

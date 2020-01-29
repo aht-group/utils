@@ -6,6 +6,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:j="http://www.jeesl.org/jsf" xmlns:jp="http://jsf.jeesl.org/prototype" xmlns:jtp="http://jsf.jeesl.org/prototype/tag"
+	
 	xmlns:aht="http://ahtutils.sourceforge.net/jsf"
 	xmlns:aup="http://ahtutils.sourceforge.net/prototype"
 	xmlns:aupAdmin="http://ahtutils.sourceforge.net/prototype/admin"
@@ -17,7 +19,7 @@
 	</composite:interface>
 	
 	<composite:implementation>
-		<aup:grid id="grid">
+		<jp:grid id="grid">
 			<aht:row>
 				<aht:slot id="sReport" width="6">
 					<h:form id="fReports">
@@ -45,6 +47,7 @@
 								<aht:icon type="jeeslSave" rendered="#{cc.attrs.bean.uiAllowSave}" listener="#{cc.attrs.bean.saveReport()}" update=":#{cc.id}:grid" tooltip="#{msg.ttSave}"/>
 								<aht:icon type="jeeslDelete" rendered="#{cc.attrs.bean.report.id gt 0}" listener="#{cc.attrs.bean.rmReport()}" update=":#{cc.id}:grid" tooltip="#{msg.ttDelete}" mayDisappear="true"/>
 								<aht:icon type="jeeslDownload" rendered="#{(cc.attrs.bean.report.id gt 0) and (not empty cc.attrs.bean.restUrl)}" listener="#{cc.attrs.bean.download()}" update=":#{cc.id}:grid" tooltip="#{msg.ttUpload}" />
+								<j:icon type="jeeslClone" listener="#{cc.attrs.bean.cloneReport()}" process="@this" update=":#{cc.id}:grid" tooltip="#{msg.jeeslTooltipClone}"/>
 							</f:facet>
 							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
 								<p:outputLabel value="#{msg.aupCategory}"/>
@@ -368,6 +371,6 @@
 					</h:form>
 				</aht:slot>
 			</aht:row>
-	    </aup:grid>
+	    </jp:grid>
 	</composite:implementation>
 </html>

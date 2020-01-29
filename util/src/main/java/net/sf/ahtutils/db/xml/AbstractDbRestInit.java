@@ -4,11 +4,11 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.interfaces.db.UtilsDbXmlInit.Priority;
 
 import org.apache.commons.configuration.Configuration;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.model.xml.system.io.db.Db;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +27,7 @@ public abstract class AbstractDbRestInit extends UtilsDbXmlSeedUtil
 		this.idMapper=idMapper;
 	}
 	
-	public void initFromXml(Priority priority) throws FileNotFoundException,UtilsConstraintViolationException, UtilsConfigurationException
+	public void initFromXml(Priority priority) throws FileNotFoundException,JeeslConstraintViolationException, UtilsConfigurationException
 	{
 		switch(priority)
 		{
@@ -43,16 +43,16 @@ public abstract class AbstractDbRestInit extends UtilsDbXmlSeedUtil
 		}
 	}
 	
-	protected void initStatics() throws FileNotFoundException,UtilsConstraintViolationException,UtilsConfigurationException{}
-	protected void initRequired() throws FileNotFoundException,UtilsConstraintViolationException,UtilsConfigurationException{}
-	protected void initMandatory() throws FileNotFoundException,UtilsConstraintViolationException,UtilsConfigurationException{}
-	protected void initOptional() throws FileNotFoundException,UtilsConstraintViolationException,UtilsConfigurationException{}
+	protected void initStatics() throws FileNotFoundException,JeeslConstraintViolationException,UtilsConfigurationException{}
+	protected void initRequired() throws FileNotFoundException,JeeslConstraintViolationException,UtilsConfigurationException{}
+	protected void initMandatory() throws FileNotFoundException,JeeslConstraintViolationException,UtilsConfigurationException{}
+	protected void initOptional() throws FileNotFoundException,JeeslConstraintViolationException,UtilsConfigurationException{}
 	
-	protected void initA() throws FileNotFoundException,UtilsConstraintViolationException,UtilsConfigurationException{}
-	protected void initB() throws FileNotFoundException,UtilsConstraintViolationException,UtilsConfigurationException{}
-	protected void initC() throws FileNotFoundException,UtilsConstraintViolationException,UtilsConfigurationException{}
-	protected void initD() throws FileNotFoundException,UtilsConstraintViolationException,UtilsConfigurationException{}
-	protected void initE() throws FileNotFoundException,UtilsConstraintViolationException,UtilsConfigurationException{}
+	protected void initA() throws FileNotFoundException,JeeslConstraintViolationException,UtilsConfigurationException{}
+	protected void initB() throws FileNotFoundException,JeeslConstraintViolationException,UtilsConfigurationException{}
+	protected void initC() throws FileNotFoundException,JeeslConstraintViolationException,UtilsConfigurationException{}
+	protected void initD() throws FileNotFoundException,JeeslConstraintViolationException,UtilsConfigurationException{}
+	protected void initE() throws FileNotFoundException,JeeslConstraintViolationException,UtilsConfigurationException{}
 	
 	public static List<Priority> allPriorities()
 	{

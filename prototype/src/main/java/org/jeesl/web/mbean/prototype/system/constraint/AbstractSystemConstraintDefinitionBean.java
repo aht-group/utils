@@ -11,6 +11,9 @@ import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.system.JeeslSystemConstraintFacade;
 import org.jeesl.controller.handler.sb.SbMultiHandler;
 import org.jeesl.controller.handler.ui.helper.UiTwiceClickHelper;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.ConstraintFactoryBuilder;
 import org.jeesl.factory.ejb.system.constraint.EjbConstraintFactory;
 import org.jeesl.factory.ejb.system.constraint.EjbConstraintScopeFactory;
@@ -23,9 +26,6 @@ import org.jeesl.util.comparator.ejb.system.constraint.ContraintScopeComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -87,7 +87,7 @@ public class AbstractSystemConstraintDefinitionBean <L extends UtilsLang, D exte
 
 	}
 	
-	@Override public void toggled(Class<?> c) throws UtilsLockingException, UtilsConstraintViolationException
+	@Override public void toggled(Class<?> c) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		reloadScopes();
 	}
@@ -104,7 +104,7 @@ public class AbstractSystemConstraintDefinitionBean <L extends UtilsLang, D exte
 		if(debugOnInfo){logger.info(AbstractLogMessage.reloaded(fbConstraint.getClassScope(),scopes));}
 	}
 	
-	public void addScope() throws UtilsNotFoundException
+	public void addScope() throws JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.addEntity(fbConstraint.getClassScope()));}
 		scope = efScope.build(null);
@@ -114,7 +114,7 @@ public class AbstractSystemConstraintDefinitionBean <L extends UtilsLang, D exte
 		ui2.checkA(scope);
 	}
 	
-	public void selectScope() throws UtilsConstraintViolationException, UtilsLockingException
+	public void selectScope() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.selectEntity(scope));}
 		scope = fConstraint.find(fbConstraint.getClassScope(),scope);
@@ -123,7 +123,7 @@ public class AbstractSystemConstraintDefinitionBean <L extends UtilsLang, D exte
 		ui2.checkA(scope);
 	}
 	
-	public void saveScope() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveScope() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(scope));}
 		scope.setCategory(fConstraint.find(fbConstraint.getClassConstraintCategory(),scope.getCategory()));
@@ -139,7 +139,7 @@ public class AbstractSystemConstraintDefinitionBean <L extends UtilsLang, D exte
 		constraints = fConstraint.allForParent(fbConstraint.getClassConstraint(),scope);
 	}
 	
-	public void addConstraint() throws UtilsNotFoundException
+	public void addConstraint() throws JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.addEntity(fbConstraint.getClassConstraint()));}
 		constraint = efConstraint.build(scope,null);
@@ -149,7 +149,7 @@ public class AbstractSystemConstraintDefinitionBean <L extends UtilsLang, D exte
 		ui2.checkB(constraint);
 	}
 	
-	public void saveConstraint() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveConstraint() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(constraint));}
 		constraint.setType(fConstraint.find(fbConstraint.getClassConstraintType(),constraint.getType()));
@@ -160,7 +160,7 @@ public class AbstractSystemConstraintDefinitionBean <L extends UtilsLang, D exte
 		bConstraint.update(constraint);
 	}
 	
-	public void selectConstraint() throws UtilsConstraintViolationException, UtilsLockingException
+	public void selectConstraint() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.selectEntity(constraint));}
 		constraint = fConstraint.find(fbConstraint.getClassConstraint(),constraint);
@@ -168,5 +168,5 @@ public class AbstractSystemConstraintDefinitionBean <L extends UtilsLang, D exte
 		ui2.checkB(constraint);
 	}
 	
-	protected void reorderScopes() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fConstraint, fbConstraint.getClassScope(), scopes);Collections.sort(scopes, cpScope);}
+	protected void reorderScopes() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fConstraint, fbConstraint.getClassScope(), scopes);Collections.sort(scopes, cpScope);}
 }

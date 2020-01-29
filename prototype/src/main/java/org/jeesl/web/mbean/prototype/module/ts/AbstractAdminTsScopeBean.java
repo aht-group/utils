@@ -7,6 +7,9 @@ import java.util.List;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslTsFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsUnit;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
@@ -24,9 +27,6 @@ import org.jeesl.interfaces.web.JeeslJsfSecurityHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -95,7 +95,7 @@ public class AbstractAdminTsScopeBean <L extends UtilsLang, D extends UtilsDescr
 		opClasses = fTs.all(fbTs.getClassEntity());
 	}
 	
-	@Override public void toggled(Class<?> c) throws UtilsLockingException, UtilsConstraintViolationException
+	@Override public void toggled(Class<?> c) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		super.toggled(c);
 		if(fbTs.getClassCategory().isAssignableFrom(c)){reloadScopes();reset(true,true);}
@@ -118,7 +118,7 @@ public class AbstractAdminTsScopeBean <L extends UtilsLang, D extends UtilsDescr
 		Collections.sort(scopes, comparatorScope);
 	}
 	
-	public void add() throws UtilsNotFoundException
+	public void add() throws JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.addEntity(fbTs.getClassScope()));
 		scope = efScope.build(null);
@@ -128,7 +128,7 @@ public class AbstractAdminTsScopeBean <L extends UtilsLang, D extends UtilsDescr
 		scope.setUnit(fTs.fByCode(fbTs.getClassUnit(), JeeslTsUnit.Code.event));
 	}
 	
-	public void select() throws UtilsNotFoundException
+	public void select() throws JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.selectEntity(scope));
 		scope = fTs.find(fbTs.getClassScope(), scope);
@@ -137,7 +137,7 @@ public class AbstractAdminTsScopeBean <L extends UtilsLang, D extends UtilsDescr
 		reloadMultiPoints();
 	}
 	
-	public void save() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void save() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.saveEntity(scope));
 		
@@ -151,13 +151,13 @@ public class AbstractAdminTsScopeBean <L extends UtilsLang, D extends UtilsDescr
 		updatePerformed();
 	}
 	
-	public void changeScopeType() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void changeScopeType() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.selectOneMenuChange(scope.getType()));
 		if(scope.getType()!=null) {scope.setType(fTs.find(fbTs.getClassScopeType(), scope.getType()));}
 	}
 	
-	public void rm() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void rm() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.rmEntity(scope));
 		fTs.rm(scope);
@@ -166,7 +166,7 @@ public class AbstractAdminTsScopeBean <L extends UtilsLang, D extends UtilsDescr
 	}
 	
 	//OverlayPanel Interval
-	public void opAddInterval() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void opAddInterval() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.selectOverlayPanel(opInterval));}
 		
@@ -178,7 +178,7 @@ public class AbstractAdminTsScopeBean <L extends UtilsLang, D extends UtilsDescr
 			select();
 		}
 	}
-	public void opRmInterval() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void opRmInterval() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		if(tbInterval!=null && scope.getIntervals().contains(tbInterval))
 		{
@@ -194,7 +194,7 @@ public class AbstractAdminTsScopeBean <L extends UtilsLang, D extends UtilsDescr
 	}
 	
 	//OverlayPanel Class
-	public void opAddClass() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void opAddClass() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.selectOverlayPanel(opClass));}
 		
@@ -206,7 +206,7 @@ public class AbstractAdminTsScopeBean <L extends UtilsLang, D extends UtilsDescr
 			select();
 		}
 	}
-	public void opRmClass() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void opRmClass() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		if(tbClass!=null && scope.getClasses().contains(tbClass))
 		{
@@ -235,7 +235,7 @@ public class AbstractAdminTsScopeBean <L extends UtilsLang, D extends UtilsDescr
 		multiPoint.setDescription(efDescription.createEmpty(localeCodes));
 	}
 	
-	public void selectMultiPoint() throws UtilsConstraintViolationException, UtilsLockingException
+	public void selectMultiPoint() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(multiPoint));}
 		multiPoint = fTs.find(fbTs.getClassMp(), multiPoint);
@@ -243,7 +243,7 @@ public class AbstractAdminTsScopeBean <L extends UtilsLang, D extends UtilsDescr
 		multiPoint = efDescription.persistMissingLangs(fTs,localeCodes,multiPoint);
 	}
 	
-	public void saveMultiPoint() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveMultiPoint() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(multiPoint));}
 		multiPoint.setUnit(fTs.find(fbTs.getClassUnit(),multiPoint.getUnit()));
@@ -261,7 +261,7 @@ public class AbstractAdminTsScopeBean <L extends UtilsLang, D extends UtilsDescr
 		}
 	}
 	
-	public void reorderScopes() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fTs, fbTs.getClassScope(), scopes);Collections.sort(scopes, comparatorScope);}
-	public void reorderMultiPoints() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fTs, fbTs.getClassMp(), multiPoints);}
+	public void reorderScopes() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fTs, fbTs.getClassScope(), scopes);Collections.sort(scopes, comparatorScope);}
+	public void reorderMultiPoints() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fTs, fbTs.getClassMp(), multiPoints);}
 
 }

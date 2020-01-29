@@ -14,6 +14,9 @@ import org.jeesl.api.facade.module.survey.JeeslSurveyAnalysisFacade;
 import org.jeesl.api.facade.module.survey.JeeslSurveyCoreFacade;
 import org.jeesl.api.facade.module.survey.JeeslSurveyTemplateFacade;
 import org.jeesl.controller.handler.ui.helper.UiHelperSurvey;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.survey.SurveyAnalysisFactoryBuilder;
 import org.jeesl.factory.builder.module.survey.SurveyCoreFactoryBuilder;
 import org.jeesl.factory.builder.module.survey.SurveyTemplateFactoryBuilder;
@@ -55,9 +58,6 @@ import org.jeesl.util.comparator.ejb.PositionComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -179,7 +179,7 @@ public abstract class AbstractAdminSurveyTemplateBean <L extends UtilsLang, D ex
 				initTemplate();
 				reloadVersions();
 			}
-			catch (UtilsNotFoundException e) {e.printStackTrace();}
+			catch (JeeslNotFoundException e) {e.printStackTrace();}
 		}
 	}
 	
@@ -234,7 +234,7 @@ public abstract class AbstractAdminSurveyTemplateBean <L extends UtilsLang, D ex
 		}
 	}
 	
-	protected void initTemplate() throws UtilsNotFoundException{}
+	protected void initTemplate() throws JeeslNotFoundException{}
 	
 	protected <E extends Enum<E>> void initTemplate(boolean withVersion, E statusCode)
 	{
@@ -250,7 +250,7 @@ public abstract class AbstractAdminSurveyTemplateBean <L extends UtilsLang, D ex
 				section=null;
 				question=null;
 			}
-			catch (UtilsNotFoundException e) {e.printStackTrace();}
+			catch (JeeslNotFoundException e) {e.printStackTrace();}
 		}
 	}
 	
@@ -281,7 +281,7 @@ public abstract class AbstractAdminSurveyTemplateBean <L extends UtilsLang, D ex
 		}
 	}
 	
-	public void selectVersion() throws UtilsNotFoundException
+	public void selectVersion() throws JeeslNotFoundException
 	{
 		clearSelection();
 		logger.info(AbstractLogMessage.selectEntity(version));
@@ -293,7 +293,7 @@ public abstract class AbstractAdminSurveyTemplateBean <L extends UtilsLang, D ex
 		uiHelper.check(version,sections);
 	}
 	
-	public void saveVersion() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void saveVersion() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.saveEntity(version));
 		if(nestedVersion!=null)
@@ -311,7 +311,7 @@ public abstract class AbstractAdminSurveyTemplateBean <L extends UtilsLang, D ex
 		reloadVersions();
 	}
 	
-	public void deleteVersion() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void deleteVersion() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.rmEntity(version));
 		fCore.rmVersion(version);
@@ -348,7 +348,7 @@ public abstract class AbstractAdminSurveyTemplateBean <L extends UtilsLang, D ex
 		bSurvey.updateSection(section);
 	}
 		
-	public void saveSection() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveSection() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info(AbstractLogMessage.saveEntity(section));
 		section.setScoreLimit(nnb.aToDouble());
@@ -358,7 +358,7 @@ public abstract class AbstractAdminSurveyTemplateBean <L extends UtilsLang, D ex
 		loadSection();
 	}
 	
-	public void rmSection() throws UtilsConstraintViolationException, UtilsLockingException
+	public void rmSection() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info(AbstractLogMessage.rmEntity(section));
 		fCore.rm(section);
@@ -376,7 +376,7 @@ public abstract class AbstractAdminSurveyTemplateBean <L extends UtilsLang, D ex
 		optionSet.setName(efLang.createEmpty(sbhLocale.getList()));
 	}
 	
-	public void saveSet() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveSet() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info(AbstractLogMessage.saveEntity(optionSet));
 		optionSet = fCore.save(optionSet);
@@ -427,8 +427,8 @@ public abstract class AbstractAdminSurveyTemplateBean <L extends UtilsLang, D ex
 					question.getText().put(loc.getCode(), d);
 					question = fCore.update(question);
 				}
-				catch (UtilsConstraintViolationException e) {e.printStackTrace();}
-				catch (UtilsLockingException e) {e.printStackTrace();}
+				catch (JeeslConstraintViolationException e) {e.printStackTrace();}
+				catch (JeeslLockingException e) {e.printStackTrace();}
 			}
 		}
 		
@@ -448,7 +448,7 @@ public abstract class AbstractAdminSurveyTemplateBean <L extends UtilsLang, D ex
 		bSurvey.updateQuestion(question);
 	}
 	
-	public void saveQuestion() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveQuestion() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info(AbstractLogMessage.saveEntity(question));
 		if(question.getUnit()!=null){question.setUnit(fCore.find(fbTemplate.getClassUnit(),question.getUnit()));}
@@ -459,7 +459,7 @@ public abstract class AbstractAdminSurveyTemplateBean <L extends UtilsLang, D ex
 		reloadTemplateQuestions();
 	}
 	
-	public void rmQuestion() throws UtilsConstraintViolationException, UtilsLockingException
+	public void rmQuestion() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.rmEntity(question));}
 		fCore.rm(question);
@@ -493,14 +493,14 @@ public abstract class AbstractAdminSurveyTemplateBean <L extends UtilsLang, D ex
 		option = efDescription.persistMissingLangs(fCore, sbhLocale.getList(), option);
 	}
 	
-	public void saveQuestionOption() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveQuestionOption() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(option));}
 		option = fCore.saveOption(question,option);
 		reloadQuestion();
 		bMessage.growlSuccessSaved();
 	}
-	public void saveSetOption() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveSetOption() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(option));}
 		option = fCore.saveOption(optionSet,option);
@@ -508,14 +508,14 @@ public abstract class AbstractAdminSurveyTemplateBean <L extends UtilsLang, D ex
 		bMessage.growlSuccessSaved();
 	}
 	
-	public void delQuestionOption() throws UtilsConstraintViolationException, UtilsLockingException
+	public void delQuestionOption() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.rmEntity(option));}
 		fCore.rmOption(question,option);
 		reloadQuestion();
 		bMessage.growlSuccessRemoved();
 	}
-	public void rmSetOption() throws UtilsConstraintViolationException, UtilsLockingException
+	public void rmSetOption() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.rmEntity(option));}
 		fCore.rmOption(optionSet,option);
@@ -538,7 +538,7 @@ public abstract class AbstractAdminSurveyTemplateBean <L extends UtilsLang, D ex
 		if(debugOnInfo){logger.info(AbstractLogMessage.selectEntity(scheme));}
 	}
 	
-	public void saveScheme() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveScheme() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(scheme));}
 		scheme = fCore.save(scheme);
@@ -551,7 +551,7 @@ public abstract class AbstractAdminSurveyTemplateBean <L extends UtilsLang, D ex
 		score = efScore.build(question);
 	}
 	
-	public void saveScore() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveScore() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(score));}
 		score = fCore.save(score);
@@ -584,7 +584,7 @@ public abstract class AbstractAdminSurveyTemplateBean <L extends UtilsLang, D ex
 		}
 	}
 	
-	public void saveCondition() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveCondition() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(condition));}
 		condition.setTriggerQuestion(fTemplate.find(fbTemplate.getClassQuestion(), condition.getTriggerQuestion()));
@@ -601,7 +601,7 @@ public abstract class AbstractAdminSurveyTemplateBean <L extends UtilsLang, D ex
 		triggerChanged();
 	}
 	
-	public void deleteCondition() throws UtilsConstraintViolationException
+	public void deleteCondition() throws JeeslConstraintViolationException
 	{
 		fTemplate.rm(condition);
 		clear(false,false,false,false,true,true,true,true,true,true);
@@ -624,7 +624,7 @@ public abstract class AbstractAdminSurveyTemplateBean <L extends UtilsLang, D ex
 		validation.setDescription(efDescription.createEmpty(sbhLocale.getList()));
 	}
 	
-	public void saveValidation() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveValidation() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(validation));}
 		validation.setAlgorithm(fTemplate.find(fbTemplate.getClassValidationAlgorithm(), validation.getAlgorithm()));
@@ -639,11 +639,11 @@ public abstract class AbstractAdminSurveyTemplateBean <L extends UtilsLang, D ex
 		validation = efDescription.persistMissingLangs(fTemplate,sbhLocale.getList(), validation);
 	}
 	
-	public void reorderSections() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fCore, sections);}
-	public void reorderQuestions() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fCore, questions);}
-	public void reorderConditions() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fTemplate, conditions);}
-	public void reorderValidations() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fTemplate, validations);}
-	public void reorderOptions() throws UtilsConstraintViolationException, UtilsLockingException
+	public void reorderSections() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fCore, sections);}
+	public void reorderQuestions() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fCore, questions);}
+	public void reorderConditions() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fTemplate, conditions);}
+	public void reorderValidations() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fTemplate, validations);}
+	public void reorderOptions() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		PositionListReorderer.reorder(fCore, options);
 		if(questions!=null) {reloadQuestion();}

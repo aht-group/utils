@@ -49,13 +49,15 @@ public class IoCmsFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 	private final Class<C> cContent;
 	
 	private final Class<MT> cMarkupType; public Class<MT> getClassMarkupType() {return cMarkupType;}
+	private final Class<FM> cFileMeta; public Class<FM> getClassFileMeta() {return cFileMeta;}
     
 	public IoCmsFactoryBuilder(final Class<L> cL, final Class<D> cD,final Class<LOC> cLoc,
 				final Class<CAT> cCategory, final Class<CMS> cCms,
 				final Class<S> cSection,
 				final Class<E> cElement,final Class<EC> cElementCategory,final Class<ET> cElementType,
 				final Class<C> cContent,
-				final Class<MT> cMarkupType)
+				final Class<MT> cMarkupType,
+				final Class<FM> cFileMeta)
 	{
 		super(cL,cD);
 		this.cLoc=cLoc;
@@ -68,6 +70,7 @@ public class IoCmsFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 		this.cContent=cContent;
 		
 		this.cMarkupType=cMarkupType;
+		this.cFileMeta=cFileMeta;
 	}
 	
 	public EjbIoCmsFactory<L,D,CAT,CMS,V,S,E,EC,ET,C,MT,LOC> ejbCms()

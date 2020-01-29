@@ -4,9 +4,10 @@ import java.util.Hashtable;
 
 import javax.persistence.EntityManager;
 
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+
 import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.bl.UtilsStatusBl;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -38,8 +39,8 @@ public class UtilsStatusBlBean extends UtilsFacadeBean implements UtilsStatusBl
 					t.getDescription().put(key, d);
 					t = this.update(t);
 				}
-				catch (UtilsConstraintViolationException e) {e.printStackTrace();}
-				catch (UtilsLockingException e) {e.printStackTrace();}
+				catch (JeeslConstraintViolationException e) {e.printStackTrace();}
+				catch (JeeslLockingException e) {e.printStackTrace();}
 				catch (InstantiationException e) {e.printStackTrace();}
 				catch (IllegalAccessException e) {e.printStackTrace();}
 			}

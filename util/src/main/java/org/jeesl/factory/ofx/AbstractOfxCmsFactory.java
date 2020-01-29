@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.jeesl.api.facade.io.JeeslIoCmsFacade;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCms;
+import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsCategory;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsContent;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsElement;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsSection;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsVisiblity;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
+import org.jeesl.interfaces.model.system.io.fr.JeeslFileMeta;
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.content.ofx.Sections;
 import org.openfuxml.factory.xml.ofx.content.structure.XmlSectionFactory;
@@ -23,7 +25,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public abstract class AbstractOfxCmsFactory <L extends UtilsLang,D extends UtilsDescription,
-								CAT extends UtilsStatus<CAT,L,D>,
+								CAT extends JeeslIoCmsCategory<L,D,CAT,?>,
 								CMS extends JeeslIoCms<L,D,CAT,S,LOC>,
 								V extends JeeslIoCmsVisiblity,
 								S extends JeeslIoCmsSection<L,S>,
@@ -33,14 +35,15 @@ public abstract class AbstractOfxCmsFactory <L extends UtilsLang,D extends Utils
 								C extends JeeslIoCmsContent<V,E,MT>,
 								MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
 								FC extends JeeslFileContainer<?,?>,
+								FM extends JeeslFileMeta<D,FC,?,?>,
 								LOC extends UtilsStatus<LOC,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractOfxCmsFactory.class);
 	
 	protected final String localeCode;
-	protected final JeeslIoCmsFacade<L,D,CAT,CMS,V,S,E,EC,ET,C,MT,FC,LOC> fCms;
+	protected final JeeslIoCmsFacade<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fCms;
 	
-	public AbstractOfxCmsFactory(String localeCode, JeeslIoCmsFacade<L,D,CAT,CMS,V,S,E,EC,ET,C,MT,FC,LOC> fCms)
+	public AbstractOfxCmsFactory(String localeCode, JeeslIoCmsFacade<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fCms)
 	{
 		this.localeCode=localeCode;
 		this.fCms = fCms;

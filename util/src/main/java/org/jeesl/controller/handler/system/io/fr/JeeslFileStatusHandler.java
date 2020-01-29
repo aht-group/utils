@@ -1,14 +1,13 @@
 package org.jeesl.controller.handler.system.io.fr;
 
 import org.jeesl.api.facade.io.JeeslIoFrFacade;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoFileRepositoryFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileMeta;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileStatus;
 import org.jeesl.util.db.cache.EjbCodeCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 
 public class JeeslFileStatusHandler<META extends JeeslFileMeta<?,?,?,STATUS>,
 									STATUS extends JeeslFileStatus<?,?,STATUS,?>>
@@ -33,7 +32,7 @@ public class JeeslFileStatusHandler<META extends JeeslFileMeta<?,?,?,STATUS>,
 			byte[] bytes = fFr.loadFromFileRepository(meta);
 			meta.setStatus(cache.ejb(JeeslFileStatus.Code.exists));
 		}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			
 			logger.error(e.getMessage());

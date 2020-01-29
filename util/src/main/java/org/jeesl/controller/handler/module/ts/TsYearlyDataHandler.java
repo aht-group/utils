@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.jeesl.api.facade.module.JeeslTsFacade;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
@@ -29,7 +30,6 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -99,7 +99,7 @@ public class TsYearlyDataHandler <L extends UtilsLang, D extends UtilsDescriptio
 			entityClass = fTs.fByCode(fbTs.getClassEntity(), cDomain.getName());
 			init(entityClass,scope,interval,workspace);
 		}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 		
 	}
 	
@@ -113,7 +113,7 @@ public class TsYearlyDataHandler <L extends UtilsLang, D extends UtilsDescriptio
 			this.workspace = fTs.fByCode(fbTs.getClassWorkspace(), workspace);
 			
 		}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 	}
 	
 	public void clear()
@@ -138,7 +138,7 @@ public class TsYearlyDataHandler <L extends UtilsLang, D extends UtilsDescriptio
 				List<DATA> datas = fTs.fData(workspace,ts,start,end);
 				process(t,datas);
 			}
-			catch (UtilsNotFoundException e) {logger.warn(e.getMessage());}
+			catch (JeeslNotFoundException e) {logger.warn(e.getMessage());}
 		}
 		Collections.sort(years,cpYear);
 	}
@@ -156,7 +156,7 @@ public class TsYearlyDataHandler <L extends UtilsLang, D extends UtilsDescriptio
 				List<DATA> datas = fTs.fData(workspace,ts,start,end);
 				process(t,datas);
 			}
-			catch (UtilsNotFoundException e) {logger.warn(e.getMessage());}
+			catch (JeeslNotFoundException e) {logger.warn(e.getMessage());}
 		}
 		Collections.sort(years,cpYear);
 	}

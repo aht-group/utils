@@ -7,12 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.util.comparator.ejb.PositionComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.with.position.EjbWithPosition;
 import net.sf.ahtutils.interfaces.model.with.position.EjbWithPositionParent;
@@ -21,7 +21,7 @@ public class PositionListReorderer
 {
 	final static Logger logger = LoggerFactory.getLogger(PositionListReorderer.class);
 	
-	public static <T extends EjbWithPosition> void reorder(UtilsFacade facade, List<T> list) throws UtilsConstraintViolationException, UtilsLockingException
+	public static <T extends EjbWithPosition> void reorder(UtilsFacade facade, List<T> list) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info("updateOrder "+list.size());
 		int i=1;
@@ -33,7 +33,7 @@ public class PositionListReorderer
 		}
 	}
 	
-	public static <T extends EjbWithPositionParent> void reorder(UtilsFacade facade, Class<T> c, List<T> list) throws UtilsConstraintViolationException, UtilsLockingException
+	public static <T extends EjbWithPositionParent> void reorder(UtilsFacade facade, Class<T> c, List<T> list) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info("Reorder: "+c.getSimpleName());
 		Method m = null;

@@ -4,6 +4,7 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
 import org.jeesl.interfaces.model.system.security.user.JeeslIdentity;
@@ -15,7 +16,6 @@ import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 
@@ -41,14 +41,14 @@ public class SecurityActionManager <L extends UtilsLang,
 		   AT extends JeeslSecurityTemplate<L,D,C>,
 		   USER extends JeeslUser<R>>
 		SecurityActionManager<L,D,C,R,V,U,A,AT,USER>
-		factory(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,?,USER> fSecurity,final Class<V> cView, String viewId, JeeslIdentity<R,V,U,A,USER> identity) throws UtilsNotFoundException
+		factory(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,?,USER> fSecurity,final Class<V> cView, String viewId, JeeslIdentity<R,V,U,A,USER> identity) throws JeeslNotFoundException
 	{
 		return new SecurityActionManager<L,D,C,R,V,U,A,AT,USER>(fSecurity,cView,viewId,identity);
 	}
 	
 	private Map<String,Boolean> allowed;
 	
-	public SecurityActionManager(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,?,USER> fSecurity, final Class<V> cView, String viewId, JeeslIdentity<R,V,U,A,USER> identity) throws UtilsNotFoundException
+	public SecurityActionManager(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,?,USER> fSecurity, final Class<V> cView, String viewId, JeeslIdentity<R,V,U,A,USER> identity) throws JeeslNotFoundException
 	{
 		allowed = new Hashtable<String,Boolean>();
 		V view = fSecurity.fByCode(cView,viewId);

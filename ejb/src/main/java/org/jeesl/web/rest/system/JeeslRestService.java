@@ -2,6 +2,7 @@ package org.jeesl.web.rest.system;
 
 import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
 import org.jeesl.api.facade.system.graphic.JeeslGraphicFacade;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.factory.xml.system.io.revision.XmlEntityFactory;
 import org.jeesl.factory.xml.system.symbol.XmlGraphicFactory;
@@ -21,7 +22,6 @@ import org.jeesl.web.rest.AbstractJeeslRestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -104,13 +104,13 @@ public class JeeslRestService <L extends UtilsLang,D extends UtilsDescription,
 						G eGraphic = fGraphic.fGraphicForStatus(eStatus.getId());
 						xStatus.setGraphic(xfGraphic.build(eGraphic));
 					}
-					catch (UtilsNotFoundException e) {}
+					catch (JeeslNotFoundException e) {}
 				}
 			}
 			return xml;
 		}
 		catch (ClassNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
-		catch (UtilsNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
+		catch (JeeslNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
 	}
 
 	@Override public Entity exportRevisionEntity(String code) throws UtilsConfigurationException
@@ -121,6 +121,6 @@ public class JeeslRestService <L extends UtilsLang,D extends UtilsDescription,
 			entity = fRevision.load(fbRevision.getClassEntity(), entity);
 			return xfEntity.build(entity);
 		}
-		catch (UtilsNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
+		catch (JeeslNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
 	}
 }

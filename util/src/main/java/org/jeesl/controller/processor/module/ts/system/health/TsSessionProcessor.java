@@ -4,6 +4,9 @@ import java.util.Date;
 
 import org.jeesl.api.facade.module.JeeslTsFacade;
 import org.jeesl.controller.processor.module.ts.AbstractTimeSeriesProcessor;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.interfaces.bean.system.JeeslSessionRegistryBean;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
@@ -22,9 +25,6 @@ import org.metachart.xml.chart.Chart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public class TsSessionProcessor<SYSTEM extends JeeslIoSsiSystem,
@@ -78,7 +78,7 @@ public class TsSessionProcessor<SYSTEM extends JeeslIoSsiSystem,
 			}
 			
 		}
-		catch (UtilsConstraintViolationException | UtilsLockingException e) {e.printStackTrace();}
+		catch (JeeslConstraintViolationException | JeeslLockingException e) {e.printStackTrace();}
 	}
 	
 	public Chart build(String localeCode, Date begin, Date end, SYSTEM system) 
@@ -89,7 +89,7 @@ public class TsSessionProcessor<SYSTEM extends JeeslIoSsiSystem,
 		{
 			chart.setDs(mfTs.multiPoint(localeCode,system,begin,end));
 		}
-		catch (UtilsNotFoundException e) {}
+		catch (JeeslNotFoundException e) {}
 		return chart;
 	}
 }

@@ -14,6 +14,9 @@ import org.jeesl.api.facade.module.survey.JeeslSurveyCoreFacade;
 import org.jeesl.api.facade.module.survey.JeeslSurveyTemplateFacade;
 import org.jeesl.api.facade.system.JeeslJobFacade;
 import org.jeesl.controller.handler.module.survey.SurveyAnalysisCacheHandler;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.survey.SurveyAnalysisFactoryBuilder;
 import org.jeesl.factory.builder.module.survey.SurveyCoreFactoryBuilder;
 import org.jeesl.factory.builder.module.survey.SurveyTemplateFactoryBuilder;
@@ -55,9 +58,6 @@ import org.jeesl.interfaces.model.system.job.JeeslJobTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -194,7 +194,7 @@ public abstract class AbstractAdminSurveyAnalysisBean <L extends UtilsLang, D ex
 		if(rTool) {tool = null;nnb.reset();}
 	}
 	
-	public void selectVersion() throws UtilsNotFoundException
+	public void selectVersion() throws JeeslNotFoundException
 	{
 		reset(false,false,true,true,true,true);
 		logger.info(AbstractLogMessage.selectEntity(version));
@@ -215,7 +215,7 @@ public abstract class AbstractAdminSurveyAnalysisBean <L extends UtilsLang, D ex
 		analysis.setName(efLang.createEmpty(sbhLocale.getList()));
 	}
 	
-	public void saveAnalysis() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveAnalysis() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info(AbstractLogMessage.saveEntity(analysis));
 		analysis.setDomain(fAnalysis.find(fbAnalysis.getClassDomain(),analysis.getDomain()));
@@ -252,7 +252,7 @@ public abstract class AbstractAdminSurveyAnalysisBean <L extends UtilsLang, D ex
 		}
 	}
 	
-	public void deleteAnalysis() throws UtilsConstraintViolationException
+	public void deleteAnalysis() throws JeeslConstraintViolationException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.rmEntity(analysis));}
 		fCore.rm(analysis);
@@ -275,7 +275,7 @@ public abstract class AbstractAdminSurveyAnalysisBean <L extends UtilsLang, D ex
 			analysisQuestion = efLang.persistMissingLangs(fCore, sbhLocale.getList(), analysisQuestion);
 			reloadTools();
 		}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			analysisQuestion = efAnalysisQuestion.build(analysis, question);
 			analysisQuestion.setName(efLang.createEmpty(sbhLocale.getList()));
@@ -283,7 +283,7 @@ public abstract class AbstractAdminSurveyAnalysisBean <L extends UtilsLang, D ex
 		reset(false,false,false,false,false,true);
 	}
 	
-	public void saveAnalysisQuestion() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveAnalysisQuestion() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(analysisQuestion));}
 		analysisQuestion = fAnalysis.save(analysisQuestion);
@@ -301,7 +301,7 @@ public abstract class AbstractAdminSurveyAnalysisBean <L extends UtilsLang, D ex
 		nnb.integerToA(tool.getCacheExpire());
 	}
 	
-	public void saveTool() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveTool() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(tool));}
 		tool.setType(fAnalysis.find(fbAnalysis.getAttClass(),tool.getType()));
@@ -319,7 +319,7 @@ public abstract class AbstractAdminSurveyAnalysisBean <L extends UtilsLang, D ex
 		nnb.integerToA(tool.getCacheExpire());
 	}
 	
-	public void deleteTool() throws UtilsConstraintViolationException
+	public void deleteTool() throws JeeslConstraintViolationException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.rmEntity(tool));}
 		cacheHandler.remove(tool);
@@ -329,5 +329,5 @@ public abstract class AbstractAdminSurveyAnalysisBean <L extends UtilsLang, D ex
 		reset(false,false,false,false,false,true);
 	}
 	
-	public void reorderAnalyses() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fCore, analyses);}
+	public void reorderAnalyses() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fCore, analyses);}
 }

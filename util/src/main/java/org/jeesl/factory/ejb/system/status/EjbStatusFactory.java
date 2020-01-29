@@ -5,12 +5,12 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.factory.xml.system.lang.XmlDescriptionsFactory;
 import org.jeesl.factory.xml.system.lang.XmlLangsFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -66,9 +66,9 @@ public class EjbStatusFactory<S extends UtilsStatus<S,L,D>, L extends UtilsLang,
     
     public <E extends Enum<E>> S build(E code){return create(code.toString());}
     
-	public S create(Status status) throws UtilsConstraintViolationException
+	public S create(Status status) throws JeeslConstraintViolationException
 	{
-		if(!status.isSetLangs()){throw new UtilsConstraintViolationException("No <langs> available for "+JaxbUtil.toString(status));}
+		if(!status.isSetLangs()){throw new JeeslConstraintViolationException("No <langs> available for "+JaxbUtil.toString(status));}
         S s=null;
 		try
 		{

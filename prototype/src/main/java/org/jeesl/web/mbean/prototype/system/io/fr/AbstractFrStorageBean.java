@@ -8,6 +8,9 @@ import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoFrFacade;
 import org.jeesl.controller.handler.system.io.fr.JeeslFileTypeHandler;
 import org.jeesl.controller.handler.tuple.JsonTuple2Handler;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoFileRepositoryFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.fr.EjbIoFrStorageFactory;
 import org.jeesl.interfaces.controller.report.JeeslComparatorProvider;
@@ -21,9 +24,6 @@ import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -76,7 +76,7 @@ public class AbstractFrStorageBean <L extends UtilsLang, D extends UtilsDescript
 		{
 			typeUnknown = fFr.fByCode(fbFr.getClassType(), JeeslFileType.Code.unknown);
 		}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 		reloadStorages();
 		engines = fFr.allOrderedPositionVisible(fbFr.getClassEngine());
 		thCount.init(fFr.tpIoFileByStorageType());
@@ -102,7 +102,7 @@ public class AbstractFrStorageBean <L extends UtilsLang, D extends UtilsDescript
 		storage.setDescription(efDescription.createEmpty(localeCodes));
 	}
 	
-	public void saveStorage() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveStorage() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(storage));}
 		storage.setEngine(fFr.find(fbFr.getClassEngine(),storage.getEngine()));
@@ -110,7 +110,7 @@ public class AbstractFrStorageBean <L extends UtilsLang, D extends UtilsDescript
 		reloadStorages();
 	}
 	
-	public void deleteStorage() throws UtilsConstraintViolationException
+	public void deleteStorage() throws JeeslConstraintViolationException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.rmEntity(storage));}
 		fFr.rm(storage);
@@ -140,7 +140,7 @@ public class AbstractFrStorageBean <L extends UtilsLang, D extends UtilsDescript
 				{
 					i++;
 					try {fFr.save(meta);}
-					catch (UtilsConstraintViolationException | UtilsLockingException e) {e.printStackTrace();}
+					catch (JeeslConstraintViolationException | JeeslLockingException e) {e.printStackTrace();}
 				}
 				if(i==250)
 				{
@@ -152,5 +152,5 @@ public class AbstractFrStorageBean <L extends UtilsLang, D extends UtilsDescript
 		thCount.init(fFr.tpIoFileByStorageType());
 	}
 	
-	public void reorderStorages() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fFr, storages);}
+	public void reorderStorages() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fFr, storages);}
 }

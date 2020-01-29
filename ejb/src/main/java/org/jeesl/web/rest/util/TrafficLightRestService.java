@@ -4,6 +4,8 @@ import org.jeesl.api.exception.xml.JeeslXmlStructureException;
 import org.jeesl.api.rest.system.traffic.JeeslTrafficLightRestExport;
 import org.jeesl.api.rest.system.traffic.JeeslTrafficLightRestImport;
 import org.jeesl.controller.monitor.DataUpdateTracker;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.ejb.system.util.EjbTrafficLightFactory;
 import org.jeesl.factory.xml.system.status.XmlTypeFactory;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
@@ -11,8 +13,6 @@ import org.jeesl.util.query.xml.UtilsQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.factory.xml.utils.XmlTrafficLightFactory;
 import net.sf.ahtutils.factory.xml.utils.XmlTrafficLightsFactory;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
@@ -82,8 +82,8 @@ public class TrafficLightRestService <L extends UtilsLang,D extends UtilsDescrip
 				eLight = fUtils.persist(eLight);
 				dut.success();
 			}
-			catch (UtilsNotFoundException e) {dut.fail(e,true);}
-			catch (UtilsConstraintViolationException e) {dut.fail(e,true);}
+			catch (JeeslNotFoundException e) {dut.fail(e,true);}
+			catch (JeeslConstraintViolationException e) {dut.fail(e,true);}
 		}
 		return dut.toDataUpdate();
 	}

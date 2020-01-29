@@ -3,6 +3,9 @@ package org.jeesl.web.rest.system.security.updater;
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
 import org.jeesl.api.rest.system.security.JeeslSecurityRestTemplateImport;
 import org.jeesl.controller.db.updater.JeeslDbCodeEjbUpdater;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.factory.xml.system.io.sync.XmlDataUpdateFactory;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
@@ -18,9 +21,6 @@ import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -96,7 +96,7 @@ public class SecurityTemplateUpdater <L extends UtilsLang,
 			efLang.rmLang(fSecurity,ejb);
 			efDescription.rmDescription(fSecurity,ejb);
 		}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			try
 			{
@@ -107,7 +107,7 @@ public class SecurityTemplateUpdater <L extends UtilsLang,
 			}
 			catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
 			catch (IllegalAccessException e2) {throw new UtilsConfigurationException(e2.getMessage());}
-			catch (UtilsConstraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
+			catch (JeeslConstraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
 		}
 		
 		try
@@ -120,7 +120,7 @@ public class SecurityTemplateUpdater <L extends UtilsLang,
 			ejb.setCategory(category);
 			ejb=fSecurity.update(ejb);
 		}
-		catch (UtilsConstraintViolationException e) {logger.error("",e);}
-		catch (UtilsLockingException e) {logger.error("",e);}
+		catch (JeeslConstraintViolationException e) {logger.error("",e);}
+		catch (JeeslLockingException e) {logger.error("",e);}
 	}
 }

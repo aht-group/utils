@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.jeesl.api.facade.io.JeeslIoDbFacade;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoDbFactoryBuilder;
 import org.jeesl.factory.json.system.io.db.JsonPostgresConnectionFactory;
 import org.jeesl.factory.json.system.io.db.JsonPostgresFactory;
@@ -28,7 +29,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 
@@ -58,7 +58,7 @@ public class JeeslIoDbFacadeBean <L extends UtilsLang,D extends UtilsDescription
 		return this.allForParent(fbDb.getClassDumpFile(),JeeslDbDumpFile.Attributes.host.toString(), host);
 	}
 	
-	@Override public DF fDumpFile(DUMP dump, DH host) throws UtilsNotFoundException
+	@Override public DF fDumpFile(DUMP dump, DH host) throws JeeslNotFoundException
 	{
 		return this.oneForParents(fbDb.getClassDumpFile(), JeeslDbDumpFile.Attributes.dump.toString(), dump, JeeslDbDumpFile.Attributes.host.toString(), host);
 	}

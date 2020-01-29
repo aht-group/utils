@@ -4,14 +4,14 @@ import java.io.Serializable;
 
 import org.jeesl.api.bean.JeeslFeatureManagerBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.ejb.system.EjbSystemFeatureFactory;
 import org.jeesl.interfaces.model.system.JeeslFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 
 public class AbstractAdminFeatureBean <F extends JeeslFeature>
@@ -41,7 +41,7 @@ public class AbstractAdminFeatureBean <F extends JeeslFeature>
 		efFeature = EjbSystemFeatureFactory.factory(cFeature);
 	}
 
-	public void selectFeature() throws UtilsNotFoundException
+	public void selectFeature() throws JeeslNotFoundException
 	{
 		feature = fFeature.find(cFeature, feature);
 	}
@@ -51,7 +51,7 @@ public class AbstractAdminFeatureBean <F extends JeeslFeature>
 		feature = efFeature.build();
 	}
 	
-	public void saveFeature() throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException
+	public void saveFeature() throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException
 	{
 		feature = fFeature.saveTransaction(feature);
 		bFeature.realodFeatures();

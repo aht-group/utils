@@ -7,6 +7,9 @@ import java.util.Set;
 
 import org.jeesl.api.facade.module.JeeslTsFacade;
 import org.jeesl.controller.processor.module.ts.AbstractTimeSeriesProcessor;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
@@ -23,9 +26,6 @@ import org.metachart.xml.chart.Chart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.exlp.xml.io.Dir;
 import net.sf.exlp.xml.io.File;
@@ -72,7 +72,7 @@ public class TsDbBackupSizeProcessor<SYSTEM extends JeeslIoSsiSystem,
 				}
 				add(add);
 			}
-			catch (UtilsConstraintViolationException | UtilsLockingException e) {e.printStackTrace();}
+			catch (JeeslConstraintViolationException | JeeslLockingException e) {e.printStackTrace();}
 		}
 	}
 	
@@ -92,10 +92,10 @@ public class TsDbBackupSizeProcessor<SYSTEM extends JeeslIoSsiSystem,
 			}
 			add(add);
 		}
-		catch (UtilsConstraintViolationException | UtilsLockingException e) {e.printStackTrace();}
+		catch (JeeslConstraintViolationException | JeeslLockingException e) {e.printStackTrace();}
 	}
 		
-	private void add(List<DATA> add) throws UtilsConstraintViolationException, UtilsLockingException
+	private void add(List<DATA> add) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(!add.isEmpty())
 		{
@@ -118,7 +118,7 @@ public class TsDbBackupSizeProcessor<SYSTEM extends JeeslIoSsiSystem,
 		{
 			chart.setDs(mfTs.singleData(localeCode,system,begin,end));
 		}
-		catch (UtilsNotFoundException e) {}
+		catch (JeeslNotFoundException e) {}
 		return chart;
 	}
 }

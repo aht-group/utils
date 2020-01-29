@@ -3,10 +3,10 @@ package org.jeesl.util.db.cache;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
@@ -34,7 +34,7 @@ public class EjbIdCache <T extends EjbWithId>
 			{
 				map.put(id, fUtils.find(c,id));
 			}
-			catch (UtilsNotFoundException e) {e.printStackTrace();}
+			catch (JeeslNotFoundException e) {e.printStackTrace();}
 			
 		}
 		return map.get(id);

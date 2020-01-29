@@ -3,6 +3,8 @@ package org.jeesl.api.facade.module;
 import java.util.Date;
 import java.util.List;
 
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsMultiPoint;
@@ -15,8 +17,6 @@ import org.jeesl.interfaces.model.module.ts.data.JeeslTsTransaction;
 import org.jeesl.interfaces.model.module.ts.stat.JeeslTsStatistic;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -49,8 +49,8 @@ public interface JeeslTsFacade <L extends UtilsLang,
 	List<SCOPE> findScopes(Class<SCOPE> cScope, Class<CAT> cCategory, List<CAT> categories, boolean showInvisibleScopes);
 	List<EC> findClasses(Class<EC> cClass, Class<CAT> cCategory, List<CAT> categories, boolean showInvisibleClasses);
 	
-	<T extends EjbWithId> BRIDGE fBridge(EC entityClass, T ejb) throws UtilsNotFoundException;
-	<T extends EjbWithId> BRIDGE fcBridge(Class<BRIDGE> cBridge, EC entityClass, T ejb) throws UtilsConstraintViolationException;
+	<T extends EjbWithId> BRIDGE fBridge(EC entityClass, T ejb) throws JeeslNotFoundException;
+	<T extends EjbWithId> BRIDGE fcBridge(Class<BRIDGE> cBridge, EC entityClass, T ejb) throws JeeslConstraintViolationException;
 	<T extends EjbWithId> List<BRIDGE> fBridges(EC ec, List<T> ejbs);
 	
 	boolean isTimeSeriesAllowed(SCOPE scope, INT interval, EC c);
@@ -58,8 +58,8 @@ public interface JeeslTsFacade <L extends UtilsLang,
 	List<TS> fTimeSeries(List<BRIDGE> bridges);
 	List<TS> fTimeSeries(List<BRIDGE> bridges, List<SCOPE> scopes);
 	List<TS> fTimeSeries(SCOPE scope, INT interval, EC entityClass);
-	TS fTimeSeries(SCOPE scope, INT interval, BRIDGE bridge) throws UtilsNotFoundException;
-	TS fcTimeSeries(SCOPE scope, INT interval, BRIDGE bridge) throws UtilsConstraintViolationException;
+	TS fTimeSeries(SCOPE scope, INT interval, BRIDGE bridge) throws JeeslNotFoundException;
+	TS fcTimeSeries(SCOPE scope, INT interval, BRIDGE bridge) throws JeeslConstraintViolationException;
 	
 	List<DATA> fData(TRANSACTION transaction);
 	List<DATA> fData(WS workspace, TS timeSeries);
@@ -69,7 +69,7 @@ public interface JeeslTsFacade <L extends UtilsLang,
 	
 	List<TRANSACTION> fTransactions(List<USER> users, Date from, Date to);
 	
-	void deleteTransaction(TRANSACTION transaction) throws UtilsConstraintViolationException;
+	void deleteTransaction(TRANSACTION transaction) throws JeeslConstraintViolationException;
 	
 	Json1Tuples<TS> tpCountRecordsByTs(List<TS> series);
 }

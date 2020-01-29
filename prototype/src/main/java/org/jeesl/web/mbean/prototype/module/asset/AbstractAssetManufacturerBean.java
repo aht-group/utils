@@ -3,74 +3,66 @@ package org.jeesl.web.mbean.prototype.module.asset;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.ws.rs.POST;
-
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslAssetFacade;
-import org.jeesl.api.facade.module.JeeslBbFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.interfaces.model.module.asset.JeeslAsset;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetManufacturer;
+import org.jeesl.interfaces.model.module.asset.JeeslAssetRealm;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetStatus;
-import org.jeesl.interfaces.model.module.bb.JeeslBbPublishingMode;
+import org.jeesl.interfaces.model.module.asset.JeeslAssetType;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
-import org.primefaces.event.NodeCollapseEvent;
-import org.primefaces.event.NodeExpandEvent;
-import org.primefaces.event.NodeSelectEvent;
-import org.primefaces.event.TreeDragDropEvent;
-import org.primefaces.model.DefaultTreeNode;
-import org.primefaces.model.TreeNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public class AbstractAssetManufacturerBean <L extends UtilsLang, D extends UtilsDescription, LOC extends JeeslLocale<L,D,LOC,?>,
-											ASSET extends JeeslAsset,
-											MANU extends JeeslAssetManufacturer,
-											AS extends JeeslAssetStatus<L,D,AS,?>>
+											REALM extends JeeslAssetRealm<L,D,REALM,?>, RREF extends EjbWithId,
+											ASSET extends JeeslAsset<REALM,ASSET,STATUS,TYPE>,
+											MANU extends JeeslAssetManufacturer<REALM>,
+											STATUS extends JeeslAssetStatus<L,D,STATUS,?>,
+											TYPE extends JeeslAssetType<L,D,REALM,TYPE,?>>
 					extends AbstractAdminBean<L,D>
-					implements Serializable//,SbSingleBean
+					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetManufacturerBean.class);
 	
-	protected JeeslAssetFacade<L,D,ASSET,MANU,AS> fAsset;
+	protected JeeslAssetFacade<L,D,REALM,ASSET,MANU,STATUS,TYPE> fAsset;
 	
-	private final AssetFactoryBuilder<L,D,ASSET,MANU,AS> fbAsset;
-	
-//	protected final SbSingleHandler<SCOPE> sbhScope; public SbSingleHandler<SCOPE> getSbhScope() {return sbhScope;}
+	private final AssetFactoryBuilder<L,D,REALM,ASSET,MANU,STATUS,TYPE> fbAsset;
 	
 	private List<MANU> manufacturers; public List<MANU> getManufacturers() {return manufacturers;} public void setManufacturers(List<MANU> manufacturers) {this.manufacturers = manufacturers;}
 
+    private REALM realm;
+    private RREF realmReference;
 	private MANU manufacturer; public MANU getManufacturer() {return manufacturer;} public void setManufacturer(MANU manufacturer) {this.manufacturer = manufacturer;}
 
-	public AbstractAssetManufacturerBean(AssetFactoryBuilder<L,D,ASSET,MANU,AS> fbAsset)
+	public AbstractAssetManufacturerBean(AssetFactoryBuilder<L,D,REALM,ASSET,MANU,STATUS,TYPE> fbAsset)
 	{
 		super(fbAsset.getClassL(),fbAsset.getClassD());
 		this.fbAsset=fbAsset;
-//		sbhScope = new SbSingleHandler<SCOPE>(fbBb.getClassScope(),this);
 	}
 
-	protected void postConstructAssetManufacturer(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslAssetFacade<L,D,ASSET,MANU,AS> fAsset)
+	protected <E extends Enum<E>> void postConstructAssetManufacturer(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
+													JeeslAssetFacade<L,D,REALM,ASSET,MANU,STATUS,TYPE> fAsset,
+													E eRealm, RREF realmReference)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fAsset=fAsset;
+		realm = fAsset.fByEnum(fbAsset.getClassRealm(),eRealm);
+		this.realmReference=realmReference;
 		reloadManufacturers();
 	}
-	
-//	@Override public void selectSbSingle(EjbWithId item) throws UtilsLockingException, UtilsConstraintViolationException
-//	{
-//		reloadBoards();
-//	}
 	
 	private void reloadManufacturers()
 	{
@@ -78,17 +70,21 @@ public class AbstractAssetManufacturerBean <L extends UtilsLang, D extends Utils
 		logger.info(AbstractLogMessage.reloaded(fbAsset.getClassManufacturer(),manufacturers));
 	}
 	
-	public void addManufacturer() throws UtilsNotFoundException
+	public void addManufacturer() throws JeeslNotFoundException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbAsset.getClassManufacturer()));}
 		
-		manufacturer = fbAsset.ejbManufacturer().build();
+		manufacturer = fbAsset.ejbManufacturer().build(realm,realmReference);
 	}
 	
-	public void saveManufacturer() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveManufacturer() throws JeeslConstraintViolationException, JeeslLockingException
 	{
-//		board.setPublishing(fBb.find(fbBb.getClassPublishing(),board.getPublishing()));
 		manufacturer = fAsset.save(manufacturer);
 		reloadManufacturers();
+	}
+	
+	public void selectManufacturer() throws JeeslConstraintViolationException, JeeslLockingException
+	{
+		manufacturer = fAsset.find(fbAsset.getClassManufacturer(),manufacturer);
 	}
 }

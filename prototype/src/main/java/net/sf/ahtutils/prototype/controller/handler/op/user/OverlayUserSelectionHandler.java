@@ -3,6 +3,8 @@ package net.sf.ahtutils.prototype.controller.handler.op.user;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.interfaces.bean.op.OpUserBean;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
@@ -12,8 +14,6 @@ import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityUsecase
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.controller.handler.op.user.OpUserSelectionHandler;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -46,7 +46,7 @@ public class OverlayUserSelectionHandler <L extends UtilsLang, D extends UtilsDe
         uiUsers = new ArrayList<USER>();
     }
 
-    public void selectListener() throws UtilsLockingException, UtilsConstraintViolationException
+    public void selectListener() throws JeeslLockingException, JeeslConstraintViolationException
     {
         bean.selectOpUser(user);
         user = null;

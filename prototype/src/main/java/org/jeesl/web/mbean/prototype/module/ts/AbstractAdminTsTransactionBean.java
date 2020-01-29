@@ -14,6 +14,7 @@ import org.jeesl.api.facade.module.JeeslTsFacade;
 import org.jeesl.api.handler.sb.SbDateIntervalSelection;
 import org.jeesl.controller.handler.sb.SbDateHandler;
 import org.jeesl.controller.handler.ui.helper.CodeConfirmationHandler;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
@@ -28,7 +29,6 @@ import org.jeesl.interfaces.model.module.ts.stat.JeeslTsStatistic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -123,7 +123,7 @@ public class AbstractAdminTsTransactionBean <L extends UtilsLang, D extends Util
 		}
 	}
 	
-	public void deleteTransaction() throws UtilsConstraintViolationException
+	public void deleteTransaction() throws JeeslConstraintViolationException
 	{
 		if(cch.isCodeConfirmed())
 		{
@@ -135,7 +135,7 @@ public class AbstractAdminTsTransactionBean <L extends UtilsLang, D extends Util
 	}
 	
 	
-	public void purgeAllTransactions() throws UtilsConstraintViolationException
+	public void purgeAllTransactions() throws JeeslConstraintViolationException
 	{
 		// This is strictly only to be used in DEVELOPMENT ENVIRONMENTS!!!!
 		Path token =  Paths.get(System.getProperty("user.home") +File.separator +"devModeActivator.token");

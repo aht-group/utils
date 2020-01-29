@@ -7,6 +7,9 @@ import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslBbFacade;
 import org.jeesl.controller.handler.sb.SbSingleHandler;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.BbFactoryBuilder;
 import org.jeesl.interfaces.bean.sb.SbSingleBean;
 import org.jeesl.interfaces.model.module.bb.JeeslBbBoard;
@@ -25,9 +28,6 @@ import org.primefaces.model.TreeNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -89,7 +89,7 @@ public class AbstractBbConfigBean <L extends UtilsLang,D extends UtilsDescriptio
 		sbhScope.setDefault();
 	}
 	
-	@Override public void selectSbSingle(EjbWithId item) throws UtilsLockingException, UtilsConstraintViolationException
+	@Override public void selectSbSingle(EjbWithId item) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		reloadBoards();
 	}
@@ -121,14 +121,14 @@ public class AbstractBbConfigBean <L extends UtilsLang,D extends UtilsDescriptio
 		}
 	}
 	
-	public void addBoard() throws UtilsNotFoundException
+	public void addBoard() throws JeeslNotFoundException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbBb.getClassBoard()));}
 		PUB publishing = fBb.fByCode(fbBb.getClassPublishing(), JeeslBbPublishingMode.Code.closed);
 		board = fbBb.bb().build(null,sbhScope.getSelection(),refId,publishing);
 	}
 	
-	public void saveBoard() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveBoard() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		board.setPublishing(fBb.find(fbBb.getClassPublishing(),board.getPublishing()));
 		board = fBb.save(board);
@@ -144,7 +144,7 @@ public class AbstractBbConfigBean <L extends UtilsLang,D extends UtilsDescriptio
     }
 	
 	@SuppressWarnings("unchecked")
-	public void onDragDrop(TreeDragDropEvent event) throws UtilsConstraintViolationException, UtilsLockingException
+	public void onDragDrop(TreeDragDropEvent event) throws JeeslConstraintViolationException, JeeslLockingException
 	{
         TreeNode dragNode = event.getDragNode();
         TreeNode dropNode = event.getDropNode();

@@ -9,6 +9,9 @@ import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
 import org.jeesl.controller.handler.sb.SbMultiHandler;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.revision.EjbRevisionDiagramFactory;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
@@ -24,9 +27,6 @@ import org.jeesl.util.comparator.ejb.system.io.revision.RevisionDiagramComparato
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -83,7 +83,7 @@ public class AbstractAdminErDiagramBean <L extends UtilsLang, D extends UtilsDes
 	}
 
 	@Override
-	public void toggled(Class<?> c) throws UtilsLockingException, UtilsConstraintViolationException
+	public void toggled(Class<?> c) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		if(debugOnInfo){logger.info(SbMultiHandler.class.getSimpleName()+" toggled, but NYI");}
 	}
@@ -96,7 +96,7 @@ public class AbstractAdminErDiagramBean <L extends UtilsLang, D extends UtilsDes
 		diagram.setDescription(efDescription.createEmpty(localeCodes));
 	}
 
-	public void selectDiagram() throws UtilsNotFoundException
+	public void selectDiagram() throws JeeslNotFoundException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.selectEntity(diagram));}
 		diagram = efLang.persistMissingLangs(fRevision,localeCodes,diagram);
@@ -110,7 +110,7 @@ public class AbstractAdminErDiagramBean <L extends UtilsLang, D extends UtilsDes
 		dot = diagram.getDotGraph();
 	}
 
-	public void saveDiagram() throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException
+	public void saveDiagram() throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(diagram));}
 		if(diagram.getCategory()!=null){diagram.setCategory(fRevision.find(fbRevision.getClassCategory(),diagram.getCategory()));}
@@ -121,7 +121,7 @@ public class AbstractAdminErDiagramBean <L extends UtilsLang, D extends UtilsDes
 	}
 
 
-	public void rmDiagram() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void rmDiagram() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.rmEntity(diagram));}
 		fRevision.rm(diagram);
@@ -137,7 +137,7 @@ public class AbstractAdminErDiagramBean <L extends UtilsLang, D extends UtilsDes
 		dot = null;
 	}
 	
-	public void reorderDiagrams() throws UtilsConstraintViolationException, UtilsLockingException
+	public void reorderDiagrams() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info(AbstractLogMessage.reorder(fbRevision.getClassDiagram(), diagrams));
 		PositionListReorderer.reorder(fRevision,fbRevision.getClassDiagram(),diagrams);

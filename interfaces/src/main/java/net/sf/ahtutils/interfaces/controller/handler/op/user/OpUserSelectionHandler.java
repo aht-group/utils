@@ -5,13 +5,13 @@ import java.util.List;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityUsecase;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 
@@ -39,7 +39,7 @@ public interface OpUserSelectionHandler <L extends UtilsLang,
     public USER getUiUser();
     public void setUiUser(USER uiUser);
     
-    public void selectListener() throws UtilsLockingException, UtilsConstraintViolationException;
+    public void selectListener() throws JeeslLockingException, JeeslConstraintViolationException;
 
     public void clearUi();
     public void addUiUser(USER item);

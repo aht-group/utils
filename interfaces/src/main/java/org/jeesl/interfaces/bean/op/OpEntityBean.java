@@ -1,12 +1,13 @@
 package org.jeesl.interfaces.bean.op;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
+
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface OpEntityBean
 {
-	void addOpEntity(EjbWithId item) throws UtilsLockingException, UtilsConstraintViolationException, UtilsNotFoundException;
-	void rmOpEntity(EjbWithId item) throws UtilsLockingException, UtilsConstraintViolationException, UtilsNotFoundException;
+	void addOpEntity(EjbWithId item) throws JeeslLockingException, JeeslConstraintViolationException, JeeslNotFoundException;
+	void rmOpEntity(EjbWithId item) throws JeeslLockingException, JeeslConstraintViolationException, JeeslNotFoundException;
 }

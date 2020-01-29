@@ -6,8 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
-
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,12 +69,12 @@ public class UtilsMenuException extends RuntimeException implements Serializable
 		for(Exception e : exceptions)
 		{
 			logger.info(e.toString());
-			if(e instanceof UtilsNotFoundException && ((UtilsNotFoundException) e).isWithDetails())
+			if(e instanceof JeeslNotFoundException && ((JeeslNotFoundException) e).isWithDetails())
 			{
-				if(!setIds.contains(((UtilsNotFoundException) e).toHash()))
+				if(!setIds.contains(((JeeslNotFoundException) e).toHash()))
 				{
 					list.add(e);
-					setIds.add(((UtilsNotFoundException) e).toHash());
+					setIds.add(((JeeslNotFoundException) e).toHash());
 				}
 			}
 			else

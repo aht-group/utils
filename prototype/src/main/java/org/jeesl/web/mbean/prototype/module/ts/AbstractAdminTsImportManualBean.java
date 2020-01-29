@@ -11,6 +11,8 @@ import java.util.Map;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslTsFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.factory.ejb.module.ts.EjbTsDataFactory;
 import org.jeesl.factory.mc.ts.McTsViewerFactory;
@@ -31,8 +33,6 @@ import org.metachart.xml.chart.Ds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -202,7 +202,7 @@ public class AbstractAdminTsImportManualBean<L extends UtilsLang, D extends Util
 
 			if(entities.size() > 0) {bridge = fTs.fcBridge(fbTs.getClassBridge(), clas, entities.get(0));}
 		}
-		catch (ClassNotFoundException e){e.printStackTrace();} catch(UtilsConstraintViolationException e) { e.printStackTrace(); }
+		catch (ClassNotFoundException e){e.printStackTrace();} catch(JeeslConstraintViolationException e) { e.printStackTrace(); }
 		if(debugOnInfo){logger.info(AbstractLogMessage.reloaded(EjbWithId.class,entities));}
 	}
 	
@@ -215,7 +215,7 @@ public class AbstractAdminTsImportManualBean<L extends UtilsLang, D extends Util
 		transaction.setRecord(new Date());
 	}
 	
-	public void saveTransaction() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveTransaction() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.addEntity(fbTs.getClassData()));}
 		transaction.setSource(fTs.find(fbTs.getClassSource(),transaction.getSource()));
@@ -224,7 +224,7 @@ public class AbstractAdminTsImportManualBean<L extends UtilsLang, D extends Util
 		uiAllowSave=true;
 	}
 
-	public void selectEntity() throws UtilsConstraintViolationException
+	public void selectEntity() throws JeeslConstraintViolationException
 	{
 		logger.info("Selected: "+ entity.toString());
 		reset(false,true);
@@ -259,7 +259,7 @@ public class AbstractAdminTsImportManualBean<L extends UtilsLang, D extends Util
 	private Date date; public Date getDate() { return date; } public void setDate(Date date) { this.date = date; }
 	private Double value; public Double getValue() { return value; } public void setValue(Double value) { this.value = value; }
 
-	public void saveData() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveData() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		data.setTransaction(transaction);
 		data.setRecord(date);

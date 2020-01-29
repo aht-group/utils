@@ -8,6 +8,9 @@ import java.util.List;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.controller.handler.sb.SbMultiHandler;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.HydroFactoryBuilder;
 import org.jeesl.factory.ejb.module.hydro.EjbHydroYearFactory;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
@@ -19,9 +22,6 @@ import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -85,18 +85,18 @@ public class AbstractHydroYearBean <L extends UtilsLang, D extends UtilsDescript
 	}
 
 	@Override
-	public void toggled(Class<?> c) throws UtilsLockingException, UtilsConstraintViolationException
+	public void toggled(Class<?> c) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		if(debugOnInfo){logger.info(SbMultiHandler.class.getSimpleName()+" toggled, but NYI");}
 	}
 
-	public void selectHydroYear() throws UtilsNotFoundException
+	public void selectHydroYear() throws JeeslNotFoundException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.selectEntity(hydroYear));}
 		hydroYear = fUtils.find(fbHydroYear.getClassYear(), hydroYear);
 	}
 
-	public void saveHydroYear() throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException
+	public void saveHydroYear() throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info(AbstractLogMessage.saveEntity(hydroYear));
 		if(hydroYear.getDecade()!=null){
@@ -115,7 +115,7 @@ public class AbstractHydroYearBean <L extends UtilsLang, D extends UtilsDescript
 		hydroYear.setDescription(efDescription.createEmpty(localeCodes));
 	}
 
-	public void deleteHydroYear() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void deleteHydroYear() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.rmEntity(hydroYear));}
 		fUtils.rm(hydroYear);

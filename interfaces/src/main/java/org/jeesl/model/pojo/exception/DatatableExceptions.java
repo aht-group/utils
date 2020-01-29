@@ -3,7 +3,8 @@ package org.jeesl.model.pojo.exception;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
+
 import net.sf.ahtutils.exception.processing.UtilsBatchException;
 
 public class DatatableExceptions
@@ -20,9 +21,9 @@ public class DatatableExceptions
 		for(Exception e : ube.getExceptions())
 		{
 			DatatableException de = new DatatableException();
-			if(e instanceof UtilsNotFoundException && ((UtilsNotFoundException) e).isWithDetails())
+			if(e instanceof JeeslNotFoundException && ((JeeslNotFoundException) e).isWithDetails())
 			{
-				UtilsNotFoundException unfe = (UtilsNotFoundException)e;
+				JeeslNotFoundException unfe = (JeeslNotFoundException)e;
 				de.setRecord(unfe.getWhen());
 				de.setType(unfe.getWhatKey());
 				de.setDetail(unfe.getWhereDetail());

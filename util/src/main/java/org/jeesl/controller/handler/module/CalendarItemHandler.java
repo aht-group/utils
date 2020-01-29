@@ -3,6 +3,8 @@ package org.jeesl.controller.handler.module;
 import java.io.Serializable;
 
 import org.jeesl.api.facade.module.JeeslCalendarFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.CalendarFactoryBuilder;
 import org.jeesl.factory.ejb.module.calendar.EjbTimeZoneFactory;
 import org.jeesl.factory.txt.module.calendar.TxtCalendarItemFactory;
@@ -12,8 +14,6 @@ import org.jeesl.interfaces.model.module.calendar.JeeslCalendarTimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -58,7 +58,7 @@ public class CalendarItemHandler <L extends UtilsLang,
 		this.item = efZone.utc2Zones(item);
 	}
 	
-	public void saveItem() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveItem() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		StringBuilder sb = new StringBuilder();
 

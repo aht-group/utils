@@ -11,6 +11,9 @@ import org.jeesl.api.facade.module.survey.JeeslSurveyAnalysisFacade;
 import org.jeesl.api.facade.module.survey.JeeslSurveyCoreFacade;
 import org.jeesl.api.facade.module.survey.JeeslSurveyTemplateFacade;
 import org.jeesl.controller.handler.module.survey.SurveyHandler;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.survey.SurveyAnalysisFactoryBuilder;
 import org.jeesl.factory.builder.module.survey.SurveyCoreFactoryBuilder;
 import org.jeesl.factory.builder.module.survey.SurveyTemplateFactoryBuilder;
@@ -48,9 +51,6 @@ import org.jeesl.interfaces.model.system.job.JeeslJobTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -130,7 +130,7 @@ public abstract class AbstractSurveyEntryBean <L extends UtilsLang, D extends Ut
 			sbhSurvey.setList(list);
 			logger.info(AbstractLogMessage.reloaded(fbCore.getClassSurvey(), sbhSurvey.getList()));
 		}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 		handler = fbCore.handler(bMessage,fCore,bSurvey);
 	}
 	
@@ -141,7 +141,7 @@ public abstract class AbstractSurveyEntryBean <L extends UtilsLang, D extends Ut
 		
 	}
 	
-	public void selectSurvey() throws UtilsNotFoundException
+	public void selectSurvey() throws JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.selectEntity(survey));
 		handler.reset();
@@ -159,14 +159,14 @@ public abstract class AbstractSurveyEntryBean <L extends UtilsLang, D extends Ut
 		logger.info("Show Assessment: Allow:"+handler.isAllowAssessment()+" Show:"+handler.isShowAssessment());
 	}
 	
-	public void saveData(SECTION section) throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveData(SECTION section) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info(AbstractLogMessage.saveEntity(null,correlation,section));
 		correlation = fCore.saveTransaction(correlation);
 		handler.save(correlation,section);
 	}
 
-	public void saveData() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveData() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info(AbstractLogMessage.saveEntity(null,correlation)+" TEST ONLY");
 	}

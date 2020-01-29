@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
 import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
@@ -23,9 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.controller.util.ParentPredicate;
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.behaviour.EjbEquals;
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
@@ -56,7 +56,7 @@ public class AbstractDummyFacade implements UtilsFacade
 	final static Logger logger = LoggerFactory.getLogger(AbstractDummyFacade.class);
 
 	@Override
-	public <T> T find(Class<T> type, long id) throws UtilsNotFoundException {
+	public <T> T find(Class<T> type, long id) throws JeeslNotFoundException {
 		
 		return null;
 	}
@@ -68,19 +68,19 @@ public class AbstractDummyFacade implements UtilsFacade
 	}
 
 	@Override public <T extends EjbWithCode, E extends Enum<E>> T fByEnum(Class<T> type, E code) {return null;}
-	@Override public <T extends EjbWithCode, E extends Enum<E>> T fByCode(Class<T> type, E code) throws UtilsNotFoundException {return null;}
-	@Override public <T extends EjbWithCode> T fByCode(Class<T> type, String code) throws UtilsNotFoundException {return null;}
+	@Override public <T extends EjbWithCode, E extends Enum<E>> T fByCode(Class<T> type, E code) throws JeeslNotFoundException {return null;}
+	@Override public <T extends EjbWithCode> T fByCode(Class<T> type, String code) throws JeeslNotFoundException {return null;}
 
 	@Override
 	public <T extends EjbWithName> T fByName(Class<T> type, String name)
-			throws UtilsNotFoundException {
+			throws JeeslNotFoundException {
 		
 		return null;
 	}
 
 	@Override
 	public <T extends EjbWithNr, P extends EjbWithId> T fByNr(Class<T> type,
-			String parentName, P parent, long nr) throws UtilsNotFoundException {
+			String parentName, P parent, long nr) throws JeeslNotFoundException {
 		
 		return null;
 	}
@@ -106,27 +106,27 @@ public class AbstractDummyFacade implements UtilsFacade
 
 	@Override
 	public <T extends EjbSaveable> T save(T o)
-			throws UtilsConstraintViolationException, UtilsLockingException {
+			throws JeeslConstraintViolationException, JeeslLockingException {
 		
 		return null;
 	}
 
 	@Override
-	public <T> T persist(T o) throws UtilsConstraintViolationException {
+	public <T> T persist(T o) throws JeeslConstraintViolationException {
 		
 		return null;
 	}
 
 	@Override
-	public <T> T update(T o) throws UtilsConstraintViolationException,
-			UtilsLockingException {
+	public <T> T update(T o) throws JeeslConstraintViolationException,
+			JeeslLockingException {
 		
 		return null;
 	}
 
 	@Override
 	public <T extends EjbRemoveable> void rm(T o)
-			throws UtilsConstraintViolationException {
+			throws JeeslConstraintViolationException {
 		
 		
 	}
@@ -223,7 +223,7 @@ public class AbstractDummyFacade implements UtilsFacade
 	@Override
 	public <T extends EjbWithId, P extends EjbWithId> T oneForParents(
 			Class<T> cl, List<ParentPredicate<P>> parents)
-			throws UtilsNotFoundException {
+			throws JeeslNotFoundException {
 		
 		return null;
 	}
@@ -231,7 +231,7 @@ public class AbstractDummyFacade implements UtilsFacade
 	@Override
 	public <T extends EjbWithId, I extends EjbWithId> T oneForParents(
 			Class<T> cl, String p1Name, I p1, String p2Name, I p2)
-			throws UtilsNotFoundException {
+			throws JeeslNotFoundException {
 		
 		return null;
 	}
@@ -279,7 +279,7 @@ public class AbstractDummyFacade implements UtilsFacade
 	@Override
 	public <T extends EjbWithId, I extends EjbWithId> T oneForParents(
 			Class<T> cl, String p1Name, I p1, String p2Name, I p2,
-			String p3Name, I p3) throws UtilsNotFoundException {
+			String p3Name, I p3) throws JeeslNotFoundException {
 		
 		return null;
 	}
@@ -293,7 +293,7 @@ public class AbstractDummyFacade implements UtilsFacade
 
 	@Override
 	public <T extends EjbWithEmail> T fByEmail(Class<T> clazz, String email)
-			throws UtilsNotFoundException {
+			throws JeeslNotFoundException {
 		
 		return null;
 	}
@@ -301,7 +301,7 @@ public class AbstractDummyFacade implements UtilsFacade
 	@Override public <T extends EjbWithPositionVisibleParent, P extends EjbWithId> List<T> allOrderedPositionVisibleParent(Class<T> cl, P parent) {return null;}
 	@Override public <T extends EjbWithNonUniqueCode> List<T> allByCode(Class<T> type, String code){return null;}
 	@Override public <T extends EjbWithId, P extends EjbWithId, GP extends EjbWithId> List<T> allForGrandParent(Class<T> queryClass, Class<P> pClass, String pName, GP grandParent, String gpName){return null;}
-	@Override public <T extends EjbWithValidFrom> T fFirstValidFrom(Class<T> type, String parentName, long id, Date validFrom) throws UtilsNotFoundException{return null;}
+	@Override public <T extends EjbWithValidFrom> T fFirstValidFrom(Class<T> type, String parentName, long id, Date validFrom) throws JeeslNotFoundException{return null;}
 
 	@Override
 	public <T extends EjbWithValidFrom> List<T> allOrderedValidFrom(Class<T> cl, boolean ascending)
@@ -318,14 +318,14 @@ public class AbstractDummyFacade implements UtilsFacade
 	}
 
 	@Override
-	public <T extends EjbSaveable> T saveTransaction(T o) throws UtilsConstraintViolationException, UtilsLockingException
+	public <T extends EjbSaveable> T saveTransaction(T o) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		
 		return null;
 	}
 
 	@Override
-	public <T extends EjbWithTypeCode> T fByTypeCode(Class<T> c, String tpye, String code) throws UtilsNotFoundException
+	public <T extends EjbWithTypeCode> T fByTypeCode(Class<T> c, String tpye, String code) throws JeeslNotFoundException
 	{
 		
 		return null;
@@ -339,14 +339,14 @@ public class AbstractDummyFacade implements UtilsFacade
 	}
 
 	@Override
-	public <T extends EjbMergeable> T mergeTransaction(T o) throws UtilsConstraintViolationException, UtilsLockingException
+	public <T extends EjbMergeable> T mergeTransaction(T o) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <T extends EjbMergeable> T merge(T o) throws UtilsConstraintViolationException, UtilsLockingException
+	public <T extends EjbMergeable> T merge(T o) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -375,14 +375,14 @@ public class AbstractDummyFacade implements UtilsFacade
 
 	@Override
 	public <T extends EjbSaveable> void save(List<T> list)
-			throws UtilsConstraintViolationException, UtilsLockingException {
+			throws JeeslConstraintViolationException, JeeslLockingException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public <T extends EjbSaveable> void saveTransaction(List<T> list)
-			throws UtilsConstraintViolationException, UtilsLockingException {
+			throws JeeslConstraintViolationException, JeeslLockingException {
 		// TODO Auto-generated method stub
 		
 	}
@@ -407,7 +407,7 @@ public class AbstractDummyFacade implements UtilsFacade
 	}
 
 	@Override public <T extends EjbWithPositionParent, P extends EjbWithId> List<T> allOrderedPositionParent(Class<T> cl, P parent) {return null;}
-	@Override public <T extends EjbRemoveable> void rmTransaction(T o) throws UtilsConstraintViolationException {}
+	@Override public <T extends EjbRemoveable> void rmTransaction(T o) throws JeeslConstraintViolationException {}
 
 	@Override
 	public <T extends EjbWithRecord, P extends EjbWithId> List<T> allOrderedParentsRecordBetween(Class<T> cl,
@@ -416,7 +416,7 @@ public class AbstractDummyFacade implements UtilsFacade
 		return null;
 	}
 
-	@Override public <T extends EjbRemoveable> void rm(List<T> list) throws UtilsConstraintViolationException {}
+	@Override public <T extends EjbRemoveable> void rm(List<T> list) throws JeeslConstraintViolationException {}
 
 	@Override
 	public <T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> type, String p1Name, I p1,
@@ -426,7 +426,7 @@ public class AbstractDummyFacade implements UtilsFacade
 	}
 
 	@Override
-	public <T extends EjbWithValidFromUntil> T oneInRange(Class<T> c, Date record) throws UtilsNotFoundException {
+	public <T extends EjbWithValidFromUntil> T oneInRange(Class<T> c, Date record) throws JeeslNotFoundException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -439,13 +439,13 @@ public class AbstractDummyFacade implements UtilsFacade
 
 	@Override
 	public <T extends EjbWithParentAttributeResolver, I extends EjbWithId> T oneForParent(Class<T> cl, I p1)
-			throws UtilsNotFoundException {
+			throws JeeslNotFoundException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <T extends EjbRemoveable> void rm(Set<T> set) throws UtilsConstraintViolationException {
+	public <T extends EjbRemoveable> void rm(Set<T> set) throws JeeslConstraintViolationException {
 		// TODO Auto-generated method stub
 		
 	}
@@ -458,7 +458,7 @@ public class AbstractDummyFacade implements UtilsFacade
 	}
 
 	@Override
-	public <T extends EjbRemoveable> void rmTransaction(List<T> list) throws UtilsConstraintViolationException {
+	public <T extends EjbRemoveable> void rmTransaction(List<T> list) throws JeeslConstraintViolationException {
 		// TODO Auto-generated method stub
 		
 	}
@@ -484,7 +484,7 @@ public class AbstractDummyFacade implements UtilsFacade
 	}
 
 	@Override
-	public <T extends EjbWithNrString> T fByNr(Class<T> type, String nr) throws UtilsNotFoundException {
+	public <T extends EjbWithNrString> T fByNr(Class<T> type, String nr) throws JeeslNotFoundException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -511,7 +511,7 @@ public class AbstractDummyFacade implements UtilsFacade
 
 	@Override
 	public <T extends EjbWithValidFromAndParent, P extends EjbWithId> T fFirstValidFrom(Class<T> c, P parent,
-			Date validFrom) throws UtilsNotFoundException {
+			Date validFrom) throws JeeslNotFoundException {
 		// TODO Auto-generated method stub
 		return null;
 	}

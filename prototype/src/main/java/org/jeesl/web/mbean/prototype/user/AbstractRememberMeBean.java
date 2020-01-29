@@ -7,6 +7,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.Cookie;
 
 import org.jeesl.api.facade.core.JeeslUserFacade;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
@@ -19,7 +20,6 @@ import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
@@ -66,7 +66,7 @@ public class AbstractRememberMeBean <L extends UtilsLang,D extends UtilsDescript
 				}
 				else{if(logOnInfo){logger.info("NOT");}}
 			}
-			catch (UtilsNotFoundException e){if(logOnInfo){logger.info(e.getMessage());}}
+			catch (JeeslNotFoundException e){if(logOnInfo){logger.info(e.getMessage());}}
 		}
 		else{if(logOnInfo){logger.info("Cookie NOT found");}}
 	}

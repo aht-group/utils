@@ -2,6 +2,7 @@ package org.jeesl.api.facade.module;
 
 import java.util.List;
 
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowAction;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowBot;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowCommunication;
@@ -26,7 +27,6 @@ import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -61,8 +61,8 @@ public interface JeeslWorkflowFacade <L extends UtilsLang, D extends UtilsDescri
 {	
 	WT fTransitionBegin(WP process);
 	
-	WL fWorkflowLink(WF workflow) throws UtilsNotFoundException;
-	<W extends JeeslWithWorkflow<WF>> WL fWorkflowLink(WP process, W owner) throws UtilsNotFoundException;
+	WL fWorkflowLink(WF workflow) throws JeeslNotFoundException;
+	<W extends JeeslWithWorkflow<WF>> WL fWorkflowLink(WP process, W owner) throws JeeslNotFoundException;
 //	<W extends JeeslWithWorkflow<AW>> AW fWorkflow(Class<W> cWith, W with) throws UtilsNotFoundException;
 	List<WF> fWorkflows(WP process, List<WS> stages);
 }

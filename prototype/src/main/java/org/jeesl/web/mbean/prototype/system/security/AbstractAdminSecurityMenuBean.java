@@ -8,6 +8,9 @@ import org.jeesl.api.bean.JeeslSecurityBean;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.factory.ejb.system.security.EjbSecurityMenuFactory;
 import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityHelp;
@@ -31,9 +34,6 @@ import org.primefaces.model.TreeNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -84,8 +84,8 @@ public abstract class AbstractAdminSecurityMenuBean <L extends UtilsLang, D exte
 					M m = efMenu.create(v);
 					fSecurity.save(m);
 				}
-				catch (UtilsConstraintViolationException e) {e.printStackTrace();}
-				catch (UtilsLockingException e) {e.printStackTrace();}
+				catch (JeeslConstraintViolationException e) {e.printStackTrace();}
+				catch (JeeslLockingException e) {e.printStackTrace();}
 			}
 		}
 		reload();
@@ -111,9 +111,9 @@ public abstract class AbstractAdminSecurityMenuBean <L extends UtilsLang, D exte
 				m = fSecurity.save(m);
 				if(!item.getMenuItem().isEmpty()) {firstInit(m,item.getMenuItem());}
 			}
-			catch (UtilsNotFoundException e) {logger.error(e.getMessage());}
-			catch (UtilsConstraintViolationException e) {logger.error("Duplicate for "+item.getCode());e.printStackTrace();}
-			catch (UtilsLockingException e) {e.printStackTrace();}
+			catch (JeeslNotFoundException e) {logger.error(e.getMessage());}
+			catch (JeeslConstraintViolationException e) {logger.error("Duplicate for "+item.getCode());e.printStackTrace();}
+			catch (JeeslLockingException e) {e.printStackTrace();}
 		}
 	}
 	
@@ -142,7 +142,7 @@ public abstract class AbstractAdminSecurityMenuBean <L extends UtilsLang, D exte
     public void onNodeCollapse(NodeCollapseEvent event) {if(debugOnInfo) {logger.info("Collapsed "+event.getTreeNode().toString());}}
 	
 	@SuppressWarnings("unchecked")
-	public void onDragDrop(TreeDragDropEvent event) throws UtilsConstraintViolationException, UtilsLockingException
+	public void onDragDrop(TreeDragDropEvent event) throws JeeslConstraintViolationException, JeeslLockingException
 	{
         TreeNode dragNode = event.getDragNode();
         TreeNode dropNode = event.getDropNode();

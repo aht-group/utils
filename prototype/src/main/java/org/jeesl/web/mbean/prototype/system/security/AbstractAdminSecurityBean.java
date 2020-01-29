@@ -8,6 +8,9 @@ import org.jeesl.api.bean.JeeslSecurityBean;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.factory.ejb.system.security.EjbSecurityActionFactory;
 import org.jeesl.factory.ejb.system.security.EjbSecurityActionTemplateFactory;
@@ -33,9 +36,6 @@ import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -127,16 +127,16 @@ public class AbstractAdminSecurityBean <L extends UtilsLang, D extends UtilsDesc
 	public void selectTblView() {logger.info(AbstractLogMessage.selectEntity(tblView));}
 	public void selectTblUsecase() {logger.info(AbstractLogMessage.selectEntity(tblUsecase));}
 	
-	public void selectCategory() throws UtilsNotFoundException
+	public void selectCategory() throws JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.selectEntity(category));
 		category = efLang.persistMissingLangs(fSecurity,localeCodes,category);
 		category = efDescription.persistMissingLangs(fSecurity,localeCodes,category);
 		categorySelected();
 	}
-	protected void categorySelected() throws UtilsNotFoundException {}
+	protected void categorySelected() throws JeeslNotFoundException {}
 	
-	public void saveCategory() throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException
+	public void saveCategory() throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(category));}
 		category = fSecurity.save(category);
@@ -144,9 +144,9 @@ public class AbstractAdminSecurityBean <L extends UtilsLang, D extends UtilsDesc
 		categorySaved();
 		bMessage.growlSuccessSaved();
 	}
-	protected void categorySaved()  throws UtilsNotFoundException {}
+	protected void categorySaved()  throws JeeslNotFoundException {}
 	
-	public void rmCategory() throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException
+	public void rmCategory() throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.rmEntity(category));}
 		if(categoryRemoveable())
@@ -163,7 +163,7 @@ public class AbstractAdminSecurityBean <L extends UtilsLang, D extends UtilsDesc
 			bMessage.errorConstraintViolationInUse("category");
 		}
 	}
-	protected boolean categoryRemoveable() throws UtilsNotFoundException {return false;}
+	protected boolean categoryRemoveable() throws JeeslNotFoundException {return false;}
 	
 	protected void reloadCategories()
 	{
@@ -176,7 +176,7 @@ public class AbstractAdminSecurityBean <L extends UtilsLang, D extends UtilsDesc
 		}
 	}
 	
-	public void reorderCategories() throws UtilsConstraintViolationException, UtilsLockingException
+	public void reorderCategories() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info("updateOrder "+categories.size());
 		int i=1;

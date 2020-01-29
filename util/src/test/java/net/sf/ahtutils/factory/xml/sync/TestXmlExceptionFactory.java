@@ -1,10 +1,10 @@
 package net.sf.ahtutils.factory.xml.sync;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.test.AbstractFileProcessingTest;
 import net.sf.exlp.util.xml.JaxbUtil;
 
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.xml.system.io.sync.XmlExceptionFactory;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,17 +15,17 @@ public class TestXmlExceptionFactory extends AbstractFileProcessingTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestXmlExceptionFactory.class);
 	
-	private UtilsNotFoundException eSingle;
-	private UtilsConstraintViolationException eMulti;
-	private UtilsConstraintViolationException eIntegrity;
+	private JeeslNotFoundException eSingle;
+	private JeeslConstraintViolationException eMulti;
+	private JeeslConstraintViolationException eIntegrity;
 	
 	@Before
 	public void init()
 	{
-		eSingle = new UtilsNotFoundException();
+		eSingle = new JeeslNotFoundException();
 		
-		eIntegrity = new UtilsConstraintViolationException("TestIntegriy");
-		eMulti = new UtilsConstraintViolationException("TestMulti",eIntegrity);
+		eIntegrity = new JeeslConstraintViolationException("TestIntegriy");
+		eMulti = new JeeslConstraintViolationException("TestMulti",eIntegrity);
 	}
 	
 	@Test

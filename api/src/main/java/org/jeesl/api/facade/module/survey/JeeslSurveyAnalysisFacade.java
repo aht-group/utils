@@ -2,6 +2,7 @@ package org.jeesl.api.facade.module.survey;
 
 import java.util.List;
 
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.module.survey.analysis.JeeslSurveyAnalysis;
 import org.jeesl.interfaces.model.module.survey.analysis.JeeslSurveyAnalysisQuestion;
 import org.jeesl.interfaces.model.module.survey.analysis.JeeslSurveyAnalysisTool;
@@ -30,7 +31,6 @@ import org.jeesl.model.json.JsonFlatFigures;
 import org.jeesl.model.json.module.survey.JsonSurveyValue;
 import org.jeesl.model.json.module.survey.JsonSurveyValues;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -66,7 +66,7 @@ public interface JeeslSurveyAnalysisFacade <L extends UtilsLang, D extends Utils
 {
 	TOOL load(TOOL tool);
 	
-	AQ fAnalysis(ANALYSIS analysis, QUESTION question) throws UtilsNotFoundException;
+	AQ fAnalysis(ANALYSIS analysis, QUESTION question) throws JeeslNotFoundException;
 	
 //	List<DATTRIBUTE> fDomainAttributes(DENTITY entity);
 	

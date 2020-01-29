@@ -6,16 +6,15 @@ import javax.naming.InitialContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 
 public class FacesContextUtil
 {
 	final static Logger logger = LoggerFactory.getLogger(FacesContextUtil.class);
 
-	public static String get(String key) throws UtilsNotFoundException
+	public static String get(String key) throws JeeslNotFoundException
 	{
 		if(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().containsKey(key))
 		{
@@ -23,7 +22,7 @@ public class FacesContextUtil
 		}
 		else
 		{
-			throw new UtilsNotFoundException("HTTP Request Paramater '"+key+"' not available");
+			throw new JeeslNotFoundException("HTTP Request Paramater '"+key+"' not available");
 		}
 	}
 	

@@ -4,6 +4,8 @@ import java.util.UUID;
 
 import org.jeesl.controller.db.updater.JeeslDbDescriptionUpdater;
 import org.jeesl.controller.db.updater.JeeslDbLangUpdater;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.interfaces.model.system.io.report.JeeslIoReport;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportCell;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportColumn;
@@ -17,8 +19,6 @@ import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -100,7 +100,7 @@ public class EjbIoReportTemplateFactory<L extends UtilsLang,D extends UtilsDescr
 		return eTemplate;
 	}
 	
-	public TEMPLATE updateLD(UtilsFacade fUtils, TEMPLATE eTemplate, Template xTemplate) throws UtilsConstraintViolationException, UtilsLockingException
+	public TEMPLATE updateLD(UtilsFacade fUtils, TEMPLATE eTemplate, Template xTemplate) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		eTemplate=dbuLang.handle(fUtils, eTemplate, xTemplate.getLangs());
 		eTemplate = fUtils.save(eTemplate);

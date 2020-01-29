@@ -18,6 +18,9 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import org.jeesl.api.rest.system.io.mail.JeeslIoMailRest;
 import org.jeesl.client.JeeslBootstrap;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.txt.system.io.mail.core.TxtMailFactory;
 import org.jeesl.mail.smtp.TextMailSender;
 import org.jeesl.model.xml.system.io.mail.Attachment;
@@ -26,9 +29,6 @@ import org.jeesl.model.xml.system.io.mail.Mails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.exception.processing.UtilsProcessingException;
 import net.sf.ahtutils.util.cli.UtilsCliOption;
@@ -198,9 +198,9 @@ public class JeeslMailSpooler
 		catch (ExlpUnsupportedOsException e) {e.printStackTrace();}
 		catch (NamingException e) {e.printStackTrace();}
 		catch (SQLException e) {e.printStackTrace();}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
-		catch (UtilsConstraintViolationException e) {e.printStackTrace();}
-		catch (UtilsLockingException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
+		catch (JeeslConstraintViolationException e) {e.printStackTrace();}
+		catch (JeeslLockingException e) {e.printStackTrace();}
 		catch (Exception e) {e.printStackTrace();}
 	}
 }

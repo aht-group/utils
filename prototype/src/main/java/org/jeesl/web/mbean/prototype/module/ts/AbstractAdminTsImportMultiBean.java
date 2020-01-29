@@ -19,6 +19,8 @@ import org.apache.commons.jxpath.JXPathContext;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.controller.ImportStrategy;
 import org.jeesl.api.facade.module.JeeslTsFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.factory.mc.ts.McTimeSeriesFactory;
 import org.jeesl.factory.xml.module.ts.XmlDataFactory;
@@ -42,8 +44,6 @@ import org.primefaces.event.FileUploadEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.controller.report.UtilsXlsDefinitionResolver;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -295,8 +295,8 @@ public class AbstractAdminTsImportMultiBean <L extends UtilsLang, D extends Util
 			timeSeries=null;
 			chartDs=null;
 		}
-		catch (UtilsConstraintViolationException e) {e.printStackTrace();}
-		catch (UtilsLockingException e) {e.printStackTrace();}
+		catch (JeeslConstraintViolationException e) {e.printStackTrace();}
+		catch (JeeslLockingException e) {e.printStackTrace();}
 	}
         
         public void importDataList()
@@ -335,8 +335,8 @@ public class AbstractAdminTsImportMultiBean <L extends UtilsLang, D extends Util
                     setDataList(new ArrayList<DATA>());
                     timeSeriesMap.clear();
             }
-            catch (UtilsConstraintViolationException e) {e.printStackTrace();}
-            catch (UtilsLockingException e) {e.printStackTrace();}
+            catch (JeeslConstraintViolationException e) {e.printStackTrace();}
+            catch (JeeslLockingException e) {e.printStackTrace();}
         }
 	
 	public String getValidationInfo(SCOPE scope, DATA dataPoint)

@@ -8,6 +8,9 @@ import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.system.JeeslJobFacade;
 import org.jeesl.api.handler.sb.SbDateIntervalSelection;
 import org.jeesl.controller.handler.sb.SbDateHandler;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.JobFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.job.JeeslJob;
@@ -25,9 +28,6 @@ import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
@@ -76,7 +76,7 @@ public class AbstractAdminJobQueueBean <L extends UtilsLang, D extends UtilsDesc
 			sbhStatus.select(fJob.fByCode(fbJob.getClassStatus(),JeeslJobStatus.Code.failed));
 			sbhStatus.select(fJob.fByCode(fbJob.getClassStatus(),JeeslJobStatus.Code.working));
 		}
-		catch (UtilsNotFoundException e) {logger.error(e.getMessage());}
+		catch (JeeslNotFoundException e) {logger.error(e.getMessage());}
 		
 		if(debugOnInfo)
 		{
@@ -123,7 +123,7 @@ public class AbstractAdminJobQueueBean <L extends UtilsLang, D extends UtilsDesc
 		if(debugOnInfo){logger.info(AbstractLogMessage.selectEntity(job));}
 	}
 	
-	public void saveJob() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveJob() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(job));}
 		job.setStatus(fJob.find(fbJob.getClassStatus(),job.getStatus()));

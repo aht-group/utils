@@ -12,6 +12,9 @@ import org.jeesl.api.rest.survey.JeeslSurveyRestExport;
 import org.jeesl.api.rest.survey.JeeslSurveyRestImport;
 import org.jeesl.api.rest.survey.JeeslSurveyXmlRest;
 import org.jeesl.controller.monitor.DataUpdateTracker;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.survey.SurveyCoreFactoryBuilder;
 import org.jeesl.factory.builder.module.survey.SurveyTemplateFactoryBuilder;
 import org.jeesl.factory.ejb.module.survey.EjbSurveyAnswerFactory;
@@ -72,9 +75,6 @@ import org.jeesl.web.rest.AbstractJeeslRestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -297,7 +297,7 @@ public class SurveyRestService <L extends UtilsLang, D extends UtilsDescription,
 			SURVEY ejb = fSurvey.find(fbCore.getClassSurvey(),id);
 			return xfSurvey.build(ejb);
 		}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 		return new Survey();
 	}
 	
@@ -357,8 +357,8 @@ public class SurveyRestService <L extends UtilsLang, D extends UtilsDescription,
 				
 				dut.success();
 			}
-			catch (UtilsNotFoundException e) {dut.fail(e,true);}
-			catch (UtilsConstraintViolationException e) {dut.fail(e,true);}
+			catch (JeeslNotFoundException e) {dut.fail(e,true);}
+			catch (JeeslConstraintViolationException e) {dut.fail(e,true);}
 		}
 		return dut.toDataUpdate();
 	}
@@ -393,9 +393,9 @@ public class SurveyRestService <L extends UtilsLang, D extends UtilsDescription,
 			
 			dut.success();
 		}
-		catch (UtilsNotFoundException e) {dut.fail(e,true);}
-		catch (UtilsConstraintViolationException e) {dut.fail(e,true);}
-		catch (UtilsLockingException e) {dut.fail(e,true);}
+		catch (JeeslNotFoundException e) {dut.fail(e,true);}
+		catch (JeeslConstraintViolationException e) {dut.fail(e,true);}
+		catch (JeeslLockingException e) {dut.fail(e,true);}
 		
 		return dut.toDataUpdate();
 	}
@@ -417,7 +417,7 @@ public class SurveyRestService <L extends UtilsLang, D extends UtilsDescription,
 			TEMPLATE ejb = fSurvey.find(fbTemplate.getClassTemplate(),id);
 			xml.setTemplate(xfTemplate.build(ejb));
 		}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 		return xml;
 	}
 	
@@ -446,7 +446,7 @@ public class SurveyRestService <L extends UtilsLang, D extends UtilsDescription,
 				jSurvey.getTemplates().add(jNested);
 			}
 		}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 		
 		return jSurvey;
 	}
@@ -463,7 +463,7 @@ public class SurveyRestService <L extends UtilsLang, D extends UtilsDescription,
 				data.getAnswer().add(xfAnswer.build(answer));
 			}
 		}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 		xml.getData().add(data);
 		return xml;
 	}

@@ -8,6 +8,8 @@ import java.util.List;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoReportFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.system.ReportFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.report.EjbIoReportCellFactory;
 import org.jeesl.factory.ejb.system.io.report.EjbIoReportTemplateFactory;
@@ -30,8 +32,6 @@ import org.jeesl.util.comparator.ejb.system.io.report.IoReportTemplateComparator
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -131,7 +131,7 @@ public class AbstractAdminIoReportTemplateBean <L extends UtilsLang,D extends Ut
 		Collections.sort(cells, comparatorCell);
 	}
 	
-	public void selectTemplate() throws UtilsConstraintViolationException, UtilsLockingException
+	public void selectTemplate() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.selectEntity(template));}
 		template = fReport.find(fbReport.getClassTemplate(), template);
@@ -142,7 +142,7 @@ public class AbstractAdminIoReportTemplateBean <L extends UtilsLang,D extends Ut
 		reset(false,true);
 	}
 	
-	public void saveTemplate() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveTemplate() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(template));}
 		template = fReport.save(template);
@@ -183,7 +183,7 @@ public class AbstractAdminIoReportTemplateBean <L extends UtilsLang,D extends Ut
 		reset(false,false);
 	}
 		
-	public void saveCell() throws UtilsLockingException
+	public void saveCell() throws JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(cell));}
 		try
@@ -194,13 +194,13 @@ public class AbstractAdminIoReportTemplateBean <L extends UtilsLang,D extends Ut
 			bMessage.growlSuccessSaved();
 			updatePerformed();
 		}
-		catch (UtilsConstraintViolationException e) {bMessage.errorConstraintViolationDuplicateObject();}
+		catch (JeeslConstraintViolationException e) {bMessage.errorConstraintViolationDuplicateObject();}
 	}
 
 	public void cancelCell() {reset(false,true);}
     
 	//*************************************************************************************
-	protected void reorderTemplates() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fReport,templates);Collections.sort(templates,comparatorTemplate);}
+	protected void reorderTemplates() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fReport,templates);Collections.sort(templates,comparatorTemplate);}
 	
 	protected void updatePerformed(){}	
 	

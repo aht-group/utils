@@ -11,6 +11,8 @@ import java.util.Map;
 import org.jeesl.api.facade.io.JeeslIoMailFacade;
 import org.jeesl.api.facade.io.JeeslIoTemplateFacade;
 import org.jeesl.controller.mail.freemarker.FreemarkerIoTemplateEngine;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoMailFactoryBuilder;
 import org.jeesl.factory.builder.io.IoTemplateFactoryBuilder;
 import org.jeesl.factory.xml.system.io.mail.XmlMailFactory;
@@ -35,8 +37,6 @@ import org.slf4j.LoggerFactory;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -109,7 +109,7 @@ public class AbstractJeeslMail<L extends UtilsLang,D extends UtilsDescription,LO
 			template = fTemplate.load(template);
 			fmEngine.addTemplate(template);
 		}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 	}
 	
 	public List<DEFINITION> toDefinitions(CHANNEL channel)
@@ -180,7 +180,7 @@ public class AbstractJeeslMail<L extends UtilsLang,D extends UtilsDescription,LO
 		return result;
 	}
 	
-	public void spool(Mail mail) throws UtilsConstraintViolationException, UtilsNotFoundException
+	public void spool(Mail mail) throws JeeslConstraintViolationException, JeeslNotFoundException
 	{
 		fMail.queueMail(categoryMail,null,mail);
 		logger.info("Spooled");
@@ -199,7 +199,7 @@ public class AbstractJeeslMail<L extends UtilsLang,D extends UtilsDescription,LO
 		for(Mail mail : mails.getMail())
 		{
 			try {fMail.queueMail(categoryMail,retention,mail);}
-			catch (UtilsConstraintViolationException | UtilsNotFoundException e) {e.printStackTrace();}
+			catch (JeeslConstraintViolationException | JeeslNotFoundException e) {e.printStackTrace();}
 		}
 	}
 }

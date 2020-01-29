@@ -3,6 +3,9 @@ package org.jeesl.web.rest.system.security.updater;
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
 import org.jeesl.api.rest.system.security.JeeslSecurityRestUsecaseImport;
 import org.jeesl.controller.db.updater.JeeslDbCodeEjbUpdater;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.factory.xml.system.io.sync.XmlDataUpdateFactory;
 import org.jeesl.factory.xml.system.io.sync.XmlResultFactory;
@@ -19,9 +22,6 @@ import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -101,7 +101,7 @@ public class SecurityUsecaseUpdater <L extends UtilsLang,
 			efLang.rmLang(fSecurity,ebj);
 			efDescription.rmDescription(fSecurity,ebj);
 		}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			try
 			{
@@ -112,7 +112,7 @@ public class SecurityUsecaseUpdater <L extends UtilsLang,
 			}
 			catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
 			catch (IllegalAccessException e2) {throw new UtilsConfigurationException(e2.getMessage());}
-			catch (UtilsConstraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
+			catch (JeeslConstraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
 		}
 		
 		try
@@ -129,8 +129,8 @@ public class SecurityUsecaseUpdater <L extends UtilsLang,
 			ebj = iuListViewsSecurity(ebj,usecase.getViews());
 			ebj = iuListActions(ebj, usecase.getActions());
 		}
-		catch (UtilsConstraintViolationException e) {logger.error("",e);}
-		catch (UtilsNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
-		catch (UtilsLockingException e) {logger.error("",e);}
+		catch (JeeslConstraintViolationException e) {logger.error("",e);}
+		catch (JeeslNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
+		catch (JeeslLockingException e) {logger.error("",e);}
 	}
 }

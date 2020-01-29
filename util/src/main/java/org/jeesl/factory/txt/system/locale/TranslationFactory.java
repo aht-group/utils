@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Translation;
 import net.sf.ahtutils.xml.status.Translations;
@@ -21,6 +20,7 @@ import net.sf.exlp.xml.io.Dir;
 
 import org.apache.commons.io.DirectoryWalker;
 import org.apache.commons.io.FilenameUtils;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,7 +45,7 @@ public class TranslationFactory
 		processedFiles = 0;
 	}
 	
-	public void writeMessageResourceBundles(String bundleName, File fDstDir) throws FileNotFoundException, UtilsNotFoundException
+	public void writeMessageResourceBundles(String bundleName, File fDstDir) throws FileNotFoundException, JeeslNotFoundException
 	{		
 		this.fDstDir=fDstDir;
 		
@@ -129,7 +129,7 @@ public class TranslationFactory
 			sb.append("    ").append(langKey).append(": ");
 			int number = 0;
 			try {number = tMap.getTranslationKeys(langKey).size();}
-			catch (UtilsNotFoundException e) {logger.error("",e);}
+			catch (JeeslNotFoundException e) {logger.error("",e);}
 			sb.append(number).append(" translations");
 			result.add(sb.toString());
 		}

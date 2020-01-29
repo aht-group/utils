@@ -2,6 +2,9 @@ package org.jeesl.web.rest.system.security.updater;
 
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
 import org.jeesl.controller.db.updater.JeeslDbCodeEjbUpdater;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.factory.ejb.system.status.EjbDescriptionFactory;
 import org.jeesl.factory.ejb.system.status.EjbLangFactory;
@@ -20,9 +23,6 @@ import org.jeesl.interfaces.model.system.security.with.JeeslSecurityWithViews;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -88,7 +88,7 @@ public class AbstractSecurityUpdater <L extends UtilsLang,
 				efLang.rmLang(fSecurity,ejbCategory);
 				efDescription.rmDescription(fSecurity,ejbCategory);
 			}
-			catch (UtilsNotFoundException e)
+			catch (JeeslNotFoundException e)
 			{
 				try
 				{
@@ -100,7 +100,7 @@ public class AbstractSecurityUpdater <L extends UtilsLang,
 				}
 				catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
 				catch (IllegalAccessException e2) {throw new UtilsConfigurationException(e2.getMessage());}
-				catch (UtilsConstraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
+				catch (JeeslConstraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
 			}
 			
 			try
@@ -115,8 +115,8 @@ public class AbstractSecurityUpdater <L extends UtilsLang,
 				logger.trace("Proceeding with childs");
 				iuChilds(ejbCategory,category);
 			}
-			catch (UtilsConstraintViolationException e) {logger.error("",e);}
-			catch (UtilsLockingException e) {logger.error("",e);}
+			catch (JeeslConstraintViolationException e) {logger.error("",e);}
+			catch (JeeslLockingException e) {logger.error("",e);}
 		}
 		
 		updateCategory.remove(fSecurity);
@@ -140,7 +140,7 @@ public class AbstractSecurityUpdater <L extends UtilsLang,
 				efLang.rmLang(fSecurity,eCategory);
 				efDescription.rmDescription(fSecurity,eCategory);
 			}
-			catch (UtilsNotFoundException e)
+			catch (JeeslNotFoundException e)
 			{
 				try
 				{
@@ -151,7 +151,7 @@ public class AbstractSecurityUpdater <L extends UtilsLang,
 				}
 				catch (InstantiationException e2) {throw new UtilsConfigurationException(e2.getMessage());}
 				catch (IllegalAccessException e2) {throw new UtilsConfigurationException(e2.getMessage());}
-				catch (UtilsConstraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
+				catch (JeeslConstraintViolationException e2) {throw new UtilsConfigurationException(e2.getMessage());}	
 			}
 			
 			try
@@ -165,8 +165,8 @@ public class AbstractSecurityUpdater <L extends UtilsLang,
 				eCategory=(C)fSecurity.update(eCategory);
 				iuChilds(eCategory,xCategory);
 			}
-			catch (UtilsConstraintViolationException e) {logger.error("",e);}
-			catch (UtilsLockingException e) {logger.error("",e);}
+			catch (JeeslConstraintViolationException e) {logger.error("",e);}
+			catch (JeeslLockingException e) {logger.error("",e);}
 		}
 		
 		dbCleanerCategory.remove(fSecurity);
@@ -182,7 +182,7 @@ public class AbstractSecurityUpdater <L extends UtilsLang,
 		logger.error("This method *must* be overridden!");
 	}
 	
-	@Deprecated protected <T extends JeeslSecurityWithViews<V>> T iuListViews(T ejb, Views views) throws UtilsConstraintViolationException, UtilsNotFoundException, UtilsLockingException
+	@Deprecated protected <T extends JeeslSecurityWithViews<V>> T iuListViews(T ejb, Views views) throws JeeslConstraintViolationException, JeeslNotFoundException, JeeslLockingException
 	{
 		ejb.getViews().clear();
 		ejb = fSecurity.update(ejb);
@@ -197,7 +197,7 @@ public class AbstractSecurityUpdater <L extends UtilsLang,
 		}
 		return ejb;
 	}
-	protected <T extends JeeslSecurityWithViews<V>> T iuListViewsSecurity(T ejb, net.sf.ahtutils.xml.security.Views views) throws UtilsConstraintViolationException, UtilsNotFoundException, UtilsLockingException
+	protected <T extends JeeslSecurityWithViews<V>> T iuListViewsSecurity(T ejb, net.sf.ahtutils.xml.security.Views views) throws JeeslConstraintViolationException, JeeslNotFoundException, JeeslLockingException
 	{
 //		ejb = fSecurity.load(cView, view);
 		ejb.getViews().clear();
@@ -215,7 +215,7 @@ public class AbstractSecurityUpdater <L extends UtilsLang,
 		return ejb;
 	}
 	
-	@Deprecated protected <T extends JeeslSecurityWithActions<A>> T iuListActions(T ejb, Actions actions) throws UtilsConstraintViolationException, UtilsNotFoundException, UtilsLockingException
+	@Deprecated protected <T extends JeeslSecurityWithActions<A>> T iuListActions(T ejb, Actions actions) throws JeeslConstraintViolationException, JeeslNotFoundException, JeeslLockingException
 	{
 		ejb.getActions().clear();
 		ejb = fSecurity.update(ejb);
@@ -230,7 +230,7 @@ public class AbstractSecurityUpdater <L extends UtilsLang,
 		}
 		return ejb;
 	}
-	protected <T extends JeeslSecurityWithActions<A>> T iuListActions(T ejb, net.sf.ahtutils.xml.security.Actions actions) throws UtilsConstraintViolationException, UtilsNotFoundException, UtilsLockingException
+	protected <T extends JeeslSecurityWithActions<A>> T iuListActions(T ejb, net.sf.ahtutils.xml.security.Actions actions) throws JeeslConstraintViolationException, JeeslNotFoundException, JeeslLockingException
 	{
 		ejb.getActions().clear();
 		ejb = fSecurity.update(ejb);

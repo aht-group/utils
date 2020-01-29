@@ -11,10 +11,10 @@ import java.util.List;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.exlp.util.io.StringUtil;
 
 public class ReflectionUtil
@@ -146,7 +146,7 @@ public class ReflectionUtil
         }
 	}
 
-	public static String toTable(Class<?> c) throws UtilsNotFoundException
+	public static String toTable(Class<?> c) throws JeeslNotFoundException
 	{
 		Annotation a = c.getAnnotation(Table.class);
 		if(a!=null)
@@ -158,7 +158,7 @@ public class ReflectionUtil
 		return "--";
 	}
 	 
-	public static String getReverseMapping(String src, String aSrc, String dst) throws UtilsNotFoundException
+	public static String getReverseMapping(String src, String aSrc, String dst) throws JeeslNotFoundException
 	{
 		 try
 		 {
@@ -167,10 +167,10 @@ public class ReflectionUtil
 			
 			return getReverseMapping(cSrc,aSrc,cDst);
 		 }
-		 catch (ClassNotFoundException e) {throw new UtilsNotFoundException(e.getMessage());}
+		 catch (ClassNotFoundException e) {throw new JeeslNotFoundException(e.getMessage());}
 	 }
 	 
-	 private static String getReverseMapping(Class<?> cSrc, String aSrc, Class<?> cDst) throws UtilsNotFoundException
+	 private static String getReverseMapping(Class<?> cSrc, String aSrc, Class<?> cDst) throws JeeslNotFoundException
 	 {
 		 if(logger.isTraceEnabled())
 		 {
@@ -191,7 +191,7 @@ public class ReflectionUtil
 			 }
 		 }
 		 
-		 throw new UtilsNotFoundException("No reverse mapping found ("+cSrc.getName()+"."+aSrc+") -> "+cDst.getName());
+		 throw new JeeslNotFoundException("No reverse mapping found ("+cSrc.getName()+"."+aSrc+") -> "+cDst.getName());
 	 }
 	 
 	public static List<Field> toFields(Class<?> c)

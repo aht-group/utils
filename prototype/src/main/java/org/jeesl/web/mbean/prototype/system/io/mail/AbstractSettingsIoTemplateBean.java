@@ -13,6 +13,9 @@ import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoTemplateFacade;
 import org.jeesl.controller.handler.sb.SbMultiHandler;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoTemplateFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.template.EjbIoTemplateDefinitionFactory;
 import org.jeesl.factory.ejb.system.io.template.EjbIoTemplateFactory;
@@ -35,9 +38,6 @@ import freemarker.core.InvalidReferenceException;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -125,8 +125,8 @@ public abstract class AbstractSettingsIoTemplateBean <L extends UtilsLang,D exte
 		{
 			toggled(fbTemplate.getClassCategory());
 		}
-		catch (UtilsLockingException e) {e.printStackTrace();}
-		catch (UtilsConstraintViolationException e) {e.printStackTrace();}
+		catch (JeeslLockingException e) {e.printStackTrace();}
+		catch (JeeslConstraintViolationException e) {e.printStackTrace();}
 	}
 	
 	/**
@@ -138,7 +138,7 @@ public abstract class AbstractSettingsIoTemplateBean <L extends UtilsLang,D exte
 		sbhCategory.selectAll();
 	}
 	
-	@Override public void toggled(Class<?> c) throws UtilsLockingException, UtilsConstraintViolationException
+	@Override public void toggled(Class<?> c) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		logger.info(AbstractLogMessage.toggled(c));
 		scopes = fTemplate.all(fbTemplate.getClassScope());
@@ -165,7 +165,7 @@ public abstract class AbstractSettingsIoTemplateBean <L extends UtilsLang,D exte
 		Collections.sort(templates, comparatorTemplate);
 	}
 	
-	public void addTemplate() throws UtilsNotFoundException
+	public void addTemplate() throws JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.addEntity(fbTemplate.getClassTemplate()));}
 		reset(true,true);
@@ -199,7 +199,7 @@ public abstract class AbstractSettingsIoTemplateBean <L extends UtilsLang,D exte
 		Collections.sort(definitions, comparatorDefinition);
 	}
 	
-	public void saveTemplate() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void saveTemplate() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(template));}
 		if(template.getCategory()!=null){template.setCategory(fTemplate.find(fbTemplate.getClassCategory(), template.getCategory()));}
@@ -211,7 +211,7 @@ public abstract class AbstractSettingsIoTemplateBean <L extends UtilsLang,D exte
 		updatePerformed();
 	}
 	
-	public void rmTemplate() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void rmTemplate() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.rmEntity(template));}
 		fTemplate.rm(template);
@@ -229,7 +229,7 @@ public abstract class AbstractSettingsIoTemplateBean <L extends UtilsLang,D exte
 	}
 	
 	
-	public void addToken() throws UtilsNotFoundException
+	public void addToken() throws JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.addEntity(fbTemplate.getClassToken()));}
 		token = efToken.build(template,tokens);
@@ -237,13 +237,13 @@ public abstract class AbstractSettingsIoTemplateBean <L extends UtilsLang,D exte
 		token.setDescription(efDescription.createEmpty(langs));
 	}
 	
-	public void selectToken() throws UtilsNotFoundException
+	public void selectToken() throws JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.selectEntity(token));}
 		token = fTemplate.find(fbTemplate.getClassToken(), token);
 	}
 	
-	public void saveToken() throws UtilsLockingException, UtilsNotFoundException
+	public void saveToken() throws JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(token));}
 		try
@@ -254,10 +254,10 @@ public abstract class AbstractSettingsIoTemplateBean <L extends UtilsLang,D exte
 			bMessage.growlSuccessSaved();
 			updatePerformed();
 		}
-		catch (UtilsConstraintViolationException e) {bMessage.errorConstraintViolationDuplicateObject();}
+		catch (JeeslConstraintViolationException e) {bMessage.errorConstraintViolationDuplicateObject();}
 	}
 	
-	public void rmToken() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void rmToken() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.rmEntity(token));}
 		fTemplate.rm(token);
@@ -273,7 +273,7 @@ public abstract class AbstractSettingsIoTemplateBean <L extends UtilsLang,D exte
 	}
 	
 	//*************************************************************************************
-	public void addDefinition() throws UtilsNotFoundException
+	public void addDefinition() throws JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.addEntity(fbTemplate.getClassDefinition()));}
 		definition = efDefinition.build(template,null);
@@ -282,7 +282,7 @@ public abstract class AbstractSettingsIoTemplateBean <L extends UtilsLang,D exte
 		reset(true);
 	}
 	
-	public void selectDefinition() throws UtilsNotFoundException
+	public void selectDefinition() throws JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.selectEntity(definition));}
 		definition = fTemplate.find(fbTemplate.getClassDefinition(), definition);
@@ -291,7 +291,7 @@ public abstract class AbstractSettingsIoTemplateBean <L extends UtilsLang,D exte
 		renderPreview();
 	}
 	
-	public void saveDefinition() throws UtilsLockingException
+	public void saveDefinition() throws JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(definition));}
 		try
@@ -302,7 +302,7 @@ public abstract class AbstractSettingsIoTemplateBean <L extends UtilsLang,D exte
 			bMessage.growlSuccessSaved();
 			updatePerformed();
 		}
-		catch (UtilsConstraintViolationException e) {bMessage.errorConstraintViolationDuplicateObject();}
+		catch (JeeslConstraintViolationException e) {bMessage.errorConstraintViolationDuplicateObject();}
 	}
 	
     public void definitonTabChange(TabChangeEvent event)
@@ -338,8 +338,8 @@ public abstract class AbstractSettingsIoTemplateBean <L extends UtilsLang,D exte
 		catch (Exception e) {previewHeader="Error"; previewBody = "General Exception " +e.getMessage();}
     }
     
-	protected void reorderTemplates() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fTemplate, fbTemplate.getClassTemplate(), templates);Collections.sort(templates, comparatorTemplate);}
-	protected void reorderTokens() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fTemplate, fbTemplate.getClassToken(), tokens);Collections.sort(tokens, comparatorToken);}
+	protected void reorderTemplates() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fTemplate, fbTemplate.getClassTemplate(), templates);Collections.sort(templates, comparatorTemplate);}
+	protected void reorderTokens() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fTemplate, fbTemplate.getClassToken(), tokens);Collections.sort(tokens, comparatorToken);}
 	
 	protected void updatePerformed(){}	
 	

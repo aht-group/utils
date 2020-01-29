@@ -4,10 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
-
 import org.apache.commons.io.FileUtils;
 import org.jeesl.AbstractJeeslUtilTest;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.txt.system.locale.TranslationFactory;
 import org.jeesl.factory.txt.system.locale.TranslationMap;
 import org.junit.Assert;
@@ -40,7 +39,7 @@ public class TestTranslationFactory extends AbstractJeeslUtilTest
 	}
 	
 	@Test
-	public void targetCreation() throws FileNotFoundException, UtilsNotFoundException
+	public void targetCreation() throws FileNotFoundException, JeeslNotFoundException
     {	
 		tFactory.add("src/test/resources/data/xml/msgBundle/translation1.xml");
 		tFactory.writeMessageResourceBundles(bundleName,fDstDir);
@@ -52,7 +51,7 @@ public class TestTranslationFactory extends AbstractJeeslUtilTest
     }
 	
 	@Test
-	public void langFiles() throws FileNotFoundException, UtilsNotFoundException
+	public void langFiles() throws FileNotFoundException, JeeslNotFoundException
     {	
 		tFactory.add("src/test/resources/data/xml/msgBundle/translation1.xml");
 		tFactory.writeMessageResourceBundles(bundleName,fDstDir);
@@ -66,7 +65,7 @@ public class TestTranslationFactory extends AbstractJeeslUtilTest
     }
 	
 	@Test
-	public void multipleTranslationFiles() throws FileNotFoundException, UtilsNotFoundException
+	public void multipleTranslationFiles() throws FileNotFoundException, JeeslNotFoundException
     {	
 		tFactory.add("src/test/resources/data/xml/msgBundle/translation1.xml");
 		tFactory.add("src/test/resources/data/xml/msgBundle/translation2.xml");
@@ -80,7 +79,7 @@ public class TestTranslationFactory extends AbstractJeeslUtilTest
     }
 	
 	@Test
-	public void rekursiveDirectory() throws FileNotFoundException, UtilsNotFoundException
+	public void rekursiveDirectory() throws FileNotFoundException, JeeslNotFoundException
     {	
 		tFactory.rekursiveDirectory("src/test/resources/data/xml/msgBundle");
 		tFactory.writeMessageResourceBundles(bundleName,fDstDir);

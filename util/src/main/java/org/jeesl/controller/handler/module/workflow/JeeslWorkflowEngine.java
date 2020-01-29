@@ -11,6 +11,9 @@ import java.util.Map;
 
 import org.jeesl.api.facade.module.JeeslWorkflowFacade;
 import org.jeesl.exception.JeeslWorkflowException;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.factory.builder.module.WorkflowFactoryBuilder;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
@@ -49,9 +52,6 @@ import org.jeesl.util.comparator.ejb.RecordComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsProcessingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -198,14 +198,14 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 		
 		RE entity = null;
 		try {entity = fWorkflow.fByCode(fbRevision.getClassEntity(),ejb.getClass().getName());}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 		
 		link = fbWorkflow.ejbLink().build(entity,workflow,ejb);
 		if(debugOnInfo) {logger.info("Build: Workflow and Link");}
 		reloadWorkflow(false);
 	}
 	
-	public <W extends JeeslWithWorkflow<WF>> void saveWorkflow(JeeslWithWorkflow<WF> ejb) throws UtilsConstraintViolationException, UtilsLockingException
+	public <W extends JeeslWithWorkflow<WF>> void saveWorkflow(JeeslWithWorkflow<WF> ejb) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		this.entity=ejb;
 		if(workflow!=null)
@@ -219,7 +219,7 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 		}
 	}
 	
-	public <W extends JeeslWithWorkflow<WF>> void selectEntity(JeeslJsfSecurityHandler<SR,?,?,?,?,USER> security, USER user, W ejb) throws UtilsNotFoundException
+	public <W extends JeeslWithWorkflow<WF>> void selectEntity(JeeslJsfSecurityHandler<SR,?,?,?,?,USER> security, USER user, W ejb) throws JeeslNotFoundException
 	{
 		this.security=security;
 		this.user=user;
@@ -242,7 +242,7 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 				AL link = fWorkflow.fWorkflowLink(process,w);
 				mapWorkflow.put(w,link.getWorkflow());
 			}
-			catch (UtilsNotFoundException e) {}
+			catch (JeeslNotFoundException e) {}
 		}
 	}
 	
@@ -340,7 +340,7 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 		if(debugOnInfo) {logger.info("reloadWorkflow: "+transitions.size()+" "+fbWorkflow.getClassTransition().getSimpleName());}
 	}
 	
-	public void prepareTransition(WT t, boolean autoPerform) throws UtilsConstraintViolationException, UtilsLockingException, UtilsProcessingException, JeeslWorkflowException, UtilsNotFoundException
+	public void prepareTransition(WT t, boolean autoPerform) throws JeeslConstraintViolationException, JeeslLockingException, UtilsProcessingException, JeeslWorkflowException, JeeslNotFoundException
 	{
 		transition = fWorkflow.find(fbWorkflow.getClassTransition(),t);
 		if(debugOnInfo) {logger.info("Prepare Transition for "+transition.toString()+" using "+actionHandler.getClass().getName());}
@@ -367,7 +367,7 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 		if(autoPerform && constraints.isEmpty()) {performTransition();}
 	}
 	
-	public void performTransition() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException, UtilsProcessingException
+	public void performTransition() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException, UtilsProcessingException
 	{
 		if(debugOnInfo) {logger.info("Perform "+fbWorkflow.getClassTransition().getSimpleName()+" to "+transition.getDestination().getCode());}
 		

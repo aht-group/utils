@@ -1,5 +1,6 @@
 package org.jeesl.factory.json.db.tuple.t3;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -11,6 +12,7 @@ import javax.persistence.Tuple;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.model.json.db.tuple.t3.Json3Tuple;
 import org.jeesl.model.json.db.tuple.t3.Json3Tuples;
+import org.jeesl.model.json.db.tuple.two.Json2Tuple;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,9 +30,9 @@ public class Json3TuplesFactory <A extends EjbWithId, B extends EjbWithId, C ext
 	protected final Class<B> cB;
 	protected final Class<C> cC;
 	
-	protected final Set<Long> setId1;
-	protected final Set<Long> setId2;
-	protected final Set<Long> setId3;
+	protected final Set<Long> setA;
+	protected final Set<Long> setB;
+	protected final Set<Long> setC;
 	
 	protected final Map<Long,A> mapA; public Map<Long,A> getMapA() {return mapA;}
 	protected final Map<Long,B> mapB; public Map<Long,B> getMapB() {return mapB;}
@@ -45,9 +47,9 @@ public class Json3TuplesFactory <A extends EjbWithId, B extends EjbWithId, C ext
 		this.cB=cB;
 		this.cC=cC;
 		
-		setId1 = new HashSet<Long>();
-		setId2 = new HashSet<Long>();
-		setId3 = new HashSet<Long>();
+		setA = new HashSet<Long>();
+		setB = new HashSet<Long>();
+		setC = new HashSet<Long>();
 		
 		mapA = new HashMap<Long,A>();
 		mapB = new HashMap<Long,B>();
@@ -58,15 +60,56 @@ public class Json3TuplesFactory <A extends EjbWithId, B extends EjbWithId, C ext
 	
 	protected void clear()
 	{
-		setId1.clear();
-		setId2.clear();
-		setId3.clear();
+		setA.clear();
+		setB.clear();
+		setC.clear();
 		
 		mapA.clear();
 		mapB.clear();
 		mapC.clear();
 	}
+	
+	private void ejb3Load(Json3Tuples<A,B,C> json)
+	{ 
+		clear();
+		for(Json3Tuple<A,B,C> t : json.getTuples())
+		{
+			setA.add(t.getId1());
+			setB.add(t.getId2());
+			setC.add(t.getId3());
+		}
 		
+		if(fUtils==null)
+		{	// A object is created and the corresponding id is set
+			for(Json3Tuple<A,B,C> t : json.getTuples())
+			{
+				try
+				{
+					t.setEjb1(cA.newInstance());t.getEjb1().setId(t.getId1());
+					t.setEjb2(cB.newInstance());t.getEjb2().setId(t.getId2());
+					t.setEjb3(cC.newInstance());t.getEjb3().setId(t.getId3());
+				}
+				catch (InstantiationException | IllegalAccessException e) {e.printStackTrace();}
+			}
+		}
+		else
+		{
+			// Here we really load the objects from the DB
+			
+			mapA.putAll(EjbIdFactory.toIdMap(fUtils.find(cA,setA)));
+			mapB.putAll(EjbIdFactory.toIdMap(fUtils.find(cB,setB)));
+			mapC.putAll(EjbIdFactory.toIdMap(fUtils.find(cC,setC)));
+			
+			for(Json3Tuple<A,B,C> t : json.getTuples())
+			{
+				t.setEjb1(mapA.get(t.getId1()));
+				t.setEjb2(mapB.get(t.getId2()));
+				t.setEjb3(mapC.get(t.getId3()));
+			}
+		}
+		this.tuples=json;
+	}
+	
 	public Json3Tuples<A,B,C> build3Sum(List<Tuple> tuples)
 	{
 		Json3Tuples<A,B,C> json = new Json3Tuples<A,B,C>();
@@ -74,7 +117,7 @@ public class Json3TuplesFactory <A extends EjbWithId, B extends EjbWithId, C ext
         {
         	json.getTuples().add(jtf.buildSum(t));
         }
-		ejbLoad(json);
+		ejb3Load(json);
 		return json;
 	}
 	
@@ -85,7 +128,7 @@ public class Json3TuplesFactory <A extends EjbWithId, B extends EjbWithId, C ext
         {
         	json.getTuples().add(jtf.buildCount(t));
         }
-		ejbLoad(json);
+		ejb3Load(json);
 		return json;
 	}
 	
@@ -96,33 +139,7 @@ public class Json3TuplesFactory <A extends EjbWithId, B extends EjbWithId, C ext
         {
         	json.getTuples().add(jtf.buildCountInteger4(t));
         }
-		ejbLoad(json);
+		ejb3Load(json);
 		return json;
-	}
-	
-	public void ejbLoad(Json3Tuples<A,B,C> json)
-	{
-		clear();
-		if(fUtils!=null)
-		{
-			for(Json3Tuple<A,B,C> t : json.getTuples())
-			{
-				setId1.add(t.getId1());
-				setId2.add(t.getId2());
-				setId3.add(t.getId3());
-			}
-			
-			mapA.putAll(EjbIdFactory.toIdMap(fUtils.find(cA, setId1)));
-			mapB.putAll(EjbIdFactory.toIdMap(fUtils.find(cB, setId2)));
-			mapC.putAll(EjbIdFactory.toIdMap(fUtils.find(cC, setId3)));
-			
-			for(Json3Tuple<A,B,C> t : json.getTuples())
-			{
-				t.setEjb1(mapA.get(t.getId1()));
-				t.setEjb2(mapB.get(t.getId2()));
-				t.setEjb3(mapC.get(t.getId3()));
-			}
-		}
-		this.tuples=json;
 	}
 }

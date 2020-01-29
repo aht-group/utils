@@ -11,6 +11,7 @@ import org.jeesl.doc.ofx.cms.system.status.JeeslCmsStatusListFactory;
 import org.jeesl.doc.ofx.cms.system.status.JeeslCmsStatusTableFactory;
 import org.jeesl.interfaces.controller.handler.system.io.JeeslFileRepositoryHandler;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCms;
+import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsCategory;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsContent;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsElement;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsMarkupType;
@@ -36,7 +37,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public abstract class AbstractCmsRenderer <L extends UtilsLang, D extends UtilsDescription, LOC extends JeeslLocale<L,D,LOC,?>,
-								CAT extends UtilsStatus<CAT,L,D>,
+								CAT extends JeeslIoCmsCategory<L,D,CAT,?>,
 								CMS extends JeeslIoCms<L,D,CAT,S,LOC>,
 								V extends JeeslIoCmsVisiblity,
 								S extends JeeslIoCmsSection<L,S>,
@@ -52,7 +53,7 @@ public abstract class AbstractCmsRenderer <L extends UtilsLang, D extends UtilsD
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractCmsRenderer.class);
 	
-	protected final JeeslIoCmsFacade<L,D,CAT,CMS,V,S,E,EC,ET,C,MT,FC,LOC> fCms;
+	protected final JeeslIoCmsFacade<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fCms;
 	protected final OfxTranslationProvider tp;
 	
 	private final JeeslCmsParagraphFactory<E,C> ofParagraph;
@@ -61,7 +62,7 @@ public abstract class AbstractCmsRenderer <L extends UtilsLang, D extends UtilsD
 	private final JeeslCmsImageFactory<E,C,FS,FC,FM> ofImage;
 	private final OfxSectionWorkflow<L,LOC,E> ofxWorkflow;
 	
-	public AbstractCmsRenderer(OfxTranslationProvider tp, JeeslIoCmsFacade<L,D,CAT,CMS,V,S,E,EC,ET,C,MT,FC,LOC> fCms, JeeslFileRepositoryHandler<FS,FC,FM> frh)
+	public AbstractCmsRenderer(OfxTranslationProvider tp, JeeslIoCmsFacade<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fCms, JeeslFileRepositoryHandler<FS,FC,FM> frh)
 	{
 		this.tp=tp;
 		this.fCms = fCms;

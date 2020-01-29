@@ -4,15 +4,14 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.controller.handler.system.io.JeeslFileRepositoryStore;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileMeta;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 
 public class FileRepositoryFileStorage<STORAGE extends JeeslFileStorage<?,?,?,?>,
 									META extends JeeslFileMeta<?,?,?,?>>
@@ -29,24 +28,24 @@ public class FileRepositoryFileStorage<STORAGE extends JeeslFileStorage<?,?,?,?>
 		logger.info("Storage created for "+baseDir.getAbsolutePath());
 	}
 	
-	@Override public META saveToFileRepository(META meta, byte[] bytes) throws UtilsConstraintViolationException, UtilsLockingException
+	@Override public META saveToFileRepository(META meta, byte[] bytes) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		File f = build(meta.getCode());
 		logger.info(meta.getCode());
 		logger.info(f.getAbsolutePath());
 		try {FileUtils.writeByteArrayToFile(f, bytes);}
-		catch (IOException e){throw new UtilsConstraintViolationException(e.getMessage());}
+		catch (IOException e){throw new JeeslConstraintViolationException(e.getMessage());}
 		
 		return meta;
 	}
 	
 	@Override
-	public byte[] loadFromFileRepository(META meta) throws UtilsNotFoundException
+	public byte[] loadFromFileRepository(META meta) throws JeeslNotFoundException
 	{
 		File f = build(meta.getCode());
-		if(!f.exists()) {throw new UtilsNotFoundException("File "+f.getAbsolutePath()+" does not exist");}
+		if(!f.exists()) {throw new JeeslNotFoundException("File "+f.getAbsolutePath()+" does not exist");}
 		try{return FileUtils.readFileToByteArray(f);}
-		catch (IOException e) {throw new UtilsNotFoundException(e.getMessage());}
+		catch (IOException e) {throw new JeeslNotFoundException(e.getMessage());}
 	}
 	
 	private File build(String uid)
@@ -60,7 +59,7 @@ public class FileRepositoryFileStorage<STORAGE extends JeeslFileStorage<?,?,?,?>
 		return new File(l5,uid);
 	}
 
-	@Override public void delteFileFromRepository(META meta) throws UtilsConstraintViolationException, UtilsLockingException
+	@Override public void delteFileFromRepository(META meta) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		File f = build(meta.getCode());
 		if(f.exists()){f.delete();}

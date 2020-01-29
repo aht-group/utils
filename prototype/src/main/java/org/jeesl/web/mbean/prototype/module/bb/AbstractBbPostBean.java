@@ -8,6 +8,9 @@ import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslBbFacade;
 import org.jeesl.controller.handler.sb.SbSingleHandler;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.BbFactoryBuilder;
 import org.jeesl.interfaces.bean.sb.SbSingleBean;
 import org.jeesl.interfaces.model.module.bb.JeeslBbBoard;
@@ -24,9 +27,6 @@ import org.primefaces.model.TreeNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -90,7 +90,7 @@ public class AbstractBbPostBean <L extends UtilsLang,D extends UtilsDescription,
 		reloadBoards();
 		
 		try {markupType = fBb.fByCode(fbBb.getClassMarkupType(),JeeslIoCmsMarkupType.Code.text);}
-		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 	}
 	
 	//This method can be overriden
@@ -101,7 +101,7 @@ public class AbstractBbPostBean <L extends UtilsLang,D extends UtilsDescription,
 		sbhScope.setDefault();
 	}
 	
-	@Override public void selectSbSingle(EjbWithId item) throws UtilsLockingException, UtilsConstraintViolationException
+	@Override public void selectSbSingle(EjbWithId item) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		reloadBoards();
 		reset(true,true,true);
@@ -169,7 +169,7 @@ public class AbstractBbPostBean <L extends UtilsLang,D extends UtilsDescription,
     	posting = fbBb.ejbPost().build(thread,markupType,user);
     }
     
-    public void saveThread() throws UtilsConstraintViolationException, UtilsLockingException
+    public void saveThread() throws JeeslConstraintViolationException, JeeslLockingException
     {
     	logger.info(AbstractLogMessage.saveEntity(thread));
     	thread = fBb.save(thread);
@@ -200,7 +200,7 @@ public class AbstractBbPostBean <L extends UtilsLang,D extends UtilsDescription,
     	posting = fbBb.ejbPost().build(thread,markupType,user);
     }
     
-    public void savePosting() throws UtilsConstraintViolationException, UtilsLockingException
+    public void savePosting() throws JeeslConstraintViolationException, JeeslLockingException
     {
     	logger.info(AbstractLogMessage.addEntity(fbBb.getClassPost()));
     	posting = fBb.save(posting);

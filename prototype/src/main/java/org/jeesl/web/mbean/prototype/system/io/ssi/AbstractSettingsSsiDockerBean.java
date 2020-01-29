@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.jeesl.api.facade.io.JeeslIoSsiDockerFacade;
 import org.jeesl.controller.handler.sb.SbMultiHandler;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.io.IoSsiDockerFactoryBuilder;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
@@ -14,8 +16,6 @@ import org.jeesl.interfaces.model.system.io.ssi.docker.JeeslIoSsiInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
@@ -65,7 +65,7 @@ public class AbstractSettingsSsiDockerBean <L extends UtilsLang,D extends UtilsD
 	}
 	
 	@Override
-	public void toggled(Class<?> c) throws UtilsLockingException, UtilsConstraintViolationException
+	public void toggled(Class<?> c) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		reset(true);
 		reload();

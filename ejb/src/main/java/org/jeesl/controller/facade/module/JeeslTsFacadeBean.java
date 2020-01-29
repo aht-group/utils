@@ -17,6 +17,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.module.JeeslTsFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.factory.ejb.module.ts.EjbTsBridgeFactory;
 import org.jeesl.factory.ejb.module.ts.EjbTsFactory;
@@ -36,8 +38,6 @@ import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 
 import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.controller.util.ParentPredicate;
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -93,17 +93,17 @@ public class JeeslTsFacadeBean<L extends UtilsLang, D extends UtilsDescription,
 		return allForOrParents(cClass,ppCategory);
 	}
 	
-	@Override public <T extends EjbWithId> BRIDGE fcBridge(Class<BRIDGE> cBridge, EC entityClass, T ejb) throws UtilsConstraintViolationException
+	@Override public <T extends EjbWithId> BRIDGE fcBridge(Class<BRIDGE> cBridge, EC entityClass, T ejb) throws JeeslConstraintViolationException
 	{
 		try {return fBridge(entityClass, ejb);}
-		catch (UtilsNotFoundException ex)
+		catch (JeeslNotFoundException ex)
 		{
 			if(efBridge==null){efBridge = new EjbTsBridgeFactory<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF>(cBridge);}
 			BRIDGE bridge = efBridge.build(entityClass, ejb.getId());
 			return this.persist(bridge);
 		}
 	}
-	@Override public <T extends EjbWithId> BRIDGE fBridge(EC ec, T ejb) throws UtilsNotFoundException
+	@Override public <T extends EjbWithId> BRIDGE fBridge(EC ec, T ejb) throws JeeslNotFoundException
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<BRIDGE> cQ = cB.createQuery(fbTs.getClassBridge());
@@ -115,7 +115,7 @@ public class JeeslTsFacadeBean<L extends UtilsLang, D extends UtilsDescription,
 		CriteriaQuery<BRIDGE> select = cQ.select(from);
 		select.where(cB.equal(pClass, ec),cB.equal(pRef, ejb.getId()));
 		try	{return em.createQuery(select).getSingleResult();}
-		catch (NoResultException ex){throw new UtilsNotFoundException("No "+fbTs.getClassBridge().getName()+" found for entityClass/refId");}
+		catch (NoResultException ex){throw new JeeslNotFoundException("No "+fbTs.getClassBridge().getName()+" found for entityClass/refId");}
 	}
 	
 	@Override public <T extends EjbWithId> List<BRIDGE> fBridges(EC ec, List<T> ejbs)
@@ -194,7 +194,7 @@ public class JeeslTsFacadeBean<L extends UtilsLang, D extends UtilsDescription,
 		return em.createQuery(cQ).getResultList();
 	}
 	
-	@Override public TS fcTimeSeries(SCOPE scope, INT interval, BRIDGE bridge) throws UtilsConstraintViolationException
+	@Override public TS fcTimeSeries(SCOPE scope, INT interval, BRIDGE bridge) throws JeeslConstraintViolationException
 	{
 		if (!isTimeSeriesAllowed(scope, interval, bridge.getEntityClass()))
 		{
@@ -203,16 +203,16 @@ public class JeeslTsFacadeBean<L extends UtilsLang, D extends UtilsDescription,
 			sb.append(" scope:"+scope.getCode());
 			sb.append(" interval:"+interval.getCode());
 			sb.append(" class:"+bridge.getEntityClass().getCode());
-			throw new UtilsConstraintViolationException(sb.toString());
+			throw new JeeslConstraintViolationException(sb.toString());
 		}
 		try {return fTimeSeries(scope, interval, bridge);}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			TS ts = efTs.build(scope, interval, bridge);
 			return this.persist(ts);
 		}
 	}
-	@Override public TS fTimeSeries(SCOPE scope, INT interval, BRIDGE bridge) throws UtilsNotFoundException
+	@Override public TS fTimeSeries(SCOPE scope, INT interval, BRIDGE bridge) throws JeeslNotFoundException
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<TS> cQ = cB.createQuery(fbTs.getClassTs());
@@ -226,7 +226,7 @@ public class JeeslTsFacadeBean<L extends UtilsLang, D extends UtilsDescription,
 		select.where(cB.equal(pScope,scope),cB.equal(pInterval,interval),cB.equal(pBridge, bridge));
 		
 		try	{return em.createQuery(select).getSingleResult();}
-		catch (NoResultException ex){throw new UtilsNotFoundException("No "+fbTs.getClassTs().getName()+" found for scope/interval/bridge");}
+		catch (NoResultException ex){throw new JeeslNotFoundException("No "+fbTs.getClassTs().getName()+" found for scope/interval/bridge");}
 	}
 	
 	@Override
@@ -292,7 +292,7 @@ public class JeeslTsFacadeBean<L extends UtilsLang, D extends UtilsDescription,
 	}
 	
 	@Override
-	public void deleteTransaction(TRANSACTION transaction) throws UtilsConstraintViolationException
+	public void deleteTransaction(TRANSACTION transaction) throws JeeslConstraintViolationException
 	{
 		transaction = em.find(fbTs.getClassTransaction(), transaction.getId());
 		this.rmProtected(transaction);

@@ -9,6 +9,7 @@ import java.util.Map;
 import org.jeesl.api.bean.msg.JeeslConstraintsBean;
 import org.jeesl.api.facade.system.JeeslSystemConstraintFacade;
 import org.jeesl.controller.monitor.ProcessingTimeTracker;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.ConstraintFactoryBuilder;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraint;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraintResolution;
@@ -17,7 +18,6 @@ import org.jeesl.interfaces.model.system.constraint.algorithm.JeeslConstraintAlg
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.factory.xml.system.XmlConstraintFactory;
 import net.sf.ahtutils.factory.xml.system.XmlConstraintScopeFactory;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
@@ -86,7 +86,7 @@ public class AbstractConstraintBean <L extends UtilsLang, D extends UtilsDescrip
 	@Override public <S extends UtilsStatus<S,?,?>> CONSTRAINT getSilent(Class<?> cScope, S status)
 	{
 		try {return get(cScope.getSimpleName(),status.getCode());}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			logger.error(e.getMessage());
 			return null;
@@ -96,31 +96,31 @@ public class AbstractConstraintBean <L extends UtilsLang, D extends UtilsDescrip
 	@Override public <SID extends Enum<SID>, CID extends Enum<CID>> CONSTRAINT getSilent(SID sId, CID cId)
 	{
 		try {return get(sId.toString(),cId.toString());}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			logger.error(e.getMessage());
 			return null;
 		}
 	}
 	
-	@Override public <CID extends Enum<CID>> CONSTRAINT get(Class<?> c, CID cId) throws UtilsNotFoundException
+	@Override public <CID extends Enum<CID>> CONSTRAINT get(Class<?> c, CID cId) throws JeeslNotFoundException
 	{
 		return get(c.getSimpleName(),cId.toString());
 	}
 	@Override public <CID extends Enum<CID>> CONSTRAINT getSilent(Class<?> c, CID cId)
 	{
 		try {return get(c.getSimpleName(),cId.toString());}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			logger.error(e.getMessage());
 			return null;
 		}
 	}
 	
-	private CONSTRAINT get(String sId, String cId) throws UtilsNotFoundException
+	private CONSTRAINT get(String sId, String cId) throws JeeslNotFoundException
 	{
-		if(!mapConstraints.containsKey(sId.toString())) {throw new UtilsNotFoundException("Scope "+sId+" not available");}
-		if(!mapConstraints.get(sId.toString()).containsKey(cId.toString())) {throw new UtilsNotFoundException("Contraint "+cId+" not available in Scope "+sId);}
+		if(!mapConstraints.containsKey(sId.toString())) {throw new JeeslNotFoundException("Scope "+sId+" not available");}
+		if(!mapConstraints.get(sId.toString()).containsKey(cId.toString())) {throw new JeeslNotFoundException("Contraint "+cId+" not available in Scope "+sId);}
 		return mapConstraints.get(sId.toString()).get(cId.toString());
 	}
 	

@@ -9,6 +9,7 @@ import org.jeesl.api.facade.io.JeeslIoMailFacade;
 import org.jeesl.api.handler.sb.SbDateIntervalSelection;
 import org.jeesl.controller.handler.sb.SbDateHandler;
 import org.jeesl.controller.handler.sb.SbMultiHandler;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoMailFactoryBuilder;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
@@ -20,7 +21,6 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -89,7 +89,7 @@ public class AbstractSettingsIoMailQueueBean <L extends UtilsLang,D extends Util
 			sbhStatus.select(fMail.fByCode(cStatus,JeeslMailStatus.Code.queue));
 			sbhStatus.select(fMail.fByCode(cStatus,JeeslMailStatus.Code.spooling));
 		}
-		catch (UtilsNotFoundException e) {logger.error(e.getMessage());}
+		catch (JeeslNotFoundException e) {logger.error(e.getMessage());}
 		initPageConfiguration();
 		reloadMails();
 	}

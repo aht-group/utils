@@ -9,6 +9,8 @@ import org.jeesl.api.bean.JeeslAttributeBean;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoAttributeFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.io.IoAttributeFactoryBuilder;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;
@@ -20,8 +22,6 @@ import org.jeesl.interfaces.model.module.attribute.JeeslAttributeSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -92,7 +92,7 @@ public abstract class AbstractAdminIoAttributePoolBean <L extends UtilsLang, D e
 		reset(false,true);
 	}
 	
-	public void saveCriteria() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveCriteria() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(criteria));}
 		criteria.setCategory(fAttribute.find(fbAttribute.getClassCategory(),criteria.getCategory()));
@@ -112,7 +112,7 @@ public abstract class AbstractAdminIoAttributePoolBean <L extends UtilsLang, D e
 		reset(false,true);
 	}
 	
-	public void deleteCriteria() throws UtilsConstraintViolationException
+	public void deleteCriteria() throws JeeslConstraintViolationException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.rmEntity(criteria));}
 		fAttribute.rm(criteria);
@@ -145,7 +145,7 @@ public abstract class AbstractAdminIoAttributePoolBean <L extends UtilsLang, D e
 		option = efDescription.persistMissingLangs(fAttribute,localeCodes,option);
 	}
 	
-	public void saveOption() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveOption() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(option));}
 		option = fAttribute.save(option);
@@ -153,7 +153,7 @@ public abstract class AbstractAdminIoAttributePoolBean <L extends UtilsLang, D e
 		reloadOptions();
 	}
 	
-	public void deleteOption() throws UtilsConstraintViolationException
+	public void deleteOption() throws JeeslConstraintViolationException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.rmEntity(criteria));}
 		fAttribute.rm(option);
@@ -162,6 +162,6 @@ public abstract class AbstractAdminIoAttributePoolBean <L extends UtilsLang, D e
 		reset(false,true);
 	}
 	
-	public void reorderCriterias() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fAttribute, fbAttribute.getClassCriteria(),criterias);Collections.sort(criterias,cpCriteria);}
-	public void reorderOptions() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fAttribute, options);}
+	public void reorderCriterias() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fAttribute, fbAttribute.getClassCriteria(),criterias);Collections.sort(criterias,cpCriteria);}
+	public void reorderOptions() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fAttribute, options);}
 }

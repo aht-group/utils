@@ -13,6 +13,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.io.JeeslIoMailFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoMailFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.mail.EjbIoMailFactory;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
@@ -25,8 +27,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -74,7 +74,7 @@ public class JeeslIoMailFacadeBean<L extends UtilsLang,D extends UtilsDescriptio
 			Long c = tQ.getSingleResult();
 			return c.intValue();
 		}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			logger.error(e.getMessage());
 			return null;
@@ -113,7 +113,7 @@ public class JeeslIoMailFacadeBean<L extends UtilsLang,D extends UtilsDescriptio
 		return tQ.getResultList();
 	}
 	
-	@Override public void queueMail(CATEGORY category, RETENTION retention, Mail mail) throws UtilsConstraintViolationException, UtilsNotFoundException
+	@Override public void queueMail(CATEGORY category, RETENTION retention, Mail mail) throws JeeslConstraintViolationException, JeeslNotFoundException
 	{
 		STATUS status = this.fByCode(fbMail.getClassStatus(), JeeslMailStatus.Code.queue);
 		if(retention==null)
@@ -140,7 +140,7 @@ public class JeeslIoMailFacadeBean<L extends UtilsLang,D extends UtilsDescriptio
 				mails.addAll(fMails(statusQueue,maxResult-mails.size()));
 			}
 		}
-		catch (UtilsNotFoundException e) {logger.error(e.getMessage());}
+		catch (JeeslNotFoundException e) {logger.error(e.getMessage());}
 		
 		return mails;
 	}

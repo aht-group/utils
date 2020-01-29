@@ -15,6 +15,9 @@ import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.io.JeeslIoFrFacade;
 import org.jeesl.controller.handler.system.io.fr.storage.FileRepositoryFileStorage;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoFileRepositoryFactoryBuilder;
 import org.jeesl.factory.json.db.tuple.t2.Json2TuplesFactory;
 import org.jeesl.interfaces.controller.handler.system.io.JeeslFileRepositoryStore;
@@ -30,9 +33,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -72,7 +72,7 @@ public class JeeslIoFrFacadeBean<L extends UtilsLang, D extends UtilsDescription
 		return mapStorages.get(storage);
 	}
 
-	@Override public META saveToFileRepository(META meta, byte[] bytes) throws UtilsConstraintViolationException, UtilsLockingException
+	@Override public META saveToFileRepository(META meta, byte[] bytes) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		meta.setMd5Hash(HashUtil.hash(bytes));
 		meta = this.saveProtected(meta);
@@ -80,12 +80,12 @@ public class JeeslIoFrFacadeBean<L extends UtilsLang, D extends UtilsDescription
 		return meta;
 	}
 	
-	@Override public byte[] loadFromFileRepository(META meta) throws UtilsNotFoundException
+	@Override public byte[] loadFromFileRepository(META meta) throws JeeslNotFoundException
 	{
 		return build(meta.getContainer().getStorage()).loadFromFileRepository(meta);
 	}
 
-	@Override public void delteFileFromRepository(META meta) throws UtilsConstraintViolationException, UtilsLockingException
+	@Override public void delteFileFromRepository(META meta) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		meta = this.find(fbFile.getClassMeta(),meta);
 		boolean keep = BooleanComparator.active(meta.getContainer().getStorage().getKeepRemoved());
@@ -100,7 +100,7 @@ public class JeeslIoFrFacadeBean<L extends UtilsLang, D extends UtilsDescription
 		this.rm(meta);
 	}
 	
-	@Override public CONTAINER moveContainer(CONTAINER container, STORAGE destination) throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	@Override public CONTAINER moveContainer(CONTAINER container, STORAGE destination) throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		container = this.find(fbFile.getClassContainer(),container);
 		JeeslFileRepositoryStore<META> sourceRepo = this.build(container.getStorage());

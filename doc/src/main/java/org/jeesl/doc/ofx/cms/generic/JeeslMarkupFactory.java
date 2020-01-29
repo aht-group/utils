@@ -16,7 +16,7 @@ public class JeeslMarkupFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(JeeslMarkupFactory.class);
 	
-	private boolean debug = true;
+	private boolean debug = false;
 	
 	private final XhtmlTransformer xhtmlTransformer;
 

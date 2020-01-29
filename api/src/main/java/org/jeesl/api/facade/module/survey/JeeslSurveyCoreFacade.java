@@ -3,6 +3,9 @@ package org.jeesl.api.facade.module.survey;
 import java.util.Date;
 import java.util.List;
 
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.module.survey.JeeslWithSurvey;
 import org.jeesl.interfaces.model.module.survey.JeeslWithSurveyType;
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurvey;
@@ -25,9 +28,6 @@ import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestionUnit
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveySection;
 import org.jeesl.interfaces.model.with.status.JeeslWithType;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -66,21 +66,21 @@ public interface JeeslSurveyCoreFacade <L extends UtilsLang, D extends UtilsDesc
 	
 	List<SURVEY> fSurveysForCategories(List<TC> categories);
 	
-	OPTION saveOption(QUESTION question, OPTION option) throws UtilsConstraintViolationException, UtilsLockingException;
-	OPTION saveOption(OPTIONS set, OPTION option) throws UtilsConstraintViolationException, UtilsLockingException;
+	OPTION saveOption(QUESTION question, OPTION option) throws JeeslConstraintViolationException, JeeslLockingException;
+	OPTION saveOption(OPTIONS set, OPTION option) throws JeeslConstraintViolationException, JeeslLockingException;
 	
-	void rmVersion(VERSION version) throws UtilsConstraintViolationException;
-	void rmOption(QUESTION question, OPTION option) throws UtilsConstraintViolationException, UtilsLockingException;
-	void rmOption(OPTIONS set, OPTION option) throws UtilsConstraintViolationException, UtilsLockingException;
+	void rmVersion(VERSION version) throws JeeslConstraintViolationException;
+	void rmOption(QUESTION question, OPTION option) throws JeeslConstraintViolationException, JeeslLockingException;
+	void rmOption(OPTIONS set, OPTION option) throws JeeslConstraintViolationException, JeeslLockingException;
 	
-	SURVEY fSurvey(CORRELATION correlation) throws UtilsNotFoundException;
-	void deleteSurvey(SURVEY survey) throws UtilsConstraintViolationException, UtilsLockingException;
+	SURVEY fSurvey(CORRELATION correlation) throws JeeslNotFoundException;
+	void deleteSurvey(SURVEY survey) throws JeeslConstraintViolationException, JeeslLockingException;
 	
 	List<SURVEY> fSurveys(TC category, SS status, Date date);
 	List<SURVEY> fSurveys(List<TC> categories, SS status, Date date);
 	<W extends JeeslWithSurvey<SURVEY>> List<W> fSurveys(Class<W> c, List<SS> status, Date date);
 	<TYPE extends UtilsStatus<TYPE,L,D>, WT extends JeeslWithType<TYPE>, W extends JeeslWithSurveyType<SURVEY,WT,TYPE>> List<W> fWithSurveys(Class<W> c, List<SS> status, TYPE type, Date date);
-	<W extends JeeslWithSurvey<SURVEY>> W fWithSurvey(Class<W> c, long id) throws UtilsNotFoundException;
+	<W extends JeeslWithSurvey<SURVEY>> W fWithSurvey(Class<W> c, long id) throws JeeslNotFoundException;
 	List<VERSION> fVersions(TC category, Long refId);
 	
 	List<ANSWER> fcAnswers(DATA data);
@@ -90,10 +90,10 @@ public interface JeeslSurveyCoreFacade <L extends UtilsLang, D extends UtilsDesc
 	List<ANSWER> fAnswers(List<DATA> datas);
 	List<MATRIX> fCells(List<ANSWER> answers);
 	
-	DATA fData(CORRELATION correlation) throws UtilsNotFoundException;
+	DATA fData(CORRELATION correlation) throws JeeslNotFoundException;
 	List<DATA> fDatas(List<CORRELATION> correlations);
-	DATA saveData(DATA data) throws UtilsConstraintViolationException, UtilsLockingException;
+	DATA saveData(DATA data) throws JeeslConstraintViolationException, JeeslLockingException;
 	
-	ANSWER saveAnswer(ANSWER answer) throws UtilsConstraintViolationException, UtilsLockingException;
-	void rmAnswer(ANSWER answer) throws UtilsConstraintViolationException;
+	ANSWER saveAnswer(ANSWER answer) throws JeeslConstraintViolationException, JeeslLockingException;
+	void rmAnswer(ANSWER answer) throws JeeslConstraintViolationException;
 }

@@ -2,6 +2,7 @@ package org.jeesl.api.facade.io;
 
 import java.util.List;
 
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiAttribute;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiData;
@@ -9,7 +10,6 @@ import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -26,10 +26,10 @@ public interface JeeslIoSsiFacade <L extends UtilsLang,D extends UtilsDescriptio
 									>
 			extends UtilsFacade
 {	
-	MAPPING fMapping(Class<?> json, Class<?> ejb) throws UtilsNotFoundException;
-	DATA fIoSsiData(MAPPING mapping, String code) throws UtilsNotFoundException;
+	MAPPING fMapping(Class<?> json, Class<?> ejb) throws JeeslNotFoundException;
+	DATA fIoSsiData(MAPPING mapping, String code) throws JeeslNotFoundException;
 	
-	<T extends EjbWithId> DATA fIoSsiData(MAPPING mapping, T ejb) throws UtilsNotFoundException;
+	<T extends EjbWithId> DATA fIoSsiData(MAPPING mapping, T ejb) throws JeeslNotFoundException;
 	List<DATA> fIoSsiData(MAPPING mapping, List<LINK> links);
 	<A extends EjbWithId> List<DATA> fIoSsiData(MAPPING mapping, List<LINK> links, A a);
 	<A extends EjbWithId, B extends EjbWithId> List<DATA> fIoSsiData(MAPPING mapping, List<LINK> links, A a, B b);

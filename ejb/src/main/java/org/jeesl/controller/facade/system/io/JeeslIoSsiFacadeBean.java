@@ -17,6 +17,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.io.JeeslIoSsiFacade;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
 import org.jeesl.factory.json.db.tuple.t1.Json1TuplesFactory;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
@@ -29,7 +30,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -58,7 +58,7 @@ public class JeeslIoSsiFacadeBean<L extends UtilsLang,D extends UtilsDescription
 	}
 	
 	@Override
-	public MAPPING fMapping(Class<?> json, Class<?> ejb) throws UtilsNotFoundException
+	public MAPPING fMapping(Class<?> json, Class<?> ejb) throws JeeslNotFoundException
 	{
 		ENTITY eEjb = this.fByCode(fbSsi.getClassEntity(), ejb.getName());
 		ENTITY eJson = this.fByCode(fbSsi.getClassEntity(), json.getName());
@@ -100,7 +100,7 @@ public class JeeslIoSsiFacadeBean<L extends UtilsLang,D extends UtilsDescription
 	}
 
 	@Override
-	public DATA fIoSsiData(MAPPING mapping, String code) throws UtilsNotFoundException
+	public DATA fIoSsiData(MAPPING mapping, String code) throws JeeslNotFoundException
 	{
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		CriteriaBuilder cB = em.getCriteriaBuilder();
@@ -119,12 +119,12 @@ public class JeeslIoSsiFacadeBean<L extends UtilsLang,D extends UtilsDescription
 		TypedQuery<DATA> tQ = em.createQuery(cQ);
 		
 		try	{return tQ.getSingleResult();}
-		catch (NoResultException ex){throw new UtilsNotFoundException("Nothing found "+fbSsi.getClassData().getSimpleName()+" for "+mapping.toString()+" for code="+code);}
-		catch (NonUniqueResultException ex){throw new UtilsNotFoundException("Results for "+fbSsi.getClassData().getSimpleName()+" and code="+code+" not unique");}
+		catch (NoResultException ex){throw new JeeslNotFoundException("Nothing found "+fbSsi.getClassData().getSimpleName()+" for "+mapping.toString()+" for code="+code);}
+		catch (NonUniqueResultException ex){throw new JeeslNotFoundException("Results for "+fbSsi.getClassData().getSimpleName()+" and code="+code+" not unique");}
 	}
 	
 	@Override
-	public <T extends EjbWithId> DATA fIoSsiData(MAPPING mapping, T ejb) throws UtilsNotFoundException
+	public <T extends EjbWithId> DATA fIoSsiData(MAPPING mapping, T ejb) throws JeeslNotFoundException
 	{
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		CriteriaBuilder cB = em.getCriteriaBuilder();
@@ -143,8 +143,8 @@ public class JeeslIoSsiFacadeBean<L extends UtilsLang,D extends UtilsDescription
 		TypedQuery<DATA> tQ = em.createQuery(cQ);
 		
 		try	{return tQ.getSingleResult();}
-		catch (NoResultException ex){throw new UtilsNotFoundException("Nothing found "+fbSsi.getClassData().getSimpleName()+" for "+mapping.toString()+" for id="+ejb.getId());}
-		catch (NonUniqueResultException ex){throw new UtilsNotFoundException("Results for "+fbSsi.getClassData().getSimpleName()+" and id="+ejb.getId()+" not unique");}
+		catch (NoResultException ex){throw new JeeslNotFoundException("Nothing found "+fbSsi.getClassData().getSimpleName()+" for "+mapping.toString()+" for id="+ejb.getId());}
+		catch (NonUniqueResultException ex){throw new JeeslNotFoundException("Results for "+fbSsi.getClassData().getSimpleName()+" and id="+ejb.getId()+" not unique");}
 	}
 	
 	@Override public Json1Tuples<LINK> tpIoSsiLinkForMapping(MAPPING mapping){return tpIoSsiLinkForMapping(mapping,null,null);}

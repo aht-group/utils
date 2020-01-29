@@ -9,6 +9,9 @@ import org.jeesl.api.bean.JeeslSecurityBean;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityHelp;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
@@ -23,9 +26,6 @@ import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -87,17 +87,17 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang, D extends Utils
 		category.setDescription(efDescription.createEmpty(localeCodes));
 	}
 	
-	@Override public void categorySelected() throws UtilsNotFoundException
+	@Override public void categorySelected() throws JeeslNotFoundException
 	{
 		reloadRoles();
 		role=null;
 	}
-	@Override protected void categorySaved() throws UtilsNotFoundException
+	@Override protected void categorySaved() throws JeeslNotFoundException
 	{
 		reloadRoles();
 	}
 	
-	private void reloadRoles() throws UtilsNotFoundException
+	private void reloadRoles() throws JeeslNotFoundException
 	{
 		roles.clear();
 		logger.trace(StringUtil.stars());
@@ -121,14 +121,14 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang, D extends Utils
 	}
 
 	//Role
-	public void addRole() throws UtilsConstraintViolationException
+	public void addRole() throws JeeslConstraintViolationException
 	{
 		logger.info(AbstractLogMessage.addEntity(fbSecurity.getClassRole()));
 		role = efRole.build(category,"");
 		role.setName(efLang.createEmpty(localeCodes));
 		role.setDescription(efDescription.createEmpty(localeCodes));
 	}
-	public void rmRole() throws UtilsConstraintViolationException, UtilsNotFoundException
+	public void rmRole() throws JeeslConstraintViolationException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.rmEntity(role));
 		fSecurity.rm(role);
@@ -136,7 +136,7 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang, D extends Utils
 		reloadRoles();
 		roleUpdatePerformed();
 	}
-	public void saveRole() throws UtilsLockingException, UtilsNotFoundException
+	public void saveRole() throws JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.saveEntity(role));
 		
@@ -148,7 +148,7 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang, D extends Utils
 			reloadRoles();
 			roleUpdatePerformed();
 		}
-		catch (UtilsConstraintViolationException e) {bMessage.errorConstraintViolationDuplicateObject();}
+		catch (JeeslConstraintViolationException e) {bMessage.errorConstraintViolationDuplicateObject();}
 	}
 	
 	public void selectRole()
@@ -185,7 +185,7 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang, D extends Utils
 	protected void roleUpdatePerformed(){}
 	
 	//OverlayPanel
-	public void opAddView() throws UtilsConstraintViolationException, UtilsLockingException
+	public void opAddView() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(!role.getViews().contains(opView))
 		{
@@ -196,7 +196,7 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang, D extends Utils
 			bSecurity.update(role);
 		}
 	}
-	public void opAddAction() throws UtilsConstraintViolationException, UtilsLockingException
+	public void opAddAction() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(!role.getActions().contains(opAction))
 		{
@@ -207,7 +207,7 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang, D extends Utils
 			bSecurity.update(role);
 		}
 	}
-	public void opAddUsecase() throws UtilsConstraintViolationException, UtilsLockingException
+	public void opAddUsecase() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(!role.getUsecases().contains(opUsecase))
 		{
@@ -220,7 +220,7 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang, D extends Utils
 	}
 	
 	//Overlay-Rm
-	public void opRmView() throws UtilsConstraintViolationException, UtilsLockingException
+	public void opRmView() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(tblView!=null && role.getViews().contains(tblView))
 		{
@@ -231,7 +231,7 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang, D extends Utils
 			bSecurity.update(role);
 		}
 	}
-	public void opRmAction() throws UtilsConstraintViolationException, UtilsLockingException
+	public void opRmAction() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(tblAction!=null && role.getActions().contains(tblAction))
 		{
@@ -242,7 +242,7 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang, D extends Utils
 			bSecurity.update(role);
 		}
 	}
-	public void opRmUsecase() throws UtilsConstraintViolationException, UtilsLockingException
+	public void opRmUsecase() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(tblUsecase!=null && role.getUsecases().contains(tblUsecase))
 		{
@@ -254,5 +254,5 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang, D extends Utils
 		}
 	}
 	
-	public void reorderRoles() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fSecurity, roles);}
+	public void reorderRoles() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fSecurity, roles);}
 }

@@ -10,6 +10,9 @@ import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslTsFacade;
 import org.jeesl.controller.handler.sb.SbSingleHandler;
 import org.jeesl.controller.handler.tuple.JsonTuple1Handler;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.interfaces.bean.sb.SbSingleBean;
@@ -26,9 +29,6 @@ import org.jeesl.interfaces.model.module.ts.stat.JeeslTsStatistic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -91,7 +91,7 @@ public class AbstractTsSummaryBean <L extends UtilsLang, D extends UtilsDescript
 	}
 	
 	@Override
-	public void selectSbSingle(EjbWithId item) throws UtilsLockingException, UtilsConstraintViolationException
+	public void selectSbSingle(EjbWithId item) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		reloadBridges();
 	}
@@ -127,7 +127,7 @@ public class AbstractTsSummaryBean <L extends UtilsLang, D extends UtilsDescript
 		
 	}
 	
-	public void select() throws UtilsNotFoundException
+	public void select() throws JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.selectEntity(ts));
 	}

@@ -6,6 +6,8 @@ import java.util.List;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.system.JeeslJobFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.system.JobFactoryBuilder;
 import org.jeesl.factory.ejb.system.job.EjbJobRobotFactory;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
@@ -24,8 +26,6 @@ import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
@@ -99,7 +99,7 @@ public class AbstractAdminJobRobotBean <L extends UtilsLang, D extends UtilsDesc
 		if(debugOnInfo){logger.info(AbstractLogMessage.selectEntity(robot));}
 	}
 	
-	public void saveConsumer() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveConsumer() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(robot));}
 		robot = fJob.save(robot);

@@ -4,6 +4,8 @@ import org.jeesl.api.facade.system.JeeslSystemPropertyFacade;
 import org.jeesl.api.rest.system.property.JeeslSystemPropertyRestExport;
 import org.jeesl.api.rest.system.property.JeeslSystemPropertyRestImport;
 import org.jeesl.controller.monitor.DataUpdateTracker;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.PropertyFactoryBuilder;
 import org.jeesl.factory.ejb.system.status.EjbStatusFactory;
 import org.jeesl.factory.ejb.system.util.EjbPropertyFactory;
@@ -13,8 +15,6 @@ import org.jeesl.util.db.JeeslStatusDbUpdater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -84,7 +84,7 @@ public class SystemPropertyRestService <L extends UtilsLang,D extends UtilsDescr
 			{
 				fProperty.valueStringForKey(property.getKey(),null);
 			}
-			catch (UtilsNotFoundException e1)
+			catch (JeeslNotFoundException e1)
 			{
 				ejb = efProperty.build(property);
 				dut.success();
@@ -92,7 +92,7 @@ public class SystemPropertyRestService <L extends UtilsLang,D extends UtilsDescr
 				{
 					ejb = (P)fUtils.persist(ejb);
 				}
-				catch (UtilsConstraintViolationException e) {dut.fail(e, true);}
+				catch (JeeslConstraintViolationException e) {dut.fail(e, true);}
 			}
 		}
 

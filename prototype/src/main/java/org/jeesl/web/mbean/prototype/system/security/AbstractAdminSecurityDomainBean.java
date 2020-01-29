@@ -6,6 +6,9 @@ import java.util.List;
 
 import org.jeesl.api.facade.core.JeeslUserFacade;
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.factory.ejb.system.security.EjbStaffFactory;
 import org.jeesl.interfaces.bean.op.OpUserBean;
@@ -21,9 +24,6 @@ import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
@@ -93,7 +93,7 @@ public class AbstractAdminSecurityDomainBean <L extends UtilsLang,
 				}
 			}
 		}
-		catch (UtilsNotFoundException e){logger.warn(e.getMessage());}
+		catch (JeeslNotFoundException e){logger.warn(e.getMessage());}
 	}
 	
 	public void selectDomain()
@@ -125,7 +125,7 @@ public class AbstractAdminSecurityDomainBean <L extends UtilsLang,
 		logger.info(AbstractLogMessage.selectEntity(staff));
 	}
 	
-	public void save() throws UtilsLockingException
+	public void save() throws JeeslLockingException
 	{
 		try
 		{
@@ -135,10 +135,10 @@ public class AbstractAdminSecurityDomainBean <L extends UtilsLang,
 			staff = fSecurity.save(staff);
 			reloadStaffs();
 		}
-		catch (UtilsConstraintViolationException e) {saveThrowsConstraintViolation();}
+		catch (JeeslConstraintViolationException e) {saveThrowsConstraintViolation();}
 	}
 	
-	public void rmStaff() throws UtilsConstraintViolationException, UtilsLockingException
+	public void rmStaff() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info(AbstractLogMessage.rmEntity(staff));
 		fSecurity.rm(staff);
@@ -149,7 +149,7 @@ public class AbstractAdminSecurityDomainBean <L extends UtilsLang,
 	protected void saveThrowsConstraintViolation()
 	{
 		StringBuffer sb = new StringBuffer();
-		sb.append("A "+UtilsConstraintViolationException.class.getSimpleName()+" was detected");
+		sb.append("A "+JeeslConstraintViolationException.class.getSimpleName()+" was detected");
 		sb.append(" Most probably by a duplicate object.");
 		sb.append(" This should be handled in the implementation class");
 		logger.warn(sb.toString());
@@ -170,7 +170,7 @@ public class AbstractAdminSecurityDomainBean <L extends UtilsLang,
 	}
 	
 	@Override
-	public void selectOpUser(USER user) throws UtilsLockingException, UtilsConstraintViolationException
+	public void selectOpUser(USER user) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		logger.info(AbstractLogMessage.selectEntity(user));
 		staff.setUser(fUser.find(fbSecurity.getClassUser(),user));

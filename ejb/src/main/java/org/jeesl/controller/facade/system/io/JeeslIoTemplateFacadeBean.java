@@ -11,6 +11,7 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.io.JeeslIoTemplateFacade;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoTemplateFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateDefinition;
@@ -21,7 +22,6 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.controller.util.ParentPredicate;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -63,7 +63,7 @@ public class JeeslIoTemplateFacadeBean<L extends UtilsLang,D extends UtilsDescri
 		List<CATEGORY> categories = new ArrayList<CATEGORY>();
 		
 		try {categories.add(this.fByCode(fbTemplate.getClassCategory(), category));}
-		catch (UtilsNotFoundException e) {logger.error(e.getMessage());}
+		catch (JeeslNotFoundException e) {logger.error(e.getMessage());}
 		if(categories.isEmpty()){return result;}
 		
 		for(TEMPLATE t : fTemplates(categories,false))
@@ -98,7 +98,7 @@ public class JeeslIoTemplateFacadeBean<L extends UtilsLang,D extends UtilsDescri
 		return tQ.getResultList();
 	}
 
-	@Override public DEFINITION fDefinition(CHANNEL type, String code) throws UtilsNotFoundException
+	@Override public DEFINITION fDefinition(CHANNEL type, String code) throws JeeslNotFoundException
 	{
 		TEMPLATE t = this.fByCode(fbTemplate.getClassTemplate(), code);
 		for(DEFINITION d : t.getDefinitions())
@@ -106,6 +106,6 @@ public class JeeslIoTemplateFacadeBean<L extends UtilsLang,D extends UtilsDescri
 			if(d.getType().equals(type)){return d;}
 		}
 		
-		throw new UtilsNotFoundException("No Definition for "+code+" and type="+type.getCode());
+		throw new JeeslNotFoundException("No Definition for "+code+" and type="+type.getCode());
 	}
 }

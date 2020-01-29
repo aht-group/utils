@@ -4,8 +4,6 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -15,6 +13,8 @@ import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Langs;
 import net.sf.exlp.util.xml.JaxbUtil;
 
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.txt.system.status.TxtStatusFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,15 +35,15 @@ public class EjbLangFactory<L extends UtilsLang>
         return new EjbLangFactory<L>(cL);
     }
 	
-	public Map<String,L> getLangMap(Langs langs) throws UtilsConstraintViolationException
+	public Map<String,L> getLangMap(Langs langs) throws JeeslConstraintViolationException
 	{
-		if(langs==null){throw new UtilsConstraintViolationException(Langs.class.getSimpleName()+" is null");}
+		if(langs==null){throw new JeeslConstraintViolationException(Langs.class.getSimpleName()+" is null");}
 		return getLangMap(langs.getLang()); 
 	}
 	
-	public Map<String,L> getLangMap(List<Lang> langList) throws UtilsConstraintViolationException
+	public Map<String,L> getLangMap(List<Lang> langList) throws JeeslConstraintViolationException
 	{
-		if(langList.size()<1){throw new UtilsConstraintViolationException(Langs.class.getSimpleName()+" with 0 "+Lang.class.getSimpleName());}
+		if(langList.size()<1){throw new JeeslConstraintViolationException(Langs.class.getSimpleName()+" with 0 "+Lang.class.getSimpleName());}
 		Map<String,L> map = new Hashtable<String,L>();
 		for(Lang lang : langList)
 		{
@@ -110,10 +110,10 @@ public class EjbLangFactory<L extends UtilsLang>
 		return null;
 	}
 	
-	public L createLang(Lang lang) throws UtilsConstraintViolationException
+	public L createLang(Lang lang) throws JeeslConstraintViolationException
 	{
-		if(lang.getKey()==null){throw new UtilsConstraintViolationException("Key not set for: "+JaxbUtil.toString(lang));}
-		if(lang.getTranslation()==null){throw new UtilsConstraintViolationException("Translation not set for: "+JaxbUtil.toString(lang));}
+		if(lang.getKey()==null){throw new JeeslConstraintViolationException("Key not set for: "+JaxbUtil.toString(lang));}
+		if(lang.getTranslation()==null){throw new JeeslConstraintViolationException("Translation not set for: "+JaxbUtil.toString(lang));}
 		return createLang(lang.getKey(), lang.getTranslation());
 	}
 	
@@ -143,8 +143,8 @@ public class EjbLangFactory<L extends UtilsLang>
 					ejb.getName().put(key, l);
 					ejb = fUtils.update(ejb);
 				}
-				catch (UtilsConstraintViolationException e) {e.printStackTrace();}
-				catch (UtilsLockingException e) {e.printStackTrace();}
+				catch (JeeslConstraintViolationException e) {e.printStackTrace();}
+				catch (JeeslLockingException e) {e.printStackTrace();}
 			}
 		}
 		return ejb;
@@ -161,7 +161,7 @@ public class EjbLangFactory<L extends UtilsLang>
 					L l = fUtils.persist(createLang(loc.getCode(), ""));
 					map.put(loc.getCode(), l);
 				}
-				catch (UtilsConstraintViolationException e) {e.printStackTrace();}
+				catch (JeeslConstraintViolationException e) {e.printStackTrace();}
 //				catch (UtilsLockingException e) {e.printStackTrace();}
 			}
 		}
@@ -174,13 +174,13 @@ public class EjbLangFactory<L extends UtilsLang>
 		ejb.setName(null);
 		
 		try{ejb=fUtils.update(ejb);}
-		catch (UtilsConstraintViolationException e) {logger.error("",e);}
-		catch (UtilsLockingException e) {logger.error("",e);}
+		catch (JeeslConstraintViolationException e) {logger.error("",e);}
+		catch (JeeslLockingException e) {logger.error("",e);}
 		
 		for(L lang : langMap.values())
 		{
 			try {fUtils.rm(lang);}
-			catch (UtilsConstraintViolationException e) {logger.error("",e);}
+			catch (JeeslConstraintViolationException e) {logger.error("",e);}
 		}
 	}
 }

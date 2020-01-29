@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Set;
 
 import net.sf.ahtutils.doc.ofx.status.OfxLangStatisticTableFactory;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.model.pojo.status.TranslationStatistic;
 import net.sf.ahtutils.xml.status.Lang;
@@ -27,6 +26,7 @@ import org.jdom2.Element;
 import org.jdom2.filter.Filters;
 import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,7 +70,7 @@ public class LatexTranslationStatisticWriter
 	    		{
 	    			stats.add(process(f));
 				}
-	    		catch (UtilsNotFoundException e) {}
+	    		catch (JeeslNotFoundException e) {}
 	    	}
 	    	
 	    	File f = new File(baseLatexDir,"de/"+dirViewTabs+"/"+texName);
@@ -81,10 +81,10 @@ public class LatexTranslationStatisticWriter
 		catch (IOException e) {throw new UtilsConfigurationException(e.getMessage());}
 	}
 	
-	private TranslationStatistic process(File f) throws UtilsNotFoundException
+	private TranslationStatistic process(File f) throws JeeslNotFoundException
 	{
 		Document doc = JDomUtil.load(f);
-		if(!hasLangs(doc)){throw new UtilsNotFoundException();}
+		if(!hasLangs(doc)){throw new JeeslNotFoundException();}
 		logger.debug("Processing "+f);
 		
 		List<Langs> langs = getLangs(doc);

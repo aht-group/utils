@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.jeesl.controller.monitor.ProcessingTimeTracker;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.xml.system.navigation.XmlMenuItemFactory;
 import org.jeesl.interfaces.controller.builder.MenuBuilder;
 import org.jeesl.model.xml.system.navigation.Breadcrumb;
@@ -22,7 +23,6 @@ import org.jgrapht.graph.DefaultEdge;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.jsf.UtilsMenuException;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 import net.sf.ahtutils.xml.access.Access;
@@ -216,13 +216,13 @@ public class MenuXmlBuilder implements MenuBuilder
 			if(oldImplementation){result.getMenuItem().addAll(processChildsOld(1,rootNode,codeCurrent,isLoggedIn));}
 			else {result.getMenuItem().addAll(processChildsNew(1,rootNode,codeCurrent,isLoggedIn));}
 		}
-		catch (UtilsNotFoundException e) {logger.warn(e.getMessage());}
+		catch (JeeslNotFoundException e) {logger.warn(e.getMessage());}
 		if(logger.isTraceEnabled()){logger.info(AbstractLogMessage.time("build "+codeCurrent,ptt));}
 		
 		return result;
 	}
 	
-	private List<MenuItem> processChildsOld(int level, String node, String codeCurrent, boolean isLoggedIn) throws UtilsNotFoundException
+	private List<MenuItem> processChildsOld(int level, String node, String codeCurrent, boolean isLoggedIn) throws JeeslNotFoundException
 	{
 		List<MenuItem> result = new ArrayList<MenuItem>();
 		
@@ -235,7 +235,7 @@ public class MenuXmlBuilder implements MenuBuilder
 			MenuItem mi = mapMenuItems.get(graph.getEdgeTarget(edge));
 			if(mi.isSetView())
 			{
-				if(!mapAccessViews.containsKey(mi.getView().getCode())){throw new UtilsNotFoundException("No view with code="+mi.getView().getCode());}
+				if(!mapAccessViews.containsKey(mi.getView().getCode())){throw new JeeslNotFoundException("No view with code="+mi.getView().getCode());}
 				net.sf.ahtutils.xml.access.View view = mapAccessViews.get(mi.getView().getCode());
 				if(noRestrictions
 						|| view.isPublic()
@@ -289,7 +289,7 @@ public class MenuXmlBuilder implements MenuBuilder
 		return result;
 	}
 	
-	private List<MenuItem> processChildsNew(int level, String node, String codeCurrent, boolean isLoggedIn) throws UtilsNotFoundException
+	private List<MenuItem> processChildsNew(int level, String node, String codeCurrent, boolean isLoggedIn) throws JeeslNotFoundException
 	{
 		List<MenuItem> result = new ArrayList<MenuItem>();
 		
@@ -302,7 +302,7 @@ public class MenuXmlBuilder implements MenuBuilder
 			MenuItem mi = mapMenuItems.get(graph.getEdgeTarget(edge));
 			if(mi.isSetView())
 			{
-				if(!mapSecurityViews.containsKey(mi.getView().getCode())){throw new UtilsNotFoundException("No view with code="+mi.getView().getCode());}
+				if(!mapSecurityViews.containsKey(mi.getView().getCode())){throw new JeeslNotFoundException("No view with code="+mi.getView().getCode());}
 				net.sf.ahtutils.xml.security.View view = mapSecurityViews.get(mi.getView().getCode());
 				if(noRestrictions
 						|| view.getAccess().isPublicUser()
@@ -360,7 +360,7 @@ public class MenuXmlBuilder implements MenuBuilder
 		return result;
 	}
 	
-	private MenuItem processItemOld(MenuItem miOrig, String codeCurrent, net.sf.ahtutils.xml.access.View view) throws UtilsNotFoundException
+	private MenuItem processItemOld(MenuItem miOrig, String codeCurrent, net.sf.ahtutils.xml.access.View view) throws JeeslNotFoundException
 	{
 		MenuItem mi = new MenuItem();
 		mi.setCode(miOrig.getCode());
@@ -393,7 +393,7 @@ public class MenuXmlBuilder implements MenuBuilder
 		return mi;
 	}
 	
-	private MenuItem processItemNew(MenuItem miOrig, String codeCurrent, net.sf.ahtutils.xml.security.View view) throws UtilsNotFoundException
+	private MenuItem processItemNew(MenuItem miOrig, String codeCurrent, net.sf.ahtutils.xml.security.View view) throws JeeslNotFoundException
 	{
 		MenuItem mi = new MenuItem();
 		mi.setCode(miOrig.getCode());

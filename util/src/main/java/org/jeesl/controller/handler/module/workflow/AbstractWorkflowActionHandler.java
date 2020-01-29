@@ -9,6 +9,9 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.mutable.MutableBoolean;
 import org.jeesl.api.bean.msg.JeeslConstraintsBean;
 import org.jeesl.exception.JeeslWorkflowException;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.controller.handler.module.workflow.JeeslWorkflowActionCallback;
 import org.jeesl.interfaces.controller.handler.module.workflow.JeeslWorkflowActionHandler;
 import org.jeesl.interfaces.controller.handler.module.workflow.JeeslWorkflowActionsHandler;
@@ -24,9 +27,6 @@ import org.jeesl.util.comparator.pojo.BooleanComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsProcessingException;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithName;
@@ -69,12 +69,12 @@ public abstract class AbstractWorkflowActionHandler <WT extends JeeslWorkflowTra
 			{
 				if(debugOnInfo) {logger.info("Adding a constraint");}
 				try{constraints.add(bConstraint.get(JeeslWorkflowAction.class, JeeslWorkflowAction.Constraint.remarkEmpty));}
-				catch (UtilsNotFoundException e) {constraints.add(this.getConstraintNotFound());}
+				catch (JeeslNotFoundException e) {constraints.add(this.getConstraintNotFound());}
 			}
 		}
 	}
 	
-	@Override public <W extends JeeslWithWorkflow<AW>> JeeslWithWorkflow<AW> perform(JeeslWithWorkflow<AW> entity, List<WA> actions) throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException, UtilsProcessingException, JeeslWorkflowException
+	@Override public <W extends JeeslWithWorkflow<AW>> JeeslWithWorkflow<AW> perform(JeeslWithWorkflow<AW> entity, List<WA> actions) throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException, UtilsProcessingException, JeeslWorkflowException
 	{
 		if(debugOnInfo) {logger.info("Performing Actions "+entity.toString());}
 		for(WA action : actions)
@@ -85,7 +85,7 @@ public abstract class AbstractWorkflowActionHandler <WT extends JeeslWorkflowTra
 		return entity;
 	}
 	
-	protected <W extends JeeslWithWorkflow<AW>> JeeslWithWorkflow<AW> perform(JeeslWithWorkflow<AW> entity, WA action) throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException, UtilsProcessingException, JeeslWorkflowException
+	protected <W extends JeeslWithWorkflow<AW>> JeeslWithWorkflow<AW> perform(JeeslWithWorkflow<AW> entity, WA action) throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException, UtilsProcessingException, JeeslWorkflowException
 	{
 		if(debugOnInfo) {logger.info("Perform "+action.toString());}
 		
@@ -141,7 +141,7 @@ public abstract class AbstractWorkflowActionHandler <WT extends JeeslWorkflowTra
 		{
 			callback.workflowAbort(entity);
 		}
-		catch (UtilsConstraintViolationException | UtilsLockingException | UtilsNotFoundException e)
+		catch (JeeslConstraintViolationException | JeeslLockingException | JeeslNotFoundException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -168,7 +168,7 @@ public abstract class AbstractWorkflowActionHandler <WT extends JeeslWorkflowTra
 				{
 					ah.workflowPreconditions(constraints,entity, action);
 				}
-				catch (UtilsNotFoundException e)
+				catch (JeeslNotFoundException e)
 				{
 					WC c = getConstraintNotFound();
 					c.setContextMessage(e.getMessage());

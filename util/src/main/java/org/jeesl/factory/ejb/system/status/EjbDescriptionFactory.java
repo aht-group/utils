@@ -5,12 +5,12 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.txt.system.status.TxtStatusFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -36,10 +36,10 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
         return new EjbDescriptionFactory<D>(cD);
     }
 	
-	public D create(Description description) throws UtilsConstraintViolationException
+	public D create(Description description) throws JeeslConstraintViolationException
 	{
-		if(!description.isSetKey()){throw new UtilsConstraintViolationException("Key not set: "+JaxbUtil.toString(description));}
-		if(!description.isSetValue()){throw new UtilsConstraintViolationException("Value not set: "+JaxbUtil.toString(description));}
+		if(!description.isSetKey()){throw new JeeslConstraintViolationException("Key not set: "+JaxbUtil.toString(description));}
+		if(!description.isSetValue()){throw new JeeslConstraintViolationException("Value not set: "+JaxbUtil.toString(description));}
     		return create(description.getKey(),description.getValue());
 	}
     
@@ -48,16 +48,16 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
 		D d = null;
 		try {
 			d = create(key,value);
-		} catch (UtilsConstraintViolationException e) {
+		} catch (JeeslConstraintViolationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return d;
 	}
-	public D create(String key, String value) throws UtilsConstraintViolationException
+	public D create(String key, String value) throws JeeslConstraintViolationException
 	{
-		if(key==null){throw new UtilsConstraintViolationException("Key not set");}
-		if(value==null){throw new UtilsConstraintViolationException("Value not set");}
+		if(key==null){throw new JeeslConstraintViolationException("Key not set");}
+		if(value==null){throw new JeeslConstraintViolationException("Value not set");}
 		D d = null;
 		try
 		{
@@ -77,13 +77,13 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
 		return map;
 	}
 	
-	public Map<String,D> create(Descriptions descriptions) throws UtilsConstraintViolationException
+	public Map<String,D> create(Descriptions descriptions) throws JeeslConstraintViolationException
 	{
 		if(descriptions!=null && descriptions.isSetDescription()){return create(descriptions.getDescription());}
 		else{return  new Hashtable<String,D>();}
 	}
 	
-	public Map<String,D> create(List<Description> lDescriptions) throws UtilsConstraintViolationException
+	public Map<String,D> create(List<Description> lDescriptions) throws JeeslConstraintViolationException
 	{
 		Map<String,D> map = new Hashtable<String,D>();
 		for(Description desc : lDescriptions)
@@ -108,7 +108,7 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
 			{
 				map.put(key, create(key,""));
 			}
-			catch (UtilsConstraintViolationException e) {e.printStackTrace();}
+			catch (JeeslConstraintViolationException e) {e.printStackTrace();}
 		}
 		return map;
 	}
@@ -120,7 +120,7 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
 		{
 			try {
 				map.put(key, create(key, original.get(key).getLang()));
-			} catch (UtilsConstraintViolationException e) {
+			} catch (JeeslConstraintViolationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -134,15 +134,15 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
 		ejb.setDescription(null);
 		
 		try{ejb=fUtils.update(ejb);}
-		catch (UtilsConstraintViolationException e) {logger.error("",e);}
-		catch (UtilsLockingException e) {logger.error("",e);}
+		catch (JeeslConstraintViolationException e) {logger.error("",e);}
+		catch (JeeslLockingException e) {logger.error("",e);}
 		
 		if(descMap!=null)
 		{
 			for(D desc : descMap.values())
 			{
 				try {fUtils.rm(desc);}
-				catch (UtilsConstraintViolationException e) {logger.error("",e);}
+				catch (JeeslConstraintViolationException e) {logger.error("",e);}
 			}
 		}
 	}
@@ -174,8 +174,8 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
 					ejb.getDescription().put(key, d);
 					ejb = fUtils.update(ejb);
 				}
-				catch (UtilsConstraintViolationException e) {e.printStackTrace();}
-				catch (UtilsLockingException e) {e.printStackTrace();}
+				catch (JeeslConstraintViolationException e) {e.printStackTrace();}
+				catch (JeeslLockingException e) {e.printStackTrace();}
 			}
 		}
 		return ejb;
@@ -192,7 +192,7 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
 					D d = fUtils.persist(create(key, ""));
 					map.put(key, d);
 				}
-				catch (UtilsConstraintViolationException e) {e.printStackTrace();}
+				catch (JeeslConstraintViolationException e) {e.printStackTrace();}
 			}
 		}
 	}

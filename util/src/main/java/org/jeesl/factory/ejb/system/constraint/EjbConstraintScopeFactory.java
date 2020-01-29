@@ -2,15 +2,15 @@ package org.jeesl.factory.ejb.system.constraint;
 
 import org.jeesl.controller.db.updater.JeeslDbDescriptionUpdater;
 import org.jeesl.controller.db.updater.JeeslDbLangUpdater;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraint;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraintResolution;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraintScope;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -55,11 +55,11 @@ public class EjbConstraintScopeFactory <L extends UtilsLang, D extends UtilsDesc
 		return ejb;
 	}
 	
-	public SCOPE importOrUpdate(UtilsFacade fUtils, ConstraintScope xScope) throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException
+	public SCOPE importOrUpdate(UtilsFacade fUtils, ConstraintScope xScope) throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException
 	{
 		SCOPE eScope;	
 		try {eScope = fUtils.fByCode(cScope,xScope.getCode());}
-		catch (UtilsNotFoundException e) {eScope = this.build(null);}
+		catch (JeeslNotFoundException e) {eScope = this.build(null);}
 		eScope.setCategory(fUtils.fByCode(cCategory,xScope.getCategory()));
 		eScope = this.update(eScope, xScope);
 		eScope = fUtils.save(eScope);
@@ -73,7 +73,7 @@ public class EjbConstraintScopeFactory <L extends UtilsLang, D extends UtilsDesc
 		return eScope;
 	}
 	
-	private SCOPE updateLD(UtilsFacade fUtils, SCOPE eScope, ConstraintScope xScope) throws UtilsConstraintViolationException, UtilsLockingException
+	private SCOPE updateLD(UtilsFacade fUtils, SCOPE eScope, ConstraintScope xScope) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		eScope = dbuLang.handle(fUtils, eScope, xScope.getLangs());
 		eScope = fUtils.save(eScope);

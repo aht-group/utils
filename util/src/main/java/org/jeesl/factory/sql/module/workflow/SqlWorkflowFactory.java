@@ -1,12 +1,11 @@
 package org.jeesl.factory.sql.module.workflow;
 
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStage;
 import org.jeesl.util.ReflectionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 
 public class SqlWorkflowFactory
 {
@@ -18,7 +17,7 @@ public class SqlWorkflowFactory
 	{
 		StringBuffer sb = new StringBuffer();
 		sb.append("UPDATE ");
-		try{sb.append(ReflectionUtil.toTable(c));} catch (UtilsNotFoundException e){e.printStackTrace();}
+		try{sb.append(ReflectionUtil.toTable(c));} catch (JeeslNotFoundException e){e.printStackTrace();}
 		sb.append(" SET ").append(JeeslWorkflow.Attributes.currentStage).append("_id=").append(stage.getId());
 		sb.append(" WHERE id=").append(workflow.getId());
 		sb.append(";");
