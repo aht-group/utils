@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 
 import org.jeesl.api.controller.ImportStrategy;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,7 +43,7 @@ public class SetTranslation implements ImportStrategy {
 	}
 
 	@Override
-	public void setFacade(UtilsFacade facade) {
+	public void setFacade(JeeslFacade facade) {
 		logger.trace("The strategy " +this.getClass().getSimpleName() +" is not depending on database operations - no Facade needed!");
 	}
 }

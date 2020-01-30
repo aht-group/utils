@@ -8,11 +8,10 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.ejb.system.EjbSystemFeatureFactory;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.JeeslFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 
 public class AbstractAdminFeatureBean <F extends JeeslFeature>
 		implements Serializable
@@ -20,7 +19,7 @@ public class AbstractAdminFeatureBean <F extends JeeslFeature>
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAdminFeatureBean.class);
 	
-	private UtilsFacade fFeature;
+	private JeeslFacade fFeature;
 	
 	private JeeslFeatureManagerBean<F> bFeature;
 	private JeeslFacesMessageBean bMessage;
@@ -31,7 +30,7 @@ public class AbstractAdminFeatureBean <F extends JeeslFeature>
 
 	private EjbSystemFeatureFactory<F> efFeature;
 	
-	public void initSuper(UtilsFacade fFeature, JeeslFeatureManagerBean<F> bFeature, JeeslFacesMessageBean bMessage, final Class<F> cFeature)
+	public void initSuper(JeeslFacade fFeature, JeeslFeatureManagerBean<F> bFeature, JeeslFacesMessageBean bMessage, final Class<F> cFeature)
 	{
 		this.fFeature=fFeature;
 		this.bFeature=bFeature;

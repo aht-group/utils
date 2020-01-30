@@ -18,6 +18,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityHelp;
@@ -36,7 +37,6 @@ import org.jeesl.interfaces.model.system.security.with.JeeslSecurityWithCategory
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.util.UtilsStaffPool;
@@ -54,7 +54,7 @@ public class JeeslSecurityFacadeBean<L extends UtilsLang,
 									AR extends JeeslSecurityArea<L,D,V>,
 									H extends JeeslSecurityHelp<L,D,V>,
 									USER extends JeeslUser<R>>
-							extends UtilsFacadeBean
+							extends JeeslFacadeBean
 							implements JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER>
 {	
 	private static final long serialVersionUID = 1L;

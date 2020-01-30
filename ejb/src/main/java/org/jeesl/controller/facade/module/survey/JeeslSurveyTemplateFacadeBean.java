@@ -12,6 +12,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.module.survey.JeeslSurveyTemplateFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.factory.builder.module.survey.SurveyTemplateFactoryBuilder;
 import org.jeesl.factory.ejb.module.survey.EjbSurveyTemplateFactory;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
@@ -33,7 +34,6 @@ import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyValidationAl
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -54,7 +54,7 @@ public class JeeslSurveyTemplateFacadeBean <L extends UtilsLang, D extends Utils
 											UNIT extends JeeslSurveyQuestionUnit<L,D,UNIT,?>,
 											OPTIONS extends JeeslSurveyOptionSet<L,D,TEMPLATE,OPTION>,
 											OPTION extends JeeslSurveyOption<L,D>>
-	extends UtilsFacadeBean implements JeeslSurveyTemplateFacade<L,D,SCHEME,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,QE,SCORE,UNIT,OPTIONS,OPTION>
+	extends JeeslFacadeBean implements JeeslSurveyTemplateFacade<L,D,SCHEME,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,QE,SCORE,UNIT,OPTIONS,OPTION>
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(JeeslSurveyTemplateFacadeBean.class);

@@ -3,6 +3,7 @@ package org.jeesl.api.facade.module;
 import java.util.List;
 
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowAction;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowBot;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowCommunication;
@@ -27,7 +28,6 @@ import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -57,7 +57,7 @@ public interface JeeslWorkflowFacade <L extends UtilsLang, D extends UtilsDescri
 										WY extends JeeslWorkflowActivity<WT,WF,FRC,USER>,
 										FRC extends JeeslFileContainer<?,?>,
 										USER extends JeeslUser<SR>>
-			extends UtilsFacade
+			extends JeeslFacade
 {	
 	WT fTransitionBegin(WP process);
 	

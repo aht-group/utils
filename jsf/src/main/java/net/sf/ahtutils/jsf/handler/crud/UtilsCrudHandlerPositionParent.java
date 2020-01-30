@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.crud.EjbPositionCrudWithParent;
 import net.sf.ahtutils.interfaces.web.crud.CrudHandlerBean;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
@@ -18,13 +18,13 @@ public class UtilsCrudHandlerPositionParent <T extends EjbPositionCrudWithParent
 	final static Logger logger = LoggerFactory.getLogger(UtilsCrudHandlerPositionParent.class);
 	
 	private CrudHandlerBean<T> bean;
-	private UtilsFacade fUtils;
+	private JeeslFacade fUtils;
 	
 	private final Class<T> cT;
 	
 	private T prototype;
 	
-	public UtilsCrudHandlerPositionParent(CrudHandlerBean<T> bean, UtilsFacade fUtils, Class<T> cT)
+	public UtilsCrudHandlerPositionParent(CrudHandlerBean<T> bean, JeeslFacade fUtils, Class<T> cT)
 	{
 		this.bean=bean;
 		this.fUtils=fUtils;

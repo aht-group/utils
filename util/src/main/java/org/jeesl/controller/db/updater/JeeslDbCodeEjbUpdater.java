@@ -5,11 +5,11 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
 
 import org.apache.commons.lang.StringUtils;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +40,7 @@ public class JeeslDbCodeEjbUpdater<C extends EjbWithCode>
 		for(C c : list){ejbInDb.put(c.getCode(), c);}
 	}
 	
-	public void dbEjbs(UtilsFacade fUtils)
+	public void dbEjbs(JeeslFacade fUtils)
 	{
 		for(C c : fUtils.all(codeClass)){ejbInDb.put(c.getCode(), c);}
 	}
@@ -71,7 +71,7 @@ public class JeeslDbCodeEjbUpdater<C extends EjbWithCode>
 		return result;
 	}
 	
-	public void remove(UtilsFacade fUtils)
+	public void remove(JeeslFacade fUtils)
 	{
 		if(!getEjbForRemove().isEmpty())
 		{

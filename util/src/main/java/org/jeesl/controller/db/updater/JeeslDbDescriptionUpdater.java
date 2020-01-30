@@ -8,10 +8,10 @@ import java.util.Set;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.ejb.system.status.EjbDescriptionFactory;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.with.EjbWithDescription;
 import net.sf.ahtutils.xml.status.Description;
@@ -39,7 +39,7 @@ public class JeeslDbDescriptionUpdater<C extends EjbWithDescription<D>, D extend
 		return new JeeslDbDescriptionUpdater<C,D>(cEjb,cD);
 	}
 
-	public C handle(UtilsFacade fUtils,C ejb, Descriptions descriptions) throws JeeslConstraintViolationException, JeeslLockingException
+	public C handle(JeeslFacade fUtils,C ejb, Descriptions descriptions) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(ejb.getDescription()==null)
 		{
@@ -54,12 +54,12 @@ public class JeeslDbDescriptionUpdater<C extends EjbWithDescription<D>, D extend
 		return ejb;
 	}
 	
-	public C handle(UtilsFacade fUtils, C ejb, String[] localeCodes)
+	public C handle(JeeslFacade fUtils, C ejb, String[] localeCodes)
 	{
 		return efDescription.persistMissingLangs(fUtils, localeCodes, ejb);
 	}
 	
-	private C remove(UtilsFacade fUtils,C ejb, Descriptions descriptions) throws JeeslConstraintViolationException
+	private C remove(JeeslFacade fUtils,C ejb, Descriptions descriptions) throws JeeslConstraintViolationException
 	{
 		Set<String> actualInXml = new HashSet<String>();
 		List<String> obsoleteInEjb = new ArrayList<String>();
@@ -83,7 +83,7 @@ public class JeeslDbDescriptionUpdater<C extends EjbWithDescription<D>, D extend
 		return ejb;
 	}
 	
-	private C add(UtilsFacade fUtils,C ejb, Descriptions descriptions) throws JeeslConstraintViolationException
+	private C add(JeeslFacade fUtils,C ejb, Descriptions descriptions) throws JeeslConstraintViolationException
 	{
 		Set<String> actualInXml = new HashSet<String>();
 		for(Description xDescription : descriptions.getDescription()){actualInXml.add(xDescription.getKey());}
@@ -104,7 +104,7 @@ public class JeeslDbDescriptionUpdater<C extends EjbWithDescription<D>, D extend
 		return ejb;
 	}
 	
-	private C update(UtilsFacade fUtils,C ejb, Descriptions descriptions) throws JeeslConstraintViolationException, JeeslLockingException
+	private C update(JeeslFacade fUtils,C ejb, Descriptions descriptions) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		for(Description xDescription : descriptions.getDescription())
 		{

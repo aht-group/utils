@@ -1,8 +1,8 @@
 package org.jeesl.api.facade.module;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
+import org.jeesl.interfaces.facade.JeeslFacade;
 
-public interface JeeslMonitoringFacade extends UtilsFacade
+public interface JeeslMonitoringFacade extends JeeslFacade
 {	
 	
 }

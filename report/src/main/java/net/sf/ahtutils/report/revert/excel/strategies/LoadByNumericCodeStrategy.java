@@ -2,9 +2,8 @@ package net.sf.ahtutils.report.revert.excel.strategies;
 
 import java.util.Hashtable;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
-
 import org.jeesl.api.controller.ImportStrategy;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +11,7 @@ public class LoadByNumericCodeStrategy implements ImportStrategy {
 	
 	final static Logger logger = LoggerFactory.getLogger(LoadByNumericCodeStrategy.class);
 	
-	private UtilsFacade facade;
+	private JeeslFacade facade;
 	
 	private Hashtable<String, Object> tempPropertyStore;
 	public  Hashtable<String, Object> getTempPropertyStore() {return tempPropertyStore;}
@@ -48,7 +47,7 @@ public class LoadByNumericCodeStrategy implements ImportStrategy {
 	}
 
 	@Override
-	public void setFacade(UtilsFacade facade) {
+	public void setFacade(JeeslFacade facade) {
 		this.facade = facade;
 	}
 

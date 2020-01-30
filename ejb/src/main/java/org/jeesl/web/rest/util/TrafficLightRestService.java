@@ -8,6 +8,7 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.ejb.system.util.EjbTrafficLightFactory;
 import org.jeesl.factory.xml.system.status.XmlTypeFactory;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 import org.jeesl.util.query.xml.UtilsQuery;
 import org.slf4j.Logger;
@@ -15,7 +16,6 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.factory.xml.utils.XmlTrafficLightFactory;
 import net.sf.ahtutils.factory.xml.utils.XmlTrafficLightsFactory;
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -28,7 +28,7 @@ public class TrafficLightRestService <L extends UtilsLang,D extends UtilsDescrip
 {
 	final static Logger logger = LoggerFactory.getLogger(TrafficLightRestService.class);
 	
-	private UtilsFacade fUtils;
+	private JeeslFacade fUtils;
 	
 	private final Class<SCOPE> cScope;
 	private final Class<LIGHT> cLight;
@@ -36,7 +36,7 @@ public class TrafficLightRestService <L extends UtilsLang,D extends UtilsDescrip
 	private XmlTrafficLightFactory<L,D,SCOPE,LIGHT> xfLight;
 	private EjbTrafficLightFactory<L,D,SCOPE,LIGHT> efLight;
 	
-	private TrafficLightRestService(UtilsFacade fUtils,final Class<L> cLang,final Class<D> cDescription,final Class<SCOPE> cScope,final Class<LIGHT> cLight)
+	private TrafficLightRestService(JeeslFacade fUtils,final Class<L> cLang,final Class<D> cDescription,final Class<SCOPE> cScope,final Class<LIGHT> cLight)
 	{
 		this.fUtils=fUtils;
 		this.cScope=cScope;
@@ -48,7 +48,7 @@ public class TrafficLightRestService <L extends UtilsLang,D extends UtilsDescrip
 	
 	public static <L extends UtilsLang,D extends UtilsDescription,SCOPE extends UtilsStatus<SCOPE,L,D>,LIGHT extends JeeslTrafficLight<L,D,SCOPE>>
 		TrafficLightRestService<L,D,SCOPE,LIGHT>
-			factory(UtilsFacade fUtils,final Class<L> cL,final Class<D> cD,final Class<SCOPE> cScope,final Class<LIGHT> cLight)
+			factory(JeeslFacade fUtils,final Class<L> cL,final Class<D> cD,final Class<SCOPE> cScope,final Class<LIGHT> cLight)
 	{
 		return new TrafficLightRestService<L,D,SCOPE,LIGHT>(fUtils,cL,cD,cScope,cLight);
 	}

@@ -1,5 +1,6 @@
-package net.sf.ahtutils.controller.facade;
+package org.jeesl.controller.facade;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -17,9 +19,11 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.jeesl.controller.db.NativeQueryDebugger;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
 import org.jeesl.interfaces.model.system.with.EjbWithGraphic;
@@ -41,7 +45,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.controller.util.ParentPredicate;
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.behaviour.EjbEquals;
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.crud.EjbMergeable;
@@ -66,19 +69,19 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 import net.sf.ahtutils.model.interfaces.with.EjbWithVisible;
 
-public class UtilsFacadeBean implements UtilsFacade 
+public class JeeslFacadeBean implements JeeslFacade 
 {
 	private static final long serialVersionUID = 1L;
 
-	final static Logger logger = LoggerFactory.getLogger(UtilsFacadeBean.class);
+	final static Logger logger = LoggerFactory.getLogger(JeeslFacadeBean.class);
 	
 	private static boolean isLoggingEnabled = false; 
 	
 	protected EntityManager em;
 	private boolean handleTransaction;
 	
-	public UtilsFacadeBean(EntityManager em){this(em,false);}
-	public UtilsFacadeBean(EntityManager em, boolean handleTransaction)
+	public JeeslFacadeBean(EntityManager em){this(em,false);}
+	public JeeslFacadeBean(EntityManager em, boolean handleTransaction)
 	{
 		this.em=em;
 		this.handleTransaction=handleTransaction;
@@ -337,6 +340,33 @@ public class UtilsFacadeBean implements UtilsFacade
 		
 		
 		return typedQuery.getResultList();
+	}
+	
+	@Override public <T extends EjbWithId> List<T> list(Class<T> c, List<Long> list)
+	{
+		if(list==null || list.isEmpty()) {return new ArrayList<>();}
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<T> criteriaQuery = cB.createQuery(c);
+		Root<T> root = criteriaQuery.from(c);
+		
+		Path<Long> p1Path = root.get("id");
+		
+		CriteriaQuery<T> select = criteriaQuery.select(root);
+		select.where(p1Path.in(list));
+		
+		return em.createQuery(select).getResultList();
+	}
+	
+	@Override public List<Long> listId(String nativeQuery)
+	{	
+		List<Long> results = new ArrayList<>();
+		Query qEntitled = em.createNativeQuery(nativeQuery);
+		for(Object o : qEntitled.getResultList())
+        {
+            long id = ((BigInteger)o).longValue();
+            results.add(id);
+        }
+		return results;
 	}
 	
 	@Override public <T, I extends EjbWithId> List<T> allOrderedParent(Class<T> cl,String by, boolean ascending, String p1Name, I p1)
@@ -1295,5 +1325,4 @@ public class UtilsFacadeBean implements UtilsFacade
 		
 		return em.createQuery(select).getResultList();
 	}
-		
 }

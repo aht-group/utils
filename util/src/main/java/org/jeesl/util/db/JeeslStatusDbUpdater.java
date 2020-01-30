@@ -15,12 +15,12 @@ import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.ejb.system.status.EjbStatusFactory;
 import org.jeesl.factory.xml.system.status.XmlTypeFactory;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.exception.processing.UtilsDeveloperException;
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -39,7 +39,7 @@ public class JeeslStatusDbUpdater <L extends UtilsLang, D extends UtilsDescripti
 	private Set<Long> sDeleteLangs,sDeleteDescriptions;
 	
 	private EjbStatusFactory<S,L,D> statusEjbFactory; public void setStatusEjbFactory(EjbStatusFactory<S,L,D> statusEjbFactory) {this.statusEjbFactory = statusEjbFactory;}
-	private UtilsFacade fStatus; public void setFacade(UtilsFacade fStatus){this.fStatus=fStatus;}
+	private JeeslFacade fStatus; public void setFacade(JeeslFacade fStatus){this.fStatus=fStatus;}
 
 	public JeeslStatusDbUpdater()
 	{

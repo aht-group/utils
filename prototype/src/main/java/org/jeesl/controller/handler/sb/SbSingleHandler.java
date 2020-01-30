@@ -9,11 +9,11 @@ import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.bean.sb.SbSingleBean;
 import org.jeesl.interfaces.controller.handler.tree.cache.JeeslTree1Cache;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class SbSingleHandler <T extends EjbWithId> implements Serializable,SbSingleBean
@@ -130,9 +130,9 @@ public class SbSingleHandler <T extends EjbWithId> implements Serializable,SbSin
 		}
 	}
 
-	public <E extends Enum<E>, S extends EjbWithCode> void add(UtilsFacade fUtils, Class<S> c, E code){this.add(fUtils,c,code.toString());}
+	public <E extends Enum<E>, S extends EjbWithCode> void add(JeeslFacade fUtils, Class<S> c, E code){this.add(fUtils,c,code.toString());}
 	@SuppressWarnings("unchecked")
-	public <E extends Enum<E>, S extends EjbWithCode> void add(UtilsFacade fUtils, Class<S> c, String code)
+	public <E extends Enum<E>, S extends EjbWithCode> void add(JeeslFacade fUtils, Class<S> c, String code)
 	{
 		try
 		{

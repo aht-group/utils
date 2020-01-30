@@ -21,7 +21,6 @@ import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicType;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
-import org.jeesl.interfaces.model.system.with.EjbWithGraphic;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.NodeCollapseEvent;
@@ -43,7 +42,7 @@ public abstract class AbstractAssetTypeBean <L extends UtilsLang, D extends Util
 										G extends JeeslGraphic<L,D,GT,F,FS>, GT extends UtilsStatus<GT,L,D>,
 										F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends UtilsStatus<FS,L,D>,
 										REALM extends JeeslAssetRealm<L,D,REALM,?>, RREF extends EjbWithId,
-										ASSET extends JeeslAsset<REALM,ASSET,STATUS,TYPE>,
+										ASSET extends JeeslAsset<REALM,ASSET,MANU,STATUS,TYPE>,
 										MANU extends JeeslAssetManufacturer<REALM>,
 										STATUS extends JeeslAssetStatus<L,D,STATUS,?>,
 										TYPE extends JeeslAssetType<L,D,REALM,TYPE,G>>
@@ -64,7 +63,7 @@ public abstract class AbstractAssetTypeBean <L extends UtilsLang, D extends Util
     private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
 
     private REALM realm;
-    private RREF realmReference;
+    private RREF rRef;
     private TYPE root;
     private TYPE type;  public TYPE getType() {return type;} public void setType(TYPE type) {this.type = type;}
 
@@ -79,21 +78,20 @@ public abstract class AbstractAssetTypeBean <L extends UtilsLang, D extends Util
 	
 	protected <E extends Enum<E>> void postConstructAssetType(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
 									JeeslAssetFacade<L,D,REALM,ASSET,MANU,STATUS,TYPE> fAsset,
-									E eRealm, RREF realmReference
-									)
+									E eRealm, RREF rRef)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fAsset=fAsset;
 		
 		realm = fAsset.fByEnum(fbAsset.getClassRealm(),eRealm);
-		this.realmReference=realmReference;
+		this.rRef=rRef;
 		
 		reloadTree();
 	}
 	
 	private void reloadTree()
 	{
-		root = fAsset.fcAssetRootType(realm,realmReference);
+		root = fAsset.fcAssetRootType(realm,rRef);
 		
 		tree = new DefaultTreeNode(root, null);
 		buildTree(tree,fAsset.allForParent(fbAsset.getClassType(),root));
@@ -112,7 +110,7 @@ public abstract class AbstractAssetTypeBean <L extends UtilsLang, D extends Util
 	public void addType()
 	{
 		TYPE parent = null; if(type!=null) {parent = type;} else {parent = root;}
-		type = fbAsset.ejbType().build(realm, realmReference, parent, UUID.randomUUID().toString());
+		type = fbAsset.ejbType().build(realm, rRef, parent, UUID.randomUUID().toString());
 		type.setName(efLang.createEmpty(bTranslation.getLocales()));
 		type.setDescription(efDescription.createEmpty(bTranslation.getLocales()));
 	}

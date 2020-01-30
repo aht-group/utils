@@ -11,6 +11,7 @@ import org.jeesl.controller.db.updater.JeeslDbLangUpdater;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.io.report.JeeslIoReport;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportCell;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportColumn;
@@ -26,7 +27,6 @@ import org.jeesl.util.query.xpath.ReportXpath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -88,7 +88,7 @@ public class EjbIoReportColumnGroupFactory<L extends UtilsLang,D extends UtilsDe
 		return ejb;
 	}
 	
-	public GROUP build(UtilsFacade fReport, SHEET sheet, ColumnGroup group) throws JeeslNotFoundException
+	public GROUP build(JeeslFacade fReport, SHEET sheet, ColumnGroup group) throws JeeslNotFoundException
 	{
 		GROUP ejb = null;
 		try
@@ -104,7 +104,7 @@ public class EjbIoReportColumnGroupFactory<L extends UtilsLang,D extends UtilsDe
 		return ejb;
 	}
 	
-	public GROUP update(UtilsFacade fReport, GROUP eGroup, ColumnGroup xGroup) throws JeeslNotFoundException
+	public GROUP update(JeeslFacade fReport, GROUP eGroup, ColumnGroup xGroup) throws JeeslNotFoundException
 	{
 		eGroup.setPosition(xGroup.getPosition());
 		eGroup.setVisible(xGroup.isVisible());
@@ -125,7 +125,7 @@ public class EjbIoReportColumnGroupFactory<L extends UtilsLang,D extends UtilsDe
 		return eGroup;
 	}
 	
-	public GROUP updateLD(UtilsFacade fReport, GROUP eGroup, ColumnGroup xGroup) throws JeeslConstraintViolationException, JeeslLockingException
+	public GROUP updateLD(JeeslFacade fReport, GROUP eGroup, ColumnGroup xGroup) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		eGroup=dbuLang.handle(fReport, eGroup, xGroup.getLangs());
 		eGroup = fReport.save(eGroup);

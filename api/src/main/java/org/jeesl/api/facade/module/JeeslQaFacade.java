@@ -5,12 +5,12 @@ import java.util.List;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityUsecase;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaCategory;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaGroup;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaResult;
@@ -54,7 +54,7 @@ public interface JeeslQaFacade
 				QARS extends UtilsStatus<QARS,L2,D2>,
 				QAUS extends UtilsStatus<QAUS,L2,D2>>
 
-		extends UtilsFacade
+		extends JeeslFacade
 {	
 		QA load(Class<QA> cQa, QA qa);
 		QAC load(Class<QAC> cQac, QAC category);

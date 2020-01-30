@@ -17,6 +17,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.module.JeeslTsFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
@@ -36,7 +37,6 @@ import org.jeesl.interfaces.model.module.ts.data.JeeslTsTransaction;
 import org.jeesl.interfaces.model.module.ts.stat.JeeslTsStatistic;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 
-import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.controller.util.ParentPredicate;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -63,7 +63,7 @@ public class JeeslTsFacadeBean<L extends UtilsLang, D extends UtilsDescription,
 							USER extends EjbWithId, 
 							WS extends UtilsStatus<WS,L,D>,
 							QAF extends UtilsStatus<QAF,L,D>>
-					extends UtilsFacadeBean
+					extends JeeslFacadeBean
 					implements JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF>
 {
 	private static final long serialVersionUID = 1L;

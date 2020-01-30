@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.io.domain.JeeslDomainPath;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
@@ -11,7 +12,6 @@ import org.jeesl.model.json.module.survey.JsonSurveyValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.exlp.util.io.StringUtil;
 
@@ -56,7 +56,7 @@ public class JsonSurveyValueFactory
 	public static <PATH extends JeeslDomainPath<?,?,?,DENTITY,DATTRIBUTE>,
 					DENTITY extends JeeslRevisionEntity<?,?,?,?,DATTRIBUTE,?>,
 					DATTRIBUTE extends JeeslRevisionAttribute<?,?,DENTITY,?,?>>
-		List<JsonSurveyValue> build(UtilsFacade fUtils, Set<Long> ids, PATH path) throws ClassNotFoundException
+		List<JsonSurveyValue> build(JeeslFacade fUtils, Set<Long> ids, PATH path) throws ClassNotFoundException
 	{
 		if(logger.isTraceEnabled()){logger.info(StringUtil.stars());}
 		if(logger.isTraceEnabled()){logger.info(path.toString());}

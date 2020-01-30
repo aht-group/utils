@@ -30,6 +30,7 @@ import org.jeesl.factory.ejb.system.io.report.EjbIoReportWorkbookFactory;
 import org.jeesl.factory.xml.system.io.report.XmlReportFactory;
 import org.jeesl.factory.xml.system.io.report.XmlReportsFactory;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.io.report.JeeslIoReport;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportCell;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportColumn;
@@ -56,7 +57,6 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.exception.processing.UtilsProcessingException;
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -139,7 +139,7 @@ public class AbstractAdminIoReportDefinitionBean <L extends UtilsLang,D extends 
 	private JeeslReportUpdater<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,RCAT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION> reportUpdater;
 
 	private String restUrl; public String getRestUrl() {return restUrl;} public void setRestUrl(String restUrl) {this.restUrl = restUrl;}
-	protected UtilsFacade fRest;
+	protected JeeslFacade fRest;
 	
 	protected AbstractAdminIoReportDefinitionBean(final ReportFactoryBuilder<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,RCAT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION> fbReport)
 	{
@@ -149,7 +149,7 @@ public class AbstractAdminIoReportDefinitionBean <L extends UtilsLang,D extends 
 	}
 	
 	protected void postConstructReportDefinition(JeeslIoReportFacade<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION> fReport,
-												UtilsFacade fRest,JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage)
+												JeeslFacade fRest,JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage)
 	{
 		super.initSuperReport(bTranslation,bMessage,fReport);
 		this.fRest=fRest;

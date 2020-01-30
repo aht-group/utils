@@ -10,20 +10,20 @@ import java.util.Set;
 import javax.persistence.Tuple;
 
 import org.jeesl.factory.ejb.util.EjbIdFactory;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.model.json.db.tuple.t3.Json3Tuple;
 import org.jeesl.model.json.db.tuple.t3.Json3Tuples;
 import org.jeesl.model.json.db.tuple.two.Json2Tuple;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class Json3TuplesFactory <A extends EjbWithId, B extends EjbWithId, C extends EjbWithId>
 {
 	final static Logger logger = LoggerFactory.getLogger(Json3TuplesFactory.class);
 	
-	private UtilsFacade fUtils; public UtilsFacade getfUtils() {return fUtils;} public void setfUtils(UtilsFacade fUtils) {this.fUtils = fUtils;}
+	private JeeslFacade fUtils; public JeeslFacade getfUtils() {return fUtils;} public void setfUtils(JeeslFacade fUtils) {this.fUtils = fUtils;}
 	private final Json3TupleFactory<A,B,C> jtf;
 	
 	protected final Class<A> cA;

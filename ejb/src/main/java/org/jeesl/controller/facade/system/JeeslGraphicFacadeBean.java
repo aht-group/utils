@@ -1,4 +1,4 @@
-package org.jeesl.controller.facade;
+package org.jeesl.controller.facade.system;
 
 import java.util.List;
 
@@ -11,12 +11,12 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.system.graphic.JeeslGraphicFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
 import org.jeesl.interfaces.model.system.with.EjbWithGraphic;
 
-import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -26,7 +26,7 @@ public class JeeslGraphicFacadeBean<L extends UtilsLang, D extends UtilsDescript
 									S extends EjbWithId,
 									G extends JeeslGraphic<L,D,GT,F,FS>, GT extends UtilsStatus<GT,L,D>,
 									F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends UtilsStatus<FS,L,D>>
-					extends UtilsFacadeBean
+					extends JeeslFacadeBean
 					implements JeeslGraphicFacade<L,D,S,G,GT,F,FS>
 {	
 	private static final long serialVersionUID = 1L;

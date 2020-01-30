@@ -11,6 +11,7 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.factory.ejb.module.asset.EjbAssetFactory;
+import org.jeesl.interfaces.bean.system.JeeslAssetCacheBean;
 import org.jeesl.interfaces.model.module.asset.JeeslAsset;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetManufacturer;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetRealm;
@@ -33,7 +34,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 										REALM extends JeeslAssetRealm<L,D,REALM,?>, RREF extends EjbWithId,
-										ASSET extends JeeslAsset<REALM,ASSET,STATUS,TYPE>,
+										ASSET extends JeeslAsset<REALM,ASSET,MANU,STATUS,TYPE>,
 										MANU extends JeeslAssetManufacturer<REALM>,
 										STATUS extends JeeslAssetStatus<L,D,STATUS,?>,
 										TYPE extends JeeslAssetType<L,D,REALM,TYPE,?>>
@@ -47,17 +48,17 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
 	
 	private final AssetFactoryBuilder<L,D,REALM,ASSET,MANU,STATUS,TYPE> fbAsset;
 	
-	private final EjbAssetFactory<REALM,ASSET,STATUS,TYPE> efAsset;
+	private final EjbAssetFactory<REALM,ASSET,MANU,STATUS,TYPE> efAsset;
 	
 	private TreeNode tree; public TreeNode getTree() {return tree;}
     private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
 
     private final List<STATUS> status; public List<STATUS> getStatus() {return status;}
 	
-	private REALM realm;
-    private RREF realmReference;
-    private ASSET root;
-    private TYPE type;
+	private REALM realm; public REALM getRealm() {return realm;}
+	private RREF rref; public RREF getRref() {return rref;}
+
+	private ASSET root;
     private ASSET asset; public ASSET getAsset() {return asset;} public void setAsset(ASSET asset) {this.asset = asset;}
 
 	public AbstractAssetBean(AssetFactoryBuilder<L,D,REALM,ASSET,MANU,STATUS,TYPE> fbAsset)
@@ -72,24 +73,23 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
 	
 	protected <E extends Enum<E>> void postConstructAsset(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
 									JeeslAssetFacade<L,D,REALM,ASSET,MANU,STATUS,TYPE> fAsset,
-									E eRealm, RREF realmReference
+									JeeslAssetCacheBean<L,D,REALM,RREF,ASSET,MANU,STATUS,TYPE> bCache,
+									E eRealm, RREF rref
 									)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fAsset=fAsset;
 		
 		realm = fAsset.fByEnum(fbAsset.getClassRealm(),eRealm);
-		this.realmReference=realmReference;
+		this.rref=rref;
 		
 		status.addAll(fAsset.allOrderedPositionVisible(fbAsset.getClassStatus()));
-		type = fAsset.fcAssetRootType(realm, realmReference);
-		
 		reloadTree();
 	}
 	
 	private void reloadTree()
 	{
-		root = fAsset.fcAssetRoot(realm, realmReference);
+		root = fAsset.fcAssetRoot(realm,rref);
 		
 		tree = new DefaultTreeNode(root, null);
 		buildTree(tree,fAsset.allForParent(fbAsset.getClassAsset(), root));
@@ -109,8 +109,8 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
 	{
 		ASSET parent = null; if(asset!=null) {parent = asset;} else {parent = root;}
 		STATUS status = fAsset.fByEnum(fbAsset.getClassStatus(),JeeslAssetStatus.Code.na);
-		TYPE type = fAsset.fcAssetRootType(realm,realmReference);
-		asset = efAsset.build(realm,realmReference, parent, status,type);
+		TYPE type = fAsset.fcAssetRootType(realm,rref);
+		asset = efAsset.build(realm,rref, parent, status,type);
 	}
 	
 	public void saveAsset() throws JeeslConstraintViolationException, JeeslLockingException

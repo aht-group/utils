@@ -18,6 +18,7 @@ import javax.persistence.criteria.Root;
 import org.jeesl.api.facade.module.survey.JeeslSurveyAnalysisFacade;
 import org.jeesl.api.facade.system.JeeslJobFacade;
 import org.jeesl.controller.db.NativeQueryDebugger;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.survey.SurveyAnalysisFactoryBuilder;
 import org.jeesl.factory.builder.module.survey.SurveyCoreFactoryBuilder;
@@ -60,7 +61,6 @@ import org.jeesl.model.json.module.survey.JsonSurveyValues;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -93,7 +93,7 @@ public class JeeslSurveyAnalysisFacadeBean <L extends UtilsLang, D extends Utils
 				TOOLT extends UtilsStatus<TOOLT,L,D>,
 				TOOLCACHETEMPLATE extends JeeslJobTemplate<L,D,?,?,?,?>,
 				TOOLCACHE extends JeeslJobCache<TOOLCACHETEMPLATE,?>>
-	extends UtilsFacadeBean implements JeeslSurveyAnalysisFacade<L,D,SURVEY,SS,SCHEME,TEMPLATE,VERSION,SECTION,QUESTION,QE,SCORE,UNIT,ANSWER,MATRIX,DATA,OPTIONS,OPTION,CORRELATION,DOMAIN,QUERY,PATH,DENTITY,DATTRIBUTE,ANALYSIS,AQ,TOOL,TOOLT>
+	extends JeeslFacadeBean implements JeeslSurveyAnalysisFacade<L,D,SURVEY,SS,SCHEME,TEMPLATE,VERSION,SECTION,QUESTION,QE,SCORE,UNIT,ANSWER,MATRIX,DATA,OPTIONS,OPTION,CORRELATION,DOMAIN,QUERY,PATH,DENTITY,DATTRIBUTE,ANALYSIS,AQ,TOOL,TOOLT>
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(JeeslSurveyAnalysisFacadeBean.class);

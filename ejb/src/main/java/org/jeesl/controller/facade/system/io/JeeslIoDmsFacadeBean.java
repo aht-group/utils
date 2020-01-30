@@ -3,6 +3,7 @@ package org.jeesl.controller.facade.system.io;
 import javax.persistence.EntityManager;
 
 import org.jeesl.api.facade.io.JeeslIoDmsFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.factory.builder.io.IoDmsFactoryBuilder;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeItem;
@@ -18,7 +19,6 @@ import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -35,7 +35,7 @@ public class JeeslIoDmsFacadeBean<L extends UtilsLang,D extends UtilsDescription
 								FC extends JeeslFileContainer<?,?>,
 								AI extends JeeslAttributeItem<?,AS>,
 								AC extends JeeslAttributeContainer<?,?>>
-					extends UtilsFacadeBean
+					extends JeeslFacadeBean
 					implements JeeslIoDmsFacade<L,D,LOC,DMS,STORAGE,AS,DS,S,F,VIEW,FC,AC>
 {
 	private static final long serialVersionUID = 1L;

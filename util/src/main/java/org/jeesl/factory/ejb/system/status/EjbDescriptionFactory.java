@@ -8,10 +8,10 @@ import java.util.Map;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.txt.system.status.TxtStatusFactory;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -128,7 +128,7 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
 		return map;
 	}
 	
-	public <M extends EjbWithDescription<D>> void rmDescription(UtilsFacade fUtils, M ejb)
+	public <M extends EjbWithDescription<D>> void rmDescription(JeeslFacade fUtils, M ejb)
 	{
 		Map<String,D> descMap = ejb.getDescription();
 		ejb.setDescription(null);
@@ -147,12 +147,12 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
 		}
 	}
 	
-	public <T extends EjbWithDescription<D>, S extends UtilsStatus<S,L,D>, L extends UtilsLang> T persistMissingLangs(UtilsFacade fUtils, List<S> locales, T ejb)
+	public <T extends EjbWithDescription<D>, S extends UtilsStatus<S,L,D>, L extends UtilsLang> T persistMissingLangs(JeeslFacade fUtils, List<S> locales, T ejb)
 	{
 		return persistMissingLangs(fUtils,TxtStatusFactory.toCodes(locales).toArray(new String[0]),ejb);
 	}
 	
-	public <T extends EjbWithDescription<D>> T persistMissingLangsForCode(UtilsFacade fUtils, List<String> codes, T ejb)
+	public <T extends EjbWithDescription<D>> T persistMissingLangsForCode(JeeslFacade fUtils, List<String> codes, T ejb)
 	{
 		String[] localeCodes = new String[codes.size()];
 		for(int i=0;i<codes.size();i++)
@@ -162,7 +162,7 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
 		return persistMissingLangs(fUtils,localeCodes,ejb);
 	}
 	
-	public <T extends EjbWithDescription<D>> T persistMissingLangs(UtilsFacade fUtils, String[] keys, T ejb)
+	public <T extends EjbWithDescription<D>> T persistMissingLangs(JeeslFacade fUtils, String[] keys, T ejb)
 	{
 		for(String key : keys)
 		{
@@ -181,7 +181,7 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
 		return ejb;
 	}
 	
-	public void persistMissingLangs(UtilsFacade fUtils, String[] keys, Map<String,D> map)
+	public void persistMissingLangs(JeeslFacade fUtils, String[] keys, Map<String,D> map)
 	{
 		for(String key : keys)
 		{

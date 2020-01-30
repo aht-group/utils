@@ -2,9 +2,9 @@ package org.jeesl.api.facade.system;
 
 import java.util.List;
 
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.news.JeeslSystemNews;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -14,7 +14,7 @@ public interface JeeslSystemNewsFacade <L extends UtilsLang,D extends UtilsDescr
 										CATEGORY extends UtilsStatus<CATEGORY,L,D>,
 										NEWS extends JeeslSystemNews<L,D,CATEGORY,NEWS,USER>,
 										USER extends EjbWithId>
-			extends UtilsFacade
+			extends JeeslFacade
 {	
 	List<NEWS> fActiveNews();
 }

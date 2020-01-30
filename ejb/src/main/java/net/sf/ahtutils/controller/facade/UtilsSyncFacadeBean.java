@@ -14,6 +14,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 import org.jeesl.api.facade.core.JeeslSyncFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.ejb.system.sync.EjbSyncFactory;
 import org.jeesl.interfaces.model.system.io.db.JeeslSync;
@@ -25,7 +26,7 @@ public class UtilsSyncFacadeBean <L extends UtilsLang,
 									STATUS extends UtilsStatus<STATUS,L,D>,
 									CATEGORY extends UtilsStatus<CATEGORY,L,D>,
 									SYNC extends JeeslSync<L,D,STATUS,CATEGORY>>  
-	extends UtilsFacadeBean implements JeeslSyncFacade<L,D,STATUS,CATEGORY,SYNC>
+	extends JeeslFacadeBean implements JeeslSyncFacade<L,D,STATUS,CATEGORY,SYNC>
 {	
 	public UtilsSyncFacadeBean(EntityManager em)
 	{

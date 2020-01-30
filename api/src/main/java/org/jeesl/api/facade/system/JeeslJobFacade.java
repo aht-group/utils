@@ -6,6 +6,7 @@ import java.util.List;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.job.JeeslJob;
 import org.jeesl.interfaces.model.system.job.JeeslJobCache;
@@ -18,7 +19,6 @@ import org.jeesl.interfaces.model.system.job.JeeslJobRobot;
 import org.jeesl.interfaces.model.system.job.JeeslJobTemplate;
 import org.jeesl.interfaces.model.system.job.JeeslJobType;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -39,7 +39,7 @@ public interface JeeslJobFacade <L extends UtilsLang,D extends UtilsDescription,
 								CONTAINER extends JeeslFileContainer<?,?>,
 								USER extends EjbWithEmail
 								>
-			extends UtilsFacade
+			extends JeeslFacade
 {	
 	<E extends Enum<E>> TEMPLATE fJobTemplate(E type, String code) throws JeeslNotFoundException;
 	List<JOB> fJobs(List<CATEGORY> categories, List<TYPE> type, List<STATUS> status, Date from, Date to);

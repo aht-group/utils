@@ -17,6 +17,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.io.JeeslIoSsiFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
 import org.jeesl.factory.json.db.tuple.t1.Json1TuplesFactory;
@@ -29,7 +30,6 @@ import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -42,7 +42,7 @@ public class JeeslIoSsiFacadeBean<L extends UtilsLang,D extends UtilsDescription
 									DATA extends JeeslIoSsiData<MAPPING,LINK>,
 									LINK extends UtilsStatus<LINK,L,D>,
 									ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>>
-					extends UtilsFacadeBean
+					extends JeeslFacadeBean
 					implements JeeslIoSsiFacade<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY>
 {	
 	private static final long serialVersionUID = 1L;

@@ -10,6 +10,7 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.MapFactoryBuilder;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.module.map.JeeslLocationLevel;
 import org.jeesl.interfaces.model.module.map.JeeslStatisticMapStatus;
 import org.jeesl.interfaces.model.module.map.JeeslStatisticalMap;
@@ -21,7 +22,6 @@ import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -39,7 +39,7 @@ public abstract class AbstractStatisticalMapBean <L extends UtilsLang, D extends
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractStatisticalMapBean.class);
 	
-	protected UtilsFacade fMap;
+	protected JeeslFacade fMap;
 	private final MapFactoryBuilder<L,D,MAP,IMP,STATUS,LEVEL> fbMap;
 	
 	private final Nested2Map<MAP,LEVEL,IMP> nestedMap; public Nested2Map<MAP,LEVEL,IMP> getNestedMap() {return nestedMap;}
@@ -62,7 +62,7 @@ public abstract class AbstractStatisticalMapBean <L extends UtilsLang, D extends
 		nestedMap = new Nested2Map<>();
 	}
 
-	protected void postConstructMap(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, UtilsFacade fMap)
+	protected void postConstructMap(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslFacade fMap)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fMap=fMap;

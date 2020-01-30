@@ -1,4 +1,4 @@
-package org.jeesl.controller.facade;
+package org.jeesl.controller.facade.system.io;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.io.JeeslIoReportFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.system.io.report.JeeslIoReport;
@@ -25,7 +26,6 @@ import org.jeesl.interfaces.model.system.io.report.JeeslReportTemplate;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportWorkbook;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 
-import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.controller.util.ParentPredicate;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -52,7 +52,7 @@ public class JeeslIoReportFacadeBean<L extends UtilsLang,D extends UtilsDescript
 									TLS extends UtilsStatus<TLS,L,D>,
 									FILLING extends UtilsStatus<FILLING,L,D>,
 									TRANSFORMATION extends UtilsStatus<TRANSFORMATION,L,D>>
-					extends UtilsFacadeBean
+					extends JeeslFacadeBean
 					implements JeeslIoReportFacade<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION>
 {	
 	private final Class<CATEGORY> cCategory;

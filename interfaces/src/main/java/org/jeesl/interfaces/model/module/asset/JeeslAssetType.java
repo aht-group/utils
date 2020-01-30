@@ -5,12 +5,12 @@ import java.util.List;
 
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.with.EjbWithCodeGraphic;
-import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.with.EjbWithLangDescription;
+import net.sf.ahtutils.interfaces.model.with.code.EjbWithNonUniqueCode;
 import net.sf.ahtutils.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import net.sf.ahtutils.interfaces.model.with.position.EjbWithPosition;
 
@@ -20,7 +20,7 @@ public interface JeeslAssetType <L extends UtilsLang, D extends UtilsDescription
 							G extends JeeslGraphic<L,D,?,?,?>>
 			extends Serializable,
 					EjbSaveable,EjbWithParentAttributeResolver,
-					EjbWithCode,EjbWithPosition,EjbWithLangDescription<L,D>,
+					EjbWithNonUniqueCode,EjbWithPosition,EjbWithLangDescription<L,D>,
 					EjbWithCodeGraphic<G>
 					
 {

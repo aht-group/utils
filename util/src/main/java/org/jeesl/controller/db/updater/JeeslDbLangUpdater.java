@@ -8,10 +8,10 @@ import java.util.Set;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.ejb.system.status.EjbLangFactory;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 import net.sf.ahtutils.xml.status.Lang;
@@ -39,7 +39,7 @@ public class JeeslDbLangUpdater<C extends EjbWithLang<L>, L extends UtilsLang>
 		return new JeeslDbLangUpdater<C,L>(cEjb,cL);
 	}
 
-	public C handle(UtilsFacade fUtils,C ejb, Langs langs) throws JeeslConstraintViolationException, JeeslLockingException
+	public C handle(JeeslFacade fUtils,C ejb, Langs langs) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(ejb.getName()==null)
 		{
@@ -54,12 +54,12 @@ public class JeeslDbLangUpdater<C extends EjbWithLang<L>, L extends UtilsLang>
 		return ejb;
 	}
 	
-	public C handle(UtilsFacade fUtils, C ejb, String[] localeCodes)
+	public C handle(JeeslFacade fUtils, C ejb, String[] localeCodes)
 	{
 		return efLang.persistMissingLangs(fUtils, localeCodes, ejb);
 	}
 	
-	private C remove(UtilsFacade fUtils,C ejb, Langs langs) throws JeeslConstraintViolationException
+	private C remove(JeeslFacade fUtils,C ejb, Langs langs) throws JeeslConstraintViolationException
 	{
 		Set<String> actualInXml = new HashSet<String>();
 		List<String> obsoleteInEjb = new ArrayList<String>();
@@ -83,7 +83,7 @@ public class JeeslDbLangUpdater<C extends EjbWithLang<L>, L extends UtilsLang>
 		return ejb;
 	}
 	
-	private C add(UtilsFacade fUtils,C ejb, Langs langs) throws JeeslConstraintViolationException
+	private C add(JeeslFacade fUtils,C ejb, Langs langs) throws JeeslConstraintViolationException
 	{
 		Set<String> actualInXml = new HashSet<String>();
 		for(Lang lang : langs.getLang()){actualInXml.add(lang.getKey());}
@@ -107,7 +107,7 @@ public class JeeslDbLangUpdater<C extends EjbWithLang<L>, L extends UtilsLang>
 		return ejb;
 	}
 	
-	private C update(UtilsFacade fUtils,C ejb, Langs langs) throws JeeslConstraintViolationException, JeeslLockingException
+	private C update(JeeslFacade fUtils,C ejb, Langs langs) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		for(Lang lang : langs.getLang())
 		{

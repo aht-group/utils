@@ -14,6 +14,7 @@ import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.HydroFactoryBuilder;
 import org.jeesl.factory.ejb.module.hydro.EjbHydroYearFactory;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.module.hydro.JeeslHydroDecade;
 import org.jeesl.interfaces.model.module.hydro.JeeslHydroYear;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
@@ -22,7 +23,6 @@ import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
@@ -36,7 +36,7 @@ public class AbstractHydroYearBean <L extends UtilsLang, D extends UtilsDescript
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractHydroYearBean.class);
 
-	private UtilsFacade fUtils;
+	private JeeslFacade fUtils;
 	private final HydroFactoryBuilder<L,D,HD,HY> fbHydroYear;
 
 	private EjbHydroYearFactory<L,D,HD,HY> efHydroYear;
@@ -66,7 +66,7 @@ public class AbstractHydroYearBean <L extends UtilsLang, D extends UtilsDescript
 	}
 
 
-	public void initSuper(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, UtilsFacade fUtils)
+	public void initSuper(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslFacade fUtils)
 	{
 		super.initJeeslAdmin(bTranslation, bMessage);
 		this.fUtils=fUtils;

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.interfaces.facade.JeeslFacade;
 
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -17,7 +18,7 @@ import net.sf.ahtutils.xml.access.AclQuery;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.Group;
 
-public interface AhtAclFacade extends UtilsFacade
+public interface AhtAclFacade extends JeeslFacade
 {	
 		
 	<L extends UtilsLang,

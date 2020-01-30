@@ -11,6 +11,7 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.ReportFactoryBuilder;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.io.report.JeeslIoReport;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportCell;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportColumn;
@@ -26,7 +27,6 @@ import org.jeesl.util.query.xpath.ReportXpath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -93,7 +93,7 @@ public class EjbIoReportSheetFactory<L extends UtilsLang,D extends UtilsDescript
 		return ejb;
 	}
 	
-	public SHEET build(UtilsFacade fReport, WORKBOOK workbook, XlsSheet sheet) throws JeeslNotFoundException
+	public SHEET build(JeeslFacade fReport, WORKBOOK workbook, XlsSheet sheet) throws JeeslNotFoundException
 	{
 		SHEET ejb = null;
 		try
@@ -109,7 +109,7 @@ public class EjbIoReportSheetFactory<L extends UtilsLang,D extends UtilsDescript
 		return ejb;
 	}
 	
-	public SHEET update(UtilsFacade fReport, SHEET eSheet, XlsSheet xSheet) throws JeeslNotFoundException
+	public SHEET update(JeeslFacade fReport, SHEET eSheet, XlsSheet xSheet) throws JeeslNotFoundException
 	{
 		try {eSheet.setImplementation(fReport.fByCode(cImplementation, ReportXpath.getImplementation(xSheet).getCode()));}
 		catch (ExlpXpathNotFoundException e) {throw new JeeslNotFoundException(e.getMessage());}
@@ -129,7 +129,7 @@ public class EjbIoReportSheetFactory<L extends UtilsLang,D extends UtilsDescript
 		return eSheet;
 	}
 	
-	public SHEET updateLD(UtilsFacade fUtils, SHEET eSheet, XlsSheet xSheet) throws JeeslConstraintViolationException, JeeslLockingException, ExlpXpathNotFoundException
+	public SHEET updateLD(JeeslFacade fUtils, SHEET eSheet, XlsSheet xSheet) throws JeeslConstraintViolationException, JeeslLockingException, ExlpXpathNotFoundException
 	{
 		eSheet=dbuLang.handle(fUtils, eSheet, ReportXpath.getLangs(xSheet));
 		eSheet = fUtils.save(eSheet);

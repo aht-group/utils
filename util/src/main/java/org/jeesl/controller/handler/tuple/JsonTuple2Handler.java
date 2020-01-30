@@ -13,13 +13,13 @@ import org.jeesl.controller.processor.finance.AmountRounder;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.factory.json.db.tuple.JsonTupleFactory;
 import org.jeesl.interfaces.controller.report.JeeslComparatorProvider;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.model.json.db.tuple.JsonTuple;
 import org.jeesl.model.json.db.tuple.two.Json2Tuple;
 import org.jeesl.model.json.db.tuple.two.Json2Tuples;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.exlp.util.io.JsonUtil;
 
@@ -62,7 +62,7 @@ public class JsonTuple2Handler <A extends EjbWithId, B extends EjbWithId>
 		listB.clear();
 	}
 
-	public void init(Json2Tuples<A,B> tuples, UtilsFacade fUtils, boolean loadA, boolean loadB)
+	public void init(Json2Tuples<A,B> tuples, JeeslFacade fUtils, boolean loadA, boolean loadB)
 	{
 		clear();
 		Set<Long> setIdA = new HashSet<>();
@@ -107,7 +107,7 @@ public class JsonTuple2Handler <A extends EjbWithId, B extends EjbWithId>
 		
 	}
 	public void init(Json2Tuples<A,B> tuples) {init(null,tuples);}
-	public void init(UtilsFacade fJeesl, Json2Tuples<A,B> tuples)
+	public void init(JeeslFacade fJeesl, Json2Tuples<A,B> tuples)
 	{
 		clear();
 	
@@ -147,7 +147,7 @@ public class JsonTuple2Handler <A extends EjbWithId, B extends EjbWithId>
 		tuples2.addAll(tuples.getTuples());
 	}
 	
-	protected void initListB(UtilsFacade fJeesl)
+	protected void initListB(JeeslFacade fJeesl)
 	{
 		if(fJeesl==null){listB.addAll(mapB.values());}
 		else{listB.addAll(fJeesl.find(cB,new ArrayList<Long>(mapB.keySet())));}

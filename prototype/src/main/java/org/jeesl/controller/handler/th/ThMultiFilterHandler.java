@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.jeesl.interfaces.bean.th.ThMultiFilterBean;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
@@ -15,7 +16,6 @@ import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -50,7 +50,7 @@ public class ThMultiFilterHandler <T extends EjbWithId> implements Serializable,
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <E extends Enum<E>, S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription> void add(UtilsFacade fUtils, Class<S> c, E code)
+	public <E extends Enum<E>, S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription> void add(JeeslFacade fUtils, Class<S> c, E code)
 	{
 		try
 		{

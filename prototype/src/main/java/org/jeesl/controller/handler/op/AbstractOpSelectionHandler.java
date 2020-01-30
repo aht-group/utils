@@ -8,11 +8,11 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.bean.op.OpEntityBean;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public abstract class AbstractOpSelectionHandler <T extends EjbWithId> implements OpEntitySelection<T>
@@ -64,7 +64,7 @@ public abstract class AbstractOpSelectionHandler <T extends EjbWithId> implement
 	}
 	
 	@SuppressWarnings({"unchecked" })
-	public <C extends EjbWithCode, E extends Enum<E>> void addEntity(UtilsFacade fUtils, Class<C> c, E code)
+	public <C extends EjbWithCode, E extends Enum<E>> void addEntity(JeeslFacade fUtils, Class<C> c, E code)
     {
 		try
 		{

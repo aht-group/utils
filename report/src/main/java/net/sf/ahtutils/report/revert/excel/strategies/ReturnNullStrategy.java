@@ -3,8 +3,7 @@ package net.sf.ahtutils.report.revert.excel.strategies;
 import java.util.Hashtable;
 
 import org.jeesl.api.controller.ImportStrategy;
-
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
+import org.jeesl.interfaces.facade.JeeslFacade;
 
 public class ReturnNullStrategy implements ImportStrategy {
 
@@ -12,7 +11,7 @@ public class ReturnNullStrategy implements ImportStrategy {
 		return null;
 	}
 
-	public void setFacade(UtilsFacade facade) {
+	public void setFacade(JeeslFacade facade) {
 		// Not needed here
 	}
 	

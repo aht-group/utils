@@ -6,6 +6,7 @@ import org.jeesl.controller.db.updater.JeeslDbDescriptionUpdater;
 import org.jeesl.controller.db.updater.JeeslDbLangUpdater;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.io.report.JeeslIoReport;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportCell;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportColumn;
@@ -20,7 +21,6 @@ import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -124,7 +124,7 @@ public class EjbIoReportStyleFactory<L extends UtilsLang,D extends UtilsDescript
 		
 	}
 	
-	public STYLE updateLD(UtilsFacade fUtils, STYLE eStyle, Style xStyle) throws JeeslConstraintViolationException, JeeslLockingException
+	public STYLE updateLD(JeeslFacade fUtils, STYLE eStyle, Style xStyle) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		eStyle=dbuLang.handle(fUtils, eStyle, xStyle.getLangs());
 		eStyle = fUtils.save(eStyle);

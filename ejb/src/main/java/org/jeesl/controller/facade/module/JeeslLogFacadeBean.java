@@ -14,6 +14,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.module.JeeslLogFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.factory.builder.module.LogFactoryBuilder;
 import org.jeesl.interfaces.model.module.log.JeeslLogBook;
 import org.jeesl.interfaces.model.module.log.JeeslLogConfidentiality;
@@ -24,7 +25,6 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
@@ -37,7 +37,7 @@ public class JeeslLogFacadeBean<L extends UtilsLang, D extends UtilsDescription,
 									CONF extends JeeslLogConfidentiality<L,D,CONF,?>,
 									USER extends EjbWithId
 									>
-					extends UtilsFacadeBean
+					extends JeeslFacadeBean
 					implements JeeslLogFacade<L,D,LOG,SCOPE,ITEM,IMPACT,CONF,USER>
 {	
 	private static final long serialVersionUID = 1L;

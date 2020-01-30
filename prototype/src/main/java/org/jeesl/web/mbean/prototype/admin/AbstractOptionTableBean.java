@@ -24,6 +24,7 @@ import org.jeesl.factory.builder.system.SvgFactoryBuilder;
 import org.jeesl.factory.ejb.system.status.EjbStatusFactory;
 import org.jeesl.factory.ejb.system.symbol.EjbGraphicFactory;
 import org.jeesl.factory.ejb.system.symbol.EjbGraphicFigureFactory;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicStyle;
@@ -48,7 +49,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
@@ -81,7 +81,7 @@ public class AbstractOptionTableBean <L extends UtilsLang, D extends UtilsDescri
 	final static Logger logger = LoggerFactory.getLogger(AbstractOptionTableBean.class);
 	private static final long serialVersionUID = 1L;
 
-	protected UtilsFacade fUtils;
+	protected JeeslFacade fUtils;
 	
 	private final StatusFactoryBuilder<L,D,LOC> fbStatus;
 	private final SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg;

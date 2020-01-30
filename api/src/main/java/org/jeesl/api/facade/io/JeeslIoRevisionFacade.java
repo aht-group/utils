@@ -6,6 +6,7 @@ import java.util.List;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.io.revision.EjbWithRevisionAttributes;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionScope;
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
@@ -16,7 +17,6 @@ import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntityMapping;
 import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -35,7 +35,7 @@ public interface JeeslIoRevisionFacade <L extends UtilsLang,D extends UtilsDescr
 									RER extends UtilsStatus<RER,L,D>,
 									RAT extends UtilsStatus<RAT,L,D>,
 									ERD extends JeeslRevisionDiagram<L,D,RC>>
-			extends UtilsFacade
+			extends JeeslFacade
 {	
 	public static int typeCreate = 0;
 	

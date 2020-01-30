@@ -12,12 +12,12 @@ import org.jeesl.controller.monitor.ProcessingTimeTracker;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.controller.handler.OutputXpathPattern;
 import org.jeesl.interfaces.controller.handler.tree.JeeslTreeSelected;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.module.hydro.JeeslHydroDecade;
 import org.jeesl.interfaces.model.module.hydro.JeeslHydroYear;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.exlp.util.io.StringUtil;
 
 @SuppressWarnings("rawtypes")
@@ -26,7 +26,7 @@ public class SbDecadeTreeHandler<HD extends JeeslHydroDecade, HY extends JeeslHy
 	final static Logger logger = LoggerFactory.getLogger(SbDecadeTreeHandler.class);
 	private static final long serialVersionUID = 1L;
 
-	private final UtilsFacade fUtils;
+	private final JeeslFacade fUtils;
 	private final Class<HD> cDecade; public Class<HD> getClassDecade(){return cDecade;}
 	private final Class<HY> cYear; public Class<HY> getClassYear(){return cYear;}
 
@@ -35,7 +35,7 @@ public class SbDecadeTreeHandler<HD extends JeeslHydroDecade, HY extends JeeslHy
 
 	private SbDateHandler sbDateHandler; public SbDateHandler getSbDateHandler() {return sbDateHandler;}
 
-	public SbDecadeTreeHandler(JeeslTreeSelected callback, UtilsFacade fUtils, final Class<HD> cDecade, final Class<HY> cYear)
+	public SbDecadeTreeHandler(JeeslTreeSelected callback, JeeslFacade fUtils, final Class<HD> cDecade, final Class<HY> cYear)
 	{
 		super(callback,new SbDecadeTreeCache<HD,HY>(fUtils,cDecade,cYear),new SbDecadeTreeStore<HD,HY>());
 		this.fUtils=fUtils;

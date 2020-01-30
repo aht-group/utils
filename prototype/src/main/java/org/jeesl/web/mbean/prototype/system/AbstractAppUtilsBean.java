@@ -3,12 +3,12 @@ package org.jeesl.web.mbean.prototype.system;
 import java.io.Serializable;
 import java.util.List;
 
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -21,7 +21,7 @@ public abstract class AbstractAppUtilsBean<L extends UtilsLang, D extends UtilsD
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAppUtilsBean.class);
 	
-	protected UtilsFacade fUtils;
+	protected JeeslFacade fUtils;
 	
 	protected Class<GT> cGraphicType;
 	protected Class<FS> cGraphicStyle;

@@ -1,5 +1,6 @@
 package org.jeesl.api.facade.io;
 
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeSet;
 import org.jeesl.interfaces.model.system.io.dms.JeeslIoDms;
@@ -10,7 +11,6 @@ import org.jeesl.interfaces.model.system.io.domain.JeeslDomainSet;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorage;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -25,7 +25,7 @@ public interface JeeslIoDmsFacade <L extends UtilsLang,D extends UtilsDescriptio
 									VIEW extends JeeslIoDmsView<L,D,DMS>,
 									FC extends JeeslFileContainer<?,?>,
 									AC extends JeeslAttributeContainer<?,?>>
-						extends UtilsFacade
+						extends JeeslFacade
 {
 	S load(S section, boolean recursive);
 }

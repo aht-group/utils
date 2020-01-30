@@ -10,12 +10,12 @@ import javax.persistence.Tuple;
 
 import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.factory.json.db.tuple.t3.Json3TuplesFactory;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.model.json.db.tuple.t4.Json4Tuple;
 import org.jeesl.model.json.db.tuple.t4.Json4Tuples;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class Json4TuplesFactory <A extends EjbWithId, B extends EjbWithId, C extends EjbWithId, D extends EjbWithId>
@@ -69,7 +69,7 @@ public class Json4TuplesFactory <A extends EjbWithId, B extends EjbWithId, C ext
 		mapD.clear();
 	}
 	
-	public void init(UtilsFacade fUtils, Json4Tuples<A,B,C,D> json)
+	public void init(JeeslFacade fUtils, Json4Tuples<A,B,C,D> json)
 	{
 		clear();
 		this.tuples = json;

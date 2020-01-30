@@ -13,6 +13,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.module.JeeslBbFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.factory.builder.module.BbFactoryBuilder;
 import org.jeesl.interfaces.model.module.bb.JeeslBbBoard;
 import org.jeesl.interfaces.model.module.bb.post.JeeslBbPost;
@@ -22,7 +23,6 @@ import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -37,7 +37,7 @@ public class JeeslBulletinBoardFacadeBean<L extends UtilsLang,D extends UtilsDes
 										M extends JeeslMarkup<MT>,
 										MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
 										USER extends EjbWithEmail>
-					extends UtilsFacadeBean
+					extends JeeslFacadeBean
 					implements JeeslBbFacade<L,D,SCOPE,BB,PUB,THREAD,POST,M,MT,USER>
 {	
 	private static final long serialVersionUID = 1L;

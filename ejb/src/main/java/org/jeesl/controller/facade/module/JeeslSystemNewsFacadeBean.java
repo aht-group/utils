@@ -14,6 +14,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.system.JeeslSystemNewsFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.interfaces.model.system.news.JeeslSystemNews;
 import org.jeesl.interfaces.model.util.date.EjbWithValidFrom;
 import org.jeesl.interfaces.model.util.date.EjbWithValidUntil;
@@ -22,7 +23,6 @@ import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -32,7 +32,7 @@ public class JeeslSystemNewsFacadeBean<L extends UtilsLang,D extends UtilsDescri
 										CATEGORY extends UtilsStatus<CATEGORY,L,D>,
 										NEWS extends JeeslSystemNews<L,D,CATEGORY,NEWS,USER>,
 										USER extends EjbWithId>
-					extends UtilsFacadeBean
+					extends JeeslFacadeBean
 					implements JeeslSystemNewsFacade<L,D,CATEGORY,NEWS,USER>
 {	
 	final static Logger logger = LoggerFactory.getLogger(JeeslSystemNewsFacadeBean.class);

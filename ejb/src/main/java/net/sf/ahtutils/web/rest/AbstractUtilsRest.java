@@ -7,13 +7,13 @@ import org.jeesl.factory.ejb.system.status.EjbDescriptionFactory;
 import org.jeesl.factory.ejb.system.status.EjbLangFactory;
 import org.jeesl.factory.ejb.system.status.EjbStatusFactory;
 import org.jeesl.factory.xml.system.status.XmlStatusFactory;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.util.db.JeeslStatusDbUpdater;
 import org.jeesl.util.query.xml.XmlStatusQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -26,7 +26,7 @@ public class AbstractUtilsRest <L extends UtilsLang, D extends UtilsDescription>
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractUtilsRest.class);
 
-	protected UtilsFacade fUtils;
+	protected JeeslFacade fUtils;
 	
 	protected final Class<L> cL;
 	protected final Class<D> cD;
@@ -37,7 +37,7 @@ public class AbstractUtilsRest <L extends UtilsLang, D extends UtilsDescription>
 	
 	private Map<Class<?>,String> mapGroups;
 
-	public AbstractUtilsRest(UtilsFacade fUtils, final String[] defaultLangs, final Class<L> cL, final Class<D> cD)
+	public AbstractUtilsRest(JeeslFacade fUtils, final String[] defaultLangs, final Class<L> cL, final Class<D> cD)
 	{
 		this.fUtils=fUtils;
 		this.defaultLangs=defaultLangs;

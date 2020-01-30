@@ -10,13 +10,13 @@ import java.util.Map;
 import org.jeesl.controller.processor.finance.AmountRounder;
 import org.jeesl.factory.json.db.tuple.JsonTupleFactory;
 import org.jeesl.interfaces.controller.report.JeeslComparatorProvider;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.model.json.db.tuple.JsonTuple;
 import org.jeesl.model.json.db.tuple.t3.Json3Tuple;
 import org.jeesl.model.json.db.tuple.t3.Json3Tuples;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class JsonTuple3Handler <A extends EjbWithId, B extends EjbWithId, C extends EjbWithId>
@@ -66,8 +66,8 @@ public class JsonTuple3Handler <A extends EjbWithId, B extends EjbWithId, C exte
 	}
 	
 	public void init(Json3Tuples<A,B,C> tuples) {init(null,tuples,false);}
-	public void init(UtilsFacade fJeesl, Json3Tuples<A,B,C> tuples, boolean load){init(fJeesl,tuples,true,true,true);}
-	public void init(UtilsFacade fJeesl, Json3Tuples<A,B,C> tuples, boolean loadA, boolean loadB, boolean loadC)
+	public void init(JeeslFacade fJeesl, Json3Tuples<A,B,C> tuples, boolean load){init(fJeesl,tuples,true,true,true);}
+	public void init(JeeslFacade fJeesl, Json3Tuples<A,B,C> tuples, boolean loadA, boolean loadB, boolean loadC)
 	{
 		clear();
 	
@@ -118,7 +118,7 @@ public class JsonTuple3Handler <A extends EjbWithId, B extends EjbWithId, C exte
 		tuples3.addAll(tuples.getTuples());
 	}
 	
-	protected void initListC(UtilsFacade fJeesl)
+	protected void initListC(JeeslFacade fJeesl)
 	{
 		if(fJeesl==null){listC.addAll(mapC.values());}
 		else{listC.addAll(fJeesl.find(cC,new ArrayList<Long>(mapC.keySet())));}

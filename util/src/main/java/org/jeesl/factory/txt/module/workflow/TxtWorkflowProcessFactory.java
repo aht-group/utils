@@ -1,13 +1,12 @@
 package org.jeesl.factory.txt.module.workflow;
 
 import org.jeesl.factory.builder.module.WorkflowFactoryBuilder;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStage;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 
 public class TxtWorkflowProcessFactory<WP extends JeeslWorkflowProcess<?,?,?,WS>,
 										WS extends JeeslWorkflowStage<?,?,WP,?,?,WT,?>,
@@ -17,7 +16,7 @@ public class TxtWorkflowProcessFactory<WP extends JeeslWorkflowProcess<?,?,?,WS>
 	
 	private final String localeCode;
 	
-	private UtilsFacade fWf;
+	private JeeslFacade fWf;
 	private WorkflowFactoryBuilder<?,?,?,WP,WS,?,?,?,?,WT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWf;
 	
 	public TxtWorkflowProcessFactory(String localeCode)
@@ -25,7 +24,7 @@ public class TxtWorkflowProcessFactory<WP extends JeeslWorkflowProcess<?,?,?,WS>
 		this.localeCode=localeCode;
 	}
 	
-	public void lazy(UtilsFacade fWf,WorkflowFactoryBuilder<?,?,?,WP,WS,?,?,?,?,WT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWf)
+	public void lazy(JeeslFacade fWf,WorkflowFactoryBuilder<?,?,?,WP,WS,?,?,?,?,WT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWf)
 	{
 		this.fWf=fWf;
 		this.fbWf=fbWf;

@@ -1,11 +1,11 @@
 package org.jeesl.factory.ejb.module.om;
 
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetRealm;
 import org.jeesl.interfaces.model.module.om.JeeslOmCompany;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class EjbOmCompanyFactory<REALM extends JeeslAssetRealm<?,?,REALM,?>,
@@ -34,7 +34,7 @@ public class EjbOmCompanyFactory<REALM extends JeeslAssetRealm<?,?,REALM,?>,
 		return null;
     }
 	
-	public void converter(UtilsFacade facade, COMPANY company)
+	public void converter(JeeslFacade facade, COMPANY company)
 	{
 		
 	}

@@ -3,6 +3,7 @@ package org.jeesl.api.facade.module.survey;
 import java.util.List;
 
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.module.survey.analysis.JeeslSurveyAnalysis;
 import org.jeesl.interfaces.model.module.survey.analysis.JeeslSurveyAnalysisQuestion;
 import org.jeesl.interfaces.model.module.survey.analysis.JeeslSurveyAnalysisTool;
@@ -31,7 +32,6 @@ import org.jeesl.model.json.JsonFlatFigures;
 import org.jeesl.model.json.module.survey.JsonSurveyValue;
 import org.jeesl.model.json.module.survey.JsonSurveyValues;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -62,7 +62,7 @@ public interface JeeslSurveyAnalysisFacade <L extends UtilsLang, D extends Utils
 											AQ extends JeeslSurveyAnalysisQuestion<L,D,QUESTION,ANALYSIS>,
 											TOOL extends JeeslSurveyAnalysisTool<L,D,QE,QUERY,DATTRIBUTE,AQ,TOOLT>,
 											TOOLT extends UtilsStatus<TOOLT,L,D>>
-	extends UtilsFacade
+	extends JeeslFacade
 {
 	TOOL load(TOOL tool);
 	

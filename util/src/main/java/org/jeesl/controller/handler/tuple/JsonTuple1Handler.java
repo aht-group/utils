@@ -10,6 +10,7 @@ import java.util.Map;
 import org.jeesl.controller.processor.finance.AmountRounder;
 import org.jeesl.factory.json.db.tuple.JsonTupleFactory;
 import org.jeesl.interfaces.controller.report.JeeslComparatorProvider;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.model.json.db.tuple.JsonTuple;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuple;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
@@ -17,7 +18,6 @@ import org.jeesl.util.comparator.json.Tuple1Comparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class JsonTuple1Handler <A extends EjbWithId> extends JsonTupleHandler implements Serializable
@@ -80,7 +80,7 @@ public class JsonTuple1Handler <A extends EjbWithId> extends JsonTupleHandler im
 		initListA(null);
 	}
 	
-	protected void initListA(UtilsFacade fJeesl)
+	protected void initListA(JeeslFacade fJeesl)
 	{
 		if(fJeesl==null){listA.addAll(mapA.values());}
 		else{listA.addAll(fJeesl.find(cA,new ArrayList<Long>(mapA.keySet())));}
@@ -93,6 +93,14 @@ public class JsonTuple1Handler <A extends EjbWithId> extends JsonTupleHandler im
 	{
 		Json1Tuple<A> json = map1.get(a);
 		return JsonTupleFactory.build(json);
+	}
+	
+	public Long count(A a)
+	{
+		if(!this.contains(a)){return null;}
+		{
+			return map1.get(a).getCount();
+		}
 	}
 	
 	public void orderDescending()

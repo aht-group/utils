@@ -14,6 +14,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.module.JeeslAssetFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
@@ -25,18 +26,17 @@ import org.jeesl.interfaces.model.module.asset.JeeslAssetType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class JeeslAssetFacadeBean<L extends UtilsLang, D extends UtilsDescription,
 										REALM extends JeeslAssetRealm<L,D,REALM,?>,
-										ASSET extends JeeslAsset<REALM,ASSET,STATUS,TYPE>,
+										ASSET extends JeeslAsset<REALM,ASSET,MANU,STATUS,TYPE>,
 										MANU extends JeeslAssetManufacturer<REALM>,
 										STATUS extends JeeslAssetStatus<L,D,STATUS,?>,
 										TYPE extends JeeslAssetType<L,D,REALM,TYPE,?>>
-					extends UtilsFacadeBean
+					extends JeeslFacadeBean
 					implements JeeslAssetFacade<L,D,REALM,ASSET,MANU,STATUS,TYPE>
 {	
 	private static final long serialVersionUID = 1L;

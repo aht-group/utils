@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsMultiPoint;
@@ -17,7 +18,6 @@ import org.jeesl.interfaces.model.module.ts.data.JeeslTsTransaction;
 import org.jeesl.interfaces.model.module.ts.stat.JeeslTsStatistic;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -44,7 +44,7 @@ public interface JeeslTsFacade <L extends UtilsLang,
 								USER extends EjbWithId, 
 								WS extends UtilsStatus<WS,L,D>,
 								QAF extends UtilsStatus<QAF,L,D>>
-			extends UtilsFacade
+			extends JeeslFacade
 {	
 	List<SCOPE> findScopes(Class<SCOPE> cScope, Class<CAT> cCategory, List<CAT> categories, boolean showInvisibleScopes);
 	List<EC> findClasses(Class<EC> cClass, Class<CAT> cCategory, List<CAT> categories, boolean showInvisibleClasses);

@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.module.log.JeeslLogBook;
 import org.jeesl.interfaces.model.module.log.JeeslLogConfidentiality;
 import org.jeesl.interfaces.model.module.log.JeeslLogImpact;
@@ -13,7 +14,6 @@ import org.jeesl.interfaces.model.module.log.JeeslLogItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class EjbLogItemFactory<BOOK extends JeeslLogBook<?,ITEM>,
@@ -52,7 +52,7 @@ public class EjbLogItemFactory<BOOK extends JeeslLogBook<?,ITEM>,
 		return ejb;
 	}
 	
-	public void lazy(UtilsFacade facade, ITEM item)
+	public void lazy(JeeslFacade facade, ITEM item)
 	{
 		if(item.getAuthor()!=null) {item.setAuthor(facade.find(cUser,item.getAuthor()));}
 		if(item.getImpact()!=null) {item.setImpact(facade.find(cImpact,item.getImpact()));}

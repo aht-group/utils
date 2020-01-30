@@ -5,13 +5,13 @@ import org.jeesl.controller.db.updater.JeeslDbLangUpdater;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraint;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraintResolution;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraintScope;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -55,7 +55,7 @@ public class EjbConstraintScopeFactory <L extends UtilsLang, D extends UtilsDesc
 		return ejb;
 	}
 	
-	public SCOPE importOrUpdate(UtilsFacade fUtils, ConstraintScope xScope) throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException
+	public SCOPE importOrUpdate(JeeslFacade fUtils, ConstraintScope xScope) throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException
 	{
 		SCOPE eScope;	
 		try {eScope = fUtils.fByCode(cScope,xScope.getCode());}
@@ -73,7 +73,7 @@ public class EjbConstraintScopeFactory <L extends UtilsLang, D extends UtilsDesc
 		return eScope;
 	}
 	
-	private SCOPE updateLD(UtilsFacade fUtils, SCOPE eScope, ConstraintScope xScope) throws JeeslConstraintViolationException, JeeslLockingException
+	private SCOPE updateLD(JeeslFacade fUtils, SCOPE eScope, ConstraintScope xScope) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		eScope = dbuLang.handle(fUtils, eScope, xScope.getLangs());
 		eScope = fUtils.save(eScope);
@@ -82,7 +82,7 @@ public class EjbConstraintScopeFactory <L extends UtilsLang, D extends UtilsDesc
 		return eScope;
 	}
 	
-	public SCOPE updateLD(UtilsFacade fUtils, SCOPE eScope, String[] localeCodes)
+	public SCOPE updateLD(JeeslFacade fUtils, SCOPE eScope, String[] localeCodes)
 	{
 		eScope = dbuLang.handle(fUtils, eScope, localeCodes);
 		eScope = dbuDescription.handle(fUtils, eScope, localeCodes);

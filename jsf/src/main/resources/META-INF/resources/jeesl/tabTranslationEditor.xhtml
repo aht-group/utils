@@ -27,6 +27,7 @@
   				<p:outputLabel value="#{cc.attrs.labelDescription}"/>
   				<p:inputTextarea value="#{cc.attrs.value.description[t].lang}" style="width:100%" autocomplete="off"/>
   			</c:if>
+  			<composite:insertChildren/>
   		</p:tab>  
   	</p:tabView> 
   	<p:tabView id="tabViewLocale" var="l" value="#{cc.attrs.locales}" rendered="#{not empty cc.attrs.locales}">  
@@ -39,6 +40,7 @@
   				<p:outputLabel value="#{cc.attrs.labelDescription}" rendered="#{not empty cc.attrs.labelDescription}"/>
   				<p:inputTextarea value="#{cc.attrs.value.description[l.code].lang}" style="width:100%" autocomplete="off"/>
   			</c:if>
+  			<composite:insertChildren/>
   		</p:tab>  
   	</p:tabView>
   </composite:implementation>

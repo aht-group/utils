@@ -1,11 +1,11 @@
 package net.sf.ahtutils.web.rest;
 
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -27,7 +27,7 @@ public class UtilsRestService <L extends UtilsLang,
     private final Class<GT> cGraphicType;
     private final Class<FS> cGraphicStyle;
     
-    public UtilsRestService(UtilsFacade fUtils, String[] localeCodes, final Class<L> cLang, final Class<D> cDescription, final Class<G> cGraphic,final Class<GT> cGraphicType, final Class<FS> cGraphicStyle)
+    public UtilsRestService(JeeslFacade fUtils, String[] localeCodes, final Class<L> cLang, final Class<D> cDescription, final Class<G> cGraphic,final Class<GT> cGraphicType, final Class<FS> cGraphicStyle)
 	{   
     	super(fUtils,localeCodes,cLang,cDescription);
         
@@ -42,7 +42,7 @@ public class UtilsRestService <L extends UtilsLang,
 					G extends JeeslGraphic<L,D,GT,F,FS>, GT extends UtilsStatus<GT,L,D>,
 					F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends UtilsStatus<FS,L,D>> 
 		UtilsRestService<L,D,G,GT,F,FS>
-		factory(UtilsFacade fUtils,String[] localeCodes,final Class<L> cL, final Class<D> cD, final Class<G> cGraphic,final Class<GT> cGraphicType, final Class<FS> cGraphicStyle)
+		factory(JeeslFacade fUtils,String[] localeCodes,final Class<L> cL, final Class<D> cD, final Class<G> cGraphic,final Class<GT> cGraphicType, final Class<FS> cGraphicStyle)
 	{
 		return new UtilsRestService<L,D,G,GT,F,FS>(fUtils,localeCodes,cL,cD,cGraphic,cGraphicType,cGraphicStyle);
 	}

@@ -15,6 +15,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.system.JeeslSystemConstraintFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.ConstraintFactoryBuilder;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraint;
@@ -22,7 +23,6 @@ import org.jeesl.interfaces.model.system.constraint.JeeslConstraintResolution;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraintScope;
 import org.jeesl.interfaces.model.system.constraint.algorithm.JeeslConstraintAlgorithm;
 
-import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -36,7 +36,7 @@ public class JeeslSystemConstraintFacadeBean<L extends UtilsLang, D extends Util
 												LEVEL extends UtilsStatus<LEVEL,L,D>,
 												TYPE extends UtilsStatus<TYPE,L,D>,
 												RESOLUTION extends JeeslConstraintResolution<L,D,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>>
-					extends UtilsFacadeBean
+					extends JeeslFacadeBean
 					implements JeeslSystemConstraintFacade<L,D,ALGCAT,ALGO,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>
 {	
 	private final ConstraintFactoryBuilder<L,D,ALGCAT,ALGO,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION> fbConstraint;

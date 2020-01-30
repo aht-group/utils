@@ -13,6 +13,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.io.JeeslIoMailFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoMailFactoryBuilder;
@@ -26,7 +27,6 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -37,7 +37,7 @@ public class JeeslIoMailFacadeBean<L extends UtilsLang,D extends UtilsDescriptio
 									STATUS extends JeeslMailStatus<L,D,STATUS,?>,
 									RETENTION extends JeeslMailRetention<L,D,RETENTION,?>,
 									FRC extends JeeslFileContainer<?,?>>
-					extends UtilsFacadeBean
+					extends JeeslFacadeBean
 					implements JeeslIoMailFacade<L,D,CATEGORY,MAIL,STATUS,RETENTION,FRC>
 {	
 	private static final long serialVersionUID = 1L;

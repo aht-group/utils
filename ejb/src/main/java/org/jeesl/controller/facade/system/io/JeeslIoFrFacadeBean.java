@@ -14,6 +14,7 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.io.JeeslIoFrFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.controller.handler.system.io.fr.storage.FileRepositoryFileStorage;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
@@ -32,7 +33,6 @@ import org.jeesl.util.comparator.pojo.BooleanComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -46,7 +46,7 @@ public class JeeslIoFrFacadeBean<L extends UtilsLang, D extends UtilsDescription
 									META extends JeeslFileMeta<D,CONTAINER,TYPE,STATUS>,
 									TYPE extends JeeslFileType<L,D,TYPE,?>,
 									STATUS extends JeeslFileStatus<L,D,STATUS,?>>
-					extends UtilsFacadeBean
+					extends JeeslFacadeBean
 					implements JeeslIoFrFacade<L,D,SYSTEM,STORAGE,ENGINE,CONTAINER,META,TYPE>
 {	
 	private static final long serialVersionUID = 1L;

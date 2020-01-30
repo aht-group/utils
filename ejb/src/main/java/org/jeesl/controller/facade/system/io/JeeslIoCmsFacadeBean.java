@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.jeesl.api.facade.io.JeeslIoCmsFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.io.IoCmsFactoryBuilder;
@@ -21,7 +22,6 @@ import org.jeesl.interfaces.model.system.io.fr.JeeslFileMeta;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -39,7 +39,7 @@ public class JeeslIoCmsFacadeBean<L extends UtilsLang,D extends UtilsDescription
 									FC extends JeeslFileContainer<?,FM>,
 									FM extends JeeslFileMeta<D,FC,?,?>,
 									LOC extends UtilsStatus<LOC,L,D>>
-					extends UtilsFacadeBean
+					extends JeeslFacadeBean
 					implements JeeslIoCmsFacade<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM>
 {	
 	private static final long serialVersionUID = 1L;

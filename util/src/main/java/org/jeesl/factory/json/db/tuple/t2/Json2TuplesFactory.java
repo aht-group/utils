@@ -11,19 +11,19 @@ import javax.persistence.Tuple;
 
 import org.apache.commons.collections.keyvalue.MultiKey;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.model.json.db.tuple.two.Json2Tuple;
 import org.jeesl.model.json.db.tuple.two.Json2Tuples;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class Json2TuplesFactory <A extends EjbWithId, B extends EjbWithId>
 {
 	final static Logger logger = LoggerFactory.getLogger(Json2TuplesFactory.class);
 	
-	private UtilsFacade fUtils; public UtilsFacade getfUtils() {return fUtils;} public void setfUtils(UtilsFacade fUtils) {this.fUtils = fUtils;}
+	private JeeslFacade fUtils; public JeeslFacade getfUtils() {return fUtils;} public void setfUtils(JeeslFacade fUtils) {this.fUtils = fUtils;}
 	private final Json2TupleFactory<A,B> jtf;
 	
 	private final Class<A> cA;
@@ -41,7 +41,7 @@ public class Json2TuplesFactory <A extends EjbWithId, B extends EjbWithId>
 
 	public Json2TuplesFactory(Class<A> cA, Class<B> cY)
 	{this(null,cA,cY);}
-	public Json2TuplesFactory(UtilsFacade fUtils, Class<A> cA, Class<B> cY)
+	public Json2TuplesFactory(JeeslFacade fUtils, Class<A> cA, Class<B> cY)
 	{
 		this.fUtils=fUtils;
 		this.cA=cA;

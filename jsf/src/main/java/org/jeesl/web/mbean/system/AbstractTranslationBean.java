@@ -12,10 +12,10 @@ import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.factory.builder.system.StatusFactoryBuilder;
 import org.jeesl.factory.txt.system.locale.TranslationFactory;
 import org.jeesl.factory.txt.system.locale.TranslationMap;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -28,7 +28,7 @@ public class AbstractTranslationBean<L extends UtilsLang, D extends UtilsDescrip
 	final static Logger logger = LoggerFactory.getLogger(AbstractTranslationBean.class);
 	private static final long serialVersionUID = 1L;
 	
-	private UtilsFacade fUtils;
+	private JeeslFacade fUtils;
 	private StatusFactoryBuilder<L,D,LOC> fbStatus;
 	
 	private TranslationMap tm;
@@ -51,7 +51,7 @@ public class AbstractTranslationBean<L extends UtilsLang, D extends UtilsDescrip
 	}
 	
 	
-	protected void initMap(ClassLoader cl, String fXml, UtilsFacade fUtils)
+	protected void initMap(ClassLoader cl, String fXml, JeeslFacade fUtils)
 	{
 		this.fUtils=fUtils;
 		initMap(cl,fXml);

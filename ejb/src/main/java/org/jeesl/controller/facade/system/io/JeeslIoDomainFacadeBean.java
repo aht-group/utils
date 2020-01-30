@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.jeesl.api.facade.io.JeeslIoDomainFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.factory.builder.io.IoDomainFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.domain.JeeslDomain;
 import org.jeesl.interfaces.model.system.io.domain.JeeslDomainItem;
@@ -16,7 +17,6 @@ import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 
@@ -28,7 +28,7 @@ public class JeeslIoDomainFacadeBean <L extends UtilsLang, D extends UtilsDescri
 				DATTRIBUTE extends JeeslRevisionAttribute<L,D,DENTITY,?,?>,
 				SET extends JeeslDomainSet<L,D,DOMAIN>,
 				ITEM extends JeeslDomainItem<QUERY,SET>>
-	extends UtilsFacadeBean implements JeeslIoDomainFacade<L,D,DOMAIN,QUERY,PATH,DENTITY,DATTRIBUTE,SET,ITEM>
+	extends JeeslFacadeBean implements JeeslIoDomainFacade<L,D,DOMAIN,QUERY,PATH,DENTITY,DATTRIBUTE,SET,ITEM>
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(JeeslIoDomainFacadeBean.class);

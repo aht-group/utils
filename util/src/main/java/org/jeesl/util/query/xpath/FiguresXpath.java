@@ -59,7 +59,7 @@ public class FiguresXpath
 		return list.get(0);
 	}
 	
-	public static <E extends Enum<E>, C extends Enum<C>> Finance getFiguresStaff(Figures figures, E figureCode, C staffCode) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
+	private static <E extends Enum<E>, C extends Enum<C>> Finance getFiguresStaff(Figures figures, E figureCode, C staffCode) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
 	{
 		JXPathContext context = JXPathContext.newContext(figures);
 		

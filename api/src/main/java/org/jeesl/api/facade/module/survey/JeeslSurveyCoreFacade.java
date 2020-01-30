@@ -6,6 +6,7 @@ import java.util.List;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.module.survey.JeeslWithSurvey;
 import org.jeesl.interfaces.model.module.survey.JeeslWithSurveyType;
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurvey;
@@ -28,7 +29,6 @@ import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestionUnit
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveySection;
 import org.jeesl.interfaces.model.with.status.JeeslWithType;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -52,7 +52,7 @@ public interface JeeslSurveyCoreFacade <L extends UtilsLang, D extends UtilsDesc
 									OPTIONS extends JeeslSurveyOptionSet<L,D,TEMPLATE,OPTION>,
 									OPTION extends JeeslSurveyOption<L,D>,
 									CORRELATION extends JeeslSurveyCorrelation<DATA>>
-	extends UtilsFacade
+	extends JeeslFacade
 {	
 //	@Deprecated //Use fTemplate
 //	TEMPLATE load(TEMPLATE template, boolean withQuestions, boolean withOptions);

@@ -6,13 +6,13 @@ import org.jeesl.controller.db.updater.JeeslDbLangUpdater;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraint;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraintResolution;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraintScope;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -78,7 +78,7 @@ public class EjbConstraintFactory <L extends UtilsLang, D extends UtilsDescripti
 		return eConstraint;
 	}
 	
-	public CONSTRAINT updateLD(UtilsFacade fUtils, CONSTRAINT eConstraint, Constraint xConstraint) throws JeeslConstraintViolationException, JeeslLockingException
+	public CONSTRAINT updateLD(JeeslFacade fUtils, CONSTRAINT eConstraint, Constraint xConstraint) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		eConstraint = dbuLang.handle(fUtils, eConstraint, xConstraint.getLangs());
 		eConstraint = fUtils.save(eConstraint);
@@ -87,7 +87,7 @@ public class EjbConstraintFactory <L extends UtilsLang, D extends UtilsDescripti
 		return eConstraint;
 	}
 	
-	public CONSTRAINT updateLD(UtilsFacade fUtils, CONSTRAINT eConstraint, String[] localeCodes)
+	public CONSTRAINT updateLD(JeeslFacade fUtils, CONSTRAINT eConstraint, String[] localeCodes)
 	{
 		eConstraint = dbuLang.handle(fUtils, eConstraint, localeCodes);
 		eConstraint = dbuDescription.handle(fUtils, eConstraint, localeCodes);

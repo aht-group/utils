@@ -10,10 +10,10 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.system.JeeslSystemPropertyFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.system.property.JeeslProperty;
 
-import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -21,7 +21,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 public class JeeslSystemPropertyFacadeBean<L extends UtilsLang,D extends UtilsDescription,
 											C extends UtilsStatus<C,L,D>,
 											P extends JeeslProperty<L,D,C,P>>
-					extends UtilsFacadeBean
+					extends JeeslFacadeBean
 					implements JeeslSystemPropertyFacade<L,D,C,P>
 {	
 	private final Class<P> cProperty;

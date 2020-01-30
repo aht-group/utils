@@ -6,6 +6,7 @@ import net.sf.ahtutils.interfaces.model.issue.UtilsTask;
 import net.sf.ahtutils.interfaces.model.with.EjbWithTask;
 
 import org.jeesl.api.facade.core.JeeslIssueFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
@@ -13,7 +14,7 @@ import org.jeesl.factory.ejb.module.task.EjbTaskFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UtilsIssueFacadeBean extends UtilsFacadeBean implements JeeslIssueFacade
+public class UtilsIssueFacadeBean extends JeeslFacadeBean implements JeeslIssueFacade
 {
 	final static Logger logger = LoggerFactory.getLogger(UtilsIssueFacadeBean.class);
 	

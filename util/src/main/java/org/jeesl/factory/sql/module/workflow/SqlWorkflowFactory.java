@@ -13,7 +13,7 @@ public class SqlWorkflowFactory
 	
 	public static <WS extends JeeslWorkflowStage<?,?,?,?,?,?,?>,
 					WF extends JeeslWorkflow<?,WS,?>>
-						String updateCurrentStage(Class<WF> c, WF workflow, WS stage)
+				String updateCurrentStage(Class<WF> c, WF workflow, WS stage)
 	{
 		StringBuffer sb = new StringBuffer();
 		sb.append("UPDATE ");

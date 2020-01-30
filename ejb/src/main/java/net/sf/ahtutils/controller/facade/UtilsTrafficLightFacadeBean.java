@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.jeesl.api.facade.system.graphic.JeeslTrafficLightFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
@@ -14,7 +15,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 public class UtilsTrafficLightFacadeBean <L extends UtilsLang,D extends UtilsDescription,
 											LIGHT extends JeeslTrafficLight<L,D,SCOPE>,
 											SCOPE extends UtilsStatus<SCOPE,L,D>>
-	extends UtilsFacadeBean implements JeeslTrafficLightFacade<L,D,LIGHT,SCOPE>
+	extends JeeslFacadeBean implements JeeslTrafficLightFacade<L,D,LIGHT,SCOPE>
 {	
 	private final Class<LIGHT> cLight;
 	

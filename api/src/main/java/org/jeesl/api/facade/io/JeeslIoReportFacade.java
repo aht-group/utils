@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.io.report.JeeslIoReport;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportCell;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportColumn;
@@ -15,7 +16,6 @@ import org.jeesl.interfaces.model.system.io.report.JeeslReportTemplate;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportWorkbook;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -41,7 +41,7 @@ public interface JeeslIoReportFacade <L extends UtilsLang,D extends UtilsDescrip
 										TLS extends UtilsStatus<TLS,L,D>,
 										FILLING extends UtilsStatus<FILLING,L,D>,
 										TRANSFORMATION extends UtilsStatus<TRANSFORMATION,L,D>>
-			extends UtilsFacade
+			extends JeeslFacade
 {	
 	REPORT load(REPORT report, boolean recursive);
 	WORKBOOK load(WORKBOOK workbook);

@@ -10,18 +10,18 @@ import java.util.Set;
 import javax.persistence.Tuple;
 
 import org.jeesl.factory.ejb.util.EjbIdFactory;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.model.json.db.tuple.JsonTuple;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuple;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class Json1TuplesFactory <A extends EjbWithId>
 {
 	private final Class<A> cA; public Class<A> getClassA() {return cA;}
 
-	private UtilsFacade fUtils; public void setfUtils(UtilsFacade fUtils) {this.fUtils = fUtils;}
+	private JeeslFacade fUtils; public void setfUtils(JeeslFacade fUtils) {this.fUtils = fUtils;}
 
 	private final Set<Long> setA;
 	private final Json1TupleFactory<A> jtf;
@@ -31,7 +31,7 @@ public class Json1TuplesFactory <A extends EjbWithId>
 	private Json1Tuples<A> tuples; public Json1Tuples<A> get1Tuples() {return tuples;} public void set1Tuples(Json1Tuples<A> tuples) {this.tuples = tuples;}
 
 	public Json1TuplesFactory(Class<A> cA) {this(null,cA);}
-	public Json1TuplesFactory(UtilsFacade fUtils, Class<A> cA)
+	public Json1TuplesFactory(JeeslFacade fUtils, Class<A> cA)
 	{
 		this.cA=cA;
 		this.fUtils=fUtils;
@@ -41,7 +41,7 @@ public class Json1TuplesFactory <A extends EjbWithId>
 		jtf = new Json1TupleFactory<A>();
 	}
 	
-	public void init(UtilsFacade fUtils, Json1Tuples<A> json)
+	public void init(JeeslFacade fUtils, Json1Tuples<A> json)
 	{
 		clear();
 		this.tuples = json;
@@ -75,7 +75,7 @@ public class Json1TuplesFactory <A extends EjbWithId>
 		return list;
 	}
 	
-	public List<A> toTuple1List(UtilsFacade fUtils)
+	public List<A> toTuple1List(JeeslFacade fUtils)
 	{
 		return fUtils.find(cA,setA);
 	}

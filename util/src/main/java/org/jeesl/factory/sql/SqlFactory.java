@@ -10,6 +10,11 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class SqlFactory
 {
+	public static void newLine(boolean newLine, StringBuilder sb)
+	{
+		if(newLine){sb.append("\n");}
+	}
+	
 	public static <E extends Enum<E>> String sum(String item, E attribute, String as, boolean newLine)
 	{
 		StringBuilder sb = new StringBuilder();
@@ -19,17 +24,17 @@ public class SqlFactory
 		return sb.toString();
 	}
 	
-	public static <E extends Enum<E>> String id(String item, E attribute)
+	public static <E extends Enum<E>> String id(String alias, E attribute)
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append(path(item,attribute)).append("_id");
+		sb.append(path(alias,attribute)).append("_id");
 		return sb.toString();
 	}
 	
-	public static <E extends Enum<E>> String path(String item, E attribute)
+	public static <E extends Enum<E>> String path(String alias, E attribute)
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append(item).append(".").append(attribute.toString());
+		sb.append(alias).append(".").append(attribute.toString());
 		return sb.toString();
 	}
 	
@@ -50,6 +55,23 @@ public class SqlFactory
 		return sb.toString();
 	}
 	
+	public static <E extends Enum<E>> String distinct(StringBuilder sb, String alias, E attribute, boolean newLine)
+	{
+		sb.append(" DISTINCT ON (");
+		sb.append(id(alias,attribute));
+		sb.append(")");
+		newLine(newLine,sb);
+		return sb.toString();
+	}
+	
+	public static <T extends EjbWithId> void from(StringBuilder sb, Class<T> c, String alias, boolean newLine)
+	{
+		if(c.getAnnotation(Table.class)==null) {throw new RuntimeException("Not a @Table)");}
+		sb.append("FROM ").append(c.getAnnotation(Table.class).name());
+		sb.append(" AS ").append(alias);
+		newLine(newLine,sb);
+	}
+	
 	public static <E extends Enum<E>> String inIdList(String item, E attribute, List<EjbWithId> ids, boolean newLine)
 	{
 		StringBuilder sb = new StringBuilder();
@@ -59,20 +81,16 @@ public class SqlFactory
 		return sb.toString();
 	}
 	
+	public static void limit(StringBuilder sb, int limit, boolean newLine)
+	{
+		limit(sb,true,limit,newLine);
+	}
 	public static void limit(StringBuilder sb, boolean apply, int limit, boolean newLine)
 	{
 		if(apply)
 		{
-			sb.append("LIMIT ").append(limit);
+			sb.append(" LIMIT ").append(limit);
 			newLine(newLine,sb);
-		}
-	}
-	
-	private static void newLine(boolean newLine, StringBuilder sb)
-	{
-		if(newLine)
-		{
-			sb.append("\n");
 		}
 	}
 	
@@ -87,5 +105,14 @@ public class SqlFactory
 	{
 		if(!first) {sb.append(",");}
 		sb.append(id.getId());
+	}
+	
+	public static <E extends Enum<E>, T extends EjbWithId> String where(StringBuilder sb, String alias, E attribute, T where, boolean newLine)
+	{
+		sb.append(" WHERE");
+		sb.append(" ").append(id(alias,attribute));
+		sb.append("=").append(where.getId());
+		newLine(newLine,sb);
+		return sb.toString();
 	}
 }

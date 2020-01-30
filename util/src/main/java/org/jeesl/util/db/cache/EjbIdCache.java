@@ -4,22 +4,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class EjbIdCache <T extends EjbWithId>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbIdCache.class);
 
-	private final UtilsFacade fUtils;
+	private final JeeslFacade fUtils;
 	private final Class<T> c;
 	
 	private final Map<Long,T> map;
 	
-	public EjbIdCache(UtilsFacade fUtils, Class<T> c)
+	public EjbIdCache(JeeslFacade fUtils, Class<T> c)
 	{
 		this.fUtils=fUtils;
 		this.c=c;

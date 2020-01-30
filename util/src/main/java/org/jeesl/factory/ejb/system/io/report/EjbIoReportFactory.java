@@ -6,6 +6,7 @@ import org.jeesl.controller.db.updater.JeeslDbLangUpdater;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.io.report.JeeslIoReport;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportCell;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportColumn;
@@ -19,7 +20,6 @@ import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -96,7 +96,7 @@ public class EjbIoReportFactory<L extends UtilsLang,D extends UtilsDescription,
 		return ejb;
 	}
 	
-	public REPORT update (UtilsFacade fUtils, REPORT eReport, Report xReport) throws JeeslNotFoundException
+	public REPORT update (JeeslFacade fUtils, REPORT eReport, Report xReport) throws JeeslNotFoundException
 	{
 		CATEGORY eCategory = fUtils.fByCode(cCategory, xReport.getCategory().getCode());
 
@@ -107,7 +107,7 @@ public class EjbIoReportFactory<L extends UtilsLang,D extends UtilsDescription,
 		return eReport;
 	}
 	
-	public REPORT updateLD(UtilsFacade fUtils, REPORT eReport, Report xReport) throws JeeslConstraintViolationException, JeeslLockingException
+	public REPORT updateLD(JeeslFacade fUtils, REPORT eReport, Report xReport) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		eReport=dbuReportLang.handle(fUtils, eReport, xReport.getLangs());
 		eReport = fUtils.save(eReport);

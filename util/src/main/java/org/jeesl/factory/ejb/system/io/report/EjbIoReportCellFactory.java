@@ -6,6 +6,7 @@ import org.jeesl.controller.db.updater.JeeslDbDescriptionUpdater;
 import org.jeesl.controller.db.updater.JeeslDbLangUpdater;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.io.report.JeeslIoReport;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportCell;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportColumn;
@@ -19,7 +20,6 @@ import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -101,7 +101,7 @@ public class EjbIoReportCellFactory<L extends UtilsLang,D extends UtilsDescripti
 		return eCell;
 	}
 		
-	public CELL updateLD(UtilsFacade fUtils, CELL eCell, Cell xCell) throws JeeslConstraintViolationException, JeeslLockingException
+	public CELL updateLD(JeeslFacade fUtils, CELL eCell, Cell xCell) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		eCell=dbuLang.handle(fUtils, eCell, xCell.getLangs());
 		eCell = fUtils.save(eCell);

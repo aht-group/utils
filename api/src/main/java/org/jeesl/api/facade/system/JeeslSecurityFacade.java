@@ -3,6 +3,7 @@ package org.jeesl.api.facade.system;
 import java.util.List;
 
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
@@ -14,7 +15,6 @@ import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.interfaces.model.system.security.util.JeeslStaff;
 import org.jeesl.interfaces.model.system.security.with.JeeslSecurityWithCategory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.util.UtilsStaffPool;
@@ -29,7 +29,7 @@ public interface JeeslSecurityFacade <L extends UtilsLang, D extends UtilsDescri
 										AT extends JeeslSecurityTemplate<L,D,C>,
 										M extends JeeslSecurityMenu<V,M>,
 										USER extends JeeslUser<R>>
-	extends UtilsFacade
+	extends JeeslFacade
 {	
 	
 	R load(R role, boolean withUsers);

@@ -3,17 +3,16 @@ package net.sf.ahtutils.report.revert.excel.strategies;
 import java.util.Hashtable;
 
 import org.jeesl.api.controller.ImportStrategy;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.model.xml.text.Remark;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 
 public class AddRemarkStrategy implements ImportStrategy {
 	
 	final static Logger logger = LoggerFactory.getLogger(AddRemarkStrategy.class);
 	
-	private UtilsFacade facade;
+	private JeeslFacade facade;
 	
 	private Hashtable<String, Object> tempPropertyStore;
 	public  Hashtable<String, Object> getTempPropertyStore() {return tempPropertyStore;}
@@ -30,7 +29,7 @@ public class AddRemarkStrategy implements ImportStrategy {
 	}
 
 	@Override
-	public void setFacade(UtilsFacade facade) {
+	public void setFacade(JeeslFacade facade) {
 		this.facade = facade;
 	}
 

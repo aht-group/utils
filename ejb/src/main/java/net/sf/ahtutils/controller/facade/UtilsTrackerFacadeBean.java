@@ -11,6 +11,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 
 import net.sf.ahtutils.interfaces.facade.UtilsTrackerFacade;
@@ -22,7 +23,7 @@ import net.sf.ahtutils.model.interfaces.tracker.UtilsTracker;
 import net.sf.ahtutils.model.interfaces.tracker.UtilsTrackerLog;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public class UtilsTrackerFacadeBean extends UtilsFacadeBean implements UtilsTrackerFacade
+public class UtilsTrackerFacadeBean extends JeeslFacadeBean implements UtilsTrackerFacade
 {	
 	public UtilsTrackerFacadeBean(EntityManager em)
 	{

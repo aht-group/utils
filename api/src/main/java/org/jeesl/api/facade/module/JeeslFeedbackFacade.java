@@ -1,9 +1,9 @@
 package org.jeesl.api.facade.module;
 
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.module.feedback.JeeslFeedback;
 import org.jeesl.interfaces.model.module.feedback.JeeslFeedbackThread;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -15,7 +15,7 @@ public interface JeeslFeedbackFacade <L extends UtilsLang, D extends UtilsDescri
 									STYLE extends UtilsStatus<STYLE,L,D>,
 									TYPE extends UtilsStatus<TYPE,L,D>,
 									USER extends EjbWithEmail>
-			extends UtilsFacade
+			extends JeeslFacade
 {	
 	THREAD load(THREAD thread);
 }

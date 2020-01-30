@@ -1,4 +1,4 @@
-package org.jeesl.controller.facade;
+package org.jeesl.controller.facade.system;
 
 import java.util.List;
 
@@ -10,13 +10,12 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.core.JeeslUserFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 
-import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
-
 public class JeeslUserFacadeBean<USER extends JeeslUser<?>>
-					extends UtilsFacadeBean
+					extends JeeslFacadeBean
 					implements JeeslUserFacade<USER>
 {	
 	private static final long serialVersionUID = 1L;

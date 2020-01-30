@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.jeesl.api.facade.io.JeeslIoDbFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoDbFactoryBuilder;
 import org.jeesl.factory.json.system.io.db.JsonPostgresConnectionFactory;
@@ -28,7 +29,6 @@ import org.jsoup.helper.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 
@@ -38,7 +38,7 @@ public class JeeslIoDbFacadeBean <L extends UtilsLang,D extends UtilsDescription
 								DF extends JeeslDbDumpFile<DUMP,DH,DS>,
 								DH extends JeeslDbDumpHost<L,D,DH,?>,
 								DS extends JeeslDbDumpStatus<L,D,DS,?>>
-		extends UtilsFacadeBean implements JeeslIoDbFacade<L,D,SYSTEM,DUMP,DF,DH,DS>
+		extends JeeslFacadeBean implements JeeslIoDbFacade<L,D,SYSTEM,DUMP,DF,DH,DS>
 {
 	private static final long serialVersionUID = 1L;
 

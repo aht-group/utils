@@ -1,4 +1,4 @@
-package net.sf.ahtutils.interfaces.facade;
+package org.jeesl.interfaces.facade;
 
 import java.util.Date;
 import java.util.List;
@@ -48,7 +48,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 import net.sf.ahtutils.model.interfaces.with.EjbWithVisible;
 
-public interface UtilsFacade extends UtilsIdFacade
+public interface JeeslFacade extends JeeslIdFacade
 {
 	<L extends UtilsLang,D extends UtilsDescription, S extends EjbWithId,G extends JeeslGraphic<L,D,GT,F,FS>, GT extends UtilsStatus<GT,L,D>, F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends UtilsStatus<FS,L,D>> S loadGraphic(Class<S> cS, S status);
 	

@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.crud.EjbCrudWithParent;
 import net.sf.ahtutils.interfaces.web.crud.CrudHandler1Bean;
 import net.sf.ahtutils.interfaces.web.crud.CrudHandler2Bean;
@@ -23,31 +23,31 @@ public class UtilsCrudHandlerParent <T extends EjbCrudWithParent, P extends EjbW
 	private CrudHandler1Bean<T> bean1;
 	private CrudHandler2Bean<T> bean2;
 	
-	private UtilsFacade fUtils;
+	private JeeslFacade fUtils;
 	
 	private final Class<T> cT;
 	
 	private T prototype;
 	
-	public UtilsCrudHandlerParent(CrudHandlerBean<T> bean, UtilsFacade fUtils, Class<T> cT)
+	public UtilsCrudHandlerParent(CrudHandlerBean<T> bean, JeeslFacade fUtils, Class<T> cT)
 	{
 		this(fUtils,cT);
 		this.bean=bean;
 	}
 	
-	public UtilsCrudHandlerParent(CrudHandler1Bean<T> bean1, UtilsFacade fUtils, Class<T> cT)
+	public UtilsCrudHandlerParent(CrudHandler1Bean<T> bean1, JeeslFacade fUtils, Class<T> cT)
 	{
 		this(fUtils,cT);
 		this.bean1=bean1;
 	}
 	
-	public UtilsCrudHandlerParent(CrudHandler2Bean<T> bean2, UtilsFacade fUtils, Class<T> cT)
+	public UtilsCrudHandlerParent(CrudHandler2Bean<T> bean2, JeeslFacade fUtils, Class<T> cT)
 	{
 		this(fUtils,cT);
 		this.bean2=bean2;
 	}
 	
-	private UtilsCrudHandlerParent(UtilsFacade fUtils, Class<T> cT)
+	private UtilsCrudHandlerParent(JeeslFacade fUtils, Class<T> cT)
 	{
 		this.fUtils=fUtils;
 		this.cT=cT;

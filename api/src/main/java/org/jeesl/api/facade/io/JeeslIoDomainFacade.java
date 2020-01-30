@@ -2,6 +2,7 @@ package org.jeesl.api.facade.io;
 
 import java.util.List;
 
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.io.domain.JeeslDomain;
 import org.jeesl.interfaces.model.system.io.domain.JeeslDomainItem;
 import org.jeesl.interfaces.model.system.io.domain.JeeslDomainPath;
@@ -10,7 +11,6 @@ import org.jeesl.interfaces.model.system.io.domain.JeeslDomainSet;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 
@@ -22,7 +22,7 @@ public interface JeeslIoDomainFacade <L extends UtilsLang, D extends UtilsDescri
 									DATTRIBUTE extends JeeslRevisionAttribute<L,D,DENTITY,?,?>,
 									SET extends JeeslDomainSet<L,D,DOMAIN>,
 									ITEM extends JeeslDomainItem<QUERY,SET>>
-	extends UtilsFacade
+	extends JeeslFacade
 {
 	List<DATTRIBUTE> fDomainAttributes(DENTITY entity);
 }

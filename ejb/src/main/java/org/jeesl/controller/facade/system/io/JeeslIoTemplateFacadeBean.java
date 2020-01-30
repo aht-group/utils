@@ -11,6 +11,7 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.io.JeeslIoTemplateFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoTemplateFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
@@ -20,7 +21,6 @@ import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.controller.util.ParentPredicate;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -34,7 +34,7 @@ public class JeeslIoTemplateFacadeBean<L extends UtilsLang,D extends UtilsDescri
 						DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 						TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,TOKENTYPE>,
 						TOKENTYPE extends UtilsStatus<TOKENTYPE,L,D>>
-					extends UtilsFacadeBean
+					extends JeeslFacadeBean
 					implements JeeslIoTemplateFacade<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE>
 {	
 	private static final long serialVersionUID = 1L;

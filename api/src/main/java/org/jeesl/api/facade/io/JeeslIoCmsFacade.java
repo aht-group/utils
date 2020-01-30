@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCms;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsCategory;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsContent;
@@ -14,7 +15,6 @@ import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsVisiblity;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileMeta;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -32,7 +32,7 @@ public interface JeeslIoCmsFacade <L extends UtilsLang,D extends UtilsDescriptio
 									FC extends JeeslFileContainer<?,?>,
 									FM extends JeeslFileMeta<D,FC,?,?>
 									>
-						extends UtilsFacade
+						extends JeeslFacade
 {
 	S load(S section, boolean recursive);
 	List<E> fCmsElements(S section);

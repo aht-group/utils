@@ -1,5 +1,6 @@
 package org.jeesl.api.facade.module.survey;
 
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyScheme;
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyScore;
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyTemplate;
@@ -13,7 +14,6 @@ import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestionElem
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestionUnit;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveySection;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -31,7 +31,7 @@ public interface JeeslSurveyTemplateFacade <L extends UtilsLang, D extends Utils
 									UNIT extends JeeslSurveyQuestionUnit<L,D,UNIT,?>,
 									OPTIONS extends JeeslSurveyOptionSet<L,D,TEMPLATE,OPTION>,
 									OPTION extends JeeslSurveyOption<L,D>>
-	extends UtilsFacade
+	extends JeeslFacade
 {	
 	TEMPLATE load(TEMPLATE template, boolean withQuestions, boolean withOptions);
 	TEMPLATE fcSurveyTemplate(TC category, TS status);

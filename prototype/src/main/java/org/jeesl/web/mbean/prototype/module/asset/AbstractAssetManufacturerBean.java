@@ -27,7 +27,7 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public class AbstractAssetManufacturerBean <L extends UtilsLang, D extends UtilsDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 											REALM extends JeeslAssetRealm<L,D,REALM,?>, RREF extends EjbWithId,
-											ASSET extends JeeslAsset<REALM,ASSET,STATUS,TYPE>,
+											ASSET extends JeeslAsset<REALM,ASSET,MANU,STATUS,TYPE>,
 											MANU extends JeeslAssetManufacturer<REALM>,
 											STATUS extends JeeslAssetStatus<L,D,STATUS,?>,
 											TYPE extends JeeslAssetType<L,D,REALM,TYPE,?>>

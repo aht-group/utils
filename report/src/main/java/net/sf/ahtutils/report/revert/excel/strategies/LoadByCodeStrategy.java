@@ -4,17 +4,16 @@ import java.math.BigDecimal;
 import java.util.Hashtable;
 
 import org.jeesl.api.controller.ImportStrategy;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.util.ReflectionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 
 public class LoadByCodeStrategy implements ImportStrategy
 {
 	final static Logger logger = LoggerFactory.getLogger(LoadByCodeStrategy.class);
 	
-	private UtilsFacade facade;
+	private JeeslFacade facade;
 	
 	private Hashtable<String, Object> tempPropertyStore;
 	public  Hashtable<String, Object> getTempPropertyStore() {return tempPropertyStore;}
@@ -121,7 +120,7 @@ public class LoadByCodeStrategy implements ImportStrategy
 	}
 
 	@Override
-	public void setFacade(UtilsFacade facade) {
+	public void setFacade(JeeslFacade facade) {
 		this.facade = facade;
 	}
 

@@ -7,6 +7,7 @@ import java.util.Set;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
 import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
@@ -26,7 +27,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.controller.util.ParentPredicate;
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.behaviour.EjbEquals;
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.crud.EjbMergeable;
@@ -51,7 +51,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 import net.sf.ahtutils.model.interfaces.with.EjbWithVisible;
 
-public class AbstractDummyFacade implements UtilsFacade
+public class AbstractDummyFacade implements JeeslFacade
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractDummyFacade.class);
 
@@ -533,5 +533,17 @@ public class AbstractDummyFacade implements UtilsFacade
 	@Override public <C extends UtilsStatus<C,?,?>, W extends JeeslWithContext<C>> List<W> allForContext(Class<W> w, C category) {return null;}
 
 	@Override public <T extends EjbWithVisible, P extends EjbWithId> List<T> allVisible(Class<T> cl) {return null;}
+
+	@Override
+	public <T extends EjbWithId> List<T> list(Class<T> c, List<Long> list) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Long> listId(String nativeQuery) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

@@ -14,6 +14,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.io.JeeslIoAttributeFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
@@ -27,7 +28,6 @@ import org.jeesl.interfaces.model.module.attribute.JeeslAttributeSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -41,7 +41,7 @@ public class JeeslIoAttributeFacadeBean<L extends UtilsLang, D extends UtilsDesc
 										ITEM extends JeeslAttributeItem<CRITERIA,SET>,
 										CONTAINER extends JeeslAttributeContainer<SET,DATA>,
 										DATA extends JeeslAttributeData<CRITERIA,OPTION,CONTAINER>>
-					extends UtilsFacadeBean
+					extends JeeslFacadeBean
 					implements JeeslIoAttributeFacade<L,D,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA>
 {	
 	private static final long serialVersionUID = 1L;

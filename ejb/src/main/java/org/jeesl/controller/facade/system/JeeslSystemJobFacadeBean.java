@@ -17,6 +17,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.system.JeeslJobFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
@@ -37,7 +38,6 @@ import org.jeesl.interfaces.model.system.job.JeeslJobTemplate;
 import org.jeesl.interfaces.model.system.job.JeeslJobType;
 import org.joda.time.DateTime;
 
-import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -58,7 +58,7 @@ public class JeeslSystemJobFacadeBean<L extends UtilsLang,D extends UtilsDescrip
 									CONTAINER extends JeeslFileContainer<?,?>,
 									USER extends EjbWithEmail
 									>
-					extends UtilsFacadeBean
+					extends JeeslFacadeBean
 					implements JeeslJobFacade<L,D,TEMPLATE,CATEGORY,TYPE,EXPIRE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,CONTAINER,USER>
 {
 	private static final long serialVersionUID = 1L;

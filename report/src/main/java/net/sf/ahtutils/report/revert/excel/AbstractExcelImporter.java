@@ -17,8 +17,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import net.sf.ahtutils.interfaces.controller.report.UtilsXlsDefinitionResolver;
-
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.report.util.DataUtil;
 import net.sf.ahtutils.xml.report.DataAssociation;
@@ -38,6 +36,7 @@ import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jeesl.api.controller.ImportStrategy;
 import org.jeesl.api.controller.ValidationStrategy;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.util.ReflectionUtil;
 import org.jeesl.util.query.xpath.ReportXpath;
 import org.slf4j.Logger;
@@ -52,7 +51,7 @@ public abstract class AbstractExcelImporter <C extends Serializable, I extends I
 	protected XSSFWorkbook               workbook;
 	protected Sheet                      activeSheet;
 	protected String                     activeColumn;
-	public  UtilsFacade                  facade;
+	public  JeeslFacade                  facade;
 	protected Map<String, String>        propertyRelations;
 	protected Map<String, Class>         strategies;
 	protected Map<String, Class>		 validators;
@@ -149,7 +148,7 @@ public abstract class AbstractExcelImporter <C extends Serializable, I extends I
 		}
 	}
 	
-	public void setFacade(UtilsFacade facade){this.facade = facade;}
+	public void setFacade(JeeslFacade facade){this.facade = facade;}
 	public void setPrimaryKey(Integer columnNumber)
 	{
 		if(columnNumber == null) 

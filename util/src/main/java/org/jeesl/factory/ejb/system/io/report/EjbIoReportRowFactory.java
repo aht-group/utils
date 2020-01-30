@@ -10,6 +10,7 @@ import org.jeesl.controller.db.updater.JeeslDbLangUpdater;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.io.report.JeeslIoReport;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportCell;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportColumn;
@@ -25,7 +26,6 @@ import org.jeesl.util.query.xpath.ReportXpath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -136,7 +136,7 @@ public class EjbIoReportRowFactory<L extends UtilsLang,D extends UtilsDescriptio
 		return eRow;
 	}
 		
-	public ROW updateLD(UtilsFacade fUtils, ROW eRow, Row xRow) throws JeeslConstraintViolationException, JeeslLockingException
+	public ROW updateLD(JeeslFacade fUtils, ROW eRow, Row xRow) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		eRow=dbuLang.handle(fUtils, eRow, xRow.getLangs());
 		eRow = fUtils.save(eRow);

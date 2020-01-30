@@ -12,6 +12,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.module.JeeslWorkflowFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.WorkflowFactoryBuilder;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowAction;
@@ -40,7 +41,6 @@ import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -70,7 +70,7 @@ public class JeeslWorkflowFacadeBean<L extends UtilsLang, D extends UtilsDescrip
 									WY extends JeeslWorkflowActivity<WT,WF,FRC,USER>,
 									FRC extends JeeslFileContainer<?,?>,
 									USER extends JeeslUser<SR>>
-					extends UtilsFacadeBean
+					extends JeeslFacadeBean
 					implements JeeslWorkflowFacade<L,D,LOC,AX,AP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,FRC,USER>
 {	
 	private static final long serialVersionUID = 1L;

@@ -14,6 +14,7 @@ import org.hibernate.envers.AuditReaderFactory;
 import org.hibernate.envers.query.AuditEntity;
 import org.hibernate.envers.query.AuditQuery;
 import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
+import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
@@ -31,7 +32,6 @@ import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
 import org.jeesl.util.query.sql.SqlNativeQueryHelper;
 import org.jeesl.util.query.sql.SqlRevisionQueries;
 
-import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.controller.util.ParentPredicate;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -51,7 +51,7 @@ public class JeeslRevisionFacadeBean<L extends UtilsLang,D extends UtilsDescript
 									RER extends UtilsStatus<RER,L,D>,
 									RAT extends UtilsStatus<RAT,L,D>,
 									ERD extends JeeslRevisionDiagram<L,D,RC>>
-					extends UtilsFacadeBean
+					extends JeeslFacadeBean
 					implements JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD>
 {
 	private static final long serialVersionUID = 1L;
