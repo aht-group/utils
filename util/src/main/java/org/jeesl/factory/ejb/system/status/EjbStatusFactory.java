@@ -8,12 +8,12 @@ import java.util.Map;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.factory.xml.system.lang.XmlDescriptionsFactory;
 import org.jeesl.factory.xml.system.lang.XmlLangsFactory;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.xml.status.Description;
 import net.sf.ahtutils.xml.status.Descriptions;
@@ -22,7 +22,7 @@ import net.sf.ahtutils.xml.status.Langs;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-public class EjbStatusFactory<S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription>
+public class EjbStatusFactory<S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbStatusFactory.class);
 	
@@ -52,13 +52,13 @@ public class EjbStatusFactory<S extends UtilsStatus<S,L,D>, L extends UtilsLang,
         efDescription = EjbDescriptionFactory.factory(cD);
     }
     
-    public static <S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription> EjbStatusFactory<S, L, D>
+    public static <S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription> EjbStatusFactory<S, L, D>
     		createFactory(final Class<S> cStatus, final Class<L> cLang, final Class<D> descriptionClass)
     {
         return new EjbStatusFactory<S,L,D>(cStatus, cLang, descriptionClass);
     }
     
-    public static <S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription> EjbStatusFactory<S, L, D>
+    public static <S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription> EjbStatusFactory<S, L, D>
 		createFactory(final Class<S> cStatus, final Class<L> cL, final Class<D> cD, List<String> localeCodes)
 	{
     	return new EjbStatusFactory<S,L,D>(cStatus,cL,cD,localeCodes);
@@ -167,7 +167,7 @@ public class EjbStatusFactory<S extends UtilsStatus<S,L,D>, L extends UtilsLang,
 		return mapDesc;
 	}
 	
-	public static <S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription>
+	public static <S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription>
 		S build(final Class<S> cStatus, final Class<L> cLang, final Class<D> descriptionClass, String[] localeCodes, long id, String code, String name)
 	{
 		EjbStatusFactory<S,L,D> f = EjbStatusFactory.createFactory(cStatus, cLang, descriptionClass);

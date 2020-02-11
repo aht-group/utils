@@ -5,13 +5,13 @@ import java.util.List;
 
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurvey;
 import org.jeesl.interfaces.model.module.survey.correlation.JeeslSurveyCorrelation;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 
-public interface JeeslSurveyData<L extends UtilsLang, D extends UtilsDescription,
+public interface JeeslSurveyData<L extends JeeslLang, D extends JeeslDescription,
 									SURVEY extends JeeslSurvey<L,D,?,?,?>,
 									ANSWER extends JeeslSurveyAnswer<L,D,?,?,?,?>,
 									CORRELATION extends JeeslSurveyCorrelation<?>>

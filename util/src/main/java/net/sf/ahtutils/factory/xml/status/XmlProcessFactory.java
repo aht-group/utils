@@ -2,12 +2,11 @@ package net.sf.ahtutils.factory.xml.status;
 
 import org.jeesl.factory.xml.system.lang.XmlDescriptionsFactory;
 import org.jeesl.factory.xml.system.lang.XmlLangsFactory;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public class XmlProcessFactory
 {
@@ -23,8 +22,8 @@ public class XmlProcessFactory
 		this.q=q;
 	}
 	
-	public <S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription> net.sf.ahtutils.xml.status.Process build(S ejb){return build(ejb,null);}
-	public <S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription> net.sf.ahtutils.xml.status.Process build(S ejb, String group)
+	public <S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription> net.sf.ahtutils.xml.status.Process build(S ejb){return build(ejb,null);}
+	public <S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription> net.sf.ahtutils.xml.status.Process build(S ejb, String group)
 	{
 		net.sf.ahtutils.xml.status.Process xml = new net.sf.ahtutils.xml.status.Process();
 		xml.setGroup(group);

@@ -2,15 +2,14 @@ package org.jeesl.factory.ejb.system.io.attribute;
 
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeItem;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeSet;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public class EjbAttributeSetFactory<L extends UtilsLang, D extends UtilsDescription,
-									CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+public class EjbAttributeSetFactory<L extends JeeslLang, D extends JeeslDescription,
+									CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 									SET extends JeeslAttributeSet<L,D,CATEGORY,ITEM>,
 									ITEM extends JeeslAttributeItem<?,SET>>
 {

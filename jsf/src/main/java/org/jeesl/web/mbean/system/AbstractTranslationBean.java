@@ -13,16 +13,16 @@ import org.jeesl.factory.builder.system.StatusFactoryBuilder;
 import org.jeesl.factory.txt.system.locale.TranslationFactory;
 import org.jeesl.factory.txt.system.locale.TranslationMap;
 import org.jeesl.interfaces.facade.JeeslFacade;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.exlp.util.xml.JaxbUtil;
 import net.sf.exlp.xml.io.Dir;
 
-public class AbstractTranslationBean<L extends UtilsLang, D extends UtilsDescription, LOC extends UtilsStatus<LOC,L,D>>
+public class AbstractTranslationBean<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>>
 			implements Serializable,JeeslTranslationBean<L,D,LOC>
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractTranslationBean.class);

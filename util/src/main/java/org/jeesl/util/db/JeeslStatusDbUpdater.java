@@ -9,28 +9,28 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.jeesl.controller.monitor.DataUpdateTracker;
+import org.jeesl.controller.monitoring.counter.DataUpdateTracker;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.exception.processing.UtilsDeveloperException;
 import org.jeesl.factory.ejb.system.status.EjbStatusFactory;
 import org.jeesl.factory.xml.system.status.XmlTypeFactory;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.processing.UtilsDeveloperException;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-public class JeeslStatusDbUpdater <L extends UtilsLang, D extends UtilsDescription,
-									S extends UtilsStatus<S,L,D>,
+public class JeeslStatusDbUpdater <L extends JeeslLang, D extends JeeslDescription,
+									S extends JeeslStatus<S,L,D>,
 									G extends JeeslGraphic<L,D,?,?,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(JeeslStatusDbUpdater.class);
@@ -61,10 +61,10 @@ public class JeeslStatusDbUpdater <L extends UtilsLang, D extends UtilsDescripti
 		return inMap;
 	}
 	
-	private void savePreviousDbEntries(String key, List<UtilsStatus<S,L,D>> availableStatus)
+	private void savePreviousDbEntries(String key, List<JeeslStatus<S,L,D>> availableStatus)
 	{
 		Set<Long> dbStatus = new HashSet<Long>();
-		for(UtilsStatus<S,L,D> ejbStatus : availableStatus)
+		for(JeeslStatus<S,L,D> ejbStatus : availableStatus)
 		{
 			dbStatus.add(ejbStatus.getId());
 		}
@@ -72,7 +72,7 @@ public class JeeslStatusDbUpdater <L extends UtilsLang, D extends UtilsDescripti
 		mDbAvailableStatus.put(key, dbStatus);
 	}
 	
-	public UtilsStatus<S,L,D> addVisible(UtilsStatus<S,L,D> ejbStatus, Status status)
+	public JeeslStatus<S,L,D> addVisible(JeeslStatus<S,L,D> ejbStatus, Status status)
 	{
 		boolean visible=true;
 		if(status.isSetVisible()){visible=status.isVisible();}
@@ -80,9 +80,9 @@ public class JeeslStatusDbUpdater <L extends UtilsLang, D extends UtilsDescripti
 		return ejbStatus;
 	}
 	
-	private UtilsStatus<S,L,D> addLangsAndDescriptions(UtilsStatus<S,L,D> ejbStatus, Status status) throws InstantiationException, IllegalAccessException, JeeslConstraintViolationException
+	private JeeslStatus<S,L,D> addLangsAndDescriptions(JeeslStatus<S,L,D> ejbStatus, Status status) throws InstantiationException, IllegalAccessException, JeeslConstraintViolationException
 	{
-		UtilsStatus<S,L,D> ejbUpdateInfo = statusEjbFactory.create(status);		
+		JeeslStatus<S,L,D> ejbUpdateInfo = statusEjbFactory.create(status);		
 		ejbStatus.setName(ejbUpdateInfo.getName());
 		ejbStatus.setDescription(ejbUpdateInfo.getDescription());
 		return ejbStatus;
@@ -160,7 +160,7 @@ public class JeeslStatusDbUpdater <L extends UtilsLang, D extends UtilsDescripti
 		iuStatusEJB(list, cStatus, cLang);
 	}
 	
-	public <P extends UtilsStatus<P,L,D>> DataUpdate iuStatus(List<Status> list, Class<S> cStatus, Class<L> cLang, Class<P> cParent)
+	public <P extends JeeslStatus<P,L,D>> DataUpdate iuStatus(List<Status> list, Class<S> cStatus, Class<L> cLang, Class<P> cParent)
 	{
 		DataUpdateTracker dut = new DataUpdateTracker(true);
 		dut.setType(XmlTypeFactory.build(cStatus.getName(),"Status-DB Import"));
@@ -201,7 +201,7 @@ public class JeeslStatusDbUpdater <L extends UtilsLang, D extends UtilsDescripti
 				if(!isGroupInMap(xml.getGroup()))
 				{	// If a new group occurs, all entities are saved in a (delete) pool where
 					// they will be deleted if in the current list no entity with this key exists.
-					List<UtilsStatus<S,L,D>> l = new ArrayList<UtilsStatus<S,L,D>>();
+					List<JeeslStatus<S,L,D>> l = new ArrayList<JeeslStatus<S,L,D>>();
 					for(S s : fStatus.all(cStatus)){l.add(s);}
 					savePreviousDbEntries(xml.getGroup(), l);
 					logger.debug("Delete Pool: "+mDbAvailableStatus.get(xml.getGroup()).size());
@@ -258,13 +258,13 @@ public class JeeslStatusDbUpdater <L extends UtilsLang, D extends UtilsDescripti
 	{
 		Map<String,L> dbLangMap = ejbStatus.getName();
 		ejbStatus.setName(null);
-		for(UtilsLang lang : dbLangMap.values()){sDeleteLangs.add(lang.getId());}
+		for(JeeslLang lang : dbLangMap.values()){sDeleteLangs.add(lang.getId());}
 		
 		if(ejbStatus.getDescription()!=null)
 		{
 			Map<String,D> dbDescrMap = ejbStatus.getDescription();
 			ejbStatus.setDescription(null);
-			for(UtilsDescription d : dbDescrMap.values()){sDeleteDescriptions.add(d.getId());}
+			for(JeeslDescription d : dbDescrMap.values()){sDeleteDescriptions.add(d.getId());}
 		}
 		
 		return ejbStatus;

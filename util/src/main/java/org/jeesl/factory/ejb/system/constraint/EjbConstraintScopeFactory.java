@@ -9,20 +9,20 @@ import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraint;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraintResolution;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraintScope;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.system.ConstraintScope;
 
-public class EjbConstraintScopeFactory <L extends UtilsLang, D extends UtilsDescription,
+public class EjbConstraintScopeFactory <L extends JeeslLang, D extends JeeslDescription,
 										SCOPE extends JeeslConstraintScope<L,D,SCOPE,CATEGORY,CONSTRAINT,LEVEL,TYPE,RESOLUTION>,
-										CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+										CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 										CONSTRAINT extends JeeslConstraint<L,D,SCOPE,CATEGORY,CONSTRAINT,LEVEL,TYPE,RESOLUTION>,
-										LEVEL extends UtilsStatus<LEVEL,L,D>,
-										TYPE extends UtilsStatus<TYPE,L,D>,
+										LEVEL extends JeeslStatus<LEVEL,L,D>,
+										TYPE extends JeeslStatus<TYPE,L,D>,
 										RESOLUTION extends JeeslConstraintResolution<L,D,SCOPE,CATEGORY,CONSTRAINT,LEVEL,TYPE,RESOLUTION>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbConstraintScopeFactory.class);

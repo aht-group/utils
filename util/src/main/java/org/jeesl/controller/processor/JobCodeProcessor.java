@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.jeesl.exception.processing.UtilsConfigurationException;
 import org.jeesl.factory.json.system.io.report.JsonFlatFigureFactory;
 import org.jeesl.model.json.JsonFlatFigure;
 
@@ -12,7 +13,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.exlp.util.io.JsonUtil;
 
 public class JobCodeProcessor

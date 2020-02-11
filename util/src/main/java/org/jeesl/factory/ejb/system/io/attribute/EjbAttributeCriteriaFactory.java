@@ -1,17 +1,16 @@
 package org.jeesl.factory.ejb.system.io.attribute;
 
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCriteria;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public class EjbAttributeCriteriaFactory<L extends UtilsLang, D extends UtilsDescription,
-										CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+public class EjbAttributeCriteriaFactory<L extends JeeslLang, D extends JeeslDescription,
+										CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 										CRITERIA extends JeeslAttributeCriteria<L,D,CATEGORY,TYPE>,
-										TYPE extends UtilsStatus<TYPE,L,D>>
+										TYPE extends JeeslStatus<TYPE,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbAttributeCriteriaFactory.class);
 	

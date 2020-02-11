@@ -1,14 +1,13 @@
 package org.jeesl.factory.json.module.survey;
 
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyValidationAlgorithm;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.model.json.survey.validation.ValidationAlgorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public class JsonSurveyValidationAlgorithmFactory<L extends UtilsLang,D extends UtilsDescription,
+public class JsonSurveyValidationAlgorithmFactory<L extends JeeslLang,D extends JeeslDescription,
 													VALGORITHM extends JeeslSurveyValidationAlgorithm<L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(JsonSurveyValidationAlgorithmFactory.class);

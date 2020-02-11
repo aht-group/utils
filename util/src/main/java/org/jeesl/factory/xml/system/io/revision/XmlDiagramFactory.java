@@ -5,15 +5,14 @@ import org.jeesl.factory.xml.system.lang.XmlLangsFactory;
 import org.jeesl.factory.xml.system.status.XmlCategoryFactory;
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
 import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.model.xml.jeesl.QueryRevision;
 import org.jeesl.model.xml.system.revision.Diagram;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public class XmlDiagramFactory <L extends UtilsLang,D extends UtilsDescription,
+public class XmlDiagramFactory <L extends JeeslLang,D extends JeeslDescription,
 								RC extends JeeslRevisionCategory<L,D,RC,?>,
 								ERD extends JeeslRevisionDiagram<L,D,RC>
 							>

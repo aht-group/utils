@@ -6,12 +6,12 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.jeesl.interfaces.model.module.rating.JeeslRating;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class SqlWeightedRatingFactory
@@ -19,8 +19,8 @@ public class SqlWeightedRatingFactory
 	final static Logger logger = LoggerFactory.getLogger(SqlWeightedRatingFactory.class);
 
 
-	public static <L extends UtilsLang, D extends UtilsDescription,
-					CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+	public static <L extends JeeslLang, D extends JeeslDescription,
+					CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 					DOMAIN extends EjbWithId,
 					RATING extends JeeslRating<L,D,CATEGORY,DOMAIN>>
 					String build(String table, String category, String domain, Collection<RATING> ratings)
@@ -38,8 +38,8 @@ public class SqlWeightedRatingFactory
 		return sb.toString();
 	}
 	
-	private static <L extends UtilsLang, D extends UtilsDescription,
-				CATEGORY extends UtilsStatus<CATEGORY,L,D>, DOMAIN extends EjbWithId,
+	private static <L extends JeeslLang, D extends JeeslDescription,
+				CATEGORY extends JeeslStatus<CATEGORY,L,D>, DOMAIN extends EjbWithId,
 				RATING extends JeeslRating<L,D,CATEGORY,DOMAIN>>
 				String weightValues(Collection<RATING> ratings)
 	{

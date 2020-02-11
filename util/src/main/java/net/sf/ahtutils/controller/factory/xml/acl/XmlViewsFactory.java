@@ -2,12 +2,12 @@ package net.sf.ahtutils.controller.factory.xml.acl;
 
 import java.util.List;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclView;
 import net.sf.ahtutils.xml.access.Views;
 
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +24,7 @@ public class XmlViewsFactory
 		this.lang=lang;
 	}
 	
-	public <L extends UtilsLang,D extends UtilsDescription,CU extends UtilsAclCategoryUsecase<L,D,CU,U>,U extends UtilsAclView<L,D,CU,U>>
+	public <L extends JeeslLang,D extends JeeslDescription,CU extends UtilsAclCategoryUsecase<L,D,CU,U>,U extends UtilsAclView<L,D,CU,U>>
 		Views getUsecases(List<U> listUsecases)
 	{
 		Views ucs = new Views();

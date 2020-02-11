@@ -3,9 +3,10 @@ package org.jeesl.interfaces.model.system.io.report;
 import java.io.Serializable;
 import java.util.List;
 
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.crud.EjbPersistable;
-import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
+import org.jeesl.interfaces.model.marker.jpa.EjbPersistable;
+import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
+
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface JeeslReportWorkbook<REPORT extends JeeslIoReport<?,?,?,?>,

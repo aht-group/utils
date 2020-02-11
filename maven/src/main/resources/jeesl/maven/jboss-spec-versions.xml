@@ -24,7 +24,7 @@
 	<rule groupId="org.jboss.spec.javax.el" comparisonMethod="maven">
       <ignoreVersions>
      
-      	<ignoreVersion> 1.0.1.Final</ignoreVersion>
+      	<ignoreVersion>1.0.1.Final</ignoreVersion>
       	<ignoreVersion>1.0.1.Final-redhat-1</ignoreVersion>
       	<ignoreVersion>1.0.2.Final</ignoreVersion>
       	<ignoreVersion>1.0.2.Final-redhat-1</ignoreVersion>
@@ -124,7 +124,6 @@
     </rule>
 	<rule groupId="org.jboss.spec.javax.servlet.jstl" comparisonMethod="maven">
       <ignoreVersions>
-
 		<ignoreVersion>1.0.2.Final</ignoreVersion>
 		<ignoreVersion>1.0.3.Final</ignoreVersion>
 		<ignoreVersion>1.0.3.Final-redhat-1</ignoreVersion>

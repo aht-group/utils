@@ -6,6 +6,9 @@ import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.interfaces.facade.JeeslFacade;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityUsecase;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
@@ -23,13 +26,10 @@ import net.sf.ahtutils.interfaces.model.qa.UtilsQaTestDiscussion;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaTestInfo;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaUsability;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQualityAssurarance;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public interface JeeslQaFacade
-				<L extends UtilsLang, D extends UtilsDescription,
-				L2 extends UtilsLang, D2 extends UtilsDescription,
+				<L extends JeeslLang, D extends JeeslDescription,
+				L2 extends JeeslLang, D2 extends JeeslDescription,
 				C extends JeeslSecurityCategory<L,D>,
 				R extends JeeslSecurityRole<L,D,C,V,U,A,USER>,
 				V extends JeeslSecurityView<L,D,C,R,U,A>,
@@ -49,10 +49,10 @@ public interface JeeslQaFacade
 				QASH extends UtilsQaStakeholder<QA>,
 				QATD extends UtilsQaTestDiscussion<STAFF,QAT>,
 				QATI extends UtilsQaTestInfo<QATC>,
-				QATC extends UtilsStatus<QATC,L2,D2>,
-				QATS extends UtilsStatus<QATS,L2,D2>,
-				QARS extends UtilsStatus<QARS,L2,D2>,
-				QAUS extends UtilsStatus<QAUS,L2,D2>>
+				QATC extends JeeslStatus<QATC,L2,D2>,
+				QATS extends JeeslStatus<QATS,L2,D2>,
+				QARS extends JeeslStatus<QARS,L2,D2>,
+				QAUS extends JeeslStatus<QAUS,L2,D2>>
 
 		extends JeeslFacade
 {	

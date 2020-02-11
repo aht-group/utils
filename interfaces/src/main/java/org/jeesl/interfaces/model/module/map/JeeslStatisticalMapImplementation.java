@@ -2,10 +2,10 @@ package org.jeesl.interfaces.model.module.map;
 
 import java.io.Serializable;
 
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
+import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.status.JeeslWithStatus;
 
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface JeeslStatisticalMapImplementation<MAP extends JeeslStatisticalMap<?,?>,

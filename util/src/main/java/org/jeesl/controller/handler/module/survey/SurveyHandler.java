@@ -33,6 +33,9 @@ import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyOption;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestion;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveySection;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyValidation;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.model.pojo.map.id.Nested3IdMap;
 import org.jeesl.util.comparator.pojo.BooleanComparator;
 import org.joda.time.DateTime;
@@ -40,11 +43,7 @@ import org.joda.time.Interval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public class SurveyHandler<L extends UtilsLang, D extends UtilsDescription,
+public class SurveyHandler<L extends JeeslLang, D extends JeeslDescription,
 							SURVEY extends JeeslSurvey<L,D,?,TEMPLATE,DATA>,
 							TEMPLATE extends JeeslSurveyTemplate<L,D,?,TEMPLATE,?,?,TC,SECTION,?,?>,
 							TC extends JeeslSurveyTemplateCategory<L,D,TC,?>,

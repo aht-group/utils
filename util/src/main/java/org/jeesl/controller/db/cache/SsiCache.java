@@ -12,12 +12,11 @@ import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class SsiCache <MAPPING extends JeeslIoSsiMapping<?,?>,
 							DATA extends JeeslIoSsiData<MAPPING,LINK>,
-							LINK extends UtilsStatus<LINK,?,?>,
+							LINK extends JeeslIoSsiLink<?,?,LINK,?>,
 							T extends EjbWithId>
 {
 	final static Logger logger = LoggerFactory.getLogger(SsiCache.class);
@@ -28,7 +27,7 @@ public class SsiCache <MAPPING extends JeeslIoSsiMapping<?,?>,
 	
 	private final Map<String,T> map;
 	
-	public SsiCache(IoSsiFactoryBuilder<?,?,?,MAPPING,?,?,?,?> fbSsi,
+	public SsiCache(IoSsiFactoryBuilder<?,?,?,MAPPING,?,?,?,?,?> fbSsi,
 						JeeslIoSsiFacade<?,?,?,MAPPING,?,DATA,LINK,?> fSsi,
 						Class<T> cT,
 						MAPPING mapping

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 
+import org.jeesl.exception.processing.UtilsConfigurationException;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCms;
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.content.ofx.Sections;
@@ -16,8 +17,6 @@ import org.openfuxml.renderer.latex.content.structure.LatexSectionRenderer;
 import org.openfuxml.renderer.latex.preamble.LatexSrcBook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 
 public class JeeslCmsWriter<CMS extends JeeslIoCms<?,?,?,?,?>>
 {	

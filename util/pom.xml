@@ -306,6 +306,18 @@
             <artifactId>joda-time</artifactId>
         </dependency>
 
+		<dependency>
+		    <groupId>com.amazonaws</groupId>
+		    <artifactId>aws-java-sdk-s3</artifactId>
+		    <version>1.11.714</version>
+		    <scope>provided</scope>
+		    <exclusions>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+            </exclusions>
+		</dependency>
 
         <!-- Test -->
         <dependency>

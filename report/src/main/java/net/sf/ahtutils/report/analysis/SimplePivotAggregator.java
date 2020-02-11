@@ -9,11 +9,11 @@ import java.util.Map;
 import java.util.Set;
 
 import org.jeesl.factory.ejb.util.EjbRankedResultFactory;
+import org.jeesl.interfaces.model.util.UtilsRankedResult;
 import org.jeesl.util.comparator.ejb.RankedResultComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.ranking.UtilsRankedResult;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class SimplePivotAggregator <T extends EjbWithId, P extends EjbWithId>

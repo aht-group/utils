@@ -2,7 +2,7 @@ package net.sf.ahtutils.interfaces.model.issue;
 
 import java.util.List;
 
-import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.code.EjbWithCode;
 
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithName;

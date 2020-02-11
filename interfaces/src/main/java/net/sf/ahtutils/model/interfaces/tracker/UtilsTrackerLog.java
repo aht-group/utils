@@ -2,17 +2,18 @@ package net.sf.ahtutils.model.interfaces.tracker;
 
 import java.util.Date;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface UtilsTrackerLog<TR extends UtilsTracker<TR,TL,T,S,L,D>,
 								 TL extends UtilsTrackerLog<TR,TL,T,S,L,D>,
-								 T extends UtilsStatus<T,L,D>,
-								 S extends UtilsStatus<S,L,D>,
-								 L extends UtilsLang,
-								 D extends UtilsDescription>
+								 T extends JeeslStatus<T,L,D>,
+								 S extends JeeslStatus<S,L,D>,
+								 L extends JeeslLang,
+								 D extends JeeslDescription>
 		extends EjbWithId
 {
 	TR getTracker();

@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import net.sf.ahtutils.controller.factory.ofx.lang.AbstractOfxStatusFactoryTest;
 import net.sf.ahtutils.doc.UtilsDocumentation;
-import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.test.AhtUtilsDocBootstrap;
 import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.status.Descriptions;
@@ -18,6 +17,7 @@ import net.sf.exlp.util.xml.JaxbUtil;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.DefaultConfigurationBuilder;
+import org.jeesl.exception.processing.UtilsConfigurationException;
 import org.jeesl.factory.xml.system.lang.XmlDescriptionFactory;
 import org.jeesl.factory.xml.system.lang.XmlLangFactory;
 import org.junit.Before;

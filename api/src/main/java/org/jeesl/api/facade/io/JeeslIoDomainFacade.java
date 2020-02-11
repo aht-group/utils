@@ -10,11 +10,10 @@ import org.jeesl.interfaces.model.system.io.domain.JeeslDomainQuery;
 import org.jeesl.interfaces.model.system.io.domain.JeeslDomainSet;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public interface JeeslIoDomainFacade <L extends UtilsLang, D extends UtilsDescription,
+public interface JeeslIoDomainFacade <L extends JeeslLang, D extends JeeslDescription,
 									DOMAIN extends JeeslDomain<L,DENTITY>,
 									QUERY extends JeeslDomainQuery<L,D,DOMAIN,PATH>,
 									PATH extends JeeslDomainPath<L,D,QUERY,DENTITY,DATTRIBUTE>,

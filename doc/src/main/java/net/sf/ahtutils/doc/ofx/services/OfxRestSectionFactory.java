@@ -12,7 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import org.apache.commons.configuration.Configuration;
-import org.jeesl.interfaces.qualifier.RestDescription;
+import org.jeesl.interfaces.model.marker.qualifier.RestDescription;
 import org.openfuxml.content.ofx.Comment;
 import org.openfuxml.content.ofx.Listing;
 import org.openfuxml.content.ofx.Paragraph;

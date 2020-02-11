@@ -10,24 +10,23 @@ import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionViewMappi
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntityMapping;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public class RevisionEntityComparator<L extends UtilsLang,D extends UtilsDescription,
+public class RevisionEntityComparator<L extends JeeslLang,D extends JeeslDescription,
 										RC extends JeeslRevisionCategory<L,D,RC,?>,	
 										RV extends JeeslRevisionView<L,D,RVM>,
 										RVM extends JeeslRevisionViewMapping<RV,RE,REM>,
 										RS extends JeeslRevisionScope<L,D,RC,RA>,
-										RST extends UtilsStatus<RST,L,D>,
+										RST extends JeeslStatus<RST,L,D>,
 										RE extends JeeslRevisionEntity<L,D,RC,REM,RA,?>,
 										REM extends JeeslRevisionEntityMapping<RS,RST,RE>,
 										RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>,
-										RER extends UtilsStatus<RER,L,D>,
-										RAT extends UtilsStatus<RAT,L,D>>
+										RER extends JeeslStatus<RER,L,D>,
+										RAT extends JeeslStatus<RAT,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(RevisionEntityComparator.class);
 

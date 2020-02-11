@@ -3,6 +3,7 @@ package org.jeesl.web.rest.system;
 import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
 import org.jeesl.api.facade.system.graphic.JeeslGraphicFacade;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.exception.processing.UtilsConfigurationException;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.factory.xml.system.io.revision.XmlEntityFactory;
 import org.jeesl.factory.xml.system.symbol.XmlGraphicFactory;
@@ -13,7 +14,10 @@ import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribu
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntityMapping;
 import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
-import org.jeesl.interfaces.model.system.with.EjbWithGraphic;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.with.graphic.EjbWithGraphic;
 import org.jeesl.interfaces.rest.JeeslExportRest;
 import org.jeesl.model.xml.system.revision.Entity;
 import org.jeesl.util.query.xml.SymbolQuery;
@@ -22,23 +26,19 @@ import org.jeesl.web.rest.AbstractJeeslRestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.xml.status.Status;
 
-public class JeeslRestService <L extends UtilsLang,D extends UtilsDescription,
+public class JeeslRestService <L extends JeeslLang,D extends JeeslDescription,
 								S extends EjbWithId,
-								G extends JeeslGraphic<L,D,GT,F,FS>, GT extends UtilsStatus<GT,L,D>,
-								F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends UtilsStatus<FS,L,D>,
+								G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslStatus<GT,L,D>,
+								F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>,
 								RC extends JeeslRevisionCategory<L,D,RC,?>,	
 								REM extends JeeslRevisionEntityMapping<?,?,?>,
 								RE extends JeeslRevisionEntity<L,D,RC,REM,RA,ERD>,
 								RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>,
-								RER extends UtilsStatus<RER,L,D>,
-								RAT extends UtilsStatus<RAT,L,D>,
+								RER extends JeeslStatus<RER,L,D>,
+								RAT extends JeeslStatus<RAT,L,D>,
 								ERD extends JeeslRevisionDiagram<L,D,RC>>
 					extends AbstractJeeslRestService<L,D>
 					implements JeeslExportRest<L,D>
@@ -65,16 +65,16 @@ public class JeeslRestService <L extends UtilsLang,D extends UtilsDescription,
 		xfEntity = new XmlEntityFactory<>(XmlRevisionQuery.get(XmlRevisionQuery.Key.xEntity));
 	}
 
-	public static <L extends UtilsLang,D extends UtilsDescription,
+	public static <L extends JeeslLang,D extends JeeslDescription,
 						S extends EjbWithId,
-						G extends JeeslGraphic<L,D,GT,F,FS>, GT extends UtilsStatus<GT,L,D>,
-						F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends UtilsStatus<FS,L,D>,
+						G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslStatus<GT,L,D>,
+						F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>,
 						RC extends JeeslRevisionCategory<L,D,RC,?>,	
 						REM extends JeeslRevisionEntityMapping<?,?,?>,
 						RE extends JeeslRevisionEntity<L,D,RC,REM,RA,ERD>,
-						RER extends UtilsStatus<RER,L,D>,
+						RER extends JeeslStatus<RER,L,D>,
 						RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>,
-						RAT extends UtilsStatus<RAT,L,D>,
+						RAT extends JeeslStatus<RAT,L,D>,
 						ERD extends JeeslRevisionDiagram<L,D,RC>>
 	JeeslRestService<L,D,S,G,GT,F,FS,RC,REM,RE,RA,RER,RAT,ERD>
 		factory(IoRevisionFactoryBuilder<L,D,RC,?,?,?,?,RE,?,RA,RER,RAT,ERD> fbRevision,
@@ -87,11 +87,11 @@ public class JeeslRestService <L extends UtilsLang,D extends UtilsDescription,
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <X extends UtilsStatus<X,L,D>> org.jeesl.model.xml.jeesl.Container exportStatus(String code) throws UtilsConfigurationException
+	public <X extends JeeslStatus<X,L,D>> org.jeesl.model.xml.jeesl.Container exportStatus(String code) throws UtilsConfigurationException
 	{	
 		try
 		{
-			Class<X> x = (Class<X>)Class.forName(code).asSubclass(UtilsStatus.class);
+			Class<X> x = (Class<X>)Class.forName(code).asSubclass(JeeslStatus.class);
 			org.jeesl.model.xml.jeesl.Container xml = xfContainer.build(fGraphic.allOrderedPosition(x));
 			
 			if(EjbWithGraphic.class.isAssignableFrom(x))

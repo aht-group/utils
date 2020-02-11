@@ -16,6 +16,7 @@ import org.jeesl.interfaces.model.module.ts.data.JeeslTsBridge;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsData;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsDataPoint;
 import org.jeesl.interfaces.model.module.ts.stat.JeeslTsStatistic;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.model.xml.module.ts.TimeSeries;
 import org.metachart.factory.xml.chart.XmlChartFactory;
 import org.metachart.factory.xml.chart.XmlDataFactory;
@@ -27,7 +28,6 @@ import org.metachart.xml.chart.Ds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.exlp.util.DateUtil;
 
@@ -36,11 +36,11 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 								TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT>,
 								BRIDGE extends JeeslTsBridge<EC>,
 								EC extends JeeslTsEntityClass<?,?,?>,
-								INT extends UtilsStatus<INT,?,?>,
+								INT extends JeeslStatus<INT,?,?>,
 								STAT extends JeeslTsStatistic<?,?,STAT,?>,
 								DATA extends JeeslTsData<TS,?,?,WS>,
 								POINT extends JeeslTsDataPoint<DATA,MP>,
-								WS extends UtilsStatus<WS,?,?>>
+								WS extends JeeslStatus<WS,?,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(McTimeSeriesFactory.class);
 	

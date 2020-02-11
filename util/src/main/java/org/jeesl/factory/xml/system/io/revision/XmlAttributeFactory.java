@@ -9,22 +9,21 @@ import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribu
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntityMapping;
 import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.model.xml.system.revision.Attribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
-
-public class XmlAttributeFactory <L extends UtilsLang,D extends UtilsDescription,
+public class XmlAttributeFactory <L extends JeeslLang,D extends JeeslDescription,
 								RC extends JeeslRevisionCategory<L,D,RC,?>,	
 								REM extends JeeslRevisionEntityMapping<?,?,?>,
 								RE extends JeeslRevisionEntity<L,D,RC,REM,RA,ERD>,										
 								RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>,
-								RER extends UtilsStatus<RER,L,D>,
-								RAT extends UtilsStatus<RAT,L,D>,
+								RER extends JeeslStatus<RER,L,D>,
+								RAT extends JeeslStatus<RAT,L,D>,
 								ERD extends JeeslRevisionDiagram<L,D,RC>>
 								
 {

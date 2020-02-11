@@ -25,14 +25,13 @@ import org.jeesl.interfaces.model.system.io.domain.JeeslDomainQuery;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.job.JeeslJobTemplate;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public class SurveyAnalysisFactoryBuilder<L extends UtilsLang, D extends UtilsDescription,
+public class SurveyAnalysisFactoryBuilder<L extends JeeslLang, D extends JeeslDescription,
 				TEMPLATE extends JeeslSurveyTemplate<L,D,?,TEMPLATE,?,?,?,?,?,ANALYSIS>,
 				QUESTION extends JeeslSurveyQuestion<L,D,?,?,?,QE,SCORE,?,?,OPTION,AQ>,
 				QE extends JeeslSurveyQuestionElement<L,D,QE,?>,
@@ -50,7 +49,7 @@ public class SurveyAnalysisFactoryBuilder<L extends UtilsLang, D extends UtilsDe
 				ANALYSIS extends JeeslSurveyAnalysis<L,D,TEMPLATE,DOMAIN,DENTITY,DATTRIBUTE>,
 				AQ extends JeeslSurveyAnalysisQuestion<L,D,QUESTION,ANALYSIS>,
 				TOOL extends JeeslSurveyAnalysisTool<L,D,QE,QUERY,DATTRIBUTE,AQ,TOOLT>,
-				TOOLT extends UtilsStatus<TOOLT,L,D>,
+				TOOLT extends JeeslStatus<TOOLT,L,D>,
 				TOOLCACHETEMPLATE extends JeeslJobTemplate<L,D,?,?,?,?>>
 			extends AbstractFactoryBuilder<L,D>
 {

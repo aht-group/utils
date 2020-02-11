@@ -10,12 +10,12 @@ import org.apache.batik.transcoder.TranscoderException;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.jeesl.exception.processing.UtilsConfigurationException;
 import org.openfuxml.media.transcode.Svg2PngTranscoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.doc.UtilsDocumentation;
-import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.exlp.util.io.FileIO;
 import net.sf.exlp.util.io.resourceloader.MultiResourceLoader;
 

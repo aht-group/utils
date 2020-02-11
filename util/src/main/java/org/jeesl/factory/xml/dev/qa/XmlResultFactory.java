@@ -2,6 +2,9 @@ package org.jeesl.factory.xml.dev.qa;
 
 import org.jeesl.factory.xml.system.security.XmlStaffFactory;
 import org.jeesl.factory.xml.system.status.XmlStatusFactory;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
@@ -22,17 +25,14 @@ import net.sf.ahtutils.interfaces.model.qa.UtilsQaStakeholder;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaTest;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaUsability;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQualityAssurarance;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.qa.Actual;
 import net.sf.ahtutils.xml.qa.Comment;
 import net.sf.ahtutils.xml.qa.Result;
 import net.sf.ahtutils.xml.qa.Test;
 import net.sf.exlp.util.DateUtil;
 
-public class XmlResultFactory<L extends UtilsLang, D extends UtilsDescription,
-							L2 extends UtilsLang, D2 extends UtilsDescription,
+public class XmlResultFactory<L extends JeeslLang, D extends JeeslDescription,
+							L2 extends JeeslLang, D2 extends JeeslDescription,
 							C extends JeeslSecurityCategory<L,D>,
 							R extends JeeslSecurityRole<L,D,C,V,U,A,USER>,
 							V extends JeeslSecurityView<L,D,C,R,U,A>,
@@ -50,7 +50,7 @@ public class XmlResultFactory<L extends UtilsLang, D extends UtilsDescription,
 							QAU extends UtilsQaUsability,
 							QAR extends UtilsQaResult<STAFF,QAT,QARS>,
 							QASH extends UtilsQaStakeholder<QA>,
-							QARS extends UtilsStatus<QARS,L2,D2>>
+							QARS extends JeeslStatus<QARS,L2,D2>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlResultFactory.class);
 		

@@ -8,16 +8,15 @@ import java.util.Set;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsData;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsTransaction;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.model.xml.module.ts.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
 public class EjbTsDataFactory<TS extends JeeslTimeSeries<?,?,?>,
 								TRANSACTION extends JeeslTsTransaction<?,DATA,?,?>,
 								DATA extends JeeslTsData<TS,TRANSACTION,?,WS>,
-								WS extends UtilsStatus<WS,?,?>>
+								WS extends JeeslStatus<WS,?,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbTsDataFactory.class);
 	

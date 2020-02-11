@@ -9,19 +9,18 @@ import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateDefinit
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateToken;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public interface JeeslTemplateHandler <L extends UtilsLang,D extends UtilsDescription,LOC extends JeeslLocale<L,D,LOC,?>,
-										CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+public interface JeeslTemplateHandler <L extends JeeslLang,D extends JeeslDescription,LOC extends JeeslLocale<L,D,LOC,?>,
+										CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 										CHANNEL extends JeeslTemplateChannel<L,D,CHANNEL,?>,
 										TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>,
-										SCOPE extends UtilsStatus<SCOPE,L,D>,
+										SCOPE extends JeeslStatus<SCOPE,L,D>,
 										DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 										TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,TOKENTYPE>,
-										TOKENTYPE extends UtilsStatus<TOKENTYPE,L,D>> extends Serializable
+										TOKENTYPE extends JeeslStatus<TOKENTYPE,L,D>> extends Serializable
 {
 	
 	JeeslMail<TEMPLATE> getMail();

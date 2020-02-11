@@ -31,21 +31,21 @@ import org.jeesl.interfaces.model.system.io.report.JeeslReportSheet;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportStyle;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportTemplate;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportWorkbook;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 import org.jeesl.util.query.xml.system.io.XmlReportQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.xml.aht.Query;
 
-public class ReportFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
-										CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+public class ReportFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
+										CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 										REPORT extends JeeslIoReport<L,D,CATEGORY,WORKBOOK>,
-										IMPLEMENTATION extends UtilsStatus<IMPLEMENTATION,L,D>,
+										IMPLEMENTATION extends JeeslStatus<IMPLEMENTATION,L,D>,
 										WORKBOOK extends JeeslReportWorkbook<REPORT,SHEET>,
 										SHEET extends JeeslReportSheet<L,D,IMPLEMENTATION,WORKBOOK,GROUP,ROW>,
 										GROUP extends JeeslReportColumnGroup<L,D,SHEET,COLUMN,STYLE>,
@@ -54,16 +54,16 @@ public class ReportFactoryBuilder<L extends UtilsLang,D extends UtilsDescription
 										TEMPLATE extends JeeslReportTemplate<L,D,CELL>,
 										CELL extends JeeslReportCell<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS>,
 										STYLE extends JeeslReportStyle<L,D>,	
-										CDT extends UtilsStatus<CDT,L,D>,
-										CW extends UtilsStatus<CW,L,D>,
-										RT extends UtilsStatus<RT,L,D>,
-										RCAT extends UtilsStatus<RCAT,L,D>,
+										CDT extends JeeslStatus<CDT,L,D>,
+										CW extends JeeslStatus<CW,L,D>,
+										RT extends JeeslStatus<RT,L,D>,
+										RCAT extends JeeslStatus<RCAT,L,D>,
 										ENTITY extends EjbWithId,
 										ATTRIBUTE extends EjbWithId,
 										TL extends JeeslTrafficLight<L,D,TLS>,
-										TLS extends UtilsStatus<TLS,L,D>,
-										FILLING extends UtilsStatus<FILLING,L,D>,
-										TRANSFORMATION extends UtilsStatus<TRANSFORMATION,L,D>
+										TLS extends JeeslStatus<TLS,L,D>,
+										FILLING extends JeeslStatus<FILLING,L,D>,
+										TRANSFORMATION extends JeeslStatus<TRANSFORMATION,L,D>
 >
 	extends AbstractFactoryBuilder<L,D>
 {

@@ -289,15 +289,7 @@
 			<s:lang key="en" translation="Algorithm Category"/>
 			<s:lang key="fr" translation="Algorithm Category"/>
 		</s:langs>
-	</s:translation>
-	<s:translation key="SecurityPasswordRating">
-		<s:langs>
-			<s:lang key="de" translation="Passwortstärke" />
-			<s:lang key="en" translation="Password Strength" />
-			<s:lang key="fr" translation="Password Strength" />
-    		</s:langs>
-	</s:translation>
-	
+	</s:translation>	
 	<s:translation key="MsgPriority">
 		<s:langs>
 		 	<s:lang key="de" translation="Nachrichtenpriorität" />

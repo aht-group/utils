@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import net.sf.ahtutils.exception.processing.UtilsDeveloperException;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.util.xml.JDomUtil;
@@ -15,6 +14,7 @@ import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.jdom2.Document;
 import org.jdom2.output.Format;
+import org.jeesl.exception.processing.UtilsDeveloperException;
 import org.jeesl.model.xml.system.io.mail.Mail;
 import org.jeesl.model.xml.system.io.mail.Mails;
 import org.jeesl.util.query.xpath.MailXpath;

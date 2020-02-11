@@ -1,10 +1,10 @@
 package net.sf.ahtutils.jsf.filter;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
-public class UtilsStatusFilter<L extends UtilsLang, D extends UtilsDescription, S extends UtilsStatus<S,L,D>>		
+public class UtilsStatusFilter<L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<S,L,D>>		
 {		
 	private S value;
 	private boolean active;

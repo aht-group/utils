@@ -1,15 +1,15 @@
 package net.sf.ahtutils.controller.factory.ejb.acl;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclView;
 
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbAclCategoryViewFactory <L extends UtilsLang,
-											D extends UtilsDescription,
+public class EjbAclCategoryViewFactory <L extends JeeslLang,
+											D extends JeeslDescription,
 											CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
 											U extends UtilsAclView<L,D,CU,U>>
 {
@@ -20,8 +20,8 @@ public class EjbAclCategoryViewFactory <L extends UtilsLang,
     final Class<CU> clCategoryUsecase;
     final Class<U> clUsecase;
 	
-    public static <L extends UtilsLang,
-					D extends UtilsDescription,
+    public static <L extends JeeslLang,
+					D extends JeeslDescription,
 					CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
 					U extends UtilsAclView<L,D,CU,U>>
     	EjbAclCategoryViewFactory<L,D,CU,U> factory(final Class<L> clLang,final Class<D> clDescription,final Class<CU> clCategoryUsecase,final Class<U> clUsecase)

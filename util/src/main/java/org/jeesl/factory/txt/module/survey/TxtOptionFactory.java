@@ -5,11 +5,10 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyOption;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public class TxtOptionFactory <L extends UtilsLang, D extends UtilsDescription, OPTION extends JeeslSurveyOption<L,D>>
+public class TxtOptionFactory <L extends JeeslLang, D extends JeeslDescription, OPTION extends JeeslSurveyOption<L,D>>
 {
 	private final String localeCode;
 	

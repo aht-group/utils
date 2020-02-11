@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.jeesl.api.bean.JeeslSecurityBean;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
@@ -23,10 +25,7 @@ import org.ocpsoft.rewrite.servlet.config.rule.Join;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public abstract class AbstractRewriteProvider <L extends UtilsLang, D extends UtilsDescription,
+public abstract class AbstractRewriteProvider <L extends JeeslLang, D extends JeeslDescription,
 											C extends JeeslSecurityCategory<L,D>,
 											R extends JeeslSecurityRole<L,D,C,V,U,A,USER>,
 											V extends JeeslSecurityView<L,D,C,R,U,A>,

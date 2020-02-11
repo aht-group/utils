@@ -8,25 +8,25 @@ import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateDefinition;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateToken;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.model.xml.jeesl.Container;
 import org.jeesl.model.xml.system.io.template.Templates;
 import org.jeesl.web.rest.AbstractJeeslRestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 
-public class IoTemplateRestService <L extends UtilsLang,D extends UtilsDescription,
-									CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+public class IoTemplateRestService <L extends JeeslLang,D extends JeeslDescription,
+									CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 									CHANNEL extends JeeslTemplateChannel<L,D,CHANNEL,?>,
 									TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>,
-									SCOPE extends UtilsStatus<SCOPE,L,D>,
+									SCOPE extends JeeslStatus<SCOPE,L,D>,
 									DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 									TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,TOKENTYPE>,
-									TOKENTYPE extends UtilsStatus<TOKENTYPE,L,D>>
+									TOKENTYPE extends JeeslStatus<TOKENTYPE,L,D>>
 		extends AbstractJeeslRestService<L,D>
 		implements JeeslIoTemplateRestExport,JeeslIoTemplateRestImport
 {
@@ -56,14 +56,14 @@ public class IoTemplateRestService <L extends UtilsLang,D extends UtilsDescripti
 		this.cToken=cToken;
 	}
 	
-	public static <L extends UtilsLang,D extends UtilsDescription,
-					CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+	public static <L extends JeeslLang,D extends JeeslDescription,
+					CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 					CHANNEL extends JeeslTemplateChannel<L,D,CHANNEL,?>,
 					TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>,
-					SCOPE extends UtilsStatus<SCOPE,L,D>,
+					SCOPE extends JeeslStatus<SCOPE,L,D>,
 					DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 					TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,TOKENTYPE>,
-					TOKENTYPE extends UtilsStatus<TOKENTYPE,L,D>>
+					TOKENTYPE extends JeeslStatus<TOKENTYPE,L,D>>
 		IoTemplateRestService<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE>
 		factory(JeeslIoTemplateFacade<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fTemplate,final Class<L> cL, final Class<D> cD, Class<CATEGORY> cCategory, final Class<CHANNEL> cType, final Class<TEMPLATE> cTemplate, final Class<SCOPE> cScope, final Class<DEFINITION> cDefinition, final Class<TOKEN> cToken)
 	{

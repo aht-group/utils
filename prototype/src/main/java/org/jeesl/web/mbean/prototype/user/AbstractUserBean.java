@@ -12,6 +12,8 @@ import org.jeesl.api.facade.core.JeeslUserFacade;
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
 import org.jeesl.factory.builder.system.StatusFactoryBuilder;
 import org.jeesl.factory.pojo.system.JeeslIdentityFactory;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityUsecase;
@@ -22,10 +24,7 @@ import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public abstract class AbstractUserBean <L extends UtilsLang, D extends UtilsDescription, 
+public abstract class AbstractUserBean <L extends JeeslLang, D extends JeeslDescription, 
 											R extends JeeslSecurityRole<L,D,?,V,U,A,USER>,
 											V extends JeeslSecurityView<L,D,?,R,U,A>,
 											U extends JeeslSecurityUsecase<L,D,?,R,V,A>,

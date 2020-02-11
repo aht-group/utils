@@ -14,6 +14,9 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityHelp;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
@@ -28,13 +31,10 @@ import org.jeesl.jsf.util.TriStateBinder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.jsf.util.PositionListReorderer;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public abstract class AbstractAdminSecurityViewBean <L extends UtilsLang, D extends UtilsDescription, LOC extends UtilsStatus<LOC,L,D>,
+public abstract class AbstractAdminSecurityViewBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
 											C extends JeeslSecurityCategory<L,D>,
 											R extends JeeslSecurityRole<L,D,C,V,U,A,USER>,
 											V extends JeeslSecurityView<L,D,C,R,U,A>,
@@ -192,6 +192,22 @@ public abstract class AbstractAdminSecurityViewBean <L extends UtilsLang, D exte
 	public void deleteView() throws JeeslConstraintViolationException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.rmEntity(view));
+		
+		try
+		{
+			M m = fSecurity.oneForParent(fbSecurity.getClassMenu(), JeeslSecurityMenu.Attributes.view.toString(), view);
+			List<M> childs = fSecurity.allForParent(fbSecurity.getClassMenu(), m);
+			if(!childs.isEmpty())
+			{
+				bMessage.errorConstraintViolationInUse();
+				return;
+			}
+			else
+			{
+				fSecurity.rm(m);
+			}
+		}
+		catch (JeeslNotFoundException e) {}
 		
 		fSecurity.rm(view);
 		reset(true,true,true);

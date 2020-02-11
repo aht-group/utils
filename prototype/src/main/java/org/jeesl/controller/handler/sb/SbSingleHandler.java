@@ -10,7 +10,7 @@ import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.bean.sb.SbSingleBean;
 import org.jeesl.interfaces.controller.handler.tree.cache.JeeslTree1Cache;
 import org.jeesl.interfaces.facade.JeeslFacade;
-import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.code.EjbWithCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -108,7 +108,14 @@ public class SbSingleHandler <T extends EjbWithId> implements Serializable,SbSin
 		}
 		update(list2,preferred);
 	}
+	
 	public void update(List<T> list){update(list, null);}
+	public void update(T t, T preferred)
+	{
+		List<T> list = new ArrayList<T>();
+		list.add(t);
+		update(list,preferred);
+	}
 	public void update(List<T> list, T preferred)
 	{
 		this.list.clear();

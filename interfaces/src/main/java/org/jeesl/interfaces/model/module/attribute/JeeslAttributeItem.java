@@ -2,9 +2,10 @@ package org.jeesl.interfaces.model.module.attribute;
 
 import java.io.Serializable;
 
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
-import net.sf.ahtutils.interfaces.model.with.position.EjbWithPositionVisibleParent;
+import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
+import org.jeesl.interfaces.model.with.position.EjbWithPositionVisibleParent;
+
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface JeeslAttributeItem <CRITERIA extends JeeslAttributeCriteria<?,?,?,?>,

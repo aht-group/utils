@@ -27,5 +27,5 @@ public interface JeeslQuery
 	boolean withSort();
 	
 	void debug(boolean debug);
-	void debug(boolean debug,int ident);
+	void debug(boolean debug, int ident);
 }

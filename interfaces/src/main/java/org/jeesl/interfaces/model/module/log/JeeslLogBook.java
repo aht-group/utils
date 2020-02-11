@@ -3,7 +3,8 @@ package org.jeesl.interfaces.model.module.log;
 import java.io.Serializable;
 import java.util.List;
 
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
+
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface JeeslLogBook <SCOPE extends JeeslLogScope<?,?,SCOPE,?>,

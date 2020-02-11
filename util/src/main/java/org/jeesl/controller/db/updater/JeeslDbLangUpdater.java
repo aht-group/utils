@@ -9,15 +9,15 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.ejb.system.status.EjbLangFactory;
 import org.jeesl.interfaces.facade.JeeslFacade;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Langs;
 
-public class JeeslDbLangUpdater<C extends EjbWithLang<L>, L extends UtilsLang>
+public class JeeslDbLangUpdater<C extends EjbWithLang<L>, L extends JeeslLang>
 {
 	final static Logger logger = LoggerFactory.getLogger(JeeslDbLangUpdater.class);
 	
@@ -34,7 +34,7 @@ public class JeeslDbLangUpdater<C extends EjbWithLang<L>, L extends UtilsLang>
         efLang = EjbLangFactory.factory(cL);
     } 
 	
-	public static <C extends EjbWithLang<L>, L extends UtilsLang> JeeslDbLangUpdater<C,L> factory(final Class<C> cEjb, final Class<L> cL)
+	public static <C extends EjbWithLang<L>, L extends JeeslLang> JeeslDbLangUpdater<C,L> factory(final Class<C> cEjb, final Class<L> cL)
 	{
 		return new JeeslDbLangUpdater<C,L>(cEjb,cL);
 	}

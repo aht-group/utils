@@ -21,6 +21,8 @@ import org.jeesl.client.JeeslBootstrap;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.exception.processing.UtilsConfigurationException;
+import org.jeesl.exception.processing.UtilsProcessingException;
 import org.jeesl.factory.txt.system.io.mail.core.TxtMailFactory;
 import org.jeesl.mail.smtp.TextMailSender;
 import org.jeesl.model.xml.system.io.mail.Attachment;
@@ -29,8 +31,6 @@ import org.jeesl.model.xml.system.io.mail.Mails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
-import net.sf.ahtutils.exception.processing.UtilsProcessingException;
 import net.sf.ahtutils.util.cli.UtilsCliOption;
 import net.sf.exlp.exception.ExlpConfigurationException;
 import net.sf.exlp.exception.ExlpUnsupportedOsException;

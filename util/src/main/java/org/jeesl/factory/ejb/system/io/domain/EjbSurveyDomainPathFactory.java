@@ -6,13 +6,12 @@ import org.jeesl.interfaces.model.system.io.domain.JeeslDomainPath;
 import org.jeesl.interfaces.model.system.io.domain.JeeslDomainQuery;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public class EjbSurveyDomainPathFactory<L extends UtilsLang, D extends UtilsDescription,
+public class EjbSurveyDomainPathFactory<L extends JeeslLang, D extends JeeslDescription,
 										QUERY extends JeeslDomainQuery<L,D,?,PATH>,
 										PATH extends JeeslDomainPath<L,D,QUERY,DENTITY,DATTRIBUTE>,
 										DENTITY extends JeeslRevisionEntity<L,D,?,?,?,?>,

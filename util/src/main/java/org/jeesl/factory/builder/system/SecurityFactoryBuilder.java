@@ -15,6 +15,8 @@ import org.jeesl.factory.json.system.security.JsonPageFactory;
 import org.jeesl.factory.json.system.security.JsonPagesFactory;
 import org.jeesl.factory.sql.system.security.SqlUserFactory;
 import org.jeesl.factory.txt.system.security.TxtStaffFactory;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityHelp;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
@@ -29,11 +31,9 @@ import org.jeesl.interfaces.model.system.security.util.JeeslStaff;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public class SecurityFactoryBuilder<L extends UtilsLang, D extends UtilsDescription,
+public class SecurityFactoryBuilder<L extends JeeslLang, D extends JeeslDescription,
 									C extends JeeslSecurityCategory<L,D>,
 									R extends JeeslSecurityRole<L,D,C,V,U,A,USER>,
 									V extends JeeslSecurityView<L,D,C,R,U,A>,

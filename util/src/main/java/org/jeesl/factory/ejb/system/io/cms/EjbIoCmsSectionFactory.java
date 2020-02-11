@@ -5,12 +5,11 @@ import java.util.List;
 
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsSection;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileMeta;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public class EjbIoCmsSectionFactory <L extends UtilsLang,
+public class EjbIoCmsSectionFactory <L extends JeeslLang,
 										S extends JeeslIoCmsSection<L,S>, 
 										META extends JeeslFileMeta<?,?,?,?>>
 {

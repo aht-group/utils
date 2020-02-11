@@ -9,6 +9,8 @@ import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.factory.ejb.system.security.EjbSecurityMenuFactory;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
@@ -20,10 +22,7 @@ import org.primefaces.model.TreeNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public abstract class AbstractSystemPageBean <L extends UtilsLang, D extends UtilsDescription,
+public abstract class AbstractSystemPageBean <L extends JeeslLang, D extends JeeslDescription,
 											V extends JeeslSecurityView<L,D,?,?,?,?>,
 											M extends JeeslSecurityMenu<V,M>>
 		extends AbstractAdminBean<L,D>

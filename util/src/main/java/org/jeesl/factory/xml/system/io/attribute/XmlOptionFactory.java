@@ -1,14 +1,13 @@
 package org.jeesl.factory.xml.system.io.attribute;
 
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeOption;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.model.xml.system.io.attribute.Option;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public class XmlOptionFactory <L extends UtilsLang, D extends UtilsDescription,
+public class XmlOptionFactory <L extends JeeslLang, D extends JeeslDescription,
 									
 									OPTION extends JeeslAttributeOption<L,D,?>>
 {

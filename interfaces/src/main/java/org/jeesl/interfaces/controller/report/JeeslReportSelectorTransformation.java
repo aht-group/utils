@@ -1,14 +1,13 @@
 package org.jeesl.interfaces.controller.report;
 
 import org.jeesl.interfaces.model.system.io.report.JeeslIoReport;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public interface JeeslReportSelectorTransformation <L extends UtilsLang, D extends UtilsDescription,
+public interface JeeslReportSelectorTransformation <L extends JeeslLang, D extends JeeslDescription,
 														REPORT extends JeeslIoReport<L,D,?,?>,
-														TRANSFORMATION extends UtilsStatus<TRANSFORMATION,L,D>
+														TRANSFORMATION extends JeeslStatus<TRANSFORMATION,L,D>
 														>
 				extends JeeslReport<REPORT>
 {	

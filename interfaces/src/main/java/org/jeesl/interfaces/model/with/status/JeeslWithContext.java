@@ -1,9 +1,10 @@
 package org.jeesl.interfaces.model.with.status;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface JeeslWithContext<CTX extends UtilsStatus<CTX,?,?>> extends EjbWithId
+public interface JeeslWithContext<CTX extends JeeslStatus<CTX,?,?>> extends EjbWithId
 {
 	public static String attributeContext = "context";
 	

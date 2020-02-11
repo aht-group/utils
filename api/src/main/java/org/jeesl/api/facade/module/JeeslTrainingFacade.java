@@ -1,13 +1,12 @@
 package org.jeesl.api.facade.module;
 
 import org.jeesl.interfaces.facade.JeeslFacade;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public interface JeeslTrainingFacade <L extends UtilsLang,D extends UtilsDescription,
-										TYPE extends UtilsStatus<TYPE,L,D>>
+public interface JeeslTrainingFacade <L extends JeeslLang,D extends JeeslDescription,
+										TYPE extends JeeslStatus<TYPE,L,D>>
 			extends JeeslFacade
 {	
 	

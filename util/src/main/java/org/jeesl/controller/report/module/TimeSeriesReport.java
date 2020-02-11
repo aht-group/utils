@@ -30,22 +30,22 @@ import org.jeesl.interfaces.model.system.io.report.JeeslReportSheet;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportStyle;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportTemplate;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportWorkbook;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
+import org.jeesl.interfaces.model.with.EjbWithLangDescription;
 import org.jeesl.model.xml.module.ts.Ts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-import net.sf.ahtutils.interfaces.model.with.EjbWithLangDescription;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.xml.report.Report;
 
-public class TimeSeriesReport <L extends UtilsLang,D extends UtilsDescription,
-						CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+public class TimeSeriesReport <L extends JeeslLang,D extends JeeslDescription,
+						CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 						REPORT extends JeeslIoReport<L,D,CATEGORY,WORKBOOK>,
-						IMPLEMENTATION extends UtilsStatus<IMPLEMENTATION,L,D>,
+						IMPLEMENTATION extends JeeslStatus<IMPLEMENTATION,L,D>,
 						WORKBOOK extends JeeslReportWorkbook<REPORT,SHEET>,
 						SHEET extends JeeslReportSheet<L,D,IMPLEMENTATION,WORKBOOK,GROUP,ROW>,
 						GROUP extends JeeslReportColumnGroup<L,D,SHEET,COLUMN,STYLE>,
@@ -54,35 +54,35 @@ public class TimeSeriesReport <L extends UtilsLang,D extends UtilsDescription,
 						TEMPLATE extends JeeslReportTemplate<L,D,CELL>,
 						CELL extends JeeslReportCell<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS>,
 						STYLE extends JeeslReportStyle<L,D>,
-						CDT extends UtilsStatus<CDT,L,D>,
-						CW extends UtilsStatus<CW,L,D>,
-						RT extends UtilsStatus<RT,L,D>,
-						RCAT extends UtilsStatus<RCAT,L,D>,
+						CDT extends JeeslStatus<CDT,L,D>,
+						CW extends JeeslStatus<CW,L,D>,
+						RT extends JeeslStatus<RT,L,D>,
+						RCAT extends JeeslStatus<RCAT,L,D>,
 						ENTITY extends EjbWithId,
 						ATTRIBUTE extends EjbWithId,
 						TL extends JeeslTrafficLight<L,D,TLS>,
-						TLS extends UtilsStatus<TLS,L,D>,
-						FILLING extends UtilsStatus<FILLING,L,D>,
-						TRANSFORMATION extends UtilsStatus<TRANSFORMATION,L,D>,
+						TLS extends JeeslStatus<TLS,L,D>,
+						FILLING extends JeeslStatus<FILLING,L,D>,
+						TRANSFORMATION extends JeeslStatus<TRANSFORMATION,L,D>,
 						
-						CAT extends UtilsStatus<CAT,L,D>,
+						CAT extends JeeslStatus<CAT,L,D>,
 						SCOPE extends JeeslTsScope<L,D,CAT,ST,UNIT,EC,INT>,
-						ST extends UtilsStatus<ST,L,D>,
-						UNIT extends UtilsStatus<UNIT,L,D>,
+						ST extends JeeslStatus<ST,L,D>,
+						UNIT extends JeeslStatus<UNIT,L,D>,
 						MP extends JeeslTsMultiPoint<L,D,SCOPE,UNIT>,
 						TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT>,
 						TRANSACTION extends JeeslTsTransaction<SOURCE,DATA,USER,?>,
 						SOURCE extends EjbWithLangDescription<L,D>, 
 						BRIDGE extends JeeslTsBridge<EC>,
 						EC extends JeeslTsEntityClass<L,D,CAT>,
-						INT extends UtilsStatus<INT,L,D>,
+						INT extends JeeslStatus<INT,L,D>,
 						STAT extends JeeslTsStatistic<L,D,STAT,?>,
 						DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
 						POINT extends JeeslTsDataPoint<DATA,MP>,
 						SAMPLE extends JeeslTsSample,
 						USER extends EjbWithId, 
-						WS extends UtilsStatus<WS,L,D>,
-						QAF extends UtilsStatus<QAF,L,D>
+						WS extends JeeslStatus<WS,L,D>,
+						QAF extends JeeslStatus<QAF,L,D>
 						>
 					extends AbstractJeeslReport<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,RCAT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION>
 //implements JeeslReportHeader//,JeeslFlatReport,JeeslXlsReport

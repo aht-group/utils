@@ -6,11 +6,10 @@ import java.util.Map;
 import org.jeesl.api.facade.io.JeeslIoSsiFacade;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
-import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiAttribute;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;
-import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.code.EjbWithCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +24,7 @@ public class SsiCodeCache <MAPPING extends JeeslIoSsiMapping<?,ENTITY>,
 	
 	private final Map<String,T> map;
 	
-	public SsiCodeCache(IoSsiFactoryBuilder<?,?,?,MAPPING,ATTRIBUTE,?,?,ENTITY> fbSsi,
+	public SsiCodeCache(IoSsiFactoryBuilder<?,?,?,MAPPING,ATTRIBUTE,?,?,ENTITY,?> fbSsi,
 						JeeslIoSsiFacade<?,?,?,MAPPING,ATTRIBUTE,?,?,ENTITY> fSsi,
 						Class<T> cT)
 	{

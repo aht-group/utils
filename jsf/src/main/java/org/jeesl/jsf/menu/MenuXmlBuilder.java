@@ -7,8 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.jeesl.controller.monitor.ProcessingTimeTracker;
+import org.jeesl.controller.monitoring.counter.ProcessingTimeTracker;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.exception.jsf.JeeslMenuException;
 import org.jeesl.factory.xml.system.navigation.XmlMenuItemFactory;
 import org.jeesl.interfaces.controller.builder.MenuBuilder;
 import org.jeesl.model.xml.system.navigation.Breadcrumb;
@@ -23,7 +24,6 @@ import org.jgrapht.graph.DefaultEdge;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.jsf.UtilsMenuException;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.security.Security;
@@ -624,7 +624,7 @@ public class MenuXmlBuilder implements MenuBuilder
 				sb.append(" with code=").append(code).append("can not be found.");
 				logger.error(sb.toString()+" The menu xml will be shown:");
 				JaxbUtil.info(menu);
-				throw new UtilsMenuException(sb.toString());
+				throw new JeeslMenuException(sb.toString());
 			}		
 		}
 		return result;

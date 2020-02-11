@@ -6,6 +6,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.jeesl.AbstractJeeslUtilTest;
 import org.jeesl.controller.mail.freemarker.FreemarkerEngine;
+import org.jeesl.exception.processing.UtilsDeveloperException;
 import org.jeesl.model.xml.system.io.mail.Mail;
 import org.jeesl.model.xml.system.io.mail.Mails;
 import org.jeesl.model.xml.system.io.mail.Template;
@@ -19,7 +20,6 @@ import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
 import freemarker.template.TemplateException;
-import net.sf.ahtutils.exception.processing.UtilsDeveloperException;
 
 public class TestFreemarkerEngine extends AbstractJeeslUtilTest
 {

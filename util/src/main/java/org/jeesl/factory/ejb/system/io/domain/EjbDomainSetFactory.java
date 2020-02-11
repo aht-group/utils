@@ -4,13 +4,12 @@ import java.util.List;
 
 import org.jeesl.interfaces.model.system.io.domain.JeeslDomain;
 import org.jeesl.interfaces.model.system.io.domain.JeeslDomainSet;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public class EjbDomainSetFactory<L extends UtilsLang, D extends UtilsDescription,	
+public class EjbDomainSetFactory<L extends JeeslLang, D extends JeeslDescription,	
 				DOMAIN extends JeeslDomain<L,?>,
 				SET extends JeeslDomainSet<L,D,DOMAIN>>
 {

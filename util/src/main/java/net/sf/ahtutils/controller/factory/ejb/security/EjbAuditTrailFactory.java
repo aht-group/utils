@@ -5,6 +5,9 @@ import java.util.Date;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityUsecase;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
@@ -12,14 +15,11 @@ import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.util.UtilsAuditTrail;
 
 
-public class EjbAuditTrailFactory <L extends UtilsLang,
-										 D extends UtilsDescription,
+public class EjbAuditTrailFactory <L extends JeeslLang,
+										 D extends JeeslDescription,
 										 C extends JeeslSecurityCategory<L,D>,
 										 R extends JeeslSecurityRole<L,D,C,V,U,A,USER>,
 										 V extends JeeslSecurityView<L,D,C,R,U,A>,
@@ -28,7 +28,7 @@ public class EjbAuditTrailFactory <L extends UtilsLang,
 										 AT extends JeeslSecurityTemplate<L,D,C>,
 										 USER extends JeeslUser<R>,
 							 			 T extends UtilsAuditTrail<L,D,C,R,V,U,A,AT,USER,TY>,
-							 			 TY extends UtilsStatus<TY,L,D>>
+							 			 TY extends JeeslStatus<TY,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbAuditTrailFactory.class);
 	
@@ -43,8 +43,8 @@ public class EjbAuditTrailFactory <L extends UtilsLang,
     final Class<T> clTrail;
     final Class<TY> clType;
 	
-    public static <L extends UtilsLang,
-	 			   D extends UtilsDescription,
+    public static <L extends JeeslLang,
+	 			   D extends JeeslDescription,
 	 			   C extends JeeslSecurityCategory<L,D>,
 	 			   R extends JeeslSecurityRole<L,D,C,V,U,A,USER>,
 	 			   V extends JeeslSecurityView<L,D,C,R,U,A>,
@@ -53,7 +53,7 @@ public class EjbAuditTrailFactory <L extends UtilsLang,
 	 			  AT extends JeeslSecurityTemplate<L,D,C>,
 	 			  USER extends JeeslUser<R>,
 	 			   T extends UtilsAuditTrail<L,D,C,R,V,U,A,AT,USER,TY>,
-	 			   TY extends UtilsStatus<TY,L,D>>
+	 			   TY extends JeeslStatus<TY,L,D>>
     	EjbAuditTrailFactory<L,D,C,R,V,U,A,AT,USER,T,TY> factory(final Class<L> clLang,final Class<D> clDescription,final Class<C> clCategory,final Class<R> clRole,final Class<V> clView,final Class<U> clUsecase,final Class<A> clAction,final Class<USER> clUser, final Class<T> clTrail,final Class<TY> clType)
     {
         return new EjbAuditTrailFactory<L,D,C,R,V,U,A,AT,USER,T,TY>(clLang,clDescription,clCategory,clRole,clView,clUsecase,clAction,clUser,clTrail,clType);

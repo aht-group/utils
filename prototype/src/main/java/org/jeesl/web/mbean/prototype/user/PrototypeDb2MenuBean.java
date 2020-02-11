@@ -14,6 +14,8 @@ import org.jeesl.factory.txt.system.security.TxtSecurityMenuFactory;
 import org.jeesl.factory.xml.system.navigation.XmlBreadcrumbFactory;
 import org.jeesl.factory.xml.system.navigation.XmlMenuFactory;
 import org.jeesl.factory.xml.system.navigation.XmlMenuItemFactory;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
@@ -29,12 +31,10 @@ import org.jeesl.model.xml.system.navigation.MenuItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.exlp.util.io.StringUtil;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-public class PrototypeDb2MenuBean <L extends UtilsLang, D extends UtilsDescription,
+public class PrototypeDb2MenuBean <L extends JeeslLang, D extends JeeslDescription,
 									C extends JeeslSecurityCategory<L,D>,
 									R extends JeeslSecurityRole<L,D,C,V,U,A,USER>,
 									V extends JeeslSecurityView<L,D,C,R,U,A>,

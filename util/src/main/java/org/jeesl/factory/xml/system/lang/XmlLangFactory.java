@@ -1,13 +1,13 @@
 package org.jeesl.factory.xml.system.lang;
 
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 import net.sf.ahtutils.xml.status.Lang;
 
-public class XmlLangFactory<L extends UtilsLang>
+public class XmlLangFactory<L extends JeeslLang>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlLangFactory.class);
 		
@@ -34,7 +34,7 @@ public class XmlLangFactory<L extends UtilsLang>
 		return xml;
 	}
 	
-	public static <T extends EjbWithLang<L>, L extends UtilsLang> String label(String localeCode, T ejb)
+	public static <T extends EjbWithLang<L>, L extends JeeslLang> String label(String localeCode, T ejb)
 	{
 		if(ejb.getName()!=null)
 		{

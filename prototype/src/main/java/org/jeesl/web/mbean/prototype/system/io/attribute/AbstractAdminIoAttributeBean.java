@@ -20,19 +20,18 @@ import org.jeesl.interfaces.model.module.attribute.JeeslAttributeData;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeItem;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeOption;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeSet;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.util.comparator.ejb.system.io.attribute.AttributeCriteriaComparator;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public abstract class AbstractAdminIoAttributeBean <L extends UtilsLang, D extends UtilsDescription, LOC extends UtilsStatus<LOC,L,D>,
-													CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+public abstract class AbstractAdminIoAttributeBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
+													CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 													CRITERIA extends JeeslAttributeCriteria<L,D,CATEGORY,TYPE>,
-													TYPE extends UtilsStatus<TYPE,L,D>,
+													TYPE extends JeeslStatus<TYPE,L,D>,
 													OPTION extends JeeslAttributeOption<L,D,CRITERIA>,
 													SET extends JeeslAttributeSet<L,D,CATEGORY,ITEM>,
 													ITEM extends JeeslAttributeItem<CRITERIA,SET>,

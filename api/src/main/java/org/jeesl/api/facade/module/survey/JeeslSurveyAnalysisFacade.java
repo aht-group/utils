@@ -28,15 +28,14 @@ import org.jeesl.interfaces.model.system.io.domain.JeeslDomainPath;
 import org.jeesl.interfaces.model.system.io.domain.JeeslDomainQuery;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.model.json.JsonFlatFigures;
 import org.jeesl.model.json.module.survey.JsonSurveyValue;
 import org.jeesl.model.json.module.survey.JsonSurveyValues;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public interface JeeslSurveyAnalysisFacade <L extends UtilsLang, D extends UtilsDescription,
+public interface JeeslSurveyAnalysisFacade <L extends JeeslLang, D extends JeeslDescription,
 											SURVEY extends JeeslSurvey<L,D,SS,TEMPLATE,DATA>,
 											SS extends JeeslSurveyStatus<L,D,SS,?>,
 											SCHEME extends JeeslSurveyScheme<L,D,TEMPLATE,SCORE>,
@@ -61,7 +60,7 @@ public interface JeeslSurveyAnalysisFacade <L extends UtilsLang, D extends Utils
 											ANALYSIS extends JeeslSurveyAnalysis<L,D,TEMPLATE,DOMAIN,DENTITY,DATTRIBUTE>,
 											AQ extends JeeslSurveyAnalysisQuestion<L,D,QUESTION,ANALYSIS>,
 											TOOL extends JeeslSurveyAnalysisTool<L,D,QE,QUERY,DATTRIBUTE,AQ,TOOLT>,
-											TOOLT extends UtilsStatus<TOOLT,L,D>>
+											TOOLT extends JeeslStatus<TOOLT,L,D>>
 	extends JeeslFacade
 {
 	TOOL load(TOOL tool);

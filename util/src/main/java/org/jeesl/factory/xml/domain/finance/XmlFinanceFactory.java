@@ -6,18 +6,18 @@ import java.util.Map;
 
 import org.jeesl.controller.processor.finance.AmountRounder;
 import org.jeesl.interfaces.model.module.currency.UtilsCurrency;
-import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
-import org.jeesl.interfaces.model.util.finance.UtilsFinance;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.finance.EjbWithValue;
 import org.jeesl.model.xml.jeesl.QueryFinance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.xml.finance.Figures;
 import net.sf.ahtutils.xml.finance.Finance;
 
-public class XmlFinanceFactory <L extends UtilsLang, C extends UtilsCurrency<L>>
+public class XmlFinanceFactory <L extends JeeslLang, C extends UtilsCurrency<L>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlFinanceFactory.class);
 	
@@ -40,7 +40,7 @@ public class XmlFinanceFactory <L extends UtilsLang, C extends UtilsCurrency<L>>
 		return xml;
 	}
 	
-	public static <F extends UtilsFinance> Finance create(F ejb)
+	public static <F extends EjbWithValue> Finance create(F ejb)
 	{
 		Finance xml = build();
 		xml.setValue(ejb.getValue());

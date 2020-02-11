@@ -12,6 +12,8 @@ import org.jeesl.api.facade.system.JeeslSecurityFacade;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.factory.txt.system.security.TxtSecurityActionFactory;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
@@ -27,10 +29,7 @@ import org.jeesl.util.comparator.pojo.BooleanComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public abstract class AbstractJsfSecurityHandler <L extends UtilsLang, D extends UtilsDescription,
+public abstract class AbstractJsfSecurityHandler <L extends JeeslLang, D extends JeeslDescription,
 													C extends JeeslSecurityCategory<L,D>,
 													R extends JeeslSecurityRole<L,D,C,V,U,A,USER>,
 													V extends JeeslSecurityView<L,D,C,R,U,A>,

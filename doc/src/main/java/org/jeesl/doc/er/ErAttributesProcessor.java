@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.io.filefilter.FileFilterUtils;
+import org.jeesl.interfaces.model.marker.qualifier.EjbErAttributes;
 import org.openfuxml.content.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.renderer.latex.OfxMultiLangLatexWriter;
@@ -14,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.doc.ofx.admin.er.OfxClassAttributesTableFactory;
-import net.sf.ahtutils.interfaces.qualifier.EjbErAttributes;
 import net.sf.ahtutils.model.qualifier.EjbErNode;
 import net.sf.exlp.util.io.ClassUtil;
 import net.sf.exlp.util.io.dir.RecursiveFileFinder;

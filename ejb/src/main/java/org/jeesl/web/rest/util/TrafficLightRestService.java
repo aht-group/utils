@@ -3,12 +3,15 @@ package org.jeesl.web.rest.util;
 import org.jeesl.api.exception.xml.JeeslXmlStructureException;
 import org.jeesl.api.rest.system.traffic.JeeslTrafficLightRestExport;
 import org.jeesl.api.rest.system.traffic.JeeslTrafficLightRestImport;
-import org.jeesl.controller.monitor.DataUpdateTracker;
+import org.jeesl.controller.monitoring.counter.DataUpdateTracker;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.ejb.system.util.EjbTrafficLightFactory;
 import org.jeesl.factory.xml.system.status.XmlTypeFactory;
 import org.jeesl.interfaces.facade.JeeslFacade;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 import org.jeesl.util.query.xml.UtilsQuery;
 import org.slf4j.Logger;
@@ -16,14 +19,11 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.factory.xml.utils.XmlTrafficLightFactory;
 import net.sf.ahtutils.factory.xml.utils.XmlTrafficLightsFactory;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 import net.sf.ahtutils.xml.utils.TrafficLight;
 import net.sf.ahtutils.xml.utils.TrafficLights;
 
-public class TrafficLightRestService <L extends UtilsLang,D extends UtilsDescription,SCOPE extends UtilsStatus<SCOPE,L,D>,LIGHT extends JeeslTrafficLight<L,D,SCOPE>>
+public class TrafficLightRestService <L extends JeeslLang,D extends JeeslDescription,SCOPE extends JeeslStatus<SCOPE,L,D>,LIGHT extends JeeslTrafficLight<L,D,SCOPE>>
 		implements JeeslTrafficLightRestExport,JeeslTrafficLightRestImport
 {
 	final static Logger logger = LoggerFactory.getLogger(TrafficLightRestService.class);
@@ -46,7 +46,7 @@ public class TrafficLightRestService <L extends UtilsLang,D extends UtilsDescrip
 		efLight = EjbTrafficLightFactory.factory(cLang,cDescription,cLight);
 	}
 	
-	public static <L extends UtilsLang,D extends UtilsDescription,SCOPE extends UtilsStatus<SCOPE,L,D>,LIGHT extends JeeslTrafficLight<L,D,SCOPE>>
+	public static <L extends JeeslLang,D extends JeeslDescription,SCOPE extends JeeslStatus<SCOPE,L,D>,LIGHT extends JeeslTrafficLight<L,D,SCOPE>>
 		TrafficLightRestService<L,D,SCOPE,LIGHT>
 			factory(JeeslFacade fUtils,final Class<L> cL,final Class<D> cD,final Class<SCOPE> cScope,final Class<LIGHT> cLight)
 	{

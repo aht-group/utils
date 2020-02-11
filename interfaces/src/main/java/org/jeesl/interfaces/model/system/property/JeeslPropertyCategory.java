@@ -2,21 +2,20 @@ package org.jeesl.interfaces.model.system.property;
 
 import java.io.Serializable;
 
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.with.EjbWithCodeGraphic;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatusFixedCode;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatusFixedCode;
-
-public interface JeeslPropertyCategory <L extends UtilsLang, D extends UtilsDescription,
-								S extends UtilsStatus<S,L,D>,
+public interface JeeslPropertyCategory <L extends JeeslLang, D extends JeeslDescription,
+								S extends JeeslStatus<S,L,D>,
 								G extends JeeslGraphic<L,D,?,?,?>>
-						extends Serializable,EjbSaveable,UtilsStatusFixedCode,
+						extends Serializable,EjbSaveable,JeeslStatusFixedCode,
 								EjbWithCodeGraphic<G>,
-								UtilsStatus<S,L,D>
+								JeeslStatus<S,L,D>
 {
 
 }

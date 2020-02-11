@@ -4,12 +4,11 @@ import java.util.List;
 
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsElement;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsSection;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public class EjbIoCmsElementFactory <L extends UtilsLang,
+public class EjbIoCmsElementFactory <L extends JeeslLang,
 								S extends JeeslIoCmsSection<L,S>,
 								E extends JeeslIoCmsElement<?,S,?,?,?,?>>
 {

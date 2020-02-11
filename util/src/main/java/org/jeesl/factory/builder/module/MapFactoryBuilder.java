@@ -7,13 +7,12 @@ import org.jeesl.interfaces.model.module.map.JeeslLocationLevel;
 import org.jeesl.interfaces.model.module.map.JeeslStatisticMapStatus;
 import org.jeesl.interfaces.model.module.map.JeeslStatisticalMap;
 import org.jeesl.interfaces.model.module.map.JeeslStatisticalMapImplementation;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public class MapFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
+public class MapFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 								MAP extends JeeslStatisticalMap<L,D>,
 								IMP extends JeeslStatisticalMapImplementation<MAP,STATUS,LEVEL>,
 								STATUS extends JeeslStatisticMapStatus<L,D,STATUS,?>,

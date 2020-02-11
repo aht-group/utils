@@ -18,13 +18,12 @@ import org.jeesl.interfaces.model.system.job.JeeslJobPriority;
 import org.jeesl.interfaces.model.system.job.JeeslJobRobot;
 import org.jeesl.interfaces.model.system.job.JeeslJobTemplate;
 import org.jeesl.interfaces.model.system.job.JeeslJobType;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.with.text.EjbWithEmail;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
-
-public interface JeeslJobFacade <L extends UtilsLang,D extends UtilsDescription,
+public interface JeeslJobFacade <L extends JeeslLang,D extends JeeslDescription,
 								TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY,EXPIRE>,
 								CATEGORY extends JeeslJobCategory<L,D,CATEGORY,?>,
 								TYPE extends JeeslJobType<L,D,TYPE,?>,
@@ -33,7 +32,7 @@ public interface JeeslJobFacade <L extends UtilsLang,D extends UtilsDescription,
 								PRIORITY extends JeeslJobPriority<L,D,PRIORITY,?>,
 								FEEDBACK extends JeeslJobFeedback<JOB,FT,USER>,
 								FT extends JeeslJobFeedbackType<L,D,FT,?>,
-								STATUS extends UtilsStatus<STATUS,L,D>,
+								STATUS extends JeeslStatus<STATUS,L,D>,
 								ROBOT extends JeeslJobRobot<L,D>,
 								CACHE extends JeeslJobCache<TEMPLATE,CONTAINER>,
 								CONTAINER extends JeeslFileContainer<?,?>,

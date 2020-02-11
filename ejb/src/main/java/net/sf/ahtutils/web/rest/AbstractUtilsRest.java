@@ -9,20 +9,20 @@ import org.jeesl.factory.ejb.system.status.EjbStatusFactory;
 import org.jeesl.factory.xml.system.status.XmlStatusFactory;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.util.db.JeeslStatusDbUpdater;
 import org.jeesl.util.query.xml.XmlStatusQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.aht.Container;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 
-public class AbstractUtilsRest <L extends UtilsLang, D extends UtilsDescription>
+public class AbstractUtilsRest <L extends JeeslLang, D extends JeeslDescription>
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractUtilsRest.class);
 
@@ -55,7 +55,7 @@ public class AbstractUtilsRest <L extends UtilsLang, D extends UtilsDescription>
 		mapGroups.put(c,code);
 	}
 	
-	protected <S extends UtilsStatus<S,L,D>> Aht exportStatus(Class<S> c)
+	protected <S extends JeeslStatus<S,L,D>> Aht exportStatus(Class<S> c)
 	{
 		XmlStatusFactory f = new XmlStatusFactory(XmlStatusQuery.get(XmlStatusQuery.Key.StatusExport).getStatus());
 		
@@ -69,7 +69,7 @@ public class AbstractUtilsRest <L extends UtilsLang, D extends UtilsDescription>
 		return xml;
 	}
 	
-	protected <S extends UtilsStatus<S,L,D>> Container exportContainer(Class<S> c)
+	protected <S extends JeeslStatus<S,L,D>> Container exportContainer(Class<S> c)
 	{
 		XmlStatusFactory f = new XmlStatusFactory(XmlStatusQuery.get(XmlStatusQuery.Key.StatusExport).getStatus());
 		
@@ -83,7 +83,7 @@ public class AbstractUtilsRest <L extends UtilsLang, D extends UtilsDescription>
 		return xml;
 	}
 	
-	protected <S extends UtilsStatus<S,L,D>, P extends UtilsStatus<P,L,D>, G extends JeeslGraphic<L,D,?,?,?>> DataUpdate importStatus(Class<S> cS, Class<P> cP, Aht container)
+	protected <S extends JeeslStatus<S,L,D>, P extends JeeslStatus<P,L,D>, G extends JeeslGraphic<L,D,?,?,?>> DataUpdate importStatus(Class<S> cS, Class<P> cP, Aht container)
 	{
 		for(Status xml : container.getStatus()){xml.setGroup(cS.getSimpleName());}
 		JeeslStatusDbUpdater<L,D,S,G> asdi = new JeeslStatusDbUpdater<L,D,S,G>();

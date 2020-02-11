@@ -21,15 +21,15 @@ import org.jeesl.interfaces.model.module.log.JeeslLogConfidentiality;
 import org.jeesl.interfaces.model.module.log.JeeslLogImpact;
 import org.jeesl.interfaces.model.module.log.JeeslLogItem;
 import org.jeesl.interfaces.model.module.log.JeeslLogScope;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public class JeeslLogFacadeBean<L extends UtilsLang, D extends UtilsDescription,
+public class JeeslLogFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 									LOG extends JeeslLogBook<SCOPE,ITEM>,
 									SCOPE extends JeeslLogScope<L,D,SCOPE,?>,
 									ITEM extends JeeslLogItem<L,D,?,?,LOG,IMPACT,CONF,USER>,

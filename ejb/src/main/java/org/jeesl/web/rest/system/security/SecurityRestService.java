@@ -18,6 +18,8 @@ import org.jeesl.factory.xml.system.security.XmlTemplateFactory;
 import org.jeesl.factory.xml.system.security.XmlTemplatesFactory;
 import org.jeesl.factory.xml.system.security.XmlUsecaseFactory;
 import org.jeesl.factory.xml.system.security.XmlUsecasesFactory;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityHelp;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
@@ -42,8 +44,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.controller.factory.xml.acl.XmlViewsFactory;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.rest.security.UtilsSecurityViewImport;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.xml.access.Access;
@@ -58,7 +58,7 @@ import net.sf.ahtutils.xml.security.Template;
 import net.sf.ahtutils.xml.security.Tmp;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 
-public class SecurityRestService <L extends UtilsLang,D extends UtilsDescription,
+public class SecurityRestService <L extends JeeslLang,D extends JeeslDescription,
 								C extends JeeslSecurityCategory<L,D>,
 								R extends JeeslSecurityRole<L,D,C,V,U,A,USER>,
 								V extends JeeslSecurityView<L,D,C,R,U,A>,
@@ -123,7 +123,7 @@ public class SecurityRestService <L extends UtilsLang,D extends UtilsDescription
 		initUsecases = new SecurityUsecaseUpdater<>(fbSecurity,fSecurity);
 	}
 	
-	public static <L extends UtilsLang,D extends UtilsDescription,
+	public static <L extends JeeslLang,D extends JeeslDescription,
 					C extends JeeslSecurityCategory<L,D>,
 					R extends JeeslSecurityRole<L,D,C,V,U,A,USER>,
 					V extends JeeslSecurityView<L,D,C,R,U,A>,

@@ -10,24 +10,23 @@ import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsSection;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsVisiblity;
 import org.jeesl.interfaces.model.system.io.cms.JeeslWithCms;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public class EjbIoCmsFactory <L extends UtilsLang,D extends UtilsDescription,
-								CAT extends UtilsStatus<CAT,L,D>,
+public class EjbIoCmsFactory <L extends JeeslLang,D extends JeeslDescription,
+								CAT extends JeeslStatus<CAT,L,D>,
 								CMS extends JeeslIoCms<L,D,CAT,S,LOC>,
 								V extends JeeslIoCmsVisiblity,
 								S extends JeeslIoCmsSection<L,S>,
 								E extends JeeslIoCmsElement<V,S,EC,ET,C,?>,
-								EC extends UtilsStatus<EC,L,D>,
-								ET extends UtilsStatus<ET,L,D>,
+								EC extends JeeslStatus<EC,L,D>,
+								ET extends JeeslStatus<ET,L,D>,
 								C extends JeeslIoCmsContent<V,E,MT>,
 								MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
-								LOC extends UtilsStatus<LOC,L,D>>
+								LOC extends JeeslStatus<LOC,L,D>>
 {
 	//TODO @tk reduce
 	final static Logger logger = LoggerFactory.getLogger(EjbIoCmsFactory.class);

@@ -6,10 +6,9 @@ import org.jeesl.interfaces.model.module.bb.post.JeeslBbPost;
 import org.jeesl.interfaces.model.module.bb.post.JeeslBbThread;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
+import org.jeesl.interfaces.model.with.text.EjbWithEmail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 
 public class EjbBbPostFactory<THREAD extends JeeslBbThread<?>,
 								POST extends JeeslBbPost<THREAD,M,MT,USER>,

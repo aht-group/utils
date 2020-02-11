@@ -1,8 +1,8 @@
 package net.sf.ahtutils.monitor.util;
 
-import net.sf.ahtutils.exception.processing.UtilsProcessingException;
 import net.sf.ahtutils.test.AbstractUtilsMonitorTest;
 
+import org.jeesl.exception.processing.UtilsProcessingException;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.joda.time.MutableDateTime;

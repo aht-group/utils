@@ -1,6 +1,6 @@
 package org.jeesl.interfaces.model.system.security.user;
 
-import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
+import org.jeesl.interfaces.model.with.text.EjbWithEmail;
 
 public interface JeeslSimpleUser extends EjbWithEmail
 {

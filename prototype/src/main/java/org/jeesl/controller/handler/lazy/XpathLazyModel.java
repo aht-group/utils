@@ -83,7 +83,7 @@ public class XpathLazyModel <T extends EjbWithId> extends LazyDataModel<T>
 		this.setRowCount(tmp.size());
  
 		
-		llh.paginator(data,tmp,first,pageSize);
+		llh.paginator(tmp,first,pageSize,data);
 		return data;
 	}
 	

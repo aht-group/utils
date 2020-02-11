@@ -1,9 +1,9 @@
 package org.jeesl.factory.ejb.util;
 
+import org.jeesl.interfaces.model.util.UtilsRankedResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.ranking.UtilsRankedResult;
 import net.sf.ahtutils.model.DefaultRankedResult;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 

@@ -1,10 +1,10 @@
 package net.sf.ahtutils.model.json.date;
 
-import org.jeesl.interfaces.model.util.date.EjbWithYear;
-import org.jeesl.interfaces.model.util.date.EntityWithDay;
-import org.jeesl.interfaces.model.util.date.EntityWithMonth;
-import org.jeesl.interfaces.model.util.date.EntityWithQuarter;
-import org.jeesl.interfaces.model.util.date.EntityWithWeek;
+import org.jeesl.interfaces.model.with.date.EjbWithYear;
+import org.jeesl.interfaces.model.with.date.EntityWithDay;
+import org.jeesl.interfaces.model.with.date.EntityWithMonth;
+import org.jeesl.interfaces.model.with.date.EntityWithQuarter;
+import org.jeesl.interfaces.model.with.date.EntityWithWeek;
 
 public class JsonDateYQMWD implements EjbWithYear,EntityWithQuarter,EntityWithMonth,EntityWithWeek,EntityWithDay
 {

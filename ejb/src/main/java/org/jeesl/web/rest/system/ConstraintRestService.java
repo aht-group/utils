@@ -3,7 +3,7 @@ package org.jeesl.web.rest.system;
 import org.jeesl.api.facade.system.JeeslSystemConstraintFacade;
 import org.jeesl.api.rest.system.constraint.JeeslConstraintRestExport;
 import org.jeesl.api.rest.system.constraint.JeeslConstraintRestImport;
-import org.jeesl.controller.monitor.DataUpdateTracker;
+import org.jeesl.controller.monitoring.counter.DataUpdateTracker;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
@@ -14,27 +14,27 @@ import org.jeesl.interfaces.model.system.constraint.JeeslConstraint;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraintResolution;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraintScope;
 import org.jeesl.interfaces.model.system.constraint.algorithm.JeeslConstraintAlgorithm;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.model.xml.jeesl.Container;
 import org.jeesl.web.rest.AbstractJeeslRestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 import net.sf.ahtutils.xml.system.Constraint;
 import net.sf.ahtutils.xml.system.ConstraintScope;
 import net.sf.ahtutils.xml.system.Constraints;
 
-public class ConstraintRestService <L extends UtilsLang, D extends UtilsDescription,
-									ALGCAT extends UtilsStatus<ALGCAT,L,D>,
+public class ConstraintRestService <L extends JeeslLang, D extends JeeslDescription,
+									ALGCAT extends JeeslStatus<ALGCAT,L,D>,
 									ALGO extends JeeslConstraintAlgorithm<L,D,ALGCAT>,
 									SCOPE extends JeeslConstraintScope<L,D,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>,
-									CONCAT extends UtilsStatus<CONCAT,L,D>,
+									CONCAT extends JeeslStatus<CONCAT,L,D>,
 									CONSTRAINT extends JeeslConstraint<L,D,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>,
-									LEVEL extends UtilsStatus<LEVEL,L,D>,
-									TYPE extends UtilsStatus<TYPE,L,D>,
+									LEVEL extends JeeslStatus<LEVEL,L,D>,
+									TYPE extends JeeslStatus<TYPE,L,D>,
 									RESOLUTION extends JeeslConstraintResolution<L,D,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>>
 		extends AbstractJeeslRestService<L,D>
 		implements JeeslConstraintRestExport,JeeslConstraintRestImport
@@ -69,14 +69,14 @@ public class ConstraintRestService <L extends UtilsLang, D extends UtilsDescript
 		efConstraint = new EjbConstraintFactory<L,D,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>(cL,cD,cConstraint,cType);
 	}
 	
-	public static <L extends UtilsLang, D extends UtilsDescription,
-						ALGCAT extends UtilsStatus<ALGCAT,L,D>,
+	public static <L extends JeeslLang, D extends JeeslDescription,
+						ALGCAT extends JeeslStatus<ALGCAT,L,D>,
 						ALGO extends JeeslConstraintAlgorithm<L,D,ALGCAT>,
 						SCOPE extends JeeslConstraintScope<L,D,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>,
-						CONCAT extends UtilsStatus<CONCAT,L,D>,
+						CONCAT extends JeeslStatus<CONCAT,L,D>,
 						CONSTRAINT extends JeeslConstraint<L,D,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>,
-						LEVEL extends UtilsStatus<LEVEL,L,D>,
-						TYPE extends UtilsStatus<TYPE,L,D>,
+						LEVEL extends JeeslStatus<LEVEL,L,D>,
+						TYPE extends JeeslStatus<TYPE,L,D>,
 						RESOLUTION extends JeeslConstraintResolution<L,D,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>>
 	ConstraintRestService<L,D,ALGCAT,ALGO,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>
 			factory(String[] localeCodes,

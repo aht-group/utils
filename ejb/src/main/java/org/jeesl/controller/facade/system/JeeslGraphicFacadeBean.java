@@ -15,17 +15,17 @@ import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
-import org.jeesl.interfaces.model.system.with.EjbWithGraphic;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.with.graphic.EjbWithGraphic;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public class JeeslGraphicFacadeBean<L extends UtilsLang, D extends UtilsDescription,
+public class JeeslGraphicFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 									S extends EjbWithId,
-									G extends JeeslGraphic<L,D,GT,F,FS>, GT extends UtilsStatus<GT,L,D>,
-									F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends UtilsStatus<FS,L,D>>
+									G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslStatus<GT,L,D>,
+									F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>>
 					extends JeeslFacadeBean
 					implements JeeslGraphicFacade<L,D,S,G,GT,F,FS>
 {	
@@ -41,21 +41,21 @@ public class JeeslGraphicFacadeBean<L extends UtilsLang, D extends UtilsDescript
 		this.cG=cG;
 	}
 
-	@Override public G fGraphicForStatus(long statusId) throws JeeslNotFoundException
+	@Override public G fGraphicForStatus(long ejbId) throws JeeslNotFoundException
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<G> cQ = cB.createQuery(cG);
-		Root<S> monitoring = cQ.from(cStatus);
+		Root<S> root = cQ.from(cStatus);
 		
-		Path<G> pathProject = monitoring.get("graphic");
-		Path<Long> pId = monitoring.get("id");
+		Path<G> pathProject = root.get("graphic");
+		Path<Long> pId = root.get("id");
 		
-		cQ.where(cB.equal(pId,statusId));
+		cQ.where(cB.equal(pId,ejbId));
 		cQ.select(pathProject);
 		
 		try	{return em.createQuery(cQ).getSingleResult();}
-		catch (NoResultException ex){throw new JeeslNotFoundException("No Graphic found for status.id"+statusId);}
-		catch (NonUniqueResultException ex){throw new JeeslNotFoundException("Multiple Results for status.id"+statusId);}
+		catch (NoResultException ex){throw new JeeslNotFoundException("No Graphic found for status.id"+ejbId);}
+		catch (NonUniqueResultException ex){throw new JeeslNotFoundException("Multiple Results for status.id"+ejbId);}
 	}
 	
 	@Override public <W extends EjbWithGraphic<G>> G fGraphic(Class<W> c, W w) throws JeeslNotFoundException {return fGraphic(c,w.getId());}

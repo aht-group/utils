@@ -2,13 +2,12 @@ package org.jeesl.interfaces.model.module.survey.data;
 
 import java.io.Serializable;
 
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyOption;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public interface JeeslSurveyMatrix<L extends UtilsLang, D extends UtilsDescription,
+public interface JeeslSurveyMatrix<L extends JeeslLang, D extends JeeslDescription,
 									ANSWER extends JeeslSurveyAnswer<L,D,?,?,?,OPTION>,
 									OPTION extends JeeslSurveyOption<L,D>>
 			extends Serializable,EjbSaveable

@@ -1,52 +1,78 @@
 package org.jeesl.factory.builder.module;
 
+import java.util.Comparator;
+
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
+import org.jeesl.factory.ejb.module.asset.EjbAssetCompanyFactory;
+import org.jeesl.factory.ejb.module.asset.EjbAssetEventFactory;
 import org.jeesl.factory.ejb.module.asset.EjbAssetFactory;
-import org.jeesl.factory.ejb.module.asset.EjbAssetManufacturerFactory;
 import org.jeesl.factory.ejb.module.asset.EjbAssetTypeFactory;
-import org.jeesl.interfaces.model.module.asset.JeeslAsset;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetManufacturer;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetRealm;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetStatus;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetType;
+import org.jeesl.interfaces.model.module.aom.JeeslAomAsset;
+import org.jeesl.interfaces.model.module.aom.JeeslAomStatus;
+import org.jeesl.interfaces.model.module.aom.JeeslAomType;
+import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
+import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
+import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
+import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
+import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventStatus;
+import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.util.comparator.ejb.module.asset.EjbAssetComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public class AssetFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
-								REALM extends JeeslAssetRealm<L,D,REALM,?>,
-								ASSET extends JeeslAsset<REALM,ASSET,MANU,STATUS,TYPE>,
-								MANU extends JeeslAssetManufacturer<REALM>,
-								STATUS extends JeeslAssetStatus<L,D,STATUS,?>,
-								TYPE extends JeeslAssetType<L,D,REALM,TYPE,?>>
+public class AssetFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
+								REALM extends JeeslAomRealm<L,D,REALM,?>,
+								COMPANY extends JeeslAomCompany<REALM,SCOPE>,
+								SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
+								ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,ASTATUS,ATYPE>,
+								ASTATUS extends JeeslAomStatus<L,D,ASTATUS,?>,
+								ATYPE extends JeeslAomType<L,D,REALM,ATYPE,?>,
+								EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS>,
+								ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
+								ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>>
 		extends AbstractFactoryBuilder<L,D>
 {
 	final static Logger logger = LoggerFactory.getLogger(AssetFactoryBuilder.class);
 	
 	private final Class<REALM> cRealm; public Class<REALM> getClassRealm() {return cRealm;}
+	private final Class<SCOPE> cScope; public Class<SCOPE> getClassScope() {return cScope;}
 	private final Class<ASSET> cAsset; public Class<ASSET> getClassAsset() {return cAsset;}
-	private final Class<MANU> cManu; public Class<MANU> getClassManufacturer() {return cManu;}
-	private final Class<STATUS> cStatus; public Class<STATUS> getClassStatus() {return cStatus;}
-	private final Class<TYPE> cType; public Class<TYPE> getClassType() {return cType;}
-
+	private final Class<COMPANY> cCompany; public Class<COMPANY> getClassCompany() {return cCompany;}
+	private final Class<ASTATUS> cStatus; public Class<ASTATUS> getClassStatus() {return cStatus;}
+	private final Class<ATYPE> cAssetType; public Class<ATYPE> getClassAssetType() {return cAssetType;}
+	private final Class<EVENT> cEvent; public Class<EVENT> getClassEvent() {return cEvent;}
+	private final Class<ETYPE> cEventType; public Class<ETYPE> getClassEventType() {return cEventType;}
+	private final Class<ESTATUS> cEventStatus; public Class<ESTATUS> getClassEventStatus() {return cEventStatus;}
+	
 	public AssetFactoryBuilder(final Class<L> cL,final Class<D> cD,
 								final Class<REALM> cRealm,
 								final Class<ASSET> cAsset,
-								final Class<MANU> cManu,
-								final Class<STATUS> cStatus,
-								final Class<TYPE> cType)
+								final Class<COMPANY> cCompany,
+								final Class<SCOPE> cScope,
+								final Class<ASTATUS> cStatus,
+								final Class<ATYPE> cAssetType,
+								final Class<EVENT> cEvent,
+								final Class<ETYPE> cEventType,
+								final Class<ESTATUS> cEventStatus)
 	{       
 		super(cL,cD);
 		this.cRealm=cRealm;
+		this.cCompany=cCompany;
+		this.cScope=cScope;
 		this.cAsset=cAsset;
-		this.cManu=cManu;
 		this.cStatus=cStatus;
-		this.cType=cType;
+		this.cAssetType=cAssetType;
+		this.cEvent=cEvent;
+		this.cEventType=cEventType;
+		this.cEventStatus=cEventStatus;
 	}
 	
-	public EjbAssetManufacturerFactory<REALM,MANU> ejbManufacturer() {return new EjbAssetManufacturerFactory<>(cManu);}
-	public EjbAssetTypeFactory<REALM,TYPE> ejbType() {return new EjbAssetTypeFactory<>(cType);}
-	public EjbAssetFactory<REALM,ASSET,MANU,STATUS,TYPE> ejbAsset() {return new EjbAssetFactory<>(cAsset);}
+	public EjbAssetCompanyFactory<REALM,COMPANY,SCOPE> ejbManufacturer() {return new EjbAssetCompanyFactory<>(cCompany);}
+	public EjbAssetTypeFactory<REALM,ATYPE> ejbType() {return new EjbAssetTypeFactory<>(cAssetType);}
+	public EjbAssetFactory<REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE> ejbAsset() {return new EjbAssetFactory<>(this);}
+	public EjbAssetEventFactory<COMPANY,ASSET,EVENT,ETYPE,ESTATUS> ejbEvent() {return new EjbAssetEventFactory<>(this);}
+	
+	public Comparator<ASSET> cpAsset(EjbAssetComparator.Type type){return new EjbAssetComparator<ASSET>().factory(type);}
 }

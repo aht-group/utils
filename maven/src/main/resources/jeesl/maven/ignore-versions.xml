@@ -303,19 +303,6 @@
     </rule>
     <rule groupId="org.jboss.as" comparisonMethod="maven">
       <ignoreVersions>
-        <ignoreVersion>7.2.0.Final-redhat-8</ignoreVersion>
-        <ignoreVersion>7.2.1.Final-redhat-10</ignoreVersion>
-        <ignoreVersion>7.2.2.Final-redhat-4</ignoreVersion>
-        <ignoreVersion>7.2.3.Final-redhat-2</ignoreVersion>
-        <ignoreVersion>7.3.0.Final-redhat-14</ignoreVersion>
-        <ignoreVersion>7.3.1.Final-redhat-3</ignoreVersion>
-        <ignoreVersion>7.3.2.Final-redhat-2</ignoreVersion>
-        <ignoreVersion>7.3.3.Final-redhat-3</ignoreVersion>
-        <ignoreVersion>7.3.4.Final-redhat-1</ignoreVersion>
-        <ignoreVersion>7.4.0.Final-redhat-19</ignoreVersion>
-        <ignoreVersion>7.4.1.Final-redhat-3</ignoreVersion>
-        <ignoreVersion>7.4.2.Final-redhat-2</ignoreVersion>
-        <ignoreVersion>7.4.3.Final-redhat-2</ignoreVersion>
         <ignoreVersion>7.5.0.Final-redhat-21</ignoreVersion>
         <ignoreVersion>7.5.1.Final-redhat-3</ignoreVersion>
         <ignoreVersion>7.5.2.Final-redhat-2</ignoreVersion>

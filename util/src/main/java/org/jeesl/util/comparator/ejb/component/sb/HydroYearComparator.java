@@ -4,18 +4,17 @@ import java.util.Comparator;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.jeesl.interfaces.model.module.hydro.JeeslHydroYear;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 
 
-
-public class HydroYearComparator<L extends UtilsLang,D extends UtilsDescription,
-HD extends UtilsStatus<HD,L,D>,
+public class HydroYearComparator<L extends JeeslLang,D extends JeeslDescription,
+HD extends JeeslStatus<HD,L,D>,
 HY extends JeeslHydroYear<L,D,HD,HY>>
 {
     final static Logger logger = LoggerFactory.getLogger(HydroYearComparator.class);

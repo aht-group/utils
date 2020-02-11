@@ -3,16 +3,16 @@ package org.jeesl.interfaces.controller.report;
 import java.util.List;
 
 import org.jeesl.interfaces.factory.txt.JeeslReportAggregationLevelFactory;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
 import net.sf.ahtutils.interfaces.controller.report.JeeslPivotAggregator;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.xml.finance.Finance;
 
-public interface JeeslPivotFactory <L extends UtilsLang, D extends UtilsDescription,
-									A extends UtilsStatus<A,L,D>>
+public interface JeeslPivotFactory <L extends JeeslLang, D extends JeeslDescription,
+									A extends JeeslStatus<A,L,D>>
 {	
 	int getSizeAggregation();
 	int getSizeValue();

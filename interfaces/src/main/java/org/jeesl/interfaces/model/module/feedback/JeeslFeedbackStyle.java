@@ -1,8 +1,8 @@
 package org.jeesl.interfaces.model.module.feedback;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsStatusFixedCode;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatusFixedCode;
 
-public interface JeeslFeedbackStyle	extends UtilsStatusFixedCode
+public interface JeeslFeedbackStyle	extends JeeslStatusFixedCode
 {
 	public static enum Code{txt};
 }

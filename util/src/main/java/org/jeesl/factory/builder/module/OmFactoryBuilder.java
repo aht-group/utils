@@ -1,18 +1,19 @@
 package org.jeesl.factory.builder.module;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
-import org.jeesl.factory.ejb.module.om.EjbOmCompanyFactory;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetRealm;
-import org.jeesl.interfaces.model.module.om.JeeslOmCompany;
+import org.jeesl.factory.ejb.module.asset.EjbAssetCompanyFactory;
+import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
+import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
+import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public class OmFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
-								REALM extends JeeslAssetRealm<L,D,REALM,?>,
-								COMPANY extends JeeslOmCompany<REALM>>
+public class OmFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
+								REALM extends JeeslAomRealm<L,D,REALM,?>,
+								COMPANY extends JeeslAomCompany<REALM,SCOPE>,
+								SCOPE extends JeeslAomScope<L,D,SCOPE,?>>
 		extends AbstractFactoryBuilder<L,D>
 {
 	final static Logger logger = LoggerFactory.getLogger(OmFactoryBuilder.class);
@@ -27,5 +28,5 @@ public class OmFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 
 	}
 	
-	public EjbOmCompanyFactory<REALM,COMPANY> ejbCompany(){return new EjbOmCompanyFactory<>(cCompany);}
+	public EjbAssetCompanyFactory<REALM,COMPANY,SCOPE> ejbCompany(){return new EjbAssetCompanyFactory<>(cCompany);}
 }

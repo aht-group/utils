@@ -22,13 +22,13 @@ import org.jeesl.interfaces.model.system.io.report.JeeslReportTemplate;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportWorkbook;
 import org.jeesl.interfaces.model.system.io.report.type.JeeslReportLayout;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class XlsStyleFactory<
@@ -39,12 +39,12 @@ public class XlsStyleFactory<
 								TEMPLATE extends JeeslReportTemplate<?,?,CELL>,
 								CELL extends JeeslReportCell<?,?,?,?,?,?,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS>,
 								STYLE extends JeeslReportStyle<?,?>,
-								CDT extends UtilsStatus<CDT,?,?>,CW extends UtilsStatus<CW,?,?>,
-								RT extends UtilsStatus<RT,?,?>,
+								CDT extends JeeslStatus<CDT,?,?>,CW extends JeeslStatus<CW,?,?>,
+								RT extends JeeslStatus<RT,?,?>,
 								ENTITY extends EjbWithId,
 								ATTRIBUTE extends EjbWithId,
 								TL extends JeeslTrafficLight<?,?,TLS>,
-								TLS extends UtilsStatus<TLS,?,?>>
+								TLS extends JeeslStatus<TLS,?,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XlsStyleFactory.class);
 	

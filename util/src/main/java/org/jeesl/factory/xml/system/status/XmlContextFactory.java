@@ -2,16 +2,16 @@ package org.jeesl.factory.xml.system.status;
 
 import org.jeesl.factory.xml.system.lang.XmlDescriptionsFactory;
 import org.jeesl.factory.xml.system.lang.XmlLangsFactory;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.status.Context;
 import net.sf.ahtutils.xml.status.Status;
 
-public class XmlContextFactory<L extends UtilsLang, D extends UtilsDescription,S extends UtilsStatus<S,L,D>>
+public class XmlContextFactory<L extends JeeslLang, D extends JeeslDescription,S extends JeeslStatus<S,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlContextFactory.class);
 		

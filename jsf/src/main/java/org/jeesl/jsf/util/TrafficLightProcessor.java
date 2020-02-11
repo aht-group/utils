@@ -7,20 +7,19 @@ import javax.faces.context.FacesContext;
 
 import org.jeesl.api.bean.JeeslTrafficLightBean;
 import org.jeesl.factory.css.CssColorFactory;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public class TrafficLightProcessor
 {
 	final static Logger logger = LoggerFactory.getLogger(TrafficLightProcessor.class);
 	private static enum Attribute {scope,style}
 	
-	public static <L extends UtilsLang,D extends UtilsDescription, LIGHT extends JeeslTrafficLight<L,D,SCOPE>,SCOPE extends UtilsStatus<SCOPE,L,D>>
+	public static <L extends JeeslLang,D extends JeeslDescription, LIGHT extends JeeslTrafficLight<L,D,SCOPE>,SCOPE extends JeeslStatus<SCOPE,L,D>>
 		LIGHT findLight(List<LIGHT> lights, double value)
 	{
 		if(logger.isTraceEnabled()){logger.info("Loaded " + lights.size() + " Traffic Light Definitions from Application Scoped Bean.");}
@@ -40,7 +39,7 @@ public class TrafficLightProcessor
 		return result;
 	}
 	
-	public static <L extends UtilsLang,D extends UtilsDescription, LIGHT extends JeeslTrafficLight<L,D,SCOPE>,SCOPE extends UtilsStatus<SCOPE,L,D>>
+	public static <L extends JeeslLang,D extends JeeslDescription, LIGHT extends JeeslTrafficLight<L,D,SCOPE>,SCOPE extends JeeslStatus<SCOPE,L,D>>
 		String findScope(Object scopeAttribute)
 	{
 		String scope = "";
@@ -48,7 +47,7 @@ public class TrafficLightProcessor
 		
 		if(scopeAttribute!=null)
 		{
-			if (scopeAttribute instanceof UtilsStatus)
+			if (scopeAttribute instanceof JeeslStatus)
 			{
 				@SuppressWarnings("unchecked")
 				SCOPE scopeObj = (SCOPE) scopeAttribute;
@@ -64,7 +63,7 @@ public class TrafficLightProcessor
 		return scope;
 	}
 	
-	public static <L extends UtilsLang,D extends UtilsDescription, LIGHT extends JeeslTrafficLight<L,D,SCOPE>,SCOPE extends UtilsStatus<SCOPE,L,D>>
+	public static <L extends JeeslLang,D extends JeeslDescription, LIGHT extends JeeslTrafficLight<L,D,SCOPE>,SCOPE extends JeeslStatus<SCOPE,L,D>>
 		void appendStyle(StringBuilder sb, FacesContext context, Map<String,Object> map, double value, Double ref)
 	{
 		if(ref!=null)
@@ -75,7 +74,7 @@ public class TrafficLightProcessor
 		appendStyle(sb,context,map,value);
 	}
 	
-	public static <L extends UtilsLang,D extends UtilsDescription, LIGHT extends JeeslTrafficLight<L,D,SCOPE>,SCOPE extends UtilsStatus<SCOPE,L,D>>
+	public static <L extends JeeslLang,D extends JeeslDescription, LIGHT extends JeeslTrafficLight<L,D,SCOPE>,SCOPE extends JeeslStatus<SCOPE,L,D>>
 		void appendStyle(StringBuilder sb, FacesContext context, Map<String,Object> map, double value)
 	{
 		@SuppressWarnings("unchecked")

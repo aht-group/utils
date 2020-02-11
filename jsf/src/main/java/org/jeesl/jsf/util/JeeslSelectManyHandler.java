@@ -3,7 +3,7 @@ package org.jeesl.jsf.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.code.EjbWithCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

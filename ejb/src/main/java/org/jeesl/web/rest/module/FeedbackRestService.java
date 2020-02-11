@@ -5,22 +5,22 @@ import org.jeesl.api.rest.module.feedback.JeeslFeedbackRestExport;
 import org.jeesl.api.rest.module.feedback.JeeslFeedbackRestImport;
 import org.jeesl.interfaces.model.module.feedback.JeeslFeedback;
 import org.jeesl.interfaces.model.module.feedback.JeeslFeedbackThread;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.with.text.EjbWithEmail;
 import org.jeesl.model.xml.jeesl.Container;
 import org.jeesl.web.rest.AbstractJeeslRestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 
-public class FeedbackRestService <L extends UtilsLang, D extends UtilsDescription,
+public class FeedbackRestService <L extends JeeslLang, D extends JeeslDescription,
 								THREAD extends JeeslFeedbackThread<L,D,THREAD,FEEDBACK,STYLE,TYPE,USER>,
 								FEEDBACK extends JeeslFeedback<L,D,THREAD,FEEDBACK,STYLE,TYPE,USER>,
-								STYLE extends UtilsStatus<STYLE,L,D>,
-								TYPE extends UtilsStatus<TYPE,L,D>,
+								STYLE extends JeeslStatus<STYLE,L,D>,
+								TYPE extends JeeslStatus<TYPE,L,D>,
 								USER extends EjbWithEmail>
 					extends AbstractJeeslRestService<L,D>
 					implements JeeslFeedbackRestExport,JeeslFeedbackRestImport
@@ -41,11 +41,11 @@ public class FeedbackRestService <L extends UtilsLang, D extends UtilsDescriptio
 		this.cType=cType;
 	}
 	
-	public static <L extends UtilsLang, D extends UtilsDescription,
+	public static <L extends JeeslLang, D extends JeeslDescription,
 					THREAD extends JeeslFeedbackThread<L,D,THREAD,FEEDBACK,STYLE,TYPE,USER>,
 					FEEDBACK extends JeeslFeedback<L,D,THREAD,FEEDBACK,STYLE,TYPE,USER>,
-					STYLE extends UtilsStatus<STYLE,L,D>,
-					TYPE extends UtilsStatus<TYPE,L,D>,
+					STYLE extends JeeslStatus<STYLE,L,D>,
+					TYPE extends JeeslStatus<TYPE,L,D>,
 					USER extends EjbWithEmail>
 			FeedbackRestService<L,D,THREAD,FEEDBACK,STYLE,TYPE,USER>
 			factory(JeeslFeedbackFacade<L,D,THREAD,FEEDBACK,STYLE,TYPE,USER> fFeedback,final Class<L> cL, final Class<D> cD, final Class<STYLE> cStyle, final Class<TYPE> cType)

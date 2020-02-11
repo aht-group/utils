@@ -3,14 +3,13 @@ package org.jeesl.factory.json.module.survey;
 import org.jeesl.factory.json.system.status.JsonStatusFactory;
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurvey;
 import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyStatus;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.model.json.survey.Survey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public class JsonSurveyFactory<L extends UtilsLang,D extends UtilsDescription,
+public class JsonSurveyFactory<L extends JeeslLang,D extends JeeslDescription,
 							SURVEY extends JeeslSurvey<L,D,SS,?,?>,
 							SS extends JeeslSurveyStatus<L,D,SS,?>>
 {

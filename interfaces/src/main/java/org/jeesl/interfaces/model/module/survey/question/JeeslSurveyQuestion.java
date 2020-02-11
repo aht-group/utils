@@ -4,23 +4,23 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.survey.analysis.JeeslSurveyAnalysisQuestion;
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyScore;
-import org.jeesl.interfaces.model.system.with.EjbWithRemark;
-import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.with.EjbWithRendered;
+import org.jeesl.interfaces.model.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
+import org.jeesl.interfaces.model.with.position.EjbWithPosition;
+import org.jeesl.interfaces.model.with.text.EjbWithRemark;
 
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.with.parent.EjbWithParentAttributeResolver;
-import net.sf.ahtutils.interfaces.model.with.position.EjbWithPosition;
 import net.sf.ahtutils.model.interfaces.with.EjbWithDescription;
 import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithVisible;
 
-public interface JeeslSurveyQuestion<L extends UtilsLang, D extends UtilsDescription,
+public interface JeeslSurveyQuestion<L extends JeeslLang, D extends JeeslDescription,
 										SECTION extends JeeslSurveySection<L,D,?,SECTION,?>,
 										CONDITION extends JeeslSurveyCondition<?,QE,OPTION>,
 										VALIDATION extends JeeslSurveyValidation<L,D,?,?>,

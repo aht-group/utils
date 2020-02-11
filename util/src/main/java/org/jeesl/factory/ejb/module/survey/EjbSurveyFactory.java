@@ -10,14 +10,14 @@ import org.jeesl.factory.ejb.system.status.EjbLangFactory;
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurvey;
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyTemplate;
 import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyStatus;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.xml.survey.Survey;
 
-public class EjbSurveyFactory<L extends UtilsLang, D extends UtilsDescription,
+public class EjbSurveyFactory<L extends JeeslLang, D extends JeeslDescription,
 				SURVEY extends JeeslSurvey<L,D,SS,TEMPLATE,?>,
 				SS extends JeeslSurveyStatus<L,D,SS,?>,
 				TEMPLATE extends JeeslSurveyTemplate<L,D,?,TEMPLATE,?,?,?,?,?,?>

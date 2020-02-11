@@ -6,19 +6,19 @@ import java.util.List;
 import org.jeesl.factory.xml.system.lang.XmlDescriptionsFactory;
 import org.jeesl.factory.xml.system.lang.XmlLangFactory;
 import org.jeesl.factory.xml.system.lang.XmlLangsFactory;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatusWithSymbol;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-import net.sf.ahtutils.interfaces.model.status.UtilsWithSymbol;
 import net.sf.ahtutils.xml.aht.Query;
 import net.sf.ahtutils.xml.status.Langs;
 import net.sf.ahtutils.xml.status.Parent;
 import net.sf.ahtutils.xml.status.Status;
 
-public class XmlStatusFactory<S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription>
+public class XmlStatusFactory<S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlStatusFactory.class);
 	
@@ -56,7 +56,7 @@ public class XmlStatusFactory<S extends UtilsStatus<S,L,D>,L extends UtilsLang, 
 		if(q.isSetPosition()){xml.setPosition(ejb.getPosition());}
 		if(q.isSetStyle()){xml.setStyle(ejb.getStyle());}
 		if(q.isSetImage()){xml.setImage(ejb.getImage());}
-		if(q.isSetSymbol() && (ejb instanceof UtilsWithSymbol)){xml.setSymbol(ejb.getSymbol());}
+		if(q.isSetSymbol() && (ejb instanceof JeeslStatusWithSymbol)){xml.setSymbol(ejb.getSymbol());}
 		if(q.isSetVisible()){xml.setVisible(ejb.isVisible());}
 		
 		if(q.isSetLangs()) {xml.setLangs(xfLangs.getUtilsLangs(ejb.getName()));}

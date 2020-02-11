@@ -5,13 +5,13 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.with.graphic.EjbWithImage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-import net.sf.ahtutils.interfaces.model.with.image.EjbWithImage;
 import net.sf.ahtutils.jsf.filter.UtilsStatusFilter;
 
 public class AbstractIconBean implements Serializable
@@ -46,7 +46,7 @@ public class AbstractIconBean implements Serializable
     }
 
     @Deprecated
-    public <L extends UtilsLang, D extends UtilsDescription, S extends UtilsStatus<S,L,D>>
+    public <L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<S,L,D>>
     String urlFilter(Integer size, UtilsStatusFilter<L,D,S> filter)
     {
 //    	logger.info("URL for "+filter.getValue().getCode()+" active="+filter.isActive());
@@ -65,7 +65,7 @@ public class AbstractIconBean implements Serializable
     }
     
     @Deprecated
-    public <L extends UtilsLang, D extends UtilsDescription, S extends UtilsStatus<S,L,D>>
+    public <L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<S,L,D>>
     String filter(Integer size, UtilsStatusFilter<L,D,S> filter)
     {
 //    	logger.info("Filter for "+filter.getValue().getCode()+" active="+filter.isActive());

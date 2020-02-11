@@ -2,15 +2,14 @@ package org.jeesl.interfaces.rest;
 
 import javax.ws.rs.PathParam;
 
+import org.jeesl.exception.processing.UtilsConfigurationException;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.model.xml.system.revision.Entity;
 
-import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public interface JeeslExportRest <L extends UtilsLang,D extends UtilsDescription>
+public interface JeeslExportRest <L extends JeeslLang,D extends JeeslDescription>
 {	
-	<X extends UtilsStatus<X,L,D>> org.jeesl.model.xml.jeesl.Container exportStatus(String code) throws UtilsConfigurationException;
+	<X extends JeeslStatus<X,L,D>> org.jeesl.model.xml.jeesl.Container exportStatus(String code) throws UtilsConfigurationException;
 	Entity exportRevisionEntity(@PathParam("code") String code) throws UtilsConfigurationException;
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.JeeslLocaleProvider;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.model.json.system.translation.JsonTranslation;
 import org.openfuxml.content.ofx.Paragraph;
 import org.openfuxml.content.table.Cell;
@@ -19,10 +20,9 @@ import org.openfuxml.interfaces.configuration.OfxTranslationProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.xml.status.Translations;
 
-public class AbstractJeeslOfxTableFactory<L extends UtilsLang, LOC extends JeeslLocale<L,?,LOC,?>>
+public class AbstractJeeslOfxTableFactory<L extends JeeslLang, LOC extends JeeslLocale<L,?,LOC,?>>
 								extends AbstractJeeslOfxFactory<L,LOC>
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractJeeslOfxTableFactory.class);

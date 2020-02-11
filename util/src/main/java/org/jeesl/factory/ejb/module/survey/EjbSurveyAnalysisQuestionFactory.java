@@ -3,13 +3,12 @@ package org.jeesl.factory.ejb.module.survey;
 import org.jeesl.interfaces.model.module.survey.analysis.JeeslSurveyAnalysis;
 import org.jeesl.interfaces.model.module.survey.analysis.JeeslSurveyAnalysisQuestion;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestion;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public class EjbSurveyAnalysisQuestionFactory<L extends UtilsLang, D extends UtilsDescription,
+public class EjbSurveyAnalysisQuestionFactory<L extends JeeslLang, D extends JeeslDescription,
 				QUESTION extends JeeslSurveyQuestion<L,D,?,?,?,?,?,?,?,?,?>,
 				ANALYSIS extends JeeslSurveyAnalysis<L,D,?,?,?,?>,
 				AQ extends JeeslSurveyAnalysisQuestion<L,D,QUESTION,ANALYSIS>>

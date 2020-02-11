@@ -16,19 +16,19 @@ import org.jeesl.interfaces.model.system.job.JeeslJobPriority;
 import org.jeesl.interfaces.model.system.job.JeeslJobRobot;
 import org.jeesl.interfaces.model.system.job.JeeslJobTemplate;
 import org.jeesl.interfaces.model.system.job.JeeslJobType;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.with.text.EjbWithEmail;
 import org.jeesl.model.xml.jeesl.Container;
 import org.jeesl.model.xml.module.job.Jobs;
 import org.jeesl.web.rest.AbstractJeeslRestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 
-public class SystemJobRestService <L extends UtilsLang,D extends UtilsDescription,
+public class SystemJobRestService <L extends JeeslLang,D extends JeeslDescription,
 							TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY,EXPIRE>,
 							CATEGORY extends JeeslJobCategory<L,D,CATEGORY,?>,
 							TYPE extends JeeslJobType<L,D,TYPE,?>,
@@ -37,7 +37,7 @@ public class SystemJobRestService <L extends UtilsLang,D extends UtilsDescriptio
 							PRIORITY extends JeeslJobPriority<L,D,PRIORITY,?>,
 							FEEDBACK extends JeeslJobFeedback<JOB,FT,USER>,
 							FT extends JeeslJobFeedbackType<L,D,FT,?>,
-							STATUS extends UtilsStatus<STATUS,L,D>,
+							STATUS extends JeeslStatus<STATUS,L,D>,
 							ROBOT extends JeeslJobRobot<L,D>,
 							CACHE extends JeeslJobCache<TEMPLATE,CONTAINER>,
 							CONTAINER extends JeeslFileContainer<?,?>,
@@ -65,7 +65,7 @@ public class SystemJobRestService <L extends UtilsLang,D extends UtilsDescriptio
 		this.cStatus=cStatus;
 	}
 	
-	public static <L extends UtilsLang,D extends UtilsDescription,
+	public static <L extends JeeslLang,D extends JeeslDescription,
 					TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY,EXPIRE>,
 					CATEGORY extends JeeslJobCategory<L,D,CATEGORY,?>,
 					TYPE extends JeeslJobType<L,D,TYPE,?>,
@@ -74,7 +74,7 @@ public class SystemJobRestService <L extends UtilsLang,D extends UtilsDescriptio
 					PRIORITY extends JeeslJobPriority<L,D,PRIORITY,?>,
 					FEEDBACK extends JeeslJobFeedback<JOB,FT,USER>,
 					FT extends JeeslJobFeedbackType<L,D,FT,?>,
-					STATUS extends UtilsStatus<STATUS,L,D>,
+					STATUS extends JeeslStatus<STATUS,L,D>,
 					ROBOT extends JeeslJobRobot<L,D>,
 					CACHE extends JeeslJobCache<TEMPLATE,CONTAINER>,
 					CONTAINER extends JeeslFileContainer<?,?>,

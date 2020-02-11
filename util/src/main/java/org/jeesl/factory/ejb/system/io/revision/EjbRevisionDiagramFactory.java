@@ -2,13 +2,12 @@ package org.jeesl.factory.ejb.system.io.revision;
 
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
 import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public class EjbRevisionDiagramFactory<L extends UtilsLang, D extends UtilsDescription,
+public class EjbRevisionDiagramFactory<L extends JeeslLang, D extends JeeslDescription,
 								C extends JeeslRevisionCategory<L,D,C,?>,
 								ERD extends JeeslRevisionDiagram<L,D,C>>
 {

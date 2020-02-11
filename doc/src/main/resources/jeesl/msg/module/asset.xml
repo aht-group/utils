@@ -14,6 +14,20 @@
     		<s:lang key="fr" translation="Manufacturer"/>
     	</s:langs>
     </s:translation>
+    <s:translation key="jeeslAssetVendor">
+    	<s:langs>
+    		<s:lang key="de" translation="Händler"/>
+    		<s:lang key="en" translation="Vendor"/>
+    		<s:lang key="fr" translation="Vendor"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslAssetCompanyScopes">
+    	<s:langs>
+    		<s:lang key="de" translation="Geltungsbereiche"/>
+    		<s:lang key="en" translation="Scopes"/>
+    		<s:lang key="fr" translation="Scopes"/>
+    	</s:langs>
+    </s:translation>
 	<s:translation key="jeeslAssetManufacturerName">
     	<s:langs>
     		<s:lang key="de" translation="Name"/>
@@ -44,9 +58,83 @@
     </s:translation>
     <s:translation key="jeeslAssetType">
     	<s:langs>
-    		<s:lang key="de" translation="Type"/>
+    		<s:lang key="de" translation="Typ"/>
     		<s:lang key="en" translation="Type"/>
     		<s:lang key="fr" translation="Type"/>
     	</s:langs>
     </s:translation>
+	<s:translation key="jeeslAssetEvents">
+    	<s:langs>
+    		<s:lang key="de" translation="Eregnisse"/>
+    		<s:lang key="en" translation="Events"/>
+    		<s:lang key="fr" translation="Events"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslAssetEvent">
+    	<s:langs>
+    		<s:lang key="de" translation="Ereignis"/>
+    		<s:lang key="en" translation="Event"/>
+    		<s:lang key="fr" translation="Event"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslAssetEventName">
+    	<s:langs>
+    		<s:lang key="de" translation="Betreff"/>
+    		<s:lang key="en" translation="Subject"/>
+    		<s:lang key="fr" translation="Subject"/>
+    	</s:langs>
+    </s:translation>  
+	<s:translation key="jeeslAssetEventRemark">
+    	<s:langs>
+    		<s:lang key="de" translation="Beschreibung"/>
+    		<s:lang key="en" translation="Remark"/>
+    		<s:lang key="fr" translation="Remark"/>
+    	</s:langs>
+    </s:translation>  
+    
+	<s:translation key="jeeslAssetEventDate">
+    	<s:langs>
+    		<s:lang key="de" translation="Datum"/>
+    		<s:lang key="en" translation="Date"/>
+    		<s:lang key="fr" translation="Date"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslAssetEventType">
+    	<s:langs>
+    		<s:lang key="de" translation="Typ"/>
+    		<s:lang key="en" translation="Type"/>
+    		<s:lang key="fr" translation="Type"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslAssetEventStatus">
+    	<s:langs>
+    		<s:lang key="de" translation="Status"/>
+    		<s:lang key="en" translation="Status"/>
+    		<s:lang key="fr" translation="Status"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslAssetEventAmountProcurement">
+    	<s:langs>
+    		<s:lang key="de" translation="Anschaffungspreis"/>
+    		<s:lang key="en" translation="Procurement Amount"/>
+    		<s:lang key="fr" translation="Procurement Amount"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslAssetEventAmountMaintenance">
+    	<s:langs>
+    		<s:lang key="de" translation="Wartungspreis"/>
+    		<s:lang key="en" translation="Maintenance Amount"/>
+    		<s:lang key="fr" translation="Maintenance Amount"/>
+    	</s:langs>
+    </s:translation>
+    
+	<s:translation key="jeeslAssetMaintainer">
+    	<s:langs>
+    		<s:lang key="de" translation="Instandhalter"/>
+    		<s:lang key="en" translation="Maintainer"/>
+    		<s:lang key="fr" translation="Maintainer"/>
+    	</s:langs>
+    </s:translation>   
+    
+    
 </s:translations>

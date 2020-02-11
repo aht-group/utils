@@ -7,20 +7,19 @@ import org.jeesl.controller.processor.TimeZoneProcessor;
 import org.jeesl.interfaces.model.module.calendar.JeeslCalendar;
 import org.jeesl.interfaces.model.module.calendar.JeeslCalendarItem;
 import org.jeesl.interfaces.model.module.calendar.JeeslCalendarTimeZone;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public class EjbTimeZoneFactory<L extends UtilsLang,
-								D extends UtilsDescription,
+public class EjbTimeZoneFactory<L extends JeeslLang,
+								D extends JeeslDescription,
 								CALENDAR extends JeeslCalendar<L,D,CALENDAR,ZONE,CT,ITEM,IT>,
 								ZONE extends JeeslCalendarTimeZone<L,D,CALENDAR,ZONE,CT,ITEM,IT>,
-								CT extends UtilsStatus<CT,L,D>,
+								CT extends JeeslStatus<CT,L,D>,
 								ITEM extends JeeslCalendarItem<L,D,CALENDAR,ZONE,CT,ITEM,IT>,
-								IT extends UtilsStatus<IT,L,D>>
+								IT extends JeeslStatus<IT,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbTimeZoneFactory.class);
 	

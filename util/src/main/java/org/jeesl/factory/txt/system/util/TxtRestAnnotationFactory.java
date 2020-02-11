@@ -3,7 +3,7 @@ package org.jeesl.factory.txt.system.util;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
-import org.jeesl.interfaces.qualifier.RestDescription;
+import org.jeesl.interfaces.model.marker.qualifier.RestDescription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

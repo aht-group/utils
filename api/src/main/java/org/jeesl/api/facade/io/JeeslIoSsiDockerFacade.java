@@ -2,11 +2,10 @@ package org.jeesl.api.facade.io;
 
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public interface JeeslIoSsiDockerFacade <L extends UtilsLang,D extends UtilsDescription,
+public interface JeeslIoSsiDockerFacade <L extends JeeslLang,D extends JeeslDescription,
 									SYSTEM extends JeeslIoSsiSystem
 									
 									>

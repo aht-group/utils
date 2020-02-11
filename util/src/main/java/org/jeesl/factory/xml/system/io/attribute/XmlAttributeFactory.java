@@ -4,15 +4,14 @@ import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCriteria;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeData;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeItem;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeOption;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.model.xml.jeesl.QueryAttribute;
 import org.jeesl.model.xml.system.io.attribute.Attribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public class XmlAttributeFactory <L extends UtilsLang, D extends UtilsDescription,
+public class XmlAttributeFactory <L extends JeeslLang, D extends JeeslDescription,
 									CRITERIA extends JeeslAttributeCriteria<L,D,?,?>,
 									OPTION extends JeeslAttributeOption<L,D,CRITERIA>,
 									ITEM extends JeeslAttributeItem<CRITERIA,?>,

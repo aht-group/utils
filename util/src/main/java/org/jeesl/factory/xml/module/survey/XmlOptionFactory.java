@@ -1,14 +1,14 @@
 package org.jeesl.factory.xml.module.survey;
 
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyOption;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.xml.survey.Option;
 
-public class XmlOptionFactory<L extends UtilsLang, D extends UtilsDescription, OPTION extends JeeslSurveyOption<L,D>>
+public class XmlOptionFactory<L extends JeeslLang, D extends JeeslDescription, OPTION extends JeeslSurveyOption<L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlOptionFactory.class);
 		

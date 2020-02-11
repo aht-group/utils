@@ -1,17 +1,16 @@
 package org.jeesl.factory.ejb.module.bb;
 
 import org.jeesl.interfaces.model.module.bb.JeeslBbBoard;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public class EjbBbBoardFactory<L extends UtilsLang,D extends UtilsDescription,
-								SCOPE extends UtilsStatus<SCOPE,L,D>,
+public class EjbBbBoardFactory<L extends JeeslLang,D extends JeeslDescription,
+								SCOPE extends JeeslStatus<SCOPE,L,D>,
 								BB extends JeeslBbBoard<L,D,SCOPE,BB,PUB,?>,
-								PUB extends UtilsStatus<PUB,L,D>>
+								PUB extends JeeslStatus<PUB,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbBbBoardFactory.class);
 	

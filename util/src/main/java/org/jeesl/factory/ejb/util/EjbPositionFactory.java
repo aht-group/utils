@@ -2,10 +2,9 @@ package org.jeesl.factory.ejb.util;
 
 import java.util.List;
 
+import org.jeesl.interfaces.model.with.position.EjbWithPosition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.interfaces.model.with.position.EjbWithPosition;
 
 public class EjbPositionFactory
 {

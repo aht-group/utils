@@ -15,6 +15,7 @@ import org.jeesl.factory.mc.graph.GraphWorkflowFactory;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsElement;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.JeeslLocaleProvider;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.model.xml.module.workflow.Processes;
 import org.jeesl.model.xml.module.workflow.Workflow;
 import org.metachart.factory.xml.graph.XmlClusterFactory;
@@ -38,13 +39,12 @@ import org.openfuxml.xml.xpath.content.SectionXpath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.xml.status.Context;
 import net.sf.ahtutils.xml.status.Contexts;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-public class OfxSectionWorkflow <L extends UtilsLang, LOC extends JeeslLocale<L,?,LOC,?>,
+public class OfxSectionWorkflow <L extends JeeslLang, LOC extends JeeslLocale<L,?,LOC,?>,
 								E extends JeeslIoCmsElement<?,?,?,?,?,?>>
 							extends AbstractJeeslOfxFactory<L,LOC>
 {

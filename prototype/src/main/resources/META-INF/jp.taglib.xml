@@ -12,5 +12,11 @@
             <component-type>net.sf.ahtutils.prototype.web.component.Grid</component-type>
         </component>
     </tag>
+    <tag>
+        <tag-name>uhdGrid</tag-name>
+        <component>
+            <component-type>net.sf.ahtutils.prototype.web.component.UhdGrid</component-type>
+        </component>
+    </tag>
 
 </facelet-taglib> 

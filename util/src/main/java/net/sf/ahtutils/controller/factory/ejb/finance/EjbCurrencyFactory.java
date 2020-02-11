@@ -1,16 +1,16 @@
 package net.sf.ahtutils.controller.factory.ejb.finance;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.xml.finance.Currency;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.factory.ejb.system.status.EjbLangFactory;
 import org.jeesl.interfaces.model.module.currency.UtilsCurrency;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbCurrencyFactory<C extends UtilsCurrency<L>, L extends UtilsLang>
+public class EjbCurrencyFactory<C extends UtilsCurrency<L>, L extends JeeslLang>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbCurrencyFactory.class);
 	
@@ -27,7 +27,7 @@ public class EjbCurrencyFactory<C extends UtilsCurrency<L>, L extends UtilsLang>
         ejbLangFactory = EjbLangFactory.factory(langClass);
     } 
     
-    public static <C extends UtilsCurrency<L>, L extends UtilsLang> EjbCurrencyFactory<C, L>
+    public static <C extends UtilsCurrency<L>, L extends JeeslLang> EjbCurrencyFactory<C, L>
     		factory(final Class<C> clCurrency, final Class<L> langClass)
     {
         return new EjbCurrencyFactory<C, L>(clCurrency, langClass);

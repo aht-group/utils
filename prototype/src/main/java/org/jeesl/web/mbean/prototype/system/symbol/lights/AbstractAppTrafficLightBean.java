@@ -7,17 +7,16 @@ import java.util.List;
 
 import org.jeesl.api.bean.JeeslTrafficLightBean;
 import org.jeesl.api.facade.system.graphic.JeeslTrafficLightFacade;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public class AbstractAppTrafficLightBean <L extends UtilsLang,D extends UtilsDescription,
+public class AbstractAppTrafficLightBean <L extends JeeslLang,D extends JeeslDescription,
 										LIGHT extends JeeslTrafficLight<L,D,SCOPE>,
-										SCOPE extends UtilsStatus<SCOPE,L,D>>
+										SCOPE extends JeeslStatus<SCOPE,L,D>>
 					implements Serializable,JeeslTrafficLightBean<L,D,LIGHT,SCOPE>
 {
 	private static final long serialVersionUID = 1L;

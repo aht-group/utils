@@ -14,13 +14,12 @@ import org.jeesl.controller.processor.FacadeLabelResolver;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public class AbstractLabelBean <L extends UtilsLang,D extends UtilsDescription,
+public class AbstractLabelBean <L extends JeeslLang,D extends JeeslDescription,
 								RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
 								RA extends JeeslRevisionAttribute<L,D,RE,?,?>>
 								

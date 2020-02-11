@@ -10,14 +10,13 @@ import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.io.mail.core.JeeslIoMail;
 import org.jeesl.interfaces.model.system.io.mail.core.JeeslMailRetention;
 import org.jeesl.interfaces.model.system.io.mail.core.JeeslMailStatus;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.model.xml.system.io.mail.Mail;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public interface JeeslIoMailFacade <L extends UtilsLang,D extends UtilsDescription,
-									CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+public interface JeeslIoMailFacade <L extends JeeslLang,D extends JeeslDescription,
+									CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 									MAIL extends JeeslIoMail<L,D,CATEGORY,STATUS,RETENTION,FRC>,
 									STATUS extends JeeslMailStatus<L,D,STATUS,?>,
 									RETENTION extends JeeslMailRetention<L,D,RETENTION,?>,

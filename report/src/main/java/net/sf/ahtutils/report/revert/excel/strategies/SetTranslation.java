@@ -4,10 +4,9 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
 import org.jeesl.api.controller.ImportStrategy;
 import org.jeesl.interfaces.facade.JeeslFacade;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +27,7 @@ public class SetTranslation implements ImportStrategy {
 		try {
 			String	languageKey			= (String) this.tempPropertyStore.get("languageKey");
 		
-			UtilsLang description = (UtilsLang) this.tempPropertyStore.get("UtilsDescriptionImpl").getClass().newInstance();
+			JeeslLang description = (JeeslLang) this.tempPropertyStore.get("UtilsDescriptionImpl").getClass().newInstance();
 			description.setLang(object.toString());
 			description.setLkey(languageKey);
 			map.put(languageKey, description);

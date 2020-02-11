@@ -4,12 +4,11 @@ import java.util.Comparator;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCriteria;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public class AttributeCriteriaComparator<CATEGORY extends UtilsStatus<CATEGORY,?,?>,
+public class AttributeCriteriaComparator<CATEGORY extends JeeslStatus<CATEGORY,?,?>,
 										CRITERIA extends JeeslAttributeCriteria<?,?,CATEGORY,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(AttributeCriteriaComparator.class);

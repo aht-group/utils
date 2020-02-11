@@ -2,13 +2,12 @@ package org.jeesl.factory.txt.module.survey;
 
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurvey;
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyTemplate;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public class TxtSurveyFactory <L extends UtilsLang, D extends UtilsDescription,
+public class TxtSurveyFactory <L extends JeeslLang, D extends JeeslDescription,
 										SURVEY extends JeeslSurvey<L,D,?,TEMPLATE,?>,
 										
 										TEMPLATE extends JeeslSurveyTemplate<L,D,?,TEMPLATE,?,?,?,?,?,?>

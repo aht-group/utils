@@ -2,25 +2,25 @@ package org.jeesl.interfaces.model.system.io.report;
 
 import java.io.Serializable;
 
-import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.marker.jpa.EjbPersistable;
+import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.position.EjbWithPositionParent;
+import org.jeesl.interfaces.model.with.position.EjbWithPositionVisible;
 
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.crud.EjbPersistable;
-import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-import net.sf.ahtutils.interfaces.model.with.position.EjbWithPositionParent;
-import net.sf.ahtutils.interfaces.model.with.position.EjbWithPositionVisible;
 import net.sf.ahtutils.model.interfaces.with.EjbWithDescription;
 import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 
-public interface JeeslReportColumn<L extends UtilsLang,D extends UtilsDescription,
+public interface JeeslReportColumn<L extends JeeslLang,D extends JeeslDescription,
 									GROUP extends JeeslReportColumnGroup<L,D,?,?,STYLE>,
 									STYLE extends JeeslReportStyle<L,D>,
-									CDT extends UtilsStatus<CDT,L,D>,
-									CW extends UtilsStatus<CW,L,D>,
-									TLS extends UtilsStatus<TLS,L,D>>
+									CDT extends JeeslStatus<CDT,L,D>,
+									CW extends JeeslStatus<CW,L,D>,
+									TLS extends JeeslStatus<TLS,L,D>>
 
 		extends Serializable,EjbRemoveable,EjbPersistable,EjbSaveable,
 				EjbWithCode,EjbWithPositionVisible,EjbWithPositionParent,

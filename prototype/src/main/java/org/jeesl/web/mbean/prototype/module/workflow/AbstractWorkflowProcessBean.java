@@ -44,8 +44,12 @@ import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
+import org.jeesl.interfaces.model.with.position.EjbWithPosition;
 import org.jeesl.util.comparator.ejb.system.security.SecurityRoleComparator;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.primefaces.event.FileUploadEvent;
@@ -53,15 +57,11 @@ import org.primefaces.model.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-import net.sf.ahtutils.interfaces.model.with.position.EjbWithPosition;
 import net.sf.ahtutils.jsf.util.PositionListReorderer;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extends UtilsDescription, LOC extends UtilsStatus<LOC,L,D>,
+public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
 											AX extends JeeslWorkflowContext<L,D,AX,G>,
 											WP extends JeeslWorkflowProcess<L,D,AX,AS>,
 											AS extends JeeslWorkflowStage<L,D,WP,WST,WSP,WT,G>,
@@ -84,7 +84,7 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 											AW extends JeeslWorkflow<WP,AS,WY>,
 											WY extends JeeslWorkflowActivity<WT,AW,FRC,USER>,
 											FRC extends JeeslFileContainer<?,?>,
-											G extends JeeslGraphic<L,D,GT,?,?>, GT extends UtilsStatus<GT,L,D>,
+											G extends JeeslGraphic<L,D,GT,?,?>, GT extends JeeslStatus<GT,L,D>,
 											USER extends JeeslUser<SR>>
 				extends AbstractAdminBean<L,D>
 					implements Serializable,SbSingleBean

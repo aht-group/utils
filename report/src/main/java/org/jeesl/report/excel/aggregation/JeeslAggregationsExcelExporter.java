@@ -6,16 +6,16 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.jeesl.interfaces.model.system.io.report.type.JeeslReportSetting;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.finance.Figures;
 import net.sf.ahtutils.xml.report.Info;
 
 public class JeeslAggregationsExcelExporter
 {
-    public static <L extends UtilsLang,D extends UtilsDescription,TYPE extends UtilsStatus<TYPE,L,D>>
+    public static <L extends JeeslLang,D extends JeeslDescription,TYPE extends JeeslStatus<TYPE,L,D>>
     	InputStream export(TYPE filling, Info info, Figures figures) throws IOException
     {
     	switch(JeeslReportSetting.Filling.valueOf(filling.getCode()))

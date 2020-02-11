@@ -4,16 +4,15 @@ import org.jeesl.factory.builder.AbstractFactoryBuilder;
 import org.jeesl.factory.ejb.system.status.EjbDescriptionFactory;
 import org.jeesl.factory.ejb.system.status.EjbLangFactory;
 import org.jeesl.factory.ejb.system.status.EjbStatusFactory;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public class StatusFactoryBuilder<L extends UtilsLang,
-									D extends UtilsDescription,
-									LOC extends UtilsStatus<LOC,L,D>>
+public class StatusFactoryBuilder<L extends JeeslLang,
+									D extends JeeslDescription,
+									LOC extends JeeslStatus<LOC,L,D>>
 	extends AbstractFactoryBuilder<L,D>
 {
 	final static Logger logger = LoggerFactory.getLogger(StatusFactoryBuilder.class);
@@ -31,5 +30,5 @@ public class StatusFactoryBuilder<L extends UtilsLang,
 	public EjbLangFactory<L> ejbLang(){return new EjbLangFactory<L>(cL);}
 	public EjbDescriptionFactory<D> ejbDescription(){return new EjbDescriptionFactory<D>(cD);}
 	
-	public <S extends UtilsStatus<S,L,D>> EjbStatusFactory<S,L,D> ejbStatus(final Class<S> cS) {return new EjbStatusFactory<S,L,D>(cS,cL,cD);}
+	public <S extends JeeslStatus<S,L,D>> EjbStatusFactory<S,L,D> ejbStatus(final Class<S> cS) {return new EjbStatusFactory<S,L,D>(cS,cL,cD);}
 }

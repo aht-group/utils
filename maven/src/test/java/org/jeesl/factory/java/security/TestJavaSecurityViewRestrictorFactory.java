@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.IOException;
 
 import net.sf.ahtutils.controller.factory.java.security.AbstractJavaSecurityFactoryTst;
-import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.test.UtilsMavenTstBootstrap;
 
+import org.jeesl.exception.processing.UtilsConfigurationException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

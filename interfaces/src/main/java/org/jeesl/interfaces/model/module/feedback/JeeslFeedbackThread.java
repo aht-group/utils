@@ -2,17 +2,18 @@ package org.jeesl.interfaces.model.module.feedback;
 
 import java.util.List;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.with.text.EjbWithEmail;
+
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface JeeslFeedbackThread<L extends UtilsLang, D extends UtilsDescription,
+public interface JeeslFeedbackThread<L extends JeeslLang, D extends JeeslDescription,
 								THREAD extends JeeslFeedbackThread<L,D,THREAD,FEEDBACK,STYLE,TYPE,USER>,
 								FEEDBACK extends JeeslFeedback<L,D,THREAD,FEEDBACK,STYLE,TYPE,USER>,
-								STYLE extends UtilsStatus<STYLE,L,D>,
-								TYPE extends UtilsStatus<TYPE,L,D>,
+								STYLE extends JeeslStatus<STYLE,L,D>,
+								TYPE extends JeeslStatus<TYPE,L,D>,
 								USER extends EjbWithEmail>
 						extends EjbWithId
 {	

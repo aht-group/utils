@@ -21,10 +21,10 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.with.code.EjbWithCode;
 
-import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.qualifier.EjbErNode;
 
 @Entity
@@ -33,7 +33,7 @@ import net.sf.ahtutils.model.qualifier.EjbErNode;
 @DiscriminatorValue("generic")
 @Table(name = "UtilsStatus", uniqueConstraints=@UniqueConstraint(columnNames = {"type","code"}))
 @EjbErNode(name="Status",category="status",subset="status")
-public class Status implements UtilsStatus<Status,Lang,Description>,EjbRemoveable,Serializable
+public class Status implements JeeslStatus<Status,Lang,Description>,EjbRemoveable,Serializable
 {
 	private static final long serialVersionUID = 1;
 

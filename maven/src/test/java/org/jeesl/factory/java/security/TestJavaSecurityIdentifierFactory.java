@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.ahtutils.controller.factory.java.security.AbstractJavaSecurityFactoryTst;
-import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.test.UtilsMavenTstBootstrap;
 import net.sf.ahtutils.xml.access.View;
 import net.sf.exlp.exception.ExlpConfigurationException;
 import net.sf.exlp.util.io.dir.DirChecker;
 
 import org.apache.commons.io.FileUtils;
+import org.jeesl.exception.processing.UtilsConfigurationException;
 import org.jeesl.factory.java.security.JavaSecurityViewIdentifierFactory;
 import org.junit.After;
 import org.junit.Assert;

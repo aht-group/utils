@@ -2,22 +2,22 @@ package org.jeesl.interfaces.model.system.security.framework;
 
 import java.io.Serializable;
 
-import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.marker.jpa.EjbPersistable;
+import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.code.EjbWithTypeCode;
+import org.jeesl.interfaces.model.with.position.EjbWithPositionType;
+import org.jeesl.interfaces.model.with.position.EjbWithPositionTypeVisible;
+import org.jeesl.interfaces.model.with.position.EjbWithPositionVisible;
 
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.crud.EjbPersistable;
-import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.with.code.EjbWithTypeCode;
-import net.sf.ahtutils.interfaces.model.with.position.EjbWithPositionType;
-import net.sf.ahtutils.interfaces.model.with.position.EjbWithPositionTypeVisible;
-import net.sf.ahtutils.interfaces.model.with.position.EjbWithPositionVisible;
 import net.sf.ahtutils.model.interfaces.with.EjbWithDescription;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 
-public interface JeeslSecurityCategory<L extends UtilsLang, D extends UtilsDescription>
+public interface JeeslSecurityCategory<L extends JeeslLang, D extends JeeslDescription>
 			extends Serializable,EjbWithCode,EjbRemoveable,EjbPersistable,
 				EjbWithId,EjbWithTypeCode,
 				EjbWithPositionTypeVisible,EjbWithPositionVisible,EjbWithPositionType,

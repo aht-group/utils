@@ -30,7 +30,7 @@
 					<j:icon id="btSave" type="jeeslSave" tooltip="#{msg.jeeslSurveyTtSaveSection}"
 							rendered="#{cc.attrs.handler.showDataSave}"
 							listener="#{cc.attrs.bean.saveData(section)}" update="@form"/>
-					<p:blockUI trigger="btSave:link" block="pQuestions" />
+					<p:blockUI trigger="btSave:link" block="pQuestions"/>
 				</f:facet>
 				<p:panelGrid columns="1" columnClasses="jeeslGrid100">
 					<h:outputText value="No data are saved because of validation errors. Please resolve the errors and save again!" styleClass="jeeslRed" rendered="#{cc.attrs.handler.validation.hasErrors}"/>

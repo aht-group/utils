@@ -4,11 +4,10 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
-import net.sf.ahtutils.interfaces.db.UtilsDbXmlInit.Priority;
-
 import org.apache.commons.configuration.Configuration;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.processing.UtilsConfigurationException;
+import org.jeesl.interfaces.controller.db.UtilsDbXmlInit.Priority;
 import org.jeesl.model.xml.system.io.db.Db;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

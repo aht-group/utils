@@ -4,22 +4,22 @@ import org.jeesl.api.facade.system.JeeslSystemNewsFacade;
 import org.jeesl.api.rest.module.news.JeeslNewsRestExport;
 import org.jeesl.api.rest.module.news.JeeslNewsRestImport;
 import org.jeesl.factory.ejb.system.status.EjbStatusFactory;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.news.JeeslSystemNews;
 import org.jeesl.util.db.JeeslStatusDbUpdater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.web.rest.AbstractUtilsRest;
 import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 
-public class SystemNewsRestService <L extends UtilsLang,D extends UtilsDescription,
-									CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+public class SystemNewsRestService <L extends JeeslLang,D extends JeeslDescription,
+									CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 									NEWS extends JeeslSystemNews<L,D,CATEGORY,NEWS,USER>,
 									USER extends EjbWithId>
 					extends AbstractUtilsRest<L,D>
@@ -43,8 +43,8 @@ public class SystemNewsRestService <L extends UtilsLang,D extends UtilsDescripti
 		this.cNews=cNews;
 	}
 	
-	public static <L extends UtilsLang,D extends UtilsDescription,
-					CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+	public static <L extends JeeslLang,D extends JeeslDescription,
+					CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 					NEWS extends JeeslSystemNews<L,D,CATEGORY,NEWS,USER>,
 					USER extends EjbWithId>
 		SystemNewsRestService<L,D,CATEGORY,NEWS,USER>
@@ -57,7 +57,7 @@ public class SystemNewsRestService <L extends UtilsLang,D extends UtilsDescripti
 	@Override public DataUpdate importSystemNewsCategories(Aht categories){return importStatus2(cCategory,null,categories);}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-    public <S extends UtilsStatus<S,L,D>, P extends UtilsStatus<P,L,D>> DataUpdate importStatus2(Class<S> clStatus, Class<P> clParent, Aht container)
+    public <S extends JeeslStatus<S,L,D>, P extends JeeslStatus<P,L,D>> DataUpdate importStatus2(Class<S> clStatus, Class<P> clParent, Aht container)
     {
     	for(Status xml : container.getStatus()){xml.setGroup(clStatus.getSimpleName());}
 		JeeslStatusDbUpdater asdi = new JeeslStatusDbUpdater();

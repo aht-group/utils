@@ -4,19 +4,18 @@ import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateDefinition;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateToken;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.model.xml.system.io.template.Templates;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public class XmlTemplatesFactory <L extends UtilsLang,D extends UtilsDescription,
-								CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+public class XmlTemplatesFactory <L extends JeeslLang,D extends JeeslDescription,
+								CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 								CHANNEL extends JeeslTemplateChannel<L,D,CHANNEL,?>,
 								TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>,
-								SCOPE extends UtilsStatus<SCOPE,L,D>,
+								SCOPE extends JeeslStatus<SCOPE,L,D>,
 								DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 								TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,?>>
 {

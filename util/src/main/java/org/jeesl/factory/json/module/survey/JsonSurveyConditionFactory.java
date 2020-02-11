@@ -2,6 +2,7 @@ package org.jeesl.factory.json.module.survey;
 
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyCondition;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyOption;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.model.json.survey.Condition;
 import org.jeesl.model.json.survey.Option;
 import org.jeesl.model.json.survey.Question;
@@ -9,10 +10,8 @@ import org.jeesl.model.json.system.status.JsonType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
 public class JsonSurveyConditionFactory<CONDITION extends JeeslSurveyCondition<?,QE,OPTION>,
-										QE extends UtilsStatus<QE,?,?>,
+										QE extends JeeslStatus<QE,?,?>,
 										OPTION extends JeeslSurveyOption<?,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(JsonSurveyConditionFactory.class);

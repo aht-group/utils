@@ -7,30 +7,30 @@ import org.jeesl.interfaces.model.module.ts.data.JeeslTsBridge;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsData;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsSample;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsTransaction;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.with.EjbWithLangDescription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-import net.sf.ahtutils.interfaces.model.with.EjbWithLangDescription;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public class EjbTsClassFactory<L extends UtilsLang, D extends UtilsDescription,
-								CAT extends UtilsStatus<CAT,L,D>,
+public class EjbTsClassFactory<L extends JeeslLang, D extends JeeslDescription,
+								CAT extends JeeslStatus<CAT,L,D>,
 								SCOPE extends JeeslTsScope<L,D,CAT,?,UNIT,EC,INT>,
-								UNIT extends UtilsStatus<UNIT,L,D>,
+								UNIT extends JeeslStatus<UNIT,L,D>,
 								TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT>,
 								TRANSACTION extends JeeslTsTransaction<SOURCE,DATA,USER,?>,
 								SOURCE extends EjbWithLangDescription<L,D>, 
 								BRIDGE extends JeeslTsBridge<EC>,
 								EC extends JeeslTsEntityClass<L,D,CAT>,
-								INT extends UtilsStatus<INT,L,D>,
+								INT extends JeeslStatus<INT,L,D>,
 								DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
 								SAMPLE extends JeeslTsSample,
 								USER extends EjbWithId, 
-								WS extends UtilsStatus<WS,L,D>,
-								QAF extends UtilsStatus<QAF,L,D>>
+								WS extends JeeslStatus<WS,L,D>,
+								QAF extends JeeslStatus<QAF,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbTsClassFactory.class);
 	

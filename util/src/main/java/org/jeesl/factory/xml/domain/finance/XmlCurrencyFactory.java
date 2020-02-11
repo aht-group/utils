@@ -3,13 +3,13 @@ package org.jeesl.factory.xml.domain.finance;
 import org.jeesl.factory.xml.system.lang.XmlLangFactory;
 import org.jeesl.factory.xml.system.lang.XmlLangsFactory;
 import org.jeesl.interfaces.model.module.currency.UtilsCurrency;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.xml.finance.Currency;
 
-public class XmlCurrencyFactory <L extends UtilsLang, C extends UtilsCurrency<L>>
+public class XmlCurrencyFactory <L extends JeeslLang, C extends UtilsCurrency<L>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlCurrencyFactory.class);
 

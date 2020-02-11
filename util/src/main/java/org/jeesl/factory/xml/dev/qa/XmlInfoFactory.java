@@ -1,19 +1,19 @@
 package org.jeesl.factory.xml.dev.qa;
 
 import org.jeesl.factory.xml.system.status.XmlStatusFactory;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaTestInfo;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.qa.Comment;
 import net.sf.ahtutils.xml.qa.Info;
 
-public class XmlInfoFactory<L extends UtilsLang, D extends UtilsDescription,
+public class XmlInfoFactory<L extends JeeslLang, D extends JeeslDescription,
 							QATI extends UtilsQaTestInfo<QATC>,
-							QATC extends UtilsStatus<QATC,L,D>>
+							QATC extends JeeslStatus<QATC,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlInfoFactory.class);
 		

@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Hashtable;
 import java.util.Map;
 
-import org.jeesl.controller.monitor.ProcessingTimeTracker;
+import org.jeesl.controller.monitoring.counter.ProcessingTimeTracker;
 import org.jeesl.factory.xml.system.navigation.XmlMenuItemFactory;
 import org.jeesl.jsf.menu.MenuXmlBuilder;
 import org.jeesl.model.xml.system.navigation.Breadcrumb;

@@ -7,21 +7,21 @@ import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiAttribute;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiData;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiLink;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface JeeslIoSsiFacade <L extends UtilsLang,D extends UtilsDescription,
+public interface JeeslIoSsiFacade <L extends JeeslLang,D extends JeeslDescription,
 									SYSTEM extends JeeslIoSsiSystem,
 									MAPPING extends JeeslIoSsiMapping<SYSTEM,ENTITY>,
 									ATTRIBUTE extends JeeslIoSsiAttribute<MAPPING,ENTITY>,
 									DATA extends JeeslIoSsiData<MAPPING,LINK>,
-									LINK extends UtilsStatus<LINK,L,D>,
+									LINK extends JeeslIoSsiLink<L,D,LINK,?>,
 									ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>
 									>
 			extends JeeslFacade

@@ -16,12 +16,11 @@ import org.jeesl.interfaces.model.module.ts.data.JeeslTsDataPoint;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsTransaction;
 import org.jeesl.interfaces.model.module.ts.stat.JeeslTsStatistic;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.metachart.xml.chart.Chart;
 import org.metachart.xml.chart.Ds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public class TsDbPoolProcessor<SYSTEM extends JeeslIoSsiSystem,
 									SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
@@ -30,11 +29,11 @@ public class TsDbPoolProcessor<SYSTEM extends JeeslIoSsiSystem,
 									TRANSACTION extends JeeslTsTransaction<?,DATA,?,?>,
 									BRIDGE extends JeeslTsBridge<EC>,
 									EC extends JeeslTsEntityClass<?,?,?>,
-									INT extends UtilsStatus<INT,?,?>,
+									INT extends JeeslStatus<INT,?,?>,
 									STAT extends JeeslTsStatistic<?,?,STAT,?>,
 									DATA extends JeeslTsData<TS,TRANSACTION,?,WS>,
 									POINT extends JeeslTsDataPoint<DATA,MP>,
-									WS extends UtilsStatus<WS,?,?>>
+									WS extends JeeslStatus<WS,?,?>>
 	extends AbstractTimeSeriesProcessor<SCOPE,MP,TS,TRANSACTION,BRIDGE,EC,INT,STAT,DATA,POINT,WS>
 {
 	final static Logger logger = LoggerFactory.getLogger(TsDbPoolProcessor.class);

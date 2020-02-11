@@ -4,12 +4,11 @@ import java.util.Comparator;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.jeesl.interfaces.model.system.constraint.algorithm.JeeslConstraintAlgorithm;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public class SystemConstraintAlgorithmComparator<ALGCAT extends UtilsStatus<ALGCAT,?,?>, ALGO extends JeeslConstraintAlgorithm<?,?,ALGCAT>>
+public class SystemConstraintAlgorithmComparator<ALGCAT extends JeeslStatus<ALGCAT,?,?>, ALGO extends JeeslConstraintAlgorithm<?,?,ALGCAT>>
 {
 	final static Logger logger = LoggerFactory.getLogger(SystemConstraintAlgorithmComparator.class);
 

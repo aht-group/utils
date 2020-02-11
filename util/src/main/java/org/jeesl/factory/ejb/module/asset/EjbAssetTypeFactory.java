@@ -1,14 +1,14 @@
 package org.jeesl.factory.ejb.module.asset;
 
-import org.jeesl.interfaces.model.module.asset.JeeslAssetRealm;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetType;
+import org.jeesl.interfaces.model.module.aom.JeeslAomType;
+import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public class EjbAssetTypeFactory<REALM extends JeeslAssetRealm<?,?,REALM,?>,
-									TYPE extends JeeslAssetType<?,?,REALM,TYPE,?>>
+public class EjbAssetTypeFactory<REALM extends JeeslAomRealm<?,?,REALM,?>,
+									TYPE extends JeeslAomType<?,?,REALM,TYPE,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbAssetTypeFactory.class);
 	

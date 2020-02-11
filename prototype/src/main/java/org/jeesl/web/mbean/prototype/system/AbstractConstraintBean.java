@@ -8,21 +8,21 @@ import java.util.Map;
 
 import org.jeesl.api.bean.msg.JeeslConstraintsBean;
 import org.jeesl.api.facade.system.JeeslSystemConstraintFacade;
-import org.jeesl.controller.monitor.ProcessingTimeTracker;
+import org.jeesl.controller.monitoring.counter.ProcessingTimeTracker;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.ConstraintFactoryBuilder;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraint;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraintResolution;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraintScope;
 import org.jeesl.interfaces.model.system.constraint.algorithm.JeeslConstraintAlgorithm;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.factory.xml.system.XmlConstraintFactory;
 import net.sf.ahtutils.factory.xml.system.XmlConstraintScopeFactory;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 import net.sf.ahtutils.xml.status.Description;
 import net.sf.ahtutils.xml.status.Lang;
@@ -32,14 +32,14 @@ import net.sf.ahtutils.xml.system.ConstraintSolution;
 import net.sf.ahtutils.xml.system.Constraints;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-public class AbstractConstraintBean <L extends UtilsLang, D extends UtilsDescription,
-									ALGCAT extends UtilsStatus<ALGCAT,L,D>,
+public class AbstractConstraintBean <L extends JeeslLang, D extends JeeslDescription,
+									ALGCAT extends JeeslStatus<ALGCAT,L,D>,
 									ALGO extends JeeslConstraintAlgorithm<L,D,ALGCAT>,
 									SCOPE extends JeeslConstraintScope<L,D,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>,
-									CONCAT extends UtilsStatus<CONCAT,L,D>,
+									CONCAT extends JeeslStatus<CONCAT,L,D>,
 									CONSTRAINT extends JeeslConstraint<L,D,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>,
-									LEVEL extends UtilsStatus<LEVEL,L,D>,
-									TYPE extends UtilsStatus<TYPE,L,D>,
+									LEVEL extends JeeslStatus<LEVEL,L,D>,
+									TYPE extends JeeslStatus<TYPE,L,D>,
 									RESOLUTION extends JeeslConstraintResolution<L,D,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>>
 							implements Serializable,JeeslConstraintsBean<CONSTRAINT>
 {
@@ -83,7 +83,7 @@ public class AbstractConstraintBean <L extends UtilsLang, D extends UtilsDescrip
 		mapConstraints.get(keyScope).put(constraint.getCode(),constraint);
 	}
 	
-	@Override public <S extends UtilsStatus<S,?,?>> CONSTRAINT getSilent(Class<?> cScope, S status)
+	@Override public <S extends JeeslStatus<S,?,?>> CONSTRAINT getSilent(Class<?> cScope, S status)
 	{
 		try {return get(cScope.getSimpleName(),status.getCode());}
 		catch (JeeslNotFoundException e)

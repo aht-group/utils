@@ -3,15 +3,15 @@ package org.jeesl.interfaces.model.system.io.mail.template;
 import java.io.Serializable;
 import java.util.Map;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
-public class JeeslIoTemplateEnvelope<L extends UtilsLang,D extends UtilsDescription,
-								CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+public class JeeslIoTemplateEnvelope<L extends JeeslLang,D extends JeeslDescription,
+								CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 								CHANNEL extends JeeslTemplateChannel<L,D,CHANNEL,?>,
 								TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>,
-								SCOPE extends UtilsStatus<SCOPE,L,D>,
+								SCOPE extends JeeslStatus<SCOPE,L,D>,
 								DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 								TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,?>
 								>

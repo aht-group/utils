@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.jeesl.api.facade.io.JeeslIoMailFacade;
-import org.jeesl.controller.monitor.BucketSizeCounter;
+import org.jeesl.controller.monitoring.counter.BucketSizeCounter;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
@@ -16,18 +16,18 @@ import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.io.mail.core.JeeslIoMail;
 import org.jeesl.interfaces.model.system.io.mail.core.JeeslMailRetention;
 import org.jeesl.interfaces.model.system.io.mail.core.JeeslMailStatus;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.model.xml.system.io.mail.Attachment;
 import org.jeesl.model.xml.system.io.mail.Mail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-public class MailSplitter<L extends UtilsLang,D extends UtilsDescription,
-						CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+public class MailSplitter<L extends JeeslLang,D extends JeeslDescription,
+						CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 						MAIL extends JeeslIoMail<L,D,CATEGORY,STATUS,RETENTION,FRC>,
 						STATUS extends JeeslMailStatus<L,D,STATUS,?>,
 						RETENTION extends JeeslMailRetention<L,D,RETENTION,?>,

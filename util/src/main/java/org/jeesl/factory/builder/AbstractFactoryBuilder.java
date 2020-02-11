@@ -1,12 +1,11 @@
 package org.jeesl.factory.builder;
 
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public class AbstractFactoryBuilder<L extends UtilsLang, D extends UtilsDescription>
+public class AbstractFactoryBuilder<L extends JeeslLang, D extends JeeslDescription>
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractFactoryBuilder.class);
 	

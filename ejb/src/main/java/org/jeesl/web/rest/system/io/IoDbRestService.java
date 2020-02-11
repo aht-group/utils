@@ -8,7 +8,7 @@ import org.jeesl.api.facade.io.JeeslIoDbFacade;
 import org.jeesl.api.rest.system.io.db.JeeslIoDbRestExport;
 import org.jeesl.api.rest.system.io.db.JeeslIoDbRestImport;
 import org.jeesl.api.rest.system.io.db.JeeslIoDbRestInterface;
-import org.jeesl.controller.monitor.DataUpdateTracker;
+import org.jeesl.controller.monitoring.counter.DataUpdateTracker;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
@@ -21,20 +21,20 @@ import org.jeesl.interfaces.model.system.io.db.JeeslDbDump;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpFile;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpStatus;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpHost;
 import org.jeesl.model.xml.jeesl.Container;
 import org.jeesl.web.rest.AbstractJeeslRestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 import net.sf.exlp.xml.io.Dir;
 import net.sf.exlp.xml.io.File;
 
-public class IoDbRestService<L extends UtilsLang,D extends UtilsDescription,
+public class IoDbRestService<L extends JeeslLang,D extends JeeslDescription,
 							SYSTEM extends JeeslIoSsiSystem,
 							DUMP extends JeeslDbDump<SYSTEM,FILE>,
 							FILE extends JeeslDbDumpFile<DUMP,HOST,STATUS>,
@@ -46,7 +46,7 @@ public class IoDbRestService<L extends UtilsLang,D extends UtilsDescription,
 	final static Logger logger = LoggerFactory.getLogger(IoDbRestService.class);
 	
 	private final IoDbFactoryBuilder<L,D,SYSTEM,DUMP,FILE,HOST,STATUS,?,?,?,?,?> fbDb;
-	private final IoSsiFactoryBuilder<L,D,SYSTEM,?,?,?,?,?> fbSsi;
+	private final IoSsiFactoryBuilder<L,D,SYSTEM,?,?,?,?,?,?> fbSsi;
 	
 	private final JeeslIoDbFacade<L,D,SYSTEM,DUMP,FILE,HOST,STATUS> fDb;
 	
@@ -57,7 +57,7 @@ public class IoDbRestService<L extends UtilsLang,D extends UtilsDescription,
 	private final SYSTEM system;
 	
 	public IoDbRestService(IoDbFactoryBuilder<L,D,SYSTEM,DUMP,FILE,HOST,STATUS,?,?,?,?,?> fbDb,
-							IoSsiFactoryBuilder<L,D,SYSTEM,?,?,?,?,?> fbSsi,
+							IoSsiFactoryBuilder<L,D,SYSTEM,?,?,?,?,?,?> fbSsi,
 							JeeslIoDbFacade<L,D,SYSTEM,DUMP,FILE,HOST,STATUS> fDb,
 							SYSTEM system)
 	{

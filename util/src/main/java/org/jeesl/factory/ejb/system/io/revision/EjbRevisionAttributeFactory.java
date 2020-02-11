@@ -7,25 +7,25 @@ import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionViewMappi
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntityMapping;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.model.xml.system.revision.Attribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.exlp.util.io.StringUtil;
 
-public class EjbRevisionAttributeFactory<L extends UtilsLang,D extends UtilsDescription,
+public class EjbRevisionAttributeFactory<L extends JeeslLang,D extends JeeslDescription,
 									RC extends JeeslRevisionCategory<L,D,RC,?>,
 									RV extends JeeslRevisionView<L,D,RVM>,
 									RVM extends JeeslRevisionViewMapping<RV,RE,REM>,
 									RS extends JeeslRevisionScope<L,D,RC,RA>,
-									RST extends UtilsStatus<RST,L,D>,
+									RST extends JeeslStatus<RST,L,D>,
 									RE extends JeeslRevisionEntity<L,D,RC,REM,RA,?>,
 									REM extends JeeslRevisionEntityMapping<RS,RST,RE>,
-									RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>, RER extends UtilsStatus<RER,L,D>,
-									RAT extends UtilsStatus<RAT,L,D>>
+									RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>, RER extends JeeslStatus<RER,L,D>,
+									RAT extends JeeslStatus<RAT,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbRevisionAttributeFactory.class);
 	
@@ -36,16 +36,16 @@ public class EjbRevisionAttributeFactory<L extends UtilsLang,D extends UtilsDesc
         this.cAttribute = cAttribute;
 	}
 	
-	public static <L extends UtilsLang,D extends UtilsDescription,
+	public static <L extends JeeslLang,D extends JeeslDescription,
 					RC extends JeeslRevisionCategory<L,D,RC,?>,
 					RV extends JeeslRevisionView<L,D,RVM>,
 					RVM extends JeeslRevisionViewMapping<RV,RE,REM>,
 					RS extends JeeslRevisionScope<L,D,RC,RA>,
-					RST extends UtilsStatus<RST,L,D>,
+					RST extends JeeslStatus<RST,L,D>,
 					RE extends JeeslRevisionEntity<L,D,RC,REM,RA,?>,
 					REM extends JeeslRevisionEntityMapping<RS,RST,RE>,
-					RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>, RER extends UtilsStatus<RER,L,D>,
-					RAT extends UtilsStatus<RAT,L,D>>
+					RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>, RER extends JeeslStatus<RER,L,D>,
+					RAT extends JeeslStatus<RAT,L,D>>
 	EjbRevisionAttributeFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> factory(final Class<RA> cAttribute)
 	{
 		return new EjbRevisionAttributeFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>(cAttribute);

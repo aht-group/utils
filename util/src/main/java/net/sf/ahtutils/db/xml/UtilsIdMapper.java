@@ -3,12 +3,12 @@ package net.sf.ahtutils.db.xml;
 import java.util.Hashtable;
 import java.util.Map;
 
-import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 import net.sf.ahtutils.xml.sync.Mapper;
 import net.sf.ahtutils.xml.sync.Mappings;
 import net.sf.exlp.util.xml.JaxbUtil;
 
+import org.jeesl.exception.processing.UtilsConfigurationException;
 import org.jeesl.factory.xml.system.io.sync.XmlMapperFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

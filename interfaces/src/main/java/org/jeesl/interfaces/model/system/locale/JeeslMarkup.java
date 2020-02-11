@@ -2,9 +2,8 @@ package org.jeesl.interfaces.model.system.locale;
 
 import java.io.Serializable;
 
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsMarkupType;
-
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 
 public interface JeeslMarkup <T extends JeeslIoCmsMarkupType<?,?,T,?>> 
 		extends Serializable,EjbSaveable 

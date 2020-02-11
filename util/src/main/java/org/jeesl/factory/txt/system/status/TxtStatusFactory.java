@@ -5,12 +5,11 @@ import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public class TxtStatusFactory <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription>
+public class TxtStatusFactory <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription>
 {
 	private final String localeCode;
 	
@@ -19,7 +18,7 @@ public class TxtStatusFactory <S extends UtilsStatus<S,L,D>,L extends UtilsLang,
 		this.localeCode=localeCode;
 	}
 	
-	public static <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription> TxtStatusFactory<S,L,D> factory(String localeCode)
+	public static <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription> TxtStatusFactory<S,L,D> factory(String localeCode)
 	{
 		return new TxtStatusFactory<S,L,D>(localeCode);
 	}
@@ -38,7 +37,7 @@ public class TxtStatusFactory <S extends UtilsStatus<S,L,D>,L extends UtilsLang,
 		return label(localeCode,list);
 	}
 	
-	public static <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription>
+	public static <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription>
 		String label(String lang, List<S> list)
 	{
 		if(list==null || list.isEmpty()){return null;}
@@ -47,7 +46,7 @@ public class TxtStatusFactory <S extends UtilsStatus<S,L,D>,L extends UtilsLang,
 		return StringUtils.join(result, ", ");
 	}
 	
-	public static <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription>
+	public static <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription>
 			String label(String lang, S ejb)
 	{
 		return ejb.getName().get(lang).getLang();
@@ -55,7 +54,7 @@ public class TxtStatusFactory <S extends UtilsStatus<S,L,D>,L extends UtilsLang,
 	
 	
 	
-	public static <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription>
+	public static <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription>
 	List<String> toCodes(Collection<S> list)
 	{
 		List<String> result = new ArrayList<String>();
@@ -63,7 +62,7 @@ public class TxtStatusFactory <S extends UtilsStatus<S,L,D>,L extends UtilsLang,
 		return toCodes(new ArrayList<S>(list));
 	}
 	
-	public static <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription>
+	public static <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription>
 		List<String> toCodes(List<S> list)
 	{
 		List<String> result = new ArrayList<String>();

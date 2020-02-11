@@ -36,6 +36,9 @@ import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileMeta;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorage;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileType;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.primefaces.event.NodeCollapseEvent;
 import org.primefaces.event.NodeExpandEvent;
 import org.primefaces.event.NodeSelectEvent;
@@ -44,14 +47,11 @@ import org.primefaces.model.TreeNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.jsf.util.PositionListReorderer;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public abstract class AbstractDmsViewBean <L extends UtilsLang, D extends UtilsDescription, LOC extends UtilsStatus<LOC,L,D>,
+public abstract class AbstractDmsViewBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
 											DMS extends JeeslIoDms<L,D,FSTORAGE,ASET,DS,S>,
 											S extends JeeslIoDmsSection<L,D,S>,
 											FILE extends JeeslIoDmsDocument<L,S,FCONTAINER,ACONTAINER>,
@@ -59,16 +59,16 @@ public abstract class AbstractDmsViewBean <L extends UtilsLang, D extends UtilsD
 											LAYER extends JeeslIoDmsLayer<VIEW,AITEM>,
 											
 											FSTORAGE extends JeeslFileStorage<L,D,?,FENGINE>,
-											FENGINE extends UtilsStatus<FENGINE,L,D>,
+											FENGINE extends JeeslStatus<FENGINE,L,D>,
 											FCONTAINER extends JeeslFileContainer<FSTORAGE,FMETA>,
 											FMETA extends JeeslFileMeta<D,FCONTAINER,FTYPE,?>,
 											FTYPE extends JeeslFileType<L,D,FTYPE,?>,
 											
 											DS extends JeeslDomainSet<L,D,?>,
 											
-											ACATEGORY extends UtilsStatus<ACATEGORY,L,D>,
+											ACATEGORY extends JeeslStatus<ACATEGORY,L,D>,
 											ACRITERIA extends JeeslAttributeCriteria<L,D,ACATEGORY,ATYPE>,
-											ATYPE extends UtilsStatus<ATYPE,L,D>,
+											ATYPE extends JeeslStatus<ATYPE,L,D>,
 											AOPTION extends JeeslAttributeOption<L,D,ACRITERIA>,
 											ASET extends JeeslAttributeSet<L,D,ACATEGORY,AITEM>,
 											AITEM extends JeeslAttributeItem<ACRITERIA,ASET>,

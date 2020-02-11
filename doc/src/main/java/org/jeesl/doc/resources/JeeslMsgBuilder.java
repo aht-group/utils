@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import net.sf.ahtutils.doc.UtilsDocumentation;
-import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.status.Translation;
 import net.sf.ahtutils.xml.status.Translations;
 import net.sf.exlp.util.io.FileIO;
@@ -19,6 +18,7 @@ import org.apache.commons.io.IOUtils;
 import org.jdom2.Comment;
 import org.jdom2.Document;
 import org.jdom2.output.Format;
+import org.jeesl.exception.processing.UtilsConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

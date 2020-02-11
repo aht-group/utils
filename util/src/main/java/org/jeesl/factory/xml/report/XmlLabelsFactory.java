@@ -6,14 +6,14 @@ import java.util.Map;
 
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.openfuxml.interfaces.configuration.OfxTranslationProvider;
 import org.openfuxml.util.translation.OfxDefaultTranslationProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.report.Label;
 import net.sf.ahtutils.xml.report.Labels;
 
@@ -27,7 +27,7 @@ public class XmlLabelsFactory
 		return xml;
 	}
 	
-	public static <S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription>
+	public static <S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription>
 		void aggregationGroups(String localeCode, Labels labels, List<S> aggregations)
 	{
 		for(int i=1;i<=aggregations.size();i++)

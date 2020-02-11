@@ -1,17 +1,16 @@
 package org.jeesl.factory.builder.system;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public class LightFactoryBuilder<L extends UtilsLang, D extends UtilsDescription,
+public class LightFactoryBuilder<L extends JeeslLang, D extends JeeslDescription,
 								LIGHT extends JeeslTrafficLight<L,D,SCOPE>,
-								SCOPE extends UtilsStatus<SCOPE,L,D>>
+								SCOPE extends JeeslStatus<SCOPE,L,D>>
 				extends AbstractFactoryBuilder<L,D>
 {
 	final static Logger logger = LoggerFactory.getLogger(LightFactoryBuilder.class);

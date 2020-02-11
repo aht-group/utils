@@ -12,12 +12,12 @@ import org.apache.commons.jxpath.JXPathContext;
 import org.apache.commons.jxpath.JXPathNotFoundException;
 import org.jeesl.factory.css.CssAlignmentFactory;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportColumn;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.jsf.util.ComponentAttributeProcessor;
 import org.jeesl.jsf.util.TrafficLightProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.jsf.util.ComponentAttribute;
 
 @FacesComponent("org.jeesl.jsf.components.xpath.TrafficLightXpath")
@@ -77,7 +77,7 @@ public class TrafficLightXpath extends AbstractXpath
 //				logger.info(c.getClass().getName()+" "+c.toString()+" "+c.getCode());
 				if(c.getDataType()!=null)
 				{
-					UtilsStatus dt = c.getDataType();
+					JeeslStatus dt = c.getDataType();
 //					logger.info("   DataType  code:"+dt.getCode()+" style:"+dt.getStyle()+" symbol:"+dt.getSymbol());
 					
 					if(dt.getCode().startsWith("numberDouble"))

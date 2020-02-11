@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.configuration.Configuration;
+import org.jeesl.exception.processing.UtilsConfigurationException;
 import org.openfuxml.content.ofx.Comment;
 import org.openfuxml.factory.xml.ofx.content.XmlRawFactory;
 import org.openfuxml.util.OfxCommentBuilder;
@@ -11,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.doc.ofx.status.OfxStatusTableFactory.Code;
-import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 
 public class DocumentationCommentBuilder
 {

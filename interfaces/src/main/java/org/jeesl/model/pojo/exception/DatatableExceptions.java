@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jeesl.exception.ejb.JeeslNotFoundException;
-
-import net.sf.ahtutils.exception.processing.UtilsBatchException;
+import org.jeesl.exception.processing.UtilsBatchException;
 
 public class DatatableExceptions
 {

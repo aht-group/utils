@@ -9,22 +9,21 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
 import org.jeesl.api.facade.core.JeeslSyncFacade;
 import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.ejb.system.sync.EjbSyncFactory;
 import org.jeesl.interfaces.model.system.io.db.JeeslSync;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.joda.time.DateTime;
 import org.joda.time.Seconds;
 
-public class UtilsSyncFacadeBean <L extends UtilsLang,
-									D extends UtilsDescription,
-									STATUS extends UtilsStatus<STATUS,L,D>,
-									CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+public class UtilsSyncFacadeBean <L extends JeeslLang,
+									D extends JeeslDescription,
+									STATUS extends JeeslStatus<STATUS,L,D>,
+									CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 									SYNC extends JeeslSync<L,D,STATUS,CATEGORY>>  
 	extends JeeslFacadeBean implements JeeslSyncFacade<L,D,STATUS,CATEGORY,SYNC>
 {	

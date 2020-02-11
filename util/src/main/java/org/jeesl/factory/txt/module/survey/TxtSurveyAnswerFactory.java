@@ -19,14 +19,13 @@ import org.jeesl.interfaces.model.module.survey.question.JeeslSurveySection;
 import org.jeesl.interfaces.model.system.io.domain.JeeslDomain;
 import org.jeesl.interfaces.model.system.io.domain.JeeslDomainPath;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public class TxtSurveyAnswerFactory<L extends UtilsLang, D extends UtilsDescription,
+public class TxtSurveyAnswerFactory<L extends JeeslLang, D extends JeeslDescription,
 									ANSWER extends JeeslSurveyAnswer<L,D,?,MATRIX,?,OPTION>,
 									MATRIX extends JeeslSurveyMatrix<L,D,ANSWER,OPTION>,
 									OPTION extends JeeslSurveyOption<L,D>
@@ -46,7 +45,7 @@ public class TxtSurveyAnswerFactory<L extends UtilsLang, D extends UtilsDescript
 		return sb.toString();
 	}
 	
-	public static <L extends UtilsLang, D extends UtilsDescription,
+	public static <L extends JeeslLang, D extends JeeslDescription,
 					
 					ANSWER extends JeeslSurveyAnswer<L,D,?,?,?,?>
 					>

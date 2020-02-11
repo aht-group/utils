@@ -4,15 +4,15 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
 
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.util.comparator.xml.status.DescriptionComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.xml.status.Description;
 import net.sf.ahtutils.xml.status.Descriptions;
 
-public class XmlDescriptionsFactory<D extends UtilsDescription>
+public class XmlDescriptionsFactory<D extends JeeslDescription>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlDescriptionsFactory.class);
 		

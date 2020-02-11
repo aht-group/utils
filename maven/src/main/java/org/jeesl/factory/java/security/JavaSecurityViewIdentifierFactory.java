@@ -8,7 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.access.View;
 import net.sf.exlp.exception.ExlpConfigurationException;
 import net.sf.exlp.util.io.dir.DirChecker;
@@ -16,6 +15,7 @@ import net.sf.exlp.util.io.dir.RecursiveFileFinder;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.apache.commons.io.filefilter.FileFilterUtils;
+import org.jeesl.exception.processing.UtilsConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -3,21 +3,21 @@ package org.jeesl.web.rest.system;
 import org.jeesl.api.facade.system.JeeslSystemPropertyFacade;
 import org.jeesl.api.rest.system.property.JeeslSystemPropertyRestExport;
 import org.jeesl.api.rest.system.property.JeeslSystemPropertyRestImport;
-import org.jeesl.controller.monitor.DataUpdateTracker;
+import org.jeesl.controller.monitoring.counter.DataUpdateTracker;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.PropertyFactoryBuilder;
 import org.jeesl.factory.ejb.system.status.EjbStatusFactory;
 import org.jeesl.factory.ejb.system.util.EjbPropertyFactory;
 import org.jeesl.factory.xml.system.status.XmlTypeFactory;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.property.JeeslProperty;
 import org.jeesl.util.db.JeeslStatusDbUpdater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.web.rest.AbstractUtilsRest;
 import net.sf.ahtutils.xml.aht.Container;
 import net.sf.ahtutils.xml.status.Status;
@@ -25,8 +25,8 @@ import net.sf.ahtutils.xml.sync.DataUpdate;
 import net.sf.ahtutils.xml.utils.Property;
 import net.sf.ahtutils.xml.utils.Utils;
 
-public class SystemPropertyRestService <L extends UtilsLang,D extends UtilsDescription,
-										C extends UtilsStatus<C,L,D>,
+public class SystemPropertyRestService <L extends JeeslLang,D extends JeeslDescription,
+										C extends JeeslStatus<C,L,D>,
 										P extends JeeslProperty<L,D,C,P>>
 					extends AbstractUtilsRest<L,D>
 					implements JeeslSystemPropertyRestExport,JeeslSystemPropertyRestImport
@@ -47,8 +47,8 @@ public class SystemPropertyRestService <L extends UtilsLang,D extends UtilsDescr
 		efProperty = EjbPropertyFactory.factory(fbProperty.getClassProperty());
 	}
 	
-	public static <L extends UtilsLang,D extends UtilsDescription,
-					C extends UtilsStatus<C,L,D>,
+	public static <L extends JeeslLang,D extends JeeslDescription,
+					C extends JeeslStatus<C,L,D>,
 					P extends JeeslProperty<L,D,C,P>>
 		SystemPropertyRestService<L,D,C,P>
 			factory(JeeslSystemPropertyFacade<L,D,C,P> fNews, final String[] localeCodes, final PropertyFactoryBuilder<L,D,C,P> fbProperty)
@@ -60,7 +60,7 @@ public class SystemPropertyRestService <L extends UtilsLang,D extends UtilsDescr
 	@Override public DataUpdate importSystemPropertyCategories(Container categories){return importStatus2(fbProperty.getClassCategory(),null,categories);}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-    public <S extends UtilsStatus<S,L,D>, P extends UtilsStatus<P,L,D>> DataUpdate importStatus2(Class<S> clStatus, Class<P> clParent, Container container)
+    public <S extends JeeslStatus<S,L,D>, P extends JeeslStatus<P,L,D>> DataUpdate importStatus2(Class<S> clStatus, Class<P> clParent, Container container)
     {
     	for(Status xml : container.getStatus()){xml.setGroup(clStatus.getSimpleName());}
 		JeeslStatusDbUpdater asdi = new JeeslStatusDbUpdater();

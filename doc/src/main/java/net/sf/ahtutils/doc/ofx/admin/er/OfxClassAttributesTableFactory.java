@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.configuration.Configuration;
+import org.jeesl.interfaces.model.marker.qualifier.EjbErAttribute;
+import org.jeesl.interfaces.model.marker.qualifier.EjbErAttributes;
 import org.openfuxml.content.table.Body;
 import org.openfuxml.content.table.Columns;
 import org.openfuxml.content.table.Content;
@@ -21,8 +23,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.doc.ofx.AbstractUtilsOfxDocumentationFactory;
-import net.sf.ahtutils.interfaces.qualifier.EjbErAttribute;
-import net.sf.ahtutils.interfaces.qualifier.EjbErAttributes;
 import net.sf.ahtutils.model.qualifier.EjbErNode;
 import net.sf.ahtutils.xml.status.Translations;
 

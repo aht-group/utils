@@ -9,7 +9,7 @@ import java.util.Set;
 import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
 import org.jeesl.api.rest.system.io.revision.JeeslRevisionRestExport;
 import org.jeesl.api.rest.system.io.revision.JeeslRevisionRestImport;
-import org.jeesl.controller.monitor.DataUpdateTracker;
+import org.jeesl.controller.monitoring.counter.DataUpdateTracker;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
@@ -34,6 +34,9 @@ import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribu
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntityMapping;
 import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.model.xml.jeesl.Container;
 import org.jeesl.model.xml.system.revision.Attribute;
 import org.jeesl.model.xml.system.revision.Diagrams;
@@ -49,24 +52,21 @@ import org.metachart.xml.graph.Graph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 
-public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription,
+public class RevisionRestService <L extends JeeslLang,D extends JeeslDescription,
 								RC extends JeeslRevisionCategory<L,D,RC,?>,	
 								RV extends JeeslRevisionView<L,D,RVM>,
 								RVM extends JeeslRevisionViewMapping<RV,RE,REM>,
 								RS extends JeeslRevisionScope<L,D,RC,RA>,
-								RST extends UtilsStatus<RST,L,D>,
+								RST extends JeeslStatus<RST,L,D>,
 								RE extends JeeslRevisionEntity<L,D,RC,REM,RA,ERD>,
 								REM extends JeeslRevisionEntityMapping<RS,RST,RE>,
 								RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>,
-								RER extends UtilsStatus<RER,L,D>,
-								RAT extends UtilsStatus<RAT,L,D>,
+								RER extends JeeslStatus<RER,L,D>,
+								RAT extends JeeslStatus<RAT,L,D>,
 								ERD extends JeeslRevisionDiagram<L,D,RC>
 >
 					implements JeeslRevisionRestExport,JeeslRevisionRestImport
@@ -269,7 +269,7 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 	}
 	
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public <S extends UtilsStatus<S,L,D>, P extends UtilsStatus<P,L,D>> DataUpdate importStatus(Class<S> clStatus, Class<L> clLang, Class<D> clDescription, Aht container, Class<P> clParent)
+    public <S extends JeeslStatus<S,L,D>, P extends JeeslStatus<P,L,D>> DataUpdate importStatus(Class<S> clStatus, Class<L> clLang, Class<D> clDescription, Aht container, Class<P> clParent)
     {
     	for(Status xml : container.getStatus()){xml.setGroup(clStatus.getSimpleName());}
 		JeeslStatusDbUpdater asdi = new JeeslStatusDbUpdater();
@@ -281,7 +281,7 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
     }
     
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public <S extends UtilsStatus<S,L,D>, P extends UtilsStatus<P,L,D>> DataUpdate importStatus(Class<S> clStatus, Class<L> clLang, Class<D> clDescription, Container container, Class<P> clParent)
+    public <S extends JeeslStatus<S,L,D>, P extends JeeslStatus<P,L,D>> DataUpdate importStatus(Class<S> clStatus, Class<L> clLang, Class<D> clDescription, Container container, Class<P> clParent)
     {
     	for(Status xml : container.getStatus()){xml.setGroup(clStatus.getSimpleName());}
 		JeeslStatusDbUpdater asdi = new JeeslStatusDbUpdater();

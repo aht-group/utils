@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.apache.commons.configuration.Configuration;
+import org.jeesl.exception.processing.UtilsConfigurationException;
 import org.openfuxml.content.ofx.Comment;
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.exception.OfxAuthoringException;
@@ -17,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.doc.latex.builder.UtilsLatexQaDocumentationBuilder;
 import net.sf.ahtutils.doc.ofx.AbstractUtilsOfxDocumentationFactory;
 import net.sf.ahtutils.doc.ofx.qa.table.OfxQaDurationGroupTable;
-import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.doc.ofx.qa.table.OfxQaDurationFrSummaryTable;
 import net.sf.ahtutils.doc.ofx.qa.table.OfxQaDurationFrCategoryTable;
 import net.sf.ahtutils.xml.qa.Category;

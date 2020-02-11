@@ -4,9 +4,6 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Langs;
@@ -16,10 +13,13 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.txt.system.status.TxtStatusFactory;
 import org.jeesl.interfaces.facade.JeeslFacade;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbLangFactory<L extends UtilsLang>
+public class EjbLangFactory<L extends JeeslLang>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbLangFactory.class);
 	
@@ -30,7 +30,7 @@ public class EjbLangFactory<L extends UtilsLang>
         this.cL = cL;
     } 
     
-    public static <L extends UtilsLang> EjbLangFactory<L> factory(final Class<L> cL)
+    public static <L extends JeeslLang> EjbLangFactory<L> factory(final Class<L> cL)
     {
         return new EjbLangFactory<L>(cL);
     }
@@ -53,7 +53,7 @@ public class EjbLangFactory<L extends UtilsLang>
 		return map;
 	}
 	
-	public <S extends UtilsStatus<S,L,D>, D extends UtilsDescription> Map<String,L> createEmpty(List<S> locales)
+	public <S extends JeeslStatus<S,L,D>, D extends JeeslDescription> Map<String,L> createEmpty(List<S> locales)
 	{
 		return createEmpty(TxtStatusFactory.toCodes(locales).toArray(new String[0]));
 	}
@@ -117,11 +117,11 @@ public class EjbLangFactory<L extends UtilsLang>
 		return createLang(lang.getKey(), lang.getTranslation());
 	}
 	
-	public <T extends EjbWithLang<L>, LOC extends UtilsStatus<LOC,L,D>, D extends UtilsDescription> T persistMissingLangs(JeeslFacade fUtils, List<LOC> locales, T ejb)
+	public <T extends EjbWithLang<L>, LOC extends JeeslStatus<LOC,L,D>, D extends JeeslDescription> T persistMissingLangs(JeeslFacade fUtils, List<LOC> locales, T ejb)
 	{
 		return persistMissingLangs(fUtils,TxtStatusFactory.toCodes(locales).toArray(new String[0]),ejb);
 	}
-	public <T extends EjbWithLang<L>, LOC extends UtilsStatus<LOC,L,D>, D extends UtilsDescription> T persistMissingLangsForCode(JeeslFacade fUtils, List<String> codes, T ejb)
+	public <T extends EjbWithLang<L>, LOC extends JeeslStatus<LOC,L,D>, D extends JeeslDescription> T persistMissingLangsForCode(JeeslFacade fUtils, List<String> codes, T ejb)
 	{
 		String[] localeCodes = new String[codes.size()];
 		for(int i=0;i<codes.size();i++)
@@ -150,7 +150,7 @@ public class EjbLangFactory<L extends UtilsLang>
 		return ejb;
 	}
 	
-	public <LOC extends UtilsStatus<LOC,L,?>> Map<String,L> checkMissigLangs(JeeslFacade fUtils, List<LOC> locales, Map<String,L> map)
+	public <LOC extends JeeslStatus<LOC,L,?>> Map<String,L> checkMissigLangs(JeeslFacade fUtils, List<LOC> locales, Map<String,L> map)
 	{
 		for(LOC loc : locales)
 		{

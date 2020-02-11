@@ -9,15 +9,15 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.ejb.system.status.EjbDescriptionFactory;
 import org.jeesl.interfaces.facade.JeeslFacade;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.model.interfaces.with.EjbWithDescription;
 import net.sf.ahtutils.xml.status.Description;
 import net.sf.ahtutils.xml.status.Descriptions;
 
-public class JeeslDbDescriptionUpdater<C extends EjbWithDescription<D>, D extends UtilsDescription>
+public class JeeslDbDescriptionUpdater<C extends EjbWithDescription<D>, D extends JeeslDescription>
 {
 	final static Logger logger = LoggerFactory.getLogger(JeeslDbDescriptionUpdater.class);
 	
@@ -34,7 +34,7 @@ public class JeeslDbDescriptionUpdater<C extends EjbWithDescription<D>, D extend
         efDescription = EjbDescriptionFactory.factory(cD);
     } 
 	
-	public static <C extends EjbWithDescription<D>, D extends UtilsDescription> JeeslDbDescriptionUpdater<C,D> factory(final Class<C> cEjb, final Class<D> cD)
+	public static <C extends EjbWithDescription<D>, D extends JeeslDescription> JeeslDbDescriptionUpdater<C,D> factory(final Class<C> cEjb, final Class<D> cD)
 	{
 		return new JeeslDbDescriptionUpdater<C,D>(cEjb,cD);
 	}

@@ -14,19 +14,18 @@ import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsSection;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsVisiblity;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileMeta;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public interface JeeslIoCmsFacade <L extends UtilsLang,D extends UtilsDescription,LOC extends UtilsStatus<LOC,L,D>,
+public interface JeeslIoCmsFacade <L extends JeeslLang,D extends JeeslDescription,LOC extends JeeslStatus<LOC,L,D>,
 									CAT extends JeeslIoCmsCategory<L,D,CAT,?>,
 									CMS extends JeeslIoCms<L,D,CAT,S,LOC>,
 									V extends JeeslIoCmsVisiblity,
 									S extends JeeslIoCmsSection<L,S>,
 									E extends JeeslIoCmsElement<V,S,EC,ET,C,FC>,
-									EC extends UtilsStatus<EC,L,D>,
-									ET extends UtilsStatus<ET,L,D>,
+									EC extends JeeslStatus<EC,L,D>,
+									ET extends JeeslStatus<ET,L,D>,
 									C extends JeeslIoCmsContent<V,E,MT>,
 									MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
 									FC extends JeeslFileContainer<?,?>,

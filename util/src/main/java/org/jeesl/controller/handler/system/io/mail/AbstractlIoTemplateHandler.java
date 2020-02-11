@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.jeesl.api.facade.io.JeeslIoTemplateFacade;
 import org.jeesl.controller.mail.AbstractJeeslMail;
+import org.jeesl.exception.processing.UtilsProcessingException;
 import org.jeesl.factory.builder.io.IoTemplateFactoryBuilder;
 import org.jeesl.factory.txt.system.security.TxtUserFactory;
 import org.jeesl.interfaces.bean.system.IoTemplateBean;
@@ -18,25 +19,24 @@ import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateDefinit
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateToken;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import net.sf.ahtutils.exception.processing.UtilsProcessingException;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
-public class AbstractlIoTemplateHandler<L extends UtilsLang,D extends UtilsDescription,LOC extends JeeslLocale<L,D,LOC,?>,
-									CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+public class AbstractlIoTemplateHandler<L extends JeeslLang,D extends JeeslDescription,LOC extends JeeslLocale<L,D,LOC,?>,
+									CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 									CHANNEL extends JeeslTemplateChannel<L,D,CHANNEL,?>,
 									TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>,
-									SCOPE extends UtilsStatus<SCOPE,L,D>,
+									SCOPE extends JeeslStatus<SCOPE,L,D>,
 									DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 									TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,TOKENTYPE>,
-									TOKENTYPE extends UtilsStatus<TOKENTYPE,L,D>>
+									TOKENTYPE extends JeeslStatus<TOKENTYPE,L,D>>
 								implements JeeslTemplateHandler<L,D,LOC,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE>
 {
 	private static final long serialVersionUID = 1L;

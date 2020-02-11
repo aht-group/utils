@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Map;
 
-import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.code.EjbWithCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

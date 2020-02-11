@@ -5,6 +5,7 @@ import java.util.List;
 import org.jeesl.doc.ofx.cms.generic.AbstractJeeslOfxTableFactory;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.JeeslLocaleProvider;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.model.xml.module.workflow.Permission;
 import org.jeesl.model.xml.module.workflow.Permissions;
 import org.jeesl.model.xml.module.workflow.Stage;
@@ -36,11 +37,10 @@ import org.openfuxml.util.OfxCommentBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 
-public class OfxTableWorkflowProcess <L extends UtilsLang, LOC extends JeeslLocale<L,?,LOC,?>> extends AbstractJeeslOfxTableFactory<L,LOC>
+public class OfxTableWorkflowProcess <L extends JeeslLang, LOC extends JeeslLocale<L,?,LOC,?>> extends AbstractJeeslOfxTableFactory<L,LOC>
 {
 	final static Logger logger = LoggerFactory.getLogger(OfxTableWorkflowProcess.class);
 

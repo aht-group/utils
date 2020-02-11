@@ -3,15 +3,16 @@ package org.jeesl.interfaces.model.system.graphic.core;
 import java.io.Serializable;
 import java.util.List;
 
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface JeeslGraphic<L extends UtilsLang, D extends UtilsDescription,
-								GT extends UtilsStatus<GT,L,D>,
-								F extends JeeslGraphicFigure<L,D,?,GT,F,FS>, FS extends UtilsStatus<FS,L,D>>
+public interface JeeslGraphic<L extends JeeslLang, D extends JeeslDescription,
+								GT extends JeeslStatus<GT,L,D>,
+								F extends JeeslGraphicFigure<L,D,?,GT,F,FS>, FS extends JeeslStatus<FS,L,D>>
 		extends Serializable,EjbWithId,EjbSaveable
 {		
 	Long getVersionLock();

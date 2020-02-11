@@ -3,14 +3,13 @@ package org.jeesl.factory.json.jeesl;
 import java.util.List;
 
 import org.jeesl.factory.json.system.status.JsonStatusFactory;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.model.json.system.status.JsonContainer;
 import org.jeesl.model.json.system.status.JsonStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 @SuppressWarnings("rawtypes")
 public class JsonContainerFactory
@@ -25,7 +24,7 @@ public class JsonContainerFactory
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription> JsonContainer build(List<S> list)
+	public <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription> JsonContainer build(List<S> list)
 	{
 		JsonContainer xml = build();
 		for(S s : list){xml.getStatus().add(jfStatus.build(s));}

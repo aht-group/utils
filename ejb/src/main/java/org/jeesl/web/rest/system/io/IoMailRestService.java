@@ -19,6 +19,9 @@ import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.io.mail.core.JeeslIoMail;
 import org.jeesl.interfaces.model.system.io.mail.core.JeeslMailRetention;
 import org.jeesl.interfaces.model.system.io.mail.core.JeeslMailStatus;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.model.xml.jeesl.Container;
 import org.jeesl.model.xml.system.io.mail.Mail;
 import org.jeesl.model.xml.system.io.mail.Mails;
@@ -27,14 +30,11 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-public class IoMailRestService <L extends UtilsLang,D extends UtilsDescription,
-								CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+public class IoMailRestService <L extends JeeslLang,D extends JeeslDescription,
+								CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 								MAIL extends JeeslIoMail<L,D,CATEGORY,STATUS,RETENTION,FRC>,
 								STATUS extends JeeslMailStatus<L,D,STATUS,?>,
 								RETENTION extends JeeslMailRetention<L,D,RETENTION,?>,
@@ -61,8 +61,8 @@ public class IoMailRestService <L extends UtilsLang,D extends UtilsDescription,
 		this.cRetention=cRetention;
 	}
 	
-	public static <L extends UtilsLang,D extends UtilsDescription,
-					CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+	public static <L extends JeeslLang,D extends JeeslDescription,
+					CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 					MAIL extends JeeslIoMail<L,D,CATEGORY,STATUS,RETENTION,FRC>,
 					STATUS extends JeeslMailStatus<L,D,STATUS,?>,
 					RETENTION extends JeeslMailRetention<L,D,RETENTION,?>,

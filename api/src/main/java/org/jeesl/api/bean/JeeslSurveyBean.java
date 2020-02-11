@@ -24,12 +24,11 @@ import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestionElem
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestionUnit;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveySection;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyValidation;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public interface JeeslSurveyBean<L extends UtilsLang, D extends UtilsDescription,
+public interface JeeslSurveyBean<L extends JeeslLang, D extends JeeslDescription,
 					SURVEY extends JeeslSurvey<L,D,SS,TEMPLATE,DATA>,
 					SS extends JeeslSurveyStatus<L,D,SS,?>,
 					SCHEME extends JeeslSurveyScheme<L,D,TEMPLATE,SCORE>,
@@ -50,7 +49,7 @@ public interface JeeslSurveyBean<L extends UtilsLang, D extends UtilsDescription
 					OPTIONS extends JeeslSurveyOptionSet<L,D,TEMPLATE,OPTION>,
 					OPTION extends JeeslSurveyOption<L,D>,
 					CORRELATION extends JeeslSurveyCorrelation<DATA>,
-					ATT extends UtilsStatus<ATT,L,D>>
+					ATT extends JeeslStatus<ATT,L,D>>
 				extends JeeslSurveyCache<TEMPLATE,SECTION,QUESTION,CONDITION,VALIDATION>
 {	
 	List<ATT> getToolTypes();

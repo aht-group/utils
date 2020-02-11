@@ -2,12 +2,13 @@ package org.jeesl.interfaces.model.system.io.ssi.docker;
 
 import java.io.Serializable;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.with.EjbWithLangDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.with.EjbWithLangDescription;
+
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface JeeslIoSsiHost <L extends UtilsLang, D extends UtilsDescription>
+public interface JeeslIoSsiHost <L extends JeeslLang, D extends JeeslDescription>
 							extends Serializable,EjbWithId,EjbWithLangDescription<L,D>
 {	
 	

@@ -1,16 +1,15 @@
 package org.jeesl.factory.builder.system;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.property.JeeslProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public class PropertyFactoryBuilder<L extends UtilsLang, D extends UtilsDescription,
-									C extends UtilsStatus<C,L,D>,
+public class PropertyFactoryBuilder<L extends JeeslLang, D extends JeeslDescription,
+									C extends JeeslStatus<C,L,D>,
 									P extends JeeslProperty<L,D,C,P>>
 				extends AbstractFactoryBuilder<L,D>
 {

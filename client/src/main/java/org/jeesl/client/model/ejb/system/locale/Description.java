@@ -11,14 +11,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
+import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+
 import net.sf.ahtutils.model.qualifier.EjbErNode;
 
 @Entity
 @Table(name = "UtilsLang")
 @EjbErNode(name="Description",category="status",subset="status",level=3)
-public class Description implements UtilsDescription,EjbRemoveable,Serializable
+public class Description implements JeeslDescription,EjbRemoveable,Serializable
 {
 	public static final long serialVersionUID=1;
 

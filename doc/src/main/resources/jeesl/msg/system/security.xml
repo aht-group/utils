@@ -263,6 +263,18 @@
 	    		<s:lang key="fr" translation="No page specifc actions defined"/>
 	    	</s:langs>
     </s:translation>  
-    
-    
+    <s:translation key="jeeslSecurityPasswordRules">
+    	<s:langs>
+    		<s:lang key="de" translation="Kennwort Regeln"/>
+    		<s:lang key="en" translation="Password Rules"/>
+    		<s:lang key="fr" translation="Password Rules"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslSecurityPasswordRule">
+    	<s:langs>
+    		<s:lang key="de" translation="Regel"/>
+    		<s:lang key="en" translation="Rule"/>
+    		<s:lang key="fr" translation="Rule"/>
+    	</s:langs>
+    </s:translation>
 </s:translations>

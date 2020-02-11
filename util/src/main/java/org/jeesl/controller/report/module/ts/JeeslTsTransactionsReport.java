@@ -8,18 +8,18 @@ import org.jeesl.factory.xml.module.ts.XmlTsFactory;
 import org.jeesl.factory.xml.system.io.report.XmlReportFactory;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsData;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsTransaction;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
+import org.jeesl.interfaces.model.with.EjbWithLangDescription;
 import org.jeesl.model.xml.module.ts.Ts;
 import org.jeesl.util.query.xml.module.XmlTsQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.with.EjbWithLangDescription;
 import net.sf.ahtutils.xml.report.Report;
 
-public class JeeslTsTransactionsReport <L extends UtilsLang,D extends UtilsDescription,
+public class JeeslTsTransactionsReport <L extends JeeslLang,D extends JeeslDescription,
 						
 						TRANSACTION extends JeeslTsTransaction<SOURCE,DATA,USER,?>,
 						SOURCE extends EjbWithLangDescription<L,D>, 

@@ -1,14 +1,13 @@
 package net.sf.ahtutils.db.xml;
 
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.model.xml.system.io.db.Db;
 import org.jeesl.util.db.JeeslStatusDbUpdater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public abstract class AbstractAhtDbXmlInit <L extends UtilsLang, D extends UtilsDescription>
+public abstract class AbstractAhtDbXmlInit <L extends JeeslLang, D extends JeeslDescription>
 	extends AbstractDbRestInit
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractAhtDbXmlInit.class);

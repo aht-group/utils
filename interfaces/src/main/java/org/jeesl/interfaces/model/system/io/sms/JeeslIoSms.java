@@ -2,18 +2,19 @@ package org.jeesl.interfaces.model.system.io.sms;
 
 import java.util.Date;
 
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-import net.sf.ahtutils.interfaces.model.with.EjbWithRefId;
+import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.with.number.EjbWithRefId;
+
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface JeeslIoSms<L extends UtilsLang,D extends UtilsDescription,
-								CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+public interface JeeslIoSms<L extends JeeslLang,D extends JeeslDescription,
+								CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 								SMS extends JeeslIoSms<L,D,CATEGORY,SMS,STATUS>,
-								STATUS extends UtilsStatus<STATUS,L,D>
+								STATUS extends JeeslStatus<STATUS,L,D>
 								>
 		extends EjbWithId,EjbWithRefId,EjbSaveable,EjbRemoveable
 {	

@@ -25,6 +25,9 @@ import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateDefinition;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateToken;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.web.JeeslJsfSecurityHandler;
 import org.jeesl.util.comparator.ejb.system.io.template.IoTemplateComparator;
 import org.jeesl.util.comparator.ejb.system.io.template.IoTemplateDefinitionComparator;
@@ -38,20 +41,17 @@ import freemarker.core.InvalidReferenceException;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.jsf.util.PositionListReorderer;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public abstract class AbstractSettingsIoTemplateBean <L extends UtilsLang,D extends UtilsDescription,LOC extends UtilsStatus<LOC,L,D>,
-											CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+public abstract class AbstractSettingsIoTemplateBean <L extends JeeslLang,D extends JeeslDescription,LOC extends JeeslStatus<LOC,L,D>,
+											CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 											CHANNEL extends JeeslTemplateChannel<L,D,CHANNEL,?>,
 											TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>,
-											SCOPE extends UtilsStatus<SCOPE,L,D>,
+											SCOPE extends JeeslStatus<SCOPE,L,D>,
 											DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 											TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,TOKENTYPE>,
-											TOKENTYPE extends UtilsStatus<TOKENTYPE,L,D>>
+											TOKENTYPE extends JeeslStatus<TOKENTYPE,L,D>>
 					extends AbstractAdminBean<L,D>
 					implements Serializable,SbToggleBean
 {

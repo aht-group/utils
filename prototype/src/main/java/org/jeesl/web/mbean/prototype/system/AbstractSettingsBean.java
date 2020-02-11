@@ -3,7 +3,7 @@ package org.jeesl.web.mbean.prototype.system;
 import java.io.Serializable;
 
 import org.jeesl.api.bean.JeeslSettingsBean;
-import org.jeesl.controller.monitor.ProcessingTimeTracker;
+import org.jeesl.controller.monitoring.counter.ProcessingTimeTracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

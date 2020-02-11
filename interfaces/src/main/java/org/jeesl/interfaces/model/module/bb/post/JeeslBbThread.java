@@ -1,9 +1,9 @@
 package org.jeesl.interfaces.model.module.bb.post;
 
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.bb.JeeslBbBoard;
+import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 

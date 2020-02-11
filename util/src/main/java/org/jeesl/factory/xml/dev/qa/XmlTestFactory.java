@@ -2,6 +2,9 @@ package org.jeesl.factory.xml.dev.qa;
 
 import org.jeesl.api.facade.module.JeeslQaFacade;
 import org.jeesl.factory.xml.system.status.XmlStatusFactory;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
@@ -25,13 +28,10 @@ import net.sf.ahtutils.interfaces.model.qa.UtilsQaTestDiscussion;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaTestInfo;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaUsability;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQualityAssurarance;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.qa.Test;
 
-public class XmlTestFactory<L extends UtilsLang, D extends UtilsDescription,
-							L2 extends UtilsLang, D2 extends UtilsDescription,
+public class XmlTestFactory<L extends JeeslLang, D extends JeeslDescription,
+							L2 extends JeeslLang, D2 extends JeeslDescription,
 							C extends JeeslSecurityCategory<L,D>,
 							R extends JeeslSecurityRole<L,D,C,V,U,A,USER>,
 							V extends JeeslSecurityView<L,D,C,R,U,A>,
@@ -51,10 +51,10 @@ public class XmlTestFactory<L extends UtilsLang, D extends UtilsDescription,
 							QASH extends UtilsQaStakeholder<QA>,
 							QATD extends UtilsQaTestDiscussion<STAFF,QAT>,
 							QATI extends UtilsQaTestInfo<QATC>,
-							QATC extends UtilsStatus<QATC,L2,D2>,
-							QATS extends UtilsStatus<QATS,L2,D2>,
-							QARS extends UtilsStatus<QARS,L2,D2>,
-							QAUS extends UtilsStatus<QAUS,L2,D2>>
+							QATC extends JeeslStatus<QATC,L2,D2>,
+							QATS extends JeeslStatus<QATS,L2,D2>,
+							QARS extends JeeslStatus<QARS,L2,D2>,
+							QAUS extends JeeslStatus<QAUS,L2,D2>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlTestFactory.class);
 		

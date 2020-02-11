@@ -3,12 +3,12 @@ package net.sf.ahtutils.interfaces.model.qa;
 import java.io.Serializable;
 import java.util.List;
 
+import org.jeesl.interfaces.model.marker.jpa.EjbPersistable;
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.interfaces.model.system.security.util.JeeslStaff;
 
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.crud.EjbPersistable;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface UtilsQaStaff<

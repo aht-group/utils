@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jeesl.factory.xml.system.lang.XmlLangsFactory;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.status.Area;
 import net.sf.ahtutils.xml.status.Status;
 
-public class XmlAreaFactory<S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription>
+public class XmlAreaFactory<S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlAreaFactory.class);
 	

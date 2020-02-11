@@ -20,6 +20,8 @@ import org.jeesl.controller.report.JeeslReportUpdater;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.exception.processing.UtilsConfigurationException;
+import org.jeesl.exception.processing.UtilsProcessingException;
 import org.jeesl.factory.builder.system.ReportFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.report.EjbIoReportColumnFactory;
 import org.jeesl.factory.ejb.system.io.report.EjbIoReportColumnGroupFactory;
@@ -44,6 +46,9 @@ import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 import org.jeesl.interfaces.web.JeeslJsfSecurityHandler;
 import org.jeesl.util.comparator.ejb.system.io.report.IoReportColumnComparator;
@@ -55,11 +60,6 @@ import org.jeesl.util.query.xml.system.io.XmlReportQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
-import net.sf.ahtutils.exception.processing.UtilsProcessingException;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.jsf.util.PositionListReorderer;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
@@ -67,10 +67,10 @@ import net.sf.ahtutils.xml.report.Report;
 import net.sf.ahtutils.xml.report.Reports;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-public class AbstractAdminIoReportDefinitionBean <L extends UtilsLang,D extends UtilsDescription,LOC extends JeeslLocale<L,D,LOC,?>,
-						CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+public class AbstractAdminIoReportDefinitionBean <L extends JeeslLang,D extends JeeslDescription,LOC extends JeeslLocale<L,D,LOC,?>,
+						CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 						REPORT extends JeeslIoReport<L,D,CATEGORY,WORKBOOK>,
-						IMPLEMENTATION extends UtilsStatus<IMPLEMENTATION,L,D>,
+						IMPLEMENTATION extends JeeslStatus<IMPLEMENTATION,L,D>,
 						WORKBOOK extends JeeslReportWorkbook<REPORT,SHEET>,
 						SHEET extends JeeslReportSheet<L,D,IMPLEMENTATION,WORKBOOK,GROUP,ROW>,
 						GROUP extends JeeslReportColumnGroup<L,D,SHEET,COLUMN,STYLE>,
@@ -79,15 +79,15 @@ public class AbstractAdminIoReportDefinitionBean <L extends UtilsLang,D extends 
 						TEMPLATE extends JeeslReportTemplate<L,D,CELL>,
 						CELL extends JeeslReportCell<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS>,
 						STYLE extends JeeslReportStyle<L,D>,
-						CDT extends UtilsStatus<CDT,L,D>,
-						CW extends UtilsStatus<CW,L,D>,
-						RT extends UtilsStatus<RT,L,D>,
+						CDT extends JeeslStatus<CDT,L,D>,
+						CW extends JeeslStatus<CW,L,D>,
+						RT extends JeeslStatus<RT,L,D>,
 						ENTITY extends EjbWithId,
 						ATTRIBUTE extends EjbWithId,
 						TL extends JeeslTrafficLight<L,D,TLS>,
-						TLS extends UtilsStatus<TLS,L,D>,
-						FILLING extends UtilsStatus<FILLING,L,D>,
-						TRANSFORMATION extends UtilsStatus<TRANSFORMATION,L,D>,
+						TLS extends JeeslStatus<TLS,L,D>,
+						FILLING extends JeeslStatus<FILLING,L,D>,
+						TRANSFORMATION extends JeeslStatus<TRANSFORMATION,L,D>,
 						RCAT extends JeeslRevisionCategory<L,D,RCAT,?>,	
 						RE extends JeeslRevisionEntity<L,D,RCAT,?,RA,?>,
 						RA extends JeeslRevisionAttribute<L,D,RE,?,CDT>

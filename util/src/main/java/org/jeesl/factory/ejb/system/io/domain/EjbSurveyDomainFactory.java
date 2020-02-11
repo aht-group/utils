@@ -4,13 +4,12 @@ import java.util.List;
 
 import org.jeesl.interfaces.model.system.io.domain.JeeslDomain;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public class EjbSurveyDomainFactory<L extends UtilsLang, D extends UtilsDescription,	
+public class EjbSurveyDomainFactory<L extends JeeslLang, D extends JeeslDescription,	
 				DOMAIN extends JeeslDomain<L,DENTITY>,
 				DENTITY extends JeeslRevisionEntity<L,D,?,?,?,?>>
 {

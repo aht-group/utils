@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveySection;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jsoup.helper.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public class TxtSurveySectionFactory <L extends UtilsLang, D extends UtilsDescription, SECTION extends JeeslSurveySection<L,D,?,SECTION,?>>
+public class TxtSurveySectionFactory <L extends JeeslLang, D extends JeeslDescription, SECTION extends JeeslSurveySection<L,D,?,SECTION,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(TxtSurveySectionFactory.class);
 		

@@ -10,12 +10,11 @@ import java.util.Map;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.interfaces.facade.JeeslFacade;
+import org.jeesl.interfaces.model.with.position.EjbWithPosition;
+import org.jeesl.interfaces.model.with.position.EjbWithPositionParent;
 import org.jeesl.util.comparator.ejb.PositionComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.interfaces.model.with.position.EjbWithPosition;
-import net.sf.ahtutils.interfaces.model.with.position.EjbWithPositionParent;
 
 public class PositionListReorderer 
 {

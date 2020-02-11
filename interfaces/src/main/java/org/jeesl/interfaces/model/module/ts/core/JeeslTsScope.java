@@ -3,26 +3,26 @@ package org.jeesl.interfaces.model.module.ts.core;
 import java.io.Serializable;
 import java.util.List;
 
-import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
+import org.jeesl.interfaces.model.with.position.EjbWithPositionParent;
+import org.jeesl.interfaces.model.with.position.EjbWithPositionVisibleParent;
 
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-import net.sf.ahtutils.interfaces.model.with.parent.EjbWithParentAttributeResolver;
-import net.sf.ahtutils.interfaces.model.with.position.EjbWithPositionParent;
-import net.sf.ahtutils.interfaces.model.with.position.EjbWithPositionVisibleParent;
 import net.sf.ahtutils.model.interfaces.with.EjbWithDescription;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 
-public interface JeeslTsScope <L extends UtilsLang, D extends UtilsDescription,
-									CAT extends UtilsStatus<CAT,L,D>,
-									ST extends UtilsStatus<ST,L,D>,
-									UNIT extends UtilsStatus<UNIT,L,D>,
+public interface JeeslTsScope <L extends JeeslLang, D extends JeeslDescription,
+									CAT extends JeeslStatus<CAT,L,D>,
+									ST extends JeeslStatus<ST,L,D>,
+									UNIT extends JeeslStatus<UNIT,L,D>,
 									EC extends JeeslTsEntityClass<L,D,CAT>,
-									INT extends UtilsStatus<INT,L,D>
+									INT extends JeeslStatus<INT,L,D>
 //									,AS extends JeeslAttributeSet<L,D,?,?>
 									>
 		extends Serializable,EjbWithId,EjbSaveable,EjbRemoveable,EjbWithCode,

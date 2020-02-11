@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.facade.JeeslFacade;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
@@ -15,12 +17,10 @@ import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.interfaces.model.system.security.util.JeeslStaff;
 import org.jeesl.interfaces.model.system.security.with.JeeslSecurityWithCategory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.util.UtilsStaffPool;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface JeeslSecurityFacade <L extends UtilsLang, D extends UtilsDescription,
+public interface JeeslSecurityFacade <L extends JeeslLang, D extends JeeslDescription,
 										C extends JeeslSecurityCategory<L,D>,
 										R extends JeeslSecurityRole<L,D,C,V,U,A,USER>,
 										V extends JeeslSecurityView<L,D,C,R,U,A>,

@@ -3,16 +3,16 @@ package org.jeesl.interfaces.model.module.survey.data;
 import java.io.Serializable;
 import java.util.List;
 
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyOption;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestion;
 import org.jeesl.interfaces.model.module.survey.simple.JeeslSurveySimpleAnswer;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface JeeslSurveyAnswer<L extends UtilsLang, D extends UtilsDescription,
+public interface JeeslSurveyAnswer<L extends JeeslLang, D extends JeeslDescription,
 									QUESTION extends JeeslSurveyQuestion<L,D,?,?,?,?,?,?,?,OPTION,?>,
 									MATRIX extends JeeslSurveyMatrix<L,D,?,OPTION>,
 									DATA extends JeeslSurveyData<L,D,?,?,?>,

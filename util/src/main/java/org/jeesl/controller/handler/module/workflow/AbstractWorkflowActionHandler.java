@@ -12,6 +12,7 @@ import org.jeesl.exception.JeeslWorkflowException;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.exception.processing.UtilsProcessingException;
 import org.jeesl.interfaces.controller.handler.module.workflow.JeeslWorkflowActionCallback;
 import org.jeesl.interfaces.controller.handler.module.workflow.JeeslWorkflowActionHandler;
 import org.jeesl.interfaces.controller.handler.module.workflow.JeeslWorkflowActionsHandler;
@@ -27,7 +28,6 @@ import org.jeesl.util.comparator.pojo.BooleanComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.processing.UtilsProcessingException;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 

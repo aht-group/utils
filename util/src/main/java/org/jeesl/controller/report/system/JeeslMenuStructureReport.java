@@ -11,6 +11,8 @@ import org.jeesl.factory.xml.system.navigation.XmlMenuItemFactory;
 import org.jeesl.factory.xml.system.security.XmlSecurityFactory;
 import org.jeesl.factory.xml.system.security.XmlViewFactory;
 import org.jeesl.factory.xml.system.util.text.XmlDescriptionFactory;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
@@ -25,12 +27,10 @@ import org.jeesl.util.comparator.ejb.system.security.SecurityViewComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.xml.security.Security;
 
-public class JeeslMenuStructureReport <L extends UtilsLang,
-								D extends UtilsDescription,
+public class JeeslMenuStructureReport <L extends JeeslLang,
+								D extends JeeslDescription,
 								C extends JeeslSecurityCategory<L,D>,
 								R extends JeeslSecurityRole<L,D,C,V,U,A,USER>,
 								V extends JeeslSecurityView<L,D,C,R,U,A>,

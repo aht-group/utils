@@ -18,6 +18,10 @@ import org.jeesl.interfaces.model.module.bb.post.JeeslBbPost;
 import org.jeesl.interfaces.model.module.bb.post.JeeslBbThread;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.with.text.EjbWithEmail;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.primefaces.event.NodeCollapseEvent;
 import org.primefaces.event.NodeExpandEvent;
@@ -27,17 +31,13 @@ import org.primefaces.model.TreeNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public class AbstractBbPostBean <L extends UtilsLang,D extends UtilsDescription,
-									SCOPE extends UtilsStatus<SCOPE,L,D>,
+public class AbstractBbPostBean <L extends JeeslLang,D extends JeeslDescription,
+									SCOPE extends JeeslStatus<SCOPE,L,D>,
 									BB extends JeeslBbBoard<L,D,SCOPE,BB,PUB,USER>,
-									PUB extends UtilsStatus<PUB,L,D>,
+									PUB extends JeeslStatus<PUB,L,D>,
 									THREAD extends JeeslBbThread<BB>,
 									POST extends JeeslBbPost<THREAD,M,MT,USER>,
 									M extends JeeslMarkup<MT>,

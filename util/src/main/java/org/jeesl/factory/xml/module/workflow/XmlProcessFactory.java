@@ -18,16 +18,15 @@ import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStagePermis
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStageType;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransitionType;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.model.xml.jeesl.QueryWf;
 import org.jeesl.util.comparator.ejb.PositionComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public class XmlProcessFactory<L extends UtilsLang, D extends UtilsDescription,
+public class XmlProcessFactory<L extends JeeslLang, D extends JeeslDescription,
 								WX extends JeeslWorkflowContext<L,D,WX,?>,
 								WP extends JeeslWorkflowProcess<L,D,WX,WS>,
 								WS extends JeeslWorkflowStage<L,D,WP,WST,WSP,WT,?>,

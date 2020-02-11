@@ -7,10 +7,10 @@ import java.util.NoSuchElementException;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.lang.WordUtils;
 import org.jdom2.Document;
+import org.jeesl.interfaces.controller.db.UtilsDbShell;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.db.UtilsDbShell;
 import net.sf.exlp.exception.ExlpUnsupportedOsException;
 import net.sf.exlp.factory.xml.config.XmlParameterFactory;
 import net.sf.exlp.factory.xml.config.XmlParametersFactory;

@@ -1,5 +1,7 @@
 package org.jeesl.api.bean;
 
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
@@ -8,10 +10,7 @@ import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.jeesl.interfaces.model.system.security.user.JeeslIdentity;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public interface JeeslMenuBean<L extends UtilsLang, D extends UtilsDescription, 
+public interface JeeslMenuBean<L extends JeeslLang, D extends JeeslDescription, 
 								R extends JeeslSecurityRole<L,D,?,V,U,A,USER>,
 								V extends JeeslSecurityView<L,D,?,R,U,A>,
 								U extends JeeslSecurityUsecase<L,D,?,R,V,A>,

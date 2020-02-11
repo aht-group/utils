@@ -1,0 +1,45 @@
+package org.jeesl.web.mbean.prototype.system.io.ssi;
+
+import java.io.Serializable;
+import java.util.List;
+
+import org.jeesl.api.facade.io.JeeslIoSsiFacade;
+import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
+import org.jeesl.interfaces.facade.JeeslFacade;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiCleaning;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiLink;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class AbstractSsiCacheBean <L extends JeeslLang,D extends JeeslDescription,
+										LINK extends JeeslIoSsiLink<L,D,LINK,?>,
+										CLEANING extends JeeslIoSsiCleaning<L,D,CLEANING,?>>
+						implements Serializable
+{
+	private static final long serialVersionUID = 1L;
+	final static Logger logger = LoggerFactory.getLogger(AbstractSsiCacheBean.class);
+	
+	private final IoSsiFactoryBuilder<L,D,?,?,?,?,LINK,?,CLEANING> fbSsi;
+	
+	public AbstractSsiCacheBean(final IoSsiFactoryBuilder<L,D,?,?,?,?,LINK,?,CLEANING> fbSsi)
+	{
+		this.fbSsi=fbSsi;
+
+	}
+
+	public void postConstructSsiCache(JeeslIoSsiFacade<L,D,?,?,?,?,LINK,?> fSsi)
+	{
+		reloadLinks(fSsi);
+		reloadCleanings(fSsi);
+	}
+
+	private List<LINK> links;
+	public List<LINK> getLinks() {return links;}
+	public void reloadLinks(JeeslFacade facade) {links = facade.allOrderedPositionVisible(fbSsi.getClassLink());}
+	
+	private List<CLEANING> cleanings;
+	public List<CLEANING> getCleanings() {return cleanings;}
+	public void reloadCleanings(JeeslFacade facade) {cleanings = facade.allOrderedPositionVisible(fbSsi.getClassCleaning());}
+}

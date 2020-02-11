@@ -6,23 +6,24 @@ import org.jeesl.factory.ejb.system.io.ssi.data.EjbIoSsiDataFactory;
 import org.jeesl.factory.ejb.system.io.ssi.data.EjbIoSsiSystemFactory;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiAttribute;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiCleaning;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiData;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiLink;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public class IoSsiFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
+public class IoSsiFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 								SYSTEM extends JeeslIoSsiSystem,
 								MAPPING extends JeeslIoSsiMapping<SYSTEM,ENTITY>,
 								ATTRIBUTE extends JeeslIoSsiAttribute<MAPPING,ENTITY>,
 								DATA extends JeeslIoSsiData<MAPPING,LINK>,
-								LINK extends UtilsStatus<LINK,L,D>,
-								ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>>
+								LINK extends JeeslIoSsiLink<L,D,LINK,?>,
+								ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>,
+								CLEANING extends JeeslIoSsiCleaning<L,D,CLEANING,?>>
 		extends AbstractFactoryBuilder<L,D>
 {
 	final static Logger logger = LoggerFactory.getLogger(IoSsiFactoryBuilder.class);
@@ -33,10 +34,12 @@ public class IoSsiFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 	private final Class<DATA> cData; public Class<DATA> getClassData(){return cData;}
 	private final Class<LINK> cLink; public Class<LINK> getClassLink(){return cLink;}
 	private final Class<ENTITY> cEntity; public Class<ENTITY> getClassEntity(){return cEntity;}
+	private final Class<CLEANING> cCleaning; public Class<CLEANING> getClassCleaning(){return cCleaning;}
 	
 	public IoSsiFactoryBuilder(final Class<L> cL, final Class<D> cD,
 								final Class<SYSTEM> cSystem, final Class<MAPPING> cMapping, final Class<ATTRIBUTE> cAttribute,
-								final Class<DATA> cData, final Class<LINK> cLink, final Class<ENTITY> cEntity)
+								final Class<DATA> cData, final Class<LINK> cLink, final Class<ENTITY> cEntity,
+								final Class<CLEANING> cCleaning)
 	{
 		super(cL,cD);
 		this.cSystem=cSystem;
@@ -45,6 +48,7 @@ public class IoSsiFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 		this.cData=cData;
 		this.cLink=cLink;
 		this.cEntity=cEntity;
+		this.cCleaning=cCleaning;
 	}
 	
 	public EjbIoSsiSystemFactory<SYSTEM> ejbSystem() {return new EjbIoSsiSystemFactory<>(cSystem);}

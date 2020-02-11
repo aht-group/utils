@@ -8,18 +8,18 @@ import java.util.List;
 
 import org.jeesl.api.facade.io.JeeslIoJcrFacade;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.exception.processing.UtilsProcessingException;
 import org.jeesl.interfaces.bean.JcrBean;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.processing.UtilsProcessingException;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.exlp.xml.io.File;
 
-public class JcrFileHandler<L extends UtilsLang,D extends UtilsDescription, T extends UtilsStatus<T,L,D>> implements Serializable
+public class JcrFileHandler<L extends JeeslLang,D extends JeeslDescription, T extends JeeslStatus<T,L,D>> implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(JcrFileHandler.class);

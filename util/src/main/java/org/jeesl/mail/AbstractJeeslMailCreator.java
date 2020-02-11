@@ -1,7 +1,6 @@
 package org.jeesl.mail;
 
-import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
-
+import org.jeesl.exception.processing.UtilsConfigurationException;
 import org.jeesl.model.xml.system.io.mail.EmailAddress;
 import org.jeesl.model.xml.system.io.mail.From;
 import org.jeesl.model.xml.system.io.mail.Header;

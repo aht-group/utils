@@ -1,17 +1,17 @@
 package net.sf.ahtutils.controller.factory.ejb.acl;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryGroup;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclCategoryUsecase;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclGroup;
 import net.sf.ahtutils.model.interfaces.acl.UtilsAclView;
 
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbAclGroupFactory<L extends UtilsLang,
-				D extends UtilsDescription, 
+public class EjbAclGroupFactory<L extends JeeslLang,
+				D extends JeeslDescription, 
 				CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
 				CR extends UtilsAclCategoryGroup<L,D,CU,CR,U,R>,
 				U extends UtilsAclView<L,D,CU,U>,
@@ -26,8 +26,8 @@ public class EjbAclGroupFactory<L extends UtilsLang,
 	 final Class<U> clUsecase;
 	 final Class<R> clRole;
 	
-    public static <L extends UtilsLang,
-					D extends UtilsDescription,
+    public static <L extends JeeslLang,
+					D extends JeeslDescription,
 					CU extends UtilsAclCategoryUsecase<L,D,CU,U>,
 					CR extends UtilsAclCategoryGroup<L,D,CU,CR,U,R>,
 					U extends UtilsAclView<L,D,CU,U>,

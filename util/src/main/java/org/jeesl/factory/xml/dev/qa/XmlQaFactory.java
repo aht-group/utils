@@ -3,6 +3,9 @@ package org.jeesl.factory.xml.dev.qa;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityUsecase;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
@@ -22,13 +25,10 @@ import net.sf.ahtutils.interfaces.model.qa.UtilsQaTestDiscussion;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaTestInfo;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQaUsability;
 import net.sf.ahtutils.interfaces.model.qa.UtilsQualityAssurarance;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.qa.Qa;
 
-public class XmlQaFactory<L extends UtilsLang,
-D extends UtilsDescription,
+public class XmlQaFactory<L extends JeeslLang,
+D extends JeeslDescription,
 C extends JeeslSecurityCategory<L,D>,
 R extends JeeslSecurityRole<L,D,C,V,U,A,USER>,
 V extends JeeslSecurityView<L,D,C,R,U,A>,
@@ -48,10 +48,10 @@ QAR extends UtilsQaResult<STAFF,QAT,QARS>,
 QASH extends UtilsQaStakeholder<QA>,
 QATD extends UtilsQaTestDiscussion<STAFF,QAT>,
 QATI extends UtilsQaTestInfo<QATC>,
-QATC extends UtilsStatus<QATC,L,D>,
-QATS extends UtilsStatus<QATS,L,D>,
-QARS extends UtilsStatus<QARS,L,D>,
-QAUS extends UtilsStatus<QAUS,L,D>>
+QATC extends JeeslStatus<QATC,L,D>,
+QATS extends JeeslStatus<QATS,L,D>,
+QARS extends JeeslStatus<QARS,L,D>,
+QAUS extends JeeslStatus<QAUS,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlQaFactory.class);
 		

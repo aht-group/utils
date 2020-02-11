@@ -16,14 +16,13 @@ import org.jeesl.interfaces.model.system.job.JeeslJobRobot;
 import org.jeesl.interfaces.model.system.job.JeeslJobStatus;
 import org.jeesl.interfaces.model.system.job.JeeslJobTemplate;
 import org.jeesl.interfaces.model.system.job.JeeslJobType;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.with.text.EjbWithEmail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
-
-public class JobFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
+public class JobFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 								TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY,EXPIRE>,
 								CATEGORY extends JeeslJobCategory<L,D,CATEGORY,?>,
 								TYPE extends JeeslJobType<L,D,TYPE,?>,

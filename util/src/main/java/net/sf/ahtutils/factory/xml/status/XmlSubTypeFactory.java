@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jeesl.factory.xml.system.lang.XmlLangsFactory;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.ahtutils.xml.status.SubType;
 
@@ -27,8 +27,8 @@ public class XmlSubTypeFactory
 		this.q=q;
 	}
 	
-	public <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription> SubType build(S ejb){return build(ejb,null);}
-	public <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription> SubType build(S ejb, String group)
+	public <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription> SubType build(S ejb){return build(ejb,null);}
+	public <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription> SubType build(S ejb, String group)
 	{
 		SubType xml = new SubType();
 		if(q.isSetId()){xml.setId(ejb.getId());}

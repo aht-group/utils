@@ -9,12 +9,12 @@ import org.jeesl.interfaces.model.module.log.JeeslLogConfidentiality;
 import org.jeesl.interfaces.model.module.log.JeeslLogImpact;
 import org.jeesl.interfaces.model.module.log.JeeslLogItem;
 import org.jeesl.interfaces.model.module.log.JeeslLogScope;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface JeeslLogFacade <L extends UtilsLang, D extends UtilsDescription,
+public interface JeeslLogFacade <L extends JeeslLang, D extends JeeslDescription,
 									BOOK extends JeeslLogBook<SCOPE,ITEM>,
 									SCOPE extends JeeslLogScope<L,D,SCOPE,?>,
 									ITEM extends JeeslLogItem<L,D,?,?,BOOK,IMPACT,CONF,USER>,

@@ -2,6 +2,7 @@ package org.jeesl.doc.ofx.constraints;
 
 import org.apache.commons.configuration.Configuration;
 import org.jeesl.doc.ofx.OfxMultiLangFactory;
+import org.jeesl.exception.processing.UtilsConfigurationException;
 import org.jeesl.model.xml.jeesl.Container;
 import org.openfuxml.content.layout.Layout;
 import org.openfuxml.content.media.Image;
@@ -24,7 +25,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.doc.ofx.AbstractUtilsOfxDocumentationFactory;
-import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.status.Translations;
 import net.sf.ahtutils.xml.system.Constraint;
 import net.sf.ahtutils.xml.system.ConstraintScope;

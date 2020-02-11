@@ -4,18 +4,19 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
-import net.sf.ahtutils.interfaces.model.with.code.EjbWithNonUniqueCode;
-import net.sf.ahtutils.interfaces.model.with.parent.EjbWithParentAttributeResolver;
+import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.with.code.EjbWithNonUniqueCode;
+import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
+import org.jeesl.interfaces.model.with.text.EjbWithEmail;
+
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface JeeslJob<TEMPLATE extends JeeslJobTemplate<?,?,?,?,?,?>,
-							PRIORITY extends UtilsStatus<PRIORITY,?,?>,
+							PRIORITY extends JeeslStatus<PRIORITY,?,?>,
 							FEEDBACK extends JeeslJobFeedback<?,?,USER>,
-							STATUS extends UtilsStatus<STATUS,?,?>,
+							STATUS extends JeeslStatus<STATUS,?,?>,
 							USER extends EjbWithEmail>
 		extends Serializable,EjbWithId,EjbSaveable,EjbRemoveable,EjbWithNonUniqueCode,EjbWithParentAttributeResolver
 {	

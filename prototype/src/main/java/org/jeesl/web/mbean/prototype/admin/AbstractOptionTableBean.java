@@ -18,6 +18,7 @@ import org.jeesl.api.rest.JeeslExportRest;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.exception.processing.UtilsConfigurationException;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.factory.builder.system.StatusFactoryBuilder;
 import org.jeesl.factory.builder.system.SvgFactoryBuilder;
@@ -25,19 +26,31 @@ import org.jeesl.factory.ejb.system.status.EjbStatusFactory;
 import org.jeesl.factory.ejb.system.symbol.EjbGraphicFactory;
 import org.jeesl.factory.ejb.system.symbol.EjbGraphicFigureFactory;
 import org.jeesl.interfaces.facade.JeeslFacade;
+import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicStyle;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicType;
 import org.jeesl.interfaces.model.system.graphic.with.EjbWithCodeGraphic;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatusWithSymbol;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatusWithImage;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatusFixedCode;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRest;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDescription;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 import org.jeesl.interfaces.model.system.option.JeeslOptionUploadable;
-import org.jeesl.interfaces.model.system.with.EjbWithGraphic;
-import org.jeesl.interfaces.model.system.with.EjbWithGraphicFigure;
-import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.graphic.EjbWithGraphic;
+import org.jeesl.interfaces.model.with.graphic.EjbWithGraphicFigure;
+import org.jeesl.interfaces.model.with.graphic.EjbWithImage;
+import org.jeesl.interfaces.model.with.graphic.EjbWithImageAlt;
+import org.jeesl.interfaces.model.with.parent.EjbWithParent;
+import org.jeesl.interfaces.model.with.position.EjbWithPosition;
 import org.jeesl.interfaces.web.JeeslJsfSecurityHandler;
 import org.jeesl.model.xml.jeesl.Container;
 import org.jeesl.model.xml.system.revision.Entity;
@@ -48,19 +61,6 @@ import org.primefaces.model.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatusFixedCode;
-import net.sf.ahtutils.interfaces.model.status.UtilsWithImage;
-import net.sf.ahtutils.interfaces.model.status.UtilsWithSymbol;
-import net.sf.ahtutils.interfaces.model.with.image.EjbWithImage;
-import net.sf.ahtutils.interfaces.model.with.image.EjbWithImageAlt;
-import net.sf.ahtutils.interfaces.model.with.parent.EjbWithParent;
-import net.sf.ahtutils.interfaces.model.with.position.EjbWithPosition;
 import net.sf.ahtutils.jsf.util.PositionListReorderer;
 import net.sf.ahtutils.model.interfaces.with.EjbWithDescription;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
@@ -70,9 +70,9 @@ import net.sf.ahtutils.xml.sync.DataUpdate;
 import net.sf.exlp.util.io.StringUtil;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-public class AbstractOptionTableBean <L extends UtilsLang, D extends UtilsDescription, LOC extends UtilsStatus<LOC,L,D>,
-										G extends JeeslGraphic<L,D,GT,F,FS>, GT extends UtilsStatus<GT,L,D>,
-										F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends UtilsStatus<FS,L,D>,
+public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
+										G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslStatus<GT,L,D>,
+										F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>,
 										RE extends JeeslRevisionEntity<L,D,?,?,?,?>
 >
 			extends AbstractAdminBean<L,D>
@@ -181,9 +181,9 @@ public class AbstractOptionTableBean <L extends UtilsLang, D extends UtilsDescri
 		supportsUpload = JeeslOptionUploadable.class.isAssignableFrom(cl);
 		supportsDownload = JeeslOptionRestDownload.class.isAssignableFrom(cl);
 		supportsDescription = JeeslOptionRestDescription.class.isAssignableFrom(cl);
-		supportsImage = UtilsWithImage.class.isAssignableFrom(cl);
+		supportsImage = JeeslStatusWithImage.class.isAssignableFrom(cl);
 		supportsGraphic = EjbWithGraphic.class.isAssignableFrom(cl);
-		supportsSymbol = UtilsWithSymbol.class.isAssignableFrom(cl);
+		supportsSymbol = JeeslStatusWithSymbol.class.isAssignableFrom(cl);
 		supportsFigure = EjbWithGraphicFigure.class.isAssignableFrom(cl);
 	}
 	
@@ -321,11 +321,11 @@ public class AbstractOptionTableBean <L extends UtilsLang, D extends UtilsDescri
 		
 		uiAllowCode = hasDeveloperAction || hasAdministratorAction;
 		if(hasDeveloperAction){uiAllowCode=true;}
-		else if(status instanceof UtilsStatusFixedCode)
+		else if(status instanceof JeeslStatusFixedCode)
 		{
-			for(String fixed : ((UtilsStatusFixedCode)status).getFixedCodes())
+			for(String fixed : ((JeeslStatusFixedCode)status).getFixedCodes())
 			{
-				if(fixed.equals(((UtilsStatus)status).getCode()))
+				if(fixed.equals(((JeeslStatus)status).getCode()))
 				{
 					uiAllowCode=false;
 				}
@@ -471,12 +471,12 @@ public class AbstractOptionTableBean <L extends UtilsLang, D extends UtilsDescri
 	
 	//JEESL REST DATA
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public <X extends JeeslOptionRest, S extends UtilsStatus, W extends EjbWithCodeGraphic<G>> void downloadData() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UtilsConfigurationException
+	public <X extends JeeslOptionRest, S extends JeeslStatus, W extends EjbWithCodeGraphic<G>> void downloadData() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UtilsConfigurationException
 	{
 		logger.info("Downloading REST");
 		
 		Class<X> cX = (Class<X>)Class.forName(((EjbWithImage)category).getImage()).asSubclass(JeeslOptionRest.class);
-		Class<S> cS = (Class<S>)Class.forName(((EjbWithImage)category).getImage()).asSubclass(UtilsStatus.class);
+		Class<S> cS = (Class<S>)Class.forName(((EjbWithImage)category).getImage()).asSubclass(JeeslStatus.class);
 		Class<W> cW = (Class<W>)Class.forName(((EjbWithImage)category).getImage()).asSubclass(EjbWithCodeGraphic.class);
 		X x = cX.newInstance();
 		

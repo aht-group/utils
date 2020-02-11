@@ -5,21 +5,20 @@ import java.util.List;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsMultiPoint;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsScope;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public class EjbTsMutliPointFactory<L extends UtilsLang, D extends UtilsDescription,
-									CAT extends UtilsStatus<CAT,L,D>,
+public class EjbTsMutliPointFactory<L extends JeeslLang, D extends JeeslDescription,
+									CAT extends JeeslStatus<CAT,L,D>,
 									SCOPE extends JeeslTsScope<L,D,CAT,ST,UNIT,EC,INT>,
-									ST extends UtilsStatus<ST,L,D>,
-									UNIT extends UtilsStatus<UNIT,L,D>,
+									ST extends JeeslStatus<ST,L,D>,
+									UNIT extends JeeslStatus<UNIT,L,D>,
 									MP extends JeeslTsMultiPoint<L,D,SCOPE,UNIT>,
 									EC extends JeeslTsEntityClass<L,D,CAT>,
-									INT extends UtilsStatus<INT,L,D>
+									INT extends JeeslStatus<INT,L,D>
 									>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbTsMutliPointFactory.class);

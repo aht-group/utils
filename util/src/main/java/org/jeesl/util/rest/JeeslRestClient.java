@@ -2,6 +2,7 @@ package org.jeesl.util.rest;
 
 import java.io.IOException;
 
+import org.apache.commons.lang.mutable.MutableInt;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
@@ -52,12 +53,36 @@ public class JeeslRestClient
 	
 	public <T extends Object> T json(Class<T> c, String url) throws ClientProtocolException, IOException
 	{
-		HttpGet httpget = new HttpGet(url);
+//		return json(1,c,url);
+		HttpGet httpGet = new HttpGet(url);
+		HttpResponse httpRespnse = client.execute(httpGet,context);
+		return JsonUtil.read(EntityUtils.toString(httpRespnse.getEntity(),"UTF-8"),c);
+	}
+	
+	private <T extends Object> T json(int counter, Class<T> c, String url) throws ClientProtocolException, IOException
+	{
+		HttpGet httpGet = new HttpGet(url);
 		
-		HttpResponse httpresponse = client.execute(httpget,context);
-//		logger.info(EntityUtils.toString(httpresponse.getEntity()));
-//		System.out.println(EntityUtils.toString(httpresponse.getEntity(),"UTF-8"));
-		
-		return JsonUtil.read(EntityUtils.toString(httpresponse.getEntity(),"UTF-8"),c);
+		logger.info("Excecuting");
+		HttpResponse httpRespnse = client.execute(httpGet,context);
+		logger.info("Status Code "+httpRespnse.getStatusLine().getStatusCode()+" Attemp:"+counter);
+		if(httpRespnse.getStatusLine().getStatusCode()==502)
+		{
+			if(counter<=5)
+			{
+				try {Thread.sleep(1000*3);} catch (InterruptedException e) {e.printStackTrace();}
+				logger.info("Slept, now trying again");
+				return json(counter+1,c,url);
+			}
+			else
+			{
+				logger.info("Exception");
+				throw new ClientProtocolException("Getting a HTTP 502 (Even after "+counter+" attempt");
+			}
+		}
+		else
+		{
+			return JsonUtil.read(EntityUtils.toString(httpRespnse.getEntity(),"UTF-8"),c);
+		}		
 	}
 }

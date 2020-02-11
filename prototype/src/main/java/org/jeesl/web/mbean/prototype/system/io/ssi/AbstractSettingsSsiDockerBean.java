@@ -13,14 +13,14 @@ import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.io.ssi.docker.JeeslIoSsiHost;
 import org.jeesl.interfaces.model.system.io.ssi.docker.JeeslIoSsiInstance;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public class AbstractSettingsSsiDockerBean <L extends UtilsLang,D extends UtilsDescription,
+public class AbstractSettingsSsiDockerBean <L extends JeeslLang,D extends JeeslDescription,
 										SYSTEM extends JeeslIoSsiSystem,
 										INSTANCE extends JeeslIoSsiInstance<SYSTEM,HOST>,
 										HOST extends JeeslIoSsiHost<L,D>>

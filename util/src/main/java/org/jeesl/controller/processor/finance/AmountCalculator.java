@@ -2,11 +2,10 @@ package org.jeesl.controller.processor.finance;
 
 import java.util.List;
 
+import org.jeesl.interfaces.model.with.finance.EjbWithAmount;
+import org.jeesl.interfaces.model.with.finance.EjbWithTotalAmount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.interfaces.model.with.finance.EjbWithAmount;
-import net.sf.ahtutils.interfaces.model.with.finance.EjbWithTotalAmount;
 
 public class AmountCalculator
 {

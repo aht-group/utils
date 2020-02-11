@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 
 import org.jeesl.api.facade.module.JeeslMonitoringFacade;
 import org.jeesl.controller.monitoring.result.net.IcmpResult;
+import org.jeesl.exception.processing.UtilsProcessingException;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.joda.time.MutableDateTime;
@@ -15,7 +16,6 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.bootstrap.UtilsMonitorBootstrap;
 import net.sf.ahtutils.controller.facade.UtilsMonitoringFacadeBean;
-import net.sf.ahtutils.exception.processing.UtilsProcessingException;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 import net.sf.ahtutils.monitor.factory.TransmissionFactory;
 import net.sf.ahtutils.monitor.factory.net.TxIcmpFactory;

@@ -20,20 +20,20 @@ import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionViewMappi
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntityMapping;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public class AbstractReportSelectorBean <L extends UtilsLang,D extends UtilsDescription,
-										CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+public class AbstractReportSelectorBean <L extends JeeslLang,D extends JeeslDescription,
+										CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 										REPORT extends JeeslIoReport<L,D,CATEGORY,WORKBOOK>,
-										IMPLEMENTATION extends UtilsStatus<IMPLEMENTATION,L,D>,
+										IMPLEMENTATION extends JeeslStatus<IMPLEMENTATION,L,D>,
 										WORKBOOK extends JeeslReportWorkbook<REPORT,SHEET>,
 										SHEET extends JeeslReportSheet<L,D,IMPLEMENTATION,WORKBOOK,GROUP,ROW>,
 										GROUP extends JeeslReportColumnGroup<L,D,SHEET,COLUMN,STYLE>,
@@ -42,20 +42,20 @@ public class AbstractReportSelectorBean <L extends UtilsLang,D extends UtilsDesc
 										TEMPLATE extends JeeslReportTemplate<L,D,CELL>,
 										CELL extends JeeslReportCell<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS>,
 										STYLE extends JeeslReportStyle<L,D>,
-										CDT extends UtilsStatus<CDT,L,D>,
-										CW extends UtilsStatus<CW,L,D>,
-										RT extends UtilsStatus<RT,L,D>,
+										CDT extends JeeslStatus<CDT,L,D>,
+										CW extends JeeslStatus<CW,L,D>,
+										RT extends JeeslStatus<RT,L,D>,
 										ENTITY extends EjbWithId,
 										ATTRIBUTE extends EjbWithId,
 										TL extends JeeslTrafficLight<L,D,TLS>,
-										TLS extends UtilsStatus<TLS,L,D>,
-										FILLING extends UtilsStatus<FILLING,L,D>,
-										TRANSFORMATION extends UtilsStatus<TRANSFORMATION,L,D>,
+										TLS extends JeeslStatus<TLS,L,D>,
+										FILLING extends JeeslStatus<FILLING,L,D>,
+										TRANSFORMATION extends JeeslStatus<TRANSFORMATION,L,D>,
 										RC extends JeeslRevisionCategory<L,D,RC,?>,
 										RV extends JeeslRevisionView<L,D,RVM>,
 										RVM extends JeeslRevisionViewMapping<RV,RE,REM>,
 										RS extends JeeslRevisionScope<L,D,RC,RA>,
-										RST extends UtilsStatus<RST,L,D>,
+										RST extends JeeslStatus<RST,L,D>,
 										RE extends JeeslRevisionEntity<L,D,RC,REM,RA,?>,
 										REM extends JeeslRevisionEntityMapping<RS,RST,RE>,
 										RA extends JeeslRevisionAttribute<L,D,RE,?,CDT>

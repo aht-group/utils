@@ -20,18 +20,17 @@ import org.jeesl.interfaces.model.module.bb.post.JeeslBbPost;
 import org.jeesl.interfaces.model.module.bb.post.JeeslBbThread;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.with.text.EjbWithEmail;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
-
-public class JeeslBulletinBoardFacadeBean<L extends UtilsLang,D extends UtilsDescription,
-										SCOPE extends UtilsStatus<SCOPE,L,D>,
+public class JeeslBulletinBoardFacadeBean<L extends JeeslLang,D extends JeeslDescription,
+										SCOPE extends JeeslStatus<SCOPE,L,D>,
 										BB extends JeeslBbBoard<L,D,SCOPE,BB,PUB,USER>,
-										PUB extends UtilsStatus<PUB,L,D>,
+										PUB extends JeeslStatus<PUB,L,D>,
 										THREAD extends JeeslBbThread<BB>,
 										POST extends JeeslBbPost<THREAD,M,MT,USER>,
 										M extends JeeslMarkup<MT>,

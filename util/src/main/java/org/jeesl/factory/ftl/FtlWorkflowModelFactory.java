@@ -8,15 +8,15 @@ import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStage;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.exlp.util.io.StringUtil;
 
-public class FtlWorkflowModelFactory <L extends UtilsLang, D extends UtilsDescription,
+public class FtlWorkflowModelFactory <L extends JeeslLang, D extends JeeslDescription,
 										WP extends JeeslWorkflowProcess<L,D,?,WS>,
 										WS extends JeeslWorkflowStage<L,D,WP,?,?,WT,?>,
 										WT extends JeeslWorkflowTransition<L,D,WS,?,?,?>,

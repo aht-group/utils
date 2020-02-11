@@ -11,6 +11,8 @@ import org.jdom2.Content;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jeesl.controller.mail.freemarker.FreemarkerEngine;
+import org.jeesl.exception.processing.UtilsMailException;
+import org.jeesl.exception.processing.UtilsProcessingException;
 import org.jeesl.mail.msg.FreemarkerMimeContentCreator;
 import org.jeesl.mail.msg.MimeMessageCreator;
 import org.jeesl.mail.msg.XmlMimeContentCreator;
@@ -20,8 +22,6 @@ import org.jeesl.model.xml.system.io.mail.Mail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.processing.UtilsMailException;
-import net.sf.ahtutils.exception.processing.UtilsProcessingException;
 import net.sf.exlp.util.xml.JDomUtil;
 
 public class XmlMailSender extends AbstractMailSender

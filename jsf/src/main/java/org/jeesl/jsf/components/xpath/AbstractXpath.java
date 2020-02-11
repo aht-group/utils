@@ -10,10 +10,9 @@ import java.util.Map;
 import javax.faces.component.UIOutput;
 
 import org.jeesl.interfaces.model.system.io.report.JeeslReportColumn;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public abstract class AbstractXpath extends UIOutput
 {	
@@ -24,7 +23,7 @@ public abstract class AbstractXpath extends UIOutput
 	
 	@Override public boolean getRendersChildren(){return true;}
 	
-	protected SimpleDateFormat getSimpleDateFormat(JeeslReportColumn c, UtilsStatus dt)
+	protected SimpleDateFormat getSimpleDateFormat(JeeslReportColumn c, JeeslStatus dt)
 	{
 		if(mapDateFormatter==null){mapDateFormatter = new HashMap<JeeslReportColumn,SimpleDateFormat>();}
 		if(mapDateFormatter.containsKey(c)){return mapDateFormatter.get(c);}

@@ -1,15 +1,15 @@
 package org.jeesl.interfaces.model.system.io.ssi.data;
 
-import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-import net.sf.ahtutils.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface JeeslIoSsiData <MAPPING extends JeeslIoSsiMapping<?,?>,
-									LINK extends UtilsStatus<LINK,?,?>>
+									LINK extends JeeslStatus<LINK,?,?>>
 		extends EjbWithId,EjbSaveable,EjbRemoveable,EjbWithCode,EjbWithParentAttributeResolver
 {	
 	public enum Attributes{mapping,code,link,localId,refA,refB}

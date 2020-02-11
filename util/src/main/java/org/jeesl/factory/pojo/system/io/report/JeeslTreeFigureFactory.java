@@ -6,13 +6,13 @@ import java.util.List;
 import org.jeesl.factory.xml.domain.finance.XmlFiguresFactory;
 import org.jeesl.interfaces.controller.report.JeeslPivotFactory;
 import org.jeesl.interfaces.model.system.io.report.type.JeeslReportSetting;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.interfaces.controller.report.JeeslPivotAggregator;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.xml.finance.Figures;
 
@@ -22,7 +22,7 @@ public class JeeslTreeFigureFactory
 	
 	public enum Type {data,tree,transformation}
 	
-	public static <L extends UtilsLang, D extends UtilsDescription, A extends UtilsStatus<A,L,D>,TRANSFORMATION extends UtilsStatus<TRANSFORMATION,L,D>>
+	public static <L extends JeeslLang, D extends JeeslDescription, A extends JeeslStatus<A,L,D>,TRANSFORMATION extends JeeslStatus<TRANSFORMATION,L,D>>
 		Figures build(String localeCode, JeeslPivotFactory<L,D,A> pivotFactory, int lvl, List<A> aggregations, JeeslPivotAggregator dpa, List<EjbWithId> parents, JeeslReportSetting.Transformation transformation)
 	{	
 		Figures data = XmlFiguresFactory.build(Type.data);
@@ -48,7 +48,7 @@ public class JeeslTreeFigureFactory
 		return figures;
 	}
 	
-	private static <L extends UtilsLang, D extends UtilsDescription, A extends UtilsStatus<A,L,D>, TRANSFORMATION extends UtilsStatus<TRANSFORMATION,L,D>>
+	private static <L extends JeeslLang, D extends JeeslDescription, A extends JeeslStatus<A,L,D>, TRANSFORMATION extends JeeslStatus<TRANSFORMATION,L,D>>
 		List<Figures> aggregationLevel(String localeCode, JeeslPivotFactory<L,D,A> pivotFactory, int lvl, List<A> aggregations, JeeslPivotAggregator dpa, List<EjbWithId> parents, JeeslReportSetting.Transformation transformation)
 	{
 		List<Figures> list = new ArrayList<Figures>();
@@ -102,7 +102,7 @@ public class JeeslTreeFigureFactory
 		return list;
 	}
 	
-	public static <S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription>
+	public static <S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription>
 		Figures tree(String localeCode, List<S> aggregations, JeeslReportSetting.Transformation transformation)
 	{
 		int toIndex = 0;

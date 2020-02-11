@@ -1,19 +1,19 @@
 package org.jeesl.factory.ejb.system.util;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.utils.TrafficLight;
 
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.factory.ejb.system.status.EjbDescriptionFactory;
 import org.jeesl.factory.ejb.system.status.EjbLangFactory;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbTrafficLightFactory<L extends UtilsLang,D extends UtilsDescription,
-									SCOPE extends UtilsStatus<SCOPE,L,D>,
+public class EjbTrafficLightFactory<L extends JeeslLang,D extends JeeslDescription,
+									SCOPE extends JeeslStatus<SCOPE,L,D>,
 									LIGHT extends JeeslTrafficLight<L,D,SCOPE>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbTrafficLightFactory.class);
@@ -31,8 +31,8 @@ public class EjbTrafficLightFactory<L extends UtilsLang,D extends UtilsDescripti
         efDescription = EjbDescriptionFactory.factory(cDescription);
 	}
 	
-	public static <L extends UtilsLang,D extends UtilsDescription,
-					SCOPE extends UtilsStatus<SCOPE,L,D>,
+	public static <L extends JeeslLang,D extends JeeslDescription,
+					SCOPE extends JeeslStatus<SCOPE,L,D>,
 					LIGHT extends JeeslTrafficLight<L,D,SCOPE>>
 		EjbTrafficLightFactory<L,D,SCOPE,LIGHT> factory(final Class<L> cLang,final Class<D> cDescription,final Class<LIGHT> cLight)
 	{

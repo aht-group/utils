@@ -11,30 +11,30 @@ import org.jeesl.factory.ejb.system.io.ssi.data.EjbIoSsiDataFactory;
 import org.jeesl.interfaces.controller.processor.SsiMappingProcessor;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiAttribute;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiCleaning;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiData;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiLink;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public abstract class AbstractSsiDomainProcessor<L extends UtilsLang,D extends UtilsDescription,
+public abstract class AbstractSsiDomainProcessor<L extends JeeslLang,D extends JeeslDescription,
 										SYSTEM extends JeeslIoSsiSystem,
 										MAPPING extends JeeslIoSsiMapping<SYSTEM,ENTITY>,
 										ATTRIBUTE extends JeeslIoSsiAttribute<MAPPING,ENTITY>,
 										DATA extends JeeslIoSsiData<MAPPING,LINK>,
-										LINK extends UtilsStatus<LINK,L,D>,
-										ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>
+										LINK extends JeeslIoSsiLink<L,D,LINK,?>,
+										ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>,
+										CLEANING extends JeeslIoSsiCleaning<L,D,CLEANING,?>
 										>
 						implements SsiMappingProcessor<MAPPING,DATA>
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractSsiDomainProcessor.class);
 	
-	protected final IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY> fbSsi;
+	protected final IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi;
 	protected final JeeslIoSsiFacade<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY> fSsi;
 	
 	protected final EjbIoSsiDataFactory<MAPPING,DATA,LINK> efData;
@@ -47,7 +47,7 @@ public abstract class AbstractSsiDomainProcessor<L extends UtilsLang,D extends U
 	
 	protected MAPPING mapping; @Override public MAPPING getMapping() {return mapping;}
 
-	public AbstractSsiDomainProcessor(IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY> fbSsi,
+	public AbstractSsiDomainProcessor(IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi,
 									JeeslIoSsiFacade<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY> fSsi)
 	{
 		this.fSsi=fSsi;
