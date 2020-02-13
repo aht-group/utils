@@ -6,13 +6,15 @@
 	xmlns:ts="http://www.jeesl.org/timeseries"
 	xmlns:io="http://exlp.sf.net/io"
 	xmlns:jt="http://www.jeesl.org/text"
+	xmlns:jf="http://www.jeesl.org/finance"
 	xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-	<xsd:import namespace="http://ahtutils.aht-group.com/status" schemaLocation="../jeesl/status.xsd"/>
-	<xsd:import namespace="http://www.jeesl.org/symbol" schemaLocation="../jeesl/symbol.xsd"/>
-	<xsd:import namespace="http://www.jeesl.org/timeseries" schemaLocation="../jeesl/module/timeseries.xsd"/>
-	<xsd:import namespace="http://www.jeesl.org/text" schemaLocation="../jeesl/text.xsd"/>
-	 <xsd:import namespace="http://exlp.sf.net/io"			schemaLocation="../../../../../../exlp/xml/src/main/xsd/util/io.xsd"/>
+	<xsd:import namespace="http://ahtutils.aht-group.com/status"	schemaLocation="../jeesl/status.xsd"/>
+	<xsd:import namespace="http://www.jeesl.org/symbol"				schemaLocation="../jeesl/symbol.xsd"/>
+	<xsd:import namespace="http://www.jeesl.org/timeseries"			schemaLocation="../jeesl/module/timeseries.xsd"/>
+	<xsd:import namespace="http://www.jeesl.org/text"				schemaLocation="../jeesl/text.xsd"/>
+	<xsd:import namespace="http://www.jeesl.org/finance"				schemaLocation="../aht/finance.xsd"/>
+	 <xsd:import namespace="http://exlp.sf.net/io"					schemaLocation="../../../../../../exlp/xml/src/main/xsd/util/io.xsd"/>
 	<xsd:element name="reports">
 	    <xsd:complexType>
             <xsd:sequence>
@@ -240,6 +242,7 @@
                 <xsd:element ref="r:user" maxOccurs="1"/>
                 <xsd:element ref="r:footers" maxOccurs="1"/>
                 <xsd:element ref="r:labels" maxOccurs="1"/>
+                <xsd:element ref="jf:signatures" maxOccurs="1"/>
 				<xsd:element ref="io:data" maxOccurs="1"/>
             </xsd:sequence>
         </xsd:complexType>

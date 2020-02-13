@@ -21,5 +21,5 @@ public interface JeeslAomEventStatus <L extends JeeslLang, D extends JeeslDescri
 								EjbWithCodeGraphic<G>,
 								JeeslStatus<S,L,D>
 {	
-	public enum Code{planned,postponed,cancelled,performed}
+	public enum Code{planned,confirmed,postponed,cancelled,performed}
 }

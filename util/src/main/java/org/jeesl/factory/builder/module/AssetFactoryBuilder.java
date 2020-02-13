@@ -19,6 +19,7 @@ import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.util.comparator.ejb.module.asset.EjbAssetComparator;
+import org.jeesl.util.comparator.ejb.module.asset.EjbEventComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -75,4 +76,5 @@ public class AssetFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 	public EjbAssetEventFactory<COMPANY,ASSET,EVENT,ETYPE,ESTATUS> ejbEvent() {return new EjbAssetEventFactory<>(this);}
 	
 	public Comparator<ASSET> cpAsset(EjbAssetComparator.Type type){return new EjbAssetComparator<ASSET>().factory(type);}
+	public Comparator<EVENT> cpEvent(EjbEventComparator.Type type){return new EjbEventComparator<EVENT>().factory(type);}
 }

@@ -46,8 +46,8 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 
 	private final Map<REALM,Map<RREF,List<TYPE>>> mapAssetType; @Override public Map<REALM,Map<RREF,List<TYPE>>> getMapAssetType() {return mapAssetType;}
 	private final Map<REALM,Map<RREF,List<COMPANY>>> mapManufacturer; public Map<REALM,Map<RREF,List<COMPANY>>> getMapManufacturer() {return mapManufacturer;}
-	private final Map<REALM,Map<RREF,List<COMPANY>>> mapVendor; public Map<REALM,Map<RREF,List<COMPANY>>> getMapVendor() {return mapVendor;}
-	private final Map<REALM,Map<RREF,List<COMPANY>>> mapMaintainer; public Map<REALM,Map<RREF,List<COMPANY>>> getMapMaintainer() {return mapMaintainer;}
+	private final Map<REALM,Map<RREF,List<COMPANY>>> mapVendor; @Override public Map<REALM,Map<RREF,List<COMPANY>>> getMapVendor() {return mapVendor;}
+	private final Map<REALM,Map<RREF,List<COMPANY>>> mapMaintainer; @Override public Map<REALM,Map<RREF,List<COMPANY>>> getMapMaintainer() {return mapMaintainer;}
 	
     private final List<ASTATUS> assetStatus; public List<ASTATUS> getAssetStatus() {return assetStatus;}
     private final List<ETYPE> eventType; public List<ETYPE> getEventType() {return eventType;}

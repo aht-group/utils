@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.datatype.XMLGregorianCalendar;
+import net.sf.ahtutils.xml.finance.Signatures;
 import net.sf.exlp.xml.io.Data;
 
 
@@ -64,6 +65,7 @@ import net.sf.exlp.xml.io.Data;
  *         &lt;element ref="{http://ahtutils.aht-group.com/report}user"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/report}footers"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/report}labels"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/finance}signatures"/&gt;
  *         &lt;element ref="{http://exlp.sf.net/io}data"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
@@ -86,6 +88,7 @@ import net.sf.exlp.xml.io.Data;
     "user",
     "footers",
     "labels",
+    "signatures",
     "data"
 })
 @XmlRootElement(name = "info")
@@ -116,6 +119,8 @@ public class Info
     protected Footers footers;
     @XmlElement(required = true)
     protected Labels labels;
+    @XmlElement(namespace = "http://www.jeesl.org/finance", required = true)
+    protected Signatures signatures;
     @XmlElement(namespace = "http://exlp.sf.net/io", required = true)
     protected Data data;
 
@@ -443,6 +448,34 @@ public class Info
 
     public boolean isSetLabels() {
         return (this.labels!= null);
+    }
+
+    /**
+     * Gets the value of the signatures property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Signatures }
+     *     
+     */
+    public Signatures getSignatures() {
+        return signatures;
+    }
+
+    /**
+     * Sets the value of the signatures property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Signatures }
+     *     
+     */
+    public void setSignatures(Signatures value) {
+        this.signatures = value;
+    }
+
+    public boolean isSetSignatures() {
+        return (this.signatures!= null);
     }
 
     /**

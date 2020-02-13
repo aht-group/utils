@@ -19,11 +19,14 @@ public interface JeeslAssetCacheBean <L extends JeeslLang, D extends JeeslDescri
 										REALM extends JeeslAomRealm<L,D,REALM,?>, RREF extends EjbWithId,
 										COMPANY extends JeeslAomCompany<REALM,SCOPE>,
 										SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
-										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
-										STATUS extends JeeslAomStatus<L,D,STATUS,?>,
-										TYPE extends JeeslAomType<L,D,REALM,TYPE,?>>
+										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,ASTATUS,ATYPE>,
+										ASTATUS extends JeeslAomStatus<L,D,ASTATUS,?>,
+										ATYPE extends JeeslAomType<L,D,REALM,ATYPE,?>>
 								extends Serializable
 {
 //	void reloadAssetTypes(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fAsset, REALM realm, RREF rref);
-	Map<REALM,Map<RREF,List<TYPE>>> getMapAssetType();
+	Map<REALM,Map<RREF,List<ATYPE>>> getMapAssetType();
+	
+	Map<REALM,Map<RREF,List<COMPANY>>> getMapVendor();
+	Map<REALM,Map<RREF,List<COMPANY>>> getMapMaintainer();
 }

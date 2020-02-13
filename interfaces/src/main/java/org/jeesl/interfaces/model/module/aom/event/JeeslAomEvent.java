@@ -23,7 +23,7 @@ public interface JeeslAomEvent <COMPANY extends JeeslAomCompany<?,?>,
 				
 					
 {
-	public enum Attributes{assets}
+	public enum Attributes{assets,status}
 	
 	List<ASSET> getAssets();
 	void setAssets(List<ASSET> assets);

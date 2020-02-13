@@ -47,7 +47,7 @@ public class EjbAssetEventFactory<COMPANY extends JeeslAomCompany<?,?>,
 	public void converter(JeeslFacade facade, EVENT event)
 	{
 		event.setType(facade.find(fbAsset.getClassEventType(),event.getType()));
-//		if(event.getst)
+		event.setStatus(facade.find(fbAsset.getClassEventStatus(),event.getStatus()));
 		if(event.getCompany()!=null) {event.setCompany(facade.find(fbAsset.getClassCompany(),event.getCompany()));}
 	}
 	

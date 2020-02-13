@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
+import org.jeesl.api.bean.module.JeeslAssetCacheBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslAssetFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
@@ -34,9 +35,9 @@ public class AbstractAssetCompanyBean <L extends JeeslLang, D extends JeeslDescr
 											REALM extends JeeslAomRealm<L,D,REALM,?>, RREF extends EjbWithId,
 											COMPANY extends JeeslAomCompany<REALM,SCOPE>,
 											SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
-											ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
-											STATUS extends JeeslAomStatus<L,D,STATUS,?>,
-											TYPE extends JeeslAomType<L,D,REALM,TYPE,?>,
+											ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,ASTATUS,ATYPE>,
+											ASTATUS extends JeeslAomStatus<L,D,ASTATUS,?>,
+											ATYPE extends JeeslAomType<L,D,REALM,ATYPE,?>,
 											EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS>,
 											ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
 											ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>>
@@ -46,9 +47,9 @@ public class AbstractAssetCompanyBean <L extends JeeslLang, D extends JeeslDescr
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetCompanyBean.class);
 	
-	protected JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE,EVENT,ETYPE,ESTATUS> fAsset;
+	protected JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fAsset;
 	
-	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE,EVENT,ETYPE,ESTATUS> fbAsset;
+	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fbAsset;
 	
 	private JeeslSelectManyHandler<SCOPE> smh; public JeeslSelectManyHandler<SCOPE> getSmh() {return smh;}
 	
@@ -58,7 +59,7 @@ public class AbstractAssetCompanyBean <L extends JeeslLang, D extends JeeslDescr
     private RREF realmReference;
 	private COMPANY company; public COMPANY getCompany() {return company;} public void setCompany(COMPANY company) {this.company = company;}
 
-	public AbstractAssetCompanyBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE,EVENT,ETYPE,ESTATUS> fbAsset)
+	public AbstractAssetCompanyBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fbAsset)
 	{
 		super(fbAsset.getClassL(),fbAsset.getClassD());
 		this.fbAsset=fbAsset;
@@ -66,7 +67,8 @@ public class AbstractAssetCompanyBean <L extends JeeslLang, D extends JeeslDescr
 	}
 
 	protected <E extends Enum<E>> void postConstructAssetManufacturer(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-													JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE,EVENT,ETYPE,ESTATUS> fAsset,
+//													JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,TYPE> bCache,
+													JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fAsset,
 													E eRealm, RREF realmReference)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);

@@ -9,6 +9,8 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.ListJoin;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
@@ -171,5 +173,32 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 		cQ.select(event);
 
 		return em.createQuery(cQ).getResultList();
+	}
+
+	@Override
+	public <RREF extends EjbWithId> List<EVENT> fAssetEvents(REALM realm, RREF rref, List<ESTATUS> status)
+	{
+		if(status==null || status.isEmpty()) {return new ArrayList<>();}
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<EVENT> cQ = cB.createQuery(fbAsset.getClassEvent());
+		Root<EVENT> event = cQ.from(fbAsset.getClassEvent());
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		ListJoin<EVENT,ASSET> jAsset = event.joinList(JeeslAomEvent.Attributes.assets.toString());
+		Expression<Long> eRefId = jAsset.get(JeeslAomAsset.Attributes.realmIdentifier.toString());
+		Path<REALM> pRealm = jAsset.get(JeeslAomAsset.Attributes.realm.toString());
+		
+		predicates.add(cB.equal(eRefId,rref.getId()));
+		predicates.add(cB.equal(pRealm,realm));
+		
+		Join<EVENT,ESTATUS> jStatus = event.join(JeeslAomEvent.Attributes.status.toString());
+		predicates.add(jStatus.in(status));
+		
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.select(event);
+		cQ.distinct(true);
+
+		TypedQuery<EVENT> tQ = em.createQuery(cQ);
+		return tQ.getResultList();
 	}
 }

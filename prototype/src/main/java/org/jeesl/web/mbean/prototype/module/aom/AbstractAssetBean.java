@@ -13,6 +13,7 @@ import org.jeesl.api.bean.module.JeeslAssetCacheBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslAssetFacade;
 import org.jeesl.controller.handler.NullNumberBinder;
+import org.jeesl.controller.handler.ui.helper.UiHelperAsset;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
@@ -32,6 +33,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.util.comparator.ejb.module.asset.EjbAssetComparator;
+import org.jeesl.util.comparator.ejb.module.asset.EjbEventComparator;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.primefaces.event.DragDropEvent;
 import org.primefaces.event.NodeCollapseEvent;
@@ -70,7 +72,9 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
 	private final EjbAssetEventFactory<COMPANY,ASSET,EVENT,ETYPE,ESTATUS> efEvent;
 	
 	private final Comparator<ASSET> cpAsset;
+	private final Comparator<EVENT> cpEvent;
 	
+	private final UiHelperAsset<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> uiHelper; public UiHelperAsset<L, D, REALM, RREF, COMPANY, SCOPE, ASSET, ASTATUS, ATYPE, EVENT, ETYPE, ESTATUS> getUiHelper() {return uiHelper;}
 	private TreeNode tree; public TreeNode getTree() {return tree;}
     private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
     private final NullNumberBinder nnb; public NullNumberBinder getNnb() {return nnb;}
@@ -91,12 +95,14 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
 		super(fbAsset.getClassL(),fbAsset.getClassD());
 		this.fbAsset=fbAsset;
 		
+		uiHelper = new UiHelperAsset<>();
 		nnb = new NullNumberBinder();
 		
 		efAsset = fbAsset.ejbAsset();
 		efEvent = fbAsset.ejbEvent();
 		
 		cpAsset = fbAsset.cpAsset(EjbAssetComparator.Type.position);
+		cpEvent = fbAsset.cpEvent(EjbEventComparator.Type.record);
 		
 		path = new HashSet<>();
 		events = new ArrayList<>();
@@ -110,6 +116,7 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fAsset=fAsset;
+		uiHelper.setCacheBean(bCache);
 		
 		realm = fAsset.fByEnum(fbAsset.getClassRealm(),eRealm);
 		this.rref=rref;
@@ -203,6 +210,7 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
 	{
 		events.clear();
 		events.addAll(fAsset.fAssetEvents(asset));
+		Collections.sort(events,cpEvent);
 	}
     
     public void addEvent()
@@ -210,6 +218,7 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
     	logger.info(AbstractLogMessage.addEntity(fbAsset.getClassEvent()));
     	event = efEvent.build(asset);
     	efEvent.ejb2nnb(event,nnb);
+    	uiHelper.update(realm,rref,event);
     }
     
     public void selectEvent()
@@ -218,6 +227,7 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
     	event = fAsset.find(fbAsset.getClassEvent(),event);
     	efEvent.ejb2nnb(event,nnb);
     	Collections.sort(event.getAssets(),cpAsset);
+    	uiHelper.update(realm,rref,event);
     }
     
     public void saveEvent() throws JeeslConstraintViolationException, JeeslLockingException
@@ -227,6 +237,7 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
     	efEvent.nnb2ejb(event,nnb);
     	event = fAsset.save(event);
     	reloadEvents();
+    	uiHelper.update(realm,rref,event);
     }
     
     public void removeEvent() throws JeeslConstraintViolationException, JeeslLockingException
