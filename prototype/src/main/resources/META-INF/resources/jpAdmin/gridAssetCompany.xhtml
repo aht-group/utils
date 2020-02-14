@@ -7,6 +7,7 @@
 	
 <composite:interface>
 	<composite:attribute name="bean" required="true"/>
+	<composite:attribute name="cache" required="false" default="#{appAssetCacheBean}"/>
 </composite:interface>
 	
 <composite:implementation>
@@ -14,8 +15,9 @@
 	<j:row>
 		<j:slot id="sManufacturers" width="6">
 			<h:form id="fManufacturers">
-				<p:dataTable var="c" value="#{cc.attrs.bean.companies}" draggableRows="true"
-					selection="#{cc.attrs.bean.company}" selectionMode="single" rowKey="#{c.id}">
+				<p:dataTable var="c" value="#{cc.attrs.bean.lazyCompany}" lazy="true" draggableRows="false"
+					selection="#{cc.attrs.bean.company}" selectionMode="single" rowKey="#{c.id}"
+					rows="10" paginator="true" rowsPerPageTemplate="#{appSettingsBean.rowsPerPageTemplate}" paginatorPosition="#{appSettingsBean.paginatorPosition}" paginatorTemplate="#{appSettingsBean.paginatorTemplate}">
 					<f:facet name="header">
 						<j:dtHeader title="#{msg.jeeslAssetManufacturers}">
 							<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addManufacturer()}" update=":#{cc.id}:grid"/>
@@ -28,7 +30,7 @@
 					<p:column headerText="#{msg.jeeslAssetManufacturerName}">
 						<h:outputText value="#{c.name}"/>
 		            </p:column>
-					<p:column>
+					<p:column styleClass="jeeslCenter">
 						<ui:repeat var="scope" value="#{c.scopes}">
 							<jtp:symbolizer value="#{scope}" marginRight="5"/>
 						</ui:repeat>

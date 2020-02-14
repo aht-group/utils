@@ -21,5 +21,5 @@ public interface JeeslAomEventType <L extends JeeslLang, D extends JeeslDescript
 								EjbWithCodeGraphic<G>,
 								JeeslStatus<S,L,D>
 {	
-	public enum Code{procurement,stock,deployment,maintenance,renew,check,pause,decommissioning,sale,disposal}
+	public enum Code{quote,procurement,stock,deployment,maintenance,renew,check,pause,decommissioning,sale,disposal}
 }

@@ -10,6 +10,14 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class SqlFactory
 {
+	public static <E extends Enum<E>, T extends EjbWithId> void update(StringBuilder sb, Class<?> c, String alias, E attribute, T t, boolean newLine)
+	{
+		if(c.getAnnotation(Table.class)==null) {throw new RuntimeException("Not a @Table)");}
+		sb.append("UPDATE ").append(c.getAnnotation(Table.class).name());
+		sb.append(" SET ").append(id(alias,attribute)).append("=").append(t.getId());
+		newLine(newLine,sb);
+	}
+	
 	public static void newLine(boolean newLine, StringBuilder sb)
 	{
 		if(newLine){sb.append("\n");}
@@ -34,7 +42,8 @@ public class SqlFactory
 	public static <E extends Enum<E>> String path(String alias, E attribute)
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append(alias).append(".").append(attribute.toString());
+		if(alias!=null && alias.length()>0) {sb.append(alias).append(".");}
+		sb.append(attribute.toString());
 		return sb.toString();
 	}
 	
@@ -111,7 +120,8 @@ public class SqlFactory
 	{
 		sb.append(" WHERE");
 		sb.append(" ").append(id(alias,attribute));
-		sb.append("=").append(where.getId());
+		if(where!=null) {sb.append("=").append(where.getId());}
+		else {sb.append(" IS NULL");}
 		newLine(newLine,sb);
 		return sb.toString();
 	}

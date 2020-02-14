@@ -37,18 +37,12 @@ public class UiHelperAsset <L extends JeeslLang, D extends JeeslDescription,
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(UiHelperAsset.class);
 		
-	private JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE> bCache; public void setCacheBean(JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE> bCache) {this.bCache = bCache;}
+	private JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ETYPE> bCache; public void setCacheBean(JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ETYPE> bCache) {this.bCache = bCache;}
 	
 	private final List<COMPANY> companies; public List<COMPANY> getCompanies() {return companies;}
 	
-
-	private boolean showAmount; public boolean isShowAmount() {return showAmount;}
-	private boolean showAmountLabelProcurement; public boolean isShowAmountLabelProcurement() {return showAmountLabelProcurement;}
-	private boolean showAmountLabelMaintenance; public boolean isShowAmountLabelMaintenance() {return showAmountLabelMaintenance;}
-	
-	private boolean showCompanies; public boolean isShowCompanies() {return showCompanies;}
-	private boolean showCompanyLabelProcurement; public boolean isShowCompanyLabelProcurement() {return showCompanyLabelProcurement;}
-	private boolean showCompanyLabelMaintenance; public boolean isShowCompanyLabelMaintenance() {return showCompanyLabelMaintenance;}
+	private boolean showAmount; public boolean isShowAmount() {return showAmount;}	
+	private boolean showCompany; public boolean isShowCompany() {return showCompany;}
 	
 	public UiHelperAsset()
 	{
@@ -61,38 +55,39 @@ public class UiHelperAsset <L extends JeeslLang, D extends JeeslDescription,
 		companies.clear();
 		
 		showAmount = false;
-		showAmountLabelProcurement = false;
-		showAmountLabelMaintenance = false;
-		
-		showCompanies = false;
-		showCompanyLabelProcurement = false;
-		showCompanyLabelMaintenance = false;
+		showCompany = false;
 	}
 
 	public void update(REALM realm, RREF rref, EVENT event)
 	{
 		reset();
+		boolean isQuote = event.getType().getCode().equals(JeeslAomEventType.Code.quote.toString());
 		boolean isProcurement = event.getType().getCode().equals(JeeslAomEventType.Code.procurement.toString());
+		boolean isDeployment = event.getType().getCode().equals(JeeslAomEventType.Code.deployment.toString());
 		boolean isMaintenance = event.getType().getCode().equals(JeeslAomEventType.Code.maintenance.toString());
 		boolean isRenew = event.getType().getCode().equals(JeeslAomEventType.Code.renew.toString());
 		
-		showAmount = EjbIdFactory.isSaved(event) && (isProcurement || isMaintenance || isRenew);
-		showAmountLabelProcurement = showAmount && isProcurement;
-		showAmountLabelMaintenance = showAmount && (isMaintenance || isRenew);
+		showAmount = EjbIdFactory.isSaved(event) && (isQuote || isProcurement || isDeployment || isMaintenance || isRenew);
 		
 		if(EjbIdFactory.isSaved(event) && bCache!=null)
 		{
-			if(isProcurement)
+			if(isQuote)
 			{
-				showCompanyLabelProcurement = true;
+				companies.addAll(bCache.cachedCompany().get(realm).get(rref));
+			}
+			else if(isProcurement)
+			{
 				companies.addAll(bCache.getMapVendor().get(realm).get(rref));
+			}
+			else if(isDeployment)
+			{
+				companies.addAll(bCache.getMapMaintainer().get(realm).get(rref));
 			}
 			else if(isMaintenance || isRenew)
 			{
-				showCompanyLabelMaintenance = true;
 				companies.addAll(bCache.getMapMaintainer().get(realm).get(rref));
 			}
-			showCompanies = showCompanyLabelProcurement || showCompanyLabelMaintenance; 
+			showCompany = isQuote || isProcurement || isDeployment || isMaintenance || isRenew; 
 		}
 		
 	}

@@ -28,7 +28,7 @@ public class EjbAssetEventFactory<COMPANY extends JeeslAomCompany<?,?>,
         this.fbAsset = fbAsset;
     }
 	
-	public EVENT build(ASSET asset)
+	public EVENT build(ASSET asset, ETYPE type)
 	{
 		try
 		{
@@ -37,6 +37,7 @@ public class EjbAssetEventFactory<COMPANY extends JeeslAomCompany<?,?>,
 			ejb.setRecord(new Date());
 			ejb.setName("");
 			ejb.setRemark("");
+			ejb.setType(type);
 		    return ejb;
 		}
 		catch (InstantiationException e) {e.printStackTrace();}

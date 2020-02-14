@@ -134,7 +134,7 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 		}
 	}
 
-	@Override public <RREF extends EjbWithId> List<COMPANY> fAssetCompanies(REALM realm, RREF realmReference, SCOPE scope)
+	@Override public <RREF extends EjbWithId> List<COMPANY> fAssetCompanies(REALM realm, RREF realmReference)
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<COMPANY> cQ = cB.createQuery(fbAsset.getClassCompany());
@@ -146,12 +146,6 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 		
 		Path<REALM> pRealm = company.get(JeeslAomCompany.Attributes.realm.toString());
 		predicates.add(cB.equal(pRealm,realm));
-		
-		if(scope!=null)
-		{
-			ListJoin<COMPANY,SCOPE> jScopes = company.joinList(JeeslAomCompany.Attributes.scopes.toString());
-			predicates.add(jScopes.in(scope));	
-		}
 		
 		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
 		cQ.select(company);

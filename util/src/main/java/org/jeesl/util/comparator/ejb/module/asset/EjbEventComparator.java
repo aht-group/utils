@@ -30,7 +30,7 @@ public class EjbEventComparator<EVENT extends JeeslAomEvent<?,?,?,?>>
     	@Override public int compare(EVENT a, EVENT b)
         {
         	CompareToBuilder ctb = new CompareToBuilder();
-        	ctb.append(a.getRecord(),b.getRecord());
+        	ctb.append(b.getRecord(),a.getRecord());
         	ctb.append(a.getId(),b.getId());
         	return ctb.toComparison();
         }

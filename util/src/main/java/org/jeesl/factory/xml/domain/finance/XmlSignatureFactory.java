@@ -31,8 +31,14 @@ public class XmlSignatureFactory
     
     public static Signature build(String code, String label)
     {
+    	return build(null,code,label);
+    }
+    
+    public static Signature build(Integer position, String code, String label)
+    {
     	Signature xml = build(code);
     	xml.setLabel(label);
+    	if(position!=null) {xml.setPosition(position);}
     	return xml;
     }
 }

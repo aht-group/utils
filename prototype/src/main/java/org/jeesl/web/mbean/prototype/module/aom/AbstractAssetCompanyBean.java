@@ -20,10 +20,11 @@ import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventStatus;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
-import org.jeesl.interfaces.model.system.locale.JeeslLocale;
-import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.jsf.util.JeeslSelectManyHandler;
+import org.jeesl.model.module.aom.AssetCompanyLazyModel;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,15 +49,16 @@ public class AbstractAssetCompanyBean <L extends JeeslLang, D extends JeeslDescr
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetCompanyBean.class);
 	
 	protected JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fAsset;
+	private JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ETYPE> bCache;
 	
 	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fbAsset;
 	
 	private JeeslSelectManyHandler<SCOPE> smh; public JeeslSelectManyHandler<SCOPE> getSmh() {return smh;}
 	
-	private List<COMPANY> companies; public List<COMPANY> getCompanies() {return companies;}
+	private AssetCompanyLazyModel<REALM,RREF,COMPANY,SCOPE> lazyCompany; public AssetCompanyLazyModel<REALM,RREF,COMPANY,SCOPE> getLazyCompany() {return lazyCompany;}
 
-    private REALM realm;
-    private RREF realmReference;
+    private REALM realm; public REALM getRealm() {return realm;}
+	private RREF rref; public RREF getRref() {return rref;}
 	private COMPANY company; public COMPANY getCompany() {return company;} public void setCompany(COMPANY company) {this.company = company;}
 
 	public AbstractAssetCompanyBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fbAsset)
@@ -64,39 +66,35 @@ public class AbstractAssetCompanyBean <L extends JeeslLang, D extends JeeslDescr
 		super(fbAsset.getClassL(),fbAsset.getClassD());
 		this.fbAsset=fbAsset;
 		smh = new JeeslSelectManyHandler<>();
+		lazyCompany = new AssetCompanyLazyModel<>();
 	}
 
 	protected <E extends Enum<E>> void postConstructAssetManufacturer(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-//													JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,TYPE> bCache,
+													JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ETYPE> bCache,
 													JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fAsset,
-													E eRealm, RREF realmReference)
+													E eRealm, RREF rref)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fAsset=fAsset;
+		this.bCache=bCache;
 		smh.updateList(fAsset.allOrderedPosition(fbAsset.getClassScope()));
 		realm = fAsset.fByEnum(fbAsset.getClassRealm(),eRealm);
-		this.realmReference=realmReference;
-		reloadManufacturers();
-	}
-	
-	private void reloadManufacturers()
-	{
-		companies = fAsset.all(fbAsset.getClassCompany());
-		logger.info(AbstractLogMessage.reloaded(fbAsset.getClassCompany(),companies));
+		this.rref=rref;
+		lazyCompany.setScope(bCache,realm,rref);
 	}
 	
 	public void addManufacturer() throws JeeslNotFoundException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbAsset.getClassCompany()));}
 		smh.clear();
-		company = fbAsset.ejbManufacturer().build(realm,realmReference);
+		company = fbAsset.ejbManufacturer().build(realm,rref);
 	}
 	
 	public void saveManufacturer() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		company.setScopes(smh.toEjb());
 		company = fAsset.save(company);
-		reloadManufacturers();
+		bCache.update(realm,rref,company);
 	}
 	
 	public void selectManufacturer() throws JeeslConstraintViolationException, JeeslLockingException
