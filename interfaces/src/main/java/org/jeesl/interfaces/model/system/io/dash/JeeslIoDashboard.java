@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.system.io.dashboard;
+package org.jeesl.interfaces.model.system.io.dash;
 
 import java.io.Serializable;
 

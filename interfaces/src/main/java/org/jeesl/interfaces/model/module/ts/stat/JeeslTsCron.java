@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import org.jeesl.interfaces.model.marker.jpa.EjbPersistable;
 import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsScope;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
@@ -14,7 +15,7 @@ public interface JeeslTsCron <SCOPE extends JeeslTsScope<?,?,?,?,?,?,INT>,
 									INT extends JeeslStatus<INT,?,?>,
 									STAT extends JeeslTsStatistic<?,?,STAT,?>>
 		extends EjbWithId,Serializable,EjbRemoveable,EjbPersistable,
-				EjbWithVisible
+				EjbWithVisible,EjbSaveable
 {
 	
 	SCOPE getScope();

@@ -25,6 +25,7 @@ import org.jeesl.interfaces.model.module.ts.data.JeeslTsData;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsDataPoint;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsSample;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsTransaction;
+import org.jeesl.interfaces.model.module.ts.stat.JeeslTsCron;
 import org.jeesl.interfaces.model.module.ts.stat.JeeslTsStatistic;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
@@ -59,8 +60,9 @@ public class AbstractAdminTsImportManualBean<L extends JeeslLang, D extends Jees
 											SAMPLE extends JeeslTsSample,
 											USER extends EjbWithId,
 											WS extends JeeslStatus<WS,L,D>,
-											QAF extends JeeslStatus<QAF,L,D>>
-					extends AbstractAdminTsBean<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF>
+											QAF extends JeeslStatus<QAF,L,D>,
+											CRON extends JeeslTsCron<SCOPE,INT,STAT>>
+					extends AbstractAdminTsBean<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -97,7 +99,7 @@ public class AbstractAdminTsImportManualBean<L extends JeeslLang, D extends Jees
 	private List<DATA> datas; public List<DATA> getDatas() {return datas;}
 	private DATA data; public DATA getData() { return data; } public void setData(DATA data) { this.data = data; }
 
-	public AbstractAdminTsImportManualBean(final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF> fbTs)
+	public AbstractAdminTsImportManualBean(final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fbTs)
 	{
 		super(fbTs);
 		entities = new ArrayList<EjbWithId>();
@@ -107,7 +109,7 @@ public class AbstractAdminTsImportManualBean<L extends JeeslLang, D extends Jees
 	}
 
 	protected void postConstructTsManual(JeeslTranslationBean<L,D,?> bTranslation,
-								JeeslFacesMessageBean bMessage, JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF> fTs,
+								JeeslFacesMessageBean bMessage, JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fTs,
 								USER transactionUser)
 	{
 		super.postConstructTs(bTranslation,bMessage,fTs);

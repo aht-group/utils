@@ -6,6 +6,7 @@ import org.jeesl.api.facade.module.JeeslTsFacade;
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
 import org.jeesl.factory.ejb.module.ts.EjbTsBridgeFactory;
 import org.jeesl.factory.ejb.module.ts.EjbTsClassFactory;
+import org.jeesl.factory.ejb.module.ts.EjbTsCronFactory;
 import org.jeesl.factory.ejb.module.ts.EjbTsDataFactory;
 import org.jeesl.factory.ejb.module.ts.EjbTsDataPointFactory;
 import org.jeesl.factory.ejb.module.ts.EjbTsFactory;
@@ -22,6 +23,7 @@ import org.jeesl.interfaces.model.module.ts.data.JeeslTsData;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsDataPoint;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsSample;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsTransaction;
+import org.jeesl.interfaces.model.module.ts.stat.JeeslTsCron;
 import org.jeesl.interfaces.model.module.ts.stat.JeeslTsStatistic;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
@@ -51,7 +53,8 @@ public class TsFactoryBuilder<L extends JeeslLang, D extends JeeslDescription,
 								SAMPLE extends JeeslTsSample,
 								USER extends EjbWithId, 
 								WS extends JeeslStatus<WS,L,D>,
-								QAF extends JeeslStatus<QAF,L,D>>
+								QAF extends JeeslStatus<QAF,L,D>,
+								CRON extends JeeslTsCron<SCOPE,INT,STAT>>
 				extends AbstractFactoryBuilder<L,D>
 {
 	final static Logger logger = LoggerFactory.getLogger(TsFactoryBuilder.class);
@@ -67,16 +70,18 @@ public class TsFactoryBuilder<L extends JeeslLang, D extends JeeslDescription,
 	private final Class<BRIDGE> cBridge; public Class<BRIDGE> getClassBridge() {return cBridge;}
 	private final Class<EC> cEc; public Class<EC> getClassEntity() {return cEc;}
 	private final Class<INT> cInt; public Class<INT> getClassInterval() {return cInt;}
+	private final Class<STAT> cStat; public Class<STAT> getClassStat(){return cStat;}
 	private final Class<DATA> cData;  public Class<DATA> getClassData() {return cData;}
 	private final Class<POINT> cPoint;  public Class<POINT> getClassPoint() {return cPoint;}
 	private final Class<WS> cWs; public Class<WS> getClassWorkspace() {return cWs;}
+	private final Class<CRON> cCron; public Class<CRON> getClassCron(){return cCron;}
 	
 	public TsFactoryBuilder(final Class<L> cL, final Class<D> cD,
 							final Class<CAT> cCategory, final Class<SCOPE> cScope,
 							final Class<ST> cScopeType, final Class<UNIT> cUnit, final Class<MP> cMp,
 							final Class<TS> cTs, final Class<TRANSACTION> cTransaction, final Class<SOURCE> cSource, final Class<BRIDGE> cBridge, final Class<EC> cEc, final Class<INT> cInt,
-							final Class<DATA> cData, final Class<POINT> cPoint,
-							final Class<WS> cWs)
+							final Class<STAT> cStat, final Class<DATA> cData, final Class<POINT> cPoint,
+							final Class<WS> cWs, final Class<CRON> cCron)
 	{
 		super(cL,cD);
 		this.cCategory=cCategory;
@@ -93,6 +98,8 @@ public class TsFactoryBuilder<L extends JeeslLang, D extends JeeslDescription,
         this.cData=cData;
         this.cPoint=cPoint;
         this.cWs=cWs;
+        this.cStat=cStat;
+        this.cCron=cCron;
 	}
 	
 	public EjbTsFactory<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF> ts()
@@ -132,7 +139,12 @@ public class TsFactoryBuilder<L extends JeeslLang, D extends JeeslDescription,
 		return new EjbTsMutliPointFactory<L,D,CAT,SCOPE,ST,UNIT,MP,EC,INT>(cMp);
 	}
 	
-	public McTimeSeriesFactory<SCOPE,MP,TS,BRIDGE,EC,INT,STAT,DATA,POINT,WS> metaChart(JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF> fTs)
+	public EjbTsCronFactory<SCOPE,INT,STAT,CRON> ejbCron()
+	{
+		return new EjbTsCronFactory<SCOPE,INT,STAT,CRON>(cCron);
+	}
+	
+	public McTimeSeriesFactory<SCOPE,MP,TS,BRIDGE,EC,INT,STAT,DATA,POINT,WS> metaChart(JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fTs)
 	{
 		return new McTimeSeriesFactory<SCOPE,MP,TS,BRIDGE,EC,INT,STAT,DATA,POINT,WS>(this,fTs);
 	}

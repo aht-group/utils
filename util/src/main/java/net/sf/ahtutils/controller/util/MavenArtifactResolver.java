@@ -29,16 +29,15 @@ public class MavenArtifactResolver
    public static File resolve(final String qualifiedArtifactId, String suffix)
    {
       String[] segments = qualifiedArtifactId.split(":");
-      if (segments.length == 3)
+      if(segments.length == 3)
       {
          return resolve(segments[0], segments[1], segments[2],suffix);
       }
-      else if (segments.length == 4)
+      else if(segments.length == 4)
       {
          return resolve(segments[0], segments[1], segments[2], segments[3],suffix);
       }
-      throw new IllegalArgumentException("Invalid qualified artifactId syntax: " +
-         qualifiedArtifactId);
+      throw new IllegalArgumentException("Invalid qualified artifactId syntax: "+qualifiedArtifactId);
    }
  
    public static File[] resolve(final String... qualifiedArtifactIds)
@@ -49,7 +48,6 @@ public class MavenArtifactResolver
       {
          artifacts[i] = resolve(qualifiedArtifactIds[i]);
       }
- 
       return artifacts;
    }
 }

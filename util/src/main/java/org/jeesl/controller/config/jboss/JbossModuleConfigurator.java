@@ -66,8 +66,9 @@ public class JbossModuleConfigurator
 		}
 		else if(version.equals("7.2"))
 		{
-			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("org.postgis:postgis-jdbc:1.5.3"),moduleMain);
-			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("org.postgresql:postgresql:42.2.5"),moduleMain);
+			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("org.postgresql:postgresql:42.2.10"),moduleMain);
+			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("net.postgis:postgis-jdbc:2.3.0"),moduleMain);
+
 		}
 		else
 		{
@@ -194,15 +195,20 @@ public class JbossModuleConfigurator
 		}
 		else if(version.equals("7.1"))
 		{
-			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("com.vividsolutions:jts:1.13"),moduleMain);
-			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("org.geolatte:geolatte-geom:1.0.6"),moduleMain);
 			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("org.hibernate:hibernate-spatial:5.1.12.Final"),moduleMain);
+			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("org.geolatte:geolatte-geom:1.0.6"),moduleMain);
+			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("com.vividsolutions:jts:1.13"),moduleMain);
 		}
 		else if(version.equals("7.2"))
 		{
-			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("com.vividsolutions:jts-core:1.14.0"),moduleMain);
+			//Should match the hibernate version of EAP7.2.x
+			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("org.hibernate:hibernate-spatial:5.3.14.Final"),moduleMain);
+			
+			//Find the version in hibernate-spatial
 			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("org.geolatte:geolatte-geom:1.3.0"),moduleMain);
-			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("org.hibernate:hibernate-spatial:5.3.7.Final"),moduleMain);
+			
+			//Find the version in geolatte-geom
+			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("com.vividsolutions:jts-core:1.14.0"),moduleMain);
 		}
 	}
 	

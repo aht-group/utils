@@ -47,8 +47,8 @@ public class TsDbBackupSizeProcessor<SYSTEM extends JeeslIoSsiSystem,
 {
 	final static Logger logger = LoggerFactory.getLogger(TsDbBackupSizeProcessor.class);
 	
-	public TsDbBackupSizeProcessor(TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,POINT,?,?,WS,?> fbTs,
-									JeeslTsFacade<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,POINT,?,?,WS,?> fTs)
+	public TsDbBackupSizeProcessor(TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,POINT,?,?,WS,?,?> fbTs,
+									JeeslTsFacade<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,POINT,?,?,WS,?,?> fTs)
 	{
 		super(fbTs,fTs);
 	}

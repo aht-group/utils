@@ -10,20 +10,22 @@ import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventStatus;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
+import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbAssetEventFactory<COMPANY extends JeeslAomCompany<?,?>,
 								ASSET extends JeeslAomAsset<?,ASSET,COMPANY,?,?>,
-								EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS>,
+								EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER>,
 								ETYPE extends JeeslAomEventType<?,?,ETYPE,?>,
-								ESTATUS extends JeeslAomEventStatus<?,?,ESTATUS,?>>
+								ESTATUS extends JeeslAomEventStatus<?,?,ESTATUS,?>,
+								USER extends JeeslSimpleUser>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbAssetEventFactory.class);
 	
-	private final AssetFactoryBuilder<?,?,?,COMPANY,?,ASSET,?,?,EVENT,ETYPE,ESTATUS> fbAsset;
+	private final AssetFactoryBuilder<?,?,?,COMPANY,?,ASSET,?,?,EVENT,ETYPE,ESTATUS,USER> fbAsset;
 	
-    public EjbAssetEventFactory(final AssetFactoryBuilder<?,?,?,COMPANY,?,ASSET,?,?,EVENT,ETYPE,ESTATUS> fbAsset)
+    public EjbAssetEventFactory(final AssetFactoryBuilder<?,?,?,COMPANY,?,ASSET,?,?,EVENT,ETYPE,ESTATUS,USER> fbAsset)
     {
         this.fbAsset = fbAsset;
     }

@@ -14,10 +14,10 @@
     <name>JEESL - XML</name>
     
 	<dependencyManagement>
-		<dependencies>      	         
+		<dependencies>  
 			<dependency>
-				<groupId>org.jeesl</groupId>
-				<artifactId>jeesl-bom</artifactId>
+				<groupId>org.jeesl.bom</groupId>
+				<artifactId>bom-core</artifactId>
 				<version>${project.version}</version>
 				<type>pom</type>
 				<scope>import</scope>

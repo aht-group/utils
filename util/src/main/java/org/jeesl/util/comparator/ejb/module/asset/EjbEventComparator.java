@@ -7,11 +7,11 @@ import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbEventComparator<EVENT extends JeeslAomEvent<?,?,?,?>>
+public class EjbEventComparator<EVENT extends JeeslAomEvent<?,?,?,?,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbEventComparator.class);
 
-    public enum Type {record};
+    public enum Type {recordAsc,recordDesc};
     
     public Comparator<EVENT> factory(Type type)
     {
@@ -19,13 +19,25 @@ public class EjbEventComparator<EVENT extends JeeslAomEvent<?,?,?,?>>
         EjbEventComparator<EVENT> factory = new EjbEventComparator<EVENT>();
         switch (type)
         {
-            case record: c = factory.new PositionComparator();break;
+        	case recordAsc: c = factory.new RecordAscComparator();break;
+            case recordDesc: c = factory.new RecordDescComparator();break;
         }
 
         return c;
     }
 
-    private class PositionComparator implements Comparator<EVENT>
+    private class RecordAscComparator implements Comparator<EVENT>
+    {
+    	@Override public int compare(EVENT a, EVENT b)
+        {
+        	CompareToBuilder ctb = new CompareToBuilder();
+        	ctb.append(a.getRecord(),b.getRecord());
+        	ctb.append(a.getId(),b.getId());
+        	return ctb.toComparison();
+        }
+    }
+    
+    private class RecordDescComparator implements Comparator<EVENT>
     {
     	@Override public int compare(EVENT a, EVENT b)
         {

@@ -35,4 +35,5 @@ public interface JeeslAssetCacheBean <L extends JeeslLang, D extends JeeslDescri
 	Map<REALM,Map<RREF,List<COMPANY>>> getMapMaintainer();
 	
 	void update(REALM realm, RREF rref, COMPANY company);
+	void update(REALM realm, RREF rref, ATYPE type);
 }

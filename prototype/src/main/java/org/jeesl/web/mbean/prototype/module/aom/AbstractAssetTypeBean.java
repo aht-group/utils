@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
+import org.jeesl.api.bean.module.JeeslAssetCacheBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslAssetFacade;
 import org.jeesl.api.facade.system.graphic.JeeslGraphicFacade;
@@ -28,6 +29,7 @@ import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicType;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
@@ -50,35 +52,38 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 										REALM extends JeeslAomRealm<L,D,REALM,?>, RREF extends EjbWithId,
 										COMPANY extends JeeslAomCompany<REALM,SCOPE>,
 										SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
-										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
-										STATUS extends JeeslAomStatus<L,D,STATUS,?>,
-										TYPE extends JeeslAomType<L,D,REALM,TYPE,G>,
-										EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS>,
+										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,ASTATUS,ATYPE>,
+										ASTATUS extends JeeslAomStatus<L,D,ASTATUS,?>,
+										ATYPE extends JeeslAomType<L,D,REALM,ATYPE,G>,
+										EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER>,
 										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
-										ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>>
+										ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,
+										USER extends JeeslSimpleUser>
 					extends AbstractAdminBean<L,D>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetTypeBean.class);
 	
-	private JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE,EVENT,ETYPE,ESTATUS> fAsset;
+	private JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS,USER> fAsset;
 	private JeeslGraphicFacade<L,D,S,G,GT,F,FS> fGraphic;
 	
-	private final SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg;
-	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE,EVENT,ETYPE,ESTATUS> fbAsset;
+	private JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ETYPE> bCache;
 	
-	private final EjbAssetTypeFactory<REALM,TYPE> efType;
+	private final SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg;
+	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS,USER> fbAsset;
+	
+	private final EjbAssetTypeFactory<REALM,ATYPE> efType;
 	
 	private TreeNode tree; public TreeNode getTree() {return tree;}
     private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
 
     private REALM realm;
-    private RREF rRef;
-    private TYPE root;
-    private TYPE type;  public TYPE getType() {return type;} public void setType(TYPE type) {this.type = type;}
+    private RREF rref;
+    private ATYPE root;
+    private ATYPE type;  public ATYPE getType() {return type;} public void setType(ATYPE type) {this.type = type;}
 
-	public AbstractAssetTypeBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE,EVENT,ETYPE,ESTATUS> fbAsset, SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg)
+	public AbstractAssetTypeBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS,USER> fbAsset, SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg)
 	{
 		super(fbAsset.getClassL(),fbAsset.getClassD());
 		this.fbAsset=fbAsset;
@@ -87,43 +92,46 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 		efType = fbAsset.ejbType();
 	}
 	
-	protected <E extends Enum<E>> void postConstructAssetType(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE,EVENT,ETYPE,ESTATUS> fAsset,
+	protected void postConstructAssetType(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
+									JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ETYPE> bCache,
+									JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS,USER> fAsset,
 									JeeslGraphicFacade<L,D,S,G,GT,F,FS> fGraphic,
-									E eRealm, RREF rRef)
+									REALM realm)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
+		this.bCache=bCache;
 		this.fAsset=fAsset;
 		this.fGraphic=fGraphic;
-		
-		realm = fAsset.fByEnum(fbAsset.getClassRealm(),eRealm);
-		this.rRef=rRef;
-		
+		this.realm=realm;
+	}
+	
+	protected void updateRealmReference(RREF rref)
+	{
+		this.rref=rref;
 		reloadTree();
 	}
 	
 	private void reloadTree()
 	{
-		root = fAsset.fcAssetRootType(realm,rRef);
-		
+		root = fAsset.fcAssetRootType(realm,rref);
 		tree = new DefaultTreeNode(root, null);
 		buildTree(tree,fAsset.allForParent(fbAsset.getClassAssetType(),root));
 	}
 	
-	private void buildTree(TreeNode parent, List<TYPE> types)
+	private void buildTree(TreeNode parent, List<ATYPE> types)
 	{
-		for(TYPE t : types)
+		for(ATYPE t : types)
 		{
 			TreeNode n = new DefaultTreeNode(t,parent);
-			List<TYPE> childs = fAsset.allForParent(fbAsset.getClassAssetType(),t);
+			List<ATYPE> childs = fAsset.allForParent(fbAsset.getClassAssetType(),t);
 			if(!childs.isEmpty()){buildTree(n,childs);}
 		}
 	}
 	
 	public void addType()
 	{
-		TYPE parent = null; if(type!=null) {parent = type;} else {parent = root;}
-		type = fbAsset.ejbType().build(realm, rRef, parent, UUID.randomUUID().toString());
+		ATYPE parent = null; if(type!=null) {parent = type;} else {parent = root;}
+		type = fbAsset.ejbType().build(realm, rref, parent, UUID.randomUUID().toString());
 		type.setName(efLang.createEmpty(bTranslation.getLocales()));
 		type.setDescription(efDescription.createEmpty(bTranslation.getLocales()));
 	}
@@ -133,6 +141,7 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 		efType.converter(type);
 		type = fAsset.save(type);
 		reloadTree();
+		bCache.update(realm, rref, type);
 	}
 	
 	public void onNodeExpand(NodeExpandEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}
@@ -147,11 +156,11 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
         logger.info("Dragged " + dragNode.getData() + "Dropped on " + dropNode.getData() + " at " + dropIndex);
         
         logger.info("Childs of "+dropNode.getData());
-        TYPE parent = (TYPE)dropNode.getData();
+        ATYPE parent = (ATYPE)dropNode.getData();
         int index=1;
         for(TreeNode n : dropNode.getChildren())
         {
-    		TYPE child =(TYPE)n.getData();
+        	ATYPE child =(ATYPE)n.getData();
 //    		TYPE db = fAsset.find(fbAsset.getClassType(),child);
 //    		efS.update(db,child);
     		child.setParent(parent);
@@ -165,7 +174,7 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 	public void onNodeSelect(NodeSelectEvent event)
     {
 		logger.info("Selected "+event.getTreeNode().toString());
-		type = (TYPE)event.getTreeNode().getData();
+		type = (ATYPE)event.getTreeNode().getData();
 		type = efLang.persistMissingLangs(fAsset,bTranslation.getLocales(),type);
 		type = efDescription.persistMissingLangs(fAsset,bTranslation.getLocales(),type);
     }
@@ -192,10 +201,7 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 				g.setData(file.getContents());
 				fAsset.save(g);
 			}
-			catch (JeeslNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			catch (JeeslNotFoundException e) {e.printStackTrace();}
 		}
 	}
 }

@@ -15,6 +15,7 @@ import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.io.JeeslIoFrFacade;
 import org.jeesl.controller.facade.JeeslFacadeBean;
+import org.jeesl.controller.handler.system.io.fr.storage.FileRepositoryAmazonS3;
 import org.jeesl.controller.handler.system.io.fr.storage.FileRepositoryFileStorage;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
@@ -26,6 +27,7 @@ import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileMeta;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileStatus;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorage;
+import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorageEngine;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileType;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
@@ -41,7 +43,7 @@ import net.sf.exlp.util.io.HashUtil;
 public class JeeslIoFrFacadeBean<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
 									SYSTEM extends JeeslIoSsiSystem,
 									STORAGE extends JeeslFileStorage<L,D,SYSTEM,ENGINE>,
-									ENGINE extends JeeslStatus<ENGINE,L,D>,
+									ENGINE extends JeeslFileStorageEngine<L,D,ENGINE,?>,
 									CONTAINER extends JeeslFileContainer<STORAGE,META>,
 									META extends JeeslFileMeta<D,CONTAINER,TYPE,STATUS>,
 									TYPE extends JeeslFileType<L,D,TYPE,?>,
@@ -66,8 +68,12 @@ public class JeeslIoFrFacadeBean<L extends JeeslLang, D extends JeeslDescription
 	{
 		if(!mapStorages.containsKey(storage))
 		{
-			JeeslFileRepositoryStore<META> store = new FileRepositoryFileStorage<STORAGE,META>(storage);
-			mapStorages.put(storage, store);
+			switch(JeeslFileStorageEngine.Code.valueOf(storage.getEngine().getCode()))
+			{
+				case fs: mapStorages.put(storage, new FileRepositoryFileStorage<STORAGE,META>(storage));break;
+				case amazonS3: mapStorages.put(storage, new FileRepositoryAmazonS3<STORAGE,META>(storage));break;
+				default: logger.error("NYI: "+storage.getEngine().getCode());
+			}
 		}
 		return mapStorages.get(storage);
 	}
@@ -76,7 +82,7 @@ public class JeeslIoFrFacadeBean<L extends JeeslLang, D extends JeeslDescription
 	{
 		meta.setMd5Hash(HashUtil.hash(bytes));
 		meta = this.saveProtected(meta);
-		build(meta.getContainer().getStorage()).saveToFileRepository(meta,bytes);
+		this.build(meta.getContainer().getStorage()).saveToFileRepository(meta,bytes);
 		return meta;
 	}
 	

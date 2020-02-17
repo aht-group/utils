@@ -12,6 +12,7 @@ import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileMeta;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileStatus;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorage;
+import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorageEngine;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileType;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
@@ -23,7 +24,7 @@ import org.slf4j.LoggerFactory;
 public class IoFileRepositoryFactoryBuilder<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
 											SYSTEM extends JeeslIoSsiSystem,
 											STORAGE extends JeeslFileStorage<L,D,SYSTEM,ENGINE>,
-											ENGINE extends JeeslStatus<ENGINE,L,D>,
+											ENGINE extends JeeslFileStorageEngine<L,D,ENGINE,?>,
 											CONTAINER extends JeeslFileContainer<STORAGE,META>,
 											META extends JeeslFileMeta<D,CONTAINER,TYPE,STATUS>,
 											TYPE extends JeeslFileType<L,D,TYPE,?>,

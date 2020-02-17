@@ -15,7 +15,6 @@ import org.jeesl.interfaces.model.with.position.EjbWithPositionVisible;
 import net.sf.ahtutils.model.interfaces.with.EjbWithDescription;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
-import net.sf.ahtutils.xml.report.Report;
 
 public interface JeeslIoReport<L extends JeeslLang,D extends JeeslDescription,
 								CATEGORY extends JeeslStatus<CATEGORY,L,D>,

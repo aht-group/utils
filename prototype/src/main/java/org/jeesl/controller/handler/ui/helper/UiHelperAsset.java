@@ -17,6 +17,7 @@ import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventStatus;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,9 +30,10 @@ public class UiHelperAsset <L extends JeeslLang, D extends JeeslDescription,
 								ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,ASTATUS,ATYPE>,
 								ASTATUS extends JeeslAomStatus<L,D,ASTATUS,?>,
 								ATYPE extends JeeslAomType<L,D,REALM,ATYPE,?>,
-								EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS>,
+								EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER>,
 								ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
-								ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>>
+								ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,
+								USER extends JeeslSimpleUser>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;

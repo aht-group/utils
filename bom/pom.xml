@@ -466,6 +466,13 @@
 				<version>20.1</version>
     			<classifier>jdk17</classifier>
 			</dependency>
+			
+			<!-- Amazon AWS -->
+			<dependency>
+			    <groupId>com.amazonaws</groupId>
+			    <artifactId>aws-java-sdk-s3</artifactId>
+			    <version>1.11.714</version>
+		    </dependency>
 						
 			<!-- Tests -->
 			<dependency>

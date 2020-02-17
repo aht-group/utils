@@ -17,8 +17,8 @@
 	<dependencyManagement>
 		<dependencies>      	         
 			<dependency>
-				<groupId>org.jeesl</groupId>
-				<artifactId>jeesl-bom</artifactId>
+				<groupId>org.jeesl.bom</groupId>
+				<artifactId>bom-core</artifactId>
 				<version>${project.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
@@ -138,15 +138,21 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<groupId>net.postgis</groupId>
+			<artifactId>postgis-jdbc</artifactId>
+			<version>2.3.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>42.2.5</version>
+			<version>42.2.10</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-spatial</artifactId>
-			<version>5.3.7.Final</version>
+			<version>5.3.14.Final</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -157,8 +163,8 @@
 		</dependency>
 		<dependency>
 			<groupId>com.vividsolutions</groupId>
-			<artifactId>jts</artifactId>
-			<version>1.13</version>
+			<artifactId>jts-core</artifactId>
+			<version>1.14.0</version>
 			<scope>provided</scope>
 		</dependency>
    

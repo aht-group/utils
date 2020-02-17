@@ -16,6 +16,40 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.jeesl</groupId>
+			<artifactId>jeesl-util</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>antlr4</artifactId>
+					<groupId>org.antlr</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>commons-codec</artifactId>
+					<groupId>commons-codec</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>commons-io</artifactId>
+					<groupId>commons-io</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>joda-time</artifactId>
+					<groupId>joda-time</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>json</artifactId>
+					<groupId>org.json</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>commons-collections</artifactId>
+					<groupId>commons-collections</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>ofx-core</artifactId>
+					<groupId>org.openfuxml</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.jeesl</groupId>
 			<artifactId>jeesl-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
@@ -28,11 +62,8 @@
 			<artifactId>jeesl-report</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.jeesl</groupId>
-			<artifactId>jeesl-mail</artifactId>
-			<scope>provided</scope>
-		</dependency>
+		
+		
 		<dependency>
 	   		<groupId>com.sun.faces</groupId>
 	   		<artifactId>jsf-api</artifactId>
@@ -133,8 +164,8 @@
 	<dependencyManagement>
 		<dependencies>      	         
 			<dependency>
-				<groupId>org.jeesl</groupId>
-				<artifactId>jeesl-bom</artifactId>
+				<groupId>org.jeesl.bom</groupId>
+				<artifactId>bom-core</artifactId>
 				<version>${project.version}</version>
 				<type>pom</type>
 				<scope>import</scope>

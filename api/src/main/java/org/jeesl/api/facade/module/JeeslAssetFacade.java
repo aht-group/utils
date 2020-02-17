@@ -14,6 +14,7 @@ import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventStatus;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
@@ -24,9 +25,10 @@ public interface JeeslAssetFacade <L extends JeeslLang, D extends JeeslDescripti
 									ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,ATYPE>,
 									STATUS extends JeeslAomStatus<L,D,STATUS,?>,
 									ATYPE extends JeeslAomType<L,D,REALM,ATYPE,?>,
-									EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS>,
+									EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER>,
 									ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
-									ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>>
+									ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,
+									USER extends JeeslSimpleUser>
 			extends JeeslFacade
 {	
 	<RREF extends EjbWithId> ASSET fcAssetRoot(REALM realm, RREF rref);

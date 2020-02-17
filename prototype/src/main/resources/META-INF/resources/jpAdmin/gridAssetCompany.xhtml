@@ -17,9 +17,9 @@
 			<h:form id="fManufacturers">
 				<p:dataTable var="c" value="#{cc.attrs.bean.lazyCompany}" lazy="true" draggableRows="false"
 					selection="#{cc.attrs.bean.company}" selectionMode="single" rowKey="#{c.id}"
-					rows="10" paginator="true" rowsPerPageTemplate="#{appSettingsBean.rowsPerPageTemplate}" paginatorPosition="#{appSettingsBean.paginatorPosition}" paginatorTemplate="#{appSettingsBean.paginatorTemplate}">
+					rows="25" paginator="true" rowsPerPageTemplate="#{appSettingsBean.rowsPerPageTemplate}" paginatorPosition="#{appSettingsBean.paginatorPosition}" paginatorTemplate="#{appSettingsBean.paginatorTemplate}">
 					<f:facet name="header">
-						<j:dtHeader title="#{msg.jeeslAssetManufacturers}">
+						<j:dtHeader title="#{msg.jeeslAssetCompanies}">
 							<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addManufacturer()}" update=":#{cc.id}:grid"/>
 						</j:dtHeader>
 					</f:facet>
@@ -27,7 +27,7 @@
 					<p:column headerText="#{msg.jeeslCode}">
 						<h:outputText value="#{c.code}"/>
 		            </p:column>
-					<p:column headerText="#{msg.jeeslAssetManufacturerName}">
+					<p:column headerText="#{msg.jeeslAssetCompanyName}">
 						<h:outputText value="#{c.name}"/>
 		            </p:column>
 					<p:column styleClass="jeeslCenter">
@@ -40,7 +40,7 @@
 		</j:slot>
 		<j:slot id="sManufacturer" width="6">
 			<h:form id="fSection" rendered="#{not empty cc.attrs.bean.company}">
-				<p:panel header="#{msg.jeeslAssetManufacturer}" styleClass="jeeslPanel">
+				<p:panel header="#{msg.jeeslAssetCompany}" styleClass="jeeslPanel">
 					<f:facet name="actions">
 						<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.cancelManufacturer()}" update=":#{cc.id}:grid"/>
 						<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveManufacturer()}" update=":#{cc.id}:grid"/>
@@ -51,10 +51,10 @@
 						<p:outputLabel value="#{msg.jeeslCode}"/>
 						<jtp:inputText value="#{cc.attrs.bean.company.code}"/>
 						
-						<p:outputLabel value="#{msg.jeeslAssetManufacturerName}"/>
+						<p:outputLabel value="#{msg.jeeslAssetCompanyName}"/>
 						<jtp:inputText value="#{cc.attrs.bean.company.name}"/>
 						
-						<p:outputLabel value="#{msg.jeeslAssetManufacturerUrl}"/>
+						<p:outputLabel value="#{msg.jeeslAssetCompanyUrl}"/>
 						<jtp:inputText value="#{cc.attrs.bean.company.url}"/>
 						
 						<p:outputLabel value="#{msg.jeeslAssetCompanyScopes}"/>

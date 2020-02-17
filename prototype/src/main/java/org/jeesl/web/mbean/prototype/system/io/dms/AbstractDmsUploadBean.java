@@ -35,6 +35,7 @@ import org.jeesl.interfaces.model.system.io.domain.JeeslDomainSet;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileMeta;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorage;
+import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorageEngine;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
@@ -59,7 +60,7 @@ public abstract class AbstractDmsUploadBean <L extends JeeslLang,D extends Jeesl
 											LAYER extends JeeslIoDmsLayer<VIEW,AITEM>,
 											
 											FSTORAGE extends JeeslFileStorage<L,D,?,FENGINE>,
-											FENGINE extends JeeslStatus<FENGINE,L,D>,
+											FENGINE extends JeeslFileStorageEngine<L,D,FENGINE,?>,
 											FCONTAINER extends JeeslFileContainer<FSTORAGE,FMETA>,
 											FMETA extends JeeslFileMeta<D,FCONTAINER,FTYPE,?>,
 											FTYPE extends JeeslFileType<L,D,FTYPE,?>,

@@ -34,6 +34,7 @@ import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
+import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.jeesl.model.module.aom.AssetEventLazyModel;
 import org.jeesl.util.comparator.ejb.module.asset.EjbAssetComparator;
 import org.jeesl.util.comparator.ejb.module.asset.EjbEventComparator;
@@ -58,42 +59,43 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
 										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,ASTATUS,ATYPE>,
 										ASTATUS extends JeeslAomStatus<L,D,ASTATUS,?>,
 										ATYPE extends JeeslAomType<L,D,REALM,ATYPE,?>,
-										EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS>,
+										EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER>,
 										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
-										ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>>
+										ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,
+										USER extends JeeslSimpleUser>
 					extends AbstractAdminBean<L,D>
 					implements Serializable,ThMultiFilterBean
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetBean.class);
 	
-	protected JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fAsset;
+	protected JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS,USER> fAsset;
 	private JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ETYPE> bCache;
 	
-	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fbAsset;
+	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS,USER> fbAsset;
 	
 	private final EjbAssetFactory<REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE> efAsset;
-	private final EjbAssetEventFactory<COMPANY,ASSET,EVENT,ETYPE,ESTATUS> efEvent;
+	private final EjbAssetEventFactory<COMPANY,ASSET,EVENT,ETYPE,ESTATUS,USER> efEvent;
 	
 	private final Comparator<ASSET> cpAsset;
 	
-	private final UiHelperAsset<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> uiHelper; public UiHelperAsset<L, D, REALM, RREF, COMPANY, SCOPE, ASSET, ASTATUS, ATYPE, EVENT, ETYPE, ESTATUS> getUiHelper() {return uiHelper;}
+	private final UiHelperAsset<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS,USER> uiHelper; public UiHelperAsset<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS,USER> getUiHelper() {return uiHelper;}
 	private TreeNode tree; public TreeNode getTree() {return tree;}
     private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
     private final NullNumberBinder nnb; public NullNumberBinder getNnb() {return nnb;}
     private final ThMultiFilterHandler<ETYPE> thfEventType; public ThMultiFilterHandler<ETYPE> getThfEventType() {return thfEventType;}
-    private final AssetEventLazyModel<ASSET,EVENT,ETYPE,ESTATUS> lazyEvents; public AssetEventLazyModel<ASSET,EVENT,ETYPE,ESTATUS> getLazyEvents() {return lazyEvents;}
+    private final AssetEventLazyModel<ASSET,EVENT,ETYPE,ESTATUS,USER> lazyEvents; public AssetEventLazyModel<ASSET,EVENT,ETYPE,ESTATUS,USER> getLazyEvents() {return lazyEvents;}
     
 	private final Set<ASSET> path;
     
-	private REALM realm; public REALM getRealm() {return realm;}
-	private RREF rref; public RREF getRref() {return rref;}
+	protected REALM realm; public REALM getRealm() {return realm;}
+	protected RREF rref; public RREF getRref() {return rref;}
 
 	private ASSET root;
     private ASSET asset; public ASSET getAsset() {return asset;} public void setAsset(ASSET asset) {this.asset = asset;}
     private EVENT event; public EVENT getEvent() {return event;} public void setEvent(EVENT event) {this.event = event;}
 
-	public AbstractAssetBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fbAsset)
+	public AbstractAssetBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS,USER> fbAsset)
 	{
 		super(fbAsset.getClassL(),fbAsset.getClassD());
 		this.fbAsset=fbAsset;
@@ -102,7 +104,7 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
 		nnb = new NullNumberBinder();
 		
 		thfEventType = new ThMultiFilterHandler<>(this);
-		lazyEvents = new AssetEventLazyModel<>(fbAsset.cpEvent(EjbEventComparator.Type.record),thfEventType);
+		lazyEvents = new AssetEventLazyModel<>(fbAsset.cpEvent(EjbEventComparator.Type.recordDesc),thfEventType);
 		
 		efAsset = fbAsset.ejbAsset();
 		efEvent = fbAsset.ejbEvent();
@@ -112,24 +114,26 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
 		path = new HashSet<>();
 	}
 	
-	protected <E extends Enum<E>> void postConstructAsset(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fAsset,
-									JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ETYPE> bCache,
-									E eRealm, RREF rref
-									)
+	protected void postConstructAsset(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
+						JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS,USER> fAsset,
+						JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ETYPE> bCache,
+						REALM realm)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fAsset=fAsset;
 		this.bCache=bCache;
 		uiHelper.setCacheBean(bCache);
 		
-		realm = fAsset.fByEnum(fbAsset.getClassRealm(),eRealm);
-		this.rref=rref;
+		this.realm=realm;
 		
 		thfEventType.getList().addAll(bCache.getEventType());
 		thfEventType.selectAll();
 //		thFilter.preSelect(MeisNsdsCandidateStatus.class,MeisNsdsCandidateStatus.Code.pending);
-		
+	}
+	
+	protected void updateRealmReference(RREF rref)
+	{
+		this.rref=rref;
 		reloadTree();
 	}
 	

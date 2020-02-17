@@ -1,7 +1,6 @@
 package org.jeesl.web.mbean.prototype.module.aom;
 
 import java.io.Serializable;
-import java.util.List;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.module.JeeslAssetCacheBean;
@@ -23,6 +22,7 @@ import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
+import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.jeesl.jsf.util.JeeslSelectManyHandler;
 import org.jeesl.model.module.aom.AssetCompanyLazyModel;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
@@ -39,29 +39,30 @@ public class AbstractAssetCompanyBean <L extends JeeslLang, D extends JeeslDescr
 											ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,ASTATUS,ATYPE>,
 											ASTATUS extends JeeslAomStatus<L,D,ASTATUS,?>,
 											ATYPE extends JeeslAomType<L,D,REALM,ATYPE,?>,
-											EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS>,
+											EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER>,
 											ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
-											ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>>
+											ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,
+											USER extends JeeslSimpleUser>
 					extends AbstractAdminBean<L,D>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetCompanyBean.class);
 	
-	protected JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fAsset;
+	protected JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS,USER> fAsset;
 	private JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ETYPE> bCache;
 	
-	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fbAsset;
+	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS,USER> fbAsset;
 	
 	private JeeslSelectManyHandler<SCOPE> smh; public JeeslSelectManyHandler<SCOPE> getSmh() {return smh;}
 	
 	private AssetCompanyLazyModel<REALM,RREF,COMPANY,SCOPE> lazyCompany; public AssetCompanyLazyModel<REALM,RREF,COMPANY,SCOPE> getLazyCompany() {return lazyCompany;}
 
-    private REALM realm; public REALM getRealm() {return realm;}
+    protected REALM realm; public REALM getRealm() {return realm;}
 	private RREF rref; public RREF getRref() {return rref;}
 	private COMPANY company; public COMPANY getCompany() {return company;} public void setCompany(COMPANY company) {this.company = company;}
 
-	public AbstractAssetCompanyBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fbAsset)
+	public AbstractAssetCompanyBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS,USER> fbAsset)
 	{
 		super(fbAsset.getClassL(),fbAsset.getClassD());
 		this.fbAsset=fbAsset;
@@ -69,17 +70,20 @@ public class AbstractAssetCompanyBean <L extends JeeslLang, D extends JeeslDescr
 		lazyCompany = new AssetCompanyLazyModel<>();
 	}
 
-	protected <E extends Enum<E>> void postConstructAssetManufacturer(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
+	protected void postConstructAssetCompany(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
 													JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ETYPE> bCache,
-													JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fAsset,
-													E eRealm, RREF rref)
+													JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS,USER> fAsset,
+													REALM realm)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fAsset=fAsset;
 		this.bCache=bCache;
 		smh.updateList(fAsset.allOrderedPosition(fbAsset.getClassScope()));
-		realm = fAsset.fByEnum(fbAsset.getClassRealm(),eRealm);
-		this.rref=rref;
+		this.realm=realm;
+	}
+	
+	protected void updateRealmReference(RREF rref)
+	{
 		lazyCompany.setScope(bCache,realm,rref);
 	}
 	

@@ -12,6 +12,7 @@ import org.jeesl.interfaces.model.module.aom.JeeslAomAsset;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventStatus;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
+import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.jeesl.jsf.util.JeeslLazyListHandler;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
@@ -19,10 +20,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class AssetEventLazyModel <ASSET extends JeeslAomAsset<?,ASSET,?,?,?>,
-										
-									EVENT extends JeeslAomEvent<?,ASSET,ETYPE,ESTATUS>,
+									EVENT extends JeeslAomEvent<?,ASSET,ETYPE,ESTATUS,USER>,
 									ETYPE extends JeeslAomEventType<?,?,ETYPE,?>,
-									ESTATUS extends JeeslAomEventStatus<?,?,ESTATUS,?>>
+									ESTATUS extends JeeslAomEventStatus<?,?,ESTATUS,?>,
+									USER extends JeeslSimpleUser>
 					extends LazyDataModel<EVENT>
 {
 	final static Logger logger = LoggerFactory.getLogger(AssetEventLazyModel.class);
@@ -47,7 +48,7 @@ public class AssetEventLazyModel <ASSET extends JeeslAomAsset<?,ASSET,?,?,?>,
     @Override public Object getRowKey(EVENT account) {return llh.getRowKey(account);}
     public void clear() {list.clear();}
 	
-    public void setScope(JeeslAssetFacade<?,?,?,?,?,ASSET,?,?,EVENT,ETYPE,ESTATUS> fAsset, ASSET asset)
+    public void setScope(JeeslAssetFacade<?,?,?,?,?,ASSET,?,?,EVENT,ETYPE,ESTATUS,USER> fAsset, ASSET asset)
     {
 		this.clear();
 		list.addAll(fAsset.fAssetEvents(asset));

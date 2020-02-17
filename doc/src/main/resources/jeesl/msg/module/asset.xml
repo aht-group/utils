@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <s:translations xmlns:s="http://ahtutils.aht-group.com/status">
-	<s:translation key="jeeslAssetCompany">
+	<s:translation key="jeeslAssetCompanies">
+    	<s:langs>
+    		<s:lang key="de" translation="Firmen"/>
+    		<s:lang key="en" translation="Companies"/>
+    		<s:lang key="fr" translation="Companies"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslAssetCompany">
     	<s:langs>
     		<s:lang key="de" translation="Firma"/>
     		<s:lang key="en" translation="Company"/>

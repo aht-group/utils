@@ -15,6 +15,7 @@ import org.jeesl.interfaces.model.module.ts.data.JeeslTsData;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsDataPoint;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsSample;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsTransaction;
+import org.jeesl.interfaces.model.module.ts.stat.JeeslTsCron;
 import org.jeesl.interfaces.model.module.ts.stat.JeeslTsStatistic;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
@@ -43,7 +44,8 @@ public interface JeeslTsFacade <L extends JeeslLang,
 								SAMPLE extends JeeslTsSample, 
 								USER extends EjbWithId, 
 								WS extends JeeslStatus<WS,L,D>,
-								QAF extends JeeslStatus<QAF,L,D>>
+								QAF extends JeeslStatus<QAF,L,D>,
+								CRON extends JeeslTsCron<SCOPE,INT,STAT>>
 			extends JeeslFacade
 {	
 	List<SCOPE> findScopes(Class<SCOPE> cScope, Class<CAT> cCategory, List<CAT> categories, boolean showInvisibleScopes);

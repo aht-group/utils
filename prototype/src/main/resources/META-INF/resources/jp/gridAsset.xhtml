@@ -81,25 +81,25 @@
 						</j:dtHeader>
 					</f:facet>
 					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectEvent()}" update=":#{cc.id}:fEvent"/>
-					<p:column>
+					<p:column headerText="#{msg.jeeslCode}">
 						<jtp:symbolizer value="#{e.status}" marginRight="5"/>
 						<jp:outputDate value="#{e.record}"/>
 					</p:column>
-					<p:column>
+					<p:column headerText="#{msg.jeeslAssetEventType}">
 						<f:facet name="header"><jp:thMulti handler="#{cc.attrs.bean.thfEventType}"/></f:facet>
 						<jtp:symbolizer value="#{e.type}" marginRight="5"/>
 						<h:outputText value="#{e.type.name[localeCode].lang}"/>
 					</p:column>
-					<p:column>
+					<p:column headerText="#{msg.jeeslAssetEventName}">
 						<jp:outputAmount value="#{e.name}"/>
 					</p:column>
-					<p:column>
+					<p:column headerText="#{msg.jeeslAssetCompany}"
 						<h:outputText value="#{e.company.code}" rendered="#{e.type.code eq 'quote'}"/>
 						<h:outputText value="#{e.company.code}" rendered="#{e.type.code eq 'procurement'}"/>
 						<h:outputText value="#{e.company.code}" rendered="#{e.type.code eq 'maintenance'}"/>
 						<h:outputText value="#{e.company.code}" rendered="#{e.type.code eq 'renew'}"/>
 					</p:column>
-					<p:column styleClass="jeeslCenter">
+					<p:column headerText="#{msg.jeeslAssetEventAmount}" styleClass="jeeslCenter">
 						<jp:outputAmount value="#{e.amount}" rendered="#{e.type.code eq 'quote'}"/>
 						<jp:outputAmount value="#{e.amount}" rendered="#{e.type.code eq 'procurement'}"/>
 						<jp:outputAmount value="#{e.amount}" rendered="#{e.type.code eq 'maintenance'}"/>
@@ -147,7 +147,7 @@
                         </p:selectOneMenu>
                         
                         <p:outputLabel value="#{msg.jeeslAssetEventDate}" />
-						<jtp:inputDate value="#{cc.attrs.bean.event.record}"/>
+						<jp:inputCalendar value="#{cc.attrs.bean.event.record}" pattern="#{appSettingsBean.patternHour}"/>
 						
 						<p:outputLabel value="#{msg.jeeslAssetEventName}" />
 						<jtp:inputText value="#{cc.attrs.bean.event.name}"/>

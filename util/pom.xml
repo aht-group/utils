@@ -17,12 +17,12 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.jeesl</groupId>
-                <artifactId>jeesl-bom</artifactId>
-                <version>${project.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
+				<groupId>org.jeesl.bom</groupId>
+				<artifactId>bom-core</artifactId>
+				<version>${project.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -309,7 +309,6 @@
 		<dependency>
 		    <groupId>com.amazonaws</groupId>
 		    <artifactId>aws-java-sdk-s3</artifactId>
-		    <version>1.11.714</version>
 		    <scope>provided</scope>
 		    <exclusions>
                 <exclusion>

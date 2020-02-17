@@ -18,6 +18,7 @@ import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventStatus;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.jeesl.util.comparator.ejb.module.asset.EjbAssetComparator;
 import org.jeesl.util.comparator.ejb.module.asset.EjbEventComparator;
 import org.slf4j.Logger;
@@ -30,9 +31,10 @@ public class AssetFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 								ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,ASTATUS,ATYPE>,
 								ASTATUS extends JeeslAomStatus<L,D,ASTATUS,?>,
 								ATYPE extends JeeslAomType<L,D,REALM,ATYPE,?>,
-								EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS>,
+								EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER>,
 								ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
-								ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>>
+								ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,
+								USER extends JeeslSimpleUser>
 		extends AbstractFactoryBuilder<L,D>
 {
 	final static Logger logger = LoggerFactory.getLogger(AssetFactoryBuilder.class);
@@ -73,7 +75,7 @@ public class AssetFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 	public EjbAssetCompanyFactory<REALM,COMPANY,SCOPE> ejbManufacturer() {return new EjbAssetCompanyFactory<>(cCompany);}
 	public EjbAssetTypeFactory<REALM,ATYPE> ejbType() {return new EjbAssetTypeFactory<>(cAssetType);}
 	public EjbAssetFactory<REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE> ejbAsset() {return new EjbAssetFactory<>(this);}
-	public EjbAssetEventFactory<COMPANY,ASSET,EVENT,ETYPE,ESTATUS> ejbEvent() {return new EjbAssetEventFactory<>(this);}
+	public EjbAssetEventFactory<COMPANY,ASSET,EVENT,ETYPE,ESTATUS,USER> ejbEvent() {return new EjbAssetEventFactory<>(this);}
 	
 	public Comparator<ASSET> cpAsset(EjbAssetComparator.Type type){return new EjbAssetComparator<ASSET>().factory(type);}
 	public Comparator<EVENT> cpEvent(EjbEventComparator.Type type){return new EjbEventComparator<EVENT>().factory(type);}
