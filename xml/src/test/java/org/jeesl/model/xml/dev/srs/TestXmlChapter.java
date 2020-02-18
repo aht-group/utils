@@ -17,7 +17,7 @@ public class TestXmlChapter extends AbstractXmlSrsTest<Chapter>
     	Chapter xml = new Chapter();
     	xml.setTitle("Functional Requirements");
     	
-    	if(withChildren && false)
+    	if(withChildren)
     	{
     		xml.getContent().add(TestXmlChapter.create(false));
     		xml.getContent().add(XmlSectionFactory.build("de"));

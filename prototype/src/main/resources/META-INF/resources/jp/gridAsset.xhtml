@@ -16,7 +16,7 @@
 	<composite:implementation>
 <jp:grid id="grid">
 	<j:row>
-		<j:slot id="sAssets" width="5">
+		<j:slot id="sAssets" width="4">
 			<h:form id="fTree" >
 				<p:panel id="pTree" header="#{msg.jeeslCmsDocumentStructure}" styleClass="jeeslTree" >
 					<f:facet name="actions">
@@ -38,7 +38,7 @@
 				</p:panel>
 			</h:form>
 		</j:slot>
-		<j:slot id="sAsset" width="7">
+		<j:slot id="sAsset" width="8">
 			<h:form id="fType" rendered="#{not empty cc.attrs.bean.asset}">
 				<p:panel header="#{msg.jeeslAsset}" styleClass="jeeslPanel">
 					<f:facet name="actions">
@@ -54,13 +54,25 @@
 						<jtp:inputText value="#{cc.attrs.bean.asset.name}"/>
 						
 						<p:outputLabel value="#{msg.jeeslAssetStatus}"/>
-						<p:selectOneMenu value="#{cc.attrs.bean.asset.status}" effect="fade" autoWidth="false">
+						<p:selectOneMenu value="#{cc.attrs.bean.asset.status}" var="t" effect="fade" autoWidth="false">
                         	<f:selectItems value="#{cc.attrs.cache.assetStatus}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s}"/>
+                        	<p:column>
+				                <jtp:symbolizer value="#{t}"/>
+				            </p:column>
+				            <p:column>
+				                <h:outputText value="#{t.name[localeCode].lang}"/>
+				            </p:column>
                         </p:selectOneMenu>
                         
                         <p:outputLabel value="#{msg.jeeslAssetType}"/>
-						<p:selectOneMenu value="#{cc.attrs.bean.asset.type1}" effect="fade" autoWidth="false">
+						<p:selectOneMenu value="#{cc.attrs.bean.asset.type1}" var="t" effect="fade" autoWidth="false">
                         	<f:selectItems value="#{cc.attrs.cache.mapAssetType[cc.attrs.bean.realm][cc.attrs.bean.rref]}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t}"/>
+                        	<p:column>
+				                <jtp:symbolizer value="#{t}"/>
+				            </p:column>
+				            <p:column>
+				                <h:outputText value="#{t.name[localeCode].lang}"/>
+				            </p:column>
                         </p:selectOneMenu>
                         
                         <p:outputLabel value="#{msg.jeeslAssetCompany}"/>
@@ -81,7 +93,7 @@
 						</j:dtHeader>
 					</f:facet>
 					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectEvent()}" update=":#{cc.id}:fEvent"/>
-					<p:column headerText="#{msg.jeeslCode}">
+					<p:column headerText="#{msg.jeeslAssetEventStatus}">
 						<jtp:symbolizer value="#{e.status}" marginRight="5"/>
 						<jp:outputDate value="#{e.record}"/>
 					</p:column>
@@ -93,17 +105,11 @@
 					<p:column headerText="#{msg.jeeslAssetEventName}">
 						<jp:outputAmount value="#{e.name}"/>
 					</p:column>
-					<p:column headerText="#{msg.jeeslAssetCompany}"
-						<h:outputText value="#{e.company.code}" rendered="#{e.type.code eq 'quote'}"/>
-						<h:outputText value="#{e.company.code}" rendered="#{e.type.code eq 'procurement'}"/>
-						<h:outputText value="#{e.company.code}" rendered="#{e.type.code eq 'maintenance'}"/>
-						<h:outputText value="#{e.company.code}" rendered="#{e.type.code eq 'renew'}"/>
+					<p:column headerText="#{msg.jeeslAssetCompany}">
+						<h:outputText value="#{e.company.code}"/>
 					</p:column>
-					<p:column headerText="#{msg.jeeslAssetEventAmount}" styleClass="jeeslCenter">
-						<jp:outputAmount value="#{e.amount}" rendered="#{e.type.code eq 'quote'}"/>
-						<jp:outputAmount value="#{e.amount}" rendered="#{e.type.code eq 'procurement'}"/>
-						<jp:outputAmount value="#{e.amount}" rendered="#{e.type.code eq 'maintenance'}"/>
-						<jp:outputAmount value="#{e.amount}" rendered="#{e.type.code eq 'renew'}"/>
+					<p:column headerText="#{msg.jeeslAssetEventAmount}" styleClass="jeeslRight">
+						<jp:outputAmount value="#{e.amount}"/>
 					</p:column>
 					
 			   	</p:dataTable>

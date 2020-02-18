@@ -16,49 +16,48 @@
 	<composite:implementation>
 <jp:grid id="grid">
 	<j:row>
-		<j:slot id="sAssets" width="9">
+		<j:slot id="sAssets" width="12">
 			<h:form id="fEvents">
 				<p:dataTable var="e" value="#{cc.attrs.bean.events}" draggableRows="false"
 								selection="#{cc.attrs.bean.event}" selectionMode="single" rowKey="#{e.id}">
 					<f:facet name="header">
 						<j:dtHeader title="#{msg.jeeslAssetEvents}">
-							<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addEvent()}" update=":#{cc.id}:grid"/>
+							
 						</j:dtHeader>
 					</f:facet>
 					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectEvent()}" update=":#{cc.id}:sEvent"/>
-					<p:column>
+					<p:column headerText="#{msg.jeeslAssetEventDate}">
 						<jtp:symbolizer value="#{e.status}" marginRight="5"/>
-						<jp:outputDate value="#{e.record}"/>
+						<jp:outputDate value="#{e.record}" withMinute="true"/>
 					</p:column>
-					<p:column>
+					<p:column headerText="#{msg.jeeslAssetEventType}">
 						<jtp:symbolizer value="#{e.type}" marginRight="5"/>
 						<h:outputText value="#{e.type.name[localeCode].lang}"/>
 					</p:column>
-					<p:column>
-						<jp:outputAmount value="#{e.name}"/>
-					</p:column>
-					<p:column>
-						<h:outputText value="#{e.company.code}" rendered="#{not empty e.company}"/>
-					</p:column>
-					<p:column styleClass="jeeslCenter">
-						<jp:outputAmount value="#{e.amount}" rendered="#{not empty e.amount}"/>
-					</p:column>
-					<p:column>
-						<ui:repeat var="a" value="#{cc.attrs.bean.event.assets}">
+					<p:column headerText="#{msg.jeeslAsset}">
+						<ui:repeat var="a" value="#{e.assets}">
 							<ui:fragment rendered="#{(not empty a.parent.parent) and (not empty a.parent.parent.parent)}">
 								<jtp:symbolizer value="#{a.parent.parent.type1}" marginRight="5"/>
-								<h:outputText value="#{a.parent.parent.name}" style="margin-right: 10px;" styleClass="#{(a.id eq cc.attrs.bean.asset.id) ? 'jeeslBold' : ' '}"/>
+								<h:outputText value="#{a.parent.parent.name}" style="margin-right: 10px;"/>
 							</ui:fragment>
 							<ui:fragment rendered="#{not empty a.parent}">
 								<jtp:symbolizer value="#{a.parent.type1}" marginRight="5"/>
-								<h:outputText value="#{a.parent.name}" style="margin-right: 10px;" styleClass="#{(a.id eq cc.attrs.bean.asset.id) ? 'jeeslBold' : ' '}"/>
+								<h:outputText value="#{a.parent.name}" style="margin-right: 10px;"/>
 							</ui:fragment>
 							<jtp:symbolizer value="#{a.type1}" marginRight="5"/>
-							<h:outputText value="#{a.name}" styleClass="#{(a.id eq cc.attrs.bean.asset.id) ? 'jeeslBold' : ' '}"/>
+							<h:outputText value="#{a.name}" />
 							<br/>
 						</ui:repeat>
 					</p:column>
-					
+					<p:column headerText="#{msg.jeeslAssetEventName}">
+						<jp:outputAmount value="#{e.name}"/>
+					</p:column>
+					<p:column headerText="#{msg.jeeslAssetCompany}">
+						<h:outputText value="#{e.company.code}" rendered="#{not empty e.company}"/>
+					</p:column>
+					<p:column headerText="#{msg.jeeslAssetEventAmount}" styleClass="jeeslRight">
+						<jp:outputAmount value="#{e.amount}" rendered="#{not empty e.amount}"/>
+					</p:column>
 			   	</p:dataTable>
 			</h:form>
 		</j:slot>
