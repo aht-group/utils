@@ -21,13 +21,13 @@ public class EjbAssetCompanyFactory<REALM extends JeeslAomRealm<?,?,REALM,?>,
         this.cCompany = cCompany;
     }
 	
-	public <RREF extends EjbWithId> COMPANY build(REALM realm, RREF rRef)
+	public <RREF extends EjbWithId> COMPANY build(REALM realm, RREF rref)
 	{
 		try
 		{
 			COMPANY ejb = cCompany.newInstance();
 			ejb.setRealm(realm);
-			ejb.setRealmIdentifier(rRef.getId());
+			ejb.setRealmIdentifier(rref.getId());
 		    return ejb;
 		}
 		catch (InstantiationException e) {e.printStackTrace();}

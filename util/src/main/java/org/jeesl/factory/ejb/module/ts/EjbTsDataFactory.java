@@ -56,6 +56,18 @@ public class EjbTsDataFactory<TS extends JeeslTimeSeries<?,?,?>,
 		return ejb;
 	}
 	
+	public DATA build()
+	{
+		DATA ejb = null;
+		try
+		{
+			ejb = cData.newInstance();
+		}
+		catch (InstantiationException e) {e.printStackTrace();} 
+		catch (IllegalAccessException e) {e.printStackTrace();}
+		return ejb;
+	}
+	
 	public Set<Date> toSetDate(List<DATA> list)
 	{
 		Set<Date> set = new HashSet<Date>();

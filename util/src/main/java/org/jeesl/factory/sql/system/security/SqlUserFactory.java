@@ -20,11 +20,11 @@ public class SqlUserFactory <USER extends JeeslUser<?>>
 		return sb.toString();
 	}
 	
-	public String updatePwd(String table, USER user, String pwd)
+	public String updatePwd(String table, String column, USER user, String pwd)
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.append("UPDATE ").append(table);
-		sb.append(" SET pwd='").append(pwd).append("'");
+		sb.append(" SET ").append(column).append("='").append(pwd).append("'");
 		sb.append(" WHERE id=").append(user.getId());
 		sb.append(";");
 		

@@ -130,7 +130,7 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 	
 	public void addType()
 	{
-		ATYPE parent = null; if(type!=null) {parent = type;} else {parent = root;}
+		ATYPE parent=null; if(type!=null) {parent = type;} else {parent = root;}
 		type = fbAsset.ejbType().build(realm, rref, parent, UUID.randomUUID().toString());
 		type.setName(efLang.createEmpty(bTranslation.getLocales()));
 		type.setDescription(efDescription.createEmpty(bTranslation.getLocales()));
@@ -154,15 +154,12 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
         TreeNode dropNode = event.getDropNode();
         int dropIndex = event.getDropIndex();
         logger.info("Dragged " + dragNode.getData() + "Dropped on " + dropNode.getData() + " at " + dropIndex);
-        
-        logger.info("Childs of "+dropNode.getData());
+
         ATYPE parent = (ATYPE)dropNode.getData();
         int index=1;
         for(TreeNode n : dropNode.getChildren())
         {
         	ATYPE child =(ATYPE)n.getData();
-//    		TYPE db = fAsset.find(fbAsset.getClassType(),child);
-//    		efS.update(db,child);
     		child.setParent(parent);
     		child.setPosition(index);
     		fAsset.save(child);
