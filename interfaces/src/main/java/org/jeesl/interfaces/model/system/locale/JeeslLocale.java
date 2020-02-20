@@ -15,5 +15,5 @@ public interface JeeslLocale <L extends JeeslLang, D extends JeeslDescription,
 								JeeslStatusFixedCode,EjbWithCodeGraphic<G>,
 								JeeslStatus<S,L,D>
 {
-	public static enum Code{symbol,svg,png}
+
 }

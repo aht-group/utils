@@ -90,7 +90,7 @@ public class AbstractJeeslOfxTableFactory<L extends JeeslLang, LOC extends Jeesl
 			Cell cell = XmlCellFactory.build();
 			for(String localeCode : tp.getLocaleCodes())
 			{
-				cell.getContent().add(XmlParagraphFactory.build(localeCode,tp.toTranslation(localeCode, headerKey)));
+				cell.getContent().add(XmlParagraphFactory.build(localeCode,tp.tlEntity(localeCode, headerKey)));
 			}
 			row.getCell().add(cell);
 		}
@@ -110,7 +110,7 @@ public class AbstractJeeslOfxTableFactory<L extends JeeslLang, LOC extends Jeesl
 				logger.trace("Building via TP "+json.getEntity()+" "+json.getCode());
 				for(String localeCode : lp.getLocaleCodes())
 				{
-					Paragraph p = XmlParagraphFactory.build(localeCode,tp.toTranslation(localeCode,json.getEntity(),json.getCode()));
+					Paragraph p = XmlParagraphFactory.build(localeCode,tp.tlAttribute(localeCode,json.getEntity(),json.getCode()));
 					cell.getContent().add(p);
 				}
 			}

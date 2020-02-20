@@ -31,11 +31,10 @@ public class JsonTuple1Handler <A extends EjbWithId> extends JsonTupleHandler im
 	
 	protected final Class<A> cA;
 	protected final Map<Long,A> mapA;
+	
 	private int sizeA; public int getSizeA() {return sizeA;}
 	private final List<A> listA; public List<A> getListA() {return listA;}
-	private final Map<A,Json1Tuple<A>> map1; public Map<A,Json1Tuple<A>> getMapA() {return map1;}
-
-	public Map<A,Json1Tuple<A>> getMap1() {return map1;}
+	private final Map<A,Json1Tuple<A>> map1; public Map<A,Json1Tuple<A>> getMapA() {return map1;} public Map<A,Json1Tuple<A>> getMap1() {return map1;}
 
 	public JsonTuple1Handler(Class<A> cA)
 	{
@@ -69,7 +68,12 @@ public class JsonTuple1Handler <A extends EjbWithId> extends JsonTupleHandler im
 				if(mapA.containsKey(t.getId())) {t.setEjb(mapA.get(t.getId()));}
 				else
 				{
-					try{t.setEjb(cA.newInstance()); t.getEjb().setId(t.getId());}
+					try
+					{
+						t.setEjb(cA.newInstance());
+						if(t.getId()!=null){t.getEjb().setId(t.getId());}
+						else {t.getEjb().setId(0);}
+					}
 					catch (InstantiationException | IllegalAccessException e) {e.printStackTrace();}
 				}
 			}

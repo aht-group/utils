@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:j="http://www.jeesl.org/jsf"
+        xmlns:jp="http://jsf.jeesl.org/prototype"
+        xmlns:mcg="http://www.metachart.org/graph"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+	
+	<composite:interface>
+            <composite:attribute name="bean" required="true"/>
+            <composite:attribute name="localeKeys" required="false" default="#{appTranslationBean.langKeys}"/>
+	</composite:interface>
+	
+	<composite:implementation>
+            <jp:grid id="grid">
+			<j:row id="row1">
+				<j:slot id="sIoDashComponents" width="6">
+					<h:form id="fIoDashComponents">
+						<p:dataTable var="y" value="#{cc.attrs.bean.dashComponents}"
+								selection="#{cc.attrs.bean.dashComponent}" selectionMode="single" rowKey="#{y.id}">
+							<f:facet name="header">
+								<j:dtHeader title="#{msg.jeeslIoDashComponents}">
+									<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addDashComponent()}" update=":#{cc.id}:sIoDashComponent"/>
+								</j:dtHeader>
+							</f:facet>
+							<p:ajax event="rowSelect" update=":#{cc.id}:sIoDashComponents :#{cc.id}:sIoDashComponent" listener="#{cc.attrs.bean.selectDashComponent}"/>
+				            <p:column headerText="#{msg.jeeslDashComponentSnippet}" >  
+								<h:outputText value="#{y.snippet}" />  
+				            </p:column>
+				            <p:column headerText="#{msg.jeeslCode}" rendered="false">  
+								<h:outputText value="#{y.code}" />  
+				            </p:column>
+				            <p:column headerText="#{msg.jeeslName}">  
+								<h:outputText value="#{y.name[localeCode].lang}"/>
+				            </p:column>
+						</p:dataTable>
+					</h:form>
+				</j:slot>
+				<j:slot id="sIoDashComponent" width="6">
+					<h:form id="fIoDashComponent">
+						<p:panel header="#{msg.jeeslIoDashComponent}" rendered="#{not empty cc.attrs.bean.dashComponent}" styleClass="jeeslPanel">
+							<f:facet name="actions">
+								<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.cancelDashComponent()}" update=":#{cc.id}:sIoDashComponent" mayDisappear="true"/>
+								<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveDashComponent()}"   update=":#{cc.id}:sIoDashComponents :#{cc.id}:sIoDashComponent" tooltip="#{msg.ttSave}"/>
+								<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteDashComponent()}" update=":#{cc.id}:sIoDashComponents :#{cc.id}:sIoDashComponent" rendered="#{cc.attrs.bean.dashComponent.id gt 0}" mayDisappear="true"/>
+							</f:facet>
+							<p:messages redisplay="false" severity="warn,error" showSummary="false" showDetail="true" closable="true"/>
+							<p:panelGrid columns="2" columnClasses="jeeslGrid30,jeeslGrid70">
+							
+								<p:outputLabel value="#{msg.jeeslDashComponentSnippet}"/>
+								<p:inputText value="#{cc.attrs.bean.dashComponent.snippet}" autocomplete="off"/>
+								
+								<p:outputLabel value="#{msg.jeeslCode}"/>
+                                <p:inputText value="#{cc.attrs.bean.dashComponent.code}" autocomplete="off"/>
+                                                                                               
+							</p:panelGrid>
+							<j:tabTranslationEditor value="#{cc.attrs.bean.dashComponent}" keys="#{cc.attrs.localeKeys}" withDescription="true"/>
+						</p:panel>
+					</h:form>
+				</j:slot>
+			</j:row>
+	    </jp:grid>
+            
+	</composite:implementation>
+</html>

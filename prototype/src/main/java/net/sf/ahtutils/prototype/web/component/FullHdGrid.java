@@ -4,14 +4,14 @@ import javax.faces.component.FacesComponent;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
 
-@FacesComponent("net.sf.ahtutils.prototype.web.component.UhdGrid")
+@FacesComponent("net.sf.ahtutils.prototype.web.component.FullHdGrid")
 @ListenerFor(systemEventClass=PostAddToViewEvent.class)
-public class UhdGrid extends Grid{
-	public UhdGrid()
+public class FullHdGrid extends Grid{
+	public FullHdGrid()
 	{
 		super();
-		slot=280;
-		gutter=20;
+		slot=140;
+		gutter=10;
 	}
 
 }

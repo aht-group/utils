@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.system.constraint;
+package org.jeesl.interfaces.model.system.health;
 
 import java.io.Serializable;
 
@@ -11,7 +11,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatusFixedCode;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 
-public interface JeeslConstraintLevel <L extends JeeslLang, D extends JeeslDescription,
+public interface JeeslSystemHealthIndicator <L extends JeeslLang, D extends JeeslDescription,
 										S extends JeeslStatus<S,L,D>,
 										G extends JeeslGraphic<L,D,?,?,?>>
 										extends Serializable,EjbPersistable,
@@ -19,7 +19,5 @@ public interface JeeslConstraintLevel <L extends JeeslLang, D extends JeeslDescr
 												EjbWithCodeGraphic<G>,
 												JeeslStatus<S,L,D>
 {
-	public static String xmlResourceContainer = "jeesl/db/system/constraint/level.xml";
-	
-	public static enum Code{error};
+	public static enum Code{session};
 }

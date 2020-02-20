@@ -6,8 +6,9 @@ import java.util.Map;
 
 import org.apache.commons.jxpath.JXPathContext;
 import org.apache.commons.jxpath.JXPathNotFoundException;
-import org.jeesl.api.bean.JeeslLabelResolver;
+import org.jeesl.interfaces.controller.handler.JeeslTranslationProvider;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.metachart.factory.json.pivot.McPivotFactory;
 import org.metachart.model.json.pivot.PivotField;
 import org.slf4j.Logger;
@@ -15,17 +16,17 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public class JeeslPivotFactory<RE extends JeeslRevisionEntity<?,?,?,?,?,?>> extends McPivotFactory
+public class JeeslPivotFactory<LOC extends JeeslLocale<?,?,LOC,?>, RE extends JeeslRevisionEntity<?,?,?,?,?,?>> extends McPivotFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(JeeslPivotFactory.class);
 	
-	private final JeeslLabelResolver labelResolver;
+	private final JeeslTranslationProvider<LOC> labelResolver;
 	
 	private final String localeCode;
 	
 	private final Map<Class<?>,String> mapFieldId;
 	
-	public JeeslPivotFactory(String localeCode, JeeslLabelResolver labelResolver)
+	public JeeslPivotFactory(String localeCode, JeeslTranslationProvider<LOC> labelResolver)
 	{
 		this.localeCode=localeCode;
 		this.labelResolver=labelResolver;
@@ -45,9 +46,9 @@ public class JeeslPivotFactory<RE extends JeeslRevisionEntity<?,?,?,?,?,?>> exte
 		PivotField json = new PivotField();
 		json.setMap(new HashMap<Long,String>());
 		json.setId("id"+(container.getFieldList().size()+1));
-		json.setLabel(labelResolver.entity(localeCode,c));		
+		json.setLabel(labelResolver.tlEntity(localeCode,c));		
 		
-		String xpath = labelResolver.xpath(localeCode,c,code);
+		String xpath = labelResolver.xpAttribute(localeCode,c,code);
 		for(Object o : collection)
 		{
 			EjbWithId ejb = (EjbWithId)o;
@@ -77,7 +78,7 @@ public class JeeslPivotFactory<RE extends JeeslRevisionEntity<?,?,?,?,?,?>> exte
 		PivotField json = new PivotField();
 		json.setMap(new HashMap<Long,String>());
 		json.setId("id"+(container.getFieldList().size()+1));
-		json.setLabel(labelResolver.entity(localeCode,c));		
+		json.setLabel(labelResolver.tlEntity(localeCode,c));		
 		
 		String xpath = "name[@name='"+localeCode+"']/lang";
 //		xpath = "name/de/lang";

@@ -14,8 +14,8 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GenericLocaleProvider <L extends JeeslLang,D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>>
-					implements JeeslLocaleProvider<LOC>
+public class GenericLocaleProvider <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>>
+									implements JeeslLocaleProvider<LOC>
 {
 	private static final long serialVersionUID = 1L;
 

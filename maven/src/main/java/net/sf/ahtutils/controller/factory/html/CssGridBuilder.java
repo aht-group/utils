@@ -32,9 +32,9 @@ public class CssGridBuilder extends AbstractFreemarkerFileFactory
 		}
 		buildCss(54, 5); //erp
 		buildCss(73, 5); //lis
-		buildCss(92, 6); //hd (1280 * 720 pixel)
-		buildCss(136, 10); //full hd (1920 * 1080 pixel)
-		buildCss(274, 20); //Uhd(3840 * 2160 pixel)
+		buildCss(94, 6); //hd (1280 * 720 pixel with width 100%)
+		buildCss(140, 10); //full hd (1920 * 1080 pixel with width 100%)
+		buildCss(280, 20); //Uhd(3840 * 2160 pixel with width 100%)
 	}
 
 	public void buildVcsTestFile(File vcsFile)
