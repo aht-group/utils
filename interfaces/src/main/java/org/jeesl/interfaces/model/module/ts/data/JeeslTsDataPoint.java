@@ -9,7 +9,8 @@ import org.jeesl.interfaces.model.module.ts.core.JeeslTsMultiPoint;
 
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface JeeslTsDataPoint <DATA extends JeeslTsData<?,?,?,?>, MP extends JeeslTsMultiPoint<?,?,?,?>>
+public interface JeeslTsDataPoint <DATA extends JeeslTsData<?,?,?,?>,
+									MP extends JeeslTsMultiPoint<?,?,?,?>>
 		extends EjbWithId,EjbSaveable,Serializable,EjbRemoveable,EjbPersistable
 {
 	public enum Attributes {data}

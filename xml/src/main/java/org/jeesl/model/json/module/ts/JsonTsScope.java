@@ -2,6 +2,8 @@ package org.jeesl.model.json.module.ts;
 
 import java.io.Serializable;
 
+import org.jeesl.model.json.system.status.JsonType;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -24,6 +26,12 @@ public class JsonTsScope implements Serializable
 	public String getCode() {return code;}
 	public void setCode(String code) {this.code = code;}
 	@JsonIgnore public boolean isSetCode() {return code!=null;}
+	
+	@JsonProperty("type")
+	private JsonType type;
+	public JsonType getType() {return type;}
+	public void setType(JsonType type) {this.type = type;}
+	@JsonIgnore public boolean isSetType() {return type!=null;}
 	
 	@JsonProperty("label")
 	private String label;

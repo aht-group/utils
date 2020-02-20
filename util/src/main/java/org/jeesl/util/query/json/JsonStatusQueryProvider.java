@@ -2,6 +2,7 @@ package org.jeesl.util.query.json;
 
 import org.jeesl.model.json.system.status.JsonInterval;
 import org.jeesl.model.json.system.status.JsonStatus;
+import org.jeesl.model.json.system.status.JsonType;
 import org.jeesl.model.json.system.status.JsonWorkspace;
 
 public class JsonStatusQueryProvider
@@ -20,6 +21,13 @@ public class JsonStatusQueryProvider
 //		xml.setId(Long.valueOf(0));
 		xml.setCode("");
 		xml.setLabel("");
+		return xml;
+	}
+	
+	public static JsonType typeCode()
+	{				
+		JsonType xml = new JsonType();
+		xml.setCode("");
 		return xml;
 	}
 	

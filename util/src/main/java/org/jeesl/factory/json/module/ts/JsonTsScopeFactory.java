@@ -1,19 +1,28 @@
 package org.jeesl.factory.json.module.ts;
 
+import org.jeesl.factory.json.system.status.JsonTypeFactory;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsScope;
+import org.jeesl.interfaces.model.module.ts.core.JeeslTsScopeType;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.model.json.module.ts.JsonTsScope;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class JsonTsScopeFactory<SCOPE extends JeeslTsScope<?,?,?,?,?,?,?>>
+public class JsonTsScopeFactory<L extends JeeslLang, D extends JeeslDescription,
+								SCOPE extends JeeslTsScope<L,D,?,ST,?,?,?>,
+								ST extends JeeslTsScopeType<L,D,ST,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(JsonTsScopeFactory.class);
 	
 	private final JsonTsScope q;
 	
+	private JsonTypeFactory<L,D,ST> jfType;
+	
 	public JsonTsScopeFactory(JsonTsScope q)
 	{
 		this.q=q;
+		if(q.isSetType()) {jfType = new JsonTypeFactory<>(q.getType());}
 	}
 	
 	public static JsonTsScope build(){return new JsonTsScope();}
@@ -22,6 +31,7 @@ public class JsonTsScopeFactory<SCOPE extends JeeslTsScope<?,?,?,?,?,?,?>>
 	{
 		JsonTsScope json = build();
 		if(q.isSetCode()) {json.setCode(ejb.getCode());}
+		if(q.isSetType()) {json.setType(jfType.build(ejb.getType()));}
 		return json;
 	}
 }

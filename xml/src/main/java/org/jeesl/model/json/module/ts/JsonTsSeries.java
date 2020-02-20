@@ -1,6 +1,7 @@
 package org.jeesl.model.json.module.ts;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.jeesl.model.json.system.status.JsonCategory;
 import org.jeesl.model.json.system.status.JsonInterval;
@@ -40,6 +41,11 @@ public class JsonTsSeries implements Serializable
 	private Integer size;
 	public Integer getSize() {return size;}
 	public void setSize(Integer size) {this.size = size;}
+	
+	@JsonProperty("datas")
+	private List<JsonTsData> datas;
+	public List<JsonTsData> getDatas() {return datas;}
+	public void setDatas(List<JsonTsData> datas) {this.datas = datas;}
 	
 	@Override public String toString()
 	{

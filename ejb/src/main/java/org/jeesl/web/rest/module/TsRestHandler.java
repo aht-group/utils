@@ -1,12 +1,17 @@
 package org.jeesl.web.rest.module;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.jeesl.api.facade.module.JeeslTsFacade;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.factory.ejb.module.ts.EjbTsDataPointFactory;
+import org.jeesl.factory.json.module.ts.JsonTsDataFactory;
+import org.jeesl.factory.json.module.ts.JsonTsMultiPointFactory;
+import org.jeesl.factory.json.module.ts.JsonTsPointFactory;
 import org.jeesl.factory.json.module.ts.JsonTsScopeFactory;
 import org.jeesl.factory.json.system.status.JsonIntervalFactory;
 import org.jeesl.factory.json.system.status.JsonWorkspaceFactory;
@@ -27,6 +32,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.with.EjbWithLangDescription;
+import org.jeesl.model.json.module.ts.JsonTsData;
 import org.jeesl.model.json.module.ts.JsonTsSeries;
 import org.jeesl.util.query.json.JsonStatusQueryProvider;
 import org.jeesl.util.query.json.JsonTsQueryProvider;
@@ -66,7 +72,9 @@ public class TsRestHandler <L extends JeeslLang, D extends JeeslDescription,
 	
 	private final EjbTsDataPointFactory<MP,DATA,POINT> efPoint;
 	
-	private JsonTsScopeFactory<SCOPE> jfScope;
+	private JsonTsScopeFactory<L,D,SCOPE,ST> jfScope;
+	private final JsonTsDataFactory<DATA> jfData;
+	private JsonTsPointFactory<MP,POINT> jfPoint;
 	private JsonIntervalFactory<L,D,INT> jfInterval;
 	private JsonWorkspaceFactory<L,D,WS> jfWorkspace;
 	
@@ -80,6 +88,8 @@ public class TsRestHandler <L extends JeeslLang, D extends JeeslDescription,
 		efPoint = fbTs.ejbDataPoint();
 		
 		jfScope = new JsonTsScopeFactory<>(JsonTsQueryProvider.scope());
+		jfData = new JsonTsDataFactory<>(JsonTsQueryProvider.data());
+		jfPoint = new JsonTsPointFactory<>(JsonTsQueryProvider.point());
 		jfInterval = new JsonIntervalFactory<>(JsonStatusQueryProvider.intervalCode());
 		jfWorkspace = new JsonWorkspaceFactory<>(JsonStatusQueryProvider.workspaceCode());
 	}
@@ -99,7 +109,7 @@ public class TsRestHandler <L extends JeeslLang, D extends JeeslDescription,
 			switch(JeeslTsScopeType.Code.valueOf(scope.getType().getCode()))
 			{
 				case ts: break; 
-				case mp: multiPoints(workspace,ts,dtNow.minusHours(1).toDate(),dtNow.toDate()); break;
+				case mp: json.setDatas(multiPoints(workspace,ts,dtNow.minusHours(1).toDate(),dtNow.toDate())); break;
 			}	
 		}
 		catch (JeeslNotFoundException e) {logger.warn(e.getMessage());}
@@ -107,9 +117,24 @@ public class TsRestHandler <L extends JeeslLang, D extends JeeslDescription,
 		return json;
 	}
 	
-	private void multiPoints(WS workspace,TS ts,Date from, Date to)
+	private List<JsonTsData> multiPoints(WS workspace,TS ts,Date from, Date to)
 	{
+		List<JsonTsData> list = new ArrayList<>();
 		List<POINT> points = fTs.fPoints(workspace,ts,from,to);
-		logger.info("points: "+points.size());
+		Map<DATA,List<POINT>> map = efPoint.toMapData(points);
+		List<DATA> datas = new ArrayList<>(map.keySet());
+		for(DATA d : datas)
+		{
+			JsonTsData jData = jfData.build(d);
+			jData.setPoints(new ArrayList<>());
+			for(POINT p : map.get(d))
+			{
+				jData.getPoints().add(jfPoint.build(p));
+			}
+			
+			list.add(jData);
+			
+		}
+		return list;
 	}
 }
