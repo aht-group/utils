@@ -6,12 +6,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.jeesl.model.json.module.ts.JsonTsTimeSeries;
+import org.jeesl.model.json.module.ts.JsonTsSeries;
 
 @Path("/rest/jeesl/health")
 public interface JeeslSystemHealthRest
 {
 	@GET @Path("ts/{indicator}")
 	@Produces(MediaType.APPLICATION_JSON)
-	JsonTsTimeSeries timeseries(@PathParam("indicator") String indicator);
+	JsonTsSeries timeseries(@PathParam("indicator") String indicator);
 }

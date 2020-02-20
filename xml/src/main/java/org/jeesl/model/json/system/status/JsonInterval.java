@@ -6,17 +6,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName(value="status")
-public class JsonStatus implements Serializable
+@JsonRootName(value="type")
+public class JsonInterval implements Serializable
 {
 	public static final long serialVersionUID=1;
 
 	@JsonProperty("id")
 	private Long id;
 	public Long getId() {return id;}
-	public void setId(Long id) {this.id=id;}
+	public void setId(Long id) {this.id = id;}
 	@JsonIgnore public boolean isSetId() {return id!=null;}
-
+	
 	@JsonProperty("code")
 	private String code;
 	public String getCode() {return code;}

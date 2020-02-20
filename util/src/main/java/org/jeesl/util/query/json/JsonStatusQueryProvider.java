@@ -1,6 +1,8 @@
 package org.jeesl.util.query.json;
 
+import org.jeesl.model.json.system.status.JsonInterval;
 import org.jeesl.model.json.system.status.JsonStatus;
+import org.jeesl.model.json.system.status.JsonWorkspace;
 
 public class JsonStatusQueryProvider
 {
@@ -19,5 +21,19 @@ public class JsonStatusQueryProvider
 		xml.setCode("");
 		xml.setLabel("");
 		return xml;
+	}
+	
+	public static JsonInterval intervalCode()
+	{				
+		JsonInterval xml = new JsonInterval();
+		xml.setCode("");
+		return xml;
+	}
+	
+	public static JsonWorkspace workspaceCode()
+	{				
+		JsonWorkspace json = new JsonWorkspace();
+		json.setCode("");
+		return json;
 	}
 }

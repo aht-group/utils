@@ -1,20 +1,22 @@
-package org.jeesl.model.json.system.status;
+package org.jeesl.model.json.module.ts;
 
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName(value="status")
-public class JsonStatus implements Serializable
+@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonRootName(value="scope")
+public class JsonTsScope implements Serializable
 {
 	public static final long serialVersionUID=1;
 
 	@JsonProperty("id")
 	private Long id;
 	public Long getId() {return id;}
-	public void setId(Long id) {this.id=id;}
+	public void setId(Long id) {this.id = id;}
 	@JsonIgnore public boolean isSetId() {return id!=null;}
 
 	@JsonProperty("code")
@@ -35,10 +37,9 @@ public class JsonStatus implements Serializable
 	public void setDescription(String description) {this.description = description;}
 	@JsonIgnore public boolean isSetDescription() {return description!=null;}
 	
-	public String toString()
+	@Override public String toString()
 	{
-		StringBuffer sb = new StringBuffer();
-		
+		StringBuffer sb = new StringBuffer();	
 		return sb.toString();
 	}
 }
