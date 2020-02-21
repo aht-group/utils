@@ -847,7 +847,8 @@ public class JeeslFacadeBean implements JeeslFacade
 	    Path<Object> p1Path = root.get(prototype.resolveParentAttribute());
 	    
 	    CriteriaQuery<T> select = cQ.select(root);
-	    select.where(cB.equal(p1Path,parent));
+	    if(parent!=null) {select.where(cB.equal(p1Path,parent));}
+	    else {select.where(cB.isNull(p1Path));}
 	    
 	    if(EjbWithPosition.class.isAssignableFrom(c)){select.orderBy(cB.asc(root.get(EjbWithPosition.attributePosition)));}
 	    else if(EjbWithRecord.class.isAssignableFrom(c)){select.orderBy(cB.asc(root.get(EjbWithRecord.attributeRecord)));}
