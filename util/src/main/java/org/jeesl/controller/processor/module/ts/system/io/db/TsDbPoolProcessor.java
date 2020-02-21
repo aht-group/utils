@@ -6,6 +6,7 @@ import org.jeesl.api.facade.module.JeeslTsFacade;
 import org.jeesl.controller.processor.module.ts.AbstractTimeSeriesProcessor;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
+import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsMultiPoint;
@@ -29,7 +30,7 @@ public class TsDbPoolProcessor<SYSTEM extends JeeslIoSsiSystem,
 									TRANSACTION extends JeeslTsTransaction<?,DATA,?,?>,
 									BRIDGE extends JeeslTsBridge<EC>,
 									EC extends JeeslTsEntityClass<?,?,?>,
-									INT extends JeeslStatus<INT,?,?>,
+									INT extends JeeslTsInterval<?,?,INT,?>,
 									STAT extends JeeslTsStatistic<?,?,STAT,?>,
 									DATA extends JeeslTsData<TS,TRANSACTION,?,WS>,
 									POINT extends JeeslTsDataPoint<DATA,MP>,

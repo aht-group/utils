@@ -1,13 +1,17 @@
-package org.jeesl.model.json.system.status;
+package org.jeesl.model.json.module.ts;
 
 import java.io.Serializable;
 
+import org.jeesl.model.json.system.status.JsonType;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName(value="type")
-public class JsonType implements Serializable
+@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonRootName(value="scope")
+public class JsonTsScope implements Serializable
 {
 	public static final long serialVersionUID=1;
 
@@ -23,6 +27,12 @@ public class JsonType implements Serializable
 	public void setCode(String code) {this.code = code;}
 	@JsonIgnore public boolean isSetCode() {return code!=null;}
 	
+	@JsonProperty("type")
+	private JsonType type;
+	public JsonType getType() {return type;}
+	public void setType(JsonType type) {this.type = type;}
+	@JsonIgnore public boolean isSetType() {return type!=null;}
+	
 	@JsonProperty("label")
 	private String label;
 	public String getLabel() {return label;}
@@ -35,10 +45,9 @@ public class JsonType implements Serializable
 	public void setDescription(String description) {this.description = description;}
 	@JsonIgnore public boolean isSetDescription() {return description!=null;}
 	
-	public String toString()
+	@Override public String toString()
 	{
-		StringBuffer sb = new StringBuffer();
-		
+		StringBuffer sb = new StringBuffer();	
 		return sb.toString();
 	}
 }

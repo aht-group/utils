@@ -7,6 +7,7 @@ import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.factory.ejb.module.ts.EjbTsDataFactory;
 import org.jeesl.factory.ejb.module.ts.EjbTsDataPointFactory;
 import org.jeesl.factory.mc.ts.McTimeSeriesFactory;
+import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsMultiPoint;
@@ -28,7 +29,7 @@ public class AbstractTimeSeriesProcessor<SCOPE extends JeeslTsScope<?,?,?,?,?,EC
 									TRANSACTION extends JeeslTsTransaction<?,DATA,?,?>,
 									BRIDGE extends JeeslTsBridge<EC>,
 									EC extends JeeslTsEntityClass<?,?,?>,
-									INT extends JeeslStatus<INT,?,?>,
+									INT extends JeeslTsInterval<?,?,INT,?>,
 									STAT extends JeeslTsStatistic<?,?,STAT,?>,
 									DATA extends JeeslTsData<TS,TRANSACTION,?,WS>,
 									POINT extends JeeslTsDataPoint<DATA,MP>,

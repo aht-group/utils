@@ -25,10 +25,12 @@ import org.jeesl.factory.ejb.module.ts.EjbTsBridgeFactory;
 import org.jeesl.factory.ejb.module.ts.EjbTsFactory;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.factory.json.db.tuple.t1.Json1TuplesFactory;
+import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsMultiPoint;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsScope;
+import org.jeesl.interfaces.model.module.ts.core.JeeslTsScopeType;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsBridge;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsData;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsDataPoint;
@@ -48,7 +50,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 							CAT extends JeeslStatus<CAT,L,D>,
 							SCOPE extends JeeslTsScope<L,D,CAT,ST,UNIT,EC,INT>,
-							ST extends JeeslStatus<ST,L,D>,
+							ST extends JeeslTsScopeType<L,D,ST,?>,
 							UNIT extends JeeslStatus<UNIT,L,D>,
 							MP extends JeeslTsMultiPoint<L,D,SCOPE,UNIT>,
 							TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT>,
@@ -56,7 +58,7 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 							SOURCE extends EjbWithLangDescription<L,D>, 
 							BRIDGE extends JeeslTsBridge<EC>,
 							EC extends JeeslTsEntityClass<L,D,CAT>,
-							INT extends JeeslStatus<INT,L,D>,
+							INT extends JeeslTsInterval<L,D,INT,?>,
 							STAT extends JeeslTsStatistic<L,D,STAT,?>,
 							DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
 							POINT extends JeeslTsDataPoint<DATA,MP>,

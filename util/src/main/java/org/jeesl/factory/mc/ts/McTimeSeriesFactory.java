@@ -8,6 +8,7 @@ import org.jeesl.api.facade.module.JeeslTsFacade;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.factory.ejb.module.ts.EjbTsDataPointFactory;
+import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsMultiPoint;
@@ -36,7 +37,7 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 								TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT>,
 								BRIDGE extends JeeslTsBridge<EC>,
 								EC extends JeeslTsEntityClass<?,?,?>,
-								INT extends JeeslStatus<INT,?,?>,
+								INT extends JeeslTsInterval<?,?,INT,?>,
 								STAT extends JeeslTsStatistic<?,?,STAT,?>,
 								DATA extends JeeslTsData<TS,?,?,WS>,
 								POINT extends JeeslTsDataPoint<DATA,MP>,

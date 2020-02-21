@@ -17,13 +17,13 @@ public class JsonSurveyFactory<L extends JeeslLang,D extends JeeslDescription,
 	
 	private final String localeCode;
 	private final Survey q;
-	private JsonStatusFactory<SS,L,D> jfStatus;
+	private JsonStatusFactory<L,D,SS> jfStatus;
 	
 	public JsonSurveyFactory(String localeCode, Survey q)
 	{
 		this.localeCode=localeCode;
 		this.q=q;
-		if(q.getStatus()!=null){jfStatus = new JsonStatusFactory<SS,L,D>(localeCode,q.getStatus());}
+		if(q.getStatus()!=null){jfStatus = new JsonStatusFactory<L,D,SS>(localeCode,q.getStatus());}
 	}
 	
 	public Survey build(SURVEY survey)

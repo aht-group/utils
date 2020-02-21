@@ -67,9 +67,13 @@ public class AbstractAdminBean <L extends JeeslLang,D extends JeeslDescription> 
 	protected void initJeeslAdmin(JeeslTranslationBean<L,D,?> bTranslation, JeeslFacesMessageBean bMessage)
 	{
 		this.bTranslation=bTranslation;
-		this.localeCodes=bTranslation.getLangKeys().toArray(new String[bTranslation.getLangKeys().size()]);
-		this.langs=localeCodes;
 		this.bMessage=bMessage;
+		
+		logger.info("bTranslation!=null: "+(bTranslation!=null));
+		logger.info("bTranslation.getLangKeys()!=null: "+(bTranslation.getLangKeys()!=null));
+		
+		localeCodes=bTranslation.getLangKeys().toArray(new String[bTranslation.getLangKeys().size()]);
+		langs=localeCodes;
 	}
 	
 	@Deprecated //Use initJeeslAdmin instead

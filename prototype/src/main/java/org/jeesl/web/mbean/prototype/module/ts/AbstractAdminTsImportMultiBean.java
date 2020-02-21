@@ -16,6 +16,7 @@ import java.util.Random;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.jxpath.JXPathContext;
+import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.controller.ImportStrategy;
 import org.jeesl.api.facade.module.JeeslTsFacade;
@@ -25,10 +26,12 @@ import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.factory.mc.ts.McTimeSeriesFactory;
 import org.jeesl.factory.xml.module.ts.XmlDataFactory;
 import org.jeesl.factory.xml.module.ts.XmlTsFactory;
+import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsMultiPoint;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsScope;
+import org.jeesl.interfaces.model.module.ts.core.JeeslTsScopeType;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsBridge;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsData;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsDataPoint;
@@ -57,7 +60,7 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 public class AbstractAdminTsImportMultiBean <L extends JeeslLang, D extends JeeslDescription,
 											CAT extends JeeslStatus<CAT,L,D>,
 											SCOPE extends JeeslTsScope<L,D,CAT,ST,UNIT,EC,INT>,
-											ST extends JeeslStatus<ST,L,D>,
+											ST extends JeeslTsScopeType<L,D,ST,?>,
 											UNIT extends JeeslStatus<UNIT,L,D>,
 											MP extends JeeslTsMultiPoint<L,D,SCOPE,UNIT>,
 											TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT>,
@@ -65,7 +68,7 @@ public class AbstractAdminTsImportMultiBean <L extends JeeslLang, D extends Jees
 											SOURCE extends EjbWithLangDescription<L,D>, 
 											BRIDGE extends JeeslTsBridge<EC>,
 											EC extends JeeslTsEntityClass<L,D,CAT>,
-											INT extends JeeslStatus<INT,L,D>,
+											INT extends JeeslTsInterval<L,D,INT,?>,
 											STAT extends JeeslTsStatistic<L,D,STAT,?>,
 											DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
 											POINT extends JeeslTsDataPoint<DATA,MP>,
@@ -117,9 +120,11 @@ public class AbstractAdminTsImportMultiBean <L extends JeeslLang, D extends Jees
 	
 	public AbstractAdminTsImportMultiBean(final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fbTs) {super(fbTs);}
 	
-	protected void initSuper(String[] langs, JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fTs, JeeslFacesMessageBean bMessage, UtilsXlsDefinitionResolver xlsResolver)
+	protected void initSuper(JeeslTranslationBean<L,D,?> bTranslation, JeeslFacesMessageBean bMessage, JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fTs,
+//			String[] langs, JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fTs, JeeslFacesMessageBean bMessage,
+			UtilsXlsDefinitionResolver xlsResolver)
 	{
-		super.initTsSuper(langs,fTs,bMessage);
+		super.postConstructTs(bTranslation,bMessage,fTs);
 		this.xlsResolver=xlsResolver;
 		
 		cTsData = TsDataComparator.factory(TsDataComparator.Type.date);

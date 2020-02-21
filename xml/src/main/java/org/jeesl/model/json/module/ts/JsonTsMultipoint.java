@@ -1,13 +1,15 @@
-package org.jeesl.model.json.system.status;
+package org.jeesl.model.json.module.ts;
 
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName(value="type")
-public class JsonType implements Serializable
+@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonRootName(value="mp")
+public class JsonTsMultipoint implements Serializable
 {
 	public static final long serialVersionUID=1;
 
@@ -16,7 +18,7 @@ public class JsonType implements Serializable
 	public Long getId() {return id;}
 	public void setId(Long id) {this.id = id;}
 	@JsonIgnore public boolean isSetId() {return id!=null;}
-
+	
 	@JsonProperty("code")
 	private String code;
 	public String getCode() {return code;}
@@ -35,10 +37,12 @@ public class JsonType implements Serializable
 	public void setDescription(String description) {this.description = description;}
 	@JsonIgnore public boolean isSetDescription() {return description!=null;}
 	
-	public String toString()
+
+	
+	
+	@Override public String toString()
 	{
-		StringBuffer sb = new StringBuffer();
-		
+		StringBuffer sb = new StringBuffer();	
 		return sb.toString();
 	}
 }

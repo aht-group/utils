@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName(value="type")
-public class JsonType implements Serializable
+@JsonRootName(value="category")
+public class JsonCategory implements Serializable
 {
 	public static final long serialVersionUID=1;
 
@@ -15,7 +15,6 @@ public class JsonType implements Serializable
 	private Long id;
 	public Long getId() {return id;}
 	public void setId(Long id) {this.id = id;}
-	@JsonIgnore public boolean isSetId() {return id!=null;}
 
 	@JsonProperty("code")
 	private String code;
