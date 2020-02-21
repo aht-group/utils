@@ -13,6 +13,7 @@ import org.jeesl.factory.json.module.ts.JsonTsDataFactory;
 import org.jeesl.factory.json.module.ts.JsonTsMultiPointFactory;
 import org.jeesl.factory.json.module.ts.JsonTsPointFactory;
 import org.jeesl.factory.json.module.ts.JsonTsScopeFactory;
+import org.jeesl.factory.json.module.ts.JsonTsSeriesFactory;
 import org.jeesl.factory.json.system.status.JsonIntervalFactory;
 import org.jeesl.factory.json.system.status.JsonWorkspaceFactory;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
@@ -98,26 +99,26 @@ public class TsRestHandler <L extends JeeslLang, D extends JeeslDescription,
 	{
 		
 		DateTime dtNow = new DateTime();
-		JsonTsSeries json = new JsonTsSeries();
+		JsonTsSeries jSeries = JsonTsSeriesFactory.build();
 		
 		try
 		{
 			TS ts = fTs.fTimeSeries(scope,interval, bridge);
-			json.setScope(jfScope.build(ts.getScope()));
-			json.setWorkspace(jfWorkspace.build(workspace));
-			json.setInterval(jfInterval.build(interval));
+			jSeries.setScope(jfScope.build(ts.getScope()));
+			jSeries.setWorkspace(jfWorkspace.build(workspace));
+			jSeries.setInterval(jfInterval.build(interval));
 			switch(JeeslTsScopeType.Code.valueOf(scope.getType().getCode()))
 			{
 				case ts: break; 
-				case mp: json.setDatas(multiPoints(workspace,ts,dtNow.minusHours(1).toDate(),dtNow.toDate())); break;
+				case mp: jSeries.setDatas(multiPoints(jSeries,workspace,ts,dtNow.minusHours(1).toDate(),dtNow.toDate())); break;
 			}	
 		}
 		catch (JeeslNotFoundException e) {logger.warn(e.getMessage());}
 		
-		return json;
+		return jSeries;
 	}
 	
-	private List<JsonTsData> multiPoints(WS workspace,TS ts,Date from, Date to)
+	private List<JsonTsData> multiPoints(JsonTsSeries jSeries, WS workspace,TS ts, Date from, Date to)
 	{
 		List<JsonTsData> list = new ArrayList<>();
 		List<POINT> points = fTs.fPoints(workspace,ts,from,to);
@@ -126,6 +127,7 @@ public class TsRestHandler <L extends JeeslLang, D extends JeeslDescription,
 		for(DATA d : datas)
 		{
 			JsonTsData jData = jfData.build(d);
+			JsonTsSeriesFactory.updateDateRange(jSeries,d.getRecord());
 			jData.setPoints(new ArrayList<>());
 			for(POINT p : map.get(d))
 			{

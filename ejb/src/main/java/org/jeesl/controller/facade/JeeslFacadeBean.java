@@ -19,7 +19,6 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.jeesl.controller.db.NativeQueryDebugger;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
@@ -154,9 +153,9 @@ public class JeeslFacadeBean implements JeeslFacade
 				}
 				else
 				{
-					StringBuffer sb = new StringBuffer();
+					StringBuilder sb = new StringBuilder();
 					sb.append("Not handled error:").append(javax.persistence.PersistenceException.class.getName());
-					sb.append(" with cause:").append(e.getCause().getClass().getName());
+					if(e.getCause()!=null) {sb.append(" with cause:").append(e.getCause().getClass().getName());}
 					logger.error(sb.toString());
 					e.printStackTrace();
 				}
@@ -167,13 +166,6 @@ public class JeeslFacadeBean implements JeeslFacade
 				System.err.println("This Error is not handled: "+e.getClass().getName());
 				e.printStackTrace();
 			}
-//			System.err.println("Error by "+ex.getCausedByException().getClass().getCanonicalName());
-//			if(ex.getCausedByException().getClass().getSimpleName().equals(ConstraintViolationException.class.getSimpleName())){throw (ConstraintViolationException)ex.getCausedByException();}
-//			else if(ex.getCausedByException().getClass().getSimpleName().equals(EntityExistsException.class.getSimpleName()))
-			{
-	//			logger.warn(ex.getCausedByException());
-			}
-//			else {throw ex;}
 		}
 	    return o;
 	}

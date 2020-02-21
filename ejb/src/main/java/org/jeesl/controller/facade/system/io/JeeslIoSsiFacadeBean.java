@@ -20,7 +20,7 @@ import org.jeesl.api.facade.io.JeeslIoSsiFacade;
 import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
-import org.jeesl.factory.json.db.tuple.t1.Json1TuplesFactory;
+import org.jeesl.factory.json.system.io.db.tuple.t1.Json1TuplesFactory;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiAttribute;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiCleaning;

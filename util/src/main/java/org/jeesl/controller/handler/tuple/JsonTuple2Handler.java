@@ -11,7 +11,7 @@ import java.util.Set;
 
 import org.jeesl.controller.processor.finance.AmountRounder;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
-import org.jeesl.factory.json.db.tuple.JsonTupleFactory;
+import org.jeesl.factory.json.system.io.db.tuple.JsonTupleFactory;
 import org.jeesl.interfaces.controller.report.JeeslComparatorProvider;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.model.json.db.tuple.JsonTuple;

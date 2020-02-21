@@ -24,7 +24,7 @@ import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.factory.ejb.module.ts.EjbTsBridgeFactory;
 import org.jeesl.factory.ejb.module.ts.EjbTsFactory;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
-import org.jeesl.factory.json.db.tuple.t1.Json1TuplesFactory;
+import org.jeesl.factory.json.system.io.db.tuple.t1.Json1TuplesFactory;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;

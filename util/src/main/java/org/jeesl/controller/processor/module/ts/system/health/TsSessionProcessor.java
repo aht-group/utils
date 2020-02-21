@@ -96,8 +96,12 @@ public class TsSessionProcessor<SYSTEM extends JeeslIoSsiSystem,
 			
 			for(JsonTsData jData : json.getDatas())
 			{
-				DATA data = efData.build(ws, ts, transaction, jData.getRecord(), null);
-				try {data = fTs.save(data);}
+				DATA data = efData.build(ws,ts,transaction,jData.getRecord(),null);
+				try
+				{
+					logger.info("DATA "+(data!=null));
+					data = fTs.save(data);
+				}
 				catch (JeeslConstraintViolationException | JeeslLockingException e) {}
 				
 				if(EjbIdFactory.isSaved(data))
