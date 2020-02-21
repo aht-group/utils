@@ -50,7 +50,7 @@ public class AbstractAdminTsImportManualBean<L extends JeeslLang, D extends Jees
 											ST extends JeeslTsScopeType<L,D,ST,?>,
 											UNIT extends JeeslStatus<UNIT,L,D>,
 											MP extends JeeslTsMultiPoint<L,D,SCOPE,UNIT>,
-											TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT>,
+											TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT,STAT>,
 											TRANSACTION extends JeeslTsTransaction<SOURCE,DATA,USER,?>,
 											SOURCE extends EjbWithLangDescription<L,D>,
 											BRIDGE extends JeeslTsBridge<EC>,
@@ -106,7 +106,7 @@ public class AbstractAdminTsImportManualBean<L extends JeeslLang, D extends Jees
 		super(fbTs);
 		entities = new ArrayList<EjbWithId>();
 		mapTsEntity = new HashMap<TS,EjbWithId>();
-		efData = fbTs.data();
+		efData = fbTs.ejbData();
 		sources = new ArrayList<>();
 	}
 
@@ -215,7 +215,7 @@ public class AbstractAdminTsImportManualBean<L extends JeeslLang, D extends Jees
 		if(debugOnInfo){logger.info(AbstractLogMessage.addEntity(fbTs.getClassData()));}
 		uiAllowAdd=false;
 		uiAllowSave=false;
-		transaction = fbTs.transaction().build(transactionUser, sources.get(0));
+		transaction = fbTs.ejbTransaction().build(transactionUser, sources.get(0));
 		transaction.setRecord(new Date());
 	}
 	

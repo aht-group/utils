@@ -42,7 +42,7 @@ public class AbstractAdminTsEntityBean <L extends JeeslLang, D extends JeeslDesc
 											ST extends JeeslTsScopeType<L,D,ST,?>,
 											UNIT extends JeeslStatus<UNIT,L,D>,
 											MP extends JeeslTsMultiPoint<L,D,SCOPE,UNIT>,
-											TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT>,
+											TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT,STAT>,
 											TRANSACTION extends JeeslTsTransaction<SOURCE,DATA,USER,?>,
 											SOURCE extends EjbWithLangDescription<L,D>, 
 											BRIDGE extends JeeslTsBridge<EC>,
@@ -93,7 +93,7 @@ public class AbstractAdminTsEntityBean <L extends JeeslLang, D extends JeeslDesc
 	public void add() throws JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.addEntity(fbTs.getClassEntity()));
-		entity = efClass.build(null);
+		entity = fbTs.ejbEntityClass().build(null);
 		entity.setName(efLang.createEmpty(localeCodes));
 		entity.setDescription(efDescription.createEmpty(localeCodes));
 	}

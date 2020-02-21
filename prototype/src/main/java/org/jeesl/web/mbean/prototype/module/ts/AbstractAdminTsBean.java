@@ -12,7 +12,6 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.factory.ejb.module.ts.EjbTsBridgeFactory;
-import org.jeesl.factory.ejb.module.ts.EjbTsClassFactory;
 import org.jeesl.factory.ejb.module.ts.EjbTsCronFactory;
 import org.jeesl.factory.ejb.module.ts.EjbTsDataFactory;
 import org.jeesl.factory.ejb.module.ts.EjbTsFactory;
@@ -50,7 +49,7 @@ public abstract class AbstractAdminTsBean <L extends JeeslLang, D extends JeeslD
 									ST extends JeeslTsScopeType<L,D,ST,?>,
 									UNIT extends JeeslStatus<UNIT,L,D>,
 									MP extends JeeslTsMultiPoint<L,D,SCOPE,UNIT>,
-									TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT>,
+									TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT,STAT>,
 									TRANSACTION extends JeeslTsTransaction<SOURCE,DATA,USER,?>,
 									SOURCE extends EjbWithLangDescription<L,D>, 
 									BRIDGE extends JeeslTsBridge<EC>,
@@ -77,10 +76,8 @@ public abstract class AbstractAdminTsBean <L extends JeeslLang, D extends JeeslD
 	
 	protected final EjbTsFactory<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF> efTs;
 	protected EjbTsScopeFactory<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF> efScope;
-	protected EjbTsClassFactory<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF> efClass;
-	protected EjbTsBridgeFactory<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF> efBridge;
+	protected EjbTsBridgeFactory<TS,BRIDGE,EC,DATA> efBridge;
 	protected EjbTsDataFactory<TS,TRANSACTION,DATA,WS> efData;
-	protected EjbTsTransactionFactory<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF> efTransaction;
 	protected EjbTsCronFactory<SCOPE,INT,STAT,CRON> efCron;
 	
 	protected Comparator<SCOPE> comparatorScope;
@@ -105,14 +102,12 @@ public abstract class AbstractAdminTsBean <L extends JeeslLang, D extends JeeslD
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fTs=fTs;
 		
-		comparatorScope = (new TsScopeComparator<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF>()).factory(TsScopeComparator.Type.position);
-		comparatorClass = (new TsClassComparator<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF>()).factory(TsClassComparator.Type.position);
+		comparatorScope = fbTs.cmpScope(TsScopeComparator.Type.position);
+		comparatorClass = fbTs.cmpClass(TsClassComparator.Type.position);
 		
 		efScope = fbTs.scope();
-		efTransaction = fbTs.transaction();
-		efClass = fbTs.entityClass();
-		efData = fbTs.data();
-		efBridge = fbTs.bridge();
+		efData = fbTs.ejbData();
+		efBridge = fbTs.ejbBridge();
 		efCron = fbTs.ejbCron();
 		
 		categories = fTs.allOrderedPositionVisible(fbTs.getClassCategory());

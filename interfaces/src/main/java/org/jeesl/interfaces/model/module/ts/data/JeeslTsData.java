@@ -8,7 +8,7 @@ import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
-public interface JeeslTsData <TS extends JeeslTimeSeries<?,?,?>,
+public interface JeeslTsData <TS extends JeeslTimeSeries<?,?,?,?>,
 								TRANSACTION extends JeeslTsTransaction<?,?,?,?>,
 								SAMPLE extends JeeslTsSample, 
 								WS extends JeeslStatus<WS,?,?>>
@@ -27,4 +27,7 @@ public interface JeeslTsData <TS extends JeeslTimeSeries<?,?,?>,
 	
 	SAMPLE getSample();
 	void setSample(SAMPLE sample);
+	
+//	List<POINT> getPoints();
+//	void setPoints(List<POINT> points);
 }

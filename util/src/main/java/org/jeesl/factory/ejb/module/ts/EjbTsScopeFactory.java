@@ -16,22 +16,21 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public class EjbTsScopeFactory<L extends JeeslLang,
-											D extends JeeslDescription,
-											CAT extends JeeslStatus<CAT,L,D>,
-											SCOPE extends JeeslTsScope<L,D,CAT,?,UNIT,EC,INT>,
-											UNIT extends JeeslStatus<UNIT,L,D>,
-											TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT>,
-											TRANSACTION extends JeeslTsTransaction<SOURCE,DATA,USER,?>,
-											SOURCE extends EjbWithLangDescription<L,D>, 
-											BRIDGE extends JeeslTsBridge<EC>,
-											EC extends JeeslTsEntityClass<L,D,CAT>,
-											INT extends JeeslStatus<INT,L,D>,
-											DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
-											SAMPLE extends JeeslTsSample,
-											USER extends EjbWithId, 
-											WS extends JeeslStatus<WS,L,D>,
-											QAF extends JeeslStatus<QAF,L,D>>
+public class EjbTsScopeFactory<L extends JeeslLang, D extends JeeslDescription,
+								CAT extends JeeslStatus<CAT,L,D>,
+								SCOPE extends JeeslTsScope<L,D,CAT,?,UNIT,EC,INT>,
+								UNIT extends JeeslStatus<UNIT,L,D>,
+								TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT,?>,
+								TRANSACTION extends JeeslTsTransaction<SOURCE,DATA,USER,?>,
+								SOURCE extends EjbWithLangDescription<L,D>, 
+								BRIDGE extends JeeslTsBridge<EC>,
+								EC extends JeeslTsEntityClass<L,D,CAT>,
+								INT extends JeeslStatus<INT,L,D>,
+								DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
+								SAMPLE extends JeeslTsSample,
+								USER extends EjbWithId, 
+								WS extends JeeslStatus<WS,L,D>,
+								QAF extends JeeslStatus<QAF,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbTsScopeFactory.class);
 	

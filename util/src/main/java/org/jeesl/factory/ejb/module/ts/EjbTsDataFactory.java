@@ -13,7 +13,7 @@ import org.jeesl.model.xml.module.ts.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbTsDataFactory<TS extends JeeslTimeSeries<?,?,?>,
+public class EjbTsDataFactory<TS extends JeeslTimeSeries<?,?,?,?>,
 								TRANSACTION extends JeeslTsTransaction<?,DATA,?,?>,
 								DATA extends JeeslTsData<TS,TRANSACTION,?,WS>,
 								WS extends JeeslStatus<WS,?,?>>
