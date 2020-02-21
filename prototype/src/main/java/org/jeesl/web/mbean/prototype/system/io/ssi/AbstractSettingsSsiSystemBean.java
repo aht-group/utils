@@ -7,8 +7,6 @@ import java.util.List;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoSsiFacade;
-import org.jeesl.api.facade.module.JeeslTsFacade;
-import org.jeesl.controller.handler.tuple.JsonTuple1Handler;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
@@ -21,17 +19,14 @@ import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
-import net.sf.exlp.util.io.JsonUtil;
 
 public class AbstractSettingsSsiSystemBean <L extends JeeslLang,D extends JeeslDescription,
 										SYSTEM extends JeeslIoSsiSystem,
-										SYS extends JeeslIoSsiSystem,
 										MAPPING extends JeeslIoSsiMapping<SYSTEM,ENTITY>,
 										ATTRIBUTE extends JeeslIoSsiAttribute<MAPPING,ENTITY>,
 										DATA extends JeeslIoSsiData<MAPPING,LINK>,
@@ -47,17 +42,14 @@ public class AbstractSettingsSsiSystemBean <L extends JeeslLang,D extends JeeslD
 	private final IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi;
 	private JeeslIoSsiFacade<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY> fSsi;
 	
-	private Class<SYS> cSys;
-	
-	private final List<SYS> systems; public List<SYS> getSystems() {return systems;}
+	private final List<SYSTEM> systems; public List<SYSTEM> getSystems() {return systems;}
 
-	private SYS system; public SYS getSystem() {return system;} public void setSystem(SYS system) {this.system = system;}
+	private SYSTEM system; public SYSTEM getSystem() {return system;} public void setSystem(SYSTEM system) {this.system = system;}
 
-	public AbstractSettingsSsiSystemBean(final IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi, Class<SYS> cSys)
+	public AbstractSettingsSsiSystemBean(final IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi)
 	{
 		super(fbSsi.getClassL(),fbSsi.getClassD());
 		this.fbSsi=fbSsi;
-		this.cSys=cSys;
 		systems = new ArrayList<>();
 	}
 
@@ -71,7 +63,7 @@ public class AbstractSettingsSsiSystemBean <L extends JeeslLang,D extends JeeslD
 	private void reload()
 	{
 		systems.clear();
-		systems.addAll(fSsi.all(cSys));
+		systems.addAll(fSsi.all(fbSsi.getClassSystem()));
 
 	}
 	
@@ -82,13 +74,7 @@ public class AbstractSettingsSsiSystemBean <L extends JeeslLang,D extends JeeslD
 	
 	public void addSystem()
 	{
-		try
-		{
-			system = cSys.newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		system = fbSsi.ejbSystem().build();
 	}
 	
 	public void saveSystem() throws JeeslConstraintViolationException, JeeslLockingException
@@ -96,5 +82,4 @@ public class AbstractSettingsSsiSystemBean <L extends JeeslLang,D extends JeeslD
 		system = fSsi.save(system);
 		reload();
 	}
-	
 }

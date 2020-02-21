@@ -95,8 +95,17 @@ public class SbMultiHandler <T extends EjbWithId> implements Serializable
 		refresh();
 	}
 	
+	public void preSelect(T t)
+	{
+		map.put(t,true);
+	}
+	
 	@SuppressWarnings("unchecked")
-	public <E extends Enum<E>> void preSelect(E... codes)
+	public <E extends Enum<E>> void preSelect(E... codes) {preRefresh(true, codes);}
+	@SuppressWarnings("unchecked")
+	public <E extends Enum<E>> void preDeselect(E... codes) {preRefresh(false, codes);}
+	@SuppressWarnings("unchecked")
+	public <E extends Enum<E>> void preRefresh(boolean value, E... codes)
 	{
 		if(EjbWithCode.class.isAssignableFrom(cT))
 		{
@@ -107,17 +116,13 @@ public class SbMultiHandler <T extends EjbWithId> implements Serializable
 				{
 					if(c.getCode().equals(code.toString()))
 					{
-						map.put(t,true);
+						map.put(t,value);
 					}
 				}
 			}
 		}
 		else {logger.error(cT.getSimpleName()+" is not a "+EjbWithCode.class.getSimpleName());}
 		refresh();
-	}
-	public void preSelect(T t)
-	{
-		map.put(t,true);
 	}
 	
 	public void select(T t)
