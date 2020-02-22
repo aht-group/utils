@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public class AbstractSettingsSsiAttributeBean <L extends JeeslLang,D extends JeeslDescription,
+public class AbstractSsiAttributeBean <L extends JeeslLang,D extends JeeslDescription,
 										SYSTEM extends JeeslIoSsiSystem,
 										MAPPING extends JeeslIoSsiMapping<SYSTEM,ENTITY>,
 										ATTRIBUTE extends JeeslIoSsiAttribute<MAPPING,ENTITY>,
@@ -40,7 +40,7 @@ public class AbstractSettingsSsiAttributeBean <L extends JeeslLang,D extends Jee
 						implements Serializable,SbSingleBean,SbToggleBean
 {
 	private static final long serialVersionUID = 1L;
-	final static Logger logger = LoggerFactory.getLogger(AbstractSettingsSsiAttributeBean.class);
+	final static Logger logger = LoggerFactory.getLogger(AbstractSsiAttributeBean.class);
 	
 	private final IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi;
 	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,ENTITY,?,?,?,?,?> fbRevision;
@@ -57,7 +57,7 @@ public class AbstractSettingsSsiAttributeBean <L extends JeeslLang,D extends Jee
 
 	private final EjbIoSsiAttributeFactory<MAPPING,ATTRIBUTE,ENTITY> efAttribute;
 	
-	public AbstractSettingsSsiAttributeBean(final IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi,
+	public AbstractSsiAttributeBean(final IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi,
 											final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,ENTITY,?,?,?,?,?> fbRevision)
 	{
 		this.fbSsi=fbSsi;

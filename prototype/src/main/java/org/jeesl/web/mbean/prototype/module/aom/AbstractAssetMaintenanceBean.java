@@ -10,6 +10,8 @@ import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.module.JeeslAssetCacheBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslAssetFacade;
+import org.jeesl.api.handler.sb.SbDateIntervalSelection;
+import org.jeesl.controller.handler.sb.SbDateHandler;
 import org.jeesl.controller.handler.sb.SbMultiHandler;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
@@ -30,6 +32,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.jeesl.util.comparator.ejb.module.asset.EjbAssetComparator;
+import org.jeesl.util.comparator.ejb.module.asset.EjbEventComparator;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +52,7 @@ public abstract class AbstractAssetMaintenanceBean <L extends JeeslLang, D exten
 										ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,
 										USER extends JeeslSimpleUser>
 					extends AbstractAdminBean<L,D>
-					implements Serializable,SbToggleBean
+					implements Serializable,SbToggleBean,SbDateIntervalSelection
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetMaintenanceBean.class);
@@ -61,7 +64,9 @@ public abstract class AbstractAssetMaintenanceBean <L extends JeeslLang, D exten
 	private final EjbAssetEventFactory<COMPANY,ASSET,EVENT,ETYPE,ESTATUS,USER> efEvent;
 	
 	private final Comparator<ASSET> cpAsset;
+	private final Comparator<EVENT> cpEvent;
 	
+	private SbDateHandler sbDateHandler; public SbDateHandler getSbDateHandler() {return sbDateHandler;}
 	private final SbMultiHandler<ESTATUS> sbhEventStatus; public SbMultiHandler<ESTATUS> getSbhEventStatus() {return sbhEventStatus;}
 	
 	private final List<EVENT> events; public List<EVENT> getEvents() {return events;}
@@ -79,8 +84,12 @@ public abstract class AbstractAssetMaintenanceBean <L extends JeeslLang, D exten
 		efEvent = fbAsset.ejbEvent();
 		
 		cpAsset = fbAsset.cpAsset(EjbAssetComparator.Type.position);
+		cpEvent = fbAsset.cpEvent(EjbEventComparator.Type.recordAsc);
 		
 		sbhEventStatus = new SbMultiHandler<>(fbAsset.getClassEventStatus(),this);
+		sbDateHandler = new SbDateHandler(this);
+		sbDateHandler.setEnforceStartOfDay(true);
+		sbDateHandler.initWeeks(0,4);
 		
 		events = new ArrayList<>();
 	}
@@ -99,24 +108,20 @@ public abstract class AbstractAssetMaintenanceBean <L extends JeeslLang, D exten
 		
 		sbhEventStatus.setList(fAsset.all(fbAsset.getClassEventStatus()));
 		sbhEventStatus.preSelect(JeeslAomEventStatus.Code.planned);
+		sbhEventStatus.preSelect(JeeslAomEventStatus.Code.date);
 		sbhEventStatus.preSelect(JeeslAomEventStatus.Code.postponed);
-		sbhEventStatus.preSelect(JeeslAomEventStatus.Code.confirmed);
 		
 		reloadEvents();
 	}
 	
-	@Override public void toggled(Class<?> c)
-	{
-		logger.info("Toggled");
-		reloadEvents();
-	}
-	
-	
+	@Override public void toggled(Class<?> c){reloadEvents();}
+	@Override public void callbackDateChanged(){reloadEvents();}
 	
 	private void reloadEvents()
 	{
 		events.clear();
 		events.addAll(fAsset.fAssetEvents(realm, rref, sbhEventStatus.getSelected()));
+		Collections.sort(events,cpEvent);
 	}
     
     public void addEvent()

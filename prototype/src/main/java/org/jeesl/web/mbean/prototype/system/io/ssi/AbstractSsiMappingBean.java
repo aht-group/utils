@@ -4,11 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jeesl.api.bean.JeeslTranslationBean;
-import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoSsiFacade;
-import org.jeesl.exception.ejb.JeeslConstraintViolationException;
-import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.controller.handler.tuple.JsonTuple1Handler;
 import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiAttribute;
@@ -19,13 +16,14 @@ import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
+import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
+import net.sf.exlp.util.io.JsonUtil;
 
-public class AbstractSettingsSsiSystemBean <L extends JeeslLang,D extends JeeslDescription,
+public class AbstractSsiMappingBean <L extends JeeslLang,D extends JeeslDescription,
 										SYSTEM extends JeeslIoSsiSystem,
 										MAPPING extends JeeslIoSsiMapping<SYSTEM,ENTITY>,
 										ATTRIBUTE extends JeeslIoSsiAttribute<MAPPING,ENTITY>,
@@ -33,53 +31,46 @@ public class AbstractSettingsSsiSystemBean <L extends JeeslLang,D extends JeeslD
 										LINK extends JeeslIoSsiLink<L,D,LINK,?>,
 										ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>,
 										CLEANING extends JeeslIoSsiCleaning<L,D,CLEANING,?>>
-						extends AbstractAdminBean<L,D>
 						implements Serializable
 {
 	private static final long serialVersionUID = 1L;
-	final static Logger logger = LoggerFactory.getLogger(AbstractSettingsSsiSystemBean.class);
+	final static Logger logger = LoggerFactory.getLogger(AbstractSsiMappingBean.class);
 	
 	private final IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi;
 	private JeeslIoSsiFacade<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY> fSsi;
 	
-	private final List<SYSTEM> systems; public List<SYSTEM> getSystems() {return systems;}
+	private final JsonTuple1Handler<MAPPING> th; public JsonTuple1Handler<MAPPING> getTh() {return th;}
+	
+	private final List<MAPPING> mappings; public List<MAPPING> getMappings() {return mappings;}
 
-	private SYSTEM system; public SYSTEM getSystem() {return system;} public void setSystem(SYSTEM system) {this.system = system;}
+	private MAPPING mapping; public MAPPING getMapping() {return mapping;} public void setMapping(MAPPING mapping) {this.mapping = mapping;}
 
-	public AbstractSettingsSsiSystemBean(final IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi)
+	public AbstractSsiMappingBean(final IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi)
 	{
-		super(fbSsi.getClassL(),fbSsi.getClassD());
 		this.fbSsi=fbSsi;
-		systems = new ArrayList<>();
+		mappings = new ArrayList<MAPPING>();
+		th = new JsonTuple1Handler<MAPPING>(fbSsi.getClassMapping());
 	}
 
-	protected void postConstructSsiSystem(JeeslTranslationBean<L,D,?> bTranslation, JeeslFacesMessageBean bMessage, JeeslIoSsiFacade<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY> fSsi)
+	public void postConstructSsiMapping(JeeslIoSsiFacade<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY> fSsi)
 	{
-		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fSsi=fSsi;
 		reload();
 	}
 
 	private void reload()
 	{
-		systems.clear();
-		systems.addAll(fSsi.all(fbSsi.getClassSystem()));
-
+		mappings.clear();
+		mappings.addAll(fSsi.all(fbSsi.getClassMapping()));
+		
+		Json1Tuples<MAPPING> tuples = fSsi.tpMapping();
+		JsonUtil.info(tuples);
+		
+		th.init(tuples);
 	}
 	
-	public void selectSystem()
+	public void selectMapping()
 	{
-		logger.info(AbstractLogMessage.selectEntity(system));
-	}
-	
-	public void addSystem()
-	{
-		system = fbSsi.ejbSystem().build();
-	}
-	
-	public void saveSystem() throws JeeslConstraintViolationException, JeeslLockingException
-	{
-		system = fSsi.save(system);
-		reload();
+		logger.info(AbstractLogMessage.selectEntity(mapping));
 	}
 }

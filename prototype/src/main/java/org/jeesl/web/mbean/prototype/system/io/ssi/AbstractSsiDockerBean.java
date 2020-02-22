@@ -20,14 +20,14 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public class AbstractSettingsSsiDockerBean <L extends JeeslLang,D extends JeeslDescription,
+public class AbstractSsiDockerBean <L extends JeeslLang,D extends JeeslDescription,
 										SYSTEM extends JeeslIoSsiSystem,
 										INSTANCE extends JeeslIoSsiInstance<SYSTEM,HOST>,
 										HOST extends JeeslIoSsiHost<L,D>>
 						implements Serializable,SbToggleBean
 {
 	private static final long serialVersionUID = 1L;
-	final static Logger logger = LoggerFactory.getLogger(AbstractSettingsSsiDockerBean.class);
+	final static Logger logger = LoggerFactory.getLogger(AbstractSsiDockerBean.class);
 	
 	private final IoSsiDockerFactoryBuilder<L,D,SYSTEM,INSTANCE,HOST> fbSsi;
 	
@@ -42,7 +42,7 @@ public class AbstractSettingsSsiDockerBean <L extends JeeslLang,D extends JeeslD
 	
 	private INSTANCE instance; public INSTANCE getInstance() {return instance;} public void setInstance(INSTANCE instance) {this.instance = instance;}
 
-	public AbstractSettingsSsiDockerBean(final IoSsiDockerFactoryBuilder<L,D,SYSTEM,INSTANCE,HOST> fbSsi)
+	public AbstractSsiDockerBean(final IoSsiDockerFactoryBuilder<L,D,SYSTEM,INSTANCE,HOST> fbSsi)
 	{
 		this.fbSsi=fbSsi;
 		

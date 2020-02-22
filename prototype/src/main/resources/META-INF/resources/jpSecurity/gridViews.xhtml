@@ -92,8 +92,6 @@
 								<p:outputLabel value="#{msg.jeeslSecurityRedirect}"/>
 							</p:panelGrid>	
 							<p:panelGrid columns="2" columnClasses="auPwg30,auPwg70">				
-								
-								
 								<p:outputLabel value="#{msg.jeeslSecurityCode}"/>
 								<h:outputText rendered="#{not cc.attrs.bean.uiAllowCode}" value="#{cc.attrs.bean.view.code}"/>
 								<p:inputText rendered="#{cc.attrs.bean.uiAllowCode}" value="#{cc.attrs.bean.view.code}"/>

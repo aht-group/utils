@@ -31,6 +31,7 @@ public class ThMultiFilterHandler <T extends EjbWithId> implements Serializable,
 	
 	private final List<T> list; public List<T> getList() {return list;} public void setList(List<T> list) {this.list.clear();this.list.addAll(list);}
 	private final List<T> selected; public List<T> getSelected() {return selected;}
+	private final List<T> memory;
 	private Map<T,Boolean> map; public Map<T,Boolean> getMap() {return map;}
 	
 	public ThMultiFilterHandler(ThMultiFilterBean bean)
@@ -39,6 +40,7 @@ public class ThMultiFilterHandler <T extends EjbWithId> implements Serializable,
 		list = new ArrayList<>();
 		map = new ConcurrentHashMap<T,Boolean>();
 		selected = new ArrayList<T>();
+		memory = new ArrayList<T>();
 		refresh();
 	}
 	
@@ -102,6 +104,21 @@ public class ThMultiFilterHandler <T extends EjbWithId> implements Serializable,
 	public void select(T t)
 	{
 		map.put(t,true);
+		refresh();
+	}
+	
+	// Copies selected Items to Memory
+	public void memoryUpdate()
+	{
+		memory.clear();
+		memory.addAll(selected);
+	}
+	
+	public void memoryApply()
+	{
+		map.clear();
+		for(T t : list){map.put(t,false);}
+		for(T t : memory) {map.put(t,true);}
 		refresh();
 	}
 

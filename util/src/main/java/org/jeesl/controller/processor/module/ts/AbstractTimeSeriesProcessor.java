@@ -103,6 +103,7 @@ public class AbstractTimeSeriesProcessor<SCOPE extends JeeslTsScope<?,?,?,?,?,EC
 	
 	public <T extends EjbWithId> TS fcTs(T t) throws JeeslConstraintViolationException
 	{
+		
 		BRIDGE bridge = fTs.fcBridge(fbTs.getClassBridge(),ec,t);
 		return fTs.fcTimeSeries(scope,interval,bridge);
 	}

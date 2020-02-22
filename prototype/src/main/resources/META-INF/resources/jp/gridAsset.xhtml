@@ -121,6 +121,7 @@
 						<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveEvent()}" update=":#{cc.id}:sAsset"/>
 						<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteEvent()}" update=":#{cc.id}:sAsset" rendered="#{false and cc.attrs.bean.event.id gt 0}" mayDisappear="true"/>
 						<j:icon type="jeeslRemove" listener="#{cc.attrs.bean.removeEvent()}" update=":#{cc.id}:sAsset" rendered="#{(cc.attrs.bean.event.id gt 0) and (cc.attrs.bean.event.assets.size() gt 1)}" mayDisappear="true"/>
+						<j:icon type="jeeslClone"  listener="#{cc.attrs.bean.cloneEvent()}" update=":#{cc.id}:fEvents :#{cc.id}:fEvent" rendered="#{cc.attrs.bean.event.id gt 0}"/>
 					</f:facet>
 					<p:messages redisplay="false" severity="warn,error" showSummary="true" showDetail="true" closable="true"/>
 					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">

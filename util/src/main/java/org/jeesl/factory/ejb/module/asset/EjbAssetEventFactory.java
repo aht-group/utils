@@ -1,6 +1,7 @@
 package org.jeesl.factory.ejb.module.asset;
 
 import java.util.Date;
+import java.util.List;
 
 import org.jeesl.controller.handler.NullNumberBinder;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
@@ -46,6 +47,26 @@ public class EjbAssetEventFactory<COMPANY extends JeeslAomCompany<?,?>,
 		catch (IllegalAccessException e) {e.printStackTrace();}
 		return null;
     }
+	
+	public EVENT clone(EVENT event)
+	{
+		try
+		{
+			EVENT ejb = fbAsset.getClassEvent().newInstance();
+			ejb.getAssets().addAll(event.getAssets());
+			ejb.setType(event.getType());
+			ejb.setStatus(event.getStatus());
+			ejb.setRecord(new Date());
+			ejb.setName("CLONE "+event.getName());
+			ejb.setRemark(event.getRemark());
+			ejb.setCompany(event.getCompany());
+		    return ejb;
+		}
+		catch (InstantiationException e) {e.printStackTrace();}
+		catch (IllegalAccessException e) {e.printStackTrace();}
+		return null;
+	}
+	
 	
 	public void converter(JeeslFacade facade, EVENT event)
 	{

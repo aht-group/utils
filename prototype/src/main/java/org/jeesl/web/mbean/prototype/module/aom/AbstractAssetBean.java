@@ -156,7 +156,6 @@ public class AbstractAssetBean <L extends JeeslLang, D extends JeeslDescription,
 	@Override public void toggled(Class<?> c) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		if(asset!=null) {lazyEvents.reloadScope(fAsset,asset);}
-		
 	}
 	
 	private void reset(boolean rAsset, boolean rEvents, boolean rEvent)
@@ -269,7 +268,9 @@ public class AbstractAssetBean <L extends JeeslLang, D extends JeeslDescription,
     	efEvent.converter(fAsset,event);
     	efEvent.nnb2ejb(event,nnb);
     	event = fAsset.save(event);
+    	thfEventType.memoryUpdate();
     	reloadEvents();
+    	thfEventType.memoryApply();;
     	uiHelper.update(realm,rref,event);
     }
     
@@ -281,7 +282,16 @@ public class AbstractAssetBean <L extends JeeslLang, D extends JeeslDescription,
     	reloadEvents();
     }
     
-    public void onDrop(DragDropEvent ddEvent) throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
+    public void cloneEvent()
+    {
+    	efEvent.converter(fAsset,event);
+    	event = efEvent.clone(event);
+    	efEvent.ejb2nnb(event,nnb);
+    	uiHelper.update(realm,rref,event);
+    }
+    
+    @SuppressWarnings("unchecked")
+	public void onDrop(DragDropEvent ddEvent) throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
     	logger.info("DRAG "+ddEvent.getDragId());
 		logger.info("DROP "+ddEvent.getDropId());
