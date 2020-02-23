@@ -9,10 +9,10 @@ import org.jeesl.interfaces.model.with.code.EjbWithCode;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface JeeslIoSsiCredential <SYSTEM extends JeeslIoSsiSystem>
-		extends Serializable,EjbWithId,EjbSaveable,EjbRemoveable,
-				EjbWithCode
+								extends Serializable,EjbWithId,EjbSaveable,EjbRemoveable,
+										EjbWithCode
 {	
-	public enum Attributes {entity,json}
+	public enum Attributes {x}
 	
 	public SYSTEM getSystem();
 	public void setSystem(SYSTEM system);
