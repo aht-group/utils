@@ -28,8 +28,7 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public class AbstractSsiSystemBean <L extends JeeslLang,D extends JeeslDescription,
 										SYSTEM extends JeeslIoSsiSystem,
-										SYS extends JeeslIoSsiSystem,
-//										CRED extends JeeslIoSsiCredential<SYSTEM>,
+										CRED extends JeeslIoSsiCredential<SYSTEM>,
 										MAPPING extends JeeslIoSsiMapping<SYSTEM,ENTITY>,
 										ATTRIBUTE extends JeeslIoSsiAttribute<MAPPING,ENTITY>,
 										DATA extends JeeslIoSsiData<MAPPING,LINK>,
@@ -45,17 +44,14 @@ public class AbstractSsiSystemBean <L extends JeeslLang,D extends JeeslDescripti
 	private final IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi;
 	private JeeslIoSsiFacade<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY> fSsi;
 	
-	private final Class<SYS> cSys;
-	
-	private final List<SYS> systems; public List<SYS> getSystems() {return systems;}
+	private final List<SYSTEM> systems; public List<SYSTEM> getSystems() {return systems;}
 
-	private SYS system; public SYS getSystem() {return system;} public void setSystem(SYS system) {this.system = system;}
+	private SYSTEM system; public SYSTEM getSystem() {return system;} public void setSystem(SYSTEM system) {this.system = system;}
 
-	public AbstractSsiSystemBean(final IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi, Class<SYS> cSys)
+	public AbstractSsiSystemBean(final IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi)
 	{
 		super(fbSsi.getClassL(),fbSsi.getClassD());
 		this.fbSsi=fbSsi;
-		this.cSys=cSys;
 		systems = new ArrayList<>();
 	}
 
@@ -69,7 +65,7 @@ public class AbstractSsiSystemBean <L extends JeeslLang,D extends JeeslDescripti
 	private void reload()
 	{
 		systems.clear();
-		systems.addAll(fSsi.all(cSys));
+		systems.addAll(fSsi.all(fbSsi.getClassSystem()));
 	}
 	
 	public void selectSystem()
@@ -79,12 +75,7 @@ public class AbstractSsiSystemBean <L extends JeeslLang,D extends JeeslDescripti
 	
 	public void addSystem()
 	{
-		try {
-			system = cSys.newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		system = fbSsi.ejbSystem().build();
 	}
 	
 	public void saveSystem() throws JeeslConstraintViolationException, JeeslLockingException
