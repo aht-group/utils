@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.module.aom.core;
+package org.jeesl.interfaces.model.system.mcs;
 
 import java.io.Serializable;
 
@@ -11,7 +11,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatusFixedCode;
 import org.jeesl.interfaces.model.with.code.EjbWithCode;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
-public interface JeeslAomRealm <L extends JeeslLang, D extends JeeslDescription,
+public interface JeeslMcsRealm <L extends JeeslLang, D extends JeeslDescription,
 									S extends JeeslStatus<S,L,D>,
 									G extends JeeslGraphic<L,D,?,?,?>>
 					extends Serializable,EjbPersistable,

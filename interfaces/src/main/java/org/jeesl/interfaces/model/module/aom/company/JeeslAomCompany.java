@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
-import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
+import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.with.code.EjbWithNonUniqueCode;
 
 import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 
-public interface JeeslAomCompany <REALM extends JeeslAomRealm<?,?,REALM,?>,
+public interface JeeslAomCompany <REALM extends JeeslMcsRealm<?,?,REALM,?>,
 									SCOPE extends JeeslAomScope<?,?,SCOPE,?>>
 		extends Serializable,EjbSaveable,EjbWithName,EjbWithNonUniqueCode
 {
