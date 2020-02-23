@@ -21,14 +21,14 @@ public class SsiCache <MAPPING extends JeeslIoSsiMapping<?,?>,
 {
 	final static Logger logger = LoggerFactory.getLogger(SsiCache.class);
 
-	private final JeeslIoSsiFacade<?,?,?,MAPPING,?,DATA,LINK,?> fSsi;
+	private final JeeslIoSsiFacade<?,?,?,?,MAPPING,?,DATA,LINK,?> fSsi;
 	private final Class<T> cT;
 	private final MAPPING mapping;
 	
 	private final Map<String,T> map;
 	
-	public SsiCache(IoSsiFactoryBuilder<?,?,?,MAPPING,?,?,?,?,?> fbSsi,
-						JeeslIoSsiFacade<?,?,?,MAPPING,?,DATA,LINK,?> fSsi,
+	public SsiCache(IoSsiFactoryBuilder<?,?,?,?,MAPPING,?,?,?,?,?> fbSsi,
+						JeeslIoSsiFacade<?,?,?,?,MAPPING,?,DATA,LINK,?> fSsi,
 						Class<T> cT,
 						MAPPING mapping
 						)

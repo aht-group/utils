@@ -7,6 +7,7 @@ import org.jeesl.factory.ejb.system.io.ssi.data.EjbIoSsiSystemFactory;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiAttribute;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiCleaning;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiCredential;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiData;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiLink;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;
@@ -18,6 +19,7 @@ import org.slf4j.LoggerFactory;
 
 public class IoSsiFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 								SYSTEM extends JeeslIoSsiSystem,
+								CRED extends JeeslIoSsiCredential<SYSTEM>,
 								MAPPING extends JeeslIoSsiMapping<SYSTEM,ENTITY>,
 								ATTRIBUTE extends JeeslIoSsiAttribute<MAPPING,ENTITY>,
 								DATA extends JeeslIoSsiData<MAPPING,LINK>,
@@ -37,7 +39,8 @@ public class IoSsiFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 	private final Class<CLEANING> cCleaning; public Class<CLEANING> getClassCleaning(){return cCleaning;}
 	
 	public IoSsiFactoryBuilder(final Class<L> cL, final Class<D> cD,
-								final Class<SYSTEM> cSystem, final Class<MAPPING> cMapping, final Class<ATTRIBUTE> cAttribute,
+								final Class<SYSTEM> cSystem, final Class<CRED> cCredential,
+								final Class<MAPPING> cMapping, final Class<ATTRIBUTE> cAttribute,
 								final Class<DATA> cData, final Class<LINK> cLink, final Class<ENTITY> cEntity,
 								final Class<CLEANING> cCleaning)
 	{
