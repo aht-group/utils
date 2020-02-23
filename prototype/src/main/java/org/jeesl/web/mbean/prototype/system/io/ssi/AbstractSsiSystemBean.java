@@ -48,7 +48,8 @@ public class AbstractSsiSystemBean <L extends JeeslLang,D extends JeeslDescripti
 	private final List<CRED> credentials; public List<CRED> getCredentials() {return credentials;}
 
 	private SYSTEM system; public SYSTEM getSystem() {return system;} public void setSystem(SYSTEM system) {this.system = system;}
-
+	private CRED credential; public CRED getCredential() {return credential;} public void setCredential(CRED credential) {this.credential = credential;}
+	
 	public AbstractSsiSystemBean(final IoSsiFactoryBuilder<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi)
 	{
 		super(fbSsi.getClassL(),fbSsi.getClassD());
@@ -62,10 +63,15 @@ public class AbstractSsiSystemBean <L extends JeeslLang,D extends JeeslDescripti
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fSsi=fSsi;
-		reload();
+		reloadSystems();
+	}
+	
+	private void reset(boolean rCredential)
+	{
+		if(rCredential) {credential=null;}
 	}
 
-	private void reload()
+	private void reloadSystems()
 	{
 		systems.clear();
 		systems.addAll(fSsi.all(fbSsi.getClassSystem()));
@@ -74,16 +80,50 @@ public class AbstractSsiSystemBean <L extends JeeslLang,D extends JeeslDescripti
 	public void selectSystem()
 	{
 		logger.info(AbstractLogMessage.selectEntity(system));
+		reloadCredentials();
+		reset(true);
 	}
 	
 	public void addSystem()
 	{
+		reset(true);
 		system = fbSsi.ejbSystem().build();
 	}
 	
 	public void saveSystem() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		system = fSsi.save(system);
-		reload();
+		reloadSystems();
+		reloadCredentials();
+	}
+	
+	private void reloadCredentials()
+	{
+		credentials.clear();
+		credentials.addAll(fSsi.allForParent(fbSsi.getClassCredential(),system));
+	}
+	
+	public void selectCredential()
+	{
+		logger.info(AbstractLogMessage.selectEntity(credential));
+	}
+	
+	public void addCredential()
+	{
+		reset(true);
+		credential = fbSsi.ejbCredential().build(system,credentials);
+	}
+	
+	public void saveCredential() throws JeeslConstraintViolationException, JeeslLockingException
+	{
+		credential = fSsi.save(credential);
+		reloadCredentials();
+	}
+	
+	public void deleteCredential() throws JeeslConstraintViolationException, JeeslLockingException
+	{
+		fSsi.rm(credential);
+		reloadCredentials();
+		reset(true);
 	}
 }
