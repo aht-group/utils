@@ -29,7 +29,7 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 public class AbstractSsiSystemBean <L extends JeeslLang,D extends JeeslDescription,
 										SYSTEM extends JeeslIoSsiSystem,
 										SYS extends JeeslIoSsiSystem,
-										CRED extends JeeslIoSsiCredential<SYSTEM>,
+//										CRED extends JeeslIoSsiCredential<SYSTEM>,
 										MAPPING extends JeeslIoSsiMapping<SYSTEM,ENTITY>,
 										ATTRIBUTE extends JeeslIoSsiAttribute<MAPPING,ENTITY>,
 										DATA extends JeeslIoSsiData<MAPPING,LINK>,
