@@ -28,6 +28,9 @@ public interface JeeslIoSsiCredential <SYSTEM extends JeeslIoSsiSystem>
 	String getToken();
 	void setToken(String token);
 	
+	String getUrl();
+	void setUrl(String url);
+	
 	boolean isEncrypted();
 	void setEncrypted(boolean encrypted);
 }

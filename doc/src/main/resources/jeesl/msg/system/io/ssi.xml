@@ -215,7 +215,14 @@
     		<s:lang key="en" translation="Token"/>
     		<s:lang key="fr" translation="Token"/>
     	</s:langs>
-    </s:translation>   
+    </s:translation>
+	<s:translation key="jeeslIoSsiCredentialUrl">
+    	<s:langs>
+    		<s:lang key="de" translation="URL"/>
+    		<s:lang key="en" translation="URL"/>
+    		<s:lang key="fr" translation="URL"/>
+    	</s:langs>
+    </s:translation> 
 	<s:translation key="jeeslIoSsiCredentialEncrypted">
     	<s:langs>
     		<s:lang key="de" translation="Verschlüsselt"/>
