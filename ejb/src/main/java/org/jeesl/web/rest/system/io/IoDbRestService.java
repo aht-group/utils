@@ -46,7 +46,7 @@ public class IoDbRestService<L extends JeeslLang,D extends JeeslDescription,
 	final static Logger logger = LoggerFactory.getLogger(IoDbRestService.class);
 	
 	private final IoDbFactoryBuilder<L,D,SYSTEM,DUMP,FILE,HOST,STATUS,?,?,?,?,?> fbDb;
-	private final IoSsiFactoryBuilder<L,D,SYSTEM,?,?,?,?,?,?> fbSsi;
+	private final IoSsiFactoryBuilder<L,D,SYSTEM,?,?,?,?,?,?,?> fbSsi;
 	
 	private final JeeslIoDbFacade<L,D,SYSTEM,DUMP,FILE,HOST,STATUS> fDb;
 	
@@ -57,7 +57,7 @@ public class IoDbRestService<L extends JeeslLang,D extends JeeslDescription,
 	private final SYSTEM system;
 	
 	public IoDbRestService(IoDbFactoryBuilder<L,D,SYSTEM,DUMP,FILE,HOST,STATUS,?,?,?,?,?> fbDb,
-							IoSsiFactoryBuilder<L,D,SYSTEM,?,?,?,?,?,?> fbSsi,
+							IoSsiFactoryBuilder<L,D,SYSTEM,?,?,?,?,?,?,?> fbSsi,
 							JeeslIoDbFacade<L,D,SYSTEM,DUMP,FILE,HOST,STATUS> fDb,
 							SYSTEM system)
 	{

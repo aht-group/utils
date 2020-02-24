@@ -3,10 +3,13 @@ package org.jeesl.model.module.aom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.jeesl.api.facade.module.JeeslAssetFacade;
+import org.jeesl.controller.handler.sb.SbMultiHandler;
 import org.jeesl.controller.handler.th.ThMultiFilterHandler;
 import org.jeesl.interfaces.model.module.aom.JeeslAomAsset;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
@@ -32,14 +35,16 @@ public class AssetEventLazyModel <ASSET extends JeeslAomAsset<?,ASSET,?,?,?>,
 
 	private final List<EVENT> list;
 	private final JeeslLazyListHandler<EVENT> llh;
-//	private final JeeslEjbFilter<COMPANY> filter;
-	private final Comparator<EVENT> cpEvent;
-	private final ThMultiFilterHandler<ETYPE> thfEventType; 
 	
-	public AssetEventLazyModel(Comparator<EVENT> cpEvent, ThMultiFilterHandler<ETYPE> thfEventType)
+	private final Comparator<EVENT> cpEvent;
+	private final ThMultiFilterHandler<ETYPE> thfEventType;
+	private final SbMultiHandler<ETYPE> sbEventType;
+	
+	public AssetEventLazyModel(Comparator<EVENT> cpEvent, ThMultiFilterHandler<ETYPE> thfEventType, SbMultiHandler<ETYPE> sbEventType)
 	{
 		this.cpEvent=cpEvent;
 		this.thfEventType=thfEventType;
+		this.sbEventType=sbEventType;
         llh = new JeeslLazyListHandler<>();
         list = new ArrayList<>();
 	}
@@ -48,12 +53,23 @@ public class AssetEventLazyModel <ASSET extends JeeslAomAsset<?,ASSET,?,?,?>,
     @Override public Object getRowKey(EVENT account) {return llh.getRowKey(account);}
     public void clear() {list.clear();}
 	
-    public void setScope(JeeslAssetFacade<?,?,?,?,?,ASSET,?,?,EVENT,ETYPE,ESTATUS,USER> fAsset, ASSET asset)
+    public void reloadScope(JeeslAssetFacade<?,?,?,?,?,ASSET,?,?,EVENT,ETYPE,ESTATUS,USER> fAsset, ASSET asset)
     {
 		this.clear();
 		list.addAll(fAsset.fAssetEvents(asset));
 		Collections.sort(list,cpEvent);
 		logger.info("Reloaded "+list.size());
+		if(thfEventType!=null)
+		{
+			Set<ETYPE> set = new HashSet<>();
+			for(EVENT e : list) {set.add(e.getType());}
+			thfEventType.clear();
+			for(ETYPE t : set)
+			{
+				if(sbEventType==null) {thfEventType.getList().add(t);}
+				else if(!sbEventType.isSelected(t)){thfEventType.getList().add(t);}
+			}
+		}
     }
 
 	@Override public List<EVENT> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String,Object> filters)
@@ -62,9 +78,11 @@ public class AssetEventLazyModel <ASSET extends JeeslAomAsset<?,ASSET,?,?,?>,
 		for(EVENT event : list)
 		{
 			boolean thfTypeMatches = true;
-			if(thfEventType!=null) {thfTypeMatches = thfEventType.isSelected(event.getType());} 
+			boolean sbhTypeMatches = true;
+			if(thfEventType!=null) {thfTypeMatches = thfEventType.isSelected(event.getType());}
+			if(sbEventType!=null) {sbhTypeMatches = sbEventType.isSelected(event.getType());}
 //			if(filter.matches(filters,item))
-			if(thfTypeMatches){llh.add(event);}
+			if(thfTypeMatches || sbhTypeMatches){llh.add(event);}
 		}
 		
 		if(sortField != null)

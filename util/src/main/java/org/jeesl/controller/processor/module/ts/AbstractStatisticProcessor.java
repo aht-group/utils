@@ -25,7 +25,7 @@ import org.jeesl.util.comparator.ejb.module.ts.TsDataComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AbstractStatisticProcessor <TS extends JeeslTimeSeries<?,?,?>,
+public class AbstractStatisticProcessor <TS extends JeeslTimeSeries<?,?,?,?>,
 									TRANSACTION extends JeeslTsTransaction<?,DATA,?,?>,
 									DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
 									SAMPLE extends JeeslTsSample, 
@@ -42,8 +42,8 @@ public class AbstractStatisticProcessor <TS extends JeeslTimeSeries<?,?,?>,
 	public AbstractStatisticProcessor(TsFactoryBuilder<?,?,?,?,?,?,?,TS,TRANSACTION,?,?,?,?,?,DATA,?,SAMPLE,?,WS,?,?> fbTs)
 	{
 		this.fbTs = fbTs;
-		efData = fbTs.data();
-		comparatorData = (new TsDataComparator<TS,TRANSACTION,DATA,SAMPLE,WS>()).factory(TsDataComparator.Type.date);
+		efData = fbTs.ejbData();
+		comparatorData = fbTs.cmpData(TsDataComparator.Type.date);
 	}
 	
 	public List<DATA> buildStatistic(List<DATA> tsData, JeeslTsStatistic.Code code, JeeslTsInterval.Code iCode)

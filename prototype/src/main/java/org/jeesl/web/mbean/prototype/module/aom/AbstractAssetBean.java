@@ -12,6 +12,7 @@ import org.jeesl.api.bean.module.JeeslAssetCacheBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslAssetFacade;
 import org.jeesl.controller.handler.NullNumberBinder;
+import org.jeesl.controller.handler.sb.SbMultiHandler;
 import org.jeesl.controller.handler.th.ThMultiFilterHandler;
 import org.jeesl.controller.handler.ui.helper.UiHelperAsset;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
@@ -20,6 +21,7 @@ import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.factory.ejb.module.asset.EjbAssetEventFactory;
 import org.jeesl.factory.ejb.module.asset.EjbAssetFactory;
+import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.bean.th.ThMultiFilter;
 import org.jeesl.interfaces.bean.th.ThMultiFilterBean;
 import org.jeesl.interfaces.model.module.aom.JeeslAomAsset;
@@ -27,13 +29,13 @@ import org.jeesl.interfaces.model.module.aom.JeeslAomStatus;
 import org.jeesl.interfaces.model.module.aom.JeeslAomType;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
-import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventStatus;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
+import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.jeesl.model.module.aom.AssetEventLazyModel;
 import org.jeesl.util.comparator.ejb.module.asset.EjbAssetComparator;
@@ -52,8 +54,8 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
-										REALM extends JeeslAomRealm<L,D,REALM,?>, RREF extends EjbWithId,
+public class AbstractAssetBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
+										REALM extends JeeslMcsRealm<L,D,REALM,?>, RREF extends EjbWithId,
 										COMPANY extends JeeslAomCompany<REALM,SCOPE>,
 										SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
 										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,ASTATUS,ATYPE>,
@@ -64,7 +66,7 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
 										ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,
 										USER extends JeeslSimpleUser>
 					extends AbstractAdminBean<L,D>
-					implements Serializable,ThMultiFilterBean
+					implements Serializable,ThMultiFilterBean,SbToggleBean
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetBean.class);
@@ -84,6 +86,8 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
     private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
     private final NullNumberBinder nnb; public NullNumberBinder getNnb() {return nnb;}
     private final ThMultiFilterHandler<ETYPE> thfEventType; public ThMultiFilterHandler<ETYPE> getThfEventType() {return thfEventType;}
+    private final SbMultiHandler<ETYPE> sbhEventType; public SbMultiHandler<ETYPE> getSbhEventType() {return sbhEventType;}
+   
     private final AssetEventLazyModel<ASSET,EVENT,ETYPE,ESTATUS,USER> lazyEvents; public AssetEventLazyModel<ASSET,EVENT,ETYPE,ESTATUS,USER> getLazyEvents() {return lazyEvents;}
     
 	private final Set<ASSET> path;
@@ -104,7 +108,8 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
 		nnb = new NullNumberBinder();
 		
 		thfEventType = new ThMultiFilterHandler<>(this);
-		lazyEvents = new AssetEventLazyModel<>(fbAsset.cpEvent(EjbEventComparator.Type.recordDesc),thfEventType);
+		sbhEventType = new SbMultiHandler<>(fbAsset.getClassEventType(),this);
+		lazyEvents = new AssetEventLazyModel<>(fbAsset.cpEvent(EjbEventComparator.Type.recordDesc),thfEventType,sbhEventType);
 		
 		efAsset = fbAsset.ejbAsset();
 		efEvent = fbAsset.ejbEvent();
@@ -128,7 +133,13 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
 		
 		thfEventType.getList().addAll(bCache.getEventType());
 		thfEventType.selectAll();
-//		thFilter.preSelect(MeisNsdsCandidateStatus.class,MeisNsdsCandidateStatus.Code.pending);
+		
+		sbhEventType.getList().addAll(bCache.getEventType());
+		sbhEventType.preSelect(	JeeslAomEventType.Code.maintenance,
+								JeeslAomEventType.Code.check,
+								JeeslAomEventType.Code.renew,
+								JeeslAomEventType.Code.malfunction
+								);
 	}
 	
 	protected void updateRealmReference(RREF rref)
@@ -140,6 +151,11 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
 	@Override public void filtered(ThMultiFilter filter) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		logger.info("TH Filter");
+	}
+	
+	@Override public void toggled(Class<?> c) throws JeeslLockingException, JeeslConstraintViolationException
+	{
+		if(asset!=null) {lazyEvents.reloadScope(fAsset,asset);}
 	}
 	
 	private void reset(boolean rAsset, boolean rEvents, boolean rEvent)
@@ -226,7 +242,7 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
     
 	private void reloadEvents()
 	{
-		lazyEvents.setScope(fAsset,asset);
+		lazyEvents.reloadScope(fAsset,asset);
 	}
     
     public void addEvent()
@@ -252,7 +268,9 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
     	efEvent.converter(fAsset,event);
     	efEvent.nnb2ejb(event,nnb);
     	event = fAsset.save(event);
+    	thfEventType.memoryUpdate();
     	reloadEvents();
+    	thfEventType.memoryApply();;
     	uiHelper.update(realm,rref,event);
     }
     
@@ -264,7 +282,16 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
     	reloadEvents();
     }
     
-    public void onDrop(DragDropEvent ddEvent) throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
+    public void cloneEvent()
+    {
+    	efEvent.converter(fAsset,event);
+    	event = efEvent.clone(event);
+    	efEvent.ejb2nnb(event,nnb);
+    	uiHelper.update(realm,rref,event);
+    }
+    
+    @SuppressWarnings("unchecked")
+	public void onDrop(DragDropEvent ddEvent) throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
     	logger.info("DRAG "+ddEvent.getDragId());
 		logger.info("DROP "+ddEvent.getDropId());

@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <s:translations xmlns:s="http://ahtutils.aht-group.com/status">
+	<s:translation key="jeeslIoSsiSystems">
+    	<s:langs>
+    		<s:lang key="de" translation="Systeme"/>
+    		<s:lang key="en" translation="Systems"/>
+    		<s:lang key="fr" translation="Systems"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslIoSsiSystem">
+    	<s:langs>
+    		<s:lang key="de" translation="System"/>
+    		<s:lang key="en" translation="System"/>
+    		<s:lang key="fr" translation="System"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslIoSsiSystemCode">
+    	<s:langs>
+    		<s:lang key="de" translation="Code"/>
+    		<s:lang key="en" translation="Code"/>
+    		<s:lang key="fr" translation="Code"/>
+    	</s:langs>
+    </s:translation>
 	<s:translation key="jeeslIoSsiMappings">
     	<s:langs>
     		<s:lang key="de" translation="Mappings"/>
@@ -153,7 +174,63 @@
     		<s:lang key="fr" translation="Remote Code"/>
     	</s:langs>
     </s:translation>
-    
+	<s:translation key="jeeslIoSsiCredentials">
+    	<s:langs>
+    		<s:lang key="de" translation="Zugangsdaten"/>
+    		<s:lang key="en" translation="Credentials"/>
+    		<s:lang key="fr" translation="Credentials"/>
+    	</s:langs>
+    </s:translation>
+    	<s:translation key="jeeslIoSsiCredential">
+    	<s:langs>
+    		<s:lang key="de" translation="Zugangsdaten"/>
+    		<s:lang key="en" translation="Credential"/>
+    		<s:lang key="fr" translation="Credential"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslIoSsiCredentialCode">
+    	<s:langs>
+    		<s:lang key="de" translation="Code"/>
+    		<s:lang key="en" translation="Code"/>
+    		<s:lang key="fr" translation="Code"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslIoSsiCredentialUser">
+    	<s:langs>
+    		<s:lang key="de" translation="Benutzer"/>
+    		<s:lang key="en" translation="User"/>
+    		<s:lang key="fr" translation="User"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslIoSsiCredentialPwd">
+    	<s:langs>
+    		<s:lang key="de" translation="Kennwort"/>
+    		<s:lang key="en" translation="Password"/>
+    		<s:lang key="fr" translation="Password"/>
+    	</s:langs>
+    </s:translation>    
+	<s:translation key="jeeslIoSsiCredentialToken">
+    	<s:langs>
+    		<s:lang key="de" translation="Token"/>
+    		<s:lang key="en" translation="Token"/>
+    		<s:lang key="fr" translation="Token"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslIoSsiCredentialUrl">
+    	<s:langs>
+    		<s:lang key="de" translation="URL"/>
+    		<s:lang key="en" translation="URL"/>
+    		<s:lang key="fr" translation="URL"/>
+    	</s:langs>
+    </s:translation> 
+	<s:translation key="jeeslIoSsiCredentialEncrypted">
+    	<s:langs>
+    		<s:lang key="de" translation="Verschlüsselt"/>
+    		<s:lang key="en" translation="Encrypted"/>
+    		<s:lang key="fr" translation="Encrypted"/>
+    	</s:langs>
+    </s:translation>   
+   
     <s:translation key="jeeslIoSsiInstances">
     	<s:langs>
     		<s:lang key="de" translation="Instanzen"/>

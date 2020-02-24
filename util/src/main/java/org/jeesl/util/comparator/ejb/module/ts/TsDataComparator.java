@@ -6,14 +6,12 @@ import org.apache.commons.lang.builder.CompareToBuilder;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsData;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsSample;
-import org.jeesl.interfaces.model.module.ts.data.JeeslTsTransaction;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TsDataComparator <	TS extends JeeslTimeSeries<?,?,?>,
-								TRANSACTION extends JeeslTsTransaction<?,DATA,?,?>,
-								DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
+public class TsDataComparator <	TS extends JeeslTimeSeries<?,?,?,?>,
+								DATA extends JeeslTsData<TS,?,SAMPLE,WS>,
 								SAMPLE extends JeeslTsSample, 
 								WS extends JeeslStatus<WS,?,?>>
 {
@@ -29,7 +27,7 @@ public class TsDataComparator <	TS extends JeeslTimeSeries<?,?,?>,
 	public Comparator<DATA> factory(Type type)
 	{
 		Comparator<DATA> c = null;
-		TsDataComparator<TS,TRANSACTION,DATA,SAMPLE,WS> factory = new TsDataComparator<TS,TRANSACTION,DATA,SAMPLE,WS>();
+		TsDataComparator<TS,DATA,SAMPLE,WS> factory = new TsDataComparator<>();
 		switch (type)
 		{
 			case date: c = factory.new DateComparator();break;

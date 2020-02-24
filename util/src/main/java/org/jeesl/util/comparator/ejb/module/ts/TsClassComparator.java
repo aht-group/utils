@@ -3,37 +3,14 @@ package org.jeesl.util.comparator.ejb.module.ts;
 import java.util.Comparator;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
-import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
-import org.jeesl.interfaces.model.module.ts.core.JeeslTsScope;
-import org.jeesl.interfaces.model.module.ts.data.JeeslTsBridge;
-import org.jeesl.interfaces.model.module.ts.data.JeeslTsData;
-import org.jeesl.interfaces.model.module.ts.data.JeeslTsSample;
-import org.jeesl.interfaces.model.module.ts.data.JeeslTsTransaction;
-import org.jeesl.interfaces.model.system.locale.JeeslDescription;
-import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-import org.jeesl.interfaces.model.with.EjbWithLangDescription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
-
-public class TsClassComparator<L extends JeeslLang, D extends JeeslDescription,
-								CAT extends JeeslStatus<CAT,L,D>,
-								SCOPE extends JeeslTsScope<L,D,CAT,?,UNIT,EC,INT>,
-								UNIT extends JeeslStatus<UNIT,L,D>,
-								TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT>,
-								TRANSACTION extends JeeslTsTransaction<SOURCE,DATA,USER,?>,
-								SOURCE extends EjbWithLangDescription<L,D>, 
-								BRIDGE extends JeeslTsBridge<EC>,
-								EC extends JeeslTsEntityClass<L,D,CAT>,
-								INT extends JeeslStatus<INT,L,D>,
-								DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
-								SAMPLE extends JeeslTsSample, 
-								USER extends EjbWithId, 
-								WS extends JeeslStatus<WS,L,D>,
-								QAF extends JeeslStatus<QAF,L,D>>
+public class TsClassComparator<CAT extends JeeslStatus<CAT,?,?>,
+								EC extends JeeslTsEntityClass<?,?,CAT>
+								>
 {
 	final static Logger logger = LoggerFactory.getLogger(TsClassComparator.class);
 
@@ -47,7 +24,7 @@ public class TsClassComparator<L extends JeeslLang, D extends JeeslDescription,
     public Comparator<EC> factory(Type type)
     {
         Comparator<EC> c = null;
-        TsClassComparator<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF> factory = new TsClassComparator<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF>();
+        TsClassComparator<CAT,EC> factory = new TsClassComparator<>();
         switch (type)
         {
             case position: c = factory.new PositionCodeComparator();break;

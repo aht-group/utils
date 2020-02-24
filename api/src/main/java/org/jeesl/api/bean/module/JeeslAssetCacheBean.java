@@ -9,15 +9,15 @@ import org.jeesl.interfaces.model.module.aom.JeeslAomStatus;
 import org.jeesl.interfaces.model.module.aom.JeeslAomType;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
-import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface JeeslAssetCacheBean <L extends JeeslLang, D extends JeeslDescription,
-										REALM extends JeeslAomRealm<L,D,REALM,?>, RREF extends EjbWithId,
+										REALM extends JeeslMcsRealm<L,D,REALM,?>, RREF extends EjbWithId,
 										COMPANY extends JeeslAomCompany<REALM,SCOPE>,
 										SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
 										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,ASTATUS,ATYPE>,

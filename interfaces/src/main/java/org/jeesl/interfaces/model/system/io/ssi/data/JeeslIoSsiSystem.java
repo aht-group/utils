@@ -11,5 +11,5 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 public interface JeeslIoSsiSystem
 		extends Serializable,EjbWithId,EjbSaveable,EjbRemoveable,EjbWithCode
 {	
-	
+	boolean isX(); void setX(boolean x);
 }

@@ -35,7 +35,7 @@ public class TsDbBackupSizeProcessor<SYSTEM extends JeeslIoSsiSystem,
 									DUMP extends JeeslDbDump<SYSTEM,?>,
 									SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 									MP extends JeeslTsMultiPoint<?,?,SCOPE,?>,
-									TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT>,
+									TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT,STAT>,
 									TRANSACTION extends JeeslTsTransaction<?,DATA,?,?>,
 									BRIDGE extends JeeslTsBridge<EC>,
 									EC extends JeeslTsEntityClass<?,?,?>,
@@ -101,7 +101,7 @@ public class TsDbBackupSizeProcessor<SYSTEM extends JeeslIoSsiSystem,
 		if(!add.isEmpty())
 		{
 			logger.info("Adding "+add.size()+" point to TS");
-			TRANSACTION transaction = fbTs.transaction().build(null,null);
+			TRANSACTION transaction = fbTs.ejbTransaction().build(null,null);
 			transaction = fTs.save(transaction);
 			for(DATA d : add)
 			{

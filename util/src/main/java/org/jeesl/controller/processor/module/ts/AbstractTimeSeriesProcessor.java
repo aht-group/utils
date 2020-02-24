@@ -25,7 +25,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class AbstractTimeSeriesProcessor<SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 									MP extends JeeslTsMultiPoint<?,?,SCOPE,?>,
-									TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT>,
+									TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT,STAT>,
 									TRANSACTION extends JeeslTsTransaction<?,DATA,?,?>,
 									BRIDGE extends JeeslTsBridge<EC>,
 									EC extends JeeslTsEntityClass<?,?,?>,
@@ -60,7 +60,7 @@ public class AbstractTimeSeriesProcessor<SCOPE extends JeeslTsScope<?,?,?,?,?,EC
 		this.fbTs=fbTs;
 		this.fTs=fTs;
 		mfTs = new McTimeSeriesFactory<SCOPE,MP,TS,BRIDGE,EC,INT,STAT,DATA,POINT,WS>(fbTs,fTs);
-		efData = fbTs.data();
+		efData = fbTs.ejbData();
 		efPoint = fbTs.ejbDataPoint();
 		debugOnInfo = false;
 	}
@@ -103,6 +103,7 @@ public class AbstractTimeSeriesProcessor<SCOPE extends JeeslTsScope<?,?,?,?,?,EC
 	
 	public <T extends EjbWithId> TS fcTs(T t) throws JeeslConstraintViolationException
 	{
+		
 		BRIDGE bridge = fTs.fcBridge(fbTs.getClassBridge(),ec,t);
 		return fTs.fcTimeSeries(scope,interval,bridge);
 	}

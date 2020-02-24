@@ -1,6 +1,7 @@
 package org.jeesl.model.json.module.ts;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import org.jeesl.model.json.system.status.JsonCategory;
@@ -41,6 +42,16 @@ public class JsonTsSeries implements Serializable
 	private Integer size;
 	public Integer getSize() {return size;}
 	public void setSize(Integer size) {this.size = size;}
+	
+	@JsonProperty("dateStart")
+	private Date dateStart;
+	public Date getDateStart() {return dateStart;}
+	public void setDateStart(Date dateStart) {this.dateStart = dateStart;}
+
+	@JsonProperty("dateEnd")
+	private Date dateEnd;
+	public Date getDateEnd() {return dateEnd;}
+	public void setDateEnd(Date dateEnd) {this.dateEnd = dateEnd;}
 	
 	@JsonProperty("datas")
 	private List<JsonTsData> datas;

@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 public class TsDbCountProcessor<RE extends JeeslRevisionEntity<?,?,?,?,?,?>,
 									SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 									MP extends JeeslTsMultiPoint<?,?,SCOPE,?>,
-									TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT>,
+									TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT,STAT>,
 									TRANSACTION extends JeeslTsTransaction<?,DATA,?,?>,
 									BRIDGE extends JeeslTsBridge<EC>,
 									EC extends JeeslTsEntityClass<?,?,?>,
@@ -88,7 +88,7 @@ public class TsDbCountProcessor<RE extends JeeslRevisionEntity<?,?,?,?,?,?>,
 		{
 			try
 			{
-				TRANSACTION transaction = fbTs.transaction().build(null,null);
+				TRANSACTION transaction = fbTs.ejbTransaction().build(null,null);
 				transaction = fTs.save(transaction);
 				Date date = (new DateTime(new Date())).withTimeAtStartOfDay().toDate();
 				for(RE entity : listTs)

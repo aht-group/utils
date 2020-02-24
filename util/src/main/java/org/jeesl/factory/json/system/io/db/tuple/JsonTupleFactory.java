@@ -1,4 +1,4 @@
-package org.jeesl.factory.json.db.tuple;
+package org.jeesl.factory.json.system.io.db.tuple;
 
 import org.jeesl.model.json.db.tuple.JsonTuple;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuple;

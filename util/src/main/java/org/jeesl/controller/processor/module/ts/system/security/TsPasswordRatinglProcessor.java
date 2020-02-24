@@ -30,7 +30,7 @@ public class TsPasswordRatinglProcessor<SYSTEM extends JeeslIoSsiSystem,
 									RATING extends JeeslSecurityPasswordRating<?,?,?,?>,
 									SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 									MP extends JeeslTsMultiPoint<?,?,SCOPE,?>,
-									TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT>,
+									TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT,STAT>,
 									TRANSACTION extends JeeslTsTransaction<?,DATA,?,?>,
 									BRIDGE extends JeeslTsBridge<EC>,
 									EC extends JeeslTsEntityClass<?,?,?>,
@@ -59,7 +59,7 @@ public class TsPasswordRatinglProcessor<SYSTEM extends JeeslIoSsiSystem,
 			Date date = dt.withMillisOfSecond(0).withSecondOfMinute(0).withMinuteOfHour(0).withHourOfDay(0).toDate();
 			
 			TS ts = fcTs(system);
-			TRANSACTION transaction = fTs.save(fbTs.transaction().build(null,null));
+			TRANSACTION transaction = fTs.save(fbTs.ejbTransaction().build(null,null));
 			
 			DATA data = efData.build(ws, ts, transaction, date, null);
 			data = fTs.save(data);

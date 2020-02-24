@@ -8,18 +8,18 @@ import org.jeesl.interfaces.model.module.aom.JeeslAomStatus;
 import org.jeesl.interfaces.model.module.aom.JeeslAomType;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
-import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventStatus;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface JeeslAssetFacade <L extends JeeslLang, D extends JeeslDescription,
-									REALM extends JeeslAomRealm<L,D,REALM,?>,
+									REALM extends JeeslMcsRealm<L,D,REALM,?>,
 									COMPANY extends JeeslAomCompany<REALM,SCOPE>,
 									SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
 									ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,ATYPE>,

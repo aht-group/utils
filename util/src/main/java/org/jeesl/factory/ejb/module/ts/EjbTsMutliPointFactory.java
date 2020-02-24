@@ -2,23 +2,13 @@ package org.jeesl.factory.ejb.module.ts;
 
 import java.util.List;
 
-import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsMultiPoint;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsScope;
-import org.jeesl.interfaces.model.system.locale.JeeslDescription;
-import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbTsMutliPointFactory<L extends JeeslLang, D extends JeeslDescription,
-									CAT extends JeeslStatus<CAT,L,D>,
-									SCOPE extends JeeslTsScope<L,D,CAT,ST,UNIT,EC,INT>,
-									ST extends JeeslStatus<ST,L,D>,
-									UNIT extends JeeslStatus<UNIT,L,D>,
-									MP extends JeeslTsMultiPoint<L,D,SCOPE,UNIT>,
-									EC extends JeeslTsEntityClass<L,D,CAT>,
-									INT extends JeeslStatus<INT,L,D>
+public class EjbTsMutliPointFactory<SCOPE extends JeeslTsScope<?,?,?,?,?,?,?>,
+									MP extends JeeslTsMultiPoint<?,?,SCOPE,?>
 									>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbTsMutliPointFactory.class);

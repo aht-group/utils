@@ -24,7 +24,7 @@ import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.factory.ejb.module.ts.EjbTsBridgeFactory;
 import org.jeesl.factory.ejb.module.ts.EjbTsFactory;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
-import org.jeesl.factory.json.db.tuple.t1.Json1TuplesFactory;
+import org.jeesl.factory.json.system.io.db.tuple.t1.Json1TuplesFactory;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
@@ -53,7 +53,7 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 							ST extends JeeslTsScopeType<L,D,ST,?>,
 							UNIT extends JeeslStatus<UNIT,L,D>,
 							MP extends JeeslTsMultiPoint<L,D,SCOPE,UNIT>,
-							TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT>,
+							TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT,STAT>,
 							TRANSACTION extends JeeslTsTransaction<SOURCE,DATA,USER,?>,
 							SOURCE extends EjbWithLangDescription<L,D>, 
 							BRIDGE extends JeeslTsBridge<EC>,
@@ -75,7 +75,6 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 	private final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fbTs;
 	
 	private final EjbTsFactory<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF> efTs;
-	private EjbTsBridgeFactory<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF> efBridge;
 	
 	public JeeslTsFacadeBean(EntityManager em, final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fbTs)
 	{
@@ -102,8 +101,7 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 		try {return fBridge(entityClass, ejb);}
 		catch (JeeslNotFoundException ex)
 		{
-			if(efBridge==null){efBridge = new EjbTsBridgeFactory<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF>(cBridge);}
-			BRIDGE bridge = efBridge.build(entityClass, ejb.getId());
+			BRIDGE bridge = fbTs.ejbBridge().build(entityClass, ejb.getId());
 			return this.persist(bridge);
 		}
 	}

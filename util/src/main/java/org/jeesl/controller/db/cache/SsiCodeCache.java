@@ -24,8 +24,8 @@ public class SsiCodeCache <MAPPING extends JeeslIoSsiMapping<?,ENTITY>,
 	
 	private final Map<String,T> map;
 	
-	public SsiCodeCache(IoSsiFactoryBuilder<?,?,?,MAPPING,ATTRIBUTE,?,?,ENTITY,?> fbSsi,
-						JeeslIoSsiFacade<?,?,?,MAPPING,ATTRIBUTE,?,?,ENTITY> fSsi,
+	public SsiCodeCache(IoSsiFactoryBuilder<?,?,?,?,MAPPING,ATTRIBUTE,?,?,ENTITY,?> fbSsi,
+						JeeslIoSsiFacade<?,?,?,?,MAPPING,ATTRIBUTE,?,?,ENTITY> fSsi,
 						Class<T> cT)
 	{
 		this.cT=cT;

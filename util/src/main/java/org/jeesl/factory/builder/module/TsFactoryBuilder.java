@@ -31,6 +31,8 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.with.EjbWithLangDescription;
+import org.jeesl.util.comparator.ejb.module.ts.TsClassComparator;
+import org.jeesl.util.comparator.ejb.module.ts.TsDataComparator;
 import org.jeesl.util.comparator.ejb.module.ts.TsScopeComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +45,7 @@ public class TsFactoryBuilder<L extends JeeslLang, D extends JeeslDescription,
 								ST extends JeeslTsScopeType<L,D,ST,?>,
 								UNIT extends JeeslStatus<UNIT,L,D>,
 								MP extends JeeslTsMultiPoint<L,D,SCOPE,UNIT>,
-								TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT>,
+								TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT,STAT>,
 								TRANSACTION extends JeeslTsTransaction<SOURCE,DATA,USER,?>,
 								SOURCE extends EjbWithLangDescription<L,D>, 
 								BRIDGE extends JeeslTsBridge<EC>,
@@ -114,32 +116,13 @@ public class TsFactoryBuilder<L extends JeeslLang, D extends JeeslDescription,
 		return new EjbTsScopeFactory<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF>(cScope);
 	}
 	
-	public EjbTsBridgeFactory<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF> bridge()
-	{
-		return new EjbTsBridgeFactory<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF>(cBridge);
-	}
+	public EjbTsBridgeFactory<TS,BRIDGE,EC,DATA> ejbBridge(){return new EjbTsBridgeFactory<>(cBridge);}
+	public EjbTsTransactionFactory<TRANSACTION,SOURCE,USER> ejbTransaction() {return new EjbTsTransactionFactory<>(cTransaction);}
+	public EjbTsDataFactory<TS,TRANSACTION,DATA,WS> ejbData() {return new EjbTsDataFactory<>(cData);}
+	public EjbTsDataPointFactory<MP,DATA,POINT> ejbDataPoint() {return new EjbTsDataPointFactory<>(cPoint);}
+	public EjbTsClassFactory<CAT,EC> ejbEntityClass(){return new EjbTsClassFactory<>(cEc);}
 	
-	public EjbTsTransactionFactory<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF> transaction()
-	{
-		return new EjbTsTransactionFactory<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF>(cTransaction);
-	}
-	
-	public EjbTsDataFactory<TS,TRANSACTION,DATA,WS> data() {return new EjbTsDataFactory<TS,TRANSACTION,DATA,WS>(cData);}
-	
-	public EjbTsDataPointFactory<MP,DATA,POINT> ejbDataPoint()
-	{
-		return new EjbTsDataPointFactory<MP,DATA,POINT>(cPoint);
-	}
-	
-	public EjbTsClassFactory<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF> entityClass()
-	{
-		return new EjbTsClassFactory<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF>(cEc);
-	}
-	
-	public EjbTsMutliPointFactory<L,D,CAT,SCOPE,ST,UNIT,MP,EC,INT> ejbMultiPoint()
-	{
-		return new EjbTsMutliPointFactory<L,D,CAT,SCOPE,ST,UNIT,MP,EC,INT>(cMp);
-	}
+	public EjbTsMutliPointFactory<SCOPE,MP> ejbMultiPoint() {return new EjbTsMutliPointFactory<>(cMp);}
 	
 	public EjbTsCronFactory<SCOPE,INT,STAT,CRON> ejbCron()
 	{
@@ -151,8 +134,7 @@ public class TsFactoryBuilder<L extends JeeslLang, D extends JeeslDescription,
 		return new McTimeSeriesFactory<SCOPE,MP,TS,BRIDGE,EC,INT,STAT,DATA,POINT,WS>(this,fTs);
 	}
 	
-	public Comparator<SCOPE> cmpScope(TsScopeComparator.Type type)
-	{
-		return (new TsScopeComparator<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF>()).factory(TsScopeComparator.Type.position);
-	}
+	public Comparator<EC> cmpClass(TsClassComparator.Type type) {return new TsClassComparator<CAT,EC>().factory(type);}
+	public Comparator<SCOPE> cmpScope(TsScopeComparator.Type type) {return (new TsScopeComparator<CAT,SCOPE>()).factory(type);}
+	public Comparator<DATA> cmpData(TsDataComparator.Type type) {return (new TsDataComparator<TS,DATA,SAMPLE,WS>()).factory(type);}
 }

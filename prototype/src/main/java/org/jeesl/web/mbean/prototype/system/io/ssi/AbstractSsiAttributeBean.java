@@ -17,6 +17,7 @@ import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiAttribute;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiCleaning;
+import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiCredential;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiData;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiLink;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;
@@ -29,8 +30,9 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public class AbstractSettingsSsiAttributeBean <L extends JeeslLang,D extends JeeslDescription,
+public class AbstractSsiAttributeBean <L extends JeeslLang,D extends JeeslDescription,
 										SYSTEM extends JeeslIoSsiSystem,
+										CRED extends JeeslIoSsiCredential<SYSTEM>,
 										MAPPING extends JeeslIoSsiMapping<SYSTEM,ENTITY>,
 										ATTRIBUTE extends JeeslIoSsiAttribute<MAPPING,ENTITY>,
 										DATA extends JeeslIoSsiData<MAPPING,LINK>,
@@ -40,12 +42,12 @@ public class AbstractSettingsSsiAttributeBean <L extends JeeslLang,D extends Jee
 						implements Serializable,SbSingleBean,SbToggleBean
 {
 	private static final long serialVersionUID = 1L;
-	final static Logger logger = LoggerFactory.getLogger(AbstractSettingsSsiAttributeBean.class);
+	final static Logger logger = LoggerFactory.getLogger(AbstractSsiAttributeBean.class);
 	
-	private final IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi;
+	private final IoSsiFactoryBuilder<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi;
 	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,ENTITY,?,?,?,?,?> fbRevision;
 	
-	private JeeslIoSsiFacade<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY> fSsi;
+	private JeeslIoSsiFacade<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY> fSsi;
 	
 	private final SbSingleHandler<MAPPING> sbhMapping; public SbSingleHandler<MAPPING> getSbhMapping() {return sbhMapping;}
 	private final SbMultiHandler<ENTITY> sbhEntity; public SbMultiHandler<ENTITY> getSbhEntity() {return sbhEntity;}
@@ -57,7 +59,7 @@ public class AbstractSettingsSsiAttributeBean <L extends JeeslLang,D extends Jee
 
 	private final EjbIoSsiAttributeFactory<MAPPING,ATTRIBUTE,ENTITY> efAttribute;
 	
-	public AbstractSettingsSsiAttributeBean(final IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi,
+	public AbstractSsiAttributeBean(final IoSsiFactoryBuilder<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi,
 											final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,ENTITY,?,?,?,?,?> fbRevision)
 	{
 		this.fbSsi=fbSsi;
@@ -71,7 +73,7 @@ public class AbstractSettingsSsiAttributeBean <L extends JeeslLang,D extends Jee
 		efAttribute = fbSsi.ejbAttribute();
 	}
 
-	public void postConstructSsiAttribute(JeeslIoSsiFacade<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY> fSsi)
+	public void postConstructSsiAttribute(JeeslIoSsiFacade<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY> fSsi)
 	{
 		this.fSsi=fSsi;
 		entities.addAll(fSsi.all(fbRevision.getClassEntity()));

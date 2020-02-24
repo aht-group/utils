@@ -34,7 +34,7 @@ import net.sf.exlp.util.DateUtil;
 
 public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 								MP extends JeeslTsMultiPoint<?,?,SCOPE,?>,
-								TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT>,
+								TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT,STAT>,
 								BRIDGE extends JeeslTsBridge<EC>,
 								EC extends JeeslTsEntityClass<?,?,?>,
 								INT extends JeeslTsInterval<?,?,INT,?>,

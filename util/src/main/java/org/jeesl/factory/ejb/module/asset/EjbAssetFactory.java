@@ -9,13 +9,13 @@ import org.jeesl.interfaces.model.module.aom.JeeslAomStatus;
 import org.jeesl.interfaces.model.module.aom.JeeslAomType;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
-import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
+import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public class EjbAssetFactory<REALM extends JeeslAomRealm<?,?,REALM,?>,
+public class EjbAssetFactory<REALM extends JeeslMcsRealm<?,?,REALM,?>,
 							COMPANY extends JeeslAomCompany<REALM,SCOPE>,
 							SCOPE extends JeeslAomScope<?,?,SCOPE,?>,
 							ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,

@@ -63,7 +63,7 @@ public class AbstractAdminTsImportMultiBean <L extends JeeslLang, D extends Jees
 											ST extends JeeslTsScopeType<L,D,ST,?>,
 											UNIT extends JeeslStatus<UNIT,L,D>,
 											MP extends JeeslTsMultiPoint<L,D,SCOPE,UNIT>,
-											TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT>,
+											TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT,STAT>,
 											TRANSACTION extends JeeslTsTransaction<SOURCE,DATA,USER,?>,
 											SOURCE extends EjbWithLangDescription<L,D>, 
 											BRIDGE extends JeeslTsBridge<EC>,
@@ -229,8 +229,8 @@ public class AbstractAdminTsImportMultiBean <L extends JeeslLang, D extends Jees
                 }
 		Collections.sort(timeSeries.getData(), cTsData);
 		entity=null;
-		transaction = efTransaction.build(transactionUser,sources.get(0));
-                logger.info("Imported set with " +dataList.size() +" entries.");
+		transaction = fbTs.ejbTransaction().build(transactionUser,sources.get(0));
+		logger.info("Imported set with " +dataList.size() +" entries.");
 		preview();
 	}
 	
