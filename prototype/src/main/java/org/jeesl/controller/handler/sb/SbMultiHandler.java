@@ -139,7 +139,7 @@ public class SbMultiHandler <T extends EjbWithId> implements Serializable
 		callbackToggledToBean();
 	}
 	
-	private void callbackToggledToBean()
+	public void callbackToggledToBean()
 	{
 		try {if(bean!=null){bean.toggled(cT);}}
 		catch (JeeslLockingException e) {e.printStackTrace();}
