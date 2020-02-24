@@ -128,6 +128,11 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 		}
 	}
 	
+	private void reset(boolean rType)
+	{
+		if(rType) {type=null;}
+	}
+	
 	public void addType()
 	{
 		ATYPE parent=null; if(type!=null) {parent = type;} else {parent = root;}
@@ -142,6 +147,14 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 		type = fAsset.save(type);
 		reloadTree();
 		bCache.update(realm, rref, type);
+	}
+	
+	public void deleteType() throws JeeslConstraintViolationException, JeeslLockingException
+	{
+		bCache.delete(realm,rref,type);
+		fAsset.rm(type);
+		reloadTree();
+		reset(true);
 	}
 	
 	public void onNodeExpand(NodeExpandEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}

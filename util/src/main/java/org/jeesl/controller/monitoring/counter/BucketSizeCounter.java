@@ -103,6 +103,9 @@ public class BucketSizeCounter
 	
 	public List<String> toCodes(){return new ArrayList<>(map.keySet());}
 	
+	public boolean hasValue(String code) {return map.containsKey(code);}
+	public Long value(String code) {return map.get(code);}
+	
 	public void debugLoop(int modulo){debugLoop(modulo,null);}
 	public void debugLoop(int modulo, Integer max)
 	{

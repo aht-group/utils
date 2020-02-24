@@ -3,6 +3,7 @@ package org.jeesl.interfaces.model.module.aom;
 import java.io.Serializable;
 import java.util.List;
 
+import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.with.EjbWithCodeGraphic;
@@ -18,8 +19,8 @@ public interface JeeslAomType <L extends JeeslLang, D extends JeeslDescription,
 							REALM extends JeeslMcsRealm<L,D,REALM,?>,
 							TYPE extends JeeslAomType<L,D,REALM,TYPE,G>,
 							G extends JeeslGraphic<L,D,?,?,?>>
-			extends Serializable,
-					EjbSaveable,EjbWithParentAttributeResolver,
+			extends Serializable,EjbSaveable,EjbRemoveable,
+					EjbWithParentAttributeResolver,
 					EjbWithNonUniqueCode,EjbWithPosition,EjbWithLangDescription<L,D>,
 					EjbWithCodeGraphic<G>
 					

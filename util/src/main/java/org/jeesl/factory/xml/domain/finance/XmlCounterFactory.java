@@ -1,5 +1,6 @@
 package org.jeesl.factory.xml.domain.finance;
 
+import org.jeesl.interfaces.model.with.code.EjbWithCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,6 +39,14 @@ public class XmlCounterFactory
 	public static <E extends Enum<E>> void add(Figures figures, E code, Integer value)
 	{
 		if(value!=null){figures.getCounter().add(XmlCounterFactory.build(code, value));}
+	}
+	public static <E extends EjbWithCode> void add(Figures figures, E code, Integer value)
+	{
+		if(value!=null){figures.getCounter().add(XmlCounterFactory.create(code.getCode(), value));} 
+	}
+	public static <E extends EjbWithCode> void add(Figures figures, E code, Long value)
+	{
+		if(value!=null){figures.getCounter().add(XmlCounterFactory.create(code.getCode(), Long.valueOf(value).intValue()));} 
 	}
 	
 	public static <E extends Enum<E>> void plus(Figures figures, E code, Integer value)
