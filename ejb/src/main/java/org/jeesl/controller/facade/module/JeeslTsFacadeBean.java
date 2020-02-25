@@ -21,7 +21,6 @@ import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
-import org.jeesl.factory.ejb.module.ts.EjbTsBridgeFactory;
 import org.jeesl.factory.ejb.module.ts.EjbTsFactory;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.factory.json.system.io.db.tuple.t1.Json1TuplesFactory;
@@ -266,6 +265,7 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 			switch(interval)
 			{
 				case closedOpen: predicates.add(cB.greaterThanOrEqualTo(eRecord,from)); break;
+				case closedClosed: predicates.add(cB.greaterThanOrEqualTo(eRecord,from)); break;
 			}
 		}
 		if(to!=null)
@@ -273,6 +273,7 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 			switch(interval)
 			{
 				case closedOpen: predicates.add(cB.lessThan(eRecord,to)); break;
+				case closedClosed: predicates.add(cB.lessThanOrEqualTo(eRecord,to)); break;
 			}
 			
 		}
@@ -301,13 +302,15 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 			switch(interval)
 			{
 				case closedOpen: predicates.add(cB.greaterThanOrEqualTo(eRecord,from));break;
+				case closedClosed: predicates.add(cB.greaterThanOrEqualTo(eRecord,from));break;
 			}
 		}
 		if(to!=null)
 		{
 			switch(interval)
 			{
-				case closedOpen: predicates.add(cB.lessThan(eRecord,to));;break;
+				case closedOpen: predicates.add(cB.lessThan(eRecord,to));break;
+				case closedClosed: predicates.add(cB.lessThanOrEqualTo(eRecord,to));break;
 			}
 		}
 		
@@ -339,6 +342,7 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 			switch(interval)
 			{
 				case closedOpen: predicates.add(cB.greaterThanOrEqualTo(eRecord,from)); break;
+				case closedClosed: predicates.add(cB.greaterThanOrEqualTo(eRecord,from)); break;
 			}
 			
 		}
@@ -347,6 +351,7 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 			switch(interval)
 			{
 				case closedOpen: predicates.add(cB.lessThan(eRecord,to)); break;
+				case closedClosed: predicates.add(cB.lessThanOrEqualTo(eRecord,to)); break;
 			}
 		}
 		
