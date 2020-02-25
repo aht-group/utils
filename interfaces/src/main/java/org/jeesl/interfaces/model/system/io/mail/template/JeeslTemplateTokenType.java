@@ -11,8 +11,12 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatusFixedCode;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 
-public interface JeeslTemplateTokenType <S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription,G extends JeeslGraphic<L,D,?,?,?>>
-					extends Serializable,EjbPersistable,JeeslOptionRestDownload,EjbWithCodeGraphic<G>,JeeslStatusFixedCode	
+public interface JeeslTemplateTokenType <L extends JeeslLang, D extends JeeslDescription,
+									S extends JeeslStatus<S,L,D>,
+									G extends JeeslGraphic<L,D,?,?,?>>
+					extends Serializable,EjbPersistable,JeeslOptionRestDownload,
+								EjbWithCodeGraphic<G>,JeeslStatusFixedCode,
+								JeeslStatus<S,L,D>
 {	
 	public static enum Code{text,xml};
 }

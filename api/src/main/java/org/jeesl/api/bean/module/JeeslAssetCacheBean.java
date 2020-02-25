@@ -36,4 +36,5 @@ public interface JeeslAssetCacheBean <L extends JeeslLang, D extends JeeslDescri
 	
 	void update(REALM realm, RREF rref, COMPANY company);
 	void update(REALM realm, RREF rref, ATYPE type);
+	void delete(REALM realm, RREF rref, ATYPE type);
 }

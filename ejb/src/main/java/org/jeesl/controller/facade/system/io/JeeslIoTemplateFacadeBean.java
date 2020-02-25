@@ -18,6 +18,7 @@ import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateDefinition;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateToken;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
+import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateTokenType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
@@ -33,7 +34,7 @@ public class JeeslIoTemplateFacadeBean<L extends JeeslLang,D extends JeeslDescri
 						SCOPE extends JeeslStatus<SCOPE,L,D>,
 						DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 						TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,TOKENTYPE>,
-						TOKENTYPE extends JeeslStatus<TOKENTYPE,L,D>>
+						TOKENTYPE extends JeeslTemplateTokenType<L,D,TOKENTYPE,?>>
 					extends JeeslFacadeBean
 					implements JeeslIoTemplateFacade<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE>
 {	

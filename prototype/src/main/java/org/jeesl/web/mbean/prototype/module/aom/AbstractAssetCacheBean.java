@@ -153,4 +153,8 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 	{
 		if(!Collections.replaceAll(mapAssetType.get(realm).get(rref),type,type)){mapAssetType.get(realm).get(rref).add(type);}
 	}
+	@Override public void delete(REALM realm, RREF rref, ATYPE type)
+	{
+		if(mapAssetType.get(realm).get(rref).contains(type)){mapAssetType.get(realm).get(rref).remove(type);}
+	}
 }

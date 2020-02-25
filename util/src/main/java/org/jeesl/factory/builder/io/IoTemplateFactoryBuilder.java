@@ -4,12 +4,13 @@ import org.jeesl.factory.builder.AbstractFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.template.EjbIoTemplateDefinitionFactory;
 import org.jeesl.factory.ejb.system.io.template.EjbIoTemplateFactory;
 import org.jeesl.factory.ejb.system.io.template.EjbIoTemplateTokenFactory;
+import org.jeesl.factory.ftl.FtlIoTemplateTokenFactory;
 import org.jeesl.factory.txt.system.io.mail.template.TxtIoTemplateFactory;
-import org.jeesl.factory.txt.system.io.mail.template.TxtIoTemplateTokenFactory;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateDefinition;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateToken;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
+import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateTokenType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
@@ -23,7 +24,7 @@ public class IoTemplateFactoryBuilder<L extends JeeslLang,D extends JeeslDescrip
 									SCOPE extends JeeslStatus<SCOPE,L,D>,
 									DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 									TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,TOKENTYPE>,
-									TOKENTYPE extends JeeslStatus<TOKENTYPE,L,D>>
+									TOKENTYPE extends JeeslTemplateTokenType<L,D,TOKENTYPE,?>>
 		extends AbstractFactoryBuilder<L,D>
 {
 	final static Logger logger = LoggerFactory.getLogger(IoTemplateFactoryBuilder.class);
@@ -70,9 +71,9 @@ public class IoTemplateFactoryBuilder<L extends JeeslLang,D extends JeeslDescrip
 		return new EjbIoTemplateTokenFactory<>(cL,cD,cToken);
 	}
 	
-	public TxtIoTemplateTokenFactory<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> txtToken()
+	public FtlIoTemplateTokenFactory<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> txtToken()
 	{
-		return new TxtIoTemplateTokenFactory<>();
+		return new FtlIoTemplateTokenFactory<>();
 	}
 	
 	public TxtIoTemplateFactory<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN> txtTemplate()

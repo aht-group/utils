@@ -249,8 +249,8 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 		return em.createQuery(cQ).getResultList();
 	}
 	
-	@Override public List<DATA> fData(WS workspace, TS timeSeries){return fData(workspace,timeSeries,null,null);}
-	@Override public List<DATA> fData(WS workspace, TS timeSeries, Date from, Date to)
+	@Override public List<DATA> fData(WS workspace, TS timeSeries){return fData(workspace,timeSeries,JeeslTsData.QueryInterval.closedOpen,null,null);}
+	@Override public List<DATA> fData(WS workspace, TS timeSeries, JeeslTsData.QueryInterval interval, Date from, Date to)
 	{
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		CriteriaBuilder cB = em.getCriteriaBuilder();
@@ -261,8 +261,21 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 		predicates.add(cB.equal(data.<TS>get(JeeslTsData.Attributes.timeSeries.toString()), timeSeries));
 		
 		Expression<Date> eRecord = data.get(JeeslTsData.Attributes.record.toString());
-		if(from!=null){predicates.add(cB.greaterThanOrEqualTo(eRecord, from));}
-		if(to!=null){predicates.add(cB.lessThan(eRecord,to));}
+		if(from!=null)
+		{
+			switch(interval)
+			{
+				case closedOpen: predicates.add(cB.greaterThanOrEqualTo(eRecord,from)); break;
+			}
+		}
+		if(to!=null)
+		{
+			switch(interval)
+			{
+				case closedOpen: predicates.add(cB.lessThan(eRecord,to)); break;
+			}
+			
+		}
 		
 		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
 		cQ.select(data);
@@ -271,7 +284,7 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 		return em.createQuery(cQ).getResultList();
 	}
 	
-	@Override public List<POINT> fPoints(WS workspace, TS timeSeries, Date from, Date to)
+	@Override public List<POINT> fPoints(WS workspace, TS timeSeries, JeeslTsData.QueryInterval interval, Date from, Date to)
 	{
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		CriteriaBuilder cB = em.getCriteriaBuilder();
@@ -283,8 +296,20 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 		predicates.add(cB.equal(data.<TS>get(JeeslTsData.Attributes.timeSeries.toString()), timeSeries));
 		
 		Expression<Date> eRecord = data.get(JeeslTsData.Attributes.record.toString());
-		if(from!=null){predicates.add(cB.greaterThanOrEqualTo(eRecord, from));}
-		if(to!=null){predicates.add(cB.lessThan(eRecord,to));}
+		if(from!=null)
+		{
+			switch(interval)
+			{
+				case closedOpen: predicates.add(cB.greaterThanOrEqualTo(eRecord,from));break;
+			}
+		}
+		if(to!=null)
+		{
+			switch(interval)
+			{
+				case closedOpen: predicates.add(cB.lessThan(eRecord,to));;break;
+			}
+		}
 		
 		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
 		cQ.select(point);
@@ -301,7 +326,7 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 	}
 
 	@Override
-	public List<TRANSACTION> fTransactions(List<USER> users, Date from, Date to)
+	public List<TRANSACTION> fTransactions(List<USER> users, JeeslTsData.QueryInterval interval, Date from, Date to)
 	{
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		CriteriaBuilder cB = em.getCriteriaBuilder();
@@ -309,8 +334,21 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 		Root<TRANSACTION> data = cQ.from(fbTs.getClassTransaction());
 		
 		Expression<Date> eRecord = data.get(JeeslTsTransaction.Attributes.record.toString());
-		if(from!=null){predicates.add(cB.greaterThanOrEqualTo(eRecord, from));}
-		if(to!=null){predicates.add(cB.lessThan(eRecord,to));}
+		if(from!=null)
+		{
+			switch(interval)
+			{
+				case closedOpen: predicates.add(cB.greaterThanOrEqualTo(eRecord,from)); break;
+			}
+			
+		}
+		if(to!=null)
+		{
+			switch(interval)
+			{
+				case closedOpen: predicates.add(cB.lessThan(eRecord,to)); break;
+			}
+		}
 		
 		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
 		cQ.select(data);

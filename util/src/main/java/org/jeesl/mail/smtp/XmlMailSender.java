@@ -19,6 +19,7 @@ import org.jeesl.mail.msg.XmlMimeContentCreator;
 import org.jeesl.model.xml.system.io.mail.Bcc;
 import org.jeesl.model.xml.system.io.mail.Header;
 import org.jeesl.model.xml.system.io.mail.Mail;
+import org.jeesl.model.xml.system.io.mail.Mails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,6 +43,14 @@ public class XmlMailSender extends AbstractMailSender
 		this.fme=fme;
 	}
 
+	public void send(Mails mails) throws MessagingException, UnsupportedEncodingException
+	{
+		for(Mail mail : mails.getMail())
+		{
+			send(mail);
+		}
+	}
+	
 	public void send(Mail mail) throws MessagingException, UnsupportedEncodingException
 	{
 		buildSession();

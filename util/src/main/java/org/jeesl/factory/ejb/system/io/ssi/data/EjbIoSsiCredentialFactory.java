@@ -23,6 +23,8 @@ public class EjbIoSsiCredentialFactory <SYSTEM extends JeeslIoSsiSystem,
 		{
 			ejb = cCredential.newInstance();
 	        ejb.setSystem(system);
+	        ejb.setVisible(false);
+	        ejb.setEncrypted(false);
 	        EjbPositionFactory.next(ejb, list);
 		}
 		catch (InstantiationException e) {e.printStackTrace();}

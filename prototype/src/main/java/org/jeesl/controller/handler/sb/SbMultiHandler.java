@@ -98,14 +98,12 @@ public class SbMultiHandler <T extends EjbWithId> implements Serializable
 	public void preSelect(T t)
 	{
 		map.put(t,true);
+		refresh();
 	}
 	
-	@SuppressWarnings("unchecked")
-	public <E extends Enum<E>> void preSelect(E... codes) {preRefresh(true, codes);}
-	@SuppressWarnings("unchecked")
-	public <E extends Enum<E>> void preDeselect(E... codes) {preRefresh(false, codes);}
-	@SuppressWarnings("unchecked")
-	public <E extends Enum<E>> void preRefresh(boolean value, E... codes)
+	@SuppressWarnings("unchecked") public <E extends Enum<E>> void preSelect(E... codes) {preRefresh(true, codes);}
+	@SuppressWarnings("unchecked") public <E extends Enum<E>> void preDeselect(E... codes) {preRefresh(false, codes);}
+	@SuppressWarnings("unchecked") public <E extends Enum<E>> void preRefresh(boolean value, E... codes)
 	{
 		if(EjbWithCode.class.isAssignableFrom(cT))
 		{
@@ -139,7 +137,7 @@ public class SbMultiHandler <T extends EjbWithId> implements Serializable
 		callbackToggledToBean();
 	}
 	
-	private void callbackToggledToBean()
+	public void callbackToggledToBean()
 	{
 		try {if(bean!=null){bean.toggled(cT);}}
 		catch (JeeslLockingException e) {e.printStackTrace();}

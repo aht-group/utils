@@ -12,6 +12,7 @@ import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateDefinition;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateToken;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
+import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateTokenType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
@@ -34,7 +35,7 @@ public class FreemarkerIoTemplateEngine<L extends JeeslLang,D extends JeeslDescr
 										SCOPE extends JeeslStatus<SCOPE,L,D>,
 										DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 										TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,TOKENTYPE>,
-										TOKENTYPE extends JeeslStatus<TOKENTYPE,L,D>>
+										TOKENTYPE extends JeeslTemplateTokenType<L,D,TOKENTYPE,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(FreemarkerIoTemplateEngine.class);
 

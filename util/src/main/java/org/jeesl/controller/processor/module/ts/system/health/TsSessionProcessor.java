@@ -2,6 +2,7 @@ package org.jeesl.controller.processor.module.ts.system.health;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.jeesl.api.facade.module.JeeslTsFacade;
 import org.jeesl.controller.processor.module.ts.AbstractTimeSeriesProcessor;
@@ -88,39 +89,48 @@ public class TsSessionProcessor<SYSTEM extends JeeslIoSsiSystem,
 	
 	public void update(SYSTEM system, TRANSACTION transaction, JsonTsSeries json)
 	{
-		try
-		{	
-			TS ts = fcTs(system);
-			
+		TS ts = null;
+		try {ts = fcTs(system);} catch (JeeslConstraintViolationException e) {logger.error(e.getMessage());}
+		
+		if(EjbIdFactory.isSaved(ts))
+		{
 			List<MP> mps = fTs.allForParent(fbTs.getClassMp(), ts.getScope());
+			
+			Set<Date> setDate = efData.toSetDate(fTs.fData(ws,ts,JeeslTsData.QueryInterval.closedOpen,json.getDateStart(),json.getDateEnd()));
 			
 			for(JsonTsData jData : json.getDatas())
 			{
-				DATA data = efData.build(ws,ts,transaction,jData.getRecord(),null);
-				try
+				if(!setDate.contains(jData.getRecord()))
 				{
-					logger.info("DATA "+(data!=null));
-					data = fTs.save(data);
-				}
-				catch (JeeslConstraintViolationException | JeeslLockingException e) {}
-				
-				if(EjbIdFactory.isSaved(data))
-				{
-					for(JsonTsPoint point : jData.getPoints())
+					DATA data = efData.build(ws,ts,transaction,jData.getRecord(),null);
+					try
 					{
-						for(MP mp : mps)
+						data = fTs.save(data);
+					}
+					catch (JeeslConstraintViolationException | JeeslLockingException e) {}
+					
+					if(EjbIdFactory.isSaved(data))
+					{
+						for(JsonTsPoint point : jData.getPoints())
 						{
-							if(point.getMp().getCode().equals(mp.getCode()))
+							for(MP mp : mps)
 							{
-								POINT dp =  efPoint.build(data, mp, point.getValue());
-								fTs.save(dp);
+								if(point.getMp().getCode().equals(mp.getCode()))
+								{
+									
+									try
+									{
+										POINT dp =  efPoint.build(data, mp, point.getValue());
+										fTs.save(dp);
+									}
+									catch (JeeslConstraintViolationException | JeeslLockingException e) {logger.error(e.getMessage());}
+								}
 							}
 						}
 					}
 				}
 			}
 		}
-		catch (JeeslConstraintViolationException | JeeslLockingException e) {e.printStackTrace();}
 	}
 	
 	public Chart build(String localeCode, Date begin, Date end, SYSTEM system) 

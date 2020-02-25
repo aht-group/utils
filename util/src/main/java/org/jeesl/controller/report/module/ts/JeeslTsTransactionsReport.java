@@ -52,7 +52,7 @@ public class JeeslTsTransactionsReport <L extends JeeslLang,D extends JeeslDescr
 		
 		Ts ts = XmlTsFactory.build();
 		
-		for(TRANSACTION t : fTs.fTransactions(null, from, to))
+		for(TRANSACTION t : fTs.fTransactions(null,JeeslTsData.QueryInterval.closedOpen,from,to))
 		{
 			ts.getTransaction().add(xfTransaction.build(t));
 		}

@@ -27,10 +27,11 @@ import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateDefinition;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateToken;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
+import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateTokenType;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.model.xml.system.io.mail.EmailAddress;
 import org.jeesl.model.xml.system.io.mail.Mail;
 import org.jeesl.model.xml.system.io.mail.Mails;
@@ -48,7 +49,7 @@ public class AbstractJeeslMail<L extends JeeslLang,D extends JeeslDescription,LO
 								SCOPE extends JeeslStatus<SCOPE,L,D>,
 								DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 								TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,TOKENTYPE>,
-								TOKENTYPE extends JeeslStatus<TOKENTYPE,L,D>,
+								TOKENTYPE extends JeeslTemplateTokenType<L,D,TOKENTYPE,?>,
 								MAILCAT extends JeeslStatus<MAILCAT,L,D>,
 								MAIL extends JeeslIoMail<L,D,MAILCAT,STATUS,RETENTION,FRC>,
 								STATUS extends JeeslMailStatus<L,D,STATUS,?>,
@@ -122,7 +123,6 @@ public class AbstractJeeslMail<L extends JeeslLang,D extends JeeslDescription,LO
 		return result;
 	}
 	
-//	protected void compile(String header, String body) throws IOException {compile(dummyLocaleCode,header,body);}
 	protected void compile(JeeslTemplateHandler<L,D,LOC,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> handler) throws IOException
 	{
 		for(DEFINITION def : handler.getDefinitons())
@@ -145,7 +145,6 @@ public class AbstractJeeslMail<L extends JeeslLang,D extends JeeslDescription,LO
 		return new Template("name", new StringReader(text),new Configuration());
 	}
 	
-//	protected String processHeader(Map<String,Object> model) throws TemplateException, IOException {return processHeader(dummyLocaleCode,model);}
 	protected String processHeader(String localeCode, Map<String,Object> model) throws TemplateException, IOException
 	{
 		StringWriter swHeader = new StringWriter();
@@ -154,7 +153,6 @@ public class AbstractJeeslMail<L extends JeeslLang,D extends JeeslDescription,LO
 		return swHeader.toString();
 	}
 	
-//	protected String processBody(Map<String,Object> model) throws TemplateException, IOException {return processBody(dummyLocaleCode,model);}
 	protected String processBody(String localeCode, Map<String,Object> model) throws TemplateException, IOException
 	{
 		StringWriter swBody = new StringWriter();
