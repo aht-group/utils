@@ -137,7 +137,7 @@ public class TsYearlyDataHandler <L extends JeeslLang, D extends JeeslDescriptio
 			{
 				BRIDGE bridge = fTs.fBridge(entityClass, t);
 				TS ts = fTs.fTimeSeries(scope,interval,bridge);
-				List<DATA> datas = fTs.fData(workspace,ts,start,end);
+				List<DATA> datas = fTs.fData(workspace,ts,JeeslTsData.QueryInterval.standard,start,end);
 				process(t,datas);
 			}
 			catch (JeeslNotFoundException e) {logger.warn(e.getMessage());}
@@ -155,7 +155,7 @@ public class TsYearlyDataHandler <L extends JeeslLang, D extends JeeslDescriptio
 			{
 				BRIDGE bridge = fTs.fBridge(entityClass,t);
 				TS ts = fTs.fTimeSeries(scope,interval,bridge);
-				List<DATA> datas = fTs.fData(workspace,ts,start,end);
+				List<DATA> datas = fTs.fData(workspace,ts,JeeslTsData.QueryInterval.standard,start,end);
 				process(t,datas);
 			}
 			catch (JeeslNotFoundException e) {logger.warn(e.getMessage());}

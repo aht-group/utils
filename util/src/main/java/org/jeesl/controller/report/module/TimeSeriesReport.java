@@ -104,7 +104,7 @@ public class TimeSeriesReport <L extends JeeslLang,D extends JeeslDescription,
 	public Report build(WS workspace, SCOPE scope, INT interval, BRIDGE bridge, Date from, Date to) throws JeeslNotFoundException
 	{
 		TS ts = fTs.fTimeSeries(scope, interval, bridge);
-		List<DATA> tsData = fTs.fData(workspace,ts,from,to);
+		List<DATA> tsData = fTs.fData(workspace,ts,JeeslTsData.QueryInterval.standard,from,to);
 		logger.info("Records: "+tsData.size());
 		Report xml = XmlReportFactory.build();
 		

@@ -121,7 +121,7 @@ public class TsRestHandler <L extends JeeslLang, D extends JeeslDescription,
 	private List<JsonTsData> multiPoints(JsonTsSeries jSeries, WS workspace,TS ts, Date from, Date to)
 	{
 		List<JsonTsData> list = new ArrayList<>();
-		List<POINT> points = fTs.fPoints(workspace,ts,from,to);
+		List<POINT> points = fTs.fPoints(workspace,ts,JeeslTsData.QueryInterval.standard,from,to);
 		Map<DATA,List<POINT>> map = efPoint.toMapData(points);
 		List<DATA> datas = new ArrayList<>(map.keySet());
 		for(DATA d : datas)

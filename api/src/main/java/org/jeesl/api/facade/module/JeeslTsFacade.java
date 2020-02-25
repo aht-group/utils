@@ -25,8 +25,7 @@ import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface JeeslTsFacade <L extends JeeslLang,
-								D extends JeeslDescription,
+public interface JeeslTsFacade <L extends JeeslLang, D extends JeeslDescription,
 								CAT extends JeeslStatus<CAT,L,D>,
 								SCOPE extends JeeslTsScope<L,D,CAT,ST,UNIT,EC,INT>,
 								ST extends JeeslStatus<ST,L,D>,
@@ -65,11 +64,11 @@ public interface JeeslTsFacade <L extends JeeslLang,
 	
 	List<DATA> fData(TRANSACTION transaction);
 	List<DATA> fData(WS workspace, TS timeSeries);
-	List<DATA> fData(WS workspace, TS timeSeries, Date from, Date to);
+	List<DATA> fData(WS workspace, TS timeSeries, JeeslTsData.QueryInterval interval, Date from, Date to);
 	
-	List<POINT> fPoints(WS workspace, TS timeSeries, Date from, Date to);
+	List<POINT> fPoints(WS workspace, TS timeSeries, JeeslTsData.QueryInterval interval, Date from, Date to);
 	
-	List<TRANSACTION> fTransactions(List<USER> users, Date from, Date to);
+	List<TRANSACTION> fTransactions(List<USER> users, JeeslTsData.QueryInterval interval, Date from, Date to);
 	
 	void deleteTransaction(TRANSACTION transaction) throws JeeslConstraintViolationException;
 	
