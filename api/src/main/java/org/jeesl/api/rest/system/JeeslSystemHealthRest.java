@@ -11,7 +11,7 @@ import org.jeesl.model.json.module.ts.JsonTsSeries;
 @Path("/rest/jeesl/health")
 public interface JeeslSystemHealthRest
 {
-	@GET @Path("ts/{indicator}")
+	@GET @Path("ts/{indicator}/{minutes}")
 	@Produces(MediaType.APPLICATION_JSON)
-	JsonTsSeries timeseries(@PathParam("indicator") String indicator);
+	JsonTsSeries timeseries(@PathParam("indicator") String indicator, @PathParam("minutes") int minutes);
 }

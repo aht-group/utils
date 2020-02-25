@@ -35,7 +35,6 @@ public abstract class AbstractSessionOverviewBean <L extends JeeslLang, D extend
 	public AbstractSessionOverviewBean(StatusFactoryBuilder<L,D,LOC> fbStatus)
 	{
 		super(fbStatus.getClassL(),fbStatus.getClassD());
-		
 	}
 	
 	protected void postConstructOverview(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslSessionRegistryBean<USER> bSession)
@@ -43,6 +42,5 @@ public abstract class AbstractSessionOverviewBean <L extends JeeslLang, D extend
 		super.initJeeslAdmin(bTranslation,bMessage);
 		users = bSession.getUsers();
 	}
-	
 	
 }
