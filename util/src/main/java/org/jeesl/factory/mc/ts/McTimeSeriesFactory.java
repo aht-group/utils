@@ -119,7 +119,7 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 	public <T extends EjbWithId> Ds singleData(String localeCode, BRIDGE bridge, Date from, Date to) throws JeeslNotFoundException
 	{
 		TS ts = fTs.fTimeSeries(scope,interval,bridge);
-		List<DATA> datas = fTs.fData(workspace,ts,JeeslTsData.QueryInterval.standard,from,to);
+		List<DATA> datas = fTs.fData(workspace,ts,JeeslTsData.QueryInterval.closedOpen,from,to);
 		
 		Ds xml = new Ds();
 		for(DATA d : datas)
@@ -135,8 +135,8 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 		TS ts = fTs.fTimeSeries(scope,interval,bridge);
 		
 		List<MP> multiPoints = fTs.allForParent(fbTs.getClassMp(),scope);
-		List<DATA> datas = fTs.fData(workspace,ts,JeeslTsData.QueryInterval.standard,from,to);
-		List<POINT> points = fTs.fPoints(workspace,ts,JeeslTsData.QueryInterval.standard,from,to);
+		List<DATA> datas = fTs.fData(workspace,ts,JeeslTsData.QueryInterval.closedOpen,from,to);
+		List<POINT> points = fTs.fPoints(workspace,ts,JeeslTsData.QueryInterval.closedOpen,from,to);
 		Map<MP,List<POINT>> mapMp = efPoint.toMapMultiPoint(points);
 		
 		if(debugOnInfo)

@@ -100,7 +100,7 @@ public class AbstractAdminTsTransactionBean <L extends JeeslLang, D extends Jees
 	
 	private void reloadTransactions()
 	{
-		transactions = fTs.fTransactions(null,JeeslTsData.QueryInterval.standard,sbDateHandler.getDate1(),sbDateHandler.toDate2Plus1());
+		transactions = fTs.fTransactions(null,JeeslTsData.QueryInterval.closedOpen,sbDateHandler.getDate1(),sbDateHandler.toDate2Plus1());
 	}
 	
 	public void selectTransaction()
@@ -147,7 +147,7 @@ public class AbstractAdminTsTransactionBean <L extends JeeslLang, D extends Jees
 		if(Files.exists(token))
 		{
 			logger.info("In DEV MODE - PURGING ALL TRANSACTIONs");
-			for (TRANSACTION transactionToDelete : fTs.fTransactions(null,JeeslTsData.QueryInterval.standard,null,null))
+			for (TRANSACTION transactionToDelete : fTs.fTransactions(null,JeeslTsData.QueryInterval.closedOpen,null,null))
 			{
 				logger.info(AbstractLogMessage.rmEntity(transactionToDelete));
 				fTs.deleteTransaction(transactionToDelete);

@@ -96,7 +96,7 @@ public class TsSessionProcessor<SYSTEM extends JeeslIoSsiSystem,
 		{
 			List<MP> mps = fTs.allForParent(fbTs.getClassMp(), ts.getScope());
 			
-			Set<Date> setDate = efData.toSetDate(fTs.fData(ws,ts,JeeslTsData.QueryInterval.standard,json.getDateStart(),json.getDateEnd()));
+			Set<Date> setDate = efData.toSetDate(fTs.fData(ws,ts,JeeslTsData.QueryInterval.closedOpen,json.getDateStart(),json.getDateEnd()));
 			
 			for(JsonTsData jData : json.getDatas())
 			{
