@@ -27,5 +27,5 @@ public interface JeeslIoMailFacade <L extends JeeslLang,D extends JeeslDescripti
 	List<MAIL> fMails(List<CATEGORY> categories, List<STATUS> status, List<RETENTION> retentions, Date from, Date to, Integer maxResult);
 	List<MAIL> fSpoolMails(int max);
 	
-	void queueMail(CATEGORY category, RETENTION retention, Mail mail) throws JeeslConstraintViolationException, JeeslNotFoundException;
+	void queueMail(CATEGORY category, RETENTION retention, Mail mail) throws JeeslConstraintViolationException;
 }

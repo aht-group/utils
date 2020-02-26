@@ -197,7 +197,7 @@ public class AbstractJeeslMail<L extends JeeslLang,D extends JeeslDescription,LO
 		for(Mail mail : mails.getMail())
 		{
 			try {fMail.queueMail(categoryMail,retention,mail);}
-			catch (JeeslConstraintViolationException | JeeslNotFoundException e) {e.printStackTrace();}
+			catch (JeeslConstraintViolationException e) {e.printStackTrace();}
 		}
 	}
 }

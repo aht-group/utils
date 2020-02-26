@@ -16,6 +16,7 @@ public class CodeConfirmationHandler implements Serializable
 	
 	private boolean allowRemove; public boolean isAllowRemove() {return allowRemove;} public void setAllowRemove(boolean allowRemove) {this.allowRemove = allowRemove;}
 	private boolean showDialog; public boolean isShowDialog() {return showDialog;}
+	
 	public CodeConfirmationHandler()
 	{
 		allowRemove = true;
@@ -26,6 +27,7 @@ public class CodeConfirmationHandler implements Serializable
 	{
 		removeCode = new Random().nextInt(100000-10000) + 10000;
 		showDialog = true;
+		logger.info("Generated Code: "+removeCode);
 	}
 
 	public boolean isCodeConfirmed()
