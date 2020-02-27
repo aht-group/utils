@@ -2,10 +2,10 @@ package org.jeesl.factory.ejb.system.io.ssi.docker;
 
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.io.ssi.docker.JeeslIoSsiHost;
-import org.jeesl.interfaces.model.system.io.ssi.docker.JeeslIoSsiInstance;
+import org.jeesl.interfaces.model.system.io.ssi.docker.JeeslIoSsiContainer;
 
 public class EjbIoSsiInstanceFactory <SYSTEM extends JeeslIoSsiSystem,
-										INSTANCE extends JeeslIoSsiInstance<SYSTEM,HOST>,
+										INSTANCE extends JeeslIoSsiContainer<SYSTEM,HOST>,
 										HOST extends JeeslIoSsiHost<?,?> >
 {
 	private final Class<INSTANCE> cInstance;

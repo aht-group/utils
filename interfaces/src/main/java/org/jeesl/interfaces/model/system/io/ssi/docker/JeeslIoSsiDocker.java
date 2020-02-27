@@ -8,15 +8,10 @@ import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
 
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface JeeslIoSsiInstance <SYSTEM extends JeeslIoSsiSystem,
-									HOST extends JeeslIoSsiHost<?,?>>
+public interface JeeslIoSsiDocker <SYSTEM extends JeeslIoSsiSystem>
 		extends Serializable,EjbWithId,EjbSaveable,EjbRemoveable
-{	
-	public enum Attributes {entity,json}
-	
+{
 	public SYSTEM getSystem();
 	public void setSystem(SYSTEM system);
 	
-	HOST getHost();
-	void setHost(HOST host);
 }
