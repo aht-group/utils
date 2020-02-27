@@ -13,6 +13,7 @@ public class GcEvent extends AbstractEvent implements LogEvent
 	final static Logger logger = LoggerFactory.getLogger(GcEvent.class);
 	static final long serialVersionUID=1;
 	
+	private String type;
 	private double real,user,sys;
 	
 	public GcEvent(Date record)
@@ -25,6 +26,7 @@ public class GcEvent extends AbstractEvent implements LogEvent
 		super.debug();
 		StringBuffer sb = new StringBuffer();
 		sb.append("\t");
+		sb.append(" type:"+type);
 		sb.append(" user:"+user);
 		sb.append(" sys:"+sys);
 		sb.append(" real:"+real);

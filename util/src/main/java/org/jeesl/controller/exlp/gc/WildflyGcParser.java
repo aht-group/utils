@@ -24,7 +24,7 @@ public class WildflyGcParser extends AbstractLogParser implements LogParser
 
 	public void parseLine(String line)
 	{
-		logger.trace(line);
+		logger.info(line);
 		boolean matched = false;
 		for(int i=0;i<pattern.size();i++)
 		{
