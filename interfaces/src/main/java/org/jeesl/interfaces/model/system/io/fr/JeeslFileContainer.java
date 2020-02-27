@@ -9,7 +9,8 @@ import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface JeeslFileContainer<STORAGE extends JeeslFileStorage<?,?,?,?>, META extends JeeslFileMeta<?,?,?,?>>
+public interface JeeslFileContainer<STORAGE extends JeeslFileStorage<?,?,?,?>,
+									META extends JeeslFileMeta<?,?,?,?>>
 		extends Serializable,EjbWithId,
 					EjbSaveable,EjbRemoveable,
 					EjbWithParentAttributeResolver

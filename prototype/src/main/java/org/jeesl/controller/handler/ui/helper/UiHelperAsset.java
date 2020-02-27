@@ -14,6 +14,7 @@ import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventStatus;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
+import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
@@ -30,10 +31,11 @@ public class UiHelperAsset <L extends JeeslLang, D extends JeeslDescription,
 								ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,ASTATUS,ATYPE>,
 								ASTATUS extends JeeslAomStatus<L,D,ASTATUS,?>,
 								ATYPE extends JeeslAomType<L,D,REALM,ATYPE,?>,
-								EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER>,
+								EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER,FRC>,
 								ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
 								ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,
-								USER extends JeeslSimpleUser>
+								USER extends JeeslSimpleUser,
+								FRC extends JeeslFileContainer<?,?>>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
