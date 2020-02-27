@@ -33,7 +33,7 @@ import org.jeesl.interfaces.web.JeeslJsfSecurityHandler;
 import org.jeesl.util.comparator.ejb.system.io.template.IoTemplateComparator;
 import org.jeesl.util.comparator.ejb.system.io.template.IoTemplateDefinitionComparator;
 import org.jeesl.util.comparator.ejb.system.io.template.IoTemplateTokenComparator;
-import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
+import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.primefaces.event.TabChangeEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

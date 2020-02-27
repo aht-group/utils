@@ -32,6 +32,7 @@
 			            <p:treeNode id="tn">
 			            	<jtp:symbolizer value="#{node.type1}" marginRight="5"/>
 			                <h:outputText id="otText" value="#{node.name}" />
+			                <jtp:symbolizer value="#{node.status}" marginLeft="5"/>
 			                <p:draggable for="otText" helper="clone" appendTo="@(body)" zindex="5" />
 			            </p:treeNode>
 			        </p:tree>

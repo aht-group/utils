@@ -13,14 +13,14 @@ public class JeeslBootstrap
 	
 	public static Configuration init()
 	{
-		String configFile = "ahtutils-util/ahtutils.xml";
+		String configFile = "jeesl/util/config/jeesl.xml";
 		return init(configFile);
 	}
 	
 	public static Configuration init(String configFile)
 	{
 		LoggerInit loggerInit = new LoggerInit("log4j.xml");
-		loggerInit.addAltPath("ahtutils-util");
+		loggerInit.addAltPath("jeesl/util/config");
 		loggerInit.init();
 						
 		ConfigLoader.add(configFile);

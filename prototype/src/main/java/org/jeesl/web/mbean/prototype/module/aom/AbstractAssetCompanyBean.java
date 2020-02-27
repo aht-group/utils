@@ -25,7 +25,7 @@ import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.jeesl.jsf.util.JeeslSelectManyHandler;
 import org.jeesl.model.module.aom.AssetCompanyLazyModel;
-import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
+import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

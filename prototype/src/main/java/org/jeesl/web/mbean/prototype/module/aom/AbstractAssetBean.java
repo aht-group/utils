@@ -40,7 +40,7 @@ import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.jeesl.model.module.aom.AssetEventLazyModel;
 import org.jeesl.util.comparator.ejb.module.asset.EjbAssetComparator;
 import org.jeesl.util.comparator.ejb.module.asset.EjbEventComparator;
-import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
+import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.primefaces.event.DragDropEvent;
 import org.primefaces.event.NodeCollapseEvent;
 import org.primefaces.event.NodeExpandEvent;

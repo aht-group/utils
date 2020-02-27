@@ -94,7 +94,7 @@ public class TsRestHandler <L extends JeeslLang, D extends JeeslDescription,
 		jfWorkspace = new JsonWorkspaceFactory<>(JsonStatusQueryProvider.workspaceCode());
 	}
 	
-	public JsonTsSeries jsonTs(WS workspace, SCOPE scope, INT interval, BRIDGE bridge)
+	public JsonTsSeries jsonTs(WS workspace, SCOPE scope, INT interval, BRIDGE bridge, int minutes)
 	{
 		
 		DateTime dtNow = new DateTime();
@@ -109,7 +109,7 @@ public class TsRestHandler <L extends JeeslLang, D extends JeeslDescription,
 			switch(JeeslTsScopeType.Code.valueOf(scope.getType().getCode()))
 			{
 				case ts: break; 
-				case mp: jSeries.setDatas(multiPoints(jSeries,workspace,ts,dtNow.minusHours(1).toDate(),dtNow.toDate())); break;
+				case mp: jSeries.setDatas(multiPoints(jSeries,workspace,ts,dtNow.minusMinutes(minutes).toDate(),dtNow.toDate())); break;
 			}	
 		}
 		catch (JeeslNotFoundException e) {logger.warn(e.getMessage());}

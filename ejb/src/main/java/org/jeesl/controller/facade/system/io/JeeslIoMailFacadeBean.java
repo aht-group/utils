@@ -112,13 +112,10 @@ public class JeeslIoMailFacadeBean<L extends JeeslLang,D extends JeeslDescriptio
 		return tQ.getResultList();
 	}
 	
-	@Override public void queueMail(CATEGORY category, RETENTION retention, Mail mail) throws JeeslConstraintViolationException, JeeslNotFoundException
+	@Override public void queueMail(CATEGORY category, RETENTION retention, Mail mail) throws JeeslConstraintViolationException
 	{
-		STATUS status = this.fByCode(fbMail.getClassStatus(), JeeslMailStatus.Code.queue);
-		if(retention==null)
-		{
-			retention = this.fByCode(fbMail.getClassRetention(), JeeslIoMail.Retention.fully);	
-		}
+		STATUS status = this.fByEnum(fbMail.getClassStatus(), JeeslMailStatus.Code.queue);
+		if(retention==null) {retention = this.fByEnum(fbMail.getClassRetention(), JeeslIoMail.Retention.fully);}
 		MAIL ejb = efMail.build(category,status,mail,retention);
 		ejb = this.persist(ejb);
 		logger.info(fbMail.getClassMail().getSimpleName()+" spooled with id="+ejb.getId());

@@ -12,7 +12,7 @@ import org.jeesl.factory.builder.io.IoSsiDockerFactoryBuilder;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.io.ssi.docker.JeeslIoSsiHost;
-import org.jeesl.interfaces.model.system.io.ssi.docker.JeeslIoSsiInstance;
+import org.jeesl.interfaces.model.system.io.ssi.docker.JeeslIoSsiContainer;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
@@ -22,7 +22,7 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public class AbstractSsiDockerBean <L extends JeeslLang,D extends JeeslDescription,
 										SYSTEM extends JeeslIoSsiSystem,
-										INSTANCE extends JeeslIoSsiInstance<SYSTEM,HOST>,
+										INSTANCE extends JeeslIoSsiContainer<SYSTEM,HOST>,
 										HOST extends JeeslIoSsiHost<L,D>>
 						implements Serializable,SbToggleBean
 {

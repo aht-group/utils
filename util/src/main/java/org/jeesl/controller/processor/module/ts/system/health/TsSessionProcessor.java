@@ -33,6 +33,8 @@ import org.metachart.xml.chart.Chart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.sf.exlp.util.io.JsonUtil;
+
 public class TsSessionProcessor<SYSTEM extends JeeslIoSsiSystem,
 									USER extends JeeslUser<?>,
 									SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
@@ -94,34 +96,30 @@ public class TsSessionProcessor<SYSTEM extends JeeslIoSsiSystem,
 		
 		if(EjbIdFactory.isSaved(ts))
 		{
-			List<MP> mps = fTs.allForParent(fbTs.getClassMp(), ts.getScope());
+			List<MP> mps = fTs.allForParent(fbTs.getClassMp(),ts.getScope());
 			
-			Set<Date> setDate = efData.toSetDate(fTs.fData(ws,ts,JeeslTsData.QueryInterval.closedOpen,json.getDateStart(),json.getDateEnd()));
+			Set<Date> setDate = efData.toSetDate(fTs.fData(ws,ts,JeeslTsData.QueryInterval.closedClosed,json.getDateStart(),json.getDateEnd()));
 			
 			for(JsonTsData jData : json.getDatas())
 			{
 				if(!setDate.contains(jData.getRecord()))
 				{
 					DATA data = efData.build(ws,ts,transaction,jData.getRecord(),null);
-					try
-					{
-						data = fTs.save(data);
-					}
+					try {data = fTs.save(data);}
 					catch (JeeslConstraintViolationException | JeeslLockingException e) {}
 					
 					if(EjbIdFactory.isSaved(data))
 					{
-						for(JsonTsPoint point : jData.getPoints())
+						for(JsonTsPoint jPoint : jData.getPoints())
 						{
 							for(MP mp : mps)
 							{
-								if(point.getMp().getCode().equals(mp.getCode()))
+								if(jPoint.getMp().getCode().equals(mp.getCode()))
 								{
-									
 									try
 									{
-										POINT dp =  efPoint.build(data, mp, point.getValue());
-										fTs.save(dp);
+										POINT dp =  fTs.save(efPoint.build(data,mp,jPoint.getValue()));
+										logger.info("saved: "+dp.getId()+" "+dp.getValue()+" "+dp.getMultiPoint().getCode());
 									}
 									catch (JeeslConstraintViolationException | JeeslLockingException e) {logger.error(e.getMessage());}
 								}

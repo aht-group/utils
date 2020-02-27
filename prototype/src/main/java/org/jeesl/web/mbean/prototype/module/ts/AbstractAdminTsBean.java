@@ -37,7 +37,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.with.EjbWithLangDescription;
 import org.jeesl.util.comparator.ejb.module.ts.TsClassComparator;
 import org.jeesl.util.comparator.ejb.module.ts.TsScopeComparator;
-import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
+import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

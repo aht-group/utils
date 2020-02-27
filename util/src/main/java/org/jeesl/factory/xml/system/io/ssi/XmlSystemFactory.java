@@ -15,6 +15,9 @@ public class XmlSystemFactory<SYSTEM extends JeeslIoSsiSystem>
 		this.q=q;
 	}
 	
+	public static org.jeesl.model.xml.system.io.ssi.System build() {return new org.jeesl.model.xml.system.io.ssi.System ();}
+	public static org.jeesl.model.xml.system.io.ssi.System build(String code) {org.jeesl.model.xml.system.io.ssi.System system = build(); system.setCode(code); return system;}
+	
 	public org.jeesl.model.xml.system.io.ssi.System build(SYSTEM system)
 	{
 		org.jeesl.model.xml.system.io.ssi.System xml = new org.jeesl.model.xml.system.io.ssi.System();

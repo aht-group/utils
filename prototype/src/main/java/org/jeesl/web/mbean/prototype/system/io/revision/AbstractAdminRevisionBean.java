@@ -32,7 +32,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.util.comparator.ejb.system.io.revision.RevisionDiagramComparator;
 import org.jeesl.util.comparator.ejb.system.io.revision.RevisionEntityComparator;
 import org.jeesl.util.comparator.ejb.system.io.revision.RevisionScopeComparator;
-import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
+import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

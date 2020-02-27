@@ -18,4 +18,27 @@
             <xsd:attribute name="name" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
+    
+    <xsd:element name="docker">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="ssi:system" maxOccurs="1"/>
+                <xsd:element ref="ssi:container" maxOccurs="unbounded"/>
+            </xsd:sequence>
+            <xsd:attribute name="id" type="xsd:long"/>
+            <xsd:attribute name="code" type="xsd:string"/>
+            <xsd:attribute name="label" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:element name="container">
+        <xsd:complexType>
+            <xsd:sequence>
+
+            </xsd:sequence>
+            <xsd:attribute name="id" type="xsd:long"/>
+            <xsd:attribute name="code" type="xsd:string"/>
+            <xsd:attribute name="status" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
 </xsd:schema>
