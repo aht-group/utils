@@ -532,7 +532,7 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 		if(fUtils instanceof JeeslExportRestFacade)
 		{
 			logger.info("Using Facade Connection for JBoss EAP6 ("+fUtils.getClass().getSimpleName()+" implements "+JeeslExportRestFacade.class.getSimpleName()+"): "+x.getRestCode());
-//			xml = ((JeeslExportRestFacade)fUtils).exportJeeslReferenceRest(x.getRestCode());
+			xml = ((JeeslExportRestFacade)fUtils).exportJeeslReferenceRevisionEntity(x.getRestCode()); 
 		}
 		else
 		{

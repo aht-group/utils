@@ -14,48 +14,7 @@
 			<s:lang key="fr" translation="Graphic Style"/>
 		</s:langs>
 	</s:translation>
-	<s:translation key="IoReportRowType">
-		<s:langs>
-			<s:lang key="de" translation="Zeilentyp"/>
-			<s:lang key="en" translation="Row Type"/>
-			<s:lang key="fr" translation="Row Type"/>
-		</s:langs>
-	</s:translation>
-	<s:translation key="IoReportAlignment">
-		<s:langs>
-			<s:lang key="de" translation="Ausrichtung"/>
-			<s:lang key="en" translation="Alignment"/>
-			<s:lang key="fr" translation="Alignment"/>
-		</s:langs>
-	</s:translation>
-	<s:translation key="IoReportColumnWidth">
-		<s:langs>
-			<s:lang key="de" translation="Spaltenbreite"/>
-			<s:lang key="en" translation="Column Width"/>
-			<s:lang key="fr" translation="Column Width"/>
-		</s:langs>
-	</s:translation>
-	<s:translation key="IoReportSettingFilling">
-		<s:langs>
-			<s:lang key="de" translation="Report Auffüllung"/>
-			<s:lang key="en" translation="Report Filling"/>
-			<s:lang key="fr" translation="Report Filling"/>
-		</s:langs>
-	</s:translation>
-	<s:translation key="IoReportSettingTransformation">
-		<s:langs>
-			<s:lang key="de" translation="Report Transformation"/>
-			<s:lang key="en" translation="Report Transformation"/>
-			<s:lang key="fr" translation="Report Transformation"/>
-		</s:langs>
-	</s:translation>
-	<s:translation key="IoReportSettingImplementation">
-		<s:langs>
-			<s:lang key="de" translation="Report Implementierung"/>
-			<s:lang key="en" translation="Report Implementation"/>
-			<s:lang key="fr" translation="Report Implementation"/>
-		</s:langs>
-	</s:translation>
+
 	<s:translation key="IoSmsCategory">
 		<s:langs>
 			<s:lang key="de" translation="SMS Kategorie"/>
