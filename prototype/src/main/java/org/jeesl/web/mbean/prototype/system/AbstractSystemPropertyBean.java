@@ -18,7 +18,6 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.property.JeeslProperty;
 import org.jeesl.interfaces.model.system.property.JeeslPropertyCategory;
 import org.jeesl.util.comparator.ejb.system.PropertyComparator;
-import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

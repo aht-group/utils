@@ -21,7 +21,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.model.json.db.tuple.JsonIdValue;
 import org.jeesl.model.pojo.map.generic.Nested2Map;
 import org.jeesl.model.xml.util.time.JsonDateRange;
-import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
+import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
