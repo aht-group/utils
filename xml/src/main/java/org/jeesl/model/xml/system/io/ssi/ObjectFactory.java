@@ -45,4 +45,20 @@ public class ObjectFactory {
         return new System();
     }
 
+    /**
+     * Create an instance of {@link Docker }
+     * 
+     */
+    public Docker createDocker() {
+        return new Docker();
+    }
+
+    /**
+     * Create an instance of {@link Container }
+     * 
+     */
+    public Container createContainer() {
+        return new Container();
+    }
+
 }
