@@ -23,7 +23,7 @@ public class JeeslUtilTestBootstrap
 		AbstractJeeslTest.setTargetDirectory(new File("target"));
 		
 		LoggerInit loggerInit = new LoggerInit("log4j.xml");
-		loggerInit.addAltPath("jeesl/test/config");
+		loggerInit.addAltPath("jeesl/util/config");
 		loggerInit.init();
 		
 		JaxbUtil.setNsPrefixMapper(new JeeslNsPrefixMapper());

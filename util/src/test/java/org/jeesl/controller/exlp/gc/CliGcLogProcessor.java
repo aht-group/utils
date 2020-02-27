@@ -1,5 +1,6 @@
 package org.jeesl.controller.exlp.gc;
 
+import org.apache.commons.configuration.Configuration;
 import org.jeesl.JeeslUtilTestBootstrap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +15,11 @@ public class CliGcLogProcessor
 {
 	final static Logger logger = LoggerFactory.getLogger(CliGcLogProcessor.class);
 	
-	public CliGcLogProcessor()
+	private final Configuration config;
+	
+	public CliGcLogProcessor(Configuration config)
 	{
-		
+		this.config=config;
 	}
 	
 	public void jboss()
@@ -30,9 +33,9 @@ public class CliGcLogProcessor
 	
 	public static void main(String[] args) throws Exception
 	{
-		JeeslUtilTestBootstrap.init();
+		Configuration config = JeeslUtilTestBootstrap.init();
 		
-		CliGcLogProcessor cli = new CliGcLogProcessor();
+		CliGcLogProcessor cli = new CliGcLogProcessor(config);
 		cli.jboss();
 	}
 }
