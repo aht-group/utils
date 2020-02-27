@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.module.aom;
+package org.jeesl.interfaces.model.module.aom.asset;
 
 import java.io.Serializable;
 
