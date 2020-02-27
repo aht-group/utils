@@ -13,7 +13,7 @@ import org.jeesl.interfaces.model.system.option.JeeslOptionRestDescription;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 import org.jeesl.interfaces.model.with.code.EjbWithCode;
 
-public interface JeeslReportRowType <L extends JeeslLang, D extends JeeslDescription,
+public interface JeeslReportColumnWidth <L extends JeeslLang, D extends JeeslDescription,
 										S extends JeeslStatus<S,L,D>,
 										G extends JeeslGraphic<L,D,?,?,?>>
 										extends Serializable,EjbPersistable,
@@ -21,5 +21,4 @@ public interface JeeslReportRowType <L extends JeeslLang, D extends JeeslDescrip
 											JeeslOptionRestDownload,JeeslOptionRestDescription,
 											EjbWithCodeGraphic<G>,JeeslStatus<S,L,D>
 {
-	public static enum Code{label,labelValue,table,template}
 }
