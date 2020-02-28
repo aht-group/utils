@@ -11,9 +11,8 @@ import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
-import org.jeesl.interfaces.model.with.position.EjbWithPosition;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 
 public interface JeeslWorkflowCommunication <WT extends JeeslWorkflowTransition<?,?,?,?,?,?>,
 											MT extends JeeslIoTemplate<?,?,?,?,?,?>,

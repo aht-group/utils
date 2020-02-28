@@ -3,10 +3,9 @@ package org.jeesl.model.json.module.survey;
 import java.io.Serializable;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class JsonSurveyValue implements Serializable, EjbWithId
 {

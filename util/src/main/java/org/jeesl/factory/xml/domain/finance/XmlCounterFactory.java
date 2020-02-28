@@ -1,6 +1,6 @@
 package org.jeesl.factory.xml.domain.finance;
 
-import org.jeesl.interfaces.model.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

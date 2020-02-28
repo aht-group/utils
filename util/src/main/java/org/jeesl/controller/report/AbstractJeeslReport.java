@@ -36,6 +36,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.json.JsonFlatFigures;
 import org.jeesl.util.comparator.ejb.system.io.report.IoReportCellComparator;
 import org.jeesl.util.comparator.ejb.system.io.report.IoReportColumnComparator;
@@ -49,7 +50,6 @@ import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.exlp.util.io.JsonUtil;
 import net.sf.exlp.util.io.StringUtil;
 

@@ -1,7 +1,7 @@
 package net.sf.ahtutils.interfaces.model.system.mail;
 
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
-import net.sf.ahtutils.model.interfaces.with.EjbWithName;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.text.EjbWithName;
 
 public interface UtilsMailAddress extends EjbWithId,EjbWithName
 {

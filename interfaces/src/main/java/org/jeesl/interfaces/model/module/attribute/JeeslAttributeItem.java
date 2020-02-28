@@ -4,9 +4,8 @@ import java.io.Serializable;
 
 import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
-import org.jeesl.interfaces.model.with.position.EjbWithPositionVisibleParent;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.position.EjbWithPositionVisibleParent;
 
 public interface JeeslAttributeItem <CRITERIA extends JeeslAttributeCriteria<?,?,?,?>,
 									SET extends JeeslAttributeSet<?,?,?,?>>

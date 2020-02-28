@@ -4,8 +4,7 @@ import java.io.Serializable;
 
 import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslDbDumpFile<DUMP extends JeeslDbDump<?,?>,
 								HOST extends JeeslDbDumpHost<?,?,HOST,?>,

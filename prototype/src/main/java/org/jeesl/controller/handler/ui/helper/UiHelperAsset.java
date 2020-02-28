@@ -6,22 +6,22 @@ import java.util.List;
 
 import org.jeesl.api.bean.module.JeeslAssetCacheBean;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
-import org.jeesl.interfaces.model.module.aom.JeeslAomAsset;
-import org.jeesl.interfaces.model.module.aom.JeeslAomStatus;
-import org.jeesl.interfaces.model.module.aom.JeeslAomType;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomStatus;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomType;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventStatus;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
+import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class UiHelperAsset <L extends JeeslLang, D extends JeeslDescription,
 								REALM extends JeeslMcsRealm<L,D,REALM,?>, RREF extends EjbWithId,
@@ -30,10 +30,11 @@ public class UiHelperAsset <L extends JeeslLang, D extends JeeslDescription,
 								ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,ASTATUS,ATYPE>,
 								ASTATUS extends JeeslAomStatus<L,D,ASTATUS,?>,
 								ATYPE extends JeeslAomType<L,D,REALM,ATYPE,?>,
-								EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER>,
+								EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER,FRC>,
 								ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
 								ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,
-								USER extends JeeslSimpleUser>
+								USER extends JeeslSimpleUser,
+								FRC extends JeeslFileContainer<?,?>>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;

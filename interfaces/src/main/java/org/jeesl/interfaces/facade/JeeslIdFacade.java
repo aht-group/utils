@@ -5,8 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.jeesl.exception.ejb.JeeslNotFoundException;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 //ahtutils.highlight:interface
 public interface JeeslIdFacade extends Serializable

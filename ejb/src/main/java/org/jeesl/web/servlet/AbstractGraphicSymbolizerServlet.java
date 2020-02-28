@@ -21,13 +21,12 @@ import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-import org.jeesl.interfaces.model.with.graphic.EjbWithGraphic;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.system.graphic.EjbWithGraphic;
 import org.openfuxml.content.media.Image;
 import org.openfuxml.media.transcode.Svg2SvgTranscoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class AbstractGraphicSymbolizerServlet<L extends JeeslLang, D extends JeeslDescription,
 												S extends EjbWithId,

@@ -17,7 +17,8 @@ import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-import org.jeesl.interfaces.model.with.graphic.EjbWithGraphic;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.system.graphic.EjbWithGraphic;
 import org.jeesl.interfaces.rest.JeeslExportRest;
 import org.jeesl.model.xml.system.revision.Entity;
 import org.jeesl.util.query.xml.SymbolQuery;
@@ -26,7 +27,6 @@ import org.jeesl.web.rest.AbstractJeeslRestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.xml.status.Status;
 
 public class JeeslRestService <L extends JeeslLang,D extends JeeslDescription,

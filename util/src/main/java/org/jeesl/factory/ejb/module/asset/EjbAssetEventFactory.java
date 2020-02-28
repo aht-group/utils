@@ -6,27 +6,29 @@ import java.util.List;
 import org.jeesl.controller.handler.NullNumberBinder;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.interfaces.facade.JeeslFacade;
-import org.jeesl.interfaces.model.module.aom.JeeslAomAsset;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventStatus;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
+import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbAssetEventFactory<COMPANY extends JeeslAomCompany<?,?>,
 								ASSET extends JeeslAomAsset<?,ASSET,COMPANY,?,?>,
-								EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER>,
+								EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER,FRC>,
 								ETYPE extends JeeslAomEventType<?,?,ETYPE,?>,
 								ESTATUS extends JeeslAomEventStatus<?,?,ESTATUS,?>,
-								USER extends JeeslSimpleUser>
+								USER extends JeeslSimpleUser,
+								FRC extends JeeslFileContainer<?,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbAssetEventFactory.class);
 	
-	private final AssetFactoryBuilder<?,?,?,COMPANY,?,ASSET,?,?,EVENT,ETYPE,ESTATUS,USER> fbAsset;
+	private final AssetFactoryBuilder<?,?,?,COMPANY,?,ASSET,?,?,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset;
 	
-    public EjbAssetEventFactory(final AssetFactoryBuilder<?,?,?,COMPANY,?,ASSET,?,?,EVENT,ETYPE,ESTATUS,USER> fbAsset)
+    public EjbAssetEventFactory(final AssetFactoryBuilder<?,?,?,COMPANY,?,ASSET,?,?,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset)
     {
         this.fbAsset = fbAsset;
     }

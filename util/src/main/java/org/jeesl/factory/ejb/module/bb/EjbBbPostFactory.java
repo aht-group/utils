@@ -6,7 +6,7 @@ import org.jeesl.interfaces.model.module.bb.post.JeeslBbPost;
 import org.jeesl.interfaces.model.module.bb.post.JeeslBbThread;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
-import org.jeesl.interfaces.model.with.text.EjbWithEmail;
+import org.jeesl.interfaces.model.with.primitive.text.EjbWithEmail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

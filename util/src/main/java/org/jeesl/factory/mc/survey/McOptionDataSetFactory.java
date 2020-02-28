@@ -5,14 +5,13 @@ import java.util.Map;
 
 import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.interfaces.factory.txt.JeeslReportAggregationLevelFactory;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.json.JsonFlatFigure;
 import org.jeesl.model.json.JsonFlatFigures;
 import org.metachart.factory.xml.chart.XmlDataFactory;
 import org.metachart.xml.chart.Ds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class McOptionDataSetFactory <OPTION extends EjbWithId>
 {

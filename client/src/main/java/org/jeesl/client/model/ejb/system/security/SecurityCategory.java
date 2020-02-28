@@ -20,7 +20,7 @@ import org.jeesl.client.model.ejb.system.locale.Lang;
 import org.jeesl.interfaces.model.marker.jpa.EjbPersistable;
 import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
-import org.jeesl.interfaces.model.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
 
 import net.sf.ahtutils.model.qualifier.EjbErNode;
 

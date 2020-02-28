@@ -2,10 +2,9 @@ package org.jeesl.model.pojo.map;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class Multi2Key <K1 extends EjbWithId, K2 extends EjbWithId>
 {

@@ -36,11 +36,11 @@ import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.interfaces.model.system.security.util.JeeslStaff;
 import org.jeesl.interfaces.model.system.security.with.JeeslSecurityWithCategory;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.interfaces.model.util.UtilsStaffPool;
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class JeeslSecurityFacadeBean<L extends JeeslLang,
 									D extends JeeslDescription,

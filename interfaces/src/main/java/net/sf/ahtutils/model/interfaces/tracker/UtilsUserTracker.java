@@ -5,8 +5,7 @@ import java.util.List;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface UtilsUserTracker<TR extends UtilsUserTracker<TR,UL,U,T,S,L,D>,
 							  UL extends UtilsUserTrackerLog<TR,UL,U,T,S,L,D>,

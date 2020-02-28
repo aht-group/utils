@@ -5,11 +5,11 @@ import java.util.List;
 
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.interfaces.web.OverlaySelectionBean;
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class UtilsOverlaySelectionHandler <T extends EjbWithId>
 {

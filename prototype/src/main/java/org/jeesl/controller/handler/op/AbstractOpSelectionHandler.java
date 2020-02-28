@@ -9,11 +9,10 @@ import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.bean.op.OpEntityBean;
 import org.jeesl.interfaces.facade.JeeslFacade;
-import org.jeesl.interfaces.model.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public abstract class AbstractOpSelectionHandler <T extends EjbWithId> implements OpEntitySelection<T>
 {

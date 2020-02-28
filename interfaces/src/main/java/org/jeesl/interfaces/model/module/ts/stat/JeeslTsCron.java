@@ -7,9 +7,8 @@ import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsScope;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
-import net.sf.ahtutils.model.interfaces.with.EjbWithVisible;
+import org.jeesl.interfaces.model.with.primitive.bool.EjbWithVisible;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslTsCron <SCOPE extends JeeslTsScope<?,?,?,?,?,?,INT>,
 									INT extends JeeslStatus<INT,?,?>,

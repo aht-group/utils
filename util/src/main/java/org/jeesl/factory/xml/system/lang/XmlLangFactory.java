@@ -1,10 +1,10 @@
 package org.jeesl.factory.xml.system.lang;
 
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 import net.sf.ahtutils.xml.status.Lang;
 
 public class XmlLangFactory<L extends JeeslLang>

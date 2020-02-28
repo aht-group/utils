@@ -3,11 +3,11 @@ package net.sf.ahtutils.controller.factory.ejb.mail;
 import java.util.Date;
 
 import net.sf.ahtutils.interfaces.model.system.mail.UtilsMailTracker;
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

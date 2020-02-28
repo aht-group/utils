@@ -1,6 +1,6 @@
 package org.jeesl.interfaces.model.with.parent;
 
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface EjbWithParentAttributeResolver extends EjbWithId
 {

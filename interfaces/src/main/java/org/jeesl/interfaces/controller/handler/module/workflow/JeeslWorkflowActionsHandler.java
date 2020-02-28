@@ -15,8 +15,7 @@ import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransi
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraint;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslWorkflowActionsHandler<WT extends JeeslWorkflowTransition<?,?,?,?,?,?>,
 											WA extends JeeslWorkflowAction<?,AB,AO,RE,RA>,

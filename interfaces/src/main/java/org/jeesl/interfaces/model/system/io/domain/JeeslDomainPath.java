@@ -8,9 +8,8 @@ import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribu
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.with.position.EjbWithPositionParent;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.position.EjbWithPositionParent;
 
 public interface JeeslDomainPath<L extends JeeslLang, D extends JeeslDescription,
 										QUERY extends JeeslDomainQuery<L,D,?,?>,

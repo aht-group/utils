@@ -6,10 +6,9 @@ import java.util.List;
 import org.jeesl.interfaces.model.marker.crud.EjbCrudWithParent;
 import org.jeesl.interfaces.model.marker.jpa.EjbPersistable;
 import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
-import org.jeesl.interfaces.model.with.date.EjbWithDateRange;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
-import net.sf.ahtutils.model.interfaces.with.EjbWithName;
+import org.jeesl.interfaces.model.with.primitive.date.EjbWithDateRange;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.text.EjbWithName;
 
 public interface UtilsQaScheduleSlot<GROUP extends UtilsQaGroup<?,?,?>,QASD extends UtilsQaSchedule<?,?>>
 			extends Serializable,EjbCrudWithParent,EjbPersistable,EjbRemoveable,EjbWithId,EjbWithDateRange,EjbWithName

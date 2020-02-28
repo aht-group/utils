@@ -9,9 +9,8 @@ import org.jeesl.interfaces.model.system.io.domain.JeeslDomainSet;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorage;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
-import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 
 public interface JeeslIoDms<L extends JeeslLang, D extends JeeslDescription,
 							STORAGE extends JeeslFileStorage<L,D,?,?>,

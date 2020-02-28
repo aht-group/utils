@@ -19,9 +19,8 @@ import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
-import net.sf.ahtutils.model.json.system.revision.JsonRevision;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.model.json.system.io.revision.JsonRevision;
 
 public interface JeeslIoRevisionFacade <L extends JeeslLang,D extends JeeslDescription,
 									RC extends JeeslRevisionCategory<L,D,RC,?>,

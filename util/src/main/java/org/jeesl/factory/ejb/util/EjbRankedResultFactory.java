@@ -1,11 +1,11 @@
 package org.jeesl.factory.ejb.util;
 
 import org.jeesl.interfaces.model.util.UtilsRankedResult;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.model.DefaultRankedResult;
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class EjbRankedResultFactory <T extends EjbWithId>
 {

@@ -49,7 +49,8 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
-import org.jeesl.interfaces.model.with.position.EjbWithPosition;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 import org.jeesl.util.comparator.ejb.system.security.SecurityRoleComparator;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.primefaces.event.FileUploadEvent;
@@ -58,7 +59,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.jsf.util.PositionListReorderer;
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,

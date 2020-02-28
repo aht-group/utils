@@ -16,9 +16,9 @@ import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.interfaces.model.system.security.util.JeeslStaff;
 import org.jeesl.interfaces.model.system.security.with.JeeslSecurityWithCategory;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 import net.sf.ahtutils.interfaces.model.util.UtilsStaffPool;
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface JeeslSecurityFacade <L extends JeeslLang, D extends JeeslDescription,
 										C extends JeeslSecurityCategory<L,D>,

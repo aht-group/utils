@@ -11,11 +11,10 @@ import javax.persistence.Tuple;
 
 import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.interfaces.facade.JeeslFacade;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.json.db.tuple.JsonTuple;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuple;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class Json1TuplesFactory <A extends EjbWithId>
 {

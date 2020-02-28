@@ -6,9 +6,8 @@ import java.util.List;
 import org.jeesl.interfaces.model.marker.crud.EjbPositionCrudWithParent;
 import org.jeesl.interfaces.model.marker.jpa.EjbPersistable;
 import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
-import org.jeesl.interfaces.model.with.position.EjbWithPosition;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 
 public interface UtilsQaGroup<STAFF extends UtilsQaStaff<?,?,?,QA,?>,
 							QA extends UtilsQualityAssurarance<STAFF,?,?>,

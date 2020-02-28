@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslLogBook <SCOPE extends JeeslLogScope<?,?,SCOPE,?>,
 								ITEM extends JeeslLogItem<?,?,?,?,?,?,?,?>>

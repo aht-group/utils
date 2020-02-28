@@ -7,11 +7,11 @@ import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 import net.sf.ahtutils.interfaces.model.system.mail.UtilsMailTracker;
 import net.sf.ahtutils.model.interfaces.tracker.UtilsTracker;
 import net.sf.ahtutils.model.interfaces.tracker.UtilsTrackerLog;
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface UtilsTrackerFacade extends JeeslFacade
 {	

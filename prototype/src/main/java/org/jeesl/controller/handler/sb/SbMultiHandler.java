@@ -11,11 +11,11 @@ import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.facade.JeeslFacade;
-import org.jeesl.interfaces.model.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.exlp.util.io.StringUtil;
 
 public class SbMultiHandler <T extends EjbWithId> implements Serializable

@@ -1,6 +1,6 @@
 package org.jeesl.interfaces.model.module.attribute;
 
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslWithAttributeContainer <CONTAINER extends JeeslAttributeContainer<?,?>>
 		extends EjbWithId

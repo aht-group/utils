@@ -1,10 +1,9 @@
 package org.jeesl.factory.pivot;
 
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.pojo.DynamicPivotData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class PivotDataFactory
 {

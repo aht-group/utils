@@ -7,13 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
-import org.jeesl.interfaces.model.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.openfuxml.factory.xml.table.XmlTableFactory;
 import org.openfuxml.renderer.text.OfxTextSilentRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class BucketSizeCounter
 {

@@ -2,9 +2,8 @@ package org.jeesl.factory.json.system.io.db.tuple.t2;
 
 import javax.persistence.Tuple;
 
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.json.db.tuple.two.Json2Tuple;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class Json2TupleFactory<A extends EjbWithId, B extends EjbWithId>
 {

@@ -11,12 +11,11 @@ import javax.persistence.Tuple;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.factory.json.system.io.db.tuple.t3.Json3TuplesFactory;
 import org.jeesl.interfaces.facade.JeeslFacade;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.json.db.tuple.t4.Json4Tuple;
 import org.jeesl.model.json.db.tuple.t4.Json4Tuples;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class Json4TuplesFactory <A extends EjbWithId, B extends EjbWithId, C extends EjbWithId, D extends EjbWithId>
 			extends Json3TuplesFactory<A,B,C>

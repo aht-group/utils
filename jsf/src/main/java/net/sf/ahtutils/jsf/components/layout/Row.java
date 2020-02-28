@@ -8,8 +8,9 @@ import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+
 import net.sf.ahtutils.jsf.util.ComponentAttribute;
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 @FacesComponent("net.sf.ahtutils.jsf.components.layout.Row")
 public class Row extends UIPanel

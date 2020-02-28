@@ -17,6 +17,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityUsecase;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
@@ -24,7 +25,6 @@ import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.xml.audit.Scope;
 
 public class RevisionEngineScopeResolver<L extends JeeslLang,D extends JeeslDescription,

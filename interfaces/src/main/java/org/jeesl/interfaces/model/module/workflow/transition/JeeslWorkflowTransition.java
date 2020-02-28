@@ -11,12 +11,11 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
-import org.jeesl.interfaces.model.with.position.EjbWithPosition;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithDescription;
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
-import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
-import net.sf.ahtutils.model.interfaces.with.EjbWithVisible;
+import org.jeesl.interfaces.model.with.primitive.bool.EjbWithVisible;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
+import org.jeesl.interfaces.model.with.system.locale.EjbWithDescription;
+import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 
 public interface JeeslWorkflowTransition <L extends JeeslLang, D extends JeeslDescription,
 									S extends JeeslWorkflowStage<L,D,?,?,?,?,?>,

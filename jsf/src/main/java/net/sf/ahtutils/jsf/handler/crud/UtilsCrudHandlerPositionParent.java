@@ -6,11 +6,11 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.marker.crud.EjbPositionCrudWithParent;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.interfaces.web.crud.CrudHandlerBean;
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public class UtilsCrudHandlerPositionParent <T extends EjbPositionCrudWithParent, P extends EjbWithId>

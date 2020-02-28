@@ -7,14 +7,13 @@ import java.util.Map;
 
 import org.apache.commons.jxpath.JXPathContext;
 import org.apache.commons.lang.StringUtils;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.jsf.util.JeeslLazyListHandler;
 import org.jeesl.model.json.system.translation.JsonTranslation;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class XpathLazyModel <T extends EjbWithId> extends LazyDataModel<T>
 {

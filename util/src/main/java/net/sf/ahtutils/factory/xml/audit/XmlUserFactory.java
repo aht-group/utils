@@ -3,7 +3,7 @@ package net.sf.ahtutils.factory.xml.audit;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
-import org.jeesl.interfaces.model.with.text.EjbWithEmail;
+import org.jeesl.interfaces.model.with.primitive.text.EjbWithEmail;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
