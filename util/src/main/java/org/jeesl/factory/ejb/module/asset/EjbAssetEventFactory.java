@@ -26,9 +26,9 @@ public class EjbAssetEventFactory<COMPANY extends JeeslAomCompany<?,?>,
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbAssetEventFactory.class);
 	
-	private final AssetFactoryBuilder<?,?,?,COMPANY,?,ASSET,?,?,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset;
+	private final AssetFactoryBuilder<?,?,?,COMPANY,?,ASSET,?,?,?,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset;
 	
-    public EjbAssetEventFactory(final AssetFactoryBuilder<?,?,?,COMPANY,?,ASSET,?,?,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset)
+    public EjbAssetEventFactory(final AssetFactoryBuilder<?,?,?,COMPANY,?,ASSET,?,?,?,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset)
     {
         this.fbAsset = fbAsset;
     }

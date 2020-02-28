@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomLevel;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomStatus;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomType;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
@@ -25,6 +26,7 @@ public interface JeeslAssetFacade <L extends JeeslLang, D extends JeeslDescripti
 									ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,ATYPE>,
 									STATUS extends JeeslAomStatus<L,D,STATUS,?>,
 									ATYPE extends JeeslAomType<L,D,REALM,ATYPE,?>,
+									ALEVEL extends JeeslAomLevel<L,D,REALM,?>,
 									EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER,FRC>,
 									ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
 									ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,
