@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.ahtutils.model.json.system.revision.JsonRevision;
+import org.jeesl.model.json.system.io.revision.JsonRevision;
 
 public class JsonRevisionFactory
 {

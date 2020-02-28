@@ -1,4 +1,4 @@
-package net.sf.ahtutils.model.json.system.revision;
+package org.jeesl.model.json.system.io.revision;
 
 import java.io.Serializable;
 

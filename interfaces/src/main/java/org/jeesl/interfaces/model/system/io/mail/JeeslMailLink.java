@@ -1,4 +1,4 @@
-package net.sf.ahtutils.model.interfaces.link;
+package org.jeesl.interfaces.model.system.io.mail;
 
 import java.io.Serializable;
 
@@ -12,9 +12,8 @@ import org.jeesl.interfaces.model.with.date.EjbWithValidUntil;
 
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface UtilsLink<S extends JeeslStatus<S,L,D>,
-							L extends JeeslLang,
-							D extends JeeslDescription>
+public interface JeeslMailLink<L extends JeeslLang, D extends JeeslDescription,
+							S extends JeeslStatus<S,L,D>>
 						extends Serializable,EjbPersistable,EjbRemoveable, EjbWithId,EjbWithCode,EjbWithValidUntil
 {
 	long getRefId();
