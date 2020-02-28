@@ -13,6 +13,7 @@ import org.jeesl.interfaces.model.system.io.fr.JeeslFileType;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 import org.jeesl.model.json.db.tuple.two.Json2Tuples;
 
 public interface JeeslIoFrFacade <L extends JeeslLang, D extends JeeslDescription,
@@ -25,5 +26,6 @@ public interface JeeslIoFrFacade <L extends JeeslLang, D extends JeeslDescriptio
 		extends JeeslFacade,JeeslFileRepositoryStore<META>
 {
 	CONTAINER moveContainer(CONTAINER container, STORAGE destination) throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException;
-	Json2Tuples<STORAGE,TYPE> tpIoFileByStorageType();
+	Json1Tuples<STORAGE> tpsIoFileByStorage();
+	Json2Tuples<STORAGE,TYPE> tpcIoFileByStorageType();
 }
