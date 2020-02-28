@@ -1,10 +1,9 @@
 package org.jeesl.interfaces.model.system;
 
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
-import org.jeesl.interfaces.model.with.code.EjbWithCode;
-import org.jeesl.interfaces.model.with.position.EjbWithPositionVisible;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.position.EjbWithPositionVisible;
 
 public interface JeeslFeature
 		extends EjbWithId,EjbSaveable,

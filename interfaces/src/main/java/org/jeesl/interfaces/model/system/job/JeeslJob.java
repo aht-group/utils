@@ -7,11 +7,10 @@ import java.util.List;
 import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-import org.jeesl.interfaces.model.with.code.EjbWithNonUniqueCode;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
-import org.jeesl.interfaces.model.with.text.EjbWithEmail;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.code.EjbWithNonUniqueCode;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.text.EjbWithEmail;
 
 public interface JeeslJob<TEMPLATE extends JeeslJobTemplate<?,?,?,?,?,?>,
 							PRIORITY extends JeeslStatus<PRIORITY,?,?>,

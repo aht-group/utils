@@ -9,9 +9,8 @@ import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransi
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
-import org.jeesl.interfaces.model.with.position.EjbWithPosition;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 
 public interface JeeslWorkflowAction <T extends JeeslWorkflowTransition<?,?,?,?,?,?>,
 										AB extends JeeslWorkflowBot<AB,?,?,?>,

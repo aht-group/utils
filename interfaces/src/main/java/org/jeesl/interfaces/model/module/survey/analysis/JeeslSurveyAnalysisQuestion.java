@@ -5,9 +5,8 @@ import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestion;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
-import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 
 public interface JeeslSurveyAnalysisQuestion<L extends JeeslLang, D extends JeeslDescription,
 												QUESTION extends JeeslSurveyQuestion<L,D,?,?,?,?,?,?,?,?,?>,

@@ -1,6 +1,6 @@
 package org.jeesl.interfaces.model.system.io.cms;
 
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslWithCms<CMS extends JeeslIoCms<?,?,?,?,?>>
 						extends EjbWithId

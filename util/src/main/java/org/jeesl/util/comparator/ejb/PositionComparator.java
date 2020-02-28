@@ -3,7 +3,7 @@ package org.jeesl.util.comparator.ejb;
 import java.util.Comparator;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
-import org.jeesl.interfaces.model.with.position.EjbWithPosition;
+import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

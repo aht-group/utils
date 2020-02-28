@@ -9,10 +9,9 @@ import org.jeesl.controller.handler.tree.TreeUpdateParameter;
 import org.jeesl.interfaces.controller.handler.tree.JeeslTree3Store;
 import org.jeesl.interfaces.controller.handler.tree.JeeslTreeSelected;
 import org.jeesl.interfaces.controller.handler.tree.cache.JeeslTree3Cache;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class SbTree3Handler <L1 extends EjbWithId, L2 extends EjbWithId, L3 extends EjbWithId> extends SbTree2Handler<L1,L2>
 {

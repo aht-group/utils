@@ -1,7 +1,8 @@
 package net.sf.ahtutils.jsf.util;
 
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+
 import net.sf.ahtutils.model.event.GlobalCdiEvent;
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class GlobalCdiEventTypeFactory
 {

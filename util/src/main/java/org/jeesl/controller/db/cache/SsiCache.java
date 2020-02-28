@@ -9,10 +9,9 @@ import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiData;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiLink;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class SsiCache <MAPPING extends JeeslIoSsiMapping<?,?>,
 							DATA extends JeeslIoSsiData<MAPPING,LINK>,

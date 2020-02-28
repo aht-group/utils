@@ -11,10 +11,9 @@ import org.jeesl.interfaces.model.module.log.JeeslLogBook;
 import org.jeesl.interfaces.model.module.log.JeeslLogConfidentiality;
 import org.jeesl.interfaces.model.module.log.JeeslLogImpact;
 import org.jeesl.interfaces.model.module.log.JeeslLogItem;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class EjbLogItemFactory<BOOK extends JeeslLogBook<?,ITEM>,
 								ITEM extends JeeslLogItem<?,?,?,?,BOOK,IMPACT,CONF,USER>,

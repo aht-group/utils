@@ -7,10 +7,9 @@ import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
-import org.jeesl.interfaces.model.with.position.EjbWithPositionVisible;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithDescription;
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.position.EjbWithPositionVisible;
+import org.jeesl.interfaces.model.with.system.locale.EjbWithDescription;
 
 public interface JeeslSurveyValidation<L extends JeeslLang, D extends JeeslDescription,
 										QUESTION extends JeeslSurveyQuestion<L,D,?,?,?,?,?,?,?,?,?>,

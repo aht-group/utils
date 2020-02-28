@@ -10,15 +10,14 @@ import org.jeesl.interfaces.model.module.survey.analysis.JeeslSurveyAnalysisQues
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyScore;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.with.EjbWithRendered;
-import org.jeesl.interfaces.model.with.code.EjbWithCode;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
-import org.jeesl.interfaces.model.with.position.EjbWithPosition;
-import org.jeesl.interfaces.model.with.text.EjbWithRemark;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithDescription;
-import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
-import net.sf.ahtutils.model.interfaces.with.EjbWithVisible;
+import org.jeesl.interfaces.model.with.primitive.bool.EjbWithRendered;
+import org.jeesl.interfaces.model.with.primitive.bool.EjbWithVisible;
+import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
+import org.jeesl.interfaces.model.with.primitive.text.EjbWithRemark;
+import org.jeesl.interfaces.model.with.system.locale.EjbWithDescription;
+import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 
 public interface JeeslSurveyQuestion<L extends JeeslLang, D extends JeeslDescription,
 										SECTION extends JeeslSurveySection<L,D,?,SECTION,?>,

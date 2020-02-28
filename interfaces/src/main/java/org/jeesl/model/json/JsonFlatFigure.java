@@ -5,9 +5,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class JsonFlatFigure implements Serializable
 {

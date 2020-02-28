@@ -1,6 +1,6 @@
 package net.sf.ahtutils.interfaces.web.crud;
 
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface CrudHandler1Bean <T extends EjbWithId>
 {

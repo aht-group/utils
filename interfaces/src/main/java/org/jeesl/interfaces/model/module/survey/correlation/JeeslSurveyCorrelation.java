@@ -4,8 +4,7 @@ import java.io.Serializable;
 
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyData;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslSurveyCorrelation<DATA extends JeeslSurveyData<?,?,?,?,?>>
 			extends Serializable,EjbWithId,EjbSaveable

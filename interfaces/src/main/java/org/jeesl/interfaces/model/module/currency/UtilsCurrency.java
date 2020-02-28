@@ -1,10 +1,9 @@
 package org.jeesl.interfaces.model.module.currency;
 
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.with.code.EjbWithCode;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
-import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
+import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 
 public interface UtilsCurrency<L extends JeeslLang>
 			extends EjbWithId,EjbWithCode,EjbWithLang<L>

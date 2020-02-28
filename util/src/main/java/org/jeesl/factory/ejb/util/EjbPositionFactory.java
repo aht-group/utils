@@ -2,7 +2,7 @@ package org.jeesl.factory.ejb.util;
 
 import java.util.List;
 
-import org.jeesl.interfaces.model.with.position.EjbWithPosition;
+import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

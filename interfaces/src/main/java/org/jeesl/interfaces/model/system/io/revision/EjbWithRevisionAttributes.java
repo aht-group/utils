@@ -3,8 +3,7 @@ package org.jeesl.interfaces.model.system.io.revision;
 import java.util.List;
 
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface EjbWithRevisionAttributes <RA extends JeeslRevisionAttribute<?,?,?,?,?>>
 		extends EjbWithId

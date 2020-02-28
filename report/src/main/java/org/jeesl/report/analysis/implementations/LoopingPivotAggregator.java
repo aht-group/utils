@@ -10,12 +10,12 @@ import java.util.Set;
 import org.apache.commons.lang.ArrayUtils;
 import org.jeesl.interfaces.controller.report.JeeslComparatorProvider;
 import org.jeesl.interfaces.controller.report.JeeslPivotFactory;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.pojo.DynamicPivotData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.interfaces.controller.report.JeeslPivotAggregator;
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class LoopingPivotAggregator implements JeeslPivotAggregator
 {

@@ -4,9 +4,8 @@ import java.io.Serializable;
 
 import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
-import org.jeesl.interfaces.model.with.text.EjbWithEmail;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.text.EjbWithEmail;
 
 public interface JeeslJobFeedback<JOB extends JeeslJob<?,?,?,?,USER>,
 								FT extends JeeslJobFeedbackType<?,?,FT,?>,

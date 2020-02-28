@@ -5,10 +5,9 @@ import java.io.Serializable;
 import org.jeesl.interfaces.model.marker.jpa.EjbPersistable;
 import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
-import org.jeesl.interfaces.model.with.number.EjbWithRefId;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithRefId;
 
 public interface JeeslTsBridge <EC extends JeeslTsEntityClass<?,?,?>>
 					extends Serializable,EjbRemoveable,EjbPersistable,EjbWithId,EjbWithRefId,EjbWithParentAttributeResolver

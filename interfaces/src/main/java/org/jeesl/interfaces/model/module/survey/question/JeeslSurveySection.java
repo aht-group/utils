@@ -8,15 +8,14 @@ import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyTemplate;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.with.EjbWithRendered;
-import org.jeesl.interfaces.model.with.code.EjbWithCode;
-import org.jeesl.interfaces.model.with.number.EjbWithLevel;
-import org.jeesl.interfaces.model.with.position.EjbWithPosition;
-import org.jeesl.interfaces.model.with.text.EjbWithRemark;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithDescription;
-import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
-import net.sf.ahtutils.model.interfaces.with.EjbWithVisible;
+import org.jeesl.interfaces.model.with.primitive.bool.EjbWithRendered;
+import org.jeesl.interfaces.model.with.primitive.bool.EjbWithVisible;
+import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithLevel;
+import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
+import org.jeesl.interfaces.model.with.primitive.text.EjbWithRemark;
+import org.jeesl.interfaces.model.with.system.locale.EjbWithDescription;
+import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 
 public interface JeeslSurveySection<L extends JeeslLang, D extends JeeslDescription,
 									TEMPLATE extends JeeslSurveyTemplate<L,D,?,TEMPLATE,?,?,?,SECTION,?,?>,

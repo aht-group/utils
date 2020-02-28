@@ -2,7 +2,7 @@ package org.jeesl.model.json.db.tuple;
 
 import java.io.Serializable;
 
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public class JsonIdValue extends AbstractJsonTuple implements Serializable,EjbWithId
 {

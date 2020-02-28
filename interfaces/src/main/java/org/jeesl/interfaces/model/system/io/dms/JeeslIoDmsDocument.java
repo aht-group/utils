@@ -10,10 +10,9 @@ import org.jeesl.interfaces.model.module.attribute.JeeslWithAttributeContainer;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.io.fr.JeeslWithFileRepositoryContainer;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.with.position.EjbWithPositionVisibleParent;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
-import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.position.EjbWithPositionVisibleParent;
+import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 
 public interface JeeslIoDmsDocument<L extends JeeslLang, S extends JeeslIoDmsSection<L,?,S>,
 								FC extends JeeslFileContainer<?,?>, AC extends JeeslAttributeContainer<?,?>>

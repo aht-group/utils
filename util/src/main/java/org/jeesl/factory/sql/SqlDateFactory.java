@@ -3,7 +3,7 @@ package org.jeesl.factory.sql;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
+import org.jeesl.interfaces.model.with.primitive.date.EjbWithRecord;
 
 public class SqlDateFactory
 {

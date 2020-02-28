@@ -1,6 +1,6 @@
 package org.jeesl.interfaces.model.marker;
 
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface EjbEquals <O extends EjbWithId> extends EjbWithId
 {	

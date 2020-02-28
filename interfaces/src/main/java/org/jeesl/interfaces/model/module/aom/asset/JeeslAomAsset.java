@@ -6,13 +6,12 @@ import java.util.List;
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
-import org.jeesl.interfaces.model.with.code.EjbWithNonUniqueCode;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
-import org.jeesl.interfaces.model.with.position.EjbWithPosition;
-import org.jeesl.interfaces.model.with.status.JeeslWithStatus;
-import org.jeesl.interfaces.model.with.text.EjbWithRemark;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithName;
+import org.jeesl.interfaces.model.with.primitive.code.EjbWithNonUniqueCode;
+import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
+import org.jeesl.interfaces.model.with.primitive.text.EjbWithName;
+import org.jeesl.interfaces.model.with.primitive.text.EjbWithRemark;
+import org.jeesl.interfaces.model.with.system.status.JeeslWithStatus;
 
 public interface JeeslAomAsset <REALM extends JeeslMcsRealm<?,?,REALM,?>,
 							ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,ATYPE>,

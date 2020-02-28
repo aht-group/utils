@@ -12,12 +12,11 @@ import javax.persistence.Tuple;
 import org.apache.commons.collections.keyvalue.MultiKey;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.interfaces.facade.JeeslFacade;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.json.db.tuple.two.Json2Tuple;
 import org.jeesl.model.json.db.tuple.two.Json2Tuples;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class Json2TuplesFactory <A extends EjbWithId, B extends EjbWithId>
 {

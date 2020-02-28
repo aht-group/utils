@@ -3,10 +3,9 @@ package net.sf.ahtutils.model;
 import java.io.Serializable;
 
 import org.jeesl.interfaces.model.util.UtilsRankedResult;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class DefaultRankedResult <T extends EjbWithId> implements Serializable,UtilsRankedResult<T>
 {

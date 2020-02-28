@@ -3,11 +3,10 @@ package org.jeesl.factory.ejb.module.ts;
 import java.util.Date;
 
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsTransaction;
-import org.jeesl.interfaces.model.with.EjbWithLangDescription;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.system.locale.EjbWithLangDescription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class EjbTsTransactionFactory<TRANSACTION extends JeeslTsTransaction<SOURCE,?,USER,?>,
 								SOURCE extends EjbWithLangDescription<?,?>, 

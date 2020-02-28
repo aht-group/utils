@@ -3,10 +3,9 @@ package org.jeesl.util.comparator.ejb;
 import java.util.Comparator;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
+import org.jeesl.interfaces.model.with.primitive.date.EjbWithRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 
 public class RecordComparator<T extends EjbWithRecord> implements Comparator<T>
 {
