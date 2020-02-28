@@ -10,8 +10,8 @@ import javax.faces.model.ListDataModel;
 
 import net.sf.ahtutils.jsf.interfaces.dm.DmAllSelect;
 import net.sf.ahtutils.jsf.interfaces.dm.DmSingleSelect;
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.primefaces.model.SelectableDataModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

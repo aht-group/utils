@@ -18,7 +18,7 @@ import org.jeesl.factory.txt.system.security.TxtUserFactory;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
-import org.jeesl.interfaces.model.with.text.EjbWithPwd;
+import org.jeesl.interfaces.model.with.primitive.text.EjbWithPwd;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;

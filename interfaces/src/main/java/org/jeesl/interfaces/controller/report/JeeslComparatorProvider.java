@@ -2,7 +2,7 @@ package org.jeesl.interfaces.controller.report;
 
 import java.util.Comparator;
 
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslComparatorProvider <I extends EjbWithId>
 {

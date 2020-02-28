@@ -8,9 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.jeesl.interfaces.model.with.primitive.date.EjbWithRecord;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+
 import net.sf.ahtutils.interfaces.controller.monitoring.MonitoringResult;
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
-import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 
 @Entity
 public class IcmpResult implements Serializable,MonitoringResult,EjbWithId,EjbWithRecord

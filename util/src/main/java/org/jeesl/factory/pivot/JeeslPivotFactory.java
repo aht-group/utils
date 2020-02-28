@@ -9,12 +9,11 @@ import org.apache.commons.jxpath.JXPathNotFoundException;
 import org.jeesl.interfaces.controller.handler.JeeslTranslationProvider;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.metachart.factory.json.pivot.McPivotFactory;
 import org.metachart.model.json.pivot.PivotField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class JeeslPivotFactory<LOC extends JeeslLocale<?,?,LOC,?>, RE extends JeeslRevisionEntity<?,?,?,?,?,?>> extends McPivotFactory
 {

@@ -1,11 +1,10 @@
 package org.jeesl.model.json.db.tuple.t3;
 
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.json.db.tuple.AbstractJsonTuple;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class Json3Tuple <A extends EjbWithId, B extends EjbWithId, C extends EjbWithId> extends AbstractJsonTuple
 {

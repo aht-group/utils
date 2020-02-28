@@ -3,8 +3,7 @@ package org.jeesl.interfaces.model.module.survey;
 import java.io.Serializable;
 
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurvey;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslWithSurvey<SURVEY extends JeeslSurvey<?,?,?,?,?>>
 			extends Serializable,EjbWithId

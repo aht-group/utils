@@ -19,14 +19,13 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.news.JeeslSystemNews;
-import org.jeesl.interfaces.model.with.date.EjbWithValidFrom;
-import org.jeesl.interfaces.model.with.date.EjbWithValidUntil;
+import org.jeesl.interfaces.model.with.primitive.date.EjbWithValidFrom;
+import org.jeesl.interfaces.model.with.primitive.date.EjbWithValidUntil;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class JeeslSystemNewsFacadeBean<L extends JeeslLang,D extends JeeslDescription,
 										CATEGORY extends JeeslStatus<CATEGORY,L,D>,

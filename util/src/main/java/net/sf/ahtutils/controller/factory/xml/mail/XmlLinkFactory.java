@@ -1,7 +1,6 @@
 package net.sf.ahtutils.controller.factory.xml.mail;
 
-import net.sf.ahtutils.model.interfaces.link.UtilsLink;
-
+import org.jeesl.interfaces.model.system.io.mail.JeeslMailLink;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
@@ -13,7 +12,7 @@ public class XmlLinkFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlLinkFactory.class);
 	
-	public static <S extends JeeslStatus<S,L,D>, L extends JeeslLang, LI extends UtilsLink<S,L,D>, D extends JeeslDescription> Link create(LI ejb, String url)
+	public static <S extends JeeslStatus<S,L,D>, L extends JeeslLang, LI extends JeeslMailLink<L,D,S>, D extends JeeslDescription> Link create(LI ejb, String url)
 	{
 		Link xml = new Link();
 		xml.setCode(ejb.getCode());

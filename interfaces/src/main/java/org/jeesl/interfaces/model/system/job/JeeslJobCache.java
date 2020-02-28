@@ -5,11 +5,10 @@ import java.io.Serializable;
 import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
-import org.jeesl.interfaces.model.with.code.EjbWithNonUniqueCode;
-import org.jeesl.interfaces.model.with.date.EjbWithValidUntil;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
-import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
+import org.jeesl.interfaces.model.with.primitive.code.EjbWithNonUniqueCode;
+import org.jeesl.interfaces.model.with.primitive.date.EjbWithRecord;
+import org.jeesl.interfaces.model.with.primitive.date.EjbWithValidUntil;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslJobCache<TEMPLATE extends JeeslJobTemplate<?,?,?,?,?,?>,
 								CONTAINER extends JeeslFileContainer<?,?>>

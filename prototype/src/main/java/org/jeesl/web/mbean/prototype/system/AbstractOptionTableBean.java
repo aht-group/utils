@@ -44,13 +44,16 @@ import org.jeesl.interfaces.model.system.option.JeeslOptionRest;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDescription;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 import org.jeesl.interfaces.model.system.option.JeeslOptionUploadable;
-import org.jeesl.interfaces.model.with.code.EjbWithCode;
-import org.jeesl.interfaces.model.with.graphic.EjbWithGraphic;
-import org.jeesl.interfaces.model.with.graphic.EjbWithGraphicFigure;
-import org.jeesl.interfaces.model.with.graphic.EjbWithImage;
-import org.jeesl.interfaces.model.with.graphic.EjbWithImageAlt;
 import org.jeesl.interfaces.model.with.parent.EjbWithParent;
-import org.jeesl.interfaces.model.with.position.EjbWithPosition;
+import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
+import org.jeesl.interfaces.model.with.system.graphic.EjbWithGraphic;
+import org.jeesl.interfaces.model.with.system.graphic.EjbWithGraphicFigure;
+import org.jeesl.interfaces.model.with.system.graphic.EjbWithImage;
+import org.jeesl.interfaces.model.with.system.graphic.EjbWithImageAlt;
+import org.jeesl.interfaces.model.with.system.locale.EjbWithDescription;
+import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 import org.jeesl.interfaces.web.JeeslJsfSecurityHandler;
 import org.jeesl.model.xml.jeesl.Container;
 import org.jeesl.model.xml.system.revision.Entity;
@@ -62,9 +65,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.jsf.util.PositionListReorderer;
-import net.sf.ahtutils.model.interfaces.with.EjbWithDescription;
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
-import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 import net.sf.ahtutils.xml.status.Description;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 import net.sf.exlp.util.io.StringUtil;
@@ -532,7 +532,7 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 		if(fUtils instanceof JeeslExportRestFacade)
 		{
 			logger.info("Using Facade Connection for JBoss EAP6 ("+fUtils.getClass().getSimpleName()+" implements "+JeeslExportRestFacade.class.getSimpleName()+"): "+x.getRestCode());
-//			xml = ((JeeslExportRestFacade)fUtils).exportJeeslReferenceRest(x.getRestCode());
+			xml = ((JeeslExportRestFacade)fUtils).exportJeeslReferenceRevisionEntity(x.getRestCode()); 
 		}
 		else
 		{

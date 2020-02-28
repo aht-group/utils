@@ -3,10 +3,9 @@ package org.jeesl.util.query.ejb;
 import java.util.List;
 import java.util.Map;
 
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class MapListQuery
 {

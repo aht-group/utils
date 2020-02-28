@@ -4,9 +4,8 @@ import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
-
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

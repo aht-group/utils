@@ -3,10 +3,9 @@ package org.jeesl.factory.ejb.module.asset;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class EjbAssetCompanyFactory<REALM extends JeeslMcsRealm<?,?,REALM,?>,
 									COMPANY extends JeeslAomCompany<REALM,SCOPE>,

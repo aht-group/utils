@@ -28,9 +28,9 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 import net.sf.ahtutils.controller.util.ParentPredicate;
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class JeeslIoReportFacadeBean<L extends JeeslLang,D extends JeeslDescription,
 									CATEGORY extends JeeslStatus<CATEGORY,L,D>,

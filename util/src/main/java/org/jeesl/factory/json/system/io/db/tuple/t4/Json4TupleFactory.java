@@ -2,11 +2,10 @@ package org.jeesl.factory.json.system.io.db.tuple.t4;
 
 import javax.persistence.Tuple;
 
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.json.db.tuple.t4.Json4Tuple;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class Json4TupleFactory<A extends EjbWithId, B extends EjbWithId, C extends EjbWithId, D extends EjbWithId>
 {

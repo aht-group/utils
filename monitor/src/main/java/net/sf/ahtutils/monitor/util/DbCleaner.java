@@ -9,11 +9,11 @@ import javax.persistence.EntityManager;
 
 import org.jeesl.api.facade.module.JeeslMonitoringFacade;
 import org.jeesl.controller.monitoring.result.net.IcmpResult;
+import org.jeesl.interfaces.model.with.primitive.date.EjbWithRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.controller.facade.UtilsMonitoringFacadeBean;
-import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 
 public class DbCleaner
 {

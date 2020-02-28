@@ -10,13 +10,12 @@ import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyOptionSet;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveySection;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.with.status.JeeslWithCategory;
-import org.jeesl.interfaces.model.with.status.JeeslWithStatus;
-import org.jeesl.interfaces.model.with.text.EjbWithRemark;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
-import net.sf.ahtutils.model.interfaces.with.EjbWithName;
-import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
+import org.jeesl.interfaces.model.with.primitive.date.EjbWithRecord;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.text.EjbWithName;
+import org.jeesl.interfaces.model.with.primitive.text.EjbWithRemark;
+import org.jeesl.interfaces.model.with.system.status.JeeslWithCategory;
+import org.jeesl.interfaces.model.with.system.status.JeeslWithStatus;
 
 public interface JeeslSurveyTemplate<L extends JeeslLang, D extends JeeslDescription,
 										SCHEME extends JeeslSurveyScheme<L,D,TEMPLATE,?>,

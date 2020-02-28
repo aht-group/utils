@@ -10,8 +10,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import net.sf.ahtutils.jsf.util.ComponentAttribute;
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

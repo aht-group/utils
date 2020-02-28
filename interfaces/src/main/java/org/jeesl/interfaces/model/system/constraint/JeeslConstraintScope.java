@@ -8,13 +8,12 @@ import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-import org.jeesl.interfaces.model.with.EjbWithLangDescription;
-import org.jeesl.interfaces.model.with.code.EjbWithCode;
-import org.jeesl.interfaces.model.with.position.EjbWithPosition;
-import org.jeesl.interfaces.model.with.position.EjbWithPositionParent;
-import org.jeesl.interfaces.model.with.status.JeeslWithCategory;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
+import org.jeesl.interfaces.model.with.primitive.position.EjbWithPositionParent;
+import org.jeesl.interfaces.model.with.system.locale.EjbWithLangDescription;
+import org.jeesl.interfaces.model.with.system.status.JeeslWithCategory;
 
 public interface JeeslConstraintScope<L extends JeeslLang, D extends JeeslDescription,
 									SCOPE extends JeeslConstraintScope<L,D,SCOPE,CATEGORY,CONSTRAINT,LEVEL,TYPE,RESOLUTION>,

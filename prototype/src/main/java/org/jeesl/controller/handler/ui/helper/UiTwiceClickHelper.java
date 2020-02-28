@@ -3,10 +3,9 @@ package org.jeesl.controller.handler.ui.helper;
 import java.io.Serializable;
 
 import org.jeesl.factory.ejb.util.EjbIdFactory;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class UiTwiceClickHelper implements Serializable
 {

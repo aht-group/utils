@@ -2,7 +2,7 @@ package org.jeesl.interfaces.controller.handler.tree.cache;
 
 import java.util.List;
 
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslTree1Cache<L1 extends EjbWithId>
 {

@@ -7,7 +7,7 @@ import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntityMapping;
-import org.jeesl.interfaces.model.with.position.EjbWithPositionVisible;
+import org.jeesl.interfaces.model.with.primitive.position.EjbWithPositionVisible;
 
 public interface JeeslRevisionViewMapping<RV extends JeeslRevisionView<?,?,?>,
 									RE extends JeeslRevisionEntity<?,?,?,REM,?,?>,

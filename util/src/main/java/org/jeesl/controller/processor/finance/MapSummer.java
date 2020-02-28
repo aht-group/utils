@@ -2,10 +2,9 @@ package org.jeesl.controller.processor.finance;
 
 import java.util.Map;
 
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class MapSummer
 {

@@ -5,8 +5,8 @@ import java.lang.reflect.Method;
 import java.util.Comparator;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
-import org.jeesl.interfaces.model.with.position.EjbWithPosition;
-import org.jeesl.interfaces.model.with.position.EjbWithPositionParent;
+import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
+import org.jeesl.interfaces.model.with.primitive.position.EjbWithPositionParent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

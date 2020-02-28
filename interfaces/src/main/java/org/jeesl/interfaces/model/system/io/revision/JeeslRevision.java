@@ -2,7 +2,7 @@ package org.jeesl.interfaces.model.system.io.revision;
 
 import java.util.Date;
 
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslRevision extends EjbWithId
 {					

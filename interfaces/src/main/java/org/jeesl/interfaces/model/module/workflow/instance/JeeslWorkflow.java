@@ -9,8 +9,7 @@ import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStage;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslWorkflow <WP extends JeeslWorkflowProcess<?,?,?,WS>,
 										WS extends JeeslWorkflowStage<?,?,WP,?,?,?,?>,

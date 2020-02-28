@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Json2Tuples <X extends EjbWithId, Y extends EjbWithId> implements Serializable
 {

@@ -3,8 +3,7 @@ package org.jeesl.model.json.util.time;
 import java.io.Serializable;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public class JsonYear implements Serializable,EjbWithId
 {

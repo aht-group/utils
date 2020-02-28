@@ -4,9 +4,8 @@ import java.util.List;
 
 import javax.persistence.Table;
 
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.util.query.sql.JeeslSqlQuery;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class SqlFactory
 {

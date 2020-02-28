@@ -6,9 +6,8 @@ import org.jeesl.interfaces.model.marker.jpa.EjbPersistable;
 import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeItem;
-import org.jeesl.interfaces.model.with.position.EjbWithPositionVisibleParent;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.position.EjbWithPositionVisibleParent;
 
 public interface JeeslIoDmsLayer<VIEW extends JeeslIoDmsView<?,?,?>,
 								AI extends JeeslAttributeItem<?,?>>

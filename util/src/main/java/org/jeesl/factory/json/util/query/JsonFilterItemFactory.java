@@ -5,12 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 import org.jeesl.factory.ejb.util.EjbIdFactory;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.json.util.query.JsonFilter;
 import org.jeesl.model.json.util.query.JsonFilterItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class JsonFilterItemFactory
 {

@@ -1,6 +1,6 @@
 package net.sf.ahtutils.interfaces.controller.audit;
 
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface UtilsRevisionPageFlow<T extends EjbWithId,P extends EjbWithId>
 {		

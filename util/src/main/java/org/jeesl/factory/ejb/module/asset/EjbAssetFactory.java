@@ -4,16 +4,15 @@ import java.util.UUID;
 
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.interfaces.facade.JeeslFacade;
-import org.jeesl.interfaces.model.module.aom.JeeslAomAsset;
-import org.jeesl.interfaces.model.module.aom.JeeslAomStatus;
-import org.jeesl.interfaces.model.module.aom.JeeslAomType;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomStatus;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomType;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class EjbAssetFactory<REALM extends JeeslMcsRealm<?,?,REALM,?>,
 							COMPANY extends JeeslAomCompany<REALM,SCOPE>,
@@ -24,9 +23,9 @@ public class EjbAssetFactory<REALM extends JeeslMcsRealm<?,?,REALM,?>,
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbAssetFactory.class);
 	
-	private final AssetFactoryBuilder<?,?,?,COMPANY,SCOPE,ASSET,STATUS,TYPE,?,?,?,?> fbAsset;
+	private final AssetFactoryBuilder<?,?,?,COMPANY,SCOPE,ASSET,STATUS,TYPE,?,?,?,?,?> fbAsset;
 	
-    public EjbAssetFactory(final AssetFactoryBuilder<?,?,?,COMPANY,SCOPE,ASSET,STATUS,TYPE,?,?,?,?> fbAsset)
+    public EjbAssetFactory(final AssetFactoryBuilder<?,?,?,COMPANY,SCOPE,ASSET,STATUS,TYPE,?,?,?,?,?> fbAsset)
     {
         this.fbAsset = fbAsset;
     }

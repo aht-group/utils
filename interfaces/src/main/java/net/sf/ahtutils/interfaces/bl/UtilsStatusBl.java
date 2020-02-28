@@ -2,7 +2,7 @@ package net.sf.ahtutils.interfaces.bl;
 
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.with.EjbWithLangDescription;
+import org.jeesl.interfaces.model.with.system.locale.EjbWithLangDescription;
 
 public interface UtilsStatusBl
 {	

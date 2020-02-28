@@ -3,7 +3,7 @@ package net.sf.ahtutils.report.revert.excel;
 import java.io.Serializable;
 import java.util.Date;
 
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public class DummyEntity implements EjbWithId, Serializable {
 		

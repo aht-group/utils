@@ -1,6 +1,6 @@
 package org.jeesl.interfaces.factory.txt;
 
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslReportAggregationLevelFactory
 {

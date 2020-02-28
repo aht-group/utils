@@ -1,7 +1,7 @@
 package org.jeesl.interfaces.model.module.ts.data;
 
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
-import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
+import org.jeesl.interfaces.model.with.primitive.date.EjbWithRecord;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslTsValue extends EjbWithId,EjbWithRecord
 {

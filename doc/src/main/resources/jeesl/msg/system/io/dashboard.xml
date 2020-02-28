@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<s:translations xmlns:s="http://ahtutils.aht-group.com/status">
+	<s:translation key="jeeslIoDashboards">
+    	<s:langs>
+    		<s:lang key="de" translation="Dashboards"/>
+    		<s:lang key="en" translation="Dashboards"/>
+    		<s:lang key="fr" translation="Dashboards"/>
+    	</s:langs>
+    </s:translation>
+</s:translations>

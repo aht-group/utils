@@ -1,11 +1,10 @@
 package org.jeesl.model.json.db.tuple.two;
 
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.json.db.tuple.AbstractJsonTuple;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class Json2Tuple <X extends EjbWithId, Y extends EjbWithId> extends AbstractJsonTuple
 {

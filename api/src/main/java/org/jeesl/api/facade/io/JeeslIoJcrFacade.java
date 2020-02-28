@@ -7,8 +7,8 @@ import org.jeesl.exception.processing.UtilsProcessingException;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.exlp.xml.io.File;
 import net.sf.exlp.xml.io.Files;
 
