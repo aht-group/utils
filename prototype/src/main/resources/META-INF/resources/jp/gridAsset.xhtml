@@ -20,6 +20,10 @@
 			<h:form id="fTree" >
 				<p:panel id="pTree" header="#{msg.jeeslCmsDocumentStructure}" styleClass="jeeslTree" >
 					<f:facet name="actions">
+						<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.expandTree(2)}" update=":#{cc.id}:sAsset" tooltip="#{msg.jeeslTtExpandTwo}"/>
+						<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.expandTree(3)}" update=":#{cc.id}:sAsset" tooltip="#{msg.jeeslTtExpandThree}"/>
+						<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.expandTree()}" update=":#{cc.id}:sAsset" tooltip="#{msg.jeeslTtExpandAllChildren}"/>
+						<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.collapseTree()}" update=":#{cc.id}:sAsset" tooltip="#{msg.jeeslTtCollapseAllChildren}"/>
 						<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addAsset()}" update=":#{cc.id}:sAsset" tooltip="#{msg.jeeslTtAdd}"/>
 					</f:facet>
 					<p:tree id="tTree" value="#{cc.attrs.bean.tree}" var="node" 

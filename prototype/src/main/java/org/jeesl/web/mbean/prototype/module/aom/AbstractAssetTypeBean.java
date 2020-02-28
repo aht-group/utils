@@ -30,6 +30,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
+import org.jeesl.jsf.helper.TreeHelper;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
@@ -126,6 +127,21 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 			List<ATYPE> childs = fAsset.allForParent(fbAsset.getClassAssetType(),t);
 			if(!childs.isEmpty()){buildTree(n,childs);}
 		}
+	}
+	
+	public void expandTree()
+	{
+		TreeHelper.setExpansion(this.node != null ? this.node : this.tree, true);
+	}
+	
+	public void expandTree(int levels)
+	{
+		TreeHelper.setExpansion(this.node != null ? this.node : this.tree, true, levels);
+	}
+	
+	public void collapseTree()
+	{
+		TreeHelper.setExpansion(this.node != null ? this.node : this.tree,  false);
 	}
 	
 	private void reset(boolean rType)

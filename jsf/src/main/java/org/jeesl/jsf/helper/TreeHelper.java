@@ -2,6 +2,7 @@ package org.jeesl.jsf.helper;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.constraints.NotNull;
 
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
@@ -13,6 +14,26 @@ public abstract class TreeHelper
 	public interface Expression
 	{
 		public boolean condition(TreeNode node);
+	}
+	
+	public interface Functor
+	{
+		public void execute(TreeNode node);
+	}
+	
+	private static TreeNode getAncestor(@NotNull TreeNode decendant, int ancestryLevel)
+	{
+		TreeNode ancestor = decendant;
+		for (int i = 0; i < ancestryLevel; i++)
+		{
+			ancestor = ancestor.getParent();
+		}
+		return ancestor;
+	}
+	
+	private static int getDepth(TreeNode root)
+	{
+		return 1 + root.getChildren().stream().map(child -> getDepth(child)).max(Integer::compare).orElse(0);
 	}
 	
 	public static <T extends EjbWithParentAttributeResolver> void buildTree(JeeslFacade facade, TreeNode parent, List<T> objects, Class<T> type)
@@ -63,5 +84,23 @@ public abstract class TreeHelper
 		}
 		
 		return nodes;
+	}
+	
+	public static void forEach(TreeNode node, Functor functor, Expression breakExpression)
+	{
+		if (node == null || breakExpression.condition(node)) { return; }
+		
+		functor.execute(node);
+		node.getChildren().forEach(child -> forEach(child, functor, breakExpression));
+	}
+	
+	public static void setExpansion(TreeNode startNode, boolean expand)
+	{
+		setExpansion(startNode, expand, getDepth(startNode));
+	}
+	
+	public static void setExpansion(TreeNode startNode, boolean expand, int reach)
+	{
+		forEach(startNode, node -> node.setExpanded(expand), node -> getAncestor(node, reach) == startNode);
 	}
 }
