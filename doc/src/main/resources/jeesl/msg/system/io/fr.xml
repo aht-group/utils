@@ -70,33 +70,40 @@
     		<s:lang key="fr" translation="Type"/>
     	</s:langs>
     </s:translation>
-    	<s:translation key="jeeslIoFileRecord">
-	    	<s:langs>
-	    		<s:lang key="de" translation="Datum"/>
-	    		<s:lang key="en" translation="Date"/>
-	    		<s:lang key="fr" translation="Date"/>
-	    	</s:langs>
+   	<s:translation key="jeeslIoFileRecord">
+    	<s:langs>
+    		<s:lang key="de" translation="Datum"/>
+    		<s:lang key="en" translation="Date"/>
+    		<s:lang key="fr" translation="Date"/>
+    	</s:langs>
     </s:translation>
 	<s:translation key="jeeslIoFileUpload">
-	    	<s:langs>
-	    		<s:lang key="de" translation="Upload"/>
-	    		<s:lang key="en" translation="Upload"/>
-	    		<s:lang key="fr" translation="Upload"/>
-	    	</s:langs>
+    	<s:langs>
+    		<s:lang key="de" translation="Upload"/>
+    		<s:lang key="en" translation="Upload"/>
+    		<s:lang key="fr" translation="Upload"/>
+    	</s:langs>
     </s:translation>
-    	<s:translation key="ttJeeslIoFileDelete">
-	    	<s:langs>
-	    		<s:lang key="de" translation="Lösche Datei"/>
-	    		<s:lang key="en" translation="Delete File"/>
-	    		<s:lang key="fr" translation="Delte File"/>
-	    	</s:langs>
+	<s:translation key="ttJeeslIoFileDelete">
+    	<s:langs>
+    		<s:lang key="de" translation="Lösche Datei"/>
+    		<s:lang key="en" translation="Delete File"/>
+    		<s:lang key="fr" translation="Delte File"/>
+    	</s:langs>
     </s:translation>
-        	<s:translation key="jeeslIoFileDownload">
-	    	<s:langs>
-	    		<s:lang key="de" translation="Lade Datei"/>
-	    		<s:lang key="en" translation="Donwload File"/>
-	    		<s:lang key="fr" translation="Donwload File"/>
-	    	</s:langs>
+	<s:translation key="jeeslIoFileDownload">
+    	<s:langs>
+    		<s:lang key="de" translation="Lade Datei"/>
+    		<s:lang key="en" translation="Donwload File"/>
+    		<s:lang key="fr" translation="Donwload File"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslIoFileStorageSize">
+    	<s:langs>
+    		<s:lang key="de" translation="Größe"/>
+    		<s:lang key="en" translation="Size"/>
+    		<s:lang key="fr" translation="Size"/>
+    	</s:langs>
     </s:translation>
     
 </s:translations>

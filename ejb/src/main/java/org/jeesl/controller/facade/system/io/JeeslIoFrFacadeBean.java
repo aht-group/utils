@@ -136,7 +136,7 @@ public class JeeslIoFrFacadeBean<L extends JeeslLang, D extends JeeslDescription
 		CriteriaQuery<Tuple> cQ = cB.createTupleQuery();
 		Root<META> item = cQ.from(fbFile.getClassMeta());
 		
-		Expression<Double> eSum = cB.sum(item.<Double>get(JeeslFileMeta.Attributes.size.toString()));
+		Expression<Long> eSum = cB.sum(item.<Long>get(JeeslFileMeta.Attributes.size.toString()));
 		Join<META,CONTAINER> jContainer = item.join(JeeslFileMeta.Attributes.container.toString());
 		Path<STORAGE> pStorage = jContainer.get(JeeslFileContainer.Attributes.storage.toString());
 		
@@ -144,7 +144,7 @@ public class JeeslIoFrFacadeBean<L extends JeeslLang, D extends JeeslDescription
 		cQ.multiselect(pStorage.get("id"),eSum);
 
 		TypedQuery<Tuple> tQ = em.createQuery(cQ);
-        return jtf.buildSum(tQ.getResultList());
+        return jtf.buildCount(tQ.getResultList());
 	}
 	
 	@Override public Json2Tuples<STORAGE,TYPE> tpcIoFileByStorageType()
