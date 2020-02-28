@@ -21,6 +21,7 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoFileRepositoryFactoryBuilder;
+import org.jeesl.factory.json.system.io.db.tuple.t1.Json1TuplesFactory;
 import org.jeesl.factory.json.system.io.db.tuple.t2.Json2TuplesFactory;
 import org.jeesl.interfaces.controller.handler.system.io.JeeslFileRepositoryStore;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
@@ -130,18 +131,30 @@ public class JeeslIoFrFacadeBean<L extends JeeslLang, D extends JeeslDescription
 
 	@Override public Json1Tuples<STORAGE> tpsIoFileByStorage()
 	{
-		return null;
+		Json1TuplesFactory<STORAGE> jtf = new Json1TuplesFactory<>(this,fbFile.getClassStorage());
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<Tuple> cQ = cB.createTupleQuery();
+		Root<META> item = cQ.from(fbFile.getClassMeta());
+		
+		Expression<Double> eSum = cB.sum(item.<Double>get(JeeslFileMeta.Attributes.size.toString()));
+		Join<META,CONTAINER> jContainer = item.join(JeeslFileMeta.Attributes.container.toString());
+		Path<STORAGE> pStorage = jContainer.get(JeeslFileContainer.Attributes.storage.toString());
+		
+		cQ.groupBy(pStorage.get("id"));
+		cQ.multiselect(pStorage.get("id"),eSum);
+
+		TypedQuery<Tuple> tQ = em.createQuery(cQ);
+        return jtf.buildSum(tQ.getResultList());
 	}
 	
 	@Override public Json2Tuples<STORAGE,TYPE> tpcIoFileByStorageType()
 	{
-		Json2TuplesFactory<STORAGE,TYPE> jtf = new Json2TuplesFactory<STORAGE,TYPE>(this,fbFile.getClassStorage(),fbFile.getClassType());
+		Json2TuplesFactory<STORAGE,TYPE> jtf = new Json2TuplesFactory<>(this,fbFile.getClassStorage(),fbFile.getClassType());
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<Tuple> cQ = cB.createTupleQuery();
 		Root<META> item = cQ.from(fbFile.getClassMeta());
 		
 		Expression<Long> eCount = cB.count(item.<Long>get("id"));
-		
 		Join<META,CONTAINER> jContainer = item.join(JeeslFileMeta.Attributes.container.toString());
 		Path<STORAGE> pStorage = jContainer.get(JeeslFileContainer.Attributes.storage.toString());
 		Path<TYPE> pType = item.get(JeeslFileMeta.Attributes.type.toString());

@@ -7,6 +7,7 @@ import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoFrFacade;
 import org.jeesl.controller.handler.system.io.fr.JeeslFileTypeHandler;
+import org.jeesl.controller.handler.tuple.JsonTuple1Handler;
 import org.jeesl.controller.handler.tuple.JsonTuple2Handler;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
@@ -48,7 +49,8 @@ public class AbstractFrStorageBean <L extends JeeslLang, D extends JeeslDescript
 	private JeeslIoFrFacade<L,D,SYSTEM,STORAGE,ENGINE,CONTAINER,META,TYPE> fFr;
 	private final IoFileRepositoryFactoryBuilder<L,D,LOC,SYSTEM,STORAGE,ENGINE,CONTAINER,META,TYPE,STATUS> fbFr;
 	
-	private final JsonTuple2Handler<STORAGE,TYPE> thCount; public JsonTuple2Handler<STORAGE, TYPE> getThCount() {return thCount;}
+	private final JsonTuple1Handler<STORAGE> thSize; public JsonTuple1Handler<STORAGE> getThSize() {return thSize;}
+	private final JsonTuple2Handler<STORAGE,TYPE> thCount; public JsonTuple2Handler<STORAGE,TYPE> getThCount() {return thCount;}
 	private final EjbIoFrStorageFactory<SYSTEM,STORAGE> efStorage;
 	private JeeslFileTypeHandler<META,TYPE> fth;
 	
@@ -63,6 +65,7 @@ public class AbstractFrStorageBean <L extends JeeslLang, D extends JeeslDescript
 		super(fbFr.getClassL(),fbFr.getClassD());
 		this.fbFr=fbFr;
 		efStorage = fbFr.ejbStorage();
+		thSize = new JsonTuple1Handler<STORAGE>(fbFr.getClassStorage());
 		thCount = new JsonTuple2Handler<STORAGE,TYPE>(fbFr.getClassStorage(),fbFr.getClassType());
 		thCount.setComparatorProviderB(jcpB);
 	}

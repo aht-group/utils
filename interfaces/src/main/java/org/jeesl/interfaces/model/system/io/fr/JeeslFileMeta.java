@@ -30,7 +30,7 @@ public interface JeeslFileMeta<D extends JeeslDescription,
 					EjbWithSize,EjbWithRecord,
 					EjbWithDescription<D>
 {
-	public enum Attributes{container,type}
+	public enum Attributes{container,type,size}
 	
 	CONTAINER getContainer();
 	void setContainer(CONTAINER container);
