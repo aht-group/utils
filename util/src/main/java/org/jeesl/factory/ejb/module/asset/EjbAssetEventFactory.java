@@ -1,7 +1,6 @@
 package org.jeesl.factory.ejb.module.asset;
 
 import java.util.Date;
-import java.util.List;
 
 import org.jeesl.controller.handler.NullNumberBinder;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;

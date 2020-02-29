@@ -58,7 +58,7 @@ public abstract class AbstractAssetLevelBean <L extends JeeslLang, D extends Jee
 										SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
 										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,ASTATUS,ATYPE>,
 										ASTATUS extends JeeslAomStatus<L,D,ASTATUS,?>,
-										ATYPE extends JeeslAomType<L,D,REALM,ATYPE,G>,
+										ATYPE extends JeeslAomType<L,D,REALM,ATYPE,ALEVEL,G>,
 										ALEVEL extends JeeslAomLevel<L,D,REALM,G>,
 										EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER,FRC>,
 										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,

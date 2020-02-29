@@ -17,7 +17,7 @@ public interface JeeslAomAsset <REALM extends JeeslMcsRealm<?,?,REALM,?>,
 							ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,ATYPE>,
 							COMPANY extends JeeslAomCompany<REALM,?>,
 							STATUS extends JeeslAomStatus<?,?,STATUS,?>,
-							ATYPE extends JeeslAomType<?,?,REALM,ATYPE,?>>
+							ATYPE extends JeeslAomType<?,?,REALM,ATYPE,?,?>>
 			extends Serializable,EjbSaveable,
 					EjbWithPosition,EjbWithParentAttributeResolver,
 					EjbWithNonUniqueCode,EjbWithName,EjbWithRemark,

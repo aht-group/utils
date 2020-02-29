@@ -25,7 +25,7 @@ public interface JeeslAssetFacade <L extends JeeslLang, D extends JeeslDescripti
 									SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
 									ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,ATYPE>,
 									STATUS extends JeeslAomStatus<L,D,STATUS,?>,
-									ATYPE extends JeeslAomType<L,D,REALM,ATYPE,?>,
+									ATYPE extends JeeslAomType<L,D,REALM,ATYPE,ALEVEL,?>,
 									ALEVEL extends JeeslAomLevel<L,D,REALM,?>,
 									EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER,FRC>,
 									ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,

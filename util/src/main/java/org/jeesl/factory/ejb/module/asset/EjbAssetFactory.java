@@ -19,7 +19,7 @@ public class EjbAssetFactory<REALM extends JeeslMcsRealm<?,?,REALM,?>,
 							SCOPE extends JeeslAomScope<?,?,SCOPE,?>,
 							ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
 							STATUS extends JeeslAomStatus<?,?,STATUS,?>,
-							TYPE extends JeeslAomType<?,?,REALM,TYPE,?>>
+							TYPE extends JeeslAomType<?,?,REALM,TYPE,?,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbAssetFactory.class);
 	

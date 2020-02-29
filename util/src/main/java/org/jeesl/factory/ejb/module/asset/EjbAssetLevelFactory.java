@@ -30,6 +30,7 @@ public class EjbAssetLevelFactory<REALM extends JeeslMcsRealm<?,?,REALM,?>,
 			ejb.setRealm(realm);
 			ejb.setRref(ref.getId());
 			ejb.setCode(UUID.randomUUID().toString());
+			ejb.setVisible(true);
 			EjbPositionFactory.next(ejb,list);
 		    return ejb;
 		}

@@ -22,7 +22,7 @@ public interface JeeslAssetCacheBean <L extends JeeslLang, D extends JeeslDescri
 										SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
 										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,ASTATUS,ATYPE>,
 										ASTATUS extends JeeslAomStatus<L,D,ASTATUS,?>,
-										ATYPE extends JeeslAomType<L,D,REALM,ATYPE,?>,
+										ATYPE extends JeeslAomType<L,D,REALM,ATYPE,ALEVEL,?>,
 										ALEVEL extends JeeslAomLevel<L,D,REALM,?>,
 										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>>
 								extends Serializable

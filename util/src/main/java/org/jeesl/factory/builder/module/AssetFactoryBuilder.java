@@ -33,7 +33,7 @@ public class AssetFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 								SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
 								ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,ASTATUS,ATYPE>,
 								ASTATUS extends JeeslAomStatus<L,D,ASTATUS,?>,
-								ATYPE extends JeeslAomType<L,D,REALM,ATYPE,?>,
+								ATYPE extends JeeslAomType<L,D,REALM,ATYPE,ALEVEL,?>,
 								ALEVEL extends JeeslAomLevel<L,D,REALM,?>,
 								EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER,FRC>,
 								ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
@@ -81,7 +81,7 @@ public class AssetFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 	}
 	
 	public EjbAssetCompanyFactory<REALM,COMPANY,SCOPE> ejbManufacturer() {return new EjbAssetCompanyFactory<>(cCompany);}
-	public EjbAssetTypeFactory<REALM,ATYPE> ejbType() {return new EjbAssetTypeFactory<>(cAssetType);}
+	public EjbAssetTypeFactory<REALM,ATYPE,ALEVEL> ejbType() {return new EjbAssetTypeFactory<>(cAssetType);}
 	public EjbAssetLevelFactory<REALM,ALEVEL> ejbLevel() {return new EjbAssetLevelFactory<>(cAssetLevel);}
 	public EjbAssetFactory<REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE> ejbAsset() {return new EjbAssetFactory<>(this);}
 	public EjbAssetEventFactory<COMPANY,ASSET,EVENT,ETYPE,ESTATUS,USER,FRC> ejbEvent() {return new EjbAssetEventFactory<>(this);}
