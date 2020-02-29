@@ -127,7 +127,8 @@ public abstract class AbstractAssetLevelBean <L extends JeeslLang, D extends Jee
 	
 	public void selectLevel()
 	{
-		
+		efLang.persistMissingLangs(fAsset, bTranslation.getLocales(),level);
+		efDescription.persistMissingLangs(fAsset, bTranslation.getLocales(),level);
 	}
 	
 	public void addLevel()

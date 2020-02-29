@@ -149,8 +149,11 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 		catch (NoResultException ex)
 		{
 			ATYPE result = fbAsset.ejbType().build(realm, rref, null, "root");
+			ALEVEL view = fbAsset.ejbLevel().build(realm,rref,null);
+			view.setTree(JeeslAomLevel.Tree.hierarchy.toString());
 			try
 			{
+				this.save(view);
 				return this.save(result);
 			}
 			catch (JeeslConstraintViolationException | JeeslLockingException e)

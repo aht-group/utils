@@ -59,6 +59,17 @@ public class SqlFactory
 		return sb.toString();
 	}
 	
+	public static <T extends EjbWithId> String delete(T t)
+	{
+		if(t.getClass().getAnnotation(Table.class)==null) {throw new RuntimeException("Not a @Table)");}
+		StringBuilder sb = new StringBuilder();
+		sb.append("DELETE FROM ");
+		sb.append(t.getClass().getAnnotation(Table.class).name());
+		sb.append(" WHERE id="+t.getId());
+		sb.append(";");
+		return sb.toString();
+	}
+	
 	public static String from(String table, String as, boolean newLine)
 	{
 		StringBuilder sb = new StringBuilder();
@@ -106,18 +117,29 @@ public class SqlFactory
 		}
 	}
 	
-	public static void valuesBool(boolean first, StringBuilder sb, boolean x)
-	{
-		if(!first) {sb.append(",");}
-		if(x) {sb.append("'t'");}
-		else {sb.append("'f'");}
-	}
-	
-	public static <T extends EjbWithId> void valuesId(boolean first, StringBuilder sb, T id)
+	public static <T extends EjbWithId> void valueId(boolean first, StringBuilder sb, T id)
 	{
 		if(!first) {sb.append(",");}
 		sb.append(id.getId());
 	}
+	public static void valueBool(boolean first, StringBuilder sb, boolean value)
+	{
+		if(!first) {sb.append(",");}
+		if(value) {sb.append("'t'");}
+		else {sb.append("'f'");}
+	}
+	public static void valueInt(boolean first, StringBuilder sb, int value)
+	{
+		if(!first) {sb.append(",");}
+		sb.append(value);
+	}
+	public static void valueString(boolean first, StringBuilder sb, String value)
+	{
+		if(!first) {sb.append(",");}
+		sb.append("'").append(value).append("'");
+	}
+	
+
 	
 	public static <E extends Enum<E>, T extends EjbWithId> String where(StringBuilder sb, String alias, boolean notNegate, E attribute, T where, boolean newLine)
 	{

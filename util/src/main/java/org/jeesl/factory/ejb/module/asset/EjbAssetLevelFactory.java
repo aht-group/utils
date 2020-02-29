@@ -22,13 +22,13 @@ public class EjbAssetLevelFactory<REALM extends JeeslMcsRealm<?,?,REALM,?>,
         this.cLevel = cLevel;
     }
 	
-	public <RREF extends EjbWithId> ALEVEL build(REALM realm, RREF ref, List<ALEVEL> list)
+	public <RREF extends EjbWithId> ALEVEL build(REALM realm, RREF rref, List<ALEVEL> list)
 	{
 		try
 		{
 			ALEVEL ejb = cLevel.newInstance();
 			ejb.setRealm(realm);
-			ejb.setRref(ref.getId());
+			ejb.setRref(rref.getId());
 			ejb.setCode(UUID.randomUUID().toString());
 			ejb.setVisible(true);
 			EjbPositionFactory.next(ejb,list);
