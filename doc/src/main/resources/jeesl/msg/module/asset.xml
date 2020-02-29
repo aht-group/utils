@@ -127,4 +127,19 @@
     		<s:lang key="fr" translation="Preis"/>
     	</s:langs>
     </s:translation>
+    
+    <s:translation key="jeeslAomLevels">
+    	<s:langs>
+    		<s:lang key="de" translation="Stufen"/>
+    		<s:lang key="en" translation="Levels"/>
+    		<s:lang key="fr" translation="Levels"/>
+    	</s:langs>
+    </s:translation>
+        <s:translation key="jeeslAomLevel">
+    	<s:langs>
+    		<s:lang key="de" translation="Stufe"/>
+    		<s:lang key="en" translation="Level"/>
+    		<s:lang key="fr" translation="Level"/>
+    	</s:langs>
+    </s:translation>
 </s:translations>

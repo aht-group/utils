@@ -1,6 +1,7 @@
 package org.jeesl.web.mbean.prototype.module.aom;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,6 +15,7 @@ import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.factory.builder.system.SvgFactoryBuilder;
+import org.jeesl.factory.ejb.module.asset.EjbAssetLevelFactory;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomLevel;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomStatus;
@@ -46,7 +48,9 @@ import org.primefaces.model.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
+import net.sf.ahtutils.jsf.util.PositionListReorderer;
+
+public abstract class AbstractAssetLevelBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 										S extends EjbWithId, G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslStatus<GT,L,D>,
 										F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>,
 										REALM extends JeeslMcsRealm<L,D,REALM,?>, RREF extends EjbWithId,
@@ -55,7 +59,7 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,ASTATUS,ATYPE>,
 										ASTATUS extends JeeslAomStatus<L,D,ASTATUS,?>,
 										ATYPE extends JeeslAomType<L,D,REALM,ATYPE,G>,
-										ALEVEL extends JeeslAomLevel<L,D,REALM,?>,
+										ALEVEL extends JeeslAomLevel<L,D,REALM,G>,
 										EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER,FRC>,
 										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
 										ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,
@@ -65,7 +69,7 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
-	final static Logger logger = LoggerFactory.getLogger(AbstractAssetTypeBean.class);
+	final static Logger logger = LoggerFactory.getLogger(AbstractAssetLevelBean.class);
 	
 	private JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset;
 	private JeeslGraphicFacade<L,D,S,G,GT,F,FS> fGraphic;
@@ -75,22 +79,23 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 	private final SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg;
 	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset;
 	
-	private TreeNode tree; public TreeNode getTree() {return tree;}
-    private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
-
     private REALM realm;
     private RREF rref;
-    private ATYPE root;
-    private ATYPE type;  public ATYPE getType() {return type;} public void setType(ATYPE type) {this.type = type;}
+    
+    private final List<ALEVEL> levels; public List<ALEVEL> getLevels() {return levels;}
+ 
+    private ALEVEL level; public ALEVEL getLevel() {return level;} public void setLevel(ALEVEL level) {this.level = level;}
 
-	public AbstractAssetTypeBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset, SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg)
+	public AbstractAssetLevelBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset, SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg)
 	{
 		super(fbAsset.getClassL(),fbAsset.getClassD());
 		this.fbAsset=fbAsset;
 		this.fbSvg=fbSvg;
+
+		levels = new ArrayList<>();
 	}
 	
-	protected void postConstructAssetType(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
+	protected void postConstructAomLevel(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
 									JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,ETYPE> bCache,
 									JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset,
 									JeeslGraphicFacade<L,D,S,G,GT,F,FS> fGraphic,
@@ -106,114 +111,76 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 	protected void updateRealmReference(RREF rref)
 	{
 		this.rref=rref;
-		reloadTree();
+		reload();
 	}
 	
-	private void reloadTree()
+	private void reload()
 	{
-		root = fAsset.fcAssetRootType(realm,rref);
-		tree = new DefaultTreeNode(root, null);
-		buildTree(tree,fAsset.allForParent(fbAsset.getClassAssetType(),root));
+		levels.clear();
+		levels.addAll(fAsset.fAomLevels(realm,rref));
 	}
 	
-	private void buildTree(TreeNode parent, List<ATYPE> types)
+	private void reset(boolean rLevel)
 	{
-		for(ATYPE t : types)
-		{
-			TreeNode n = new DefaultTreeNode(t,parent);
-			List<ATYPE> childs = fAsset.allForParent(fbAsset.getClassAssetType(),t);
-			if(!childs.isEmpty()){buildTree(n,childs);}
-		}
+		if(rLevel) {level=null;}
 	}
 	
-	private void reset(boolean rType)
+	public void selectLevel()
 	{
-		if(rType) {type=null;}
-	}
-	
-	public void addType()
-	{
-		ATYPE parent=null; if(type!=null) {parent = type;} else {parent = root;}
-		type = fbAsset.ejbType().build(realm, rref, parent, UUID.randomUUID().toString());
-		type.setName(efLang.createEmpty(bTranslation.getLocales()));
-		type.setDescription(efDescription.createEmpty(bTranslation.getLocales()));
-	}
-	
-	public void saveType() throws JeeslConstraintViolationException, JeeslLockingException
-	{
-		type = fAsset.save(type);
-		reloadTree();
-		bCache.update(realm, rref, type);
-	}
-	
-	public void deleteType() throws JeeslLockingException
-	{
-		try
-		{
-			fAsset.rm(type);
-			bCache.delete(realm,rref,type);
-			reloadTree();
-			reset(true);
-		}
-		catch (JeeslConstraintViolationException e) {bMessage.errorConstraintViolationInUse();}
 		
 	}
 	
-	public void onNodeExpand(NodeExpandEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}
-    public void onNodeCollapse(NodeCollapseEvent event) {if(debugOnInfo) {logger.info("Collapsed "+event.getTreeNode().toString());}}
-	
-	@SuppressWarnings("unchecked")
-	public void onDragDrop(TreeDragDropEvent event) throws JeeslConstraintViolationException, JeeslLockingException
+	public void addLevel()
 	{
-        TreeNode dragNode = event.getDragNode();
-        TreeNode dropNode = event.getDropNode();
-        int dropIndex = event.getDropIndex();
-        logger.info("Dragged " + dragNode.getData() + "Dropped on " + dropNode.getData() + " at " + dropIndex);
-
-        ATYPE parent = (ATYPE)dropNode.getData();
-        int index=1;
-        for(TreeNode n : dropNode.getChildren())
-        {
-        	ATYPE child =(ATYPE)n.getData();
-    		child.setParent(parent);
-    		child.setPosition(index);
-    		fAsset.save(child);
-    		index++;
-        }  
-    }
-
-    @SuppressWarnings("unchecked")
-	public void onNodeSelect(NodeSelectEvent event)
-    {
-		logger.info("Selected "+event.getTreeNode().toString());
-		type = (ATYPE)event.getTreeNode().getData();
-		type = efLang.persistMissingLangs(fAsset,bTranslation.getLocales(),type);
-		type = efDescription.persistMissingLangs(fAsset,bTranslation.getLocales(),type);
-    }
+		level = fbAsset.ejbLevel().build(realm,rref,levels);
+		level.setName(efLang.createEmpty(bTranslation.getLocales()));
+		level.setDescription(efDescription.createEmpty(bTranslation.getLocales()));
+	}
+	
+	public void saveLevel() throws JeeslConstraintViolationException, JeeslLockingException
+	{
+		level = fAsset.save(level);
+		reload();
+//		bCache.update(realm, rref, type);
+	}
+	
+	public void deleteLevel() throws JeeslLockingException
+	{
+		try
+		{
+			fAsset.rm(level);
+//			bCache.delete(realm,rref,level);
+			reload();
+			reset(true);
+		}
+		catch (JeeslConstraintViolationException e) {bMessage.errorConstraintViolationInUse();}
+	}
     
 	public void handleFileUpload(FileUploadEvent event) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		UploadedFile file = event.getFile();
 		logger.info("Received file with a size of " +file.getSize());
-		if(type.getGraphic()==null)
+		if(level.getGraphic()==null)
 		{
 			GT gt = fAsset.fByEnum(fbSvg.getClassGraphicType(), JeeslGraphicType.Code.svg);
 			G g = fbSvg.efGraphic().build(gt);
 			g = fAsset.save(g);
-			type.setGraphic(g);
-			type = fAsset.save(type);
-			type.getGraphic().setData(file.getContents());
-			type = fAsset.save(type);
+			level.setGraphic(g);
+			level = fAsset.save(level);
+			level.getGraphic().setData(file.getContents());
+			level = fAsset.save(level);
 		}
 		else
 		{
-			try
-			{
-				G g = fGraphic.fGraphic(fbAsset.getClassAssetType(),type);
-				g.setData(file.getContents());
-				fAsset.save(g);
-			}
-			catch (JeeslNotFoundException e) {e.printStackTrace();}
+//			try
+//			{
+//				G g = fGraphic.fGraphic(fbAsset.getClassAssetLevel(),level);
+//				g.setData(file.getContents());
+//				fAsset.save(g);
+//			}
+//			catch (JeeslNotFoundException e) {e.printStackTrace();}
 		}
 	}
+	
+	public void reorder() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fAsset,levels);}
 }

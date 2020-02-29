@@ -43,7 +43,7 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 										ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,
 										USER extends JeeslSimpleUser,
 										FRC extends JeeslFileContainer<?,?>>
-								implements JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ETYPE>
+								implements JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,ETYPE>
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetCacheBean.class);
@@ -54,6 +54,8 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 
 	private EjbCodeCache<SCOPE> cacheScope;
 	
+//	private final Map<RREF,List<ALEVEL>> mapLevel; @Override public Map<RREF,List<ALEVEL>> cachedLevel() {return mapLevel;}
+	
 	private final Map<REALM,Map<RREF,List<ATYPE>>> mapAssetType; @Override public Map<REALM,Map<RREF,List<ATYPE>>> getMapAssetType() {return mapAssetType;}
 	
 	private final Map<REALM,Map<RREF,List<COMPANY>>> mapCompany; @Override public Map<REALM,Map<RREF,List<COMPANY>>> cachedCompany() {return mapCompany;}
@@ -61,9 +63,12 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 	private final Map<REALM,Map<RREF,List<COMPANY>>> mapVendor; @Override public Map<REALM,Map<RREF,List<COMPANY>>> getMapVendor() {return mapVendor;}
 	private final Map<REALM,Map<RREF,List<COMPANY>>> mapMaintainer; @Override public Map<REALM,Map<RREF,List<COMPANY>>> getMapMaintainer() {return mapMaintainer;}
 	
+	
     private final List<ASTATUS> assetStatus; public List<ASTATUS> getAssetStatus() {return assetStatus;}
+    private final List<ALEVEL> assetLevel; public List<ALEVEL> getAssetLevel() {return assetLevel;}
     private final List<ETYPE> eventType; @Override public List<ETYPE> getEventType() {return eventType;}
     private final List<ESTATUS> eventStatus; public List<ESTATUS> getEventStatus() {return eventStatus;}
+    
     
 	public AbstractAssetCacheBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset)
 	{
@@ -77,6 +82,7 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 		mapMaintainer = new HashMap<>();
 		
 		assetStatus = new ArrayList<>();
+		assetLevel = new ArrayList<>();
 		eventType = new ArrayList<>();
 		eventStatus = new ArrayList<>();
 	}

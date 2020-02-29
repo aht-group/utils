@@ -126,7 +126,7 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 	}
 
 	@Override
-	public <RREF extends EjbWithId> ATYPE fcAssetRootType(REALM realm, RREF realmReference)
+	public <RREF extends EjbWithId> ATYPE fcAssetRootType(REALM realm, RREF rref)
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<ATYPE> cQ = cB.createQuery(fbAsset.getClassAssetType());
@@ -137,7 +137,7 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 		Path<REALM> pRealm = root.get(JeeslAomAsset.Attributes.realm.toString());
 		Path<ASSET> pParent = root.get(JeeslAomAsset.Attributes.parent.toString());
 		
-		predicates.add(cB.equal(eRefId,realmReference.getId()));
+		predicates.add(cB.equal(eRefId,rref.getId()));
 		predicates.add(cB.equal(pRealm,realm));
 		predicates.add(cB.isNull(pParent));
 		
@@ -148,16 +148,35 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 		try	{return tQ.getSingleResult();}
 		catch (NoResultException ex)
 		{
-			ATYPE result = fbAsset.ejbType().build(realm, realmReference, null, "root");
+			ATYPE result = fbAsset.ejbType().build(realm, rref, null, "root");
 			try
 			{
 				return this.save(result);
 			}
 			catch (JeeslConstraintViolationException | JeeslLockingException e)
 			{
-				return this.fcAssetRootType(realm,realmReference);
+				return this.fcAssetRootType(realm,rref);
 			}
 		}
+	}
+	
+	@Override public <RREF extends EjbWithId> List<ALEVEL> fAomLevels(REALM realm, RREF rref)
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<ALEVEL> cQ = cB.createQuery(fbAsset.getClassAssetLevel());
+		Root<ALEVEL> root = cQ.from(fbAsset.getClassAssetLevel());
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		Expression<Long> eRefId = root.get(JeeslAomAsset.Attributes.realmIdentifier.toString());
+		Path<REALM> pRealm = root.get(JeeslAomAsset.Attributes.realm.toString());
+		
+		predicates.add(cB.equal(eRefId,rref.getId()));
+		predicates.add(cB.equal(pRealm,realm));
+		
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.select(root);
+
+		return em.createQuery(cQ).getResultList();
 	}
 
 	@Override public <RREF extends EjbWithId> List<COMPANY> fAssetCompanies(REALM realm, RREF realmReference)

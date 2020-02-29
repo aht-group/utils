@@ -33,9 +33,4 @@ public class EjbAssetTypeFactory<REALM extends JeeslMcsRealm<?,?,REALM,?>,
 		catch (IllegalAccessException e) {e.printStackTrace();}
 		return null;
     }
-	
-	public void converter(TYPE type)
-	{
-		
-	}
 }

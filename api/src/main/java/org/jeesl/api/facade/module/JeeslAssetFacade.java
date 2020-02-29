@@ -38,7 +38,10 @@ public interface JeeslAssetFacade <L extends JeeslLang, D extends JeeslDescripti
 	List<ASSET> allAssets(ASSET root);
 	
 	<RREF extends EjbWithId> ATYPE fcAssetRootType(REALM realm, RREF rref);
+	<RREF extends EjbWithId> List<ALEVEL> fAomLevels(REALM realm, RREF rref);
+	
 	<RREF extends EjbWithId> List<COMPANY> fAssetCompanies(REALM realm, RREF rref);
+	
 	List<EVENT> fAssetEvents(ASSET asset);
 	<RREF extends EjbWithId> List<EVENT> fAssetEvents(REALM realm, RREF rref, List<ESTATUS> status);
 }
