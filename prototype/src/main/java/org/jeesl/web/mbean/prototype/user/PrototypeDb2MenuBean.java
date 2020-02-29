@@ -151,11 +151,22 @@ public class PrototypeDb2MenuBean <L extends JeeslLang, D extends JeeslDescripti
 		}
 	}
 	
-	public Menu build(String code){setup();if(!mapKey.containsKey(code)) {logger.warn("Code "+code+" not defined");return XmlMenuFactory.build();} else {return menu(mapKey.get(code));}}
-	public MenuItem sub(String code) {setup();if(!mapKey.containsKey(code)) {logger.warn("Code "+code+" not defined");return XmlMenuItemFactory.build();} else {return sub(mapKey.get(code));}}
-	public MenuItem subDyn(String code, Boolean dyn) {setup();if(!mapKey.containsKey(code)) {logger.warn("Code "+code+" not defined");return XmlMenuItemFactory.build();} else {return sub(mapKey.get(code));}}
-	public Breadcrumb breadcrumbDyn(String code, Boolean dyn){setup();if(!mapKey.containsKey(code)) {logger.warn("Code "+code+" not defined");return XmlBreadcrumbFactory.build();} else {return breadcrumb(mapKey.get(code));}}
-	public Breadcrumb breadcrumb(String code){setup();if(!mapKey.containsKey(code)) {logger.warn("Code "+code+" not defined");return XmlBreadcrumbFactory.build();} else {return breadcrumb(mapKey.get(code));}}
+	public Menu build(String code){setup();if(!mapKey.containsKey(code)) {warnEmptyCode(code); return XmlMenuFactory.build();} else {return menu(mapKey.get(code));}}
+	public MenuItem sub(String code) {setup();if(!mapKey.containsKey(code)) {warnEmptyCode(code); return XmlMenuItemFactory.build();} else {return sub(mapKey.get(code));}}
+	public MenuItem subDyn(String code, Boolean dyn) {setup();if(!mapKey.containsKey(code)) {warnEmptyCode(code); return XmlMenuItemFactory.build();} else {return sub(mapKey.get(code));}}
+	public Breadcrumb breadcrumbDyn(String code, Boolean dyn){setup();if(!mapKey.containsKey(code)) {warnEmptyCode(code); return XmlBreadcrumbFactory.build();} else {return breadcrumb(mapKey.get(code));}}
+	public Breadcrumb breadcrumb(String code){setup();if(!mapKey.containsKey(code)) {warnEmptyCode(code); return XmlBreadcrumbFactory.build();} else {return breadcrumb(mapKey.get(code));}}
+	
+	private void warnEmptyCode(String code)
+	{
+		StringBuilder sb = new StringBuilder();
+		sb.append("Code ");
+		if(code==null || code.length()==0) {sb.append(" is empty.");}
+		else{sb.append(" not defined");}
+		sb.append(" This may happen after restructuring of bean, try a mvn clean");
+		logger.warn(sb.toString());
+		
+	}
 	
 	private Menu menu(M m)
 	{

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jeesl.api.bean.module.JeeslAssetCacheBean;
+import org.jeesl.api.bean.module.aom.JeeslAssetCacheBean;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomLevel;
@@ -78,19 +78,19 @@ public class UiHelperAsset <L extends JeeslLang, D extends JeeslDescription,
 		{
 			if(isQuote)
 			{
-				companies.addAll(bCache.cachedCompany().get(realm).get(rref));
+				companies.addAll(bCache.cachedCompany().get(rref));
 			}
 			else if(isProcurement)
 			{
-				companies.addAll(bCache.getMapVendor().get(realm).get(rref));
+				companies.addAll(bCache.getMapVendor().get(rref));
 			}
 			else if(isDeployment)
 			{
-				companies.addAll(bCache.getMapMaintainer().get(realm).get(rref));
+				companies.addAll(bCache.getMapMaintainer().get(rref));
 			}
 			else if(isMaintenance || isRenew)
 			{
-				companies.addAll(bCache.getMapMaintainer().get(realm).get(rref));
+				companies.addAll(bCache.getMapMaintainer().get(rref));
 			}
 			showCompany = isQuote || isProcurement || isDeployment || isMaintenance || isRenew; 
 		}

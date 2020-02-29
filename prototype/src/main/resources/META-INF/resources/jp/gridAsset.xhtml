@@ -79,7 +79,7 @@
                         <p:outputLabel value="#{msg.jeeslAssetCompany}"/>
 						<p:selectOneMenu value="#{cc.attrs.bean.asset.manufacturer}" effect="fade" autoWidth="false">
 							<f:selectItem itemLabel="--"/>	
-                        	<f:selectItems value="#{cc.attrs.cache.mapManufacturer[cc.attrs.bean.realm][cc.attrs.bean.rref]}" var="c" itemLabel="#{c.name}" itemValue="#{c}"/>
+                        	<f:selectItems value="#{cc.attrs.cache.mapManufacturer[cc.attrs.bean.rref]}" var="c" itemLabel="#{c.name}" itemValue="#{c}"/>
                         </p:selectOneMenu>
                         
                         <p:outputLabel value="#{msg.jeeslAssetRemark}"/>

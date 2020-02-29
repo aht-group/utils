@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.jeesl.api.bean.module.JeeslAssetCacheBean;
+import org.jeesl.api.bean.module.aom.JeeslAssetCacheBean;
 import org.jeesl.api.facade.module.JeeslAssetFacade;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
@@ -58,10 +58,10 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 	
 	private final Map<REALM,Map<RREF,List<ATYPE>>> mapAssetType; @Override public Map<REALM,Map<RREF,List<ATYPE>>> getMapAssetType() {return mapAssetType;}
 	
-	private final Map<REALM,Map<RREF,List<COMPANY>>> mapCompany; @Override public Map<REALM,Map<RREF,List<COMPANY>>> cachedCompany() {return mapCompany;}
-	private final Map<REALM,Map<RREF,List<COMPANY>>> mapManufacturer; public Map<REALM,Map<RREF,List<COMPANY>>> getMapManufacturer() {return mapManufacturer;}
-	private final Map<REALM,Map<RREF,List<COMPANY>>> mapVendor; @Override public Map<REALM,Map<RREF,List<COMPANY>>> getMapVendor() {return mapVendor;}
-	private final Map<REALM,Map<RREF,List<COMPANY>>> mapMaintainer; @Override public Map<REALM,Map<RREF,List<COMPANY>>> getMapMaintainer() {return mapMaintainer;}
+	private final Map<RREF,List<COMPANY>> mapCompany; @Override public Map<RREF,List<COMPANY>> cachedCompany() {return mapCompany;}
+	private final Map<RREF,List<COMPANY>> mapManufacturer; public Map<RREF,List<COMPANY>> getMapManufacturer() {return mapManufacturer;}
+	private final Map<RREF,List<COMPANY>> mapVendor; @Override public Map<RREF,List<COMPANY>> getMapVendor() {return mapVendor;}
+	private final Map<RREF,List<COMPANY>> mapMaintainer; @Override public Map<RREF,List<COMPANY>> getMapMaintainer() {return mapMaintainer;}
 	
 	
     private final List<ASTATUS> assetStatus; public List<ASTATUS> getAssetStatus() {return assetStatus;}
@@ -126,36 +126,34 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 	
 	private void reloadCompanies(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset, REALM realm, RREF rref)
 	{
-		if(!mapCompany.containsKey(realm)) {mapCompany.put(realm,new HashMap<>());}
-		if(!mapCompany.get(realm).containsKey(rref)) {mapCompany.get(realm).put(rref,new ArrayList<>());}
-		mapCompany.get(realm).get(rref).clear();
-		mapCompany.get(realm).get(rref).addAll(fAsset.fAssetCompanies(realm,rref));
-		logger.info(AbstractLogMessage.reloaded(fbAsset.getClassCompany(),mapCompany.get(realm).get(rref)));
+		if(!mapCompany.containsKey(rref)) {mapCompany.put(rref,new ArrayList<>());}
+		mapCompany.get(rref).clear();
+		mapCompany.get(rref).addAll(fAsset.fAssetCompanies(realm,rref));
+		logger.info(AbstractLogMessage.reloaded(fbAsset.getClassCompany(),mapCompany.get(rref)));
 		reloadCompanies(realm,rref);
 	}
 	
 	private void reloadCompanies(REALM realm, RREF rref)
 	{	
-		reloadCompanies(realm,rref,cacheScope.ejb(JeeslAomScope.Code.manufacturer),mapManufacturer,mapCompany.get(realm).get(rref));
-		reloadCompanies(realm,rref,cacheScope.ejb(JeeslAomScope.Code.vendor),mapVendor,mapCompany.get(realm).get(rref));
-		reloadCompanies(realm,rref,cacheScope.ejb(JeeslAomScope.Code.maintainer),mapMaintainer,mapCompany.get(realm).get(rref));
+		reloadCompanies(realm,rref,cacheScope.ejb(JeeslAomScope.Code.manufacturer),mapManufacturer,mapCompany.get(rref));
+		reloadCompanies(realm,rref,cacheScope.ejb(JeeslAomScope.Code.vendor),mapVendor,mapCompany.get(rref));
+		reloadCompanies(realm,rref,cacheScope.ejb(JeeslAomScope.Code.maintainer),mapMaintainer,mapCompany.get(rref));
 	}
 	
-	private void reloadCompanies(REALM realm, RREF rref, SCOPE scope, Map<REALM,Map<RREF,List<COMPANY>>> map, List<COMPANY> companies)
+	private void reloadCompanies(REALM realm, RREF rref, SCOPE scope, Map<RREF,List<COMPANY>> map, List<COMPANY> companies)
 	{		
-		if(!map.containsKey(realm)) {map.put(realm,new HashMap<>());}
-		if(!map.get(realm).containsKey(rref)) {map.get(realm).put(rref,new ArrayList<>());}
-		map.get(realm).get(rref).clear();
+		if(!map.containsKey(rref)) {map.put(rref,new ArrayList<>());}
+		map.get(rref).clear();
 		
 		for(COMPANY c : companies)
 		{
-			if(c.getScopes().contains(scope)) {map.get(realm).get(rref).add(c);}
+			if(c.getScopes().contains(scope)) {map.get(rref).add(c);}
 		}		
 	}
 	
 	@Override public void update(REALM realm, RREF rref, COMPANY company)
 	{
-		if(!Collections.replaceAll(mapCompany.get(realm).get(rref),company,company)){mapCompany.get(realm).get(rref).add(company);}
+		if(!Collections.replaceAll(mapCompany.get(rref),company,company)){mapCompany.get(rref).add(company);}
 		reloadCompanies(realm,rref);
 	}
 	

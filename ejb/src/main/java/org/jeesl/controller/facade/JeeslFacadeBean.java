@@ -428,10 +428,10 @@ public class JeeslFacadeBean implements JeeslFacade
 		Root<T> from = criteriaQuery.from(cT);
 		Path<Object> pathType = from.get("type");
 		
-		Expression<Integer> eOrder = from.get("position");
+		Expression<Integer> ePosition = from.get("position");
 		
 		CriteriaQuery<T> select = criteriaQuery.select(from);
-		select.orderBy(cb.asc(eOrder));
+		select.orderBy(cb.asc(ePosition));
 		select.where(cb.equal(pathType, enu.toString()));
 		
 		return em.createQuery(select).getResultList();

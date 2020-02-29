@@ -16,16 +16,20 @@ import org.jeesl.interfaces.model.with.system.locale.EjbWithLangDescription;
 public interface JeeslAomLevel <L extends JeeslLang, D extends JeeslDescription,
 							REALM extends JeeslMcsRealm<L,D,REALM,?>,
 							G extends JeeslGraphic<L,D,?,?,?>>
-			extends Serializable,EjbSaveable,EjbRemoveable,
-					EjbWithNonUniqueCode,EjbWithPosition,EjbWithLangDescription<L,D>,
-					EjbWithCodeGraphic<G>
-					
+					extends Serializable,EjbSaveable,EjbRemoveable,
+							EjbWithNonUniqueCode,EjbWithPosition,EjbWithLangDescription<L,D>,
+							EjbWithCodeGraphic<G>		
 {
-	public enum Attributes{realm,realmIdentifier,parent}
+	public enum Attributes{realm,rref,position}
+	public enum Tree{hierarchy,type1,type2}
 	
 	REALM getRealm();
 	void setRealm(REALM realm);
 	
-	long getRealmIdentifier();
-	void setRealmIdentifier(long realmIdentifier);
+	// The Realm Reference
+	long getRref();
+	void setRref(long rref);
+	
+	String getTree();
+	void setTree(String tree);
 }

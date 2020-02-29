@@ -164,18 +164,19 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<ALEVEL> cQ = cB.createQuery(fbAsset.getClassAssetLevel());
-		Root<ALEVEL> root = cQ.from(fbAsset.getClassAssetLevel());
+		Root<ALEVEL> level = cQ.from(fbAsset.getClassAssetLevel());
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		
-		Expression<Long> eRefId = root.get(JeeslAomAsset.Attributes.realmIdentifier.toString());
-		Path<REALM> pRealm = root.get(JeeslAomAsset.Attributes.realm.toString());
+		Expression<Long> eRefId = level.get(JeeslAomLevel.Attributes.rref.toString());
+		Path<REALM> pRealm = level.get(JeeslAomLevel.Attributes.realm.toString());
+		Expression<Integer> ePosition = level.get(JeeslAomLevel.Attributes.position.toString());
 		
 		predicates.add(cB.equal(eRefId,rref.getId()));
 		predicates.add(cB.equal(pRealm,realm));
 		
 		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
-		cQ.select(root);
-
+		cQ.select(level);
+		cQ.orderBy(cB.asc(ePosition));
 		return em.createQuery(cQ).getResultList();
 	}
 
