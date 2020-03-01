@@ -14,7 +14,7 @@ import org.jeesl.interfaces.model.with.primitive.code.EjbWithNonUniqueCode;
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithLangDescription;
 
-public interface JeeslAomLevel <L extends JeeslLang, D extends JeeslDescription,
+public interface JeeslAomView <L extends JeeslLang, D extends JeeslDescription,
 								REALM extends JeeslMcsRealm<L,D,REALM,?>,
 								G extends JeeslGraphic<L,D,?,?,?>>
 						extends Serializable,EjbSaveable,EjbRemoveable,

@@ -1,6 +1,6 @@
 package org.jeesl.factory.ejb.module.asset;
 
-import org.jeesl.interfaces.model.module.aom.asset.JeeslAomLevel;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomView;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomType;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 public class EjbAssetTypeFactory<REALM extends JeeslMcsRealm<?,?,REALM,?>,
 									TYPE extends JeeslAomType<?,?,REALM,TYPE,ALEVEL,?>,
-									ALEVEL extends JeeslAomLevel<?,?,REALM,?>>
+									ALEVEL extends JeeslAomView<?,?,REALM,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbAssetTypeFactory.class);
 	

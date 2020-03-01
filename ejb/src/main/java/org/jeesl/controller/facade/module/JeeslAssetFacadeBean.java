@@ -21,7 +21,7 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
-import org.jeesl.interfaces.model.module.aom.asset.JeeslAomLevel;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomView;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomStatus;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomType;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
@@ -45,7 +45,7 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,ATYPE>,
 										STATUS extends JeeslAomStatus<L,D,STATUS,?>,
 										ATYPE extends JeeslAomType<L,D,REALM,ATYPE,ALEVEL,?>,
-										ALEVEL extends JeeslAomLevel<L,D,REALM,?>,
+										ALEVEL extends JeeslAomView<L,D,REALM,?>,
 										EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER,FRC>,
 										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
 										ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,
@@ -150,7 +150,7 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 		{
 			ATYPE result = fbAsset.ejbType().build(realm, rref, null, "root");
 			ALEVEL view = fbAsset.ejbLevel().build(realm,rref,null);
-			view.setTree(JeeslAomLevel.Tree.hierarchy.toString());
+			view.setTree(JeeslAomView.Tree.hierarchy.toString());
 			try
 			{
 				this.save(view);
@@ -170,9 +170,9 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 		Root<ALEVEL> level = cQ.from(fbAsset.getClassAssetLevel());
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		
-		Expression<Long> eRefId = level.get(JeeslAomLevel.Attributes.rref.toString());
-		Path<REALM> pRealm = level.get(JeeslAomLevel.Attributes.realm.toString());
-		Expression<Integer> ePosition = level.get(JeeslAomLevel.Attributes.position.toString());
+		Expression<Long> eRefId = level.get(JeeslAomView.Attributes.rref.toString());
+		Path<REALM> pRealm = level.get(JeeslAomView.Attributes.realm.toString());
+		Expression<Integer> ePosition = level.get(JeeslAomView.Attributes.position.toString());
 		
 		predicates.add(cB.equal(eRefId,rref.getId()));
 		predicates.add(cB.equal(pRealm,realm));

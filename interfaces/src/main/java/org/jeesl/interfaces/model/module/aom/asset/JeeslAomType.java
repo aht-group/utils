@@ -18,7 +18,7 @@ import org.jeesl.interfaces.model.with.system.locale.EjbWithLangDescription;
 public interface JeeslAomType <L extends JeeslLang, D extends JeeslDescription,
 							REALM extends JeeslMcsRealm<L,D,REALM,?>,
 							TYPE extends JeeslAomType<L,D,REALM,TYPE,ALEVEL,G>,
-							ALEVEL extends JeeslAomLevel<L,D,REALM,G>,
+							ALEVEL extends JeeslAomView<L,D,REALM,G>,
 							G extends JeeslGraphic<L,D,?,?,?>>
 			extends Serializable,EjbSaveable,EjbRemoveable,
 					EjbWithParentAttributeResolver,

@@ -19,7 +19,7 @@ import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.factory.ejb.module.asset.EjbAssetEventFactory;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
-import org.jeesl.interfaces.model.module.aom.asset.JeeslAomLevel;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomView;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomStatus;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomType;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
@@ -49,7 +49,7 @@ public abstract class AbstractAssetMaintenanceBean <L extends JeeslLang, D exten
 										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,ATYPE>,
 										STATUS extends JeeslAomStatus<L,D,STATUS,?>,
 										ATYPE extends JeeslAomType<L,D,REALM,ATYPE,ALEVEL,?>,
-										ALEVEL extends JeeslAomLevel<L,D,REALM,?>,
+										ALEVEL extends JeeslAomView<L,D,REALM,?>,
 										EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER,FRC>,
 										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
 										ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,

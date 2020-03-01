@@ -3,7 +3,6 @@ package org.jeesl.web.mbean.prototype.module.aom;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.module.aom.JeeslAssetCacheBean;
@@ -12,12 +11,10 @@ import org.jeesl.api.facade.module.JeeslAssetFacade;
 import org.jeesl.api.facade.system.graphic.JeeslGraphicFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
-import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.factory.builder.system.SvgFactoryBuilder;
-import org.jeesl.factory.ejb.module.asset.EjbAssetLevelFactory;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
-import org.jeesl.interfaces.model.module.aom.asset.JeeslAomLevel;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomView;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomStatus;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomType;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
@@ -38,12 +35,6 @@ import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.event.NodeCollapseEvent;
-import org.primefaces.event.NodeExpandEvent;
-import org.primefaces.event.NodeSelectEvent;
-import org.primefaces.event.TreeDragDropEvent;
-import org.primefaces.model.DefaultTreeNode;
-import org.primefaces.model.TreeNode;
 import org.primefaces.model.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +50,7 @@ public abstract class AbstractAssetLevelBean <L extends JeeslLang, D extends Jee
 										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,ASTATUS,ATYPE>,
 										ASTATUS extends JeeslAomStatus<L,D,ASTATUS,?>,
 										ATYPE extends JeeslAomType<L,D,REALM,ATYPE,ALEVEL,G>,
-										ALEVEL extends JeeslAomLevel<L,D,REALM,G>,
+										ALEVEL extends JeeslAomView<L,D,REALM,G>,
 										EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER,FRC>,
 										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
 										ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,

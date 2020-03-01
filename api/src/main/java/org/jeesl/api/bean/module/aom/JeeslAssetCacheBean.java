@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
-import org.jeesl.interfaces.model.module.aom.asset.JeeslAomLevel;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomView;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomStatus;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomType;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
@@ -23,7 +23,7 @@ public interface JeeslAssetCacheBean <L extends JeeslLang, D extends JeeslDescri
 										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,ASTATUS,ATYPE>,
 										ASTATUS extends JeeslAomStatus<L,D,ASTATUS,?>,
 										ATYPE extends JeeslAomType<L,D,REALM,ATYPE,ALEVEL,?>,
-										ALEVEL extends JeeslAomLevel<L,D,REALM,?>,
+										ALEVEL extends JeeslAomView<L,D,REALM,?>,
 										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>>
 								extends Serializable
 {
