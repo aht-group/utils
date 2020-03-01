@@ -13,7 +13,7 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 
 public interface JeeslIoDms<L extends JeeslLang, D extends JeeslDescription,
-							STORAGE extends JeeslFileStorage<L,D,?,?>,
+							STORAGE extends JeeslFileStorage<L,D,?,?,?>,
 							AS extends JeeslAttributeSet<L,D,?,?>,
 							DS extends JeeslDomainSet<L,D,?>,
 							S extends JeeslIoDmsSection<L,D,S>

@@ -12,7 +12,7 @@ import org.jeesl.interfaces.model.system.io.fr.JeeslFileMeta;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorage;
 import org.jeesl.interfaces.model.system.io.fr.JeeslWithFileRepositoryContainer;
 
-public interface JeeslFileRepositoryHandler <STORAGE extends JeeslFileStorage<?,?,?,?>,
+public interface JeeslFileRepositoryHandler <STORAGE extends JeeslFileStorage<?,?,?,?,?>,
 											CONTAINER extends JeeslFileContainer<STORAGE,?>,
 											META extends JeeslFileMeta<?,CONTAINER,?,?>>
 		extends Serializable
