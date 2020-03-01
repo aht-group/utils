@@ -113,7 +113,8 @@ public class AbstractFrStorageBean <L extends JeeslLang, D extends JeeslDescript
 	public void addStorage()
 	{
 		reset(true);
-		storage = fbFr.ejbStorage().build();
+		STYPE type = null; if(!sbhStorageType.getList().isEmpty()) {type = sbhStorageType.getList().get(0);}
+		storage = fbFr.ejbStorage().build(type);
 		storage.setName(efLang.createEmpty(localeCodes));
 		storage.setDescription(efDescription.createEmpty(localeCodes));
 	}

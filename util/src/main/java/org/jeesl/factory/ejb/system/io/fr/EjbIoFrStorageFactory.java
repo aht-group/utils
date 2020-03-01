@@ -21,12 +21,13 @@ public class EjbIoFrStorageFactory<SYSTEM extends JeeslIoSsiSystem,
         this.cStorage = cStorage;
 	}
 	
-	public STORAGE build()
+	public STORAGE build(STYPE type)
 	{
 		STORAGE ejb = null;
 		try
 		{
 			 ejb = cStorage.newInstance();
+			 ejb.setType(type);
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();}

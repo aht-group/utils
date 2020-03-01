@@ -35,9 +35,9 @@
 							<p:ajax event="rowSelect" update=":#{cc.id}:sStorage" listener="#{cc.attrs.bean.selectStorage()}"/>
 					      	<p:column headerText="#{msg.jeeslIoFileStorageEngine}" styleClass="jeeslCenter">
 					      		<jtp:symbolizer value="#{s.engine}"/>
-								<h:outputText value="#{s.engine.name[localeCode].lang}" rendered="false"/>
 					     	</p:column>
 					     	<p:column headerText="#{msg.jeeslName}">  
+					     		<jtp:symbolizer value="#{s.type}" marginRight="5" rendered="#{cc.attrs.bean.sbhStorageType.hasMore}"/>
 								<h:outputText value="#{s.name[localeCode].lang}"/>
 					     	</p:column>
 					     	<p:column headerText="#{msg.jeeslIoFileStorageSize}" styleClass="jeeslRight">  
