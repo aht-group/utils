@@ -16,7 +16,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
 public interface JeeslIoDmsFacade <L extends JeeslLang,D extends JeeslDescription,LOC extends JeeslStatus<LOC,L,D>,
 									DMS extends JeeslIoDms<L,D,STORAGE,AS,DS,S>,
-									STORAGE extends JeeslFileStorage<L,D,?,?>,
+									STORAGE extends JeeslFileStorage<L,D,?,?,?>,
 									AS extends JeeslAttributeSet<L,D,?,?>,
 									DS extends JeeslDomainSet<L,D,?>,
 									S extends JeeslIoDmsSection<L,D,S>,

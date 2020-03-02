@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 
 public class IoDmsFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,LOC extends JeeslStatus<LOC,L,D>,
 								DMS extends JeeslIoDms<L,D,STORAGE,?,?,SECTION>,
-								STORAGE extends JeeslFileStorage<L,D,?,?>,
+								STORAGE extends JeeslFileStorage<L,D,?,?,?>,
 								SECTION extends JeeslIoDmsSection<L,D,SECTION>,
 								FILE extends JeeslIoDmsDocument<L,SECTION,?,?>,
 								VIEW extends JeeslIoDmsView<L,D,DMS>,

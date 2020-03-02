@@ -1,7 +1,6 @@
 package org.jeesl.interfaces.model.module.aom.asset;
 
 import java.io.Serializable;
-import java.util.List;
 
 import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
@@ -10,33 +9,28 @@ import org.jeesl.interfaces.model.system.graphic.with.EjbWithCodeGraphic;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
-import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
+import org.jeesl.interfaces.model.with.primitive.bool.EjbWithVisible;
 import org.jeesl.interfaces.model.with.primitive.code.EjbWithNonUniqueCode;
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithLangDescription;
 
-public interface JeeslAomType <L extends JeeslLang, D extends JeeslDescription,
-							REALM extends JeeslMcsRealm<L,D,REALM,?>,
-							TYPE extends JeeslAomType<L,D,REALM,TYPE,ALEVEL,G>,
-							ALEVEL extends JeeslAomView<L,D,REALM,G>,
-							G extends JeeslGraphic<L,D,?,?,?>>
-			extends Serializable,EjbSaveable,EjbRemoveable,
-					EjbWithParentAttributeResolver,
-					EjbWithNonUniqueCode,EjbWithPosition,EjbWithLangDescription<L,D>,
-					EjbWithCodeGraphic<G>
-					
+public interface JeeslAomView <L extends JeeslLang, D extends JeeslDescription,
+								REALM extends JeeslMcsRealm<L,D,REALM,?>,
+								G extends JeeslGraphic<L,D,?,?,?>>
+						extends Serializable,EjbSaveable,EjbRemoveable,
+								EjbWithNonUniqueCode,EjbWithPosition,EjbWithVisible,
+								EjbWithLangDescription<L,D>,EjbWithCodeGraphic<G>		
 {
-	public enum Attributes{realm,realmIdentifier,parent}
+	public enum Attributes{realm,rref,position}
+	public enum Tree{hierarchy,type1,type2}
 	
 	REALM getRealm();
 	void setRealm(REALM realm);
 	
-	long getRealmIdentifier();
-	void setRealmIdentifier(long realmIdentifier);
+	// The Realm Reference
+	long getRref();
+	void setRref(long rref);
 	
-	TYPE getParent();
-	void setParent(TYPE parent);
-	
-	List<TYPE> getTypes();
-	void setTypes(List<TYPE> types);
+	String getTree();
+	void setTree(String tree);
 }

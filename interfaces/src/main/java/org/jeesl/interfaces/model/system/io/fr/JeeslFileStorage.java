@@ -12,13 +12,17 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithDescription;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
+import org.jeesl.interfaces.model.with.system.status.JeeslWithType;
 
 public interface JeeslFileStorage<L extends JeeslLang,D extends JeeslDescription,
 									SYSTEM extends JeeslIoSsiSystem,
+									STYPE extends JeeslFileStorageType<L,D,STYPE,?>,
 									ENGINE extends JeeslFileStorageEngine<L,D,ENGINE,?>>
 		extends Serializable,EjbWithId,
 			EjbSaveable,EjbRemoveable,
-			EjbWithCode,EjbWithPosition,EjbWithLang<L>,EjbWithDescription<D>
+			EjbWithCode,EjbWithPosition,
+			JeeslWithType<STYPE>,
+			EjbWithLang<L>,EjbWithDescription<D>
 				
 {	
 	ENGINE getEngine();

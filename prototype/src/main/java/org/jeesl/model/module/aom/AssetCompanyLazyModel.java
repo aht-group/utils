@@ -3,7 +3,7 @@ package org.jeesl.model.module.aom;
 import java.util.List;
 import java.util.Map;
 
-import org.jeesl.api.bean.module.JeeslAssetCacheBean;
+import org.jeesl.api.bean.module.aom.JeeslAssetCacheBean;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
@@ -26,7 +26,7 @@ public class AssetCompanyLazyModel <REALM extends JeeslMcsRealm<?,?,REALM,?>, RR
 	private final JeeslLazyListHandler<COMPANY> llh;
 //	private final JeeslEjbFilter<COMPANY> filter;
 	
-	private JeeslAssetCacheBean<?,?,REALM,RREF,COMPANY,SCOPE,?,?,?,?> cache;
+	private JeeslAssetCacheBean<?,?,REALM,RREF,COMPANY,SCOPE,?,?,?,?,?> cache;
 	
 	private REALM realm;
 	private RREF rref;
@@ -37,10 +37,10 @@ public class AssetCompanyLazyModel <REALM extends JeeslMcsRealm<?,?,REALM,?>, RR
         llh = new JeeslLazyListHandler<>();
 	}
 	
-	@Override public COMPANY getRowData(String rowKey){return llh.getRowData(cache.cachedCompany().get(realm).get(rref),rowKey);}
+	@Override public COMPANY getRowData(String rowKey){return llh.getRowData(cache.cachedCompany().get(rref),rowKey);}
     @Override public Object getRowKey(COMPANY account) {return llh.getRowKey(account);}
 	
-    public void setScope(JeeslAssetCacheBean<?,?,REALM,RREF,COMPANY,SCOPE,?,?,?,?> cache,
+    public void setScope(JeeslAssetCacheBean<?,?,REALM,RREF,COMPANY,SCOPE,?,?,?,?,?> cache,
     						REALM realm, RREF rref)
     {
     	this.cache=cache;
@@ -52,7 +52,7 @@ public class AssetCompanyLazyModel <REALM extends JeeslMcsRealm<?,?,REALM,?>, RR
 	@Override public List<COMPANY> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String,Object> filters)
 	{
 		llh.clear();
-		for(COMPANY item : cache.cachedCompany().get(realm).get(rref))
+		for(COMPANY item : cache.cachedCompany().get(rref))
 		{
 //			if(filter.matches(filters,item))
 			{llh.add(item);}

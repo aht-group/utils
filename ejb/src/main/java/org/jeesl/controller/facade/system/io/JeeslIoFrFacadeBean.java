@@ -21,6 +21,7 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoFileRepositoryFactoryBuilder;
+import org.jeesl.factory.json.system.io.db.tuple.t1.Json1TuplesFactory;
 import org.jeesl.factory.json.system.io.db.tuple.t2.Json2TuplesFactory;
 import org.jeesl.interfaces.controller.handler.system.io.JeeslFileRepositoryStore;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
@@ -28,11 +29,13 @@ import org.jeesl.interfaces.model.system.io.fr.JeeslFileMeta;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileStatus;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorage;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorageEngine;
+import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorageType;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileType;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 import org.jeesl.model.json.db.tuple.two.Json2Tuples;
 import org.jeesl.util.comparator.pojo.BooleanComparator;
 import org.slf4j.Logger;
@@ -42,22 +45,23 @@ import net.sf.exlp.util.io.HashUtil;
 
 public class JeeslIoFrFacadeBean<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
 									SYSTEM extends JeeslIoSsiSystem,
-									STORAGE extends JeeslFileStorage<L,D,SYSTEM,ENGINE>,
+									STORAGE extends JeeslFileStorage<L,D,SYSTEM,STYPE,ENGINE>,
+									STYPE extends JeeslFileStorageType<L,D,STYPE,?>,
 									ENGINE extends JeeslFileStorageEngine<L,D,ENGINE,?>,
 									CONTAINER extends JeeslFileContainer<STORAGE,META>,
 									META extends JeeslFileMeta<D,CONTAINER,TYPE,STATUS>,
 									TYPE extends JeeslFileType<L,D,TYPE,?>,
 									STATUS extends JeeslFileStatus<L,D,STATUS,?>>
 					extends JeeslFacadeBean
-					implements JeeslIoFrFacade<L,D,SYSTEM,STORAGE,ENGINE,CONTAINER,META,TYPE>
+					implements JeeslIoFrFacade<L,D,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE>
 {	
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(JeeslIoFrFacadeBean.class);
 
-	private final IoFileRepositoryFactoryBuilder<L,D,LOC,SYSTEM,STORAGE,ENGINE,CONTAINER,META,TYPE,STATUS> fbFile;
+	private final IoFileRepositoryFactoryBuilder<L,D,LOC,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE,STATUS> fbFile;
 	private final Map<STORAGE,JeeslFileRepositoryStore<META>> mapStorages;
 	
-	public JeeslIoFrFacadeBean(EntityManager em, IoFileRepositoryFactoryBuilder<L,D,LOC,SYSTEM,STORAGE,ENGINE,CONTAINER,META,TYPE,STATUS> fbFile)
+	public JeeslIoFrFacadeBean(EntityManager em, IoFileRepositoryFactoryBuilder<L,D,LOC,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE,STATUS> fbFile)
 	{
 		super(em);
 		this.fbFile=fbFile;
@@ -127,16 +131,32 @@ public class JeeslIoFrFacadeBean<L extends JeeslLang, D extends JeeslDescription
 		return container;
 	}
 
-	@Override
-	public Json2Tuples<STORAGE,TYPE> tpIoFileByStorageType()
+	@Override public Json1Tuples<STORAGE> tpsIoFileByStorage()
 	{
-		Json2TuplesFactory<STORAGE,TYPE> jtf = new Json2TuplesFactory<STORAGE,TYPE>(this,fbFile.getClassStorage(),fbFile.getClassType());
+		Json1TuplesFactory<STORAGE> jtf = new Json1TuplesFactory<>(this,fbFile.getClassStorage());
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<Tuple> cQ = cB.createTupleQuery();
+		Root<META> item = cQ.from(fbFile.getClassMeta());
+		
+		Expression<Long> eSum = cB.sum(item.<Long>get(JeeslFileMeta.Attributes.size.toString()));
+		Join<META,CONTAINER> jContainer = item.join(JeeslFileMeta.Attributes.container.toString());
+		Path<STORAGE> pStorage = jContainer.get(JeeslFileContainer.Attributes.storage.toString());
+		
+		cQ.groupBy(pStorage.get("id"));
+		cQ.multiselect(pStorage.get("id"),eSum);
+
+		TypedQuery<Tuple> tQ = em.createQuery(cQ);
+        return jtf.buildCount(tQ.getResultList());
+	}
+	
+	@Override public Json2Tuples<STORAGE,TYPE> tpcIoFileByStorageType()
+	{
+		Json2TuplesFactory<STORAGE,TYPE> jtf = new Json2TuplesFactory<>(this,fbFile.getClassStorage(),fbFile.getClassType());
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<Tuple> cQ = cB.createTupleQuery();
 		Root<META> item = cQ.from(fbFile.getClassMeta());
 		
 		Expression<Long> eCount = cB.count(item.<Long>get("id"));
-		
 		Join<META,CONTAINER> jContainer = item.join(JeeslFileMeta.Attributes.container.toString());
 		Path<STORAGE> pStorage = jContainer.get(JeeslFileContainer.Attributes.storage.toString());
 		Path<TYPE> pType = item.get(JeeslFileMeta.Attributes.type.toString());
