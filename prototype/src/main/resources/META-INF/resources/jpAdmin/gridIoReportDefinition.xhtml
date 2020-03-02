@@ -99,6 +99,7 @@
 								<aht:icon type="jeeslCancel" listener="#{cc.attrs.bean.cancelSheet()}" update=":#{cc.id}:grid" tooltip="#{msg.jeeslTtCancel}" mayDisappear="true"/>
 								<aht:icon type="jeeslSave"   rendered="#{cc.attrs.bean.uiAllowSave}" listener="#{cc.attrs.bean.saveSheet()}" update=":#{cc.id}:grid" tooltip="#{msg.ttSave}" mayDisappear="true"/>
 								<aht:icon type="jeeslDelete" rendered="#{cc.attrs.bean.sheet.id gt 0}" listener="#{cc.attrs.bean.rmSheet()}" update=":#{cc.id}:grid" tooltip="#{msg.ttDelete}" mayDisappear="true"/>
+								<j:icon type="jeeslClone" listener="#{cc.attrs.bean.cloneSheet()}" process="@this" update=":#{cc.id}:sSheet" tooltip="#{msg.jeeslTooltipClone}"/>
 							</f:facet>
 							<p:panelGrid columns="2" columnClasses="jeeslGrid30,jeeslGrid70">
 								<p:outputLabel value="#{msg.aupSecurityVisible}"/>

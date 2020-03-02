@@ -30,6 +30,8 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.sf.ahtutils.controller.servlet.facebook.FbServletLoginHandler;
+
 public class TsDbCountProcessor<RE extends JeeslRevisionEntity<?,?,?,?,?,?>,
 									SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 									MP extends JeeslTsMultiPoint<?,?,SCOPE,?>,
@@ -109,7 +111,8 @@ public class TsDbCountProcessor<RE extends JeeslRevisionEntity<?,?,?,?,?,?>,
 	private void count(TRANSACTION transaction, Date date, RE entity, Class<?> c) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		BRIDGE bridge = fTs.fcBridge(fbTs.getClassBridge(),ec,entity);
-		TS ts = fTs.fcTimeSeries(scope,interval,bridge);
+		STAT statistic = fTs.fByEnum(fbTs.getClassStat(), JeeslTsStatistic.Code.raw);
+		TS ts = fTs.fcTimeSeries(scope,interval,statistic,bridge);
 		Long count = fDb.countEstimate(c);
 		DATA data = efData.build(ws, ts, transaction, date, count.doubleValue());
 		data = fTs.save(data);
