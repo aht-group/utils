@@ -24,6 +24,9 @@ public interface JeeslTimeSeries <SCOPE extends JeeslTsScope<?,?,?,?,?,?,INT>,
 	INT getInterval();
 	void setInterval(INT interval);
 	
+	STAT getStatistic();
+	void setStatistic(STAT stat);
+	
 	BRIDGE getBridge();
 	void setBridge(BRIDGE bridge);
 }

@@ -118,36 +118,51 @@ public class JeeslReportUpdater <L extends JeeslLang,D extends JeeslDescription,
 	
 	public REPORT cloneIoReport(Report xReport) throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException, UtilsProcessingException
 	{
+		generateUuidsForCloning(xReport);
+		return importSystemIoReport(xReport);
+	}
+	
+	public SHEET cloneIoSheet(REPORT eReport, XlsSheet xSheet) throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException, UtilsProcessingException, ExlpXpathNotFoundException
+	{
+		generateUuidsForCloning(xSheet);
+		return importSheet(eReport.getWorkbook(),xSheet);
+	}
+	
+	private void generateUuidsForCloning(Report xReport)
+	{
 		xReport.setCode(UUID.randomUUID().toString());
 		if(xReport.isSetXlsWorkbook() && xReport.getXlsWorkbook().isSetXlsSheets())
 		{
 			for(XlsSheet xSheet : xReport.getXlsWorkbook().getXlsSheets().getXlsSheet())
 			{
-				xSheet.setCode(UUID.randomUUID().toString());
-				for(Serializable s : xSheet.getContent())
+				generateUuidsForCloning(xSheet);
+			}
+		}
+	}
+	
+	private void generateUuidsForCloning(XlsSheet xSheet)
+	{
+		xSheet.setCode(UUID.randomUUID().toString());
+		for(Serializable s : xSheet.getContent())
+		{
+			if(s instanceof ColumnGroup)
+			{
+				ColumnGroup xGroup = (ColumnGroup)s;
+				xGroup.setCode(UUID.randomUUID().toString());
+				for(XlsColumn xColumn : xGroup.getXlsColumn())
 				{
-					if(s instanceof ColumnGroup)
-					{
-						ColumnGroup xGroup = (ColumnGroup)s;
-						xGroup.setCode(UUID.randomUUID().toString());
-						for(XlsColumn xColumn : xGroup.getXlsColumn())
-						{
-							xColumn.setCode(UUID.randomUUID().toString());
-						}
-					}
-					else if(s instanceof Rows)
-					{
-						Rows xRows = (Rows)s;
-						for(Row xRow : xRows.getRow())
-						{
-							xRow.setCode(UUID.randomUUID().toString());
-						}
-					}
+					xColumn.setCode(UUID.randomUUID().toString());
+				}
+			}
+			else if(s instanceof Rows)
+			{
+				Rows xRows = (Rows)s;
+				for(Row xRow : xRows.getRow())
+				{
+					xRow.setCode(UUID.randomUUID().toString());
 				}
 			}
 		}
-		
-		return importSystemIoReport(xReport);
 	}
 	
 	public REPORT importSystemIoReport(Report xReport) throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException, UtilsProcessingException

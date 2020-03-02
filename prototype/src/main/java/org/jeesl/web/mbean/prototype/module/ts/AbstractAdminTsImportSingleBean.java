@@ -268,8 +268,9 @@ public class AbstractAdminTsImportSingleBean <L extends JeeslLang, D extends Jee
 		
 		try
 		{
+			STAT statistic = fTs.fByEnum(fbTs.getClassStat(), JeeslTsStatistic.Code.raw);
 			BRIDGE bridge = fTs.fcBridge(fbTs.getClassBridge(), clas, entity);
-			TS ts = fTs.fcTimeSeries(scope,interval,bridge);
+			TS ts = fTs.fcTimeSeries(scope,interval,statistic,bridge);
 			logger.info("Using TS "+ts.toString());
 			
 			if(transaction.getSource()!=null){transaction.setSource(fTs.find(fbTs.getClassSource(),transaction.getSource()));}

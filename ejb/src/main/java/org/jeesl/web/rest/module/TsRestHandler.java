@@ -93,15 +93,14 @@ public class TsRestHandler <L extends JeeslLang, D extends JeeslDescription,
 		jfWorkspace = new JsonWorkspaceFactory<>(JsonStatusQueryProvider.workspaceCode());
 	}
 	
-	public JsonTsSeries jsonTs(WS workspace, SCOPE scope, INT interval, BRIDGE bridge, int minutes)
+	public JsonTsSeries jsonTs(WS workspace, SCOPE scope, INT interval, STAT statistic, BRIDGE bridge, int minutes)
 	{
-		
 		DateTime dtNow = new DateTime();
 		JsonTsSeries jSeries = JsonTsSeriesFactory.build();
 		
 		try
 		{
-			TS ts = fTs.fTimeSeries(scope,interval, bridge);
+			TS ts = fTs.fTimeSeries(scope,interval,statistic,bridge);
 			jSeries.setScope(jfScope.build(ts.getScope()));
 			jSeries.setWorkspace(jfWorkspace.build(workspace));
 			jSeries.setInterval(jfInterval.build(interval));

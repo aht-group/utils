@@ -58,8 +58,8 @@ public interface JeeslTsFacade <L extends JeeslLang, D extends JeeslDescription,
 	List<TS> fTimeSeries(List<BRIDGE> bridges);
 	List<TS> fTimeSeries(List<BRIDGE> bridges, List<SCOPE> scopes);
 	List<TS> fTimeSeries(SCOPE scope, INT interval, EC entityClass);
-	TS fTimeSeries(SCOPE scope, INT interval, BRIDGE bridge) throws JeeslNotFoundException;
-	TS fcTimeSeries(SCOPE scope, INT interval, BRIDGE bridge) throws JeeslConstraintViolationException;
+	TS fTimeSeries(SCOPE scope, INT interval, STAT statistic, BRIDGE bridge) throws JeeslNotFoundException;
+	TS fcTimeSeries(SCOPE scope, INT interval, STAT statistic, BRIDGE bridge) throws JeeslConstraintViolationException;
 	
 	List<DATA> fData(TRANSACTION transaction);
 	List<DATA> fData(WS workspace, TS timeSeries);

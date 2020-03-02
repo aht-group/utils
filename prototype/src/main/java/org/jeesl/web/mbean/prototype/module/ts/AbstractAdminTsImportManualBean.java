@@ -232,7 +232,8 @@ public class AbstractAdminTsImportManualBean<L extends JeeslLang, D extends Jees
 	{
 		logger.info("Selected: "+ entity.toString());
 		reset(false,true);
-		ts = fTs.fcTimeSeries(scope, interval,fTs.fcBridge(fbTs.getClassBridge(), clas, entity));
+		STAT statistic = fTs.fByEnum(fbTs.getClassStat(), JeeslTsStatistic.Code.raw);
+		ts = fTs.fcTimeSeries(scope,interval,statistic,fTs.fcBridge(fbTs.getClassBridge(), clas,entity));
 		reloadData();
 	}
 	

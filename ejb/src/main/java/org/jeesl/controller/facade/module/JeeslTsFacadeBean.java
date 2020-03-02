@@ -195,7 +195,7 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 		return em.createQuery(cQ).getResultList();
 	}
 	
-	@Override public TS fcTimeSeries(SCOPE scope, INT interval, BRIDGE bridge) throws JeeslConstraintViolationException
+	@Override public TS fcTimeSeries(SCOPE scope, INT interval, STAT statistic, BRIDGE bridge) throws JeeslConstraintViolationException
 	{
 		if (!isTimeSeriesAllowed(scope, interval, bridge.getEntityClass()))
 		{
@@ -206,14 +206,14 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 			sb.append(" class:"+bridge.getEntityClass().getCode());
 			throw new JeeslConstraintViolationException(sb.toString());
 		}
-		try {return fTimeSeries(scope, interval, bridge);}
+		try {return fTimeSeries(scope,interval,statistic,bridge);}
 		catch (JeeslNotFoundException e)
 		{
 			TS ts = efTs.build(scope, interval, bridge);
 			return this.persist(ts);
 		}
 	}
-	@Override public TS fTimeSeries(SCOPE scope, INT interval, BRIDGE bridge) throws JeeslNotFoundException
+	@Override public TS fTimeSeries(SCOPE scope, INT interval, STAT statistic, BRIDGE bridge) throws JeeslNotFoundException
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<TS> cQ = cB.createQuery(fbTs.getClassTs());

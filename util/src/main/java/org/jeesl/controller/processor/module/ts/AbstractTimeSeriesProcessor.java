@@ -102,8 +102,8 @@ public class AbstractTimeSeriesProcessor<SCOPE extends JeeslTsScope<?,?,?,?,?,EC
 	
 	public <T extends EjbWithId> TS fcTs(T t) throws JeeslConstraintViolationException
 	{
-		
+		STAT statistic = fTs.fByEnum(fbTs.getClassStat(), JeeslTsStatistic.Code.raw);
 		BRIDGE bridge = fTs.fcBridge(fbTs.getClassBridge(),ec,t);
-		return fTs.fcTimeSeries(scope,interval,bridge);
+		return fTs.fcTimeSeries(scope,interval,statistic,bridge);
 	}
 }

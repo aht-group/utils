@@ -7,14 +7,17 @@ import org.jeesl.api.facade.io.JeeslIoReportFacade;
 import org.jeesl.api.facade.module.JeeslTsFacade;
 import org.jeesl.controller.report.AbstractJeeslReport;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.factory.builder.system.ReportFactoryBuilder;
 import org.jeesl.factory.xml.module.ts.XmlDataFactory;
 import org.jeesl.factory.xml.module.ts.XmlTsFactory;
 import org.jeesl.factory.xml.system.io.report.XmlReportFactory;
+import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsMultiPoint;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsScope;
+import org.jeesl.interfaces.model.module.ts.core.JeeslTsScopeType;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsBridge;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsData;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsDataPoint;
@@ -67,7 +70,7 @@ public class TimeSeriesReport <L extends JeeslLang,D extends JeeslDescription,
 						
 						CAT extends JeeslStatus<CAT,L,D>,
 						SCOPE extends JeeslTsScope<L,D,CAT,ST,UNIT,EC,INT>,
-						ST extends JeeslStatus<ST,L,D>,
+						ST extends JeeslTsScopeType<L,D,ST,?>,
 						UNIT extends JeeslStatus<UNIT,L,D>,
 						MP extends JeeslTsMultiPoint<L,D,SCOPE,UNIT>,
 						TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT,STAT>,
@@ -75,7 +78,7 @@ public class TimeSeriesReport <L extends JeeslLang,D extends JeeslDescription,
 						SOURCE extends EjbWithLangDescription<L,D>, 
 						BRIDGE extends JeeslTsBridge<EC>,
 						EC extends JeeslTsEntityClass<L,D,CAT>,
-						INT extends JeeslStatus<INT,L,D>,
+						INT extends JeeslTsInterval<L,D,INT,?>,
 						STAT extends JeeslTsStatistic<L,D,STAT,?>,
 						DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
 						POINT extends JeeslTsDataPoint<DATA,MP>,
@@ -91,19 +94,24 @@ public class TimeSeriesReport <L extends JeeslLang,D extends JeeslDescription,
 
 	private final JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fTs;
 	
+	private final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fbTs;
+	
 	public TimeSeriesReport(String localeCode,
 			final JeeslIoReportFacade<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION> fReport,
 			final JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fTs,
-			final ReportFactoryBuilder<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,RCAT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION> fbReport)
+			final ReportFactoryBuilder<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,RCAT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION> fbReport,
+			final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fbTs)
 	{
 		super(localeCode,fbReport);
 		super.initIo(fReport,this.getClass());
 		this.fTs=fTs;
+		this.fbTs=fbTs;
 	}
 	
 	public Report build(WS workspace, SCOPE scope, INT interval, BRIDGE bridge, Date from, Date to) throws JeeslNotFoundException
 	{
-		TS ts = fTs.fTimeSeries(scope, interval, bridge);
+		STAT statistic = fTs.fByEnum(fbTs.getClassStat(), JeeslTsStatistic.Code.raw);
+		TS ts = fTs.fTimeSeries(scope,interval,statistic,bridge);
 		List<DATA> tsData = fTs.fData(workspace,ts,JeeslTsData.QueryInterval.closedOpen,from,to);
 		logger.info("Records: "+tsData.size());
 		Report xml = XmlReportFactory.build();
