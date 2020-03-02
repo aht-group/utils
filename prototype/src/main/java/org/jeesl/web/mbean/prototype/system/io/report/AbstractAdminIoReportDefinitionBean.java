@@ -67,7 +67,7 @@ import net.sf.ahtutils.xml.report.Report;
 import net.sf.ahtutils.xml.report.Reports;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-public class AbstractAdminIoReportDefinitionBean <L extends JeeslLang,D extends JeeslDescription,LOC extends JeeslLocale<L,D,LOC,?>,
+public class AbstractAdminIoReportDefinitionBean <L extends JeeslLang,D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 						CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 						REPORT extends JeeslIoReport<L,D,CATEGORY,WORKBOOK>,
 						IMPLEMENTATION extends JeeslStatus<IMPLEMENTATION,L,D>,
@@ -92,7 +92,7 @@ public class AbstractAdminIoReportDefinitionBean <L extends JeeslLang,D extends 
 						RE extends JeeslRevisionEntity<L,D,RCAT,?,RA,?>,
 						RA extends JeeslRevisionAttribute<L,D,RE,?,CDT>
 						>
-	extends AbstractIoReportBean<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION,RCAT,RE,RA>
+	extends AbstractIoReportBean<L,D,LOC,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION,RCAT,RE,RA>
 	implements Serializable,SbToggleBean
 {
 	private static final long serialVersionUID = 1L;
