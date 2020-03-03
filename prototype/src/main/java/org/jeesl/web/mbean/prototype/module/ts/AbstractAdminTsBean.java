@@ -16,7 +16,6 @@ import org.jeesl.factory.ejb.module.ts.EjbTsCronFactory;
 import org.jeesl.factory.ejb.module.ts.EjbTsDataFactory;
 import org.jeesl.factory.ejb.module.ts.EjbTsFactory;
 import org.jeesl.factory.ejb.module.ts.EjbTsScopeFactory;
-import org.jeesl.factory.ejb.module.ts.EjbTsTransactionFactory;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
@@ -73,7 +72,7 @@ public abstract class AbstractAdminTsBean <L extends JeeslLang, D extends JeeslD
 	
 	protected List<CAT> categories; public List<CAT> getCategories() {return categories;}
 	
-	protected final EjbTsFactory<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF> efTs;
+	protected final EjbTsFactory<SCOPE,UNIT,TS,SOURCE,BRIDGE,EC,INT,STAT> efTs;
 	protected EjbTsScopeFactory<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF> efScope;
 	protected EjbTsBridgeFactory<TS,BRIDGE,EC,DATA> efBridge;
 	protected EjbTsDataFactory<TS,TRANSACTION,DATA,WS> efData;
@@ -90,7 +89,7 @@ public abstract class AbstractAdminTsBean <L extends JeeslLang, D extends JeeslD
 		super(fbTs.getClassL(),fbTs.getClassD());
 		this.fbTs=fbTs;
 		
-		efTs = fbTs.ts();
+		efTs = fbTs.ejbTs();
 		
 		sbhCategory = new SbMultiHandler<CAT>(fbTs.getClassCategory(),this);
 		sbhWorkspace = new SbMultiHandler<WS>(fbTs.getClassWorkspace(),this);

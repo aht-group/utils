@@ -73,14 +73,14 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 
 	private final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fbTs;
 	
-	private final EjbTsFactory<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF> efTs;
+	private final EjbTsFactory<SCOPE,UNIT,TS,SOURCE,BRIDGE,EC,INT,STAT> efTs;
 	
 	public JeeslTsFacadeBean(EntityManager em, final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fbTs)
 	{
 		super(em);
 		this.fbTs=fbTs;
 
-		efTs = new EjbTsFactory<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF>(fbTs.getClassTs());
+		efTs = fbTs.ejbTs();
 	}
 	
 	@Override public List<SCOPE> findScopes(Class<SCOPE> cScope, Class<CAT> cCategory, List<CAT> categories, boolean showInvisibleScopes)
@@ -197,7 +197,7 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 	
 	@Override public TS fcTimeSeries(SCOPE scope, INT interval, STAT statistic, BRIDGE bridge) throws JeeslConstraintViolationException
 	{
-		if (!isTimeSeriesAllowed(scope, interval, bridge.getEntityClass()))
+		if (!isTimeSeriesAllowed(scope,interval,bridge.getEntityClass()))
 		{
 			StringBuilder sb = new StringBuilder();
 			sb.append("The requested time series combintaion of scope, interval and class ist not allowed. ");
@@ -209,7 +209,7 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 		try {return fTimeSeries(scope,interval,statistic,bridge);}
 		catch (JeeslNotFoundException e)
 		{
-			TS ts = efTs.build(scope, interval, bridge);
+			TS ts = efTs.build(scope,interval,statistic,bridge);
 			return this.persist(ts);
 		}
 	}
@@ -221,10 +221,11 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 		
 		Path<SCOPE> pScope = ts.get(JeeslTimeSeries.Attributes.scope.toString());
 		Path<INT> pInterval = ts.get(JeeslTimeSeries.Attributes.interval.toString());
+		Path<STAT> pStatistic = ts.get(JeeslTimeSeries.Attributes.statistic.toString());
 		Path<BRIDGE> pBridge = ts.get(JeeslTimeSeries.Attributes.bridge.toString());
 		
 		CriteriaQuery<TS> select = cQ.select(ts);
-		select.where(cB.equal(pScope,scope),cB.equal(pInterval,interval),cB.equal(pBridge, bridge));
+		select.where(cB.equal(pScope,scope),cB.equal(pInterval,interval),cB.equal(pStatistic,statistic),cB.equal(pBridge, bridge));
 		
 		try	{return em.createQuery(select).getSingleResult();}
 		catch (NoResultException ex){throw new JeeslNotFoundException("No "+fbTs.getClassTs().getName()+" found for scope/interval/bridge");}
