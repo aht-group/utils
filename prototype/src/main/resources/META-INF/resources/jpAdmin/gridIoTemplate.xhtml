@@ -29,7 +29,8 @@
 			<aht:slot id="sCategories" width="5">
 				<h:form id="fCategories">
 					<p:dataTable var="t" value="#{cc.attrs.bean.templates}" draggableRows="true"
-						selection="#{cc.attrs.bean.template}" selectionMode="single" rowKey="#{t.id}">
+							selection="#{cc.attrs.bean.template}" selectionMode="single" rowKey="#{t.id}"
+							paginator="true" rows="5" rowsPerPageTemplate="#{appSettingsBean.rowsPerPageTemplate}" paginatorPosition="bottom" paginatorTemplate="#{appSettingsBean.paginatorTemplate}">>
 						<f:facet name="header">
 							<j:dtHeader title="#{msg.jeeslIoTemplates}">
 								<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addTemplate()}" update=":#{cc.id}:sTokens :#{cc.id}:row2"/>
