@@ -6,6 +6,8 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.module.JeeslAssetCacheBean;
@@ -39,6 +41,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.jsf.helper.TreeHelper;
 import org.jeesl.model.module.aom.AssetEventLazyModel;
 import org.jeesl.util.comparator.ejb.module.asset.EjbAssetComparator;
 import org.jeesl.util.comparator.ejb.module.asset.EjbEventComparator;
@@ -182,8 +185,38 @@ public class AbstractAssetBean <L extends JeeslLang, D extends JeeslDescription,
 			TreeNode n = new DefaultTreeNode(a,parent);
 			n.setExpanded(path.contains(a));
 			List<ASSET> childs = fAsset.allForParent(fbAsset.getClassAsset(),a);
-			if(!childs.isEmpty()){buildTree(n,childs);}
+			if(!childs.isEmpty())
+			{
+				buildTree(n,childs);
+			}
 		}
+	}
+	
+	public void expandTree()
+	{
+		TreeHelper.setExpansion(this.node != null ? this.node : this.tree, true);
+	}
+	
+	public void expandTree(int levels)
+	{
+		TreeNode root = this.node;
+		if (root == null)
+		{
+			root = this.tree;
+			levels++;
+		}
+		TreeHelper.setExpansion(root, true, levels);
+	}
+	
+	public void collapseTree()
+	{
+		TreeHelper.setExpansion(this.node != null ? this.node : this.tree,  false);
+	}
+	
+	public boolean isExpanded()
+	{
+		List<TreeNode> nodes = this.tree.getChildren().stream().filter(node -> node.isExpanded()).collect(Collectors.toList());
+		return this.tree != null && this.tree.getChildren().stream().filter(node -> node.isExpanded()).count() > 1;
 	}
 	
 	public void addAsset()

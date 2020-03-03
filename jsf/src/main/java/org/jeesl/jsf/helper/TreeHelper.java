@@ -8,9 +8,13 @@ import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class TreeHelper
 {
+	final static Logger logger = LoggerFactory.getLogger(TreeHelper.class);
+	
 	public interface Expression
 	{
 		public boolean condition(TreeNode node);
@@ -27,6 +31,7 @@ public abstract class TreeHelper
 		for (int i = 0; i < ancestryLevel; i++)
 		{
 			ancestor = ancestor.getParent();
+			if (ancestor == null) { break; }
 		}
 		return ancestor;
 	}

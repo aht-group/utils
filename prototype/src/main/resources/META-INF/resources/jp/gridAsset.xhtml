@@ -19,12 +19,12 @@
 		<j:slot id="sAssets" width="4">
 			<h:form id="fTree" >
 				<p:panel id="pTree" header="#{msg.jeeslCmsDocumentStructure}" styleClass="jeeslTree" >
-					<f:facet name="actions">
-						<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.expandTree(2)}" update=":#{cc.id}:sAsset" tooltip="#{msg.jeeslTtExpandTwo}"/>
-						<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.expandTree(3)}" update=":#{cc.id}:sAsset" tooltip="#{msg.jeeslTtExpandThree}"/>
-						<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.expandTree()}" update=":#{cc.id}:sAsset" tooltip="#{msg.jeeslTtExpandAllChildren}"/>
-						<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.collapseTree()}" update=":#{cc.id}:sAsset" tooltip="#{msg.jeeslTtCollapseAllChildren}"/>
-						<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addAsset()}" update=":#{cc.id}:sAsset" tooltip="#{msg.jeeslTtAdd}"/>
+					<f:facet id="fActions" name="actions">
+						<j:icon type="jeeslTreeExpandTwo" listener="#{cc.attrs.bean.expandTree(2)}" update="@form" tooltip="#{msg.jeeslTtExpandTwo}"/>
+						<j:icon type="jeeslTreeExpandThree" listener="#{cc.attrs.bean.expandTree(3)}" update="@form" tooltip="#{msg.jeeslTtExpandThree}"/>
+						<j:icon type="jeeslTreeExpandAll" listener="#{cc.attrs.bean.expandTree()}" update="@form" tooltip="#{msg.jeeslTtExpandAllChildren}"/>
+						<j:icon type="jeeslTreeCollapseAll" listener="#{cc.attrs.bean.collapseTree()}" update="@form" tooltip="#{msg.jeeslTtCollapseAllChildren}" rendered="#{cc.attrs.bean.isExpanded()}"/>
+						<j:icon id="test" type="jeeslAdd" listener="#{cc.attrs.bean.addAsset()}" update=":#{cc.id}:sAsset" tooltip="#{msg.jeeslTtAdd}"/>
 					</f:facet>
 					<p:tree id="tTree" value="#{cc.attrs.bean.tree}" var="node" 
 							selection="#{cc.attrs.bean.node}" selectionMode="single"
@@ -49,7 +49,7 @@
 					<f:facet name="actions">
 						<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.cancelAsset()}" update=":#{cc.id}:grid" mayDisappear="true"/>
 						<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveAsset()}" update=":#{cc.id}:grid"/>
-						<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteAsset()}" update=":#{cc.id}:grid" rendered="#{false and cc.attrs.bean.asset.id gt 0}" mayDisappear="true"/>
+						<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteAsset()}" update=":#{cc.id}:grid" rendered="#{cc.attrs.bean.asset.id gt 0}" mayDisappear="true"/>
 					</f:facet>
 					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
 						<p:outputLabel value="#{msg.jeeslCode}" rendered="#{cc.attrs.withCode}"/>
