@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public interface EjbWithId extends Serializable
 {
+	public enum Attribute{id}
 	String attribute = "id";
 	
 	long getId();

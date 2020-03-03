@@ -20,6 +20,7 @@ import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribu
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
@@ -27,7 +28,7 @@ import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AbstractIoReportBean <L extends JeeslLang,D extends JeeslDescription,
+public class AbstractIoReportBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 							CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 							REPORT extends JeeslIoReport<L,D,CATEGORY,WORKBOOK>,
 							IMPLEMENTATION extends JeeslStatus<IMPLEMENTATION,L,D>,
@@ -68,7 +69,7 @@ public class AbstractIoReportBean <L extends JeeslLang,D extends JeeslDescriptio
 		this.fbReport=fbReport;
 	}
 	
-	protected void initSuperReport(JeeslTranslationBean bTranslation, JeeslFacesMessageBean bMessage, JeeslIoReportFacade<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION> fReport)
+	protected void initSuperReport(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslIoReportFacade<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION> fReport)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fReport=fReport;

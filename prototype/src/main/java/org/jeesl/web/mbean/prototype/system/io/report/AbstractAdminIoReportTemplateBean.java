@@ -27,6 +27,7 @@ import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribu
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
@@ -39,7 +40,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.jsf.util.PositionListReorderer;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public class AbstractAdminIoReportTemplateBean <L extends JeeslLang,D extends JeeslDescription,
+public class AbstractAdminIoReportTemplateBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 										CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 										REPORT extends JeeslIoReport<L,D,CATEGORY,WORKBOOK>,
 										IMPLEMENTATION extends JeeslStatus<IMPLEMENTATION,L,D>,
@@ -64,7 +65,7 @@ public class AbstractAdminIoReportTemplateBean <L extends JeeslLang,D extends Je
 										RE extends JeeslRevisionEntity<L,D,RC,?,RA,?>,
 										RA extends JeeslRevisionAttribute<L,D,RE,?,CDT>
 										>
-	extends AbstractIoReportBean<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION,RC,RE,RA>
+	extends AbstractIoReportBean<L,D,LOC,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION,RC,RE,RA>
 	implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -87,7 +88,7 @@ public class AbstractAdminIoReportTemplateBean <L extends JeeslLang,D extends Je
 		super(fbReport);
 	}
 	
-	protected void postConstructReportTemplate(JeeslTranslationBean bTranslation, JeeslFacesMessageBean bMessage, JeeslIoReportFacade<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION> fReport)
+	protected void postConstructReportTemplate(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslIoReportFacade<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION> fReport)
 	{
 		super.initSuperReport(bTranslation,bMessage,fReport);
 		

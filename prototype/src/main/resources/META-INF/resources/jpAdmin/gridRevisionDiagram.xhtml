@@ -15,9 +15,9 @@
 			<j:row id="row1">
 				<j:slot id="sDiagrams" width="7">
 					<h:form id="fERDiagrams">
-						<p:dataTable var="erd" value="#{cc.attrs.bean.diagrams}" draggableRows="true"
-								selection="#{cc.attrs.bean.diagram}" selectionMode="single" rowKey="#{erd.id}"
-								rows="5" rowsPerPageTemplate="#{appSettingsBean.rowsPerPageTemplate}" paginator="true" paginatorPosition="bottom" paginatorTemplate="#{appSettingsBean.paginatorTemplate}">>
+						<p:dataTable var="d" value="#{cc.attrs.bean.diagrams}" draggableRows="true"
+								selection="#{cc.attrs.bean.diagram}" selectionMode="single" rowKey="#{d.id}"
+								rows="50" rowsPerPageTemplate="#{appSettingsBean.rowsPerPageTemplate}" paginator="true" paginatorPosition="bottom" paginatorTemplate="#{appSettingsBean.paginatorTemplate}">>
 							<f:facet name="header">
 								<j:dtHeader title="#{msg.jeeslRevisionDiagrams}">
 									<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addErDiagram()}" update=":#{cc.id}:grid"/>
@@ -26,16 +26,16 @@
 							<p:ajax event="rowReorder" listener="#{cc.attrs.bean.reorderDiagrams()}" update="@form"/>
 							<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectDiagram}" update=":#{cc.id}:sDiagram :#{cc.id}:sSvg"/>
 							<p:column rendered="true">  
-								<h:outputText value="#{erd.category.position}.#{erd.position}"/>
+								<h:outputText value="#{d.category.position}.#{erd.position}"/>
 				            </p:column>
 				            <p:column headerText="#{msg.jeeslCategory}" >  
-								<h:outputText value="#{erd.category.name[localeCode].lang}" />  
+								<h:outputText value="#{d.category.name[localeCode].lang}" />  
 				            </p:column>
-				            <p:column headerText="#{msg.jeeslCode}" >  
-								<h:outputText value="#{erd.code}" />  
+				            <p:column headerText="#{msg.jeeslCode}" filterBy="#{d.code}" filterMatchMode="contains" filterStyle="width: 50px;">  
+								<h:outputText value="#{d.code}" />  
 				            </p:column>
-				            <p:column headerText="#{msg.jeeslName}">  
-								<h:outputText value="#{erd.name[localeCode].lang}"/>
+				            <p:column headerText="#{msg.jeeslName}" filterBy="#{d.name[localeCode].lang}" filterMatchMode="contains" filterStyle="width: 50px;">  
+								<h:outputText value="#{d.name[localeCode].lang}"/>
 				            </p:column>
 						</p:dataTable>
 					</h:form>

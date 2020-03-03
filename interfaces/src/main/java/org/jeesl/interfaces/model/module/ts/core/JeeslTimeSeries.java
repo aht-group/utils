@@ -16,13 +16,16 @@ public interface JeeslTimeSeries <SCOPE extends JeeslTsScope<?,?,?,?,?,?,INT>,
 >
 		extends EjbWithId,Serializable,EjbRemoveable,EjbPersistable
 {
-	public enum Attributes{scope,interval,bridge}
+	public enum Attributes{scope,interval,statistic,bridge}
 	
 	SCOPE getScope();
 	void setScope(SCOPE scope);
 	
 	INT getInterval();
 	void setInterval(INT interval);
+	
+	STAT getStatistic();
+	void setStatistic(STAT statistic);
 	
 	BRIDGE getBridge();
 	void setBridge(BRIDGE bridge);

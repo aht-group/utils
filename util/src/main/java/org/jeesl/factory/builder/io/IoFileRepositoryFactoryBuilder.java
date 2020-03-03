@@ -13,6 +13,7 @@ import org.jeesl.interfaces.model.system.io.fr.JeeslFileMeta;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileStatus;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorage;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorageEngine;
+import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorageType;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileType;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
@@ -23,8 +24,9 @@ import org.slf4j.LoggerFactory;
 
 public class IoFileRepositoryFactoryBuilder<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
 											SYSTEM extends JeeslIoSsiSystem,
-											STORAGE extends JeeslFileStorage<L,D,SYSTEM,ENGINE>,
-											ENGINE extends JeeslFileStorageEngine<L,D,ENGINE,?>,
+											STORAGE extends JeeslFileStorage<L,D,SYSTEM,STYPE,SENGINE>,
+											STYPE extends JeeslFileStorageType<L,D,STYPE,?>,
+											SENGINE extends JeeslFileStorageEngine<L,D,SENGINE,?>,
 											CONTAINER extends JeeslFileContainer<STORAGE,META>,
 											META extends JeeslFileMeta<D,CONTAINER,TYPE,STATUS>,
 											TYPE extends JeeslFileType<L,D,TYPE,?>,
@@ -34,19 +36,23 @@ public class IoFileRepositoryFactoryBuilder<L extends JeeslLang, D extends Jeesl
 	final static Logger logger = LoggerFactory.getLogger(IoFileRepositoryFactoryBuilder.class);
 
 	private final Class<STORAGE> cStorage; public Class<STORAGE> getClassStorage() {return cStorage;}
-	private final Class<ENGINE> cEngine; public Class<ENGINE> getClassEngine() {return cEngine;}
+	private final Class<STYPE> cStorageType; public Class<STYPE> getClassStorageType() {return cStorageType;}
+	private final Class<SENGINE> cEngine; public Class<SENGINE> getClassEngine() {return cEngine;}
 	private final Class<CONTAINER> cContainer; public Class<CONTAINER> getClassContainer() {return cContainer;}
 	private final Class<META> cMeta; public Class<META> getClassMeta() {return cMeta;}
 	private final Class<TYPE> cType; public Class<TYPE> getClassType() {return cType;}
 	private final Class<STATUS> cStatus; public Class<STATUS> getClassStatus() {return cStatus;}
 	
 	public IoFileRepositoryFactoryBuilder(final Class<L> cL, final Class<D> cD,
-								final Class<STORAGE> cStorage, final Class<ENGINE> cEngine,
+								final Class<STORAGE> cStorage,
+								final Class<STYPE> cStorageType,
+								final Class<SENGINE> cEngine,
 								final Class<CONTAINER> cContainer, final Class<META> cMeta,
 								final Class<TYPE> cType, final Class<STATUS> cStatus)
 	{
 		super(cL,cD);
 		this.cStorage=cStorage;
+		this.cStorageType=cStorageType;
 		this.cEngine=cEngine;
 		this.cContainer=cContainer;
 		this.cMeta=cMeta;
@@ -54,14 +60,14 @@ public class IoFileRepositoryFactoryBuilder<L extends JeeslLang, D extends Jeesl
 		this.cStatus=cStatus;
 	}
 	
-	public EjbIoFrStorageFactory<SYSTEM,STORAGE> ejbStorage() {return new EjbIoFrStorageFactory<SYSTEM,STORAGE>(cStorage);}
+	public EjbIoFrStorageFactory<SYSTEM,STORAGE,STYPE,SENGINE> ejbStorage() {return new EjbIoFrStorageFactory<>(cStorage);}
 	public EjbIoFrContainerFactory<STORAGE,CONTAINER> ejbContainer() {return new EjbIoFrContainerFactory<>(cContainer);}
 	public EjbIoFrMetaFactory<CONTAINER,META,TYPE> ejbMeta() {return new EjbIoFrMetaFactory<>(cMeta);}
 	
-	public DefaultFileRepositoryHandler<L,D,LOC,SYSTEM,STORAGE,ENGINE,CONTAINER,META,TYPE,STATUS> handler(JeeslIoFrFacade<L,D,SYSTEM,STORAGE,ENGINE,CONTAINER,META,TYPE> fFr, JeeslFileRepositoryCallback callback)
+	public DefaultFileRepositoryHandler<L,D,LOC,SYSTEM,STORAGE,STYPE,SENGINE,CONTAINER,META,TYPE,STATUS> handler(JeeslIoFrFacade<L,D,SYSTEM,STORAGE,STYPE,SENGINE,CONTAINER,META,TYPE> fFr, JeeslFileRepositoryCallback callback)
 	{
 		return new DefaultFileRepositoryHandler<>(fFr,this,callback);
 	}
 	
-	public JeeslFileStatusHandler<META,STATUS> handlerStatus(JeeslIoFrFacade<L,D,SYSTEM,STORAGE,ENGINE,CONTAINER,META,TYPE> fFr){return new JeeslFileStatusHandler<META,STATUS>(fFr,this);}
+	public JeeslFileStatusHandler<META,STATUS> handlerStatus(JeeslIoFrFacade<L,D,SYSTEM,STORAGE,STYPE,SENGINE,CONTAINER,META,TYPE> fFr){return new JeeslFileStatusHandler<META,STATUS>(fFr,this);}
 }

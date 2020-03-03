@@ -8,7 +8,7 @@ import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
-public interface JeeslFileContainer<STORAGE extends JeeslFileStorage<?,?,?,?>,
+public interface JeeslFileContainer<STORAGE extends JeeslFileStorage<?,?,?,?,?>,
 									META extends JeeslFileMeta<?,?,?,?>>
 		extends Serializable,EjbWithId,
 					EjbSaveable,EjbRemoveable,

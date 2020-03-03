@@ -45,10 +45,10 @@ import org.jeesl.interfaces.model.system.io.report.JeeslReportWorkbook;
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.web.JeeslJsfSecurityHandler;
@@ -57,6 +57,7 @@ import org.jeesl.util.comparator.ejb.system.io.report.IoReportComparator;
 import org.jeesl.util.comparator.ejb.system.io.report.IoReportGroupComparator;
 import org.jeesl.util.comparator.ejb.system.io.report.IoReportRowComparator;
 import org.jeesl.util.comparator.ejb.system.io.report.IoReportSheetComparator;
+import org.jeesl.util.filter.xml.system.io.XmlReportFilter;
 import org.jeesl.util.query.xml.system.io.XmlReportQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,9 +66,11 @@ import net.sf.ahtutils.jsf.util.PositionListReorderer;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 import net.sf.ahtutils.xml.report.Report;
 import net.sf.ahtutils.xml.report.Reports;
+import net.sf.ahtutils.xml.report.XlsSheet;
+import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-public class AbstractAdminIoReportDefinitionBean <L extends JeeslLang,D extends JeeslDescription,LOC extends JeeslLocale<L,D,LOC,?>,
+public class AbstractAdminIoReportDefinitionBean <L extends JeeslLang,D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 						CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 						REPORT extends JeeslIoReport<L,D,CATEGORY,WORKBOOK>,
 						IMPLEMENTATION extends JeeslStatus<IMPLEMENTATION,L,D>,
@@ -92,7 +95,7 @@ public class AbstractAdminIoReportDefinitionBean <L extends JeeslLang,D extends 
 						RE extends JeeslRevisionEntity<L,D,RCAT,?,RA,?>,
 						RA extends JeeslRevisionAttribute<L,D,RE,?,CDT>
 						>
-	extends AbstractIoReportBean<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION,RCAT,RE,RA>
+	extends AbstractIoReportBean<L,D,LOC,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION,RCAT,RE,RA>
 	implements Serializable,SbToggleBean
 {
 	private static final long serialVersionUID = 1L;
@@ -562,10 +565,20 @@ public class AbstractAdminIoReportDefinitionBean <L extends JeeslLang,D extends 
 	
 	public void cloneReport() throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException, UtilsProcessingException
 	{
-		logger.info("Cloning");
+		logger.info("Cloning "+fbReport.getClassReport().getSimpleName());
 		Report xml  = xfReport.build(report);
 		reportUpdater.cloneIoReport(xml);
 		reloadReports();
+	}
+	
+	public void cloneSheet() throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException, UtilsProcessingException, ExlpXpathNotFoundException
+	{
+		logger.info("Cloning "+fbReport.getClassSheet().getSimpleName());
+		Report xml  = xfReport.build(report);
+		JaxbUtil.info(xml);
+		XlsSheet xSheet  = XmlReportFilter.fSheet(xml,sheet.getCode());
+		sheet = reportUpdater.cloneIoSheet(report,xSheet);
+		reloadReport();
 	}
     
 	//*************************************************************************************

@@ -30,7 +30,7 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream;
 
 import net.sf.exlp.util.io.JsonUtil;
 
-public class FileRepositoryAmazonS3<STORAGE extends JeeslFileStorage<?,?,?,?>,
+public class FileRepositoryAmazonS3<STORAGE extends JeeslFileStorage<?,?,?,?,?>,
 									META extends JeeslFileMeta<?,?,?,?>>
 	implements JeeslFileRepositoryStore<META>
 {

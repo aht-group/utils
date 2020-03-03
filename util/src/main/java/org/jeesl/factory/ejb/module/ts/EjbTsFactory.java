@@ -9,32 +9,21 @@ import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsScope;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsBridge;
-import org.jeesl.interfaces.model.module.ts.data.JeeslTsData;
-import org.jeesl.interfaces.model.module.ts.data.JeeslTsSample;
-import org.jeesl.interfaces.model.module.ts.data.JeeslTsTransaction;
-import org.jeesl.interfaces.model.system.locale.JeeslDescription;
-import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.module.ts.stat.JeeslTsStatistic;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithLangDescription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbTsFactory<L extends JeeslLang,D extends JeeslDescription,
-							CAT extends JeeslStatus<CAT,L,D>,
-							SCOPE extends JeeslTsScope<L,D,CAT,?,UNIT,EC,INT>,
-							UNIT extends JeeslStatus<UNIT,L,D>,
-							TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT,?>,
-							TRANSACTION extends JeeslTsTransaction<SOURCE,DATA,USER,?>,
-							SOURCE extends EjbWithLangDescription<L,D>, 
+public class EjbTsFactory<SCOPE extends JeeslTsScope<?,?,?,?,UNIT,EC,INT>,
+							UNIT extends JeeslStatus<UNIT,?,?>,
+							TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT,STAT>,
+							SOURCE extends EjbWithLangDescription<?,?>, 
 							BRIDGE extends JeeslTsBridge<EC>,
-							EC extends JeeslTsEntityClass<L,D,CAT>,
-							INT extends JeeslStatus<INT,L,D>,
-							DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
-							SAMPLE extends JeeslTsSample, 
-							USER extends EjbWithId, 
-							WS extends JeeslStatus<WS,L,D>,
-							QAF extends JeeslStatus<QAF,L,D>>
+							EC extends JeeslTsEntityClass<?,?,?>,
+							INT extends JeeslStatus<INT,?,?>,
+							STAT extends JeeslTsStatistic<?,?,STAT,?>
+							>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbTsFactory.class);
 	
@@ -45,7 +34,7 @@ public class EjbTsFactory<L extends JeeslLang,D extends JeeslDescription,
         this.cTs=cTs;
 	}
 	
-	public TS build(SCOPE scope, INT interval, BRIDGE bridge)
+	public TS build(SCOPE scope, INT interval, STAT stat, BRIDGE bridge)
 	{
 		TS ejb = null;
 		try
@@ -53,6 +42,7 @@ public class EjbTsFactory<L extends JeeslLang,D extends JeeslDescription,
 			ejb = cTs.newInstance();
 			ejb.setScope(scope);
 			ejb.setInterval(interval);
+			ejb.setStatistic(stat);
 			ejb.setBridge(bridge);
 		}
 		catch (InstantiationException e) {e.printStackTrace();}

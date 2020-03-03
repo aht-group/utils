@@ -134,8 +134,9 @@ public class TsYearlyDataHandler <L extends JeeslLang, D extends JeeslDescriptio
 		{
 			try
 			{
+				STAT statistic = fTs.fByEnum(fbTs.getClassStat(), JeeslTsStatistic.Code.raw);
 				BRIDGE bridge = fTs.fBridge(entityClass, t);
-				TS ts = fTs.fTimeSeries(scope,interval,bridge);
+				TS ts = fTs.fTimeSeries(scope,interval,statistic,bridge);
 				List<DATA> datas = fTs.fData(workspace,ts,JeeslTsData.QueryInterval.closedOpen,start,end);
 				process(t,datas);
 			}
@@ -152,8 +153,9 @@ public class TsYearlyDataHandler <L extends JeeslLang, D extends JeeslDescriptio
 		{
 			try
 			{
+				STAT statistic = fTs.fByEnum(fbTs.getClassStat(), JeeslTsStatistic.Code.raw);
 				BRIDGE bridge = fTs.fBridge(entityClass,t);
-				TS ts = fTs.fTimeSeries(scope,interval,bridge);
+				TS ts = fTs.fTimeSeries(scope,interval,statistic,bridge);
 				List<DATA> datas = fTs.fData(workspace,ts,JeeslTsData.QueryInterval.closedOpen,start,end);
 				process(t,datas);
 			}

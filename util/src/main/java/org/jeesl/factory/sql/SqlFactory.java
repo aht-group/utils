@@ -6,9 +6,13 @@ import javax.persistence.Table;
 
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.util.query.sql.JeeslSqlQuery;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SqlFactory
 {
+	final static Logger logger = LoggerFactory.getLogger(SqlFactory.class);
+	
 	public static <E extends Enum<E>, T extends EjbWithId> void update(StringBuilder sb, Class<?> c, String alias, E attribute, T t, boolean newLine)
 	{
 		if(c.getAnnotation(Table.class)==null) {throw new RuntimeException("Not a @Table)");}
@@ -52,6 +56,17 @@ public class SqlFactory
 		StringBuilder sb = new StringBuilder();
 		sb.append("DELETE FROM ");
 		sb.append(c.getAnnotation(Table.class).name());
+		return sb.toString();
+	}
+	
+	public static <T extends EjbWithId> String delete(T t)
+	{
+		if(t.getClass().getAnnotation(Table.class)==null) {throw new RuntimeException("Not a @Table)");}
+		StringBuilder sb = new StringBuilder();
+		sb.append("DELETE FROM ");
+		sb.append(t.getClass().getAnnotation(Table.class).name());
+		sb.append(" WHERE id="+t.getId());
+		sb.append(";");
 		return sb.toString();
 	}
 	
@@ -102,25 +117,45 @@ public class SqlFactory
 		}
 	}
 	
-	public static void valuesBool(boolean first, StringBuilder sb, boolean x)
-	{
-		if(!first) {sb.append(",");}
-		if(x) {sb.append("'t'");}
-		else {sb.append("'f'");}
-	}
-	
-	public static <T extends EjbWithId> void valuesId(boolean first, StringBuilder sb, T id)
+	public static <T extends EjbWithId> void valueId(boolean first, StringBuilder sb, T id)
 	{
 		if(!first) {sb.append(",");}
 		sb.append(id.getId());
 	}
+	public static void valueBool(boolean first, StringBuilder sb, boolean value)
+	{
+		if(!first) {sb.append(",");}
+		if(value) {sb.append("'t'");}
+		else {sb.append("'f'");}
+	}
+	public static void valueInt(boolean first, StringBuilder sb, int value)
+	{
+		if(!first) {sb.append(",");}
+		sb.append(value);
+	}
+	public static void valueString(boolean first, StringBuilder sb, String value)
+	{
+		if(!first) {sb.append(",");}
+		sb.append("'").append(value).append("'");
+	}
 	
-	public static <E extends Enum<E>, T extends EjbWithId> String where(StringBuilder sb, String alias, E attribute, T where, boolean newLine)
+
+	
+	public static <E extends Enum<E>, T extends EjbWithId> String where(StringBuilder sb, String alias, boolean notNegate, E attribute, T where, boolean newLine)
 	{
 		sb.append(" WHERE");
 		sb.append(" ").append(id(alias,attribute));
-		if(where!=null) {sb.append("=").append(where.getId());}
-		else {sb.append(" IS NULL");}
+		if(where!=null)
+		{
+			if(!notNegate) {logger.warn("NOT is NYI");}
+			sb.append("=").append(where.getId());
+		}
+		else
+		{
+			sb.append(" IS");
+			if(!notNegate) {sb.append(" NOT");}
+			sb.append(" NULL");
+		}
 		newLine(newLine,sb);
 		return sb.toString();
 	}

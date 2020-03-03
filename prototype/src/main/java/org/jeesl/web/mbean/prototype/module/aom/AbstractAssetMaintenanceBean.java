@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
-import org.jeesl.api.bean.module.JeeslAssetCacheBean;
+import org.jeesl.api.bean.module.aom.JeeslAssetCacheBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslAssetFacade;
 import org.jeesl.api.handler.sb.SbDateIntervalSelection;
@@ -19,6 +19,7 @@ import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.factory.ejb.module.asset.EjbAssetEventFactory;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomView;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomStatus;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomType;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
@@ -47,7 +48,8 @@ public abstract class AbstractAssetMaintenanceBean <L extends JeeslLang, D exten
 										SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
 										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,ATYPE>,
 										STATUS extends JeeslAomStatus<L,D,STATUS,?>,
-										ATYPE extends JeeslAomType<L,D,REALM,ATYPE,?>,
+										ATYPE extends JeeslAomType<L,D,REALM,ATYPE,ALEVEL,?>,
+										ALEVEL extends JeeslAomView<L,D,REALM,?>,
 										EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER,FRC>,
 										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
 										ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,
@@ -59,9 +61,9 @@ public abstract class AbstractAssetMaintenanceBean <L extends JeeslLang, D exten
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetMaintenanceBean.class);
 	
-	protected JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset;
+	protected JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset;
 	
-	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset;
+	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset;
 	
 	private final EjbAssetEventFactory<COMPANY,ASSET,EVENT,ETYPE,ESTATUS,USER,FRC> efEvent;
 	
@@ -78,7 +80,7 @@ public abstract class AbstractAssetMaintenanceBean <L extends JeeslLang, D exten
 
 	private EVENT event; public EVENT getEvent() {return event;} public void setEvent(EVENT event) {this.event = event;}
 
-	public AbstractAssetMaintenanceBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset)
+	public AbstractAssetMaintenanceBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset)
 	{
 		super(fbAsset.getClassL(),fbAsset.getClassD());
 		this.fbAsset=fbAsset;
@@ -97,8 +99,8 @@ public abstract class AbstractAssetMaintenanceBean <L extends JeeslLang, D exten
 	}
 	
 	protected <E extends Enum<E>> void postConstructAssetMaintenance(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset,
-									JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,STATUS,ATYPE,ETYPE> bCache,
+									JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset,
+									JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,STATUS,ATYPE,ALEVEL,ETYPE> bCache,
 									E eRealm, RREF rref
 									)
 	{

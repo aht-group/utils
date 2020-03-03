@@ -13,7 +13,7 @@ import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FileRepositoryFileStorage<STORAGE extends JeeslFileStorage<?,?,?,?>,
+public class FileRepositoryFileStorage<STORAGE extends JeeslFileStorage<?,?,?,?,?>,
 									META extends JeeslFileMeta<?,?,?,?>>
 	implements JeeslFileRepositoryStore<META>
 {

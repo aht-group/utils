@@ -62,7 +62,7 @@ public abstract class AbstractCmsEditorBean <L extends JeeslLang,D extends Jeesl
 										ET extends JeeslStatus<ET,L,D>,
 										C extends JeeslIoCmsContent<V,E,MT>,
 										MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
-										FS extends JeeslFileStorage<L,D,?,?>,
+										FS extends JeeslFileStorage<L,D,?,?,?>,
 										FC extends JeeslFileContainer<FS,FM>,
 										FM extends JeeslFileMeta<D,FC,?,?>
 										>

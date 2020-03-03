@@ -21,6 +21,7 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomView;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomStatus;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomType;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
@@ -43,22 +44,23 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 										SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
 										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,ATYPE>,
 										STATUS extends JeeslAomStatus<L,D,STATUS,?>,
-										ATYPE extends JeeslAomType<L,D,REALM,ATYPE,?>,
+										ATYPE extends JeeslAomType<L,D,REALM,ATYPE,ALEVEL,?>,
+										ALEVEL extends JeeslAomView<L,D,REALM,?>,
 										EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER,FRC>,
 										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
 										ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,
 										USER extends JeeslSimpleUser,
 										FRC extends JeeslFileContainer<?,?>>
 					extends JeeslFacadeBean
-					implements JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,EVENT,ETYPE,ESTATUS,USER,FRC>
+					implements JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC>
 {	
 	private static final long serialVersionUID = 1L;
 
 	final static Logger logger = LoggerFactory.getLogger(JeeslAssetFacadeBean.class);
 	
-	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset;
+	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset;
 	
-	public JeeslAssetFacadeBean(EntityManager em, final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset)
+	public JeeslAssetFacadeBean(EntityManager em, final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset)
 	{
 		super(em);
 		this.fbAsset=fbAsset;
@@ -100,9 +102,31 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 			}
 		}
 	}
+	
+	@Override public List<ASSET> allAssets(ASSET root)
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<ASSET> cQ = cB.createQuery(fbAsset.getClassAsset());
+		Root<ASSET> asset = cQ.from(fbAsset.getClassAsset());
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		Expression<Long> eRefId = asset.get(JeeslAomAsset.Attributes.realmIdentifier.toString());
+		Path<REALM> pRealm = asset.get(JeeslAomAsset.Attributes.realm.toString());
+		Path<ASSET> pParent = asset.get(JeeslAomAsset.Attributes.parent.toString());
+		
+		predicates.add(cB.equal(eRefId,root.getRealmIdentifier()));
+		predicates.add(cB.equal(pRealm,root.getRealm()));
+		predicates.add(cB.isNotNull(pParent));
+		
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.select(asset);
+
+		TypedQuery<ASSET> tQ = em.createQuery(cQ);
+		return tQ.getResultList();
+	}
 
 	@Override
-	public <RREF extends EjbWithId> ATYPE fcAssetRootType(REALM realm, RREF realmReference)
+	public <RREF extends EjbWithId> ATYPE fcAssetRootType(REALM realm, RREF rref)
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<ATYPE> cQ = cB.createQuery(fbAsset.getClassAssetType());
@@ -113,7 +137,7 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 		Path<REALM> pRealm = root.get(JeeslAomAsset.Attributes.realm.toString());
 		Path<ASSET> pParent = root.get(JeeslAomAsset.Attributes.parent.toString());
 		
-		predicates.add(cB.equal(eRefId,realmReference.getId()));
+		predicates.add(cB.equal(eRefId,rref.getId()));
 		predicates.add(cB.equal(pRealm,realm));
 		predicates.add(cB.isNull(pParent));
 		
@@ -124,16 +148,39 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 		try	{return tQ.getSingleResult();}
 		catch (NoResultException ex)
 		{
-			ATYPE result = fbAsset.ejbType().build(realm, realmReference, null, "root");
+			ATYPE result = fbAsset.ejbType().build(realm, rref, null, "root");
+			ALEVEL view = fbAsset.ejbLevel().build(realm,rref,null);
+			view.setTree(JeeslAomView.Tree.hierarchy.toString());
 			try
 			{
+				this.save(view);
 				return this.save(result);
 			}
 			catch (JeeslConstraintViolationException | JeeslLockingException e)
 			{
-				return this.fcAssetRootType(realm,realmReference);
+				return this.fcAssetRootType(realm,rref);
 			}
 		}
+	}
+	
+	@Override public <RREF extends EjbWithId> List<ALEVEL> fAomLevels(REALM realm, RREF rref)
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<ALEVEL> cQ = cB.createQuery(fbAsset.getClassAssetLevel());
+		Root<ALEVEL> level = cQ.from(fbAsset.getClassAssetLevel());
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		Expression<Long> eRefId = level.get(JeeslAomView.Attributes.rref.toString());
+		Path<REALM> pRealm = level.get(JeeslAomView.Attributes.realm.toString());
+		Expression<Integer> ePosition = level.get(JeeslAomView.Attributes.position.toString());
+		
+		predicates.add(cB.equal(eRefId,rref.getId()));
+		predicates.add(cB.equal(pRealm,realm));
+		
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.select(level);
+		cQ.orderBy(cB.asc(ePosition));
+		return em.createQuery(cQ).getResultList();
 	}
 
 	@Override public <RREF extends EjbWithId> List<COMPANY> fAssetCompanies(REALM realm, RREF realmReference)

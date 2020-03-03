@@ -19,13 +19,13 @@ public class EjbAssetFactory<REALM extends JeeslMcsRealm<?,?,REALM,?>,
 							SCOPE extends JeeslAomScope<?,?,SCOPE,?>,
 							ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
 							STATUS extends JeeslAomStatus<?,?,STATUS,?>,
-							TYPE extends JeeslAomType<?,?,REALM,TYPE,?>>
+							TYPE extends JeeslAomType<?,?,REALM,TYPE,?,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbAssetFactory.class);
 	
-	private final AssetFactoryBuilder<?,?,?,COMPANY,SCOPE,ASSET,STATUS,TYPE,?,?,?,?,?> fbAsset;
+	private final AssetFactoryBuilder<?,?,?,COMPANY,SCOPE,ASSET,STATUS,TYPE,?,?,?,?,?,?> fbAsset;
 	
-    public EjbAssetFactory(final AssetFactoryBuilder<?,?,?,COMPANY,SCOPE,ASSET,STATUS,TYPE,?,?,?,?,?> fbAsset)
+    public EjbAssetFactory(final AssetFactoryBuilder<?,?,?,COMPANY,SCOPE,ASSET,STATUS,TYPE,?,?,?,?,?,?> fbAsset)
     {
         this.fbAsset = fbAsset;
     }

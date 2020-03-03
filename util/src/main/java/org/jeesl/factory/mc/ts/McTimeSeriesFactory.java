@@ -118,7 +118,8 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 	}
 	public <T extends EjbWithId> Ds singleData(String localeCode, BRIDGE bridge, Date from, Date to) throws JeeslNotFoundException
 	{
-		TS ts = fTs.fTimeSeries(scope,interval,bridge);
+		STAT statistic = fTs.fByEnum(fbTs.getClassStat(), JeeslTsStatistic.Code.raw);
+		TS ts = fTs.fTimeSeries(scope,interval,statistic,bridge);
 		List<DATA> datas = fTs.fData(workspace,ts,JeeslTsData.QueryInterval.closedOpen,from,to);
 		
 		Ds xml = new Ds();
@@ -131,8 +132,9 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 	
 	public <T extends EjbWithId> Ds multiPoint(String localeCode, T entity, Date from, Date to) throws JeeslNotFoundException
 	{
+		STAT statistic = fTs.fByEnum(fbTs.getClassStat(), JeeslTsStatistic.Code.raw);
 		BRIDGE bridge = fTs.fBridge(entityClass,entity);
-		TS ts = fTs.fTimeSeries(scope,interval,bridge);
+		TS ts = fTs.fTimeSeries(scope,interval,statistic,bridge);
 		
 		List<MP> multiPoints = fTs.allForParent(fbTs.getClassMp(),scope);
 		List<DATA> datas = fTs.fData(workspace,ts,JeeslTsData.QueryInterval.closedOpen,from,to);
