@@ -45,7 +45,7 @@ public class AbstractSettingsBean implements Serializable,JeeslSettingsBean
 		paginatorTemplate = "{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}";
 		paginatorPosition = "bottom";
 		rowsPerPageTemplate = "5,20,50,100";
-		filterStyle = "width: 50px;";
+		filterStyle = "width: 75px;";
 		
 		allowUploadSvg = "/(\\.|\\/)(svg)$/";
 		allowUploadJesslGraphicType = "/(\\.|\\/)(svg|png)$/";

@@ -1,8 +1,10 @@
 package org.jeesl.factory.mc.ts;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.jeesl.api.facade.module.JeeslTsFacade;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
@@ -130,7 +132,14 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 		return xml;
 	}
 	
-	public <T extends EjbWithId> Ds multiPoint(String localeCode, T entity, Date from, Date to) throws JeeslNotFoundException
+	public <T extends EjbWithId> Ds multiPoints(String localeCode, T entity, Date from, Date to) throws JeeslNotFoundException {return multiPoints(null,localeCode,entity,from,to);}
+	public <T extends EjbWithId, E extends Enum<E>> Ds multiPoints(String localeCode, T entity, Date from, Date to, E... onlyShowMp) throws JeeslNotFoundException
+	{
+		Set<String> set = new HashSet<>();
+		for(E e : onlyShowMp) {set.add(e.toString());}
+		return multiPoints(set,localeCode,entity,from,to);
+	}
+	public <T extends EjbWithId, E extends Enum<E>> Ds multiPoints(Set<String> onlyShowMp, String localeCode, T entity, Date from, Date to) throws JeeslNotFoundException
 	{
 		STAT statistic = fTs.fByEnum(fbTs.getClassStat(), JeeslTsStatistic.Code.raw);
 		BRIDGE bridge = fTs.fBridge(entityClass,entity);
@@ -150,7 +159,9 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 		Ds xml = new Ds();
 		for(MP mp : multiPoints)
 		{
-			if(mp.getVisible() && mapMp.containsKey(mp))
+			boolean includeMp = true;
+			if(onlyShowMp!=null) {includeMp = onlyShowMp.contains(mp.getCode());}
+			if(includeMp && mp.getVisible() && mapMp.containsKey(mp))
 			{
 				if(debugOnInfo) {logger.info("MP: "+mp.getCode());}
 				Map<DATA,POINT> mapData = efPoint.toMapDataUnique(mapMp.get(mp));
