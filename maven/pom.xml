@@ -197,10 +197,9 @@
 				</executions>
 			</plugin>
 			<plugin> 
-		    <groupId>org.apache.maven.plugins</groupId>
-		    <artifactId>maven-plugin-plugin</artifactId>
- 		   	<version>3.6.0</version>
-
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-plugin-plugin</artifactId>
+	 		   	<version>3.6.0</version>
 				<configuration> 
 				<name>Maven Plugin Plugin</name>
   				<description>Description :-) </description>
