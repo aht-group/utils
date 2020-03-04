@@ -9,6 +9,7 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
@@ -65,6 +66,8 @@ public class AbstractStatisticProcessor <TS extends JeeslTimeSeries<?,?,?,?>,
 				else {break;}
 			}
 			DATA statisticData = buildStatisticData(stats, code);
+			statisticData.setRecord(Date.from(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+			statisticData.setWorkspace(tsData.get(i).getWorkspace());
 			statistics.add(statisticData);
 		}
 		return statistics;
@@ -75,9 +78,10 @@ public class AbstractStatisticProcessor <TS extends JeeslTimeSeries<?,?,?,?>,
 		DATA statisticData = efData.build();
 		switch(code)
 		{
-			case min: statisticData.setValue(stats.getMin());
-			case max: statisticData.setValue(stats.getMax());
-			case mean: statisticData.setValue(stats.getMean());
+			case min: statisticData.setValue(stats.getMin());break;
+			case max: statisticData.setValue(stats.getMax());break;
+			case mean: statisticData.setValue(stats.getMean());break;
+			default: break;
 		}
 		return statisticData;
 	}
