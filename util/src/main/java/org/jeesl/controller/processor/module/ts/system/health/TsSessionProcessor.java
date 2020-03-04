@@ -137,7 +137,7 @@ public class TsSessionProcessor<SYSTEM extends JeeslIoSsiSystem,
 		chart.setSubtitle(null);
 		try
 		{
-			chart.setDs(mfTs.multiPoint(localeCode,system,begin,end));
+			chart.setDs(mfTs.multiPoints(localeCode,system,begin,end));
 		}
 		catch (JeeslNotFoundException e) {}
 		return chart;

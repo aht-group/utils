@@ -29,11 +29,8 @@ public class XmlSignatureFactory
     	return xml;
     }
     
-    public static Signature build(String code, String label)
-    {
-    	return build(null,code,label);
-    }
-    
+    public static Signature build(String code, String label){return build(null,code,label);}
+    public static Signature build(Integer position, String label){return build(position,null,label);}
     public static Signature build(Integer position, String code, String label)
     {
     	Signature xml = build(code);

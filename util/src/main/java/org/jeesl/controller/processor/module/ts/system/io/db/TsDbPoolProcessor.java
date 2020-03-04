@@ -39,14 +39,12 @@ public class TsDbPoolProcessor<SYSTEM extends JeeslIoSsiSystem,
 {
 	final static Logger logger = LoggerFactory.getLogger(TsDbPoolProcessor.class);
 	
-	
+	public static enum MpCode{used,available,percent}
 	
 	public TsDbPoolProcessor(TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,POINT,?,?,WS,?,?> fbTs,
 									JeeslTsFacade<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,POINT,?,?,WS,?,?> fTs)
 	{
 		super(fbTs,fTs);
-		
-		
 	}
 	
 	public Chart build(String localeCode, Date begin, Date end, SYSTEM system) 
@@ -55,12 +53,9 @@ public class TsDbPoolProcessor<SYSTEM extends JeeslIoSsiSystem,
 		
 		try
 		{
-			Ds ds = mfTs.multiPoint(localeCode,system,begin,end);
+			Ds ds = mfTs.multiPoints(localeCode,system,begin,end,TsDbPoolProcessor.MpCode.percent);
 			
-			if(!ds.getDs().isEmpty())
-			{
-				chart.setDs(ds);
-			}
+			if(!ds.getDs().isEmpty()) {chart.setDs(ds);}
 		}
 		catch (JeeslNotFoundException e) {}
 		return chart;
