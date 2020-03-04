@@ -6,8 +6,6 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.module.aom.JeeslAssetCacheBean;
@@ -212,12 +210,11 @@ public class AbstractAssetBean <L extends JeeslLang, D extends JeeslDescription,
 	
 	public void collapseTree()
 	{
-		TreeHelper.setExpansion(this.node != null ? this.node : this.tree,  false);
+		TreeHelper.setExpansion(this.tree,  false);
 	}
 	
 	public boolean isExpanded()
 	{
-		List<TreeNode> nodes = this.tree.getChildren().stream().filter(node -> node.isExpanded()).collect(Collectors.toList());
 		return this.tree != null && this.tree.getChildren().stream().filter(node -> node.isExpanded()).count() > 1;
 	}
 	
