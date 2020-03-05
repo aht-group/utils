@@ -21,11 +21,11 @@
 				<p:panel id="pTree" header="#{msg.jeeslCmsDocumentStructure}" styleClass="jeeslTree" >
 					<f:facet id="fActions" name="actions">
 						<p:outputPanel id="cActions">
-							<j:icon type="jeeslTreeExpandTwo" listener="#{cc.attrs.bean.expandTree(2)}" update="@form" svg="true" library="jeeslGfx" tooltip="#{msg.jeeslTtExpandTwo}"/>
-							<j:icon type="jeeslTreeExpandThree" listener="#{cc.attrs.bean.expandTree(3)}" update="@form" svg="true" library="jeeslGfx" tooltip="#{msg.jeeslTtExpandThree}"/>
-							<j:icon type="jeeslTreeExpandAll" listener="#{cc.attrs.bean.expandTree()}" update="@form" svg="true" library="jeeslGfx" tooltip="#{msg.jeeslTtExpandAllChildren}"/>
-							<j:icon type="jeeslTreeCollapseAll" listener="#{cc.attrs.bean.collapseTree()}" update="@form" svg="true" library="jeeslGfx" tooltip="#{msg.jeeslTtCollapseAllChildren}" rendered="#{cc.attrs.bean.isExpanded()}"/>
-							<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addAsset()}" update=":#{cc.id}:sAsset" tooltip="#{msg.jeeslTtAdd}"/>
+							<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addAsset()}" update=":#{cc.id}:sAsset" tooltip="#{msg.jeeslTtAdd}" marginLeft="5"/>
+							<j:icon type="jeeslTreeExpandAll" listener="#{cc.attrs.bean.expandTree()}" update="@form" tooltip="#{msg.jeeslTtExpandAllChildren}" svg="true" library="jeeslGfx"/>
+							<j:icon type="jeeslTreeCollapseAll" listener="#{cc.attrs.bean.collapseTree()}" update="@form" rendered="#{cc.attrs.bean.isExpanded()}" tooltip="#{msg.jeeslTtCollapseAllChildren}" svg="true" library="jeeslGfx"/>
+							<j:icon type="jeeslTreeExpandThree" listener="#{cc.attrs.bean.expandTree(3)}" update="@form" tooltip="#{msg.jeeslTtExpandThree}" svg="true" library="jeeslGfx"/>
+							<j:icon type="jeeslTreeExpandTwo" listener="#{cc.attrs.bean.expandTree(2)}" update="@form" tooltip="#{msg.jeeslTtExpandTwo}" svg="true" library="jeeslGfx"/>
 						</p:outputPanel>
 					</f:facet>
 					<p:tree id="tTree" value="#{cc.attrs.bean.tree}" var="node" 
