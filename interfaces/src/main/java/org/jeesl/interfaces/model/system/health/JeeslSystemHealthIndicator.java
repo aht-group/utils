@@ -19,5 +19,5 @@ public interface JeeslSystemHealthIndicator <L extends JeeslLang, D extends Jees
 												EjbWithCodeGraphic<G>,
 												JeeslStatus<S,L,D>
 {
-	public static enum Code{session};
+	public static enum Code{session,dbPool};
 }
