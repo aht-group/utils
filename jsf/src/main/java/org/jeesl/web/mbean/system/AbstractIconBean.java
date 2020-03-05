@@ -200,10 +200,10 @@ public class AbstractIconBean implements Serializable
 		svg.put("jeeslHome", "svg/jeesl/icon/ui/system/home.svg");
 		svg.put("jeeslClone", "svg/icon/ui/control/clone.svg");
 		
-		svg.put("jeeslTreeExpandTwo", "svg/icon/ui/control/tree/expand-2.svg");
-		svg.put("jeeslTreeExpandThree", "svg/icon/ui/control/tree/expand-3.svg");
-		svg.put("jeeslTreeExpandAll", "svg/icon/ui/control/tree/expand-all.svg");
-		svg.put("jeeslTreeCollapseAll", "svg/icon/ui/control/tree/collapse-all.svg");
+		svg.put("jeeslTreeExpandTwo", "ui/control/tree/expand-2.svg");
+		svg.put("jeeslTreeExpandThree", "ui/control/tree/expand-3.svg");
+		svg.put("jeeslTreeExpandAll", "ui/control/tree/expand-all.svg");
+		svg.put("jeeslTreeCollapseAll", "ui/control/tree/collapse-all.svg");
 	}
 	
 	protected void jeeslDm()
