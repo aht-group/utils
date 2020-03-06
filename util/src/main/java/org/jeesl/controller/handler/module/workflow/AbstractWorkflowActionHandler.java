@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Random;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.lang.mutable.MutableBoolean;
 import org.jeesl.api.bean.msg.JeeslConstraintsBean;
 import org.jeesl.exception.JeeslWorkflowException;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
@@ -18,8 +17,8 @@ import org.jeesl.interfaces.controller.handler.module.workflow.JeeslWorkflowActi
 import org.jeesl.interfaces.controller.handler.module.workflow.JeeslWorkflowActionsHandler;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowAction;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowBot;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWithWorkflow;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraint;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
@@ -56,7 +55,7 @@ public abstract class AbstractWorkflowActionHandler <WT extends JeeslWorkflowTra
 		this.bConstraint=bConstraint;
 		this.callback=callback;
 		actionHandlers = new ArrayList<>();
-		actionHandlers.add(actionHandler);
+		if(actionHandler!=null) {actionHandlers.add(actionHandler);}
 	}
 	
 	@Override public void checkRemark(List<WC> constraints, WT transition, String remark)

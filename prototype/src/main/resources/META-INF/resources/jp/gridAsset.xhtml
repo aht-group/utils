@@ -19,16 +19,22 @@
 		<j:slot id="sAssets" width="4">
 			<h:form id="fTree" >
 				<p:panel id="pTree" header="#{msg.jeeslCmsDocumentStructure}" styleClass="jeeslTree" >
-					<f:facet name="actions">
-						<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addAsset()}" update=":#{cc.id}:sAsset" tooltip="#{msg.jeeslTtAdd}"/>
+					<f:facet id="fActions" name="actions">
+						<p:outputPanel id="cActions">
+							<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addAsset()}" update=":#{cc.id}:sAsset" tooltip="#{msg.jeeslTtAdd}" marginLeft="5"/>
+							<j:icon type="jeeslTreeExpandAll" listener="#{cc.attrs.bean.expandTree()}" update="@form" tooltip="#{msg.jeeslTtExpandAllChildren}" svg="true" library="jeeslGfx"/>
+							<j:icon type="jeeslTreeCollapseAll" listener="#{cc.attrs.bean.collapseTree()}" update="@form" rendered="#{cc.attrs.bean.isExpanded()}" tooltip="#{msg.jeeslTtCollapseAllChildren}" svg="true" library="jeeslGfx"/>
+							<j:icon type="jeeslTreeExpandThree" listener="#{cc.attrs.bean.expandTree(3)}" update="@form" tooltip="#{msg.jeeslTtExpandThree}" svg="true" library="jeeslGfx"/>
+							<j:icon type="jeeslTreeExpandTwo" listener="#{cc.attrs.bean.expandTree(2)}" update="@form" tooltip="#{msg.jeeslTtExpandTwo}" svg="true" library="jeeslGfx"/>
+						</p:outputPanel>
 					</f:facet>
 					<p:tree id="tTree" value="#{cc.attrs.bean.tree}" var="node" 
 							selection="#{cc.attrs.bean.node}" selectionMode="single"
 			                draggable="true" droppable="true" dragdropScope="demo">
 			            <p:ajax event="dragdrop" listener="#{cc.attrs.bean.onDragDrop}" update=":#{cc.id}:sAsset"/>
 			            <p:ajax event="select" listener="#{cc.attrs.bean.onNodeSelect}" update=":#{cc.id}:sAsset"/>
-			            <p:ajax event="expand" listener="#{cc.attrs.bean.onNodeExpand}" />
-						<p:ajax event="collapse" listener="#{cc.attrs.bean.onNodeCollapse}" />
+			            <p:ajax event="expand" listener="#{cc.attrs.bean.onNodeExpand}" update="@form:cActions" />
+						<p:ajax event="collapse" listener="#{cc.attrs.bean.onNodeCollapse}" update="@form:cActions"  />
 			            <p:treeNode id="tn">
 			            	<jtp:symbolizer value="#{node.type1}" marginRight="5"/>
 			                <h:outputText id="otText" value="#{node.name}" />
@@ -45,7 +51,7 @@
 					<f:facet name="actions">
 						<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.cancelAsset()}" update=":#{cc.id}:grid" mayDisappear="true"/>
 						<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveAsset()}" update=":#{cc.id}:grid"/>
-						<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteAsset()}" update=":#{cc.id}:grid" rendered="#{false and cc.attrs.bean.asset.id gt 0}" mayDisappear="true"/>
+						<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteAsset()}" update=":#{cc.id}:grid" rendered="#{cc.attrs.bean.asset.id gt 0}" mayDisappear="true"/>
 					</f:facet>
 					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
 						<p:outputLabel value="#{msg.jeeslCode}" rendered="#{cc.attrs.withCode}"/>
