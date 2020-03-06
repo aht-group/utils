@@ -176,16 +176,16 @@ public class AbstractIconBean implements Serializable
 		mapStatic.put("jeeslAdd", "ui/jeesl/control/add.png");							svg.put("jeeslAdd","ui/control/add.svg");
 		mapStatic.put("jeeslCancel", "ui/jeesl/control/cancel.png");
 		mapStatic.put("jeeslClone", "ui/jeesl/control/clone.png");
-		mapStatic.put("jeeslDelete", "ui/jeesl/control/delete.png");
+		mapStatic.put("jeeslDelete", "ui/jeesl/control/delete.png");					svg.put("jeeslDelete","ui/control/delete.svg");
 		mapStatic.put("jeeslEdit", "ui/jeesl/control/edit.png");
 		mapStatic.put("jeeslEditGrey", "ui/jeesl/control/editGrey.png");
 		mapStatic.put("jeeslFilter", "ui/jeesl/control/filter.png");
 		mapStatic.put("jeeslMove", "ui/jeesl/control/move.png");
 		mapStatic.put("jeeslRemove", "ui/jeesl/control/remove.png");
-		mapStatic.put("jeeslRefresh", "ui/jeesl/control/refresh.png");
+		mapStatic.put("jeeslRefresh", "ui/jeesl/control/refresh.png");					svg.put("jeeslRefresh","ui/control/refresh.svg");
 		mapStatic.put("jeeslClean", "ui/jeesl/control/clean.png");
-		mapStatic.put("jeeslSave", "ui/jeesl/control/save.png");
-		mapStatic.put("jeeslSearch", "ui/jeesl/control/search.png");
+		mapStatic.put("jeeslSave", "ui/jeesl/control/save.png");						svg.put("jeeslSave","ui/control/save.svg");
+		mapStatic.put("jeeslSearch", "ui/jeesl/control/search.png");					svg.put("jeeslSearch","ui/control/search.svg");
 		mapStatic.put("jeeslDownload", "ui/jeesl/control/download.png");
 		mapStatic.put("jeeslUpload", "ui/jeesl/control/upload.png");
 		

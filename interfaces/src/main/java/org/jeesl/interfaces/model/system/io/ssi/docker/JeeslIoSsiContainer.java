@@ -16,6 +16,5 @@ public interface JeeslIoSsiContainer <SYSTEM extends JeeslIoSsiSystem,
 	public SYSTEM getSystem();
 	public void setSystem(SYSTEM system);
 	
-	HOST getHost();
-	void setHost(HOST host);
+
 }

@@ -33,8 +33,6 @@ import org.metachart.xml.chart.Chart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.exlp.util.io.JsonUtil;
-
 public class TsSessionProcessor<SYSTEM extends JeeslIoSsiSystem,
 									USER extends JeeslUser<?>,
 									SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
