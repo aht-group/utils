@@ -8,7 +8,7 @@ import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
-public interface JeeslIoSsiMapping <SYSTEM extends JeeslIoSsiSystem,
+public interface JeeslIoSsiMapping <SYSTEM extends JeeslIoSsiSystem<?,?>,
 									ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>>
 		extends Serializable,EjbWithId,EjbSaveable,EjbRemoveable
 {	

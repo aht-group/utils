@@ -86,35 +86,17 @@ public abstract class AbstractRewriteProvider <L extends JeeslLang, D extends Je
 		logger.info("Rules created for "+views.size()+" Views");
 		return config;
 	}
-/*	
-	private static String getUrlMapping1(String context, String url)
-	{
 
-		int indexStart = url.indexOf(context);
-		int indexParameter = url.indexOf("?");
-		
-		int indexEnd = url.length();
-		if(indexParameter>=0) {indexEnd = indexParameter;}
-		
-		String httpPattern = url.substring(indexStart+context.length(), indexEnd);
-		return httpPattern;
-	}
-*/	
 	public static String getUrlMapping(String context, String urlString)
 	{
 		try
 		{
 			URL url = new URL(urlString);
-//			System.out.println(url.getProtocol());
-//			System.out.println(url.getPath());
 			int indexStart = url.getPath().indexOf(context);
 			int indexEnd = url.getPath().length();
 			return url.getPath().substring(indexStart+context.length(), indexEnd);
 		}
-		catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		catch (MalformedURLException e) {e.printStackTrace();}
 		return urlString;
 	}
 }

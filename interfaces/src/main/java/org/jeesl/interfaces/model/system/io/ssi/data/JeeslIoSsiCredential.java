@@ -11,7 +11,7 @@ import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 
-public interface JeeslIoSsiCredential <SYSTEM extends JeeslIoSsiSystem>
+public interface JeeslIoSsiCredential <SYSTEM extends JeeslIoSsiSystem<?,?>>
 								extends Serializable,EjbWithId,EjbSaveable,EjbRemoveable,
 										EjbWithCode,EjbWithPosition,EjbWithParentAttributeResolver,
 										EjbWithVisibleMigration

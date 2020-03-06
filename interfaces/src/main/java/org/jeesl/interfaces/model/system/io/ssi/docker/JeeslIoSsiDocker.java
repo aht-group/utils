@@ -8,7 +8,7 @@ import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiHost;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
-public interface JeeslIoSsiDocker <SYSTEM extends JeeslIoSsiSystem,
+public interface JeeslIoSsiDocker <SYSTEM extends JeeslIoSsiSystem<?,?>,
 									HOST extends JeeslIoSsiHost<?,?>>
 		extends Serializable,EjbWithId,EjbSaveable,EjbRemoveable
 {
