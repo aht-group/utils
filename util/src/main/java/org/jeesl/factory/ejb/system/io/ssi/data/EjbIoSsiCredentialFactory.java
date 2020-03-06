@@ -3,8 +3,8 @@ package org.jeesl.factory.ejb.system.io.ssi.data;
 import java.util.List;
 
 import org.jeesl.factory.ejb.util.EjbPositionFactory;
+import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiCredential;
-import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
 
 public class EjbIoSsiCredentialFactory <SYSTEM extends JeeslIoSsiSystem,
 										CRED extends JeeslIoSsiCredential<SYSTEM>>

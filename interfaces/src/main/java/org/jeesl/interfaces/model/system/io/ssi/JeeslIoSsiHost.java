@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.system.io.ssi.docker;
+package org.jeesl.interfaces.model.system.io.ssi;
 
 import java.io.Serializable;
 

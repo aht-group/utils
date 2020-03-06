@@ -1,7 +1,7 @@
 package org.jeesl.factory.ejb.system.io.ssi.docker;
 
-import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
-import org.jeesl.interfaces.model.system.io.ssi.docker.JeeslIoSsiHost;
+import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiHost;
+import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.io.ssi.docker.JeeslIoSsiContainer;
 
 public class EjbIoSsiInstanceFactory <SYSTEM extends JeeslIoSsiSystem,
