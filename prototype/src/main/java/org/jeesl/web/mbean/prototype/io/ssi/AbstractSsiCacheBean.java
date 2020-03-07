@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.jeesl.api.facade.io.JeeslIoSsiFacade;
-import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
+import org.jeesl.factory.builder.io.ssi.IoSsiDataFactoryBuilder;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiCleaning;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiLink;
@@ -21,9 +21,9 @@ public class AbstractSsiCacheBean <L extends JeeslLang,D extends JeeslDescriptio
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractSsiCacheBean.class);
 	
-	private final IoSsiFactoryBuilder<L,D,?,?,?,?,?,LINK,?,CLEANING,?> fbSsi;
+	private final IoSsiDataFactoryBuilder<L,D,?,?,?,?,?,LINK,?,CLEANING> fbSsi;
 	
-	public AbstractSsiCacheBean(final IoSsiFactoryBuilder<L,D,?,?,?,?,?,LINK,?,CLEANING,?> fbSsi)
+	public AbstractSsiCacheBean(final IoSsiDataFactoryBuilder<L,D,?,?,?,?,?,LINK,?,CLEANING> fbSsi)
 	{
 		this.fbSsi=fbSsi;
 

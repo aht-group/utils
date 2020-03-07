@@ -7,7 +7,7 @@ import java.util.List;
 import org.jeesl.api.facade.io.JeeslIoSsiFacade;
 import org.jeesl.controller.handler.sb.SbMultiHandler;
 import org.jeesl.controller.handler.tuple.JsonTuple1Handler;
-import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
+import org.jeesl.factory.builder.io.ssi.IoSsiDataFactoryBuilder;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.controller.processor.SsiMappingProcessor;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
@@ -41,7 +41,7 @@ public abstract class AbstractSsiBean <L extends JeeslLang, D extends JeeslDescr
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractSsiBean.class);
 	
-	private final IoSsiFactoryBuilder<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING,HOST> fbSsi;
+	private final IoSsiDataFactoryBuilder<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi;
 	
 	protected JeeslIoSsiFacade<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,HOST> fSsi;
 	
@@ -53,7 +53,7 @@ public abstract class AbstractSsiBean <L extends JeeslLang, D extends JeeslDescr
 	protected List<DATA> selection; public List<DATA> getSelection() {return selection;} public void setSelection(List<DATA> selection) {this.selection = selection;}
 
 	
-	public AbstractSsiBean(final IoSsiFactoryBuilder<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING,HOST> fbSsi)
+	public AbstractSsiBean(final IoSsiDataFactoryBuilder<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi)
 	{
 		this.fbSsi=fbSsi;
 		sbhLink = new SbMultiHandler<LINK>(fbSsi.getClassLink(),this);

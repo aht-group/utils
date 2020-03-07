@@ -9,7 +9,7 @@ import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoSsiFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
-import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
+import org.jeesl.factory.builder.io.ssi.IoSsiCoreFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiCredential;
 import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiHost;
@@ -44,21 +44,19 @@ public class AbstractSsiHostBean <L extends JeeslLang, D extends JeeslDescriptio
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractSsiHostBean.class);
 	
-	private final IoSsiFactoryBuilder<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING,HOST> fbSsi;
 	private JeeslIoSsiFacade<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,HOST> fSsi;
 	
-	private final List<SYSTEM> systems; public List<SYSTEM> getSystems() {return systems;}
-	private final List<CRED> credentials; public List<CRED> getCredentials() {return credentials;}
-
-	private SYSTEM system; public SYSTEM getSystem() {return system;} public void setSystem(SYSTEM system) {this.system = system;}
-	private CRED credential; public CRED getCredential() {return credential;} public void setCredential(CRED credential) {this.credential = credential;}
+	private final IoSsiCoreFactoryBuilder<L,D,SYSTEM,CRED,HOST> fbSsiCore;
 	
-	public AbstractSsiHostBean(final IoSsiFactoryBuilder<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING,HOST> fbSsi)
+	private final List<HOST> hosts; public List<HOST> getHosts() {return hosts;}
+
+	private HOST host; public HOST getHost() {return host;} public void setHost(HOST host) {this.host = host;}
+	
+	public AbstractSsiHostBean(IoSsiCoreFactoryBuilder<L,D,SYSTEM,CRED,HOST> fbSsiCore)
 	{
-		super(fbSsi.getClassL(),fbSsi.getClassD());
-		this.fbSsi=fbSsi;
-		systems = new ArrayList<>();
-		credentials = new ArrayList<>();
+		super(fbSsiCore.getClassL(),fbSsiCore.getClassD());
+		this.fbSsiCore=fbSsiCore;
+		hosts = new ArrayList<>();
 	}
 
 	protected void postConstructSsiSystem(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
@@ -66,71 +64,39 @@ public class AbstractSsiHostBean <L extends JeeslLang, D extends JeeslDescriptio
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fSsi=fSsi;
-		reloadSystems();
+		reloadHosts();
 	}
 	
-	private void reset(boolean rCredential)
+	private void reset(boolean rHost)
 	{
-		if(rCredential) {credential=null;}
+		if(rHost) {host=null;}
 	}
 
-	private void reloadSystems()
+	private void reloadHosts()
 	{
-		systems.clear();
-		systems.addAll(fSsi.all(fbSsi.getClassSystem()));
+		hosts.clear();
+//		hosts.addAll(fSsi.all(fbSsiCore.getClassSystem()));
 	}
 	
-	public void selectSystem()
+	public void selectHost()
 	{
-		logger.info(AbstractLogMessage.selectEntity(system));
-		system = efLang.persistMissingLangs(fSsi, localeCodes, system);
-		system = efDescription.persistMissingLangs(fSsi, localeCodes, system);
-		reloadCredentials();
-		reset(true);
+		logger.info(AbstractLogMessage.selectEntity(host));
+		host = efLang.persistMissingLangs(fSsi, localeCodes, host);
+		host = efDescription.persistMissingLangs(fSsi, localeCodes, host);
+		reset(false);
 	}
 	
-	public void addSystem()
+	public void addHost()
 	{
 		reset(true);
-		system = fbSsi.ejbSystem().build();
-		system.setName(efLang.createEmpty(localeCodes));
-		system.setDescription(efDescription.createEmpty(localeCodes));
+//		host = fbSsiCore.ejbSystem().build();
+		host.setName(efLang.createEmpty(localeCodes));
+		host.setDescription(efDescription.createEmpty(localeCodes));
 	}
 	
 	public void saveSystem() throws JeeslConstraintViolationException, JeeslLockingException
 	{
-		system = fSsi.save(system);
-		reloadSystems();
-		reloadCredentials();
-	}
-	
-	private void reloadCredentials()
-	{
-		credentials.clear();
-		credentials.addAll(fSsi.allForParent(fbSsi.getClassCredential(),system));
-	}
-	
-	public void selectCredential()
-	{
-		logger.info(AbstractLogMessage.selectEntity(credential));
-	}
-	
-	public void addCredential()
-	{
-		reset(true);
-		credential = fbSsi.ejbCredential().build(system,credentials);
-	}
-	
-	public void saveCredential() throws JeeslConstraintViolationException, JeeslLockingException
-	{
-		credential = fSsi.save(credential);
-		reloadCredentials();
-	}
-	
-	public void deleteCredential() throws JeeslConstraintViolationException, JeeslLockingException
-	{
-		fSsi.rm(credential);
-		reloadCredentials();
-		reset(true);
+		host = fSsi.save(host);
+		reloadHosts();
 	}
 }

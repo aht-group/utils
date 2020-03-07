@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.jeesl.api.facade.io.JeeslIoSsiFacade;
 import org.jeesl.controller.handler.tuple.JsonTuple1Handler;
-import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
+import org.jeesl.factory.builder.io.ssi.IoSsiDataFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiCredential;
 import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiHost;
@@ -40,7 +40,7 @@ public class AbstractSsiMappingBean <L extends JeeslLang,D extends JeeslDescript
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractSsiMappingBean.class);
 	
-	private final IoSsiFactoryBuilder<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING,HOST> fbSsi;
+	private final IoSsiDataFactoryBuilder<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi;
 	private JeeslIoSsiFacade<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,HOST> fSsi;
 	
 	private final JsonTuple1Handler<MAPPING> th; public JsonTuple1Handler<MAPPING> getTh() {return th;}
@@ -49,7 +49,7 @@ public class AbstractSsiMappingBean <L extends JeeslLang,D extends JeeslDescript
 
 	private MAPPING mapping; public MAPPING getMapping() {return mapping;} public void setMapping(MAPPING mapping) {this.mapping = mapping;}
 
-	public AbstractSsiMappingBean(final IoSsiFactoryBuilder<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING,HOST> fbSsi)
+	public AbstractSsiMappingBean(final IoSsiDataFactoryBuilder<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi)
 	{
 		this.fbSsi=fbSsi;
 		mappings = new ArrayList<MAPPING>();

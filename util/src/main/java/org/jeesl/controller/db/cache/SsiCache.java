@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.jeesl.api.facade.io.JeeslIoSsiFacade;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
-import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
+import org.jeesl.factory.builder.io.ssi.IoSsiDataFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiData;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiLink;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;
@@ -26,7 +26,7 @@ public class SsiCache <MAPPING extends JeeslIoSsiMapping<?,?>,
 	
 	private final Map<String,T> map;
 	
-	public SsiCache(IoSsiFactoryBuilder<?,?,?,?,MAPPING,?,?,?,?,?,?> fbSsi,
+	public SsiCache(IoSsiDataFactoryBuilder<?,?,?,?,MAPPING,?,?,?,?,?> fbSsi,
 						JeeslIoSsiFacade<?,?,?,?,MAPPING,?,DATA,LINK,?,?> fSsi,
 						Class<T> cT,
 						MAPPING mapping

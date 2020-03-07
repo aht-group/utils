@@ -8,7 +8,7 @@ import org.jeesl.api.facade.io.JeeslIoSsiDockerFacade;
 import org.jeesl.controller.handler.sb.SbMultiHandler;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
-import org.jeesl.factory.builder.io.IoSsiDockerFactoryBuilder;
+import org.jeesl.factory.builder.io.ssi.IoSsiDockerFactoryBuilder;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiHost;
 import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiSystem;

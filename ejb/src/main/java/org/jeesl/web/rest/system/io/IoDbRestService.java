@@ -13,7 +13,7 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoDbFactoryBuilder;
-import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
+import org.jeesl.factory.builder.io.ssi.IoSsiDataFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.db.EjbDbDumpFileFactory;
 import org.jeesl.factory.ejb.system.io.db.EjbIoDumpFactory;
 import org.jeesl.factory.ejb.system.status.EjbStatusFactory;
@@ -48,7 +48,7 @@ public class IoDbRestService<L extends JeeslLang,D extends JeeslDescription,
 	final static Logger logger = LoggerFactory.getLogger(IoDbRestService.class);
 	
 	private final IoDbFactoryBuilder<L,D,SYSTEM,DUMP,FILE,HOST,STATUS,?,?,?,?,?> fbDb;
-	private final IoSsiFactoryBuilder<L,D,SYSTEM,?,?,?,?,?,?,?,HOST2> fbSsi;
+	private final IoSsiDataFactoryBuilder<L,D,SYSTEM,?,?,?,?,?,?,?> fbSsi;
 	
 	private final JeeslIoDbFacade<L,D,SYSTEM,DUMP,FILE,HOST,STATUS> fDb;
 	
@@ -59,7 +59,7 @@ public class IoDbRestService<L extends JeeslLang,D extends JeeslDescription,
 	private final SYSTEM system;
 	
 	public IoDbRestService(IoDbFactoryBuilder<L,D,SYSTEM,DUMP,FILE,HOST,STATUS,?,?,?,?,?> fbDb,
-							IoSsiFactoryBuilder<L,D,SYSTEM,?,?,?,?,?,?,?,HOST2> fbSsi,
+							IoSsiDataFactoryBuilder<L,D,SYSTEM,?,?,?,?,?,?,?> fbSsi,
 							JeeslIoDbFacade<L,D,SYSTEM,DUMP,FILE,HOST,STATUS> fDb,
 							SYSTEM system)
 	{

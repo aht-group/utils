@@ -6,7 +6,7 @@ import org.jeesl.api.facade.io.JeeslIoSsiFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
-import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
+import org.jeesl.factory.builder.io.ssi.IoSsiDataFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.ssi.data.EjbIoSsiDataFactory;
 import org.jeesl.interfaces.controller.processor.SsiMappingProcessor;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
@@ -36,7 +36,7 @@ public abstract class AbstractSsiDomainProcessor<L extends JeeslLang,D extends J
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractSsiDomainProcessor.class);
 	
-	protected final IoSsiFactoryBuilder<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING,?> fbSsi;
+	protected final IoSsiDataFactoryBuilder<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi;
 	protected final JeeslIoSsiFacade<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,?> fSsi;
 	
 	protected final EjbIoSsiDataFactory<MAPPING,DATA,LINK> efData;
@@ -49,7 +49,7 @@ public abstract class AbstractSsiDomainProcessor<L extends JeeslLang,D extends J
 	
 	protected MAPPING mapping; @Override public MAPPING getMapping() {return mapping;}
 
-	public AbstractSsiDomainProcessor(IoSsiFactoryBuilder<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING,?> fbSsi,
+	public AbstractSsiDomainProcessor(IoSsiDataFactoryBuilder<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi,
 									JeeslIoSsiFacade<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,?> fSsi)
 	{
 		this.fSsi=fSsi;

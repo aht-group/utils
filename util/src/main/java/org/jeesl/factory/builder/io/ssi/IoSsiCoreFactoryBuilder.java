@@ -1,39 +1,40 @@
-package org.jeesl.factory.builder.io;
+package org.jeesl.factory.builder.io.ssi;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
+import org.jeesl.factory.ejb.system.io.ssi.core.EjbIoSsiCredentialFactory;
 import org.jeesl.factory.ejb.system.io.ssi.core.EjbIoSsiSystemFactory;
-import org.jeesl.factory.ejb.system.io.ssi.docker.EjbIoSsiContainerFactory;
+import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiCredential;
 import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiHost;
 import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiSystem;
-import org.jeesl.interfaces.model.system.io.ssi.docker.JeeslIoSsiContainer;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class IoSsiDockerFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
+public class IoSsiCoreFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 								SYSTEM extends JeeslIoSsiSystem<L,D>,
-								INSTANCE extends JeeslIoSsiContainer<SYSTEM,HOST>,
+								CRED extends JeeslIoSsiCredential<SYSTEM>,
 								HOST extends JeeslIoSsiHost<L,D>>
 		extends AbstractFactoryBuilder<L,D>
 {
-	final static Logger logger = LoggerFactory.getLogger(IoSsiDockerFactoryBuilder.class);
+	final static Logger logger = LoggerFactory.getLogger(IoSsiCoreFactoryBuilder.class);
 	
 	private final Class<SYSTEM> cSystem; public Class<SYSTEM> getClassSystem(){return cSystem;}
-	private final Class<INSTANCE> cInstance; public Class<INSTANCE> getClassInstance(){return cInstance;}
+	private final Class<CRED> cCredential; public Class<CRED> getClassCredential(){return cCredential;}
 	private final Class<HOST> cHost; public Class<HOST> getClassHost(){return cHost;}
 	
-	public IoSsiDockerFactoryBuilder(final Class<L> cL, final Class<D> cD,
+	public IoSsiCoreFactoryBuilder(final Class<L> cL, final Class<D> cD,
 								final Class<SYSTEM> cSystem,
-								final Class<INSTANCE> cInstance,
+								final Class<CRED> cCredential,
 								final Class<HOST> cHost)
 	{
 		super(cL,cD);
 		this.cSystem=cSystem;
-		this.cInstance=cInstance;
+		this.cCredential=cCredential;
 		this.cHost=cHost;
 	}
 	
 	public EjbIoSsiSystemFactory<SYSTEM> ejbSystem() {return new EjbIoSsiSystemFactory<>(cSystem);}
-	public EjbIoSsiContainerFactory<SYSTEM,INSTANCE,HOST> ejbInstance() {return new EjbIoSsiContainerFactory<>(cInstance);}
+	public EjbIoSsiCredentialFactory<SYSTEM,CRED> ejbCredential() {return new EjbIoSsiCredentialFactory<>(cCredential);}
+	
 }

@@ -7,6 +7,7 @@ import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
+import org.jeesl.interfaces.model.system.io.fr.JeeslWithFileRepositoryContainer;
 import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.jeesl.interfaces.model.with.primitive.date.EjbWithRecord;
 import org.jeesl.interfaces.model.with.primitive.text.EjbWithName;
@@ -22,9 +23,8 @@ public interface JeeslAomEvent <COMPANY extends JeeslAomCompany<?,?>,
 								FRC extends JeeslFileContainer<?,?>>
 			extends Serializable,EjbSaveable,
 					EjbWithRecord,EjbWithRemark,EjbWithName,
-					JeeslWithType<ETYPE>,JeeslWithStatus<ESTATUS>
-				
-					
+					JeeslWithType<ETYPE>,JeeslWithStatus<ESTATUS>,
+					JeeslWithFileRepositoryContainer<FRC>
 {
 	public enum Attributes{assets,status}
 	
