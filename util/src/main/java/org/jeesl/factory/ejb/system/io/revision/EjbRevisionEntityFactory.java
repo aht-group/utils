@@ -9,7 +9,6 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.factory.ejb.system.status.EjbDescriptionFactory;
 import org.jeesl.factory.ejb.system.status.EjbLangFactory;
 import org.jeesl.factory.ejb.util.EjbPositionFactory;
-import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionScope;
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionView;
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionViewMapping;

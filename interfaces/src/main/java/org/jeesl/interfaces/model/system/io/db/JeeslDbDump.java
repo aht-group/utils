@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.with.primitive.date.EjbWithRecord;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.text.EjbWithName;

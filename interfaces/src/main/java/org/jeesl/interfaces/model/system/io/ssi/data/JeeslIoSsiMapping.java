@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslIoSsiMapping <SYSTEM extends JeeslIoSsiSystem<?,?>,

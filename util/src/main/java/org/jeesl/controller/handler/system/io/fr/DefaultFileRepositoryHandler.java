@@ -10,7 +10,7 @@ import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorage;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorageEngine;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorageType;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileType;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
@@ -18,7 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DefaultFileRepositoryHandler<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
-									SYSTEM extends JeeslIoSsiSystem,
+									SYSTEM extends JeeslIoSsiSystem<L,D>,
 									STORAGE extends JeeslFileStorage<L,D,SYSTEM,STYPE,ENGINE>,
 									STYPE extends JeeslFileStorageType<L,D,STYPE,?>,
 									ENGINE extends JeeslFileStorageEngine<L,D,ENGINE,?>,

@@ -2,7 +2,6 @@ package org.jeesl.factory.ejb.system.io.attribute;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;

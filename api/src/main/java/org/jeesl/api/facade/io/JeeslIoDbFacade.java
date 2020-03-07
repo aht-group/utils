@@ -9,13 +9,13 @@ import org.jeesl.interfaces.model.system.io.db.JeeslDbDump;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpFile;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpHost;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpStatus;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.model.json.system.io.db.JsonPostgres;
 
 public interface JeeslIoDbFacade <L extends JeeslLang,D extends JeeslDescription,
-								SYSTEM extends JeeslIoSsiSystem,
+								SYSTEM extends JeeslIoSsiSystem<L,D>,
 								DUMP extends JeeslDbDump<SYSTEM,DF>,
 								DF extends JeeslDbDumpFile<DUMP,DH,DS>,
 								DH extends JeeslDbDumpHost<L,D,DH,?>,

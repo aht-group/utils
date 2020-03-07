@@ -10,10 +10,10 @@ import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.ssi.data.EjbIoSsiDataFactory;
 import org.jeesl.interfaces.controller.processor.SsiMappingProcessor;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiCredential;
+import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiAttribute;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiCleaning;
-import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiCredential;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiData;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiLink;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;
@@ -23,7 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class AbstractSsiDomainProcessor<L extends JeeslLang,D extends JeeslDescription,
-										SYSTEM extends JeeslIoSsiSystem,
+										SYSTEM extends JeeslIoSsiSystem<L,D>,
 										CRED extends JeeslIoSsiCredential<SYSTEM>,
 										MAPPING extends JeeslIoSsiMapping<SYSTEM,ENTITY>,
 										ATTRIBUTE extends JeeslIoSsiAttribute<MAPPING,ENTITY>,

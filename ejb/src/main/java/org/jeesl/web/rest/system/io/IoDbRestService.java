@@ -20,7 +20,7 @@ import org.jeesl.factory.ejb.system.status.EjbStatusFactory;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDump;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpFile;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpStatus;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpHost;
@@ -35,7 +35,7 @@ import net.sf.exlp.xml.io.Dir;
 import net.sf.exlp.xml.io.File;
 
 public class IoDbRestService<L extends JeeslLang,D extends JeeslDescription,
-							SYSTEM extends JeeslIoSsiSystem,
+							SYSTEM extends JeeslIoSsiSystem<L,D>,
 							DUMP extends JeeslDbDump<SYSTEM,FILE>,
 							FILE extends JeeslDbDumpFile<DUMP,HOST,STATUS>,
 							HOST extends JeeslDbDumpHost<L,D,HOST,?>,

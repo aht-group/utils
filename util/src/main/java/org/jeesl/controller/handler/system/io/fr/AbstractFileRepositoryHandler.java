@@ -35,7 +35,7 @@ import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorageEngine;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorageType;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileType;
 import org.jeesl.interfaces.model.system.io.fr.JeeslWithFileRepositoryContainer;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
@@ -47,7 +47,7 @@ import net.sf.exlp.factory.xml.io.XmlFileFactory;
 import net.sf.exlp.xml.io.File;
 
 public abstract class AbstractFileRepositoryHandler<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
-									SYSTEM extends JeeslIoSsiSystem,
+									SYSTEM extends JeeslIoSsiSystem<L,D>,
 									STORAGE extends JeeslFileStorage<L,D,SYSTEM,STYPE,ENGINE>,
 									STYPE extends JeeslFileStorageType<L,D,STYPE,?>,
 									ENGINE extends JeeslFileStorageEngine<L,D,ENGINE,?>,

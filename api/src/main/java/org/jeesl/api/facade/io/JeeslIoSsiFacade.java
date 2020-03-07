@@ -5,9 +5,9 @@ import java.util.List;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiCredential;
+import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiAttribute;
-import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiCredential;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiData;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiLink;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;
@@ -17,7 +17,7 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 
 public interface JeeslIoSsiFacade <L extends JeeslLang,D extends JeeslDescription,
-									SYSTEM extends JeeslIoSsiSystem,
+									SYSTEM extends JeeslIoSsiSystem<L,D>,
 									CRED extends JeeslIoSsiCredential<SYSTEM>,
 									MAPPING extends JeeslIoSsiMapping<SYSTEM,ENTITY>,
 									ATTRIBUTE extends JeeslIoSsiAttribute<MAPPING,ENTITY>,

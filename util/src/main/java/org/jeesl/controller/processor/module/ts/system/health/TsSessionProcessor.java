@@ -22,7 +22,7 @@ import org.jeesl.interfaces.model.module.ts.data.JeeslTsData;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsDataPoint;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsTransaction;
 import org.jeesl.interfaces.model.module.ts.stat.JeeslTsStatistic;
-import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.model.json.module.ts.JsonTsData;

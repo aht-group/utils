@@ -22,7 +22,7 @@
                         <p:ajax update="#{cc.attrs.update}" event="change" listener="#{cc.attrs.handler.dateChanged()}"/>
                     </p:calendar>
 
-                    <h:graphicImage styleClass="aupDateGraphic" name="12/ui/control/dates.png"  library="jeeslPrototypeGfx"/>
+                    <h:graphicImage styleClass="aupDateGraphic" name="ui/control/dates.svg" library="jeeslGfx" height="12"/>
                     <p:calendar styleClass="aupStatusBarCalendar" value="#{cc.attrs.handler.date2}" pattern="dd.MM.yyyy" >
                         <p:ajax update="#{cc.attrs.update}" event="dateSelect" listener="#{cc.attrs.handler.dateChanged()}"/>
                         <p:ajax update="#{cc.attrs.update}" event="change" listener="#{cc.attrs.handler.dateChanged()}"/>
