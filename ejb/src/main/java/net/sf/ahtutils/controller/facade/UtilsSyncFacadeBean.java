@@ -13,7 +13,7 @@ import org.jeesl.api.facade.core.JeeslSyncFacade;
 import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.ejb.system.sync.EjbSyncFactory;
-import org.jeesl.interfaces.model.system.io.db.JeeslSync;
+import org.jeesl.interfaces.model.io.db.JeeslSync;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;

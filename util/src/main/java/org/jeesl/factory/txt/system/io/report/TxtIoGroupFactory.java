@@ -8,8 +8,8 @@ import java.util.Map;
 
 import org.apache.commons.jxpath.JXPathContext;
 import org.jeesl.factory.ejb.system.io.report.EjbIoReportColumnGroupFactory;
-import org.jeesl.interfaces.model.system.io.report.JeeslReportColumnGroup;
-import org.jeesl.interfaces.model.system.io.report.JeeslReportSheet;
+import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportColumnGroup;
+import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportSheet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

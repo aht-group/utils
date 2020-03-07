@@ -3,7 +3,7 @@ package org.jeesl.factory.xml.system.io.sync;
 import net.sf.ahtutils.xml.sync.Result;
 
 import org.jeesl.factory.xml.system.status.XmlStatusFactory;
-import org.jeesl.interfaces.model.system.io.db.JeeslSync;
+import org.jeesl.interfaces.model.io.db.JeeslSync;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

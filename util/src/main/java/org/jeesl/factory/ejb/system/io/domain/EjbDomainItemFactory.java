@@ -2,9 +2,9 @@ package org.jeesl.factory.ejb.system.io.domain;
 
 import java.util.List;
 
-import org.jeesl.interfaces.model.system.io.domain.JeeslDomainItem;
-import org.jeesl.interfaces.model.system.io.domain.JeeslDomainQuery;
-import org.jeesl.interfaces.model.system.io.domain.JeeslDomainSet;
+import org.jeesl.interfaces.model.io.domain.JeeslDomainItem;
+import org.jeesl.interfaces.model.io.domain.JeeslDomainQuery;
+import org.jeesl.interfaces.model.io.domain.JeeslDomainSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

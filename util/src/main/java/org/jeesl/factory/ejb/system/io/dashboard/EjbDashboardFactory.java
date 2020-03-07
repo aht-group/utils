@@ -1,6 +1,6 @@
 package org.jeesl.factory.ejb.system.io.dashboard;
 
-import org.jeesl.interfaces.model.system.io.dash.JeeslIoDashboard;
+import org.jeesl.interfaces.model.io.dash.JeeslIoDashboard;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;

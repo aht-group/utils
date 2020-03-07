@@ -1,6 +1,6 @@
 package org.jeesl.api.bean;
 
-import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsSection;
+import org.jeesl.interfaces.model.io.cms.JeeslIoCmsSection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

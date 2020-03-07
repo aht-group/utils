@@ -3,8 +3,8 @@ package org.jeesl.util.query.ejb.system.io;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jeesl.interfaces.model.system.io.fr.JeeslFileMeta;
-import org.jeesl.interfaces.model.system.io.fr.JeeslFileType;
+import org.jeesl.interfaces.model.io.fr.JeeslFileMeta;
+import org.jeesl.interfaces.model.io.fr.JeeslFileType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

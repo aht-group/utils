@@ -3,8 +3,8 @@ package org.jeesl.util.comparator.ejb.system.io.revision;
 import java.util.Comparator;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
-import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
-import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
+import org.jeesl.interfaces.model.io.revision.core.JeeslRevisionCategory;
+import org.jeesl.interfaces.model.io.revision.er.JeeslRevisionDiagram;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
