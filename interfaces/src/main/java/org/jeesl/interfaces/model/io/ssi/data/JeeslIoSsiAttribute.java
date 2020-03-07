@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.system.io.ssi.data;
+package org.jeesl.interfaces.model.io.ssi.data;
 
 import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;

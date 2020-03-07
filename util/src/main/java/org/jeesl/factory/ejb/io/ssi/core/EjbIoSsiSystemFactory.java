@@ -1,6 +1,6 @@
 package org.jeesl.factory.ejb.io.ssi.core;
 
-import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiSystem;
 
 public class EjbIoSsiSystemFactory <SYSTEM extends JeeslIoSsiSystem<?,?>>
 {

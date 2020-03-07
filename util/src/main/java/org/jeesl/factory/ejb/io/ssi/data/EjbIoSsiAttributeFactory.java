@@ -5,9 +5,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.jeesl.interfaces.model.io.ssi.data.JeeslIoSsiAttribute;
+import org.jeesl.interfaces.model.io.ssi.data.JeeslIoSsiMapping;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
-import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiAttribute;
-import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;
 
 public class EjbIoSsiAttributeFactory <MAPPING extends JeeslIoSsiMapping<?,ENTITY>,
 										ATTRIBUTE extends JeeslIoSsiAttribute<MAPPING,ENTITY>,

@@ -1,7 +1,7 @@
 package org.jeesl.factory.ejb.io.ssi.data;
 
-import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiData;
-import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;
+import org.jeesl.interfaces.model.io.ssi.data.JeeslIoSsiData;
+import org.jeesl.interfaces.model.io.ssi.data.JeeslIoSsiMapping;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
