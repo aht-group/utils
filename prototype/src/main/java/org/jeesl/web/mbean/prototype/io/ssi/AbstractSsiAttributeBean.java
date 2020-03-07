@@ -46,10 +46,10 @@ public class AbstractSsiAttributeBean <L extends JeeslLang,D extends JeeslDescri
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractSsiAttributeBean.class);
 	
-	private final IoSsiDataFactoryBuilder<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi;
-	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,ENTITY,?,?,?,?,?> fbRevision;
-	
 	private JeeslIoSsiFacade<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,HOST> fSsi;
+	
+	private final IoSsiDataFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi;
+	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,ENTITY,?,?,?,?,?> fbRevision;
 	
 	private final SbSingleHandler<MAPPING> sbhMapping; public SbSingleHandler<MAPPING> getSbhMapping() {return sbhMapping;}
 	private final SbMultiHandler<ENTITY> sbhEntity; public SbMultiHandler<ENTITY> getSbhEntity() {return sbhEntity;}
@@ -61,7 +61,7 @@ public class AbstractSsiAttributeBean <L extends JeeslLang,D extends JeeslDescri
 
 	private final EjbIoSsiAttributeFactory<MAPPING,ATTRIBUTE,ENTITY> efAttribute;
 	
-	public AbstractSsiAttributeBean(final IoSsiDataFactoryBuilder<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi,
+	public AbstractSsiAttributeBean(final IoSsiDataFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi,
 											final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,ENTITY,?,?,?,?,?> fbRevision)
 	{
 		this.fbSsi=fbSsi;

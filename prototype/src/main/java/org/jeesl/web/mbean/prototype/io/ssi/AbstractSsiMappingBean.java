@@ -40,7 +40,7 @@ public class AbstractSsiMappingBean <L extends JeeslLang,D extends JeeslDescript
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractSsiMappingBean.class);
 	
-	private final IoSsiDataFactoryBuilder<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi;
+	private final IoSsiDataFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi;
 	private JeeslIoSsiFacade<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,HOST> fSsi;
 	
 	private final JsonTuple1Handler<MAPPING> th; public JsonTuple1Handler<MAPPING> getTh() {return th;}
@@ -49,7 +49,7 @@ public class AbstractSsiMappingBean <L extends JeeslLang,D extends JeeslDescript
 
 	private MAPPING mapping; public MAPPING getMapping() {return mapping;} public void setMapping(MAPPING mapping) {this.mapping = mapping;}
 
-	public AbstractSsiMappingBean(final IoSsiDataFactoryBuilder<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi)
+	public AbstractSsiMappingBean(final IoSsiDataFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi)
 	{
 		this.fbSsi=fbSsi;
 		mappings = new ArrayList<MAPPING>();

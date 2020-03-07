@@ -9,6 +9,7 @@ import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoSsiFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.factory.builder.io.ssi.IoSsiCoreFactoryBuilder;
 import org.jeesl.factory.builder.io.ssi.IoSsiDataFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiCredential;
@@ -44,8 +45,10 @@ public class AbstractSsiSystemBean <L extends JeeslLang, D extends JeeslDescript
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractSsiSystemBean.class);
 	
-	private final IoSsiDataFactoryBuilder<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi;
 	private JeeslIoSsiFacade<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,HOST> fSsi;
+	
+	private final IoSsiCoreFactoryBuilder<L,D,SYSTEM,CRED,HOST> fbSsiCore;
+	
 	
 	private final List<SYSTEM> systems; public List<SYSTEM> getSystems() {return systems;}
 	private final List<CRED> credentials; public List<CRED> getCredentials() {return credentials;}
@@ -53,10 +56,10 @@ public class AbstractSsiSystemBean <L extends JeeslLang, D extends JeeslDescript
 	private SYSTEM system; public SYSTEM getSystem() {return system;} public void setSystem(SYSTEM system) {this.system = system;}
 	private CRED credential; public CRED getCredential() {return credential;} public void setCredential(CRED credential) {this.credential = credential;}
 	
-	public AbstractSsiSystemBean(final IoSsiDataFactoryBuilder<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi)
+	public AbstractSsiSystemBean(IoSsiCoreFactoryBuilder<L,D,SYSTEM,CRED,HOST> fbSsiCore)
 	{
-		super(fbSsi.getClassL(),fbSsi.getClassD());
-		this.fbSsi=fbSsi;
+		super(fbSsiCore.getClassL(),fbSsiCore.getClassD());
+		this.fbSsiCore=fbSsiCore;
 		systems = new ArrayList<>();
 		credentials = new ArrayList<>();
 	}
@@ -77,7 +80,7 @@ public class AbstractSsiSystemBean <L extends JeeslLang, D extends JeeslDescript
 	private void reloadSystems()
 	{
 		systems.clear();
-		systems.addAll(fSsi.all(fbSsi.getClassSystem()));
+		systems.addAll(fSsi.all(fbSsiCore.getClassSystem()));
 	}
 	
 	public void selectSystem()
@@ -92,7 +95,7 @@ public class AbstractSsiSystemBean <L extends JeeslLang, D extends JeeslDescript
 	public void addSystem()
 	{
 		reset(true);
-		system = fbSsi.ejbSystem().build();
+		system = fbSsiCore.ejbSystem().build();
 		system.setName(efLang.createEmpty(localeCodes));
 		system.setDescription(efDescription.createEmpty(localeCodes));
 	}
@@ -107,7 +110,7 @@ public class AbstractSsiSystemBean <L extends JeeslLang, D extends JeeslDescript
 	private void reloadCredentials()
 	{
 		credentials.clear();
-		credentials.addAll(fSsi.allForParent(fbSsi.getClassCredential(),system));
+		credentials.addAll(fSsi.allForParent(fbSsiCore.getClassCredential(),system));
 	}
 	
 	public void selectCredential()
@@ -118,7 +121,7 @@ public class AbstractSsiSystemBean <L extends JeeslLang, D extends JeeslDescript
 	public void addCredential()
 	{
 		reset(true);
-		credential = fbSsi.ejbCredential().build(system,credentials);
+		credential = fbSsiCore.ejbCredential().build(system,credentials);
 	}
 	
 	public void saveCredential() throws JeeslConstraintViolationException, JeeslLockingException
