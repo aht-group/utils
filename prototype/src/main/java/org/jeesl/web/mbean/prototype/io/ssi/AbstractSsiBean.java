@@ -35,7 +35,7 @@ public abstract class AbstractSsiBean <L extends JeeslLang, D extends JeeslDescr
 										LINK extends JeeslIoSsiLink<L,D,LINK,?>,
 										ENTITY extends JeeslRevisionEntity<L,D,?,?,?,?>,
 										CLEANING extends JeeslIoSsiCleaning<L,D,CLEANING,?>,
-										HOST extends JeeslIoSsiHost<L,D>>
+										HOST extends JeeslIoSsiHost<L,D,SYSTEM>>
 						implements Serializable,SbToggleBean
 {
 	private static final long serialVersionUID = 1L;

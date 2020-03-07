@@ -5,7 +5,7 @@ import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiHost;
 import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiSystem;
 
 public class EjbIoSsiHostFactory <SYSTEM extends JeeslIoSsiSystem<?,?>,
-									HOST extends JeeslIoSsiHost<?,?>>
+									HOST extends JeeslIoSsiHost<?,?,SYSTEM>>
 {
 	private final Class<HOST> cHost;
 
@@ -20,6 +20,7 @@ public class EjbIoSsiHostFactory <SYSTEM extends JeeslIoSsiSystem<?,?>,
 		try
 		{
 			ejb = cHost.newInstance();
+//			ejb.sets
 	        ejb.setCode(code);
 		}
 		catch (InstantiationException e) {e.printStackTrace();}

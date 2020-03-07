@@ -40,7 +40,7 @@ public class AbstractSsiAttributeBean <L extends JeeslLang,D extends JeeslDescri
 										LINK extends JeeslIoSsiLink<L,D,LINK,?>,
 										ENTITY extends JeeslRevisionEntity<L,D,?,?,?,?>,
 										CLEANING extends JeeslIoSsiCleaning<L,D,CLEANING,?>,
-										HOST extends JeeslIoSsiHost<L,D>>
+										HOST extends JeeslIoSsiHost<L,D,SYSTEM>>
 						implements Serializable,SbSingleBean,SbToggleBean
 {
 	private static final long serialVersionUID = 1L;

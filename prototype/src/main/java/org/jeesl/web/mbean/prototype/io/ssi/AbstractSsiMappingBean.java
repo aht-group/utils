@@ -34,7 +34,7 @@ public class AbstractSsiMappingBean <L extends JeeslLang,D extends JeeslDescript
 										LINK extends JeeslIoSsiLink<L,D,LINK,?>,
 										ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>,
 										CLEANING extends JeeslIoSsiCleaning<L,D,CLEANING,?>,
-										HOST extends JeeslIoSsiHost<L,D>>
+										HOST extends JeeslIoSsiHost<L,D,SYSTEM>>
 						implements Serializable
 {
 	private static final long serialVersionUID = 1L;

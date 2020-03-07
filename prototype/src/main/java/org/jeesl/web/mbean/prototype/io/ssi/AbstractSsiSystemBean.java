@@ -38,7 +38,7 @@ public class AbstractSsiSystemBean <L extends JeeslLang, D extends JeeslDescript
 										LINK extends JeeslIoSsiLink<L,D,LINK,?>,
 										ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>,
 										CLEANING extends JeeslIoSsiCleaning<L,D,CLEANING,?>,
-										HOST extends JeeslIoSsiHost<L,D>>
+										HOST extends JeeslIoSsiHost<L,D,SYSTEM>>
 						extends AbstractAdminBean<L,D>
 						implements Serializable
 {

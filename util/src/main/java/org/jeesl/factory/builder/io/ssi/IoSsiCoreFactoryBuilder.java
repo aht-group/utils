@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 public class IoSsiCoreFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 								SYSTEM extends JeeslIoSsiSystem<L,D>,
 								CRED extends JeeslIoSsiCredential<SYSTEM>,
-								HOST extends JeeslIoSsiHost<L,D>>
+								HOST extends JeeslIoSsiHost<L,D,SYSTEM>>
 		extends AbstractFactoryBuilder<L,D>
 {
 	final static Logger logger = LoggerFactory.getLogger(IoSsiCoreFactoryBuilder.class);

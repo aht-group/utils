@@ -25,7 +25,7 @@ public interface JeeslIoSsiFacade <L extends JeeslLang,D extends JeeslDescriptio
 									DATA extends JeeslIoSsiData<MAPPING,LINK>,
 									LINK extends JeeslIoSsiLink<L,D,LINK,?>,
 									ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>,
-									HOST extends JeeslIoSsiHost<L,D>
+									HOST extends JeeslIoSsiHost<L,D,SYSTEM>
 									>
 			extends JeeslFacade
 {	

@@ -9,7 +9,7 @@ import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslIoSsiContainer <SYSTEM extends JeeslIoSsiSystem<?,?>,
-									HOST extends JeeslIoSsiHost<?,?>>
+									HOST extends JeeslIoSsiHost<?,?,SYSTEM>>
 		extends Serializable,EjbWithId,EjbSaveable,EjbRemoveable
 {	
 	public enum Attributes {entity,json}

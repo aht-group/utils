@@ -12,9 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class IoSsiDockerFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
-								SYSTEM extends JeeslIoSsiSystem<L,D>,
-								INSTANCE extends JeeslIoSsiContainer<SYSTEM,HOST>,
-								HOST extends JeeslIoSsiHost<L,D>>
+										SYSTEM extends JeeslIoSsiSystem<L,D>,
+										INSTANCE extends JeeslIoSsiContainer<SYSTEM,HOST>,
+										HOST extends JeeslIoSsiHost<L,D,SYSTEM>>
 		extends AbstractFactoryBuilder<L,D>
 {
 	final static Logger logger = LoggerFactory.getLogger(IoSsiDockerFactoryBuilder.class);

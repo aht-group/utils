@@ -6,7 +6,7 @@ import org.jeesl.interfaces.model.io.ssi.docker.JeeslIoSsiContainer;
 
 public class EjbIoSsiContainerFactory <SYSTEM extends JeeslIoSsiSystem<?,?>,
 										INSTANCE extends JeeslIoSsiContainer<SYSTEM,HOST>,
-										HOST extends JeeslIoSsiHost<?,?> >
+										HOST extends JeeslIoSsiHost<?,?,SYSTEM>>
 {
 	private final Class<INSTANCE> cInstance;
 

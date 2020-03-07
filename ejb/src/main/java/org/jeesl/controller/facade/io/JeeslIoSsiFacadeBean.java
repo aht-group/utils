@@ -46,7 +46,7 @@ public class JeeslIoSsiFacadeBean<L extends JeeslLang,D extends JeeslDescription
 									LINK extends JeeslIoSsiLink<L,D,LINK,?>,
 									ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>,
 									CLEANING extends JeeslIoSsiCleaning<L,D,CLEANING,?>,
-									HOST extends JeeslIoSsiHost<L,D>>
+									HOST extends JeeslIoSsiHost<L,D,SYSTEM>>
 					extends JeeslFacadeBean
 					implements JeeslIoSsiFacade<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,HOST>
 {	

@@ -23,7 +23,7 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 public class AbstractSsiDockerBean <L extends JeeslLang,D extends JeeslDescription,
 										SYSTEM extends JeeslIoSsiSystem<L,D>,
 										INSTANCE extends JeeslIoSsiContainer<SYSTEM,HOST>,
-										HOST extends JeeslIoSsiHost<L,D>>
+										HOST extends JeeslIoSsiHost<L,D,SYSTEM>>
 						implements Serializable,SbToggleBean
 {
 	private static final long serialVersionUID = 1L;
