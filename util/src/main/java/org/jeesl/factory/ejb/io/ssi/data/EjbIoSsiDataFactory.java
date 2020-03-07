@@ -1,4 +1,4 @@
-package org.jeesl.factory.ejb.system.io.ssi.data;
+package org.jeesl.factory.ejb.io.ssi.data;
 
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiData;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;

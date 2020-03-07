@@ -1,9 +1,9 @@
 package org.jeesl.factory.builder.io.ssi;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
-import org.jeesl.factory.ejb.system.io.ssi.core.EjbIoSsiSystemFactory;
-import org.jeesl.factory.ejb.system.io.ssi.data.EjbIoSsiAttributeFactory;
-import org.jeesl.factory.ejb.system.io.ssi.data.EjbIoSsiDataFactory;
+import org.jeesl.factory.ejb.io.ssi.core.EjbIoSsiSystemFactory;
+import org.jeesl.factory.ejb.io.ssi.data.EjbIoSsiAttributeFactory;
+import org.jeesl.factory.ejb.io.ssi.data.EjbIoSsiDataFactory;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiAttribute;

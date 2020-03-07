@@ -11,7 +11,7 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.factory.builder.io.ssi.IoSsiDataFactoryBuilder;
-import org.jeesl.factory.ejb.system.io.ssi.data.EjbIoSsiAttributeFactory;
+import org.jeesl.factory.ejb.io.ssi.data.EjbIoSsiAttributeFactory;
 import org.jeesl.interfaces.bean.sb.SbSingleBean;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;

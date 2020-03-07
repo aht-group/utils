@@ -1,8 +1,8 @@
 package org.jeesl.factory.builder.io.ssi;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
-import org.jeesl.factory.ejb.system.io.ssi.core.EjbIoSsiSystemFactory;
-import org.jeesl.factory.ejb.system.io.ssi.docker.EjbIoSsiContainerFactory;
+import org.jeesl.factory.ejb.io.ssi.core.EjbIoSsiSystemFactory;
+import org.jeesl.factory.ejb.io.ssi.docker.EjbIoSsiContainerFactory;
 import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiHost;
 import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.io.ssi.docker.JeeslIoSsiContainer;

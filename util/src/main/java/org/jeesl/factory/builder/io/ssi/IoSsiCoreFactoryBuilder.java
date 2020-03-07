@@ -1,8 +1,9 @@
 package org.jeesl.factory.builder.io.ssi;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
-import org.jeesl.factory.ejb.system.io.ssi.core.EjbIoSsiCredentialFactory;
-import org.jeesl.factory.ejb.system.io.ssi.core.EjbIoSsiSystemFactory;
+import org.jeesl.factory.ejb.io.ssi.core.EjbIoSsiCredentialFactory;
+import org.jeesl.factory.ejb.io.ssi.core.EjbIoSsiHostFactory;
+import org.jeesl.factory.ejb.io.ssi.core.EjbIoSsiSystemFactory;
 import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiCredential;
 import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiHost;
 import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiSystem;
@@ -36,5 +37,6 @@ public class IoSsiCoreFactoryBuilder<L extends JeeslLang,D extends JeeslDescript
 	
 	public EjbIoSsiSystemFactory<SYSTEM> ejbSystem() {return new EjbIoSsiSystemFactory<>(cSystem);}
 	public EjbIoSsiCredentialFactory<SYSTEM,CRED> ejbCredential() {return new EjbIoSsiCredentialFactory<>(cCredential);}
+	public EjbIoSsiHostFactory<SYSTEM,HOST> ejbHost() {return new EjbIoSsiHostFactory<>(cHost);}
 	
 }

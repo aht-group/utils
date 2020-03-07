@@ -19,8 +19,8 @@
 	<jp:grid id="grid">
 		<j:slot width="6">
 			<h:form>
-				<p:dataTable var="h" value="#{cc.attrs.bean.systems}"
-							 selection="#{cc.attrs.bean.system}" selectionMode="single" rowKey="#{h.id}">
+				<p:dataTable var="h" value="#{cc.attrs.bean.hosts}"
+							 selection="#{cc.attrs.bean.host}" selectionMode="single" rowKey="#{h.id}">
 					<f:facet name="header">
 						<j:dtHeader title="#{msg.jeeslIoSsiHosts}">
 							<j:svg type="jeeslAdd" listener="#{cc.attrs.bean.addHost()}" update=":#{cc.id}:grid" library="jeeslGfx"/>
@@ -52,6 +52,11 @@
 						<j:svg type="jeeslDelete" listener="#{cc.attrs.bean.deleteHost()}" update=":#{cc.id}:grid" rendered="#{cc.attrs.bean.host.id gt 0}" library="jeeslGfx"/>
 					</f:facet>
 					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
+						
+						<p:outputLabel value="#{msg.jeeslIoSsiSystem}"/>
+						<p:selectOneMenu value="#{cc.attrs.bean.host.system}" effect="fade" autoWidth="false" >
+							<f:selectItems value="#{cc.attrs.bean.systems}" var="s" itemLabel="#{h.system.name[localeCode].lang}" itemValue="#{s}"/>
+						</p:selectOneMenu>
 						
 						<p:outputLabel value="#{msg.jeeslIoSsiHostCode}"/>
 						<p:inputText value="#{cc.attrs.bean.host.code}" autocomplete="off"/>

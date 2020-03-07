@@ -49,7 +49,6 @@ public class AbstractSsiSystemBean <L extends JeeslLang, D extends JeeslDescript
 	
 	private final IoSsiCoreFactoryBuilder<L,D,SYSTEM,CRED,HOST> fbSsiCore;
 	
-	
 	private final List<SYSTEM> systems; public List<SYSTEM> getSystems() {return systems;}
 	private final List<CRED> credentials; public List<CRED> getCredentials() {return credentials;}
 

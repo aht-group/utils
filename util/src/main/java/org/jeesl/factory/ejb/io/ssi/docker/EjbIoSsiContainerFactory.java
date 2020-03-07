@@ -1,4 +1,4 @@
-package org.jeesl.factory.ejb.system.io.ssi.docker;
+package org.jeesl.factory.ejb.io.ssi.docker;
 
 import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiHost;
 import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiSystem;

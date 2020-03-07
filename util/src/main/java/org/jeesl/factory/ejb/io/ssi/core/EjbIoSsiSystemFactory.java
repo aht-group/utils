@@ -1,4 +1,4 @@
-package org.jeesl.factory.ejb.system.io.ssi.core;
+package org.jeesl.factory.ejb.io.ssi.core;
 
 import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiSystem;
 

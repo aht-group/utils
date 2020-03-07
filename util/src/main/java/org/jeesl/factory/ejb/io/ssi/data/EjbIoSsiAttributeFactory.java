@@ -1,4 +1,4 @@
-package org.jeesl.factory.ejb.system.io.ssi.data;
+package org.jeesl.factory.ejb.io.ssi.data;
 
 import java.util.ArrayList;
 import java.util.HashSet;

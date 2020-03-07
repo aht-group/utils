@@ -7,7 +7,7 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.ssi.IoSsiDataFactoryBuilder;
-import org.jeesl.factory.ejb.system.io.ssi.data.EjbIoSsiDataFactory;
+import org.jeesl.factory.ejb.io.ssi.data.EjbIoSsiDataFactory;
 import org.jeesl.interfaces.controller.processor.SsiMappingProcessor;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiCredential;

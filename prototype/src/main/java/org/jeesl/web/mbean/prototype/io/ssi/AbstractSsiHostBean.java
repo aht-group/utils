@@ -48,6 +48,7 @@ public class AbstractSsiHostBean <L extends JeeslLang, D extends JeeslDescriptio
 	
 	private final IoSsiCoreFactoryBuilder<L,D,SYSTEM,CRED,HOST> fbSsiCore;
 	
+	private final List<SYSTEM> systems; public List<SYSTEM> getSystems() {return systems;}
 	private final List<HOST> hosts; public List<HOST> getHosts() {return hosts;}
 
 	private HOST host; public HOST getHost() {return host;} public void setHost(HOST host) {this.host = host;}
@@ -56,6 +57,7 @@ public class AbstractSsiHostBean <L extends JeeslLang, D extends JeeslDescriptio
 	{
 		super(fbSsiCore.getClassL(),fbSsiCore.getClassD());
 		this.fbSsiCore=fbSsiCore;
+		systems = new ArrayList<>();
 		hosts = new ArrayList<>();
 	}
 
@@ -64,6 +66,7 @@ public class AbstractSsiHostBean <L extends JeeslLang, D extends JeeslDescriptio
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fSsi=fSsi;
+		systems.addAll(fSsi.all(fbSsiCore.getClassSystem()));
 		reloadHosts();
 	}
 	
@@ -75,7 +78,10 @@ public class AbstractSsiHostBean <L extends JeeslLang, D extends JeeslDescriptio
 	private void reloadHosts()
 	{
 		hosts.clear();
-//		hosts.addAll(fSsi.all(fbSsiCore.getClassSystem()));
+		for(HOST h : fSsi.all(fbSsiCore.getClassHost()))
+		{
+			hosts.add(h);
+		}
 	}
 	
 	public void selectHost()
@@ -89,13 +95,14 @@ public class AbstractSsiHostBean <L extends JeeslLang, D extends JeeslDescriptio
 	public void addHost()
 	{
 		reset(true);
-//		host = fbSsiCore.ejbSystem().build();
+		host = fbSsiCore.ejbHost().build(systems.get(0),"");
 		host.setName(efLang.createEmpty(localeCodes));
 		host.setDescription(efDescription.createEmpty(localeCodes));
 	}
 	
 	public void saveSystem() throws JeeslConstraintViolationException, JeeslLockingException
 	{
+		fbSsiCore.ejbHost().converter(fSsi,host);
 		host = fSsi.save(host);
 		reloadHosts();
 	}
