@@ -22,7 +22,7 @@
 				<p:dataTable var="h" value="#{cc.attrs.bean.systems}"
 							 selection="#{cc.attrs.bean.system}" selectionMode="single" rowKey="#{h.id}">
 					<f:facet name="header">
-						<j:dtHeader title="#{msg.jeeslIoSsiSystems}">
+						<j:dtHeader title="#{msg.jeeslIoSsiHosts}">
 							<j:svg type="jeeslAdd" listener="#{cc.attrs.bean.addHost()}" update=":#{cc.id}:grid" library="jeeslGfx"/>
 						</j:dtHeader>
 					</f:facet>

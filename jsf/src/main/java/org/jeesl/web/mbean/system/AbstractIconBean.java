@@ -241,8 +241,8 @@ public class AbstractIconBean implements Serializable
 	
 	protected void jeeslFile()
 	{
-		mapStatic.put("reportPdf", "ui/jeesl/system/io/file/pdf.png");
-		mapStatic.put("reportXls", "ui/jeesl/system/io/file/xls.png");
-		mapStatic.put("reportDoc", "ui/jeesl/system/io/file/doc.png");
+		mapStatic.put("reportPdf", "ui/jeesl/system/io/file/pdf.png");	svg.put("reportPdf","ui/io/fr/type/pdf.svg");
+		mapStatic.put("reportXls", "ui/jeesl/system/io/file/xls.png");	svg.put("reportXls","ui/io/fr/type/xls.svg");
+		mapStatic.put("reportDoc", "ui/jeesl/system/io/file/doc.png");	svg.put("reportDoc","ui/io/fr/type/doc.svg");
 	}
 }
