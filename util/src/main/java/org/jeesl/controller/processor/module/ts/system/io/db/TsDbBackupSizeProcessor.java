@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.exlp.xml.io.Dir;
 import net.sf.exlp.xml.io.File;
 
-public class TsDbBackupSizeProcessor<SYSTEM extends JeeslIoSsiSystem,
+public class TsDbBackupSizeProcessor<SYSTEM extends JeeslIoSsiSystem<?,?>,
 									DUMP extends JeeslDbDump<SYSTEM,?>,
 									SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 									MP extends JeeslTsMultiPoint<?,?,SCOPE,?>,
