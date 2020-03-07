@@ -41,7 +41,7 @@ public abstract class AbstractSsiBean <L extends JeeslLang, D extends JeeslDescr
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractSsiBean.class);
 	
-	private final IoSsiDataFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi;
+	private final IoSsiDataFactoryBuilder<L,D,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi;
 	
 	protected JeeslIoSsiFacade<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,HOST> fSsi;
 	
@@ -53,7 +53,7 @@ public abstract class AbstractSsiBean <L extends JeeslLang, D extends JeeslDescr
 	protected List<DATA> selection; public List<DATA> getSelection() {return selection;} public void setSelection(List<DATA> selection) {this.selection = selection;}
 
 	
-	public AbstractSsiBean(final IoSsiDataFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi)
+	public AbstractSsiBean(final IoSsiDataFactoryBuilder<L,D,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi)
 	{
 		this.fbSsi=fbSsi;
 		sbhLink = new SbMultiHandler<LINK>(fbSsi.getClassLink(),this);

@@ -17,8 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class IoSsiDataFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
-								SYSTEM extends JeeslIoSsiSystem<L,D>,
-								MAPPING extends JeeslIoSsiMapping<SYSTEM,ENTITY>,
+								MAPPING extends JeeslIoSsiMapping<?,ENTITY>,
 								ATTRIBUTE extends JeeslIoSsiAttribute<MAPPING,ENTITY>,
 								DATA extends JeeslIoSsiData<MAPPING,LINK>,
 								LINK extends JeeslIoSsiLink<L,D,LINK,?>,
@@ -28,7 +27,6 @@ public class IoSsiDataFactoryBuilder<L extends JeeslLang,D extends JeeslDescript
 {
 	final static Logger logger = LoggerFactory.getLogger(IoSsiDataFactoryBuilder.class);
 	
-	private final Class<SYSTEM> cSystem; public Class<SYSTEM> getClassSystem(){return cSystem;}
 	private final Class<MAPPING> cMapping; public Class<MAPPING> getClassMapping(){return cMapping;}
 	private final Class<ATTRIBUTE> cAttribute; public Class<ATTRIBUTE> getClassAttribute(){return cAttribute;}
 	private final Class<DATA> cData; public Class<DATA> getClassData(){return cData;}
@@ -37,13 +35,11 @@ public class IoSsiDataFactoryBuilder<L extends JeeslLang,D extends JeeslDescript
 	private final Class<CLEANING> cCleaning; public Class<CLEANING> getClassCleaning(){return cCleaning;}
 	
 	public IoSsiDataFactoryBuilder(final Class<L> cL, final Class<D> cD,
-								final Class<SYSTEM> cSystem,
 								final Class<MAPPING> cMapping, final Class<ATTRIBUTE> cAttribute,
 								final Class<DATA> cData, final Class<LINK> cLink, final Class<ENTITY> cEntity,
 								final Class<CLEANING> cCleaning)
 	{
 		super(cL,cD);
-		this.cSystem=cSystem;
 		this.cMapping=cMapping;
 		this.cAttribute=cAttribute;
 		this.cData=cData;
@@ -51,8 +47,7 @@ public class IoSsiDataFactoryBuilder<L extends JeeslLang,D extends JeeslDescript
 		this.cEntity=cEntity;
 		this.cCleaning=cCleaning;
 	}
-	
-	public EjbIoSsiSystemFactory<SYSTEM> ejbSystem() {return new EjbIoSsiSystemFactory<>(cSystem);}
+
 	public EjbIoSsiAttributeFactory<MAPPING,ATTRIBUTE,ENTITY> ejbAttribute() {return new EjbIoSsiAttributeFactory<>(cAttribute);}
 	public EjbIoSsiDataFactory<MAPPING,DATA,LINK> ejbData() {return new EjbIoSsiDataFactory<>(cData);}
 }
