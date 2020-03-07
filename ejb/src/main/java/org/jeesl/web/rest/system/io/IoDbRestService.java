@@ -20,6 +20,7 @@ import org.jeesl.factory.ejb.system.status.EjbStatusFactory;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDump;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpFile;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpStatus;
+import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiHost;
 import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
@@ -39,6 +40,7 @@ public class IoDbRestService<L extends JeeslLang,D extends JeeslDescription,
 							DUMP extends JeeslDbDump<SYSTEM,FILE>,
 							FILE extends JeeslDbDumpFile<DUMP,HOST,STATUS>,
 							HOST extends JeeslDbDumpHost<L,D,HOST,?>,
+							HOST2 extends JeeslIoSsiHost<L,D>,
 							STATUS extends JeeslDbDumpStatus<L,D,STATUS,?>>
 					extends AbstractJeeslRestService<L,D>
 					implements JeeslIoDbRestInterface,JeeslIoDbRestExport,JeeslIoDbRestImport
@@ -46,7 +48,7 @@ public class IoDbRestService<L extends JeeslLang,D extends JeeslDescription,
 	final static Logger logger = LoggerFactory.getLogger(IoDbRestService.class);
 	
 	private final IoDbFactoryBuilder<L,D,SYSTEM,DUMP,FILE,HOST,STATUS,?,?,?,?,?> fbDb;
-	private final IoSsiFactoryBuilder<L,D,SYSTEM,?,?,?,?,?,?,?> fbSsi;
+	private final IoSsiFactoryBuilder<L,D,SYSTEM,?,?,?,?,?,?,?,HOST2> fbSsi;
 	
 	private final JeeslIoDbFacade<L,D,SYSTEM,DUMP,FILE,HOST,STATUS> fDb;
 	
@@ -57,7 +59,7 @@ public class IoDbRestService<L extends JeeslLang,D extends JeeslDescription,
 	private final SYSTEM system;
 	
 	public IoDbRestService(IoDbFactoryBuilder<L,D,SYSTEM,DUMP,FILE,HOST,STATUS,?,?,?,?,?> fbDb,
-							IoSsiFactoryBuilder<L,D,SYSTEM,?,?,?,?,?,?,?> fbSsi,
+							IoSsiFactoryBuilder<L,D,SYSTEM,?,?,?,?,?,?,?,HOST2> fbSsi,
 							JeeslIoDbFacade<L,D,SYSTEM,DUMP,FILE,HOST,STATUS> fDb,
 							SYSTEM system)
 	{

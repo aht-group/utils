@@ -7,6 +7,7 @@ import org.jeesl.factory.ejb.system.io.ssi.data.EjbIoSsiAttributeFactory;
 import org.jeesl.factory.ejb.system.io.ssi.data.EjbIoSsiDataFactory;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiCredential;
+import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiHost;
 import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiAttribute;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiCleaning;
@@ -26,7 +27,8 @@ public class IoSsiFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 								DATA extends JeeslIoSsiData<MAPPING,LINK>,
 								LINK extends JeeslIoSsiLink<L,D,LINK,?>,
 								ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>,
-								CLEANING extends JeeslIoSsiCleaning<L,D,CLEANING,?>>
+								CLEANING extends JeeslIoSsiCleaning<L,D,CLEANING,?>,
+								HOST extends JeeslIoSsiHost<L,D>>
 		extends AbstractFactoryBuilder<L,D>
 {
 	final static Logger logger = LoggerFactory.getLogger(IoSsiFactoryBuilder.class);

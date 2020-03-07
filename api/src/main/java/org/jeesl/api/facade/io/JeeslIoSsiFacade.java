@@ -6,6 +6,7 @@ import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiCredential;
+import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiHost;
 import org.jeesl.interfaces.model.system.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiAttribute;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiData;
@@ -23,7 +24,8 @@ public interface JeeslIoSsiFacade <L extends JeeslLang,D extends JeeslDescriptio
 									ATTRIBUTE extends JeeslIoSsiAttribute<MAPPING,ENTITY>,
 									DATA extends JeeslIoSsiData<MAPPING,LINK>,
 									LINK extends JeeslIoSsiLink<L,D,LINK,?>,
-									ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>
+									ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>,
+									HOST extends JeeslIoSsiHost<L,D>
 									>
 			extends JeeslFacade
 {	
