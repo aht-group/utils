@@ -245,6 +245,13 @@
     		<s:lang key="fr" translation="Instance"/>
     	</s:langs>
 	</s:translation>
+	<s:translation key="jeeslIoSsiHosts">
+    	<s:langs>
+    		<s:lang key="de" translation="Hosts"/>
+    		<s:lang key="en" translation="Hosts"/>
+    		<s:lang key="fr" translation="Hosts"/>
+    	</s:langs>
+	</s:translation>
 	<s:translation key="jeeslIoSsiHost">
     	<s:langs>
     		<s:lang key="de" translation="Host"/>
@@ -252,5 +259,11 @@
     		<s:lang key="fr" translation="Host"/>
     	</s:langs>
 	</s:translation>
-    
+	<s:translation key="jeeslIoSsiHostCode">
+    	<s:langs>
+    		<s:lang key="de" translation="Code"/>
+    		<s:lang key="en" translation="Code"/>
+    		<s:lang key="fr" translation="Code"/>
+    	</s:langs>
+	</s:translation>   
 </s:translations>

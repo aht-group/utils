@@ -100,7 +100,7 @@ public class AbstractSsiHostBean <L extends JeeslLang, D extends JeeslDescriptio
 		host.setDescription(efDescription.createEmpty(localeCodes));
 	}
 	
-	public void saveSystem() throws JeeslConstraintViolationException, JeeslLockingException
+	public void saveHost() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		fbSsiCore.ejbHost().converter(fSsi,host);
 		host = fSsi.save(host);
