@@ -1,11 +1,11 @@
 package org.jeesl.factory.ejb.module.ts;
 
+import org.jeesl.interfaces.model.module.ts.config.JeeslTsCategory;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
-import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbTsClassFactory<CAT extends JeeslStatus<CAT,?,?>,
+public class EjbTsClassFactory<CAT extends JeeslTsCategory<?,?,CAT,?>,
 								EC extends JeeslTsEntityClass<?,?,CAT>
 								>
 {

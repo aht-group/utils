@@ -17,6 +17,7 @@ import org.jeesl.factory.ejb.module.ts.EjbTsDataFactory;
 import org.jeesl.factory.ejb.module.ts.EjbTsFactory;
 import org.jeesl.factory.ejb.module.ts.EjbTsScopeFactory;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
+import org.jeesl.interfaces.model.module.ts.config.JeeslTsCategory;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
@@ -42,7 +43,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class AbstractAdminTsBean <L extends JeeslLang, D extends JeeslDescription,
-									CAT extends JeeslStatus<CAT,L,D>,
+									CAT extends JeeslTsCategory<L,D,CAT,?>,
 									SCOPE extends JeeslTsScope<L,D,CAT,ST,UNIT,EC,INT>,
 									ST extends JeeslTsScopeType<L,D,ST,?>,
 									UNIT extends JeeslStatus<UNIT,L,D>,

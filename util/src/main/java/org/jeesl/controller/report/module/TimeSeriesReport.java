@@ -21,6 +21,7 @@ import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportColumnGroup;
 import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportRow;
 import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportSheet;
 import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportWorkbook;
+import org.jeesl.interfaces.model.module.ts.config.JeeslTsCategory;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
@@ -68,7 +69,7 @@ public class TimeSeriesReport <L extends JeeslLang,D extends JeeslDescription,
 						FILLING extends JeeslStatus<FILLING,L,D>,
 						TRANSFORMATION extends JeeslStatus<TRANSFORMATION,L,D>,
 						
-						CAT extends JeeslStatus<CAT,L,D>,
+						CAT extends JeeslTsCategory<L,D,CAT,?>,
 						SCOPE extends JeeslTsScope<L,D,CAT,ST,UNIT,EC,INT>,
 						ST extends JeeslTsScopeType<L,D,ST,?>,
 						UNIT extends JeeslStatus<UNIT,L,D>,

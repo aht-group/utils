@@ -15,6 +15,7 @@ import org.jeesl.factory.json.module.ts.JsonTsScopeFactory;
 import org.jeesl.factory.json.module.ts.JsonTsSeriesFactory;
 import org.jeesl.factory.json.system.status.JsonIntervalFactory;
 import org.jeesl.factory.json.system.status.JsonWorkspaceFactory;
+import org.jeesl.interfaces.model.module.ts.config.JeeslTsCategory;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
@@ -43,7 +44,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TsRestHandler <L extends JeeslLang, D extends JeeslDescription,
-							CAT extends JeeslStatus<CAT,L,D>,
+							CAT extends JeeslTsCategory<L,D,CAT,?>,
 							SCOPE extends JeeslTsScope<L,D,CAT,ST,UNIT,EC,INT>,
 							ST extends JeeslTsScopeType<L,D,ST,?>,
 							UNIT extends JeeslStatus<UNIT,L,D>,

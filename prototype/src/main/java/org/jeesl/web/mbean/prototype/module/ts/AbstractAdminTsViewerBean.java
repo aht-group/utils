@@ -16,6 +16,7 @@ import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.factory.mc.ts.McTsViewerFactory;
 import org.jeesl.interfaces.bean.sb.SbSingleBean;
+import org.jeesl.interfaces.model.module.ts.config.JeeslTsCategory;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
@@ -42,7 +43,7 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 public class AbstractAdminTsViewerBean <L extends JeeslLang, D extends JeeslDescription,
-											CAT extends JeeslStatus<CAT,L,D>,
+											CAT extends JeeslTsCategory<L,D,CAT,?>,
 											SCOPE extends JeeslTsScope<L,D,CAT,ST,UNIT,EC,INT>,
 											ST extends JeeslTsScopeType<L,D,ST,?>,
 											UNIT extends JeeslStatus<UNIT,L,D>,

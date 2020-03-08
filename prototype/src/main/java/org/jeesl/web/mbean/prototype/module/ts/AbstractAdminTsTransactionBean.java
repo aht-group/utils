@@ -17,6 +17,7 @@ import org.jeesl.controller.handler.sb.SbDateHandler;
 import org.jeesl.controller.handler.ui.helper.CodeConfirmationHandler;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
+import org.jeesl.interfaces.model.module.ts.config.JeeslTsCategory;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
@@ -41,7 +42,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public class AbstractAdminTsTransactionBean <L extends JeeslLang, D extends JeeslDescription,
-											CAT extends JeeslStatus<CAT,L,D>,
+											CAT extends JeeslTsCategory<L,D,CAT,?>,
 											SCOPE extends JeeslTsScope<L,D,CAT,ST,UNIT,EC,INT>,
 											ST extends JeeslTsScopeType<L,D,ST,?>,
 											UNIT extends JeeslStatus<UNIT,L,D>,

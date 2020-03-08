@@ -24,6 +24,7 @@ import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.factory.ejb.module.ts.EjbTsFactory;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.factory.json.system.io.db.tuple.t1.Json1TuplesFactory;
+import org.jeesl.interfaces.model.module.ts.config.JeeslTsCategory;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
@@ -47,7 +48,7 @@ import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 import net.sf.ahtutils.controller.util.ParentPredicate;
 
 public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
-							CAT extends JeeslStatus<CAT,L,D>,
+							CAT extends JeeslTsCategory<L,D,CAT,?>,
 							SCOPE extends JeeslTsScope<L,D,CAT,ST,UNIT,EC,INT>,
 							ST extends JeeslTsScopeType<L,D,ST,?>,
 							UNIT extends JeeslStatus<UNIT,L,D>,

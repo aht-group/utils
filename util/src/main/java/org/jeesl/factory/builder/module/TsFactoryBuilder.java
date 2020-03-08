@@ -14,6 +14,7 @@ import org.jeesl.factory.ejb.module.ts.EjbTsMutliPointFactory;
 import org.jeesl.factory.ejb.module.ts.EjbTsScopeFactory;
 import org.jeesl.factory.ejb.module.ts.EjbTsTransactionFactory;
 import org.jeesl.factory.mc.ts.McTimeSeriesFactory;
+import org.jeesl.interfaces.model.module.ts.config.JeeslTsCategory;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
@@ -39,7 +40,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TsFactoryBuilder<L extends JeeslLang, D extends JeeslDescription,
-								CAT extends JeeslStatus<CAT,L,D>,
+								CAT extends JeeslTsCategory<L,D,CAT,?>,
 								SCOPE extends JeeslTsScope<L,D,CAT,ST,UNIT,EC,INT>,
 								ST extends JeeslTsScopeType<L,D,ST,?>,
 								UNIT extends JeeslStatus<UNIT,L,D>,

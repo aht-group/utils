@@ -61,7 +61,7 @@ public class AbstractSsiHostBean <L extends JeeslLang, D extends JeeslDescriptio
 		hosts = new ArrayList<>();
 	}
 
-	protected void postConstructSsiSystem(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
+	protected void postConstructSsiHost(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
 										JeeslIoSsiFacade<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,HOST> fSsi)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);

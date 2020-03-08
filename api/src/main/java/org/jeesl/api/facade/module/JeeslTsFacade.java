@@ -6,6 +6,7 @@ import java.util.List;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.facade.JeeslFacade;
+import org.jeesl.interfaces.model.module.ts.config.JeeslTsCategory;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsMultiPoint;
@@ -25,7 +26,7 @@ import org.jeesl.interfaces.model.with.system.locale.EjbWithLangDescription;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 
 public interface JeeslTsFacade <L extends JeeslLang, D extends JeeslDescription,
-								CAT extends JeeslStatus<CAT,L,D>,
+								CAT extends JeeslTsCategory<L,D,CAT,?>,
 								SCOPE extends JeeslTsScope<L,D,CAT,ST,UNIT,EC,INT>,
 								ST extends JeeslStatus<ST,L,D>,
 								UNIT extends JeeslStatus<UNIT,L,D>,

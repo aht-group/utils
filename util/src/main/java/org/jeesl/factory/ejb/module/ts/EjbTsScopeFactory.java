@@ -1,5 +1,6 @@
 package org.jeesl.factory.ejb.module.ts;
 
+import org.jeesl.interfaces.model.module.ts.config.JeeslTsCategory;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsScope;
@@ -16,7 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbTsScopeFactory<L extends JeeslLang, D extends JeeslDescription,
-								CAT extends JeeslStatus<CAT,L,D>,
+								CAT extends JeeslTsCategory<L,D,CAT,?>,
 								SCOPE extends JeeslTsScope<L,D,CAT,?,UNIT,EC,INT>,
 								UNIT extends JeeslStatus<UNIT,L,D>,
 								TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT,?>,
