@@ -74,7 +74,6 @@ public abstract class AbstractAdminTsBean <L extends JeeslLang, D extends JeeslD
 	protected List<CAT> categories; public List<CAT> getCategories() {return categories;}
 	
 	protected final EjbTsFactory<SCOPE,UNIT,TS,SOURCE,BRIDGE,EC,INT,STAT> efTs;
-	protected EjbTsScopeFactory<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF> efScope;
 	protected EjbTsBridgeFactory<TS,BRIDGE,EC,DATA> efBridge;
 	protected EjbTsDataFactory<TS,TRANSACTION,DATA,WS> efData;
 	protected EjbTsCronFactory<SCOPE,INT,STAT,CRON> efCron;
@@ -104,7 +103,6 @@ public abstract class AbstractAdminTsBean <L extends JeeslLang, D extends JeeslD
 		comparatorScope = fbTs.cmpScope(TsScopeComparator.Type.position);
 		comparatorClass = fbTs.cmpClass(TsClassComparator.Type.position);
 		
-		efScope = fbTs.scope();
 		efData = fbTs.ejbData();
 		efBridge = fbTs.ejbBridge();
 		efCron = fbTs.ejbCron();

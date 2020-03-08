@@ -107,12 +107,7 @@ public class TsFactoryBuilder<L extends JeeslLang, D extends JeeslDescription,
 	}
 	
 	public EjbTsFactory<SCOPE,UNIT,TS,SOURCE,BRIDGE,EC,INT,STAT> ejbTs(){return new EjbTsFactory<>(cTs);}
-	
-	public EjbTsScopeFactory<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF> scope()
-	{
-		return new EjbTsScopeFactory<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF>(cScope);
-	}
-	
+	public EjbTsScopeFactory<CAT,SCOPE,UNIT> ejbScope(){return new EjbTsScopeFactory<>(cScope);}
 	public EjbTsBridgeFactory<TS,BRIDGE,EC,DATA> ejbBridge(){return new EjbTsBridgeFactory<>(cBridge);}
 	public EjbTsTransactionFactory<TRANSACTION,SOURCE,USER> ejbTransaction() {return new EjbTsTransactionFactory<>(cTransaction);}
 	public EjbTsDataFactory<TS,TRANSACTION,DATA,WS> ejbData() {return new EjbTsDataFactory<>(cData);}

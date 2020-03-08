@@ -125,7 +125,7 @@ public class AbstractAdminTsScopeBean <L extends JeeslLang, D extends JeeslDescr
 	public void add() throws JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.addEntity(fbTs.getClassScope()));
-		scope = efScope.build(null);
+		scope = fbTs.ejbScope().build(null);
 		scope.setName(efLang.createEmpty(localeCodes));
 		scope.setDescription(efDescription.createEmpty(localeCodes));
 		scope.setType(fTs.fByCode(fbTs.getClassScopeType(), JeeslTsScopeType.Code.ts));
