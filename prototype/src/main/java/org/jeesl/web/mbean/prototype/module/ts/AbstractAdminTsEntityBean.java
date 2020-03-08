@@ -11,6 +11,7 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
+import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsCategory;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
@@ -47,7 +48,8 @@ public class AbstractAdminTsEntityBean <L extends JeeslLang, D extends JeeslDesc
 											TRANSACTION extends JeeslTsTransaction<SOURCE,DATA,USER,?>,
 											SOURCE extends EjbWithLangDescription<L,D>, 
 											BRIDGE extends JeeslTsBridge<EC>,
-											EC extends JeeslTsEntityClass<L,D,CAT>,
+											EC extends JeeslTsEntityClass<L,D,CAT,ENTITY>,
+											ENTITY extends JeeslRevisionEntity<L,D,?,?,?,?>,
 											INT extends JeeslTsInterval<L,D,INT,?>,
 											STAT extends JeeslTsStatistic<L,D,STAT,?>,
 											DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
@@ -57,7 +59,7 @@ public class AbstractAdminTsEntityBean <L extends JeeslLang, D extends JeeslDesc
 											WS extends JeeslStatus<WS,L,D>,
 											QAF extends JeeslStatus<QAF,L,D>,
 											CRON extends JeeslTsCron<SCOPE,INT,STAT>>
-					extends AbstractAdminTsBean<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON>
+					extends AbstractAdminTsBean<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -67,12 +69,12 @@ public class AbstractAdminTsEntityBean <L extends JeeslLang, D extends JeeslDesc
 	
 	protected EC entity; public void setEntity(EC entityClass) {this.entity = entityClass;} public EC getEntity() {return entity;}
 
-	public AbstractAdminTsEntityBean(final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fbTs)
+	public AbstractAdminTsEntityBean(final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fbTs)
 	{
 		super(fbTs);
 	}
 	
-	protected void postConstructEntity(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fTs, JeeslFacesMessageBean bMessage)
+	protected void postConstructEntity(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fTs, JeeslFacesMessageBean bMessage)
 	{
 		super.postConstructTs(bTranslation,bMessage,fTs);
 		reloadClasses();

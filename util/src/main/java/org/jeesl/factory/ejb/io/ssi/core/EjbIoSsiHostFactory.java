@@ -7,10 +7,13 @@ import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiSystem;
 public class EjbIoSsiHostFactory <SYSTEM extends JeeslIoSsiSystem<?,?>,
 									HOST extends JeeslIoSsiHost<?,?,SYSTEM>>
 {
+	private final Class<SYSTEM> cSystem;
 	private final Class<HOST> cHost;
 
-	public EjbIoSsiHostFactory(final Class<HOST> cHost)
+	public EjbIoSsiHostFactory(final Class<SYSTEM> cSystem,
+								final Class<HOST> cHost)
 	{
+		this.cSystem = cSystem;
         this.cHost = cHost;
 	}
 		
@@ -31,6 +34,6 @@ public class EjbIoSsiHostFactory <SYSTEM extends JeeslIoSsiSystem<?,?>,
 	
 	public void converter(JeeslFacade facade, HOST host)
 	{
-		
+		if(host.getSystem()!=null) {host.setSystem(facade.find(cSystem,host.getSystem()));}
 	}
 }

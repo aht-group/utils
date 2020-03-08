@@ -102,6 +102,7 @@ public class AbstractSsiHostBean <L extends JeeslLang, D extends JeeslDescriptio
 	
 	public void saveHost() throws JeeslConstraintViolationException, JeeslLockingException
 	{
+		logger.info(AbstractLogMessage.saveEntity(host)+" "+host.getSystem().getCode());
 		fbSsiCore.ejbHost().converter(fSsi,host);
 		host = fSsi.save(host);
 		reloadHosts();

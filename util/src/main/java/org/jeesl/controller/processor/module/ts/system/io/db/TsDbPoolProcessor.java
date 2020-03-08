@@ -6,6 +6,7 @@ import org.jeesl.api.facade.module.JeeslTsFacade;
 import org.jeesl.controller.processor.module.ts.AbstractTimeSeriesProcessor;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
+import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
@@ -23,26 +24,27 @@ import org.metachart.xml.chart.Ds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TsDbPoolProcessor<SYSTEM extends JeeslIoSsiSystem,
+public class TsDbPoolProcessor<SYSTEM extends JeeslIoSsiSystem<?,?>,
 									SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 									MP extends JeeslTsMultiPoint<?,?,SCOPE,?>,
 									TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT,STAT>,
 									TRANSACTION extends JeeslTsTransaction<?,DATA,?,?>,
 									BRIDGE extends JeeslTsBridge<EC>,
-									EC extends JeeslTsEntityClass<?,?,?>,
+									EC extends JeeslTsEntityClass<?,?,?,ENTITY>,
+									ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>,
 									INT extends JeeslTsInterval<?,?,INT,?>,
 									STAT extends JeeslTsStatistic<?,?,STAT,?>,
 									DATA extends JeeslTsData<TS,TRANSACTION,?,WS>,
 									POINT extends JeeslTsDataPoint<DATA,MP>,
 									WS extends JeeslStatus<WS,?,?>>
-	extends AbstractTimeSeriesProcessor<SCOPE,MP,TS,TRANSACTION,BRIDGE,EC,INT,STAT,DATA,POINT,WS>
+	extends AbstractTimeSeriesProcessor<SCOPE,MP,TS,TRANSACTION,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,WS>
 {
 	final static Logger logger = LoggerFactory.getLogger(TsDbPoolProcessor.class);
 	
 	public static enum MpCode{used,available,percent}
 	
-	public TsDbPoolProcessor(TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,POINT,?,?,WS,?,?> fbTs,
-									JeeslTsFacade<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,POINT,?,?,WS,?,?> fTs)
+	public TsDbPoolProcessor(TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,?,?,WS,?,?> fbTs,
+									JeeslTsFacade<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,?,?,WS,?,?> fTs)
 	{
 		super(fbTs,fTs);
 	}

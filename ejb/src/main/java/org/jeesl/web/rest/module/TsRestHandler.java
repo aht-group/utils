@@ -15,6 +15,7 @@ import org.jeesl.factory.json.module.ts.JsonTsScopeFactory;
 import org.jeesl.factory.json.module.ts.JsonTsSeriesFactory;
 import org.jeesl.factory.json.system.status.JsonIntervalFactory;
 import org.jeesl.factory.json.system.status.JsonWorkspaceFactory;
+import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsCategory;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
@@ -53,7 +54,8 @@ public class TsRestHandler <L extends JeeslLang, D extends JeeslDescription,
 							TRANSACTION extends JeeslTsTransaction<SOURCE,DATA,USER,?>,
 							SOURCE extends EjbWithLangDescription<L,D>, 
 							BRIDGE extends JeeslTsBridge<EC>,
-							EC extends JeeslTsEntityClass<L,D,CAT>,
+							EC extends JeeslTsEntityClass<L,D,CAT,ENTITY>,
+							ENTITY extends JeeslRevisionEntity<L,D,?,?,?,?>,
 							INT extends JeeslTsInterval<L,D,INT,?>,
 							STAT extends JeeslTsStatistic<L,D,STAT,?>,
 							DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
@@ -67,8 +69,8 @@ public class TsRestHandler <L extends JeeslLang, D extends JeeslDescription,
 {
 	final static Logger logger = LoggerFactory.getLogger(TsRestHandler.class);
 	
-	private final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fbTs;
-	private final JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fTs;
+	private final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fbTs;
+	private final JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fTs;
 	
 	private final EjbTsDataPointFactory<MP,DATA,POINT> efPoint;
 	
@@ -78,8 +80,8 @@ public class TsRestHandler <L extends JeeslLang, D extends JeeslDescription,
 	private JsonIntervalFactory<L,D,INT> jfInterval;
 	private JsonWorkspaceFactory<L,D,WS> jfWorkspace;
 	
-	public TsRestHandler(TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fbTs,
-							JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fTs)
+	public TsRestHandler(TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fbTs,
+							JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fTs)
 	{
 		super(fTs,fbTs.getClassL(),fbTs.getClassD());
 		this.fbTs=fbTs;

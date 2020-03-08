@@ -24,6 +24,7 @@ import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.factory.ejb.module.ts.EjbTsFactory;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.factory.json.system.io.db.tuple.t1.Json1TuplesFactory;
+import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsCategory;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
@@ -57,7 +58,8 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 							TRANSACTION extends JeeslTsTransaction<SOURCE,DATA,USER,?>,
 							SOURCE extends EjbWithLangDescription<L,D>, 
 							BRIDGE extends JeeslTsBridge<EC>,
-							EC extends JeeslTsEntityClass<L,D,CAT>,
+							EC extends JeeslTsEntityClass<L,D,CAT,ENTITY>,
+							ENTITY extends JeeslRevisionEntity<L,D,?,?,?,?>,
 							INT extends JeeslTsInterval<L,D,INT,?>,
 							STAT extends JeeslTsStatistic<L,D,STAT,?>,
 							DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
@@ -68,15 +70,15 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 							QAF extends JeeslStatus<QAF,L,D>,
 							CRON extends JeeslTsCron<SCOPE,INT,STAT>>
 					extends JeeslFacadeBean
-					implements JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON>
+					implements JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON>
 {
 	private static final long serialVersionUID = 1L;
 
-	private final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fbTs;
+	private final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fbTs;
 	
 	private final EjbTsFactory<SCOPE,UNIT,TS,SOURCE,BRIDGE,EC,INT,STAT> efTs;
 	
-	public JeeslTsFacadeBean(EntityManager em, final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fbTs)
+	public JeeslTsFacadeBean(EntityManager em, final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fbTs)
 	{
 		super(em);
 		this.fbTs=fbTs;

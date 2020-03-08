@@ -12,6 +12,7 @@ import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.interfaces.model.io.db.JeeslDbDump;
+import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
@@ -38,18 +39,19 @@ public class TsDbBackupSizeProcessor<SYSTEM extends JeeslIoSsiSystem<?,?>,
 									TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT,STAT>,
 									TRANSACTION extends JeeslTsTransaction<?,DATA,?,?>,
 									BRIDGE extends JeeslTsBridge<EC>,
-									EC extends JeeslTsEntityClass<?,?,?>,
+									EC extends JeeslTsEntityClass<?,?,?,ENTITY>,
+									ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>,
 									INT extends JeeslTsInterval<?,?,INT,?>,
 									STAT extends JeeslTsStatistic<?,?,STAT,?>,
 									DATA extends JeeslTsData<TS,TRANSACTION,?,WS>,
 									POINT extends JeeslTsDataPoint<DATA,MP>,
 									WS extends JeeslStatus<WS,?,?>>
-	extends AbstractTimeSeriesProcessor<SCOPE,MP,TS,TRANSACTION,BRIDGE,EC,INT,STAT,DATA,POINT,WS>
+	extends AbstractTimeSeriesProcessor<SCOPE,MP,TS,TRANSACTION,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,WS>
 {
 	final static Logger logger = LoggerFactory.getLogger(TsDbBackupSizeProcessor.class);
 	
-	public TsDbBackupSizeProcessor(TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,POINT,?,?,WS,?,?> fbTs,
-									JeeslTsFacade<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,POINT,?,?,WS,?,?> fTs)
+	public TsDbBackupSizeProcessor(TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,?,?,WS,?,?> fbTs,
+									JeeslTsFacade<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,?,?,WS,?,?> fTs)
 	{
 		super(fbTs,fTs);
 	}

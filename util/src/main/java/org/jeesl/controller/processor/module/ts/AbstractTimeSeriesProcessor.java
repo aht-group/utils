@@ -7,6 +7,7 @@ import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.factory.ejb.module.ts.EjbTsDataFactory;
 import org.jeesl.factory.ejb.module.ts.EjbTsDataPointFactory;
 import org.jeesl.factory.mc.ts.McTimeSeriesFactory;
+import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
@@ -27,7 +28,8 @@ public class AbstractTimeSeriesProcessor<SCOPE extends JeeslTsScope<?,?,?,?,?,EC
 									TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT,STAT>,
 									TRANSACTION extends JeeslTsTransaction<?,DATA,?,?>,
 									BRIDGE extends JeeslTsBridge<EC>,
-									EC extends JeeslTsEntityClass<?,?,?>,
+									EC extends JeeslTsEntityClass<?,?,?,ENTITY>,
+									ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>,
 									INT extends JeeslTsInterval<?,?,INT,?>,
 									STAT extends JeeslTsStatistic<?,?,STAT,?>,
 									DATA extends JeeslTsData<TS,TRANSACTION,?,WS>,
@@ -37,11 +39,11 @@ public class AbstractTimeSeriesProcessor<SCOPE extends JeeslTsScope<?,?,?,?,?,EC
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractTimeSeriesProcessor.class);
 	
-	protected final TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,POINT,?,?,WS,?,?> fbTs;
+	protected final TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,?,?,WS,?,?> fbTs;
 	
-	protected final JeeslTsFacade<?,?,?,SCOPE,?,?,?,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,?,?,?,WS,?,?> fTs;
+	protected final JeeslTsFacade<?,?,?,SCOPE,?,?,?,TS,TRANSACTION,?,BRIDGE,EC,ENTITY,INT,STAT,DATA,?,?,?,WS,?,?> fTs;
 	
-	protected final McTimeSeriesFactory<SCOPE,MP,TS,BRIDGE,EC,INT,STAT,DATA,POINT,WS> mfTs;
+	protected final McTimeSeriesFactory<SCOPE,MP,TS,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,WS> mfTs;
 	protected final EjbTsDataFactory<TS,TRANSACTION,DATA,WS> efData;
 	protected final EjbTsDataPointFactory<MP,DATA,POINT> efPoint;
 	
@@ -53,12 +55,12 @@ public class AbstractTimeSeriesProcessor<SCOPE extends JeeslTsScope<?,?,?,?,?,EC
 	
 	protected boolean debugOnInfo; public boolean isDebugOnInfo() {return debugOnInfo;} public void setDebugOnInfo(boolean debugOnInfo) {this.debugOnInfo = debugOnInfo;}
 
-	public AbstractTimeSeriesProcessor(TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,POINT,?,?,WS,?,?> fbTs,
-									JeeslTsFacade<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,POINT,?,?,WS,?,?> fTs)
+	public AbstractTimeSeriesProcessor(TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,?,?,WS,?,?> fbTs,
+									JeeslTsFacade<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,?,?,WS,?,?> fTs)
 	{
 		this.fbTs=fbTs;
 		this.fTs=fTs;
-		mfTs = new McTimeSeriesFactory<SCOPE,MP,TS,BRIDGE,EC,INT,STAT,DATA,POINT,WS>(fbTs,fTs);
+		mfTs = new McTimeSeriesFactory<SCOPE,MP,TS,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,WS>(fbTs,fTs);
 		efData = fbTs.ejbData();
 		efPoint = fbTs.ejbDataPoint();
 		debugOnInfo = false;

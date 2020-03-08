@@ -21,7 +21,7 @@ public interface JeeslTsScope <L extends JeeslLang, D extends JeeslDescription,
 									CAT extends JeeslTsCategory<L,D,CAT,?>,
 									ST extends JeeslStatus<ST,L,D>,
 									UNIT extends JeeslStatus<UNIT,L,D>,
-									EC extends JeeslTsEntityClass<L,D,CAT>,
+									EC extends JeeslTsEntityClass<L,D,CAT,?>,
 									INT extends JeeslStatus<INT,L,D>
 //									,AS extends JeeslAttributeSet<L,D,?,?>
 									>

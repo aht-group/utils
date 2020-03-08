@@ -21,6 +21,7 @@ import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportColumnGroup;
 import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportRow;
 import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportSheet;
 import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportWorkbook;
+import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsCategory;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
@@ -78,7 +79,8 @@ public class TimeSeriesReport <L extends JeeslLang,D extends JeeslDescription,
 						TRANSACTION extends JeeslTsTransaction<SOURCE,DATA,USER,?>,
 						SOURCE extends EjbWithLangDescription<L,D>, 
 						BRIDGE extends JeeslTsBridge<EC>,
-						EC extends JeeslTsEntityClass<L,D,CAT>,
+						EC extends JeeslTsEntityClass<L,D,CAT,E2>,
+						E2 extends JeeslRevisionEntity<L,D,?,?,?,?>,
 						INT extends JeeslTsInterval<L,D,INT,?>,
 						STAT extends JeeslTsStatistic<L,D,STAT,?>,
 						DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
@@ -93,15 +95,15 @@ public class TimeSeriesReport <L extends JeeslLang,D extends JeeslDescription,
 {
 	final static Logger logger = LoggerFactory.getLogger(TimeSeriesReport.class);
 
-	private final JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fTs;
+	private final JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,E2,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fTs;
 	
-	private final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fbTs;
+	private final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,E2,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fbTs;
 	
 	public TimeSeriesReport(String localeCode,
 			final JeeslIoReportFacade<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION> fReport,
-			final JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fTs,
+			final JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,E2,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fTs,
 			final ReportFactoryBuilder<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,RCAT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION> fbReport,
-			final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fbTs)
+			final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,E2,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fbTs)
 	{
 		super(localeCode,fbReport);
 		super.initIo(fReport,this.getClass());

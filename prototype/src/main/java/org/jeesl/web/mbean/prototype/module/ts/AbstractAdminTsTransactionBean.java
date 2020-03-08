@@ -17,6 +17,7 @@ import org.jeesl.controller.handler.sb.SbDateHandler;
 import org.jeesl.controller.handler.ui.helper.CodeConfirmationHandler;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
+import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsCategory;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
@@ -51,7 +52,8 @@ public class AbstractAdminTsTransactionBean <L extends JeeslLang, D extends Jees
 											TRANSACTION extends JeeslTsTransaction<SOURCE,DATA,USER,?>,
 											SOURCE extends EjbWithLangDescription<L,D>, 
 											BRIDGE extends JeeslTsBridge<EC>,
-											EC extends JeeslTsEntityClass<L,D,CAT>,
+											EC extends JeeslTsEntityClass<L,D,CAT,ENTITY>,
+											ENTITY extends JeeslRevisionEntity<L,D,?,?,?,?>,
 											INT extends JeeslTsInterval<L,D,INT,?>,
 											STAT extends JeeslTsStatistic<L,D,STAT,?>,
 											DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
@@ -61,7 +63,7 @@ public class AbstractAdminTsTransactionBean <L extends JeeslLang, D extends Jees
 											WS extends JeeslStatus<WS,L,D>,
 											QAF extends JeeslStatus<QAF,L,D>,
 											CRON extends JeeslTsCron<SCOPE,INT,STAT>>
-					extends AbstractAdminTsBean<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON>
+					extends AbstractAdminTsBean<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON>
 					implements Serializable,SbDateIntervalSelection
 {
 	private static final long serialVersionUID = 1L;
@@ -79,7 +81,7 @@ public class AbstractAdminTsTransactionBean <L extends JeeslLang, D extends Jees
 
 	private CodeConfirmationHandler cch;
 
-	public AbstractAdminTsTransactionBean(final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fbTs)
+	public AbstractAdminTsTransactionBean(final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fbTs)
 	{
 		super(fbTs);
 		sbDateHandler = new SbDateHandler(this);
@@ -87,7 +89,7 @@ public class AbstractAdminTsTransactionBean <L extends JeeslLang, D extends Jees
 		sbDateHandler.initMonthsToNow(2);
 	}
 	
-	protected void initSuper(JeeslTranslationBean<L,D,?> bTranslation, JeeslFacesMessageBean bMessage, JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fTs)
+	protected void initSuper(JeeslTranslationBean<L,D,?> bTranslation, JeeslFacesMessageBean bMessage, JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fTs)
 	{
 		super.postConstructTs(bTranslation,bMessage,fTs);
 		cch = new CodeConfirmationHandler();

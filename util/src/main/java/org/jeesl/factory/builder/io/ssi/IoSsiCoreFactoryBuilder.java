@@ -37,6 +37,6 @@ public class IoSsiCoreFactoryBuilder<L extends JeeslLang,D extends JeeslDescript
 	
 	public EjbIoSsiSystemFactory<SYSTEM> ejbSystem() {return new EjbIoSsiSystemFactory<>(cSystem);}
 	public EjbIoSsiCredentialFactory<SYSTEM,CRED> ejbCredential() {return new EjbIoSsiCredentialFactory<>(cCredential);}
-	public EjbIoSsiHostFactory<SYSTEM,HOST> ejbHost() {return new EjbIoSsiHostFactory<>(cHost);}
+	public EjbIoSsiHostFactory<SYSTEM,HOST> ejbHost() {return new EjbIoSsiHostFactory<>(cSystem,cHost);}
 	
 }

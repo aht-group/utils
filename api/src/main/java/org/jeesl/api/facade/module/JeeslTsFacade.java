@@ -6,6 +6,7 @@ import java.util.List;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.facade.JeeslFacade;
+import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsCategory;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
@@ -35,7 +36,8 @@ public interface JeeslTsFacade <L extends JeeslLang, D extends JeeslDescription,
 								TRANSACTION extends JeeslTsTransaction<SOURCE,DATA,USER,?>,
 								SOURCE extends EjbWithLangDescription<L,D>, 
 								BRIDGE extends JeeslTsBridge<EC>,
-								EC extends JeeslTsEntityClass<L,D,CAT>,
+								EC extends JeeslTsEntityClass<L,D,CAT,ENTITY>,
+								ENTITY extends JeeslRevisionEntity<L,D,?,?,?,?>,
 								INT extends JeeslStatus<INT,L,D>,
 								STAT extends JeeslTsStatistic<L,D,STAT,?>,
 								DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,

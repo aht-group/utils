@@ -9,7 +9,7 @@ import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithRefId;
 
-public interface JeeslTsBridge <EC extends JeeslTsEntityClass<?,?,?>>
+public interface JeeslTsBridge <EC extends JeeslTsEntityClass<?,?,?,?>>
 					extends Serializable,EjbRemoveable,EjbPersistable,EjbWithId,EjbWithRefId,EjbWithParentAttributeResolver
 {
 	enum Attributes{entityClass,refId}
