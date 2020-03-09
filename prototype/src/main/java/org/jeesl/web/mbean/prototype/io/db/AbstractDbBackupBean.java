@@ -12,8 +12,8 @@ import org.jeesl.controller.handler.sb.SbDateHandler;
 import org.jeesl.factory.builder.io.IoDbFactoryBuilder;
 import org.jeesl.interfaces.model.io.db.JeeslDbDump;
 import org.jeesl.interfaces.model.io.db.JeeslDbDumpFile;
-import org.jeesl.interfaces.model.io.db.JeeslDbDumpHost;
 import org.jeesl.interfaces.model.io.db.JeeslDbDumpStatus;
+import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiHost;
 import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
@@ -28,7 +28,7 @@ public class AbstractDbBackupBean <L extends JeeslLang,D extends JeeslDescriptio
 									SYSTEM extends JeeslIoSsiSystem<L,D>,
 									DUMP extends JeeslDbDump<SYSTEM,DF>,
 									DF extends JeeslDbDumpFile<DUMP,DH,DS>,
-									DH extends JeeslDbDumpHost<L,D,DH,?>,
+									DH extends JeeslIoSsiHost<L,D,?>,
 									DS extends JeeslDbDumpStatus<L,D,DS,?>>
 						extends AbstractAdminBean<L,D>
 						implements Serializable,SbDateIntervalSelection
@@ -62,7 +62,7 @@ public class AbstractDbBackupBean <L extends JeeslLang,D extends JeeslDescriptio
 		this.fDb=fDb;
 		this.system=system;
 		
-		hosts = fDb.allOrderedPositionVisible(fbDb.getClassDumpHost());
+		hosts = fDb.all(fbDb.getClassDumpHost());
 		refreshList(); 
 	}
 	

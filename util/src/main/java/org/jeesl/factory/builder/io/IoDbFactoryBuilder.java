@@ -6,12 +6,12 @@ import org.jeesl.factory.ejb.system.io.db.EjbIoDumpFactory;
 import org.jeesl.interfaces.model.io.db.JeeslDbConnectionColumn;
 import org.jeesl.interfaces.model.io.db.JeeslDbDump;
 import org.jeesl.interfaces.model.io.db.JeeslDbDumpFile;
-import org.jeesl.interfaces.model.io.db.JeeslDbDumpHost;
 import org.jeesl.interfaces.model.io.db.JeeslDbDumpStatus;
 import org.jeesl.interfaces.model.io.db.JeeslDbReplicationColumn;
 import org.jeesl.interfaces.model.io.db.JeeslDbReplicationState;
 import org.jeesl.interfaces.model.io.db.JeeslDbReplicationSync;
 import org.jeesl.interfaces.model.io.db.JeeslDbStatementColumn;
+import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiHost;
 import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
@@ -22,7 +22,7 @@ public class IoDbFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 								SYSTEM extends JeeslIoSsiSystem<L,D>,
 								DUMP extends JeeslDbDump<SYSTEM,DF>,
 								DF extends JeeslDbDumpFile<DUMP,DH,DS>,
-								DH extends JeeslDbDumpHost<L,D,DH,?>,
+								DH extends JeeslIoSsiHost<L,D,?>,
 								DS extends JeeslDbDumpStatus<L,D,DS,?>,
 								
 								CC extends JeeslDbConnectionColumn<L,D,CC,?>,

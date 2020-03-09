@@ -9,8 +9,8 @@ import org.jeesl.api.facade.io.JeeslIoDbFacade;
 import org.jeesl.factory.builder.io.IoDbFactoryBuilder;
 import org.jeesl.interfaces.model.io.db.JeeslDbDump;
 import org.jeesl.interfaces.model.io.db.JeeslDbDumpFile;
-import org.jeesl.interfaces.model.io.db.JeeslDbDumpHost;
 import org.jeesl.interfaces.model.io.db.JeeslDbDumpStatus;
+import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiHost;
 import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
@@ -22,7 +22,7 @@ public class AbstractAdminDbDumpBean <L extends JeeslLang,D extends JeeslDescrip
 										SYSTEM extends JeeslIoSsiSystem<L,D>,
 										DUMP extends JeeslDbDump<SYSTEM,FILE>,
 										FILE extends JeeslDbDumpFile<DUMP,HOST,STATUS>,
-										HOST extends JeeslDbDumpHost<L,D,HOST,?>,
+										HOST extends JeeslIoSsiHost<L,D,?>,
 										STATUS extends JeeslDbDumpStatus<L,D,STATUS,?>>
 						implements Serializable
 {
@@ -50,7 +50,7 @@ public class AbstractAdminDbDumpBean <L extends JeeslLang,D extends JeeslDescrip
 	protected void refreshList()
 	{
 		dumps = fDb.allOrdered(fbDb.getClassDump(),JeeslDbDump.Attributes.record.toString(),false);
-		hosts = fDb.allOrderedPositionVisible(fbDb.getClassDumpHost());
+		hosts = fDb.all(fbDb.getClassDumpHost());
 		
 		mapFiles = new HashMap<DUMP,Map<HOST,FILE>>();
 		for(DUMP d : dumps)

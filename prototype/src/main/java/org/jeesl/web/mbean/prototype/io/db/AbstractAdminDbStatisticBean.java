@@ -8,8 +8,8 @@ import java.util.Map;
 import org.jeesl.api.facade.io.JeeslIoDbFacade;
 import org.jeesl.interfaces.model.io.db.JeeslDbDump;
 import org.jeesl.interfaces.model.io.db.JeeslDbDumpFile;
-import org.jeesl.interfaces.model.io.db.JeeslDbDumpHost;
 import org.jeesl.interfaces.model.io.db.JeeslDbDumpStatus;
+import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiHost;
 import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
@@ -20,7 +20,7 @@ public class AbstractAdminDbStatisticBean <L extends JeeslLang, D extends JeeslD
 											SYSTEM extends JeeslIoSsiSystem<L,D>,
 											DUMP extends JeeslDbDump<SYSTEM,FILE>,
 											FILE extends JeeslDbDumpFile<DUMP,HOST,STATUS>,
-											HOST extends JeeslDbDumpHost<L,D,HOST,?>,
+											HOST extends JeeslIoSsiHost<L,D,?>,
 											STATUS extends JeeslDbDumpStatus<L,D,STATUS,?>> 
 implements Serializable
 {
