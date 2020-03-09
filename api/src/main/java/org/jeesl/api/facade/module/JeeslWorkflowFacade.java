@@ -4,6 +4,11 @@ import java.util.List;
 
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.facade.JeeslFacade;
+import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
+import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplate;
+import org.jeesl.interfaces.model.io.mail.template.JeeslTemplateChannel;
+import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionAttribute;
+import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowAction;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowBot;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowCommunication;
@@ -20,11 +25,6 @@ import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStagePermis
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStageType;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransitionType;
-import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
-import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
-import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
-import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
-import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;

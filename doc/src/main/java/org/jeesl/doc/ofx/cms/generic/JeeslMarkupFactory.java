@@ -1,6 +1,6 @@
 package org.jeesl.doc.ofx.cms.generic;
 
-import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsMarkupType;
+import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jsoup.Jsoup;
 import org.openfuxml.content.ofx.Paragraph;
 import org.openfuxml.content.ofx.Section;

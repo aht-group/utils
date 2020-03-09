@@ -2,8 +2,8 @@ package org.jeesl.factory.ejb.system.io.domain;
 
 import java.util.List;
 
-import org.jeesl.interfaces.model.system.io.domain.JeeslDomain;
-import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.io.domain.JeeslDomain;
+import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;

@@ -2,8 +2,8 @@ package org.jeesl.factory.ejb.system.io.cms;
 
 import java.util.List;
 
-import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsElement;
-import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsSection;
+import org.jeesl.interfaces.model.io.cms.JeeslIoCmsElement;
+import org.jeesl.interfaces.model.io.cms.JeeslIoCmsSection;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

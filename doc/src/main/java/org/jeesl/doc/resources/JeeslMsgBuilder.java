@@ -74,9 +74,9 @@ public class JeeslMsgBuilder
 	public static final String ioMail = "jeesl/msg/admin/system/io/mail.xml";
 	public static final String ioDashboard = "jeesl/msg/system/io/dashboard.xml";
 	public static final String ioDb = "jeesl/msg/admin/system/io/db.xml";
-	public static final String ioDbStatistic = "jeesl/msg/system/io/db.xml";
+	public static final String ioDbStatistic = "jeesl/msg/io/db.xml";
 	public static final String ioCms = "jeesl/msg/module/cms.xml";
-	public static final String ioSsi = "jeesl/msg/system/io/ssi.xml";
+	public static final String ioSsi = "jeesl/msg/io/ssi.xml";
 	
 	//System
 	public static final String systemReport = "jeesl/msg/system/report.xml";

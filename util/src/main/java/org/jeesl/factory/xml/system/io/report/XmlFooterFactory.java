@@ -1,6 +1,6 @@
 package org.jeesl.factory.xml.system.io.report;
 
-import org.jeesl.interfaces.model.system.io.report.JeeslIoReport;
+import org.jeesl.interfaces.model.io.report.JeeslIoReport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

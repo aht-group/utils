@@ -29,7 +29,7 @@ public class CronStatisticProcessor <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT
 									TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT,STAT>,
 									TRANSACTION extends JeeslTsTransaction<?,DATA,?,?>,
 									BRIDGE extends JeeslTsBridge<EC>,
-									EC extends JeeslTsEntityClass<?,?,?>,
+									EC extends JeeslTsEntityClass<?,?,?,?>,
 									STAT extends JeeslTsStatistic<?,?,STAT,?>,
 									DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
 									SAMPLE extends JeeslTsSample,
@@ -40,7 +40,7 @@ public class CronStatisticProcessor <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT
 {
 	final static Logger logger = LoggerFactory.getLogger(CronStatisticProcessor.class);
 	
-	protected JeeslTsFacade<?,?,?,SCOPE,?,?,?,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,?,SAMPLE,?,WS,?,CRON> fTs;
+	protected JeeslTsFacade<?,?,?,SCOPE,?,?,?,TS,TRANSACTION,?,BRIDGE,EC,?,INT,STAT,DATA,?,SAMPLE,?,WS,?,CRON> fTs;
 	
 	protected List<CRON> crons;
 	
@@ -50,8 +50,8 @@ public class CronStatisticProcessor <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT
 	protected WS workspace; public WS getWorkspace() {return workspace;} public void setWorkspace(WS workspace) {this.workspace=workspace;}
 	protected TRANSACTION transaction; public TRANSACTION getTransaction() {return transaction;} public void setTransaction(TRANSACTION transaction) {this.transaction=transaction;}
 	
-	public CronStatisticProcessor(TsFactoryBuilder<?,?,?,SCOPE,?,?,?,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,?,SAMPLE,?,WS,?,CRON> fbTs,
-			JeeslTsFacade<?,?,?,SCOPE,?,?,?,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,?,SAMPLE,?,WS,?,CRON> fTs,
+	public CronStatisticProcessor(TsFactoryBuilder<?,?,?,SCOPE,?,?,?,TS,TRANSACTION,?,BRIDGE,EC,?,INT,STAT,DATA,?,SAMPLE,?,WS,?,CRON> fbTs,
+			JeeslTsFacade<?,?,?,SCOPE,?,?,?,TS,TRANSACTION,?,BRIDGE,EC,?,INT,STAT,DATA,?,SAMPLE,?,WS,?,CRON> fTs,
 			TRANSACTION transaction,
 			WS workspace)
 	{

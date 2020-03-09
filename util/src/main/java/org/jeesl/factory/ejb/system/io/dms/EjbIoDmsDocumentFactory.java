@@ -2,8 +2,8 @@ package org.jeesl.factory.ejb.system.io.dms;
 
 import java.util.List;
 
-import org.jeesl.interfaces.model.system.io.dms.JeeslIoDmsDocument;
-import org.jeesl.interfaces.model.system.io.dms.JeeslIoDmsSection;
+import org.jeesl.interfaces.model.io.dms.JeeslIoDmsDocument;
+import org.jeesl.interfaces.model.io.dms.JeeslIoDmsSection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

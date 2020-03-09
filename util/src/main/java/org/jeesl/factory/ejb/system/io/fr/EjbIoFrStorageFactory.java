@@ -1,13 +1,13 @@
 package org.jeesl.factory.ejb.system.io.fr;
 
-import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorage;
-import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorageEngine;
-import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorageType;
-import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.io.fr.JeeslFileStorage;
+import org.jeesl.interfaces.model.io.fr.JeeslFileStorageEngine;
+import org.jeesl.interfaces.model.io.fr.JeeslFileStorageType;
+import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiSystem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbIoFrStorageFactory<SYSTEM extends JeeslIoSsiSystem,
+public class EjbIoFrStorageFactory<SYSTEM extends JeeslIoSsiSystem<?,?>,
 									STORAGE extends JeeslFileStorage<?,?,SYSTEM,STYPE,SENGINE>,
 									STYPE extends JeeslFileStorageType<?,?,STYPE,?>,
 									SENGINE extends JeeslFileStorageEngine<?,?,SENGINE,?>>

@@ -5,20 +5,20 @@ import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.controller.handler.system.io.JeeslFileRepositoryStore;
 import org.jeesl.interfaces.facade.JeeslFacade;
-import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
-import org.jeesl.interfaces.model.system.io.fr.JeeslFileMeta;
-import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorage;
-import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorageEngine;
-import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorageType;
-import org.jeesl.interfaces.model.system.io.fr.JeeslFileType;
-import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
+import org.jeesl.interfaces.model.io.fr.JeeslFileMeta;
+import org.jeesl.interfaces.model.io.fr.JeeslFileStorage;
+import org.jeesl.interfaces.model.io.fr.JeeslFileStorageEngine;
+import org.jeesl.interfaces.model.io.fr.JeeslFileStorageType;
+import org.jeesl.interfaces.model.io.fr.JeeslFileType;
+import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 import org.jeesl.model.json.db.tuple.two.Json2Tuples;
 
 public interface JeeslIoFrFacade <L extends JeeslLang, D extends JeeslDescription,
-								SYSTEM extends JeeslIoSsiSystem,
+								SYSTEM extends JeeslIoSsiSystem<L,D>,
 								STORAGE extends JeeslFileStorage<L,D,SYSTEM,STYPE,ENGINE>,
 								STYPE extends JeeslFileStorageType<L,D,STYPE,?>,
 								ENGINE extends JeeslFileStorageEngine<L,D,ENGINE,?>,

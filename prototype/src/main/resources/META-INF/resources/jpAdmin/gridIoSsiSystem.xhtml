@@ -23,13 +23,17 @@
 							 selection="#{cc.attrs.bean.system}" selectionMode="single" rowKey="#{s.id}">
 					<f:facet name="header">
 						<j:dtHeader title="#{msg.jeeslIoSsiSystems}">
-							<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addSystem()}" update=":#{cc.id}:grid"/>
+							<j:svg type="jeeslAdd" listener="#{cc.attrs.bean.addSystem()}" update=":#{cc.id}:grid" library="jeeslGfx"/>
 						</j:dtHeader>
 					</f:facet>
 					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectSystem()}" update=":#{cc.id}:sSystem"/>
 					<p:column>
 						<f:facet name="header"><h:outputText value="#{msg.jeeslIoSsiSystemCode}"/></f:facet>
 						<h:outputText value="#{s.code}"/>
+					</p:column>
+					<p:column>
+						<f:facet name="header"><h:outputText value="#{msg.jeeslIoSsiSystem}"/></f:facet>
+						<h:outputText value="#{s.name[localeCode].lang}"/>
 					</p:column>
 				</p:dataTable>
 			</h:form>
@@ -38,9 +42,9 @@
 			<h:form id="fSystem" rendered="#{not empty cc.attrs.bean.system}">
 				<p:panel id="pView" header="#{msg.jeeslIoSsiSystem}" styleClass="jeeslPanel">
 					<f:facet name="actions">
-						<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.cancelSystem()}" update=":#{cc.id}:grid"/>
-						<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveSystem()}"   update=":#{cc.id}:grid"/>
-						<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteSystem()}" update=":#{cc.id}:grid" rendered="#{cc.attrs.bean.system.id gt 0}"/>
+						<j:svg type="jeeslCancel" listener="#{cc.attrs.bean.cancelSystem()}" update=":#{cc.id}:grid" library="jeeslGfx"/>
+						<j:svg type="jeeslSave"   listener="#{cc.attrs.bean.saveSystem()}"   update=":#{cc.id}:grid" library="jeeslGfx"/>
+						<j:svg type="jeeslDelete" listener="#{cc.attrs.bean.deleteSystem()}" update=":#{cc.id}:grid" rendered="#{cc.attrs.bean.system.id gt 0}" library="jeeslGfx"/>
 					</f:facet>
 					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
 						
@@ -48,6 +52,7 @@
 						<p:inputText value="#{cc.attrs.bean.system.code}" autocomplete="off"/>
 						
 					</p:panelGrid>
+					<j:tabTranslationEditor value="#{cc.attrs.bean.system}" withDescription="true"/>
 				</p:panel>
 			</h:form>
 			<h:form id="fCredentials" rendered="#{not empty cc.attrs.bean.system}">
@@ -55,7 +60,7 @@
 							 selection="#{cc.attrs.bean.credential}" selectionMode="single" rowKey="#{c.id}">
 					<f:facet name="header">
 						<j:dtHeader title="#{msg.jeeslIoSsiCredentials}">
-							<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addCredential()}" update=":#{cc.id}:fCredentials :#{cc.id}:fCredential"/>
+							<j:svg type="jeeslAdd" listener="#{cc.attrs.bean.addCredential()}" update=":#{cc.id}:fCredentials :#{cc.id}:fCredential" library="jeeslGfx"/>
 						</j:dtHeader>
 					</f:facet>
 					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectCredential()}" update=":#{cc.id}:fCredential"/>
@@ -75,9 +80,9 @@
 			<h:form id="fCredential" >
 				<p:panel id="pView" header="#{msg.jeeslIoSsiCredential}" styleClass="jeeslPanel" rendered="#{not empty cc.attrs.bean.credential}">
 					<f:facet name="actions">
-						<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.cancelCredential()}" update=":#{cc.id}:fCredentials :#{cc.id}:fCredential"/>
-						<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveCredential()}"   update=":#{cc.id}:fCredentials :#{cc.id}:fCredential"/>
-						<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteCredential()}" update=":#{cc.id}:fCredentials :#{cc.id}:fCredential" rendered="#{cc.attrs.bean.credential.id gt 0}"/>
+						<j:svg type="jeeslCancel" listener="#{cc.attrs.bean.cancelCredential()}" update=":#{cc.id}:fCredentials :#{cc.id}:fCredential"  library="jeeslGfx"/>
+						<j:svg type="jeeslSave"   listener="#{cc.attrs.bean.saveCredential()}"   update=":#{cc.id}:fCredentials :#{cc.id}:fCredential"  library="jeeslGfx"/>
+						<j:svg type="jeeslDelete" listener="#{cc.attrs.bean.deleteCredential()}" update=":#{cc.id}:fCredentials :#{cc.id}:fCredential" rendered="#{cc.attrs.bean.credential.id gt 0}"  library="jeeslGfx"/>
 					</f:facet>
 					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
 						

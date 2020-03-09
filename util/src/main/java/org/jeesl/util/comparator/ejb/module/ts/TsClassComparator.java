@@ -3,13 +3,13 @@ package org.jeesl.util.comparator.ejb.module.ts;
 import java.util.Comparator;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
+import org.jeesl.interfaces.model.module.ts.config.JeeslTsCategory;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
-import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TsClassComparator<CAT extends JeeslStatus<CAT,?,?>,
-								EC extends JeeslTsEntityClass<?,?,CAT>
+public class TsClassComparator<CAT extends JeeslTsCategory<?,?,CAT,?>,
+								EC extends JeeslTsEntityClass<?,?,CAT,?>
 								>
 {
 	final static Logger logger = LoggerFactory.getLogger(TsClassComparator.class);

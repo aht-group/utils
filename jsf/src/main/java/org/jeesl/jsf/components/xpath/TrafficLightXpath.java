@@ -11,7 +11,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import org.apache.commons.jxpath.JXPathContext;
 import org.apache.commons.jxpath.JXPathNotFoundException;
 import org.jeesl.factory.css.CssAlignmentFactory;
-import org.jeesl.interfaces.model.system.io.report.JeeslReportColumn;
+import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportColumn;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.jsf.util.ComponentAttributeProcessor;
 import org.jeesl.jsf.util.TrafficLightProcessor;

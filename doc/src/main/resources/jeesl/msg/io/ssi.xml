@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<s:translations xmlns:s="http://ahtutils.aht-group.com/status">
+	<s:translation key="jeeslIoSsiSystems">
+    	<s:langs>
+    		<s:lang key="de" translation="Systeme"/>
+    		<s:lang key="en" translation="Systems"/>
+    		<s:lang key="fr" translation="Systems"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslIoSsiSystem">
+    	<s:langs>
+    		<s:lang key="de" translation="System"/>
+    		<s:lang key="en" translation="System"/>
+    		<s:lang key="fr" translation="System"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslIoSsiSystemCode">
+    	<s:langs>
+    		<s:lang key="de" translation="Code"/>
+    		<s:lang key="en" translation="Code"/>
+    		<s:lang key="fr" translation="Code"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslIoSsiMappings">
+    	<s:langs>
+    		<s:lang key="de" translation="Mappings"/>
+    		<s:lang key="en" translation="Mappings"/>
+    		<s:lang key="fr" translation="Mappings"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslIoSsiMapping">
+    	<s:langs>
+    		<s:lang key="de" translation="Mapping"/>
+    		<s:lang key="en" translation="Mapping"/>
+    		<s:lang key="fr" translation="Mapping"/>
+    	</s:langs>
+    </s:translation>
+        <s:translation key="jeeslIoSsiMappingId">
+    	<s:langs>
+    		<s:lang key="de" translation="Mapping ID"/>
+    		<s:lang key="en" translation="Mapping ID"/>
+    		<s:lang key="fr" translation="Mapping ID"/>
+    	</s:langs>
+	</s:translation>
+	<s:translation key="jeeslIoSsiSystems">
+    	<s:langs>
+    		<s:lang key="de" translation="Systeme"/>
+    		<s:lang key="en" translation="Systems"/>
+    		<s:lang key="fr" translation="Systems"/>
+    	</s:langs>
+	</s:translation>
+	<s:translation key="jeeslIoSsiSystem">
+    	<s:langs>
+    		<s:lang key="de" translation="System"/>
+    		<s:lang key="en" translation="System"/>
+    		<s:lang key="fr" translation="System"/>
+    	</s:langs>
+	</s:translation>
+	<s:translation key="jeeslIoSsiJsonClass">
+    	<s:langs>
+    		<s:lang key="de" translation="JSON Klasse"/>
+    		<s:lang key="en" translation="JSON Class"/>
+    		<s:lang key="fr" translation="JSON Class"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslIoSsiMappingClass">
+    	<s:langs>
+    		<s:lang key="de" translation="Mapping Klasse"/>
+    		<s:lang key="en" translation="Mapping Class"/>
+    		<s:lang key="fr" translation="Mapping Class"/>
+    	</s:langs>
+    </s:translation>
+    
+    <s:translation key="jeeslIoSsiOverview">
+    	<s:langs>
+    		<s:lang key="de" translation="Übersicht"/>
+    		<s:lang key="en" translation="Overview"/>
+    		<s:lang key="fr" translation="Overview"/>
+    	</s:langs>
+    </s:translation>
+    
+    <s:translation key="jeeslIoSsiRemark">
+    	<s:langs>
+    		<s:lang key="de" translation="Bemerkung"/>
+    		<s:lang key="en" translation="Remark"/>
+    		<s:lang key="fr" translation="Remark"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslIoSsiSelectionSize">
+    	<s:langs>
+    		<s:lang key="de" translation="Auswahl"/>
+    		<s:lang key="en" translation="Selection"/>
+    		<s:lang key="fr" translation="Selection"/>
+    	</s:langs>
+    </s:translation>
+    
+    <s:translation key="jeeslIoSsiButtons">
+    	<s:langs>
+    		<s:lang key="de" translation="Importvorgänge"/>
+    		<s:lang key="en" translation="Import Actions"/>
+    		<s:lang key="fr" translation="Import Actions"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslIoSsiBtnEvaluate">
+    	<s:langs>
+    		<s:lang key="de" translation="Prüfen"/>
+    		<s:lang key="en" translation="Evaluate"/>
+    		<s:lang key="fr" translation="Evaluate"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslIoSsiBtnEvaluateDescription">
+    	<s:langs>
+    		<s:lang key="de" translation="Es wird geprüft, ob die Auswahl die Bedinungen für einen Import erfüllt."/>
+    		<s:lang key="en" translation="The selection will be evaluatiod for import against preconditions."/>
+    		<s:lang key="fr" translation="The selection will be evaluatiod for import against preconditions."/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslIoSsiBtnIgnore">
+    	<s:langs>
+    		<s:lang key="de" translation="Ignorieren"/>
+    		<s:lang key="en" translation="Ignore"/>
+    		<s:lang key="fr" translation="Ignore"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslIoSsiBtnIgnoreDescription">
+    	<s:langs>
+    		<s:lang key="de" translation="Die Auswahl wird ignoriert."/>
+    		<s:lang key="en" translation="The selection will be ignored."/>
+    		<s:lang key="fr" translation="The selection will be ignored."/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslIoSsiBtnImport">
+    	<s:langs>
+    		<s:lang key="de" translation="Importieren"/>
+    		<s:lang key="en" translation="Import"/>
+    		<s:lang key="fr" translation="Import"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslIoSsiBtnImportDescription">
+    	<s:langs>
+    		<s:lang key="de" translation="Die Auswahl wird importiert oder veknüpft."/>
+    		<s:lang key="en" translation="The selection will be imported or linked."/>
+    		<s:lang key="fr" translation="The selection will be imported or linked."/>
+    	</s:langs>
+    </s:translation>
+    
+    <s:translation key="jeeslIoSsiBtnDelete">
+    	<s:langs>
+    		<s:lang key="de" translation="Löschen"/>
+    		<s:lang key="en" translation="Delete"/>
+    		<s:lang key="fr" translation="Delete"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslIoSsiBtnDeleteDescription">
+    	<s:langs>
+    		<s:lang key="de" translation="Die Auswahl wird gelöscht."/>
+    		<s:lang key="en" translation="The selection will be deleted."/>
+    		<s:lang key="fr" translation="The selection will be deleted."/>
+    	</s:langs>
+    </s:translation>
+    
+    
+    <s:translation key="jeeslIoSsiAttributeLocalCode">
+    	<s:langs>
+    		<s:lang key="de" translation="Lokaler Code"/>
+    		<s:lang key="en" translation="Local Code"/>
+    		<s:lang key="fr" translation="Local Code"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslIoSsiAttributeRemoteCode">
+    	<s:langs>
+    		<s:lang key="de" translation="Entfernter Code"/>
+    		<s:lang key="en" translation="Remote Code"/>
+    		<s:lang key="fr" translation="Remote Code"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslIoSsiCredentials">
+    	<s:langs>
+    		<s:lang key="de" translation="Zugangsdaten"/>
+    		<s:lang key="en" translation="Credentials"/>
+    		<s:lang key="fr" translation="Credentials"/>
+    	</s:langs>
+    </s:translation>
+    	<s:translation key="jeeslIoSsiCredential">
+    	<s:langs>
+    		<s:lang key="de" translation="Zugangsdaten"/>
+    		<s:lang key="en" translation="Credential"/>
+    		<s:lang key="fr" translation="Credential"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslIoSsiCredentialCode">
+    	<s:langs>
+    		<s:lang key="de" translation="Code"/>
+    		<s:lang key="en" translation="Code"/>
+    		<s:lang key="fr" translation="Code"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslIoSsiCredentialUser">
+    	<s:langs>
+    		<s:lang key="de" translation="Benutzer"/>
+    		<s:lang key="en" translation="User"/>
+    		<s:lang key="fr" translation="User"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslIoSsiCredentialPwd">
+    	<s:langs>
+    		<s:lang key="de" translation="Kennwort"/>
+    		<s:lang key="en" translation="Password"/>
+    		<s:lang key="fr" translation="Password"/>
+    	</s:langs>
+    </s:translation>    
+	<s:translation key="jeeslIoSsiCredentialToken">
+    	<s:langs>
+    		<s:lang key="de" translation="Token"/>
+    		<s:lang key="en" translation="Token"/>
+    		<s:lang key="fr" translation="Token"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslIoSsiCredentialUrl">
+    	<s:langs>
+    		<s:lang key="de" translation="URL"/>
+    		<s:lang key="en" translation="URL"/>
+    		<s:lang key="fr" translation="URL"/>
+    	</s:langs>
+    </s:translation> 
+	<s:translation key="jeeslIoSsiCredentialEncrypted">
+    	<s:langs>
+    		<s:lang key="de" translation="Verschlüsselt"/>
+    		<s:lang key="en" translation="Encrypted"/>
+    		<s:lang key="fr" translation="Encrypted"/>
+    	</s:langs>
+    </s:translation>   
+   
+    <s:translation key="jeeslIoSsiInstances">
+    	<s:langs>
+    		<s:lang key="de" translation="Instanzen"/>
+    		<s:lang key="en" translation="Instances"/>
+    		<s:lang key="fr" translation="Instances"/>
+    	</s:langs>
+	</s:translation>
+	<s:translation key="jeeslIoSsiInstance">
+    	<s:langs>
+    		<s:lang key="de" translation="Instanz"/>
+    		<s:lang key="en" translation="Instance"/>
+    		<s:lang key="fr" translation="Instance"/>
+    	</s:langs>
+	</s:translation>
+	<s:translation key="jeeslIoSsiHosts">
+    	<s:langs>
+    		<s:lang key="de" translation="Hosts"/>
+    		<s:lang key="en" translation="Hosts"/>
+    		<s:lang key="fr" translation="Hosts"/>
+    	</s:langs>
+	</s:translation>
+	<s:translation key="jeeslIoSsiHost">
+    	<s:langs>
+    		<s:lang key="de" translation="Host"/>
+    		<s:lang key="en" translation="Host"/>
+    		<s:lang key="fr" translation="Host"/>
+    	</s:langs>
+	</s:translation>
+	<s:translation key="jeeslIoSsiHostCode">
+    	<s:langs>
+    		<s:lang key="de" translation="Code"/>
+    		<s:lang key="en" translation="Code"/>
+    		<s:lang key="fr" translation="Code"/>
+    	</s:langs>
+	</s:translation>   
+</s:translations>

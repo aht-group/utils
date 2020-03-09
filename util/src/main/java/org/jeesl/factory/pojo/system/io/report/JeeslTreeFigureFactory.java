@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.jeesl.factory.xml.domain.finance.XmlFiguresFactory;
 import org.jeesl.interfaces.controller.report.JeeslPivotFactory;
-import org.jeesl.interfaces.model.system.io.report.type.JeeslReportSetting;
+import org.jeesl.interfaces.model.io.report.setting.JeeslReportSetting;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;

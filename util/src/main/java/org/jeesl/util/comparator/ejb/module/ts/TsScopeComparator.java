@@ -3,12 +3,12 @@ package org.jeesl.util.comparator.ejb.module.ts;
 import java.util.Comparator;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
+import org.jeesl.interfaces.model.module.ts.config.JeeslTsCategory;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsScope;
-import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TsScopeComparator<CAT extends JeeslStatus<CAT,?,?>,
+public class TsScopeComparator<CAT extends JeeslTsCategory<?,?,CAT,?>,
 								SCOPE extends JeeslTsScope<?,?,CAT,?,?,?,?>
 								>
 {

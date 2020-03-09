@@ -12,6 +12,8 @@ import java.util.Map;
 import org.jeesl.api.facade.module.JeeslTsFacade;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
+import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.module.ts.config.JeeslTsCategory;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
@@ -38,7 +40,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TsYearlyDataHandler <L extends JeeslLang, D extends JeeslDescription,
-								CAT extends JeeslStatus<CAT,L,D>,
+								CAT extends JeeslTsCategory<L,D,CAT,?>,
 								SCOPE extends JeeslTsScope<L,D,CAT,ST,UNIT,EC,INT>,
 								ST extends JeeslTsScopeType<L,D,ST,?>,
 								UNIT extends JeeslStatus<UNIT,L,D>,
@@ -47,7 +49,8 @@ public class TsYearlyDataHandler <L extends JeeslLang, D extends JeeslDescriptio
 								TRANSACTION extends JeeslTsTransaction<SOURCE,DATA,USER,?>,
 								SOURCE extends EjbWithLangDescription<L,D>, 
 								BRIDGE extends JeeslTsBridge<EC>,
-								EC extends JeeslTsEntityClass<L,D,CAT>,
+								EC extends JeeslTsEntityClass<L,D,CAT,ENTITY>,
+								ENTITY extends JeeslRevisionEntity<L,D,?,?,?,?>,
 								INT extends JeeslTsInterval<L,D,INT,?>,
 								STAT extends JeeslTsStatistic<L,D,STAT,?>,
 								DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
@@ -63,8 +66,8 @@ public class TsYearlyDataHandler <L extends JeeslLang, D extends JeeslDescriptio
 
 	final static Logger logger = LoggerFactory.getLogger(TsYearlyDataHandler.class);
 	
-	private final JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fTs;
-	private final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fbTs;
+	private final JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fTs;
+	private final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fbTs;
 	
 	private final Comparator<JsonYear> cpYear;
 //	private JeeslComparatorProvider<T> jcpA; public void setComparatorProviderA(JeeslComparatorProvider<A> jcpA) {this.jcpA = jcpA;}
@@ -79,8 +82,8 @@ public class TsYearlyDataHandler <L extends JeeslLang, D extends JeeslDescriptio
 	private INT interval;
 	private WS workspace;
 	
-	public TsYearlyDataHandler(JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fTs,
-			TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fbTs)
+	public TsYearlyDataHandler(JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fTs,
+			TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fbTs)
 	{
 		this.fTs=fTs;
 		this.fbTs=fbTs;

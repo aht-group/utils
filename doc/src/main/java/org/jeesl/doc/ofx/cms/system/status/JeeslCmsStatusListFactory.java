@@ -1,7 +1,7 @@
 package org.jeesl.doc.ofx.cms.system.status;
 
-import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsContent;
-import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsElement;
+import org.jeesl.interfaces.model.io.cms.JeeslIoCmsContent;
+import org.jeesl.interfaces.model.io.cms.JeeslIoCmsElement;
 import org.openfuxml.factory.xml.list.XmlListFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

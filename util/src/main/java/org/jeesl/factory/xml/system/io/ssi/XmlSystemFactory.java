@@ -1,6 +1,6 @@
 package org.jeesl.factory.xml.system.io.ssi;
 
-import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiSystem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

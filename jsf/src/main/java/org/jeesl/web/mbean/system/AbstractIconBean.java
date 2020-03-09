@@ -174,18 +174,18 @@ public class AbstractIconBean implements Serializable
 	protected void jeesl()
 	{
 		mapStatic.put("jeeslAdd", "ui/jeesl/control/add.png");							svg.put("jeeslAdd","ui/control/add.svg");
-		mapStatic.put("jeeslCancel", "ui/jeesl/control/cancel.png");
-		mapStatic.put("jeeslClone", "ui/jeesl/control/clone.png");
-		mapStatic.put("jeeslDelete", "ui/jeesl/control/delete.png");
+		mapStatic.put("jeeslCancel", "ui/jeesl/control/cancel.png");					svg.put("jeeslCancel","ui/control/cancel.svg");
+		mapStatic.put("jeeslClone", "ui/jeesl/control/clone.png");						svg.put("jeeslClone","ui/control/clone.svg");
+		mapStatic.put("jeeslDelete", "ui/jeesl/control/delete.png");					svg.put("jeeslDelete","ui/control/delete.svg");
 		mapStatic.put("jeeslEdit", "ui/jeesl/control/edit.png");
 		mapStatic.put("jeeslEditGrey", "ui/jeesl/control/editGrey.png");
 		mapStatic.put("jeeslFilter", "ui/jeesl/control/filter.png");
 		mapStatic.put("jeeslMove", "ui/jeesl/control/move.png");
 		mapStatic.put("jeeslRemove", "ui/jeesl/control/remove.png");
-		mapStatic.put("jeeslRefresh", "ui/jeesl/control/refresh.png");
+		mapStatic.put("jeeslRefresh", "ui/jeesl/control/refresh.png");					svg.put("jeeslRefresh","ui/control/refresh.svg");
 		mapStatic.put("jeeslClean", "ui/jeesl/control/clean.png");
-		mapStatic.put("jeeslSave", "ui/jeesl/control/save.png");
-		mapStatic.put("jeeslSearch", "ui/jeesl/control/search.png");
+		mapStatic.put("jeeslSave", "ui/jeesl/control/save.png");						svg.put("jeeslSave","ui/control/save.svg");
+		mapStatic.put("jeeslSearch", "ui/jeesl/control/search.png");					svg.put("jeeslSearch","ui/control/search.svg");
 		mapStatic.put("jeeslDownload", "ui/jeesl/control/download.png");
 		mapStatic.put("jeeslUpload", "ui/jeesl/control/upload.png");
 		
@@ -198,7 +198,6 @@ public class AbstractIconBean implements Serializable
 		mapStatic.put("jeeslUnsaved", "ui/jeesl/generic/unsaved.png");
 		
 		svg.put("jeeslHome", "svg/jeesl/icon/ui/system/home.svg");
-		svg.put("jeeslClone", "svg/icon/ui/control/clone.svg");
 		
 		svg.put("jeeslTreeExpandTwo", "ui/control/tree/expand-2.svg");
 		svg.put("jeeslTreeExpandThree", "ui/control/tree/expand-3.svg");
@@ -242,8 +241,8 @@ public class AbstractIconBean implements Serializable
 	
 	protected void jeeslFile()
 	{
-		mapStatic.put("reportPdf", "ui/jeesl/system/io/file/pdf.png");
-		mapStatic.put("reportXls", "ui/jeesl/system/io/file/xls.png");
-		mapStatic.put("reportDoc", "ui/jeesl/system/io/file/doc.png");
+		mapStatic.put("reportPdf", "ui/jeesl/system/io/file/pdf.png");	svg.put("reportPdf","ui/io/fr/type/pdf.svg");
+		mapStatic.put("reportXls", "ui/jeesl/system/io/file/xls.png");	svg.put("reportXls","ui/io/fr/type/xls.svg");
+		mapStatic.put("reportDoc", "ui/jeesl/system/io/file/doc.png");	svg.put("reportDoc","ui/io/fr/type/doc.svg");
 	}
 }
