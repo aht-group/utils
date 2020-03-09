@@ -61,6 +61,49 @@
 							<j:tabTranslationEditor value="#{cc.attrs.bean.dashboard}" keys="#{cc.attrs.localeKeys}" withDescription="true"/>
 						</p:panel>
 					</h:form>
+					<h:form id="fIoDashboardComponents" rendered="#{not empty cc.attrs.bean.dashboard}">	
+						<p:dataTable var="comp" value="#{cc.attrs.bean.dashboard.componentPositions}"
+								selection="#{cc.attrs.bean.dashComponentPosition}" selectionMode="single" rowKey="#{comp.id}">
+							<f:facet name="header">
+								<j:dtHeader title="#{msg.jeeslIoDashboardsComponent}">
+									<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addDashboardComponent()}" update=":#{cc.id}:fIoDashboardComponent"/>
+								</j:dtHeader>
+							</f:facet>
+							<p:ajax event="rowSelect" update=":#{cc.id}:fIoDashboardComponents :#{cc.id}:fIoDashboardComponent" listener="#{cc.attrs.bean.selectDashboardComponent}"/>
+				            <p:column headerText="#{msg.jeeslDashboardComponent}" >  
+								<h:outputText value="#{comp.component.name[localeCode].lang}" />  
+				            </p:column>
+				            <p:column headerText="#{msg.jeeslDashboardRow}" rendered="false">  
+								<h:outputText value="#{comp.row}" />  
+				            </p:column>
+				            <p:column headerText="#{msg.jeeslDashboardWidth}">  
+								<h:outputText value="#{comp.width}"/>
+				            </p:column>
+						</p:dataTable>
+					</h:form>
+					<h:form id="fIoDashboardComponent">
+						<p:panel header="#{msg.jeeslIoDashboardsComponent}" rendered="#{not empty cc.attrs.bean.dashComponentPosition}" styleClass="jeeslPanel">
+							<f:facet name="actions">
+								<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.cancelDashboardComponent()}" update=":#{cc.id}:fIoDashboardComponent :#{cc.id}:sIoDashboard" mayDisappear="true"/>
+								<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveDashboardComponent()}"   update=":#{cc.id}:fIoDashboardComponents :#{cc.id}:fIoDashboardComponent" tooltip="#{msg.ttSave}"/>
+								<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteDashboardComponent()}" update=":#{cc.id}:fIoDashboardComponents :#{cc.id}:fIoDashboardComponent" rendered="#{cc.attrs.bean.dashComponentPosition.id gt 0}" mayDisappear="true"/>
+							</f:facet>
+							<p:messages redisplay="false" severity="warn,error" showSummary="false" showDetail="true" closable="true"/>
+							<p:panelGrid columns="2" columnClasses="jeeslGrid30,jeeslGrid70">
+							
+								<p:outputLabel value="#{msg.jeeslDashboardComponent}"/>
+								<p:selectOneMenu value="#{cc.attrs.bean.dashComponentPosition.component}" effect="fade" >
+									<f:selectItems value="#{cc.attrs.bean.components}" var="t" itemLabel="#{t.name[userBean.localeCode].lang}" itemValue="#{t}"/>
+								</p:selectOneMenu>
+							
+								<p:outputLabel value="#{msg.jeeslDashboardRow}"/>
+                                <p:inputText value="#{cc.attrs.bean.dashComponentPosition.row}" autocomplete="off"/>
+                                
+                                <p:outputLabel value="#{msg.jeeslDashboardWidth}"/>
+                                <p:inputText value="#{cc.attrs.bean.dashComponentPosition.width}" autocomplete="off"/>
+							</p:panelGrid>
+						</p:panel>
+					</h:form>
 				</j:slot>
 			</j:row>
 	    </jp:grid>

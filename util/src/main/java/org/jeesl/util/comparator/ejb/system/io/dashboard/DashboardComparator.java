@@ -6,14 +6,10 @@ import org.apache.commons.lang.builder.CompareToBuilder;
 import org.jeesl.interfaces.model.io.dash.JeeslIoDashboard;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DashboardComparator<L extends JeeslLang,D extends JeeslDescription,
-									DB extends JeeslIoDashboard<L,D,DBS,DB>,
-									DBS extends JeeslStatus<DBS,L,D>
-									>
+public class DashboardComparator<L extends JeeslLang,D extends JeeslDescription, DB extends JeeslIoDashboard<L,D,?,?,DB>>
 {
     final static Logger logger = LoggerFactory.getLogger(DashboardComparator.class);
 
@@ -22,7 +18,7 @@ public class DashboardComparator<L extends JeeslLang,D extends JeeslDescription,
     public Comparator<DB> factory(Type type)
     {
         Comparator<DB> c = null;
-        DashboardComparator<L,D,DB,DBS> factory = new DashboardComparator<>();
+        DashboardComparator<L,D,DB> factory = new DashboardComparator<>();
         switch (type)
         {
             case code: c = factory.new CodeComparator();break;
@@ -41,5 +37,4 @@ public class DashboardComparator<L extends JeeslLang,D extends JeeslDescription,
             return ctb.toComparison();
         }
     }
-
 }
