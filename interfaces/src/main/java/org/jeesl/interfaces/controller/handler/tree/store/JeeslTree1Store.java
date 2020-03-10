@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.controller.handler.tree;
+package org.jeesl.interfaces.controller.handler.tree.store;
 
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
