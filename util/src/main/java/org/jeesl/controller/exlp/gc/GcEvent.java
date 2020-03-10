@@ -11,14 +11,18 @@ import net.sf.exlp.interfaces.LogEvent;
 public class GcEvent extends AbstractEvent implements LogEvent
 {
 	final static Logger logger = LoggerFactory.getLogger(GcEvent.class);
-	static final long serialVersionUID=1;
+	static final long serialVersionUID = 1;
 	
 	private String type;
-	private double real,user,sys;
+	private float real,user,sys;
 	
-	public GcEvent(Date record)
+	public GcEvent(Date record, String type, float user, float sys, float real)
 	{
-		this.record=record;
+		this.record = record;
+		this.type = type;
+		this.user = user;
+		this.sys = sys;
+		this.real = real;
 	}
 
 	public void debug()
@@ -30,6 +34,6 @@ public class GcEvent extends AbstractEvent implements LogEvent
 		sb.append(" user:"+user);
 		sb.append(" sys:"+sys);
 		sb.append(" real:"+real);
-		logger.debug(sb.toString());		
+		logger.debug(sb.toString());
 	}
 }

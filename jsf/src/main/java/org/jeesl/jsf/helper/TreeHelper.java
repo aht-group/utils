@@ -6,6 +6,8 @@ import javax.validation.constraints.NotNull;
 
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
+import org.jeesl.util.Expression;
+import org.jeesl.util.Functor;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 import org.slf4j.Logger;
@@ -14,16 +16,6 @@ import org.slf4j.LoggerFactory;
 public abstract class TreeHelper
 {
 	final static Logger logger = LoggerFactory.getLogger(TreeHelper.class);
-	
-	public interface Expression
-	{
-		public boolean condition(TreeNode node);
-	}
-	
-	public interface Functor
-	{
-		public void execute(TreeNode node);
-	}
 	
 	private static TreeNode getAncestor(@NotNull TreeNode decendant, int ancestryLevel)
 	{
@@ -55,7 +47,7 @@ public abstract class TreeHelper
 		}
 	}
 	
-	public static TreeNode findNode(TreeNode node, Expression expression)
+	public static TreeNode findNode(TreeNode node, Expression<TreeNode> expression)
 	{
 		if (node == null) { return null; }
 		
@@ -74,7 +66,7 @@ public abstract class TreeHelper
 		return null;
 	}
 	
-	public static List<TreeNode> findNodes(TreeNode node, Expression expression)
+	public static List<TreeNode> findNodes(TreeNode node, Expression<TreeNode> expression)
 	{
 		List<TreeNode> nodes = new ArrayList<TreeNode>();
 		if (node == null) { return nodes; }
@@ -91,7 +83,7 @@ public abstract class TreeHelper
 		return nodes;
 	}
 	
-	public static void forEach(TreeNode node, Functor functor, Expression breakExpression)
+	public static void forEach(TreeNode node, Functor<TreeNode> functor, Expression<TreeNode> breakExpression)
 	{
 		if (node == null || breakExpression.condition(node)) { return; }
 		
