@@ -44,30 +44,29 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 										SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
 										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,ATYPE>,
 										STATUS extends JeeslAomAssetStatus<L,D,STATUS,?>,
-										ATYPE extends JeeslAomAssetType<L,D,REALM,ATYPE,ALEVEL,?>,
-										ALEVEL extends JeeslAomView<L,D,REALM,?>,
+										ATYPE extends JeeslAomAssetType<L,D,REALM,ATYPE,VIEW,?>,
+										VIEW extends JeeslAomView<L,D,REALM,?>,
 										EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER,FRC>,
 										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
 										ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,
 										USER extends JeeslSimpleUser,
 										FRC extends JeeslFileContainer<?,?>>
 					extends JeeslFacadeBean
-					implements JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC>
+					implements JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC>
 {	
 	private static final long serialVersionUID = 1L;
 
 	final static Logger logger = LoggerFactory.getLogger(JeeslAssetFacadeBean.class);
 	
-	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset;
+	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset;
 	
-	public JeeslAssetFacadeBean(EntityManager em, final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset)
+	public JeeslAssetFacadeBean(EntityManager em, final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset)
 	{
 		super(em);
 		this.fbAsset=fbAsset;
 	}
 
-	@Override
-	public <RREF extends EjbWithId> ASSET fcAssetRoot(REALM realm, RREF realmReference)
+	@Override public <RREF extends EjbWithId> ASSET fcAssetRoot(REALM realm, RREF rref)
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<ASSET> cQ = cB.createQuery(fbAsset.getClassAsset());
@@ -78,7 +77,7 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 		Path<REALM> pRealm = root.get(JeeslAomAsset.Attributes.realm.toString());
 		Path<ASSET> pParent = root.get(JeeslAomAsset.Attributes.parent.toString());
 		
-		predicates.add(cB.equal(eRefId,realmReference.getId()));
+		predicates.add(cB.equal(eRefId,rref.getId()));
 		predicates.add(cB.equal(pRealm,realm));
 		predicates.add(cB.isNull(pParent));
 		
@@ -89,16 +88,46 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 		try	{return tQ.getSingleResult();}
 		catch (NoResultException ex)
 		{
-			ATYPE type = this.fcAssetRootType(realm,realmReference);
+			VIEW view = this.fcAomView(realm, rref, JeeslAomView.Tree.hierarchy);
+			ATYPE type = this.fcAomRootType(realm,rref,view);
 			STATUS status = this.fByEnum(fbAsset.getClassStatus(), JeeslAomAssetStatus.Code.na);
-			ASSET result = fbAsset.ejbAsset().build(realm,realmReference, null, status, type);
-			try
-			{
-				return this.save(result);
-			}
+			ASSET result = fbAsset.ejbAsset().build(realm,rref, null, status, type);
+			try {return this.save(result);}
 			catch (JeeslConstraintViolationException | JeeslLockingException e)
 			{
-				return this.fcAssetRoot(realm,realmReference);
+				return this.fcAssetRoot(realm,rref);
+			}
+		}
+	}
+	
+	@Override public <RREF extends EjbWithId> VIEW fcAomView(REALM realm, RREF rref, JeeslAomView.Tree tree)
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<VIEW> cQ = cB.createQuery(fbAsset.getClassAssetLevel());
+		Root<VIEW> root = cQ.from(fbAsset.getClassAssetLevel());
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		Expression<Long> eRefId = root.get(JeeslAomView.Attributes.rref.toString());
+		Path<REALM> pRealm = root.get(JeeslAomView.Attributes.realm.toString());
+		Expression<String> eTree = root.get(JeeslAomView.Attributes.tree.toString());
+		
+		predicates.add(cB.equal(eRefId,rref.getId()));
+		predicates.add(cB.equal(pRealm,realm));
+		predicates.add(cB.equal(eTree,tree.toString()));
+		
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.select(root);
+
+		TypedQuery<VIEW> tQ = em.createQuery(cQ);
+		try	{return tQ.getSingleResult();}
+		catch (NoResultException ex)
+		{
+			VIEW result = fbAsset.ejbLevel().build(realm,rref,null);
+			result.setTree(tree.toString());
+			try {return this.save(result);}
+			catch (JeeslConstraintViolationException | JeeslLockingException e)
+			{
+				return this.fcAomView(realm,rref,tree);
 			}
 		}
 	}
@@ -126,7 +155,7 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 	}
 
 	@Override
-	public <RREF extends EjbWithId> ATYPE fcAssetRootType(REALM realm, RREF rref)
+	public <RREF extends EjbWithId> ATYPE fcAomRootType(REALM realm, RREF rref, VIEW v)
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<ATYPE> cQ = cB.createQuery(fbAsset.getClassAssetType());
@@ -149,7 +178,7 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 		catch (NoResultException ex)
 		{
 			ATYPE result = fbAsset.ejbType().build(realm, rref, null, "root");
-			ALEVEL view = fbAsset.ejbLevel().build(realm,rref,null);
+			VIEW view = fbAsset.ejbLevel().build(realm,rref,null);
 			view.setTree(JeeslAomView.Tree.hierarchy.toString());
 			try
 			{
@@ -158,16 +187,16 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 			}
 			catch (JeeslConstraintViolationException | JeeslLockingException e)
 			{
-				return this.fcAssetRootType(realm,rref);
+				return this.fcAomRootType(realm,rref,view);
 			}
 		}
 	}
 	
-	@Override public <RREF extends EjbWithId> List<ALEVEL> fAomLevels(REALM realm, RREF rref)
+	@Override public <RREF extends EjbWithId> List<VIEW> fAomViews(REALM realm, RREF rref)
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
-		CriteriaQuery<ALEVEL> cQ = cB.createQuery(fbAsset.getClassAssetLevel());
-		Root<ALEVEL> level = cQ.from(fbAsset.getClassAssetLevel());
+		CriteriaQuery<VIEW> cQ = cB.createQuery(fbAsset.getClassAssetLevel());
+		Root<VIEW> level = cQ.from(fbAsset.getClassAssetLevel());
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		
 		Expression<Long> eRefId = level.get(JeeslAomView.Attributes.rref.toString());
