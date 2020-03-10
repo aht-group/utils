@@ -2,10 +2,10 @@ package org.jeesl.factory.ejb.system.io.template;
 
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.factory.ejb.system.status.EjbDescriptionFactory;
-import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
-import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateDefinition;
-import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateToken;
-import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
+import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplate;
+import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplateDefinition;
+import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplateToken;
+import org.jeesl.interfaces.model.io.mail.template.JeeslTemplateChannel;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;

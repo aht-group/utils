@@ -18,8 +18,8 @@ public final class MobileDevice
     public static boolean mobileDevice()
     {
     	if(FacesContext.getCurrentInstance()!=null
-    		&& (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext()!=null
-    		&& (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()!=null
+    		&& FacesContext.getCurrentInstance().getExternalContext()!=null
+    		&& FacesContext.getCurrentInstance().getExternalContext().getRequest()!=null
     		&& ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getHeader("user-agent")!=null)
     	{
         	String userAgent = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getHeader("user-agent");

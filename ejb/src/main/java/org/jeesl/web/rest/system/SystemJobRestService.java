@@ -5,7 +5,7 @@ import org.jeesl.api.rest.system.job.JeeslJobRest;
 import org.jeesl.api.rest.system.job.JeeslJobRestExport;
 import org.jeesl.api.rest.system.job.JeeslJobRestImport;
 import org.jeesl.factory.xml.module.job.XmlJobsFactory;
-import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
+import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.job.JeeslJob;
 import org.jeesl.interfaces.model.system.job.JeeslJobCache;
 import org.jeesl.interfaces.model.system.job.JeeslJobCategory;

@@ -11,11 +11,11 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="Layer_1"
    space="preserve"
-   sodipodi:docname="calendar-selection.svg"
+   sodipodi:docname="dates.svg"
    viewBox="0 0 137.79487 138.18778"
    sodipodi:version="0.32"
    version="1.1"
-   inkscape:version="0.91 r13725"
+   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
    width="137.79488"
    height="138.18777"
    inkscape:export-filename="/Users/thorsten/workspace/4.6.2/jeesl/doc/src/main/resources/jeesl/svg/icon/ui/control/calendar-selection.png"
@@ -115,13 +115,13 @@
      inkscape:pageshadow="2"
      inkscape:window-width="1191"
      pagecolor="#ffffff"
-     inkscape:zoom="3.5169478"
-     inkscape:window-x="22"
+     inkscape:zoom="3.1768369"
+     inkscape:window-x="0"
      borderopacity="1.0"
      inkscape:current-layer="Layer_1"
-     inkscape:cx="37.086547"
-     inkscape:cy="62.952083"
-     inkscape:window-y="29"
+     inkscape:cx="70.786108"
+     inkscape:cy="69.093891"
+     inkscape:window-y="1"
      inkscape:window-height="652"
      inkscape:pageopacity="0.0"
      showgrid="false"
@@ -132,29 +132,9 @@
      fit-margin-bottom="0" />
   <path
      inkscape:connector-curvature="0"
-     d="m 23.175789,115.12117 -21.7454738,0 c 0.581295,0 -1.56471897,-18.821893 -0.195092,-20.113657 2.587957,-2.438506 17.8622108,0 21.7454738,0 0.394165,0.0013 0.195092,18.010847 0.195092,20.113657"
-     style="fill:#9ade00"
-     id="path38-6-6-3" />
-  <path
-     inkscape:connector-curvature="0"
      d="m 136.62453,96.781399 -22.57149,0 c 0.60338,0 -1.62415,-19.831778 -0.2025,-21.19285 2.68626,-2.569346 18.54071,0 22.57148,0 0.40914,0.0012 0.20251,18.977215 0.20251,21.19285"
      style="fill:#9ade00"
      id="path38-6-6-0-8" />
-  <path
-     inkscape:connector-curvature="0"
-     d="m 112.45775,77.019944 -21.745473,0 c 0.581295,0 -1.564719,-18.821883 -0.195092,-20.113647 2.587957,-2.438506 17.862215,0 21.745475,0 0.39416,0.0013 0.19509,18.010837 0.19509,20.113647"
-     style="fill:#9ade00"
-     id="path38-6-0-8-6" />
-  <path
-     inkscape:connector-curvature="0"
-     d="m 135.92981,75.484522 -21.74547,0 c 0.58129,0 -1.56472,-17.054581 -0.1951,-18.225052 2.58796,-2.20954 17.86221,0 21.74548,0 0.39416,0.0011 0.19509,16.319689 0.19509,18.225052"
-     style="fill:#9ade00"
-     id="path38-6-6-0" />
-  <path
-     inkscape:connector-curvature="0"
-     d="m 23.07627,96.96622 -21.7454738,0 c 0.581295,0 -1.56471897,-18.821888 -0.195092,-20.113652 2.587957,-2.438506 17.8622108,0 21.7454738,0 0.394165,0.0013 0.195092,18.010842 0.195092,20.113652"
-     style="fill:#9ade00"
-     id="path38-6-6" />
   <path
      inkscape:connector-curvature="0"
      d="m 112.51462,96.966215 -21.745475,0 c 0.581295,0 -1.564719,-18.821883 -0.195092,-20.113647 2.587957,-2.438506 17.862207,0 21.745477,0 0.39416,0.0013 0.19509,18.010837 0.19509,20.113647"

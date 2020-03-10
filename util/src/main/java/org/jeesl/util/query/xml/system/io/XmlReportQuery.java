@@ -17,7 +17,7 @@ import org.jeesl.factory.xml.system.status.XmlCategoryFactory;
 import org.jeesl.factory.xml.system.status.XmlDataTypeFactory;
 import org.jeesl.factory.xml.system.status.XmlImplementationFactory;
 import org.jeesl.factory.xml.system.status.XmlTypeFactory;
-import org.jeesl.interfaces.model.system.io.report.type.JeeslReportLayout;
+import org.jeesl.interfaces.model.io.report.style.JeeslReportLayout;
 import org.jeesl.util.query.xml.XmlStatusQuery;
 
 import net.sf.ahtutils.xml.aht.Query;

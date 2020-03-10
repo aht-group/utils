@@ -2,7 +2,7 @@ package org.jeesl.interfaces.controller.report;
 
 import java.io.InputStream;
 
-import org.jeesl.interfaces.model.system.io.report.JeeslIoReport;
+import org.jeesl.interfaces.model.io.report.JeeslIoReport;
 
 public interface JeeslXlsReport <REPORT extends JeeslIoReport<?,?,?,?>>
 							extends JeeslReport<REPORT>

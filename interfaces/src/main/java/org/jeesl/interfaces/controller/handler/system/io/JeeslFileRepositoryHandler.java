@@ -7,10 +7,10 @@ import java.util.List;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
-import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
-import org.jeesl.interfaces.model.system.io.fr.JeeslFileMeta;
-import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorage;
-import org.jeesl.interfaces.model.system.io.fr.JeeslWithFileRepositoryContainer;
+import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
+import org.jeesl.interfaces.model.io.fr.JeeslFileMeta;
+import org.jeesl.interfaces.model.io.fr.JeeslFileStorage;
+import org.jeesl.interfaces.model.io.fr.JeeslWithFileRepositoryContainer;
 
 public interface JeeslFileRepositoryHandler <STORAGE extends JeeslFileStorage<?,?,?,?,?>,
 											CONTAINER extends JeeslFileContainer<STORAGE,?>,

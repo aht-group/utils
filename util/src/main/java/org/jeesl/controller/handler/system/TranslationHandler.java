@@ -9,8 +9,8 @@ import java.util.Map;
 
 import org.jeesl.api.bean.JeeslLabelBean;
 import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
-import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
-import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionAttribute;
+import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;

@@ -3,11 +3,11 @@ package org.jeesl.factory.ejb.module.workflow;
 import java.util.List;
 
 import org.jeesl.factory.ejb.util.EjbPositionFactory;
+import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionAttribute;
+import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowAction;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowBot;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
-import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
-import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

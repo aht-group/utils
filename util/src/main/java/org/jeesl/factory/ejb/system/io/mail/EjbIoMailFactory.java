@@ -2,9 +2,9 @@ package org.jeesl.factory.ejb.system.io.mail;
 
 import java.util.Date;
 
-import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
-import org.jeesl.interfaces.model.system.io.mail.core.JeeslIoMail;
-import org.jeesl.interfaces.model.system.io.mail.core.JeeslMailStatus;
+import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
+import org.jeesl.interfaces.model.io.mail.core.JeeslIoMail;
+import org.jeesl.interfaces.model.io.mail.core.JeeslMailStatus;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;

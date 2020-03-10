@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.jeesl.controller.processor.FtlW3cProcessor;
-import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
-import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateDefinition;
-import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateToken;
-import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
-import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateTokenType;
+import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplate;
+import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplateDefinition;
+import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplateToken;
+import org.jeesl.interfaces.model.io.mail.template.JeeslTemplateChannel;
+import org.jeesl.interfaces.model.io.mail.template.JeeslTemplateTokenType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;

@@ -20,7 +20,7 @@ public class EjbTsFactory<SCOPE extends JeeslTsScope<?,?,?,?,UNIT,EC,INT>,
 							TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT,STAT>,
 							SOURCE extends EjbWithLangDescription<?,?>, 
 							BRIDGE extends JeeslTsBridge<EC>,
-							EC extends JeeslTsEntityClass<?,?,?>,
+							EC extends JeeslTsEntityClass<?,?,?,?>,
 							INT extends JeeslStatus<INT,?,?>,
 							STAT extends JeeslTsStatistic<?,?,STAT,?>
 							>

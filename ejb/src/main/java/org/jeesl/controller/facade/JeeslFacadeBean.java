@@ -137,8 +137,12 @@ public class JeeslFacadeBean implements JeeslFacade
 		catch (Exception e)
 		{
 			if(handleTransaction){em.getTransaction().rollback();}
-			if(e instanceof javax.validation.ConstraintViolationException)
+			
+			if(e instanceof javax.validation.ConstraintViolationException) {throw new JeeslConstraintViolationException(e.getMessage());}
+			if(e instanceof IllegalStateException)
 			{
+				System.err.println("Most probably a transient value error as "+e.getClass().getName());
+				e.printStackTrace();
 				throw new JeeslConstraintViolationException(e.getMessage());
 			}
 			if(e instanceof javax.persistence.PersistenceException)
@@ -164,6 +168,7 @@ public class JeeslFacadeBean implements JeeslFacade
 			{
 				logger.error("It's not a "+javax.persistence.PersistenceException.class.getName()+" ...");
 				System.err.println("This Error is not handled: "+e.getClass().getName());
+				System.err.println("You have to add this error to the source code: "+e.getClass().getName());
 				e.printStackTrace();
 			}
 		}

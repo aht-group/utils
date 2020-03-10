@@ -35,7 +35,7 @@
 					<h:form id="fUsers">
 						<p:dataTable id="userTable" widgetVar="wvUserTable" var="u" value="#{cc.attrs.users}" rowKey="#{u.id}"  lazy="#{cc.attrs.lazy}"
 								selection="#{cc.attrs.bean.user}" selectionMode="single" 
-								paginator="true" rows="10" paginatorPosition="bottom" paginatorTemplate="#{appSettingsBean.paginatorTemplate}" rowsPerPageTemplate="#{appSettingsBean.rowsPerPageTemplate}">
+								paginator="true" rows="5" paginatorPosition="bottom" paginatorTemplate="#{appSettingsBean.paginatorTemplate}" rowsPerPageTemplate="#{appSettingsBean.rowsPerPageTemplate}">
 							<f:facet name="header">
 								<j:dtHeader title="#{msg.jeeslUsers}">
 									<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addUser()}" update=":#{cc.id}:sDetail"/>

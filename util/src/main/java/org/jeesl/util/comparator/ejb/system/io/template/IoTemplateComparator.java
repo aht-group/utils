@@ -3,10 +3,10 @@ package org.jeesl.util.comparator.ejb.system.io.template;
 import java.util.Comparator;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
-import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
-import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateDefinition;
-import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateToken;
-import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
+import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplate;
+import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplateDefinition;
+import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplateToken;
+import org.jeesl.interfaces.model.io.mail.template.JeeslTemplateChannel;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;

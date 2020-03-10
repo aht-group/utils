@@ -4,26 +4,28 @@ import java.util.List;
 
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.facade.JeeslFacade;
-import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
-import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiAttribute;
-import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiCredential;
-import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiData;
-import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiLink;
-import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;
-import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiCredential;
+import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiHost;
+import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.io.ssi.data.JeeslIoSsiAttribute;
+import org.jeesl.interfaces.model.io.ssi.data.JeeslIoSsiData;
+import org.jeesl.interfaces.model.io.ssi.data.JeeslIoSsiLink;
+import org.jeesl.interfaces.model.io.ssi.data.JeeslIoSsiMapping;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 
 public interface JeeslIoSsiFacade <L extends JeeslLang,D extends JeeslDescription,
-									SYSTEM extends JeeslIoSsiSystem,
+									SYSTEM extends JeeslIoSsiSystem<L,D>,
 									CRED extends JeeslIoSsiCredential<SYSTEM>,
 									MAPPING extends JeeslIoSsiMapping<SYSTEM,ENTITY>,
 									ATTRIBUTE extends JeeslIoSsiAttribute<MAPPING,ENTITY>,
 									DATA extends JeeslIoSsiData<MAPPING,LINK>,
 									LINK extends JeeslIoSsiLink<L,D,LINK,?>,
-									ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>
+									ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>,
+									HOST extends JeeslIoSsiHost<L,D,SYSTEM>
 									>
 			extends JeeslFacade
 {	

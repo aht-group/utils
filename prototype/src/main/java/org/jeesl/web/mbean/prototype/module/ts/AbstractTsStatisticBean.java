@@ -13,6 +13,8 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.interfaces.bean.sb.SbSingleBean;
+import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.module.ts.config.JeeslTsCategory;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
@@ -40,7 +42,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import net.sf.exlp.util.io.JsonUtil;
 
 public class AbstractTsStatisticBean <L extends JeeslLang, D extends JeeslDescription,LOC extends JeeslStatus<LOC,L,D>,
-											CAT extends JeeslStatus<CAT,L,D>,
+											CAT extends JeeslTsCategory<L,D,CAT,?>,
 											SCOPE extends JeeslTsScope<L,D,CAT,ST,UNIT,EC,INT>,
 											ST extends JeeslTsScopeType<L,D,ST,?>,
 											UNIT extends JeeslStatus<UNIT,L,D>,
@@ -49,7 +51,8 @@ public class AbstractTsStatisticBean <L extends JeeslLang, D extends JeeslDescri
 											TRANSACTION extends JeeslTsTransaction<SOURCE,DATA,USER,?>,
 											SOURCE extends EjbWithLangDescription<L,D>, 
 											BRIDGE extends JeeslTsBridge<EC>,
-											EC extends JeeslTsEntityClass<L,D,CAT>,
+											EC extends JeeslTsEntityClass<L,D,CAT,ENTITY>,
+											ENTITY extends JeeslRevisionEntity<L,D,?,?,?,?>,
 											INT extends JeeslTsInterval<L,D,INT,?>,
 											STAT extends JeeslTsStatistic<L,D,STAT,?>,
 											DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
@@ -59,7 +62,7 @@ public class AbstractTsStatisticBean <L extends JeeslLang, D extends JeeslDescri
 											WS extends JeeslStatus<WS,L,D>,
 											QAF extends JeeslStatus<QAF,L,D>,
 											CRON extends JeeslTsCron<SCOPE,INT,STAT>>
-					extends AbstractAdminTsBean<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON>
+					extends AbstractAdminTsBean<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON>
 					implements Serializable,SbSingleBean
 {
 	private static final long serialVersionUID = 1L;
@@ -70,14 +73,14 @@ public class AbstractTsStatisticBean <L extends JeeslLang, D extends JeeslDescri
 
 	protected String jsonStream; public String getJsonStream() {return jsonStream;}
 	
-	public AbstractTsStatisticBean(final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fbTs)
+	public AbstractTsStatisticBean(final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fbTs)
 	{
 		super(fbTs);
 		sbhClass = new SbSingleHandler<EC>(fbTs.getClassEntity(),this);
 		th = new JsonTuple1Handler<TS>(fbTs.getClassTs());
 	}
 	
-	protected void postConstructSummary(JeeslTranslationBean<L,D,?> bTranslation, JeeslFacesMessageBean bMessage, JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fTs)
+	protected void postConstructSummary(JeeslTranslationBean<L,D,?> bTranslation, JeeslFacesMessageBean bMessage, JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fTs)
 	{
 		super.postConstructTs(bTranslation,bMessage,fTs);
 		sbhClass.update(fTs.all(fbTs.getClassEntity()));

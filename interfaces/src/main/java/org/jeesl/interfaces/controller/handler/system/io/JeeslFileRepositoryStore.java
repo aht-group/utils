@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
-import org.jeesl.interfaces.model.system.io.fr.JeeslFileMeta;
+import org.jeesl.interfaces.model.io.fr.JeeslFileMeta;
 
 public interface JeeslFileRepositoryStore <META extends JeeslFileMeta<?,?,?,?>> extends Serializable
 {

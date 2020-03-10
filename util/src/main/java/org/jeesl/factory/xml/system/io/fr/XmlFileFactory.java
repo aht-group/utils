@@ -2,7 +2,7 @@ package org.jeesl.factory.xml.system.io.fr;
 
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.controller.handler.system.io.JeeslFileRepositoryStore;
-import org.jeesl.interfaces.model.system.io.fr.JeeslFileMeta;
+import org.jeesl.interfaces.model.io.fr.JeeslFileMeta;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

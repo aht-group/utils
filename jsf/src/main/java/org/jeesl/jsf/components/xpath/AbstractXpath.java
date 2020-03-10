@@ -9,7 +9,7 @@ import java.util.Map;
 
 import javax.faces.component.UIOutput;
 
-import org.jeesl.interfaces.model.system.io.report.JeeslReportColumn;
+import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportColumn;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -2,7 +2,7 @@ package net.sf.ahtutils.controller.factory.ejb.link;
 
 import java.util.Date;
 
-import org.jeesl.interfaces.model.system.io.mail.JeeslMailLink;
+import org.jeesl.interfaces.model.io.mail.JeeslMailLink;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;

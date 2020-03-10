@@ -1,15 +1,15 @@
 package org.jeesl.api.facade.io;
 
 import org.jeesl.interfaces.facade.JeeslFacade;
+import org.jeesl.interfaces.model.io.dms.JeeslIoDms;
+import org.jeesl.interfaces.model.io.dms.JeeslIoDmsDocument;
+import org.jeesl.interfaces.model.io.dms.JeeslIoDmsSection;
+import org.jeesl.interfaces.model.io.dms.JeeslIoDmsView;
+import org.jeesl.interfaces.model.io.domain.JeeslDomainSet;
+import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
+import org.jeesl.interfaces.model.io.fr.JeeslFileStorage;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeSet;
-import org.jeesl.interfaces.model.system.io.dms.JeeslIoDms;
-import org.jeesl.interfaces.model.system.io.dms.JeeslIoDmsDocument;
-import org.jeesl.interfaces.model.system.io.dms.JeeslIoDmsSection;
-import org.jeesl.interfaces.model.system.io.dms.JeeslIoDmsView;
-import org.jeesl.interfaces.model.system.io.domain.JeeslDomainSet;
-import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
-import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorage;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;

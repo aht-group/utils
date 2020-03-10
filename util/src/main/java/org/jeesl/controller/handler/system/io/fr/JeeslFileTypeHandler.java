@@ -2,8 +2,8 @@ package org.jeesl.controller.handler.system.io.fr;
 
 import org.jeesl.api.facade.io.JeeslIoFrFacade;
 import org.jeesl.factory.builder.io.IoFileRepositoryFactoryBuilder;
-import org.jeesl.interfaces.model.system.io.fr.JeeslFileMeta;
-import org.jeesl.interfaces.model.system.io.fr.JeeslFileType;
+import org.jeesl.interfaces.model.io.fr.JeeslFileMeta;
+import org.jeesl.interfaces.model.io.fr.JeeslFileType;
 import org.jeesl.util.db.cache.EjbCodeCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -10,8 +10,8 @@ public class FullHdGrid extends Grid{
 	public FullHdGrid()
 	{
 		super();
-		slot=140;
-		gutter=10;
+		slot=144;
+		gutter=5;
 	}
 
 }

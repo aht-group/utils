@@ -1,12 +1,12 @@
 package org.jeesl.interfaces.controller;
 
-import org.jeesl.interfaces.model.system.io.cms.JeeslIoCms;
-import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsContent;
-import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsElement;
-import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsMarkupType;
-import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsSection;
-import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsVisiblity;
-import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
+import org.jeesl.interfaces.model.io.cms.JeeslIoCms;
+import org.jeesl.interfaces.model.io.cms.JeeslIoCmsContent;
+import org.jeesl.interfaces.model.io.cms.JeeslIoCmsElement;
+import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
+import org.jeesl.interfaces.model.io.cms.JeeslIoCmsSection;
+import org.jeesl.interfaces.model.io.cms.JeeslIoCmsVisiblity;
+import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.JeeslLocaleProvider;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;

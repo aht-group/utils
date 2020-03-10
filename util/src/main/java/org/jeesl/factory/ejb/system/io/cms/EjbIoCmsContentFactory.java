@@ -1,8 +1,8 @@
 package org.jeesl.factory.ejb.system.io.cms;
 
-import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsContent;
-import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsElement;
-import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsMarkupType;
+import org.jeesl.interfaces.model.io.cms.JeeslIoCmsContent;
+import org.jeesl.interfaces.model.io.cms.JeeslIoCmsElement;
+import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.io.Writer;
 
 import org.jeesl.exception.processing.UtilsConfigurationException;
-import org.jeesl.interfaces.model.system.io.cms.JeeslIoCms;
+import org.jeesl.interfaces.model.io.cms.JeeslIoCms;
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.content.ofx.Sections;
 import org.openfuxml.exception.OfxAuthoringException;

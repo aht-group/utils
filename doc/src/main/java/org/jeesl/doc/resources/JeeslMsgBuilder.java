@@ -52,7 +52,7 @@ public class JeeslMsgBuilder
 	public static final String financePeriod = "jeesl/msg/finance/period.xml";
 	
 	//Modules
-	public static final String mAsset = "jeesl/msg/module/asset.xml";
+	public static final String mAsset = "jeesl/msg/module/aom.xml";
 	public static final String mOm = "jeesl/msg/module/om.xml";
 	public static final String mBb = "jeesl/msg/module/bb.xml";
 	public static final String mWorkflow = "jeesl/msg/module/workflow.xml";
@@ -74,9 +74,9 @@ public class JeeslMsgBuilder
 	public static final String ioMail = "jeesl/msg/admin/system/io/mail.xml";
 	public static final String ioDashboard = "jeesl/msg/system/io/dashboard.xml";
 	public static final String ioDb = "jeesl/msg/admin/system/io/db.xml";
-	public static final String ioDbStatistic = "jeesl/msg/system/io/db.xml";
+	public static final String ioDbStatistic = "jeesl/msg/io/db.xml";
 	public static final String ioCms = "jeesl/msg/module/cms.xml";
-	public static final String ioSsi = "jeesl/msg/system/io/ssi.xml";
+	public static final String ioSsi = "jeesl/msg/io/ssi.xml";
 	
 	//System
 	public static final String systemReport = "jeesl/msg/system/report.xml";

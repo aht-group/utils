@@ -6,14 +6,14 @@ import java.util.Map;
 
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplate;
+import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplateDefinition;
+import org.jeesl.interfaces.model.io.mail.template.JeeslTemplateChannel;
+import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowCommunication;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWithWorkflow;
-import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
-import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateDefinition;
-import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
-import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.model.xml.system.io.mail.EmailAddress;

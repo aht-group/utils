@@ -10,7 +10,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.commons.jxpath.JXPathContext;
 import org.apache.commons.jxpath.JXPathNotFoundException;
-import org.jeesl.interfaces.model.system.io.report.JeeslReportColumn;
+import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportColumn;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

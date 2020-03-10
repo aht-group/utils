@@ -12,6 +12,17 @@ import org.jeesl.factory.builder.system.ReportFactoryBuilder;
 import org.jeesl.factory.xml.module.ts.XmlDataFactory;
 import org.jeesl.factory.xml.module.ts.XmlTsFactory;
 import org.jeesl.factory.xml.system.io.report.XmlReportFactory;
+import org.jeesl.interfaces.model.io.report.JeeslIoReport;
+import org.jeesl.interfaces.model.io.report.data.JeeslReportTemplate;
+import org.jeesl.interfaces.model.io.report.style.JeeslReportStyle;
+import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportCell;
+import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportColumn;
+import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportColumnGroup;
+import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportRow;
+import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportSheet;
+import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportWorkbook;
+import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.module.ts.config.JeeslTsCategory;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
@@ -24,15 +35,6 @@ import org.jeesl.interfaces.model.module.ts.data.JeeslTsDataPoint;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsSample;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsTransaction;
 import org.jeesl.interfaces.model.module.ts.stat.JeeslTsStatistic;
-import org.jeesl.interfaces.model.system.io.report.JeeslIoReport;
-import org.jeesl.interfaces.model.system.io.report.JeeslReportCell;
-import org.jeesl.interfaces.model.system.io.report.JeeslReportColumn;
-import org.jeesl.interfaces.model.system.io.report.JeeslReportColumnGroup;
-import org.jeesl.interfaces.model.system.io.report.JeeslReportRow;
-import org.jeesl.interfaces.model.system.io.report.JeeslReportSheet;
-import org.jeesl.interfaces.model.system.io.report.JeeslReportStyle;
-import org.jeesl.interfaces.model.system.io.report.JeeslReportTemplate;
-import org.jeesl.interfaces.model.system.io.report.JeeslReportWorkbook;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
@@ -68,7 +70,7 @@ public class TimeSeriesReport <L extends JeeslLang,D extends JeeslDescription,
 						FILLING extends JeeslStatus<FILLING,L,D>,
 						TRANSFORMATION extends JeeslStatus<TRANSFORMATION,L,D>,
 						
-						CAT extends JeeslStatus<CAT,L,D>,
+						CAT extends JeeslTsCategory<L,D,CAT,?>,
 						SCOPE extends JeeslTsScope<L,D,CAT,ST,UNIT,EC,INT>,
 						ST extends JeeslTsScopeType<L,D,ST,?>,
 						UNIT extends JeeslStatus<UNIT,L,D>,
@@ -77,7 +79,8 @@ public class TimeSeriesReport <L extends JeeslLang,D extends JeeslDescription,
 						TRANSACTION extends JeeslTsTransaction<SOURCE,DATA,USER,?>,
 						SOURCE extends EjbWithLangDescription<L,D>, 
 						BRIDGE extends JeeslTsBridge<EC>,
-						EC extends JeeslTsEntityClass<L,D,CAT>,
+						EC extends JeeslTsEntityClass<L,D,CAT,E2>,
+						E2 extends JeeslRevisionEntity<L,D,?,?,?,?>,
 						INT extends JeeslTsInterval<L,D,INT,?>,
 						STAT extends JeeslTsStatistic<L,D,STAT,?>,
 						DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
@@ -92,15 +95,15 @@ public class TimeSeriesReport <L extends JeeslLang,D extends JeeslDescription,
 {
 	final static Logger logger = LoggerFactory.getLogger(TimeSeriesReport.class);
 
-	private final JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fTs;
+	private final JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,E2,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fTs;
 	
-	private final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fbTs;
+	private final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,E2,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fbTs;
 	
 	public TimeSeriesReport(String localeCode,
 			final JeeslIoReportFacade<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION> fReport,
-			final JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fTs,
+			final JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,E2,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fTs,
 			final ReportFactoryBuilder<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,RCAT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION> fbReport,
-			final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fbTs)
+			final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,E2,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,?> fbTs)
 	{
 		super(localeCode,fbReport);
 		super.initIo(fReport,this.getClass());
