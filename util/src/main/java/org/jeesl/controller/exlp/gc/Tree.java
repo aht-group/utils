@@ -1,9 +1,12 @@
-package org.jeesl.util;
+package org.jeesl.controller.exlp.gc;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.validation.constraints.NotNull;
+
+import org.jeesl.interfaces.controller.handler.Expression;
+import org.jeesl.interfaces.controller.handler.Functor;
 
 public class Tree<T>
 {

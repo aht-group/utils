@@ -1,4 +1,4 @@
-package org.jeesl.util;
+package org.jeesl.interfaces.controller.handler;
 
 public interface Functor<T>
 {
