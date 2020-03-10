@@ -626,10 +626,11 @@ public class ReportHandler {
 	 * @param doc XML data object
 	 * @param format output format defined by Format enum (PDF or Excel XLS)
 	 * @param locale Locale to be used for report exporting
+	 * @param swap if true JRConcurrentSwapFile will be used, creating a temp-file while generating a report to prevent OoM exceptions
 	 * @return
 	 * @throws ReportException
 	 */
-	public ByteArrayOutputStream createUsingJDom(String reportId, org.jdom2.Document doc, Format format, Locale locale) throws ReportException
+	public ByteArrayOutputStream createUsingJDom(String reportId, org.jdom2.Document doc, Format format, Locale locale, boolean swap) throws ReportException
 	{
 		logger.info("Using JDom data document.");
 	//	JasperDesign masterDesign = getMasterReport(reportId, format.name());
@@ -637,11 +638,35 @@ public class ReportHandler {
 		JasperReport masterReport = getCompiledReport(reportId, null, format.name(), "mr");
 		Map<String, Object> reportParameterMap = getParameterMapJDom(doc, locale);
 		reportParameterMap.putAll(getSubreportsMap(reportId, format.name()));
-		JRConcurrentSwapFile jrSwapFile = new JRConcurrentSwapFile(System.getProperty("java.io.tmpdir"),30,4);
+		if(swap)
+		{
+			JRConcurrentSwapFile jrSwapFile = new JRConcurrentSwapFile(System.getProperty("java.io.tmpdir"), 30, 4);
+			JRSwapFileVirtualizer virtualizer = new JRSwapFileVirtualizer(4, jrSwapFile, true);
+			reportParameterMap.put(JRParameter.REPORT_VIRTUALIZER, virtualizer);
+		}
+		JasperPrint print = getJasperPrint(masterReport, reportParameterMap);
+		JRVirtualizationContext.getRegistered(print).setReadOnly(true);
 
-		JRSwapFileVirtualizer virtualizer = new JRSwapFileVirtualizer(4,jrSwapFile,true);
+		return exportToPdf(print);
+	}
 
-		reportParameterMap.put(JRParameter.REPORT_VIRTUALIZER, virtualizer);
+	/**
+	 * Method encapsulating the classical JasperReports workflow of JasperDesign -> JasperReport -> JasperPrint -> PDF/XLS export
+	 * @param reportId identifier of the requested report
+	 * @param doc XML data object
+	 * @param format output format defined by Format enum (PDF or Excel XLS)
+	 * @param locale Locale to be used for report exporting
+	 * @return
+	 * @throws ReportException
+	 */
+	public ByteArrayOutputStream createUsingJDom(String reportId, org.jdom2.Document doc, Format format, Locale locale) throws ReportException
+	{
+		logger.info("Using JDom data document.");
+		//	JasperDesign masterDesign = getMasterReport(reportId, format.name());
+		//	JasperReport masterReport = getCompiledReport(masterDesign);
+		JasperReport masterReport = getCompiledReport(reportId, null, format.name(), "mr");
+		Map<String, Object> reportParameterMap = getParameterMapJDom(doc, locale);
+		reportParameterMap.putAll(getSubreportsMap(reportId, format.name()));
 		JasperPrint print = getJasperPrint(masterReport, reportParameterMap);
 		JRVirtualizationContext.getRegistered(print).setReadOnly(true);
 
