@@ -156,22 +156,28 @@ public class SqlFactory
 	
 
 	
-	public static <E extends Enum<E>, T extends EjbWithId> String where(StringBuilder sb, String alias, boolean notNegate, E attribute, T where, boolean newLine)
+	public static <E extends Enum<E>, T extends EjbWithId> void where(StringBuilder sb, String alias, boolean negate, E attribute, T where, boolean newLine)
 	{
 		sb.append(" WHERE");
 		sb.append(" ").append(id(alias,attribute));
 		if(where!=null)
 		{
-			if(!notNegate) {logger.warn("NOT is NYI");}
+			if(negate) {logger.warn("NOT is NYI");}
 			sb.append("=").append(where.getId());
 		}
 		else
 		{
 			sb.append(" IS");
-			if(!notNegate) {sb.append(" NOT");}
+			if(negate) {sb.append(" NOT");}
 			sb.append(" NULL");
 		}
 		newLine(newLine,sb);
-		return sb.toString();
+	}
+	public static <E extends Enum<E>> void whereAnd(StringBuilder sb, String alias, boolean notNegate, E attribute, long value, boolean newLine)
+	{
+		sb.append(" AND");
+		sb.append(" ").append(id(alias,attribute));
+		sb.append("=").append(value);
+		newLine(newLine,sb);
 	}
 }
