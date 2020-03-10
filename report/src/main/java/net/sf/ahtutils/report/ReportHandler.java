@@ -554,7 +554,7 @@ public class ReportHandler {
 	 * @return
 	 * @throws ReportException
 	 */
-	public ByteArrayOutputStream exportToXls(JasperPrint jPrint) throws ReportException
+	private ByteArrayOutputStream exportToXls(JasperPrint jPrint) throws ReportException
 	{
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
 		try
@@ -637,7 +637,7 @@ public class ReportHandler {
 		JasperReport masterReport = getCompiledReport(reportId, null, format.name(), "mr");
 		Map<String, Object> reportParameterMap = getParameterMapJDom(doc, locale);
 		reportParameterMap.putAll(getSubreportsMap(reportId, format.name()));
-		JRConcurrentSwapFile jrSwapFile = new JRConcurrentSwapFile("/Temp",30,4);
+		JRConcurrentSwapFile jrSwapFile = new JRConcurrentSwapFile(System.getProperty("java.io.tmpdir"),30,4);
 
 		JRSwapFileVirtualizer virtualizer = new JRSwapFileVirtualizer(4,jrSwapFile,true);
 

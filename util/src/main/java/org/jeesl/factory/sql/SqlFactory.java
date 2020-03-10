@@ -70,6 +70,21 @@ public class SqlFactory
 		return sb.toString();
 	}
 	
+	public static <T extends EjbWithId> String drop(Class<T> c)
+	{
+		if(c.getAnnotation(Table.class)==null) {throw new RuntimeException("Not a @Table)");}
+		return drop(c.getAnnotation(Table.class).name());
+	}
+	
+	public static <T extends EjbWithId> String drop(String table)
+	{
+		StringBuilder sb = new StringBuilder();
+		sb.append("DROP TABLE ");
+		sb.append(table);
+		sb.append(";");
+		return sb.toString();
+	}
+	
 	public static String from(String table, String as, boolean newLine)
 	{
 		StringBuilder sb = new StringBuilder();

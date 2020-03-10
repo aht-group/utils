@@ -12,7 +12,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
 
-public interface JeeslAomStatus <L extends JeeslLang, D extends JeeslDescription,
+public interface JeeslAomAssetStatus <L extends JeeslLang, D extends JeeslDescription,
 									S extends JeeslStatus<S,L,D>,
 									G extends JeeslGraphic<L,D,?,?,?>>
 					extends Serializable,EjbPersistable,

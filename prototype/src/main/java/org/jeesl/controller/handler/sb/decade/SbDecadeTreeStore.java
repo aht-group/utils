@@ -2,7 +2,7 @@ package org.jeesl.controller.handler.sb.decade;
 
 import java.io.Serializable;
 
-import org.jeesl.interfaces.controller.handler.tree.JeeslTree2Store;
+import org.jeesl.interfaces.controller.handler.tree.store.JeeslTree2Store;
 import org.jeesl.interfaces.model.module.hydro.JeeslHydroDecade;
 import org.jeesl.interfaces.model.module.hydro.JeeslHydroYear;
 import org.slf4j.Logger;

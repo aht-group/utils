@@ -149,4 +149,32 @@
     		<s:lang key="fr" translation="Tree"/>
     	</s:langs>
     </s:translation>
+    <s:translation key="jeeslTtExpandAllChildren">
+    	<s:langs>
+    		<s:lang key="de" translation="alles ausklappen"/>
+    		<s:lang key="en" translation="expand everything"/>
+    		<s:lang key="fr" translation="développer tout"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslTtCollapseAllChildren">
+    	<s:langs>
+    		<s:lang key="de" translation="alles einklappen"/>
+    		<s:lang key="en" translation="collapse everything"/>
+    		<s:lang key="fr" translation="rédouire tout"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslTtExpandThree">
+    	<s:langs>
+    		<s:lang key="de" translation="drei Ebenen ausklappen"/>
+    		<s:lang key="en" translation="expand three layers"/>
+    		<s:lang key="fr" translation="rédouire trois couches"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslTtExpandTwo">
+    	<s:langs>
+    		<s:lang key="de" translation="zwei ebenen ausklappen"/>
+    		<s:lang key="en" translation="expand two layers"/>
+    		<s:lang key="fr" translation="rédouire deux couches"/>
+    	</s:langs>
+    </s:translation>
 </s:translations>

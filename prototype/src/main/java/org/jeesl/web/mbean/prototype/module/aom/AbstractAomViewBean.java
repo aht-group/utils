@@ -16,8 +16,8 @@ import org.jeesl.factory.builder.system.SvgFactoryBuilder;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomView;
-import org.jeesl.interfaces.model.module.aom.asset.JeeslAomStatus;
-import org.jeesl.interfaces.model.module.aom.asset.JeeslAomType;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAssetStatus;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAssetType;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
@@ -41,15 +41,15 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.jsf.util.PositionListReorderer;
 
-public abstract class AbstractAssetLevelBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
+public abstract class AbstractAomViewBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 										S extends EjbWithId, G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslStatus<GT,L,D>,
 										F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>,
 										REALM extends JeeslMcsRealm<L,D,REALM,?>, RREF extends EjbWithId,
 										COMPANY extends JeeslAomCompany<REALM,SCOPE>,
 										SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
 										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,ASTATUS,ATYPE>,
-										ASTATUS extends JeeslAomStatus<L,D,ASTATUS,?>,
-										ATYPE extends JeeslAomType<L,D,REALM,ATYPE,ALEVEL,G>,
+										ASTATUS extends JeeslAomAssetStatus<L,D,ASTATUS,?>,
+										ATYPE extends JeeslAomAssetType<L,D,REALM,ATYPE,ALEVEL,G>,
 										ALEVEL extends JeeslAomView<L,D,REALM,G>,
 										EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER,FRC>,
 										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
@@ -60,7 +60,7 @@ public abstract class AbstractAssetLevelBean <L extends JeeslLang, D extends Jee
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
-	final static Logger logger = LoggerFactory.getLogger(AbstractAssetLevelBean.class);
+	final static Logger logger = LoggerFactory.getLogger(AbstractAomViewBean.class);
 	
 	private JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset;
 	private JeeslGraphicFacade<L,D,S,G,GT,F,FS> fGraphic;
@@ -77,7 +77,7 @@ public abstract class AbstractAssetLevelBean <L extends JeeslLang, D extends Jee
  
     private ALEVEL level; public ALEVEL getLevel() {return level;} public void setLevel(ALEVEL level) {this.level = level;}
 
-	public AbstractAssetLevelBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset, SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg)
+	public AbstractAomViewBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset, SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg)
 	{
 		super(fbAsset.getClassL(),fbAsset.getClassD());
 		this.fbAsset=fbAsset;
@@ -86,7 +86,7 @@ public abstract class AbstractAssetLevelBean <L extends JeeslLang, D extends Jee
 		levels = new ArrayList<>();
 	}
 	
-	protected void postConstructAomLevel(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
+	protected void postConstructAomView(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
 									JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,ETYPE> bCache,
 									JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset,
 									JeeslGraphicFacade<L,D,S,G,GT,F,FS> fGraphic,
