@@ -1,5 +1,4 @@
 package org.jeesl.web.mbean.prototype.io.dashboard;
-
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Comparator;
@@ -16,8 +15,6 @@ import org.jeesl.factory.ejb.system.io.dashboard.EjbDashComponentFactory;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.io.dash.JeeslIoDashComponent;
-import org.jeesl.interfaces.model.io.dash.JeeslIoDashboard;
-import org.jeesl.interfaces.model.io.dash.JeeslIoDashboardResolution;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
@@ -29,8 +26,6 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public class AbstractIoDashComponentBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
-											DBR extends JeeslIoDashboardResolution<L,D,DBR,?>,
-											DB extends JeeslIoDashboard<L,D,DBR,DB>,
 											DBC extends JeeslIoDashComponent<L,D,DBC>>
 		extends AbstractAdminBean<L,D>
 		implements Serializable,SbToggleBean
@@ -39,7 +34,7 @@ public class AbstractIoDashComponentBean <L extends JeeslLang, D extends JeeslDe
 	final static Logger logger = LoggerFactory.getLogger(AbstractIoDashComponentBean.class);
 
 	private JeeslFacade fUtils;
-	private final IoDashboardFactoryBuilder<L,D,DBR,DB,DBC> fbDashComponent;
+	private final IoDashboardFactoryBuilder<L,D,?,DBC,?,?> fbDashComponent;
 
 	private EjbDashComponentFactory<L,D,DBC> efDashComponent;
 	private final Comparator<DBC> comparatorDashComponent;
@@ -56,7 +51,7 @@ public class AbstractIoDashComponentBean <L extends JeeslLang, D extends JeeslDe
 		this.dashComponent = dashComponent;
 	}
 
-	public AbstractIoDashComponentBean(final IoDashboardFactoryBuilder<L,D,DBR,DB,DBC> fbDashComponent)
+	public AbstractIoDashComponentBean(final IoDashboardFactoryBuilder<L,D,?,DBC,?,?> fbDashComponent)
 	{
 		super(fbDashComponent.getClassL(),fbDashComponent.getClassD());
 		this.fbDashComponent = fbDashComponent;

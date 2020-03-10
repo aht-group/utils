@@ -12,13 +12,8 @@ import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithDescription;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 
-public interface JeeslIoDashComponent <L extends JeeslLang, D extends JeeslDescription,
-DBC extends JeeslIoDashComponent<L,D,DBC>>
-extends Serializable,EjbSaveable,EjbRemoveable,
-EjbWithParentAttributeResolver,
-EjbWithLang<L>,EjbWithDescription<D>,
-EjbWithCode,EjbWithPosition
+public interface JeeslIoDashComponent <L extends JeeslLang, D extends JeeslDescription,DBC extends JeeslIoDashComponent<L,D,DBC>>
+	extends Serializable,EjbSaveable,EjbRemoveable,EjbWithParentAttributeResolver,EjbWithLang<L>,EjbWithDescription<D>,EjbWithCode,EjbWithPosition
 {
 public enum Attributes{dashboard}
-
 }

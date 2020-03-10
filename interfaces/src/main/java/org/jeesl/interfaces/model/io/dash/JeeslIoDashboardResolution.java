@@ -15,11 +15,8 @@ import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
 public interface JeeslIoDashboardResolution <L extends JeeslLang, D extends JeeslDescription,
 									S extends JeeslStatus<S,L,D>,
 									G extends JeeslGraphic<L,D,?,?,?>>
-					extends Serializable,EjbPersistable,
-								EjbWithCode,JeeslStatusFixedCode,
-								JeeslOptionRestDownload,
-								EjbWithCodeGraphic<G>,
-								JeeslStatus<S,L,D>
+					extends Serializable,EjbPersistable,EjbWithCode,JeeslStatusFixedCode,JeeslOptionRestDownload,EjbWithCodeGraphic<G>,JeeslStatus<S,L,D>
 {
 	public enum Code{uhd,fhd,hd}
+	public static enum Attributes{code,name}
 }

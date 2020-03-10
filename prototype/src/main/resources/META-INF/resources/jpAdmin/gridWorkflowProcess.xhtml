@@ -111,7 +111,11 @@
 								<p:inputText value="#{cc.attrs.bean.stage.code}" autocomplete="off" rendered="#{cc.attrs.bean.editStage}"/>
 								
 								<p:outputLabel value="#{msg.jeeslName}" rendered="#{not cc.attrs.bean.editStage}"/>
-								<h:outputText value="#{cc.attrs.bean.stage.name[localeCode].lang}" rendered="#{not cc.attrs.bean.editStage}"/>
+								<ui:fragment rendered="#{not cc.attrs.bean.editStage}">
+									<jtp:symbolizer value="#{cc.attrs.bean.stage}" rendered="#{not empty cc.attrs.bean.stage.graphic}" marginRight="5"/>
+									<h:outputText value="#{cc.attrs.bean.stage.name[localeCode].lang}" />
+								</ui:fragment>
+								
 								
 								<p:outputLabel value="#{msg.jeeslDescription}" rendered="#{not cc.attrs.bean.editStage}"/>
 								<h:outputText value="#{cc.attrs.bean.stage.description[localeCode].lang}" rendered="#{not cc.attrs.bean.editStage}"/>
