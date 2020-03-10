@@ -14,6 +14,9 @@ import java.util.logging.Level;
 
 import javax.imageio.ImageIO;
 
+import net.sf.jasperreports.engine.fill.JRSwapFileVirtualizer;
+import net.sf.jasperreports.engine.fill.JRVirtualizationContext;
+import net.sf.jasperreports.engine.util.JRConcurrentSwapFile;
 import org.apache.commons.jxpath.JXPathContext;
 import org.jdom2.Namespace;
 import org.jeesl.util.query.xpath.ReportXpath;
@@ -634,7 +637,14 @@ public class ReportHandler {
 		JasperReport masterReport = getCompiledReport(reportId, null, format.name(), "mr");
 		Map<String, Object> reportParameterMap = getParameterMapJDom(doc, locale);
 		reportParameterMap.putAll(getSubreportsMap(reportId, format.name()));
+		JRConcurrentSwapFile jrSwapFile = new JRConcurrentSwapFile("/Temp",30,4);
+
+		JRSwapFileVirtualizer virtualizer = new JRSwapFileVirtualizer(4,jrSwapFile,true);
+
+		reportParameterMap.put(JRParameter.REPORT_VIRTUALIZER, virtualizer);
 		JasperPrint print = getJasperPrint(masterReport, reportParameterMap);
+		JRVirtualizationContext.getRegistered(print).setReadOnly(true);
+
 		return exportToPdf(print);
 	}
 	
