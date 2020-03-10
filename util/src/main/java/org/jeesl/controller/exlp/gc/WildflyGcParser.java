@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.jeesl.util.KeyValuePair;
+import org.jeesl.util.Tree;
+import org.jeesl.util.Tree.TraversalMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,33 +22,6 @@ import net.sf.exlp.interfaces.util.PatternLibrary;
 
 public class WildflyGcParser extends AbstractLogParser implements LogParser  
 {
-	private class Statement
-	{
-		public String name = "";
-		public String value;
-		public List<Statement> subStatements = new ArrayList<Statement>();
-		
-		public int countNestedStatements()
-		{
-			return subStatements.stream().mapToInt(child -> 1 + child.countNestedStatements()).sum();
-		}
-		
-		public Statement findStatement(String name)
-		{
-			if (this.name.contentEquals(name))
-			{
-				return this;
-			}
-			return this.subStatements.stream().map(child -> child.findStatement(name)).filter(child -> child != null).findFirst().orElse(null);
-		}
-		
-		public void cleanValues()
-		{
-			this.value = this.value.replace(this.name, "").replaceFirst("^:?\\s?", "").trim().replaceAll("(\\s{2,}|\\s,\\s)", " ");
-			this.subStatements.forEach(child -> child.cleanValues());
-		}
-	}
-	
 	final static Logger logger = LoggerFactory.getLogger(WildflyGcParser.class);
 	
 	public WildflyGcParser(LogEventHandler leh)
@@ -56,29 +32,12 @@ public class WildflyGcParser extends AbstractLogParser implements LogParser
 
 	public void parseLine(String line)
 	{
-//		logger.info(line);
-//		boolean matched = false;
-//		for(int i=0;i<pattern.size();i++)
-//		{
-//			Matcher m=pattern.get(i).matcher(line);
-//			if(m.matches())
-//			{
-//				matched=true;
-//				switch(i)
-//				{
-//					case 0: event(m.group(1),m.group(2),m.group(3),m.group(4),m.group(5),m.group(6),m.group(7));break;
-//				}
-//				i=pattern.size();
-//			}
-//		}
-//		if(!matched){logger.warn("Unknown Pattern: "+line);}
-		
-		Statement statement = parseStatements(line);
+		Tree<KeyValuePair<String, String>> gcLogEntry = parseStatements(line);
 		
 		try {
-			if (!statement.name.contentEquals("TimeStamp")) { throw new ParseException("The line does not exhibit the proper format", 0); }
+			if (gcLogEntry.getData() == null || !gcLogEntry.getData().getKey().contentEquals("TimeStamp")) { throw new ParseException("The line does not exhibit the proper format", 0); }
 			
-			String[] dateTimeInformation = statement.value.split("\\|");
+			String[] dateTimeInformation = gcLogEntry.getData().getValue().split("\\|");
 			ZoneId timeZone = ZoneId.of(dateTimeInformation[1]);
 			dateTimeInformation = dateTimeInformation[0].split("\\.");
 		
@@ -91,15 +50,15 @@ public class WildflyGcParser extends AbstractLogParser implements LogParser
 													   Integer.parseInt(String.format("%s000000", dateTimeInformation[6])), 	// nanoseconds
 													   timeZone); 																// zone
 			
-			String gcEventType = statement.subStatements.stream().findFirst().orElse(new Statement()).name.trim();
+			String gcEventType = gcLogEntry.getChildren().stream().findFirst().orElse(new Tree<KeyValuePair<String, String>>(new KeyValuePair<String, String>("", ""))).getData().getKey().trim();
 			if (gcEventType.isEmpty()) { gcEventType = "N/A"; }
 			
 			float userTime = -1, sysTime = -1, realTime = -1;
-			Statement timesStatement = statement.findStatement("Times");
+			KeyValuePair<String, String> timesStatement = gcLogEntry.find(node -> node.getKey().contentEquals("Times"), TraversalMode.FULL).stream().findFirst().orElse(null);
 			
 			if (timesStatement != null)
 			{
-				Matcher timeMatcher = Pattern.compile(PatternLibrary.gcTimeElementPattern).matcher(timesStatement.value);
+				Matcher timeMatcher = Pattern.compile(PatternLibrary.gcTimeElementPattern).matcher(timesStatement.getValue());
 				while (timeMatcher.find())
 				{
 					switch (timeMatcher.group("name"))
@@ -126,24 +85,24 @@ public class WildflyGcParser extends AbstractLogParser implements LogParser
 		}
 	}
 	
-	private Statement parseStatements(String line)
+	private Tree<KeyValuePair<String, String>> parseStatements(String line)
 	{
-		Statement statement = new Statement();
+		Tree<KeyValuePair<String, String>> root = new Tree<KeyValuePair<String, String>>();
 		
 		Matcher matcher = Pattern.compile(PatternLibrary.gcDateTimePattern).matcher(line);
 		if (matcher.matches())
 		{
-			statement.name = "TimeStamp";
-			statement.value = String.format("%s|%s", matcher.group(1).replaceAll("[T:-]", "."), matcher.group(2));
+			root.setData(new KeyValuePair<String, String>("TimeStamp", String.format("%s|%s", matcher.group(1).replaceAll("[T:-]", "."), matcher.group(2))));
 			
 			line = String.format("[%s]", matcher.group(3));
 			List<Integer> bracketIndices = findBracketIndices(line);
 			
-			statement.subStatements.addAll(extractStatement(line, bracketIndices, 0).subStatements);
-			statement.cleanValues();
+			root.addChildren(extractStatement(line, bracketIndices, 0).getChildren());
+			
+			root.forEach(node -> node.setValue(node.getValue().replace(node.getKey(), "").replaceFirst("^:?\\s?", "").trim().replaceAll("(\\s{2,}|\\s,\\s)", "")), TraversalMode.FULL);
 		}
 		
-		return statement;
+		return root;
 	}
 
 	private List<Integer> findBracketIndices(String line)
@@ -159,28 +118,32 @@ public class WildflyGcParser extends AbstractLogParser implements LogParser
 		return bracketIndices;
 	}
 	
-	private Statement extractStatement(String line, List<Integer> bracketIndices, Integer openBracketListPosition)
+	private Tree<KeyValuePair<String, String>> extractStatement(String line, List<Integer> bracketIndices, Integer openBracketListPosition)
 	{
-		Statement statement = new Statement();
+		Tree<KeyValuePair<String, String>> node = new Tree<KeyValuePair<String, String>>();
+		String key = "", value = "";
 		
 		int closedBracketListPosition = openBracketListPosition + 1;
 		
 		while (line.charAt(bracketIndices.get(closedBracketListPosition)) == '[')
 		{
-			statement.name = statement.name.isEmpty() ? line.substring(bracketIndices.get(openBracketListPosition) + 1, bracketIndices.get(closedBracketListPosition)).trim() : statement.name;
-			statement.subStatements.add(extractStatement(line, bracketIndices, closedBracketListPosition));
-			closedBracketListPosition = openBracketListPosition + statement.countNestedStatements() * 2 + 1;
+			key = key.isEmpty() ? line.substring(bracketIndices.get(openBracketListPosition) + 1, bracketIndices.get(closedBracketListPosition)).trim() : key;
+			node.addChild(extractStatement(line, bracketIndices, closedBracketListPosition));
+			closedBracketListPosition = openBracketListPosition + node.countChildren(false) * 2 + 1;
 		}
-		statement.value = line.substring(bracketIndices.get(openBracketListPosition) + 1, bracketIndices.get(closedBracketListPosition));
-		statement.subStatements.forEach(child -> statement.value = statement.value.replace(String.format("[%s]", child.value), ""));
-		
-		if (statement.value.indexOf(":") >= 0)
+		value = line.substring(bracketIndices.get(openBracketListPosition) + 1, bracketIndices.get(closedBracketListPosition));
+		for (Tree<KeyValuePair<String, String>> child : node.getChildren())
 		{
-			String[] statementContent = statement.value.split(":");
-			statement.name = statementContent[0];
+			value = value.replace(String.format("[%s]", child.getData().getValue()), "");
 		}
 		
-		return statement;
+		if (value.indexOf(":") >= 0)
+		{
+			key = value.split(":")[0];
+		}
+		
+		node.setData(new KeyValuePair<String, String>(key, value));
+		return node;
 	}
 
 	public void event(ZonedDateTime timeStamp, String eventType, float userTime, float sysTime, float realTime)
