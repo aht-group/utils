@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<s:translations xmlns:s="http://ahtutils.aht-group.com/status">
+	<s:translation key="jeeslHydroYears">
+    	<s:langs>
+    		<s:lang key="de" translation="Hydro Years"/>
+    		<s:lang key="en" translation="Hydro Years"/>
+    		<s:lang key="fr" translation="Hydro Years"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslHydroDecade">
+    	<s:langs>
+    		<s:lang key="de" translation="Hydro Decade"/>
+    		<s:lang key="en" translation="Hydro Decade"/>
+    		<s:lang key="fr" translation="Hydro Decade"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslHydroPeriod">
+    	<s:langs>
+    		<s:lang key="de" translation="Period"/>
+    		<s:lang key="en" translation="Period"/>
+    		<s:lang key="fr" translation="Period"/>
+    	</s:langs>
+    </s:translation>
+</s:translations>

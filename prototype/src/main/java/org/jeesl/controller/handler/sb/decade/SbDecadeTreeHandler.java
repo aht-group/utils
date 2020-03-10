@@ -2,6 +2,7 @@ package org.jeesl.controller.handler.sb.decade;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.jeesl.api.handler.sb.SbDateIntervalSelection;
@@ -15,6 +16,7 @@ import org.jeesl.interfaces.controller.handler.tree.JeeslTreeSelected;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.module.hydro.JeeslHydroDecade;
 import org.jeesl.interfaces.model.module.hydro.JeeslHydroYear;
+import org.jeesl.util.comparator.ejb.component.sb.HydroCodeComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +35,10 @@ public class SbDecadeTreeHandler<HD extends JeeslHydroDecade, HY extends JeeslHy
 	public HD getDecade() {return l1;}
 	public HY getYear() {return l2;}
 
-	private SbDateHandler sbDateHandler; public SbDateHandler getSbDateHandler() {return sbDateHandler;}
+	private SbDateHandler sbDateHandler;
+	private HydroCodeComparator<HD> cpHydroDecade;
+	private HydroCodeComparator<HY> cpHydroYear;
+	public SbDateHandler getSbDateHandler() {return sbDateHandler;}
 
 	public SbDecadeTreeHandler(JeeslTreeSelected callback, JeeslFacade fUtils, final Class<HD> cDecade, final Class<HY> cYear)
 	{
@@ -47,6 +52,8 @@ public class SbDecadeTreeHandler<HD extends JeeslHydroDecade, HY extends JeeslHy
 		xpath2 = OutputXpathPattern.multiLang;
 
 		sbDateHandler = new SbDateHandler(this);
+		cpHydroDecade = new  HydroCodeComparator<>();
+		cpHydroYear = new  HydroCodeComparator<>();
 	}
 
 	public void update() throws JeeslNotFoundException
@@ -58,7 +65,9 @@ public class SbDecadeTreeHandler<HD extends JeeslHydroDecade, HY extends JeeslHy
 		if(viewIsGlobal)
 		{
 			if(debugOnInfo) {logger.info("Global View, populating Decades");}
-			list1.addAll(fUtils.all(getClassDecade()));
+			List<HD> decades = fUtils.all(getClassDecade());
+			Collections.sort(decades,cpHydroDecade);
+			list1.addAll(decades);
 			selectGlobal();
 		}
 		else
@@ -66,6 +75,7 @@ public class SbDecadeTreeHandler<HD extends JeeslHydroDecade, HY extends JeeslHy
 			if(debugOnInfo) {logger.info("Security view, Applying Domain Roles ... populating years" );}
 			List<HY> list = new ArrayList<HY>();
 			list = fUtils.all(getClassYear());
+			Collections.sort(list,cpHydroYear);
 			addAllowedL2(list);
 
 			selectSecurity2();
@@ -80,7 +90,7 @@ public class SbDecadeTreeHandler<HD extends JeeslHydroDecade, HY extends JeeslHy
 		if(debugOnInfo) {logger.info("Selecting Global");}
 
 		if(debugOnInfo) {logger.info("\tSelecting "+getClassDecade().getSimpleName()+" from ");}
-		super.cascade1(list1.get(0),TreeUpdateParameter.build(false,true,true,true,true));
+		super.cascade1(this.getDecade()!=null ? this.getDecade() : list1.get(0),TreeUpdateParameter.build(false,true,true,true,true));
 
 	}
 

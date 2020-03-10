@@ -5,14 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-import net.sf.ahtutils.doc.UtilsDocumentation;
-import net.sf.ahtutils.xml.status.Translation;
-import net.sf.ahtutils.xml.status.Translations;
-import net.sf.exlp.util.io.FileIO;
-import net.sf.exlp.util.io.resourceloader.MultiResourceLoader;
-import net.sf.exlp.util.xml.JDomUtil;
-import net.sf.exlp.util.xml.JaxbUtil;
-
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.io.IOUtils;
 import org.jdom2.Comment;
@@ -22,22 +14,30 @@ import org.jeesl.exception.processing.UtilsConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.sf.ahtutils.doc.UtilsDocumentation;
+import net.sf.ahtutils.xml.status.Translation;
+import net.sf.ahtutils.xml.status.Translations;
+import net.sf.exlp.util.io.FileIO;
+import net.sf.exlp.util.io.resourceloader.MultiResourceLoader;
+import net.sf.exlp.util.xml.JDomUtil;
+import net.sf.exlp.util.xml.JaxbUtil;
+
 public class JeeslMsgBuilder
 {
 	final static Logger logger = LoggerFactory.getLogger(JeeslMsgBuilder.class);
-	
+
 	public static final String jeeslPath = "utils"+File.separator+"jeesl"+File.separator;
 	public static final String jeeslDevPath = "utils"+File.separator+"jeesl"+File.separator+"dev"+File.separator;
 	public static final String jeeslIoPath = "utils"+File.separator+"jeesl"+File.separator+"io"+File.separator;
 	public static final String jeeslAdminPath = "utils"+File.separator+"jeesl"+File.separator+"admin"+File.separator;
 	public static final String jeeslSystemPath = "utils"+File.separator+"jeesl"+File.separator+"system"+File.separator;
 	public static final String jeeslModulePath = "utils"+File.separator+"jeesl"+File.separator+"module"+File.separator;
-	
+
 	public static final String generic = "jeesl/msg/generic.xml";
 
 	//Development
 	public static final String devStaging = "jeesl/msg/development/staging.xml";
-	
+
 	public static final String query = "jeesl/msg/util/query.xml";
 	public static final String tooltip = "jeesl/msg/tooltip.xml";
 	public static final String entities = "jeesl/msg/admin/entities.xml";
@@ -45,12 +45,12 @@ public class JeeslMsgBuilder
 	public static final String srcProject = "jeesl/msg/domain/project/project.xml";
 	public static final String srcDate = "jeesl/msg/date.xml";
 	public static final String facesMessages = "jeesl/msg/facesMessages.xml";
-	
+
 	//Finance
 	public static final String srcFinance = "jeesl/msg/finance/finance.xml";
 	public static final String srcAmount = "jeesl/msg/finance/amount.xml";
 	public static final String financePeriod = "jeesl/msg/finance/period.xml";
-	
+
 	//Modules
 	public static final String mAsset = "jeesl/msg/module/aom.xml";
 	public static final String mOm = "jeesl/msg/module/om.xml";
@@ -61,7 +61,8 @@ public class JeeslMsgBuilder
 	public static final String mMap = "jeesl/msg/module/map.xml";
 	public static final String mMonitoring = "jeesl/msg/module/monitoring.xml";
 	public static final String mCalendar = "jeesl/msg/module/calendar.xml";
-	
+	public static final String mHydroDecade = "jeesl/msg/module/decade.xml";
+
 	//IO
 	public static final String io = "jeesl/msg/module/io.xml";
 	public static final String ioAttribute = "jeesl/msg/system/io/attribute.xml";
@@ -77,7 +78,7 @@ public class JeeslMsgBuilder
 	public static final String ioDbStatistic = "jeesl/msg/io/db.xml";
 	public static final String ioCms = "jeesl/msg/module/cms.xml";
 	public static final String ioSsi = "jeesl/msg/io/ssi.xml";
-	
+
 	//System
 	public static final String systemReport = "jeesl/msg/system/report.xml";
 	public static final String systemNews = "jeesl/msg/admin/system/news.xml";
@@ -88,28 +89,28 @@ public class JeeslMsgBuilder
 	public static final String systemConstraint = "jeesl/msg/system/constraint.xml";
 	public static final String srcAdminSync = "jeesl/msg/system/sync.xml";
 	public static final String srcAdminAuditLog = "jeesl/msg/system/auditLog.xml";
-	
+
 	public static final String srcWizard = "jeesl/msg/wizard.xml";
-	
+
 	//Util
 	public static final String adminStatus = "jeesl/msg/util/status.xml";
 	public static final String adminOptionTables = "jeesl/msg/admin/system/options.xml";
 	public static final String adminSecurity = "jeesl/msg/system/security.xml";
 	public static final String adminUser = "jeesl/msg/admin/user.xml";
-	
+
 	//Dev
 	public static final String devQa = "jeesl/msg/development/qa.xml";
-			
+
 	private MultiResourceLoader mrl;
 	private File baseMsg;
-	
+
 	public JeeslMsgBuilder(Configuration config)
 	{
 		mrl = new MultiResourceLoader();
 		baseMsg = new File(config.getString(UtilsDocumentation.keyBaseMsgDir));
 		logger.info("Using msg.dir ("+UtilsDocumentation.keyBaseMsgDir+"): "+baseMsg.getAbsolutePath());
 	}
-	
+
 	public void copy(String src, String dst) throws UtilsConfigurationException
 	{
 		prefix(null,src,dst);
@@ -120,9 +121,9 @@ public class JeeslMsgBuilder
 		{
 			InputStream is = mrl.searchIs(src);
 			File fTarget = new File(baseMsg,dst);
-			
+
 			Translations t = JaxbUtil.loadJAXB(is, Translations.class);
-			
+
 			if(prefix!=null)
 			{
 				for(Translation tl : t.getTranslation())
@@ -132,10 +133,10 @@ public class JeeslMsgBuilder
 			}
 
 			Document doc = JaxbUtil.toDocument(t);
-			
+
 			Comment comment = new Comment("Do not modify this file, it is automatically generated!");
 			doc.addContent(0, comment);
-			
+
 			byte[] bytes = IOUtils.toByteArray(JDomUtil.toInputStream(doc, Format.getPrettyFormat()));
 			FileIO.writeFileIfDiffers(bytes, fTarget);
 			logger.info("Written "+dst);
