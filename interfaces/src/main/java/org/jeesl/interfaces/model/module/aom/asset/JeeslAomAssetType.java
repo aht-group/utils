@@ -15,10 +15,10 @@ import org.jeesl.interfaces.model.with.primitive.code.EjbWithNonUniqueCode;
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithLangDescription;
 
-public interface JeeslAomType <L extends JeeslLang, D extends JeeslDescription,
+public interface JeeslAomAssetType <L extends JeeslLang, D extends JeeslDescription,
 							REALM extends JeeslMcsRealm<L,D,REALM,?>,
-							TYPE extends JeeslAomType<L,D,REALM,TYPE,ALEVEL,G>,
-							ALEVEL extends JeeslAomView<L,D,REALM,G>,
+							ATYPE extends JeeslAomAssetType<L,D,REALM,ATYPE,VIEW,G>,
+							VIEW extends JeeslAomView<L,D,REALM,G>,
 							G extends JeeslGraphic<L,D,?,?,?>>
 			extends Serializable,EjbSaveable,EjbRemoveable,
 					EjbWithParentAttributeResolver,
@@ -34,9 +34,12 @@ public interface JeeslAomType <L extends JeeslLang, D extends JeeslDescription,
 	long getRealmIdentifier();
 	void setRealmIdentifier(long realmIdentifier);
 	
-	TYPE getParent();
-	void setParent(TYPE parent);
+	VIEW getView();
+	void setView(VIEW view);
 	
-	List<TYPE> getTypes();
-	void setTypes(List<TYPE> types);
+	ATYPE getParent();
+	void setParent(ATYPE parent);
+	
+	List<ATYPE> getTypes();
+	void setTypes(List<ATYPE> types);
 }

@@ -5,8 +5,8 @@ import java.util.UUID;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
-import org.jeesl.interfaces.model.module.aom.asset.JeeslAomStatus;
-import org.jeesl.interfaces.model.module.aom.asset.JeeslAomType;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAssetStatus;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAssetType;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
@@ -18,8 +18,8 @@ public class EjbAssetFactory<REALM extends JeeslMcsRealm<?,?,REALM,?>,
 							COMPANY extends JeeslAomCompany<REALM,SCOPE>,
 							SCOPE extends JeeslAomScope<?,?,SCOPE,?>,
 							ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
-							STATUS extends JeeslAomStatus<?,?,STATUS,?>,
-							TYPE extends JeeslAomType<?,?,REALM,TYPE,?,?>>
+							STATUS extends JeeslAomAssetStatus<?,?,STATUS,?>,
+							TYPE extends JeeslAomAssetType<?,?,REALM,TYPE,?,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbAssetFactory.class);
 	

@@ -11,8 +11,8 @@ import org.jeesl.factory.ejb.module.asset.EjbAssetTypeFactory;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomView;
-import org.jeesl.interfaces.model.module.aom.asset.JeeslAomStatus;
-import org.jeesl.interfaces.model.module.aom.asset.JeeslAomType;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAssetStatus;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAssetType;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
@@ -32,8 +32,8 @@ public class AssetFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 								COMPANY extends JeeslAomCompany<REALM,SCOPE>,
 								SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
 								ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,ASTATUS,ATYPE>,
-								ASTATUS extends JeeslAomStatus<L,D,ASTATUS,?>,
-								ATYPE extends JeeslAomType<L,D,REALM,ATYPE,ALEVEL,?>,
+								ASTATUS extends JeeslAomAssetStatus<L,D,ASTATUS,?>,
+								ATYPE extends JeeslAomAssetType<L,D,REALM,ATYPE,ALEVEL,?>,
 								ALEVEL extends JeeslAomView<L,D,REALM,?>,
 								EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER,FRC>,
 								ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,

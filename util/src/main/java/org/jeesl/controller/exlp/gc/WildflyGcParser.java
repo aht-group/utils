@@ -58,7 +58,7 @@ public class WildflyGcParser extends AbstractLogParser implements LogParser
 			
 			if (timesStatement != null)
 			{
-				Matcher timeMatcher = Pattern.compile(PatternLibrary.gcTimeElementPattern).matcher(timesStatement.getValue());
+				Matcher timeMatcher = null;//Pattern.compile(PatternLibrary.gcTimeElementPattern).matcher(timesStatement.getValue());
 				while (timeMatcher.find())
 				{
 					switch (timeMatcher.group("name"))
@@ -89,7 +89,7 @@ public class WildflyGcParser extends AbstractLogParser implements LogParser
 	{
 		Tree<KeyValuePair<String, String>> root = new Tree<KeyValuePair<String, String>>();
 		
-		Matcher matcher = Pattern.compile(PatternLibrary.gcDateTimePattern).matcher(line);
+		Matcher matcher = null;//Pattern.compile(PatternLibrary.gcDateTimePattern).matcher(line);
 		if (matcher.matches())
 		{
 			root.setData(new KeyValuePair<String, String>("TimeStamp", String.format("%s|%s", matcher.group(1).replaceAll("[T:-]", "."), matcher.group(2))));
