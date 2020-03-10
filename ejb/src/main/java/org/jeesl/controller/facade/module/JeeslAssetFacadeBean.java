@@ -23,8 +23,8 @@ import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomView;
-import org.jeesl.interfaces.model.module.aom.asset.JeeslAomStatus;
-import org.jeesl.interfaces.model.module.aom.asset.JeeslAomType;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAssetStatus;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAssetType;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
@@ -43,8 +43,8 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 										COMPANY extends JeeslAomCompany<REALM,SCOPE>,
 										SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
 										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,ATYPE>,
-										STATUS extends JeeslAomStatus<L,D,STATUS,?>,
-										ATYPE extends JeeslAomType<L,D,REALM,ATYPE,ALEVEL,?>,
+										STATUS extends JeeslAomAssetStatus<L,D,STATUS,?>,
+										ATYPE extends JeeslAomAssetType<L,D,REALM,ATYPE,ALEVEL,?>,
 										ALEVEL extends JeeslAomView<L,D,REALM,?>,
 										EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER,FRC>,
 										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
@@ -90,7 +90,7 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 		catch (NoResultException ex)
 		{
 			ATYPE type = this.fcAssetRootType(realm,realmReference);
-			STATUS status = this.fByEnum(fbAsset.getClassStatus(), JeeslAomStatus.Code.na);
+			STATUS status = this.fByEnum(fbAsset.getClassStatus(), JeeslAomAssetStatus.Code.na);
 			ASSET result = fbAsset.ejbAsset().build(realm,realmReference, null, status, type);
 			try
 			{

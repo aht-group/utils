@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 
+import org.jeesl.interfaces.controller.handler.Expression;
+import org.jeesl.interfaces.controller.handler.Functor;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
-import org.jeesl.util.Expression;
-import org.jeesl.util.Functor;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 import org.slf4j.Logger;

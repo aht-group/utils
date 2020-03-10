@@ -9,24 +9,33 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.jeesl.controller.exlp.gc.Tree.TraversalMode;
 import org.jeesl.util.KeyValuePair;
-import org.jeesl.util.Tree;
-import org.jeesl.util.Tree.TraversalMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.exlp.core.parser.AbstractLogParser;
 import net.sf.exlp.interfaces.LogEventHandler;
 import net.sf.exlp.interfaces.LogParser;
-import net.sf.exlp.interfaces.util.PatternLibrary;
 
 public class WildflyGcParser extends AbstractLogParser implements LogParser  
 {
+	final static String timeStampRegEx = "^(\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3})([+-]\\d{2}\\d{2}): \\d+?\\.\\d{3}: (.*?)";
+	final static String runtimesRegEx = "(?<name>\\w+)=(?<value>\\d+\\.\\d{2})";
+	final static String bracketRegEx = "(\\[|\\])";
+	
 	final static Logger logger = LoggerFactory.getLogger(WildflyGcParser.class);
+	
+	private Pattern timeStampPattern;
+	private Pattern runtimesPattern;
+	private Pattern bracketPattern;
 	
 	public WildflyGcParser(LogEventHandler leh)
 	{
 		super(leh);
+		this.timeStampPattern = Pattern.compile(timeStampRegEx);
+		this.runtimesPattern = Pattern.compile(runtimesRegEx);
+		this.bracketPattern = Pattern.compile(bracketRegEx);
 //		pattern.add(Pattern.compile(PatternLibrary.eximDate+"T"+PatternLibrary.eximTime+"\\.([0-9]+)(.*)"));
 	}
 
@@ -58,7 +67,7 @@ public class WildflyGcParser extends AbstractLogParser implements LogParser
 			
 			if (timesStatement != null)
 			{
-				Matcher timeMatcher = Pattern.compile(PatternLibrary.gcTimeElementPattern).matcher(timesStatement.getValue());
+				Matcher timeMatcher = this.runtimesPattern.matcher(timesStatement.getValue());
 				while (timeMatcher.find())
 				{
 					switch (timeMatcher.group("name"))
@@ -89,7 +98,7 @@ public class WildflyGcParser extends AbstractLogParser implements LogParser
 	{
 		Tree<KeyValuePair<String, String>> root = new Tree<KeyValuePair<String, String>>();
 		
-		Matcher matcher = Pattern.compile(PatternLibrary.gcDateTimePattern).matcher(line);
+		Matcher matcher = this.timeStampPattern.matcher(line);
 		if (matcher.matches())
 		{
 			root.setData(new KeyValuePair<String, String>("TimeStamp", String.format("%s|%s", matcher.group(1).replaceAll("[T:-]", "."), matcher.group(2))));
@@ -108,7 +117,7 @@ public class WildflyGcParser extends AbstractLogParser implements LogParser
 	private List<Integer> findBracketIndices(String line)
 	{
 		List<Integer> bracketIndices = new ArrayList<Integer>();
-		Matcher regexMatcher = Pattern.compile("(\\[|\\])").matcher(line);
+		Matcher regexMatcher = this.bracketPattern.matcher(line);
 		
 		while (regexMatcher.find())
 		{
