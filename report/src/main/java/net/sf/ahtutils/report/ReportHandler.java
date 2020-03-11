@@ -630,6 +630,11 @@ public class ReportHandler {
 		return new JRSwapFileVirtualizer(4, jrSwapFile, true);
 	}
 
+	public ByteArrayOutputStream createUsingJDom(String reportId, org.jdom2.Document doc, Format format, Locale locale) throws ReportException
+	{
+		return createUsingJDom(reportId,doc,format,locale,false); 
+	}
+	
 	/**
 	 * Method encapsulating the classical JasperReports workflow of JasperDesign -> JasperReport -> JasperPrint -> PDF/XLS export
 	 * @param reportId identifier of the requested report

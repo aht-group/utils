@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 //@JsonRootName(value="")
-public class JsonDockerContainers implements Serializable
+public class JsonDocker implements Serializable
 {
 	public static final long serialVersionUID=1;
 

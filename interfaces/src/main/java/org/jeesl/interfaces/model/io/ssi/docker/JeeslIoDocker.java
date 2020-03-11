@@ -8,7 +8,7 @@ import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
-public interface JeeslIoSsiDocker <SYSTEM extends JeeslIoSsiSystem<?,?>,
+public interface JeeslIoDocker <SYSTEM extends JeeslIoSsiSystem<?,?>,
 									HOST extends JeeslIoSsiHost<?,?,SYSTEM>>
 		extends Serializable,EjbWithId,EjbSaveable,EjbRemoveable
 {

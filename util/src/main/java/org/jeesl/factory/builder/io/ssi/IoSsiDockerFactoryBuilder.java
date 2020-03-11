@@ -5,7 +5,7 @@ import org.jeesl.factory.ejb.io.ssi.core.EjbIoSsiSystemFactory;
 import org.jeesl.factory.ejb.io.ssi.docker.EjbIoSsiContainerFactory;
 import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiHost;
 import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiSystem;
-import org.jeesl.interfaces.model.io.ssi.docker.JeeslIoSsiContainer;
+import org.jeesl.interfaces.model.io.ssi.docker.JeeslIoDockerContainer;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 public class IoSsiDockerFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 										SYSTEM extends JeeslIoSsiSystem<L,D>,
-										INSTANCE extends JeeslIoSsiContainer<SYSTEM,HOST>,
+										INSTANCE extends JeeslIoDockerContainer<SYSTEM,HOST>,
 										HOST extends JeeslIoSsiHost<L,D,SYSTEM>>
 		extends AbstractFactoryBuilder<L,D>
 {

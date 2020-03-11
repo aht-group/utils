@@ -7,7 +7,8 @@ import org.jeesl.interfaces.model.io.report.JeeslIoReport;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
-public class XlsStreamedContent <REPORT extends JeeslIoReport<?,?,?,?>> extends DefaultStreamedContent implements StreamedContent 
+public class XlsStreamedContent <REPORT extends JeeslIoReport<?,?,?,?>>
+								extends DefaultStreamedContent implements StreamedContent 
 {
 	public XlsStreamedContent(JeeslXlsReport<REPORT> report) throws Exception
 	{
