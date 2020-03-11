@@ -159,8 +159,17 @@ public class SqlFactory
 	
 	public static <E extends Enum<E>, T extends EjbWithId> void where(StringBuilder sb, String alias, boolean negate, E attribute, T where, boolean newLine)
 	{
-		sb.append(" WHERE");
-		sb.append(" ").append(id(alias,attribute));
+		sb.append(" WHERE ");
+		whereAndOrAttribute(sb,alias,negate,attribute,where,newLine);
+	}
+	public static <E extends Enum<E>, T extends EjbWithId> void whereOr(StringBuilder sb, String alias, boolean negate, E attribute, T where, boolean newLine)
+	{
+		sb.append(" OR ");
+		whereAndOrAttribute(sb,alias,negate,attribute,where,newLine);
+	}
+	private static <E extends Enum<E>, T extends EjbWithId> void whereAndOrAttribute(StringBuilder sb, String alias, boolean negate, E attribute, T where, boolean newLine)
+	{
+		sb.append(id(alias,attribute));
 		if(where!=null)
 		{
 			if(negate) {logger.warn("NOT is NYI");}
@@ -174,9 +183,19 @@ public class SqlFactory
 		}
 		newLine(newLine,sb);
 	}
-	public static <E extends Enum<E>> void whereAnd(StringBuilder sb, String alias, boolean notNegate, E attribute, long value, boolean newLine)
+	
+	public static <E extends Enum<E>> void whereAnd(StringBuilder sb, String alias, boolean negate, E attribute, long value, boolean newLine)
 	{
 		sb.append(" AND ");
+		whereAndOrLong(sb,alias,negate,attribute,value,newLine);
+	}
+	public static <E extends Enum<E>> void whereOr(StringBuilder sb, String alias, boolean negate, E attribute, long value, boolean newLine)
+	{
+		sb.append(" OR ");
+		whereAndOrLong(sb,alias,negate,attribute,value,newLine);
+	}
+	private static <E extends Enum<E>> void whereAndOrLong(StringBuilder sb, String alias, boolean notNegate, E attribute, long value, boolean newLine)
+	{
 		if(alias!=null) {sb.append(alias).append(".");}
 		sb.append(attribute.toString());
 		sb.append("=").append(value);
