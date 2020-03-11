@@ -123,7 +123,7 @@ public class AbstractAhtUtilsReportTst
 	
 	protected void createPdf() throws ReportException
 	{
-		pdf = reportHandler.createUsingJDom(reportId, this.jdomReport, ReportHandler.Format.pdf, Locale.GERMAN);
+		pdf = reportHandler.createUsingJDom(reportId, this.jdomReport, ReportHandler.Format.pdf, Locale.GERMAN,false);
 	}
 	
 	protected void writePdf() throws IOException
