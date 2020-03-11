@@ -114,7 +114,7 @@
 							<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addEvent()}" update=":#{cc.id}:fEvents :#{cc.id}:fEvent"/>
 						</j:dtHeader>
 					</f:facet>
-					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectEvent()}" update=":#{cc.id}:fEvent"/>
+					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectEvent()}" update=":#{cc.id}:fEvent :#{cc.id}:pgFr"/>
 					<p:column headerText="#{msg.jeeslAssetEventStatus}">
 						<jtp:symbolizer value="#{e.status}" marginRight="5"/>
 						<jp:outputDate value="#{e.record}"/>
@@ -199,6 +199,11 @@
 					<p:ajax listener="#{cc.attrs.bean.onDrop}" update="@form" />  
 				</p:droppable>
 			</h:form>
+			<h:panelGroup id="pgFr" layout="block">
+				<jp:ioFrFiles handler="#{cc.attrs.bean.frh}" allowDelete="true" overlay="false" componentPrefix="#{cc.id}"
+								rendered="#{(not empty cc.attrs.bean.event) and (cc.attrs.bean.event.id gt 0) and (not empty cc.attrs.bean.frh)}"/>
+			</h:panelGroup>
+			
 		</j:slot>
 	</j:row>
 </jp:grid>

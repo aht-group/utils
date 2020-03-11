@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
+import org.jeesl.api.bean.callback.JeeslFileRepositoryCallback;
 import org.jeesl.api.bean.module.aom.JeeslAssetCacheBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslAssetFacade;
@@ -26,6 +27,7 @@ import org.jeesl.interfaces.bean.sb.SbSingleBean;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.bean.th.ThMultiFilter;
 import org.jeesl.interfaces.bean.th.ThMultiFilterBean;
+import org.jeesl.interfaces.controller.handler.system.io.JeeslFileRepositoryHandler;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAssetStatus;
@@ -73,7 +75,7 @@ public class AbstractAssetBean <L extends JeeslLang, D extends JeeslDescription,
 										USER extends JeeslSimpleUser,
 										FRC extends JeeslFileContainer<?,?>>
 					extends AbstractAdminBean<L,D>
-					implements Serializable,ThMultiFilterBean,SbToggleBean,SbSingleBean
+					implements Serializable,ThMultiFilterBean,SbToggleBean,SbSingleBean,JeeslFileRepositoryCallback
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetBean.class);
@@ -93,6 +95,7 @@ public class AbstractAssetBean <L extends JeeslLang, D extends JeeslDescription,
     private final ThMultiFilterHandler<ETYPE> thfEventType; public ThMultiFilterHandler<ETYPE> getThfEventType() {return thfEventType;}
     private final SbMultiHandler<ETYPE> sbhEventType; public SbMultiHandler<ETYPE> getSbhEventType() {return sbhEventType;}
     private final SbSingleHandler<ALEVEL> sbhView; public SbSingleHandler<ALEVEL> getSbhView() {return sbhView;}
+    private JeeslFileRepositoryHandler<?,FRC,?> frh; public JeeslFileRepositoryHandler<?,FRC,?> getFrh() {return frh;}  protected void setFrh(JeeslFileRepositoryHandler<?, FRC, ?> frh) {this.frh = frh;}
     
     private final AssetEventLazyModel<ASSET,EVENT,ETYPE,ESTATUS,USER> lazyEvents; public AssetEventLazyModel<ASSET,EVENT,ETYPE,ESTATUS,USER> getLazyEvents() {return lazyEvents;}
     
@@ -300,13 +303,14 @@ public class AbstractAssetBean <L extends JeeslLang, D extends JeeslDescription,
     	uiHelper.update(realm,rref,event);
     }
     
-    public void selectEvent()
+    public void selectEvent() throws JeeslConstraintViolationException, JeeslLockingException
     {
     	logger.info(AbstractLogMessage.selectEntity(event));
     	event = fAsset.find(fbAsset.getClassEvent(),event);
     	efEvent.ejb2nnb(event,nnb);
     	Collections.sort(event.getAssets(),cpAsset);
     	uiHelper.update(realm,rref,event);
+    	if(frh!=null) {frh.init(event);}
     }
     
     public void saveEvent() throws JeeslConstraintViolationException, JeeslLockingException
@@ -317,8 +321,9 @@ public class AbstractAssetBean <L extends JeeslLang, D extends JeeslDescription,
     	event = fAsset.save(event);
     	thfEventType.memoryUpdate();
     	reloadEvents();
-    	thfEventType.memoryApply();;
+    	thfEventType.memoryApply();
     	uiHelper.update(realm,rref,event);
+    	if(frh!=null) {frh.init(event);}
     }
     
     public void removeEvent() throws JeeslConstraintViolationException, JeeslLockingException
@@ -376,4 +381,10 @@ public class AbstractAssetBean <L extends JeeslLang, D extends JeeslDescription,
     	if(index.length==(level+1)){return n;}
     	else {return getNode(n.getChildren(),index,level+1);}
     }
+    
+  
+	@Override public void fileRepositoryContainerSaved(EjbWithId id) throws JeeslConstraintViolationException, JeeslLockingException
+	{
+
+	}
 }
