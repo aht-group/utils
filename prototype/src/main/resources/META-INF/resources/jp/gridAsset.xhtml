@@ -21,7 +21,7 @@
 				<p:panel id="pTree" header="#{msg.jeeslCmsDocumentStructure}" styleClass="jeeslTree" >
 					<f:facet id="fActions" name="actions">
 						<p:outputPanel id="cActions">
-							<j:svg type="jeeslAdd" listener="#{cc.attrs.bean.addAsset()}" update=":#{cc.id}:sAsset" tooltip="#{msg.jeeslTtAdd}" marginLeft="5" library="jeeslGfx"/>
+							<j:svg type="jeeslAdd" listener="#{cc.attrs.bean.addAsset()}" update=":#{cc.id}:sAsset" tooltip="#{msg.jeeslTtAdd}" marginLeft="5" library="jeeslGfx" rendered="#{cc.attrs.bean.sbhView.selection.tree eq 'hierarchy'}"/>
 							<j:svg type="jeeslTreeExpandAll" listener="#{cc.attrs.bean.expandTree()}" update="@form" tooltip="#{msg.jeeslTtExpandAllChildren}" library="jeeslGfx"/>
 							<j:svg type="jeeslTreeCollapseAll" listener="#{cc.attrs.bean.collapseTree()}" update="@form" rendered="#{cc.attrs.bean.isExpanded()}" tooltip="#{msg.jeeslTtCollapseAllChildren}" library="jeeslGfx"/>
 							<j:svg type="jeeslTreeExpandThree" listener="#{cc.attrs.bean.expandTree(3)}" update="@form" tooltip="#{msg.jeeslTtExpandThree}" library="jeeslGfx"/>
@@ -71,9 +71,20 @@
 				            </p:column>
                         </p:selectOneMenu>
                         
-                        <p:outputLabel value="#{msg.jeeslAssetType}"/>
+                        <p:outputLabel value="#{msg.jeeslAomAssetType1}"/>
 						<p:selectOneMenu value="#{cc.attrs.bean.asset.type1}" var="t" effect="fade" autoWidth="false">
-                        	<f:selectItems value="#{cc.attrs.cache.mapAssetType[cc.attrs.bean.realm][cc.attrs.bean.rref]}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t}"/>
+                        	<f:selectItems value="#{cc.attrs.cache.mapAssetType1[cc.attrs.bean.realm][cc.attrs.bean.rref]}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t}"/>
+                        	<p:column>
+				                <jtp:symbolizer value="#{t}"/>
+				            </p:column>
+				            <p:column>
+				                <h:outputText value="#{t.name[localeCode].lang}"/>
+				            </p:column>
+                        </p:selectOneMenu>
+                        
+                       <p:outputLabel value="#{msg.jeeslAomAssetType2}"/>
+						<p:selectOneMenu value="#{cc.attrs.bean.asset.type2}" var="t" effect="fade" autoWidth="false">
+                        	<f:selectItems value="#{cc.attrs.cache.mapAssetType2[cc.attrs.bean.realm][cc.attrs.bean.rref]}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t}"/>
                         	<p:column>
 				                <jtp:symbolizer value="#{t}"/>
 				            </p:column>

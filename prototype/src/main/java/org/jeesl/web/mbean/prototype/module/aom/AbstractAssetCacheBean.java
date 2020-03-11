@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.jeesl.api.bean.module.aom.JeeslAssetCacheBean;
 import org.jeesl.api.facade.module.JeeslAssetFacade;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
@@ -56,7 +57,8 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 	
 //	private final Map<RREF,List<ALEVEL>> mapLevel; @Override public Map<RREF,List<ALEVEL>> cachedLevel() {return mapLevel;}
 	
-	private final Map<REALM,Map<RREF,List<ATYPE>>> mapAssetType; @Override public Map<REALM,Map<RREF,List<ATYPE>>> getMapAssetType() {return mapAssetType;}
+	private final Map<REALM,Map<RREF,List<ATYPE>>> mapAssetType1; @Override public Map<REALM,Map<RREF,List<ATYPE>>> getMapAssetType1() {return mapAssetType1;}
+	private final Map<REALM,Map<RREF,List<ATYPE>>> mapAssetType2; @Override public Map<REALM,Map<RREF,List<ATYPE>>> getMapAssetType2() {return mapAssetType2;}
 	
 	private final Map<RREF,List<COMPANY>> mapCompany; @Override public Map<RREF,List<COMPANY>> cachedCompany() {return mapCompany;}
 	private final Map<RREF,List<COMPANY>> mapManufacturer; public Map<RREF,List<COMPANY>> getMapManufacturer() {return mapManufacturer;}
@@ -69,12 +71,12 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
     private final List<ETYPE> eventType; @Override public List<ETYPE> getEventType() {return eventType;}
     private final List<ESTATUS> eventStatus; public List<ESTATUS> getEventStatus() {return eventStatus;}
     
-    
 	public AbstractAssetCacheBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset)
 	{
 		this.fbAsset=fbAsset;
 		
-		mapAssetType = new HashMap<>();
+		mapAssetType1 = new HashMap<>();
+		mapAssetType2 = new HashMap<>();
 		
 		mapCompany = new HashMap<>();
 		mapManufacturer = new HashMap<>();
@@ -104,26 +106,60 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 	
 	private void reloadAssetTypes(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset, REALM realm, RREF rref, boolean force)
 	{		
-		if(!mapAssetType.containsKey(realm)) {mapAssetType.put(realm,new HashMap<>());}	
-		if(!mapAssetType.get(realm).containsKey(rref)) {mapAssetType.get(realm).put(rref,new ArrayList<>());}
+		reloadAssetTypes1(fAsset,realm,rref,force);
+		reloadAssetTypes2(fAsset,realm,rref,force);
+	}
+	
+	private void reloadAssetTypes1(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset, REALM realm, RREF rref, boolean force)
+	{		
+		if(!mapAssetType1.containsKey(realm)) {mapAssetType1.put(realm,new HashMap<>());}	
+		if(!mapAssetType1.get(realm).containsKey(rref)) {mapAssetType1.get(realm).put(rref,new ArrayList<>());}
 
-		if(force || mapAssetType.get(realm).get(rref).isEmpty())
+		if(force || mapAssetType1.get(realm).get(rref).isEmpty())
 		{
-			mapAssetType.get(realm).get(rref).clear();
+			mapAssetType1.get(realm).get(rref).clear();
 			VIEW view = fAsset.fcAomView(realm,rref,JeeslAomView.Tree.hierarchy);
 			ATYPE root = fAsset.fcAomRootType(realm,rref,view);
-			reloadTypes(fAsset,realm,rref,fAsset.allForParent(fbAsset.getClassAssetType(),root));
-			logger.info(AbstractLogMessage.reloaded(fbAsset.getClassAssetType(), mapAssetType.get(realm).get(rref), rref)+" in realm "+realm.toString());
+			reloadTypes1(fAsset,realm,rref,fAsset.allForParent(fbAsset.getClassAssetType(),root));
+			logger.info(AbstractLogMessage.reloaded(fbAsset.getClassAssetType(), mapAssetType1.get(realm).get(rref), rref)+" in realm "+realm.toString());
 		}
 	}
-	private void reloadTypes(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset, REALM realm, RREF rref, List<ATYPE> types)
+	private void reloadTypes1(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset, REALM realm, RREF rref, List<ATYPE> types)
 	{
 		for(ATYPE type : types)
 		{
-			mapAssetType.get(realm).get(rref).add(type);
-			reloadTypes(fAsset,realm,rref,fAsset.allForParent(fbAsset.getClassAssetType(),type));
+			mapAssetType1.get(realm).get(rref).add(type);
+			reloadTypes1(fAsset,realm,rref,fAsset.allForParent(fbAsset.getClassAssetType(),type));
 		}
 	}
+	
+	private void reloadAssetTypes2(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset, REALM realm, RREF rref, boolean force)
+	{		
+		if(!mapAssetType2.containsKey(realm)) {mapAssetType2.put(realm,new HashMap<>());}	
+		if(!mapAssetType2.get(realm).containsKey(rref)) {mapAssetType2.get(realm).put(rref,new ArrayList<>());}
+
+		if(force || mapAssetType2.get(realm).get(rref).isEmpty())
+		{
+			mapAssetType2.get(realm).get(rref).clear();
+			try
+			{
+				VIEW view = fAsset.fAomView(realm,rref,JeeslAomView.Tree.type1);
+				ATYPE root = fAsset.fcAomRootType(realm,rref,view);
+				reloadTypes2(fAsset,realm,rref,fAsset.allForParent(fbAsset.getClassAssetType(),root));
+				logger.info(AbstractLogMessage.reloaded(fbAsset.getClassAssetType(), mapAssetType2.get(realm).get(rref), rref)+" in realm "+realm.toString());
+			}
+			catch (JeeslNotFoundException e) {}
+		}
+	}
+	private void reloadTypes2(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset, REALM realm, RREF rref, List<ATYPE> types)
+	{
+		for(ATYPE type : types)
+		{
+			mapAssetType2.get(realm).get(rref).add(type);
+			reloadTypes2(fAsset,realm,rref,fAsset.allForParent(fbAsset.getClassAssetType(),type));
+		}
+	}
+	
 	
 	private void reloadCompanies(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset, REALM realm, RREF rref)
 	{
@@ -158,12 +194,12 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 		reloadCompanies(realm,rref);
 	}
 	
-	@Override public void update(REALM realm, RREF rref, ATYPE type)
+	@Override public void update(REALM realm, RREF rref, VIEW view, ATYPE type)
 	{
-		if(!Collections.replaceAll(mapAssetType.get(realm).get(rref),type,type)){mapAssetType.get(realm).get(rref).add(type);}
+		if(!Collections.replaceAll(mapAssetType1.get(realm).get(rref),type,type)){mapAssetType1.get(realm).get(rref).add(type);}
 	}
-	@Override public void delete(REALM realm, RREF rref, ATYPE type)
+	@Override public void delete(REALM realm, RREF rref, VIEW view, ATYPE type)
 	{
-		if(mapAssetType.get(realm).get(rref).contains(type)){mapAssetType.get(realm).get(rref).remove(type);}
+		if(mapAssetType1.get(realm).get(rref).contains(type)){mapAssetType1.get(realm).get(rref).remove(type);}
 	}
 }

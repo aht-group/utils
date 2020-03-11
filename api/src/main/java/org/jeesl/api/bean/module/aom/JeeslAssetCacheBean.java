@@ -22,16 +22,17 @@ public interface JeeslAssetCacheBean <L extends JeeslLang, D extends JeeslDescri
 										SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
 										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,ASTATUS,ATYPE>,
 										ASTATUS extends JeeslAomAssetStatus<L,D,ASTATUS,?>,
-										ATYPE extends JeeslAomAssetType<L,D,REALM,ATYPE,ALEVEL,?>,
-										ALEVEL extends JeeslAomView<L,D,REALM,?>,
+										ATYPE extends JeeslAomAssetType<L,D,REALM,ATYPE,VIEW,?>,
+										VIEW extends JeeslAomView<L,D,REALM,?>,
 										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>>
 								extends Serializable
 {
 //	Map<RREF,List<COMPANY>> cachedLevel();
 	
 	
-//	void reloadAssetTypes(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fAsset, REALM realm, RREF rref);
-	Map<REALM,Map<RREF,List<ATYPE>>> getMapAssetType();
+	Map<REALM,Map<RREF,List<ATYPE>>> getMapAssetType1();
+	Map<REALM,Map<RREF,List<ATYPE>>> getMapAssetType2();
+	
 	List<ETYPE> getEventType();
 	
 	Map<RREF,List<COMPANY>> cachedCompany();
@@ -39,6 +40,7 @@ public interface JeeslAssetCacheBean <L extends JeeslLang, D extends JeeslDescri
 	Map<RREF,List<COMPANY>> getMapMaintainer();
 	
 	void update(REALM realm, RREF rref, COMPANY company);
-	void update(REALM realm, RREF rref, ATYPE type);
-	void delete(REALM realm, RREF rref, ATYPE type);
+	
+	void update(REALM realm, RREF rref, VIEW view, ATYPE type);
+	void delete(REALM realm, RREF rref, VIEW view, ATYPE type);
 }

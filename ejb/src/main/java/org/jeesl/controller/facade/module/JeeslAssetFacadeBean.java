@@ -19,12 +19,13 @@ import org.jeesl.api.facade.module.JeeslAssetFacade;
 import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
-import org.jeesl.interfaces.model.module.aom.asset.JeeslAomView;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAssetStatus;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAssetType;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomView;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
@@ -65,6 +66,47 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 		super(em);
 		this.fbAsset=fbAsset;
 	}
+	
+	@Override public <RREF extends EjbWithId> VIEW fAomView(REALM realm, RREF rref, JeeslAomView.Tree tree) throws JeeslNotFoundException
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<VIEW> cQ = cB.createQuery(fbAsset.getClassAssetLevel());
+		Root<VIEW> root = cQ.from(fbAsset.getClassAssetLevel());
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		Expression<Long> eRefId = root.get(JeeslAomView.Attributes.rref.toString());
+		Path<REALM> pRealm = root.get(JeeslAomView.Attributes.realm.toString());
+		Expression<String> eTree = root.get(JeeslAomView.Attributes.tree.toString());
+		
+		predicates.add(cB.equal(eRefId,rref.getId()));
+		predicates.add(cB.equal(pRealm,realm));
+		predicates.add(cB.equal(eTree,tree.toString()));
+		
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.select(root);
+
+		TypedQuery<VIEW> tQ = em.createQuery(cQ);
+		try	{return tQ.getSingleResult();}
+		catch (NoResultException ex)
+		{
+			throw new JeeslNotFoundException(ex.getMessage());
+		}
+	}
+	
+	@Override public <RREF extends EjbWithId> VIEW fcAomView(REALM realm, RREF rref, JeeslAomView.Tree tree)
+	{
+		try	{return this.fAomView(realm,rref,tree);}
+		catch (JeeslNotFoundException ex)
+		{
+			VIEW result = fbAsset.ejbLevel().build(realm,rref,null);
+			result.setTree(tree.toString());
+			try {return this.save(result);}
+			catch (JeeslConstraintViolationException | JeeslLockingException e)
+			{
+				return this.fcAomView(realm,rref,tree);
+			}
+		}
+	}
 
 	@Override public <RREF extends EjbWithId> ASSET fcAssetRoot(REALM realm, RREF rref)
 	{
@@ -100,37 +142,7 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 		}
 	}
 	
-	@Override public <RREF extends EjbWithId> VIEW fcAomView(REALM realm, RREF rref, JeeslAomView.Tree tree)
-	{
-		CriteriaBuilder cB = em.getCriteriaBuilder();
-		CriteriaQuery<VIEW> cQ = cB.createQuery(fbAsset.getClassAssetLevel());
-		Root<VIEW> root = cQ.from(fbAsset.getClassAssetLevel());
-		List<Predicate> predicates = new ArrayList<Predicate>();
-		
-		Expression<Long> eRefId = root.get(JeeslAomView.Attributes.rref.toString());
-		Path<REALM> pRealm = root.get(JeeslAomView.Attributes.realm.toString());
-		Expression<String> eTree = root.get(JeeslAomView.Attributes.tree.toString());
-		
-		predicates.add(cB.equal(eRefId,rref.getId()));
-		predicates.add(cB.equal(pRealm,realm));
-		predicates.add(cB.equal(eTree,tree.toString()));
-		
-		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
-		cQ.select(root);
-
-		TypedQuery<VIEW> tQ = em.createQuery(cQ);
-		try	{return tQ.getSingleResult();}
-		catch (NoResultException ex)
-		{
-			VIEW result = fbAsset.ejbLevel().build(realm,rref,null);
-			result.setTree(tree.toString());
-			try {return this.save(result);}
-			catch (JeeslConstraintViolationException | JeeslLockingException e)
-			{
-				return this.fcAomView(realm,rref,tree);
-			}
-		}
-	}
+	
 	
 	@Override public List<ASSET> allAssets(ASSET root)
 	{
@@ -162,12 +174,14 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 		Root<ATYPE> root = cQ.from(fbAsset.getClassAssetType());
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		
-		Expression<Long> eRefId = root.get(JeeslAomAsset.Attributes.realmIdentifier.toString());
-		Path<REALM> pRealm = root.get(JeeslAomAsset.Attributes.realm.toString());
-		Path<ASSET> pParent = root.get(JeeslAomAsset.Attributes.parent.toString());
+		Expression<Long> eRefId = root.get(JeeslAomAssetType.Attributes.realmIdentifier.toString());
+		Path<REALM> pRealm = root.get(JeeslAomAssetType.Attributes.realm.toString());
+		Path<VIEW> pView = root.get(JeeslAomAssetType.Attributes.view.toString());
+		Path<ASSET> pParent = root.get(JeeslAomAssetType.Attributes.parent.toString());
 		
 		predicates.add(cB.equal(eRefId,rref.getId()));
 		predicates.add(cB.equal(pRealm,realm));
+		predicates.add(cB.equal(pView,view));
 		predicates.add(cB.isNull(pParent));
 		
 		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));

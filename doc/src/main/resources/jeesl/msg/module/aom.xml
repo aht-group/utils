@@ -56,11 +56,18 @@
     		<s:lang key="fr" translation="Status"/>
     	</s:langs>
     </s:translation>
-    <s:translation key="jeeslAssetType">
+    <s:translation key="jeeslAomAssetType1">
     	<s:langs>
-    		<s:lang key="de" translation="Typ"/>
-    		<s:lang key="en" translation="Type"/>
-    		<s:lang key="fr" translation="Type"/>
+    		<s:lang key="de" translation="Typ 1"/>
+    		<s:lang key="en" translation="Type 1"/>
+    		<s:lang key="fr" translation="Type 1"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslAomAssetType2">
+    	<s:langs>
+    		<s:lang key="de" translation="Typ 2"/>
+    		<s:lang key="en" translation="Type 2"/>
+    		<s:lang key="fr" translation="Type 2"/>
     	</s:langs>
     </s:translation>
 	<s:translation key="jeeslAssetRemark">

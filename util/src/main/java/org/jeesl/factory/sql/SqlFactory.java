@@ -17,6 +17,7 @@ public class SqlFactory
 	{
 		if(c.getAnnotation(Table.class)==null) {throw new RuntimeException("Not a @Table)");}
 		sb.append("UPDATE ").append(c.getAnnotation(Table.class).name());
+		if(alias!=null) {sb.append(" "+alias);}
 		sb.append(" SET ").append(id(alias,attribute)).append("=").append(t.getId());
 		newLine(newLine,sb);
 	}
@@ -175,8 +176,9 @@ public class SqlFactory
 	}
 	public static <E extends Enum<E>> void whereAnd(StringBuilder sb, String alias, boolean notNegate, E attribute, long value, boolean newLine)
 	{
-		sb.append(" AND");
-		sb.append(" ").append(id(alias,attribute));
+		sb.append(" AND ");
+		if(alias!=null) {sb.append(alias).append(".");}
+		sb.append(attribute.toString());
 		sb.append("=").append(value);
 		newLine(newLine,sb);
 	}

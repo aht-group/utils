@@ -38,6 +38,9 @@ public interface JeeslAomAsset <REALM extends JeeslMcsRealm<?,?,REALM,?>,
 	ATYPE getType1();
 	void setType1(ATYPE type1);
 	
+	ATYPE getType2();
+	void setType2(ATYPE type2);
+	
 	COMPANY getManufacturer();
 	void setManufacturer(COMPANY manufacturer);
 	

@@ -125,6 +125,7 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 	private void reloadTree()
 	{
 		root = fAsset.fcAomRootType(realm,rref,sbhView.getSelection());
+		
 		tree = new DefaultTreeNode(root, null);
 		buildTree(tree,fAsset.allForParent(fbAsset.getClassAssetType(),root));
 	}
@@ -156,7 +157,7 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 	{
 		type = fAsset.save(type);
 		reloadTree();
-		bCache.update(realm, rref, type);
+		bCache.update(realm,rref,sbhView.getSelection(),type);
 	}
 	
 	public void deleteType() throws JeeslLockingException
@@ -164,7 +165,7 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 		try
 		{
 			fAsset.rm(type);
-			bCache.delete(realm,rref,type);
+			bCache.delete(realm,rref,sbhView.getSelection(),type);
 			reloadTree();
 			reset(true);
 		}
