@@ -26,7 +26,7 @@ import org.jeesl.util.comparator.ejb.module.ts.TsDataComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AbstractStatisticProcessor <TS extends JeeslTimeSeries<?,?,?,?>,
+public class AbstractStatisticProcessor <TS extends JeeslTimeSeries<?,TS,?,?,?>,
 									TRANSACTION extends JeeslTsTransaction<?,DATA,?,?>,
 									DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
 									SAMPLE extends JeeslTsSample, 

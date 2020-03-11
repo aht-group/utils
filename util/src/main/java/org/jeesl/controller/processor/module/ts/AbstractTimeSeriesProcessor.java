@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 
 public class AbstractTimeSeriesProcessor<SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 									MP extends JeeslTsMultiPoint<?,?,SCOPE,?>,
-									TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT,STAT>,
+									TS extends JeeslTimeSeries<SCOPE,TS,BRIDGE,INT,STAT>,
 									TRANSACTION extends JeeslTsTransaction<?,DATA,?,?>,
 									BRIDGE extends JeeslTsBridge<EC>,
 									EC extends JeeslTsEntityClass<?,?,?,ENTITY>,
