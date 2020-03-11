@@ -8,7 +8,7 @@ import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
-public interface JeeslTsData <TS extends JeeslTimeSeries<?,?,?,?>,
+public interface JeeslTsData <TS extends JeeslTimeSeries<?,TS,?,?,?>,
 								TRANSACTION extends JeeslTsTransaction<?,?,?,?>,
 								SAMPLE extends JeeslTsSample, 
 								WS extends JeeslStatus<WS,?,?>>

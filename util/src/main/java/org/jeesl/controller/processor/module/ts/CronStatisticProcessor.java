@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 
 public class CronStatisticProcessor <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 									INT extends JeeslTsInterval<?,?,INT,?>,
-									TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT,STAT>,
+									TS extends JeeslTimeSeries<SCOPE,TS,BRIDGE,INT,STAT>,
 									TRANSACTION extends JeeslTsTransaction<?,DATA,?,?>,
 									BRIDGE extends JeeslTsBridge<EC>,
 									EC extends JeeslTsEntityClass<?,?,?,?>,
@@ -83,7 +83,7 @@ public class CronStatisticProcessor <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT
 			{
 				TS statTs = buildStatisticTimeSeries(ts,cron);
 				rmExistingStatistic(statTs);
-				List<DATA> statisticData = buildStatistic(data,JeeslTsStatistic.Code.valueOf(cron.getStatistic().getCode()), JeeslTsInterval.Code.valueOf(cron.getIntervalDst().getCode()));
+				List<DATA> statisticData = buildStatistic(data,JeeslTsStatistic.Code.valueOf(cron.getStatisticDst().getCode()), JeeslTsInterval.Code.valueOf(cron.getIntervalDst().getCode()));
 				for(DATA d : statisticData)
 				{
 					d.setTimeSeries(statTs);
@@ -111,7 +111,7 @@ public class CronStatisticProcessor <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT
 	public TS buildStatisticTimeSeries(TS ts, CRON cron) throws JeeslConstraintViolationException
 	{
 		logger.info("building statistic timeseries");
-		TS statTs = fTs.fcTimeSeries(cron.getScope(), cron.getIntervalDst(), cron.getStatistic(), ts.getBridge());
+		TS statTs = fTs.fcTimeSeries(cron.getScope(), cron.getIntervalDst(), cron.getStatisticDst(), ts.getBridge());
 		return statTs;
 	}
 

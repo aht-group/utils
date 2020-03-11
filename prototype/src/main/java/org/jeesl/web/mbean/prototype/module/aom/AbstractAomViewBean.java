@@ -108,7 +108,7 @@ public abstract class AbstractAomViewBean <L extends JeeslLang, D extends JeeslD
 	private void reload()
 	{
 		levels.clear();
-		levels.addAll(fAsset.fAomLevels(realm,rref));
+		levels.addAll(fAsset.fAomViews(realm,rref));
 	}
 	
 	private void reset(boolean rLevel)

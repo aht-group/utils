@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 
 public class EjbTsFactory<SCOPE extends JeeslTsScope<?,?,?,?,UNIT,EC,INT>,
 							UNIT extends JeeslStatus<UNIT,?,?>,
-							TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT,STAT>,
+							TS extends JeeslTimeSeries<SCOPE,TS,BRIDGE,INT,STAT>,
 							SOURCE extends EjbWithLangDescription<?,?>, 
 							BRIDGE extends JeeslTsBridge<EC>,
 							EC extends JeeslTsEntityClass<?,?,?,?>,

@@ -29,8 +29,11 @@ public interface JeeslTsCron <SCOPE extends JeeslTsScope<?,?,?,?,?,?,INT>,
 	INT getIntervalDst();
 	void setIntervalDst(INT intervalDst);
 	
-	STAT getStatistic();
-	void setStatistic(STAT statistic);
+	STAT getStatisticSrc();
+	void setStatisticSrc(STAT statisticSrc);
+	
+	STAT getStatisticDst();
+	void setStatisticDst(STAT statisticDst);
 	
 	int getFallbackSteps();
 	void setFallbackSteps(int fallbackSteps);

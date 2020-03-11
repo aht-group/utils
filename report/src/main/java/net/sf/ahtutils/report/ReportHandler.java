@@ -621,6 +621,21 @@ public class ReportHandler {
 	}
 	
 	/**
+	 * Method adding the usage of JRConcurrentSwapFile to report generation. Avoids OoM exceptions on large reports but may slow down generation.
+	 *
+	 */
+	public JRSwapFileVirtualizer useSwapFileVirtualizer()
+	{
+		JRConcurrentSwapFile jrSwapFile = new JRConcurrentSwapFile(System.getProperty("java.io.tmpdir"), 30, 4);
+		return new JRSwapFileVirtualizer(4, jrSwapFile, true);
+	}
+
+	public ByteArrayOutputStream createUsingJDom(String reportId, org.jdom2.Document doc, Format format, Locale locale) throws ReportException
+	{
+		return createUsingJDom(reportId,doc,format,locale,false); 
+	}
+	
+	/**
 	 * Method encapsulating the classical JasperReports workflow of JasperDesign -> JasperReport -> JasperPrint -> PDF/XLS export
 	 * @param reportId identifier of the requested report
 	 * @param doc XML data object
@@ -629,21 +644,19 @@ public class ReportHandler {
 	 * @return
 	 * @throws ReportException
 	 */
-	public ByteArrayOutputStream createUsingJDom(String reportId, org.jdom2.Document doc, Format format, Locale locale) throws ReportException
+	public ByteArrayOutputStream createUsingJDom(String reportId, org.jdom2.Document doc, Format format, Locale locale, boolean swap) throws ReportException
 	{
 		logger.info("Using JDom data document.");
-	//	JasperDesign masterDesign = getMasterReport(reportId, format.name());
-	//	JasperReport masterReport = getCompiledReport(masterDesign);
+		//	JasperDesign masterDesign = getMasterReport(reportId, format.name());
+		//	JasperReport masterReport = getCompiledReport(masterDesign);
 		JasperReport masterReport = getCompiledReport(reportId, null, format.name(), "mr");
 		Map<String, Object> reportParameterMap = getParameterMapJDom(doc, locale);
 		reportParameterMap.putAll(getSubreportsMap(reportId, format.name()));
-		JRConcurrentSwapFile jrSwapFile = new JRConcurrentSwapFile(System.getProperty("java.io.tmpdir"),30,4);
+		if(swap) { reportParameterMap.put(JRParameter.REPORT_VIRTUALIZER, useSwapFileVirtualizer());}
 
-		JRSwapFileVirtualizer virtualizer = new JRSwapFileVirtualizer(4,jrSwapFile,true);
-
-		reportParameterMap.put(JRParameter.REPORT_VIRTUALIZER, virtualizer);
 		JasperPrint print = getJasperPrint(masterReport, reportParameterMap);
-		JRVirtualizationContext.getRegistered(print).setReadOnly(true);
+
+		if(swap){JRVirtualizationContext.getRegistered(print).setReadOnly(true);}
 
 		return exportToPdf(print);
 	}

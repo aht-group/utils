@@ -21,7 +21,7 @@ public interface JeeslAomView <L extends JeeslLang, D extends JeeslDescription,
 								EjbWithNonUniqueCode,EjbWithPosition,EjbWithVisible,
 								EjbWithLangDescription<L,D>,EjbWithCodeGraphic<G>		
 {
-	public enum Attributes{realm,rref,position}
+	public enum Attributes{realm,rref,tree,position}
 	public enum Tree{hierarchy,type1,type2}
 	
 	REALM getRealm();

@@ -13,6 +13,7 @@ import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslAssetFacade;
 import org.jeesl.controller.handler.NullNumberBinder;
 import org.jeesl.controller.handler.sb.SbMultiHandler;
+import org.jeesl.controller.handler.sb.SbSingleHandler;
 import org.jeesl.controller.handler.th.ThMultiFilterHandler;
 import org.jeesl.controller.handler.ui.helper.UiHelperAsset;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
@@ -21,14 +22,15 @@ import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.factory.ejb.module.asset.EjbAssetEventFactory;
 import org.jeesl.factory.ejb.module.asset.EjbAssetFactory;
+import org.jeesl.interfaces.bean.sb.SbSingleBean;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.bean.th.ThMultiFilter;
 import org.jeesl.interfaces.bean.th.ThMultiFilterBean;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
-import org.jeesl.interfaces.model.module.aom.asset.JeeslAomView;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAssetStatus;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAssetType;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomView;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
@@ -71,7 +73,7 @@ public class AbstractAssetBean <L extends JeeslLang, D extends JeeslDescription,
 										USER extends JeeslSimpleUser,
 										FRC extends JeeslFileContainer<?,?>>
 					extends AbstractAdminBean<L,D>
-					implements Serializable,ThMultiFilterBean,SbToggleBean
+					implements Serializable,ThMultiFilterBean,SbToggleBean,SbSingleBean
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetBean.class);
@@ -87,16 +89,19 @@ public class AbstractAssetBean <L extends JeeslLang, D extends JeeslDescription,
 	private final Comparator<ASSET> cpAsset;
 	
 	private final UiHelperAsset<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> uiHelper; public UiHelperAsset<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> getUiHelper() {return uiHelper;}
-	private TreeNode tree; public TreeNode getTree() {return tree;}
-    private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
     private final NullNumberBinder nnb; public NullNumberBinder getNnb() {return nnb;}
     private final ThMultiFilterHandler<ETYPE> thfEventType; public ThMultiFilterHandler<ETYPE> getThfEventType() {return thfEventType;}
     private final SbMultiHandler<ETYPE> sbhEventType; public SbMultiHandler<ETYPE> getSbhEventType() {return sbhEventType;}
-   
+    private final SbSingleHandler<ALEVEL> sbhView; public SbSingleHandler<ALEVEL> getSbhView() {return sbhView;}
+    
     private final AssetEventLazyModel<ASSET,EVENT,ETYPE,ESTATUS,USER> lazyEvents; public AssetEventLazyModel<ASSET,EVENT,ETYPE,ESTATUS,USER> getLazyEvents() {return lazyEvents;}
     
 	private final Set<ASSET> path;
-    
+
+	private TreeNode tree; public TreeNode getTree() {return tree;}
+    private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
+
+	
 	protected REALM realm; public REALM getRealm() {return realm;}
 	protected RREF rref; public RREF getRref() {return rref;}
 
@@ -122,6 +127,7 @@ public class AbstractAssetBean <L extends JeeslLang, D extends JeeslDescription,
 		cpAsset = fbAsset.cpAsset(EjbAssetComparator.Type.position);
 		
 		path = new HashSet<>();
+		sbhView = new SbSingleHandler<>(fbAsset.getClassAssetLevel(),this);
 	}
 	
 	protected void postConstructAsset(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
@@ -150,6 +156,13 @@ public class AbstractAssetBean <L extends JeeslLang, D extends JeeslDescription,
 	protected void updateRealmReference(RREF rref)
 	{
 		this.rref=rref;
+		sbhView.setList(fAsset.fAomViews(realm,rref));
+		sbhView.setDefault();
+		reloadTree();
+	}
+	
+	@Override public void selectSbSingle(EjbWithId item) throws JeeslLockingException, JeeslConstraintViolationException
+	{
 		reloadTree();
 	}
 	
@@ -222,7 +235,7 @@ public class AbstractAssetBean <L extends JeeslLang, D extends JeeslDescription,
 	{
 		ASSET parent = null; if(asset!=null) {parent = asset;} else {parent = root;}
 		ASTATUS status = fAsset.fByEnum(fbAsset.getClassStatus(),JeeslAomAssetStatus.Code.na);
-		ATYPE type = fAsset.fcAssetRootType(realm,rref);
+		ATYPE type = fAsset.fcAomRootType(realm,rref,sbhView.getSelection());
 		reset(true,true,true);
 		asset = efAsset.build(realm,rref,parent,status,type);
 	}

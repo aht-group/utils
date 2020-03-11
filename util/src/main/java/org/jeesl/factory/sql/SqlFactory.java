@@ -17,6 +17,7 @@ public class SqlFactory
 	{
 		if(c.getAnnotation(Table.class)==null) {throw new RuntimeException("Not a @Table)");}
 		sb.append("UPDATE ").append(c.getAnnotation(Table.class).name());
+		if(alias!=null) {sb.append(" "+alias);}
 		sb.append(" SET ").append(id(alias,attribute)).append("=").append(t.getId());
 		newLine(newLine,sb);
 	}
@@ -156,22 +157,48 @@ public class SqlFactory
 	
 
 	
-	public static <E extends Enum<E>, T extends EjbWithId> String where(StringBuilder sb, String alias, boolean notNegate, E attribute, T where, boolean newLine)
+	public static <E extends Enum<E>, T extends EjbWithId> void where(StringBuilder sb, String alias, boolean negate, E attribute, T where, boolean newLine)
 	{
-		sb.append(" WHERE");
-		sb.append(" ").append(id(alias,attribute));
+		sb.append(" WHERE ");
+		whereAndOrAttribute(sb,alias,negate,attribute,where,newLine);
+	}
+	public static <E extends Enum<E>, T extends EjbWithId> void whereOr(StringBuilder sb, String alias, boolean negate, E attribute, T where, boolean newLine)
+	{
+		sb.append(" OR ");
+		whereAndOrAttribute(sb,alias,negate,attribute,where,newLine);
+	}
+	private static <E extends Enum<E>, T extends EjbWithId> void whereAndOrAttribute(StringBuilder sb, String alias, boolean negate, E attribute, T where, boolean newLine)
+	{
+		sb.append(id(alias,attribute));
 		if(where!=null)
 		{
-			if(!notNegate) {logger.warn("NOT is NYI");}
+			if(negate) {logger.warn("NOT is NYI");}
 			sb.append("=").append(where.getId());
 		}
 		else
 		{
 			sb.append(" IS");
-			if(!notNegate) {sb.append(" NOT");}
+			if(negate) {sb.append(" NOT");}
 			sb.append(" NULL");
 		}
 		newLine(newLine,sb);
-		return sb.toString();
+	}
+	
+	public static <E extends Enum<E>> void whereAnd(StringBuilder sb, String alias, boolean negate, E attribute, long value, boolean newLine)
+	{
+		sb.append(" AND ");
+		whereAndOrLong(sb,alias,negate,attribute,value,newLine);
+	}
+	public static <E extends Enum<E>> void whereOr(StringBuilder sb, String alias, boolean negate, E attribute, long value, boolean newLine)
+	{
+		sb.append(" OR ");
+		whereAndOrLong(sb,alias,negate,attribute,value,newLine);
+	}
+	private static <E extends Enum<E>> void whereAndOrLong(StringBuilder sb, String alias, boolean notNegate, E attribute, long value, boolean newLine)
+	{
+		if(alias!=null) {sb.append(alias).append(".");}
+		sb.append(attribute.toString());
+		sb.append("=").append(value);
+		newLine(newLine,sb);
 	}
 }

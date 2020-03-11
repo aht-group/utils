@@ -33,8 +33,8 @@ public class AssetFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 								SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
 								ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,ASTATUS,ATYPE>,
 								ASTATUS extends JeeslAomAssetStatus<L,D,ASTATUS,?>,
-								ATYPE extends JeeslAomAssetType<L,D,REALM,ATYPE,ALEVEL,?>,
-								ALEVEL extends JeeslAomView<L,D,REALM,?>,
+								ATYPE extends JeeslAomAssetType<L,D,REALM,ATYPE,VIEW,?>,
+								VIEW extends JeeslAomView<L,D,REALM,?>,
 								EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER,FRC>,
 								ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
 								ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,
@@ -50,7 +50,7 @@ public class AssetFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 	private final Class<COMPANY> cCompany; public Class<COMPANY> getClassCompany() {return cCompany;}
 	private final Class<ASTATUS> cStatus; public Class<ASTATUS> getClassStatus() {return cStatus;}
 	private final Class<ATYPE> cAssetType; public Class<ATYPE> getClassAssetType() {return cAssetType;}
-	private final Class<ALEVEL> cAssetLevel; public Class<ALEVEL> getClassAssetLevel() {return cAssetLevel;}
+	private final Class<VIEW> cView; public Class<VIEW> getClassAssetLevel() {return cView;}
 	private final Class<EVENT> cEvent; public Class<EVENT> getClassEvent() {return cEvent;}
 	private final Class<ETYPE> cEventType; public Class<ETYPE> getClassEventType() {return cEventType;}
 	private final Class<ESTATUS> cEventStatus; public Class<ESTATUS> getClassEventStatus() {return cEventStatus;}
@@ -62,7 +62,7 @@ public class AssetFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 								final Class<SCOPE> cScope,
 								final Class<ASTATUS> cStatus,
 								final Class<ATYPE> cAssetType,
-								final Class<ALEVEL> cAssetLevel,
+								final Class<VIEW> cView,
 								final Class<EVENT> cEvent,
 								final Class<ETYPE> cEventType,
 								final Class<ESTATUS> cEventStatus)
@@ -74,15 +74,15 @@ public class AssetFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 		this.cAsset=cAsset;
 		this.cStatus=cStatus;
 		this.cAssetType=cAssetType;
-		this.cAssetLevel=cAssetLevel;
+		this.cView=cView;
 		this.cEvent=cEvent;
 		this.cEventType=cEventType;
 		this.cEventStatus=cEventStatus;
 	}
 	
 	public EjbAssetCompanyFactory<REALM,COMPANY,SCOPE> ejbManufacturer() {return new EjbAssetCompanyFactory<>(cCompany);}
-	public EjbAssetTypeFactory<REALM,ATYPE,ALEVEL> ejbType() {return new EjbAssetTypeFactory<>(cAssetType);}
-	public EjbAssetLevelFactory<REALM,ALEVEL> ejbLevel() {return new EjbAssetLevelFactory<>(cAssetLevel);}
+	public EjbAssetTypeFactory<REALM,ATYPE,VIEW> ejbType() {return new EjbAssetTypeFactory<>(cAssetType);}
+	public EjbAssetLevelFactory<REALM,VIEW> ejbLevel() {return new EjbAssetLevelFactory<>(cView);}
 	public EjbAssetFactory<REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE> ejbAsset() {return new EjbAssetFactory<>(this);}
 	public EjbAssetEventFactory<COMPANY,ASSET,EVENT,ETYPE,ESTATUS,USER,FRC> ejbEvent() {return new EjbAssetEventFactory<>(this);}
 	

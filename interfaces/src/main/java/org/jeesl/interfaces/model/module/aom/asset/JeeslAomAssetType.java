@@ -26,7 +26,7 @@ public interface JeeslAomAssetType <L extends JeeslLang, D extends JeeslDescript
 					EjbWithCodeGraphic<G>
 					
 {
-	public enum Attributes{realm,realmIdentifier,parent}
+	public enum Attributes{realm,realmIdentifier,view,parent}
 	
 	REALM getRealm();
 	void setRealm(REALM realm);

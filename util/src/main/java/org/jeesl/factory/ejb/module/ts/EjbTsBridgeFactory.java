@@ -14,7 +14,7 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbTsBridgeFactory<TS extends JeeslTimeSeries<?,BRIDGE,?,?>,
+public class EjbTsBridgeFactory<TS extends JeeslTimeSeries<?,TS,BRIDGE,?,?>,
 								BRIDGE extends JeeslTsBridge<EC>,
 								EC extends JeeslTsEntityClass<?,?,?,?>,
 								DATA extends JeeslTsData<TS,?,?,?>

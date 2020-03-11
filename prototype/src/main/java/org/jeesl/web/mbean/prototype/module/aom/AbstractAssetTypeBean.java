@@ -9,16 +9,18 @@ import org.jeesl.api.bean.module.aom.JeeslAssetCacheBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslAssetFacade;
 import org.jeesl.api.facade.system.graphic.JeeslGraphicFacade;
+import org.jeesl.controller.handler.sb.SbSingleHandler;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.factory.builder.system.SvgFactoryBuilder;
+import org.jeesl.interfaces.bean.sb.SbSingleBean;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
-import org.jeesl.interfaces.model.module.aom.asset.JeeslAomView;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAssetStatus;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAssetType;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomView;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
@@ -54,26 +56,28 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 										SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
 										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,ASTATUS,ATYPE>,
 										ASTATUS extends JeeslAomAssetStatus<L,D,ASTATUS,?>,
-										ATYPE extends JeeslAomAssetType<L,D,REALM,ATYPE,ALEVEL,G>,
-										ALEVEL extends JeeslAomView<L,D,REALM,G>,
+										ATYPE extends JeeslAomAssetType<L,D,REALM,ATYPE,AVIEW,G>,
+										AVIEW extends JeeslAomView<L,D,REALM,G>,
 										EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER,FRC>,
 										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
 										ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,
 										USER extends JeeslSimpleUser,
 										FRC extends JeeslFileContainer<?,?>>
 					extends AbstractAdminBean<L,D>
-					implements Serializable
+					implements Serializable, SbSingleBean
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetTypeBean.class);
 	
-	private JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset;
+	private JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,AVIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset;
 	private JeeslGraphicFacade<L,D,S,G,GT,F,FS> fGraphic;
 	
-	private JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,ETYPE> bCache;
+	private JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,AVIEW,ETYPE> bCache;
 	
 	private final SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg;
-	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset;
+	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,AVIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset;
+
+	private final SbSingleHandler<AVIEW> sbhView; public SbSingleHandler<AVIEW> getSbhView() {return sbhView;}
 	
 	private TreeNode tree; public TreeNode getTree() {return tree;}
     private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
@@ -83,16 +87,18 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
     private ATYPE root;
     private ATYPE type;  public ATYPE getType() {return type;} public void setType(ATYPE type) {this.type = type;}
 
-	public AbstractAssetTypeBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset, SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg)
+	public AbstractAssetTypeBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,AVIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset, SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg)
 	{
-		super(fbAsset.getClassL(),fbAsset.getClassD());
+		super(fbAsset.getClassL(),fbAsset.getClassD());	
 		this.fbAsset=fbAsset;
 		this.fbSvg=fbSvg;
+		sbhView = new SbSingleHandler<>(fbAsset.getClassAssetLevel(),this);
+		
 	}
 	
 	protected void postConstructAssetType(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,ETYPE> bCache,
-									JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset,
+									JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,AVIEW,ETYPE> bCache,
+									JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,AVIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset,
 									JeeslGraphicFacade<L,D,S,G,GT,F,FS> fGraphic,
 									REALM realm)
 	{
@@ -106,12 +112,20 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 	protected void updateRealmReference(RREF rref)
 	{
 		this.rref=rref;
+		sbhView.setList(fAsset.fAomViews(realm,rref));
+		sbhView.setDefault();
+		reloadTree();
+	}
+	
+	@Override public void selectSbSingle(EjbWithId item) throws JeeslLockingException, JeeslConstraintViolationException
+	{
 		reloadTree();
 	}
 	
 	private void reloadTree()
 	{
-		root = fAsset.fcAssetRootType(realm,rref);
+		root = fAsset.fcAomRootType(realm,rref,sbhView.getSelection());
+		
 		tree = new DefaultTreeNode(root, null);
 		buildTree(tree,fAsset.allForParent(fbAsset.getClassAssetType(),root));
 	}
@@ -134,7 +148,7 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 	public void addType()
 	{
 		ATYPE parent=null; if(type!=null) {parent = type;} else {parent = root;}
-		type = fbAsset.ejbType().build(realm, rref, parent, UUID.randomUUID().toString());
+		type = fbAsset.ejbType().build(realm,rref,sbhView.getSelection(),parent, UUID.randomUUID().toString());
 		type.setName(efLang.createEmpty(bTranslation.getLocales()));
 		type.setDescription(efDescription.createEmpty(bTranslation.getLocales()));
 	}
@@ -143,7 +157,7 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 	{
 		type = fAsset.save(type);
 		reloadTree();
-		bCache.update(realm, rref, type);
+		bCache.update(realm,rref,sbhView.getSelection(),type);
 	}
 	
 	public void deleteType() throws JeeslLockingException
@@ -151,7 +165,7 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 		try
 		{
 			fAsset.rm(type);
-			bCache.delete(realm,rref,type);
+			bCache.delete(realm,rref,sbhView.getSelection(),type);
 			reloadTree();
 			reset(true);
 		}
