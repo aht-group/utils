@@ -22,14 +22,14 @@ public class EjbTsCronFactory <	SCOPE extends JeeslTsScope<?,?,?,?,?,?,INT>,
 		this.cCron = cCron;
 	}
 	
-	public CRON build(STAT stat, SCOPE scope)
+	public CRON build(STAT statDst, SCOPE scope)
 	{
 		CRON ejb = null;
 		try
 		{
 			ejb = cCron.newInstance();
 			ejb.setScope(scope);
-			ejb.setStatistic(stat);
+			ejb.setStatisticDst(statDst);
 		} 
 		catch (InstantiationException e) {e.printStackTrace();} 
 		catch (IllegalAccessException e) {e.printStackTrace();}
