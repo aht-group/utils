@@ -8,8 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbAssetTypeFactory<REALM extends JeeslMcsRealm<?,?,REALM,?>,
-									TYPE extends JeeslAomAssetType<?,?,REALM,TYPE,ALEVEL,?>,
-									ALEVEL extends JeeslAomView<?,?,REALM,?>>
+									TYPE extends JeeslAomAssetType<?,?,REALM,TYPE,VIEW,?>,
+									VIEW extends JeeslAomView<?,?,REALM,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbAssetTypeFactory.class);
 	
@@ -20,13 +20,14 @@ public class EjbAssetTypeFactory<REALM extends JeeslMcsRealm<?,?,REALM,?>,
         this.cType = cType;
     }
 	
-	public <RREF extends EjbWithId> TYPE build(REALM realm, RREF ref, TYPE parent, String code)
+	public <RREF extends EjbWithId> TYPE build(REALM realm, RREF ref, VIEW view, TYPE parent, String code)
 	{
 		try
 		{
 			TYPE ejb = cType.newInstance();
 			ejb.setRealm(realm);
 			ejb.setRealmIdentifier(ref.getId());
+			ejb.setView(view);
 			ejb.setParent(parent);
 			ejb.setCode(code);
 		    return ejb;

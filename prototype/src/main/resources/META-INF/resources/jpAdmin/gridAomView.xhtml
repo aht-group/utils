@@ -52,7 +52,7 @@
 						<jtp:inputText value="#{cc.attrs.bean.level.code}"/>
 						
 						<p:outputLabel value="#{msg.jeeslAomLevelTree}" />
-				        <p:selectOneRadio value="#{cc.attrs.bean.level.tree}">
+				        <p:selectOneRadio value="#{cc.attrs.bean.level.tree}" disabled="#{cc.attrs.bean.level.id gt 0}">
 				            <f:selectItem itemLabel="Hierarchy" itemValue="hierarchy" />
 				            <f:selectItem itemLabel="Type 1" itemValue="type1" />
 				            <f:selectItem itemLabel="Type 2" itemValue="type2" />
