@@ -308,9 +308,4 @@ public class JbossConfigurator
 		request.get("user-name").set(username);
 		request.get("password").set(password);
 	}
-	
-	public void close()
-	{
-		IOUtils.closeQuietly(client);
-	}
 }

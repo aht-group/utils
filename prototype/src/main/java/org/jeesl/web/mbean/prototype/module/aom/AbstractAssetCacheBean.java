@@ -59,6 +59,7 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 	private EjbCodeCache<SCOPE> cacheScope;
 	
 	private final Map<String,UP> mapUpload; public Map<String,UP> getMapUpload() {return mapUpload;}
+	private final List<UP> uploads; public List<UP> getUploads() {return uploads;}
 	
 	private final Map<REALM,Map<RREF,List<ATYPE>>> mapAssetType1; @Override public Map<REALM,Map<RREF,List<ATYPE>>> getMapAssetType1() {return mapAssetType1;}
 	private final Map<REALM,Map<RREF,List<ATYPE>>> mapAssetType2; @Override public Map<REALM,Map<RREF,List<ATYPE>>> getMapAssetType2() {return mapAssetType2;}
@@ -80,6 +81,8 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 		this.fbAsset=fbAsset;
 		
 		mapUpload = new HashMap<>();
+		uploads = new ArrayList<>();
+		
 		mapAssetType1 = new HashMap<>();
 		mapAssetType2 = new HashMap<>();
 		
@@ -102,7 +105,8 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 		if(eventType.isEmpty()) {eventType.addAll(fAsset.allOrderedPositionVisible(fbAsset.getClassEventType()));}
 		if(eventStatus.isEmpty()) {eventStatus.addAll(fAsset.allOrderedPositionVisible(fbAsset.getClassEventStatus()));}
 		
-		mapUpload.putAll(EjbCodeFactory.toMapCode(fAsset.allOrderedPositionVisible(fbAsset.getClassUpload())));
+		uploads.addAll(fAsset.allOrderedPositionVisible(fbAsset.getClassUpload()));
+		mapUpload.putAll(EjbCodeFactory.toMapCode(uploads));
 		logger.info(fbAsset.getClassUpload().getSimpleName()+" "+mapUpload.size());
 	}
 	

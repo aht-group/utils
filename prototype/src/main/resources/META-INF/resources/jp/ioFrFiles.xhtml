@@ -25,6 +25,7 @@
 		<composite:attribute name="withDescription" required="false" default="false"/>
 		
 		<composite:attribute name="withCategory" required="false" default="false"/>
+		<composite:attribute name="iconCategory" required="false" default="true"/>
 		<composite:attribute name="labelCategory" required="false" default="#{msg.jeeslType}"/>
 		<composite:attribute name="mapCategory" required="false" default=""/>
 		
@@ -66,6 +67,7 @@
 				</p:column>
 				<p:column rendered="#{cc.attrs.withCategory}">
 					<f:facet name="header"><h:outputText value="#{cc.attrs.labelCategory}"/></f:facet>
+					<jtp:symbolizer value="#{cc.attrs.mapCategory[meta.category]}" marginRight="5" rendered="#{cc.attrs.iconCategory and (not empty cc.attrs.mapCategory)}"/>
 					<h:outputText value="#{meta.category}" rendered="#{empty cc.attrs.mapCategory}"/>
 					<h:outputText value="#{cc.attrs.mapCategory[meta.category].name[localeCode].lang}" rendered="#{not empty cc.attrs.mapCategory}"/>
 				</p:column>
@@ -107,6 +109,12 @@
 					<jtp:inputRemark value="#{cc.attrs.handler.meta.description[cc.attrs.handler.locale.code].lang}" rendered="#{cc.attrs.allowUpload and cc.attrs.handler.allowChangeDescription}"/>
 					<h:outputText value="#{cc.attrs.handler.meta.description[cc.attrs.handler.locale.code].lang}" rendered="#{not (cc.attrs.allowUpload and cc.attrs.handler.allowChangeDescription)}"/>
 				</p:panelGrid>
+				<p:panelGrid columns="2" columnClasses="jeeslGrid30,jeeslGrid70" rendered="#{cc.attrs.withCategory}">
+					<p:outputLabel value="#{cc.attrs.labelCategory}"/>
+					<p:selectOneMenu value="#{cc.attrs.handler.meta.category}" effect="fade" autoWidth="false">
+						<f:selectItems value="#{cc.attrs.mapCategory.values()}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t.code}"/>
+					</p:selectOneMenu>
+				</p:panelGrid>
 			</p:panel>
 		</h:form>
 		<h:form id="fUploadInline" rendered="#{not cc.attrs.overlay}">
@@ -143,7 +151,7 @@
 				<p:panelGrid columns="2" columnClasses="jeeslGrid30,jeeslGrid70" rendered="#{cc.attrs.withCategory}">
 					<p:outputLabel value="#{cc.attrs.labelCategory}"/>
 					<p:selectOneMenu value="#{cc.attrs.handler.meta.category}" effect="fade" autoWidth="false">
-						<f:selectItems value="#{cc.attrs.mapCategory.values}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t.code}"/>
+						<f:selectItems value="#{cc.attrs.mapCategory.values()}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t.code}"/>
 					</p:selectOneMenu>
 				</p:panelGrid>
 				<p:messages redisplay="false" severity="warn,error" showSummary="true" showDetail="true" closable="true"/>
@@ -184,7 +192,7 @@
 						<p:panelGrid columns="2" columnClasses="jeeslGrid30,jeeslGrid70" rendered="#{cc.attrs.withCategory}">
 							<p:outputLabel value="#{cc.attrs.labelCategory}"/>
 							<p:selectOneMenu value="#{cc.attrs.handler.meta.category}" effect="fade" autoWidth="false">
-								<f:selectItems value="#{cc.attrs.mapCategory.values}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t.code}"/>
+								<f:selectItems value="#{cc.attrs.mapCategory.values()}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t.code}"/>
 							</p:selectOneMenu>
 						</p:panelGrid>
 						<p:messages redisplay="false" severity="warn,error" showSummary="true" showDetail="true" closable="true"/>

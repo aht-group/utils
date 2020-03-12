@@ -297,12 +297,13 @@ public class AbstractAssetBean <L extends JeeslLang, D extends JeeslDescription,
 		lazyEvents.reloadScope(fAsset,asset);
 	}
     
-    public void addEvent()
+    public void addEvent() throws JeeslConstraintViolationException, JeeslLockingException
     {
     	logger.info(AbstractLogMessage.addEntity(fbAsset.getClassEvent()));
     	event = efEvent.build(asset,bCache.getEventType().get(0));
     	efEvent.ejb2nnb(event,nnb);
     	uiHelper.update(realm,rref,event);
+    	if(frh!=null) {frh.init(event);}
     }
     
     public void selectEvent() throws JeeslConstraintViolationException, JeeslLockingException
@@ -387,6 +388,7 @@ public class AbstractAssetBean <L extends JeeslLang, D extends JeeslDescription,
   
 	@Override public void fileRepositoryContainerSaved(EjbWithId id) throws JeeslConstraintViolationException, JeeslLockingException
 	{
-
+		event.setFrContainer(frh.getContainer());
+		event = fAsset.save(event);
 	}
 }
