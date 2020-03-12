@@ -56,6 +56,7 @@ public class AomFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 	private final Class<EVENT> cEvent; public Class<EVENT> getClassEvent() {return cEvent;}
 	private final Class<ETYPE> cEventType; public Class<ETYPE> getClassEventType() {return cEventType;}
 	private final Class<ESTATUS> cEventStatus; public Class<ESTATUS> getClassEventStatus() {return cEventStatus;}
+	private final Class<UP> cUpload; public Class<UP> getClassUpload() {return cUpload;}
 	
 	public AomFactoryBuilder(final Class<L> cL,final Class<D> cD,
 								final Class<REALM> cRealm,
@@ -67,7 +68,8 @@ public class AomFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 								final Class<VIEW> cView,
 								final Class<EVENT> cEvent,
 								final Class<ETYPE> cEventType,
-								final Class<ESTATUS> cEventStatus)
+								final Class<ESTATUS> cEventStatus,
+								final Class<UP> cUpload)
 	{       
 		super(cL,cD);
 		this.cRealm=cRealm;
@@ -80,6 +82,7 @@ public class AomFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 		this.cEvent=cEvent;
 		this.cEventType=cEventType;
 		this.cEventStatus=cEventStatus;
+		this.cUpload=cUpload;
 	}
 	
 	public EjbAssetCompanyFactory<REALM,COMPANY,SCOPE> ejbManufacturer() {return new EjbAssetCompanyFactory<>(cCompany);}

@@ -10,6 +10,7 @@ import org.jeesl.api.bean.module.aom.JeeslAssetCacheBean;
 import org.jeesl.api.facade.module.JeeslAssetFacade;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.AomFactoryBuilder;
+import org.jeesl.factory.ejb.util.EjbCodeFactory;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAssetStatus;
@@ -59,6 +60,7 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 	
 //	private final Map<RREF,List<ALEVEL>> mapLevel; @Override public Map<RREF,List<ALEVEL>> cachedLevel() {return mapLevel;}
 	
+	
 	private final Map<REALM,Map<RREF,List<ATYPE>>> mapAssetType1; @Override public Map<REALM,Map<RREF,List<ATYPE>>> getMapAssetType1() {return mapAssetType1;}
 	private final Map<REALM,Map<RREF,List<ATYPE>>> mapAssetType2; @Override public Map<REALM,Map<RREF,List<ATYPE>>> getMapAssetType2() {return mapAssetType2;}
 	
@@ -67,8 +69,9 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 	private final Map<RREF,List<COMPANY>> mapVendor; @Override public Map<RREF,List<COMPANY>> getMapVendor() {return mapVendor;}
 	private final Map<RREF,List<COMPANY>> mapMaintainer; @Override public Map<RREF,List<COMPANY>> getMapMaintainer() {return mapMaintainer;}
 	
-	
-    private final List<ASTATUS> assetStatus; public List<ASTATUS> getAssetStatus() {return assetStatus;}
+	private final Map<String,UP> mapUpload; public Map<String, UP> getMapUpload() {return mapUpload;}
+
+	private final List<ASTATUS> assetStatus; public List<ASTATUS> getAssetStatus() {return assetStatus;}
     private final List<VIEW> assetLevel; public List<VIEW> getAssetLevel() {return assetLevel;}
     private final List<ETYPE> eventType; @Override public List<ETYPE> getEventType() {return eventType;}
     private final List<ESTATUS> eventStatus; public List<ESTATUS> getEventStatus() {return eventStatus;}
@@ -77,6 +80,7 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 	{
 		this.fbAsset=fbAsset;
 		
+		mapUpload = new HashMap<>();
 		mapAssetType1 = new HashMap<>();
 		mapAssetType2 = new HashMap<>();
 		
@@ -98,6 +102,8 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 		if(assetStatus.isEmpty()) {assetStatus.addAll(fAsset.allOrderedPositionVisible(fbAsset.getClassStatus()));}
 		if(eventType.isEmpty()) {eventType.addAll(fAsset.allOrderedPositionVisible(fbAsset.getClassEventType()));}
 		if(eventStatus.isEmpty()) {eventStatus.addAll(fAsset.allOrderedPositionVisible(fbAsset.getClassEventStatus()));}
+		
+		mapUpload.putAll(EjbCodeFactory.toMapCode(fAsset.allOrderedPositionVisible(fbAsset.getClassUpload())));
 	}
 	
 	public void reloadRealm(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fAsset, REALM realm, RREF rref)
