@@ -60,10 +60,10 @@ public class AbstractStatisticProcessor <TS extends JeeslTimeSeries<?,TS,?,?,?>,
 			counter = 1;
 			for(int j=i+1; j<tsData.size(); j++)
 			{
-				counter++;
+				
 				LocalDate compareDate = tsData.get(j).getRecord().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-				if(isMatchingInterval(iCode,startDate,compareDate)) {stats.addValue(tsData.get(j).getValue());}
-				else {break;}
+				if(isMatchingInterval(iCode,startDate,compareDate)) {stats.addValue(tsData.get(j).getValue());counter++;}
+				else { break;}
 			}
 			DATA statisticData = buildStatisticData(stats, code);
 			statisticData.setRecord(Date.from(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
