@@ -20,7 +20,7 @@ import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
-import org.jeesl.factory.builder.module.AssetFactoryBuilder;
+import org.jeesl.factory.builder.module.AomFactoryBuilder;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAssetStatus;
@@ -31,6 +31,7 @@ import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventStatus;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
+import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventUpload;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
@@ -51,17 +52,18 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
 										ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,
 										USER extends JeeslSimpleUser,
-										FRC extends JeeslFileContainer<?,?>>
+										FRC extends JeeslFileContainer<?,?>,
+										UP extends JeeslAomEventUpload<L,D,UP,?>>
 					extends JeeslFacadeBean
-					implements JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC>
+					implements JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC,UP>
 {	
 	private static final long serialVersionUID = 1L;
 
 	final static Logger logger = LoggerFactory.getLogger(JeeslAssetFacadeBean.class);
 	
-	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset;
+	private final AomFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fbAsset;
 	
-	public JeeslAssetFacadeBean(EntityManager em, final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset)
+	public JeeslAssetFacadeBean(EntityManager em, final AomFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fbAsset)
 	{
 		super(em);
 		this.fbAsset=fbAsset;

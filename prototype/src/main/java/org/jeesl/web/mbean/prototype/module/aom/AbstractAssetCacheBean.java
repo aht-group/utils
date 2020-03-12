@@ -9,17 +9,18 @@ import java.util.Map;
 import org.jeesl.api.bean.module.aom.JeeslAssetCacheBean;
 import org.jeesl.api.facade.module.JeeslAssetFacade;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
-import org.jeesl.factory.builder.module.AssetFactoryBuilder;
+import org.jeesl.factory.builder.module.AomFactoryBuilder;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
-import org.jeesl.interfaces.model.module.aom.asset.JeeslAomView;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAssetStatus;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAssetType;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomView;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventStatus;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
+import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventUpload;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
@@ -43,15 +44,16 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
 										ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,
 										USER extends JeeslSimpleUser,
-										FRC extends JeeslFileContainer<?,?>>
-								implements JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,ETYPE>
+										FRC extends JeeslFileContainer<?,?>,
+										UP extends JeeslAomEventUpload<L,D,UP,?>>
+								implements JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,ETYPE,UP>
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetCacheBean.class);
 	
 //	private JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fAsset;
 	
-	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset;
+	private final AomFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fbAsset;
 
 	private EjbCodeCache<SCOPE> cacheScope;
 	
@@ -71,7 +73,7 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
     private final List<ETYPE> eventType; @Override public List<ETYPE> getEventType() {return eventType;}
     private final List<ESTATUS> eventStatus; public List<ESTATUS> getEventStatus() {return eventStatus;}
     
-	public AbstractAssetCacheBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset)
+	public AbstractAssetCacheBean(AomFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fbAsset)
 	{
 		this.fbAsset=fbAsset;
 		
@@ -89,7 +91,7 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 		eventStatus = new ArrayList<>();
 	}
 	
-	public void postConstruct(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset)
+	public void postConstruct(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fAsset)
 	{
 		if(cacheScope==null) {cacheScope = new EjbCodeCache<SCOPE>(fAsset,fbAsset.getClassScope());}
 		
@@ -98,19 +100,19 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 		if(eventStatus.isEmpty()) {eventStatus.addAll(fAsset.allOrderedPositionVisible(fbAsset.getClassEventStatus()));}
 	}
 	
-	public void reloadRealm(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset, REALM realm, RREF rref)
+	public void reloadRealm(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fAsset, REALM realm, RREF rref)
 	{
 		reloadAssetTypes(fAsset,realm,rref,false);
 		reloadCompanies(fAsset,realm,rref);
 	}
 	
-	private void reloadAssetTypes(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset, REALM realm, RREF rref, boolean force)
+	private void reloadAssetTypes(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fAsset, REALM realm, RREF rref, boolean force)
 	{		
 		reloadAssetTypes1(fAsset,realm,rref,force);
 		reloadAssetTypes2(fAsset,realm,rref,force);
 	}
 	
-	private void reloadAssetTypes1(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset, REALM realm, RREF rref, boolean force)
+	private void reloadAssetTypes1(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fAsset, REALM realm, RREF rref, boolean force)
 	{		
 		if(!mapAssetType1.containsKey(realm)) {mapAssetType1.put(realm,new HashMap<>());}	
 		if(!mapAssetType1.get(realm).containsKey(rref)) {mapAssetType1.get(realm).put(rref,new ArrayList<>());}
@@ -124,7 +126,7 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 			logger.info(AbstractLogMessage.reloaded(fbAsset.getClassAssetType(), mapAssetType1.get(realm).get(rref), rref)+" in realm "+realm.toString());
 		}
 	}
-	private void reloadTypes1(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset, REALM realm, RREF rref, List<ATYPE> types)
+	private void reloadTypes1(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fAsset, REALM realm, RREF rref, List<ATYPE> types)
 	{
 		for(ATYPE type : types)
 		{
@@ -133,7 +135,7 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 		}
 	}
 	
-	private void reloadAssetTypes2(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset, REALM realm, RREF rref, boolean force)
+	private void reloadAssetTypes2(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fAsset, REALM realm, RREF rref, boolean force)
 	{		
 		if(!mapAssetType2.containsKey(realm)) {mapAssetType2.put(realm,new HashMap<>());}	
 		if(!mapAssetType2.get(realm).containsKey(rref)) {mapAssetType2.get(realm).put(rref,new ArrayList<>());}
@@ -151,7 +153,7 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 			catch (JeeslNotFoundException e) {}
 		}
 	}
-	private void reloadTypes2(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset, REALM realm, RREF rref, List<ATYPE> types)
+	private void reloadTypes2(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fAsset, REALM realm, RREF rref, List<ATYPE> types)
 	{
 		for(ATYPE type : types)
 		{
@@ -161,7 +163,7 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 	}
 	
 	
-	private void reloadCompanies(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset, REALM realm, RREF rref)
+	private void reloadCompanies(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fAsset, REALM realm, RREF rref)
 	{
 		if(!mapCompany.containsKey(rref)) {mapCompany.put(rref,new ArrayList<>());}
 		mapCompany.get(rref).clear();

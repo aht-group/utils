@@ -18,6 +18,7 @@ import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventStatus;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
+import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventUpload;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
@@ -27,7 +28,7 @@ import org.jeesl.util.comparator.ejb.module.asset.EjbEventComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AssetFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
+public class AomFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 								REALM extends JeeslMcsRealm<L,D,REALM,?>,
 								COMPANY extends JeeslAomCompany<REALM,SCOPE>,
 								SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
@@ -39,10 +40,11 @@ public class AssetFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 								ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
 								ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,
 								USER extends JeeslSimpleUser,
-								FRC extends JeeslFileContainer<?,?>>
+								FRC extends JeeslFileContainer<?,?>,
+								UP extends JeeslAomEventUpload<L,D,UP,?>>
 		extends AbstractFactoryBuilder<L,D>
 {
-	final static Logger logger = LoggerFactory.getLogger(AssetFactoryBuilder.class);
+	final static Logger logger = LoggerFactory.getLogger(AomFactoryBuilder.class);
 	
 	private final Class<REALM> cRealm; public Class<REALM> getClassRealm() {return cRealm;}
 	private final Class<SCOPE> cScope; public Class<SCOPE> getClassScope() {return cScope;}
@@ -55,7 +57,7 @@ public class AssetFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 	private final Class<ETYPE> cEventType; public Class<ETYPE> getClassEventType() {return cEventType;}
 	private final Class<ESTATUS> cEventStatus; public Class<ESTATUS> getClassEventStatus() {return cEventStatus;}
 	
-	public AssetFactoryBuilder(final Class<L> cL,final Class<D> cD,
+	public AomFactoryBuilder(final Class<L> cL,final Class<D> cD,
 								final Class<REALM> cRealm,
 								final Class<ASSET> cAsset,
 								final Class<COMPANY> cCompany,

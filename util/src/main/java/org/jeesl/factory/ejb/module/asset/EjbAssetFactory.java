@@ -2,7 +2,7 @@ package org.jeesl.factory.ejb.module.asset;
 
 import java.util.UUID;
 
-import org.jeesl.factory.builder.module.AssetFactoryBuilder;
+import org.jeesl.factory.builder.module.AomFactoryBuilder;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAssetStatus;
@@ -23,9 +23,9 @@ public class EjbAssetFactory<REALM extends JeeslMcsRealm<?,?,REALM,?>,
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbAssetFactory.class);
 	
-	private final AssetFactoryBuilder<?,?,?,COMPANY,SCOPE,ASSET,STATUS,TYPE,?,?,?,?,?,?> fbAsset;
+	private final AomFactoryBuilder<?,?,?,COMPANY,SCOPE,ASSET,STATUS,TYPE,?,?,?,?,?,?,?> fbAsset;
 	
-    public EjbAssetFactory(final AssetFactoryBuilder<?,?,?,COMPANY,SCOPE,ASSET,STATUS,TYPE,?,?,?,?,?,?> fbAsset)
+    public EjbAssetFactory(final AomFactoryBuilder<?,?,?,COMPANY,SCOPE,ASSET,STATUS,TYPE,?,?,?,?,?,?,?> fbAsset)
     {
         this.fbAsset = fbAsset;
     }

@@ -13,7 +13,7 @@ import org.jeesl.controller.handler.sb.SbSingleHandler;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
-import org.jeesl.factory.builder.module.AssetFactoryBuilder;
+import org.jeesl.factory.builder.module.AomFactoryBuilder;
 import org.jeesl.factory.builder.system.SvgFactoryBuilder;
 import org.jeesl.interfaces.bean.sb.SbSingleBean;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
@@ -26,6 +26,7 @@ import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventStatus;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
+import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventUpload;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicType;
@@ -62,20 +63,21 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
 										ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,
 										USER extends JeeslSimpleUser,
-										FRC extends JeeslFileContainer<?,?>>
+										FRC extends JeeslFileContainer<?,?>,
+										UP extends JeeslAomEventUpload<L,D,UP,?>>
 					extends AbstractAdminBean<L,D>
 					implements Serializable, SbSingleBean
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetTypeBean.class);
 	
-	private JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,AVIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset;
+	private JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,AVIEW,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fAsset;
 	private JeeslGraphicFacade<L,D,S,G,GT,F,FS> fGraphic;
 	
-	private JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,AVIEW,ETYPE> bCache;
+	private JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,AVIEW,ETYPE,UP> bCache;
 	
 	private final SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg;
-	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,AVIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset;
+	private final AomFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,AVIEW,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fbAsset;
 
 	private final SbSingleHandler<AVIEW> sbhView; public SbSingleHandler<AVIEW> getSbhView() {return sbhView;}
 	
@@ -87,7 +89,7 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
     private ATYPE root;
     private ATYPE type;  public ATYPE getType() {return type;} public void setType(ATYPE type) {this.type = type;}
 
-	public AbstractAssetTypeBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,AVIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset, SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg)
+	public AbstractAssetTypeBean(AomFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,AVIEW,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fbAsset, SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg)
 	{
 		super(fbAsset.getClassL(),fbAsset.getClassD());	
 		this.fbAsset=fbAsset;
@@ -97,8 +99,8 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 	}
 	
 	protected void postConstructAssetType(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,AVIEW,ETYPE> bCache,
-									JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,AVIEW,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset,
+									JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,AVIEW,ETYPE,UP> bCache,
+									JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,AVIEW,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fAsset,
 									JeeslGraphicFacade<L,D,S,G,GT,F,FS> fGraphic,
 									REALM realm)
 	{

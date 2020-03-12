@@ -14,6 +14,7 @@ import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventStatus;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
+import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventUpload;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
@@ -32,7 +33,8 @@ public interface JeeslAssetFacade <L extends JeeslLang, D extends JeeslDescripti
 									ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
 									ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,
 									USER extends JeeslSimpleUser,
-									FRC extends JeeslFileContainer<?,?>>
+									FRC extends JeeslFileContainer<?,?>,
+									UP extends JeeslAomEventUpload<L,D,UP,?>>
 			extends JeeslFacade
 {	
 	<RREF extends EjbWithId> ASSET fcAssetRoot(REALM realm, RREF rref);

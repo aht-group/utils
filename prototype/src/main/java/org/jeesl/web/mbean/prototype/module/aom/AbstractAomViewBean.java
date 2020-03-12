@@ -11,18 +11,19 @@ import org.jeesl.api.facade.module.JeeslAssetFacade;
 import org.jeesl.api.facade.system.graphic.JeeslGraphicFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
-import org.jeesl.factory.builder.module.AssetFactoryBuilder;
+import org.jeesl.factory.builder.module.AomFactoryBuilder;
 import org.jeesl.factory.builder.system.SvgFactoryBuilder;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
-import org.jeesl.interfaces.model.module.aom.asset.JeeslAomView;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAssetStatus;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAssetType;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomView;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventStatus;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
+import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventUpload;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicType;
@@ -55,20 +56,21 @@ public abstract class AbstractAomViewBean <L extends JeeslLang, D extends JeeslD
 										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
 										ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,
 										USER extends JeeslSimpleUser,
-										FRC extends JeeslFileContainer<?,?>>
+										FRC extends JeeslFileContainer<?,?>,
+										UP extends JeeslAomEventUpload<L,D,UP,?>>
 					extends AbstractAdminBean<L,D>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAomViewBean.class);
 	
-	private JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset;
+	private JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fAsset;
 	private JeeslGraphicFacade<L,D,S,G,GT,F,FS> fGraphic;
 	
-	private JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,ETYPE> bCache;
+	private JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,ETYPE,UP> bCache;
 	
 	private final SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg;
-	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset;
+	private final AomFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fbAsset;
 	
     private REALM realm;
     private RREF rref;
@@ -77,7 +79,7 @@ public abstract class AbstractAomViewBean <L extends JeeslLang, D extends JeeslD
  
     private ALEVEL level; public ALEVEL getLevel() {return level;} public void setLevel(ALEVEL level) {this.level = level;}
 
-	public AbstractAomViewBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset, SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg)
+	public AbstractAomViewBean(AomFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fbAsset, SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg)
 	{
 		super(fbAsset.getClassL(),fbAsset.getClassD());
 		this.fbAsset=fbAsset;
@@ -87,8 +89,8 @@ public abstract class AbstractAomViewBean <L extends JeeslLang, D extends JeeslD
 	}
 	
 	protected void postConstructAomView(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,ETYPE> bCache,
-									JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC> fAsset,
+									JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,ETYPE,UP> bCache,
+									JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fAsset,
 									JeeslGraphicFacade<L,D,S,G,GT,F,FS> fGraphic,
 									REALM realm)
 	{

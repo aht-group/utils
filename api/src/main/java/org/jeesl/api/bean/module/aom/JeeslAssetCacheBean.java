@@ -11,6 +11,7 @@ import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAssetType;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
+import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventUpload;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
@@ -24,7 +25,8 @@ public interface JeeslAssetCacheBean <L extends JeeslLang, D extends JeeslDescri
 										ASTATUS extends JeeslAomAssetStatus<L,D,ASTATUS,?>,
 										ATYPE extends JeeslAomAssetType<L,D,REALM,ATYPE,VIEW,?>,
 										VIEW extends JeeslAomView<L,D,REALM,?>,
-										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>>
+										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
+										UP extends JeeslAomEventUpload<L,D,UP,?>>
 								extends Serializable
 {
 //	Map<RREF,List<COMPANY>> cachedLevel();

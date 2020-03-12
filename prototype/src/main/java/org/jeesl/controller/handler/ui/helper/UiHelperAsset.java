@@ -16,6 +16,7 @@ import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventStatus;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
+import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventUpload;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
@@ -36,13 +37,14 @@ public class UiHelperAsset <L extends JeeslLang, D extends JeeslDescription,
 								ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
 								ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>,
 								USER extends JeeslSimpleUser,
-								FRC extends JeeslFileContainer<?,?>>
+								FRC extends JeeslFileContainer<?,?>,
+								UP extends JeeslAomEventUpload<L,D,UP,?>>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(UiHelperAsset.class);
 		
-	private JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,ETYPE> bCache; public void setCacheBean(JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,ETYPE> bCache) {this.bCache = bCache;}
+	private JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,ETYPE,UP> bCache; public void setCacheBean(JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,ETYPE,UP> bCache) {this.bCache = bCache;}
 	
 	private final List<COMPANY> companies; public List<COMPANY> getCompanies() {return companies;}
 	

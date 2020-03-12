@@ -3,7 +3,7 @@ package org.jeesl.factory.ejb.module.asset;
 import java.util.Date;
 
 import org.jeesl.controller.handler.NullNumberBinder;
-import org.jeesl.factory.builder.module.AssetFactoryBuilder;
+import org.jeesl.factory.builder.module.AomFactoryBuilder;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
@@ -25,9 +25,9 @@ public class EjbAssetEventFactory<COMPANY extends JeeslAomCompany<?,?>,
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbAssetEventFactory.class);
 	
-	private final AssetFactoryBuilder<?,?,?,COMPANY,?,ASSET,?,?,?,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset;
+	private final AomFactoryBuilder<?,?,?,COMPANY,?,ASSET,?,?,?,EVENT,ETYPE,ESTATUS,USER,FRC,?> fbAsset;
 	
-    public EjbAssetEventFactory(final AssetFactoryBuilder<?,?,?,COMPANY,?,ASSET,?,?,?,EVENT,ETYPE,ESTATUS,USER,FRC> fbAsset)
+    public EjbAssetEventFactory(final AomFactoryBuilder<?,?,?,COMPANY,?,ASSET,?,?,?,EVENT,ETYPE,ESTATUS,USER,FRC,?> fbAsset)
     {
         this.fbAsset = fbAsset;
     }
