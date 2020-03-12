@@ -296,8 +296,8 @@ public class JbossConfigurator
 	
 	private void pool(ModelNode request)
 	{
-		  request.get("min-pool-size").set(5);
-		  request.get("max-pool-size").set(20);
+		  request.get("min-pool-size").set(2);
+		  request.get("max-pool-size").set(5);
 		  request.get("pool-prefill").set(true);
 		  request.get("pool-use-strict-min").set(false);
 		  request.get("flush-strategy").set("FailingConnectionOnly");

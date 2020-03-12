@@ -58,8 +58,7 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 
 	private EjbCodeCache<SCOPE> cacheScope;
 	
-//	private final Map<RREF,List<ALEVEL>> mapLevel; @Override public Map<RREF,List<ALEVEL>> cachedLevel() {return mapLevel;}
-	
+	private final Map<String,UP> mapUpload; public Map<String,UP> getMapUpload() {return mapUpload;}
 	
 	private final Map<REALM,Map<RREF,List<ATYPE>>> mapAssetType1; @Override public Map<REALM,Map<RREF,List<ATYPE>>> getMapAssetType1() {return mapAssetType1;}
 	private final Map<REALM,Map<RREF,List<ATYPE>>> mapAssetType2; @Override public Map<REALM,Map<RREF,List<ATYPE>>> getMapAssetType2() {return mapAssetType2;}
@@ -69,7 +68,7 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 	private final Map<RREF,List<COMPANY>> mapVendor; @Override public Map<RREF,List<COMPANY>> getMapVendor() {return mapVendor;}
 	private final Map<RREF,List<COMPANY>> mapMaintainer; @Override public Map<RREF,List<COMPANY>> getMapMaintainer() {return mapMaintainer;}
 	
-	private final Map<String,UP> mapUpload; public Map<String, UP> getMapUpload() {return mapUpload;}
+
 
 	private final List<ASTATUS> assetStatus; public List<ASTATUS> getAssetStatus() {return assetStatus;}
     private final List<VIEW> assetLevel; public List<VIEW> getAssetLevel() {return assetLevel;}
@@ -104,6 +103,7 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 		if(eventStatus.isEmpty()) {eventStatus.addAll(fAsset.allOrderedPositionVisible(fbAsset.getClassEventStatus()));}
 		
 		mapUpload.putAll(EjbCodeFactory.toMapCode(fAsset.allOrderedPositionVisible(fbAsset.getClassUpload())));
+		logger.info(fbAsset.getClassUpload().getSimpleName()+" "+mapUpload.size());
 	}
 	
 	public void reloadRealm(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fAsset, REALM realm, RREF rref)
@@ -201,7 +201,6 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 		if(!Collections.replaceAll(mapCompany.get(rref),company,company)){mapCompany.get(rref).add(company);}
 		reloadCompanies(realm,rref);
 	}
-	
 	@Override public void update(REALM realm, RREF rref, VIEW view, ATYPE type)
 	{
 		if(!Collections.replaceAll(mapAssetType1.get(realm).get(rref),type,type)){mapAssetType1.get(realm).get(rref).add(type);}

@@ -201,9 +201,9 @@
 			</h:form>
 			<h:panelGroup id="pgFr" layout="block">
 				<jp:ioFrFiles handler="#{cc.attrs.bean.frh}" allowDelete="true" overlay="false" componentPrefix="#{cc.id}"
+								withCategory="true" mapCategory="#{cc.attrs.cache.mapUpload}"
 								rendered="#{(not empty cc.attrs.bean.event) and (cc.attrs.bean.event.id gt 0) and (not empty cc.attrs.bean.frh)}"/>
 			</h:panelGroup>
-			
 		</j:slot>
 	</j:row>
 </jp:grid>
