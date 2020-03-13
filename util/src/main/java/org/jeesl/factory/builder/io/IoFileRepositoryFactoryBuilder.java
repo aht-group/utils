@@ -43,6 +43,7 @@ public class IoFileRepositoryFactoryBuilder<L extends JeeslLang, D extends Jeesl
 	private final Class<CONTAINER> cContainer; public Class<CONTAINER> getClassContainer() {return cContainer;}
 	private final Class<META> cMeta; public Class<META> getClassMeta() {return cMeta;}
 	private final Class<TYPE> cType; public Class<TYPE> getClassType() {return cType;}
+	private final Class<REP> cReplication; public Class<REP> getClassReplication() {return cReplication;}
 	private final Class<STATUS> cStatus; public Class<STATUS> getClassStatus() {return cStatus;}
 	
 	public IoFileRepositoryFactoryBuilder(final Class<L> cL, final Class<D> cD,
@@ -50,7 +51,9 @@ public class IoFileRepositoryFactoryBuilder<L extends JeeslLang, D extends Jeesl
 								final Class<STYPE> cStorageType,
 								final Class<SENGINE> cEngine,
 								final Class<CONTAINER> cContainer, final Class<META> cMeta,
-								final Class<TYPE> cType, final Class<STATUS> cStatus)
+								final Class<TYPE> cType,
+								final Class<REP> cReplication,
+								final Class<STATUS> cStatus)
 	{
 		super(cL,cD);
 		this.cStorage=cStorage;
@@ -59,6 +62,7 @@ public class IoFileRepositoryFactoryBuilder<L extends JeeslLang, D extends Jeesl
 		this.cContainer=cContainer;
 		this.cMeta=cMeta;
 		this.cType=cType;
+		this.cReplication=cReplication;
 		this.cStatus=cStatus;
 	}
 	
