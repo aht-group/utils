@@ -11,7 +11,7 @@ import org.jeesl.api.facade.io.JeeslIoReportFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.system.ReportFactoryBuilder;
-import org.jeesl.factory.ejb.system.io.report.EjbIoReportStyleFactory;
+import org.jeesl.factory.ejb.io.report.EjbIoReportStyleFactory;
 import org.jeesl.interfaces.model.io.report.JeeslIoReport;
 import org.jeesl.interfaces.model.io.report.data.JeeslReportTemplate;
 import org.jeesl.interfaces.model.io.report.style.JeeslReportStyle;

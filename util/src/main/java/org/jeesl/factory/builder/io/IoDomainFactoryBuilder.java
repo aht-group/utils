@@ -1,11 +1,11 @@
 package org.jeesl.factory.builder.io;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
-import org.jeesl.factory.ejb.system.io.domain.EjbDomainItemFactory;
-import org.jeesl.factory.ejb.system.io.domain.EjbDomainSetFactory;
-import org.jeesl.factory.ejb.system.io.domain.EjbSurveyDomainFactory;
-import org.jeesl.factory.ejb.system.io.domain.EjbSurveyDomainPathFactory;
-import org.jeesl.factory.ejb.system.io.domain.EjbSurveyDomainQueryFactory;
+import org.jeesl.factory.ejb.io.domain.EjbDomainItemFactory;
+import org.jeesl.factory.ejb.io.domain.EjbDomainSetFactory;
+import org.jeesl.factory.ejb.io.domain.EjbSurveyDomainFactory;
+import org.jeesl.factory.ejb.io.domain.EjbSurveyDomainPathFactory;
+import org.jeesl.factory.ejb.io.domain.EjbSurveyDomainQueryFactory;
 import org.jeesl.interfaces.model.io.domain.JeeslDomain;
 import org.jeesl.interfaces.model.io.domain.JeeslDomainItem;
 import org.jeesl.interfaces.model.io.domain.JeeslDomainPath;

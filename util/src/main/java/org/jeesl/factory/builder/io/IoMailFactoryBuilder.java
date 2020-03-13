@@ -3,7 +3,7 @@ package org.jeesl.factory.builder.io;
 import org.jeesl.api.facade.io.JeeslIoMailFacade;
 import org.jeesl.controller.processor.system.io.mail.MailSplitter;
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
-import org.jeesl.factory.ejb.system.io.mail.EjbIoMailFactory;
+import org.jeesl.factory.ejb.io.mail.core.EjbIoMailFactory;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.io.mail.core.JeeslIoMail;
 import org.jeesl.interfaces.model.io.mail.core.JeeslMailRetention;

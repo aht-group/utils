@@ -1,8 +1,8 @@
 package org.jeesl.factory.builder.io;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
-import org.jeesl.factory.ejb.system.io.db.EjbDbDumpFileFactory;
-import org.jeesl.factory.ejb.system.io.db.EjbIoDumpFactory;
+import org.jeesl.factory.ejb.io.db.EjbDbDumpFileFactory;
+import org.jeesl.factory.ejb.io.db.EjbIoDumpFactory;
 import org.jeesl.interfaces.model.io.db.JeeslDbConnectionColumn;
 import org.jeesl.interfaces.model.io.db.JeeslDbDump;
 import org.jeesl.interfaces.model.io.db.JeeslDbDumpFile;

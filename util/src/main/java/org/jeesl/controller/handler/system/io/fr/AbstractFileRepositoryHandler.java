@@ -22,13 +22,14 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoFileRepositoryFactoryBuilder;
-import org.jeesl.factory.ejb.system.io.fr.EjbIoFrContainerFactory;
-import org.jeesl.factory.ejb.system.io.fr.EjbIoFrMetaFactory;
+import org.jeesl.factory.ejb.io.fr.EjbIoFrContainerFactory;
+import org.jeesl.factory.ejb.io.fr.EjbIoFrMetaFactory;
 import org.jeesl.factory.ejb.system.status.EjbDescriptionFactory;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.interfaces.controller.handler.system.io.JeeslFileRepositoryHandler;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.io.fr.JeeslFileMeta;
+import org.jeesl.interfaces.model.io.fr.JeeslFileReplication;
 import org.jeesl.interfaces.model.io.fr.JeeslFileStatus;
 import org.jeesl.interfaces.model.io.fr.JeeslFileStorage;
 import org.jeesl.interfaces.model.io.fr.JeeslFileStorageEngine;
@@ -54,6 +55,7 @@ public abstract class AbstractFileRepositoryHandler<L extends JeeslLang, D exten
 									CONTAINER extends JeeslFileContainer<STORAGE,META>,
 									META extends JeeslFileMeta<D,CONTAINER,TYPE,STATUS>,
 									TYPE extends JeeslFileType<L,D,TYPE,?>,
+									REP extends JeeslFileReplication<L,D,SYSTEM,STORAGE>,
 									STATUS extends JeeslFileStatus<L,D,STATUS,?>>
 					implements JeeslFileRepositoryHandler<STORAGE,CONTAINER,META>
 {
@@ -68,7 +70,7 @@ public abstract class AbstractFileRepositoryHandler<L extends JeeslLang, D exten
 	private Mode mode; public void setMode(Mode mode) {this.mode = mode;}
 	private ContainerInit containerInit; public void setContainerInit(ContainerInit containerInit) {this.containerInit = containerInit;}
 	protected final JeeslIoFrFacade<L,D,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE> fFr;
-	protected final IoFileRepositoryFactoryBuilder<L,D,LOC,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE,STATUS> fbFile;
+	protected final IoFileRepositoryFactoryBuilder<L,D,LOC,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE,REP,STATUS> fbFile;
 	protected final JeeslFileRepositoryCallback callback;
 	
 	private final JeeslFileTypeHandler<META,TYPE> fth;
@@ -100,7 +102,7 @@ public abstract class AbstractFileRepositoryHandler<L extends JeeslLang, D exten
 	private boolean allowChangeDescription; public boolean isAllowChangeDescription() {return allowChangeDescription;}
 	
 	public AbstractFileRepositoryHandler(JeeslIoFrFacade<L,D,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE> fFr,
-								IoFileRepositoryFactoryBuilder<L,D,LOC,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE,STATUS> fbFile,
+								IoFileRepositoryFactoryBuilder<L,D,LOC,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE,REP,STATUS> fbFile,
 								JeeslFileRepositoryCallback callback
 								)
 	{

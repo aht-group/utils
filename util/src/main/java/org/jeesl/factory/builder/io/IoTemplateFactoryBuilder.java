@@ -1,9 +1,9 @@
 package org.jeesl.factory.builder.io;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
-import org.jeesl.factory.ejb.system.io.template.EjbIoTemplateDefinitionFactory;
-import org.jeesl.factory.ejb.system.io.template.EjbIoTemplateFactory;
-import org.jeesl.factory.ejb.system.io.template.EjbIoTemplateTokenFactory;
+import org.jeesl.factory.ejb.io.mail.template.EjbIoTemplateDefinitionFactory;
+import org.jeesl.factory.ejb.io.mail.template.EjbIoTemplateFactory;
+import org.jeesl.factory.ejb.io.mail.template.EjbIoTemplateTokenFactory;
 import org.jeesl.factory.ftl.FtlIoTemplateTokenFactory;
 import org.jeesl.factory.txt.system.io.mail.template.TxtIoTemplateFactory;
 import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplate;

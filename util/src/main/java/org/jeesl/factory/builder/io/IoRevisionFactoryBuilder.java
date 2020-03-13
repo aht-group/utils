@@ -1,13 +1,13 @@
 package org.jeesl.factory.builder.io;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
-import org.jeesl.factory.ejb.system.io.revision.EjbRevisionAttributeFactory;
-import org.jeesl.factory.ejb.system.io.revision.EjbRevisionDiagramFactory;
-import org.jeesl.factory.ejb.system.io.revision.EjbRevisionEntityFactory;
-import org.jeesl.factory.ejb.system.io.revision.EjbRevisionMappingEntityFactory;
-import org.jeesl.factory.ejb.system.io.revision.EjbRevisionMappingViewFactory;
-import org.jeesl.factory.ejb.system.io.revision.EjbRevisionScopeFactory;
-import org.jeesl.factory.ejb.system.io.revision.EjbRevisionViewFactory;
+import org.jeesl.factory.ejb.io.revision.EjbRevisionAttributeFactory;
+import org.jeesl.factory.ejb.io.revision.EjbRevisionDiagramFactory;
+import org.jeesl.factory.ejb.io.revision.EjbRevisionEntityFactory;
+import org.jeesl.factory.ejb.io.revision.EjbRevisionMappingEntityFactory;
+import org.jeesl.factory.ejb.io.revision.EjbRevisionMappingViewFactory;
+import org.jeesl.factory.ejb.io.revision.EjbRevisionScopeFactory;
+import org.jeesl.factory.ejb.io.revision.EjbRevisionViewFactory;
 import org.jeesl.factory.xml.system.io.revision.XmlDiagramFactory;
 import org.jeesl.interfaces.model.io.revision.core.JeeslRevisionCategory;
 import org.jeesl.interfaces.model.io.revision.core.JeeslRevisionView;

@@ -1,9 +1,9 @@
 package org.jeesl.factory.builder.io;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
-import org.jeesl.factory.ejb.system.io.dashboard.EjbDashComponentFactory;
-import org.jeesl.factory.ejb.system.io.dashboard.EjbDashComponentPositionFactory;
-import org.jeesl.factory.ejb.system.io.dashboard.EjbDashboardFactory;
+import org.jeesl.factory.ejb.io.dashboard.EjbDashComponentFactory;
+import org.jeesl.factory.ejb.io.dashboard.EjbDashComponentPositionFactory;
+import org.jeesl.factory.ejb.io.dashboard.EjbDashboardFactory;
 import org.jeesl.interfaces.model.io.dash.JeeslIoDashComponent;
 import org.jeesl.interfaces.model.io.dash.JeeslIoDashComponentPosition;
 import org.jeesl.interfaces.model.io.dash.JeeslIoDashboard;

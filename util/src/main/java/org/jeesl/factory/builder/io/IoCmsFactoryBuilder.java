@@ -1,10 +1,10 @@
 package org.jeesl.factory.builder.io;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
-import org.jeesl.factory.ejb.system.io.cms.EjbIoCmsContentFactory;
-import org.jeesl.factory.ejb.system.io.cms.EjbIoCmsElementFactory;
-import org.jeesl.factory.ejb.system.io.cms.EjbIoCmsFactory;
-import org.jeesl.factory.ejb.system.io.cms.EjbIoCmsSectionFactory;
+import org.jeesl.factory.ejb.io.cms.EjbIoCmsContentFactory;
+import org.jeesl.factory.ejb.io.cms.EjbIoCmsElementFactory;
+import org.jeesl.factory.ejb.io.cms.EjbIoCmsFactory;
+import org.jeesl.factory.ejb.io.cms.EjbIoCmsSectionFactory;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCms;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsCategory;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsContent;

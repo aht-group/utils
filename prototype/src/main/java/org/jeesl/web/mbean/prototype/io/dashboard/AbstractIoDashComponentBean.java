@@ -11,7 +11,7 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoDashboardFactoryBuilder;
-import org.jeesl.factory.ejb.system.io.dashboard.EjbDashComponentFactory;
+import org.jeesl.factory.ejb.io.dashboard.EjbDashComponentFactory;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.io.dash.JeeslIoDashComponent;

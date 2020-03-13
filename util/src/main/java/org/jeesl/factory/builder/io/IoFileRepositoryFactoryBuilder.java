@@ -5,11 +5,12 @@ import org.jeesl.api.facade.io.JeeslIoFrFacade;
 import org.jeesl.controller.handler.system.io.fr.DefaultFileRepositoryHandler;
 import org.jeesl.controller.handler.system.io.fr.JeeslFileStatusHandler;
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
-import org.jeesl.factory.ejb.system.io.fr.EjbIoFrContainerFactory;
-import org.jeesl.factory.ejb.system.io.fr.EjbIoFrMetaFactory;
-import org.jeesl.factory.ejb.system.io.fr.EjbIoFrStorageFactory;
+import org.jeesl.factory.ejb.io.fr.EjbIoFrContainerFactory;
+import org.jeesl.factory.ejb.io.fr.EjbIoFrMetaFactory;
+import org.jeesl.factory.ejb.io.fr.EjbIoFrStorageFactory;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.io.fr.JeeslFileMeta;
+import org.jeesl.interfaces.model.io.fr.JeeslFileReplication;
 import org.jeesl.interfaces.model.io.fr.JeeslFileStatus;
 import org.jeesl.interfaces.model.io.fr.JeeslFileStorage;
 import org.jeesl.interfaces.model.io.fr.JeeslFileStorageEngine;
@@ -30,6 +31,7 @@ public class IoFileRepositoryFactoryBuilder<L extends JeeslLang, D extends Jeesl
 											CONTAINER extends JeeslFileContainer<STORAGE,META>,
 											META extends JeeslFileMeta<D,CONTAINER,TYPE,STATUS>,
 											TYPE extends JeeslFileType<L,D,TYPE,?>,
+											REP extends JeeslFileReplication<L,D,SYSTEM,STORAGE>,
 											STATUS extends JeeslFileStatus<L,D,STATUS,?>>
 				extends AbstractFactoryBuilder<L,D>
 {
@@ -64,7 +66,7 @@ public class IoFileRepositoryFactoryBuilder<L extends JeeslLang, D extends Jeesl
 	public EjbIoFrContainerFactory<STORAGE,CONTAINER> ejbContainer() {return new EjbIoFrContainerFactory<>(cContainer);}
 	public EjbIoFrMetaFactory<CONTAINER,META,TYPE> ejbMeta() {return new EjbIoFrMetaFactory<>(cMeta);}
 	
-	public DefaultFileRepositoryHandler<L,D,LOC,SYSTEM,STORAGE,STYPE,SENGINE,CONTAINER,META,TYPE,STATUS> handler(JeeslIoFrFacade<L,D,SYSTEM,STORAGE,STYPE,SENGINE,CONTAINER,META,TYPE> fFr, JeeslFileRepositoryCallback callback)
+	public DefaultFileRepositoryHandler<L,D,LOC,SYSTEM,STORAGE,STYPE,SENGINE,CONTAINER,META,TYPE,REP,STATUS> handler(JeeslIoFrFacade<L,D,SYSTEM,STORAGE,STYPE,SENGINE,CONTAINER,META,TYPE> fFr, JeeslFileRepositoryCallback callback)
 	{
 		return new DefaultFileRepositoryHandler<>(fFr,this,callback);
 	}

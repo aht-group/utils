@@ -30,4 +30,7 @@ public interface JeeslTimeSeries <SCOPE extends JeeslTsScope<?,?,?,?,?,?,INT>,
 	
 	BRIDGE getBridge();
 	void setBridge(BRIDGE bridge);
+	
+	TS getTsSrc();
+	void setTsSrc(TS tsSrc);
 }

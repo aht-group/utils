@@ -1,10 +1,10 @@
 package org.jeesl.factory.builder.io;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
-import org.jeesl.factory.ejb.system.io.dms.EjbIoDmsDocumentFactory;
-import org.jeesl.factory.ejb.system.io.dms.EjbIoDmsFactory;
-import org.jeesl.factory.ejb.system.io.dms.EjbIoDmsSectionFactory;
-import org.jeesl.factory.ejb.system.io.dms.EjbIoDmsViewFactory;
+import org.jeesl.factory.ejb.io.dms.EjbIoDmsDocumentFactory;
+import org.jeesl.factory.ejb.io.dms.EjbIoDmsFactory;
+import org.jeesl.factory.ejb.io.dms.EjbIoDmsSectionFactory;
+import org.jeesl.factory.ejb.io.dms.EjbIoDmsViewFactory;
 import org.jeesl.interfaces.model.io.dms.JeeslIoDms;
 import org.jeesl.interfaces.model.io.dms.JeeslIoDmsDocument;
 import org.jeesl.interfaces.model.io.dms.JeeslIoDmsLayer;

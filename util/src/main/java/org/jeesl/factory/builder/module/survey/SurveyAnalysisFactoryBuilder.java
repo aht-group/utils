@@ -1,12 +1,12 @@
 package org.jeesl.factory.builder.module.survey;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
+import org.jeesl.factory.ejb.io.domain.EjbSurveyDomainFactory;
+import org.jeesl.factory.ejb.io.domain.EjbSurveyDomainPathFactory;
+import org.jeesl.factory.ejb.io.domain.EjbSurveyDomainQueryFactory;
 import org.jeesl.factory.ejb.module.survey.EjbSurveyAnalysisFactory;
 import org.jeesl.factory.ejb.module.survey.EjbSurveyAnalysisQuestionFactory;
 import org.jeesl.factory.ejb.module.survey.EjbSurveyAnalysisToolFactory;
-import org.jeesl.factory.ejb.system.io.domain.EjbSurveyDomainFactory;
-import org.jeesl.factory.ejb.system.io.domain.EjbSurveyDomainPathFactory;
-import org.jeesl.factory.ejb.system.io.domain.EjbSurveyDomainQueryFactory;
 import org.jeesl.interfaces.model.io.domain.JeeslDomain;
 import org.jeesl.interfaces.model.io.domain.JeeslDomainPath;
 import org.jeesl.interfaces.model.io.domain.JeeslDomainQuery;
