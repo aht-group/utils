@@ -6,6 +6,7 @@ import org.jeesl.factory.builder.io.IoFileRepositoryFactoryBuilder;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.io.fr.JeeslFileMeta;
 import org.jeesl.interfaces.model.io.fr.JeeslFileReplication;
+import org.jeesl.interfaces.model.io.fr.JeeslFileReplicationType;
 import org.jeesl.interfaces.model.io.fr.JeeslFileStatus;
 import org.jeesl.interfaces.model.io.fr.JeeslFileStorage;
 import org.jeesl.interfaces.model.io.fr.JeeslFileStorageEngine;
@@ -26,15 +27,16 @@ public class DefaultFileRepositoryHandler<L extends JeeslLang, D extends JeeslDe
 									CONTAINER extends JeeslFileContainer<STORAGE,META>,
 									META extends JeeslFileMeta<D,CONTAINER,TYPE,STATUS>,
 									TYPE extends JeeslFileType<L,D,TYPE,?>,
-									REP extends JeeslFileReplication<L,D,SYSTEM,STORAGE>,
+									REP extends JeeslFileReplication<L,D,SYSTEM,STORAGE,RTYPE>,
+									RTYPE extends JeeslFileReplicationType<L,D,RTYPE,?>,
 									STATUS extends JeeslFileStatus<L,D,STATUS,?>>
-	extends AbstractFileRepositoryHandler<L,D,LOC,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE,REP,STATUS>
+	extends AbstractFileRepositoryHandler<L,D,LOC,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE,REP,RTYPE,STATUS>
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(DefaultFileRepositoryHandler.class);
 
 	public DefaultFileRepositoryHandler(JeeslIoFrFacade<L,D,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE> fFr,
-								IoFileRepositoryFactoryBuilder<L,D,LOC,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE,REP,STATUS> fbFile,
+								IoFileRepositoryFactoryBuilder<L,D,LOC,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE,REP,RTYPE,STATUS> fbFile,
 								JeeslFileRepositoryCallback callback)
 	{
 		super(fFr,fbFile,callback);

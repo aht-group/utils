@@ -21,5 +21,5 @@ public interface JeeslFileReplicationType <L extends JeeslLang, D extends JeeslD
 										JeeslOptionRestDownload,JeeslOptionRestDescription,
 										EjbWithCodeGraphic<G>,JeeslStatus<S,L,D>
 {	
-	public enum Code{cache}
+	public enum Code{manual,cron,cache}
 }

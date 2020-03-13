@@ -18,7 +18,7 @@ public class JeeslFileStatusHandler<META extends JeeslFileMeta<?,?,?,STATUS>,
 	private final EjbCodeCache<STATUS> cache;
 	
 	public JeeslFileStatusHandler(JeeslIoFrFacade<?,?,?,?,?,?,?,META,?> fFr,
-									IoFileRepositoryFactoryBuilder<?,?,?,?,?,?,?,?,META,?,?,STATUS> fbFile
+									IoFileRepositoryFactoryBuilder<?,?,?,?,?,?,?,?,META,?,?,?,STATUS> fbFile
 								)
 	{
 		this.fFr=fFr;

@@ -8,12 +8,15 @@ import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.system.status.JeeslWithType;
 
 public interface JeeslFileReplication<L extends JeeslLang,D extends JeeslDescription,
 										SYSTEM extends JeeslIoSsiSystem<L,D>,
-										STORAGE extends JeeslFileStorage<L,D,SYSTEM,?,?>>
+										STORAGE extends JeeslFileStorage<L,D,SYSTEM,?,?>,
+										RTYPE extends JeeslFileReplicationType<L,D,RTYPE,?>>
 		extends Serializable,EjbWithId,
-					EjbSaveable,EjbRemoveable
+					EjbSaveable,EjbRemoveable,
+					JeeslWithType<RTYPE>
 {
 	public enum Attributes{storageSrc}
 	
