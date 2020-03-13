@@ -124,9 +124,7 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 	
 	private void reloadAssetTypes1(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fAsset, REALM realm, RREF rref, boolean force)
 	{		
-		if(!mapAssetType1.containsKey(realm)) {mapAssetType1.put(realm,new HashMap<>());}	
-		if(!mapAssetType1.get(realm).containsKey(rref)) {mapAssetType1.get(realm).put(rref,new ArrayList<>());}
-
+		initMap(realm,rref,mapAssetType1);
 		if(force || mapAssetType1.get(realm).get(rref).isEmpty())
 		{
 			mapAssetType1.get(realm).get(rref).clear();
@@ -147,9 +145,7 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 	
 	private void reloadAssetTypes2(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fAsset, REALM realm, RREF rref, boolean force)
 	{		
-		if(!mapAssetType2.containsKey(realm)) {mapAssetType2.put(realm,new HashMap<>());}	
-		if(!mapAssetType2.get(realm).containsKey(rref)) {mapAssetType2.get(realm).put(rref,new ArrayList<>());}
-
+		initMap(realm,rref,mapAssetType2);
 		if(force || mapAssetType2.get(realm).get(rref).isEmpty())
 		{
 			mapAssetType2.get(realm).get(rref).clear();
@@ -172,6 +168,11 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 		}
 	}
 	
+	private void initMap(REALM realm, RREF rref, Map<REALM,Map<RREF,List<ATYPE>>> map)
+	{
+		if(!map.containsKey(realm)) {map.put(realm,new HashMap<>());}	
+		if(!map.get(realm).containsKey(rref)) {map.get(realm).put(rref,new ArrayList<>());}
+	}
 	
 	private void reloadCompanies(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fAsset, REALM realm, RREF rref)
 	{
@@ -207,12 +208,34 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 	}
 	@Override public void update(REALM realm, RREF rref, VIEW view, ATYPE type)
 	{
-		if(!Collections.replaceAll(mapAssetType1.get(realm).get(rref),type,type)){mapAssetType1.get(realm).get(rref).add(type);}
+		if(view.getTree().equals(JeeslAomView.Tree.hierarchy.toString()))
+		{
+			initMap(realm,rref,mapAssetType1);
+			if(!Collections.replaceAll(mapAssetType1.get(realm).get(rref),type,type)){mapAssetType1.get(realm).get(rref).add(type);}
+		}
+		else if(view.getTree().equals(JeeslAomView.Tree.type2.toString()))
+		{
+			initMap(realm,rref,mapAssetType2);
+			if(!Collections.replaceAll(mapAssetType2.get(realm).get(rref),type,type)){mapAssetType2.get(realm).get(rref).add(type);}
+		}
+		else
+		{
+			logger.warn("NYI !!");
+		}
 	}
 	@Override public void delete(REALM realm, RREF rref, VIEW view, ATYPE type)
 	{
-//		if(view.getTree()realm.equals(obj))
-		
-		if(mapAssetType1.get(realm).get(rref).contains(type)){mapAssetType1.get(realm).get(rref).remove(type);}
+		if(view.getTree().equals(JeeslAomView.Tree.hierarchy.toString()))
+		{
+			if(mapAssetType1.get(realm).get(rref).contains(type)){mapAssetType1.get(realm).get(rref).remove(type);}
+		}
+		else if(view.getTree().equals(JeeslAomView.Tree.type2.toString()))
+		{
+			if(mapAssetType2.get(realm).get(rref).contains(type)){mapAssetType2.get(realm).get(rref).remove(type);}
+		}
+		else
+		{
+			logger.warn("NYI !!");
+		}
 	}
 }
