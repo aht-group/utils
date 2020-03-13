@@ -103,8 +103,7 @@ public abstract class AbstractFileRepositoryHandler<L extends JeeslLang, D exten
 	
 	public AbstractFileRepositoryHandler(JeeslIoFrFacade<L,D,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE> fFr,
 								IoFileRepositoryFactoryBuilder<L,D,LOC,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE,REP,STATUS> fbFile,
-								JeeslFileRepositoryCallback callback
-								)
+								JeeslFileRepositoryCallback callback)
 	{
 		this.fFr=fFr;
 		this.fbFile=fbFile;
