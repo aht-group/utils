@@ -211,6 +211,8 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 	}
 	@Override public void delete(REALM realm, RREF rref, VIEW view, ATYPE type)
 	{
+//		if(view.getTree()realm.equals(obj))
+		
 		if(mapAssetType1.get(realm).get(rref).contains(type)){mapAssetType1.get(realm).get(rref).remove(type);}
 	}
 }

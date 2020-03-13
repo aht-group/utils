@@ -120,8 +120,8 @@ public abstract class AbstractAomViewBean <L extends JeeslLang, D extends JeeslD
 	
 	public void selectLevel()
 	{
-		efLang.persistMissingLangs(fAsset, bTranslation.getLocales(),level);
-		efDescription.persistMissingLangs(fAsset, bTranslation.getLocales(),level);
+		level = efLang.persistMissingLangs(fAsset, bTranslation.getLocales(),level);
+		level = efDescription.persistMissingLangs(fAsset, bTranslation.getLocales(),level);
 	}
 	
 	public void addLevel()
