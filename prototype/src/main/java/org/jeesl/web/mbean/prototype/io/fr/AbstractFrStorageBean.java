@@ -16,6 +16,7 @@ import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.controller.report.JeeslComparatorProvider;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.io.fr.JeeslFileMeta;
+import org.jeesl.interfaces.model.io.fr.JeeslFileReplication;
 import org.jeesl.interfaces.model.io.fr.JeeslFileStatus;
 import org.jeesl.interfaces.model.io.fr.JeeslFileStorage;
 import org.jeesl.interfaces.model.io.fr.JeeslFileStorageEngine;
@@ -40,6 +41,7 @@ public class AbstractFrStorageBean <L extends JeeslLang, D extends JeeslDescript
 									CONTAINER extends JeeslFileContainer<STORAGE,META>,
 									META extends JeeslFileMeta<D,CONTAINER,FTYPE,STATUS>,
 									FTYPE extends JeeslFileType<L,D,FTYPE,?>,
+									REP extends JeeslFileReplication<L,D,SYSTEM,STORAGE>,
 									STATUS extends JeeslFileStatus<L,D,STATUS,?>>
 						extends AbstractAdminBean<L,D>
 						implements SbToggleBean

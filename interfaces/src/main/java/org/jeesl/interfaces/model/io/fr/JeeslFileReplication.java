@@ -1,0 +1,25 @@
+package org.jeesl.interfaces.model.io.fr;
+
+import java.io.Serializable;
+
+import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+
+public interface JeeslFileReplication<L extends JeeslLang,D extends JeeslDescription,
+										SYSTEM extends JeeslIoSsiSystem<L,D>,
+										STORAGE extends JeeslFileStorage<L,D,SYSTEM,?,?>>
+		extends Serializable,EjbWithId,
+					EjbSaveable,EjbRemoveable
+{
+	public enum Attributes{storageSrc}
+	
+	STORAGE getStorageSrc();
+	void setStorageSrc(STORAGE storageSrc);
+	
+	STORAGE getStorageDst();
+	void setStorageDst(STORAGE storageDst);
+}

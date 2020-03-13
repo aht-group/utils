@@ -21,5 +21,5 @@ public interface JeeslFileStorageType <L extends JeeslLang, D extends JeeslDescr
 										JeeslOptionRestDownload,JeeslOptionRestDescription,
 										EjbWithCodeGraphic<G>,JeeslStatus<S,L,D>
 {	
-	public enum Code{primary,replica,target}
+	public enum Code{primary,replica,cache}
 }
