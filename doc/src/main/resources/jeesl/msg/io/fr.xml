@@ -113,4 +113,32 @@
     	</s:langs>
     </s:translation>
     
+    <s:translation key="jeeslIoFileReplications">
+    	<s:langs>
+    		<s:lang key="de" translation="Replizierungen"/>
+    		<s:lang key="en" translation="Replications"/>
+    		<s:lang key="fr" translation="Replications"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslIoFileReplication">
+    	<s:langs>
+    		<s:lang key="de" translation="Replizierung"/>
+    		<s:lang key="en" translation="Replication"/>
+    		<s:lang key="fr" translation="Replication"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslIoFileStorageSrc">
+    	<s:langs>
+    		<s:lang key="de" translation="Quelle"/>
+    		<s:lang key="en" translation="Source"/>
+    		<s:lang key="fr" translation="Source"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslIoFileStorageDst">
+    	<s:langs>
+    		<s:lang key="de" translation="Ziel"/>
+    		<s:lang key="en" translation="Destination"/>
+    		<s:lang key="fr" translation="Destination"/>
+    	</s:langs>
+    </s:translation>        
 </s:translations>

@@ -51,21 +51,21 @@ public class JeeslIoFrFacadeBean<L extends JeeslLang, D extends JeeslDescription
 									STYPE extends JeeslFileStorageType<L,D,STYPE,?>,
 									ENGINE extends JeeslFileStorageEngine<L,D,ENGINE,?>,
 									CONTAINER extends JeeslFileContainer<STORAGE,META>,
-									META extends JeeslFileMeta<D,CONTAINER,TYPE,STATUS>,
+									META extends JeeslFileMeta<D,CONTAINER,TYPE,RSTATUS>,
 									TYPE extends JeeslFileType<L,D,TYPE,?>,
-									REP extends JeeslFileReplication<L,D,SYSTEM,STORAGE,RTYPE>,
+									REPLICATION extends JeeslFileReplication<L,D,SYSTEM,STORAGE,RTYPE>,
 									RTYPE extends JeeslFileReplicationType<L,D,RTYPE,?>,
-									STATUS extends JeeslFileStatus<L,D,STATUS,?>>
+									RSTATUS extends JeeslFileStatus<L,D,RSTATUS,?>>
 					extends JeeslFacadeBean
-					implements JeeslIoFrFacade<L,D,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE>
+					implements JeeslIoFrFacade<L,D,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE,REPLICATION,RTYPE,RSTATUS>
 {	
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(JeeslIoFrFacadeBean.class);
 
-	private final IoFileRepositoryFactoryBuilder<L,D,LOC,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE,REP,RTYPE,STATUS> fbFile;
+	private final IoFileRepositoryFactoryBuilder<L,D,LOC,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE,REPLICATION,RTYPE,RSTATUS> fbFile;
 	private final Map<STORAGE,JeeslFileRepositoryStore<META>> mapStorages;
 	
-	public JeeslIoFrFacadeBean(EntityManager em, IoFileRepositoryFactoryBuilder<L,D,LOC,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE,REP,RTYPE,STATUS> fbFile)
+	public JeeslIoFrFacadeBean(EntityManager em, IoFileRepositoryFactoryBuilder<L,D,LOC,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE,REPLICATION,RTYPE,RSTATUS> fbFile)
 	{
 		super(em);
 		this.fbFile=fbFile;

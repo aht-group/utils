@@ -7,6 +7,9 @@ import org.jeesl.interfaces.controller.handler.system.io.JeeslFileRepositoryStor
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.io.fr.JeeslFileMeta;
+import org.jeesl.interfaces.model.io.fr.JeeslFileReplication;
+import org.jeesl.interfaces.model.io.fr.JeeslFileReplicationType;
+import org.jeesl.interfaces.model.io.fr.JeeslFileStatus;
 import org.jeesl.interfaces.model.io.fr.JeeslFileStorage;
 import org.jeesl.interfaces.model.io.fr.JeeslFileStorageEngine;
 import org.jeesl.interfaces.model.io.fr.JeeslFileStorageType;
@@ -23,11 +26,15 @@ public interface JeeslIoFrFacade <L extends JeeslLang, D extends JeeslDescriptio
 								STYPE extends JeeslFileStorageType<L,D,STYPE,?>,
 								ENGINE extends JeeslFileStorageEngine<L,D,ENGINE,?>,
 								CONTAINER extends JeeslFileContainer<STORAGE,META>,
-								META extends JeeslFileMeta<D,CONTAINER,TYPE,?>,
-								TYPE extends JeeslFileType<L,D,TYPE,?>>
+								META extends JeeslFileMeta<D,CONTAINER,FTYPE,?>,
+								FTYPE extends JeeslFileType<L,D,FTYPE,?>,
+								REPLICATION extends JeeslFileReplication<L,D,SYSTEM,STORAGE,RTYPE>,
+								RTYPE extends JeeslFileReplicationType<L,D,RTYPE,?>,
+								RSTATUS extends JeeslFileStatus<L,D,RSTATUS,?>>
 		extends JeeslFacade,JeeslFileRepositoryStore<META>
 {
 	CONTAINER moveContainer(CONTAINER container, STORAGE destination) throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException;
 	Json1Tuples<STORAGE> tpsIoFileByStorage();
-	Json2Tuples<STORAGE,TYPE> tpcIoFileByStorageType();
+	Json2Tuples<STORAGE,FTYPE> tpcIoFileByStorageType();
+//	Json2Tuples<STORAGE,TYPE> tpcIoFrReplicationInfoByReplicationStatus();
 }

@@ -31,11 +31,11 @@ public class IoFileRepositoryFactoryBuilder<L extends JeeslLang, D extends Jeesl
 											STYPE extends JeeslFileStorageType<L,D,STYPE,?>,
 											SENGINE extends JeeslFileStorageEngine<L,D,SENGINE,?>,
 											CONTAINER extends JeeslFileContainer<STORAGE,META>,
-											META extends JeeslFileMeta<D,CONTAINER,TYPE,STATUS>,
+											META extends JeeslFileMeta<D,CONTAINER,TYPE,RSTATUS>,
 											TYPE extends JeeslFileType<L,D,TYPE,?>,
 											REPLICATION extends JeeslFileReplication<L,D,SYSTEM,STORAGE,RTYPE>,
 											RTYPE extends JeeslFileReplicationType<L,D,RTYPE,?>,
-											STATUS extends JeeslFileStatus<L,D,STATUS,?>>
+											RSTATUS extends JeeslFileStatus<L,D,RSTATUS,?>>
 				extends AbstractFactoryBuilder<L,D>
 {
 	final static Logger logger = LoggerFactory.getLogger(IoFileRepositoryFactoryBuilder.class);
@@ -48,7 +48,7 @@ public class IoFileRepositoryFactoryBuilder<L extends JeeslLang, D extends Jeesl
 	private final Class<TYPE> cType; public Class<TYPE> getClassType() {return cType;}
 	private final Class<REPLICATION> cReplication; public Class<REPLICATION> getClassReplication() {return cReplication;}
 	private final Class<RTYPE> cRtype; public Class<RTYPE> getClassReplicationType() {return cRtype;}
-	private final Class<STATUS> cStatus; public Class<STATUS> getClassStatus() {return cStatus;}
+	private final Class<RSTATUS> cStatus; public Class<RSTATUS> getClassStatus() {return cStatus;}
 	
 	public IoFileRepositoryFactoryBuilder(final Class<L> cL, final Class<D> cD,
 								final Class<STORAGE> cStorage,
@@ -58,7 +58,7 @@ public class IoFileRepositoryFactoryBuilder<L extends JeeslLang, D extends Jeesl
 								final Class<TYPE> cType,
 								final Class<REPLICATION> cReplication,
 								final Class<RTYPE> cRtype,
-								final Class<STATUS> cStatus)
+								final Class<RSTATUS> cStatus)
 	{
 		super(cL,cD);
 		this.cStorage=cStorage;
@@ -77,10 +77,10 @@ public class IoFileRepositoryFactoryBuilder<L extends JeeslLang, D extends Jeesl
 	public EjbIoFrMetaFactory<CONTAINER,META,TYPE> ejbMeta() {return new EjbIoFrMetaFactory<>(cMeta);}
 	public EjbIoFrReplicationFactory<REPLICATION,RTYPE> ejbReplication() {return new EjbIoFrReplicationFactory<>(this);}
 	
-	public DefaultFileRepositoryHandler<L,D,LOC,SYSTEM,STORAGE,STYPE,SENGINE,CONTAINER,META,TYPE,REPLICATION,RTYPE,STATUS> handler(JeeslIoFrFacade<L,D,SYSTEM,STORAGE,STYPE,SENGINE,CONTAINER,META,TYPE> fFr, JeeslFileRepositoryCallback callback)
+	public DefaultFileRepositoryHandler<L,D,LOC,SYSTEM,STORAGE,STYPE,SENGINE,CONTAINER,META,TYPE,REPLICATION,RTYPE,RSTATUS> handler(JeeslIoFrFacade<L,D,SYSTEM,STORAGE,STYPE,SENGINE,CONTAINER,META,TYPE,REPLICATION,RTYPE,RSTATUS> fFr, JeeslFileRepositoryCallback callback)
 	{
 		return new DefaultFileRepositoryHandler<>(fFr,this,callback);
 	}
 	
-	public JeeslFileStatusHandler<META,STATUS> handlerStatus(JeeslIoFrFacade<L,D,SYSTEM,STORAGE,STYPE,SENGINE,CONTAINER,META,TYPE> fFr){return new JeeslFileStatusHandler<META,STATUS>(fFr,this);}
+	public JeeslFileStatusHandler<META,RSTATUS> handlerStatus(JeeslIoFrFacade<L,D,SYSTEM,STORAGE,STYPE,SENGINE,CONTAINER,META,TYPE,REPLICATION,RTYPE,RSTATUS> fFr){return new JeeslFileStatusHandler<META,RSTATUS>(fFr,this);}
 }

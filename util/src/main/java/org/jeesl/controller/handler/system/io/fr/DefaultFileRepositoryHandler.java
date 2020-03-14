@@ -25,18 +25,18 @@ public class DefaultFileRepositoryHandler<L extends JeeslLang, D extends JeeslDe
 									STYPE extends JeeslFileStorageType<L,D,STYPE,?>,
 									ENGINE extends JeeslFileStorageEngine<L,D,ENGINE,?>,
 									CONTAINER extends JeeslFileContainer<STORAGE,META>,
-									META extends JeeslFileMeta<D,CONTAINER,TYPE,STATUS>,
+									META extends JeeslFileMeta<D,CONTAINER,TYPE,RSTATUS>,
 									TYPE extends JeeslFileType<L,D,TYPE,?>,
-									REP extends JeeslFileReplication<L,D,SYSTEM,STORAGE,RTYPE>,
+									REPLICATION extends JeeslFileReplication<L,D,SYSTEM,STORAGE,RTYPE>,
 									RTYPE extends JeeslFileReplicationType<L,D,RTYPE,?>,
-									STATUS extends JeeslFileStatus<L,D,STATUS,?>>
-	extends AbstractFileRepositoryHandler<L,D,LOC,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE,REP,RTYPE,STATUS>
+									RSTATUS extends JeeslFileStatus<L,D,RSTATUS,?>>
+	extends AbstractFileRepositoryHandler<L,D,LOC,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE,REPLICATION,RTYPE,RSTATUS>
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(DefaultFileRepositoryHandler.class);
 
-	public DefaultFileRepositoryHandler(JeeslIoFrFacade<L,D,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE> fFr,
-								IoFileRepositoryFactoryBuilder<L,D,LOC,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE,REP,RTYPE,STATUS> fbFile,
+	public DefaultFileRepositoryHandler(JeeslIoFrFacade<L,D,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE,REPLICATION,RTYPE,RSTATUS> fFr,
+								IoFileRepositoryFactoryBuilder<L,D,LOC,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,TYPE,REPLICATION,RTYPE,RSTATUS> fbFile,
 								JeeslFileRepositoryCallback callback)
 	{
 		super(fFr,fbFile,callback);

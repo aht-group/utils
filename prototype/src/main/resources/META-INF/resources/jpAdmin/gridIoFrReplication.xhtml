@@ -31,16 +31,19 @@
 								</j:dtHeader>
 							</f:facet>
 							<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectReplication()}" update=":#{cc.id}:sReplication"/>
-					      	
-					     	<p:column headerText="#{msg.jeeslName}">  
-					     		
-								<h:outputText value="#{r.id}"/>
-					     	</p:column>
-					     	<p:column headerText="#{msg.jeeslName}">  
-					     		
+					      	<p:column headerText="#{msg.jeeslType}" styleClass="jeeslCenter">  
 								<jtp:symbolizer value="#{r.type}"/>
 					     	</p:column>
-					     	
+					     	<p:column headerText="#{msg.jeeslIoFileStorageSrc}">
+					     		<jtp:symbolizer value="#{r.storageSrc.engine}" marginRight="5"/>
+								<jtp:symbolizer value="#{r.storageSrc.type}" marginRight="5"/>
+								<h:outputText value="#{r.storageSrc.name[localeCode].lang}"/>
+					     	</p:column>
+					     	<p:column headerText="#{msg.jeeslIoFileStorageDst}">
+					     		<jtp:symbolizer value="#{r.storageDst.engine}" marginRight="5"/>
+								<jtp:symbolizer value="#{r.storageDst.type}" marginRight="5"/>
+								<h:outputText value="#{r.storageDst.name[localeCode].lang}"/>
+					     	</p:column>  	
 					   	</p:dataTable>
 					</h:form>
 				</j:slot>
@@ -57,15 +60,15 @@
 								
 								<p:outputLabel value="#{msg.jeeslIoFileStorageSrc}" />
 								<p:selectOneMenu value="#{cc.attrs.bean.replication.storageSrc}" effect="fade" autoWidth="false">
-									<f:selectItems value="#{cc.attrs.bean.storages}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s}"/>
+									<f:selectItems value="#{cc.attrs.bean.srcStorages}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s}"/>
 								</p:selectOneMenu>
 								
 								<p:outputLabel value="#{msg.jeeslIoFileStorageDst}" />
 								<p:selectOneMenu value="#{cc.attrs.bean.replication.storageDst}" effect="fade" autoWidth="false">
-									<f:selectItems value="#{cc.attrs.bean.storages}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s}"/>
+									<f:selectItems value="#{cc.attrs.bean.dstStorages}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s}"/>
 								</p:selectOneMenu>
 								
-								<p:outputLabel value="#{msg.jeeslIoFileReplicationType}" />
+								<p:outputLabel value="#{msg.jeeslType}" />
 								<p:selectOneMenu value="#{cc.attrs.bean.replication.type}" effect="fade" autoWidth="false">
 									<f:selectItems value="#{cc.attrs.bean.types}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t}"/>
 								</p:selectOneMenu>

@@ -7,6 +7,7 @@ import java.util.List;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoFrFacade;
+import org.jeesl.controller.handler.tuple.JsonTuple2Handler;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.io.IoFileRepositoryFactoryBuilder;
@@ -24,6 +25,7 @@ import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.util.db.cache.EjbCodeCache;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,10 +49,13 @@ public class AbstractFrReplicationBean <L extends JeeslLang, D extends JeeslDesc
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractFrReplicationBean.class);
 	
-	private JeeslIoFrFacade<L,D,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,FTYPE> fFr;
+	private JeeslIoFrFacade<L,D,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,FTYPE,REPLICATION,RTYPE,RSTATUS> fFr;
 	private final IoFileRepositoryFactoryBuilder<L,D,LOC,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,FTYPE,REPLICATION,RTYPE,RSTATUS> fbFr;
-		
-	private final List<STORAGE> storages; public List<STORAGE> getStorages() {return storages;}
+	
+	private final JsonTuple2Handler<REPLICATION,RSTATUS> thCount; public JsonTuple2Handler<REPLICATION,RSTATUS> getThCount() {return thCount;}
+	
+	private final List<STORAGE> srcStorages; public List<STORAGE> getSrcStorages() {return srcStorages;}
+	private final List<STORAGE> dstStorages; public List<STORAGE> getDstStorages() {return dstStorages;}
 	private final List<RTYPE> types; public List<RTYPE> getTypes() {return types;}
 	private final List<REPLICATION> replications; public List<REPLICATION> getReplications() {return replications;}
 	
@@ -62,20 +67,45 @@ public class AbstractFrReplicationBean <L extends JeeslLang, D extends JeeslDesc
 		super(fbFr.getClassL(),fbFr.getClassD());
 		this.fbFr=fbFr;
 		
-		storages = new ArrayList<>();
+		thCount = new JsonTuple2Handler<REPLICATION,RSTATUS>(fbFr.getClassReplication(),fbFr.getClassStatus());
+//		thCount.setComparatorProviderB(jcpB);
+		
+		srcStorages = new ArrayList<>();
+		dstStorages = new ArrayList<>();
 		types = new ArrayList<>();
 		replications = new ArrayList<>();
 	}
 	
 	protected void postConstructFrReplication(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-											JeeslIoFrFacade<L,D,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,FTYPE> fFr)
+											JeeslIoFrFacade<L,D,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,FTYPE,REPLICATION,RTYPE,RSTATUS> fFr)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fFr=fFr;
 		
 		types.addAll(fFr.allOrderedPosition(fbFr.getClassReplicationType()));
-		storages.addAll(fFr.allOrderedPosition(fbFr.getClassStorage()));
+		reloadStorages();
 		reloadReplications();
+	}
+	
+	private void reloadStorages()
+	{
+		EjbCodeCache<STYPE> cacheType = new EjbCodeCache<>(fFr,fbFr.getClassStorageType());
+		for(STORAGE s : fFr.allOrderedPosition(fbFr.getClassStorage()))
+		{
+			if(s.getType().equals(cacheType.ejb(JeeslFileStorageType.Code.primary)))
+			{
+				srcStorages.add(s);
+			}
+			else if(s.getType().equals(cacheType.ejb(JeeslFileStorageType.Code.replica)))
+			{
+				srcStorages.add(s);
+				dstStorages.add(s);
+			}
+			else if(s.getType().equals(cacheType.ejb(JeeslFileStorageType.Code.cache)))
+			{
+				dstStorages.add(s);
+			}
+		}
 	}
 	
 	public void resetReplication() {reset(true);}

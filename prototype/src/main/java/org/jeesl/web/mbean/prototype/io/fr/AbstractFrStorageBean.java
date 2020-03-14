@@ -42,7 +42,7 @@ public class AbstractFrStorageBean <L extends JeeslLang, D extends JeeslDescript
 									CONTAINER extends JeeslFileContainer<STORAGE,META>,
 									META extends JeeslFileMeta<D,CONTAINER,FTYPE,RSTATUS>,
 									FTYPE extends JeeslFileType<L,D,FTYPE,?>,
-									REP extends JeeslFileReplication<L,D,SYSTEM,STORAGE,RTYPE>,
+									REPLICATION extends JeeslFileReplication<L,D,SYSTEM,STORAGE,RTYPE>,
 									RTYPE extends JeeslFileReplicationType<L,D,RTYPE,?>,
 									RSTATUS extends JeeslFileStatus<L,D,RSTATUS,?>>
 						extends AbstractAdminBean<L,D>
@@ -51,8 +51,8 @@ public class AbstractFrStorageBean <L extends JeeslLang, D extends JeeslDescript
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractFrStorageBean.class);
 	
-	private JeeslIoFrFacade<L,D,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,FTYPE> fFr;
-	private final IoFileRepositoryFactoryBuilder<L,D,LOC,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,FTYPE,REP,RTYPE,RSTATUS> fbFr;
+	private JeeslIoFrFacade<L,D,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,FTYPE,REPLICATION,RTYPE,RSTATUS> fFr;
+	private final IoFileRepositoryFactoryBuilder<L,D,LOC,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,FTYPE,REPLICATION,RTYPE,RSTATUS> fbFr;
 	
 	protected final SbMultiHandler<STYPE> sbhStorageType; public SbMultiHandler<STYPE> getSbhStorageType() {return sbhStorageType;}
 	private final JsonTuple1Handler<STORAGE> thSize; public JsonTuple1Handler<STORAGE> getThSize() {return thSize;}
@@ -66,7 +66,7 @@ public class AbstractFrStorageBean <L extends JeeslLang, D extends JeeslDescript
 	private STORAGE storage; public STORAGE getStorage() {return storage;} public void setStorage(STORAGE storage) {this.storage = storage;}
 	private FTYPE typeUnknown;public FTYPE getTypeUnknown() {return typeUnknown;}
 
-	protected AbstractFrStorageBean(IoFileRepositoryFactoryBuilder<L,D,LOC,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,FTYPE,REP,RTYPE,RSTATUS> fbFr,
+	protected AbstractFrStorageBean(IoFileRepositoryFactoryBuilder<L,D,LOC,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,FTYPE,REPLICATION,RTYPE,RSTATUS> fbFr,
 									JeeslComparatorProvider<FTYPE> jcpB)
 	{
 		super(fbFr.getClassL(),fbFr.getClassD());
@@ -78,7 +78,7 @@ public class AbstractFrStorageBean <L extends JeeslLang, D extends JeeslDescript
 	}
 	
 	protected void postConstructFrStorage(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-											JeeslIoFrFacade<L,D,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,FTYPE> fFr)
+											JeeslIoFrFacade<L,D,SYSTEM,STORAGE,STYPE,ENGINE,CONTAINER,META,FTYPE,REPLICATION,RTYPE,RSTATUS> fFr)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fFr=fFr;
