@@ -36,6 +36,7 @@ import org.jeesl.interfaces.model.with.parent.EjbWithParent;
 import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
+import org.jeesl.interfaces.model.with.primitive.text.EjbWithSymbol;
 import org.jeesl.interfaces.model.with.system.graphic.EjbWithGraphic;
 import org.jeesl.interfaces.model.with.system.graphic.EjbWithGraphicFigure;
 import org.jeesl.interfaces.model.with.system.graphic.EjbWithImage;
@@ -144,8 +145,6 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 		if(rEntity) {entity=null;}
 	}
 	
-
-	
 	protected void updateUiForCategory()
 	{
 		supportsGraphic = EjbWithGraphic.class.isAssignableFrom(cl);
@@ -172,7 +171,7 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 		{
 			try
 			{
-				String fqcn = ((EjbWithImage)p).getImage();
+				String fqcn = ((EjbWithSymbol)p).getSymbol();
 				RE e = fUtils.fByCode(fbRevision.getClassEntity(),fqcn);
 				mapEntity.put(p,e);
 			}
@@ -186,20 +185,18 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 	}
 	
 	public void selectCategory() throws ClassNotFoundException{selectCategory(true);}
-	@SuppressWarnings("unchecked")
 	public void selectCategory(boolean reset) throws ClassNotFoundException
 	{
 		reset(true);
 		if(category==null) {logger.error("selectCategory, but category is NULL");}
+		String fqcn = ((EjbWithSymbol)category).getSymbol();
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("selectCategory");
-		sb.append(" ").append(((EjbWithCode)category).getCode());
-		sb.append(" (").append(((EjbWithImageAlt)category).getImageAlt()).append(")");
-		sb.append(" allowAdditionalElements:").append(allowAdditionalElements.get(((EjbWithId)category).getId()));
+		sb.append("selectCategory ");
+		sb.append(fqcn);
 		logger.info(sb.toString());
 		
-		cl = Class.forName(((EjbWithImage)category).getImage());
+		cl = Class.forName(fqcn);
 		updateUiForCategory();
 		
 		try {entity = fUtils.fByCode(fbRevision.getClassEntity(), cl.getName());}
