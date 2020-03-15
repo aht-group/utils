@@ -68,7 +68,7 @@ public abstract class AbstractDmsBean <L extends JeeslLang,D extends JeeslDescri
 		efFile = fbDms.ejbFile();
 	}
 	
-	protected void initDms(JeeslTranslationBean bTranslation, JeeslFacesMessageBean bMessage,JeeslIoDmsFacade<L,D,LOC,DMS,STORAGE,AS,DS,SECTION,F,VIEW,FC,AC> fDms)
+	protected void initDms(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,JeeslIoDmsFacade<L,D,LOC,DMS,STORAGE,AS,DS,SECTION,F,VIEW,FC,AC> fDms)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fDms=fDms;

@@ -9,11 +9,7 @@ import org.jeesl.interfaces.model.system.mcs.JeeslWithMultiClientSupport;
 public interface JeeslAomStaff <REALM extends JeeslMcsRealm<?,?,REALM,?>,
 								COMPANY extends JeeslAomCompany<REALM,?>>
 		extends Serializable,EjbSaveable,
-							JeeslWithMultiClientSupport
+							JeeslWithMultiClientSupport<REALM>
 {
-	public enum Attributes{realm,realmIdentifier,scopes}
-	
-	REALM getRealm();
-	void setRealm(REALM realm);
-	
+	public enum Attributes{realm,realmIdentifier,scopes}	
 }

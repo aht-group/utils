@@ -1,7 +1,10 @@
 package org.jeesl.interfaces.model.system.mcs;
 
-public interface JeeslWithMultiClientSupport
+public interface JeeslWithMultiClientSupport<REALM extends JeeslMcsRealm<?,?,REALM,?>>
 {	
+	REALM getRealm();
+	void setRealm(REALM realm);
+	
 	long getRref();
-	void setRrRef(long rref);
+	void setRref(long rref);
 }

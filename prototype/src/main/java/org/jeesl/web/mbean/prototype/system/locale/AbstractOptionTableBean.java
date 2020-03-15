@@ -1,4 +1,4 @@
-package org.jeesl.web.mbean.prototype.system;
+package org.jeesl.web.mbean.prototype.system.locale;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -59,6 +59,7 @@ import org.jeesl.model.xml.jeesl.Container;
 import org.jeesl.model.xml.system.revision.Entity;
 import org.jeesl.util.db.JeeslGraphicDbUpdater;
 import org.jeesl.util.db.JeeslStatusDbUpdater;
+import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import org.slf4j.Logger;
@@ -350,11 +351,7 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
             {
         		graphic.setType(fUtils.find(fbSvg.getClassGraphicType(), ((EjbWithGraphic<G>)status).getGraphic().getType()));
             	if(graphic.getStyle()!=null){graphic.setStyle(fUtils.find(fbSvg.getClassFigureStyle(), ((EjbWithGraphic<G>)status).getGraphic().getStyle()));}
-        		
-//            	if(debugSave){logger.info("Saving "+graphic.getClass().getSimpleName()+" "+graphic.toString());}
-//           	graphic = fUtils.save(graphic);
             	((EjbWithGraphic<G>)status).setGraphic(graphic);
-//            	if(debugSave){logger.info("Saved "+graphic.getClass().getSimpleName()+" "+graphic.toString());}
             }
 
         	if(debugSave){logger.info("Saving "+status.getClass().getSimpleName()+" "+status.toString());}
