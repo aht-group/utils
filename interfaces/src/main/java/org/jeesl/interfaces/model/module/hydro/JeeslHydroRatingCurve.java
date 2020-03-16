@@ -9,6 +9,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.with.primitive.date.EjbWithDateRange;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 import org.jeesl.interfaces.model.with.primitive.text.EjbWithName;
 
 public interface JeeslHydroRatingCurve <L extends JeeslLang, D extends JeeslDescription,
@@ -16,7 +17,7 @@ public interface JeeslHydroRatingCurve <L extends JeeslLang, D extends JeeslDesc
 										UNIT extends JeeslHydroRatingUnit<L,D,UNIT,?>
 								>
 					extends Serializable,EjbSaveable,EjbCrud,EjbRemoveable,
-							EjbWithName,EjbWithDateRange
+							EjbWithName,EjbWithDateRange, EjbWithPosition
 							
 {
 	STATION getStation();
