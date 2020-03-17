@@ -16,10 +16,12 @@ import org.jeesl.interfaces.model.with.system.locale.EjbWithLangDescription;
 
 public interface JeeslMcsStatus<L extends JeeslLang, D extends JeeslDescription,
 								REALM extends JeeslMcsRealm<L,D,REALM,?>,
+								S extends JeeslMcsStatus<L,D,REALM,S,G>,
 								G extends JeeslGraphic<L,D,?,?,?>>
 					extends EjbWithId,EjbRemoveable,Serializable,EjbSaveable,
 							EjbWithNonUniqueCode,EjbWithPositionVisible,
 							EjbWithLangDescription<L,D>,EjbWithGraphic<G>
+//,							JeeslStatus<S,L,D>
 {	
 	enum EjbAttributes{code,parent}
 	

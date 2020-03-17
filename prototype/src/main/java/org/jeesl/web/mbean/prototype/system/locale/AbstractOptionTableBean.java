@@ -512,7 +512,7 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 		
 		ResteasyClient client = new ResteasyClientBuilder().build();
 		ResteasyWebTarget restTarget = client.target(url.toString());
-		JeeslExportRest<L,D> rest = restTarget.proxy(JeeslExportRest.class);
+		JeeslExportRest<L,D,?> rest = restTarget.proxy(JeeslExportRest.class);
 		return rest.exportStatus(code);
 	}
 	
@@ -564,7 +564,7 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 		
 		ResteasyClient client = new ResteasyClientBuilder().build();
 		ResteasyWebTarget restTarget = client.target(url.toString());
-		JeeslExportRest<L,D> rest = restTarget.proxy(JeeslExportRest.class);
+		JeeslExportRest<L,D,?> rest = restTarget.proxy(JeeslExportRest.class);
 		return rest.exportRevisionEntity(code);
 	}
 }

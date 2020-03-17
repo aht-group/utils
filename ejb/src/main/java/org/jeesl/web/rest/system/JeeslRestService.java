@@ -16,7 +16,9 @@ import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslMcsStatus;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.system.graphic.EjbWithGraphic;
 import org.jeesl.interfaces.rest.JeeslExportRest;
@@ -30,7 +32,8 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.xml.status.Status;
 
 public class JeeslRestService <L extends JeeslLang,D extends JeeslDescription,
-								S extends EjbWithId,
+								R extends JeeslMcsRealm<L,D,R,G>,
+								S extends EjbWithId, 
 								G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslStatus<GT,L,D>,
 								F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>,
 								RC extends JeeslRevisionCategory<L,D,RC,?>,	
@@ -41,7 +44,7 @@ public class JeeslRestService <L extends JeeslLang,D extends JeeslDescription,
 								RAT extends JeeslStatus<RAT,L,D>,
 								ERD extends JeeslRevisionDiagram<L,D,RC>>
 					extends AbstractJeeslRestService<L,D>
-					implements JeeslExportRest<L,D>
+					implements JeeslExportRest<L,D,R>
 {
 	final static Logger logger = LoggerFactory.getLogger(JeeslRestService.class);
 	
@@ -66,6 +69,7 @@ public class JeeslRestService <L extends JeeslLang,D extends JeeslDescription,
 	}
 
 	public static <L extends JeeslLang,D extends JeeslDescription,
+						R extends JeeslMcsRealm<L,D,R,G>,
 						S extends EjbWithId,
 						G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslStatus<GT,L,D>,
 						F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>,
@@ -76,18 +80,17 @@ public class JeeslRestService <L extends JeeslLang,D extends JeeslDescription,
 						RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>,
 						RAT extends JeeslStatus<RAT,L,D>,
 						ERD extends JeeslRevisionDiagram<L,D,RC>>
-	JeeslRestService<L,D,S,G,GT,F,FS,RC,REM,RE,RA,RER,RAT,ERD>
+	JeeslRestService<L,D,R,S,G,GT,F,FS,RC,REM,RE,RA,RER,RAT,ERD>
 		factory(IoRevisionFactoryBuilder<L,D,RC,?,?,?,?,RE,?,RA,RER,RAT,ERD> fbRevision,
 				JeeslGraphicFacade<L,D,S,G,GT,F,FS> fGraphic,
 				JeeslIoRevisionFacade<L,D,RC,?,?,?,?,RE,?,RA,?,RAT,ERD> fRevision)
 	{
-		return new JeeslRestService<L,D,S,G,GT,F,FS,RC,REM,RE,RA,RER,RAT,ERD>(fbRevision,fGraphic,fRevision);
+		return new JeeslRestService<L,D,R,S,G,GT,F,FS,RC,REM,RE,RA,RER,RAT,ERD>(fbRevision,fGraphic,fRevision);
 	}
 	
 
 	@SuppressWarnings("unchecked")
-	@Override
-	public <X extends JeeslStatus<X,L,D>> org.jeesl.model.xml.jeesl.Container exportStatus(String code) throws UtilsConfigurationException
+	@Override public <X extends JeeslStatus<X,L,D>> org.jeesl.model.xml.jeesl.Container exportStatus(String code) throws UtilsConfigurationException
 	{	
 		try
 		{
@@ -111,6 +114,34 @@ public class JeeslRestService <L extends JeeslLang,D extends JeeslDescription,
 		}
 		catch (ClassNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
 		catch (JeeslNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override public <X extends JeeslMcsStatus<L,D,?,?,?>, RREF extends EjbWithId> org.jeesl.model.xml.jeesl.Container exportMcsStatus(R realm, RREF rref, String code) throws UtilsConfigurationException
+	{	
+//		try
+//		{
+//			Class<X> x = (Class<X>)Class.forName(code).asSubclass(JeeslStatus.class);
+//			org.jeesl.model.xml.jeesl.Container xml = xfContainer.build(fGraphic.allOrderedPosition(x));
+//			
+//			if(EjbWithGraphic.class.isAssignableFrom(x))
+//			{
+//				for(Status xStatus : xml.getStatus())
+//				{
+//					X eStatus = fGraphic.fByCode(x,xStatus.getCode());
+//					try
+//					{
+//						G eGraphic = fGraphic.fGraphicForStatus(eStatus.getId());
+//						xStatus.setGraphic(xfGraphic.build(eGraphic));
+//					}
+//					catch (JeeslNotFoundException e) {}
+//				}
+//			}
+//			return xml;
+//		}
+//		catch (ClassNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
+//		catch (JeeslNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
+		return null;
 	}
 
 	@Override public Entity exportRevisionEntity(String code) throws UtilsConfigurationException
