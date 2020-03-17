@@ -39,7 +39,7 @@ public class AbstractIoDashboardBean <L extends JeeslLang, D extends JeeslDescri
 											DBCP extends JeeslIoDashComponentPosition<L,D,DBR,DBC,DB,DBCP>,
 											DB extends JeeslIoDashboard<L,D,DBR,DBCP,DB>
 											>
-		extends AbstractAdminBean<L,D>
+		extends AbstractAdminBean<L,D,LOC>
 		implements Serializable,SbToggleBean
 {
 	private static final long serialVersionUID = 1L;

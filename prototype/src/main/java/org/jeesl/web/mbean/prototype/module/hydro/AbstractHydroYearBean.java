@@ -30,7 +30,7 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 public class AbstractHydroYearBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 											HD extends JeeslHydroDecade<L,D,HD,?>,
 											HY extends JeeslHydroYear<L,D,HD,HY>>
-		extends AbstractAdminBean<L,D>
+		extends AbstractAdminBean<L,D,LOC>
 		implements Serializable,SbToggleBean
 {
 	private static final long serialVersionUID = 1L;

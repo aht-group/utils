@@ -9,13 +9,16 @@ import org.jeesl.factory.ejb.system.status.EjbDescriptionFactory;
 import org.jeesl.factory.ejb.system.status.EjbLangFactory;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.web.JeeslJsfSecurityHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.exlp.util.io.StringUtil;
 
-public class AbstractAdminBean <L extends JeeslLang, D extends JeeslDescription> implements Serializable
+public class AbstractAdminBean <L extends JeeslLang, D extends JeeslDescription
+, LOC extends JeeslLocale<L,D,LOC,?>
+>implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAdminBean.class);

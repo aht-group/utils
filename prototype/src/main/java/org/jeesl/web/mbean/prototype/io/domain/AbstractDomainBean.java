@@ -16,11 +16,12 @@ import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractDomainBean <L extends JeeslLang, D extends JeeslDescription,
+public abstract class AbstractDomainBean <L extends JeeslLang, D extends JeeslDescription,LOC extends JeeslLocale<L,D,LOC,?>,
 						DOMAIN extends JeeslDomain<L,ENTITY>,
 						QUERY extends JeeslDomainQuery<L,D,DOMAIN,PATH>,
 						PATH extends JeeslDomainPath<L,D,QUERY,ENTITY,ATTRIBUTE>,
@@ -28,7 +29,7 @@ public abstract class AbstractDomainBean <L extends JeeslLang, D extends JeeslDe
 						ATTRIBUTE extends JeeslRevisionAttribute<L,D,ENTITY,?,?>,
 						SET extends JeeslDomainSet<L,D,DOMAIN>,
 						ITEM extends JeeslDomainItem<QUERY,SET>>
-					extends AbstractAdminBean<L,D>
+					extends AbstractAdminBean<L,D,LOC>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;

@@ -29,6 +29,7 @@ import org.jeesl.interfaces.model.module.ts.stat.JeeslTsCron;
 import org.jeesl.interfaces.model.module.ts.stat.JeeslTsStatistic;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithLangDescription;
@@ -39,7 +40,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.jsf.util.PositionListReorderer;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public class AbstractAdminTsScopeBean <L extends JeeslLang, D extends JeeslDescription,LOC extends JeeslStatus<LOC,L,D>,
+public class AbstractAdminTsScopeBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 											CAT extends JeeslTsCategory<L,D,CAT,?>,
 											SCOPE extends JeeslTsScope<L,D,CAT,ST,UNIT,EC,INT>,
 											ST extends JeeslTsScopeType<L,D,ST,?>,
@@ -60,7 +61,7 @@ public class AbstractAdminTsScopeBean <L extends JeeslLang, D extends JeeslDescr
 											WS extends JeeslStatus<WS,L,D>,
 											QAF extends JeeslStatus<QAF,L,D>,
 											CRON extends JeeslTsCron<SCOPE,INT,STAT>>
-					extends AbstractAdminTsBean<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON>
+					extends AbstractAdminTsBean<L,D,LOC,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;

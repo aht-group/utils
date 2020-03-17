@@ -18,13 +18,14 @@ import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.jsf.util.PositionListReorderer;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public abstract class AbstractDomainSetBean <L extends JeeslLang, D extends JeeslDescription,
+public abstract class AbstractDomainSetBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 						DOMAIN extends JeeslDomain<L,ENTITY>,
 						QUERY extends JeeslDomainQuery<L,D,DOMAIN,PATH>,
 						PATH extends JeeslDomainPath<L,D,QUERY,ENTITY,ATTRIBUTE>,
@@ -32,7 +33,7 @@ public abstract class AbstractDomainSetBean <L extends JeeslLang, D extends Jees
 						ATTRIBUTE extends JeeslRevisionAttribute<L,D,ENTITY,?,?>,
 						SET extends JeeslDomainSet<L,D,DOMAIN>,
 						ITEM extends JeeslDomainItem<QUERY,SET>>
-					extends AbstractDomainBean<L,D,DOMAIN,QUERY,PATH,ENTITY,ATTRIBUTE,SET,ITEM>
+					extends AbstractDomainBean<L,D,LOC,DOMAIN,QUERY,PATH,ENTITY,ATTRIBUTE,SET,ITEM>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;

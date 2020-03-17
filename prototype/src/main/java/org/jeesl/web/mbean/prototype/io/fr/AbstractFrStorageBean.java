@@ -26,6 +26,7 @@ import org.jeesl.interfaces.model.io.fr.JeeslFileType;
 import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.slf4j.Logger;
@@ -34,7 +35,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.jsf.util.PositionListReorderer;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public class AbstractFrStorageBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
+public class AbstractFrStorageBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 									SYSTEM extends JeeslIoSsiSystem<L,D>,
 									STORAGE extends JeeslFileStorage<L,D,SYSTEM,STYPE,ENGINE>,
 									STYPE extends JeeslFileStorageType<L,D,STYPE,?>,
@@ -45,7 +46,7 @@ public class AbstractFrStorageBean <L extends JeeslLang, D extends JeeslDescript
 									REPLICATION extends JeeslFileReplication<L,D,SYSTEM,STORAGE,RTYPE>,
 									RTYPE extends JeeslFileReplicationType<L,D,RTYPE,?>,
 									RSTATUS extends JeeslFileStatus<L,D,RSTATUS,?>>
-						extends AbstractAdminBean<L,D>
+						extends AbstractAdminBean<L,D,LOC>
 						implements SbToggleBean
 {
 	private static final long serialVersionUID = 1L;

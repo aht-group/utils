@@ -22,6 +22,7 @@ import org.jeesl.interfaces.model.with.primitive.text.EjbWithPwd;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityHelp;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityUsecase;
@@ -34,8 +35,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.interfaces.controller.audit.UtilsRevisionPageFlow;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public abstract class AbstractAdminSecurityUserBean <L extends JeeslLang,
-											D extends JeeslDescription,
+public abstract class AbstractAdminSecurityUserBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 											C extends JeeslSecurityCategory<L,D>,
 											R extends JeeslSecurityRole<L,D,C,V,U,A,USER>,
 											V extends JeeslSecurityView<L,D,C,R,U,A>,
@@ -44,7 +44,7 @@ public abstract class AbstractAdminSecurityUserBean <L extends JeeslLang,
 											AT extends JeeslSecurityTemplate<L,D,C>,
 											M extends JeeslSecurityMenu<V,M>,
 											USER extends JeeslUser<R>>
-		extends AbstractAdminBean<L,D>
+		extends AbstractAdminBean<L,D,LOC>
 		implements Serializable
 {
 	private static final long serialVersionUID = 1L;

@@ -58,7 +58,7 @@ public abstract class AbstractAomViewBean <L extends JeeslLang, D extends JeeslD
 										USER extends JeeslSimpleUser,
 										FRC extends JeeslFileContainer<?,?>,
 										UP extends JeeslAomEventUpload<L,D,UP,?>>
-					extends AbstractAdminBean<L,D>
+					extends AbstractAdminBean<L,D,LOC>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;

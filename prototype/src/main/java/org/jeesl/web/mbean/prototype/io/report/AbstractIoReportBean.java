@@ -54,7 +54,7 @@ public class AbstractIoReportBean <L extends JeeslLang, D extends JeeslDescripti
 							RE extends JeeslRevisionEntity<L,D,RCAT,?,RA,?>,
 							RA extends JeeslRevisionAttribute<L,D,RE,?,CDT>
 							>
-					extends AbstractAdminBean<L,D>
+					extends AbstractAdminBean<L,D,LOC>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;

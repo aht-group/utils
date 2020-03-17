@@ -57,7 +57,7 @@ public abstract class AbstractAssetMaintenanceBean <L extends JeeslLang, D exten
 										USER extends JeeslSimpleUser,
 										FRC extends JeeslFileContainer<?,?>,
 										UP extends JeeslAomEventUpload<L,D,UP,?>>
-					extends AbstractAdminBean<L,D>
+					extends AbstractAdminBean<L,D,LOC>
 					implements Serializable,SbToggleBean,SbDateIntervalSelection
 {
 	private static final long serialVersionUID = 1L;

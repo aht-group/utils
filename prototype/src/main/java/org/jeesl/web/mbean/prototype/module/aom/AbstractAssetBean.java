@@ -76,7 +76,7 @@ public class AbstractAssetBean <L extends JeeslLang, D extends JeeslDescription,
 										USER extends JeeslSimpleUser,
 										FRC extends JeeslFileContainer<?,?>,
 										UP extends JeeslAomEventUpload<L,D,UP,?>>
-					extends AbstractAdminBean<L,D>
+					extends AbstractAdminBean<L,D,LOC>
 					implements Serializable,ThMultiFilterBean,SbToggleBean,SbSingleBean,JeeslFileRepositoryCallback
 {
 	private static final long serialVersionUID = 1L;

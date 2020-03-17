@@ -46,6 +46,7 @@ import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
@@ -61,7 +62,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.jsf.util.PositionListReorderer;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
+public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 											AX extends JeeslWorkflowContext<L,D,AX,G>,
 											WP extends JeeslWorkflowProcess<L,D,AX,AS>,
 											AS extends JeeslWorkflowStage<L,D,WP,WST,WSP,WT,G>,
@@ -86,7 +87,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 											FRC extends JeeslFileContainer<?,?>,
 											G extends JeeslGraphic<L,D,GT,?,?>, GT extends JeeslStatus<GT,L,D>,
 											USER extends JeeslUser<SR>>
-				extends AbstractAdminBean<L,D>
+				extends AbstractAdminBean<L,D,LOC>
 					implements Serializable,SbSingleBean
 {
 	private static final long serialVersionUID = 1L;

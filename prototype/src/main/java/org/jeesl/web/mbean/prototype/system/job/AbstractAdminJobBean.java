@@ -43,7 +43,7 @@ public abstract class AbstractAdminJobBean <L extends JeeslLang, D extends Jeesl
 									CONTAINER extends JeeslFileContainer<?,?>,
 									USER extends EjbWithEmail
 									>
-					extends AbstractAdminBean<L,D>
+					extends AbstractAdminBean<L,D,LOC>
 					implements Serializable,SbToggleBean
 {
 	private static final long serialVersionUID = 1L;

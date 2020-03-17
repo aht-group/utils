@@ -36,6 +36,7 @@ import org.jeesl.interfaces.model.io.fr.JeeslFileMeta;
 import org.jeesl.interfaces.model.io.fr.JeeslFileStorage;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
@@ -52,7 +53,7 @@ import net.sf.ahtutils.jsf.util.PositionListReorderer;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 import net.sf.exlp.util.io.StringUtil;
 
-public abstract class AbstractCmsEditorBean <L extends JeeslLang,D extends JeeslDescription,LOC extends JeeslStatus<LOC,L,D>,
+public abstract class AbstractCmsEditorBean <L extends JeeslLang,D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 										CAT extends JeeslIoCmsCategory<L,D,CAT,?>,
 										CMS extends JeeslIoCms<L,D,CAT,S,LOC>,
 										V extends JeeslIoCmsVisiblity,
@@ -66,7 +67,7 @@ public abstract class AbstractCmsEditorBean <L extends JeeslLang,D extends Jeesl
 										FC extends JeeslFileContainer<FS,FM>,
 										FM extends JeeslFileMeta<D,FC,?,?>
 										>
-					extends AbstractAdminBean<L,D>
+					extends AbstractAdminBean<L,D,LOC>
 					implements Serializable,SbToggleBean,SbSingleBean,OpEntityBean,JeeslFileRepositoryCallback
 {
 	private static final long serialVersionUID = 1L;

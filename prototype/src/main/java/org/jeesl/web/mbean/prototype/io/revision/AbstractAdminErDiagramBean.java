@@ -25,6 +25,7 @@ import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntityMapping;
 import org.jeesl.interfaces.model.io.revision.er.JeeslRevisionDiagram;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.util.comparator.ejb.system.io.revision.RevisionDiagramComparator;
 import org.slf4j.Logger;
@@ -33,7 +34,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.jsf.util.PositionListReorderer;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public class AbstractAdminErDiagramBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
+public class AbstractAdminErDiagramBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 										RC extends JeeslRevisionCategory<L,D,RC,?>,
 										RV extends JeeslRevisionView<L,D,RVM>,
 										RVM extends JeeslRevisionViewMapping<RV,RE,REM>,

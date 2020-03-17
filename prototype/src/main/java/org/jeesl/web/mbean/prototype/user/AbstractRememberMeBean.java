@@ -16,6 +16,7 @@ import org.jeesl.interfaces.model.with.primitive.text.EjbWithEmail;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityUsecase;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
@@ -23,7 +24,7 @@ import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AbstractRememberMeBean <L extends JeeslLang,D extends JeeslDescription,
+public class AbstractRememberMeBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 										C extends JeeslSecurityCategory<L,D>,
 										R extends JeeslSecurityRole<L,D,C,V,U,A,USER>,
 										V extends JeeslSecurityView<L,D,C,R,U,A>,
@@ -32,7 +33,7 @@ public class AbstractRememberMeBean <L extends JeeslLang,D extends JeeslDescript
 										AT extends JeeslSecurityTemplate<L,D,C>,
 										USER extends JeeslUser<R>,
 										REM extends JeeslRememberMe<USER>>
-		extends AbstractAdminBean<L,D>
+		extends AbstractAdminBean<L,D,LOC>
 		implements Serializable
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractRememberMeBean.class);

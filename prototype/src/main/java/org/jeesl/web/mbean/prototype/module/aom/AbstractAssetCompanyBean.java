@@ -49,7 +49,7 @@ public class AbstractAssetCompanyBean <L extends JeeslLang, D extends JeeslDescr
 											USER extends JeeslSimpleUser,
 											FRC extends JeeslFileContainer<?,?>,
 											UP extends JeeslAomEventUpload<L,D,UP,?>>
-					extends AbstractAdminBean<L,D>
+					extends AbstractAdminBean<L,D,LOC>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;

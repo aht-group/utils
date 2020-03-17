@@ -22,13 +22,14 @@ import org.jeesl.interfaces.model.module.attribute.JeeslAttributeOption;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeSet;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.util.comparator.ejb.system.io.attribute.AttributeCriteriaComparator;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractAdminIoAttributeBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
+public abstract class AbstractAdminIoAttributeBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 													CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 													CRITERIA extends JeeslAttributeCriteria<L,D,CATEGORY,TYPE>,
 													TYPE extends JeeslStatus<TYPE,L,D>,
@@ -37,7 +38,7 @@ public abstract class AbstractAdminIoAttributeBean <L extends JeeslLang, D exten
 													ITEM extends JeeslAttributeItem<CRITERIA,SET>,
 													CONTAINER extends JeeslAttributeContainer<SET,DATA>,
 													DATA extends JeeslAttributeData<CRITERIA,OPTION,CONTAINER>>
-					extends AbstractAdminBean<L,D>
+					extends AbstractAdminBean<L,D,LOC>
 					implements Serializable,SbToggleBean
 {
 	private static final long serialVersionUID = 1L;

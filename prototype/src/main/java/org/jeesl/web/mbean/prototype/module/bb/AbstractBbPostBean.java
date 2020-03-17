@@ -23,6 +23,7 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.text.EjbWithEmail;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.primefaces.event.NodeCollapseEvent;
 import org.primefaces.event.NodeExpandEvent;
@@ -34,7 +35,7 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public class AbstractBbPostBean <L extends JeeslLang,D extends JeeslDescription,
+public class AbstractBbPostBean <L extends JeeslLang,D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 									SCOPE extends JeeslStatus<SCOPE,L,D>,
 									BB extends JeeslBbBoard<L,D,SCOPE,BB,PUB,USER>,
 									PUB extends JeeslStatus<PUB,L,D>,
@@ -43,7 +44,7 @@ public class AbstractBbPostBean <L extends JeeslLang,D extends JeeslDescription,
 									M extends JeeslMarkup<MT>,
 									MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
 									USER extends EjbWithEmail>
-					extends AbstractAdminBean<L,D>
+					extends AbstractAdminBean<L,D,LOC>
 					implements Serializable,SbSingleBean
 {
 	private static final long serialVersionUID = 1L;

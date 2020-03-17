@@ -39,6 +39,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatusWithImage;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatusFixedCode;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRest;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDescription;
@@ -71,12 +72,12 @@ import net.sf.ahtutils.xml.sync.DataUpdate;
 import net.sf.exlp.util.io.StringUtil;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
+public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 										G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslStatus<GT,L,D>,
 										F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>,
 										RE extends JeeslRevisionEntity<L,D,?,?,?,?>
 >
-			extends AbstractAdminBean<L,D>
+			extends AbstractAdminBean<L,D,LOC>
 			implements Serializable
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractOptionTableBean.class);

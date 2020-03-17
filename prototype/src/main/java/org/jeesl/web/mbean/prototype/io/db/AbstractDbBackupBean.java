@@ -17,6 +17,7 @@ import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiHost;
 import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.util.comparator.ejb.RecordComparator;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
@@ -24,13 +25,13 @@ import org.metachart.xml.chart.Chart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AbstractDbBackupBean <L extends JeeslLang,D extends JeeslDescription,LOC extends JeeslStatus<LOC,L,D>,
+public class AbstractDbBackupBean <L extends JeeslLang,D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 									SYSTEM extends JeeslIoSsiSystem<L,D>,
 									DUMP extends JeeslDbDump<SYSTEM,DF>,
 									DF extends JeeslDbDumpFile<DUMP,DH,DS>,
 									DH extends JeeslIoSsiHost<L,D,?>,
 									DS extends JeeslDbDumpStatus<L,D,DS,?>>
-						extends AbstractAdminBean<L,D>
+						extends AbstractAdminBean<L,D,LOC>
 						implements Serializable,SbDateIntervalSelection
 {
 	private static final long serialVersionUID = 1L;

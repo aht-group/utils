@@ -14,6 +14,7 @@ import org.jeesl.factory.builder.system.StatusFactoryBuilder;
 import org.jeesl.factory.pojo.system.JeeslIdentityFactory;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityUsecase;
@@ -24,14 +25,14 @@ import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractUserBean <L extends JeeslLang, D extends JeeslDescription, 
+public abstract class AbstractUserBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 											R extends JeeslSecurityRole<L,D,?,V,U,A,USER>,
 											V extends JeeslSecurityView<L,D,?,R,U,A>,
 											U extends JeeslSecurityUsecase<L,D,?,R,V,A>,
 											A extends JeeslSecurityAction<L,D,R,V,U,?>,
 											USER extends JeeslUser<R>,
 											I extends JeeslIdentity<R,V,U,A,USER>>
-				extends AbstractAdminBean<L,D>
+				extends AbstractAdminBean<L,D,LOC>
 				implements Serializable
 {
 	private static final long serialVersionUID = 1L;

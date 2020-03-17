@@ -12,16 +12,17 @@ import org.jeesl.interfaces.model.io.db.JeeslDbConnectionColumn;
 import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.model.json.system.io.db.JsonPostgresConnection;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AbstractDbConnectionBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
+public class AbstractDbConnectionBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 									SYSTEM extends JeeslIoSsiSystem<L,D>,
 									CC extends JeeslDbConnectionColumn<L,D,CC,?>>
-						extends AbstractAdminBean<L,D>
+						extends AbstractAdminBean<L,D,LOC>
 						implements Serializable
 {
 	private static final long serialVersionUID = 1L;

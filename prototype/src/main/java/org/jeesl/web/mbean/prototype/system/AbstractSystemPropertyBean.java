@@ -26,7 +26,7 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 public class AbstractSystemPropertyBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 											C extends JeeslPropertyCategory<L,D,C,?>,
 											P extends JeeslProperty<L,D,C,P>>
-		extends AbstractAdminBean<L,D>
+		extends AbstractAdminBean<L,D,LOC>
 		implements Serializable,SbToggleBean
 {
 	private static final long serialVersionUID = 1L;
