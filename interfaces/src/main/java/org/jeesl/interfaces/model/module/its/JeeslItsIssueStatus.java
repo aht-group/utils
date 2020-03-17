@@ -21,5 +21,5 @@ public interface JeeslItsIssueStatus <L extends JeeslLang, D extends JeeslDescri
 								EjbWithCodeGraphic<G>,
 								JeeslStatus<S,L,D>
 {	
-	public enum Code{open}
+	public enum Code{xx}
 }

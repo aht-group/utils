@@ -7,8 +7,8 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslMcsStatus;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 
 public interface JeeslHdIssueCategory <L extends JeeslLang, D extends JeeslDescription,
-							REALM extends JeeslMcsRealm<L,D,REALM,?>,
-							G extends JeeslGraphic<L,D,?,?,?>>
+										REALM extends JeeslMcsRealm<L,D,REALM,?>,
+										G extends JeeslGraphic<L,D,?,?,?>>
 			extends JeeslMcsStatus<L,D,REALM,G>
 					
 {

@@ -198,9 +198,9 @@
 			<s:lang key="fr" translation="Couleur"/>
 		</s:langs>
 	</s:translation>
-	<s:translation key="aupGraphicPreview">
+	<s:translation key="jeeslGraphicPreview">
 		<s:langs>
-			<s:lang key="de" translation="Preview"/>
+			<s:lang key="de" translation="Vorschau"/>
 			<s:lang key="en" translation="Preview"/>
 			<s:lang key="fr" translation="Preview"/>
 		</s:langs>

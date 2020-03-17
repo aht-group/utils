@@ -64,7 +64,7 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 
 	protected JeeslFacade fUtils;
 	
-	private final StatusFactoryBuilder<L,D,LOC> fbStatus;
+//	private final StatusFactoryBuilder<L,D,LOC> fbStatus;
 	private final SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg;
 	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,?,?,?,?> fbRevision;
 		
@@ -103,7 +103,6 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 									IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,?,?,?,?> fbRevision)
 	{
 		super(fbStatus.getClassL(),fbStatus.getClassD());
-		this.fbStatus=fbStatus;
 		this.fbSvg=fbSvg;
 		this.fbRevision=fbRevision;
 

@@ -67,8 +67,8 @@
 	    	</h:form>
 		</j:slot>
 		<j:slot id="sDetail" width="4">
-			<h:form id="fDetail">
-				<p:panel id="pLang" header="#{msg.jeeslDetails}" rendered="#{not empty cc.attrs.bean.status}" styleClass="jeeslPanel">
+			<h:form id="fDetail" rendered="#{not empty cc.attrs.bean.status}">
+				<p:panel id="pLang" header="#{msg.jeeslDetails}" styleClass="jeeslPanel">
 					<f:facet name="actions">
 						<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.cancelStatus()}" update=":#{cc.id}:sCategory :#{cc.id}:sDetail" mayDisappear="true"/>
 						<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.save()}"   update=":#{cc.id}:sCategory :#{cc.id}:sDetail" rendered="#{cc.attrs.bean.uiAllowSave}"/>
@@ -80,9 +80,47 @@
 						<p:outputLabel value="#{msg.aupOptionCode}"/>
 						<p:inputText value="#{cc.attrs.bean.status.code}" autocomplete="off"/>
 						
+						<p:outputLabel value="#{msg.jeeslOptionVisible}" />
+						<p:selectBooleanCheckbox value="#{cc.attrs.bean.status.visible}" />
+						
 					</p:panelGrid>
 					<j:tabTranslationEditor value="#{cc.attrs.bean.status}" locales="#{cc.attrs.bean.locales}" withDescription="true"/>
+					
+					<p:panelGrid columns="2" columnClasses="jeeslGrid30,jeeslGrid70" rendered="#{cc.attrs.bean.graphic.type.code eq 'symbol'}">
+						<p:outputLabel value="#{msg.aupGraphicStyle}"/>
+						<p:selectOneMenu value="#{cc.attrs.bean.graphic.style}" effect="fade">
+							<f:selectItems value="#{cc.attrs.bean.graphicStyles}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s}"/>
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="#{msg.aupGraphicSize}"/>
+						<p:spinner id="sSize" value="#{cc.attrs.bean.graphic.size}" min="0" max="100" />
+						
+						<p:outputLabel value="#{msg.aupGraphicColor}"/>
+						<p:colorPicker value="#{cc.attrs.bean.graphic.color}" />
+					</p:panelGrid>
+					
+					<p:panelGrid columns="2" columnClasses="jeeslGrid30,jeeslGrid70">
+						<p:outputLabel value="#{msg.aupGraphicType}"/>
+						<p:selectOneMenu value="#{cc.attrs.bean.graphic.type}" effect="fade">
+							<f:selectItems value="#{cc.attrs.bean.graphicTypes}" var="type" itemLabel="#{type.name[localeCode].lang}" itemValue="#{type}"/>
+							<p:ajax event="change" listener="#{cc.attrs.bean.changeGraphicType()}" update="@form :#{cc.id}:fUpload"/>
+						</p:selectOneMenu>
+					</p:panelGrid>
 				</p:panel>
+			</h:form>
+			
+			<p:panel header="#{msg.jeeslGraphicPreview}" rendered="#{not empty cc.attrs.bean.status}" styleClass="jeeslPanel">
+				<p:panelGrid columns="1" columnClasses="jeeslGrid100">
+					<p:outputLabel value="12px"/>
+					<jtp:symbolizer value="#{cc.attrs.bean.status}" height="12"/>
+				</p:panelGrid>
+			</p:panel>
+			
+			<h:form id="fUpload" enctype="multipart/form-data" >
+				<p:fileUpload rendered="#{cc.attrs.bean.graphic.type.code eq 'svg'}"
+					styleClass="jeeslFileUpload"
+					fileUploadListener="#{cc.attrs.bean.handleFileUpload}" mode="advanced" dragDropSupport="false"
+					update=":#{cc.id}:sDetail" sizeLimit="10000000" fileLimit="1" allowTypes="/(\.|\/)(svg)$/" />
 			</h:form>
 		</j:slot>
 	</j:row>

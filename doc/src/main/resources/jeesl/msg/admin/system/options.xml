@@ -49,7 +49,7 @@
     		<s:lang key="fr" translation="Position"/>
     	</s:langs>
 	</s:translation>
-	<s:translation key="aupOptionVisible">
+	<s:translation key="jeeslOptionVisible">
     	<s:langs>
     		<s:lang key="de" translation="Sichtbar"/>
     		<s:lang key="en" translation="Visible"/>
