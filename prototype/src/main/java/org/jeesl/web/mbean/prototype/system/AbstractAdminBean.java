@@ -1,6 +1,8 @@
 package org.jeesl.web.mbean.prototype.system;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
@@ -32,6 +34,11 @@ public class AbstractAdminBean <L extends JeeslLang, D extends JeeslDescription
 	protected boolean debugOnInfo; protected void setDebugOnInfo(boolean debugOnInfo){this.debugOnInfo=debugOnInfo;}
 	protected String[] langs; public String[] getLangs() {return langs;}
 	protected String[] localeCodes; public String[] getLocaleCodes() {return localeCodes;}
+	private final List<LOC> locales;
+	
+	public List<LOC> getLocales() {
+		return locales;
+	}
 	protected EjbLangFactory<L> efLang;
 	protected EjbDescriptionFactory<D> efDescription;
 	
@@ -41,10 +48,13 @@ public class AbstractAdminBean <L extends JeeslLang, D extends JeeslDescription
 	
 	protected NullNumberBinder nnb; public NullNumberBinder getNnb() {return nnb;} public void setNnb(NullNumberBinder nnb) {this.nnb = nnb;}
 
+	
 	public AbstractAdminBean(final Class<L> cL, final Class<D> cD)
 	{
 		this.cL = cL;
 		this.cD = cD;
+		
+		locales = new ArrayList<LOC>();
 		
 		efLang = new EjbLangFactory<L>(cL);
 		efDescription = new EjbDescriptionFactory<D>(cD);
@@ -67,10 +77,12 @@ public class AbstractAdminBean <L extends JeeslLang, D extends JeeslDescription
 		nnb = new NullNumberBinder();
 	}
 	
-	protected void initJeeslAdmin(JeeslTranslationBean<L,D,?> bTranslation, JeeslFacesMessageBean bMessage)
+	protected void initJeeslAdmin(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage)
 	{
 		this.bTranslation=bTranslation;
 		this.bMessage=bMessage;
+		
+		locales.addAll(bTranslation.getLocales());
 		
 		logger.info("bTranslation!=null: "+(bTranslation!=null));
 		logger.info("bTranslation.getLangKeys()!=null: "+(bTranslation.getLangKeys()!=null));

@@ -83,7 +83,6 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 	
 	private final Map<EjbWithPosition,RE> mapEntity; public Map<EjbWithPosition, RE> getMapEntity() {return mapEntity;}
 	
-	
 	protected final List<EjbWithPosition> categories; public List<EjbWithPosition> getCategories(){return categories;}
 	protected List<EjbWithPosition> items; public List<EjbWithPosition> getItems() {return items;}
 	
@@ -129,7 +128,7 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 											JeeslFacesMessageBean bMessage,
 											REALM realm)
 	{
-		super.initJeeslAdmin(bTranslation, bMessage);
+		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fUtils=fGraphic;
 		this.realm=realm;
 			

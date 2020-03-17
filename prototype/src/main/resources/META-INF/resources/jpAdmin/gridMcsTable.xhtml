@@ -12,7 +12,6 @@
 	
 	<composite:interface>
 		<composite:attribute name="bean" required="true"/>
-		<composite:attribute name="langKeys" required="false" default="#{appTranslationBean.langKeys}"/>
 		
 		<composite:attribute name="graphicTypes" required="false" default="#{appUtilsBean.graphicTypes}"/>
 		<composite:attribute name="graphicStyles" required="false" default="#{appUtilsBean.graphicStyles}"/>
@@ -82,7 +81,7 @@
 						<p:inputText value="#{cc.attrs.bean.status.code}" autocomplete="off"/>
 						
 					</p:panelGrid>
-					<j:tabTranslationEditor value="#{cc.attrs.bean.status}" keys="#{cc.attrs.langKeys}" withDescription="true"/>
+					<j:tabTranslationEditor value="#{cc.attrs.bean.status}" locales="#{cc.attrs.bean.locales}" withDescription="true"/>
 				</p:panel>
 			</h:form>
 		</j:slot>

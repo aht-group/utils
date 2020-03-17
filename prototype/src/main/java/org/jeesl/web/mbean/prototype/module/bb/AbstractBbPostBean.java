@@ -80,7 +80,7 @@ public class AbstractBbPostBean <L extends JeeslLang,D extends JeeslDescription,
 		postings = new ArrayList<POST>();
 	}
 
-	protected void postConstructBb(JeeslTranslationBean<L,D,?> bTranslation, JeeslFacesMessageBean bMessage,
+	protected void postConstructBb(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
 									JeeslBbFacade<L,D,SCOPE,BB,PUB,THREAD,POST,M,MT,USER> fBb,
 									USER user)
 	{

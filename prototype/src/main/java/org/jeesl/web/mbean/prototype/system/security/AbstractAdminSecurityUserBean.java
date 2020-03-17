@@ -6,6 +6,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
+import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.core.JeeslUserFacade;
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
@@ -77,9 +78,10 @@ public abstract class AbstractAdminSecurityUserBean <L extends JeeslLang, D exte
 		useSaltedHash = false;
 	}
 	
-	public void initSuper(JeeslUserFacade<USER> fUtilsUser, JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fUtilsSecurity, JeeslFacesMessageBean bMessage)
+	public void postConstructSecurityUser(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
+							JeeslUserFacade<USER> fUtilsUser, JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fUtilsSecurity)
 	{
-		super.initAdmin(langs, cL, cD, bMessage);
+		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fUtilsUser=fUtilsUser;
 		this.fUtilsSecurity=fUtilsSecurity;
 		

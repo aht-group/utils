@@ -91,7 +91,7 @@ public class AbstractTsSummaryBean <L extends JeeslLang, D extends JeeslDescript
 		th = new JsonTuple1Handler<TS>(fbTs.getClassTs());
 	}
 	
-	protected void postConstructSummary(JeeslTranslationBean<L,D,?> bTranslation, JeeslFacesMessageBean bMessage, JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fTs)
+	protected void postConstructSummary(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fTs)
 	{
 		super.postConstructTs(bTranslation,bMessage,fTs);
 		sbhClass.update(fTs.all(fbTs.getClassEntity()));

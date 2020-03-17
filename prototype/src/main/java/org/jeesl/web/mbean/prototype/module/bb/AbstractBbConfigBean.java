@@ -72,7 +72,7 @@ public class AbstractBbConfigBean <L extends JeeslLang, D extends JeeslDescripti
 		sbhScope = new SbSingleHandler<SCOPE>(fbBb.getClassScope(),this);
 	}
 
-	protected void postConstructBb(JeeslTranslationBean<L,D,?> bTranslation, JeeslFacesMessageBean bMessage, JeeslBbFacade<L,D,SCOPE,BB,PUB,THREAD,POST,M,MT,USER> fBb)
+	protected void postConstructBb(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslBbFacade<L,D,SCOPE,BB,PUB,THREAD,POST,M,MT,USER> fBb)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fBb=fBb;
