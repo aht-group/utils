@@ -21,8 +21,6 @@ import org.jeesl.model.json.db.tuple.two.Json2Tuples;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.exlp.util.io.JsonUtil;
-
 public class JsonTuple2Handler <A extends EjbWithId, B extends EjbWithId>
 							extends JsonTuple1Handler<A>
 							implements Serializable
@@ -129,9 +127,11 @@ public class JsonTuple2Handler <A extends EjbWithId, B extends EjbWithId>
 				if(mapB.containsKey(t.getId2())) {t.setEjb2(mapB.get(t.getId2()));}
 				else
 				{
-					JsonUtil.info(t);
-					try{t.setEjb2(cB.newInstance()); t.getEjb2().setId(t.getId2());}
-					catch (InstantiationException | IllegalAccessException e) {e.printStackTrace();}
+					if(t.getId2()!=null)
+					{
+						try{t.setEjb2(cB.newInstance()); t.getEjb2().setId(t.getId2());}
+						catch (InstantiationException | IllegalAccessException e) {e.printStackTrace();}
+					}
 				}
 			}
 			

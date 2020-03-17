@@ -18,6 +18,8 @@ import org.jeesl.model.json.db.tuple.two.Json2Tuples;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.sf.exlp.util.io.JsonUtil;
+
 public class Json2TuplesFactory <A extends EjbWithId, B extends EjbWithId>
 {
 	final static Logger logger = LoggerFactory.getLogger(Json2TuplesFactory.class);
@@ -69,7 +71,6 @@ public class Json2TuplesFactory <A extends EjbWithId, B extends EjbWithId>
 	
 	private void ejb2Load(Json2Tuples<A,B> json)
 	{
-		
 		for(Json2Tuple<A,B> t : json.getTuples())
 		{
 			setA.add(t.getId1());
@@ -83,7 +84,7 @@ public class Json2TuplesFactory <A extends EjbWithId, B extends EjbWithId>
 				try
 				{
 					t.setEjb1(cA.newInstance());t.getEjb1().setId(t.getId1());
-					t.setEjb2(cB.newInstance());t.getEjb2().setId(t.getId2());
+					t.setEjb2(cB.newInstance());if(t.getId2()!=null) {t.getEjb2().setId(t.getId2());}
 				}
 				catch (InstantiationException | IllegalAccessException e) {e.printStackTrace();}
 			}
