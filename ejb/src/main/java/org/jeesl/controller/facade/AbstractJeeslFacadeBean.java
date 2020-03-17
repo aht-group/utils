@@ -20,6 +20,7 @@ import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.parent.EjbWithValidFromAndParent;
 import org.jeesl.interfaces.model.with.parent.JeeslWithParentAttributeStatus;
@@ -139,6 +140,9 @@ public class AbstractJeeslFacadeBean implements JeeslFacade
 	@Override public <T extends EjbWithRecord, I extends EjbWithId> List<T> allOrderedParentRecordBetween(Class<T> cl, boolean ascending, String p1Name, I p1,Date from, Date to) {return fJeesl.allOrderedParentRecordBetween(cl, ascending, p1Name, p1, from, to);}
 	@Override public <T extends EjbWithRecord, P extends EjbWithId> List<T> allOrderedParentsRecordBetween(Class<T> c, boolean ascending, String p1Name, List<P> parents, Date from, Date to){return fJeesl.allOrderedParentsRecordBetween(c, ascending, p1Name, parents, from, to);}
 	public <T, I extends EjbWithId> List<T> allOrderedParent(Class<T> cl,String by, boolean ascending, String p1Name, I p1) {return fJeesl.allOrderedParent(cl, by, ascending, p1Name, p1);}
+	
+	// MCS
+	@Override public <T extends EjbWithId, REALM extends JeeslMcsRealm<?,?,?,?>, RREF extends EjbWithId> List<T> allMcs(Class<T> c, REALM realm, RREF rref){return fJeesl.allMcs(c,realm,rref);}
 	
 	// Parent
 	@Override public <T extends EjbWithParentAttributeResolver, I extends EjbWithId> T oneForParent(Class<T> type, I p1) throws JeeslNotFoundException{return fJeesl.oneForParent(type, p1);}

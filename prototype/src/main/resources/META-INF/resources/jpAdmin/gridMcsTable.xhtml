@@ -35,7 +35,7 @@
 		</j:slot>
 		<j:slot id="sCategory" width="6">
 			<h:form id="fCategory" rendered="#{not empty cc.attrs.bean.category}">
-				<p:dataTable var="s" value="#{cc.attrs.bean.items}"
+				<p:dataTable var="s" value="#{cc.attrs.bean.items}" draggableRows="true"
 			          selection="#{cc.attrs.bean.status}" selectionMode="single" rowKey="#{s.id}">
 					<f:facet name="header">
 			          	<j:dtHeader>

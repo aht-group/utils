@@ -1,10 +1,14 @@
 package org.jeesl.web.rest.system;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
 import org.jeesl.api.facade.system.graphic.JeeslGraphicFacade;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.exception.processing.UtilsConfigurationException;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
+import org.jeesl.factory.xml.jeesl.XmlContainerFactory;
 import org.jeesl.factory.xml.system.io.revision.XmlEntityFactory;
 import org.jeesl.factory.xml.system.symbol.XmlGraphicFactory;
 import org.jeesl.interfaces.model.io.revision.core.JeeslRevisionCategory;
@@ -117,12 +121,21 @@ public class JeeslRestService <L extends JeeslLang,D extends JeeslDescription,
 	}
 	
 	@SuppressWarnings("unchecked")
-	@Override public <X extends JeeslMcsStatus<L,D,?,?,?>, RREF extends EjbWithId> org.jeesl.model.xml.jeesl.Container exportMcsStatus(R realm, RREF rref, String code) throws UtilsConfigurationException
+//	@Override
+	public <X extends JeeslMcsStatus<L,D,?,?,?>, Y extends JeeslStatus<Y,L,D>, RREF extends EjbWithId> org.jeesl.model.xml.jeesl.Container exportMcsStatus(R realm, RREF rref, String code) throws UtilsConfigurationException
 	{	
 //		try
 //		{
-//			Class<X> x = (Class<X>)Class.forName(code).asSubclass(JeeslStatus.class);
-//			org.jeesl.model.xml.jeesl.Container xml = xfContainer.build(fGraphic.allOrderedPosition(x));
+//			Class<X> x = (Class<X>)Class.forName(code).asSubclass(JeeslMcsStatus.class);
+//			List<X> list = fGraphic.allMcs(x,realm,rref);
+//			List<Y> list2 = new ArrayList<Y>();
+//			for(X xx : list)
+//			{
+//				list2.add((Y)xx);
+//			}
+//			
+//			org.jeesl.model.xml.jeesl.Container xml = XmlContainerFactory.build();
+//			xml = xfContainer.build(list2);
 //			
 //			if(EjbWithGraphic.class.isAssignableFrom(x))
 //			{

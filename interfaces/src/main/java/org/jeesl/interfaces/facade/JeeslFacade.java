@@ -16,6 +16,7 @@ import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.parent.EjbWithValidFromAndParent;
 import org.jeesl.interfaces.model.with.parent.JeeslWithParentAttributeStatus;
@@ -90,6 +91,9 @@ public interface JeeslFacade extends JeeslIdFacade
 	<T extends EjbWithRecord> List<T> allOrderedRecord(Class<T> type, boolean ascending);
 	<T extends EjbWithRecord, AND extends EjbWithId, OR extends EjbWithId> List<T> allOrderedForParents(Class<T> queryClass, List<ParentPredicate<AND>> lpAnd, List<ParentPredicate<OR>> lpOr,boolean ascending);
 	<T extends EjbWithValidFrom> List<T> allOrderedValidFrom(Class<T> cl, boolean ascending);
+	
+	// MCS
+	<T extends EjbWithId, REALM extends JeeslMcsRealm<?,?,?,?>, RREF extends EjbWithId> List<T> allMcs(Class<T> c, REALM realm, RREF rref);
 	
 	//Visibility
 	<T extends EjbWithVisible, P extends EjbWithId> List<T> allVisible(Class<T> cl);

@@ -17,6 +17,7 @@ import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.parent.EjbWithValidFromAndParent;
 import org.jeesl.interfaces.model.with.parent.JeeslWithParentAttributeStatus;
@@ -545,5 +546,13 @@ public class AbstractDummyFacade implements JeeslFacade
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public <T extends EjbWithId, REALM extends JeeslMcsRealm<?, ?, ?, ?>, RREF extends EjbWithId> List<T> allMcs(
+			Class<T> c, REALM realm, RREF rref) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

@@ -7,10 +7,10 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslMcsStatus;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 
 public interface JeeslHdIssueCategory <L extends JeeslLang, D extends JeeslDescription,
-										REALM extends JeeslMcsRealm<L,D,REALM,?>,
-										S extends JeeslMcsStatus<L,D,REALM,S,G>,
+										R extends JeeslMcsRealm<L,D,R,G>,
+										S extends JeeslMcsStatus<L,D,R,S,G>,
 										G extends JeeslGraphic<L,D,?,?,?>>
-			extends JeeslMcsStatus<L,D,REALM,S,G>
+			extends JeeslMcsStatus<L,D,R,S,G>
 					
 {
 	public enum Attributes{realm,rref}

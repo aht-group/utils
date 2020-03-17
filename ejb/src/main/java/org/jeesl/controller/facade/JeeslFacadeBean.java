@@ -32,6 +32,8 @@ import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
+import org.jeesl.interfaces.model.system.mcs.JeeslWithMultiClientSupport;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.parent.EjbWithValidFromAndParent;
 import org.jeesl.interfaces.model.with.parent.JeeslWithParentAttributeStatus;
@@ -522,6 +524,22 @@ public class JeeslFacadeBean implements JeeslFacade
 		
 		return em.createQuery(select).getResultList();
 	}
+	
+	// MCS
+	@Override public <T extends EjbWithId, REALM extends JeeslMcsRealm<?,?,?,?>, RREF extends EjbWithId> List<T> allMcs(Class<T> c, REALM realm, RREF rref)
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<T> cQ = cB.createQuery(c);
+		Root<T> from = cQ.from(c);
+		
+		Path<REALM> pRealm = from.get(JeeslWithMultiClientSupport.Attributes.realm.toString());
+		Expression<Long> eRrref = from.get(JeeslWithMultiClientSupport.Attributes.rref.toString());
+		CriteriaQuery<T> select = cQ.select(from);
+		select.where(cB.equal(pRealm,realm),cB.equal(eRrref,rref));
+		
+		return em.createQuery(select).getResultList();
+	}
+	
 	
 	@Override public <T extends EjbRemoveable> void rmTransaction(T o) throws JeeslConstraintViolationException {rmProtected(o);}
 	@Override public <T extends EjbRemoveable> void rm(T o) throws JeeslConstraintViolationException {rmProtected(o);}
