@@ -15,8 +15,8 @@ import org.jeesl.interfaces.model.with.system.graphic.EjbWithGraphic;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithLangDescription;
 
 public interface JeeslMcsStatus<L extends JeeslLang, D extends JeeslDescription,
-								REALM extends JeeslMcsRealm<L,D,REALM,?>,
-								S extends JeeslMcsStatus<L,D,REALM,S,G>,
+								R extends JeeslMcsRealm<L,D,R,?>,
+								S extends JeeslMcsStatus<L,D,R,S,G>,
 								G extends JeeslGraphic<L,D,?,?,?>>
 					extends EjbWithId,EjbRemoveable,Serializable,EjbSaveable,
 							EjbWithNonUniqueCode,EjbWithPositionVisible,
@@ -25,8 +25,8 @@ public interface JeeslMcsStatus<L extends JeeslLang, D extends JeeslDescription,
 {	
 	enum EjbAttributes{code,parent}
 	
-	REALM getRealm();
-	void setRealm(REALM realm);
+	R getRealm();
+	void setRealm(R realm);
 	
 	long getRref();
 	void setRref(long rref);

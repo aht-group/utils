@@ -1,14 +1,10 @@
 package org.jeesl.web.rest.system;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
 import org.jeesl.api.facade.system.graphic.JeeslGraphicFacade;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.exception.processing.UtilsConfigurationException;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
-import org.jeesl.factory.xml.jeesl.XmlContainerFactory;
 import org.jeesl.factory.xml.system.io.revision.XmlEntityFactory;
 import org.jeesl.factory.xml.system.symbol.XmlGraphicFactory;
 import org.jeesl.interfaces.model.io.revision.core.JeeslRevisionCategory;
@@ -48,7 +44,7 @@ public class JeeslRestService <L extends JeeslLang,D extends JeeslDescription,
 								RAT extends JeeslStatus<RAT,L,D>,
 								ERD extends JeeslRevisionDiagram<L,D,RC>>
 					extends AbstractJeeslRestService<L,D>
-					implements JeeslExportRest<L,D,R>
+					implements JeeslExportRest<L,D,R,G>
 {
 	final static Logger logger = LoggerFactory.getLogger(JeeslRestService.class);
 	
@@ -122,7 +118,7 @@ public class JeeslRestService <L extends JeeslLang,D extends JeeslDescription,
 	
 	@SuppressWarnings("unchecked")
 //	@Override
-	public <X extends JeeslMcsStatus<L,D,?,?,?>, Y extends JeeslStatus<Y,L,D>, RREF extends EjbWithId> org.jeesl.model.xml.jeesl.Container exportMcsStatus(R realm, RREF rref, String code) throws UtilsConfigurationException
+	public <Y extends JeeslMcsStatus<L,D,R,Y,?>, X extends JeeslStatus<X,L,D>, RREF extends EjbWithId> org.jeesl.model.xml.jeesl.Container exportMcsStatus(R realm, RREF rref, String code) throws UtilsConfigurationException
 	{	
 //		try
 //		{
