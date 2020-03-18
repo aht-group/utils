@@ -10,8 +10,10 @@ import org.jeesl.exception.processing.UtilsConfigurationException;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslMcsStatus;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.xml.system.revision.Entity;
 
 @Path("/rest/jeesl/export")
@@ -22,7 +24,7 @@ public interface JeeslExportRest <L extends JeeslLang, D extends JeeslDescriptio
 {	
 	@GET @Path("/status/{code}") @Produces(MediaType.APPLICATION_XML)
 	<X extends JeeslStatus<X,L,D>> org.jeesl.model.xml.jeesl.Container exportStatus(@PathParam("code") String code) throws UtilsConfigurationException;
-	
+		
 	@GET @Path("/revision/entity/{code}") @Produces(MediaType.APPLICATION_XML)
 	Entity exportRevisionEntity(@PathParam("code") String code) throws UtilsConfigurationException;
 }

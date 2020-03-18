@@ -533,13 +533,12 @@ public class JeeslFacadeBean implements JeeslFacade
 		Root<T> from = cQ.from(c);
 		
 		Path<REALM> pRealm = from.get(JeeslWithMultiClientSupport.Attributes.realm.toString());
-		Expression<Long> eRrref = from.get(JeeslWithMultiClientSupport.Attributes.rref.toString());
+		Expression<Long> eRref = from.get(JeeslWithMultiClientSupport.Attributes.rref.toString());
 		CriteriaQuery<T> select = cQ.select(from);
-		select.where(cB.equal(pRealm,realm),cB.equal(eRrref,rref));
+		select.where(cB.equal(pRealm,realm),cB.equal(eRref,rref.getId()));
 		
 		return em.createQuery(select).getResultList();
 	}
-	
 	
 	@Override public <T extends EjbRemoveable> void rmTransaction(T o) throws JeeslConstraintViolationException {rmProtected(o);}
 	@Override public <T extends EjbRemoveable> void rm(T o) throws JeeslConstraintViolationException {rmProtected(o);}
