@@ -21,7 +21,7 @@ public interface JeeslMcsStatus<L extends JeeslLang, D extends JeeslDescription,
 					extends EjbWithId,EjbRemoveable,Serializable,EjbSaveable,
 							EjbWithNonUniqueCode,EjbWithPositionVisible,
 							EjbWithLangDescription<L,D>,EjbWithGraphic<G>
-,							JeeslStatus<S,L,D>
+//,							JeeslStatus<S,L,D>
 {	
 	enum EjbAttributes{code,parent}
 	
