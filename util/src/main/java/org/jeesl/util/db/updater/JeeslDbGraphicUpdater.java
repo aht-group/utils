@@ -11,6 +11,7 @@ import org.jeesl.factory.ejb.system.symbol.EjbGraphicFactory;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicType;
 import org.jeesl.interfaces.model.system.graphic.with.EjbWithCodeGraphic;
+import org.jeesl.interfaces.model.with.system.graphic.EjbWithGraphic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,8 +41,6 @@ public class JeeslDbGraphicUpdater <G extends JeeslGraphic<?,?,GT,?,?>, GT exten
 	{
 		if(debugOnInfo) {logger.info(StringUtil.stars());}		
 		
-		
-		
 		for(Status xml : list)
 		{
 			try
@@ -69,9 +68,9 @@ public class JeeslDbGraphicUpdater <G extends JeeslGraphic<?,?,GT,?,?>, GT exten
 		}
 	}
 	
-	public <W extends EjbWithCodeGraphic<G>> void updateSvg(Class<W> cStatus, W ejb, Status xml) throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException
+	public <W extends EjbWithGraphic<G>> void updateSvg(Class<W> cStatus, W ejb, Status xml) throws JeeslConstraintViolationException, JeeslLockingException
 	{
-		GT svg = fGraphic.fByCode(fbGraphic.getClassGraphicType(), JeeslGraphicType.Code.svg);
+		GT svg = fGraphic.fByEnum(fbGraphic.getClassGraphicType(),JeeslGraphicType.Code.svg);
 		
 		G graphic;
 		try
