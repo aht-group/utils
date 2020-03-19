@@ -85,6 +85,7 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 	private JeeslLocaleProvider<LOC> lp;
 		
 	protected boolean supportsSymbol; public boolean getSupportsSymbol(){return supportsSymbol;}
+	private boolean supportsDownload; public boolean getSupportsDownload(){return supportsDownload;}
 
 	protected long index;
 	protected Map<Long,Boolean> allowAdditionalElements; public Map<Long, Boolean> getAllowAdditionalElements(){return allowAdditionalElements;}
@@ -111,7 +112,7 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 
 	private F figure; public F getFigure() {return figure;} public void setFigure(F figure) {this.figure = figure;}
 
-	private boolean supportsDownload; public boolean getSupportsDownload(){return supportsDownload;}
+	
 	
 	@SuppressWarnings("rawtypes")
 	protected Class cl;
@@ -179,6 +180,7 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 			logger.info(StringUtil.stars());
 			logger.info("Option Tables Settings");
 			logger.info("\tSymbol? "+supportsSymbol);
+			logger.info("\tDownload "+supportsDownload);
 		}
 	}
 	
@@ -419,17 +421,11 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 			logger.info("Using Direct Connection (JBoss EAP7)");
 			xml = downloadOptionsFromRest(rest.getRestCode());
 		}
-		JaxbUtil.info(xml);
+		JaxbUtil.trace(xml);
 		
 		JeeslDbMcsStatusUpdater<L,D,LOC,R,RREF,G,GT> updater = new JeeslDbMcsStatusUpdater<L,D,LOC,R,RREF,G,GT>(fbStatus,fbSvg,fGraphic,lp);
 		updater.initMcs(realm,rref);
-//        asdi.setStatusEjbFactory(EjbStatusFactory.createFactory(cS,cL,cD,bTranslation.getLangKeys()));
-		
-//        DataUpdate dataUpdate = asdi.iuStatus(xml.getStatus(),cS,cL,clParent);
-//        asdi.deleteUnusedStatus(cS, cL, cD);
-//        JaxbUtil.info(dataUpdate);
-//        
-//        dbuGraphic.update(cW,xml.getStatus());
+		updater.iStatus(cl,xml);
         
         selectCategory();
 	}

@@ -44,7 +44,7 @@
 								<h:outputText value="#{cc.attrs.bean.mapEntity[cc.attrs.bean.category].name[localeCode].lang}" rendered="#{not empty cc.attrs.bean.mapEntity[cc.attrs.bean.category]}"/>
 							</f:facet>
 			          		<j:svg type="jeeslAdd" listener="#{cc.attrs.bean.add()}" update=":#{cc.id}:sCategory :#{cc.id}:sDetail" library="jeeslGfx"/>
-			          		<j:svg type="jeeslDownload" listener="#{cc.attrs.bean.downloadData()}" update=":#{cc.id}:sCategory :#{cc.id}:sDetail" rendered="#{cc.attrs.bean.supportsDownload}" library="jeeslGfx"/>
+			          		<j:icon type="jeeslDownload" listener="#{cc.attrs.bean.downloadData()}" update=":#{cc.id}:sCategory :#{cc.id}:sDetail" rendered="#{cc.attrs.bean.supportsDownload}"/>
 			          	</j:dtHeader>
 					</f:facet>
 					<p:ajax event="rowReorder" listener="#{cc.attrs.bean.reorder()}" update="@form"/>

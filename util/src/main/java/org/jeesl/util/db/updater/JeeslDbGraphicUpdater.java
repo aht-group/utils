@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.exlp.util.io.StringUtil;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 public class JeeslDbGraphicUpdater <G extends JeeslGraphic<?,?,GT,?,?>, GT extends JeeslGraphicType<?,?,GT,G>>
 {
@@ -70,6 +71,7 @@ public class JeeslDbGraphicUpdater <G extends JeeslGraphic<?,?,GT,?,?>, GT exten
 	
 	public <W extends EjbWithGraphic<G>> void updateSvg(Class<W> cStatus, W ejb, Status xml) throws JeeslConstraintViolationException, JeeslLockingException
 	{
+		JaxbUtil.info(xml);
 		GT svg = fGraphic.fByEnum(fbGraphic.getClassGraphicType(),JeeslGraphicType.Code.svg);
 		
 		G graphic;

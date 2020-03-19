@@ -180,6 +180,8 @@ public class JeeslDbMcsStatusUpdater <L extends JeeslLang, D extends JeeslDescri
 			ejb.setRealm(realm);
 			ejb.setRref(rref.getId());
 			ejb.setCode(xml.getCode());
+			ejb.setVisible(xml.isVisible());
+			ejb.setPosition(xml.getPosition());
 			ejb.setName(fbLocale.ejbLang().build(lp,xml.getLangs()));
 			ejb.setDescription(fbLocale.ejbDescription().build(lp,xml.getDescriptions()));
 			ejb = fGraphic.persist(ejb);
