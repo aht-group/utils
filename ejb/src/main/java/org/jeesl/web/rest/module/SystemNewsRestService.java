@@ -9,7 +9,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.news.JeeslSystemNews;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
-import org.jeesl.util.db.JeeslStatusDbUpdater;
+import org.jeesl.util.db.updater.JeeslDbStatusUpdater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,7 +60,7 @@ public class SystemNewsRestService <L extends JeeslLang,D extends JeeslDescripti
     public <S extends JeeslStatus<S,L,D>, P extends JeeslStatus<P,L,D>> DataUpdate importStatus2(Class<S> clStatus, Class<P> clParent, Aht container)
     {
     	for(Status xml : container.getStatus()){xml.setGroup(clStatus.getSimpleName());}
-		JeeslStatusDbUpdater asdi = new JeeslStatusDbUpdater();
+		JeeslDbStatusUpdater asdi = new JeeslDbStatusUpdater();
         asdi.setStatusEjbFactory(EjbStatusFactory.createFactory(clStatus, cL, cD));
         asdi.setFacade(fNews);
         DataUpdate dataUpdate = asdi.iuStatus(container.getStatus(), clStatus, cL, clParent);

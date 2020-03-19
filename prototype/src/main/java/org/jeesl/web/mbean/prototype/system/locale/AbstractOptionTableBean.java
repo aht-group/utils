@@ -58,8 +58,8 @@ import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 import org.jeesl.interfaces.web.JeeslJsfSecurityHandler;
 import org.jeesl.model.xml.jeesl.Container;
 import org.jeesl.model.xml.system.revision.Entity;
-import org.jeesl.util.db.JeeslGraphicDbUpdater;
-import org.jeesl.util.db.JeeslStatusDbUpdater;
+import org.jeesl.util.db.updater.JeeslDbGraphicUpdater;
+import org.jeesl.util.db.updater.JeeslDbStatusUpdater;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -89,7 +89,7 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 	private final SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg;
 	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,?,?,?,?> fbRevision;
 	
-	private final JeeslGraphicDbUpdater<G,GT> dbuGraphic;
+	private final JeeslDbGraphicUpdater<G,GT> dbuGraphic;
 	
 	protected boolean allowSvg; public boolean isAllowSvg() {return allowSvg;}
 	private boolean showDescription; public boolean isShowDescription() {return showDescription;}
@@ -136,7 +136,7 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 		this.fbStatus=fbStatus;
 		this.fbSvg=fbSvg;
 		this.fbRevision=fbRevision;
-		dbuGraphic = new JeeslGraphicDbUpdater<G,GT>(fbSvg);
+		dbuGraphic = new JeeslDbGraphicUpdater<G,GT>(fbSvg);
 
 		efGraphic = fbSvg.efGraphic();
 		
@@ -492,7 +492,7 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 		
 		JaxbUtil.info(xml);
 		
-		JeeslStatusDbUpdater asdi = new JeeslStatusDbUpdater();
+		JeeslDbStatusUpdater asdi = new JeeslDbStatusUpdater();
         asdi.setStatusEjbFactory(EjbStatusFactory.createFactory(cS,cL,cD,bTranslation.getLangKeys()));
         asdi.setFacade(fUtils);
         DataUpdate dataUpdate = asdi.iuStatus(xml.getStatus(),cS,cL,clParent);

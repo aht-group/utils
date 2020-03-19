@@ -43,7 +43,7 @@ import org.jeesl.model.xml.system.revision.Diagrams;
 import org.jeesl.model.xml.system.revision.Entities;
 import org.jeesl.model.xml.system.revision.Entity;
 import org.jeesl.util.comparator.ejb.PositionParentComparator;
-import org.jeesl.util.db.JeeslStatusDbUpdater;
+import org.jeesl.util.db.updater.JeeslDbStatusUpdater;
 import org.jeesl.util.query.xml.XmlStatusQuery;
 import org.jeesl.util.query.xml.system.io.XmlRevisionQuery;
 import org.metachart.factory.xml.graph.XmlDotFactory;
@@ -272,7 +272,7 @@ public class RevisionRestService <L extends JeeslLang,D extends JeeslDescription
     public <S extends JeeslStatus<S,L,D>, P extends JeeslStatus<P,L,D>> DataUpdate importStatus(Class<S> clStatus, Class<L> clLang, Class<D> clDescription, Aht container, Class<P> clParent)
     {
     	for(Status xml : container.getStatus()){xml.setGroup(clStatus.getSimpleName());}
-		JeeslStatusDbUpdater asdi = new JeeslStatusDbUpdater();
+		JeeslDbStatusUpdater asdi = new JeeslDbStatusUpdater();
         asdi.setStatusEjbFactory(EjbStatusFactory.createFactory(clStatus, clLang, clDescription));
         asdi.setFacade(fRevision);
         DataUpdate dataUpdate = asdi.iuStatus(container.getStatus(), clStatus, clLang, clParent);
@@ -284,7 +284,7 @@ public class RevisionRestService <L extends JeeslLang,D extends JeeslDescription
     public <S extends JeeslStatus<S,L,D>, P extends JeeslStatus<P,L,D>> DataUpdate importStatus(Class<S> clStatus, Class<L> clLang, Class<D> clDescription, Container container, Class<P> clParent)
     {
     	for(Status xml : container.getStatus()){xml.setGroup(clStatus.getSimpleName());}
-		JeeslStatusDbUpdater asdi = new JeeslStatusDbUpdater();
+		JeeslDbStatusUpdater asdi = new JeeslDbStatusUpdater();
         asdi.setStatusEjbFactory(EjbStatusFactory.createFactory(clStatus, clLang, clDescription));
         asdi.setFacade(fRevision);
         DataUpdate dataUpdate = asdi.iuStatus(container.getStatus(), clStatus, clLang, clParent);

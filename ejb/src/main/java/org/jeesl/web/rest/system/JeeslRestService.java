@@ -120,12 +120,14 @@ public class JeeslRestService <L extends JeeslLang,D extends JeeslDescription,
 		catch (JeeslNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public <Y extends JeeslMcsStatus<L,D,R,Y,G>, X extends JeeslStatus<X,L,D>, RREF extends EjbWithId> org.jeesl.model.xml.jeesl.Container exportMcsStatus(R realm, RREF rref, String code) throws UtilsConfigurationException
 	{	
 		try
 		{
-			Class<Y> x = (Class<Y>)Class.forName(code).asSubclass(JeeslMcsStatus.class);
-			List<Y> list = fGraphic.allMcs(x,realm,rref);
+			Class<Y> cMcs = (Class<Y>)Class.forName(code).asSubclass(JeeslMcsStatus.class);
+			Class<X> cStatus = (Class<X>)Class.forName(code).asSubclass(JeeslStatus.class);
+			List<Y> list = fGraphic.allMcs(cMcs,realm,rref);
 			List<X> list2 = new ArrayList<X>();
 			for(Y y : list)
 			{
@@ -135,23 +137,22 @@ public class JeeslRestService <L extends JeeslLang,D extends JeeslDescription,
 			org.jeesl.model.xml.jeesl.Container xml = XmlContainerFactory.build();
 			xml = xfContainer.build(list2);
 			
-			if(EjbWithGraphic.class.isAssignableFrom(x))
+			if(EjbWithGraphic.class.isAssignableFrom(cMcs))
 			{
 				for(Status xStatus : xml.getStatus())
 				{
-//					X eStatus = fGraphic.fByCode(x,xStatus.getCode());
-//					try
-//					{
-//						G eGraphic = fGraphic.fGraphicForStatus(eStatus.getId());
-//						xStatus.setGraphic(xfGraphic.build(eGraphic));
-//					}
-//					catch (JeeslNotFoundException e) {}
+					try
+					{
+						X eStatus = fGraphic.fByCode(cStatus,xStatus.getCode());
+						G eGraphic = fGraphic.fGraphicForStatus(eStatus.getId());
+						xStatus.setGraphic(xfGraphic.build(eGraphic));
+					}
+					catch (JeeslNotFoundException e) {}
 				}
 			}
 			return xml;
 		}
 		catch (ClassNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
-//		catch (JeeslNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
 	}
 
 	@Override public Entity exportRevisionEntity(String code) throws UtilsConfigurationException

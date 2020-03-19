@@ -7,15 +7,22 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
+import org.jboss.resteasy.client.jaxrs.ResteasyClient;
+import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
+import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
+import org.jeesl.api.facade.system.JeeslExportRestFacade;
 import org.jeesl.api.facade.system.graphic.JeeslGraphicFacade;
+import org.jeesl.api.rest.JeeslExportRest;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.exception.processing.UtilsConfigurationException;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.factory.builder.system.StatusFactoryBuilder;
 import org.jeesl.factory.builder.system.SvgFactoryBuilder;
+import org.jeesl.factory.ejb.system.status.EjbStatusFactory;
 import org.jeesl.factory.ejb.system.symbol.EjbGraphicFactory;
 import org.jeesl.factory.ejb.system.symbol.EjbGraphicFigureFactory;
 import org.jeesl.interfaces.facade.JeeslFacade;
@@ -26,21 +33,28 @@ import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicStyle;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicType;
+import org.jeesl.interfaces.model.system.graphic.with.EjbWithCodeGraphic;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
+import org.jeesl.interfaces.model.system.locale.status.JeeslMcsStatus;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatusFixedCode;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatusWithSymbol;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.system.mcs.JeeslWithMultiClientSupport;
+import org.jeesl.interfaces.model.system.option.JeeslOptionRest;
+import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 import org.jeesl.interfaces.model.with.primitive.text.EjbWithSymbol;
 import org.jeesl.interfaces.model.with.system.graphic.EjbWithGraphic;
+import org.jeesl.interfaces.model.with.system.graphic.EjbWithImage;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithDescription;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
+import org.jeesl.model.xml.jeesl.Container;
+import org.jeesl.util.db.updater.JeeslDbStatusUpdater;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -48,10 +62,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.jsf.util.PositionListReorderer;
+import net.sf.ahtutils.xml.sync.DataUpdate;
 import net.sf.exlp.util.io.StringUtil;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,G>,
-										REALM extends JeeslMcsRealm<L,D,REALM,G>, RREF extends EjbWithId,
+										R extends JeeslMcsRealm<L,D,R,G>, RREF extends EjbWithId,
 										G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslStatus<GT,L,D>,
 										F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>,
 										RE extends JeeslRevisionEntity<L,D,?,?,?,?>
@@ -90,11 +106,13 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 	private List<FS> graphicStyles; public List<FS> getGraphicStyles() {return graphicStyles;}
 	private List<F> figures; public List<F> getFigures() {return figures;}
 	
-	private REALM realm; public REALM getRealm() {return realm;}
+	private R realm; public R getRealm() {return realm;}
 	private RREF rref; public RREF getRref() {return rref;}
 
 	private F figure; public F getFigure() {return figure;} public void setFigure(F figure) {this.figure = figure;}
 
+	private boolean supportsDownload; public boolean getSupportsDownload(){return supportsDownload;}
+	
 	@SuppressWarnings("rawtypes")
 	protected Class cl;
 
@@ -125,7 +143,7 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 	protected void postConstructOptionTable(JeeslTranslationBean<L,D,LOC> bTranslation,
 											JeeslGraphicFacade<L,D,?,G,GT,F,FS> fGraphic,
 											JeeslFacesMessageBean bMessage,
-											REALM realm)
+											R realm)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fUtils=fGraphic;
@@ -148,6 +166,7 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 	protected void updateUiForCategory()
 	{
 		supportsSymbol = JeeslStatusWithSymbol.class.isAssignableFrom(cl);
+		supportsDownload = JeeslOptionRestDownload.class.isAssignableFrom(cl);
 	}
 	
 	protected void debugUi(boolean debug)
@@ -217,8 +236,8 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 		((EjbWithCode)status).setCode("enter code");
 		((EjbWithLang<L>)status).setName(efLang.createEmpty(localeCodes));
 		((EjbWithDescription<D>)status).setDescription(efDescription.createEmpty(localeCodes));
-		((JeeslWithMultiClientSupport<REALM>)status).setRealm(realm);
-		((JeeslWithMultiClientSupport<REALM>)status).setRref(rref.getId());
+		((JeeslWithMultiClientSupport<R>)status).setRealm(realm);
+		((JeeslWithMultiClientSupport<R>)status).setRref(rref.getId());
 		
 		GT type = fUtils.fByCode(fbSvg.getClassGraphicType(), JeeslGraphicType.Code.symbol.toString());
 		FS style = fUtils.fByCode(fbSvg.getClassFigureStyle(), JeeslGraphicStyle.Code.circle.toString());
@@ -374,5 +393,56 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 		fUtils.rm(figure);
 		reset(false,true);
 		reloadFigures();
+	}
+	
+	//JEESL REST DATA
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public <REST extends JeeslOptionRest, Y extends JeeslMcsStatus<L,D,R,Y,G>, X extends JeeslStatus<X,L,D>> void downloadData() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UtilsConfigurationException
+	{
+		logger.info("Downloading REST");
+		
+		String fqcn = ((EjbWithSymbol)category).getSymbol();
+		
+		Class<REST> cRest = (Class<REST>)Class.forName(((EjbWithSymbol)category).getSymbol()).asSubclass(JeeslOptionRest.class);
+//		Class<S> cS = (Class<S>)Class.forName(((EjbWithImage)category).getImage()).asSubclass(JeeslStatus.class);
+//		Class<W> cW = (Class<W>)Class.forName(((EjbWithImage)category).getImage()).asSubclass(EjbWithCodeGraphic.class);
+		REST rest = cRest.newInstance();
+		
+		Container xml;
+		if(fUtils instanceof JeeslExportRestFacade)
+		{
+			logger.info("Using Facade Connection for JBoss EAP6 ("+fUtils.getClass().getSimpleName()+" implements "+JeeslExportRestFacade.class.getSimpleName()+")");
+			xml = ((JeeslExportRestFacade)fUtils).exportJeeslReferenceRest(rest.getRestCode());
+		}
+		else
+		{
+			logger.info("Using Direct Connection (JBoss EAP7)");
+			xml = downloadOptionsFromRest(rest.getRestCode());
+		}
+		JaxbUtil.info(xml);
+		
+//		JeeslStatusDbUpdater asdi = new JeeslStatusDbUpdater();
+//        asdi.setStatusEjbFactory(EjbStatusFactory.createFactory(cS,cL,cD,bTranslation.getLangKeys()));
+//        asdi.setFacade(fUtils);
+//        DataUpdate dataUpdate = asdi.iuStatus(xml.getStatus(),cS,cL,clParent);
+//        asdi.deleteUnusedStatus(cS, cL, cD);
+//        JaxbUtil.info(dataUpdate);
+//        
+//        dbuGraphic.update(cW,xml.getStatus());
+        
+        selectCategory();
+	}
+	
+	@SuppressWarnings("unchecked")
+	private Container downloadOptionsFromRest(String code) throws UtilsConfigurationException
+	{
+		StringBuilder url = new StringBuilder();
+		if(code.startsWith(JeeslExportRestFacade.packageJeesl)) {url.append(JeeslExportRestFacade.urlJeesl);}
+		else if(code.startsWith(JeeslExportRestFacade.packageGeojsf)) {url.append(JeeslExportRestFacade.urlGeojsf);}
+		
+		ResteasyClient client = new ResteasyClientBuilder().build();
+		ResteasyWebTarget restTarget = client.target(url.toString());
+		JeeslExportRest<L,D,?,G> rest = restTarget.proxy(JeeslExportRest.class);
+		return rest.exportStatus(code);
 	}
 }

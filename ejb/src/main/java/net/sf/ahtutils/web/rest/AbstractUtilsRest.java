@@ -12,7 +12,7 @@ import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-import org.jeesl.util.db.JeeslStatusDbUpdater;
+import org.jeesl.util.db.updater.JeeslDbStatusUpdater;
 import org.jeesl.util.query.xml.XmlStatusQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,7 +86,7 @@ public class AbstractUtilsRest <L extends JeeslLang, D extends JeeslDescription>
 	protected <S extends JeeslStatus<S,L,D>, P extends JeeslStatus<P,L,D>, G extends JeeslGraphic<L,D,?,?,?>> DataUpdate importStatus(Class<S> cS, Class<P> cP, Aht container)
 	{
 		for(Status xml : container.getStatus()){xml.setGroup(cS.getSimpleName());}
-		JeeslStatusDbUpdater<L,D,S,G> asdi = new JeeslStatusDbUpdater<L,D,S,G>();
+		JeeslDbStatusUpdater<L,D,S,G> asdi = new JeeslDbStatusUpdater<L,D,S,G>();
 	    asdi.setStatusEjbFactory(EjbStatusFactory.createFactory(cS,cL,cD));
 	    asdi.setFacade(fUtils);
 	    DataUpdate dataUpdate = asdi.iuStatus(container.getStatus(),cS,cL,cP);

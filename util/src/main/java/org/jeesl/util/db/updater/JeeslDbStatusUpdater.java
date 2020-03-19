@@ -1,4 +1,4 @@
-package org.jeesl.util.db;
+package org.jeesl.util.db.updater;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -29,11 +29,11 @@ import net.sf.ahtutils.xml.status.Status;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-public class JeeslStatusDbUpdater <L extends JeeslLang, D extends JeeslDescription,
+public class JeeslDbStatusUpdater <L extends JeeslLang, D extends JeeslDescription, 
 									S extends JeeslStatus<S,L,D>,
 									G extends JeeslGraphic<L,D,?,?,?>>
 {
-	final static Logger logger = LoggerFactory.getLogger(JeeslStatusDbUpdater.class);
+	final static Logger logger = LoggerFactory.getLogger(JeeslDbStatusUpdater.class);
 	
 	private final Map<String,Set<Long>> mDbAvailableStatus;
 	private Set<Long> sDeleteLangs,sDeleteDescriptions;
@@ -41,7 +41,7 @@ public class JeeslStatusDbUpdater <L extends JeeslLang, D extends JeeslDescripti
 	private EjbStatusFactory<S,L,D> statusEjbFactory; public void setStatusEjbFactory(EjbStatusFactory<S,L,D> statusEjbFactory) {this.statusEjbFactory = statusEjbFactory;}
 	private JeeslFacade fStatus; public void setFacade(JeeslFacade fStatus){this.fStatus=fStatus;}
 
-	public JeeslStatusDbUpdater()
+	public JeeslDbStatusUpdater()
 	{
 		mDbAvailableStatus = new Hashtable<String,Set<Long>>();
 		sDeleteLangs = new HashSet<Long>();

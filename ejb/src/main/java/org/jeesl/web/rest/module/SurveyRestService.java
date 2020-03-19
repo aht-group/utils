@@ -69,7 +69,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.model.json.system.status.JsonContainer;
 import org.jeesl.model.xml.jeesl.Container;
-import org.jeesl.util.db.JeeslStatusDbUpdater;
+import org.jeesl.util.db.updater.JeeslDbStatusUpdater;
 import org.jeesl.util.query.json.JsonStatusQueryProvider;
 import org.jeesl.util.query.json.JsonSurveyQueryProvider;
 import org.jeesl.util.query.xml.XmlStatusQuery;
@@ -319,7 +319,7 @@ public class SurveyRestService <L extends JeeslLang, D extends JeeslDescription,
     public <S extends JeeslStatus<S,L,D>, P extends JeeslStatus<P,L,D>> DataUpdate importStatus(Class<S> clStatus, Class<L> clLang, Class<D> clDescription, Aht container, Class<P> clParent)
     {
     	for(Status xml : container.getStatus()){xml.setGroup(clStatus.getSimpleName());}
-		JeeslStatusDbUpdater asdi = new JeeslStatusDbUpdater();
+		JeeslDbStatusUpdater asdi = new JeeslDbStatusUpdater();
         asdi.setStatusEjbFactory(EjbStatusFactory.createFactory(clStatus, clLang, clDescription));
         asdi.setFacade(fSurvey);
         DataUpdate dataUpdate = asdi.iuStatus(container.getStatus(), clStatus, clLang, clParent);

@@ -1,4 +1,4 @@
-package org.jeesl.util.db;
+package org.jeesl.util.db.updater;
 
 import java.util.List;
 
@@ -18,9 +18,9 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.exlp.util.io.StringUtil;
 
-public class JeeslGraphicDbUpdater <G extends JeeslGraphic<?,?,GT,?,?>, GT extends JeeslStatus<GT,?,?>>
+public class JeeslDbGraphicUpdater <G extends JeeslGraphic<?,?,GT,?,?>, GT extends JeeslStatus<GT,?,?>>
 {
-	final static Logger logger = LoggerFactory.getLogger(JeeslGraphicDbUpdater.class);
+	final static Logger logger = LoggerFactory.getLogger(JeeslDbGraphicUpdater.class);
 
 	private JeeslGraphicFacade<?,?,?,G,GT,?,?> fGraphic;
 	private static boolean debugOnInfo = true;
@@ -28,7 +28,7 @@ public class JeeslGraphicDbUpdater <G extends JeeslGraphic<?,?,GT,?,?>, GT exten
 	private SvgFactoryBuilder<?,?,G,GT,?,?> fbGraphic;
 	private EjbGraphicFactory<?,?,G,GT,?,?> efGraphic;
 	
-	public JeeslGraphicDbUpdater(SvgFactoryBuilder<?,?,G,GT,?,?> fbGraphic)
+	public JeeslDbGraphicUpdater(SvgFactoryBuilder<?,?,G,GT,?,?> fbGraphic)
 	{
 		this.fbGraphic=fbGraphic;
 		efGraphic = fbGraphic.efGraphic();
