@@ -85,7 +85,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 											AW extends JeeslWorkflow<WP,AS,WY>,
 											WY extends JeeslWorkflowActivity<WT,AW,FRC,USER>,
 											FRC extends JeeslFileContainer<?,?>,
-											G extends JeeslGraphic<L,D,GT,?,?>, GT extends JeeslStatus<GT,L,D>,
+											G extends JeeslGraphic<L,D,GT,?,?>, GT extends JeeslGraphicType<L,D,GT,G>,
 											USER extends JeeslUser<SR>>
 				extends AbstractAdminBean<L,D,LOC>
 					implements Serializable,SbSingleBean

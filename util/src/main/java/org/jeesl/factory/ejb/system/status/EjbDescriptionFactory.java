@@ -11,6 +11,8 @@ import org.jeesl.factory.txt.system.status.TxtStatusFactory;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
+import org.jeesl.interfaces.model.system.locale.JeeslLocaleProvider;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithDescription;
 import org.slf4j.Logger;
@@ -18,6 +20,8 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.xml.status.Description;
 import net.sf.ahtutils.xml.status.Descriptions;
+import net.sf.ahtutils.xml.status.Lang;
+import net.sf.ahtutils.xml.status.Langs;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 public class EjbDescriptionFactory<D extends JeeslDescription>
@@ -35,6 +39,23 @@ public class EjbDescriptionFactory<D extends JeeslDescription>
     {
         return new EjbDescriptionFactory<D>(cD);
     }
+    
+    public <LOC extends JeeslLocale<?,D,LOC,?>> Map<String,D> build(JeeslLocaleProvider<LOC> lp, Descriptions xDescriptions) throws JeeslConstraintViolationException
+	{
+		Map<String,D> map = new Hashtable<String,D>();
+		if(xDescriptions!=null && !xDescriptions.getDescription().isEmpty())
+		{
+			for(Description xLang : xDescriptions.getDescription())
+			{
+				if(lp.hasLocale(xLang.getKey())) {map.put(xLang.getKey(),create(xLang));}
+			}
+		}
+		for(String key : lp.getLocaleCodes())
+		{
+			if(!map.containsKey(key)) {map.put(key,build(key,""));}
+		}
+		return map; 
+	}
 	
 	public D create(Description description) throws JeeslConstraintViolationException
 	{

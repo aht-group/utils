@@ -30,6 +30,11 @@ public class GenericLocaleProvider <L extends JeeslLang, D extends JeeslDescript
 		localeCodes = new ArrayList<>();
 		mapLocales = new HashMap<String,LOC>();
 	}
+	public GenericLocaleProvider(List<LOC> locales)
+	{
+		this();
+		this.setLocales(locales);
+	}
 	
 	public void setLocales(List<LOC> locales)
 	{

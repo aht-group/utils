@@ -73,7 +73,7 @@ import net.sf.exlp.util.io.StringUtil;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
-										G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslStatus<GT,L,D>,
+										G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslGraphicType<L,D,GT,G>,
 										F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>,
 										RE extends JeeslRevisionEntity<L,D,?,?,?,?>
 >
@@ -136,7 +136,7 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 		this.fbStatus=fbStatus;
 		this.fbSvg=fbSvg;
 		this.fbRevision=fbRevision;
-		dbuGraphic = new JeeslDbGraphicUpdater<G,GT>(fbSvg);
+		dbuGraphic = new JeeslDbGraphicUpdater<>(fbSvg);
 
 		efGraphic = fbSvg.efGraphic();
 		

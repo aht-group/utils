@@ -1,20 +1,17 @@
 package org.jeesl.client.model.ejb.system.graphic;
 
-import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
 import org.jeesl.client.model.ejb.system.locale.Description;
 import org.jeesl.client.model.ejb.system.locale.Lang;
-import org.jeesl.interfaces.model.marker.jpa.EjbPersistable;
-import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
-import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicType;
 import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
 
 import net.sf.ahtutils.model.qualifier.EjbErNode;
 
 @EjbErNode(name="Type",category="symbol",subset="symbol",level=3)
-public class GraphicType implements Serializable,EjbRemoveable,EjbPersistable,
-								JeeslStatus<GraphicType,Lang,Description>
+public class GraphicType implements JeeslGraphicType<Lang,Description,GraphicType,Graphic>
 {
 	public enum Code {welcome}
 	public static final long serialVersionUID=1;
@@ -65,5 +62,25 @@ public class GraphicType implements Serializable,EjbRemoveable,EjbPersistable,
 		StringBuffer sb = new StringBuffer();
 			sb.append(id);
 		return sb.toString();
+	}
+	@Override
+	public String getRestCode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<String> getFixedCodes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Graphic getGraphic() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void setGraphic(Graphic graphic) {
+		// TODO Auto-generated method stub
+		
 	}
 }

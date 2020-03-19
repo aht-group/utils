@@ -3,6 +3,7 @@ package org.jeesl.factory.xml.system.symbol;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicStyle;
+import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
@@ -13,7 +14,7 @@ import net.sf.ahtutils.xml.symbol.Size;
 import net.sf.ahtutils.xml.symbol.Sizes;
 
 public class XmlSizesFactory <L extends JeeslLang, D extends JeeslDescription,
-							G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslStatus<GT,L,D>,
+							G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslGraphicType<L,D,GT,G>,
 							F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlSizesFactory.class);

@@ -4,20 +4,22 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.ahtutils.xml.status.Lang;
-import net.sf.ahtutils.xml.status.Langs;
-import net.sf.exlp.util.xml.JaxbUtil;
-
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.txt.system.status.TxtStatusFactory;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
+import org.jeesl.interfaces.model.system.locale.JeeslLocaleProvider;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import net.sf.ahtutils.xml.status.Lang;
+import net.sf.ahtutils.xml.status.Langs;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 public class EjbLangFactory<L extends JeeslLang>
 {
@@ -51,6 +53,23 @@ public class EjbLangFactory<L extends JeeslLang>
 			map.put(l.getLkey(), l);
 		}
 		return map;
+	}
+	
+	public <LOC extends JeeslLocale<L,?,LOC,?>> Map<String,L> build(JeeslLocaleProvider<LOC> lp, Langs xLangs) throws JeeslConstraintViolationException
+	{
+		Map<String,L> map = new Hashtable<String,L>();
+		if(xLangs!=null && !xLangs.getLang().isEmpty())
+		{
+			for(Lang xLang : xLangs.getLang())
+			{
+				if(lp.hasLocale(xLang.getKey())) {map.put(xLang.getKey(),createLang(xLang));}
+			}
+		}
+		for(String key : lp.getLocaleCodes())
+		{
+			if(!map.containsKey(key)) {map.put(key,createLang(key,""));}
+		}
+		return map; 
 	}
 	
 	public <S extends JeeslStatus<S,L,D>, D extends JeeslDescription> Map<String,L> createEmpty(List<S> locales)

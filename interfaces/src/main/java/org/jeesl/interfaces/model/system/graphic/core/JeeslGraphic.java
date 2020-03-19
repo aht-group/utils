@@ -10,7 +10,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslGraphic<L extends JeeslLang, D extends JeeslDescription,
-								GT extends JeeslStatus<GT,L,D>,
+								GT extends JeeslGraphicType<L,D,GT,?>,
 								F extends JeeslGraphicFigure<L,D,?,GT,F,FS>, FS extends JeeslStatus<FS,L,D>>
 		extends Serializable,EjbWithId,EjbSaveable
 {		

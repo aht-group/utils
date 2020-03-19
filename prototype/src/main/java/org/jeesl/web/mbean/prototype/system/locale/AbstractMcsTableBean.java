@@ -15,6 +15,7 @@ import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.system.JeeslExportRestFacade;
 import org.jeesl.api.facade.system.graphic.JeeslGraphicFacade;
 import org.jeesl.api.rest.JeeslExportRest;
+import org.jeesl.controller.provider.GenericLocaleProvider;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
@@ -35,6 +36,7 @@ import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
+import org.jeesl.interfaces.model.system.locale.JeeslLocaleProvider;
 import org.jeesl.interfaces.model.system.locale.status.JeeslMcsStatus;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatusFixedCode;
@@ -64,7 +66,7 @@ import net.sf.exlp.util.xml.JaxbUtil;
 
 public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,G>,
 										R extends JeeslMcsRealm<L,D,R,G>, RREF extends EjbWithId,
-										G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslStatus<GT,L,D>,
+										G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslGraphicType<L,D,GT,G>,
 										F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>,
 										RE extends JeeslRevisionEntity<L,D,?,?,?,?>
 >
@@ -79,6 +81,8 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 	private final LocaleFactoryBuilder<L,D,LOC> fbStatus;
 	private final SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg;
 	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,?,?,?,?> fbRevision;
+	
+	private JeeslLocaleProvider<LOC> lp;
 		
 	protected boolean supportsSymbol; public boolean getSupportsSymbol(){return supportsSymbol;}
 
@@ -146,6 +150,7 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 		this.fUtils=fGraphic;
 		this.realm=realm;
 			
+		lp = new GenericLocaleProvider<>(bTranslation.getLocales());
 		graphicTypes = fUtils.allOrderedPositionVisible(fbSvg.getClassGraphicType());
 		graphicStyles = fUtils.allOrderedPositionVisible(fbSvg.getClassFigureStyle());
 	}
@@ -416,7 +421,7 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 		}
 		JaxbUtil.info(xml);
 		
-		JeeslDbMcsStatusUpdater<L,D,R,RREF,G> updater = new JeeslDbMcsStatusUpdater<>(fbStatus,fUtils);
+		JeeslDbMcsStatusUpdater<L,D,LOC,R,RREF,G,GT> updater = new JeeslDbMcsStatusUpdater<>(fbStatus,fUtils,lp);
 		updater.initMcs(realm,rref);
 //        asdi.setStatusEjbFactory(EjbStatusFactory.createFactory(cS,cL,cD,bTranslation.getLangKeys()));
 		

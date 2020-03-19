@@ -1,16 +1,17 @@
 package org.jeesl.util.db.updater;
 
-import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.Map;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.factory.builder.system.LocaleFactoryBuilder;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
+import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
+import org.jeesl.interfaces.model.system.locale.JeeslLocaleProvider;
 import org.jeesl.interfaces.model.system.locale.status.JeeslMcsStatus;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
@@ -21,25 +22,27 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.xml.status.Status;
 
-public class JeeslDbMcsStatusUpdater <L extends JeeslLang, D extends JeeslDescription,
+public class JeeslDbMcsStatusUpdater <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,G>,
 										R extends JeeslMcsRealm<L,D,R,G>, RREF extends EjbWithId,
 //										S extends JeeslMcsStatus<L,D,R,S,G>,
-										G extends JeeslGraphic<L,D,?,?,?>>
+										G extends JeeslGraphic<L,D,GT,?,?>, GT extends JeeslGraphicType<L,D,GT,G>>
 {
 	final static Logger logger = LoggerFactory.getLogger(JeeslDbMcsStatusUpdater.class);
 	
 //	private EjbStatusFactory<S,L,D> statusEjbFactory; public void setStatusEjbFactory(EjbStatusFactory<S,L,D> statusEjbFactory) {this.statusEjbFactory = statusEjbFactory;}
 	private final JeeslFacade fJeesl;
 	private final LocaleFactoryBuilder<L,D,?> fbLocale;
+	private final JeeslLocaleProvider<LOC> lp;
+	private JeeslDbGraphicUpdater<G,GT> uGraphic;
 
 	private R realm;
 	private RREF rref;
 	
-	public JeeslDbMcsStatusUpdater(LocaleFactoryBuilder<L,D,?> fbLocale, JeeslFacade fJeesl)
+	public JeeslDbMcsStatusUpdater(LocaleFactoryBuilder<L,D,LOC> fbLocale, JeeslFacade fJeesl, JeeslLocaleProvider<LOC> lp)
 	{
 		this.fbLocale=fbLocale;
 		this.fJeesl=fJeesl;
-		
+		this.lp=lp;
 	}
 	
 	public void initMcs(R realm, RREF rref)
@@ -147,8 +150,9 @@ public class JeeslDbMcsStatusUpdater <L extends JeeslLang, D extends JeeslDescri
 //		 }
 //	}
 //	
-	public <S extends JeeslMcsStatus<L,D,R,S,G>> void iStatus(Class<S> cStatus, Container xContainer)
+	public <S extends JeeslMcsStatus<L,D,R,S,G>> List<S> iStatus(Class<S> cStatus, Container xContainer)
 	{
+		List<S> added = new ArrayList<>();
 		EjbCodeCache<S> cache = new EjbCodeCache<>(cStatus,fJeesl.allMcs(cStatus, realm, rref));
 		logger.debug("Updating "+cStatus.getSimpleName()+" with "+xContainer.getStatus().size()+" entries, "+cache.size()+" already in DB");
 //		iuStatusEJB(list, cStatus, cLang);
@@ -156,21 +160,28 @@ public class JeeslDbMcsStatusUpdater <L extends JeeslLang, D extends JeeslDescri
 		{
 			if(!cache.contains(xml.getCode()))
 			{
-				iStatus(cStatus,xml);
+				try {added.add(iStatus(cStatus,xml));}
+				catch (JeeslConstraintViolationException e) {e.printStackTrace();}
 			}
 		}
+		return added;
 	}
 	
-	public <S extends JeeslMcsStatus<L,D,R,S,G>> void iStatus(Class<S> cStatus, Status xml)
+	public <S extends JeeslMcsStatus<L,D,R,S,G>> S iStatus(Class<S> cStatus, Status xml) throws JeeslConstraintViolationException
 	{
 		try
 		{
 			S ejb = cStatus.newInstance();
+			ejb.setRealm(realm);
+			ejb.setRref(rref.getId());
 			ejb.setCode(xml.getCode());
+			ejb.setName(fbLocale.ejbLang().build(lp,xml.getLangs()));
+			ejb.setDescription(fbLocale.ejbDescription().build(lp,xml.getDescriptions()));
 			ejb = fJeesl.persist(ejb);
 			logger.info("Added: "+ejb);
+			return ejb;
 		}
-		catch (InstantiationException | IllegalAccessException | JeeslConstraintViolationException e) {e.printStackTrace();}
+		catch (InstantiationException | IllegalAccessException e) {e.printStackTrace(); throw new JeeslConstraintViolationException(e.getMessage());}
 	}
 	
 //	
