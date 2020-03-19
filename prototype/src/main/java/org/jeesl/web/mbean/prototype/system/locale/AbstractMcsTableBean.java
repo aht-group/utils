@@ -400,7 +400,7 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 	}
 	
 	//JEESL REST DATA
-//	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings("unchecked")
 	public <REST extends JeeslOptionRest, Y extends JeeslMcsStatus<L,D,R,Y,G>, X extends JeeslStatus<X,L,D>> void downloadData() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UtilsConfigurationException
 	{
 		logger.info("Downloading REST");
