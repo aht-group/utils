@@ -9,27 +9,27 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.jeesl.api.bean.JeeslTranslationBean;
-import org.jeesl.factory.builder.system.StatusFactoryBuilder;
+import org.jeesl.factory.builder.system.LocaleFactoryBuilder;
 import org.jeesl.factory.txt.system.locale.TranslationFactory;
 import org.jeesl.factory.txt.system.locale.TranslationMap;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.exlp.util.xml.JaxbUtil;
 import net.sf.exlp.xml.io.Dir;
 
-public class AbstractTranslationBean<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>>
+public class AbstractTranslationBean<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>>
 									implements Serializable,JeeslTranslationBean<L,D,LOC>
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractTranslationBean.class);
 	private static final long serialVersionUID = 1L;
 	
 	private JeeslFacade fUtils;
-	private StatusFactoryBuilder<L,D,LOC> fbStatus;
+	private LocaleFactoryBuilder<L,D,LOC> fbStatus;
 	
 	private TranslationMap tm;
 	protected final List<String> langKeys; @Override public List<String> getLangKeys(){return langKeys;}
@@ -37,7 +37,7 @@ public class AbstractTranslationBean<L extends JeeslLang, D extends JeeslDescrip
 	protected final List<LOC> locales; public List<LOC> getLocales() {return locales;}
 	private final Map<String,LOC> mapLocales; public Map<String, LOC> getMapLocales() {return mapLocales;}
 	
-	public AbstractTranslationBean(StatusFactoryBuilder<L,D,LOC> fbStatus)
+	public AbstractTranslationBean(LocaleFactoryBuilder<L,D,LOC> fbStatus)
 	{
 		langKeys = new ArrayList<String>();
 		locales = new ArrayList<LOC>();

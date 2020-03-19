@@ -20,7 +20,7 @@ import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.exception.processing.UtilsConfigurationException;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
-import org.jeesl.factory.builder.system.StatusFactoryBuilder;
+import org.jeesl.factory.builder.system.LocaleFactoryBuilder;
 import org.jeesl.factory.builder.system.SvgFactoryBuilder;
 import org.jeesl.factory.ejb.system.status.EjbStatusFactory;
 import org.jeesl.factory.ejb.system.symbol.EjbGraphicFactory;
@@ -85,7 +85,7 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 
 	protected JeeslFacade fUtils;
 	
-	private final StatusFactoryBuilder<L,D,LOC> fbStatus;
+	private final LocaleFactoryBuilder<L,D,LOC> fbStatus;
 	private final SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg;
 	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,?,?,?,?> fbRevision;
 	
@@ -128,7 +128,7 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 	protected final EjbGraphicFactory<L,D,G,GT,F,FS> efGraphic;
 	private final EjbGraphicFigureFactory<L,D,G,GT,F,FS> efFigure;
 	
-	public AbstractOptionTableBean(StatusFactoryBuilder<L,D,LOC> fbStatus,
+	public AbstractOptionTableBean(LocaleFactoryBuilder<L,D,LOC> fbStatus,
 									SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg,
 									IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,?,?,?,?> fbRevision)
 	{

@@ -20,7 +20,7 @@ import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.exception.processing.UtilsConfigurationException;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
-import org.jeesl.factory.builder.system.StatusFactoryBuilder;
+import org.jeesl.factory.builder.system.LocaleFactoryBuilder;
 import org.jeesl.factory.builder.system.SvgFactoryBuilder;
 import org.jeesl.factory.ejb.system.symbol.EjbGraphicFactory;
 import org.jeesl.factory.ejb.system.symbol.EjbGraphicFigureFactory;
@@ -76,7 +76,7 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 
 	protected JeeslFacade fUtils;
 	
-//	private final StatusFactoryBuilder<L,D,LOC> fbStatus;
+	private final LocaleFactoryBuilder<L,D,LOC> fbStatus;
 	private final SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg;
 	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,?,?,?,?> fbRevision;
 		
@@ -112,11 +112,12 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 	@SuppressWarnings("rawtypes")
 	protected Class cl;
 
-	public AbstractMcsTableBean(StatusFactoryBuilder<L,D,LOC> fbStatus,
+	public AbstractMcsTableBean(LocaleFactoryBuilder<L,D,LOC> fbStatus,
 									SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg,
 									IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,?,?,?,?> fbRevision)
 	{
 		super(fbStatus.getClassL(),fbStatus.getClassD());
+		this.fbStatus=fbStatus;
 		this.fbSvg=fbSvg;
 		this.fbRevision=fbRevision;
 
@@ -415,10 +416,9 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 		}
 		JaxbUtil.info(xml);
 		
-		JeeslDbMcsStatusUpdater<L,D,R,RREF,G> updater = new JeeslDbMcsStatusUpdater<>(fUtils);
+		JeeslDbMcsStatusUpdater<L,D,R,RREF,G> updater = new JeeslDbMcsStatusUpdater<>(fbStatus,fUtils);
 		updater.initMcs(realm,rref);
 //        asdi.setStatusEjbFactory(EjbStatusFactory.createFactory(cS,cL,cD,bTranslation.getLangKeys()));
-		updater.setFacade(fUtils);
 		
 //        DataUpdate dataUpdate = asdi.iuStatus(xml.getStatus(),cS,cL,clParent);
 //        asdi.deleteUnusedStatus(cS, cL, cD);

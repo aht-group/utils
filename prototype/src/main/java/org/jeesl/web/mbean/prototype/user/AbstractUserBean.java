@@ -10,7 +10,7 @@ import javax.faces.context.FacesContext;
 import org.jeesl.api.bean.JeeslMenuBean;
 import org.jeesl.api.facade.core.JeeslUserFacade;
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
-import org.jeesl.factory.builder.system.StatusFactoryBuilder;
+import org.jeesl.factory.builder.system.LocaleFactoryBuilder;
 import org.jeesl.factory.pojo.system.JeeslIdentityFactory;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
@@ -50,7 +50,7 @@ public abstract class AbstractUserBean <L extends JeeslLang, D extends JeeslDesc
 	protected String sessionId;
 	protected String localeCode;
 	
-	protected AbstractUserBean(StatusFactoryBuilder<L,D,?> fbStatus)
+	protected AbstractUserBean(LocaleFactoryBuilder<L,D,?> fbStatus)
 	{
 		super(fbStatus.getClassL(),fbStatus.getClassD());
 	}

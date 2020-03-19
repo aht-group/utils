@@ -5,6 +5,8 @@ import java.util.Hashtable;
 import java.util.Map;
 import java.util.Set;
 
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.factory.builder.system.LocaleFactoryBuilder;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
@@ -13,8 +15,11 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslMcsStatus;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.xml.jeesl.Container;
+import org.jeesl.util.db.cache.EjbCodeCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import net.sf.ahtutils.xml.status.Status;
 
 public class JeeslDbMcsStatusUpdater <L extends JeeslLang, D extends JeeslDescription,
 										R extends JeeslMcsRealm<L,D,R,G>, RREF extends EjbWithId,
@@ -23,27 +28,24 @@ public class JeeslDbMcsStatusUpdater <L extends JeeslLang, D extends JeeslDescri
 {
 	final static Logger logger = LoggerFactory.getLogger(JeeslDbMcsStatusUpdater.class);
 	
-	private final Map<String,Set<Long>> mDbAvailableStatus;
-	private Set<Long> sDeleteLangs,sDeleteDescriptions;
-	
 //	private EjbStatusFactory<S,L,D> statusEjbFactory; public void setStatusEjbFactory(EjbStatusFactory<S,L,D> statusEjbFactory) {this.statusEjbFactory = statusEjbFactory;}
-	private JeeslFacade facade; public void setFacade(JeeslFacade fStatus){this.facade=facade;}
+	private final JeeslFacade fJeesl;
+	private final LocaleFactoryBuilder<L,D,?> fbLocale;
 
 	private R realm;
-	private long rref;
+	private RREF rref;
 	
-	public JeeslDbMcsStatusUpdater(JeeslFacade facade)
+	public JeeslDbMcsStatusUpdater(LocaleFactoryBuilder<L,D,?> fbLocale, JeeslFacade fJeesl)
 	{
-		this.facade=facade;
-		mDbAvailableStatus = new Hashtable<String,Set<Long>>();
-		sDeleteLangs = new HashSet<Long>();
-		sDeleteDescriptions = new HashSet<Long>();
+		this.fbLocale=fbLocale;
+		this.fJeesl=fJeesl;
+		
 	}
 	
 	public void initMcs(R realm, RREF rref)
 	{
 		this.realm = realm;
-		this.rref = rref.getId();
+		this.rref = rref;
 	}
 	
 //	public List<Status> getStatus(String xmlFile) throws FileNotFoundException
@@ -145,11 +147,32 @@ public class JeeslDbMcsStatusUpdater <L extends JeeslLang, D extends JeeslDescri
 //		 }
 //	}
 //	
-	public <S extends JeeslMcsStatus<L,D,R,S,G>> void iStatus(Container xContainer, Class<S> cStatus)
+	public <S extends JeeslMcsStatus<L,D,R,S,G>> void iStatus(Class<S> cStatus, Container xContainer)
 	{
-		logger.debug("Updating "+cStatus.getSimpleName()+" with "+xContainer.getStatus().size()+" entries");
+		EjbCodeCache<S> cache = new EjbCodeCache<>(cStatus,fJeesl.allMcs(cStatus, realm, rref));
+		logger.debug("Updating "+cStatus.getSimpleName()+" with "+xContainer.getStatus().size()+" entries, "+cache.size()+" already in DB");
 //		iuStatusEJB(list, cStatus, cLang);
+		for(Status xml : xContainer.getStatus())
+		{
+			if(!cache.contains(xml.getCode()))
+			{
+				iStatus(cStatus,xml);
+			}
+		}
 	}
+	
+	public <S extends JeeslMcsStatus<L,D,R,S,G>> void iStatus(Class<S> cStatus, Status xml)
+	{
+		try
+		{
+			S ejb = cStatus.newInstance();
+			ejb.setCode(xml.getCode());
+			ejb = fJeesl.persist(ejb);
+			logger.info("Added: "+ejb);
+		}
+		catch (InstantiationException | IllegalAccessException | JeeslConstraintViolationException e) {e.printStackTrace();}
+	}
+	
 //	
 //	public <P extends JeeslStatus<P,L,D>> DataUpdate iuStatus(List<Status> list, Class<S> cStatus, Class<L> cLang, Class<P> cParent)
 //	{
