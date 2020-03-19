@@ -90,7 +90,7 @@ public class AbstractFrReplicationBean <L extends JeeslLang, D extends JeeslDesc
 	
 	private void reloadStorages()
 	{
-		EjbCodeCache<STYPE> cacheType = new EjbCodeCache<>(fFr,fbFr.getClassStorageType());
+		EjbCodeCache<STYPE> cacheType = new EjbCodeCache<>(fbFr.getClassStorageType(),fFr);
 		for(STORAGE s : fFr.allOrderedPosition(fbFr.getClassStorage()))
 		{
 			if(s.getType().equals(cacheType.ejb(JeeslFileStorageType.Code.primary)))

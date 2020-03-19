@@ -18,7 +18,7 @@ public class JeeslFileTypeHandler<META extends JeeslFileMeta<?,?,TYPE,?>,
 	public JeeslFileTypeHandler(IoFileRepositoryFactoryBuilder<?,?,?,?,?,?,?,?,META,TYPE,?,?,?> fbFile,
 								JeeslIoFrFacade<?,?,?,?,?,?,?,META,TYPE,?,?,?> fFr)
 	{
-		cache = new EjbCodeCache<TYPE>(fFr,fbFile.getClassType());
+		cache = new EjbCodeCache<TYPE>(fbFile.getClassType(),fFr);
 	}
 	
 	public void updateType(META meta)

@@ -18,7 +18,7 @@ public class EjbCodeCache <T extends EjbWithCode>
 	
 	private final Map<String,T> map;
 	
-	public EjbCodeCache(JeeslFacade fUtils, Class<T> c)
+	public EjbCodeCache(Class<T> c, JeeslFacade fUtils)
 	{
 		this.fUtils=fUtils;
 		this.c=c;

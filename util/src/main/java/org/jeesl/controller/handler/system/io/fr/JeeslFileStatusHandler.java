@@ -22,7 +22,7 @@ public class JeeslFileStatusHandler<META extends JeeslFileMeta<?,?,?,STATUS>,
 								)
 	{
 		this.fFr=fFr;
-		cache = new EjbCodeCache<STATUS>(fFr,fbFile.getClassStatus());
+		cache = new EjbCodeCache<STATUS>(fbFile.getClassStatus(),fFr);
 	}
 	
 	public void updateStatus(META meta)

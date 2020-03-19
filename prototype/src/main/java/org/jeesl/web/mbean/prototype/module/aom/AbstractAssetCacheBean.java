@@ -99,7 +99,7 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 	
 	public void postConstruct(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,VIEW,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fAsset)
 	{
-		if(cacheScope==null) {cacheScope = new EjbCodeCache<SCOPE>(fAsset,fbAsset.getClassScope());}
+		if(cacheScope==null) {cacheScope = new EjbCodeCache<SCOPE>(fbAsset.getClassScope(),fAsset);}
 		
 		if(assetStatus.isEmpty()) {assetStatus.addAll(fAsset.allOrderedPositionVisible(fbAsset.getClassStatus()));}
 		if(eventType.isEmpty()) {eventType.addAll(fAsset.allOrderedPositionVisible(fbAsset.getClassEventType()));}
