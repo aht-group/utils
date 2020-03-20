@@ -28,6 +28,8 @@ import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
+
 public class AbstractHdTicketBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 								R extends JeeslMcsRealm<L,D,R,?>, RREF extends EjbWithId,
 								TICKET extends JeeslHdTicket<R,EVENT>,
@@ -97,8 +99,15 @@ public class AbstractHdTicketBean <L extends JeeslLang, D extends JeeslDescripti
 		tickets.addAll(fHd.fHdTickets(EjbHelpdeskQuery.build()));
 	}
 	
+	public void selectTicket()
+	{
+		logger.info(AbstractLogMessage.selectEntity(ticket));
+		ticket = fHd.find(fbHd.getClassTicket(),ticket);
+	}
+	
 	public void addTicket()
 	{
+		logger.info(AbstractLogMessage.addEntity(fbHd.getClassTicket()));
 		ticket = fbHd.ejbTicket().build(realm,rref);
 		event = fbHd.ejbEvent().build(ticket,categories.get(0),statuse.get(0),reporter);
 	}
@@ -108,4 +117,6 @@ public class AbstractHdTicketBean <L extends JeeslLang, D extends JeeslDescripti
 		ticket = fHd.saveHdTicket(ticket,event);
 		reloadTickets();
 	}
+	
+	
 }
