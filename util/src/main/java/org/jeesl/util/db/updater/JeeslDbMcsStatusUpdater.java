@@ -158,7 +158,7 @@ public class JeeslDbMcsStatusUpdater <L extends JeeslLang, D extends JeeslDescri
 	public <S extends JeeslMcsStatus<L,D,R,S,G>> List<S> iStatus(Class<S> cStatus, Container xContainer)
 	{
 		List<S> added = new ArrayList<>();
-		EjbCodeCache<S> cache = new EjbCodeCache<>(cStatus,fGraphic.allMcs(cStatus, realm, rref));
+		EjbCodeCache<S> cache = new EjbCodeCache<>(cStatus,fGraphic.all(cStatus,realm,rref));
 		logger.debug("Updating "+cStatus.getSimpleName()+" with "+xContainer.getStatus().size()+" entries, "+cache.size()+" already in DB");
 //		iuStatusEJB(list, cStatus, cLang);
 		for(Status xml : xContainer.getStatus())

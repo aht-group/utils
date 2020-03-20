@@ -13,16 +13,20 @@ import org.jeesl.interfaces.model.with.system.status.JeeslWithCategory;
 import org.jeesl.interfaces.model.with.system.status.JeeslWithStatus;
 import org.jeesl.interfaces.model.with.system.status.JeeslWithType;
 
-public interface JeeslHdEvent<TICKET extends JeeslHdTicket<?,TICKET,CAT,STATUS,?,?,USER>,
+public interface JeeslHdEvent<TICKET extends JeeslHdTicket<?,?>,
 								CAT extends JeeslHdTicketCategory<?,?,?,CAT,?>,
 								STATUS extends JeeslHdTicketStatus<?,?,?,STATUS,?>,
-								TYPE extends JeeslHdEventType<?,?,?,TYPE,?>,
+								TYPE extends JeeslHdEventType<?,?,TYPE,?>,
 								USER extends JeeslSimpleUser>
 						extends Serializable,EjbSaveable,
 								EjbWithId,EjbWithRecord,
-								JeeslWithType<TYPE>,JeeslWithCategory<CAT>,JeeslWithStatus<STATUS>
+								JeeslWithType<TYPE>,
+								JeeslWithCategory<CAT>,JeeslWithStatus<STATUS>
 {	
 	public enum Attributes{xx}
+	
+	TICKET getTicket();
+	void setTicket(TICKET ticket);
 	
 	USER getReporter();
 	void setReporter(USER reporter);

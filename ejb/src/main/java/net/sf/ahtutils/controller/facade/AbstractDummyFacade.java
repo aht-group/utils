@@ -549,8 +549,22 @@ public class AbstractDummyFacade implements JeeslFacade
 	}
 
 	@Override
-	public <T extends EjbWithId, REALM extends JeeslMcsRealm<?, ?, ?, ?>, RREF extends EjbWithId> List<T> allMcs(
+	public <T extends EjbWithId, REALM extends JeeslMcsRealm<?, ?, ?, ?>, RREF extends EjbWithId> List<T> all(
 			Class<T> c, REALM realm, RREF rref) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T extends EjbWithNonUniqueCode, REALM extends JeeslMcsRealm<?, ?, ?, ?>, RREF extends EjbWithId, E extends Enum<E>> T fByEnum(
+			Class<T> type, REALM realm, RREF rref, E code) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T extends EjbWithNonUniqueCode, REALM extends JeeslMcsRealm<?, ?, ?, ?>, RREF extends EjbWithId> T fByCode(
+			Class<T> type, REALM realm, RREF rref, String code) throws JeeslNotFoundException {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -128,7 +128,7 @@ public class JeeslRestService <L extends JeeslLang,D extends JeeslDescription,
 		{
 			Class<Y> cMcs = (Class<Y>)Class.forName(code).asSubclass(JeeslMcsStatus.class);
 //			Class<X> cStatus = (Class<X>)Class.forName(code).asSubclass(JeeslStatus.class);
-			List<Y> list = fGraphic.allMcs(cMcs,realm,rref);
+			List<Y> list = fGraphic.all(cMcs,realm,rref);
 			List<X> list2 = new ArrayList<X>();
 			for(Y y : list)
 			{

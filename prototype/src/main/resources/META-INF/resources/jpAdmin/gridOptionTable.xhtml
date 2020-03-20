@@ -61,7 +61,7 @@
 									</f:facet>
 					          		<aht:icon type="jeeslAdd" listener="#{cc.attrs.bean.add()}" update=":#{cc.id}:sCategory :#{cc.id}:sLang" tooltip="#{msg.ttNew}" rendered="#{cc.attrs.bean.uiAllowAdd}"/>
 					          		<j:icon type="jeeslUpload" listener="#{cc.attrs.bean.upload()}" update=":#{cc.id}:sCategory :#{cc.id}:sLang" tooltip="#{msg.ttUpload}" rendered="#{cc.attrs.bean.supportsUpload}"/>
-					          		<j:svg type="jeeslDownload" listener="#{cc.attrs.bean.downloadData()}" update=":#{cc.id}:sCategory :#{cc.id}:sLang" rendered="#{cc.attrs.bean.supportsDownload}" library="jeeslGfx"/>
+					          		<j:icon type="jeeslDownload" listener="#{cc.attrs.bean.downloadData()}" update=":#{cc.id}:sCategory :#{cc.id}:sLang" rendered="#{cc.attrs.bean.supportsDownload}"/>
 					          		<j:icon type="jeeslIoAttributeCriteriaWithDescription" listener="#{cc.attrs.bean.toggleDescription()}" update=":#{cc.id}:sCategory" tooltip="#{msg.jeeslIoAttributeToggleDescription}" rendered="#{cc.attrs.bean.showDescription}" mayDisappear="true"/>
 									<j:icon type="jeeslIoAttributeCriteriaWithoutDescription" listener="#{cc.attrs.bean.toggleDescription()}" update=":#{cc.id}:sCategory" tooltip="#{msg.jeeslIoAttributeToggleDescription}" rendered="#{not cc.attrs.bean.showDescription}" mayDisappear="true"/>
 					          	</j:dtHeader>

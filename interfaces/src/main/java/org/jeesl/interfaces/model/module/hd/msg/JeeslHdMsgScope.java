@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.module.hd.event;
+package org.jeesl.interfaces.model.module.hd.msg;
 
 import java.io.Serializable;
 
@@ -12,11 +12,11 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatusFixedCode;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
 
-public interface JeeslHdEventType <L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<S,L,D>, G extends JeeslGraphic<L,D,?,?,?>>
+public interface JeeslHdMsgScope <L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<S,L,D>, G extends JeeslGraphic<L,D,?,?,?>>
 									extends Serializable,EjbPersistable,
 										EjbWithCode,JeeslStatusFixedCode,
 										JeeslOptionRestDownload,EjbWithCodeGraphic<G>,
 										JeeslStatus<S,L,D>
 {
-public static enum Code{create,status,reporter,supporter,level};
+public static enum Code{user,suppport};
 }

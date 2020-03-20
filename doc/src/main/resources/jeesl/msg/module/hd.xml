@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<s:translations xmlns:s="http://ahtutils.aht-group.com/status">
+	<s:translation key="jeeslHdTickets">
+    	<s:langs>
+    		<s:lang key="de" translation="Tickets"/>
+    		<s:lang key="en" translation="Tickets"/>
+    		<s:lang key="fr" translation="Tickets"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslHdTicket">
+    	<s:langs>
+    		<s:lang key="de" translation="Ticket"/>
+    		<s:lang key="en" translation="Ticket"/>
+    		<s:lang key="fr" translation="Ticket"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslHdTicketCode">
+    	<s:langs>
+    		<s:lang key="de" translation="Code"/>
+    		<s:lang key="en" translation="Code"/>
+    		<s:lang key="fr" translation="Code"/>
+    	</s:langs>
+    </s:translation>
+   	<s:translation key="jeeslHdTicketName">
+    	<s:langs>
+    		<s:lang key="de" translation="Betreff"/>
+    		<s:lang key="en" translation="Subject"/>
+    		<s:lang key="fr" translation="Subject"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslHdTicketCategory">
+    	<s:langs>
+    		<s:lang key="de" translation="Kategorie"/>
+    		<s:lang key="en" translation="Category"/>
+    		<s:lang key="fr" translation="Category"/>
+    	</s:langs>
+    </s:translation> 
+</s:translations>

@@ -94,7 +94,9 @@ public interface JeeslFacade extends JeeslIdFacade
 	<T extends EjbWithValidFrom> List<T> allOrderedValidFrom(Class<T> cl, boolean ascending);
 	
 	// MCS
-	<T extends EjbWithId, REALM extends JeeslMcsRealm<?,?,?,?>, RREF extends EjbWithId> List<T> allMcs(Class<T> c, REALM realm, RREF rref);
+	<T extends EjbWithId, REALM extends JeeslMcsRealm<?,?,?,?>, RREF extends EjbWithId> List<T> all(Class<T> c, REALM realm, RREF rref);
+	<T extends EjbWithNonUniqueCode, REALM extends JeeslMcsRealm<?,?,?,?>, RREF extends EjbWithId, E extends Enum<E>> T fByEnum(Class<T> type, REALM realm, RREF rref, E code);
+	<T extends EjbWithNonUniqueCode, REALM extends JeeslMcsRealm<?,?,?,?>, RREF extends EjbWithId> T fByCode(Class<T> type, REALM realm, RREF rref, String code) throws JeeslNotFoundException;
 	
 	//Visibility
 	<T extends EjbWithVisible, P extends EjbWithId> List<T> allVisible(Class<T> cl);
