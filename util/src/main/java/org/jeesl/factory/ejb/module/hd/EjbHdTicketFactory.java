@@ -1,13 +1,17 @@
 package org.jeesl.factory.ejb.module.hd;
 
+import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicket;
+import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbHdTicketFactory<R extends JeeslMcsRealm<?,?,R,?>,
-								TICKET extends JeeslHdTicket<R,?>>
+								TICKET extends JeeslHdTicket<R,?,?>,
+								M extends JeeslMarkup<MT>,
+								MT extends JeeslIoCmsMarkupType<?,?,MT,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbHdTicketFactory.class);
 	

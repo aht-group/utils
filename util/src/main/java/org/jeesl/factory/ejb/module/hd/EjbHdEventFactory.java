@@ -11,7 +11,7 @@ import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbHdEventFactory<TICKET extends JeeslHdTicket<?,EVENT>,
+public class EjbHdEventFactory<TICKET extends JeeslHdTicket<?,EVENT,?>,
 								CAT extends JeeslHdTicketCategory<?,?,?,CAT,?>,
 								STATUS extends JeeslHdTicketStatus<?,?,?,STATUS,?>,
 								EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,USER>,

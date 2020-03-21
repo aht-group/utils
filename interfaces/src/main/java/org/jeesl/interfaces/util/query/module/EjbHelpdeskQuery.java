@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbHelpdeskQuery<R extends JeeslMcsRealm<?,?,R,?>, RREF extends EjbWithId,
-							TICKET extends JeeslHdTicket<R,EVENT>,
+							TICKET extends JeeslHdTicket<R,EVENT,M>,
 							CAT extends JeeslHdTicketCategory<?,?,R,CAT,?>,
 							STATUS extends JeeslHdTicketStatus<?,?,R,STATUS,?>,
 							EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,USER>,
@@ -36,7 +36,7 @@ public class EjbHelpdeskQuery<R extends JeeslMcsRealm<?,?,R,?>, RREF extends Ejb
 	}
 	
 	public static <R extends JeeslMcsRealm<?,?,R,?>, RREF extends EjbWithId,
-					TICKET extends JeeslHdTicket<R,EVENT>,
+					TICKET extends JeeslHdTicket<R,EVENT,M>,
 					CAT extends JeeslHdTicketCategory<?,?,R,CAT,?>,
 					STATUS extends JeeslHdTicketStatus<?,?,R,STATUS,?>,
 					EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,USER>,

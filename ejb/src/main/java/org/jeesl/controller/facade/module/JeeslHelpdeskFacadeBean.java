@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
 
 public class JeeslHelpdeskFacadeBean<L extends JeeslLang,D extends JeeslDescription,
 										R extends JeeslMcsRealm<L,D,R,?>,
-										TICKET extends JeeslHdTicket<R,EVENT>,
+										TICKET extends JeeslHdTicket<R,EVENT,M>,
 										CAT extends JeeslHdTicketCategory<?,?,R,CAT,?>,
 										STATUS extends JeeslHdTicketStatus<?,?,R,STATUS,?>,
 										EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,USER>,

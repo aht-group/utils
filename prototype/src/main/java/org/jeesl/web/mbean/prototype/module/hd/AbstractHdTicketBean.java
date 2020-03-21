@@ -32,13 +32,13 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public class AbstractHdTicketBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 								R extends JeeslMcsRealm<L,D,R,?>, RREF extends EjbWithId,
-								TICKET extends JeeslHdTicket<R,EVENT>,
+								TICKET extends JeeslHdTicket<R,EVENT,M>,
 								CAT extends JeeslHdTicketCategory<?,?,R,CAT,?>,
 								STATUS extends JeeslHdTicketStatus<?,?,R,STATUS,?>,
 								EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,USER>,
 								TYPE extends JeeslHdEventType<L,D,TYPE,?>,
 								M extends JeeslMarkup<MT>,
-								MT extends JeeslIoCmsMarkupType<?,?,MT,?>,
+								MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
 
 								USER extends JeeslSimpleUser
 								>

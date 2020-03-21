@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 
 public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 							R extends JeeslMcsRealm<L,D,R,?>,
-							TICKET extends JeeslHdTicket<R,EVENT>,
+							TICKET extends JeeslHdTicket<R,EVENT,M>,
 							CAT extends JeeslHdTicketCategory<?,?,R,CAT,?>,
 							STATUS extends JeeslHdTicketStatus<?,?,R,STATUS,?>,
 							EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,USER>,
@@ -60,6 +60,6 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 		this.cMarkupType=cMarkupType;
 	}
 
-	public EjbHdTicketFactory<R,TICKET> ejbTicket() {return new EjbHdTicketFactory<>(cTicket);}
+	public EjbHdTicketFactory<R,TICKET,M,MT> ejbTicket() {return new EjbHdTicketFactory<>(cTicket);}
 	public EjbHdEventFactory<TICKET,CAT,STATUS,EVENT,TYPE,USER> ejbEvent() {return new EjbHdEventFactory<>(cEvent);}
 }
