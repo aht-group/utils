@@ -61,7 +61,8 @@ public class AbstractHdTicketBean <L extends JeeslLang, D extends JeeslDescripti
 	private USER reporter;
 	
 	private TICKET ticket; public TICKET getTicket() {return ticket;} public void setTicket(TICKET ticket) {this.ticket = ticket;}
-	private EVENT event; public EVENT getEvent() {return event;} public void setEvent(EVENT event) {this.event = event;}
+	private EVENT firstEvent; public EVENT getFirstEvent() {return firstEvent;} public void setFirstEvent(EVENT firstEvent) {this.firstEvent = firstEvent;}
+	private EVENT lastEvent; public EVENT getLastEvent() {return lastEvent;} public void setLastEvent(EVENT lastEvent) {this.lastEvent = lastEvent;}
 
 	public AbstractHdTicketBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,M,MT,USER> fbHd)
 	{
@@ -103,18 +104,21 @@ public class AbstractHdTicketBean <L extends JeeslLang, D extends JeeslDescripti
 	{
 		logger.info(AbstractLogMessage.selectEntity(ticket));
 		ticket = fHd.find(fbHd.getClassTicket(),ticket);
+		firstEvent = fHd.find(fbHd.getClassEvent(),ticket.getFirstEvent());
+		lastEvent = fHd.find(fbHd.getClassEvent(),ticket.getLastEvent());
 	}
 	
 	public void addTicket()
 	{
 		logger.info(AbstractLogMessage.addEntity(fbHd.getClassTicket()));
 		ticket = fbHd.ejbTicket().build(realm,rref);
-		event = fbHd.ejbEvent().build(ticket,categories.get(0),statuse.get(0),reporter);
+		firstEvent = fbHd.ejbEvent().build(ticket,categories.get(0),statuse.get(0),reporter);
+		lastEvent = fbHd.ejbEvent().build(ticket,categories.get(0),statuse.get(0),reporter);
 	}
 	
 	public void saveTicket() throws JeeslConstraintViolationException, JeeslLockingException
 	{
-		ticket = fHd.saveHdTicket(ticket,event);
+		ticket = fHd.saveHdTicket(ticket,lastEvent);
 		reloadTickets();
 	}
 	

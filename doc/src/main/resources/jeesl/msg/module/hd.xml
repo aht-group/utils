@@ -35,4 +35,27 @@
     		<s:lang key="fr" translation="Category"/>
     	</s:langs>
     </s:translation> 
+    <s:translation key="jeeslHdRecord">
+    	<s:langs>
+    		<s:lang key="de" translation="Datum"/>
+    		<s:lang key="en" translation="Date"/>
+    		<s:lang key="fr" translation="Date"/>
+    	</s:langs>
+    </s:translation> 
+    <s:translation key="jeeslHdStatus">
+    	<s:langs>
+    		<s:lang key="de" translation="Status"/>
+    		<s:lang key="en" translation="Status"/>
+    		<s:lang key="fr" translation="Status"/>
+    	</s:langs>
+    </s:translation>  
+     <s:translation key="jeeslHdTicketProgress">
+    	<s:langs>
+    		<s:lang key="de" translation="Fortschritt"/>
+    		<s:lang key="en" translation="Progress"/>
+    		<s:lang key="fr" translation="Progress"/>
+    	</s:langs>
+    </s:translation>   
+    
+    
 </s:translations>

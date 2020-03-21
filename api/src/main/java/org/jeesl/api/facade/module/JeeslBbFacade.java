@@ -18,7 +18,7 @@ public interface JeeslBbFacade <L extends JeeslLang,D extends JeeslDescription,
 								BB extends JeeslBbBoard<L,D,SCOPE,BB,PUB,USER>,
 								PUB extends JeeslStatus<PUB,L,D>,
 								THREAD extends JeeslBbThread<BB>,
-								POST extends JeeslBbPost<THREAD,M,MT,USER>,
+								POST extends JeeslBbPost<THREAD,M,USER>,
 								M extends JeeslMarkup<MT>,
 								MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
 								USER extends EjbWithEmail>

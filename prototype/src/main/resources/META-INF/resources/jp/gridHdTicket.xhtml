@@ -21,37 +21,79 @@
 								selection="#{cc.attrs.bean.ticket}" selectionMode="single" rowKey="#{t.id}">
 					<f:facet name="header">
 						<j:dtHeader title="#{msg.jeeslHdTickets}">
-							<j:svg type="jeeslAdd" listener="#{cc.attrs.bean.addTicket()}" update=":#{cc.id}:sTicket" library="jeeslGfx"/>
+							<j:svg type="jeeslAdd" listener="#{cc.attrs.bean.addTicket()}" update=":#{cc.id}:sTicket :#{cc.id}:sProgress" library="jeeslGfx"/>
 						</j:dtHeader>
 					</f:facet>
-					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectTicket()}" update=":#{cc.id}:sTicket"/>
-					<p:column>  
+					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectTicket()}" update=":#{cc.id}:sTicket :#{cc.id}:sProgress"/>
+					<p:column headerText="#{msg.jeeslHdTicketCategory}" styleClass="jeeslCenter">  
 						<jtp:symbolizer value="#{t.lastEvent.category}"/>
 					</p:column>
-					<p:column>  
-						<h:outputText value="#{t.id}"/>
+					<p:column headerText="#{msg.jeeslHdRecord}">  
+						<jp:outputDate value="#{t.firstEvent.record}"/>
+					</p:column>
+					<p:column headerText="#{msg.jeeslHdStatus}" styleClass="jeeslCenter">  
+						<jtp:symbolizer value="#{t.lastEvent.status}"/>
 					</p:column>
 			   	</p:dataTable>
 			</h:form>
 		</j:slot>
-		<j:slot id="sTicket" width="4">
+		<j:slot id="sTicket" width="6">
 			<h:form id="fTicket" rendered="#{not empty cc.attrs.bean.ticket}">
 				<p:panel header="#{msg.jeeslHdTicket}" styleClass="jeeslPanel">
 					<f:facet name="actions">
-						<j:svg type="jeeslSave" listener="#{cc.attrs.bean.saveTicket()}" update=":#{cc.id}:grid" library="jeeslGfx"/>
+						<j:svg type="jeeslSave" listener="#{cc.attrs.bean.saveTicket()}" update=":#{cc.id}:grid" library="jeeslGfx" rendered="#{cc.attrs.bean.ticket.id eq 0}"/>
 					</f:facet>
-					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
+					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80" rendered="#{cc.attrs.bean.ticket.id gt 0}">
 						
 						<p:outputLabel value="#{msg.jeeslHdTicketCode}"/>
 						<h:outputText value="#{cc.attrs.bean.ticket.code}"/>
 						
-						<p:outputLabel value="#{msg.jeeslHdTicketName}"/>
-						<jtp:inputText value="#{cc.attrs.bean.ticket.name}"/>
+						<p:outputLabel value="#{msg.jeeslHdRecord}"/>
+						<h:outputText value="#{cc.attrs.bean.firstEvent.record}"/>
 						
 						<p:outputLabel value="#{msg.jeeslHdTicketCategory}"/>
-						<p:selectOneMenu value="#{cc.attrs.bean.event.category}" effect="fade" autoWidth="false">
+						<ui:fragment>
+							<jtp:symbolizer value="#{cc.attrs.bean.ticket.lastEvent.category}" marginRight="5"/>
+							<h:outputText value="#{cc.attrs.bean.ticket.lastEvent.category.name[localeCode].lang}"/>
+						</ui:fragment>
+						
+						<p:outputLabel value="#{msg.jeeslHdTicketName}"/>
+						<h:outputText value="#{cc.attrs.bean.ticket.name}"/>
+						
+					</p:panelGrid>
+					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80" rendered="#{cc.attrs.bean.ticket.id eq 0}">
+					
+						<p:outputLabel value="#{msg.jeeslHdRecord}"/>
+						<h:outputText value="#{cc.attrs.bean.firstEvent.record}"/>
+						
+						<p:outputLabel value="#{msg.jeeslHdTicketCategory}"/>
+						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.category}" effect="fade" autoWidth="false">
                         	<f:selectItems value="#{cc.attrs.bean.categories}" var="c" itemLabel="#{c.name[localeCode].lang}" itemValue="#{c}"/>
                         </p:selectOneMenu>
+                        
+                        <p:outputLabel value="#{msg.jeeslHdTicketName}"/>
+						<jtp:inputText value="#{cc.attrs.bean.ticket.name}"/>
+					</p:panelGrid>
+				</p:panel>
+			</h:form>
+		</j:slot>
+		<j:slot id="sProgress" width="3">
+			<h:form id="fProgress" rendered="#{not empty cc.attrs.bean.ticket}">
+				<p:panel header="#{msg.jeeslHdTicketProgress}" styleClass="jeeslPanel">
+					<f:facet name="actions">
+						
+					</f:facet>
+					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
+						
+						<p:outputLabel value="#{msg.jeeslHdRecord}"/>
+						<h:outputText value="#{cc.attrs.bean.ticket.lastEvent.record}"/>
+						
+						<p:outputLabel value="#{msg.jeeslHdStatus}"/>
+						<ui:fragment>
+							<jtp:symbolizer value="#{cc.attrs.bean.ticket.lastEvent.status}" marginRight="5"/>
+							<h:outputText value="#{cc.attrs.bean.ticket.lastEvent.status.name[localeCode].lang}"/>
+						</ui:fragment>
+						
 					</p:panelGrid>
 				</p:panel>
 			</h:form>
