@@ -1,5 +1,8 @@
 package org.jeesl.factory.ejb.module.hd;
 
+import java.util.UUID;
+
+import org.jeesl.factory.ejb.io.cms.EjbIoCmsMarkupFactory;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicket;
 import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
@@ -9,26 +12,36 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbHdTicketFactory<R extends JeeslMcsRealm<?,?,R,?>,
-								TICKET extends JeeslHdTicket<R,?,?>,
+								TICKET extends JeeslHdTicket<R,?,M>,
 								M extends JeeslMarkup<MT>,
 								MT extends JeeslIoCmsMarkupType<?,?,MT,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbHdTicketFactory.class);
 	
-	private final Class<TICKET> cTicket;
+	private final EjbIoCmsMarkupFactory<M,MT> efMarkup;
 	
-    public EjbHdTicketFactory(final Class<TICKET> cTicket)
+	private final Class<TICKET> cTicket;
+
+    public EjbHdTicketFactory(final Class<TICKET> cTicket, final Class<M> cMarkup)
     {
         this.cTicket = cTicket;
+        
+        efMarkup = new EjbIoCmsMarkupFactory<>(cMarkup);
     }
 	
-	public <RREF extends EjbWithId> TICKET build(R realm, RREF rref)
+	public <RREF extends EjbWithId> TICKET build(R realm, RREF rref, MT markupType)
 	{
 		try
 		{
 			TICKET ejb = cTicket.newInstance();
 			ejb.setRealm(realm);
 			ejb.setRref(rref.getId());
+			ejb.setCode(UUID.randomUUID().toString());
+			
+			ejb.setMarkupUser(efMarkup.build(markupType));
+			ejb.setMarkupSupport(efMarkup.build(markupType));
+			ejb.setMarkupSolution(efMarkup.build(markupType));
+			
 		    return ejb;
 		}
 		catch (InstantiationException e) {e.printStackTrace();}

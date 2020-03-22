@@ -12,7 +12,7 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.text.EjbWithName;
 
 public interface JeeslHdTicket<R extends JeeslMcsRealm<?,?,R,?>,
-								EVENT extends JeeslHdEvent<?,?,?,?,?>,
+								EVENT extends JeeslHdEvent<?,?,?,?,?,?>,
 								M extends JeeslMarkup<?>>
 						extends Serializable,EjbSaveable,
 								EjbWithId,EjbWithName,EjbWithNonUniqueCode,
@@ -26,4 +26,13 @@ public interface JeeslHdTicket<R extends JeeslMcsRealm<?,?,R,?>,
 	
 	EVENT getLastEvent();
 	void setLastEvent(EVENT lastEvent);
+	
+	M getMarkupUser();
+	void setMarkupUser(M markupUser);
+	
+	M getMarkupSupport();
+	void setMarkupSupport(M markupSupport);
+	
+	M getMarkupSolution();
+	void setMarkupSolution(M markupSolution);
 }

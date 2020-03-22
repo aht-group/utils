@@ -13,6 +13,7 @@ import org.jeesl.factory.builder.module.HdFactoryBuilder;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEvent;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEventType;
+import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdResolutionLevel;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicket;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketCategory;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketStatus;
@@ -35,8 +36,9 @@ public class AbstractHdTicketBean <L extends JeeslLang, D extends JeeslDescripti
 								TICKET extends JeeslHdTicket<R,EVENT,M>,
 								CAT extends JeeslHdTicketCategory<?,?,R,CAT,?>,
 								STATUS extends JeeslHdTicketStatus<?,?,R,STATUS,?>,
-								EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,USER>,
+								EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,USER>,
 								TYPE extends JeeslHdEventType<L,D,TYPE,?>,
+								LEVEL extends JeeslHdResolutionLevel<L,D,R,LEVEL,?>,
 								M extends JeeslMarkup<MT>,
 								MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
 
@@ -48,13 +50,14 @@ public class AbstractHdTicketBean <L extends JeeslLang, D extends JeeslDescripti
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractHdTicketBean.class);
 	
-	private final HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,M,MT,USER> fbHd;
+	private final HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,M,MT,USER> fbHd;
 
-	private JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,M,MT,USER> fHd;
+	private JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,M,MT,USER> fHd;
 	
 	private final List<TICKET> tickets;  public List<TICKET> getTickets() {return tickets;}
 	private final List<CAT> categories; public List<CAT> getCategories() {return categories;}
 	private final List<STATUS> statuse; 
+	private final List<LEVEL> levels;
 	
 	private R realm;
 	private RREF rref;
@@ -64,17 +67,18 @@ public class AbstractHdTicketBean <L extends JeeslLang, D extends JeeslDescripti
 	private EVENT firstEvent; public EVENT getFirstEvent() {return firstEvent;} public void setFirstEvent(EVENT firstEvent) {this.firstEvent = firstEvent;}
 	private EVENT lastEvent; public EVENT getLastEvent() {return lastEvent;} public void setLastEvent(EVENT lastEvent) {this.lastEvent = lastEvent;}
 
-	public AbstractHdTicketBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,M,MT,USER> fbHd)
+	public AbstractHdTicketBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,M,MT,USER> fbHd)
 	{
 		super(fbHd.getClassL(),fbHd.getClassD());
 		this.fbHd=fbHd;
 		tickets = new ArrayList<>();
 		categories = new ArrayList<>();
 		statuse = new ArrayList<>();
+		levels = new ArrayList<>();
 	}
 
 	protected void postConstructBb(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,M,MT,USER> fHd,
+									JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,M,MT,USER> fHd,
 									R realm,
 									USER reporter)
 	{
@@ -90,6 +94,7 @@ public class AbstractHdTicketBean <L extends JeeslLang, D extends JeeslDescripti
 		
 		categories.addAll(fHd.all(fbHd.getClassCategory(),realm,rref));
 		statuse.addAll(fHd.all(fbHd.getClassTicketStatus(),realm,rref));
+		levels.addAll(fHd.all(fbHd.getClassLevel(),realm,rref));
 		
 		reloadTickets();
 	}
@@ -111,9 +116,10 @@ public class AbstractHdTicketBean <L extends JeeslLang, D extends JeeslDescripti
 	public void addTicket()
 	{
 		logger.info(AbstractLogMessage.addEntity(fbHd.getClassTicket()));
-		ticket = fbHd.ejbTicket().build(realm,rref);
-		firstEvent = fbHd.ejbEvent().build(ticket,categories.get(0),statuse.get(0),reporter);
-		lastEvent = fbHd.ejbEvent().build(ticket,categories.get(0),statuse.get(0),reporter);
+		MT type = fHd.fByEnum(fbHd.getClassMarkupType(),JeeslIoCmsMarkupType.Code.xhtml);
+		ticket = fbHd.ejbTicket().build(realm,rref,type);
+		firstEvent = fbHd.ejbEvent().build(ticket,categories.get(0),statuse.get(0),levels.get(0),reporter);
+		lastEvent = fbHd.ejbEvent().build(ticket,categories.get(0),statuse.get(0),levels.get(0),reporter);
 	}
 	
 	public void saveTicket() throws JeeslConstraintViolationException, JeeslLockingException
@@ -121,6 +127,4 @@ public class AbstractHdTicketBean <L extends JeeslLang, D extends JeeslDescripti
 		ticket = fHd.saveHdTicket(ticket,lastEvent);
 		reloadTickets();
 	}
-	
-	
 }

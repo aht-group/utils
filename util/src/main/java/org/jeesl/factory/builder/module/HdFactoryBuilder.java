@@ -6,6 +6,7 @@ import org.jeesl.factory.ejb.module.hd.EjbHdTicketFactory;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEvent;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEventType;
+import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdResolutionLevel;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicket;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketCategory;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketStatus;
@@ -22,8 +23,9 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 							TICKET extends JeeslHdTicket<R,EVENT,M>,
 							CAT extends JeeslHdTicketCategory<?,?,R,CAT,?>,
 							STATUS extends JeeslHdTicketStatus<?,?,R,STATUS,?>,
-							EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,USER>,
+							EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,USER>,
 							TYPE extends JeeslHdEventType<L,D,TYPE,?>,
+							LEVEL extends JeeslHdResolutionLevel<L,D,R,LEVEL,?>,
 							M extends JeeslMarkup<MT>,
 							MT extends JeeslIoCmsMarkupType<?,?,MT,?>,
 							USER extends JeeslSimpleUser>
@@ -37,6 +39,7 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 	
 	private final Class<EVENT> cEvent; public Class<EVENT> getClassEvent() {return cEvent;}
 	private final Class<TYPE> cType; public Class<TYPE> getClassType() {return cType;}
+	private final Class<LEVEL> cLevel; public Class<LEVEL> getClassLevel() {return cLevel;}
 	
 	private final Class<M> cMarkup; public Class<M> getClassMarkup() {return cMarkup;}
 	private final Class<MT> cMarkupType; public Class<MT> getClassMarkupType() {return cMarkupType;}
@@ -47,6 +50,7 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 								final Class<STATUS> cTicketStatus,
 								final Class<EVENT> cEvent,
 								final Class<TYPE> cType,
+								final Class<LEVEL> cLevel,
 								final Class<M> cMarkup,
 								final Class<MT> cMarkupType)
 	{       
@@ -56,10 +60,11 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 		this.cTicketStatus=cTicketStatus;
 		this.cEvent=cEvent;
 		this.cType=cType;
+		this.cLevel=cLevel;
 		this.cMarkup=cMarkup;
 		this.cMarkupType=cMarkupType;
 	}
 
-	public EjbHdTicketFactory<R,TICKET,M,MT> ejbTicket() {return new EjbHdTicketFactory<>(cTicket);}
-	public EjbHdEventFactory<TICKET,CAT,STATUS,EVENT,TYPE,USER> ejbEvent() {return new EjbHdEventFactory<>(cEvent);}
+	public EjbHdTicketFactory<R,TICKET,M,MT> ejbTicket() {return new EjbHdTicketFactory<>(cTicket,cMarkup);}
+	public EjbHdEventFactory<TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,USER> ejbEvent() {return new EjbHdEventFactory<>(cEvent);}
 }

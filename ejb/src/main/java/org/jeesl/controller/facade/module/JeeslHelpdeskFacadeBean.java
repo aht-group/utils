@@ -22,6 +22,7 @@ import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.module.calendar.JeeslCalendarItem;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEvent;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEventType;
+import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdResolutionLevel;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicket;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketCategory;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketStatus;
@@ -40,21 +41,22 @@ public class JeeslHelpdeskFacadeBean<L extends JeeslLang,D extends JeeslDescript
 										TICKET extends JeeslHdTicket<R,EVENT,M>,
 										CAT extends JeeslHdTicketCategory<?,?,R,CAT,?>,
 										STATUS extends JeeslHdTicketStatus<?,?,R,STATUS,?>,
-										EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,USER>,
+										EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,USER>,
 										TYPE extends JeeslHdEventType<L,D,TYPE,?>,
+										LEVEL extends JeeslHdResolutionLevel<L,D,R,LEVEL,?>,
 										M extends JeeslMarkup<MT>,
 										MT extends JeeslIoCmsMarkupType<?,?,MT,?>,
 										USER extends JeeslSimpleUser>
 					extends JeeslFacadeBean
-					implements JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,M,MT,USER>
+					implements JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,M,MT,USER>
 {	
 	private static final long serialVersionUID = 1L;
 
 	final static Logger logger = LoggerFactory.getLogger(JeeslHelpdeskFacadeBean.class);
 	
-	private final HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,M,MT,USER> fbHd;
+	private final HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,M,MT,USER> fbHd;
 	
-	public JeeslHelpdeskFacadeBean(EntityManager em, final HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,M,MT,USER> fbHd)
+	public JeeslHelpdeskFacadeBean(EntityManager em, final HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,M,MT,USER> fbHd)
 	{
 		super(em);
 		this.fbHd=fbHd;
@@ -78,7 +80,7 @@ public class JeeslHelpdeskFacadeBean<L extends JeeslLang,D extends JeeslDescript
 		return ticket;
 	}
 
-	@Override public <RREF extends EjbWithId> List<TICKET> fHdTickets(EjbHelpdeskQuery<R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,M,MT,USER> query)
+	@Override public <RREF extends EjbWithId> List<TICKET> fHdTickets(EjbHelpdeskQuery<R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,USER> query)
 	{
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		CriteriaBuilder cB = em.getCriteriaBuilder();

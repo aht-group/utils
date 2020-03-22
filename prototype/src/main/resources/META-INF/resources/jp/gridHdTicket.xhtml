@@ -49,7 +49,7 @@
 						<h:outputText value="#{cc.attrs.bean.ticket.code}"/>
 						
 						<p:outputLabel value="#{msg.jeeslHdRecord}"/>
-						<h:outputText value="#{cc.attrs.bean.firstEvent.record}"/>
+						<jp:outputDate value="#{cc.attrs.bean.firstEvent.record}" withTime="true"/>
 						
 						<p:outputLabel value="#{msg.jeeslHdTicketCategory}"/>
 						<ui:fragment>
@@ -74,6 +74,12 @@
                         <p:outputLabel value="#{msg.jeeslHdTicketName}"/>
 						<jtp:inputText value="#{cc.attrs.bean.ticket.name}"/>
 					</p:panelGrid>
+					<p:panelGrid columns="1" columnClasses="jeeslGrid100" rendered="#{cc.attrs.bean.ticket.id gt 0}">
+						<h:outputText value="#{cc.attrs.bean.ticket.markupUser}"/>
+					</p:panelGrid>
+					<p:panelGrid columns="1" columnClasses="jeeslGrid100" rendered="#{cc.attrs.bean.ticket.id eq 0}">
+						<jtp:inputMarkup value="#{cc.attrs.bean.ticket.markupUser}"/>
+					</p:panelGrid>
 				</p:panel>
 			</h:form>
 		</j:slot>
@@ -86,12 +92,18 @@
 					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
 						
 						<p:outputLabel value="#{msg.jeeslHdRecord}"/>
-						<h:outputText value="#{cc.attrs.bean.ticket.lastEvent.record}"/>
+						<jp:outputDate value="#{cc.attrs.bean.ticket.lastEvent.record}" withTime="true"/>
 						
 						<p:outputLabel value="#{msg.jeeslHdStatus}"/>
 						<ui:fragment>
 							<jtp:symbolizer value="#{cc.attrs.bean.ticket.lastEvent.status}" marginRight="5"/>
 							<h:outputText value="#{cc.attrs.bean.ticket.lastEvent.status.name[localeCode].lang}"/>
+						</ui:fragment>
+						
+						<p:outputLabel value="#{msg.jeeslHdLevel}"/>
+						<ui:fragment>
+							
+							<h:outputText value="#{cc.attrs.bean.ticket.lastEvent.level.name[localeCode].lang}"/>
 						</ui:fragment>
 						
 					</p:panelGrid>
