@@ -81,7 +81,12 @@
                                <jp:outputDate value="#{d.record}" withTime="true"/>
                            </p:column>
                            <p:column rendered="true" headerText="#{msg.jeeslTsValue}">
-                               <h:outputText value="#{d.value}"/>
+							<h:outputText value="#{d.value}"/>
+							<ui:repeat value="#{d.dataPoints.toArray()}" var="dp" varStatus="status">
+								<h:outputText value="#{dp.multiPoint.name[localeCode].lang}"/> 
+								<h:outputText value=":"/>
+								<h:outputText value="#{dp.value}"/> <br />
+							</ui:repeat>
                            </p:column>
                            <p:column rendered="true" headerText="#{msg.jeeslTsScope}">
                                <h:outputText value="#{d.timeSeries.scope.name[localeCode].lang}"/>
