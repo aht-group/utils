@@ -55,6 +55,7 @@ public class JeeslMsgBuilder
 	public static final String mAsset = "jeesl/msg/module/aom.xml";
 	public static final String mOm = "jeesl/msg/module/om.xml";
 	public static final String mBb = "jeesl/msg/module/bb.xml";
+	public static final String mHd = "jeesl/msg/module/hd.xml";
 	public static final String mWorkflow = "jeesl/msg/module/workflow.xml";
 	public static final String mTimeseries = "jeesl/msg/module/timeseries.xml";
 	public static final String mSurvey = "jeesl/msg/module/survey.xml";

@@ -76,7 +76,7 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 	final static Logger logger = LoggerFactory.getLogger(AbstractMcsTableBean.class);
 	private static final long serialVersionUID = 1L;
 
-	protected JeeslFacade fUtils;
+	protected JeeslGraphicFacade<L,D,?,G,GT,F,FS> fGraphic;
 	
 	private final LocaleFactoryBuilder<L,D,LOC> fbStatus;
 	private final SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg;
@@ -85,6 +85,7 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 	private JeeslLocaleProvider<LOC> lp;
 		
 	protected boolean supportsSymbol; public boolean getSupportsSymbol(){return supportsSymbol;}
+	private boolean supportsDownload; public boolean getSupportsDownload(){return supportsDownload;}
 
 	protected long index;
 	protected Map<Long,Boolean> allowAdditionalElements; public Map<Long, Boolean> getAllowAdditionalElements(){return allowAdditionalElements;}
@@ -111,7 +112,7 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 
 	private F figure; public F getFigure() {return figure;} public void setFigure(F figure) {this.figure = figure;}
 
-	private boolean supportsDownload; public boolean getSupportsDownload(){return supportsDownload;}
+	
 	
 	@SuppressWarnings("rawtypes")
 	protected Class cl;
@@ -147,12 +148,12 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 											R realm)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
-		this.fUtils=fGraphic;
+		this.fGraphic=fGraphic;
 		this.realm=realm;
 			
 		lp = new GenericLocaleProvider<>(bTranslation.getLocales());
-		graphicTypes = fUtils.allOrderedPositionVisible(fbSvg.getClassGraphicType());
-		graphicStyles = fUtils.allOrderedPositionVisible(fbSvg.getClassFigureStyle());
+		graphicTypes = fGraphic.allOrderedPositionVisible(fbSvg.getClassGraphicType());
+		graphicStyles = fGraphic.allOrderedPositionVisible(fbSvg.getClassFigureStyle());
 	}
 	
 	protected void updateRref(RREF rref)
@@ -179,6 +180,7 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 			logger.info(StringUtil.stars());
 			logger.info("Option Tables Settings");
 			logger.info("\tSymbol? "+supportsSymbol);
+			logger.info("\tDownload "+supportsDownload);
 		}
 	}
 	
@@ -189,7 +191,7 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 			try
 			{
 				String fqcn = ((EjbWithSymbol)p).getSymbol();
-				RE e = fUtils.fByCode(fbRevision.getClassEntity(),fqcn);
+				RE e = fGraphic.fByCode(fbRevision.getClassEntity(),fqcn);
 				mapEntity.put(p,e);
 			}
 			catch (JeeslNotFoundException e) {}
@@ -211,7 +213,7 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 		cl = Class.forName(fqcn);
 		updateUiForCategory();
 		
-		try {entity = fUtils.fByCode(fbRevision.getClassEntity(), cl.getName());}
+		try {entity = fGraphic.fByCode(fbRevision.getClassEntity(), cl.getName());}
 		catch (JeeslNotFoundException e) {}
 		
 		uiAllowAdd = allowAdditionalElements.get(((EjbWithId)category).getId()) || hasDeveloperAction;
@@ -224,11 +226,11 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 	@SuppressWarnings("unchecked")
 	protected void reloadStatusEntries()
 	{
-		items = fUtils.allOrderedPosition(cl);
+		items = fGraphic.allOrderedPosition(cl);
 	}
 	
 	@SuppressWarnings("unchecked")
-	public void add() throws JeeslConstraintViolationException, InstantiationException, IllegalAccessException, JeeslNotFoundException
+	public void add() throws JeeslConstraintViolationException, InstantiationException, IllegalAccessException
 	{
 		logger.debug("add");
 		uiAllowCode=true;
@@ -241,8 +243,8 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 		((JeeslWithMultiClientSupport<R>)status).setRealm(realm);
 		((JeeslWithMultiClientSupport<R>)status).setRref(rref.getId());
 		
-		GT type = fUtils.fByCode(fbSvg.getClassGraphicType(), JeeslGraphicType.Code.symbol.toString());
-		FS style = fUtils.fByCode(fbSvg.getClassFigureStyle(), JeeslGraphicStyle.Code.circle.toString());
+		GT type = fGraphic.fByEnum(fbSvg.getClassGraphicType(), JeeslGraphicType.Code.symbol);
+		FS style = fGraphic.fByEnum(fbSvg.getClassFigureStyle(), JeeslGraphicStyle.Code.circle);
 		graphic = efGraphic.buildSymbol(type, style);
 		((EjbWithGraphic<G>)status).setGraphic(graphic);
 	}
@@ -251,20 +253,20 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 	public void selectStatus() throws JeeslConstraintViolationException, JeeslNotFoundException, JeeslLockingException
 	{
 		figures = null; figure=null;
-		status = fUtils.find(cl,(EjbWithId)status);
-		status = fUtils.loadGraphic(cl,(EjbWithId)status);
+		status = fGraphic.find(cl,(EjbWithId)status);
+		status = fGraphic.loadGraphic(cl,(EjbWithId)status);
 		logger.debug("selectStatus");
-		status = efLang.persistMissingLangs(fUtils,localeCodes,(EjbWithLang)status);
-		status = efDescription.persistMissingLangs(fUtils,localeCodes,(EjbWithDescription)status);
+		status = efLang.persistMissingLangs(fGraphic,localeCodes,(EjbWithLang)status);
+		status = efDescription.persistMissingLangs(fGraphic,localeCodes,(EjbWithDescription)status);
 				
 		if(((EjbWithGraphic<G>)status).getGraphic()==null)
 		{
 			logger.info("Need to create a graphic entity for this status");
-			GT type = fUtils.fByCode(fbSvg.getClassGraphicType(), JeeslGraphicType.Code.symbol);
-			FS style = fUtils.fByCode(fbSvg.getClassFigureStyle(), JeeslGraphicStyle.Code.circle);
-			graphic = fUtils.persist(efGraphic.buildSymbol(type, style));
+			GT type = fGraphic.fByEnum(fbSvg.getClassGraphicType(), JeeslGraphicType.Code.symbol);
+			FS style = fGraphic.fByEnum(fbSvg.getClassFigureStyle(), JeeslGraphicStyle.Code.circle);
+			graphic = fGraphic.persist(efGraphic.buildSymbol(type, style));
 			((EjbWithGraphic<G>)status).setGraphic(graphic);
-			status = fUtils.update(status);
+			status = fGraphic.update(status);
 		}
 		graphic = ((EjbWithGraphic<G>)status).getGraphic();reloadFigures();
 		
@@ -291,14 +293,14 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 		boolean debugSave=true;
 		try
 		{
-			graphic.setType(fUtils.find(fbSvg.getClassGraphicType(), ((EjbWithGraphic<G>)status).getGraphic().getType()));
-        	if(graphic.getStyle()!=null){graphic.setStyle(fUtils.find(fbSvg.getClassFigureStyle(), ((EjbWithGraphic<G>)status).getGraphic().getStyle()));}
+			graphic.setType(fGraphic.find(fbSvg.getClassGraphicType(), ((EjbWithGraphic<G>)status).getGraphic().getType()));
+        	if(graphic.getStyle()!=null){graphic.setStyle(fGraphic.find(fbSvg.getClassFigureStyle(), ((EjbWithGraphic<G>)status).getGraphic().getStyle()));}
     		
         	((EjbWithGraphic<G>)status).setGraphic(graphic);
 
         	if(debugSave){logger.info("Saving "+status.getClass().getSimpleName()+" "+status.toString());}
-			status = fUtils.save((EjbSaveable)status);
-			status = fUtils.loadGraphic(cl,(EjbWithId)status);
+			status = fGraphic.save((EjbSaveable)status);
+			status = fGraphic.loadGraphic(cl,(EjbWithId)status);
 			
 			graphic = ((EjbWithGraphic<G>)status).getGraphic();
 			if(debugSave){logger.info("Saved "+graphic.getClass().getSimpleName()+" "+graphic.toString());}
@@ -306,7 +308,7 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 			reloadFigures();
 			if(debugSave){logger.info("Saved "+status.getClass().getSimpleName()+" "+status.toString());}
 			
-			updateAppScopeBean(fUtils,status);
+			updateAppScopeBean(fGraphic,status);
 			selectCategory(false);
 			bMessage.growlSuccessSaved();
 		}
@@ -326,8 +328,8 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 	{
 		try
 		{
-			fUtils.rm((EjbRemoveable)status);
-			updateAppScopeBean(fUtils,status);
+			fGraphic.rm((EjbRemoveable)status);
+			updateAppScopeBean(fGraphic,status);
 			status=null;
 			selectCategory();
 			bMessage.growlSuccessRemoved();
@@ -348,8 +350,8 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 	
 	protected void updateAppScopeBean(JeeslFacade facade, Object o){}
 	
-	public void reorder() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fUtils, items);}
-	public void reorderFigures() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fUtils,figures);}
+	public void reorder() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fGraphic, items);}
+	public void reorderFigures() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fGraphic,figures);}
 	
 	@SuppressWarnings("unchecked")
 	public void handleFileUpload(FileUploadEvent event)
@@ -362,13 +364,13 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 	@SuppressWarnings("unchecked")
 	public void changeGraphicType()
 	{
-		((EjbWithGraphic<G>)status).getGraphic().setType(fUtils.find(fbSvg.getClassGraphicType(), ((EjbWithGraphic<G>)status).getGraphic().getType()));
+		((EjbWithGraphic<G>)status).getGraphic().setType(fGraphic.find(fbSvg.getClassGraphicType(), ((EjbWithGraphic<G>)status).getGraphic().getType()));
 		logger.info("changeGraphicType to "+((EjbWithGraphic<G>)status).getGraphic().getType().getCode());
 	}
 	
 	private void reloadFigures()
 	{
-		figures = fUtils.allForParent(fbSvg.getClassFigure(),graphic);
+		figures = fGraphic.allForParent(fbSvg.getClassFigure(),graphic);
 	}
 	
 	public void addFigure()
@@ -385,20 +387,20 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 	public void saveFigure() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info("Select "+figure.toString());
-		figure.setStyle(fUtils.find(fbSvg.getClassFigureStyle(),figure.getStyle()));
-		figure = fUtils.save(figure);
+		figure.setStyle(fGraphic.find(fbSvg.getClassFigureStyle(),figure.getStyle()));
+		figure = fGraphic.save(figure);
 		reloadFigures();
 	}
 	
 	public void deleteFigure() throws JeeslConstraintViolationException, JeeslLockingException
 	{
-		fUtils.rm(figure);
+		fGraphic.rm(figure);
 		reset(false,true);
 		reloadFigures();
 	}
 	
 	//JEESL REST DATA
-//	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings("unchecked")
 	public <REST extends JeeslOptionRest, Y extends JeeslMcsStatus<L,D,R,Y,G>, X extends JeeslStatus<X,L,D>> void downloadData() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UtilsConfigurationException
 	{
 		logger.info("Downloading REST");
@@ -409,27 +411,21 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 		REST rest = cRest.newInstance();
 		
 		Container xml;
-		if(fUtils instanceof JeeslExportRestFacade)
+		if(fGraphic instanceof JeeslExportRestFacade)
 		{
-			logger.info("Using Facade Connection for JBoss EAP6 ("+fUtils.getClass().getSimpleName()+" implements "+JeeslExportRestFacade.class.getSimpleName()+")");
-			xml = ((JeeslExportRestFacade)fUtils).exportJeeslReferenceRest(rest.getRestCode());
+			logger.info("Using Facade Connection for JBoss EAP6 ("+fGraphic.getClass().getSimpleName()+" implements "+JeeslExportRestFacade.class.getSimpleName()+")");
+			xml = ((JeeslExportRestFacade)fGraphic).exportJeeslReferenceRest(rest.getRestCode());
 		}
 		else
 		{
 			logger.info("Using Direct Connection (JBoss EAP7)");
 			xml = downloadOptionsFromRest(rest.getRestCode());
 		}
-		JaxbUtil.info(xml);
+		JaxbUtil.trace(xml);
 		
-		JeeslDbMcsStatusUpdater<L,D,LOC,R,RREF,G,GT> updater = new JeeslDbMcsStatusUpdater<>(fbStatus,fUtils,lp);
+		JeeslDbMcsStatusUpdater<L,D,LOC,R,RREF,G,GT> updater = new JeeslDbMcsStatusUpdater<L,D,LOC,R,RREF,G,GT>(fbStatus,fbSvg,fGraphic,lp);
 		updater.initMcs(realm,rref);
-//        asdi.setStatusEjbFactory(EjbStatusFactory.createFactory(cS,cL,cD,bTranslation.getLangKeys()));
-		
-//        DataUpdate dataUpdate = asdi.iuStatus(xml.getStatus(),cS,cL,clParent);
-//        asdi.deleteUnusedStatus(cS, cL, cD);
-//        JaxbUtil.info(dataUpdate);
-//        
-//        dbuGraphic.update(cW,xml.getStatus());
+		updater.iStatus(cl,xml);
         
         selectCategory();
 	}

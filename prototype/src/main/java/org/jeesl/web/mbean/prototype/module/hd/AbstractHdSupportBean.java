@@ -1,0 +1,95 @@
+package org.jeesl.web.mbean.prototype.module.hd;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jeesl.api.bean.JeeslTranslationBean;
+import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
+import org.jeesl.api.facade.module.JeeslHdFacade;
+import org.jeesl.controller.handler.ui.UiEditHandler;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.factory.builder.module.HdFactoryBuilder;
+import org.jeesl.factory.ejb.util.EjbIdFactory;
+import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
+import org.jeesl.interfaces.model.module.hd.event.JeeslHdEvent;
+import org.jeesl.interfaces.model.module.hd.event.JeeslHdEventType;
+import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdResolutionLevel;
+import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicket;
+import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketCategory;
+import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketStatus;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
+import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
+import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
+import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.util.query.module.EjbHelpdeskQuery;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
+
+public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
+								R extends JeeslMcsRealm<L,D,R,?>, RREF extends EjbWithId,
+								TICKET extends JeeslHdTicket<R,EVENT,M>,
+								CAT extends JeeslHdTicketCategory<?,?,R,CAT,?>,
+								STATUS extends JeeslHdTicketStatus<?,?,R,STATUS,?>,
+								EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,USER>,
+								TYPE extends JeeslHdEventType<L,D,TYPE,?>,
+								LEVEL extends JeeslHdResolutionLevel<L,D,R,LEVEL,?>,
+								M extends JeeslMarkup<MT>,
+								MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
+								USER extends JeeslSimpleUser
+								>
+					extends AbstractHelpdeskBean<L,D,LOC,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,M,MT,USER>
+					implements Serializable//,SbSingleBean
+{
+	private static final long serialVersionUID = 1L;
+	final static Logger logger = LoggerFactory.getLogger(AbstractHdSupportBean.class);
+	
+	protected final List<EVENT> events;  public List<EVENT> getEvents() {return events;}
+	
+	private USER supporter;
+	
+	public AbstractHdSupportBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,M,MT,USER> fbHd)
+	{
+		super(fbHd);
+		
+		events = new ArrayList<>();
+	}
+
+	protected void postConstructHdSupport(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
+									JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,M,MT,USER> fHd,
+									R realm,
+									USER supporter)
+	{
+		super.postConstructHd(bTranslation,bMessage,fHd,realm);
+
+		this.supporter=supporter;
+	}
+	
+	@Override protected void updatedRealmReference()
+	{
+		categories.addAll(fHd.all(fbHd.getClassCategory(),realm,rref));
+		statuse.addAll(fHd.all(fbHd.getClassTicketStatus(),realm,rref));
+		levels.addAll(fHd.all(fbHd.getClassLevel(),realm,rref));
+		
+		reloadTickets();
+	}
+	
+	private void reloadTickets()
+	{
+		tickets.clear();
+		tickets.addAll(fHd.fHdTickets(EjbHelpdeskQuery.build()));
+	}
+	
+	public void selectedTicket()
+	{
+		events.clear();
+		events.addAll(fHd.allForParent(fbHd.getClassEvent(),ticket));
+		logger.info(AbstractLogMessage.reloaded(fbHd.getClassEvent(),events));
+	}	
+}

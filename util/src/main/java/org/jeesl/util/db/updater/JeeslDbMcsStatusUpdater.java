@@ -3,8 +3,11 @@ package org.jeesl.util.db.updater;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jeesl.api.facade.system.graphic.JeeslGraphicFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.system.LocaleFactoryBuilder;
+import org.jeesl.factory.builder.system.SvgFactoryBuilder;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicType;
@@ -29,8 +32,7 @@ public class JeeslDbMcsStatusUpdater <L extends JeeslLang, D extends JeeslDescri
 {
 	final static Logger logger = LoggerFactory.getLogger(JeeslDbMcsStatusUpdater.class);
 	
-//	private EjbStatusFactory<S,L,D> statusEjbFactory; public void setStatusEjbFactory(EjbStatusFactory<S,L,D> statusEjbFactory) {this.statusEjbFactory = statusEjbFactory;}
-	private final JeeslFacade fJeesl;
+	private final JeeslGraphicFacade<?,?,?,G,GT,?,?> fGraphic;
 	private final LocaleFactoryBuilder<L,D,?> fbLocale;
 	private final JeeslLocaleProvider<LOC> lp;
 	private JeeslDbGraphicUpdater<G,GT> uGraphic;
@@ -38,11 +40,14 @@ public class JeeslDbMcsStatusUpdater <L extends JeeslLang, D extends JeeslDescri
 	private R realm;
 	private RREF rref;
 	
-	public JeeslDbMcsStatusUpdater(LocaleFactoryBuilder<L,D,LOC> fbLocale, JeeslFacade fJeesl, JeeslLocaleProvider<LOC> lp)
+	public JeeslDbMcsStatusUpdater(LocaleFactoryBuilder<L,D,LOC> fbLocale, SvgFactoryBuilder<L,D,G,GT,?,?> fbSvg,
+										JeeslGraphicFacade<L,D,?,G,GT,?,?> fGraphic, JeeslLocaleProvider<LOC> lp)
 	{
 		this.fbLocale=fbLocale;
-		this.fJeesl=fJeesl;
+		this.fGraphic=fGraphic;
 		this.lp=lp;
+		uGraphic = new JeeslDbGraphicUpdater<>(fbSvg);
+		uGraphic.setFacade(fGraphic);
 	}
 	
 	public void initMcs(R realm, RREF rref)
@@ -153,7 +158,7 @@ public class JeeslDbMcsStatusUpdater <L extends JeeslLang, D extends JeeslDescri
 	public <S extends JeeslMcsStatus<L,D,R,S,G>> List<S> iStatus(Class<S> cStatus, Container xContainer)
 	{
 		List<S> added = new ArrayList<>();
-		EjbCodeCache<S> cache = new EjbCodeCache<>(cStatus,fJeesl.allMcs(cStatus, realm, rref));
+		EjbCodeCache<S> cache = new EjbCodeCache<>(cStatus,fGraphic.all(cStatus,realm,rref));
 		logger.debug("Updating "+cStatus.getSimpleName()+" with "+xContainer.getStatus().size()+" entries, "+cache.size()+" already in DB");
 //		iuStatusEJB(list, cStatus, cLang);
 		for(Status xml : xContainer.getStatus())
@@ -175,9 +180,15 @@ public class JeeslDbMcsStatusUpdater <L extends JeeslLang, D extends JeeslDescri
 			ejb.setRealm(realm);
 			ejb.setRref(rref.getId());
 			ejb.setCode(xml.getCode());
+			ejb.setVisible(xml.isVisible());
+			ejb.setPosition(xml.getPosition());
 			ejb.setName(fbLocale.ejbLang().build(lp,xml.getLangs()));
 			ejb.setDescription(fbLocale.ejbDescription().build(lp,xml.getDescriptions()));
-			ejb = fJeesl.persist(ejb);
+			ejb = fGraphic.persist(ejb);
+			
+			try {uGraphic.updateSvg(cStatus,ejb,xml);}
+			catch (JeeslConstraintViolationException | JeeslLockingException e) {e.printStackTrace();}
+			
 			logger.info("Added: "+ejb);
 			return ejb;
 		}

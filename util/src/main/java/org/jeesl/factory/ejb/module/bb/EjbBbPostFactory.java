@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbBbPostFactory<THREAD extends JeeslBbThread<?>,
-								POST extends JeeslBbPost<THREAD,M,MT,USER>,
+								POST extends JeeslBbPost<THREAD,M,USER>,
 								M extends JeeslMarkup<MT>,
 								MT extends JeeslIoCmsMarkupType<?,?,MT,?>,
 								USER extends EjbWithEmail>

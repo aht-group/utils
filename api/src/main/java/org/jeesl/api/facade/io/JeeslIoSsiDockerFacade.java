@@ -6,8 +6,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 
 public interface JeeslIoSsiDockerFacade <L extends JeeslLang,D extends JeeslDescription,
-									SYSTEM extends JeeslIoSsiSystem
-									
+									SYSTEM extends JeeslIoSsiSystem<L,D>
 									>
 			extends JeeslFacade
 {	

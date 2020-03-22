@@ -528,7 +528,7 @@ public class JeeslFacadeBean implements JeeslFacade
 	}
 	
 	// MCS
-	@Override public <T extends EjbWithId, REALM extends JeeslMcsRealm<?,?,?,?>, RREF extends EjbWithId> List<T> allMcs(Class<T> c, REALM realm, RREF rref)
+	@Override public <T extends EjbWithId, REALM extends JeeslMcsRealm<?,?,?,?>, RREF extends EjbWithId> List<T> all(Class<T> c, REALM realm, RREF rref)
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<T> cQ = cB.createQuery(c);
@@ -539,7 +539,30 @@ public class JeeslFacadeBean implements JeeslFacade
 		CriteriaQuery<T> select = cQ.select(from);
 		select.where(cB.equal(pRealm,realm),cB.equal(eRref,rref.getId()));
 		
+		if(EjbWithPosition.class.isAssignableFrom(c)){select.orderBy(cB.asc(from.get(EjbWithPosition.attributePosition)));}
+		else if(EjbWithRecord.class.isAssignableFrom(c)){select.orderBy(cB.asc(from.get(EjbWithRecord.attributeRecord)));}
+		
 		return em.createQuery(select).getResultList();
+	}
+	@Override public <T extends EjbWithNonUniqueCode, REALM extends JeeslMcsRealm<?,?,?,?>, RREF extends EjbWithId, E extends Enum<E>> T fByEnum(Class<T> type, REALM realm, RREF rref, E code)
+	{
+		try {return this.fByCode(type,realm,rref,code.toString());} catch (JeeslNotFoundException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+	@Override public <T extends EjbWithNonUniqueCode, REALM extends JeeslMcsRealm<?,?,?,?>, RREF extends EjbWithId> T fByCode(Class<T> type, REALM realm, RREF rref, String code) throws JeeslNotFoundException
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+        CriteriaQuery<T> cQ = cB.createQuery(type);
+        Root<T> root = cQ.from(type);
+        cQ = cQ.where(root.<T>get("code").in(code));
+
+		TypedQuery<T> q = em.createQuery(cQ); 
+		try	{return q.getSingleResult();}
+		catch (NoResultException ex){throw new JeeslNotFoundException("Nothing found "+type.getSimpleName()+" for code="+code);}
+		catch (NonUniqueResultException ex){throw new JeeslNotFoundException("Results for "+type.getSimpleName()+" and code="+code+" not unique");}
 	}
 	
 	@Override public <T extends EjbRemoveable> void rmTransaction(T o) throws JeeslConstraintViolationException {rmProtected(o);}

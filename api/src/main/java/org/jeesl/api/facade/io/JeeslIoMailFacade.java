@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
-import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.io.mail.core.JeeslIoMail;

@@ -127,31 +127,34 @@ public class JeeslRestService <L extends JeeslLang,D extends JeeslDescription,
 		try
 		{
 			Class<Y> cMcs = (Class<Y>)Class.forName(code).asSubclass(JeeslMcsStatus.class);
-			Class<X> cStatus = (Class<X>)Class.forName(code).asSubclass(JeeslStatus.class);
-			List<Y> list = fGraphic.allMcs(cMcs,realm,rref);
+//			Class<X> cStatus = (Class<X>)Class.forName(code).asSubclass(JeeslStatus.class);
+			List<Y> list = fGraphic.all(cMcs,realm,rref);
 			List<X> list2 = new ArrayList<X>();
 			for(Y y : list)
 			{
 				list2.add((X)y);
 			}
 			
-			org.jeesl.model.xml.jeesl.Container xml = XmlContainerFactory.build();
-			xml = xfContainer.build(list2);
+			org.jeesl.model.xml.jeesl.Container xContainer = XmlContainerFactory.build();
+			xContainer = xfContainer.build(list2);
 			
 			if(EjbWithGraphic.class.isAssignableFrom(cMcs))
 			{
-				for(Status xStatus : xml.getStatus())
+				for(Status xml : xContainer.getStatus())
 				{
-					try
+					for(X ejb : list2)
 					{
-						X eStatus = fGraphic.fByCode(cStatus,xStatus.getCode());
-						G eGraphic = fGraphic.fGraphicForStatus(eStatus.getId());
-						xStatus.setGraphic(xfGraphic.build(eGraphic));
+						if(xml.getCode().equals(ejb.getCode()))
+						try
+						{
+							G eGraphic = fGraphic.fGraphic(cMcs,ejb.getId());
+							xml.setGraphic(xfGraphic.build(eGraphic));
+						}
+						catch (JeeslNotFoundException e) {e.printStackTrace();}
 					}
-					catch (JeeslNotFoundException e) {}
 				}
 			}
-			return xml;
+			return xContainer;
 		}
 		catch (ClassNotFoundException e) {throw new UtilsConfigurationException(e.getMessage());}
 	}

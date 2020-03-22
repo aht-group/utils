@@ -91,7 +91,7 @@ public class AbstractAssetCompanyBean <L extends JeeslLang, D extends JeeslDescr
 	protected void updateRealmReference(RREF rref)
 	{
 		this.rref=rref;
-		lazyCompany.setScope(bCache,realm,rref);
+		lazyCompany.setScope(bCache,rref);
 	}
 	
 	public void addManufacturer() throws JeeslNotFoundException

@@ -1,21 +1,37 @@
 package org.jeesl.factory.ejb.io.cms;
 
+import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbIoCmsMarkupFactory<M extends JeeslMarkup<?>>
+public class EjbIoCmsMarkupFactory<M extends JeeslMarkup<MT>,
+									MT extends JeeslIoCmsMarkupType<?,?,MT,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbIoCmsMarkupFactory.class);
 	
-    @SuppressWarnings("unused")
-	private final Class<M> cM;
+	private final Class<M> cMarkup;
 	
-    public EjbIoCmsMarkupFactory(final Class<M> cM)
+    public EjbIoCmsMarkupFactory(final Class<M> cMarkup)
     {
-        this.cM = cM;
+        this.cMarkup = cMarkup;
     } 
  
+    public M build(MT type)
+    {
+    	M markup = null;
+		try
+		{
+			markup = cMarkup.newInstance();
+	    	markup.setLkey("none");
+	    	markup.setType(type);
+	    	markup.setContent("");
+		}
+		catch (InstantiationException | IllegalAccessException e) {e.printStackTrace();}
+
+    	return markup;
+    }
+    
 /*	
 	public D create(Description description) throws UtilsConstraintViolationException
 	{
