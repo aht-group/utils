@@ -2,6 +2,7 @@ package org.jeesl.web.mbean.prototype.module.hd;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
@@ -52,6 +53,8 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 	
 	protected final List<EVENT> events;  public List<EVENT> getEvents() {return events;}
 	
+	protected final List<USER> supporters;  public List<USER> getSupporters() {return supporters;}
+	
 	private USER supporter;
 	
 	public AbstractHdSupportBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,M,MT,USER> fbHd)
@@ -59,6 +62,7 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 		super(fbHd);
 		
 		events = new ArrayList<>();
+		supporters = new ArrayList<>();
 	}
 
 	protected void postConstructHdSupport(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
@@ -77,8 +81,10 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 		statuse.addAll(fHd.all(fbHd.getClassTicketStatus(),realm,rref));
 		levels.addAll(fHd.all(fbHd.getClassLevel(),realm,rref));
 		
+		reloadSupporters();
 		reloadTickets();
 	}
+	protected abstract void reloadSupporters();
 	
 	private void reloadTickets()
 	{
@@ -88,8 +94,23 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 	
 	public void selectedTicket()
 	{
+		reloadEvents();
+	}
+	
+	private void reloadEvents()
+	{
 		events.clear();
 		events.addAll(fHd.allForParent(fbHd.getClassEvent(),ticket));
+		Collections.reverse(events);
 		logger.info(AbstractLogMessage.reloaded(fbHd.getClassEvent(),events));
-	}	
+	}
+	
+	public void saveTicket() throws JeeslConstraintViolationException, JeeslLockingException
+	{
+		fbHd.ejbEvent().converter(fHd,lastEvent);
+		ticket = fHd.saveHdTicket(ticket,lastEvent);
+		lastEvent = ticket.getLastEvent();
+		reloadTickets();
+		reloadEvents();
+	}
 }

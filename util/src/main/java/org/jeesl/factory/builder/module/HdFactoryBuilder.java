@@ -43,6 +43,8 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 	
 	private final Class<M> cMarkup; public Class<M> getClassMarkup() {return cMarkup;}
 	private final Class<MT> cMarkupType; public Class<MT> getClassMarkupType() {return cMarkupType;}
+	
+	private final Class<USER> cUser; public Class<USER> getClassUser() {return cUser;}
 
 	public HdFactoryBuilder(final Class<L> cL,final Class<D> cD,
 								final Class<TICKET> cTicket,
@@ -52,7 +54,8 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 								final Class<TYPE> cType,
 								final Class<LEVEL> cLevel,
 								final Class<M> cMarkup,
-								final Class<MT> cMarkupType)
+								final Class<MT> cMarkupType,
+								final Class<USER> cUser)
 	{       
 		super(cL,cD);
 		this.cTicket=cTicket;
@@ -63,8 +66,9 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 		this.cLevel=cLevel;
 		this.cMarkup=cMarkup;
 		this.cMarkupType=cMarkupType;
+		this.cUser=cUser;
 	}
 
 	public EjbHdTicketFactory<R,TICKET,M,MT> ejbTicket() {return new EjbHdTicketFactory<>(cTicket,cMarkup);}
-	public EjbHdEventFactory<TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,USER> ejbEvent() {return new EjbHdEventFactory<>(cEvent);}
+	public EjbHdEventFactory<TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,USER> ejbEvent() {return new EjbHdEventFactory<>(this);}
 }

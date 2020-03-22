@@ -18,5 +18,5 @@ public interface JeeslHdEventType <L extends JeeslLang, D extends JeeslDescripti
 										JeeslOptionRestDownload,EjbWithCodeGraphic<G>,
 										JeeslStatus<S,L,D>
 {
-public static enum Code{create,status,reporter,supporter,level};
+public static enum Code{create,category,status,reporter,supporter,level};
 }

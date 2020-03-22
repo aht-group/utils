@@ -63,5 +63,39 @@
     		<s:lang key="fr" translation="Level"/>
     	</s:langs>
     </s:translation>   
-    
+ 	<s:translation key="jeeslHdReporter">
+    	<s:langs>
+    		<s:lang key="de" translation="Reporter"/>
+    		<s:lang key="en" translation="Reporter"/>
+    		<s:lang key="fr" translation="Reporter"/>
+    	</s:langs>
+    </s:translation>
+        <s:translation key="jeeslHdSupporter">
+    	<s:langs>
+    		<s:lang key="de" translation="Supporter"/>
+    		<s:lang key="en" translation="Supporter"/>
+    		<s:lang key="fr" translation="Supporter"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslHdIssue">
+    	<s:langs>
+    		<s:lang key="de" translation="Issue"/>
+    		<s:lang key="en" translation="Issue"/>
+    		<s:lang key="fr" translation="Issue"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslHdEvents">
+    	<s:langs>
+    		<s:lang key="de" translation="Ereignisse"/>
+    		<s:lang key="en" translation="Events"/>
+    		<s:lang key="fr" translation="Events"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslHdEventChange">
+    	<s:langs>
+    		<s:lang key="de" translation="Änderung"/>
+    		<s:lang key="en" translation="Change"/>
+    		<s:lang key="fr" translation="Change"/>
+    	</s:langs>
+    </s:translation>
 </s:translations>

@@ -1,8 +1,9 @@
 package org.jeesl.interfaces.model.system.security.user;
 
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.text.EjbWithEmail;
 
-public interface JeeslSimpleUser extends EjbWithEmail
+public interface JeeslSimpleUser extends EjbWithId,EjbWithEmail
 {
 	String getFirstName();
 	void setFirstName(String firstName);

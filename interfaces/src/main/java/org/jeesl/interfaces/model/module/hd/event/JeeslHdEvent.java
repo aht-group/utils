@@ -1,6 +1,7 @@
 package org.jeesl.interfaces.model.module.hd.event;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdResolutionLevel;
@@ -14,7 +15,6 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.system.status.JeeslWithCategory;
 import org.jeesl.interfaces.model.with.system.status.JeeslWithLevel;
 import org.jeesl.interfaces.model.with.system.status.JeeslWithStatus;
-import org.jeesl.interfaces.model.with.system.status.JeeslWithType;
 
 public interface JeeslHdEvent<TICKET extends JeeslHdTicket<?,?,?>,
 								CAT extends JeeslHdTicketCategory<?,?,?,CAT,?>,
@@ -26,7 +26,7 @@ public interface JeeslHdEvent<TICKET extends JeeslHdTicket<?,?,?>,
 								EjbWithId,
 								EjbWithParentAttributeResolver,
 								EjbWithRecord,
-								JeeslWithType<TYPE>,JeeslWithCategory<CAT>,JeeslWithStatus<STATUS>,JeeslWithLevel<LEVEL>
+								JeeslWithCategory<CAT>,JeeslWithStatus<STATUS>,JeeslWithLevel<LEVEL>
 {	
 	public enum Attributes{ticket}
 	
@@ -41,4 +41,7 @@ public interface JeeslHdEvent<TICKET extends JeeslHdTicket<?,?,?>,
 	
 	USER getSupporter();
 	void setSupporter(USER user);
+	
+	List<TYPE> getTypes();
+	void setTypes(List<TYPE> types);
 }

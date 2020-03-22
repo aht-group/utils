@@ -57,8 +57,8 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 	protected JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,M,MT,USER> fHd;
 	
 	protected final List<CAT> categories; public List<CAT> getCategories() {return categories;}
-	protected final List<STATUS> statuse; 
-	protected final List<LEVEL> levels;
+	protected final List<STATUS> statuse; public List<STATUS> getStatuse() {return statuse;}
+	protected final List<LEVEL> levels; public List<LEVEL> getLevels() {return levels;}
 	
 	protected final List<TICKET> tickets;  public List<TICKET> getTickets() {return tickets;}
 	

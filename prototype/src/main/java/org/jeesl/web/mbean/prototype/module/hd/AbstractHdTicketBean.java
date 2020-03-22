@@ -101,6 +101,7 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 	
 	public void saveTicket() throws JeeslConstraintViolationException, JeeslLockingException
 	{
+		fbHd.ejbEvent().converter(fHd,lastEvent);
 		if(EjbIdFactory.isUnSaved(ticket)) {ticket = fHd.saveHdTicket(ticket,lastEvent);}
 		else {ticket = fHd.save(ticket);}
 		editHandler.saved(ticket);

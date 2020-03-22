@@ -165,4 +165,12 @@ public class EjbIdFactory
 			logger.warn("List not updated (index="+index+")with "+ejb.toString());
 		}
 	}
+	
+	public static <T extends EjbWithId> boolean equals(T a, T b)
+	{
+		if(a==null && b==null) {return true;}
+		else if(a!=null && b==null) {return true;}
+		else if(a==null && b!=null) {return true;}
+		else {return a.equals(b);}
+	}
 }

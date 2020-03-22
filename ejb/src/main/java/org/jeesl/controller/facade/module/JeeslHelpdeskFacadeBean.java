@@ -7,8 +7,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -16,10 +14,10 @@ import org.jeesl.api.facade.module.JeeslHdFacade;
 import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.HdFactoryBuilder;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
-import org.jeesl.interfaces.model.module.calendar.JeeslCalendarItem;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEvent;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEventType;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdResolutionLevel;
@@ -65,16 +63,42 @@ public class JeeslHelpdeskFacadeBean<L extends JeeslLang,D extends JeeslDescript
 	@Override public TICKET saveHdTicket(TICKET ticket, EVENT event) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		boolean unsaved = EjbIdFactory.isUnSaved(ticket);
-		ticket = this.save(ticket);
 		
 		if(unsaved)
 		{
+			ticket = this.save(ticket);
 			TYPE type = this.fByEnum(fbHd.getClassType(),JeeslHdEventType.Code.create);
-			event.setType(type);
+			event.getTypes().add(type);
 			event = this.save(event);
 			ticket.setFirstEvent(event);
 			ticket.setLastEvent(event);
 			ticket = this.save(ticket);
+		}
+		else
+		{
+			List<TYPE> types = new ArrayList<>();
+			try
+			{
+				EVENT original = this.find(fbHd.getClassEvent(),event.getId());
+				
+				if(!original.getCategory().equals(event.getCategory())) {types.add(this.fByEnum(fbHd.getClassType(),JeeslHdEventType.Code.category));}
+				if(!original.getStatus().equals(event.getStatus())) {types.add(this.fByEnum(fbHd.getClassType(),JeeslHdEventType.Code.status));}
+				if(!original.getLevel().equals(event.getLevel())) {types.add(this.fByEnum(fbHd.getClassType(),JeeslHdEventType.Code.level));}
+				if(!EjbIdFactory.equals(original.getSupporter(),event.getSupporter())) {types.add(this.fByEnum(fbHd.getClassType(),JeeslHdEventType.Code.supporter));}
+			}
+			catch (JeeslNotFoundException e){}
+			
+			if(!types.isEmpty())
+			{
+				ticket.setLastEvent(null);
+				ticket = this.save(ticket);
+				event.setId(0);
+				event.setRecord(new Date());
+				event.setTypes(types);
+				event = save(event);
+				ticket.setLastEvent(event);
+				ticket = this.save(ticket);
+			}	
 		}
 		
 		return ticket;

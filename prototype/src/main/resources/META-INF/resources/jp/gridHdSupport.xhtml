@@ -18,7 +18,8 @@
 		<j:slot id="sTickets" width="7">
 			<h:form id="fTickets">
 				<p:dataTable var="t" value="#{cc.attrs.bean.tickets}" draggableRows="false"
-								selection="#{cc.attrs.bean.ticket}" selectionMode="single" rowKey="#{t.id}">
+								selection="#{cc.attrs.bean.ticket}" selectionMode="single" rowKey="#{t.id}"
+								rows="10" paginator="true" rowsPerPageTemplate="#{appSettingsBean.rowsPerPageTemplate}" paginatorPosition="#{appSettingsBean.paginatorPosition}" paginatorTemplate="#{appSettingsBean.paginatorTemplate}">
 					<f:facet name="header">
 						<j:dtHeader title="#{msg.jeeslHdTickets}">
 							<j:svg type="jeeslAdd" listener="#{cc.attrs.bean.addTicket()}" update=":#{cc.id}:sEvents :#{cc.id}:rTicket" library="jeeslGfx"/>
@@ -43,7 +44,8 @@
 			</h:form>
 		</j:slot>
 		<j:slot id="sEvents" width="5">
-			<p:dataTable var="e" value="#{cc.attrs.bean.events}" draggableRows="false" rendered="#{not empty cc.attrs.bean.ticket}">
+			<p:dataTable var="e" value="#{cc.attrs.bean.events}" draggableRows="false" rendered="#{not empty cc.attrs.bean.ticket}"
+						rows="5" paginator="true" rowsPerPageTemplate="#{appSettingsBean.rowsPerPageTemplate}" paginatorPosition="#{appSettingsBean.paginatorPosition}" paginatorTemplate="#{appSettingsBean.paginatorTemplate}">
 				<f:facet name="header">
 					<j:dtHeader title="#{msg.jeeslHdEvents}">
 						
@@ -52,8 +54,11 @@
 				<p:column headerText="#{msg.jeeslHdRecord}">  
 					<jp:outputDate value="#{e.record}" withTime="true"/>
 				</p:column>
-				<p:column headerText="#{msg.jeeslHdEventType}" styleClass="jeeslCenter">  
-					<jtp:symbolizer value="#{e.type}"/>
+				<p:column headerText="#{msg.jeeslHdEventChange}">
+					<ui:repeat var="t" value="#{e.types}">
+						<jtp:symbolizer value="#{t}"/>
+						<br/>
+					</ui:repeat>
 				</p:column>
 				
 		   	</p:dataTable>
@@ -61,31 +66,7 @@
 	</j:row>
 	<j:row id="rTicket">
 		<j:slot id="sTicket" width="6">
-			<h:form id="fProgress" rendered="#{not empty cc.attrs.bean.ticket}">
-				<p:panel header="#{msg.jeeslHdTicketProgress}" styleClass="jeeslPanel">
-					<f:facet name="actions">
-						
-					</f:facet>
-					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
-						
-						<p:outputLabel value="#{msg.jeeslHdRecord}"/>
-						<jp:outputDate value="#{cc.attrs.bean.ticket.lastEvent.record}" withTime="true"/>
-						
-						<p:outputLabel value="#{msg.jeeslHdStatus}"/>
-						<ui:fragment>
-							<jtp:symbolizer value="#{cc.attrs.bean.ticket.lastEvent.status}" marginRight="5"/>
-							<h:outputText value="#{cc.attrs.bean.ticket.lastEvent.status.name[localeCode].lang}"/>
-						</ui:fragment>
-						
-						<p:outputLabel value="#{msg.jeeslHdLevel}"/>
-						<ui:fragment>
-							
-							<h:outputText value="#{cc.attrs.bean.ticket.lastEvent.level.name[localeCode].lang}"/>
-						</ui:fragment>
-						
-					</p:panelGrid>
-				</p:panel>
-			</h:form>
+		
 			<h:form id="fTicket" rendered="#{not empty cc.attrs.bean.ticket}">
 				<p:panel header="#{msg.jeeslHdTicket}" styleClass="jeeslPanel">
 					<f:facet name="actions">
@@ -99,6 +80,22 @@
 						<p:outputLabel value="#{msg.jeeslHdTicketCategory}"/>
 						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.category}" effect="fade" autoWidth="false">
                         	<f:selectItems value="#{cc.attrs.bean.categories}" var="c" itemLabel="#{c.name[localeCode].lang}" itemValue="#{c}"/>
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="#{msg.jeeslHdStatus}"/>
+						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.status}" effect="fade" autoWidth="false">
+                        	<f:selectItems value="#{cc.attrs.bean.statuse}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s}"/>
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="#{msg.jeeslHdLevel}"/>
+						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.level}" effect="fade" autoWidth="false">
+                        	<f:selectItems value="#{cc.attrs.bean.levels}" var="l" itemLabel="#{l.name[localeCode].lang}" itemValue="#{l}"/>
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="#{msg.jeeslHdSupporter}"/>
+						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.supporter}" effect="fade" autoWidth="false">
+							<f:selectItem itemLabel="--"/>
+                        	<f:selectItems value="#{cc.attrs.bean.supporters}" var="u" itemLabel="#{u.firstName} #{u.lastName}" itemValue="#{u}"/>
                         </p:selectOneMenu>
                         
                         <p:outputLabel value="#{msg.jeeslHdTicketName}"/>
