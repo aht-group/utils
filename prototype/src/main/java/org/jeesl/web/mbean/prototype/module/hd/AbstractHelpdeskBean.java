@@ -7,11 +7,7 @@ import java.util.List;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslHdFacade;
-import org.jeesl.controller.handler.ui.UiEditHandler;
-import org.jeesl.exception.ejb.JeeslConstraintViolationException;
-import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.HdFactoryBuilder;
-import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEvent;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEventType;
@@ -26,7 +22,6 @@ import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
-import org.jeesl.interfaces.util.query.module.EjbHelpdeskQuery;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,8 +31,8 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 								R extends JeeslMcsRealm<L,D,R,?>, RREF extends EjbWithId,
 								TICKET extends JeeslHdTicket<R,EVENT,M>,
-								CAT extends JeeslHdTicketCategory<?,?,R,CAT,?>,
-								STATUS extends JeeslHdTicketStatus<?,?,R,STATUS,?>,
+								CAT extends JeeslHdTicketCategory<L,D,R,CAT,?>,
+								STATUS extends JeeslHdTicketStatus<L,D,R,STATUS,?>,
 								EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,USER>,
 								TYPE extends JeeslHdEventType<L,D,TYPE,?>,
 								LEVEL extends JeeslHdResolutionLevel<L,D,R,LEVEL,?>,

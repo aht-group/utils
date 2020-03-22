@@ -19,7 +19,7 @@ public interface JeeslHdTicket<R extends JeeslMcsRealm<?,?,R,?>,
 //								JeeslWithCategory<CAT>,JeeslWithStatus<STATUS>,
 								JeeslWithMultiClientSupport<R>
 {	
-	public enum Attributes{xx}
+	public enum Attributes{lastEvent}
 	
 	EVENT getFirstEvent();
 	void setFirstEvent(EVENT firstEvent);

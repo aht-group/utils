@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -37,13 +39,13 @@ import org.slf4j.LoggerFactory;
 public class JeeslHelpdeskFacadeBean<L extends JeeslLang,D extends JeeslDescription,
 										R extends JeeslMcsRealm<L,D,R,?>,
 										TICKET extends JeeslHdTicket<R,EVENT,M>,
-										CAT extends JeeslHdTicketCategory<?,?,R,CAT,?>,
-										STATUS extends JeeslHdTicketStatus<?,?,R,STATUS,?>,
+										CAT extends JeeslHdTicketCategory<L,D,R,CAT,?>,
+										STATUS extends JeeslHdTicketStatus<L,D,R,STATUS,?>,
 										EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,USER>,
 										TYPE extends JeeslHdEventType<L,D,TYPE,?>,
 										LEVEL extends JeeslHdResolutionLevel<L,D,R,LEVEL,?>,
 										M extends JeeslMarkup<MT>,
-										MT extends JeeslIoCmsMarkupType<?,?,MT,?>,
+										MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
 										USER extends JeeslSimpleUser>
 					extends JeeslFacadeBean
 					implements JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,M,MT,USER>
@@ -104,12 +106,21 @@ public class JeeslHelpdeskFacadeBean<L extends JeeslLang,D extends JeeslDescript
 		return ticket;
 	}
 
-	@Override public <RREF extends EjbWithId> List<TICKET> fHdTickets(EjbHelpdeskQuery<R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,USER> query)
+	@Override public <RREF extends EjbWithId> List<TICKET> fHdTickets(EjbHelpdeskQuery<L,D,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,USER> query)
 	{
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<TICKET> cQ = cB.createQuery(fbHd.getClassTicket());
 		Root<TICKET> root = cQ.from(fbHd.getClassTicket());
+		
+		if(query.getReporters()!=null)
+		{
+			Join<TICKET,EVENT> jLastEvent = root.join(JeeslHdTicket.Attributes.lastEvent.toString());
+			Path<USER> pReporter = jLastEvent.get(JeeslHdEvent.Attributes.reporter.toString());
+			
+			if(query.getReporters().isEmpty()) {predicates.add(cB.isNull(pReporter));}
+			else{predicates.add(pReporter.in(query.getReporters()));}
+		}
 		
 //		Expression<Date> dStart = root.get(JeeslCalendarItem.Attributes.startDate.toString());
 //		Expression<Date> dEnd   = root.get(JeeslCalendarItem.Attributes.endDate.toString());

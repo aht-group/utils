@@ -33,8 +33,8 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 								R extends JeeslMcsRealm<L,D,R,?>, RREF extends EjbWithId,
 								TICKET extends JeeslHdTicket<R,EVENT,M>,
-								CAT extends JeeslHdTicketCategory<?,?,R,CAT,?>,
-								STATUS extends JeeslHdTicketStatus<?,?,R,STATUS,?>,
+								CAT extends JeeslHdTicketCategory<L,D,R,CAT,?>,
+								STATUS extends JeeslHdTicketStatus<L,D,R,STATUS,?>,
 								EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,USER>,
 								TYPE extends JeeslHdEventType<L,D,TYPE,?>,
 								LEVEL extends JeeslHdResolutionLevel<L,D,R,LEVEL,?>,
@@ -80,8 +80,11 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 	
 	private void reloadTickets()
 	{
+		EjbHelpdeskQuery<L,D,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,USER> query = EjbHelpdeskQuery.build();
+		query.addReporter(reporter);
+		
 		tickets.clear();
-		tickets.addAll(fHd.fHdTickets(EjbHelpdeskQuery.build()));
+		tickets.addAll(fHd.fHdTickets(query));
 	}
 	
 	public void selectedTicket()

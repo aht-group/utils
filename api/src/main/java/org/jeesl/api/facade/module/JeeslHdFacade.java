@@ -23,8 +23,8 @@ import org.jeesl.interfaces.util.query.module.EjbHelpdeskQuery;
 public interface JeeslHdFacade <L extends JeeslLang,D extends JeeslDescription,
 								R extends JeeslMcsRealm<L,D,R,?>, 
 								TICKET extends JeeslHdTicket<R,EVENT,M>,
-								CAT extends JeeslHdTicketCategory<?,?,R,CAT,?>,
-								STATUS extends JeeslHdTicketStatus<?,?,R,STATUS,?>,
+								CAT extends JeeslHdTicketCategory<L,D,R,CAT,?>,
+								STATUS extends JeeslHdTicketStatus<L,D,R,STATUS,?>,
 								EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,USER>,
 								TYPE extends JeeslHdEventType<L,D,TYPE,?>,
 								LEVEL extends JeeslHdResolutionLevel<L,D,R,LEVEL,?>,
@@ -36,5 +36,5 @@ public interface JeeslHdFacade <L extends JeeslLang,D extends JeeslDescription,
 {	
 	TICKET saveHdTicket(TICKET ticket, EVENT event) throws JeeslConstraintViolationException, JeeslLockingException;
 	
-	<RREF extends EjbWithId> List<TICKET> fHdTickets(EjbHelpdeskQuery<R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,USER> query);
+	<RREF extends EjbWithId> List<TICKET> fHdTickets(EjbHelpdeskQuery<L,D,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,USER> query);
 }
