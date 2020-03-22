@@ -10,7 +10,6 @@ import org.jeesl.interfaces.bean.system.JeeslSessionRegistryBean;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
-import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.metachart.xml.chart.Chart;

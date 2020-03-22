@@ -8,6 +8,7 @@ import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicket;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketCategory;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketStatus;
 import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
+import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.primitive.date.EjbWithRecord;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.system.status.JeeslWithCategory;
@@ -22,17 +23,18 @@ public interface JeeslHdEvent<TICKET extends JeeslHdTicket<?,?,?>,
 								LEVEL extends JeeslHdResolutionLevel<?,?,?,LEVEL,?>,
 								USER extends JeeslSimpleUser>
 						extends Serializable,EjbSaveable,
-								EjbWithId,EjbWithRecord,
-								JeeslWithType<TYPE>,
-								JeeslWithCategory<CAT>,JeeslWithStatus<STATUS>,JeeslWithLevel<LEVEL>
+								EjbWithId,
+								EjbWithParentAttributeResolver,
+								EjbWithRecord,
+								JeeslWithType<TYPE>,JeeslWithCategory<CAT>,JeeslWithStatus<STATUS>,JeeslWithLevel<LEVEL>
 {	
-	public enum Attributes{xx}
-	
-	USER getInitiator();
-	void setInitiator(USER initiator);
+	public enum Attributes{ticket}
 	
 	TICKET getTicket();
 	void setTicket(TICKET ticket);
+	
+	USER getInitiator();
+	void setInitiator(USER initiator);
 	
 	USER getReporter();
 	void setReporter(USER reporter);

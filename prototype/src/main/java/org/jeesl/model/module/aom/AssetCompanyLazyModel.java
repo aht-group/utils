@@ -28,7 +28,6 @@ public class AssetCompanyLazyModel <REALM extends JeeslMcsRealm<?,?,REALM,?>, RR
 	
 	private JeeslAssetCacheBean<?,?,REALM,RREF,COMPANY,SCOPE,?,?,?,?,?,?> cache;
 	
-	private REALM realm;
 	private RREF rref;
 	
 	public AssetCompanyLazyModel()
@@ -40,11 +39,9 @@ public class AssetCompanyLazyModel <REALM extends JeeslMcsRealm<?,?,REALM,?>, RR
 	@Override public COMPANY getRowData(String rowKey){return llh.getRowData(cache.cachedCompany().get(rref),rowKey);}
     @Override public Object getRowKey(COMPANY account) {return llh.getRowKey(account);}
 	
-    public void setScope(JeeslAssetCacheBean<?,?,REALM,RREF,COMPANY,SCOPE,?,?,?,?,?,?> cache,
-    						REALM realm, RREF rref)
+    public void setScope(JeeslAssetCacheBean<?,?,REALM,RREF,COMPANY,SCOPE,?,?,?,?,?,?> cache, RREF rref)
     {
     	this.cache=cache;
-    	this.realm=realm;
     	this.rref=rref;
     	llh.clear();
     }

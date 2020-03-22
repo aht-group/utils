@@ -25,14 +25,15 @@
 						</j:dtHeader>
 					</f:facet>
 					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectTicket()}" update=":#{cc.id}:sTicket :#{cc.id}:sProgress"/>
-					<p:column headerText="#{msg.jeeslHdTicketCategory}" styleClass="jeeslCenter">  
-						<jtp:symbolizer value="#{t.lastEvent.category}"/>
-					</p:column>
-					<p:column headerText="#{msg.jeeslHdRecord}">  
+					<p:column headerText="#{msg.jeeslHdRecord}">
+						<jtp:symbolizer value="#{t.lastEvent.status}" marginRight="5"/>
 						<jp:outputDate value="#{t.firstEvent.record}"/>
 					</p:column>
-					<p:column headerText="#{msg.jeeslHdStatus}" styleClass="jeeslCenter">  
+					<p:column headerText="#{msg.jeeslHdStatus}" styleClass="jeeslCenter" rendered="false">  
 						<jtp:symbolizer value="#{t.lastEvent.status}"/>
+					</p:column>
+					<p:column headerText="#{msg.jeeslHdTicketCategory}" styleClass="jeeslCenter">  
+						<jtp:symbolizer value="#{t.lastEvent.category}"/>
 					</p:column>
 			   	</p:dataTable>
 			</h:form>
@@ -41,9 +42,9 @@
 			<h:form id="fTicket" rendered="#{not empty cc.attrs.bean.ticket}">
 				<p:panel header="#{msg.jeeslHdTicket}" styleClass="jeeslPanel">
 					<f:facet name="actions">
-						<j:svg type="jeeslSave" listener="#{cc.attrs.bean.saveTicket()}" update=":#{cc.id}:grid" library="jeeslGfx" rendered="#{cc.attrs.bean.ticket.id eq 0}"/>
+						<j:svg type="jeeslSave" listener="#{cc.attrs.bean.saveTicket()}" update=":#{cc.id}:grid" library="jeeslGfx" rendered="#{cc.attrs.bean.editHandler.allow}"/>
 					</f:facet>
-					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80" rendered="#{cc.attrs.bean.ticket.id gt 0}">
+					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80" rendered="#{cc.attrs.bean.editHandler.deny}">
 						
 						<p:outputLabel value="#{msg.jeeslHdTicketCode}"/>
 						<h:outputText value="#{cc.attrs.bean.ticket.code}"/>
@@ -61,7 +62,7 @@
 						<h:outputText value="#{cc.attrs.bean.ticket.name}"/>
 						
 					</p:panelGrid>
-					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80" rendered="#{cc.attrs.bean.ticket.id eq 0}">
+					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80" rendered="#{cc.attrs.bean.editHandler.allow}">
 					
 						<p:outputLabel value="#{msg.jeeslHdRecord}"/>
 						<h:outputText value="#{cc.attrs.bean.firstEvent.record}"/>
@@ -74,10 +75,10 @@
                         <p:outputLabel value="#{msg.jeeslHdTicketName}"/>
 						<jtp:inputText value="#{cc.attrs.bean.ticket.name}"/>
 					</p:panelGrid>
-					<p:panelGrid columns="1" columnClasses="jeeslGrid100" rendered="#{cc.attrs.bean.ticket.id gt 0}">
+					<p:panelGrid columns="1" columnClasses="jeeslGrid100" rendered="#{cc.attrs.bean.editHandler.deny}">
 						<h:outputText value="#{cc.attrs.bean.ticket.markupUser}"/>
 					</p:panelGrid>
-					<p:panelGrid columns="1" columnClasses="jeeslGrid100" rendered="#{cc.attrs.bean.ticket.id eq 0}">
+					<p:panelGrid columns="1" columnClasses="jeeslGrid100" rendered="#{cc.attrs.bean.editHandler.allow}">
 						<jtp:inputMarkup value="#{cc.attrs.bean.ticket.markupUser}"/>
 					</p:panelGrid>
 				</p:panel>

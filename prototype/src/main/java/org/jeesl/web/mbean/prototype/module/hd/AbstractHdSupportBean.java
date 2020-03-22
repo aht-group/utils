@@ -1,6 +1,8 @@
 package org.jeesl.web.mbean.prototype.module.hd;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
@@ -30,7 +32,7 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
+public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 								R extends JeeslMcsRealm<L,D,R,?>, RREF extends EjbWithId,
 								TICKET extends JeeslHdTicket<R,EVENT,M>,
 								CAT extends JeeslHdTicketCategory<?,?,R,CAT,?>,
@@ -46,27 +48,27 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 					implements Serializable//,SbSingleBean
 {
 	private static final long serialVersionUID = 1L;
-	final static Logger logger = LoggerFactory.getLogger(AbstractHdTicketBean.class);
+	final static Logger logger = LoggerFactory.getLogger(AbstractHdSupportBean.class);
 	
-	private final UiEditHandler<TICKET> editHandler; public UiEditHandler<TICKET> getEditHandler() {return editHandler;}
-		
-	private USER reporter;
+	protected final List<EVENT> events;  public List<EVENT> getEvents() {return events;}
 	
-	public AbstractHdTicketBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,M,MT,USER> fbHd)
+	private USER supporter;
+	
+	public AbstractHdSupportBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,M,MT,USER> fbHd)
 	{
 		super(fbHd);
 		
-		editHandler = new UiEditHandler<>();
+		events = new ArrayList<>();
 	}
 
-	protected void postConstructHdTicket(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
+	protected void postConstructHdSupport(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
 									JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,M,MT,USER> fHd,
 									R realm,
-									USER reporter)
+									USER supporter)
 	{
 		super.postConstructHd(bTranslation,bMessage,fHd,realm);
 
-		this.reporter=reporter;
+		this.supporter=supporter;
 	}
 	
 	@Override protected void updatedRealmReference()
@@ -86,24 +88,8 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 	
 	public void selectedTicket()
 	{
-		editHandler.update(ticket);
-	}
-	
-	public void addTicket()
-	{
-		logger.info(AbstractLogMessage.addEntity(fbHd.getClassTicket()));
-		MT type = fHd.fByEnum(fbHd.getClassMarkupType(),JeeslIoCmsMarkupType.Code.xhtml);
-		ticket = fbHd.ejbTicket().build(realm,rref,type);
-		firstEvent = fbHd.ejbEvent().build(ticket,categories.get(0),statuse.get(0),levels.get(0),reporter);
-		lastEvent = fbHd.ejbEvent().build(ticket,categories.get(0),statuse.get(0),levels.get(0),reporter);
-		editHandler.update(ticket);
-	}
-	
-	public void saveTicket() throws JeeslConstraintViolationException, JeeslLockingException
-	{
-		if(EjbIdFactory.isUnSaved(ticket)) {ticket = fHd.saveHdTicket(ticket,lastEvent);}
-		else {ticket = fHd.save(ticket);}
-		editHandler.saved(ticket);
-		reloadTickets();
-	}
+		events.clear();
+		events.addAll(fHd.allForParent(fbHd.getClassEvent(),ticket));
+		logger.info(AbstractLogMessage.reloaded(fbHd.getClassEvent(),events));
+	}	
 }
