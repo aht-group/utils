@@ -5,7 +5,8 @@ import java.util.List;
 
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEvent;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEventType;
-import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdResolutionLevel;
+import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdLevel;
+import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdPriority;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicket;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketCategory;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketStatus;
@@ -23,9 +24,10 @@ public class EjbHelpdeskQuery<L extends JeeslLang,D extends JeeslDescription,
 							TICKET extends JeeslHdTicket<R,EVENT,?>,
 							CAT extends JeeslHdTicketCategory<L,D,R,CAT,?>,
 							STATUS extends JeeslHdTicketStatus<L,D,R,STATUS,?>,
-							EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,USER>,
+							EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,PRIORITY,USER>,
 							TYPE extends JeeslHdEventType<L,D,TYPE,?>,
-							LEVEL extends JeeslHdResolutionLevel<L,D,R,LEVEL,?>,
+							LEVEL extends JeeslHdLevel<L,D,R,LEVEL,?>,
+							PRIORITY extends JeeslHdPriority<L,D,R,PRIORITY,?>,
 							USER extends JeeslSimpleUser>
 			extends AbstractEjbQuery
 {
@@ -44,11 +46,12 @@ public class EjbHelpdeskQuery<L extends JeeslLang,D extends JeeslDescription,
 					TICKET extends JeeslHdTicket<R,EVENT,?>,
 					CAT extends JeeslHdTicketCategory<L,D,R,CAT,?>,
 					STATUS extends JeeslHdTicketStatus<L,D,R,STATUS,?>,
-					EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,USER>,
+					EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,PRIORITY,USER>,
 					TYPE extends JeeslHdEventType<L,D,TYPE,?>,
-					LEVEL extends JeeslHdResolutionLevel<L,D,R,LEVEL,?>,
+					LEVEL extends JeeslHdLevel<L,D,R,LEVEL,?>,
+					PRIORITY extends JeeslHdPriority<L,D,R,PRIORITY,?>,
 					USER extends JeeslSimpleUser>
-			EjbHelpdeskQuery<L,D,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,USER>
+			EjbHelpdeskQuery<L,D,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,USER>
 			build() {return new EjbHelpdeskQuery<>();}
 
 	@Override
@@ -59,8 +62,8 @@ public class EjbHelpdeskQuery<L extends JeeslLang,D extends JeeslDescription,
 	}
 	
 	private List<R> realms; public List<R> getRealm() {return realms;}
-	public EjbHelpdeskQuery<L,D,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,USER> add(R realm) {if(realms==null) {realms = new ArrayList<R>();} realms.add(realm); return this;}
+	public EjbHelpdeskQuery<L,D,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,USER> add(R realm) {if(realms==null) {realms = new ArrayList<R>();} realms.add(realm); return this;}
 
 	private List<USER> reporters; public List<USER> getReporters() {return reporters;}
-	public EjbHelpdeskQuery<L,D,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,USER> addReporter(USER user) {if(reporters==null) {reporters = new ArrayList<USER>();} reporters.add(user); return this;} 
+	public EjbHelpdeskQuery<L,D,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,USER> addReporter(USER user) {if(reporters==null) {reporters = new ArrayList<USER>();} reporters.add(user); return this;} 
 }

@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
-import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdResolutionLevel;
+import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdLevel;
+import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdPriority;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicket;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketCategory;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketStatus;
@@ -20,7 +21,8 @@ public interface JeeslHdEvent<TICKET extends JeeslHdTicket<?,?,?>,
 								CAT extends JeeslHdTicketCategory<?,?,?,CAT,?>,
 								STATUS extends JeeslHdTicketStatus<?,?,?,STATUS,?>,
 								TYPE extends JeeslHdEventType<?,?,TYPE,?>,
-								LEVEL extends JeeslHdResolutionLevel<?,?,?,LEVEL,?>,
+								LEVEL extends JeeslHdLevel<?,?,?,LEVEL,?>,
+								PRIORITY extends JeeslHdPriority<?,?,?,PRIORITY,?>,
 								USER extends JeeslSimpleUser>
 						extends Serializable,EjbSaveable,
 								EjbWithId,

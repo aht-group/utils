@@ -6,7 +6,8 @@ import org.jeesl.factory.builder.module.HdFactoryBuilder;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEvent;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEventType;
-import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdResolutionLevel;
+import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdLevel;
+import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdPriority;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicket;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketCategory;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketStatus;
@@ -17,16 +18,17 @@ import org.slf4j.LoggerFactory;
 public class EjbHdEventFactory<TICKET extends JeeslHdTicket<?,EVENT,?>,
 								CAT extends JeeslHdTicketCategory<?,?,?,CAT,?>,
 								STATUS extends JeeslHdTicketStatus<?,?,?,STATUS,?>,
-								EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,USER>,
+								EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,PRIORITY,USER>,
 								TYPE extends JeeslHdEventType<?,?,TYPE,?>,
-								LEVEL extends JeeslHdResolutionLevel<?,?,?,LEVEL,?>,
+								LEVEL extends JeeslHdLevel<?,?,?,LEVEL,?>,
+								PRIORITY extends JeeslHdPriority<?,?,?,PRIORITY,?>,
 								USER extends JeeslSimpleUser>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbHdEventFactory.class);
 	
-	private final HdFactoryBuilder<?,?,?,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,?,?,USER> fbHd;
+	private final HdFactoryBuilder<?,?,?,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,?,?,USER> fbHd;
 	
-    public EjbHdEventFactory(HdFactoryBuilder<?,?,?,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,?,?,USER> fbHd)
+    public EjbHdEventFactory(HdFactoryBuilder<?,?,?,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,?,?,USER> fbHd)
     {
         this.fbHd = fbHd;
     }

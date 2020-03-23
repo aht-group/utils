@@ -11,7 +11,8 @@ import org.jeesl.factory.builder.module.HdFactoryBuilder;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEvent;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEventType;
-import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdResolutionLevel;
+import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdLevel;
+import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdPriority;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicket;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketCategory;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketStatus;
@@ -33,9 +34,10 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 								TICKET extends JeeslHdTicket<R,EVENT,M>,
 								CAT extends JeeslHdTicketCategory<L,D,R,CAT,?>,
 								STATUS extends JeeslHdTicketStatus<L,D,R,STATUS,?>,
-								EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,USER>,
+								EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,PRIORITY,USER>,
 								TYPE extends JeeslHdEventType<L,D,TYPE,?>,
-								LEVEL extends JeeslHdResolutionLevel<L,D,R,LEVEL,?>,
+								LEVEL extends JeeslHdLevel<L,D,R,LEVEL,?>,
+								PRIORITY extends JeeslHdPriority<L,D,R,PRIORITY,?>,
 								M extends JeeslMarkup<MT>,
 								MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
 
@@ -47,9 +49,9 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractHelpdeskBean.class);
 	
-	protected final HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,M,MT,USER> fbHd;
+	protected final HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,USER> fbHd;
 
-	protected JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,M,MT,USER> fHd;
+	protected JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,USER> fHd;
 	
 	protected final List<CAT> categories; public List<CAT> getCategories() {return categories;}
 	protected final List<STATUS> statuse; public List<STATUS> getStatuse() {return statuse;}
@@ -64,7 +66,7 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 	protected EVENT lastEvent; public EVENT getLastEvent() {return lastEvent;} public void setLastEvent(EVENT lastEvent) {this.lastEvent = lastEvent;}
 
 	
-	public AbstractHelpdeskBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,M,MT,USER> fbHd)
+	public AbstractHelpdeskBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,USER> fbHd)
 	{
 		super(fbHd.getClassL(),fbHd.getClassD());
 		this.fbHd=fbHd;
@@ -77,7 +79,7 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 	}
 
 	protected void postConstructHd(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,M,MT,USER> fHd,
+									JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,USER> fHd,
 									R realm)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);

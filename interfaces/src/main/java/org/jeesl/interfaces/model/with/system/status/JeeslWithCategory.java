@@ -5,7 +5,7 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslWithCategory<CATEGORY extends JeeslStatus<CATEGORY,?,?>> extends EjbWithId
 {
-	public static String attributeCategory = "category";
+//	public static String attributeCategory = "category";
 	
 	CATEGORY getCategory();
 	void setCategory(CATEGORY category);

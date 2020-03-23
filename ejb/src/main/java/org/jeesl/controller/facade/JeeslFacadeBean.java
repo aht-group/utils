@@ -633,7 +633,7 @@ public class JeeslFacadeBean implements JeeslFacade
 		CriteriaQuery<W> cQ = cB.createQuery(w);
 		Root<W> root = cQ.from(w);
 
-		Path<C> pCategory = root.get(JeeslWithCategory.attributeCategory);
+		Path<C> pCategory = root.get("category");
 
 		CriteriaQuery<W> select = cQ.select(root);
 		select.where(cB.equal(pCategory,category));

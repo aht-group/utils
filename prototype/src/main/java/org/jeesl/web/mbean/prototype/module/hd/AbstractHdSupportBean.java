@@ -14,7 +14,8 @@ import org.jeesl.factory.builder.module.HdFactoryBuilder;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEvent;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEventType;
-import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdResolutionLevel;
+import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdLevel;
+import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdPriority;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicket;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketCategory;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketStatus;
@@ -36,14 +37,15 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 								TICKET extends JeeslHdTicket<R,EVENT,M>,
 								CAT extends JeeslHdTicketCategory<L,D,R,CAT,?>,
 								STATUS extends JeeslHdTicketStatus<L,D,R,STATUS,?>,
-								EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,USER>,
+								EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,PRIORITY,USER>,
 								TYPE extends JeeslHdEventType<L,D,TYPE,?>,
-								LEVEL extends JeeslHdResolutionLevel<L,D,R,LEVEL,?>,
+								LEVEL extends JeeslHdLevel<L,D,R,LEVEL,?>,
+								PRIORITY extends JeeslHdPriority<L,D,R,PRIORITY,?>,
 								M extends JeeslMarkup<MT>,
 								MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
 								USER extends JeeslSimpleUser
 								>
-					extends AbstractHelpdeskBean<L,D,LOC,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,M,MT,USER>
+					extends AbstractHelpdeskBean<L,D,LOC,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,USER>
 					implements Serializable//,SbSingleBean
 {
 	private static final long serialVersionUID = 1L;
@@ -55,7 +57,7 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 	
 	private USER supporter;
 	
-	public AbstractHdSupportBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,M,MT,USER> fbHd)
+	public AbstractHdSupportBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,USER> fbHd)
 	{
 		super(fbHd);
 		
@@ -64,7 +66,7 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 	}
 
 	protected void postConstructHdSupport(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,M,MT,USER> fHd,
+									JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,USER> fHd,
 									R realm,
 									USER supporter)
 	{
@@ -86,7 +88,7 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 	
 	private void reloadTickets()
 	{
-		EjbHelpdeskQuery<L,D,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,USER> query = EjbHelpdeskQuery.build();
+		EjbHelpdeskQuery<L,D,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,USER> query = EjbHelpdeskQuery.build();
 		
 		tickets.clear();
 		tickets.addAll(fHd.fHdTickets(query));

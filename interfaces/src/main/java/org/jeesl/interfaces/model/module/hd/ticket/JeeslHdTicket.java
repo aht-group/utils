@@ -12,7 +12,7 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.text.EjbWithName;
 
 public interface JeeslHdTicket<R extends JeeslMcsRealm<?,?,R,?>,
-								EVENT extends JeeslHdEvent<?,?,?,?,?,?>,
+								EVENT extends JeeslHdEvent<?,?,?,?,?,?,?>,
 								M extends JeeslMarkup<?>>
 						extends Serializable,EjbSaveable,
 								EjbWithId,EjbWithName,EjbWithNonUniqueCode,
