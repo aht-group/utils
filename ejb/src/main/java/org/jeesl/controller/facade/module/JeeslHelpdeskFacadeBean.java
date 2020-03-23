@@ -87,6 +87,7 @@ public class JeeslHelpdeskFacadeBean<L extends JeeslLang,D extends JeeslDescript
 				if(!original.getStatus().equals(event.getStatus())) {types.add(this.fByEnum(fbHd.getClassType(),JeeslHdEventType.Code.status));}
 				if(!original.getLevel().equals(event.getLevel())) {types.add(this.fByEnum(fbHd.getClassType(),JeeslHdEventType.Code.level));}
 				if(!EjbIdFactory.equals(original.getSupporter(),event.getSupporter())) {types.add(this.fByEnum(fbHd.getClassType(),JeeslHdEventType.Code.supporter));}
+				if(!EjbIdFactory.equals(original.getReporter(),event.getReporter())) {types.add(this.fByEnum(fbHd.getClassType(),JeeslHdEventType.Code.reporter));}
 			}
 			catch (JeeslNotFoundException e){}
 			
