@@ -32,7 +32,7 @@ public class AbstractJeeslUtilTest extends AbstractJeeslTest
 		if(!LoggerInit.isLog4jInited())
 		{
 			LoggerInit loggerInit = new LoggerInit("log4junit.xml");	
-			loggerInit.addAltPath("jeesl/test/config");
+			loggerInit.addAltPath("jeesl/util/config");
 			loggerInit.init();
 		}
     }

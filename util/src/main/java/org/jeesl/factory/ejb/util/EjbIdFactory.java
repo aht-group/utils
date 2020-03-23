@@ -169,8 +169,8 @@ public class EjbIdFactory
 	public static <T extends EjbWithId> boolean equals(T a, T b)
 	{
 		if(a==null && b==null) {return true;}
-		else if(a!=null && b==null) {return true;}
-		else if(a==null && b!=null) {return true;}
+		else if(a!=null && b==null) {return false;}
+		else if(a==null && b!=null) {return false;}
 		else {return a.equals(b);}
 	}
 }

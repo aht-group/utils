@@ -36,6 +36,9 @@
 					<p:column headerText="#{msg.jeeslHdReporter}">  
 						<h:outputText value="#{t.lastEvent.reporter.firstName}"/>
 					</p:column>
+					<p:column headerText="#{msg.jeeslHdSupporter}">  
+						<h:outputText value="#{t.lastEvent.supporter.firstName}"/>
+					</p:column>
 					<p:column headerText="#{msg.jeeslHdIssue}">  
 						<jtp:symbolizer value="#{t.lastEvent.category}" marginRight="5"/>
 						<h:outputText value="#{of:abbreviate(t.name,30)}"/>
@@ -77,6 +80,9 @@
 						<p:outputLabel value="#{msg.jeeslHdRecord}"/>
 						<h:outputText value="#{cc.attrs.bean.firstEvent.record}"/>
 						
+						<p:outputLabel value="#{msg.jeeslHdReporter}"/>
+						<h:outputText value="#{cc.attrs.bean.lastEvent.reporter.firstName} #{cc.attrs.bean.lastEvent.reporter.lastName}"/>
+						
 						<p:outputLabel value="#{msg.jeeslHdTicketCategory}"/>
 						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.category}" effect="fade" autoWidth="false">
                         	<f:selectItems value="#{cc.attrs.bean.categories}" var="c" itemLabel="#{c.name[localeCode].lang}" itemValue="#{c}"/>
@@ -104,7 +110,6 @@
 					<p:panelGrid columns="1" columnClasses="jeeslGrid100">
 						<h:outputText value="#{cc.attrs.bean.ticket.markupUser}"/>
 					</p:panelGrid>
-					
 				</p:panel>
 			</h:form>
 		</j:slot>
