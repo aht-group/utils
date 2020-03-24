@@ -46,4 +46,10 @@ public interface JeeslHdEvent<TICKET extends JeeslHdTicket<?,?,?>,
 	
 	List<TYPE> getTypes();
 	void setTypes(List<TYPE> types);
+	
+	PRIORITY getReporterPriority();
+	void setReporterPriority(PRIORITY reporterPriority);
+	
+	PRIORITY getSupporterPriority();
+	void setSupporterPriority(PRIORITY supporterPriority);
 }

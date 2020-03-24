@@ -56,6 +56,7 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 	protected final List<CAT> categories; public List<CAT> getCategories() {return categories;}
 	protected final List<STATUS> statuse; public List<STATUS> getStatuse() {return statuse;}
 	protected final List<LEVEL> levels; public List<LEVEL> getLevels() {return levels;}
+	protected final List<PRIORITY> priorities; public List<PRIORITY> getPriorities() {return priorities;}
 	
 	protected final List<TICKET> tickets;  public List<TICKET> getTickets() {return tickets;}
 	
@@ -74,6 +75,7 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 		categories = new ArrayList<>();
 		statuse = new ArrayList<>();
 		levels = new ArrayList<>();
+		priorities = new ArrayList<>();
 		
 		tickets = new ArrayList<>();
 	}

@@ -80,6 +80,7 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 		categories.addAll(fHd.all(fbHd.getClassCategory(),realm,rref));
 		statuse.addAll(fHd.all(fbHd.getClassTicketStatus(),realm,rref));
 		levels.addAll(fHd.all(fbHd.getClassLevel(),realm,rref));
+		priorities.addAll(fHd.all(fbHd.getClassPriority(),realm,rref));
 		
 		reloadSupporters();
 		reloadTickets();
@@ -110,7 +111,7 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 	public void saveTicket() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		fbHd.ejbEvent().converter(fHd,lastEvent);
-		ticket = fHd.saveHdTicket(ticket,lastEvent);
+		ticket = fHd.saveHdTicket(ticket,lastEvent,supporter);
 		lastEvent = ticket.getLastEvent();
 		reloadTickets();
 		reloadEvents();

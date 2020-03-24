@@ -76,6 +76,7 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		categories.addAll(fHd.all(fbHd.getClassCategory(),realm,rref));
 		statuse.addAll(fHd.all(fbHd.getClassTicketStatus(),realm,rref));
 		levels.addAll(fHd.all(fbHd.getClassLevel(),realm,rref));
+		priorities.addAll(fHd.all(fbHd.getClassPriority(),realm,rref));
 		
 		reloadTickets();
 	}
@@ -99,15 +100,24 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		logger.info(AbstractLogMessage.addEntity(fbHd.getClassTicket()));
 		MT type = fHd.fByEnum(fbHd.getClassMarkupType(),JeeslIoCmsMarkupType.Code.xhtml);
 		ticket = fbHd.ejbTicket().build(realm,rref,type);
-		firstEvent = fbHd.ejbEvent().build(ticket,categories.get(0),statuse.get(0),levels.get(0),reporter);
-		lastEvent = fbHd.ejbEvent().build(ticket,categories.get(0),statuse.get(0),levels.get(0),reporter);
+		PRIORITY priority = getDefaultPriority();
+		firstEvent = fbHd.ejbEvent().build(ticket,categories.get(0),statuse.get(0),levels.get(0),priority,reporter);
+		lastEvent = fbHd.ejbEvent().build(ticket,categories.get(0),statuse.get(0),levels.get(0),priority,reporter);
 		editHandler.update(ticket);
+	}
+	private PRIORITY getDefaultPriority()
+	{
+		for(PRIORITY p : priorities)
+		{
+			if(p.getCode().equals("medium")) {return p;}
+		}
+		return priorities.get(0);
 	}
 	
 	public void saveTicket() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		fbHd.ejbEvent().converter(fHd,lastEvent);
-		if(EjbIdFactory.isUnSaved(ticket)) {ticket = fHd.saveHdTicket(ticket,lastEvent);}
+		if(EjbIdFactory.isUnSaved(ticket)) {ticket = fHd.saveHdTicket(ticket,lastEvent,reporter);}
 		else {ticket = fHd.save(ticket);}
 		editHandler.saved(ticket);
 		reloadTickets();

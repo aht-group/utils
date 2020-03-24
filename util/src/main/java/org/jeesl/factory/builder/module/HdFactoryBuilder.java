@@ -42,6 +42,7 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 	private final Class<EVENT> cEvent; public Class<EVENT> getClassEvent() {return cEvent;}
 	private final Class<TYPE> cType; public Class<TYPE> getClassType() {return cType;}
 	private final Class<LEVEL> cLevel; public Class<LEVEL> getClassLevel() {return cLevel;}
+	private final Class<PRIORITY> cPriority; public Class<PRIORITY> getClassPriority() {return cPriority;}
 	
 	private final Class<M> cMarkup; public Class<M> getClassMarkup() {return cMarkup;}
 	private final Class<MT> cMarkupType; public Class<MT> getClassMarkupType() {return cMarkupType;}
@@ -55,6 +56,7 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 								final Class<EVENT> cEvent,
 								final Class<TYPE> cType,
 								final Class<LEVEL> cLevel,
+								final Class<PRIORITY> cPriority,
 								final Class<M> cMarkup,
 								final Class<MT> cMarkupType,
 								final Class<USER> cUser)
@@ -66,6 +68,7 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 		this.cEvent=cEvent;
 		this.cType=cType;
 		this.cLevel=cLevel;
+		this.cPriority=cPriority;
 		this.cMarkup=cMarkup;
 		this.cMarkupType=cMarkupType;
 		this.cUser=cUser;

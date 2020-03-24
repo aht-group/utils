@@ -34,6 +34,13 @@
     		<s:lang key="en" translation="Category"/>
     		<s:lang key="fr" translation="Category"/>
     	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslHdPriority">
+    	<s:langs>
+    		<s:lang key="de" translation="Priorität"/>
+    		<s:lang key="en" translation="Priority"/>
+    		<s:lang key="fr" translation="Priority"/>
+    	</s:langs>
     </s:translation> 
     <s:translation key="jeeslHdRecord">
     	<s:langs>

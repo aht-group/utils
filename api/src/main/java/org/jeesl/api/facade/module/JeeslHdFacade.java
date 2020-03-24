@@ -36,7 +36,7 @@ public interface JeeslHdFacade <L extends JeeslLang,D extends JeeslDescription,
 								USER extends JeeslSimpleUser>
 			extends JeeslFacade
 {	
-	TICKET saveHdTicket(TICKET ticket, EVENT event) throws JeeslConstraintViolationException, JeeslLockingException;
+	TICKET saveHdTicket(TICKET ticket, EVENT event, USER user) throws JeeslConstraintViolationException, JeeslLockingException;
 	
 	<RREF extends EjbWithId> List<TICKET> fHdTickets(EjbHelpdeskQuery<L,D,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,USER> query);
 }

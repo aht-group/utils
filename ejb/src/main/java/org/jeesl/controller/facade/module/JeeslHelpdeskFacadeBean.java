@@ -64,7 +64,7 @@ public class JeeslHelpdeskFacadeBean<L extends JeeslLang,D extends JeeslDescript
 		this.fbHd=fbHd;
 	}
 
-	@Override public TICKET saveHdTicket(TICKET ticket, EVENT event) throws JeeslConstraintViolationException, JeeslLockingException
+	@Override public TICKET saveHdTicket(TICKET ticket, EVENT event, USER initiator) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		boolean unsaved = EjbIdFactory.isUnSaved(ticket);
 		
@@ -88,6 +88,7 @@ public class JeeslHelpdeskFacadeBean<L extends JeeslLang,D extends JeeslDescript
 				if(!original.getCategory().equals(event.getCategory())) {types.add(this.fByEnum(fbHd.getClassType(),JeeslHdEventType.Code.category));}
 				if(!original.getStatus().equals(event.getStatus())) {types.add(this.fByEnum(fbHd.getClassType(),JeeslHdEventType.Code.status));}
 				if(!original.getLevel().equals(event.getLevel())) {types.add(this.fByEnum(fbHd.getClassType(),JeeslHdEventType.Code.level));}
+				if(!original.getSupporterPriority().equals(event.getSupporterPriority())) {types.add(this.fByEnum(fbHd.getClassType(),JeeslHdEventType.Code.priority));}
 				if(!EjbIdFactory.equals(original.getSupporter(),event.getSupporter())) {types.add(this.fByEnum(fbHd.getClassType(),JeeslHdEventType.Code.supporter));}
 				if(!EjbIdFactory.equals(original.getReporter(),event.getReporter())) {types.add(this.fByEnum(fbHd.getClassType(),JeeslHdEventType.Code.reporter));}
 			}
@@ -98,6 +99,7 @@ public class JeeslHelpdeskFacadeBean<L extends JeeslLang,D extends JeeslDescript
 				ticket.setLastEvent(null);
 				ticket = this.save(ticket);
 				event.setId(0);
+				event.setInitiator(initiator);
 				event.setRecord(new Date());
 				event.setTypes(types);
 				event = save(event);

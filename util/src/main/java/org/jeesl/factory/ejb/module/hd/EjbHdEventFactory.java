@@ -33,7 +33,7 @@ public class EjbHdEventFactory<TICKET extends JeeslHdTicket<?,EVENT,?>,
         this.fbHd = fbHd;
     }
 	
-	public EVENT build(TICKET ticket, CAT category, STATUS status, LEVEL level, USER reporter)
+	public EVENT build(TICKET ticket, CAT category, STATUS status, LEVEL level, PRIORITY priority, USER reporter)
 	{
 		try
 		{
@@ -45,6 +45,8 @@ public class EjbHdEventFactory<TICKET extends JeeslHdTicket<?,EVENT,?>,
 			ejb.setRecord(new Date());
 			ejb.setReporter(reporter);
 			ejb.setInitiator(reporter);
+			ejb.setReporterPriority(priority);
+			ejb.setSupporterPriority(priority);
 		    return ejb;
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
@@ -58,5 +60,7 @@ public class EjbHdEventFactory<TICKET extends JeeslHdTicket<?,EVENT,?>,
 		if(event.getStatus()!=null) {event.setStatus(facade.find(fbHd.getClassTicketStatus(),event.getStatus()));}
 		if(event.getLevel()!=null) {event.setLevel(facade.find(fbHd.getClassLevel(),event.getLevel()));}
 		if(event.getSupporter()!=null) {event.setSupporter(facade.find(fbHd.getClassUser(),event.getSupporter()));}
+		if(event.getReporterPriority()!=null) {event.setReporterPriority(facade.find(fbHd.getClassPriority(),event.getReporterPriority()));}
+		if(event.getSupporterPriority()!=null) {event.setSupporterPriority(facade.find(fbHd.getClassPriority(),event.getSupporterPriority()));}
 	}
 }

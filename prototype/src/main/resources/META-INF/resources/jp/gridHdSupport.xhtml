@@ -33,10 +33,12 @@
 					<p:column headerText="#{msg.jeeslHdStatus}" styleClass="jeeslCenter" rendered="false">  
 						<jtp:symbolizer value="#{t.lastEvent.status}"/>
 					</p:column>
-					<p:column headerText="#{msg.jeeslHdReporter}">  
-						<h:outputText value="#{t.lastEvent.reporter.firstName}"/>
+					<p:column headerText="#{msg.jeeslHdReporter}">
+						<jtp:symbolizer value="#{t.firstEvent.reporterPriority}" marginRight="5"/>
+						<h:outputText value="#{t.firstEvent.reporter.firstName}"/>
 					</p:column>
-					<p:column headerText="#{msg.jeeslHdSupporter}">  
+					<p:column headerText="#{msg.jeeslHdSupporter}">
+						<jtp:symbolizer value="#{t.lastEvent.supporterPriority}" marginRight="5"/>
 						<h:outputText value="#{t.lastEvent.supporter.firstName}"/>
 					</p:column>
 					<p:column headerText="#{msg.jeeslHdIssue}">  
@@ -98,12 +100,17 @@
                         	<f:selectItems value="#{cc.attrs.bean.levels}" var="l" itemLabel="#{l.name[localeCode].lang}" itemValue="#{l}"/>
                         </p:selectOneMenu>
                         
+                        <p:outputLabel value="#{msg.jeeslHdPriority}"/>
+						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.supporterPriority}" effect="fade" autoWidth="false">
+                        	<f:selectItems value="#{cc.attrs.bean.priorities}" var="p" itemLabel="#{p.name[localeCode].lang}" itemValue="#{p}"/>
+                        </p:selectOneMenu>
+                        
                         <p:outputLabel value="#{msg.jeeslHdSupporter}"/>
 						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.supporter}" effect="fade" autoWidth="false">
 							<f:selectItem itemLabel="--"/>
                         	<f:selectItems value="#{cc.attrs.bean.supporters}" var="u" itemLabel="#{u.firstName} #{u.lastName}" itemValue="#{u}"/>
                         </p:selectOneMenu>
-                        
+                           
                         <p:outputLabel value="#{msg.jeeslHdTicketName}"/>
 						<h:outputText value="#{cc.attrs.bean.ticket.name}"/>
 					</p:panelGrid>
