@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Tuple;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
@@ -15,6 +18,7 @@ import org.jeesl.api.facade.module.JeeslWorkflowFacade;
 import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.WorkflowFactoryBuilder;
+import org.jeesl.factory.json.system.io.db.tuple.t1.Json1TuplesFactory;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.io.mail.template.JeeslTemplateChannel;
@@ -23,10 +27,10 @@ import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowAction;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowBot;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowCommunication;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWithWorkflow;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowLink;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslWithWorkflow;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowContext;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowModificationLevel;
@@ -42,13 +46,14 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
 									AX extends JeeslWorkflowContext<L,D,AX,?>,
-									AP extends JeeslWorkflowProcess<L,D,AX,WS>,
-									WS extends JeeslWorkflowStage<L,D,AP,WST,WSP,WT,?>,
+									WP extends JeeslWorkflowProcess<L,D,AX,WS>,
+									WS extends JeeslWorkflowStage<L,D,WP,WST,WSP,WT,?>,
 									WST extends JeeslWorkflowStageType<L,D,WST,?>,
 									WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
 									WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
@@ -65,27 +70,27 @@ public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescrip
 									RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
 									RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
 									WL extends JeeslWorkflowLink<WF,RE>,
-									WF extends JeeslWorkflow<AP,WS,WY>,
+									WF extends JeeslWorkflow<WP,WS,WY>,
 									WY extends JeeslWorkflowActivity<WT,WF,FRC,USER>,
 									FRC extends JeeslFileContainer<?,?>,
 									USER extends JeeslUser<SR>>
 					extends JeeslFacadeBean
-					implements JeeslWorkflowFacade<L,D,LOC,AX,AP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,FRC,USER>
+					implements JeeslWorkflowFacade<L,D,LOC,AX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,FRC,USER>
 {	
 	private static final long serialVersionUID = 1L;
 
 	final static Logger logger = LoggerFactory.getLogger(JeeslWorkflowFacadeBean.class);
 	
-	private final WorkflowFactoryBuilder<L,D,AX,AP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,FRC,USER> fbWorkflow;
+	private final WorkflowFactoryBuilder<L,D,AX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,FRC,USER> fbWorkflow;
 	
-	public JeeslWorkflowFacadeBean(EntityManager em, final WorkflowFactoryBuilder<L,D,AX,AP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,FRC,USER> fbApproval)
+	public JeeslWorkflowFacadeBean(EntityManager em, final WorkflowFactoryBuilder<L,D,AX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,FRC,USER> fbApproval)
 	{
 		super(em);
 		this.fbWorkflow=fbApproval;
 	}
 
 	@Override
-	public WT fTransitionBegin(AP process)
+	public WT fTransitionBegin(WP process)
 	{
 		logger.warn("Optimisation required here!!");
 		for(WS stage : this.allForParent(fbWorkflow.getClassStage(), process))
@@ -134,14 +139,14 @@ public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescrip
 		}
 	}
 
-	@Override public <W extends JeeslWithWorkflow<WF>> WL fWorkflowLink(AP process, W owner) throws JeeslNotFoundException
+	@Override public <W extends JeeslWithWorkflow<WF>> WL fWorkflowLink(WP process, W owner) throws JeeslNotFoundException
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<WL> cQ = cB.createQuery(fbWorkflow.getClassLink());
 		Root<WL> link = cQ.from(fbWorkflow.getClassLink());
 		
 		Join<WL,WF> jWorkflow = link.join(JeeslWorkflowLink.Attributes.workflow.toString());
-		Path<AP> pProcess = jWorkflow.get(JeeslWorkflow.Attributes.process.toString());
+		Path<WP> pProcess = jWorkflow.get(JeeslWorkflow.Attributes.process.toString());
 		Path<Long> pRefId = link.get(JeeslWorkflowLink.Attributes.refId.toString());
 		
 		cQ.where(cB.and(cB.equal(pRefId,owner.getId()),cB.equal(pProcess,process)));
@@ -164,14 +169,14 @@ public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescrip
 		}
 	}
 
-	@Override public List<WF> fWorkflows(AP process, List<WS> stages) 
+	@Override public List<WF> fWorkflows(WP process, List<WS> stages) 
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<WF> cQ = cB.createQuery(fbWorkflow.getClassWorkflow());
 		Root<WF> workflow = cQ.from(fbWorkflow.getClassWorkflow());
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		
-		Path<AP> pProcess = workflow.get(JeeslWorkflow.Attributes.process.toString());
+		Path<WP> pProcess = workflow.get(JeeslWorkflow.Attributes.process.toString());
 		predicates.add(cB.equal(pProcess,process));
 		
 		if(stages!=null)
@@ -190,5 +195,21 @@ public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescrip
 		return em.createQuery(cQ).getResultList();
 	}
 
-	
+	@Override public Json1Tuples<WP> tpcActivitiesByProcess()
+	{
+		Json1TuplesFactory<WP> jtf = new Json1TuplesFactory<>(fbWorkflow.getClassProcess());
+		jtf.setfUtils(this);
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<Tuple> cQ = cB.createTupleQuery();
+		Root<WF> item = cQ.from(fbWorkflow.getClassWorkflow());
+		
+		Expression<Long> eCount = cB.count(item.<Long>get("id"));
+		Path<WP> pProcess = item.get(JeeslWorkflow.Attributes.process.toString());
+		
+		cQ.groupBy(pProcess.get("id"));
+		cQ.multiselect(pProcess.get("id"),eCount);
+	       
+		TypedQuery<Tuple> tQ = em.createQuery(cQ);
+        return jtf.buildCount(tQ.getResultList());
+	}
 }

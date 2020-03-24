@@ -1,15 +1,17 @@
 package org.jeesl.factory.builder.module;
 
+import java.util.Comparator;
+
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowActionFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowActivityFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowCommunicationFactory;
+import org.jeesl.factory.ejb.module.workflow.EjbWorkflowFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowLinkFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowPermissionFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowProcessFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowStageFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowTransitionFactory;
-import org.jeesl.factory.ejb.module.workflow.EjbWorkflowFactory;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.io.mail.template.JeeslTemplateChannel;
@@ -18,9 +20,9 @@ import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowAction;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowBot;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowCommunication;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowLink;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowContext;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowModificationLevel;
@@ -35,6 +37,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.util.comparator.ejb.module.workflow.EjbWorkflowProcessComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -126,4 +129,6 @@ public class WorkflowFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 	public EjbWorkflowLinkFactory<RE,AL,AW> ejbLink() {return new EjbWorkflowLinkFactory<>(cLink);}
 	public EjbWorkflowFactory<WP,WS,AW> ejbWorkflow() {return new EjbWorkflowFactory<>(cWorkflow);}
 	public EjbWorkflowActivityFactory<WT,AW,WY,USER> ejbActivity() {return new EjbWorkflowActivityFactory<>(cActivity);}
+	
+	public Comparator<WP> cpProcess(EjbWorkflowProcessComparator.Type type) {return new EjbWorkflowProcessComparator<WX,WP>().factory(type);}
 }
