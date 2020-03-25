@@ -24,6 +24,12 @@
 				<j:slot width="5">
 					<h:form id="fTree" >
 						<p:panel header="#{msg.jeeslSecurityMenu}" styleClass="jeeslTree">
+							<f:facet id="fActions" name="actions">
+								<p:outputPanel id="cActions">
+									<j:svg type="jeeslTreeExpandAll" listener="#{cc.attrs.bean.expandTree()}" update="@form" tooltip="#{msg.jeeslTtExpandAllChildren}" library="jeeslGfx"/>
+									<j:svg type="jeeslTreeCollapseAll" listener="#{cc.attrs.bean.collapseTree()}" update="@form" rendered="#{cc.attrs.bean.isExpanded()}" tooltip="#{msg.jeeslTtCollapseAllChildren}" library="jeeslGfx"/>
+								</p:outputPanel>
+							</f:facet>
 							<p:tree id="tree1" value="#{cc.attrs.bean.tree}" var="node" 
 								selection="#{cc.attrs.bean.node}" selectionMode="single"
 				                draggable="true" droppable="true" dragdropScope="demo">

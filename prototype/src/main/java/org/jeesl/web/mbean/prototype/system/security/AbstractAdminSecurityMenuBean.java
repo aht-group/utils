@@ -27,6 +27,7 @@ import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplat
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityUsecase;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
+import org.jeesl.jsf.helper.TreeHelper;
 import org.jeesl.model.xml.system.navigation.Menu;
 import org.jeesl.model.xml.system.navigation.MenuItem;
 import org.primefaces.event.NodeCollapseEvent;
@@ -136,6 +137,21 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 				buildTree(n, map.get(menu),map);
 			}
 		}
+	}
+	
+	public void expandTree()
+	{
+		TreeHelper.setExpansion(this.node != null ? this.node : this.tree, true);
+	}
+	
+	public void collapseTree()
+	{
+		TreeHelper.setExpansion(this.tree,  false);
+	}
+	
+	public boolean isExpanded()
+	{
+		return this.tree != null && this.tree.getChildren().stream().filter(node -> node.isExpanded()).count() > 1;
 	}
 	
 	public void onNodeExpand(NodeExpandEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}
