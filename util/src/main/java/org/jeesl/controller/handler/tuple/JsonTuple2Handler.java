@@ -162,4 +162,6 @@ public class JsonTuple2Handler <A extends EjbWithId, B extends EjbWithId>
 		Json2Tuple<A,B> json = map.get(a).get(b);
 		return JsonTupleFactory.build(json);
 	}
+	
+	public double sum(A a, B b) {return map.get(a).get(b).getSum();}
 }
