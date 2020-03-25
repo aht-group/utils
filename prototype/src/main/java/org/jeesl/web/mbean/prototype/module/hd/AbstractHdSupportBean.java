@@ -87,6 +87,12 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 	}
 	protected abstract void reloadSupporters();
 	
+	@Override public void toggled(Class<?> c) throws JeeslLockingException, JeeslConstraintViolationException
+	{
+		// TODO Auto-generated method stub
+		
+	}
+	
 	private void reloadTickets()
 	{
 		EjbHelpdeskQuery<L,D,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,USER> query = EjbHelpdeskQuery.build();

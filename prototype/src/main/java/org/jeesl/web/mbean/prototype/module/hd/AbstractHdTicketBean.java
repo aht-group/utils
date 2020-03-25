@@ -81,6 +81,12 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		reloadTickets();
 	}
 	
+	@Override public void toggled(Class<?> c) throws JeeslLockingException, JeeslConstraintViolationException
+	{
+		// TODO Auto-generated method stub
+		
+	}
+	
 	private void reloadTickets()
 	{
 		EjbHelpdeskQuery<L,D,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,USER> query = EjbHelpdeskQuery.build();

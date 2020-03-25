@@ -16,6 +16,7 @@ import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.AomFactoryBuilder;
 import org.jeesl.factory.builder.system.SvgFactoryBuilder;
+import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.interfaces.bean.sb.SbSingleBean;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
@@ -145,9 +146,17 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 		TreeHelper.findNodes(this.tree, node -> node.getData() != null && expandedNodes.contains(((ATYPE)node.getData()).getId())).forEach(node -> node.setExpanded(true));
 	}
 	
+	public void cancelType()
+	{
+//		if(EjbIdFactory.isSaved(type))
+//		{
+//			TreeHelper.findNode(tree, node -> node.isSelected()).setSelected(false);
+//		}
+		reset(true);
+	}
 	private void reset(boolean rType)
 	{
-		if(rType) {type=null;}
+		if(rType) {type=null;if(node!=null) {node.setSelected(false);}}
 	}
 	
 	public void addType()
@@ -156,15 +165,6 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 		type = fbAsset.ejbType().build(realm,rref,sbhView.getSelection(),parent, UUID.randomUUID().toString());
 		type.setName(efLang.createEmpty(bTranslation.getLocales()));
 		type.setDescription(efDescription.createEmpty(bTranslation.getLocales()));
-	}
-	
-	public void cancelType()
-	{
-		if (this.type.getId() > 0)
-		{
-			TreeHelper.findNode(this.tree, node -> node.isSelected()).setSelected(false);
-		}
-		this.type = null;
 	}
 	
 	public void saveType() throws JeeslConstraintViolationException, JeeslLockingException
