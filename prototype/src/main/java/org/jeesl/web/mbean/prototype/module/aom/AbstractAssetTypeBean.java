@@ -3,6 +3,7 @@ package org.jeesl.web.mbean.prototype.module.aom;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.module.aom.JeeslAssetCacheBean;
@@ -37,6 +38,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.jsf.helper.TreeHelper;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.NodeCollapseEvent;
@@ -129,22 +131,18 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 		reloadTree();
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void reloadTree()
 	{
+		List<Long> expandedNodes = TreeHelper.findNodes(this.tree, node -> node.isExpanded()).stream().map(node -> (ATYPE)node.getData()).filter(data -> data != null).map(data -> data.getId()).collect(Collectors.toList());
+		
 		root = fAsset.fcAomRootType(realm,rref,sbhView.getSelection());
 		
-		tree = new DefaultTreeNode(root, null);
-		buildTree(tree,fAsset.allForParent(fbAsset.getClassAssetType(),root));
-	}
-	
-	private void buildTree(TreeNode parent, List<ATYPE> types)
-	{
-		for(ATYPE t : types)
-		{
-			TreeNode n = new DefaultTreeNode(t,parent);
-			List<ATYPE> childs = fAsset.allForParent(fbAsset.getClassAssetType(),t);
-			if(!childs.isEmpty()){buildTree(n,childs);}
-		}
+		tree = new DefaultTreeNode();
+		this.type = null;
+		TreeHelper.buildTree(this.fAsset, this.tree, this.fAsset.allForParent(this.fbAsset.getClassAssetType(), this.root), this.fbAsset.getClassAssetType());
+		
+		TreeHelper.findNodes(this.tree, node -> node.getData() != null && expandedNodes.contains(((ATYPE)node.getData()).getId())).forEach(node -> node.setExpanded(true));
 	}
 	
 	private void reset(boolean rType)
@@ -158,6 +156,15 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 		type = fbAsset.ejbType().build(realm,rref,sbhView.getSelection(),parent, UUID.randomUUID().toString());
 		type.setName(efLang.createEmpty(bTranslation.getLocales()));
 		type.setDescription(efDescription.createEmpty(bTranslation.getLocales()));
+	}
+	
+	public void cancelType()
+	{
+		if (this.type.getId() > 0)
+		{
+			TreeHelper.findNode(this.tree, node -> node.isSelected()).setSelected(false);
+		}
+		this.type = null;
 	}
 	
 	public void saveType() throws JeeslConstraintViolationException, JeeslLockingException
@@ -177,7 +184,6 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 			reset(true);
 		}
 		catch (JeeslConstraintViolationException e) {bMessage.errorConstraintViolationInUse();}
-		
 	}
 	
 	public void onNodeExpand(NodeExpandEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}

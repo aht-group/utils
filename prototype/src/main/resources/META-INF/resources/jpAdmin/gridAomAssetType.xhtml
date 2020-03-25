@@ -18,7 +18,7 @@
 			<h:form id="fTree" >
 				<p:panel header="#{msg.jeeslCmsDocumentStructure}" styleClass="jeeslTree" >
 					<f:facet name="actions">
-						<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addType()}" update=":#{cc.id}:sType" tooltip="#{msg.jeeslTtAdd}"/>
+						<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addType()}" update=":#{cc.id}:sType" tooltip="#{msg.jeeslAomTypeAdd}"/>
 					</f:facet>
 					<p:tree id="tree1" value="#{cc.attrs.bean.tree}" var="node" 
 							selection="#{cc.attrs.bean.node}" selectionMode="single"
@@ -37,10 +37,10 @@
 		</j:slot>
 		<j:slot id="sType" width="5">
 			<h:form id="fType" rendered="#{not empty cc.attrs.bean.type}">
-				<p:panel header="#{msg.jeeslAomAssetType}" styleClass="jeeslPanel">
+				<p:panel header="#{msg.jeeslAomType}" styleClass="jeeslPanel">
 					<f:facet name="actions">
 						<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.cancelType()}" update=":#{cc.id}:grid" mayDisappear="true"/>
-						<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveType()}" update=":#{cc.id}:grid"/>
+						<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveType()}" update=":#{cc.id}:grid" />
 						<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteType()}" update=":#{cc.id}:grid" rendered="#{cc.attrs.bean.type.id gt 0}"/>
 					</f:facet>
 					<p:messages redisplay="false" severity="warn,error" showSummary="true" showDetail="true" closable="true"/>
@@ -48,8 +48,8 @@
 						<p:outputLabel value="#{msg.jeeslCode}"/>
 						<jtp:inputText value="#{cc.attrs.bean.type.code}"/>
 						
-						<p:outputLabel value="#{msg.jeeslCode}"/>
-						<jtp:symbolizer value="#{cc.attrs.bean.type}"/>
+						<p:outputLabel value="#{msg.jeeslIcon}" rendered="#{cc.attrs.bean.type.id gt 0}"/>
+						<jtp:symbolizer value="#{cc.attrs.bean.type}" rendered="#{cc.attrs.bean.type.id gt 0}"/>
 					</p:panelGrid>
 					<j:tabTranslationEditor value="#{cc.attrs.bean.type}" withDescription="true"/>
 				</p:panel>
