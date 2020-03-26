@@ -7,7 +7,9 @@ import java.util.List;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslHdFacade;
+import org.jeesl.controller.handler.sb.SbMultiHandler;
 import org.jeesl.factory.builder.module.HdFactoryBuilder;
+import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEvent;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEventType;
@@ -44,7 +46,7 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 								USER extends JeeslSimpleUser
 								>
 					extends AbstractAdminBean<L,D,LOC>
-					implements Serializable//,SbSingleBean
+					implements Serializable,SbToggleBean
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractHelpdeskBean.class);
@@ -53,8 +55,9 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 
 	protected JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,USER> fHd;
 	
+	protected final SbMultiHandler<STATUS> sbhStatus; public SbMultiHandler<STATUS> getSbhStatus() {return sbhStatus;}
+	
 	protected final List<CAT> categories; public List<CAT> getCategories() {return categories;}
-	protected final List<STATUS> statuse; public List<STATUS> getStatuse() {return statuse;}
 	protected final List<LEVEL> levels; public List<LEVEL> getLevels() {return levels;}
 	protected final List<PRIORITY> priorities; public List<PRIORITY> getPriorities() {return priorities;}
 	
@@ -72,8 +75,9 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 		super(fbHd.getClassL(),fbHd.getClassD());
 		this.fbHd=fbHd;
 		
+		sbhStatus = new SbMultiHandler<>(fbHd.getClassTicketStatus(),this);
+		
 		categories = new ArrayList<>();
-		statuse = new ArrayList<>();
 		levels = new ArrayList<>();
 		priorities = new ArrayList<>();
 		
@@ -92,9 +96,16 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 	protected void updateRealmReference(RREF rref)
 	{
 		this.rref=rref;
-	
+		
+		categories.addAll(fHd.all(fbHd.getClassCategory(),realm,rref));
+		levels.addAll(fHd.all(fbHd.getClassLevel(),realm,rref));
+		priorities.addAll(fHd.all(fbHd.getClassPriority(),realm,rref));
+		
+		sbhStatus.setList(fHd.all(fbHd.getClassTicketStatus(),realm,rref));
 		
 		updatedRealmReference();
+		
+		
 	}
 	protected abstract void updatedRealmReference();
 	
