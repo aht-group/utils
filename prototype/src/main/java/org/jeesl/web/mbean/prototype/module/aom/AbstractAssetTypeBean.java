@@ -160,9 +160,9 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 	
 	public void cancelType()
 	{
-		if (this.type.getId() > 0)
+		if (this.node != null)
 		{
-			TreeHelper.findNode(this.tree, node -> node.isSelected()).setSelected(false);
+			this.node.setSelected(false);
 		}
 		this.type = null;
 	}
@@ -206,7 +206,7 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
     		child.setPosition(index);
     		fAsset.save(child);
     		index++;
-        }  
+        }
     }
 
     @SuppressWarnings("unchecked")
