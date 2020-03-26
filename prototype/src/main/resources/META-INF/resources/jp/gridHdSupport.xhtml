@@ -92,7 +92,7 @@
                         
                         <p:outputLabel value="#{msg.jeeslHdStatus}"/>
 						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.status}" effect="fade" autoWidth="false">
-                        	<f:selectItems value="#{cc.attrs.bean.statuse}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s}"/>
+                        	<f:selectItems value="#{cc.attrs.bean.sbhStatus.list}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s}"/>
                         </p:selectOneMenu>
                         
                         <p:outputLabel value="#{msg.jeeslHdLevel}"/>

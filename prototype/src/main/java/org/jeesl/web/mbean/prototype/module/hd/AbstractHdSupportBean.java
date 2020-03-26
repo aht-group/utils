@@ -77,25 +77,22 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 	
 	@Override protected void updatedRealmReference()
 	{
-		categories.addAll(fHd.all(fbHd.getClassCategory(),realm,rref));
-		statuse.addAll(fHd.all(fbHd.getClassTicketStatus(),realm,rref));
-		levels.addAll(fHd.all(fbHd.getClassLevel(),realm,rref));
-		priorities.addAll(fHd.all(fbHd.getClassPriority(),realm,rref));
-		
+		preSelectSbh();
 		reloadSupporters();
 		reloadTickets();
 	}
+	protected abstract void preSelectSbh();
 	protected abstract void reloadSupporters();
 	
 	@Override public void toggled(Class<?> c) throws JeeslLockingException, JeeslConstraintViolationException
 	{
-		// TODO Auto-generated method stub
-		
+		reloadTickets();
 	}
 	
 	private void reloadTickets()
 	{
 		EjbHelpdeskQuery<L,D,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,USER> query = EjbHelpdeskQuery.build();
+		if(sbhStatus.hasSelected()) {query.addStatus(sbhStatus.getSelected());} else {query.nullStatus();}
 		
 		tickets.clear();
 		tickets.addAll(fHd.fHdTickets(query));

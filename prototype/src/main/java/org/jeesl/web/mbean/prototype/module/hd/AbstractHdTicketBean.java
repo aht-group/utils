@@ -72,12 +72,7 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 	}
 	
 	@Override protected void updatedRealmReference()
-	{
-		categories.addAll(fHd.all(fbHd.getClassCategory(),realm,rref));
-		statuse.addAll(fHd.all(fbHd.getClassTicketStatus(),realm,rref));
-		levels.addAll(fHd.all(fbHd.getClassLevel(),realm,rref));
-		priorities.addAll(fHd.all(fbHd.getClassPriority(),realm,rref));
-		
+	{		
 		reloadTickets();
 	}
 	
@@ -107,8 +102,8 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		MT type = fHd.fByEnum(fbHd.getClassMarkupType(),JeeslIoCmsMarkupType.Code.xhtml);
 		ticket = fbHd.ejbTicket().build(realm,rref,type);
 		PRIORITY priority = getDefaultPriority();
-		firstEvent = fbHd.ejbEvent().build(ticket,categories.get(0),statuse.get(0),levels.get(0),priority,reporter);
-		lastEvent = fbHd.ejbEvent().build(ticket,categories.get(0),statuse.get(0),levels.get(0),priority,reporter);
+		firstEvent = fbHd.ejbEvent().build(ticket,categories.get(0),sbhStatus.getList().get(0),levels.get(0),priority,reporter);
+		lastEvent = fbHd.ejbEvent().build(ticket,categories.get(0),sbhStatus.getList().get(0),levels.get(0),priority,reporter);
 		editHandler.update(ticket);
 	}
 	private PRIORITY getDefaultPriority()

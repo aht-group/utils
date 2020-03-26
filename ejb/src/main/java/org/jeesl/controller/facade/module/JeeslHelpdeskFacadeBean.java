@@ -118,15 +118,21 @@ public class JeeslHelpdeskFacadeBean<L extends JeeslLang,D extends JeeslDescript
 		CriteriaQuery<TICKET> cQ = cB.createQuery(fbHd.getClassTicket());
 		Root<TICKET> root = cQ.from(fbHd.getClassTicket());
 		
+		Join<TICKET,EVENT> jLastEvent = root.join(JeeslHdTicket.Attributes.lastEvent.toString());
+		
 		if(query.getReporters()!=null)
 		{
-			Join<TICKET,EVENT> jLastEvent = root.join(JeeslHdTicket.Attributes.lastEvent.toString());
 			Path<USER> pReporter = jLastEvent.get(JeeslHdEvent.Attributes.reporter.toString());
-			
 			if(query.getReporters().isEmpty()) {predicates.add(cB.isNull(pReporter));}
 			else{predicates.add(pReporter.in(query.getReporters()));}
 		}
 		
+		if(query.getStatus()!=null)
+		{
+			Path<STATUS> pStatus = jLastEvent.get(JeeslHdEvent.Attributes.status.toString());
+			if(query.getStatus().isEmpty()) {predicates.add(cB.isNull(pStatus));}
+			else{predicates.add(pStatus.in(query.getStatus()));}
+		}
 //		Expression<Date> dStart = root.get(JeeslCalendarItem.Attributes.startDate.toString());
 //		Expression<Date> dEnd   = root.get(JeeslCalendarItem.Attributes.endDate.toString());
 //		

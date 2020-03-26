@@ -30,7 +30,7 @@ public interface JeeslHdEvent<TICKET extends JeeslHdTicket<?,?,?>,
 								EjbWithRecord,
 								JeeslWithCategory<CAT>,JeeslWithStatus<STATUS>,JeeslWithLevel<LEVEL>
 {	
-	public enum Attributes{ticket,reporter}
+	public enum Attributes{ticket,reporter,status}
 	
 	TICKET getTicket();
 	void setTicket(TICKET ticket);

@@ -58,7 +58,6 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 	protected final SbMultiHandler<STATUS> sbhStatus; public SbMultiHandler<STATUS> getSbhStatus() {return sbhStatus;}
 	
 	protected final List<CAT> categories; public List<CAT> getCategories() {return categories;}
-	protected final List<STATUS> statuse; public List<STATUS> getStatuse() {return statuse;}
 	protected final List<LEVEL> levels; public List<LEVEL> getLevels() {return levels;}
 	protected final List<PRIORITY> priorities; public List<PRIORITY> getPriorities() {return priorities;}
 	
@@ -79,7 +78,6 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 		sbhStatus = new SbMultiHandler<>(fbHd.getClassTicketStatus(),this);
 		
 		categories = new ArrayList<>();
-		statuse = new ArrayList<>();
 		levels = new ArrayList<>();
 		priorities = new ArrayList<>();
 		
@@ -98,9 +96,16 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 	protected void updateRealmReference(RREF rref)
 	{
 		this.rref=rref;
-	
+		
+		categories.addAll(fHd.all(fbHd.getClassCategory(),realm,rref));
+		levels.addAll(fHd.all(fbHd.getClassLevel(),realm,rref));
+		priorities.addAll(fHd.all(fbHd.getClassPriority(),realm,rref));
+		
+		sbhStatus.setList(fHd.all(fbHd.getClassTicketStatus(),realm,rref));
 		
 		updatedRealmReference();
+		
+		
 	}
 	protected abstract void updatedRealmReference();
 	
