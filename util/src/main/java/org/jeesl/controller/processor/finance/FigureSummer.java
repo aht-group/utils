@@ -28,11 +28,24 @@ public class FigureSummer
 		return XmlFinanceFactory.create(resultCode, sum);
 	}
 	
-	public static void add(Figures figures, String code, double value)
+	public static void add(Figures figures, String code, Integer value)
 	{
-		for(Finance f : figures.getFinance())
+		if(value!=null)
 		{
-			if(f.getCode().equals(code)){add(f,value);}
+			for(Finance f : figures.getFinance())
+			{
+				if(f.getCode().equals(code)){add(f,value.intValue());}
+			}
+		}
+	}
+	public static void add(Figures figures, String code, Double value)
+	{
+		if(value!=null)
+		{
+			for(Finance f : figures.getFinance())
+			{
+				if(f.getCode().equals(code)){add(f,value);}
+			}
 		}
 	}
 	
