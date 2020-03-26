@@ -46,4 +46,10 @@ public class NullCalculator
 			return result.multiply(new BigDecimal(b)).intValue();
 		}
 	}
+	
+	public static double toDor0(Double value)
+	{
+		if(value==null) {return 0;}
+		else {return value.doubleValue();}
+	}
 }
