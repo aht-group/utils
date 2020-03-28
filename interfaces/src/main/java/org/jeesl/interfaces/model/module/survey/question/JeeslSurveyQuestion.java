@@ -59,6 +59,7 @@ public interface JeeslSurveyQuestion<L extends JeeslLang, D extends JeeslDescrip
 	
 	List<OPTION> getOptions();
 	void setOptions(List<OPTION> options);
+	boolean verified();
 	
 	Boolean getCalculateScore();
 	void setCalculateScore(Boolean calculateScore);
