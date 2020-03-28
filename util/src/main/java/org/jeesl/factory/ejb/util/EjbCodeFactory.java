@@ -5,6 +5,7 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.primitive.code.EjbWithNonUniqueCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,11 +16,21 @@ public class EjbCodeFactory
 	
     public static <T extends EjbWithCode> Map<String,T> toMapCode(Collection<T> list)
     {
-	    	Map<String,T> map = new Hashtable<String,T>();
-	    	for(T s : list)
-	    	{
-	    		map.put(s.getCode(), s);
-	    	}
+    	Map<String,T> map = new Hashtable<String,T>();
+    	for(T s : list)
+    	{
+    		map.put(s.getCode(), s);
+    	}
+        return map;
+    }
+    
+    public static <T extends EjbWithNonUniqueCode> Map<String,T> toMapNonUniqueCode(Collection<T> list)
+    {
+    	Map<String,T> map = new Hashtable<String,T>();
+    	for(T s : list)
+    	{
+    		map.put(s.getCode(), s);
+    	}
         return map;
     }
 }

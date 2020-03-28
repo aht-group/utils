@@ -1,9 +1,9 @@
 package org.jeesl.factory.builder.io.ssi;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
-import org.jeesl.factory.ejb.io.ssi.core.EjbIoSsiSystemFactory;
 import org.jeesl.factory.ejb.io.ssi.data.EjbIoSsiAttributeFactory;
 import org.jeesl.factory.ejb.io.ssi.data.EjbIoSsiDataFactory;
+import org.jeesl.factory.ejb.io.ssi.data.EjbIoSsiMappingFactory;
 import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.io.ssi.data.JeeslIoSsiAttribute;
@@ -17,7 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class IoSsiDataFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
-								MAPPING extends JeeslIoSsiMapping<?,ENTITY>,
+								SYSTEM extends JeeslIoSsiSystem<L,D>,
+								MAPPING extends JeeslIoSsiMapping<SYSTEM,ENTITY>,
 								ATTRIBUTE extends JeeslIoSsiAttribute<MAPPING,ENTITY>,
 								DATA extends JeeslIoSsiData<MAPPING,LINK>,
 								LINK extends JeeslIoSsiLink<L,D,LINK,?>,
@@ -48,6 +49,7 @@ public class IoSsiDataFactoryBuilder<L extends JeeslLang,D extends JeeslDescript
 		this.cCleaning=cCleaning;
 	}
 
+	public EjbIoSsiMappingFactory<SYSTEM,MAPPING,ENTITY> ejbMapping() {return new EjbIoSsiMappingFactory<>(cMapping);}
 	public EjbIoSsiAttributeFactory<MAPPING,ATTRIBUTE,ENTITY> ejbAttribute() {return new EjbIoSsiAttributeFactory<>(cAttribute);}
 	public EjbIoSsiDataFactory<MAPPING,DATA,LINK> ejbData() {return new EjbIoSsiDataFactory<>(cData);}
 }

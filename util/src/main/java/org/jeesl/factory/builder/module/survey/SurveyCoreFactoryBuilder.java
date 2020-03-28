@@ -6,6 +6,7 @@ import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.survey.JeeslSurveyCoreFacade;
 import org.jeesl.controller.handler.module.survey.SurveyConditionalHandler;
 import org.jeesl.controller.handler.module.survey.SurveyHandler;
+import org.jeesl.controller.handler.module.survey.SurveyOptionHandler;
 import org.jeesl.controller.handler.module.survey.SurveyValidationHandler;
 import org.jeesl.controller.processor.survey.SurveyScoreProcessor;
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
@@ -47,6 +48,7 @@ import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyValidationAl
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.util.filter.ejb.module.survey.EjbSurveyQuestionFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -192,4 +194,8 @@ public class SurveyCoreFactoryBuilder<L extends JeeslLang, D extends JeeslDescri
 	{
 		return new JsonSurveyAnswerFactory<L,D,VALGORITHM,SECTION,QUESTION,CONDITION,VALIDATION,QE,SCORE,UNIT,ANSWER,MATRIX,DATA,OPTIONS,OPTION>(localeCode,q);
 	}
+	
+	public SurveyOptionHandler<QUESTION,OPTION> eHandlerOption() {return new SurveyOptionHandler<>();}
+	
+	public EjbSurveyQuestionFilter<QUESTION> eFilterQuestion() {return new EjbSurveyQuestionFilter<>();}
 }

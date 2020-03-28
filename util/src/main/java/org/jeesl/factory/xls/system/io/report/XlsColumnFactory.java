@@ -97,4 +97,10 @@ public class XlsColumnFactory <L extends JeeslLang,D extends JeeslDescription,
 		}
 		return result -1;
 	}
+	
+	public static String index2code(int index)
+	{
+
+		return "";
+	}
 }
