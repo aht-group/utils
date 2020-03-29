@@ -13,7 +13,6 @@ public abstract class AbstractJsonTuple implements Serializable
 	public Double getSum() {return sum;}
 	public void setSum(Double sum) {this.sum = sum;}
 	
-	
 	@JsonProperty("sum1")
 	private Double sum1;
 	public Double getSum1() {return sum1;}
@@ -23,6 +22,7 @@ public abstract class AbstractJsonTuple implements Serializable
 	private Double sum2;
 	public Double getSum2() {return sum2;}
 	public void setSum2(Double sum2) {this.sum2 = sum2;}
+	
 	
 	@JsonProperty("count")
 	private Long count;

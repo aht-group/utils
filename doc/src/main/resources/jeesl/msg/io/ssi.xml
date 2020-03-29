@@ -159,7 +159,20 @@
     	</s:langs>
     </s:translation>
     
-    
+    <s:translation key="jeeslIoSsiAttributeMappings">
+    	<s:langs>
+    		<s:lang key="de" translation="Attribute Mappings"/>
+    		<s:lang key="en" translation="Attribute Mappings"/>
+    		<s:lang key="fr" translation="Attribute Mappings"/>
+    	</s:langs>
+    </s:translation>
+     <s:translation key="jeeslIoSsiAttributeMapping">
+    	<s:langs>
+    		<s:lang key="de" translation="Attribute Mapping"/>
+    		<s:lang key="en" translation="Attribute Mapping"/>
+    		<s:lang key="fr" translation="Attribute Mapping"/>
+    	</s:langs>
+    </s:translation>
     <s:translation key="jeeslIoSsiAttributeLocalCode">
     	<s:langs>
     		<s:lang key="de" translation="Lokaler Code"/>
@@ -265,5 +278,5 @@
     		<s:lang key="en" translation="Code"/>
     		<s:lang key="fr" translation="Code"/>
     	</s:langs>
-	</s:translation>   
+	</s:translation>
 </s:translations>

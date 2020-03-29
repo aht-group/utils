@@ -64,8 +64,7 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 	
 	protected void postConstructRevisionEntity(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fRevision, JeeslLabelBean<RE> bLabel)
 	{
-		String[] langs = bTranslation.getLangKeys().toArray(new String[0]);
-		super.initRevisionSuper(langs,bMessage,fRevision);
+		super.postConstructRevision(bTranslation,bMessage,fRevision);
 		this.bLabel=bLabel;
 		
 		scopes = fRevision.all(fbRevision.getClassScope());
@@ -77,7 +76,7 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 		Collections.sort(diagrams, new PositionParentComparator<ERD>(fbRevision.getClassDiagram()));
 		
 		links = fRevision.all(fbRevision.getClassEntity());
-		Collections.sort(links,comparatorEntity);
+		Collections.sort(links,cpEntity);
 		
 		reloadEntities();
 	}
@@ -119,7 +118,7 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 //		if(debugOnInfo) {logger.info("fRevision==null?"+(fRevision==null)+" sbhCategory==null?"+(sbhCategory==null)+" sbhCategory.getSelected()==null?"+(sbhCategory.getSelected()==null));}
 		entities = fRevision.findRevisionEntities(sbhCategory.getSelected(), true);
 		if(debugOnInfo){logger.info(AbstractLogMessage.reloaded(fbRevision.getClassEntity(),entities));}
-		Collections.sort(entities,comparatorEntity);
+		Collections.sort(entities,cpEntity);
 		
 		sbhDiagram.clear();
 		sbhDiagram.setList(efEntity.toDiagrams(entities));
@@ -303,7 +302,7 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 		if(attribute.getEntity()!=null){attribute.setEntity(fRevision.find(fbRevision.getClassEntity(), attribute.getEntity()));}
 	}
 	
-	public void reorderEntites() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fRevision, fbRevision.getClassEntity(), entities);Collections.sort(entities, comparatorEntity);}
+	public void reorderEntites() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fRevision, fbRevision.getClassEntity(), entities);Collections.sort(entities, cpEntity);}
 	public void reorderAttributes() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fRevision, attributes);}
 	public void reorderMappings() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fRevision, entityMappings);}
 	

@@ -1,4 +1,4 @@
-package org.jeesl.util.comparator.ejb.system.io.revision;
+package org.jeesl.util.comparator.ejb.io.revision;
 
 import java.util.Comparator;
 

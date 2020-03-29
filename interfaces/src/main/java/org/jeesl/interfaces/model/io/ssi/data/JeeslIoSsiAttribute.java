@@ -11,7 +11,7 @@ public interface JeeslIoSsiAttribute <MAPPING extends JeeslIoSsiMapping<?,ENTITY
 		extends EjbWithId,EjbSaveable,EjbRemoveable,
 				EjbWithParentAttributeResolver
 {	
-	public enum Attributes{mapping}
+	public enum Attributes{mapping,entity}
 	
 	public MAPPING getMapping();
 	public void setMapping(MAPPING mapping);

@@ -1,4 +1,4 @@
-package org.jeesl.util.comparator.ejb.system.io.revision;
+package org.jeesl.util.comparator.ejb.io.revision;
 
 import java.util.Comparator;
 
@@ -16,7 +16,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class RevisionEntityComparator<L extends JeeslLang,D extends JeeslDescription,
+public class RevisionScopeComparator<L extends JeeslLang,D extends JeeslDescription,
 										RC extends JeeslRevisionCategory<L,D,RC,?>,	
 										RV extends JeeslRevisionView<L,D,RVM>,
 										RVM extends JeeslRevisionViewMapping<RV,RE,REM>,
@@ -28,19 +28,19 @@ public class RevisionEntityComparator<L extends JeeslLang,D extends JeeslDescrip
 										RER extends JeeslStatus<RER,L,D>,
 										RAT extends JeeslStatus<RAT,L,D>>
 {
-	final static Logger logger = LoggerFactory.getLogger(RevisionEntityComparator.class);
+	final static Logger logger = LoggerFactory.getLogger(RevisionScopeComparator.class);
 
     public enum Type {position};
 
-    public RevisionEntityComparator()
+    public RevisionScopeComparator()
     {
     	
     }
     
-    public Comparator<RE> factory(Type type)
+    public Comparator<RS> factory(Type type)
     {
-        Comparator<RE> c = null;
-        RevisionEntityComparator<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> factory = new RevisionEntityComparator<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>();
+        Comparator<RS> c = null;
+        RevisionScopeComparator<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> factory = new RevisionScopeComparator<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>();
         switch (type)
         {
             case position: c = factory.new PositionCodeComparator();break;
@@ -49,14 +49,14 @@ public class RevisionEntityComparator<L extends JeeslLang,D extends JeeslDescrip
         return c;
     }
 
-    private class PositionCodeComparator implements Comparator<RE>
+    private class PositionCodeComparator implements Comparator<RS>
     {
-        public int compare(RE a, RE b)
+        public int compare(RS a, RS b)
         {
-			  CompareToBuilder ctb = new CompareToBuilder();
-			  ctb.append(a.getCategory().getPosition(), b.getCategory().getPosition());
-			  ctb.append(a.getPosition(), b.getPosition());
-			  return ctb.toComparison();
+			CompareToBuilder ctb = new CompareToBuilder();
+			ctb.append(a.getCategory().getPosition(), b.getCategory().getPosition());
+			ctb.append(a.getPosition(), b.getPosition());
+			return ctb.toComparison();
         }
     }
 }

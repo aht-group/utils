@@ -18,6 +18,7 @@ public class Json2TupleFactory<A extends EjbWithId, B extends EjbWithId>
 		json.setId1((Long)tuple.get(0));
 		json.setId2((Long)tuple.get(1));
 		json.setSum((Double)tuple.get(2));
+		json.setSum1((Double)tuple.get(2));
     	return json;
 	}
 	

@@ -3,6 +3,7 @@ package org.jeesl.web.mbean.prototype.io.revision;
 import java.io.Serializable;
 import java.util.List;
 
+import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
@@ -54,9 +55,10 @@ public class AbstractAdminRevisionViewBean <L extends JeeslLang, D extends Jeesl
 	
 	public AbstractAdminRevisionViewBean(final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fbRevision){super(fbRevision);}
 
-	protected void initSuper(String[] langs, JeeslFacesMessageBean bMessage, JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fRevision)
+	protected void postConstructRevisionView(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
+							JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fRevision)
 	{
-		super.initRevisionSuper(langs,bMessage,fRevision);		
+		super.postConstructRevision(bTranslation,bMessage,fRevision);
 		entities = fRevision.all(fbRevision.getClassEntity());
 		reloadViews();
 	}

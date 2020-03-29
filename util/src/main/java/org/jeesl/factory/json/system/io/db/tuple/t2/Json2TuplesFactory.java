@@ -40,8 +40,7 @@ public class Json2TuplesFactory <A extends EjbWithId, B extends EjbWithId>
 	private Json2Tuples<A,B> tuples; public Json2Tuples<A,B> get2Tuples() {return tuples;} public void set2Tuples(Json2Tuples<A,B> tuples) {this.tuples = tuples;}
 
 
-	public Json2TuplesFactory(Class<A> cA, Class<B> cY)
-	{this(null,cA,cY);}
+	public Json2TuplesFactory(Class<A> cA, Class<B> cY) {this(null,cA,cY);}
 	public Json2TuplesFactory(JeeslFacade fUtils, Class<A> cA, Class<B> cY)
 	{
 		this.fUtils=fUtils;

@@ -1,5 +1,7 @@
 package org.jeesl.factory.builder.io;
 
+import java.util.Comparator;
+
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
 import org.jeesl.factory.ejb.io.revision.EjbRevisionAttributeFactory;
 import org.jeesl.factory.ejb.io.revision.EjbRevisionDiagramFactory;
@@ -21,6 +23,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.model.xml.jeesl.QueryRevision;
+import org.jeesl.util.comparator.ejb.io.revision.RevisionEntityComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,16 +57,16 @@ public class IoRevisionFactoryBuilder<L extends JeeslLang, D extends JeeslDescri
 	private final Class<ERD> cErd; public Class<ERD> getClassDiagram(){return cErd;}
     
 	public IoRevisionFactoryBuilder(final Class<L> cL, final Class<D> cD,
-									Class<RC> cCategory,
-									Class<RV> cView,
-									Class<RVM> cViewMapping,
-									Class<RS> cScope,
-									Class<RST> cScopeType,
-									Class<RE> cEntity,
-									Class<REM> cMappingEntity,
-									Class<RA> cAttribute,
+									final Class<RC> cCategory,
+									final Class<RV> cView,
+									final Class<RVM> cViewMapping,
+									final Class<RS> cScope,
+									final Class<RST> cScopeType,
+									final Class<RE> cEntity,
+									final Class<REM> cMappingEntity,
+									final Class<RA> cAttribute,
 									final Class<RER> cRelation,
-									Class<RAT> cRat,
+									final Class<RAT> cRat,
 									final Class<ERD> cErd)
 	{
 		super(cL,cD);
@@ -110,4 +113,6 @@ public class IoRevisionFactoryBuilder<L extends JeeslLang, D extends JeeslDescri
 	public EjbRevisionDiagramFactory<L,D,RC,ERD> ejbDiagram(){return new EjbRevisionDiagramFactory<>(cErd);}
 	
 	public XmlDiagramFactory<L,D,RC,ERD> xmlDiagram(QueryRevision q){return new XmlDiagramFactory<>(q);}
+	
+	public Comparator<RE> cpEjbEntity(RevisionEntityComparator.Type type) {return (new RevisionEntityComparator<RC,RE>()).factory(type);}
 }

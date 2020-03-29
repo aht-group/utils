@@ -27,7 +27,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-import org.jeesl.util.comparator.ejb.system.io.revision.RevisionDiagramComparator;
+import org.jeesl.util.comparator.ejb.io.revision.RevisionDiagramComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,9 +69,7 @@ public class AbstractAdminErDiagramBean <L extends JeeslLang, D extends JeeslDes
 
 	protected void postConstructRevisionDiagram(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fRevision)
 	{
-		String[] langs = bTranslation.getLangKeys().toArray(new String[0]);
-		super.initRevisionSuper(langs,bMessage,fRevision);
-
+		super.postConstructRevision(bTranslation,bMessage,fRevision);
 		sbhCategory.selectAll();
 		reloadDiagrams();
 	}
