@@ -4,14 +4,23 @@ import javax.persistence.Tuple;
 
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.json.db.tuple.two.Json2Tuple;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Json2TupleFactory<A extends EjbWithId, B extends EjbWithId>
 {
+	final static Logger logger = LoggerFactory.getLogger(Json2TupleFactory.class);
+	
 	public Json2TupleFactory()
 	{
-		
+		 
 	}
 	
+	/**
+	* Build Json2Tuples from jpa.Tupes
+	* @deprecated
+	* <p> Use {@link JsonTupleFactory.build2} instead.
+	*/
 	public Json2Tuple<A,B> buildSum(Tuple tuple)
 	{
 		Json2Tuple<A,B> json = new Json2Tuple<A,B>();
@@ -22,6 +31,11 @@ public class Json2TupleFactory<A extends EjbWithId, B extends EjbWithId>
     	return json;
 	}
 	
+	/**
+	* Build Json2Tuples from jpa.Tupes
+	* @deprecated
+	* <p> Use {@link JsonTupleFactory.build2} instead.
+	*/
 	public Json2Tuple<A,B> buildCount(Tuple tuple)
 	{
 		Json2Tuple<A,B> json = new Json2Tuple<A,B>();

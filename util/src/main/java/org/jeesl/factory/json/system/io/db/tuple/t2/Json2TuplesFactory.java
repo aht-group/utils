@@ -11,6 +11,7 @@ import javax.persistence.Tuple;
 
 import org.apache.commons.collections.keyvalue.MultiKey;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
+import org.jeesl.factory.json.system.io.db.tuple.JsonTupleFactory;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.json.db.tuple.two.Json2Tuple;
@@ -170,7 +171,20 @@ public class Json2TuplesFactory <A extends EjbWithId, B extends EjbWithId>
 		return map2.containsKey(a) && map2.get(a).containsKey(b);
 	}
 	
-	public Json2Tuples<A,B> buildSum(List<Tuple> tuples)
+	public Json2Tuples<A,B> build(List<Tuple> tuples, JsonTupleFactory.Type...types)
+	{
+		Json2Tuples<A,B> json = new Json2Tuples<A,B>();
+		for(Tuple t : tuples){json.getTuples().add(JsonTupleFactory.build2(t,types));}
+		ejb2Load(json);
+		return json;
+	}
+	
+	/**
+	* Build Json2Tuples from jpa.Tupes
+	* @deprecated
+	* <p> Use {@link build(List<Tuple> tuples, JsonTupleFactory.Type...types)} instead.
+	*/
+    @Deprecated public Json2Tuples<A,B> buildSum(List<Tuple> tuples)
 	{
 		Json2Tuples<A,B> json = new Json2Tuples<A,B>();
 		
@@ -232,31 +246,4 @@ public class Json2TuplesFactory <A extends EjbWithId, B extends EjbWithId>
 		
 		return json;
 	}
-	
-//	private void init2(UtilsFacade fUtils, Json2Tuples<A,B> json)
-//	{
-//		clear();
-//		this.tuples = json;
-//		
-//		for(Json2Tuple<A,B> t : tuples.getTuples())
-//		{
-//			setId1.add(t.getId1());
-//			setId2.add(t.getId2());
-//		}
-//		
-//		listA.addAll(fUtils.find(cA, setId1));
-//		listB.addAll(fUtils.find(cB, setId2));
-//		
-//		if(setId1.size()!=listA.size()) {logger.warn("Not all elements of "+cA.getSimpleName()+" can be retrieved.");}
-//		if(setId2.size()!=listB.size()) {logger.warn("Not all elements of "+cB.getSimpleName()+" can be retrieved.");}
-//		
-//		mapA.putAll(EjbIdFactory.toIdMap(listA));
-//		mapB.putAll(EjbIdFactory.toIdMap(listB));
-//		
-//		for(Json2Tuple<A,B> t : tuples.getTuples())
-//		{
-//			if(!map2.containsKey(t.getEjb1())) {map2.put(t.getEjb1(), new HashMap<B,Json2Tuple<A,B>>());}
-//			map2.get(t.getEjb1()).put(t.getEjb2(),t);
-//		}
-//	}
 }
