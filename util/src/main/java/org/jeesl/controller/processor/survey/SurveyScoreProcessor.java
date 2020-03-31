@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.jeesl.controller.processor.finance.AmountRounder;
-import org.jeesl.factory.ejb.module.survey.EjbSurveyAnswerFactory;
 import org.jeesl.factory.ejb.module.survey.EjbSurveyQuestionFactory;
 import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyAnswer;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestion;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveySection;
 import org.jeesl.util.comparator.pojo.BooleanComparator;
+import org.jeesl.util.filter.ejb.module.survey.EjbSurveyAnswerFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,13 +24,13 @@ public class SurveyScoreProcessor <SECTION extends JeeslSurveySection<?,?,?,SECT
 	final static Logger logger = LoggerFactory.getLogger(SurveyScoreProcessor.class);
 	
 	private EjbSurveyQuestionFactory<?,?,SECTION,QUESTION,?,?,?,?> efQuestion;
-	private EjbSurveyAnswerFactory<SECTION,QUESTION,ANSWER,?,?,?> efAnswer;
+	private EjbSurveyAnswerFilter<SECTION,QUESTION,ANSWER> fiAnswer;
 	
 	public SurveyScoreProcessor(EjbSurveyQuestionFactory<?,?,SECTION,QUESTION,?,?,?,?> efQuestion,
-								EjbSurveyAnswerFactory<SECTION,QUESTION,ANSWER,?,?,?> efAnswer)
+								EjbSurveyAnswerFilter<SECTION,QUESTION,ANSWER> fiAnswer)
 	{
 		this.efQuestion=efQuestion;
-		this.efAnswer=efAnswer;
+		this.fiAnswer=fiAnswer;
 	}
 	
 	public double score(Map<QUESTION,ANSWER> answers) {return score(answers,null);}
@@ -58,7 +58,7 @@ public class SurveyScoreProcessor <SECTION extends JeeslSurveySection<?,?,?,SECT
 					if(q.getMaxScore()!=null) {maxScore = maxScore + q.getMaxScore();}
 				}
 				
-				for(ANSWER a : efAnswer.toSectionAnswers(section,answers))
+				for(ANSWER a : fiAnswer.toSectionAnswers(section,answers))
 				{
 					if(a.getQuestion().getCalculateScore()!=null && a.getQuestion().getCalculateScore() && a.getScore()!=null)
 					{

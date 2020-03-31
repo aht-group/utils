@@ -400,7 +400,6 @@ public class JeeslSurveyCoreFacadeBean <L extends JeeslLang, D extends JeeslDesc
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<ANSWER> cQ = cB.createQuery(fbCore.getClassAnswer());
 		Root<ANSWER> answer = cQ.from(fbCore.getClassAnswer());
-		Expression<Long> eAnswerId = answer.get(EjbWithId.attribute);
 		
 		Join<ANSWER,DATA> jData = answer.join(JeeslSurveyAnswer.Attributes.data.toString());
 		predicates.add(jData.in(datas));

@@ -71,20 +71,6 @@ public class EjbSurveyAnswerFactory<SECTION extends JeeslSurveySection<?,?,?,SEC
 		return ejb;
 	}
 	
-	public List<ANSWER> toSectionAnswers(SECTION section, Map<QUESTION,ANSWER> map)
-	{
-		List<ANSWER> list = new ArrayList<ANSWER>();
-		
-		for(QUESTION q : map.keySet())
-		{
-			if(q.getSection().equals(section))
-			{
-				list.add(map.get(q));
-			}
-		}
-		return list;
-	}
-	
 	@Deprecated
 	public static <QUESTION extends JeeslSurveyQuestion<?,?,?,?,?,?,?,?,?,OPTION,?>,
 					ANSWER extends JeeslSurveyAnswer<?,?,QUESTION,MATRIX,DATA,OPTION>,

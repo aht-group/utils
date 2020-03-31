@@ -48,6 +48,7 @@ import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyValidationAl
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.util.filter.ejb.module.survey.EjbSurveyAnswerFilter;
 import org.jeesl.util.filter.ejb.module.survey.EjbSurveyQuestionFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -105,15 +106,8 @@ public class SurveyCoreFactoryBuilder<L extends JeeslLang, D extends JeeslDescri
         this.cCorrelation = cCorrelation;
 	}
 	
-	public EjbSurveyFactory<L,D,SURVEY,SS,TEMPLATE> survey()
-	{
-		return new EjbSurveyFactory<L,D,SURVEY,SS,TEMPLATE>(cL,cD,cSurvey);
-	}
-	
-	public EjbSurveyAnswerFactory<SECTION,QUESTION,ANSWER,MATRIX,DATA,OPTION> answer()
-	{
-		return new EjbSurveyAnswerFactory<SECTION,QUESTION,ANSWER,MATRIX,DATA,OPTION>(cQuestion,cAnswer,cOption);
-	}
+	public EjbSurveyFactory<L,D,SURVEY,SS,TEMPLATE> survey() {return new EjbSurveyFactory<L,D,SURVEY,SS,TEMPLATE>(cL,cD,cSurvey);}
+	public EjbSurveyAnswerFactory<SECTION,QUESTION,ANSWER,MATRIX,DATA,OPTION> answer() {return new EjbSurveyAnswerFactory<SECTION,QUESTION,ANSWER,MATRIX,DATA,OPTION>(cQuestion,cAnswer,cOption);}
 	
 	public EjbSurveyQuestionFactory<L,D,SECTION,QUESTION,QE,UNIT,OPTIONS,OPTION> ejbQuestion()
 	{
@@ -164,9 +158,11 @@ public class SurveyCoreFactoryBuilder<L extends JeeslLang, D extends JeeslDescri
 		return new TxtOptionFactory<L,D,OPTION>(localeCode);
 	}
 	
+	public EjbSurveyAnswerFilter<SECTION,QUESTION,ANSWER> ejbFilterAnswer() {return new EjbSurveyAnswerFilter<>();}
+	
 	public SurveyScoreProcessor<SECTION,QUESTION,ANSWER> scoreProcessor()
 	{
-		return new SurveyScoreProcessor<SECTION,QUESTION,ANSWER>(ejbQuestion(),answer());
+		return new SurveyScoreProcessor<>(ejbQuestion(),ejbFilterAnswer());
 	}
 	
 	public SurveyHandler<L,D,SURVEY,TEMPLATE,TC,SECTION,QUESTION,CONDITION,VALIDATION,ANSWER,MATRIX,DATA,OPTION,CORRELATION> handler(JeeslFacesMessageBean bMessage, final JeeslSurveyCoreFacade<L,D,LOC,SURVEY,SS,SCHEME,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,QE,SCORE,UNIT,ANSWER,MATRIX,DATA,OPTIONS,OPTION,CORRELATION> fSurvey, JeeslSurveyBean<L,D,SURVEY,SS,SCHEME,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,CONDITION,VALIDATION,QE,SCORE,UNIT,ANSWER,MATRIX,DATA,OPTIONS,OPTION,CORRELATION,ATT> bSurvey)
