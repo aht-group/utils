@@ -8,6 +8,7 @@ import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEvent;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEventType;
+import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdFaq;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdLevel;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdPriority;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicket;
@@ -32,7 +33,7 @@ public interface JeeslHdFacade <L extends JeeslLang,D extends JeeslDescription,
 								PRIORITY extends JeeslHdPriority<L,D,R,PRIORITY,?>,
 								M extends JeeslMarkup<MT>,
 								MT extends JeeslIoCmsMarkupType<?,?,MT,?>,
-
+								FAQ extends JeeslHdFaq<L,D,R,CAT>,
 								USER extends JeeslSimpleUser>
 			extends JeeslFacade
 {	

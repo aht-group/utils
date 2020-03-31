@@ -107,7 +107,7 @@ public class Tree<T>
     
     /**
      * Adds multiple nodes as child to this tree node.
-     * @param data A list of either data elements or Tree elements to be added as children.
+     * @param dataWithStructure A list of either data elements or Tree elements to be added as children.
      */
     public void addChildren(List<Tree<T>> nodes)
     {

@@ -30,7 +30,7 @@ import org.jeesl.model.xml.text.Remark;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}category"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}status"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/text}remark"/&gt;
- *         &lt;element ref="{http://ahtutils.aht-group.com/survey}section" maxOccurs="unbounded"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/survey}section" maxOccurs="unbounded"/&gt;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" /&gt;
  *       &lt;attribute name="code" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;

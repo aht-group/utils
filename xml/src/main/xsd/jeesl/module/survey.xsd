@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema targetNamespace="http://ahtutils.aht-group.com/survey"
-    xmlns:survey="http://ahtutils.aht-group.com/survey"
+<xsd:schema targetNamespace="http://www.jeesl.org/survey"
+    xmlns:survey="http://www.jeesl.org/survey"
     xmlns:us="http://ahtutils.aht-group.com/status"
     xmlns:text="http://ahtutils.aht-group.com/text"
     xmlns:t="http://www.jeesl.org/text"

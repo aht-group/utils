@@ -6,6 +6,7 @@ import org.jeesl.factory.ejb.module.hd.EjbHdTicketFactory;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEvent;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEventType;
+import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdFaq;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdLevel;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdPriority;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicket;
@@ -22,7 +23,7 @@ import org.slf4j.LoggerFactory;
 public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 							R extends JeeslMcsRealm<L,D,R,?>,
 							TICKET extends JeeslHdTicket<R,EVENT,M>,
-							CAT extends JeeslHdTicketCategory<?,?,R,CAT,?>,
+							CAT extends JeeslHdTicketCategory<L,D,R,CAT,?>,
 							STATUS extends JeeslHdTicketStatus<?,?,R,STATUS,?>,
 							EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,PRIORITY,USER>,
 							TYPE extends JeeslHdEventType<L,D,TYPE,?>,
@@ -30,6 +31,7 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 							PRIORITY extends JeeslHdPriority<L,D,R,PRIORITY,?>,
 							M extends JeeslMarkup<MT>,
 							MT extends JeeslIoCmsMarkupType<?,?,MT,?>,
+							FAQ extends JeeslHdFaq<L,D,R,CAT>,
 							USER extends JeeslSimpleUser>
 		extends AbstractFactoryBuilder<L,D>
 {
@@ -75,5 +77,5 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 	}
 
 	public EjbHdTicketFactory<R,TICKET,M,MT> ejbTicket() {return new EjbHdTicketFactory<>(cTicket,cMarkup);}
-	public EjbHdEventFactory<TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,USER> ejbEvent() {return new EjbHdEventFactory<>(this);}
+	public EjbHdEventFactory<TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,FAQ,USER> ejbEvent() {return new EjbHdEventFactory<>(this);}
 }

@@ -8,7 +8,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
 import org.jeesl.model.xml.module.survey.Answer;
 import org.jeesl.model.xml.module.survey.Data;
 import org.jeesl.model.xml.module.survey.Question;
@@ -25,10 +24,10 @@ import org.jeesl.model.xml.module.survey.Template;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element ref="{http://ahtutils.aht-group.com/survey}template"/&gt;
- *         &lt;element ref="{http://ahtutils.aht-group.com/survey}question"/&gt;
- *         &lt;element ref="{http://ahtutils.aht-group.com/survey}data"/&gt;
- *         &lt;element ref="{http://ahtutils.aht-group.com/survey}answer"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/survey}template"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/survey}question"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/survey}data"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/survey}answer"/&gt;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="localeCode" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *     &lt;/restriction&gt;
@@ -51,13 +50,13 @@ public class QuerySurvey
 {
 
     private final static long serialVersionUID = 1L;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/survey", required = true)
+    @XmlElement(namespace = "http://www.jeesl.org/survey", required = true)
     protected Template template;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/survey", required = true)
+    @XmlElement(namespace = "http://www.jeesl.org/survey", required = true)
     protected Question question;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/survey", required = true)
+    @XmlElement(namespace = "http://www.jeesl.org/survey", required = true)
     protected Data data;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/survey", required = true)
+    @XmlElement(namespace = "http://www.jeesl.org/survey", required = true)
     protected Answer answer;
     @XmlAttribute(name = "localeCode")
     protected String localeCode;

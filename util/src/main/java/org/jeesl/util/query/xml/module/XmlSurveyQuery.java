@@ -213,7 +213,7 @@ public class XmlSurveyQuery
 	
 	
 	//JEESL
-	public static enum KeyJeesl {data,answer,exTemplate,template,questionCode}
+	public static enum KeyJeesl {dataWithStructure,answer,exTemplate,template,questionCode,dataWithAnswerQuestionCode}
 	
 	private static Map<KeyJeesl,QuerySurvey> mQueriesJeesl;
 	
@@ -226,7 +226,8 @@ public class XmlSurveyQuery
 			QuerySurvey q = new QuerySurvey();
 			switch(key)
 			{
-				case data: q.setData(data());break;
+				case dataWithStructure: q.setData(dataWithStructure());break;
+				case dataWithAnswerQuestionCode: q.setData(dataWithAnswerQuestionCode());break;
 				case answer: q.setAnswer(answer());break;
 				case questionCode: q.setQuestion(question());break;
 				case exTemplate: q.setTemplate(exTemplate());break;
@@ -239,11 +240,25 @@ public class XmlSurveyQuery
 		return q;
 	}
 	
-	public static Data data()
+	private static Data dataWithStructure()
 	{	
 		Data xml = new Data();
 		xml.setId(0);
 		xml.getSection().add(exSection());
+		return xml;
+	}
+	
+	private static Data dataWithAnswerQuestionCode()
+	{	
+		Question question = new Question();
+		question.setCode("");
+		
+		Answer answer = answer();
+		answer.setQuestion(question);
+		
+		Data xml = new Data();
+		xml.setId(0);
+		xml.getAnswer().add(answer);
 		return xml;
 	}
 	

@@ -12,7 +12,9 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatusFixedCode;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
 
-public interface JeeslHdEventType <L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<S,L,D>, G extends JeeslGraphic<L,D,?,?,?>>
+public interface JeeslHdEventType <L extends JeeslLang, D extends JeeslDescription,
+									S extends JeeslStatus<S,L,D>,
+									G extends JeeslGraphic<L,D,?,?,?>>
 									extends Serializable,EjbPersistable,
 										EjbWithCode,JeeslStatusFixedCode,
 										JeeslOptionRestDownload,EjbWithCodeGraphic<G>,

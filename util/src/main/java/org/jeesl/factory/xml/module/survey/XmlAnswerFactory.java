@@ -66,7 +66,7 @@ public class XmlAnswerFactory<L extends JeeslLang,D extends JeeslDescription,
 	{
 		this.q=q;
 		
-		if(q.isSetData()) {xfQuestion = new XmlQuestionFactory<L,D,SCHEME,SECTION,QUESTION,QE,SCORE,UNIT,OPTIONS,OPTION>(localeCode,q.getQuestion());}
+		if(q.isSetQuestion()) {xfQuestion = new XmlQuestionFactory<L,D,SCHEME,SECTION,QUESTION,QE,SCORE,UNIT,OPTIONS,OPTION>(localeCode,q.getQuestion());}
 		if(q.isSetData()) {xfData = new XmlDataFactory<L,D,SURVEY,SS,SCHEME,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,QE,SCORE,UNIT,ANSWER,MATRIX,DATA,OPTIONS,OPTION,CORRELATION>(localeCode,q.getData());}
 		if(q.isSetOption()) {xfOption = new XmlOptionFactory<L,D,OPTION>(localeCode,q.getOption());}
 		if(q.isSetMatrix()) {xfMatrix = new XmlMatrixFactory<L,D,SURVEY,SS,SCHEME,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,QE,SCORE,UNIT,ANSWER,MATRIX,DATA,OPTIONS,OPTION>(localeCode,q.getMatrix());}

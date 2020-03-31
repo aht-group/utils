@@ -10,10 +10,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
-import org.jeesl.model.xml.module.survey.Survey;
-
 import net.sf.ahtutils.xml.security.Staff;
+import org.jeesl.model.xml.module.survey.Survey;
 
 
 /**
@@ -28,7 +26,7 @@ import net.sf.ahtutils.xml.security.Staff;
  *       &lt;sequence&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/qa}category" maxOccurs="unbounded"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/security}staff" maxOccurs="unbounded"/&gt;
- *         &lt;element ref="{http://ahtutils.aht-group.com/survey}survey"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/survey}survey"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/qa}groups"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/qa}checklist" maxOccurs="unbounded"/&gt;
  *       &lt;/sequence&gt;
@@ -60,7 +58,7 @@ public class Qa
     protected List<Category> category;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/security", required = true)
     protected List<Staff> staff;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/survey", required = true)
+    @XmlElement(namespace = "http://www.jeesl.org/survey", required = true)
     protected Survey survey;
     @XmlElement(required = true)
     protected Groups groups;

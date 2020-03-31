@@ -20,7 +20,6 @@ import net.sf.ahtutils.xml.status.Type;
 import net.sf.ahtutils.xml.symbol.Graphic;
 import net.sf.ahtutils.xml.utils.TrafficLight;
 import net.sf.ahtutils.xml.utils.TrafficLights;
-
 import org.jeesl.model.xml.module.survey.Answer;
 import org.jeesl.model.xml.module.survey.Survey;
 import org.jeesl.model.xml.module.survey.Surveys;
@@ -49,11 +48,11 @@ import org.jeesl.model.xml.system.revision.Entity;
  *         &lt;element ref="{http://ahtutils.aht-group.com/security}staff"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/report}report"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/revision}entity"/&gt;
- *         &lt;element ref="{http://ahtutils.aht-group.com/survey}templates"/&gt;
- *         &lt;element ref="{http://ahtutils.aht-group.com/survey}template"/&gt;
- *         &lt;element ref="{http://ahtutils.aht-group.com/survey}surveys"/&gt;
- *         &lt;element ref="{http://ahtutils.aht-group.com/survey}survey"/&gt;
- *         &lt;element ref="{http://ahtutils.aht-group.com/survey}answer"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/survey}templates"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/survey}template"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/survey}surveys"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/survey}survey"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/survey}answer"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/symbol}graphic"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/utils}trafficLight"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/utils}trafficLights"/&gt;
@@ -113,15 +112,15 @@ public class Query
     protected Report report;
     @XmlElement(namespace = "http://www.jeesl.org/revision", required = true)
     protected Entity entity;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/survey", required = true)
+    @XmlElement(namespace = "http://www.jeesl.org/survey", required = true)
     protected Templates templates;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/survey", required = true)
+    @XmlElement(namespace = "http://www.jeesl.org/survey", required = true)
     protected Template template;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/survey", required = true)
+    @XmlElement(namespace = "http://www.jeesl.org/survey", required = true)
     protected Surveys surveys;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/survey", required = true)
+    @XmlElement(namespace = "http://www.jeesl.org/survey", required = true)
     protected Survey survey;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/survey", required = true)
+    @XmlElement(namespace = "http://www.jeesl.org/survey", required = true)
     protected Answer answer;
     @XmlElement(namespace = "http://www.jeesl.org/symbol", required = true)
     protected Graphic graphic;
