@@ -6,8 +6,6 @@ import org.jeesl.model.xml.text.TestXmlRemark;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.xml.survey.Section;
-
 public class TestXmlSection extends AbstractXmlSurveyTest<Section>
 {
 	final static Logger logger = LoggerFactory.getLogger(TestXmlSection.class);

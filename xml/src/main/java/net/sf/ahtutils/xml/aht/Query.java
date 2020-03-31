@@ -17,14 +17,15 @@ import net.sf.ahtutils.xml.status.Langs;
 import net.sf.ahtutils.xml.status.Model;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.ahtutils.xml.status.Type;
-import net.sf.ahtutils.xml.survey.Answer;
-import net.sf.ahtutils.xml.survey.Survey;
-import net.sf.ahtutils.xml.survey.Surveys;
-import net.sf.ahtutils.xml.survey.Template;
-import net.sf.ahtutils.xml.survey.Templates;
 import net.sf.ahtutils.xml.symbol.Graphic;
 import net.sf.ahtutils.xml.utils.TrafficLight;
 import net.sf.ahtutils.xml.utils.TrafficLights;
+
+import org.jeesl.model.xml.module.survey.Answer;
+import org.jeesl.model.xml.module.survey.Survey;
+import org.jeesl.model.xml.module.survey.Surveys;
+import org.jeesl.model.xml.module.survey.Template;
+import org.jeesl.model.xml.module.survey.Templates;
 import org.jeesl.model.xml.system.revision.Entity;
 
 

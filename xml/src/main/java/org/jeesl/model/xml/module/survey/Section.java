@@ -1,5 +1,5 @@
 
-package net.sf.ahtutils.xml.survey;
+package org.jeesl.model.xml.module.survey;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,9 +10,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import net.sf.ahtutils.xml.status.Category;
 import net.sf.ahtutils.xml.status.Description;
-import net.sf.ahtutils.xml.status.Status;
 import org.jeesl.model.xml.text.Remark;
 
 
@@ -27,13 +25,14 @@ import org.jeesl.model.xml.text.Remark;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}description"/&gt;
- *         &lt;element ref="{http://ahtutils.aht-group.com/status}category"/&gt;
- *         &lt;element ref="{http://ahtutils.aht-group.com/status}status"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/text}remark"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/survey}section" maxOccurs="unbounded"/&gt;
+ *         &lt;element ref="{http://ahtutils.aht-group.com/survey}question" maxOccurs="unbounded"/&gt;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" /&gt;
+ *       &lt;attribute name="position" type="{http://www.w3.org/2001/XMLSchema}int" /&gt;
  *       &lt;attribute name="code" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+ *       &lt;attribute name="visible" type="{http://www.w3.org/2001/XMLSchema}boolean" /&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -44,31 +43,32 @@ import org.jeesl.model.xml.text.Remark;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "description",
-    "category",
-    "status",
     "remark",
-    "section"
+    "section",
+    "question"
 })
-@XmlRootElement(name = "template")
-public class Template
+@XmlRootElement(name = "section")
+public class Section
     implements Serializable
 {
 
     private final static long serialVersionUID = 1L;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
     protected Description description;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
-    protected Category category;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
-    protected Status status;
     @XmlElement(namespace = "http://www.jeesl.org/text", required = true)
     protected Remark remark;
     @XmlElement(required = true)
     protected List<Section> section;
+    @XmlElement(required = true)
+    protected List<Question> question;
     @XmlAttribute(name = "id")
     protected Long id;
+    @XmlAttribute(name = "position")
+    protected Integer position;
     @XmlAttribute(name = "code")
     protected String code;
+    @XmlAttribute(name = "visible")
+    protected Boolean visible;
 
     /**
      * Gets the value of the description property.
@@ -96,62 +96,6 @@ public class Template
 
     public boolean isSetDescription() {
         return (this.description!= null);
-    }
-
-    /**
-     * Gets the value of the category property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Category }
-     *     
-     */
-    public Category getCategory() {
-        return category;
-    }
-
-    /**
-     * Sets the value of the category property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Category }
-     *     
-     */
-    public void setCategory(Category value) {
-        this.category = value;
-    }
-
-    public boolean isSetCategory() {
-        return (this.category!= null);
-    }
-
-    /**
-     * Gets the value of the status property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Status }
-     *     
-     */
-    public Status getStatus() {
-        return status;
-    }
-
-    /**
-     * Sets the value of the status property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Status }
-     *     
-     */
-    public void setStatus(Status value) {
-        this.status = value;
-    }
-
-    public boolean isSetStatus() {
-        return (this.status!= null);
     }
 
     /**
@@ -220,6 +164,43 @@ public class Template
     }
 
     /**
+     * Gets the value of the question property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the question property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getQuestion().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Question }
+     * 
+     * 
+     */
+    public List<Question> getQuestion() {
+        if (question == null) {
+            question = new ArrayList<Question>();
+        }
+        return this.question;
+    }
+
+    public boolean isSetQuestion() {
+        return ((this.question!= null)&&(!this.question.isEmpty()));
+    }
+
+    public void unsetQuestion() {
+        this.question = null;
+    }
+
+    /**
      * Gets the value of the id property.
      * 
      * @return
@@ -252,6 +233,38 @@ public class Template
     }
 
     /**
+     * Gets the value of the position property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
+     */
+    public int getPosition() {
+        return position;
+    }
+
+    /**
+     * Sets the value of the position property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Integer }
+     *     
+     */
+    public void setPosition(int value) {
+        this.position = value;
+    }
+
+    public boolean isSetPosition() {
+        return (this.position!= null);
+    }
+
+    public void unsetPosition() {
+        this.position = null;
+    }
+
+    /**
      * Gets the value of the code property.
      * 
      * @return
@@ -277,6 +290,38 @@ public class Template
 
     public boolean isSetCode() {
         return (this.code!= null);
+    }
+
+    /**
+     * Gets the value of the visible property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public boolean isVisible() {
+        return visible;
+    }
+
+    /**
+     * Sets the value of the visible property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setVisible(boolean value) {
+        this.visible = value;
+    }
+
+    public boolean isSetVisible() {
+        return (this.visible!= null);
+    }
+
+    public void unsetVisible() {
+        this.visible = null;
     }
 
 }

@@ -109,7 +109,7 @@
     
 	<jxb:bindings schemaLocation="../xsd/jeesl/module/survey.xsd" node="/xsd:schema">
         <jxb:schemaBindings>
-            <jxb:package name="net.sf.ahtutils.xml.survey"/>
+            <jxb:package name="org.jeesl.model.xml.module.survey"/>
         </jxb:schemaBindings>
     </jxb:bindings>
     

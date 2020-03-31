@@ -4,10 +4,9 @@ import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyOption;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestion;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.model.xml.module.survey.Options;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.xml.survey.Options;
 
 public class XmlOptionsFactory <L extends JeeslLang, D extends JeeslDescription,
 								QUESTION extends JeeslSurveyQuestion<L,D,?,?,?,?,?,?,?,OPTION,?>,

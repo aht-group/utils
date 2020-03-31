@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.configuration.Configuration;
+import org.jeesl.model.xml.module.survey.Answer;
+import org.jeesl.model.xml.module.survey.Question;
 import org.jeesl.util.query.xpath.StatusXpath;
 import org.openfuxml.content.media.Image;
 import org.openfuxml.content.media.Media;
@@ -29,8 +31,6 @@ import net.sf.ahtutils.doc.ofx.AbstractUtilsOfxDocumentationFactory;
 import net.sf.ahtutils.xml.security.Staff;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Translations;
-import net.sf.ahtutils.xml.survey.Answer;
-import net.sf.ahtutils.xml.survey.Question;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.util.xml.JaxbUtil;
@@ -53,7 +53,7 @@ public class OfxQaNfrResultTableFactory extends AbstractUtilsOfxDocumentationFac
 		df = SimpleDateFormat.getDateInstance();
 	}
 	
-	public Table build(net.sf.ahtutils.xml.survey.Section section, Map<Long,Map<Long,Answer>> mapAnswers, List<Staff> staffs) throws OfxAuthoringException
+	public Table build(org.jeesl.model.xml.module.survey.Section section, Map<Long,Map<Long,Answer>> mapAnswers, List<Staff> staffs) throws OfxAuthoringException
 	{
 		try
 		{
@@ -71,7 +71,7 @@ public class OfxQaNfrResultTableFactory extends AbstractUtilsOfxDocumentationFac
 		catch (ExlpXpathNotUniqueException e) {throw new OfxAuthoringException(e.getMessage());}
 	}
 	
-	private Specification createTableSpecifications(net.sf.ahtutils.xml.survey.Section section)
+	private Specification createTableSpecifications(org.jeesl.model.xml.module.survey.Section section)
 	{
 		Columns cols = new Columns();
 		cols.getColumn().add(XmlColumnFactory.flex(30));
@@ -91,7 +91,7 @@ public class OfxQaNfrResultTableFactory extends AbstractUtilsOfxDocumentationFac
 		return specification;
 	}
 	
-	protected Row createHeaderRow(net.sf.ahtutils.xml.survey.Section section)
+	protected Row createHeaderRow(org.jeesl.model.xml.module.survey.Section section)
 	{
 		Row row = new Row();
 //		row.getCell().add(OfxCellFactory.createParagraphCell("Date"));
@@ -106,7 +106,7 @@ public class OfxQaNfrResultTableFactory extends AbstractUtilsOfxDocumentationFac
 		return row;
 	}
 	
-	private Content createTableContent(net.sf.ahtutils.xml.survey.Section section, Map<Long,Map<Long,Answer>> mapAnswers, List<Staff> staffs)
+	private Content createTableContent(org.jeesl.model.xml.module.survey.Section section, Map<Long,Map<Long,Answer>> mapAnswers, List<Staff> staffs)
 	{
 		Head head = new Head();
 		head.getRow().add(createHeaderRow(section));
@@ -136,7 +136,7 @@ public class OfxQaNfrResultTableFactory extends AbstractUtilsOfxDocumentationFac
 		return content;
 	}
 	
-	private boolean hasStaffAnswers(net.sf.ahtutils.xml.survey.Section section, Map<Long,Map<Long,Answer>> mapAnswers, Staff staff)
+	private boolean hasStaffAnswers(org.jeesl.model.xml.module.survey.Section section, Map<Long,Map<Long,Answer>> mapAnswers, Staff staff)
 	{
 		if(mapAnswers.containsKey(staff.getId()))
 		{
@@ -149,7 +149,7 @@ public class OfxQaNfrResultTableFactory extends AbstractUtilsOfxDocumentationFac
 		return false;
 	}
 	
-	private Row buildRow(net.sf.ahtutils.xml.survey.Section section, Map<Long,Answer> mapAnswers, Staff staff)
+	private Row buildRow(org.jeesl.model.xml.module.survey.Section section, Map<Long,Answer> mapAnswers, Staff staff)
 	{
 		JaxbUtil.trace(staff);
 		Row row = new Row();

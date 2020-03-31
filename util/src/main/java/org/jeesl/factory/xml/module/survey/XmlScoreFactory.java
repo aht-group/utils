@@ -3,10 +3,9 @@ package org.jeesl.factory.xml.module.survey;
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyScheme;
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyScore;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestion;
+import org.jeesl.model.xml.module.survey.Score;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.xml.survey.Score;
 
 public class XmlScoreFactory<
 				SCHEME extends JeeslSurveyScheme<?,?,?,SCORE>,

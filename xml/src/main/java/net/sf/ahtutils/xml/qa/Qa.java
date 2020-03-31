@@ -10,8 +10,10 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
+import org.jeesl.model.xml.module.survey.Survey;
+
 import net.sf.ahtutils.xml.security.Staff;
-import net.sf.ahtutils.xml.survey.Survey;
 
 
 /**

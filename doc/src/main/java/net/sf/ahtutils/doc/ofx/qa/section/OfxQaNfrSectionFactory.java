@@ -8,6 +8,9 @@ import java.util.Map;
 
 import org.apache.commons.configuration.Configuration;
 import org.jeesl.model.xml.jeesl.Container;
+import org.jeesl.model.xml.module.survey.Answer;
+import org.jeesl.model.xml.module.survey.Question;
+import org.jeesl.model.xml.module.survey.Survey;
 import org.openfuxml.content.ofx.Comment;
 import org.openfuxml.content.ofx.Paragraph;
 import org.openfuxml.content.ofx.Section;
@@ -27,9 +30,6 @@ import net.sf.ahtutils.doc.ofx.qa.table.OfxQaNfrQuestionTableFactory;
 import net.sf.ahtutils.doc.ofx.qa.table.OfxQaNfrResultTableFactory;
 import net.sf.ahtutils.xml.security.Staff;
 import net.sf.ahtutils.xml.status.Translations;
-import net.sf.ahtutils.xml.survey.Answer;
-import net.sf.ahtutils.xml.survey.Question;
-import net.sf.ahtutils.xml.survey.Survey;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 public class OfxQaNfrSectionFactory extends AbstractUtilsOfxDocumentationFactory
@@ -49,7 +49,7 @@ public class OfxQaNfrSectionFactory extends AbstractUtilsOfxDocumentationFactory
 	
 	public void setUnits(Container units) {ofxTableQuestions.setUnits(units);}
 	
-	public Section build(boolean withResults, net.sf.ahtutils.xml.survey.Section mainSection, Survey surveyAnswers, List<Staff> staff) throws OfxAuthoringException
+	public Section build(boolean withResults, org.jeesl.model.xml.module.survey.Section mainSection, Survey surveyAnswers, List<Staff> staff) throws OfxAuthoringException
 	{
 		Section xml = XmlSectionFactory.build();
 
@@ -62,7 +62,7 @@ public class OfxQaNfrSectionFactory extends AbstractUtilsOfxDocumentationFactory
 		Map<Long,Map<Long,Answer>> mapAnswers = buildAnswerMap(surveyAnswers);
 		
 		List<Section> sections = new ArrayList<Section>();
-		for(net.sf.ahtutils.xml.survey.Section subSection : mainSection.getSection())
+		for(org.jeesl.model.xml.module.survey.Section subSection : mainSection.getSection())
 		{
 			sections.add(section(withResults,mainSection,subSection,mapAnswers,staff));
 		}
@@ -83,7 +83,7 @@ public class OfxQaNfrSectionFactory extends AbstractUtilsOfxDocumentationFactory
 		return xml;
 	}
 	
-	private Section section(boolean withResults, net.sf.ahtutils.xml.survey.Section mainSection, net.sf.ahtutils.xml.survey.Section subSection, Map<Long,Map<Long,Answer>> mapAnswers, List<Staff> staff) throws OfxAuthoringException
+	private Section section(boolean withResults, org.jeesl.model.xml.module.survey.Section mainSection, org.jeesl.model.xml.module.survey.Section subSection, Map<Long,Map<Long,Answer>> mapAnswers, List<Staff> staff) throws OfxAuthoringException
 	{
 		Section xml = XmlSectionFactory.build();
 
@@ -121,7 +121,7 @@ public class OfxQaNfrSectionFactory extends AbstractUtilsOfxDocumentationFactory
 		return map;
 	}
 	
-	private List<Paragraph> questionRemarks(net.sf.ahtutils.xml.survey.Section section)
+	private List<Paragraph> questionRemarks(org.jeesl.model.xml.module.survey.Section section)
 	{
 		List<Paragraph> list = new ArrayList<Paragraph>();
 		

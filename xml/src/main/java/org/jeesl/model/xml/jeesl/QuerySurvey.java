@@ -8,10 +8,11 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import net.sf.ahtutils.xml.survey.Answer;
-import net.sf.ahtutils.xml.survey.Data;
-import net.sf.ahtutils.xml.survey.Question;
-import net.sf.ahtutils.xml.survey.Template;
+
+import org.jeesl.model.xml.module.survey.Answer;
+import org.jeesl.model.xml.module.survey.Data;
+import org.jeesl.model.xml.module.survey.Question;
+import org.jeesl.model.xml.module.survey.Template;
 
 
 /**

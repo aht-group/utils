@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.commons.configuration.Configuration;
 import org.jeesl.exception.processing.UtilsConfigurationException;
 import org.jeesl.model.xml.jeesl.Container;
+import org.jeesl.model.xml.module.survey.Survey;
 import org.openfuxml.content.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.exception.OfxConfigurationException;
@@ -36,7 +37,6 @@ import net.sf.ahtutils.xml.qa.Category;
 import net.sf.ahtutils.xml.qa.Qa;
 import net.sf.ahtutils.xml.security.Staff;
 import net.sf.ahtutils.xml.status.Translations;
-import net.sf.ahtutils.xml.survey.Survey;
 
 public class LatexQaWriter
 {	
@@ -160,7 +160,7 @@ public class LatexQaWriter
 	public void writeQaNfr(boolean withResults, Survey surveyQuestions, Survey surveyAnswers, List<Staff> staff) throws OfxAuthoringException, IOException, OfxConfigurationException
 	{
 		ofxMlw.section(2,"/qa/nfr",ofContainerInput.build(surveyQuestions.getTemplate(),"/section/qa/nfr"));
-		for(net.sf.ahtutils.xml.survey.Section surveySection : surveyQuestions.getTemplate().getSection())
+		for(org.jeesl.model.xml.module.survey.Section surveySection : surveyQuestions.getTemplate().getSection())
 		{
 			ofxMlw.section(2, "/qa/nfr/"+surveySection.getPosition(), ofNfr.build(withResults,surveySection,surveyAnswers,staff));
 		}

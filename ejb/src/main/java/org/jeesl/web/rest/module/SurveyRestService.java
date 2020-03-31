@@ -69,6 +69,15 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.model.json.system.status.JsonContainer;
 import org.jeesl.model.xml.jeesl.Container;
+import org.jeesl.model.xml.module.survey.Answer;
+import org.jeesl.model.xml.module.survey.Correlation;
+import org.jeesl.model.xml.module.survey.Data;
+import org.jeesl.model.xml.module.survey.Question;
+import org.jeesl.model.xml.module.survey.Section;
+import org.jeesl.model.xml.module.survey.Survey;
+import org.jeesl.model.xml.module.survey.Surveys;
+import org.jeesl.model.xml.module.survey.Template;
+import org.jeesl.model.xml.module.survey.Templates;
 import org.jeesl.util.db.updater.JeeslDbStatusUpdater;
 import org.jeesl.util.query.json.JsonStatusQueryProvider;
 import org.jeesl.util.query.json.JsonSurveyQueryProvider;
@@ -80,15 +89,6 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.status.Status;
-import net.sf.ahtutils.xml.survey.Answer;
-import net.sf.ahtutils.xml.survey.Correlation;
-import net.sf.ahtutils.xml.survey.Data;
-import net.sf.ahtutils.xml.survey.Question;
-import net.sf.ahtutils.xml.survey.Section;
-import net.sf.ahtutils.xml.survey.Survey;
-import net.sf.ahtutils.xml.survey.Surveys;
-import net.sf.ahtutils.xml.survey.Template;
-import net.sf.ahtutils.xml.survey.Templates;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 
 public class SurveyRestService <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,

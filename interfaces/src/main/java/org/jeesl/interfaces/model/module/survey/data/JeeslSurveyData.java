@@ -16,7 +16,7 @@ public interface JeeslSurveyData<L extends JeeslLang, D extends JeeslDescription
 									CORRELATION extends JeeslSurveyCorrelation<?>>
 			extends Serializable,EjbWithId,EjbWithRecord
 {
-	public enum Attributes{correlation,survey}
+	public enum Attributes{correlation,survey,answers}
 	
 	SURVEY getSurvey();
 	void setSurvey(SURVEY survey);

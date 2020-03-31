@@ -1,11 +1,10 @@
 package org.jeesl.factory.xml.module.survey;
 
 import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyMatrix;
+import org.jeesl.model.xml.module.survey.Cell;
 import org.jeesl.util.comparator.pojo.BooleanComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.xml.survey.Cell;
 
 public class XmlCellFactory<MATRIX extends JeeslSurveyMatrix<?,?,?,?>>
 {

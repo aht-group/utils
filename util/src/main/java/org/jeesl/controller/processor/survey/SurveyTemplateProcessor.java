@@ -2,9 +2,9 @@ package org.jeesl.controller.processor.survey;
 
 import java.util.Iterator;
 
-import net.sf.ahtutils.xml.survey.Question;
-import net.sf.ahtutils.xml.survey.Section;
-import net.sf.ahtutils.xml.survey.Template;
+import org.jeesl.model.xml.module.survey.Question;
+import org.jeesl.model.xml.module.survey.Section;
+import org.jeesl.model.xml.module.survey.Template;
 
 public class SurveyTemplateProcessor
 {

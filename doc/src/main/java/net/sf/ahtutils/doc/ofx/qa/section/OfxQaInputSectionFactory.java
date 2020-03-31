@@ -2,6 +2,7 @@ package net.sf.ahtutils.doc.ofx.qa.section;
 
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.io.FilenameUtils;
+import org.jeesl.model.xml.module.survey.Template;
 import org.openfuxml.content.ofx.Comment;
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.exception.OfxAuthoringException;
@@ -15,7 +16,6 @@ import net.sf.ahtutils.doc.ofx.AbstractUtilsOfxDocumentationFactory;
 import net.sf.ahtutils.xml.qa.Category;
 import net.sf.ahtutils.xml.qa.Qa;
 import net.sf.ahtutils.xml.status.Translations;
-import net.sf.ahtutils.xml.survey.Template;
 
 public class OfxQaInputSectionFactory extends AbstractUtilsOfxDocumentationFactory
 {
@@ -72,7 +72,7 @@ public class OfxQaInputSectionFactory extends AbstractUtilsOfxDocumentationFacto
 		OfxCommentBuilder.doNotModify(comment);
 		section.getContent().add(comment);
 		
-		for(net.sf.ahtutils.xml.survey.Section s : template.getSection())
+		for(org.jeesl.model.xml.module.survey.Section s : template.getSection())
 		{
 			for(String lang : langs)
 			{

@@ -12,10 +12,9 @@ import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyTemplate;
 import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyStatus;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.model.xml.module.survey.Survey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.xml.survey.Survey;
 
 public class EjbSurveyFactory<L extends JeeslLang, D extends JeeslDescription,
 				SURVEY extends JeeslSurvey<L,D,SS,TEMPLATE,?>,

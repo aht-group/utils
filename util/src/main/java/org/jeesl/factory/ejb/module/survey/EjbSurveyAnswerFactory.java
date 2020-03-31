@@ -17,10 +17,9 @@ import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestion;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveySection;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.model.xml.module.survey.Answer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.xml.survey.Answer;
 
 public class EjbSurveyAnswerFactory<SECTION extends JeeslSurveySection<?,?,?,SECTION,QUESTION>,
 									QUESTION extends JeeslSurveyQuestion<?,?,SECTION,?,?,?,?,?,?,OPTION,?>,

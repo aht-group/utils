@@ -9,7 +9,7 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 public interface JeeslSurveyCorrelation<DATA extends JeeslSurveyData<?,?,?,?,?>>
 			extends Serializable,EjbWithId,EjbSaveable
 {
-	public enum Attributes{survey}
+	public enum Attributes{survey,data}
 //	DATA getData();
 //	void setData(DATA data);
 }

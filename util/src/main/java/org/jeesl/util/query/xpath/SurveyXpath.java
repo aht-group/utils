@@ -3,11 +3,11 @@ package org.jeesl.util.query.xpath;
 import java.util.List;
 
 import net.sf.ahtutils.xml.access.View;
-import net.sf.ahtutils.xml.survey.Correlation;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 
 import org.apache.commons.jxpath.JXPathContext;
+import org.jeesl.model.xml.module.survey.Correlation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

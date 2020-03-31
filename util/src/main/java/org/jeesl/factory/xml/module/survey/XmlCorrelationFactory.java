@@ -2,10 +2,9 @@ package org.jeesl.factory.xml.module.survey;
 
 import org.jeesl.interfaces.model.module.survey.correlation.JeeslSurveyCorrelation;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.model.xml.module.survey.Correlation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.xml.survey.Correlation;
 
 public class XmlCorrelationFactory<CORRELATION extends JeeslSurveyCorrelation<?>>
 {

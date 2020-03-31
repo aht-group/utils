@@ -1,10 +1,9 @@
 package org.jeesl.factory.xml.module.survey;
 
+import org.jeesl.model.xml.module.survey.Survey;
+import org.jeesl.model.xml.module.survey.Surveys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.xml.survey.Survey;
-import net.sf.ahtutils.xml.survey.Surveys;
 
 public class XmlSurveysFactory
 {

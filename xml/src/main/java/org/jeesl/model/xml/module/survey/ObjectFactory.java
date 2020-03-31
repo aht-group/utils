@@ -1,5 +1,5 @@
 
-package net.sf.ahtutils.xml.survey;
+package org.jeesl.model.xml.module.survey;
 
 import javax.xml.bind.annotation.XmlRegistry;
 

@@ -1,5 +1,5 @@
 
-package net.sf.ahtutils.xml.survey;
+package org.jeesl.model.xml.module.survey;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element ref="{http://ahtutils.aht-group.com/survey}option" maxOccurs="unbounded"/&gt;
+ *         &lt;element ref="{http://ahtutils.aht-group.com/survey}survey" maxOccurs="unbounded"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -32,52 +32,52 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "option"
+    "survey"
 })
-@XmlRootElement(name = "options")
-public class Options
+@XmlRootElement(name = "surveys")
+public class Surveys
     implements Serializable
 {
 
     private final static long serialVersionUID = 1L;
     @XmlElement(required = true)
-    protected List<Option> option;
+    protected List<Survey> survey;
 
     /**
-     * Gets the value of the option property.
+     * Gets the value of the survey property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the option property.
+     * This is why there is not a <CODE>set</CODE> method for the survey property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getOption().add(newItem);
+     *    getSurvey().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Option }
+     * {@link Survey }
      * 
      * 
      */
-    public List<Option> getOption() {
-        if (option == null) {
-            option = new ArrayList<Option>();
+    public List<Survey> getSurvey() {
+        if (survey == null) {
+            survey = new ArrayList<Survey>();
         }
-        return this.option;
+        return this.survey;
     }
 
-    public boolean isSetOption() {
-        return ((this.option!= null)&&(!this.option.isEmpty()));
+    public boolean isSetSurvey() {
+        return ((this.survey!= null)&&(!this.survey.isEmpty()));
     }
 
-    public void unsetOption() {
-        this.option = null;
+    public void unsetSurvey() {
+        this.survey = null;
     }
 
 }

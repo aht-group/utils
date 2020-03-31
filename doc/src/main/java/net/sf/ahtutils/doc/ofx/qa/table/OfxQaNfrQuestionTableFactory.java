@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.configuration.Configuration;
 import org.jeesl.doc.ofx.OfxMultiLangFactory;
 import org.jeesl.model.xml.jeesl.Container;
+import org.jeesl.model.xml.module.survey.Question;
 import org.jeesl.util.query.xpath.StatusXpath;
 import org.openfuxml.content.table.Body;
 import org.openfuxml.content.table.Columns;
@@ -26,7 +27,6 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.doc.ofx.AbstractUtilsOfxDocumentationFactory;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Translations;
-import net.sf.ahtutils.xml.survey.Question;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 
@@ -50,7 +50,7 @@ public class OfxQaNfrQuestionTableFactory extends AbstractUtilsOfxDocumentationF
 		headerKeys.add("auTableQaNfrUnit");
 	}
 	
-	public Table build(net.sf.ahtutils.xml.survey.Section mainSection, net.sf.ahtutils.xml.survey.Section subSection) throws OfxAuthoringException
+	public Table build(org.jeesl.model.xml.module.survey.Section mainSection, org.jeesl.model.xml.module.survey.Section subSection) throws OfxAuthoringException
 	{
 		try
 		{	
@@ -66,7 +66,7 @@ public class OfxQaNfrQuestionTableFactory extends AbstractUtilsOfxDocumentationF
 		catch (ExlpXpathNotUniqueException e) {throw new OfxAuthoringException(e.getMessage());}
 	}
 	
-	public Table toOfx(net.sf.ahtutils.xml.survey.Section section)
+	public Table toOfx(org.jeesl.model.xml.module.survey.Section section)
 	{
 		Table table = new Table();
 		table.setSpecification(createSpecifications());
@@ -87,7 +87,7 @@ public class OfxQaNfrQuestionTableFactory extends AbstractUtilsOfxDocumentationF
 		return spec;
 	}
 	
-	private Content createContent(net.sf.ahtutils.xml.survey.Section section)
+	private Content createContent(org.jeesl.model.xml.module.survey.Section section)
 	{
 		Head head = new Head();
 		head.getRow().add(createHeaderRow(headerKeys));

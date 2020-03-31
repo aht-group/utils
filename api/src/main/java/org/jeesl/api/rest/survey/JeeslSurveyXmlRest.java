@@ -6,7 +6,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import net.sf.ahtutils.xml.survey.Survey;
+import org.jeesl.model.xml.module.survey.Survey;
 
 public interface JeeslSurveyXmlRest
 {

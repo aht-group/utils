@@ -18,23 +18,23 @@ import org.jeesl.factory.xml.system.status.XmlCategoryFactory;
 import org.jeesl.factory.xml.system.status.XmlStatusFactory;
 import org.jeesl.factory.xml.system.util.text.XmlRemarkFactory;
 import org.jeesl.model.xml.jeesl.QuerySurvey;
+import org.jeesl.model.xml.module.survey.Answer;
+import org.jeesl.model.xml.module.survey.Cell;
+import org.jeesl.model.xml.module.survey.Column;
+import org.jeesl.model.xml.module.survey.Data;
+import org.jeesl.model.xml.module.survey.Matrix;
+import org.jeesl.model.xml.module.survey.Option;
+import org.jeesl.model.xml.module.survey.Options;
+import org.jeesl.model.xml.module.survey.Question;
+import org.jeesl.model.xml.module.survey.Row;
+import org.jeesl.model.xml.module.survey.Score;
+import org.jeesl.model.xml.module.survey.Section;
+import org.jeesl.model.xml.module.survey.Survey;
+import org.jeesl.model.xml.module.survey.Surveys;
+import org.jeesl.model.xml.module.survey.Template;
 
 import net.sf.ahtutils.factory.xml.status.XmlUnitFactory;
 import net.sf.ahtutils.xml.aht.Query;
-import net.sf.ahtutils.xml.survey.Answer;
-import net.sf.ahtutils.xml.survey.Cell;
-import net.sf.ahtutils.xml.survey.Column;
-import net.sf.ahtutils.xml.survey.Data;
-import net.sf.ahtutils.xml.survey.Matrix;
-import net.sf.ahtutils.xml.survey.Option;
-import net.sf.ahtutils.xml.survey.Options;
-import net.sf.ahtutils.xml.survey.Question;
-import net.sf.ahtutils.xml.survey.Row;
-import net.sf.ahtutils.xml.survey.Score;
-import net.sf.ahtutils.xml.survey.Section;
-import net.sf.ahtutils.xml.survey.Survey;
-import net.sf.ahtutils.xml.survey.Surveys;
-import net.sf.ahtutils.xml.survey.Template;
 import net.sf.exlp.util.DateUtil;
 
 public class XmlSurveyQuery

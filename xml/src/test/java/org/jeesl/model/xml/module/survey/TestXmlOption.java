@@ -4,8 +4,6 @@ import org.jeesl.JeeslXmlTestBootstrap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.xml.survey.Option;
-
 public class TestXmlOption extends AbstractXmlSurveyTest<Option>
 {
 	final static Logger logger = LoggerFactory.getLogger(TestXmlOption.class);

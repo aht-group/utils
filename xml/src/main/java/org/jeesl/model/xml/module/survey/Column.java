@@ -1,10 +1,11 @@
 
-package net.sf.ahtutils.xml.survey;
+package org.jeesl.model.xml.module.survey;
 
 import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -19,9 +20,9 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
+ *         &lt;element ref="{http://ahtutils.aht-group.com/survey}cell"/&gt;
  *       &lt;/sequence&gt;
- *       &lt;attribute name="min" type="{http://www.w3.org/2001/XMLSchema}double" /&gt;
- *       &lt;attribute name="max" type="{http://www.w3.org/2001/XMLSchema}double" /&gt;
+ *       &lt;attribute name="label" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -30,80 +31,74 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "")
-@XmlRootElement(name = "score")
-public class Score
+@XmlType(name = "", propOrder = {
+    "cell"
+})
+@XmlRootElement(name = "column")
+public class Column
     implements Serializable
 {
 
     private final static long serialVersionUID = 1L;
-    @XmlAttribute(name = "min")
-    protected Double min;
-    @XmlAttribute(name = "max")
-    protected Double max;
+    @XmlElement(required = true)
+    protected Cell cell;
+    @XmlAttribute(name = "label")
+    protected String label;
 
     /**
-     * Gets the value of the min property.
+     * Gets the value of the cell property.
      * 
      * @return
      *     possible object is
-     *     {@link Double }
+     *     {@link Cell }
      *     
      */
-    public double getMin() {
-        return min;
+    public Cell getCell() {
+        return cell;
     }
 
     /**
-     * Sets the value of the min property.
+     * Sets the value of the cell property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Double }
+     *     {@link Cell }
      *     
      */
-    public void setMin(double value) {
-        this.min = value;
+    public void setCell(Cell value) {
+        this.cell = value;
     }
 
-    public boolean isSetMin() {
-        return (this.min!= null);
-    }
-
-    public void unsetMin() {
-        this.min = null;
+    public boolean isSetCell() {
+        return (this.cell!= null);
     }
 
     /**
-     * Gets the value of the max property.
+     * Gets the value of the label property.
      * 
      * @return
      *     possible object is
-     *     {@link Double }
+     *     {@link String }
      *     
      */
-    public double getMax() {
-        return max;
+    public String getLabel() {
+        return label;
     }
 
     /**
-     * Sets the value of the max property.
+     * Sets the value of the label property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Double }
+     *     {@link String }
      *     
      */
-    public void setMax(double value) {
-        this.max = value;
+    public void setLabel(String value) {
+        this.label = value;
     }
 
-    public boolean isSetMax() {
-        return (this.max!= null);
-    }
-
-    public void unsetMax() {
-        this.max = null;
+    public boolean isSetLabel() {
+        return (this.label!= null);
     }
 
 }

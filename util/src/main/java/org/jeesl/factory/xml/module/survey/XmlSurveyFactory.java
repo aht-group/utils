@@ -24,11 +24,11 @@ import org.jeesl.interfaces.model.module.survey.question.JeeslSurveySection;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.model.xml.module.survey.Data;
+import org.jeesl.model.xml.module.survey.Survey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.xml.survey.Data;
-import net.sf.ahtutils.xml.survey.Survey;
 import net.sf.exlp.util.DateUtil;
 
 public class XmlSurveyFactory<L extends JeeslLang,D extends JeeslDescription,
