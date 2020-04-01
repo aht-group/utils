@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.module.hd.msg;
+package org.jeesl.interfaces.model.module.hd.resolution;
 
 import java.io.Serializable;
 
@@ -12,11 +12,11 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatusFixedCode;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
 
-public interface JeeslHdMsgScope <L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<S,L,D>, G extends JeeslGraphic<L,D,?,?,?>>
+public interface JeeslHdScope <L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<S,L,D>, G extends JeeslGraphic<L,D,?,?,?>>
 									extends Serializable,EjbPersistable,
 										EjbWithCode,JeeslStatusFixedCode,
 										JeeslOptionRestDownload,EjbWithCodeGraphic<G>,
 										JeeslStatus<S,L,D>
 {
-public static enum Code{user,suppport};
+	public static enum Code{user,suppport};
 }

@@ -28,7 +28,7 @@
     		<s:lang key="fr" translation="Subject"/>
     	</s:langs>
     </s:translation>
-	<s:translation key="jeeslHdTicketCategory">
+	<s:translation key="jeeslHdCategory">
     	<s:langs>
     		<s:lang key="de" translation="Kategorie"/>
     		<s:lang key="en" translation="Category"/>
@@ -69,7 +69,15 @@
     		<s:lang key="en" translation="Level"/>
     		<s:lang key="fr" translation="Level"/>
     	</s:langs>
-    </s:translation>   
+    </s:translation>
+	<s:translation key="jeeslHdScope">
+    	<s:langs>
+    		<s:lang key="de" translation="Geltungsbereich"/>
+    		<s:lang key="en" translation="Scope"/>
+    		<s:lang key="fr" translation="Scope"/>
+    	</s:langs>
+    </s:translation>
+      
  	<s:translation key="jeeslHdReporter">
     	<s:langs>
     		<s:lang key="de" translation="Reporter"/>
@@ -103,6 +111,27 @@
     		<s:lang key="de" translation="Änderung"/>
     		<s:lang key="en" translation="Change"/>
     		<s:lang key="fr" translation="Change"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslHdFaqs">
+    	<s:langs>
+    		<s:lang key="de" translation="Frequently Asked Questions"/>
+    		<s:lang key="en" translation="Häufig gestellte Fragen"/>
+    		<s:lang key="fr" translation="Frequently Asked Questions"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslHdFaqTopic">
+    	<s:langs>
+    		<s:lang key="de" translation="Thema"/>
+    		<s:lang key="en" translation="Topic"/>
+    		<s:lang key="fr" translation="Topic"/>
+    	</s:langs>
+    </s:translation>
+     <s:translation key="jeeslHdFaqInternalComment">
+    	<s:langs>
+    		<s:lang key="de" translation="Interner Helpdesk Kommentar"/>
+    		<s:lang key="en" translation="Internal Helpdesk Comment"/>
+    		<s:lang key="fr" translation="Internal Helpdesk Comment"/>
     	</s:langs>
     </s:translation>
 </s:translations>

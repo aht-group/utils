@@ -23,14 +23,13 @@ public class EjbHdEventFactory<TICKET extends JeeslHdTicket<?,EVENT,?>,
 								TYPE extends JeeslHdEventType<?,?,TYPE,?>,
 								LEVEL extends JeeslHdLevel<?,?,?,LEVEL,?>,
 								PRIORITY extends JeeslHdPriority<?,?,?,PRIORITY,?>,
-								FAQ extends JeeslHdFaq<?,?,?,CAT>,
 								USER extends JeeslSimpleUser>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbHdEventFactory.class);
 	
-	private final HdFactoryBuilder<?,?,?,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,?,?,FAQ,USER> fbHd;
+	private final HdFactoryBuilder<?,?,?,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,?,?,?,?,USER> fbHd;
 	
-    public EjbHdEventFactory(HdFactoryBuilder<?,?,?,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,?,?,FAQ,USER> fbHd)
+    public EjbHdEventFactory(HdFactoryBuilder<?,?,?,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,?,?,?,?,USER> fbHd)
     {
         this.fbHd = fbHd;
     }

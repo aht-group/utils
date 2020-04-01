@@ -528,7 +528,7 @@ public class JeeslFacadeBean implements JeeslFacade
 	}
 	
 	// MCS
-	@Override public <T extends EjbWithId, REALM extends JeeslMcsRealm<?,?,?,?>, RREF extends EjbWithId> List<T> all(Class<T> c, REALM realm, RREF rref)
+	@Override public <T extends JeeslWithMultiClientSupport<REALM>, REALM extends JeeslMcsRealm<?,?,REALM,?>, RREF extends EjbWithId> List<T> all(Class<T> c, REALM realm, RREF rref)
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<T> cQ = cB.createQuery(c);

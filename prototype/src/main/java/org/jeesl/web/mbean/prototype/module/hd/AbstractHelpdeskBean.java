@@ -16,6 +16,7 @@ import org.jeesl.interfaces.model.module.hd.event.JeeslHdEventType;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdFaq;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdLevel;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdPriority;
+import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdScope;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicket;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketCategory;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketStatus;
@@ -43,7 +44,8 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 								PRIORITY extends JeeslHdPriority<L,D,R,PRIORITY,?>,
 								M extends JeeslMarkup<MT>,
 								MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
-								FAQ extends JeeslHdFaq<L,D,R,CAT>,
+								FAQ extends JeeslHdFaq<L,D,R,CAT,SCOPE>,
+								SCOPE extends JeeslHdScope<L,D,SCOPE,?>,
 								USER extends JeeslSimpleUser
 								>
 					extends AbstractAdminBean<L,D,LOC>
@@ -52,13 +54,14 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractHelpdeskBean.class);
 	
-	protected final HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,USER> fbHd;
+	protected final HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,USER> fbHd;
 
-	protected JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,USER> fHd;
+	protected JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,USER> fHd;
 	
 	protected final SbMultiHandler<STATUS> sbhStatus; public SbMultiHandler<STATUS> getSbhStatus() {return sbhStatus;}
+	protected final SbMultiHandler<CAT> sbhCategory; public SbMultiHandler<CAT> getSbhCategory() {return sbhCategory;}
+	protected final SbMultiHandler<SCOPE> sbhScope; public SbMultiHandler<SCOPE> getSbhScope() {return sbhScope;}
 	
-	protected final List<CAT> categories; public List<CAT> getCategories() {return categories;}
 	protected final List<LEVEL> levels; public List<LEVEL> getLevels() {return levels;}
 	protected final List<PRIORITY> priorities; public List<PRIORITY> getPriorities() {return priorities;}
 	
@@ -71,14 +74,15 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 	protected EVENT lastEvent; public EVENT getLastEvent() {return lastEvent;} public void setLastEvent(EVENT lastEvent) {this.lastEvent = lastEvent;}
 
 	
-	public AbstractHelpdeskBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,USER> fbHd)
+	public AbstractHelpdeskBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,USER> fbHd)
 	{
 		super(fbHd.getClassL(),fbHd.getClassD());
 		this.fbHd=fbHd;
 		
 		sbhStatus = new SbMultiHandler<>(fbHd.getClassTicketStatus(),this);
+		sbhCategory = new SbMultiHandler<>(fbHd.getClassCategory(),this);
+		sbhScope = new SbMultiHandler<>(fbHd.getClassScope(),this);
 		
-		categories = new ArrayList<>();
 		levels = new ArrayList<>();
 		priorities = new ArrayList<>();
 		
@@ -86,7 +90,7 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 	}
 
 	protected void postConstructHd(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,USER> fHd,
+									JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,USER> fHd,
 									R realm)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
@@ -98,15 +102,18 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 	{
 		this.rref=rref;
 		
-		categories.addAll(fHd.all(fbHd.getClassCategory(),realm,rref));
-		levels.addAll(fHd.all(fbHd.getClassLevel(),realm,rref));
-		priorities.addAll(fHd.all(fbHd.getClassPriority(),realm,rref));
-		
 		sbhStatus.setList(fHd.all(fbHd.getClassTicketStatus(),realm,rref));
 		
+		sbhCategory.setList(fHd.all(fbHd.getClassCategory(),realm,rref));
+		sbhCategory.selectAll();
+		
+		sbhScope.setList(fHd.all(fbHd.getClassScope()));
+		sbhScope.selectAll();
+		
+		levels.addAll(fHd.all(fbHd.getClassLevel(),realm,rref));
+		priorities.addAll(fHd.all(fbHd.getClassPriority(),realm,rref));
+	
 		updatedRealmReference();
-		
-		
 	}
 	protected abstract void updatedRealmReference();
 	

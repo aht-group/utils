@@ -16,6 +16,7 @@ import org.jeesl.interfaces.model.module.hd.event.JeeslHdEventType;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdFaq;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdLevel;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdPriority;
+import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdScope;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicket;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketCategory;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketStatus;
@@ -43,10 +44,11 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 								PRIORITY extends JeeslHdPriority<L,D,R,PRIORITY,?>,
 								M extends JeeslMarkup<MT>,
 								MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
-								FAQ extends JeeslHdFaq<L,D,R,CAT>,
+								FAQ extends JeeslHdFaq<L,D,R,CAT,SCOPE>,
+								SCOPE extends JeeslHdScope<L,D,SCOPE,?>,
 								USER extends JeeslSimpleUser
 								>
-					extends AbstractHelpdeskBean<L,D,LOC,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,USER>
+					extends AbstractHelpdeskBean<L,D,LOC,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,USER>
 					implements Serializable//,SbSingleBean
 {
 	private static final long serialVersionUID = 1L;
@@ -56,7 +58,7 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		
 	private USER reporter;
 	
-	public AbstractHdTicketBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,USER> fbHd)
+	public AbstractHdTicketBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,USER> fbHd)
 	{
 		super(fbHd);
 		
@@ -64,7 +66,7 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 	}
 
 	protected void postConstructHdTicket(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,USER> fHd,
+									JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,USER> fHd,
 									R realm,
 									USER reporter)
 	{
@@ -104,8 +106,8 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		MT type = fHd.fByEnum(fbHd.getClassMarkupType(),JeeslIoCmsMarkupType.Code.xhtml);
 		ticket = fbHd.ejbTicket().build(realm,rref,type);
 		PRIORITY priority = getDefaultPriority();
-		firstEvent = fbHd.ejbEvent().build(ticket,categories.get(0),sbhStatus.getList().get(0),levels.get(0),priority,reporter);
-		lastEvent = fbHd.ejbEvent().build(ticket,categories.get(0),sbhStatus.getList().get(0),levels.get(0),priority,reporter);
+		firstEvent = fbHd.ejbEvent().build(ticket,sbhCategory.getList().get(0),sbhStatus.getList().get(0),levels.get(0),priority,reporter);
+		lastEvent = fbHd.ejbEvent().build(ticket,sbhCategory.getList().get(0),sbhStatus.getList().get(0),levels.get(0),priority,reporter);
 		editHandler.update(ticket);
 	}
 	private PRIORITY getDefaultPriority()

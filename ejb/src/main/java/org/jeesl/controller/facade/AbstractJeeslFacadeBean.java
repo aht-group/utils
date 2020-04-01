@@ -22,6 +22,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
+import org.jeesl.interfaces.model.system.mcs.JeeslWithMultiClientSupport;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.parent.EjbWithValidFromAndParent;
 import org.jeesl.interfaces.model.with.parent.JeeslWithParentAttributeStatus;
@@ -143,7 +144,7 @@ public class AbstractJeeslFacadeBean implements JeeslFacade
 	public <T, I extends EjbWithId> List<T> allOrderedParent(Class<T> cl,String by, boolean ascending, String p1Name, I p1) {return fJeesl.allOrderedParent(cl, by, ascending, p1Name, p1);}
 	
 	// MCS
-	@Override public <T extends EjbWithId, REALM extends JeeslMcsRealm<?,?,?,?>, RREF extends EjbWithId> List<T> all(Class<T> c, REALM realm, RREF rref){return fJeesl.all(c,realm,rref);}
+	@Override public <T extends JeeslWithMultiClientSupport<REALM>, REALM extends JeeslMcsRealm<?,?,REALM,?>, RREF extends EjbWithId> List<T> all(Class<T> c, REALM realm, RREF rref){return fJeesl.all(c,realm,rref);}
 	@Override public <T extends EjbWithNonUniqueCode, REALM extends JeeslMcsRealm<?, ?, ?, ?>, RREF extends EjbWithId, E extends Enum<E>> T fByEnum(Class<T> c, REALM realm, RREF rref, E code) {return fJeesl.fByEnum(c,realm,rref,code);}
 	@Override public <T extends EjbWithNonUniqueCode, REALM extends JeeslMcsRealm<?, ?, ?, ?>, RREF extends EjbWithId> T fByCode(Class<T> c, REALM realm, RREF rref, String code) throws JeeslNotFoundException {return fJeesl.fByCode(c,realm,rref,code);}
 	

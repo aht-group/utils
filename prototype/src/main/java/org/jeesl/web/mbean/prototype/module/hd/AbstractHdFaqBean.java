@@ -2,7 +2,6 @@ package org.jeesl.web.mbean.prototype.module.hd;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
@@ -28,13 +27,12 @@ import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
-import org.jeesl.interfaces.util.query.module.EjbHelpdeskQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
+public abstract class AbstractHdFaqBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 								R extends JeeslMcsRealm<L,D,R,?>, RREF extends EjbWithId,
 								TICKET extends JeeslHdTicket<R,EVENT,M>,
 								CAT extends JeeslHdTicketCategory<L,D,R,CAT,?>,
@@ -53,74 +51,75 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 					implements Serializable//,SbSingleBean
 {
 	private static final long serialVersionUID = 1L;
-	final static Logger logger = LoggerFactory.getLogger(AbstractHdSupportBean.class);
+	final static Logger logger = LoggerFactory.getLogger(AbstractHdFaqBean.class);
+		
+	protected final List<FAQ> faqs; public List<FAQ> getFaqs() {return faqs;}
 	
-	protected final List<EVENT> events;  public List<EVENT> getEvents() {return events;}
-	
-	protected final List<USER> supporters;  public List<USER> getSupporters() {return supporters;}
-	
-	private USER supporter;
-	
-	public AbstractHdSupportBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,USER> fbHd)
+	protected FAQ faq; public FAQ getFaq() {return faq;} public void setFaq(FAQ faq) {this.faq = faq;}
+
+	public AbstractHdFaqBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,USER> fbHd)
 	{
 		super(fbHd);
 		
-		events = new ArrayList<>();
-		supporters = new ArrayList<>();
+		faqs = new ArrayList<>();
 	}
 
-	protected void postConstructHdSupport(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
+	protected void postConstructHdFaq(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
 									JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,USER> fHd,
-									R realm,
-									USER supporter)
+									R realm)
 	{
 		super.postConstructHd(bTranslation,bMessage,fHd,realm);
-
-		this.supporter=supporter;
 	}
+	
+	public void selectedTicket() {} // Dummy Implementation
 	
 	@Override protected void updatedRealmReference()
 	{
-		preSelectSbh();
-		reloadSupporters();
-		reloadTickets();
+		reloadFaqs();
 	}
-	protected abstract void preSelectSbh();
-	protected abstract void reloadSupporters();
 	
 	@Override public void toggled(Class<?> c) throws JeeslLockingException, JeeslConstraintViolationException
 	{
-		reloadTickets();
+
 	}
 	
-	private void reloadTickets()
+	private void reset(boolean rFaq)
 	{
-		EjbHelpdeskQuery<L,D,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,USER> query = EjbHelpdeskQuery.build();
-		if(sbhStatus.hasSelected()) {query.addStatus(sbhStatus.getSelected());} else {query.nullStatus();}
-		
-		tickets.clear();
-		tickets.addAll(fHd.fHdTickets(query));
+		if(rFaq) {faq=null;}
 	}
 	
-	public void selectedTicket()
-	{
-		reloadEvents();
+	private void reloadFaqs()
+	{	
+		faqs.clear();
+		faqs.addAll(fHd.all(fbHd.getClassFaq(),realm,rref));
 	}
 	
-	private void reloadEvents()
+	public void selectFaq()
 	{
-		events.clear();
-		events.addAll(fHd.allForParent(fbHd.getClassEvent(),ticket));
-		Collections.reverse(events);
-		logger.info(AbstractLogMessage.reloaded(fbHd.getClassEvent(),events));
+		logger.info(AbstractLogMessage.selectEntity(faq));
+		faq = efLang.persistMissingLangs(fHd,bTranslation.getLocales(),faq);
+		faq = efDescription.persistMissingLangs(fHd,bTranslation.getLocales(),faq);
 	}
 	
-	public void saveTicket() throws JeeslConstraintViolationException, JeeslLockingException
+	public void addFaq()
 	{
-		fbHd.ejbEvent().converter(fHd,lastEvent);
-		ticket = fHd.saveHdTicket(ticket,lastEvent,supporter);
-		lastEvent = ticket.getLastEvent();
-		reloadTickets();
-		reloadEvents();
+		logger.info(AbstractLogMessage.addEntity(fbHd.getClassFaq()));
+		faq = fbHd.ejbFaq().build(realm,rref,sbhCategory.getList().get(0),sbhScope.getList().get(0));
+		faq.setName(efLang.createEmpty(bTranslation.getLocales()));
+		faq.setDescription(efDescription.createEmpty(bTranslation.getLocales()));
+	}
+	
+	public void saveFaq() throws JeeslConstraintViolationException, JeeslLockingException
+	{
+		fbHd.ejbFaq().converter(fHd,faq);
+		faq = fHd.save(faq);
+		reloadFaqs();
+	}
+	
+	public void deleteFaq() throws JeeslConstraintViolationException, JeeslLockingException
+	{
+		fHd.rm(faq);
+		reset(true);
+		reloadFaqs();
 	}
 }
