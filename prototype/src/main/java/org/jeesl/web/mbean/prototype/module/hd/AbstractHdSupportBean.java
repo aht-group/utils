@@ -12,6 +12,7 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.HdFactoryBuilder;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
+import org.jeesl.interfaces.model.io.cms.JeeslIoCmsSection;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEvent;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEventType;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdFaq;
@@ -47,9 +48,10 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 								MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
 								FAQ extends JeeslHdFaq<L,D,R,CAT,SCOPE>,
 								SCOPE extends JeeslHdScope<L,D,SCOPE,?>,
+								SEC extends JeeslIoCmsSection<L,SEC>,
 								USER extends JeeslSimpleUser
 								>
-					extends AbstractHelpdeskBean<L,D,LOC,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,USER>
+					extends AbstractHelpdeskBean<L,D,LOC,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,SEC,USER>
 					implements Serializable//,SbSingleBean
 {
 	private static final long serialVersionUID = 1L;
