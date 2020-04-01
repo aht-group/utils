@@ -14,6 +14,7 @@ import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.io.fr.JeeslFileMeta;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.content.ofx.Sections;
@@ -23,7 +24,7 @@ import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractOfxCmsFactory <L extends JeeslLang,D extends JeeslDescription,
+public abstract class AbstractOfxCmsFactory <L extends JeeslLang, D extends JeeslDescription,
 								CAT extends JeeslIoCmsCategory<L,D,CAT,?>,
 								CMS extends JeeslIoCms<L,D,CAT,S,LOC>,
 								V extends JeeslIoCmsVisiblity,
@@ -35,7 +36,7 @@ public abstract class AbstractOfxCmsFactory <L extends JeeslLang,D extends Jeesl
 								MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
 								FC extends JeeslFileContainer<?,?>,
 								FM extends JeeslFileMeta<D,FC,?,?>,
-								LOC extends JeeslStatus<LOC,L,D>>
+								LOC extends JeeslLocale<L,D,LOC,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractOfxCmsFactory.class);
 	

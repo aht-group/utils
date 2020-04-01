@@ -115,8 +115,8 @@
     </s:translation>
     <s:translation key="jeeslHdFaqs">
     	<s:langs>
-    		<s:lang key="de" translation="Frequently Asked Questions"/>
-    		<s:lang key="en" translation="Häufig gestellte Fragen"/>
+    		<s:lang key="de" translation="Häufig gestellte Fragen"/>
+    		<s:lang key="en" translation="Frequently Asked Questions"/>
     		<s:lang key="fr" translation="Frequently Asked Questions"/>
     	</s:langs>
     </s:translation>
@@ -127,11 +127,26 @@
     		<s:lang key="fr" translation="Topic"/>
     	</s:langs>
     </s:translation>
-     <s:translation key="jeeslHdFaqInternalComment">
+	<s:translation key="jeeslHdFaqInternalComment">
     	<s:langs>
     		<s:lang key="de" translation="Interner Helpdesk Kommentar"/>
     		<s:lang key="en" translation="Internal Helpdesk Comment"/>
     		<s:lang key="fr" translation="Internal Helpdesk Comment"/>
     	</s:langs>
     </s:translation>
+	<s:translation key="jeeslHdFgas">
+    	<s:langs>
+    		<s:lang key="de" translation="Häufig gegebene Anworten"/>
+    		<s:lang key="en" translation="Frequently Given Answers"/>
+    		<s:lang key="fr" translation="Frequently Given Answers"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslHdFga">
+    	<s:langs>
+    		<s:lang key="de" translation="Anwort"/>
+    		<s:lang key="en" translation="Answer"/>
+    		<s:lang key="fr" translation="Answer"/>
+    	</s:langs>
+    </s:translation>   
+    
 </s:translations>

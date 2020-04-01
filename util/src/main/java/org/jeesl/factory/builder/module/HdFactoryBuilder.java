@@ -3,6 +3,7 @@ package org.jeesl.factory.builder.module;
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
 import org.jeesl.factory.ejb.module.hd.EjbHdEventFactory;
 import org.jeesl.factory.ejb.module.hd.EjbHdFaqFactory;
+import org.jeesl.factory.ejb.module.hd.EjbHdFgaFactory;
 import org.jeesl.factory.ejb.module.hd.EjbHdTicketFactory;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsSection;
@@ -57,6 +58,7 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 	private final Class<MT> cMarkupType; public Class<MT> getClassMarkupType() {return cMarkupType;}
 	private final Class<FAQ> cFaq; public Class<FAQ> getClassFaq() {return cFaq;}
 	private final Class<SCOPE> cScope; public Class<SCOPE> getClassScope() {return cScope;}
+	private final Class<FGA> cFga;public Class<FGA> getClassFga() {return cFga;}
 	
 	private final Class<USER> cUser; public Class<USER> getClassUser() {return cUser;}
 
@@ -72,6 +74,7 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 								final Class<MT> cMarkupType,
 								final Class<FAQ> cFaq,
 								final Class<SCOPE> cScope,
+								final Class<FGA> cFga,
 								final Class<USER> cUser)
 	{       
 		super(cL,cD);
@@ -86,10 +89,12 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 		this.cMarkupType=cMarkupType;
 		this.cFaq=cFaq;
 		this.cScope=cScope;
+		this.cFga=cFga;
 		this.cUser=cUser;
 	}
 
 	public EjbHdTicketFactory<R,TICKET,M,MT> ejbTicket() {return new EjbHdTicketFactory<>(cTicket,cMarkup);}
 	public EjbHdEventFactory<TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,USER> ejbEvent() {return new EjbHdEventFactory<>(this);}
 	public EjbHdFaqFactory<R,CAT,FAQ,SCOPE> ejbFaq() {return new EjbHdFaqFactory<>(this);}
+	public EjbHdFgaFactory<FAQ,FGA,SEC> ejbFga() {return new EjbHdFgaFactory<>(this);}
 }

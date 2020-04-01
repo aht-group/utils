@@ -21,11 +21,12 @@ import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.io.fr.JeeslFileMeta;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class JeeslIoCmsFacadeBean<L extends JeeslLang,D extends JeeslDescription,
+public class JeeslIoCmsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 									CAT extends JeeslIoCmsCategory<L,D,CAT,?>,
 									CMS extends JeeslIoCms<L,D,CAT,S,LOC>,
 									V extends JeeslIoCmsVisiblity,
@@ -37,7 +38,7 @@ public class JeeslIoCmsFacadeBean<L extends JeeslLang,D extends JeeslDescription
 									MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
 									FC extends JeeslFileContainer<?,FM>,
 									FM extends JeeslFileMeta<D,FC,?,?>,
-									LOC extends JeeslStatus<LOC,L,D>>
+									LOC extends JeeslLocale<L,D,LOC,?>>
 					extends JeeslFacadeBean
 					implements JeeslIoCmsFacade<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM>
 {	

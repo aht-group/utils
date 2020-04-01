@@ -16,9 +16,10 @@ import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.io.fr.JeeslFileMeta;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
-public interface JeeslIoCmsFacade <L extends JeeslLang,D extends JeeslDescription,LOC extends JeeslStatus<LOC,L,D>,
+public interface JeeslIoCmsFacade <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 									CAT extends JeeslIoCmsCategory<L,D,CAT,?>,
 									CMS extends JeeslIoCms<L,D,CAT,S,LOC>,
 									V extends JeeslIoCmsVisiblity,
