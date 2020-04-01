@@ -62,7 +62,7 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		
 	private USER reporter;
 	
-	public AbstractHdTicketBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,USER> fbHd)
+	public AbstractHdTicketBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,FGA,SEC,USER> fbHd)
 	{
 		super(fbHd);
 		
@@ -70,7 +70,7 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 	}
 
 	protected void postConstructHdTicket(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,USER> fHd,
+									JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,FGA,SEC,USER> fHd,
 									R realm,
 									USER reporter)
 	{

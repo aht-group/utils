@@ -61,7 +61,7 @@ public abstract class AbstractHdFaqBean <L extends JeeslLang, D extends JeeslDes
 	
 	protected FAQ faq; public FAQ getFaq() {return faq;} public void setFaq(FAQ faq) {this.faq = faq;}
 
-	public AbstractHdFaqBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,USER> fbHd)
+	public AbstractHdFaqBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,FGA,SEC,USER> fbHd)
 	{
 		super(fbHd);
 		
@@ -69,7 +69,7 @@ public abstract class AbstractHdFaqBean <L extends JeeslLang, D extends JeeslDes
 	}
 
 	protected void postConstructHdFaq(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,USER> fHd,
+									JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,FGA,SEC,USER> fHd,
 									R realm)
 	{
 		super.postConstructHd(bTranslation,bMessage,fHd,realm);

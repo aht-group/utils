@@ -17,9 +17,9 @@ public class EjbHdFaqFactory<R extends JeeslMcsRealm<?,?,R,?>,
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbHdFaqFactory.class);
 	
-	private final HdFactoryBuilder<?,?,R,?,CAT,?,?,?,?,?,?,?,FAQ,SCOPE,?> fbHd;
+	private final HdFactoryBuilder<?,?,R,?,CAT,?,?,?,?,?,?,?,FAQ,SCOPE,?,?,?> fbHd;
 
-    public EjbHdFaqFactory(HdFactoryBuilder<?,?,R,?,CAT,?,?,?,?,?,?,?,FAQ,SCOPE,?> fbHd)
+    public EjbHdFaqFactory(HdFactoryBuilder<?,?,R,?,CAT,?,?,?,?,?,?,?,FAQ,SCOPE,?,?,?> fbHd)
     {
         this.fbHd = fbHd;
     }

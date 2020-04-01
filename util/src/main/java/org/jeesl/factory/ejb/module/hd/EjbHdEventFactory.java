@@ -27,9 +27,9 @@ public class EjbHdEventFactory<TICKET extends JeeslHdTicket<?,EVENT,?>,
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbHdEventFactory.class);
 	
-	private final HdFactoryBuilder<?,?,?,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,?,?,?,?,USER> fbHd;
+	private final HdFactoryBuilder<?,?,?,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,?,?,?,?,?,?,USER> fbHd;
 	
-    public EjbHdEventFactory(HdFactoryBuilder<?,?,?,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,?,?,?,?,USER> fbHd)
+    public EjbHdEventFactory(HdFactoryBuilder<?,?,?,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,?,?,?,?,?,?,USER> fbHd)
     {
         this.fbHd = fbHd;
     }
