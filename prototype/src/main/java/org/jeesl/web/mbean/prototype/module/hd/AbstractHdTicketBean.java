@@ -15,6 +15,7 @@ import org.jeesl.interfaces.model.io.cms.JeeslIoCmsSection;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEvent;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEventType;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdFaq;
+import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdFga;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdLevel;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdPriority;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdScope;
@@ -47,10 +48,11 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 								MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
 								FAQ extends JeeslHdFaq<L,D,R,CAT,SCOPE>,
 								SCOPE extends JeeslHdScope<L,D,SCOPE,?>,
+								FGA extends JeeslHdFga<FAQ,SEC>,
 								SEC extends JeeslIoCmsSection<L,SEC>,
 								USER extends JeeslSimpleUser
 								>
-					extends AbstractHelpdeskBean<L,D,LOC,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,SEC,USER>
+					extends AbstractHelpdeskBean<L,D,LOC,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,FGA,SEC,USER>
 					implements Serializable//,SbSingleBean
 {
 	private static final long serialVersionUID = 1L;
