@@ -73,23 +73,8 @@ public class IoCmsFactoryBuilder<L extends JeeslLang, D extends JeeslDescription
 		this.cFileMeta=cFileMeta;
 	}
 	
-	public EjbIoCmsFactory<L,D,CAT,CMS,V,S,E,EC,ET,C,MT,LOC> ejbCms()
-	{
-		return new EjbIoCmsFactory<L,D,CAT,CMS,V,S,E,EC,ET,C,MT,LOC>(cCms);
-	}
-	
-	public EjbIoCmsSectionFactory<L,S,FM> ejbSection()
-	{
-		return new EjbIoCmsSectionFactory<L,S,FM>(cSection);
-	}
-	
-	public EjbIoCmsElementFactory<L,S,E> ejbElement()
-	{
-		return new EjbIoCmsElementFactory<L,S,E>(cElement);
-	}
-	
-	public EjbIoCmsContentFactory<LOC,E,C,MT> ejbContent()
-	{
-		return new EjbIoCmsContentFactory<LOC,E,C,MT>(cContent);
-	}
+	public EjbIoCmsFactory<L,D,CAT,CMS,V,S,E,EC,ET,C,MT,LOC> ejbCms() {return new EjbIoCmsFactory<>(cCms);}
+	public EjbIoCmsSectionFactory<L,S,FM> ejbSection() {return new EjbIoCmsSectionFactory<>(cSection);}
+	public EjbIoCmsElementFactory<L,S,E> ejbElement() {return new EjbIoCmsElementFactory<>(cElement);}
+	public EjbIoCmsContentFactory<LOC,E,C,MT> ejbContent() {return new EjbIoCmsContentFactory<>(cContent);}
 }

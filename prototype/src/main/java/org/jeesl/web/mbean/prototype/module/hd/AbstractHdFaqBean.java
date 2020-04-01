@@ -11,6 +11,7 @@ import org.jeesl.api.facade.module.JeeslHdFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.factory.builder.io.IoCmsFactoryBuilder;
 import org.jeesl.factory.builder.module.HdFactoryBuilder;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCms;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
@@ -61,6 +62,8 @@ public abstract class AbstractHdFaqBean <L extends JeeslLang, D extends JeeslDes
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractHdFaqBean.class);
 	
+	private final IoCmsFactoryBuilder<L,D,LOC,?,CMS,?,SEC,?,?,?,?,?,?,?> fbCms;
+	
 	private JeeslIoCmsFacade<L,D,LOC,?,CMS,?,SEC,?,?,?,?,?,?,?> fCms;
 	
 	private final List<FAQ> faqs; public List<FAQ> getFaqs() {return faqs;}
@@ -72,9 +75,11 @@ public abstract class AbstractHdFaqBean <L extends JeeslLang, D extends JeeslDes
 	private FGA fga; public FGA getFga() {return fga;} public void setFga(FGA fga) {this.fga = fga;}
 	private CMS document; public CMS getDocument() {return document;} public void setDocument(CMS document) {this.document = document;}
 	
-	public AbstractHdFaqBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,FGA,SEC,USER> fbHd)
+	public AbstractHdFaqBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,FGA,SEC,USER> fbHd,
+								IoCmsFactoryBuilder<L,D,LOC,?,CMS,?,SEC,?,?,?,?,?,?,?> fbCms)
 	{
 		super(fbHd);
+		this.fbCms=fbCms;
 		
 		faqs = new ArrayList<>();
 		fgas = new ArrayList<>();
@@ -106,11 +111,12 @@ public abstract class AbstractHdFaqBean <L extends JeeslLang, D extends JeeslDes
 
 	}
 	
-	private void reset(boolean rFaq, boolean rDoc, boolean rSections)
+	private void reset(boolean rFaq, boolean rDoc, boolean rSections, boolean rAnswer)
 	{
 		if(rFaq) {faq=null;}
 		if(rDoc) {document=null;}
 		if(rSections) {sections.clear();}
+		if(rAnswer) {fga=null;}
 	}
 	
 	private void reloadFaqs()
@@ -121,6 +127,7 @@ public abstract class AbstractHdFaqBean <L extends JeeslLang, D extends JeeslDes
 	
 	public void selectFaq()
 	{
+		reset(false,true,true,true);
 		logger.info(AbstractLogMessage.selectEntity(faq));
 		faq = efLang.persistMissingLangs(fHd,bTranslation.getLocales(),faq);
 		faq = efDescription.persistMissingLangs(fHd,bTranslation.getLocales(),faq);
@@ -146,7 +153,7 @@ public abstract class AbstractHdFaqBean <L extends JeeslLang, D extends JeeslDes
 	public void deleteFaq() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		fHd.rm(faq);
-		reset(true,true,true);
+		reset(true,true,true,true);
 		reloadFaqs();
 	}
 	
@@ -162,17 +169,25 @@ public abstract class AbstractHdFaqBean <L extends JeeslLang, D extends JeeslDes
 		fga = fbHd.ejbFga().build(faq,fgas);
 		
 		reloadSections();
-		
 	}
 	
 	private void reloadSections()
 	{
-		reset(false,false,true);
+		reset(false,false,true,false);
 		if(document==null && !documents.isEmpty()) {document = documents.get(0);}
 		if(document!=null)
 		{
 			SEC root = fCms.load(document.getRoot(),true);
+			sections.addAll(fbCms.ejbSection().toSections(root));
 		}	
+	}
+	
+	public void saveFga() throws JeeslConstraintViolationException, JeeslLockingException
+	{
+		logger.info(AbstractLogMessage.saveEntity(fga));
+		fbHd.ejbFga().converter(fHd,fga);
+		fga = fHd.save(fga);
+		reloadFgas();
 	}
 	
 }

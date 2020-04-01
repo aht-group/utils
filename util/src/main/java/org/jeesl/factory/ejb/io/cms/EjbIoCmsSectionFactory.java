@@ -59,4 +59,19 @@ public class EjbIoCmsSectionFactory <L extends JeeslLang,
 			toMeta(result,child);
 		}
 	}
+	
+	public List<S> toSections(S section)
+	{
+		List<S> sections = new ArrayList<S>();
+		for(S child : section.getSections()) {toSectionsRecursive(sections,child);}
+		return sections;
+	}
+	private void toSectionsRecursive(List<S> sections, S section)
+	{
+		sections.add(section);
+		if(!section.getSections().isEmpty())
+		{
+			for(S child : section.getSections()) {toSectionsRecursive(sections,child);}
+		}
+	}
 }

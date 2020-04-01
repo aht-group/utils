@@ -58,7 +58,8 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 	private final Class<MT> cMarkupType; public Class<MT> getClassMarkupType() {return cMarkupType;}
 	private final Class<FAQ> cFaq; public Class<FAQ> getClassFaq() {return cFaq;}
 	private final Class<SCOPE> cScope; public Class<SCOPE> getClassScope() {return cScope;}
-	private final Class<FGA> cFga;public Class<FGA> getClassFga() {return cFga;}
+	private final Class<FGA> cFga; public Class<FGA> getClassFga() {return cFga;}
+	private final Class<SEC> cSection; public Class<SEC> getClassSection() {return cSection;}
 	
 	private final Class<USER> cUser; public Class<USER> getClassUser() {return cUser;}
 
@@ -75,6 +76,7 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 								final Class<FAQ> cFaq,
 								final Class<SCOPE> cScope,
 								final Class<FGA> cFga,
+								final Class<SEC> cSection,
 								final Class<USER> cUser)
 	{       
 		super(cL,cD);
@@ -90,6 +92,7 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 		this.cFaq=cFaq;
 		this.cScope=cScope;
 		this.cFga=cFga;
+		this.cSection=cSection;
 		this.cUser=cUser;
 	}
 

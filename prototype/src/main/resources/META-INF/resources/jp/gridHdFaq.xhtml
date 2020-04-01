@@ -80,9 +80,14 @@
 					</f:facet>
 					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
 						
-						<p:outputLabel value="#{msg.jeeslHdCategory}"/>
+						<p:outputLabel value="#{msg.jeeslHdFgaDocument}"/>
 						<p:selectOneMenu value="#{cc.attrs.bean.document}" effect="fade" autoWidth="false">
                         	<f:selectItems value="#{cc.attrs.bean.documents}" var="d" itemLabel="#{d.name[localeCode].lang}" itemValue="#{d}"/>
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="#{msg.jeeslHdFgaSection}"/>
+						<p:selectOneMenu value="#{cc.attrs.bean.fga.section}" effect="fade" autoWidth="false">
+                        	<f:selectItems value="#{cc.attrs.bean.sections}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s}"/>
                         </p:selectOneMenu>
 					
 					</p:panelGrid>

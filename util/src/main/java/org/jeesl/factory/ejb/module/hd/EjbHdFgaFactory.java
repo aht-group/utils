@@ -40,7 +40,6 @@ public class EjbHdFgaFactory<FAQ extends JeeslHdFaq<?,?,?,?,?>,
 	
 	public void converter(JeeslFacade facade, FGA fga)
 	{
-//		if(faq.getCategory()!=null) {faq.setCategory(facade.find(fbHd.getClassCategory(),faq.getCategory()));}
-		
+		if(fga.getSection()!=null) {fga.setSection(facade.find(fbHd.getClassSection(),fga.getSection()));}
 	}
 }
