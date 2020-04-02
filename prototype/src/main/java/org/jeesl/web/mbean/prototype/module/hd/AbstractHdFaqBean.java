@@ -51,12 +51,13 @@ public abstract class AbstractHdFaqBean <L extends JeeslLang, D extends JeeslDes
 								MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
 								FAQ extends JeeslHdFaq<L,D,R,CAT,SCOPE>,
 								SCOPE extends JeeslHdScope<L,D,SCOPE,?>,
-								FGA extends JeeslHdFga<FAQ,SEC>,
+								FGA extends JeeslHdFga<FAQ,DOC,SEC>,
+								DOC extends JeeslIoCms<L,D,?,SEC,LOC>,
 								SEC extends JeeslIoCmsSection<L,SEC>,
 								USER extends JeeslSimpleUser,
 								CMS extends JeeslIoCms<L,D,?,SEC,LOC>
 								>
-					extends AbstractHelpdeskBean<L,D,LOC,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,FGA,SEC,USER>
+					extends AbstractHelpdeskBean<L,D,LOC,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER>
 					implements Serializable//,SbSingleBean
 {
 	private static final long serialVersionUID = 1L;
@@ -75,7 +76,7 @@ public abstract class AbstractHdFaqBean <L extends JeeslLang, D extends JeeslDes
 	private FGA fga; public FGA getFga() {return fga;} public void setFga(FGA fga) {this.fga = fga;}
 	private CMS document; public CMS getDocument() {return document;} public void setDocument(CMS document) {this.document = document;}
 	
-	public AbstractHdFaqBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,FGA,SEC,USER> fbHd,
+	public AbstractHdFaqBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER> fbHd,
 								IoCmsFactoryBuilder<L,D,LOC,?,CMS,?,SEC,?,?,?,?,?,?,?> fbCms)
 	{
 		super(fbHd);
@@ -88,7 +89,7 @@ public abstract class AbstractHdFaqBean <L extends JeeslLang, D extends JeeslDes
 	}
 
 	protected void postConstructHdFaq(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,FGA,SEC,USER> fHd,
+									JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER> fHd,
 									JeeslIoCmsFacade<L,D,LOC,?,CMS,?,SEC,?,?,?,?,?,?,?> fCms,
 									R realm)
 	{

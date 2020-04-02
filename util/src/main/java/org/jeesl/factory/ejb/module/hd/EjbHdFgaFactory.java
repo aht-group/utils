@@ -5,6 +5,7 @@ import java.util.List;
 import org.jeesl.factory.builder.module.HdFactoryBuilder;
 import org.jeesl.factory.ejb.util.EjbPositionFactory;
 import org.jeesl.interfaces.facade.JeeslFacade;
+import org.jeesl.interfaces.model.io.cms.JeeslIoCms;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsSection;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdFaq;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdFga;
@@ -12,14 +13,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbHdFgaFactory<FAQ extends JeeslHdFaq<?,?,?,?,?>,
-							FGA extends JeeslHdFga<FAQ,SEC>,
+							FGA extends JeeslHdFga<FAQ,DOC,SEC>,
+							DOC extends JeeslIoCms<?,?,?,SEC,?>,
 							SEC extends JeeslIoCmsSection<?,SEC>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbHdFgaFactory.class);
 	
-	private final HdFactoryBuilder<?,?,?,?,?,?,?,?,?,?,?,?,FAQ,?,FGA,SEC,?> fbHd;
+	private final HdFactoryBuilder<?,?,?,?,?,?,?,?,?,?,?,?,FAQ,?,FGA,DOC,SEC,?> fbHd;
 
-    public EjbHdFgaFactory(HdFactoryBuilder<?,?,?,?,?,?,?,?,?,?,?,?,FAQ,?,FGA,SEC,?> fbHd)
+    public EjbHdFgaFactory(HdFactoryBuilder<?,?,?,?,?,?,?,?,?,?,?,?,FAQ,?,FGA,DOC,SEC,?> fbHd)
     {
         this.fbHd = fbHd;
     }

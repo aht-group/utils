@@ -5,6 +5,7 @@ import org.jeesl.factory.ejb.module.hd.EjbHdEventFactory;
 import org.jeesl.factory.ejb.module.hd.EjbHdFaqFactory;
 import org.jeesl.factory.ejb.module.hd.EjbHdFgaFactory;
 import org.jeesl.factory.ejb.module.hd.EjbHdTicketFactory;
+import org.jeesl.interfaces.model.io.cms.JeeslIoCms;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsSection;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEvent;
@@ -38,7 +39,8 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 							MT extends JeeslIoCmsMarkupType<?,?,MT,?>,
 							FAQ extends JeeslHdFaq<L,D,R,CAT,SCOPE>,
 							SCOPE extends JeeslHdScope<L,D,SCOPE,?>,
-							FGA extends JeeslHdFga<FAQ,SEC>,
+							FGA extends JeeslHdFga<FAQ,DOC,SEC>,
+							DOC extends JeeslIoCms<L,D,?,SEC,?>,
 							SEC extends JeeslIoCmsSection<L,SEC>,
 							USER extends JeeslSimpleUser>
 		extends AbstractFactoryBuilder<L,D>
@@ -99,5 +101,5 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 	public EjbHdTicketFactory<R,TICKET,M,MT> ejbTicket() {return new EjbHdTicketFactory<>(cTicket,cMarkup);}
 	public EjbHdEventFactory<TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,USER> ejbEvent() {return new EjbHdEventFactory<>(this);}
 	public EjbHdFaqFactory<R,CAT,FAQ,SCOPE> ejbFaq() {return new EjbHdFaqFactory<>(this);}
-	public EjbHdFgaFactory<FAQ,FGA,SEC> ejbFga() {return new EjbHdFgaFactory<>(this);}
+	public EjbHdFgaFactory<FAQ,FGA,DOC,SEC> ejbFga() {return new EjbHdFgaFactory<>(this);}
 }

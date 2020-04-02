@@ -5,6 +5,7 @@ import java.util.List;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.interfaces.facade.JeeslFacade;
+import org.jeesl.interfaces.model.io.cms.JeeslIoCms;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsSection;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEvent;
@@ -38,7 +39,8 @@ public interface JeeslHdFacade <L extends JeeslLang,D extends JeeslDescription,
 								MT extends JeeslIoCmsMarkupType<?,?,MT,?>,
 								FAQ extends JeeslHdFaq<L,D,R,CAT,SCOPE>,
 								SCOPE extends JeeslHdScope<L,D,SCOPE,?>,
-								FGA extends JeeslHdFga<FAQ,SEC>,
+								FGA extends JeeslHdFga<FAQ,DOC,SEC>,
+								DOC extends JeeslIoCms<L,D,?,SEC,?>,
 								SEC extends JeeslIoCmsSection<L,SEC>,
 								USER extends JeeslSimpleUser>
 			extends JeeslFacade
