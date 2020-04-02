@@ -26,12 +26,13 @@ public class EjbHdFgaFactory<FAQ extends JeeslHdFaq<?,?,?,?,?>,
         this.fbHd = fbHd;
     }
 	
-	public FGA build(FAQ faq, List<FGA> list)
+	public FGA build(FAQ faq, DOC document, List<FGA> list)
 	{
 		try
 		{
 			FGA ejb = fbHd.getClassFga().newInstance();
 			ejb.setFaq(faq);
+			ejb.setDocument(document);
 			EjbPositionFactory.next(ejb, list);
 		    return ejb;
 		}
@@ -40,8 +41,9 @@ public class EjbHdFgaFactory<FAQ extends JeeslHdFaq<?,?,?,?,?>,
 		return null;
     }
 	
-	public void converter(JeeslFacade facade, FGA fga)
+	public void converter(JeeslFacade facade, FGA answer)
 	{
-		if(fga.getSection()!=null) {fga.setSection(facade.find(fbHd.getClassSection(),fga.getSection()));}
+		if(answer.getDocument()!=null) {answer.setDocument(facade.find(fbHd.getClassDoc(),answer.getDocument()));}
+		if(answer.getSection()!=null) {answer.setSection(facade.find(fbHd.getClassSection(),answer.getSection()));}
 	}
 }

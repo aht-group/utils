@@ -20,6 +20,9 @@ public interface JeeslHdFga<FAQ extends JeeslHdFaq<?,?,?,?,?>,
 	FAQ getFaq();
 	void setFaq(FAQ faq);
 	
+	DOC getDocument();
+	void setDocument(DOC document);
+	
 	SEC getSection();
 	void setSection(SEC section);
 }
