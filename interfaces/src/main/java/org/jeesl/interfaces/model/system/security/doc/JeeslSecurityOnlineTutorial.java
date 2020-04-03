@@ -10,7 +10,7 @@ import org.jeesl.interfaces.model.with.primitive.position.EjbWithPositionVisible
 import org.jeesl.interfaces.model.with.system.locale.EjbWithDescription;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 
-public interface JeeslSecurityHelp<L extends JeeslLang, D extends JeeslDescription,
+public interface JeeslSecurityOnlineTutorial<L extends JeeslLang, D extends JeeslDescription,
 									V extends JeeslSecurityView<L,D,?,?,?,?>>
 			extends Serializable,EjbSaveable,
 					EjbWithPositionVisible,

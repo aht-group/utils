@@ -14,7 +14,7 @@ import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplat
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityHelp;
+import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineTutorial;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityUsecase;
@@ -37,7 +37,7 @@ public class SecurityTemplateUpdater <L extends JeeslLang,
  								AT extends JeeslSecurityTemplate<L,D,C>,
  								M extends JeeslSecurityMenu<V,M>,
  								AR extends JeeslSecurityArea<L,D,V>,
- 								H extends JeeslSecurityHelp<L,D,V>,
+ 								H extends JeeslSecurityOnlineTutorial<L,D,V>,
  								USER extends JeeslUser<R>>
 		extends AbstractSecurityUpdater<L,D,C,R,V,U,A,AT,M,AR,H,USER>
 		implements JeeslSecurityRestTemplateImport

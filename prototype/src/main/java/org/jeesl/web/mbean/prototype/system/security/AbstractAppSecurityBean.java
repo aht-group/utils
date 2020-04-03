@@ -12,7 +12,7 @@ import org.jeesl.api.facade.system.JeeslSecurityFacade;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityHelp;
+import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineTutorial;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
@@ -37,7 +37,7 @@ public class AbstractAppSecurityBean <L extends JeeslLang,D extends JeeslDescrip
 											AT extends JeeslSecurityTemplate<L,D,C>,
 											M extends JeeslSecurityMenu<V,M>,
 											AR extends JeeslSecurityArea<L,D,V>,
-											H extends JeeslSecurityHelp<L,D,V>,
+											OT extends JeeslSecurityOnlineTutorial<L,D,V>,
 											USER extends JeeslUser<R>>
 					implements Serializable,JeeslSecurityBean<L,D,C,R,V,U,A,AT,M,USER>
 {
@@ -45,7 +45,7 @@ public class AbstractAppSecurityBean <L extends JeeslLang,D extends JeeslDescrip
 	final static Logger logger = LoggerFactory.getLogger(AbstractAppSecurityBean.class);
 	
 	protected JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity;
-	protected final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,H,USER> fbSecurity;
+	protected final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,USER> fbSecurity;
 
 	private List<V> views; @Override public List<V> getViews() {return views;}
 	private List<R> roles; public List<R> getRoles() {return roles;}
@@ -65,7 +65,7 @@ public class AbstractAppSecurityBean <L extends JeeslLang,D extends JeeslDescrip
 	
 	private boolean debugOnInfo; protected void setDebugOnInfo(boolean log) {debugOnInfo = log;}
 
-	public AbstractAppSecurityBean(final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,H,USER> fbSecurity)
+	public AbstractAppSecurityBean(final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,USER> fbSecurity)
 	{
 		this.fbSecurity=fbSecurity;
 		

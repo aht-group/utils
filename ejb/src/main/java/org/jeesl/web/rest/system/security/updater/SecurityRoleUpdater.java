@@ -12,7 +12,7 @@ import org.jeesl.factory.xml.system.io.sync.XmlDataUpdateFactory;
 import org.jeesl.factory.xml.system.io.sync.XmlResultFactory;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityHelp;
+import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineTutorial;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
@@ -39,7 +39,7 @@ public class SecurityRoleUpdater <L extends JeeslLang,D extends JeeslDescription
  								AT extends JeeslSecurityTemplate<L,D,C>,
  								M extends JeeslSecurityMenu<V,M>,
  								AR extends JeeslSecurityArea<L,D,V>,
- 								H extends JeeslSecurityHelp<L,D,V>,
+ 								H extends JeeslSecurityOnlineTutorial<L,D,V>,
  								USER extends JeeslUser<R>>
 		extends AbstractSecurityUpdater<L,D,C,R,V,U,A,AT,M,AR,H,USER>
 		implements JeeslSecurityRestRoleImport

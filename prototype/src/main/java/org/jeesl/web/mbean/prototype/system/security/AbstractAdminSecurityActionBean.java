@@ -11,20 +11,19 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
-import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
-import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
-import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
-import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityHelp;
+import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineTutorial;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
-import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityUsecase;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityUsecase;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
+import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,9 +39,9 @@ public class AbstractAdminSecurityActionBean <L extends JeeslLang, D extends Jee
 											AT extends JeeslSecurityTemplate<L,D,C>,
 											M extends JeeslSecurityMenu<V,M>,
 											AR extends JeeslSecurityArea<L,D,V>,
-											H extends JeeslSecurityHelp<L,D,V>,
+											OT extends JeeslSecurityOnlineTutorial<L,D,V>,
 											USER extends JeeslUser<R>>
-		extends AbstractAdminSecurityBean<L,D,LOC,C,R,V,U,A,AT,M,AR,H,USER>
+		extends AbstractAdminSecurityBean<L,D,LOC,C,R,V,U,A,AT,M,AR,OT,USER>
 		implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -52,12 +51,12 @@ public class AbstractAdminSecurityActionBean <L extends JeeslLang, D extends Jee
 	
 	private AT template;public AT getTemplate(){return template;}public void setTemplate(AT template) {this.template = template;}
 	
-	public AbstractAdminSecurityActionBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,H,USER> fbSecurity)
+	public AbstractAdminSecurityActionBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,USER> fbSecurity)
 	{
 		super(fbSecurity);
 	}
 	
-	public void initSuper(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity, JeeslTranslationBean bTranslation, JeeslFacesMessageBean bMessage, JeeslSecurityBean<L,D,C,R,V,U,A,AT,M,USER> bSecurity)
+	public void initSuper(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity, JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslSecurityBean<L,D,C,R,V,U,A,AT,M,USER> bSecurity)
 	{
 		categoryType = JeeslSecurityCategory.Type.action;
 		super.postConstructSecurity(fSecurity,bTranslation,bMessage,bSecurity);

@@ -9,7 +9,7 @@ import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPositionVisible;
 
-public interface JeeslSecurityDocument<V extends JeeslSecurityView<?,?,?,?,?,?>,
+public interface JeeslSecurityOnlineHelp<V extends JeeslSecurityView<?,?,?,?,?,?>,
 										DOC extends JeeslIoCms<?,?,?,SEC,?>,
 										SEC extends JeeslIoCmsSection<?,SEC>>
 			extends Serializable,EjbSaveable,EjbWithPositionVisible,EjbWithParentAttributeResolver

@@ -19,8 +19,8 @@ import org.jeesl.interfaces.model.io.cms.JeeslIoCmsSection;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
-import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityDocument;
-import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityHelp;
+import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineHelp;
+import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineTutorial;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
@@ -51,12 +51,12 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 											AT extends JeeslSecurityTemplate<L,D,C>,
 											M extends JeeslSecurityMenu<V,M>,
 											AR extends JeeslSecurityArea<L,D,V>,
-											H extends JeeslSecurityHelp<L,D,V>,
-											SD extends JeeslSecurityDocument<V,DC,DS>,
+											OT extends JeeslSecurityOnlineTutorial<L,D,V>,
+											OH extends JeeslSecurityOnlineHelp<V,DC,DS>,
 											DC extends JeeslIoCms<L,D,?,DS,LOC>,
 											DS extends JeeslIoCmsSection<L,DS>,
 											USER extends JeeslUser<R>>
-		extends AbstractAdminSecurityBean<L,D,LOC,C,R,V,U,A,AT,M,AR,H,USER>
+		extends AbstractAdminSecurityBean<L,D,LOC,C,R,V,U,A,AT,M,AR,OT,USER>
 		implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -71,7 +71,7 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 	
 	private M menu; public M getMenu() {return menu;}
 	
-	public AbstractAdminSecurityMenuBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,H,USER> fbSecurity, IoCmsFactoryBuilder<L,D,LOC,?,DC,?,DS,?,?,?,?,?,?,?> fbCms)
+	public AbstractAdminSecurityMenuBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,USER> fbSecurity, IoCmsFactoryBuilder<L,D,LOC,?,DC,?,DS,?,?,?,?,?,?,?> fbCms)
 	{
 		super(fbSecurity);
 		this.fbCms = fbCms;
@@ -151,7 +151,7 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 	
 	public void expandTree()
 	{
-		TreeHelper.setExpansion(this.node != null ? this.node : this.tree, true);
+		TreeHelper.setExpansion(this.node!=null ? this.node : this.tree, true);
 	}
 	
 	public void collapseTree()
@@ -193,7 +193,7 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
     @SuppressWarnings("unchecked")
 	public void onNodeSelect(NodeSelectEvent event)
     {
-    		logger.info("Selected "+event.getTreeNode().toString());
-    		menu = (M)event.getTreeNode().getData();
+		logger.info("Selected "+event.getTreeNode().toString());
+		menu = (M)event.getTreeNode().getData();
     }
 }
