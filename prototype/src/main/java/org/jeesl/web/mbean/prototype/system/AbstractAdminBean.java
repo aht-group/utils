@@ -34,11 +34,8 @@ public class AbstractAdminBean <L extends JeeslLang, D extends JeeslDescription
 	protected boolean debugOnInfo; protected void setDebugOnInfo(boolean debugOnInfo){this.debugOnInfo=debugOnInfo;}
 	protected String[] langs; public String[] getLangs() {return langs;}
 	protected String[] localeCodes; public String[] getLocaleCodes() {return localeCodes;}
-	private final List<LOC> locales;
+	private final List<LOC> locales; public List<LOC> getLocales() {return locales;}
 	
-	public List<LOC> getLocales() {
-		return locales;
-	}
 	protected EjbLangFactory<L> efLang;
 	protected EjbDescriptionFactory<D> efDescription;
 	

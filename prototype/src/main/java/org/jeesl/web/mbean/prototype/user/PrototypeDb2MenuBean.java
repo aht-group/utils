@@ -87,7 +87,7 @@ public class PrototypeDb2MenuBean <L extends JeeslLang, D extends JeeslDescripti
 	public void initSuper(String localeCode, JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity, I identity)
 	{
 		this.fSecurity=fSecurity;
-		prepare(localeCode, identity);
+		prepare(localeCode,identity);
 	}
 	
 	public void prepare(String localeCode, I identity)
