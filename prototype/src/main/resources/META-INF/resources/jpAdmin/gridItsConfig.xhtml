@@ -33,7 +33,7 @@
 						<h:outputText value="#{c.option.code}"/>
 					</p:column>
 					<p:column headerText="#{msg.jeeslLabel}">
-						<h:outputText value="#{cc.attrs.bean.config.option.name[localeCode].lang}" value="#{not c.overrideLabel}"/>
+						<h:outputText value="#{c.option.name[localeCode].lang}" rendered="#{not c.overrideLabel}"/>
 					</p:column>
 			   	</p:dataTable>
 			</h:form>
@@ -59,7 +59,7 @@
 						<p:outputLabel value="#{msg.jeeslItsVisible}"/>
 						<p:selectBooleanCheckbox value="#{cc.attrs.bean.config.visible}"/>
 						
-						<p:outputLabel value="#{msg.jeeslItsVisible}"/>
+						<p:outputLabel value="#{msg.jeeslItsOverrideLabel}"/>
 						<p:selectBooleanCheckbox value="#{cc.attrs.bean.config.overrideLabel}"/>
 											
 					</p:panelGrid>
