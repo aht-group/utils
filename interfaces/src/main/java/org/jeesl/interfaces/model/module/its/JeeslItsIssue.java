@@ -13,7 +13,7 @@ import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 import org.jeesl.interfaces.model.with.primitive.text.EjbWithName;
 
 public interface JeeslItsIssue <R extends JeeslMcsRealm<?,?,R,?>,
-								I extends JeeslItsIssue<R,I>>
+								I extends JeeslItsIssue<R,I/*,STATUS*/>>
 			extends Serializable,EjbSaveable,EjbRemoveable,
 					JeeslWithMultiClientSupport<R>,
 					EjbWithParentAttributeResolver,EjbWithNonUniqueCode,EjbWithPosition,
