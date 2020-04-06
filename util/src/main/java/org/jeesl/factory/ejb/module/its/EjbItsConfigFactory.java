@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbItsConfigFactory<R extends JeeslMcsRealm<?,?,R,?>,
-								C extends JeeslItsConfig<R,O>,
+								C extends JeeslItsConfig<?,?,R,O>,
 								O extends JeeslItsConfigOption<?,?,O,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbItsConfigFactory.class);
@@ -32,6 +32,8 @@ public class EjbItsConfigFactory<R extends JeeslMcsRealm<?,?,R,?>,
 			ejb.setRealm(realm);
 			ejb.setRref(rref.getId());
 			ejb.setOption(option);
+			ejb.setVisible(false);
+			ejb.setVisible(true);
 		    return ejb;
 		}
 		catch (InstantiationException e) {e.printStackTrace();}

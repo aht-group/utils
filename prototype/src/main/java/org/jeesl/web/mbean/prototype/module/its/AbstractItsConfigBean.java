@@ -21,9 +21,11 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
+
 public abstract class AbstractItsConfigBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 										R extends JeeslMcsRealm<L,D,R,?>, RREF extends EjbWithId,
-										C extends JeeslItsConfig<R,O>,
+										C extends JeeslItsConfig<L,D,R,O>,
 										O extends JeeslItsConfigOption<L,D,O,?>,
 										U extends JeeslSimpleUser>
 //					extends AbstractAdminBean<L,D,LOC>
@@ -75,5 +77,10 @@ public abstract class AbstractItsConfigBean <L extends JeeslLang, D extends Jees
 			}
 			logger.info(o.toString());
 		}
+	}
+	
+	public void selectConfig()
+	{
+		logger.info(AbstractLogMessage.selectEntity(config));
 	}
 }
