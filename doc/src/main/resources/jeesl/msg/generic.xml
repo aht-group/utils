@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <s:translations xmlns:s="http://ahtutils.aht-group.com/status">
 
+	<s:translation key="jeeslLabel">
+		<s:langs>
+    		<s:lang key="de" translation="Bezheichnung"/>
+    		<s:lang key="en" translation="Label"/>
+    		<s:lang key="fr" translation="Label"/>
+		</s:langs>
+	</s:translation>
 	<s:translation key="jeeslId">
 		<s:langs>
 	    		<s:lang key="de" translation="ID"/>

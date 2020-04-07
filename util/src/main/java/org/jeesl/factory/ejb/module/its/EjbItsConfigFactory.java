@@ -33,7 +33,7 @@ public class EjbItsConfigFactory<R extends JeeslMcsRealm<?,?,R,?>,
 			ejb.setRref(rref.getId());
 			ejb.setOption(option);
 			ejb.setVisible(false);
-			ejb.setVisible(true);
+			ejb.setOverrideLabel(false);
 		    return ejb;
 		}
 		catch (InstantiationException e) {e.printStackTrace();}

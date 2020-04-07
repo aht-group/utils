@@ -10,24 +10,24 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbItsFactory<REALM extends JeeslMcsRealm<?,?,REALM,?>,
-							ISSUE extends JeeslItsIssue<REALM,ISSUE>,
-							STATUS extends JeeslItsIssueStatus<?,?,REALM,STATUS,?>>
+public class EjbItsFactory<R extends JeeslMcsRealm<?,?,R,?>,
+							I extends JeeslItsIssue<R,I>,
+							STATUS extends JeeslItsIssueStatus<?,?,R,STATUS,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbItsFactory.class);
 	
-	private final ItsFactoryBuilder<?,?,?,?,?,ISSUE,STATUS> fbIssue;
+	private final ItsFactoryBuilder<?,?,?,?,?,I,STATUS,?,?> fbIssue;
 	
-    public EjbItsFactory(final ItsFactoryBuilder<?,?,?,?,?,ISSUE,STATUS> fbIssue)
+    public EjbItsFactory(final ItsFactoryBuilder<?,?,?,?,?,I,STATUS,?,?> fbIssue)
     {
         this.fbIssue = fbIssue;
     }
 	
-	public <RREF extends EjbWithId> ISSUE build(REALM realm, RREF ref, ISSUE parent/*, STATUS status*/)
+	public <RREF extends EjbWithId> I build(R realm, RREF ref, I parent/*, STATUS status*/)
 	{
 		try
 		{
-			ISSUE ejb = fbIssue.getClassIssue().newInstance();
+			I ejb = fbIssue.getClassIssue().newInstance();
 			ejb.setRealm(realm);
 			ejb.setRref(ref.getId());
 			ejb.setCode(UUID.randomUUID().toString());

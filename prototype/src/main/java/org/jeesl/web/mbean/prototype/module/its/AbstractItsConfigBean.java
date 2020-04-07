@@ -15,12 +15,15 @@ import org.jeesl.interfaces.model.module.its.JeeslItsIssue;
 import org.jeesl.interfaces.model.module.its.JeeslItsIssueStatus;
 import org.jeesl.interfaces.model.module.its.config.JeeslItsConfig;
 import org.jeesl.interfaces.model.module.its.config.JeeslItsConfigOption;
+import org.jeesl.interfaces.model.module.its.task.JeeslItsTask;
+import org.jeesl.interfaces.model.module.its.task.JeeslItsTaskType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,16 +35,18 @@ public abstract class AbstractItsConfigBean <L extends JeeslLang, D extends Jees
 										O extends JeeslItsConfigOption<L,D,O,?>,
 										I extends JeeslItsIssue<R,I>,
 										STATUS extends JeeslItsIssueStatus<L,D,R,STATUS,?>,
+										T extends JeeslItsTask<I,TT,?>,
+										TT extends JeeslItsTaskType<L,D,TT,?>,
 										U extends JeeslSimpleUser>
-//					extends AbstractAdminBean<L,D,LOC>
+					extends AbstractAdminBean<L,D,LOC>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractItsConfigBean.class);
 	
-	protected final ItsFactoryBuilder<L,D,R,C,O,I,STATUS> fbIts;
+	protected final ItsFactoryBuilder<L,D,R,C,O,I,STATUS,T,TT> fbIts;
 	
-	protected JeeslItsFacade<L,D,R,C,O,I,STATUS> fIts;
+	protected JeeslItsFacade<L,D,R,C,O,I,STATUS,T,TT> fIts;
 	
 	private List<C> configs; public List<C> getConfigs() {return configs;}
 
@@ -49,35 +54,35 @@ public abstract class AbstractItsConfigBean <L extends JeeslLang, D extends Jees
     private RREF rref;
     private C config; public C getConfig() {return config;} public void setConfig(C config) {this.config = config;}
 
-	public AbstractItsConfigBean(ItsFactoryBuilder<L,D,R,C,O,I,STATUS> fbIts)
+	public AbstractItsConfigBean(ItsFactoryBuilder<L,D,R,C,O,I,STATUS,T,TT> fbIts)
 	{
-//		super(fbAsset.getClassL(),fbAsset.getClassD());
+		super(fbIts.getClassL(),fbIts.getClassD());
 		this.fbIts=fbIts;
 	}
 	
 	protected void postConstructItsOption(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslItsFacade<L,D,R,C,O,I,STATUS> fIts,
+									JeeslItsFacade<L,D,R,C,O,I,STATUS,T,TT> fIts,
 									R realm)
 	{
-//		super.initJeeslAdmin(bTranslation,bMessage);
+		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fIts=fIts;
 		this.realm=realm;
 	}
 	
-	protected void updateRealmReference(RREF rref
-										,Class<C> cC, Class<O> cO, EjbItsConfigFactory<R,C,O> efConfig
-			)
+	protected void updateRealmReference(RREF rref)
 	{
 		this.rref=rref;
-		configs = fIts.all(cC,realm,rref);
-		Map<O,C> map = efConfig.toMapOption(configs);
-		for(O o : fIts.all(cO))
+		configs = fIts.all(fbIts.getClassConfig(),realm,rref);
+		Map<O,C> map = fbIts.ejbConfig().toMapOption(configs);
+		for(O o : fIts.all(fbIts.getClassOption()))
 		{
 			if(!map.containsKey(o))
 			{
 				try
 				{
-					C c = efConfig.build(realm,rref,o);
+					C c = fbIts.ejbConfig().build(realm,rref,o);
+					c.setName(efLang.createEmpty(bTranslation.getLocales()));
+					c.setDescription(efDescription.createEmpty(bTranslation.getLocales()));
 					configs.add(fIts.save(c));
 				}
 				catch (JeeslConstraintViolationException | JeeslLockingException e) {e.printStackTrace();}
@@ -89,5 +94,15 @@ public abstract class AbstractItsConfigBean <L extends JeeslLang, D extends Jees
 	public void selectConfig()
 	{
 		logger.info(AbstractLogMessage.selectEntity(config));
+		config = efLang.persistMissingLangs(fIts,bTranslation.getLocales(),config);
+		config = efDescription.persistMissingLangs(fIts,bTranslation.getLocales(),config);
+	}
+	
+	public void saveConfig() throws JeeslConstraintViolationException, JeeslLockingException
+	{
+		logger.info(AbstractLogMessage.saveEntity(config));
+		config = fIts.save(config);
+		
+		
 	}
 }

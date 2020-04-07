@@ -15,6 +15,8 @@ import org.jeesl.interfaces.model.module.its.JeeslItsIssue;
 import org.jeesl.interfaces.model.module.its.JeeslItsIssueStatus;
 import org.jeesl.interfaces.model.module.its.config.JeeslItsConfig;
 import org.jeesl.interfaces.model.module.its.config.JeeslItsConfigOption;
+import org.jeesl.interfaces.model.module.its.task.JeeslItsTask;
+import org.jeesl.interfaces.model.module.its.task.JeeslItsTaskType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
@@ -35,34 +37,36 @@ public abstract class AbstractItsIssueBean <L extends JeeslLang, D extends Jeesl
     										R extends JeeslMcsRealm<L,D,R,?>, RREF extends EjbWithId,
     										C extends JeeslItsConfig<L,D,R,O>,
     										O extends JeeslItsConfigOption<L,D,O,?>,
-    										ISSUE extends JeeslItsIssue<R,ISSUE>,
-    										STATUS extends JeeslItsIssueStatus<L,D,R,STATUS,?>>
+    										I extends JeeslItsIssue<R,I>,
+    										STATUS extends JeeslItsIssueStatus<L,D,R,STATUS,?>,
+    										T extends JeeslItsTask<I,TT,?>,
+    										TT extends JeeslItsTaskType<L,D,TT,?>>
 					extends AbstractAdminBean<L,D,LOC>
 					implements Serializable, SbSingleBean
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractItsIssueBean.class);
 	
-	protected JeeslItsFacade<L,D,R,C,O,ISSUE,STATUS> fIssue;
+	protected JeeslItsFacade<L,D,R,C,O,I,STATUS,T,TT> fIssue;
 
-	protected final ItsFactoryBuilder<L,D,R,C,O,ISSUE,STATUS> fbIssue;
+	protected final ItsFactoryBuilder<L,D,R,C,O,I,STATUS,T,TT> fbIssue;
 	
 	private TreeNode tree; public TreeNode getTree() {return tree;}
     private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
 
     protected R realm;
     protected RREF rref;
-    protected ISSUE root;
-    protected ISSUE issue;  public ISSUE getIssue() {return issue;} public void setType(ISSUE issue) {this.issue = issue;}
+    protected I root;
+    protected I issue;  public I getIssue() {return issue;} public void setType(I issue) {this.issue = issue;}
 
-	public AbstractItsIssueBean(ItsFactoryBuilder<L,D,R,C,O,ISSUE,STATUS> fbIssue/*, SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg*/)
+	public AbstractItsIssueBean(ItsFactoryBuilder<L,D,R,C,O,I,STATUS,T,TT> fbIssue/*, SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg*/)
 	{
 		super(fbIssue.getClassL(),fbIssue.getClassD());	
 		this.fbIssue=fbIssue;
 	}
 
 	protected void postConstructIssue(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslItsFacade<L,D,R,C,O,ISSUE,STATUS> fIssue,
+									JeeslItsFacade<L,D,R,C,O,I,STATUS,T,TT> fIssue,
 									R realm)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
@@ -84,7 +88,7 @@ public abstract class AbstractItsIssueBean <L extends JeeslLang, D extends Jeesl
 	@SuppressWarnings("unchecked")
 	protected void reloadTree()
 	{
-		List<Long> expandedNodes = TreeHelper.findNodes(this.tree, node -> node.isExpanded()).stream().map(node -> (ISSUE)node.getData()).filter(data -> data != null).map(data -> data.getId()).collect(Collectors.toList());
+		List<Long> expandedNodes = TreeHelper.findNodes(this.tree, node -> node.isExpanded()).stream().map(node -> (I)node.getData()).filter(data -> data != null).map(data -> data.getId()).collect(Collectors.toList());
 		
 		root = fIssue.fcAItsRoot(realm,rref);
 		
@@ -92,7 +96,7 @@ public abstract class AbstractItsIssueBean <L extends JeeslLang, D extends Jeesl
 		this.issue = null;
 		TreeHelper.buildTree(this.fIssue, this.tree, this.fIssue.allForParent(this.fbIssue.getClassIssue(), this.root), this.fbIssue.getClassIssue());
 		
-		TreeHelper.findNodes(this.tree, node -> node.getData() != null && expandedNodes.contains(((ISSUE)node.getData()).getId())).forEach(node -> node.setExpanded(true));
+		TreeHelper.findNodes(this.tree, node -> node.getData() != null && expandedNodes.contains(((I)node.getData()).getId())).forEach(node -> node.setExpanded(true));
 	}
 	
 	private void reset(boolean rIssue)
@@ -102,7 +106,7 @@ public abstract class AbstractItsIssueBean <L extends JeeslLang, D extends Jeesl
 	
 	public void addIssue()
 	{
-		ISSUE parent=null; if(issue!=null) {parent = issue;} else {parent = root;}
+		I parent=null; if(issue!=null) {parent = issue;} else {parent = root;}
 		issue = fbIssue.ejbIssue().build(realm,rref,parent);
 	}
 	
@@ -143,11 +147,11 @@ public abstract class AbstractItsIssueBean <L extends JeeslLang, D extends Jeesl
         int dropIndex = event.getDropIndex();
         logger.info("Dragged " + dragNode.getData() + "Dropped on " + dropNode.getData() + " at " + dropIndex);
 
-        ISSUE parent = (ISSUE)dropNode.getData();
+        I parent = (I)dropNode.getData();
         int index=1;
         for(TreeNode n : dropNode.getChildren())
         {
-        	ISSUE child =(ISSUE)n.getData();
+        	I child =(I)n.getData();
     		child.setParent(parent);
     		child.setPosition(index);
     		fIssue.save(child);
@@ -159,6 +163,6 @@ public abstract class AbstractItsIssueBean <L extends JeeslLang, D extends Jeesl
 	public void onNodeSelect(NodeSelectEvent event)
     {
 		logger.info("Selected "+event.getTreeNode().toString());
-		issue = (ISSUE)event.getTreeNode().getData();
+		issue = (I)event.getTreeNode().getData();
     }
 }

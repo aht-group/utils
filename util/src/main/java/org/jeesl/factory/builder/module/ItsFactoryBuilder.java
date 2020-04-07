@@ -1,11 +1,14 @@
 package org.jeesl.factory.builder.module;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
+import org.jeesl.factory.ejb.module.its.EjbItsConfigFactory;
 import org.jeesl.factory.ejb.module.its.EjbItsFactory;
 import org.jeesl.interfaces.model.module.its.JeeslItsIssue;
 import org.jeesl.interfaces.model.module.its.JeeslItsIssueStatus;
 import org.jeesl.interfaces.model.module.its.config.JeeslItsConfig;
 import org.jeesl.interfaces.model.module.its.config.JeeslItsConfigOption;
+import org.jeesl.interfaces.model.module.its.task.JeeslItsTask;
+import org.jeesl.interfaces.model.module.its.task.JeeslItsTaskType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
@@ -17,7 +20,9 @@ public class ItsFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 								C extends JeeslItsConfig<L,D,R,O>,
 								O extends JeeslItsConfigOption<L,D,O,?>,
 								I extends JeeslItsIssue<R,I>,
-								STATUS extends JeeslItsIssueStatus<L,D,R,STATUS,?>>
+								STATUS extends JeeslItsIssueStatus<L,D,R,STATUS,?>,
+								T extends JeeslItsTask<I,TT,?>,
+								TT extends JeeslItsTaskType<L,D,TT,?>>
 		extends AbstractFactoryBuilder<L,D>
 {
 	final static Logger logger = LoggerFactory.getLogger(ItsFactoryBuilder.class);
@@ -45,5 +50,6 @@ public class ItsFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 		this.cStatus=cStatus;
 	}
 	
+	public EjbItsConfigFactory<R,C,O> ejbConfig() {return new EjbItsConfigFactory<>(cConfig);}
 	public EjbItsFactory<R,I,STATUS> ejbIssue() {return new EjbItsFactory<>(this);}
 }

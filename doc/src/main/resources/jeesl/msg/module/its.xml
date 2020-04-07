@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<s:translations xmlns:s="http://ahtutils.aht-group.com/status">
+	<s:translation key="jeeslItsConfigs">
+    	<s:langs>
+    		<s:lang key="de" translation="Konfigrationen"/>
+    		<s:lang key="en" translation="Configurations"/>
+    		<s:lang key="fr" translation="Configurations"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslItsConfig">
+    	<s:langs>
+    		<s:lang key="de" translation="Konfigration"/>
+    		<s:lang key="en" translation="Configuration"/>
+    		<s:lang key="fr" translation="Configuration"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslItsConfigOption">
+    	<s:langs>
+    		<s:lang key="de" translation="Option"/>
+    		<s:lang key="en" translation="Option"/>
+    		<s:lang key="fr" translation="Option"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslItsCustomLabel">
+    	<s:langs>
+    		<s:lang key="de" translation="Angepasste Bezeichnung"/>
+    		<s:lang key="en" translation="Custom Label"/>
+    		<s:lang key="fr" translation="Custom Label"/>
+    	</s:langs>
+    </s:translation>
+    
+    
+</s:translations>

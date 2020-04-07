@@ -22,6 +22,8 @@ import org.jeesl.interfaces.model.module.its.JeeslItsIssue;
 import org.jeesl.interfaces.model.module.its.JeeslItsIssueStatus;
 import org.jeesl.interfaces.model.module.its.config.JeeslItsConfig;
 import org.jeesl.interfaces.model.module.its.config.JeeslItsConfigOption;
+import org.jeesl.interfaces.model.module.its.task.JeeslItsTask;
+import org.jeesl.interfaces.model.module.its.task.JeeslItsTaskType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
@@ -33,34 +35,36 @@ public class JeeslItsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 								R extends JeeslMcsRealm<L,D,R,?>,
 								C extends JeeslItsConfig<L,D,R,O>,
 								O extends JeeslItsConfigOption<L,D,O,?>,
-								ISSUE extends JeeslItsIssue<R,ISSUE>,
-								STATUS extends JeeslItsIssueStatus<L,D,R,STATUS,?>>
+								I extends JeeslItsIssue<R,I>,
+								STATUS extends JeeslItsIssueStatus<L,D,R,STATUS,?>,
+								T extends JeeslItsTask<I,TT,?>,
+								TT extends JeeslItsTaskType<L,D,TT,?>>
 					extends JeeslFacadeBean
-					implements JeeslItsFacade<L,D,R,C,O,ISSUE,STATUS>
+					implements JeeslItsFacade<L,D,R,C,O,I,STATUS,T,TT>
 {	
 	private static final long serialVersionUID = 1L;
 
 	final static Logger logger = LoggerFactory.getLogger(JeeslAssetFacadeBean.class);
 	
-	private final ItsFactoryBuilder<L,D,R,C,O,ISSUE,STATUS> fbIssue;
+	private final ItsFactoryBuilder<L,D,R,C,O,I,STATUS,T,TT> fbIssue;
 	
-	public JeeslItsFacadeBean(EntityManager em, final ItsFactoryBuilder<L,D,R,C,O,ISSUE,STATUS> fbIssue)
+	public JeeslItsFacadeBean(EntityManager em, final ItsFactoryBuilder<L,D,R,C,O,I,STATUS,T,TT> fbIssue)
 	{
 		super(em);
 		this.fbIssue=fbIssue;
 	}
 
 	@Override
-	public <RREF extends EjbWithId> ISSUE fcAItsRoot(R realm, RREF rref)
+	public <RREF extends EjbWithId> I fcAItsRoot(R realm, RREF rref)
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
-		CriteriaQuery<ISSUE> cQ = cB.createQuery(fbIssue.getClassIssue());
-		Root<ISSUE> root = cQ.from(fbIssue.getClassIssue());
+		CriteriaQuery<I> cQ = cB.createQuery(fbIssue.getClassIssue());
+		Root<I> root = cQ.from(fbIssue.getClassIssue());
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		
 		Expression<Long> eRefId = root.get(JeeslItsIssue.Attributes.rref.toString());
 		Path<R> pRealm = root.get(JeeslItsIssue.Attributes.realm.toString());
-		Path<ISSUE> pParent = root.get(JeeslItsIssue.Attributes.parent.toString());
+		Path<I> pParent = root.get(JeeslItsIssue.Attributes.parent.toString());
 		
 		predicates.add(cB.equal(eRefId,rref.getId()));
 		predicates.add(cB.equal(pRealm,realm));
@@ -69,11 +73,11 @@ public class JeeslItsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
 		cQ.select(root);
 
-		TypedQuery<ISSUE> tQ = em.createQuery(cQ);
+		TypedQuery<I> tQ = em.createQuery(cQ);
 		try	{return tQ.getSingleResult();}
 		catch (NoResultException ex)
 		{
-			ISSUE result = fbIssue.ejbIssue().build(realm,rref, null);
+			I result = fbIssue.ejbIssue().build(realm,rref, null);
 			try {return this.save(result);}
 			catch (JeeslConstraintViolationException | JeeslLockingException e)
 			{
