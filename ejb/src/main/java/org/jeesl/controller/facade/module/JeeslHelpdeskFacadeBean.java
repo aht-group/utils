@@ -27,6 +27,7 @@ import org.jeesl.interfaces.model.module.hd.event.JeeslHdEventType;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdFaq;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdFga;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdLevel;
+import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdMessage;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdPriority;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdScope;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicket;
@@ -51,6 +52,7 @@ public class JeeslHelpdeskFacadeBean<L extends JeeslLang,D extends JeeslDescript
 										TYPE extends JeeslHdEventType<L,D,TYPE,?>,
 										LEVEL extends JeeslHdLevel<L,D,R,LEVEL,?>,
 										PRIORITY extends JeeslHdPriority<L,D,R,PRIORITY,?>,
+										MSG extends JeeslHdMessage<TICKET,SCOPE,USER>,
 										M extends JeeslMarkup<MT>,
 										MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
 										FAQ extends JeeslHdFaq<L,D,R,CAT,SCOPE>,
@@ -60,15 +62,15 @@ public class JeeslHelpdeskFacadeBean<L extends JeeslLang,D extends JeeslDescript
 										SEC extends JeeslIoCmsSection<L,SEC>,
 										USER extends JeeslSimpleUser>
 					extends JeeslFacadeBean
-					implements JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER>
+					implements JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER>
 {	
 	private static final long serialVersionUID = 1L;
 
 	final static Logger logger = LoggerFactory.getLogger(JeeslHelpdeskFacadeBean.class);
 	
-	private final HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER> fbHd;
+	private final HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER> fbHd;
 	
-	public JeeslHelpdeskFacadeBean(EntityManager em, final HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER> fbHd)
+	public JeeslHelpdeskFacadeBean(EntityManager em, final HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER> fbHd)
 	{
 		super(em);
 		this.fbHd=fbHd;

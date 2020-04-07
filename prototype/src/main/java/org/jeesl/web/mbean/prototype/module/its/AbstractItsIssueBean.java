@@ -13,6 +13,8 @@ import org.jeesl.factory.builder.module.ItsFactoryBuilder;
 import org.jeesl.interfaces.bean.sb.SbSingleBean;
 import org.jeesl.interfaces.model.module.its.JeeslItsIssue;
 import org.jeesl.interfaces.model.module.its.JeeslItsIssueStatus;
+import org.jeesl.interfaces.model.module.its.config.JeeslItsConfig;
+import org.jeesl.interfaces.model.module.its.config.JeeslItsConfigOption;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
@@ -30,36 +32,38 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class AbstractItsIssueBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
-    										REALM extends JeeslMcsRealm<L,D,REALM,?>, RREF extends EjbWithId,
-    										ISSUE extends JeeslItsIssue<REALM,ISSUE>,
-    										STATUS extends JeeslItsIssueStatus<L,D,REALM,STATUS,?>>
+    										R extends JeeslMcsRealm<L,D,R,?>, RREF extends EjbWithId,
+    										C extends JeeslItsConfig<L,D,R,O>,
+    										O extends JeeslItsConfigOption<L,D,O,?>,
+    										ISSUE extends JeeslItsIssue<R,ISSUE>,
+    										STATUS extends JeeslItsIssueStatus<L,D,R,STATUS,?>>
 					extends AbstractAdminBean<L,D,LOC>
 					implements Serializable, SbSingleBean
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractItsIssueBean.class);
 	
-	protected JeeslItsFacade<L,D,REALM,ISSUE> fIssue;
+	protected JeeslItsFacade<L,D,R,C,O,ISSUE,STATUS> fIssue;
 
-	protected final ItsFactoryBuilder<L,D,REALM,ISSUE,STATUS> fbIssue;
+	protected final ItsFactoryBuilder<L,D,R,C,O,ISSUE,STATUS> fbIssue;
 	
 	private TreeNode tree; public TreeNode getTree() {return tree;}
     private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
 
-    protected REALM realm;
+    protected R realm;
     protected RREF rref;
     protected ISSUE root;
     protected ISSUE issue;  public ISSUE getIssue() {return issue;} public void setType(ISSUE issue) {this.issue = issue;}
 
-	public AbstractItsIssueBean(ItsFactoryBuilder<L,D,REALM,ISSUE,STATUS> fbIssue/*, SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg*/)
+	public AbstractItsIssueBean(ItsFactoryBuilder<L,D,R,C,O,ISSUE,STATUS> fbIssue/*, SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg*/)
 	{
 		super(fbIssue.getClassL(),fbIssue.getClassD());	
 		this.fbIssue=fbIssue;
 	}
 
 	protected void postConstructIssue(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslItsFacade<L,D,REALM,ISSUE> fIssue,
-									REALM realm)
+									JeeslItsFacade<L,D,R,C,O,ISSUE,STATUS> fIssue,
+									R realm)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fIssue=fIssue;

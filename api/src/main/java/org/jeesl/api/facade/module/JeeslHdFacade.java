@@ -13,6 +13,7 @@ import org.jeesl.interfaces.model.module.hd.event.JeeslHdEventType;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdFaq;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdFga;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdLevel;
+import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdMessage;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdPriority;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdScope;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicket;
@@ -35,6 +36,7 @@ public interface JeeslHdFacade <L extends JeeslLang,D extends JeeslDescription,
 								TYPE extends JeeslHdEventType<L,D,TYPE,?>,
 								LEVEL extends JeeslHdLevel<L,D,R,LEVEL,?>,
 								PRIORITY extends JeeslHdPriority<L,D,R,PRIORITY,?>,
+								MSG extends JeeslHdMessage<TICKET,SCOPE,USER>,
 								M extends JeeslMarkup<MT>,
 								MT extends JeeslIoCmsMarkupType<?,?,MT,?>,
 								FAQ extends JeeslHdFaq<L,D,R,CAT,SCOPE>,

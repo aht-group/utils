@@ -6,10 +6,13 @@ import java.util.Map;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
+import org.jeesl.api.facade.module.JeeslItsFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.factory.builder.module.ItsFactoryBuilder;
 import org.jeesl.factory.ejb.module.its.EjbItsConfigFactory;
-import org.jeesl.interfaces.facade.JeeslFacade;
+import org.jeesl.interfaces.model.module.its.JeeslItsIssue;
+import org.jeesl.interfaces.model.module.its.JeeslItsIssueStatus;
 import org.jeesl.interfaces.model.module.its.config.JeeslItsConfig;
 import org.jeesl.interfaces.model.module.its.config.JeeslItsConfigOption;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
@@ -27,6 +30,8 @@ public abstract class AbstractItsConfigBean <L extends JeeslLang, D extends Jees
 										R extends JeeslMcsRealm<L,D,R,?>, RREF extends EjbWithId,
 										C extends JeeslItsConfig<L,D,R,O>,
 										O extends JeeslItsConfigOption<L,D,O,?>,
+										I extends JeeslItsIssue<R,I>,
+										STATUS extends JeeslItsIssueStatus<L,D,R,STATUS,?>,
 										U extends JeeslSimpleUser>
 //					extends AbstractAdminBean<L,D,LOC>
 					implements Serializable
@@ -34,7 +39,9 @@ public abstract class AbstractItsConfigBean <L extends JeeslLang, D extends Jees
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractItsConfigBean.class);
 	
-	private JeeslFacade fIts;
+	protected final ItsFactoryBuilder<L,D,R,C,O,I,STATUS> fbIts;
+	
+	protected JeeslItsFacade<L,D,R,C,O,I,STATUS> fIts;
 	
 	private List<C> configs; public List<C> getConfigs() {return configs;}
 
@@ -42,14 +49,14 @@ public abstract class AbstractItsConfigBean <L extends JeeslLang, D extends Jees
     private RREF rref;
     private C config; public C getConfig() {return config;} public void setConfig(C config) {this.config = config;}
 
-	public AbstractItsConfigBean()
+	public AbstractItsConfigBean(ItsFactoryBuilder<L,D,R,C,O,I,STATUS> fbIts)
 	{
-//		super(fbAsset.getClassL(),fbAsset.getClassD());	
-
+//		super(fbAsset.getClassL(),fbAsset.getClassD());
+		this.fbIts=fbIts;
 	}
 	
 	protected void postConstructItsOption(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslFacade fIts,
+									JeeslItsFacade<L,D,R,C,O,I,STATUS> fIts,
 									R realm)
 	{
 //		super.initJeeslAdmin(bTranslation,bMessage);

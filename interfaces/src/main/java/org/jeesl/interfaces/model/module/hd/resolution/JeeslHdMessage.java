@@ -24,6 +24,6 @@ public interface JeeslHdMessage<TICKET extends JeeslHdTicket<?,?,?>,
 	TICKET getTicket();
 	void setTicket(TICKET ticket);
 	
-	USER getAuthor();
-	void setAuthor(USER author);
+	USER getUser();
+	void setUser(USER user);
 }

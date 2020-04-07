@@ -16,9 +16,9 @@ public class EjbItsFactory<REALM extends JeeslMcsRealm<?,?,REALM,?>,
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbItsFactory.class);
 	
-	private final ItsFactoryBuilder<?,?,?,ISSUE,STATUS> fbIssue;
+	private final ItsFactoryBuilder<?,?,?,?,?,ISSUE,STATUS> fbIssue;
 	
-    public EjbItsFactory(final ItsFactoryBuilder<?,?,?,ISSUE,STATUS> fbIssue)
+    public EjbItsFactory(final ItsFactoryBuilder<?,?,?,?,?,ISSUE,STATUS> fbIssue)
     {
         this.fbIssue = fbIssue;
     }
