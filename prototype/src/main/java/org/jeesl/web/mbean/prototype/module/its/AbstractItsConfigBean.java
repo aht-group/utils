@@ -10,7 +10,6 @@ import org.jeesl.api.facade.module.JeeslItsFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.ItsFactoryBuilder;
-import org.jeesl.factory.ejb.module.its.EjbItsConfigFactory;
 import org.jeesl.interfaces.model.module.its.JeeslItsIssue;
 import org.jeesl.interfaces.model.module.its.JeeslItsIssueStatus;
 import org.jeesl.interfaces.model.module.its.config.JeeslItsConfig;
@@ -34,7 +33,7 @@ public abstract class AbstractItsConfigBean <L extends JeeslLang, D extends Jees
 										C extends JeeslItsConfig<L,D,R,O>,
 										O extends JeeslItsConfigOption<L,D,O,?>,
 										I extends JeeslItsIssue<R,I>,
-										STATUS extends JeeslItsIssueStatus<L,D,R,STATUS,?>,
+										IS extends JeeslItsIssueStatus<L,D,R,IS,?>,
 										T extends JeeslItsTask<I,TT,?>,
 										TT extends JeeslItsTaskType<L,D,TT,?>,
 										U extends JeeslSimpleUser>
@@ -44,9 +43,9 @@ public abstract class AbstractItsConfigBean <L extends JeeslLang, D extends Jees
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractItsConfigBean.class);
 	
-	protected final ItsFactoryBuilder<L,D,R,C,O,I,STATUS,T,TT> fbIts;
+	protected final ItsFactoryBuilder<L,D,R,C,O,I,IS,T,TT> fbIts;
 	
-	protected JeeslItsFacade<L,D,R,C,O,I,STATUS,T,TT> fIts;
+	protected JeeslItsFacade<L,D,R,C,O,I,IS,T,TT> fIts;
 	
 	private List<C> configs; public List<C> getConfigs() {return configs;}
 
@@ -54,14 +53,14 @@ public abstract class AbstractItsConfigBean <L extends JeeslLang, D extends Jees
     private RREF rref;
     private C config; public C getConfig() {return config;} public void setConfig(C config) {this.config = config;}
 
-	public AbstractItsConfigBean(ItsFactoryBuilder<L,D,R,C,O,I,STATUS,T,TT> fbIts)
+	public AbstractItsConfigBean(ItsFactoryBuilder<L,D,R,C,O,I,IS,T,TT> fbIts)
 	{
 		super(fbIts.getClassL(),fbIts.getClassD());
 		this.fbIts=fbIts;
 	}
 	
 	protected void postConstructItsOption(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslItsFacade<L,D,R,C,O,I,STATUS,T,TT> fIts,
+									JeeslItsFacade<L,D,R,C,O,I,IS,T,TT> fIts,
 									R realm)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
@@ -102,7 +101,5 @@ public abstract class AbstractItsConfigBean <L extends JeeslLang, D extends Jees
 	{
 		logger.info(AbstractLogMessage.saveEntity(config));
 		config = fIts.save(config);
-		
-		
 	}
 }

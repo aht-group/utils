@@ -20,7 +20,7 @@ public class ItsFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 								C extends JeeslItsConfig<L,D,R,O>,
 								O extends JeeslItsConfigOption<L,D,O,?>,
 								I extends JeeslItsIssue<R,I>,
-								STATUS extends JeeslItsIssueStatus<L,D,R,STATUS,?>,
+								IS extends JeeslItsIssueStatus<L,D,R,IS,?>,
 								T extends JeeslItsTask<I,TT,?>,
 								TT extends JeeslItsTaskType<L,D,TT,?>>
 		extends AbstractFactoryBuilder<L,D>
@@ -33,14 +33,14 @@ public class ItsFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 	private final Class<O> cOption; public Class<O> getClassOption() {return cOption;}
 	
 	private final Class<I> cIssue; public Class<I> getClassIssue() {return cIssue;}
-	private final Class<STATUS> cStatus; public Class<STATUS> getClassStatus() {return cStatus;}
+	private final Class<IS> cStatus; public Class<IS> getClassStatus() {return cStatus;}
 	
 	public ItsFactoryBuilder(final Class<L> cL,final Class<D> cD,
 								final Class<R> cRealm,
 								final Class<C> cConfig,
 								final Class<O> cOption,
 								final Class<I> cIssue,
-								final Class<STATUS> cStatus)
+								final Class<IS> cStatus)
 	{       
 		super(cL,cD);
 		this.cRealm=cRealm;
@@ -51,5 +51,5 @@ public class ItsFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 	}
 	
 	public EjbItsConfigFactory<R,C,O> ejbConfig() {return new EjbItsConfigFactory<>(cConfig);}
-	public EjbItsFactory<R,I,STATUS> ejbIssue() {return new EjbItsFactory<>(this);}
+	public EjbItsFactory<R,I,IS> ejbIssue() {return new EjbItsFactory<>(this);}
 }

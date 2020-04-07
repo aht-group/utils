@@ -12,13 +12,13 @@ import org.slf4j.LoggerFactory;
 
 public class EjbItsFactory<R extends JeeslMcsRealm<?,?,R,?>,
 							I extends JeeslItsIssue<R,I>,
-							STATUS extends JeeslItsIssueStatus<?,?,R,STATUS,?>>
+							IS extends JeeslItsIssueStatus<?,?,R,IS,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbItsFactory.class);
 	
-	private final ItsFactoryBuilder<?,?,?,?,?,I,STATUS,?,?> fbIssue;
+	private final ItsFactoryBuilder<?,?,?,?,?,I,IS,?,?> fbIssue;
 	
-    public EjbItsFactory(final ItsFactoryBuilder<?,?,?,?,?,I,STATUS,?,?> fbIssue)
+    public EjbItsFactory(final ItsFactoryBuilder<?,?,?,?,?,I,IS,?,?> fbIssue)
     {
         this.fbIssue = fbIssue;
     }
