@@ -19,7 +19,7 @@
 				<p:panel header="#{msg.jeeslCmsDocumentStructure}" styleClass="jeeslTree" >
 					<f:facet name="actions">
 						<p:outputPanel id="cActions">
-							<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addIssue()}" update=":#{cc.id}:sIssue" tooltip="#{msg.jeeslAomTypeAdd}"/>
+							<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addIssue()}" update=":#{cc.id}:sIssue" tooltip="#{msg.jeeslItsIssueAdd}"/>
 						</p:outputPanel>
 					</f:facet>
 					<p:tree id="tTree" value="#{cc.attrs.bean.tree}" var="node" 
@@ -41,16 +41,16 @@
 			<h:form id="fIssue" rendered="#{not empty cc.attrs.bean.issue}">
 				<p:panel header="#{msg.jeeslAomType}" styleClass="jeeslPanel">
 					<f:facet name="actions">
-						<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.cancelIssue()}" update=":#{cc.id}:grid" mayDisappear="true"/>
-						<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveIssue()}" update=":#{cc.id}:grid" />
-						<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteIssue()}" update=":#{cc.id}:grid" rendered="#{cc.attrs.bean.issue.id gt 0}"/>
+						<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.cancelIssue()}" update=":#{cc.id}:grid" mayDisappear="true" tooltip="#{msg.jeeslTtCancel}"/>
+						<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveIssue()}" update=":#{cc.id}:grid" tooltip="#{msg.ttSave}"/>
+						<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteIssue()}" update=":#{cc.id}:grid" rendered="#{cc.attrs.bean.issue.id gt 0}" tooltip="#{msg.ttDelete}"/>
 					</f:facet>
 					<p:messages redisplay="false" severity="warn,error" showSummary="true" showDetail="true" closable="true"/>
 					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
 						<p:outputLabel value="#{msg.jeeslCode}"/>
 						<jtp:inputText value="#{cc.attrs.bean.issue.code}"/>
 						
-						<p:outputLabel value="#{msg.jeeslCode}"/>
+						<p:outputLabel value="#{msg.jeeslName}"/>
 						<jtp:inputText value="#{cc.attrs.bean.issue.name}"/>
 					</p:panelGrid>
 				</p:panel>

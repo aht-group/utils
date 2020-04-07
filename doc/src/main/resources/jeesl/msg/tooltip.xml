@@ -15,6 +15,7 @@
     </s:translation>
     <s:translation key="ttDelete">
     	<s:langs>
+    		<s:lang key="de" translation="Löschen"/>
     		<s:lang key="en" translation="Delete this item!"/>
     		<s:lang key="fr" translation="Delete this item!"/>
     	</s:langs>
@@ -34,6 +35,7 @@
     </s:translation>
 	<s:translation key="jeeslTtCancel">
     	<s:langs>
+    		<s:lang key="de" translation="Abbrechen"/>
     		<s:lang key="en" translation="Cancel editing!"/>
     		<s:lang key="fr" translation="Cancel editing!"/>
     	</s:langs>

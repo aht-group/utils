@@ -28,6 +28,13 @@
     		<s:lang key="fr" translation="Custom Label"/>
     	</s:langs>
     </s:translation>
+    <s:translation key="jeeslItsIssueAdd">
+    	<s:langs>
+    		<s:lang key="de" translation="Issue hinzufügen"/>
+    		<s:lang key="en" translation="add issue"/>
+    		<s:lang key="fr" translation="ajout un issue"/>
+    	</s:langs>
+    </s:translation>
     
     
 </s:translations>
