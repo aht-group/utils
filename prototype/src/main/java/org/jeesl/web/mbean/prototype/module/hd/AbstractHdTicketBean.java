@@ -32,6 +32,7 @@ import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.util.query.module.EjbHelpdeskQuery;
+import org.openfuxml.factory.xml.ofx.content.structure.XmlSectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,7 +47,7 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 								TYPE extends JeeslHdEventType<L,D,TYPE,?>,
 								LEVEL extends JeeslHdLevel<L,D,R,LEVEL,?>,
 								PRIORITY extends JeeslHdPriority<L,D,R,PRIORITY,?>,
-								MSG extends JeeslHdMessage<TICKET,SCOPE,USER>,
+								MSG extends JeeslHdMessage<TICKET,M,SCOPE,USER>,
 								M extends JeeslMarkup<MT>,
 								MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
 								FAQ extends JeeslHdFaq<L,D,R,CAT,SCOPE>,
@@ -117,6 +118,7 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		firstEvent = fbHd.ejbEvent().build(ticket,sbhCategory.getList().get(0),sbhStatus.getList().get(0),levels.get(0),priority,reporter);
 		lastEvent = fbHd.ejbEvent().build(ticket,sbhCategory.getList().get(0),sbhStatus.getList().get(0),levels.get(0),priority,reporter);
 		editHandler.update(ticket);
+		ofxUser = XmlSectionFactory.build();
 	}
 	private PRIORITY getDefaultPriority()
 	{
@@ -133,6 +135,7 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		if(EjbIdFactory.isUnSaved(ticket)) {ticket = fHd.saveHdTicket(ticket,lastEvent,reporter);}
 		else {ticket = fHd.save(ticket);}
 		editHandler.saved(ticket);
+		ofxUser = ofxMarkup.build(ticket.getMarkupUser());
 		reloadTickets();
 	}
 }

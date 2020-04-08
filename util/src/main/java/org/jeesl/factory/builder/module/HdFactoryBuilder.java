@@ -4,6 +4,7 @@ import org.jeesl.factory.builder.AbstractFactoryBuilder;
 import org.jeesl.factory.ejb.module.hd.EjbHdEventFactory;
 import org.jeesl.factory.ejb.module.hd.EjbHdFaqFactory;
 import org.jeesl.factory.ejb.module.hd.EjbHdFgaFactory;
+import org.jeesl.factory.ejb.module.hd.EjbHdMessageFactory;
 import org.jeesl.factory.ejb.module.hd.EjbHdTicketFactory;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCms;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
@@ -36,7 +37,7 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 							TYPE extends JeeslHdEventType<L,D,TYPE,?>,
 							LEVEL extends JeeslHdLevel<L,D,R,LEVEL,?>,
 							PRIORITY extends JeeslHdPriority<L,D,R,PRIORITY,?>,
-							MSG extends JeeslHdMessage<TICKET,SCOPE,USER>,
+							MSG extends JeeslHdMessage<TICKET,M,SCOPE,USER>,
 							M extends JeeslMarkup<MT>,
 							MT extends JeeslIoCmsMarkupType<?,?,MT,?>,
 							FAQ extends JeeslHdFaq<L,D,R,CAT,SCOPE>,
@@ -58,8 +59,11 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 	private final Class<LEVEL> cLevel; public Class<LEVEL> getClassLevel() {return cLevel;}
 	private final Class<PRIORITY> cPriority; public Class<PRIORITY> getClassPriority() {return cPriority;}
 	
+	private final Class<MSG> cMsg; public Class<MSG> getClassMessage() {return cMsg;}
 	private final Class<M> cMarkup; public Class<M> getClassMarkup() {return cMarkup;}
 	private final Class<MT> cMarkupType; public Class<MT> getClassMarkupType() {return cMarkupType;}
+	
+	
 	private final Class<FAQ> cFaq; public Class<FAQ> getClassFaq() {return cFaq;}
 	private final Class<SCOPE> cScope; public Class<SCOPE> getClassScope() {return cScope;}
 	private final Class<FGA> cFga; public Class<FGA> getClassFga() {return cFga;}
@@ -76,6 +80,7 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 								final Class<TYPE> cType,
 								final Class<LEVEL> cLevel,
 								final Class<PRIORITY> cPriority,
+								final Class<MSG> cMsg,
 								final Class<M> cMarkup,
 								final Class<MT> cMarkupType,
 								final Class<FAQ> cFaq,
@@ -93,6 +98,7 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 		this.cType=cType;
 		this.cLevel=cLevel;
 		this.cPriority=cPriority;
+		this.cMsg=cMsg;
 		this.cMarkup=cMarkup;
 		this.cMarkupType=cMarkupType;
 		this.cFaq=cFaq;
@@ -105,6 +111,7 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 
 	public EjbHdTicketFactory<R,TICKET,M,MT> ejbTicket() {return new EjbHdTicketFactory<>(cTicket,cMarkup);}
 	public EjbHdEventFactory<TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,USER> ejbEvent() {return new EjbHdEventFactory<>(this);}
+	public EjbHdMessageFactory<TICKET,MSG,M,MT,SCOPE,USER> ejbMessage() {return new EjbHdMessageFactory<>(this);}
 	public EjbHdFaqFactory<R,CAT,FAQ,SCOPE> ejbFaq() {return new EjbHdFaqFactory<>(this);}
 	public EjbHdFgaFactory<FAQ,FGA,DOC,SEC> ejbFga() {return new EjbHdFgaFactory<>(this);}
 }

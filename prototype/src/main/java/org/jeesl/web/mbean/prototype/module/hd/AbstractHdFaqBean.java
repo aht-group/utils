@@ -49,7 +49,7 @@ public abstract class AbstractHdFaqBean <L extends JeeslLang, D extends JeeslDes
 								TYPE extends JeeslHdEventType<L,D,TYPE,?>,
 								LEVEL extends JeeslHdLevel<L,D,R,LEVEL,?>,
 								PRIORITY extends JeeslHdPriority<L,D,R,PRIORITY,?>,
-								MSG extends JeeslHdMessage<TICKET,SCOPE,USER>,
+								MSG extends JeeslHdMessage<TICKET,M,SCOPE,USER>,
 								M extends JeeslMarkup<MT>,
 								MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
 								FAQ extends JeeslHdFaq<L,D,R,CAT,SCOPE>,

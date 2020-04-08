@@ -8,6 +8,7 @@ import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslHdFacade;
 import org.jeesl.controller.handler.sb.SbMultiHandler;
+import org.jeesl.doc.ofx.cms.generic.JeeslMarkupSectionFactory;
 import org.jeesl.factory.builder.module.HdFactoryBuilder;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCms;
@@ -32,6 +33,7 @@ import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
+import org.openfuxml.content.ofx.Section;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,7 +48,7 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 								TYPE extends JeeslHdEventType<L,D,TYPE,?>,
 								LEVEL extends JeeslHdLevel<L,D,R,LEVEL,?>,
 								PRIORITY extends JeeslHdPriority<L,D,R,PRIORITY,?>,
-								MSG extends JeeslHdMessage<TICKET,SCOPE,USER>,
+								MSG extends JeeslHdMessage<TICKET,M,SCOPE,USER>,
 								M extends JeeslMarkup<MT>,
 								MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
 								FAQ extends JeeslHdFaq<L,D,R,CAT,SCOPE>,
@@ -66,6 +68,8 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 
 	protected JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER> fHd;
 	
+	protected final JeeslMarkupSectionFactory<M> ofxMarkup;
+	
 	protected final SbMultiHandler<STATUS> sbhStatus; public SbMultiHandler<STATUS> getSbhStatus() {return sbhStatus;}
 	protected final SbMultiHandler<CAT> sbhCategory; public SbMultiHandler<CAT> getSbhCategory() {return sbhCategory;}
 	protected final SbMultiHandler<SCOPE> sbhScope; public SbMultiHandler<SCOPE> getSbhScope() {return sbhScope;}
@@ -80,12 +84,15 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 	protected TICKET ticket; public TICKET getTicket() {return ticket;} public void setTicket(TICKET ticket) {this.ticket = ticket;}
 	protected EVENT firstEvent; public EVENT getFirstEvent() {return firstEvent;} public void setFirstEvent(EVENT firstEvent) {this.firstEvent = firstEvent;}
 	protected EVENT lastEvent; public EVENT getLastEvent() {return lastEvent;} public void setLastEvent(EVENT lastEvent) {this.lastEvent = lastEvent;}
-
+	
+	protected Section ofxUser; public Section getOfxUser() {return ofxUser;}
 	
 	public AbstractHelpdeskBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER> fbHd)
 	{
 		super(fbHd.getClassL(),fbHd.getClassD());
 		this.fbHd=fbHd;
+		
+		ofxMarkup = new JeeslMarkupSectionFactory<>();
 		
 		sbhStatus = new SbMultiHandler<>(fbHd.getClassTicketStatus(),this);
 		sbhCategory = new SbMultiHandler<>(fbHd.getClassCategory(),this);
@@ -131,6 +138,7 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 		ticket = fHd.find(fbHd.getClassTicket(),ticket);
 		firstEvent = fHd.find(fbHd.getClassEvent(),ticket.getFirstEvent());
 		lastEvent = fHd.find(fbHd.getClassEvent(),ticket.getLastEvent());
+		ofxUser = ofxMarkup.build(ticket.getMarkupUser());
 		selectedTicket();
 	}
 	protected abstract void selectedTicket();

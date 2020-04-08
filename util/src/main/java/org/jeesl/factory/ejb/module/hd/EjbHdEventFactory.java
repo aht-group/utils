@@ -6,7 +6,6 @@ import org.jeesl.factory.builder.module.HdFactoryBuilder;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEvent;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEventType;
-import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdFaq;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdLevel;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdPriority;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicket;

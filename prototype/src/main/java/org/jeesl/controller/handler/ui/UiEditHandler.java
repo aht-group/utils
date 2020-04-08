@@ -45,6 +45,4 @@ public class UiEditHandler <T extends EjbWithId> implements Serializable
 		set.add(item);
 		update(item);
 	}
-	
-	
 }

@@ -7,8 +7,9 @@
 >
 	<c:set var="maxlength"  value="#{not empty maxlength ? maxlength : 255}" />
 	<c:set var="rendered"  value="#{not empty rendered ? rendered : true}" />
+	<c:set var="required"  value="#{not empty required ? required : false}" />
 	
-	<p:inputText rows="#{rows}" value="#{value}" autocomplete="off" rendered="#{rendered}">
+	<p:inputText rows="#{rows}" value="#{value}" autocomplete="off" rendered="#{rendered}" required="#{required}">
 		<c:set var="id" value="#{id}" />
 	</p:inputText>
 </ui:composition>
