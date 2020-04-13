@@ -24,6 +24,7 @@ import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.factory.ejb.module.ts.EjbTsFactory;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.factory.json.system.io.db.tuple.t1.Json1TuplesFactory;
+import org.jeesl.factory.sql.module.SqlTimeSeriesFactory;
 import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsCategory;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
@@ -77,6 +78,7 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 	private final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fbTs;
 	
 	private final EjbTsFactory<SCOPE,UNIT,TS,SOURCE,BRIDGE,EC,INT,STAT> efTs;
+	private final SqlTimeSeriesFactory<TS,DATA> sqlFactory;
 	
 	public JeeslTsFacadeBean(EntityManager em, final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fbTs)
 	{
@@ -84,6 +86,7 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 		this.fbTs=fbTs;
 
 		efTs = fbTs.ejbTs();
+		sqlFactory = new SqlTimeSeriesFactory<>(fbTs.getClassData());
 	}
 	
 	@Override public List<SCOPE> findScopes(Class<SCOPE> cScope, Class<CAT> cCategory, List<CAT> categories, boolean showInvisibleScopes)
@@ -287,6 +290,13 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 		cQ.orderBy(cB.asc(eRecord));
 		
 		return em.createQuery(cQ).getResultList();
+	}
+	
+	@Override public List<DATA> fDataLast(List<TS> list)
+	{
+		if(list==null || list.isEmpty()) {return new ArrayList<>();}
+		List<Long> ids = this.listId(sqlFactory.lastData(list));
+		return this.list(fbTs.getClassData(),ids);
 	}
 	
 	@Override public List<POINT> fPoints(WS workspace, TS timeSeries, JeeslTsData.QueryInterval interval, Date from, Date to)

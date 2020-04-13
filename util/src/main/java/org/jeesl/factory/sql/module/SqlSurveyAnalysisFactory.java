@@ -1,4 +1,4 @@
-package org.jeesl.factory.sql.module.survey;
+package org.jeesl.factory.sql.module;
 
 import java.util.HashMap;
 import java.util.Map;

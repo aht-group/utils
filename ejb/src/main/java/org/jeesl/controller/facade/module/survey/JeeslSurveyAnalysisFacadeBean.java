@@ -27,7 +27,7 @@ import org.jeesl.factory.json.module.survey.JsonSurveyValueFactory;
 import org.jeesl.factory.json.module.survey.JsonSurveyValuesFactory;
 import org.jeesl.factory.json.system.io.report.JsonFlatFigureFactory;
 import org.jeesl.factory.json.system.io.report.JsonFlatFiguresFactory;
-import org.jeesl.factory.sql.module.survey.SqlSurveyAnalysisFactory;
+import org.jeesl.factory.sql.module.SqlSurveyAnalysisFactory;
 import org.jeesl.interfaces.model.io.domain.JeeslDomain;
 import org.jeesl.interfaces.model.io.domain.JeeslDomainPath;
 import org.jeesl.interfaces.model.io.domain.JeeslDomainQuery;

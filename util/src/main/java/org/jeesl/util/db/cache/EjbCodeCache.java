@@ -49,4 +49,12 @@ public class EjbCodeCache <T extends EjbWithCode>
 		}
 		return map.get(code);
 	}
+	
+	public void verify(String code) throws JeeslNotFoundException
+	{
+		if(!map.containsKey(code))
+		{
+			map.put(code, fUtils.fByCode(c,code));
+		}
+	}
 }

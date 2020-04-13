@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -39,6 +40,8 @@ import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import net.sf.exlp.util.io.StringUtil;
 
 public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 										REALM extends JeeslMcsRealm<L,D,REALM,?>,
@@ -191,15 +194,28 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 
 		TypedQuery<ATYPE> tQ = em.createQuery(cQ);
 		try	{return tQ.getSingleResult();}
-		catch (NoResultException ex)
+		catch (NoResultException e1)
 		{
 			ATYPE result = fbAsset.ejbType().build(realm,rref,view, null, "root");
 			
 			try {return this.save(result);}
-			catch (JeeslConstraintViolationException | JeeslLockingException e)
+			catch (JeeslConstraintViolationException | JeeslLockingException e2)
 			{
 				return this.fcAomRootType(realm,rref,view);
 			}
+		}
+		catch (NonUniqueResultException e)
+		{
+			e.printStackTrace();
+			logger.error(StringUtil.stars());
+			logger.error("Realm: "+realm.toString());
+			logger.error("Rref: "+rref.toString());
+			logger.error("View: "+view.toString());
+			logger.error("Parent: null");
+			
+			logger.error(StringUtil.stars());
+			logger.warn("Return null");
+			return null;
 		}
 	}
 	

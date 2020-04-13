@@ -68,7 +68,7 @@ public class TsSessionProcessor<SYSTEM extends JeeslIoSsiSystem<?,?>,
 			TS ts = fcTs(system);
 			TRANSACTION transaction = fTs.save(fbTs.ejbTransaction().build(null,null));
 			
-			DATA data = efData.build(ws, ts, transaction, date, null);
+			DATA data = efData.build(ws,ts,transaction,date,null);
 			data = fTs.save(data);
 					
 			for(MP mp : fTs.allForParent(fbTs.getClassMp(), scope))

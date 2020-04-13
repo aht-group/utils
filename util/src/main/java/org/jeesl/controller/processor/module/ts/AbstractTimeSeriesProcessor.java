@@ -94,7 +94,6 @@ public class AbstractTimeSeriesProcessor<SCOPE extends JeeslTsScope<?,?,?,?,?,EC
 		mfTs.setScope(scope);
 		mfTs.setInterval(interval);
 		mfTs.setEntityClass(ec);
-		
 	}
 	
 	protected boolean isInitialized()
