@@ -77,4 +77,16 @@ public class EjbTsBridgeFactory<TS extends JeeslTimeSeries<?,TS,BRIDGE,?,?>,
 		}
 		return map;
 	}
+	
+	public <T extends EjbWithId> Map<T,DATA> toMapEjbData(List<T> ejbs, List<DATA> datas)
+	{
+		Map<T,DATA> map = new HashMap<T,DATA>();
+		Map<Long,T> idMap = EjbIdFactory.toIdMap(ejbs);
+		for(DATA data : datas)
+		{
+			long refId = data.getTimeSeries().getBridge().getRefId();
+			if(idMap.containsKey(refId)) {map.put(idMap.get(refId),data);}
+		}
+		return map;
+	}
 }

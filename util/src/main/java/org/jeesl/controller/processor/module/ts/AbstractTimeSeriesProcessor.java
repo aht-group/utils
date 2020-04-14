@@ -1,5 +1,8 @@
 package org.jeesl.controller.processor.module.ts;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jeesl.api.facade.module.JeeslTsFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
@@ -106,5 +109,21 @@ public class AbstractTimeSeriesProcessor<SCOPE extends JeeslTsScope<?,?,?,?,?,EC
 		STAT statistic = fTs.fByEnum(fbTs.getClassStat(), JeeslTsStatistic.Code.raw);
 		BRIDGE bridge = fTs.fcBridge(fbTs.getClassBridge(),ec,t);
 		return fTs.fcTimeSeries(scope,interval,statistic,bridge);
+	}
+	
+	public <T extends EjbWithId> List<TS> fTs(List<T> list)
+	{
+		List<TS> result = new ArrayList<>();
+		if(list==null || list.isEmpty()) {return result;}
+		
+		STAT statistic = fTs.fByEnum(fbTs.getClassStat(), JeeslTsStatistic.Code.raw);
+		List<BRIDGE> bridges = fTs.fBridges(ec,list);
+		for(BRIDGE b : bridges)
+		{
+			try {result.add(fTs.fTimeSeries(scope,interval,statistic,b));}
+			catch (JeeslNotFoundException e) {e.printStackTrace();}
+		}
+		
+		return result;
 	}
 }
