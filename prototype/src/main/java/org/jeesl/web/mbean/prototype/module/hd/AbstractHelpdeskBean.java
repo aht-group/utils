@@ -9,11 +9,15 @@ import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslHdFacade;
 import org.jeesl.controller.handler.sb.SbMultiHandler;
 import org.jeesl.doc.ofx.cms.generic.JeeslMarkupSectionFactory;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.HdFactoryBuilder;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
+import org.jeesl.interfaces.controller.handler.system.io.JeeslFileRepositoryHandler;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCms;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsSection;
+import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEvent;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEventType;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdFaq;
@@ -41,7 +45,7 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 								R extends JeeslMcsRealm<L,D,R,?>, RREF extends EjbWithId,
-								TICKET extends JeeslHdTicket<R,EVENT,M>,
+								TICKET extends JeeslHdTicket<R,EVENT,M,FRC>,
 								CAT extends JeeslHdTicketCategory<L,D,R,CAT,?>,
 								STATUS extends JeeslHdTicketStatus<L,D,R,STATUS,?>,
 								EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,PRIORITY,USER>,
@@ -56,6 +60,7 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 								FGA extends JeeslHdFga<FAQ,DOC,SEC>,
 								DOC extends JeeslIoCms<L,D,?,SEC,LOC>,
 								SEC extends JeeslIoCmsSection<L,SEC>,
+								FRC extends JeeslFileContainer<?,?>,
 								USER extends JeeslSimpleUser
 								>
 					extends AbstractAdminBean<L,D,LOC>
@@ -64,7 +69,7 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractHelpdeskBean.class);
 	
-	protected final HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER> fbHd;
+	protected final HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,FRC,USER> fbHd;
 
 	protected JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER> fHd;
 	
@@ -73,6 +78,8 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 	protected final SbMultiHandler<STATUS> sbhStatus; public SbMultiHandler<STATUS> getSbhStatus() {return sbhStatus;}
 	protected final SbMultiHandler<CAT> sbhCategory; public SbMultiHandler<CAT> getSbhCategory() {return sbhCategory;}
 	protected final SbMultiHandler<SCOPE> sbhScope; public SbMultiHandler<SCOPE> getSbhScope() {return sbhScope;}
+	
+	protected JeeslFileRepositoryHandler<?,FRC,?> frh; public JeeslFileRepositoryHandler<?,FRC,?> getFrh() {return frh;}  protected void setFrh(JeeslFileRepositoryHandler<?,FRC,?> frh) {this.frh = frh;}	
 	
 	protected final List<LEVEL> levels; public List<LEVEL> getLevels() {return levels;}
 	protected final List<PRIORITY> priorities; public List<PRIORITY> getPriorities() {return priorities;}
@@ -87,7 +94,7 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 	
 	protected Section ofxUser; public Section getOfxUser() {return ofxUser;}
 	
-	public AbstractHelpdeskBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER> fbHd)
+	public AbstractHelpdeskBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,FRC,USER> fbHd)
 	{
 		super(fbHd.getClassL(),fbHd.getClassD());
 		this.fbHd=fbHd;
@@ -132,13 +139,14 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 	}
 	protected abstract void updatedRealmReference();
 	
-	public void selectTicket()
+	public void selectTicket() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info(AbstractLogMessage.selectEntity(ticket));
 		ticket = fHd.find(fbHd.getClassTicket(),ticket);
 		firstEvent = fHd.find(fbHd.getClassEvent(),ticket.getFirstEvent());
 		lastEvent = fHd.find(fbHd.getClassEvent(),ticket.getLastEvent());
 		ofxUser = ofxMarkup.build(ticket.getMarkupUser());
+		if(frh!=null) {frh.init(ticket);}
 		selectedTicket();
 	}
 	protected abstract void selectedTicket();

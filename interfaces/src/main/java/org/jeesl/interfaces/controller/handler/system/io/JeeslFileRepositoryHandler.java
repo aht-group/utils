@@ -33,6 +33,7 @@ public interface JeeslFileRepositoryHandler <STORAGE extends JeeslFileStorage<?,
 	
 	InputStream download(META meta) throws JeeslNotFoundException;
 	
+	<W extends JeeslWithFileRepositoryContainer<CONTAINER>> void saveDeferred(W with) throws JeeslConstraintViolationException, JeeslLockingException;
 	void copyTo(JeeslFileRepositoryHandler<STORAGE,CONTAINER,META> target) throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException;
 	
 	void deleteFile() throws JeeslConstraintViolationException, JeeslLockingException;

@@ -15,6 +15,7 @@ import org.jeesl.factory.builder.module.HdFactoryBuilder;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCms;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsSection;
+import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEvent;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEventType;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdFaq;
@@ -43,7 +44,7 @@ import net.sf.exlp.util.xml.JaxbUtil;
 
 public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 								R extends JeeslMcsRealm<L,D,R,?>, RREF extends EjbWithId,
-								TICKET extends JeeslHdTicket<R,EVENT,M>,
+								TICKET extends JeeslHdTicket<R,EVENT,M,FRC>,
 								CAT extends JeeslHdTicketCategory<L,D,R,CAT,?>,
 								STATUS extends JeeslHdTicketStatus<L,D,R,STATUS,?>,
 								EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,PRIORITY,USER>,
@@ -58,9 +59,10 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 								FGA extends JeeslHdFga<FAQ,DOC,SEC>,
 								DOC extends JeeslIoCms<L,D,?,SEC,LOC>,
 								SEC extends JeeslIoCmsSection<L,SEC>,
+								FRC extends JeeslFileContainer<?,?>,
 								USER extends JeeslSimpleUser
 								>
-					extends AbstractHelpdeskBean<L,D,LOC,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER>
+					extends AbstractHelpdeskBean<L,D,LOC,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,FRC,USER>
 					implements Serializable//,SbSingleBean
 {
 	private static final long serialVersionUID = 1L;
@@ -78,7 +80,7 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 	private MSG message; public MSG getMessage() {return message;} public void setMessage(MSG message) {this.message = message;}
 	protected Section ofxMessage; public Section getOfxMessage() {return ofxMessage;}
 	
-	public AbstractHdSupportBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER> fbHd)
+	public AbstractHdSupportBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,FRC,USER> fbHd)
 	{
 		super(fbHd);
 		

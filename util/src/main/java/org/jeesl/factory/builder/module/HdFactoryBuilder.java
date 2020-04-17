@@ -9,6 +9,7 @@ import org.jeesl.factory.ejb.module.hd.EjbHdTicketFactory;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCms;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsSection;
+import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEvent;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEventType;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdFaq;
@@ -30,7 +31,7 @@ import org.slf4j.LoggerFactory;
 
 public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 							R extends JeeslMcsRealm<L,D,R,?>,
-							TICKET extends JeeslHdTicket<R,EVENT,M>,
+							TICKET extends JeeslHdTicket<R,EVENT,M,FRC>,
 							CAT extends JeeslHdTicketCategory<L,D,R,CAT,?>,
 							STATUS extends JeeslHdTicketStatus<?,?,R,STATUS,?>,
 							EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,PRIORITY,USER>,
@@ -45,6 +46,7 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 							FGA extends JeeslHdFga<FAQ,DOC,SEC>,
 							DOC extends JeeslIoCms<L,D,?,SEC,?>,
 							SEC extends JeeslIoCmsSection<L,SEC>,
+							FRC extends JeeslFileContainer<?,?>,
 							USER extends JeeslSimpleUser>
 		extends AbstractFactoryBuilder<L,D>
 {

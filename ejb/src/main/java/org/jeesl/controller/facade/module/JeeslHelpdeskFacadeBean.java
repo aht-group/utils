@@ -45,7 +45,7 @@ import org.slf4j.LoggerFactory;
 
 public class JeeslHelpdeskFacadeBean<L extends JeeslLang,D extends JeeslDescription,
 										R extends JeeslMcsRealm<L,D,R,?>,
-										TICKET extends JeeslHdTicket<R,EVENT,M>,
+										TICKET extends JeeslHdTicket<R,EVENT,M,?>,
 										CAT extends JeeslHdTicketCategory<L,D,R,CAT,?>,
 										STATUS extends JeeslHdTicketStatus<L,D,R,STATUS,?>,
 										EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,PRIORITY,USER>,
@@ -68,9 +68,9 @@ public class JeeslHelpdeskFacadeBean<L extends JeeslLang,D extends JeeslDescript
 
 	final static Logger logger = LoggerFactory.getLogger(JeeslHelpdeskFacadeBean.class);
 	
-	private final HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER> fbHd;
+	private final HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,?,USER> fbHd;
 	
-	public JeeslHelpdeskFacadeBean(EntityManager em, final HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER> fbHd)
+	public JeeslHelpdeskFacadeBean(EntityManager em, final HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,?,USER> fbHd)
 	{
 		super(em);
 		this.fbHd=fbHd;

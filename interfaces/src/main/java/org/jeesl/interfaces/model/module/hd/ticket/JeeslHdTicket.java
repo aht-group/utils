@@ -2,6 +2,8 @@ package org.jeesl.interfaces.model.module.hd.ticket;
 
 import java.io.Serializable;
 
+import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
+import org.jeesl.interfaces.model.io.fr.JeeslWithFileRepositoryContainer;
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEvent;
 import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
@@ -13,11 +15,12 @@ import org.jeesl.interfaces.model.with.primitive.text.EjbWithName;
 
 public interface JeeslHdTicket<R extends JeeslMcsRealm<?,?,R,?>,
 								EVENT extends JeeslHdEvent<?,?,?,?,?,?,?>,
-								M extends JeeslMarkup<?>>
+								M extends JeeslMarkup<?>,
+								FRC extends JeeslFileContainer<?,?>>
 						extends Serializable,EjbSaveable,
 								EjbWithId,EjbWithName,EjbWithNonUniqueCode,
-//								JeeslWithCategory<CAT>,JeeslWithStatus<STATUS>,
-								JeeslWithMultiClientSupport<R>
+								JeeslWithMultiClientSupport<R>,
+								JeeslWithFileRepositoryContainer<FRC>
 {	
 	public enum Attributes{lastEvent}
 	

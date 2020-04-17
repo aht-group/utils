@@ -59,12 +59,37 @@
 				<p:column headerText="#{msg.jeeslHdRecord}">  
 					<jp:outputDate value="#{e.record}" withTime="true"/>
 				</p:column>
+				<p:column>  
+					<h:outputText value="#{of:abbreviate(e.initiator.firstName,1)}#{of:abbreviate(e.initiator.lastName,1)}"/>
+				</p:column>
 				<p:column headerText="#{msg.jeeslHdEventChange}">
 					<ui:repeat var="t" value="#{e.types}">
-						<jtp:symbolizer value="#{t}" marginRight="5"/>
-						<h:outputText value="#{of:abbreviate(e.initiator.firstName,1)}#{of:abbreviate(e.initiator.lastName,1)} :"/>
-						<ui:fragment rendered="#{t.code eq 'status'}"
-							<jtp:symbolizer value="#{t}" marginRight="5"/>
+						<jtp:symbolizer value="#{t}" marginRight="2"/>
+						<h:outputText value=": "/>
+						<ui:fragment rendered="#{t.code eq 'status'}">
+							<jtp:symbolizer value="#{e.status}" marginLeft="5"/>
+							<h:outputText value="#{e.status.name[localeCode].lang}"/>
+						</ui:fragment>
+						<ui:fragment rendered="#{t.code eq 'supporter'}">
+							<h:outputText value="#{e.supporter.firstName}"/>
+						</ui:fragment>
+						<ui:fragment rendered="#{t.code eq 'level'}">
+							<h:outputText value="#{e.level.name[localeCode].lang}"/>
+							<jtp:symbolizer value="#{e.level}" marginLeft="5"/>
+						</ui:fragment>
+						<ui:fragment rendered="#{t.code eq 'category'}">
+							<h:outputText value="#{e.category.name[localeCode].lang}"/>
+							<jtp:symbolizer value="#{e.category}" marginLeft="5"/>
+						</ui:fragment>
+						<ui:fragment rendered="#{t.code eq 'priority'}">
+							<h:outputText value="#{e.supporterPriority.name[localeCode].lang}"/>
+							<jtp:symbolizer value="#{e.supporterPriority}" marginLeft="5"/>
+						</ui:fragment>
+						<ui:fragment rendered="#{t.code eq 'create'}">
+							<jtp:symbolizer value="#{e.status}" marginLeft="5"/>
+							<jtp:symbolizer value="#{e.level}" marginLeft="5"/>
+							<jtp:symbolizer value="#{e.category}" marginLeft="5"/>
+							<jtp:symbolizer value="#{e.reporterPriority}" marginLeft="5"/>
 						</ui:fragment>
 						<br/>
 					</ui:repeat>
@@ -88,14 +113,15 @@
 						<p:outputLabel value="#{msg.jeeslHdReporter}"/>
 						<h:outputText value="#{cc.attrs.bean.lastEvent.reporter.firstName} #{cc.attrs.bean.lastEvent.reporter.lastName}"/>
 						
-						<p:outputLabel value="#{msg.jeeslHdCategory}"/>
-						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.category}" effect="fade" autoWidth="false">
-                        	<f:selectItems value="#{cc.attrs.bean.sbhCategory.list}" var="c" itemLabel="#{c.name[localeCode].lang}" itemValue="#{c}"/>
-                        </p:selectOneMenu>
-                        
-                        <p:outputLabel value="#{msg.jeeslHdStatus}"/>
+						<p:outputLabel value="#{msg.jeeslHdStatus}"/>
 						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.status}" effect="fade" autoWidth="false">
                         	<f:selectItems value="#{cc.attrs.bean.sbhStatus.list}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s}"/>
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="#{msg.jeeslHdSupporter}"/>
+						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.supporter}" effect="fade" autoWidth="false">
+							<f:selectItem itemLabel="--"/>
+                        	<f:selectItems value="#{cc.attrs.bean.supporters}" var="u" itemLabel="#{u.firstName} #{u.lastName}" itemValue="#{u}"/>
                         </p:selectOneMenu>
                         
                         <p:outputLabel value="#{msg.jeeslHdLevel}"/>
@@ -103,15 +129,14 @@
                         	<f:selectItems value="#{cc.attrs.bean.levels}" var="l" itemLabel="#{l.name[localeCode].lang}" itemValue="#{l}"/>
                         </p:selectOneMenu>
                         
+                        <p:outputLabel value="#{msg.jeeslHdCategory}"/>
+						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.category}" effect="fade" autoWidth="false">
+                        	<f:selectItems value="#{cc.attrs.bean.sbhCategory.list}" var="c" itemLabel="#{c.name[localeCode].lang}" itemValue="#{c}"/>
+                        </p:selectOneMenu>
+                        
                         <p:outputLabel value="#{msg.jeeslHdPriority}"/>
 						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.supporterPriority}" effect="fade" autoWidth="false">
                         	<f:selectItems value="#{cc.attrs.bean.priorities}" var="p" itemLabel="#{p.name[localeCode].lang}" itemValue="#{p}"/>
-                        </p:selectOneMenu>
-                        
-                        <p:outputLabel value="#{msg.jeeslHdSupporter}"/>
-						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.supporter}" effect="fade" autoWidth="false">
-							<f:selectItem itemLabel="--"/>
-                        	<f:selectItems value="#{cc.attrs.bean.supporters}" var="u" itemLabel="#{u.firstName} #{u.lastName}" itemValue="#{u}"/>
                         </p:selectOneMenu>
                            
                         <p:outputLabel value="#{msg.jeeslHdTicketName}"/>

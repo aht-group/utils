@@ -3,16 +3,20 @@ package org.jeesl.web.mbean.prototype.module.hd;
 import java.io.Serializable;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
+import org.jeesl.api.bean.callback.JeeslFileRepositoryCallback;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslHdFacade;
 import org.jeesl.controller.handler.ui.UiEditHandler;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.HdFactoryBuilder;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
+import org.jeesl.interfaces.controller.handler.system.io.JeeslFileRepositoryHandler;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCms;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsSection;
+import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEvent;
 import org.jeesl.interfaces.model.module.hd.event.JeeslHdEventType;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdFaq;
@@ -40,7 +44,7 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 								R extends JeeslMcsRealm<L,D,R,?>, RREF extends EjbWithId,
-								TICKET extends JeeslHdTicket<R,EVENT,M>,
+								TICKET extends JeeslHdTicket<R,EVENT,M,FRC>,
 								CAT extends JeeslHdTicketCategory<L,D,R,CAT,?>,
 								STATUS extends JeeslHdTicketStatus<L,D,R,STATUS,?>,
 								EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,PRIORITY,USER>,
@@ -55,19 +59,20 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 								FGA extends JeeslHdFga<FAQ,DOC,SEC>,
 								DOC extends JeeslIoCms<L,D,?,SEC,LOC>,
 								SEC extends JeeslIoCmsSection<L,SEC>,
+								FRC extends JeeslFileContainer<?,?>,
 								USER extends JeeslSimpleUser
 								>
-					extends AbstractHelpdeskBean<L,D,LOC,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER>
-					implements Serializable//,SbSingleBean
+					extends AbstractHelpdeskBean<L,D,LOC,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,FRC,USER>
+					implements Serializable,JeeslFileRepositoryCallback//,SbSingleBean
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractHdTicketBean.class);
 	
 	private final UiEditHandler<TICKET> editHandler; public UiEditHandler<TICKET> getEditHandler() {return editHandler;}
-		
+	
 	private USER reporter;
 	
-	public AbstractHdTicketBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER> fbHd)
+	public AbstractHdTicketBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,FRC,USER> fbHd)
 	{
 		super(fbHd);
 		
@@ -109,7 +114,7 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		editHandler.update(ticket);
 	}
 	
-	public void addTicket()
+	public void addTicket() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info(AbstractLogMessage.addEntity(fbHd.getClassTicket()));
 		MT type = fHd.fByEnum(fbHd.getClassMarkupType(),JeeslIoCmsMarkupType.Code.xhtml);
@@ -119,6 +124,7 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		lastEvent = fbHd.ejbEvent().build(ticket,sbhCategory.getList().get(0),sbhStatus.getList().get(0),levels.get(0),priority,reporter);
 		editHandler.update(ticket);
 		ofxUser = XmlSectionFactory.build();
+		if(frh!=null) {frh.init(ticket);}
 	}
 	private PRIORITY getDefaultPriority()
 	{
@@ -129,13 +135,24 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		return priorities.get(0);
 	}
 	
-	public void saveTicket() throws JeeslConstraintViolationException, JeeslLockingException
+	public void saveTicket() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		fbHd.ejbEvent().converter(fHd,lastEvent);
 		if(EjbIdFactory.isUnSaved(ticket)) {ticket = fHd.saveHdTicket(ticket,lastEvent,reporter);}
 		else {ticket = fHd.save(ticket);}
 		editHandler.saved(ticket);
 		ofxUser = ofxMarkup.build(ticket.getMarkupUser());
+		if(frh!=null)
+		{
+			frh.saveDeferred(ticket);
+			ticket.setFrContainer(frh.getContainer());
+			ticket = fHd.save(ticket);
+		}
 		reloadTickets();
+	}
+	
+	@Override public void fileRepositoryContainerSaved(EjbWithId id) throws JeeslConstraintViolationException, JeeslLockingException
+	{
+		logger.info("Empty, we are using deferred");
 	}
 }

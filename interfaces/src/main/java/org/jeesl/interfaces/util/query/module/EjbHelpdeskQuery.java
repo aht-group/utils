@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 
 public class EjbHelpdeskQuery<L extends JeeslLang,D extends JeeslDescription,
 							R extends JeeslMcsRealm<L,D,R,?>, RREF extends EjbWithId,
-							TICKET extends JeeslHdTicket<R,EVENT,?>,
+							TICKET extends JeeslHdTicket<R,EVENT,?,?>,
 							CAT extends JeeslHdTicketCategory<L,D,R,CAT,?>,
 							STATUS extends JeeslHdTicketStatus<L,D,R,STATUS,?>,
 							EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,PRIORITY,USER>,
@@ -43,7 +43,7 @@ public class EjbHelpdeskQuery<L extends JeeslLang,D extends JeeslDescription,
 	
 	public static <L extends JeeslLang,D extends JeeslDescription,
 					R extends JeeslMcsRealm<L,D,R,?>, RREF extends EjbWithId,
-					TICKET extends JeeslHdTicket<R,EVENT,?>,
+					TICKET extends JeeslHdTicket<R,EVENT,?,?>,
 					CAT extends JeeslHdTicketCategory<L,D,R,CAT,?>,
 					STATUS extends JeeslHdTicketStatus<L,D,R,STATUS,?>,
 					EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,PRIORITY,USER>,

@@ -97,7 +97,7 @@ public class AbstractAssetBean <L extends JeeslLang, D extends JeeslDescription,
     private final ThMultiFilterHandler<ETYPE> thfEventType; public ThMultiFilterHandler<ETYPE> getThfEventType() {return thfEventType;}
     private final SbMultiHandler<ETYPE> sbhEventType; public SbMultiHandler<ETYPE> getSbhEventType() {return sbhEventType;}
     private final SbSingleHandler<ALEVEL> sbhView; public SbSingleHandler<ALEVEL> getSbhView() {return sbhView;}
-    private JeeslFileRepositoryHandler<?,FRC,?> frh; public JeeslFileRepositoryHandler<?,FRC,?> getFrh() {return frh;}  protected void setFrh(JeeslFileRepositoryHandler<?, FRC, ?> frh) {this.frh = frh;}
+    private JeeslFileRepositoryHandler<?,FRC,?> frh; public JeeslFileRepositoryHandler<?,FRC,?> getFrh() {return frh;}  protected void setFrh(JeeslFileRepositoryHandler<?,FRC,?> frh) {this.frh = frh;}
     
     private final AssetEventLazyModel<ASSET,EVENT,ETYPE,ESTATUS,USER> lazyEvents; public AssetEventLazyModel<ASSET,EVENT,ETYPE,ESTATUS,USER> getLazyEvents() {return lazyEvents;}
     

@@ -301,7 +301,7 @@ public abstract class AbstractFileRepositoryHandler<L extends JeeslLang, D exten
 		reset(true);
     }
 	
-	public <W extends JeeslWithFileRepositoryContainer<CONTAINER>> void saveDeferred(W with) throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException
+	public <W extends JeeslWithFileRepositoryContainer<CONTAINER>> void saveDeferred(W with) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo) {logger.info("Saving Defrred "+metas.size());}
 		this.init(storage,with,false);

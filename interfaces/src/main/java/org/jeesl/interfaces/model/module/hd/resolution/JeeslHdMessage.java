@@ -11,7 +11,7 @@ import org.jeesl.interfaces.model.with.primitive.date.EjbWithRecord;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.system.status.JeeslWithScope;
 
-public interface JeeslHdMessage<TICKET extends JeeslHdTicket<?,?,?>,
+public interface JeeslHdMessage<TICKET extends JeeslHdTicket<?,?,?,?>,
 								M extends JeeslMarkup<?>,
 								SCOPE extends JeeslHdScope<?,?,SCOPE,?>,
 								USER extends JeeslSimpleUser>

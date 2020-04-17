@@ -17,7 +17,7 @@ import org.jeesl.interfaces.model.with.system.status.JeeslWithCategory;
 import org.jeesl.interfaces.model.with.system.status.JeeslWithLevel;
 import org.jeesl.interfaces.model.with.system.status.JeeslWithStatus;
 
-public interface JeeslHdEvent<TICKET extends JeeslHdTicket<?,?,?>,
+public interface JeeslHdEvent<TICKET extends JeeslHdTicket<?,?,?,?>,
 								CAT extends JeeslHdTicketCategory<?,?,?,CAT,?>,
 								STATUS extends JeeslHdTicketStatus<?,?,?,STATUS,?>,
 								TYPE extends JeeslHdEventType<?,?,TYPE,?>,

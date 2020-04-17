@@ -14,7 +14,7 @@ import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbHdMessageFactory<TICKET extends JeeslHdTicket<?,?,M>,
+public class EjbHdMessageFactory<TICKET extends JeeslHdTicket<?,?,M,?>,
 								MSG extends JeeslHdMessage<TICKET,M,SCOPE,USER>,
 								M extends JeeslMarkup<MT>,
 								MT extends JeeslIoCmsMarkupType<?,?,MT,?>,
@@ -23,11 +23,11 @@ public class EjbHdMessageFactory<TICKET extends JeeslHdTicket<?,?,M>,
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbHdMessageFactory.class);
 	
-	protected final HdFactoryBuilder<?,?,?,TICKET,?,?,?,?,?,?,MSG,M,MT,?,SCOPE,?,?,?,USER> fbHd;
+	protected final HdFactoryBuilder<?,?,?,TICKET,?,?,?,?,?,?,MSG,M,MT,?,SCOPE,?,?,?,?,USER> fbHd;
 	
 	private final EjbIoCmsMarkupFactory<M,MT> efMarkup;
 
-    public EjbHdMessageFactory(HdFactoryBuilder<?,?,?,TICKET,?,?,?,?,?,?,MSG,M,MT,?,SCOPE,?,?,?,USER> fbHd)
+    public EjbHdMessageFactory(HdFactoryBuilder<?,?,?,TICKET,?,?,?,?,?,?,MSG,M,MT,?,SCOPE,?,?,?,?,USER> fbHd)
     {
         this.fbHd = fbHd;
         efMarkup = new EjbIoCmsMarkupFactory<>(fbHd.getClassMarkup());

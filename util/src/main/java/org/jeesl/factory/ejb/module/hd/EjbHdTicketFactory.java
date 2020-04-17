@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbHdTicketFactory<R extends JeeslMcsRealm<?,?,R,?>,
-								TICKET extends JeeslHdTicket<R,?,M>,
+								TICKET extends JeeslHdTicket<R,?,M,?>,
 								M extends JeeslMarkup<MT>,
 								MT extends JeeslIoCmsMarkupType<?,?,MT,?>>
 {

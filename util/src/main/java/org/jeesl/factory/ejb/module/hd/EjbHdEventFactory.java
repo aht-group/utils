@@ -15,7 +15,7 @@ import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbHdEventFactory<TICKET extends JeeslHdTicket<?,EVENT,?>,
+public class EjbHdEventFactory<TICKET extends JeeslHdTicket<?,EVENT,?,?>,
 								CAT extends JeeslHdTicketCategory<?,?,?,CAT,?>,
 								STATUS extends JeeslHdTicketStatus<?,?,?,STATUS,?>,
 								EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,PRIORITY,USER>,
@@ -26,9 +26,9 @@ public class EjbHdEventFactory<TICKET extends JeeslHdTicket<?,EVENT,?>,
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbHdEventFactory.class);
 	
-	private final HdFactoryBuilder<?,?,?,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,?,?,?,?,?,?,?,?,USER> fbHd;
+	private final HdFactoryBuilder<?,?,?,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,?,?,?,?,?,?,?,?,?,USER> fbHd;
 	
-    public EjbHdEventFactory(HdFactoryBuilder<?,?,?,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,?,?,?,?,?,?,?,?,USER> fbHd)
+    public EjbHdEventFactory(HdFactoryBuilder<?,?,?,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,?,?,?,?,?,?,?,?,?,USER> fbHd)
     {
         this.fbHd = fbHd;
     }

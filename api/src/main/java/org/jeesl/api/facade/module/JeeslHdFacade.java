@@ -29,7 +29,7 @@ import org.jeesl.interfaces.util.query.module.EjbHelpdeskQuery;
 
 public interface JeeslHdFacade <L extends JeeslLang,D extends JeeslDescription,
 								R extends JeeslMcsRealm<L,D,R,?>, 
-								TICKET extends JeeslHdTicket<R,EVENT,M>,
+								TICKET extends JeeslHdTicket<R,EVENT,M,?>,
 								CAT extends JeeslHdTicketCategory<L,D,R,CAT,?>,
 								STATUS extends JeeslHdTicketStatus<L,D,R,STATUS,?>,
 								EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,PRIORITY,USER>,
