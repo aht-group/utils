@@ -432,11 +432,12 @@ public abstract class AbstractCmsEditorBean <L extends JeeslLang,D extends Jeesl
 			else {logger.warn("hFileRepository==null");}
 		}
 	}
-	@Override public void fileRepositoryContainerSaved(EjbWithId id) throws JeeslConstraintViolationException, JeeslLockingException
+	@Override public void callbackFrContainerSaved(EjbWithId id) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		element.setFrContainer(hFileRepository.getContainer());
 		element = fCms.save(element);
 	}
+	@Override public void callbackFrMetaSelected() {}
 	
 	public void saveParagraph() throws JeeslConstraintViolationException, JeeslLockingException
 	{

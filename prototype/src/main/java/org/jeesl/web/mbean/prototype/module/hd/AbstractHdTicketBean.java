@@ -151,8 +151,6 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		reloadTickets();
 	}
 	
-	@Override public void fileRepositoryContainerSaved(EjbWithId id) throws JeeslConstraintViolationException, JeeslLockingException
-	{
-		logger.info("Empty, we are using deferred");
-	}
+	@Override public void callbackFrContainerSaved(EjbWithId id) throws JeeslConstraintViolationException, JeeslLockingException{}
+	@Override public void callbackFrMetaSelected() {}
 }

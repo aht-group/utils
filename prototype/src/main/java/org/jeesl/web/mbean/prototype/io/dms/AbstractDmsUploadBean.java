@@ -244,11 +244,12 @@ public abstract class AbstractDmsUploadBean <L extends JeeslLang,D extends Jeesl
 		file = fAttribute.save(file);
 	}
 	
-	@Override public void fileRepositoryContainerSaved(EjbWithId id) throws JeeslConstraintViolationException, JeeslLockingException
+	@Override public void callbackFrContainerSaved(EjbWithId id) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		file.setFrContainer(fileHandler.getContainer());
 		file = fFr.save(file);
 	}
+	@Override public void callbackFrMetaSelected() {}
 	
 	public void reorderFiles() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fDms, files);}
 

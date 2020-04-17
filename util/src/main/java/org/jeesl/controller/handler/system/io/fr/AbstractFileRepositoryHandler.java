@@ -199,7 +199,7 @@ public abstract class AbstractFileRepositoryHandler<L extends JeeslLang, D exten
 				if(debugOnInfo) {logger.info("Saved container "+container.toString());}
 				if(callback!=null)
 				{
-					callback.fileRepositoryContainerSaved(with);
+					callback.callbackFrContainerSaved(with);
 				}
 			}
 		}
@@ -279,6 +279,7 @@ public abstract class AbstractFileRepositoryHandler<L extends JeeslLang, D exten
 		if(debugOnInfo) {logger.info("selectFile "+meta.toString());}
 		fileName = meta.getFileName();
 		meta = efDescription.persistMissingLangs(fFr,locales,meta);
+		
 	}
 	
 	public void saveFile() throws JeeslConstraintViolationException, JeeslLockingException

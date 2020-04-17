@@ -386,9 +386,10 @@ public class AbstractAssetBean <L extends JeeslLang, D extends JeeslDescription,
     }
     
   
-	@Override public void fileRepositoryContainerSaved(EjbWithId id) throws JeeslConstraintViolationException, JeeslLockingException
+	@Override public void callbackFrContainerSaved(EjbWithId id) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		event.setFrContainer(frh.getContainer());
 		event = fAsset.save(event);
 	}
+	@Override public void callbackFrMetaSelected() {}
 }

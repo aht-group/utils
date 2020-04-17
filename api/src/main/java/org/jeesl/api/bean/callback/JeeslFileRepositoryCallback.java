@@ -6,5 +6,6 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslFileRepositoryCallback
 {	
-	void fileRepositoryContainerSaved(EjbWithId id) throws JeeslConstraintViolationException, JeeslLockingException;
+	void callbackFrContainerSaved(EjbWithId id) throws JeeslConstraintViolationException, JeeslLockingException;
+	void callbackFrMetaSelected();
 }
