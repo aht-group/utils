@@ -61,7 +61,11 @@
 				</p:column>
 				<p:column headerText="#{msg.jeeslHdEventChange}">
 					<ui:repeat var="t" value="#{e.types}">
-						<jtp:symbolizer value="#{t}"/>
+						<jtp:symbolizer value="#{t}" marginRight="5"/>
+						<h:outputText value="#{of:abbreviate(e.initiator.firstName,1)}#{of:abbreviate(e.initiator.lastName,1)} :"/>
+						<ui:fragment rendered="#{t.code eq 'status'}"
+							<jtp:symbolizer value="#{t}" marginRight="5"/>
+						</ui:fragment>
 						<br/>
 					</ui:repeat>
 				</p:column>
@@ -120,7 +124,7 @@
 			</h:form>
 		</j:slot>
 	</j:row>
-	<j:row id="rMessage">
+	<j:row id="rMessage" rendered="false">
 		<j:slot id="sMessages" width="7" rendered="#{not empty cc.attrs.bean.ticket}">
 			<h:form id="fMessages" >
 				<p:dataTable var="m" value="#{cc.attrs.bean.messages}"
@@ -167,7 +171,7 @@
 						<p:outputLabel value="#{msg.jeeslHdRecord}"/>
 						<jp:outputDate value="#{cc.attrs.bean.message.record}" withTime="true"/>
 						
-						<p:outputLabel value="#{msg.jeeslHdCategory}"/>
+						<p:outputLabel value="#{msg.jeeslHdScope}"/>
 						<p:selectOneMenu value="#{cc.attrs.bean.message.scope}" effect="fade" autoWidth="false">
                         	<f:selectItems value="#{cc.attrs.bean.scopes}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s}"/>
                         </p:selectOneMenu>

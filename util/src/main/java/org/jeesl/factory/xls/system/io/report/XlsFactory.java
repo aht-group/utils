@@ -297,6 +297,7 @@ public class XlsFactory <L extends JeeslLang,D extends JeeslDescription,
 			}
 			rowNr.add(1);
         }
+        logger.info("Completed iteration");
 	}
 	
 	private void applyTreeTable(Figures tree, Figures treeHeader, Sheet sheet, MutableInt rowNr, SHEET ioSheet, List<COLUMN> columns, XlsCellFactory<REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS> xfCell, JeeslReportSetting.Transformation transformation)

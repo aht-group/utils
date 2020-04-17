@@ -8,6 +8,7 @@ import java.util.Map;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsMultiPoint;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsData;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsDataPoint;
+import org.jeesl.model.pojo.map.generic.Nested2Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,7 +70,6 @@ public class EjbTsDataPointFactory<MP extends JeeslTsMultiPoint<?,?,?,?>,
 		for(POINT p : list)
 		{
 			map.put(p.getMultiPoint(),p);
-			
 		}
 		return map;
 	}
@@ -80,6 +80,17 @@ public class EjbTsDataPointFactory<MP extends JeeslTsMultiPoint<?,?,?,?>,
 		{
 			map.put(p.getData(),p);
 		}
+		return map;
+	}
+	
+	public Nested2Map<DATA,MP,POINT> toN2Map(List<POINT> list)
+	{
+		Nested2Map<DATA,MP,POINT> map = new Nested2Map<>();
+		for(POINT p : list)
+		{
+			map.put(p.getData(),p.getMultiPoint(),p);
+		}
+		
 		return map;
 	}
 }
