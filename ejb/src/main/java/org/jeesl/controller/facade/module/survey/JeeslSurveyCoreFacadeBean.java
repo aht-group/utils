@@ -486,15 +486,17 @@ public class JeeslSurveyCoreFacadeBean <L extends JeeslLang, D extends JeeslDesc
 
 	@Override public DATA saveData(DATA data) throws JeeslConstraintViolationException, JeeslLockingException
 	{
-//		logger.info("Testing Correlation: null?"+(data.getCorrelation()==null));
-//		logger.info("Testing Correlation: Saved?"+EjbIdFactory.isSaved(data.getCorrelation()));
+		logger.trace("Testing Correlation: not null? "+(data.getCorrelation()!=null));
+		logger.trace("Testing Correlation: Saved? "+EjbIdFactory.isSaved(data.getCorrelation()));
 		
 		if(EjbIdFactory.isSaved(data.getCorrelation()))
 		{
 			data.setCorrelation(em.find(fbCore.getClassCorrelation(),data.getCorrelation().getId()));
 		}
-//		logger.info("Now Saving ...");
-		return this.saveProtected(data);
+		logger.trace("Now Saving ...");
+		data = this.saveProtected(data);
+		logger.trace("Saved "+data.toString());
+		return data;
 	}
 
 	@Override public List<ANSWER> fAnswers(SURVEY survey)

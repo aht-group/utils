@@ -143,13 +143,13 @@ public class JeeslFacadeBean implements JeeslFacade
 			if(handleTransaction){em.getTransaction().rollback();}
 			
 			if(e instanceof javax.validation.ConstraintViolationException) {throw new JeeslConstraintViolationException(e.getMessage());}
-			if(e instanceof IllegalStateException)
+			else if(e instanceof IllegalStateException)
 			{
 				System.err.println("Most probably a transient value error as "+e.getClass().getName());
 				e.printStackTrace();
 				throw new JeeslConstraintViolationException(e.getMessage());
 			}
-			if(e instanceof javax.persistence.PersistenceException)
+			else if(e instanceof javax.persistence.PersistenceException)
 			{
 				if(e.getCause() instanceof org.hibernate.exception.ConstraintViolationException)
 				{
@@ -166,7 +166,15 @@ public class JeeslFacadeBean implements JeeslFacade
 					if(e.getCause()!=null) {sb.append(" with cause:").append(e.getCause().getClass().getName());}
 					logger.error(sb.toString());
 					e.printStackTrace();
+					throw new JeeslConstraintViolationException(e.getMessage());
 				}
+			}
+			else if(e instanceof NullPointerException)
+			{
+				System.err.println("NPE: This is probably related to Envers");
+				System.err.println(" - this happend if a abstract class is annotated with @Audited, but not the implementing class");
+				e.printStackTrace();
+				throw new JeeslConstraintViolationException(e.getMessage());
 			}
 			else
 			{
@@ -174,6 +182,7 @@ public class JeeslFacadeBean implements JeeslFacade
 				System.err.println("This Error is not handled: "+e.getClass().getName());
 				System.err.println("You have to add this error to the source code: "+e.getClass().getName());
 				e.printStackTrace();
+				throw new JeeslConstraintViolationException(e.getMessage());
 			}
 		}
 	    return o;
