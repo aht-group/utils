@@ -62,15 +62,19 @@
 					<h:form id="fTree" >
 						<p:panel header="#{msg.jeeslCmsDocumentStructure}" styleClass="jeeslTree" >
 							<f:facet name="actions">
-								<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addSection()}" update=":#{cc.id}:sSection" tooltip="#{msg.jeeslTtAdd}"/>
+								<p:outputPanel id="pActions">
+									<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addSection()}" update=":#{cc.id}:sSection" tooltip="#{msg.jeeslTtAdd}"/>
+									<j:svg type="jeeslTreeExpandAll" listener="#{cc.attrs.bean.expandTree()}" update="@form" tooltip="#{msg.jeeslTtExpandAllChildren}" library="jeeslGfx"/>
+									<j:svg type="jeeslTreeCollapseAll" listener="#{cc.attrs.bean.collapseTree()}" update="@form" rendered="#{cc.attrs.bean.isExpanded()}" tooltip="#{msg.jeeslTtCollapseAllChildren}" library="jeeslGfx"/>
+								</p:outputPanel>
 							</f:facet>
 							<p:tree id="tree1" value="#{cc.attrs.bean.tree}" var="node" 
 									selection="#{cc.attrs.bean.node}" selectionMode="single"
 				                	draggable="true" droppable="true" dragdropScope="demo">
 					            <p:ajax event="dragdrop" listener="#{cc.attrs.bean.onDragDrop}" update=":#{cc.id}:sSection"/>
 					            <p:ajax event="select" listener="#{cc.attrs.bean.onSectionSelect}" update=":#{cc.id}:sSection"/>
-					            <p:ajax event="expand" listener="#{cc.attrs.bean.onNodeExpand}" />
-								<p:ajax event="collapse" listener="#{cc.attrs.bean.onNodeCollapse}" />
+					            <p:ajax event="expand" listener="#{cc.attrs.bean.onNodeExpand}" update="@form:pActions" />
+								<p:ajax event="collapse" listener="#{cc.attrs.bean.onNodeCollapse}" update="@form:pActions" />
 					            <p:treeNode>
 					                <h:outputText value="#{node.name[cc.attrs.bean.sbhLocale.selection.code].lang}" />
 					            </p:treeNode>

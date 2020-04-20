@@ -39,6 +39,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.jsf.helper.TreeHelper;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.primefaces.event.NodeCollapseEvent;
 import org.primefaces.event.NodeExpandEvent;
@@ -407,6 +408,21 @@ public abstract class AbstractCmsEditorBean <L extends JeeslLang,D extends Jeesl
 		fCms.deleteCmsElement(element);
 		reset(true);
 		reloadSection();
+	}
+	
+	public void expandTree()
+	{
+		TreeHelper.setExpansion(this.node != null ? this.node : this.tree, true);
+	}
+	
+	public void collapseTree()
+	{
+		TreeHelper.setExpansion(this.tree,  false);
+	}
+	
+	public boolean isExpanded()
+	{
+		return this.tree != null && this.tree.getChildren().stream().filter(node -> node.isExpanded()).count() > 1;
 	}
 	
 	protected void elementWasSelected()
