@@ -27,10 +27,12 @@
 					</f:facet>
 					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectEvent()}" update=":#{cc.id}:sEvent"/>
 					<p:column headerText="#{msg.jeeslAssetEventDate}">
-						<jtp:symbolizer value="#{e.status}" marginRight="5"/>
-						<jp:outputDate value="#{e.record}" withMinute="true"/>
+						<h:panelGroup styleClass="jeeslNbsc">
+							<jtp:symbolizer value="#{e.status}" marginRight="5"/>
+							<jp:outputDate value="#{e.record}" withMinute="true"/>
+						</h:panelGroup>
 					</p:column>
-					<p:column headerText="#{msg.jeeslAssetEventType}">
+					<p:column rendered="false" headerText="#{msg.jeeslAssetEventType}">
 						<jtp:symbolizer value="#{e.type}" marginRight="5"/>
 						<h:outputText value="#{e.type.name[localeCode].lang}"/>
 					</p:column>
@@ -50,12 +52,13 @@
 						</ui:repeat>
 					</p:column>
 					<p:column headerText="#{msg.jeeslAssetEventName}">
+						<jtp:symbolizer value="#{e.type}" marginRight="5"/>
 						<jp:outputAmount value="#{e.name}"/>
 					</p:column>
 					<p:column headerText="#{msg.jeeslAssetCompany}">
 						<h:outputText value="#{e.company.code}" rendered="#{not empty e.company}"/>
 					</p:column>
-					<p:column headerText="#{msg.jeeslAssetEventAmount}" styleClass="jeeslRight">
+					<p:column headerText="#{msg.jeeslAssetEventAmount}" styleClass="jeeslRight" rendered="false">
 						<jp:outputAmount value="#{e.amount}" rendered="#{not empty e.amount}"/>
 					</p:column>
 			   	</p:dataTable>

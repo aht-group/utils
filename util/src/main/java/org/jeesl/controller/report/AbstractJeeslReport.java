@@ -193,7 +193,10 @@ public abstract class AbstractJeeslReport<L extends JeeslLang,D extends JeeslDes
 						{
 							Collections.sort(s.getGroups(), comparatorGroup);
 							Collections.sort(s.getRows(), comparatorRow);
-							for(GROUP g : s.getGroups()) {Collections.sort(g.getColumns(), comparatorColumn);}
+							for(GROUP g : s.getGroups())
+							{
+								Collections.sort(g.getColumns(), comparatorColumn);
+							}
 							for(ROW r : s.getRows())
 							{
 								if(r.getTemplate()!=null)
