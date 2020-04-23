@@ -46,4 +46,12 @@ public class JeeslNotFoundException extends Exception implements Serializable
 	public String getWhatDetail() {return whatDetail;}
 	public void setWhatDetail(String whatDetail) {this.whatDetail = whatDetail;}
 	
+	public String toString()
+	{
+		StringBuilder sb = new StringBuilder();
+		sb.append(whereKey).append(" ").append(whereDetail);
+		sb.append(" ").append(whatKey).append(" ").append(whatDetail);
+		return sb.toString();
+	}
+	
 }
