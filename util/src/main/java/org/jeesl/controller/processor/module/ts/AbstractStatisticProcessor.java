@@ -81,6 +81,7 @@ public class AbstractStatisticProcessor <TS extends JeeslTimeSeries<?,TS,?,?,?>,
 			case min: statisticData.setValue(stats.getMin());break;
 			case max: statisticData.setValue(stats.getMax());break;
 			case mean: statisticData.setValue(stats.getMean());break;
+			case sum: statisticData.setValue(stats.getSum());break;
 			default: break;
 		}
 		return statisticData;
