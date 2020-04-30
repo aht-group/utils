@@ -22,5 +22,5 @@ public interface JeeslTsStatistic <L extends JeeslLang, D extends JeeslDescripti
 							EjbWithCodeGraphic<G>,
 							JeeslStatus<S,L,D>
 {	
-	public enum Code{raw,min,mean,max,calc}
+	public enum Code{raw,min,mean,max,calc,sum}
 }
