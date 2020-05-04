@@ -1,6 +1,7 @@
 package org.jeesl.web.mbean.prototype.io.db;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +25,8 @@ import org.metachart.xml.chart.Chart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
+
 public class AbstractDbBackupBean <L extends JeeslLang,D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 									SYSTEM extends JeeslIoSsiSystem<L,D>,
 									DUMP extends JeeslDbDump<SYSTEM,DF>,
@@ -43,7 +46,7 @@ public class AbstractDbBackupBean <L extends JeeslLang,D extends JeeslDescriptio
 	protected Chart chart; public Chart getChart() {return chart;}
 
 	private List<DUMP> dumps; public List<DUMP> getDumps(){return dumps;}
-	private List<DH> hosts; public List<DH> getHosts() {return hosts;}
+	protected final List<DH> hosts; public List<DH> getHosts() {return hosts;}
 	private Map<DUMP,Map<DH,DF>> mapFiles; public Map<DUMP, Map<DH,DF>> getMapFiles() {return mapFiles;}
 	
 	private SYSTEM system;
@@ -52,6 +55,8 @@ public class AbstractDbBackupBean <L extends JeeslLang,D extends JeeslDescriptio
 	{
 		super(fbDb.getClassL(),fbDb.getClassD());
 		this.fbDb=fbDb;
+		
+		hosts = new ArrayList<>();
 		sbDateHandler = new SbDateHandler(this);
 		sbDateHandler.setEnforceStartOfDay(true);
 		sbDateHandler.initWeeksToNow(2);
@@ -61,9 +66,14 @@ public class AbstractDbBackupBean <L extends JeeslLang,D extends JeeslDescriptio
 	{
 		this.fDb=fDb;
 		this.system=system;
-		
-		hosts = fDb.all(fbDb.getClassDumpHost());
+		reloadHosts();
 		refreshList(); 
+	}
+	
+	protected void reloadHosts()
+	{
+		hosts.addAll(fDb.all(fbDb.getClassDumpHost()));
+		logger.info(AbstractLogMessage.reloaded(fbDb.getClassDumpHost(),hosts)+" in abstract");
 	}
 	
 	@Override public void callbackDateChanged()

@@ -8,6 +8,8 @@ public class XmlEntityFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlEntityFactory.class);
 	
+	public static <E extends Enum<E>> Entity build(E code) {return build(code.toString());}
+	public static Entity build(Class<?> c) {return build(c.getName());}
 	public static Entity build(String code)
 	{
 		Entity xml = new Entity();

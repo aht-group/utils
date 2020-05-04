@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
@@ -21,6 +22,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
+ *         &lt;element ref="{http://www.jeesl.org/timeseries}points"/&gt;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" /&gt;
  *       &lt;attribute name="record" type="{http://www.w3.org/2001/XMLSchema}dateTime" /&gt;
@@ -35,13 +37,17 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "")
+@XmlType(name = "", propOrder = {
+    "points"
+})
 @XmlRootElement(name = "data")
 public class Data
     implements Serializable
 {
 
     private final static long serialVersionUID = 1L;
+    @XmlElement(required = true)
+    protected Points points;
     @XmlAttribute(name = "id")
     protected Long id;
     @XmlAttribute(name = "record")
@@ -53,6 +59,34 @@ public class Data
     protected Double x;
     @XmlAttribute(name = "y")
     protected Double y;
+
+    /**
+     * Gets the value of the points property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Points }
+     *     
+     */
+    public Points getPoints() {
+        return points;
+    }
+
+    /**
+     * Sets the value of the points property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Points }
+     *     
+     */
+    public void setPoints(Points value) {
+        this.points = value;
+    }
+
+    public boolean isSetPoints() {
+        return (this.points!= null);
+    }
 
     /**
      * Gets the value of the id property.

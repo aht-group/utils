@@ -18,5 +18,6 @@ public interface JeeslTsInterval <L extends JeeslLang, D extends JeeslDescriptio
 		//								JeeslOptionRestDownload,EjbWithCodeGraphic<G>,
 										JeeslStatus<S,L,D>
 {	
-	public enum Code{irregular,minute,minute10,day,daily,monthly,weekly,quarterly,yearly}
+	public enum Code{inst,irregular,
+						minute,minute10,day,daily,monthly,weekly,quarterly,yearly}
 }

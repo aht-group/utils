@@ -3,6 +3,7 @@ package org.jeesl.factory.xml.module.ts;
 import java.util.Date;
 
 import org.jeesl.model.xml.module.ts.Data;
+import org.jeesl.model.xml.module.ts.Points;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,4 +35,11 @@ public class XmlDataFactory
 		return xml;
 	}
 	
+	public static Data build(Date record, Points points)
+	{
+		Data xml = new Data();
+		if(record!=null){xml.setRecord(DateUtil.toXmlGc(record));}
+		xml.setPoints(points);
+		return xml;
+	}
 }
