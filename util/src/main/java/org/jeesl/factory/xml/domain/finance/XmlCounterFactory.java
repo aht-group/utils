@@ -40,6 +40,9 @@ public class XmlCounterFactory
 	{
 		if(value!=null){figures.getCounter().add(XmlCounterFactory.build(code, value));}
 	}
+	public static <E extends Enum<E>> void add(Figures figures, String code, Long value) {if(value!=null){figures.getCounter().add(XmlCounterFactory.create(code,value.intValue()));}}
+	public static <E extends Enum<E>> void add(Figures figures, String code, Integer value) {if(value!=null){figures.getCounter().add(XmlCounterFactory.create(code,value));}}
+	
 	public static <E extends EjbWithCode> void add(Figures figures, E code, Integer value)
 	{
 		if(value!=null){figures.getCounter().add(XmlCounterFactory.create(code.getCode(), value));} 
@@ -49,7 +52,9 @@ public class XmlCounterFactory
 		if(value!=null){figures.getCounter().add(XmlCounterFactory.create(code.getCode(), Long.valueOf(value).intValue()));} 
 	}
 	
-	public static <E extends Enum<E>> void plus(Figures figures, E code, Integer value)
+	public static <E extends Enum<E>> void plus(Figures figures, E code, Integer value) {plus(figures,code.toString(),value);}
+	public static <E extends Enum<E>> void plus(Figures figures, String code, Long value) {plus(figures,code.toString(),value.intValue());}
+	public static <E extends Enum<E>> void plus(Figures figures, String code, Integer value)
 	{
 		if(value!=null)
 		{

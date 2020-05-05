@@ -31,6 +31,13 @@ public class SbDateHandler implements Serializable
 	public static SbDateHandler build() {return new SbDateHandler();}
 	public SbDateHandler enforceStartOfDay(boolean enforce) {this.setEnforceStartOfDay(enforce);return this;}
 	
+	public void initToday()
+	{
+		DateTime dt = new DateTime();
+		setDate1(dt.toDate());
+		setDate2(dt.toDate());
+	}
+	
 	public void initMonthsToNow(int months)
 	{
 		DateTime dt = new DateTime();

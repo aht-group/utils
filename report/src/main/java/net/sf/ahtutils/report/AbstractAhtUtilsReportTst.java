@@ -114,8 +114,6 @@ public class AbstractAhtUtilsReportTst
 		//Load the JDom representation of the example for further processing in ReportHandler
 		jdomReport = JDomUtil.load(report.getExample());
 		
-		
-		
 		//		logger.info("Reading XML demo data from:" +report.getExample());
 		//		JDomUtil.debug(jdomDoc);
 		docReport = JDomUtil.toW3CDocument(JDomUtil.unsetNameSpace(jdomReport));
@@ -155,11 +153,10 @@ public class AbstractAhtUtilsReportTst
 	
 	protected void assertEmptyPage(byte[] data) throws IOException
 	{
-                PdfReader reader = new PdfReader(data);
-                PdfReaderContentParser parser = new PdfReaderContentParser(reader);
-                TextExtractionStrategy strategy = null;
-                strategy = parser.processContent(1, new SimpleTextExtractionStrategy());
-                reader.close();
+        PdfReader reader = new PdfReader(data);
+        PdfReaderContentParser parser = new PdfReaderContentParser(reader);
+        TextExtractionStrategy strategy = parser.processContent(1, new SimpleTextExtractionStrategy());
+        reader.close();
 		strategy.getResultantText();
 		Assert.assertTrue("First generated page counts zero characters",strategy.getResultantText().length()>0);
 	}

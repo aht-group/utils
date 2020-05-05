@@ -39,6 +39,8 @@ public class EjbTsDataFactory<TS extends JeeslTimeSeries<?,TS,?,?,?>,
 		}
 	}
 	
+	public DATA build() {return build(null,null,null,null,null);}
+	public DATA build(WS workspace, TS timeSeries) {return build(workspace,timeSeries,null,new Date(),null);}
 	public DATA build(WS workspace, TS timeSeries, TRANSACTION transaction, Date date, Double value)
 	{
 		DATA ejb = null;
@@ -56,17 +58,7 @@ public class EjbTsDataFactory<TS extends JeeslTimeSeries<?,TS,?,?,?>,
 		return ejb;
 	}
 	
-	public DATA build()
-	{
-		DATA ejb = null;
-		try
-		{
-			ejb = cData.newInstance();
-		}
-		catch (InstantiationException e) {e.printStackTrace();} 
-		catch (IllegalAccessException e) {e.printStackTrace();}
-		return ejb;
-	}
+	
 	
 	public Set<Date> toSetDate(List<DATA> list)
 	{

@@ -23,9 +23,10 @@ import net.sf.ahtutils.xml.status.Scope;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element ref="{http://www.jeesl.org/timeseries}entity"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}scope"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}interval"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/timeseries}entity"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/timeseries}bridge"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/timeseries}transaction" maxOccurs="unbounded"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/timeseries}data" maxOccurs="unbounded"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/timeseries}ds" maxOccurs="unbounded"/&gt;
@@ -39,9 +40,10 @@ import net.sf.ahtutils.xml.status.Scope;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "entity",
     "scope",
     "interval",
+    "entity",
+    "bridge",
     "transaction",
     "data",
     "ds"
@@ -52,46 +54,20 @@ public class Ts
 {
 
     private final static long serialVersionUID = 1L;
-    @XmlElement(required = true)
-    protected Entity entity;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
     protected Scope scope;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
     protected Interval interval;
+    @XmlElement(required = true)
+    protected Entity entity;
+    @XmlElement(required = true)
+    protected Bridge bridge;
     @XmlElement(required = true)
     protected List<Transaction> transaction;
     @XmlElement(required = true)
     protected List<Data> data;
     @XmlElement(required = true)
     protected List<Ds> ds;
-
-    /**
-     * Gets the value of the entity property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Entity }
-     *     
-     */
-    public Entity getEntity() {
-        return entity;
-    }
-
-    /**
-     * Sets the value of the entity property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Entity }
-     *     
-     */
-    public void setEntity(Entity value) {
-        this.entity = value;
-    }
-
-    public boolean isSetEntity() {
-        return (this.entity!= null);
-    }
 
     /**
      * Gets the value of the scope property.
@@ -147,6 +123,62 @@ public class Ts
 
     public boolean isSetInterval() {
         return (this.interval!= null);
+    }
+
+    /**
+     * Gets the value of the entity property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Entity }
+     *     
+     */
+    public Entity getEntity() {
+        return entity;
+    }
+
+    /**
+     * Sets the value of the entity property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Entity }
+     *     
+     */
+    public void setEntity(Entity value) {
+        this.entity = value;
+    }
+
+    public boolean isSetEntity() {
+        return (this.entity!= null);
+    }
+
+    /**
+     * Gets the value of the bridge property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Bridge }
+     *     
+     */
+    public Bridge getBridge() {
+        return bridge;
+    }
+
+    /**
+     * Sets the value of the bridge property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Bridge }
+     *     
+     */
+    public void setBridge(Bridge value) {
+        this.bridge = value;
+    }
+
+    public boolean isSetBridge() {
+        return (this.bridge!= null);
     }
 
     /**

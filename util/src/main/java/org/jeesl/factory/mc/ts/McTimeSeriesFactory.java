@@ -50,6 +50,7 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 	final static Logger logger = LoggerFactory.getLogger(McTimeSeriesFactory.class);
 	
 	private final boolean debugOnInfo = true;
+	private String localeCode;
 	
 	private final JeeslTsFacade<?,?,?,SCOPE,?,?,MP,TS,?,?,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,?,?,WS,?,?> fTs;
 	
@@ -185,5 +186,31 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 		}
 		
 		return xml;	
+	}
+	
+	public Ds multiPoints(List<MP> multiPoints, List<POINT> points)
+	{
+		Map<MP,List<POINT>> map = efPoint.toMapMultiPoint(points);
+		
+		Ds xml = new Ds();
+		
+		for(MP mp : multiPoints)
+		{
+			if(map.containsKey(mp))
+			{
+				Ds ds = new Ds();
+				ds.setLabel(mp.getName().get("de").getLang());
+				for(POINT p : map.get(mp))
+				{
+					Data d = new Data();
+					d.setRecord(DateUtil.toXmlGc(p.getData().getRecord()));
+					d.setY(p.getValue());
+					ds.getData().add(d);
+				}
+				xml.getDs().add(ds);
+			}
+		}
+		
+		return xml;
 	}
 }

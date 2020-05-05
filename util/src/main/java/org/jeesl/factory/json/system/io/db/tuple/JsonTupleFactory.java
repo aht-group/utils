@@ -60,13 +60,24 @@ public class JsonTupleFactory
 		json.setId1((Long)tuple.get(0));
 		json.setId2((Long)tuple.get(1));
 
-		JsonTupleFactory.build(tuple, 1, json, types);
+		JsonTupleFactory.build(tuple,1,json,types);
 		
-		JsonUtil.info(json);
     	return json;
 	}
 	
-	public static void build(Tuple tuple, int offset, AbstractJsonTuple json, JsonTupleFactory.Type...types)
+	public static <A extends EjbWithId, B extends EjbWithId, C extends EjbWithId> Json3Tuple<A,B,C> build3(Tuple tuple, JsonTupleFactory.Type...types)
+	{
+		Json3Tuple<A,B,C> json = new Json3Tuple<A,B,C>();
+		json.setId1((Long)tuple.get(0));
+		json.setId2((Long)tuple.get(1));
+		json.setId3((Long)tuple.get(2));
+
+		JsonTupleFactory.build(tuple,2,json,types);
+		
+    	return json;
+	}
+	
+	private static void build(Tuple tuple, int offset, AbstractJsonTuple json, JsonTupleFactory.Type...types)
 	{
 		int index=1;
 		for(JsonTupleFactory.Type type : types)

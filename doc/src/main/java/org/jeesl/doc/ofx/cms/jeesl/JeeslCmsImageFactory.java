@@ -63,7 +63,11 @@ public class JeeslCmsImageFactory<E extends JeeslIoCmsElement<?,?,?,?,C,FC>,
 				logger.trace(s);
 				xml.setTitle(XmlTitleFactory.build(s));
 			}
-			catch (ExlpXpathNotFoundException e) {e.printStackTrace();}
+			catch (ExlpXpathNotFoundException e)
+			{
+				logger.error(e.getMessage());
+				logger.error(element.getSection().toString()+ " "+element.getPosition());
+			}
 		}
 		try
 		{
@@ -87,7 +91,7 @@ public class JeeslCmsImageFactory<E extends JeeslIoCmsElement<?,?,?,?,C,FC>,
 		catch (JeeslConstraintViolationException e) {e.printStackTrace();}
 		catch (JeeslLockingException e) {e.printStackTrace();}
 		
-		JaxbUtil.trace(xml);
+//		JaxbUtil.trace(xml);
 		return xml;
 	}
 }

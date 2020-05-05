@@ -48,6 +48,7 @@ public class XmlEntityFactory <L extends JeeslLang,D extends JeeslDescription,
 		if(q.isSetDiagram()) {xfDiagram = new XmlDiagramFactory<>(q.getDiagram());}
 	}
 	
+	public static Entity build(Class<?> c) {Entity xml = build(); xml.setCode(c.getName());return xml;}
 	public static Entity build() {return new Entity();}
 	
 	public Entity build(RE ejb)

@@ -10,11 +10,13 @@ import java.util.Set;
 import javax.persistence.Tuple;
 
 import org.jeesl.factory.ejb.util.EjbIdFactory;
+import org.jeesl.factory.json.system.io.db.tuple.JsonTupleFactory;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.json.db.tuple.t3.Json3Tuple;
 import org.jeesl.model.json.db.tuple.t3.Json3Tuples;
 import org.jeesl.model.json.db.tuple.two.Json2Tuple;
+import org.jeesl.model.json.db.tuple.two.Json2Tuples;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -107,6 +109,14 @@ public class Json3TuplesFactory <A extends EjbWithId, B extends EjbWithId, C ext
 			}
 		}
 		this.tuples=json;
+	}
+	
+	public Json3Tuples<A,B,C> build(List<Tuple> tuples, JsonTupleFactory.Type...types)
+	{
+		Json3Tuples<A,B,C> json = new Json3Tuples<>();
+		for(Tuple t : tuples){json.getTuples().add(JsonTupleFactory.build3(t,types));}
+		ejb3Load(json);
+		return json;
 	}
 	
 	public Json3Tuples<A,B,C> build3Sum(List<Tuple> tuples)

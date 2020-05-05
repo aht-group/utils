@@ -7,12 +7,16 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
+import org.jeesl.factory.xml.domain.finance.XmlCounterFactory;
 import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.util.query.xpath.FiguresXpath;
 import org.openfuxml.factory.xml.table.XmlTableFactory;
 import org.openfuxml.renderer.text.OfxTextSilentRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import net.sf.ahtutils.xml.finance.Figures;
 
 public class BucketSizeCounter
 {
@@ -117,5 +121,13 @@ public class BucketSizeCounter
 			if(max!=null) {sb.append("/").append(max);}
 			logger.debug(sb.toString());
 		}		
+	}
+	
+	public void toCounter(Figures figures)
+	{
+		for(String code : map.keySet())
+		{
+			XmlCounterFactory.plus(figures, code, map.get(code));
+		}
 	}
 }

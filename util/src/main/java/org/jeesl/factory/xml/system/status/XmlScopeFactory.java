@@ -1,7 +1,5 @@
 package org.jeesl.factory.xml.system.status;
 
-import net.sf.ahtutils.xml.status.Scope;
-
 import org.jeesl.factory.xml.system.lang.XmlDescriptionsFactory;
 import org.jeesl.factory.xml.system.lang.XmlLangsFactory;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
@@ -9,6 +7,8 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import net.sf.ahtutils.xml.status.Scope;
 
 public class XmlScopeFactory<L extends JeeslLang, D extends JeeslDescription,S extends JeeslStatus<S,L,D>>
 {
@@ -31,6 +31,7 @@ public class XmlScopeFactory<L extends JeeslLang, D extends JeeslDescription,S e
 		if(q.isSetDescriptions()){xfDescriptions = new XmlDescriptionsFactory<D>(q.getDescriptions());}
 	}
 	
+	public static <E extends Enum<E>> Scope build(E code) {return build(code.toString());}
 	public static Scope build(String code)
 	{
 		Scope xml = new Scope();

@@ -46,6 +46,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Bridge }
+     * 
+     */
+    public Bridge createBridge() {
+        return new Bridge();
+    }
+
+    /**
      * Create an instance of {@link Transaction }
      * 
      */
@@ -59,6 +67,22 @@ public class ObjectFactory {
      */
     public Data createData() {
         return new Data();
+    }
+
+    /**
+     * Create an instance of {@link Points }
+     * 
+     */
+    public Points createPoints() {
+        return new Points();
+    }
+
+    /**
+     * Create an instance of {@link Point }
+     * 
+     */
+    public Point createPoint() {
+        return new Point();
     }
 
     /**

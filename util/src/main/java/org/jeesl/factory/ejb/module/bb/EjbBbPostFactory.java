@@ -5,6 +5,7 @@ import java.util.Date;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.module.bb.post.JeeslBbPost;
 import org.jeesl.interfaces.model.module.bb.post.JeeslBbThread;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
 import org.jeesl.interfaces.model.with.primitive.text.EjbWithEmail;
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ public class EjbBbPostFactory<THREAD extends JeeslBbThread<?>,
 		try
 		{
 			M markup = cMarkup.newInstance();
-			markup.setLkey("none");
+			markup.setLkey(JeeslLocale.none);
 			markup.setType(markupType);
 			
 			POST ejb = cPost.newInstance();
