@@ -18,7 +18,7 @@
 			<j:row id="row1">
 				<j:slot id="sHydroYears" width="7">
 					<h:form id="fHydroYears">
-						<p:dataTable var="y" value="#{cc.attrs.bean.hydroYears}"
+						<p:dataTable var="y" value="#{cc.attrs.bean.hydroYears}" widgetVar="hydroYearDt"
 								selection="#{cc.attrs.bean.hydroYear}" selectionMode="single" rowKey="#{y.id}">
 							<f:facet name="header">
 								<j:dtHeader title="#{msg.jeeslHydroYears}">
@@ -26,16 +26,22 @@
 								</j:dtHeader>
 							</f:facet>
 							<p:ajax event="rowSelect" update=":#{cc.id}:sHydroYears :#{cc.id}:sHydroYear" listener="#{cc.attrs.bean.selectHydroYear}"/>
-				            <p:column headerText="#{msg.jeeslHydroDecade}" >  
-								<h:outputText value="#{y.decade.name[localeCode].lang}" />  
+				            <p:column headerText="#{msg.jeeslHydroDecade}"  filterBy="#{y.decade}"  filterMatchMode="exact">
+				            	<f:facet name="filter">
+								<p:selectOneMenu onchange="PF('hydroYearDt').filter()">
+									<f:selectItem itemLabel="Select Decade" itemValue="#{null}" noSelectionOption="true" />
+									<f:selectItems value="#{cc.attrs.bean.hydroDecades}" var="hd" itemLabel="#{hd.name[localeCode].lang}" itemValue="#{hd}"/>
+								</p:selectOneMenu>
+            					</f:facet>  
+								<h:outputText value="#{y.decade.name[localeCode].lang}" /> 
 				            </p:column>
-				            <p:column headerText="#{msg.jeeslCode}" rendered="false">  
+				            <p:column headerText="#{msg.jeeslCode}" rendered="false" filterBy="#{y.code}"  filterMatchMode="contains">  
 								<h:outputText value="#{y.code}" />  
 				            </p:column>
-				            <p:column headerText="#{msg.jeeslName}">  
+				            <p:column headerText="#{msg.jeeslName}" filterBy="#{y.name[localeCode].lang}" filterMatchMode="contains"> 
 								<h:outputText value="#{y.name[localeCode].lang}"/>
 				            </p:column>
-				            <p:column headerText="#{msg.jeeslHydroPeriod}">  
+				            <p:column headerText="#{msg.jeeslHydroPeriod}">
 								<jp:outputDate value="#{y.validFrom}"/>
 								<h:outputText value=" - "/>
 								<jp:outputDate value="#{y.validUntil}"/>

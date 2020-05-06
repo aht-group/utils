@@ -1,6 +1,7 @@
 package org.jeesl.web.mbean.prototype.module.hydro;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -17,9 +18,10 @@ import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.module.hydro.JeeslHydroDecade;
 import org.jeesl.interfaces.model.module.hydro.JeeslHydroYear;
-import org.jeesl.interfaces.model.system.locale.JeeslLocale;
-import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
+import org.jeesl.util.comparator.ejb.component.sb.HydroDecadeComparator;
 import org.jeesl.util.comparator.ejb.component.sb.HydroYearComparator;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.slf4j.Logger;
@@ -43,8 +45,11 @@ public class AbstractHydroYearBean <L extends JeeslLang, D extends JeeslDescript
 
 	private final SbMultiHandler<HD> sbhDecade; public SbMultiHandler<HD> getSbhDecade() {return sbhDecade;}
 	private final Comparator<HY> comparatorHydroYear;
+	private final Comparator<HD> comparatorHydroDecade;
+	private List<String> selectableYear;
 
 	protected List<HY> hydroYears; public List<HY> getHydroYears() {return hydroYears;}
+	protected List<HD> hydroDecades; public List<HD> getHydroDecades() {return hydroDecades;}
 
 	protected HY hydroYear;
 
@@ -63,6 +68,8 @@ public class AbstractHydroYearBean <L extends JeeslLang, D extends JeeslDescript
 		this.efHydroYear = this.fbHydroYear.hydroYear();
 		sbhDecade = new SbMultiHandler<HD>(fbHydroYear.getClassDecade(),this);
 		comparatorHydroYear = (new HydroYearComparator<L,D,HD,HY>()).factory(HydroYearComparator.Type.code);
+		comparatorHydroDecade = (new HydroDecadeComparator<L,D,HD>()).factory(HydroDecadeComparator.Type.code);
+		selectableYear = new ArrayList<>();
 	}
 
 
@@ -81,7 +88,9 @@ public class AbstractHydroYearBean <L extends JeeslLang, D extends JeeslDescript
 	private void refreshList()
 	{
 		hydroYears = fUtils.all(fbHydroYear.getClassYear());
+		hydroDecades = fUtils.all(fbHydroYear.getClassDecade());
 		Collections.sort(hydroYears,comparatorHydroYear);
+		Collections.sort(hydroDecades,comparatorHydroDecade);
 	}
 
 	@Override
@@ -128,4 +137,18 @@ public class AbstractHydroYearBean <L extends JeeslLang, D extends JeeslDescript
 	{
 		hydroYear = null;
 	}
+
+	/*
+	public List<String> getSeletableYearsList() {
+		selectableYear = new ArrayList<>();
+		for (HD hydroDecade : hydroDecades) {
+			String[]decadeStrings = hydroDecade.getCode().split(" - ");
+			Integer decadeStart= Integer.valueOf(decadeStrings[0]);
+			Integer decadeEnd= Integer.valueOf(decadeStrings[1]);
+			for (int i = decadeStart; i <= decadeEnd; i++) {
+				selectableYear.add(String.valueOf(i));
+			}
+		}
+		return selectableYear;
+	}*/
 }
