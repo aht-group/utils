@@ -237,27 +237,40 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+                
+            <dependency>
+                <!--GeoTools - required to work with Esri SHP Shape files -->
+                <groupId>org.geotools</groupId>
+                <artifactId>gt-shapefile</artifactId>
+                <version>2.5.0</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>commons-logging</artifactId>
+                        <groupId>commons-logging</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
 	</dependencies>
 	
 	<dependencyManagement>
-		<dependencies>      	         
-			<dependency>
-				<groupId>org.jeesl.bom</groupId>
-				<artifactId>bom-core</artifactId>
-				<version>${project.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
+            <dependencies>      	         
+                <dependency>
+                    <groupId>org.jeesl.bom</groupId>
+                    <artifactId>bom-core</artifactId>
+                    <version>${project.version}</version>
+                    <type>pom</type>
+                    <scope>import</scope>
+                </dependency>
+            </dependencies>
 	</dependencyManagement>
 	
 	<build>
         <plugins>
             <plugin>
-		        <groupId>org.codehaus.mojo</groupId>
-		        <artifactId>versions-maven-plugin</artifactId>
-		        <configuration><rulesUri>${maven.ignore.versions}</rulesUri></configuration>
-			</plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <configuration><rulesUri>${maven.ignore.versions}</rulesUri></configuration>
+            </plugin>
         </plugins>
     </build>
    

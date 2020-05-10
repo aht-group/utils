@@ -215,13 +215,24 @@
             <releases><enabled>true</enabled></releases>
 			<snapshots><enabled>false</enabled></snapshots>
         </repository>
-		<repository>
-            <id>redhat.ga</id>
-            <name>JBoss Repository</name>
-            <url>https://maven.repository.redhat.com/ga</url>
-            <releases><enabled>true</enabled></releases>
-			<snapshots><enabled>false</enabled></snapshots>
-        </repository>
+            <repository>
+                <id>redhat.ga</id>
+                <name>JBoss Repository</name>
+                <url>https://maven.repository.redhat.com/ga</url>
+                <releases><enabled>true</enabled></releases>
+                <snapshots><enabled>false</enabled></snapshots>
+            </repository>
+            <repository>
+                <id>osgeo.org</id>
+                <name>Open Source Geospatial Foundation Repository</name>
+                <url>https://repo.osgeo.org/repository/release/</url>
+                <releases>
+                    <enabled>true</enabled>
+                </releases>
+                <snapshots>
+                    <enabled>false</enabled>
+                </snapshots>
+            </repository>
 	</repositories>
   
   	<distributionManagement>
