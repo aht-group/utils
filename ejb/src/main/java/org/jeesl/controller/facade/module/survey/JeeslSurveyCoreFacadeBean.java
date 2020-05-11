@@ -166,8 +166,8 @@ public class JeeslSurveyCoreFacadeBean <L extends JeeslLang, D extends JeeslDesc
 		cQ.select(pathSurvey);
 		
 		try	{return em.createQuery(cQ).getSingleResult();}
-		catch (NoResultException e){e.printStackTrace(); throw new JeeslNotFoundException("No survey found for this correlation");}
-		catch (NonUniqueResultException e){e.printStackTrace(); throw new JeeslNotFoundException("Multiple surveys found for this correlation");}
+		catch (NoResultException e) {throw new JeeslNotFoundException("No survey found for this correlation");}
+		catch (NonUniqueResultException e) {throw new JeeslNotFoundException("Multiple surveys found for this correlation");}
 	}
 	
 	@Override public void deleteSurvey(SURVEY survey) throws JeeslConstraintViolationException, JeeslLockingException

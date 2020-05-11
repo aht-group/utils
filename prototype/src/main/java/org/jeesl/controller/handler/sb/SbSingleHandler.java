@@ -95,8 +95,9 @@ public class SbSingleHandler <T extends EjbWithId> implements Serializable,SbSin
 		}
 	}
 
+	public <E extends Enum<E>, C extends EjbWithCode> void update(List<C> list, E code) {this.update(list,code.toString());}
 	@SuppressWarnings("unchecked")
-	public <C extends EjbWithCode> void update(String code, List<C> list)
+	public <C extends EjbWithCode> void update(List<C> list, String code)
 	{
 		T preferred = null;
 		List<T> list2 = new ArrayList<T>();
