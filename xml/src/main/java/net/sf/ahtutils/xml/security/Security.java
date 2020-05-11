@@ -23,6 +23,7 @@ import org.jeesl.model.xml.system.navigation.Menu;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/navigation}menu"/&gt;
+ *         &lt;element ref="{http://ahtutils.aht-group.com/security}roles"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/security}category" maxOccurs="unbounded"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
@@ -35,6 +36,7 @@ import org.jeesl.model.xml.system.navigation.Menu;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "menu",
+    "roles",
     "category"
 })
 @XmlRootElement(name = "security")
@@ -45,6 +47,8 @@ public class Security
     private final static long serialVersionUID = 1L;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/navigation", required = true)
     protected Menu menu;
+    @XmlElement(required = true)
+    protected Roles roles;
     @XmlElement(required = true)
     protected List<Category> category;
 
@@ -74,6 +78,34 @@ public class Security
 
     public boolean isSetMenu() {
         return (this.menu!= null);
+    }
+
+    /**
+     * Gets the value of the roles property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Roles }
+     *     
+     */
+    public Roles getRoles() {
+        return roles;
+    }
+
+    /**
+     * Sets the value of the roles property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Roles }
+     *     
+     */
+    public void setRoles(Roles value) {
+        this.roles = value;
+    }
+
+    public boolean isSetRoles() {
+        return (this.roles!= null);
     }
 
     /**
