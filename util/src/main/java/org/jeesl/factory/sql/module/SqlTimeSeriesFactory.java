@@ -28,7 +28,7 @@ public class SqlTimeSeriesFactory <TS extends JeeslTimeSeries<?,TS,?,?,?>,
 		String alias = "d";
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT");
-		SqlFactory.distinct(sb,alias,JeeslTsData.Attributes.timeSeries,newLine);
+		SqlFactory.distinct(sb,alias,newLine,JeeslTsData.Attributes.timeSeries);
 		sb.append(" d.id ");
 		SqlFactory.newLine(newLine,sb);
 		
