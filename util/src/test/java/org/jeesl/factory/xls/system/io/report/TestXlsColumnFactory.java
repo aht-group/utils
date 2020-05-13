@@ -10,12 +10,17 @@ public class TestXlsColumnFactory extends AbstractJeeslUtilTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestXlsColumnFactory.class);
 		
-	@Test
-	public void code2Index()
+	@Test public void code2index()
     {	
-		
-		Assert.assertEquals(0,XlsColumnFactory.code2Index("A"));
-		Assert.assertEquals(25,XlsColumnFactory.code2Index("Z"));
-		Assert.assertEquals(188,XlsColumnFactory.code2Index("GG"));
+		Assert.assertEquals(0,XlsColumnFactory.code2index("A"));
+		Assert.assertEquals(25,XlsColumnFactory.code2index("Z"));
+		Assert.assertEquals(188,XlsColumnFactory.code2index("GG"));
+    }
+	
+	@Test public void index2code()
+    {	
+		Assert.assertEquals("A",XlsColumnFactory.index2code(0));
+		Assert.assertEquals("Z",XlsColumnFactory.index2code(25));
+		Assert.assertEquals("GG",XlsColumnFactory.index2code(188));
     }
 }
