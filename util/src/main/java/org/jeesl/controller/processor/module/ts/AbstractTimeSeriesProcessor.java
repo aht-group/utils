@@ -51,11 +51,11 @@ public class AbstractTimeSeriesProcessor<SCOPE extends JeeslTsScope<?,?,?,?,?,EC
 	protected final EjbTsDataPointFactory<MP,DATA,POINT> efPoint;
 	
 	protected WS ws; public WS getWorkspace() {return ws;}
-
 	protected SCOPE scope;
 	protected INT interval;
 	protected EC ec;
 	
+	protected boolean developmentMode; public void activateDevelopmentMode() {developmentMode=true;}
 	protected boolean debugOnInfo; public boolean isDebugOnInfo() {return debugOnInfo;} public void setDebugOnInfo(boolean debugOnInfo) {this.debugOnInfo = debugOnInfo;}
 
 	public AbstractTimeSeriesProcessor(TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,?,?,WS,?,?> fbTs,
@@ -67,6 +67,7 @@ public class AbstractTimeSeriesProcessor<SCOPE extends JeeslTsScope<?,?,?,?,?,EC
 		efData = fbTs.ejbData();
 		efPoint = fbTs.ejbDataPoint();
 		debugOnInfo = false;
+		developmentMode = false;
 	}
 	
 	public <EWS extends Enum<EWS>, ESC extends Enum<ESC>, EIN extends Enum<EIN>> void init(EWS ews, ESC esc, EIN ein, Class<?> c)
