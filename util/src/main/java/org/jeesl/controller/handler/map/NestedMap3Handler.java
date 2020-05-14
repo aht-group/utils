@@ -52,10 +52,15 @@ public class NestedMap3Handler <L1 extends EjbWithId, L2 extends EjbWithId, L3 e
 //		}
 //	}
 //	
-//	public boolean containsKey(L1 l1, L2 l2, L3 l3)
-//    {
-//    	return (m.containsKey(l1) && m.get(l1).containsKey(l2,l3));
-//    }
+	public boolean containsKey(Map<L1,Map<L2,Map<L3,VALUE>>> map, L1 l1, L2 l2, L3 l3)
+    {
+    	return (map.containsKey(l1) && map.get(l1).containsKey(l2) && map.get(l1).get(l2).containsKey(l3));
+    }
+	public VALUE get(Map<L1,Map<L2,Map<L3,VALUE>>> map, L1 l1, L2 l2, L3 l3)
+    {
+		if(!containsKey(map,l1,l2,l3)) {return null;}
+    	return map.get(l1).get(l2).get(l3);
+    }
 //	
 //	public List<VALUE> values(L1 l1)
 //	{
