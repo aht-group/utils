@@ -209,3 +209,8 @@ input[class="ui-spinner-input ui-inputfield ui-state-default ui-corner-all ui-st
 .vertical-label {text-align: center; vertical-align: middle;}
 .vertical-label .ui-column-title {writing-mode: tb; vertical-align: middle; padding: 6px 0;}
 .bottom-to-top .ui-column-title {transform: rotate(180deg);}
+
+/*table cell selection*/
+.ui-datatable tbody td.cell-select {padding: 0;} /*specificity necessary to overwrite existing padding in td*/
+.cell-select label {display: block;padding: 4px 10px;}
+.cell-select label:hover {color: white;background: linear-gradient(90deg, hsla(154, 100%, 20%, 1), transparent);cursor: pointer;}
