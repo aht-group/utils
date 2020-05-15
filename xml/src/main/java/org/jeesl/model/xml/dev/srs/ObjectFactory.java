@@ -110,6 +110,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Module }
+     * 
+     */
+    public Module createModule() {
+        return new Module();
+    }
+
+    /**
      * Create an instance of {@link Chapter }
      * 
      */
