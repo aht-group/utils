@@ -1,4 +1,4 @@
-package net.sf.ahtutils.jsf.util;
+package org.jeesl.jsf.handler;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
