@@ -4,6 +4,7 @@ import org.jeesl.model.xml.system.navigation.Menu;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.sf.ahtutils.xml.security.Roles;
 import net.sf.ahtutils.xml.security.Security;
 
 public class XmlSecurityFactory
@@ -15,11 +16,6 @@ public class XmlSecurityFactory
 		return new Security();
 	}
 	
-	public static Security build(Menu menu)
-	{
-		Security xml = build();
-		xml.setMenu(menu);
-
-		return xml;
-	}
+	public static Security build(Menu menu) {Security xml = build(); xml.setMenu(menu); return xml;}
+	public static Security build(Roles roles) {Security xml = build(); xml.setRoles(roles); return xml;}
 }

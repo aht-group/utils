@@ -2,7 +2,6 @@ package org.jeesl.util.rest;
 
 import java.io.IOException;
 
-import org.apache.commons.lang.mutable.MutableInt;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
@@ -55,6 +54,7 @@ public class JeeslRestClient
 	{
 //		return json(1,c,url);
 		HttpGet httpGet = new HttpGet(url);
+		logger.info(url);
 		HttpResponse httpRespnse = client.execute(httpGet,context);
 		return JsonUtil.read(EntityUtils.toString(httpRespnse.getEntity(),"UTF-8"),c);
 	}

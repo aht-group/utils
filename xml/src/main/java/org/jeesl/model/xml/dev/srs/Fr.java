@@ -21,6 +21,7 @@ import org.openfuxml.content.ofx.Sections;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
+ *         &lt;element ref="{http://www.jeesl.org/dev/srs}module"/&gt;
  *         &lt;element ref="{http://www.openfuxml.org}sections"/&gt;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="code" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
@@ -34,6 +35,7 @@ import org.openfuxml.content.ofx.Sections;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
+    "module",
     "sections"
 })
 @XmlRootElement(name = "fr")
@@ -41,12 +43,42 @@ public class Fr implements Serializable
 {
 
     private final static long serialVersionUID = 1L;
+    @XmlElement(required = true)
+    protected Module module;
     @XmlElement(namespace = "http://www.openfuxml.org", required = true)
     protected Sections sections;
     @XmlAttribute(name = "code")
     protected String code;
     @XmlAttribute(name = "name")
     protected String name;
+
+    /**
+     * Gets the value of the module property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Module }
+     *     
+     */
+    public Module getModule() {
+        return module;
+    }
+
+    /**
+     * Sets the value of the module property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Module }
+     *     
+     */
+    public void setModule(Module value) {
+        this.module = value;
+    }
+
+    public boolean isSetModule() {
+        return (this.module!= null);
+    }
 
     /**
      * Gets the value of the sections property.

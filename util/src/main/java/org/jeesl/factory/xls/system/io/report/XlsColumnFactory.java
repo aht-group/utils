@@ -88,7 +88,7 @@ public class XlsColumnFactory <L extends JeeslLang,D extends JeeslDescription,
         }
     }
 	
-	public static int code2Index(String code)
+	public static int code2index(String code)
 	{
 		int result = 0;
 		for(int i=0;i<code.length();i++)

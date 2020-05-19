@@ -52,6 +52,7 @@ import org.jeesl.interfaces.model.with.primitive.text.EjbWithSymbol;
 import org.jeesl.interfaces.model.with.system.graphic.EjbWithGraphic;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithDescription;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
+import org.jeesl.jsf.handler.PositionListReorderer;
 import org.jeesl.model.xml.jeesl.Container;
 import org.jeesl.util.db.updater.JeeslDbMcsStatusUpdater;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
@@ -60,7 +61,6 @@ import org.primefaces.model.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.jsf.util.PositionListReorderer;
 import net.sf.exlp.util.io.StringUtil;
 import net.sf.exlp.util.xml.JaxbUtil;
 

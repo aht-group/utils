@@ -100,6 +100,7 @@ public class XmlFinanceFactory <L extends JeeslLang, C extends UtilsCurrency<L>>
 			f.setValue(f.getValue()+value);
 		}
 	}
+	
 	public static <E extends Enum<E>> void plus(Figures figures, E code, Double value)
 	{
 		if(value!=null)

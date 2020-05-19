@@ -23,6 +23,7 @@ import org.jeesl.interfaces.model.module.ts.stat.JeeslTsStatistic;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.xml.module.ts.TimeSeries;
+import org.jeesl.util.comparator.pojo.BooleanComparator;
 import org.metachart.factory.xml.chart.XmlChartFactory;
 import org.metachart.factory.xml.chart.XmlDataFactory;
 import org.metachart.factory.xml.chart.XmlSubtitleFactory;
@@ -196,9 +197,10 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 		
 		for(MP mp : multiPoints)
 		{
-			if(map.containsKey(mp))
+			if(BooleanComparator.active(mp.getVisible()) && map.containsKey(mp))
 			{
 				Ds ds = new Ds();
+				ds.setCode(mp.getCode());
 				ds.setLabel(mp.getName().get("de").getLang());
 				for(POINT p : map.get(mp))
 				{

@@ -20,8 +20,9 @@ public class AbstractSettingsBean implements Serializable,JeeslSettingsBean
 	protected String timeFormat; public String getTimeFormat(){return timeFormat;}
 	
 	protected String patternDate; public String getPatternDate() {return patternDate;}
-	protected String patternHour; public String getPatternHour() {return patternHour;}
+	protected String patternDateHour; public String getPatternDateHour() {return patternDateHour;}
 	protected String patternMinute; public String getPatternMinute() {return patternMinute;}
+	protected String patternHour; public String getPatternHour() {return patternHour;}
 	
 	protected String allowUploadSvg; public String getAllowUploadSvg() {return allowUploadSvg;}
 	protected String allowUploadJesslGraphicType; public String getAllowUploadJesslGraphicType() {return allowUploadJesslGraphicType;}
@@ -59,8 +60,9 @@ public class AbstractSettingsBean implements Serializable,JeeslSettingsBean
 	private void initCalendarPattern()
 	{
 		patternDate = "dd.MM.yyyy";
-		patternHour = "dd.MM.yyyy HH:mm";
+		patternDateHour = "dd.MM.yyyy HH:mm";
 		patternMinute = "dd.MM.yyyy HH:mm";
+		patternHour = "HH:mm";
 		
 //		Deprecated below
 		datePattern = "dd.MM.yyyy";

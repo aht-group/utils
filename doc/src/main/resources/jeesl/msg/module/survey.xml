@@ -198,11 +198,11 @@
     		<s:lang key="fr" translation="Natural Number"/>
     	</s:langs>
     </s:translation>
-    <s:translation key="jpSurveyQuestionShowDouble">
+    <s:translation key="jeeslSurveyQuestionShowDouble">
     	<s:langs>
-    		<s:lang key="de" translation="Zahl"/>
-    		<s:lang key="en" translation="Number"/>
-    		<s:lang key="fr" translation="Number"/>
+    		<s:lang key="de" translation="Dezimal Zahl"/>
+    		<s:lang key="en" translation="Decimal Number"/>
+    		<s:lang key="fr" translation="Decimal Number"/>
     	</s:langs>
     </s:translation>
     <s:translation key="jpSurveyQuestionShowText">

@@ -1,4 +1,4 @@
-package net.sf.ahtutils.jsf.util;
+package org.jeesl.jsf.handler;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -43,7 +43,7 @@ public class PositionListReorderer
 			attribute = attribute.substring(0,1).toUpperCase()+attribute.substring(1,attribute.length());
 //			logger.info("M: "+attribute);
 			m = c.getDeclaredMethod("get"+attribute);
-			logger.info("Method: "+m.getName());
+//			logger.info("Method: "+m.getName());
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();}

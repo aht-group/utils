@@ -186,6 +186,7 @@ input[class="ui-spinner-input ui-inputfield ui-state-default ui-corner-all ui-st
 .jeeslDtCellTable tr:last-child td {border-top: 0; border-bottom: 0; border-right: 0; border-left: 0; padding: 0;}
 .jeeslDtCellTable tr td:last-child {border-right: 0; border-top: 0; border-bottom: 0; border-left: 0;padding: 0;}
 
+.jeeslDtThVertical {}
 
 .jeeslPanel .ui-panelgrid .ui-panelgrid-cell {padding-right: 13px;}
 
@@ -203,3 +204,13 @@ input[class="ui-spinner-input ui-inputfield ui-state-default ui-corner-all ui-st
 .jeeslHTML * p {margin: 0 0 -10px 15px; padding-top: 5px}
 .jeeslHTML * ul li {display: list-item; list-style-type: disc; list-style-position: inside; margin-left: 20px;}
 .jeeslHTML * ol li {display: list-item; list-style-type: numbers; list-style-position: inside; margin-left: 20px;}
+
+/*table header rotation*/
+.vertical-label {text-align: center; vertical-align: middle;}
+.vertical-label .ui-column-title {writing-mode: tb; vertical-align: middle; padding: 6px 0;}
+.bottom-to-top .ui-column-title {transform: rotate(180deg);}
+
+/*table cell selection*/
+.ui-datatable tbody td.cell-select {padding: 0;} /*specificity necessary to overwrite existing padding in td*/
+.cell-select label {display: block;padding: 4px 10px;}
+.cell-select label:hover {color: white;background: linear-gradient(90deg, hsla(154, 100%, 20%, 1), transparent);cursor: pointer;}

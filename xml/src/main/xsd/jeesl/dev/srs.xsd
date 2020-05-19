@@ -91,10 +91,18 @@
     <xsd:element name="fr">
         <xsd:complexType>
         	<xsd:sequence>
+        		<xsd:element ref="srs:module" maxOccurs="1"/>
             	<xsd:element ref="ofx:sections" maxOccurs="1"/>
 			</xsd:sequence>
         	<xsd:attribute name="code" type="xsd:string"/>
         	<xsd:attribute name="name" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:element name="module">
+        <xsd:complexType>
+        	<xsd:attribute name="code" type="xsd:string"/>
+        	<xsd:attribute name="label" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
 </xsd:schema>
