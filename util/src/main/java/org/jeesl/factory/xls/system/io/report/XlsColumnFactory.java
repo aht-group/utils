@@ -3,6 +3,7 @@ package org.jeesl.factory.xls.system.io.report;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.jeesl.interfaces.model.io.report.JeeslIoReport;
 import org.jeesl.interfaces.model.io.report.data.JeeslReportTemplate;
@@ -100,7 +101,6 @@ public class XlsColumnFactory <L extends JeeslLang,D extends JeeslDescription,
 	
 	public static String index2code(int index)
 	{
-
-		return "";
+                return CellReference.convertNumToColString(index);
 	}
 }
