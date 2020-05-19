@@ -11,6 +11,7 @@ import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyOption;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestion;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jsoup.helper.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,7 +48,7 @@ public class TxtSurveyQuestionFactory <L extends JeeslLang, D extends JeeslDescr
 	
 	public String scoreBounds(QUESTION q)
 	{
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append("[");
 		sb.append(df.format(q.getMinScore()));
 		sb.append(",");
@@ -62,5 +63,13 @@ public class TxtSurveyQuestionFactory <L extends JeeslLang, D extends JeeslDescr
 		sb.append(q.getCode());
 		sb.append(" ").append(q.getName().get(localeCode).getLang());
 		return sb.toString();
+	}
+	
+	public String codes(List<QUESTION> questions)
+	{
+		List<String> codes = new ArrayList<>();
+		for(QUESTION q : questions) {codes.add(q.getCode());}
+		
+		return StringUtil.join(codes,", ");
 	}
 }

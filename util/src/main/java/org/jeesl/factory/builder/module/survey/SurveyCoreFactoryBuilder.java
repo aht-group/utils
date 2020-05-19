@@ -23,6 +23,7 @@ import org.jeesl.factory.json.module.survey.JsonSurveyFactory;
 import org.jeesl.factory.txt.module.survey.TxtOptionFactory;
 import org.jeesl.factory.txt.module.survey.TxtSurveyAnswerFactory;
 import org.jeesl.factory.txt.module.survey.TxtSurveyFactory;
+import org.jeesl.factory.txt.module.survey.TxtSurveyQuestionFactory;
 import org.jeesl.factory.txt.module.survey.TxtSurveySectionFactory;
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurvey;
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyScheme;
@@ -148,10 +149,8 @@ public class SurveyCoreFactoryBuilder<L extends JeeslLang, D extends JeeslDescri
 		return new TxtSurveySectionFactory<L,D,SECTION>();
 	}
 	
-	public TxtSurveyAnswerFactory<L,D,ANSWER,MATRIX,OPTION> txtAnswer()
-	{
-		return new TxtSurveyAnswerFactory<L,D,ANSWER,MATRIX,OPTION>();
-	}
+	public TxtSurveyQuestionFactory<L,D,QUESTION,OPTION> txtQuestion(String localeCode) {return new TxtSurveyQuestionFactory<>(localeCode);}
+	public TxtSurveyAnswerFactory<L,D,ANSWER,MATRIX,OPTION> txtAnswer() {return new TxtSurveyAnswerFactory<>();}
 	
 	public TxtOptionFactory<L,D,OPTION> txtOption(String localeCode)
 	{
