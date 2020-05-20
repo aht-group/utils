@@ -77,7 +77,7 @@
         </jxb:schemaBindings>
     </jxb:bindings>
 
-   	<jxb:bindings schemaLocation="../xsd/aht/finance.xsd" node="/xsd:schema">
+   	<jxb:bindings schemaLocation="../xsd/jeesl/finance.xsd" node="/xsd:schema">
         <jxb:schemaBindings>
             <jxb:package name="net.sf.ahtutils.xml.finance"/>
         </jxb:schemaBindings>

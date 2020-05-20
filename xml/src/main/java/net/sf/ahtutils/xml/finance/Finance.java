@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;attribute name="label" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *       &lt;attribute name="value" type="{http://www.w3.org/2001/XMLSchema}double" /&gt;
  *       &lt;attribute name="symbol" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+ *       &lt;attribute name="flagged" type="{http://www.w3.org/2001/XMLSchema}boolean" /&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -65,6 +66,8 @@ public class Finance
     protected Double value;
     @XmlAttribute(name = "symbol")
     protected String symbol;
+    @XmlAttribute(name = "flagged")
+    protected Boolean flagged;
 
     /**
      * Gets the value of the finance property.
@@ -309,6 +312,38 @@ public class Finance
 
     public boolean isSetSymbol() {
         return (this.symbol!= null);
+    }
+
+    /**
+     * Gets the value of the flagged property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public boolean isFlagged() {
+        return flagged;
+    }
+
+    /**
+     * Sets the value of the flagged property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setFlagged(boolean value) {
+        this.flagged = value;
+    }
+
+    public boolean isSetFlagged() {
+        return (this.flagged!= null);
+    }
+
+    public void unsetFlagged() {
+        this.flagged = null;
     }
 
 }

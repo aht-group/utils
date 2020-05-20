@@ -32,6 +32,7 @@ import org.jeesl.model.xml.text.Remark;
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" /&gt;
  *       &lt;attribute name="code" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *       &lt;attribute name="label" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+ *       &lt;attribute name="flagged" type="{http://www.w3.org/2001/XMLSchema}boolean" /&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -69,6 +70,8 @@ public class Figures
     protected String code;
     @XmlAttribute(name = "label")
     protected String label;
+    @XmlAttribute(name = "flagged")
+    protected Boolean flagged;
 
     /**
      * Gets the value of the remark property.
@@ -341,6 +344,38 @@ public class Figures
 
     public boolean isSetLabel() {
         return (this.label!= null);
+    }
+
+    /**
+     * Gets the value of the flagged property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public boolean isFlagged() {
+        return flagged;
+    }
+
+    /**
+     * Sets the value of the flagged property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setFlagged(boolean value) {
+        this.flagged = value;
+    }
+
+    public boolean isSetFlagged() {
+        return (this.flagged!= null);
+    }
+
+    public void unsetFlagged() {
+        this.flagged = null;
     }
 
 }

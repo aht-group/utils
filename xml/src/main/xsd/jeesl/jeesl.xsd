@@ -13,7 +13,7 @@
 	xmlns:f="http://www.jeesl.org/finance"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<xsd:import namespace="http://ahtutils.aht-group.com/status" schemaLocation="../jeesl/status.xsd"/>
-	<xsd:import namespace="http://www.jeesl.org/finance" schemaLocation="../aht/finance.xsd"/>
+	<xsd:import namespace="http://www.jeesl.org/finance" schemaLocation="../jeesl/finance.xsd"/>
 	<xsd:import namespace="http://www.jeesl.org/survey" schemaLocation="module/survey.xsd"/>
 	<xsd:import namespace="http://www.jeesl.org/io/attribute" schemaLocation="io/attribute.xsd"/>
 	<xsd:import namespace="http://ahtutils.aht-group.com/security" schemaLocation="../aht/security.xsd"/>
