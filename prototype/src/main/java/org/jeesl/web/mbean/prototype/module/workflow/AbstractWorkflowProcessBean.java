@@ -107,7 +107,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	private final SbSingleHandler<WP> sbhProcess; public SbSingleHandler<WP> getSbhProcess() {return sbhProcess;}
 	
 	private final List<MC> channels; public List<MC> getChannels() {return channels;}
-	private final List<MT> templates; public List<MT> getTemplates() {return templates;}
+	protected final List<MT> templates; public List<MT> getTemplates() {return templates;}
 	private final List<SR> roles; public List<SR> getRoles() {return roles;}
 	private final List<AS> stages; public List<AS> getStages() {return stages;}
 	private final List<WST> stageTypes; public List<WST> getStageTypes() {return stageTypes;}
@@ -196,8 +196,14 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		modificationLevels.addAll(fApproval.allOrderedPositionVisible(fbWorkflow.getClassModificationLevel()));
 		
 		bots.addAll(fApproval.allOrderedPositionVisible(fbWorkflow.getClassBot()));
-		try{initEntities();} catch (JeeslNotFoundException e) {e.printStackTrace();}
-		initPageSettings();
+		try
+		{
+			initEntities();
+			initMessageTemplates();
+			initPageSettings();
+		}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
+		
 		Collections.sort(roles,cpRole);
 		
 		reloadProcesses();
@@ -208,12 +214,16 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		}
 	}
 	
+	protected void initMessageTemplates()
+	{
+		templates.addAll(fWorkflow.all(fbTemplate.getClassTemplate()));
+	}
 	protected abstract void initEntities() throws JeeslNotFoundException;
 	
 	protected void initPageSettings()
 	{
 		channels.addAll(fWorkflow.allOrderedPositionVisible(fbTemplate.getClassType()));
-		templates.addAll(fWorkflow.all(fbTemplate.getClassTemplate()));
+		
 		roles.addAll(fWorkflow.allOrderedPositionVisible(fbSecurity.getClassRole()));
 		
 		sbhContext.setList(fWorkflow.allOrderedPositionVisible(fbWorkflow.getClassContext()));

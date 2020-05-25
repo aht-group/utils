@@ -15,7 +15,8 @@ public interface InformRest
 	String WorkflowGroup = "";
 
     @GET @Path("/Workflows/WorkflowGroups")
-	@Produces(MediaType.TEXT_PLAIN) String sWorkflows();
+	@Produces(MediaType.TEXT_PLAIN)
+    String sWorkflows();
 	
 	@GET @Path("/Countries/Index")
 	@Produces(MediaType.TEXT_PLAIN) String sCountries();
@@ -33,6 +34,7 @@ public interface InformRest
     @Produces("*")  List<Object>  sGetProcessesByWorkflowId( @PathParam("id") String id);
     
     @GET @Path("/Countries/Scores/?WorkflowId={WorkflowId}&Iso3={country}")
-    @Produces("*")  List<Object>  sScoresByWfId(  @PathParam("WorkflowId") String id, @PathParam("country") String Country);
+    @Produces("*") 
+    List<Object>  sScoresByWfId(  @PathParam("WorkflowId") String id, @PathParam("country") String Country);
     
 }
