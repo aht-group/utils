@@ -10,7 +10,7 @@ import org.openfuxml.content.ofx.Listing;
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.exception.OfxConfigurationException;
 import org.openfuxml.interfaces.configuration.ConfigurationProvider;
-import org.openfuxml.xml.xpath.content.SectionXpath;
+import org.openfuxml.util.query.XmlSectionQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -93,7 +93,7 @@ public class UtilsLatexDevelopmentDocumentationBuilder extends AbstractLatexDocu
 		try
 		{	// VCS.URL
 			String url = config.getString(cfgKeyVcsUrl);
-			Listing listing = SectionXpath.getSeed(section,"listing.admin.installation.eclipse.vcs.url");
+			Listing listing = XmlSectionQuery.getSeed(section,"listing.admin.installation.eclipse.vcs.url");
 			listing.getRaw().setValue(url);
 		}
 		catch (NoSuchElementException e){logger.warn(e.toString());}

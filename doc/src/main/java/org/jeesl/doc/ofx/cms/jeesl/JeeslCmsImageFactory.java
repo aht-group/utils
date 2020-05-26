@@ -23,7 +23,7 @@ import org.openfuxml.content.ofx.Section;
 import org.openfuxml.factory.xml.media.XmlImageFactory;
 import org.openfuxml.factory.xml.media.XmlMediaFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
-import org.openfuxml.xml.xpath.content.SectionXpath;
+import org.openfuxml.util.query.XmlSectionQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,7 +58,7 @@ public class JeeslCmsImageFactory<E extends JeeslIoCmsElement<?,?,?,?,C,FC>,
 			{
 				C content = element.getContent().get(localeCode);
 				Section section = ofxMarkup.build(content.getMarkup().getCode(),content.getLang());
-				Paragraph p = SectionXpath.getFirstParagraph(section);
+				Paragraph p = XmlSectionQuery.getFirstParagraph(section);
 				String s = p.getContent().get(0).toString();
 				logger.trace(s);
 				xml.setTitle(XmlTitleFactory.build(s));

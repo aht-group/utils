@@ -35,7 +35,7 @@ import org.openfuxml.factory.xml.media.XmlMediaFactory;
 import org.openfuxml.factory.xml.ofx.content.structure.XmlSectionFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
 import org.openfuxml.interfaces.configuration.OfxTranslationProvider;
-import org.openfuxml.xml.xpath.content.SectionXpath;
+import org.openfuxml.util.query.XmlSectionQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

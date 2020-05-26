@@ -11,7 +11,7 @@ import org.openfuxml.content.ofx.Section;
 import org.openfuxml.factory.xml.ofx.list.XmlListFactory;
 import org.openfuxml.factory.xml.ofx.list.XmlListItemFactory;
 import org.openfuxml.util.filter.OfxLangFilter;
-import org.openfuxml.xml.xpath.content.SectionXpath;
+import org.openfuxml.util.query.XmlSectionQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,7 +45,7 @@ public class OfxInstallationRequirementFactory
         
         try
         {
-			Section sHardware = SectionXpath.getRenderer(section, idHardware);
+			Section sHardware = XmlSectionQuery.getRenderer(section, idHardware);
 			
 			List list = XmlListFactory.build(XmlListFactory.Ordering.unordered.toString());
 			list.getItem().add(XmlListItemFactory.build(ram+" GB RAM"));
