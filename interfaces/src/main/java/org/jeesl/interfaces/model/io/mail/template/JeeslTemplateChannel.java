@@ -20,5 +20,5 @@ public interface JeeslTemplateChannel <L extends JeeslLang, D extends JeeslDescr
 							JeeslOptionRestDescription,JeeslOptionRestDownload,
 							EjbWithCodeGraphic<G>,JeeslStatus<S,L,D>
 {	
-	public static enum Code{sms,email,box};
+	public static enum Code{sms,email,box,pdf};
 }

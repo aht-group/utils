@@ -145,9 +145,8 @@ public class AbstractlIoTemplateHandler<L extends JeeslLang,D extends JeeslDescr
 	public void saveTemplate()
 	{
 		logger.info("saveTemplate");
-		try {
-			preview();
-		} catch (IOException e) {logger.error(e.getMessage());}
+		try {preview();}
+		catch (IOException e) {logger.error(e.getMessage());}
 	}
 	
 	public void sendMails()
