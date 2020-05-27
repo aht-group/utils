@@ -188,7 +188,13 @@ input[class="ui-spinner-input ui-inputfield ui-state-default ui-corner-all ui-st
 
 /*table header rotation*/
 .jeeslDtThVertical {text-align: center; vertical-align: middle;}
-.jeeslDtThVertical .ui-column-title {writing-mode: tb; vertical-align: middle; padding: 6px 0;transform: rotate(180deg);}
+.jeeslDtThVertical .ui-column-title
+{
+	writing-mode: tb;-ms-writing-mode: tb-rl;-webkit-writing-mode: vertical-lr;writing-mode: vertical-lr;
+	vertical-align: middle;
+	padding: 6px 0;
+	transform: rotate(180deg);
+}
 
 .jeeslPanel .ui-panelgrid .ui-panelgrid-cell {padding-right: 13px;}
 
