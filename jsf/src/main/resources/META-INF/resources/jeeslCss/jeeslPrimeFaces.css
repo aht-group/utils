@@ -213,6 +213,6 @@ input[class="ui-spinner-input ui-inputfield ui-state-default ui-corner-all ui-st
 /*table cell selection*/
 .ui-datatable tbody td.cell-select {padding: 0;} /*specificity necessary to overwrite existing padding in td*/
 .cell-select label {display: block;padding: 4px 10px;}
-.cell-select label:hover {color: white;background: linear-gradient(90deg, hsla(154, 100%, 20%, 1), transparent);cursor: pointer;}
-.cell-select label.selected {font-weight: bold;background: linear-gradient(90deg, transparent, hsla(154, 100%, 24%, 1));}
+.cell-select label:hover {background: linear-gradient(90deg, transparent, hsla(154, 100%, 24%, 1));cursor: pointer;}
+.cell-select label.selected {color: white;font-weight: bold;background: linear-gradient(90deg, hsla(154, 100%, 20%, 1), transparent);}
 .cell-select label.selected:hover {background: linear-gradient(90deg, hsla(154, 100%, 20%, 1),hsla(154, 100%, 24%, 1));}
