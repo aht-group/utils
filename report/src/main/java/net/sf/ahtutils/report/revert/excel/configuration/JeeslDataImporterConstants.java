@@ -7,7 +7,7 @@ package net.sf.ahtutils.report.revert.excel.configuration;
 public class JeeslDataImporterConstants {
     
     public static enum timeSeriesVariables  {	TsScope,		    // The domain specific object implementing JeeslTsScope and holding the scope for the time series
-						TsWorkplace,		    // The domain specific object implementing JeeslTsWorkspace and holding the workspace for the time series (e.g. live or staging)
+						TsWorkspace,		    // The domain specific object implementing JeeslTsWorkspace and holding the workspace for the time series (e.g. live or staging)
 						TsDomainModelBridgeClass,   // The class in the project that implements JeeslTsBridge
 						TsData,			    // The class in the project that implements JeeslTsData
 						TsBridgeEntitiyClass,	    // The domain specific object that is used as the reference for the time series (e.g. a Station, a Province, ..)

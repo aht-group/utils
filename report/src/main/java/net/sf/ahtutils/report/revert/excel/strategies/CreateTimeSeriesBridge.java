@@ -2,6 +2,7 @@ package net.sf.ahtutils.report.revert.excel.strategies;
 
 import java.math.BigDecimal;
 import java.util.Hashtable;
+import net.sf.ahtutils.report.revert.excel.configuration.JeeslDataImporterConstants;
 
 import org.jeesl.api.controller.ImportStrategy;
 import org.jeesl.api.facade.module.JeeslTsFacade;
@@ -33,9 +34,8 @@ public class CreateTimeSeriesBridge implements ImportStrategy
 
 	// See what class must be used to build the object referenced by the bridge (e.g. a station or province)
 	// and load the TimeSeries Bridge class from the project specific data model
-	Class              bridgeEntityClass        = (Class)   tempPropertyStore.get("TsBridgeEntitiyClass");
-	Class              tsDomainModelBridgeClass = (Class)   tempPropertyStore.get("TsDomainModelBridgeClass");
-	Class              tsDomainModelEntityClass = (Class)   tempPropertyStore.get("TsDomainModelEntityClass");
+	Class              bridgeEntityClass        = (Class)   tempPropertyStore.get(JeeslDataImporterConstants.timeSeriesVariables.TsBridgeEntitiyClass.toString());
+	Class              tsDomainModelEntityClass = (Class)   tempPropertyStore.get(JeeslDataImporterConstants.timeSeriesVariables.TsDomainModelEntityClass.toString());
 
 	//logger.info("Code found : " +code + " to construct a TimeSeries bridge connecting data to objects of type " +bridgeEntityClass.getSimpleName() + " to be used as a reference in " +tsDomainModelBridgeClass.getSimpleName());
 
@@ -48,6 +48,7 @@ public class CreateTimeSeriesBridge implements ImportStrategy
 	try {
 	    // Construct the TimeSeries related environment
 	    JeeslTsEntityClass tsDomainModelEntityObj = (JeeslTsEntityClass) tsFacade.fByCode(tsDomainModelEntityClass, entity.getClass().getCanonicalName());
+	    logger.info("Using this entity class object: " +tsDomainModelEntityObj.getCode());
 	    JeeslTsBridge bridge = tsFacade.fcBridge(bridgeEntityClass, tsDomainModelEntityObj, (EjbWithId) entity);
 	    
 	    // Put the bridge to the context for use in later stage (find or create TimeSeries and create Data point)

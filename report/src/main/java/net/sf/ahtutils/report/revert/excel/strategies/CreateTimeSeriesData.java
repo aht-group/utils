@@ -2,6 +2,7 @@ package net.sf.ahtutils.report.revert.excel.strategies;
 
 import java.util.Date;
 import java.util.Hashtable;
+import net.sf.ahtutils.report.revert.excel.configuration.JeeslDataImporterConstants;
 
 import org.jeesl.api.controller.ImportStrategy;
 import org.jeesl.api.facade.module.JeeslTsFacade;
@@ -34,14 +35,14 @@ public class CreateTimeSeriesData implements ImportStrategy
 	// The bridge, value and record will be taken from previous stages of the import (other strategies put them in context)
 	Double		value	    = (Double)		tempPropertyStore.get("TsValue");
 	Date		record	    = (Date)		tempPropertyStore.get("TsRecord");
-	JeeslTsBridge       bridge      = (JeeslTsBridge)   tempPropertyStore.get("TsBridge");
+	JeeslTsBridge   bridge	    = (JeeslTsBridge)   tempPropertyStore.get("TsBridge");
 
 	// The other domain specific information about classes and objects need to be put on the context by the class executing the importer
-	JeeslTsScope        scope       = (JeeslTsScope)    tempPropertyStore.get("TsScope" );
-	Class		dataClass   = (Class)		tempPropertyStore.get("TsData" );
-	JeeslTsInterval     interval    = (JeeslTsInterval) tempPropertyStore.get("TsInterval" );
-	JeeslStatus		workspace   = (JeeslStatus)	tempPropertyStore.get("TsWorkspace" );
-	JeeslTsStatistic    statistic   = (JeeslTsStatistic)tempPropertyStore.get("TsStatistic" );
+	JeeslTsScope        scope   = (JeeslTsScope)    tempPropertyStore.get(JeeslDataImporterConstants.timeSeriesVariables.TsScope.toString());
+	Class		dataClass   = (Class)		tempPropertyStore.get(JeeslDataImporterConstants.timeSeriesVariables.TsData.toString());
+	JeeslTsInterval interval    = (JeeslTsInterval) tempPropertyStore.get(JeeslDataImporterConstants.timeSeriesVariables.TsInterval.toString());
+	JeeslStatus	workspace   = (JeeslStatus)	tempPropertyStore.get(JeeslDataImporterConstants.timeSeriesVariables.TsWorkspace.toString());
+	JeeslTsStatistic statistic  = (JeeslTsStatistic)tempPropertyStore.get(JeeslDataImporterConstants.timeSeriesVariables.TsStatistic.toString());
 
 	// For debugging - debugging the other elements is adviced to do in the class that triggers the import
 	//logger.info("Using Bridge for Ref ID " +bridge.getRefId());
