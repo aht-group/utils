@@ -17,7 +17,7 @@ public interface JeeslTimeSeries <SCOPE extends JeeslTsScope<?,?,?,?,?,?,INT>,
 >
 		extends EjbWithId,Serializable,EjbRemoveable,EjbPersistable
 {
-	public enum Attributes{scope,interval,statistic,bridge}
+	public enum Attributes{scope,interval,statistic,bridge,tsSrc}
 	
 	SCOPE getScope();
 	void setScope(SCOPE scope);
