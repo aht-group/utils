@@ -32,5 +32,5 @@ public interface JeeslTsData <TS extends JeeslTimeSeries<?,TS,?,?,?>,
 	void setSample(SAMPLE sample);
 	
 	List<POINT> getDataPoints();
-	void setDataPoints(List<POINT> points);
+	void setDataPoints(List<POINT> dataPoints);
 }
