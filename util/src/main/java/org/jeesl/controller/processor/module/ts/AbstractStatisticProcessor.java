@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 
 public class AbstractStatisticProcessor <TS extends JeeslTimeSeries<?,TS,?,?,?>,
 									TRANSACTION extends JeeslTsTransaction<?,DATA,?,?>,
-									DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
+									DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,?,WS>,
 									SAMPLE extends JeeslTsSample, 
 									WS extends JeeslStatus<WS,?,?>>
 {

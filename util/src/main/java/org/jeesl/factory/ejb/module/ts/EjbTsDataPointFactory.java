@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbTsDataPointFactory<MP extends JeeslTsMultiPoint<?,?,?,?>,
-								DATA extends JeeslTsData<?,?,?,?>,
+								DATA extends JeeslTsData<?,?,?,?,?>,
 								POINT extends JeeslTsDataPoint<DATA,MP>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbTsDataPointFactory.class);

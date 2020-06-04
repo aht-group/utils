@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TsDataComparator <	TS extends JeeslTimeSeries<?,TS,?,?,?>,
-								DATA extends JeeslTsData<TS,?,SAMPLE,WS>,
+								DATA extends JeeslTsData<TS,?,SAMPLE,?,WS>,
 								SAMPLE extends JeeslTsSample, 
 								WS extends JeeslStatus<WS,?,?>>
 {

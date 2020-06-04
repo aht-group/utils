@@ -24,7 +24,7 @@ public class JeeslTsTransactionsReport <L extends JeeslLang,D extends JeeslDescr
 						TRANSACTION extends JeeslTsTransaction<SOURCE,DATA,USER,?>,
 						SOURCE extends EjbWithLangDescription<L,D>, 
 						
-						DATA extends JeeslTsData<?,TRANSACTION,?,?>,
+						DATA extends JeeslTsData<?,TRANSACTION,?,?,?>,
 						
 						USER extends JeeslUser<?>
 						>

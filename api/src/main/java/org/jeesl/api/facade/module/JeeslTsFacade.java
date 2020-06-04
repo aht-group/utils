@@ -40,7 +40,7 @@ public interface JeeslTsFacade <L extends JeeslLang, D extends JeeslDescription,
 								ENTITY extends JeeslRevisionEntity<L,D,?,?,?,?>,
 								INT extends JeeslStatus<INT,L,D>,
 								STAT extends JeeslTsStatistic<L,D,STAT,?>,
-								DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
+								DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,POINT,WS>,
 								POINT extends JeeslTsDataPoint<DATA,MP>,
 								SAMPLE extends JeeslTsSample, 
 								USER extends EjbWithId, 
@@ -63,7 +63,6 @@ public interface JeeslTsFacade <L extends JeeslLang, D extends JeeslDescription,
 	List<TS> fTimeSeries(SCOPE scope, INT interval, EC entityClass);
 	TS fTimeSeries(SCOPE scope, INT interval, STAT statistic, BRIDGE bridge) throws JeeslNotFoundException;
 	TS fcTimeSeries(SCOPE scope, INT interval, STAT statistic, BRIDGE bridge) throws JeeslConstraintViolationException;
-	
 	List<DATA> fData(TRANSACTION transaction);
 	List<DATA> fData(WS workspace, TS timeSeries);
 	List<DATA> fData(WS workspace, TS timeSeries, JeeslTsData.QueryInterval interval, Date from, Date to);

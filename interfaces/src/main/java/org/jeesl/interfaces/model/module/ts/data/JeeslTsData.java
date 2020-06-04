@@ -1,6 +1,7 @@
 package org.jeesl.interfaces.model.module.ts.data;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.jeesl.interfaces.model.marker.jpa.EjbPersistable;
 import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
@@ -11,6 +12,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 public interface JeeslTsData <TS extends JeeslTimeSeries<?,TS,?,?,?>,
 								TRANSACTION extends JeeslTsTransaction<?,?,?,?>,
 								SAMPLE extends JeeslTsSample, 
+								POINT extends JeeslTsDataPoint<?,?>,
 								WS extends JeeslStatus<WS,?,?>>
 		extends JeeslTsValue,EjbSaveable,Serializable,EjbRemoveable,EjbPersistable
 {
@@ -29,6 +31,6 @@ public interface JeeslTsData <TS extends JeeslTimeSeries<?,TS,?,?,?>,
 	SAMPLE getSample();
 	void setSample(SAMPLE sample);
 	
-//	List<POINT> getPoints();
-//	void setPoints(List<POINT> points);
+	List<POINT> getDataPoints();
+	void setDataPoints(List<POINT> points);
 }

@@ -57,7 +57,7 @@ public class AbstractAdminTsTransactionBean <L extends JeeslLang, D extends Jees
 											ENTITY extends JeeslRevisionEntity<L,D,?,?,?,?>,
 											INT extends JeeslTsInterval<L,D,INT,?>,
 											STAT extends JeeslTsStatistic<L,D,STAT,?>,
-											DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
+											DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,POINT,WS>,
 											POINT extends JeeslTsDataPoint<DATA,MP>,
 											SAMPLE extends JeeslTsSample, 
 											USER extends EjbWithId, 

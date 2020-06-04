@@ -40,7 +40,7 @@ public class TsDbCountProcessor<RE extends JeeslRevisionEntity<?,?,?,?,?,?>,
 									ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>,
 									INT extends JeeslTsInterval<?,?,INT,?>,
 									STAT extends JeeslTsStatistic<?,?,STAT,?>,
-									DATA extends JeeslTsData<TS,TRANSACTION,?,WS>,
+									DATA extends JeeslTsData<TS,TRANSACTION,?,POINT,WS>,
 									POINT extends JeeslTsDataPoint<DATA,MP>,
 									WS extends JeeslStatus<WS,?,?>>
 	extends AbstractTimeSeriesProcessor<SCOPE,MP,TS,TRANSACTION,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,WS>

@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class SqlTimeSeriesFactory <TS extends JeeslTimeSeries<?,TS,?,?,?>,
-									DATA extends JeeslTsData<TS,?,?,?>>
+									DATA extends JeeslTsData<TS,?,?,?,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(SqlTimeSeriesFactory.class);
 

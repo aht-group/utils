@@ -63,7 +63,7 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 							ENTITY extends JeeslRevisionEntity<L,D,?,?,?,?>,
 							INT extends JeeslTsInterval<L,D,INT,?>,
 							STAT extends JeeslTsStatistic<L,D,STAT,?>,
-							DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
+							DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,POINT,WS>,
 							POINT extends JeeslTsDataPoint<DATA,MP>,
 							SAMPLE extends JeeslTsSample, 
 							USER extends EjbWithId, 
@@ -219,6 +219,7 @@ public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 			return this.persist(ts);
 		}
 	}
+	
 	@Override public TS fTimeSeries(SCOPE scope, INT interval, STAT statistic, BRIDGE bridge) throws JeeslNotFoundException
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();

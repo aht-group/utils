@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 
 public class EjbTsDataFactory<TS extends JeeslTimeSeries<?,TS,?,?,?>,
 								TRANSACTION extends JeeslTsTransaction<?,DATA,?,?>,
-								DATA extends JeeslTsData<TS,TRANSACTION,?,WS>,
+								DATA extends JeeslTsData<TS,TRANSACTION,?,?,WS>,
 								WS extends JeeslStatus<WS,?,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbTsDataFactory.class);

@@ -2,6 +2,7 @@ package org.jeesl.controller.processor.module.ts;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
@@ -31,7 +32,7 @@ public class CronStatisticProcessor <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT
 									BRIDGE extends JeeslTsBridge<EC>,
 									EC extends JeeslTsEntityClass<?,?,?,?>,
 									STAT extends JeeslTsStatistic<?,?,STAT,?>,
-									DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
+									DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,?,WS>,
 									SAMPLE extends JeeslTsSample,
 									WS extends JeeslStatus<WS,?,?>,
 									CRON extends JeeslTsCron<SCOPE,INT,STAT>
@@ -76,6 +77,7 @@ public class CronStatisticProcessor <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT
 	public void saveStatistic(CRON cron) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		List<TS> timeseries = findTimeSeries(cron);
+		logger.info("Found timeseries: "+timeseries.size());
 		for(TS ts : timeseries)
 		{
 			List<DATA> data = fTs.fData(workspace,ts);
@@ -99,12 +101,14 @@ public class CronStatisticProcessor <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT
 	{
 		List<TS> timeseries = new ArrayList<>();
 		List<EC> entityClasses = cron.getScope().getClasses();
+		logger.info("Found enities: "+entityClasses.size());
 		for(EC ec : entityClasses)
 		{
 			List<TS> ts = new ArrayList<>();
-			ts = fTs.fTimeSeries(cron.getScope(), cron.getIntervalSrc(), ec);
+			ts = fTs.fTimeSeries(cron.getScope(), cron.getIntervalSrc(), ec).stream().filter(i -> i.getStatistic().getCode().equals(cron.getStatisticSrc().getCode())).collect(Collectors.toList());
 			timeseries.addAll(ts);
 		}
+		logger.info("Found ts for entities: "+timeseries.size());
 		return timeseries;
 	}
 	
@@ -112,6 +116,8 @@ public class CronStatisticProcessor <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT
 	{
 		logger.info("building statistic timeseries");
 		TS statTs = fTs.fcTimeSeries(cron.getScope(), cron.getIntervalDst(), cron.getStatisticDst(), ts.getBridge());
+		statTs.setTsSrc(ts);
+		statTs = fTs.persist(statTs);
 		return statTs;
 	}
 

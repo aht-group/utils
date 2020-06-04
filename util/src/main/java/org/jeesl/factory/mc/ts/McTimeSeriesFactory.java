@@ -44,7 +44,7 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 								ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>,
 								INT extends JeeslTsInterval<?,?,INT,?>,
 								STAT extends JeeslTsStatistic<?,?,STAT,?>,
-								DATA extends JeeslTsData<TS,?,?,WS>,
+								DATA extends JeeslTsData<TS,?,?,POINT,WS>,
 								POINT extends JeeslTsDataPoint<DATA,MP>,
 								WS extends JeeslStatus<WS,?,?>>
 {

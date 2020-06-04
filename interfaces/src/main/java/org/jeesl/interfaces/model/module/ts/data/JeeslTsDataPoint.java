@@ -9,7 +9,7 @@ import org.jeesl.interfaces.model.module.ts.core.JeeslTsMultiPoint;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
-public interface JeeslTsDataPoint <DATA extends JeeslTsData<?,?,?,?>,
+public interface JeeslTsDataPoint <DATA extends JeeslTsData<?,?,?,?,?>,
 									MP extends JeeslTsMultiPoint<?,?,?,?>>
 		extends EjbWithId,EjbSaveable,Serializable,EjbRemoveable,EjbPersistable,EjbWithParentAttributeResolver
 {

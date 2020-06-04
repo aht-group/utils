@@ -5,7 +5,7 @@ import org.jeesl.model.json.module.ts.JsonTsData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class JsonTsDataFactory<DATA extends JeeslTsData<?,?,?,?>>
+public class JsonTsDataFactory<DATA extends JeeslTsData<?,?,?,?,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(JsonTsDataFactory.class);
 	

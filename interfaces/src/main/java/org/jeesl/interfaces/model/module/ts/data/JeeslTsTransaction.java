@@ -13,7 +13,7 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithLangDescription;
 
 public interface JeeslTsTransaction <SOURCE extends EjbWithLangDescription<?,?>, 
-								DATA extends JeeslTsData<?,?,?,?>,
+								DATA extends JeeslTsData<?,?,?,?,?>,
 								USER extends EjbWithId,
 								CONTAINER extends JeeslFileContainer<?,?>
 								>
