@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName(value="interval")
-public class JsonInterval implements Serializable
+@JsonRootName(value="entity")
+public class JsonEntity implements Serializable
 {
 	public static final long serialVersionUID=1;
 

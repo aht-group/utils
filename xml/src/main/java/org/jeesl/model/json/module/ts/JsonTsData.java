@@ -20,21 +20,28 @@ public class JsonTsData implements Serializable
 	public Long getId() {return id;}
 	public void setId(Long id) {this.id = id;}
 	@JsonIgnore public boolean isSetId() {return id!=null;}
-	
+
 	@JsonProperty("record")
 	private Date record;
 	public Date getRecord() {return record;}
 	public void setRecord(Date record) {this.record = record;}
 	@JsonIgnore public boolean isSetRecord() {return record!=null;}
-	
+
+	@JsonProperty("value")
+	private Double value;
+	public Double getValue() {return value;}
+	public void setValue(Double value) {this.value = value;}
+	@JsonIgnore public boolean isSetValue() {return value!=null;}
+
 	@JsonProperty("points")
 	private List<JsonTsPoint> points;
 	public List<JsonTsPoint> getPoints() {return points;}
 	public void setPoints(List<JsonTsPoint> points) {this.points = points;}
-	
+
 	@Override public String toString()
 	{
-		StringBuffer sb = new StringBuffer();	
+
+		StringBuffer sb = new StringBuffer();
 		return sb.toString();
 	}
 }
