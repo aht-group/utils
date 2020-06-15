@@ -45,30 +45,32 @@ public class CreateTimeSeriesData implements ImportStrategy
 	JeeslTsStatistic statistic  = (JeeslTsStatistic)tempPropertyStore.get(JeeslDataImporterConstants.timeSeriesVariables.TsStatistic.toString());
 
 	// For debugging - debugging the other elements is adviced to do in the class that triggers the import
-	//logger.info("Using Bridge for Ref ID " +bridge.getRefId());
-	//logger.info("Using record "+record.toGMTString());
-	//logger.info("Using value " +value);
+	// logger.info("Using Bridge for Ref ID " +bridge.getRefId());
+	// logger.info("Using record "+record.toGMTString());
+	// logger.info("Using value " +value);
 
 	// Use the TimeSeries focused facade here and make sure the right one has been set in class that executes the import
 	JeeslTsFacade       tsFacade    = (JeeslTsFacade)   facade;
 
 	// Create the TimeSeries for the given parameters.
-	JeeslTimeSeries ts = null;
+	JeeslTimeSeries ts	= null;
+	JeeslTsData datapoint	= null;
+	
 	try {
 	    // Create the timeseries for this datapoint
 	    ts = tsFacade.fcTimeSeries(scope,interval,statistic,bridge);
 	    
 	    // Create an actual datapoint and put is to the context for first testing
-	    JeeslTsData datapoint = (JeeslTsData) dataClass.newInstance();
+	    datapoint = (JeeslTsData) dataClass.newInstance();
 	    datapoint.setRecord(record);
 	    datapoint.setTimeSeries(ts);
 	    datapoint.setValue(value);
 	    datapoint.setWorkspace(workspace);
-	    tempPropertyStore.put("data", datapoint);
+	    //logger.info(ts.getBridge().getRefId()+ "");
 	} catch (InstantiationException | IllegalAccessException | JeeslConstraintViolationException ex) {
 	    logger.error("Could not create timeseries/datapoint " +ex.getMessage());
 	}
-	return ts;
+	return datapoint;
     }
 
     @Override
