@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.Map;
 import net.sf.ahtutils.interfaces.controller.report.UtilsXlsDefinitionResolver;
 import net.sf.ahtutils.report.util.DataUtil;
 import net.sf.ahtutils.xml.report.XlsSheet;
@@ -18,6 +19,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jeesl.api.controller.ImportStrategy;
+import static org.jeesl.report.importers.AbstractShpImporter.logger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -118,5 +120,18 @@ public abstract class AbstractExcelImporter <C extends Serializable, I extends I
             logger.warn("Row " +excelRow.getRowNum() + " seems to be empty and will be ignored!");
         }
         return rowExists;
+    }
+    
+    @Override
+    public Map<Short, String> getColumnTitles()
+    {
+        logger.info("Properties and Columns");
+	logger.info("======================");
+	Map<Short, String> propertyNameForColumn = DataUtil.debugRow(activeSheet, 0);
+	for (Short column : propertyNameForColumn.keySet())
+	{
+	    logger.info("Column " +column + " stores " +propertyNameForColumn.get(column));
+	}
+	return propertyNameForColumn;
     }
 }

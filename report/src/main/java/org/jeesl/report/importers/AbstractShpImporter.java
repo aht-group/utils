@@ -111,4 +111,16 @@ public abstract class AbstractShpImporter <C extends Serializable, I extends Imp
         // Since the data is preprocessed, every request will return a valid row construct
         return true;
     }
+    
+    @Override
+    public Map<Short, String> getColumnTitles()
+    {
+        logger.info("Properties and Columns");
+	logger.info("======================");
+	for (Short column : propertyNameForColumn.keySet())
+	{
+	    logger.info("Column " +column + " stores " +propertyNameForColumn.get(column));
+	}
+	return propertyNameForColumn;
+    }
 }
