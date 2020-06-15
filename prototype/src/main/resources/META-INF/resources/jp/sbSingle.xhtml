@@ -15,7 +15,7 @@
 		<composite:attribute name="list" required="true"/>
 		<composite:attribute name="entity" required="true"/>
 		<composite:attribute name="update" required="true"/>
-		
+                <composite:attribute name="oncomplete" required="false"/>
 		<composite:attribute name="showMultilang" required="false" default="false"/>
 		<composite:attribute name="showCode" required="false" default="false"/>
 	</composite:interface>
@@ -29,7 +29,7 @@
 			<h:commandLink>
 				<h:outputText rendered="#{cc.attrs.showMultilang}" value="#{var.name[localeCode].lang}"/>
 				<h:outputText rendered="#{cc.attrs.showCode}" value="#{var.code}"/>
-				<p:ajax event="click" listener="#{cc.attrs.bean.selectSbSingle(var)}" update="@form #{cc.attrs.update}"/>
+				<p:ajax event="click" listener="#{cc.attrs.bean.selectSbSingle(var)}" oncomplete="#{cc.attrs.oncomplete}" update="@form #{cc.attrs.update}"/>
 			</h:commandLink>
 		</aup:statusBarItem>
 	</composite:implementation>
