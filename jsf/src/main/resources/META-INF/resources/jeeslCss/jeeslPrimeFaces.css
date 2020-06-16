@@ -164,9 +164,9 @@ div.timeline-frame {background-color: #f1f1f1; margin-left: -14px; margin-top: -
 
 /*calendar button fix !!!!!!!!!!!!!*/
  /* Guarantuees that the p:calendar is shown without linebreak between input field and button */
-.jeeslPanel *.ui-calendar > .hasDatepicker {
-     width: 82%;
- }
+/* .jeeslPanel *.ui-calendar > .hasDatepicker {
+	width: 82%;
+} */
 
 /*spinner on right */
 input[class="ui-spinner-input ui-inputfield ui-state-default ui-corner-all"]{text-align:left;width: 96% !important;}
@@ -219,3 +219,14 @@ input[class="ui-spinner-input ui-inputfield ui-state-default ui-corner-all ui-st
 .cell-select label:hover {background: linear-gradient(90deg, transparent, hsla(154, 100%, 24%, 1));cursor: pointer;}
 .cell-select label.selected {color: white;font-weight: bold;background: linear-gradient(90deg, hsla(154, 100%, 20%, 1), transparent);}
 .cell-select label.selected:hover {background: linear-gradient(90deg, hsla(154, 100%, 20%, 1),hsla(154, 100%, 24%, 1));}
+
+.ui-outputlabel.mandatory:after {content: '*';}
+.jeeslPanel .ui-panelgrid .ui-outputpanel {display: flex; align-items: center;}
+.jeeslPanel .ui-panelgrid .ui-outputpanel .ui-outputlabel {flex: 1;}
+.jeeslPanel .ui-panelgrid .ui-outputpanel > img { margin: 0 -5px 0 10px; height: 12px; }
+.jeeslPanel .ui-panelgrid .ui-outputpanel > img:first-child { margin: 0 5px 0 0; }
+
+.jeeslPanel .ui-inputtextarea { vertical-align: middle; margin: 2.8px 0; }
+
+.jeeslPanel .ui-calendar { display: flex; flex-direction: row; align-items: center; }
+.jeeslPanel .ui-calendar .ui-datepicker-trigger { margin-left: 6px; flex: 1; }

@@ -15,8 +15,9 @@
     <c:set var="id" value="#{id}"/>
     <c:set var="info" value="#{not empty info ? info : false}"/>
     <c:set var="bean" value="#{bean}"/>
+    <c:set var="mandatory" value="#{not empty mandatory ? mandatory : false}"/>
 
-    <p:outputLabel rendered="#{rendered and (not empty code)}" value="#{appLabelBean.labels[entity][code][loc].lang}">
+    <p:outputLabel rendered="#{rendered and (not empty code)}" value="#{appLabelBean.labels[entity][code][loc].lang}" class="#{mandatory ? 'mandatory' : ''}">
         <!--<c:if test="#{id}"><f:attribute name="id" value="olwithOverlay"/></c:if>-->
         <c:if test="#{not empty for}"><f:attribute name="for" value="#{for}"/></c:if>
         <c:if test="#{info}">
