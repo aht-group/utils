@@ -22,6 +22,18 @@ public class JeeslDateRangeFactory {
 		return startAndEnd;
 	}
 	
+	public static Date[] getStartAndEndOfYear(Date day)
+	{
+		Date[] startAndEnd = new Date[2];
+		DateTime start = new DateTime(day);
+		DateTime end   = new DateTime(day);
+		start = start.withTimeAtStartOfDay().withDayOfYear(1);
+		end   = start.withDayOfYear(end.dayOfYear().getMaximumValue()).plusDays(1).withTimeAtStartOfDay();
+		startAndEnd[0] = start.toDate();
+		startAndEnd[1] = end.toDate();
+		return startAndEnd;
+	}
+	
 	public static Date[] getStartAndEndOfMonth8(Date day)
 	{
 		Date[] startAndEnd = new Date[2];
@@ -95,6 +107,7 @@ public class JeeslDateRangeFactory {
 	public static void main(String[] args)
 	{
 		Date now = new Date();
+		Date[] resultYear = getStartAndEndOfYear(now);
 		Date[] resultMonth = getStartAndEndOfMonth(now);
 		Date[] resultWeek  = getStartAndEndOfWeek(now);
 		Date[] resultDay   = getStartAndEndOfDay(now);
@@ -102,6 +115,7 @@ public class JeeslDateRangeFactory {
 		Date[] resultWeek8 = getStartAndEndOfWeek8(now);
 		Date[] resultDay8 = getStartAndEndOfDay8(now);
 		
+		System.out.println("Year  Start at " +resultYear[0].toString() +" and end at " +resultYear[1].toString());
 		System.out.println("Month Start at " +resultMonth[0].toString() +" and end at " +resultMonth[1].toString());
 		System.out.println("Week  Start at " +resultWeek[0].toString() +" and end at " +resultWeek[1].toString());
 		System.out.println("Day   Start at " +resultDay[0].toString() +" and end at " +resultDay[1].toString());

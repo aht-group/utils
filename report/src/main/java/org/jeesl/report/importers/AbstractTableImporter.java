@@ -377,4 +377,13 @@ public abstract class AbstractTableImporter <C extends Serializable, I extends I
     {
         logger.error("Override this method in the concrete implentation (e.g. Excel or Shape File import) or leave as is for debugging");
     }
+    
+    /**
+     * Get the headers of the columns (e.g. first row in Excel or property names in Shape files)
+     */
+    public Map<Short, String> getColumnTitles()
+    {
+        logger.error("Override this method in the concrete implentation (e.g. Excel or Shape File import) or leave as is for debugging");
+	return new HashMap<Short, String>();
+    }
 }
