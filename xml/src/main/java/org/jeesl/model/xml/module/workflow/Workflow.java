@@ -22,6 +22,7 @@ import net.sf.ahtutils.xml.status.Contexts;
  *       &lt;sequence&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}contexts"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/workflow}processes"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/workflow}stage"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -33,7 +34,8 @@ import net.sf.ahtutils.xml.status.Contexts;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "contexts",
-    "processes"
+    "processes",
+    "stage"
 })
 @XmlRootElement(name = "workflow")
 public class Workflow
@@ -45,6 +47,8 @@ public class Workflow
     protected Contexts contexts;
     @XmlElement(required = true)
     protected Processes processes;
+    @XmlElement(required = true)
+    protected Stage stage;
 
     /**
      * Gets the value of the contexts property.
@@ -100,6 +104,34 @@ public class Workflow
 
     public boolean isSetProcesses() {
         return (this.processes!= null);
+    }
+
+    /**
+     * Gets the value of the stage property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Stage }
+     *     
+     */
+    public Stage getStage() {
+        return stage;
+    }
+
+    /**
+     * Sets the value of the stage property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Stage }
+     *     
+     */
+    public void setStage(Stage value) {
+        this.stage = value;
+    }
+
+    public boolean isSetStage() {
+        return (this.stage!= null);
     }
 
 }

@@ -68,7 +68,11 @@ public class TrafficLightXpath extends AbstractXpath
 		try
 		{
 			Object value = xpathContext.getValue(xpath);
-//			logger.info("Object: Type "+value.getClass().getName());
+//			StringBuilder sbDebug = new StringBuilder();
+//			sbDebug.append("Object: Type "+value.getClass().getName());
+//			sbDebug.append(" ");
+//			if(value!=null) {sbDebug.append(" ").append(value.toString());} else {sbDebug.append("NULL");}
+//			logger.warn(sbDebug.toString());
 			
 			Object oColumn = ComponentAttribute.getObject(Properties.column,null,context,this);
 			if(oColumn!=null && JeeslReportColumn.class.isAssignableFrom(oColumn.getClass()))
@@ -90,7 +94,8 @@ public class TrafficLightXpath extends AbstractXpath
 					{
 						Integer i = null;
 						if(value instanceof Double){i = ((Double)value).intValue();}
-						else {i = (Integer)value;}
+						else if(value instanceof Integer){i = (Integer)value;}
+						else if(value instanceof String) {i = Integer.valueOf((String)value);}
 						sbValue.append(super.getDecimalFormat(dt.getSymbol()).format(i));
 						TrafficLightProcessor.appendStyle(sbStyle,context,this.getAttributes(),i.doubleValue(),refValue);
 					}
