@@ -282,6 +282,7 @@
 									<includes>
 										<include>control/*.*</include>
 										<include>control/tree/*.*</include>
+										<include>info/*.*</include>
 										<include>system/io/cms/*.*</include>
 										<include>io/fr/type/*.*</include>
 										<include>system/io/revision/*.*</include>
