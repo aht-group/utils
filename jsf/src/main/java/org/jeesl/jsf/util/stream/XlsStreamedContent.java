@@ -15,7 +15,7 @@ public class XlsStreamedContent <REPORT extends JeeslIoReport<?,?,?,?>>
 		this(report.xlsStream(),JeeslXlsReport.mimeType,report.xlsFileName());
 	}
 	
-	@Deprecated //public use is deprecated ...
+	@Deprecated //public use is deprecated ... use (is,fileName)
 	public XlsStreamedContent(InputStream is, String mimeType, String fileName)
 	{
 		super(is,mimeType,fileName);

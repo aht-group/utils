@@ -30,7 +30,7 @@ public interface JeeslWorkflowStage <L extends JeeslLang, D extends JeeslDescrip
 				EjbWithId,EjbWithCode,EjbWithPosition,EjbWithParentAttributeResolver,
 				EjbWithLang<L>,EjbWithDescription<D>,EjbWithGraphic<G>
 {
-	public static enum Attributes{process}
+	public static enum Attributes{process,type}
 	
 	WP getProcess();
 	void setProcess(WP process);

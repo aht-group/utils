@@ -32,10 +32,11 @@ import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
+import org.jeesl.model.json.db.tuple.two.Json2Tuples;
 
 public interface JeeslWorkflowFacade <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
-										AX extends JeeslWorkflowContext<L,D,AX,?>,
-										WP extends JeeslWorkflowProcess<L,D,AX,WS>,
+										WX extends JeeslWorkflowContext<L,D,WX,?>,
+										WP extends JeeslWorkflowProcess<L,D,WX,WS>,
 										WS extends JeeslWorkflowStage<L,D,WP,WST,WSP,WT,?>,
 										WST extends JeeslWorkflowStageType<L,D,WST,?>,
 										WSP extends JeeslWorkflowStagePermission<WS,APT,WML,SR>,
@@ -63,8 +64,11 @@ public interface JeeslWorkflowFacade <L extends JeeslLang, D extends JeeslDescri
 	
 	WL fWorkflowLink(WF workflow) throws JeeslNotFoundException;
 	<W extends JeeslWithWorkflow<WF>> WL fWorkflowLink(WP process, W owner) throws JeeslNotFoundException;
-//	<W extends JeeslWithWorkflow<AW>> AW fWorkflow(Class<W> cWith, W with) throws UtilsNotFoundException;
+	List<WL> fWorkflowLinks(List<WF> workflows);
+	
 	List<WF> fWorkflows(WP process, List<WS> stages);
+	List<WF> fWorkflows(List<WP> processes, List<WST> types);
 	
 	Json1Tuples<WP> tpcActivitiesByProcess();
+	Json2Tuples<WP,WST> tpcActivitiesByProcessType();
 }

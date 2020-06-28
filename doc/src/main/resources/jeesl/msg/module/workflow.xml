@@ -108,6 +108,31 @@
     		<s:lang key="fr" translation="Type"/>
     	</s:langs>
     </s:translation>
+    
+    
+	<s:translation key="jeeslWorkflowTransitionLabel">
+    	<s:langs>
+    		<s:lang key="de" translation="Label"/>
+    		<s:lang key="en" translation="Label"/>
+    		<s:lang key="fr" translation="Label"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslWorkflowTransitionDescription">
+    	<s:langs>
+    		<s:lang key="de" translation="Beschreibung"/>
+    		<s:lang key="en" translation="Description"/>
+    		<s:lang key="fr" translation="Description"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslWorkflowTransitionConfirmation">
+    	<s:langs>
+    		<s:lang key="de" translation="Bestätigungs-Nachricht"/>
+    		<s:lang key="en" translation="Confirmation Message"/>
+    		<s:lang key="fr" translation="Confirmation Message"/>
+    	</s:langs>
+    </s:translation>
+    
+    
 	<s:translation key="jeeslWorkflowTrasitionSignatureScreen">
     	<s:langs>
     		<s:lang key="de" translation="Bildschirm Unterschrift"/>

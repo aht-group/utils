@@ -202,7 +202,7 @@ public class EjbDescriptionFactory<D extends JeeslDescription>
 		return ejb;
 	}
 	
-	public void persistMissingLangs(JeeslFacade fUtils, String[] keys, Map<String,D> map)
+	public Map<String,D> persistMissingLangs(JeeslFacade fUtils, String[] keys, Map<String,D> map)
 	{
 		for(String key : keys)
 		{
@@ -216,5 +216,6 @@ public class EjbDescriptionFactory<D extends JeeslDescription>
 				catch (JeeslConstraintViolationException e) {e.printStackTrace();}
 			}
 		}
+		return map;
 	}
 }

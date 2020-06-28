@@ -66,8 +66,8 @@ public class JbossModuleConfigurator
 		}
 		else if(version.equals("7.2"))
 		{
-			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("org.postgresql:postgresql:42.2.10"),moduleMain);
-			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("net.postgis:postgis-jdbc:2.3.0"),moduleMain);
+			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("org.postgresql:postgresql:42.2.14"),moduleMain);
+			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("net.postgis:postgis-jdbc:2.5.0"),moduleMain);
 
 		}
 		else
@@ -139,10 +139,6 @@ public class JbossModuleConfigurator
 		{
 			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("org.mariadb.jdbc:mariadb-java-client:2.2.5"),dirMain);
 		}
-		else if(version.equals("7.2"))
-		{
-			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("org.mariadb.jdbc:mariadb-java-client:2.2.5"),dirMain);
-		}
 		else
 		{
 			logger.warn("NO MariaDB drivers defined in "+this.getClass().getSimpleName()+" for "+version);
@@ -202,7 +198,7 @@ public class JbossModuleConfigurator
 		else if(version.equals("7.2"))
 		{
 			//Should match the hibernate version of EAP7.2.x
-			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("org.hibernate:hibernate-spatial:5.3.14.Final"),moduleMain);
+			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("org.hibernate:hibernate-spatial:5.3.15.Final"),moduleMain);
 			
 			//Find the version in hibernate-spatial
 			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("org.geolatte:geolatte-geom:1.3.0"),moduleMain);

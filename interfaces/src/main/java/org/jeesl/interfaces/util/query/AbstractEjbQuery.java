@@ -71,7 +71,7 @@ public abstract class AbstractEjbQuery implements Serializable,JeeslQuery
 
 
 	@Override public void debug(boolean debug){debug(debug,0);}
-	@Override public void debug(boolean debug,int ident)
+	@Override public void debug(boolean debug, int ident)
 	{
 		if(debug)
 		{

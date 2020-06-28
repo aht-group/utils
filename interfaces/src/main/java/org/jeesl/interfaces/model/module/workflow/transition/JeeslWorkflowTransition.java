@@ -1,6 +1,7 @@
 package org.jeesl.interfaces.model.module.workflow.transition;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import org.jeesl.interfaces.model.marker.jpa.EjbPersistable;
 import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
@@ -50,4 +51,7 @@ public interface JeeslWorkflowTransition <L extends JeeslLang, D extends JeeslDe
 	
 	Boolean getFileUpload();
 	void setFileUpload(Boolean fileUpload);
+	
+	Map<String,D> getConfirmation();
+	void setConfirmation(Map<String,D> confirmation);
 }

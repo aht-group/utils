@@ -383,7 +383,7 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 		
 		try
 		{
-			actionHandler.perform(entity,actions);
+			actionHandler.perform(transition,entity,actions);
 			
 			workflow.setCurrentStage(transition.getDestination());
 			workflow = fWorkflow.save(workflow);

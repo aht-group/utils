@@ -45,6 +45,11 @@ public class AbstractMessageBean <L extends JeeslLang, D extends JeeslDescriptio
 		FacesContextMessage.info("growl", jeeslTranslationBean.get(jeeslLocaleCode, "jeeslFmSuccess"), jeeslTranslationBean.get(jeeslLocaleCode, key));
 	}
 	
+	public void growlInfoText(String text)
+	{
+		FacesContextMessage.error("growl", jeeslTranslationBean.get(jeeslLocaleCode, "fmInfo"), text);
+	}
+	
 //	@Override
 	public void errorConstraintViolationDuplicateObject() {FacesContextMessage.error(jeeslTranslationBean.get(jeeslLocaleCode,"fmConstraintViolationDuplicateObject"),"");}
 	
@@ -56,9 +61,12 @@ public class AbstractMessageBean <L extends JeeslLang, D extends JeeslDescriptio
 	public void errorConstraintViolationInUse(String id) {errorText(id,jeeslTranslationBean.get(jeeslLocaleCode,"fmConstraintViolationInUse"));}
 	public void errorText(String text){errorTextWithId(null,text);}
 	public <E extends Enum<E>> void errorText(E id, String text) {errorTextWithId(id.toString(),text);}
+	
 	public void errorText(String id, String text){errorTextWithId(id,text);}
 	private void errorTextWithId(String id, String text)
 	{
 		FacesContextMessage.error(id, jeeslTranslationBean.get(jeeslLocaleCode, "fmError"), text);
 	}
+	
+	
 }

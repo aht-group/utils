@@ -18,7 +18,9 @@ import org.jeesl.api.facade.module.JeeslWorkflowFacade;
 import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.WorkflowFactoryBuilder;
+import org.jeesl.factory.json.system.io.db.tuple.JsonTupleFactory;
 import org.jeesl.factory.json.system.io.db.tuple.t1.Json1TuplesFactory;
+import org.jeesl.factory.json.system.io.db.tuple.t2.Json2TuplesFactory;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.io.mail.template.JeeslTemplateChannel;
@@ -47,6 +49,7 @@ import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
+import org.jeesl.model.json.db.tuple.two.Json2Tuples;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -138,6 +141,11 @@ public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescrip
 			throw new JeeslNotFoundException("No "+fbWorkflow.getClassLink()+" found for "+workflow.toString());
 		}
 	}
+	
+	@Override public List<WL> fWorkflowLinks(List<WF> workflows)
+	{
+		return new ArrayList<WL>();
+	}
 
 	@Override public <W extends JeeslWithWorkflow<WF>> WL fWorkflowLink(WP process, W owner) throws JeeslNotFoundException
 	{
@@ -194,6 +202,33 @@ public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescrip
 		
 		return em.createQuery(cQ).getResultList();
 	}
+	
+	@Override public List<WF> fWorkflows(List<WP> processes, List<WST> types)
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<WF> cQ = cB.createQuery(fbWorkflow.getClassWorkflow());
+		Root<WF> workflow = cQ.from(fbWorkflow.getClassWorkflow());
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		if(processes!=null && !processes.isEmpty())
+		{
+			Join<WF,WP> jProcess = workflow.join(JeeslWorkflow.Attributes.process.toString());
+			predicates.add(jProcess.in(processes));
+		}
+		
+		Join<WF,WS> jStage = workflow.join(JeeslWorkflow.Attributes.currentStage.toString());
+		
+		if(types!=null && !types.isEmpty())
+		{
+			Join<WS,WST> jType = jStage.join(JeeslWorkflowStage.Attributes.type.toString());
+			predicates.add(jType.in(types));
+		}
+		
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.select(workflow);
+		
+		return em.createQuery(cQ).getResultList();
+	}
 
 	@Override public Json1Tuples<WP> tpcActivitiesByProcess()
 	{
@@ -211,5 +246,26 @@ public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescrip
 	       
 		TypedQuery<Tuple> tQ = em.createQuery(cQ);
         return jtf.buildCount(tQ.getResultList());
+	}
+	
+	@Override public Json2Tuples<WP,WST> tpcActivitiesByProcessType()
+	{
+		Json2TuplesFactory<WP,WST> jtf = new Json2TuplesFactory<>(fbWorkflow.getClassProcess(),fbWorkflow.getClassStageType());
+		jtf.setfUtils(this);
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<Tuple> cQ = cB.createTupleQuery();
+		Root<WF> workflow = cQ.from(fbWorkflow.getClassWorkflow());
+		
+		Expression<Long> eCount = cB.count(workflow.<Long>get("id"));
+		Path<WP> pProcess = workflow.get(JeeslWorkflow.Attributes.process.toString());
+		
+		Join<WF,WS> jStage = workflow.join(JeeslWorkflow.Attributes.currentStage.toString());
+		Join<WS,WST> jType = jStage.join(JeeslWorkflowStage.Attributes.type.toString());
+		
+		cQ.groupBy(pProcess.get("id"),jType.get("id"));
+		cQ.multiselect(pProcess.get("id"),jType.get("id"),eCount);
+	       
+		TypedQuery<Tuple> tQ = em.createQuery(cQ);
+        return jtf.build(tQ.getResultList(),JsonTupleFactory.Type.count);
 	}
 }

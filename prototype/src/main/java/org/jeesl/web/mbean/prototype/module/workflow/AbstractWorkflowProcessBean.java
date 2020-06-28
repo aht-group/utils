@@ -430,6 +430,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		transition = fbWorkflow.ejbTransition().build(stage,transitions);
 		transition.setName(efLang.createEmpty(localeCodes));
 		transition.setDescription(efDescription.createEmpty(localeCodes));
+		transition.setConfirmation(efDescription.createEmpty(localeCodes));
 		editTransition = true;
 	}
 	
@@ -445,13 +446,14 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		reloadCommunications();
 	}
 	
-	public void selectTransition() throws JeeslNotFoundException
+	public void selectTransition() throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException
 	{
 		reset(WorkflowProcesslResetHandler.build().none().action(true).actions(true).communication(true).communications(true));
 		logger.info(AbstractLogMessage.selectEntity(transition));
 		transition = fWorkflow.find(fbWorkflow.getClassTransition(),transition);
 		transition = efLang.persistMissingLangs(fWorkflow,localeCodes,transition);
 		transition = efDescription.persistMissingLangs(fWorkflow,localeCodes,transition);
+		transition.setConfirmation(efDescription.persistMissingLangs(fWorkflow,localeCodes,transition.getConfirmation())); transition = fWorkflow.save(transition);
 		editTransition = false;
 		reloadActions();
 		reloadCommunications();

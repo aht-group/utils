@@ -32,5 +32,5 @@ public interface JeeslWorkflowActionsHandler<WT extends JeeslWorkflowTransition<
 	boolean checkVeto(JeeslWithWorkflow<?> entity, WT transition);
 	void checkPreconditions(List<WCS> constraints, JeeslWithWorkflow<?> entity, List<WA> actions);
 	<W extends JeeslWithWorkflow<AW>> void abort(JeeslWithWorkflow<AW> entity);
-	<W extends JeeslWithWorkflow<AW>> JeeslWithWorkflow<AW> perform(JeeslWithWorkflow<AW> entity, List<WA> actions) throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException, UtilsProcessingException, JeeslWorkflowException;
+	<W extends JeeslWithWorkflow<AW>> JeeslWithWorkflow<AW> perform(WT transition, JeeslWithWorkflow<AW> entity, List<WA> actions) throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException, UtilsProcessingException, JeeslWorkflowException;
 }

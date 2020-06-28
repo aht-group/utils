@@ -7,6 +7,7 @@ import java.util.Random;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.jeesl.api.bean.msg.JeeslConstraintsBean;
+import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.exception.JeeslWorkflowException;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
@@ -41,18 +42,23 @@ public abstract class AbstractWorkflowActionHandler <WT extends JeeslWorkflowTra
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractWorkflowActionHandler.class);
 	
+	private final String localeCode;
 	private boolean debugOnInfo; @Override public void setDebugOnInfo(boolean debugOnInfo) {this.debugOnInfo = debugOnInfo;}
 	
 	protected final JeeslConstraintsBean<WC> bConstraint;
+	protected final JeeslFacesMessageBean bMessage;
 	private final JeeslWorkflowActionCallback<WA> callback;
 
 	private final List<JeeslWorkflowActionHandler<WT,WA,AB,AO,RE,RA,AW,WC>> actionHandlers;
 
-	public AbstractWorkflowActionHandler(JeeslConstraintsBean<WC> bConstraint,
+	public AbstractWorkflowActionHandler(String localeCode, JeeslConstraintsBean<WC> bConstraint,
+									JeeslFacesMessageBean bMessage,
 									JeeslWorkflowActionCallback<WA> callback,
 									JeeslWorkflowActionHandler<WT,WA,AB,AO,RE,RA,AW,WC> actionHandler)
 	{
+		this.localeCode=localeCode;
 		this.bConstraint=bConstraint;
+		this.bMessage=bMessage;
 		this.callback=callback;
 		actionHandlers = new ArrayList<>();
 		if(actionHandler!=null) {actionHandlers.add(actionHandler);}
@@ -72,7 +78,7 @@ public abstract class AbstractWorkflowActionHandler <WT extends JeeslWorkflowTra
 		}
 	}
 	
-	@Override public <W extends JeeslWithWorkflow<AW>> JeeslWithWorkflow<AW> perform(JeeslWithWorkflow<AW> entity, List<WA> actions) throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException, UtilsProcessingException, JeeslWorkflowException
+	@Override public <W extends JeeslWithWorkflow<AW>> JeeslWithWorkflow<AW> perform(WT transition, JeeslWithWorkflow<AW> entity, List<WA> actions) throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException, UtilsProcessingException, JeeslWorkflowException
 	{
 		if(debugOnInfo) {logger.info("Performing Actions "+entity.toString());}
 		for(WA action : actions)
@@ -80,6 +86,10 @@ public abstract class AbstractWorkflowActionHandler <WT extends JeeslWorkflowTra
 			perform(entity,action);
 		}
 		callback.workflowCallback(entity);
+		if(bMessage!=null && transition!=null && transition.getConfirmation()!=null && transition.getConfirmation().containsKey(localeCode) && !transition.getConfirmation().get(localeCode).getLang().trim().isEmpty())
+		{
+			bMessage.growlInfoText(transition.getConfirmation().get(localeCode).getLang());
+		}
 		return entity;
 	}
 	
@@ -94,7 +104,6 @@ public abstract class AbstractWorkflowActionHandler <WT extends JeeslWorkflowTra
 			{
 				entity = ah.statusUpdated(entity);
 			}
-			
 		}
 		else if(action.getBot().getCode().contentEquals("callbackCommand"))
 		{
@@ -105,6 +114,8 @@ public abstract class AbstractWorkflowActionHandler <WT extends JeeslWorkflowTra
 		}
 		else if(action.getBot().getCode().contentEquals("appendRandomInt")) {appendRandomInt(entity,action);}
 		else {logger.warn("Unknown Bot");}
+		
+		
 		return entity;
 		
 	}
