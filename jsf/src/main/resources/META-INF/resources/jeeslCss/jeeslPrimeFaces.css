@@ -158,7 +158,7 @@ div.timeline-frame {background-color: #f1f1f1; margin-left: -14px; margin-top: -
 .jeeslTree .ui-widget-content {background-color: transparent;}
 .jeeslTree {background-color: #f1f1f1;}
 
-.jeeslPanel * .ui-widget-header .ui-inputfield, .jeeslPanel * .ui-widget-content .ui-inputfield {border: 0;white-space: normal;overflow: hidden;font-weight: normal;width: 85%;text-align: left; padding: 2px;}
+.jeeslPanel * .ui-widget-header .ui-inputfield, .jeeslPanel * .ui-widget-content .ui-inputfield {border: 0;white-space: normal;overflow: hidden;font-weight: normal;width: 85%;text-align: left; padding: 4px 2px;}
 
 .ui-selectonemenu > .ui-inputfield {width: 100% !important;}
 
@@ -223,10 +223,32 @@ input[class="ui-spinner-input ui-inputfield ui-state-default ui-corner-all ui-st
 .ui-outputlabel.mandatory:after {content: '*';}
 .jeeslPanel .ui-panelgrid .ui-outputpanel {display: flex; align-items: center;}
 .jeeslPanel .ui-panelgrid .ui-outputpanel .ui-outputlabel {flex: 1;}
-.jeeslPanel .ui-panelgrid .ui-outputpanel > img { margin: 0 -5px 0 10px; height: 12px; }
-.jeeslPanel .ui-panelgrid .ui-outputpanel > img:first-child { margin: 0 5px 0 0; }
+.jeeslPanel .ui-panelgrid .ui-outputpanel > img {margin: 0 -5px 0 10px; height: 12px;}
+.jeeslPanel .ui-panelgrid .ui-outputpanel > img:first-child {margin: 0 5px 0 0;}
 
-.jeeslPanel .ui-inputtextarea { vertical-align: middle; margin: 2.8px 0; }
+.jeeslPanel .ui-inputtextarea {vertical-align: middle; margin: 2.8px 0;}
 
-.jeeslPanel .ui-calendar { display: flex; flex-direction: row; align-items: center; }
-.jeeslPanel .ui-calendar .ui-datepicker-trigger { margin-left: 6px; flex: 1; }
+.jeeslPanel .ui-calendar {display: flex; flex-direction: row; align-items: center;}
+.jeeslPanel .ui-calendar .ui-datepicker-trigger {margin: 0 0 0 6px; flex: 1;}
+
+.ui-selectonemenu.styled-select,
+.ui-selectcheckboxmenu.styled-select
+{padding: 0 !important; width: 100% !important; box-sizing: border-box; display: flex; flex-direction: row; border-width: 0;}
+.ui-selectonemenu.styled-select .ui-selectonemenu-label,
+.ui-selectcheckboxmenu.styled-select .ui-selectcheckboxmenu-multiple-container
+{width: calc(85% + 6px) !important; border-radius: 3px 0 0 3px; line-height: normal; min-height: auto; min-height: 20px; box-sizing: border-box;}
+.ui-selectcheckboxmenu.styled-select .ui-selectcheckboxmenu-multiple-container {padding: 1px;}
+.ui-selectcheckboxmenu.styled-select .ui-selectcheckboxmenu-multiple-container .ui-selectcheckboxmenu-token {margin: 1px;}
+.ui-selectonemenu.styled-select .ui-selectonemenu-trigger,
+.ui-selectcheckboxmenu.styled-select .ui-selectcheckboxmenu-trigger
+{flex: 1; position: relative; border: 1px solid #a8a8a8; height: auto; display: flex; align-items: center; justify-content: center; padding: 0;}
+.ui-selectonemenu.styled-select .ui-selectonemenu-trigger::after,
+.ui-selectcheckboxmenu.styled-select .ui-selectcheckboxmenu-trigger::after
+{content: 'ui-button'; display: block; padding: 3px 0 2px 0; text-indent: -9999999px; line-height: normal; border-bottom: 1px solid hsla(0,0%,92%,1); width: 100%; height: 100%; box-sizing: border-box;}
+.ui-selectonemenu.styled-select .ui-selectonemenu-trigger .ui-icon,
+.ui-selectcheckboxmenu.styled-select .ui-selectcheckboxmenu-trigger .ui-icon
+{position: absolute; margin: -8px; top: 50%; left: 50%;}
+.ui-calendar .ui-datepicker-trigger.ui-button-icon-only .ui-button-text {padding: 3px; border-bottom: 1px solid hsla(0,0%,92%,1);}
+
+
+.ui-selectonemenu-panel {box-sizing: border-box;}
