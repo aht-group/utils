@@ -11,6 +11,7 @@ import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
 import org.jeesl.api.facade.module.JeeslWorkflowFacade;
 import org.jeesl.api.facade.system.graphic.JeeslGraphicFacade;
+import org.jeesl.controller.handler.NullNumberBinder;
 import org.jeesl.controller.handler.module.workflow.WorkflowProcesslResetHandler;
 import org.jeesl.controller.handler.sb.SbSingleHandler;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
@@ -21,6 +22,7 @@ import org.jeesl.factory.builder.io.IoTemplateFactoryBuilder;
 import org.jeesl.factory.builder.module.WorkflowFactoryBuilder;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.factory.builder.system.SvgFactoryBuilder;
+import org.jeesl.factory.ejb.module.workflow.EjbWorkflowTransitionFactory;
 import org.jeesl.interfaces.bean.sb.SbSingleBean;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplate;
@@ -30,9 +32,9 @@ import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowAction;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowBot;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowCommunication;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowLink;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowContext;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowModificationLevel;
@@ -47,7 +49,6 @@ import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
-import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
@@ -64,13 +65,13 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 											AX extends JeeslWorkflowContext<L,D,AX,G>,
-											WP extends JeeslWorkflowProcess<L,D,AX,AS>,
-											AS extends JeeslWorkflowStage<L,D,WP,WST,WSP,WT,G>,
+											WP extends JeeslWorkflowProcess<L,D,AX,WS>,
+											WS extends JeeslWorkflowStage<L,D,WP,WST,WSP,WT,G>,
 											WST extends JeeslWorkflowStageType<L,D,WST,?>,
-											WSP extends JeeslWorkflowStagePermission<AS,WPT,WML,SR>,
+											WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
 											WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
 											WML extends JeeslWorkflowModificationLevel<?,?,WML,?>,
-											WT extends JeeslWorkflowTransition<L,D,AS,WTT,SR,G>,
+											WT extends JeeslWorkflowTransition<L,D,WS,WTT,SR,G>,
 											WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
 											AC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
 											WA extends JeeslWorkflowAction<WT,AB,AO,RE,RA>,
@@ -82,7 +83,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 											RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
 											RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
 											AL extends JeeslWorkflowLink<AW,RE>,
-											AW extends JeeslWorkflow<WP,AS,WY>,
+											AW extends JeeslWorkflow<WP,WS,WY>,
 											WY extends JeeslWorkflowActivity<WT,AW,FRC,USER>,
 											FRC extends JeeslFileContainer<?,?>,
 											G extends JeeslGraphic<L,D,GT,?,?>, GT extends JeeslGraphicType<L,D,GT,G>,
@@ -94,22 +95,26 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	final static Logger logger = LoggerFactory.getLogger(AbstractWorkflowProcessBean.class);
 
 	private JeeslGraphicFacade<L,D,?,G,GT,?,?> fGraphic;
-	private JeeslWorkflowFacade<L,D,LOC,AX,WP,AS,WST,WSP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fWorkflow;
+	private JeeslWorkflowFacade<L,D,LOC,AX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fWorkflow;
 	private JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fRevision;
 	
-	private final WorkflowFactoryBuilder<L,D,AX,WP,AS,WST,WSP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fbWorkflow;
+	private final WorkflowFactoryBuilder<L,D,AX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fbWorkflow;
 	private final IoTemplateFactoryBuilder<L,D,?,MC,MT,?,?,?,?> fbTemplate;
 	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fbRevision;
 	private final SecurityFactoryBuilder<L,D,?,SR,?,?,?,?,?,?,?,?> fbSecurity;
 	private final SvgFactoryBuilder<L,D,G,GT,?,?> fbSvg;
 	
+	private final EjbWorkflowTransitionFactory<WS,WT> efTransition;
+	
 	private final SbSingleHandler<AX> sbhContext; public SbSingleHandler<AX> getSbhContext() {return sbhContext;}
 	private final SbSingleHandler<WP> sbhProcess; public SbSingleHandler<WP> getSbhProcess() {return sbhProcess;}
+	
+	private final NullNumberBinder nnb; public NullNumberBinder getNnb() {return nnb;}
 	
 	private final List<MC> channels; public List<MC> getChannels() {return channels;}
 	protected final List<MT> templates; public List<MT> getTemplates() {return templates;}
 	private final List<SR> roles; public List<SR> getRoles() {return roles;}
-	private final List<AS> stages; public List<AS> getStages() {return stages;}
+	private final List<WS> stages; public List<WS> getStages() {return stages;}
 	private final List<WST> stageTypes; public List<WST> getStageTypes() {return stageTypes;}
 	private final List<WSP> permissions; public List<WSP> getPermissions() {return permissions;}
 	private final List<WPT> permissionTypes; public List<WPT> getPermissionTypes() {return permissionTypes;}
@@ -125,7 +130,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	private final List<EjbWithId> options; public List<EjbWithId> getOptions() {return options;}
 	
 	protected WP process; public WP getProcess() {return process;} public void setProcess(WP process) {this.process = process;}
-	private AS stage; public AS getStage() {return stage;} public void setStage(AS stage) {this.stage = stage;}
+	private WS stage; public WS getStage() {return stage;} public void setStage(WS stage) {this.stage = stage;}
 	private WSP permission; public WSP getPermission() {return permission;} public void setPermission(WSP permission) {this.permission = permission;}
 	private WT transition; public WT getTransition() {return transition;} public void setTransition(WT transition) {this.transition = transition;}
 	private AC communication; public AC getCommunication() {return communication;} public void setCommunication(AC communication) {this.communication = communication;}
@@ -140,7 +145,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	private final Comparator<SR> cpRole;
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public AbstractWorkflowProcessBean(final WorkflowFactoryBuilder<L,D,AX,WP,AS,WST,WSP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fbApproval,
+	public AbstractWorkflowProcessBean(final WorkflowFactoryBuilder<L,D,AX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fbApproval,
 											final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fbRevision,
 											final SecurityFactoryBuilder<L,D,?,SR,?,?,?,?,?,?,?,?> fbSecurity,
 											final IoTemplateFactoryBuilder<L,D,?,MC,MT,?,?,?,?> fbTemplate,
@@ -153,8 +158,12 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		this.fbTemplate=fbTemplate;
 		this.fbSvg=fbSvg;
 		
+		efTransition = fbWorkflow.ejbTransition();
+		
 		sbhContext = new SbSingleHandler<AX>(fbApproval.getClassContext(),this);
 		sbhProcess = new SbSingleHandler<WP>(fbApproval.getClassProcess(),this);
+		
+		nnb = new NullNumberBinder();
 		
 		channels = new ArrayList<>();
 		roles = new ArrayList<>();
@@ -182,7 +191,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	
 	protected void postConstructProcess(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
 										JeeslGraphicFacade<L,D,?,G,GT,?,?> fGraphic,
-										JeeslWorkflowFacade<L,D,LOC,AX,WP,AS,WST,WSP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fApproval,
+										JeeslWorkflowFacade<L,D,LOC,AX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fApproval,
 										JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fRevision)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
@@ -427,10 +436,11 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	{
 		reset(WorkflowProcesslResetHandler.build().none().transistion(true));
 		logger.info(AbstractLogMessage.addEntity(fbWorkflow.getClassTransition()));
-		transition = fbWorkflow.ejbTransition().build(stage,transitions);
+		transition = efTransition.build(stage,transitions);
 		transition.setName(efLang.createEmpty(localeCodes));
 		transition.setDescription(efDescription.createEmpty(localeCodes));
 		transition.setConfirmation(efDescription.createEmpty(localeCodes));
+		efTransition.ejb2nnb(transition,nnb);
 		editTransition = true;
 	}
 	
@@ -440,10 +450,12 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		transition.setDestination(fWorkflow.find(fbWorkflow.getClassStage(), transition.getDestination()));
 		transition.setType((fWorkflow.find(fbWorkflow.getClassTransitionType(), transition.getType())));
 		if(transition.getRole()!=null) {transition.setRole(fWorkflow.find(fbSecurity.getClassRole(),transition.getRole()));}
+		efTransition.nnb2ejb(transition,nnb);
 		transition = fWorkflow.save(transition);
 		reloadTransitions();
 		reloadActions();
 		reloadCommunications();
+		bMessage.growlSuccessSaved();
 	}
 	
 	public void selectTransition() throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException
@@ -454,6 +466,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		transition = efLang.persistMissingLangs(fWorkflow,localeCodes,transition);
 		transition = efDescription.persistMissingLangs(fWorkflow,localeCodes,transition);
 		transition.setConfirmation(efDescription.persistMissingLangs(fWorkflow,localeCodes,transition.getConfirmation())); transition = fWorkflow.save(transition);
+		efTransition.ejb2nnb(transition,nnb);
 		editTransition = false;
 		reloadActions();
 		reloadCommunications();

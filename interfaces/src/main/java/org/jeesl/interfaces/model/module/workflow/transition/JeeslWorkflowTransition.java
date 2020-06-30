@@ -54,4 +54,7 @@ public interface JeeslWorkflowTransition <L extends JeeslLang, D extends JeeslDe
 	
 	Map<String,D> getConfirmation();
 	void setConfirmation(Map<String,D> confirmation);
+	
+	Integer getAutoTransitionTimer();
+	void setAutoTransitionTimer(Integer autoTransitionTimer);
 }

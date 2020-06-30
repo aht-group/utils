@@ -2,6 +2,7 @@ package net.sf.ahtutils.web.mbean.util;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -300,6 +301,7 @@ public class AbstractLogMessage <L extends JeeslLang,D extends JeeslDescription,
 	
 	public static <T extends EjbWithId> String reloaded(Class<T> c, List<T> list){return reloaded(c,list,null);}
 	public static <T extends EjbWithId> String reloaded(Class<T> c, Set<T> list){return reloaded(c,new ArrayList<T>(list),null);}
+	public static <T extends EjbWithId> String reloaded(Class<T> c, Collection<T> list){return reloaded(c,new ArrayList<T>(list),null);}
 	public static <T extends EjbWithId> String reloaded(Class<T> c, List<T> list, EjbWithId ejb)
 	{
 		StringBuffer sb = new StringBuffer();

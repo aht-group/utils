@@ -2,6 +2,7 @@ package org.jeesl.factory.ejb.module.workflow;
 
 import java.util.List;
 
+import org.jeesl.controller.handler.NullNumberBinder;
 import org.jeesl.factory.ejb.util.EjbPositionFactory;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStage;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
@@ -35,5 +36,14 @@ public class EjbWorkflowTransitionFactory<WS extends JeeslWorkflowStage<?,?,?,?,
 		catch (IllegalAccessException e) {e.printStackTrace();}
 		
 		return ejb;
+	}
+	
+	public void ejb2nnb(WT transition, NullNumberBinder nnb)
+	{
+		nnb.integerToA(transition.getAutoTransitionTimer());
+	}
+	public void nnb2ejb(WT transition, NullNumberBinder nnb)
+	{
+		transition.setAutoTransitionTimer(nnb.aToInteger());
 	}
 }
