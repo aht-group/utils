@@ -1,10 +1,14 @@
 package org.jeesl.factory.mc.ts;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 
 import org.jeesl.api.facade.module.JeeslTsFacade;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
@@ -49,60 +53,73 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 								WS extends JeeslStatus<WS,?,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(McTimeSeriesFactory.class);
-	
+
 	private final boolean debugOnInfo = true;
 	private String localeCode;
-	
+
 	private final JeeslTsFacade<?,?,?,SCOPE,?,?,MP,TS,?,?,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,?,?,WS,?,?> fTs;
-	
+
 	private final TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,?,?,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,?,?,WS,?,?> fbTs;
 	private final EjbTsDataPointFactory<MP,DATA,POINT> efPoint;
-	
+
 	private SCOPE scope; public SCOPE getScope() {return scope;} public void setScope(SCOPE scope) {this.scope = scope;}
 	private EC entityClass; public EC getEntityClass() {return entityClass;} public void setEntityClass(EC entityClass) {this.entityClass = entityClass;}
 	private INT interval; public INT getInterval() {return interval;} public void setInterval(INT interval) {this.interval = interval;}
 	private WS workspace; public WS getWorkspace() {return workspace;} public void setWorkspace(WS workspace) {this.workspace = workspace;}
-	
+
 	public McTimeSeriesFactory(TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,?,?,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,?,?,WS,?,?> fbTs,
 							   JeeslTsFacade<?,?,?,SCOPE,?,?,MP,TS,?,?,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,?,?,WS,?,?> fTs)
 	{
 		this.fbTs=fbTs;
 		this.fTs=fTs;
-		
+
 		efPoint = fbTs.ejbDataPoint();
 	}
-	
+
 	public <E extends Enum<E>> void initScope(E scope) throws JeeslNotFoundException {this.scope = fTs.fByCode(fbTs.getClassScope(), scope);}
 	public void initEntityClass(Class<?> c) throws JeeslNotFoundException {this.entityClass = fTs.fByCode(fbTs.getClassEntity(), c.getName());}
 	public <E extends Enum<E>> void initInterval(E interval) throws JeeslNotFoundException {this.interval = fTs.fByCode(fbTs.getClassInterval(), interval);}
 	public <E extends Enum<E>> void initWorkspace(E workspace) throws JeeslNotFoundException {this.workspace = fTs.fByCode(fbTs.getClassWorkspace(), workspace);}
 
-	public Chart build(String localeCode) 
+	public Chart build(String localeCode)
 	{
 		Chart chart = XmlChartFactory.build();
 		chart.setTitle(XmlTitleFactory.build(scope.getName().get(localeCode).getLang()));
 		chart.setSubtitle(XmlSubtitleFactory.build("Interval: "+interval.getName().get(localeCode).getLang()));
 		return chart;
 	}
-		
+
+
 	public Ds build2(List<DATA> datas)
 	{
 		Ds ds = new Ds();
-		
-		for(DATA data: datas)
-		{
-			Data cd = new Data();
-			cd.setRecord(DateUtil.toXmlGc(data.getRecord()));
-			if(data.getValue()!=null) {cd.setY(data.getValue());}
-			ds.getData().add(cd);
+		DatatypeFactory df;
+		try {
+			df = DatatypeFactory.newInstance();
+			GregorianCalendar cal = new GregorianCalendar();
+			for(DATA data: datas)
+			{
+				Data cd = new Data();
+				cal.setTime(data.getRecord());
+				cd.setRecord(df.newXMLGregorianCalendar(cal));
+				if(data.getValue()!=null) {cd.setY(data.getValue());}
+				ds.getData().add(cd);
+			}
+		} catch (DatatypeConfigurationException e) {
+			for(DATA data: datas)
+			{
+				Data cd = new Data();
+				cd.setRecord(DateUtil.toXmlGc(data.getRecord()));
+				if(data.getValue()!=null) {cd.setY(data.getValue());}
+				ds.getData().add(cd);
+			}
 		}
-		return ds;	
+		return ds;
 	}
-	
 	public static Ds build2(TimeSeries timeSeries)
 	{
 		Ds ds = new Ds();
-		
+
 		for(org.jeesl.model.xml.module.ts.Data tsD: timeSeries.getData())
 		{
 			if (tsD.isSetValue())
@@ -114,9 +131,9 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 				ds.getData().add(cd);
 			}
 		}
-		return ds;	
+		return ds;
 	}
-	
+
 	public <T extends EjbWithId> Ds singleData(String localeCode, T entity, Date from, Date to) throws JeeslNotFoundException
 	{
 		BRIDGE bridge = fTs.fBridge(entityClass,entity);
@@ -127,7 +144,7 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 		STAT statistic = fTs.fByEnum(fbTs.getClassStat(), JeeslTsStatistic.Code.raw);
 		TS ts = fTs.fTimeSeries(scope,interval,statistic,bridge);
 		List<DATA> datas = fTs.fData(workspace,ts,JeeslTsData.QueryInterval.closedOpen,from,to);
-		
+
 		Ds xml = new Ds();
 		for(DATA d : datas)
 		{
@@ -135,7 +152,7 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 		}
 		return xml;
 	}
-	
+
 	public <T extends EjbWithId> Ds multiPoints(String localeCode, T entity, Date from, Date to) throws JeeslNotFoundException {return multiPoints(null,localeCode,entity,from,to);}
 	public <T extends EjbWithId, E extends Enum<E>> Ds multiPoints(String localeCode, T entity, Date from, Date to, E... onlyShowMp) throws JeeslNotFoundException
 	{
@@ -148,18 +165,18 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 		STAT statistic = fTs.fByEnum(fbTs.getClassStat(), JeeslTsStatistic.Code.raw);
 		BRIDGE bridge = fTs.fBridge(entityClass,entity);
 		TS ts = fTs.fTimeSeries(scope,interval,statistic,bridge);
-		
+
 		List<MP> multiPoints = fTs.allForParent(fbTs.getClassMp(),scope);
 		List<DATA> datas = fTs.fData(workspace,ts,JeeslTsData.QueryInterval.closedOpen,from,to);
 		List<POINT> points = fTs.fPoints(workspace,ts,JeeslTsData.QueryInterval.closedOpen,from,to);
 		Map<MP,List<POINT>> mapMp = efPoint.toMapMultiPoint(points);
-		
+
 		if(debugOnInfo)
 		{
 			logger.info("Datas: "+datas.size());
 			logger.info("Points: "+points.size());
 		}
-		
+
 		Ds xml = new Ds();
 		for(MP mp : multiPoints)
 		{
@@ -178,23 +195,23 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 					d.setRecord(DateUtil.toXmlGc(data.getRecord()));
 					POINT p = mapData.get(data);
 					if(debugOnInfo) {logger.info("P: "+(p!=null) + " "+mapData.containsKey(data));}
-					
+
 					if(p!=null) {d.setY(p.getValue());}
 					ds.getData().add(d);
 				}
 				xml.getDs().add(ds);
 			}
 		}
-		
-		return xml;	
+
+		return xml;
 	}
-	
+
 	public Ds multiPoints(List<MP> multiPoints, List<POINT> points)
 	{
 		Map<MP,List<POINT>> map = efPoint.toMapMultiPoint(points);
-		
+
 		Ds xml = new Ds();
-		
+
 		for(MP mp : multiPoints)
 		{
 			if(BooleanComparator.active(mp.getVisible()) && map.containsKey(mp))
@@ -213,7 +230,7 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 				xml.getDs().add(ds);
 			}
 		}
-		
+
 		return xml;
 	}
 }
