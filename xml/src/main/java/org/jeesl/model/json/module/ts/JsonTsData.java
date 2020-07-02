@@ -38,6 +38,11 @@ public class JsonTsData implements Serializable
 	public List<JsonTsPoint> getPoints() {return points;}
 	public void setPoints(List<JsonTsPoint> points) {this.points = points;}
 
+	@JsonProperty("vbaRecord")
+	private String vbaRecord;
+	public String getVbaRecord() {return vbaRecord;}
+	public void setVbaRecord(String vbaRecord) {this.vbaRecord = vbaRecord;}
+
 	@Override public String toString()
 	{
 

@@ -27,6 +27,7 @@ import net.sf.ahtutils.xml.status.Scope;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}interval"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/timeseries}entity"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/timeseries}bridge"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/timeseries}statistic"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/timeseries}transaction" maxOccurs="unbounded"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/timeseries}data" maxOccurs="unbounded"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/timeseries}ds" maxOccurs="unbounded"/&gt;
@@ -44,6 +45,7 @@ import net.sf.ahtutils.xml.status.Scope;
     "interval",
     "entity",
     "bridge",
+    "statistic",
     "transaction",
     "data",
     "ds"
@@ -62,6 +64,8 @@ public class Ts
     protected Entity entity;
     @XmlElement(required = true)
     protected Bridge bridge;
+    @XmlElement(required = true)
+    protected Statistic statistic;
     @XmlElement(required = true)
     protected List<Transaction> transaction;
     @XmlElement(required = true)
@@ -179,6 +183,34 @@ public class Ts
 
     public boolean isSetBridge() {
         return (this.bridge!= null);
+    }
+
+    /**
+     * Gets the value of the statistic property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Statistic }
+     *     
+     */
+    public Statistic getStatistic() {
+        return statistic;
+    }
+
+    /**
+     * Sets the value of the statistic property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Statistic }
+     *     
+     */
+    public void setStatistic(Statistic value) {
+        this.statistic = value;
+    }
+
+    public boolean isSetStatistic() {
+        return (this.statistic!= null);
     }
 
     /**

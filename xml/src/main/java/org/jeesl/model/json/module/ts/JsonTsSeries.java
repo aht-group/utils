@@ -27,12 +27,17 @@ public class JsonTsSeries implements Serializable
 	private JsonTsScope scope;
 	public JsonTsScope getScope() {return scope;}
 	public void setScope(JsonTsScope scope) {this.scope = scope;}
-	
+
+	@JsonProperty("stat")
+	private JsonTsStat stat;
+	public JsonTsStat getStat() {return stat;}
+	public void setStat(JsonTsStat stat) {this.stat = stat;}
+
 	@JsonProperty("interval")
 	private JsonInterval interval;
 	public JsonInterval getInterval() {return interval;}
 	public void setInterval(JsonInterval interval) {this.interval = interval;}
-	
+
 	@JsonProperty("workspace")
 	private JsonWorkspace workspace;
 	public JsonWorkspace getWorkspace() {return workspace;}
@@ -42,7 +47,7 @@ public class JsonTsSeries implements Serializable
 	private Integer size;
 	public Integer getSize() {return size;}
 	public void setSize(Integer size) {this.size = size;}
-	
+
 	@JsonProperty("dateStart")
 	private Date dateStart;
 	public Date getDateStart() {return dateStart;}
@@ -52,15 +57,15 @@ public class JsonTsSeries implements Serializable
 	private Date dateEnd;
 	public Date getDateEnd() {return dateEnd;}
 	public void setDateEnd(Date dateEnd) {this.dateEnd = dateEnd;}
-	
+
 	@JsonProperty("datas")
 	private List<JsonTsData> datas;
 	public List<JsonTsData> getDatas() {return datas;}
 	public void setDatas(List<JsonTsData> datas) {this.datas = datas;}
-	
+
 	@Override public String toString()
 	{
-		StringBuffer sb = new StringBuffer();	
+		StringBuffer sb = new StringBuffer();
 		return sb.toString();
 	}
 }
