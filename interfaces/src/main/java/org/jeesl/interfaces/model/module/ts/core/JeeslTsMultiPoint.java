@@ -31,4 +31,7 @@ public interface JeeslTsMultiPoint <L extends JeeslLang, D extends JeeslDescript
 	
 	Boolean getVisible();
 	void setVisible(Boolean visible);
+	
+	String getColor1();
+	void setColor1(String color1);
 }

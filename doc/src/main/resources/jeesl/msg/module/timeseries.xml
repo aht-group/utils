@@ -254,4 +254,12 @@
     		<s:lang key="fr" translation="Multi Point"/>
     	</s:langs>
     </s:translation>
+	<s:translation key="jeeslTsMultiPointColor1">
+    	<s:langs>
+    		<s:lang key="de" translation="Farbe"/>
+    		<s:lang key="en" translation="Farbe"/>
+    		<s:lang key="fr" translation="Farbe"/>
+    	</s:langs>
+    </s:translation>  
+    
 </s:translations>

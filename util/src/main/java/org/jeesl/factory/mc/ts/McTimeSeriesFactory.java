@@ -202,6 +202,7 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 				Ds ds = new Ds();
 				ds.setCode(mp.getCode());
 				ds.setLabel(mp.getName().get("de").getLang());
+				if(mp.getColor1()!=null && !mp.getColor1().trim().isEmpty()) {ds.setColor("#"+mp.getColor1());}
 				for(POINT p : map.get(mp))
 				{
 					Data d = new Data();

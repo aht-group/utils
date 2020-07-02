@@ -191,6 +191,9 @@
 								<p:selectOneMenu value="#{cc.attrs.bean.multiPoint.unit}" effect="fade" autoWidth="false">
 									<f:selectItems value="#{cc.attrs.bean.units}" var="u" itemLabel="#{u.name[localeCode].lang}" itemValue="#{u}"/>
 								</p:selectOneMenu>
+								
+								<p:outputLabel value="#{msg.jeeslTsMultiPointColor1}"/>
+								<p:colorPicker value="#{cc.attrs.bean.multiPoint.color1}" />
 							</p:panelGrid>
 							<aht:tabTranslationEditor value="#{cc.attrs.bean.multiPoint}" keys="#{cc.attrs.localeKeys}" withDescription="true"/>
 						</p:panel>
