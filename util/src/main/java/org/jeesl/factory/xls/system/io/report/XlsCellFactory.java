@@ -80,7 +80,10 @@ public class XlsCellFactory <REPORT extends JeeslIoReport<?,?,?,WORKBOOK>,
 //			logger.info(query);
 			JeeslReportLayout.Data dt = xfStyle.getDataType(ioColumn);
 			CellStyle style = xfStyle.get(JeeslReportLayout.Style.header,ioColumn);
-			try {add(xlsRow, columnNr, context, query, style, dt);}
+			try
+			{
+				add(xlsRow, columnNr, context, query, style, JeeslReportLayout.Data.string);
+			}
 			catch (JXPathInvalidSyntaxException e)
 			{
 				logger.error(JXPathInvalidSyntaxException.class.getSimpleName()+" at "+ioColumn.getGroup().getPosition()+" "+ioColumn.getPosition());;
@@ -219,7 +222,6 @@ public class XlsCellFactory <REPORT extends JeeslIoReport<?,?,?,WORKBOOK>,
 			int cellCol = rootColumn+ioCell.getColNr()-1;
 			if(cellRow>maxRow){maxRow=cellRow;}
 			
-//			logger.info("Creating Row "+cellRow+"."+cellCol);
 			Row xlsRow = xslSheet.getRow(cellRow); if(xlsRow==null){xlsRow = xslSheet.createRow(cellRow);}
 			
 			Cell xlsCell = xlsRow.createCell(cellCol);

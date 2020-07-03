@@ -101,7 +101,6 @@ public class XlsColumnFactory <L extends JeeslLang,D extends JeeslDescription,
 	
 	public static String index2code(int index)
 	{
-		CellReference.convertNumToColString(1);
-                return CellReference.convertNumToColString(index);
+        return CellReference.convertNumToColString(index);
 	}
 }

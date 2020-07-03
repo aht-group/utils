@@ -165,7 +165,8 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 		communicator.setDebugOnInfo(debugOnInfo);
 		
 		this.actionHandler=actionHandler;
-		actionHandler.setDebugOnInfo(debugOnInfo);
+		if(this.actionHandler!=null) {this.actionHandler.setDebugOnInfo(debugOnInfo);}
+		
 	}
 	
 	public void reset() {reset(true,true,true,true,true);}

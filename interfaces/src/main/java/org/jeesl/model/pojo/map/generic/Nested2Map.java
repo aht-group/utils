@@ -49,6 +49,16 @@ public class Nested2Map <L1 extends EjbWithId, L2 extends EjbWithId, VALUE exten
     	}
     	return list;
     }
+    
+    public int size()
+    {
+    	int size = 0;
+    	for(L1 key : m.keySet())
+    	{
+    		size = size + m.get(key).size();
+    	}
+    	return size;
+    }
 	
 	public VALUE get(L1 l1, L2 l2)
 	{
