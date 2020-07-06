@@ -13,7 +13,7 @@ import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.primitive.date.EjbWithRecord;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
-public interface JeeslWorkflowActivity <AT extends JeeslWorkflowTransition<?,?,?,?,?,?>,
+public interface JeeslWorkflowActivity <WT extends JeeslWorkflowTransition<?,?,?,?,?,?>,
 										WF extends JeeslWorkflow<?,?,?>,
 										FRC extends JeeslFileContainer<?,?>,
 										USER extends JeeslUser<?>
@@ -27,8 +27,8 @@ public interface JeeslWorkflowActivity <AT extends JeeslWorkflowTransition<?,?,?
 	WF getWorkflow();
 	void setWorkflow(WF workflow);
 	
-	AT getTransition();
-	void setTransition(AT transition);
+	WT getTransition();
+	void setTransition(WT transition);
 	
 	USER getUser();
 	void setUser(USER user);
