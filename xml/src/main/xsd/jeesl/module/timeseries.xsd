@@ -9,6 +9,13 @@
 	<xsd:import namespace="http://ahtutils.aht-group.com/status"    schemaLocation="../../jeesl/status.xsd"/>
 	<xsd:import namespace="http://www.jeesl.org/revision"   		schemaLocation="../io/revision.xsd"/>
 	<xsd:import namespace="http://www.jeesl.org/text" 				schemaLocation="../text.xsd"/>
+	<xsd:element name="tsCollection">
+        <xsd:complexType>
+        	<xsd:sequence>
+				<xsd:element ref="ts:ts" maxOccurs="unbounded"/>
+			</xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
 	<xsd:element name="ts">
         <xsd:complexType>
         	<xsd:sequence>
@@ -16,6 +23,7 @@
         		<xsd:element ref="js:interval" maxOccurs="1"/>
         	    <xsd:element ref="ts:entity" maxOccurs="1"/>
         	    <xsd:element ref="ts:bridge" maxOccurs="1"/>
+        	    <xsd:element ref="ts:statistic" maxOccurs="1"/>
         		<xsd:element ref="ts:transaction" maxOccurs="unbounded"/>
 				<xsd:element ref="ts:data" maxOccurs="unbounded"/>
 				<xsd:element ref="ts:ds" maxOccurs="unbounded"/>
@@ -44,6 +52,12 @@
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="bridge">
+        <xsd:complexType>
+            <xsd:attribute name="id" type="xsd:long"/>
+            <xsd:attribute name="code" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="statistic">
         <xsd:complexType>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
