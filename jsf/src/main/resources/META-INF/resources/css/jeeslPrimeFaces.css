@@ -1,0 +1,36 @@
+.ui-datatable .ui-datatable-header {
+  align-items: center;
+  display: flex;
+  flex-direction: row; }
+  .ui-datatable .ui-datatable-header .pf-datatable-header-title {
+    flex-grow: 1; }
+
+.ui-panel .ui-panel-titlebar {
+  display: flex;
+  height: auto;
+  line-height: 12px;
+  padding: 4px 10px; }
+  .ui-panel .ui-panel-titlebar .ui-panel-title {
+    flex: 1;
+    margin: 0;
+    top: auto; }
+
+.pf-action-icon {
+  margin-left: 5px; }
+  .pf-action-icon.pf-inactive {
+    filter: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='grayscale'><feColorMatrix type='matrix' values='0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0'/></filter></svg>#grayscale");
+    filter: saturate(0%); }
+
+.ui-widget-header .ui-inputfield,
+.ui-widget-content .ui-inputfield {
+  border: 0;
+  width: 85%;
+  padding: 4px 2px; }
+
+.p-field.p-grid {
+  margin: 0;
+  padding: 4px 0; }
+.p-field > label {
+  margin-bottom: 0; }
+.p-field .p-col {
+  padding: 0 10px; }

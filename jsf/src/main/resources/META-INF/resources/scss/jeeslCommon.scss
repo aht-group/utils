@@ -1,0 +1,10 @@
+@import '_colours';
+
+// height fix
+html, body {
+	box-sizing: border-box;
+}
+
+.error-message {
+	color: $error-foreground;
+}
