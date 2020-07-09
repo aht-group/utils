@@ -38,6 +38,7 @@ public class XmlStageFactory<L extends JeeslLang, D extends JeeslDescription,
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlStageFactory.class);
 	
+	private final String localeCode;
 	private final Stage q;
 	
 	private XmlTypeFactory<L,D,WST> xfType;
@@ -52,6 +53,7 @@ public class XmlStageFactory<L extends JeeslLang, D extends JeeslDescription,
 	public XmlStageFactory(QueryWf query) {this(query.getLocaleCode(),query.getStage());}
 	public XmlStageFactory(String localeCode, Stage q)
 	{
+		this.localeCode=localeCode;
 		this.q=q;
 		if(q.isSetType()) {xfType = new XmlTypeFactory<>(localeCode,q.getType());}
 		if(q.isSetLangs()) {xfLangs = new XmlLangsFactory<>(q.getLangs());}
@@ -103,10 +105,11 @@ public class XmlStageFactory<L extends JeeslLang, D extends JeeslDescription,
 				{
 					xPermissions.getPermission().add(xfPermission.build(permission));
 				}
-				
 			}
 			xml.setPermissions(xPermissions);
 		}
+		
+		if(q.isSetLabel() && localeCode!=null && stage.getName()!=null && stage.getName().containsKey(localeCode)) {xml.setLabel(stage.getName().get(localeCode).getLang());}
 		
 		return xml;
 	}

@@ -29,7 +29,7 @@ public interface JeeslWorkflowTransition <L extends JeeslLang, D extends JeeslDe
 				EjbWithLang<L>,EjbWithDescription<D>,
 				EjbWithVisible
 {
-	public static enum Attributes{source,destination}
+	public static enum Attributes{type,source,destination}
 	
 	WTT getType();
 	void setType(WTT type);

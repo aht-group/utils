@@ -266,7 +266,7 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		
 		ListJoin<EVENT,ASSET> jAsset = event.joinList(JeeslAomEvent.Attributes.assets.toString());
-		predicates.add(jAsset.in(asset));	
+		predicates.add(jAsset.in(asset));
 		
 		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
 		cQ.select(event);

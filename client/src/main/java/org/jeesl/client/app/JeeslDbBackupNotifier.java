@@ -31,7 +31,6 @@ import net.sf.ahtutils.util.cli.UtilsCliOption;
 import net.sf.exlp.exception.ExlpConfigurationException;
 import net.sf.exlp.exception.ExlpUnsupportedOsException;
 import net.sf.exlp.interfaces.util.ConfigKey;
-import net.sf.exlp.util.xml.JaxbUtil;
 
 public class JeeslDbBackupNotifier
 {

@@ -108,11 +108,11 @@
     		<s:lang key="fr" translation="Type"/>
     	</s:langs>
     </s:translation>
-	<s:translation key="jeeslWorkflowTransitionAutoTimer">
+	<s:translation key="jeeslWorkflowEscalationTimer">
     	<s:langs>
-    		<s:lang key="de" translation="Auto Transition Timer"/>
-    		<s:lang key="en" translation="Auto Transition Timer"/>
-    		<s:lang key="fr" translation="Auto Transition Timer"/>
+    		<s:lang key="de" translation="Escalation Timer (in hours)"/>
+    		<s:lang key="en" translation="Escalation Timer (in hours)"/>
+    		<s:lang key="fr" translation="Escalation Timer (in hours)"/>
     	</s:langs>
     </s:translation>
     

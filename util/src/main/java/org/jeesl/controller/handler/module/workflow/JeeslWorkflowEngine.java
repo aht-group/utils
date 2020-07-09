@@ -64,7 +64,7 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 							WST extends JeeslWorkflowStageType<L,D,WST,?>,
 							WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
 							WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
-							WML extends JeeslWorkflowModificationLevel<?,?,WML,?>,
+							WML extends JeeslWorkflowModificationLevel<L,D,WML,?>,
 							WT extends JeeslWorkflowTransition<L,D,WS,WTT,SR,?>,
 							WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
 							WC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
@@ -135,7 +135,7 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 	public JeeslWorkflowEngine(WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER> fbWorkflow,
 								IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fbRevision,
 								JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER> fWorkflow,
-								JeeslWorkflowMessageHandler<WC,SR,RE,MT,MC,MD,WF,WY,USER> recipientResolver,
+								JeeslWorkflowMessageHandler<WC,SR,RE,MT,MC,MD,WF,WY,USER> messageHandler,
 								JeeslWorkflowActionsHandler<WT,WA,AB,AO,RE,RA,WF,WCS> actionHandler,
 								JeeslFileRepositoryHandler<?,FRC,?> frh)
 	{
@@ -161,7 +161,7 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 		constraints = new ArrayList<>();
 		levels = new ArrayList<>();
 		
-		communicator = new JeeslWorkflowCommunicator<>(recipientResolver);
+		communicator = new JeeslWorkflowCommunicator<>(messageHandler);
 		communicator.setDebugOnInfo(debugOnInfo);
 		
 		this.actionHandler=actionHandler;

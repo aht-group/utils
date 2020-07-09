@@ -43,7 +43,6 @@ public class AbstractSettingsIoMailQueueBean <L extends JeeslLang,D extends Jees
 	private final IoMailFactoryBuilder<L,D,CATEGORY,MAIL,STATUS,RETENTION,FRC> fbMail;
 	
 	private Class<MAIL> cMail;
-	private Class<CATEGORY> cCategory;
 	private Class<STATUS> cStatus;
 
 	private List<CATEGORY> categories; public List<CATEGORY> getCategories() {return categories;}
@@ -64,22 +63,21 @@ public class AbstractSettingsIoMailQueueBean <L extends JeeslLang,D extends Jees
 		sbhDate.setEnforceStartOfDay(true);
 		sbhDate.initWeeksToNow(2);
 		
-		sbhCategory = new SbMultiHandler<CATEGORY>(cCategory,this);
+		sbhCategory = new SbMultiHandler<CATEGORY>(fbMail.getClassCategory(),this);
 		sbhStatus = new SbMultiHandler<STATUS>(fbMail.getClassStatus(),this);
 		sbhRetention = new SbMultiHandler<RETENTION>(fbMail.getClassRetention(),this);
 	}
 	
-	protected void postConstructMailQueue(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslIoMailFacade<L,D,CATEGORY,MAIL,STATUS,RETENTION,FRC> fMail, final Class<L> cLang, final Class<D> cDescription, Class<CATEGORY> cCategory, Class<MAIL> cMail, Class<STATUS> cStatus)
+	protected void postConstructMailQueue(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslIoMailFacade<L,D,CATEGORY,MAIL,STATUS,RETENTION,FRC> fMail, final Class<L> cLang, final Class<D> cDescription, Class<MAIL> cMail, Class<STATUS> cStatus)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fMail=fMail;
 		
 		this.cMail=cMail;
-		this.cCategory=cCategory;
 		this.cStatus=cStatus;
 		
-		categories = fMail.allOrderedPositionVisible(cCategory);
-		if(debugOnInfo){logger.info(AbstractLogMessage.reloaded(cCategory,categories));}
+		categories = fMail.allOrderedPositionVisible(fbMail.getClassCategory());
+		if(debugOnInfo){logger.info(AbstractLogMessage.reloaded(fbMail.getClassCategory(),categories));}
 
 		try
 		{
@@ -101,10 +99,10 @@ public class AbstractSettingsIoMailQueueBean <L extends JeeslLang,D extends Jees
 		sbhCategory.selectAll();
 	}
 	
-	public void toggled(Class<?> c)
+	@Override public void toggled(Class<?> c)
 	{
 		logger.info(AbstractLogMessage.toggled(c));
-		if(cCategory.isAssignableFrom(c)){logger.info(cCategory.getName());}
+		if(fbMail.getClassCategory().isAssignableFrom(c)){logger.info(fbMail.getClassCategory().getName());}
 		else if(cStatus.isAssignableFrom(c)){logger.info(cStatus.getName());}
 		reloadMails();
 		clear(true);

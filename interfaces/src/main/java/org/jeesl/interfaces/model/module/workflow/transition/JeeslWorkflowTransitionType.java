@@ -20,5 +20,5 @@ public interface JeeslWorkflowTransitionType <L extends JeeslLang, D extends Jee
 									EjbWithCodeGraphic<G>,
 									JeeslStatus<S,L,D>
 {
-	public static enum Code{user,rest,auto};
+	public static enum Code{user,rest,auto,escalation};
 }

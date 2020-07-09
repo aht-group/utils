@@ -6,9 +6,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:o="http://omnifaces.org/ui"
-	xmlns:j="http://www.jeesl.org/jsf"
-	xmlns:jp="http://jsf.jeesl.org/prototype"
-	xmlns:jtp="http://jsf.jeesl.org/prototype/tag"
+	xmlns:j="http://www.jeesl.org/jsf" xmlns:jp="http://jsf.jeesl.org/prototype" xmlns:jtp="http://jsf.jeesl.org/prototype/tag"
 	xmlns:composite="http://java.sun.com/jsf/composite">
     
 	<composite:interface >
@@ -49,7 +47,10 @@
 								<f:facet name="header"><h:outputText value="#{msg.jeeslApprovalTrasitionSource} / #{msg.jeeslApprovalTransition}"/></f:facet>
 								<h:outputText value="#{a.transition.source.name[localeCode].lang}" />
 								<br/>
-								<h:outputText value="#{a.transition.name[localeCode].lang}" styleClass="jeeslItalic"/>
+								<ui:fragment>
+									<jtp:symbolizer value="#{a.transition.type}" marginRight="5"/>
+									<h:outputText value="#{a.transition.name[localeCode].lang}" styleClass="jeeslItalic"/>
+								</ui:fragment>
 							</p:column>
 							<p:column rendered="false">
 								<f:facet name="header"><h:outputText value="#{msg.jeeslApprovalTransition}"/></f:facet>

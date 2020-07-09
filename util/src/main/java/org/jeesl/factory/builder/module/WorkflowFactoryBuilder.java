@@ -12,6 +12,7 @@ import org.jeesl.factory.ejb.module.workflow.EjbWorkflowPermissionFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowProcessFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowStageFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowTransitionFactory;
+import org.jeesl.factory.xml.module.workflow.XmlStageFactory;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.io.mail.template.JeeslTemplateChannel;
@@ -37,6 +38,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.model.xml.jeesl.QueryWf;
 import org.jeesl.util.comparator.ejb.module.workflow.EjbWorkflowProcessComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,12 +48,12 @@ public class WorkflowFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 									WP extends JeeslWorkflowProcess<L,D,WX,WS>,
 									WS extends JeeslWorkflowStage<L,D,WP,WST,WSP,WT,?>,
 									WST extends JeeslWorkflowStageType<L,D,WST,?>,
-									WSP extends JeeslWorkflowStagePermission<WS,APT,WML,SR>,
-									APT extends JeeslWorkflowPermissionType<L,D,APT,?>,
-									WML extends JeeslWorkflowModificationLevel<?,?,WML,?>,
+									WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
+									WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
+									WML extends JeeslWorkflowModificationLevel<L,D,WML,?>,
 									WT extends JeeslWorkflowTransition<L,D,WS,WTT,SR,?>,
 									WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
-									AC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
+									WC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
 									AA extends JeeslWorkflowAction<WT,AB,AO,RE,RA>,
 									AB extends JeeslWorkflowBot<AB,L,D,?>,
 									AO extends EjbWithId,
@@ -74,11 +76,11 @@ public class WorkflowFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 	private final Class<WS> cStage; public Class<WS> getClassStage() {return cStage;}
 	private final Class<WST> cStageType; public Class<WST> getClassStageType() {return cStageType;}
 	private final Class<WSP> cPermission; public Class<WSP> getClassPermission() {return cPermission;}
-	private final Class<APT> cPermissionType; public Class<APT> getClassPermissionType() {return cPermissionType;}
+	private final Class<WPT> cPermissionType; public Class<WPT> getClassPermissionType() {return cPermissionType;}
 	private final Class<WML> cModificationLevel; public Class<WML> getClassModificationLevel() {return cModificationLevel;}
 	private final Class<WT> cTransition; public Class<WT> getClassTransition() {return cTransition;}
 	private final Class<WTT> cTransitionType; public Class<WTT> getClassTransitionType() {return cTransitionType;}
-	private final Class<AC> cCommunication; public Class<AC> getClassCommunication() {return cCommunication;}
+	private final Class<WC> cCommunication; public Class<WC> getClassCommunication() {return cCommunication;}
 	private final Class<AA> cAction; public Class<AA> getClassAction() {return cAction;}
 	private final Class<AB> cBot; public Class<AB> getClassBot() {return cBot;}
 	private final Class<AL> cLink; public Class<AL> getClassLink() {return cLink;}
@@ -91,11 +93,11 @@ public class WorkflowFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 									final Class<WS> cStage,
 									final Class<WST> cStageType,
 									final Class<WSP> cPermission,
-									final Class<APT> cPermissionType,
+									final Class<WPT> cPermissionType,
 									final Class<WML> cModificationLevel,
 									final Class<WT> cTransition,
 									final Class<WTT> cTransitionType,
-									final Class<AC> cCommunication,
+									final Class<WC> cCommunication,
 									final Class<AA> cAction,
 									final Class<AB> cBot,
 									final Class<AL> cLink,
@@ -124,11 +126,13 @@ public class WorkflowFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 	public EjbWorkflowStageFactory<WP,WS> ejbStage() {return new EjbWorkflowStageFactory<>(cStage);}
 	public EjbWorkflowPermissionFactory<WS,WSP,WML,SR> ejbPermission() {return new EjbWorkflowPermissionFactory<>(cPermission);}
 	public EjbWorkflowTransitionFactory<WS,WT> ejbTransition() {return new EjbWorkflowTransitionFactory<>(cTransition);}
-	public EjbWorkflowCommunicationFactory<WT,AC,MT,MC,SR,RE> ejbCommunication() {return new EjbWorkflowCommunicationFactory<>(cCommunication);}
+	public EjbWorkflowCommunicationFactory<WT,WC,MT,MC,SR,RE> ejbCommunication() {return new EjbWorkflowCommunicationFactory<>(cCommunication);}
 	public EjbWorkflowActionFactory<WT,AA,AB,AO,RE,RA> ejbAction() {return new EjbWorkflowActionFactory<>(cAction);}
 	public EjbWorkflowLinkFactory<RE,AL,AW> ejbLink() {return new EjbWorkflowLinkFactory<>(cLink);}
 	public EjbWorkflowFactory<WP,WS,AW> ejbWorkflow() {return new EjbWorkflowFactory<>(cWorkflow);}
 	public EjbWorkflowActivityFactory<WT,AW,WY,USER> ejbActivity() {return new EjbWorkflowActivityFactory<>(cActivity);}
 	
 	public Comparator<WP> cpProcess(EjbWorkflowProcessComparator.Type type) {return new EjbWorkflowProcessComparator<WX,WP>().factory(type);}
+	
+	public XmlStageFactory<L,D,WS,WST,WSP,WPT,WML,WT,WTT,SR> xmlStage(QueryWf q) {return new XmlStageFactory<>(q);}
 }

@@ -10,6 +10,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Join;
+import javax.persistence.criteria.ListJoin;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
@@ -60,7 +61,7 @@ public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescrip
 									WST extends JeeslWorkflowStageType<L,D,WST,?>,
 									WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
 									WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
-									WML extends JeeslWorkflowModificationLevel<?,?,WML,?>,
+									WML extends JeeslWorkflowModificationLevel<L,D,WML,?>,
 									WT extends JeeslWorkflowTransition<L,D,WS,WTT,SR,?>,
 									WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
 									AC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
@@ -226,6 +227,33 @@ public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescrip
 		
 		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
 		cQ.select(workflow);
+		
+		return em.createQuery(cQ).getResultList();
+	}
+	
+	@Override public List<WL> fWorkflowsEscalation(WP process)
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<WL> cQ = cB.createQuery(fbWorkflow.getClassLink());
+		Root<WL> link = cQ.from(fbWorkflow.getClassLink());
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		Join<WL,WF> jWorkflow = link.join(JeeslWorkflowLink.Attributes.workflow.toString());
+		
+		Path<WP> pProcess = jWorkflow.get(JeeslWorkflow.Attributes.process.toString());
+		predicates.add(cB.equal(pProcess,process));
+		
+		Join<WF,WS> jStage = jWorkflow.join(JeeslWorkflow.Attributes.currentStage.toString());
+		Join<WS,WST> jStageType = jStage.join(JeeslWorkflowStage.Attributes.type.toString());
+		predicates.add(cB.equal(jStageType,this.fByEnum(fbWorkflow.getClassStageType(),JeeslWorkflowStageType.Code.intermediate)));
+		
+		
+		ListJoin<WS,WT> jTransition = jStage.joinList(JeeslWorkflowStage.Attributes.transitions.toString());
+		Join<WT,WTT> jTransitionType = jTransition.join(JeeslWorkflowTransition.Attributes.type.toString());
+		predicates.add(cB.equal(jTransitionType,this.fByEnum(fbWorkflow.getClassTransitionType(),JeeslWorkflowTransitionType.Code.escalation)));
+		
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.select(link);
 		
 		return em.createQuery(cQ).getResultList();
 	}

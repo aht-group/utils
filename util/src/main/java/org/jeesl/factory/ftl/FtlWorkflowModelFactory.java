@@ -55,6 +55,7 @@ public class FtlWorkflowModelFactory <L extends JeeslLang, D extends JeeslDescri
 	
 	private void process(String localeCode, Map<String,Object> model, WP process)
 	{
+		model.put("wfContext", process.getContext().getName().get(localeCode).getLang());
 		model.put("wfProcess", process.getName().get(localeCode).getLang());
 	}
 	

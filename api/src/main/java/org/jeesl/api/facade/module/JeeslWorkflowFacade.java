@@ -39,13 +39,13 @@ public interface JeeslWorkflowFacade <L extends JeeslLang, D extends JeeslDescri
 										WP extends JeeslWorkflowProcess<L,D,WX,WS>,
 										WS extends JeeslWorkflowStage<L,D,WP,WST,WSP,WT,?>,
 										WST extends JeeslWorkflowStageType<L,D,WST,?>,
-										WSP extends JeeslWorkflowStagePermission<WS,APT,WML,SR>,
-										APT extends JeeslWorkflowPermissionType<L,D,APT,?>,
-										WML extends JeeslWorkflowModificationLevel<?,?,WML,?>,
+										WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
+										WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
+										WML extends JeeslWorkflowModificationLevel<L,D,WML,?>,
 										WT extends JeeslWorkflowTransition<L,D,WS,WTT,SR,?>,
 										WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
 										AC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
-										AA extends JeeslWorkflowAction<WT,AB,AO,RE,RA>,
+										WA extends JeeslWorkflowAction<WT,AB,AO,RE,RA>,
 										AB extends JeeslWorkflowBot<AB,L,D,?>,
 										AO extends EjbWithId,
 										MT extends JeeslIoTemplate<L,D,?,?,?,?>,
@@ -68,6 +68,7 @@ public interface JeeslWorkflowFacade <L extends JeeslLang, D extends JeeslDescri
 	
 	List<WF> fWorkflows(WP process, List<WS> stages);
 	List<WF> fWorkflows(List<WP> processes, List<WST> types);
+	List<WL> fWorkflowsEscalation(WP process);
 	
 	Json1Tuples<WP> tpcActivitiesByProcess();
 	Json2Tuples<WP,WST> tpcActivitiesByProcessType();

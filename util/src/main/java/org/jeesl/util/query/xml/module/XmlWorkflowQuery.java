@@ -21,7 +21,7 @@ import net.sf.ahtutils.xml.security.Role;
 
 public class XmlWorkflowQuery
 {
-	public static enum Key {xProcess}
+	public static enum Key {xProcess,rStage}
 	
 	private static Map<Key,QueryWf> mQueries;
 	
@@ -35,6 +35,7 @@ public class XmlWorkflowQuery
 			switch(key)
 			{
 				case xProcess: q.setProcess(xProcess());break;
+				case rStage: q.setStage(rStage());break;
 			}
 			mQueries.put(key, q);
 		}
@@ -66,6 +67,15 @@ public class XmlWorkflowQuery
 		xml.setDescriptions(XmlStatusQuery.descriptions());
 		xml.getTransition().add(xTransition());
 		xml.setPermissions(permissions());
+		return xml;
+	}
+	
+	private static Stage rStage()
+	{		
+		Stage xml = new Stage();
+		xml.setId(0);
+		xml.setPosition(0);
+		xml.setLabel("");
 		return xml;
 	}
 	
