@@ -41,14 +41,14 @@
 								<h:outputText value="#{s.name[localeCode].lang}"/>
 					     	</p:column>
 					     	<p:column headerText="#{msg.jeeslIoFileStorageSize}" styleClass="jeeslRight">  
-					     		<h:outputText value="#{jeesl:humanFileSize(cc.attrs.bean.thSize.mapA[s].count)}"/>
+					     		<h:outputText value="#{jeesl:humanFileSize(cc.attrs.bean.thSize.mapA[s].count1)}"/>
 					     	</p:column>
 					     	<p:columns var="type" value="#{cc.attrs.bean.thCount.listB}" columnIndexVar="colIndex" styleClass="jeeslCenter">
 								<f:facet name="header">
 									<jtp:symbolizer value="#{type}"/>
 									<h:outputText value="#{type.name[localeCode].lang}" rendered="false"/>
 								</f:facet>
-								<h:outputText value="#{cc.attrs.bean.thCount.map[s][type].count}"/>
+								<h:outputText value="#{cc.attrs.bean.thCount.map[s][type].count1}"/>
 							</p:columns>
 					   	</p:dataTable>
 					</h:form>
