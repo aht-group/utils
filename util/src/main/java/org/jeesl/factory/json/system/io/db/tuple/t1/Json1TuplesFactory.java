@@ -10,11 +10,14 @@ import java.util.Set;
 import javax.persistence.Tuple;
 
 import org.jeesl.factory.ejb.util.EjbIdFactory;
+import org.jeesl.factory.json.system.io.db.tuple.JsonTupleFactory;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.json.db.tuple.JsonTuple;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuple;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
+import org.jeesl.model.json.db.tuple.two.Json2Tuple;
+import org.jeesl.model.json.db.tuple.two.Json2Tuples;
 
 public class Json1TuplesFactory <A extends EjbWithId>
 {
@@ -95,7 +98,7 @@ public class Json1TuplesFactory <A extends EjbWithId>
 		
 		for(Tuple t : tuples)
         {
-			Json1Tuple<A> j = jtf.build(t);
+			Json1Tuple<A> j = JsonTupleFactory.build1(t);
 			setA.add(j.getId());
         	json.getTuples().add(j);
         }
@@ -157,7 +160,7 @@ public class Json1TuplesFactory <A extends EjbWithId>
 		return json;
 	}
 	
-	public Json1Tuples<A> build(List<Tuple> tuples, JsonTuple.Field... fields)
+	public Json1Tuples<A> buildV1(List<Tuple> tuples, JsonTuple.Field... fields)
 	{
 		Json1Tuples<A> json = new Json1Tuples<A>();
 		
@@ -171,15 +174,30 @@ public class Json1TuplesFactory <A extends EjbWithId>
 		return json;
 	}
 	
+	public Json1Tuples<A> buildV2(List<Tuple> tuples, JsonTupleFactory.Type...types)
+	{
+		Json1Tuples<A> json = new Json1Tuples<A>();
+		for(Tuple t : tuples){json.getTuples().add(JsonTupleFactory.build1(t,types));}
+		ejb1Load(json);
+		return json;
+	}
+	
+	
+	
 	private void ejb1Load(Json1Tuples<A> json)
 	{
+		for(Json1Tuple<A> t : json.getTuples())
+		{
+			setA.add(t.getId());
+		}
+		
 		if(fUtils==null)
 		{	// A object is created and the corresponding id is set
 			for(Json1Tuple<A> t : json.getTuples())
 			{
 				try
 				{
-					t.setEjb(cA.newInstance());t.getEjb().setId(t.getId());
+					t.setEjb(cA.newInstance()); t.getEjb().setId(t.getId());
 				}
 				catch (InstantiationException | IllegalAccessException e) {e.printStackTrace();}
 			}

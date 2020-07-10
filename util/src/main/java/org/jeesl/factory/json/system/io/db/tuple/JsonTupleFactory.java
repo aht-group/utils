@@ -54,6 +54,23 @@ public class JsonTupleFactory
 		return json;
 	}
 	
+	public static <A extends EjbWithId> Json1Tuple<A> build1(Tuple tuple)
+	{
+		Json1Tuple<A> json = new Json1Tuple<A>();
+		json.setId((Long)tuple.get(0));		
+    	return json;
+	}
+	
+	public static <A extends EjbWithId> Json1Tuple<A> build1(Tuple tuple, JsonTupleFactory.Type...types)
+	{
+		Json1Tuple<A> json = new Json1Tuple<A>();
+		json.setId((Long)tuple.get(0));
+
+		JsonTupleFactory.build(tuple,0,json,types);
+		
+    	return json;
+	}
+	
 	public static <A extends EjbWithId, B extends EjbWithId> Json2Tuple<A,B> build2(Tuple tuple, JsonTupleFactory.Type...types)
 	{
 		Json2Tuple<A,B> json = new Json2Tuple<A,B>();

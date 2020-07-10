@@ -6,11 +6,13 @@ import java.util.List;
 
 import javax.persistence.Tuple;
 
+import org.jeesl.factory.json.system.io.db.tuple.JsonTupleFactory;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.json.db.tuple.JsonTuple;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuple;
 import org.jeesl.util.query.sql.SqlNativeQueryHelper;
 
+@Deprecated //Should be moved to JsonTupleFactory
 public class Json1TupleFactory<A extends EjbWithId>
 {
 	public Json1TupleFactory()
@@ -28,24 +30,20 @@ public class Json1TupleFactory<A extends EjbWithId>
 		return result;
 	}
 	
-	public Json1Tuple<A> build(Tuple tuple)
-	{
-		Json1Tuple<A> json = new Json1Tuple<A>();
-		json.setId((Long)tuple.get(0));		
-    	return json;
-	} 
+	
 	
 	public Json1Tuple<A> buildSum(Tuple tuple)
 	{
-		Json1Tuple<A> json = build(tuple);	
+		Json1Tuple<A> json = JsonTupleFactory.build1(tuple);	
 		json.setSum((Double)tuple.get(1));
     	return json;
 	}
 	
 	public Json1Tuple<A> buildCount(Tuple tuple)
 	{
-		Json1Tuple<A> json = build(tuple);
+		Json1Tuple<A> json = JsonTupleFactory.build1(tuple);
 		json.setCount((Long)tuple.get(1));
+		json.setCount1(json.getCount());
     	return json;
 	}
 	
@@ -64,7 +62,7 @@ public class Json1TupleFactory<A extends EjbWithId>
 	
 	public Json1Tuple<A> build(Tuple tuple, JsonTuple.Field... fields)
 	{
-		Json1Tuple<A> json = build(tuple);
+		Json1Tuple<A> json = JsonTupleFactory.build1(tuple);
 		
 		int index=1;
 		for(JsonTuple.Field field : fields)
@@ -72,10 +70,12 @@ public class Json1TupleFactory<A extends EjbWithId>
 			if(index==1)
 			{
 				if(field.equals(JsonTuple.Field.sum)) {json.setSum1((Double)tuple.get(index));}
+				else if (field.equals(JsonTuple.Field.count)){json.setCount((Long)tuple.get(index));json.setCount1(json.getCount());}
 			}
 			if(index==2)
 			{
 				if(field.equals(JsonTuple.Field.sum)) {json.setSum2((Double)tuple.get(index));}
+				else if (field.equals(JsonTuple.Field.count)){json.setCount2((Long)tuple.get(index));}
 			}
 			index++;
 		}

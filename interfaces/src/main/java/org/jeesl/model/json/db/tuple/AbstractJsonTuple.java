@@ -8,6 +8,7 @@ public abstract class AbstractJsonTuple implements Serializable
 {
 	public static final long serialVersionUID=1;
 	
+	@Deprecated //Use sum1
 	@JsonProperty("sum")
 	private Double sum;
 	public Double getSum() {return sum;}
@@ -23,7 +24,7 @@ public abstract class AbstractJsonTuple implements Serializable
 	public Double getSum2() {return sum2;}
 	public void setSum2(Double sum2) {this.sum2 = sum2;}
 	
-	
+	@Deprecated //Use count1
 	@JsonProperty("count")
 	private Long count;
 	public Long getCount() {return count;}

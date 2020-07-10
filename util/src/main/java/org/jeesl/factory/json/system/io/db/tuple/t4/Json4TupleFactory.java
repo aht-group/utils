@@ -7,6 +7,7 @@ import org.jeesl.model.json.db.tuple.t4.Json4Tuple;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+//@Deprecated //Should be moved to JsonTupleFactory
 public class Json4TupleFactory<A extends EjbWithId, B extends EjbWithId, C extends EjbWithId, D extends EjbWithId>
 {
 	final static Logger logger = LoggerFactory.getLogger(Json4TupleFactory.class);
