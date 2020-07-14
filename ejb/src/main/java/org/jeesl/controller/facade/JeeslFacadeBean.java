@@ -271,7 +271,7 @@ public class JeeslFacadeBean implements JeeslFacade
 			return null;
 		}
 	}
-	@Override public <T extends EjbWithCode, E extends Enum<E>> T fByCode(Class<T> type, E code) throws JeeslNotFoundException {return this.fByCode(type, code.toString());}
+	@Override public <T extends EjbWithCode, E extends Enum<E>> T fByCode(Class<T> type, E code) throws JeeslNotFoundException {return this.fByCode(type,code.toString());}
 	@Override public <T extends EjbWithCode> T fByCode(Class<T> type, String code) throws JeeslNotFoundException
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();

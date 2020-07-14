@@ -19,5 +19,6 @@ public interface JeeslTsInterval <L extends JeeslLang, D extends JeeslDescriptio
 										JeeslStatus<S,L,D>
 {	
 	public enum Code{inst,irregular,
-						minute,minute10,day,daily,monthly,weekly,quarterly,yearly}
+						minute,minute10,
+						daily,monthly,weekly,quarterly,yearly}
 }

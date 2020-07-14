@@ -19,6 +19,7 @@ import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsMultiPoint;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsScope;
+import org.jeesl.interfaces.model.module.ts.core.JeeslTsScopeType;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsBridge;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsData;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsDataPoint;
@@ -34,7 +35,8 @@ import net.sf.exlp.xml.io.File;
 
 public class TsDbBackupSizeProcessor<SYSTEM extends JeeslIoSsiSystem<?,?>,
 									DUMP extends JeeslDbDump<SYSTEM,?>,
-									SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
+									SCOPE extends JeeslTsScope<?,?,?,ST,?,EC,INT>,
+									ST extends JeeslTsScopeType<?,?,ST,?>,
 									MP extends JeeslTsMultiPoint<?,?,SCOPE,?>,
 									TS extends JeeslTimeSeries<SCOPE,TS,BRIDGE,INT,STAT>,
 									TRANSACTION extends JeeslTsTransaction<?,DATA,?,?>,
@@ -46,12 +48,12 @@ public class TsDbBackupSizeProcessor<SYSTEM extends JeeslIoSsiSystem<?,?>,
 									DATA extends JeeslTsData<TS,TRANSACTION,?,POINT,WS>,
 									POINT extends JeeslTsDataPoint<DATA,MP>,
 									WS extends JeeslStatus<WS,?,?>>
-	extends AbstractTimeSeriesProcessor<SCOPE,MP,TS,TRANSACTION,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,WS>
+	extends AbstractTimeSeriesProcessor<SCOPE,ST,MP,TS,TRANSACTION,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,WS>
 {
 	final static Logger logger = LoggerFactory.getLogger(TsDbBackupSizeProcessor.class);
 	
-	public TsDbBackupSizeProcessor(TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,?,?,WS,?,?> fbTs,
-									JeeslTsFacade<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,?,?,WS,?,?> fTs)
+	public TsDbBackupSizeProcessor(TsFactoryBuilder<?,?,?,SCOPE,ST,?,MP,TS,TRANSACTION,?,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,?,?,WS,?,?> fbTs,
+									JeeslTsFacade<?,?,?,SCOPE,ST,?,MP,TS,TRANSACTION,?,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,?,?,WS,?,?> fTs)
 	{
 		super(fbTs,fTs);
 	}
@@ -93,24 +95,9 @@ public class TsDbBackupSizeProcessor<SYSTEM extends JeeslIoSsiSystem<?,?>,
 					add.add(efData.build(ws,ts,null,dump.getRecord(),Long.valueOf(dump.getSize()).doubleValue()));
 				}
 			}
-			add(add);
+			super.add(add);
 		}
 		catch (JeeslConstraintViolationException | JeeslLockingException e) {e.printStackTrace();}
-	}
-		
-	private void add(List<DATA> add) throws JeeslConstraintViolationException, JeeslLockingException
-	{
-		if(!add.isEmpty())
-		{
-			logger.info("Adding "+add.size()+" point to TS");
-			TRANSACTION transaction = fbTs.ejbTransaction().build(null,null);
-			transaction = fTs.save(transaction);
-			for(DATA d : add)
-			{
-				d.setTransaction(transaction);
-			}
-			fTs.save(add);
-		}
 	}
 	
 	public Chart build(String localeCode, Date begin, Date end, SYSTEM system) 

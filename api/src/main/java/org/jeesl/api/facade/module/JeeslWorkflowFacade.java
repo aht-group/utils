@@ -65,10 +65,12 @@ public interface JeeslWorkflowFacade <L extends JeeslLang, D extends JeeslDescri
 	WL fWorkflowLink(WF workflow) throws JeeslNotFoundException;
 	<W extends JeeslWithWorkflow<WF>> WL fWorkflowLink(WP process, W owner) throws JeeslNotFoundException;
 	List<WL> fWorkflowLinks(List<WF> workflows);
+	<W extends JeeslWithWorkflow<WF>> List<WL> fWorkflowLinks(WP process, List<W> owners);
+	List<WL> fWorkflowsEscalation(WP process);
 	
 	List<WF> fWorkflows(WP process, List<WS> stages);
 	List<WF> fWorkflows(List<WP> processes, List<WST> types);
-	List<WL> fWorkflowsEscalation(WP process);
+	
 	
 	Json1Tuples<WP> tpcActivitiesByProcess();
 	Json2Tuples<WP,WST> tpcActivitiesByProcessType();

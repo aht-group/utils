@@ -19,6 +19,7 @@ import org.jeesl.api.facade.module.JeeslWorkflowFacade;
 import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.WorkflowFactoryBuilder;
+import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.factory.json.system.io.db.tuple.JsonTupleFactory;
 import org.jeesl.factory.json.system.io.db.tuple.t1.Json1TuplesFactory;
 import org.jeesl.factory.json.system.io.db.tuple.t2.Json2TuplesFactory;
@@ -227,6 +228,26 @@ public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescrip
 		
 		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
 		cQ.select(workflow);
+		
+		return em.createQuery(cQ).getResultList();
+	}
+	
+	@Override public <W extends JeeslWithWorkflow<WF>> List<WL> fWorkflowLinks(WP process, List<W> owners)
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<WL> cQ = cB.createQuery(fbWorkflow.getClassLink());
+		Root<WL> link = cQ.from(fbWorkflow.getClassLink());
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		Join<WL,WF> jWorkflow = link.join(JeeslWorkflowLink.Attributes.workflow.toString());
+		Path<WP> pProcess = jWorkflow.get(JeeslWorkflow.Attributes.process.toString());
+		predicates.add(cB.equal(pProcess,process));
+		
+		Path<Long> pRefId = link.get(JeeslWorkflowLink.Attributes.refId.toString());
+		predicates.add(pRefId.in(EjbIdFactory.toIds(owners)));
+	
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.select(link);
 		
 		return em.createQuery(cQ).getResultList();
 	}

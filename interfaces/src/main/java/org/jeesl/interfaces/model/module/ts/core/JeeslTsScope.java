@@ -19,7 +19,7 @@ import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 
 public interface JeeslTsScope <L extends JeeslLang, D extends JeeslDescription,
 									CAT extends JeeslTsCategory<L,D,CAT,?>,
-									ST extends JeeslStatus<ST,L,D>,
+									ST extends JeeslTsScopeType<L,D,ST,?>,
 									UNIT extends JeeslStatus<UNIT,L,D>,
 									EC extends JeeslTsEntityClass<L,D,CAT,?>,
 									INT extends JeeslStatus<INT,L,D>

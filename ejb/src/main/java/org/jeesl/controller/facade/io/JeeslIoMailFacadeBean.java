@@ -5,9 +5,12 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
@@ -18,13 +21,18 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoMailFactoryBuilder;
 import org.jeesl.factory.ejb.io.mail.core.EjbIoMailFactory;
+import org.jeesl.factory.json.system.io.db.tuple.JsonTupleFactory;
+import org.jeesl.factory.json.system.io.db.tuple.t1.Json1TuplesFactory;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
+import org.jeesl.interfaces.model.io.fr.JeeslFileMeta;
 import org.jeesl.interfaces.model.io.mail.core.JeeslIoMail;
 import org.jeesl.interfaces.model.io.mail.core.JeeslMailRetention;
 import org.jeesl.interfaces.model.io.mail.core.JeeslMailStatus;
+import org.jeesl.interfaces.model.module.ts.data.JeeslTsData;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 import org.jeesl.model.xml.system.io.mail.Mail;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -164,5 +172,28 @@ public class JeeslIoMailFacadeBean<L extends JeeslLang,D extends JeeslDescriptio
 		tQ.setMaxResults(maxResult);
 		
 		return tQ.getResultList();
+	}
+	
+	@Override public Json1Tuples<STATUS> tpcIoMailByStatus(Date from, Date to)
+	{
+		Json1TuplesFactory<STATUS> jtf = new Json1TuplesFactory<>(this,fbMail.getClassStatus());
+		jtf.setfUtils(this);
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<Tuple> cQ = cB.createTupleQuery();
+		Root<MAIL> item = cQ.from(fbMail.getClassMail());
+		
+		Expression<Long> eCount = cB.count(item.<Long>get("id"));
+		Path<STATUS> pStatus = item.get(JeeslIoMail.Attributes.status.toString());
+		
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		Expression<Date> eRecord = item.get(JeeslIoMail.Attributes.recordCreation.toString());
+		if(from!=null) {predicates.add(cB.greaterThanOrEqualTo(eRecord,from));}
+		if(to!=null){predicates.add(cB.lessThan(eRecord,to));}
+
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.groupBy(pStatus.get("id"));
+		cQ.multiselect(pStatus.get("id"),eCount);
+		TypedQuery<Tuple> tQ = em.createQuery(cQ);
+        return jtf.buildV2(tQ.getResultList(),JsonTupleFactory.Type.count);
 	}
 }

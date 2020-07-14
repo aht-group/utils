@@ -62,7 +62,7 @@ public class JeeslMailSpooler extends AbstractSmtpSpooler
 		
 //		spooler();
 //		discard();
-		show(true);
+		debug(true,false,true);
 	}
 	
 	public void discard()

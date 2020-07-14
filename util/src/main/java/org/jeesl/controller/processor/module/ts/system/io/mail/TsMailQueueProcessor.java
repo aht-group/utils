@@ -1,4 +1,4 @@
-package org.jeesl.controller.processor.module.ts.system.security;
+package org.jeesl.controller.processor.module.ts.system.io.mail;
 
 import java.util.Date;
 
@@ -6,7 +6,9 @@ import org.jeesl.api.facade.module.JeeslTsFacade;
 import org.jeesl.controller.processor.module.ts.AbstractTimeSeriesProcessor;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
+import org.jeesl.interfaces.model.io.mail.core.JeeslMailStatus;
 import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
@@ -21,15 +23,15 @@ import org.jeesl.interfaces.model.module.ts.data.JeeslTsDataPoint;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsTransaction;
 import org.jeesl.interfaces.model.module.ts.stat.JeeslTsStatistic;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityPasswordRating;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuple;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
-import org.joda.time.DateTime;
+import org.metachart.xml.chart.Chart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TsPasswordRatinglProcessor<SYSTEM extends JeeslIoSsiSystem<?,?>,
-									RATING extends JeeslSecurityPasswordRating<?,?,?,?>,
+public class TsMailQueueProcessor<SYSTEM extends JeeslIoSsiSystem<?,?>,
+									STATUS extends JeeslMailStatus<?,?,STATUS,?>,
+									
 									SCOPE extends JeeslTsScope<?,?,?,ST,?,EC,INT>,
 									ST extends JeeslTsScopeType<?,?,ST,?>,
 									MP extends JeeslTsMultiPoint<?,?,SCOPE,?>,
@@ -45,48 +47,51 @@ public class TsPasswordRatinglProcessor<SYSTEM extends JeeslIoSsiSystem<?,?>,
 									WS extends JeeslStatus<WS,?,?>>
 	extends AbstractTimeSeriesProcessor<SCOPE,ST,MP,TS,TRANSACTION,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,WS>
 {
-	final static Logger logger = LoggerFactory.getLogger(TsPasswordRatinglProcessor.class);
-	
-	public TsPasswordRatinglProcessor(TsFactoryBuilder<?,?,?,SCOPE,ST,?,MP,TS,TRANSACTION,?,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,?,?,WS,?,?> fbTs,
+	final static Logger logger = LoggerFactory.getLogger(TsMailQueueProcessor.class);
+
+	public TsMailQueueProcessor(TsFactoryBuilder<?,?,?,SCOPE,ST,?,MP,TS,TRANSACTION,?,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,?,?,WS,?,?> fbTs,
 									JeeslTsFacade<?,?,?,SCOPE,ST,?,MP,TS,TRANSACTION,?,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,?,?,WS,?,?> fTs)
 	{
 		super(fbTs,fTs);
 	}
 	
-	
-	
-	public void update(SYSTEM system, Json1Tuples<RATING> tuples)
+	public void update(SYSTEM system, Date record, Json1Tuples<STATUS> tuples)
 	{
 		try
 		{
-			DateTime dt = new DateTime(new Date());
-			Date date = dt.withMillisOfSecond(0).withSecondOfMinute(0).withMinuteOfHour(0).withHourOfDay(0).toDate();
+			TS ts = super.fcTs(system);
+			TRANSACTION transaction = fbTs.ejbTransaction().build(null,null);
+			if(!developmentMode) {transaction = fTs.save(transaction);}
+			DATA data = efData.build(ws,ts,transaction,record,0d);
+			if(!developmentMode) {data = fTs.save(data);}
+			logger.info("Series: "+ts.toString()+" data:"+data.toString());
 			
-			TS ts = fcTs(system);
-			TRANSACTION transaction = fTs.save(fbTs.ejbTransaction().build(null,null));
-			
-			DATA data = efData.build(ws, ts, transaction, date, null);
-			data = fTs.save(data);
-					
-			for(MP mp : fTs.allForParent(fbTs.getClassMp(), scope))
+			for(Json1Tuple<STATUS> t : tuples.getTuples())
 			{
-				for(Json1Tuple<RATING> t : tuples.getTuples())
+				for(MP mp : mps)
 				{
-					
 					if(t.getEjb().getCode().equals(mp.getCode()))
 					{
-						if(t.getCount()!=null)
-						{
-							POINT dp =  efPoint.build(data,mp,t.getCount().doubleValue());
-							dp = fTs.save(dp);
-//							logger.info(dp.getId()+" "+t.getEjb().getCode()+" "+t.getCount());
-						}
-						
+						POINT point = efPoint.build(data,mp,Long.valueOf(t.getCount1()).doubleValue());
+						if(!developmentMode) {point = fTs.save(point);}
+						logger.info(point.toString());
 					}
 				}
 			}
-			
 		}
-		catch (JeeslConstraintViolationException | JeeslLockingException e) {e.printStackTrace();}
+		catch (JeeslConstraintViolationException | JeeslLockingException  e) {e.printStackTrace();}
+
+	}
+	
+	public Chart build(String localeCode, Date begin, Date end, SYSTEM system) 
+	{
+		Chart chart = mfTs.build(localeCode);
+		chart.setSubtitle(null);
+		try
+		{
+			chart.setDs(mfTs.singleData(localeCode,system,begin,end));
+		}
+		catch (JeeslNotFoundException e) {}
+		return chart;
 	}
 }

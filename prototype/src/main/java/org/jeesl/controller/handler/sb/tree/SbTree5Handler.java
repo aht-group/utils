@@ -20,8 +20,6 @@ public class SbTree5Handler <L1 extends EjbWithId, L2 extends EjbWithId, L3 exte
 	private final JeeslTree5Store<L1,L2,L3,L4,L5> store5;
 	private final JeeslTree5Cache<L1,L2,L3,L4,L5> cache5;
 	
-	
-
 	protected final Set<L5> allowChild5;
 	protected final Set<L5> allowPath5;
 	protected final Set<L5> ignore5;

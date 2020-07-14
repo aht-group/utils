@@ -56,7 +56,7 @@ public class AbstractSmtpSpooler
 		logger.info("SMTP: "+cfgSmtp);
 	} 
 	
-	protected void show(boolean confirm)
+	protected void debug(boolean txt, boolean jaxb, boolean confirm)
 	{
 		Mails mails = rest.spool();
 		for(Mail mail : mails.getMail())
@@ -66,7 +66,8 @@ public class AbstractSmtpSpooler
 			{
 				for(Attachment att : mail.getAttachment()) {att.setData(null);}
 			}
-			JaxbUtil.info(mail);
+			if(jaxb) {JaxbUtil.info(mail);}
+			if(txt) {logger.info(TxtMailFactory.debug(mail));}
 			if(confirm) {rest.confirm(mail.getId());}
 		}
 	}

@@ -12,6 +12,7 @@ import org.jeesl.interfaces.model.io.mail.core.JeeslMailStatus;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 import org.jeesl.model.xml.system.io.mail.Mail;
 
 public interface JeeslIoMailFacade <L extends JeeslLang,D extends JeeslDescription,
@@ -27,4 +28,6 @@ public interface JeeslIoMailFacade <L extends JeeslLang,D extends JeeslDescripti
 	List<MAIL> fSpoolMails(int max);
 	
 	void queueMail(CATEGORY category, RETENTION retention, Mail mail) throws JeeslConstraintViolationException;
+	
+	Json1Tuples<STATUS> tpcIoMailByStatus(Date from, Date to);
 }
