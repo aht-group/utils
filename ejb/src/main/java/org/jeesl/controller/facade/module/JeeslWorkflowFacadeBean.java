@@ -234,6 +234,7 @@ public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescrip
 	
 	@Override public <W extends JeeslWithWorkflow<WF>> List<WL> fWorkflowLinks(WP process, List<W> owners)
 	{
+		if(owners==null || owners.isEmpty()) {return new ArrayList<WL>();}
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<WL> cQ = cB.createQuery(fbWorkflow.getClassLink());
 		Root<WL> link = cQ.from(fbWorkflow.getClassLink());

@@ -29,5 +29,5 @@ public interface JeeslIoMailFacade <L extends JeeslLang,D extends JeeslDescripti
 	
 	void queueMail(CATEGORY category, RETENTION retention, Mail mail) throws JeeslConstraintViolationException;
 	
-	Json1Tuples<STATUS> tpcIoMailByStatus(Date from, Date to);
+	Json1Tuples<STATUS> tpcIoMailByStatus(Date from, Date to, List<CATEGORY> categories);
 }

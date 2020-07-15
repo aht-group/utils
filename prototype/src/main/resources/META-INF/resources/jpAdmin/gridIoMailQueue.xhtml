@@ -6,9 +6,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:j="http://www.jeesl.org/jsf"
-	xmlns:jp="http://jsf.jeesl.org/prototype"
-	xmlns:jtp="http://jsf.jeesl.org/prototype/tag"
+	xmlns:j="http://www.jeesl.org/jsf" xmlns:jp="http://jsf.jeesl.org/prototype" xmlns:jtp="http://jsf.jeesl.org/prototype/tag"
 	xmlns:aht="http://ahtutils.sourceforge.net/jsf"
 	xmlns:aup="http://ahtutils.sourceforge.net/prototype"
 	xmlns:aupAdmin="http://ahtutils.sourceforge.net/prototype/admin"
@@ -22,12 +20,30 @@
 	<composite:implementation>
 <jp:grid id="grid">
 	<j:row>
+		<j:slot id="sStat" width="5">
+			<p:dataTable var="s" value="#{cc.attrs.bean.statistics}">
+				<f:facet name="header">
+					<j:dtHeader title="#{msg.jeeslIoMailQueueStatistics}"/>
+				</f:facet>
+				<p:column>
+					<h:outputText value="#{s}"/>
+				</p:column>
+				<p:columns var="status" value="#{cc.attrs.bean.sbhStatus.list}" columnIndexVar="colIndex">
+					<f:facet name="header">
+						<h:outputText value="#{status.name[localeCode].lang}" />
+					</f:facet>
+					<h:outputText value="#{cc.attrs.bean.mapTh[s].map1[status].count1}" />
+				</p:columns>
+			</p:dataTable>
+		</j:slot>
+	</j:row>
+	<j:row>
 		<j:slot id="sQueue" width="9">
 			<h:form id="fQueue">
 				<p:dataTable var="m" value="#{cc.attrs.bean.mails}" draggableRows="true"
 					selection="#{cc.attrs.bean.mail}" selectionMode="single" rowKey="#{m.id}">
 					<f:facet name="header">
-						<aht:pfDataTableHeader title="#{msg.jeeslIoMailQueue}"/>
+						<j:dtHeader title="#{msg.jeeslIoMailQueue}"/>
 					</f:facet>
 					<p:ajax event="rowSelect" update=":#{cc.id}:sMail" listener="#{cc.attrs.bean.selectMail()}"/>
 					<p:column rendered="#{cc.attrs.withCategory}" headerText="#{msg.aupCategory}"><h:outputText value="#{m.category.name[userBean.localeCode].lang}"/></p:column>

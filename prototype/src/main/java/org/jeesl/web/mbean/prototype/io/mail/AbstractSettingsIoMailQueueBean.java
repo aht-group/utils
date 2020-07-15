@@ -1,7 +1,10 @@
 package org.jeesl.web.mbean.prototype.io.mail;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
@@ -9,6 +12,7 @@ import org.jeesl.api.facade.io.JeeslIoMailFacade;
 import org.jeesl.api.handler.sb.SbDateIntervalSelection;
 import org.jeesl.controller.handler.sb.SbDateHandler;
 import org.jeesl.controller.handler.sb.SbMultiHandler;
+import org.jeesl.controller.handler.tuple.JsonTuple1Handler;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoMailFactoryBuilder;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
@@ -39,6 +43,8 @@ public class AbstractSettingsIoMailQueueBean <L extends JeeslLang,D extends Jees
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractSettingsIoMailQueueBean.class);
 	
+	private enum Statistic{today,day30}
+	
 	protected JeeslIoMailFacade<L,D,CATEGORY,MAIL,STATUS,RETENTION,FRC> fMail;
 	private final IoMailFactoryBuilder<L,D,CATEGORY,MAIL,STATUS,RETENTION,FRC> fbMail;
 	
@@ -47,14 +53,17 @@ public class AbstractSettingsIoMailQueueBean <L extends JeeslLang,D extends Jees
 
 	private List<CATEGORY> categories; public List<CATEGORY> getCategories() {return categories;}
 	private List<MAIL> mails; public List<MAIL> getMails() {return mails;}
-	
+	private final List<String> statistics; public List<String> getStatistics() {return statistics;}
 	private MAIL mail; public MAIL getMail() {return mail;} public void setMail(MAIL mail) {this.mail = mail;}
 	
 	protected final SbMultiHandler<CATEGORY> sbhCategory; public SbMultiHandler<CATEGORY> getSbhCategory() {return sbhCategory;}
 	protected final SbMultiHandler<STATUS> sbhStatus; public SbMultiHandler<STATUS> getSbhStatus() {return sbhStatus;}
 	protected final SbMultiHandler<RETENTION> sbhRetention; public SbMultiHandler<RETENTION> getSbhRetention() {return sbhRetention;}
 	private final SbDateHandler sbhDate; public SbDateHandler getSbhDate() {return sbhDate;}
-
+	
+	private final Map<String,JsonTuple1Handler<STATUS>> mapTh; public Map<String, JsonTuple1Handler<STATUS>> getMapTh() {return mapTh;}
+	private final JsonTuple1Handler<STATUS> thToday,thDay30;
+	
 	public AbstractSettingsIoMailQueueBean(IoMailFactoryBuilder<L,D,CATEGORY,MAIL,STATUS,RETENTION,FRC> fbMail)
 	{
 		super(fbMail.getClassL(),fbMail.getClassD());
@@ -66,6 +75,14 @@ public class AbstractSettingsIoMailQueueBean <L extends JeeslLang,D extends Jees
 		sbhCategory = new SbMultiHandler<CATEGORY>(fbMail.getClassCategory(),this);
 		sbhStatus = new SbMultiHandler<STATUS>(fbMail.getClassStatus(),this);
 		sbhRetention = new SbMultiHandler<RETENTION>(fbMail.getClassRetention(),this);
+		
+		mapTh = new HashMap<>();
+		thToday = new JsonTuple1Handler<>(fbMail.getClassStatus());
+		thDay30 = new JsonTuple1Handler<>(fbMail.getClassStatus());
+		
+		statistics = new ArrayList<>();
+		statistics.add(Statistic.today.toString());
+		statistics.add(Statistic.day30.toString());
 	}
 	
 	protected void postConstructMailQueue(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslIoMailFacade<L,D,CATEGORY,MAIL,STATUS,RETENTION,FRC> fMail, final Class<L> cLang, final Class<D> cDescription, Class<MAIL> cMail, Class<STATUS> cStatus)
@@ -91,6 +108,7 @@ public class AbstractSettingsIoMailQueueBean <L extends JeeslLang,D extends Jees
 		catch (JeeslNotFoundException e) {logger.error(e.getMessage());}
 		initPageConfiguration();
 		reloadMails();
+		reloadStatistic();
 	}
 	
 	protected void initPageConfiguration()
@@ -102,10 +120,25 @@ public class AbstractSettingsIoMailQueueBean <L extends JeeslLang,D extends Jees
 	@Override public void toggled(Class<?> c)
 	{
 		logger.info(AbstractLogMessage.toggled(c));
-		if(fbMail.getClassCategory().isAssignableFrom(c)){logger.info(fbMail.getClassCategory().getName());}
+		if(fbMail.getClassCategory().isAssignableFrom(c)){logger.info(fbMail.getClassCategory().getName());reloadStatistic();}
 		else if(cStatus.isAssignableFrom(c)){logger.info(cStatus.getName());}
 		reloadMails();
 		clear(true);
+	}
+	
+	private void reloadStatistic()
+	{
+		DateTime now = new DateTime();
+		thToday.init(fMail.tpcIoMailByStatus(now.withTimeAtStartOfDay().toDate(),now.toDate(),sbhCategory.getSelected()));
+		thDay30.init(fMail.tpcIoMailByStatus(now.minusDays(30).withTimeAtStartOfDay().toDate(),now.toDate(),sbhCategory.getSelected()));
+		
+		mapTh.put(Statistic.today.toString(),thToday);
+		mapTh.put(Statistic.day30.toString(),thDay30);
+		
+		for(STATUS s : thToday.getListA())
+		{
+			logger.info(s.getCode()+" "+thToday.getMapA().get(s).getCount1());
+		}
 	}
 	
 	@Override

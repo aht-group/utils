@@ -174,8 +174,8 @@ public class JeeslIoMailFacadeBean<L extends JeeslLang,D extends JeeslDescriptio
 		return tQ.getResultList();
 	}
 	
-	@Override public Json1Tuples<STATUS> tpcIoMailByStatus(Date from, Date to)
-	{
+	@Override public Json1Tuples<STATUS> tpcIoMailByStatus(Date from, Date to, List<CATEGORY> categories)
+	{		
 		Json1TuplesFactory<STATUS> jtf = new Json1TuplesFactory<>(this,fbMail.getClassStatus());
 		jtf.setfUtils(this);
 		CriteriaBuilder cB = em.getCriteriaBuilder();
@@ -184,12 +184,19 @@ public class JeeslIoMailFacadeBean<L extends JeeslLang,D extends JeeslDescriptio
 		
 		Expression<Long> eCount = cB.count(item.<Long>get("id"));
 		Path<STATUS> pStatus = item.get(JeeslIoMail.Attributes.status.toString());
-		
+				
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		Expression<Date> eRecord = item.get(JeeslIoMail.Attributes.recordCreation.toString());
 		if(from!=null) {predicates.add(cB.greaterThanOrEqualTo(eRecord,from));}
 		if(to!=null){predicates.add(cB.lessThan(eRecord,to));}
-
+		if(categories!=null)
+		{
+			Path<CATEGORY> pCategory = item.get(JeeslIoMail.Attributes.category.toString());
+			if(categories.isEmpty()) {predicates.add(cB.isNull(pCategory));}
+			else {predicates.add(pCategory.in(categories));}
+		}
+		
+		
 		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
 		cQ.groupBy(pStatus.get("id"));
 		cQ.multiselect(pStatus.get("id"),eCount);
