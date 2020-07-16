@@ -122,6 +122,7 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 	private JeeslWithWorkflow<WF> entity;
 
 	protected WP process; public WP getProcess() {return process;} protected void setProcess(WP process) {this.process = process;}
+	private final WPT typeDelegate; public WPT getTypeDelegate() {return typeDelegate;}
 	private AL link; public AL getLink() {return link;} public void setLink(AL link) {this.link = link;}
 	private WF workflow; public WF getWorkflow() {return workflow;} public void setWorkflow(WF workflow) {this.workflow = workflow;}
 	private WY activity; public WY getActivity() {return activity;} public void setActivity(WY activity) {this.activity = activity;}
@@ -171,6 +172,7 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 		this.actionHandler=actionHandler;
 		if(this.actionHandler!=null) {this.actionHandler.setDebugOnInfo(debugOnInfo);}
 		
+		typeDelegate = fWorkflow.fByEnum(fbWorkflow.getClassPermissionType(),JeeslWorkflowPermissionType.Code.delegate);
 	}
 	
 	public void reset() {reset(true,true,true,true,true);}
@@ -342,6 +344,11 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 		historyWithSignature = !mapSignature.isEmpty();
 		
 		if(debugOnInfo) {logger.info("reloadWorkflow: "+transitions.size()+" "+fbWorkflow.getClassTransition().getSimpleName());}
+	}
+	
+	public void requestDelegate()
+	{
+		if(debugOnInfo) {logger.info("Request Delegate ");}
 	}
 	
 	public void prepareTransition(WT t, boolean autoPerform) throws JeeslConstraintViolationException, JeeslLockingException, UtilsProcessingException, JeeslWorkflowException, JeeslNotFoundException

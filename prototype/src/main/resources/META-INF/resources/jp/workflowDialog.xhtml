@@ -74,6 +74,9 @@
 				<j:slot width="6">
 					<h:form id="fTools">
 						<p:panel header="#{cc.attrs.handler.workflow.currentStage.name[localeCode].lang}" styleClass="jeeslPanel">
+							<f:facet name="actions">
+								<jp:icon value="#{cc.attrs.handler.typeDelegate}" listener="#{cc.attrs.handler.requestDelegate()}" update="#{cc.attrs.update}" oncomplete="PF('#{cc.attrs.widgetVar}').show();"/>
+							</f:facet>
 							<p:panelGrid columns="1" columnClasses="jeeslGrid100">
 								<jp:workflowAction handler="#{cc.attrs.handler}" update="#{cc.attrs.update}" oncomplete="PF('#{cc.attrs.widgetVar}').show();"/>
 							</p:panelGrid>
