@@ -36,9 +36,9 @@ public abstract class AbstractWorkflowActionHandler <WT extends JeeslWorkflowTra
 										AO extends EjbWithId,
 										RE extends JeeslRevisionEntity<?,?,?,?,RA,?>,
 										RA extends JeeslRevisionAttribute<?,?,RE,?,?>,
-										AW extends JeeslWorkflow<?,?,?>,
+										WF extends JeeslWorkflow<?,?,?,?>,
 										WC extends JeeslConstraint<?,?,?,?,WC,?,?,?>>
-					implements JeeslWorkflowActionsHandler<WT,WA,AB,AO,RE,RA,AW,WC>
+					implements JeeslWorkflowActionsHandler<WT,WA,AB,AO,RE,RA,WF,WC>
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractWorkflowActionHandler.class);
 	
@@ -49,12 +49,12 @@ public abstract class AbstractWorkflowActionHandler <WT extends JeeslWorkflowTra
 	protected final JeeslFacesMessageBean bMessage;
 	private final JeeslWorkflowActionCallback<WA> callback;
 
-	private final List<JeeslWorkflowActionHandler<WT,WA,AB,AO,RE,RA,AW,WC>> actionHandlers;
+	private final List<JeeslWorkflowActionHandler<WT,WA,AB,AO,RE,RA,WF,WC>> actionHandlers;
 
 	public AbstractWorkflowActionHandler(String localeCode, JeeslConstraintsBean<WC> bConstraint,
 									JeeslFacesMessageBean bMessage,
 									JeeslWorkflowActionCallback<WA> callback,
-									JeeslWorkflowActionHandler<WT,WA,AB,AO,RE,RA,AW,WC> actionHandler)
+									JeeslWorkflowActionHandler<WT,WA,AB,AO,RE,RA,WF,WC> actionHandler)
 	{
 		this.localeCode=localeCode;
 		this.bConstraint=bConstraint;
@@ -78,7 +78,7 @@ public abstract class AbstractWorkflowActionHandler <WT extends JeeslWorkflowTra
 		}
 	}
 	
-	@Override public <W extends JeeslWithWorkflow<AW>> JeeslWithWorkflow<AW> perform(WT transition, JeeslWithWorkflow<AW> entity, List<WA> actions) throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException, UtilsProcessingException, JeeslWorkflowException
+	@Override public <W extends JeeslWithWorkflow<WF>> JeeslWithWorkflow<WF> perform(WT transition, JeeslWithWorkflow<WF> entity, List<WA> actions) throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException, UtilsProcessingException, JeeslWorkflowException
 	{
 		if(debugOnInfo) {logger.info("Performing Actions "+entity.toString());}
 		for(WA action : actions)
@@ -93,21 +93,21 @@ public abstract class AbstractWorkflowActionHandler <WT extends JeeslWorkflowTra
 		return entity;
 	}
 	
-	protected <W extends JeeslWithWorkflow<AW>> JeeslWithWorkflow<AW> perform(JeeslWithWorkflow<AW> entity, WA action) throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException, UtilsProcessingException, JeeslWorkflowException
+	protected <W extends JeeslWithWorkflow<WF>> JeeslWithWorkflow<WF> perform(JeeslWithWorkflow<WF> entity, WA action) throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException, UtilsProcessingException, JeeslWorkflowException
 	{
 		if(debugOnInfo) {logger.info("Perform "+action.toString());}
 		
 		if(action.getBot().getCode().contentEquals("statusUpdate"))
 		{
 			statusUpdate(entity,action);
-			for(JeeslWorkflowActionHandler<WT,WA,AB,AO,RE,RA,AW,WC> ah : actionHandlers)
+			for(JeeslWorkflowActionHandler<WT,WA,AB,AO,RE,RA,WF,WC> ah : actionHandlers)
 			{
 				entity = ah.statusUpdated(entity);
 			}
 		}
 		else if(action.getBot().getCode().contentEquals("callbackCommand"))
 		{
-			for(JeeslWorkflowActionHandler<WT,WA,AB,AO,RE,RA,AW,WC> ah : actionHandlers)
+			for(JeeslWorkflowActionHandler<WT,WA,AB,AO,RE,RA,WF,WC> ah : actionHandlers)
 			{
 				entity = ah.perform(entity,action);
 			}
@@ -120,7 +120,7 @@ public abstract class AbstractWorkflowActionHandler <WT extends JeeslWorkflowTra
 		
 	}
 	
-	private <W extends JeeslWithWorkflow<AW>> void statusUpdate(JeeslWithWorkflow<AW> entity, WA action)
+	private <W extends JeeslWithWorkflow<WF>> void statusUpdate(JeeslWithWorkflow<WF> entity, WA action)
 	{
 		if(debugOnInfo) {logger.info("statusUpdate "+entity.toString()+" option:"+action.getOption().toString());}
 		try
@@ -133,7 +133,7 @@ public abstract class AbstractWorkflowActionHandler <WT extends JeeslWorkflowTra
 		}
 	}
 	
-	private <W extends JeeslWithWorkflow<AW>> void appendRandomInt(JeeslWithWorkflow<AW> entity, WA action)
+	private <W extends JeeslWithWorkflow<WF>> void appendRandomInt(JeeslWithWorkflow<WF> entity, WA action)
 	{
 		if(entity instanceof EjbWithName)
 		{
@@ -144,7 +144,7 @@ public abstract class AbstractWorkflowActionHandler <WT extends JeeslWorkflowTra
 		
 	}
 
-	@Override public <W extends JeeslWithWorkflow<AW>> void abort(JeeslWithWorkflow<AW> entity)
+	@Override public <W extends JeeslWithWorkflow<WF>> void abort(JeeslWithWorkflow<WF> entity)
 	{
 		try
 		{
@@ -160,7 +160,7 @@ public abstract class AbstractWorkflowActionHandler <WT extends JeeslWorkflowTra
 	@Override public boolean checkVeto(JeeslWithWorkflow<?> entity, WT transition)
 	{
 		boolean veto = false;
-		for(JeeslWorkflowActionHandler<WT,WA,AB,AO,RE,RA,AW,WC> ah : actionHandlers)
+		for(JeeslWorkflowActionHandler<WT,WA,AB,AO,RE,RA,WF,WC> ah : actionHandlers)
 		{
 			if(ah.checkVeto(entity,transition)) {veto=true;}
 		}
@@ -169,7 +169,7 @@ public abstract class AbstractWorkflowActionHandler <WT extends JeeslWorkflowTra
 	
 	@Override public void checkPreconditions(List<WC> constraints, JeeslWithWorkflow<?> entity, List<WA> actions)
 	{
-		for(JeeslWorkflowActionHandler<WT,WA,AB,AO,RE,RA,AW,WC> ah : actionHandlers)
+		for(JeeslWorkflowActionHandler<WT,WA,AB,AO,RE,RA,WF,WC> ah : actionHandlers)
 		{
 			for(WA action : actions)
 			{

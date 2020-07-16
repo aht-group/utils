@@ -23,7 +23,7 @@ public interface JeeslWorkflowActionsHandler<WT extends JeeslWorkflowTransition<
 											AO extends EjbWithId,
 											RE extends JeeslRevisionEntity<?,?,?,?,RA,?>,
 											RA extends JeeslRevisionAttribute<?,?,RE,?,?>,
-											AW extends JeeslWorkflow<?,?,?>,
+											WF extends JeeslWorkflow<?,?,?,?>,
 											WCS extends JeeslConstraint<?,?,?,?,?,?,?,?>>
 {
 	void setDebugOnInfo(boolean debugOnInfo);
@@ -31,6 +31,6 @@ public interface JeeslWorkflowActionsHandler<WT extends JeeslWorkflowTransition<
 	void checkRemark(List<WCS> constraints, WT transition, String remark);
 	boolean checkVeto(JeeslWithWorkflow<?> entity, WT transition);
 	void checkPreconditions(List<WCS> constraints, JeeslWithWorkflow<?> entity, List<WA> actions);
-	<W extends JeeslWithWorkflow<AW>> void abort(JeeslWithWorkflow<AW> entity);
-	<W extends JeeslWithWorkflow<AW>> JeeslWithWorkflow<AW> perform(WT transition, JeeslWithWorkflow<AW> entity, List<WA> actions) throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException, UtilsProcessingException, JeeslWorkflowException;
+	<W extends JeeslWithWorkflow<WF>> void abort(JeeslWithWorkflow<WF> entity);
+	<W extends JeeslWithWorkflow<WF>> JeeslWithWorkflow<WF> perform(WT transition, JeeslWithWorkflow<WF> entity, List<WA> actions) throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException, UtilsProcessingException, JeeslWorkflowException;
 }

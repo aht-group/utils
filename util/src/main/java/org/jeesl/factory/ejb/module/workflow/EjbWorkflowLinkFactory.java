@@ -8,22 +8,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbWorkflowLinkFactory<RE extends JeeslRevisionEntity<?,?,?,?,?,?>,
-									AL extends JeeslWorkflowLink<AW,RE>,
-									AW extends JeeslWorkflow<?,?,?>
+									WL extends JeeslWorkflowLink<WF,RE>,
+									WF extends JeeslWorkflow<?,?,?,?>
 >
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbWorkflowLinkFactory.class);
 	
-	final Class<AL> cLink;
+	final Class<WL> cLink;
     
-	public EjbWorkflowLinkFactory(final Class<AL> cLink)
+	public EjbWorkflowLinkFactory(final Class<WL> cLink)
 	{       
         this.cLink = cLink;
 	}
 	    
-	public AL build(RE entity, AW workflow, JeeslWithWorkflow<AW> object)
+	public WL build(RE entity, WF workflow, JeeslWithWorkflow<WF> object)
 	{
-		AL ejb = null;
+		WL ejb = null;
 		try
 		{
 			ejb = cLink.newInstance();

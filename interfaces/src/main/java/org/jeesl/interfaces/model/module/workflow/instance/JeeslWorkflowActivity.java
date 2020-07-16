@@ -14,7 +14,7 @@ import org.jeesl.interfaces.model.with.primitive.date.EjbWithRecord;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslWorkflowActivity <WT extends JeeslWorkflowTransition<?,?,?,?,?,?>,
-										WF extends JeeslWorkflow<?,?,?>,
+										WF extends JeeslWorkflow<?,?,?,USER>,
 										FRC extends JeeslFileContainer<?,?>,
 										USER extends JeeslUser<?>
 									>

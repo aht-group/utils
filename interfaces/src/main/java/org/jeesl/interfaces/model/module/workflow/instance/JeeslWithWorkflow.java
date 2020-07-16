@@ -2,7 +2,7 @@ package org.jeesl.interfaces.model.module.workflow.instance;
 
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
-public interface JeeslWithWorkflow<AW extends JeeslWorkflow<?,?,?>> extends EjbWithId
+public interface JeeslWithWorkflow<AW extends JeeslWorkflow<?,?,?,?>> extends EjbWithId
 {
 	public static enum Attributes{workflow}
 	

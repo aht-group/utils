@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class SqlWorkflowFactory<WL extends JeeslWorkflowLink<WF,?>,
-								WF extends JeeslWorkflow<?,?,WY>,
+								WF extends JeeslWorkflow<?,?,WY,?>,
 								WY extends JeeslWorkflowActivity<?,WF,?,?>
 >
 {
@@ -30,7 +30,7 @@ public class SqlWorkflowFactory<WL extends JeeslWorkflowLink<WF,?>,
 	}
 	
 	public static <WS extends JeeslWorkflowStage<?,?,?,?,?,?,?>,
-					WF extends JeeslWorkflow<?,WS,?>>
+					WF extends JeeslWorkflow<?,WS,?,?>>
 				String updateCurrentStage(Class<WF> c, WF workflow, WS stage)
 	{
 		StringBuffer sb = new StringBuffer();
@@ -42,7 +42,7 @@ public class SqlWorkflowFactory<WL extends JeeslWorkflowLink<WF,?>,
 		return sb.toString();
 	}
 	
-	public static <WF extends JeeslWorkflow<?,?,?>> String unsetLastActivity(Class<WF> c, WF workflow)
+	public static <WF extends JeeslWorkflow<?,?,?,?>> String unsetLastActivity(Class<WF> c, WF workflow)
 	{
 		StringBuffer sb = new StringBuffer();
 		sb.append("UPDATE ");
@@ -53,7 +53,7 @@ public class SqlWorkflowFactory<WL extends JeeslWorkflowLink<WF,?>,
 		return sb.toString();
 	}
 	
-	public static <WF extends JeeslWorkflow<?,?,?>> String delete(Class<WF> c, WF workflow)
+	public static <WF extends JeeslWorkflow<?,?,?,?>> String delete(Class<WF> c, WF workflow)
 	{
 		StringBuffer sb = new StringBuffer();
 		sb.append("DELETE FROM ");

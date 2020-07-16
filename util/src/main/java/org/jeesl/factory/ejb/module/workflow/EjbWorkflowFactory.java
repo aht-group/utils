@@ -8,22 +8,22 @@ import org.slf4j.LoggerFactory;
 
 public class EjbWorkflowFactory<AP extends JeeslWorkflowProcess<?,?,?,WS>,
 								WS extends JeeslWorkflowStage<?,?,AP,?,?,?,?>,
-								AW extends JeeslWorkflow<AP,WS,?>
+								WF extends JeeslWorkflow<AP,WS,?,?>
 
 >
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbWorkflowFactory.class);
 	
-	final Class<AW> cWorkflow;
+	final Class<WF> cWorkflow;
     
-	public EjbWorkflowFactory(final Class<AW> cWorkflow)
+	public EjbWorkflowFactory(final Class<WF> cWorkflow)
 	{       
         this.cWorkflow = cWorkflow;
 	}
 	    
-	public AW build(AP process)
+	public WF build(AP process)
 	{
-		AW ejb = null;
+		WF ejb = null;
 		try
 		{
 			ejb = cWorkflow.newInstance();

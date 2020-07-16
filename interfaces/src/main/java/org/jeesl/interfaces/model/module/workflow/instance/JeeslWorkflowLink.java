@@ -10,7 +10,7 @@ import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithRefId;
 
-public interface JeeslWorkflowLink <WF extends JeeslWorkflow<?,?,?>,
+public interface JeeslWorkflowLink <WF extends JeeslWorkflow<?,?,?,?>,
 											RE extends JeeslRevisionEntity<?,?,?,?,?,?>
 									>
 		extends Serializable,EjbPersistable,EjbRemoveable,EjbSaveable,

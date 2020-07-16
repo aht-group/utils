@@ -10,33 +10,33 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbWorkflowActivityFactory<WT extends JeeslWorkflowTransition<?,?,?,?,?,?>,
-										AW extends JeeslWorkflow<?,?,AY>,
-										AY extends JeeslWorkflowActivity<WT,AW,?,USER>,
+										WF extends JeeslWorkflow<?,?,WY,USER>,
+										WY extends JeeslWorkflowActivity<WT,WF,?,USER>,
 										USER extends JeeslUser<?>
 
 >
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbWorkflowActivityFactory.class);
 	
-	final Class<AY> cActivity;
+	final Class<WY> cActivity;
     
-	public EjbWorkflowActivityFactory(final Class<AY> cActivity)
+	public EjbWorkflowActivityFactory(final Class<WY> cActivity)
 	{       
         this.cActivity = cActivity;
 	}
 	    
-	public AY build(AW workflow, WT transition, USER user)
+	public WY build(WF workflow, WT transition, USER user)
 	{
 		return build(workflow,transition,user,new Date());
 	}
 	
-	public AY build(AW workflow, WT transition, USER user, Date date)
+	public WY build(WF workflow, WT transition, USER user, Date date)
 	{
 		return build(workflow,transition,user,new Date(),null);
 	}
-	public AY build(AW workflow, WT transition, USER user, Date date, String remark)
+	public WY build(WF workflow, WT transition, USER user, Date date, String remark)
 	{
-		AY ejb = null;
+		WY ejb = null;
 		try
 		{
 			ejb = cActivity.newInstance();

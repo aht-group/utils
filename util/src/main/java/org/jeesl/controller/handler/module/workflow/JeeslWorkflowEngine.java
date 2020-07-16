@@ -78,7 +78,7 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 							RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
 							RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
 							AL extends JeeslWorkflowLink<WF,RE>,
-							WF extends JeeslWorkflow<WP,WS,WY>,
+							WF extends JeeslWorkflow<WP,WS,WY,USER>,
 							WY extends JeeslWorkflowActivity<WT,WF,FRC,USER>,
 							FRC extends JeeslFileContainer<?,?>,
 							WCS extends JeeslConstraint<L,D,?,?,?,?,?,?>,
