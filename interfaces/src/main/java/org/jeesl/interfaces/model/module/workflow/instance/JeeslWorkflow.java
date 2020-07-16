@@ -33,4 +33,7 @@ public interface JeeslWorkflow <WP extends JeeslWorkflowProcess<?,?,?,WS>,
 	
 	WY getLastActivity();
 	void setLastActivity(WY lastActivity);
+	
+	List<USER> getResponsibles();
+	void setResponsibles(List<USER> responsibles);
 }
