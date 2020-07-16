@@ -21,6 +21,7 @@ import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.factory.png.SignatureTranscoder;
 import org.jeesl.interfaces.controller.handler.module.workflow.JeeslWorkflowActionsHandler;
 import org.jeesl.interfaces.controller.handler.module.workflow.JeeslWorkflowMessageHandler;
+import org.jeesl.interfaces.controller.handler.module.workflow.JeeslWorkflowResponsibleHandler;
 import org.jeesl.interfaces.controller.handler.system.io.JeeslFileRepositoryHandler;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplate;
@@ -102,6 +103,7 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 	private JeeslFileRepositoryHandler<?,FRC,?> frh; public JeeslFileRepositoryHandler<?,FRC,?> getFrh() {return frh;}
 	private final JeeslWorkflowCommunicator<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,MD,SR,RE,RA,WF,WY,FRC,USER> communicator;
 	private final JeeslWorkflowActionsHandler<WT,WA,AB,AO,RE,RA,WF,WCS> actionHandler;
+	private final JeeslWorkflowResponsibleHandler<WF,USER> responsibleHandler;
 	
 	private final Comparator<WY> cpActivity;
 	
@@ -137,12 +139,14 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 								JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER> fWorkflow,
 								JeeslWorkflowMessageHandler<WC,SR,RE,MT,MC,MD,WF,WY,USER> messageHandler,
 								JeeslWorkflowActionsHandler<WT,WA,AB,AO,RE,RA,WF,WCS> actionHandler,
+								JeeslWorkflowResponsibleHandler<WF,USER> responsibleHandler,
 								JeeslFileRepositoryHandler<?,FRC,?> frh)
 	{
 		this.fbWorkflow=fbWorkflow;
 		this.fbRevision=fbRevision;
 		
 		this.fWorkflow=fWorkflow;
+		this.responsibleHandler=responsibleHandler;
 		this.frh=frh;
 		
 		debugOnInfo = false;
@@ -396,6 +400,16 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 			
 			workflow.setLastActivity(activity);
 			workflow = fWorkflow.save(workflow);
+			
+			workflow = fWorkflow.loadWorkflow(workflow);
+			workflow.getResponsibles().clear();
+			workflow = fWorkflow.save(workflow);
+			if(responsibleHandler!=null)
+			{
+				workflow.setResponsibles(responsibleHandler.findResponsibles(workflow, entity));
+				if(debugOnInfo) {logger.info("Responsible Users: "+workflow.getResponsibles().size());}
+				workflow = fWorkflow.save(workflow);
+			}
 			
 			communicator.build(activity,entity,communications);
 			

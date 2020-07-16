@@ -14,14 +14,21 @@
     		<s:lang key="fr" translation="Processes"/>
     	</s:langs>
     </s:translation>
-        <s:translation key="jeeslApprovalProcess">
+	<s:translation key="jeeslApprovalProcess">
     	<s:langs>
     		<s:lang key="de" translation="Prozess"/>
     		<s:lang key="en" translation="Process"/>
     		<s:lang key="fr" translation="Process"/>
     	</s:langs>
     </s:translation>
-        <s:translation key="jeeslApprovalStages">
+	<s:translation key="jeeslWorkflowProcessPageContext">
+    	<s:langs>
+    		<s:lang key="de" translation="Page Context"/>
+    		<s:lang key="en" translation="Page Context"/>
+    		<s:lang key="fr" translation="Page Context"/>
+    	</s:langs>
+    </s:translation>  
+	<s:translation key="jeeslApprovalStages">
     	<s:langs>
     		<s:lang key="de" translation="Stages"/>
     		<s:lang key="en" translation="Stages"/>
@@ -35,7 +42,7 @@
     		<s:lang key="fr" translation="Stage"/>
     	</s:langs>
     </s:translation>
-        <s:translation key="jeeslApprovalStageType">
+        <s:translation key="jeeslWorkflowStageType">
     	<s:langs>
     		<s:lang key="de" translation="Type"/>
     		<s:lang key="en" translation="Type"/>

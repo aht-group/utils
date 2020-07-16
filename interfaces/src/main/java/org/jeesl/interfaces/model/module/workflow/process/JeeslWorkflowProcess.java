@@ -26,4 +26,7 @@ public interface JeeslWorkflowProcess <L extends JeeslLang, D extends JeeslDescr
 {
 	List<WS> getStages();
 	void setStages(List<WS> stages);
+	
+	String getPageContext();
+	void setPageContext(String pageContext);
 }

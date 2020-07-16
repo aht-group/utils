@@ -22,5 +22,5 @@ public interface JeeslWorkflowPermissionType <L extends JeeslLang, D extends Jee
 											EjbWithCodeGraphic<G>,
 											JeeslStatus<S,L,D>
 {
-	public enum Code{responsible}
+	public enum Code{responsible,delegate}
 }

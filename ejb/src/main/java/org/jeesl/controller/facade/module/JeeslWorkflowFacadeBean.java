@@ -178,6 +178,13 @@ public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescrip
 			{throw new JeeslNotFoundException("No "+fbWorkflow.getClassLink()+" found for "+owner);}
 		}
 	}
+	
+	@Override public WF loadWorkflow(WF workflow)
+	{
+		workflow = em.find(fbWorkflow.getClassWorkflow(), workflow.getId());
+		workflow.getResponsibles().size();
+		return workflow;
+	}
 
 	@Override public List<WF> fWorkflows(WP process, List<WS> stages) 
 	{
@@ -246,6 +253,23 @@ public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescrip
 		
 		Path<Long> pRefId = link.get(JeeslWorkflowLink.Attributes.refId.toString());
 		predicates.add(pRefId.in(EjbIdFactory.toIds(owners)));
+	
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.select(link);
+		
+		return em.createQuery(cQ).getResultList();
+	}
+	
+	@Override public List<WL> fWorkflowRepsonsibleLinks(USER user)
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<WL> cQ = cB.createQuery(fbWorkflow.getClassLink());
+		Root<WL> link = cQ.from(fbWorkflow.getClassLink());
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		Join<WL,WF> jWorkflow = link.join(JeeslWorkflowLink.Attributes.workflow.toString());
+		ListJoin<WF,USER> jUser = jWorkflow.joinList(JeeslWorkflow.Attributes.responsibles.toString());
+		predicates.add(jUser.in(user));
 	
 		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
 		cQ.select(link);

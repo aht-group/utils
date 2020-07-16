@@ -53,6 +53,9 @@
 								<p:outputLabel value="#{msg.jeeslCode}"/>
 								<p:inputText autocomplete="off" value="#{cc.attrs.bean.process.code}"/>
 								
+								<p:outputLabel value="#{msg.jeeslWorkflowProcessPageContext}"/>
+								<p:inputText autocomplete="off" value="#{cc.attrs.bean.process.pageContext}"/>
+								
 							</p:panelGrid>
 							<j:tabTranslationEditor value="#{cc.attrs.bean.process}" keys="#{cc.attrs.localeKeys}" withDescription="true"/>
 						</p:panel>
@@ -98,7 +101,7 @@
 								</p:selectOneMenu>
 								<h:outputText value="#{cc.attrs.bean.stage.process.context.name[localeCode].lang}: #{cc.attrs.bean.stage.process.name[localeCode].lang}" rendered="#{true or (not cc.attrs.bean.editStage)}"/>
 								
-								<p:outputLabel value="#{msg.jeeslApprovalStageType}"/>
+								<p:outputLabel value="#{msg.jeeslWorkflowStageType}"/>
 								<p:selectOneMenu value="#{cc.attrs.bean.stage.type}" effect="fade" autoWidth="false" rendered="#{cc.attrs.bean.editStage}">
 									<f:selectItems value="#{cc.attrs.bean.stageTypes}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t}"/>
 								</p:selectOneMenu>
