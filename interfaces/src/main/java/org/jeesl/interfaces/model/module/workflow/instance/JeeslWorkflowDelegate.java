@@ -10,13 +10,14 @@ import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
-public interface JeeslWorkflowDelegate <WY extends JeeslWorkflowActivity<?,?,?,USER>,
+public interface JeeslWorkflowDelegate <WY extends JeeslWorkflowActivity<?,?,?,?,USER>,
 										USER extends JeeslUser<?>		
 									>
 		extends Serializable,EjbPersistable,EjbRemoveable,EjbSaveable,
 				EjbWithId,EjbWithParentAttributeResolver
 {
-	public static enum Attributes{activity}
+	public static enum Attributes{activity,recordRequest}
+	public enum Labels{request}
 	
 	public WY getActivity();
 	public void setActivity(WY activity);

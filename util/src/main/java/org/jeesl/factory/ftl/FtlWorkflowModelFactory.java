@@ -21,7 +21,7 @@ public class FtlWorkflowModelFactory <L extends JeeslLang, D extends JeeslDescri
 										WS extends JeeslWorkflowStage<L,D,WP,?,?,WT,?>,
 										WT extends JeeslWorkflowTransition<L,D,WS,?,?,?>,
 										WF extends JeeslWorkflow<WP,WS,WY,USER>,
-										WY extends JeeslWorkflowActivity<WT,WF,?,USER>,
+										WY extends JeeslWorkflowActivity<WT,WF,?,?,USER>,
 										USER extends JeeslUser<?>
 >
 {

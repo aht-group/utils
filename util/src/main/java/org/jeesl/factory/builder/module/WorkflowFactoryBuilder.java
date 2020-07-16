@@ -6,6 +6,7 @@ import org.jeesl.factory.builder.AbstractFactoryBuilder;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowActionFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowActivityFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowCommunicationFactory;
+import org.jeesl.factory.ejb.module.workflow.EjbWorkflowDelegateFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowLinkFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowPermissionFactory;
@@ -65,7 +66,7 @@ public class WorkflowFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 									RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
 									AL extends JeeslWorkflowLink<WF,RE>,
 									WF extends JeeslWorkflow<WP,WS,WY,USER>,
-									WY extends JeeslWorkflowActivity<WT,WF,FRC,USER>,
+									WY extends JeeslWorkflowActivity<WT,WF,WD,FRC,USER>,
 									WD extends JeeslWorkflowDelegate<WY,USER>,
 									FRC extends JeeslFileContainer<?,?>,
 									USER extends JeeslUser<SR>>
@@ -88,6 +89,7 @@ public class WorkflowFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 	private final Class<AL> cLink; public Class<AL> getClassLink() {return cLink;}
 	private final Class<WF> cWorkflow; public Class<WF> getClassWorkflow() {return cWorkflow;}
 	private final Class<WY> cActivity; public Class<WY> getClassActivity() {return cActivity;}
+	private final Class<WD> cDelegate; public Class<WD> getClassDelegate() {return cDelegate;}
 	
 	public WorkflowFactoryBuilder(final Class<L> cL, final Class<D> cD,
 									final Class<WX> cContext,
@@ -104,7 +106,8 @@ public class WorkflowFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 									final Class<AB> cBot,
 									final Class<AL> cLink,
 									final Class<WF> cWorkflow,
-									final Class<WY> cActivity)
+									final Class<WY> cActivity,
+									final Class<WD> cDelegate)
 	{
 		super(cL,cD);
 		this.cContext=cContext;
@@ -122,6 +125,7 @@ public class WorkflowFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 		this.cLink=cLink;
 		this.cWorkflow=cWorkflow;
 		this.cActivity=cActivity;
+		this.cDelegate=cDelegate;
 	}
 	
 	public EjbWorkflowProcessFactory<WP> ejbProcess() {return new EjbWorkflowProcessFactory<>(cProcess);}
@@ -133,6 +137,7 @@ public class WorkflowFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 	public EjbWorkflowLinkFactory<RE,AL,WF> ejbLink() {return new EjbWorkflowLinkFactory<>(cLink);}
 	public EjbWorkflowFactory<WP,WS,WF> ejbWorkflow() {return new EjbWorkflowFactory<>(cWorkflow);}
 	public EjbWorkflowActivityFactory<WT,WF,WY,USER> ejbActivity() {return new EjbWorkflowActivityFactory<>(cActivity);}
+	public EjbWorkflowDelegateFactory<WY,WD,USER> ejbDelegate() {return new EjbWorkflowDelegateFactory<>(cDelegate);}
 	
 	public Comparator<WP> cpProcess(EjbWorkflowProcessComparator.Type type) {return new EjbWorkflowProcessComparator<WX,WP>().factory(type);}
 	

@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 public class SqlWorkflowFactory<WL extends JeeslWorkflowLink<WF,?>,
 								WF extends JeeslWorkflow<?,?,WY,?>,
-								WY extends JeeslWorkflowActivity<?,WF,?,?>
+								WY extends JeeslWorkflowActivity<?,WF,?,?,?>
 >
 {
 	final static Logger logger = LoggerFactory.getLogger(SqlWorkflowFactory.class);

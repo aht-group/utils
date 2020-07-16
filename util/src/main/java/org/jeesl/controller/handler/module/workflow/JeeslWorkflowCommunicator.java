@@ -72,7 +72,7 @@ public class JeeslWorkflowCommunicator <L extends JeeslLang, D extends JeeslDesc
 										RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
 										RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
 										WF extends JeeslWorkflow<WP,WS,WY,USER>,
-										WY extends JeeslWorkflowActivity<WT,WF,FRC,USER>,
+										WY extends JeeslWorkflowActivity<WT,WF,?,FRC,USER>,
 										FRC extends JeeslFileContainer<?,?>,
 										USER extends JeeslUser<SR>
 										>

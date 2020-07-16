@@ -63,7 +63,7 @@ public class WorkflowRestService <L extends JeeslLang, D extends JeeslDescriptio
 									RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
 									AL extends JeeslWorkflowLink<WF,RE>,
 									WF extends JeeslWorkflow<WP,WS,WY,USER>,
-									WY extends JeeslWorkflowActivity<WT,WF,FRC,USER>,
+									WY extends JeeslWorkflowActivity<WT,WF,WD,FRC,USER>,
 									WD extends JeeslWorkflowDelegate<WY,USER>,
 									FRC extends JeeslFileContainer<?,?>,
 									USER extends JeeslUser<SR>>
@@ -109,7 +109,7 @@ public class WorkflowRestService <L extends JeeslLang, D extends JeeslDescriptio
 						RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
 						AL extends JeeslWorkflowLink<WF,RE>,
 						WF extends JeeslWorkflow<WP,WS,WY,USER>,
-						WY extends JeeslWorkflowActivity<WT,WF,FRC,USER>,
+						WY extends JeeslWorkflowActivity<WT,WF,WD,FRC,USER>,
 						WD extends JeeslWorkflowDelegate<WY,USER>,
 						FRC extends JeeslFileContainer<?,?>,
 						USER extends JeeslUser<SR>>

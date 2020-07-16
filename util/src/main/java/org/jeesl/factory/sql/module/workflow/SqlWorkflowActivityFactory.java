@@ -10,7 +10,7 @@ public class SqlWorkflowActivityFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(SqlWorkflowActivityFactory.class);
 	
-	public static <WY extends JeeslWorkflowActivity<?,?,?,?>> String delete(Class<WY> c, WY wy)
+	public static <WY extends JeeslWorkflowActivity<?,?,?,?,?>> String delete(Class<WY> c, WY wy)
 	{
 		StringBuffer sb = new StringBuffer();
 		sb.append("DELETE FROM ");

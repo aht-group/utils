@@ -85,7 +85,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 											RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
 											WL extends JeeslWorkflowLink<WF,RE>,
 											WF extends JeeslWorkflow<WP,WS,WY,USER>,
-											WY extends JeeslWorkflowActivity<WT,WF,FRC,USER>,
+											WY extends JeeslWorkflowActivity<WT,WF,WD,FRC,USER>,
 											WD extends JeeslWorkflowDelegate<WY,USER>,
 											FRC extends JeeslFileContainer<?,?>,
 											G extends JeeslGraphic<L,D,GT,?,?>, GT extends JeeslGraphicType<L,D,GT,G>,

@@ -14,7 +14,7 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslWorkflow <WP extends JeeslWorkflowProcess<?,?,?,WS>,
 								WS extends JeeslWorkflowStage<?,?,WP,?,?,?,?>,
-								WY extends JeeslWorkflowActivity<?,?,?,USER>,
+								WY extends JeeslWorkflowActivity<?,?,?,?,USER>,
 								USER extends JeeslUser<?>		
 									>
 		extends Serializable,EjbPersistable,EjbRemoveable,EjbSaveable,

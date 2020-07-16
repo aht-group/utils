@@ -15,6 +15,7 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslWorkflowActivity <WT extends JeeslWorkflowTransition<?,?,?,?,?,?>,
 										WF extends JeeslWorkflow<?,?,?,USER>,
+										WD extends JeeslWorkflowDelegate<?,USER>,
 										FRC extends JeeslFileContainer<?,?>,
 										USER extends JeeslUser<?>
 									>
@@ -38,4 +39,7 @@ public interface JeeslWorkflowActivity <WT extends JeeslWorkflowTransition<?,?,?
 	
 	String getScreenSignature();
 	void setScreenSignature(String screenSignature);
+	
+	WD getDelegate();
+	void setDelegate(WD delegate);
 }

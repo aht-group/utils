@@ -81,7 +81,7 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 							RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
 							AL extends JeeslWorkflowLink<WF,RE>,
 							WF extends JeeslWorkflow<WP,WS,WY,USER>,
-							WY extends JeeslWorkflowActivity<WT,WF,FRC,USER>,
+							WY extends JeeslWorkflowActivity<WT,WF,WD,FRC,USER>,
 							WD extends JeeslWorkflowDelegate<WY,USER>,
 							FRC extends JeeslFileContainer<?,?>,
 							WCS extends JeeslConstraint<L,D,?,?,?,?,?,?>,
@@ -129,12 +129,15 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 	private WF workflow; public WF getWorkflow() {return workflow;} public void setWorkflow(WF workflow) {this.workflow = workflow;}
 	private WY activity; public WY getActivity() {return activity;} public void setActivity(WY activity) {this.activity = activity;}
 	private WT transition; public WT getTransition() {return transition;}
+	private WD delegate; public WD getDelegate() {return delegate;} public void setDelegate(WD delegate) {this.delegate = delegate;}
 	private String remark; public String getRemark() {return remark;} public void setRemark(String remark) {this.remark = remark;}
 	private String screenSignature; public String getScreenSignature() {return screenSignature;}public void setScreenSignature(String screenSignature) {this.screenSignature = screenSignature;}
 	
 	private boolean historyWithSignature; public boolean isHistoryWithSignature() {return historyWithSignature;}
 	private boolean allowEntityModifications; @Override public boolean isAllowEntityModifications() {return allowEntityModifications;}
 	private boolean allowAdminModifications; @Override public boolean isAllowAdminModifications() {return allowAdminModifications;}
+	private boolean delegationRoles; public boolean isDelegationRoles() {return delegationRoles;}
+
 	@Override public boolean isAllowModifications() {return allowEntityModifications||allowAdminModifications;}
 	
 	public JeeslWorkflowEngine(WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER> fbWorkflow,
@@ -177,14 +180,15 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 		typeDelegate = fWorkflow.fByEnum(fbWorkflow.getClassPermissionType(),JeeslWorkflowPermissionType.Code.delegate);
 	}
 	
-	public void reset() {reset(true,true,true,true,true);}
-	public void clearSignature(){reset(false,false,true,false,false);}
-	private void reset(boolean rTransitions, boolean rTransition, boolean rSignature, boolean rWorkflow, boolean rFrh)
+	public void reset() {reset(true,true,true,true,true,true);}
+	public void clearSignature(){reset(false,false,true,false,false,false);}
+	private void reset(boolean rTransitions, boolean rTransition, boolean rSignature, boolean rWorkflow, boolean rDelegate, boolean rFrh)
 	{
 		if(rTransitions) {transitions.clear();}
 		if(rTransition) {transition = null;}
 		if(rSignature) {screenSignature = null;}
 		if(rWorkflow) {workflow=null;link=null;activities.clear();}
+		if(rDelegate) {delegate=null;}
 //		if(rFrh) {frh.reset();}
 	}
 	
@@ -193,7 +197,7 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 		this.security = security;
 		this.user=user;
 		this.entity = ejb;
-		reset(true,true,true,true,true);
+		reset(true,true,true,true,true,true);
 		workflow = fbWorkflow.ejbWorkflow().build(process);
 	
 		WT transition = fWorkflow.fTransitionBegin(process);
@@ -232,7 +236,7 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 		this.security=security;
 		this.user=user;
 		this.entity = ejb;
-		reset(true,true,true,true,true);
+		reset(true,true,true,true,true,true);
 		
 		link = fWorkflow.fWorkflowLink(process,ejb);
 		workflow = link.getWorkflow();
@@ -257,7 +261,7 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 	public void reloadWorkflow() {reloadWorkflow(true);}
 	public void reloadWorkflow(boolean ejbLoadWorkflow)
 	{
-		reset(true,true,true,false,true);
+		reset(true,true,true,false,true,true);
 		if(workflow==null) {return;}
 		if(ejbLoadWorkflow) {workflow = fWorkflow.find(fbWorkflow.getClassWorkflow(),workflow);}
 		
@@ -270,10 +274,11 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 		boolean hasResponsibleRole = false;
 		allowEntityModifications = false;
 		allowAdminModifications = false;
+		delegationRoles = false;
 		for(WSP wsp : availablePermissions)
 		{
-			
 			boolean wspIsResponsible = wsp.getType().getCode().contentEquals(JeeslWorkflowPermissionType.Code.responsible.toString());
+			boolean wspIsDelegation = wsp.getType().getCode().contentEquals(JeeslWorkflowPermissionType.Code.delegate.toString());
 			boolean userHasRole = security.hasRole(wsp.getRole());
 			boolean wspIsFullAllow = wsp.getModificationLevel().getCode().contentEquals(JeeslWorkflowModificationLevel.Code.full.toString());
 			boolean wspIsAdminAllow = wsp.getModificationLevel().getCode().contentEquals(JeeslWorkflowModificationLevel.Code.admin.toString());
@@ -282,6 +287,10 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 			{
 				if(!levels.contains(wsp.getModificationLevel())) {levels.add(wsp.getModificationLevel());}
 				hasResponsibleRole=true;
+			}
+			if(wspIsDelegation && userHasRole)
+			{
+				delegationRoles = true;
 			}
 			if(wspIsFullAllow && userHasRole)
 			{
@@ -345,12 +354,22 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 		}
 		historyWithSignature = !mapSignature.isEmpty();
 		
+		if(workflow!=null && workflow.getLastActivity()!=null && workflow.getLastActivity().getDelegate()!=null)
+		{
+			delegate = workflow.getLastActivity().getDelegate();
+		}
+		
+		
 		if(debugOnInfo) {logger.info("reloadWorkflow: "+transitions.size()+" "+fbWorkflow.getClassTransition().getSimpleName());}
 	}
 	
 	public void requestDelegate()
 	{
 		if(debugOnInfo) {logger.info("Request Delegate ");}
+		if(delegate==null)
+		{
+			delegate = fbWorkflow.ejbDelegate().build(workflow.getLastActivity(), user);
+		}
 	}
 	
 	public void prepareTransition(WT t, boolean autoPerform) throws JeeslConstraintViolationException, JeeslLockingException, UtilsProcessingException, JeeslWorkflowException, JeeslNotFoundException

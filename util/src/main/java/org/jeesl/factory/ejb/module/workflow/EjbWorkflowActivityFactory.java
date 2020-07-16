@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 public class EjbWorkflowActivityFactory<WT extends JeeslWorkflowTransition<?,?,?,?,?,?>,
 										WF extends JeeslWorkflow<?,?,WY,USER>,
-										WY extends JeeslWorkflowActivity<WT,WF,?,USER>,
+										WY extends JeeslWorkflowActivity<WT,WF,?,?,USER>,
 										USER extends JeeslUser<?>
 
 >

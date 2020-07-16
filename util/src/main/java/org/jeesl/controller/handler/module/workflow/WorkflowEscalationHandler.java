@@ -64,7 +64,7 @@ public class WorkflowEscalationHandler<L extends JeeslLang, D extends JeeslDescr
 					RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
 					WL extends JeeslWorkflowLink<WF,RE>,
 					WF extends JeeslWorkflow<WP,WS,WY,USER>,
-					WY extends JeeslWorkflowActivity<WT,WF,FRC,USER>,
+					WY extends JeeslWorkflowActivity<WT,WF,WD,FRC,USER>,
 					WD extends JeeslWorkflowDelegate<WY,USER>,
 					FRC extends JeeslFileContainer<?,?>,
 					USER extends JeeslUser<SR>>
