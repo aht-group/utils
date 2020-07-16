@@ -23,6 +23,7 @@ import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowBot;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowCommunication;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowDelegate;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowLink;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowContext;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
@@ -65,6 +66,7 @@ public class WorkflowFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 									AL extends JeeslWorkflowLink<WF,RE>,
 									WF extends JeeslWorkflow<WP,WS,WY,USER>,
 									WY extends JeeslWorkflowActivity<WT,WF,FRC,USER>,
+									WD extends JeeslWorkflowDelegate<WY,USER>,
 									FRC extends JeeslFileContainer<?,?>,
 									USER extends JeeslUser<SR>>
 				extends AbstractFactoryBuilder<L,D>

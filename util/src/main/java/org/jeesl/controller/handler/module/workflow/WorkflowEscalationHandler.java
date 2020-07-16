@@ -20,6 +20,7 @@ import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowCommunicat
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWithWorkflow;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowDelegate;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowLink;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowContext;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
@@ -64,22 +65,23 @@ public class WorkflowEscalationHandler<L extends JeeslLang, D extends JeeslDescr
 					WL extends JeeslWorkflowLink<WF,RE>,
 					WF extends JeeslWorkflow<WP,WS,WY,USER>,
 					WY extends JeeslWorkflowActivity<WT,WF,FRC,USER>,
+					WD extends JeeslWorkflowDelegate<WY,USER>,
 					FRC extends JeeslFileContainer<?,?>,
 					USER extends JeeslUser<SR>>
 
 {
 	final static Logger logger = LoggerFactory.getLogger(WorkflowEscalationHandler.class);
 	
-	private final JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,FRC,USER> fWorkflow;
-	private final WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,FRC,USER> fbWorkflow;
+	private final JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fWorkflow;
+	private final WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fbWorkflow;
 
 	private final JeeslWorkflowCommunicator<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,MD,SR,RE,RA,WF,WY,FRC,USER> communicator;
 	
 	private final WTT typeEscalation;
 	private final USER user;
 	
-	public WorkflowEscalationHandler(JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,FRC,USER> fWorkflow,
-									WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,FRC,USER> fbWorkflow,
+	public WorkflowEscalationHandler(JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fWorkflow,
+									WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fbWorkflow,
 									JeeslWorkflowMessageHandler<WC,SR,RE,MT,MC,MD,WF,WY,USER> messageHandler,
 									USER user)
 	{

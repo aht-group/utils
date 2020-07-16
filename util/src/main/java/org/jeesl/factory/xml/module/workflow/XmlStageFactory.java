@@ -47,8 +47,8 @@ public class XmlStageFactory<L extends JeeslLang, D extends JeeslDescription,
 	private XmlTransitionFactory<L,D,WS,WST,WSP,WPT,WML,WT,WTT,SR> xfTransition;
 	private XmlPermissionFactory<L,D,WS,WSP,WPT,WML,SR> xfPermission;
 	
-	private WorkflowFactoryBuilder<L,D,?,?,WS,WST,WSP,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWorkflow;
-	private JeeslWorkflowFacade<L,D,?,?,?,WS,WST,WSP,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fWorkflow;
+	private WorkflowFactoryBuilder<L,D,?,?,WS,WST,WSP,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWorkflow;
+	private JeeslWorkflowFacade<L,D,?,?,?,WS,WST,WSP,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fWorkflow;
 	
 	public XmlStageFactory(QueryWf query) {this(query.getLocaleCode(),query.getStage());}
 	public XmlStageFactory(String localeCode, Stage q)
@@ -62,8 +62,8 @@ public class XmlStageFactory<L extends JeeslLang, D extends JeeslDescription,
 		if(q.isSetPermissions() && q.getPermissions().isSetPermission()) {xfPermission = new XmlPermissionFactory<>(localeCode,q.getPermissions().getPermission().get(0));}
 	}
 	
-	public void lazy(WorkflowFactoryBuilder<L,D,  ?,?,WS,WST,WSP,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWorkflow,
-						JeeslWorkflowFacade<L,D,?,?,?,WS,WST,WSP,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fWorkflow)
+	public void lazy(WorkflowFactoryBuilder<L,D,  ?,?,WS,WST,WSP,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWorkflow,
+						JeeslWorkflowFacade<L,D,?,?,?,WS,WST,WSP,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fWorkflow)
 	{
 		this.fbWorkflow=fbWorkflow;
 		this.fWorkflow=fWorkflow;

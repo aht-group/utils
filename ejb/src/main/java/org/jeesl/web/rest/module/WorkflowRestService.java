@@ -6,7 +6,6 @@ import org.jeesl.factory.builder.module.WorkflowFactoryBuilder;
 import org.jeesl.factory.xml.module.workflow.XmlProcessFactory;
 import org.jeesl.factory.xml.module.workflow.XmlProcessesFactory;
 import org.jeesl.factory.xml.module.workflow.XmlWorkflowFactory;
-import org.jeesl.factory.xml.system.status.XmlContextFactory;
 import org.jeesl.factory.xml.system.status.XmlContextsFactory;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplate;
@@ -16,9 +15,10 @@ import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowAction;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowBot;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowCommunication;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowLink;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowDelegate;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowLink;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowContext;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowModificationLevel;
@@ -64,6 +64,7 @@ public class WorkflowRestService <L extends JeeslLang, D extends JeeslDescriptio
 									AL extends JeeslWorkflowLink<WF,RE>,
 									WF extends JeeslWorkflow<WP,WS,WY,USER>,
 									WY extends JeeslWorkflowActivity<WT,WF,FRC,USER>,
+									WD extends JeeslWorkflowDelegate<WY,USER>,
 									FRC extends JeeslFileContainer<?,?>,
 									USER extends JeeslUser<SR>>
 					extends AbstractJeeslRestService<L,D>
@@ -71,13 +72,13 @@ public class WorkflowRestService <L extends JeeslLang, D extends JeeslDescriptio
 {
 	final static Logger logger = LoggerFactory.getLogger(WorkflowRestService.class);
 	
-	private final JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER> fWorkflow;
-	private final WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER> fbWorkflow;
+	private final JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER> fWorkflow;
+	private final WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER> fbWorkflow;
 	
 	private final XmlProcessFactory<L,D,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,SR> xfProcess;
 	
-	private WorkflowRestService(WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER> fbWorkflow,
-			JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER> fWorkflow)
+	private WorkflowRestService(WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER> fbWorkflow,
+			JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER> fWorkflow)
 	{
 		super(fWorkflow,fbWorkflow.getClassL(),fbWorkflow.getClassD());
 		this.fWorkflow=fWorkflow;
@@ -109,11 +110,12 @@ public class WorkflowRestService <L extends JeeslLang, D extends JeeslDescriptio
 						AL extends JeeslWorkflowLink<WF,RE>,
 						WF extends JeeslWorkflow<WP,WS,WY,USER>,
 						WY extends JeeslWorkflowActivity<WT,WF,FRC,USER>,
+						WD extends JeeslWorkflowDelegate<WY,USER>,
 						FRC extends JeeslFileContainer<?,?>,
 						USER extends JeeslUser<SR>>
-			WorkflowRestService<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER>
-			factory(WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER> fbWorkflow,
-					JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER> fWorkflow)
+			WorkflowRestService<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER>
+			factory(WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER> fbWorkflow,
+					JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER> fWorkflow)
 	{
 		return new WorkflowRestService<>(fbWorkflow,fWorkflow);
 	}

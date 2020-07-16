@@ -34,6 +34,7 @@ import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowCommunicat
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWithWorkflow;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowDelegate;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowLink;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowContext;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
@@ -77,18 +78,19 @@ public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescrip
 									WL extends JeeslWorkflowLink<WF,RE>,
 									WF extends JeeslWorkflow<WP,WS,WY,USER>,
 									WY extends JeeslWorkflowActivity<WT,WF,FRC,USER>,
+									WD extends JeeslWorkflowDelegate<WY,USER>,
 									FRC extends JeeslFileContainer<?,?>,
 									USER extends JeeslUser<SR>>
 					extends JeeslFacadeBean
-					implements JeeslWorkflowFacade<L,D,LOC,AX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,FRC,USER>
+					implements JeeslWorkflowFacade<L,D,LOC,AX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER>
 {	
 	private static final long serialVersionUID = 1L;
 
 	final static Logger logger = LoggerFactory.getLogger(JeeslWorkflowFacadeBean.class);
 	
-	private final WorkflowFactoryBuilder<L,D,AX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,FRC,USER> fbWorkflow;
+	private final WorkflowFactoryBuilder<L,D,AX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fbWorkflow;
 	
-	public JeeslWorkflowFacadeBean(EntityManager em, final WorkflowFactoryBuilder<L,D,AX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,FRC,USER> fbApproval)
+	public JeeslWorkflowFacadeBean(EntityManager em, final WorkflowFactoryBuilder<L,D,AX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fbApproval)
 	{
 		super(em);
 		this.fbWorkflow=fbApproval;

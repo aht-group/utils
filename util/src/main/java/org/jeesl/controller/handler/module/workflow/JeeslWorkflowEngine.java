@@ -35,6 +35,7 @@ import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowCommunicat
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWithWorkflow;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowDelegate;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowLink;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowContext;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
@@ -81,6 +82,7 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 							AL extends JeeslWorkflowLink<WF,RE>,
 							WF extends JeeslWorkflow<WP,WS,WY,USER>,
 							WY extends JeeslWorkflowActivity<WT,WF,FRC,USER>,
+							WD extends JeeslWorkflowDelegate<WY,USER>,
 							FRC extends JeeslFileContainer<?,?>,
 							WCS extends JeeslConstraint<L,D,?,?,?,?,?,?>,
 							USER extends JeeslUser<SR>
@@ -94,9 +96,9 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 	private boolean debugOnInfo; public void setDebugOnInfo(boolean debugOnInfo){this.debugOnInfo=debugOnInfo;if(actionHandler!=null) {actionHandler.setDebugOnInfo(debugOnInfo);}}
 	private boolean allowTransitions; public boolean isAllowTransitions() {return allowTransitions;} public void setAllowTransitions(boolean allowTransitions) {this.allowTransitions = allowTransitions;}
 	
-	private final JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER> fWorkflow;
+	private final JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER> fWorkflow;
 	
-	private final WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER> fbWorkflow;
+	private final WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER> fbWorkflow;
 	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fbRevision;
 	
 	private JeeslJsfSecurityHandler<SR,?,?,?,?,USER> security;
@@ -135,9 +137,9 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 	private boolean allowAdminModifications; @Override public boolean isAllowAdminModifications() {return allowAdminModifications;}
 	@Override public boolean isAllowModifications() {return allowEntityModifications||allowAdminModifications;}
 	
-	public JeeslWorkflowEngine(WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER> fbWorkflow,
+	public JeeslWorkflowEngine(WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER> fbWorkflow,
 								IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fbRevision,
-								JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER> fWorkflow,
+								JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER> fWorkflow,
 								JeeslWorkflowMessageHandler<WC,SR,RE,MT,MC,MD,WF,WY,USER> messageHandler,
 								JeeslWorkflowActionsHandler<WT,WA,AB,AO,RE,RA,WF,WCS> actionHandler,
 								JeeslWorkflowResponsibleHandler<WF,USER> responsibleHandler,
