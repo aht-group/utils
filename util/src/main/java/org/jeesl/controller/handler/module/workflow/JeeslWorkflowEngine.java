@@ -332,6 +332,18 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 		}
 		else if(debugOnInfo) {logger.info("Not Checking Transitions because etiher hasResponsibleRole:"+hasResponsibleRole+" or isSaved"+EjbIdFactory.isSaved(entity));}
 		
+		reloadActivities();
+		
+		if(workflow!=null && workflow.getLastActivity()!=null && workflow.getLastActivity().getDelegate()!=null)
+		{
+			delegate = workflow.getLastActivity().getDelegate();
+		}
+		
+		if(debugOnInfo) {logger.info("reloadWorkflow: "+transitions.size()+" "+fbWorkflow.getClassTransition().getSimpleName());}
+	}
+	
+	private void reloadActivities()
+	{
 		activities.clear();
 		if(EjbIdFactory.isSaved(workflow)){activities.addAll(fWorkflow.allForParent(fbWorkflow.getClassActivity(), workflow));}
 		
@@ -353,14 +365,6 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 			}
 		}
 		historyWithSignature = !mapSignature.isEmpty();
-		
-		if(workflow!=null && workflow.getLastActivity()!=null && workflow.getLastActivity().getDelegate()!=null)
-		{
-			delegate = workflow.getLastActivity().getDelegate();
-		}
-		
-		
-		if(debugOnInfo) {logger.info("reloadWorkflow: "+transitions.size()+" "+fbWorkflow.getClassTransition().getSimpleName());}
 	}
 	
 	public void requestDelegate()
@@ -370,6 +374,12 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 		{
 			delegate = fbWorkflow.ejbDelegate().build(workflow.getLastActivity(), user);
 		}
+	}
+	
+	public void saveDelegate() throws JeeslConstraintViolationException, JeeslLockingException
+	{
+		delegate = fWorkflow.save(delegate);
+		reloadActivities();
 	}
 	
 	public void prepareTransition(WT t, boolean autoPerform) throws JeeslConstraintViolationException, JeeslLockingException, UtilsProcessingException, JeeslWorkflowException, JeeslNotFoundException

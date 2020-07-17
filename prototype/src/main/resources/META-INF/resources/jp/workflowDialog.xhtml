@@ -46,6 +46,7 @@
 									<jtp:symbolizer value="#{a.transition.type}" marginRight="5"/>
 									<h:outputText value="#{a.transition.name[localeCode].lang}" styleClass="jeeslItalic"/>
 								</ui:fragment>
+								
 							</p:column>
 							<p:column rendered="false">
 								<f:facet name="header"><h:outputText value="#{msg.jeeslApprovalTransition}"/></f:facet>
@@ -54,6 +55,12 @@
 							<p:column>
 								<f:facet name="header"><h:outputText value="#{msg.jeeslApprovalTrasitionDestination}"/></f:facet>
 								<h:outputText value="#{a.transition.destination.name[localeCode].lang}" />
+								<ui:fragment rendered="#{not empty a.delegate}">
+									<br/>
+									<jp:icon value="#{cc.attrs.handler.typeDelegate}"/>
+									<h:outputText value="#{a.delegate.userRequest.firstName} #{a.delegate.userRequest.lastName}"/>
+									<j:triCheckmark value="#{a.delegate.result}"/>
+								</ui:fragment>
 							</p:column>
 							<p:column>
 								<f:facet name="header"><h:outputText value="#{msg.jeeslRemark}"/></f:facet>
@@ -80,13 +87,15 @@
 					<h:form id="fDelegate" rendered="#{cc.attrs.handler.delegationRoles}">
 						<p:panel header="#{appLabelBean.labels['WorkflowDelegate']['request'][localeCode].lang}" styleClass="jeeslPanel" rendered="#{not empty cc.attrs.handler.delegate}">
 							<f:facet name="actions">
-								<j:icon value="jeeslSave" listener="#{cc.attrs.handler.saveDelegate()}" update="#{cc.attrs.update}" oncomplete="PF('#{cc.attrs.widgetVar}').show();"/>
+								<j:icon type="jeeslSave" listener="#{cc.attrs.handler.saveDelegate()}" update="#{cc.attrs.update}" oncomplete="PF('#{cc.attrs.widgetVar}').show();"/>
 							</f:facet>
-							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
+							<p:panelGrid columns="2" columnClasses="jeeslGrid30,jeeslGrid70">
 								<jtp:label entity="WorkflowDelegate" code="recordRequest"/>
 								<jp:outputDate value="#{cc.attrs.handler.delegate.recordRequest}" withTime="true"/>
 								<jtp:label entity="WorkflowDelegate" code="userRequest"/>
 								<h:outputText value="#{cc.attrs.handler.delegate.userRequest.firstName} #{cc.attrs.handler.delegate.userRequest.lastName}" />
+								<jtp:label entity="WorkflowDelegate" code="remarkRequest"/>
+								<jtp:inputRemark value="#{cc.attrs.handler.delegate.remarkRequest}"/>
 							</p:panelGrid>
 						</p:panel>
 					</h:form>

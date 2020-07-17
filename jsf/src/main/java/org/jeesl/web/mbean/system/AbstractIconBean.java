@@ -186,8 +186,8 @@ public class AbstractIconBean implements Serializable
 		mapStatic.put("jeeslClean", "ui/jeesl/control/clean.png");
 		mapStatic.put("jeeslSave", "ui/jeesl/control/save.png");						svg.put("jeeslSave","ui/control/save.svg");
 		mapStatic.put("jeeslSearch", "ui/jeesl/control/search.png");					svg.put("jeeslSearch","ui/control/search.svg");
-		mapStatic.put("jeeslDownload", "ui/jeesl/control/download.png");				svg.put("jeeslSearch","ui/control/download.svg");
-		mapStatic.put("jeeslUpload", "ui/jeesl/control/upload.png");					svg.put("jeeslSearch","ui/control/upload.svg");
+		mapStatic.put("jeeslDownload", "ui/jeesl/control/download.png");				svg.put("jeeslDownload","ui/control/download.svg");
+		mapStatic.put("jeeslUpload", "ui/jeesl/control/upload.png");					svg.put("jeeslUpload","ui/control/upload.svg");
 		
 		mapStatic.put("jeeslArrowUp", "ui/jeesl/control/arrow/blue/up.png");
 		mapStatic.put("jeeslArrowDown", "ui/jeesl/control/arrow/blue/down.png");
@@ -204,7 +204,12 @@ public class AbstractIconBean implements Serializable
 		svg.put("jeeslTreeExpandAll", "ui/control/tree/expand-all.svg");
 		svg.put("jeeslTreeCollapseAll", "ui/control/tree/collapse-all.svg");
 		
-		svg.put("jeeslExclamationMark", "ui/info/exclamation-mark.svg");
+		svg.put("jeeslExclamationMark", "ui/info/mark/exclamation.svg");
+		svg.put("jeeslCheckMark", "ui/info/mark/check.svg");
+		svg.put("jeeslCrossMark", "ui/info/mark/cross.svg");
+		svg.put("jeeslQuestionMark", "ui/info/mark/question.svg");
+		
+		
 	}
 	
 	protected void jeeslDm()
