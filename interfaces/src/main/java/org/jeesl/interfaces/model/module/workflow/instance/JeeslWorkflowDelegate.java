@@ -41,6 +41,6 @@ public interface JeeslWorkflowDelegate <WY extends JeeslWorkflowActivity<?,?,?,?
 	String getRemarkApproval();
 	void setRemarkApproval(String remarkApproval);
 
-	public Boolean isResult();
+	public Boolean getResult();
 	public void setResult(Boolean result);
 }

@@ -57,7 +57,7 @@
 								<h:outputText value="#{a.transition.destination.name[localeCode].lang}" />
 								<ui:fragment rendered="#{not empty a.delegate}">
 									<br/>
-									<jp:icon value="#{cc.attrs.handler.typeDelegate}"/>
+									<jtp:symbolizer value="#{cc.attrs.handler.typeDelegate}" marginRight="5"/>
 									<h:outputText value="#{a.delegate.userRequest.firstName} #{a.delegate.userRequest.lastName}"/>
 									<j:triCheckmark value="#{a.delegate.result}"/>
 								</ui:fragment>
@@ -77,10 +77,13 @@
 					<h:form id="fTools">
 						<p:panel header="#{cc.attrs.handler.workflow.currentStage.name[localeCode].lang}" styleClass="jeeslPanel">
 							<f:facet name="actions">
-								<jp:icon value="#{cc.attrs.handler.typeDelegate}" listener="#{cc.attrs.handler.requestDelegate()}" update="#{cc.attrs.update}" oncomplete="PF('#{cc.attrs.widgetVar}').show();"/>
+								<jp:icon value="#{cc.attrs.handler.typeDelegate}" listener="#{cc.attrs.handler.requestDelegate()}" update="#{cc.attrs.update}" oncomplete="PF('#{cc.attrs.widgetVar}').show();" rendered="#{cc.attrs.handler.delegationRoles}"/>
 							</f:facet>
 							<p:panelGrid columns="1" columnClasses="jeeslGrid100">
-								<jp:workflowAction handler="#{cc.attrs.handler}" update="#{cc.attrs.update}" oncomplete="PF('#{cc.attrs.widgetVar}').show();" rendered="#{cc.attrs.handler.delegationRoles}"/>
+								<h:outputText value="#{cc.attrs.handler.workflow.currentStage.description[localeCode].lang}"/>
+							</p:panelGrid>
+							<p:panelGrid columns="1" columnClasses="jeeslGrid100">
+								<jp:workflowAction handler="#{cc.attrs.handler}" update="#{cc.attrs.update}" oncomplete="PF('#{cc.attrs.widgetVar}').show();"/>
 							</p:panelGrid>
 						</p:panel>
 					</h:form>
