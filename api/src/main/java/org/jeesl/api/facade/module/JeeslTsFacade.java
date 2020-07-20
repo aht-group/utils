@@ -66,6 +66,7 @@ public interface JeeslTsFacade <L extends JeeslLang, D extends JeeslDescription,
 	TS fcTimeSeries(SCOPE scope, INT interval, STAT statistic, BRIDGE bridge) throws JeeslConstraintViolationException;
 	List<DATA> fData(TRANSACTION transaction);
 	List<DATA> fData(WS workspace, TS timeSeries);
+	List<DATA> fData(WS workspace, TS timeSeries, int year);
 	List<DATA> fData(WS workspace, TS timeSeries, JeeslTsData.QueryInterval interval, Date from, Date to);
 	List<DATA> fDataLast(List<TS> list);
 	
