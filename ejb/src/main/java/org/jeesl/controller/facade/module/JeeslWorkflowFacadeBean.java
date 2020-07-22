@@ -279,7 +279,7 @@ public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescrip
 		return em.createQuery(cQ).getResultList();
 	}
 	
-	@Override public List<WL> fWorkflowsEscalation(WP process)
+	@Override public List<WL> fWorkflowEscalations(WP process)
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<WL> cQ = cB.createQuery(fbWorkflow.getClassLink());
@@ -299,6 +299,27 @@ public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescrip
 		ListJoin<WS,WT> jTransition = jStage.joinList(JeeslWorkflowStage.Attributes.transitions.toString());
 		Join<WT,WTT> jTransitionType = jTransition.join(JeeslWorkflowTransition.Attributes.type.toString());
 		predicates.add(cB.equal(jTransitionType,this.fByEnum(fbWorkflow.getClassTransitionType(),JeeslWorkflowTransitionType.Code.escalation)));
+		
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.select(link);
+		
+		return em.createQuery(cQ).getResultList();
+	}
+	
+	@Override public List<WL> fWorkflowDelegationReuquests(Boolean result)
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<WL> cQ = cB.createQuery(fbWorkflow.getClassLink());
+		Root<WL> link = cQ.from(fbWorkflow.getClassLink());
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		Join<WL,WF> jWorkflow = link.join(JeeslWorkflowLink.Attributes.workflow.toString());
+		Join<WF,WY> jActivity = jWorkflow.join(JeeslWorkflow.Attributes.lastActivity.toString());
+		Join<WY,WD> jDelegate = jActivity.join(JeeslWorkflowActivity.Attributes.delegate.toString());
+		
+		Path<Boolean> pResult = jDelegate.get(JeeslWorkflowDelegate.Attributes.result.toString());
+		if(result==null) {predicates.add(cB.isNull(pResult));}
+		else {predicates.add(cB.equal(pResult,result));}
 		
 		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
 		cQ.select(link);
@@ -344,4 +365,5 @@ public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescrip
 		TypedQuery<Tuple> tQ = em.createQuery(cQ);
         return jtf.build(tQ.getResultList(),JsonTupleFactory.Type.count);
 	}
+
 }

@@ -24,9 +24,14 @@ public interface JeeslWorkflowProcess <L extends JeeslLang, D extends JeeslDescr
 				EjbWithId,EjbWithCode,EjbWithPosition,
 				JeeslWithContext<WX>,EjbWithLang<L>,EjbWithDescription<D>
 {
+	public enum Attributes{pageContext,escalationHandling}
+	
 	List<WS> getStages();
 	void setStages(List<WS> stages);
 	
 	String getPageContext();
 	void setPageContext(String pageContext);
+	
+	Boolean getEscalationHandling();
+	void setEscalationHandling(Boolean escalationHandling);
 }

@@ -98,7 +98,7 @@ public class WorkflowEscalationHandler<L extends JeeslLang, D extends JeeslDescr
 	public void escalte(WP process)
 	{
 		DateTime now = new DateTime();
-		List<WL> list = fWorkflow.fWorkflowsEscalation(process);
+		List<WL> list = fWorkflow.fWorkflowEscalations(process);
 		logger.info(Workflow.class.getSimpleName()+": "+list.size());
 		for(WL link : list)
 		{

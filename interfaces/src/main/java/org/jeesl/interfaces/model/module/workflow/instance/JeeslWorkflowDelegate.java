@@ -16,7 +16,7 @@ public interface JeeslWorkflowDelegate <WY extends JeeslWorkflowActivity<?,?,?,?
 		extends Serializable,EjbPersistable,EjbRemoveable,EjbSaveable,
 				EjbWithId,EjbWithParentAttributeResolver
 {
-	public static enum Attributes{activity,recordRequest}
+	public static enum Attributes{activity,recordRequest,result}
 	public enum Labels{request}
 	
 	public WY getActivity();

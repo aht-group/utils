@@ -56,6 +56,7 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.web.JeeslJsfSecurityHandler;
 import org.jeesl.interfaces.web.JeeslJsfWorkflowHandler;
 import org.jeesl.util.comparator.ejb.RecordComparator;
+import org.jeesl.util.comparator.pojo.BooleanComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -301,6 +302,14 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 			if(debugOnInfo) {logger.info("\t"+wsp.getPosition()+" "+wsp.getRole().getCode()+":"+userHasRole+" "+JeeslWorkflowPermissionType.Code.responsible+":"+wspIsResponsible+" "+JeeslWorkflowModificationLevel.Code.full+":"+wspIsFullAllow+" "+JeeslWorkflowModificationLevel.Code.admin+":"+allowAdminModifications);}
 		}
 		
+		boolean hasDelegate = false;
+		if(workflow.getLastActivity()!=null && workflow.getLastActivity().getDelegate()!=null)
+		{
+			boolean isApproved = BooleanComparator.active(workflow.getLastActivity().getDelegate().getResult());
+			boolean isUser = user.equals(workflow.getLastActivity().getDelegate().getUserRequest());
+			hasDelegate = isApproved && isUser;
+		}
+		
 		if(EjbIdFactory.isSaved(entity))
 		{
 			List<WT> availableTransitions = fWorkflow.allForParent(fbWorkflow.getClassTransition(), workflow.getCurrentStage());
@@ -315,7 +324,7 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 					if(t.getRole()==null)
 					{
 						if(debugOnInfo) {sb.append(" has no special role, adding if responsible?"+hasResponsibleRole);}
-						if(hasResponsibleRole) {transitions.add(t);}
+						if(hasResponsibleRole || hasDelegate) {transitions.add(t);}
 					}
 					else
 					{

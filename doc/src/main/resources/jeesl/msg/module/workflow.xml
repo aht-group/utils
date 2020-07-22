@@ -20,14 +20,7 @@
     		<s:lang key="en" translation="Process"/>
     		<s:lang key="fr" translation="Process"/>
     	</s:langs>
-    </s:translation>
-	<s:translation key="jeeslWorkflowProcessPageContext">
-    	<s:langs>
-    		<s:lang key="de" translation="Page Context"/>
-    		<s:lang key="en" translation="Page Context"/>
-    		<s:lang key="fr" translation="Page Context"/>
-    	</s:langs>
-    </s:translation>  
+    </s:translation> 
 	<s:translation key="jeeslApprovalStages">
     	<s:langs>
     		<s:lang key="de" translation="Stages"/>
