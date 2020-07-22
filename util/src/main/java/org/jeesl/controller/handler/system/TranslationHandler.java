@@ -46,7 +46,7 @@ public class TranslationHandler<L extends JeeslLang,D extends JeeslDescription,
 
         mapEntities = new HashMap<String,RE>();
 
-        loadAll();
+        //loadAll();
 	}
 
 	private void loadAll()
@@ -100,7 +100,7 @@ public class TranslationHandler<L extends JeeslLang,D extends JeeslDescription,
 				}
 				for (Class cls : classes) {
 					for (Class enumClass : cls.getDeclaredClasses()) {
-						if (enumClass.getName().contains("Attributes") || enumClass.getName().contains("Labels")) {
+						if (enumClass.getName().endsWith("$Attributes") || enumClass.getName().endsWith("$Labels")) {
 							Field[] allFields = enumClass.getFields();
 							for (Field f : allFields) {
 								fields.add(f);
@@ -125,7 +125,7 @@ public class TranslationHandler<L extends JeeslLang,D extends JeeslDescription,
 						foundField= true;
 					}
 				}
-				if(!foundField) 
+				if(!foundField)
 				{
 					logger.warn("Revision-Attribute not entered in UI "+re.getCategory().getPosition()+"."+re.getPosition()+": Class ->"+c.getName() +" -> Field: " + f.getName());
 				}
