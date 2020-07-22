@@ -115,7 +115,8 @@ public class TranslationHandler<L extends JeeslLang,D extends JeeslDescription,
 			}
 
 			//Write log waring when enum attributes are not saved revision attributes in database
-			for (Field f : fields) {
+			for (Field f : fields)
+			{
 				boolean foundField = false;
 				for(RA attribute : re.getAttributes())
 				{
@@ -124,8 +125,9 @@ public class TranslationHandler<L extends JeeslLang,D extends JeeslDescription,
 						foundField= true;
 					}
 				}
-				if(!foundField) {
-					logger.warn("Revision Attribute Not Saved for : Class ->"+c.getName() + " -> Field: " + f.getName());
+				if(!foundField) 
+				{
+					logger.warn("Revision-Attribute not entered in UI "+re.getCategory().getPosition()+"."+re.getPosition()+": Class ->"+c.getName() +" -> Field: " + f.getName());
 				}
 			}
 			//mapEntities.put(c.getSimpleName(),re);
