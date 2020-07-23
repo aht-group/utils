@@ -46,7 +46,7 @@ public class TranslationHandler<L extends JeeslLang,D extends JeeslDescription,
 
         mapEntities = new HashMap<String,RE>();
 
-        //loadAll();
+        loadAll();
 	}
 
 	private void loadAll()
