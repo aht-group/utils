@@ -134,7 +134,7 @@ public class AbstractJeeslMail<L extends JeeslLang,D extends JeeslDescription,LO
 		}
 		
 	}
-	protected void compile(String localeCode, String header, String body) throws IOException
+	private void compile(String localeCode, String header, String body) throws IOException
 	{
 		mapTemplateHeader.put(localeCode, AbstractJeeslMail.compile(header));
 		mapTemplateBody.put(localeCode, AbstractJeeslMail.compile(body));
@@ -148,7 +148,8 @@ public class AbstractJeeslMail<L extends JeeslLang,D extends JeeslDescription,LO
 	protected String processHeader(String localeCode, Map<String,Object> model) throws TemplateException, IOException
 	{
 		StringWriter swHeader = new StringWriter();
-		mapTemplateHeader.get(localeCode).process(model,swHeader);
+		if(mapTemplateHeader.containsKey(localeCode)) {mapTemplateHeader.get(localeCode).process(model,swHeader);}
+		else {swHeader.write("No Header Template for "+localeCode);}
 		swHeader.flush();
 		return swHeader.toString();
 	}
@@ -156,7 +157,8 @@ public class AbstractJeeslMail<L extends JeeslLang,D extends JeeslDescription,LO
 	protected String processBody(String localeCode, Map<String,Object> model) throws TemplateException, IOException
 	{
 		StringWriter swBody = new StringWriter();
-		mapTemplateBody.get(localeCode).process(model,swBody);
+		if(mapTemplateBody.containsKey(localeCode)) {mapTemplateBody.get(localeCode).process(model,swBody);}
+		else {swBody.write("No Header Template for "+localeCode);}
 		swBody.flush();
 		return swBody.toString();
 	}
