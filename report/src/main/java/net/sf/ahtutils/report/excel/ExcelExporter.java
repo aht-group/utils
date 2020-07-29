@@ -37,6 +37,7 @@ import net.sf.ahtutils.xml.report.XlsWorkbook;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Langs;
 import net.sf.exlp.util.io.StringUtil;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 @Deprecated // Use JeeslExcelDomainExporter
 public class ExcelExporter
@@ -96,10 +97,12 @@ public class ExcelExporter
         // Search for the right Workbook definition in the XlsDefinition
         XlsWorkbook workbook = resolver.definition(id);
         
+//        JaxbUtil.info(workbook);
+        
         if (workbook == null)
         {
-                logger.error("Xml Workbook not found in Definition.");
-                workbook = new XlsWorkbook();
+        	logger.error("Xml Workbook not found in Definition.");
+        	workbook = new XlsWorkbook();
         }
 
         // Now lets create the sheets and export the data
@@ -301,17 +304,18 @@ public class ExcelExporter
         }
         String[] headerArray = new String[headers.size()];
         logger.info(StringUtil.stars());
-        logger.info("BEFORE: "+rowNr);
         XlsRowFactory.header(sheet, rowNr, dateHeaderStyle, headers.toArray(headerArray));rowNr++;
-        logger.info("AFTER: "+rowNr);
         
         // Create Content Rows
 		String queryExpression = sheetDefinition.getQuery();
 		if (logger.isTraceEnabled()) {logger.trace("Iterating to find " +queryExpression);}
-		Iterator iterator     = context.iteratePointers(queryExpression);
+		Iterator iterator = context.iteratePointers(queryExpression);
 		logger.debug("Beginning iteration");
+		int iterationCounter=0;
         while (iterator.hasNext())
         {
+        	logger.info("Iteration: "+iterationCounter++);
+        	
             Pointer pointerToItem = (Pointer)iterator.next();
 			if (logger.isTraceEnabled()) {logger.trace("Got pointer: " +pointerToItem.getValue().getClass());}
 			JXPathContext relativeContext = context.getRelativeContext(pointerToItem);
