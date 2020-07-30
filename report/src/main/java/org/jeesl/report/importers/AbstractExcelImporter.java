@@ -134,4 +134,18 @@ public abstract class AbstractExcelImporter <C extends Serializable, I extends I
 	}
 	return propertyNameForColumn;
     }
+    
+    @Override
+    public Map<Short, String> getPreview()
+    {
+        logger.info("Properties and Columns");
+	logger.info("======================");
+	Integer row = 1;
+	Map<Short, String> propertyNameForColumn = DataUtil.debugRow(activeSheet, row);
+	for (Short column : propertyNameForColumn.keySet())
+	{
+	    logger.info("Column " +column + " stores " +propertyNameForColumn.get(column));
+	}
+	return propertyNameForColumn;
+    }
 }

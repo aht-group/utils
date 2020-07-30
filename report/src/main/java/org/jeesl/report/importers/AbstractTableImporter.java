@@ -386,4 +386,13 @@ public abstract class AbstractTableImporter <C extends Serializable, I extends I
         logger.error("Override this method in the concrete implentation (e.g. Excel or Shape File import) or leave as is for debugging");
 	return new HashMap<Short, String>();
     }
+    
+    /**
+     * Get a preview of the contained data
+     */
+    public Map<Short, String> getPreview()
+    {
+        logger.error("Override this method in the concrete implentation (e.g. Excel or Shape File import) or leave as is for debugging");
+	return new HashMap<Short, String>();
+    }
 }

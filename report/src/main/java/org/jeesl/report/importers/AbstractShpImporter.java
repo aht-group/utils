@@ -123,4 +123,19 @@ public abstract class AbstractShpImporter <C extends Serializable, I extends Imp
 	}
 	return propertyNameForColumn;
     }
+    
+    @Override
+    public Map<Short, String> getPreview()
+    {
+        logger.info("Data preview");
+	logger.info("======================");
+	Short row = 2;
+	Map<Short, String> preview = new HashMap<>();
+	for (Short column : propertyNameForColumn.keySet())
+	{
+	    logger.info("Column " +column + " stores " +getCellValue(row, column) +" in second row");
+	    preview.put(column, getCellValue(row, column).toString());
+	}
+	return preview;
+    }
 }
