@@ -37,7 +37,7 @@
 			selection="#{cc.attrs.handler.tb}" selectionMode="single" rowKey="#{p.id}">
 		<f:facet name="header">
 			<aht:pfDataTableHeader id="dth" title="#{cc.attrs.tableHeader}">
-				<h:graphicImage id="giProjectSelection" rendered="#{cc.attrs.allowAdd}" styleClass="pf-panel-header-action-icon" library="gfx" name="#{appIconBean.icon12['jeeslAdd']}"/>
+				<h:graphicImage id="giProjectSelection" rendered="#{cc.attrs.allowAdd}" styleClass="pf-action-icon" library="gfx" name="#{appIconBean.icon12['jeeslAdd']}"/>
 				<p:tooltip for="giProjectSelection" value="#{msg.ttAdd}"/>
 				<aht:icon type="jeeslRemove" rendered="#{(not empty cc.attrs.handler.tb) and (cc.attrs.allowRemove)}" listener="#{cc.attrs.handler.removeEntity()}" update="#{cc.attrs.update}" mayDisappear="true"/>
 			</aht:pfDataTableHeader>

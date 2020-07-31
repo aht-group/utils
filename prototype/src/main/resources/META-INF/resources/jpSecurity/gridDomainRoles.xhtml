@@ -64,7 +64,7 @@
 		                        	<aht:icon type="jeeslCancel" mayDisappear="true" process="@this" listener="#{cc.attrs.bean.cancel()}" update=":#{cc.id}:sUser" tooltip="#{msg.jeeslTtCancel}"/>
 		                        	<aht:icon type="jeeslSave" listener="#{cc.attrs.bean.save()}" update=":#{cc.id}:grid" tooltip="#{msg.ttSave}"/>
 		                        	<aht:icon type="jeeslDelete" mayDisappear="true" listener="#{cc.attrs.bean.rmStaff()}" update=":#{cc.id}:grid" tooltip="#{msg.ttDelete}"/>
-		                        	<h:graphicImage id="giContactSelection" styleClass="pf-panel-header-action-icon" library="gfx" name="#{appIconBean.icon12['jeeslAddressBook']}"/>
+		                        	<h:graphicImage id="giContactSelection" styleClass="pf-action-icon" library="gfx" name="#{appIconBean.icon12['jeeslAddressBook']}"/>
 	                            	<p:tooltip for="giContactSelection" value="#{msg.ttAddressBook}"/>
 	                        </f:facet>
 	                        <composite:renderFacet name="domainDetail"/>
