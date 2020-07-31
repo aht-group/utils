@@ -6,6 +6,7 @@ import org.jeesl.factory.ejb.module.hd.EjbHdFaqFactory;
 import org.jeesl.factory.ejb.module.hd.EjbHdFgaFactory;
 import org.jeesl.factory.ejb.module.hd.EjbHdMessageFactory;
 import org.jeesl.factory.ejb.module.hd.EjbHdTicketFactory;
+import org.jeesl.factory.ftl.module.hd.FtlHdTicketFactory;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCms;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsSection;
@@ -23,28 +24,29 @@ import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketCategory;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketStatus;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
+public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 							R extends JeeslMcsRealm<L,D,R,?>,
 							TICKET extends JeeslHdTicket<R,EVENT,M,FRC>,
 							CAT extends JeeslHdTicketCategory<L,D,R,CAT,?>,
-							STATUS extends JeeslHdTicketStatus<?,?,R,STATUS,?>,
+							STATUS extends JeeslHdTicketStatus<L,D,R,STATUS,?>,
 							EVENT extends JeeslHdEvent<TICKET,CAT,STATUS,TYPE,LEVEL,PRIORITY,USER>,
 							TYPE extends JeeslHdEventType<L,D,TYPE,?>,
 							LEVEL extends JeeslHdLevel<L,D,R,LEVEL,?>,
 							PRIORITY extends JeeslHdPriority<L,D,R,PRIORITY,?>,
 							MSG extends JeeslHdMessage<TICKET,M,SCOPE,USER>,
 							M extends JeeslMarkup<MT>,
-							MT extends JeeslIoCmsMarkupType<?,?,MT,?>,
+							MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
 							FAQ extends JeeslHdFaq<L,D,R,CAT,SCOPE>,
 							SCOPE extends JeeslHdScope<L,D,SCOPE,?>,
 							FGA extends JeeslHdFga<FAQ,DOC,SEC>,
-							DOC extends JeeslIoCms<L,D,?,SEC,?>,
+							DOC extends JeeslIoCms<L,D,?,SEC,LOC>,
 							SEC extends JeeslIoCmsSection<L,SEC>,
 							FRC extends JeeslFileContainer<?,?>,
 							USER extends JeeslSimpleUser>
@@ -116,4 +118,6 @@ public class HdFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 	public EjbHdMessageFactory<TICKET,MSG,M,MT,SCOPE,USER> ejbMessage() {return new EjbHdMessageFactory<>(this);}
 	public EjbHdFaqFactory<R,CAT,FAQ,SCOPE> ejbFaq() {return new EjbHdFaqFactory<>(this);}
 	public EjbHdFgaFactory<FAQ,FGA,DOC,SEC> ejbFga() {return new EjbHdFgaFactory<>(this);}
+	
+	public FtlHdTicketFactory<L,D,LOC,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,FRC,USER> ftlTicket() {return new FtlHdTicketFactory<>();}
 }

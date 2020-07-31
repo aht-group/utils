@@ -24,7 +24,7 @@ public interface JeeslWorkflowProcess <L extends JeeslLang, D extends JeeslDescr
 				EjbWithId,EjbWithCode,EjbWithPosition,
 				JeeslWithContext<WX>,EjbWithLang<L>,EjbWithDescription<D>
 {
-	public enum Attributes{pageContext,escalationHandling}
+	public enum Attributes{pageContext,escalationHandling,includeInDashboard}
 	
 	List<WS> getStages();
 	void setStages(List<WS> stages);
@@ -34,4 +34,7 @@ public interface JeeslWorkflowProcess <L extends JeeslLang, D extends JeeslDescr
 	
 	Boolean getEscalationHandling();
 	void setEscalationHandling(Boolean escalationHandling);
+	
+	Boolean getIncludeInDashboard();
+	void setIncludeInDashboard(Boolean includeInDashboard);
 }

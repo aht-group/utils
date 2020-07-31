@@ -17,4 +17,5 @@ public interface SsiMappingProcessor <MAPPING extends JeeslIoSsiMapping<?,?>,
 	void evaluateData(List<DATA> datas);
 	void linkData(List<DATA> datas);
 	void ignoreData(List<DATA> datas);
+	void unignoreData(List<DATA> datas);
 }

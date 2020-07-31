@@ -28,8 +28,12 @@ public interface JeeslTemplateHandler <L extends JeeslLang,D extends JeeslDescri
 	String getRecipients();
 	void setRecipients(String recipients);
 	
+	void addLocale(LOC locale);
 	List<LOC> getLocales();
+	
 	List<DEFINITION> getDefinitons();
+	void initDefinitions(List<DEFINITION> definitions);
+	
 	List<TOKEN> getTokens();
 	
 	String toHeader(DEFINITION definition, LOC locale);

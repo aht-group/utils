@@ -80,7 +80,7 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 	private MSG message; public MSG getMessage() {return message;} public void setMessage(MSG message) {this.message = message;}
 	protected Section ofxMessage; public Section getOfxMessage() {return ofxMessage;}
 	
-	public AbstractHdSupportBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,FRC,USER> fbHd)
+	public AbstractHdSupportBean(HdFactoryBuilder<L,D,LOC,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,FRC,USER> fbHd)
 	{
 		super(fbHd);
 		
@@ -93,7 +93,7 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 	}
 
 	protected void postConstructHdSupport(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER> fHd,
+									JeeslHdFacade<L,D,LOC,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER> fHd,
 									R realm,
 									USER supporter)
 	{

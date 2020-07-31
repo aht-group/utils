@@ -272,6 +272,37 @@ public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescrip
 		Join<WL,WF> jWorkflow = link.join(JeeslWorkflowLink.Attributes.workflow.toString());
 		ListJoin<WF,USER> jUser = jWorkflow.joinList(JeeslWorkflow.Attributes.responsibles.toString());
 		predicates.add(jUser.in(user));
+		
+		Join<WF,WP> jProcess = jWorkflow.join(JeeslWorkflow.Attributes.process.toString());
+		Path<Boolean> pBoolean = jProcess.get(JeeslWorkflowProcess.Attributes.includeInDashboard.toString());
+		predicates.add(cB.isTrue(pBoolean));
+	
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.select(link);
+		
+		return em.createQuery(cQ).getResultList();
+	}
+	
+	@Override public List<WL> fWorkflowDelegationLinks(USER user)
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<WL> cQ = cB.createQuery(fbWorkflow.getClassLink());
+		Root<WL> link = cQ.from(fbWorkflow.getClassLink());
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		Join<WL,WF> jWorkflow = link.join(JeeslWorkflowLink.Attributes.workflow.toString());
+		Join<WF,WY> jActivity = jWorkflow.join(JeeslWorkflow.Attributes.lastActivity.toString());
+		Join<WY,WD> jDelegate = jActivity.join(JeeslWorkflowActivity.Attributes.delegate.toString());
+		
+		Path<Boolean> pResult = jDelegate.get(JeeslWorkflowDelegate.Attributes.result.toString());
+		predicates.add(cB.isTrue(pResult));
+		
+		Join<WD,USER> jUser = jDelegate.join(JeeslWorkflowDelegate.Attributes.userRequest.toString());
+		predicates.add(jUser.in(user));
+		
+		Join<WF,WP> jProcess = jWorkflow.join(JeeslWorkflow.Attributes.process.toString());
+		Path<Boolean> pBoolean = jProcess.get(JeeslWorkflowProcess.Attributes.includeInDashboard.toString());
+		predicates.add(cB.isTrue(pBoolean));
 	
 		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
 		cQ.select(link);

@@ -88,4 +88,26 @@ public abstract class AbstractSsiDomainProcessor<L extends JeeslLang,D extends J
 		}
 		catch (JeeslConstraintViolationException | JeeslLockingException e) {e.printStackTrace();}
 	}
+	
+	@Override public void unignoreData(List<DATA> datas)
+	{
+		for(DATA d : datas)
+		{
+			if(d.getLink().getCode().equals(JeeslIoSsiLink.Code.ignore.toString()))
+			{
+				unignoreData(d);
+			}
+		}
+	}
+	private void unignoreData(DATA data)
+	{
+		logger.info("UnIgnoring "+data.toString());
+		try
+		{
+			data.setLocalId(null);
+			data.setLink(linkUnlinked);
+			fSsi.save(data);
+		}
+		catch (JeeslConstraintViolationException | JeeslLockingException e) {e.printStackTrace();}
+	}
 }

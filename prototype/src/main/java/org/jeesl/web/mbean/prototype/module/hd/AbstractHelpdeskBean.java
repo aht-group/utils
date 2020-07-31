@@ -69,9 +69,9 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractHelpdeskBean.class);
 	
-	protected final HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,FRC,USER> fbHd;
+	protected final HdFactoryBuilder<L,D,LOC,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,FRC,USER> fbHd;
 
-	protected JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER> fHd;
+	protected JeeslHdFacade<L,D,LOC,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER> fHd;
 	
 	protected final JeeslMarkupSectionFactory<M> ofxMarkup;
 	
@@ -94,7 +94,7 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 	
 	protected Section ofxUser; public Section getOfxUser() {return ofxUser;}
 	
-	public AbstractHelpdeskBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,FRC,USER> fbHd)
+	public AbstractHelpdeskBean(HdFactoryBuilder<L,D,LOC,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,FRC,USER> fbHd)
 	{
 		super(fbHd.getClassL(),fbHd.getClassD());
 		this.fbHd=fbHd;
@@ -112,7 +112,7 @@ public abstract class AbstractHelpdeskBean <L extends JeeslLang, D extends Jeesl
 	}
 
 	protected void postConstructHd(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER> fHd,
+									JeeslHdFacade<L,D,LOC,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER> fHd,
 									R realm)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);

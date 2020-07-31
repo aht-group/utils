@@ -72,7 +72,7 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 	
 	private USER reporter;
 	
-	public AbstractHdTicketBean(HdFactoryBuilder<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,FRC,USER> fbHd)
+	public AbstractHdTicketBean(HdFactoryBuilder<L,D,LOC,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,FRC,USER> fbHd)
 	{
 		super(fbHd);
 		
@@ -80,7 +80,7 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 	}
 
 	protected void postConstructHdTicket(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslHdFacade<L,D,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER> fHd,
+									JeeslHdFacade<L,D,LOC,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER> fHd,
 									R realm,
 									USER reporter)
 	{
@@ -97,7 +97,6 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 	@Override public void toggled(Class<?> c) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		// TODO Auto-generated method stub
-		
 	}
 	
 	private void reloadTickets()
@@ -138,7 +137,11 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 	public void saveTicket() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		fbHd.ejbEvent().converter(fHd,lastEvent);
-		if(EjbIdFactory.isUnSaved(ticket)) {ticket = fHd.saveHdTicket(ticket,lastEvent,reporter);}
+		if(EjbIdFactory.isUnSaved(ticket))
+		{
+			ticket = fHd.saveHdTicket(ticket,lastEvent,reporter);
+			callBackNewTicket();
+		}
 		else {ticket = fHd.save(ticket);}
 		editHandler.saved(ticket);
 		ofxUser = ofxMarkup.build(ticket.getMarkupUser());
@@ -150,6 +153,8 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		}
 		reloadTickets();
 	}
+	
+	protected abstract void callBackNewTicket();
 	
 	@Override public void callbackFrContainerSaved(EjbWithId id) throws JeeslConstraintViolationException, JeeslLockingException{}
 	@Override public void callbackFrMetaSelected() {}

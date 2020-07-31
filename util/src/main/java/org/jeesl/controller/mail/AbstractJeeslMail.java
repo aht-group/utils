@@ -65,6 +65,7 @@ public class AbstractJeeslMail<L extends JeeslLang,D extends JeeslDescription,LO
 	protected final JeeslIoTemplateFacade<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fTemplate;
 	protected final JeeslIoMailFacade<L,D,MAILCAT,MAIL,STATUS,RETENTION,FRC> fMail;
 	
+	protected JeeslTemplateHandler<L,D,LOC,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> mth;
 	protected final FreemarkerIoTemplateEngine<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fmEngine;
 
 	protected final Map<String,Template> mapTemplateHeader;
@@ -111,6 +112,12 @@ public class AbstractJeeslMail<L extends JeeslLang,D extends JeeslDescription,LO
 			fmEngine.addTemplate(template);
 		}
 		catch (JeeslNotFoundException e) {e.printStackTrace();}
+		
+		if(mth!=null)
+		{
+
+			mth.initDefinitions(this.toDefinitions(fMail.fByEnum(fbTemplate.getClassType(), JeeslTemplateChannel.Code.email)));
+		}
 	}
 	
 	public List<DEFINITION> toDefinitions(CHANNEL channel)
@@ -123,6 +130,10 @@ public class AbstractJeeslMail<L extends JeeslLang,D extends JeeslDescription,LO
 		return result;
 	}
 	
+	protected void compile() throws IOException
+	{
+		this.compile(mth);
+	}
 	protected void compile(JeeslTemplateHandler<L,D,LOC,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> handler) throws IOException
 	{
 		for(DEFINITION def : handler.getDefinitons())
@@ -132,7 +143,6 @@ public class AbstractJeeslMail<L extends JeeslLang,D extends JeeslDescription,LO
 				compile(loc.getCode(),handler.toHeader(def,loc),handler.toBody(def,loc));
 			}
 		}
-		
 	}
 	private void compile(String localeCode, String header, String body) throws IOException
 	{

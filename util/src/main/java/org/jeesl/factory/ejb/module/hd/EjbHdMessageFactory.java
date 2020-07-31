@@ -23,11 +23,11 @@ public class EjbHdMessageFactory<TICKET extends JeeslHdTicket<?,?,M,?>,
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbHdMessageFactory.class);
 	
-	protected final HdFactoryBuilder<?,?,?,TICKET,?,?,?,?,?,?,MSG,M,MT,?,SCOPE,?,?,?,?,USER> fbHd;
+	protected final HdFactoryBuilder<?,?,?,?,TICKET,?,?,?,?,?,?,MSG,M,MT,?,SCOPE,?,?,?,?,USER> fbHd;
 	
 	private final EjbIoCmsMarkupFactory<M,MT> efMarkup;
 
-    public EjbHdMessageFactory(HdFactoryBuilder<?,?,?,TICKET,?,?,?,?,?,?,MSG,M,MT,?,SCOPE,?,?,?,?,USER> fbHd)
+    public EjbHdMessageFactory(HdFactoryBuilder<?,?,?,?,TICKET,?,?,?,?,?,?,MSG,M,MT,?,SCOPE,?,?,?,?,USER> fbHd)
     {
         this.fbHd = fbHd;
         efMarkup = new EjbIoCmsMarkupFactory<>(fbHd.getClassMarkup());

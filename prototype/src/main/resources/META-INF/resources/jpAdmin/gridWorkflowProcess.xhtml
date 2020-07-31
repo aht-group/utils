@@ -55,10 +55,13 @@
 								
 								<p:outputLabel value="#{msg.jeeslWorkflowProcessPageContext}"/>
 								<p:inputText autocomplete="off" value="#{cc.attrs.bean.process.pageContext}"/>
-								
-								<jtp:label entity="WorkflowProcess" code="escalationHandling"/>
+							</p:panelGrid>
+							<p:panelGrid columns="4" columnClasses="jeeslGrid10,jeeslGrid40,jeeslGrid10,jeeslGrid40">
 								<p:selectBooleanCheckbox value="#{cc.attrs.bean.process.escalationHandling}"/>
+								<jtp:label entity="WorkflowProcess" code="escalationHandling"/>
 								
+								<p:selectBooleanCheckbox value="#{cc.attrs.bean.process.includeInDashboard}"/>
+								<jtp:label entity="WorkflowProcess" code="includeInDashboard"/>
 							</p:panelGrid>
 							<j:tabTranslationEditor value="#{cc.attrs.bean.process}" keys="#{cc.attrs.localeKeys}" withDescription="true"/>
 						</p:panel>
