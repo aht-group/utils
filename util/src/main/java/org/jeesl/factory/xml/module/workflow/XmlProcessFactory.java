@@ -10,6 +10,7 @@ import org.jeesl.factory.xml.system.lang.XmlDescriptionsFactory;
 import org.jeesl.factory.xml.system.lang.XmlLangsFactory;
 import org.jeesl.factory.xml.system.status.XmlContextFactory;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowContext;
+import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowDocument;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowModificationLevel;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowPermissionType;
@@ -29,6 +30,7 @@ import org.slf4j.LoggerFactory;
 public class XmlProcessFactory<L extends JeeslLang, D extends JeeslDescription,
 								WX extends JeeslWorkflowContext<L,D,WX,?>,
 								WP extends JeeslWorkflowProcess<L,D,WX,WS>,
+								WPD extends JeeslWorkflowDocument<L,D,WP>,
 								WS extends JeeslWorkflowStage<L,D,WP,WST,WSP,WT,?>,
 								WST extends JeeslWorkflowStageType<L,D,WST,?>,
 								WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
@@ -47,7 +49,7 @@ public class XmlProcessFactory<L extends JeeslLang, D extends JeeslDescription,
 	private XmlContextFactory<L,D,WX> xfContext;
 	private XmlStageFactory<L,D,WS,WST,WSP,WPT,WML,WT,WTT,SR> xfStage;
 	
-	private WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,?,?,?,WT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWorkflow;
+	private WorkflowFactoryBuilder<L,D,WX,WP,WPD,WS,WST,?,?,?,WT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWorkflow;
 	private JeeslWorkflowFacade<L,D,?,WX,WP,WS,WST,?,?,?,WT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fWorkflow;
 	
 	public XmlProcessFactory(QueryWf query) {this(query.getLocaleCode(),query.getProcess());}
@@ -60,7 +62,7 @@ public class XmlProcessFactory<L extends JeeslLang, D extends JeeslDescription,
 		if(q.isSetStage()) {xfStage = new XmlStageFactory<>(localeCode,q.getStage().get(0));}
 	}
 	
-	public void lazy(WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,WSP,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWorkflow,
+	public void lazy(WorkflowFactoryBuilder<L,D,WX,WP,WPD,WS,WST,WSP,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWorkflow,
 					JeeslWorkflowFacade<L,D,?,WX,WP,WS,WST,WSP,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fWorkflow)
 	{
 		this.fbWorkflow=fbWorkflow;

@@ -23,6 +23,7 @@ import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowDelegate;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowLink;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowContext;
+import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowDocument;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowModificationLevel;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowPermissionType;
@@ -43,37 +44,38 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class WorkflowEscalationHandler<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
-					WX extends JeeslWorkflowContext<L,D,WX,?>,
-					WP extends JeeslWorkflowProcess<L,D,WX,WS>,
-					WS extends JeeslWorkflowStage<L,D,WP,WST,WSP,WT,?>,
-					WST extends JeeslWorkflowStageType<L,D,WST,?>,
-					WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
-					WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
-					WML extends JeeslWorkflowModificationLevel<L,D,WML,?>,
-					WT extends JeeslWorkflowTransition<L,D,WS,WTT,SR,?>,
-					WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
-					WC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
-					WA extends JeeslWorkflowAction<WT,AB,AO,RE,RA>,
-					AB extends JeeslWorkflowBot<AB,L,D,?>,
-					AO extends EjbWithId,
-					MT extends JeeslIoTemplate<L,D,?,?,MD,?>,
-					MC extends JeeslTemplateChannel<L,D,MC,?>,
-					MD extends JeeslIoTemplateDefinition<D,MC,MT>,
-					SR extends JeeslSecurityRole<L,D,?,?,?,?,USER>,
-					RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
-					RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
-					WL extends JeeslWorkflowLink<WF,RE>,
-					WF extends JeeslWorkflow<WP,WS,WY,USER>,
-					WY extends JeeslWorkflowActivity<WT,WF,WD,FRC,USER>,
-					WD extends JeeslWorkflowDelegate<WY,USER>,
-					FRC extends JeeslFileContainer<?,?>,
-					USER extends JeeslUser<SR>>
+									WX extends JeeslWorkflowContext<L,D,WX,?>,
+									WP extends JeeslWorkflowProcess<L,D,WX,WS>,
+									WPD extends JeeslWorkflowDocument<L,D,WP>,
+									WS extends JeeslWorkflowStage<L,D,WP,WST,WSP,WT,?>,
+									WST extends JeeslWorkflowStageType<L,D,WST,?>,
+									WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
+									WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
+									WML extends JeeslWorkflowModificationLevel<L,D,WML,?>,
+									WT extends JeeslWorkflowTransition<L,D,WS,WTT,SR,?>,
+									WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
+									WC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
+									WA extends JeeslWorkflowAction<WT,AB,AO,RE,RA>,
+									AB extends JeeslWorkflowBot<AB,L,D,?>,
+									AO extends EjbWithId,
+									MT extends JeeslIoTemplate<L,D,?,?,MD,?>,
+									MC extends JeeslTemplateChannel<L,D,MC,?>,
+									MD extends JeeslIoTemplateDefinition<D,MC,MT>,
+									SR extends JeeslSecurityRole<L,D,?,?,?,?,USER>,
+									RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
+									RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
+									WL extends JeeslWorkflowLink<WF,RE>,
+									WF extends JeeslWorkflow<WP,WS,WY,USER>,
+									WY extends JeeslWorkflowActivity<WT,WF,WD,FRC,USER>,
+									WD extends JeeslWorkflowDelegate<WY,USER>,
+									FRC extends JeeslFileContainer<?,?>,
+									USER extends JeeslUser<SR>>
 
 {
 	final static Logger logger = LoggerFactory.getLogger(WorkflowEscalationHandler.class);
 	
 	private final JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fWorkflow;
-	private final WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fbWorkflow;
+	private final WorkflowFactoryBuilder<L,D,WX,WP,WPD,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fbWorkflow;
 
 	private final JeeslWorkflowCommunicator<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,MD,SR,RE,RA,WF,WY,FRC,USER> communicator;
 	
@@ -81,7 +83,7 @@ public class WorkflowEscalationHandler<L extends JeeslLang, D extends JeeslDescr
 	private final USER user;
 	
 	public WorkflowEscalationHandler(JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fWorkflow,
-									WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fbWorkflow,
+									WorkflowFactoryBuilder<L,D,WX,WP,WPD,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fbWorkflow,
 									JeeslWorkflowMessageHandler<WC,SR,RE,MT,MC,MD,WF,WY,USER> messageHandler,
 									USER user)
 	{
