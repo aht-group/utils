@@ -22,6 +22,18 @@
 							<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addIssue()}" update=":#{cc.id}:sIssue" tooltip="#{msg.jeeslItsIssueAdd}"/>
 						</p:outputPanel>
 					</f:facet>
+					<p:treeTable id="tTable" value="#{cc.attrs.bean.tree}" var="node" 
+							selection="#{cc.attrs.bean.node}" selectionMode="single">
+			            <p:ajax event="select" listener="#{cc.attrs.bean.onNodeSelect}" update=":#{cc.id}:sIssue"/>
+			            <p:ajax event="expand" listener="#{cc.attrs.bean.onNodeExpand}"/>
+						<p:ajax event="collapse" listener="#{cc.attrs.bean.onNodeCollapse}"/>
+			            <p:column headerText="#{msg.jeeslName}" sortBy="#{node.name}">
+			                <h:outputText value="#{node.name}" />
+			            </p:column>
+			            <p:column headerText="#{msg.jeeslCode}" sortBy="#{node.code}">
+			                <h:outputText value="#{node.code}" />
+			            </p:column>
+			        </p:treeTable>
 					<p:tree id="tTree" value="#{cc.attrs.bean.tree}" var="node" 
 							selection="#{cc.attrs.bean.node}" selectionMode="single"
 			                draggable="true" droppable="true" dragdropScope="demo">
@@ -30,7 +42,6 @@
 			            <p:ajax event="expand" listener="#{cc.attrs.bean.onNodeExpand}" update="@form:cActions" />
 						<p:ajax event="collapse" listener="#{cc.attrs.bean.onNodeCollapse}" update="@form:cActions" />
 			            <p:treeNode>
-			            	
 			                <h:outputText value="#{node.name}" />
 			            </p:treeNode>
 			        </p:tree>

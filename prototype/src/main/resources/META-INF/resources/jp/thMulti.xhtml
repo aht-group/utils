@@ -20,11 +20,9 @@
 				   update="#{cc.attrs.update}"
 				   actionListener="#{cc.attrs.handler.toggle(var)}"
 				   process="#{cc.attrs.process}" 
-				   immediate="#{cc.attrs.immediate}">
+				   immediate="#{cc.attrs.immediate}"
+				   styleClass="#{cc.attrs.handler.map[var] ? 'pf-action-icon' : 'pf-action-icon pf-inactive'}">
 				<h:graphicImage id="image"
-						styleClass="#{cc.attrs.header ?
-							(cc.attrs.handler.map[var] ? 'jeeslPanelHeaderIcon' : 'jeeslPanelHeaderIcon jeeslDesaturate') :
-							(cc.attrs.handler.map[var] ? '' : 'jeeslDesaturate')}"
 						height="#{cc.attrs.height}" 
 						value="/image/symbolizer/graphic/#{var.class.name}/#{cc.attrs.height}/#{var.id}">
 				</h:graphicImage>

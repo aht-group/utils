@@ -12,12 +12,12 @@
 	</composite:interface>
         
 	<composite:implementation>
-        <h:outputText value="#{cc.attrs.title}"/>
+        <h:outputText value="#{cc.attrs.title}" class="pf-datatable-header-title"/>
         
         <c:if test="#{!empty cc.facets.header}">
 			<composite:renderFacet name="header"/>
 		</c:if>
-        <div class="pf-dataTable-header-action-icon">
+        <div class="pf-datatable-header-actions">
             <composite:insertChildren/>
         </div>
 	</composite:implementation>

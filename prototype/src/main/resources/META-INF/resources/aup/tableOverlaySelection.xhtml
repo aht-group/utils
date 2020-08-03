@@ -21,7 +21,7 @@
 			selection="#{cc.attrs.handler.tb}" selectionMode="single" rowKey="#{var.id}">
 			<f:facet name="header">
 				<aht:pfDataTableHeader id="dth" title="#{msg.aupSecurityActionTemplates}">
-					<h:graphicImage id="giAdd" styleClass="pf-panel-header-action-icon" library="gfx" name="#{iconBean.icon12['aupAdd']}"/>
+					<h:graphicImage id="giAdd" styleClass="pf-action-icon" library="gfx" name="#{iconBean.icon12['aupAdd']}"/>
 					<aht:icon rendered="#{not empty cc.attrs.handler.tb}" type="aupRm" mayDisappear="true" listener="#{cc.attrs.handler.rmTb()}" update="@form" tooltip="#{msg.ttRemove}"/>
 					<p:tooltip for="giAdd" value="#{msg.ttAdd}"/>
 				</aht:pfDataTableHeader>

@@ -7,7 +7,7 @@
     xmlns:composite="http://java.sun.com/jsf/composite">
     
 	<composite:interface>
-		<composite:attribute name="styleClass" required="false" default="pf-panel-header-action-icon"/>
+		<composite:attribute name="styleClass" required="false" default="pf-action-icon"/>
 		<composite:attribute name="disabled"   required="false" default="true"/>
 		<composite:attribute name="value"      required="true"/>
 		<composite:attribute name="toolTip"    required="false"/>
@@ -15,8 +15,8 @@
 	</composite:interface>
 
 	<composite:implementation>
-		<h:outputLink value="#{cc.attrs.value}" rendered="#{cc.attrs.disabled}" target="_blank">
-			<h:graphicImage id="helpIcon" styleClass="#{cc.attrs.styleClass}" library="gfx" name="#{iconBean.icon12[cc.attrs.type]}"/>
+		<h:outputLink value="#{cc.attrs.value}" rendered="#{cc.attrs.disabled}" styleClass="#{cc.attrs.styleClass}" target="_blank">
+			<h:graphicImage id="helpIcon" library="gfx" name="#{iconBean.icon12[cc.attrs.type]}"/>
 		</h:outputLink>
 	    <p:tooltip id="toolTipHelp" for="helpIcon" value="#{cc.attrs.toolTip}"/>
 	</composite:implementation>

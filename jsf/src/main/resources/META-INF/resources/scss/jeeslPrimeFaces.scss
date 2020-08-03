@@ -1,3 +1,18 @@
+@import '_colours';
+
+@mixin button-after {
+	border-bottom: 1px solid hsla(0,0%,92%,1);
+	box-sizing: border-box;
+	content: 'ui-button';
+	display: block;
+	height: 100%;
+	line-height: normal;
+	padding: 3px 0 2px 0;
+	text-indent: -9999999px;
+	width: 100%;
+	border-radius: 2px;
+}
+
 .ui-datatable {
 	.ui-datatable-header {
 	    align-items: center;
@@ -38,14 +53,24 @@
 .ui-widget-content {
 	.ui-inputfield {
 		border: 0;
-		width: 85%;
 		padding: 4px 2px;
+		width: 85%;
+	}
+}
+
+// Add margin to separator to give distance to following elements but only if present
+.ui-separator {
+	margin-bottom: 4px;
+
+	&:last-child {
+		margin-bottom: 1px;
 	}
 }
 
 // Primeflex adjustment to jeesl style
 .p-field {
 	&.p-grid {
+		align-items: center;
 		margin: 0;
 		padding: 4px 0;
 	}
@@ -57,6 +82,111 @@
 	}
 	
 	.p-col {
-    	padding: 0 10px;
+		line-height: normal;
+		padding: 0 10px;
+	}
+}
+
+.ui-panel-content {
+	.ui-selectonemenu, .ui-selectcheckboxmenu {
+		border-width: 0;
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: row;
+		padding: 0;
+		width: 100%;
+
+		.ui-selectonemenu-label, .ui-selectcheckboxmenu-multiple-container {
+			border-radius: 3px 0 0 3px;
+			box-sizing: border-box;
+			line-height: normal;
+			width: calc(85% + 6px);
+		}
+
+		.ui-selectonemenu-trigger, .ui-selectcheckboxmenu-trigger {
+			align-items: center;
+			border: 1px solid #a8a8a8;
+			display: flex;
+			flex: 1;
+			height: auto;
+			justify-content: center;
+			padding: 0;
+			position: relative;
+
+			&:after {
+				@include button-after;
+
+				border-radius: 0 0 2px 2px;
+			}
+
+			.ui-icon {
+				left: 50%;
+				margin: -8px;
+				position: absolute;
+				top: 50%;
+			}
+		}
+	}
+}
+
+.ui-selectbooleancheckbox {
+	cursor: pointer;
+
+	.ui-chkbox-box {
+		border-radius: 3px;
+		height: 18px;
+		position: relative;
+		vertical-align: middle;
+		width: 18px;
+
+		&:after {
+			@include button-after;
+		}
+
+		&.ui-state-active {
+			&:after {
+				display: none;
+			}
+		}
+
+		.ui-chkbox-icon {
+			left: 50%;
+			margin: -8px;
+			position: absolute;
+			top: 50%;
+		}
+	}
+
+	.ui-helper-hidden-accessible {
+		> input[type=checkbox] {
+			-webkit-appearance: none;
+		}
+	}
+}
+
+.ui-colorpicker {
+	display: inline-block;
+    width: 20px;
+	
+	.ui-button {
+		&:after {
+			@include button-after();
+		}
+
+		.ui-button-text {
+			left: 50%;
+			margin: -6px 0 0 -6px;
+			padding: 0;
+			position: absolute;
+			top: 50%;
+
+			> span {
+				/* important has to be used because primefaces sets border color and size as inline style */
+				border-color: $border-color !important;
+				border-radius: 6px;
+				height: 10px !important;
+    			width: 10px !important;
+			}
+		}
 	}
 }

@@ -44,11 +44,15 @@
 								<aht:icon type="aupSave"   listener="#{cc.attrs.bean.saveTemplate()}" update=":#{cc.id}:grid" tooltip="#{msg.ttSave}" rendered="#{cc.attrs.bean.uiAllowSave}" />
 								<aht:icon type="aupDelete" listener="#{cc.attrs.bean.rmTemplate()}" update=":#{cc.id}:grid" tooltip="#{msg.ttDelete}" mayDisappear="true" rendered="#{cc.attrs.bean.template.id gt 0}" />
 							</f:facet>
-							<p:panelGrid columns="2" columnClasses="auPwg20,auPwg80">
-								<p:outputLabel value="#{msg.aupSecurityVisible}"/>
-								<p:selectBooleanCheckbox value="#{cc.attrs.bean.template.visible}"/>
-
-							</p:panelGrid>
+							<div class="ui-fluid">
+								<div class="p-field p-grid">
+									<p:outputLabel for="visibility" styleClass="p-col p-md-3" value="#{msg.aupSecurityVisible}"/>
+									<div class="p-col p-md-9">
+										<p:selectBooleanCheckbox id="visibility" value="#{cc.attrs.bean.template.visible}"/>
+									</div>
+								</div>
+							</div>
+							
 							<aht:tabTranslationEditor value="#{cc.attrs.bean.template}" withDescription="true"
 									labelTranslation="#{msg.Name}" labelDescription="#{msg.Description}" keys="#{cc.attrs.localeKeys}" />
 						</p:panel>

@@ -7,7 +7,7 @@
     xmlns:composite="http://java.sun.com/jsf/composite">
     
 	<composite:interface>
-		<composite:attribute name="styleClass" required="false" default="pf-panel-header-action-icon"/>
+		<composite:attribute name="styleClass" required="false" default="pf-action-icon"/>
 		<composite:attribute name="disabled"   required="false" default="true"/>
 		<composite:attribute name="value"      required="true"/>
 		<composite:attribute name="type"       required="true"/>
@@ -17,8 +17,8 @@
 	</composite:interface>
 
 	<composite:implementation>
-		<p:commandLink rendered="#{cc.attrs.disabled}" ajax="false" onclick="#{cc.attrs.onclick} PF('#{cc.clientId}-toolTip').hide();" icon="ui-icon-arrowthick-1-s">
-			<h:graphicImage id="downloadIcon" styleClass="#{cc.attrs.styleClass}" library="gfx" name="#{appIconBean.icon12[cc.attrs.type]}"/>
+		<p:commandLink rendered="#{cc.attrs.disabled}" styleClass="#{cc.attrs.styleClass}" ajax="false" onclick="#{cc.attrs.onclick} PF('#{cc.clientId}-toolTip').hide();" icon="ui-icon-arrowthick-1-s">
+			<h:graphicImage id="downloadIcon" library="gfx" name="#{appIconBean.icon12[cc.attrs.type]}"/>
 			<p:fileDownload value="#{cc.attrs.value}" />
             <p:tooltip widgetVar="#{cc.clientId}-toolTip" for="downloadIcon" value="#{cc.attrs.tooltip}" />
 		</p:commandLink>
