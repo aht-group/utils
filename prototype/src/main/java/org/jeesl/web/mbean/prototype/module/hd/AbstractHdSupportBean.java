@@ -144,9 +144,11 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 		fbHd.ejbEvent().converter(fHd,lastEvent);
 		ticket = fHd.saveHdTicket(ticket,lastEvent,supporter);
 		lastEvent = ticket.getLastEvent();
+		
 		reloadTickets();
 		reloadEvents();
 	}
+	protected abstract void callBackUpdateEvent(EVENT event);
 	
 	private void reloadMessages()
 	{

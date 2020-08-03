@@ -140,7 +140,7 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		if(EjbIdFactory.isUnSaved(ticket))
 		{
 			ticket = fHd.saveHdTicket(ticket,lastEvent,reporter);
-			callBackNewTicket();
+			callBackNewTicket(ticket);
 		}
 		else {ticket = fHd.save(ticket);}
 		editHandler.saved(ticket);
@@ -154,7 +154,7 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		reloadTickets();
 	}
 	
-	protected abstract void callBackNewTicket();
+	protected abstract void callBackNewTicket(TICKET ticket);
 	
 	@Override public void callbackFrContainerSaved(EjbWithId id) throws JeeslConstraintViolationException, JeeslLockingException{}
 	@Override public void callbackFrMetaSelected() {}
