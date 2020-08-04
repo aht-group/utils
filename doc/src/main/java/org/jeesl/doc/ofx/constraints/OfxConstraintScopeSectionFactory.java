@@ -14,12 +14,12 @@ import org.openfuxml.content.ofx.Section;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.xml.layout.XmlSpacingFactory;
 import org.openfuxml.factory.xml.layout.XmlWidthFactory;
+import org.openfuxml.factory.xml.list.XmlListFactory2;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.factory.xml.ofx.content.structure.XmlParagraphFactory;
 import org.openfuxml.factory.xml.ofx.content.structure.XmlSectionFactory;
 import org.openfuxml.factory.xml.ofx.editorial.XmlMarginaliaFactory;
 import org.openfuxml.factory.xml.ofx.layout.XmlLayoutFactory;
-import org.openfuxml.factory.xml.ofx.list.XmlListFactory;
 import org.openfuxml.util.OfxCommentBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,7 +73,7 @@ public class OfxConstraintScopeSectionFactory extends AbstractUtilsOfxDocumentat
 		
 	private org.openfuxml.content.list.List list(ConstraintScope scope) throws OfxAuthoringException
 	{
-		org.openfuxml.content.list.List list = XmlListFactory.unordered();
+		org.openfuxml.content.list.List list = XmlListFactory2.unordered();
 		list.setLayout(layout);
 		for(Constraint c : scope.getConstraint())
 		{

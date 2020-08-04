@@ -26,14 +26,14 @@ import org.openfuxml.content.table.Row;
 import org.openfuxml.content.table.Specification;
 import org.openfuxml.content.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
+import org.openfuxml.factory.xml.list.XmlListFactory2;
+import org.openfuxml.factory.xml.list.XmlListItemFactory;
+import org.openfuxml.factory.xml.list.XmlListFactory2.Ordering;
 import org.openfuxml.factory.xml.ofx.OfxReferenceFactory;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.factory.xml.ofx.content.structure.XmlParagraphFactory;
 import org.openfuxml.factory.xml.ofx.content.structure.XmlSectionFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
-import org.openfuxml.factory.xml.ofx.list.XmlListFactory;
-import org.openfuxml.factory.xml.ofx.list.XmlListFactory.Ordering;
-import org.openfuxml.factory.xml.ofx.list.XmlListItemFactory;
 import org.openfuxml.factory.xml.table.XmlCellFactory;
 import org.openfuxml.factory.xml.table.XmlColumnFactory;
 import org.openfuxml.factory.xml.text.OfxEmphasisFactory;
@@ -80,7 +80,7 @@ public class OfxRestSectionFactory extends AbstractUtilsOfxDocumentationFactory
 		p.getContent().add(" and offering the following methods:");
 		section.getContent().add(p);
 		
-		org.openfuxml.content.list.List list = XmlListFactory.build(Ordering.unordered);
+		org.openfuxml.content.list.List list = XmlListFactory2.build(Ordering.unordered);
 
         List<Section> sections = new ArrayList<Section>();
         int i = 0;

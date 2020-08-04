@@ -77,10 +77,12 @@ public abstract class AbstractCmsCacheBean <L extends JeeslLang,D extends JeeslD
 	{
 		logger.info("Invalidation Section "+section.toString());
 		if(mapSection.containsKey(section)) {mapSection.remove(section);}
+		if(mapId.containsKey(section.getId())) {mapId.remove(section.getId());}
 	}
 	
-	public Section buildById(String localeCode, long id) throws JeeslNotFoundException
+	public Section buildById(String localeCode, Long id) throws JeeslNotFoundException
 	{
+		logger.info("buildById: "+localeCode+" "+id);
 		if(mapId.containsKey(id)) {return buildBySection(localeCode,mapId.get(id));}
 		else
 		{

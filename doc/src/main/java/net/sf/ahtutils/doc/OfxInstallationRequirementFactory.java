@@ -8,8 +8,8 @@ import net.sf.exlp.util.xml.JaxbUtil;
 
 import org.openfuxml.content.list.List;
 import org.openfuxml.content.ofx.Section;
-import org.openfuxml.factory.xml.ofx.list.XmlListFactory;
-import org.openfuxml.factory.xml.ofx.list.XmlListItemFactory;
+import org.openfuxml.factory.xml.list.XmlListFactory2;
+import org.openfuxml.factory.xml.list.XmlListItemFactory;
 import org.openfuxml.util.filter.OfxLangFilter;
 import org.openfuxml.util.query.XmlSectionQuery;
 import org.slf4j.Logger;
@@ -47,7 +47,7 @@ public class OfxInstallationRequirementFactory
         {
 			Section sHardware = XmlSectionQuery.getRenderer(section, idHardware);
 			
-			List list = XmlListFactory.build(XmlListFactory.Ordering.unordered.toString());
+			List list = XmlListFactory2.build(XmlListFactory2.Ordering.unordered.toString());
 			list.getItem().add(XmlListItemFactory.build(ram+" GB RAM"));
 			
 			sHardware.getContent().add(list);
