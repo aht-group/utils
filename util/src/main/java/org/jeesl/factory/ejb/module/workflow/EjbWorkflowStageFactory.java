@@ -27,6 +27,7 @@ public class EjbWorkflowStageFactory<P extends JeeslWorkflowProcess<?,?,?,WS>,
 		try
 		{
 			ejb = cStage.newInstance();
+			ejb.setProcess(process);
 			EjbPositionFactory.next(ejb,list);
 		}
 		catch (InstantiationException e) {e.printStackTrace();}

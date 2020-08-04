@@ -118,6 +118,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	private final List<MC> channels; public List<MC> getChannels() {return channels;}
 	protected final List<MT> templates; public List<MT> getTemplates() {return templates;}
 	private final List<SR> roles; public List<SR> getRoles() {return roles;}
+	private final List<WPD> documents; public List<WPD> getDocuments() {return documents;}
 	private final List<WS> stages; public List<WS> getStages() {return stages;}
 	private final List<WST> stageTypes; public List<WST> getStageTypes() {return stageTypes;}
 	private final List<WSP> permissions; public List<WSP> getPermissions() {return permissions;}
@@ -134,6 +135,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	private final List<EjbWithId> options; public List<EjbWithId> getOptions() {return options;}
 	
 	protected WP process; public WP getProcess() {return process;} public void setProcess(WP process) {this.process = process;}
+	private WPD document; public WPD getDocument() {return document;} public void setDocument(WPD document) {this.document = document;}
 	private WS stage; public WS getStage() {return stage;} public void setStage(WS stage) {this.stage = stage;}
 	private WSP permission; public WSP getPermission() {return permission;} public void setPermission(WSP permission) {this.permission = permission;}
 	private WT transition; public WT getTransition() {return transition;} public void setTransition(WT transition) {this.transition = transition;}
@@ -171,6 +173,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		
 		channels = new ArrayList<>();
 		roles = new ArrayList<>();
+		documents = new ArrayList<>();
 		stages = new ArrayList<>();
 		templates = new ArrayList<>();
 		stageTypes = new ArrayList<>();
@@ -307,6 +310,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		process = efLang.persistMissingLangs(fWorkflow,localeCodes,process);
 		process = efDescription.persistMissingLangs(fWorkflow,localeCodes,process);
 		reloadStages();
+		reloadDocuments();
 	}
 	
 	public void saveProcess() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
@@ -325,14 +329,26 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		reloadProcesses();
 	}
 	
+	private void reloadDocuments()
+	{
+		documents.clear();
+		documents.addAll(fWorkflow.allForParent(fbWorkflow.getClassDocument(),process));
+	}
+	
+	public void addDocument()
+	{
+		logger.info(AbstractLogMessage.addEntity(fbWorkflow.getClassDocument()));
+		document = fbWorkflow.ejbDocument().build(process,documents);
+		document.setName(efLang.createEmpty(localeCodes));
+		document.setDescription(efDescription.createEmpty(localeCodes));
+	}
+	
 	public void addStage()
 	{
 		reset(WorkflowProcesslResetHandler.build().all().stages(false));
-		logger.info(AbstractLogMessage.addEntity(fbWorkflow.getClassProcess()));
-		stage = fbWorkflow.ejbStage().build(process,stages);
+		logger.info(AbstractLogMessage.addEntity(fbWorkflow.getClassProcess()));		stage = fbWorkflow.ejbStage().build(process,stages);
 		stage.setName(efLang.createEmpty(localeCodes));
 		stage.setDescription(efDescription.createEmpty(localeCodes));
-		stage.setProcess(process);
 		editStage = true;
 	}
 	

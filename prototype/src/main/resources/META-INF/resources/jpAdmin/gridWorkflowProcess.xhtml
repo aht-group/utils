@@ -35,6 +35,26 @@
 											
 						</p:dataTable>
 					</h:form>
+					<h:form id="fDocuments">
+						<p:dataTable var="d" value="#{cc.attrs.bean.documents}" draggableRows="true"
+								selection="#{cc.attrs.bean.process}" selectionMode="single" rowKey="#{d.id}">
+							<f:facet name="header">
+								<j:dtHeader title="#{appLabelBean.labels['WorkflowDocument']['listOf'][localecode].lang}">
+									<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addDocument()}" update=":#{cc.id}:rProcess"/>
+								</j:dtHeader>
+							</f:facet>
+							<p:ajax event="rowReorder" listener="#{cc.attrs.bean.reorderDocuments()}" update="@form "/>
+							<p:ajax event="rowSelect"  listener="#{cc.attrs.bean.selectDocument()}" update=":#{cc.id}:sProcess"/>
+							
+							<p:column rendered="true" headerText="#{msg.jeeslCode}">  
+								<h:outputText value="#{d.code}"/>  
+							</p:column>
+							<p:column rendered="true" headerText="#{msg.jeeslName}">  
+								<h:outputText value="#{d.name[localeCode].lang}"/>  
+							</p:column>
+											
+						</p:dataTable>
+					</h:form>
 				</j:slot>
 				<j:slot id="sProcess" width="4">
 					<h:form id="fProcess">
@@ -64,6 +84,20 @@
 								<jtp:label entity="WorkflowProcess" code="includeInDashboard"/>
 							</p:panelGrid>
 							<j:tabTranslationEditor value="#{cc.attrs.bean.process}" keys="#{cc.attrs.localeKeys}" withDescription="true"/>
+						</p:panel>
+					</h:form>
+					<h:form id="fDocument">
+						<p:panel id="pLang" header="#{msg.jeeslApprovalProcess}"
+								 rendered="#{not empty cc.attrs.bean.document}" styleClass="jeeslPanel">
+							<f:facet name="actions">
+								<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveDocument()}" update=":#{cc.id}:rProcess"/>
+								<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteDocument()}" rendered="#{cc.attrs.bean.document.id gt 0}" update=":#{cc.id}:rProcess"/>
+							</f:facet>
+							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
+								<p:outputLabel value="#{msg.jeeslCode}"/>
+								<p:inputText autocomplete="off" value="#{cc.attrs.bean.document.code}"/>
+							</p:panelGrid>
+							<j:tabTranslationEditor value="#{cc.attrs.bean.document}" keys="#{cc.attrs.localeKeys}" withDescription="true"/>
 						</p:panel>
 					</h:form>
 				</j:slot>

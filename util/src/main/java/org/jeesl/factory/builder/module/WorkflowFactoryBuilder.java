@@ -7,6 +7,7 @@ import org.jeesl.factory.ejb.module.workflow.EjbWorkflowActionFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowActivityFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowCommunicationFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowDelegateFactory;
+import org.jeesl.factory.ejb.module.workflow.EjbWorkflowDocumentFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowLinkFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowPermissionFactory;
@@ -78,6 +79,7 @@ public class WorkflowFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 	
 	private final Class<WX> cContext; public Class<WX> getClassContext() {return cContext;}
 	private final Class<WP> cProcess; public Class<WP> getClassProcess() {return cProcess;}
+	private final Class<WPD> cDocument; public Class<WPD> getClassDocument() {return cDocument;}
 	private final Class<WS> cStage; public Class<WS> getClassStage() {return cStage;}
 	private final Class<WST> cStageType; public Class<WST> getClassStageType() {return cStageType;}
 	private final Class<WSP> cPermission; public Class<WSP> getClassPermission() {return cPermission;}
@@ -96,6 +98,7 @@ public class WorkflowFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 	public WorkflowFactoryBuilder(final Class<L> cL, final Class<D> cD,
 									final Class<WX> cContext,
 									final Class<WP> cProcess,
+									final Class<WPD> cDocument,
 									final Class<WS> cStage,
 									final Class<WST> cStageType,
 									final Class<WSP> cPermission,
@@ -114,6 +117,7 @@ public class WorkflowFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 		super(cL,cD);
 		this.cContext=cContext;
 		this.cProcess=cProcess;
+		this.cDocument=cDocument;
 		this.cStage=cStage;
 		this.cStageType=cStageType;
 		this.cPermission=cPermission;
@@ -131,6 +135,7 @@ public class WorkflowFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 	}
 	
 	public EjbWorkflowProcessFactory<WP> ejbProcess() {return new EjbWorkflowProcessFactory<>(cProcess);}
+	public EjbWorkflowDocumentFactory<WP,WPD> ejbDocument() {return new EjbWorkflowDocumentFactory<>(cDocument);}
 	public EjbWorkflowStageFactory<WP,WS> ejbStage() {return new EjbWorkflowStageFactory<>(cStage);}
 	public EjbWorkflowPermissionFactory<WS,WSP,WML,SR> ejbPermission() {return new EjbWorkflowPermissionFactory<>(cPermission);}
 	public EjbWorkflowTransitionFactory<WS,WT> ejbTransition() {return new EjbWorkflowTransitionFactory<>(cTransition);}
