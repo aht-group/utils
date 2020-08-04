@@ -56,7 +56,7 @@ public class WorkflowFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 									WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
 									WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
 									WML extends JeeslWorkflowModificationLevel<L,D,WML,?>,
-									WT extends JeeslWorkflowTransition<L,D,WS,WTT,SR,?>,
+									WT extends JeeslWorkflowTransition<L,D,WPD,WS,WTT,SR,?>,
 									WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
 									WC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
 									AA extends JeeslWorkflowAction<WT,AB,AO,RE,RA>,

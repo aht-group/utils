@@ -24,7 +24,7 @@
 								</j:dtHeader>
 							</f:facet>
 							<p:ajax event="rowReorder" listener="#{cc.attrs.bean.reorderProcesses()}" update="@form :fStatusBar"/>
-							<p:ajax event="rowSelect"  listener="#{cc.attrs.bean.selectProcess()}" update=":#{cc.id}:sProcess"/>
+							<p:ajax event="rowSelect"  listener="#{cc.attrs.bean.selectProcess()}" update=":#{cc.id}:sProcess :#{cc.id}:fDocuments"/>
 							
 							<p:column rendered="true" headerText="#{msg.jeeslCode}">  
 								<h:outputText value="#{p.code}"/>  
@@ -37,7 +37,7 @@
 					</h:form>
 					<h:form id="fDocuments">
 						<p:dataTable var="d" value="#{cc.attrs.bean.documents}" draggableRows="true"
-								selection="#{cc.attrs.bean.process}" selectionMode="single" rowKey="#{d.id}">
+								selection="#{cc.attrs.bean.document}" selectionMode="single" rowKey="#{d.id}">
 							<f:facet name="header">
 								<j:dtHeader title="#{appLabelBean.labels['WorkflowDocument']['listOf'][localecode].lang}">
 									<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addDocument()}" update=":#{cc.id}:rProcess"/>
@@ -57,9 +57,8 @@
 					</h:form>
 				</j:slot>
 				<j:slot id="sProcess" width="4">
-					<h:form id="fProcess">
-						<p:panel id="pLang" header="#{msg.jeeslApprovalProcess}"
-								 rendered="#{not empty cc.attrs.bean.process}" styleClass="jeeslPanel">
+					<h:form id="fProcess" rendered="#{not empty cc.attrs.bean.process}">
+						<p:panel id="pLang" header="#{msg.jeeslApprovalProcess}" styleClass="jeeslPanel">
 							<f:facet name="actions">
 								<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveProcess()}" update=":fStatusBar :#{cc.id}:rProcess"/>
 								<j:icon type="jeeslDelete" rendered="#{cc.attrs.bean.process.id gt 0}" listener="#{cc.attrs.bean.deleteProcess()}" update=":fStatusBar :#{cc.id}:rProcess"/>
@@ -86,9 +85,8 @@
 							<j:tabTranslationEditor value="#{cc.attrs.bean.process}" keys="#{cc.attrs.localeKeys}" withDescription="true"/>
 						</p:panel>
 					</h:form>
-					<h:form id="fDocument">
-						<p:panel id="pLang" header="#{msg.jeeslApprovalProcess}"
-								 rendered="#{not empty cc.attrs.bean.document}" styleClass="jeeslPanel">
+					<h:form id="fDocument" rendered="#{not empty cc.attrs.bean.process}">
+						<p:panel id="pLang" header="#{appLabelBean.entities['WorkflowDocument'][localeCode].lang}" rendered="#{not empty cc.attrs.bean.document}" styleClass="jeeslPanel">
 							<f:facet name="actions">
 								<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveDocument()}" update=":#{cc.id}:rProcess"/>
 								<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteDocument()}" rendered="#{cc.attrs.bean.document.id gt 0}" update=":#{cc.id}:rProcess"/>

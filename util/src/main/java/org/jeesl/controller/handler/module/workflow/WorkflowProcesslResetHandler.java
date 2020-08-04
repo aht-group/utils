@@ -10,6 +10,9 @@ public class WorkflowProcesslResetHandler
 	private boolean stages; public boolean isStages() {return stages;} public WorkflowProcesslResetHandler stages(boolean stages) {this.stages = stages;return this;}
 	private boolean stage; public boolean isStage() {return stage;} public WorkflowProcesslResetHandler stage(boolean stage) {this.stage = stage;return this;}
 
+	private boolean documents; public boolean isDocuments() { return documents;} public WorkflowProcesslResetHandler documents(boolean documents) {this.documents = documents;return this;}
+	private boolean document; public boolean isDocument() {return document;} public WorkflowProcesslResetHandler document(boolean document) {this.document = document; return this;}
+	
 	private boolean permissions; public boolean isPermissions() {return permissions;} public WorkflowProcesslResetHandler permissions(boolean permissions) {this.permissions = permissions;return this;}
 	private boolean permission; public boolean isPermission() {return permission;} public WorkflowProcesslResetHandler permission(boolean permission) {this.permission = permission;return this;}
 	
@@ -31,6 +34,8 @@ public class WorkflowProcesslResetHandler
 	
 	public WorkflowProcesslResetHandler all()
 	{
+		documents = true;
+		document = true;
 		stages = true;
 		stage = true;
 		permissions = true;
@@ -46,6 +51,8 @@ public class WorkflowProcesslResetHandler
 	
 	public WorkflowProcesslResetHandler none()
 	{
+		documents = false;
+		document = false;
 		stages = false;
 		stage = false;
 		permissions = false;

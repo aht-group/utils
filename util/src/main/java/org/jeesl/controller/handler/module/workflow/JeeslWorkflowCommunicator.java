@@ -26,6 +26,7 @@ import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWithWorkflow;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowContext;
+import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowDocument;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowModificationLevel;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowPermissionType;
@@ -54,12 +55,13 @@ import freemarker.template.TemplateException;
 public class JeeslWorkflowCommunicator <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
 										WX extends JeeslWorkflowContext<L,D,WX,?>,
 										WP extends JeeslWorkflowProcess<L,D,WX,WS>,
+										WPD extends JeeslWorkflowDocument<L,D,WP>,
 										WS extends JeeslWorkflowStage<L,D,WP,WST,WSP,WT,?>,
 										WST extends JeeslWorkflowStageType<L,D,WST,?>,
 										WSP extends JeeslWorkflowStagePermission<WS,APT,WML,SR>,
 										APT extends JeeslWorkflowPermissionType<L,D,APT,?>,
 										WML extends JeeslWorkflowModificationLevel<?,?,WML,?>,
-										WT extends JeeslWorkflowTransition<L,D,WS,WTT,SR,?>,
+										WT extends JeeslWorkflowTransition<L,D,WPD,WS,WTT,SR,?>,
 										WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
 										WC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
 										AA extends JeeslWorkflowAction<WT,AB,AO,RE,RA>,
@@ -82,7 +84,7 @@ public class JeeslWorkflowCommunicator <L extends JeeslLang, D extends JeeslDesc
 	private boolean debugOnInfo; public void setDebugOnInfo(boolean debugOnInfo) {this.debugOnInfo = debugOnInfo;}
 
 	private final JeeslWorkflowMessageHandler<WC,SR,RE,MT,MC,MD,WF,WY,USER> messageHandler;
-	private final FtlWorkflowModelFactory<L,D,WP,WS,WT,WF,WY,USER> fmFactory;
+	private final FtlWorkflowModelFactory<L,D,WP,WPD,WS,WT,WF,WY,USER> fmFactory;
 	
 	private Configuration templateConfig;
 	

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
+import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowDocument;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStage;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
@@ -18,8 +19,9 @@ import net.sf.exlp.util.io.StringUtil;
 
 public class FtlWorkflowModelFactory <L extends JeeslLang, D extends JeeslDescription,
 										WP extends JeeslWorkflowProcess<L,D,?,WS>,
+										WPD extends JeeslWorkflowDocument<L,D,WP>,
 										WS extends JeeslWorkflowStage<L,D,WP,?,?,WT,?>,
-										WT extends JeeslWorkflowTransition<L,D,WS,?,?,?>,
+										WT extends JeeslWorkflowTransition<L,D,WPD,WS,?,?,?>,
 										WF extends JeeslWorkflow<WP,WS,WY,USER>,
 										WY extends JeeslWorkflowActivity<WT,WF,?,?,USER>,
 										USER extends JeeslUser<?>

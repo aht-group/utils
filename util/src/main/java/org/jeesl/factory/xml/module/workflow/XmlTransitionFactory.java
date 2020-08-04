@@ -22,7 +22,7 @@ public class XmlTransitionFactory<L extends JeeslLang, D extends JeeslDescriptio
 									WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
 									WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
 									WML extends JeeslWorkflowModificationLevel<L,D,WML,?>,
-									WT extends JeeslWorkflowTransition<L,D,WS,WTT,?,?>,
+									WT extends JeeslWorkflowTransition<L,D,?,WS,WTT,?,?>,
 									WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
 									SR extends JeeslSecurityRole<L,D,?,?,?,?,?>>
 {

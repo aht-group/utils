@@ -14,7 +14,7 @@ import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 
-public interface JeeslWorkflowCommunication <WT extends JeeslWorkflowTransition<?,?,?,?,?,?>,
+public interface JeeslWorkflowCommunication <WT extends JeeslWorkflowTransition<?,?,?,?,?,?,?>,
 											MT extends JeeslIoTemplate<?,?,?,?,?,?>,
 											MC extends JeeslTemplateChannel<?,?,MC,?>,
 											SR extends JeeslSecurityRole<?,?,?,?,?,?,?>,

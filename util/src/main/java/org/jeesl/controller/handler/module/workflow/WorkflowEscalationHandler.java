@@ -52,7 +52,7 @@ public class WorkflowEscalationHandler<L extends JeeslLang, D extends JeeslDescr
 									WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
 									WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
 									WML extends JeeslWorkflowModificationLevel<L,D,WML,?>,
-									WT extends JeeslWorkflowTransition<L,D,WS,WTT,SR,?>,
+									WT extends JeeslWorkflowTransition<L,D,WPD,WS,WTT,SR,?>,
 									WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
 									WC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
 									WA extends JeeslWorkflowAction<WT,AB,AO,RE,RA>,
@@ -77,7 +77,7 @@ public class WorkflowEscalationHandler<L extends JeeslLang, D extends JeeslDescr
 	private final JeeslWorkflowFacade<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fWorkflow;
 	private final WorkflowFactoryBuilder<L,D,WX,WP,WPD,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fbWorkflow;
 
-	private final JeeslWorkflowCommunicator<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,MD,SR,RE,RA,WF,WY,FRC,USER> communicator;
+	private final JeeslWorkflowCommunicator<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,MD,SR,RE,RA,WF,WY,FRC,USER> communicator;
 	
 	private final WTT typeEscalation;
 	private final USER user;

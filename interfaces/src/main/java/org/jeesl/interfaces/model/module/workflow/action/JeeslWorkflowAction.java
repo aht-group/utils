@@ -12,7 +12,7 @@ import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 
-public interface JeeslWorkflowAction <T extends JeeslWorkflowTransition<?,?,?,?,?,?>,
+public interface JeeslWorkflowAction <T extends JeeslWorkflowTransition<?,?,?,?,?,?,?>,
 										AB extends JeeslWorkflowBot<AB,?,?,?>,
 										AO extends EjbWithId,
 										RE extends JeeslRevisionEntity<?,?,?,?,RA,?>,

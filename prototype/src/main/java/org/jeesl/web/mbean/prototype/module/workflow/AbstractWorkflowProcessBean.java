@@ -74,7 +74,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 											WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
 											WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
 											WML extends JeeslWorkflowModificationLevel<L,D,WML,?>,
-											WT extends JeeslWorkflowTransition<L,D,WS,WTT,SR,G>,
+											WT extends JeeslWorkflowTransition<L,D,WPD,WS,WTT,SR,G>,
 											WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
 											AC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
 											WA extends JeeslWorkflowAction<WT,AB,AO,RE,RA>,
@@ -251,18 +251,20 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	public void cancelPermission() {reset(WorkflowProcesslResetHandler.build().none().permission(true));}
 	public void cancelCommunication() {reset(WorkflowProcesslResetHandler.build().none().communication(true));}
 	public void cancelAction() {reset(WorkflowProcesslResetHandler.build().none().action(true));}
-	private void reset(WorkflowProcesslResetHandler arh)
+	private void reset(WorkflowProcesslResetHandler reset)
 	{
-		if(arh.isStages()) {stages.clear();}
-		if(arh.isStage()) {stage=null;}
-		if(arh.isPermissions()) {permissions.clear();;}
-		if(arh.isPermission()) {permission=null;}
-		if(arh.isTransistions()) {transitions.clear();}
-		if(arh.isTransistion()) {transition=null;}
-		if(arh.isCommunications()) {communications.clear();}
-		if(arh.isCommunication()) {communication=null;}
-		if(arh.isActions()) {actions.clear();}
-		if(arh.isAction()) {action=null;}
+		if(reset.isDocuments()) {documents.clear();}
+		if(reset.isDocument()) {document=null;}
+		if(reset.isStages()) {stages.clear();}
+		if(reset.isStage()) {stage=null;}
+		if(reset.isPermissions()) {permissions.clear();;}
+		if(reset.isPermission()) {permission=null;}
+		if(reset.isTransistions()) {transitions.clear();}
+		if(reset.isTransistion()) {transition=null;}
+		if(reset.isCommunications()) {communications.clear();}
+		if(reset.isCommunication()) {communication=null;}
+		if(reset.isActions()) {actions.clear();}
+		if(reset.isAction()) {action=null;}
 	}
 	
 	@Override
@@ -278,6 +280,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		else if(item instanceof JeeslWorkflowProcess)
 		{
 			process = fWorkflow.find(fbWorkflow.getClassProcess(),sbhProcess.getSelection());
+			reloadDocuments();
 			reloadStages();
 		}
 	}
@@ -296,6 +299,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 
 	public void addProcess() throws JeeslNotFoundException
 	{
+		reset(WorkflowProcesslResetHandler.build().all());
 		logger.info(AbstractLogMessage.addEntity(fbWorkflow.getClassProcess()));
 		process = fbWorkflow.ejbProcess().build();
 		process.setName(efLang.createEmpty(localeCodes));
@@ -305,6 +309,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	
 	public void selectProcess() throws JeeslNotFoundException
 	{
+		reset(WorkflowProcesslResetHandler.build().all());
 		logger.info(AbstractLogMessage.selectEntity(process));
 		process = fWorkflow.find(fbWorkflow.getClassProcess(), process);
 		process = efLang.persistMissingLangs(fWorkflow,localeCodes,process);
@@ -341,6 +346,18 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		document = fbWorkflow.ejbDocument().build(process,documents);
 		document.setName(efLang.createEmpty(localeCodes));
 		document.setDescription(efDescription.createEmpty(localeCodes));
+	}
+	
+	public void selectDocument()
+	{
+		logger.info(AbstractLogMessage.selectEntity(document));
+	}
+	
+	public void saveDocument() throws JeeslConstraintViolationException, JeeslLockingException
+	{
+		logger.info(AbstractLogMessage.saveEntity(document));
+		document = fWorkflow.save(document);
+		reloadDocuments();
 	}
 	
 	public void addStage()

@@ -70,7 +70,7 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 							WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
 							WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
 							WML extends JeeslWorkflowModificationLevel<L,D,WML,?>,
-							WT extends JeeslWorkflowTransition<L,D,WS,WTT,SR,?>,
+							WT extends JeeslWorkflowTransition<L,D,WPD,WS,WTT,SR,?>,
 							WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
 							WC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
 							WA extends JeeslWorkflowAction<WT,AB,AO,RE,RA>,
@@ -106,8 +106,8 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 	
 	private JeeslJsfSecurityHandler<SR,?,?,?,?,USER> security;
 	private JeeslFileRepositoryHandler<?,FRC,?> frh; public JeeslFileRepositoryHandler<?,FRC,?> getFrh() {return frh;}
-	private final JeeslWorkflowCommunicator<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,MD,SR,RE,RA,WF,WY,FRC,USER> communicator;
-	private final JeeslWorkflowActionsHandler<WT,WA,AB,AO,RE,RA,WF,WCS> actionHandler;
+	private final JeeslWorkflowCommunicator<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,MD,SR,RE,RA,WF,WY,FRC,USER> communicator;
+	private final JeeslWorkflowActionsHandler<WPD,WT,WA,AB,AO,RE,RA,WF,WCS> actionHandler;
 	private final JeeslWorkflowResponsibleHandler<WF,USER> responsibleHandler;
 	
 	private final Comparator<WY> cpActivity;
@@ -147,7 +147,7 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 								IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fbRevision,
 								JeeslWorkflowFacade<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER> fWorkflow,
 								JeeslWorkflowMessageHandler<WC,SR,RE,MT,MC,MD,WF,WY,USER> messageHandler,
-								JeeslWorkflowActionsHandler<WT,WA,AB,AO,RE,RA,WF,WCS> actionHandler,
+								JeeslWorkflowActionsHandler<WPD,WT,WA,AB,AO,RE,RA,WF,WCS> actionHandler,
 								JeeslWorkflowResponsibleHandler<WF,USER> responsibleHandler,
 								JeeslFileRepositoryHandler<?,FRC,?> frh)
 	{

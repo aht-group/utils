@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 public class TxtWorkflowProcessFactory<WP extends JeeslWorkflowProcess<?,?,?,WS>,
 										WS extends JeeslWorkflowStage<?,?,WP,?,?,WT,?>,
-										WT extends JeeslWorkflowTransition<?,?,WS,?,?,?>>
+										WT extends JeeslWorkflowTransition<?,?,?,WS,?,?,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(TxtWorkflowProcessFactory.class);
 	
