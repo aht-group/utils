@@ -130,10 +130,12 @@
 
 .jeeslW100 {width: 100%;}
 
-.pf-panel-with-tree {.ui-panel-content.padding: 0px;}
+/* FEHLERHAFT */
+/*.pf-panel-with-tree {.ui-panel-content.padding: 0px;}*/
 .pf-panel-with-tree .ui-tree {border: none; width: 100%;}
 
-.jeeslTree {.ui-panel-content.padding: 0px;}
+/* FEHLERHAFT */
+/*.jeeslTree {.ui-panel-content.padding: 0px;}*/
 .jeeslTree .ui-tree {border: none; width: 100%;}
 
 /*Timeline fixes*/
@@ -160,7 +162,7 @@ div.timeline-frame {background-color: #f1f1f1; margin-left: -14px; margin-top: -
 
 .jeeslPanel * .ui-widget-header .ui-inputfield, .jeeslPanel * .ui-widget-content .ui-inputfield {border: 0;white-space: normal;overflow: hidden;font-weight: normal;width: 85%;text-align: left; padding: 4px 2px;}
 
-.ui-selectonemenu > .ui-inputfield {width: 100% !important;}
+/*.ui-selectonemenu > .ui-inputfield {width: 100% !important;}*/
 
 /*calendar button fix !!!!!!!!!!!!!*/
  /* Guarantuees that the p:calendar is shown without linebreak between input field and button */
@@ -198,13 +200,14 @@ input[class="ui-spinner-input ui-inputfield ui-state-default ui-corner-all ui-st
 
 .jeeslPanel .ui-panelgrid .ui-panelgrid-cell {padding-right: 13px;}
 
-.jeeslDesaturate {
+/* FEHLERHAFT */
+/* .jeeslDesaturate {
 	filter: url(~"data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
 	filter: saturate(0%);
-}
+} */
 
 /* moves selectonemenu-button a bit more left (looks better on jeeslPanel)*/
-.ui-selectonemenu {	padding-right: 1em !important;}
+/*.ui-selectonemenu { padding-right: 1em !important;}*/
 /* caption let the table stay on one line */
 .ui-selectonemenu-panel{display: table-caption} 
 
