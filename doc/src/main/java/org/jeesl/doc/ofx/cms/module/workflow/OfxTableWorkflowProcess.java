@@ -3,15 +3,14 @@ package org.jeesl.doc.ofx.cms.module.workflow;
 import java.util.List;
 
 import org.jeesl.doc.ofx.cms.generic.AbstractJeeslOfxTableFactory;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.JeeslLocaleProvider;
-import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.model.xml.module.workflow.Permission;
 import org.jeesl.model.xml.module.workflow.Permissions;
 import org.jeesl.model.xml.module.workflow.Stage;
 import org.jeesl.model.xml.module.workflow.Transition;
 import org.jeesl.util.query.xpath.StatusXpath;
-import org.jeesl.util.query.xpath.WorkflowXpath;
 import org.openfuxml.content.ofx.Comment;
 import org.openfuxml.content.ofx.Paragraph;
 import org.openfuxml.content.table.Body;
@@ -21,8 +20,8 @@ import org.openfuxml.content.table.Row;
 import org.openfuxml.content.table.Specification;
 import org.openfuxml.content.table.Table;
 import org.openfuxml.factory.xml.layout.XmlFloatFactory;
-import org.openfuxml.factory.xml.list.OfxListItemFactory;
 import org.openfuxml.factory.xml.list.XmlListFactory;
+import org.openfuxml.factory.xml.list.XmlListItemFactory;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
 import org.openfuxml.factory.xml.table.XmlBodyFactory;
@@ -31,7 +30,6 @@ import org.openfuxml.factory.xml.table.XmlColumnFactory;
 import org.openfuxml.factory.xml.table.XmlColumnsFactory;
 import org.openfuxml.factory.xml.table.XmlContentFactory;
 import org.openfuxml.factory.xml.table.XmlRowFactory;
-import org.openfuxml.factory.xml.text.OfxEmphasisFactory;
 import org.openfuxml.interfaces.configuration.OfxTranslationProvider;
 import org.openfuxml.util.OfxCommentBuilder;
 import org.slf4j.Logger;
@@ -132,7 +130,7 @@ public class OfxTableWorkflowProcess <L extends JeeslLang, LOC extends JeeslLoca
 				{
 					Paragraph p = new Paragraph();
 					p.getContent().add(StatusXpath.getLang(permission.getRole().getLangs(),localeCode).getTranslation());
-					list.getItem().add(OfxListItemFactory.build(localeCode,p));
+					list.getItem().add(XmlListItemFactory.build(localeCode,p));
 				}
 				catch (ExlpXpathNotFoundException | ExlpXpathNotUniqueException e) {e.printStackTrace();}
 			}
@@ -157,7 +155,7 @@ public class OfxTableWorkflowProcess <L extends JeeslLang, LOC extends JeeslLoca
 //					p.getContent().add(OfxEmphasisFactory.bold(StatusXpath.getLang(destination.getLangs(),localeCode).getTranslation()));
 //					p.getContent().add(")");
 					
-					list.getItem().add(OfxListItemFactory.build(localeCode,p));
+					list.getItem().add(XmlListItemFactory.build(localeCode,p));
 				}
 				catch (ExlpXpathNotFoundException | ExlpXpathNotUniqueException e) {e.printStackTrace();}
 			}

@@ -416,6 +416,10 @@
 								<f:facet name="header"><jtp:label entity="WorkflowDocument" code="code"/></f:facet>
 								<h:outputText value="#{d.code}"/>
 							</p:column>
+							<p:column>
+								<f:facet name="header"><jtp:label entity="WorkflowDocument" code="name"/></f:facet>
+								<h:outputText value="#{d.name[localeCode].lang}"/>
+							</p:column>
 						</p:dataTable>
 					</h:form>
 					<jp:opXpathTable id="opRequired" widgetVar="wvRequired" handler="#{cc.attrs.bean.opDocument}" update=":#{cc.id}:fRequired"/>

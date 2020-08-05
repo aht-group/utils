@@ -350,7 +350,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	{
 		documents.clear();
 		documents.addAll(fWorkflow.allForParent(fbWorkflow.getClassDocument(),process));
-		opDocument.setOpList(documents);
+		opDocument.setLazy(documents);
 		logger.info(AbstractLogMessage.reloaded(fbWorkflow.getClassDocument(),opDocument.getOpList()));
 	}
 	
@@ -689,7 +689,10 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		opDocument.setTbList(transition.getDocuments());
 	}
 	
-	public void prepareAddRequired() {}
+	public void prepareAddRequired()
+	{
+		logger.info("required:"+opDocument.getTbList().size()+" availble:"+opDocument.getOpList().size());
+	}
 	public void selectRequired()
 	{
 		logger.info(AbstractLogMessage.selectEntity(opDocument.getTb()));

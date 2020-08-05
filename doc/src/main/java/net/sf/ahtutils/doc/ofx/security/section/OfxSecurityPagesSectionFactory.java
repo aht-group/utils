@@ -24,7 +24,7 @@ import org.openfuxml.factory.xml.layout.XmlFontFactory;
 import org.openfuxml.factory.xml.layout.XmlHeightFactory;
 import org.openfuxml.factory.xml.layout.XmlWidthFactory;
 import org.openfuxml.factory.xml.list.XmlListFactory;
-import org.openfuxml.factory.xml.list.OfxListItemFactory;
+import org.openfuxml.factory.xml.list.XmlListItemFactory;
 import org.openfuxml.factory.xml.media.XmlMediaFactory;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.factory.xml.ofx.content.structure.XmlParagraphFactory;
@@ -88,7 +88,7 @@ public class OfxSecurityPagesSectionFactory extends AbstractUtilsOfxDocumentatio
 			List list = XmlListFactory.unordered();
 			for(net.sf.ahtutils.xml.access.Action action : view.getActions().getAction())
 			{
-				Item item = OfxListItemFactory.build();
+				Item item = XmlListItemFactory.build();
 				
 				for(String lang : langs)
 				{
