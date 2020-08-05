@@ -1,6 +1,7 @@
 package org.jeesl.interfaces.model.module.workflow.transition;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
 import org.jeesl.interfaces.model.marker.jpa.EjbPersistable;
@@ -59,4 +60,7 @@ public interface JeeslWorkflowTransition <L extends JeeslLang, D extends JeeslDe
 	
 	Integer getAutoTransitionTimer();
 	void setAutoTransitionTimer(Integer autoTransitionTimer);
+	
+	List<WPD> getDocuments();
+	void setDocuments(List<WPD> documents);
 }

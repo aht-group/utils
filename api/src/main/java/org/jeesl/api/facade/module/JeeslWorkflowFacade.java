@@ -75,6 +75,8 @@ public interface JeeslWorkflowFacade <L extends JeeslLang, D extends JeeslDescri
 	List<WL> fWorkflowEscalations(WP process);
 	List<WL> fWorkflowDelegationReuquests(Boolean result);
 	
+	WT load(WT transition);
+	
 	WF loadWorkflow(WF workflow);
 	List<WF> fWorkflows(WP process, List<WS> stages);
 	List<WF> fWorkflows(List<WP> processes, List<WST> types);

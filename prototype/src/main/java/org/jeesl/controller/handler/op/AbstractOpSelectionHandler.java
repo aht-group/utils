@@ -22,7 +22,7 @@ public abstract class AbstractOpSelectionHandler <T extends EjbWithId> implement
     protected T op; @Override public T getOp() {return op;} @Override public void setOp(T opEntity) {this.op = opEntity;}
     protected T tb; @Override public T getTb() {return tb;} @Override public void setTb(T tbEntity) {this.tb = tbEntity;}
 
-    protected List<T> opList; @Override public List<T> getOpList() {return opList;} @Override public void setOpList(List<T> list) {opList.clear(); opList.addAll(list);}
+    protected List<T> opList; @Override public List<T> getOpList() {return opList;} @Override public void setOpList(List<T> opList) {this.opList.clear(); this.opList.addAll(opList);}
     protected final List<T> tbList; @Override public List<T> getTbList() {return tbList;} @Override public void setTbList(List<T> list) {tbList.clear(); tbList.addAll(list);}
     
     protected OpEntityBean bean;
@@ -78,8 +78,8 @@ public abstract class AbstractOpSelectionHandler <T extends EjbWithId> implement
     {
         if(op!=null && !tbList.contains(op))
         {
-	        	tbList.add(op);
-	        	bean.addOpEntity(op);
+        	tbList.add(op);
+        	bean.addOpEntity(op);
         }
         reset(false,true,true);
     }

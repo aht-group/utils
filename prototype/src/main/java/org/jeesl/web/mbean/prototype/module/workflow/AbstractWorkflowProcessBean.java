@@ -13,6 +13,7 @@ import org.jeesl.api.facade.module.JeeslWorkflowFacade;
 import org.jeesl.api.facade.system.graphic.JeeslGraphicFacade;
 import org.jeesl.controller.handler.NullNumberBinder;
 import org.jeesl.controller.handler.module.workflow.WorkflowProcesslResetHandler;
+import org.jeesl.controller.handler.op.OpEntitySelectionHandler;
 import org.jeesl.controller.handler.sb.SbSingleHandler;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
@@ -23,6 +24,8 @@ import org.jeesl.factory.builder.module.WorkflowFactoryBuilder;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.factory.builder.system.SvgFactoryBuilder;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowTransitionFactory;
+import org.jeesl.factory.json.system.translation.JsonTranslationFactory;
+import org.jeesl.interfaces.bean.op.OpEntityBean;
 import org.jeesl.interfaces.bean.sb.SbSingleBean;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplate;
@@ -92,8 +95,8 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 											FRC extends JeeslFileContainer<?,?>,
 											G extends JeeslGraphic<L,D,GT,?,?>, GT extends JeeslGraphicType<L,D,GT,G>,
 											USER extends JeeslUser<SR>>
-				extends AbstractAdminBean<L,D,LOC>
-					implements Serializable,SbSingleBean
+					extends AbstractAdminBean<L,D,LOC>
+					implements Serializable,SbSingleBean,OpEntityBean
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractWorkflowProcessBean.class);
@@ -112,6 +115,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	
 	private final SbSingleHandler<WX> sbhContext; public SbSingleHandler<WX> getSbhContext() {return sbhContext;}
 	private final SbSingleHandler<WP> sbhProcess; public SbSingleHandler<WP> getSbhProcess() {return sbhProcess;}
+	private final OpEntitySelectionHandler<WPD> opDocument; public OpEntitySelectionHandler<WPD> getOpDocument() {return opDocument;}
 	
 	private final NullNumberBinder nnb; public NullNumberBinder getNnb() {return nnb;}
 	
@@ -163,6 +167,9 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		this.fbSecurity=fbSecurity;
 		this.fbTemplate=fbTemplate;
 		this.fbSvg=fbSvg;
+		
+		opDocument = new OpEntitySelectionHandler<WPD>(this);
+		opDocument.addColumn(JsonTranslationFactory.build(fbWorkflow.getClassDocument(),JeeslWorkflowDocument.Attributes.code,"@code","var.code"));
 		
 		efTransition = fbWorkflow.ejbTransition();
 		
@@ -226,7 +233,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		if(sbhProcess.isSelected())
 		{
 			process = fApproval.find(fbWorkflow.getClassProcess(),sbhProcess.getSelection());
-			reloadStages();
+			reloadProcess();
 		}
 	}
 	
@@ -296,6 +303,12 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		stages.clear();
 		stages.addAll(fWorkflow.allForParent(fbWorkflow.getClassStage(),process));
 	}
+	
+	private void reloadProcess()
+	{
+		reloadStages();
+		reloadDocuments();
+	}
 
 	public void addProcess() throws JeeslNotFoundException
 	{
@@ -314,8 +327,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		process = fWorkflow.find(fbWorkflow.getClassProcess(), process);
 		process = efLang.persistMissingLangs(fWorkflow,localeCodes,process);
 		process = efDescription.persistMissingLangs(fWorkflow,localeCodes,process);
-		reloadStages();
-		reloadDocuments();
+
 	}
 	
 	public void saveProcess() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
@@ -338,6 +350,8 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	{
 		documents.clear();
 		documents.addAll(fWorkflow.allForParent(fbWorkflow.getClassDocument(),process));
+		opDocument.setOpList(documents);
+		logger.info(AbstractLogMessage.reloaded(fbWorkflow.getClassDocument(),opDocument.getOpList()));
 	}
 	
 	public void addDocument()
@@ -363,7 +377,8 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	public void addStage()
 	{
 		reset(WorkflowProcesslResetHandler.build().all().stages(false));
-		logger.info(AbstractLogMessage.addEntity(fbWorkflow.getClassProcess()));		stage = fbWorkflow.ejbStage().build(process,stages);
+		logger.info(AbstractLogMessage.addEntity(fbWorkflow.getClassProcess()));
+		stage = fbWorkflow.ejbStage().build(process,stages);
 		stage.setName(efLang.createEmpty(localeCodes));
 		stage.setDescription(efDescription.createEmpty(localeCodes));
 		editStage = true;
@@ -492,6 +507,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		reloadTransitions();
 		reloadActions();
 		reloadCommunications();
+		reloadRequired();
 		bMessage.growlSuccessSaved();
 	}
 	
@@ -507,6 +523,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		editTransition = false;
 		reloadActions();
 		reloadCommunications();
+		reloadRequired();
 	}
 	
 	public void deleteTransition() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
@@ -664,6 +681,42 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 			if(action.getOption()!=null) {option = action.getOption().getId();}
 			else {option=null;}
 		}
+	}
+	
+	private void reloadRequired()
+	{
+		transition = fWorkflow.load(transition);
+		opDocument.setTbList(transition.getDocuments());
+	}
+	
+	public void prepareAddRequired() {}
+	public void selectRequired()
+	{
+		logger.info(AbstractLogMessage.selectEntity(opDocument.getTb()));
+	}
+	
+    @SuppressWarnings("unchecked")
+	@Override public void addOpEntity(EjbWithId ejb) throws JeeslLockingException, JeeslConstraintViolationException
+	{
+    	WPD d = (WPD)ejb;
+    	if(!transition.getDocuments().contains(d))
+    	{
+    		transition.getDocuments().add(d);
+    		transition = fWorkflow.saveTransaction(transition);
+    		reloadDocuments();
+    	}
+	}
+	
+    @SuppressWarnings("unchecked")
+	@Override public void rmOpEntity(EjbWithId ejb) throws JeeslLockingException, JeeslConstraintViolationException
+	{
+		WPD d = (WPD)ejb;
+    	if(transition.getDocuments().contains(d))
+    	{
+    		transition.getDocuments().remove(d);
+    		transition = fWorkflow.saveTransaction(transition);
+    		reloadDocuments();
+    	}
 	}
 	
 	public void reorderProcesses() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fWorkflow,sbhProcess.getList());}

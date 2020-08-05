@@ -189,6 +189,13 @@ public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescrip
 		workflow.getResponsibles().size();
 		return workflow;
 	}
+	
+	@Override public WT load(WT transition)
+	{
+		transition = em.find(fbWorkflow.getClassTransition(), transition.getId());
+		transition.getDocuments().size();
+		return transition;
+	}
 
 	@Override public List<WF> fWorkflows(WP process, List<WS> stages) 
 	{

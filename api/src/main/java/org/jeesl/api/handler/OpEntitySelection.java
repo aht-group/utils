@@ -18,7 +18,7 @@ public interface OpEntitySelection <T extends EjbWithId>
     public void setTb(T tb);
 
     public List<T> getOpList();
-    public void setOpList(List<T> opEntites);
+    public void setOpList(List<T> opList);
 
     public List<T> getTbList();
     public void setTbList(List<T> tbEntites);
