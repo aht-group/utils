@@ -21,10 +21,10 @@ public interface JeeslBbBoard<L extends JeeslLang, D extends JeeslDescription,
 								EjbWithId,EjbWithRefId,EjbWithPosition,EjbWithName,
 								EjbSaveable
 {	
-	public enum Attributes{scope,refId}
+	public enum Attributes{refId,parent,scope,publishing,description}
 	
 	BB getParent();
-	void setParent(BB bb);
+	void setParent(BB parent);
 	
 	SCOPE getScope();
 	void setScope(SCOPE scope);

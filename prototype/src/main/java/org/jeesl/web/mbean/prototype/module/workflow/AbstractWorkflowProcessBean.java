@@ -685,7 +685,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	
 	private void reloadRequired()
 	{
-		transition = fWorkflow.load(transition);
+		transition = fWorkflow.loadTransition(transition);
 		opDocument.setTbList(transition.getDocuments());
 	}
 	

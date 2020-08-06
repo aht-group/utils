@@ -17,6 +17,7 @@ public interface JeeslIoSsiHost <L extends JeeslLang, D extends JeeslDescription
 									EjbWithLangDescription<L,D>
 {
 	public enum Attributes{system}
+	
 	SYSTEM getSystem();
 	void setSystem(SYSTEM system);
 }

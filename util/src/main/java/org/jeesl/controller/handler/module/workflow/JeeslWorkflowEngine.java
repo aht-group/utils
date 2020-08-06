@@ -17,6 +17,7 @@ import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.exception.processing.UtilsProcessingException;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.factory.builder.module.WorkflowFactoryBuilder;
+import org.jeesl.factory.ejb.util.EjbCodeFactory;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.factory.png.SignatureTranscoder;
 import org.jeesl.interfaces.controller.handler.module.workflow.JeeslWorkflowActionsHandler;
@@ -62,34 +63,34 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
-							WX extends JeeslWorkflowContext<L,D,WX,?>,
-							WP extends JeeslWorkflowProcess<L,D,WX,WS>,
-							WPD extends JeeslWorkflowDocument<L,D,WP>,
-							WS extends JeeslWorkflowStage<L,D,WP,WST,WSP,WT,?>,
-							WST extends JeeslWorkflowStageType<L,D,WST,?>,
-							WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
-							WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
-							WML extends JeeslWorkflowModificationLevel<L,D,WML,?>,
-							WT extends JeeslWorkflowTransition<L,D,WPD,WS,WTT,SR,?>,
-							WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
-							WC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
-							WA extends JeeslWorkflowAction<WT,AB,AO,RE,RA>,
-							AB extends JeeslWorkflowBot<AB,L,D,?>,
-							AO extends EjbWithId,
-							MT extends JeeslIoTemplate<L,D,?,?,MD,?>,
-							MC extends JeeslTemplateChannel<L,D,MC,?>,
-							MD extends JeeslIoTemplateDefinition<D,MC,MT>,
-							SR extends JeeslSecurityRole<L,D,?,?,?,?,USER>,
-							RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
-							RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
-							AL extends JeeslWorkflowLink<WF,RE>,
-							WF extends JeeslWorkflow<WP,WS,WY,USER>,
-							WY extends JeeslWorkflowActivity<WT,WF,WD,FRC,USER>,
-							WD extends JeeslWorkflowDelegate<WY,USER>,
-							FRC extends JeeslFileContainer<?,?>,
-							WCS extends JeeslConstraint<L,D,?,?,?,?,?,?>,
-							USER extends JeeslUser<SR>
-							>
+									WX extends JeeslWorkflowContext<L,D,WX,?>,
+									WP extends JeeslWorkflowProcess<L,D,WX,WS>,
+									WPD extends JeeslWorkflowDocument<L,D,WP>,
+									WS extends JeeslWorkflowStage<L,D,WP,WST,WSP,WT,?>,
+									WST extends JeeslWorkflowStageType<L,D,WST,?>,
+									WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
+									WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
+									WML extends JeeslWorkflowModificationLevel<L,D,WML,?>,
+									WT extends JeeslWorkflowTransition<L,D,WPD,WS,WTT,SR,?>,
+									WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
+									WC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
+									WA extends JeeslWorkflowAction<WT,AB,AO,RE,RA>,
+									AB extends JeeslWorkflowBot<AB,L,D,?>,
+									AO extends EjbWithId,
+									MT extends JeeslIoTemplate<L,D,?,?,MD,?>,
+									MC extends JeeslTemplateChannel<L,D,MC,?>,
+									MD extends JeeslIoTemplateDefinition<D,MC,MT>,
+									SR extends JeeslSecurityRole<L,D,?,?,?,?,USER>,
+									RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
+									RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
+									AL extends JeeslWorkflowLink<WF,RE>,
+									WF extends JeeslWorkflow<WP,WS,WY,USER>,
+									WY extends JeeslWorkflowActivity<WT,WF,WD,FRC,USER>,
+									WD extends JeeslWorkflowDelegate<WY,USER>,
+									FRC extends JeeslFileContainer<?,?>,
+									WCS extends JeeslConstraint<L,D,?,?,?,?,?,?>,
+									USER extends JeeslUser<SR>
+									>
 				implements JeeslJsfWorkflowHandler
 {
 	private static final long serialVersionUID = 1L;
@@ -115,11 +116,13 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 	private final Map<JeeslWithWorkflow<WF>,WF> mapWorkflow; public Map<JeeslWithWorkflow<WF>,WF> getMapWorkflow() {return mapWorkflow;}
 	private final Map<WY,byte[]> mapSignature; public Map<WY, byte[]> getMapSignature() {return mapSignature;}
 	private final Map<WT,Boolean> mapVeto; public Map<WT,Boolean> getMapVeto() {return mapVeto;}
+	private final Map<String,WPD> mapDocument; public Map<String,WPD> getMapDocument() {return mapDocument;}
 	
 	private final List<WY> activities; public List<WY> getActivities() {return activities;}
 	private final List<WT> transitions; public List<WT> getTransitions() {return transitions;}
 	private final List<WA> actions; public List<WA> getActions() {return actions;}
 	private final List<WC> communications; public List<WC> getCommunications() {return communications;}
+	private final List<WPD> documents; public List<WPD> getDocuments() {return documents;}
 	private final List<WCS> constraints; public List<WCS> getConstraints() {return constraints;}
 	private final List<WML> levels; public List<WML> getLevels() {return levels;}
 	
@@ -163,6 +166,7 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 		
 		cpActivity = new RecordComparator<WY>();
 		
+		mapDocument = new HashMap<>();
 		mapWorkflow = new HashMap<>();
 		mapSignature = new HashMap<>();
 		mapVeto = new HashMap<>();
@@ -171,6 +175,7 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 		activities = new ArrayList<>();
 		actions = new ArrayList<>();
 		communications = new ArrayList<>();
+		documents = new ArrayList<>();
 		constraints = new ArrayList<>();
 		levels = new ArrayList<>();
 		
@@ -193,6 +198,13 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 		if(rWorkflow) {workflow=null;link=null;activities.clear();}
 		if(rDelegate) {delegate=null;}
 //		if(rFrh) {frh.reset();}
+	}
+	
+	protected void realodDocuments()
+	{
+		List<WPD> documents = fWorkflow.allForParent(fbWorkflow.getClassDocument(),process);
+		mapDocument.putAll(EjbCodeFactory.toMapNonUniqueCode(documents));
+		logger.info("Documents: "+documents.size());
 	}
 	
 	public void addWorkflow(JeeslJsfSecurityHandler<SR,?,?,?,?,USER> security, USER user, JeeslWithWorkflow<WF> ejb)
@@ -395,7 +407,7 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 	
 	public void prepareTransition(WT t, boolean autoPerform) throws JeeslConstraintViolationException, JeeslLockingException, UtilsProcessingException, JeeslWorkflowException, JeeslNotFoundException
 	{
-		transition = fWorkflow.find(fbWorkflow.getClassTransition(),t);
+		transition = fWorkflow.loadTransition(t);
 		if(debugOnInfo) {logger.info("Prepare Transition for "+transition.toString()+" using "+actionHandler.getClass().getName());}
 		
 		remark="";
@@ -403,9 +415,11 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 		
 		actions.clear();actions.addAll(fWorkflow.allForParent(fbWorkflow.getClassAction(),transition));
 		communications.clear();communications.addAll(fWorkflow.allForParent(fbWorkflow.getClassCommunication(),transition));
+		documents.clear();documents.addAll(transition.getDocuments());
 		
 		constraints.clear();
 		actionHandler.checkPreconditions(constraints,entity,actions);
+		if(!documents.isEmpty()) {actionHandler.checkDocuments(constraints,entity,documents);}
 		
 		if(debugOnInfo)
 		{

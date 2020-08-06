@@ -190,7 +190,7 @@ public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescrip
 		return workflow;
 	}
 	
-	@Override public WT load(WT transition)
+	@Override public WT loadTransition(WT transition)
 	{
 		transition = em.find(fbWorkflow.getClassTransition(), transition.getId());
 		transition.getDocuments().size();

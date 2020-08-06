@@ -69,8 +69,6 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 	private final Map<RREF,List<COMPANY>> mapVendor; @Override public Map<RREF,List<COMPANY>> getMapVendor() {return mapVendor;}
 	private final Map<RREF,List<COMPANY>> mapMaintainer; @Override public Map<RREF,List<COMPANY>> getMapMaintainer() {return mapMaintainer;}
 	
-
-
 	private final List<ASTATUS> assetStatus; public List<ASTATUS> getAssetStatus() {return assetStatus;}
     private final List<VIEW> assetLevel; public List<VIEW> getAssetLevel() {return assetLevel;}
     private final List<ETYPE> eventType; @Override public List<ETYPE> getEventType() {return eventType;}

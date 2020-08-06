@@ -138,6 +138,15 @@
 										<br/>
 									</ui:repeat>
 								</ui:fragment>
+								
+								<jtp:label entity="WorkflowTransition" code="documents"/>
+								<ui:fragment>
+									<ui:repeat var="d" value="#{cc.attrs.handler.documents}" >
+					                	<h:outputText value="#{d.name[localeCode].lang}"/>
+										<br/>
+									</ui:repeat>
+								</ui:fragment>
+								
 								<p:outputLabel value="#{msg.jeeslRemark}"/>
 								<jtp:inputRemark value="#{cc.attrs.handler.remark}"/>
 							</p:panelGrid>
