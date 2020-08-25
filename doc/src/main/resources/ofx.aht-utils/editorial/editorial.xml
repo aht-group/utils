@@ -11,15 +11,15 @@
 	
 	<ofx:paragraph lang="en" version="1">
 		What are Editorial Elements?
-	
-	</ofx:paragraph lang="en" version="1">
+	</ofx:paragraph>
+	<ofx:paragraph lang="en" version="1">
 			Editorial Elements are articles that presents the publication's opinion on an issue.
 			Editorials are written according to a well-established formula;
 			Introduction - state the problem
 			Body - expresses an opinion
 			Solution - offers a solution to the problem
 			Conclusion - emphasizes the main issue
-	
+	</ofx:paragraph>
 	<ofx:section>
 		<ofx:title lang="en">Acronyms</ofx:title>
 	
