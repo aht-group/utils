@@ -7,12 +7,18 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.jeesl.model.json.util.Day;
+import org.jeesl.model.json.util.time.JsonDay;
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import net.sf.exlp.util.DateUtil;
 
 public class JsonDayFactory
 {
+	final static Logger logger = LoggerFactory.getLogger(JsonDayFactory.class);
 	public static final long serialVersionUID=1;
+	
 	private Locale locale;
 	
 	private final DateTime now;
@@ -26,18 +32,20 @@ public class JsonDayFactory
 		now = new DateTime(new Date());
 	}
 	
-	public static Day build()
+	public static JsonDay build()
 	{
-		Day json = new Day();
+		JsonDay json = new JsonDay();
 		
 		return json;
 	}
 	
-	public Day build(DateTime dt)
+	public JsonDay build(DateTime dt)
 	{
-		Day json = build();
+		JsonDay json = build();
 		json.setNr(dt.getDayOfMonth());
 		json.setWeekend(dt.getDayOfWeek()>5);
+		json.setMonth(dt.getMonthOfYear());
+		json.setYear(dt.getYear());
 		
 		DateTime.Property pDoW = dt.dayOfWeek();
 		json.setName(pDoW.getAsText(locale));
@@ -48,12 +56,35 @@ public class JsonDayFactory
 		return json;
 	}
 	
-	public List<Day> buildMonth(int year, int month)
+	public List<JsonDay> build(Date from, Date to)
+	{
+		DateTime dtFrom = new DateTime(from).withTimeAtStartOfDay();
+		DateTime dtTo = new DateTime(to).withTimeAtStartOfDay();
+		
+		logger.info(dtFrom.toString()+" -> "+dtTo.toString());
+		
+		List<JsonDay> list = new ArrayList<>();
+		
+		boolean work = dtFrom.isBefore(dtTo) || dtFrom.isEqual(dtTo);
+		int i = 0;
+		while(work)
+		{
+			work = dtFrom.plusDays(i).isBefore(dtTo) || dtFrom.isEqual(dtTo);
+			JsonDay day = build(dtFrom.plusDays(i));
+			i++;
+			day.setId(i);
+			list.add(day);
+		}
+		
+		return list;
+	}
+	
+	public List<JsonDay> buildMonth(int year, int month)
 	{
 		DateTime dt1 = new DateTime(year, month, 1, 12,0,0,0);
 		int maxDays = dt1.dayOfMonth().getMaximumValue();
 		
-		List<Day> days = new ArrayList<Day>();
+		List<JsonDay> days = new ArrayList<JsonDay>();
 		for(int i=0;i<maxDays;i++)
 		{
 			days.add(build(dt1.plusDays(i)));
@@ -61,10 +92,15 @@ public class JsonDayFactory
 		return days;
 	}
 	
-	public static Map<Integer,Day> toMap(List<Day> list)
+	public static Map<Integer,JsonDay> toMap(List<JsonDay> list)
 	{
-		Map<Integer,Day> map = new HashMap<>();
-		for(Day day : list) {map.put(day.getNr(),day);}
+		Map<Integer,JsonDay> map = new HashMap<>();
+		for(JsonDay day : list) {map.put(day.getNr(),day);}
 		return map;
+	}
+	
+	public static Date toDate(JsonDay day)
+	{
+		return DateUtil.getDateFromInt(day.getYear(),day.getMonth(),day.getNr());
 	}
 }
