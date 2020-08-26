@@ -21,7 +21,8 @@ import net.sf.ahtutils.xml.security.Role;
 
 public class XmlWorkflowQuery
 {
-	public static enum Key {xProcess,rStage}
+	public static enum Key {xProcess,rStage,
+							rProcess,rTransition2Process}
 	
 	private static Map<Key,QueryWf> mQueries;
 	
@@ -34,8 +35,10 @@ public class XmlWorkflowQuery
 			QueryWf q = new QueryWf();
 			switch(key)
 			{
-				case xProcess: q.setProcess(xProcess());break;
-				case rStage: q.setStage(rStage());break;
+				case xProcess: q.setProcess(xProcess()); break;
+				case rProcess: q.setProcess(rProcess()); break;
+				case rStage: q.setStage(rStage()); break;
+				case rTransition2Process: q.setTransition(rTransition2Process()); break;
 			}
 			mQueries.put(key, q);
 		}
@@ -57,6 +60,17 @@ public class XmlWorkflowQuery
 		return xml;
 	}
 	
+	private static org.jeesl.model.xml.module.workflow.Process rProcess()
+	{		
+		org.jeesl.model.xml.module.workflow.Process xml = new org.jeesl.model.xml.module.workflow.Process();
+		xml.setId(0);
+		xml.setCode("");
+		xml.setPosition(0);
+		xml.setContext(XmlContextFactory.build("",""));
+		xml.setLabel("");
+		return xml;
+	}
+	
 	private static Stage xStage()
 	{		
 		Stage xml = new Stage();
@@ -70,14 +84,7 @@ public class XmlWorkflowQuery
 		return xml;
 	}
 	
-	private static Stage rStage()
-	{		
-		Stage xml = new Stage();
-		xml.setId(0);
-		xml.setPosition(0);
-		xml.setLabel("");
-		return xml;
-	}
+
 	
 	private static Permissions permissions()
 	{
@@ -113,6 +120,32 @@ public class XmlWorkflowQuery
 		xml.setLangs(XmlStatusQuery.langs());
 		xml.setDescriptions(XmlStatusQuery.descriptions());
 		xml.setStage(stage);
+		return xml;
+	}
+	
+	private static Stage rStage()
+	{		
+		Stage xml = new Stage();
+		xml.setId(0);
+		xml.setPosition(0);
+		xml.setLabel("");
+		return xml;
+	}
+	
+	private static Stage rStage2Process()
+	{
+		Stage xml = rStage();
+		
+		return xml;
+	}
+	
+	private static Transition rTransition2Process()
+	{		
+		Transition xml = new Transition();
+		xml.setId(0);
+		xml.setPosition(0);
+		xml.setLabel("");
+		xml.setStage(rStage2Process());
 		return xml;
 	}
 }

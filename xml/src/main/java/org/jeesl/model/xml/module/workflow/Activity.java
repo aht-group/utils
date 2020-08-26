@@ -7,9 +7,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-import net.sf.ahtutils.xml.status.Descriptions;
-import net.sf.ahtutils.xml.status.Langs;
+import javax.xml.datatype.XMLGregorianCalendar;
+import net.sf.ahtutils.xml.security.User;
 
 
 /**
@@ -22,13 +23,12 @@ import net.sf.ahtutils.xml.status.Langs;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element ref="{http://ahtutils.aht-group.com/status}langs"/&gt;
- *         &lt;element ref="{http://ahtutils.aht-group.com/status}descriptions"/&gt;
- *         &lt;element ref="{http://www.jeesl.org/workflow}stage"/&gt;
+ *         &lt;element ref="{http://ahtutils.aht-group.com/security}user"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/workflow}transition"/&gt;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" /&gt;
  *       &lt;attribute name="position" type="{http://www.w3.org/2001/XMLSchema}int" /&gt;
- *       &lt;attribute name="label" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+ *       &lt;attribute name="record" type="{http://www.w3.org/2001/XMLSchema}dateTime" /&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -38,111 +38,81 @@ import net.sf.ahtutils.xml.status.Langs;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "langs",
-    "descriptions",
-    "stage"
+    "user",
+    "transition"
 })
-@XmlRootElement(name = "transition")
-public class Transition
+@XmlRootElement(name = "activity")
+public class Activity
     implements Serializable
 {
 
     private final static long serialVersionUID = 1L;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
-    protected Langs langs;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
-    protected Descriptions descriptions;
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/security", required = true)
+    protected User user;
     @XmlElement(required = true)
-    protected Stage stage;
+    protected Transition transition;
     @XmlAttribute(name = "id")
     protected Long id;
     @XmlAttribute(name = "position")
     protected Integer position;
-    @XmlAttribute(name = "label")
-    protected String label;
+    @XmlAttribute(name = "record")
+    @XmlSchemaType(name = "dateTime")
+    protected XMLGregorianCalendar record;
 
     /**
-     * Gets the value of the langs property.
+     * Gets the value of the user property.
      * 
      * @return
      *     possible object is
-     *     {@link Langs }
+     *     {@link User }
      *     
      */
-    public Langs getLangs() {
-        return langs;
+    public User getUser() {
+        return user;
     }
 
     /**
-     * Sets the value of the langs property.
+     * Sets the value of the user property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Langs }
+     *     {@link User }
      *     
      */
-    public void setLangs(Langs value) {
-        this.langs = value;
+    public void setUser(User value) {
+        this.user = value;
     }
 
-    public boolean isSetLangs() {
-        return (this.langs!= null);
+    public boolean isSetUser() {
+        return (this.user!= null);
     }
 
     /**
-     * Gets the value of the descriptions property.
+     * Gets the value of the transition property.
      * 
      * @return
      *     possible object is
-     *     {@link Descriptions }
+     *     {@link Transition }
      *     
      */
-    public Descriptions getDescriptions() {
-        return descriptions;
+    public Transition getTransition() {
+        return transition;
     }
 
     /**
-     * Sets the value of the descriptions property.
+     * Sets the value of the transition property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Descriptions }
+     *     {@link Transition }
      *     
      */
-    public void setDescriptions(Descriptions value) {
-        this.descriptions = value;
+    public void setTransition(Transition value) {
+        this.transition = value;
     }
 
-    public boolean isSetDescriptions() {
-        return (this.descriptions!= null);
-    }
-
-    /**
-     * Gets the value of the stage property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Stage }
-     *     
-     */
-    public Stage getStage() {
-        return stage;
-    }
-
-    /**
-     * Sets the value of the stage property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Stage }
-     *     
-     */
-    public void setStage(Stage value) {
-        this.stage = value;
-    }
-
-    public boolean isSetStage() {
-        return (this.stage!= null);
+    public boolean isSetTransition() {
+        return (this.transition!= null);
     }
 
     /**
@@ -210,31 +180,31 @@ public class Transition
     }
 
     /**
-     * Gets the value of the label property.
+     * Gets the value of the record property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link XMLGregorianCalendar }
      *     
      */
-    public String getLabel() {
-        return label;
+    public XMLGregorianCalendar getRecord() {
+        return record;
     }
 
     /**
-     * Sets the value of the label property.
+     * Sets the value of the record property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setLabel(String value) {
-        this.label = value;
+    public void setRecord(XMLGregorianCalendar value) {
+        this.record = value;
     }
 
-    public boolean isSetLabel() {
-        return (this.label!= null);
+    public boolean isSetRecord() {
+        return (this.record!= null);
     }
 
 }

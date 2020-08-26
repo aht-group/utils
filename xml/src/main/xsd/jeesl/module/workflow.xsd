@@ -14,6 +14,7 @@
         	<xsd:sequence>
 				<xsd:element ref="js:contexts" maxOccurs="1"/>
         	    <xsd:element ref="wf:processes" maxOccurs="1"/>
+        	    <xsd:element ref="wf:activities" maxOccurs="1"/>
         	    <xsd:element ref="wf:stage" maxOccurs="1"/>
         	</xsd:sequence>
         </xsd:complexType>
@@ -36,6 +37,7 @@
 			<xsd:attribute name="id" type="xsd:long"/>
 			<xsd:attribute name="position" type="xsd:int"/>
 			<xsd:attribute name="code" type="xsd:string"/>
+			<xsd:attribute name="label" type="xsd:string"/>
 		</xsd:complexType>
     </xsd:element>
     <xsd:element name="stage">
@@ -45,6 +47,7 @@
         		<xsd:element ref="js:langs" maxOccurs="1"/>
 				<xsd:element ref="js:descriptions" maxOccurs="1"/>
 				<xsd:element ref="wf:permissions" maxOccurs="1"/>
+				<xsd:element ref="wf:process" maxOccurs="1"/>
 				<xsd:element ref="wf:transition" maxOccurs="unbounded"/>
 			</xsd:sequence>
 			<xsd:attribute name="id" type="xsd:long"/>
@@ -81,6 +84,25 @@
 			</xsd:sequence>
 			<xsd:attribute name="id" type="xsd:long"/>
 			<xsd:attribute name="position" type="xsd:int"/>
+			<xsd:attribute name="label" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="activities">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="wf:activity" maxOccurs="unbounded"/>
+			</xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="activity">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="sec:user" maxOccurs="1"/>
+				<xsd:element ref="wf:transition" maxOccurs="1"/>
+			</xsd:sequence>
+			<xsd:attribute name="id" type="xsd:long"/>
+			<xsd:attribute name="position" type="xsd:int"/>
+			<xsd:attribute name="record" type="xsd:dateTime"/>
         </xsd:complexType>
     </xsd:element>
 </xsd:schema>

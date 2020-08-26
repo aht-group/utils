@@ -54,6 +54,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Statistic }
+     * 
+     */
+    public Statistic createStatistic() {
+        return new Statistic();
+    }
+
+    /**
      * Create an instance of {@link Transaction }
      * 
      */
@@ -91,6 +99,14 @@ public class ObjectFactory {
      */
     public Ds createDs() {
         return new Ds();
+    }
+
+    /**
+     * Create an instance of {@link TsCollection }
+     * 
+     */
+    public TsCollection createTsCollection() {
+        return new TsCollection();
     }
 
     /**

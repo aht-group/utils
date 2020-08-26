@@ -29,6 +29,7 @@ import net.sf.ahtutils.xml.status.Type;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}langs"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}descriptions"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/workflow}permissions"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/workflow}process"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/workflow}transition" maxOccurs="unbounded"/&gt;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" /&gt;
@@ -48,6 +49,7 @@ import net.sf.ahtutils.xml.status.Type;
     "langs",
     "descriptions",
     "permissions",
+    "process",
     "transition"
 })
 @XmlRootElement(name = "stage")
@@ -64,6 +66,8 @@ public class Stage
     protected Descriptions descriptions;
     @XmlElement(required = true)
     protected Permissions permissions;
+    @XmlElement(required = true)
+    protected Process process;
     @XmlElement(required = true)
     protected List<Transition> transition;
     @XmlAttribute(name = "id")
@@ -185,6 +189,34 @@ public class Stage
 
     public boolean isSetPermissions() {
         return (this.permissions!= null);
+    }
+
+    /**
+     * Gets the value of the process property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Process }
+     *     
+     */
+    public Process getProcess() {
+        return process;
+    }
+
+    /**
+     * Sets the value of the process property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Process }
+     *     
+     */
+    public void setProcess(Process value) {
+        this.process = value;
+    }
+
+    public boolean isSetProcess() {
+        return (this.process!= null);
     }
 
     /**

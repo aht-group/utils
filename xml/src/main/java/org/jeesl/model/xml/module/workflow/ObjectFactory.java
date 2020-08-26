@@ -85,4 +85,20 @@ public class ObjectFactory {
         return new Processes();
     }
 
+    /**
+     * Create an instance of {@link Activities }
+     * 
+     */
+    public Activities createActivities() {
+        return new Activities();
+    }
+
+    /**
+     * Create an instance of {@link Activity }
+     * 
+     */
+    public Activity createActivity() {
+        return new Activity();
+    }
+
 }
