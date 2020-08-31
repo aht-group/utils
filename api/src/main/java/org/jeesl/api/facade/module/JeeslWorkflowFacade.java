@@ -1,5 +1,6 @@
 package org.jeesl.api.facade.module;
 
+import java.util.Date;
 import java.util.List;
 
 import org.jeesl.exception.ejb.JeeslNotFoundException;
@@ -83,4 +84,6 @@ public interface JeeslWorkflowFacade <L extends JeeslLang, D extends JeeslDescri
 	
 	Json1Tuples<WP> tpcActivitiesByProcess();
 	Json2Tuples<WP,WST> tpcActivitiesByProcessType();
+	
+	List<WY> fWorkflowActivities(Date from, Date to, List<USER> users, List<WP> processes);
 }

@@ -1,6 +1,7 @@
 package org.jeesl.controller.facade.module;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -366,6 +367,35 @@ public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescrip
 		
 		return em.createQuery(cQ).getResultList();
 	}
+	
+	@Override public List<WY> fWorkflowActivities(Date from, Date to, List<USER> users, List<WP> processes)
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<WY> cQ = cB.createQuery(fbWorkflow.getClassActivity());
+		Root<WY> activity = cQ.from(fbWorkflow.getClassActivity());
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		if(users!=null && !users.isEmpty())
+		{
+			Join<WY,USER> jUser = activity.join(JeeslWorkflowActivity.Attributes.user.toString());
+			predicates.add(jUser.in(users));
+		}
+		
+		if(processes!=null && !processes.isEmpty())
+		{
+			Join<WY,WF> jWf = activity.join(JeeslWorkflowActivity.Attributes.workflow.toString());
+			Join<WF,WP> jProcess = jWf.join(JeeslWorkflow.Attributes.process.toString());
+			predicates.add(jProcess.in(processes));
+		}
+		
+		Expression<Date> eRecord = activity.get(JeeslWorkflowActivity.Attributes.record.toString());
+		if(from!=null) {predicates.add(cB.greaterThanOrEqualTo(eRecord,from));}
+		if(to!=null) {predicates.add(cB.lessThan(eRecord,to));}
+
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.select(activity);
+		return em.createQuery(cQ).getResultList();
+	}
 
 	@Override public Json1Tuples<WP> tpcActivitiesByProcess()
 	{
@@ -405,5 +435,4 @@ public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescrip
 		TypedQuery<Tuple> tQ = em.createQuery(cQ);
         return jtf.build(tQ.getResultList(),JsonTupleFactory.Type.count);
 	}
-
 }

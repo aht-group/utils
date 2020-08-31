@@ -23,7 +23,7 @@ public interface JeeslWorkflowActivity <WT extends JeeslWorkflowTransition<?,?,?
 				EjbWithId,EjbWithParentAttributeResolver,
 				EjbWithRecord,JeeslWithFileRepositoryContainer<FRC>
 {
-	public static enum Attributes{workflow,delegate}
+	public static enum Attributes{workflow,delegate,user,record}
 	
 	WF getWorkflow();
 	void setWorkflow(WF workflow);
