@@ -81,6 +81,7 @@ public class AbstractJeeslMail<L extends JeeslLang,D extends JeeslDescription,LO
 	
 	protected String subjectPreifx;
 //	private final String dummyLocaleCode = "xx";
+	protected boolean developmentMode; public void activateDevelopmentMode() {developmentMode=true;}
 	
 	public AbstractJeeslMail(IoTemplateFactoryBuilder<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fbTemplate,
 							IoMailFactoryBuilder<L,D,MAILCAT,MAIL,STATUS,RETENTION,FRC> fbMail,
@@ -98,7 +99,9 @@ public class AbstractJeeslMail<L extends JeeslLang,D extends JeeslDescription,LO
 		mapTemplateBody = new HashMap<String,Template>();
 		
 		subjectPreifx = "";
+		developmentMode = false;
 		mails = XmlMailsFactory.build();
+		
 	}
 	
 	protected <E extends Enum<E>> void initIo(Class<?> c, E code)

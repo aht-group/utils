@@ -78,8 +78,6 @@ public class AbstractSmtpSpooler
 		for(Mail mail : mails.getMail())
 		{
 			sanitize(mail);
-			
-//			JaxbUtil.info(mail);
 			try
 			{
 				if(!hasVeto(mail))

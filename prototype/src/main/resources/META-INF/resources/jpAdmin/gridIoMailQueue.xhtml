@@ -41,7 +41,8 @@
 		<j:slot id="sQueue" width="9">
 			<h:form id="fQueue">
 				<p:dataTable var="m" value="#{cc.attrs.bean.mails}" draggableRows="true"
-					selection="#{cc.attrs.bean.mail}" selectionMode="single" rowKey="#{m.id}">
+					selection="#{cc.attrs.bean.mail}" selectionMode="single" rowKey="#{m.id}"
+					rows="50" paginator="true" rowsPerPageTemplate="#{appSettingsBean.rowsPerPageTemplate}" paginatorPosition="#{appSettingsBean.paginatorPosition}" paginatorTemplate="#{appSettingsBean.paginatorTemplate}">
 					<f:facet name="header">
 						<j:dtHeader title="#{msg.jeeslIoMailQueue}"/>
 					</f:facet>
