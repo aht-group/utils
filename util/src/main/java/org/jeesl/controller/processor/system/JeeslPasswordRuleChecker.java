@@ -5,27 +5,75 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityPasswordRating;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityPasswordRule;
+import org.jeesl.interfaces.model.system.security.user.JeeslPasswordHistory;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.Months;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.nulabinc.zxcvbn.Strength;
+import com.nulabinc.zxcvbn.Zxcvbn;
 
 public class JeeslPasswordRuleChecker <RATING extends JeeslSecurityPasswordRating<?,?,?,?>,
-										RULE extends JeeslSecurityPasswordRule<?,?,?,?>>
+										RULE extends JeeslSecurityPasswordRule<?,?,?,?>,
+										HISTORY extends JeeslPasswordHistory<?>>
 {
+	final static Logger logger = LoggerFactory.getLogger(JeeslPasswordRuleChecker.class);
+	
 	private final String regexDigits = "(.*?\\d){%d,}.*?";
 	private final String regexLower = "(.*?[a-z]){%d,}.*?";
 	private final String regexUpper = "(.*?[A-Z]){%d,}.*?";
 	private final String regexSymbols = "(.*?[_.*+:#!?%%{}\\|@\\[\\];=\"&$\\\\/,()-]){%d,}.*?";
 	
-	private final Map<RULE,Boolean> mapResult; public Map<RULE, Boolean> getMapResult() {return mapResult;}
+	private final Class<RATING> cRating;
+	private final Zxcvbn zxcvbn;
+	
+	private final Map<RULE,Boolean> mapResult; public Map<RULE,Boolean> getMapResult() {return mapResult;}
 
-	public JeeslPasswordRuleChecker()
+	private JeeslFacade fJeesl;
+	
+	public JeeslPasswordRuleChecker(JeeslFacade fJeesl, Class<RATING> cRating)
 	{		
+		this.fJeesl=fJeesl;
+		this.cRating=cRating;
+		zxcvbn = new Zxcvbn();
 		mapResult = new HashMap<>();
 	}
 	
-	public void verifyPassword(List<RULE> rules, String pwd, RATING rating)
+	public void clear()
 	{
 		mapResult.clear();
+	}
+	
+	public boolean passwordCompliant()
+	{
+		boolean result = true;
+		for(Boolean r : mapResult.values())
+		{
+			if(r==false) {result=false;}
+		}
+		return result;
+	}
+	
+	public void analyseComplexity1(List<RULE> rules, String pwd) throws JeeslNotFoundException
+	{
+		RATING rating = null;
+		Strength strength = zxcvbn.measure(pwd);
+		
+		logger.info("fJeesl:"+(fJeesl==null));
+		logger.info("strength:"+(strength==null));
+		rating = fJeesl.fByCode(cRating,JeeslSecurityPasswordRating.codePrefix+""+strength.getScore());
+		
+		analyseComplexity1(rules,pwd,rating);
+	}
+	
+	public void analyseComplexity1(List<RULE> rules, String pwd, RATING rating)
+	{
 		for(RULE r : rules)
 		{
 			Integer min = Integer.valueOf(r.getSymbol());
@@ -39,6 +87,16 @@ public class JeeslPasswordRuleChecker <RATING extends JeeslSecurityPasswordRatin
 				if(rating==null) {mapResult.put(r, false);}
 				else {mapResult.put(r, validRating(rating,min));}
 			}
+		}
+	}
+	
+	public void analyseHistory(List<RULE> rules, String hash, List<HISTORY> histories)
+	{
+		for(RULE r : rules)
+		{
+			Integer value = Integer.valueOf(r.getSymbol());
+			if(r.getCode().equals(JeeslSecurityPasswordRule.Code.history.toString())) {mapResult.put(r, validHistory(value,hash,histories));}
+			else if(r.getCode().equals(JeeslSecurityPasswordRule.Code.age.toString())) {mapResult.put(r, validAge(value,histories));}
 		}
 	}
 	
@@ -70,5 +128,30 @@ public class JeeslPasswordRuleChecker <RATING extends JeeslSecurityPasswordRatin
 	protected boolean validRating(RATING rating, int min)
 	{
 		return rating.getPosition()>=min;
+	}
+	
+	protected boolean validHistory(int maxMonths, String hash, List<HISTORY> histories)
+	{
+		DateTime dtNow = new DateTime();
+		for(HISTORY h : histories)
+		{
+			DateTime dt = new DateTime(h.getRecord());
+			int months = Months.monthsBetween(dt,dtNow).getMonths();
+			if(h.getPwd().contentEquals(hash) && months<=maxMonths)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	protected boolean validAge(int maxMonths, List<HISTORY> histories)
+	{
+		if(histories.isEmpty()) {return true;}
+		DateTime dtNow = new DateTime();
+		DateTime dt = new DateTime(histories.get(0).getRecord());
+		int months = Days.daysBetween(dt,dtNow).getDays();
+		if(months>=maxMonths) {return false;}
+		else {return true;}
 	}
 }

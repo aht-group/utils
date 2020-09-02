@@ -11,11 +11,11 @@ public class TestPasswordRuleChecker extends AbstractJeeslUtilTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestPasswordRuleChecker.class);
 	
-	private JeeslPasswordRuleChecker<?,?> checker;
+	private JeeslPasswordRuleChecker<?,?,?> checker;
 	
 	@Before public void init()
 	{
-		checker = new JeeslPasswordRuleChecker<>();
+		checker = new JeeslPasswordRuleChecker<>(null,null);
 	}
 	
 	@Test public void length()

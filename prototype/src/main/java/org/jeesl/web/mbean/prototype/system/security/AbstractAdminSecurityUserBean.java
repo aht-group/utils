@@ -132,9 +132,10 @@ public abstract class AbstractAdminSecurityUserBean <L extends JeeslLang, D exte
 		try
 		{
 			if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(user));}
-			checkPwd();
+			boolean changedPassword = checkPwd();
 			preSave();
 			user = fUtilsUser.saveTransaction(user);
+			postSave(changedPassword);
 			reloadUser();
 			bMessage.growlSuccessSaved();
 			if(revision!=null){revision.pageFlowPrimarySave(user);}
@@ -143,6 +144,7 @@ public abstract class AbstractAdminSecurityUserBean <L extends JeeslLang, D exte
 		catch (JeeslConstraintViolationException e) {constraintViolationOnSave();}
 	}
 	protected void preSave() {}
+	protected void postSave(boolean changedPassword) {}
 	
 	public void rm(USER myUser){this.user=myUser;deleteUser();}
 	public void deleteUser()
@@ -161,7 +163,7 @@ public abstract class AbstractAdminSecurityUserBean <L extends JeeslLang, D exte
 	
 	protected void userChangePerformed() {}
 	
-	protected void checkPwd()
+	protected boolean checkPwd()
 	{
 		if(performPasswordCheck && EjbWithPwd.class.isAssignableFrom(fbSecurity.getClassUser()))
 		{
@@ -169,7 +171,7 @@ public abstract class AbstractAdminSecurityUserBean <L extends JeeslLang, D exte
 			if(pwd1.length()!=pwd2.length())
 			{
 				bMessage.growlError("fmPwdDidNotMatch");
-				return;
+				return false;
 			}
 	
 			if(pwd1.length()>0 && pwd2.length()>0)
@@ -181,15 +183,17 @@ public abstract class AbstractAdminSecurityUserBean <L extends JeeslLang, D exte
 					EjbWithPwd ejb = (EjbWithPwd)user;
 					if(!useSaltedHash) {ejb.setPwd(pwd1);}
 					else {ejb.setPwd(TxtUserFactory.toHash(pwd1,user.getSalt()));}
+					return true;
 				}
 				else
 				{
 					bMessage.growlError("fmPwdDidNotMatch");
-					return;
+					return false;
 				}
 			}
 		}
 		else {logger.warn("Password Checking and updating deactivated");}
+		return false;
 	}
 	
 	

@@ -21,5 +21,5 @@ public interface JeeslSecurityPasswordRule <L extends JeeslLang, D extends Jeesl
 					JeeslOptionRestDownload,EjbWithCodeGraphic<G>,
 					JeeslStatus<S,L,D>
 {
-	public enum Code{length,digit,lower,upper,symbol,rating}
+	public enum Code{length,digit,lower,upper,symbol,rating,history,age}
 }
