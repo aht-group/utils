@@ -36,6 +36,7 @@ import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowModificationLevel;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowPermissionType;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStage;
+import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStageNotification;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStagePermission;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStageType;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
@@ -63,6 +64,7 @@ public abstract class AbstractWorkflowDashboardBean <L extends JeeslLang, D exte
 											WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
 											WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
 											WML extends JeeslWorkflowModificationLevel<L,D,WML,?>,
+											WSN extends JeeslWorkflowStageNotification<WS,MT,MC,SR,RE>,
 											WT extends JeeslWorkflowTransition<L,D,WPD,WS,WTT,SR,?>,
 											WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
 											AC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
@@ -92,12 +94,12 @@ public abstract class AbstractWorkflowDashboardBean <L extends JeeslLang, D exte
 	private JeeslWorkflowFacade<L,D,LOC,AX,WP,WPD,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER> fWorkflow;
 	private JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fRevision;
 	
-	private final WorkflowFactoryBuilder<L,D,AX,WP,WPD,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER> fbApproval;
+	private final WorkflowFactoryBuilder<L,D,AX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER> fbApproval;
 	private final IoTemplateFactoryBuilder<L,D,?,?,MT,?,?,?,?> fbTemplate;
 	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fbRevision;
 	private final SecurityFactoryBuilder<L,D,?,SR,?,?,?,?,?,?,?,?> fbSecurity;
 	
-	private JeeslWorkflowEngine<L,D,LOC,AX,WP,WPD,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,MD,SR,RE,RA,AL,WF,WY,WD,FRC,WCS,USER> wfEngine;
+	private JeeslWorkflowEngine<L,D,LOC,AX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,AC,AA,AB,AO,MT,MC,MD,SR,RE,RA,AL,WF,WY,WD,FRC,WCS,USER> wfEngine;
 	
 	private final SbSingleHandler<AX> sbhContext; public SbSingleHandler<AX> getSbhContext() {return sbhContext;}
 	private final SbSingleHandler<WP> sbhProcess; public SbSingleHandler<WP> getSbhProcess() {return sbhProcess;}
@@ -106,7 +108,7 @@ public abstract class AbstractWorkflowDashboardBean <L extends JeeslLang, D exte
 	
 	protected WF workflow; public WF getWorkflow() {return workflow;} public void setProcess(WF workflow) {this.workflow = workflow;}
 
-	public AbstractWorkflowDashboardBean(final WorkflowFactoryBuilder<L,D,AX,WP,WPD,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER> fbApproval,
+	public AbstractWorkflowDashboardBean(final WorkflowFactoryBuilder<L,D,AX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER> fbApproval,
 											final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fbRevision,
 											final SecurityFactoryBuilder<L,D,?,SR,?,?,?,?,?,?,?,?> fbSecurity,
 											final IoTemplateFactoryBuilder<L,D,?,?,MT,?,?,?,?> fbTemplate)
@@ -126,7 +128,7 @@ public abstract class AbstractWorkflowDashboardBean <L extends JeeslLang, D exte
 	protected void postConstructProcess(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
 										JeeslWorkflowFacade<L,D,LOC,AX,WP,WPD,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER> fWorkflow,
 										JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fRevision,
-										JeeslWorkflowEngine<L,D,LOC,AX,WP,WPD,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,MD,SR,RE,RA,AL,WF,WY,WD,FRC,WCS,USER> wfEngine)
+										JeeslWorkflowEngine<L,D,LOC,AX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,AC,AA,AB,AO,MT,MC,MD,SR,RE,RA,AL,WF,WY,WD,FRC,WCS,USER> wfEngine)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fWorkflow=fWorkflow;

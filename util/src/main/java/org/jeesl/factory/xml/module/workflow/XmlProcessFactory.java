@@ -51,7 +51,7 @@ public class XmlProcessFactory<L extends JeeslLang, D extends JeeslDescription,
 	private XmlContextFactory<L,D,WX> xfContext;
 	private XmlStageFactory<L,D,WS,WST,WSP,WPT,WML,WT,WTT,SR> xfStage;
 	
-	private WorkflowFactoryBuilder<L,D,WX,WP,WPD,WS,WST,?,?,?,WT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWorkflow;
+	private WorkflowFactoryBuilder<L,D,WX,WP,WPD,WS,WST,?,?,?,?,WT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWorkflow;
 	private JeeslWorkflowFacade<L,D,?,WX,WP,WPD,WS,WST,?,?,?,WT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fWorkflow;
 	
 	public static <L extends JeeslLang, D extends JeeslDescription,
@@ -82,7 +82,7 @@ public class XmlProcessFactory<L extends JeeslLang, D extends JeeslDescription,
 		if(q.isSetStage()) {xfStage = new XmlStageFactory<>(localeCode,q.getStage().get(0));}
 	}
 	
-	public void lazy(WorkflowFactoryBuilder<L,D,WX,WP,WPD,WS,WST,WSP,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWorkflow,
+	public void lazy(WorkflowFactoryBuilder<L,D,WX,WP,WPD,WS,WST,WSP,?,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWorkflow,
 					JeeslWorkflowFacade<L,D,?,WX,WP,WPD,WS,WST,WSP,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fWorkflow)
 	{
 		this.fbWorkflow=fbWorkflow;
