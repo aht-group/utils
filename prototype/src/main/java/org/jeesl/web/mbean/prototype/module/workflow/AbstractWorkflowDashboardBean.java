@@ -25,18 +25,18 @@ import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowAction;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowBot;
-import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowCommunication;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowDelegate;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowLink;
+import org.jeesl.interfaces.model.module.workflow.msg.JeeslWorkflowActionNotification;
+import org.jeesl.interfaces.model.module.workflow.msg.JeeslWorkflowStageNotification;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowContext;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowDocument;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowModificationLevel;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowPermissionType;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStage;
-import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStageNotification;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStagePermission;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStageType;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
@@ -67,7 +67,7 @@ public abstract class AbstractWorkflowDashboardBean <L extends JeeslLang, D exte
 											WSN extends JeeslWorkflowStageNotification<WS,MT,MC,SR,RE>,
 											WT extends JeeslWorkflowTransition<L,D,WPD,WS,WTT,SR,?>,
 											WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
-											AC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
+											AC extends JeeslWorkflowActionNotification<WT,MT,MC,SR,RE>,
 											AA extends JeeslWorkflowAction<WT,AB,AO,RE,RA>,
 											AB extends JeeslWorkflowBot<AB,L,D,?>,
 											AO extends EjbWithId,

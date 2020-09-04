@@ -10,8 +10,8 @@ import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplateDefinition;
 import org.jeesl.interfaces.model.io.mail.template.JeeslTemplateChannel;
 import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
-import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowCommunication;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
+import org.jeesl.interfaces.model.module.workflow.msg.JeeslWorkflowActionNotification;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWithWorkflow;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
@@ -19,7 +19,7 @@ import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.model.xml.system.io.mail.EmailAddress;
 import org.jeesl.model.xml.system.io.mail.Mail;
 
-public interface JeeslWorkflowMessageHandler<WC extends JeeslWorkflowCommunication<?,MT,MC,SR,RE>,
+public interface JeeslWorkflowMessageHandler<WC extends JeeslWorkflowActionNotification<?,MT,MC,SR,RE>,
 											SR extends JeeslSecurityRole<?,?,?,?,?,?,USER>,
 											RE extends JeeslRevisionEntity<?,?,?,?,?,?>,
 											MT extends JeeslIoTemplate<?,?,?,?,MD,?>,

@@ -21,8 +21,8 @@ import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowAction;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowBot;
-import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowCommunication;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
+import org.jeesl.interfaces.model.module.workflow.msg.JeeslWorkflowActionNotification;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWithWorkflow;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowContext;
@@ -63,7 +63,7 @@ public class JeeslWorkflowCommunicator <L extends JeeslLang, D extends JeeslDesc
 										WML extends JeeslWorkflowModificationLevel<?,?,WML,?>,
 										WT extends JeeslWorkflowTransition<L,D,WPD,WS,WTT,SR,?>,
 										WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
-										WC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
+										WC extends JeeslWorkflowActionNotification<WT,MT,MC,SR,RE>,
 										AA extends JeeslWorkflowAction<WT,AB,AO,RE,RA>,
 										AB extends JeeslWorkflowBot<AB,L,D,?>,
 										AO extends EjbWithId,

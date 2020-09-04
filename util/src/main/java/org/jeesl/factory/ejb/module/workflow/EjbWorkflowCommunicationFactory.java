@@ -6,14 +6,14 @@ import org.jeesl.factory.ejb.util.EjbPositionFactory;
 import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.io.mail.template.JeeslTemplateChannel;
 import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
-import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowCommunication;
+import org.jeesl.interfaces.model.module.workflow.msg.JeeslWorkflowActionNotification;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbWorkflowCommunicationFactory<WT extends JeeslWorkflowTransition<?,?,?,?,?,SR,?>,
-											WC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
+											WC extends JeeslWorkflowActionNotification<WT,MT,MC,SR,RE>,
 											MT extends JeeslIoTemplate<?,?,?,?,?,?>,
 											MC extends JeeslTemplateChannel<?,?,MC,?>,
 											SR extends JeeslSecurityRole<?,?,?,?,?,?,?>,

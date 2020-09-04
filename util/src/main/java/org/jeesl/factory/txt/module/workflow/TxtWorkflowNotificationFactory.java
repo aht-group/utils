@@ -1,6 +1,6 @@
 package org.jeesl.factory.txt.module.workflow;
 
-import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStageNotification;
+import org.jeesl.interfaces.model.module.workflow.msg.JeeslWorkflowStageNotification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
