@@ -49,6 +49,7 @@
 				<xsd:element ref="wf:permissions" maxOccurs="1"/>
 				<xsd:element ref="wf:process" maxOccurs="1"/>
 				<xsd:element ref="wf:transition" maxOccurs="unbounded"/>
+				<xsd:element ref="wf:activity" maxOccurs="1"/>
 			</xsd:sequence>
 			<xsd:attribute name="id" type="xsd:long"/>
 			<xsd:attribute name="position" type="xsd:int"/>

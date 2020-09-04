@@ -21,7 +21,7 @@ public interface JeeslBbBoard<L extends JeeslLang, D extends JeeslDescription,
 								EjbWithId,EjbWithRefId,EjbWithPosition,EjbWithName,
 								EjbSaveable
 {	
-	public enum Attributes{refId,parent,scope,publishing,description}
+	public enum Attributes{refId,parent,scope,publishing,name,description}
 	
 	BB getParent();
 	void setParent(BB parent);

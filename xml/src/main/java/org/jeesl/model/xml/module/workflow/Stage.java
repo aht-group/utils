@@ -31,6 +31,7 @@ import net.sf.ahtutils.xml.status.Type;
  *         &lt;element ref="{http://www.jeesl.org/workflow}permissions"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/workflow}process"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/workflow}transition" maxOccurs="unbounded"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/workflow}activity"/&gt;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" /&gt;
  *       &lt;attribute name="position" type="{http://www.w3.org/2001/XMLSchema}int" /&gt;
@@ -50,7 +51,8 @@ import net.sf.ahtutils.xml.status.Type;
     "descriptions",
     "permissions",
     "process",
-    "transition"
+    "transition",
+    "activity"
 })
 @XmlRootElement(name = "stage")
 public class Stage
@@ -70,6 +72,8 @@ public class Stage
     protected Process process;
     @XmlElement(required = true)
     protected List<Transition> transition;
+    @XmlElement(required = true)
+    protected Activity activity;
     @XmlAttribute(name = "id")
     protected Long id;
     @XmlAttribute(name = "position")
@@ -254,6 +258,34 @@ public class Stage
 
     public void unsetTransition() {
         this.transition = null;
+    }
+
+    /**
+     * Gets the value of the activity property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Activity }
+     *     
+     */
+    public Activity getActivity() {
+        return activity;
+    }
+
+    /**
+     * Sets the value of the activity property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Activity }
+     *     
+     */
+    public void setActivity(Activity value) {
+        this.activity = value;
+    }
+
+    public boolean isSetActivity() {
+        return (this.activity!= null);
     }
 
     /**

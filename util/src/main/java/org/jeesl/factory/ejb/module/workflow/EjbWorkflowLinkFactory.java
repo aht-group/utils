@@ -1,9 +1,13 @@
 package org.jeesl.factory.ejb.module.workflow;
 
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowLink;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWithWorkflow;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowLink;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,5 +39,15 @@ public class EjbWorkflowLinkFactory<RE extends JeeslRevisionEntity<?,?,?,?,?,?>,
 		catch (IllegalAccessException e) {e.printStackTrace();}
 		
 		return ejb;
+	}
+	
+	public static <WL extends JeeslWorkflowLink<?,?>> Map<Long,WL> toMapRefId(List<WL> links)
+	{
+		Map<Long,WL> map = new HashMap<>();
+		for(WL link : links)
+		{
+			map.put(link.getRefId(),link);
+		}
+		return map;
 	}
 }
