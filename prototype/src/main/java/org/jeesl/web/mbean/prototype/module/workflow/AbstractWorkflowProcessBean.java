@@ -81,7 +81,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 											WSN extends JeeslWorkflowStageNotification<WS,MT,MC,SR,RE>,
 											WT extends JeeslWorkflowTransition<L,D,WPD,WS,WTT,SR,G>,
 											WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
-											WC extends JeeslWorkflowActionNotification<WT,MT,MC,SR,RE>,
+											WAN extends JeeslWorkflowActionNotification<WT,MT,MC,SR,RE>,
 											WA extends JeeslWorkflowAction<WT,AB,AO,RE,RA>,
 											AB extends JeeslWorkflowBot<AB,L,D,?>,
 											AO extends EjbWithId,
@@ -104,10 +104,10 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	final static Logger logger = LoggerFactory.getLogger(AbstractWorkflowProcessBean.class);
 
 	private JeeslGraphicFacade<L,D,?,G,GT,?,?> fGraphic;
-	private JeeslWorkflowFacade<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fWorkflow;
+	private JeeslWorkflowFacade<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WAN,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fWorkflow;
 	private JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fRevision;
 	
-	private final WorkflowFactoryBuilder<L,D,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fbWorkflow;
+	private final WorkflowFactoryBuilder<L,D,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WAN,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fbWorkflow;
 	private final IoTemplateFactoryBuilder<L,D,?,MC,MT,?,?,?,?> fbTemplate;
 	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fbRevision;
 	private final SecurityFactoryBuilder<L,D,?,SR,?,?,?,?,?,?,?,?> fbSecurity;
@@ -133,7 +133,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	private final List<WSN> notifications; public List<WSN> getNotifications() {return notifications;}
 	private final List<WT> transitions; public List<WT> getTransitions() {return transitions;}
 	private final List<WTT> transitionTypes; public List<WTT> getTransitionTypes() {return transitionTypes;}
-	private final List<WC> communications; public List<WC> getCommunications() {return communications;}
+	private final List<WAN> communications; public List<WAN> getCommunications() {return communications;}
 	private final List<WA> actions; public List<WA> getActions() {return actions;}
 	private final List<AB> bots; public List<AB> getBots() {return bots;}
 	protected final List<RE> entities; public List<RE> getEntities() {return entities;}
@@ -153,7 +153,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		this.notification = notification;
 	}
 	private WT transition; public WT getTransition() {return transition;} public void setTransition(WT transition) {this.transition = transition;}
-	private WC communication; public WC getCommunication() {return communication;} public void setCommunication(WC communication) {this.communication = communication;}
+	private WAN communication; public WAN getCommunication() {return communication;} public void setCommunication(WAN communication) {this.communication = communication;}
 	private WA action; public WA getAction() {return action;} public void setAction(WA action) {this.action = action;}
 	
 	private Class<EjbWithPosition> cOption;
@@ -165,7 +165,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	private final Comparator<SR> cpRole;
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public AbstractWorkflowProcessBean(final WorkflowFactoryBuilder<L,D,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fbApproval,
+	public AbstractWorkflowProcessBean(final WorkflowFactoryBuilder<L,D,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WAN,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fbApproval,
 											final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fbRevision,
 											final SecurityFactoryBuilder<L,D,?,SR,?,?,?,?,?,?,?,?> fbSecurity,
 											final IoTemplateFactoryBuilder<L,D,?,MC,MT,?,?,?,?> fbTemplate,
@@ -216,7 +216,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	
 	protected void postConstructProcess(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
 										JeeslGraphicFacade<L,D,?,G,GT,?,?> fGraphic,
-										JeeslWorkflowFacade<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fApproval,
+										JeeslWorkflowFacade<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WAN,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fApproval,
 										JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fRevision)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);

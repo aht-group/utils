@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
+import org.jeesl.interfaces.model.module.workflow.msg.JeeslWorkflowStageNotification;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowDocument;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
@@ -21,6 +22,7 @@ public class FtlWorkflowModelFactory <L extends JeeslLang, D extends JeeslDescri
 										WP extends JeeslWorkflowProcess<L,D,?,WS>,
 										WPD extends JeeslWorkflowDocument<L,D,WP>,
 										WS extends JeeslWorkflowStage<L,D,WP,?,?,WT,?>,
+										WSN extends JeeslWorkflowStageNotification<WS,?,?,?,?>,
 										WT extends JeeslWorkflowTransition<L,D,WPD,WS,?,?,?>,
 										WF extends JeeslWorkflow<WP,WS,WY,USER>,
 										WY extends JeeslWorkflowActivity<WT,WF,?,?,USER>,
@@ -29,21 +31,33 @@ public class FtlWorkflowModelFactory <L extends JeeslLang, D extends JeeslDescri
 {
 	final static Logger logger = LoggerFactory.getLogger(FtlWorkflowModelFactory.class);
 		
-	public Map<String,Object> build(String localeCode, WY activity, USER recipient)
+	public Map<String,Object> build(String localeCode, WY activity, USER user)
 	{		
 		Map<String,Object> model = new HashMap<String,Object>();
 		
 		activity(localeCode,model,activity);
-		recipient(localeCode,model,activity,recipient);
+		recipient(localeCode,model,user);
 		process(localeCode,model,activity.getWorkflow().getProcess());
+		
+		model.put("wfRecipientStage", activity.getTransition().getDestination().getName().get(localeCode).getLang());
 		
 		return model;
 	}
 	
-	private void recipient(String localeCode, Map<String,Object> model, WY activity, USER recipient)
+	public Map<String,Object> build(String localeCode, WSN notification, USER user)
+	{		
+		Map<String,Object> model = new HashMap<String,Object>();
+		
+//		activity(localeCode,model,activity);
+		recipient(localeCode,model,user);
+//		process(localeCode,model,activity.getWorkflow().getProcess());
+		
+		return model;
+	}
+	
+	private void recipient(String localeCode, Map<String,Object> model, USER user)
 	{
-		model.put("emailRecipientName", recipient.getFirstName()+" "+recipient.getLastName());
-		model.put("wfRecipientStage", activity.getTransition().getDestination().getName().get(localeCode).getLang());
+		model.put("emailRecipientName", user.getFirstName()+" "+user.getLastName());	
 	}
 	
 	private void activity(String localeCode, Map<String,Object> model, WY activity)

@@ -193,6 +193,14 @@ public class AbstractJeeslMail<L extends JeeslLang,D extends JeeslDescription,LO
 		return result;
 	}
 	
+	public void spool(Mails mails) throws JeeslConstraintViolationException, JeeslNotFoundException
+	{
+		if(mails.isSetMail())
+		{
+			for(Mail mail : mails.getMail()) {spool(mail);}
+		}
+	}
+	
 	public void spool(Mail mail) throws JeeslConstraintViolationException, JeeslNotFoundException
 	{
 		fMail.queueMail(categoryMail,null,mail);

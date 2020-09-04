@@ -10,14 +10,16 @@ import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplateDefinition;
 import org.jeesl.interfaces.model.io.mail.template.JeeslTemplateChannel;
 import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWithWorkflow;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
 import org.jeesl.interfaces.model.module.workflow.msg.JeeslWorkflowActionNotification;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslWithWorkflow;
+import org.jeesl.interfaces.model.module.workflow.msg.JeeslWorkflowNotification;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.model.xml.system.io.mail.EmailAddress;
 import org.jeesl.model.xml.system.io.mail.Mail;
+import org.jeesl.model.xml.system.io.mail.Mails;
 
 public interface JeeslWorkflowMessageHandler<WC extends JeeslWorkflowActionNotification<?,MT,MC,SR,RE>,
 											SR extends JeeslSecurityRole<?,?,?,?,?,?,USER>,
@@ -33,13 +35,14 @@ public interface JeeslWorkflowMessageHandler<WC extends JeeslWorkflowActionNotif
 	String localeCode(USER user);
 	String headerPrefix();
 	
-	List<USER> getRecipients(JeeslWithWorkflow<WF> workflowOwner, WY activity, WC communication);
+	List<USER> getRecipients(JeeslWithWorkflow<WF> workflowOwner, JeeslWorkflowNotification<MT,MC,SR,RE> communication);
 	
 	EmailAddress senderEmail(WY activity);
 	EmailAddress recipientEmail(USER user);
 	
-	void completeModel(JeeslWithWorkflow<WF> entity, WY activity, WC communication, String localeCode, Map<String,Object> model);
+	void completeModel(JeeslWithWorkflow<WF> entity, WY activity, JeeslWorkflowNotification<MT,MC,SR,RE> communication, String localeCode, Map<String,Object> model);
 	
+	void spool(Mails mails) throws JeeslConstraintViolationException, JeeslNotFoundException;
 	void spool(Mail mail) throws JeeslConstraintViolationException, JeeslNotFoundException;
 	List<MD> getDefinitions(MT template);
 }

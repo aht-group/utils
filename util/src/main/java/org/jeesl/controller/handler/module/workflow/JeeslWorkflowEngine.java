@@ -85,7 +85,7 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 									SR extends JeeslSecurityRole<L,D,?,?,?,?,USER>,
 									RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
 									RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
-									AL extends JeeslWorkflowLink<WF,RE>,
+									WL extends JeeslWorkflowLink<WF,RE>,
 									WF extends JeeslWorkflow<WP,WS,WY,USER>,
 									WY extends JeeslWorkflowActivity<WT,WF,WD,FRC,USER>,
 									WD extends JeeslWorkflowDelegate<WY,USER>,
@@ -102,14 +102,14 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 	private boolean debugOnInfo; public void setDebugOnInfo(boolean debugOnInfo){this.debugOnInfo=debugOnInfo;if(actionHandler!=null) {actionHandler.setDebugOnInfo(debugOnInfo);}}
 	private boolean allowTransitions; public boolean isAllowTransitions() {return allowTransitions;} public void setAllowTransitions(boolean allowTransitions) {this.allowTransitions = allowTransitions;}
 	
-	private final JeeslWorkflowFacade<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER> fWorkflow;
+	private final JeeslWorkflowFacade<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fWorkflow;
 	
-	private final WorkflowFactoryBuilder<L,D,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER> fbWorkflow;
+	private final WorkflowFactoryBuilder<L,D,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fbWorkflow;
 	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fbRevision;
 	
 	private JeeslJsfSecurityHandler<SR,?,?,?,?,USER> security;
 	private JeeslFileRepositoryHandler<?,FRC,?> frh; public JeeslFileRepositoryHandler<?,FRC,?> getFrh() {return frh;}
-	private final JeeslWorkflowCommunicator<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,MD,SR,RE,RA,WF,WY,FRC,USER> communicator;
+	private final JeeslWorkflowCommunicator<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WC,WA,AB,AO,MT,MC,MD,SR,RE,RA,WL,WF,WY,FRC,USER> communicator;
 	private final JeeslWorkflowActionsHandler<WPD,WT,WA,AB,AO,RE,RA,WF,WCS> actionHandler;
 	private final JeeslWorkflowResponsibleHandler<WF,USER> responsibleHandler;
 	
@@ -133,7 +133,7 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 
 	protected WP process; public WP getProcess() {return process;} protected void setProcess(WP process) {this.process = process;}
 	private final WPT typeDelegate; public WPT getTypeDelegate() {return typeDelegate;}
-	private AL link; public AL getLink() {return link;} public void setLink(AL link) {this.link = link;}
+	private WL link; public WL getLink() {return link;} public void setLink(WL link) {this.link = link;}
 	private WF workflow; public WF getWorkflow() {return workflow;} public void setWorkflow(WF workflow) {this.workflow = workflow;}
 	private WY activity; public WY getActivity() {return activity;} public void setActivity(WY activity) {this.activity = activity;}
 	private WT transition; public WT getTransition() {return transition;}
@@ -148,9 +148,9 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 
 	@Override public boolean isAllowModifications() {return allowEntityModifications||allowAdminModifications;}
 	
-	public JeeslWorkflowEngine(WorkflowFactoryBuilder<L,D,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER> fbWorkflow,
+	public JeeslWorkflowEngine(WorkflowFactoryBuilder<L,D,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fbWorkflow,
 								IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fbRevision,
-								JeeslWorkflowFacade<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER> fWorkflow,
+								JeeslWorkflowFacade<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fWorkflow,
 								JeeslWorkflowMessageHandler<WC,SR,RE,MT,MC,MD,WF,WY,USER> messageHandler,
 								JeeslWorkflowActionsHandler<WPD,WT,WA,AB,AO,RE,RA,WF,WCS> actionHandler,
 								JeeslWorkflowResponsibleHandler<WF,USER> responsibleHandler,
@@ -268,7 +268,7 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 		{
 			try
 			{
-				AL link = fWorkflow.fWorkflowLink(process,w);
+				WL link = fWorkflow.fWorkflowLink(process,w);
 				mapWorkflow.put(w,link.getWorkflow());
 			}
 			catch (JeeslNotFoundException e) {}

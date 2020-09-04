@@ -56,7 +56,7 @@ public class WorkflowEscalationHandler<L extends JeeslLang, D extends JeeslDescr
 									WSN extends JeeslWorkflowStageNotification<WS,MT,MC,SR,RE>,
 									WT extends JeeslWorkflowTransition<L,D,WPD,WS,WTT,SR,?>,
 									WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
-									WC extends JeeslWorkflowActionNotification<WT,MT,MC,SR,RE>,
+									WAN extends JeeslWorkflowActionNotification<WT,MT,MC,SR,RE>,
 									WA extends JeeslWorkflowAction<WT,AB,AO,RE,RA>,
 									AB extends JeeslWorkflowBot<AB,L,D,?>,
 									AO extends EjbWithId,
@@ -76,17 +76,17 @@ public class WorkflowEscalationHandler<L extends JeeslLang, D extends JeeslDescr
 {
 	final static Logger logger = LoggerFactory.getLogger(WorkflowEscalationHandler.class);
 	
-	private final JeeslWorkflowFacade<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fWorkflow;
-	private final WorkflowFactoryBuilder<L,D,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fbWorkflow;
+	private final JeeslWorkflowFacade<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WAN,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fWorkflow;
+	private final WorkflowFactoryBuilder<L,D,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WAN,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fbWorkflow;
 
-	private final JeeslWorkflowCommunicator<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,MD,SR,RE,RA,WF,WY,FRC,USER> communicator;
+	private final JeeslWorkflowCommunicator<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WAN,WA,AB,AO,MT,MC,MD,SR,RE,RA,WL,WF,WY,FRC,USER> communicator;
 	
 	private final WTT typeEscalation;
 	private final USER user;
 	
-	public WorkflowEscalationHandler(JeeslWorkflowFacade<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fWorkflow,
-									WorkflowFactoryBuilder<L,D,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fbWorkflow,
-									JeeslWorkflowMessageHandler<WC,SR,RE,MT,MC,MD,WF,WY,USER> messageHandler,
+	public WorkflowEscalationHandler(JeeslWorkflowFacade<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WAN,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fWorkflow,
+									WorkflowFactoryBuilder<L,D,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WAN,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fbWorkflow,
+									JeeslWorkflowMessageHandler<WAN,SR,RE,MT,MC,MD,WF,WY,USER> messageHandler,
 									USER user)
 	{
 		this.fWorkflow=fWorkflow;
@@ -132,7 +132,7 @@ public class WorkflowEscalationHandler<L extends JeeslLang, D extends JeeslDescr
 	{
 		WF workflow = link.getWorkflow();
 		logger.info("Perform ");
-		List<WC> communications = fWorkflow.allForParent(fbWorkflow.getClassCommunication(),transition);
+		List<WAN> communications = fWorkflow.allForParent(fbWorkflow.getClassCommunication(),transition);
 		
 		Class<JeeslWithWorkflow<WF>> c = (Class<JeeslWithWorkflow<WF>>)Class.forName(link.getEntity().getCode()).asSubclass(JeeslWithWorkflow.class);
 		JeeslWithWorkflow<WF> entity = fWorkflow.find(c,link.getRefId());
