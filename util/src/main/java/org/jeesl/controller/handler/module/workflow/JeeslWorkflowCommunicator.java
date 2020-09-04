@@ -89,13 +89,13 @@ public class JeeslWorkflowCommunicator <L extends JeeslLang, D extends JeeslDesc
 	
 	private boolean debugOnInfo; public void setDebugOnInfo(boolean debugOnInfo) {this.debugOnInfo = debugOnInfo;}
 
-	private final JeeslWorkflowMessageHandler<AN,SR,RE,MT,MC,MD,WF,WY,USER> messageHandler;
+	private final JeeslWorkflowMessageHandler<WS,AN,SR,RE,MT,MC,MD,WF,WY,USER> messageHandler;
 	private final FtlWorkflowModelFactory<L,D,WP,WPD,WS,WSN,WT,WF,WY,USER> fmFactory;
 	
 	private Configuration templateConfig;
 	
 	
-	public JeeslWorkflowCommunicator(JeeslWorkflowMessageHandler<AN,SR,RE,MT,MC,MD,WF,WY,USER> messageHandler)
+	public JeeslWorkflowCommunicator(JeeslWorkflowMessageHandler<WS,AN,SR,RE,MT,MC,MD,WF,WY,USER> messageHandler)
 	{
 		this.messageHandler=messageHandler;
 		fmFactory = new FtlWorkflowModelFactory<>();
@@ -193,7 +193,7 @@ public class JeeslWorkflowCommunicator <L extends JeeslLang, D extends JeeslDesc
 	{
 		Map<String,Object> model = fmFactory.build(localeCode,activity,user);
 		model.put("wfInitiatorEmail", messageHandler.recipientEmail(activity.getUser()).getEmail());
-		messageHandler.completeModel(entity,activity,communication,localeCode,model);
+		messageHandler.completeModel(entity,communication,localeCode,model);
 		fmFactory.debug(model);
 		
 		Template templateHeader = null;
@@ -225,32 +225,31 @@ public class JeeslWorkflowCommunicator <L extends JeeslLang, D extends JeeslDesc
 	{
 		Map<String,Object> model = fmFactory.build(localeCode,notification,user);
 //		model.put("wfInitiatorEmail", messageHandler.recipientEmail(activity.getUser()).getEmail());
-//		messageHandler.completeModel(entity,activity,notification,localeCode,model);
-//		fmFactory.debug(model);
-//		
-//		Template templateHeader = null;
-//		if(templates.containsKey("h:"+localeCode)) {templateHeader = templates.get("h:"+localeCode);}
-//		else {templateHeader = templates.get("h:en");}
-//		
-//		Template templateBody = null;
-//		if(templates.containsKey("b:"+localeCode)) {templateBody = templates.get("b:"+localeCode);}
-//		else {templateBody = templates.get("b:en");}
-//		
-//		StringWriter swHeader = new StringWriter();
-//		if(templateHeader!=null) {templateHeader.process(model,swHeader);}
-//		else {swHeader.append("TEMPLATE MISSING");}
-//		swHeader.flush();
-//		
-//		StringWriter swBody = new StringWriter();
-//		if(templateBody!=null) {templateBody.process(model, swBody);}
-//		else {swBody.append("Please contact administrators");}
-//		swBody.flush();
-//		
-//		EmailAddress from = messageHandler.senderEmail(activity);
-//		EmailAddress to = messageHandler.recipientEmail(user);
-//		Header header = XmlHeaderFactory.build(messageHandler.headerPrefix()+""+swHeader.toString(),from,to);
-//
-//		return XmlMailFactory.build(header,swBody.toString());
-		return XmlMailFactory.build("x");
+		messageHandler.completeModel(entity,notification,localeCode,model);
+		fmFactory.debug(model);
+		
+		Template templateHeader = null;
+		if(templates.containsKey("h:"+localeCode)) {templateHeader = templates.get("h:"+localeCode);}
+		else {templateHeader = templates.get("h:en");}
+		
+		Template templateBody = null;
+		if(templates.containsKey("b:"+localeCode)) {templateBody = templates.get("b:"+localeCode);}
+		else {templateBody = templates.get("b:en");}
+		
+		StringWriter swHeader = new StringWriter();
+		if(templateHeader!=null) {templateHeader.process(model,swHeader);}
+		else {swHeader.append("TEMPLATE MISSING");}
+		swHeader.flush();
+		
+		StringWriter swBody = new StringWriter();
+		if(templateBody!=null) {templateBody.process(model, swBody);}
+		else {swBody.append("Please contact administrators");}
+		swBody.flush();
+		
+		EmailAddress from = messageHandler.senderEmail(notification.getStage());
+		EmailAddress to = messageHandler.recipientEmail(user);
+		Header header = XmlHeaderFactory.build(messageHandler.headerPrefix()+""+swHeader.toString(),from,to);
+
+		return XmlMailFactory.build(header,swBody.toString());
 	}
 }

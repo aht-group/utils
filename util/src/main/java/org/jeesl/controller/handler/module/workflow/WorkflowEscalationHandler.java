@@ -86,7 +86,7 @@ public class WorkflowEscalationHandler<L extends JeeslLang, D extends JeeslDescr
 	
 	public WorkflowEscalationHandler(JeeslWorkflowFacade<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WAN,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fWorkflow,
 									WorkflowFactoryBuilder<L,D,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WAN,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fbWorkflow,
-									JeeslWorkflowMessageHandler<WAN,SR,RE,MT,MC,MD,WF,WY,USER> messageHandler,
+									JeeslWorkflowMessageHandler<WS,WAN,SR,RE,MT,MC,MD,WF,WY,USER> messageHandler,
 									USER user)
 	{
 		this.fWorkflow=fWorkflow;

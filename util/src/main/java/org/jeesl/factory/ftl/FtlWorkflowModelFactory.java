@@ -50,7 +50,9 @@ public class FtlWorkflowModelFactory <L extends JeeslLang, D extends JeeslDescri
 		
 //		activity(localeCode,model,activity);
 		recipient(localeCode,model,user);
-//		process(localeCode,model,activity.getWorkflow().getProcess());
+		process(localeCode,model,notification.getStage().getProcess());
+		
+		model.put("wfStageOverdueHours", notification.getOverdueHours());
 		
 		return model;
 	}
