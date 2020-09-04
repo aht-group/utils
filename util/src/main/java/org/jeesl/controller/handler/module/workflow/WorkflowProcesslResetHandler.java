@@ -16,6 +16,9 @@ public class WorkflowProcesslResetHandler
 	private boolean permissions; public boolean isPermissions() {return permissions;} public WorkflowProcesslResetHandler permissions(boolean permissions) {this.permissions = permissions;return this;}
 	private boolean permission; public boolean isPermission() {return permission;} public WorkflowProcesslResetHandler permission(boolean permission) {this.permission = permission;return this;}
 	
+	private boolean notifications; public boolean isNotifications() {return notifications;} public WorkflowProcesslResetHandler notifications(boolean notifications) {this.notifications = notifications;return this;}
+	private boolean notification; public boolean isNotification() {return notification;} public WorkflowProcesslResetHandler notification(boolean notification) {this.notification = notification;return this;}
+	
 	private boolean transistions; public boolean isTransistions() {return transistions;} public WorkflowProcesslResetHandler transistions(boolean transistions) {this.transistions = transistions; return this;}
 	private boolean transistion; public boolean isTransistion() {return transistion;} public WorkflowProcesslResetHandler transistion(boolean transistion) {this.transistion = transistion; return this;}
 	
@@ -40,6 +43,8 @@ public class WorkflowProcesslResetHandler
 		stage = true;
 		permissions = true;
 		permission = true;
+		notifications = true;
+		notification = true;
 		transistions = true;
 		transistion = true;
 		communications = true;
@@ -57,6 +62,8 @@ public class WorkflowProcesslResetHandler
 		stage = false;
 		permissions = false;
 		permission = false;
+		notifications = false;
+		notification = false;
 		transistions = false;
 		transistion = false;
 		communications = false;

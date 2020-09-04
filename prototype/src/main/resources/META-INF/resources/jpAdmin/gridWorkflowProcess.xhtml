@@ -226,6 +226,86 @@
 							
 						</p:panel>
 					</h:form>
+					
+					<h:form id="fNotifications" rendered="#{(not empty cc.attrs.bean.stage) and (cc.attrs.bean.stage.id gt 0)}">
+						<p:dataTable var="n" value="#{cc.attrs.bean.notifications}" draggableRows="true"
+								selection="#{cc.attrs.bean.notification}" selectionMode="single" rowKey="#{n.id}">
+							<f:facet name="header">
+								<j:dtHeader title="#{appLabelBean.labels['WorkflowStageNotification']['listOf'][localeCode].lang}">
+									<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addNotification()}" update=":#{cc.id}:sStage"/>
+								</j:dtHeader>
+							</f:facet>
+							<p:ajax event="rowReorder" listener="#{cc.attrs.bean.reorderNotification()}" update="@form"/>
+							<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectNotification()}" update=":#{cc.id}:sStage"/>
+							
+							<p:column rendered="true" styleClass="jeeslCenter">
+								<h:graphicImage rendered="#{not n.visible}" name="12/ui/status/ghost.png"  library="jeeslPrototypeGfx"/>
+								<h:outputText rendered="#{n.visible}" value="#{n.position}"/>
+							</p:column>
+							
+							<p:column rendered="true" styleClass="jeeslCenter">
+								<jtp:symbolizer value="#{n.channel}" />
+							</p:column>
+							<p:column rendered="true" headerText="#{msg.jeeslCategory}">  
+								<h:outputText value="#{n.role.category.name[localeCode].lang}"/>  
+							</p:column>
+							<p:column rendered="true" headerText="#{msg.jeeslSecurityRole}">  
+								<h:outputText value="#{n.role.name[localeCode].lang}"/>  
+							</p:column>
+							<p:column rendered="true" headerText="#{msg.jeeslWorkflowCommunicationScope}">  
+								<h:outputText value="#{n.scope.name[localeCode].lang}"/>
+							</p:column>
+							<p:column rendered="true" headerText="#{msg.jeeslWorkflowCommunicationTemplate}">  
+								<h:outputText value="#{n.template.name[localeCode].lang}"/>
+							</p:column>
+							
+							<p:column rendered="true" headerText="#{msg.jeeslWorkflowCommunicationTemplate}"> 
+								<f:facet name="header"><jtp:label entity="WorkflowStageNotification" code="overdueHours"/></f:facet> 
+								<h:outputText value="#{n.overdueHours}"/>
+							</p:column>
+							
+						</p:dataTable>
+					</h:form>
+					<h:form id="fNotification" rendered="#{not empty cc.attrs.bean.notification}">
+						<p:panel header="#{appLabelBean.entities['WorkflowStageNotification'][localeCode].lang}" styleClass="jeeslPanel">
+							<f:facet name="actions">
+								<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.cancelNotification()}" update=":#{cc.id}:rStage" mayDisappear="true"/>
+								<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveNotification()}" update=":#{cc.id}:rStage"/>
+								<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteNotification()}" update=":#{cc.id}:rStage" rendered="#{(cc.attrs.bean.notification.id gt 0)}"/>
+							</f:facet>
+							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
+								<p:outputLabel value="#{msg.aupSecurityVisible}"/>
+								<p:selectBooleanCheckbox value="#{cc.attrs.bean.notification.visible}"/>
+								
+								<p:outputLabel value="#{msg.jeeslApprovalTransition}"/>
+								<h:outputText value="#{cc.attrs.bean.notification.stage.name[localeCode].lang}" />
+								
+								<p:outputLabel value="#{msg.jeeslTemplateChannel}"/>
+								<p:selectOneMenu value="#{cc.attrs.bean.notification.channel}" effect="fade" autoWidth="false">
+									<f:selectItems value="#{cc.attrs.bean.channels}" var="c" itemLabel="#{c.name[localeCode].lang}" itemValue="#{c}"/>
+								</p:selectOneMenu>
+								
+								<p:outputLabel value="#{msg.jeeslSecurityRole}"/>
+								<p:selectOneMenu value="#{cc.attrs.bean.notification.role}" effect="fade" autoWidth="false">
+									<f:selectItems value="#{cc.attrs.bean.roles}" var="r" itemLabel="#{r.category.name[localeCode].lang} - #{r.name[localeCode].lang}" itemValue="#{r}"/>
+								</p:selectOneMenu>
+								
+								<p:outputLabel value="#{msg.jeeslWorkflowCommunicationScope}"/>
+								<p:selectOneMenu value="#{cc.attrs.bean.notification.scope}" effect="fade" autoWidth="false">
+									<f:selectItems value="#{cc.attrs.bean.scopes}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s}"/>
+								</p:selectOneMenu>
+								
+								<p:outputLabel value="#{msg.jeeslWorkflowCommunicationTemplate}"/>
+								<p:selectOneMenu value="#{cc.attrs.bean.notification.template}" effect="fade" autoWidth="false">
+									<f:selectItems value="#{cc.attrs.bean.templates}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t}"/>
+								</p:selectOneMenu>
+								
+								<jtp:label entity="WorkflowStageNotification" code="overdueHours"/>
+								<p:inputText value="#{cc.attrs.bean.notification.overdueHours}"/>
+							</p:panelGrid>
+						</p:panel>
+					</h:form>
+					
 					<h:form id="fTransitions" rendered="#{(not empty cc.attrs.bean.stage) and (cc.attrs.bean.stage.id gt 0)}">
 						<p:dataTable var="t" value="#{cc.attrs.bean.transitions}" draggableRows="true"
 								selection="#{cc.attrs.bean.transition}" selectionMode="single" rowKey="#{t.id}">

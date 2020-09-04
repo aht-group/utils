@@ -104,7 +104,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	final static Logger logger = LoggerFactory.getLogger(AbstractWorkflowProcessBean.class);
 
 	private JeeslGraphicFacade<L,D,?,G,GT,?,?> fGraphic;
-	private JeeslWorkflowFacade<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fWorkflow;
+	private JeeslWorkflowFacade<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fWorkflow;
 	private JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fRevision;
 	
 	private final WorkflowFactoryBuilder<L,D,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fbWorkflow;
@@ -130,6 +130,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	private final List<WSP> permissions; public List<WSP> getPermissions() {return permissions;}
 	private final List<WPT> permissionTypes; public List<WPT> getPermissionTypes() {return permissionTypes;}
 	private final List<WML> modificationLevels; public List<WML> getModificationLevels() {return modificationLevels;}
+	private final List<WSN> notifications; public List<WSN> getNotifications() {return notifications;}
 	private final List<WT> transitions; public List<WT> getTransitions() {return transitions;}
 	private final List<WTT> transitionTypes; public List<WTT> getTransitionTypes() {return transitionTypes;}
 	private final List<WC> communications; public List<WC> getCommunications() {return communications;}
@@ -144,6 +145,13 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	private WPD document; public WPD getDocument() {return document;} public void setDocument(WPD document) {this.document = document;}
 	private WS stage; public WS getStage() {return stage;} public void setStage(WS stage) {this.stage = stage;}
 	private WSP permission; public WSP getPermission() {return permission;} public void setPermission(WSP permission) {this.permission = permission;}
+	private WSN notification;
+	public WSN getNotification() {
+		return notification;
+	}
+	public void setNotification(WSN notification) {
+		this.notification = notification;
+	}
 	private WT transition; public WT getTransition() {return transition;} public void setTransition(WT transition) {this.transition = transition;}
 	private WC communication; public WC getCommunication() {return communication;} public void setCommunication(WC communication) {this.communication = communication;}
 	private WA action; public WA getAction() {return action;} public void setAction(WA action) {this.action = action;}
@@ -189,6 +197,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		permissions = new ArrayList<>();
 		permissionTypes = new ArrayList<>();
 		modificationLevels = new ArrayList<>();
+		notifications = new ArrayList<>();
 		transitions = new ArrayList<>();
 		transitionTypes = new ArrayList<>();
 		communications = new ArrayList<>();
@@ -207,7 +216,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	
 	protected void postConstructProcess(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
 										JeeslGraphicFacade<L,D,?,G,GT,?,?> fGraphic,
-										JeeslWorkflowFacade<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fApproval,
+										JeeslWorkflowFacade<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fApproval,
 										JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fRevision)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
@@ -268,6 +277,8 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		if(reset.isStage()) {stage=null;}
 		if(reset.isPermissions()) {permissions.clear();;}
 		if(reset.isPermission()) {permission=null;}
+		if(reset.isNotifications()) {notifications.clear();}
+		if(reset.isNotification()) {notification=null;}
 		if(reset.isTransistions()) {transitions.clear();}
 		if(reset.isTransistion()) {transition=null;}
 		if(reset.isCommunications()) {communications.clear();}
@@ -432,6 +443,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		editStage = false;
 		reloadTransitions();
 		reloadPermissions();
+		reloadNotifications();
 	}
 	
 	public void deleteStage() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
@@ -479,6 +491,50 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		reset(WorkflowProcesslResetHandler.build().none().permission(true));
 		reloadPermissions();
 	}
+	
+	
+	
+	
+	private void reloadNotifications()
+	{
+		reset(WorkflowProcesslResetHandler.build().none().notifications(true));
+		notifications.addAll(fWorkflow.allForParent(fbWorkflow.getClassStageNotification(),stage));
+	}
+	
+	public void addNotification()
+	{
+		reset(WorkflowProcesslResetHandler.build().none().notification(true));
+		logger.info(AbstractLogMessage.addEntity(fbWorkflow.getClassStageNotification()));
+		notification = fbWorkflow.ejbNotification().build(stage,notifications);
+	}
+	
+	public void saveNotification() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
+	{
+		logger.info(AbstractLogMessage.saveEntity(notification));
+		notification.setTemplate(fWorkflow.find(fbTemplate.getClassTemplate(), notification.getTemplate()));
+		notification.setRole(fWorkflow.find(fbSecurity.getClassRole(), notification.getRole()));
+		notification.setScope(fWorkflow.find(fbRevision.getClassEntity(), notification.getScope()));
+		notification.setChannel(fWorkflow.find(fbTemplate.getClassType(), notification.getChannel()));
+		notification = fWorkflow.save(notification);
+		reloadNotifications();
+	}
+	
+	public void selectNotification() throws JeeslNotFoundException
+	{
+		reset(WorkflowProcesslResetHandler.build().none());
+		logger.info(AbstractLogMessage.selectEntity(notification));
+		notification = fWorkflow.find(fbWorkflow.getClassStageNotification(),notification);
+	}
+	
+	public void deleteNotification() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
+	{
+		logger.info(AbstractLogMessage.rmEntity(notification));
+		fWorkflow.rm(notification);
+		reset(WorkflowProcesslResetHandler.build().none().notification(true));
+		reloadNotifications();
+	}
+	
+	
 	
 	private void reloadTransitions()
 	{

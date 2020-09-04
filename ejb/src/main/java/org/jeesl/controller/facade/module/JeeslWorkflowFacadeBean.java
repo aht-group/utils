@@ -56,6 +56,7 @@ import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 import org.jeesl.model.json.db.tuple.two.Json2Tuples;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -87,7 +88,7 @@ public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescrip
 									FRC extends JeeslFileContainer<?,?>,
 									USER extends JeeslUser<SR>>
 					extends JeeslFacadeBean
-					implements JeeslWorkflowFacade<L,D,LOC,AX,WP,WPD,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER>
+					implements JeeslWorkflowFacade<L,D,LOC,AX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER>
 {	
 	private static final long serialVersionUID = 1L;
 
@@ -182,7 +183,7 @@ public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescrip
 		}
 		else
 		{
-			{throw new JeeslNotFoundException("No "+fbWorkflow.getClassLink()+" found for "+owner);}
+			throw new JeeslNotFoundException("No "+fbWorkflow.getClassLink()+" found for "+owner);
 		}
 	}
 	
@@ -342,6 +343,29 @@ public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescrip
 		ListJoin<WS,WT> jTransition = jStage.joinList(JeeslWorkflowStage.Attributes.transitions.toString());
 		Join<WT,WTT> jTransitionType = jTransition.join(JeeslWorkflowTransition.Attributes.type.toString());
 		predicates.add(cB.equal(jTransitionType,this.fByEnum(fbWorkflow.getClassTransitionType(),JeeslWorkflowTransitionType.Code.escalation)));
+		
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.select(link);
+		
+		return em.createQuery(cQ).getResultList();
+	}
+	
+	@Override
+	public List<WL> fWorkflowsForNotification(WSN notifciation)
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<WL> cQ = cB.createQuery(fbWorkflow.getClassLink());
+		Root<WL> link = cQ.from(fbWorkflow.getClassLink());
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		Join<WL,WF> jWorkflow = link.join(JeeslWorkflowLink.Attributes.workflow.toString());
+		Join<WF,WS> jStage = jWorkflow.join(JeeslWorkflow.Attributes.currentStage.toString());
+		predicates.add(cB.equal(jStage,notifciation.getStage()));
+		
+		DateTime now = new DateTime();
+		Join<WF,WY> jActivity = jWorkflow.join(JeeslWorkflow.Attributes.lastActivity.toString());
+		Expression<Date> eRecord = jActivity.get(JeeslWorkflowActivity.Attributes.record.toString());
+		predicates.add(cB.lessThanOrEqualTo(eRecord, now.minusHours(notifciation.getOverdueHours()).toDate()));
 		
 		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
 		cQ.select(link);

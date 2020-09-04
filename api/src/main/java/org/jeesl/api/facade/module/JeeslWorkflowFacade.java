@@ -24,6 +24,7 @@ import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowModificationLevel;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowPermissionType;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStage;
+import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStageNotification;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStagePermission;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStageType;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
@@ -46,6 +47,7 @@ public interface JeeslWorkflowFacade <L extends JeeslLang, D extends JeeslDescri
 										WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
 										WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
 										WML extends JeeslWorkflowModificationLevel<L,D,WML,?>,
+										WSN extends JeeslWorkflowStageNotification<WS,MT,MC,SR,RE>,
 										WT extends JeeslWorkflowTransition<L,D,WPD,WS,WTT,SR,?>,
 										WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
 										AC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
@@ -75,6 +77,7 @@ public interface JeeslWorkflowFacade <L extends JeeslLang, D extends JeeslDescri
 	List<WL> fWorkflowDelegationLinks(USER user);
 	List<WL> fWorkflowEscalations(WP process);
 	List<WL> fWorkflowDelegationReuquests(Boolean result);
+	List<WL> fWorkflowsForNotification(WSN notifciation);
 	
 	WT loadTransition(WT transition);
 	

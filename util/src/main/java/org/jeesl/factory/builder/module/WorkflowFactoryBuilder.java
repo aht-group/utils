@@ -10,6 +10,7 @@ import org.jeesl.factory.ejb.module.workflow.EjbWorkflowDelegateFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowDocumentFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowLinkFactory;
+import org.jeesl.factory.ejb.module.workflow.EjbWorkflowNotificationFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowPermissionFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowProcessFactory;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowStageFactory;
@@ -87,6 +88,7 @@ public class WorkflowFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 	private final Class<WSP> cPermission; public Class<WSP> getClassPermission() {return cPermission;}
 	private final Class<WPT> cPermissionType; public Class<WPT> getClassPermissionType() {return cPermissionType;}
 	private final Class<WML> cModificationLevel; public Class<WML> getClassModificationLevel() {return cModificationLevel;}
+	private final Class<WSN> cStageNotification; public Class<WSN> getClassStageNotification() {return cStageNotification;}
 	private final Class<WT> cTransition; public Class<WT> getClassTransition() {return cTransition;}
 	private final Class<WTT> cTransitionType; public Class<WTT> getClassTransitionType() {return cTransitionType;}
 	private final Class<WC> cCommunication; public Class<WC> getClassCommunication() {return cCommunication;}
@@ -106,6 +108,7 @@ public class WorkflowFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 									final Class<WSP> cPermission,
 									final Class<WPT> cPermissionType,
 									final Class<WML> cModificationLevel,
+									final Class<WSN> cStageNotification,
 									final Class<WT> cTransition,
 									final Class<WTT> cTransitionType,
 									final Class<WC> cCommunication,
@@ -125,6 +128,7 @@ public class WorkflowFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 		this.cPermission=cPermission;
 		this.cPermissionType=cPermissionType;
 		this.cModificationLevel=cModificationLevel;
+		this.cStageNotification=cStageNotification;
 		this.cTransition=cTransition;
 		this.cTransitionType=cTransitionType;
 		this.cCommunication=cCommunication;
@@ -140,6 +144,7 @@ public class WorkflowFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 	public EjbWorkflowDocumentFactory<WP,WPD> ejbDocument() {return new EjbWorkflowDocumentFactory<>(cDocument);}
 	public EjbWorkflowStageFactory<WP,WS> ejbStage() {return new EjbWorkflowStageFactory<>(cStage);}
 	public EjbWorkflowPermissionFactory<WS,WSP,WML,SR> ejbPermission() {return new EjbWorkflowPermissionFactory<>(cPermission);}
+	public EjbWorkflowNotificationFactory<WS,WSN,MT,MC,SR,RE> ejbNotification() {return new EjbWorkflowNotificationFactory<>(cStageNotification);}
 	public EjbWorkflowTransitionFactory<WS,WT> ejbTransition() {return new EjbWorkflowTransitionFactory<>(cTransition);}
 	public EjbWorkflowCommunicationFactory<WT,WC,MT,MC,SR,RE> ejbCommunication() {return new EjbWorkflowCommunicationFactory<>(cCommunication);}
 	public EjbWorkflowActionFactory<WT,AA,AB,AO,RE,RA> ejbAction() {return new EjbWorkflowActionFactory<>(cAction);}

@@ -11,7 +11,7 @@ import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
-import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
+import org.jeesl.interfaces.model.with.primitive.position.EjbWithPositionVisible;
 
 public interface JeeslWorkflowStageNotification <AS extends JeeslWorkflowStage<?,?,?,?,?,?,?>,
 												MT extends JeeslIoTemplate<?,?,?,?,?,?>,
@@ -20,7 +20,7 @@ public interface JeeslWorkflowStageNotification <AS extends JeeslWorkflowStage<?
 												RE extends JeeslRevisionEntity<?,?,?,?,?,?>
 									>
 		extends Serializable,EjbPersistable,EjbRemoveable,EjbSaveable,
-				EjbWithId,EjbWithPosition,EjbWithParentAttributeResolver
+				EjbWithId,EjbWithPositionVisible,EjbWithParentAttributeResolver
 {
 	public static enum Attributes{stage}
 	
@@ -39,6 +39,6 @@ public interface JeeslWorkflowStageNotification <AS extends JeeslWorkflowStage<?
 	RE getScope();
 	void setScope(RE scope);
 	
-	double getOverdueHours();
-	void setOverdueHours(double overdueHours);
+	int getOverdueHours();
+	void setOverdueHours(int overdueHours);
 }
