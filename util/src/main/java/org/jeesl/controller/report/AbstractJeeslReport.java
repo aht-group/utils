@@ -79,6 +79,7 @@ public abstract class AbstractJeeslReport<L extends JeeslLang,D extends JeeslDes
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractJeeslReport.class);
 	
+	protected final boolean alwaysFalse = false;
 	protected boolean debugOnInfo;
 	protected boolean developmentMode; public void activateDevelopmenetMode() {developmentMode=true;}
 
