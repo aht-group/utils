@@ -15,6 +15,7 @@
 		<composite:attribute name="code" required="true"/>
 		<composite:attribute name="dynamic" required="false"/>
 	</composite:interface>
+	
 	<composite:implementation>
 		<h:panelGroup layout="block" styleClass="sidemenu">
 			<aht:menuUl value="#{menuBean.subDyn(cc.attrs.code,cc.attrs.dynamic)}" sc1="top-level"/>

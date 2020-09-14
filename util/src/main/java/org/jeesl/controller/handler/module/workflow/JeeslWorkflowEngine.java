@@ -282,6 +282,8 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 		if(workflow==null) {return;}
 		if(ejbLoadWorkflow) {workflow = fWorkflow.find(fbWorkflow.getClassWorkflow(),workflow);}
 		
+		mapWorkflow.put(entity,workflow);
+		
 		constraints.clear();
 		
 		List<WSP> availablePermissions = fWorkflow.allForParent(fbWorkflow.getClassPermission(), workflow.getCurrentStage());
