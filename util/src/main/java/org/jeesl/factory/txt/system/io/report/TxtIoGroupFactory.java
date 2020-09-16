@@ -39,9 +39,9 @@ public class TxtIoGroupFactory<SHEET extends JeeslReportSheet<?,?,?,?,GROUP,?>,
 				Iterator<Object> dynamicIterator = context.iterate(g.getQueryColumns().trim());
 				while (dynamicIterator.hasNext())
 		        {
-		        	String s = (String)dynamicIterator.next();
+		        	Object s = dynamicIterator.next();
 //		        	logger.info(s);
-		        	list.add(s);
+		        	list.add(s.toString());
 		        }	
 				map.put(g,list);
 			}

@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 
 public class XmlAttributesFactory <L extends JeeslLang, D extends JeeslDescription,
 									CATEGORY extends JeeslStatus<CATEGORY,L,D>,
-									CRITERIA extends JeeslAttributeCriteria<L,D,CATEGORY,?>,
+									CRITERIA extends JeeslAttributeCriteria<L,D,CATEGORY,?,OPTION>,
 									OPTION extends JeeslAttributeOption<L,D,CRITERIA>,
 									SET extends JeeslAttributeSet<L,D,CATEGORY,ITEM>,
 									ITEM extends JeeslAttributeItem<CRITERIA,SET>,

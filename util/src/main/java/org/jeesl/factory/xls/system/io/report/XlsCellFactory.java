@@ -155,7 +155,7 @@ public class XlsCellFactory <REPORT extends JeeslIoReport<?,?,?,WORKBOOK>,
 				{
 					switch(dt)
 					{
-						case string: XlsCellFactory.build(xlsRow,columnNr,style,(String)value);	break;
+						case string: XlsCellFactory.build(xlsRow,columnNr,style,value.toString());	break;
 						case dble: 	XlsCellFactory.build(xlsRow,columnNr,style,(Double)value);	break;
 						case intgr:		Integer iValue;
 										if(value instanceof String){iValue = Integer.valueOf((String)value);}

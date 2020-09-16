@@ -1,0 +1,54 @@
+package org.jeesl.factory.json.module.attribute;
+
+import org.jeesl.factory.builder.io.IoAttributeFactoryBuilder;
+import org.jeesl.interfaces.facade.JeeslFacade;
+import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCriteria;
+import org.jeesl.interfaces.model.module.attribute.JeeslAttributeItem;
+import org.jeesl.interfaces.model.module.attribute.JeeslAttributeOption;
+import org.jeesl.interfaces.model.module.attribute.JeeslAttributeSet;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.model.json.module.attribute.JsonAttributeItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class JsonAttributeItemFactory<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
+									CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+									CRITERIA extends JeeslAttributeCriteria<L,D,CATEGORY,TYPE,OPTION>,
+									TYPE extends JeeslStatus<TYPE,L,D>,
+									OPTION extends JeeslAttributeOption<L,D,CRITERIA>,
+									SET extends JeeslAttributeSet<L,D,CATEGORY,ITEM>,
+									ITEM extends JeeslAttributeItem<CRITERIA,SET>>
+{
+	final static Logger logger = LoggerFactory.getLogger(JsonAttributeItemFactory.class);
+	
+	private final JsonAttributeItem q;
+	private JsonAttributeCriteriaFactory<L,D,LOC,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM> jfCriteria;
+	
+	public JsonAttributeItemFactory(String localeCode, JsonAttributeItem q)
+	{
+		this.q=q;
+		if(q.getCriteria()!=null) {jfCriteria = new JsonAttributeCriteriaFactory<>(localeCode,q.getCriteria());}
+	}
+	
+	public void lazy(JeeslFacade facade, IoAttributeFactoryBuilder<L,D,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,?,?> fbAttribute)
+	{
+		if(jfCriteria!=null) {jfCriteria.lazy(facade,fbAttribute);}
+	}
+	
+	public static JsonAttributeItem build(){return new JsonAttributeItem();}
+	
+	public JsonAttributeItem build(ITEM item)
+	{
+		JsonAttributeItem json = build();
+		if(q.getId()!=null) {json.setId(item.getId());}
+		if(q.getPosition()!=null) {json.setPosition(item.getPosition());}
+		if(q.getVisible()!=null) {json.setVisible(item.isVisible());}
+		if(q.getCriteria()!=null) {json.setCriteria(jfCriteria.build(item.getCriteria()));}
+		
+		
+		return json;
+	}
+}

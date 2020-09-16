@@ -69,7 +69,7 @@ public abstract class AbstractDmsViewBean <L extends JeeslLang, D extends JeeslD
 											DS extends JeeslDomainSet<L,D,?>,
 											
 											ACATEGORY extends JeeslStatus<ACATEGORY,L,D>,
-											ACRITERIA extends JeeslAttributeCriteria<L,D,ACATEGORY,ATYPE>,
+											ACRITERIA extends JeeslAttributeCriteria<L,D,ACATEGORY,ATYPE,AOPTION>,
 											ATYPE extends JeeslStatus<ATYPE,L,D>,
 											AOPTION extends JeeslAttributeOption<L,D,ACRITERIA>,
 											ASET extends JeeslAttributeSet<L,D,ACATEGORY,AITEM>,

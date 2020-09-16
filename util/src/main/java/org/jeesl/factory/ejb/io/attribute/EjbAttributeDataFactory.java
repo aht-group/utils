@@ -12,7 +12,7 @@ import org.jeesl.interfaces.model.module.attribute.JeeslAttributeOption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbAttributeDataFactory<CRITERIA extends JeeslAttributeCriteria<?,?,?,?>,
+public class EjbAttributeDataFactory<CRITERIA extends JeeslAttributeCriteria<?,?,?,?,OPTION>,
 									OPTION extends JeeslAttributeOption<?,?,CRITERIA>,
 									CONTAINER extends JeeslAttributeContainer<?,DATA>,
 									DATA extends JeeslAttributeData<CRITERIA,OPTION,CONTAINER>>

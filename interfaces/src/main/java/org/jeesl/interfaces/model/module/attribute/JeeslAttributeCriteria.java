@@ -1,6 +1,7 @@
 package org.jeesl.interfaces.model.module.attribute;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
@@ -16,7 +17,8 @@ import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 
 public interface JeeslAttributeCriteria<L extends JeeslLang, D extends JeeslDescription,
 										CATEGORY extends JeeslStatus<CATEGORY,L,D>,
-										TYPE extends JeeslStatus<TYPE,L,D>>
+										TYPE extends JeeslStatus<TYPE,L,D>,
+										OPTION extends JeeslAttributeOption<L,D,?>>
 			extends Serializable,EjbWithId,
 					EjbSaveable,EjbRemoveable,
 					EjbWithNonUniqueCode,EjbWithPositionVisible,EjbWithPositionParent,
@@ -36,4 +38,7 @@ public interface JeeslAttributeCriteria<L extends JeeslLang, D extends JeeslDesc
 	
 	Boolean getAllowEmpty();
 	void setAllowEmpty(Boolean allowEmpty);
+	
+	List<OPTION> getOptions();
+	void setOptions(List<OPTION> options);
 }

@@ -290,7 +290,7 @@ public class XlsFactory <L extends JeeslLang,D extends JeeslDescription,
 					Iterator<Object> dynamicIterator = context.iterate(ioColumn.getGroup().getQueryColumns().trim());
 					while (dynamicIterator.hasNext())
 			        {
-			        	String s = (String)dynamicIterator.next();
+			        	String s = dynamicIterator.next().toString();
 			        	xfCell.cell(ioColumn,xlsRow,columnNr,relativeContext,s);
 			        }					
 				}

@@ -33,7 +33,7 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public abstract class AbstractAdminIoAttributeSetBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 												CATEGORY extends JeeslStatus<CATEGORY,L,D>,
-												CRITERIA extends JeeslAttributeCriteria<L,D,CATEGORY,TYPE>,
+												CRITERIA extends JeeslAttributeCriteria<L,D,CATEGORY,TYPE,OPTION>,
 												TYPE extends JeeslStatus<TYPE,L,D>,
 												OPTION extends JeeslAttributeOption<L,D,CRITERIA>,
 												SET extends JeeslAttributeSet<L,D,CATEGORY,ITEM>,
