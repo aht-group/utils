@@ -20,9 +20,10 @@
 	</composite:interface>
 
 	<composite:implementation>
-		<p:outputPanel styleClass="#{cc.attrs.styleClass}">
-			<h:graphicImage rendered="#{empty cc.attrs.listener}"
-		   					id="image"
+		<p:outputPanel styleClass="#{cc.attrs.styleClass}"
+					   layout="inline"
+					   rendered="#{empty cc.attrs.listener}">
+			<h:graphicImage id="image"
 		   					height="#{cc.attrs.height}"
 							value="/image/symbolizer/graphic/#{cc.attrs.value.class.name}/#{cc.attrs.height}/#{cc.attrs.value.id}"/>
 			<p:tooltip rendered="#{(empty cc.attrs.listener) and (not empty cc.attrs.tooltip)}" for="image" value="#{cc.attrs.tooltip}" />
