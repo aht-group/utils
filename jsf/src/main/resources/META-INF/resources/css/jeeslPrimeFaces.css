@@ -11,11 +11,13 @@
   line-height: 12px;
   padding: 4px 10px; }
   .ui-panel .ui-panel-titlebar .ui-panel-title {
-    flex: 1;
+    flex-grow: 1;
     margin: 0;
     top: auto; }
 
 .pf-action-icon {
+  display: inline-block;
+  float: right;
   margin-left: 5px; }
   .pf-action-icon.pf-inactive {
     filter: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='grayscale'><feColorMatrix type='matrix' values='0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0'/></filter></svg>#grayscale");
@@ -58,7 +60,7 @@
     align-items: center;
     border: 1px solid #a8a8a8;
     display: flex;
-    flex: 1;
+    flex-grow: 1;
     height: auto;
     justify-content: center;
     padding: 0;
@@ -136,3 +138,8 @@
       border-radius: 6px;
       height: 10px !important;
       width: 10px !important; }
+
+.ui-datatable-header {
+  display: flex; }
+  .ui-datatable-header .pf-datatable-header-title {
+    flex-grow: 1; }
