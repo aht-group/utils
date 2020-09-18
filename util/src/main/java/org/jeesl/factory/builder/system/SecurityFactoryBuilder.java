@@ -17,6 +17,7 @@ import org.jeesl.factory.sql.system.security.SqlUserFactory;
 import org.jeesl.factory.txt.system.security.TxtStaffFactory;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineHelp;
 import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineTutorial;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
@@ -41,7 +42,8 @@ public class SecurityFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 									AT extends JeeslSecurityTemplate<L,D,C>,
 									M extends JeeslSecurityMenu<V,M>,
 									AR extends JeeslSecurityArea<L,D,V>,
-									H extends JeeslSecurityOnlineTutorial<L,D,V>,
+									OT extends JeeslSecurityOnlineTutorial<L,D,V>,
+									OH extends JeeslSecurityOnlineHelp<V,?,?>,
 									USER extends JeeslUser<R>
 //,I extends JeeslIdentity<R,V,U,A,USER>
 >

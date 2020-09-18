@@ -1,6 +1,7 @@
 package org.jeesl.web.mbean.prototype.system.security;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -56,7 +57,7 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 											DC extends JeeslIoCms<L,D,?,DS,LOC>,
 											DS extends JeeslIoCmsSection<L,DS>,
 											USER extends JeeslUser<R>>
-		extends AbstractAdminSecurityBean<L,D,LOC,C,R,V,U,A,AT,M,AR,OT,USER>
+		extends AbstractAdminSecurityBean<L,D,LOC,C,R,V,U,A,AT,M,AR,OT,OH,USER>
 		implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -69,13 +70,16 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 	private TreeNode tree; public TreeNode getTree() {return tree;}
 	private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
 	
+	private final List<OH> helps; public List<OH> getHelps() {return helps;}
+	
 	private M menu; public M getMenu() {return menu;}
 	
-	public AbstractAdminSecurityMenuBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,USER> fbSecurity, IoCmsFactoryBuilder<L,D,LOC,?,DC,?,DS,?,?,?,?,?,?,?> fbCms)
+	public AbstractAdminSecurityMenuBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,USER> fbSecurity, IoCmsFactoryBuilder<L,D,LOC,?,DC,?,DS,?,?,?,?,?,?,?> fbCms)
 	{
 		super(fbSecurity);
 		this.fbCms = fbCms;
 		efMenu = fbSecurity.ejbMenu();
+		helps = new ArrayList<>();
 	}
 	
 	public void initSuper(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity, JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslSecurityBean<L,D,C,R,V,U,A,AT,M,USER> bSecurity)
@@ -195,5 +199,9 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
     {
 		logger.info("Selected "+event.getTreeNode().toString());
 		menu = (M)event.getTreeNode().getData();
+		menu = fSecurity.find(fbSecurity.getClassMenu(),menu);
+		
+		helps.clear();
+//		helps.addAll(fSecurity.allForParent(fbSecurity.getclassh, parent))
     }
 }

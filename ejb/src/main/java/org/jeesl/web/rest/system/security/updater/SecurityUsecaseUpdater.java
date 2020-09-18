@@ -15,6 +15,7 @@ import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplat
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineHelp;
 import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineTutorial;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
@@ -38,16 +39,17 @@ public class SecurityUsecaseUpdater <L extends JeeslLang,
  								AT extends JeeslSecurityTemplate<L,D,C>,
  								M extends JeeslSecurityMenu<V,M>,
  								AR extends JeeslSecurityArea<L,D,V>,
- 								H extends JeeslSecurityOnlineTutorial<L,D,V>,
+ 								OT extends JeeslSecurityOnlineTutorial<L,D,V>,
+								OH extends JeeslSecurityOnlineHelp<V,?,?>,
  								USER extends JeeslUser<R>>
-		extends AbstractSecurityUpdater<L,D,C,R,V,U,A,AT,M,AR,H,USER>
+		extends AbstractSecurityUpdater<L,D,C,R,V,U,A,AT,M,AR,OT,OH,USER>
 		implements JeeslSecurityRestUsecaseImport
 {
 	final static Logger logger = LoggerFactory.getLogger(SecurityUsecaseUpdater.class);
 	
 	private JeeslDbCodeEjbUpdater<U> updateUsecases;
 	
-	public SecurityUsecaseUpdater(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,H,USER> fbSecurity, JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity)
+	public SecurityUsecaseUpdater(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,USER> fbSecurity, JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity)
 	{       
         super(fbSecurity,fSecurity);
 	}

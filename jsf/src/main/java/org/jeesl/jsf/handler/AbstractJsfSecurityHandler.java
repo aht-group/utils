@@ -44,7 +44,7 @@ public abstract class AbstractJsfSecurityHandler <L extends JeeslLang, D extends
 	final static Logger logger = LoggerFactory.getLogger(AbstractJsfSecurityHandler.class);
 	public static final long serialVersionUID=1;
 
-	private SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,AR,?,USER> fbSecurity;
+	private SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,AR,?,?,USER> fbSecurity;
 	protected JeeslSecurityFacade<L,D,C,R,V,U,A,AT,?,USER> fSecurity;
 	protected JeeslSecurityBean<L,D,C,R,V,U,A,AT,?,USER> bSecurity;
 	
@@ -69,7 +69,7 @@ public abstract class AbstractJsfSecurityHandler <L extends JeeslLang, D extends
 	
 	protected boolean debugOnInfo; public void setDebugOnInfo(boolean debugOnInfo) {this.debugOnInfo = debugOnInfo;}
 
-	public AbstractJsfSecurityHandler(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,AR,?,USER> fbSecurity,
+	public AbstractJsfSecurityHandler(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,AR,?,?,USER> fbSecurity,
 									I identity,
 									JeeslSecurityFacade<L,D,C,R,V,U,A,AT,?,USER> fSecurity,
 									String pageCode)
@@ -112,7 +112,7 @@ public abstract class AbstractJsfSecurityHandler <L extends JeeslLang, D extends
 		catch (JeeslNotFoundException e) {e.printStackTrace();}
 	}
 	
-	public AbstractJsfSecurityHandler(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,AR,?,USER> fbSecurity,
+	public AbstractJsfSecurityHandler(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,AR,?,?,USER> fbSecurity,
 										JeeslSecurityFacade<L,D,C,R,V,U,A,AT,?,USER> fSecurity,
 										JeeslSecurityBean<L,D,C,R,V,U,A,AT,?,USER> bSecurity,
 										I identity,

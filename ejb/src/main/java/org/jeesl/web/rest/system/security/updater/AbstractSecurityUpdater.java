@@ -11,6 +11,7 @@ import org.jeesl.factory.ejb.system.status.EjbDescriptionFactory;
 import org.jeesl.factory.ejb.system.status.EjbLangFactory;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineHelp;
 import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineTutorial;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
@@ -33,7 +34,6 @@ import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.View;
 import net.sf.ahtutils.xml.access.Views;
 import net.sf.ahtutils.xml.security.Security;
-import net.sf.exlp.util.xml.JaxbUtil;
 
 public class AbstractSecurityUpdater <L extends JeeslLang,
  								D extends JeeslDescription, 
@@ -45,12 +45,13 @@ public class AbstractSecurityUpdater <L extends JeeslLang,
  								AT extends JeeslSecurityTemplate<L,D,C>,
  								M extends JeeslSecurityMenu<V,M>,
  								AR extends JeeslSecurityArea<L,D,V>,
- 								H extends JeeslSecurityOnlineTutorial<L,D,V>,
+ 								OT extends JeeslSecurityOnlineTutorial<L,D,V>,
+								OH extends JeeslSecurityOnlineHelp<V,?,?>,
  								USER extends JeeslUser<R>>
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractSecurityUpdater.class);
 	
-	protected final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,H,USER> fbSecurity;
+	protected final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,USER> fbSecurity;
 	
 	protected JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity;
 	protected EjbLangFactory<L> efLang;
@@ -58,7 +59,7 @@ public class AbstractSecurityUpdater <L extends JeeslLang,
 	
 	private final JeeslDbCodeEjbUpdater<C> dbCleanerCategory;
 				
-	public AbstractSecurityUpdater(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,H,USER> fbSecurity,
+	public AbstractSecurityUpdater(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,USER> fbSecurity,
 			JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fAcl)
 	{
 		this.fbSecurity=fbSecurity;

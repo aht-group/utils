@@ -12,6 +12,7 @@ import org.jeesl.factory.xml.system.io.sync.XmlDataUpdateFactory;
 import org.jeesl.factory.xml.system.io.sync.XmlResultFactory;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineHelp;
 import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineTutorial;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
@@ -39,16 +40,17 @@ public class SecurityRoleUpdater <L extends JeeslLang,D extends JeeslDescription
  								AT extends JeeslSecurityTemplate<L,D,C>,
  								M extends JeeslSecurityMenu<V,M>,
  								AR extends JeeslSecurityArea<L,D,V>,
- 								H extends JeeslSecurityOnlineTutorial<L,D,V>,
+ 								OT extends JeeslSecurityOnlineTutorial<L,D,V>,
+								OH extends JeeslSecurityOnlineHelp<V,?,?>,
  								USER extends JeeslUser<R>>
-		extends AbstractSecurityUpdater<L,D,C,R,V,U,A,AT,M,AR,H,USER>
+		extends AbstractSecurityUpdater<L,D,C,R,V,U,A,AT,M,AR,OT,OH,USER>
 		implements JeeslSecurityRestRoleImport
 {
 	final static Logger logger = LoggerFactory.getLogger(SecurityRoleUpdater.class);
 	
 	private JeeslDbCodeEjbUpdater<R> updateRole;
 	
-	public SecurityRoleUpdater(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,H,USER> fbSecurity, JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity)
+	public SecurityRoleUpdater(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,USER> fbSecurity, JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity)
 	{       
         super(fbSecurity,fSecurity);
 	}
