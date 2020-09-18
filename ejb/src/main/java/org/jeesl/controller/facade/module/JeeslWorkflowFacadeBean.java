@@ -289,6 +289,10 @@ public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescrip
 		Join<WF,WP> jProcess = jWorkflow.join(JeeslWorkflow.Attributes.process.toString());
 		Path<Boolean> pBoolean = jProcess.get(JeeslWorkflowProcess.Attributes.includeInDashboard.toString());
 		predicates.add(cB.isTrue(pBoolean));
+		
+		Join<WF,WS> jStage = jWorkflow.join(JeeslWorkflow.Attributes.currentStage.toString());
+		Path<WST> pType = jStage.get(JeeslWorkflowStage.Attributes.type.toString());
+		predicates.add(cB.equal(pType,this.fByEnum(fbWorkflow.getClassStageType(),JeeslWorkflowStageType.Code.intermediate)));
 	
 		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
 		cQ.select(link);

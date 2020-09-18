@@ -1,5 +1,7 @@
 package org.jeesl.factory.ejb.io.attribute;
 
+import java.util.Date;
+
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeItem;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeSet;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
@@ -22,7 +24,7 @@ public class EjbAttributeSetFactory<L extends JeeslLang, D extends JeeslDescript
         this.cSet = cSet;
 	}
     
-	public SET build(CATEGORY category, long refId)
+	public SET build(CATEGORY category, Long refId)
 	{
 		SET ejb = null;
 		try
@@ -35,5 +37,12 @@ public class EjbAttributeSetFactory<L extends JeeslLang, D extends JeeslDescript
 		catch (IllegalAccessException e) {e.printStackTrace();}
 		
 		return ejb;
+	}
+	
+	public SET clone(SET source, String codeSuffix)
+	{
+		SET clone = this.build(source.getCategory(),source.getRefId());
+		clone.setCode(source.getCode()+codeSuffix);
+		return clone;
 	}
 }

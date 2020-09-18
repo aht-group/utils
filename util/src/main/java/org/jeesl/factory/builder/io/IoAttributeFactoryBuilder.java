@@ -77,10 +77,7 @@ public class IoAttributeFactoryBuilder<L extends JeeslLang, D extends JeeslDescr
 		return new EjbAttributeSetFactory<L,D,CATEGORY,SET,ITEM>(cSet);
 	}
 	
-	public EjbAttributeItemFactory<CRITERIA,SET,ITEM> ejbItem()
-	{
-		return new EjbAttributeItemFactory<CRITERIA,SET,ITEM>(cItem);
-	}
+	public EjbAttributeItemFactory<CRITERIA,SET,ITEM> ejbItem() {return new EjbAttributeItemFactory<>(cItem);}
 	
 	public EjbAttributeContainerFactory<SET,CONTAINER> ejbContainer()
 	{
@@ -92,10 +89,7 @@ public class IoAttributeFactoryBuilder<L extends JeeslLang, D extends JeeslDescr
 		return new EjbAttributeDataFactory<CRITERIA,OPTION,CONTAINER,DATA>(cData);
 	}
 	
-	public XmlAttributesFactory<L,D,CATEGORY,CRITERIA,OPTION,SET,ITEM,DATA> xmlAttributes(QueryAttribute query)
-	{
-		return new XmlAttributesFactory<L,D,CATEGORY,CRITERIA,OPTION,SET,ITEM,DATA>(query);
-	}
+	public XmlAttributesFactory<L,D,CATEGORY,CRITERIA,OPTION,SET,ITEM,DATA> xmlAttributes(QueryAttribute query) {return new XmlAttributesFactory<>(query);}
 	
 	public XmlAttributeFactory<L,D,CRITERIA,OPTION,ITEM,DATA> xmlAttribute(QueryAttribute query)
 	{

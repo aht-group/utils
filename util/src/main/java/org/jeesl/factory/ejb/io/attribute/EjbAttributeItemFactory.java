@@ -46,4 +46,13 @@ public class EjbAttributeItemFactory<CRITERIA extends JeeslAttributeCriteria<?,?
 		for(ITEM i : list) {set.add(i.getCriteria());}
 		return set;
 	}
+	
+	public ITEM clone(ITEM item, SET dstSet)
+	{
+		ITEM ejb = build(item.getCriteria(),dstSet,null);
+		ejb.setPosition(item.getPosition());
+		ejb.setTableHeader(item.getTableHeader());
+		ejb.setVisible(item.isVisible());
+		return ejb;
+	}
 }
