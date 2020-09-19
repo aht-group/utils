@@ -71,18 +71,21 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 	private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
 	
 	private final List<OH> helps; public List<OH> getHelps() {return helps;}
+	protected final List<DC> documents; public List<DC> getDocuments() {return documents;}
 	
 	private M menu; public M getMenu() {return menu;}
-	
+	private OH help; public OH getHelp() {return help;} public void setHelp(OH help) {this.help = help;}
+
 	public AbstractAdminSecurityMenuBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,USER> fbSecurity, IoCmsFactoryBuilder<L,D,LOC,?,DC,?,DS,?,?,?,?,?,?,?> fbCms)
 	{
 		super(fbSecurity);
 		this.fbCms = fbCms;
 		efMenu = fbSecurity.ejbMenu();
 		helps = new ArrayList<>();
+		documents = new ArrayList<>();
 	}
 	
-	public void initSuper(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity, JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslSecurityBean<L,D,C,R,V,U,A,AT,M,USER> bSecurity)
+	public void postConstructMenu(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity, JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslSecurityBean<L,D,C,R,V,U,A,AT,M,USER> bSecurity)
 	{
 		super.postConstructSecurity(fSecurity,bTranslation,bMessage,bSecurity);
 		opViews = fSecurity.all(fbSecurity.getClassView());
@@ -104,7 +107,11 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 			}
 		}
 		reload();
+		try {reloadDocuments();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 	}
+	
+	protected void reloadDocuments()  throws JeeslNotFoundException{};
 	
 	protected void firstInit() {}
 	protected void firstInit(Menu xml)
@@ -136,9 +143,9 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
     {
 		List<M> list = fSecurity.all(fbSecurity.getClassMenu());
 		Map<M,List<M>> map = efMenu.toMapChild(list);
-	    	tree = new DefaultTreeNode(null, null);
+	    tree = new DefaultTreeNode(null, null);
 	    	
-	    	buildTree(tree, efMenu.toListRoot(list),map);
+	    buildTree(tree, efMenu.toListRoot(list),map);
     }
 	    
 	private void buildTree(TreeNode parent, List<M> items, Map<M,List<M>> map)
@@ -202,6 +209,11 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 		menu = fSecurity.find(fbSecurity.getClassMenu(),menu);
 		
 		helps.clear();
-//		helps.addAll(fSecurity.allForParent(fbSecurity.getclassh, parent))
+		helps.addAll(fSecurity.allForParent(fbSecurity.getClassOnlineHelp(),menu.getView()));
+    }
+    
+    public void addHelp(DC document)
+    {
+    	logger.info(document.toString());
     }
 }

@@ -26,7 +26,7 @@
 								</j:dtHeader>
 							</f:facet>
 							<p:ajax event="rowReorder" listener="#{cc.attrs.bean.reorderDocuments()}" update="@form"/>
-							<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectDocument()}" update=":#{cc.id}:sDocument :#{cc.id}:sLangs"/>
+							<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectDocument()}" update=":#{cc.id}:grid"/>
 							<p:column rendered="true"><h:outputText value="#{d.position}"/></p:column>
 							<p:column headerText="#{msg.jeeslCmsDocument}"><h:outputText value="#{d.name[cc.attrs.bean.sbhLocale.selection.code].lang}"/></p:column>
 						</p:dataTable>
@@ -50,9 +50,8 @@
 				</j:slot>
 				<j:slot id="sLangs" width="2">
 					<h:form id="fLangs" rendered="#{(not empty cc.attrs.bean.cms) and (cc.attrs.bean.cms.id gt 0)}">
-						<ui:remove>
-							<jp:opSelection handler="#{cc.attrs.bean.opLocale}" update=":#{cc.id}:fLangs :fStatusBar" tableHeader="#{msg.jeeslCmsLanguages}"/>
-						</ui:remove>
+						<jp:opSelection handler="#{cc.attrs.bean.opLocale}" update=":#{cc.id}:fLangs :fStatusBar" tableHeader="#{msg.jeeslCmsLanguages}"/>
+						
 					</h:form>
 				</j:slot>
 			</j:row>

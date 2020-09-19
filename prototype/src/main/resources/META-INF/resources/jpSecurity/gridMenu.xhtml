@@ -6,9 +6,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:j="http://www.jeesl.org/jsf"
-	xmlns:jp="http://jsf.jeesl.org/prototype"
-	xmlns:jtp="http://jsf.jeesl.org/prototype/tag"
+	xmlns:j="http://www.jeesl.org/jsf" xmlns:jp="http://jsf.jeesl.org/prototype" xmlns:jtp="http://jsf.jeesl.org/prototype/tag"
 	xmlns:aht="http://ahtutils.sourceforge.net/jsf"
 	xmlns:aup="http://ahtutils.sourceforge.net/prototype"
 	xmlns:aupSec="http://ahtutils.sourceforge.net/prototype/security"
@@ -61,6 +59,33 @@
 							<h:outputText value="#{cc.attrs.bean.menu.view.description[localeCode].lang}"/>
 						</p:panelGrid>
 					</p:panel>
+					<h:form id="fHelps" rendered="#{not empty cc.attrs.bean.menu}">
+						<p:dataTable var="h" value="#{cc.attrs.bean.helps}" draggableRows="true"
+							selection="#{cc.attrs.bean.help}" selectionMode="single" rowKey="#{h.id}">
+							<f:facet name="header">
+								<j:dtHeader title="Documents">
+									<ui:repeat var="d" value="#{cc.attrs.bean.documents}">
+								     	<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addHelp(d)}" update=":#{cc.id}:fHelps :#{cc.id}:fHelp" tooltip="#{d.id}"/>
+							    	</ui:repeat>
+								</j:dtHeader>
+							</f:facet>
+							<p:ajax event="rowSelect"  listener="#{cc.attrs.bean.selectHelp}" update=":#{cc.id}:fHelps"/>
+							<p:ajax event="rowReorder" listener="#{cc.attrs.bean.reorderHelp()}" update="@form"/>
+							<p:column rendered="false">  
+								<h:graphicImage rendered="#{not h.visible}" name="12/ui/status/ghost.png"  library="jeeslPrototypeGfx"/>
+								<h:outputText rendered="#{h.visible}" value="#{h.position}"/>
+				            </p:column>
+				            <p:column headerText="Document">  
+								<h:outputText value="#{h.id}" />  
+				            </p:column>
+				            <p:column headerText="Section">  
+								<h:outputText value="#{h.id}" />  
+				            </p:column>
+				       	</p:dataTable>
+					</h:form>
+					<h:form id="fHelp" >
+					
+					</h:form>
 				</j:slot>
 			</j:row>
 	    </jp:grid>
