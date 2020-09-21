@@ -17,7 +17,7 @@ public class Highlight extends UINamingContainer
 {
 	final static Logger logger = LoggerFactory.getLogger(Highlight.class);
 	
-	private static final String id ="//ahtutils.highlight:"; 
+	private static final String id ="//jeesl.highlight:"; 
 	
 	public String between(String input, String between, boolean relativeTab)
 	{

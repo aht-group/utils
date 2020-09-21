@@ -7,7 +7,7 @@ import java.util.Set;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
-//ahtutils.highlight:interface
+//jeesl.highlight:interface
 public interface JeeslIdFacade extends Serializable
 {
 	<T extends Object> List<T> all(Class<T> type);
@@ -22,4 +22,4 @@ public interface JeeslIdFacade extends Serializable
 	<T extends EjbWithId> List<T> find(Class<T> c, Set<Long> ids);
 	<T extends EjbWithId> long maxId(Class<T> c);
 }
-//ahtutils.highlight:interface
+//jeesl.highlight:interface

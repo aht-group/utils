@@ -1,8 +1,8 @@
 package org.jeesl.api.facade.util;
 
-//ahtutils.highlight:interface
+//jeesl.highlight:interface
 public interface JeeslDateFacade
 {
 	
 }
-//ahtutils.highlight:interface
+//jeesl.highlight:interface
