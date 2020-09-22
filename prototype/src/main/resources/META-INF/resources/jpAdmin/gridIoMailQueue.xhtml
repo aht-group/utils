@@ -40,7 +40,7 @@
 	<j:row>
 		<j:slot id="sQueue" width="9">
 			<h:form id="fQueue">
-				<p:dataTable var="m" value="#{cc.attrs.bean.mails}" draggableRows="true"
+				<p:dataTable var="m" value="#{cc.attrs.bean.mails}" draggableRows="true" filterEvent="keyup paste"
 					selection="#{cc.attrs.bean.mail}" selectionMode="single" rowKey="#{m.id}"
 					rows="50" paginator="true" rowsPerPageTemplate="#{appSettingsBean.rowsPerPageTemplate}" paginatorPosition="#{appSettingsBean.paginatorPosition}" paginatorTemplate="#{appSettingsBean.paginatorTemplate}">
 					<f:facet name="header">
@@ -57,7 +57,9 @@
 						<h:outputText value="#{m.status.name[userBean.localeCode].lang}" rendered="false"/>
 					</p:column>
 					<p:column headerText="#{msg.jeeslIoMailCounter}"><h:outputText value="#{m.counter}"/></p:column>
-					<p:column headerText="#{msg.jeeslIoMailRecipient}"><h:outputText value="#{m.recipient}"/></p:column>
+					<p:column headerText="#{msg.jeeslIoMailRecipient}" filterBy="#{m.recipient}" filterMatchMode="contains">
+						<h:outputText value="#{m.recipient}"/>
+					</p:column>
 				</p:dataTable>
 			</h:form>
 		</j:slot>
