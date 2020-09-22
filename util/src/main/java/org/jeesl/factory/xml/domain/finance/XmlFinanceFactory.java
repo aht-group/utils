@@ -103,6 +103,10 @@ public class XmlFinanceFactory <L extends JeeslLang, C extends UtilsCurrency<L>>
 	
 	public static <E extends Enum<E>> void plus(Figures figures, E code, Double value)
 	{
+		plus(figures,code.toString(),value);
+	}
+	public static <E extends Enum<E>> void plus(Figures figures, String code, Double value)
+	{
 		if(value!=null)
 		{
 			for(Finance f : figures.getFinance())
@@ -113,7 +117,7 @@ public class XmlFinanceFactory <L extends JeeslLang, C extends UtilsCurrency<L>>
 					return;
 				}
 			}
-			add(figures,code,value);
+			addCode(figures,code,value);
 		}
 	}
 	
