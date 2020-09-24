@@ -55,6 +55,7 @@
 			<xsd:attribute name="position" type="xsd:int"/>
 			<xsd:attribute name="code" type="xsd:string"/>
 			<xsd:attribute name="label" type="xsd:string"/>
+			<xsd:attribute name="progress" type="xsd:double"/>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="permissions">

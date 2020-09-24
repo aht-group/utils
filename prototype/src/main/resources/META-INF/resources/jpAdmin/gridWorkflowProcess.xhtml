@@ -118,8 +118,12 @@
 							</p:column>
 							<p:column rendered="true" headerText="#{msg.jeeslName}">
 								<jtp:symbolizer value="#{s}" rendered="#{not empty s.graphic}" marginRight="5"/>
-								<h:outputText value="#{s.name[localeCode].lang}"/>  
-							</p:column>		
+								<h:outputText value="#{s.name[localeCode].lang}"/>
+							</p:column>
+							<p:column rendered="true" styleClass="jeeslCenter">
+								<f:facet name="header"><jtp:label entity="WorkflowStage" code="progress"/></f:facet>
+								<h:outputText value="#{s.progress}"><f:convertNumber type="percent" /></h:outputText>
+							</p:column>
 						</p:dataTable>
 					</h:form>
 				</j:slot>
@@ -157,6 +161,9 @@
 									<h:outputText value="#{cc.attrs.bean.stage.name[localeCode].lang}" />
 								</ui:fragment>
 								
+								<jtp:label entity="WorkflowStage" code="progress"/>
+								<p:inputText value="#{cc.attrs.bean.stage.progress}" autocomplete="off" rendered="#{cc.attrs.bean.editStage}"/>
+								<h:outputText value="#{cc.attrs.bean.stage.progress}" rendered="#{not cc.attrs.bean.editStage}"/>
 								
 								<p:outputLabel value="#{msg.jeeslDescription}" rendered="#{not cc.attrs.bean.editStage}"/>
 								<h:outputText value="#{cc.attrs.bean.stage.description[localeCode].lang}" rendered="#{not cc.attrs.bean.editStage}"/>

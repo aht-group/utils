@@ -43,4 +43,7 @@ public interface JeeslWorkflowStage <L extends JeeslLang, D extends JeeslDescrip
 	
 	List<WSP> getPermissions();
 	void setPermissions(List<WSP> permissions);
+	
+	Double getProgress();
+	void setProgress(Double progress);
 }

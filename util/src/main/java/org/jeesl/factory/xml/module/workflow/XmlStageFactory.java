@@ -70,6 +70,13 @@ public class XmlStageFactory<L extends JeeslLang, D extends JeeslDescription,
 	}
 	
 	public static Stage build(){return new Stage();}
+	public static Stage build(String label, Double progress)
+	{
+		Stage xml = build();
+		xml.setLabel(label);
+		if(progress!=null) {xml.setProgress(progress);}
+		return xml;
+	}
 	
 	public Stage build(WS stage)
 	{

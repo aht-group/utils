@@ -37,6 +37,7 @@ import net.sf.ahtutils.xml.status.Type;
  *       &lt;attribute name="position" type="{http://www.w3.org/2001/XMLSchema}int" /&gt;
  *       &lt;attribute name="code" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *       &lt;attribute name="label" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+ *       &lt;attribute name="progress" type="{http://www.w3.org/2001/XMLSchema}double" /&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -82,6 +83,8 @@ public class Stage
     protected String code;
     @XmlAttribute(name = "label")
     protected String label;
+    @XmlAttribute(name = "progress")
+    protected Double progress;
 
     /**
      * Gets the value of the type property.
@@ -406,6 +409,38 @@ public class Stage
 
     public boolean isSetLabel() {
         return (this.label!= null);
+    }
+
+    /**
+     * Gets the value of the progress property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Double }
+     *     
+     */
+    public double getProgress() {
+        return progress;
+    }
+
+    /**
+     * Sets the value of the progress property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Double }
+     *     
+     */
+    public void setProgress(double value) {
+        this.progress = value;
+    }
+
+    public boolean isSetProgress() {
+        return (this.progress!= null);
+    }
+
+    public void unsetProgress() {
+        this.progress = null;
     }
 
 }
