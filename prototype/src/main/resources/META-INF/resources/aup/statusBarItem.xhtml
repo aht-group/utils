@@ -14,14 +14,15 @@
 		<composite:attribute name="label" required="false" default=""/>
 		<composite:attribute name="childs" required="false"/>
 		<composite:attribute name="orientation" required="false" default="left"/>
+		<composite:attribute name="styleClass" required="false"/>
 		
 		<composite:facet name="label" required="false"/>
 	</composite:interface>
 	
 	<composite:implementation>
 		<aht:li>
-			<c:if test="#{cc.attrs.orientation eq 'left'}"><f:attribute name="styleClass" value="aupStatusBarLeft"/></c:if>
-			<c:if test="#{cc.attrs.orientation eq 'right'}"><f:attribute name="styleClass" value="aupStatusBarRight"/></c:if>
+			<c:if test="#{cc.attrs.orientation eq 'left'}"><f:attribute name="styleClass" value="aupStatusBarLeft #{cc.attrs.styleClass}"/></c:if>
+			<c:if test="#{cc.attrs.orientation eq 'right'}"><f:attribute name="styleClass" value="aupStatusBarRight #{cc.attrs.styleClass}"/></c:if>
 			<label for="#{cc.id}">
 				<h:outputText rendered="#{not empty cc.attrs.label}" value="#{cc.attrs.label}"/>
 				<c:if test="#{not empty cc.facets.label}">
