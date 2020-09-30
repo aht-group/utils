@@ -143,3 +143,13 @@
   display: flex; }
   .ui-datatable-header .pf-datatable-header-title {
     flex-grow: 1; }
+
+.ui-button-help > label {
+  height: 24px;
+  display: block;
+  margin: -7px -.8em -6px -.6em; }
+  .ui-button-help > label .ui-commandlink {
+    cursor: default;
+    padding: 6px .8em 6px .6em;
+    vertical-align: middle;
+    display: inline-block; }
