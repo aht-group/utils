@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
@@ -121,6 +123,8 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	
 	private final NullNumberBinder nnb; public NullNumberBinder getNnb() {return nnb;}
 	
+	private final Map<WS,List<WT>> mapTransition; public Map<WS, List<WT>> getMapTransition() {return mapTransition;}
+	
 	private final List<MC> channels; public List<MC> getChannels() {return channels;}
 	protected final List<MT> templates; public List<MT> getTemplates() {return templates;}
 	private final List<SR> roles; public List<SR> getRoles() {return roles;}
@@ -145,13 +149,8 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	private WPD document; public WPD getDocument() {return document;} public void setDocument(WPD document) {this.document = document;}
 	private WS stage; public WS getStage() {return stage;} public void setStage(WS stage) {this.stage = stage;}
 	private WSP permission; public WSP getPermission() {return permission;} public void setPermission(WSP permission) {this.permission = permission;}
-	private WSN notification;
-	public WSN getNotification() {
-		return notification;
-	}
-	public void setNotification(WSN notification) {
-		this.notification = notification;
-	}
+	private WSN notification; public WSN getNotification() {return notification;} public void setNotification(WSN notification) {this.notification = notification;}
+	
 	private WT transition; public WT getTransition() {return transition;} public void setTransition(WT transition) {this.transition = transition;}
 	private WAN communication; public WAN getCommunication() {return communication;} public void setCommunication(WAN communication) {this.communication = communication;}
 	private WA action; public WA getAction() {return action;} public void setAction(WA action) {this.action = action;}
@@ -187,6 +186,8 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		sbhProcess = new SbSingleHandler<WP>(fbApproval.getClassProcess(),this);
 		
 		nnb = new NullNumberBinder();
+		
+		mapTransition = new HashMap<>();
 		
 		channels = new ArrayList<>();
 		roles = new ArrayList<>();
@@ -315,6 +316,9 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	{
 		stages.clear();
 		stages.addAll(fWorkflow.allForParent(fbWorkflow.getClassStage(),process));
+		
+		mapTransition.clear();
+		buildTransitionMap(fWorkflow.allForGrandParent(fbWorkflow.getClassTransition(),fbWorkflow.getClassStage(),JeeslWorkflowTransition.Attributes.source.toString(),process,JeeslWorkflowStage.Attributes.process.toString()));
 	}
 	
 	private void reloadProcess()
@@ -492,9 +496,6 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		reloadPermissions();
 	}
 	
-	
-	
-	
 	private void reloadNotifications()
 	{
 		reset(WorkflowProcesslResetHandler.build().none().notifications(true));
@@ -534,12 +535,21 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		reloadNotifications();
 	}
 	
-	
-	
 	private void reloadTransitions()
 	{
 		transitions.clear();
 		transitions.addAll(fWorkflow.allForParent(fbWorkflow.getClassTransition(), stage));
+	}
+	
+	private void buildTransitionMap(List<WT> list)
+	{
+		logger.info(list.size()+" mapTransition");
+	
+		for(WT t : list)
+		{
+			if(!mapTransition.containsKey(t.getSource())){mapTransition.put(t.getSource(),new ArrayList<>());}
+			mapTransition.get(t.getSource()).add(t);
+		}
 	}
 	
 	public void addTransition()
