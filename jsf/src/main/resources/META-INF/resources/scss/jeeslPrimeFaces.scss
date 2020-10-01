@@ -13,6 +13,15 @@
 	border-radius: 2px;
 }
 
+@mixin panel-header {
+	background: $header-background-colour url(/jeesl/javax.faces.resource/images/ui-bg_highlight-soft_100_c4c4c4_1x100.png.xhtml?ln=primefaces-aristo) 50% 50% repeat-x;
+    background: $header-background-colour linear-gradient(top,$white-80,$white-0);
+    background: $header-background-colour -webkit-gradient(linear,left top,left bottom,from($white-80),to($white-0));
+    background: $header-background-colour -moz-linear-gradient(top,$white-80,$white-0);
+	border: 1px solid $border-colour;
+	border-radius: 3px;
+}
+
 .ui-datatable {
 	.ui-datatable-header {
 	    align-items: center;
@@ -184,7 +193,7 @@
 
 			> span {
 				/* important has to be used because primefaces sets border color and size as inline style */
-				border-color: $border-color !important;
+				border-color: $border-colour !important;
 				border-radius: 6px;
 				height: 10px !important;
     			width: 10px !important;
@@ -212,6 +221,69 @@
 		    padding: 6px .8em 6px .6em;
 		    vertical-align: middle;
 		    display: inline-block;
+		}
+	}
+}
+
+.jsl-tabs {
+	background: $panel-background;
+	
+	// Refined selector necessary to overwrite existing css rule
+	&.ui-tabs {
+		&.ui-tabs-top {
+			.ui-tabs-nav {
+				li {
+					&.ui-tabs-selected {
+						border-bottom: 1px solid $panel-background;
+					}
+				}
+			}
+		}
+	}
+	
+	.ui-tabs-nav {
+		@include panel-header();
+	}
+	
+	.ui-tabs-header {
+		&.ui-state-active {
+			background: $panel-background;
+			box-shadow: 0 1px hsla(0,0%,100%,1) inset;
+			margin-bottom: 0;
+		}
+	}
+	
+	.ui-tabs-panel {
+		padding: 0;
+	}
+}
+
+pre {
+	code {
+		overflow-x: auto;
+	}
+}
+
+// unfortunately auGrid_* class uses display table, which prevents child size dependent on parent size, so the child sizes have to be set explicitly
+@mixin grid-children-width($columns) {
+	> * {
+		width: $columns * 80px - 10px;
+	}
+}
+.auContainer {
+	[class^="auGrid_"],
+	[class*=" auGrid_"] {
+	    margin: 10px 0 0;
+		padding: 0 5px 0;
+		
+		> * {
+			box-sizing: border-box;
+		}
+	}
+	
+	@for $i from 1 to 13 {
+		.auGrid_#{$i} {
+			@include grid-children-width($i);
 		}
 	}
 }
