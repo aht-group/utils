@@ -153,3 +153,56 @@
     padding: 6px .8em 6px .6em;
     vertical-align: middle;
     display: inline-block; }
+
+.jsl-tabs {
+  background: #f0f0f0; }
+  .jsl-tabs.ui-tabs.ui-tabs-top .ui-tabs-nav li.ui-tabs-selected {
+    border-bottom: 1px solid #f0f0f0; }
+  .jsl-tabs .ui-tabs-nav {
+    background: #c4c4c4 url(/jeesl/javax.faces.resource/images/ui-bg_highlight-soft_100_c4c4c4_1x100.png.xhtml?ln=primefaces-aristo) 50% 50% repeat-x;
+    background: #c4c4c4 linear-gradient(top, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+    background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.8)), to(rgba(255, 255, 255, 0)));
+    background: #c4c4c4 -moz-linear-gradient(top, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+    border: 1px solid #a8a8a8;
+    border-radius: 3px; }
+  .jsl-tabs .ui-tabs-header.ui-state-active {
+    background: #f0f0f0;
+    box-shadow: 0 1px white inset;
+    margin-bottom: 0; }
+  .jsl-tabs .ui-tabs-panel {
+    padding: 0; }
+
+pre code {
+  overflow-x: auto; }
+
+.auContainer [class^="auGrid_"],
+.auContainer [class*=" auGrid_"] {
+  margin: 10px 0 0;
+  padding: 0 5px 0; }
+  .auContainer [class^="auGrid_"] > *,
+  .auContainer [class*=" auGrid_"] > * {
+    box-sizing: border-box; }
+.auContainer .auGrid_1 > * {
+  width: 70px; }
+.auContainer .auGrid_2 > * {
+  width: 150px; }
+.auContainer .auGrid_3 > * {
+  width: 230px; }
+.auContainer .auGrid_4 > * {
+  width: 310px; }
+.auContainer .auGrid_5 > * {
+  width: 390px; }
+.auContainer .auGrid_6 > * {
+  width: 470px; }
+.auContainer .auGrid_7 > * {
+  width: 550px; }
+.auContainer .auGrid_8 > * {
+  width: 630px; }
+.auContainer .auGrid_9 > * {
+  width: 710px; }
+.auContainer .auGrid_10 > * {
+  width: 790px; }
+.auContainer .auGrid_11 > * {
+  width: 870px; }
+.auContainer .auGrid_12 > * {
+  width: 950px; }
