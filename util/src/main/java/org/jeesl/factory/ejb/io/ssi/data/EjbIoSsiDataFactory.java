@@ -38,6 +38,7 @@ public class EjbIoSsiDataFactory <MAPPING extends JeeslIoSsiMapping<?,?>,
 	
 	public void updateJson(DATA data, Object json)
 	{
+		data.setJson(null);
 		if(json!=null)
 		{
 			try{data.setJson(JsonUtil.toString(json));}

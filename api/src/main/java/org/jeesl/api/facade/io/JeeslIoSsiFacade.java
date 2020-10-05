@@ -31,6 +31,7 @@ public interface JeeslIoSsiFacade <L extends JeeslLang,D extends JeeslDescriptio
 {	
 	MAPPING fMapping(Class<?> json, Class<?> ejb) throws JeeslNotFoundException;
 	DATA fIoSsiData(MAPPING mapping, String code) throws JeeslNotFoundException;
+	<A extends EjbWithId> DATA fIoSsiData(MAPPING mapping, String code, A a) throws JeeslNotFoundException;
 	
 	<T extends EjbWithId> DATA fIoSsiData(MAPPING mapping, T ejb) throws JeeslNotFoundException;
 	List<DATA> fIoSsiData(MAPPING mapping, List<LINK> links);

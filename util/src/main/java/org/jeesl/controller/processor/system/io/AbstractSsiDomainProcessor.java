@@ -46,6 +46,7 @@ public abstract class AbstractSsiDomainProcessor<L extends JeeslLang,D extends J
 	protected LINK linkPossible; public LINK getLinkPossible() {return linkPossible;}
 	protected LINK linkLinked; public LINK getLinkLinked() {return linkLinked;}
 	protected LINK linkIgnore; public LINK getLinkIgnore() {return linkIgnore;}
+	protected LINK linkUpdate;
 	
 	protected MAPPING mapping; @Override public MAPPING getMapping() {return mapping;}
 
@@ -56,15 +57,23 @@ public abstract class AbstractSsiDomainProcessor<L extends JeeslLang,D extends J
 		this.fbSsi=fbSsi;
 		
 		efData = fbSsi.ejbData();
+		
+		try {
+			initLinks();
+		} catch (JeeslNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	public void initLinks() throws JeeslNotFoundException
+	private void initLinks() throws JeeslNotFoundException
 	{		
 		linkUnlinked = fSsi.fByCode(fbSsi.getClassLink(),JeeslIoSsiLink.Code.unlinked);
 		linkPrecondition = fSsi.fByCode(fbSsi.getClassLink(),JeeslIoSsiLink.Code.precondition);
 		linkPossible = fSsi.fByCode(fbSsi.getClassLink(),JeeslIoSsiLink.Code.possible);
 		linkLinked = fSsi.fByCode(fbSsi.getClassLink(),JeeslIoSsiLink.Code.linked);
 		linkIgnore = fSsi.fByCode(fbSsi.getClassLink(),JeeslIoSsiLink.Code.ignore);
+		linkUpdate = fSsi.fByCode(fbSsi.getClassLink(),JeeslIoSsiLink.Code.update);
 	}
 	
 	@Override public void ignoreData(List<DATA> datas)

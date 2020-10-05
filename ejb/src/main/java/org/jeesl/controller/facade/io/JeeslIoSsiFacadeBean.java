@@ -104,8 +104,32 @@ public class JeeslIoSsiFacadeBean<L extends JeeslLang,D extends JeeslDescription
 		return tQ.getResultList();
 	}
 
-	@Override
-	public DATA fIoSsiData(MAPPING mapping, String code) throws JeeslNotFoundException
+	@Override public <A extends EjbWithId> DATA fIoSsiData(MAPPING mapping, String code, A a) throws JeeslNotFoundException
+	{
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<DATA> cQ = cB.createQuery(fbSsi.getClassData());
+		Root<DATA> data = cQ.from(fbSsi.getClassData());
+		
+		Join<DATA,MAPPING> jMapping = data.join(JeeslIoSsiData.Attributes.mapping.toString());
+		predicates.add(jMapping.in(mapping));
+		
+		Expression<String> eCode = data.get(JeeslIoSsiData.Attributes.code.toString());
+		predicates.add(cB.equal(eCode,code));
+		
+		Expression<Long> eRefA = data.get(JeeslIoSsiData.Attributes.refA.toString());
+		predicates.add(cB.equal(eRefA,a.getId()));
+
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.select(data);
+
+		TypedQuery<DATA> tQ = em.createQuery(cQ);
+		
+		try	{return tQ.getSingleResult();}
+		catch (NoResultException ex){throw new JeeslNotFoundException("Nothing found "+fbSsi.getClassData().getSimpleName()+" for "+mapping.toString()+" for code="+code);}
+		catch (NonUniqueResultException ex){throw new JeeslNotFoundException("Results for "+fbSsi.getClassData().getSimpleName()+" and code="+code+" not unique");}
+	}
+	@Override public DATA fIoSsiData(MAPPING mapping, String code) throws JeeslNotFoundException
 	{
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		CriteriaBuilder cB = em.getCriteriaBuilder();

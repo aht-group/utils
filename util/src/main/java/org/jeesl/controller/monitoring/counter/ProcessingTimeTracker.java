@@ -126,6 +126,7 @@ public class ProcessingTimeTracker implements ProgressTimeTracker
 		}
 	}
 	
+	public void debugTicker(boolean print) {if(print) {debugTicker();}}
 	public void debugTicker()
 	{
 		logger.info("Debugging Ticker ("+ticksTime.size()+"): "+ticker);
@@ -133,10 +134,11 @@ public class ProcessingTimeTracker implements ProgressTimeTracker
 		{
 			StringBuffer sb = new StringBuffer();
 			sb.append("\t");
+			long ms = ticksTime.get(i)-start;
+			sb.append(ms);
+			sb.append("\t");
 			sb.append(ticksMarker.get(i));
 			
-			long ms = ticksTime.get(i)-start;
-			sb.append(": ").append(ms);
 			logger.info(sb.toString());
 		}
 	}
