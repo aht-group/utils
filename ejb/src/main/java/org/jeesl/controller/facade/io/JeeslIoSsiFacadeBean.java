@@ -20,7 +20,9 @@ import org.jeesl.api.facade.io.JeeslIoSsiFacade;
 import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.ssi.IoSsiDataFactoryBuilder;
+import org.jeesl.factory.json.system.io.db.tuple.JsonTupleFactory;
 import org.jeesl.factory.json.system.io.db.tuple.t1.Json1TuplesFactory;
+import org.jeesl.factory.json.system.io.db.tuple.t2.Json2TuplesFactory;
 import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiCredential;
 import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiHost;
@@ -34,6 +36,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
+import org.jeesl.model.json.db.tuple.two.Json2Tuples;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -208,10 +211,9 @@ public class JeeslIoSsiFacadeBean<L extends JeeslLang,D extends JeeslDescription
         return jtf.buildCount(tQ.getResultList());
 	}
 	
-	@Override
-	public Json1Tuples<MAPPING> tpMapping()
+	@Override public Json1Tuples<MAPPING> tpMapping()
 	{
-		Json1TuplesFactory<MAPPING> jtf = new Json1TuplesFactory<MAPPING>(this,fbSsi.getClassMapping());
+		Json1TuplesFactory<MAPPING> jtf = new Json1TuplesFactory<>(this,fbSsi.getClassMapping());
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<Tuple> cQ = cB.createTupleQuery();
 		Root<DATA> item = cQ.from(fbSsi.getClassData());
@@ -224,5 +226,32 @@ public class JeeslIoSsiFacadeBean<L extends JeeslLang,D extends JeeslDescription
 	       
 		TypedQuery<Tuple> tQ = em.createQuery(cQ);
         return jtf.buildCount(tQ.getResultList());
+	}
+	
+	@Override public <A extends EjbWithId, B extends EjbWithId> Json2Tuples<LINK,B> tpMappingB(Class<B> classB, MAPPING mapping, A a)
+	{
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		Json2TuplesFactory<LINK,B> jtf = new Json2TuplesFactory<>(this,fbSsi.getClassLink(),classB);
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<Tuple> cQ = cB.createTupleQuery();
+		Root<DATA> item = cQ.from(fbSsi.getClassData());
+		
+		Expression<Long> eA = item.get(JeeslIoSsiData.Attributes.refA.toString());
+		Expression<Long> pB = item.get(JeeslIoSsiData.Attributes.refB.toString());
+		Expression<Long> eCount = cB.count(item.<Long>get("id"));
+		
+		predicates.add(cB.equal(eA,a.getId()));
+		
+		Join<DATA,MAPPING> jMapping = item.join(JeeslIoSsiData.Attributes.mapping.toString());
+		predicates.add(jMapping.in(mapping));
+		
+		Join<DATA,LINK> jLink = item.join(JeeslIoSsiData.Attributes.link.toString());
+	
+		cQ.groupBy(jLink.get("id"),pB);
+		cQ.multiselect(jLink.get("id"),pB,eCount);
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+	       
+		TypedQuery<Tuple> tQ = em.createQuery(cQ);
+        return jtf.build(tQ.getResultList(),JsonTupleFactory.Type.count);
 	}
 }

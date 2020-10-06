@@ -16,6 +16,8 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
+import org.jeesl.model.json.db.tuple.t3.Json3Tuples;
+import org.jeesl.model.json.db.tuple.two.Json2Tuples;
 
 public interface JeeslIoSsiFacade <L extends JeeslLang,D extends JeeslDescription,
 									SYSTEM extends JeeslIoSsiSystem<L,D>,
@@ -43,4 +45,5 @@ public interface JeeslIoSsiFacade <L extends JeeslLang,D extends JeeslDescriptio
 	<A extends EjbWithId, B extends EjbWithId> Json1Tuples<LINK> tpIoSsiLinkForMapping(MAPPING mapping, A a, B b);
 	
 	Json1Tuples<MAPPING> tpMapping();
+	<A extends EjbWithId, B extends EjbWithId> Json2Tuples<LINK,B> tpMappingB(Class<B> classB, MAPPING mapping, A a);
 }
