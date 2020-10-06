@@ -16,5 +16,5 @@ public interface JeeslJobExpiration <L extends JeeslLang,D extends JeeslDescript
 		extends Serializable,EjbPersistable,JeeslOptionRestDownload,EjbWithCodeGraphic<G>,
 							JeeslStatus<S,L,D>
 {
-	public static enum Code{never,h24,endOfDay,endOfWeek}
+	public static enum Code{never,h24,endOfDay,endOfWeek,endOfMonth}
 }

@@ -57,7 +57,7 @@ public class AbstractAdminJobTemplateBean <L extends JeeslLang, D extends JeeslD
 	
 	private TEMPLATE template; public TEMPLATE getTemplate() {return template;} public void setTemplate(TEMPLATE template) {this.template = template;}
 
-	private EjbJobTemplateFactory<L,D,TEMPLATE,CATEGORY,TYPE,PRIORITY> efTemplate;
+	private EjbJobTemplateFactory<L,D,TEMPLATE,CATEGORY,TYPE,EXPIRE,PRIORITY> efTemplate;
 	
 	public AbstractAdminJobTemplateBean(JobFactoryBuilder<L,D,TEMPLATE,CATEGORY,TYPE,EXPIRE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,USER> fbJob) {super(fbJob);}
 	
@@ -117,11 +117,7 @@ public class AbstractAdminJobTemplateBean <L extends JeeslLang, D extends JeeslD
 	public void saveTemplate() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(template));}
-		
-		template.setCategory(fJob.find(fbJob.getClassCategory(),template.getCategory()));
-		template.setType(fJob.find(fbJob.getClassType(),template.getType()));
-		template.setPriority(fJob.find(fbJob.getClassPriority(),template.getPriority()));
-		template.setExpiration(fJob.find(fbJob.getClassExpire(),template.getExpiration()));
+		efTemplate.converter(fJob,template);
 		
 		template = fJob.save(template);
 		reloadTemplates();

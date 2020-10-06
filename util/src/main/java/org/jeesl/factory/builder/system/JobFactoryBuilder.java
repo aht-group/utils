@@ -66,10 +66,7 @@ public class JobFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 		this.cCache = cCache;
 	}
 		
-	public EjbJobTemplateFactory<L,D,TEMPLATE,CATEGORY,TYPE,PRIORITY> template()
-	{
-		return new EjbJobTemplateFactory<L,D,TEMPLATE,CATEGORY,TYPE,PRIORITY>(cTemplate);
-	}
+	public EjbJobTemplateFactory<L,D,TEMPLATE,CATEGORY,TYPE,EXPIRE,PRIORITY> template() {return new EjbJobTemplateFactory<>(this);}
 	
 	public EjbJobFactory<L,D,TEMPLATE,CATEGORY,TYPE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,USER> job()
 	{
