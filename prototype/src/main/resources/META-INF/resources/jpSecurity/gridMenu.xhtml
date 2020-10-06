@@ -71,20 +71,38 @@
 							</f:facet>
 							<p:ajax event="rowSelect"  listener="#{cc.attrs.bean.selectHelp}" update=":#{cc.id}:fHelps"/>
 							<p:ajax event="rowReorder" listener="#{cc.attrs.bean.reorderHelp()}" update="@form"/>
-							<p:column rendered="false">  
+							<p:column rendered="false">
 								<h:graphicImage rendered="#{not h.visible}" name="12/ui/status/ghost.png"  library="jeeslPrototypeGfx"/>
 								<h:outputText rendered="#{h.visible}" value="#{h.position}"/>
 				            </p:column>
-				            <p:column headerText="Document">  
-								<h:outputText value="#{h.id}" />  
+				            <p:column headerText="Document">
+								<h:outputText value="#{h.id}" />
 				            </p:column>
-				            <p:column headerText="Section">  
-								<h:outputText value="#{h.id}" />  
+				            <p:column headerText="Section">
+								<h:outputText value="#{h.id}" />
 				            </p:column>
 				       	</p:dataTable>
 					</h:form>
-					<h:form id="fHelp" >
-					
+					<h:form id="fHelp" rendered="#{not empty cc.attrs.bean.helpTree}">
+						<p:panel header="#{msg.jeeslSecurityHelp}" styleClass="jeeslTree">
+							<f:facet id="fHelpActions" name="actions">
+								<p:outputPanel id="cHelpActions">
+									<j:svg type="jeeslTreeExpandAll" listener="#{cc.attrs.bean.expandHelp()}" update="@form" tooltip="#{msg.jeeslTtExpandAllChildren}" library="jeeslGfx"/>
+									<j:svg type="jeeslTreeCollapseAll" listener="#{cc.attrs.bean.collapseHelp()}" update="@form" rendered="#{cc.attrs.bean.isHelpExpanded()}" tooltip="#{msg.jeeslTtCollapseAllChildren}" library="jeeslGfx"/>
+								</p:outputPanel>
+							</f:facet>
+							<p:tree id="tHelp" value="#{cc.attrs.bean.helpTree}" var="helpNode"
+								selection="#{cc.attrs.bean.helpNode}" selectionMode="single"
+				                draggable="true" droppable="true" dragdropScope="demo">
+				                <p:ajax event="select" listener="#{cc.attrs.bean.onHelpNodeSelect}" update=":#{cc.id}:sView"/>
+				                <p:ajax event="dragdrop" listener="#{cc.attrs.bean.onDragDrop}"/>
+					            <p:ajax event="expand" listener="#{cc.attrs.bean.onHelpExpand}" />
+								<p:ajax event="collapse" listener="#{cc.attrs.bean.onHelpCollapse}" />
+					            <p:treeNode>
+					                <h:outputText value="#{helpNode.view.category.position}.#{helpNode.view.position} #{helpNode.view.name[localeCode].lang}" />
+					            </p:treeNode>
+					        </p:tree>
+						</p:panel>
 					</h:form>
 				</j:slot>
 			</j:row>

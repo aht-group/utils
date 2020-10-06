@@ -70,6 +70,9 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 	private TreeNode tree; public TreeNode getTree() {return tree;}
 	private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
 	
+	private TreeNode helpTree; public TreeNode getHelpTree() {return helpTree;}
+	private TreeNode helpNode; public TreeNode getHelpNode() {return helpNode;} public void setHelpNode(TreeNode helpNode) {this.helpNode = helpNode;}
+	
 	private final List<OH> helps; public List<OH> getHelps() {return helps;}
 	protected final List<DC> documents; public List<DC> getDocuments() {return documents;}
 	
@@ -215,5 +218,36 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
     public void addHelp(DC document)
     {
     	logger.info(document.toString());
+
+		this.helpTree = new DefaultTreeNode(document.getRoot(), null);
+		buildTree(this.helpTree, document.getRoot().getSections());
     }
+    
+    private void buildTree(TreeNode parent, List<DS> sections)
+	{
+		for(DS s : sections)
+		{
+			TreeNode n = new DefaultTreeNode(s, parent);
+			if(!s.getSections().isEmpty()) {buildTree(n,s.getSections());}
+		}
+	}
+	
+	public void expandHelp()
+	{
+		TreeHelper.setExpansion(this.helpNode!=null ? this.helpNode : this.helpTree, true);
+	}
+	
+	public void collapseHelp()
+	{
+		TreeHelper.setExpansion(this.helpTree,  false);
+	}
+	
+	public boolean isHelpExpanded()
+	{
+		return this.helpTree != null && this.helpTree.getChildren().stream().filter(node -> node.isExpanded()).count() > 1;
+	}
+	
+	public void onHelpNodeSelect(NodeSelectEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}
+	public void onHelpExpand(NodeExpandEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}
+    public void onHelpCollapse(NodeCollapseEvent event) {if(debugOnInfo) {logger.info("Collapsed "+event.getTreeNode().toString());}}
 }
