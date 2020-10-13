@@ -269,9 +269,10 @@ public abstract class AbstractFileRepositoryHandler<L extends JeeslLang, D exten
 	
 	protected void handledFileUpload()
 	{
-		if(debugOnInfo) {logger.info("handledFileUpload: "+meta.toString());}
+		if(debugOnInfo) {logger.info("handledFileUpload (start): "+meta.toString());}
 		fth.updateType(meta);
 		showInlineUpload = false;
+		if(debugOnInfo) {logger.info("handledFileUpload (end): "+meta.toString());}
 	}
 	
 	public void selectFile()
@@ -279,7 +280,6 @@ public abstract class AbstractFileRepositoryHandler<L extends JeeslLang, D exten
 		if(debugOnInfo) {logger.info("selectFile "+meta.toString());}
 		fileName = meta.getFileName();
 		meta = efDescription.persistMissingLangs(fFr,locales,meta);
-		
 	}
 	
 	public void saveFile() throws JeeslConstraintViolationException, JeeslLockingException

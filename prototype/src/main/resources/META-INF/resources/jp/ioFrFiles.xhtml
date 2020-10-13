@@ -169,10 +169,13 @@
 				<h:form id="fConfirm" >
 					<p:panel header="#{msg.jeeslIoFileUpload}" rendered="#{not empty cc.attrs.handler.meta}" styleClass="jeeslPanel" >
 						<f:facet name="actions">
-							<j:icon id="iconJeeslFileSave" type="jeeslSave" rendered="#{cc.attrs.handler.allowUpload}"
-								listener="#{cc.attrs.handler.saveFile()}" update="#{cc.attrs.componentPrefix}:#{cc.id}:fFiles" oncomplete="PF('wvUpload').hide();"/> 
+							<j:icon id="iconJeeslFileSave" type="jeeslSave" rendered="#{false and cc.attrs.handler.allowUpload}"
+								listener="#{cc.attrs.handler.saveFile()}" update="#{cc.attrs.componentPrefix}:#{cc.id}:fFiles" oncomplete="PF('wvUpload').show();"/> 
 						</f:facet>
 						<p:panelGrid columns="2" columnClasses="jeeslGrid30,jeeslGrid70">
+						
+							<h:outputText value="v"/>
+						<h:outputText value="4"/>
 						
 							<p:outputLabel value="#{msg.jeeslIoFileType}"/>
 							<ui:fragment>
@@ -195,6 +198,8 @@
 								<f:selectItems value="#{cc.attrs.mapCategory.values()}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t.code}"/>
 							</p:selectOneMenu>
 						</p:panelGrid>
+						<p:commandButton rendered="#{cc.attrs.handler.allowUpload}" value="Save"
+		                 action="#{cc.attrs.handler.saveFile}" update="#{cc.attrs.componentPrefix}:#{cc.id}:fFiles" oncomplete="PF('wvUpload').show();"/>
 						<p:messages redisplay="false" severity="warn,error" showSummary="true" showDetail="true" closable="true"/>
 					</p:panel>
 				</h:form>
