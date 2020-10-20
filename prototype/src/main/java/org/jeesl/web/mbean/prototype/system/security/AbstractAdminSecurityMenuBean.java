@@ -8,6 +8,7 @@ import java.util.Map;
 import org.jeesl.api.bean.JeeslSecurityBean;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
+import org.jeesl.api.facade.io.JeeslIoCmsFacade;
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
@@ -34,6 +35,7 @@ import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.jsf.helper.TreeHelper;
 import org.jeesl.model.xml.system.navigation.Menu;
 import org.jeesl.model.xml.system.navigation.MenuItem;
+import org.primefaces.event.DragDropEvent;
 import org.primefaces.event.NodeCollapseEvent;
 import org.primefaces.event.NodeExpandEvent;
 import org.primefaces.event.NodeSelectEvent;
@@ -65,6 +67,8 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 	
 	private final IoCmsFactoryBuilder<L,D,LOC,?,DC,?,DS,?,?,?,?,?,?,?> fbCms;
 	
+	protected JeeslIoCmsFacade<L,D,LOC,?,DC,?,DS,?,?,?,?,?,?,?> fCms;
+	
 	private final EjbSecurityMenuFactory<V,M> efMenu;
 	
 	private TreeNode tree; public TreeNode getTree() {return tree;}
@@ -88,10 +92,15 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 		documents = new ArrayList<>();
 	}
 	
-	public void postConstructMenu(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity, JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslSecurityBean<L,D,C,R,V,U,A,AT,M,USER> bSecurity)
+	public void postConstructMenu(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity,
+	                              JeeslTranslationBean<L,D,LOC> bTranslation,
+	                              JeeslFacesMessageBean bMessage,
+	                              JeeslSecurityBean<L,D,C,R,V,U,A,AT,M,USER> bSecurity,
+	                              JeeslIoCmsFacade<L,D,LOC,?,DC,?,DS,?,?,?,?,?,?,?> fCms)
 	{
 		super.postConstructSecurity(fSecurity,bTranslation,bMessage,bSecurity);
 		opViews = fSecurity.all(fbSecurity.getClassView());
+		this.fCms = fCms;
 		
 		if(fSecurity.all(fbSecurity.getClassMenu(),1).isEmpty()) {firstInit();}
 		Map<V,M> map = efMenu.toMapView(fSecurity.all(fbSecurity.getClassMenu()));
@@ -218,9 +227,11 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
     public void addHelp(DC document)
     {
     	logger.info(document.toString());
+    	
+    	DS root = this.fCms.load(document.getRoot(), true);
 
-		this.helpTree = new DefaultTreeNode(document.getRoot(), null);
-		buildTree(this.helpTree, document.getRoot().getSections());
+		this.helpTree = new DefaultTreeNode(root, null);
+		buildTree(this.helpTree, root.getSections());
     }
     
     private void buildTree(TreeNode parent, List<DS> sections)
@@ -250,4 +261,8 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 	public void onHelpNodeSelect(NodeSelectEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}
 	public void onHelpExpand(NodeExpandEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}
     public void onHelpCollapse(NodeCollapseEvent event) {if(debugOnInfo) {logger.info("Collapsed "+event.getTreeNode().toString());}}
+
+    public void onHelpDrop(DragDropEvent ddEvent) {
+    	Object o = ddEvent.getData();
+    }
 }
