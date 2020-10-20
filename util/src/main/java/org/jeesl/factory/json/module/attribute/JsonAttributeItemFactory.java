@@ -25,7 +25,7 @@ public class JsonAttributeItemFactory<L extends JeeslLang, D extends JeeslDescri
 	final static Logger logger = LoggerFactory.getLogger(JsonAttributeItemFactory.class);
 	
 	private final JsonAttributeItem q;
-	private JsonAttributeCriteriaFactory<L,D,LOC,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM> jfCriteria;
+	private JsonAttributeCriteriaFactory<L,D,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM> jfCriteria;
 	
 	public JsonAttributeItemFactory(String localeCode, JsonAttributeItem q)
 	{

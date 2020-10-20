@@ -1,8 +1,11 @@
 package org.jeesl.util.query.json;
 
 import java.util.ArrayList;
+import java.util.Date;
 
+import org.jeesl.model.json.module.attribute.JsonAttributeContainer;
 import org.jeesl.model.json.module.attribute.JsonAttributeCriteria;
+import org.jeesl.model.json.module.attribute.JsonAttributeData;
 import org.jeesl.model.json.module.attribute.JsonAttributeItem;
 import org.jeesl.model.json.module.attribute.JsonAttributeOption;
 import org.jeesl.model.json.module.attribute.JsonAttributeSet;
@@ -51,6 +54,40 @@ public class JsonAttributeQueryProvider
 		json.setPosition(0);
 		json.setLabel("");
 		json.setDescription("");
+		return json;
+	}
+	
+	public static JsonAttributeContainer container()
+	{				
+		JsonAttributeContainer json = new JsonAttributeContainer();
+		json.setId(0l);
+		json.setDatas(new ArrayList<>());
+		json.getDatas().add(data());
+		return json;
+	}
+	
+	private static JsonAttributeData data()
+	{
+		JsonAttributeData json = new JsonAttributeData();
+		json.setId(0l);
+		json.setValueDate(new Date());
+		json.setValueString("");
+		json.setValueBoolean(Boolean.TRUE);
+		json.setValueInteger(0);
+		
+		JsonAttributeCriteria criteria = new JsonAttributeCriteria();
+		criteria.setId(0l);
+		criteria.setCode("");
+		json.setCriteria(criteria);
+		
+		JsonAttributeOption option = new JsonAttributeOption();
+		option.setId(0l);
+		option.setCode("");
+		json.setValueOption(option);
+		
+		json.setValueOptions(new ArrayList<>());
+		json.getValueOptions().add(option);
+		
 		return json;
 	}
 }

@@ -12,13 +12,12 @@ import org.jeesl.interfaces.model.module.attribute.JeeslAttributeOption;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeSet;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.model.json.module.attribute.JsonAttributeCriteria;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class JsonAttributeCriteriaFactory<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
+public class JsonAttributeCriteriaFactory<L extends JeeslLang, D extends JeeslDescription,
 									CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 									CRITERIA extends JeeslAttributeCriteria<L,D,CATEGORY,TYPE,OPTION>,
 									TYPE extends JeeslStatus<TYPE,L,D>,
