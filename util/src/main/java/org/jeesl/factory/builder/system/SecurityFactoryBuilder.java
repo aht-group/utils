@@ -5,6 +5,7 @@ import org.jeesl.factory.ejb.system.security.EjbSecurityActionFactory;
 import org.jeesl.factory.ejb.system.security.EjbSecurityActionTemplateFactory;
 import org.jeesl.factory.ejb.system.security.EjbSecurityAreaFactory;
 import org.jeesl.factory.ejb.system.security.EjbSecurityCategoryFactory;
+import org.jeesl.factory.ejb.system.security.EjbSecurityHelpFactory;
 import org.jeesl.factory.ejb.system.security.EjbSecurityMenuFactory;
 import org.jeesl.factory.ejb.system.security.EjbSecurityRoleFactory;
 import org.jeesl.factory.ejb.system.security.EjbSecurityUsecaseFactory;
@@ -15,6 +16,8 @@ import org.jeesl.factory.json.system.security.JsonPageFactory;
 import org.jeesl.factory.json.system.security.JsonPagesFactory;
 import org.jeesl.factory.sql.system.security.SqlUserFactory;
 import org.jeesl.factory.txt.system.security.TxtStaffFactory;
+import org.jeesl.interfaces.model.io.cms.JeeslIoCms;
+import org.jeesl.interfaces.model.io.cms.JeeslIoCmsSection;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineHelp;
@@ -44,6 +47,8 @@ public class SecurityFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 									AR extends JeeslSecurityArea<L,D,V>,
 									OT extends JeeslSecurityOnlineTutorial<L,D,V>,
 									OH extends JeeslSecurityOnlineHelp<V,?,?>,
+									DC extends JeeslIoCms<L,D,?,?,DS>,
+									DS extends JeeslIoCmsSection<L,DS>,
 									USER extends JeeslUser<R>
 //,I extends JeeslIdentity<R,V,U,A,USER>
 >
@@ -97,10 +102,9 @@ public class SecurityFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 	public EjbSecurityMenuFactory<V,M> ejbMenu(){return new EjbSecurityMenuFactory<V,M>(cMenu);}
 	public EjbSecurityAreaFactory<V,AR> ejbArea() {return new EjbSecurityAreaFactory<V,AR>(cArea);}
 	
-	public EjbSecurityUserFactory<USER> ejbUser()
-	{
-		return new EjbSecurityUserFactory<USER>(cUser);
-	}
+//	public EjbSecurityHelpFactory<V,OH,?,?> ejbHelp() {return new EjbSecurityHelpFactory<>(cOnlineHelp);}
+	
+	public EjbSecurityUserFactory<USER> ejbUser() {return new EjbSecurityUserFactory<USER>(cUser);}
 	
 	public <STAFF extends JeeslStaff<R,USER,D1,D2>, D1 extends EjbWithId, D2 extends EjbWithId>
 				EjbStaffFactory<R,USER,STAFF,D1,D2> ejbStaff(final Class<STAFF> cStaff)
@@ -114,15 +118,8 @@ public class SecurityFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 		return new TxtStaffFactory<L,D,R,USER,STAFF,D1,D2>(localeCode);
 	}
 	
-	public JsonPageFactory<L,D,C,V,M> jsonPage()
-	{
-		return new JsonPageFactory<L,D,C,V,M>();
-	}
-	
-	public JsonPagesFactory<L,D,C,R,V,U,A,AT,M,AR,USER> jsonPages()
-	{
-		return new JsonPagesFactory<L,D,C,R,V,U,A,AT,M,AR,USER>(this);
-	}
+	public JsonPageFactory<L,D,C,V,M> jsonPage() {return new JsonPageFactory<L,D,C,V,M>();}
+	public JsonPagesFactory<L,D,C,R,V,U,A,AT,M,AR,USER> jsonPages() {return new JsonPagesFactory<L,D,C,R,V,U,A,AT,M,AR,USER>(this);}
 	
 	public SqlUserFactory<USER> sqlUser() {return new SqlUserFactory<>();}
 }

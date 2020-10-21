@@ -12,7 +12,6 @@ import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.HdFactoryBuilder;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
-import org.jeesl.interfaces.controller.handler.system.io.JeeslFileRepositoryHandler;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCms;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsSection;
@@ -57,7 +56,7 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 								FAQ extends JeeslHdFaq<L,D,R,CAT,SCOPE>,
 								SCOPE extends JeeslHdScope<L,D,SCOPE,?>,
 								FGA extends JeeslHdFga<FAQ,DOC,SEC>,
-								DOC extends JeeslIoCms<L,D,?,SEC,LOC>,
+								DOC extends JeeslIoCms<L,D,LOC,?,SEC>,
 								SEC extends JeeslIoCmsSection<L,SEC>,
 								FRC extends JeeslFileContainer<?,?>,
 								USER extends JeeslSimpleUser

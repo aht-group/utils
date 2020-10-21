@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 public class EjbHdFgaFactory<FAQ extends JeeslHdFaq<?,?,?,?,?>,
 							FGA extends JeeslHdFga<FAQ,DOC,SEC>,
-							DOC extends JeeslIoCms<?,?,?,SEC,?>,
+							DOC extends JeeslIoCms<?,?,?,?,SEC>,
 							SEC extends JeeslIoCmsSection<?,SEC>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbHdFgaFactory.class);

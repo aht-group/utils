@@ -66,7 +66,7 @@ public abstract class AbstractAdminSecurityViewBean <L extends JeeslLang, D exte
 	private JeeslSecurityBean<L,D,C,R,V,U,A,AT,M,USER> bSecurity;
 	private final TriStateBinder tsb; public TriStateBinder getTsb() {return tsb;}
 	
-	public AbstractAdminSecurityViewBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,USER> fbSecurity)
+	public AbstractAdminSecurityViewBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,?,?,USER> fbSecurity)
 	{
 		super(fbSecurity);
 		categoryType = JeeslSecurityCategory.Type.view;

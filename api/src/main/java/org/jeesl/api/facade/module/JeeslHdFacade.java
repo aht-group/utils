@@ -43,7 +43,7 @@ public interface JeeslHdFacade <L extends JeeslLang, D extends JeeslDescription,
 								FAQ extends JeeslHdFaq<L,D,R,CAT,SCOPE>,
 								SCOPE extends JeeslHdScope<L,D,SCOPE,?>,
 								FGA extends JeeslHdFga<FAQ,DOC,SEC>,
-								DOC extends JeeslIoCms<L,D,?,SEC,?>,
+								DOC extends JeeslIoCms<L,D,?,?,SEC>,
 								SEC extends JeeslIoCmsSection<L,SEC>,
 								USER extends JeeslSimpleUser>
 			extends JeeslFacade

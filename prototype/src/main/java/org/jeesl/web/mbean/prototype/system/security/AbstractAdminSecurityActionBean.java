@@ -53,7 +53,7 @@ public class AbstractAdminSecurityActionBean <L extends JeeslLang, D extends Jee
 	
 	private AT template;public AT getTemplate(){return template;}public void setTemplate(AT template) {this.template = template;}
 	
-	public AbstractAdminSecurityActionBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,USER> fbSecurity)
+	public AbstractAdminSecurityActionBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,?,?,USER> fbSecurity)
 	{
 		super(fbSecurity);
 	}

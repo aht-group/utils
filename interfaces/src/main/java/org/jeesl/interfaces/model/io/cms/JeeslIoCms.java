@@ -14,10 +14,10 @@ import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 import org.jeesl.interfaces.model.with.system.status.JeeslWithCategory;
 
-public interface JeeslIoCms<L extends JeeslLang, D extends JeeslDescription,
+public interface JeeslIoCms<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 								CAT extends JeeslStatus<CAT,L,D>,
-								S extends JeeslIoCmsSection<L,S>,
-								LOC extends JeeslLocale<L,D,LOC,?>>
+								S extends JeeslIoCmsSection<L,S>
+								>
 		extends Serializable,EjbWithId,
 				EjbSaveable,EjbRemoveable,EjbWithPosition,EjbWithLang<L>,JeeslWithCategory<CAT>
 {	

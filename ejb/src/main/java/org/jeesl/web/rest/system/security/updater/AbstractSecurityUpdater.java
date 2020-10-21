@@ -51,7 +51,7 @@ public class AbstractSecurityUpdater <L extends JeeslLang,
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractSecurityUpdater.class);
 	
-	protected final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,USER> fbSecurity;
+	protected final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,?,?,USER> fbSecurity;
 	
 	protected JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity;
 	protected EjbLangFactory<L> efLang;
@@ -59,7 +59,7 @@ public class AbstractSecurityUpdater <L extends JeeslLang,
 	
 	private final JeeslDbCodeEjbUpdater<C> dbCleanerCategory;
 				
-	public AbstractSecurityUpdater(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,USER> fbSecurity,
+	public AbstractSecurityUpdater(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,?,?,USER> fbSecurity,
 			JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fAcl)
 	{
 		this.fbSecurity=fbSecurity;

@@ -56,7 +56,7 @@ public abstract class AbstractHdFaqBean <L extends JeeslLang, D extends JeeslDes
 								FAQ extends JeeslHdFaq<L,D,R,CAT,SCOPE>,
 								SCOPE extends JeeslHdScope<L,D,SCOPE,?>,
 								FGA extends JeeslHdFga<FAQ,DOC,SEC>,
-								DOC extends JeeslIoCms<L,D,?,SEC,LOC>,
+								DOC extends JeeslIoCms<L,D,LOC,?,SEC>,
 								SEC extends JeeslIoCmsSection<L,SEC>,
 								FRC extends JeeslFileContainer<?,?>,
 								USER extends JeeslSimpleUser

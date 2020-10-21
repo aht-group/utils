@@ -10,7 +10,7 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPositionVisibleParent;
 
 public interface JeeslHdFga<FAQ extends JeeslHdFaq<?,?,?,?,?>,
-							DOC extends JeeslIoCms<?,?,?,SEC,?>,
+							DOC extends JeeslIoCms<?,?,?,?,SEC>,
 							SEC extends JeeslIoCmsSection<?,SEC>>
 						extends Serializable,EjbSaveable,EjbRemoveable,
 								EjbWithId,EjbWithPositionVisibleParent

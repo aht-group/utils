@@ -62,9 +62,9 @@ public class JeeslSecurityFacadeBean<L extends JeeslLang,
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(JeeslSecurityFacadeBean.class);
 	
-	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,AR,OT,OH,USER> fbSecurity;
+	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,AR,OT,OH,?,?,USER> fbSecurity;
 	
-	public JeeslSecurityFacadeBean(EntityManager em, SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,AR,OT,OH,USER> fbSecurity)
+	public JeeslSecurityFacadeBean(EntityManager em, SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,AR,OT,OH,?,?,USER> fbSecurity)
 	{
 		super(em);
 		this.fbSecurity=fbSecurity;

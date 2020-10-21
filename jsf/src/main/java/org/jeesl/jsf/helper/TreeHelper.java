@@ -100,4 +100,19 @@ public abstract class TreeHelper
 	{
 		forEach(startNode, node -> node.setExpanded(expand), node -> getAncestor(node, reach) == startNode);
 	}
+	
+	public static TreeNode getNode(TreeNode tree, String dragId, int position)
+    {
+    	String[] elements = dragId.split(":");
+    	String[] index = elements[position].split("_");
+    	return getNode(tree.getChildren(),index,0);
+    }
+    
+    private static TreeNode getNode(List<TreeNode> nodes, String[] index, int level)
+    {
+    	Integer position = Integer.valueOf(index[level]);
+    	TreeNode n = nodes.get(position);
+    	if(index.length==(level+1)){return n;}
+    	else {return getNode(n.getChildren(),index,level+1);}
+    }
 }
