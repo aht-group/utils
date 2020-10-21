@@ -1,0 +1,5 @@
+@import '_gridContent';
+
+.auContainer {
+	@include grid-children(80);
+}

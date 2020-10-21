@@ -264,12 +264,6 @@ pre {
 	}
 }
 
-// unfortunately auGrid_* class uses display table, which prevents child size dependent on parent size, so the child sizes have to be set explicitly
-@mixin grid-children-width($columns) {
-	> * {
-		width: $columns * 80px - 10px;
-	}
-}
 .auContainer {
 	[class^="auGrid_"],
 	[class*=" auGrid_"] {
@@ -280,10 +274,7 @@ pre {
 			box-sizing: border-box;
 		}
 	}
-	
-	@for $i from 1 to 13 {
-		.auGrid_#{$i} {
-			@include grid-children-width($i);
-		}
-	}
 }
+
+// unfortunately auGrid_* class uses display table, which prevents child size dependent on parent size, so the child sizes have to be set explicitly
+@import 'gridContent-70';

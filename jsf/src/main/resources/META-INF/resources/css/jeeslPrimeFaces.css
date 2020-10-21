@@ -182,6 +182,7 @@ pre code {
   .auContainer [class^="auGrid_"] > *,
   .auContainer [class*=" auGrid_"] > * {
     box-sizing: border-box; }
+
 .auContainer .auGrid_1 > * {
   width: 70px; }
 .auContainer .auGrid_2 > * {
