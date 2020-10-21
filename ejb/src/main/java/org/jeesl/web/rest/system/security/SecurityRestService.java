@@ -76,7 +76,7 @@ public class SecurityRestService <L extends JeeslLang,D extends JeeslDescription
 	final static Logger logger = LoggerFactory.getLogger(SecurityRestService.class);
 	
 	private JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity;
-	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,USER> fbSecurity;
+	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,?,?,USER> fbSecurity;
 	
 	
 	private XmlCategoryFactory<L,D,C,R,V,U,A,AT,USER> fCategory;
@@ -97,7 +97,7 @@ public class SecurityRestService <L extends JeeslLang,D extends JeeslDescription
 	private SecurityUsecaseUpdater<L,D,C,R,V,U,A,AT,M,AR,OT,OH,USER> initUsecases;
 	
 	private SecurityRestService(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity,
-			SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,USER> fbSecurity)
+			SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,?,?,USER> fbSecurity)
 	{
 		this.fSecurity=fSecurity;
 		this.fbSecurity=fbSecurity;
@@ -138,7 +138,7 @@ public class SecurityRestService <L extends JeeslLang,D extends JeeslDescription
 					OH extends JeeslSecurityOnlineHelp<V,?,?>,
 					USER extends JeeslUser<R>>
 		SecurityRestService<L,D,C,R,V,U,A,AT,M,AR,OT,OH,USER>
-		factory(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity, SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,USER> fbSecurity)
+		factory(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity, SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,?,?,USER> fbSecurity)
 	{
 		return new SecurityRestService<>(fSecurity,fbSecurity);
 	}

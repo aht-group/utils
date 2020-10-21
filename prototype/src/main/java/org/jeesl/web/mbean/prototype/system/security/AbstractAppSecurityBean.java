@@ -47,7 +47,7 @@ public class AbstractAppSecurityBean <L extends JeeslLang,D extends JeeslDescrip
 	final static Logger logger = LoggerFactory.getLogger(AbstractAppSecurityBean.class);
 	
 	protected JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity;
-	protected final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,USER> fbSecurity;
+	protected final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,?,?,USER> fbSecurity;
 
 	private List<V> views; @Override public List<V> getViews() {return views;}
 	private List<R> roles; public List<R> getRoles() {return roles;}
@@ -67,7 +67,7 @@ public class AbstractAppSecurityBean <L extends JeeslLang,D extends JeeslDescrip
 	
 	private boolean debugOnInfo; protected void setDebugOnInfo(boolean log) {debugOnInfo = log;}
 
-	public AbstractAppSecurityBean(final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,USER> fbSecurity)
+	public AbstractAppSecurityBean(final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,?,?,USER> fbSecurity)
 	{
 		this.fbSecurity=fbSecurity;
 		

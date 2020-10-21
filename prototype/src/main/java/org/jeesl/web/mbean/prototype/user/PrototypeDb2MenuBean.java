@@ -49,7 +49,7 @@ public class PrototypeDb2MenuBean <L extends JeeslLang, D extends JeeslDescripti
 	final static Logger logger = LoggerFactory.getLogger(PrototypeDb2MenuBean.class);
 	private static final long serialVersionUID = 1L;
 	
-	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,?,?,?,USER> fbSecurity;
+	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,?,?,?,?,?,USER> fbSecurity;
 	private JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity;
 	
 	private final XmlMenuItemFactory<L,D,C,R,V,U,A,AT,M,USER> xfMenuItem;
@@ -67,7 +67,7 @@ public class PrototypeDb2MenuBean <L extends JeeslLang, D extends JeeslDescripti
 	private boolean setupRequired=false;
 	private boolean debugOnInfo; protected void setDebugOnInfo(boolean log) {debugOnInfo = log;}
 
-	public PrototypeDb2MenuBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,?,?,?,USER> fbSecurity)
+	public PrototypeDb2MenuBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,?,?,?,?,?,USER> fbSecurity)
 	{
 		this.fbSecurity=fbSecurity;
 		mapKey = new HashMap<String,M>();

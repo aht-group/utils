@@ -47,8 +47,8 @@ public class SecurityFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 									AR extends JeeslSecurityArea<L,D,V>,
 									OT extends JeeslSecurityOnlineTutorial<L,D,V>,
 									OH extends JeeslSecurityOnlineHelp<V,?,?>,
-//									DC extends JeeslIoCms<L,D,?,DS,?>,
-//									DS extends JeeslIoCmsSection<L,DS>,
+									DC extends JeeslIoCms<L,D,?,?,DS>,
+									DS extends JeeslIoCmsSection<L,DS>,
 									USER extends JeeslUser<R>
 //,I extends JeeslIdentity<R,V,U,A,USER>
 >

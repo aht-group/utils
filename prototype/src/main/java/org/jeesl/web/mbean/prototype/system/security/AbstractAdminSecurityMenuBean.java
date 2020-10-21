@@ -83,7 +83,7 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 	private M menu; public M getMenu() {return menu;}
 	private OH help; public OH getHelp() {return help;} public void setHelp(OH help) {this.help = help;}
 
-	public AbstractAdminSecurityMenuBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,USER> fbSecurity, IoCmsFactoryBuilder<L,D,LOC,?,DC,?,DS,?,?,?,?,?,?,?> fbCms)
+	public AbstractAdminSecurityMenuBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,DC,DS,USER> fbSecurity, IoCmsFactoryBuilder<L,D,LOC,?,DC,?,DS,?,?,?,?,?,?,?> fbCms)
 	{
 		super(fbSecurity);
 		this.fbCms = fbCms;
