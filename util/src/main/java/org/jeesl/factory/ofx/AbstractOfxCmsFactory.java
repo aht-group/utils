@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 
 public abstract class AbstractOfxCmsFactory <L extends JeeslLang, D extends JeeslDescription,
 								CAT extends JeeslIoCmsCategory<L,D,CAT,?>,
-								CMS extends JeeslIoCms<L,D,CAT,S,LOC>,
+								CMS extends JeeslIoCms<L,D,LOC,CAT,S>,
 								V extends JeeslIoCmsVisiblity,
 								S extends JeeslIoCmsSection<L,S>,
 								E extends JeeslIoCmsElement<V,S,EC,ET,C,FC>,

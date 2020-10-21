@@ -56,7 +56,7 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 											AR extends JeeslSecurityArea<L,D,V>,
 											OT extends JeeslSecurityOnlineTutorial<L,D,V>,
 											OH extends JeeslSecurityOnlineHelp<V,DC,DS>,
-											DC extends JeeslIoCms<L,D,?,DS,LOC>,
+											DC extends JeeslIoCms<L,D,LOC,?,DS>,
 											DS extends JeeslIoCmsSection<L,DS>,
 											USER extends JeeslUser<R>>
 		extends AbstractAdminSecurityBean<L,D,LOC,C,R,V,U,A,AT,M,AR,OT,OH,USER>
@@ -261,8 +261,19 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 	public void onHelpNodeSelect(NodeSelectEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}
 	public void onHelpExpand(NodeExpandEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}
     public void onHelpCollapse(NodeCollapseEvent event) {if(debugOnInfo) {logger.info("Collapsed "+event.getTreeNode().toString());}}
-
-    public void onHelpDrop(DragDropEvent ddEvent) {
-    	Object o = ddEvent.getData();
+    
+    @SuppressWarnings("unchecked")
+	public void onHelpDrop(DragDropEvent ddEvent)
+    {
+    	if(debugOnInfo) {logger.info("DRAG "+ddEvent.getDragId());}
+    	if(debugOnInfo) {logger.info("DROP "+ddEvent.getDropId());}
+		Object data = ddEvent.getData();
+		if(debugOnInfo) {if(data==null) {logger.info("data = null");} else{logger.info("Data "+data.getClass().getSimpleName());}}
+		
+		TreeNode n = TreeHelper.getNode(helpTree,ddEvent.getDragId(),3);
+		DS section = (DS)n.getData();
+		logger.info(section.toString());
+		
+		
     }
 }

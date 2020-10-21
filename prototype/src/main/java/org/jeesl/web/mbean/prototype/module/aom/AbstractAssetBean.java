@@ -350,16 +350,11 @@ public class AbstractAssetBean <L extends JeeslLang, D extends JeeslDescription,
 	{
     	logger.info("DRAG "+ddEvent.getDragId());
 		logger.info("DROP "+ddEvent.getDropId());
-		Object o = ddEvent.getData();
-		if(o==null)
-		{
-			logger.info("data = null");
-		}
-		else
-		{
-			logger.info("Data "+o.getClass().getSimpleName());
-		}
-		TreeNode n = getNode(ddEvent.getDragId(),3);
+		Object data = ddEvent.getData();
+		if(data==null) {logger.info("data = null");}
+		else{logger.info("Data "+data.getClass().getSimpleName());}
+		
+		TreeNode n = TreeHelper.getNode(tree,ddEvent.getDragId(),3);
 		ASSET a = (ASSET)n.getData();
 		logger.info(a.toString());
 		
@@ -370,20 +365,7 @@ public class AbstractAssetBean <L extends JeeslLang, D extends JeeslDescription,
 		}
 	}
     
-    private TreeNode getNode(String dragId, int position)
-    {
-    	String[] elements = dragId.split(":");
-    	String[] index = elements[position].split("_");
-    	return getNode(tree.getChildren(),index,0);
-    }
     
-    private TreeNode getNode(List<TreeNode> nodes, String[] index, int level)
-    {
-    	Integer position = Integer.valueOf(index[level]);
-    	TreeNode n = nodes.get(position);
-    	if(index.length==(level+1)){return n;}
-    	else {return getNode(n.getChildren(),index,level+1);}
-    }
     
   
 	@Override public void callbackFrContainerSaved(EjbWithId id) throws JeeslConstraintViolationException, JeeslLockingException

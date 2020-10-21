@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 
 public interface JeeslCmsRenderer <L extends JeeslLang,D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 								CAT extends JeeslStatus<CAT,L,D>,
-								CMS extends JeeslIoCms<L,D,CAT,S,LOC>,
+								CMS extends JeeslIoCms<L,D,LOC,CAT,S>,
 								V extends JeeslIoCmsVisiblity,
 								S extends JeeslIoCmsSection<L,S>,
 								E extends JeeslIoCmsElement<V,S,EC,ET,C,FC>,
