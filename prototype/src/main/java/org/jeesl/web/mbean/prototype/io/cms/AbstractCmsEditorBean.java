@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jeesl.api.bean.JeeslCmsCacheBean;
 import org.jeesl.api.bean.JeeslTranslationBean;
+import org.jeesl.api.bean.cache.JeeslCmsCacheBean;
 import org.jeesl.api.bean.callback.JeeslFileRepositoryCallback;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoCmsFacade;

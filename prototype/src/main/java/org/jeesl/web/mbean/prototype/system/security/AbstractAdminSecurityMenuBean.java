@@ -66,6 +66,7 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 	final static Logger logger = LoggerFactory.getLogger(AbstractAdminSecurityMenuBean.class);
 	
 	private final IoCmsFactoryBuilder<L,D,LOC,?,DC,?,DS,?,?,?,?,?,?,?> fbCms;
+	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,DC,DS,USER> fbSecurity;
 	
 	protected JeeslIoCmsFacade<L,D,LOC,?,DC,?,DS,?,?,?,?,?,?,?> fCms;
 	
@@ -81,12 +82,14 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 	protected final List<DC> documents; public List<DC> getDocuments() {return documents;}
 	
 	private M menu; public M getMenu() {return menu;}
+	private DC document;
 	private OH help; public OH getHelp() {return help;} public void setHelp(OH help) {this.help = help;}
 
 	public AbstractAdminSecurityMenuBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,DC,DS,USER> fbSecurity, IoCmsFactoryBuilder<L,D,LOC,?,DC,?,DS,?,?,?,?,?,?,?> fbCms)
 	{
 		super(fbSecurity);
 		this.fbCms = fbCms;
+		this.fbSecurity=fbSecurity;
 		efMenu = fbSecurity.ejbMenu();
 		helps = new ArrayList<>();
 		documents = new ArrayList<>();
@@ -172,21 +175,9 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 		}
 	}
 	
-	public void expandTree()
-	{
-		TreeHelper.setExpansion(this.node!=null ? this.node : this.tree, true);
-	}
-	
-	public void collapseTree()
-	{
-		TreeHelper.setExpansion(this.tree,  false);
-	}
-	
-	public boolean isExpanded()
-	{
-		return this.tree != null && this.tree.getChildren().stream().filter(node -> node.isExpanded()).count() > 1;
-	}
-	
+	public void expandTree() {TreeHelper.setExpansion(this.node!=null ? this.node : this.tree, true);}
+	public void collapseTree() {TreeHelper.setExpansion(this.tree,  false);}
+	public boolean isExpanded() {return this.tree != null && this.tree.getChildren().stream().filter(node -> node.isExpanded()).count() > 1;}
 	public void onNodeExpand(NodeExpandEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}
     public void onNodeCollapse(NodeCollapseEvent event) {if(debugOnInfo) {logger.info("Collapsed "+event.getTreeNode().toString());}}
 	
@@ -220,12 +211,18 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 		menu = (M)event.getTreeNode().getData();
 		menu = fSecurity.find(fbSecurity.getClassMenu(),menu);
 		
-		helps.clear();
+		reloadHelps();
+    }
+    
+    private void reloadHelps()
+    {
+    	helps.clear();
 		helps.addAll(fSecurity.allForParent(fbSecurity.getClassOnlineHelp(),menu.getView()));
     }
     
-    public void addHelp(DC document)
+    public void addHelp(DC doc)
     {
+    	this.document=doc;
     	logger.info(document.toString());
     	
     	DS root = this.fCms.load(document.getRoot(), true);
@@ -243,27 +240,16 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 		}
 	}
 	
-	public void expandHelp()
-	{
-		TreeHelper.setExpansion(this.helpNode!=null ? this.helpNode : this.helpTree, true);
-	}
-	
-	public void collapseHelp()
-	{
-		TreeHelper.setExpansion(this.helpTree,  false);
-	}
-	
-	public boolean isHelpExpanded()
-	{
-		return this.helpTree != null && this.helpTree.getChildren().stream().filter(node -> node.isExpanded()).count() > 1;
-	}
+	public void expandHelp(){TreeHelper.setExpansion(this.helpNode!=null ? this.helpNode : this.helpTree, true);}
+	public void collapseHelp() {TreeHelper.setExpansion(this.helpTree,  false);}
+	public boolean isHelpExpanded() {return this.helpTree != null && this.helpTree.getChildren().stream().filter(node -> node.isExpanded()).count() > 1;}
 	
 	public void onHelpNodeSelect(NodeSelectEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}
 	public void onHelpExpand(NodeExpandEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}
     public void onHelpCollapse(NodeCollapseEvent event) {if(debugOnInfo) {logger.info("Collapsed "+event.getTreeNode().toString());}}
     
     @SuppressWarnings("unchecked")
-	public void onHelpDrop(DragDropEvent ddEvent)
+	public void onHelpDrop(DragDropEvent ddEvent) throws JeeslConstraintViolationException, JeeslLockingException
     {
     	if(debugOnInfo) {logger.info("DRAG "+ddEvent.getDragId());}
     	if(debugOnInfo) {logger.info("DROP "+ddEvent.getDropId());}
@@ -274,6 +260,8 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 		DS section = (DS)n.getData();
 		logger.info(section.toString());
 		
-		
+		help = fbSecurity.ejbHelp().build(menu.getView(),document,section,helps);
+		help = fSecurity.save(help);
+		reloadHelps();
     }
 }

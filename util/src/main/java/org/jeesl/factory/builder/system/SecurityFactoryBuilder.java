@@ -46,11 +46,10 @@ public class SecurityFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 									M extends JeeslSecurityMenu<V,M>,
 									AR extends JeeslSecurityArea<L,D,V>,
 									OT extends JeeslSecurityOnlineTutorial<L,D,V>,
-									OH extends JeeslSecurityOnlineHelp<V,?,?>,
+									OH extends JeeslSecurityOnlineHelp<V,DC,DS>,
 									DC extends JeeslIoCms<L,D,?,?,DS>,
 									DS extends JeeslIoCmsSection<L,DS>,
 									USER extends JeeslUser<R>
-//,I extends JeeslIdentity<R,V,U,A,USER>
 >
 				extends AbstractFactoryBuilder<L,D>
 {
@@ -101,8 +100,7 @@ public class SecurityFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 	public EjbSecurityActionTemplateFactory<C,AT> ejbTemplate(){return new EjbSecurityActionTemplateFactory<C,AT>(cTemplate);}
 	public EjbSecurityMenuFactory<V,M> ejbMenu(){return new EjbSecurityMenuFactory<V,M>(cMenu);}
 	public EjbSecurityAreaFactory<V,AR> ejbArea() {return new EjbSecurityAreaFactory<V,AR>(cArea);}
-	
-//	public EjbSecurityHelpFactory<V,OH,?,?> ejbHelp() {return new EjbSecurityHelpFactory<>(cOnlineHelp);}
+	public EjbSecurityHelpFactory<V,OH,DC,DS> ejbHelp() {return new EjbSecurityHelpFactory<>(cOnlineHelp);}
 	
 	public EjbSecurityUserFactory<USER> ejbUser() {return new EjbSecurityUserFactory<USER>(cUser);}
 	

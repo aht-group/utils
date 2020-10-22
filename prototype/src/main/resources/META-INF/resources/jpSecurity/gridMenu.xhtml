@@ -69,17 +69,17 @@
 							    	</ui:repeat>
 								</j:dtHeader>
 							</f:facet>
-							<p:ajax event="rowSelect"  listener="#{cc.attrs.bean.selectHelp}" update=":#{cc.id}:fHelps"/>
+							<p:ajax event="rowSelect"  listener="#{cc.attrs.bean.selectHelp()}" update=":#{cc.id}:fHelps"/>
 							<p:ajax event="rowReorder" listener="#{cc.attrs.bean.reorderHelp()}" update="@form"/>
 							<p:column rendered="false">
 								<h:graphicImage rendered="#{not h.visible}" name="12/ui/status/ghost.png"  library="jeeslPrototypeGfx"/>
 								<h:outputText rendered="#{h.visible}" value="#{h.position}"/>
 				            </p:column>
 				            <p:column headerText="Document">
-								<h:outputText value="#{h.id}" />
+								<h:outputText value="#{h.document.name[localeCode].lang}" />
 				            </p:column>
 				            <p:column headerText="Section">
-								<h:outputText value="#{h.id}" />
+								<h:outputText value="#{h.section.name[localeCode].lang}" />
 				            </p:column>
 				       	</p:dataTable>
 					</h:form>
@@ -98,7 +98,7 @@
 								selection="#{cc.attrs.bean.helpNode}" selectionMode="single"
 				                draggable="true" droppable="true" dragdropScope="demo">
 				                <p:ajax event="select" listener="#{cc.attrs.bean.onHelpNodeSelect}" update=":#{cc.id}:sView"/>
-				                <p:ajax event="dragdrop" listener="#{cc.attrs.bean.onDragDrop}"/>
+				                <p:ajax event="dragdrop" listener="#{cc.attrs.bean.onDragDrop}" update=":#{cc.id}:fHelp"/>
 					            <p:ajax event="expand" listener="#{cc.attrs.bean.onHelpExpand}" />
 								<p:ajax event="collapse" listener="#{cc.attrs.bean.onHelpCollapse}" />
 					            <p:treeNode>

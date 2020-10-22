@@ -1,15 +1,15 @@
 package org.jeesl.web.mbean.prototype.io.cms;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jeesl.api.bean.cache.JeeslCmsCacheBean;
+import org.jeesl.api.bean.cache.JeeslHelpCacheBean;
 import org.jeesl.api.facade.io.JeeslIoCmsFacade;
 import org.jeesl.controller.provider.GenericLocaleProvider;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoCmsFactoryBuilder;
+import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.interfaces.controller.JeeslCmsRenderer;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCms;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsCategory;
@@ -20,19 +20,23 @@ import org.jeesl.interfaces.model.io.cms.JeeslIoCmsSection;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsVisiblity;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.io.fr.JeeslFileMeta;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineHelp;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.exception.OfxAuthoringException;
+import org.openfuxml.factory.xml.ofx.content.structure.XmlSectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.exlp.util.io.StringUtil;
-import net.sf.exlp.util.xml.JaxbUtil;
-
-public abstract class AbstractCmsCacheBean <L extends JeeslLang,D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
+public abstract class AbstractHelpCacheBean <L extends JeeslLang,D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
+										VIEW extends JeeslSecurityView<L,D,?,?,?,?>,
+										M extends JeeslSecurityMenu<VIEW,M>,
+										OH extends JeeslSecurityOnlineHelp<VIEW,CMS,S>,
 										CAT extends JeeslIoCmsCategory<L,D,CAT,?>,
 										CMS extends JeeslIoCms<L,D,LOC,CAT,S>,
 										V extends JeeslIoCmsVisiblity,
@@ -45,25 +49,28 @@ public abstract class AbstractCmsCacheBean <L extends JeeslLang,D extends JeeslD
 										FC extends JeeslFileContainer<?,FM>,
 										FM extends JeeslFileMeta<D,FC,?,?>
 										>
-					implements Serializable,JeeslCmsCacheBean<S>
+					implements JeeslHelpCacheBean<VIEW>
 {
 	private static final long serialVersionUID = 1L;
-	final static Logger logger = LoggerFactory.getLogger(AbstractCmsCacheBean.class);
+	final static Logger logger = LoggerFactory.getLogger(AbstractHelpCacheBean.class);
 	
 	private final IoCmsFactoryBuilder<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fbCms;
+	private final SecurityFactoryBuilder<L,D,?,?,VIEW,?,?,?,M,?,?,OH,CMS,S,?> fbSecurity;
+	
 	private JeeslCmsRenderer<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC> ofx;
 	private JeeslIoCmsFacade<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fCms;
 	
-	private final Map<Long,S> mapId;
-	private final Map<S,Map<String,Section>> mapSection;
+	private final Map<VIEW,Map<String,Section>> mapSection;
+	
 	private boolean debugOnInfo; protected void setDebugOnInfo(boolean debugOnInfo) {this.debugOnInfo = debugOnInfo;}
 
-	public AbstractCmsCacheBean(IoCmsFactoryBuilder<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fbCms)
+	public AbstractHelpCacheBean(IoCmsFactoryBuilder<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fbCms,
+								SecurityFactoryBuilder<L,D,?,?,VIEW,?,?,?,M,?,?,OH,CMS,S,?> fbSecurity)
 	{
 		this.fbCms=fbCms;
+		this.fbSecurity=fbSecurity;
 		
-		mapSection = new HashMap<S,Map<String,Section>>();
-		mapId = new HashMap<Long,S>();
+		mapSection = new HashMap<>();
 	}
 	
 	protected void postConstructCms(JeeslIoCmsFacade<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fCms,
@@ -73,63 +80,44 @@ public abstract class AbstractCmsCacheBean <L extends JeeslLang,D extends JeeslD
 		this.ofx=ofx;
 	}
 	
-	public void clearCache(S section)
+	@Override public void clearCache(VIEW view)
 	{
-		logger.info("Invalidation Section "+section.toString());
-		if(mapSection.containsKey(section)) {mapSection.remove(section);}
-		if(mapId.containsKey(section.getId())) {mapId.remove(section.getId());}
+		logger.info("Invalidate Cache "+view.toString());
+		if(mapSection.containsKey(view)) {mapSection.remove(view);}
 	}
 	
-	public Section buildById(String localeCode, Long id) throws JeeslNotFoundException
+	public Section cache(String localeCode, VIEW view) throws JeeslNotFoundException
 	{
-		logger.info("buildById: "+localeCode+" "+id);
-		if(mapId.containsKey(id)) {return buildBySection(localeCode,mapId.get(id));}
+		logger.info("cache: "+localeCode+" "+view.getCode());
+
+		if(debugOnInfo) {logger.info("Requesting "+localeCode+" "+view.toString());}
+		if(!mapSection.containsKey(view)) {mapSection.put(view, new HashMap<String,Section>());}
+		
+		if(mapSection.get(view).containsKey(localeCode)) {return mapSection.get(view).get(localeCode);}
 		else
 		{
-			S section = fCms.find(fbCms.getClassSection(),id);
-			mapId.put(id,section);
-			return buildBySection(localeCode,section);
-		}
-	}
-	
-	public Section buildBySection(String localeCode, S section)
-	{
-		if(section==null) {logger.warn("Section is NULL"); return new Section();}
-		else
-		{
-			if(debugOnInfo) {logger.info("Requesting "+localeCode+" "+section.toString());}
-			if(!mapSection.containsKey(section)) {mapSection.put(section, new HashMap<String,Section>());}
+			Section section = XmlSectionFactory.build();
 			
-//			logger.info("Cached section:"+mapSection.containsKey(section));
-//			logger.info("Cached locale:"+mapSection.get(section).containsKey(localeCode));
-			
-			if(mapSection.get(section).containsKey(localeCode)) {return mapSection.get(section).get(localeCode);}
-			else
+			for(OH help : fCms.allForParent(fbSecurity.getClassOnlineHelp(),view))
 			{
-				section = fCms.find(fbCms.getClassSection(),section);
-				if(debugOnInfo) {logger.info("Not in cache, Trrancoding Section: " + section.toString());}
-				Section ofxSection = null;
 				try
 				{
 					LOC locale = fCms.fByCode(fbCms.getClassLocale(), localeCode);
 					GenericLocaleProvider<L,D,LOC> lp = new GenericLocaleProvider<L,D,LOC>();
 					lp.setLocales(Arrays.asList(locale));
 					
-					ofxSection = ofx.build(lp,localeCode,section);
-					if(debugOnInfo)
-					{
-						logger.info(StringUtil.stars());
-						if(section.getName().containsKey("en")) {logger.info(section.getName().get("en").getLang());}
-						
-						logger.info(StringUtil.stars());
-						JaxbUtil.info(ofxSection);
-					}
-					mapSection.get(section).put(localeCode, ofxSection);
+					S eSection = help.getSection();
+					Section child = ofx.build(lp,localeCode,eSection);
+					
+					section.getContent().add(child);
 				}
 				catch (OfxAuthoringException e){e.printStackTrace();}
 				catch (JeeslNotFoundException e) {e.printStackTrace();}
-				return ofxSection;
-			}		
-		}
+			}
+			
+			mapSection.get(view).put(localeCode, section);
+			
+			return section;
+		}		
 	}
 }
