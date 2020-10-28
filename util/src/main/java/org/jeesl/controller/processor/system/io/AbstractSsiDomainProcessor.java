@@ -19,6 +19,7 @@ import org.jeesl.interfaces.model.io.ssi.data.JeeslIoSsiLink;
 import org.jeesl.interfaces.model.io.ssi.data.JeeslIoSsiMapping;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.util.db.cache.EjbCodeCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,6 +42,8 @@ public abstract class AbstractSsiDomainProcessor<L extends JeeslLang,D extends J
 	
 	protected final EjbIoSsiDataFactory<MAPPING,DATA,LINK> efData;
 	
+	protected final EjbCodeCache<LINK> cacheLink;
+	
 	protected LINK linkUnlinked; public LINK getLinkUnlinked() {return linkUnlinked;}
 	protected LINK linkPrecondition; public LINK getLinkPrecondition() {return linkPrecondition;}
 	protected LINK linkPossible; public LINK getLinkPossible() {return linkPossible;}
@@ -56,14 +59,12 @@ public abstract class AbstractSsiDomainProcessor<L extends JeeslLang,D extends J
 		this.fSsi=fSsi;
 		this.fbSsi=fbSsi;
 		
+		cacheLink = new EjbCodeCache<>(fbSsi.getClassLink(),fSsi);
+		
 		efData = fbSsi.ejbData();
 		
-		try {
-			initLinks();
-		} catch (JeeslNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		try {initLinks();}
+		catch (JeeslNotFoundException e) {e.printStackTrace();}
 	}
 	
 	private void initLinks() throws JeeslNotFoundException
