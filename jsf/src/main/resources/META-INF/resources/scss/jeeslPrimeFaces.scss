@@ -278,3 +278,21 @@ pre {
 
 // unfortunately auGrid_* class uses display table, which prevents child size dependent on parent size, so the child sizes have to be set explicitly
 @import 'gridContent-70';
+
+// important is necessary because primefaces uses element style on display and position.
+.ui-dialog {
+	flex-direction: column;
+    max-height: 80%;
+    top: 50% !important;
+    transform: translateY(-50%);
+
+	&[aria-hidden=false] {
+		display: flex !important;
+	}
+
+	.ui-dialog-content {
+		box-sizing: border-box;
+		height: calc(100% - 35px - .8em) !important;
+		margin-bottom: 18px;
+	}
+}
