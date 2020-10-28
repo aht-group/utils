@@ -37,7 +37,7 @@
 						name="#{appIconBean.svg[cc.attrs.type]}">
 						<f:attribute name="height" value="12"/>
 					</h:graphicImage>
-					<p:tooltip for="image2" value="#{cc.attrs.tooltip}" showDelay="1500"/>
+					<p:tooltip for="image2" rendered="#{not empty cc.attrs.tooltip}" value="#{cc.attrs.tooltip}" showDelay="1500" hideEvent="mouseleave click"/>
 				</p:commandLink>
 			</c:if>
 			<c:if test="#{cc.attrs.mayDisappear}">
@@ -46,7 +46,7 @@
 					   actionListener="#{cc.listener}"
 					   process="#{cc.attrs.process}" 
 					   onstart="#{cc.attrs.onstart}"
-					   oncomplete="#{cc.attrs.oncomplete} PF('wvTtDisappear').hide()"
+					   oncomplete="#{cc.attrs.oncomplete}"
 					   immediate="#{cc.attrs.immediate}">
 					<h:graphicImage id="image2"
 						rendered="#{not cc.attrs.disabled}"
@@ -55,7 +55,7 @@
 						name="#{appIconBean.svg[cc.attrs.type]}">
 						<f:attribute name="height" value="12"/>
 					</h:graphicImage>
-					<p:tooltip for="image2" value="#{cc.attrs.tooltip}" widgetVar="wvTtDisappear" showDelay="1500"/>
+					<p:tooltip for="image2" rendered="#{not empty cc.attrs.tooltip}" value="#{cc.attrs.tooltip}" showDelay="1500" hideEvent="mouseleave click"/>
 				</p:commandLink>
 			</c:if>
 		</c:if>
@@ -75,7 +75,7 @@
 						name="#{appIconBean.svg[cc.attrs.type]}">
 					<f:attribute name="height" value="12"/>
 				</h:graphicImage>
-				<p:tooltip rendered="#{not empty cc.attrs.tooltip}" for="image" value="#{cc.attrs.tooltip}" />
+				<p:tooltip rendered="#{not empty cc.attrs.tooltip}" for="image" value="#{cc.attrs.tooltip}" hideEvent="mouseleave click"/>
 			</p:commandLink>
 	    </c:if>
 	</composite:implementation>
