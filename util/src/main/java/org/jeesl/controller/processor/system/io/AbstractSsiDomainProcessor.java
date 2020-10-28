@@ -42,7 +42,7 @@ public abstract class AbstractSsiDomainProcessor<L extends JeeslLang,D extends J
 	
 	protected final EjbIoSsiDataFactory<MAPPING,DATA,LINK> efData;
 	
-	protected final EjbCodeCache<LINK> cacheLink;
+	protected final EjbCodeCache<LINK> cacheLink; public EjbCodeCache<LINK> getCacheLink() {return cacheLink;}
 	
 	protected LINK linkUnlinked; public LINK getLinkUnlinked() {return linkUnlinked;}
 	protected LINK linkPrecondition; public LINK getLinkPrecondition() {return linkPrecondition;}

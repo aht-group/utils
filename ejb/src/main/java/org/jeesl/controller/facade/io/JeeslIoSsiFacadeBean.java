@@ -73,9 +73,9 @@ public class JeeslIoSsiFacadeBean<L extends JeeslLang,D extends JeeslDescription
 		return this.oneForParents(fbSsi.getClassMapping(), JeeslIoSsiMapping.Attributes.entity.toString(), eEjb, JeeslIoSsiMapping.Attributes.json.toString(), eJson);
 	}
 
-	@Override public List<DATA> fIoSsiData(MAPPING mapping, List<LINK> links){return fIoSsiData(mapping,links,null,null);}
-	@Override public <A extends EjbWithId> List<DATA> fIoSsiData(MAPPING mapping, List<LINK> links, A a){return fIoSsiData(mapping,links,a,null);}
-	@Override public <A extends EjbWithId, B extends EjbWithId> List<DATA> fIoSsiData(MAPPING mapping, List<LINK> links, A a, B b)
+	@Override public List<DATA> fIoSsiData(MAPPING mapping, List<LINK> links){return fIoSsiData(mapping,links,null,null,null);}
+	@Override public <A extends EjbWithId> List<DATA> fIoSsiData(MAPPING mapping, List<LINK> links, A a){return fIoSsiData(mapping,links,a,null,null);}
+	@Override public <A extends EjbWithId, B extends EjbWithId> List<DATA> fIoSsiData(MAPPING mapping, List<LINK> links, A a, B b, Integer maxSize)
 	{
 		if(links!=null && links.isEmpty()) {return new ArrayList<DATA>();}
 		List<Predicate> predicates = new ArrayList<Predicate>();
