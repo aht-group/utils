@@ -75,7 +75,7 @@ public class JeeslIoSsiFacadeBean<L extends JeeslLang,D extends JeeslDescription
 
 	@Override public List<DATA> fIoSsiData(MAPPING mapping, List<LINK> links){return fIoSsiData(mapping,links,null,null,null);}
 	@Override public <A extends EjbWithId> List<DATA> fIoSsiData(MAPPING mapping, List<LINK> links, A a){return fIoSsiData(mapping,links,a,null,null);}
-	@Override public <A extends EjbWithId, B extends EjbWithId> List<DATA> fIoSsiData(MAPPING mapping, List<LINK> links, A a, B b, Integer maxSize)
+	@Override public <A extends EjbWithId, B extends EjbWithId> List<DATA> fIoSsiData(MAPPING mapping, List<LINK> links, A a, B b, Integer maxResults)
 	{
 		if(links!=null && links.isEmpty()) {return new ArrayList<DATA>();}
 		List<Predicate> predicates = new ArrayList<Predicate>();
@@ -83,8 +83,8 @@ public class JeeslIoSsiFacadeBean<L extends JeeslLang,D extends JeeslDescription
 		CriteriaQuery<DATA> cQ = cB.createQuery(fbSsi.getClassData());
 		Root<DATA> data = cQ.from(fbSsi.getClassData());
 		
-		Join<DATA,MAPPING> jMapping = data.join(JeeslIoSsiData.Attributes.mapping.toString());
-		predicates.add(jMapping.in(mapping));
+		Path<MAPPING> pMapping = data.get(JeeslIoSsiData.Attributes.mapping.toString());
+		predicates.add(cB.equal(pMapping,mapping));
 		
 		if(links!=null)
 		{
@@ -104,6 +104,7 @@ public class JeeslIoSsiFacadeBean<L extends JeeslLang,D extends JeeslDescription
 		cQ.select(data);
 
 		TypedQuery<DATA> tQ = em.createQuery(cQ);
+		if(maxResults!=null) {tQ.setMaxResults(maxResults);}
 		return tQ.getResultList();
 	}
 
