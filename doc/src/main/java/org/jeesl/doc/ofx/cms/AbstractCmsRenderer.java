@@ -20,11 +20,12 @@ import org.jeesl.interfaces.model.io.cms.JeeslIoCmsVisiblity;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.io.fr.JeeslFileMeta;
 import org.jeesl.interfaces.model.io.fr.JeeslFileStorage;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.JeeslLocaleProvider;
+import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.content.ofx.Sections;
 import org.openfuxml.exception.OfxAuthoringException;
@@ -44,6 +45,7 @@ public abstract class AbstractCmsRenderer <L extends JeeslLang, D extends JeeslD
 								EC extends JeeslStatus<EC,L,D>,
 								ET extends JeeslStatus<ET,L,D>,
 								C extends JeeslIoCmsContent<V,E,MT>,
+								M extends JeeslMarkup<MT>,
 								MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
 								FS extends JeeslFileStorage<L,D,?,?,?>,
 								FC extends JeeslFileContainer<FS,?>,
@@ -59,7 +61,7 @@ public abstract class AbstractCmsRenderer <L extends JeeslLang, D extends JeeslD
 	private final JeeslCmsParagraphFactory<E,C> ofParagraph;
 	private final JeeslCmsStatusTableFactory<E,C> ofTableStatus;
 	private final JeeslCmsStatusListFactory<E,C> ofxListStatus;
-	private final JeeslCmsImageFactory<E,C,FS,FC,FM> ofImage;
+	private final JeeslCmsImageFactory<E,C,M,MT,FS,FC,FM> ofImage;
 	private final OfxSectionWorkflow<L,LOC,E> ofxWorkflow;
 	
 	public AbstractCmsRenderer(OfxTranslationProvider tp, JeeslIoCmsFacade<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fCms, JeeslFileRepositoryHandler<FS,FC,FM> frh)
@@ -71,7 +73,7 @@ public abstract class AbstractCmsRenderer <L extends JeeslLang, D extends JeeslD
 		ofParagraph = new JeeslCmsParagraphFactory<E,C>();
 		ofTableStatus = new JeeslCmsStatusTableFactory<E,C>();
 		ofxListStatus = new JeeslCmsStatusListFactory<E,C>();
-		ofImage = new JeeslCmsImageFactory<E,C,FS,FC,FM>(frh);
+		ofImage = new JeeslCmsImageFactory<>(frh);
 		ofxWorkflow = new OfxSectionWorkflow<>(tp);
 	}
 	
@@ -106,7 +108,6 @@ public abstract class AbstractCmsRenderer <L extends JeeslLang, D extends JeeslD
 		for(E e : elements)
 		{
 			build(lp, localeCode,xml.getContent(),e);
-//			xml.getContent().add(build(e));
 		}
 		
 		for(S child : section.getSections())
@@ -117,6 +118,13 @@ public abstract class AbstractCmsRenderer <L extends JeeslLang, D extends JeeslD
 			}
 		}
 		
+		return xml;
+	}
+	
+	public Section build(JeeslLocaleProvider<LOC> lp, String localeCode, E element) throws OfxAuthoringException
+	{
+		Section xml = XmlSectionFactory.build();
+		build(lp, localeCode,xml.getContent(),element);
 		return xml;
 	}
 	

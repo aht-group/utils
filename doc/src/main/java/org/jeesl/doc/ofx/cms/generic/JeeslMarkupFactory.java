@@ -13,7 +13,8 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.exlp.util.xml.JaxbUtil;
 
-public class JeeslMarkupFactory <M extends JeeslMarkup<T>, T extends JeeslIoCmsMarkupType<?,?,T,?>>
+public class JeeslMarkupFactory <M extends JeeslMarkup<T>,
+								T extends JeeslIoCmsMarkupType<?,?,T,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(JeeslMarkupFactory.class);
 	

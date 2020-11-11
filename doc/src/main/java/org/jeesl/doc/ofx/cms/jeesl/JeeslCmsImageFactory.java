@@ -14,9 +14,11 @@ import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.controller.handler.system.io.JeeslFileRepositoryHandler;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsContent;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsElement;
+import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.io.fr.JeeslFileMeta;
 import org.jeesl.interfaces.model.io.fr.JeeslFileStorage;
+import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
 import org.openfuxml.content.media.Image;
 import org.openfuxml.content.ofx.Paragraph;
 import org.openfuxml.content.ofx.Section;
@@ -32,6 +34,8 @@ import net.sf.exlp.util.xml.JaxbUtil;
 
 public class JeeslCmsImageFactory<E extends JeeslIoCmsElement<?,?,?,?,C,FC>,
 								C extends JeeslIoCmsContent<?,E,?>,
+								M extends JeeslMarkup<MT>,
+								MT extends JeeslIoCmsMarkupType<?,?,MT,?>,
 								FS extends JeeslFileStorage<?,?,?,?,?>,
 								FC extends JeeslFileContainer<FS,?>,
 								FM extends JeeslFileMeta<?,FC,?,?>>
@@ -76,16 +80,19 @@ public class JeeslCmsImageFactory<E extends JeeslIoCmsElement<?,?,?,?,C,FC>,
 			for(FM m : metas)
 			{
 				xml.setMedia(XmlMediaFactory.build(element.getId()+".png",element.getId()+".png"));
-				try
+				if(frh!=null)
 				{
-					logger.info(m.toString()+" "+m.getType().getCode());
-					File fDir = new File("/Volumes/ramdisk/dev/srs/png");
-					File f = new File(fDir,element.getId()+".png");
-					IOUtil.copyCompletely(frh.download(m), new FileOutputStream(f));
+					try
+					{
+						logger.info(m.toString()+" "+m.getType().getCode());
+						File fDir = new File("/Volumes/ramdisk/dev/srs/png");
+						File f = new File(fDir,element.getId()+".png");
+						IOUtil.copyCompletely(frh.download(m), new FileOutputStream(f));
+					}
+					catch (FileNotFoundException e) {e.printStackTrace();}
+					catch (IOException e) {e.printStackTrace();}
+					catch (JeeslNotFoundException e) {e.printStackTrace();}
 				}
-				catch (FileNotFoundException e) {e.printStackTrace();}
-				catch (IOException e) {e.printStackTrace();}
-				catch (JeeslNotFoundException e) {e.printStackTrace();}
 			}
 		}
 		catch (JeeslConstraintViolationException e) {e.printStackTrace();}

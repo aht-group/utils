@@ -2,7 +2,9 @@ package org.jeesl.web.mbean.prototype.io.cms;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.cache.JeeslCmsCacheBean;
@@ -42,6 +44,7 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.jsf.handler.PositionListReorderer;
 import org.jeesl.jsf.helper.TreeHelper;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
+import org.openfuxml.content.ofx.Section;
 import org.primefaces.event.NodeCollapseEvent;
 import org.primefaces.event.NodeExpandEvent;
 import org.primefaces.event.NodeSelectEvent;
@@ -53,6 +56,7 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 import net.sf.exlp.util.io.StringUtil;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 public abstract class AbstractCmsEditorBean <L extends JeeslLang,D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 										CAT extends JeeslIoCmsCategory<L,D,CAT,?>,
@@ -78,7 +82,7 @@ public abstract class AbstractCmsEditorBean <L extends JeeslLang,D extends Jeesl
 	
 	protected JeeslIoCmsFacade<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fCms;
 	
-	private JeeslCmsCacheBean<S> bCache;
+	private JeeslCmsCacheBean<S,E> bCache;
 
 	private String currentLocaleCode;
 	protected String[] cmsLocales; public String[] getCmsLocales() {return cmsLocales;}
@@ -93,6 +97,12 @@ public abstract class AbstractCmsEditorBean <L extends JeeslLang,D extends Jeesl
 	private final SbSingleHandler<LOC> sbhLocale; public SbSingleHandler<LOC> getSbhLocale() {return sbhLocale;}
 	private final OpStatusSelectionHandler<LOC> opLocale; public OpStatusSelectionHandler<LOC> getOpLocale() {return opLocale;}
 	private JeeslFileRepositoryHandler<FS,FC,FM> hFileRepository; public JeeslFileRepositoryHandler<FS,FC,FM> gethFileRepository() {return hFileRepository;}
+
+	private final Map<E,Section> mapOfx;
+	
+	public Map<E, Section> getMapOfx() {
+		return mapOfx;
+	}
 
 	private List<E> elements; public List<E> getElements() {return elements;}
 	private List<EC> elementCategories; public List<EC> getElementCategories() {return elementCategories;}
@@ -126,11 +136,12 @@ public abstract class AbstractCmsEditorBean <L extends JeeslLang,D extends Jeesl
 		sbhLocale = new SbSingleHandler<LOC>(fbCms.getClassLocale(),this);
 		opLocale = new OpStatusSelectionHandler<LOC>(this);
 		
+		mapOfx = new HashMap<>();
 		types = new ArrayList<ET>();
 	}
 	
 	protected void postConstructCms(JeeslTranslationBean<L,D,LOC> bTranslation, String currentLocaleCode,
-									List<LOC> locales, JeeslFacesMessageBean bMessage, JeeslCmsCacheBean<S> bCache,
+									List<LOC> locales, JeeslFacesMessageBean bMessage, JeeslCmsCacheBean<S,E> bCache,
 									JeeslIoCmsFacade<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fCms,
 									JeeslFileRepositoryHandler<FS,FC,FM> hFileRepository)
 	{
@@ -304,7 +315,7 @@ public abstract class AbstractCmsEditorBean <L extends JeeslLang,D extends Jeesl
 		S db = fCms.load(section,false);
 		efS.update(db,section);
 		reloadSection();
-		reset(true);
+		reset(true);		
     }
     
 	@SuppressWarnings("unchecked")
@@ -360,6 +371,14 @@ public abstract class AbstractCmsEditorBean <L extends JeeslLang,D extends Jeesl
 	{
 		elements = fCms.allForParent(fbCms.getClassElement(),section);
 		elements = fCms.fCmsElements(section);
+		
+		mapOfx.clear();
+		for(E e : elements)
+		{
+			Section s = bCache.buildByElement(sbhLocale.getSelection().getCode(),e);
+			JaxbUtil.info(s);
+			mapOfx.put(e,s);
+		}
 	}
 	
 	public void clearSectionCache()

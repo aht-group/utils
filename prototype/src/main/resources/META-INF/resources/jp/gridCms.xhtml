@@ -4,6 +4,7 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
 	xmlns:j="http://www.jeesl.org/jsf" xmlns:jp="http://jsf.jeesl.org/prototype" xmlns:jtp="http://jsf.jeesl.org/prototype/tag"
+	xmlns:ofx="http://www.openfuxml.org/jsf"
 	xmlns:aht="http://ahtutils.sourceforge.net/jsf"
 	xmlns:composite="http://java.sun.com/jsf/composite">
 	
@@ -36,7 +37,7 @@
 					<h:form id="fDocument" rendered="#{not empty cc.attrs.bean.cms}">
 						<p:panel header="#{msg.jeeslCmsDocument}" styleClass="jeeslPanel">
 							<f:facet name="actions">
-								<aht:icon type="jeeslSave" listener="#{cc.attrs.bean.saveDocument()}" update=":#{cc.id}:grid #{cc.attrs.updateStatusBar}" tooltip="#{msg.ttSave}" mayDisappear="true"/>
+								<j:icon type="jeeslSave" listener="#{cc.attrs.bean.saveDocument()}" update=":#{cc.id}:grid #{cc.attrs.updateStatusBar}" tooltip="#{msg.ttSave}" mayDisappear="true"/>
 							</f:facet>
 							<p:panelGrid columns="2" columnClasses="jeeslGrid40,jeeslGrid60">
 								<p:outputLabel value="#{msg.jeeslId}"/>
@@ -57,7 +58,7 @@
 			</j:row>
 			<c:if test="${cc.attrs.layout == false}">
 			<j:row rendered="#{(not empty cc.attrs.bean.cms) and (cc.attrs.bean.cms.id gt 0) and (not empty cc.attrs.bean.sbhLocale.selection)}">
-				<j:slot width="4">
+				<j:slot width="3">
 					<h:form id="fTree" >
 						<p:panel header="#{msg.jeeslCmsDocumentStructure}" styleClass="jeeslTree" >
 							<f:facet name="actions">
@@ -81,7 +82,7 @@
 						</p:panel>
 					</h:form>
 				</j:slot>
-				<j:slot id="sSection" width="8">
+				<j:slot id="sSection" width="9">
 					<h:form id="fSection" rendered="#{not empty cc.attrs.bean.section}">
 						<p:panel header="#{msg.jeeslCmsSection}" styleClass="jeeslPanel">
 							<f:facet name="actions">
@@ -116,8 +117,9 @@
 							<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectElement()}" update=":#{cc.id}:sSection"/>
 							<p:column rendered="true"><h:outputText value="#{e.position}"/></p:column>
 							<p:column><jtp:symbolizer value="#{e.type}"/></p:column>
-							<p:column headerText="#{msg.jeeslCmsElementType}"><h:outputText value="#{e.type.name[localeCode].lang}"/></p:column>
-							<p:column headerText="#{msg.jeeslCmsElement} ID"><h:outputText value="#{e.id}"/></p:column>	
+							<p:column rendered="false" headerText="#{msg.jeeslCmsElementType}"><h:outputText value="#{e.type.name[localeCode].lang}"/></p:column>
+							<p:column rendered="false" headerText="#{msg.jeeslCmsElement} ID"><h:outputText value="#{e.id}"/></p:column>	
+							<p:column headerText="Preview"><ofx:html section="#{cc.attrs.bean.mapOfx[e]}"/></p:column>
 						</p:dataTable>
 					</h:form>
 					<h:form id="fElement" rendered="#{not empty cc.attrs.bean.element}">

@@ -16,4 +16,6 @@ public interface JeeslMarkup <T extends JeeslIoCmsMarkupType<?,?,T,?>>
 	
 	String getContent();
 	void setContent(String content);
+	
+//	boolean x();
 }

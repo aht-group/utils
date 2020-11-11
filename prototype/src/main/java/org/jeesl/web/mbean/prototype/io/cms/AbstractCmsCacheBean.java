@@ -45,7 +45,7 @@ public abstract class AbstractCmsCacheBean <L extends JeeslLang,D extends JeeslD
 										FC extends JeeslFileContainer<?,FM>,
 										FM extends JeeslFileMeta<D,FC,?,?>
 										>
-					implements Serializable,JeeslCmsCacheBean<S>
+					implements Serializable,JeeslCmsCacheBean<S,E>
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractCmsCacheBean.class);
@@ -81,6 +81,12 @@ public abstract class AbstractCmsCacheBean <L extends JeeslLang,D extends JeeslD
 	}
 	
 	public Section buildById(String localeCode, Long id) throws JeeslNotFoundException
+	{
+		logger.warn("Deprecated!! use section!!! "+localeCode+" "+id);
+		return section(localeCode,id);
+	}
+	
+	public Section section(String localeCode, Long id) throws JeeslNotFoundException
 	{
 		logger.info("buildById: "+localeCode+" "+id);
 		if(mapId.containsKey(id)) {return buildBySection(localeCode,mapId.get(id));}
@@ -130,6 +136,25 @@ public abstract class AbstractCmsCacheBean <L extends JeeslLang,D extends JeeslD
 				catch (JeeslNotFoundException e) {e.printStackTrace();}
 				return ofxSection;
 			}		
+		}
+	}
+	
+	public Section buildByElement(String localeCode, E element)
+	{
+		if(element==null) {logger.warn("Section is NULL"); return new Section();}
+		else
+		{	
+			try
+			{
+				LOC locale = fCms.fByCode(fbCms.getClassLocale(), localeCode);
+				GenericLocaleProvider<L,D,LOC> lp = new GenericLocaleProvider<L,D,LOC>();
+				lp.setLocales(Arrays.asList(locale));
+
+				return ofx.build(lp, localeCode, element);
+			}
+			catch (JeeslNotFoundException | OfxAuthoringException e) {e.printStackTrace();}
+			
+			return new Section();
 		}
 	}
 }

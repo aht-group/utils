@@ -7,11 +7,11 @@ import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsSection;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsVisiblity;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.JeeslLocaleProvider;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.slf4j.Logger;
@@ -33,4 +33,5 @@ public interface JeeslCmsRenderer <L extends JeeslLang,D extends JeeslDescriptio
 	final static Logger logger = LoggerFactory.getLogger(JeeslCmsRenderer.class);
 	
 	Section build(JeeslLocaleProvider<LOC> lp, String localeCode, S section) throws OfxAuthoringException;
+	Section build(JeeslLocaleProvider<LOC> lp, String localeCode, E element) throws OfxAuthoringException;
 }
