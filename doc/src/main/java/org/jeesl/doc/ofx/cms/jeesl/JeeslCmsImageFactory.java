@@ -30,7 +30,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
-import net.sf.exlp.util.xml.JaxbUtil;
 
 public class JeeslCmsImageFactory<E extends JeeslIoCmsElement<?,?,?,?,C,FC>,
 								C extends JeeslIoCmsContent<?,E,?>,
@@ -43,12 +42,12 @@ public class JeeslCmsImageFactory<E extends JeeslIoCmsElement<?,?,?,?,C,FC>,
 	final static Logger logger = LoggerFactory.getLogger(JeeslCmsImageFactory.class);
 	
 	private final JeeslFileRepositoryHandler<FS,FC,FM> frh;
-	private final JeeslMarkupFactory ofxMarkup;
+	private final JeeslMarkupFactory<M,MT> ofxMarkup;
 	
 	public JeeslCmsImageFactory(JeeslFileRepositoryHandler<FS,FC,FM> frh)
 	{
 		this.frh=frh;
-		ofxMarkup = new JeeslMarkupFactory();
+		ofxMarkup = new JeeslMarkupFactory<>();
 	}
 	
 	public Image build(String localeCode, E element)
@@ -73,15 +72,15 @@ public class JeeslCmsImageFactory<E extends JeeslIoCmsElement<?,?,?,?,C,FC>,
 				logger.error(element.getSection().toString()+ " "+element.getPosition());
 			}
 		}
-		try
+		if(frh!=null)
 		{
-			frh.init(element);
-			List<FM> metas = frh.getMetas();
-			for(FM m : metas)
+			try
 			{
-				xml.setMedia(XmlMediaFactory.build(element.getId()+".png",element.getId()+".png"));
-				if(frh!=null)
+				frh.init(element);
+				List<FM> metas = frh.getMetas();
+				for(FM m : metas)
 				{
+					xml.setMedia(XmlMediaFactory.build(element.getId()+".png",element.getId()+".png"));
 					try
 					{
 						logger.info(m.toString()+" "+m.getType().getCode());
@@ -94,9 +93,10 @@ public class JeeslCmsImageFactory<E extends JeeslIoCmsElement<?,?,?,?,C,FC>,
 					catch (JeeslNotFoundException e) {e.printStackTrace();}
 				}
 			}
+			catch (JeeslConstraintViolationException e) {e.printStackTrace();}
+			catch (JeeslLockingException e) {e.printStackTrace();}
 		}
-		catch (JeeslConstraintViolationException e) {e.printStackTrace();}
-		catch (JeeslLockingException e) {e.printStackTrace();}
+		
 		
 //		JaxbUtil.trace(xml);
 		return xml;
