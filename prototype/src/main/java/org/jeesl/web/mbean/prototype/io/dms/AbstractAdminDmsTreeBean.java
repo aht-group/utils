@@ -53,20 +53,20 @@ public abstract class AbstractAdminDmsTreeBean <L extends JeeslLang,D extends Je
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
-	final static Logger logger = LoggerFactory.getLogger(AbstractAdminDmsTreeBean.class);	
+	final static Logger logger = LoggerFactory.getLogger(AbstractAdminDmsTreeBean.class);
 
 	protected final SbSingleHandler<DMS> sbhDms; public SbSingleHandler<DMS> getSbhDms() {return sbhDms;}
-	
+
 	private TreeNode tree; public TreeNode getTree() {return tree;}
 	private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
 	private S section; public S getSection() {return section;} public void setSection(S section) {this.section = section;}
-	
+
 	public AbstractAdminDmsTreeBean(IoDmsFactoryBuilder<L,D,LOC,DMS,STORAGE,S,F,VIEW,LAYER> fbDms)
 	{
 		super(fbDms);
 		sbhDms = new SbSingleHandler<DMS>(fbDms.getClassDms(),this);
 	}
-	
+
 	protected void initDmsConfig(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,JeeslIoDmsFacade<L,D,LOC,DMS,STORAGE,AS,DS,S,F,VIEW,FC,AC> fDms)
 	{
 		super.initDms(bTranslation,bMessage,fDms);
@@ -75,8 +75,8 @@ public abstract class AbstractAdminDmsTreeBean <L extends JeeslLang,D extends Je
 		sbhDms.silentCallback();
 	}
 	protected abstract void initPageConfiguration();
-	
-	
+
+
 	@Override @SuppressWarnings("unchecked")
 	public void selectSbSingle(EjbWithId item) throws JeeslLockingException, JeeslConstraintViolationException
 	{
@@ -84,7 +84,7 @@ public abstract class AbstractAdminDmsTreeBean <L extends JeeslLang,D extends Je
 		this.dm = (DMS)item;
 		reloadTree();
 	}
-	
+
 	private void reloadTree()
 	{
 		if(debugOnInfo) {logger.info("Reloading Tree");}
@@ -92,7 +92,7 @@ public abstract class AbstractAdminDmsTreeBean <L extends JeeslLang,D extends Je
 		tree = new DefaultTreeNode(root, null);
 		buildTree(tree,root.getSections());
 	}
-	
+
 	private void buildTree(TreeNode parent, List<S> sections)
 	{
 		for(S s : sections)
@@ -101,11 +101,11 @@ public abstract class AbstractAdminDmsTreeBean <L extends JeeslLang,D extends Je
 			if(!s.getSections().isEmpty()) {buildTree(n,s.getSections());}
 		}
 	}
-	
+
 	public void onNodeExpand(NodeExpandEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}
     public void onNodeCollapse(NodeCollapseEvent event) {if(debugOnInfo) {logger.info("Collapsed "+event.getTreeNode().toString());}}
 
-    
+
 	@SuppressWarnings("unchecked")
 	public void onDragDrop(TreeDragDropEvent event) throws JeeslConstraintViolationException, JeeslLockingException
 	{
@@ -113,7 +113,7 @@ public abstract class AbstractAdminDmsTreeBean <L extends JeeslLang,D extends Je
         TreeNode dropNode = event.getDropNode();
         int dropIndex = event.getDropIndex();
         logger.info("Dragged " + dragNode.getData() + "Dropped on " + dropNode.getData() + " at " + dropIndex);
-        
+
         logger.info("Childs of "+dropNode.getData());
         S parent = (S)dropNode.getData();
         int index=1;
@@ -126,7 +126,7 @@ public abstract class AbstractAdminDmsTreeBean <L extends JeeslLang,D extends Je
         		child.setPosition(index);
         		fDms.save(child);
         		index++;
-        }  
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -140,19 +140,19 @@ public abstract class AbstractAdminDmsTreeBean <L extends JeeslLang,D extends Je
     		efSection.update(db,section);
     }
 
-    
-	public void addSection() 
+
+	public void addSection()
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.addEntity(fbDms.getClassSection()));}
 		section = efSection.build(dm.getRoot());
 		section.setName(efLang.createEmpty(sbhLocale.getList()));
 		section.setDescription(efDescription.createEmpty(sbhLocale.getList()));
 	}
-	
+
 	public void saveSection() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(section));}
-		boolean appendToTree = EjbIdFactory.isUnSaved(section);		
+		boolean appendToTree = EjbIdFactory.isUnSaved(section);
 		section = fDms.save(section);
 		if(appendToTree) {new DefaultTreeNode(section, tree);}
 //		reloadSection();
@@ -161,6 +161,7 @@ public abstract class AbstractAdminDmsTreeBean <L extends JeeslLang,D extends Je
 	public void deleteSection()
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.rmEntity(section));}
+		reloadTree();
 	}
 
 	public void cancelSection()
