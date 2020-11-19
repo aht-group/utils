@@ -3,11 +3,16 @@ package org.jeesl.util;
 import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.inject.Named;
 
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
@@ -19,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.exlp.util.io.StringUtil;
 import org.apache.commons.beanutils.PropertyUtils;
 
+@Named
 public class ReflectionUtil
 {
     final static Logger logger = LoggerFactory.getLogger(ReflectionUtil.class);
@@ -233,5 +239,23 @@ public class ReflectionUtil
             }
         }
         return propertyNames;
+    }
+    
+    public static Class getTypeOfList(Object object, String property) throws NoSuchFieldException, IllegalAccessException, InvocationTargetException, NoSuchMethodException
+    {
+	PropertyDescriptor desc = PropertyUtils.getPropertyDescriptor(object, property);
+	for (TypeVariable t : desc.getReadMethod().getTypeParameters())
+	{
+	    logger.trace("t " +t.getTypeName());
+	}
+	Field field = object.getClass().getField(property); 
+
+        ParameterizedType type = (ParameterizedType) field.getGenericType();
+
+        for (Type typeArgument : type.getActualTypeArguments())
+        {
+            logger.trace("  " + typeArgument);
+        }
+	return type.getRawType().getClass();
     }
 }
