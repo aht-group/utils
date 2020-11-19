@@ -147,17 +147,24 @@ public class JeeslIoAttributeFacadeBean<L extends JeeslLang, D extends JeeslDesc
 	@Override
 	public List<DATA> fAttributeData(CRITERIA criteria, List<CONTAINER> containers)
 	{
-		List<DATA> result = new ArrayList<DATA>();
-		for(CONTAINER c : containers)
-		{
-			try {
-				result.add(fAttributeData(criteria,c));
-			} catch (JeeslNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return result;
+		if(containers==null || containers.isEmpty()) {return new ArrayList<>();}
+		
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<DATA> cQ = cB.createQuery(fbAttribute.getClassData());
+		Root<DATA> data = cQ.from(fbAttribute.getClassData());
+		
+		Path<CONTAINER> pContainer = data.join(JeeslAttributeData.Attributes.container.toString());
+		predicates.add(pContainer.in(containers));
+		
+		Path<CRITERIA> pCriteria = data.join(JeeslAttributeData.Attributes.criteria.toString());
+		predicates.add(cB.equal(pCriteria,criteria));
+		
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.select(data);
+
+		TypedQuery<DATA> tQ = em.createQuery(cQ);
+		return tQ.getResultList();
 	}
 
 	@Override

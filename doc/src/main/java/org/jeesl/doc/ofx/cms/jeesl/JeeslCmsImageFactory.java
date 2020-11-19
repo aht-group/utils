@@ -14,9 +14,11 @@ import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.controller.handler.system.io.JeeslFileRepositoryHandler;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsContent;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsElement;
+import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.io.fr.JeeslFileMeta;
 import org.jeesl.interfaces.model.io.fr.JeeslFileStorage;
+import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
 import org.openfuxml.content.media.Image;
 import org.openfuxml.content.ofx.Paragraph;
 import org.openfuxml.content.ofx.Section;
@@ -28,10 +30,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
-import net.sf.exlp.util.xml.JaxbUtil;
 
 public class JeeslCmsImageFactory<E extends JeeslIoCmsElement<?,?,?,?,C,FC>,
 								C extends JeeslIoCmsContent<?,E,?>,
+								M extends JeeslMarkup<MT>,
+								MT extends JeeslIoCmsMarkupType<?,?,MT,?>,
 								FS extends JeeslFileStorage<?,?,?,?,?>,
 								FC extends JeeslFileContainer<FS,?>,
 								FM extends JeeslFileMeta<?,FC,?,?>>
@@ -39,12 +42,12 @@ public class JeeslCmsImageFactory<E extends JeeslIoCmsElement<?,?,?,?,C,FC>,
 	final static Logger logger = LoggerFactory.getLogger(JeeslCmsImageFactory.class);
 	
 	private final JeeslFileRepositoryHandler<FS,FC,FM> frh;
-	private final JeeslMarkupFactory ofxMarkup;
+	private final JeeslMarkupFactory<M,MT> ofxMarkup;
 	
 	public JeeslCmsImageFactory(JeeslFileRepositoryHandler<FS,FC,FM> frh)
 	{
 		this.frh=frh;
-		ofxMarkup = new JeeslMarkupFactory();
+		ofxMarkup = new JeeslMarkupFactory<>();
 	}
 	
 	public Image build(String localeCode, E element)
@@ -69,27 +72,31 @@ public class JeeslCmsImageFactory<E extends JeeslIoCmsElement<?,?,?,?,C,FC>,
 				logger.error(element.getSection().toString()+ " "+element.getPosition());
 			}
 		}
-		try
+		if(frh!=null)
 		{
-			frh.init(element);
-			List<FM> metas = frh.getMetas();
-			for(FM m : metas)
+			try
 			{
-				xml.setMedia(XmlMediaFactory.build(element.getId()+".png",element.getId()+".png"));
-				try
+				frh.init(element);
+				List<FM> metas = frh.getMetas();
+				for(FM m : metas)
 				{
-					logger.info(m.toString()+" "+m.getType().getCode());
-					File fDir = new File("/Volumes/ramdisk/dev/srs/png");
-					File f = new File(fDir,element.getId()+".png");
-					IOUtil.copyCompletely(frh.download(m), new FileOutputStream(f));
+					xml.setMedia(XmlMediaFactory.build(element.getId()+".png",element.getId()+".png"));
+					try
+					{
+						logger.info(m.toString()+" "+m.getType().getCode());
+						File fDir = new File("/Volumes/ramdisk/dev/srs/png");
+						File f = new File(fDir,element.getId()+".png");
+						IOUtil.copyCompletely(frh.download(m), new FileOutputStream(f));
+					}
+					catch (FileNotFoundException e) {e.printStackTrace();}
+					catch (IOException e) {e.printStackTrace();}
+					catch (JeeslNotFoundException e) {e.printStackTrace();}
 				}
-				catch (FileNotFoundException e) {e.printStackTrace();}
-				catch (IOException e) {e.printStackTrace();}
-				catch (JeeslNotFoundException e) {e.printStackTrace();}
 			}
+			catch (JeeslConstraintViolationException e) {e.printStackTrace();}
+			catch (JeeslLockingException e) {e.printStackTrace();}
 		}
-		catch (JeeslConstraintViolationException e) {e.printStackTrace();}
-		catch (JeeslLockingException e) {e.printStackTrace();}
+		
 		
 //		JaxbUtil.trace(xml);
 		return xml;

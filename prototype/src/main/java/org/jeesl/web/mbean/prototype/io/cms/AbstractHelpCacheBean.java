@@ -62,6 +62,8 @@ public abstract class AbstractHelpCacheBean <L extends JeeslLang,D extends Jeesl
 	
 	private final Map<VIEW,Map<String,Section>> mapSection;
 	
+	protected boolean activeOnlineHelp; public boolean isActiveOnlineHelp() {return activeOnlineHelp;}
+
 	private boolean debugOnInfo; protected void setDebugOnInfo(boolean debugOnInfo) {this.debugOnInfo = debugOnInfo;}
 
 	public AbstractHelpCacheBean(IoCmsFactoryBuilder<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fbCms,
@@ -70,6 +72,7 @@ public abstract class AbstractHelpCacheBean <L extends JeeslLang,D extends Jeesl
 		this.fbCms=fbCms;
 		this.fbSecurity=fbSecurity;
 		
+		activeOnlineHelp = true;
 		mapSection = new HashMap<>();
 	}
 	

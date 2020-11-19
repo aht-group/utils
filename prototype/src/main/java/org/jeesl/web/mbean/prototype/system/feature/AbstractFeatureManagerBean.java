@@ -32,11 +32,9 @@ public class AbstractFeatureManagerBean <F extends JeeslFeature>
 		realodFeatures();
 	}
 	
-	public boolean has(String code)
-	{
-		return (map.containsKey(code) && map.get(code));
-	}
-
+	public <E extends Enum<E>> boolean has(E code){return has(code.toString());}
+	public boolean has(String code){return (map.containsKey(code) && map.get(code));}
+	
 	@Override
 	public void realodFeatures()
 	{

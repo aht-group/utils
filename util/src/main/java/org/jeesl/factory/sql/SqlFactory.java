@@ -53,6 +53,14 @@ public class SqlFactory
 		return sb.toString();
 	}
 	
+	public static <T extends EjbWithId> void count(StringBuilder sb, Class<T> c, boolean newLine)
+	{
+		if(c.getAnnotation(Table.class)==null) {throw new RuntimeException("Not a @Table)");}
+		sb.append("SELECT COUNT(id) FROM ");
+		sb.append(c.getAnnotation(Table.class).name());
+		newLine(newLine,sb);
+	}
+	
 	public static <T extends EjbWithId> String delete(Class<T> c)
 	{
 		if(c.getAnnotation(Table.class)==null) {throw new RuntimeException("Not a @Table)");}
@@ -168,6 +176,11 @@ public class SqlFactory
 		sb.append(" WHERE ");
 		whereAndOrAttribute(sb,alias,negate,attribute,where,newLine);
 	}
+	public static <E extends Enum<E>, T extends EjbWithId> void whereAnd(StringBuilder sb, String alias, boolean negate, E attribute, T where, boolean newLine)
+	{
+		sb.append(" AND ");
+		whereAndOrAttribute(sb,alias,negate,attribute,where,newLine);
+	}
 	public static <E extends Enum<E>, T extends EjbWithId> void whereOr(StringBuilder sb, String alias, boolean negate, E attribute, T where, boolean newLine)
 	{
 		sb.append(" OR ");
@@ -205,6 +218,13 @@ public class SqlFactory
 		if(alias!=null) {sb.append(alias).append(".");}
 		sb.append(attribute.toString());
 		sb.append("=").append(value);
+		newLine(newLine,sb);
+	}
+	
+	public static void semicolon(StringBuilder sb) {SqlFactory.semicolon(sb,false);}
+	public static void semicolon(StringBuilder sb, boolean newLine)
+	{
+		sb.append(";");
 		newLine(newLine,sb);
 	}
 }

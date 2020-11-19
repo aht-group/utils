@@ -20,4 +20,7 @@ public interface JeeslIoSsiHost <L extends JeeslLang, D extends JeeslDescription
 	
 	SYSTEM getSystem();
 	void setSystem(SYSTEM system);
+	
+	String getFqdn();
+	void setFqdn(String fqdn);
 }

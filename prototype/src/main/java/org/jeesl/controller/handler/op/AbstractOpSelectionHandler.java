@@ -55,6 +55,7 @@ public abstract class AbstractOpSelectionHandler <T extends EjbWithId> implement
     }
     
 	@Override public void selectTb() {}
+	public void prepareAdd() {}
 	
 	@Override public void addEntity(T item) throws JeeslLockingException, JeeslConstraintViolationException, JeeslNotFoundException
     {
