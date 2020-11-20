@@ -20,6 +20,14 @@ public class JsonStatusFactory<L extends JeeslLang, D extends JeeslDescription,S
 		this.q=q;
 	}
 		
+	public static JsonStatus build(String code, String label)
+	{
+		JsonStatus json = new JsonStatus();
+		json.setCode(code);
+		json.setLabel(label);
+		return json;
+	}
+	
 	public JsonStatus build(S ejb)
 	{
 		JsonStatus json = new JsonStatus();
