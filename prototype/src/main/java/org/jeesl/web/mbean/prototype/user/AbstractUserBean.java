@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.RequestDispatcher;
 
 import org.jeesl.api.bean.JeeslMenuBean;
 import org.jeesl.api.facade.core.JeeslUserFacade;
@@ -37,47 +38,47 @@ public abstract class AbstractUserBean <L extends JeeslLang, D extends JeeslDesc
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractUserBean.class);
-	
+
 	private JeeslUserFacade<USER> fUser;
 	protected JeeslSecurityFacade<L,D,?,R,V,U,A,?,?,USER> fSecurity;
 	protected JeeslIdentityFactory<I,R,V,U,A,USER> fId;
 	private JeeslMenuBean<L,D,R,V,U,A,?,USER,I> bMenu;
-	
+
 	protected USER user;
 	protected I identity;
-	
+
 	protected String ipAddress;
 	protected String sessionId;
 	protected String localeCode;
-	
+
 	protected AbstractUserBean(LocaleFactoryBuilder<L,D,?> fbStatus)
 	{
 		super(fbStatus.getClassL(),fbStatus.getClassD());
 	}
-	
+
 	protected void postConstruct(JeeslUserFacade<USER> fUser, JeeslSecurityFacade<L,D,?,R,V,U,A,?,?,USER> fSecurity)
 	{
 		this.fUser=fUser;
 		this.fSecurity=fSecurity;
 	}
-	
+
 	protected void postConstruct(JeeslUserFacade<USER> fUser, JeeslSecurityFacade<L,D,?,R,V,U,A,?,?,USER> fSecurity, JeeslMenuBean<L,D,R,V,U,A,?,USER,I> bMenu)
 	{
 		this.fUser=fUser;
 		this.fSecurity=fSecurity;
 		this.bMenu=bMenu;
 	}
-	
+
 	public void setLocale(String localeCode)
 	{
 		this.localeCode=localeCode;
-		
+
 		Locale locale = null;
 		if(localeCode.equals("de")){locale = Locale.GERMAN;}
 		else if(localeCode.equals("en")){locale = Locale.ENGLISH;}
 		else if(localeCode.equals("fr")){locale = Locale.FRENCH;}
 		else if(localeCode.equals("kin")){locale = new Locale.Builder().setLanguage("rw").setRegion("RW").build();}
-		
+
 		FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
 		if(bMenu!=null) {bMenu.updateLocale(localeCode);}
 		localeChanged();
@@ -89,5 +90,12 @@ public abstract class AbstractUserBean <L extends JeeslLang, D extends JeeslDesc
 	    ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 	    ec.invalidateSession();
 	    ec.redirect(ec.getRequestContextPath());
+	}
+
+	protected void goToInitalPage() {
+		ExternalContext eContext = FacesContext.getCurrentInstance().getExternalContext();
+	    String forwardedUri = (String) eContext.getRequestMap().get(RequestDispatcher.FORWARD_REQUEST_URI);
+		try{FacesContext.getCurrentInstance().getExternalContext().redirect(forwardedUri);}
+		catch (IOException e) {e.printStackTrace();}
 	}
 }
