@@ -296,3 +296,10 @@ pre {
 		margin-bottom: 18px;
 	}
 }
+
+form {
+	> .jeeslPanel {
+		box-sizing: border-box;
+		height: 100%;
+	}
+}

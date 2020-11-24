@@ -219,3 +219,7 @@ pre code {
     box-sizing: border-box;
     height: calc(100% - 35px - .8em) !important;
     margin-bottom: 18px; }
+
+form > .jeeslPanel {
+  box-sizing: border-box;
+  height: 100%; }

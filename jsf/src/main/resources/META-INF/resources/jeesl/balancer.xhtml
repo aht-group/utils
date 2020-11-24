@@ -9,11 +9,20 @@
 		<composite:attribute name="from"/>
 		<composite:attribute name="to"/>
 		<composite:attribute name="offset"/>
+		
+		<composite:attribute name="elementIds" required="false"/>
 	</composite:interface>
         
 	<composite:implementation>
 
-	<h:outputScript>
+	<h:outputScript rendered="#{not empty cc.attrs.elementIds}">
+		$(function() {
+			let elements = $('#' + "#{cc.attrs.elementIds}".replaceAll(' ', ',#'));
+			let maxHeight = Math.max.apply(null, elements.map((i, e) => $(e).height()));
+			elements.height(maxHeight);
+		});
+	</h:outputScript>
+	<h:outputScript rendered="#{empty cc.attrs.elementIds}">
 		$(document).ready(function(){
 			from = $("div[id='#{cc.attrs.from}']")
 			to = $("div[id='#{cc.attrs.to}']")
