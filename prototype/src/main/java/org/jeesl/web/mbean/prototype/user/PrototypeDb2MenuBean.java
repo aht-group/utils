@@ -48,14 +48,14 @@ public class PrototypeDb2MenuBean <L extends JeeslLang, D extends JeeslDescripti
 {
 	final static Logger logger = LoggerFactory.getLogger(PrototypeDb2MenuBean.class);
 	private static final long serialVersionUID = 1L;
-	
+
 	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,?,?,?,?,?,USER> fbSecurity;
 	private JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity;
-	
+
 	private final XmlMenuItemFactory<L,D,C,R,V,U,A,AT,M,USER> xfMenuItem;
 	private final EjbSecurityMenuFactory<V,M> efMenu;
 	private final TxtSecurityMenuFactory<L,D,C,R,V,U,A,AT,M,USER> tfMenu;
-	
+
 	private final Map<String,M> mapKey;
 	private final Map<M,List<M>> mapChild;
 	private final Map<M,Menu> mapMenu;
@@ -75,34 +75,34 @@ public class PrototypeDb2MenuBean <L extends JeeslLang, D extends JeeslDescripti
 		mapChild = new HashMap<M,List<M>>();
 		mapSub = new HashMap<M,MenuItem>();
 		mapBreadcrumb = new HashMap<M,Breadcrumb>();
-		
+
 		xfMenuItem = new XmlMenuItemFactory<L,D,C,R,V,U,A,AT,M,USER>(localeCode);
 		efMenu = fbSecurity.ejbMenu();
 		tfMenu = new TxtSecurityMenuFactory<L,D,C,R,V,U,A,AT,M,USER>();
-		
+
 		debugOnInfo = false;
 		setupRequired = false;
 	}
-	
+
 	public void initSuper(String localeCode, JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity, I identity)
 	{
 		this.fSecurity=fSecurity;
 		prepare(localeCode,identity);
 	}
-	
+
 	public void prepare(String localeCode, I identity)
 	{
 		this.localeCode=localeCode;
 		this.identity=identity;
 		reset();
 	}
-	
+
 	@Override public void updateLocale(String localeCode)
 	{
 		this.localeCode=localeCode;
 		reset();
 	}
-	
+
 	public void reset()
 	{
 		if(debugOnInfo) {logger.info("Resettings Menu");}
@@ -113,14 +113,14 @@ public class PrototypeDb2MenuBean <L extends JeeslLang, D extends JeeslDescripti
 		mapBreadcrumb.clear();
 		setupRequired = true;
 	}
-	
+
 	private synchronized void setup()
 	{
 		if(setupRequired)
 		{
 			if(debugOnInfo) {logger.info(StringUtil.stars());logger.info("Setup Menu");}
 			xfMenuItem.setLocaleCode(localeCode);
-			
+
 			M root = efMenu.build();
 			mapKey.put(JeeslSecurityMenu.keyRoot, root);
 			for(M m : fSecurity.allOrderedPosition(fbSecurity.getClassMenu()))
@@ -131,9 +131,10 @@ public class PrototypeDb2MenuBean <L extends JeeslLang, D extends JeeslDescripti
 					logger.info("\t\tm.getView().isVisible() "+m.getView().isVisible());
 					logger.info("\t\tm.getView().getAccessPublic() "+m.getView().getAccessPublic());
 					logger.info("\t\tidentity.isLoggedIn() "+identity.isLoggedIn());
+					logger.info("\t\tm.getView().getAccessLogin() "+m.getView().getAccessLogin());
 					logger.info("\t\tidentity.hasView(m.getView()) "+identity.hasView(m.getView()));
 				}
-				
+
 				boolean visible = m.getView().isVisible() && (m.getView().getAccessPublic() || (identity.isLoggedIn() && (m.getView().getAccessLogin() || identity.hasView(m.getView()))));
 				if(debugOnInfo) {logger.info("\t\t"+m.getView().getCode()+" visible:"+visible);}
 				if(visible)
@@ -141,7 +142,7 @@ public class PrototypeDb2MenuBean <L extends JeeslLang, D extends JeeslDescripti
 					M parent = null;
 					if(m.getParent()!=null) {parent = m.getParent();}
 					else {parent=root;}
-					
+
 					mapKey.put(m.getView().getCode(), m);
 					if(!mapChild.containsKey(parent)) {mapChild.put(parent,new ArrayList<M>());}
 					mapChild.get(parent).add(m);
@@ -150,13 +151,13 @@ public class PrototypeDb2MenuBean <L extends JeeslLang, D extends JeeslDescripti
 			setupRequired = false;
 		}
 	}
-	
+
 	public Menu build(String code){setup();if(!mapKey.containsKey(code)) {warnEmptyCode(code); return XmlMenuFactory.build();} else {return menu(mapKey.get(code));}}
 	public MenuItem sub(String code) {setup();if(!mapKey.containsKey(code)) {warnEmptyCode(code); return XmlMenuItemFactory.build();} else {return sub(mapKey.get(code));}}
 	public MenuItem subDyn(String code, Boolean dyn) {setup();if(!mapKey.containsKey(code)) {warnEmptyCode(code); return XmlMenuItemFactory.build();} else {return sub(mapKey.get(code));}}
 	public Breadcrumb breadcrumbDyn(String code, Boolean dyn){setup();if(!mapKey.containsKey(code)) {warnEmptyCode(code); return XmlBreadcrumbFactory.build();} else {return breadcrumb(mapKey.get(code));}}
 	public Breadcrumb breadcrumb(String code){setup();if(!mapKey.containsKey(code)) {warnEmptyCode(code); return XmlBreadcrumbFactory.build();} else {return breadcrumb(mapKey.get(code));}}
-	
+
 	private void warnEmptyCode(String code)
 	{
 		StringBuilder sb = new StringBuilder();
@@ -165,9 +166,9 @@ public class PrototypeDb2MenuBean <L extends JeeslLang, D extends JeeslDescripti
 		else{sb.append(" not defined");}
 		sb.append(" This may happen after restructuring of bean, try a mvn clean");
 		logger.warn(sb.toString());
-		
+
 	}
-	
+
 	private Menu menu(M m)
 	{
 		if(!mapMenu.containsKey(m))
@@ -183,13 +184,13 @@ public class PrototypeDb2MenuBean <L extends JeeslLang, D extends JeeslDescripti
 					if(xml.isActive() && mapChild.containsKey(mi)) {xml.getMenuItem().addAll(childs(mi));}
 					menu.getMenuItem().add(xml);
 				}
-			}	
+			}
 			if(debugOnInfo){logger.info("Menu for: "+tfMenu.code(m));JaxbUtil.info(menu);}
 			mapMenu.put(m,menu);
 		}
 		return mapMenu.get(m);
 	}
-	
+
 	private List<MenuItem> childs(M m)
 	{
 		List<MenuItem> list = new ArrayList<MenuItem>();
@@ -202,7 +203,7 @@ public class PrototypeDb2MenuBean <L extends JeeslLang, D extends JeeslDescripti
 		}
 		return list;
 	}
-	
+
 	private MenuItem sub(M m)
 	{
 		if(!mapSub.containsKey(m))
@@ -220,7 +221,7 @@ public class PrototypeDb2MenuBean <L extends JeeslLang, D extends JeeslDescripti
 		}
 		return mapSub.get(m);
 	}
-	
+
 	private Breadcrumb breadcrumb(M m)
 	{
 		if(!mapBreadcrumb.containsKey(m))
@@ -233,7 +234,7 @@ public class PrototypeDb2MenuBean <L extends JeeslLang, D extends JeeslDescripti
 		}
 		return mapBreadcrumb.get(m);
 	}
-	
+
 	private void breadcrumb(Breadcrumb xml, M m)
 	{
 		MenuItem mi = xfMenuItem.build(m);
@@ -241,11 +242,11 @@ public class PrototypeDb2MenuBean <L extends JeeslLang, D extends JeeslDescripti
 		if(m.getParent()!=null) {breadcrumb(xml,m.getParent());}
 		xml.getMenuItem().add(mi);
 	}
-	
+
 	private boolean isParent(M parent, M child)
 	{
 		if(child.getParent()==null) {return false;}
 		else if(child.getParent().equals(parent)){return true;}
-		else {return isParent(parent,child.getParent());}		
+		else {return isParent(parent,child.getParent());}
 	}
 }
