@@ -59,15 +59,15 @@ public abstract class AbstractDmsViewBean <L extends JeeslLang, D extends JeeslD
 											FILE extends JeeslIoDmsDocument<L,S,FCONTAINER,ACONTAINER>,
 											VIEW extends JeeslIoDmsView<L,D,DMS>,
 											LAYER extends JeeslIoDmsLayer<VIEW,AITEM>,
-											
+
 											FSTORAGE extends JeeslFileStorage<L,D,?,?,FENGINE>,
 											FENGINE extends JeeslFileStorageEngine<L,D,FENGINE,?>,
 											FCONTAINER extends JeeslFileContainer<FSTORAGE,FMETA>,
 											FMETA extends JeeslFileMeta<D,FCONTAINER,FTYPE,?>,
 											FTYPE extends JeeslFileType<L,D,FTYPE,?>,
-											
+
 											DS extends JeeslDomainSet<L,D,?>,
-											
+
 											ACATEGORY extends JeeslStatus<ACATEGORY,L,D>,
 											ACRITERIA extends JeeslAttributeCriteria<L,D,ACATEGORY,ATYPE,AOPTION>,
 											ATYPE extends JeeslStatus<ATYPE,L,D>,
@@ -81,14 +81,14 @@ public abstract class AbstractDmsViewBean <L extends JeeslLang, D extends JeeslD
 					implements Serializable,AttributeBean<ACONTAINER>,JeeslFileRepositoryCallback
 {
 	private static final long serialVersionUID = 1L;
-	final static Logger logger = LoggerFactory.getLogger(AbstractDmsViewBean.class);	
+	final static Logger logger = LoggerFactory.getLogger(AbstractDmsViewBean.class);
 
-	private JeeslIoAttributeFacade<L,D,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> fAttribute; 
+	private JeeslIoAttributeFacade<L,D,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> fAttribute;
 	private JeeslIoFrFacade<L,D,?,FSTORAGE,?,FENGINE,FCONTAINER,FMETA,FTYPE,?,?,?> fFr;
-	
+
 	private final IoAttributeFactoryBuilder<L,D,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> fbAttribute;
 //	private final IoFileRepositoryFactoryBuilder<L,D,FSTORAGE,FENGINE,FCONTAINER,FMETA,FTYPE> fbFr;
-	
+
 	protected final SbSingleHandler<DMS> sbhDms; public SbSingleHandler<DMS> getSbhDms() {return sbhDms;}
 
 	private AttributeHandler<L,D,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> attributeHandler; public AttributeHandler<L,D,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> getAttributeHandler() {return attributeHandler;}
@@ -96,7 +96,7 @@ public abstract class AbstractDmsViewBean <L extends JeeslLang, D extends JeeslD
 
 	private List<FILE> files; public List<FILE> getFiles() {return files;} public void setFiles(List<FILE> files) {this.files = files;}
 
-	private TreeNode tree; public TreeNode getTree() {return tree;}
+	private TreeNode tree; public TreeNode getTree() {return tree;} public void setTree(TreeNode tree) {this.tree = tree;}
 	private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
 	private S section; public S getSection() {return section;} public void setSection(S section) {this.section = section;}
 	private FILE file; public FILE getFile() {return file;} public void setFile(FILE file) {this.file = file;}
@@ -110,7 +110,7 @@ public abstract class AbstractDmsViewBean <L extends JeeslLang, D extends JeeslD
 //		this.fbFr=fbFr;
 		sbhDms = new SbSingleHandler<DMS>(fbDms.getClassDms(),this);
 	}
-	
+
 	protected void postConstructDmsView(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
 								JeeslIoDmsFacade<L,D,LOC,DMS,FSTORAGE,ASET,DS,S,FILE,VIEW,FCONTAINER,ACONTAINER> fDms,
 								JeeslIoFrFacade<L,D,?,FSTORAGE,?,FENGINE,FCONTAINER,FMETA,FTYPE,?,?,?> fFr,
@@ -123,7 +123,7 @@ public abstract class AbstractDmsViewBean <L extends JeeslLang, D extends JeeslD
 		this.fFr=fFr;
 		this.fAttribute=fAttribute;
 		this.fileHandler=fileHandler;
-		
+
 		initPageConfiguration();
 		super.initLocales();
 		attributeHandler = fbAttribute.handler(bMessage,fAttribute,bAttribute,this);
@@ -131,8 +131,8 @@ public abstract class AbstractDmsViewBean <L extends JeeslLang, D extends JeeslD
 		sbhDms.silentCallback();
 	}
 	protected abstract void initPageConfiguration();
-	
-	
+
+
 	@Override @SuppressWarnings("unchecked")
 	public void selectSbSingle(EjbWithId item) throws JeeslLockingException, JeeslConstraintViolationException
 	{
@@ -142,13 +142,13 @@ public abstract class AbstractDmsViewBean <L extends JeeslLang, D extends JeeslD
 		reloadTree();
 		reset(true,true);
 	}
-	
+
 	private void reset(boolean rSection, boolean rFile)
 	{
 		if(rSection) {section=null;}
 		if(rFile) {file=null;}
 	}
-	
+
 	private void reloadTree()
 	{
 		if(debugOnInfo) {logger.info("Reloading Tree");}
@@ -156,7 +156,7 @@ public abstract class AbstractDmsViewBean <L extends JeeslLang, D extends JeeslD
 		tree = new DefaultTreeNode(root, null);
 		buildTree(tree,root.getSections());
 	}
-	
+
 	private void buildTree(TreeNode parent, List<S> sections)
 	{
 		for(S s : sections)
@@ -165,7 +165,7 @@ public abstract class AbstractDmsViewBean <L extends JeeslLang, D extends JeeslD
 			if(!s.getSections().isEmpty()) {buildTree(n,s.getSections());}
 		}
 	}
-	
+
 	public void onNodeExpand(NodeExpandEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}
     public void onNodeCollapse(NodeCollapseEvent event) {if(debugOnInfo) {logger.info("Collapsed "+event.getTreeNode().toString());}}
 
@@ -180,8 +180,8 @@ public abstract class AbstractDmsViewBean <L extends JeeslLang, D extends JeeslD
     		reloadFiles();
     		reset(false,true);
     }
-    
-    private void reloadFiles()
+
+    protected void reloadFiles()
     {
     		files = fDms.allForParent(fbDms.getClassFile(),section);
     }
@@ -194,7 +194,7 @@ public abstract class AbstractDmsViewBean <L extends JeeslLang, D extends JeeslD
     		attributeHandler.prepare(file);
     		fileHandler.init(dm.getStorage(),file);
     }
-    	
+
     public void saveFile() throws JeeslConstraintViolationException, JeeslLockingException
     {
     		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(file));}
@@ -202,7 +202,7 @@ public abstract class AbstractDmsViewBean <L extends JeeslLang, D extends JeeslD
     		reloadFiles();
     		attributeHandler.prepare(file);
     }
-    
+
     public void selectFile() throws JeeslConstraintViolationException, JeeslLockingException
     {
     		if(debugOnInfo) {logger.info(AbstractLogMessage.selectEntity((file)));}
@@ -210,19 +210,19 @@ public abstract class AbstractDmsViewBean <L extends JeeslLang, D extends JeeslD
     		attributeHandler.prepare(file);
     		fileHandler.init(dm.getStorage(),file);
     }
-    
+
 	@Override public void save(JeeslAttributeHandler<ACONTAINER> handler) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		file.setAttributeContainer(handler.saveContainer());
 		file = fAttribute.save(file);
 	}
-	
+
 	@Override public void callbackFrContainerSaved(EjbWithId id) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		file.setFrContainer(fileHandler.getContainer());
 		file = fFr.save(file);
 	}
 	@Override public void callbackFrMetaSelected() {}
-	
+
 	public void reorderFiles() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fDms, files);}
 }
