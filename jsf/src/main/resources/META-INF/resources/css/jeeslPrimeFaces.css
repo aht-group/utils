@@ -223,3 +223,14 @@ pre code {
 form > .jeeslPanel {
   box-sizing: border-box;
   height: 100%; }
+
+[class^="auGrid_"].height-balance-container, [class*=" auGrid_"].height-balance-container {
+  display: flex; }
+  [class^="auGrid_"].height-balance-container [class^="auGrid_"], [class^="auGrid_"].height-balance-container [class*=" auGrid_"], [class*=" auGrid_"].height-balance-container [class^="auGrid_"], [class*=" auGrid_"].height-balance-container [class*=" auGrid_"] {
+    box-sizing: content-box;
+    display: block;
+    margin-top: 0; }
+    [class^="auGrid_"].height-balance-container [class^="auGrid_"]:first-child, [class^="auGrid_"].height-balance-container [class*=" auGrid_"]:first-child, [class*=" auGrid_"].height-balance-container [class^="auGrid_"]:first-child, [class*=" auGrid_"].height-balance-container [class*=" auGrid_"]:first-child {
+      padding-left: 0; }
+    [class^="auGrid_"].height-balance-container [class^="auGrid_"]:last-child, [class^="auGrid_"].height-balance-container [class*=" auGrid_"]:last-child, [class*=" auGrid_"].height-balance-container [class^="auGrid_"]:last-child, [class*=" auGrid_"].height-balance-container [class*=" auGrid_"]:last-child {
+      padding-right: 0; }

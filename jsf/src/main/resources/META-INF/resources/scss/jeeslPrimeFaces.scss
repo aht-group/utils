@@ -303,3 +303,23 @@ form {
 		height: 100%;
 	}
 }
+
+[class^="auGrid_"], [class*=" auGrid_"] {
+	&.height-balance-container {
+	    display: flex;
+	
+		[class^="auGrid_"], [class*=" auGrid_"] {
+			box-sizing: content-box;
+			display: block;
+			margin-top: 0;
+			
+			&:first-child {
+				padding-left: 0;
+			}
+			
+			&:last-child {
+				padding-right: 0;
+			}
+		}
+	}
+}
