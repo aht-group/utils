@@ -66,15 +66,15 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractHdTicketBean.class);
-	
+
 	private final UiEditHandler<TICKET> editHandler; public UiEditHandler<TICKET> getEditHandler() {return editHandler;}
-	
+
 	private USER reporter;
-	
+
 	public AbstractHdTicketBean(HdFactoryBuilder<L,D,LOC,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,FRC,USER> fbHd)
 	{
 		super(fbHd);
-		
+
 		editHandler = new UiEditHandler<>();
 	}
 
@@ -87,31 +87,32 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 
 		this.reporter=reporter;
 	}
-	
+
 	@Override protected void updatedRealmReference()
-	{		
+	{
 		reloadTickets();
 	}
-	
+
 	@Override public void toggled(Class<?> c) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		// TODO Auto-generated method stub
 	}
-	
+
 	private void reloadTickets()
 	{
 		EjbHelpdeskQuery<L,D,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,USER> query = EjbHelpdeskQuery.build();
 		query.addReporter(reporter);
-		
+
 		tickets.clear();
 		tickets.addAll(fHd.fHdTickets(query));
 	}
-	
+
+	@Override
 	public void selectedTicket()
 	{
 		editHandler.update(ticket);
 	}
-	
+
 	public void addTicket() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info(AbstractLogMessage.addEntity(fbHd.getClassTicket()));
@@ -132,7 +133,7 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		}
 		return priorities.get(0);
 	}
-	
+
 	public void saveTicket() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		fbHd.ejbEvent().converter(fHd,lastEvent);
@@ -152,9 +153,25 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		}
 		reloadTickets();
 	}
-	
+
+	public void handleCategoryChange() {
+		logger.info("Category changed......");
+		editHandler.setVisible(false);
+		updateFaqSection();
+	}
+
+	public void faqNotFound() {
+		logger.info("Faq not found......");
+		editHandler.setVisible(true);
+
+	}
+
+	protected void updateFaqSection() {
+		logger.info("@Override updateFaqSection() as your current selection as lastEvent.getCategory().getCode() -> " + lastEvent.getCategory().getCode());
+	}
+
 	protected abstract void callBackNewTicket(TICKET ticket);
-	
+
 	@Override public void callbackFrContainerSaved(EjbWithId id) throws JeeslConstraintViolationException, JeeslLockingException{}
 	@Override public void callbackFrMetaSelected() {}
 }

@@ -6,6 +6,7 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:of="http://omnifaces.org/functions"
 	xmlns:j="http://www.jeesl.org/jsf" xmlns:jp="http://jsf.jeesl.org/prototype" xmlns:jtp="http://jsf.jeesl.org/prototype/tag"
 	xmlns:ofx="http://www.openfuxml.org/jsf"
+	xmlns:aht="http://ahtutils.sourceforge.net/jsf"
 	xmlns:composite="http://java.sun.com/jsf/composite">
 	
 	
@@ -102,29 +103,38 @@
 						<h:outputText value="#{cc.attrs.bean.firstEvent.record}"/>
 						
 						<p:outputLabel value="#{msg.jeeslHdCategory}"/>
-						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.category}" effect="fade" autoWidth="false">
-                        	<f:selectItems value="#{cc.attrs.bean.sbhCategory.list}" var="c" itemLabel="#{c.name[localeCode].lang}" itemValue="#{c}"/>
-                        </p:selectOneMenu>
-                        
-                        <p:outputLabel value="#{msg.jeeslHdPriority}"/>
-						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.reporterPriority}" effect="fade" autoWidth="false">
+						<p:column>
+							
+						<div>
+							<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.category}" effect="fade" autoWidth="false">
+								<p:ajax listener="#{cc.attrs.bean.handleCategoryChange()}" update=":#{cc.id}:sTicket"/>
+								<f:selectItems value="#{cc.attrs.bean.sbhCategory.list}" var="c" itemLabel="#{c.name[localeCode].lang}" itemValue="#{c}"/>
+							</p:selectOneMenu>
+						</div>
+
+						<div style="margin-top: -16px; margin-left: 390px; z-index: 10; opacity: 0.7; width: 10px;">
+							<j:svg type="jeeslExclamationMark" listener="#{cc.attrs.bean.faqNotFound()}" update=":#{cc.id}:sTicket" library="jeeslGfx" tooltip="#{msg.jeeslHdFaqNotFound}" rendered="#{cc.attrs.bean.editHandler.allow}"/>
+							</div>
+						</p:column>
+                        <p:outputLabel value="#{msg.jeeslHdPriority}" rendered="#{cc.attrs.bean.editHandler.visible}"/>
+						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.reporterPriority}" effect="fade" autoWidth="false" rendered="#{cc.attrs.bean.editHandler.visible}">
                         	<f:selectItems value="#{cc.attrs.bean.priorities}" var="p" itemLabel="#{p.name[localeCode].lang}" itemValue="#{p}"/>
                         </p:selectOneMenu>
                         
-                        <p:outputLabel value="#{msg.jeeslHdTicketName}"/>
-						<jtp:inputText value="#{cc.attrs.bean.ticket.name}" required="true"/>
+                        <p:outputLabel value="#{msg.jeeslHdTicketName}" rendered="#{cc.attrs.bean.editHandler.visible}"/>
+						<jtp:inputText value="#{cc.attrs.bean.ticket.name}" required="true"  rendered="#{cc.attrs.bean.editHandler.visible}"/>
 					</p:panelGrid>
-					<p:panelGrid columns="1" columnClasses="jeeslGrid100" rendered="#{cc.attrs.bean.editHandler.deny}">
+					<p:panelGrid columns="1" columnClasses="jeeslGrid100" rendered="#{cc.attrs.bean.editHandler.visible and cc.attrs.bean.editHandler.deny}" >
 						<ofx:outputSection value="#{cc.attrs.bean.ofxUser}"/>
 					</p:panelGrid>
-					<p:panelGrid columns="1" columnClasses="jeeslGrid100" rendered="#{cc.attrs.bean.editHandler.allow}">
+					<p:panelGrid columns="1" columnClasses="jeeslGrid100" rendered="#{cc.attrs.bean.editHandler.visible and cc.attrs.bean.editHandler.allow}">
 						<jtp:inputMarkup value="#{cc.attrs.bean.ticket.markupUser}"/>
 						<h:outputText value="Please do not upladed images in this text field. Preview:"/>
 						<ofx:outputSection value="#{cc.attrs.bean.ofxUser}"/>
 					</p:panelGrid>
 				</p:panel>
 			</h:form>
-			<h:panelGroup id="pgFr" layout="block">
+			<h:panelGroup id="pgFr" layout="block" rendered="#{cc.attrs.bean.editHandler.visible}">
 				<jp:ioFrFiles handler="#{cc.attrs.bean.frh}" overlay="false" componentPrefix="#{cc.id}"
 								allowDelete="#{cc.attrs.bean.editHandler.allow}" allowUpload="#{cc.attrs.bean.editHandler.allow}"
 								rendered="#{(not empty cc.attrs.bean.ticket) and (not empty cc.attrs.bean.frh)}"/>
