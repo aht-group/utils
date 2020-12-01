@@ -177,8 +177,8 @@ pre code {
 
 .auContainer [class^="auGrid_"],
 .auContainer [class*=" auGrid_"] {
-  margin: 10px 0 0;
-  padding: 0 5px 0; }
+  margin: 10px 5px 0;
+  box-sizing: border-box; }
   .auContainer [class^="auGrid_"] > *,
   .auContainer [class*=" auGrid_"] > * {
     box-sizing: border-box; }
@@ -224,13 +224,16 @@ form > .jeeslPanel {
   box-sizing: border-box;
   height: 100%; }
 
-[class^="auGrid_"].height-balance-container, [class*=" auGrid_"].height-balance-container {
-  display: flex; }
-  [class^="auGrid_"].height-balance-container [class^="auGrid_"], [class^="auGrid_"].height-balance-container [class*=" auGrid_"], [class*=" auGrid_"].height-balance-container [class^="auGrid_"], [class*=" auGrid_"].height-balance-container [class*=" auGrid_"] {
-    box-sizing: content-box;
+.height-balance-container {
+  display: flex;
+  padding: 0;
+  margin: 10px 5px 0; }
+  .height-balance-container > [class^="auGrid_"], .height-balance-container [class*=" auGrid_"] {
     display: block;
-    margin-top: 0; }
-    [class^="auGrid_"].height-balance-container [class^="auGrid_"]:first-child, [class^="auGrid_"].height-balance-container [class*=" auGrid_"]:first-child, [class*=" auGrid_"].height-balance-container [class^="auGrid_"]:first-child, [class*=" auGrid_"].height-balance-container [class*=" auGrid_"]:first-child {
-      padding-left: 0; }
-    [class^="auGrid_"].height-balance-container [class^="auGrid_"]:last-child, [class^="auGrid_"].height-balance-container [class*=" auGrid_"]:last-child, [class*=" auGrid_"].height-balance-container [class^="auGrid_"]:last-child, [class*=" auGrid_"].height-balance-container [class*=" auGrid_"]:last-child {
-      padding-right: 0; }
+    margin: 0 5px; }
+    .height-balance-container > [class^="auGrid_"]:first-child, .height-balance-container [class*=" auGrid_"]:first-child {
+      margin-left: 0; }
+    .height-balance-container > [class^="auGrid_"]:last-child, .height-balance-container [class*=" auGrid_"]:last-child {
+      margin-right: 0; }
+    .height-balance-container > [class^="auGrid_"] > *, .height-balance-container [class*=" auGrid_"] > * {
+      height: 100%; }

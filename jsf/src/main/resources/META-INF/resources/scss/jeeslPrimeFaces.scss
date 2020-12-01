@@ -267,8 +267,8 @@ pre {
 .auContainer {
 	[class^="auGrid_"],
 	[class*=" auGrid_"] {
-	    margin: 10px 0 0;
-		padding: 0 5px 0;
+	    margin: 10px 5px 0;
+		box-sizing: border-box;
 		
 		> * {
 			box-sizing: border-box;
@@ -304,22 +304,25 @@ form {
 	}
 }
 
-[class^="auGrid_"], [class*=" auGrid_"] {
-	&.height-balance-container {
-	    display: flex;
-	
-		[class^="auGrid_"], [class*=" auGrid_"] {
-			box-sizing: content-box;
-			display: block;
-			margin-top: 0;
-			
-			&:first-child {
-				padding-left: 0;
-			}
-			
-			&:last-child {
-				padding-right: 0;
-			}
+.height-balance-container {
+    display: flex;
+	padding: 0;
+	margin: 10px 5px 0;
+
+	> [class^="auGrid_"], [class*=" auGrid_"] {
+		display: block;
+		margin: 0 5px;
+		
+		&:first-child {
+			margin-left: 0;
+		}
+		
+		&:last-child {
+			margin-right: 0;
+		}
+		
+		> * {
+			height: 100%;
 		}
 	}
 }
