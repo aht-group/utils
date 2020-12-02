@@ -123,11 +123,6 @@
 								<f:selectItems value="#{cc.attrs.bean.sbhCategory.list}" var="c" itemLabel="#{c.name[localeCode].lang}" itemValue="#{c}"/>
 							</p:selectOneMenu>
 						</div>						
-						<!--
-							<div style="margin-top: -16px; margin-left: 390px; z-index: 10; opacity: 0.7; width: 10px;">
-							<j:svg type="jeeslExclamationMark" listener="#{cc.attrs.bean.faqNotFound()}" update=":#{cc.id}:sTicket" library="jeeslGfx" tooltip="#{msg.jeeslHdFaqNotFound}" rendered="#{cc.attrs.bean.editHandler.allow}"/>
-							</div>
-						-->
 						</p:column>
 						<p:column>
 							<p:commandButton  rendered="#{cc.attrs.bean.editHandler.visible == false}" value="#{msg.jeeslHdFaqNotFound}"   
