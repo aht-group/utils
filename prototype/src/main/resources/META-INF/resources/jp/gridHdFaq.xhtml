@@ -63,13 +63,14 @@
 				</p:panel>
 			</h:form>
 			<h:form id="fAnswers" rendered="#{(not empty cc.attrs.bean.faq) and (cc.attrs.bean.faq.id gt 0)}">
-				<p:dataTable var="a" value="#{cc.attrs.bean.answers}" draggableRows="false"
+				<p:dataTable var="a" value="#{cc.attrs.bean.answers}" draggableRows="true"
 								selection="#{cc.attrs.bean.fga}" selectionMode="single" rowKey="#{a.id}">
 					<f:facet name="header">
 						<j:dtHeader title="#{msg.jeeslHdFgas}">
 							<j:svg type="jeeslAdd" listener="#{cc.attrs.bean.addAnswer()}" update=":#{cc.id}:fAnswers :#{cc.id}:fAnswer" library="jeeslGfx"/>
 						</j:dtHeader>
 					</f:facet>
+					<p:ajax event="rowReorder" listener="#{cc.attrs.bean.reorderAnswers()}" update="@form"/>
 					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectAnswer()}" update=":#{cc.id}:fAnswer"/>
 					<p:column>  
 						<h:outputText value="#{a.position}"/>
@@ -106,9 +107,7 @@
 			</h:form>
 			<h:form id="fOfx" rendered="#{not empty cc.attrs.bean.faq}">
 				<ui:repeat var="a" value="#{cc.attrs.bean.answers}">
-			     	<p:panel header="#{a.section.name[localeCode].lang}">
-						<ofx:outputSection value="#{cc.attrs.ofxCache.buildBySection(localeCode,a.section)}"/>
-					</p:panel>
+			     	<ofx:panel section="#{cc.attrs.ofxCache.buildBySection(localeCode,a.section)}"/>
 		    	</ui:repeat>
 			</h:form>
 		</j:slot>

@@ -79,7 +79,7 @@ public class AbstractlIoTemplateHandler<L extends JeeslLang,D extends JeeslDescr
 		body = new HashMap<>();
 	}
 	
-	public void addLocale(LOC locale){this.locales.add(locale);}
+	public void addLocale(LOC locale){this.locales.add(locale);if(this.locale==null) {this.locale=locale;}}
 	public void addLocales(List<LOC> locales){this.locales.addAll(locales);}
 	
 	public void initDefinitions(List<DEFINITION> definitions)

@@ -39,7 +39,7 @@ public class JeeslRestClient
 			CredentialsProvider credsProvider = new BasicCredentialsProvider();
 			credsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(credentials.getUser(), credentials.getPassword()));
 
-			HttpHost targetHost = new HttpHost("hmis.moh.gov.rw", 443, "https");
+			HttpHost targetHost = new HttpHost(credentials.getHost(), 443, "https");
 			AuthCache authCache = new BasicAuthCache();
 			authCache.put(targetHost, new BasicScheme());
 			
@@ -50,9 +50,16 @@ public class JeeslRestClient
 		client = HttpClientBuilder.create().build();
 	}
 	
+	public String plain(String url) throws ClientProtocolException, IOException
+	{
+		HttpGet httpGet = new HttpGet(url);
+		logger.info(url);
+		HttpResponse httpRespnse = client.execute(httpGet,context);
+		return EntityUtils.toString(httpRespnse.getEntity(),"UTF-8");
+	}
+	
 	public <T extends Object> T json(Class<T> c, String url) throws ClientProtocolException, IOException
 	{
-//		return json(1,c,url);
 		HttpGet httpGet = new HttpGet(url);
 		logger.info(url);
 		HttpResponse httpRespnse = client.execute(httpGet,context);
