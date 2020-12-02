@@ -162,7 +162,7 @@ div.timeline-frame {background-color: #f1f1f1; margin-left: -14px; margin-top: -
 
 .jeeslPanel * .ui-widget-header .ui-inputfield, .jeeslPanel * .ui-widget-content .ui-inputfield {
 	border: 0;
-	//white-space: normal;
+	/*white-space: normal;*/
 	overflow: hidden;
 	font-weight: normal;
 	width: 85%;
