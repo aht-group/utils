@@ -1,15 +1,21 @@
 package org.jeesl.web.mbean.prototype.module.hd;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.event.ValueChangeEvent;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.callback.JeeslFileRepositoryCallback;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
+import org.jeesl.api.facade.io.JeeslIoCmsFacade;
 import org.jeesl.api.facade.module.JeeslHdFacade;
 import org.jeesl.controller.handler.ui.UiEditHandler;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.factory.builder.io.IoCmsFactoryBuilder;
 import org.jeesl.factory.builder.module.HdFactoryBuilder;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCms;
@@ -70,21 +76,36 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 	private final UiEditHandler<TICKET> editHandler; public UiEditHandler<TICKET> getEditHandler() {return editHandler;}
 
 	private USER reporter;
+	private  List<FAQ> faqs; public List<FAQ> getFaqs() {return faqs;}
+	private List<FGA> answers; public List<FGA> getAnswers() {return answers;}
+	private List<SEC> sections; public List<SEC> getSections() {return sections;}
+	private JeeslIoCmsFacade<L,D,LOC,?,DOC,?,SEC,?,?,?,?,?,?,?> fCms;
+	private final IoCmsFactoryBuilder<L,D,LOC,?,DOC,?,SEC,?,?,?,?,?,?,?> fbCms;
+	private List<FAQ> allFaq;
+	private FAQ faq; public FAQ getFaq() {return faq;} public void setFaq(FAQ faq) {this.faq = faq;}
+	private FGA fga; public FGA getFga() {return fga;} public void setFga(FGA fga) {this.fga = fga;}
+	private CAT selectedCat; public CAT getSelectedCat() {return selectedCat;} public void setSelectedCat(CAT selectedCat) {this.selectedCat = selectedCat;}
 
-	public AbstractHdTicketBean(HdFactoryBuilder<L,D,LOC,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,FRC,USER> fbHd)
+	public AbstractHdTicketBean(HdFactoryBuilder<L,D,LOC,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,FRC,USER> fbHd,
+			IoCmsFactoryBuilder<L,D,LOC,?,DOC,?,SEC,?,?,?,?,?,?,?> fbCms)
 	{
 		super(fbHd);
-
-		editHandler = new UiEditHandler<>();
+		this.fbCms=fbCms;
+		this.editHandler = new UiEditHandler<>();
+		faqs = new ArrayList<>();
+		answers = new ArrayList<>();
+		sections = new ArrayList<>();
 	}
 
 	protected void postConstructHdTicket(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
 									JeeslHdFacade<L,D,LOC,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,USER> fHd,
+									JeeslIoCmsFacade<L,D,LOC,?,DOC,?,SEC,?,?,?,?,?,?,?> fCms,
 									R realm,
 									USER reporter)
 	{
 		super.postConstructHd(bTranslation,bMessage,fHd,realm);
-
+		this.fCms=fCms;
+		allFaq = fHd.all(fbHd.getClassFaq());
 		this.reporter=reporter;
 	}
 
@@ -107,21 +128,33 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		tickets.addAll(fHd.fHdTickets(query));
 	}
 
+	private void reloadFaqs()
+	{
+		faqs.clear();
+		logger.info("reloading  faqs.... we have in total " + allFaq.size() + " faqs");
+		for (FAQ faq : allFaq) {
+			if(faq.getCategory().equals(selectedCat)) {faqs.add(faq);}
+		}
+		logger.info("faqs.... in selected category total " + faqs.size() + " faqs");
+	}
+
 	@Override
 	public void selectedTicket()
 	{
-		editHandler.update(ticket);
+		this.editHandler.update(ticket);
 	}
 
 	public void addTicket() throws JeeslConstraintViolationException, JeeslLockingException
 	{
-		logger.info(AbstractLogMessage.addEntity(fbHd.getClassTicket()));
+		logger.info("addTicket......" + AbstractLogMessage.addEntity(fbHd.getClassTicket()));
 		MT type = fHd.fByEnum(fbHd.getClassMarkupType(),JeeslIoCmsMarkupType.Code.xhtml);
 		ticket = fbHd.ejbTicket().build(realm,rref,type);
 		PRIORITY priority = getDefaultPriority();
 		firstEvent = fbHd.ejbEvent().build(ticket,sbhCategory.getList().get(0),sbhStatus.getList().get(0),levels.get(0),priority,reporter);
 		lastEvent = fbHd.ejbEvent().build(ticket,sbhCategory.getList().get(0),sbhStatus.getList().get(0),levels.get(0),priority,reporter);
-		editHandler.update(ticket);
+		selectedCat = sbhCategory.getList().get(0);
+		updateFaqSection();
+		this.editHandler.update(ticket);
 		ofxUser = XmlSectionFactory.build();
 		if(frh!=null) {frh.init(ticket);}
 	}
@@ -143,7 +176,7 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 			callBackNewTicket(ticket);
 		}
 		else {ticket = fHd.save(ticket);}
-		editHandler.saved(ticket);
+		this.editHandler.saved(ticket);
 		ofxUser = ofxMarkup.build(ticket.getMarkupUser());
 		if(frh!=null)
 		{
@@ -154,20 +187,54 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		reloadTickets();
 	}
 
-	public void handleCategoryChange() {
+	public void handleCategoryChange(ValueChangeEvent event) {
 		logger.info("Category changed......");
+		selectedCat =  (CAT)event.getNewValue();
 		editHandler.setVisible(false);
 		updateFaqSection();
+		this.faq = null;
+		this.answers = new ArrayList<>();
+		this.sections = new ArrayList<>();
 	}
 
 	public void faqNotFound() {
-		logger.info("Faq not found......");
-		editHandler.setVisible(true);
+		logger.info("Faq not found...... setting visible.....");
+		this.editHandler.setVisible(true);
 
 	}
 
 	protected void updateFaqSection() {
-		logger.info("@Override updateFaqSection() as your current selection as lastEvent.getCategory().getCode() -> " + lastEvent.getCategory().getCode());
+		logger.info("Category =  " + selectedCat.toString());
+		logger.info("Category id =  " + selectedCat.getId());
+		reloadFaqs();
+	}
+
+	public void selectFaq()
+	{
+		fga=null;
+		sections.clear();
+		logger.info(AbstractLogMessage.selectEntity(faq));
+		faq = efLang.persistMissingLangs(fHd,bTranslation.getLocales(),faq);
+		faq = efDescription.persistMissingLangs(fHd,bTranslation.getLocales(),faq);
+		reloadAnswers();
+	}
+
+	private void reloadAnswers()
+	{
+		answers.clear();
+		answers.addAll(fHd.allForParent(fbHd.getClassFga(), faq));
+	}
+	public void selectAnswer()
+	{
+		logger.info(AbstractLogMessage.selectEntity(fga));
+		sections.clear();
+		reloadSections();
+	}
+
+	public void reloadSections()
+	{
+		SEC root = fCms.load(fga.getDocument().getRoot(),true);
+		sections.addAll(fbCms.ejbSection().toSections(root));
 	}
 
 	protected abstract void callBackNewTicket(TICKET ticket);
