@@ -187,6 +187,39 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		reloadTickets();
 	}
 
+	public void disableTicket() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
+	{
+		fbHd.ejbEvent().converter(fHd,lastEvent);
+		PRIORITY priority = getDefaultPriority();
+		STATUS status = fHd.fByCode(fbHd.getClassTicketStatus(),realm,rref,"discarded");
+		lastEvent = fbHd.ejbEvent().build(ticket,ticket.getLastEvent().getCategory(),status,levels.get(0),priority,reporter);
+		//update status
+		ticket.setLastEvent(lastEvent);
+
+		ticket = fHd.save(ticket);
+		this.editHandler.saved(ticket);
+		ofxUser = ofxMarkup.build(ticket.getMarkupUser());
+		if(frh!=null)
+		{
+			frh.saveDeferred(ticket);
+			ticket.setFrContainer(frh.getContainer());
+			ticket = fHd.save(ticket);
+		}
+		reloadTickets();
+	}
+
+	public boolean showDisableButton() {
+		if(ticket != null && ticket.getId() > 0) {
+			logger.info (ticket.getLastEvent().getStatus().getCode());
+			if(!ticket.getLastEvent().getStatus().getCode().equals("discarded")) {
+				return true;
+		}
+			return false;
+		}
+		return false;
+	}
+
+
 	public void handleCategoryChange(ValueChangeEvent event) {
 		logger.info("Category changed......");
 		selectedCat =  (CAT)event.getNewValue();
