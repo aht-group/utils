@@ -6,6 +6,7 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:of="http://omnifaces.org/functions"
 	xmlns:j="http://www.jeesl.org/jsf" xmlns:jp="http://jsf.jeesl.org/prototype" xmlns:jtp="http://jsf.jeesl.org/prototype/tag"
 	xmlns:ofx="http://www.openfuxml.org/jsf"
+	xmlns:aht="http://ahtutils.sourceforge.net/jsf"
 	xmlns:composite="http://java.sun.com/jsf/composite">
 	
 	
@@ -22,7 +23,7 @@
 								selection="#{cc.attrs.bean.ticket}" selectionMode="single" rowKey="#{t.id}">
 					<f:facet name="header">
 						<j:dtHeader title="#{msg.jeeslHdTickets}">
-							<j:svg type="jeeslAdd" listener="#{cc.attrs.bean.addTicket()}" update=":#{cc.id}:sTicket :#{cc.id}:fProgress" library="jeeslGfx"/>
+							<j:svg type="jeeslAdd" listener="#{cc.attrs.bean.addTicket()}" update=":#{cc.id}:sTicket :#{cc.id}:sTickets" library="jeeslGfx"/>
 						</j:dtHeader>
 					</f:facet>
 					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectTicket()}" update=":#{cc.id}:sTicket :#{cc.id}:fProgress"/>
@@ -39,7 +40,7 @@
 					</p:column>
 			   	</p:dataTable>
 			</h:form>
-			<h:form id="fProgress" >
+			<h:form id="fProgress" rendered="#{cc.attrs.bean.ticket !=null and cc.attrs.bean.ticket.id !=null and cc.attrs.bean.ticket.id !=0}">
 				<p:panel header="#{msg.jeeslHdTicketProgress}" styleClass="jeeslPanel" rendered="#{not empty cc.attrs.bean.ticket}">
 					<f:facet name="actions">
 						
@@ -63,6 +64,18 @@
 						
 					</p:panelGrid>
 				</p:panel>
+			</h:form>
+			<h:form id="fFaqs" rendered="#{cc.attrs.bean.ticket !=null and cc.attrs.bean.selectedCat !=null}">
+				<p:dataTable var="faq" value="#{cc.attrs.bean.faqs}" draggableRows="false"
+								selection="#{cc.attrs.bean.faq}" selectionMode="single" rowKey="#{faq.id}">
+					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectFaq()}" update=":#{cc.id}:sTicket"/>
+					<p:column styleClass="jeeslCenter">  
+						<jtp:symbolizer value="#{faq.scope}"/>
+					</p:column>
+					<p:column headerText="#{msg.jeeslHdFaqTopic}">  
+						<h:outputText value="#{faq.name[localeCode].lang}"/>
+					</p:column>
+			   	</p:dataTable>
 			</h:form>
 		</j:slot>
 		<j:slot id="sTicket" width="8">
@@ -102,33 +115,71 @@
 						<h:outputText value="#{cc.attrs.bean.firstEvent.record}"/>
 						
 						<p:outputLabel value="#{msg.jeeslHdCategory}"/>
-						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.category}" effect="fade" autoWidth="false">
-                        	<f:selectItems value="#{cc.attrs.bean.sbhCategory.list}" var="c" itemLabel="#{c.name[localeCode].lang}" itemValue="#{c}"/>
-                        </p:selectOneMenu>
-                        
-                        <p:outputLabel value="#{msg.jeeslHdPriority}"/>
-						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.reporterPriority}" effect="fade" autoWidth="false">
+						<p:column>
+							
+						<div>
+							<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.category}" effect="fade" autoWidth="false" valueChangeListener="#{cc.attrs.bean.handleCategoryChange}">
+								<p:ajax event="valueChange" immediate="true" process="@this"  update=":#{cc.id}:sTickets :#{cc.id}:sTicket"/>
+								<f:selectItems value="#{cc.attrs.bean.sbhCategory.list}" var="c" itemLabel="#{c.name[localeCode].lang}" itemValue="#{c}"/>
+							</p:selectOneMenu>
+						</div>						
+						</p:column>
+						<p:column>
+							<p:commandButton  rendered="#{cc.attrs.bean.editHandler.visible == false}" value="#{msg.jeeslHdFaqNotFound}"   
+							actionListener="#{cc.attrs.bean.faqNotFound()}" update=":#{cc.id}:sTicket" icon="ui-icon-disk" />
+						</p:column>
+						 <p:column><p:outputLabel value="#{cc.attrs.bean.editHandler.visible}"/></p:column>
+						 
+                        <p:outputLabel value="#{msg.jeeslHdPriority}" rendered="#{cc.attrs.bean.editHandler.visible}"/>
+						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.reporterPriority}" effect="fade" autoWidth="false" rendered="#{cc.attrs.bean.editHandler.visible}">
                         	<f:selectItems value="#{cc.attrs.bean.priorities}" var="p" itemLabel="#{p.name[localeCode].lang}" itemValue="#{p}"/>
                         </p:selectOneMenu>
                         
-                        <p:outputLabel value="#{msg.jeeslHdTicketName}"/>
-						<jtp:inputText value="#{cc.attrs.bean.ticket.name}" required="true"/>
+                        <p:outputLabel value="#{msg.jeeslHdTicketName}" rendered="#{cc.attrs.bean.editHandler.visible}"/>
+						<jtp:inputText value="#{cc.attrs.bean.ticket.name}" required="true"  rendered="#{cc.attrs.bean.editHandler.visible}"/>
 					</p:panelGrid>
-					<p:panelGrid columns="1" columnClasses="jeeslGrid100" rendered="#{cc.attrs.bean.editHandler.deny}">
+					<p:panelGrid columns="1" columnClasses="jeeslGrid100" rendered="#{cc.attrs.bean.editHandler.visible and cc.attrs.bean.editHandler.deny}" >
 						<ofx:outputSection value="#{cc.attrs.bean.ofxUser}"/>
 					</p:panelGrid>
-					<p:panelGrid columns="1" columnClasses="jeeslGrid100" rendered="#{cc.attrs.bean.editHandler.allow}">
+					<p:panelGrid columns="1" columnClasses="jeeslGrid100" rendered="#{cc.attrs.bean.editHandler.visible and cc.attrs.bean.editHandler.allow}">
 						<jtp:inputMarkup value="#{cc.attrs.bean.ticket.markupUser}"/>
 						<h:outputText value="Please do not upladed images in this text field. Preview:"/>
 						<ofx:outputSection value="#{cc.attrs.bean.ofxUser}"/>
 					</p:panelGrid>
 				</p:panel>
+				
 			</h:form>
-			<h:panelGroup id="pgFr" layout="block">
+			<h:panelGroup id="pgFr" layout="block" rendered="#{cc.attrs.bean.editHandler.visible}">
 				<jp:ioFrFiles handler="#{cc.attrs.bean.frh}" overlay="false" componentPrefix="#{cc.id}"
 								allowDelete="#{cc.attrs.bean.editHandler.allow}" allowUpload="#{cc.attrs.bean.editHandler.allow}"
 								rendered="#{(not empty cc.attrs.bean.ticket) and (not empty cc.attrs.bean.frh)}"/>
 			</h:panelGroup>
+			
+			
+			<h:form id="fAnswers" rendered="#{(not empty cc.attrs.bean.faq) and (cc.attrs.bean.faq.id gt 0)}">
+				<p:dataTable var="a" value="#{cc.attrs.bean.answers}" draggableRows="false"
+								selection="#{cc.attrs.bean.fga}" selectionMode="single" rowKey="#{a.id}">
+					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectAnswer()}" update=":#{cc.id}:sTicket"/>
+					<p:column>  
+						<h:outputText value="#{a.position}"/>
+					</p:column>
+					<p:column headerText="#{msg.jeeslHdFgaDocument}">  
+						<h:outputText value="#{a.document.name[localeCode].lang}"/>
+					</p:column>
+					<p:column headerText="#{msg.jeeslHdFgaSection}">  
+						<h:outputText value="#{a.section.name[localeCode].lang}"/>
+					</p:column>
+			   	</p:dataTable>
+			</h:form>
+					
+			<h:form id="fOfx" rendered="#{not empty cc.attrs.bean.faq}">
+				<ui:repeat var="a" value="#{cc.attrs.bean.answers}">
+			     	<p:panel header="#{a.section.name[localeCode].lang}">
+						<ofx:outputSection value="#{cc.attrs.ofxCache.buildBySection(localeCode,a.section)}"/>
+					</p:panel>
+		    	</ui:repeat>
+			</h:form>
+			
 		</j:slot>
 	</j:row>
 </jp:grid>

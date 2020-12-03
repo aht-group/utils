@@ -193,5 +193,11 @@ public class AbstractJeeslFacadeBean implements JeeslFacade
 	//Visibility
 	@Override public <T extends EjbWithVisible, P extends EjbWithId> List<T> allVisible(Class<T> cl) {return fJeesl.allVisible(cl);}
 
+	@Override
+	public <L extends JeeslLang, T extends EjbWithId> List<T> fByNameAndLang(Class<T> type, Class<L> langType,
+			String lang, String name) throws JeeslNotFoundException {
+		return fJeesl.fByNameAndLang(type, langType, lang, name);
+	}
+
 	//@Override public <L extends UtilsLang, D extends UtilsDescription, C extends UtilsSecurityCategory<L, D, C, R, V, U, A, USER>, R extends UtilsSecurityRole<L, D, C, R, V, U, A, USER>, V extends UtilsSecurityView<L, D, C, R, V, U, A, USER>, U extends UtilsSecurityUsecase<L, D, C, R, V, U, A, USER>, A extends UtilsSecurityAction<L, D, C, R, V, U, A, USER>, USER extends UtilsUser<L, D, C, R, V, U, A, USER>> List<USER> likeNameFirstLast(Class<USER> c, String query) {return fUtils.likeNameFirstLast(c,query);}
 }

@@ -162,4 +162,6 @@ public interface JeeslFacade extends JeeslIdFacade
 	//User
 //	<L extends UtilsLang,D extends UtilsDescription,C extends UtilsSecurityCategory<L,D,C,R,V,U,A,AT,USER>,R extends UtilsSecurityRole<L,D,C,R,V,U,A,AT,USER>,V extends UtilsSecurityView<L,D,C,R,V,U,A,AT,USER>,U extends UtilsSecurityUsecase<L,D,C,R,V,U,A,AT,USER>,A extends UtilsSecurityAction<L,D,C,R,V,U,A,AT,USER>, USER extends UtilsUser<L,D,C,R,V,U,A,AT,USER>> List<USER> likeNameFirstLast(Class<USER> c, String query);
 	<T extends EjbWithEmail> T fByEmail(Class<T> clazz, String email) throws JeeslNotFoundException;
+	<L extends JeeslLang,T extends EjbWithId> List<T> fByNameAndLang(Class<T> type, Class<L> langType,  String lang, String name ) throws JeeslNotFoundException;
+
 }

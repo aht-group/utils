@@ -177,8 +177,8 @@ pre code {
 
 .auContainer [class^="auGrid_"],
 .auContainer [class*=" auGrid_"] {
-  margin: 10px 0 0;
-  padding: 0 5px 0; }
+  margin: 10px 5px 0;
+  box-sizing: border-box; }
   .auContainer [class^="auGrid_"] > *,
   .auContainer [class*=" auGrid_"] > * {
     box-sizing: border-box; }
@@ -219,3 +219,21 @@ pre code {
     box-sizing: border-box;
     height: calc(100% - 35px - .8em) !important;
     margin-bottom: 18px; }
+
+form > .jeeslPanel {
+  box-sizing: border-box;
+  height: 100%; }
+
+.height-balance-container {
+  display: flex;
+  padding: 0;
+  margin: 10px 5px 0; }
+  .height-balance-container > [class^="auGrid_"], .height-balance-container [class*=" auGrid_"] {
+    display: block;
+    margin: 0 5px; }
+    .height-balance-container > [class^="auGrid_"]:first-child, .height-balance-container [class*=" auGrid_"]:first-child {
+      margin-left: 0; }
+    .height-balance-container > [class^="auGrid_"]:last-child, .height-balance-container [class*=" auGrid_"]:last-child {
+      margin-right: 0; }
+    .height-balance-container > [class^="auGrid_"] > *, .height-balance-container [class*=" auGrid_"] > * {
+      height: 100%; }

@@ -14,17 +14,20 @@ public class UiEditHandler <T extends EjbWithId> implements Serializable
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(UiEditHandler.class);
 
-	private final Set<T> set; 
-	
+	private final Set<T> set;
+
 	private boolean allow; public boolean isAllow() {return allow;}
+	private boolean visible = false; public boolean isVisible() {return visible;} public void setVisible(boolean visible) {this.visible = visible;}
+
 	public boolean isDeny() {return !allow;}
 
 	public UiEditHandler()
 	{
 		set = new HashSet<>();
+		this.visible=false;
 		reset();
 	}
-	
+
 	private void reset()
 	{
 		set.clear();
@@ -37,9 +40,9 @@ public class UiEditHandler <T extends EjbWithId> implements Serializable
 		else
 		{
 			allow = set.contains(item);
-		}	
+		}
 	}
-	
+
 	public void saved(T item)
 	{
 		set.add(item);

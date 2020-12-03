@@ -161,6 +161,13 @@
     		<s:lang key="en" translation="Section"/>
     		<s:lang key="fr" translation="Section"/>
     	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslHdFaqNotFound">
+    	<s:langs>
+    		<s:lang key="de" translation="Faq not found"/>
+    		<s:lang key="en" translation="Faq not found"/>
+    		<s:lang key="fr" translation="Faq not found"/>
+    	</s:langs>
     </s:translation> 
     
 </s:translations>

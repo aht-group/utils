@@ -39,17 +39,17 @@ public abstract class AbstractRewriteProvider <L extends JeeslLang, D extends Je
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractRewriteProvider.class);
-	
+
 	protected boolean debugOnInfo; public void setDebugOnInfo(boolean debugOnInfo) {this.debugOnInfo = debugOnInfo;}
 
 	private JeeslSecurityBean<L,D,C,R,V,U,A,AT,M,USER> bSecurity;
-		
+
 	private U usecase; public U getUsecase(){return usecase;} public void setUsecase(U usecase){this.usecase = usecase;}
-	
+
 	protected String forwardDeactivated;
 	protected String forwardLogin;
 	protected String forwardDenied;
-	
+
 	public AbstractRewriteProvider(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,?,?,?,?,?,USER> fbSecurity)
 	{
 		debugOnInfo = false;
@@ -57,12 +57,12 @@ public abstract class AbstractRewriteProvider <L extends JeeslLang, D extends Je
 		forwardLogin = "/jsf/settings/system/security/access/loginRequired.xhtml";
 		forwardDenied = "/jsf/settings/system/security/access/denied.xhtml";
 	}
-	
+
 	public void postConstruct(JeeslSecurityBean<L,D,C,R,V,U,A,AT,M,USER> bSecurity)
 	{
 		this.bSecurity=bSecurity;
 	}
-	
+
 	protected ConfigurationBuilder build(Condition pageActive, Condition notLoggedIn, Condition pageDenied)
 	{
 		ConfigurationBuilder config = ConfigurationBuilder.begin();
@@ -71,17 +71,18 @@ public abstract class AbstractRewriteProvider <L extends JeeslLang, D extends Je
 		for(V view : views)
 		{
 			logger.debug("Building Rule for "+view.toString());
-			
+			if(view.getViewPattern() !=null && view.getUrlMapping() !=null && view.getViewPattern().contains("/") && view.getUrlMapping().contains("/")) {
 			config = config.addRule(Join.path(view.getViewPattern()).to(forwardDeactivated)).when(Direction.isInbound().andNot(pageActive));
 			config = config.addRule(Join.path(view.getUrlMapping()).to(forwardDeactivated)).when(Direction.isInbound().andNot(pageActive));
-			
+
 			config = config.addRule(Join.path(view.getViewPattern()).to(forwardLogin)).when(Direction.isInbound().and(notLoggedIn));
 			config = config.addRule(Join.path(view.getUrlMapping()).to(forwardLogin)).when(Direction.isInbound().and(notLoggedIn));
-			
+
 			config = config.addRule(Join.path(view.getViewPattern()).to(forwardDenied)).when(Direction.isInbound().and(pageDenied));
 			config = config.addRule(Join.path(view.getUrlMapping()).to(forwardDenied)).when(Direction.isInbound().and(pageDenied));
-			
+
 			config = config.addRule(Join.path(view.getUrlMapping()).to(view.getViewPattern())).when(Direction.isInbound().and(pageActive));
+			}
 		}
 		logger.info("Rules created for "+views.size()+" Views");
 		return config;
