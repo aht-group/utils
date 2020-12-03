@@ -36,6 +36,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.jsf.handler.PositionListReorderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -215,4 +216,6 @@ public abstract class AbstractHdFaqBean <L extends JeeslLang, D extends JeeslDes
 		reset(false,true,true);
 		reloadAnswers();
 	}
+	
+	public void reorderAnswers() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fHd,answers);}
 }
