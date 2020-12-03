@@ -17,14 +17,14 @@ public class UiEditHandler <T extends EjbWithId> implements Serializable
 	private final Set<T> set;
 
 	private boolean allow; public boolean isAllow() {return allow;}
-	private boolean visible; public boolean isVisible() {return visible;} public void setVisible(boolean visible) {this.visible = visible;}
+	private boolean visible = false; public boolean isVisible() {return visible;} public void setVisible(boolean visible) {this.visible = visible;}
 
 	public boolean isDeny() {return !allow;}
 
 	public UiEditHandler()
 	{
 		set = new HashSet<>();
-		visible=false;
+		this.visible=false;
 		reset();
 	}
 

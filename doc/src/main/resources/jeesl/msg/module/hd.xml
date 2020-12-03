@@ -169,5 +169,11 @@
     		<s:lang key="fr" translation="Faq not found"/>
     	</s:langs>
     </s:translation> 
-    
+        <s:translation key="jeeslHdDisable">
+    	<s:langs>
+    		<s:lang key="de" translation="Disable"/>
+    		<s:lang key="en" translation="Disable"/>
+    		<s:lang key="fr" translation="Disable"/>
+    	</s:langs>
+    </s:translation> 
 </s:translations>
