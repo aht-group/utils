@@ -9,6 +9,7 @@
 
     <c:set var="entity" value="#{entity}"/>
     <c:set var="code" value="#{code}"/>
+    <c:set var="defaultValue" value="#{entity}:#{code}"/>
     <c:set var="loc" value="#{not empty loc ? loc : localeCode}"/>
     <c:set var="rendered" value="#{not empty rendered ? rendered : true}"/>
     <c:set var="for" value="#{for}"/>
@@ -18,7 +19,7 @@
     <c:set var="bean" value="#{bean}"/>
     <c:set var="mandatory" value="#{not empty mandatory ? mandatory : false}"/>
 
-    <p:outputLabel rendered="#{rendered and (not empty code)}" value="#{appLabelBean.labels[entity][code][loc].lang}" class="#{mandatory ? 'mandatory' : ''}">
+    <p:outputLabel rendered="#{rendered and (not empty code)}" value="#{not empty appLabelBean.labels[entity][code][loc].lang ? appLabelBean.labels[entity][code][loc].lang : defaultValue}" class="#{mandatory ? 'mandatory' : ''}">
         <!--<c:if test="#{id}"><f:attribute name="id" value="olwithOverlay"/></c:if>-->
         <c:if test="#{not empty for}"><f:attribute name="for" value="#{for}"/></c:if>
         <c:if test="#{info}">
@@ -26,7 +27,7 @@
             <f:attribute name="id" value="#{id}"/>
         </c:if>
     </p:outputLabel>
-    <p:outputLabel rendered="#{rendered and (empty code)}" value="#{appLabelBean.entities[entity][loc].lang}">
+    <p:outputLabel rendered="#{rendered and (empty code)}" value="#{not empty appLabelBean.entities[entity][loc].lang ? appLabelBean.entities[entity][loc].lang : defaultValue}">
         <c:if test="#{not empty for}"><f:attribute name="for" value="#{for}"/></c:if>
     </p:outputLabel>
 
