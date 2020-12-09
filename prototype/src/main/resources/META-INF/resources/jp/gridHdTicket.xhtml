@@ -12,6 +12,7 @@
 	
 	<composite:interface>
 		<composite:attribute name="bean" required="true"/>
+		<composite:attribute name="ofxCache" required="false" default="#{appCmsCacheBean}"/>
 	</composite:interface>
 	
 	<composite:implementation>
@@ -23,10 +24,10 @@
 								selection="#{cc.attrs.bean.ticket}" selectionMode="single" rowKey="#{t.id}">
 					<f:facet name="header">
 						<j:dtHeader title="#{msg.jeeslHdTickets}">
-							<j:svg type="jeeslAdd" listener="#{cc.attrs.bean.addTicket()}" update=":#{cc.id}:sTicket :#{cc.id}:sTickets" library="jeeslGfx"/>
+							<j:svg type="jeeslAdd" listener="#{cc.attrs.bean.addTicket()}" update=":#{cc.id}:sTicket :#{cc.id}:sFaqs" library="jeeslGfx"/>
 						</j:dtHeader>
 					</f:facet>
-					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectTicket()}" update=":#{cc.id}:sTicket :#{cc.id}:fProgress"/>
+					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectTicket()}" update=":#{cc.id}:sTicket :#{cc.id}:fProgress :#{cc.id}:sFaqs :#{cc.id}:sAnswers"/>
 					<p:column headerText="#{msg.jeeslHdRecord}">
 						<jtp:symbolizer value="#{t.lastEvent.status}" marginRight="5"/>
 						<jp:outputDate value="#{t.firstEvent.record}"/>
@@ -64,20 +65,8 @@
 					</p:panelGrid>
 				</p:panel>
 			</h:form>
-			<h:form id="fFaqs" rendered="#{cc.attrs.bean.ticket !=null and cc.attrs.bean.selectedCat !=null}">
-				<p:dataTable var="faq" value="#{cc.attrs.bean.faqs}" draggableRows="false"
-								selection="#{cc.attrs.bean.faq}" selectionMode="single" rowKey="#{faq.id}">
-					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectFaq()}" update=":#{cc.id}:sTicket"/>
-					<p:column styleClass="jeeslCenter">  
-						<jtp:symbolizer value="#{faq.scope}"/>
-					</p:column>
-					<p:column headerText="#{msg.jeeslHdFaqTopic}">  
-						<h:outputText value="#{faq.name[localeCode].lang}"/>
-					</p:column>
-			   	</p:dataTable>
-			</h:form>
 		</j:slot>
-		<j:slot id="sTicket" width="7">
+		<j:slot id="sTicket" width="8">
 			<h:form id="fTicket" rendered="#{not empty cc.attrs.bean.ticket}">
 				<p:panel header="#{msg.jeeslHdTicket}" styleClass="jeeslPanel">
 					<f:facet name="actions">
@@ -115,19 +104,17 @@
 						
 						<p:outputLabel value="#{msg.jeeslHdCategory}"/>
 						<p:column>
-							
-						<div>
-							<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.category}" effect="fade" autoWidth="false" valueChangeListener="#{cc.attrs.bean.handleCategoryChange}">
-								<p:ajax event="valueChange" immediate="true" process="@this"  update=":#{cc.id}:sTickets :#{cc.id}:sTicket"/>
+							<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.category}" effect="fade" autoWidth="false">
+								<p:ajax event="change" listener="#{cc.attrs.bean.handleCategoryChange()}" update=":#{cc.id}:sFaqs :#{cc.id}:sTicket"/>
 								<f:selectItems value="#{cc.attrs.bean.sbhCategory.list}" var="c" itemLabel="#{c.name[localeCode].lang}" itemValue="#{c}"/>
 							</p:selectOneMenu>
-						</div>						
 						</p:column>
+						<p:column/>
 						<p:column>
-							<p:commandButton  rendered="#{cc.attrs.bean.editHandler.visible == false}" value="#{msg.jeeslHdFaqNotFound}"   
-							actionListener="#{cc.attrs.bean.faqNotFound()}" update=":#{cc.id}:sTicket" />
+							<p:commandButton  rendered="#{not cc.attrs.bean.editHandler.visible}" value="#{msg.jeeslHdFaqNotFound}"   
+							actionListener="#{cc.attrs.bean.faqNotFound()}" update=":#{cc.id}:sTicket" style="float:right"/>
 						</p:column>
-						<p:column></p:column>
+						
 						 
                         <p:outputLabel value="#{msg.jeeslHdPriority}" rendered="#{cc.attrs.bean.editHandler.visible}"/>
 						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.reporterPriority}" effect="fade" autoWidth="false" rendered="#{cc.attrs.bean.editHandler.visible}">
@@ -147,7 +134,7 @@
 					</p:panelGrid>
 					<p:panelGrid columns="1" columnClasses="jeeslGrid100"  rendered="#{cc.attrs.bean.showDisableButton()}">
 						<p:commandButton value="#{msg.jeeslHdDisable}"   
-							actionListener="#{cc.attrs.bean.disableTicket()}" update=":#{cc.id}:sTickets" rendered="#{cc.attrs.bean.showDisableButton()}" />
+							actionListener="#{cc.attrs.bean.disableTicket()}" update=":#{cc.id}:sTickets" rendered="#{cc.attrs.bean.showDisableButton()}" style="float: right;" />
 					</p:panelGrid>
 				</p:panel>
 				
@@ -158,7 +145,25 @@
 								rendered="#{(not empty cc.attrs.bean.ticket) and (not empty cc.attrs.bean.frh)}"/>
 			</h:panelGroup>
 			
-			
+		</j:slot>
+	</j:row>
+	<j:row>
+		<j:slot id="sFaqs" width="4">
+			<h:form id="fFaqs" rendered="#{cc.attrs.bean.ticket !=null and cc.attrs.bean.selectedCat !=null}">
+				<p:dataTable var="faq" value="#{cc.attrs.bean.faqs}" draggableRows="false"
+								selection="#{cc.attrs.bean.faq}" selectionMode="single" rowKey="#{faq.id}">
+					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectFaq()}" update=":#{cc.id}:sAnswers"/>
+					<p:column styleClass="jeeslCenter">  
+						<jtp:symbolizer value="#{faq.scope}"/>
+					</p:column>
+					<p:column headerText="#{msg.jeeslHdFaqTopic}">  
+						<h:outputText value="#{faq.name[localeCode].lang}"/>
+					</p:column>
+			   	</p:dataTable>
+			</h:form>
+		</j:slot>
+		
+		<j:slot id="sAnswers" width="8">	
 			<h:form id="fAnswers" rendered="#{(not empty cc.attrs.bean.faq) and (cc.attrs.bean.faq.id gt 0)}">
 				<p:dataTable var="a" value="#{cc.attrs.bean.answers}" draggableRows="false"
 								selection="#{cc.attrs.bean.fga}" selectionMode="single" rowKey="#{a.id}">
@@ -182,8 +187,7 @@
 					</p:panel>
 		    	</ui:repeat>
 			</h:form>
-			
-		</j:slot>
+		</j:slot>	
 	</j:row>
 </jp:grid>
 	</composite:implementation>

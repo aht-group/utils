@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.event.ValueChangeEvent;
-
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.callback.JeeslFileRepositoryCallback;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
@@ -220,9 +218,9 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 	}
 
 
-	public void handleCategoryChange(ValueChangeEvent event) {
+	public void handleCategoryChange() {
 		logger.info("Category changed......");
-		selectedCat =  (CAT)event.getNewValue();
+		selectedCat =  this.getLastEvent().getCategory();//(CAT)((UIOutput)event.getSource()).getValue();
 		editHandler.setVisible(false);
 		updateFaqSection();
 		this.faq = null;
