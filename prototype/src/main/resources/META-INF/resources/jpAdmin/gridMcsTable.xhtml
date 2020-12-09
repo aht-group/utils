@@ -38,14 +38,10 @@
 				<p:dataTable var="s" value="#{cc.attrs.bean.items}" draggableRows="true"
 			          selection="#{cc.attrs.bean.status}" selectionMode="single" rowKey="#{s.id}">
 					<f:facet name="header">
-			          	<j:dtHeader>
-			          		<f:facet name="header">
-								<h:outputText value="#{msg[cc.attrs.bean.category.code]}" rendered="#{empty cc.attrs.bean.mapEntity[cc.attrs.bean.category]}"/>
-								<h:outputText value="#{cc.attrs.bean.mapEntity[cc.attrs.bean.category].name[localeCode].lang}" rendered="#{not empty cc.attrs.bean.mapEntity[cc.attrs.bean.category]}"/>
-							</f:facet>
-			          		<j:svg type="jeeslAdd" listener="#{cc.attrs.bean.add()}" update=":#{cc.id}:sCategory :#{cc.id}:sDetail" library="jeeslGfx"/>
+			          	<j:dtHeader title="#{not empty cc.attrs.bean.mapEntity[cc.attrs.bean.category] ? cc.attrs.bean.mapEntity[cc.attrs.bean.category].name[localeCode].lang : msg[cc.attrs.bean.category.code]}">
+							<j:svg type="jeeslAdd" listener="#{cc.attrs.bean.add()}" update=":#{cc.id}:sCategory :#{cc.id}:sDetail" library="jeeslGfx"/>
 			          		<j:icon type="jeeslDownload" listener="#{cc.attrs.bean.downloadData()}" update=":#{cc.id}:sCategory :#{cc.id}:sDetail" rendered="#{cc.attrs.bean.supportsDownload}"/>
-			          	</j:dtHeader>
+						</j:dtHeader>
 					</f:facet>
 					<p:ajax event="rowReorder" listener="#{cc.attrs.bean.reorder()}" update="@form"/>
 					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectStatus}" update=":#{cc.id}:sDetail"/>
