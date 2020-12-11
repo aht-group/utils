@@ -37,6 +37,13 @@ import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.jsf.handler.PositionListReorderer;
+import org.jeesl.jsf.helper.TreeHelper;
+import org.primefaces.event.DragDropEvent;
+import org.primefaces.event.NodeCollapseEvent;
+import org.primefaces.event.NodeExpandEvent;
+import org.primefaces.event.NodeSelectEvent;
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -92,6 +99,7 @@ public abstract class AbstractHdFaqBean <L extends JeeslLang, D extends JeeslDes
 		faqs = new ArrayList<>();
 		answers = new ArrayList<>();
 		sections = new ArrayList<>();
+		documents = new ArrayList<>();
 	}
 
 	protected void postConstructHdFaq(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
@@ -218,4 +226,55 @@ public abstract class AbstractHdFaqBean <L extends JeeslLang, D extends JeeslDes
 	}
 	
 	public void reorderAnswers() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fHd,answers);}
+
+    // Handler Tree-Select
+	
+	protected final List<DOC> documents; public List<DOC> getDocuments() {return documents;}
+	private DOC document;
+    
+	private TreeNode helpTree; public TreeNode getHelpTree() {return helpTree;}
+	private TreeNode helpNode; public TreeNode getHelpNode() {return helpNode;} public void setHelpNode(TreeNode helpNode) {this.helpNode = helpNode;}
+	    
+    public void addHelp(DOC doc)
+    {
+    	this.document=doc;
+    	logger.info(document.toString());
+    	
+    	SEC root = this.fCms.load(document.getRoot(), true);
+
+		this.helpTree = new DefaultTreeNode(root, null);
+		buildTree(this.helpTree, root.getSections());
+    }
+
+    private void buildTree(TreeNode parent, List<SEC> sections)
+	{
+		for(SEC s : sections)
+		{
+			TreeNode n = new DefaultTreeNode(s, parent);
+			if(!s.getSections().isEmpty()) {buildTree(n,s.getSections());}
+		}
+	}
+	
+	public void expandHelp(){TreeHelper.setExpansion(this.helpNode!=null ? this.helpNode : this.helpTree, true);}
+	public void collapseHelp() {TreeHelper.setExpansion(this.helpTree,  false);}
+	public boolean isHelpExpanded() {return this.helpTree != null && this.helpTree.getChildren().stream().filter(node -> node.isExpanded()).count() > 1;}
+	
+	public void onHelpNodeSelect(NodeSelectEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}
+	public void onHelpExpand(NodeExpandEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}
+    public void onHelpCollapse(NodeCollapseEvent event) {if(debugOnInfo) {logger.info("Collapsed "+event.getTreeNode().toString());}}
+    
+    // Handler Tree-Select
+    
+    @SuppressWarnings("unchecked")
+	public void onHelpDrop(DragDropEvent ddEvent) throws JeeslConstraintViolationException, JeeslLockingException
+    {
+    	if(debugOnInfo) {logger.info("DRAG "+ddEvent.getDragId());}
+    	if(debugOnInfo) {logger.info("DROP "+ddEvent.getDropId());}
+		Object data = ddEvent.getData();
+		if(debugOnInfo) {if(data==null) {logger.info("data = null");} else{logger.info("Data "+data.getClass().getSimpleName());}}
+		
+		TreeNode n = TreeHelper.getNode(helpTree,ddEvent.getDragId(),3);
+		SEC section = (SEC)n.getData();
+		logger.info(section.toString());
+    }
 }

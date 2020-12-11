@@ -31,6 +31,16 @@
 		.pf-datatable-header-title {
 		    flex-grow: 1;
 		}
+
+		.ui-separator {
+		    border: 0;
+		    background: #A8A8A8;
+		    width: 1px;
+		    clear: none;
+		    margin: 0 0 0 5px;
+		    float: right;
+		    height: 22px;
+		}
 	}
 }
 
@@ -40,6 +50,7 @@
 		height: auto;
 		line-height: 12px;
 		padding: 4px 10px;
+		margin-bottom: .2em;
 		
 		.ui-panel-title {
 		    flex-grow: 1;

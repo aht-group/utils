@@ -4,12 +4,21 @@
   flex-direction: row; }
   .ui-datatable .ui-datatable-header .pf-datatable-header-title {
     flex-grow: 1; }
+  .ui-datatable .ui-datatable-header .ui-separator {
+    border: 0;
+    background: #A8A8A8;
+    width: 1px;
+    clear: none;
+    margin: 0 0 0 5px;
+    float: right;
+    height: 22px; }
 
 .ui-panel .ui-panel-titlebar {
   display: flex;
   height: auto;
   line-height: 12px;
-  padding: 4px 10px; }
+  padding: 4px 10px;
+  margin-bottom: .2em; }
   .ui-panel .ui-panel-titlebar .ui-panel-title {
     flex-grow: 1;
     margin: 0;

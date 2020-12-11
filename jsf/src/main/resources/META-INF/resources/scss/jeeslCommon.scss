@@ -1,10 +1,60 @@
 @import '_colours';
 
-// height fix
+/* height fix */
 html, body {
 	box-sizing: border-box;
 }
 
 .error-message {
 	color: $error-foreground;
+}
+
+/* the set 'display: table' for auGrid elements causes css to not keep the set sizes,
+ * e.g. a width of 170px becomes 170.4px, which might easily cause layout issues.  */
+[class^="auGrid_"], [class*=" auGrid_"] {
+    display: block;
+}
+
+.jeeslPanel {
+	display: flex;
+	flex-direction: column;
+	
+	/* Padding should not have been removed from content panel.
+	 * If no panel is desired for specific elements, those elements should be set up accordingly.
+	 * (See following .ui-panelgrid) */
+	.ui-panel-content {
+		flex: 1;
+		padding: 4px 10px !important;
+		
+		/* Remove outer padding from input panel cells */
+		.ui-panelgrid {
+			&:first-child {
+				.ui-widget-content:first-child {
+					.ui-panelgrid-cell {
+						padding-top: 0;
+					}
+				}
+			}
+			
+			&:last-child {
+				.ui-widget-content:last-child {
+					.ui-panelgrid-cell {
+						padding-bottom: 0;
+					}
+				}
+			}
+			
+			.ui-widget-content {
+				.ui-panelgrid-cell {
+					&:first-child {
+						padding-left: 0;
+					}
+					
+					&:last-child {
+						padding-right: 0;
+					}
+				}
+			}
+		}
+	}
 }

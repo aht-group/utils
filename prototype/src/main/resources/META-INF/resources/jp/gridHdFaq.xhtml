@@ -14,104 +14,133 @@
 	</composite:interface>
 	
 	<composite:implementation>
-<jp:grid id="grid">
-	<j:row>
-		<j:slot id="sFaqs" width="6">
-			<h:form id="fFaqs">
-				<p:dataTable var="faq" value="#{cc.attrs.bean.faqs}" draggableRows="false"
-								selection="#{cc.attrs.bean.faq}" selectionMode="single" rowKey="#{faq.id}">
-					<f:facet name="header">
-						<j:dtHeader title="#{msg.jeeslHdFaqs}">
-							<j:svg type="jeeslAdd" listener="#{cc.attrs.bean.addFaq()}" update=":#{cc.id}:grid" library="jeeslGfx"/>
-						</j:dtHeader>
-					</f:facet>
-					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectFaq()}" update=":#{cc.id}:sFaq"/>
-					<p:column styleClass="jeeslCenter">  
-						<jtp:symbolizer value="#{faq.scope}"/>
-					</p:column>
-					<p:column headerText="#{msg.jeeslHdCategory}">
-						<jtp:symbolizer value="#{faq.category}" marginRight="5"/>
-						<h:outputText value="#{faq.category.name[localeCode].lang}"/>
-					</p:column>
-					<p:column headerText="#{msg.jeeslHdFaqTopic}">  
-						<h:outputText value="#{faq.name[localeCode].lang}"/>
-					</p:column>
-			   	</p:dataTable>
-			</h:form>
-		</j:slot>
-		<j:slot id="sFaq" width="6">
-			<h:form id="fTicket" rendered="#{not empty cc.attrs.bean.faq}">
-				<p:panel header="#{msg.jeeslHdFaqTopic}" styleClass="jeeslPanel">
-					<f:facet name="actions">
-						<j:svg type="jeeslSave" listener="#{cc.attrs.bean.saveFaq()}" update=":#{cc.id}:grid" library="jeeslGfx"/>
-						<j:svg type="jeeslDelete" listener="#{cc.attrs.bean.deleteFaq()}" update=":#{cc.id}:grid" library="jeeslGfx"/>
-					</f:facet>
-					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
-						
-						<p:outputLabel value="#{msg.jeeslHdScope}"/>
-						<p:selectOneMenu value="#{cc.attrs.bean.faq.scope}" effect="fade" autoWidth="false">
-                        	<f:selectItems value="#{cc.attrs.bean.sbhScope.list}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s}"/>
-                        </p:selectOneMenu>
-						
-						<p:outputLabel value="#{msg.jeeslHdCategory}"/>
-						<p:selectOneMenu value="#{cc.attrs.bean.faq.category}" effect="fade" autoWidth="false">
-                        	<f:selectItems value="#{cc.attrs.bean.sbhCategory.list}" var="c" itemLabel="#{c.name[localeCode].lang}" itemValue="#{c}"/>
-                        </p:selectOneMenu>
-					
-					</p:panelGrid>
-					<j:tabTranslationEditor value="#{cc.attrs.bean.faq}" withDescription="true" labelDescription="#{msg.jeeslHdFaqInternalComment}"/>
-				</p:panel>
-			</h:form>
-			<h:form id="fAnswers" rendered="#{(not empty cc.attrs.bean.faq) and (cc.attrs.bean.faq.id gt 0)}">
-				<p:dataTable var="a" value="#{cc.attrs.bean.answers}" draggableRows="true"
-								selection="#{cc.attrs.bean.fga}" selectionMode="single" rowKey="#{a.id}">
-					<f:facet name="header">
-						<j:dtHeader title="#{msg.jeeslHdFgas}">
-							<j:svg type="jeeslAdd" listener="#{cc.attrs.bean.addAnswer()}" update=":#{cc.id}:fAnswers :#{cc.id}:fAnswer" library="jeeslGfx"/>
-						</j:dtHeader>
-					</f:facet>
-					<p:ajax event="rowReorder" listener="#{cc.attrs.bean.reorderAnswers()}" update="@form"/>
-					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectAnswer()}" update=":#{cc.id}:fAnswer"/>
-					<p:column>  
-						<h:outputText value="#{a.position}"/>
-					</p:column>
-					<p:column headerText="#{msg.jeeslHdFgaDocument}" rendered="#{cc.attrs.bean.sbhDocuments.hasMore}">  
-						<h:outputText value="#{a.document.name[localeCode].lang}"/>
-					</p:column>
-					<p:column headerText="#{msg.jeeslHdFgaSection}">  
-						<h:outputText value="#{a.section.name[localeCode].lang}"/>
-					</p:column>
-			   	</p:dataTable>
-			</h:form>
-			<h:form id="fAnswer" rendered="#{not empty cc.attrs.bean.faq}">
-				<p:panel header="#{msg.jeeslHdFga}" styleClass="jeeslPanel" rendered="#{not empty cc.attrs.bean.fga}">
-					<f:facet name="actions">
-						<j:svg type="jeeslSave" listener="#{cc.attrs.bean.saveAnswer()}" update=":#{cc.id}:fAnswers :#{cc.id}:fAnswer" library="jeeslGfx"/>
-						<j:svg type="jeeslDelete" listener="#{cc.attrs.bean.deleteAnswer()}" update=":#{cc.id}:fAnswers :#{cc.id}:fAnswer" library="jeeslGfx"/>
-					</f:facet>
-					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
-						
-						<p:outputLabel value="#{msg.jeeslHdFgaDocument}"/>
-						<p:selectOneMenu value="#{cc.attrs.bean.fga.document}" effect="fade" autoWidth="false">
-                        	<f:selectItems value="#{cc.attrs.bean.sbhDocuments.list}" var="d" itemLabel="#{d.name[localeCode].lang}" itemValue="#{d}"/>
-                        	<p:ajax listener="#{cc.attrs.bean.onDocumentChanged()}" update=":#{cc.id}:fAnswer"/>
-                        </p:selectOneMenu>
-                        
-                        <p:outputLabel value="#{msg.jeeslHdFgaSection}"/>
-						<p:selectOneMenu value="#{cc.attrs.bean.fga.section}" effect="fade" autoWidth="false">
-                        	<f:selectItems value="#{cc.attrs.bean.sections}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s}"/>
-                        </p:selectOneMenu>
-					
-					</p:panelGrid>
-				</p:panel>
-			</h:form>
-			<h:form id="fOfx" rendered="#{not empty cc.attrs.bean.faq}">
-				<ui:repeat var="a" value="#{cc.attrs.bean.answers}">
-			     	<ofx:panel section="#{cc.attrs.ofxCache.buildBySection(localeCode,a.section)}"/>
-		    	</ui:repeat>
-			</h:form>
-		</j:slot>
-	</j:row>
-</jp:grid>
+		<jp:grid id="grid">
+			<j:row>
+				<j:slot id="sFaqs" width="6">
+					<h:form id="fFaqs">
+						<p:dataTable var="faq" value="#{cc.attrs.bean.faqs}" draggableRows="false"
+										selection="#{cc.attrs.bean.faq}" selectionMode="single" rowKey="#{faq.id}">
+							<f:facet name="header">
+								<j:dtHeader title="#{msg.jeeslHdFaqs}">
+									<j:svg type="jeeslAdd" listener="#{cc.attrs.bean.addFaq()}" update=":#{cc.id}:grid" library="jeeslGfx"/>
+								</j:dtHeader>
+							</f:facet>
+							<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectFaq()}" update=":#{cc.id}:sFaq"/>
+							<p:column styleClass="jeeslCenter">  
+								<jtp:symbolizer value="#{faq.scope}"/>
+							</p:column>
+							<p:column headerText="#{msg.jeeslHdCategory}">
+								<jtp:symbolizer value="#{faq.category}" marginRight="5"/>
+								<h:outputText value="#{faq.category.name[localeCode].lang}"/>
+							</p:column>
+							<p:column headerText="#{msg.jeeslHdFaqTopic}">  
+								<h:outputText value="#{faq.name[localeCode].lang}"/>
+							</p:column>
+					   	</p:dataTable>
+					</h:form>
+				</j:slot>
+				<j:slot id="sFaq" width="6">
+					<h:form id="fTicket" rendered="#{not empty cc.attrs.bean.faq}">
+						<p:panel header="#{msg.jeeslHdFaqTopic}" styleClass="jeeslPanel">
+							<f:facet name="actions">
+								<j:svg type="jeeslSave" listener="#{cc.attrs.bean.saveFaq()}" update=":#{cc.id}:grid" library="jeeslGfx"/>
+								<j:svg type="jeeslDelete" listener="#{cc.attrs.bean.deleteFaq()}" update=":#{cc.id}:grid" library="jeeslGfx"/>
+							</f:facet>
+							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
+								
+								<p:outputLabel value="#{msg.jeeslHdScope}"/>
+								<p:selectOneMenu value="#{cc.attrs.bean.faq.scope}" effect="fade" autoWidth="false">
+		                        	<f:selectItems value="#{cc.attrs.bean.sbhScope.list}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s}"/>
+		                        </p:selectOneMenu>
+								
+								<p:outputLabel value="#{msg.jeeslHdCategory}"/>
+								<p:selectOneMenu value="#{cc.attrs.bean.faq.category}" effect="fade" autoWidth="false">
+		                        	<f:selectItems value="#{cc.attrs.bean.sbhCategory.list}" var="c" itemLabel="#{c.name[localeCode].lang}" itemValue="#{c}"/>
+		                        </p:selectOneMenu>
+							
+							</p:panelGrid>
+							<j:tabTranslationEditor value="#{cc.attrs.bean.faq}" withDescription="true" labelDescription="#{msg.jeeslHdFaqInternalComment}"/>
+						</p:panel>
+					</h:form>
+					<h:form id="fAnswers" rendered="#{(not empty cc.attrs.bean.faq) and (cc.attrs.bean.faq.id gt 0)}">
+						<p:dataTable var="a" value="#{cc.attrs.bean.answers}" draggableRows="true"
+										selection="#{cc.attrs.bean.fga}" selectionMode="single" rowKey="#{a.id}">
+							<f:facet name="header">
+								<j:dtHeader title="#{msg.jeeslHdFgas}">
+									<j:svg type="jeeslAdd" listener="#{cc.attrs.bean.addAnswer()}" update=":#{cc.id}:fAnswers :#{cc.id}:fAnswer" library="jeeslGfx"/>
+							    	<p:separator/>
+									<ui:repeat var="d" value="#{cc.attrs.bean.sbhDocuments.getList()}">
+								     	<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addHelp(d)}" update=":#{cc.id}:sFaq" tooltip="#{d.id}" styleClass="pf-action-icon"/>
+							    	</ui:repeat>
+								</j:dtHeader>
+							</f:facet>
+							<p:ajax event="rowReorder" listener="#{cc.attrs.bean.reorderAnswers()}" update="@form"/>
+							<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectAnswer()}" update=":#{cc.id}:fAnswer"/>
+							<p:column>  
+								<h:outputText value="#{a.position}"/>
+							</p:column>
+							<p:column headerText="#{msg.jeeslHdFgaDocument}" rendered="#{cc.attrs.bean.sbhDocuments.hasMore}">  
+								<h:outputText value="#{a.document.name[localeCode].lang}"/>
+							</p:column>
+							<p:column headerText="#{msg.jeeslHdFgaSection}">  
+								<h:outputText value="#{a.section.name[localeCode].lang}"/>
+							</p:column>
+					   	</p:dataTable>
+					</h:form>
+					<p:droppable for=":#{cc.id}:fAnswers" tolerance="touch">
+						<p:ajax listener="#{cc.attrs.bean.onHelpDrop}" update=":#{cc.id}:fAnswers" />  
+					</p:droppable>
+					<h:form id="fHelp" rendered="#{not empty cc.attrs.bean.helpTree}">
+						<p:panel header="#{msg.jeeslSecurityHelp}" styleClass="jeeslTree">
+							<f:facet id="fHelpActions" name="actions">
+								<p:outputPanel id="cHelpActions">
+									<j:svg type="jeeslTreeExpandAll" listener="#{cc.attrs.bean.expandHelp()}" update="@form" tooltip="#{msg.jeeslTtExpandAllChildren}" library="jeeslGfx"/>
+									<j:svg type="jeeslTreeCollapseAll" listener="#{cc.attrs.bean.collapseHelp()}" update="@form" rendered="#{cc.attrs.bean.isHelpExpanded()}" tooltip="#{msg.jeeslTtCollapseAllChildren}" library="jeeslGfx"/>
+								</p:outputPanel>
+							</f:facet>
+							<p:tree id="tHelp" value="#{cc.attrs.bean.helpTree}" var="helpNode"
+								selection="#{cc.attrs.bean.helpNode}" selectionMode="single"
+				                draggable="true" droppable="true" dragdropScope="demo">
+				                <p:ajax event="select" listener="#{cc.attrs.bean.onHelpNodeSelect}" update=":#{cc.id}:sFaq"/>
+				                <p:ajax event="dragdrop" listener="#{cc.attrs.bean.onDragDrop}" update=":#{cc.id}:fHelp"/>
+					            <p:ajax event="expand" listener="#{cc.attrs.bean.onHelpExpand}" />
+								<p:ajax event="collapse" listener="#{cc.attrs.bean.onHelpCollapse}" />
+					            <p:treeNode>
+					                <h:outputText id="otText" value="#{helpNode.name[localeCode].lang}" />
+					                <p:draggable for="otText" helper="clone" appendTo="@(body)" zindex="5" />
+					            </p:treeNode>
+					        </p:tree>
+						</p:panel>
+					</h:form>
+					<h:form id="fAnswer" rendered="#{not empty cc.attrs.bean.faq}">
+						<p:panel header="#{msg.jeeslHdFga}" styleClass="jeeslPanel" rendered="#{not empty cc.attrs.bean.fga}">
+							<f:facet name="actions">
+								<j:svg type="jeeslSave" listener="#{cc.attrs.bean.saveAnswer()}" update=":#{cc.id}:fAnswers :#{cc.id}:fAnswer" library="jeeslGfx"/>
+								<j:svg type="jeeslDelete" listener="#{cc.attrs.bean.deleteAnswer()}" update=":#{cc.id}:fAnswers :#{cc.id}:fAnswer" library="jeeslGfx"/>
+							</f:facet>
+							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
+								
+								<p:outputLabel value="#{msg.jeeslHdFgaDocument}"/>
+								<p:selectOneMenu value="#{cc.attrs.bean.fga.document}" effect="fade" autoWidth="false">
+		                        	<f:selectItems value="#{cc.attrs.bean.sbhDocuments.list}" var="d" itemLabel="#{d.name[localeCode].lang}" itemValue="#{d}"/>
+		                        	<p:ajax listener="#{cc.attrs.bean.onDocumentChanged()}" update=":#{cc.id}:fAnswer"/>
+		                        </p:selectOneMenu>
+		                        
+		                        <p:outputLabel value="#{msg.jeeslHdFgaSection}"/>
+								<p:selectOneMenu value="#{cc.attrs.bean.fga.section}" effect="fade" autoWidth="false">
+		                        	<f:selectItems value="#{cc.attrs.bean.sections}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s}"/>
+		                        </p:selectOneMenu>
+							
+							</p:panelGrid>
+						</p:panel>
+					</h:form>
+					<h:form id="fOfx" rendered="#{not empty cc.attrs.bean.faq}">
+						<ui:repeat var="a" value="#{cc.attrs.bean.answers}">
+					     	<ofx:panel section="#{cc.attrs.ofxCache.buildBySection(localeCode,a.section)}"/>
+				    	</ui:repeat>
+					</h:form>
+				</j:slot>
+			</j:row>
+		</jp:grid>
 	</composite:implementation>
 </html>
