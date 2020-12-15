@@ -49,7 +49,7 @@ public class AbstractLabelBean <L extends JeeslLang, D extends JeeslDescription,
 
 	protected void postConstruct(JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fRevision)
 	{
-		th = new TranslationHandler<L,D,RE,RA>(fRevision,fbRevision.getClassEntity(), fbRevision.getClassL());
+		th = new TranslationHandler<L,D,RE,RA>(fRevision,fbRevision.getClassEntity());
 		if(fbRevision!=null)
 		{
 			ftp = new FacadeTranslationProvider<>(fbRevision,fRevision);
