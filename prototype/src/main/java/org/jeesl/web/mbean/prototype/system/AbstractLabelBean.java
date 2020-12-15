@@ -23,12 +23,12 @@ import org.slf4j.LoggerFactory;
 public class AbstractLabelBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 								RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
 								RA extends JeeslRevisionAttribute<L,D,RE,?,?>>
-								
+
 					implements JeeslLabelBean<RE>,JeeslTranslationProvider<LOC>
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractLabelBean.class);
-	
+
 	private TranslationHandler<L,D,RE,RA> th;
 	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fbRevision;
 	private FacadeTranslationProvider<L,D,LOC,RE,RA> ftp;
@@ -37,32 +37,32 @@ public class AbstractLabelBean <L extends JeeslLang, D extends JeeslDescription,
 	public Map<String, Map<String,L>> getEntities() {return th.getEntities();}
 	public Map<String, Map<String, Map<String,L>>> getLabels() {return th.getLabels();}
 	public Map<String, Map<String, Map<String,D>>> getDescriptions() {return th.getDescriptions();}
-	
+
 	public Map<String,RE> getMapEntities() {return th.getMapEntities();}
 	@Override public List<RE> allEntities() {return th.allEntities();}
-	
+
 	public AbstractLabelBean(IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fbRevision)
 	{
 		this.fbRevision=fbRevision;
 		mapXpath = new HashMap<RE,Map<MultiKey,String>>();
 	}
-	
+
 	protected void postConstruct(JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fRevision)
-	{		
-		th = new TranslationHandler<L,D,RE,RA>(fRevision,fbRevision.getClassEntity());
+	{
+		th = new TranslationHandler<L,D,RE,RA>(fRevision,fbRevision.getClassEntity(), fbRevision.getClassL());
 		if(fbRevision!=null)
 		{
 			ftp = new FacadeTranslationProvider<>(fbRevision,fRevision);
 		}
-		
+
 	}
-	
+
 	@Override public void reload(RE re)
 	{
 		th.reload(re);
 		if(mapXpath.containsKey(re)) {mapXpath.remove(re);}
 	}
-	
+
 	@Override
 	public <E extends Enum<E>> String xpAttribute(String localeCode, Class<?> c, E code)
 	{
@@ -71,10 +71,10 @@ public class AbstractLabelBean <L extends JeeslLang, D extends JeeslDescription,
 			logger.warn("Entity not handled in Engine: "+c.getSimpleName());
 			return "@id";
 		}
-		
+
 		RE re = th.getMapEntities().get(c.getSimpleName());
 		if(!mapXpath.containsKey(re)) {mapXpath.put(re, new HashMap<MultiKey,String>());}
-		
+
 		MultiKey key = new MultiKey(localeCode,code.toString());
 		if(!mapXpath.get(re).containsKey(key))
 		{
@@ -82,7 +82,7 @@ public class AbstractLabelBean <L extends JeeslLang, D extends JeeslDescription,
 		}
 		return mapXpath.get(re).get(key);
 	}
-	
+
 	@Override
 	public String tlEntity(String localeCode, Class<?> c)
 	{
@@ -92,10 +92,10 @@ public class AbstractLabelBean <L extends JeeslLang, D extends JeeslDescription,
 			logger.warn("Entity not handled in Engine: "+c.getSimpleName());
 			return "-NO.TRANSLATION-";
 		}
-		
+
 		return th.getMapEntities().get(c.getSimpleName()).getName().get(localeCode).getLang();
 	}
-	
+
 	@Override
 	public boolean hasLocale(String localeCode)
 	{

@@ -26,6 +26,7 @@ public class TranslationHandler<L extends JeeslLang,D extends JeeslDescription,
 	private static final long serialVersionUID = 1L;
 
 	private final Class<RE> cRE;
+	private final Class<L> cL;
 
 	private final JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fRevision;
 
@@ -34,14 +35,26 @@ public class TranslationHandler<L extends JeeslLang,D extends JeeslDescription,
 	private final Map<String,Map<String,Map<String,D>>> descriptions;public Map<String, Map<String, Map<String,D>>> getDescriptions() {return descriptions;}
 
 	public final Map<String,RE> mapEntities; public Map<String,RE> getMapEntities() {return mapEntities;}
+	public String tempLabelString;
 
-	public TranslationHandler(JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fRevision, final Class<RE> cRE)
+	public TranslationHandler(JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fRevision, final Class<RE> cRE, final Class<L> cL)
 	{
 		this.cRE = cRE;
+		this.cL = cL;
 		this.fRevision=fRevision;
 
         entities = new HashMap<String,Map<String,L>>();
-        labels = new HashMap<String,Map<String,Map<String,L>>>();
+        labels = new HashMap<String,Map<String,Map<String,L>>>(){
+			@Override
+			public  Map<String, Map<String, L>> get(Object key) {
+				Map<String, Map<String, L>> m = super.get(key);
+				tempLabelString =(String)key + " : ";
+				if (m != null) {
+			        return m;
+			    }
+				return getTempLabelHashtable();
+			}
+	};
         descriptions = new HashMap<String,Map<String,Map<String,D>>>();
 
         mapEntities = new HashMap<String,RE>();
@@ -86,7 +99,7 @@ public class TranslationHandler<L extends JeeslLang,D extends JeeslDescription,
 			entities.put(c.getSimpleName(), re.getName());
 
 
-			labels.put(c.getSimpleName(), new Hashtable<String,Map<String,L>>());
+			labels.put(c.getSimpleName(),getTempLabelHashtable() );
 			descriptions.put(c.getSimpleName(), new Hashtable<String,Map<String,D>>());
 
 			//Prepare a list of attributes from "Attributes" or "Labels" Enum
@@ -145,4 +158,41 @@ public class TranslationHandler<L extends JeeslLang,D extends JeeslDescription,
 	}
 
 	@Override public List<RE> allEntities() {return new ArrayList<RE>(mapEntities.values());}
+
+	private Hashtable<String, Map<String, L>> getTempLabelHashtable() {
+		return new Hashtable<String,Map<String,L>>(){
+			@Override
+			public   Map<String, L> get(Object key) {
+				tempLabelString = tempLabelString + (String)key;
+				Map<String, L> m = super.get(key);
+				if (m != null) {
+			        return m;
+			    }
+			    else {
+			    	m = new HashMap<String, L>() {
+			    		@Override
+						public L get(Object key) {
+			    			L langLabel = super.get(key);
+			    			if (langLabel != null) {
+						        return langLabel;
+						    }
+			    			else {
+									try {
+										L l = cL.newInstance();
+			    						l.setLkey((String)key);
+			    						l.setLang(tempLabelString);
+			    						return l;
+									} catch (InstantiationException | IllegalAccessException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+		    				        return null;
+			    			}
+			    		}
+			    	};
+			    	return m;
+			    }
+			}
+		};
+	}
 }
