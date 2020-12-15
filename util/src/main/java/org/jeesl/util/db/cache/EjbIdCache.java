@@ -4,12 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.interfaces.bean.cache.JeeslIdCache;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbIdCache <T extends EjbWithId>
+public class EjbIdCache <T extends EjbWithId> implements JeeslIdCache<T>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbIdCache.class);
 

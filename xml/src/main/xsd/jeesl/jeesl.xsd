@@ -83,6 +83,7 @@
 			<xsd:sequence>
 				<xsd:element ref="rev:entity" maxOccurs="1"/>
 				<xsd:element ref="rev:diagram" maxOccurs="1"/>
+				<xsd:element ref="rev:revision" maxOccurs="1"/>
 			</xsd:sequence>
 			<xsd:attribute name="localeCode" type="xsd:string"/>
 		</xsd:complexType>

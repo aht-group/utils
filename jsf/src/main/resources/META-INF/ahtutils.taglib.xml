@@ -60,12 +60,6 @@
     </tag>
 	
 	<function>
-		<function-name>prettyUrl</function-name>
-		<function-class>net.sf.ahtutils.jsf.functions.PrettyUrl</function-class>
-		<function-signature>java.lang.String prettyUrl(java.lang.String)</function-signature>
-	</function>
-	
-	<function>
 		<function-name>dateDifference</function-name>
 		<function-class>net.sf.ahtutils.jsf.functions.DateDifference</function-class>
 		<function-signature>java.lang.Integer dateDifference(java.util.Date,java.util.Date)</function-signature>

@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import org.jeesl.model.xml.system.revision.Diagram;
 import org.jeesl.model.xml.system.revision.Entity;
+import org.jeesl.model.xml.system.revision.Revision;
 
 
 /**
@@ -24,6 +25,7 @@ import org.jeesl.model.xml.system.revision.Entity;
  *       &lt;sequence&gt;
  *         &lt;element ref="{http://www.jeesl.org/revision}entity"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/revision}diagram"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/revision}revision"/&gt;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="localeCode" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *     &lt;/restriction&gt;
@@ -36,7 +38,8 @@ import org.jeesl.model.xml.system.revision.Entity;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "entity",
-    "diagram"
+    "diagram",
+    "revision"
 })
 @XmlRootElement(name = "queryRevision")
 public class QueryRevision
@@ -48,6 +51,8 @@ public class QueryRevision
     protected Entity entity;
     @XmlElement(namespace = "http://www.jeesl.org/revision", required = true)
     protected Diagram diagram;
+    @XmlElement(namespace = "http://www.jeesl.org/revision", required = true)
+    protected Revision revision;
     @XmlAttribute(name = "localeCode")
     protected String localeCode;
 
@@ -105,6 +110,34 @@ public class QueryRevision
 
     public boolean isSetDiagram() {
         return (this.diagram!= null);
+    }
+
+    /**
+     * Gets the value of the revision property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Revision }
+     *     
+     */
+    public Revision getRevision() {
+        return revision;
+    }
+
+    /**
+     * Sets the value of the revision property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Revision }
+     *     
+     */
+    public void setRevision(Revision value) {
+        this.revision = value;
+    }
+
+    public boolean isSetRevision() {
+        return (this.revision!= null);
     }
 
     /**

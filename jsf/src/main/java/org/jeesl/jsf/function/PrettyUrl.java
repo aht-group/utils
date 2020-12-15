@@ -1,4 +1,4 @@
-package net.sf.ahtutils.jsf.functions;
+package org.jeesl.jsf.function;
 
 import org.jeesl.controller.processor.RestrictedCharacterProcessor;
 

@@ -1,9 +1,12 @@
 package org.jeesl.util.query.xml.system.io;
 
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.Map;
 
 import org.jeesl.factory.xml.system.io.revision.XmlRelationFactory;
+import org.jeesl.factory.xml.system.io.revision.XmlRevisionFactory;
+import org.jeesl.factory.xml.system.security.XmlUserFactory;
 import org.jeesl.factory.xml.system.status.XmlCategoryFactory;
 import org.jeesl.factory.xml.system.status.XmlTypeFactory;
 import org.jeesl.factory.xml.system.util.text.XmlRemarkFactory;
@@ -12,11 +15,16 @@ import org.jeesl.model.xml.system.revision.Attribute;
 import org.jeesl.model.xml.system.revision.Diagram;
 import org.jeesl.model.xml.system.revision.Entity;
 import org.jeesl.model.xml.system.revision.Relation;
+import org.jeesl.model.xml.system.revision.Revision;
 import org.jeesl.util.query.xml.XmlStatusQuery;
+
+import net.sf.ahtutils.xml.security.User;
+import net.sf.exlp.util.DateUtil;
+
 
 public class XmlRevisionQuery
 {
-	public static enum Key {xEntity,xDiagram}
+	public static enum Key {xEntity,xDiagram,rRevision}
 	
 	private static Map<Key,QueryRevision> mQueries;
 	
@@ -31,6 +39,7 @@ public class XmlRevisionQuery
 			{
 				case xEntity: q.setEntity(xEntity());break;
 				case xDiagram: q.setDiagram(xDiagram());break;
+				case rRevision: q.setRevision(rRevision());break;
 			}
 			mQueries.put(key, q);
 		}
@@ -114,6 +123,18 @@ public class XmlRevisionQuery
 		xml.setCategory(XmlCategoryFactory.create(""));
 		xml.setLangs(XmlStatusQuery.langs());
 		xml.setDescriptions(XmlStatusQuery.descriptions());
+		return xml;
+	}
+	
+	private static Revision rRevision()
+	{
+		User user = XmlUserFactory.build("","","");
+		user.setId(0);
+		user.setName("");
+		
+		Revision xml = XmlRevisionFactory.build();
+		xml.setRecord(DateUtil.toXmlGc(new Date()));
+		xml.setUser(user);
 		return xml;
 	}
 }

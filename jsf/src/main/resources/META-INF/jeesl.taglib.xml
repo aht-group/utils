@@ -79,7 +79,7 @@
     
 	<function>
 		<function-name>prettyUrl</function-name>
-		<function-class>net.sf.ahtutils.jsf.functions.PrettyUrl</function-class>
+		<function-class>org.jeesl.jsf.function.PrettyUrl</function-class>
 		<function-signature>java.lang.String prettyUrl(java.lang.String)</function-signature>
 	</function>
 	<function>
