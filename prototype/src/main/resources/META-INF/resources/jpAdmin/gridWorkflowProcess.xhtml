@@ -39,7 +39,7 @@
 						<p:dataTable var="d" value="#{cc.attrs.bean.documents}" draggableRows="true"
 								selection="#{cc.attrs.bean.document}" selectionMode="single" rowKey="#{d.id}">
 							<f:facet name="header">
-								<j:dtHeader title="#{appLabelBean.labels['WorkflowDocument']['listOf'][localecode].lang}">
+								<j:dtHeader entity="WorkflowDocument" code="listOf">
 									<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addDocument()}" update=":#{cc.id}:rProcess"/>
 								</j:dtHeader>
 							</f:facet>
@@ -238,7 +238,7 @@
 						<p:dataTable var="n" value="#{cc.attrs.bean.notifications}" draggableRows="true"
 								selection="#{cc.attrs.bean.notification}" selectionMode="single" rowKey="#{n.id}">
 							<f:facet name="header">
-								<j:dtHeader title="#{appLabelBean.labels['WorkflowStageNotification']['listOf'][localeCode].lang}">
+								<j:dtHeader entity="WorkflowStageNotification" code="listOf">
 									<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addNotification()}" update=":#{cc.id}:sStage"/>
 								</j:dtHeader>
 							</f:facet>
@@ -493,7 +493,7 @@
 						<p:dataTable var="d" value="#{cc.attrs.bean.opDocument.tbList}"
 									selection="#{cc.attrs.bean.opDocument.tb}" selectionMode="single" rowKey="#{d.id}">
 							<f:facet name="header">
-								<j:dtHeader title="#{appLabelBean.labels['WorkflowTransition']['documents'][localeCode].lang}">
+								<j:dtHeader entity="WorkflowTransition" code="documents">
 									<j:icon type="jeeslRemove" listener="#{cc.attrs.bean.opDocument.removeEntity()}" update=":#{cc.id}:fRequired" rendered="#{not empty cc.attrs.bean.opDocument.tb}"/>
 									<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.prepareAddRequired()}" update=":#{cc.id}:opRequired" oncomplete="PF('wvRequired').show();"/>
 								</j:dtHeader>
