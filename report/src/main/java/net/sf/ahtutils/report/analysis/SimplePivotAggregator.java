@@ -66,6 +66,7 @@ public class SimplePivotAggregator <T extends EjbWithId, P extends EjbWithId>
     
     public Double value(T t, P p)
     {
+    	logger.info(t.toString()+" "+p.toString());
     	double value = 0;
     	boolean match = false;
     	for(SimplePivotData<T,P> d : list)
@@ -126,5 +127,12 @@ public class SimplePivotAggregator <T extends EjbWithId, P extends EjbWithId>
     		if(v!=null){map.put(p,v);}
     	}
     	return map;
+    }
+    
+    @Override public String toString()
+    {
+    	StringBuilder sb = new StringBuilder();
+    	sb.append("List ").append(list.size());
+    	return sb.toString();
     }
 }
