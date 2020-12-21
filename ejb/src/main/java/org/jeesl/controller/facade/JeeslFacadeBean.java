@@ -909,6 +909,7 @@ public class JeeslFacadeBean implements JeeslFacade
 
 	    if(EjbWithPosition.class.isAssignableFrom(c)){select.orderBy(cB.asc(root.get(EjbWithPosition.attributePosition)));}
 	    else if(EjbWithRecord.class.isAssignableFrom(c)){select.orderBy(cB.asc(root.get(EjbWithRecord.attributeRecord)));}
+	    else if(EjbWithValidFrom.class.isAssignableFrom(c)){select.orderBy(cB.asc(root.get(EjbWithValidFrom.Attributes.validFrom.toString())));}
 
 		TypedQuery<T> q = em.createQuery(select);
 		try	{return q.getResultList();}

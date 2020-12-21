@@ -2,8 +2,10 @@ package org.jeesl.model.pojo.map.generic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
@@ -63,5 +65,20 @@ public class Nested2Map <L1 extends EjbWithId, L2 extends EjbWithId, VALUE exten
 	public VALUE get(L1 l1, L2 l2)
 	{
 		return m.get(l1).get(l2);
+	}
+	
+	public List<L1> toL1()
+	{
+		return new ArrayList<L1>(m.keySet());
+	}
+	
+	public List<L2> toL2()
+	{
+		Set<L2> set = new HashSet<L2>();
+		for(L1 k : m.keySet())
+		{
+			set.addAll(m.get(k).keySet());
+		}
+		return new ArrayList<L2>(set);
 	}
 }
