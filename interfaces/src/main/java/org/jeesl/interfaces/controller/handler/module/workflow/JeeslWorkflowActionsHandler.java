@@ -16,6 +16,7 @@ import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowDocument;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraint;
+import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslWorkflowActionsHandler<WPD extends JeeslWorkflowDocument<?,?,?>,
@@ -26,7 +27,8 @@ public interface JeeslWorkflowActionsHandler<WPD extends JeeslWorkflowDocument<?
 											RE extends JeeslRevisionEntity<?,?,?,?,RA,?>,
 											RA extends JeeslRevisionAttribute<?,?,RE,?,?>,
 											WF extends JeeslWorkflow<?,?,?,?>,
-											WCS extends JeeslConstraint<?,?,?,?,?,?,?,?>>
+											WCS extends JeeslConstraint<?,?,?,?,?,?,?,?>,
+											USER extends JeeslUser<?>>
 {
 	void setDebugOnInfo(boolean debugOnInfo);
 	
@@ -35,5 +37,5 @@ public interface JeeslWorkflowActionsHandler<WPD extends JeeslWorkflowDocument<?
 	void checkPreconditions(List<WCS> constraints, JeeslWithWorkflow<?> entity, List<WA> actions);
 	void checkDocuments(List<WCS> constraints, JeeslWithWorkflow<?> entity, List<WPD> documents);
 	<W extends JeeslWithWorkflow<WF>> void abort(JeeslWithWorkflow<WF> entity);
-	<W extends JeeslWithWorkflow<WF>> JeeslWithWorkflow<WF> perform(WT transition, JeeslWithWorkflow<WF> entity, List<WA> actions) throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException, UtilsProcessingException, JeeslWorkflowException;
+	<W extends JeeslWithWorkflow<WF>> JeeslWithWorkflow<WF> perform(USER user, WT transition, JeeslWithWorkflow<WF> entity, List<WA> actions) throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException, UtilsProcessingException, JeeslWorkflowException;
 }

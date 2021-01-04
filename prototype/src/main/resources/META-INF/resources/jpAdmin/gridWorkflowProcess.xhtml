@@ -72,7 +72,7 @@
 								<p:outputLabel value="#{msg.jeeslCode}"/>
 								<p:inputText autocomplete="off" value="#{cc.attrs.bean.process.code}"/>
 								
-								<p:outputLabel value="#{msg.jeeslWorkflowProcessPageContext}"/>
+								<jtp:label entity="WorkflowProcess" code="pageContext"/>
 								<p:inputText autocomplete="off" value="#{cc.attrs.bean.process.pageContext}"/>
 							</p:panelGrid>
 							<p:panelGrid columns="4" columnClasses="jeeslGrid10,jeeslGrid40,jeeslGrid10,jeeslGrid40">
@@ -380,7 +380,7 @@
 								</p:selectOneMenu>
 								<h:outputText value="#{cc.attrs.bean.transition.role.name[localeCode].lang}" rendered="#{not cc.attrs.bean.editTransition}"/>
 								
-								<p:outputLabel value="#{msg.jeeslWorkflowEscalationTimer}"/>
+								<jtp:label entity="WorkflowTransition" code="autoTransitionTimer"/>
                         		<jtp:inputText value="#{cc.attrs.bean.nnb.a}" rendered="#{cc.attrs.bean.editTransition}"/>
                         		<h:outputText value="#{cc.attrs.bean.transition.autoTransitionTimer}" rendered="#{not cc.attrs.bean.editTransition}"/>
 							</p:panelGrid>
@@ -524,7 +524,7 @@
 								<jtp:symbolizer value="#{c.channel}" />
 							</p:column>
 							<p:column rendered="true" headerText="#{msg.jeeslCategory}">  
-								<h:outputText value="#{c.role.category.name[localeCode].lang}"/>  
+								<h:outputText value="#{c.role.category.name[localeCode].lang}"/>
 							</p:column>
 							<p:column rendered="true" headerText="#{msg.jeeslSecurityRole}">  
 								<h:outputText value="#{c.role.name[localeCode].lang}"/>  

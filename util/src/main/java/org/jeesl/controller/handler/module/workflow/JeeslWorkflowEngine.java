@@ -110,7 +110,7 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 	private JeeslJsfSecurityHandler<SR,?,?,?,?,USER> security;
 	private JeeslFileRepositoryHandler<?,FRC,?> frh; public JeeslFileRepositoryHandler<?,FRC,?> getFrh() {return frh;}
 	private final JeeslWorkflowCommunicator<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WC,WA,AB,AO,MT,MC,MD,SR,RE,RA,WL,WF,WY,FRC,USER> communicator;
-	private final JeeslWorkflowActionsHandler<WPD,WT,WA,AB,AO,RE,RA,WF,WCS> actionHandler;
+	private final JeeslWorkflowActionsHandler<WPD,WT,WA,AB,AO,RE,RA,WF,WCS,USER> actionHandler;
 	private final JeeslWorkflowResponsibleHandler<WF,USER> responsibleHandler;
 	
 	private final Comparator<WY> cpActivity;
@@ -152,7 +152,7 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 								IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fbRevision,
 								JeeslWorkflowFacade<L,D,LOC,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fWorkflow,
 								JeeslWorkflowMessageHandler<WS,WC,SR,RE,MT,MC,MD,WF,WY,USER> messageHandler,
-								JeeslWorkflowActionsHandler<WPD,WT,WA,AB,AO,RE,RA,WF,WCS> actionHandler,
+								JeeslWorkflowActionsHandler<WPD,WT,WA,AB,AO,RE,RA,WF,WCS,USER> actionHandler,
 								JeeslWorkflowResponsibleHandler<WF,USER> responsibleHandler,
 								JeeslFileRepositoryHandler<?,FRC,?> frh)
 	{
@@ -455,7 +455,7 @@ public class JeeslWorkflowEngine <L extends JeeslLang, D extends JeeslDescriptio
 		
 		try
 		{
-			actionHandler.perform(transition,entity,actions);
+			actionHandler.perform(user,transition,entity,actions);
 			
 			workflow.setCurrentStage(transition.getDestination());
 			workflow = fWorkflow.save(workflow);

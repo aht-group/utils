@@ -54,6 +54,7 @@ public abstract class AbstractAdminSecurityUserBean <L extends JeeslLang, D exte
 	protected JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fUtilsSecurity;
 	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,?,?,?,?,?,USER> fbSecurity;
 	
+	private final List<Boolean> booleans; public List<Boolean> getBooleans() {return booleans;}
 	protected List<USER> users;public List<USER> getUsers() {return users;}
 	protected List<R> roles; public List<R> getRoles() {return roles;}
 	
@@ -68,6 +69,7 @@ public abstract class AbstractAdminSecurityUserBean <L extends JeeslLang, D exte
 	
 	protected UtilsRevisionPageFlow<USER,USER> revision; public UtilsRevisionPageFlow<USER, USER> getRevision() {return revision;}
 	private boolean useSaltedHash; public boolean isUseSaltedHash() {return useSaltedHash;} public void setUseSaltedHash(boolean useSaltedHash) {this.useSaltedHash = useSaltedHash;}
+	
 
 	public AbstractAdminSecurityUserBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,?,?,?,?,?,USER> fbSecurity)
 	{
@@ -75,6 +77,9 @@ public abstract class AbstractAdminSecurityUserBean <L extends JeeslLang, D exte
 		this.fbSecurity=fbSecurity;
 		efUser = fbSecurity.ejbUser();
 		useSaltedHash = false;
+		booleans = new ArrayList<>();
+		booleans.add(Boolean.TRUE);
+		booleans.add(Boolean.FALSE);
 	}
 	
 	public void postConstructSecurityUser(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
