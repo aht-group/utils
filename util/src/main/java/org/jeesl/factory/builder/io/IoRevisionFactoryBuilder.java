@@ -15,6 +15,7 @@ import org.jeesl.interfaces.model.io.revision.core.JeeslRevisionCategory;
 import org.jeesl.interfaces.model.io.revision.core.JeeslRevisionView;
 import org.jeesl.interfaces.model.io.revision.core.JeeslRevisionViewMapping;
 import org.jeesl.interfaces.model.io.revision.data.JeeslRevisionScope;
+import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionMissingLabel;
 import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntityMapping;
@@ -28,7 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class IoRevisionFactoryBuilder<L extends JeeslLang, D extends JeeslDescription,
-									RC extends JeeslRevisionCategory<L,D,RC,?>,	
+									RC extends JeeslRevisionCategory<L,D,RC,?>,
 									RV extends JeeslRevisionView<L,D,RVM>,
 									RVM extends JeeslRevisionViewMapping<RV,RE,REM>,
 									RS extends JeeslRevisionScope<L,D,RC,RA>,
@@ -38,7 +39,8 @@ public class IoRevisionFactoryBuilder<L extends JeeslLang, D extends JeeslDescri
 									RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>,
 									RER extends JeeslStatus<RER,L,D>,
 									RAT extends JeeslStatus<RAT,L,D>,
-									ERD extends JeeslRevisionDiagram<L,D,RC>
+									ERD extends JeeslRevisionDiagram<L,D,RC>,
+									RML extends JeeslRevisionMissingLabel
 >
 				extends AbstractFactoryBuilder<L,D>
 {
@@ -55,7 +57,8 @@ public class IoRevisionFactoryBuilder<L extends JeeslLang, D extends JeeslDescri
 	private final Class<RER> cRelation; public Class<RER> getClassRelation(){return cRelation;}
 	private final Class<RAT> cRat; public Class<RAT> getClassAttributeType(){return cRat;}
 	private final Class<ERD> cErd; public Class<ERD> getClassDiagram(){return cErd;}
-    
+	private final Class<RML> cMr; public Class<RML> getClassMissingRevision(){return cMr;}
+
 	public IoRevisionFactoryBuilder(final Class<L> cL, final Class<D> cD,
 									final Class<RC> cCategory,
 									final Class<RV> cView,
@@ -67,7 +70,8 @@ public class IoRevisionFactoryBuilder<L extends JeeslLang, D extends JeeslDescri
 									final Class<RA> cAttribute,
 									final Class<RER> cRelation,
 									final Class<RAT> cRat,
-									final Class<ERD> cErd)
+									final Class<ERD> cErd,
+									final Class<RML> cMr)
 	{
 		super(cL,cD);
 		this.cCategory=cCategory;
@@ -81,38 +85,39 @@ public class IoRevisionFactoryBuilder<L extends JeeslLang, D extends JeeslDescri
 		this.cRelation=cRelation;
 		this.cRat=cRat;
 		this.cErd=cErd;
+		this.cMr = cMr;
 	}
-	
+
 	public EjbRevisionViewFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> ejbView()
 	{
 		return new EjbRevisionViewFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>(cView);
 	}
-	
+
 	public EjbRevisionMappingViewFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> ejbMappingView()
 	{
 		return new EjbRevisionMappingViewFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>(cViewMapping);
 	}
-	
+
 	public EjbRevisionScopeFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> ejbScope()
 	{
 		return new EjbRevisionScopeFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>(cScope);
 	}
-	
+
 	public EjbRevisionEntityFactory<L,D,RC,RV,RVM,RE,REM,RA,RER,RAT,ERD> ejbEntity() {return new EjbRevisionEntityFactory<>(cL,cD,cEntity);}
-	
+
 	public EjbRevisionMappingEntityFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> ejbMappingEntity()
 	{
 		return new EjbRevisionMappingEntityFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>(cMappingEntity);
 	}
-	
+
 	public EjbRevisionAttributeFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> ejbAttribute()
 	{
 		return new EjbRevisionAttributeFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>(cAttribute);
 	}
-	
+
 	public EjbRevisionDiagramFactory<L,D,RC,ERD> ejbDiagram(){return new EjbRevisionDiagramFactory<>(cErd);}
-	
+
 	public XmlDiagramFactory<L,D,RC,ERD> xmlDiagram(QueryRevision q){return new XmlDiagramFactory<>(q);}
-	
+
 	public Comparator<RE> cpEjbEntity(RevisionEntityComparator.Type type) {return (new RevisionEntityComparator<RC,RE>()).factory(type);}
 }

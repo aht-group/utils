@@ -27,16 +27,17 @@ public class AbstractTranslationBean<L extends JeeslLang, D extends JeeslDescrip
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractTranslationBean.class);
 	private static final long serialVersionUID = 1L;
-	
+
 	private JeeslFacade fUtils;
 	private LocaleFactoryBuilder<L,D,LOC> fbStatus;
-	
+
 	private TranslationMap tm;
 	protected final List<String> langKeys; @Override public List<String> getLangKeys(){return langKeys;}
-	
-	protected final List<LOC> locales; public List<LOC> getLocales() {return locales;}
+
+	protected final List<LOC> locales; @Override
+	public List<LOC> getLocales() {return locales;}
 	private final Map<String,LOC> mapLocales; public Map<String, LOC> getMapLocales() {return mapLocales;}
-	
+
 	public AbstractTranslationBean(LocaleFactoryBuilder<L,D,LOC> fbStatus)
 	{
 		langKeys = new ArrayList<String>();
@@ -44,13 +45,14 @@ public class AbstractTranslationBean<L extends JeeslLang, D extends JeeslDescrip
 		this.fbStatus=fbStatus;
 		mapLocales = new HashMap<String,LOC>();
 	}
-	
+
+	@Override
 	public void ping()
 	{
-		
+
 	}
-	
-	
+
+
 	protected void initMap(ClassLoader cl, String fXml, JeeslFacade fUtils)
 	{
 		this.fUtils=fUtils;
@@ -80,10 +82,10 @@ public class AbstractTranslationBean<L extends JeeslLang, D extends JeeslDescrip
 			sb.append(" ").append(e.getMessage());
 			logger.error(sb.toString());
 		}
-		
+
 		reloadLocales();
     }
-	
+
 	public void reloadLocales()
 	{
 		locales.clear();
@@ -96,7 +98,7 @@ public class AbstractTranslationBean<L extends JeeslLang, D extends JeeslDescrip
     	}
 		logger.info("Locales loaded "+locales.size());
 	}
-	
+
 	public void overrideLangKeys(String... key)
 	{
 	    	langKeys.clear();
@@ -105,9 +107,14 @@ public class AbstractTranslationBean<L extends JeeslLang, D extends JeeslDescrip
 	    		langKeys.add(s);
 	    	}
 	}
-    
+
     @Override public String get(String lang, String key)
     {
+    	try {
     	return tm.translate(lang, key);
+		} catch (Exception e) {
+			logger.info(">>>Missing Translations lang= " + lang + " key= "+ key + "<<<<");
+			return "";
+		}
     }
 }

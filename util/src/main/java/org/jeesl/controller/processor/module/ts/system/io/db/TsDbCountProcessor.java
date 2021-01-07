@@ -48,12 +48,12 @@ public class TsDbCountProcessor<RE extends JeeslRevisionEntity<?,?,?,?,?,?>,
 	extends AbstractTimeSeriesProcessor<SCOPE,ST,MP,TS,TRANSACTION,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,WS>
 {
 	final static Logger logger = LoggerFactory.getLogger(TsDbCountProcessor.class);
-	
-	private final IoRevisionFactoryBuilder<?,?,?,?,?,?,?,RE,?,?,?,?,?> fbRevision;
-		
+
+	private final IoRevisionFactoryBuilder<?,?,?,?,?,?,?,RE,?,?,?,?,?,?> fbRevision;
+
 	private final JeeslIoDbFacade<?,?,?,?,?,?,?> fDb;
-	
-	public TsDbCountProcessor(IoRevisionFactoryBuilder<?,?,?,?,?,?,?,RE,?,?,?,?,?> fbRevision,
+
+	public TsDbCountProcessor(IoRevisionFactoryBuilder<?,?,?,?,?,?,?,RE,?,?,?,?,?,?> fbRevision,
 									TsFactoryBuilder<?,?,?,SCOPE,ST,?,MP,TS,TRANSACTION,?,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,?,?,WS,?,?> fbTs,
 									JeeslIoDbFacade<?,?,?,?,?,?,?> fDb,
 									JeeslTsFacade<?,?,?,SCOPE,ST,?,MP,TS,TRANSACTION,?,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,?,?,WS,?,?> fTs)
@@ -62,7 +62,7 @@ public class TsDbCountProcessor<RE extends JeeslRevisionEntity<?,?,?,?,?,?>,
 		this.fbRevision=fbRevision;
 		this.fDb=fDb;
 	}
-	
+
 	public List<RE> findActive()
 	{
 		List<RE> listTs = new ArrayList<RE>();
@@ -71,22 +71,22 @@ public class TsDbCountProcessor<RE extends JeeslRevisionEntity<?,?,?,?,?,?>,
 			try
 			{
 				Class<?> c = Class.forName(entity.getCode());
-				
+
 				boolean active = BooleanComparator.active(entity.getTimeseries());
 				boolean table = c.getAnnotation(Table.class)!=null;
-				
+
 				if(active && table){listTs.add(entity);}
 			}
 			catch (ClassNotFoundException e) {e.printStackTrace();}
 		}
 		return listTs;
 	}
-	
+
 	public void count() throws IllegalStateException
 	{
 		if(!isInitialized()) {throw new IllegalStateException(this.getClass().getSimpleName()+" is not fully initialized");}
 		List<RE> listTs = findActive();
-		
+
 		if(!listTs.isEmpty())
 		{
 			try
@@ -108,7 +108,7 @@ public class TsDbCountProcessor<RE extends JeeslRevisionEntity<?,?,?,?,?,?>,
 			catch (JeeslConstraintViolationException | JeeslLockingException e) {e.printStackTrace();}
 		}
 	}
-	
+
 	private void count(TRANSACTION transaction, Date date, RE entity, Class<?> c) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		BRIDGE bridge = fTs.fcBridge(fbTs.getClassBridge(),ec,entity);

@@ -44,19 +44,19 @@ public class AbstractAdminRevisionScopeBean <L extends JeeslLang, D extends Jees
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAdminRevisionScopeBean.class);
-	
+
 	private RS scope; public RS getScope() {return scope;} public void setScope(RS scope) {this.scope = scope;}
 
-	public AbstractAdminRevisionScopeBean(final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fbRevision){super(fbRevision);}
-	
+	public AbstractAdminRevisionScopeBean(final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD,?> fbRevision){super(fbRevision);}
+
 	protected void postConstructRevisionScope(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-											JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fRevision)
+											JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD,?> fRevision)
 	{
 		super.postConstructRevision(bTranslation,bMessage,fRevision);
 		types = fRevision.allOrderedPositionVisible(fbRevision.getClassAttributeType());
 		reloadScopes();
 	}
-	
+
 	@Override public void toggled(Class<?> c) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		super.toggled(c);
@@ -71,13 +71,13 @@ public class AbstractAdminRevisionScopeBean <L extends JeeslLang, D extends Jees
 		logger.info(AbstractLogMessage.reloaded(fbRevision.getClassScope(),scopes));
 		Collections.sort(scopes, comparatorScope);
 	}
-	
+
 	private void reloadScope()
 	{
 		scope = fRevision.load(fbRevision.getClassScope(), scope);
 		attributes = scope.getAttributes();
 	}
-	
+
 	public void add() throws JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.addEntity(fbRevision.getClassScope()));
@@ -85,7 +85,7 @@ public class AbstractAdminRevisionScopeBean <L extends JeeslLang, D extends Jees
 		scope.setName(efLang.createEmpty(langs));
 		scope.setDescription(efDescription.createEmpty(langs));
 	}
-	
+
 	public void select() throws JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.selectEntity(scope));
@@ -95,7 +95,7 @@ public class AbstractAdminRevisionScopeBean <L extends JeeslLang, D extends Jees
 		reloadScope();
 		attribute=null;
 	}
-	
+
 	public void save() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.saveEntity(scope));
@@ -105,7 +105,7 @@ public class AbstractAdminRevisionScopeBean <L extends JeeslLang, D extends Jees
 		reloadScope();
 		updatePerformed();
 	}
-	
+
 	public void rm() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.rmEntity(scope));
@@ -115,13 +115,13 @@ public class AbstractAdminRevisionScopeBean <L extends JeeslLang, D extends Jees
 		reloadScopes();
 		updatePerformed();
 	}
-	
+
 	public void cancel()
 	{
 		scope=null;
 		attribute=null;
 	}
-	
+
 	public void saveAttribute() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(attribute));}
@@ -131,7 +131,7 @@ public class AbstractAdminRevisionScopeBean <L extends JeeslLang, D extends Jees
 		bMessage.growlSuccessSaved();
 		updatePerformed();
 	}
-	
+
 	public void rmAttribute() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.rmEntity(attribute));}
@@ -141,9 +141,9 @@ public class AbstractAdminRevisionScopeBean <L extends JeeslLang, D extends Jees
 		reloadScope();
 		updatePerformed();
 	}
-	
+
 	protected void reorderScopes() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fRevision, fbRevision.getClassScope(), scopes);Collections.sort(scopes, comparatorScope);}
 	protected void reorderAttributes() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fRevision, attributes);}
-	
-	protected void updatePerformed(){}	
+
+	protected void updatePerformed(){}
 }

@@ -92,24 +92,24 @@ public abstract class AbstractWorkflowDashboardBean <L extends JeeslLang, D exte
 	final static Logger logger = LoggerFactory.getLogger(AbstractWorkflowDashboardBean.class);
 
 	private JeeslWorkflowFacade<L,D,LOC,AX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER> fWorkflow;
-	private JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fRevision;
-	
+	private JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?,?,?> fRevision;
+
 	private final WorkflowFactoryBuilder<L,D,AX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER> fbApproval;
 	private final IoTemplateFactoryBuilder<L,D,?,?,MT,?,?,?,?> fbTemplate;
-	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fbRevision;
+	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?,?> fbRevision;
 	private final SecurityFactoryBuilder<L,D,?,SR,?,?,?,?,?,?,?,?,?,?,?> fbSecurity;
-	
+
 	private JeeslWorkflowEngine<L,D,LOC,AX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,AC,AA,AB,AO,MT,MC,MD,SR,RE,RA,AL,WF,WY,WD,FRC,WCS,USER> wfEngine;
-	
+
 	private final SbSingleHandler<AX> sbhContext; public SbSingleHandler<AX> getSbhContext() {return sbhContext;}
 	private final SbSingleHandler<WP> sbhProcess; public SbSingleHandler<WP> getSbhProcess() {return sbhProcess;}
-	
+
 	private final List<WF> workflows; public List<WF> getWorkflows() {return workflows;}
-	
+
 	protected WF workflow; public WF getWorkflow() {return workflow;} public void setProcess(WF workflow) {this.workflow = workflow;}
 
 	public AbstractWorkflowDashboardBean(final WorkflowFactoryBuilder<L,D,AX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER> fbApproval,
-											final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fbRevision,
+											final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?,?> fbRevision,
 											final SecurityFactoryBuilder<L,D,?,SR,?,?,?,?,?,?,?,?,?,?,?> fbSecurity,
 											final IoTemplateFactoryBuilder<L,D,?,?,MT,?,?,?,?> fbTemplate)
 	{
@@ -118,33 +118,33 @@ public abstract class AbstractWorkflowDashboardBean <L extends JeeslLang, D exte
 		this.fbRevision=fbRevision;
 		this.fbSecurity=fbSecurity;
 		this.fbTemplate=fbTemplate;
-		
+
 		sbhContext = new SbSingleHandler<AX>(fbApproval.getClassContext(),this);
 		sbhProcess = new SbSingleHandler<WP>(fbApproval.getClassProcess(),this);
-		
+
 		workflows = new ArrayList<>();
 	}
-	
+
 	protected void postConstructProcess(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
 										JeeslWorkflowFacade<L,D,LOC,AX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,WD,FRC,USER> fWorkflow,
-										JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fRevision,
+										JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?,?,?> fRevision,
 										JeeslWorkflowEngine<L,D,LOC,AX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,AC,AA,AB,AO,MT,MC,MD,SR,RE,RA,AL,WF,WY,WD,FRC,WCS,USER> wfEngine)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fWorkflow=fWorkflow;
 		this.fRevision=fRevision;
 		this.wfEngine=wfEngine;
-		
+
 		initPageSettings();
-		
+
 		reloadProcesses();
 		if(sbhProcess.isSelected())
 		{
 			reloadWorkflows();
 		}
 	}
-	
-	
+
+
 	protected void initPageSettings()
 	{
 
@@ -152,12 +152,12 @@ public abstract class AbstractWorkflowDashboardBean <L extends JeeslLang, D exte
 		sbhContext.setDefault();
 		if(debugOnInfo) {logger.info(AbstractLogMessage.reloaded(fbApproval.getClassContext(), sbhContext.getList()));}
 	}
-	
+
 	private void reset()
 	{
-		
+
 	}
-	
+
 	@Override
 	public void selectSbSingle(EjbWithId item) throws JeeslLockingException, JeeslConstraintViolationException
 	{
@@ -167,18 +167,18 @@ public abstract class AbstractWorkflowDashboardBean <L extends JeeslLang, D exte
 			reloadWorkflows();
 		}
 	}
-	
+
 	public void reloadProcesses()
 	{
 		sbhProcess.update(fWorkflow.all(fbApproval.getClassProcess()),sbhProcess.getSelection());
 		if(debugOnInfo){logger.info(AbstractLogMessage.reloaded(fbApproval.getClassProcess(), sbhProcess.getList(),sbhContext.getSelection()));}
 	}
-	
+
 	public void reloadWorkflows()
 	{
 		workflows.clear();
 		workflows.addAll(fWorkflow.all(fbApproval.getClassWorkflow()));
-		if(debugOnInfo){logger.info(AbstractLogMessage.reloaded(fbApproval.getClassWorkflow(), workflows));}	
+		if(debugOnInfo){logger.info(AbstractLogMessage.reloaded(fbApproval.getClassWorkflow(), workflows));}
 	}
-	
+
 }

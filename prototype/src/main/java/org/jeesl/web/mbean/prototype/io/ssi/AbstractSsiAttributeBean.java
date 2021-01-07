@@ -47,43 +47,43 @@ public abstract class AbstractSsiAttributeBean <L extends JeeslLang,D extends Je
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractSsiAttributeBean.class);
-	
+
 	private final IoSsiCoreFactoryBuilder<L,D,SYSTEM,?,?> fbSsiCore;
 	private final IoSsiDataFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsiData;
-	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,ENTITY,?,?,?,?,?> fbRevision;
-	
+	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,ENTITY,?,?,?,?,?,?> fbRevision;
+
 	private JeeslIoSsiFacade<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,HOST> fSsi;
-	
+
 	private final SbSingleHandler<SYSTEM> sbhSystem; public SbSingleHandler<SYSTEM> getSbhSystem() {return sbhSystem;}
 	private final SbSingleHandler<MAPPING> sbhMapping; public SbSingleHandler<MAPPING> getSbhMapping() {return sbhMapping;}
 	private final SbSingleHandler<ENTITY> sbhEntity; public SbSingleHandler<ENTITY> getSbhEntity() {return sbhEntity;}
-	
+
 	private final EjbIoSsiAttributeFactory<MAPPING,ATTRIBUTE,ENTITY> efAttribute;
-	
+
 	private final Comparator<ENTITY> cpEntity;
 
 	private final List<ENTITY> entities; public List<ENTITY> getEntities() {return entities;}
 	private final List<ATTRIBUTE> attributes; public List<ATTRIBUTE> getAttributes() {return attributes;}
-	
+
 	private ATTRIBUTE attribute; public ATTRIBUTE getAttribute() {return attribute;} public void setAttribute(ATTRIBUTE attribute) {this.attribute = attribute;}
 
 
 	public AbstractSsiAttributeBean(final IoSsiCoreFactoryBuilder<L,D,SYSTEM,?,?> fbSsiCore,
 									final IoSsiDataFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsiData,
-									final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,ENTITY,?,?,?,?,?> fbRevision)
+									final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,ENTITY,?,?,?,?,?,?> fbRevision)
 	{
 		this.fbSsiCore=fbSsiCore;
 		this.fbSsiData=fbSsiData;
 		this.fbRevision=fbRevision;
 		entities = new ArrayList<>();
 		attributes = new ArrayList<>();
-		
+
 		sbhSystem = new SbSingleHandler<SYSTEM>(fbSsiCore.getClassSystem(),this);
 		sbhMapping = new SbSingleHandler<MAPPING>(fbSsiData.getClassMapping(),this);
 		sbhEntity = new SbSingleHandler<ENTITY>(fbRevision.getClassEntity(),this);
-		
+
 		cpEntity = fbRevision.cpEjbEntity(RevisionEntityComparator.Type.position);
-		
+
 		efAttribute = fbSsiData.ejbAttribute();
 	}
 
@@ -92,11 +92,11 @@ public abstract class AbstractSsiAttributeBean <L extends JeeslLang,D extends Je
 		this.fSsi=fSsi;
 		entities.addAll(fSsi.all(fbRevision.getClassEntity()));
 		Collections.sort(entities,cpEntity);
-		
+
 		sbhSystem.setList(fSsi.all(fbSsiCore.getClassSystem()));
 		sbhSystem.silentCallback();
 	}
-	
+
 	@Override public void selectSbSingle(EjbWithId item) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		reset(true,true);
@@ -128,24 +128,24 @@ public abstract class AbstractSsiAttributeBean <L extends JeeslLang,D extends Je
 			attributes.addAll(fSsi.allForParent(fbSsiData.getClassAttribute(), JeeslIoSsiAttribute.Attributes.mapping.toString(), sbhMapping.getSelection(), JeeslIoSsiAttribute.Attributes.entity.toString(), sbhEntity.getSelection()));
 		}
 	}
-	
+
 	private void reset(boolean rAttributes, boolean rAttribute)
 	{
 		if(rAttributes) {attributes.clear();}
 		if(rAttribute) {attribute=null;}
 	}
-	
+
 	public void selectAttribute()
 	{
 		logger.info(AbstractLogMessage.selectEntity(attribute));
 	}
-	
+
 	public void addAttribute()
 	{
 		attribute = efAttribute.build(sbhMapping.getSelection());
 		if(sbhEntity.isSelected()) {attribute.setEntity(sbhEntity.getSelection());}
 	}
-	
+
 	public void saveAttribute() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		attribute.setMapping(fSsi.find(fbSsiData.getClassMapping(),attribute.getMapping()));
@@ -154,7 +154,7 @@ public abstract class AbstractSsiAttributeBean <L extends JeeslLang,D extends Je
 		if(!sbhEntity.getList().contains(attribute.getEntity())) {sbhEntity.getList().add(attribute.getEntity()); if(!sbhEntity.isSelected()) {sbhEntity.setSelection(attribute.getEntity());}}
 		reload();
 	}
-	
+
 	public void deleteAttribute() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		fSsi.rm(attribute);

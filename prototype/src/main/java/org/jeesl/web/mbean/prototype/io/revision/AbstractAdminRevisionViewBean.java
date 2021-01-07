@@ -46,17 +46,17 @@ public class AbstractAdminRevisionViewBean <L extends JeeslLang, D extends Jeesl
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAdminRevisionViewBean.class);
-	
+
 	private List<RV> views; public List<RV> getViews() {return views;}
 	private List<RVM> viewMappings; public List<RVM> getViewMappings() {return viewMappings;}
-	
+
 	private RV rv; public RV getRv() {return rv;} public void setRv(RV rv) {this.rv = rv;}
 	private RVM mapping; public RVM getMapping() {return mapping;}public void setMapping(RVM mapping) {this.mapping = mapping;}
-	
-	public AbstractAdminRevisionViewBean(final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fbRevision){super(fbRevision);}
+
+	public AbstractAdminRevisionViewBean(final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD,?> fbRevision){super(fbRevision);}
 
 	protected void postConstructRevisionView(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-							JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fRevision)
+							JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD,?> fRevision)
 	{
 		super.postConstructRevision(bTranslation,bMessage,fRevision);
 		entities = fRevision.all(fbRevision.getClassEntity());
@@ -70,7 +70,7 @@ public class AbstractAdminRevisionViewBean <L extends JeeslLang, D extends Jeesl
 //		if(showInvisibleCategories){categories = fUtils.allOrderedPosition(cCategory);}
 //		else{categories = fUtils.allOrderedPositionVisible(cCategory);}
 	}
-	
+
 	public void add() throws JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.addEntity(fbRevision.getClassView()));
@@ -78,7 +78,7 @@ public class AbstractAdminRevisionViewBean <L extends JeeslLang, D extends Jeesl
 		rv.setName(efLang.createEmpty(langs));
 		rv.setDescription(efDescription.createEmpty(langs));
 	}
-	
+
 	public void select() throws JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.selectEntity(rv));
@@ -88,13 +88,13 @@ public class AbstractAdminRevisionViewBean <L extends JeeslLang, D extends Jeesl
 		mapping=null;
 		reloadView();
 	}
-	
+
 	private void reloadView()
 	{
 		rv = fRevision.load(fbRevision.getClassView(), rv);
 		viewMappings = rv.getMaps();
 	}
-	
+
 	public void save() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.saveEntity(rv));
@@ -104,7 +104,7 @@ public class AbstractAdminRevisionViewBean <L extends JeeslLang, D extends Jeesl
 		reloadView();
 		updatePerformed();
 	}
-	
+
 	public void rm() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.rmEntity(rv));
@@ -114,15 +114,15 @@ public class AbstractAdminRevisionViewBean <L extends JeeslLang, D extends Jeesl
 		reloadViews();
 		updatePerformed();
 	}
-	
+
 	public void cancel()
 	{
 		rv = null;
 		mapping=null;
 	}
-	
+
 	//*************************************************************************************
-	
+
 	public void changeEntity()
 	{
 		if(mapping.getEntity()!=null)
@@ -134,13 +134,13 @@ public class AbstractAdminRevisionViewBean <L extends JeeslLang, D extends Jeesl
 			else{mapping.setEntityMapping(entityMappings.get(0));}
 		}
 	}
-	
+
 	private void reloadEntityMappings()
 	{
 		RE e = fRevision.load(fbRevision.getClassEntity(), mapping.getEntity());
 		entityMappings = e.getMaps();
 	}
-	
+
 	public void addMapping() throws JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.addEntity(fbRevision.getClassViewMapping())+" entites:"+entities.size()+" empty:"+entities.isEmpty());
@@ -156,16 +156,16 @@ public class AbstractAdminRevisionViewBean <L extends JeeslLang, D extends Jeesl
 		{
 			mapping = efMappingView.build(rv,re,null);
 			entityMappings.clear();
-		}	
+		}
 	}
-	
+
 	public void selectMapping() throws JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.selectEntity(mapping));
 		mapping = fRevision.find(fbRevision.getClassViewMapping(), mapping);
 		reloadEntityMappings();
 	}
-	
+
 	public void saveMapping() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.saveEntity(mapping));
@@ -176,7 +176,7 @@ public class AbstractAdminRevisionViewBean <L extends JeeslLang, D extends Jeesl
 		bMessage.growlSuccessSaved();
 		updatePerformed();
 	}
-	
+
 	public void rmMapping() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info(AbstractLogMessage.rmEntity(mapping));
@@ -186,16 +186,16 @@ public class AbstractAdminRevisionViewBean <L extends JeeslLang, D extends Jeesl
 		reloadView();
 		updatePerformed();
 	}
-	
+
 	public void cancelMapping()
 	{
 		mapping=null;
 	}
-	
+
 	protected void reorderViews() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fRevision, views);}
 	protected void reorderMappings() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fRevision, viewMappings);}
-	protected void updatePerformed(){}	
-	
+	protected void updatePerformed(){}
+
 	@SuppressWarnings("rawtypes")
 	@Override protected void updateSecurity2(JeeslJsfSecurityHandler jsfSecurityHandler, String actionDeveloper)
 	{

@@ -49,43 +49,43 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAdminRevisionEntityBean.class);
-	
+
 	private JeeslLabelBean<RE> bLabel;
-	
+
 	private List<RE> links; public List<RE> getLinks() {return links;}
 	private List<ERD> diagrams; public List<ERD> getDiagrams() {return diagrams;}
-	
+
 	private RE entity; public RE getEntity() {return entity;} public void setEntity(RE entity) {this.entity = entity;}
 	private REM mapping; public REM getMapping() {return mapping;}public void setMapping(REM mapping) {this.mapping = mapping;}
-	
+
 	private String className; public String getClassName() {return className;}
-	
-	public AbstractAdminRevisionEntityBean(final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fbRevision){super(fbRevision);}
-	
-	protected void postConstructRevisionEntity(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fRevision, JeeslLabelBean<RE> bLabel)
+
+	public AbstractAdminRevisionEntityBean(final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD,?> fbRevision){super(fbRevision);}
+
+	protected void postConstructRevisionEntity(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD,?> fRevision, JeeslLabelBean<RE> bLabel)
 	{
 		super.postConstructRevision(bTranslation,bMessage,fRevision);
 		this.bLabel=bLabel;
-		
+
 		scopes = fRevision.all(fbRevision.getClassScope());
 		types = fRevision.allOrderedPositionVisible(fbRevision.getClassAttributeType());
 		relations = fRevision.allOrderedPositionVisible(fbRevision.getClassRelation());
 		scopeTypes = fRevision.allOrderedPositionVisible(fbRevision.getClassScopeType());
-		
+
 		diagrams = fRevision.all(fbRevision.getClassDiagram());
 		Collections.sort(diagrams, new PositionParentComparator<ERD>(fbRevision.getClassDiagram()));
-		
+
 		links = fRevision.all(fbRevision.getClassEntity());
 		Collections.sort(links,cpEntity);
-		
+
 		reloadEntities();
 	}
-	
+
 	@Override public void toggled(Class<?> c) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		logger.info(AbstractLogMessage.toggled(c));
 		super.toggled(c);
-		
+
 		if(c.isAssignableFrom(fbRevision.getClassCategory()))
 		{
 			reloadEntities();
@@ -98,7 +98,7 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 			if(sbhDiagram.hasSelected())
 			{
 				Iterator<RE> i = entities.iterator();
-				
+
 				while (i.hasNext())
 				{
 					RE re = i.next();
@@ -108,7 +108,7 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 			        }
 				}
 			}
-			
+
 		}
 		cancelEntity();
 	}
@@ -119,13 +119,13 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 		entities = fRevision.findRevisionEntities(sbhCategory.getSelected(), true);
 		if(debugOnInfo){logger.info(AbstractLogMessage.reloaded(fbRevision.getClassEntity(),entities));}
 		Collections.sort(entities,cpEntity);
-		
+
 		sbhDiagram.clear();
 		sbhDiagram.setList(efEntity.toDiagrams(entities));
 		Collections.sort(sbhDiagram.getList(),cpDiagram);
 		sbhDiagram.selectAll();
 	}
-	
+
 	public void addEntity() throws JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.addEntity(fbRevision.getClassEntity()));}
@@ -135,7 +135,7 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 		attribute=null;
 		mapping=null;
 	}
-	
+
 	private void reloadEntity()
 	{
 		entity = fRevision.load(fbRevision.getClassEntity(), entity);
@@ -149,10 +149,10 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 		catch (ClassNotFoundException e)
 		{
 			className = "CLASS NOT FOUND";
-			
+
 		}
 	}
-	
+
 	public void selectEntity() throws JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.selectEntity(entity));}
@@ -163,11 +163,11 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 		attribute=null;
 		mapping=null;
 	}
-	
+
 	public void saveEntity() throws JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(entity));}
-		
+
 		try
 		{
 			if(entity.getCategory()!=null){entity.setCategory(fRevision.find(fbRevision.getClassCategory(), entity.getCategory()));}
@@ -180,9 +180,9 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 			updatePerformed();
 		}
 		catch (JeeslConstraintViolationException e) {bMessage.errorConstraintViolationDuplicateObject();}
-		
+
 	}
-	
+
 	public void rmEntity() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.rmEntity(entity));}
@@ -194,16 +194,16 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 		reloadEntities();
 		updatePerformed();
 	}
-	
+
 	public void cancelEntity()
 	{
 		entity = null;
 		attribute=null;
 		mapping=null;
 	}
-	
+
 	//*************************************************************************************
-	
+
 	public void saveAttribute() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(attribute));}
@@ -215,7 +215,7 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 		bLabel.reload(entity);
 		updatePerformed();
 	}
-	
+
 	public void rmAttribute() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.rmEntity(attribute));}
@@ -225,9 +225,9 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 		reloadEntity();
 		updatePerformed();
 	}
-	
+
 	//*************************************************************************************
-	
+
 	public void addMapping() throws JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.addEntity(fbRevision.getClassEntityMapping()));}
@@ -235,20 +235,20 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 		mapping = efMappingEntity.build(entity,null,rst);
 		updateUi();
 	}
-	
+
 	public void selectMapping() throws JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.selectEntity(mapping));}
 		mapping = fRevision.find(fbRevision.getClassEntityMapping(), mapping);
 		updateUi();
 	}
-	
+
 	public void saveMapping() throws JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(mapping));}
 		mapping.setScope(fRevision.find(fbRevision.getClassScope(),mapping.getScope()));
 		mapping.setType(fRevision.find(fbRevision.getClassScopeType(), mapping.getType()));
-		
+
 		try
 		{
 			mapping = fRevision.save(mapping);
@@ -259,7 +259,7 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 		}
 		catch (JeeslConstraintViolationException e) {bMessage.errorConstraintViolationDuplicateObject();}
 	}
-	
+
 	public void rmMapping() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.rmEntity(mapping));}
@@ -269,22 +269,22 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 		reloadEntity();
 		updatePerformed();
 	}
-	
+
 	public void cancelMapping()
 	{
 		mapping=null;
 	}
-	
+
 	public void changeScopeType()
 	{
 		mapping.setType(fRevision.find(fbRevision.getClassScopeType(), mapping.getType()));
 		logger.info(AbstractLogMessage.selectEntity(mapping, mapping.getType()));
 		updateUi();
 	}
-	
+
 	//UI
 	private boolean uiWithJpqlTree; public boolean isUiWithJpqlTree() {return uiWithJpqlTree;}
-	
+
 	private void updateUi()
 	{
 		uiWithJpqlTree = false;
@@ -293,7 +293,7 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 			if(mapping.getType().getCode().equals(JeeslRevisionEntityMapping.Type.jpqlTree.toString())){uiWithJpqlTree=true;}
 		}
 	}
-	
+
 	public void changeRelation()
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.selectOneMenuChange(attribute.getRelation()));}
@@ -301,13 +301,39 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 		else {attribute.setEntity(null);}
 		if(attribute.getEntity()!=null){attribute.setEntity(fRevision.find(fbRevision.getClassEntity(), attribute.getEntity()));}
 	}
-	
+
 	public void reorderEntites() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fRevision, fbRevision.getClassEntity(), entities);Collections.sort(entities, cpEntity);}
 	public void reorderAttributes() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fRevision, attributes);}
 	public void reorderMappings() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fRevision, entityMappings);}
-	
-	protected void updatePerformed(){}	
-	
+
+	protected void updatePerformed(){}
+
+	public void selectMissingEntity(String missingEntityCode) {
+		logger.info(missingEntityCode);
+		RE tempMissingEntity = null;
+		List<RE> allRevisionEntities = fRevision.findRevisionEntities(sbhCategory.getList(), true);
+		int count = 0;
+		for (Iterator iterator = allRevisionEntities.iterator(); iterator.hasNext();) {
+			RE re = (RE) iterator.next();
+			if(re.getCode().endsWith("." + missingEntityCode)) {
+				logger.info("selected:" + re.getCode());
+				count++;
+				tempMissingEntity = re;
+			}
+			if(count==1) {this.entity = tempMissingEntity; reloadEntity();}
+			else if (count > 1) {logger.info("multiple entites "  + "repeat: " + (count-1) + " for same  missingEntityCode = " + missingEntityCode );}
+			else {logger.info("No entities definded Yet for missingEntityCode = " + missingEntityCode );}
+		}
+	}
+
+	public void initMissingLables() {
+		entity=null;
+		mapping=null;
+		attribute=null;
+	}
+
+
+
 	@SuppressWarnings("rawtypes")
 	@Override protected void updateSecurity2(JeeslJsfSecurityHandler jsfSecurityHandler, String actionDeveloper)
 	{

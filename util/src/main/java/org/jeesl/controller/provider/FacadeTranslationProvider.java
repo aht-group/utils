@@ -20,12 +20,12 @@ public class FacadeTranslationProvider <L extends JeeslLang, D extends JeeslDesc
 							implements JeeslTranslationProvider<LOC>
 {
 	final static Logger logger = LoggerFactory.getLogger(FacadeTranslationProvider.class);
-	
-	private final JeeslIoRevisionFacade<?,?,?,?,?,?,?,RE,?,?,?,?,?> fRevision;
-	private final IoRevisionFactoryBuilder<?,?,?,?,?,?,?,RE,?,?,?,?,?> fbRevision;
-	
-	public FacadeTranslationProvider(IoRevisionFactoryBuilder<?,?,?,?,?,?,?,RE,?,?,?,?,?> fbRevision,
-								JeeslIoRevisionFacade<?,?,?,?,?,?,?,RE,?,?,?,?,?> fRevision)
+
+	private final JeeslIoRevisionFacade<?,?,?,?,?,?,?,RE,?,?,?,?,?,?> fRevision;
+	private final IoRevisionFactoryBuilder<?,?,?,?,?,?,?,RE,?,?,?,?,?,?> fbRevision;
+
+	public FacadeTranslationProvider(IoRevisionFactoryBuilder<?,?,?,?,?,?,?,RE,?,?,?,?,?,?> fbRevision,
+								JeeslIoRevisionFacade<?,?,?,?,?,?,?,RE,?,?,?,?,?,?> fRevision)
 	{
 		this.fbRevision=fbRevision;
 		this.fRevision=fRevision;
@@ -51,7 +51,7 @@ public class FacadeTranslationProvider <L extends JeeslLang, D extends JeeslDesc
 		logger.warn("No XPATH devfined for "+c.getSimpleName()+" and attribute:"+code.toString());
 		return "@id";
 	}
-	
+
 	@Override public String tlEntity(String localeCode, Class<?> c)
 	{
 		try
@@ -120,6 +120,6 @@ public class FacadeTranslationProvider <L extends JeeslLang, D extends JeeslDesc
 	@Override
 	public void setLanguages(List<LOC> locales) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

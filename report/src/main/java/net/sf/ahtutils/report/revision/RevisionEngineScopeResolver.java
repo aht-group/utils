@@ -14,14 +14,14 @@ import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntityMapping;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
-import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
-import org.jeesl.interfaces.model.system.security.user.JeeslUser;
-import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
-import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityUsecase;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityUsecase;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
+import org.jeesl.interfaces.model.system.security.user.JeeslUser;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,17 +48,17 @@ public class RevisionEngineScopeResolver<L extends JeeslLang,D extends JeeslDesc
 							USER extends JeeslUser<R>>
 {
 	final static Logger logger = LoggerFactory.getLogger(RevisionEngineScopeResolver.class);
-	
-	private JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,?> fRevision;
-	
+
+	private JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,?,?> fRevision;
+
 	private RevisionEngineAttributeResolver<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,REV,C,R,V,U,A,AT,USER> rear;
-	
-	public RevisionEngineScopeResolver(JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,?> fRevision, RevisionEngineAttributeResolver<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,REV,C,R,V,U,A,AT,USER> rear)
+
+	public RevisionEngineScopeResolver(JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,?,?> fRevision, RevisionEngineAttributeResolver<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,REV,C,R,V,U,A,AT,USER> rear)
 	{
 		this.fRevision=fRevision;
 		this.rear=rear;
 	}
-	
+
 	public Scope build(String lang, RVM rvm, JXPathContext context, Object oChild)
 	{
 		JeeslRevisionEntityMapping.Type type = JeeslRevisionEntityMapping.Type.valueOf(rvm.getEntityMapping().getType().getCode());
@@ -74,20 +74,20 @@ public class RevisionEngineScopeResolver<L extends JeeslLang,D extends JeeslDesc
 		catch (JeeslNotFoundException e) {e.printStackTrace();}
 		return null;
 	}
-	
+
 	private Scope xpath(String lang, RVM rvm, JXPathContext context, Object oChild)
 	{
 		Object oScope = getXPathScopeObject(rvm,context,oChild);
-		JXPathContext ctx = getXPathContext(rvm,context,oScope); 
+		JXPathContext ctx = getXPathContext(rvm,context,oScope);
 		return build(lang,oScope,rvm.getEntityMapping().getScope(),ctx);
 	}
-	
+
 	private Scope build(String lang, Object oScope, RS scope, JXPathContext ctx)
 	{
 		Scope xScope = new Scope();
 		xScope.setClazz(oScope.getClass().getName());
 		xScope.setCategory(scope.getCategory().getName().get(lang).getLang());
-		
+
 		if(oScope instanceof EjbWithId){xScope.setId(((EjbWithId)oScope).getId());}
 		StringBuffer sb = new StringBuffer();
 		for(RA attribute : scope.getAttributes())
@@ -101,25 +101,25 @@ public class RevisionEngineScopeResolver<L extends JeeslLang,D extends JeeslDesc
 		xScope.setEntity(sb.toString().trim());
 		return xScope;
 	}
-	
+
 	private Object getXPathScopeObject(RVM rvm, JXPathContext context, Object oChild)
 	{
 		if(rvm.getEntityMapping().getXpath().trim().length()==0){return oChild;}
 		else{return context.getValue(rvm.getEntityMapping().getXpath());}
 	}
-	
+
 	private JXPathContext getXPathContext(RVM rvm, JXPathContext context, Object oScope)
 	{
 		if(rvm.getEntityMapping().getXpath().trim().length()==0) {return context;}
 		else {return JXPathContext.newContext(oScope);}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private Scope jpqlTree(String lang, RVM rvm, JXPathContext context, Object oChild) throws ClassNotFoundException, JeeslNotFoundException
 	{
 		Long id = (Long)getXPathScopeObject(rvm,context,oChild);
 		Class<EjbWithId> c = (Class<EjbWithId>)Class.forName(rvm.getEntityMapping().getScope().getCode()).asSubclass(EjbWithId.class);
-		
+
 		EjbWithId oScope = fRevision.jpaTree(c, rvm.getEntityMapping().getJpqlTree(), id);
 		return build(lang,oScope,rvm.getEntityMapping().getScope(),JXPathContext.newContext(oScope));
 	}

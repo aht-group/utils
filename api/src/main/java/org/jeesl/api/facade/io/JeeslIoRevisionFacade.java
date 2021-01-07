@@ -15,6 +15,7 @@ import org.jeesl.interfaces.model.io.revision.data.JeeslRevisionScope;
 import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntityMapping;
+import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionMissingLabel;
 import org.jeesl.interfaces.model.io.revision.er.JeeslRevisionDiagram;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
@@ -33,32 +34,37 @@ public interface JeeslIoRevisionFacade <L extends JeeslLang,D extends JeeslDescr
 									RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>,
 									RER extends JeeslStatus<RER,L,D>,
 									RAT extends JeeslStatus<RAT,L,D>,
-									ERD extends JeeslRevisionDiagram<L,D,RC>>
+									ERD extends JeeslRevisionDiagram<L,D,RC>,
+									RML extends JeeslRevisionMissingLabel>
 			extends JeeslFacade
-{	
+{
 	public static int typeCreate = 0;
-	
+
 	public static enum Scope{live,revision}
-	
+
 	RV load(Class<RV> cView, RV view);
 	RS load(Class<RS> cScope, RS scope);
 	RE load(Class<RE> cEntity, RE entity);
-	
+
 	List<RS> findRevisionScopes(List<RC> categories, boolean showInvisibleScopes);
 	List<RE> findRevisionEntities(List<RC> categories, boolean showInvisibleEntities);
-	
+
 //	<E extends Enum<E>> RA findRevisionAttribute(Class<?> c, E code);
-	
+
 	void rm(Class<RVM> cMappingView, RVM mapping) throws JeeslConstraintViolationException;
-	
+
 	<W extends EjbWithRevisionAttributes<RA>> RA save(Class<W> cW, W entity, RA attribute) throws JeeslLockingException, JeeslConstraintViolationException;
 	<W extends EjbWithRevisionAttributes<RA>> void rm(Class<W> cW, W entity, RA attribute) throws JeeslLockingException, JeeslConstraintViolationException;
-	
+
 	<T extends EjbWithId> T jpaTree(Class<T> c, String jpa, long id) throws JeeslNotFoundException;
-	
+
 	<T extends EjbWithId> List<T> revisions(Class<T> c, List<Long> ids);
-	
+
 	<T extends EjbWithId> List<Long> ids(Class<T> c, JeeslIoRevisionFacade.Scope scope);
 	<T extends EjbWithId> List<JsonRevision> findCreated(Class<T> c, Date from, Date to);
-	
+
+	<RML extends EjbWithId> List<RML> allMissingLabels(Class<RML> cRml);
+	void addMissingLabel(RML rML);
+	void cleanMissingLabels(Class<RML> cRml);
+
 }

@@ -60,14 +60,14 @@ public class AbstractAdminErDiagramBean <L extends JeeslLang, D extends JeeslDes
 	private ERD diagram; public ERD getDiagram() {return diagram;} public void setDiagram(ERD diagram) {this.diagram = diagram;}
 	private String dot; public String getDot() {return dot;} public void setDot(String dot) {this.dot = dot;}
 
-	public AbstractAdminErDiagramBean(final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fbRevision)
+	public AbstractAdminErDiagramBean(final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD,?> fbRevision)
 	{
 		super(fbRevision);
 		cpDiagram = (new RevisionDiagramComparator<RC,ERD>()).factory(RevisionDiagramComparator.Type.category);
 		efErDiagram = fbRevision.ejbDiagram();
 	}
 
-	protected void postConstructRevisionDiagram(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fRevision)
+	protected void postConstructRevisionDiagram(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD,?> fRevision)
 	{
 		super.postConstructRevision(bTranslation,bMessage,fRevision);
 		sbhCategory.selectAll();
@@ -135,7 +135,7 @@ public class AbstractAdminErDiagramBean <L extends JeeslLang, D extends JeeslDes
 		diagram=null;
 		dot = null;
 	}
-	
+
 	public void reorderDiagrams() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info(AbstractLogMessage.reorder(fbRevision.getClassDiagram(), diagrams));

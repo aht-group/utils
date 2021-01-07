@@ -12,6 +12,7 @@ import org.jeesl.controller.handler.system.TranslationHandler;
 import org.jeesl.controller.provider.FacadeTranslationProvider;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.interfaces.controller.handler.JeeslTranslationProvider;
+import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionMissingLabel;
 import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
@@ -22,15 +23,16 @@ import org.slf4j.LoggerFactory;
 
 public class AbstractLabelBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 								RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
-								RA extends JeeslRevisionAttribute<L,D,RE,?,?>>
+								RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
+								RML extends JeeslRevisionMissingLabel>
 
 					implements JeeslLabelBean<RE>,JeeslTranslationProvider<LOC>
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractLabelBean.class);
 
-	private TranslationHandler<L,D,RE,RA> th;
-	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fbRevision;
+	private TranslationHandler<L,D,RE,RA,RML> th;
+	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?,RML> fbRevision;
 	private FacadeTranslationProvider<L,D,LOC,RE,RA> ftp;
 
 	private final Map<RE,Map<MultiKey,String>> mapXpath;
@@ -41,15 +43,15 @@ public class AbstractLabelBean <L extends JeeslLang, D extends JeeslDescription,
 	public Map<String,RE> getMapEntities() {return th.getMapEntities();}
 	@Override public List<RE> allEntities() {return th.allEntities();}
 
-	public AbstractLabelBean(IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fbRevision)
+	public AbstractLabelBean(IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?,RML> fbRevision)
 	{
 		this.fbRevision=fbRevision;
 		mapXpath = new HashMap<RE,Map<MultiKey,String>>();
 	}
 
-	protected void postConstruct(JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fRevision)
+	protected void postConstruct(JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?,?,RML> fRevision)
 	{
-		th = new TranslationHandler<L,D,RE,RA>(fRevision,fbRevision.getClassEntity());
+		th = new TranslationHandler<L,D,RE,RA,RML>(fRevision,fbRevision.getClassEntity(), fbRevision.getClassL(),fbRevision.getClassMissingRevision());
 		if(fbRevision!=null)
 		{
 			ftp = new FacadeTranslationProvider<>(fbRevision,fRevision);

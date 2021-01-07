@@ -38,21 +38,21 @@ public class AbstractAdminRevisionConsistencyBean <L extends JeeslLang, D extend
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAdminRevisionConsistencyBean.class);
-	
+
 	private long index;
-	
+
 	private RC category; public RC getCategory() {return category;} public void setCategory(RC category) {this.category = category;}
 
-	public AbstractAdminRevisionConsistencyBean(final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fbRevision){super(fbRevision);}
+	public AbstractAdminRevisionConsistencyBean(final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD,?> fbRevision){super(fbRevision);}
 
 	protected void postConstructRevisionConsistency(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-													JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fRevision)
+													JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD,?> fRevision)
 	{
 		super.postConstructRevision(bTranslation,bMessage,fRevision);
 		categories.clear();
 		index = 1;
 	}
-	
+
 	protected void build(Class<?> c)
 	{
 		try
@@ -67,12 +67,12 @@ public class AbstractAdminRevisionConsistencyBean <L extends JeeslLang, D extend
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();};
 	}
-	
+
 	public void selectCategory() throws ClassNotFoundException
 	{
 		Class<?> c = Class.forName(category.getImage());
 		check(c);
 	}
-	
+
 	protected void check(Class<?> c){}
 }

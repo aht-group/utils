@@ -26,24 +26,24 @@ public interface JeeslRevisionEntity<L extends JeeslLang, D extends JeeslDescrip
 		extends Serializable,EjbPersistable,EjbSaveable,EjbRemoveable,
 				EjbWithCode,EjbWithPositionVisible,EjbWithParentAttributeResolver,EjbWithPositionParent,
 				EjbWithLang<L>,EjbWithDescription<D>,EjbWithRevisionAttributes<RA>
-{	
+{
 	public enum Attributes {category}
-	
+
 	RC getCategory();
 	void setCategory(RC category);
-	
+
 	Boolean getTimeseries();
 	void setTimeseries(Boolean timeseries);
-	
+
 	Boolean getDocumentation();
 	void setDocumentation(Boolean documentation);
-	
+
 	List<REM> getMaps();
 	void setMaps(List<REM> maps);
-	
+
 	String getDeveloperInfo();
 	void setDeveloperInfo(String developerInfo);
-	
+
 	ERD getDiagram();
 	void setDiagram(ERD diagram);
 }

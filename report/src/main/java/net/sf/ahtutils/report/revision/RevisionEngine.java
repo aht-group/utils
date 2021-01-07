@@ -19,13 +19,13 @@ import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntityMapping;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
-import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
-import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
-import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityUsecase;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityUsecase;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
+import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,39 +52,39 @@ public class RevisionEngine<L extends JeeslLang,D extends JeeslDescription,
 							USER extends JeeslUser<R>>
 {
 	final static Logger logger = LoggerFactory.getLogger(RevisionEngine.class);
-	
-	private JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,?> fRevision;
-	
+
+	private JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,?,?> fRevision;
+
 	private RevisionEngineScopeResolver<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,REV,C,R,V,U,A,AT,USER> resr;
 	private RevisionEngineAttributeResolver<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,REV,C,R,V,U,A,AT,USER> rear;
-	
+
 	private final Class<RV> cView;
 	private final Class<RS> cScope;
 	private final Class<RE> cEntity;
-	
+
 	private String lang;
 	private Map<String,RVM> map;
-	
+
 	private Map<RAT,DecimalFormat> mapDecimalFormatter;
 	private Map<RAT,SimpleDateFormat> mapDateFormatter;
-	
-	public RevisionEngine(JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,?> fRevision, final Class<RV> cView, final Class<RS> cScope, final Class<RE> cEntity, final Class<RAT> cRat)
+
+	public RevisionEngine(JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,?,?> fRevision, final Class<RV> cView, final Class<RS> cScope, final Class<RE> cEntity, final Class<RAT> cRat)
 	{
 		this.fRevision=fRevision;
 		this.cView=cView;
 		this.cScope=cScope;
 		this.cEntity=cEntity;
-		
+
 		map = new HashMap<String,RVM>();
 		mapDecimalFormatter = new HashMap<RAT,DecimalFormat>();
 		mapDateFormatter = new HashMap<RAT,SimpleDateFormat>();
-		
+
 		buildTypes(cRat);
-		
+
 		rear = RevisionEngineFactory.attribute(mapDecimalFormatter,mapDateFormatter);
 		resr = RevisionEngineFactory.scope(fRevision,rear);
 	}
-	
+
 	private void buildTypes(Class<RAT> cRat)
 	{
 		for(RAT rat : fRevision.all(cRat))
@@ -93,7 +93,7 @@ public class RevisionEngine<L extends JeeslLang,D extends JeeslDescription,
 			else if(rat.getCode().startsWith(JeeslRevisionAttribute.Type.date.toString())){mapDateFormatter.put(rat, new SimpleDateFormat(rat.getSymbol()));}
 		}
 	}
-	
+
 	public void init(String lang, RV view)
 	{
 		this.lang=lang;
@@ -107,28 +107,28 @@ public class RevisionEngine<L extends JeeslLang,D extends JeeslDescription,
 		}
 		logger.info(this.getClass().getSimpleName()+" initialized with "+map.size()+" entities");
 	}
-	
+
 	public Change build(JeeslRevisionContainer<REV,?,USER> revision)
 	{
 		Object o = revision.getEntity();
 		String key = o.getClass().getName();
 		Change xml;
 		boolean entityIsAvailable = map.containsKey(key);
-		
+
 		if(entityIsAvailable){xml = build(map.get(key),o);}
 		else{return null;}
 		xml.setAid(revision.getType().ordinal());
 		return xml;
 	}
-	
+
 	public Change build(RVM rvm, Object o)
 	{
 		logger.info(o.getClass().getSimpleName());
 		JXPathContext context = JXPathContext.newContext(o);
-		
+
 		Change change = new Change();
 		change.setType(rvm.getEntity().getName().get(lang).getLang());
-		
+
 		StringBuffer sb = new StringBuffer();
 		for(RA attribute : rvm.getEntity().getAttributes())
 		{
@@ -140,7 +140,7 @@ public class RevisionEngine<L extends JeeslLang,D extends JeeslDescription,
 		}
 		change.setText(sb.toString().trim());
 		change.setScope(resr.build(lang,rvm,context,o));
-		
+
 		return change;
 	}
 }
