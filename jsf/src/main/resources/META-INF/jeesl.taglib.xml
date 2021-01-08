@@ -23,6 +23,12 @@
             <component-type>org.jeesl.jsf.components.layout.Slot</component-type>
         </component>
     </tag>
+	<tag>
+        <tag-name>inputGrid</tag-name>
+        <component>
+            <component-type>org.jeesl.jsf.components.layout.InputGrid</component-type>
+        </component>
+    </tag>
    	<tag>
         <tag-name>block</tag-name>
         <component>

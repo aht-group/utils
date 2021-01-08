@@ -28,3 +28,100 @@ html, body {
       padding-left: 0; }
     .jeeslPanel .ui-panel-content .ui-panelgrid .ui-widget-content .ui-panelgrid-cell:last-child {
       padding-right: 0; }
+
+.jeesl-tabs {
+  background: #f0f0f0; }
+  .jeesl-tabs.ui-tabs.ui-tabs-top .ui-tabs-nav li.ui-tabs-selected {
+    border-bottom: 1px solid #f0f0f0; }
+  .jeesl-tabs .ui-tabs-nav {
+    background: #c4c4c4 url(/jeesl/javax.faces.resource/images/ui-bg_highlight-soft_100_c4c4c4_1x100.png.xhtml?ln=primefaces-aristo) 50% 50% repeat-x;
+    background: #c4c4c4 linear-gradient(top, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+    background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.8)), to(rgba(255, 255, 255, 0)));
+    background: #c4c4c4 -moz-linear-gradient(top, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+    border: 1px solid #a8a8a8;
+    border-radius: 3px; }
+  .jeesl-tabs .ui-tabs-header.ui-state-active {
+    background: #f0f0f0;
+    box-shadow: 0 1px white inset;
+    margin-bottom: 0; }
+  .jeesl-tabs .ui-tabs-panel {
+    padding: 0; }
+
+.jeesl-panel {
+  background: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  /* Padding should not have been removed from content panel.
+   * If no panel is desired for specific elements, those elements should be set up accordingly.
+   * (See following .ui-panelgrid) */ }
+  .jeesl-panel:jeesl-editor .ql-container {
+    background: rgba(255, 255, 255, 0); }
+  .jeesl-panel .ui-calendar {
+    align-items: center;
+    display: flex;
+    flex-direction: row; }
+    .jeesl-panel .ui-calendar .ui-datepicker-trigger {
+      flex: 1;
+      margin: 0 0 0 6px; }
+  .jeesl-panel .ui-galleria {
+    box-sizing: border-box;
+    max-width: 100%; }
+    .jeesl-panel .ui-galleria .ui-galleria-caption {
+      left: 0;
+      max-width: 100%; }
+  .jeesl-panel .ui-inputfield, .jeesl-panel .ui-inputfield.ui-state-focus {
+    box-shadow: none; }
+  .jeesl-panel .ui-inputtextarea {
+    margin: 2.8px 0;
+    vertical-align: middle; }
+  .jeesl-panel .ui-panel-content {
+    flex: 1;
+    padding: 4px 10px !important;
+    /* Remove outer padding from input panel cells */ }
+    .jeesl-panel .ui-panel-content .ui-panelgrid:first-child .ui-widget-content:first-child .ui-panelgrid-cell {
+      padding-top: 0; }
+    .jeesl-panel .ui-panel-content .ui-panelgrid:last-child .ui-widget-content:last-child .ui-panelgrid-cell {
+      padding-bottom: 0; }
+    .jeesl-panel .ui-panel-content .ui-panelgrid .ui-widget-content .ui-panelgrid-cell:first-child {
+      padding-left: 0; }
+    .jeesl-panel .ui-panel-content .ui-panelgrid .ui-widget-content .ui-panelgrid-cell:last-child {
+      padding-right: 0; }
+  .jeesl-panel .ui-panel-footer {
+    margin: .5em -.2em 0;
+    padding: .5em 1.2em; }
+  .jeesl-panel .ui-panelgrid {
+    width: 100%; }
+    .jeesl-panel .ui-panelgrid .ui-datatable {
+      margin: -4px -10px; }
+    .jeesl-panel .ui-panelgrid .ui-outputpanel {
+      align-items: center;
+      display: flex; }
+      .jeesl-panel .ui-panelgrid .ui-outputpanel > img {
+        height: 12px;
+        margin: 0 -5px 0 10px; }
+        .jeesl-panel .ui-panelgrid .ui-outputpanel > img:first-child {
+          margin: 0 5px 0 0; }
+      .jeesl-panel .ui-panelgrid .ui-outputpanel .ui-outputlabel {
+        flex: 1; }
+    .jeesl-panel .ui-panelgrid .ui-widget-content {
+      border-style: none; }
+      .jeesl-panel .ui-panelgrid .ui-widget-content .ui-panelgrid-cell {
+        border-style: none;
+        padding-right: 13px; }
+  .jeesl-panel .ui-widget-content {
+    background: transparent; }
+  .jeesl-panel .ui-widget-content .ui-inputfield, .jeesl-panel .ui-widget-header .ui-inputfield {
+    border: 0;
+    font-weight: normal;
+    overflow: hidden;
+    padding: 4px 2px;
+    text-align: left;
+    width: 85%; }
+
+.jeesl-tree {
+  background-color: #f1f1f1; }
+  .jeesl-tree .ui-tree {
+    border: none;
+    width: 100%; }
+  .jeesl-tree .ui-widget-content {
+    background-color: transparent; }

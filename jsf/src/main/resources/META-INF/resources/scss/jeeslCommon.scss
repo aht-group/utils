@@ -1,5 +1,14 @@
 @import '_colours';
 
+@mixin panel-header {
+	background: $header-background-colour url(/jeesl/javax.faces.resource/images/ui-bg_highlight-soft_100_c4c4c4_1x100.png.xhtml?ln=primefaces-aristo) 50% 50% repeat-x;
+    background: $header-background-colour linear-gradient(top,$white-80,$white-0);
+    background: $header-background-colour -webkit-gradient(linear,left top,left bottom,from($white-80),to($white-0));
+    background: $header-background-colour -moz-linear-gradient(top,$white-80,$white-0);
+	border: 1px solid $border-colour;
+	border-radius: 3px;
+}
+
 /* height fix */
 html, body {
 	box-sizing: border-box;
@@ -56,5 +65,188 @@ html, body {
 				}
 			}
 		}
+	}
+}
+
+
+
+.jeesl-tabs {
+	background: $panel-background;
+	
+	// Refined selector necessary to overwrite existing css rule
+	&.ui-tabs {
+		&.ui-tabs-top {
+			.ui-tabs-nav {
+				li {
+					&.ui-tabs-selected {
+						border-bottom: 1px solid $panel-background;
+					}
+				}
+			}
+		}
+	}
+	
+	.ui-tabs-nav {
+		@include panel-header();
+	}
+	
+	.ui-tabs-header {
+		&.ui-state-active {
+			background: $panel-background;
+			box-shadow: 0 1px hsla(0,0%,100%,1) inset;
+			margin-bottom: 0;
+		}
+	}
+	
+	.ui-tabs-panel {
+		padding: 0;
+	}
+}
+
+.jeesl-panel {
+	background: $panel-background;
+	display: flex;
+	flex-direction: column;
+	
+	&:jeesl-editor {
+		.ql-container {
+			background: $editor-background;
+		}
+	}
+	
+	.ui-calendar {
+		align-items: center;
+		display: flex;
+		flex-direction: row;
+		
+		.ui-datepicker-trigger {
+			flex: 1;
+			margin: 0 0 0 6px;
+		}
+	}
+	
+	.ui-galleria {
+		box-sizing: border-box;
+		max-width: 100%;
+		
+		.ui-galleria-caption {
+			left: 0;
+			max-width: 100%;
+		}
+	}
+	
+	.ui-inputfield, .ui-inputfield.ui-state-focus {
+		box-shadow: none;
+	}
+	
+	.ui-inputtextarea {
+		margin: 2.8px 0;
+		vertical-align: middle;
+	}
+	
+	/* Padding should not have been removed from content panel.
+	 * If no panel is desired for specific elements, those elements should be set up accordingly.
+	 * (See following .ui-panelgrid) */
+	.ui-panel-content {
+		flex: 1;
+		padding: 4px 10px !important;
+		
+		/* Remove outer padding from input panel cells */
+		.ui-panelgrid {
+			&:first-child {
+				.ui-widget-content:first-child {
+					.ui-panelgrid-cell {
+						padding-top: 0;
+					}
+				}
+			}
+			
+			&:last-child {
+				.ui-widget-content:last-child {
+					.ui-panelgrid-cell {
+						padding-bottom: 0;
+					}
+				}
+			}
+			
+			.ui-widget-content {
+				.ui-panelgrid-cell {
+					&:first-child {
+						padding-left: 0;
+					}
+					
+					&:last-child {
+						padding-right: 0;
+					}
+				}
+			}
+		}
+	}
+	
+	.ui-panel-footer {
+		margin: .5em -.2em 0;
+		padding: .5em 1.2em;
+	}
+	
+	.ui-panelgrid {
+		width: 100%;
+		
+		.ui-datatable {
+			margin: -4px -10px;
+		}
+		
+		.ui-outputpanel {
+			align-items: center;
+			display: flex;
+			
+			> img {
+				height: 12px;
+				margin: 0 -5px 0 10px;
+				
+				&:first-child {
+					margin: 0 5px 0 0;
+				}
+			}
+			
+			.ui-outputlabel {
+				flex: 1;
+			}
+		}
+		
+		.ui-widget-content {
+			border-style: none;
+		
+			.ui-panelgrid-cell {
+				border-style: none;
+				padding-right: 13px;
+			}
+		}
+	}
+	
+	.ui-widget-content {
+		background: transparent;
+	}
+	
+	.ui-widget-content, .ui-widget-header {
+		.ui-inputfield {
+			border: 0;
+			font-weight: normal;
+			overflow: hidden;
+			padding: 4px 2px;
+			text-align: left;
+			width: 85%;
+		}
+	}
+}
+
+.jeesl-tree {
+	background-color: #f1f1f1;
+	
+	.ui-tree {
+		border: none; width: 100%;
+	}
+	
+	.ui-widget-content {
+		background-color: transparent;
 	}
 }

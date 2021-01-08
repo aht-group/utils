@@ -13,14 +13,6 @@
 	border-radius: 2px;
 }
 
-@mixin panel-header {
-	background: $header-background-colour url(/jeesl/javax.faces.resource/images/ui-bg_highlight-soft_100_c4c4c4_1x100.png.xhtml?ln=primefaces-aristo) 50% 50% repeat-x;
-    background: $header-background-colour linear-gradient(top,$white-80,$white-0);
-    background: $header-background-colour -webkit-gradient(linear,left top,left bottom,from($white-80),to($white-0));
-    background: $header-background-colour -moz-linear-gradient(top,$white-80,$white-0);
-	border: 1px solid $border-colour;
-	border-radius: 3px;
-}
 
 .ui-datatable {
 	.ui-datatable-header {
@@ -81,11 +73,17 @@
 }
 
 // Add margin to separator to give distance to following elements but only if present
-.ui-separator {
-	margin-bottom: 4px;
-
-	&:last-child {
-		margin-bottom: 1px;
+.ui-widget-content {
+	.ui-separator {
+		background: #A8A8A8;
+		border: 0;
+		box-shadow: none;
+		height: 1px;
+		margin-bottom: 4px;
+	
+		&:last-child {
+			margin-bottom: 1px;
+		}
 	}
 }
 
@@ -146,6 +144,34 @@
 				margin: -8px;
 				position: absolute;
 				top: 50%;
+			}
+		}
+	}
+	
+	.ui-fluid {
+		&:first-child {
+			.p-field:first-child {
+				padding-top: 0;
+			}
+		}
+		
+		&:last-child {
+			.p-field:last-child {
+				padding-bottom: 0;
+			}
+		}
+		
+		.p-field {
+			.p-col {
+				line-height: 22px;
+				
+				&:first-child {
+					padding-left: 0;
+				}
+			
+				&:last-child, &:not(.ui-outputlabel) {
+					padding-right: 0;
+				}
 			}
 		}
 	}
@@ -233,39 +259,6 @@
 		    vertical-align: middle;
 		    display: inline-block;
 		}
-	}
-}
-
-.jsl-tabs {
-	background: $panel-background;
-	
-	// Refined selector necessary to overwrite existing css rule
-	&.ui-tabs {
-		&.ui-tabs-top {
-			.ui-tabs-nav {
-				li {
-					&.ui-tabs-selected {
-						border-bottom: 1px solid $panel-background;
-					}
-				}
-			}
-		}
-	}
-	
-	.ui-tabs-nav {
-		@include panel-header();
-	}
-	
-	.ui-tabs-header {
-		&.ui-state-active {
-			background: $panel-background;
-			box-shadow: 0 1px hsla(0,0%,100%,1) inset;
-			margin-bottom: 0;
-		}
-	}
-	
-	.ui-tabs-panel {
-		padding: 0;
 	}
 }
 
