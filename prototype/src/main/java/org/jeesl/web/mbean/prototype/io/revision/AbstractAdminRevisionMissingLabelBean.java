@@ -20,7 +20,9 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public class AbstractAdminRevisionMissingLabelBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,RML extends JeeslRevisionMissingLabel>
+public class AbstractAdminRevisionMissingLabelBean <L extends JeeslLang, D extends JeeslDescription,
+													LOC extends JeeslLocale<L,D,LOC,?>,
+													RML extends JeeslRevisionMissingLabel>
 	extends AbstractAdminBean<L,D,LOC> implements Serializable
 {
 	private IoRevisionFactoryBuilder<L, D, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, RML> fbRevision;
