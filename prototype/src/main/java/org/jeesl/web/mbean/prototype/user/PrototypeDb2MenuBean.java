@@ -228,7 +228,6 @@ public class PrototypeDb2MenuBean <L extends JeeslLang, D extends JeeslDescripti
 		{
 			Breadcrumb xml= XmlBreadcrumbFactory.build();
 			breadcrumb(xml,m);
-//			Collections.reverse(xml.getMenuItem());
 			mapBreadcrumb.put(m,xml);
 			if(debugOnInfo) {logger.info("breadcrumb for: "+m.getView().getCode());JaxbUtil.info(xml);}
 		}

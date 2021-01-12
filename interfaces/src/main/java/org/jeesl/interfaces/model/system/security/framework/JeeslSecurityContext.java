@@ -16,5 +16,24 @@ public interface JeeslSecurityContext<L extends JeeslLang, D extends JeeslDescri
 						EjbWithLang<L>,EjbWithDescription<D>,
 						EjbWithCode,EjbWithPosition
 {
+	String getServerName();
+	void setServerName(String serverName);
 
+	String getPageTitle();
+	void setPageTitle(String pageTitle);
+
+	String getPagePrefix();
+	void setPagePrefix(String pagePrefix);
+
+	String getPageHeadline();
+	void setPageHeadline(String pageHeadline);
+	
+	String getPageCss();
+	void setPageCss(String pageCss);
+
+	String getPageLogo();
+	void setPageLogo(String pageLogo);
+	
+	String getLinkImpressum();
+	void setLinkImpressum(String linkImpressum);
 }

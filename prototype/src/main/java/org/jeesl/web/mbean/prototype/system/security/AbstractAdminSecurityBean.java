@@ -68,7 +68,6 @@ public class AbstractAdminSecurityBean <L extends JeeslLang, D extends JeeslDesc
 	protected final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,?,?,USER> fbSecurity;
 	
 	protected final EjbSecurityCategoryFactory<C> efCategory;
-	protected final EjbSecurityRoleFactory<C,R> efRole;
 	protected final EjbSecurityViewFactory<C,V> efView;
 	protected final EjbSecurityUsecaseFactory<C,U> efUsecase;
 	protected final EjbSecurityActionFactory<V,A> efAction;
@@ -105,7 +104,6 @@ public class AbstractAdminSecurityBean <L extends JeeslLang, D extends JeeslDesc
 		this.fbSecurity=fbSecurity;
 
 		efCategory = fbSecurity.ejbCategory();
-		efRole = fbSecurity.ejbRole();
 		efView = fbSecurity.ejbView();
 		efUsecase = fbSecurity.ejbUsecase();
 		efAction = fbSecurity.ejbAction();

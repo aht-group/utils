@@ -126,7 +126,7 @@ public class AbstractAdminSecurityRoleBean <L extends JeeslLang, D extends Jeesl
 	public void addRole() throws JeeslConstraintViolationException
 	{
 		logger.info(AbstractLogMessage.addEntity(fbSecurity.getClassRole()));
-		role = efRole.build(category,"");
+		role = fbSecurity.ejbRole().build(category,"");
 		role.setName(efLang.createEmpty(localeCodes));
 		role.setDescription(efDescription.createEmpty(localeCodes));
 	}

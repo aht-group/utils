@@ -46,7 +46,9 @@ public class ProcessingTimeTracker implements ProgressTimeTracker
 		if(autoStart){start();}
 	}
 	
-	public void start() {start = System.currentTimeMillis();previousEvent=start;}
+	public static ProcessingTimeTracker instance() {return new ProcessingTimeTracker();}
+	
+	public ProcessingTimeTracker start() {start = System.currentTimeMillis();previousEvent=start;return this;}
 	public void stop() {stop = System.currentTimeMillis();}
 	
 	public void round()
