@@ -10,12 +10,14 @@ import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoCmsFacade;
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
+import org.jeesl.controller.handler.sb.SbSingleHandler;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoCmsFactoryBuilder;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.factory.ejb.system.security.EjbSecurityMenuFactory;
+import org.jeesl.interfaces.bean.sb.SbSingleBean;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCms;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsSection;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
@@ -33,6 +35,7 @@ import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplat
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityUsecase;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.jsf.helper.TreeHelper;
 import org.jeesl.model.xml.system.navigation.Menu;
 import org.jeesl.model.xml.system.navigation.MenuItem;
@@ -62,7 +65,7 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 											DS extends JeeslIoCmsSection<L,DS>,
 											USER extends JeeslUser<R>>
 		extends AbstractAdminSecurityBean<L,D,LOC,C,R,V,U,A,AT,CTX,M,AR,OT,OH,USER>
-		implements Serializable
+		implements Serializable,SbSingleBean
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAdminSecurityMenuBean.class);
@@ -73,6 +76,8 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 	protected JeeslIoCmsFacade<L,D,LOC,?,DC,?,DS,?,?,?,?,?,?,?> fCms;
 	
 	private final EjbSecurityMenuFactory<V,M> efMenu;
+	
+	protected final SbSingleHandler<CTX> sbhContext; public SbSingleHandler<CTX> getSbhContext() {return sbhContext;}
 	
 	private TreeNode tree; public TreeNode getTree() {return tree;}
 	private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
@@ -89,6 +94,9 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 		super(fbSecurity);
 		this.fbCms = fbCms;
 		this.fbSecurity=fbSecurity;
+		
+		sbhContext = new SbSingleHandler<CTX>(fbSecurity.getClassContext(),this);
+		
 		efMenu = fbSecurity.ejbMenu();
 		helps = new ArrayList<>();
 		documents = new ArrayList<>();
@@ -104,7 +112,9 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 		opViews = fSecurity.all(fbSecurity.getClassView());
 		this.fCms = fCms;
 		
-		if(fSecurity.all(fbSecurity.getClassMenu(),1).isEmpty()) {firstInit();}
+		sbhContext.setList(fSecurity.allOrderedPosition(fbSecurity.getClassContext()));
+		sbhContext.setDefault();
+		
 		Map<V,M> map = efMenu.toMapView(fSecurity.all(fbSecurity.getClassMenu()));
 		
 		for(V v : opViews)
@@ -125,33 +135,12 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 		catch (JeeslNotFoundException e) {e.printStackTrace();}
 	}
 	
+	@Override public void selectSbSingle(EjbWithId ejb)
+	{
+		
+	}
+	
 	protected void reloadDocuments()  throws JeeslNotFoundException{};
-	
-	protected void firstInit() {}
-	protected void firstInit(Menu xml)
-	{
-		firstInit(null,xml.getMenuItem());
-	}
-	
-	private void firstInit(M parent, List<MenuItem> list)
-	{
-		int i = 1;
-		for(MenuItem item : list)
-		{
-			try
-			{
-				V v = fSecurity.fByCode(fbSecurity.getClassView(),item.getView().getCode());
-				M m = efMenu.create(v);
-				m.setPosition(i);i++;
-				m.setParent(parent);
-				m = fSecurity.save(m);
-				if(!item.getMenuItem().isEmpty()) {firstInit(m,item.getMenuItem());}
-			}
-			catch (JeeslNotFoundException e) {logger.error(e.getMessage());}
-			catch (JeeslConstraintViolationException e) {logger.error("Duplicate for "+item.getCode());e.printStackTrace();}
-			catch (JeeslLockingException e) {e.printStackTrace();}
-		}
-	}
 	
 	public void reload()
     {

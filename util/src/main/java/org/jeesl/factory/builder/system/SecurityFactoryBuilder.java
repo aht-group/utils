@@ -63,6 +63,7 @@ public class SecurityFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 	private final Class<U> cUsecase; public Class<U> getClassUsecase(){return cUsecase;}
     private final Class<A> cAction; public Class<A> getClassAction(){return cAction;}
     private final Class<AT> cTemplate; public Class<AT> getClassTemplate(){return cTemplate;}
+    private final Class<CTX> cContext; public Class<CTX> getClassContext(){return cContext;}
     private final Class<M> cMenu; public Class<M> getClassMenu(){return cMenu;}
     private final Class<AR> cArea; public Class<AR> getClassArea(){return cArea;}
     
@@ -76,6 +77,7 @@ public class SecurityFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 									final Class<U> cUsecase,
 									final Class<A> cAction,
 									final Class<AT> cTemplate,
+									final Class<CTX> cContext,
 									final Class<M> cMenu,
 									final Class<AR> cArea,
 									final Class<OH> cOnlineHelp,
@@ -88,6 +90,7 @@ public class SecurityFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 		this.cUsecase=cUsecase;
 		this.cAction=cAction;
 		this.cTemplate=cTemplate;
+		this.cContext=cContext;
 		this.cMenu=cMenu;
 		this.cArea=cArea;
 		this.cOnlineHelp=cOnlineHelp;
