@@ -49,7 +49,7 @@ public class AbstractAdminSecurityContextBean <L extends JeeslLang, D extends Je
 											OT extends JeeslSecurityOnlineTutorial<L,D,V>,
 											OH extends JeeslSecurityOnlineHelp<V,?,?>,
 											USER extends JeeslUser<R>>
-			extends AbstractAdminSecurityBean<L,D,LOC,C,R,V,U,A,AT,M,AR,OT,OH,USER>
+			extends AbstractAdminSecurityBean<L,D,LOC,C,R,V,U,A,AT,CTX,M,AR,OT,OH,USER>
 			implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -61,7 +61,7 @@ public class AbstractAdminSecurityContextBean <L extends JeeslLang, D extends Je
 
 	private final Class<CTX> cCtx;
 	
-	public AbstractAdminSecurityContextBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,?,?,USER> fbSecurity, Class<CTX> cCtx)
+	public AbstractAdminSecurityContextBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,?,?,USER> fbSecurity, Class<CTX> cCtx)
 	{
 		super(fbSecurity);
 		this.cCtx=cCtx;

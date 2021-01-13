@@ -25,6 +25,7 @@ import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineTutoria
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityContext;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
@@ -43,6 +44,7 @@ public class SecurityFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 									U extends JeeslSecurityUsecase<L,D,C,R,V,A>,
 									A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 									AT extends JeeslSecurityTemplate<L,D,C>,
+									CTX extends JeeslSecurityContext<L,D>,
 									M extends JeeslSecurityMenu<V,M>,
 									AR extends JeeslSecurityArea<L,D,V>,
 									OT extends JeeslSecurityOnlineTutorial<L,D,V>,
@@ -117,7 +119,7 @@ public class SecurityFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 	}
 	
 	public JsonPageFactory<L,D,C,V,M> jsonPage() {return new JsonPageFactory<L,D,C,V,M>();}
-	public JsonPagesFactory<L,D,C,R,V,U,A,AT,M,AR,USER> jsonPages() {return new JsonPagesFactory<L,D,C,R,V,U,A,AT,M,AR,USER>(this);}
+	public JsonPagesFactory<L,D,C,R,V,U,A,AT,CTX,M,AR,USER> jsonPages() {return new JsonPagesFactory<>(this);}
 	
 	public SqlUserFactory<USER> sqlUser() {return new SqlUserFactory<>();}
 }

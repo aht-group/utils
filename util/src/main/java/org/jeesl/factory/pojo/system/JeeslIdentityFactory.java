@@ -30,10 +30,10 @@ public class JeeslIdentityFactory <I extends JeeslIdentity<R,V,U,A,USER>,
 	
 	private boolean debugOnInfo; public boolean isDebugOnInfo() {return debugOnInfo;} public void setDebugOnInfo(boolean debugOnInfo) {this.debugOnInfo = debugOnInfo;}
 	
-	private final SecurityFactoryBuilder<?,?,?,R,V,U,A,?,?,?,?,?,?,?,USER> fbSecurity;
+	private final SecurityFactoryBuilder<?,?,?,R,V,U,A,?,?,?,?,?,?,?,?,USER> fbSecurity;
 	final Class<I>  cIdentity;
 
-	public JeeslIdentityFactory(SecurityFactoryBuilder<?,?,?,R,V,U,A,?,?,?,?,?,?,?,USER> fbSecurity,final Class<I> cIdentity)
+	public JeeslIdentityFactory(SecurityFactoryBuilder<?,?,?,R,V,U,A,?,?,?,?,?,?,?,?,USER> fbSecurity,final Class<I> cIdentity)
 	{
 		this.fbSecurity=fbSecurity;
 		this.cIdentity=cIdentity;
@@ -46,7 +46,7 @@ public class JeeslIdentityFactory <I extends JeeslIdentity<R,V,U,A,USER>,
 	   			   U extends JeeslSecurityUsecase<?,?,?,R,V,A>,
 	   			   A extends JeeslSecurityAction<?,?,R,V,U,?>,
 	   			USER extends JeeslUser<R>>
-	JeeslIdentityFactory<I,R,V,U,A,USER> factory(SecurityFactoryBuilder<?,?,?,R,V,U,A,?,?,?,?,?,?,?,USER> fbSecurity,final Class<I> cIdentity)
+	JeeslIdentityFactory<I,R,V,U,A,USER> factory(SecurityFactoryBuilder<?,?,?,R,V,U,A,?,?,?,?,?,?,?,?,USER> fbSecurity,final Class<I> cIdentity)
 	{
 		return new JeeslIdentityFactory<I,R,V,U,A,USER>(fbSecurity,cIdentity);
 	}

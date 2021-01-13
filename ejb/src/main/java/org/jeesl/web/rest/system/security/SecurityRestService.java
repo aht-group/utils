@@ -25,6 +25,7 @@ import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineTutoria
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityContext;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
@@ -66,6 +67,7 @@ public class SecurityRestService <L extends JeeslLang,D extends JeeslDescription
 								U extends JeeslSecurityUsecase<L,D,C,R,V,A>,
 								A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 								AT extends JeeslSecurityTemplate<L,D,C>,
+								CTX extends JeeslSecurityContext<L,D>,
 								M extends JeeslSecurityMenu<V,M>,
 								AR extends JeeslSecurityArea<L,D,V>,
 								OT extends JeeslSecurityOnlineTutorial<L,D,V>,
@@ -76,7 +78,7 @@ public class SecurityRestService <L extends JeeslLang,D extends JeeslDescription
 	final static Logger logger = LoggerFactory.getLogger(SecurityRestService.class);
 	
 	private JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity;
-	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,?,?,USER> fbSecurity;
+	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,?,?,USER> fbSecurity;
 	
 	
 	private XmlCategoryFactory<L,D,C,R,V,U,A,AT,USER> fCategory;
@@ -91,13 +93,13 @@ public class SecurityRestService <L extends JeeslLang,D extends JeeslDescription
 	private Comparator<U> comparatorUsecase;
 	private Comparator<A> comparatorAction;
 	
-	private SecurityViewUpdater<L,D,C,R,V,U,A,AT,M,AR,OT,OH,USER> viewUpdater;
-	private SecurityTemplateUpdater<L,D,C,R,V,U,A,AT,M,AR,OT,OH,USER> initTemplates;
-	private SecurityRoleUpdater<L,D,C,R,V,U,A,AT,M,AR,OT,OH,USER> initRoles;
-	private SecurityUsecaseUpdater<L,D,C,R,V,U,A,AT,M,AR,OT,OH,USER> initUsecases;
+	private SecurityViewUpdater<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,USER> viewUpdater;
+	private SecurityTemplateUpdater<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,USER> initTemplates;
+	private SecurityRoleUpdater<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,USER> initRoles;
+	private SecurityUsecaseUpdater<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,USER> initUsecases;
 	
 	private SecurityRestService(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity,
-			SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,?,?,USER> fbSecurity)
+			SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,?,?,USER> fbSecurity)
 	{
 		this.fSecurity=fSecurity;
 		this.fbSecurity=fbSecurity;
@@ -131,14 +133,15 @@ public class SecurityRestService <L extends JeeslLang,D extends JeeslDescription
 					V extends JeeslSecurityView<L,D,C,R,U,A>,
 					U extends JeeslSecurityUsecase<L,D,C,R,V,A>,
 					A extends JeeslSecurityAction<L,D,R,V,U,AT>,
+					CTX extends JeeslSecurityContext<L,D>,
 					M extends JeeslSecurityMenu<V,M>,
 					AT extends JeeslSecurityTemplate<L,D,C>,
 					AR extends JeeslSecurityArea<L,D,V>,
 					OT extends JeeslSecurityOnlineTutorial<L,D,V>,
 					OH extends JeeslSecurityOnlineHelp<V,?,?>,
 					USER extends JeeslUser<R>>
-		SecurityRestService<L,D,C,R,V,U,A,AT,M,AR,OT,OH,USER>
-		factory(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity, SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,?,?,USER> fbSecurity)
+		SecurityRestService<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,USER>
+		factory(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity, SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,?,?,USER> fbSecurity)
 	{
 		return new SecurityRestService<>(fSecurity,fbSecurity);
 	}
