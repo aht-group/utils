@@ -170,6 +170,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	//Process diagram represented in dot format
 	private String processDiagram; public String getProcessDiagram() {return processDiagram;} public void setProcessDiagram(String processDiagram) {this.processDiagram = processDiagram;}
 	private final Comparator<SR> cpRole;
+	public abstract String getLocaleCode();
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public AbstractWorkflowProcessBean(final WorkflowFactoryBuilder<L,D,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WAN,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fbApproval,
@@ -329,6 +330,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 
 		mapTransition.clear();
 		buildTransitionMap(fWorkflow.allForGrandParent(fbWorkflow.getClassTransition(),fbWorkflow.getClassStage(),JeeslWorkflowTransition.Attributes.source.toString(),process,JeeslWorkflowStage.Attributes.process.toString()));
+		updateProcesDiagram();
 	}
 
 	private void reloadProcess()
@@ -362,7 +364,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		if(process !=null) {
 			XmlProcessFactory<L,D,WX,WP,WPD,WS,WST,WSP,WPT,WML,WT,WTT,SR> xfProcess = new XmlProcessFactory<>(XmlWorkflowQuery.get(XmlWorkflowQuery.Key.xProcess));
 			xfProcess.lazy(fbWorkflow, fWorkflow);
-			GraphWorkflowFactory gfWorkflow = new GraphWorkflowFactory("en");
+			GraphWorkflowFactory gfWorkflow = new GraphWorkflowFactory(getLocaleCode());
 			Graph2DotConverter dgf = new Graph2DotConverter(new ColorSchemeManager());
 			Graph g = gfWorkflow.build(xfProcess.build(process));
 			dgf.initWorkflowDiagramSetting();
@@ -563,6 +565,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	{
 		transitions.clear();
 		transitions.addAll(fWorkflow.allForParent(fbWorkflow.getClassTransition(), stage));
+		updateProcesDiagram();
 	}
 
 	private void buildTransitionMap(List<WT> list)
