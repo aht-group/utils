@@ -22,6 +22,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityUsecase;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityContext;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.slf4j.Logger;
@@ -30,14 +31,14 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.prototype.controller.handler.op.user.OverlayUserSelectionHandler;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public class AbstractAdminSecurityDomainBean <L extends JeeslLang,
-												D extends JeeslDescription,
+public class AbstractAdminSecurityDomainBean <L extends JeeslLang, D extends JeeslDescription,
 												C extends JeeslSecurityCategory<L,D>,
 												R extends JeeslSecurityRole<L,D,C,V,U,A,USER>,
 												V extends JeeslSecurityView<L,D,C,R,U,A>,
 												U extends JeeslSecurityUsecase<L,D,C,R,V,A>,
 												A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 												AT extends JeeslSecurityTemplate<L,D,C>,
+												CTX extends JeeslSecurityContext<L,D>,
 												M extends JeeslSecurityMenu<V,M>,
 												USER extends JeeslUser<R>,
 												STAFF extends JeeslStaff<R,USER,D1,D2>,
