@@ -77,6 +77,13 @@ public class JbossModuleConfigurator
 			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("net.postgis:postgis-geometry:2.5.0"),moduleMain);
 
 		}
+		else if(version.equals("7.3.4"))
+		{
+			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("org.postgresql:postgresql:42.2.18"),moduleMain);
+			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("net.postgis:postgis-jdbc:2.5.0"),moduleMain);
+			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("net.postgis:postgis-geometry:2.5.0"),moduleMain);
+
+		}
 		else
 		{
 			logger.warn("NO PostGIS drivers defined in "+this.getClass().getSimpleName()+" for "+version);
@@ -220,6 +227,17 @@ public class JbossModuleConfigurator
 			
 			//Find the version in hibernate-spatial
 			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("org.geolatte:geolatte-geom:1.3.0"),moduleMain);
+			
+			//Find the version in geolatte-geom
+			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("com.vividsolutions:jts-core:1.14.0"),moduleMain);
+		}
+		else if(version.equals("7.3.4"))
+		{
+			//Should match the hibernate version of EAP7.2.x
+			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("org.hibernate:hibernate-spatial:5.3.18.Final"),moduleMain);
+			
+			//Find the version in hibernate-spatial
+			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("org.geolatte:geolatte-geom:1.6.0"),moduleMain);
 			
 			//Find the version in geolatte-geom
 			FileUtils.copyFileToDirectory(MavenArtifactResolver.resolve("com.vividsolutions:jts-core:1.14.0"),moduleMain);
