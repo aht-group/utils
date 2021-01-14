@@ -132,9 +132,16 @@ public class PrototypeDb2MenuBean <L extends JeeslLang, D extends JeeslDescripti
 			mapKey.put(JeeslSecurityMenu.keyRoot, root);
 			
 			List<M> list = new ArrayList<>();
-			if(context==null) {list.addAll(fSecurity.all(fbSecurity.getClassMenu()));}
-			else {list.addAll(fSecurity.allForParent(fbSecurity.getClassMenu(), JeeslSecurityMenu.Attributes.parent.toString(),context));}
-			
+			if(context==null)
+			{
+				list.addAll(fSecurity.all(fbSecurity.getClassMenu()));
+				if(debugOnInfo) {logger.info(fbSecurity.getClassMenu().getSimpleName()+": "+list.size());}
+			}
+			else
+			{
+				list.addAll(fSecurity.allForParent(fbSecurity.getClassMenu(), JeeslSecurityMenu.Attributes.context.toString(),context));
+				if(debugOnInfo) {logger.info(fbSecurity.getClassMenu().getSimpleName()+": "+list.size()+" in context "+context.getCode());}
+			}
 			Collections.sort(list,new PositionComparator<M>());
 			
 			for(M m : list)

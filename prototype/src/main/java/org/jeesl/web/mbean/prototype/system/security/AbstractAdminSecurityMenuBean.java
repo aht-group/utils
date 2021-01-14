@@ -115,36 +115,69 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 		sbhContext.setList(fSecurity.allOrderedPosition(fbSecurity.getClassContext()));
 		sbhContext.setDefault();
 		
-		Map<V,M> map = efMenu.toMapView(fSecurity.all(fbSecurity.getClassMenu()));
+		createMissingItems();
+		reloadMenu();
 		
-		for(V v : opViews)
-		{
-			if(!map.containsKey(v))
-			{
-				try
-				{
-					M m = efMenu.create(v);
-					fSecurity.save(m);
-				}
-				catch (JeeslConstraintViolationException e) {e.printStackTrace();}
-				catch (JeeslLockingException e) {e.printStackTrace();}
-			}
-		}
-		reload();
 		try {reloadDocuments();}
 		catch (JeeslNotFoundException e) {e.printStackTrace();}
 	}
 	
 	@Override public void selectSbSingle(EjbWithId ejb)
 	{
+		createMissingItems();
+		reloadMenu();
+	}
+	
+	private void createMissingItems()
+	{
+		List<M> list = new ArrayList<>();
+		if(sbhContext.isSelected())
+		{
+			list.addAll(fSecurity.allForParent(fbSecurity.getClassMenu(), JeeslSecurityMenu.Attributes.context.toString(),sbhContext.getSelection()));
+			if(debugOnInfo) {logger.info(fbSecurity.getClassMenu().getSimpleName()+": "+list.size()+" in context "+sbhContext.getSelection().getCode());}
+		}
+		else
+		{
+			list.addAll(fSecurity.all(fbSecurity.getClassMenu()));
+			if(debugOnInfo) {logger.info(fbSecurity.getClassMenu().getSimpleName()+": "+list.size());}
+		}
 		
+		if(!list.isEmpty() || fSecurity.all(fbSecurity.getClassMenu(),1).isEmpty())
+		{
+			// We check if we have to create missing items if
+			// - we have already items for this context or
+			// - there are not items at all (initial start)
+			Map<V,M> map = efMenu.toMapView(list);
+			for(V v : opViews)
+			{
+//				if(debugOnInfo) {logger.info(v.toString()+" already available: "+map.containsKey(v));}
+				if(!map.containsKey(v))
+				{
+					try
+					{
+						M m = efMenu.build(v);
+						if(sbhContext.isSelected()) {m.setContext(sbhContext.getSelection());}
+						fSecurity.save(m);
+					}
+					catch (JeeslConstraintViolationException e) {e.printStackTrace();}
+					catch (JeeslLockingException e) {e.printStackTrace();}
+				}
+			}
+		}
+		else
+		{
+			// This happens if a new and empty context is selected, then we provide the "Import from other context" feature
+		}
 	}
 	
 	protected void reloadDocuments()  throws JeeslNotFoundException{};
 	
-	public void reload()
+	public void reloadMenu()
     {
-		List<M> list = fSecurity.all(fbSecurity.getClassMenu());
+		List<M> list = new ArrayList<>();
+		if(sbhContext.isSelected()) {list.addAll(fSecurity.allForParent(fbSecurity.getClassMenu(), JeeslSecurityMenu.Attributes.context.toString(),sbhContext.getSelection()));}
+		else {list.addAll(fSecurity.all(fbSecurity.getClassMenu()));}
+		
 		Map<M,List<M>> map = efMenu.toMapChild(list);
 	    tree = new DefaultTreeNode(null, null);
 	    	

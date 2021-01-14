@@ -2,7 +2,6 @@ package org.jeesl.web.mbean.prototype.system.security;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.jeesl.api.bean.JeeslSecurityBean;
@@ -16,7 +15,6 @@ import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
-import org.jeesl.interfaces.model.system.locale.status.JeeslStatusFixedCode;
 import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineHelp;
 import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineTutorial;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
@@ -34,7 +32,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
-import net.sf.exlp.util.io.StringUtil;
 
 public class AbstractAdminSecurityContextBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 											C extends JeeslSecurityCategory<L,D>,
@@ -84,8 +81,6 @@ public class AbstractAdminSecurityContextBean <L extends JeeslLang, D extends Je
 		category.setName(efLang.createEmpty(localeCodes));
 		category.setDescription(efDescription.createEmpty(localeCodes));
 	}
-	
-
 	
 	private void reloadContexts()
 	{

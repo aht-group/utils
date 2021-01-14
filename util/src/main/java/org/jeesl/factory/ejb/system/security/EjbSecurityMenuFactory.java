@@ -44,7 +44,7 @@ public class EjbSecurityMenuFactory <V extends JeeslSecurityView<?,?,?,?,?,?>,
 	    	return ejb;
     }
     
-    public M create(V view)
+    public M build(V view)
     {
 		M ejb = null;
     	
