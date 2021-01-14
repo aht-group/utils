@@ -1,10 +1,14 @@
 package org.jeesl.web.mbean.prototype.io.revision;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.jeesl.api.bean.JeeslLabelBean;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
@@ -332,8 +336,70 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 		attribute=null;
 	}
 
+	@SuppressWarnings("rawtypes")
+	public void pullAttributesFromClass() {
+		try
+		{
+			Class<?> c = Class.forName(getEntity().getCode());
+			List<Class> classes = new ArrayList<>();
+			List<Field> fields = new ArrayList<>();
 
+			classes.add(c);
+			Class[] interfaces = c.getInterfaces();
+			for (Class i : interfaces) {
+				classes.add(i);
+			}
+			for (Class enumClass : classes) {
+				Field[] allFields = enumClass.getDeclaredFields();
+				for (Field f : allFields) {if(!isFieldAvilable(f,enumClass)) {fields.add(f); addPulledField(f);}}
+			}
 
+			reloadEntity();
+			bMessage.growlSuccessSaved();
+			bLabel.reload(entity);
+		} catch (SecurityException | ClassNotFoundException | InstantiationException | IllegalAccessException | JeeslLockingException | JeeslConstraintViolationException e) {
+			e.printStackTrace();
+			logger.warn("Pull Attributes From Class Exception: "+e.getMessage());
+		}
+	}
+
+	private void addPulledField(Field f) throws InstantiationException, IllegalAccessException, JeeslLockingException, JeeslConstraintViolationException {
+		attribute = efAttribute.build(null);
+		attribute.setCode(f.getName());
+		attribute.setName(efLang.createLangMap("en",StringUtils.capitalize(f.getName())));
+		attribute.setDescription(efDescription.createEmpty(langs));
+		attribute.setEntity(entity);
+		attribute.setBean(true);
+		//logger.info("size:" +types.size() + types.get(0).getCode() + types.get(0).getId());
+		attribute.setType(types.get(0));
+		//logger.info("entity:" + entity.getId());
+		attribute = fRevision.save(fbRevision.getClassEntity(),entity,attribute);
+	}
+
+	private boolean isFieldAvilable(Field f,Class<?> c){
+		int mod = f.getModifiers();
+		//static, final and abstract field are marked as available so that its not saved for automatic download
+		if(Modifier.isFinal(mod) || Modifier.isStatic(mod) || Modifier.isAbstract(mod)) {return true;}
+
+		//check if field have getter methods
+		//non getters field are marked as available so that its not saved for automatic download
+		try {c.getDeclaredMethod("get"+ StringUtils.capitalize(f.getName()));}catch (Exception e) {
+		try {c.getDeclaredMethod("is"+ StringUtils.capitalize(f.getName()));} catch (Exception e2) {return false;}}
+
+		//check if field is already saved
+		for (Iterator iterator = attributes.iterator(); iterator.hasNext();) {
+			RA ra = (RA) iterator.next();
+			if(ra.getCode().equals(f.getName())) {return true;}
+		}
+		return false;
+	}
+
+	public boolean isEmptyEntityReloaded() {
+		if(className.isEmpty() || className.equals("CLASS NOT FOUND")) {
+			return true;
+		}
+		return false;
+	}
 	@SuppressWarnings("rawtypes")
 	@Override protected void updateSecurity2(JeeslJsfSecurityHandler jsfSecurityHandler, String actionDeveloper)
 	{
