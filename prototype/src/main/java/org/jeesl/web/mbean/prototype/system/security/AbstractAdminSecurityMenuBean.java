@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.jeesl.api.bean.JeeslSecurityBean;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
@@ -169,25 +170,37 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 	}
 
 	public void importFromDefaultContext() {
-		logger.info("importFromOtherContext");
 		try {
 		if(sbhContext.isSelected()) {
-			logger.info("context selected");
 			CTX defaultCtx = fSecurity.fByCode(fbSecurity.getClassContext(), "core");
-			logger.info(defaultCtx.getCode());
 			CTX currentCtx =sbhContext.getSelection();
-			logger.info(currentCtx.getCode());
 			List<M> list = new ArrayList<>();
 			list.addAll(fSecurity.allForParent(fbSecurity.getClassMenu(), JeeslSecurityMenu.Attributes.context.toString(),defaultCtx));
-			logger.info(defaultCtx.getCode() + "size: " + list.size() );
-			for (M m : list) {
+			Map<M,List<M>> map = efMenu.toMapChild(list);
+
+			Map<M,M> defaultVsCurrentMap = new HashedMap();
+			logger.info("copying menu items....");
+			for (M m :  list) {
 				M newMenu = efMenu.build();
-				newMenu.setParent(m.getParent());
 				newMenu.setPosition(m.getPosition());
 				newMenu.setView(m.getView());
 				newMenu.setContext(currentCtx);
-				fSecurity.save(newMenu);
+				newMenu = fSecurity.save(newMenu);
+				//logger.info("copying ids from = " + m.getId() +" to " + newMenu.getId());
+				defaultVsCurrentMap.put(m, newMenu);
 			}
+			logger.info("copying menu items....done");
+			logger.info("Updating menu parents....");
+			for (Map.Entry<M,List<M>> defautlMenuEntry : map.entrySet()) {
+				M currentParentMenu= fSecurity.find(fbSecurity.getClassMenu(),defaultVsCurrentMap.get(defautlMenuEntry.getKey()));
+				for (M m :  defautlMenuEntry.getValue()) {
+					M currentMenu = fSecurity.find(fbSecurity.getClassMenu(), defaultVsCurrentMap.get(m));
+					//logger.info("new MenuId:" + currentMenu.getId() + "parent :" + currentParentMenu.getId());
+					currentMenu.setParent(currentParentMenu);
+					fSecurity.update(currentMenu);
+				}
+			}
+			logger.info("Updating menu parents....done");
 			createMissingItems();
 			reloadMenu();
 		}
@@ -197,7 +210,6 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 	}
 
 	public boolean isMenuReloaded() {
-		logger.info("isMenuReloaded");
 		if(sbhContext.isSelected()) {
 			if(fSecurity.allForParent(fbSecurity.getClassMenu(), JeeslSecurityMenu.Attributes.context.toString(),sbhContext.getSelection()).size() > 0) {
 			return true;
