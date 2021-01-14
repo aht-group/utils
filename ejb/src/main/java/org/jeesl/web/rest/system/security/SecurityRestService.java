@@ -68,7 +68,7 @@ public class SecurityRestService <L extends JeeslLang,D extends JeeslDescription
 								A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 								AT extends JeeslSecurityTemplate<L,D,C>,
 								CTX extends JeeslSecurityContext<L,D>,
-								M extends JeeslSecurityMenu<V,M>,
+								M extends JeeslSecurityMenu<V,CTX,M>,
 								AR extends JeeslSecurityArea<L,D,V>,
 								OT extends JeeslSecurityOnlineTutorial<L,D,V>,
 								OH extends JeeslSecurityOnlineHelp<V,?,?>,
@@ -77,7 +77,7 @@ public class SecurityRestService <L extends JeeslLang,D extends JeeslDescription
 {
 	final static Logger logger = LoggerFactory.getLogger(SecurityRestService.class);
 	
-	private JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity;
+	private JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity;
 	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,?,?,USER> fbSecurity;
 	
 	
@@ -98,7 +98,7 @@ public class SecurityRestService <L extends JeeslLang,D extends JeeslDescription
 	private SecurityRoleUpdater<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,USER> initRoles;
 	private SecurityUsecaseUpdater<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,USER> initUsecases;
 	
-	private SecurityRestService(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity,
+	private SecurityRestService(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity,
 			SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,?,?,USER> fbSecurity)
 	{
 		this.fSecurity=fSecurity;
@@ -134,14 +134,15 @@ public class SecurityRestService <L extends JeeslLang,D extends JeeslDescription
 					U extends JeeslSecurityUsecase<L,D,C,R,V,A>,
 					A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 					CTX extends JeeslSecurityContext<L,D>,
-					M extends JeeslSecurityMenu<V,M>,
+					M extends JeeslSecurityMenu<V,CTX,M>,
 					AT extends JeeslSecurityTemplate<L,D,C>,
 					AR extends JeeslSecurityArea<L,D,V>,
 					OT extends JeeslSecurityOnlineTutorial<L,D,V>,
 					OH extends JeeslSecurityOnlineHelp<V,?,?>,
 					USER extends JeeslUser<R>>
 		SecurityRestService<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,USER>
-		factory(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity, SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,?,?,USER> fbSecurity)
+		factory(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity,
+				SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,?,?,USER> fbSecurity)
 	{
 		return new SecurityRestService<>(fSecurity,fbSecurity);
 	}

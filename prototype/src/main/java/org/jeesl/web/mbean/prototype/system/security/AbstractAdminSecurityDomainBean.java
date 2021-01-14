@@ -39,7 +39,7 @@ public class AbstractAdminSecurityDomainBean <L extends JeeslLang, D extends Jee
 												A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 												AT extends JeeslSecurityTemplate<L,D,C>,
 												CTX extends JeeslSecurityContext<L,D>,
-												M extends JeeslSecurityMenu<V,M>,
+												M extends JeeslSecurityMenu<V,CTX,M>,
 												USER extends JeeslUser<R>,
 												STAFF extends JeeslStaff<R,USER,D1,D2>,
 												D1 extends EjbWithId, D2 extends EjbWithId>
@@ -48,7 +48,7 @@ public class AbstractAdminSecurityDomainBean <L extends JeeslLang, D extends Jee
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAdminSecurityDomainBean.class);
 
-	protected JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity;
+	protected JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity;
 	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,?,?,?,?,?,USER> fbSecurity;
 	protected JeeslUserFacade<USER> fUser;
 
@@ -73,7 +73,7 @@ public class AbstractAdminSecurityDomainBean <L extends JeeslLang, D extends Jee
 		efStaff = fbSecurity.ejbStaff(cStaff);
 	}
 	
-	protected void initSuper(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity, JeeslUserFacade<USER> fUser)
+	protected void initSuper(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity, JeeslUserFacade<USER> fUser)
 	{
 		this.fSecurity=fSecurity;
 		this.fUser=fUser;

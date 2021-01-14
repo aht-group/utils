@@ -42,7 +42,7 @@ public class AbstractAdminSecurityUsecasesBean <L extends JeeslLang, D extends J
 											A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 											AT extends JeeslSecurityTemplate<L,D,C>,
 											CTX extends JeeslSecurityContext<L,D>,
-											M extends JeeslSecurityMenu<V,M>,
+											M extends JeeslSecurityMenu<V,CTX,M>,
 											AR extends JeeslSecurityArea<L,D,V>,
 											OT extends JeeslSecurityOnlineTutorial<L,D,V>,
 											OH extends JeeslSecurityOnlineHelp<V,?,?>,
@@ -66,7 +66,7 @@ public class AbstractAdminSecurityUsecasesBean <L extends JeeslLang, D extends J
 		categoryType = JeeslSecurityCategory.Type.usecase;
 	}
 	
-	public void postConstructUsecase(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity, JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslSecurityBean<L,D,C,R,V,U,A,AT,M,USER> bSecurity)
+	public void postConstructUsecase(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity, JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslSecurityBean<L,D,C,R,V,U,A,AT,CTX,M,USER> bSecurity)
 	{
 		super.postConstructSecurity(fSecurity,bTranslation,bMessage,bSecurity);		
 		opViews = fSecurity.all(fbSecurity.getClassView());

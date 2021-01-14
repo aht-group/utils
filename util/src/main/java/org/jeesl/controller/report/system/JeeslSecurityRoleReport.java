@@ -16,6 +16,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityContext;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
@@ -39,12 +40,13 @@ public class JeeslSecurityRoleReport <L extends JeeslLang, D extends JeeslDescri
 								U extends JeeslSecurityUsecase<L,D,C,R,V,A>,
 								A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 								AT extends JeeslSecurityTemplate<L,D,C>,
-								M extends JeeslSecurityMenu<V,M>,
+								CTX extends JeeslSecurityContext<L,D>,
+								M extends JeeslSecurityMenu<V,CTX,M>,
 								USER extends JeeslUser<R>>
 {
 	final static Logger logger = LoggerFactory.getLogger(JeeslSecurityRoleReport.class);
 
-	private final JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity;
+	private final JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity;
 	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,M,?,?,?,?,?,USER> fbSecurity;
 	
 	private final String localeCode;
@@ -53,7 +55,7 @@ public class JeeslSecurityRoleReport <L extends JeeslLang, D extends JeeslDescri
 	//	private org.jeesl.factory.xml.system.security.XmlViewFactory<L,D,C,R,V,U,A,AT,USER> xfView;
 	private Comparator<R> comparatorView;
 	
-	public JeeslSecurityRoleReport(String localeCode, SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,M,?,?,?,?,?,USER> fbSecurity, JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity)
+	public JeeslSecurityRoleReport(String localeCode, SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,M,?,?,?,?,?,USER> fbSecurity, JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity)
 	{
 		this.localeCode=localeCode;
 		this.fSecurity=fSecurity;

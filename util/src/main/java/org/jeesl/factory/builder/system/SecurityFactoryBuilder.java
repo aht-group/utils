@@ -45,7 +45,7 @@ public class SecurityFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 									A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 									AT extends JeeslSecurityTemplate<L,D,C>,
 									CTX extends JeeslSecurityContext<L,D>,
-									M extends JeeslSecurityMenu<V,M>,
+									M extends JeeslSecurityMenu<V,CTX,M>,
 									AR extends JeeslSecurityArea<L,D,V>,
 									OT extends JeeslSecurityOnlineTutorial<L,D,V>,
 									OH extends JeeslSecurityOnlineHelp<V,DC,DS>,
@@ -103,7 +103,7 @@ public class SecurityFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 	public EjbSecurityUsecaseFactory<C,U> ejbUsecase() {return new EjbSecurityUsecaseFactory<C,U>(cUsecase);}
 	public EjbSecurityActionFactory<V,A> ejbAction() {return new EjbSecurityActionFactory<V,A>(cAction);}
 	public EjbSecurityActionTemplateFactory<C,AT> ejbTemplate(){return new EjbSecurityActionTemplateFactory<C,AT>(cTemplate);}
-	public EjbSecurityMenuFactory<V,M> ejbMenu(){return new EjbSecurityMenuFactory<V,M>(cMenu);}
+	public EjbSecurityMenuFactory<V,CTX,M> ejbMenu(){return new EjbSecurityMenuFactory<>(cMenu);}
 	public EjbSecurityAreaFactory<V,AR> ejbArea() {return new EjbSecurityAreaFactory<V,AR>(cArea);}
 	public EjbSecurityHelpFactory<V,OH,DC,DS> ejbHelp() {return new EjbSecurityHelpFactory<>(cOnlineHelp);}
 	
@@ -121,7 +121,7 @@ public class SecurityFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 		return new TxtStaffFactory<L,D,R,USER,STAFF,D1,D2>(localeCode);
 	}
 	
-	public JsonPageFactory<L,D,C,V,M> jsonPage() {return new JsonPageFactory<L,D,C,V,M>();}
+	public JsonPageFactory<L,D,C,V,CTX,M> jsonPage() {return new JsonPageFactory<>();}
 	public JsonPagesFactory<L,D,C,R,V,U,A,AT,CTX,M,AR,USER> jsonPages() {return new JsonPagesFactory<>(this);}
 	
 	public SqlUserFactory<USER> sqlUser() {return new SqlUserFactory<>();}

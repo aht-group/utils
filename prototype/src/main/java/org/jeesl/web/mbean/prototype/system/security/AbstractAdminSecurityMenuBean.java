@@ -57,7 +57,7 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 											A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 											AT extends JeeslSecurityTemplate<L,D,C>,
 											CTX extends JeeslSecurityContext<L,D>,
-											M extends JeeslSecurityMenu<V,M>,
+											M extends JeeslSecurityMenu<V,CTX,M>,
 											AR extends JeeslSecurityArea<L,D,V>,
 											OT extends JeeslSecurityOnlineTutorial<L,D,V>,
 											OH extends JeeslSecurityOnlineHelp<V,DC,DS>,
@@ -75,7 +75,7 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 	
 	protected JeeslIoCmsFacade<L,D,LOC,?,DC,?,DS,?,?,?,?,?,?,?> fCms;
 	
-	private final EjbSecurityMenuFactory<V,M> efMenu;
+	private final EjbSecurityMenuFactory<V,CTX,M> efMenu;
 	
 	protected final SbSingleHandler<CTX> sbhContext; public SbSingleHandler<CTX> getSbhContext() {return sbhContext;}
 	
@@ -102,10 +102,10 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 		documents = new ArrayList<>();
 	}
 	
-	public void postConstructMenu(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity,
+	public void postConstructMenu(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity,
 	                              JeeslTranslationBean<L,D,LOC> bTranslation,
 	                              JeeslFacesMessageBean bMessage,
-	                              JeeslSecurityBean<L,D,C,R,V,U,A,AT,M,USER> bSecurity,
+	                              JeeslSecurityBean<L,D,C,R,V,U,A,AT,CTX,M,USER> bSecurity,
 	                              JeeslIoCmsFacade<L,D,LOC,?,DC,?,DS,?,?,?,?,?,?,?> fCms)
 	{
 		super.postConstructSecurity(fSecurity,bTranslation,bMessage,bSecurity);

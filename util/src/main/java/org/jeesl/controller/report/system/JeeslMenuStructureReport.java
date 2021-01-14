@@ -39,12 +39,12 @@ public class JeeslMenuStructureReport <L extends JeeslLang,
 								A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 								AT extends JeeslSecurityTemplate<L,D,C>,
 								CTX extends JeeslSecurityContext<L,D>,
-								M extends JeeslSecurityMenu<V,M>,
+								M extends JeeslSecurityMenu<V,CTX,M>,
 								USER extends JeeslUser<R>>
 {
 	final static Logger logger = LoggerFactory.getLogger(JeeslMenuStructureReport.class);
 
-	private final JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity;
+	private final JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity;
 	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,?,?,?,?,?,USER> fbSecurity;
 	
 	private final String localeCode;
@@ -52,7 +52,7 @@ public class JeeslMenuStructureReport <L extends JeeslLang,
 //	private org.jeesl.factory.xml.system.security.XmlViewFactory<L,D,C,R,V,U,A,AT,USER> xfView;
 	private Comparator<V> comparatorView;
 	
-	public JeeslMenuStructureReport(String localeCode, JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity, SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,?,?,?,?,?,USER> fbSecurity)
+	public JeeslMenuStructureReport(String localeCode, JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity, SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,?,?,?,?,?,USER> fbSecurity)
 	{
 		this.localeCode=localeCode;
 		this.fSecurity=fSecurity;

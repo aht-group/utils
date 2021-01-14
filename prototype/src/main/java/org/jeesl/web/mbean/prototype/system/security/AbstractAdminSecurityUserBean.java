@@ -44,7 +44,7 @@ public abstract class AbstractAdminSecurityUserBean <L extends JeeslLang, D exte
 											A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 											AT extends JeeslSecurityTemplate<L,D,C>,
 											CTX extends JeeslSecurityContext<L,D>,
-											M extends JeeslSecurityMenu<V,M>,
+											M extends JeeslSecurityMenu<V,CTX,M>,
 											USER extends JeeslUser<R>>
 		extends AbstractAdminBean<L,D,LOC>
 		implements Serializable
@@ -53,7 +53,7 @@ public abstract class AbstractAdminSecurityUserBean <L extends JeeslLang, D exte
 	final static Logger logger = LoggerFactory.getLogger(AbstractAdminSecurityUserBean.class);
 
 	protected JeeslUserFacade<USER> fUtilsUser;
-	protected JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fUtilsSecurity;
+	protected JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fUtilsSecurity;
 	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,?,?,?,?,?,USER> fbSecurity;
 	
 	private final List<Boolean> booleans; public List<Boolean> getBooleans() {return booleans;}
@@ -85,7 +85,7 @@ public abstract class AbstractAdminSecurityUserBean <L extends JeeslLang, D exte
 	}
 	
 	public void postConstructSecurityUser(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-							JeeslUserFacade<USER> fUtilsUser, JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fUtilsSecurity)
+							JeeslUserFacade<USER> fUtilsUser, JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fUtilsSecurity)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fUtilsUser=fUtilsUser;

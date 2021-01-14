@@ -25,6 +25,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineHelp;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityContext;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.openfuxml.content.ofx.Section;
@@ -35,7 +36,8 @@ import org.slf4j.LoggerFactory;
 
 public abstract class AbstractHelpCacheBean <L extends JeeslLang,D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 										VIEW extends JeeslSecurityView<L,D,?,?,?,?>,
-										M extends JeeslSecurityMenu<VIEW,M>,
+										CTX extends JeeslSecurityContext<L,D>,
+										M extends JeeslSecurityMenu<VIEW,CTX,M>,
 										OH extends JeeslSecurityOnlineHelp<VIEW,CMS,S>,
 										CAT extends JeeslIoCmsCategory<L,D,CAT,?>,
 										CMS extends JeeslIoCms<L,D,LOC,CAT,S>,

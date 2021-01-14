@@ -45,8 +45,8 @@ public abstract class AbstractJsfSecurityHandler <L extends JeeslLang, D extends
 	public static final long serialVersionUID=1;
 
 	private SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,?,AR,?,?,?,?,USER> fbSecurity;
-	protected JeeslSecurityFacade<L,D,C,R,V,U,A,AT,?,USER> fSecurity;
-	protected JeeslSecurityBean<L,D,C,R,V,U,A,AT,?,USER> bSecurity;
+	protected JeeslSecurityFacade<L,D,C,R,V,U,A,AT,?,?,USER> fSecurity;
+	protected JeeslSecurityBean<L,D,C,R,V,U,A,AT,?,?,USER> bSecurity;
 	
 	protected I identity;
 	
@@ -71,7 +71,7 @@ public abstract class AbstractJsfSecurityHandler <L extends JeeslLang, D extends
 
 	public AbstractJsfSecurityHandler(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,?,AR,?,?,?,?,USER> fbSecurity,
 									I identity,
-									JeeslSecurityFacade<L,D,C,R,V,U,A,AT,?,USER> fSecurity,
+									JeeslSecurityFacade<L,D,C,R,V,U,A,AT,?,?,USER> fSecurity,
 									String pageCode)
 	{
 		this.fbSecurity=fbSecurity;
@@ -113,8 +113,8 @@ public abstract class AbstractJsfSecurityHandler <L extends JeeslLang, D extends
 	}
 	
 	public AbstractJsfSecurityHandler(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,?,AR,?,?,?,?,USER> fbSecurity,
-										JeeslSecurityFacade<L,D,C,R,V,U,A,AT,?,USER> fSecurity,
-										JeeslSecurityBean<L,D,C,R,V,U,A,AT,?,USER> bSecurity,
+										JeeslSecurityFacade<L,D,C,R,V,U,A,AT,?,?,USER> fSecurity,
+										JeeslSecurityBean<L,D,C,R,V,U,A,AT,?,?,USER> bSecurity,
 										I identity,
 										String viewCode)
 	{

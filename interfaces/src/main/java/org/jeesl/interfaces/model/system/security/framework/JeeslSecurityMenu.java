@@ -8,14 +8,18 @@ import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 
 public interface JeeslSecurityMenu<V extends JeeslSecurityView<?,?,?,?,?,?>,
-								   M extends JeeslSecurityMenu<V,M>>
+									CTX extends JeeslSecurityContext<?,?>,
+									M extends JeeslSecurityMenu<V,CTX,M>>
 			extends Serializable,EjbSaveable,EjbRemoveable,
 						EjbWithPosition,
 						EjbWithParentAttributeResolver
 {
 	public static final String extractId = "securityMenu";
 	public static final String keyRoot = "root";
-	public enum Attributes{parent,view}
+	public enum Attributes{context,parent,view}
+	
+	CTX getContext();
+	void setContext(CTX context);
 	
 	M getParent();
 	void setParent(M menu);

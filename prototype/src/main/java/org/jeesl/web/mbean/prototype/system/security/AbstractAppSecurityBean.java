@@ -38,17 +38,17 @@ public class AbstractAppSecurityBean <L extends JeeslLang,D extends JeeslDescrip
 											A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 											AT extends JeeslSecurityTemplate<L,D,C>,
 											CTX extends JeeslSecurityContext<L,D>,
-											M extends JeeslSecurityMenu<V,M>,
+											M extends JeeslSecurityMenu<V,CTX,M>,
 											AR extends JeeslSecurityArea<L,D,V>,
 											OT extends JeeslSecurityOnlineTutorial<L,D,V>,
 											OH extends JeeslSecurityOnlineHelp<V,?,?>,
 											USER extends JeeslUser<R>>
-					implements Serializable,JeeslSecurityBean<L,D,C,R,V,U,A,AT,M,USER>
+					implements Serializable,JeeslSecurityBean<L,D,C,R,V,U,A,AT,CTX,M,USER>
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAppSecurityBean.class);
 	
-	protected JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity;
+	protected JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity;
 	protected final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,?,?,USER> fbSecurity;
 
 	private List<V> views; @Override public List<V> getViews() {return views;}
@@ -90,7 +90,7 @@ public class AbstractAppSecurityBean <L extends JeeslLang,D extends JeeslDescrip
 		cpRole = (new SecurityRoleComparator<C,R>()).factory(SecurityRoleComparator.Type.position);
 	}
 	
-	public void init(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity)
+	public void init(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity)
 	{
 		this.fSecurity=fSecurity;
 		reload();

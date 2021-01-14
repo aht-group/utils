@@ -7,13 +7,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityContext;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.jeesl.util.comparator.ejb.PositionComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbSecurityMenuFactory <V extends JeeslSecurityView<?,?,?,?,?,?>,M extends JeeslSecurityMenu<V,M>>
+public class EjbSecurityMenuFactory <V extends JeeslSecurityView<?,?,?,?,?,?>,
+									CTX extends JeeslSecurityContext<?,?>,
+									M extends JeeslSecurityMenu<V,CTX,M>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbSecurityMenuFactory.class);
 	
