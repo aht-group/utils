@@ -416,7 +416,7 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 	}
 
 	public boolean isEmptyEntityReloaded() {
-		if(className.isEmpty() || className.equals("CLASS NOT FOUND")) {
+		if(className==null || className.isEmpty() || className.equals("CLASS NOT FOUND")) {
 			return true;
 		}
 		return false;
