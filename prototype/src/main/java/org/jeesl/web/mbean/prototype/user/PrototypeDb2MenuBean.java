@@ -2,6 +2,7 @@ package org.jeesl.web.mbean.prototype.user;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityContext;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
@@ -28,6 +30,7 @@ import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.model.xml.system.navigation.Breadcrumb;
 import org.jeesl.model.xml.system.navigation.Menu;
 import org.jeesl.model.xml.system.navigation.MenuItem;
+import org.jeesl.util.comparator.ejb.PositionComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,20 +44,21 @@ public class PrototypeDb2MenuBean <L extends JeeslLang, D extends JeeslDescripti
 									U extends JeeslSecurityUsecase<L,D,C,R,V,A>,
 									A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 									AT extends JeeslSecurityTemplate<L,D,C>,
-									M extends JeeslSecurityMenu<V,M>,
+									CTX extends JeeslSecurityContext<L,D>,
+									M extends JeeslSecurityMenu<V,CTX,M>,
 									USER extends JeeslUser<R>,
 									I extends JeeslIdentity<R,V,U,A,USER>>
-		implements Serializable,JeeslMenuBean<L,D,R,V,U,A,M,USER,I>
+		implements Serializable,JeeslMenuBean<L,D,R,V,U,A,CTX,M,USER,I>
 {
 	final static Logger logger = LoggerFactory.getLogger(PrototypeDb2MenuBean.class);
 	private static final long serialVersionUID = 1L;
 
-	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,?,?,?,?,?,USER> fbSecurity;
-	private JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity;
+	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,?,?,?,?,?,USER> fbSecurity;
+	private JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity;
 
-	private final XmlMenuItemFactory<L,D,C,R,V,U,A,AT,M,USER> xfMenuItem;
-	private final EjbSecurityMenuFactory<V,M> efMenu;
-	private final TxtSecurityMenuFactory<L,D,C,R,V,U,A,AT,M,USER> tfMenu;
+	private final XmlMenuItemFactory<L,D,C,R,V,U,A,AT,CTX,M,USER> xfMenuItem;
+	private final EjbSecurityMenuFactory<V,CTX,M> efMenu;
+	private final TxtSecurityMenuFactory<L,D,C,R,V,U,A,AT,CTX,M,USER> tfMenu;
 
 	private final Map<String,M> mapKey;
 	private final Map<M,List<M>> mapChild;
@@ -64,10 +68,12 @@ public class PrototypeDb2MenuBean <L extends JeeslLang, D extends JeeslDescripti
 
 	private I identity;
 	private String localeCode;
+	private CTX context;
+	
 	private boolean setupRequired=false;
 	private boolean debugOnInfo; protected void setDebugOnInfo(boolean log) {debugOnInfo = log;}
 
-	public PrototypeDb2MenuBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,?,?,?,?,?,USER> fbSecurity)
+	public PrototypeDb2MenuBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,?,?,?,?,?,USER> fbSecurity)
 	{
 		this.fbSecurity=fbSecurity;
 		mapKey = new HashMap<String,M>();
@@ -76,17 +82,18 @@ public class PrototypeDb2MenuBean <L extends JeeslLang, D extends JeeslDescripti
 		mapSub = new HashMap<M,MenuItem>();
 		mapBreadcrumb = new HashMap<M,Breadcrumb>();
 
-		xfMenuItem = new XmlMenuItemFactory<L,D,C,R,V,U,A,AT,M,USER>(localeCode);
+		xfMenuItem = new XmlMenuItemFactory<>(localeCode);
 		efMenu = fbSecurity.ejbMenu();
-		tfMenu = new TxtSecurityMenuFactory<L,D,C,R,V,U,A,AT,M,USER>();
+		tfMenu = new TxtSecurityMenuFactory<>();
 
 		debugOnInfo = false;
 		setupRequired = false;
 	}
 
-	public void initSuper(String localeCode, JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity, I identity)
+	public void postConstructMenu(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity, I identity, String localeCode, CTX context)
 	{
 		this.fSecurity=fSecurity;
+		this.context=context;
 		prepare(localeCode,identity);
 	}
 
@@ -123,7 +130,21 @@ public class PrototypeDb2MenuBean <L extends JeeslLang, D extends JeeslDescripti
 
 			M root = efMenu.build();
 			mapKey.put(JeeslSecurityMenu.keyRoot, root);
-			for(M m : fSecurity.allOrderedPosition(fbSecurity.getClassMenu()))
+			
+			List<M> list = new ArrayList<>();
+			if(context==null)
+			{
+				list.addAll(fSecurity.all(fbSecurity.getClassMenu()));
+				if(debugOnInfo) {logger.info(fbSecurity.getClassMenu().getSimpleName()+": "+list.size());}
+			}
+			else
+			{
+				list.addAll(fSecurity.allForParent(fbSecurity.getClassMenu(), JeeslSecurityMenu.Attributes.context.toString(),context));
+				if(debugOnInfo) {logger.info(fbSecurity.getClassMenu().getSimpleName()+": "+list.size()+" in context "+context.getCode());}
+			}
+			Collections.sort(list,new PositionComparator<M>());
+			
+			for(M m : list)
 			{
 				if(debugOnInfo)
 				{

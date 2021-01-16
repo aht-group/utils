@@ -23,6 +23,9 @@
 					<p:ajax event="rowSelect"  listener="#{cc.attrs.bean.selectContext()}" update=":#{cc.id}:grid"/>
 					<p:ajax event="rowReorder" listener="#{cc.attrs.bean.reorderContexts()}" update="@form"/>
 					<p:column>
+						<h:outputText value="#{c.position}" />  
+		            </p:column>
+					<p:column>
 						<f:facet name="header"><jtp:label entity="SecurityContext" code="code"/></f:facet>
 						<h:outputText value="#{c.code}" />  
 		            </p:column>

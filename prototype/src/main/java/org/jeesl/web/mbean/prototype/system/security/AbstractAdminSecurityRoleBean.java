@@ -22,6 +22,7 @@ import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineTutoria
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityContext;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
@@ -42,12 +43,13 @@ public class AbstractAdminSecurityRoleBean <L extends JeeslLang, D extends Jeesl
 											U extends JeeslSecurityUsecase<L,D,C,R,V,A>,
 											A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 											AT extends JeeslSecurityTemplate<L,D,C>,
-											M extends JeeslSecurityMenu<V,M>,
+											CTX extends JeeslSecurityContext<L,D>,
+											M extends JeeslSecurityMenu<V,CTX,M>,
 											AR extends JeeslSecurityArea<L,D,V>,
 											OT extends JeeslSecurityOnlineTutorial<L,D,V>,
 											OH extends JeeslSecurityOnlineHelp<V,?,?>,
 											USER extends JeeslUser<R>>
-			extends AbstractAdminSecurityBean<L,D,LOC,C,R,V,U,A,AT,M,AR,OT,OH,USER>
+			extends AbstractAdminSecurityBean<L,D,LOC,C,R,V,U,A,AT,CTX,M,AR,OT,OH,USER>
 			implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -62,12 +64,14 @@ public class AbstractAdminSecurityRoleBean <L extends JeeslLang, D extends Jeesl
 	
 	private boolean denyRemove; public boolean isDenyRemove(){return denyRemove;}
 	
-	public AbstractAdminSecurityRoleBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,?,?,USER> fbSecurity)
+	public AbstractAdminSecurityRoleBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,?,?,USER> fbSecurity)
 	{
 		super(fbSecurity);
 	}
 	
-	public void initSuper(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity, JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslSecurityBean<L,D,C,R,V,U,A,AT,M,USER> bSecurity)
+	public void initSuper(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity,
+						JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
+						JeeslSecurityBean<L,D,C,R,V,U,A,AT,CTX,M,USER> bSecurity)
 	{
 		categoryType = JeeslSecurityCategory.Type.role;
 		super.postConstructSecurity(fSecurity,bTranslation,bMessage,bSecurity);

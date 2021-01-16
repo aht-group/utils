@@ -17,6 +17,7 @@ import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineTutoria
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityContext;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
@@ -38,19 +39,20 @@ public class SecurityRoleUpdater <L extends JeeslLang,D extends JeeslDescription
  								U extends JeeslSecurityUsecase<L,D,C,R,V,A>,
  								A extends JeeslSecurityAction<L,D,R,V,U,AT>,
  								AT extends JeeslSecurityTemplate<L,D,C>,
- 								M extends JeeslSecurityMenu<V,M>,
+ 								CTX extends JeeslSecurityContext<L,D>,
+ 								M extends JeeslSecurityMenu<V,CTX,M>,
  								AR extends JeeslSecurityArea<L,D,V>,
  								OT extends JeeslSecurityOnlineTutorial<L,D,V>,
 								OH extends JeeslSecurityOnlineHelp<V,?,?>,
  								USER extends JeeslUser<R>>
-		extends AbstractSecurityUpdater<L,D,C,R,V,U,A,AT,M,AR,OT,OH,USER>
+		extends AbstractSecurityUpdater<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,USER>
 		implements JeeslSecurityRestRoleImport
 {
 	final static Logger logger = LoggerFactory.getLogger(SecurityRoleUpdater.class);
 	
 	private JeeslDbCodeEjbUpdater<R> updateRole;
 	
-	public SecurityRoleUpdater(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,?,?,USER> fbSecurity, JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity)
+	public SecurityRoleUpdater(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,?,?,USER> fbSecurity, JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity)
 	{       
         super(fbSecurity,fSecurity);
 	}

@@ -22,6 +22,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityUsecase;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityContext;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.slf4j.Logger;
@@ -30,15 +31,15 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.prototype.controller.handler.op.user.OverlayUserSelectionHandler;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public class AbstractAdminSecurityDomainBean <L extends JeeslLang,
-												D extends JeeslDescription,
+public class AbstractAdminSecurityDomainBean <L extends JeeslLang, D extends JeeslDescription,
 												C extends JeeslSecurityCategory<L,D>,
 												R extends JeeslSecurityRole<L,D,C,V,U,A,USER>,
 												V extends JeeslSecurityView<L,D,C,R,U,A>,
 												U extends JeeslSecurityUsecase<L,D,C,R,V,A>,
 												A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 												AT extends JeeslSecurityTemplate<L,D,C>,
-												M extends JeeslSecurityMenu<V,M>,
+												CTX extends JeeslSecurityContext<L,D>,
+												M extends JeeslSecurityMenu<V,CTX,M>,
 												USER extends JeeslUser<R>,
 												STAFF extends JeeslStaff<R,USER,D1,D2>,
 												D1 extends EjbWithId, D2 extends EjbWithId>
@@ -47,8 +48,8 @@ public class AbstractAdminSecurityDomainBean <L extends JeeslLang,
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAdminSecurityDomainBean.class);
 
-	protected JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity;
-	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,?,?,?,?,?,USER> fbSecurity;
+	protected JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity;
+	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,?,?,?,?,?,USER> fbSecurity;
 	protected JeeslUserFacade<USER> fUser;
 
 	protected final Class<STAFF> cStaff;
@@ -65,14 +66,14 @@ public class AbstractAdminSecurityDomainBean <L extends JeeslLang,
 	private OverlayUserSelectionHandler<L,D,C,R,V,U,A,AT,USER> opContactHandler;
 	@Override public OverlayUserSelectionHandler<L,D,C,R,V,U,A,AT,USER> getOpUserHandler() {return opContactHandler;}
 	
-	public AbstractAdminSecurityDomainBean(final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,?,?,?,?,?,USER> fbSecurity, Class<STAFF> cStaff)
+	public AbstractAdminSecurityDomainBean(final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,?,?,?,?,?,USER> fbSecurity, Class<STAFF> cStaff)
 	{
 		this.fbSecurity=fbSecurity;
 		this.cStaff=cStaff;
 		efStaff = fbSecurity.ejbStaff(cStaff);
 	}
 	
-	protected void initSuper(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity, JeeslUserFacade<USER> fUser)
+	protected void initSuper(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity, JeeslUserFacade<USER> fUser)
 	{
 		this.fSecurity=fSecurity;
 		this.fUser=fUser;

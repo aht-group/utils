@@ -17,6 +17,7 @@ import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineTutoria
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityContext;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
@@ -36,18 +37,19 @@ public class AbstractAppSecurityBean <L extends JeeslLang,D extends JeeslDescrip
 											U extends JeeslSecurityUsecase<L,D,C,R,V,A>,
 											A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 											AT extends JeeslSecurityTemplate<L,D,C>,
-											M extends JeeslSecurityMenu<V,M>,
+											CTX extends JeeslSecurityContext<L,D>,
+											M extends JeeslSecurityMenu<V,CTX,M>,
 											AR extends JeeslSecurityArea<L,D,V>,
 											OT extends JeeslSecurityOnlineTutorial<L,D,V>,
 											OH extends JeeslSecurityOnlineHelp<V,?,?>,
 											USER extends JeeslUser<R>>
-					implements Serializable,JeeslSecurityBean<L,D,C,R,V,U,A,AT,M,USER>
+					implements Serializable,JeeslSecurityBean<L,D,C,R,V,U,A,AT,CTX,M,USER>
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAppSecurityBean.class);
 	
-	protected JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity;
-	protected final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,?,?,USER> fbSecurity;
+	protected JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity;
+	protected final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,?,?,USER> fbSecurity;
 
 	private List<V> views; @Override public List<V> getViews() {return views;}
 	private List<R> roles; public List<R> getRoles() {return roles;}
@@ -67,7 +69,7 @@ public class AbstractAppSecurityBean <L extends JeeslLang,D extends JeeslDescrip
 	
 	private boolean debugOnInfo; protected void setDebugOnInfo(boolean log) {debugOnInfo = log;}
 
-	public AbstractAppSecurityBean(final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,?,?,USER> fbSecurity)
+	public AbstractAppSecurityBean(final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,?,?,USER> fbSecurity)
 	{
 		this.fbSecurity=fbSecurity;
 		
@@ -88,7 +90,7 @@ public class AbstractAppSecurityBean <L extends JeeslLang,D extends JeeslDescrip
 		cpRole = (new SecurityRoleComparator<C,R>()).factory(SecurityRoleComparator.Type.position);
 	}
 	
-	public void init(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity)
+	public void init(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity)
 	{
 		this.fSecurity=fSecurity;
 		reload();

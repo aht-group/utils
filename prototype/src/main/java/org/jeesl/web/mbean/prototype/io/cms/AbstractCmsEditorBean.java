@@ -98,11 +98,7 @@ public abstract class AbstractCmsEditorBean <L extends JeeslLang,D extends Jeesl
 	private final OpStatusSelectionHandler<LOC> opLocale; public OpStatusSelectionHandler<LOC> getOpLocale() {return opLocale;}
 	private JeeslFileRepositoryHandler<FS,FC,FM> hFileRepository; public JeeslFileRepositoryHandler<FS,FC,FM> gethFileRepository() {return hFileRepository;}
 
-	private final Map<E,Section> mapOfx;
-	
-	public Map<E, Section> getMapOfx() {
-		return mapOfx;
-	}
+	private final Map<E,Section> mapOfx; public Map<E, Section> getMapOfx() {return mapOfx;}
 
 	private List<E> elements; public List<E> getElements() {return elements;}
 	private List<EC> elementCategories; public List<EC> getElementCategories() {return elementCategories;}

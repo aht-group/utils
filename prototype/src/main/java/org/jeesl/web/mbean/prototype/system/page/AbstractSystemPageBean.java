@@ -12,6 +12,7 @@ import org.jeesl.factory.ejb.system.security.EjbSecurityMenuFactory;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityContext;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
@@ -25,30 +26,31 @@ import org.slf4j.LoggerFactory;
 
 public abstract class AbstractSystemPageBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 											V extends JeeslSecurityView<L,D,?,?,?,?>,
-											M extends JeeslSecurityMenu<V,M>>
+											CTX extends JeeslSecurityContext<L,D>,
+											M extends JeeslSecurityMenu<V,CTX,M>>
 		extends AbstractAdminBean<L,D,LOC>
 		implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractSystemPageBean.class);
 	
-	private final SecurityFactoryBuilder<L,D,?,?,V,?,?,?,M,?,?,?,?,?,?> fbSecurity;
-	private final EjbSecurityMenuFactory<V,M> efMenu;
+	private final SecurityFactoryBuilder<L,D,?,?,V,?,?,?,?,M,?,?,?,?,?,?> fbSecurity;
+	private final EjbSecurityMenuFactory<V,CTX,M> efMenu;
 	
-	private JeeslSecurityFacade<L,D,?,?,V,?,?,?,M,?> fSecurity;
+	private JeeslSecurityFacade<L,D,?,?,V,?,?,?,CTX,M,?> fSecurity;
 	
 	private TreeNode tree; public TreeNode getTree() {return tree;}
 	private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
 	private M menu; public M getMenu() {return menu;}
 	
-	public AbstractSystemPageBean(SecurityFactoryBuilder<L,D,?,?,V,?,?,?,M,?,?,?,?,?,?> fbSecurity)
+	public AbstractSystemPageBean(SecurityFactoryBuilder<L,D,?,?,V,?,?,?,CTX,M,?,?,?,?,?,?> fbSecurity)
 	{
 		super(fbSecurity.getClassL(),fbSecurity.getClassD());
 		this.fbSecurity=fbSecurity;
 		efMenu = fbSecurity.ejbMenu();
 	}
 	
-	public void postConstructSystemPage(JeeslSecurityFacade<L,D,?,?,V,?,?,?,M,?> fSecurity, JeeslTranslationBean<L,D,?> bTranslation, JeeslFacesMessageBean bMessage)
+	public void postConstructSystemPage(JeeslSecurityFacade<L,D,?,?,V,?,?,?,CTX,M,?> fSecurity, JeeslTranslationBean<L,D,?> bTranslation, JeeslFacesMessageBean bMessage)
 	{
 		this.fSecurity=fSecurity;
 		reload();

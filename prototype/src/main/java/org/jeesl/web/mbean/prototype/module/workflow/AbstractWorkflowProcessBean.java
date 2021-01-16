@@ -27,6 +27,8 @@ import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.factory.builder.system.SvgFactoryBuilder;
 import org.jeesl.factory.ejb.module.workflow.EjbWorkflowTransitionFactory;
 import org.jeesl.factory.json.system.translation.JsonTranslationFactory;
+import org.jeesl.factory.mc.graph.GraphWorkflowFactory;
+import org.jeesl.factory.xml.module.workflow.XmlProcessFactory;
 import org.jeesl.interfaces.bean.op.OpEntityBean;
 import org.jeesl.interfaces.bean.sb.SbSingleBean;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
@@ -63,7 +65,11 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 import org.jeesl.jsf.handler.PositionListReorderer;
 import org.jeesl.util.comparator.ejb.system.security.SecurityRoleComparator;
+import org.jeesl.util.query.xml.module.XmlWorkflowQuery;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
+import org.metachart.processor.graph.ColorSchemeManager;
+import org.metachart.processor.graph.Graph2DotConverter;
+import org.metachart.xml.graph.Graph;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import org.slf4j.Logger;
@@ -112,7 +118,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	private final WorkflowFactoryBuilder<L,D,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WAN,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fbWorkflow;
 	private final IoTemplateFactoryBuilder<L,D,?,MC,MT,?,?,?,?> fbTemplate;
 	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?,?> fbRevision;
-	private final SecurityFactoryBuilder<L,D,?,SR,?,?,?,?,?,?,?,?,?,?,?> fbSecurity;
+	private final SecurityFactoryBuilder<L,D,?,SR,?,?,?,?,?,?,?,?,?,?,?,?> fbSecurity;
 	private final SvgFactoryBuilder<L,D,G,GT,?,?> fbSvg;
 
 	private final EjbWorkflowTransitionFactory<WS,WT> efTransition;
@@ -161,13 +167,15 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 
 	private boolean editStage; public boolean isEditStage() {return editStage;} public void toggleEditStage() {editStage=!editStage;reloadStageSelectOne();}
 	private boolean editTransition; public boolean isEditTransition() {return editTransition;} public void toggleEditTransition() {editTransition=!editTransition;}
-
+	//Process diagram represented in dot format
+	private String processDiagram; public String getProcessDiagram() {return processDiagram;} public void setProcessDiagram(String processDiagram) {this.processDiagram = processDiagram;}
 	private final Comparator<SR> cpRole;
+	public abstract String getLocaleCode();
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public AbstractWorkflowProcessBean(final WorkflowFactoryBuilder<L,D,WX,WP,WPD,WS,WST,WSP,WPT,WML,WSN,WT,WTT,WAN,WA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,WD,FRC,USER> fbApproval,
 											final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?,?> fbRevision,
-											final SecurityFactoryBuilder<L,D,?,SR,?,?,?,?,?,?,?,?,?,?,?> fbSecurity,
+											final SecurityFactoryBuilder<L,D,?,SR,?,?,?,?,?,?,?,?,?,?,?,?> fbSecurity,
 											final IoTemplateFactoryBuilder<L,D,?,MC,MT,?,?,?,?> fbTemplate,
 											final SvgFactoryBuilder<L,D,G,GT,?,?> fbSvg)
 	{
@@ -247,6 +255,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		{
 			process = fApproval.find(fbWorkflow.getClassProcess(),sbhProcess.getSelection());
 			reloadProcess();
+			updateProcesDiagram();
 		}
 	}
 
@@ -311,6 +320,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	{
 		sbhProcess.update(fWorkflow.allForContext(fbWorkflow.getClassProcess(),sbhContext.getSelection()));
 		if(debugOnInfo){logger.info(AbstractLogMessage.reloaded(fbWorkflow.getClassProcess(), sbhProcess.getList(),sbhContext.getSelection()));}
+		updateProcesDiagram();
 	}
 
 	public void reloadStages()
@@ -320,6 +330,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 
 		mapTransition.clear();
 		buildTransitionMap(fWorkflow.allForGrandParent(fbWorkflow.getClassTransition(),fbWorkflow.getClassStage(),JeeslWorkflowTransition.Attributes.source.toString(),process,JeeslWorkflowStage.Attributes.process.toString()));
+		updateProcesDiagram();
 	}
 
 	private void reloadProcess()
@@ -345,7 +356,21 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 		process = fWorkflow.find(fbWorkflow.getClassProcess(), process);
 		process = efLang.persistMissingLangs(fWorkflow,localeCodes,process);
 		process = efDescription.persistMissingLangs(fWorkflow,localeCodes,process);
+		updateProcesDiagram();
+	}
 
+	private void updateProcesDiagram() {
+		processDiagram= "";
+		if(process !=null) {
+			XmlProcessFactory<L,D,WX,WP,WPD,WS,WST,WSP,WPT,WML,WT,WTT,SR> xfProcess = new XmlProcessFactory<>(XmlWorkflowQuery.get(XmlWorkflowQuery.Key.xProcess));
+			xfProcess.lazy(fbWorkflow, fWorkflow);
+			GraphWorkflowFactory gfWorkflow = new GraphWorkflowFactory(getLocaleCode());
+			Graph2DotConverter dgf = new Graph2DotConverter(new ColorSchemeManager());
+			Graph g = gfWorkflow.build(xfProcess.build(process));
+			dgf.initWorkflowDiagramSetting();
+			dgf.build(g);
+			processDiagram = dgf.getDot();
+		}
 	}
 
 	public void saveProcess() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
@@ -540,6 +565,7 @@ public abstract class AbstractWorkflowProcessBean <L extends JeeslLang, D extend
 	{
 		transitions.clear();
 		transitions.addAll(fWorkflow.allForParent(fbWorkflow.getClassTransition(), stage));
+		updateProcesDiagram();
 	}
 
 	private void buildTransitionMap(List<WT> list)

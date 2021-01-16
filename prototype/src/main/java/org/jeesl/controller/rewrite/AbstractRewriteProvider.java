@@ -11,6 +11,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityContext;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
@@ -32,7 +33,8 @@ public abstract class AbstractRewriteProvider <L extends JeeslLang, D extends Je
 											U extends JeeslSecurityUsecase<L,D,C,R,V,A>,
 											A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 											AT extends JeeslSecurityTemplate<L,D,C>,
-											M extends JeeslSecurityMenu<V,M>,
+											CTX extends JeeslSecurityContext<L,D>,
+											M extends JeeslSecurityMenu<V,CTX,M>,
 											USER extends JeeslUser<R>>
 		extends HttpConfigurationProvider
 		implements Serializable
@@ -42,7 +44,7 @@ public abstract class AbstractRewriteProvider <L extends JeeslLang, D extends Je
 
 	protected boolean debugOnInfo; public void setDebugOnInfo(boolean debugOnInfo) {this.debugOnInfo = debugOnInfo;}
 
-	private JeeslSecurityBean<L,D,C,R,V,U,A,AT,M,USER> bSecurity;
+	private JeeslSecurityBean<L,D,C,R,V,U,A,AT,CTX,M,USER> bSecurity;
 
 	private U usecase; public U getUsecase(){return usecase;} public void setUsecase(U usecase){this.usecase = usecase;}
 
@@ -50,7 +52,7 @@ public abstract class AbstractRewriteProvider <L extends JeeslLang, D extends Je
 	protected String forwardLogin;
 	protected String forwardDenied;
 
-	public AbstractRewriteProvider(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,?,?,?,?,?,USER> fbSecurity)
+	public AbstractRewriteProvider(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,?,?,?,?,?,USER> fbSecurity)
 	{
 		debugOnInfo = false;
 		forwardDeactivated = "/jsf/settings/system/security/access/pageDeactivated.xhtml";
@@ -58,7 +60,7 @@ public abstract class AbstractRewriteProvider <L extends JeeslLang, D extends Je
 		forwardDenied = "/jsf/settings/system/security/access/denied.xhtml";
 	}
 
-	public void postConstruct(JeeslSecurityBean<L,D,C,R,V,U,A,AT,M,USER> bSecurity)
+	public void postConstruct(JeeslSecurityBean<L,D,C,R,V,U,A,AT,CTX,M,USER> bSecurity)
 	{
 		this.bSecurity=bSecurity;
 	}

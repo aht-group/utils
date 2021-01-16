@@ -8,6 +8,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityContext;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
@@ -27,7 +28,8 @@ public interface JeeslSecurityFacade <L extends JeeslLang, D extends JeeslDescri
 										U extends JeeslSecurityUsecase<L,D,C,R,V,A>,
 										A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 										AT extends JeeslSecurityTemplate<L,D,C>,
-										M extends JeeslSecurityMenu<V,M>,
+										CTX extends JeeslSecurityContext<L,D>,
+										M extends JeeslSecurityMenu<V,CTX,M>,
 										USER extends JeeslUser<R>>
 	extends JeeslFacade
 {	

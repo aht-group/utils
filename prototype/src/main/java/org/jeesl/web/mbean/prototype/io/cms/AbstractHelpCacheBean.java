@@ -25,6 +25,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineHelp;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityContext;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.openfuxml.content.ofx.Section;
@@ -35,7 +36,8 @@ import org.slf4j.LoggerFactory;
 
 public abstract class AbstractHelpCacheBean <L extends JeeslLang,D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 										VIEW extends JeeslSecurityView<L,D,?,?,?,?>,
-										M extends JeeslSecurityMenu<VIEW,M>,
+										CTX extends JeeslSecurityContext<L,D>,
+										M extends JeeslSecurityMenu<VIEW,CTX,M>,
 										OH extends JeeslSecurityOnlineHelp<VIEW,CMS,S>,
 										CAT extends JeeslIoCmsCategory<L,D,CAT,?>,
 										CMS extends JeeslIoCms<L,D,LOC,CAT,S>,
@@ -55,7 +57,7 @@ public abstract class AbstractHelpCacheBean <L extends JeeslLang,D extends Jeesl
 	final static Logger logger = LoggerFactory.getLogger(AbstractHelpCacheBean.class);
 	
 	private final IoCmsFactoryBuilder<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fbCms;
-	private final SecurityFactoryBuilder<L,D,?,?,VIEW,?,?,?,M,?,?,OH,CMS,S,?> fbSecurity;
+	private final SecurityFactoryBuilder<L,D,?,?,VIEW,?,?,?,?,M,?,?,OH,CMS,S,?> fbSecurity;
 	
 	private JeeslCmsRenderer<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC> ofx;
 	private JeeslIoCmsFacade<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fCms;
@@ -67,7 +69,7 @@ public abstract class AbstractHelpCacheBean <L extends JeeslLang,D extends Jeesl
 	private boolean debugOnInfo; protected void setDebugOnInfo(boolean debugOnInfo) {this.debugOnInfo = debugOnInfo;}
 
 	public AbstractHelpCacheBean(IoCmsFactoryBuilder<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fbCms,
-								SecurityFactoryBuilder<L,D,?,?,VIEW,?,?,?,M,?,?,OH,CMS,S,?> fbSecurity)
+								SecurityFactoryBuilder<L,D,?,?,VIEW,?,?,?,?,M,?,?,OH,CMS,S,?> fbSecurity)
 	{
 		this.fbCms=fbCms;
 		this.fbSecurity=fbSecurity;

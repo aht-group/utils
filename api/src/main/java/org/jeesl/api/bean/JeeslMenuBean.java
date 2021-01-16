@@ -3,6 +3,7 @@ package org.jeesl.api.bean;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityContext;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityUsecase;
@@ -15,7 +16,8 @@ public interface JeeslMenuBean<L extends JeeslLang, D extends JeeslDescription,
 								V extends JeeslSecurityView<L,D,?,R,U,A>,
 								U extends JeeslSecurityUsecase<L,D,?,R,V,A>,
 								A extends JeeslSecurityAction<L,D,R,V,U,?>,
-								M extends JeeslSecurityMenu<V,M>,
+								CTX extends JeeslSecurityContext<L,D>,
+								M extends JeeslSecurityMenu<V,CTX,M>,
 								USER extends JeeslUser<R>,
 								I extends JeeslIdentity<R,V,U,A,USER>>
 {	

@@ -25,6 +25,7 @@ import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineTutoria
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityContext;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
@@ -43,7 +44,8 @@ public class SecurityFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 									U extends JeeslSecurityUsecase<L,D,C,R,V,A>,
 									A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 									AT extends JeeslSecurityTemplate<L,D,C>,
-									M extends JeeslSecurityMenu<V,M>,
+									CTX extends JeeslSecurityContext<L,D>,
+									M extends JeeslSecurityMenu<V,CTX,M>,
 									AR extends JeeslSecurityArea<L,D,V>,
 									OT extends JeeslSecurityOnlineTutorial<L,D,V>,
 									OH extends JeeslSecurityOnlineHelp<V,DC,DS>,
@@ -61,6 +63,7 @@ public class SecurityFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 	private final Class<U> cUsecase; public Class<U> getClassUsecase(){return cUsecase;}
     private final Class<A> cAction; public Class<A> getClassAction(){return cAction;}
     private final Class<AT> cTemplate; public Class<AT> getClassTemplate(){return cTemplate;}
+    private final Class<CTX> cContext; public Class<CTX> getClassContext(){return cContext;}
     private final Class<M> cMenu; public Class<M> getClassMenu(){return cMenu;}
     private final Class<AR> cArea; public Class<AR> getClassArea(){return cArea;}
     
@@ -74,6 +77,7 @@ public class SecurityFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 									final Class<U> cUsecase,
 									final Class<A> cAction,
 									final Class<AT> cTemplate,
+									final Class<CTX> cContext,
 									final Class<M> cMenu,
 									final Class<AR> cArea,
 									final Class<OH> cOnlineHelp,
@@ -86,6 +90,7 @@ public class SecurityFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 		this.cUsecase=cUsecase;
 		this.cAction=cAction;
 		this.cTemplate=cTemplate;
+		this.cContext=cContext;
 		this.cMenu=cMenu;
 		this.cArea=cArea;
 		this.cOnlineHelp=cOnlineHelp;
@@ -98,7 +103,7 @@ public class SecurityFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 	public EjbSecurityUsecaseFactory<C,U> ejbUsecase() {return new EjbSecurityUsecaseFactory<C,U>(cUsecase);}
 	public EjbSecurityActionFactory<V,A> ejbAction() {return new EjbSecurityActionFactory<V,A>(cAction);}
 	public EjbSecurityActionTemplateFactory<C,AT> ejbTemplate(){return new EjbSecurityActionTemplateFactory<C,AT>(cTemplate);}
-	public EjbSecurityMenuFactory<V,M> ejbMenu(){return new EjbSecurityMenuFactory<V,M>(cMenu);}
+	public EjbSecurityMenuFactory<V,CTX,M> ejbMenu(){return new EjbSecurityMenuFactory<>(cMenu);}
 	public EjbSecurityAreaFactory<V,AR> ejbArea() {return new EjbSecurityAreaFactory<V,AR>(cArea);}
 	public EjbSecurityHelpFactory<V,OH,DC,DS> ejbHelp() {return new EjbSecurityHelpFactory<>(cOnlineHelp);}
 	
@@ -116,8 +121,8 @@ public class SecurityFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 		return new TxtStaffFactory<L,D,R,USER,STAFF,D1,D2>(localeCode);
 	}
 	
-	public JsonPageFactory<L,D,C,V,M> jsonPage() {return new JsonPageFactory<L,D,C,V,M>();}
-	public JsonPagesFactory<L,D,C,R,V,U,A,AT,M,AR,USER> jsonPages() {return new JsonPagesFactory<L,D,C,R,V,U,A,AT,M,AR,USER>(this);}
+	public JsonPageFactory<L,D,C,V,CTX,M> jsonPage() {return new JsonPageFactory<>();}
+	public JsonPagesFactory<L,D,C,R,V,U,A,AT,CTX,M,AR,USER> jsonPages() {return new JsonPagesFactory<>(this);}
 	
 	public SqlUserFactory<USER> sqlUser() {return new SqlUserFactory<>();}
 }

@@ -28,6 +28,7 @@ import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineTutoria
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityContext;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory.Type;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
@@ -51,20 +52,21 @@ public class JeeslSecurityFacadeBean<L extends JeeslLang,
 									U extends JeeslSecurityUsecase<L,D,C,R,V,A>,
 									A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 									AT extends JeeslSecurityTemplate<L,D,C>,
-									M extends JeeslSecurityMenu<V,M>,
+									CTX extends JeeslSecurityContext<L,D>,
+									M extends JeeslSecurityMenu<V,CTX,M>,
 									AR extends JeeslSecurityArea<L,D,V>,
 									OT extends JeeslSecurityOnlineTutorial<L,D,V>,
 									OH extends JeeslSecurityOnlineHelp<V,?,?>,
 									USER extends JeeslUser<R>>
 							extends JeeslFacadeBean
-							implements JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER>
+							implements JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER>
 {	
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(JeeslSecurityFacadeBean.class);
 	
-	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,AR,OT,OH,?,?,USER> fbSecurity;
+	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,?,?,USER> fbSecurity;
 	
-	public JeeslSecurityFacadeBean(EntityManager em, SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,AR,OT,OH,?,?,USER> fbSecurity)
+	public JeeslSecurityFacadeBean(EntityManager em, SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,?,?,USER> fbSecurity)
 	{
 		super(em);
 		this.fbSecurity=fbSecurity;

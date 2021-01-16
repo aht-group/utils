@@ -40,14 +40,14 @@ public class SecurityActionManager <L extends JeeslLang,
 		   AT extends JeeslSecurityTemplate<L,D,C>,
 		   USER extends JeeslUser<R>>
 		SecurityActionManager<L,D,C,R,V,U,A,AT,USER>
-		factory(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,?,USER> fSecurity,final Class<V> cView, String viewId, JeeslIdentity<R,V,U,A,USER> identity) throws JeeslNotFoundException
+		factory(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,?,?,USER> fSecurity,final Class<V> cView, String viewId, JeeslIdentity<R,V,U,A,USER> identity) throws JeeslNotFoundException
 	{
 		return new SecurityActionManager<L,D,C,R,V,U,A,AT,USER>(fSecurity,cView,viewId,identity);
 	}
 	
 	private Map<String,Boolean> allowed;
 	
-	public SecurityActionManager(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,?,USER> fSecurity, final Class<V> cView, String viewId, JeeslIdentity<R,V,U,A,USER> identity) throws JeeslNotFoundException
+	public SecurityActionManager(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,?,?,USER> fSecurity, final Class<V> cView, String viewId, JeeslIdentity<R,V,U,A,USER> identity) throws JeeslNotFoundException
 	{
 		allowed = new Hashtable<String,Boolean>();
 		V view = fSecurity.fByCode(cView,viewId);

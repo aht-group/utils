@@ -15,6 +15,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityContext;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
@@ -37,20 +38,21 @@ public class JeeslMenuStructureReport <L extends JeeslLang,
 								U extends JeeslSecurityUsecase<L,D,C,R,V,A>,
 								A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 								AT extends JeeslSecurityTemplate<L,D,C>,
-								M extends JeeslSecurityMenu<V,M>,
+								CTX extends JeeslSecurityContext<L,D>,
+								M extends JeeslSecurityMenu<V,CTX,M>,
 								USER extends JeeslUser<R>>
 {
 	final static Logger logger = LoggerFactory.getLogger(JeeslMenuStructureReport.class);
 
-	private final JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity;
-	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,?,?,?,?,?,USER> fbSecurity;
+	private final JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity;
+	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,?,?,?,?,?,USER> fbSecurity;
 	
 	private final String localeCode;
 	
 //	private org.jeesl.factory.xml.system.security.XmlViewFactory<L,D,C,R,V,U,A,AT,USER> xfView;
 	private Comparator<V> comparatorView;
 	
-	public JeeslMenuStructureReport(String localeCode, JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity, SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,?,?,?,?,?,USER> fbSecurity)
+	public JeeslMenuStructureReport(String localeCode, JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity, SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,?,?,?,?,?,USER> fbSecurity)
 	{
 		this.localeCode=localeCode;
 		this.fSecurity=fSecurity;

@@ -91,8 +91,11 @@
 							</p:panelGrid>
 							<p:panelGrid columns="1" columnClasses="jeeslGrid100">
 								<p:outputLabel value="#{msg.jeeslRevisionClass}" rendered="false"/>
-								<h:outputText value="#{cc.attrs.bean.className}"/> 
-								
+								<h:outputText value="#{cc.attrs.bean.className}"/>
+								<p:commandButton value="Pull Attributes from Class" disabled="#{cc.attrs.bean.isEmptyEntityReloaded()}" update=":#{cc.id}:sAttributes">
+									<f:actionListener binding="#{cc.attrs.bean.pullAttributesFromClass()}"/>
+								</p:commandButton>
+
 								<p:outputLabel value="#{msg.jeeslRemark}" rendered="false"/>
 								<p:inputTextarea value="#{cc.attrs.bean.entity.developerInfo}" style="width:100%" autocomplete="off"/>
 								

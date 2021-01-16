@@ -22,6 +22,7 @@ import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityOnlineTutoria
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityContext;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
@@ -42,12 +43,13 @@ public abstract class AbstractAdminSecurityViewBean <L extends JeeslLang, D exte
 											U extends JeeslSecurityUsecase<L,D,C,R,V,A>,
 											A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 											AT extends JeeslSecurityTemplate<L,D,C>,
-											M extends JeeslSecurityMenu<V,M>,
+											CTX extends JeeslSecurityContext<L,D>,
+											M extends JeeslSecurityMenu<V,CTX,M>,
 											AR extends JeeslSecurityArea<L,D,V>,
 											OT extends JeeslSecurityOnlineTutorial<L,D,V>,
 											OH extends JeeslSecurityOnlineHelp<V,?,?>,
 											USER extends JeeslUser<R>>
-		extends AbstractAdminSecurityBean<L,D,LOC,C,R,V,U,A,AT,M,AR,OT,OH,USER>
+		extends AbstractAdminSecurityBean<L,D,LOC,C,R,V,U,A,AT,CTX,M,AR,OT,OH,USER>
 		implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -63,17 +65,17 @@ public abstract class AbstractAdminSecurityViewBean <L extends JeeslLang, D exte
 	private A action; public A getAction(){return action;} public void setAction(A action) {this.action = action;}
 	private AR area; public AR getArea(){return area;} public void setArea(AR area) {this.area = area;}
 	
-	private JeeslSecurityBean<L,D,C,R,V,U,A,AT,M,USER> bSecurity;
+	private JeeslSecurityBean<L,D,C,R,V,U,A,AT,CTX,M,USER> bSecurity;
 	private final TriStateBinder tsb; public TriStateBinder getTsb() {return tsb;}
 	
-	public AbstractAdminSecurityViewBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,OT,OH,?,?,USER> fbSecurity)
+	public AbstractAdminSecurityViewBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,?,?,USER> fbSecurity)
 	{
 		super(fbSecurity);
 		categoryType = JeeslSecurityCategory.Type.view;
 		tsb = new TriStateBinder();
 	}
 	
-	public void initSuper(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity, JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslSecurityBean<L,D,C,R,V,U,A,AT,M,USER> bSecurity)
+	public void initSuper(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity, JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslSecurityBean<L,D,C,R,V,U,A,AT,CTX,M,USER> bSecurity)
 	{
 		super.postConstructSecurity(fSecurity,bTranslation,bMessage,bSecurity);
 		this.bSecurity=bSecurity;

@@ -21,6 +21,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityContext;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
@@ -42,7 +43,8 @@ public abstract class AbstractAdminSecurityUserBean <L extends JeeslLang, D exte
 											U extends JeeslSecurityUsecase<L,D,C,R,V,A>,
 											A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 											AT extends JeeslSecurityTemplate<L,D,C>,
-											M extends JeeslSecurityMenu<V,M>,
+											CTX extends JeeslSecurityContext<L,D>,
+											M extends JeeslSecurityMenu<V,CTX,M>,
 											USER extends JeeslUser<R>>
 		extends AbstractAdminBean<L,D,LOC>
 		implements Serializable
@@ -51,8 +53,8 @@ public abstract class AbstractAdminSecurityUserBean <L extends JeeslLang, D exte
 	final static Logger logger = LoggerFactory.getLogger(AbstractAdminSecurityUserBean.class);
 
 	protected JeeslUserFacade<USER> fUtilsUser;
-	protected JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fUtilsSecurity;
-	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,?,?,?,?,?,USER> fbSecurity;
+	protected JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fUtilsSecurity;
+	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,?,?,?,?,?,USER> fbSecurity;
 	
 	private final List<Boolean> booleans; public List<Boolean> getBooleans() {return booleans;}
 	protected List<USER> users;public List<USER> getUsers() {return users;}
@@ -71,7 +73,7 @@ public abstract class AbstractAdminSecurityUserBean <L extends JeeslLang, D exte
 	private boolean useSaltedHash; public boolean isUseSaltedHash() {return useSaltedHash;} public void setUseSaltedHash(boolean useSaltedHash) {this.useSaltedHash = useSaltedHash;}
 	
 
-	public AbstractAdminSecurityUserBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,?,?,?,?,?,USER> fbSecurity)
+	public AbstractAdminSecurityUserBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,?,?,?,?,?,USER> fbSecurity)
 	{
 		super(fbSecurity.getClassL(),fbSecurity.getClassD());
 		this.fbSecurity=fbSecurity;
@@ -83,7 +85,7 @@ public abstract class AbstractAdminSecurityUserBean <L extends JeeslLang, D exte
 	}
 	
 	public void postConstructSecurityUser(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-							JeeslUserFacade<USER> fUtilsUser, JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fUtilsSecurity)
+							JeeslUserFacade<USER> fUtilsUser, JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fUtilsSecurity)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fUtilsUser=fUtilsUser;

@@ -13,6 +13,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityContext;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityMenu;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
@@ -31,17 +32,18 @@ public class JsonPagesFactory<L extends JeeslLang, D extends JeeslDescription,
 									U extends JeeslSecurityUsecase<L,D,C,R,V,A>,
 									A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 									AT extends JeeslSecurityTemplate<L,D,C>,
-									M extends JeeslSecurityMenu<V,M>,
+									CTX extends JeeslSecurityContext<L,D>,
+									M extends JeeslSecurityMenu<V,CTX,M>,
 									AR extends JeeslSecurityArea<L,D,V>,
 									USER extends JeeslUser<R>>
 {
 	final static Logger logger = LoggerFactory.getLogger(JsonPagesFactory.class);
 	
-	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,?,?,?,?,USER> fbSecurity;
-	private final EjbSecurityMenuFactory<V,M> efMenu;
-	private final JsonPageFactory<L,D,C,V,M> jfPage;
+	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,AR,?,?,?,?,USER> fbSecurity;
+	private final EjbSecurityMenuFactory<V,CTX,M> efMenu;
+	private final JsonPageFactory<L,D,C,V,CTX,M> jfPage;
 	
-	public JsonPagesFactory(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,?,?,?,?,USER> fbSecurity)
+	public JsonPagesFactory(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,AR,?,?,?,?,USER> fbSecurity)
 	{
 		this.fbSecurity=fbSecurity;
 		efMenu = fbSecurity.ejbMenu();
@@ -50,7 +52,7 @@ public class JsonPagesFactory<L extends JeeslLang, D extends JeeslDescription,
 	
 	public static JsonSecurityPages build() {return new JsonSecurityPages();}
 	
-	public JsonSecurityPages hierarchy(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity)
+	public JsonSecurityPages hierarchy(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity)
 	{
 		JsonSecurityPages pages = build();
 		
