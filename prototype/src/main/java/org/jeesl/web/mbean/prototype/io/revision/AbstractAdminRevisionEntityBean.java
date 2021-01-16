@@ -335,31 +335,44 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 		mapping=null;
 		attribute=null;
 	}
-
+	//todo
+	//update bean relations when all entities are saved
 	@SuppressWarnings("rawtypes")
 	public void pullAttributesFromClass() {
 		try
 		{
 			Class<?> c = Class.forName(getEntity().getCode());
 			List<Class> classes = new ArrayList<>();
-			List<Field> fields = new ArrayList<>();
-
-			classes.add(c);
+			classes = getClasssHierarchy(classes,c);
 			Class[] interfaces = c.getInterfaces();
 			for (Class i : interfaces) {
 				classes.add(i);
 			}
+			//List<Field> fields = new ArrayList<>();
 			for (Class enumClass : classes) {
-				Field[] allFields = enumClass.getDeclaredFields();
-				for (Field f : allFields) {if(!isFieldAvilable(f,enumClass)) {fields.add(f); addPulledField(f);}}
+				try {
+					Field[] allFields = enumClass.getDeclaredFields();
+					for (Field f : allFields) {if(!isFieldAvilable(f,enumClass)) {addPulledField(f);}}
+				} catch (InstantiationException | IllegalAccessException | JeeslLockingException | JeeslConstraintViolationException | NullPointerException e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
 			}
-
 			reloadEntity();
 			bMessage.growlSuccessSaved();
 			bLabel.reload(entity);
-		} catch (SecurityException | ClassNotFoundException | InstantiationException | IllegalAccessException | JeeslLockingException | JeeslConstraintViolationException e) {
+		} catch (SecurityException | ClassNotFoundException e) {
 			e.printStackTrace();
 			logger.warn("Pull Attributes From Class Exception: "+e.getMessage());
+		}
+	}
+	private List<Class> getClasssHierarchy(List<Class> classes,Class<?> c) {
+		classes.add(c);
+		try {
+			return getClasssHierarchy(classes,c.getSuperclass());
+
+		} catch (NullPointerException e) {
+			return classes;
 		}
 	}
 
@@ -371,9 +384,17 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 		attribute.setEntity(entity);
 		attribute.setBean(true);
 		//logger.info("size:" +types.size() + types.get(0).getCode() + types.get(0).getId());
-		attribute.setType(types.get(0));
+		attribute.setType(getAttributeTypeFromeCode(f.getType().getSimpleName().toString()));
 		//logger.info("entity:" + entity.getId());
 		attribute = fRevision.save(fbRevision.getClassEntity(),entity,attribute);
+	}
+
+	private RAT getAttributeTypeFromeCode(String code) {
+		for (Iterator iterator = types.iterator(); iterator.hasNext();) {
+			RAT type = (RAT) iterator.next();
+			if(type.getCode().equals(code)) {return type;}
+		}
+		return types.get(0);
 	}
 
 	private boolean isFieldAvilable(Field f,Class<?> c){
