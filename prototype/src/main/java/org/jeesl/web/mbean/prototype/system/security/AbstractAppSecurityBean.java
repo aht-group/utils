@@ -28,7 +28,10 @@ import org.jeesl.util.comparator.ejb.system.security.SecurityRoleComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.itextpdf.text.pdf.StringUtils;
+
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
+import net.sf.exlp.util.io.StringUtil;
 
 public class AbstractAppSecurityBean <L extends JeeslLang,D extends JeeslDescription,
 											C extends JeeslSecurityCategory<L,D>,
@@ -156,10 +159,14 @@ public class AbstractAppSecurityBean <L extends JeeslLang,D extends JeeslDescrip
 
 	@Override public List<R> fRoles(V view)
 	{
+		logger.info(StringUtil.stars());
+		logger.info("View: "+view.getCode());
 		if(!mapRoles.containsKey(view))
 		{
 			List<R> list = fSecurity.rolesForView(view);
 			Collections.sort(list,cpRole);
+			logger.info(StringUtil.stars());
+			for(R r : list) {logger.info(r.getCategory().getPosition()+"."+r.getPosition()+" "+r.getCode());}
 			mapRoles.put(view,list);
 		}
 		return mapRoles.get(view);

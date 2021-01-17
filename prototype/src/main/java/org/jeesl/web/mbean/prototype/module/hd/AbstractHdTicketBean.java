@@ -9,7 +9,7 @@ import org.jeesl.api.bean.callback.JeeslFileRepositoryCallback;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoCmsFacade;
 import org.jeesl.api.facade.module.JeeslHdFacade;
-import org.jeesl.controller.handler.ui.UiEditHandler;
+import org.jeesl.controller.handler.ui.edit.UiEditSavedHandler;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
@@ -71,7 +71,7 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractHdTicketBean.class);
 
-	private final UiEditHandler<TICKET> editHandler; public UiEditHandler<TICKET> getEditHandler() {return editHandler;}
+	private final UiEditSavedHandler<TICKET> editHandler; public UiEditSavedHandler<TICKET> getEditHandler() {return editHandler;}
 
 	private USER reporter;
 	private  List<FAQ> faqs; public List<FAQ> getFaqs() {return faqs;}
@@ -89,7 +89,7 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 	{
 		super(fbHd);
 		this.fbCms=fbCms;
-		this.editHandler = new UiEditHandler<>();
+		this.editHandler = new UiEditSavedHandler<>();
 		faqs = new ArrayList<>();
 		answers = new ArrayList<>();
 		sections = new ArrayList<>();

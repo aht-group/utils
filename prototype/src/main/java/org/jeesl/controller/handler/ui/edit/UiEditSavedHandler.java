@@ -1,18 +1,20 @@
-package org.jeesl.controller.handler.ui;
+package org.jeesl.controller.handler.ui.edit;
 
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.jeesl.factory.ejb.util.EjbIdFactory;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.system.status.JeeslWithStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UiEditHandler <T extends EjbWithId> implements Serializable
+public class UiEditSavedHandler <T extends EjbWithId> implements Serializable
 {
 	private static final long serialVersionUID = 1L;
-	final static Logger logger = LoggerFactory.getLogger(UiEditHandler.class);
+	final static Logger logger = LoggerFactory.getLogger(UiEditSavedHandler.class);
 
 	private final Set<T> set;
 
@@ -21,7 +23,7 @@ public class UiEditHandler <T extends EjbWithId> implements Serializable
 
 	public boolean isDeny() {return !allow;}
 
-	public UiEditHandler()
+	public UiEditSavedHandler()
 	{
 		set = new HashSet<>();
 		this.visible=false;
@@ -48,4 +50,6 @@ public class UiEditHandler <T extends EjbWithId> implements Serializable
 		set.add(item);
 		update(item);
 	}
+//	
+//	public <T extends JeeslWithStatus<S>, S extends JeeslStatus<S,?,?>> void allowForStatus(T ejb, S status);
 }

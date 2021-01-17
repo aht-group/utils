@@ -32,14 +32,14 @@ public class SecurityRoleComparator<C extends JeeslSecurityCategory<?,?>,
         return c;
     }
 
-    private class PositionCodeComparator implements Comparator<R>
+	private class PositionCodeComparator implements Comparator<R>
     {
-        public int compare(R a, R b)
+		public int compare(R a, R b)
         {
-			  CompareToBuilder ctb = new CompareToBuilder();
-			  ctb.append(a.getCategory().getPosition(), b.getCategory().getPosition());
-			  ctb.append(a.getPosition(), b.getPosition());
-			  return ctb.toComparison();
+			CompareToBuilder ctb = new CompareToBuilder();
+			ctb.append(a.getCategory().getPosition(), b.getCategory().getPosition());
+			ctb.append(a.getPosition(), b.getPosition());
+			return ctb.toComparison();
         }
     }
 }

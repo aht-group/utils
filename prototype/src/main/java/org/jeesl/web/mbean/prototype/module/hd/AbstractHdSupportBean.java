@@ -8,7 +8,7 @@ import java.util.List;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslHdFacade;
-import org.jeesl.controller.handler.ui.UiEditHandler;
+import org.jeesl.controller.handler.ui.edit.UiEditSavedHandler;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.HdFactoryBuilder;
@@ -69,7 +69,7 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 	final static Logger logger = LoggerFactory.getLogger(AbstractHdSupportBean.class);
 
 	
-	private final UiEditHandler<MSG> editHandler; public UiEditHandler<MSG> getEditHandler() {return editHandler;}
+	private final UiEditSavedHandler<MSG> editHandler; public UiEditSavedHandler<MSG> getEditHandler() {return editHandler;}
 	
 	private final List<EVENT> events;  public List<EVENT> getEvents() {return events;}
 	private final List<MSG> messages; public List<MSG> getMessages() {return messages;}
@@ -84,7 +84,7 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 	{
 		super(fbHd);
 		
-		editHandler = new UiEditHandler<>();
+		editHandler = new UiEditSavedHandler<>();
 		
 		events = new ArrayList<>();
 		messages = new ArrayList<>();
