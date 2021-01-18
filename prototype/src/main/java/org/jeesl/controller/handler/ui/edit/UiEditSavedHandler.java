@@ -5,9 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.jeesl.factory.ejb.util.EjbIdFactory;
-import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
-import org.jeesl.interfaces.model.with.system.status.JeeslWithStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

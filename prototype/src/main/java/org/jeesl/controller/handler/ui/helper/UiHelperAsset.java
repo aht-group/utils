@@ -96,6 +96,5 @@ public class UiHelperAsset <L extends JeeslLang, D extends JeeslDescription,
 			}
 			showCompany = isQuote || isProcurement || isDeployment || isMaintenance || isRenew; 
 		}
-		
 	}
 }

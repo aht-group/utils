@@ -13,6 +13,8 @@ import org.jeesl.api.facade.module.JeeslAssetFacade;
 import org.jeesl.api.handler.sb.SbDateIntervalSelection;
 import org.jeesl.controller.handler.sb.SbDateHandler;
 import org.jeesl.controller.handler.sb.SbMultiHandler;
+import org.jeesl.controller.handler.ui.UiSlotWidthHandler;
+import org.jeesl.controller.handler.ui.helper.UiHelperAsset;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.AomFactoryBuilder;
@@ -20,9 +22,9 @@ import org.jeesl.factory.ejb.module.asset.EjbAssetEventFactory;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAsset;
-import org.jeesl.interfaces.model.module.aom.asset.JeeslAomView;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAssetStatus;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAssetType;
+import org.jeesl.interfaces.model.module.aom.asset.JeeslAomView;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
@@ -47,8 +49,8 @@ public abstract class AbstractAssetMaintenanceBean <L extends JeeslLang, D exten
 										REALM extends JeeslMcsRealm<L,D,REALM,?>, RREF extends EjbWithId,
 										COMPANY extends JeeslAomCompany<REALM,SCOPE>,
 										SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
-										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,ATYPE>,
-										STATUS extends JeeslAomAssetStatus<L,D,STATUS,?>,
+										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,ASTATUS,ATYPE>,
+										ASTATUS extends JeeslAomAssetStatus<L,D,ASTATUS,?>,
 										ATYPE extends JeeslAomAssetType<L,D,REALM,ATYPE,ALEVEL,?>,
 										ALEVEL extends JeeslAomView<L,D,REALM,?>,
 										EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS,USER,FRC>,
@@ -63,9 +65,9 @@ public abstract class AbstractAssetMaintenanceBean <L extends JeeslLang, D exten
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetMaintenanceBean.class);
 	
-	protected JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fAsset;
+	protected JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fAsset;
 	
-	private final AomFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fbAsset;
+	private final AomFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fbAsset;
 	
 	private final EjbAssetEventFactory<COMPANY,ASSET,EVENT,ETYPE,ESTATUS,USER,FRC> efEvent;
 	
@@ -74,6 +76,8 @@ public abstract class AbstractAssetMaintenanceBean <L extends JeeslLang, D exten
 	
 	private SbDateHandler sbDateHandler; public SbDateHandler getSbDateHandler() {return sbDateHandler;}
 	private final SbMultiHandler<ESTATUS> sbhEventStatus; public SbMultiHandler<ESTATUS> getSbhEventStatus() {return sbhEventStatus;}
+	private final UiSlotWidthHandler slotHandler; public UiSlotWidthHandler getSlotHandler() {return slotHandler;}
+	private final UiHelperAsset<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC,UP> uiHelper; public UiHelperAsset<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC,UP> getUiHelper() {return uiHelper;}
 	
 	private final List<EVENT> events; public List<EVENT> getEvents() {return events;}
 	    
@@ -82,15 +86,20 @@ public abstract class AbstractAssetMaintenanceBean <L extends JeeslLang, D exten
 
 	private EVENT event; public EVENT getEvent() {return event;} public void setEvent(EVENT event) {this.event = event;}
 
-	public AbstractAssetMaintenanceBean(AomFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fbAsset)
+	public AbstractAssetMaintenanceBean(AomFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fbAsset)
 	{
 		super(fbAsset.getClassL(),fbAsset.getClassD());
 		this.fbAsset=fbAsset;
+		
+		uiHelper = new UiHelperAsset<>();
 		
 		efEvent = fbAsset.ejbEvent();
 		
 		cpAsset = fbAsset.cpAsset(EjbAssetComparator.Type.position);
 		cpEvent = fbAsset.cpEvent(EjbEventComparator.Type.recordAsc);
+		
+		slotHandler = new UiSlotWidthHandler();
+		slotHandler.set(12);
 		
 		sbhEventStatus = new SbMultiHandler<>(fbAsset.getClassEventStatus(),this);
 		sbDateHandler = new SbDateHandler(this);
@@ -101,13 +110,15 @@ public abstract class AbstractAssetMaintenanceBean <L extends JeeslLang, D exten
 	}
 	
 	protected <E extends Enum<E>> void postConstructAssetMaintenance(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fAsset,
-									JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,STATUS,ATYPE,ALEVEL,ETYPE,UP> bCache,
+									JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fAsset,
+									JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,ETYPE,UP> bCache,
 									E eRealm, RREF rref
 									)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fAsset=fAsset;
+		
+		uiHelper.setCacheBean(bCache);
 		
 		realm = fAsset.fByEnum(fbAsset.getClassRealm(),eRealm);
 		this.rref=rref;
@@ -129,19 +140,15 @@ public abstract class AbstractAssetMaintenanceBean <L extends JeeslLang, D exten
 		events.addAll(fAsset.fAssetEvents(realm, rref, sbhEventStatus.getSelected()));
 		Collections.sort(events,cpEvent);
 	}
-    
-    public void addEvent()
-    {
-    	logger.info(AbstractLogMessage.addEntity(fbAsset.getClassEvent()));
-    	efEvent.ejb2nnb(event,nnb);
-    }
-    
+        
     public void selectEvent()
     {
     	logger.info(AbstractLogMessage.selectEntity(event));
     	event = fAsset.find(fbAsset.getClassEvent(),event);
+    	uiHelper.update(realm,rref,event);
     	efEvent.ejb2nnb(event,nnb);
     	Collections.sort(event.getAssets(),cpAsset);
+    	slotHandler.set(8,4);
     }
     
     public void saveEvent() throws JeeslConstraintViolationException, JeeslLockingException
@@ -151,5 +158,11 @@ public abstract class AbstractAssetMaintenanceBean <L extends JeeslLang, D exten
     	efEvent.nnb2ejb(event,nnb);
     	event = fAsset.save(event);
     	reloadEvents();
+    }
+    
+    public void cancelEvent()
+    {
+    	event=null;
+    	slotHandler.set(12);
     }
 }
