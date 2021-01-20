@@ -98,7 +98,7 @@ public class AbstractSmtpSpooler
 	}
 	
 	public void sanitize(Mail mail) {}
-	public boolean hasVeto(Mail mail) {return false;}
+	protected boolean hasVeto(Mail mail) {return false;}
 	
 	public void spooler()
 	{
