@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.jeesl.api.facade.io.JeeslIoSsiFacade;
 import org.jeesl.controller.handler.tuple.JsonTuple1Handler;
+import org.jeesl.controller.handler.tuple.JsonTuple2Handler;
 import org.jeesl.factory.builder.io.ssi.IoSsiDataFactoryBuilder;
 import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiCredential;
@@ -23,7 +24,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
-import net.sf.exlp.util.io.JsonUtil;
 
 public class AbstractSsiMappingBean <L extends JeeslLang,D extends JeeslDescription,
 										SYSTEM extends JeeslIoSsiSystem<L,D>,
@@ -43,7 +43,8 @@ public class AbstractSsiMappingBean <L extends JeeslLang,D extends JeeslDescript
 	private final IoSsiDataFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi;
 	private JeeslIoSsiFacade<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,HOST> fSsi;
 	
-	private final JsonTuple1Handler<MAPPING> th; public JsonTuple1Handler<MAPPING> getTh() {return th;}
+	private final JsonTuple1Handler<MAPPING> thMapping; public JsonTuple1Handler<MAPPING> getThMapping() {return thMapping;}
+	private final JsonTuple2Handler<MAPPING,LINK> thLink; public JsonTuple2Handler<MAPPING,LINK> getThLink() {return thLink;}
 	
 	private final List<MAPPING> mappings; public List<MAPPING> getMappings() {return mappings;}
 
@@ -53,7 +54,8 @@ public class AbstractSsiMappingBean <L extends JeeslLang,D extends JeeslDescript
 	{
 		this.fbSsi=fbSsi;
 		mappings = new ArrayList<MAPPING>();
-		th = new JsonTuple1Handler<MAPPING>(fbSsi.getClassMapping());
+		thMapping = new JsonTuple1Handler<>(fbSsi.getClassMapping());
+		thLink = new JsonTuple2Handler<>(fbSsi.getClassMapping(),fbSsi.getClassLink());
 	}
 
 	public void postConstructSsiMapping(JeeslIoSsiFacade<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,HOST> fSsi)
@@ -67,10 +69,8 @@ public class AbstractSsiMappingBean <L extends JeeslLang,D extends JeeslDescript
 		mappings.clear();
 		mappings.addAll(fSsi.all(fbSsi.getClassMapping()));
 		
-		Json1Tuples<MAPPING> tuples = fSsi.tpMapping();
-		JsonUtil.info(tuples);
-		
-		th.init(tuples);
+		thMapping.init(fSsi.tpMapping());
+		thLink.init(fSsi.tpMappingLink());
 	}
 	
 	public void selectMapping()
