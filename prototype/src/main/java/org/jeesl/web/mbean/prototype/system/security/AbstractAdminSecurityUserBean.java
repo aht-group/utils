@@ -56,6 +56,7 @@ public abstract class AbstractAdminSecurityUserBean <L extends JeeslLang, D exte
 	protected JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fUtilsSecurity;
 	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,?,?,?,?,?,USER> fbSecurity;
 	
+	protected final List<CTX> contexts; public List<CTX> getContexts() {return contexts;}
 	private final List<Boolean> booleans; public List<Boolean> getBooleans() {return booleans;}
 	protected List<USER> users;public List<USER> getUsers() {return users;}
 	protected List<R> roles; public List<R> getRoles() {return roles;}
@@ -82,6 +83,8 @@ public abstract class AbstractAdminSecurityUserBean <L extends JeeslLang, D exte
 		booleans = new ArrayList<>();
 		booleans.add(Boolean.TRUE);
 		booleans.add(Boolean.FALSE);
+		
+		contexts = new ArrayList<>();
 	}
 	
 	public void postConstructSecurityUser(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
@@ -95,7 +98,10 @@ public abstract class AbstractAdminSecurityUserBean <L extends JeeslLang, D exte
 		roles = new ArrayList<R>();
 		
 		performPasswordCheck = true;
+		reloadContexts();
 	}
+	
+	protected void reloadContexts() {}
 	
 	public void cancelUser() {reset(true);}
 	protected void reset(boolean rUser)

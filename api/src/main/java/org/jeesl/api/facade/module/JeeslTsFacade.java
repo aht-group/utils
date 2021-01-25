@@ -59,11 +59,13 @@ public interface JeeslTsFacade <L extends JeeslLang, D extends JeeslDescription,
 	
 	boolean isTimeSeriesAllowed(SCOPE scope, INT interval, EC c);
 	
+	TS fTimeSeries(SCOPE scope, INT interval, STAT statistic, BRIDGE bridge) throws JeeslNotFoundException;
+	TS fcTimeSeries(SCOPE scope, INT interval, STAT statistic, BRIDGE bridge) throws JeeslConstraintViolationException;
+
 	List<TS> fTimeSeries(List<BRIDGE> bridges);
 	List<TS> fTimeSeries(List<BRIDGE> bridges, List<SCOPE> scopes);
 	List<TS> fTimeSeries(SCOPE scope, INT interval, EC entityClass);
-	TS fTimeSeries(SCOPE scope, INT interval, STAT statistic, BRIDGE bridge) throws JeeslNotFoundException;
-	TS fcTimeSeries(SCOPE scope, INT interval, STAT statistic, BRIDGE bridge) throws JeeslConstraintViolationException;
+	
 	List<DATA> fData(TRANSACTION transaction);
 	List<DATA> fData(WS workspace, TS timeSeries);
 	List<DATA> fData(WS workspace, TS timeSeries, int year);
@@ -71,6 +73,7 @@ public interface JeeslTsFacade <L extends JeeslLang, D extends JeeslDescription,
 	List<DATA> fDataLast(List<TS> list);
 	
 	List<POINT> fPoints(WS workspace, TS timeSeries, JeeslTsData.QueryInterval interval, Date from, Date to);
+	List<POINT> fPoints(WS workspace, List<TS> timeSeries, List<MP> mps, JeeslTsData.QueryInterval interval, Date from, Date to);
 	
 	List<TRANSACTION> fTransactions(List<USER> users, JeeslTsData.QueryInterval interval, Date from, Date to);
 	

@@ -170,7 +170,14 @@ public class SqlFactory
 	}
 	
 
-	
+	public static <E extends Enum<E>, T extends EjbWithId> void whereId(StringBuilder sb, String alias, T where, boolean newLine)
+	{
+		sb.append(" WHERE ");
+//		sb.append(alias).append(".id=");
+		sb.append("id=");
+		sb.append(where.getId());
+		newLine(newLine,sb);
+	}
 	public static <E extends Enum<E>, T extends EjbWithId> void where(StringBuilder sb, String alias, boolean negate, E attribute, T where, boolean newLine)
 	{
 		sb.append(" WHERE ");

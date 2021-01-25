@@ -141,8 +141,6 @@ public class AbstractTimeSeriesProcessor<SCOPE extends JeeslTsScope<?,?,?,ST,?,E
 		}
 	}
 	
-
-	
 	protected boolean isInitialized()
 	{
 		return (ws!=null) && (scope!=null) && (interval!=null) && (ec!=null);

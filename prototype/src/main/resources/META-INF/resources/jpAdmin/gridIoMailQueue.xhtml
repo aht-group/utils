@@ -23,7 +23,7 @@
 		<j:slot id="sStat" width="5">
 			<p:dataTable var="s" value="#{cc.attrs.bean.statistics}">
 				<f:facet name="header">
-					<j:dtHeader title="#{msg.jeeslIoMailQueueStatistics}"/>
+					<j:dtHeader entity="IoMail" code="listOfStatistics"/>
 				</f:facet>
 				<p:column>
 					<h:outputText value="#{s}"/>

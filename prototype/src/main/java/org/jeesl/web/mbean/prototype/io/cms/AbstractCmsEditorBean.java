@@ -127,10 +127,10 @@ public abstract class AbstractCmsEditorBean <L extends JeeslLang,D extends Jeesl
 		efElement = fbCms.ejbElement();
 		efContent = fbCms.ejbContent();
 		
-		sbhCategory = new SbSingleHandler<CAT>(fbCms.getClassCategory(),this);
-		sbhCms = new SbSingleHandler<CMS>(fbCms.getClassCms(),this);
-		sbhLocale = new SbSingleHandler<LOC>(fbCms.getClassLocale(),this);
-		opLocale = new OpStatusSelectionHandler<LOC>(this);
+		sbhCategory = new SbSingleHandler<>(fbCms.getClassCategory(),this);
+		sbhCms = new SbSingleHandler<>(fbCms.getClassCms(),this);
+		sbhLocale = new SbSingleHandler<>(fbCms.getClassLocale(),this);
+		opLocale = new OpStatusSelectionHandler<>(this);
 		
 		mapOfx = new HashMap<>();
 		types = new ArrayList<ET>();
