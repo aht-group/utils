@@ -70,6 +70,13 @@ public class SqlFactory
 		return sb.toString();
 	}
 	
+	public static <T extends EjbWithId> void delete(StringBuilder sb, Class<T> c)
+	{
+		if(c.getAnnotation(Table.class)==null) {throw new RuntimeException("Not a @Table)");}
+		sb.append("DELETE FROM ");
+		sb.append(c.getAnnotation(Table.class).name());
+	}
+	
 	public static <T extends EjbWithId> String delete(T t)
 	{
 		if(t.getClass().getAnnotation(Table.class)==null) {throw new RuntimeException("Not a @Table)");}

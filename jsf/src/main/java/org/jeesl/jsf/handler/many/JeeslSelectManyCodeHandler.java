@@ -1,4 +1,4 @@
-package org.jeesl.jsf.util;
+package org.jeesl.jsf.handler.many;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,14 +7,14 @@ import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class JeeslSelectManyHandler <T extends EjbWithCode>
+public class JeeslSelectManyCodeHandler <T extends EjbWithCode>
 {
-	final static Logger logger = LoggerFactory.getLogger(JeeslSelectManyHandler.class);
+	final static Logger logger = LoggerFactory.getLogger(JeeslSelectManyCodeHandler.class);
 	
 	private List<String> codes; public List<String> getCodes() {return codes;} public void setCodes(List<String> codes) {this.codes = codes;}
 	private final List<T> list; public List<T> getList() {return list;}
 	
-	public JeeslSelectManyHandler()
+	public JeeslSelectManyCodeHandler()
 	{
 		list = new ArrayList<>();
 	}

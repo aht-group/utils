@@ -27,7 +27,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
-import org.jeesl.jsf.util.JeeslSelectManyHandler;
+import org.jeesl.jsf.handler.many.JeeslSelectManyCodeHandler;
 import org.jeesl.model.module.aom.AssetCompanyLazyModel;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.slf4j.Logger;
@@ -60,7 +60,7 @@ public class AbstractAssetCompanyBean <L extends JeeslLang, D extends JeeslDescr
 	
 	private final AomFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ALEVEL,EVENT,ETYPE,ESTATUS,USER,FRC,UP> fbAsset;
 	
-	private JeeslSelectManyHandler<SCOPE> smh; public JeeslSelectManyHandler<SCOPE> getSmh() {return smh;}
+	private JeeslSelectManyCodeHandler<SCOPE> smh; public JeeslSelectManyCodeHandler<SCOPE> getSmh() {return smh;}
 	
 	private AssetCompanyLazyModel<REALM,RREF,COMPANY,SCOPE> lazyCompany; public AssetCompanyLazyModel<REALM,RREF,COMPANY,SCOPE> getLazyCompany() {return lazyCompany;}
 
@@ -72,7 +72,7 @@ public class AbstractAssetCompanyBean <L extends JeeslLang, D extends JeeslDescr
 	{
 		super(fbAsset.getClassL(),fbAsset.getClassD());
 		this.fbAsset=fbAsset;
-		smh = new JeeslSelectManyHandler<>();
+		smh = new JeeslSelectManyCodeHandler<>();
 		lazyCompany = new AssetCompanyLazyModel<>();
 	}
 
