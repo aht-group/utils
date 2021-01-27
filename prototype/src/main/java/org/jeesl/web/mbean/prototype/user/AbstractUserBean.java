@@ -48,7 +48,8 @@ public abstract class AbstractUserBean <L extends JeeslLang, D extends JeeslDesc
 	protected I identity;
 
 	protected String ipAddress;
-	protected String sessionId;
+//	protected String sessionId;
+	protected String uuid;
 	protected String localeCode;
 
 	protected AbstractUserBean(LocaleFactoryBuilder<L,D,?> fbStatus)
