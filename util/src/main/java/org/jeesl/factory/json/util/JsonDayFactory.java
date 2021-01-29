@@ -87,7 +87,9 @@ public class JsonDayFactory
 		List<JsonDay> days = new ArrayList<JsonDay>();
 		for(int i=0;i<maxDays;i++)
 		{
-			days.add(build(dt1.plusDays(i)));
+			JsonDay day = build(dt1.plusDays(i));
+			day.setId(i+1);
+			days.add(day);
 		}
 		return days;
 	}
@@ -102,5 +104,12 @@ public class JsonDayFactory
 	public static Date toDate(JsonDay day)
 	{
 		return DateUtil.getDateFromInt(day.getYear(),day.getMonth(),day.getNr());
+	}
+	
+	public static List<Integer> toIntegerDayNr(List<JsonDay> days)
+	{
+		List<Integer> list = new ArrayList<>();
+		for(JsonDay day : days) {list.add(day.getNr());}
+		return list;
 	}
 }

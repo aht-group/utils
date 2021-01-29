@@ -7,7 +7,6 @@
 	xmlns:ofx="http://www.openfuxml.org/jsf"
 	xmlns:composite="http://java.sun.com/jsf/composite">
 	
-	
 	<composite:interface>
 		<composite:attribute name="bean" required="true"/>
 	</composite:interface>
@@ -19,13 +18,13 @@
 			<h:form id="fTickets">
 				<p:dataTable var="t" value="#{cc.attrs.bean.tickets}" draggableRows="false"
 								selection="#{cc.attrs.bean.ticket}" selectionMode="single" rowKey="#{t.id}"
-								rows="10" paginator="true" rowsPerPageTemplate="#{appSettingsBean.rowsPerPageTemplate}" paginatorPosition="#{appSettingsBean.paginatorPosition}" paginatorTemplate="#{appSettingsBean.paginatorTemplate}">
+								rows="20" paginator="true" rowsPerPageTemplate="#{appSettingsBean.rowsPerPageTemplate}" paginatorPosition="#{appSettingsBean.paginatorPosition}" paginatorTemplate="#{appSettingsBean.paginatorTemplate}">
 					<f:facet name="header">
 						<j:dtHeader title="#{msg.jeeslHdTickets}">
-							<j:svg rendered="false" type="jeeslAdd" listener="#{cc.attrs.bean.addTicket()}" update=":#{cc.id}:sEvents :#{cc.id}:rTicket :#{cc.id}:rMessage :#{cc.id}:rFr" library="jeeslGfx"/>
+							<j:svg rendered="false" type="jeeslAdd" listener="#{cc.attrs.bean.addTicket()}" update=":#{cc.id}:sTicket :#{cc.id}:rMessage :#{cc.id}:rFr" library="jeeslGfx"/>
 						</j:dtHeader>
 					</f:facet>
-					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectTicket()}" update=":#{cc.id}:sEvents :#{cc.id}:rTicket :#{cc.id}:rMessage :#{cc.id}:rFr"/>
+					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectTicket()}" update=":#{cc.id}:sTicket :#{cc.id}:rMessage :#{cc.id}:rFr"/>
 					<p:column headerText="#{msg.jeeslHdRecord}">
 						<jtp:symbolizer value="#{t.lastEvent.status}" marginRight="5"/>
 						<jp:outputDate value="#{t.firstEvent.record}"/>
@@ -37,69 +36,19 @@
 						<jtp:symbolizer value="#{t.firstEvent.reporterPriority}" marginRight="5"/>
 						<h:outputText value="#{t.firstEvent.reporter.firstName}"/>
 					</p:column>
-					<p:column headerText="#{msg.jeeslHdSupporter}">
-						<jtp:symbolizer value="#{t.lastEvent.supporterPriority}" marginRight="5"/>
-						<h:outputText value="#{t.lastEvent.supporter.firstName}"/>
-					</p:column>
 					<p:column headerText="#{msg.jeeslHdIssue}">  
 						<jtp:symbolizer value="#{t.lastEvent.category}" marginRight="5"/>
 						<h:outputText value="#{of:abbreviate(t.name,30)}"/>
 					</p:column>
+					<p:column>
+						<f:facet name="header"><jtp:label entity="HdTicket" code="supporter"/></f:facet>
+						<jtp:symbolizer value="#{t.lastEvent.supporterPriority}" marginRight="5"/>
+						<h:outputText value="#{t.lastEvent.supporter.firstName}"/>
+					</p:column>
 			   	</p:dataTable>
 			</h:form>
 		</j:slot>
-		<j:slot id="sEvents" width="5">
-			<p:dataTable var="e" value="#{cc.attrs.bean.events}" draggableRows="false" rendered="#{not empty cc.attrs.bean.ticket}"
-						rows="5" paginator="true" rowsPerPageTemplate="#{appSettingsBean.rowsPerPageTemplate}" paginatorPosition="#{appSettingsBean.paginatorPosition}" paginatorTemplate="#{appSettingsBean.paginatorTemplate}">
-				<f:facet name="header">
-					<j:dtHeader title="#{msg.jeeslHdEvents}">
-						
-					</j:dtHeader>
-				</f:facet>
-				<p:column headerText="#{msg.jeeslHdRecord}">  
-					<jp:outputDate value="#{e.record}" withTime="true"/>
-				</p:column>
-				<p:column>  
-					<h:outputText value="#{of:abbreviate(e.initiator.firstName,1)}#{of:abbreviate(e.initiator.lastName,1)}"/>
-				</p:column>
-				<p:column headerText="#{msg.jeeslHdEventChange}">
-					<ui:repeat var="t" value="#{e.types}">
-						<jtp:symbolizer value="#{t}" marginRight="2"/>
-						<h:outputText value=": "/>
-						<ui:fragment rendered="#{t.code eq 'status'}">
-							<jtp:symbolizer value="#{e.status}" marginLeft="5"/>
-							<h:outputText value="#{e.status.name[localeCode].lang}"/>
-						</ui:fragment>
-						<ui:fragment rendered="#{t.code eq 'supporter'}">
-							<h:outputText value="#{e.supporter.firstName}"/>
-						</ui:fragment>
-						<ui:fragment rendered="#{t.code eq 'level'}">
-							<h:outputText value="#{e.level.name[localeCode].lang}"/>
-							<jtp:symbolizer value="#{e.level}" marginLeft="5"/>
-						</ui:fragment>
-						<ui:fragment rendered="#{t.code eq 'category'}">
-							<h:outputText value="#{e.category.name[localeCode].lang}"/>
-							<jtp:symbolizer value="#{e.category}" marginLeft="5"/>
-						</ui:fragment>
-						<ui:fragment rendered="#{t.code eq 'priority'}">
-							<h:outputText value="#{e.supporterPriority.name[localeCode].lang}"/>
-							<jtp:symbolizer value="#{e.supporterPriority}" marginLeft="5"/>
-						</ui:fragment>
-						<ui:fragment rendered="#{t.code eq 'create'}">
-							<jtp:symbolizer value="#{e.status}" marginLeft="5"/>
-							<jtp:symbolizer value="#{e.level}" marginLeft="5"/>
-							<jtp:symbolizer value="#{e.category}" marginLeft="5"/>
-							<jtp:symbolizer value="#{e.reporterPriority}" marginLeft="5"/>
-						</ui:fragment>
-						<br/>
-					</ui:repeat>
-				</p:column>
-				
-		   	</p:dataTable>
-		</j:slot>
-	</j:row>
-	<j:row id="rTicket">
-		<j:slot id="sTicket" width="6">
+		<j:slot id="sTicket" width="5">
 			<h:form id="fTicket" rendered="#{not empty cc.attrs.bean.ticket}">
 				<p:panel header="#{msg.jeeslHdTicket}" styleClass="jeeslPanel">
 					<f:facet name="actions">
@@ -147,6 +96,53 @@
 					</p:panelGrid>
 				</p:panel>
 			</h:form>
+			<p:dataTable var="e" value="#{cc.attrs.bean.events}" draggableRows="false" rendered="#{not empty cc.attrs.bean.ticket}"
+						rows="5" paginator="true" rowsPerPageTemplate="#{appSettingsBean.rowsPerPageTemplate}" paginatorPosition="#{appSettingsBean.paginatorPosition}" paginatorTemplate="#{appSettingsBean.paginatorTemplate}">
+				<f:facet name="header">
+					<j:dtHeader title="#{msg.jeeslHdEvents}">
+						
+					</j:dtHeader>
+				</f:facet>
+				<p:column headerText="#{msg.jeeslHdRecord}">  
+					<jp:outputDate value="#{e.record}" withTime="true"/>
+				</p:column>
+				<p:column>  
+					<h:outputText value="#{of:abbreviate(e.initiator.firstName,1)}#{of:abbreviate(e.initiator.lastName,1)}"/>
+				</p:column>
+				<p:column headerText="#{msg.jeeslHdEventChange}">
+					<ui:repeat var="t" value="#{e.types}">
+						<jtp:symbolizer value="#{t}" marginRight="2"/>
+						<h:outputText value=": "/>
+						<ui:fragment rendered="#{t.code eq 'status'}">
+							<jtp:symbolizer value="#{e.status}" marginLeft="5"/>
+							<h:outputText value="#{e.status.name[localeCode].lang}"/>
+						</ui:fragment>
+						<ui:fragment rendered="#{t.code eq 'supporter'}">
+							<h:outputText value="#{e.supporter.firstName}"/>
+						</ui:fragment>
+						<ui:fragment rendered="#{t.code eq 'level'}">
+							<h:outputText value="#{e.level.name[localeCode].lang}"/>
+							<jtp:symbolizer value="#{e.level}" marginLeft="5"/>
+						</ui:fragment>
+						<ui:fragment rendered="#{t.code eq 'category'}">
+							<h:outputText value="#{e.category.name[localeCode].lang}"/>
+							<jtp:symbolizer value="#{e.category}" marginLeft="5"/>
+						</ui:fragment>
+						<ui:fragment rendered="#{t.code eq 'priority'}">
+							<h:outputText value="#{e.supporterPriority.name[localeCode].lang}"/>
+							<jtp:symbolizer value="#{e.supporterPriority}" marginLeft="5"/>
+						</ui:fragment>
+						<ui:fragment rendered="#{t.code eq 'create'}">
+							<jtp:symbolizer value="#{e.status}" marginLeft="5"/>
+							<jtp:symbolizer value="#{e.level}" marginLeft="5"/>
+							<jtp:symbolizer value="#{e.category}" marginLeft="5"/>
+							<jtp:symbolizer value="#{e.reporterPriority}" marginLeft="5"/>
+						</ui:fragment>
+						<br/>
+					</ui:repeat>
+				</p:column>
+				
+		   	</p:dataTable>
 		</j:slot>
 	</j:row>
 	<j:row id="rMessage" rendered="false">

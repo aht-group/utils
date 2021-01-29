@@ -182,9 +182,7 @@
 					
 			<h:form id="fOfx" rendered="#{not empty cc.attrs.bean.faq}">
 				<ui:repeat var="a" value="#{cc.attrs.bean.answers}">
-			     	<p:panel header="#{a.section.name[localeCode].lang}">
-						<ofx:outputSection value="#{cc.attrs.ofxCache.buildBySection(localeCode,a.section)}"/>
-					</p:panel>
+					<ofx:panel section="#{cc.attrs.ofxCache.buildBySection(localeCode,a.section)}" />
 		    	</ui:repeat>
 			</h:form>
 		</j:slot>	
