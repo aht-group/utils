@@ -139,7 +139,9 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 	@Override
 	public void selectedTicket()
 	{
+		lastEvent = fHd.find(fbHd.getClassEvent(),ticket.getLastEvent());
 		this.editHandler.update(ticket);
+
 	}
 
 	public void addTicket() throws JeeslConstraintViolationException, JeeslLockingException
@@ -153,6 +155,7 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		selectedCat = sbhCategory.getList().get(0);
 		updateFaqSection();
 		this.editHandler.update(ticket);
+		this.editHandler.setVisible(false);
 		ofxUser = XmlSectionFactory.build();
 		if(frh!=null) {frh.init(ticket);}
 	}
@@ -185,16 +188,33 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		reloadTickets();
 	}
 
+
+
 	public void disableTicket() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
-		fbHd.ejbEvent().converter(fHd,lastEvent);
-		PRIORITY priority = getDefaultPriority();
-		STATUS status = fHd.fByCode(fbHd.getClassTicketStatus(),realm,rref,"discarded");
-		lastEvent = fbHd.ejbEvent().build(ticket,ticket.getLastEvent().getCategory(),status,levels.get(0),priority,reporter);
-		//update status
-		ticket.setLastEvent(lastEvent);
+		logger.info("disabling ticket");
+		toggleTicket("discarded");
+	}
 
-		ticket = fHd.save(ticket);
+	public void enableTicket() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException {
+		logger.info("enabling ticket");
+		toggleTicket("open");
+	}
+
+	public void toggleTicket(String statusCode) throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
+	{
+		STATUS status = fHd.fByCode(fbHd.getClassTicketStatus(),realm,rref,statusCode);
+		//update status
+		fbHd.ejbEvent().converter(fHd,lastEvent);
+		ticket.setLastEvent(lastEvent);
+		ticket.getLastEvent().setStatus(status);
+
+		logger.info("saving hd ticket");
+		ticket = fHd.saveHdTicket(ticket,lastEvent,reporter);
+		logger.info("saving hd finished");
+
+
+		//ticket = fHd.save(ticket);
 		this.editHandler.saved(ticket);
 		ofxUser = ofxMarkup.build(ticket.getMarkupUser());
 		if(frh!=null)
@@ -205,6 +225,7 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		}
 		reloadTickets();
 	}
+
 
 	public boolean showDisableButton() {
 		if(ticket != null && ticket.getId() > 0) {
