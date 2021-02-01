@@ -3,11 +3,14 @@ package org.jeesl.web.mbean.prototype.module.hd;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslHdFacade;
+import org.jeesl.controller.handler.ui.UiSlotWidthHandler;
 import org.jeesl.controller.handler.ui.edit.UiEditSavedHandler;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
@@ -68,8 +71,10 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractHdSupportBean.class);
 
-	
 	private final UiEditSavedHandler<MSG> editHandler; public UiEditSavedHandler<MSG> getEditHandler() {return editHandler;}
+	private final UiSlotWidthHandler uiSlot; public UiSlotWidthHandler getUiSlot() {return uiSlot;}
+	
+	private final Map<MSG,Section> mapOfx; public Map<MSG, Section> getMapOfx() {return mapOfx;}
 	
 	private final List<EVENT> events;  public List<EVENT> getEvents() {return events;}
 	private final List<MSG> messages; public List<MSG> getMessages() {return messages;}
@@ -84,7 +89,10 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 	{
 		super(fbHd);
 		
+		uiSlot = new UiSlotWidthHandler();
 		editHandler = new UiEditSavedHandler<>();
+		
+		mapOfx = new HashMap<>();
 		
 		events = new ArrayList<>();
 		messages = new ArrayList<>();
@@ -100,6 +108,7 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 		super.postConstructHd(bTranslation,bMessage,fHd,realm);
 		scopes.addAll(fHd.allOrderedPositionVisible(fbHd.getClassScope()));
 		this.supporter=supporter;
+		uiSlot.set(7,5,0);
 	}
 	
 	@Override protected void updatedRealmReference()
@@ -116,6 +125,12 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 		reloadTickets();
 	}
 	
+	public void cancelTicket() {reset(true); uiSlot.set(7,5,0);}
+	private void reset(boolean rMessage)
+	{
+		if(rMessage) {message=null;}
+	}
+	
 	private void reloadTickets()
 	{
 		EjbHelpdeskQuery<L,D,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,USER> query = EjbHelpdeskQuery.build();
@@ -123,6 +138,13 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 		
 		tickets.clear();
 		tickets.addAll(fHd.fHdTickets(query));
+	}
+	
+	public void selectTicket(TICKET t) throws JeeslConstraintViolationException, JeeslLockingException
+	{
+		this.ticket=t;
+		super.selectTicket();
+		uiSlot.set(0,5,7);
 	}
 	
 	public void selectedTicket()
@@ -154,7 +176,13 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 	{
 		messages.clear();
 		messages.addAll(fHd.allForParent(fbHd.getClassMessage(),ticket));
+		Collections.reverse(messages);
 		logger.info(AbstractLogMessage.reloaded(fbHd.getClassMessage(),messages));
+		mapOfx.clear();
+		for(MSG m : messages)
+		{
+			mapOfx.put(m,ofxMarkup.build(m.getMarkup()));
+		}
 	}
 	
 	public void selectMessage()
@@ -182,5 +210,6 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 		message = fHd.save(message);
 		editHandler.saved(message);
 		reloadMessages();
+		
 	}
 }

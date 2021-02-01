@@ -1,6 +1,7 @@
 package org.jeesl.controller.handler.module.survey;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +38,6 @@ public class SurveyOptionHandler<QUESTION extends JeeslSurveyQuestion<?,?,?,?,?,
 	
 	public OPTION toOption(QUESTION question, String code) throws JeeslConstraintViolationException
 	{
-		
 		if(code==null)
 		{
 			if(BooleanComparator.active(question.getMandatory())){throw new JeeslConstraintViolationException("Answer is mandatory");}
@@ -51,5 +51,19 @@ public class SurveyOptionHandler<QUESTION extends JeeslSurveyQuestion<?,?,?,?,?,
 			else {throw new JeeslConstraintViolationException("No Option for question:{"+question.toString()+"} with code:"+code);}
 		}
 		else {throw new JeeslConstraintViolationException("Nothing defined for "+question.toString());}
+	}
+	
+	public List<OPTION> toRows(QUESTION question)
+	{
+		List<OPTION> list = new ArrayList<>();
+		if(mapOption.containsKey(question))
+		{
+			for(OPTION o : mapOption.get(question).values())
+			{
+				if(o.getRow()) {list.add(o);}
+			}
+		}
+		else {logger.warn("No Options for "+question.toString());}
+		return list;
 	}
 }

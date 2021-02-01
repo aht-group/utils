@@ -74,7 +74,7 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 	private final UiEditSavedHandler<TICKET> editHandler; public UiEditSavedHandler<TICKET> getEditHandler() {return editHandler;}
 
 	private USER reporter;
-	private  List<FAQ> faqs; public List<FAQ> getFaqs() {return faqs;}
+	private List<FAQ> faqs; public List<FAQ> getFaqs() {return faqs;}
 	private List<FGA> answers; public List<FGA> getAnswers() {return answers;}
 	private List<SEC> sections; public List<SEC> getSections() {return sections;}
 	private JeeslIoCmsFacade<L,D,LOC,?,DOC,?,SEC,?,?,?,?,?,?,?> fCms;

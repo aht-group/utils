@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui" xmlns:of="http://omnifaces.org/functions"
+	xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions" xmlns:of="http://omnifaces.org/functions"
 	xmlns:j="http://www.jeesl.org/jsf" xmlns:jp="http://jsf.jeesl.org/prototype" xmlns:jtp="http://jsf.jeesl.org/prototype/tag"
 	xmlns:ofx="http://www.openfuxml.org/jsf"
 	xmlns:composite="http://java.sun.com/jsf/composite">
@@ -14,17 +14,17 @@
 	<composite:implementation>
 <jp:grid id="grid">
 	<j:row>
-		<j:slot id="sTickets" width="7">
+		<j:slot id="sTickets" width="#{cc.attrs.bean.uiSlot.a}" rendered="#{cc.attrs.bean.uiSlot.showA}">
 			<h:form id="fTickets">
 				<p:dataTable var="t" value="#{cc.attrs.bean.tickets}" draggableRows="false"
 								selection="#{cc.attrs.bean.ticket}" selectionMode="single" rowKey="#{t.id}"
 								rows="20" paginator="true" rowsPerPageTemplate="#{appSettingsBean.rowsPerPageTemplate}" paginatorPosition="#{appSettingsBean.paginatorPosition}" paginatorTemplate="#{appSettingsBean.paginatorTemplate}">
 					<f:facet name="header">
 						<j:dtHeader title="#{msg.jeeslHdTickets}">
-							<j:svg rendered="false" type="jeeslAdd" listener="#{cc.attrs.bean.addTicket()}" update=":#{cc.id}:sTicket :#{cc.id}:rMessage :#{cc.id}:rFr" library="jeeslGfx"/>
+							<j:svg rendered="false" type="jeeslAdd" listener="#{cc.attrs.bean.addTicket()}" update=":#{cc.id}:sTicket :#{cc.id}:sMessage" library="jeeslGfx"/>
 						</j:dtHeader>
 					</f:facet>
-					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectTicket()}" update=":#{cc.id}:sTicket :#{cc.id}:rMessage :#{cc.id}:rFr"/>
+					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectTicket()}" update=":#{cc.id}:sTicket :#{cc.id}:sMessage"/>
 					<p:column headerText="#{msg.jeeslHdRecord}">
 						<jtp:symbolizer value="#{t.lastEvent.status}" marginRight="5"/>
 						<jp:outputDate value="#{t.firstEvent.record}"/>
@@ -38,7 +38,11 @@
 					</p:column>
 					<p:column headerText="#{msg.jeeslHdIssue}">  
 						<jtp:symbolizer value="#{t.lastEvent.category}" marginRight="5"/>
-						<h:outputText value="#{of:abbreviate(t.name,30)}"/>
+						<p:commandLink update=":#{cc.id}:grid" 
+		                		action="#{cc.attrs.bean.selectTicket(t)}" style="text-decoration: underline; color: blue; margin-right:10px;">
+								<h:outputText value="#{of:abbreviate(t.name,30)}"/>
+					   	</p:commandLink>
+						
 					</p:column>
 					<p:column>
 						<f:facet name="header"><jtp:label entity="HdTicket" code="supporter"/></f:facet>
@@ -48,11 +52,14 @@
 			   	</p:dataTable>
 			</h:form>
 		</j:slot>
-		<j:slot id="sTicket" width="5">
+		<j:slot id="sTicket" width="#{cc.attrs.bean.uiSlot.b}" rendered="#{cc.attrs.bean.uiSlot.showB}">
 			<h:form id="fTicket" rendered="#{not empty cc.attrs.bean.ticket}">
-				<p:panel header="#{msg.jeeslHdTicket}" styleClass="jeeslPanel">
+				<p:panel styleClass="jeeslPanel">
+					<f:facet name="header"><jtp:label entity="HdTicket"/></f:facet>
 					<f:facet name="actions">
+						<j:svg type="jeeslArrowRight" listener="#{cc.attrs.bean.addMessage()}" update=":#{cc.id}:sMessage" library="jeeslGfx" rendered="#{cc.attrs.bean.uiSlot.showC}"/>
 						<j:svg type="jeeslSave" listener="#{cc.attrs.bean.saveTicket()}" update=":#{cc.id}:grid" library="jeeslGfx"/>
+						<j:svg type="jeeslArrowLeft" listener="#{cc.attrs.bean.cancelTicket()}" update=":#{cc.id}:grid" library="jeeslGfx" rendered="#{cc.attrs.bean.uiSlot.showC}"/>
 					</f:facet>
 					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
 					
@@ -96,6 +103,8 @@
 					</p:panelGrid>
 				</p:panel>
 			</h:form>
+			<jp:ioFrFiles handler="#{cc.attrs.bean.frh}" overlay="false" componentPrefix="#{cc.id}" allowDelete="false" allowUpload="false"
+						  rendered="#{(not empty cc.attrs.bean.ticket) and (not empty cc.attrs.bean.frh)}"/>
 			<p:dataTable var="e" value="#{cc.attrs.bean.events}" draggableRows="false" rendered="#{not empty cc.attrs.bean.ticket}"
 						rows="5" paginator="true" rowsPerPageTemplate="#{appSettingsBean.rowsPerPageTemplate}" paginatorPosition="#{appSettingsBean.paginatorPosition}" paginatorTemplate="#{appSettingsBean.paginatorTemplate}">
 				<f:facet name="header">
@@ -106,8 +115,11 @@
 				<p:column headerText="#{msg.jeeslHdRecord}">  
 					<jp:outputDate value="#{e.record}" withTime="true"/>
 				</p:column>
-				<p:column>  
-					<h:outputText value="#{of:abbreviate(e.initiator.firstName,1)}#{of:abbreviate(e.initiator.lastName,1)}"/>
+				<p:column>
+					<ui:remove>
+					<!-- 	<pe:letterAvatar value="#{e.initiator.firstName} #{e.initiator.lastName}" size="12px"/>  -->
+					</ui:remove>
+					<h:outputText value="#{of:abbreviate(e.initiator.firstName,1)}#{of:abbreviate(e.initiator.lastName,1)}" />
 				</p:column>
 				<p:column headerText="#{msg.jeeslHdEventChange}">
 					<ui:repeat var="t" value="#{e.types}">
@@ -144,37 +156,11 @@
 				
 		   	</p:dataTable>
 		</j:slot>
-	</j:row>
-	<j:row id="rMessage" rendered="false">
-		<j:slot id="sMessages" width="7" rendered="#{not empty cc.attrs.bean.ticket}">
-			<h:form id="fMessages" >
-				<p:dataTable var="m" value="#{cc.attrs.bean.messages}"
-							selection="#{cc.attrs.bean.message}" selectionMode="single" rowKey="#{m.id}"
-							rows="50" paginator="true" rowsPerPageTemplate="#{appSettingsBean.rowsPerPageTemplate}" paginatorPosition="#{appSettingsBean.paginatorPosition}" paginatorTemplate="#{appSettingsBean.paginatorTemplate}">
-					<f:facet name="header">
-						<j:dtHeader title="#{msg.jeeslHdMessages}">
-							<j:svg type="jeeslAdd" listener="#{cc.attrs.bean.addMessage()}" update=":#{cc.id}:rMessage" library="jeeslGfx"/>
-						</j:dtHeader>
-					</f:facet>
-					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectMessage()}" update=":#{cc.id}:sMessage"/>
-					<p:column>
-						<jtp:symbolizer value="#{m.scope}"/>
-					</p:column>
-					<p:column headerText="#{msg.jeeslHdRecord}">
-						<jp:outputDate value="#{m.record}" withTime="true"/>
-					</p:column>
-					<p:column >
-						<h:outputText value="#{m.user.firstName}"/>
-					</p:column>
-					
-			   	</p:dataTable>
-			</h:form>
-		</j:slot>
-		<j:slot id="sMessage" width="5">
-			<h:form id="fMsg" rendered="#{not empty cc.attrs.bean.message}">
-				<p:panel header="#{msg.jeeslHdMessage}" styleClass="jeeslPanel">
+		<j:slot id="sMessage" width="#{cc.attrs.bean.uiSlot.c}" rendered="#{cc.attrs.bean.uiSlot.showC}">
+			<h:form id="fMessage" >
+				<p:panel header="#{msg.jeeslHdMessage}" styleClass="jeeslPanel" rendered="#{not empty cc.attrs.bean.message}">
 					<f:facet name="actions">
-						<j:svg type="jeeslSave" listener="#{cc.attrs.bean.saveMessage()}" update=":#{cc.id}:rMessage" library="jeeslGfx"/>
+						<j:svg type="jeeslSave" listener="#{cc.attrs.bean.saveMessage()}" update=":#{cc.id}:sMessage" library="jeeslGfx"/>
 					</f:facet>
 					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80" rendered="#{cc.attrs.bean.editHandler.deny}">
 						
@@ -186,7 +172,6 @@
 							<jtp:symbolizer value="#{cc.attrs.bean.message.scope}" marginRight="5"/>
 							<h:outputText value="#{cc.attrs.bean.message.scope.name[localeCode].lang}"/>
 						</ui:fragment>
-						
 					</p:panelGrid>
 					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80" rendered="#{cc.attrs.bean.editHandler.allow}">
 						<p:outputLabel value="#{msg.jeeslHdRecord}"/>
@@ -196,26 +181,29 @@
 						<p:selectOneMenu value="#{cc.attrs.bean.message.scope}" effect="fade" autoWidth="false">
                         	<f:selectItems value="#{cc.attrs.bean.scopes}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s}"/>
                         </p:selectOneMenu>
-                        
 					</p:panelGrid>
 					<p:panelGrid columns="1" columnClasses="jeeslGrid100" rendered="#{cc.attrs.bean.editHandler.deny}">
 						<h:outputText value="xx"/>
 						<ofx:outputSection value="#{cc.attrs.bean.ofxMessage}"/>
 					</p:panelGrid>
 					<p:panelGrid columns="1" columnClasses="jeeslGrid100" rendered="#{cc.attrs.bean.editHandler.allow}">
-						
 						<jtp:inputMarkup value="#{cc.attrs.bean.message.markup}"/>
 					</p:panelGrid>
 				</p:panel>
 			</h:form>
-		</j:slot>
-	</j:row>
-	<j:row id="rFr">
-		<j:slot width="4" rendered="#{(not empty cc.attrs.bean.ticket) and (not empty cc.attrs.bean.frh)}">
-			<jp:ioFrFiles handler="#{cc.attrs.bean.frh}" overlay="false" componentPrefix="#{cc.id}" allowDelete="false" allowUpload="false"/>
-		</j:slot>
-		<j:slot width="8">
-		
+			<p:repeat var="m" value="#{cc.attrs.bean.messages}">
+				<p:panel styleClass="jeeslPanel" >
+					<f:facet name="header">
+						<jp:outputDate value="#{m.record}" withTime="true"/>
+						<h:outputText value=": "/>
+						<h:outputText value="#{m.user.firstName} #{m.user.lastName}"/>
+						<h:outputText value=" (#{m.scope.name[localeCode].lang})"/>
+					</f:facet>
+					<p:panelGrid columns="1" columnClasses="jeeslGrid100">
+						<ofx:outputSection value="#{cc.attrs.bean.mapOfx[m]}"/>
+					</p:panelGrid>
+				</p:panel>
+			</p:repeat>
 		</j:slot>
 	</j:row>
 </jp:grid>

@@ -1,4 +1,4 @@
-package net.sf.ahtutils.jsf.functions;
+package org.jeesl.jsf.function;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
