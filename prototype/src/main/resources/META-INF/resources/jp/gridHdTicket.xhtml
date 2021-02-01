@@ -134,7 +134,11 @@
 					</p:panelGrid>
 					<p:panelGrid columns="1" columnClasses="jeeslGrid100"  rendered="#{cc.attrs.bean.showDisableButton()}">
 						<p:commandButton value="#{msg.jeeslHdDisable}"   
-							actionListener="#{cc.attrs.bean.disableTicket()}" update=":#{cc.id}:sTickets" rendered="#{cc.attrs.bean.showDisableButton()}" style="float: right;" />
+							actionListener="#{cc.attrs.bean.disableTicket()}" update=":#{cc.id}:sTickets" style="float: right;" />
+					</p:panelGrid>
+					<p:panelGrid columns="1" columnClasses="jeeslGrid100"  rendered="#{not cc.attrs.bean.showDisableButton() and cc.attrs.bean.ticket !=null and cc.attrs.bean.ticket.id > 0}">
+						<p:commandButton value="#{msg.jeeslHdEnable}"   
+							actionListener="#{cc.attrs.bean.enableTicket()}" update=":#{cc.id}:sTickets" style="float: right;" />
 					</p:panelGrid>
 				</p:panel>
 				
