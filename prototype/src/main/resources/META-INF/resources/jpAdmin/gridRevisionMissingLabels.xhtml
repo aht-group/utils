@@ -36,14 +36,23 @@
 									</p:commandButton>
 								</aht:pfDataTableHeader>
 							</f:facet>							
-				            <p:column headerText="#{msg.jeeslRevisionEntity}">  
-				              <p:commandLink render=":#{cc.id}:sView :#{cc.id}:sAttributes"  update=":#{cc.id}:sView :#{cc.id}:sAttributes" 
-		                		action="#{cc.attrs.bean.selectMissingEntity(e.missingEntity)}" style="text-decoration: underline; color: blue; margin-right:10px;">
-								<h:outputText value="#{e.missingEntity}"/>
-					    	  </p:commandLink>
+				            <p:column headerText="#{msg.jeeslRevisionEntity}">
+								<h:outputText rendered="#{not cc.attrs.bean.hasEntitiesWithShortCode(e.missingEntity)}" value="#{e.missingEntity}"/>
+
+								<p:commandLink rendered="#{cc.attrs.bean.hasEntitiesWithShortCode(e.missingEntity)}"
+									render=":#{cc.id}:sView :#{cc.id}:sAttributes"  update=":#{cc.id}:sView :#{cc.id}:sAttributes" 
+									action="#{cc.attrs.bean.selectMissingEntity(e.missingEntity)}" style="text-decoration: underline; color: blue; margin-right:10px;">
+									<h:outputText value="#{e.missingEntity}"/>
+								</p:commandLink>
 				            </p:column>
-				             <p:column headerText="#{msg.jeeslRevisionAttribute}">  
-								<h:outputText value="#{e.missingCode}"/>
+				             <p:column headerText="#{msg.jeeslRevisionAttribute}">
+								<h:outputText rendered="#{not cc.attrs.bean.hasEntitiesWithShortCodeAndAttribute(e.missingEntity,e.missingCode)}" value="#{e.missingCode}" />
+
+								<p:commandLink rendered="#{cc.attrs.bean.hasEntitiesWithShortCodeAndAttribute(e.missingEntity,e.missingCode)}"
+									render=":#{cc.id}:sView :#{cc.id}:sAttributes"  update=":#{cc.id}:sView :#{cc.id}:sAttributes :#{cc.id}:fAttribute" 
+									action="#{cc.attrs.bean.selectMissingEntityAttribute(e.missingEntity,e.missingCode)}" style="text-decoration: underline; color: blue; margin-right:10px;">
+									<h:outputText value="#{e.missingCode}"/>
+								</p:commandLink>
 				            </p:column>
 				            <p:column headerText="#{msg.jeeslTranslation}">  
 								<h:outputText value="#{e.missingLocal}"/>

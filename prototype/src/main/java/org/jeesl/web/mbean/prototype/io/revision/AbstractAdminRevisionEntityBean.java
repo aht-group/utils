@@ -5,8 +5,11 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang.StringUtils;
 import org.jeesl.api.bean.JeeslLabelBean;
@@ -63,8 +66,12 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 	private REM mapping; public REM getMapping() {return mapping;}public void setMapping(REM mapping) {this.mapping = mapping;}
 
 	private String className; public String getClassName() {return className;}
-
-	public AbstractAdminRevisionEntityBean(final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD,?> fbRevision){super(fbRevision);}
+	private Map<String, List<String>> mapEntitesCodeToAttribustes;
+	
+	public AbstractAdminRevisionEntityBean(final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD,?> fbRevision){
+		super(fbRevision);
+		mapEntitesCodeToAttribustes = new HashMap<String,List<String>>();
+		}
 
 	protected void postConstructRevisionEntity(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD,?> fRevision, JeeslLabelBean<RE> bLabel)
 	{
@@ -128,6 +135,76 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 		sbhDiagram.setList(efEntity.toDiagrams(entities));
 		Collections.sort(sbhDiagram.getList(),cpDiagram);
 		sbhDiagram.selectAll();
+		prepareEntitiesCodeMap();
+	}
+
+	private void prepareEntitiesCodeMap() {
+		mapEntitesCodeToAttribustes = new HashMap<String,List<String>>();
+		if(!sbhCategory.getHasSelected()) {
+			List<RE> allRevisionEntities = fRevision.findRevisionEntities(sbhCategory.getList(), true);
+			for (Iterator<RE> iterator = allRevisionEntities.iterator(); iterator.hasNext();) {
+				RE re = iterator.next();
+				re  = fRevision.load(fbRevision.getClassEntity(), re);
+
+				ArrayList<String> raCodes = new ArrayList<String>();
+				for(RA ra : re.getAttributes()) {
+					raCodes.add(ra.getCode());
+				}
+				mapEntitesCodeToAttribustes.put(re.getCode(), raCodes);
+			}
+		}
+	}
+
+	public boolean hasEntitiesWithShortCode(String missingEntityCode) {
+		for (Iterator<String> iterator = mapEntitesCodeToAttribustes.keySet().iterator(); iterator.hasNext();) {
+			String code = iterator.next();
+			if(code.endsWith("." + missingEntityCode)) {
+				//logger.info("code ends with" + missingEntityCode);
+				return true;
+				}
+		}
+		return false;
+	}
+
+	public boolean hasEntitiesWithShortCodeAndAttribute(String missingEntityCode, String missingAttributeCode) {
+		for (Entry<String, List<String>> entry : mapEntitesCodeToAttribustes.entrySet()) {
+			if(entry.getKey().endsWith("." + missingEntityCode)) {
+				for (Iterator<String> iterator = entry.getValue().iterator(); iterator.hasNext();) {
+					String raCode = iterator.next();
+					if(raCode.equals(missingAttributeCode)) {
+						//logger.info("attribute code ends with" + missingAttributeCode);
+						return true;
+						}
+				}
+			}
+		}
+		return false;
+	}
+
+	public void selectMissingEntity(String missingEntityCode){
+		entity=null;
+		attributes=null;
+		attribute=null;
+		for (String code : mapEntitesCodeToAttribustes.keySet()) {
+			if(code.endsWith("." + missingEntityCode)) {
+				try {
+					entity = fRevision.fByCode(fbRevision.getClassEntity(), code);
+					entity = fRevision.load(fbRevision.getClassEntity(), entity);
+					attributes = entity.getAttributes();
+				} catch (JeeslNotFoundException e) {
+					logger.info(code + "not found");
+				}
+			}
+		}
+	}
+
+	public void selectMissingEntityAttribute(String missingEntityCode, String attributeCode) {
+		selectMissingEntity(missingEntityCode);
+		for (RA ra : attributes) {
+			if(ra.getCode().equals(attributeCode)) {
+				this.attribute = ra;
+			}
+		}
 	}
 
 	public void addEntity() throws JeeslNotFoundException
@@ -311,24 +388,6 @@ public class AbstractAdminRevisionEntityBean <L extends JeeslLang, D extends Jee
 	public void reorderMappings() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fRevision, entityMappings);}
 
 	protected void updatePerformed(){}
-
-	public void selectMissingEntity(String missingEntityCode) {
-		logger.info(missingEntityCode);
-		RE tempMissingEntity = null;
-		List<RE> allRevisionEntities = fRevision.findRevisionEntities(sbhCategory.getList(), true);
-		int count = 0;
-		for (Iterator iterator = allRevisionEntities.iterator(); iterator.hasNext();) {
-			RE re = (RE) iterator.next();
-			if(re.getCode().endsWith("." + missingEntityCode)) {
-				logger.info("selected:" + re.getCode());
-				count++;
-				tempMissingEntity = re;
-			}
-			if(count==1) {this.entity = tempMissingEntity; reloadEntity();}
-			else if (count > 1) {logger.info("multiple entites "  + "repeat: " + (count-1) + " for same  missingEntityCode = " + missingEntityCode );}
-			else {logger.info("No entities definded Yet for missingEntityCode = " + missingEntityCode );}
-		}
-	}
 
 	public void initMissingLables() {
 		entity=null;
