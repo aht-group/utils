@@ -18,9 +18,17 @@
 			<aup:sbCheckmark value="#{cc.attrs.handler.mapAllow[var.toCode()]}"/>
 			<h:outputText value="#{var.toName()[localeCode].lang}"/>
 			<f:facet name="label">
-				<h:graphicImage rendered="#{cc.attrs.handler.noActions}" library="jeeslPrototypeGfx" name="12/sb/shield-grey.png" id="sbGiSecurityGrey"/>
-				<h:graphicImage rendered="#{not cc.attrs.handler.noActions}" library="jeeslPrototypeGfx" name="12/sb/shield.png"/>
-				<p:tooltip rendered="#{cc.attrs.handler.noActions}" for="sbGiSecurityGrey" value="#{msg.ttJeeslSecurityNoPageSpecifcActionsDefined}" />
+				<h:graphicImage id="sbGiSecurity"
+								library="jeeslPrototypeGfx"
+								name="12/sb/shield-green.svg"
+								styleClass="jeesl-status-bar-icon">
+					<c:if test="#{cc.attrs.handler.noRoles}">
+						<f:attribute name="styleClass" value="jeesl-grayscale jeesl-status-bar-icon"/>
+					</c:if>
+				</h:graphicImage>
+				<c:if test="#{cc.attrs.handler.noRoles}">
+					<p:tooltip rendered="#{cc.attrs.handler.noRoles}" for="sbGiSecurity" value="#{msg.ttJeeslSecurityNoPageSpecifcActionsDefined}" />
+				</c:if>
 			</f:facet>
 		</aup:statusBarItem>
 	</composite:implementation>

@@ -39,6 +39,8 @@ public class Slot extends UIPanel
 		StringBuffer sbStyleClass = new StringBuffer();
 		sbStyleClass.append("auGrid_");
 		sbStyleClass.append(ComponentAttribute.get(Properties.width,"12",context,this));
+		sbStyleClass.append(" jeesl-grid-");
+		sbStyleClass.append(ComponentAttribute.get(Properties.width, "12", context, this));
 //		if(map.containsKey(Properties.width.toString()))
 //		{
 //			sbStyleClass.append(map.get(Properties.width.toString()));

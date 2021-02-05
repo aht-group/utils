@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1"
+	 id="svg2" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" sodipodi:docname="shield-green.svg" inkscape:export-filename="C:\Users\Yann\Desktop\shield-green.png" inkscape:export-xdpi="4.2538862" inkscape:export-ydpi="4.2538862" inkscape:version="0.48.4 r9939"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="525px" height="616px"
+	 viewBox="0 0 525 616" enable-background="new 0 0 525 616" xml:space="preserve">
+<filter  id="NewFilter">
+	<feGaussianBlur  stdDeviation="12" result="blur"></feGaussianBlur>
+	<feMerge>
+		<feMergeNode  in="blur"></feMergeNode>
+	</feMerge>
+</filter>
+<g filter="url(#NewFilter)">
+	<path fill="#60DF33" d="M54.182,70.589c162.604-41.854,295.453-29.965,418.291,0c0,0,31.68,249.709-24.996,355.337
+		c-36.656,68.314-123.877,146.6-185.816,146.6c-61.938,0-149.479-78.131-185.815-146.6C19.693,320.134,54.18,70.589,54.18,70.589
+		H54.182z"/>
+</g>
+<path id="rect2985_1_" inkscape:connector-curvature="0" sodipodi:nodetypes="ccasac" fill="#FFFFFF" stroke="#C8C8C8" stroke-width="4.6705" d="
+	M54.182,70.589c162.604-41.854,295.453-29.965,418.291,0c0,0,31.68,249.709-24.996,355.337
+	c-36.656,68.314-123.877,146.6-185.816,146.6c-61.938,0-149.479-78.131-185.815-146.6C19.693,320.134,54.18,70.589,54.18,70.589
+	H54.182z"/>
+<path fill="#60DF33" d="M433.799,417.941c11.749-21.819,20.438-53.623,25.824-94.526c4.447-33.772,6.546-73.821,6.068-115.818
+	c-0.485-42.781-3.248-85.705-7.996-124.346c-65.723-15.2-122.946-22.859-179.756-24.079c-5.202-0.112-10.486-0.168-15.707-0.168
+	c-63.102,0-126.596,7.921-193.977,24.209c-2.567,20.092-7.549,65.636-8.793,124.444c-0.885,41.848,0.873,81.883,5.084,115.779
+	c5.078,40.873,13.554,72.678,25.192,94.53c17.311,32.506,47.077,67.813,79.623,94.446c33.27,27.226,68.676,44.139,92.4,44.139
+	c23.635,0,58.88-16.909,91.983-44.13C386.537,485.458,416.464,450.138,433.799,417.941z"/>
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="133.3284" y1="-165.5789" x2="351.131" y2="-514.1359" gradientTransform="matrix(1 0 0 -1 -20.5688 -181.7407)">
+	<stop  offset="0" style="stop-color:#FFFFFF"/>
+	<stop  offset="1" style="stop-color:#FFFFFF;stop-opacity:0"/>
+</linearGradient>
+<path fill="url(#SVGID_1_)" d="M463.133,78.356c-58.807-13.804-119.703-23.78-185.064-25.185v0.001
+	c-66.229-1.425-137.382,6.03-215.229,25.185c-0.983,7.367-7.88,58.48-9.375,129.172c-1.221,57.745,2.313,123.191,15.654,172.664
+	c0.651-0.498,1.305-1.005,1.974-1.548c114.982-97.951,263.707-130.883,398.689-116.247c0.35,0.037,0.688,0.068,1.035,0.104
+	c0.834-18.593,1.078-37.149,0.877-54.975C470.89,136.797,464.037,85.713,463.133,78.356z"/>
+</svg>

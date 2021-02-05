@@ -1,9 +1,26 @@
 $white-0: hsla(0,0%,100%,0);
 $white-80: hsla(0,0%,100%,.8);
+$white-100: hsla(0,0%,100%,1);
+
+$light-grey: hsla(0,0%,93%,1);
+$bright-colour: hsla(154,100%,27%,1);
+$medium-colour: hsla(154,100%,24%,1);
+$dark-colour: hsla(154,100%,20%,1);
 
 $border-colour: hsla(0,0%,66%,1);
-$editor-background: $white-0;
+$editor-background: $white-100;
 $error-foreground: hsla(0,100%,50%,1);
 $panel-background: hsla(0,0%,94%,1);
-
 $header-background-colour: hsla(0,0%,77%,1);
+
+$main-background-gradient: linear-gradient(to right, $dark-colour, $bright-colour);
+$status-background-gradient: linear-gradient(to bottom, $dark-colour, $medium-colour);
+
+@mixin setColours($bright, $medium, $dark) {
+	$bright-colour: $bright;
+	$medium-colour: $medium;
+	$dark-colour: $dark;
+
+	$main-background-gradient: linear-gradient(to right, $dark-colour, $bright-colour);
+	$status-background-gradient: linear-gradient(to bottom, $dark-colour, $medium-colour);
+}

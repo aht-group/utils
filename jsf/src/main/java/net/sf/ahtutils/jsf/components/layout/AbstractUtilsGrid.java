@@ -72,6 +72,8 @@ public class AbstractUtilsGrid extends UIPanel
 		}
 		else {sbStyleClass.append("auContainer");}
 		
+		sbStyleClass.append(" jeesl-content-container");
+		
 		if(mapAttribute.containsKey(Properties.styleClass.toString()))
 		{
 			sbStyleClass.append(" ").append(mapAttribute.get(Properties.styleClass.toString()));

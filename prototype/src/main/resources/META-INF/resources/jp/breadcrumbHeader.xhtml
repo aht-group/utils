@@ -19,10 +19,10 @@
 	<composite:implementation>
 		<h:outputStylesheet library="aupCss" name="aupBreadcrumb.css" target="head"/>
 		<ui:fragment rendered="#{not empty cc.attrs.code}">
-			<aht:breadcrumb value="#{cc.attrs.bean.breadcrumbDyn(cc.attrs.code,cc.attrs.dynamic)}" styleClass="aupHeadlineBreadcrumb" withChildren="true"/>
+			<aht:breadcrumb value="#{cc.attrs.bean.breadcrumbDyn(cc.attrs.code,cc.attrs.dynamic)}" styleClass="aupHeadlineBreadcrumb jeesl-breadcrumb-list" withChildren="true"/>
 		</ui:fragment>
 		<ui:fragment rendered="#{not empty cc.attrs.value}">
-			<aht:breadcrumb value="#{cc.attrs.value}" styleClass="aupHeadlineBreadcrumb" withChildren="true"/>
+			<aht:breadcrumb value="#{cc.attrs.value}" styleClass="aupHeadlineBreadcrumb jeesl-breadcrumb-list" withChildren="true"/>
 		</ui:fragment>
 	</composite:implementation>
 </html>
