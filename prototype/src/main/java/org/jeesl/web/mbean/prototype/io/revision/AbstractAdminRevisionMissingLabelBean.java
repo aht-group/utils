@@ -1,6 +1,7 @@
 package org.jeesl.web.mbean.prototype.io.revision;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
@@ -25,22 +26,19 @@ public class AbstractAdminRevisionMissingLabelBean <L extends JeeslLang, D exten
 													RML extends JeeslRevisionMissingLabel>
 	extends AbstractAdminBean<L,D,LOC> implements Serializable
 {
-	private IoRevisionFactoryBuilder<L, D, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, RML> fbRevision;
-
-	public AbstractAdminRevisionMissingLabelBean(final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,?,?,?,?,?,?,RML> fbRevision) {
-		super(fbRevision.getClassL(),fbRevision.getClassD());
-		this.fbRevision=fbRevision;
-	}
-
-
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAdminRevisionMissingLabelBean.class);
 
 	private RML missingLabel;public RML getMissingLabel() {return missingLabel;} public void setMissingLabel(RML missingLabel) {this.missingLabel = missingLabel;}
 	private JeeslIoRevisionFacade<L, D, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, RML> fRevision;
 	private List<RML> missingLabels; public List<RML> getMissingLabels() {return missingLabels;}
+	private IoRevisionFactoryBuilder<L, D, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, RML> fbRevision;
 
 
+	public AbstractAdminRevisionMissingLabelBean(final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,?,?,?,?,?,?,RML> fbRevision) {
+		super(fbRevision.getClassL(),fbRevision.getClassD());
+		this.fbRevision=fbRevision;
+	}
 
 	protected void postConstructMissingEntity(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslIoRevisionFacade<L,D,?,?,?,?,?,?,?,?,?,?,?,RML> fRevision)
 	{
