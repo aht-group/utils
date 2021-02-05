@@ -178,4 +178,24 @@ public class SbSingleHandler <T extends EjbWithId> implements Serializable,SbSin
 		selection=null;
 		if(list!=null && !list.isEmpty()){selection = list.get(0);}
 	}
+	
+	public void selectNext() throws JeeslLockingException, JeeslConstraintViolationException
+	{
+		if(this.isSelected())
+		{
+			int index = list.indexOf(selection);
+			int next = (index+1) % list.size();
+			this.selectSbSingle(list.get(next));
+		}
+	}
+	public void selectPrevious() throws JeeslLockingException, JeeslConstraintViolationException
+	{
+		if(this.isSelected())
+		{
+			int index = list.indexOf(selection);
+			int next = (index-1);
+			if(next<0) {next=list.size();}
+			this.selectSbSingle(list.get(next));
+		}
+	}
 }

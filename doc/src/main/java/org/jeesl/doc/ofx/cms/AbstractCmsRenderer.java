@@ -96,18 +96,19 @@ public abstract class AbstractCmsRenderer <L extends JeeslLang, D extends JeeslD
 	public Section build(JeeslLocaleProvider<LOC> lp, String localeCode, S section) throws OfxAuthoringException
 	{
 		S root = fCms.load(section,true);
-		return buildSection(lp,localeCode, root);
+		return buildSection(lp,localeCode,root);
 	}
  
 	private Section buildSection(JeeslLocaleProvider<LOC> lp, String localeCode, S section) throws OfxAuthoringException
 	{
 		Section xml = XmlSectionFactory.build();
-		xml.getContent().add(XmlTitleFactory.build(section.getName().get(localeCode).getLang()));
+		if(section.getName().containsKey(localeCode)) {xml.getContent().add(XmlTitleFactory.build(section.getName().get(localeCode).getLang()));}
+		else {xml.getContent().add(XmlTitleFactory.build(""));}
 		
 		List<E> elements = fCms.fCmsElements(section);
 		for(E e : elements)
 		{
-			build(lp, localeCode,xml.getContent(),e);
+			build(lp,localeCode,xml.getContent(),e);
 		}
 		
 		for(S child : section.getSections())

@@ -6,11 +6,12 @@ import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyOption;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 
 public interface JeeslSurveyMatrix<L extends JeeslLang, D extends JeeslDescription,
 									ANSWER extends JeeslSurveyAnswer<L,D,?,?,?,OPTION>,
 									OPTION extends JeeslSurveyOption<L,D>>
-			extends Serializable,EjbSaveable
+			extends Serializable,EjbSaveable,EjbWithParentAttributeResolver
 {
 	public enum Attributes{answer}
 	

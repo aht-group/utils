@@ -66,4 +66,24 @@ public class SurveyOptionHandler<QUESTION extends JeeslSurveyQuestion<?,?,?,?,?,
 		else {logger.warn("No Options for "+question.toString());}
 		return list;
 	}
+	public List<OPTION> toCols(QUESTION question)
+	{
+		List<OPTION> list = new ArrayList<>();
+		if(mapOption.containsKey(question))
+		{
+			for(OPTION o : mapOption.get(question).values())
+			{
+				if(o.getCol()) {list.add(o);}
+			}
+		}
+		else {logger.warn("No Options for "+question.toString());}
+		return list;
+	}
+	
+	public OPTION toCol(List<OPTION> options, String code)
+	{
+		for(OPTION o : options) {if(o.getCode().equals(code)) {return o;}}
+		logger.warn("No Options for "+code.toString());
+		return null;
+	}
 }
