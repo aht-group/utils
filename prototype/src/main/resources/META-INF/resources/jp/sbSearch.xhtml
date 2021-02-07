@@ -25,7 +25,7 @@
 				<p:inputText id="searchText" value="#{cc.attrs.handler.searchText}"  placeholder="Search" styleClass="search-box"  onkeyup="reloadSearch()">
 					<p:ajax event="keyup" update="searchResults" process="searchText" listener="#{cc.attrs.handler.handleKeyEvent}" />
 				</p:inputText>
-				<p:commandButton icon="ui-icon ui-icon-times" styleClass="search-btn-light" onclick="cancelSearch()" update="searchResults" action="#{cc.attrs.handler.cancelEvent}"/>
+				<p:commandButton icon="ui-icon ui-icon-close" styleClass="search-btn-light" onclick="cancelSearch()" update="searchResults" action="#{cc.attrs.handler.cancelEvent}"/>
 		</div>
 		
 		<h:panelGroup id="searchResults" class="auContainer">

@@ -25,6 +25,7 @@
 .sbSearch .ui-inputgroup {margin-bottom: 4px;}
 .sbSearch .ui-inputgroup *{height:15px;}
 .sbSearch .ui-inputgroup .ui-button {margin-top: 2px;}
+.sbSearch .auContainer ul {padding-left: 0px;}
 
 .field-tip {
 	position:relative;
