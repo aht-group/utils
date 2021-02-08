@@ -59,4 +59,7 @@ public interface JeeslSecurityView<L extends JeeslLang, D extends JeeslDescripti
 	
 	public Boolean getRedirect();
 	public void setRedirect(Boolean redirect);
+	
+	public Boolean getMaintenance();
+	public void setMaintenance(Boolean maintenance);
 }

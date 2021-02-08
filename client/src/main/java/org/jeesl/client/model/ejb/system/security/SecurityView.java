@@ -100,6 +100,10 @@ public class SecurityView implements JeeslSecurityView<Lang,Description,Security
 	@Override public Boolean getRedirect() {return redirect;}
 	@Override public void setRedirect(Boolean redirect) {this.redirect = redirect;}
 	
+	private Boolean maintenance;
+	@Override public Boolean getMaintenance() {return maintenance;}
+	@Override public void setMaintenance(Boolean maintenance) {this.maintenance = maintenance;}
+	
 	private String packageName;
 	@Override public String getPackageName() {return packageName;}
 	@Override public void setPackageName(String packageName) {this.packageName = packageName;}
