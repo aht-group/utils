@@ -14,12 +14,12 @@
 
 	<jp:sbItem orientation="right" childs="#{handler.list}" rendered="#{rendered and (not empty handler.selection)}">
 		<f:facet name="label">
-			<jtp:symbolizer rendered="#{not empty icon}" value="#{icon}" height="12"/>
-			<jtp:symbolizer rendered="#{not empty icon2}" value="#{icon2}" height="12" marginLeft="5"/>
-			#{label}
+			<jtp:symbolizer rendered="#{not empty icon}" value="#{icon}" height="12" styleClass="jeesl-menu-bar-button-icon"/>
+			<jtp:symbolizer rendered="#{not empty icon2}" value="#{icon2}" height="12" marginLeft="5" styleClass="jeesl-menu-bar-button-icon"/>
+			<h:outputText value="#{label}" rendered="#{not empty label}" class="jeesl-menu-bar-button-label"/>
 		</f:facet>
 	
-		<h:commandLink>
+		<h:commandLink class="jeesl-dropdown-item-label">
 			<c:if test="#{handler.selection.id eq var.id}"><f:attribute name="styleClass" value="jeeslBold"/></c:if>
 			<ui:insert />
 			<p:ajax event="click" update="#{update}" listener="#{handler.selectSbSingle(var)}"/>

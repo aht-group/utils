@@ -4,6 +4,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:aht="http://ahtutils.sourceforge.net/jsf"
 	xmlns:composite="http://java.sun.com/jsf/composite">
@@ -21,18 +22,18 @@
 	
 	<composite:implementation>
 		<aht:li>
-			<c:if test="#{cc.attrs.orientation eq 'left'}"><f:attribute name="styleClass" value="aupStatusBarLeft jeesl-status-bar-list-item jeesl-left #{cc.attrs.styleClass}"/></c:if>
-			<c:if test="#{cc.attrs.orientation eq 'right'}"><f:attribute name="styleClass" value="aupStatusBarRight jeesl-status-bar-list-item jeesl-right #{cc.attrs.styleClass}"/></c:if>
-			<label for="#{cc.id}">
+			<c:if test="#{cc.attrs.orientation eq 'left'}"><f:attribute name="styleClass" value="aupStatusBarLeft jeesl-menu-bar-item jeesl-left #{cc.attrs.styleClass}"/></c:if>
+			<c:if test="#{cc.attrs.orientation eq 'right'}"><f:attribute name="styleClass" value="aupStatusBarRight jeesl-menu-bar-item jeesl-right #{cc.attrs.styleClass}"/></c:if>
+			<label for="#{cc.id}" class="jeesl-menu-bar-button">
 				<h:outputText rendered="#{not empty cc.attrs.label}" value="#{cc.attrs.label}"/>
 				<c:if test="#{not empty cc.facets.label}">
                     <composite:renderFacet name="label"/>
                 </c:if>
 			</label>
 			<input type="checkbox" id="#{cc.id}" />
-			<ul>
+			<ul class="jeesl-dropdown-list">
 				<ui:repeat var="var" value="#{cc.attrs.childs}">
-					<li>
+					<li class="jeesl-dropdown-item">
 						<composite:insertChildren/>
 					</li>
 				</ui:repeat>

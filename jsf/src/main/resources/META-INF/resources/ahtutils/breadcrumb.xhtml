@@ -19,42 +19,30 @@
 
 	<ul class="#{cc.attrs.styleClass}">
 	    <c:forEach var="menuItem" items="#{cc.attrs.value.menuItem}">
-	    	<li class="jeesl-breadcrumb">
-	    		<c:if test="#{!empty menuItem.href}">
-	    			<a href="#{facesContext.externalContext.requestContextPath}#{menuItem.href}" class="jeesl-breadcrumb-head">#{menuItem.name}</a>
-	    		</c:if>
-	    		<c:if test="#{empty menuItem.href}">
-	    			<p:outputPanel styleClass="jeesl-breadcrumb-head">#{menuItem.name}</p:outputPanel>
-	    		</c:if>
+	    	<li class="jeesl-menu-bar-item">
+	    		<label class="jeesl-menu-bar-button">
+		    		<c:if test="#{!empty menuItem.href}">
+		    			<a href="#{facesContext.externalContext.requestContextPath}#{menuItem.href}" class="jeesl-menu-bar-button-label">#{menuItem.name}</a>
+		    		</c:if>
+	    			<span class="jeesl-menu-bar-button-label">#{menuItem.name}</span>
+	    		</label>
 	    		<c:if test="#{cc.attrs.withChildren}">
-	    			<ul class="jeesl-burger-menu">
-	    				<c:choose>
-		    				<c:when test="#{(menuItem.menuItem.size() eq 0) and (!empty menuItem.href)}">
-		    					<li class="jeesl-burger-menu-button jeesl-burger-menu-label">
-				    				<a class="ui-outputlabel" href="#{facesContext.externalContext.requestContextPath}#{menuItem.href}">#{menuItem.name}</a>
-				    			</li>
-		    				</c:when>
-	    					<c:otherwise>
-					    		<li class="jeesl-burger-menu-button jeesl-burger-menu-label">
-					    			<p:outputLabel>#{menuItem.name}</p:outputLabel>
-					    		</li>
-					    		<c:if test="#{!empty menuItem.href}">
-					    			<li class="jeesl-burger-menu-item">
-					    				<a class="jeesl-burger-menu-label" href="#{facesContext.externalContext.requestContextPath}#{menuItem.href}">#{menuItem.name}</a>
-					    			</li>
+	    			<ul class="jeesl-dropdown-list">
+			    		<c:if test="#{!empty menuItem.href}">
+			    			<li class="jeesl-dropdown-item">
+			    				<a class="jeesl-dropdown-item-label" href="#{facesContext.externalContext.requestContextPath}#{menuItem.href}">#{menuItem.name}</a>
+			    			</li>
+			    		</c:if>
+						<c:forEach var="childItem" items="#{menuItem.menuItem}">
+					    	<li class="jeesl-dropdown-item">
+					    		<c:if test="#{!empty childItem.href}">
+					    			<a href="#{facesContext.externalContext.requestContextPath}#{childItem.href}" class="jeesl-dropdown-item-label">#{childItem.name}</a>
 					    		</c:if>
-								<c:forEach var="childItem" items="#{menuItem.menuItem}">
-							    	<li class="jeesl-burger-menu-item">
-							    		<c:if test="#{!empty childItem.href}">
-							    			<a href="#{facesContext.externalContext.requestContextPath}#{childItem.href}" class="jeesl-burger-menu-label">#{childItem.name}</a>
-							    		</c:if>
-							    		<c:if test="#{empty childItem.href}">
-							    			<p:outputLabel styleClass="jeesl-burger-menu-label">#{menuItem.name}</p:outputLabel>
-							    		</c:if>
-							    	</li>
-							    </c:forEach>
-							</c:otherwise>
-					    </c:choose>
+					    		<c:if test="#{empty childItem.href}">
+					    			<p:outputLabel styleClass="jeesl-dropdown-item-label">#{menuItem.name}</p:outputLabel>
+					    		</c:if>
+					    	</li>
+					    </c:forEach>
 	    			</ul>
 	    		</c:if>
 	    	</li>
