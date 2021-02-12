@@ -35,7 +35,8 @@
 					<p:column headerText="#{msg.jeeslHdStatus}" styleClass="jeeslCenter" rendered="false">  
 						<jtp:symbolizer value="#{t.lastEvent.status}"/>
 					</p:column>
-					<p:column headerText="#{msg.jeeslHdCategory}" styleClass="jeeslCenter">  
+					<p:column>
+						<f:facet name="header"><jtp:label entity="HdTicket" code="name"/></f:facet>  
 						<jtp:symbolizer value="#{t.lastEvent.category}" marginRight="5"/>
 						<h:outputText value="#{of:abbreviate(t.name,30)}"/>
 					</p:column>
@@ -81,47 +82,44 @@
 						<p:outputLabel value="#{msg.jeeslHdRecord}"/>
 						<jp:outputDate value="#{cc.attrs.bean.firstEvent.record}" withTime="true"/>
 						
-						<p:outputLabel value="#{msg.jeeslHdCategory}"/>
+						<jtp:label entity="HdCategory"/>
 						<ui:fragment>
 							<jtp:symbolizer value="#{cc.attrs.bean.ticket.lastEvent.category}" marginRight="5"/>
 							<h:outputText value="#{cc.attrs.bean.ticket.lastEvent.category.name[localeCode].lang}"/>
 						</ui:fragment>
 						
-						<p:outputLabel value="#{msg.jeeslHdPriority}"/>
+						<jtp:label entity="HdPriority"/>
 						<ui:fragment>
 							<jtp:symbolizer value="#{cc.attrs.bean.ticket.lastEvent.reporterPriority}" marginRight="5"/>
 							<h:outputText value="#{cc.attrs.bean.ticket.lastEvent.reporterPriority.name[localeCode].lang}"/>
 						</ui:fragment>
 						
-						<p:outputLabel value="#{msg.jeeslHdTicketName}"/>
+						<jtp:label entity="HdTicket" code="name"/>
 						<h:outputText value="#{cc.attrs.bean.ticket.name}"/>
 						
 					</p:panelGrid>
 					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80" rendered="#{cc.attrs.bean.editHandler.allow}">
 					
-						<p:outputLabel value="#{msg.jeeslHdRecord}"/>
+						<jtp:label entity="HdEvent" code="record"/>
 						<h:outputText value="#{cc.attrs.bean.firstEvent.record}"/>
 						
-						<p:outputLabel value="#{msg.jeeslHdCategory}"/>
-						<p:column>
-							<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.category}" effect="fade" autoWidth="false">
-								<p:ajax event="change" listener="#{cc.attrs.bean.handleCategoryChange()}" update=":#{cc.id}:sFaqs :#{cc.id}:sTicket"/>
-								<f:selectItems value="#{cc.attrs.bean.sbhCategory.list}" var="c" itemLabel="#{c.name[localeCode].lang}" itemValue="#{c}"/>
-							</p:selectOneMenu>
-						</p:column>
-						<p:column/>
-						<p:column>
-							<p:commandButton  rendered="#{not cc.attrs.bean.editHandler.visible}" value="#{msg.jeeslHdFaqNotFound}"   
+						<jtp:label entity="HdCategory"/>
+						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.category}" effect="fade" autoWidth="false">
+							<p:ajax event="change" listener="#{cc.attrs.bean.handleCategoryChange()}" update=":#{cc.id}:sTicket :#{cc.id}:rFaqs"/>
+							<f:selectItems value="#{cc.attrs.bean.sbhCategory.list}" var="c" itemLabel="#{c.name[localeCode].lang}" itemValue="#{c}"/>
+						</p:selectOneMenu>
+						
+						<p:column rendered="#{not cc.attrs.bean.editHandler.visible}">
+							<p:commandButton  value="#{appLabelBean.labels['HdTicket']['btnFaqNotFound'][localeCode].lang}"
 							actionListener="#{cc.attrs.bean.faqNotFound()}" update=":#{cc.id}:sTicket" style="float:right"/>
 						</p:column>
 						
-						 
-                        <p:outputLabel value="#{msg.jeeslHdPriority}" rendered="#{cc.attrs.bean.editHandler.visible}"/>
+						<jtp:label entity="HdPriority" rendered="#{cc.attrs.bean.editHandler.visible}"/>
 						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.reporterPriority}" effect="fade" autoWidth="false" rendered="#{cc.attrs.bean.editHandler.visible}">
                         	<f:selectItems value="#{cc.attrs.bean.priorities}" var="p" itemLabel="#{p.name[localeCode].lang}" itemValue="#{p}"/>
                         </p:selectOneMenu>
                         
-                        <p:outputLabel value="#{msg.jeeslHdTicketName}" rendered="#{cc.attrs.bean.editHandler.visible}"/>
+                        <jtp:label entity="HdTicket" code="name" rendered="#{cc.attrs.bean.editHandler.visible}"/>
 						<jtp:inputText value="#{cc.attrs.bean.ticket.name}" required="true"  rendered="#{cc.attrs.bean.editHandler.visible}"/>
 					</p:panelGrid>
 					<p:panelGrid columns="1" columnClasses="jeeslGrid100" rendered="#{cc.attrs.bean.editHandler.visible and cc.attrs.bean.editHandler.deny}" >
@@ -151,16 +149,17 @@
 			
 		</j:slot>
 	</j:row>
-	<j:row>
+	<j:row id="rFaqs">
 		<j:slot id="sFaqs" width="4">
-			<h:form id="fFaqs" rendered="#{cc.attrs.bean.ticket !=null and cc.attrs.bean.selectedCat !=null}">
-				<p:dataTable var="faq" value="#{cc.attrs.bean.faqs}" draggableRows="false"
+			<h:form id="fFaqs" rendered="#{(not empty cc.attrs.bean.ticket) and (not empty cc.attrs.bean.category)}">
+				<p:dataTable var="faq" value="#{cc.attrs.bean.faqs}"
 								selection="#{cc.attrs.bean.faq}" selectionMode="single" rowKey="#{faq.id}">
 					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectFaq()}" update=":#{cc.id}:sAnswers"/>
-					<p:column styleClass="jeeslCenter">  
+					<p:column styleClass="jeeslCenter" rendered="false">  
 						<jtp:symbolizer value="#{faq.scope}"/>
 					</p:column>
-					<p:column headerText="#{msg.jeeslHdFaqTopic}">  
+					<p:column headerText="#{msg.jeeslHdFaqTopic}">
+						<f:facet name="header"><jtp:label entity="HdFaq" code="listOf"/></f:facet>
 						<h:outputText value="#{faq.name[localeCode].lang}"/>
 					</p:column>
 			   	</p:dataTable>
@@ -168,7 +167,7 @@
 		</j:slot>
 		
 		<j:slot id="sAnswers" width="8">	
-			<h:form id="fAnswers" rendered="#{(not empty cc.attrs.bean.faq) and (cc.attrs.bean.faq.id gt 0)}">
+			<h:form id="fAnswers" rendered="#{not empty cc.attrs.bean.faq}">
 				<p:dataTable var="a" value="#{cc.attrs.bean.answers}" draggableRows="false"
 								selection="#{cc.attrs.bean.fga}" selectionMode="single" rowKey="#{a.id}">
 					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectAnswer()}" update=":#{cc.id}:sTicket"/>

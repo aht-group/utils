@@ -71,18 +71,20 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractHdTicketBean.class);
 
-	private final UiEditSavedHandler<TICKET> editHandler; public UiEditSavedHandler<TICKET> getEditHandler() {return editHandler;}
-
-	private USER reporter;
-	private List<FAQ> faqs; public List<FAQ> getFaqs() {return faqs;}
-	private List<FGA> answers; public List<FGA> getAnswers() {return answers;}
-	private List<SEC> sections; public List<SEC> getSections() {return sections;}
 	private JeeslIoCmsFacade<L,D,LOC,?,DOC,?,SEC,?,?,?,?,?,?,?> fCms;
 	private final IoCmsFactoryBuilder<L,D,LOC,?,DOC,?,SEC,?,?,?,?,?,?,?> fbCms;
-	private List<FAQ> allFaq;
+	
+	private final UiEditSavedHandler<TICKET> editHandler; public UiEditSavedHandler<TICKET> getEditHandler() {return editHandler;}
+
+	
+	private final List<FAQ> faqs; public List<FAQ> getFaqs() {return faqs;}
+	private final List<FGA> answers; public List<FGA> getAnswers() {return answers;}
+	private final List<SEC> sections; public List<SEC> getSections() {return sections;}
+	
+	private USER reporter;
 	private FAQ faq; public FAQ getFaq() {return faq;} public void setFaq(FAQ faq) {this.faq = faq;}
 	private FGA fga; public FGA getFga() {return fga;} public void setFga(FGA fga) {this.fga = fga;}
-	private CAT selectedCat; public CAT getSelectedCat() {return selectedCat;} public void setSelectedCat(CAT selectedCat) {this.selectedCat = selectedCat;}
+	private CAT category; public CAT getCategory() {return category;} public void setCategory(CAT category) {this.category = category;}
 
 	public AbstractHdTicketBean(HdFactoryBuilder<L,D,LOC,R,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,FRC,USER> fbHd,
 			IoCmsFactoryBuilder<L,D,LOC,?,DOC,?,SEC,?,?,?,?,?,?,?> fbCms)
@@ -103,7 +105,6 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 	{
 		super.postConstructHd(bTranslation,bMessage,fHd,realm);
 		this.fCms=fCms;
-		allFaq = fHd.all(fbHd.getClassFaq());
 		this.reporter=reporter;
 	}
 
@@ -115,6 +116,13 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 	@Override public void toggled(Class<?> c) throws JeeslLockingException, JeeslConstraintViolationException
 	{
 		// TODO Auto-generated method stub
+	}
+	
+	private void reset(boolean rFaq, boolean rAnswers, boolean rSections)
+	{
+		if(rFaq) {faq=null;}
+		if(rAnswers) {answers.clear();}
+		if(rSections) {sections.clear();}
 	}
 
 	private void reloadTickets()
@@ -128,12 +136,9 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 
 	private void reloadFaqs()
 	{
+		SCOPE scope = fHd.fByEnum(fbHd.getClassScope(),JeeslHdScope.Code.user);
 		faqs.clear();
-		logger.info("reloading  faqs.... we have in total " + allFaq.size() + " faqs");
-		for (FAQ faq : allFaq) {
-			if(faq.getCategory().equals(selectedCat)) {faqs.add(faq);}
-		}
-		logger.info("faqs.... in selected category total " + faqs.size() + " faqs");
+		faqs.addAll(fHd.allForParent(fbHd.getClassFaq(), JeeslHdFaq.Attributes.category.toString(),category, JeeslHdFaq.Attributes.scope.toString(),scope));
 	}
 
 	@Override
@@ -141,7 +146,6 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 	{
 		lastEvent = fHd.find(fbHd.getClassEvent(),ticket.getLastEvent());
 		this.editHandler.update(ticket);
-
 	}
 
 	public void addTicket() throws JeeslConstraintViolationException, JeeslLockingException
@@ -152,8 +156,8 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		PRIORITY priority = getDefaultPriority();
 		firstEvent = fbHd.ejbEvent().build(ticket,sbhCategory.getList().get(0),sbhStatus.getList().get(0),levels.get(0),priority,reporter);
 		lastEvent = fbHd.ejbEvent().build(ticket,sbhCategory.getList().get(0),sbhStatus.getList().get(0),levels.get(0),priority,reporter);
-		selectedCat = sbhCategory.getList().get(0);
-		updateFaqSection();
+		category = sbhCategory.getList().get(0);
+		reloadFaqs();
 		this.editHandler.update(ticket);
 		this.editHandler.setVisible(false);
 		ofxUser = XmlSectionFactory.build();
@@ -188,15 +192,14 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		reloadTickets();
 	}
 
-
-
 	public void disableTicket() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		logger.info("disabling ticket");
 		toggleTicket("discarded");
 	}
 
-	public void enableTicket() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException {
+	public void enableTicket() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
+	{
 		logger.info("enabling ticket");
 		toggleTicket("open");
 	}
@@ -227,38 +230,34 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 	}
 
 
-	public boolean showDisableButton() {
-		if(ticket != null && ticket.getId() > 0) {
+	public boolean showDisableButton()
+	{
+		if(ticket!=null && ticket.getId()>0)
+		{
 			logger.info (ticket.getLastEvent().getStatus().getCode());
-			if(!ticket.getLastEvent().getStatus().getCode().equals("discarded")) {
+			if(!ticket.getLastEvent().getStatus().getCode().equals("discarded"))
+			{
 				return true;
-		}
+			}
 			return false;
 		}
 		return false;
 	}
 
 
-	public void handleCategoryChange() {
-		logger.info("Category changed......");
-		selectedCat =  this.getLastEvent().getCategory();//(CAT)((UIOutput)event.getSource()).getValue();
+	public void handleCategoryChange()
+	{
+		logger.info(AbstractLogMessage.selectEntity(category));
+		reset(true,true,true);
+		category =  this.getLastEvent().getCategory();
 		editHandler.setVisible(false);
-		updateFaqSection();
-		this.faq = null;
-		this.answers = new ArrayList<>();
-		this.sections = new ArrayList<>();
+		reloadFaqs();
 	}
 
-	public void faqNotFound() {
+	public void faqNotFound()
+	{
 		logger.info("Faq not found...... setting visible.....");
 		this.editHandler.setVisible(true);
-
-	}
-
-	protected void updateFaqSection() {
-		logger.info("Category =  " + selectedCat.toString());
-		logger.info("Category id =  " + selectedCat.getId());
-		reloadFaqs();
 	}
 
 	public void selectFaq()
@@ -276,6 +275,7 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		answers.clear();
 		answers.addAll(fHd.allForParent(fbHd.getClassFga(), faq));
 	}
+	
 	public void selectAnswer()
 	{
 		logger.info(AbstractLogMessage.selectEntity(fga));

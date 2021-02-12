@@ -22,7 +22,7 @@
 	</composite:interface>
 	
 	<composite:implementation>
-		<h:outputText value="No data are saved because of validation errors. Please resolve the errors and save again!" styleClass="error-message"/>
+		<h:outputText value="No data are saved because of validation errors. Please resolve the errors and save again!" styleClass="error-message" rendered="false"/>
 	
 		<ui:repeat var="section" value="#{appSurveyBean.mapSection[cc.attrs.handler.template]}" id="repeatSections">
 			<p:panel id="pQuestions" styleClass="jeeslPanel"
@@ -40,8 +40,8 @@
 				</p:panelGrid>
 				<p:messages redisplay="false" severity="warn,error" showSummary="true" showDetail="true" closable="true"/>
 				<p:panelGrid columns="3" columnClasses="#{section.columnClasses}">
-					<jtp:label entity="MeisLcfUserEvaluation" code="question"/>
-					<jtp:label entity="MeisLcfUserEvaluation" code="answer"/>
+					<jtp:label entity="SurveyQuestion"/>
+					<jtp:label entity="SurveyAnswer"/>
 				</p:panelGrid>
 				<ui:repeat var="q" value="#{appSurveyBean.mapQuestion[section]}" id="repeatQuestions">
 					<p:panelGrid columns="2" columnClasses="#{section.columnClasses}" rendered="#{q.visible and cc.attrs.handler.condition.rendered[q]}">

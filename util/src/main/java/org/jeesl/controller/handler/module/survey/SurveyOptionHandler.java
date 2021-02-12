@@ -3,6 +3,7 @@ package org.jeesl.controller.handler.module.survey;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
@@ -31,10 +32,25 @@ public class SurveyOptionHandler<QUESTION extends JeeslSurveyQuestion<?,?,?,?,?,
 	
 	public void clear() {mapOption.clear();}
 	
-	public void add(QUESTION question, List<OPTION> options)
+	public void addOptionsUniqueCode(QUESTION question, List<OPTION> options)
 	{
 		mapOption.put(question,EjbCodeFactory.toMapNonUniqueCode(options));
 	}
+	
+	public void addOptionsRowColCellCode(QUESTION question, List<OPTION> options)
+	{
+		
+	}
+	
+	public void toMapRowColCode(QUESTION question, List<OPTION> options)
+    {
+    	Map<String,OPTION> map = new Hashtable<>();
+    	for(OPTION o : options)
+    	{
+    		map.put(this.toPrefixCode(o),o);
+    	}
+    	mapOption.put(question,map);
+    }
 	
 	public OPTION toOption(QUESTION question, String code) throws JeeslConstraintViolationException
 	{
@@ -86,4 +102,14 @@ public class SurveyOptionHandler<QUESTION extends JeeslSurveyQuestion<?,?,?,?,?,
 		logger.warn("No Options for "+code.toString());
 		return null;
 	}
+	
+	public String toPrefixCode(OPTION o)
+    {
+		StringBuilder sb = new StringBuilder();
+		if(o.getRow()) {sb.append("r");}
+		if(o.getCol()) {sb.append("c");}
+		if(o.getCell()) {sb.append("x");}
+		sb.append(":").append(o.getCode());
+		return sb.toString();
+    }
 }

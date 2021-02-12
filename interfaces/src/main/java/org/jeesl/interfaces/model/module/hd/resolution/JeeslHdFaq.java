@@ -25,5 +25,5 @@ public interface JeeslHdFaq<L extends JeeslLang, D extends JeeslDescription,
 								JeeslWithCategory<CAT>, JeeslWithScope<SCOPE>,
 								EjbWithLangDescription<L,D>
 {	
-	
+	public enum Attributes {category,scope}
 }

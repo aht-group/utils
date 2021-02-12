@@ -24,7 +24,7 @@
 			<j:row>
 				<j:slot id="sMissingRevisions" width="5">
 					<h:form id="fMissingRevisions">
-						<p:dataTable var="e" value="#{cc.attrs.beanMissingLabel.missingLabels}" draggableRows="true"
+						<p:dataTable var="e" value="#{cc.attrs.beanMissingLabel.missingLabels}" draggableRows="false"
 									selection="#{cc.attrs.beanMissingLabel.missingLabel}" rowKey="#{e.id}">
 							<f:facet name="header">
 								

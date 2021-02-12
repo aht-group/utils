@@ -10,4 +10,6 @@ public interface JeeslSettingsBean extends Serializable
 	
 	String getDatePattern();
 	String getDateTimePattern();
+	
+	String getCssTimestamp();
 }

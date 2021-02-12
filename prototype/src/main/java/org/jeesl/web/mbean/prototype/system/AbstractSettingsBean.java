@@ -1,6 +1,7 @@
 package org.jeesl.web.mbean.prototype.system;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 import org.jeesl.api.bean.JeeslSettingsBean;
 import org.jeesl.controller.monitoring.counter.ProcessingTimeTracker;
@@ -35,6 +36,8 @@ public class AbstractSettingsBean implements Serializable,JeeslSettingsBean
 	protected String filterStyle; public String getFilterStyle() {return filterStyle;}
 	protected String title; public String getTitle() {return title;}
 	protected String titlePrefix; public String getTitlePrefix() {return titlePrefix;}
+	
+	private final String cssTimestamp; @Override public String getCssTimestamp() {return cssTimestamp;}
 
 	public AbstractSettingsBean()
 	{
@@ -51,6 +54,8 @@ public class AbstractSettingsBean implements Serializable,JeeslSettingsBean
 		
 		allowUploadSvg = "/(\\.|\\/)(svg)$/";
 		allowUploadJesslGraphicType = "/(\\.|\\/)(svg|png)$/";
+		
+		cssTimestamp = Long.valueOf(Instant.now().getEpochSecond()).toString();
 		
 		logger.info(AbstractLogMessage.postConstruct(ptt));
 	}

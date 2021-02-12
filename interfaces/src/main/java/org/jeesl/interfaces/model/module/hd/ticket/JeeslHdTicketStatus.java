@@ -11,7 +11,6 @@ public interface JeeslHdTicketStatus <L extends JeeslLang, D extends JeeslDescri
 									R extends JeeslMcsRealm<L,D,R,G>,
 									S extends JeeslMcsStatus<L,D,R,S,G>,
 									G extends JeeslGraphic<L,D,?,?,?>>
-					extends JeeslMcsStatus<L,D,R,S,G>,
-								JeeslOptionRestDownload
+					extends JeeslMcsStatus<L,D,R,S,G>, JeeslOptionRestDownload
 {	
 }

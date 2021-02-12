@@ -30,8 +30,10 @@
 								<jtp:symbolizer value="#{faq.scope}"/>
 							</p:column>
 							<p:column headerText="#{msg.jeeslHdCategory}">
-								<jtp:symbolizer value="#{faq.category}" marginRight="5"/>
-								<h:outputText value="#{faq.category.name[localeCode].lang}"/>
+								<h:panelGroup styleClass="jeeslNbsc">
+									<jtp:symbolizer value="#{faq.category}" marginRight="5"/>
+									<h:outputText value="#{faq.category.name[localeCode].lang}"/>
+								</h:panelGroup>
 							</p:column>
 							<p:column headerText="#{msg.jeeslHdFaqTopic}">  
 								<h:outputText value="#{faq.name[localeCode].lang}"/>
