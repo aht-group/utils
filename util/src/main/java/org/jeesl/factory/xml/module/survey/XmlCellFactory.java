@@ -22,12 +22,12 @@ public class XmlCellFactory<MATRIX extends JeeslSurveyMatrix<?,?,?,?>>
 	{
 		Cell xml = new Cell();
 		
-		if(BooleanComparator.active(matrix.getAnswer().getQuestion().getShowBoolean()) && matrix.getValueBoolean()!=null){xml.setLabel(matrix.getValueBoolean().toString());}
-		if(BooleanComparator.active(matrix.getAnswer().getQuestion().getShowInteger()) && matrix.getValueNumber()!=null){xml.setLabel(matrix.getValueNumber().toString());}
-		if(BooleanComparator.active(matrix.getAnswer().getQuestion().getShowDouble()) && matrix.getValueDouble()!=null){xml.setLabel(matrix.getValueDouble().toString());}
-		if(BooleanComparator.active(matrix.getAnswer().getQuestion().getShowText()) && matrix.getValueText()!=null){xml.setLabel(matrix.getValueText());}
+		if(BooleanComparator.active(matrix.getAnswer().getQuestion().getShowBoolean()) && matrix.getValueBoolean()!=null){xml.setLabel(matrix.getValueBoolean().toString());xml.setValueBoolean(matrix.getValueBoolean());}
+		if(BooleanComparator.active(matrix.getAnswer().getQuestion().getShowInteger()) && matrix.getValueNumber()!=null){xml.setLabel(matrix.getValueNumber().toString());xml.setValueNumber(matrix.getValueNumber());}
+		if(BooleanComparator.active(matrix.getAnswer().getQuestion().getShowDouble()) && matrix.getValueDouble()!=null){xml.setLabel(matrix.getValueDouble().toString());xml.setValueDouble(matrix.getValueDouble());}
+		if(BooleanComparator.active(matrix.getAnswer().getQuestion().getShowText()) && matrix.getValueText()!=null){xml.setLabel(matrix.getValueText());xml.setValueText(matrix.getValueText());}
 	
-		if(BooleanComparator.active(matrix.getAnswer().getQuestion().getShowSelectOne())){xml.setLabel(matrix.getOption().getName().get(localeCode).getLang());}
+		if(BooleanComparator.active(matrix.getAnswer().getQuestion().getShowSelectOne())){xml.setLabel(matrix.getOption().getName().get(localeCode).getLang());xml.setValueOption(matrix.getOption().getCode());}
 		
 		return xml;
 		

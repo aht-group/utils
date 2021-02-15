@@ -24,6 +24,8 @@ public interface UtilsStaffPool<L extends JeeslLang,
 								   USER extends JeeslUser<R>>
 			extends EjbWithId
 {
+	public enum Attributes{role,pool,entity}
+	
 	public R getRole();
 	public void setRole(R role);
 	

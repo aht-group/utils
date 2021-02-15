@@ -54,7 +54,7 @@ public class JeeslIoDbFacadeBean <L extends JeeslLang,D extends JeeslDescription
 	
 	@Override public List<DF> fDumpFiles(DH host) 
 	{
-		return this.allForParent(fbDb.getClassDumpFile(),JeeslDbDumpFile.Attributes.host.toString(), host);
+		return this.allForParent(fbDb.getClassDumpFile(),JeeslDbDumpFile.Attributes.host, host);
 	}
 	
 	@Override public DF fDumpFile(DUMP dump, DH host) throws JeeslNotFoundException

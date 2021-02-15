@@ -66,7 +66,7 @@ public abstract class AbstractHdSupportBean <L extends JeeslLang, D extends Jees
 								USER extends JeeslSimpleUser
 								>
 					extends AbstractHelpdeskBean<L,D,LOC,R,RREF,TICKET,CAT,STATUS,EVENT,TYPE,LEVEL,PRIORITY,MSG,M,MT,FAQ,SCOPE,FGA,DOC,SEC,FRC,USER>
-					implements Serializable//,SbSingleBean
+					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractHdSupportBean.class);

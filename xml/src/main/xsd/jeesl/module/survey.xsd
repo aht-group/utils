@@ -126,6 +126,7 @@
 			<xsd:sequence>
 				<xsd:element ref="survey:column" maxOccurs="unbounded"/>
 			</xsd:sequence>
+			<xsd:attribute name="code" type="xsd:string"/>
 			<xsd:attribute name="label" type="xsd:string"/>
 		</xsd:complexType>
     </xsd:element>
@@ -134,6 +135,7 @@
 			<xsd:sequence>
 				<xsd:element ref="survey:cell" maxOccurs="1"/>
 			</xsd:sequence>
+			<xsd:attribute name="code" type="xsd:string"/>
 			<xsd:attribute name="label" type="xsd:string"/>
 		</xsd:complexType>
     </xsd:element>
@@ -143,6 +145,11 @@
 
 			</xsd:sequence>
 			<xsd:attribute name="label" type="xsd:string"/>
+			<xsd:attribute name="valueOption" type="xsd:string"/>
+			<xsd:attribute name="valueBoolean" type="xsd:boolean"/>
+			<xsd:attribute name="valueNumber" type="xsd:int"/>
+			<xsd:attribute name="valueDouble" type="xsd:double"/>
+			<xsd:attribute name="valueText" type="xsd:string"/>
 		</xsd:complexType>
     </xsd:element>
     <xsd:element name="options">

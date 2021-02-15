@@ -80,6 +80,7 @@ public class XmlDataFactory<L extends JeeslLang,D extends JeeslDescription,
 		this.fSurvey=fSurvey;
 		this.cData=cData;
 		if(q.isSetSection()){xfSection.lazyLoad(fSurvey);}
+		if(q.isSetAnswer()) {xfAnswer.lazyLoad(fSurvey);}
 	}
 	
 	public Data build(DATA ejb)

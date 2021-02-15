@@ -62,7 +62,7 @@ public class UtilsCrudHandlerParent <T extends EjbCrudWithParent, P extends EjbW
 
 	public void reloadList()
 	{
-		list = fUtils.allForParent(cT, prototype.resolveParentAttribute(), parent);
+		list = fUtils.allForParent(cT, prototype.resolveParentAttribute(), parent,0);
 	}
 	
 	public void add()

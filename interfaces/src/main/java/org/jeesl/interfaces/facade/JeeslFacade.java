@@ -125,7 +125,8 @@ public interface JeeslFacade extends JeeslIdFacade
 	<T extends JeeslWithParentAttributeStatus<STATUS>, P extends EjbWithId, STATUS extends JeeslStatus<STATUS,?,?>> List<T> allForParentStatus(Class<T> type, P parent, List<STATUS> status);
 	<T extends JeeslWithParentAttributeType<TYPE>, P extends EjbWithId, TYPE extends JeeslStatus<TYPE,?,?>> List<T> allForParentType(Class<T> c, P parent, List<TYPE> type);
 	<T extends EjbWithParentAttributeResolver, I extends EjbWithId> List<T> allForParents(Class<T> type, List<I> parents);
-	<T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> type, String p1Name, I p1);
+//	<T extends EjbWithId, I extends EjbWithId, A1 extends Enum<A1>> List<T> allForParent(Class<T> type, String p1Name, I p1);
+	<T extends EjbWithId, A1 extends Enum<A1>, P1 extends EjbWithId> List<T> allForParent(Class<T> type, A1 a1, P1 p1);
 	<T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> type, String p1Name, I p1, int maxResults);
 	<T extends EjbWithParentAttributeResolver, I extends EjbWithId> T oneForParent(Class<T> cl, I p1) throws JeeslNotFoundException;
 	<T extends EjbWithId, I extends EjbWithId> T oneForParent(Class<T> cl, String p1Name, I p1) throws JeeslNotFoundException;

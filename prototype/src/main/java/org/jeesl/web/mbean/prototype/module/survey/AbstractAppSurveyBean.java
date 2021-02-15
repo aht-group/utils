@@ -265,7 +265,7 @@ public abstract class AbstractAppSurveyBean <L extends JeeslLang, D extends Jees
 		if(!mapOptionSet.containsKey(set)){mapOptionSet.put(set,new ArrayList<OPTION>());}
 		mapOptionSet.get(set).clear();
 		mapOptionSet.get(set).addAll(set.getOptions());
-		for(QUESTION question : fSurvey.allForParent(ffSurvey.getClassQuestion(), JeeslSurveyQuestion.Attributes.optionSet.toString(), set))
+		for(QUESTION question : fSurvey.allForParent(ffSurvey.getClassQuestion(), JeeslSurveyQuestion.Attributes.optionSet, set))
 		{
 			question = fSurvey.load(question);
 			updateQuestion(question);

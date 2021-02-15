@@ -1,5 +1,6 @@
 package org.jeesl.factory.xml.module.survey;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.jeesl.api.facade.module.survey.JeeslSurveyCoreFacade;
@@ -24,7 +25,6 @@ import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestionUnit
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveySection;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.model.pojo.map.generic.Nested2Map;
 import org.jeesl.model.xml.module.survey.Column;
 import org.jeesl.model.xml.module.survey.Matrix;
@@ -82,11 +82,18 @@ public class XmlMatrixFactory<L extends JeeslLang,D extends JeeslDescription,
 	{
 		QUESTION question = answer.getQuestion();
 		
+		List<OPTION> options = new ArrayList<>();
 		if(fSurvey!=null)
 		{
 			answer = fSurvey.load(answer);
 			question = fSurvey.load(question);
+			options.addAll(question.getOptions());
 		}
+		else
+		{
+			options.addAll(answer.getQuestion().getOptions());
+		}
+		
 		List<OPTION> rows = efOption.toRows(question.getOptions());
 		List<OPTION> columns = efOption.toColumns(question.getOptions());
 		Nested2Map<OPTION,OPTION,MATRIX> map = efMatrix.build(answer.getMatrix());
@@ -119,6 +126,7 @@ public class XmlMatrixFactory<L extends JeeslLang,D extends JeeslDescription,
 	private Row row(OPTION option)
 	{
 		Row row = new Row();
+		row.setCode(option.getCode());
 		if(localeCode!=null && option.getName()!=null && option.getName().containsKey(localeCode))
 		{
 			row.setLabel(option.getName().get(localeCode).getLang());
@@ -128,12 +136,13 @@ public class XmlMatrixFactory<L extends JeeslLang,D extends JeeslDescription,
 	}
 	private Column column(OPTION option)
 	{
-		Column row = new Column();
+		Column col = new Column();
+		col.setCode(option.getCode());
 		if(localeCode!=null && option.getName()!=null && option.getName().containsKey(localeCode))
 		{
-			row.setLabel(option.getName().get(localeCode).getLang());
+			col.setLabel(option.getName().get(localeCode).getLang());
 		}
-		else {row.setLabel(option.getCode());}
-		return row;
+		else {col.setLabel(option.getCode());}
+		return col;
 	}
 }

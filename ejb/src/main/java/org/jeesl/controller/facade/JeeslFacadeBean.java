@@ -765,14 +765,14 @@ public class JeeslFacadeBean implements JeeslFacade
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();}
 
-		List<T> list = allForParent(type,prototype.resolveParentAttribute(), p1);
+		List<T> list = allForParent(type,prototype.resolveParentAttribute(),p1,0);
 		if(list.size()>1){throw new JeeslNotFoundException("More than one result found for "+type.getSimpleName()+" and "+prototype.resolveParentAttribute()+"=="+p1);}
 		if(list.size()==0){throw new JeeslNotFoundException("No "+type.getSimpleName()+" found for "+prototype.resolveParentAttribute()+"=="+p1);}
 		return list.get(0);
 	}
 	@Override public <T extends EjbWithId, I extends EjbWithId> T oneForParent(Class<T> cl, String p1Name, I p1) throws JeeslNotFoundException
 	{
-		List<T> list = allForParent(cl, p1Name, p1);
+		List<T> list = allForParent(cl, p1Name, p1,0);
 		if(list.size()>1){throw new JeeslNotFoundException("More than one result found for "+cl.getSimpleName()+" and "+p1Name+"=="+p1);}
 		if(list.size()==0){throw new JeeslNotFoundException("No "+cl.getSimpleName()+" found for "+p1Name+"=="+p1);}
 		return list.get(0);
@@ -916,10 +916,8 @@ public class JeeslFacadeBean implements JeeslFacade
 		catch (NoResultException ex){return new ArrayList<T>();}
 	}
 
-	@Override
-	public <T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> type, String p1Name, I p1){return allForParent(type,p1Name, p1,0);}
-	@Override
-	public <T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> c, String p1Name, I p1,int maxResults)
+	@Override public <T extends EjbWithId, A1 extends Enum<A1>, P1 extends EjbWithId> List<T> allForParent(Class<T> type, A1 a1, P1 p1){return allForParent(type,a1.toString(),p1,0);}
+	@Override public <T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> c, String p1Name, I p1, int maxResults)
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 	    CriteriaQuery<T> criteriaQuery = cB.createQuery(c);
@@ -1023,18 +1021,21 @@ public class JeeslFacadeBean implements JeeslFacade
 	// ************************************
 
 	@Override
-	public <T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> type, String p1Name, I p1, String p2Name, I p2)
+	public <T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> c, String p1Name, I p1, String p2Name, I p2)
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
-	    CriteriaQuery<T> criteriaQuery = cB.createQuery(type);
+	    CriteriaQuery<T> criteriaQuery = cB.createQuery(c);
 
-	    Root<T> fromType = criteriaQuery.from(type);
-	    Path<Object> p1Path = fromType.get(p1Name);
-	    Path<Object> p2Path = fromType.get(p2Name);
+	    Root<T> root = criteriaQuery.from(c);
+	    Path<Object> p1Path = root.get(p1Name);
+	    Path<Object> p2Path = root.get(p2Name);
 
-	    CriteriaQuery<T> select = criteriaQuery.select(fromType);
+	    CriteriaQuery<T> select = criteriaQuery.select(root);
 	    select.where( cB.and(cB.equal(p1Path, p1.getId()),
 	    					 cB.equal(p2Path, p2.getId())));
+	    
+	    if(EjbWithPosition.class.isAssignableFrom(c)){select.orderBy(cB.asc(root.get(EjbWithPosition.attributePosition)));}
+	    else if(EjbWithRecord.class.isAssignableFrom(c)){select.orderBy(cB.asc(root.get(EjbWithRecord.attributeRecord)));}
 
 		TypedQuery<T> q = em.createQuery(select);
 
@@ -1042,21 +1043,24 @@ public class JeeslFacadeBean implements JeeslFacade
 		catch (NoResultException ex){return new ArrayList<T>();}
 	}
 
-	public <T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> type, String p1Name, I p1, String p2Name, I p2, String p3Name, I p3)
+	public <T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> c, String p1Name, I p1, String p2Name, I p2, String p3Name, I p3)
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
-	    CriteriaQuery<T> criteriaQuery = cB.createQuery(type);
+	    CriteriaQuery<T> criteriaQuery = cB.createQuery(c);
 
-	    Root<T> fromType = criteriaQuery.from(type);
-	    Path<Object> p1Path = fromType.get(p1Name);
-	    Path<Object> p2Path = fromType.get(p2Name);
-	    Path<Object> p3Path = fromType.get(p3Name);
+	    Root<T> root = criteriaQuery.from(c);
+	    Path<Object> p1Path = root.get(p1Name);
+	    Path<Object> p2Path = root.get(p2Name);
+	    Path<Object> p3Path = root.get(p3Name);
 
-	    CriteriaQuery<T> select = criteriaQuery.select(fromType);
+	    CriteriaQuery<T> select = criteriaQuery.select(root);
 	    select.where( cB.and(cB.equal(p1Path, p1.getId()),
 	    					 cB.equal(p2Path, p2.getId()),
 	    					 cB.equal(p3Path, p3.getId())));
 
+	    if(EjbWithPosition.class.isAssignableFrom(c)){select.orderBy(cB.asc(root.get(EjbWithPosition.attributePosition)));}
+	    else if(EjbWithRecord.class.isAssignableFrom(c)){select.orderBy(cB.asc(root.get(EjbWithRecord.attributeRecord)));}
+	    
 		TypedQuery<T> q = em.createQuery(select);
 
 		try	{return q.getResultList();}

@@ -132,7 +132,7 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 		List<M> list = new ArrayList<>();
 		if(sbhContext.isSelected())
 		{
-			list.addAll(fSecurity.allForParent(fbSecurity.getClassMenu(), JeeslSecurityMenu.Attributes.context.toString(),sbhContext.getSelection()));
+			list.addAll(fSecurity.allForParent(fbSecurity.getClassMenu(), JeeslSecurityMenu.Attributes.context,sbhContext.getSelection()));
 			if(debugOnInfo) {logger.info(fbSecurity.getClassMenu().getSimpleName()+": "+list.size()+" in context "+sbhContext.getSelection().getCode());}
 		}
 		else
@@ -175,7 +175,7 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 			CTX defaultCtx = fSecurity.fByCode(fbSecurity.getClassContext(), "core");
 			CTX currentCtx =sbhContext.getSelection();
 			List<M> list = new ArrayList<>();
-			list.addAll(fSecurity.allForParent(fbSecurity.getClassMenu(), JeeslSecurityMenu.Attributes.context.toString(),defaultCtx));
+			list.addAll(fSecurity.allForParent(fbSecurity.getClassMenu(), JeeslSecurityMenu.Attributes.context,defaultCtx));
 			Map<M,List<M>> map = efMenu.toMapChild(list);
 
 			Map<M,M> defaultVsCurrentMap = new HashedMap();
@@ -211,7 +211,7 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 
 	public boolean isMenuReloaded() {
 		if(sbhContext.isSelected()) {
-			if(fSecurity.allForParent(fbSecurity.getClassMenu(), JeeslSecurityMenu.Attributes.context.toString(),sbhContext.getSelection()).size() > 0) {
+			if(fSecurity.allForParent(fbSecurity.getClassMenu(), JeeslSecurityMenu.Attributes.context,sbhContext.getSelection()).size() > 0) {
 			return true;
 			}
 		}
@@ -223,7 +223,7 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 	public void reloadMenu()
     {
 		List<M> list = new ArrayList<>();
-		if(sbhContext.isSelected()) {list.addAll(fSecurity.allForParent(fbSecurity.getClassMenu(), JeeslSecurityMenu.Attributes.context.toString(),sbhContext.getSelection()));}
+		if(sbhContext.isSelected()) {list.addAll(fSecurity.allForParent(fbSecurity.getClassMenu(), JeeslSecurityMenu.Attributes.context,sbhContext.getSelection()));}
 		else {list.addAll(fSecurity.all(fbSecurity.getClassMenu()));}
 
 		Map<M,List<M>> map = efMenu.toMapChild(list);

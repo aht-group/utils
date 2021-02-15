@@ -274,24 +274,24 @@ public class JeeslSecurityFacadeBean<L extends JeeslLang,
 	@Override
 	public <S extends UtilsStaffPool<L,D,C,R,V,U,A,AT,P,E,USER>, P extends EjbWithId, E extends EjbWithId>
 		List<S>	fStaffPool(Class<S> clStaff, P pool)
-	{return allForParent(clStaff, "pool", pool);}
+	{return allForParent(clStaff,UtilsStaffPool.Attributes.pool, pool);}
 	
 	
 	// STAFF
 	@Override
 	public <S extends JeeslStaff<R,USER,D1,D2>, D1 extends EjbWithId, D2 extends EjbWithId>
 		List<S> fStaffU(Class<S> clStaff, USER user)
-	{return allForParent(clStaff, "user", user);}
+	{return allForParent(clStaff,JeeslStaff.Attributes.user, user);}
 	
 	@Override
 	public <S extends JeeslStaff<R,USER,D1,D2>, D1 extends EjbWithId, D2 extends EjbWithId>
 		List<S> fStaffR(Class<S> clStaff, R role)
-	{return allForParent(clStaff, "role", role);}
+	{return allForParent(clStaff,JeeslStaff.Attributes.role, role);}
 	
 	@Override
 	public <S extends JeeslStaff<R,USER,D1,D2>, D1 extends EjbWithId, D2 extends EjbWithId>
 		List<S> fStaffD(Class<S> clStaff, D1 domain)
-	{return allForParent(clStaff, JeeslStaff.Attributes.domain.toString(), domain);}
+	{return allForParent(clStaff, JeeslStaff.Attributes.domain, domain);}
 	
 	@Override public <S extends JeeslStaff<R,USER,D1,D2>, D1 extends EjbWithId, D2 extends EjbWithId> List<S> fStaffD(Class<S> cStaff, List<D1> domains)
 	{

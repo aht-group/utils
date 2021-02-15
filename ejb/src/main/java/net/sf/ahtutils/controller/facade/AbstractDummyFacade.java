@@ -144,12 +144,7 @@ public class AbstractDummyFacade implements JeeslFacade
 
 	}
 
-	@Override
-	public <T extends EjbWithId, I extends EjbWithId> List<T> allForParent(
-			Class<T> type, String p1Name, I p1) {
 
-		return null;
-	}
 
 	@Override
 	public <T extends EjbWithId, I extends EjbWithId> List<T> allForParent(
@@ -571,6 +566,13 @@ public class AbstractDummyFacade implements JeeslFacade
 	@Override
 	public <T extends EjbWithNonUniqueCode, REALM extends JeeslMcsRealm<?, ?, ?, ?>, RREF extends EjbWithId> T fByCode(
 			Class<T> type, REALM realm, RREF rref, String code) throws JeeslNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T extends EjbWithId, A1 extends Enum<A1>, P1 extends EjbWithId> List<T> allForParent(Class<T> type, A1 a1,
+			P1 p1) {
 		// TODO Auto-generated method stub
 		return null;
 	}
