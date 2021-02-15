@@ -188,7 +188,7 @@ ul.aupHeadlineBreadcrumb,
 
 /* Equivalent to CSS selector .aupHeadlineBreadcrumb */
 .aupStatusBar > ul {
-	/*clear:both;*/
+	clear:both;
 	display:block;
 	list-style: none;
 	padding: 0;
@@ -215,7 +215,7 @@ ul.aupHeadlineBreadcrumb,
 	/* This margin pushes the next li far enough to squeeze in a CSS separator */
 	margin-right:5px;
 	/* push the ul down to offset the position due to the parent ul's clear:both */
-	top:-2px;
+	top:-6px;
 }
 
 .aupStatusBar > ul > li.aupStatusBarLeft {
