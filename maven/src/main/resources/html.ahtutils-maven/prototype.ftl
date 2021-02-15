@@ -95,7 +95,7 @@ ul.aupHeadlineBreadcrumb,
     background: none repeat scroll 0 0 ${colorDark};
 }
 /* .aupHeadlineBreadcrumb a:after, .aupHeadlineBreadcrumb a:before */
-.aupHeadlineBreadcrumb > li > a:after, .aupHeadlineBreadcrumb > li > a:before,
+.aupHeadlineBreadcrumb > li > label > a:after, .aupHeadlineBreadcrumb > li > label > a:before,
 .aupHeadlineBreadcrumb > li > ul > li > a:after, .aupHeadlineBreadcrumb > li > ul > li > a:before {
     border-bottom: 1.0em solid rgba(0, 0, 0, 0);
     border-left: 1em solid;
@@ -107,24 +107,31 @@ ul.aupHeadlineBreadcrumb,
     top: 50%;
 }
 /* .aupHeadlineBreadcrumb a:after { */
-.aupHeadlineBreadcrumb > li > a:after, .aupHeadlineBreadcrumb > li > ul > li > a:after {
+.aupHeadlineBreadcrumb > li > label > a:after, .aupHeadlineBreadcrumb > li > ul > li > a:after {
     border-left-color: ${colorLight};
     z-index: 2;
 }
 /* .aupHeadlineBreadcrumb a:before { */
-.aupHeadlineBreadcrumb > li > a:before, .aupHeadlineBreadcrumb > li > ul > li > a:before {
+.aupHeadlineBreadcrumb > li > label > a:before, .aupHeadlineBreadcrumb > li > ul > li > a:before {
     border-left-color: ${colorLight};
     right: -1.1em;
     z-index: 1;
 }
 /* .aupHeadlineBreadcrumb a:hover:after { */
-.aupHeadlineBreadcrumb > li > a:hover:after, .aupHeadlineBreadcrumb > li > ul > li > a:hover:after  {
+.aupHeadlineBreadcrumb > li > label > a:hover:after, .aupHeadlineBreadcrumb > li > ul > li > a:hover:after  {
     border-left-color: ${colorDark};
 }
 .aupHeadlineBreadcrumb > li:last-child a {
   /* Next line trims the last child */
   overflow: hidden;
 }
+.aupHeadlineBreadcrumb > li > label > a + span {
+	display: none;
+}
+.aupHeadlineBreadcrumb > li > ul > li:first-child {
+	display: none;
+}
+
 .aupHeadlineBreadcrumb .current, .aupHeadlineBreadcrumb .current:hover {
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
     font-weight: bold;
@@ -181,7 +188,7 @@ ul.aupHeadlineBreadcrumb,
 
 /* Equivalent to CSS selector .aupHeadlineBreadcrumb */
 .aupStatusBar > ul {
-	clear:both;
+	/*clear:both;*/
 	display:block;
 	list-style: none;
 	padding: 0;
@@ -198,13 +205,17 @@ ul.aupHeadlineBreadcrumb,
     background: none repeat scroll 0 0 ${colorDark};
 }
 
+.aupStatusBar > ul > li > label > img {
+	max-height: 12px;
+}
+
 .aupStatusBar > ul > li.aupStatusBarLeft,
 .aupStatusBar > ul > li.aupStatusBarRight {
 	position: relative;
 	/* This margin pushes the next li far enough to squeeze in a CSS separator */
 	margin-right:5px;
 	/* push the ul down to offset the position due to the parent ul's clear:both */
-	top:-6px;
+	top:-2px;
 }
 
 .aupStatusBar > ul > li.aupStatusBarLeft {
