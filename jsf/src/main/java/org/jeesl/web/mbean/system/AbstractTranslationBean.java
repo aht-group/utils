@@ -34,8 +34,7 @@ public class AbstractTranslationBean<L extends JeeslLang, D extends JeeslDescrip
 	private TranslationMap tm;
 	protected final List<String> langKeys; @Override public List<String> getLangKeys(){return langKeys;}
 
-	protected final List<LOC> locales; @Override
-	public List<LOC> getLocales() {return locales;}
+	protected final List<LOC> locales; @Override public List<LOC> getLocales() {return locales;}
 	private final Map<String,LOC> mapLocales; public Map<String, LOC> getMapLocales() {return mapLocales;}
 
 	public AbstractTranslationBean(LocaleFactoryBuilder<L,D,LOC> fbStatus)
