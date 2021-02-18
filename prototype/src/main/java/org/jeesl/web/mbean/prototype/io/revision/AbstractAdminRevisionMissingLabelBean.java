@@ -33,16 +33,16 @@ public class AbstractAdminRevisionMissingLabelBean <L extends JeeslLang, D exten
 	final static Logger logger = LoggerFactory.getLogger(AbstractAdminRevisionMissingLabelBean.class);
 
 	private RML missingLabel;public RML getMissingLabel() {return missingLabel;} public void setMissingLabel(RML missingLabel) {this.missingLabel = missingLabel;}
-	private JeeslIoRevisionFacade<L, D, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, RML> fRevision;
+	private JeeslIoRevisionFacade<L,D,?,?,?,?,?,?,?,?,?,?,?,RML> fRevision;
 	private List<RML> missingLabels; public List<RML> getMissingLabels() {return missingLabels;}
-	private IoRevisionFactoryBuilder<L, D, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, RML> fbRevision;
+	private IoRevisionFactoryBuilder<L,D,?,?,?,?,?,?,?,?,?,?,?,RML> fbRevision;
 
 	private SbMultiHandler<LOC> sbhStatus;
 	public SbMultiHandler<LOC> getSbhStatus() {return sbhStatus;}
 
-	private LocaleFactoryBuilder<L, D, LOC> fbLocale;
+	private LocaleFactoryBuilder<L,D,LOC> fbLocale;
 
-	public AbstractAdminRevisionMissingLabelBean(final IoRevisionFactoryBuilder<L, D, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, RML> fbRevision, LocaleFactoryBuilder<L, D, LOC> fbLocale)
+	public AbstractAdminRevisionMissingLabelBean(final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,?,?,?,?,?,?,RML> fbRevision, LocaleFactoryBuilder<L,D,LOC> fbLocale)
 	{
 		super(fbRevision.getClassL(), fbRevision.getClassD());
 		this.fbRevision = fbRevision;
@@ -50,7 +50,7 @@ public class AbstractAdminRevisionMissingLabelBean <L extends JeeslLang, D exten
 		this.sbhStatus = new SbMultiHandler<LOC>(fbLocale.getClassLocale(), this);
 	}
 
-	protected void postConstructMissingEntity(JeeslTranslationBean<L, D, LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslIoRevisionFacade<L, D, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, RML> fRevision, String defaultLangCode) {
+	protected void postConstructMissingEntity(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslIoRevisionFacade<L,D,?,?,?,?,?,?,?,?,?,?,?,RML> fRevision, String defaultLangCode) {
 		super.initJeeslAdmin(bTranslation, bMessage);
 		this.fRevision = fRevision;
 		List<LOC> langList =fRevision.allOrderedPositionVisible(fbLocale.getClassLocale());
