@@ -51,6 +51,10 @@ public abstract class AbstractEjbQuery implements Serializable,JeeslQuery
 	public Date getToDate2() {return toDate2;}
 	public void setToDate2(Date toDate2) {this.toDate2 = toDate2;}
 	
+	private Date toDate3;
+	public Date getToDate3() {return toDate3;}
+	public void setToDate3(Date toDate3) {this.toDate3 = toDate3;}
+	
 	//Sorting
 	private String sortBy;
 	@Override public String getSortBy() {return sortBy;}

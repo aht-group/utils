@@ -18,18 +18,21 @@ public class XmlCellFactory<MATRIX extends JeeslSurveyMatrix<?,?,?,?>>
 		this.localeCode=localeCode;
 	}
 	
-	public Cell build(MATRIX matrix)
+	public Cell build(MATRIX cell)
 	{
 		Cell xml = new Cell();
 		
-		if(BooleanComparator.active(matrix.getAnswer().getQuestion().getShowBoolean()) && matrix.getValueBoolean()!=null){xml.setLabel(matrix.getValueBoolean().toString());xml.setValueBoolean(matrix.getValueBoolean());}
-		if(BooleanComparator.active(matrix.getAnswer().getQuestion().getShowInteger()) && matrix.getValueNumber()!=null){xml.setLabel(matrix.getValueNumber().toString());xml.setValueNumber(matrix.getValueNumber());}
-		if(BooleanComparator.active(matrix.getAnswer().getQuestion().getShowDouble()) && matrix.getValueDouble()!=null){xml.setLabel(matrix.getValueDouble().toString());xml.setValueDouble(matrix.getValueDouble());}
-		if(BooleanComparator.active(matrix.getAnswer().getQuestion().getShowText()) && matrix.getValueText()!=null){xml.setLabel(matrix.getValueText());xml.setValueText(matrix.getValueText());}
+		if(BooleanComparator.active(cell.getAnswer().getQuestion().getShowBoolean()) && cell.getValueBoolean()!=null){xml.setLabel(cell.getValueBoolean().toString());xml.setValueBoolean(cell.getValueBoolean());}
+		if(BooleanComparator.active(cell.getAnswer().getQuestion().getShowInteger()) && cell.getValueNumber()!=null){xml.setLabel(cell.getValueNumber().toString());xml.setValueNumber(cell.getValueNumber());}
+		if(BooleanComparator.active(cell.getAnswer().getQuestion().getShowDouble()) && cell.getValueDouble()!=null){xml.setLabel(cell.getValueDouble().toString());xml.setValueDouble(cell.getValueDouble());}
+		if(BooleanComparator.active(cell.getAnswer().getQuestion().getShowText()) && cell.getValueText()!=null){xml.setLabel(cell.getValueText());xml.setValueText(cell.getValueText());}
 	
-		if(BooleanComparator.active(matrix.getAnswer().getQuestion().getShowSelectOne())){xml.setLabel(matrix.getOption().getName().get(localeCode).getLang());xml.setValueOption(matrix.getOption().getCode());}
+		if(BooleanComparator.active(cell.getAnswer().getQuestion().getShowSelectOne()) && cell.getOption()!=null)
+		{
+			xml.setLabel(cell.getOption().getName().get(localeCode).getLang());
+			xml.setValueOption(cell.getOption().getCode());
+		}
 		
 		return xml;
-		
 	}
 }

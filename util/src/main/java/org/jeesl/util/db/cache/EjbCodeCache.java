@@ -39,13 +39,20 @@ public class EjbCodeCache <T extends EjbWithCode>
 	public <E extends Enum<E>> T ejb(E code) {return ejb(code.toString());}
 	public T ejb(String code)
 	{
+		return ejb(code,true);
+	}
+	public T ejb(String code, boolean withStackTrace)
+	{
 		if(!map.containsKey(code))
 		{
 			try
 			{
 				map.put(code, fUtils.fByCode(c,code));
 			}
-			catch (JeeslNotFoundException e) {e.printStackTrace();}
+			catch (JeeslNotFoundException e)
+			{
+				if(withStackTrace) {e.printStackTrace();}
+			}
 		}
 		return map.get(code);
 	}

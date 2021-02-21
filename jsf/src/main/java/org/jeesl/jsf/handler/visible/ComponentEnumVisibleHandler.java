@@ -1,4 +1,4 @@
-package net.sf.ahtutils.jsf.util;
+package org.jeesl.jsf.handler.visible;
 
 import java.util.Hashtable;
 import java.util.Map;
@@ -6,13 +6,13 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ComponentVisibleManager<E extends Enum<E>>
+public class ComponentEnumVisibleHandler<E extends Enum<E>>
 {
-	final static Logger logger = LoggerFactory.getLogger(ComponentVisibleManager.class);
+	final static Logger logger = LoggerFactory.getLogger(ComponentEnumVisibleHandler.class);
 	
 	private Map<String,Boolean> visible;
 	
-	public ComponentVisibleManager(Class<E> e)
+	public ComponentEnumVisibleHandler(Class<E> e)
 	{
 		visible = new Hashtable<String,Boolean>();
 	   	for(E v : e.getEnumConstants())

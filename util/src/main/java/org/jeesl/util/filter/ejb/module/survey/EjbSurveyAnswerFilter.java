@@ -22,7 +22,7 @@ public class EjbSurveyAnswerFilter <SECTION extends JeeslSurveySection<?,?,?,SEC
 		
 		for(QUESTION q : map.keySet())
 		{
-			if(q.getSection().equals(section))
+			if(q.isVisible() && q.getSection().equals(section))
 			{
 				list.add(map.get(q));
 			}

@@ -80,6 +80,7 @@ public class XmlMatrixFactory<L extends JeeslLang,D extends JeeslDescription,
 	
 	public Matrix build(ANSWER answer)
 	{
+		
 		QUESTION question = answer.getQuestion();
 		
 		List<OPTION> options = new ArrayList<>();
@@ -107,7 +108,9 @@ public class XmlMatrixFactory<L extends JeeslLang,D extends JeeslDescription,
 				Column xColumn = column(eColumn);
 				if(map.containsKey(eRow,eColumn))
 				{
-					xColumn.setCell(xfCell.build(map.get(eRow,eColumn)));
+					MATRIX cell = map.get(eRow,eColumn);
+					logger.info("Nul? "+(cell!=null));
+					xColumn.setCell(xfCell.build(cell));
 				}
 				
 				
@@ -116,7 +119,6 @@ public class XmlMatrixFactory<L extends JeeslLang,D extends JeeslDescription,
 			
 			xml.getRow().add(xRow);
 		}
-		
 		return xml;
 		
 	}

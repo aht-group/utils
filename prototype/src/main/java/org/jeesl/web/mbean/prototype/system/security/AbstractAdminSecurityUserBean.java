@@ -10,6 +10,7 @@ import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.core.JeeslUserFacade;
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
+import org.jeesl.controller.monitoring.counter.ProcessingTimeTracker;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
@@ -111,7 +112,10 @@ public abstract class AbstractAdminSecurityUserBean <L extends JeeslLang, D exte
 	
 	protected void reloadUsers()
 	{
+		ProcessingTimeTracker ptt = ProcessingTimeTracker.instance().start();
+		logger.info(ptt.debugEvent("Reloading ..."));
 		users = fUtilsUser.all(fbSecurity.getClassUser());
+		logger.info(AbstractLogMessage.reloaded(fbSecurity.getClassUser(),users)+" "+ptt.debugEvent(""));
 	}
 
 	public void addUser() throws JeeslNotFoundException
@@ -208,7 +212,6 @@ public abstract class AbstractAdminSecurityUserBean <L extends JeeslLang, D exte
 		else {logger.warn("Password Checking and updating deactivated");}
 		return false;
 	}
-	
 	
 	protected void constraintViolationOnSave() {logger.warn("constraintViolationOnSave, this should be @Overriden");}
 	protected void constraintViolationOnRemove() {}
