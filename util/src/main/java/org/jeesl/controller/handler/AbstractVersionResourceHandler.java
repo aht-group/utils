@@ -5,14 +5,14 @@ import javax.faces.application.ResourceHandler;
 import javax.faces.application.ResourceHandlerWrapper;
 import javax.faces.application.ResourceWrapper;
 
-public class AbstractBuildVersionResourceHandler extends ResourceHandlerWrapper
+public class AbstractVersionResourceHandler extends ResourceHandlerWrapper
 {
 	private ResourceHandler wrapped;
 	private String cssTimeStamp;
 	public String getCssTimeStamp() {return cssTimeStamp;}
 	public void setCssTimeStamp(String cssTimeStamp) {this.cssTimeStamp = cssTimeStamp;}
 
-	public AbstractBuildVersionResourceHandler(ResourceHandler wrapped)
+	public AbstractVersionResourceHandler(ResourceHandler wrapped)
 	{
         this.wrapped = wrapped;
     }
@@ -44,7 +44,7 @@ public class AbstractBuildVersionResourceHandler extends ResourceHandlerWrapper
 			@Override
 			public String getRequestPath()
 			{
-				return super.getRequestPath() + "&buildVersion=" + cssTimeStamp;
+				return super.getRequestPath() + "\u0026" + "buildVersion=" + cssTimeStamp;
 			}
 
 			@Override
