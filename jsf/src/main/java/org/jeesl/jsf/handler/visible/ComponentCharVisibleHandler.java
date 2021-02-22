@@ -3,6 +3,7 @@ package org.jeesl.jsf.handler.visible;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+//jeesl.highlight:showcase
 public class ComponentCharVisibleHandler
 {
 	final static Logger logger = LoggerFactory.getLogger(ComponentCharVisibleHandler.class);
@@ -33,8 +34,9 @@ public class ComponentCharVisibleHandler
 	private void warning(int i)
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append("Involing set(..").append(i).append("..) Method");
+		sb.append("Invalid set(..").append(i).append("..) Method");
 		sb.append(" does not match the defined size of ").append(size);
 		logger.warn(sb.toString());
 	}
 }
+//jeesl.highlight:showcase

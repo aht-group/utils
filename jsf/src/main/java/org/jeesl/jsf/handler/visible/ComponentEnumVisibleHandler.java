@@ -6,6 +6,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+//jeesl.highlight:showcase
 public class ComponentEnumVisibleHandler<E extends Enum<E>>
 {
 	final static Logger logger = LoggerFactory.getLogger(ComponentEnumVisibleHandler.class);
@@ -55,3 +56,4 @@ public class ComponentEnumVisibleHandler<E extends Enum<E>>
 		else {edit(e,true);}
 	}
 }
+//jeesl.highlight:showcase
