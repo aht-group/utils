@@ -239,7 +239,7 @@ body {
 }
 
 .jeesl-header {
-	border-bottom: 2px solid $light-grey;
+	border-bottom: 2px solid $bright-grey;
 	height: 36px;
     padding: 3px 0 0;
 	position: relative;
@@ -268,7 +268,7 @@ body {
 		top: 5px;
 	}
 	
-	@include jeesl-dropdown($dark-grey, $white-100, $white-100, $light-grey, 20);
+	@include jeesl-dropdown($anthracite, $white-100, $white-100, $bright-grey, 20);
 	
 	.jeesl-dropdown-list {
 		background: transparent;
@@ -292,7 +292,8 @@ body {
 		.jeesl-dropdown-item {
 			&:hover {
 				.jeesl-dropdown-item-label {
-					border-bottom-color: $dark-colour;
+					border-bottom: 2px solid $dark-colour;
+					color: $dark-colour;
 				}
 			}
 			
@@ -410,6 +411,11 @@ body {
 				
 				.jeesl-menu-bar-button-label {
 					padding: 0;
+					
+					// Blending out the old triangles for the breadcrumbs is necessary.
+					&:before, &:after {
+						display: none;
+					}
 					
 					// Overriding .aupHeadlineBreadcrumb a styles necessary.
 					background: none;
@@ -558,6 +564,221 @@ body {
 				
 				> * {
 					width: 100%;
+				}
+			}
+		}
+	}
+}
+
+@mixin jeesl-panel-titlebar {
+	.ui-panel-titlebar {
+		box-sizing: border-box;
+	    height: 22px;
+	    padding: 0 0 0 10px;
+		
+		@media (max-width: 768px) {
+			height: 44px;
+		}
+		
+		.ui-panel-title {
+	    	line-height: 22px;
+
+			@media (max-width: 768px) {
+			    font-size: 18px;
+			    letter-spacing: -.5px;
+			    line-height: 42px;
+			}
+		}
+		
+		.ui-panel-actions {
+			float: none;
+			height: 100%;
+			
+			.ui-outputpanel {
+				height: 100%;
+				
+				.pf-action-icon {
+    				box-sizing: border-box;
+					height: 100%;
+    				margin: 0;
+					padding: 4px 0;
+					transition: background .2s linear;
+
+					@media (max-width: 768px) {
+						padding: 7px 0 6px;
+					}
+					
+					&:hover {
+						background: $header-background-colour;
+					}
+					
+					img {
+						padding: 0 4px;
+						
+						@media (max-width: 768px) {
+							border-left: 1px solid $border-colour;
+    						padding: 0 6px;
+						}
+					}
+				}
+			}
+			
+			img {
+				height: 100%;
+			}
+		}
+	}
+}
+
+@mixin input-grid {
+	.ui-fluid {
+		.p-grid {
+			display: block;
+			padding: 4px 0 0;
+			position: relative;
+			
+			.p-col {
+				&.ui-outputlabel {
+					left: 50%;
+					line-height: 14px;
+					padding: 0;
+					position: absolute;
+					top: 0;
+    				transform: translate(-50%, 0);
+					
+					&:first-child {
+						left: 15px;
+						transform: none;
+					}
+					
+					&:last-child {
+						left: auto;
+						right: 15px;
+						transform: none;
+					}
+				}
+				
+				&:not(.ui-outputlabel) {
+					height: 56px;
+				    line-height: 50px;
+				    padding: 3px 0;
+
+					@media (max-width: 768px) {
+						// Overriding inline css
+						width: 100% !important;
+					}
+
+					> * {
+						border-radius: 3px;
+						box-sizing: border-box;
+						font-size: 18px !important;
+						height: 100%;
+						padding-left: 10px;
+						width: 100%;
+					}
+					
+					> span {
+						background: $light-grey;
+						display: inline-block;
+					}
+				}
+			}
+		}
+	}
+}
+
+.jeesl-content {
+	.jeesl-content-container {
+		.ui-panel {
+			@include jeesl-panel-titlebar;
+			
+			.ui-tree {
+				.ui-treenode-content {
+				    display: flex;
+					width: 100%;
+	
+					@media (max-width: 768px) {
+					    font-size: 1.3em;
+					    height: 50px;
+					    line-height: 50px;
+					}
+					
+					.ui-tree-toggler {
+						background-image: none;
+					    box-sizing: border-box;
+					    width: auto;
+					    height: 100%;
+	
+						&:hover {
+							background: $soft-grey;
+						}
+	
+						&:before {
+							border-style: solid;
+						    box-sizing: border-box;
+						    content: '';
+						    display: block;
+						}
+					
+						&.ui-icon-triangle-1-e {
+							padding: 7px 6px 6px;
+							
+							@media (max-width: 768px) {
+								padding: 17px 16px;
+							}
+							
+							&:before {
+								border-color: transparent transparent transparent $dark-grey;
+								border-width: 4px 0 4px 4px;
+								
+								@media (max-width: 768px) {
+									border-width: 8px 0 8px 8px;
+								}
+							}
+						}
+					
+						&.ui-icon-triangle-1-s {
+							padding: 9px 4px 8px;
+		
+							@media (max-width: 768px) {
+						    	padding: 21px 12px;
+							}
+		
+							&:before {
+							    border-color: $dark-grey transparent transparent;
+								border-width: 4px 4px 0;
+			
+								@media (max-width: 768px) {
+							    	border-width: 8px 8px 0;
+								}
+							}
+						}
+					}
+					
+					.ui-treenode-label {
+						border-radius: 0;
+						flex: 1;
+						
+						@media (max-width: 768px) {
+					    	border-bottom: 2px solid $soft-grey;
+							padding-left: 10px;
+						}
+						
+						&.ui-state-hover {
+							background: $soft-grey;
+							box-shadow: none;
+						}
+					}
+				}
+			}
+			
+			.ui-panel-content {
+				@include input-grid;
+				
+				.ui-separator {
+					background: $light-grey;
+					height: 2px;
+					margin: 6px 0;
 				}
 			}
 		}
