@@ -20,7 +20,20 @@ public class SqlFactory
 		if(c.getAnnotation(Table.class)==null) {throw new RuntimeException("Not a @Table)");}
 		sb.append("UPDATE ").append(c.getAnnotation(Table.class).name());
 		if(alias!=null) {sb.append(" "+alias);}
-		sb.append(" SET ").append(id(alias,attribute)).append("=").append(t.getId());
+		sb.append(" SET ").append(id(alias,attribute)).append("=");
+		if(t!=null) {sb.append(t.getId());}
+		else {sb.append("NULL");}
+		newLine(newLine,sb);
+	}
+	
+	public static <E extends Enum<E>> void updateL(StringBuilder sb, Class<?> c, String alias, E attribute, Long value, boolean newLine)
+	{
+		if(c.getAnnotation(Table.class)==null) {throw new RuntimeException("Not a @Table)");}
+		sb.append("UPDATE ").append(c.getAnnotation(Table.class).name());
+		if(alias!=null) {sb.append(" "+alias);}
+		sb.append(" SET ").append(path(alias,attribute)).append("=");
+		if(value!=null) {sb.append(value);}
+		else {sb.append("NULL");}
 		newLine(newLine,sb);
 	}
 	

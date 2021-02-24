@@ -32,6 +32,7 @@ import org.jeesl.interfaces.model.io.ssi.data.JeeslIoSsiCleaning;
 import org.jeesl.interfaces.model.io.ssi.data.JeeslIoSsiData;
 import org.jeesl.interfaces.model.io.ssi.data.JeeslIoSsiLink;
 import org.jeesl.interfaces.model.io.ssi.data.JeeslIoSsiMapping;
+import org.jeesl.interfaces.model.io.ssi.maintenance.EjbWithSsiDataCleaning;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
@@ -51,7 +52,7 @@ public class JeeslIoSsiFacadeBean<L extends JeeslLang,D extends JeeslDescription
 									CLEANING extends JeeslIoSsiCleaning<L,D,CLEANING,?>,
 									HOST extends JeeslIoSsiHost<L,D,SYSTEM>>
 					extends JeeslFacadeBean
-					implements JeeslIoSsiFacade<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,HOST>
+					implements JeeslIoSsiFacade<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING,HOST>
 {	
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(JeeslIoSsiFacadeBean.class);
@@ -274,5 +275,38 @@ public class JeeslIoSsiFacadeBean<L extends JeeslLang,D extends JeeslDescription
         return jtf.build(tQ.getResultList(),JsonTupleFactory.Type.count);
 	}
 
+	@Override public <T extends EjbWithSsiDataCleaning<CLEANING>> List<T> fEntitiesWithoutSsiDataCleaning(Class<T> c, int maxResult)
+	{
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<T> cQ = cB.createQuery(c);
+		Root<T> item = cQ.from(c);
+		
+		Expression<CLEANING> eMigration = item.get(EjbWithSsiDataCleaning.Attributes.cleaning.toString());
+		predicates.add(cB.or(cB.isNull(eMigration)));
 
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.select(item);
+
+		TypedQuery<T> tQ = em.createQuery(cQ);
+		tQ.setMaxResults(maxResult);
+		return tQ.getResultList();
+	}
+	@Override public <T extends EjbWithSsiDataCleaning<CLEANING>> Json1Tuples<CLEANING> tpcSsiDataCleaning(Class<T> c)
+	{
+		Json1TuplesFactory<CLEANING> jtf = new Json1TuplesFactory<CLEANING>(fbSsi.getClassCleaning());
+		jtf.setfUtils(this);
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<Tuple> cQ = cB.createTupleQuery();
+		Root<T> item = cQ.from(c);
+		
+		Expression<Long> eCount = cB.count(item.<Long>get("id"));
+		Path<CLEANING> pCleaning = item.get(EjbWithSsiDataCleaning.Attributes.cleaning.toString());
+		
+		cQ.groupBy(pCleaning.get("id"));
+		cQ.multiselect(pCleaning.get("id"),eCount);
+	       
+		TypedQuery<Tuple> tQ = em.createQuery(cQ);
+        return jtf.buildCount(tQ.getResultList());
+	}
 }

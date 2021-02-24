@@ -11,7 +11,7 @@ public interface JeeslIoSsiData <MAPPING extends JeeslIoSsiMapping<?,?>,
 									LINK extends JeeslStatus<LINK,?,?>>
 		extends EjbWithId,EjbSaveable,EjbRemoveable,EjbWithCode,EjbWithParentAttributeResolver
 {	
-	public enum Attributes{mapping,code,link,localId,refA,refB}
+	public enum Attributes{mapping,code,link,targetId,localId,refA,refB}
 	
 	public MAPPING getMapping();
 	public void setMapping(MAPPING mapping);
@@ -22,9 +22,12 @@ public interface JeeslIoSsiData <MAPPING extends JeeslIoSsiMapping<?,?>,
 	String getJson();
 	void setJson(String json);
 	
+	Long getTargetId();
+	void setTargetId(Long targetId);
+	
 	Long getLocalId();
 	void setLocalId(Long localId);
-	
+
 	Long getRefA();
 	void setRefA(Long refA);
 

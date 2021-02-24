@@ -44,7 +44,7 @@ public class AbstractSsiHostBean <L extends JeeslLang, D extends JeeslDescriptio
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractSsiHostBean.class);
 	
-	private JeeslIoSsiFacade<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,HOST> fSsi;
+	private JeeslIoSsiFacade<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING,HOST> fSsi;
 	
 	private final IoSsiCoreFactoryBuilder<L,D,SYSTEM,CRED,HOST> fbSsiCore;
 	
@@ -62,7 +62,7 @@ public class AbstractSsiHostBean <L extends JeeslLang, D extends JeeslDescriptio
 	}
 
 	protected void postConstructSsiHost(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-										JeeslIoSsiFacade<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,HOST> fSsi)
+										JeeslIoSsiFacade<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING,HOST> fSsi)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fSsi=fSsi;

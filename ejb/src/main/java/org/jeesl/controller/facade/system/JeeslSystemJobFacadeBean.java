@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
+import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -24,7 +25,9 @@ import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.JobFactoryBuilder;
 import org.jeesl.factory.ejb.system.job.EjbJobCacheFactory;
 import org.jeesl.factory.ejb.system.job.EjbJobFactory;
+import org.jeesl.factory.json.system.io.db.tuple.t1.Json1TuplesFactory;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
+import org.jeesl.interfaces.model.system.job.EjbWithMigrationJob1;
 import org.jeesl.interfaces.model.system.job.JeeslJob;
 import org.jeesl.interfaces.model.system.job.JeeslJobCache;
 import org.jeesl.interfaces.model.system.job.JeeslJobCategory;
@@ -40,6 +43,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.with.primitive.text.EjbWithEmail;
+import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 import org.joda.time.DateTime;
 
 public class JeeslSystemJobFacadeBean<L extends JeeslLang,D extends JeeslDescription,
@@ -233,5 +237,43 @@ public class JeeslSystemJobFacadeBean<L extends JeeslLang,D extends JeeslDescrip
 		STATUS status = this.fByCode(fbJob.getClassStatus(),JeeslJobStatus.Code.queue);
 		JOB job = efJob.build(user,template,status,code,name,jsonFilter);
 		return this.save(job);
+	}
+	
+	
+	@Override public <T extends EjbWithMigrationJob1<STATUS>> List<T> fEntitiesWithPendingJob1(Class<T> c, int maxResult)
+	{
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<T> cQ = cB.createQuery(c);
+		Root<T> item = cQ.from(c);
+		
+		Expression<STATUS> eStatus = item.get(EjbWithMigrationJob1.Attributes.job1.toString());
+		STATUS queue = this.fByEnum(fbJob.getClassStatus(),JeeslJobStatus.Code.queue);
+		predicates.add(cB.or(cB.isNull(eStatus),cB.equal(eStatus, queue)));
+
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.select(item);
+
+		TypedQuery<T> tQ = em.createQuery(cQ);
+		tQ.setMaxResults(maxResult);
+		return tQ.getResultList();
+	}
+	
+	@Override public <T extends EjbWithMigrationJob1<STATUS>> Json1Tuples<STATUS> tpcJob1Status(Class<T> c)
+	{
+		Json1TuplesFactory<STATUS> jtf = new Json1TuplesFactory<>(fbJob.getClassStatus());
+		jtf.setfUtils(this);
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<Tuple> cQ = cB.createTupleQuery();
+		Root<T> item = cQ.from(c);
+		
+		Expression<Long> eCount = cB.count(item.<Long>get("id"));
+		Path<STATUS> pStatus = item.get(EjbWithMigrationJob1.Attributes.job1.toString());
+		
+		cQ.groupBy(pStatus.get("id"));
+		cQ.multiselect(pStatus.get("id"),eCount);
+	       
+		TypedQuery<Tuple> tQ = em.createQuery(cQ);
+        return jtf.buildCount(tQ.getResultList());
 	}
 }

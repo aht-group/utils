@@ -27,6 +27,9 @@
 						</j:dtHeader>
 					</f:facet>
 					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectMapping()}" update=":#{cc.id}:grid"/>
+					<p:column styleClass="jeeslRight">
+				    	<h:outputText value="#{cc.attrs.bean.thMapping.mapA[m].count}"><f:convertNumber type="number"/></h:outputText>
+				    </p:column>
 					<p:column>
 						<f:facet name="header"><h:outputText value="#{msg.jeeslIoSsiSystem}"/></f:facet>
 						<h:outputText value="#{m.system.code}"/>
@@ -39,9 +42,6 @@
 						<f:facet name="header"><h:outputText value="#{msg.jeeslIoSsiMappingClass}"/></f:facet>
 						<h:outputText value="#{m.entity.name[localeCode].lang}"/>
 					</p:column>
-					<p:column styleClass="jeeslRight">
-				    	<h:outputText value="#{cc.attrs.bean.thMapping.mapA[m].count}"><f:convertNumber type="number"/></h:outputText>
-				    </p:column>
 				    <p:columns var="l" value="#{cc.attrs.bean.thLink.listB}" columnIndexVar="colIndex" styleClass="jeeslCenter">
 						<f:facet name="header">
 							<jtp:symbolizer value="#{l}"/>

@@ -9,9 +9,11 @@ import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiCredential;
 import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiHost;
 import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.io.ssi.data.JeeslIoSsiAttribute;
+import org.jeesl.interfaces.model.io.ssi.data.JeeslIoSsiCleaning;
 import org.jeesl.interfaces.model.io.ssi.data.JeeslIoSsiData;
 import org.jeesl.interfaces.model.io.ssi.data.JeeslIoSsiLink;
 import org.jeesl.interfaces.model.io.ssi.data.JeeslIoSsiMapping;
+import org.jeesl.interfaces.model.io.ssi.maintenance.EjbWithSsiDataCleaning;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
@@ -26,6 +28,7 @@ public interface JeeslIoSsiFacade <L extends JeeslLang,D extends JeeslDescriptio
 									DATA extends JeeslIoSsiData<MAPPING,LINK>,
 									LINK extends JeeslIoSsiLink<L,D,LINK,?>,
 									ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>,
+									CLEANING extends JeeslIoSsiCleaning<L,D,CLEANING,?>,
 									HOST extends JeeslIoSsiHost<L,D,SYSTEM>
 									>
 			extends JeeslFacade
@@ -46,4 +49,7 @@ public interface JeeslIoSsiFacade <L extends JeeslLang,D extends JeeslDescriptio
 	Json1Tuples<MAPPING> tpMapping();
 	Json2Tuples<MAPPING,LINK> tpMappingLink();
 	<A extends EjbWithId, B extends EjbWithId> Json2Tuples<LINK,B> tpMappingB(Class<B> classB, MAPPING mapping, A a);
+	
+	<T extends EjbWithSsiDataCleaning<CLEANING>> List<T> fEntitiesWithoutSsiDataCleaning(Class<T> c, int maxResult);
+	<T extends EjbWithSsiDataCleaning<CLEANING>> Json1Tuples<CLEANING> tpcSsiDataCleaning(Class<T> c);
 }

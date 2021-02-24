@@ -41,7 +41,7 @@ public class AbstractSsiMappingBean <L extends JeeslLang,D extends JeeslDescript
 	final static Logger logger = LoggerFactory.getLogger(AbstractSsiMappingBean.class);
 	
 	private final IoSsiDataFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING> fbSsi;
-	private JeeslIoSsiFacade<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,HOST> fSsi;
+	private JeeslIoSsiFacade<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING,HOST> fSsi;
 	
 	private final JsonTuple1Handler<MAPPING> thMapping; public JsonTuple1Handler<MAPPING> getThMapping() {return thMapping;}
 	private final JsonTuple2Handler<MAPPING,LINK> thLink; public JsonTuple2Handler<MAPPING,LINK> getThLink() {return thLink;}
@@ -58,7 +58,7 @@ public class AbstractSsiMappingBean <L extends JeeslLang,D extends JeeslDescript
 		thLink = new JsonTuple2Handler<>(fbSsi.getClassMapping(),fbSsi.getClassLink());
 	}
 
-	public void postConstructSsiMapping(JeeslIoSsiFacade<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,HOST> fSsi)
+	public void postConstructSsiMapping(JeeslIoSsiFacade<L,D,SYSTEM,CRED,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY,CLEANING,HOST> fSsi)
 	{
 		this.fSsi=fSsi;
 		reload();
