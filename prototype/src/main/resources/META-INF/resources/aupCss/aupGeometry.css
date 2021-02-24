@@ -95,6 +95,7 @@ a:hover { color: #333; text-decoration: none; }
 .maincontent
 {
 	/*width: 100%;*/
+	display: flex;
 	line-height: 22px;
 	padding: 5px 10px 0;
 }
@@ -132,18 +133,18 @@ a:hover { color: #333; text-decoration: none; }
 .jeeslColumnCentered {text-align:center !important;}
 
 
-.aupContentCenter {float: left;}
+.aupContentCenter {/*float: left;*/ flex: 1;}
 
 .aupContentRight {
 	float: left;
-	width: 175px;
-	/*padding: 5px;*/
+	/*width: 175px;
+	padding: 5px;*/
 }
 
 /* SIDEBAR MENU */
 
 .sidemenu {width:100%;}
-.sidemenu ul {margin:0; padding:0;}
+.sidemenu ul {margin:0; padding:0; position: relative;}
 .sidemenu li {list-style: none;}
 .sidemenu ul.top-level {background: #EEE;}
 .sidemenu ul.top-level li
@@ -162,6 +163,7 @@ a:hover { color: #333; text-decoration: none; }
  text-indent: 10px;                   
  text-decoration:none;
  width:100%;
+ box-sizing: border-box;
 }
 .sidemenu a:hover{
  color: #FFF;

@@ -42,10 +42,10 @@ color: ${colorDark};
  background: ${colorMedium};
 }
 
-.sidemenu ul {
+/*.sidemenu ul {
     margin: -10px 0 0 10px;
     padding: 0 3px 0 0;
-}
+}*/
 .sidemenu > ul > li {
     list-style: none outside none;
 }
@@ -205,8 +205,8 @@ ul.aupHeadlineBreadcrumb,
     background: none repeat scroll 0 0 ${colorDark};
 }
 
-.aupStatusBar > ul > li > label > img {
-	max-height: 12px;
+.aupStatusBar > ul > li img {
+	height: 12px;
 }
 
 .aupStatusBar > ul > li.aupStatusBarLeft,
