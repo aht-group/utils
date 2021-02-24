@@ -163,12 +163,15 @@
 		pointer-events: none;
 	    position: relative;
 
+		> * {
+			pointer-events: all;
+		}
+
 		.jeesl-menu-bar-item {
 		    box-sizing: border-box;
 			height: 100%;
 		    margin: 0;
 		    padding: 0;
-			pointer-events: all;
 		    position: relative;
 		    top: 0;
 
@@ -800,6 +803,12 @@ body {
 						background: $light-grey;
 						height: 2px;
 						margin: 6px 0;
+					}
+				}
+				
+				.ui-texteditor {
+					.ql-editor {
+						background: $white-100;
 					}
 				}
 			}
