@@ -574,9 +574,13 @@ body {
 	.ui-panel-titlebar {
 		box-sizing: border-box;
 	    height: 22px;
+		margin-bottom: 2px;
 	    padding: 0 0 0 10px;
 		
 		@media (max-width: 768px) {
+			border: 0 solid $dark-colour;
+			border-bottom-width: 4px;
+			border-radius: 3px 3px 0 0;
 			height: 44px;
 		}
 		
@@ -584,6 +588,7 @@ body {
 	    	line-height: 22px;
 
 			@media (max-width: 768px) {
+				color: $dark-colour;
 			    font-size: 18px;
 			    letter-spacing: -.5px;
 			    line-height: 42px;
@@ -633,37 +638,42 @@ body {
 @mixin input-grid {
 	.ui-fluid {
 		.p-grid {
-			display: block;
-			padding: 4px 0 0;
 			position: relative;
+			
+			@media (max-width: 768px) {
+				display: block;
+				padding: 4px 0 0;
+			}
 			
 			.p-col {
 				&.ui-outputlabel {
-					left: 50%;
-					line-height: 14px;
-					padding: 0;
-					position: absolute;
-					top: 0;
-    				transform: translate(-50%, 0);
-					
-					&:first-child {
-						left: 15px;
-						transform: none;
-					}
-					
-					&:last-child {
-						left: auto;
-						right: 15px;
-						transform: none;
+					@media (max-width: 768px) {
+						left: 50%;
+						line-height: 14px;
+						padding: 0;
+						position: absolute;
+						top: 0;
+	    				transform: translate(-50%, 0);
+						
+						&:first-child {
+							left: 15px;
+							transform: none;
+						}
+						
+						&:last-child {
+							left: auto;
+							right: 15px;
+							transform: none;
+						}
 					}
 				}
 				
 				&:not(.ui-outputlabel) {
-					height: 56px;
-				    line-height: 50px;
-				    padding: 3px 0;
-
 					@media (max-width: 768px) {
+						height: 56px;
+					    line-height: 50px;
+					    padding: 3px 0;
+
 						// Overriding inline css
 						width: 100% !important;
 					}
@@ -671,15 +681,21 @@ body {
 					> * {
 						border-radius: 3px;
 						box-sizing: border-box;
-						font-size: 18px !important;
 						height: 100%;
-						padding-left: 10px;
-						width: 100%;
+						
+						@media (max-width: 768px) {
+							font-size: 18px !important;
+							padding-left: 10px;
+							width: 100%;
+						}
 					}
 					
 					> span {
-						background: $light-grey;
 						display: inline-block;
+						
+						@media (max-width: 768px) {
+							background: $light-grey;
+						}
 					}
 				}
 			}
@@ -691,6 +707,10 @@ body {
 	.jeesl-content-container {
 		.ui-panel {
 			@include jeesl-panel-titlebar;
+			
+			@media (max-width: 768px) {
+				padding: 0;
+			}
 			
 			.ui-tree {
 				.ui-treenode-content {
@@ -776,9 +796,11 @@ body {
 				@include input-grid;
 				
 				.ui-separator {
-					background: $light-grey;
-					height: 2px;
-					margin: 6px 0;
+					@media (max-width: 768px) {
+						background: $light-grey;
+						height: 2px;
+						margin: 6px 0;
+					}
 				}
 			}
 		}
