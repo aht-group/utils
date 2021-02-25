@@ -282,6 +282,7 @@
 									<includes>
 										<include>control/*.*</include>
 										<include>control/tree/*.*</include>
+										<include>control/email/*.*</include>
 										<include>control/arrow/blue/*.*</include>
 										<include>info/*.*</include>
 										<include>info/mark/*.*</include>

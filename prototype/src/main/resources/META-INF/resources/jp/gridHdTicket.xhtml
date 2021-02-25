@@ -76,10 +76,10 @@
 					<p:messages redisplay="false" severity="warn,error" showSummary="true" showDetail="true" closable="true"/>
 					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80" rendered="#{cc.attrs.bean.editHandler.deny}">
 						
-						<p:outputLabel value="#{msg.jeeslHdTicketCode}"/>
+						<jtp:label entity="HdTicket" code="code"/>
 						<h:outputText value="#{cc.attrs.bean.ticket.code}"/>
 						
-						<p:outputLabel value="#{msg.jeeslHdRecord}"/>
+						<jtp:label entity="HdEvent" code="record"/>
 						<jp:outputDate value="#{cc.attrs.bean.firstEvent.record}" withTime="true"/>
 						
 						<jtp:label entity="HdCategory"/>

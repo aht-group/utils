@@ -29,13 +29,15 @@
 							<p:column styleClass="jeeslCenter">  
 								<jtp:symbolizer value="#{faq.scope}"/>
 							</p:column>
-							<p:column headerText="#{msg.jeeslHdCategory}">
+							<p:column>
+								<f:facet name="header"><jtp:label entity="HdFaq" code="category"/></f:facet>
 								<h:panelGroup styleClass="jeeslNbsc">
 									<jtp:symbolizer value="#{faq.category}" marginRight="5"/>
 									<h:outputText value="#{faq.category.name[localeCode].lang}"/>
 								</h:panelGroup>
 							</p:column>
-							<p:column headerText="#{msg.jeeslHdFaqTopic}">  
+							<p:column>
+								<f:facet name="header"><jtp:label entity="HdFaq" code="name"/></f:facet>
 								<h:outputText value="#{faq.name[localeCode].lang}"/>
 							</p:column>
 					   	</p:dataTable>
@@ -50,12 +52,12 @@
 							</f:facet>
 							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
 								
-								<p:outputLabel value="#{msg.jeeslHdScope}"/>
+								<jtp:label entity="HdFaq" code="scope"/>
 								<p:selectOneMenu value="#{cc.attrs.bean.faq.scope}" effect="fade" autoWidth="false">
 		                        	<f:selectItems value="#{cc.attrs.bean.sbhScope.list}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s}"/>
 		                        </p:selectOneMenu>
 								
-								<p:outputLabel value="#{msg.jeeslHdCategory}"/>
+								<jtp:label entity="HdFaq" code="category"/>
 								<p:selectOneMenu value="#{cc.attrs.bean.faq.category}" effect="fade" autoWidth="false">
 		                        	<f:selectItems value="#{cc.attrs.bean.sbhCategory.list}" var="c" itemLabel="#{c.name[localeCode].lang}" itemValue="#{c}"/>
 		                        </p:selectOneMenu>

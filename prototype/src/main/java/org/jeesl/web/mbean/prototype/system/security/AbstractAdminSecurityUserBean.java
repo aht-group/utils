@@ -127,10 +127,15 @@ public abstract class AbstractAdminSecurityUserBean <L extends JeeslLang, D exte
 	}
 	protected abstract void postAdd() throws JeeslNotFoundException;
 	
-	public void selectUser()
+	public void selectUser() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.selectEntity(user));}
 		if(revision!=null){revision.pageFlowPrimarySelect(user);}
+		if(user.getSalt()==null || user.getSalt().trim().length()==0)
+		{
+			user.setSalt(TxtUserFactory.buildSalt());
+			user = fUtilsUser.save(user);
+		}
 		reloadUser();
 	}
 	

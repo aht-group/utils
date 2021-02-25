@@ -80,17 +80,17 @@
                         	<f:selectItems value="#{cc.attrs.bean.supporters}" var="u" itemLabel="#{u.firstName} #{u.lastName}" itemValue="#{u}"/>
                         </p:selectOneMenu>
                         
-                        <p:outputLabel value="#{msg.jeeslHdLevel}"/>
+                        <jtp:label entity="HdLevel"/>
 						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.level}" effect="fade" autoWidth="false">
                         	<f:selectItems value="#{cc.attrs.bean.levels}" var="l" itemLabel="#{l.name[localeCode].lang}" itemValue="#{l}"/>
                         </p:selectOneMenu>
                         
-                        <p:outputLabel value="#{msg.jeeslHdCategory}"/>
+                        <jtp:label entity="HdCategory"/>
 						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.category}" effect="fade" autoWidth="false">
                         	<f:selectItems value="#{cc.attrs.bean.sbhCategory.list}" var="c" itemLabel="#{c.name[localeCode].lang}" itemValue="#{c}"/>
                         </p:selectOneMenu>
                         
-                        <p:outputLabel value="#{msg.jeeslHdPriority}"/>
+                        <jtp:label entity="HdPriority"/>
 						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.supporterPriority}" effect="fade" autoWidth="false">
                         	<f:selectItems value="#{cc.attrs.bean.priorities}" var="p" itemLabel="#{p.name[localeCode].lang}" itemValue="#{p}"/>
                         </p:selectOneMenu>
@@ -158,16 +158,17 @@
 		</j:slot>
 		<j:slot id="sMessage" width="#{cc.attrs.bean.uiSlot.c}" rendered="#{cc.attrs.bean.uiSlot.showC}">
 			<h:form id="fMessage" >
-				<p:panel header="#{msg.jeeslHdMessage}" styleClass="jeeslPanel" rendered="#{not empty cc.attrs.bean.message}">
+				<p:panel styleClass="jeeslPanel" rendered="#{not empty cc.attrs.bean.message}">
+					<f:facet name="header"><jtp:label entity="HdMessage"/></f:facet>
 					<f:facet name="actions">
 						<j:svg type="jeeslSave" listener="#{cc.attrs.bean.saveMessage()}" update=":#{cc.id}:sMessage" library="jeeslGfx"/>
 					</f:facet>
 					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80" rendered="#{cc.attrs.bean.editHandler.deny}">
 						
-						<p:outputLabel value="#{msg.jeeslHdRecord}"/>
+						<jtp:label entity="HdMessage" code="record"/>
 						<jp:outputDate value="#{cc.attrs.bean.message.record}" withTime="true"/>
 						
-						<p:outputLabel value="#{msg.jeeslHdScope}"/>
+						<jtp:label entity="HdMessage" code="scope"/>
 						<ui:fragment>
 							<jtp:symbolizer value="#{cc.attrs.bean.message.scope}" marginRight="5"/>
 							<h:outputText value="#{cc.attrs.bean.message.scope.name[localeCode].lang}"/>

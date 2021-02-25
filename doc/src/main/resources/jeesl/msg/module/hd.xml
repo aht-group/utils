@@ -63,13 +63,7 @@
     		<s:lang key="fr" translation="Progress"/>
     	</s:langs>
     </s:translation>
- 	<s:translation key="jeeslHdLevel">
-    	<s:langs>
-    		<s:lang key="de" translation="Stufe"/>
-    		<s:lang key="en" translation="Level"/>
-    		<s:lang key="fr" translation="Level"/>
-    	</s:langs>
-    </s:translation>
+ 	
 	<s:translation key="jeeslHdScope">
     	<s:langs>
     		<s:lang key="de" translation="Geltungsbereich"/>

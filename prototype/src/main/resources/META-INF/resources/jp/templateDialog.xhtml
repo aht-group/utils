@@ -47,8 +47,7 @@
 					<h:form id="fTemplate">
 						<p:panel header="#{msg.jeeslIoTemplate}" styleClass="jeeslPanel">
 							<f:facet name="actions">
-								<j:icon type="jeeslClone" listener="#{cc.attrs.handler.sendMails()}" oncomplete="PF('#{cc.attrs.widgetVar}').hide();"/>
-								<j:icon type="jeeslSave" listener="#{cc.attrs.handler.saveTemplate()}" update="@form"/>
+								<j:svg type="jeeslSave" listener="#{cc.attrs.handler.saveTemplate()}" update="@form" library="jeeslGfx"/>
 							</f:facet>
 							<p:panelGrid columns="1" columnClasses="jeeslGrid100">
 								<jtp:inputRemark value="#{cc.attrs.handler.header[cc.attrs.handler.channel][cc.attrs.handler.locale.code]}" rows="1"/>
@@ -56,6 +55,9 @@
 							</p:panelGrid>
 						</p:panel>
 						<p:panel id="pPreview" header="#{cc.attrs.handler.previewHeader}" styleClass="jeeslPanel">
+							<f:facet name="actions">
+								<j:svg type="jeeslEmailSend" listener="#{cc.attrs.handler.sendMails()}" oncomplete="PF('#{cc.attrs.widgetVar}').hide();" library="jeeslGfx"/>
+							</f:facet>
 							<p:panelGrid columns="1" columnClasses="jeeslGrid100">
 								<pre style="white-space: pre-wrap;">#{cc.attrs.handler.previewBody}</pre>
 							</p:panelGrid>

@@ -18,5 +18,5 @@ public interface JeeslIoSsiCleaning <L extends JeeslLang, D extends JeeslDescrip
 				JeeslOptionRestDownload,JeeslStatusFixedCode,
 				EjbWithCodeGraphic<G>,JeeslStatus<S,L,D>
 {
-	public static enum Code{undecided,delete,keep};
+	public static enum Code{undecided,delete,keep,cc};
 }
