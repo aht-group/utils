@@ -64,7 +64,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.exlp.util.io.StringUtil;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,G>,
+public class AbstractTenantTableBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,G>,
 										R extends JeeslMcsRealm<L,D,R,G>, RREF extends EjbWithId,
 										G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslGraphicType<L,D,GT,G>,
 										F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>,
@@ -73,7 +73,7 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 			extends AbstractAdminBean<L,D,LOC>
 			implements Serializable
 {
-	final static Logger logger = LoggerFactory.getLogger(AbstractMcsTableBean.class);
+	final static Logger logger = LoggerFactory.getLogger(AbstractTenantTableBean.class);
 	private static final long serialVersionUID = 1L;
 
 	protected JeeslGraphicFacade<L,D,?,G,GT,F,FS> fGraphic;
@@ -115,9 +115,9 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 
 
 	@SuppressWarnings("rawtypes")
-	protected Class cl;
+	protected Class c;
 
-	public AbstractMcsTableBean(LocaleFactoryBuilder<L,D,LOC> fbStatus,
+	public AbstractTenantTableBean(LocaleFactoryBuilder<L,D,LOC> fbStatus,
 									SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg,
 									IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,?,?,?,?,?> fbRevision)
 	{
@@ -161,15 +161,15 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 		this.rref=rref;
 	}
 
-	private void reset(boolean rEntity)
+	protected void reset(boolean rEntity)
 	{
 		if(rEntity) {entity=null;}
 	}
 
 	protected void updateUiForCategory()
 	{
-		supportsSymbol = JeeslStatusWithSymbol.class.isAssignableFrom(cl);
-		supportsDownload = JeeslOptionRestDownload.class.isAssignableFrom(cl);
+		supportsSymbol = JeeslStatusWithSymbol.class.isAssignableFrom(c);
+		supportsDownload = JeeslOptionRestDownload.class.isAssignableFrom(c);
 	}
 
 	@Override
@@ -211,10 +211,10 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 		sb.append(fqcn);
 		logger.info(sb.toString());
 
-		cl = Class.forName(fqcn);
+		c = Class.forName(fqcn);
 		updateUiForCategory();
 
-		try {entity = fGraphic.fByCode(fbRevision.getClassEntity(), cl.getName());}
+		try {entity = fGraphic.fByCode(fbRevision.getClassEntity(), c.getName());}
 		catch (JeeslNotFoundException e) {}
 
 		uiAllowAdd = allowAdditionalElements.get(((EjbWithId)category).getId()) || hasDeveloperAction;
@@ -227,7 +227,8 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 	@SuppressWarnings("unchecked")
 	protected void reloadStatusEntries()
 	{
-		items = fGraphic.allOrderedPosition(cl);
+//		items = fGraphic.allOrderedPosition(c);
+		items = fGraphic.all(c, realm, rref);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -236,7 +237,7 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 		logger.debug("add");
 		uiAllowCode=true;
 
-		status = cl.newInstance();
+		status = c.newInstance();
 		((EjbWithId)status).setId(0);
 		((EjbWithCode)status).setCode("enter code");
 		((EjbWithLang<L>)status).setName(efLang.createEmpty(localeCodes));
@@ -254,8 +255,8 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 	public void selectStatus() throws JeeslConstraintViolationException, JeeslNotFoundException, JeeslLockingException
 	{
 		figures = null; figure=null;
-		status = fGraphic.find(cl,(EjbWithId)status);
-		status = fGraphic.loadGraphic(cl,(EjbWithId)status);
+		status = fGraphic.find(c,(EjbWithId)status);
+		status = fGraphic.loadGraphic(c,(EjbWithId)status);
 		logger.debug("selectStatus");
 		status = efLang.persistMissingLangs(fGraphic,localeCodes,(EjbWithLang)status);
 		status = efDescription.persistMissingLangs(fGraphic,localeCodes,(EjbWithDescription)status);
@@ -301,7 +302,7 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 
         	if(debugSave){logger.info("Saving "+status.getClass().getSimpleName()+" "+status.toString());}
 			status = fGraphic.save((EjbSaveable)status);
-			status = fGraphic.loadGraphic(cl,(EjbWithId)status);
+			status = fGraphic.loadGraphic(c,(EjbWithId)status);
 
 			graphic = ((EjbWithGraphic<G>)status).getGraphic();
 			if(debugSave){logger.info("Saved "+graphic.getClass().getSimpleName()+" "+graphic.toString());}
@@ -426,7 +427,7 @@ public class AbstractMcsTableBean <L extends JeeslLang, D extends JeeslDescripti
 
 		JeeslDbMcsStatusUpdater<L,D,LOC,R,RREF,G,GT> updater = new JeeslDbMcsStatusUpdater<L,D,LOC,R,RREF,G,GT>(fbStatus,fbSvg,fGraphic,lp);
 		updater.initMcs(realm,rref);
-		updater.iStatus(cl,xml);
+		updater.iStatus(c,xml);
 
         selectCategory();
 	}
