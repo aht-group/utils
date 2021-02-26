@@ -70,7 +70,7 @@
 							<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectStatus}" update=":#{cc.id}:sLang"/>
 							<p:column styleClass="aupPfDtColCentered">  
 								<aup:iconCheckmark value="#{s.visible}"/>
-				            </p:column>
+				            </p:column>>
 							<p:column rendered="#{not empty cc.attrs.bean.parents}">
 					            <f:facet name="header">#{msg.jeeslStatusSuperior}</f:facet>
 					            <h:outputText value="#{s.parent.name[localeCode].lang}" />
@@ -88,6 +88,10 @@
 							<p:column rendered="#{cc.attrs.bean.supportsSymbol}">
 								<f:facet name="header">#{msg.aupOptionSymbol}</f:facet>  
 								<h:outputText value="#{s.symbol}" />
+							</p:column>
+							<p:column rendered="#{cc.attrs.bean.supportsLocked}">
+								<f:facet name="header">#{msg.jeeslOptionLocked}</f:facet>  
+								<h:outputText value="#{s.locked}" />
 							</p:column>
 							<p:column rendered="#{cc.attrs.bean.supportsGraphic}" styleClass="jeeslCenter">
 								<jtp:symbolizer value="#{s}"/>
@@ -123,6 +127,9 @@
 								
 								<p:outputLabel rendered="#{cc.attrs.bean.hasAdministratorAction or cc.attrs.bean.hasDeveloperAction}" value="#{msg.jeeslOptionVisible}" />
 								<p:selectBooleanCheckbox rendered="#{cc.attrs.bean.hasAdministratorAction or cc.attrs.bean.hasDeveloperAction}" value="#{cc.attrs.bean.status.visible}" />
+
+								<p:outputLabel rendered="#{cc.attrs.bean.supportsLocked}" value="#{msg.jeeslOptionLocked}" />
+								<p:selectBooleanCheckbox rendered="#{cc.attrs.bean.supportsLocked}" value="#{cc.attrs.bean.status.locked}" />
 								
 								<p:outputLabel rendered="#{not empty cc.attrs.bean.parents}" value="#{msg.jeeslStatusSuperior}"/>
 								<p:selectOneMenu rendered="#{not empty cc.attrs.bean.parents}" value="#{cc.attrs.bean.parentId}" effect="fade" >

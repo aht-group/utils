@@ -46,6 +46,7 @@ import org.jeesl.interfaces.model.system.option.JeeslOptionRestDescription;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 import org.jeesl.interfaces.model.system.option.JeeslOptionUploadable;
 import org.jeesl.interfaces.model.with.parent.EjbWithParent;
+import org.jeesl.interfaces.model.with.primitive.bool.EjbWithLocked;
 import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
@@ -101,6 +102,7 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 	protected boolean supportsImage; public boolean getSupportsImage() {return supportsImage;}
 	protected boolean supportsGraphic; public boolean getSupportsGraphic() {return supportsGraphic;}
 	protected boolean supportsFigure; public boolean isSupportsFigure() {return supportsFigure;}
+	protected boolean supportsLocked; public boolean isSupportsLocked() {return supportsLocked;}
 
 	protected long index;
 	protected Map<Long,Boolean> allowAdditionalElements; public Map<Long, Boolean> getAllowAdditionalElements(){return allowAdditionalElements;}
@@ -187,6 +189,7 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 		supportsGraphic = EjbWithGraphic.class.isAssignableFrom(cl);
 		supportsSymbol = JeeslStatusWithSymbol.class.isAssignableFrom(cl);
 		supportsFigure = EjbWithGraphicFigure.class.isAssignableFrom(cl);
+		supportsLocked = EjbWithLocked.class.isAssignableFrom(cl);
 	}
 
 	@Override
@@ -201,6 +204,7 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 			logger.info("\tGraphic? "+supportsGraphic);
 			logger.info("\tSymbol? "+supportsSymbol);
 			logger.info("\tFigure? "+supportsFigure);
+			logger.info("\tLocked?"+supportsLocked);
 			logger.info("\t"+JeeslOptionRestDownload.class.getSimpleName()+"? "+supportsDownload);
 			logger.info("\t"+JeeslOptionRestDescription.class.getSimpleName()+"? "+supportsDescription);
 			logger.info("\t"+JeeslOptionUploadable.class.getSimpleName()+"? "+supportsUpload);

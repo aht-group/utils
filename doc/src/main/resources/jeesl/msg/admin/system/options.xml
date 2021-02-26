@@ -56,6 +56,13 @@
     		<s:lang key="fr" translation="Visible"/>
     	</s:langs>
 	</s:translation>
+	<s:translation key="jeeslOptionLocked">
+    	<s:langs>
+    		<s:lang key="de" translation="Gesperrt"/>
+    		<s:lang key="en" translation="Locked"/>
+    		<s:lang key="fr" translation="Locked"/>
+    	</s:langs>
+	</s:translation>
 	<s:translation key="aupOptionDetails">
     	<s:langs>
     		<s:lang key="de" translation="Details"/>
