@@ -12,15 +12,15 @@ import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketCategory;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketStatus;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
+import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.util.query.AbstractEjbQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbHelpdeskQuery<L extends JeeslLang,D extends JeeslDescription,
-							R extends JeeslMcsRealm<L,D,R,?>, RREF extends EjbWithId,
+							R extends JeeslTenantRealm<L,D,R,?>, RREF extends EjbWithId,
 							TICKET extends JeeslHdTicket<R,EVENT,?,?>,
 							CAT extends JeeslHdTicketCategory<L,D,R,CAT,?>,
 							STATUS extends JeeslHdTicketStatus<L,D,R,STATUS,?>,
@@ -42,7 +42,7 @@ public class EjbHelpdeskQuery<L extends JeeslLang,D extends JeeslDescription,
 	}
 	
 	public static <L extends JeeslLang,D extends JeeslDescription,
-					R extends JeeslMcsRealm<L,D,R,?>, RREF extends EjbWithId,
+					R extends JeeslTenantRealm<L,D,R,?>, RREF extends EjbWithId,
 					TICKET extends JeeslHdTicket<R,EVENT,?,?>,
 					CAT extends JeeslHdTicketCategory<L,D,R,CAT,?>,
 					STATUS extends JeeslHdTicketStatus<L,D,R,STATUS,?>,

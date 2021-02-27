@@ -5,12 +5,12 @@ import java.util.UUID;
 
 import org.jeesl.factory.ejb.util.EjbPositionFactory;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomView;
-import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
+import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbAssetLevelFactory<REALM extends JeeslMcsRealm<?,?,REALM,?>,
+public class EjbAssetLevelFactory<REALM extends JeeslTenantRealm<?,?,REALM,?>,
 									ALEVEL extends JeeslAomView<?,?,REALM,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbAssetLevelFactory.class);

@@ -6,7 +6,7 @@ import java.util.Map;
 import org.jeesl.api.bean.module.aom.JeeslAssetCacheBean;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
-import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
+import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.jsf.util.JeeslLazyListHandler;
 import org.primefaces.model.LazyDataModel;
@@ -14,7 +14,7 @@ import org.primefaces.model.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AssetCompanyLazyModel <REALM extends JeeslMcsRealm<?,?,REALM,?>, RREF extends EjbWithId,
+public class AssetCompanyLazyModel <REALM extends JeeslTenantRealm<?,?,REALM,?>, RREF extends EjbWithId,
 									COMPANY extends JeeslAomCompany<REALM,SCOPE>,
 									SCOPE extends JeeslAomScope<?,?,SCOPE,?>>
 					extends LazyDataModel<COMPANY>

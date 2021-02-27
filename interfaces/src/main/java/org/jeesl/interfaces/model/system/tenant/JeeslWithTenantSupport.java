@@ -1,6 +1,6 @@
-package org.jeesl.interfaces.model.system.mcs;
+package org.jeesl.interfaces.model.system.tenant;
 
-public interface JeeslWithMultiClientSupport<REALM extends JeeslMcsRealm<?,?,REALM,?>>
+public interface JeeslWithTenantSupport<REALM extends JeeslTenantRealm<?,?,REALM,?>>
 {	
 	public enum Attributes{realm,rref}
 	

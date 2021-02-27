@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.module.hd.ticket;
+package org.jeesl.interfaces.model.module.lf;
 
 import java.io.Serializable;
 
@@ -13,29 +13,16 @@ import org.jeesl.interfaces.model.with.primitive.code.EjbWithNonUniqueCode;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.text.EjbWithName;
 
-public interface JeeslHdTicket<R extends JeeslTenantRealm<?,?,R,?>,
-								EVENT extends JeeslHdEvent<?,?,?,?,?,?,?>,
+public interface JeeslLfLogframe<R extends JeeslTenantRealm<?,?,R,?>,
+								
 								M extends JeeslMarkup<?>,
 								FRC extends JeeslFileContainer<?,?>>
 						extends Serializable,EjbSaveable,
 								EjbWithId,EjbWithName,EjbWithNonUniqueCode,
-								JeeslWithTenantSupport<R>,
-								JeeslWithFileRepositoryContainer<FRC>
+								JeeslWithTenantSupport<R>
+//,								JeeslWithFileRepositoryContainer<FRC>
 {	
 	public enum Attributes{lastEvent}
 	
-	EVENT getFirstEvent();
-	void setFirstEvent(EVENT firstEvent);
-	
-	EVENT getLastEvent();
-	void setLastEvent(EVENT lastEvent);
-	
-	M getMarkupUser();
-	void setMarkupUser(M markupUser);
-	
-	M getMarkupSupport();
-	void setMarkupSupport(M markupSupport);
-	
-	M getMarkupSolution();
-	void setMarkupSolution(M markupSolution);
+
 }

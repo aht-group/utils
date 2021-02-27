@@ -6,12 +6,12 @@ import java.util.Map;
 
 import org.jeesl.interfaces.model.module.its.config.JeeslItsConfig;
 import org.jeesl.interfaces.model.module.its.config.JeeslItsConfigOption;
-import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
+import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbItsConfigFactory<R extends JeeslMcsRealm<?,?,R,?>,
+public class EjbItsConfigFactory<R extends JeeslTenantRealm<?,?,R,?>,
 								C extends JeeslItsConfig<?,?,R,O>,
 								O extends JeeslItsConfigOption<?,?,O,?>>
 {

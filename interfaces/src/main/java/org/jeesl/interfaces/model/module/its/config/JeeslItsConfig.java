@@ -6,16 +6,16 @@ import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
-import org.jeesl.interfaces.model.system.mcs.JeeslWithMultiClientSupport;
+import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
+import org.jeesl.interfaces.model.system.tenant.JeeslWithTenantSupport;
 import org.jeesl.interfaces.model.with.primitive.bool.EjbWithVisible;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithLangDescription;
 
 public interface JeeslItsConfig <L extends JeeslLang, D extends JeeslDescription,
-								R extends JeeslMcsRealm<L,D,R,?>,
+								R extends JeeslTenantRealm<L,D,R,?>,
 								O extends JeeslItsConfigOption<L,D,O,?>>
 			extends Serializable,EjbSaveable,EjbRemoveable,
-					JeeslWithMultiClientSupport<R>,
+					JeeslWithTenantSupport<R>,
 					EjbWithVisible,EjbWithLangDescription<L,D>
 					
 					

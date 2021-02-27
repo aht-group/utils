@@ -19,8 +19,8 @@ import org.jeesl.interfaces.model.module.its.task.JeeslItsTaskType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
-import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
+import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.slf4j.Logger;
@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public abstract class AbstractItsConfigBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
-										R extends JeeslMcsRealm<L,D,R,?>, RREF extends EjbWithId,
+										R extends JeeslTenantRealm<L,D,R,?>, RREF extends EjbWithId,
 										C extends JeeslItsConfig<L,D,R,O>,
 										O extends JeeslItsConfigOption<L,D,O,?>,
 										I extends JeeslItsIssue<R,I>,

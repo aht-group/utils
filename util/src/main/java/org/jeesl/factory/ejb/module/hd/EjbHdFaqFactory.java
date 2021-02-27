@@ -5,12 +5,12 @@ import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdFaq;
 import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdScope;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketCategory;
-import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
+import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbHdFaqFactory<R extends JeeslMcsRealm<?,?,R,?>,
+public class EjbHdFaqFactory<R extends JeeslTenantRealm<?,?,R,?>,
 							CAT extends JeeslHdTicketCategory<?,?,R,CAT,?>,
 							FAQ extends JeeslHdFaq<?,?,R,CAT,SCOPE>,
 							SCOPE extends JeeslHdScope<?,?,SCOPE,?>>

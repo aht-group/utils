@@ -1,13 +1,13 @@
 package org.jeesl.factory.ejb.module.asset;
 
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomView;
+import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.jeesl.interfaces.model.module.aom.asset.JeeslAomAssetType;
-import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbAssetTypeFactory<REALM extends JeeslMcsRealm<?,?,REALM,?>,
+public class EjbAssetTypeFactory<REALM extends JeeslTenantRealm<?,?,REALM,?>,
 									TYPE extends JeeslAomAssetType<?,?,REALM,TYPE,VIEW,?>,
 									VIEW extends JeeslAomView<?,?,REALM,?>>
 {

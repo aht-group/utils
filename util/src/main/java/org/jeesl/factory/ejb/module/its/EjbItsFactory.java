@@ -5,12 +5,12 @@ import java.util.UUID;
 import org.jeesl.factory.builder.module.ItsFactoryBuilder;
 import org.jeesl.interfaces.model.module.its.JeeslItsIssue;
 import org.jeesl.interfaces.model.module.its.JeeslItsIssueStatus;
-import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
+import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbItsFactory<R extends JeeslMcsRealm<?,?,R,?>,
+public class EjbItsFactory<R extends JeeslTenantRealm<?,?,R,?>,
 							I extends JeeslItsIssue<R,I>,
 							IS extends JeeslItsIssueStatus<?,?,R,IS,?>>
 {

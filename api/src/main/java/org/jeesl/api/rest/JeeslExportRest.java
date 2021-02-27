@@ -12,13 +12,13 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslMcsStatus;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
+import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.xml.system.revision.Entity;
 
 @Path("/rest/jeesl/export")
 public interface JeeslExportRest <L extends JeeslLang, D extends JeeslDescription,
-									R extends JeeslMcsRealm<L,D,R,?>,
+									R extends JeeslTenantRealm<L,D,R,?>,
 									G extends JeeslGraphic<L,D,?,?,?>>
 								extends org.jeesl.interfaces.rest.JeeslExportRest<L,D,R,G>
 {	

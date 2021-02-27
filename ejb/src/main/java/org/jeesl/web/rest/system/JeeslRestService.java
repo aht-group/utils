@@ -23,7 +23,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslMcsStatus;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
+import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.system.graphic.EjbWithGraphic;
 import org.jeesl.interfaces.rest.JeeslExportRest;
@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.xml.status.Status;
 
 public class JeeslRestService <L extends JeeslLang,D extends JeeslDescription,
-								R extends JeeslMcsRealm<L,D,R,G>,
+								R extends JeeslTenantRealm<L,D,R,G>,
 								S extends EjbWithId,
 								G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslGraphicType<L,D,GT,G>,
 								F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>,
@@ -74,7 +74,7 @@ public class JeeslRestService <L extends JeeslLang,D extends JeeslDescription,
 	}
 
 	public static <L extends JeeslLang,D extends JeeslDescription,
-						R extends JeeslMcsRealm<L,D,R,G>,
+						R extends JeeslTenantRealm<L,D,R,G>,
 						S extends EjbWithId,
 						G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslGraphicType<L,D,GT,G>,
 						F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>,

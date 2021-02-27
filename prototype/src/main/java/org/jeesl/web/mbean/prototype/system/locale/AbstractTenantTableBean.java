@@ -41,10 +41,10 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslMcsStatus;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatusFixedCode;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatusWithSymbol;
-import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
-import org.jeesl.interfaces.model.system.mcs.JeeslWithMultiClientSupport;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRest;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
+import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
+import org.jeesl.interfaces.model.system.tenant.JeeslWithTenantSupport;
 import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
@@ -65,7 +65,7 @@ import net.sf.exlp.util.io.StringUtil;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 public class AbstractTenantTableBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,G>,
-										R extends JeeslMcsRealm<L,D,R,G>, RREF extends EjbWithId,
+										R extends JeeslTenantRealm<L,D,R,G>, RREF extends EjbWithId,
 										G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslGraphicType<L,D,GT,G>,
 										F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>,
 										RE extends JeeslRevisionEntity<L,D,?,?,?,?>
@@ -242,8 +242,8 @@ public class AbstractTenantTableBean <L extends JeeslLang, D extends JeeslDescri
 		((EjbWithCode)status).setCode("enter code");
 		((EjbWithLang<L>)status).setName(efLang.createEmpty(localeCodes));
 		((EjbWithDescription<D>)status).setDescription(efDescription.createEmpty(localeCodes));
-		((JeeslWithMultiClientSupport<R>)status).setRealm(realm);
-		((JeeslWithMultiClientSupport<R>)status).setRref(rref.getId());
+		((JeeslWithTenantSupport<R>)status).setRealm(realm);
+		((JeeslWithTenantSupport<R>)status).setRref(rref.getId());
 
 		GT type = fGraphic.fByEnum(fbSvg.getClassGraphicType(), JeeslGraphicType.Code.symbol);
 		FS style = fGraphic.fByEnum(fbSvg.getClassFigureStyle(), JeeslGraphicStyle.Code.circle);

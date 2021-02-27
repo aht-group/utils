@@ -2,12 +2,12 @@ package org.jeesl.factory.ejb.module.asset;
 
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
-import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
+import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbAssetCompanyFactory<REALM extends JeeslMcsRealm<?,?,REALM,?>,
+public class EjbAssetCompanyFactory<REALM extends JeeslTenantRealm<?,?,REALM,?>,
 									COMPANY extends JeeslAomCompany<REALM,SCOPE>,
 									SCOPE extends JeeslAomScope<?,?,SCOPE,?>>
 {

@@ -9,14 +9,14 @@ import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.with.EjbWithCodeGraphic;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
+import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.primitive.code.EjbWithNonUniqueCode;
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithLangDescription;
 
 public interface JeeslAomAssetType <L extends JeeslLang, D extends JeeslDescription,
-							REALM extends JeeslMcsRealm<L,D,REALM,?>,
+							REALM extends JeeslTenantRealm<L,D,REALM,?>,
 							ATYPE extends JeeslAomAssetType<L,D,REALM,ATYPE,VIEW,G>,
 							VIEW extends JeeslAomView<L,D,REALM,G>,
 							G extends JeeslGraphic<L,D,?,?,?>>

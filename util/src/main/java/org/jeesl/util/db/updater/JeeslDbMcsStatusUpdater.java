@@ -16,7 +16,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.JeeslLocaleProvider;
 import org.jeesl.interfaces.model.system.locale.status.JeeslMcsStatus;
-import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
+import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.xml.jeesl.Container;
 import org.jeesl.util.db.cache.EjbCodeCache;
@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.xml.status.Status;
 
 public class JeeslDbMcsStatusUpdater <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,G>,
-										R extends JeeslMcsRealm<L,D,R,G>, RREF extends EjbWithId,
+										R extends JeeslTenantRealm<L,D,R,G>, RREF extends EjbWithId,
 //										S extends JeeslMcsStatus<L,D,R,S,G>,
 										G extends JeeslGraphic<L,D,GT,?,?>, GT extends JeeslGraphicType<L,D,GT,G>>
 {

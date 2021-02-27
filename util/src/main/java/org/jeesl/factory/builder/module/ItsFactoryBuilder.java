@@ -11,12 +11,12 @@ import org.jeesl.interfaces.model.module.its.task.JeeslItsTask;
 import org.jeesl.interfaces.model.module.its.task.JeeslItsTaskType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
+import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ItsFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
-								R extends JeeslMcsRealm<L,D,R,?>,
+								R extends JeeslTenantRealm<L,D,R,?>,
 								C extends JeeslItsConfig<L,D,R,O>,
 								O extends JeeslItsConfigOption<L,D,O,?>,
 								I extends JeeslItsIssue<R,I>,

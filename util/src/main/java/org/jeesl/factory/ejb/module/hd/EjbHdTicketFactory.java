@@ -6,12 +6,12 @@ import org.jeesl.factory.ejb.io.cms.EjbIoCmsMarkupFactory;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicket;
 import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
-import org.jeesl.interfaces.model.system.mcs.JeeslMcsRealm;
+import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbHdTicketFactory<R extends JeeslMcsRealm<?,?,R,?>,
+public class EjbHdTicketFactory<R extends JeeslTenantRealm<?,?,R,?>,
 								TICKET extends JeeslHdTicket<R,?,M,?>,
 								M extends JeeslMarkup<MT>,
 								MT extends JeeslIoCmsMarkupType<?,?,MT,?>>
