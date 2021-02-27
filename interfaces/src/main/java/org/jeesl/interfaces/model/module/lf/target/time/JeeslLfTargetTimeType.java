@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.module.lf.target;
+package org.jeesl.interfaces.model.module.lf.target.time;
 
 import java.io.Serializable;
 
@@ -12,7 +12,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatusFixedCode;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
 
-public interface JeeslLfTargetTimeStep <L extends JeeslLang, D extends JeeslDescription,
+public interface JeeslLfTargetTimeType <L extends JeeslLang, D extends JeeslDescription,
 									S extends JeeslStatus<S,L,D>,
 									G extends JeeslGraphic<L,D,?,?,?>>
 									extends Serializable,EjbPersistable,
@@ -20,5 +20,5 @@ public interface JeeslLfTargetTimeStep <L extends JeeslLang, D extends JeeslDesc
 										JeeslOptionRestDownload,EjbWithCodeGraphic<G>,
 										JeeslStatus<S,L,D>
 {
-	public static enum Code{none,week,month,quarter,year};
+	public static enum Code{none,timed,single,instant};
 }
