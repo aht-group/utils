@@ -60,6 +60,10 @@
 					<p:column styleClass="jeeslCenter">
 						<jtp:symbolizer value="#{s}"/>
 					</p:column>
+					<p:column rendered="#{cc.attrs.bean.supportsLocked}">
+						<f:facet name="header">#{msg.jeeslOptionLocked}</f:facet>  
+						<h:outputText value="#{s.locked}" />
+					</p:column>
 				</p:dataTable>
 	    	</h:form>
 		</j:slot>
@@ -79,7 +83,10 @@
 						
 						<p:outputLabel value="#{msg.jeeslOptionVisible}" />
 						<p:selectBooleanCheckbox value="#{cc.attrs.bean.status.visible}" />
-						
+
+						<p:outputLabel rendered="#{cc.attrs.bean.supportsLocked}" value="#{msg.jeeslOptionLocked}" />
+						<p:selectBooleanCheckbox rendered="#{cc.attrs.bean.supportsLocked}" value="#{cc.attrs.bean.status.locked}" />
+								
 					</p:panelGrid>
 					<j:tabTranslationEditor value="#{cc.attrs.bean.status}" locales="#{cc.attrs.bean.locales}" withDescription="true"/>
 					
