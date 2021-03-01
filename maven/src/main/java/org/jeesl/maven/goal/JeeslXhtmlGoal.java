@@ -53,6 +53,8 @@ public class JeeslXhtmlGoal extends AbstractMojo
 		{
 			JeeslXhtmlParser xhtmlParser = new JeeslXhtmlParser(fRoot.getAbsolutePath());
 			xhtmlParser.parse();
+			getLog().info("Processed " + xhtmlParser.getCount() +" Xhtml files ");
+
 			for(String s : xhtmlParser.getStats())
 			{
 				getLog().error(s);
