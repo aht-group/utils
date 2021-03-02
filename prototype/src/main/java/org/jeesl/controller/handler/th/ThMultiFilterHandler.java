@@ -105,6 +105,8 @@ public class ThMultiFilterHandler <T extends EjbWithId> implements Serializable,
 		map.put(t,true);
 		refresh();
 	}
+	
+	public void deselectAll() {for(T t : list) {map.put(t,false);}refresh();}
 	public void deselect(T t)
 	{
 		map.put(t,false);
@@ -164,6 +166,9 @@ public class ThMultiFilterHandler <T extends EjbWithId> implements Serializable,
 	public boolean hasSelected(){return !selected.isEmpty();}
 	public boolean allSelected(){return selected.size()==list.size();}
 
+	public boolean isSelectedA() {if(list.size()==0) {return false;} else {return map.get(list.get(0));}}
+	public boolean isSelectedB() {if(list.size()<1) {return false;} else {return map.get(list.get(1));}}
+	
 	public void debug(boolean debug)
 	{
 		if(debug)
