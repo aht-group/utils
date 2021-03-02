@@ -78,17 +78,17 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 										F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>,
 										RE extends JeeslRevisionEntity<L,D,?,?,?,?>
 >
-			extends AbstractAdminBean<L,D,LOC>
+			extends AbstractTableBean<L,D,LOC,G,GT,F,FS,RE>
 			implements Serializable
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractOptionTableBean.class);
 	private static final long serialVersionUID = 1L;
 
-	protected JeeslFacade fUtils;
+//	protected JeeslFacade fUtils;
 
-	private final LocaleFactoryBuilder<L,D,LOC> fbStatus;
-	private final SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg;
-	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,?,?,?,?,?> fbRevision;
+//	private final LocaleFactoryBuilder<L,D,LOC> fbStatus;
+//	private final SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg;
+//	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,?,?,?,?,?> fbRevision;
 
 	private final JeeslDbGraphicUpdater<G,GT> dbuGraphic;
 
@@ -96,66 +96,66 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 	private boolean showDescription; public boolean isShowDescription() {return showDescription;}
 
 	private boolean supportsUpload; public boolean getSupportsUpload(){return supportsUpload;}
-	private boolean supportsDownload; public boolean getSupportsDownload(){return supportsDownload;}
+//	private boolean supportsDownload; public boolean getSupportsDownload(){return supportsDownload;}
 	private boolean supportsDescription; public boolean getSupportsDescription(){return supportsDescription;}
-	protected boolean supportsSymbol; public boolean getSupportsSymbol(){return supportsSymbol;}
+//	protected boolean supportsSymbol; public boolean getSupportsSymbol(){return supportsSymbol;}
 	protected boolean supportsImage; public boolean getSupportsImage() {return supportsImage;}
 	protected boolean supportsGraphic; public boolean getSupportsGraphic() {return supportsGraphic;}
 	protected boolean supportsFigure; public boolean isSupportsFigure() {return supportsFigure;}
-	protected boolean supportsLocked; public boolean isSupportsLocked() {return supportsLocked;}
+//	protected boolean supportsLocked; public boolean isSupportsLocked() {return supportsLocked;}
 
-	protected long index;
-	protected Map<Long,Boolean> allowAdditionalElements; public Map<Long, Boolean> getAllowAdditionalElements(){return allowAdditionalElements;}
-
-	protected Object category; public Object getCategory() {return category;} public void setCategory(Object category) {this.category = category;}
-	protected Object status; public Object getStatus() {return status;} public void setStatus(Object status) {this.status = status;}
-	private G graphic; public G getGraphic() {return graphic;} public void setGraphic(G graphic) {this.graphic = graphic;}
-	private RE entity; public RE getEntity() {return entity;}
+//	protected long index;
+//	protected Map<Long,Boolean> allowAdditionalElements; public Map<Long, Boolean> getAllowAdditionalElements(){return allowAdditionalElements;}
+//
+//	protected Object category; public Object getCategory() {return category;} public void setCategory(Object category) {this.category = category;}
+//	protected Object status; public Object getStatus() {return status;} public void setStatus(Object status) {this.status = status;}
+//	private G graphic; public G getGraphic() {return graphic;} public void setGraphic(G graphic) {this.graphic = graphic;}
+//	private RE entity; public RE getEntity() {return entity;}
 
 	@SuppressWarnings("rawtypes")
-	protected Class cl,clParent;
+	protected Class clParent;
 
-	private final Map<EjbWithPosition,RE> mapEntity; public Map<EjbWithPosition, RE> getMapEntity() {return mapEntity;}
-	protected final List<EjbWithPosition> categories; public List<EjbWithPosition> getCategories(){return categories;}
+//	private final Map<EjbWithPosition,RE> mapEntity; public Map<EjbWithPosition, RE> getMapEntity() {return mapEntity;}
+//	protected final List<EjbWithPosition> categories; public List<EjbWithPosition> getCategories(){return categories;}
 	protected List<EjbWithPosition> parents; public List<EjbWithPosition> getParents(){return parents;}
-	protected List<EjbWithPosition> items; public List<EjbWithPosition> getItems() {return items;}
-	private List<GT> graphicTypes; public List<GT> getGraphicTypes() {return graphicTypes;}
-	private List<FS> graphicStyles; public List<FS> getGraphicStyles() {return graphicStyles;}
-	private List<F> figures; public List<F> getFigures() {return figures;}
+//	protected List<EjbWithPosition> items; public List<EjbWithPosition> getItems() {return items;}
+//	private List<GT> graphicTypes; public List<GT> getGraphicTypes() {return graphicTypes;}
+//	private List<FS> graphicStyles; public List<FS> getGraphicStyles() {return graphicStyles;}
+//	private List<F> figures; public List<F> getFigures() {return figures;}
 
-	private F figure; public F getFigure() {return figure;} public void setFigure(F figure) {this.figure = figure;}
+//	private F figure; public F getFigure() {return figure;} public void setFigure(F figure) {this.figure = figure;}
 
 	protected long parentId; public long getParentId(){return parentId;}public void setParentId(long parentId){this.parentId = parentId;}
 
-	protected final EjbGraphicFactory<L,D,G,GT,F,FS> efGraphic;
-	private final EjbGraphicFigureFactory<L,D,G,GT,F,FS> efFigure;
+//	protected final EjbGraphicFactory<L,D,G,GT,F,FS> efGraphic;
+//	private final EjbGraphicFigureFactory<L,D,G,GT,F,FS> efFigure;
 
 	public AbstractOptionTableBean(LocaleFactoryBuilder<L,D,LOC> fbStatus,
 									SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg,
 									IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,?,?,?,?,?> fbRevision)
 	{
-		super(fbStatus.getClassL(),fbStatus.getClassD());
-		this.fbStatus=fbStatus;
-		this.fbSvg=fbSvg;
-		this.fbRevision=fbRevision;
+		super(fbStatus,fbSvg,fbRevision);
+//		this.fbStatus=fbStatus;
+//		this.fbSvg=fbSvg;
+//		this.fbRevision=fbRevision;
 		dbuGraphic = new JeeslDbGraphicUpdater<>(fbSvg);
 
-		efGraphic = fbSvg.efGraphic();
+//		efGraphic = fbSvg.efGraphic();
+//
+//		efFigure = fbSvg.efFigure();
 
-		efFigure = fbSvg.efFigure();
-
-		index=1;
+//		index=1;
 
 		showDescription = false;
-		hasDeveloperAction = false;
-		hasAdministratorAction = true;
-		hasTranslatorAction = true;
+//		hasDeveloperAction = false;
+//		hasAdministratorAction = true;
+//		hasTranslatorAction = true;
 
-		status = null;
-		allowAdditionalElements = new Hashtable<Long,Boolean>();
-
-		mapEntity = new HashMap<>();
-		categories = new ArrayList<EjbWithPosition>();
+//		status = null;
+//		allowAdditionalElements = new Hashtable<Long,Boolean>();
+//
+//		mapEntity = new HashMap<>();
+//		categories = new ArrayList<EjbWithPosition>();
 	}
 
 	protected void postConstructOptionTable(JeeslTranslationBean<L,D,LOC> bTranslation,
@@ -163,17 +163,17 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 											JeeslFacesMessageBean bMessage)
 	{
 		super.initJeeslAdmin(bTranslation, bMessage);
-		this.fUtils=fGraphic;
+		this.fGraphic=fGraphic;
 		dbuGraphic.setFacade(fGraphic);
 
-		graphicTypes = fUtils.allOrderedPositionVisible(fbSvg.getClassGraphicType());
-		graphicStyles = fUtils.allOrderedPositionVisible(fbSvg.getClassFigureStyle());
+		graphicTypes = fGraphic.allOrderedPositionVisible(fbSvg.getClassGraphicType());
+		graphicStyles = fGraphic.allOrderedPositionVisible(fbSvg.getClassFigureStyle());
 	}
 
-	private void reset(boolean rEntity)
-	{
-		if(rEntity) {entity=null;}
-	}
+//	private void reset(boolean rEntity)
+//	{
+//		if(rEntity) {entity=null;}
+//	}
 
 	protected void updateSecurity(JeeslJsfSecurityHandler jsfSecurityHandler, String viewCode)
 	{
@@ -204,26 +204,26 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 			logger.info("\tGraphic? "+supportsGraphic);
 			logger.info("\tSymbol? "+supportsSymbol);
 			logger.info("\tFigure? "+supportsFigure);
-			logger.info("\tLocked?"+supportsLocked);
+			logger.info("\tLocked? "+supportsLocked);
 			logger.info("\t"+JeeslOptionRestDownload.class.getSimpleName()+"? "+supportsDownload);
 			logger.info("\t"+JeeslOptionRestDescription.class.getSimpleName()+"? "+supportsDescription);
 			logger.info("\t"+JeeslOptionUploadable.class.getSimpleName()+"? "+supportsUpload);
 		}
 	}
 
-	protected void loadEntities()
-	{
-		for(EjbWithPosition p : categories)
-		{
-			try
-			{
-				String fqcn = ((EjbWithImage)p).getImage();
-				RE e = fUtils.fByCode(fbRevision.getClassEntity(),fqcn);
-				mapEntity.put(p,e);
-			}
-			catch (JeeslNotFoundException e) {}
-		}
-	}
+//	protected void loadEntities()
+//	{
+//		for(EjbWithPosition p : categories)
+//		{
+//			try
+//			{
+//				String fqcn = ((EjbWithImage)p).getImage();
+//				RE e = fGraphic.fByCode(fbRevision.getClassEntity(),fqcn);
+//				mapEntity.put(p,e);
+//			}
+//			catch (JeeslNotFoundException e) {}
+//		}
+//	}
 
 	public void toggleDescription()
 	{
@@ -247,7 +247,7 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 		cl = Class.forName(((EjbWithImage)category).getImage());
 		updateUiForCategory();
 
-		try {entity = fUtils.fByCode(fbRevision.getClassEntity(), cl.getName());}
+		try {entity = fGraphic.fByCode(fbRevision.getClassEntity(), cl.getName());}
 		catch (JeeslNotFoundException e) {}
 
 		uiAllowAdd = allowAdditionalElements.get(((EjbWithId)category).getId()) || hasDeveloperAction;
@@ -255,7 +255,7 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 		if(((EjbWithImageAlt)category).getImageAlt()!=null)
 		{
             clParent = Class.forName(((EjbWithImageAlt)category).getImageAlt()).asSubclass(fbStatus.getClassStatus());
-            parents = fUtils.all(clParent);
+            parents = fGraphic.all(clParent);
             logger.info(cl.getSimpleName()+" "+parents.size());
 		}
 		else
@@ -271,7 +271,7 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 	@SuppressWarnings("unchecked")
 	protected void reloadStatusEntries()
 	{
-		items = fUtils.allOrderedPosition(cl);
+		items = fGraphic.allOrderedPosition(cl);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -288,8 +288,8 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 
 		if(supportsGraphic)
 		{
-			GT type = fUtils.fByCode(fbSvg.getClassGraphicType(), JeeslGraphicType.Code.symbol.toString());
-			FS style = fUtils.fByCode(fbSvg.getClassFigureStyle(), JeeslGraphicStyle.Code.circle.toString());
+			GT type = fGraphic.fByCode(fbSvg.getClassGraphicType(), JeeslGraphicType.Code.symbol.toString());
+			FS style = fGraphic.fByCode(fbSvg.getClassFigureStyle(), JeeslGraphicStyle.Code.circle.toString());
 			graphic = efGraphic.buildSymbol(type, style);
 			((EjbWithGraphic<G>)status).setGraphic(graphic);
 		}
@@ -299,11 +299,11 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 	public void selectStatus() throws JeeslConstraintViolationException, JeeslNotFoundException, JeeslLockingException
 	{
 		figures = null; figure=null;
-		status = fUtils.find(cl,(EjbWithId)status);
-		status = fUtils.loadGraphic(cl,(EjbWithId)status);
+		status = fGraphic.find(cl,(EjbWithId)status);
+		status = fGraphic.loadGraphic(cl,(EjbWithId)status);
 		logger.debug("selectStatus");
-		status = efLang.persistMissingLangs(fUtils,localeCodes,(EjbWithLang)status);
-		status = efDescription.persistMissingLangs(fUtils,localeCodes,(EjbWithDescription)status);
+		status = efLang.persistMissingLangs(fGraphic,localeCodes,(EjbWithLang)status);
+		status = efDescription.persistMissingLangs(fGraphic,localeCodes,(EjbWithDescription)status);
 
 		if(((EjbWithParent)status).getParent()!=null)
 		{
@@ -315,11 +315,11 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 			if(((EjbWithGraphic<G>)status).getGraphic()==null)
 			{
 				logger.info("Need to create a graphic entity for this status");
-				GT type = fUtils.fByCode(fbSvg.getClassGraphicType(), JeeslGraphicType.Code.symbol);
-				FS style = fUtils.fByCode(fbSvg.getClassFigureStyle(), JeeslGraphicStyle.Code.circle);
-				graphic = fUtils.persist(efGraphic.buildSymbol(type, style));
+				GT type = fGraphic.fByCode(fbSvg.getClassGraphicType(), JeeslGraphicType.Code.symbol);
+				FS style = fGraphic.fByCode(fbSvg.getClassFigureStyle(), JeeslGraphicStyle.Code.circle);
+				graphic = fGraphic.persist(efGraphic.buildSymbol(type, style));
 				((EjbWithGraphic<G>)status).setGraphic(graphic);
-				status = fUtils.update(status);
+				status = fGraphic.update(status);
 			}
 			graphic = ((EjbWithGraphic<G>)status).getGraphic();
 
@@ -351,18 +351,18 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 		{
             if(clParent!=null && parentId>0)
             {
-            	((EjbWithParent)status).setParent((EjbWithCode)fUtils.find(clParent, parentId));
+            	((EjbWithParent)status).setParent((EjbWithCode)fGraphic.find(clParent, parentId));
             }
         	if(supportsGraphic && graphic!=null)
             {
-        		graphic.setType(fUtils.find(fbSvg.getClassGraphicType(), ((EjbWithGraphic<G>)status).getGraphic().getType()));
-            	if(graphic.getStyle()!=null){graphic.setStyle(fUtils.find(fbSvg.getClassFigureStyle(), ((EjbWithGraphic<G>)status).getGraphic().getStyle()));}
+        		graphic.setType(fGraphic.find(fbSvg.getClassGraphicType(), ((EjbWithGraphic<G>)status).getGraphic().getType()));
+            	if(graphic.getStyle()!=null){graphic.setStyle(fGraphic.find(fbSvg.getClassFigureStyle(), ((EjbWithGraphic<G>)status).getGraphic().getStyle()));}
             	((EjbWithGraphic<G>)status).setGraphic(graphic);
             }
 
         	if(debugSave){logger.info("Saving "+status.getClass().getSimpleName()+" "+status.toString());}
-			status = fUtils.save((EjbSaveable)status);
-			status = fUtils.loadGraphic(cl,(EjbWithId)status);
+			status = fGraphic.save((EjbSaveable)status);
+			status = fGraphic.loadGraphic(cl,(EjbWithId)status);
 			if(supportsGraphic)
 			{
 				graphic = ((EjbWithGraphic<G>)status).getGraphic();
@@ -393,7 +393,7 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 	{
 		try
 		{
-			fUtils.rm((EjbRemoveable)status);
+			fGraphic.rm((EjbRemoveable)status);
 			updateAppScopeBean2(status);
 			status=null;
 			selectCategory();
@@ -405,18 +405,18 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 		}
 	}
 
-	public void cancelStatus() {reset(true,true);}
+//	public void cancelStatus() {reset(true,true);}
 	public void cancelFigure() {reset(false,true);reloadFigures();}
-	private void reset(boolean rStatus, boolean rFigure)
-	{
-		if(rStatus){status=null;}
-		if(rFigure){figure=null;}
-	}
+//	private void reset(boolean rStatus, boolean rFigure)
+//	{
+//		if(rStatus){status=null;}
+//		if(rFigure){figure=null;}
+//	}
 
 	protected void updateAppScopeBean2(Object o){}
 
-	public void reorder() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fUtils, items);}
-	public void reorderFigures() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fUtils,figures);}
+	public void reorder() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fGraphic, items);}
+	public void reorderFigures() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fGraphic,figures);}
 
 	@SuppressWarnings("unchecked")
 	public void handleFileUpload(FileUploadEvent event)
@@ -430,13 +430,13 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 	@SuppressWarnings("unchecked")
 	public void changeGraphicType()
 	{
-		((EjbWithGraphic<G>)status).getGraphic().setType(fUtils.find(fbSvg.getClassGraphicType(), ((EjbWithGraphic<G>)status).getGraphic().getType()));
+		((EjbWithGraphic<G>)status).getGraphic().setType(fGraphic.find(fbSvg.getClassGraphicType(), ((EjbWithGraphic<G>)status).getGraphic().getType()));
 		logger.info("changeGraphicType to "+((EjbWithGraphic<G>)status).getGraphic().getType().getCode());
 	}
 
 	private void reloadFigures()
 	{
-		figures = fUtils.allForParent(fbSvg.getClassFigure(),graphic);
+		figures = fGraphic.allForParent(fbSvg.getClassFigure(),graphic);
 	}
 
 	public void addFigure()
@@ -453,14 +453,14 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 	public void saveFigure() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		logger.info("Select "+figure.toString());
-		figure.setStyle(fUtils.find(fbSvg.getClassFigureStyle(),figure.getStyle()));
-		figure = fUtils.save(figure);
+		figure.setStyle(fGraphic.find(fbSvg.getClassFigureStyle(),figure.getStyle()));
+		figure = fGraphic.save(figure);
 		reloadFigures();
 	}
 
 	public void deleteFigure() throws JeeslConstraintViolationException, JeeslLockingException
 	{
-		fUtils.rm(figure);
+		fGraphic.rm(figure);
 		reset(false,true);
 		reloadFigures();
 	}
@@ -484,10 +484,10 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 		X x = cX.newInstance();
 
 		Container xml;
-		if(fUtils instanceof JeeslExportRestFacade)
+		if(fGraphic instanceof JeeslExportRestFacade)
 		{
-			logger.info("Using Facade Connection for JBoss EAP6 ("+fUtils.getClass().getSimpleName()+" implements "+JeeslExportRestFacade.class.getSimpleName()+")");
-			xml = ((JeeslExportRestFacade)fUtils).exportJeeslReferenceRest(x.getRestCode());
+			logger.info("Using Facade Connection for JBoss EAP6 ("+fGraphic.getClass().getSimpleName()+" implements "+JeeslExportRestFacade.class.getSimpleName()+")");
+			xml = ((JeeslExportRestFacade)fGraphic).exportJeeslReferenceRest(x.getRestCode());
 		}
 		else
 		{
@@ -499,7 +499,7 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 
 		JeeslDbStatusUpdater asdi = new JeeslDbStatusUpdater();
         asdi.setStatusEjbFactory(EjbStatusFactory.createFactory(cS,cL,cD,bTranslation.getLangKeys()));
-        asdi.setFacade(fUtils);
+        asdi.setFacade(fGraphic);
         DataUpdate dataUpdate = asdi.iuStatus(xml.getStatus(),cS,cL,clParent);
         asdi.deleteUnusedStatus(cS, cL, cD);
         JaxbUtil.info(dataUpdate);
@@ -532,10 +532,10 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 		X x = cX.newInstance();
 
 		Entity xml = null;
-		if(fUtils instanceof JeeslExportRestFacade)
+		if(fGraphic instanceof JeeslExportRestFacade)
 		{
-			logger.info("Using Facade Connection for JBoss EAP6 ("+fUtils.getClass().getSimpleName()+" implements "+JeeslExportRestFacade.class.getSimpleName()+"): "+x.getRestCode());
-			xml = ((JeeslExportRestFacade)fUtils).exportJeeslReferenceRevisionEntity(x.getRestCode());
+			logger.info("Using Facade Connection for JBoss EAP6 ("+fGraphic.getClass().getSimpleName()+" implements "+JeeslExportRestFacade.class.getSimpleName()+"): "+x.getRestCode());
+			xml = ((JeeslExportRestFacade)fGraphic).exportJeeslReferenceRevisionEntity(x.getRestCode());
 		}
 		else
 		{
@@ -555,7 +555,7 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 						entity.getDescription().get(d.getKey()).setLang(d.getValue());
 					}
 				}
-				entity = fUtils.save(entity);
+				entity = fGraphic.save(entity);
 			}
 			catch (JeeslConstraintViolationException | JeeslLockingException e) {e.printStackTrace();}
 		}

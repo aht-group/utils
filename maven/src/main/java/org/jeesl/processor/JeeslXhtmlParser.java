@@ -21,7 +21,8 @@ public class JeeslXhtmlParser
 	final static Logger logger = LoggerFactory.getLogger(JeeslXhtmlParser.class);
 	private File src;
 	private XMLReader xmlReader;
-	List<String> parseStats;
+	List<String> parseStats; public List<String> getStats() {return parseStats;}
+	private int count; public int getCount() {return count;}
 	public JeeslXhtmlParser(String pathToXhtmlFolder) throws ParserConfigurationException, SAXException
 	{
 		parseStats = new ArrayList<>();
@@ -36,6 +37,7 @@ public class JeeslXhtmlParser
 
 	public void parse()
 	{
+		count=0;
 		if(xmlReader!=null && src!=null)
 		{
 			parseFiles(src.listFiles(),xmlReader);
@@ -54,7 +56,7 @@ public class JeeslXhtmlParser
             {
             	if(file.getAbsolutePath().endsWith(".xhtml"))
             	{
-	            	logger.info("Parsing File: " + file.getAbsolutePath());
+	            	count++;
 	            	try
 					{
 						xmlReader.parse(new InputSource(file.getAbsolutePath()));
@@ -62,16 +64,10 @@ public class JeeslXhtmlParser
 	            	catch (IOException | SAXException e)
 					{
 	            		parseStats.add(e.toString());
-	            		//logger.error("lineNumber: " + e.getStackTrace().toString()+ " : " + e.getMessage());
-	            		//logger.error();
-	            		//e.printStackTrace();
 					}
             	}
             }
         }
     }
 
-	public List<String> getStats() {
-		return parseStats;
-	}
 }
