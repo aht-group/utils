@@ -42,6 +42,17 @@ public class Nested2Map <L1 extends EjbWithId, L2 extends EjbWithId, VALUE exten
     	return (m.containsKey(l1) && m.get(l1).containsKey(l2));
     }
     
+    public void remove(L1 l1, L2 l2)
+    {
+    	if(m.containsKey(l1))
+    	{
+    		if(m.get(l1).containsKey(l2))
+    		{
+    			m.get(l1).remove(l2);
+    		}
+    	}
+    }
+    
     public List<VALUE> values()
     {
     	List<VALUE> list = new ArrayList<VALUE>();

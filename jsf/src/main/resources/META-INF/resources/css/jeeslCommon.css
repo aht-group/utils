@@ -55,7 +55,7 @@ html, body {
    * If no panel is desired for specific elements, those elements should be set up accordingly.
    * (See following .ui-panelgrid) */ }
   .jeesl-panel:jeesl-editor .ql-container {
-    background: rgba(255, 255, 255, 0); }
+    background: white; }
   .jeesl-panel .ui-calendar {
     align-items: center;
     display: flex;

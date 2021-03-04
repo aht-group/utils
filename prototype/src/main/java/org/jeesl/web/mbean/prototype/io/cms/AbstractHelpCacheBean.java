@@ -93,8 +93,6 @@ public abstract class AbstractHelpCacheBean <L extends JeeslLang,D extends Jeesl
 	
 	public Section cache(String localeCode, VIEW view) throws JeeslNotFoundException
 	{
-		logger.info("cache: "+localeCode+" "+view.getCode());
-
 		if(debugOnInfo) {logger.info("Requesting "+localeCode+" "+view.toString());}
 		if(!mapSection.containsKey(view)) {mapSection.put(view, new HashMap<String,Section>());}
 		

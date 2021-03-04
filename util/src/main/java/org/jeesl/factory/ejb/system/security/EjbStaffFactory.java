@@ -56,6 +56,18 @@ public class EjbStaffFactory <R extends JeeslSecurityRole<?,?,?,?,?,?,USER>,
 		return map;
 	}
     
+    public Map<USER,Map<R,Boolean>> toMapUserRoleBoolean(List<STAFF> staffs)
+    {
+    	Map<USER,Map<R,Boolean>> map = new HashMap<>();
+    	for(STAFF staff : staffs)
+    	{
+    		if(!map.containsKey(staff.getUser())){map.put(staff.getUser(), new HashMap<R,Boolean>());}
+    		map.get(staff.getUser()).put(staff.getRole(),true);
+    	}
+    	return map;
+    	
+    }
+    
     public static <R extends JeeslSecurityRole<?,?,?,?,?,?,USER>,
 					USER extends JeeslUser<R>,
 					STAFF extends JeeslStaff<R,USER,D1,D2>,

@@ -81,6 +81,7 @@ public class ThMultiFilterHandler <T extends EjbWithId> implements Serializable,
 		refresh();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public <E extends Enum<E>> void preSelect(Class<T> cT, E... codes)
 	{
 		if(EjbWithCode.class.isAssignableFrom(cT))
