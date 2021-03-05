@@ -283,7 +283,7 @@ public class JeeslIoSsiFacadeBean<L extends JeeslLang,D extends JeeslDescription
 		Root<T> item = cQ.from(c);
 		
 		Expression<CLEANING> eMigration = item.get(EjbWithSsiDataCleaning.Attributes.cleaning.toString());
-		predicates.add(cB.or(cB.isNull(eMigration)));
+		predicates.add(cB.isNull(eMigration));
 
 		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
 		cQ.select(item);

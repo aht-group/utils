@@ -17,7 +17,7 @@
 	    <jp:sbItem orientation="left" onclick="PF('dlg-help').show();" styleClass="ui-button-help" rendered="#{cc.attrs.bean.activeOnlineHelp}">
 			<f:facet name="label">
 				<p:commandLink id="helpLink" onclick="PF('dlg-help').show();">
-					<h:graphicImage id="helpIcon" library="jeeslGfx" name="#{appIconBean.svg['jeeslOnlineHelp']}">
+					<h:graphicImage id="helpIcon" name="#{appIconBean.svg['jeeslOnlineHelp']}" library="jeeslGfx">
 						<f:attribute name="height" value="#{cc.attrs.height}"/>
 					</h:graphicImage>
 				</p:commandLink>
