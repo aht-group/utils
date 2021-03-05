@@ -114,8 +114,10 @@
 				</f:facet>
 				<p:column headerText="#{msg.jeeslHdRecord}">  
 					<jp:outputDate value="#{e.record}" withTime="true"/>
+					<br/>
+					<h:outputText value="#{e.initiator.firstName} #{e.initiator.lastName}" />
 				</p:column>
-				<p:column>
+				<p:column rendered="false">
 					<ui:remove>
 					<!-- 	<pe:letterAvatar value="#{e.initiator.firstName} #{e.initiator.lastName}" size="12px"/>  -->
 					</ui:remove>
@@ -130,7 +132,7 @@
 							<h:outputText value="#{e.status.name[localeCode].lang}"/>
 						</ui:fragment>
 						<ui:fragment rendered="#{t.code eq 'supporter'}">
-							<h:outputText value="#{e.supporter.firstName}"/>
+							<h:outputText value="#{e.supporter.firstName} #{e.supporter.lastName}"/>
 						</ui:fragment>
 						<ui:fragment rendered="#{t.code eq 'level'}">
 							<h:outputText value="#{e.level.name[localeCode].lang}"/>

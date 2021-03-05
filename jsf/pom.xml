@@ -288,8 +288,10 @@
 										<include>info/mark/*.*</include>
 										<include>system/io/cms/*.*</include>
 										<include>io/fr/type/*.*</include>
-										<include>system/io/revision/*.*</include>
+										
 										<include>module/survey/*.*</include>
+										<include>system/io/revision/*.*</include>
+										<include>security/*.*</include>
 									</includes>
 								</resource>
 							</resources>              

@@ -36,4 +36,10 @@ public interface JeeslSecurityContext<L extends JeeslLang, D extends JeeslDescri
 	
 	String getLinkImpressum();
 	void setLinkImpressum(String linkImpressum);
+	
+	String getEmailAddress();
+	void setEmailAddress(String emailAddress);
+
+	String getEmailName();
+	void setEmailName(String emailName);
 }
