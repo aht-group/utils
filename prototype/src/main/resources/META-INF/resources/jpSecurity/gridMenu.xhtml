@@ -32,7 +32,7 @@
 								selection="#{cc.attrs.bean.node}" selectionMode="single"
 				                draggable="true" droppable="true" dragdropScope="demo">
 				                <p:ajax event="select" listener="#{cc.attrs.bean.onNodeSelect}" update=":#{cc.id}:sView"/>
-								<p:ajax event="dragdrop" listener="#{cc.attrs.bean.onDragDrop}"/>
+								<p:ajax event="dragdrop" listener="#{cc.attrs.bean.onDragDrop}" oncomplete="try{calculateTreeHeight();}catch(e){}"/>
 					            <p:ajax event="expand" listener="#{cc.attrs.bean.onNodeExpand}" />
 								<p:ajax event="collapse" listener="#{cc.attrs.bean.onNodeCollapse}" />
 					            <p:treeNode>
