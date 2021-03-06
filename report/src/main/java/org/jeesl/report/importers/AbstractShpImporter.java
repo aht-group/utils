@@ -12,7 +12,9 @@ import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 
 import org.geotools.data.DataStore;
 import org.geotools.data.DataStoreFinder;
-import org.geotools.data.FeatureSource;
+import org.geotools.data.Query;
+import org.geotools.data.simple.SimpleFeatureCollection;
+import org.geotools.data.simple.SimpleFeatureSource;
 import org.geotools.feature.FeatureCollection;
 import org.geotools.feature.FeatureIterator;
 
@@ -45,7 +47,12 @@ public abstract class AbstractShpImporter <C extends Serializable, I extends Imp
         String[] typeNames = dataStore.getTypeNames();
         String typeName = typeNames[0];
 
+	/* Deprecated with new GeoTools version
         FeatureSource featureSource = dataStore.getFeatureSource(typeName);
+	*/
+	
+	SimpleFeatureSource featureSource = dataStore.getFeatureSource( typeName );
+
         collection                  = featureSource.getFeatures();
         FeatureIterator iterator        = collection.features();
                 
