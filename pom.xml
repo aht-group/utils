@@ -225,8 +225,8 @@
                 <snapshots><enabled>false</enabled></snapshots>
             </repository>
             <repository>
-                <id>osgeo.org</id>
-                <name>Open Source Geospatial Foundation Repository</name>
+                <id>osgeo</id>
+                <name>OSGeo Release Repository</name>
                 <url>https://repo.osgeo.org/repository/release/</url>
                 <releases>
                     <enabled>true</enabled>
