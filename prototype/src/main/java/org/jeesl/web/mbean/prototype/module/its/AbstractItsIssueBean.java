@@ -5,16 +5,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
+import org.jeesl.api.bean.module.its.JeeslItsCacheBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslItsFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.ItsFactoryBuilder;
 import org.jeesl.interfaces.bean.sb.SbSingleBean;
-import org.jeesl.interfaces.model.module.its.JeeslItsIssue;
-import org.jeesl.interfaces.model.module.its.JeeslItsIssueStatus;
 import org.jeesl.interfaces.model.module.its.config.JeeslItsConfig;
 import org.jeesl.interfaces.model.module.its.config.JeeslItsConfigOption;
+import org.jeesl.interfaces.model.module.its.issue.JeeslItsIssue;
+import org.jeesl.interfaces.model.module.its.issue.JeeslItsIssueStatus;
 import org.jeesl.interfaces.model.module.its.task.JeeslItsTask;
 import org.jeesl.interfaces.model.module.its.task.JeeslItsTaskType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
@@ -37,8 +38,8 @@ public abstract class AbstractItsIssueBean <L extends JeeslLang, D extends Jeesl
     										R extends JeeslTenantRealm<L,D,R,?>, RREF extends EjbWithId,
     										C extends JeeslItsConfig<L,D,R,O>,
     										O extends JeeslItsConfigOption<L,D,O,?>,
-    										I extends JeeslItsIssue<R,I>,
-    										STATUS extends JeeslItsIssueStatus<L,D,R,STATUS,?>,
+    										I extends JeeslItsIssue<R,I,IS>,
+    										IS extends JeeslItsIssueStatus<L,D,R,IS,?>,
     										T extends JeeslItsTask<I,TT,?>,
     										TT extends JeeslItsTaskType<L,D,TT,?>>
 					extends AbstractAdminBean<L,D,LOC>
@@ -47,29 +48,32 @@ public abstract class AbstractItsIssueBean <L extends JeeslLang, D extends Jeesl
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractItsIssueBean.class);
 	
-	protected JeeslItsFacade<L,D,R,C,O,I,STATUS,T,TT> fIssue;
+	private JeeslItsFacade<L,D,R,C,O,I,IS,T,TT> fIssue;
+	private JeeslItsCacheBean<L,D,R,RREF,IS> bItsCache;
 
-	protected final ItsFactoryBuilder<L,D,R,C,O,I,STATUS,T,TT> fbIssue;
+	protected final ItsFactoryBuilder<L,D,R,C,O,I,IS,T,TT> fbIssue;
 	
 	private TreeNode tree; public TreeNode getTree() {return tree;}
     private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
 
     protected R realm;
-    protected RREF rref;
-    protected I root;
+    protected RREF rref; public RREF getRref() {return rref;}
+	protected I root;
     protected I issue;  public I getIssue() {return issue;} public void setType(I issue) {this.issue = issue;}
 
-	public AbstractItsIssueBean(ItsFactoryBuilder<L,D,R,C,O,I,STATUS,T,TT> fbIssue/*, SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg*/)
+	public AbstractItsIssueBean(ItsFactoryBuilder<L,D,R,C,O,I,IS,T,TT> fbIssue/*, SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg*/)
 	{
 		super(fbIssue.getClassL(),fbIssue.getClassD());	
 		this.fbIssue=fbIssue;
 	}
 
 	protected void postConstructIssue(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslItsFacade<L,D,R,C,O,I,STATUS,T,TT> fIssue,
+									JeeslItsCacheBean<L,D,R,RREF,IS> bItsCache,
+									JeeslItsFacade<L,D,R,C,O,I,IS,T,TT> fIssue,
 									R realm)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
+		this.bItsCache=bItsCache;
 		this.fIssue=fIssue;
 		this.realm=realm;
 	}
@@ -77,6 +81,7 @@ public abstract class AbstractItsIssueBean <L extends JeeslLang, D extends Jeesl
 	protected void updateRealmReference(RREF rref)
 	{
 		this.rref=rref;
+		bItsCache.reloadRealm(realm,rref);
 		reloadTree();
 	}
 	
@@ -90,7 +95,13 @@ public abstract class AbstractItsIssueBean <L extends JeeslLang, D extends Jeesl
 	{
 		List<Long> expandedNodes = TreeHelper.findNodes(this.tree, node -> node.isExpanded()).stream().map(node -> (I)node.getData()).filter(data -> data != null).map(data -> data.getId()).collect(Collectors.toList());
 		
-		root = fIssue.fcAItsRoot(realm,rref);
+		
+		if(bItsCache.getMapStatus().containsKey(rref) && !bItsCache.getMapStatus().isEmpty())
+		{
+			IS status = bItsCache.getMapStatus().get(rref).get(0);
+			root = fIssue.fcAItsRoot(realm,rref,status);
+		}
+		else {return;}
 		
 		tree = new DefaultTreeNode();
 		this.issue = null;

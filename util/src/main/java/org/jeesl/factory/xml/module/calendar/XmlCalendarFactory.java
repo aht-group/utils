@@ -24,6 +24,8 @@ public class XmlCalendarFactory <L extends JeeslLang, D extends JeeslDescription
 	@SuppressWarnings("unused")
 	private XmlTypeFactory<L,D,CT> xfType;
 	
+	
+	
 	public XmlCalendarFactory(String localeCode, Calendar q)
 	{
 		if(q.isSetType()){xfType = new XmlTypeFactory<>(localeCode,q.getType());}

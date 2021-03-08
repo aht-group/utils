@@ -9,6 +9,7 @@
 	
 	<composite:interface>
 		<composite:attribute name="bean" required="true"/>
+		<composite:attribute name="rref" required="false" default=""/>
 	</composite:interface>
 	
 	<composite:implementation>
@@ -17,24 +18,23 @@
 		<j:slot id="sConfigs" width="7">
 			<h:form id="fConfigs">
 				<p:dataTable var="c" value="#{cc.attrs.bean.configs}" draggableRows="true"
-								selection="#{cc.attrs.bean.config}" selectionMode="single" rowKey="#{c.id}"
-								paginator="true" rows="10" rowsPerPageTemplate="#{appSettingsBean.rowsPerPageTemplate}" paginatorPosition="bottom" paginatorTemplate="#{appSettingsBean.paginatorTemplate}">
+								selection="#{cc.attrs.bean.config}" selectionMode="single" rowKey="#{c.id}">
 					<f:facet name="header">
 						<j:dtHeader title="#{msg.jeeslItsConfigs}"/>
 					</f:facet>
 					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectConfig()}" update=":#{cc.id}:sConfig"/>
-					
 					<p:column>
-						<jp:iconCheckmark value="#{c.visible}"/>
-					</p:column>
-					
-					<p:column headerText="#{msg.jeeslItsConfigOption}">
+						<f:facet name="header"><jtp:label entity="ItsConfig" code="option"/></f:facet>  
 						<jtp:symbolizer value="#{c.option}" marginRight="5"/>
 						<h:outputText value="#{c.option.code}"/>
 					</p:column>
 					<p:column headerText="#{msg.jeeslLabel}">
 						<h:outputText value="#{c.option.name[localeCode].lang}" rendered="#{not c.overrideLabel}"/>
 						<h:outputText value="#{c.name[localeCode].lang}" rendered="#{c.overrideLabel}"/>
+					</p:column>
+					<p:column styleClass="jeeslCenter">
+						<f:facet name="header"><jtp:label entity="ItsConfig" code="visible"/></f:facet>  
+						<jp:iconCheckmark value="#{c.visible}"/>
 					</p:column>
 			   	</p:dataTable>
 			</h:form>
@@ -47,9 +47,18 @@
 						<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveConfig()}" update=":#{cc.id}:grid"/>
 					</f:facet>
 					<p:messages redisplay="false" severity="warn,error" showSummary="true" showDetail="true" closable="true"/>
-					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
-						<p:outputLabel value="#{msg.jeeslCode}"/>
+					<p:panelGrid columns="2" columnClasses="jeeslGrid30,jeeslGrid70">
+						<jtp:label entity="ItsConfigOption" code="code"/>
 						<h:outputText value="#{cc.attrs.bean.config.option.code}"/>
+						
+						<jtp:label entity="ItsConfig" code="realm"/>
+						<h:outputText value="#{cc.attrs.bean.config.realm.name[localeCode].lang}"/>
+						
+						<jtp:label entity="ItsConfig" code="rref"/>
+						<ui:fragment>
+							<h:outputText valute="#{cc.attrs.rref}"/>
+							<h:outputText value=" (#{cc.attrs.bean.config.rref})"/>
+						</ui:fragment>
 						
 						<p:outputLabel value="#{msg.jeeslLabel}"/>
 						<h:outputText value="#{cc.attrs.bean.config.option.name[localeCode].lang}"/>
@@ -57,7 +66,7 @@
 						<p:outputLabel value="#{msg.jeeslDescription}"/>
 						<h:outputText value="#{cc.attrs.bean.config.option.description[localeCode].lang}"/>
 						
-						<p:outputLabel value="#{msg.jeeslVisible}"/>
+						<jtp:label entity="ItsConfig" code="visible"/>
 						<p:selectBooleanCheckbox value="#{cc.attrs.bean.config.visible}"/>
 						
 						<p:outputLabel value="#{msg.jeeslItsCustomLabel}"/>

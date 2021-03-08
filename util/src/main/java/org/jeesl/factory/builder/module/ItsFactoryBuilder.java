@@ -3,10 +3,10 @@ package org.jeesl.factory.builder.module;
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
 import org.jeesl.factory.ejb.module.its.EjbItsConfigFactory;
 import org.jeesl.factory.ejb.module.its.EjbItsFactory;
-import org.jeesl.interfaces.model.module.its.JeeslItsIssue;
-import org.jeesl.interfaces.model.module.its.JeeslItsIssueStatus;
 import org.jeesl.interfaces.model.module.its.config.JeeslItsConfig;
 import org.jeesl.interfaces.model.module.its.config.JeeslItsConfigOption;
+import org.jeesl.interfaces.model.module.its.issue.JeeslItsIssue;
+import org.jeesl.interfaces.model.module.its.issue.JeeslItsIssueStatus;
 import org.jeesl.interfaces.model.module.its.task.JeeslItsTask;
 import org.jeesl.interfaces.model.module.its.task.JeeslItsTaskType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
@@ -19,7 +19,7 @@ public class ItsFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 								R extends JeeslTenantRealm<L,D,R,?>,
 								C extends JeeslItsConfig<L,D,R,O>,
 								O extends JeeslItsConfigOption<L,D,O,?>,
-								I extends JeeslItsIssue<R,I>,
+								I extends JeeslItsIssue<R,I,IS>,
 								IS extends JeeslItsIssueStatus<L,D,R,IS,?>,
 								T extends JeeslItsTask<I,TT,?>,
 								TT extends JeeslItsTaskType<L,D,TT,?>>

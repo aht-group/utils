@@ -14,13 +14,7 @@
     		<s:lang key="fr" translation="Configuration"/>
     	</s:langs>
     </s:translation>
-	<s:translation key="jeeslItsConfigOption">
-    	<s:langs>
-    		<s:lang key="de" translation="Option"/>
-    		<s:lang key="en" translation="Option"/>
-    		<s:lang key="fr" translation="Option"/>
-    	</s:langs>
-    </s:translation>
+
 	<s:translation key="jeeslItsCustomLabel">
     	<s:langs>
     		<s:lang key="de" translation="Angepasste Bezeichnung"/>

@@ -51,8 +51,15 @@ public class Security extends UIPanel
 			
 			String action;
 			String actionSuffix = ComponentAttribute.get(Properties.actionSuffix,null,context,this);
-			if(actionSuffix!=null) {action = handler.getPageCode()+"."+actionSuffix; logger.info("SUFFIX:"+action);}
-			else {action = ComponentAttribute.get(Properties.action.toString(),context,this);}
+			if(actionSuffix!=null)
+			{
+				action = handler.getPageCode()+"."+actionSuffix;
+				if(debugOnInfo) {logger.info("SUFFIX:"+action);}
+			}
+			else
+			{
+				action = ComponentAttribute.get(Properties.action.toString(),context,this);
+			}
 			
 			accessGranted = (handler.allow(action) && accessGrantedAttribute);
 			if(debugOnInfo) {logger.info(JeeslJsfSecurityHandler.class.getSimpleName()+" evaluated accessGranted:"+accessGranted);}

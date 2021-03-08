@@ -78,6 +78,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link QueryCalendar }
+     * 
+     */
+    public QueryCalendar createQueryCalendar() {
+        return new QueryCalendar();
+    }
+
+    /**
      * Create an instance of {@link QueryRevision }
      * 
      */

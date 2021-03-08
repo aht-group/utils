@@ -29,8 +29,7 @@ public interface JeeslAssetCacheBean <L extends JeeslLang, D extends JeeslDescri
 										UP extends JeeslAomEventUpload<L,D,UP,?>>
 								extends Serializable
 {
-//	Map<RREF,List<COMPANY>> cachedLevel();
-	
+//	void x();
 	
 	Map<REALM,Map<RREF,List<ATYPE>>> getMapAssetType1();
 	Map<REALM,Map<RREF,List<ATYPE>>> getMapAssetType2();

@@ -9,6 +9,7 @@
 	
 	<composite:interface>
 		<composite:attribute name="bean" required="true"/>
+		<composite:attribute name="cache" required="true"/>
 	</composite:interface>
 	
 	<composite:implementation>
@@ -63,6 +64,16 @@
 						
 						<p:outputLabel value="#{msg.jeeslName}"/>
 						<jtp:inputText value="#{cc.attrs.bean.issue.name}"/>
+						
+						<p:selectOneMenu value="#{cc.attrs.bean.issue.status}" var="s" effect="fade" autoWidth="false">
+                        	<f:selectItems value="#{cc.attrs.cache.mapStatus[cc.attrs.bean.rref]}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s}"/>
+                        	<p:column>
+				                <jtp:symbolizer value="#{s}"/>
+				            </p:column>
+				            <p:column>
+				                <h:outputText value="#{s.name[localeCode].lang}"/>
+				            </p:column>
+                        </p:selectOneMenu>
 					</p:panelGrid>
 				</p:panel>
 			</h:form>
