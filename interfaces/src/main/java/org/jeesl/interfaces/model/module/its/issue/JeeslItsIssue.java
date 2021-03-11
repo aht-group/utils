@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.module.its;
+package org.jeesl.interfaces.model.module.its.issue;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,13 +11,15 @@ import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.primitive.code.EjbWithNonUniqueCode;
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 import org.jeesl.interfaces.model.with.primitive.text.EjbWithName;
+import org.jeesl.interfaces.model.with.system.status.JeeslWithStatus;
 
 public interface JeeslItsIssue <R extends JeeslTenantRealm<?,?,R,?>,
-								I extends JeeslItsIssue<R,I/*,STATUS*/>>
+								I extends JeeslItsIssue<R,I,IS>,
+								IS extends JeeslItsIssueStatus<?,?,R,IS,?>>
 			extends Serializable,EjbSaveable,EjbRemoveable,
 					JeeslWithTenantSupport<R>,
 					EjbWithParentAttributeResolver,EjbWithNonUniqueCode,EjbWithPosition,
-					EjbWithName
+					EjbWithName,JeeslWithStatus<IS>
 					
 {
 	public enum Attributes{realm,rref,parent}

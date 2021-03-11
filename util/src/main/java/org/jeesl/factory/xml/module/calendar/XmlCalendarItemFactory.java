@@ -11,6 +11,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.model.xml.module.calendar.Item;
+import org.jeesl.util.query.xml.module.XmlCalendarQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,25 +27,36 @@ public class XmlCalendarItemFactory <L extends JeeslLang, D extends JeeslDescrip
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlCalendarItemFactory.class);
 	
+	private final Item q;
 	private final TimeZoneProcessor tzp;
 	@SuppressWarnings("unused")
 	private XmlTypeFactory<L,D,IT> xfType;
 	
-	public XmlCalendarItemFactory(String localeCode, Item q)
-	{
-		this(localeCode,q,null);
-	}
+	
 	public XmlCalendarItemFactory(String localeCode, Item q, TimeZoneProcessor tzp)
 	{
+		this.q=q;
 		this.tzp=tzp;
 		if(q.isSetType()){xfType = new XmlTypeFactory<>(localeCode,q.getType());}
+	}
+	
+	public static <L extends JeeslLang, D extends JeeslDescription,
+					CALENDAR extends JeeslCalendar<L,D,CALENDAR,ZONE,CT,ITEM,IT>,
+					ZONE extends JeeslCalendarTimeZone<L,D,CALENDAR,ZONE,CT,ITEM,IT>,
+					CT extends JeeslStatus<CT,L,D>,
+					ITEM extends JeeslCalendarItem<L,D,CALENDAR,ZONE,CT,ITEM,IT>,
+					IT extends JeeslStatus<IT,L,D>
+					>
+	XmlCalendarItemFactory<L,D,CALENDAR,ZONE,CT,ITEM,IT> instance(String localeCode, XmlCalendarQuery.Key key)
+	{
+		return new XmlCalendarItemFactory<>(localeCode,XmlCalendarQuery.get(key, localeCode).getItem(),null);
 	}
 	
 	public Item build(ITEM item)
 	{
 		Item xml = build();		
-//		if(q.isSetType()){xml.setType(xfType.build(calendar.g));
-		xml.setType(XmlTypeFactory.create(item.getType().getCode()));
+		if(q.isSetType()){xml.setType(xfType.build(item.getType()));}
+		
 		
 		if(tzp==null){xml.setStart(DateUtil.getXmlGc4D(item.getStartDate()));}
 		else{xml.setStart(DateUtil.getXmlGc4D(tzp.project(item.getStartDate())));}

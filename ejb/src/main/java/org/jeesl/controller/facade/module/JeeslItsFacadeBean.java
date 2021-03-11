@@ -18,10 +18,10 @@ import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.ItsFactoryBuilder;
-import org.jeesl.interfaces.model.module.its.JeeslItsIssue;
-import org.jeesl.interfaces.model.module.its.JeeslItsIssueStatus;
 import org.jeesl.interfaces.model.module.its.config.JeeslItsConfig;
 import org.jeesl.interfaces.model.module.its.config.JeeslItsConfigOption;
+import org.jeesl.interfaces.model.module.its.issue.JeeslItsIssue;
+import org.jeesl.interfaces.model.module.its.issue.JeeslItsIssueStatus;
 import org.jeesl.interfaces.model.module.its.task.JeeslItsTask;
 import org.jeesl.interfaces.model.module.its.task.JeeslItsTaskType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
@@ -35,27 +35,27 @@ public class JeeslItsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 								R extends JeeslTenantRealm<L,D,R,?>,
 								C extends JeeslItsConfig<L,D,R,O>,
 								O extends JeeslItsConfigOption<L,D,O,?>,
-								I extends JeeslItsIssue<R,I>,
-								STATUS extends JeeslItsIssueStatus<L,D,R,STATUS,?>,
+								I extends JeeslItsIssue<R,I,IS>,
+								IS extends JeeslItsIssueStatus<L,D,R,IS,?>,
 								T extends JeeslItsTask<I,TT,?>,
 								TT extends JeeslItsTaskType<L,D,TT,?>>
 					extends JeeslFacadeBean
-					implements JeeslItsFacade<L,D,R,C,O,I,STATUS,T,TT>
+					implements JeeslItsFacade<L,D,R,C,O,I,IS,T,TT>
 {	
 	private static final long serialVersionUID = 1L;
 
 	final static Logger logger = LoggerFactory.getLogger(JeeslAssetFacadeBean.class);
 	
-	private final ItsFactoryBuilder<L,D,R,C,O,I,STATUS,T,TT> fbIssue;
+	private final ItsFactoryBuilder<L,D,R,C,O,I,IS,T,TT> fbIssue;
 	
-	public JeeslItsFacadeBean(EntityManager em, final ItsFactoryBuilder<L,D,R,C,O,I,STATUS,T,TT> fbIssue)
+	public JeeslItsFacadeBean(EntityManager em, final ItsFactoryBuilder<L,D,R,C,O,I,IS,T,TT> fbIssue)
 	{
 		super(em);
 		this.fbIssue=fbIssue;
 	}
 
 	@Override
-	public <RREF extends EjbWithId> I fcAItsRoot(R realm, RREF rref)
+	public <RREF extends EjbWithId> I fcAItsRoot(R realm, RREF rref, IS status)
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<I> cQ = cB.createQuery(fbIssue.getClassIssue());
@@ -81,7 +81,7 @@ public class JeeslItsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 			try {return this.save(result);}
 			catch (JeeslConstraintViolationException | JeeslLockingException e)
 			{
-				return this.fcAItsRoot(realm,rref);
+				return this.fcAItsRoot(realm,rref,status);
 			}
 		}
 	}

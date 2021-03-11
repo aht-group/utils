@@ -3,15 +3,15 @@ package org.jeesl.factory.ejb.module.its;
 import java.util.UUID;
 
 import org.jeesl.factory.builder.module.ItsFactoryBuilder;
-import org.jeesl.interfaces.model.module.its.JeeslItsIssue;
-import org.jeesl.interfaces.model.module.its.JeeslItsIssueStatus;
+import org.jeesl.interfaces.model.module.its.issue.JeeslItsIssue;
+import org.jeesl.interfaces.model.module.its.issue.JeeslItsIssueStatus;
 import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbItsFactory<R extends JeeslTenantRealm<?,?,R,?>,
-							I extends JeeslItsIssue<R,I>,
+							I extends JeeslItsIssue<R,I,IS>,
 							IS extends JeeslItsIssueStatus<?,?,R,IS,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbItsFactory.class);
