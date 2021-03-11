@@ -15,6 +15,20 @@
 	</composite:interface>
 	
 	<composite:implementation>
+		<script>
+			function toggleDialog(dialogName) {
+				let popup = PF(dialogName);
+				let button = $('#' + popup.id.replaceAll(':', '\\:')).prev().find('.ui-commandlink').first();
+				
+ 				if (button.parent().hasClass('jeesl-active')) {
+ 					popup.hide();
+ 					button.parent().removeClass('jeesl-active');
+ 				} else {
+ 					popup.show();
+ 					button.parent().addClass('jeesl-active');
+ 				}
+			}
+		</script>
 		<div class="aupStatusBar jeesl-status-bar">
 			<ul class="jeesl-menu-bar-list">
 				<composite:insertChildren />

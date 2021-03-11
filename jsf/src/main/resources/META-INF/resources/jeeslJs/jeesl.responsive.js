@@ -51,13 +51,13 @@ function setTreeHeight(node) {
 }
 
 function toggleMenu() {
-	$('.jeesl-menu-bar-button').filter((index, button) => button !== this).removeClass('jeesl-active').siblings('.jeesl-dropdown-list').removeClass('jeesl-active');
+	$('.jeesl-menu-bar-dropdown').filter((index, button) => button !== this).removeClass('jeesl-active').siblings('.jeesl-dropdown-list').removeClass('jeesl-active');
 	
 	$(this).toggleClass('jeesl-active').siblings('.jeesl-dropdown-list').toggleClass('jeesl-active');
 }
 
 function reloadStatusBar() {
-	let newButtons = $('.jeesl-status-bar .jeesl-menu-bar-button');
+	let newButtons = $('.jeesl-status-bar .jeesl-menu-bar-dropdown');
 	let newDropdowns = $('.jeesl-status-bar .jeesl-dropdown-list').attr('id', (index, oldValue) => 'jeesl-dropdown-' + ($('.jeesl-dropdown-list').length + index));
 	
 	calculateMenuHeight(newDropdowns);
@@ -68,7 +68,7 @@ $(function() {
 	menuHeightStyle = $('<style>').prop('type', 'text/css').appendTo('head');
 	treeHeightStyle = $('<style>').prop('type', 'text/css').appendTo('head');
 	
-	let menuButtons = $('.jeesl-menu-bar-button');
+	let menuButtons = $('.jeesl-menu-bar-dropdown');
 	let dropdowns = $('.jeesl-dropdown-list').attr('id', (index, oldValue) => 'jeesl-dropdown-' + index);
 	
 	calculateMenuHeight(dropdowns);

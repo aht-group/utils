@@ -498,14 +498,6 @@ body {
 				position: initial;
 			}
 			
-			.jeesl-menu-bar-button:before {
-				border-left: 1px solid $bright-colour;
-			    content: '';
-			    display: inline-block;
-			    height: 100%;
-			    vertical-align: middle;
-			}
-			
 			&:first-child, &.jeesl-right:last-child {
 				.jeesl-menu-bar-button:before {
 					display: none;
@@ -532,6 +524,14 @@ body {
 
 			.jeesl-menu-bar-button {
 			    padding: 7px 0 6px;
+
+				&:before {
+					border-left: 1px solid $bright-colour;
+				    content: '';
+				    display: inline-block;
+				    height: 100%;
+				    vertical-align: middle;
+				}
 					
 				.jeesl-menu-bar-button-icon {
 					padding-left: 6px;

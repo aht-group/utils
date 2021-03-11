@@ -18,6 +18,7 @@ $panel-background: hsla(0,0%,94%,1);
 $header-background-colour: $soft-grey;
 
 $main-background-gradient: linear-gradient(to right, $dark-colour, $bright-colour);
+$breadcrumb-background-gradient: linear-gradient(to right, $white-0, $bright-colour);
 $status-background-gradient: linear-gradient(to bottom, $dark-colour, $medium-colour);
 
 @mixin setColours($bright, $medium, $dark) {

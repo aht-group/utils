@@ -442,12 +442,6 @@ body {
     @media (max-width: 768px) {
       .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item {
         position: initial; } }
-    .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button:before {
-      border-left: 1px solid #008a4e;
-      content: '';
-      display: inline-block;
-      height: 100%;
-      vertical-align: middle; }
     .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item:first-child .jeesl-menu-bar-button:before, .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item.jeesl-right:last-child .jeesl-menu-bar-button:before {
       display: none; }
     .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item:hover {
@@ -461,6 +455,12 @@ body {
       display: none; }
     .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button {
       padding: 7px 0 6px; }
+      .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button:before {
+        border-left: 1px solid #008a4e;
+        content: '';
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle; }
       .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button .jeesl-menu-bar-button-icon {
         padding-left: 6px; }
         .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button .jeesl-menu-bar-button-icon:last-child {

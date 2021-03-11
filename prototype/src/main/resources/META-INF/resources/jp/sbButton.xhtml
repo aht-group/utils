@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:j="http://www.jeesl.org/jsf" xmlns:jp="http://jsf.jeesl.org/prototype" xmlns:jtp="http://jsf.jeesl.org/prototype/tag"
+	  xmlns:aup="http://ahtutils.sourceforge.net/prototype"
+	  xmlns:composite="http://java.sun.com/jsf/composite">
+    
+	<composite:interface>
+		<composite:attribute name="onclick" required="false"/>
+		<composite:attribute name="listener" required="false"/>
+		<composite:attribute name="icon" required="false"/>
+		<composite:attribute name="label" required="false"/>
+		<composite:attribute name="tooltip" required="false"/>
+		<composite:attribute name="orientation" required="false" default="left"/>
+		<composite:attribute name="styleClass"/>
+	</composite:interface>
+
+	<composite:implementation>
+	    <jp:sbItem orientation="#{cc.attrs.orientation}" styleClass="#{cc.attrs.styleClass}">
+			<f:facet name="label">
+				<p:commandLink id="buttonLink" onclick="#{cc.attrs.onclick}" listener="#{cc.attrs.listener}">
+					<h:graphicImage name="#{cc.attrs.icon}"
+									library="jeeslGfx"
+									rendered="#{not empty cc.attrs.icon}"
+									class="jeesl-menu-bar-button-icon"/>
+					<h:outputText value="#{cc.attrs.label}"
+								  rendered="#{not empty cc.attrs.label}"
+								  class="jeesl-menu-bar-button-label"/>
+				</p:commandLink>
+				<p:tooltip for="buttonLink" value="#{cc.attrs.tooltip}" rendered="#{not empty cc.attrs.tooltip}" />
+			</f:facet>
+		</jp:sbItem>
+	</composite:implementation>
+</html>

@@ -262,3 +262,9 @@ input[class="ui-spinner-input ui-inputfield ui-state-default ui-corner-all ui-st
 
 
 .ui-selectonemenu-panel {box-sizing: border-box;}
+
+.jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-popup-button.jeesl-active {z-index: 1010;}
+.jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item:hover .jeesl-menu-bar-popup-button.jeesl-active {background: #0d624b;}
+
+/* modal overlay z-index increases with every modal request, so to keep help button above overlay, it needs to be set fix. */
+.ui-dialog-mask { z-index: 1000 !important; }
