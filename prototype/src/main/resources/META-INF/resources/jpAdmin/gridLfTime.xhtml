@@ -7,6 +7,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:j="http://www.jeesl.org/jsf" 
 	xmlns:jp="http://jsf.jeesl.org/prototype" 
+	xmlns:jtp="http://jsf.jeesl.org/prototype/tag" 
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:aht="http://ahtutils.sourceforge.net/jsf"
 	xmlns:aup="http://ahtutils.sourceforge.net/prototype"
@@ -26,50 +27,58 @@
 						<p:dataTable var="c" value="#{cc.attrs.bean.timeGroups}" draggableRows="true"
 							selection="#{cc.attrs.bean.timeGroup}" selectionMode="single" rowKey="#{c.id}">
 							<f:facet name="header">
-								<aht:pfDataTableHeader title="#{msg.jeeslLogFrameGroups}">
+								<aht:pfDataTableHeader title="#{appLabelBean.labels['LfTargetTimeGroup']['listOf'][localeCode].lang}">
 									<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addTimeGroup()}" update=":#{cc.id}:grid" tooltip="#{msg.ttNew}" />
 								</aht:pfDataTableHeader>
 							</f:facet>
 							<p:ajax event="rowSelect" update=":#{cc.id}:sTimeGroup" listener="#{cc.attrs.bean.selectTimeGroup()}"/>
 
-					         <p:column headerText="#{msg.jeeslLogFrameGroupInterval}">  
-									<h:outputText value="#{c.interval.name[localeCode].lang}"/>
+					         <p:column>
+					         	<f:facet name="header"><jtp:label entity="LfTargetTimeGroup" code="interval"/></f:facet>
+					         	<h:outputText value="#{c.interval.name[localeCode].lang}"/>
 					         </p:column>
-					         <p:column headerText="#{msg.jeeslStartDate}">  
-									<h:outputText value="#{c.startDate}"/>
+							 <p:column>
+							 	<f:facet name="header"><jtp:label entity="LfTargetTimeGroup" code="value"/></f:facet>  
+								<h:outputText value="#{c.value}"/>
 					         </p:column>
-					         <p:column headerText="#{msg.jeeslEndDate}">  
-									<h:outputText value="#{c.endDate}"/>
+					         <p:column>
+					         	<f:facet name="header"><jtp:label entity="LfTargetTimeGroup" code="startDate"/></f:facet>    
+								<h:outputText value="#{c.startDate}"/>
+					         </p:column>
+					         <p:column headerText="#{msg.jeeslEndDate}">
+					         	<f:facet name="header"><jtp:label entity="LfTargetTimeGroup" code="endDate"/></f:facet>    
+								<h:outputText value="#{c.endDate}"/>
 					         </p:column>
 					   	</p:dataTable>
 					</h:form>
 				</aht:slot>
 				<aht:slot id="sTimeGroup" width="4">
 					<h:form id="fTimeGroup">
-						<p:panel id="pView" header="#{msg.jeeslLogFrameGroup}" rendered="#{not empty cc.attrs.bean.timeGroup}" styleClass="jeeslPanel">
+						<p:panel id="pView" rendered="#{not empty cc.attrs.bean.timeGroup}" styleClass="jeeslPanel">
+							<f:facet name="header"><jtp:label entity="LfTargetTimeGroup"/></f:facet>    
 							<f:facet name="actions">
 								<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.resetTimeGroup()}" update=":#{cc.id}:grid" tooltip="#{msg.jeeslTtCancel}" mayDisappear="true"/>
-								<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveTimeGroup()}" update=":#{cc.id}:grid" rendered="#{cc.attrs.bean.uiAllowSave}" tooltip="#{msg.ttSave}"/>
+								<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveTimeGroup()}" update=":#{cc.id}:grid" rendered="#{cc.attrs.bean.uiAllowSave and not cc.attrs.bean.uiGenerate}" tooltip="#{msg.ttSave}"/>
 								<j:icon type="jeeslGenerate"   listener="#{cc.attrs.bean.updateUiTimeGroup()}" update=":#{cc.id}:grid" rendered="#{cc.attrs.bean.uiAllowGenerate}" tooltip="#{msg.ttGenerate}"/>
 								<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteTimeGroup()}" update=":#{cc.id}:grid" rendered="#{cc.attrs.bean.timeGroup.id gt 0}" tooltip="#{msg.ttDelete}" mayDisappear="true"/>
 							</f:facet>
 							<p:messages redisplay="false" severity="warn,error" showSummary="true" showDetail="true" closable="true"/>
 							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
-								<p:outputLabel value="#{msg.jeeslInterval}"/>
+								<jtp:label entity="LfTargetTimeGroup" code="interval"/>
 								<p:selectOneMenu value="#{cc.attrs.bean.timeGroup.interval}" effect="fade" >
 									<f:selectItems value="#{cc.attrs.bean.intervalTypes}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t}"/>
 								</p:selectOneMenu>
-								<p:outputLabel value="#{msg.jeeslValue}"/>
-								<h:outputText  value="#{cc.attrs.bean.timeGroup.value}" rendered="#{not cc.attrs.bean.uiGenerate}" />
-								<p:outputLabel value="#{msg.jeeslStartDate}"/>
+								<jtp:label entity="LfTargetTimeGroup" code="value" rendered="#{cc.attrs.bean.uiGenerate or cc.attrs.bean.timeGroup.value gt 0}" />
+								<p:outputLabel  value="#{cc.attrs.bean.timeGroup.value}" rendered="#{cc.attrs.bean.uiGenerate or cc.attrs.bean.timeGroup.value gt 0}" />
+							
+								<jtp:label entity="LfTargetTimeGroup" code="startDate" rendered="#{cc.attrs.bean.uiGenerate or not empty cc.attrs.bean.timeGroup.startDate}" />
 								<jp:inputCalendar  value="#{cc.attrs.bean.timeGroup.startDate}" rendered="#{cc.attrs.bean.uiGenerate}" />
-								<h:outputText  value="#{cc.attrs.bean.timeGroup.startDate}" rendered="#{not cc.attrs.bean.uiGenerate}" />
-								<p:outputLabel value="#{msg.jeeslEndDate}"/>
-								<jp:inputCalendar  value="#{cc.attrs.bean.timeGroup.startDate}" rendered="#{cc.attrs.bean.uiGenerate}" />
-								<h:outputText  value="#{cc.attrs.bean.timeGroup.endDate}" rendered="#{not cc.attrs.bean.uiGenerate}" />
-								<p:commandButton rendered="#{cc.attrs.bean.uiGenerate}" 
-						                 value="#{msg.Generate}"   actionListener="#{cc.attrs.bean.generateTimeGroup()}"
-						                 update="#{cc.attrs.update}"  />
+								<jp:outputDate  value="#{cc.attrs.bean.timeGroup.startDate}" rendered="#{not cc.attrs.bean.uiGenerate or not empty cc.attrs.bean.timeGroup.startDate}" />
+								<jtp:label entity="LfTargetTimeGroup" code="endDate" rendered="#{cc.attrs.bean.uiGenerate or not empty cc.attrs.bean.timeGroup.endDate}"/>
+								<jp:inputCalendar  value="#{cc.attrs.bean.timeGroup.endDate}" rendered="#{cc.attrs.bean.uiGenerate}" />
+								<jp:outputDate  value="#{cc.attrs.bean.timeGroup.endDate}" rendered="#{not cc.attrs.bean.uiGenerate or not empty cc.attrs.bean.timeGroup.endDate}" />
+								<p:commandButton  disabled="#{not cc.attrs.bean.uiGenerate}" value="#{msg.Generate}" update=":#{cc.id}:grid" 
+												actionListener="#{cc.attrs.bean.generateTimeGroup()}" />
 							</p:panelGrid>
 						</p:panel>
 					</h:form>
@@ -78,22 +87,21 @@
 							rendered="#{(not empty cc.attrs.bean.timeGroup) and (cc.attrs.bean.timeGroup.id gt 0)}"
 							selection="#{cc.attrs.bean.element}" selectionMode="single" rowKey="#{o.id}">
 							<f:facet name="header">
-								<aht:pfDataTableHeader title="#{msg.jeeslLogFrameGroupElements}">
+								<aht:pfDataTableHeader title="#{appLabelBean.labels['LfTargetTimeElement']['listOf'][localeCode].lang}">
 									<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addElement()}" update=":#{cc.id}:fElements :#{cc.id}:fElement" tooltip="#{msg.ttNew}"/>
 								</aht:pfDataTableHeader>
 							</f:facet>
 							<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectElement()}" update=":#{cc.id}:fElement"/>
 							
-							<p:column headerText="#{msg.jeeslLogFrameGroupElement}">  
-								<h:outputText value="#{o.name[localeCode].lang}"/>
-							</p:column>
-							<p:column headerText="#{msg.jeeslRecord}">  
-									<h:outputText value="#{o.record}"/>
+							<p:column> 
+								<f:facet name="header"><jtp:label entity="LfTargetTimeElement" code="record"/></f:facet>
+								<h:outputText value="#{o.record}"/>
 					     	</p:column>
 					   	</p:dataTable>
 					</h:form>
 					<h:form id="fElement">
-						<p:panel id="pView" header="#{msg.jeeslLogFrameGroupElement}" rendered="#{not empty cc.attrs.bean.element}" styleClass="jeeslPanel">
+						<p:panel id="pView" rendered="#{not empty cc.attrs.bean.element}" styleClass="jeeslPanel">
+							<f:facet name="header"><jtp:label entity="LfTargetTimeElement"/></f:facet>
 							<f:facet name="actions">
 								<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.resetElement()}" update=":#{cc.id}:sTimeGroup" tooltip="#{msg.jeeslTtCancel}" mayDisappear="true"/>
 								<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveElement()}" update=":#{cc.id}:sTimeGroup" rendered="#{cc.attrs.bean.uiAllowSave}" tooltip="#{msg.ttSave}"/>
@@ -101,7 +109,7 @@
 							</f:facet>
 							<p:messages redisplay="false" severity="warn,error" showSummary="true" showDetail="true" closable="true"/>
 							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
-								<p:outputLabel value="#{msg.jeeslDate}"/>
+								<jtp:label entity="LfTargetTimeElement" code="record"/>
 								<jp:inputCalendar  value="#{cc.attrs.bean.element.record}"/>
 							</p:panelGrid>
 						</p:panel>

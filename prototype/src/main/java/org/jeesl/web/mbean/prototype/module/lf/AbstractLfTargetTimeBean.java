@@ -36,13 +36,16 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractLfTargetTimeBean.class);
+
+	protected final LfFactoryBuilder<L,D,R,TTG,TTI,TTE> fbLogFrame;
+	protected JeeslLogframeFacade<L,D,R,TTG,TTI,TTE> fLogFrame;
+
 	protected boolean uiGenerate;
 	public boolean getUiGenerate()
 	{
 		if(getUiAllowGenerate() && uiGenerate)
 		{
-			if(timeGroup.getEndDate()!= null) {return false;}
-			if(timeGroup.getStartDate()!= null) {return false;}
+			if(timeGroup.getEndDate()!= null && timeGroup.getStartDate()!= null && timeGroup.getValue() > 0) {return false;}
 			return true;
 		}
 		return false;
@@ -51,7 +54,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	protected boolean uiAllowGenerate;
 	public boolean getUiAllowGenerate()
 	{
-		if(timeGroup!=null && timeGroup.getId() > 0) {return true;}
+		if(timeGroup!=null && timeGroup.getId() > 0 && timeGroup.getValue()==0) {return true;}
 		return false;
 	}
 	protected List<TTG> timeGroups; public List<TTG> getTimeGroups() {return timeGroups;} public void setTimeGroups(List<TTG> timeGroups) {this.timeGroups = timeGroups;}
@@ -60,10 +63,6 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	protected TTE element; public TTE getElement() {return element;} public void setElement(TTE element) {this.element = element;}
 	protected List<TTI> intervalTypes; public List<TTI> getIntervalTypes() {return intervalTypes;} public void setIntervalTypes(List<TTI> intervalTypes) {this.intervalTypes = intervalTypes;}
 
-
-	protected final LfFactoryBuilder<L,D,R,TTG,TTI,TTE> fbLogFrame;
-
-	protected JeeslLogframeFacade<L,D,R,TTG,TTI,TTE> fLogFrame;
 
 
 	public AbstractLfTargetTimeBean(LfFactoryBuilder<L,D,R,TTG,TTI,TTE> fbLf)
@@ -93,7 +92,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	public void addTimeGroup()
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbLogFrame.getClassTTG()));}
-		timeGroup = fbLogFrame.buildTargetTimeGroup();
+		timeGroup = fbLogFrame.ejbTargetTimeGroup().build();
 		//timeGroup.setName(efLang.createEmpty(localeCodes));
 		reset(false,true);
 	}
@@ -124,7 +123,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	public void addElement()
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbLogFrame.getClassTTE()));}
-		element = fbLogFrame.buildElement(timeGroup,elements);
+		element = fbLogFrame.ejbTargetTimeElement().build(timeGroup,elements);
 		//element.setName(efLang.createEmpty(localeCodes));
 	}
 
@@ -156,6 +155,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 
 	public void generateTimeGroup() throws JeeslConstraintViolationException, JeeslLockingException
 	{
+		if(debugOnInfo) {logger.info("generateTimeGroup" + AbstractLogMessage.saveEntity(timeGroup));}
 		saveTimeGroup();
 		Calendar cal = Calendar.getInstance();
 		Date record = timeGroup.getStartDate();
@@ -168,17 +168,32 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 			record = cal.getTime();
 		}
 		int count = 0;
-		while (record.getTime() <= timeGroup.getEndDate().getTime())
+		while (record.getTime() <= timeGroup.getEndDate().getTime() && !interval.getCode().equals("none"))
 		{
 			count++;
-			element = fbLogFrame.buildElement(timeGroup,elements);
+			element = fbLogFrame.ejbTargetTimeElement().build(timeGroup,elements);
 			//element.setName(efLang.createEmptyWithDefault(localeCodes,String.valueOf(count)));
 			element.setRecord(record);
-			if(interval.getCode().equals("week")){cal.setTime(record); cal.add(Calendar.WEEK_OF_MONTH, 1);record = cal.getTime();}
-			if(interval.getCode().equals("month")){cal.setTime(record); cal.add(Calendar.MONTH, 1);record = cal.getTime();}
-			if(interval.getCode().equals("year")){cal.setTime(record); cal.add(Calendar.YEAR, 1);record = cal.getTime();}
-			if(interval.getCode().equals("quarter")){cal.setTime(record); cal.add(Calendar.MONTH, 3);record = cal.getTime();}
+			generateElement(record);
+
+			if(interval.getCode().equals("week")){cal.setTime(record); cal.add(Calendar.WEEK_OF_MONTH, 1);}
+			if(interval.getCode().equals("month")){cal.setTime(record); cal.add(Calendar.MONTH, 1);}
+			if(interval.getCode().equals("year")){cal.setTime(record); cal.add(Calendar.YEAR, 1);}
+			if(interval.getCode().equals("quarter")){cal.setTime(record); cal.add(Calendar.MONTH, 3);}
+			record = cal.getTime();
 		}
+		timeGroup.setValue(count);
+		saveTimeGroup();
+
+	}
+	private  void generateElement(Date record) throws JeeslConstraintViolationException, JeeslLockingException{
+		logger.info("generating element with record  " + record.toString());
+		addElement();
+		element.setRecord(record);
+		logger.info("saving element with record  " + record.toString());
+		saveElement();
+		logger.info("save" + record.toString());
+
 	}
 	private void reset(boolean rTimeGroup, boolean rElement)
 	{

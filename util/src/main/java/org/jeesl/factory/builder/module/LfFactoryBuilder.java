@@ -1,8 +1,8 @@
 package org.jeesl.factory.builder.module;
 
-import java.util.List;
-
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
+import org.jeesl.factory.ejb.module.lf.EjbLfTargetTimeElementFactory;
+import org.jeesl.factory.ejb.module.lf.EjbLfTargetTimeGroupFactory;
 import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeElement;
 import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeGroup;
 import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeInterval;
@@ -36,32 +36,9 @@ public class LfFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 	}
 
 
-	public TTG buildTargetTimeGroup() {
-		TTG ejb = null;
-		try
-		{
-			ejb = cTTG.newInstance();
-		}
-		catch (InstantiationException e) {e.printStackTrace();}
-		catch (IllegalAccessException e) {e.printStackTrace();}
+	public EjbLfTargetTimeGroupFactory<L,D,R,TTG,TTI> ejbTargetTimeGroup() {return new EjbLfTargetTimeGroupFactory<>(cTTG);}
 
-		return ejb;
-	}
-
-
-	public TTE buildElement(TTG timeGroup, List<TTE> elements) {
-		TTE ejb = null;
-		try
-		{
-			ejb = cTTE.newInstance();
-			ejb.setGroup(timeGroup);
-			elements.add(ejb);
-		}
-		catch (InstantiationException e) {e.printStackTrace();}
-		catch (IllegalAccessException e) {e.printStackTrace();}
-
-		return ejb;
-	}
+	public EjbLfTargetTimeElementFactory<L,D,R,TTG,TTI,TTE> ejbTargetTimeElement(){return new EjbLfTargetTimeElementFactory<>(cTTE);}
 
 
 	public TTE buildElement(TTG timeGroup) {
