@@ -125,13 +125,13 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbLogFrame.getClassTTE()));}
 		element = fbLogFrame.buildElement(timeGroup,elements);
-		element.setName(efLang.createEmpty(localeCodes));
+		//element.setName(efLang.createEmpty(localeCodes));
 	}
 
 	public void selectElement()
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.selectEntity(timeGroup));}
-		element = efLang.persistMissingLangs(fLogFrame,localeCodes,element);
+		//element = efLang.persistMissingLangs(fLogFrame,localeCodes,element);
 	}
 
 	public void saveElement() throws JeeslConstraintViolationException, JeeslLockingException
@@ -172,7 +172,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 		{
 			count++;
 			element = fbLogFrame.buildElement(timeGroup,elements);
-			element.setName(efLang.createEmptyWithDefault(localeCodes,String.valueOf(count)));
+			//element.setName(efLang.createEmptyWithDefault(localeCodes,String.valueOf(count)));
 			element.setRecord(record);
 			if(interval.getCode().equals("week")){cal.setTime(record); cal.add(Calendar.WEEK_OF_MONTH, 1);record = cal.getTime();}
 			if(interval.getCode().equals("month")){cal.setTime(record); cal.add(Calendar.MONTH, 1);record = cal.getTime();}
