@@ -24,25 +24,25 @@ import net.sf.exlp.util.xml.JaxbUtil;
 public class EjbLangFactory<L extends JeeslLang>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbLangFactory.class);
-	
+
     final Class<L> cL;
-	
+
     public EjbLangFactory(final Class<L> cL)
     {
         this.cL = cL;
-    } 
-    
+    }
+
     public static <L extends JeeslLang> EjbLangFactory<L> factory(final Class<L> cL)
     {
         return new EjbLangFactory<L>(cL);
     }
-	
+
 	public Map<String,L> getLangMap(Langs langs) throws JeeslConstraintViolationException
 	{
 		if(langs==null){throw new JeeslConstraintViolationException(Langs.class.getSimpleName()+" is null");}
-		return getLangMap(langs.getLang()); 
+		return getLangMap(langs.getLang());
 	}
-	
+
 	public Map<String,L> getLangMap(List<Lang> langList) throws JeeslConstraintViolationException
 	{
 		if(langList.size()<1){throw new JeeslConstraintViolationException(Langs.class.getSimpleName()+" with 0 "+Lang.class.getSimpleName());}
@@ -54,7 +54,7 @@ public class EjbLangFactory<L extends JeeslLang>
 		}
 		return map;
 	}
-	
+
 	public <LOC extends JeeslLocale<L,?,LOC,?>> Map<String,L> build(JeeslLocaleProvider<LOC> lp, Langs xLangs) throws JeeslConstraintViolationException
 	{
 		Map<String,L> map = new Hashtable<String,L>();
@@ -69,14 +69,14 @@ public class EjbLangFactory<L extends JeeslLang>
 		{
 			if(!map.containsKey(key)) {map.put(key,createLang(key,""));}
 		}
-		return map; 
+		return map;
 	}
-	
+
 	public <S extends JeeslStatus<S,L,D>, D extends JeeslDescription> Map<String,L> createEmpty(List<S> locales)
 	{
 		return createEmpty(TxtStatusFactory.toCodes(locales).toArray(new String[0]));
 	}
-	
+
 	public Map<String,L> createEmpty(String[] keys)
 	{
 		Map<String,L> map = new Hashtable<String,L>();
@@ -86,15 +86,24 @@ public class EjbLangFactory<L extends JeeslLang>
 		}
 		return map;
 	}
-	
+
+	public Map<String,L> createEmptyWithDefault(String[] keys, String defaultTranslation)
+	{
+		Map<String,L> map = new Hashtable<String,L>();
+		for(String key : keys)
+		{
+			map.put(key, createLang(key,defaultTranslation));
+		}
+		return map;
+	}
 	public Map<String,L> createLangMap(String key, String translation) throws InstantiationException, IllegalAccessException
 	{
 		Map<String,L> map = new Hashtable<String,L>();
 		map.put(key, createLang(key, translation));
 		return map;
 	}
-	
-	public Map<String,L> createLangMap(L... langs) 
+
+	public Map<String,L> createLangMap(L... langs)
 	{
 		Map<String,L> map = new Hashtable<String,L>();
 		for(L l : langs)
@@ -103,7 +112,7 @@ public class EjbLangFactory<L extends JeeslLang>
 		}
 		return map;
 	}
-	
+
 	public Map<String,L> clone(Map<String,L> original)
 	{
 		Map<String,L> map = new Hashtable<String,L>();
@@ -113,7 +122,7 @@ public class EjbLangFactory<L extends JeeslLang>
 		}
 		return map;
 	}
-	
+
 	public L createLang(String key, String translation)
 	{
 		try
@@ -128,14 +137,14 @@ public class EjbLangFactory<L extends JeeslLang>
 		logger.error("Something went terribly wrong, see stacktrace. Unfortunately null is returned here!");
 		return null;
 	}
-	
+
 	public L createLang(Lang lang) throws JeeslConstraintViolationException
 	{
 		if(lang.getKey()==null){throw new JeeslConstraintViolationException("Key not set for: "+JaxbUtil.toString(lang));}
 		if(lang.getTranslation()==null){throw new JeeslConstraintViolationException("Translation not set for: "+JaxbUtil.toString(lang));}
 		return createLang(lang.getKey(), lang.getTranslation());
 	}
-	
+
 	public <T extends EjbWithLang<L>, LOC extends JeeslStatus<LOC,L,D>, D extends JeeslDescription> T persistMissingLangs(JeeslFacade fUtils, List<LOC> locales, T ejb)
 	{
 		return persistMissingLangs(fUtils,TxtStatusFactory.toCodes(locales).toArray(new String[0]),ejb);
@@ -149,7 +158,7 @@ public class EjbLangFactory<L extends JeeslLang>
 		}
 		return persistMissingLangs(fUtils,localeCodes,ejb);
 	}
-	
+
 	public <T extends EjbWithLang<L>> T persistMissingLangs(JeeslFacade fUtils, String[] keys, T ejb)
 	{
 		for(String key : keys)
@@ -168,7 +177,7 @@ public class EjbLangFactory<L extends JeeslLang>
 		}
 		return ejb;
 	}
-	
+
 	public <LOC extends JeeslStatus<LOC,L,?>> Map<String,L> checkMissigLangs(JeeslFacade fUtils, List<LOC> locales, Map<String,L> map)
 	{
 		for(LOC loc : locales)
@@ -186,16 +195,16 @@ public class EjbLangFactory<L extends JeeslLang>
 		}
 		return map;
 	}
-	
+
 	public <M extends EjbWithLang<L>> void rmLang(JeeslFacade fUtils, M ejb)
 	{
 		Map<String,L> langMap = ejb.getName();
 		ejb.setName(null);
-		
+
 		try{ejb=fUtils.update(ejb);}
 		catch (JeeslConstraintViolationException e) {logger.error("",e);}
 		catch (JeeslLockingException e) {logger.error("",e);}
-		
+
 		for(L lang : langMap.values())
 		{
 			try {fUtils.rm(lang);}

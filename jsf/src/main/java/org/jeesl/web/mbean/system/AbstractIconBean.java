@@ -18,15 +18,15 @@ public class AbstractIconBean implements Serializable
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractIconBean.class);
 	private static final long serialVersionUID = 1L;
-	
+
 	private String imagePath;
-	
+
 	private Map<String,Map<Long,String>> mapImages,mapResource;
 	private Map<String,Map<Long,String>> mapImagesAlt,mapResourceAlternative;
 	protected Map<String,String> mapStatic;
-	
+
 	protected Map<String,String> svg; public Map<String, String> getSvg() {return svg;}
-	
+
 	private Map<Integer,Map<String,String>> icon; public Map<Integer,Map<String,String>> getIcon() {return icon;}
 	public Map<String,String> getIcon12() {return icon.get(12);}
 	public Map<String,String> getIcon16() {return icon.get(16);}
@@ -38,10 +38,10 @@ public class AbstractIconBean implements Serializable
 		mapImagesAlt = new Hashtable<String,Map<Long,String>>();
 		mapResource = new Hashtable<String,Map<Long,String>>();
 		mapResourceAlternative = new Hashtable<String,Map<Long,String>>();
-		
+
 		mapStatic = new HashMap<String,String>();
 		svg = new HashMap<String,String>();
-		
+
 		icon = new Hashtable<Integer,Map<String,String>>();
     }
 
@@ -59,11 +59,11 @@ public class AbstractIconBean implements Serializable
         	{
         		if(!mapImagesAlt.get(key).containsKey(filter.getValue().getId())){generate(mapImagesAlt,size, filter.getValue().getId(), filter.getValue().getImageAlt(), key);}
         	}
-        	
+
     		return mapImagesAlt.get(key).get(filter.getValue().getId());
     	}
     }
-    
+
     @Deprecated
     public <L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<S,L,D>>
     String filter(Integer size, UtilsStatusFilter<L,D,S> filter)
@@ -84,7 +84,7 @@ public class AbstractIconBean implements Serializable
     		return mapResourceAlternative.get(key).get(filter.getValue().getId());
     	}
     }
-    
+
     @Deprecated
     public String resource(Integer size, EjbWithImage image)
 	{
@@ -97,10 +97,10 @@ public class AbstractIconBean implements Serializable
     	{
     		generateResource(mapResource, size, image.getId(), image.getImage(), key);
     	}
-    	
+
 		return mapResource.get(key).get(image.getId());
 	}
-    
+
     @Deprecated
 	public String url(Integer size, EjbWithImage image)
 	{
@@ -110,10 +110,10 @@ public class AbstractIconBean implements Serializable
     	{
     		if(!mapImages.get(key).containsKey(image.getId())){generate(mapImages, size, image.getId(), image.getImage(), key);}
     	}
-    	
+
 		return mapImages.get(key).get(image.getId());
 	}
-    
+
 	@Deprecated
     private void generate(Map<String,Map<Long,String>> map, int size, long id, String image, String key)
     {
@@ -129,7 +129,7 @@ public class AbstractIconBean implements Serializable
     	else{sb.append("noImage.png");}
     	map.get(key).put(id, sb.toString());
     }
-    
+
     private void generateResource(Map<String,Map<Long,String>> map, int size, long id, String image, String key)
     {
     	if(!map.containsKey(key)){map.put(key, new Hashtable<Long,String>());}
@@ -142,7 +142,7 @@ public class AbstractIconBean implements Serializable
     	else{sb.append("noImage.png");}
     	map.get(key).put(id, sb.toString());
     }
-    
+
     @Deprecated
 	public String icon(int size,  String key)
 	{
@@ -152,7 +152,7 @@ public class AbstractIconBean implements Serializable
     	sb.append("/").append(mapStatic.get(key));
 		return sb.toString();
 	}
-    
+
     protected void generateIconMap(Integer... sizes)
     {
     	for(int size : sizes)
@@ -164,13 +164,13 @@ public class AbstractIconBean implements Serializable
     		}
     		icon.put(size, mapSize);
     	}
-    } 
-	
+    }
+
 	protected void add(String key, String resource, String lib, boolean sizeFolder)
 	{
-		
+
 	}
-	
+
 	protected void jeesl()
 	{
 		mapStatic.put("jeeslAdd", "ui/jeesl/control/add.png");							svg.put("jeeslAdd","ui/control/add.svg");
@@ -188,33 +188,34 @@ public class AbstractIconBean implements Serializable
 		mapStatic.put("jeeslSearch", "ui/jeesl/control/search.png");					svg.put("jeeslSearch","ui/control/search.svg");
 		mapStatic.put("jeeslDownload", "ui/jeesl/control/download.png");				svg.put("jeeslDownload","ui/control/download.svg");
 		mapStatic.put("jeeslUpload", "ui/jeesl/control/upload.png");					svg.put("jeeslUpload","ui/control/upload.svg");
-		
+		mapStatic.put("jeeslGenerate", "ui/jeesl/control/gear.png");					svg.put("jeeslUpload","ui/control/gear.svg");
+
 		mapStatic.put("jeeslArrowUp", "ui/jeesl/control/arrow/blue/up.png");			svg.put("jeeslArrowUp","ui/control/arrow/blue/up.svg");
 		mapStatic.put("jeeslArrowDown", "ui/jeesl/control/arrow/blue/down.png");		svg.put("jeeslArrowDown","ui/control/arrow/blue/down.svg");
 		mapStatic.put("jeeslArrowLeft", "ui/jeesl/control/arrow/blue/left.png");		svg.put("jeeslArrowLeft","ui/control/arrow/blue/left.svg");
 		mapStatic.put("jeeslArrowRight", "ui/jeesl/control/arrow/blue/right.png");		svg.put("jeeslArrowRight","ui/control/arrow/blue/right.svg");
-		
+
 		mapStatic.put("jeeslInvisible", "ui/jeesl/generic/ghost.png");
 		mapStatic.put("jeeslUnsaved", "ui/jeesl/generic/unsaved.png");
-		
+
 		svg.put("jeeslHome", "svg/jeesl/icon/ui/system/home.svg");
-		
+
 		svg.put("jeeslEmail","ui/control/email/email.svg");
 		svg.put("jeeslEmailSend","ui/control/email/send.svg");
-		
+
 		svg.put("jeeslTreeExpandTwo", "ui/control/tree/expand-2.svg");
 		svg.put("jeeslTreeExpandThree", "ui/control/tree/expand-3.svg");
 		svg.put("jeeslTreeExpandAll", "ui/control/tree/expand-all.svg");
 		svg.put("jeeslTreeCollapseAll", "ui/control/tree/collapse-all.svg");
-		
+
 		svg.put("jeeslExclamationMark", "ui/info/mark/exclamation.svg");
 		svg.put("jeeslCheckMark", "ui/info/mark/check.svg");
 		svg.put("jeeslCrossMark", "ui/info/mark/cross.svg");
 		svg.put("jeeslQuestionMark", "ui/info/mark/question.svg");
-		
+
 		svg.put("jeeslOnlineHelp", "ui/info/help.svg");
 	}
-	
+
 	protected void jeeslDm()
 	{
 		mapStatic.put("dmUnlockDeactivated", "ui/jeesl/control/dm/circleMinusGrey.png");
@@ -222,7 +223,7 @@ public class AbstractIconBean implements Serializable
 		mapStatic.put("dmNotSelected", "ui/jeesl/control/dm/circleGrey.png");
 		mapStatic.put("dmSelected", "ui/jeesl/control/dm/circleGreen.png");
 	}
-	
+
 	protected void geojsf()
 	{
 		mapStatic.put("geoJsfAdd", "ui/jeesl/control/add.png");
@@ -231,24 +232,24 @@ public class AbstractIconBean implements Serializable
 		mapStatic.put("geoJsfRemove", "ui/jeesl/control/remove.png");
 		mapStatic.put("geoJsfSave", "ui/jeesl/control/save.png");
 	}
-	
+
 	protected void jeeslSecurity()
 	{
 		mapStatic.put("jeeslSecurityDocumentation", "ui/jeesl/security/documentation.png");
 		mapStatic.put("jeeslSecurityVisible", "ui/jeesl/security/check-mark.png");
 		mapStatic.put("jeeslSecurityInvisible", "ui/jeesl/security/x-mark.png");
-		
+
 		mapStatic.put("jeeslSecuritySelected", "ui/jeesl/security/check-mark.png");
 		mapStatic.put("jeeslSecurityNotSelected", "ui/jeesl/security/x-mark.png");
 	}
-	
+
 	protected void jeeslIo()
 	{
 		mapStatic.put("jeeslIoAttributeEmpty", "ui/jeesl/io/attribute/empty.png");
 		mapStatic.put("jeeslIoAttributeCriteriaWithDescription", "ui/jeesl/io/attribute/criteriaWithDescription.png");
 		mapStatic.put("jeeslIoAttributeCriteriaWithoutDescription", "ui/jeesl/io/attribute/criteriaWithoutDescription.png");
 	}
-	
+
 	protected void jeeslFile()
 	{
 		mapStatic.put("reportPdf", "ui/jeesl/system/io/file/pdf.png");	svg.put("reportPdf","ui/io/fr/type/pdf.svg");
