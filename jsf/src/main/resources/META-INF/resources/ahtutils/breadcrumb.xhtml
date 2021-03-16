@@ -20,7 +20,7 @@
 	<ul class="#{cc.attrs.styleClass}">
 	    <c:forEach var="menuItem" items="#{cc.attrs.value.menuItem}">
 	    	<li class="jeesl-menu-bar-item">
-	    		<label class="jeesl-menu-bar-button">
+	    		<label class="jeesl-menu-bar-button jeesl-menu-bar-dropdown">
 		    		<c:if test="#{!empty menuItem.href}">
 		    			<a href="#{facesContext.externalContext.requestContextPath}#{menuItem.href}" class="jeesl-menu-bar-button-label">#{menuItem.name}</a>
 		    		</c:if>

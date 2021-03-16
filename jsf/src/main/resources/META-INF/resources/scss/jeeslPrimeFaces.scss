@@ -292,10 +292,12 @@ pre {
 
 // important is necessary because primefaces uses element style on display and position.
 .ui-dialog {
+	display: none !important;
 	flex-direction: column;
     max-height: 80%;
     top: 50% !important;
-    transform: translateY(-50%);
+    left: 50% !important;
+    transform: translate(-50%, -50%);
 
 	&[aria-hidden=false] {
 		display: flex !important;

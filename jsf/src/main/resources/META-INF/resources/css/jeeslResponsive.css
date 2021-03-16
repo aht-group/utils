@@ -594,6 +594,7 @@ body {
 /******************/
 .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar {
   box-sizing: border-box;
+  display: flex;
   height: 22px;
   margin-bottom: 2px;
   padding: 0 0 0 10px; }
@@ -604,6 +605,7 @@ body {
       border-radius: 3px 3px 0 0;
       height: 46px; } }
   .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-title {
+    flex-grow: 1;
     line-height: 22px; }
     @media (max-width: 768px) {
       .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-title {
@@ -642,6 +644,7 @@ body {
   margin: 0; }
   .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header {
     box-sizing: border-box;
+    display: flex;
     height: 22px;
     margin-bottom: 2px;
     padding: 0 0 0 10px; }
@@ -652,6 +655,7 @@ body {
         border-radius: 3px 3px 0 0;
         height: 46px; } }
     .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-title {
+      flex-grow: 1;
       line-height: 22px; }
       @media (max-width: 768px) {
         .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-title {
@@ -879,3 +883,82 @@ body {
     width: calc(100% - 10px); }
   .jeesl-content .jeesl-content-container .jeesl-grid-11 {
     width: calc(100% - 10px); } }
+.ui-dialog .ui-dialog-titlebar {
+  box-sizing: border-box;
+  display: flex;
+  height: 22px;
+  margin-bottom: 2px;
+  padding: 0 0 0 10px; }
+  @media (max-width: 768px) {
+    .ui-dialog .ui-dialog-titlebar {
+      border: 0 solid #00663a;
+      border-bottom-width: 4px;
+      border-radius: 3px 3px 0 0;
+      height: 46px; } }
+  @media (max-width: 768px) {
+    .ui-dialog .ui-dialog-titlebar {
+      pointer-events: none; } }
+  .ui-dialog .ui-dialog-titlebar > .ui-dialog-title {
+    display: flex;
+    height: 100%;
+    flex-grow: 1; }
+    .ui-dialog .ui-dialog-titlebar > .ui-dialog-title .ui-dialog-title {
+      flex-grow: 1;
+      line-height: 22px; }
+      @media (max-width: 768px) {
+        .ui-dialog .ui-dialog-titlebar > .ui-dialog-title .ui-dialog-title {
+          color: #00663a;
+          font-size: 18px;
+          letter-spacing: -.5px;
+          line-height: 42px; } }
+    .ui-dialog .ui-dialog-titlebar > .ui-dialog-title .ui-dialog-titlebar-actions {
+      float: none;
+      height: 100%;
+      bottom: 0;
+      cursor: default;
+      position: initial;
+      right: 0; }
+      .ui-dialog .ui-dialog-titlebar > .ui-dialog-title .ui-dialog-titlebar-actions .ui-outputpanel {
+        height: 100%; }
+        .ui-dialog .ui-dialog-titlebar > .ui-dialog-title .ui-dialog-titlebar-actions .ui-outputpanel .pf-action-icon {
+          box-sizing: border-box;
+          height: 100%;
+          margin: 0;
+          padding: 4px 0;
+          transition: background .2s linear; }
+          @media (max-width: 768px) {
+            .ui-dialog .ui-dialog-titlebar > .ui-dialog-title .ui-dialog-titlebar-actions .ui-outputpanel .pf-action-icon {
+              padding: 7px 0 6px; } }
+          .ui-dialog .ui-dialog-titlebar > .ui-dialog-title .ui-dialog-titlebar-actions .ui-outputpanel .pf-action-icon:hover {
+            background: #c4c4c4; }
+          .ui-dialog .ui-dialog-titlebar > .ui-dialog-title .ui-dialog-titlebar-actions .ui-outputpanel .pf-action-icon img {
+            padding: 0 4px; }
+            @media (max-width: 768px) {
+              .ui-dialog .ui-dialog-titlebar > .ui-dialog-title .ui-dialog-titlebar-actions .ui-outputpanel .pf-action-icon img {
+                border-left: 1px solid #a8a8a8;
+                padding: 0 6px; } }
+      .ui-dialog .ui-dialog-titlebar > .ui-dialog-title .ui-dialog-titlebar-actions img {
+        height: 100%; }
+      @media (max-width: 768px) {
+        .ui-dialog .ui-dialog-titlebar > .ui-dialog-title .ui-dialog-titlebar-actions {
+          pointer-events: all; } }
+      .ui-dialog .ui-dialog-titlebar > .ui-dialog-title .ui-dialog-titlebar-actions .ui-outputpanel .pf-action-icon {
+        float: none; }
+        .ui-dialog .ui-dialog-titlebar > .ui-dialog-title .ui-dialog-titlebar-actions .ui-outputpanel .pf-action-icon img {
+          vertical-align: initial; }
+  .ui-dialog .ui-dialog-titlebar .ui-dialog-title {
+    float: none;
+    margin: 0; }
+@media (max-width: 768px) {
+  .ui-dialog {
+    left: 15px !important;
+    max-width: none;
+    min-width: 370px;
+    transform: translateX(0);
+    width: calc(100% - 30px) !important; } }
+@media (max-width: 768px) {
+  .ui-dialog .ui-dialog-content {
+    margin: 0; } }
+@media (max-width: 768px) {
+  .ui-dialog .ui-dialog-content .ui-resizable-handle {
+    display: none; } }
