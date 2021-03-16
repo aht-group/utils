@@ -11,6 +11,8 @@ public class JsonCategory implements Serializable
 {
 	public static final long serialVersionUID=1;
 
+	
+	
 	@JsonProperty("id")
 	private Long id;
 	public Long getId() {return id;}

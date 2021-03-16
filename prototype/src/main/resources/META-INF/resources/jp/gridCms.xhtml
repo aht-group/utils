@@ -121,7 +121,10 @@
 							<p:column><jtp:symbolizer value="#{e.type}"/></p:column>
 							<p:column rendered="false" headerText="#{msg.jeeslCmsElementType}"><h:outputText value="#{e.type.name[localeCode].lang}"/></p:column>
 							<p:column rendered="false" headerText="#{msg.jeeslCmsElement} ID"><h:outputText value="#{e.id}"/></p:column>	
-							<p:column headerText="Preview"><ofx:html section="#{cc.attrs.bean.mapOfx[e]}"/></p:column>
+							<p:column headerText="Preview">
+								Preview deactivated
+							<!-- 	<ofx:html section="#{cc.attrs.bean.mapOfx[e]}"/>  -->
+							</p:column>
 						</p:dataTable>
 					</h:form>
 					<h:form id="fElement" rendered="#{not empty cc.attrs.bean.element}">
