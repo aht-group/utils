@@ -3,6 +3,7 @@ package org.jeesl.factory.builder.module;
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
 import org.jeesl.factory.ejb.module.lf.EjbLfTargetTimeElementFactory;
 import org.jeesl.factory.ejb.module.lf.EjbLfTargetTimeGroupFactory;
+import org.jeesl.interfaces.model.module.lf.JeeslLfLogframe;
 import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeElement;
 import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeGroup;
 import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeInterval;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 public class LfFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 							R extends JeeslTenantRealm<L,D,R,?>,
+							LF extends JeeslLfLogframe,
 							TTG extends JeeslLfTargetTimeGroup<L,TTI>,
 							TTI extends JeeslLfTargetTimeInterval<L,D,TTI,?>,
 							TTE extends JeeslLfTargetTimeElement<L,TTG>>
@@ -36,9 +38,9 @@ public class LfFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 	}
 
 
-	public EjbLfTargetTimeGroupFactory<L,D,R,TTG,TTI> ejbTargetTimeGroup() {return new EjbLfTargetTimeGroupFactory<>(cTTG);}
+	public EjbLfTargetTimeGroupFactory<L,D,R,LF,TTG,TTI> ejbTargetTimeGroup() {return new EjbLfTargetTimeGroupFactory<>(cTTG);}
 
-	public EjbLfTargetTimeElementFactory<L,D,R,TTG,TTI,TTE> ejbTargetTimeElement(){return new EjbLfTargetTimeElementFactory<>(cTTE);}
+	public EjbLfTargetTimeElementFactory<L,D,R,LF,TTG,TTI,TTE> ejbTargetTimeElement(){return new EjbLfTargetTimeElementFactory<>(cTTE);}
 
 
 	public TTE buildElement(TTG timeGroup) {

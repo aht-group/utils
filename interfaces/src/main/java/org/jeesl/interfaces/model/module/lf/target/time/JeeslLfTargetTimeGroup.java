@@ -9,10 +9,13 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.system.status.JeeslWithInterval;
 
-public interface JeeslLfTargetTimeGroup<L extends JeeslLang, TTI extends JeeslLfTargetTimeInterval<?,?,TTI,?>>
+public interface JeeslLfTargetTimeGroup<L extends JeeslLang,
+//										R extends JeeslTenantRealm<?,?,R,?>,		/tk: will be activated soon
+										TTI extends JeeslLfTargetTimeInterval<?,?,TTI,?>>
 						extends Serializable,EjbSaveable,EjbRemoveable,
 								EjbWithId,/*EjbWithLang<L>,*/
 								JeeslWithInterval<TTI>
+//								,JeeslWithTenantSupport<R>
 {
 	public enum Attributes{interval}
 	public int getValue();

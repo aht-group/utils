@@ -9,7 +9,8 @@ import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.primitive.date.EjbWithRecord;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
-public interface JeeslLfTargetTimeElement<L extends JeeslLang, TTG extends JeeslLfTargetTimeGroup<L,?>>
+public interface JeeslLfTargetTimeElement<L extends JeeslLang, 
+											TTG extends JeeslLfTargetTimeGroup<L,?>>
 						extends Serializable,EjbSaveable,EjbRemoveable,/*EjbWithLang<L>,*/
 								EjbWithId,EjbWithRecord,EjbWithParentAttributeResolver
 {

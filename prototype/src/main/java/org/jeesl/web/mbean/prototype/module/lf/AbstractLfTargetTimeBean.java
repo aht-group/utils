@@ -12,6 +12,7 @@ import org.jeesl.api.facade.module.JeeslLogframeFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.LfFactoryBuilder;
+import org.jeesl.interfaces.model.module.lf.JeeslLfLogframe;
 import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeElement;
 import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeGroup;
 import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeInterval;
@@ -27,6 +28,7 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 								R extends JeeslTenantRealm<L,D,R,?>,
+								LF extends JeeslLfLogframe,
 								TTG extends JeeslLfTargetTimeGroup<L,TTI>,
 								TTI extends JeeslLfTargetTimeInterval<L,D,TTI,?>,
 								TTE extends JeeslLfTargetTimeElement<L,TTG>
@@ -37,8 +39,8 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractLfTargetTimeBean.class);
 
-	protected final LfFactoryBuilder<L,D,R,TTG,TTI,TTE> fbLogFrame;
-	protected JeeslLogframeFacade<L,D,R,TTG,TTI,TTE> fLogFrame;
+	protected final LfFactoryBuilder<L,D,R,LF,TTG,TTI,TTE> fbLogFrame;
+	protected JeeslLogframeFacade<L,D,R,LF,TTG,TTI,TTE> fLogFrame;
 
 	protected boolean uiGenerate;
 	public boolean getUiGenerate()
@@ -65,7 +67,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 
 
 
-	public AbstractLfTargetTimeBean(LfFactoryBuilder<L,D,R,TTG,TTI,TTE> fbLf)
+	public AbstractLfTargetTimeBean(LfFactoryBuilder<L,D,R,LF,TTG,TTI,TTE> fbLf)
 	{
 		super(fbLf.getClassL(),fbLf.getClassD());
 		this.fbLogFrame=fbLf;
@@ -74,7 +76,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	}
 
 	protected void postConstructHd(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslLogframeFacade<L,D,R,TTG,TTI,TTE> fLf)
+									JeeslLogframeFacade<L,D,R,LF,TTG,TTI,TTE> fLf)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fLogFrame=fLf;
