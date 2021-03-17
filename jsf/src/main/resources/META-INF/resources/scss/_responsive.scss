@@ -577,6 +577,7 @@ body {
 
 @mixin jeesl-titlebar {
 	box-sizing: border-box;
+	display: flex;
     height: 22px;
 	margin-bottom: 2px;
     padding: 0 0 0 10px;
@@ -590,6 +591,7 @@ body {
 }
 
 @mixin jeesl-titlebar-title {
+	flex-grow: 1;
 	line-height: 22px;
 
 	@media (max-width: 768px) {
@@ -662,6 +664,54 @@ body {
 		
 		.pf-datatable-header-actions {
 			@include jeesl-titlebar-actions;
+		}
+	}
+}
+
+@mixin jeesl-dialog-titlebar {
+	.ui-dialog-titlebar {
+		@include jeesl-titlebar;
+		
+		@media (max-width: 768px) {
+			pointer-events: none;
+		}
+		
+		> .ui-dialog-title {
+			display: flex;
+			height: 100%;
+			flex-grow: 1;
+			
+			.ui-dialog-title {
+				@include jeesl-titlebar-title;
+			}
+			
+			.ui-dialog-titlebar-actions {
+				@include jeesl-titlebar-actions;
+				
+			    bottom: 0;
+				cursor: default;
+			    position: initial;
+			    right: 0;
+
+				@media (max-width: 768px) {
+					pointer-events: all;
+				}
+
+				.ui-outputpanel {
+					.pf-action-icon {
+						float: none;
+						
+						img {
+							vertical-align: initial;
+						}
+					}
+				}
+			}
+		}
+		
+		.ui-dialog-title {
+			float: none;
+			margin: 0;
 		}
 	}
 }
@@ -981,6 +1031,30 @@ body {
 				.jeesl-grid-#{$i} {
 					width: calc(100% - 10px);
 				}
+			}
+		}
+	}
+}
+
+.ui-dialog {
+	@include jeesl-dialog-titlebar;
+	
+	@media (max-width: 768px) {
+		left: 15px !important;
+		max-width: none;
+		min-width: 370px;
+		transform: translateX(0);
+		width: calc(100% - 30px) !important;
+	}
+
+	.ui-dialog-content {
+		@media (max-width: 768px) {
+			margin: 0;
+		}
+		
+		.ui-resizable-handle {
+			@media (max-width: 768px) {
+				display: none;
 			}
 		}
 	}

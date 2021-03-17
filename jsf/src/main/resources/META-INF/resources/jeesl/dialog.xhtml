@@ -13,17 +13,26 @@
 	<composite:interface componentType="org.jeesl.jsf.components.output.Dialog">
 		<composite:attribute name="header" required="true"/>
 		<composite:attribute name="size" required="false" default="6"/>
+		<composite:attribute name="widgetVar" required="false" default="#{cc.id}Widget"/>
 	</composite:interface>
         
  	<composite:implementation>
   
-		<p:dialog id="dJeesl" widgetVar="#{cc.id}Widget" modal="true" styleClass="jeeslPanel #{cc.styleClass(cc.attrs.size)}"
-					closable="false" resizable="false">
+		<p:dialog id="dJeesl"
+				  widgetVar="#{cc.attrs.widgetVar}"
+				  modal="true"
+				  styleClass="jeeslPanel #{cc.styleClass(cc.attrs.size)}"
+				  closable="false"
+				  resizable="false"
+				  draggable="false"
+				  position="center center">
 			<f:facet name="header">
-				<h:outputText value="#{cc.attrs.header}"/>
+				<h:outputText class="ui-dialog-title" value="#{cc.attrs.header}"/>
 				<c:if test="#{!empty cc.facets.actions}">
-					<div class="jeeslDialogActions">
-			            <composite:renderFacet name="actions"/>
+					<div class="jeeslDialogActions ui-dialog-titlebar-actions">
+						<p:outputPanel id="cActions">
+				            <composite:renderFacet name="actions"/>
+			        	</p:outputPanel>
 			        </div>
 	            </c:if>
 			</f:facet>

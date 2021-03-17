@@ -192,10 +192,12 @@ pre code {
     width: 100%; }
 
 .ui-dialog {
+  display: none !important;
   flex-direction: column;
   max-height: 80%;
   top: 50% !important;
-  transform: translateY(-50%); }
+  left: 50% !important;
+  transform: translate(-50%, -50%); }
   .ui-dialog[aria-hidden=false] {
     display: flex !important; }
   .ui-dialog .ui-dialog-content {

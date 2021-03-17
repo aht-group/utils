@@ -19,7 +19,7 @@
   </composite:interface>
         
   <composite:implementation>
-   	<label class="jeesl-menu-bar-button jeesl-burger-menu-icon"/>
+   	<label class="jeesl-menu-bar-button jeesl-menu-bar-dropdown jeesl-burger-menu-icon"/>
     <ul class="jeesl-dropdown-list #{cc.attrs.styleClass}">
       <ui:repeat var="mi1" value="#{cc.attrs.value.menuItem}" varStatus="vs1">
       	<li id="#{mi1.code}" class="jeesl-dropdown-item #{cc.styleClassLi(mi1.active,vs1.first,vs1.last,cc.attrs.scActive,cc.attrs.sc1,cc.attrs.sc1First,cc.attrs.sc1Last)}">
