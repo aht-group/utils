@@ -22,8 +22,6 @@ public interface JeeslIoMail<L extends JeeslLang,D extends JeeslDescription,
 					EjbRemoveable,EjbPersistable,EjbSaveable
 {	
 	
-
-	public static enum Retention{fully,partially,toDelete};
 	public static enum Attributes{category,status,retention,recordCreation,recordSpool};
 	
 	Long getVersionLock();

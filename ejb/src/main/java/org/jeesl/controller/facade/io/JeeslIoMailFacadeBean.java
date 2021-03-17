@@ -10,7 +10,6 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
@@ -24,11 +23,9 @@ import org.jeesl.factory.ejb.io.mail.core.EjbIoMailFactory;
 import org.jeesl.factory.json.system.io.db.tuple.JsonTupleFactory;
 import org.jeesl.factory.json.system.io.db.tuple.t1.Json1TuplesFactory;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
-import org.jeesl.interfaces.model.io.fr.JeeslFileMeta;
 import org.jeesl.interfaces.model.io.mail.core.JeeslIoMail;
 import org.jeesl.interfaces.model.io.mail.core.JeeslMailRetention;
 import org.jeesl.interfaces.model.io.mail.core.JeeslMailStatus;
-import org.jeesl.interfaces.model.module.ts.data.JeeslTsData;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
@@ -123,7 +120,7 @@ public class JeeslIoMailFacadeBean<L extends JeeslLang,D extends JeeslDescriptio
 	@Override public void queueMail(CATEGORY category, RETENTION retention, Mail mail) throws JeeslConstraintViolationException
 	{
 		STATUS status = this.fByEnum(fbMail.getClassStatus(), JeeslMailStatus.Code.queue);
-		if(retention==null) {retention = this.fByEnum(fbMail.getClassRetention(), JeeslIoMail.Retention.fully);}
+		if(retention==null) {retention = this.fByEnum(fbMail.getClassRetention(), JeeslMailRetention.Code.fully);}
 		MAIL ejb = efMail.build(category,status,mail,retention);
 		ejb = this.persist(ejb);
 		logger.info(fbMail.getClassMail().getSimpleName()+" spooled with id="+ejb.getId());
