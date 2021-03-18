@@ -102,7 +102,6 @@ public abstract class AbstractJeeslReport<L extends JeeslLang,D extends JeeslDes
 	protected List<GROUP> groups; public List<GROUP> getGroups() {return groups;}
 	protected List<COLUMN> columns; public List<COLUMN> getColumns() {return columns;}
 	
-
 	protected REPORT ioReport; @Override public REPORT getIoReport() {return ioReport;}
 	protected SHEET ioSheet; public SHEET getIoSheet() {return ioSheet;}
 
