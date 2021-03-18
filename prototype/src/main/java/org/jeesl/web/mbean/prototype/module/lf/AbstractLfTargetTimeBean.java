@@ -12,7 +12,6 @@ import org.jeesl.api.facade.module.JeeslLogframeFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.LfFactoryBuilder;
-import org.jeesl.interfaces.model.module.lf.JeeslLfLogframe;
 import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeElement;
 import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeGroup;
 import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeInterval;
@@ -28,7 +27,6 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 								R extends JeeslTenantRealm<L,D,R,?>,
-								LF extends JeeslLfLogframe,
 								TTG extends JeeslLfTargetTimeGroup<L,TTI>,
 								TTI extends JeeslLfTargetTimeInterval<L,D,TTI,?>,
 								TTE extends JeeslLfTargetTimeElement<L,TTG>
@@ -39,8 +37,9 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractLfTargetTimeBean.class);
 
-	protected final LfFactoryBuilder<L,D,R,LF,TTG,TTI,TTE> fbLogFrame;
-	protected JeeslLogframeFacade<L,D,R,LF,TTG,TTI,TTE> fLogFrame;
+	protected final LfFactoryBuilder<L,D,?,TTG,TTE> fbLogFrame;
+	protected JeeslLogframeFacade<L,D,?,TTG,TTE> fLogFrame;
+	protected final Class<TTI> cTTI; public Class<TTI> getClassTTI() {return cTTI;}
 
 	protected boolean uiGenerate;
 	public boolean getUiGenerate()
@@ -67,20 +66,21 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 
 
 
-	public AbstractLfTargetTimeBean(LfFactoryBuilder<L,D,R,LF,TTG,TTI,TTE> fbLf)
+	public AbstractLfTargetTimeBean(LfFactoryBuilder<L,D,?,TTG,TTE> fbLf,Class<TTI> cTTI)
 	{
 		super(fbLf.getClassL(),fbLf.getClassD());
 		this.fbLogFrame=fbLf;
 		this.timeGroups = new ArrayList<TTG>();
 		this.intervalTypes = new ArrayList<TTI>();
+		this.cTTI = cTTI;
 	}
 
 	protected void postConstructHd(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslLogframeFacade<L,D,R,LF,TTG,TTI,TTE> fLf)
+									JeeslLogframeFacade<L,D,?,TTG,TTE> fLf)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fLogFrame=fLf;
-		this.intervalTypes = fLf.all(fbLogFrame.getClassTTI());
+		this.intervalTypes = fLf.all(this.cTTI);
 		reloadTimeGroups();
 	}
 
@@ -95,14 +95,13 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbLogFrame.getClassTTG()));}
 		timeGroup = fbLogFrame.ejbTargetTimeGroup().build();
-		//timeGroup.setName(efLang.createEmpty(localeCodes));
 		reset(false,true);
 	}
 
 	public void saveTimeGroup() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(timeGroup));}
-		timeGroup.setInterval(fLogFrame.find(fbLogFrame.getClassTTI(),timeGroup.getInterval()));
+		timeGroup.setInterval(fLogFrame.find(this.cTTI,timeGroup.getInterval()));
 		timeGroup = fLogFrame.save(timeGroup);
 		reloadTimeGroups();
 		reloadElements();
@@ -174,7 +173,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 		{
 			count++;
 			element = fbLogFrame.ejbTargetTimeElement().build(timeGroup,elements);
-			//element.setName(efLang.createEmptyWithDefault(localeCodes,String.valueOf(count)));
+			element.setName(String.valueOf(count));
 			element.setRecord(record);
 			generateElement(record);
 

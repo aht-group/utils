@@ -8,15 +8,15 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.primitive.date.EjbWithRecord;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.interfaces.model.with.primitive.text.EjbWithName;
 
-public interface JeeslLfTargetTimeElement<L extends JeeslLang, 
+public interface JeeslLfTargetTimeElement<L extends JeeslLang,
 											TTG extends JeeslLfTargetTimeGroup<L,?>>
-						extends Serializable,EjbSaveable,EjbRemoveable,/*EjbWithLang<L>,*/
+						extends Serializable,EjbSaveable,EjbRemoveable,EjbWithName,
 								EjbWithId,EjbWithRecord,EjbWithParentAttributeResolver
 {
 	public enum Attributes{group}
 
 	TTG getGroup();
 	void setGroup(TTG group);
-	/*@Override void setName(Map<String, L> createEmpty);*/
 }

@@ -64,6 +64,9 @@
 							</f:facet>
 							<p:messages redisplay="false" severity="warn,error" showSummary="true" showDetail="true" closable="true"/>
 							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
+								<jtp:label entity="LfTargetTimeGroup" code="name" />
+								<p:outputLabel  value="#{cc.attrs.bean.timeGroup.name}"/>
+							
 								<jtp:label entity="LfTargetTimeGroup" code="interval"/>
 								<p:selectOneMenu value="#{cc.attrs.bean.timeGroup.interval}" effect="fade" >
 									<f:selectItems value="#{cc.attrs.bean.intervalTypes}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t}"/>
@@ -92,7 +95,10 @@
 								</aht:pfDataTableHeader>
 							</f:facet>
 							<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectElement()}" update=":#{cc.id}:fElement"/>
-							
+							<p:column> 
+								<f:facet name="header"><jtp:label entity="LfTargetTimeElement" code="name"/></f:facet>
+								<h:outputText value="#{o.name}"/>
+							</p:column>
 							<p:column> 
 								<f:facet name="header"><jtp:label entity="LfTargetTimeElement" code="record"/></f:facet>
 								<h:outputText value="#{o.record}"/>
@@ -109,6 +115,8 @@
 							</f:facet>
 							<p:messages redisplay="false" severity="warn,error" showSummary="true" showDetail="true" closable="true"/>
 							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
+								<jtp:label entity="LfTargetTimeElement" code="name"/>
+								<p:inputText  value="#{cc.attrs.bean.element.name}"/>
 								<jtp:label entity="LfTargetTimeElement" code="record"/>
 								<jp:inputCalendar  value="#{cc.attrs.bean.element.record}"/>
 							</p:panelGrid>
