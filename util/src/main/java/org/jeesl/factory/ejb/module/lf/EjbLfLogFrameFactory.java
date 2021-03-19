@@ -4,7 +4,7 @@ import org.jeesl.interfaces.model.module.lf.JeeslLfLogframe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbLfLogFrameFactory<LF extends JeeslLfLogframe<?,?,?,?>>
+public class EjbLfLogFrameFactory<LF extends JeeslLfLogframe<?,?,?,?,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbLfLogFrameFactory.class);
 

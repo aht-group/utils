@@ -22,37 +22,38 @@
 	<composite:implementation>
 		<aup:grid id="grid">
 			<aht:row>
-				<aht:slot id="sLogFrames" width="8">
+				<aht:slot id="sLogFrames" width="7">
 					<h:form id="fLogFrames">
-						<p:dataTable var="c" value="#{cc.attrs.bean.logFrames}" draggableRows="true"
-							selection="#{cc.attrs.bean.logFrame}" selectionMode="single" rowKey="#{c.id}">
+						<p:dataTable var="c" value="#{cc.attrs.bean.logFrameTypeGroups}" draggableRows="true">
 							<f:facet name="header">
 								<aht:pfDataTableHeader title="#{appLabelBean.labels['LfLogFrame']['listOf'][localeCode].lang}">
 									<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addLogFrame()}" update=":#{cc.id}:grid" tooltip="#{msg.ttNew}" />
 								</aht:pfDataTableHeader>
 							</f:facet>
-							<p:ajax event="rowSelect" update=":#{cc.id}:sLogFrame" listener="#{cc.attrs.bean.selectLogFrame()}"/>
 
 					         <p:column>
-					         	<f:facet name="header"><jtp:label entity="LfLogFrame" code="name"/></f:facet>
-					         	<h:outputText value="#{c.name}"/>
+					         	<f:facet name="header"><jtp:label entity="LfLogFrame" code="type"/></f:facet>
+					         	<h:outputText value="#{c.type.name[localeCode].lang}"/>
 					         </p:column>
 							 <p:column>
 							 	<f:facet name="header"><jtp:label entity="LfLogFrame" code="objective"/></f:facet>  
-								<h:outputText value="bullet | list"/>
+								<ui:repeat var="tg" value="#{c.levelGroups}" varStatus="status">
+									<h:outputText value="#{tg.level.name[localeCode].lang}"/>
+								</ui:repeat>
 					         </p:column>
 					         <p:column>
 					         	<f:facet name="header"><jtp:label entity="LfLogFrame" code="indicator"/></f:facet>    
-								<h:outputText value="bullet | list"/>
-					         </p:column>
-					         <p:column headerText="#{msg.jeeslEndDate}">
-					         	<f:facet name="header"><jtp:label entity="LfLogFrame" code="meansOfVerification"/></f:facet>    
-								<h:outputText value="bullet | list"/>
+								<ui:repeat var="tg" value="#{c.levelGroups}" varStatus="statusTg">
+									<ui:repeat var="lg" value="#{tg.logFrames}" varStatus="statusLg">
+									<h:outputText value="#{tg.level.name[localeCode].lang}"/> |
+									<h:commandLink id="Link1" value="#{lg.name}" action="#{cc.attrs.bean.selectLogFrame(lg)}" update=":#{cc.id}:sLogFrame"/>
+									</ui:repeat>
+								</ui:repeat>
 					         </p:column>
 					   	</p:dataTable>
 					</h:form>
 				</aht:slot>
-				<aht:slot id="sLogFrame" width="4">
+				<aht:slot id="sLogFrame" width="5">
 					<h:form id="fLogFrame">
 						<p:panel id="pView" rendered="#{not empty cc.attrs.bean.logFrame}" styleClass="jeeslPanel">
 							<f:facet name="header"><jtp:label entity="LfLogFrame"/></f:facet>    

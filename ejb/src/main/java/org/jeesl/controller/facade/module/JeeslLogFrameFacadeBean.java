@@ -14,11 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class JeeslLogFrameFacadeBean<	L extends JeeslLang, D extends JeeslDescription,
-										LF extends JeeslLfLogframe<L, D, ?, ?>,
-//										LFL extends JeeslLfLevel<?,?,LFL,?>,
-//										LFT extends JeeslLfType<?,?,LFT,?>,
+										LF extends JeeslLfLogframe<L, D,?, ?, ?>,
 										TTG extends JeeslLfTargetTimeGroup<L,?>,
-//										TTI extends JeeslLfTargetTimeInterval<?,?,TTI,?>,
 										TTE extends JeeslLfTargetTimeElement<L,TTG>>
 					extends JeeslFacadeBean
 					implements JeeslLogframeFacade<L,D,LF,TTG,TTE>
