@@ -72,16 +72,24 @@ public class JeeslLogger<L extends JeeslLang, D extends JeeslDescription,
 		return sb.toString();
 	}
 	
-	public String milestone(String milestone) {return milestone(milestone,null);}
-	public String milestone(String milestone, String message)
+	public String milestone(String milestone) {return milestone(milestone,null,null);}
+	public String milestone(String milestone, String message){return milestone(milestone,message,null);}
+	public String milestone(String milestone, Integer elements) {return milestone(milestone,null,elements);}
+	public String milestone(String milestone, String message, Integer elements)
 	{
 		Instant timeNow = Instant.now();
 		MILESTONE ejb = efMilestone.build(log);
 		ejb.setRecord(Date.from(timeNow));
 		ejb.setMilliTotal(ChronoUnit.MILLIS.between(timeStart,timeNow));
 		ejb.setMilliStep(ChronoUnit.MILLIS.between(timeMilestone,timeNow));
+		
+		if(elements!=null && elements.intValue()!=0) {ejb.setMilliRelative(ejb.getMilliStep()/elements);}
+		else {ejb.setMilliRelative(ejb.getMilliStep());}
+		
 		ejb.setName(milestone);
 		ejb.setMessage(message);
+		ejb.setElements(elements);
+		
 		milestones.add(ejb);
 	
 		StringBuilder sb = new StringBuilder();
@@ -103,8 +111,12 @@ public class JeeslLogger<L extends JeeslLang, D extends JeeslDescription,
 	{
 		List<String> header = new ArrayList<>();
 		header.add("Time");
+		
 		header.add("Total");
 		header.add("Step");
+		header.add("Elements");
+		header.add("Relative");
+		
 		header.add("Milestone");
 		header.add("Message");
 		
@@ -112,12 +124,16 @@ public class JeeslLogger<L extends JeeslLang, D extends JeeslDescription,
 		
 		for(MILESTONE ejb : milestones)
 		{
-			String[] cell = new String[5];
+			String[] cell = new String[7];
 			cell[0] = ejb.getRecord().toString();
+			
 			cell[1] = Long.valueOf(ejb.getMilliTotal()).toString();
 			cell[2] = Long.valueOf(ejb.getMilliStep()).toString();
-			cell[3] = ejb.getName();
-			cell[4] = ejb.getMessage();
+			if(ejb.getElements()!=null) {cell[3] = ejb.getElements().toString();}else {cell[3]="";}
+			cell[4] = Long.valueOf(ejb.getMilliRelative()).toString();
+			
+			cell[5] = ejb.getName();
+			cell[6] = ejb.getMessage();
 			data.add(cell);
 		}
 		

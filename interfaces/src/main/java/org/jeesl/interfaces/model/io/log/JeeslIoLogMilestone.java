@@ -19,12 +19,20 @@ public interface JeeslIoLogMilestone<LOG extends JeeslIoLog<?,?,?,?,?>
 	LOG getLog();
 	void setLog(LOG log);
 	
-	long getMilliStep();
-	void setMilliStep(long milliStep);
 	
 	long getMilliTotal();
 	void setMilliTotal(long milliTotal);
+	
+	long getMilliStep();
+	void setMilliStep(long milliStep);
+	
+	long getMilliRelative();
+	void setMilliRelative(long milliRelative);
+	
 
 	String getMessage();
 	void setMessage(String message);
+	
+	Integer getElements();
+	void setElements(Integer elements);
 }

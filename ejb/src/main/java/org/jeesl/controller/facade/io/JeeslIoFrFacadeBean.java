@@ -1,6 +1,8 @@
 package org.jeesl.controller.facade.io;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
@@ -34,6 +36,7 @@ import org.jeesl.interfaces.model.io.fr.JeeslFileStorage;
 import org.jeesl.interfaces.model.io.fr.JeeslFileStorageEngine;
 import org.jeesl.interfaces.model.io.fr.JeeslFileStorageType;
 import org.jeesl.interfaces.model.io.fr.JeeslFileType;
+import org.jeesl.interfaces.model.io.fr.JeeslWithFileRepositoryContainer;
 import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
@@ -173,5 +176,10 @@ public class JeeslIoFrFacadeBean<L extends JeeslLang, D extends JeeslDescription
 
 		TypedQuery<Tuple> tQ = em.createQuery(cQ);
         return jtf.build(tQ.getResultList(),JsonTupleFactory.Type.count);
+	}
+
+	@Override public List<META> fIoFrMetas(List<JeeslWithFileRepositoryContainer<CONTAINER>> owners)
+	{
+		return new ArrayList<META>();
 	}
 }

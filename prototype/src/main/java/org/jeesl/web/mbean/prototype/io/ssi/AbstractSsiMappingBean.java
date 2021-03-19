@@ -19,7 +19,6 @@ import org.jeesl.interfaces.model.io.ssi.data.JeeslIoSsiLink;
 import org.jeesl.interfaces.model.io.ssi.data.JeeslIoSsiMapping;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,6 +70,10 @@ public class AbstractSsiMappingBean <L extends JeeslLang,D extends JeeslDescript
 		
 		thMapping.init(fSsi.tpMapping());
 		thLink.init(fSsi.tpMappingLink());
+		for(LINK  l: thLink.getListB())
+		{
+			logger.info(l.getCode());
+		}
 	}
 	
 	public void selectMapping()

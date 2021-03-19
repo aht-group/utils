@@ -1,5 +1,7 @@
 package org.jeesl.api.facade.io;
 
+import java.util.List;
+
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
@@ -14,6 +16,7 @@ import org.jeesl.interfaces.model.io.fr.JeeslFileStorage;
 import org.jeesl.interfaces.model.io.fr.JeeslFileStorageEngine;
 import org.jeesl.interfaces.model.io.fr.JeeslFileStorageType;
 import org.jeesl.interfaces.model.io.fr.JeeslFileType;
+import org.jeesl.interfaces.model.io.fr.JeeslWithFileRepositoryContainer;
 import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiSystem;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
@@ -37,4 +40,6 @@ public interface JeeslIoFrFacade <L extends JeeslLang, D extends JeeslDescriptio
 	Json1Tuples<STORAGE> tpsIoFileByStorage();
 	Json2Tuples<STORAGE,FTYPE> tpcIoFileByStorageType();
 //	Json2Tuples<STORAGE,TYPE> tpcIoFrReplicationInfoByReplicationStatus();
+	
+	List<META> fIoFrMetas(List<JeeslWithFileRepositoryContainer<CONTAINER>> owners);
 }
