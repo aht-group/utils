@@ -14,7 +14,7 @@ public interface JeeslFileContainer<STORAGE extends JeeslFileStorage<?,?,?,?,?>,
 					EjbSaveable,EjbRemoveable,
 					EjbWithParentAttributeResolver
 {
-	public enum Attributes{storage}
+	public enum Attributes{storage,metas}
 	
 	STORAGE getStorage();
 	void setStorage(STORAGE storage);

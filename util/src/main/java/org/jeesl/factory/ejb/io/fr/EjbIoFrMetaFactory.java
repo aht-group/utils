@@ -2,7 +2,9 @@ package org.jeesl.factory.ejb.io.fr;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
@@ -10,6 +12,8 @@ import org.jeesl.interfaces.model.io.fr.JeeslFileMeta;
 import org.jeesl.interfaces.model.io.fr.JeeslFileType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.lowagie.text.Meta;
 
 public class EjbIoFrMetaFactory<CONTAINER extends JeeslFileContainer<?,META>,
 								META extends JeeslFileMeta<?,CONTAINER,TYPE,?>,
@@ -71,5 +75,16 @@ public class EjbIoFrMetaFactory<CONTAINER extends JeeslFileContainer<?,META>,
 			}
 		}
 		return images;
+	}
+	
+	public Map<CONTAINER,List<META>> toMapMeta(List<META> metas)
+	{
+		Map<CONTAINER,List<META>> map = new HashMap<>();
+		for(META meta : metas)
+		{
+			if(!map.containsKey(meta.getContainer())){map.put(meta.getContainer(),new ArrayList<>());}
+			map.get(meta.getContainer()).add(meta);
+		}
+		return map;
 	}
 }

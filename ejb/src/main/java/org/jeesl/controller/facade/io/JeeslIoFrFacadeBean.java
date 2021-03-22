@@ -2,8 +2,10 @@ package org.jeesl.controller.facade.io;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Tuple;
@@ -12,7 +14,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Join;
+import javax.persistence.criteria.ListJoin;
 import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.io.JeeslIoFrFacade;
@@ -178,8 +182,23 @@ public class JeeslIoFrFacadeBean<L extends JeeslLang, D extends JeeslDescription
         return jtf.build(tQ.getResultList(),JsonTupleFactory.Type.count);
 	}
 
-	@Override public List<META> fIoFrMetas(List<JeeslWithFileRepositoryContainer<CONTAINER>> owners)
+	@Override public <OWNER extends JeeslWithFileRepositoryContainer<CONTAINER>> List<META> fIoFrMetas(Class<OWNER> c, List<OWNER> owners)
 	{
-		return new ArrayList<META>();
+		
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<META> cQ = cB.createQuery(fbFile.getClassMeta());
+		Root<OWNER> owner = cQ.from(c);
+		
+		List<Predicate> predicates = new ArrayList<>();
+		predicates.add(owner.in(owners));
+		
+		Join<OWNER,CONTAINER> jContainer = owner.join(JeeslWithFileRepositoryContainer.Attributes.frContainer.toString());
+		ListJoin<CONTAINER,META> jMeta = jContainer.joinList(JeeslFileContainer.Attributes.metas.toString());
+			
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.select(jMeta).distinct(true);
+
+		TypedQuery<META> tQ = em.createQuery(cQ);
+		return tQ.getResultList();
 	}
 }

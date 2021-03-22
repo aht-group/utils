@@ -41,5 +41,5 @@ public interface JeeslIoFrFacade <L extends JeeslLang, D extends JeeslDescriptio
 	Json2Tuples<STORAGE,FTYPE> tpcIoFileByStorageType();
 //	Json2Tuples<STORAGE,TYPE> tpcIoFrReplicationInfoByReplicationStatus();
 	
-	List<META> fIoFrMetas(List<JeeslWithFileRepositoryContainer<CONTAINER>> owners);
+	<OWNER extends JeeslWithFileRepositoryContainer<CONTAINER>> List<META> fIoFrMetas(Class<OWNER> c, List<OWNER> owners);
 }
