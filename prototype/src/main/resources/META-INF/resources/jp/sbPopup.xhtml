@@ -23,22 +23,17 @@
 					 tooltip="#{cc.attrs.tooltip}"
 					 orientation="#{cc.attrs.orientation}"
 					 styleClass="jeesl-menu-bar-popup-button"/>
-			
-		<p:dialog widgetVar="jeesl-sb-dialog" modal="true" onHide="toggleDialog('jeesl-sb-dialog')">
-			<f:facet name="header">
-				<h:outputText class="ui-dialog-title" value="#{cc.attrs.header}"/>
-				<div class="ui-dialog-titlebar-actions">
-					<p:outputPanel id="cActions">
-						<p:commandLink id="link" onclick="toggleDialog('jeesl-sb-dialog')">
-							<h:graphicImage name="jeeslCancel"
-											library="jeeslGfx"
-											class="jeesl-menu-bar-button-icon"/>
-						</p:commandLink>
-					</p:outputPanel>
-				</div>
+					 
+		<j:dialog header="#{cc.attrs.header}" widgetVar="jeesl-sb-dialog" onHide="toggleDialog('jeesl-sb-dialog')">
+			<f:facet name="actions">
+				<p:commandLink id="link" onclick="toggleDialog('jeesl-sb-dialog')" class="pf-action-icon">
+					<h:graphicImage name="#{appIconBean.svg['jeeslCancel']}"
+									library="jeeslGfx"
+									class="jeesl-menu-bar-button-icon"/>
+				</p:commandLink>
 			</f:facet>
-		
+			
 		    <composite:insertChildren/>
-		</p:dialog>
+		</j:dialog>
 	</composite:implementation>
 </html>

@@ -339,3 +339,28 @@ form {
 		}
 	}
 }
+
+.ui-dialog {
+	.ui-dialog-titlebar {
+		box-sizing: border-box;
+		height: 22px;
+		
+		.ui-dialog-title {
+			margin: 0;
+		}
+		
+		.jeeslDialogActions {
+			bottom: 0;
+			right: 0;
+			top: 0;
+			
+			.pf-action-icon {
+				padding: 5px;
+				
+				> img {
+					height: 12px;
+				}
+			}
+		}
+	}
+}

@@ -14,6 +14,7 @@
 		<composite:attribute name="header" required="true"/>
 		<composite:attribute name="size" required="false" default="6"/>
 		<composite:attribute name="widgetVar" required="false" default="#{cc.id}Widget"/>
+		<composite:attribute name="onHide" required="false"/>
 	</composite:interface>
         
  	<composite:implementation>
@@ -25,7 +26,7 @@
 				  closable="false"
 				  resizable="false"
 				  draggable="false"
-				  position="center center">
+				  onHide="#{cc.attrs.onHide}">
 			<f:facet name="header">
 				<h:outputText class="ui-dialog-title" value="#{cc.attrs.header}"/>
 				<c:if test="#{!empty cc.facets.actions}">

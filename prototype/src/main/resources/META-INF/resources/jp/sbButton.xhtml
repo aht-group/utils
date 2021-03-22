@@ -20,7 +20,7 @@
 	    <jp:sbItem orientation="#{cc.attrs.orientation}" styleClass="#{cc.attrs.styleClass}">
 			<f:facet name="label">
 				<p:commandLink id="buttonLink" onclick="#{cc.attrs.onclick}" listener="#{cc.attrs.listener}">
-					<h:graphicImage name="#{cc.attrs.icon}"
+					<h:graphicImage name="#{appIconBean.svg[cc.attrs.icon]}"
 									library="jeeslGfx"
 									rendered="#{not empty cc.attrs.icon}"
 									class="jeesl-menu-bar-button-icon"/>

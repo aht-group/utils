@@ -222,3 +222,17 @@ form > .jeeslPanel {
       margin-right: 0; }
     .height-balance-container > [class^="auGrid_"] > *, .height-balance-container [class*=" auGrid_"] > * {
       height: 100%; }
+
+.ui-dialog .ui-dialog-titlebar {
+  box-sizing: border-box;
+  height: 22px; }
+  .ui-dialog .ui-dialog-titlebar .ui-dialog-title {
+    margin: 0; }
+  .ui-dialog .ui-dialog-titlebar .jeeslDialogActions {
+    bottom: 0;
+    right: 0;
+    top: 0; }
+    .ui-dialog .ui-dialog-titlebar .jeeslDialogActions .pf-action-icon {
+      padding: 5px; }
+      .ui-dialog .ui-dialog-titlebar .jeeslDialogActions .pf-action-icon > img {
+        height: 12px; }
