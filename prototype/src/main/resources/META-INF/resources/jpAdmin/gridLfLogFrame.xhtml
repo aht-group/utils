@@ -21,8 +21,8 @@
 	
 	<composite:implementation>
 		<aup:grid id="grid">
-			<aht:row>
-				<aht:slot id="sLogFrames" width="7">
+			<j:row>
+				<j:slot id="sLogFrames" width="#{cc.attrs.bean.slotHandler.a}">				
 					<h:form id="fLogFrames">
 						<p:dataTable var="c" value="#{cc.attrs.bean.logFrameTypeGroups}" draggableRows="true">
 							<f:facet name="header">
@@ -52,8 +52,8 @@
 					         </p:column>
 					   	</p:dataTable>
 					</h:form>
-				</aht:slot>
-				<aht:slot id="sLogFrame" width="5">
+				</j:slot>
+				<j:slot id="sLogFrame" width="#{cc.attrs.bean.slotHandler.b}" rendered="#{cc.attrs.bean.slotHandler.showB}" >
 					<h:form id="fLogFrame">
 						<p:panel id="pView" rendered="#{not empty cc.attrs.bean.logFrame}" styleClass="jeeslPanel">
 							<f:facet name="header"><jtp:label entity="LfLogFrame"/></f:facet>    
@@ -79,8 +79,8 @@
 						</p:panel>
 					</h:form>
 					
-				</aht:slot>
-			</aht:row>
+				</j:slot>
+			</j:row>
 	    </aup:grid>
 	</composite:implementation>
 </html>

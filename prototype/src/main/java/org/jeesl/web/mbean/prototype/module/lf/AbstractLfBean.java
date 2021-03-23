@@ -9,6 +9,7 @@ import java.util.Map;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslLogframeFacade;
+import org.jeesl.controller.handler.ui.UiSlotWidthHandler;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.LfFactoryBuilder;
@@ -37,6 +38,7 @@ public abstract class AbstractLfBean <L extends JeeslLang, D extends JeeslDescri
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractLfBean.class);
 
+	private final UiSlotWidthHandler slotHandler; public UiSlotWidthHandler getSlotHandler() {return slotHandler;}
 	protected final LfFactoryBuilder<L,D,LF,?,?> fbLogFrame;
 	protected JeeslLogframeFacade<L,D,LF,?,?> fLogFrame;
 
@@ -60,6 +62,8 @@ public abstract class AbstractLfBean <L extends JeeslLang, D extends JeeslDescri
 		this.logFrameTypes = new ArrayList<LFT>();
 		this.cLFL = cLFL;
 		this.cLFT = cLFT;
+		slotHandler = new UiSlotWidthHandler();
+		slotHandler.set(12);
 	}
 
 	protected void postConstructHd(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
@@ -94,6 +98,7 @@ public abstract class AbstractLfBean <L extends JeeslLang, D extends JeeslDescri
 
 	public void addLogFrame()
 	{
+		slotHandler.set(8,4);
 		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbLogFrame.getClassLF()));}
 		logFrame = fbLogFrame.ejbLogFrame().build();
 	}
@@ -109,6 +114,7 @@ public abstract class AbstractLfBean <L extends JeeslLang, D extends JeeslDescri
 
 	public void selectLogFrame(LF selectdLogFrame) throws JeeslConstraintViolationException
 	{
+		slotHandler.set(8,4);
 		logFrame = fLogFrame.find(fbLogFrame.getClassLF(),selectdLogFrame);
 		if(debugOnInfo) {logger.info(AbstractLogMessage.selectEntity(selectdLogFrame));}
 	}
@@ -121,7 +127,7 @@ public abstract class AbstractLfBean <L extends JeeslLang, D extends JeeslDescri
 		resetLogFrame();
 	}
 
-	public void resetLogFrame() {logFrame=null;}
+	public void resetLogFrame() {logFrame=null;slotHandler.set(12);}
 
 	public class LogFrameTypeGroup {
 		private LFT type; public LFT getType() {return type;}
@@ -155,6 +161,5 @@ public abstract class AbstractLfBean <L extends JeeslLang, D extends JeeslDescri
 			this.logFrames = logFrames;
 		}
 	  }
-
 
 }
