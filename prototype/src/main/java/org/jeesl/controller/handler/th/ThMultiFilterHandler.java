@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.jeesl.interfaces.bean.th.ThMultiFilterBean;
-import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.bean.th.ThMultiFilter;
+import org.jeesl.interfaces.bean.th.ThMultiFilterBean;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
@@ -27,13 +27,13 @@ public class ThMultiFilterHandler <T extends EjbWithId> implements Serializable,
 	final static Logger logger = LoggerFactory.getLogger(ThMultiFilterHandler.class);
 	private static final long serialVersionUID = 1L;
 
-	private final ThMultiFilterBean bean; 
-	
+	private final ThMultiFilterBean bean;
+
 	private final List<T> list; public List<T> getList() {return list;} public void setList(List<T> list) {this.list.clear();this.list.addAll(list);}
 	private final List<T> selected; public List<T> getSelected() {return selected;}
 	private final List<T> memory;
 	private Map<T,Boolean> map; public Map<T,Boolean> getMap() {return map;}
-	
+	public boolean toggleMode; public boolean isToggleMode() {return toggleMode;} public void setToggleMode(boolean toggleMode) {this.toggleMode = toggleMode;}
 	public ThMultiFilterHandler(ThMultiFilterBean bean)
 	{
 		this.bean=bean;
@@ -41,16 +41,17 @@ public class ThMultiFilterHandler <T extends EjbWithId> implements Serializable,
 		map = new ConcurrentHashMap<T,Boolean>();
 		selected = new ArrayList<T>();
 		memory = new ArrayList<T>();
+		toggleMode = false;
 		refresh();
 	}
-	
+
 	public void clear()
 	{
 		list.clear();
 		selected.clear();
 		map.clear();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public <E extends Enum<E>, S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription> void add(JeeslFacade fUtils, Class<S> c, E code)
 	{
@@ -64,7 +65,7 @@ public class ThMultiFilterHandler <T extends EjbWithId> implements Serializable,
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void toggleNone(){selectNone();callbackToggledToBean();}
 	public void selectNone()
 	{
@@ -72,7 +73,7 @@ public class ThMultiFilterHandler <T extends EjbWithId> implements Serializable,
 		for(T t : list){map.put(t,false);}
 		refresh();
 	}
-	
+
 	public void toggleAll(){selectAll();callbackToggledToBean();}
 	public void selectAll()
 	{
@@ -80,7 +81,7 @@ public class ThMultiFilterHandler <T extends EjbWithId> implements Serializable,
 		for(T t : list){map.put(t,true);}
 		refresh();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public <E extends Enum<E>> void preSelect(Class<T> cT, E... codes)
 	{
@@ -106,21 +107,21 @@ public class ThMultiFilterHandler <T extends EjbWithId> implements Serializable,
 		map.put(t,true);
 		refresh();
 	}
-	
+
 	public void deselectAll() {for(T t : list) {map.put(t,false);}refresh();}
 	public void deselect(T t)
 	{
 		map.put(t,false);
 		refresh();
 	}
-	
+
 	// Copies selected Items to Memory
 	public void memoryUpdate()
 	{
 		memory.clear();
 		memory.addAll(selected);
 	}
-	
+
 	public void memoryApply()
 	{
 		map.clear();
@@ -132,12 +133,17 @@ public class ThMultiFilterHandler <T extends EjbWithId> implements Serializable,
 	public void toggle(T type)
 	{
 		logger.info("Toggle "+type);
+		if(toggleMode)
+		{
+			deselectAll();
+			logger.info("toggleMode : " + toggleMode);
+		}
 		if(!map.containsKey(type)){map.put(type,true);}
 		else{map.put(type,!map.get(type));}
 		refresh();
 		callbackToggledToBean();
 	}
-	
+
 	private void callbackToggledToBean()
 	{
 		try {if(bean!=null){bean.filtered(this);}}
@@ -154,12 +160,12 @@ public class ThMultiFilterHandler <T extends EjbWithId> implements Serializable,
 			if(map.get(t)){selected.add(t);}
 		}
 	}
-	
+
 	public boolean isSelected(T t)
 	{
 		return map.containsKey(t) && map.get(t);
 	}
-	
+
 	public boolean getHasMore(){return list.size()>1;}
 	public boolean getHasNone(){return list.isEmpty();}
 	public boolean getHasSome(){return !list.isEmpty();}
@@ -169,7 +175,7 @@ public class ThMultiFilterHandler <T extends EjbWithId> implements Serializable,
 
 	public boolean isSelectedA() {if(list.size()==0) {return false;} else {return map.get(list.get(0));}}
 	public boolean isSelectedB() {if(list.size()<1) {return false;} else {return map.get(list.get(1));}}
-	
+
 	public void debug(boolean debug)
 	{
 		if(debug)
