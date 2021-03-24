@@ -33,4 +33,7 @@ public interface JeeslIoSsiData <MAPPING extends JeeslIoSsiMapping<?,?>,
 
 	Long getRefB();
 	void setRefB(Long refB);
+	
+	Long getRefC();
+	void setRefC(Long refC);
 }
