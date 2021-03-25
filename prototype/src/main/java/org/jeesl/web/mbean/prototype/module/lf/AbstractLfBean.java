@@ -9,6 +9,7 @@ import java.util.Map;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslLogframeFacade;
+import org.jeesl.controller.handler.ui.UiSlotWidthHandler;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.LfFactoryBuilder;
@@ -37,16 +38,18 @@ public abstract class AbstractLfBean <L extends JeeslLang, D extends JeeslDescri
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractLfBean.class);
 
+	private final UiSlotWidthHandler slotHandler; public UiSlotWidthHandler getSlotHandler() {return slotHandler;}
 	protected final LfFactoryBuilder<L,D,LF,?,?> fbLogFrame;
 	protected JeeslLogframeFacade<L,D,LF,?,?> fLogFrame;
 
 	protected List<LF> logFrames; public List<LF> getLogFrames() {return logFrames;} public void setLogFrames(List<LF> logFrames) {this.logFrames = logFrames;}
-	protected List<LogFrameTypeGroup> logFrameTypeGroups; public List<LogFrameTypeGroup> getLogFrameTypeGroups() {return logFrameTypeGroups;} public void setLogFrameTypeGroups(List<LogFrameTypeGroup> logFrameTypeGroups) {this.logFrameTypeGroups = logFrameTypeGroups;}
+	//protected List<LogFrameTypeGroup> logFrameTypeGroups; public List<LogFrameTypeGroup> getLogFrameTypeGroups() {return logFrameTypeGroups;} public void setLogFrameTypeGroups(List<LogFrameTypeGroup> logFrameTypeGroups) {this.logFrameTypeGroups = logFrameTypeGroups;}
 
 	protected LF logFrame; public LF getLogFrame() {return logFrame;} public void setLogFrame(LF logFrame) {this.logFrame = logFrame;}
 
 	protected List<LFL> logFrameLevels; public List<LFL> getLogFrameLevels() {return logFrameLevels;}
 	protected List<LFT> logFrameTypes; public List<LFT> getLogFrameTypes() {return logFrameTypes;}
+	protected Map<LFT,Map<LFL,List<LF>>> lfTypesMap; public Map<LFT,Map<LFL,List<LF>>> getLfTypesMap() {return lfTypesMap;}
 
 	protected final Class<LFL> cLFL; public Class<LFL>  getClassLFL() {return cLFL;}
 	protected final Class<LFT> cLFT; public Class<LFT>  getClassLFT() {return cLFT;}
@@ -60,6 +63,8 @@ public abstract class AbstractLfBean <L extends JeeslLang, D extends JeeslDescri
 		this.logFrameTypes = new ArrayList<LFT>();
 		this.cLFL = cLFL;
 		this.cLFT = cLFT;
+		slotHandler = new UiSlotWidthHandler();
+		slotHandler.set(12);
 	}
 
 	protected void postConstructHd(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
@@ -75,25 +80,34 @@ public abstract class AbstractLfBean <L extends JeeslLang, D extends JeeslDescri
 	protected void reloadLogFrames()
 	{
 		logFrames = fLogFrame.all(fbLogFrame.getClassLF());
-		logFrameTypeGroups = new ArrayList<>();
+		lfTypesMap = new HashMap<>();
 		Map<LFT,List<LF>> typeMap;
 		typeMap = new HashMap<>();
 		for (LF lf : logFrames)
 		{
 			LFT type = lf.getType();
-			if(typeMap.get(type)==null) {typeMap.put(type, new ArrayList<>());}
-			List<LF> groupLfType = typeMap.get(type);
-			groupLfType.add(lf);
+			LFL level = lf.getLevel();
+			if(lfTypesMap.get(type)==null)
+			{
+				lfTypesMap.put(type, new HashMap<>());
+				lfTypesMap.get(type).put(level, new ArrayList<>());
+				lfTypesMap.get(type).get(level).add(lf);
+			}
+			else
+			{
+				if(lfTypesMap.get(type).get(level)==null)
+				{
+				lfTypesMap.get(type).put(level, new ArrayList<>());
+				}
+				lfTypesMap.get(type).get(level).add(lf);
+			}
 		}
-		for (Map.Entry<LFT, List<LF>> entry :typeMap.entrySet()) {
-			logFrameTypeGroups.add(new LogFrameTypeGroup(entry.getKey(), entry.getValue()));
-		}
-
 		if(debugOnInfo) {logger.info(AbstractLogMessage.reloaded(fbLogFrame.getClassLF(),logFrames));}
 	}
 
 	public void addLogFrame()
 	{
+		slotHandler.set(8,4);
 		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbLogFrame.getClassLF()));}
 		logFrame = fbLogFrame.ejbLogFrame().build();
 	}
@@ -109,6 +123,7 @@ public abstract class AbstractLfBean <L extends JeeslLang, D extends JeeslDescri
 
 	public void selectLogFrame(LF selectdLogFrame) throws JeeslConstraintViolationException
 	{
+		slotHandler.set(8,4);
 		logFrame = fLogFrame.find(fbLogFrame.getClassLF(),selectdLogFrame);
 		if(debugOnInfo) {logger.info(AbstractLogMessage.selectEntity(selectdLogFrame));}
 	}
@@ -121,40 +136,6 @@ public abstract class AbstractLfBean <L extends JeeslLang, D extends JeeslDescri
 		resetLogFrame();
 	}
 
-	public void resetLogFrame() {logFrame=null;}
-
-	public class LogFrameTypeGroup {
-		private LFT type; public LFT getType() {return type;}
-		private List<LogFrameLevelGroup> levelGroups; public List<LogFrameLevelGroup> getLevelGroups() {return levelGroups;}
-		Map<LFL,List<LF>> levelMap;
-
-		public LogFrameTypeGroup(LFT lfType, List<LF> logFrames)
-		{
-			this.type = lfType;
-			this.levelGroups = new ArrayList<>();
-			levelMap = new HashMap<>();
-			for (LF lf : logFrames)
-			{
-				LFL level = lf.getLevel();
-				if(levelMap.get(level)==null) {levelMap.put(level, new ArrayList<>());}
-				List<LF> groupLfLevel = levelMap.get(level);
-				groupLfLevel.add(lf);
-			}
-			for (Map.Entry<LFL, List<LF>> entry :levelMap.entrySet()) {
-				levelGroups.add(new LogFrameLevelGroup(entry.getKey(), entry.getValue()));
-			}
-		}
-	  }
-	public class LogFrameLevelGroup {
-		private LFL level; public LFL getLevel() {return level;}
-		private List<LF> logFrames; public List<LF> getLogFrames() {return logFrames;}
-
-		public LogFrameLevelGroup(LFL lfLevel, List<LF> logFrames)
-		{
-			this.level = lfLevel;
-			this.logFrames = logFrames;
-		}
-	  }
-
+	public void resetLogFrame() {logFrame=null;slotHandler.set(12);}
 
 }

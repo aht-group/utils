@@ -65,7 +65,7 @@
 							<p:messages redisplay="false" severity="warn,error" showSummary="true" showDetail="true" closable="true"/>
 							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
 								<jtp:label entity="LfTargetTimeGroup" code="name" />
-								<p:outputLabel  value="#{cc.attrs.bean.timeGroup.name}"/>
+								<p:inputText  value="#{cc.attrs.bean.timeGroup.name}"/>
 							
 								<jtp:label entity="LfTargetTimeGroup" code="interval"/>
 								<p:selectOneMenu value="#{cc.attrs.bean.timeGroup.interval}" effect="fade" >

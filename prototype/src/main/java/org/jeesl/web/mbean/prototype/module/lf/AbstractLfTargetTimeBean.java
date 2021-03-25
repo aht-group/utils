@@ -125,13 +125,11 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbLogFrame.getClassTTE()));}
 		element = fbLogFrame.ejbTargetTimeElement().build(timeGroup,elements);
-		//element.setName(efLang.createEmpty(localeCodes));
 	}
 
 	public void selectElement()
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.selectEntity(timeGroup));}
-		//element = efLang.persistMissingLangs(fLogFrame,localeCodes,element);
 	}
 
 	public void saveElement() throws JeeslConstraintViolationException, JeeslLockingException
@@ -172,10 +170,9 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 		while (record.getTime() <= timeGroup.getEndDate().getTime() && !interval.getCode().equals("none"))
 		{
 			count++;
-			element = fbLogFrame.ejbTargetTimeElement().build(timeGroup,elements);
-			element.setName(String.valueOf(count));
-			element.setRecord(record);
-			generateElement(record);
+			//element = fbLogFrame.ejbTargetTimeElement().build(timeGroup,elements);
+			//element.setRecord(record);
+			generateElement(record,String.valueOf(count));
 
 			if(interval.getCode().equals("week")){cal.setTime(record); cal.add(Calendar.WEEK_OF_MONTH, 1);}
 			if(interval.getCode().equals("month")){cal.setTime(record); cal.add(Calendar.MONTH, 1);}
@@ -187,10 +184,11 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 		saveTimeGroup();
 
 	}
-	private  void generateElement(Date record) throws JeeslConstraintViolationException, JeeslLockingException{
+	private  void generateElement(Date record, String name) throws JeeslConstraintViolationException, JeeslLockingException{
 		logger.info("generating element with record  " + record.toString());
 		addElement();
 		element.setRecord(record);
+		element.setName(name);
 		logger.info("saving element with record  " + record.toString());
 		saveElement();
 		logger.info("save" + record.toString());
