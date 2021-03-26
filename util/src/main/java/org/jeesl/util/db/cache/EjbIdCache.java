@@ -1,6 +1,7 @@
 package org.jeesl.util.db.cache;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.jeesl.exception.ejb.JeeslNotFoundException;
@@ -17,8 +18,8 @@ public class EjbIdCache <T extends EjbWithId> implements JeeslIdCache<T>
 	private final JeeslFacade fUtils;
 	private final Class<T> c;
 	
-	private final Map<Long,T> map;
-	
+	private final Map<Long,T> map; public Map<Long,T> getMap() {return map;}
+
 	public EjbIdCache(JeeslFacade fUtils, Class<T> c)
 	{
 		this.fUtils=fUtils;
@@ -38,5 +39,10 @@ public class EjbIdCache <T extends EjbWithId> implements JeeslIdCache<T>
 			
 		}
 		return map.get(id);
+	}
+	
+	public void populate(List<T> ids)
+	{
+		for(T t : ids) {map.put(t.getId(),t);}
 	}
 }

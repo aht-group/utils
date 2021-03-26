@@ -182,14 +182,14 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 
 	protected void updateUiForCategory()
 	{
-		supportsUpload = JeeslOptionUploadable.class.isAssignableFrom(cl);
-		supportsDownload = JeeslOptionRestDownload.class.isAssignableFrom(cl);
-		supportsDescription = JeeslOptionRestDescription.class.isAssignableFrom(cl);
-		supportsImage = JeeslStatusWithImage.class.isAssignableFrom(cl);
-		supportsGraphic = EjbWithGraphic.class.isAssignableFrom(cl);
-		supportsSymbol = JeeslStatusWithSymbol.class.isAssignableFrom(cl);
-		supportsFigure = EjbWithGraphicFigure.class.isAssignableFrom(cl);
-		supportsLocked = EjbWithLocked.class.isAssignableFrom(cl);
+		supportsUpload = JeeslOptionUploadable.class.isAssignableFrom(cStatus);
+		supportsDownload = JeeslOptionRestDownload.class.isAssignableFrom(cStatus);
+		supportsDescription = JeeslOptionRestDescription.class.isAssignableFrom(cStatus);
+		supportsImage = JeeslStatusWithImage.class.isAssignableFrom(cStatus);
+		supportsGraphic = EjbWithGraphic.class.isAssignableFrom(cStatus);
+		supportsSymbol = JeeslStatusWithSymbol.class.isAssignableFrom(cStatus);
+		supportsFigure = EjbWithGraphicFigure.class.isAssignableFrom(cStatus);
+		supportsLocked = EjbWithLocked.class.isAssignableFrom(cStatus);
 	}
 
 	@Override
@@ -244,10 +244,10 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 		sb.append(" allowAdditionalElements:").append(allowAdditionalElements.get(((EjbWithId)category).getId()));
 		logger.info(sb.toString());
 
-		cl = Class.forName(((EjbWithImage)category).getImage());
+		cStatus = Class.forName(((EjbWithImage)category).getImage());
 		updateUiForCategory();
 
-		try {entity = fGraphic.fByCode(fbRevision.getClassEntity(), cl.getName());}
+		try {entity = fGraphic.fByCode(fbRevision.getClassEntity(), cStatus.getName());}
 		catch (JeeslNotFoundException e) {}
 
 		uiAllowAdd = allowAdditionalElements.get(((EjbWithId)category).getId()) || hasDeveloperAction;
@@ -256,7 +256,7 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 		{
             clParent = Class.forName(((EjbWithImageAlt)category).getImageAlt()).asSubclass(fbStatus.getClassStatus());
             parents = fGraphic.all(clParent);
-            logger.info(cl.getSimpleName()+" "+parents.size());
+            logger.info(cStatus.getSimpleName()+" "+parents.size());
 		}
 		else
 		{
@@ -271,7 +271,7 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 	@SuppressWarnings("unchecked")
 	protected void reloadStatusEntries()
 	{
-		items = fGraphic.allOrderedPosition(cl);
+		items = fGraphic.allOrderedPosition(cStatus);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -280,7 +280,7 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 		logger.debug("add");
 		uiAllowCode=true;
 
-		status = cl.newInstance();
+		status = cStatus.newInstance();
 		((EjbWithId)status).setId(0);
 		((EjbWithCode)status).setCode("enter code");
 		((EjbWithLang<L>)status).setName(efLang.createEmpty(localeCodes));
@@ -299,8 +299,8 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 	public void selectStatus() throws JeeslConstraintViolationException, JeeslNotFoundException, JeeslLockingException
 	{
 		figures = null; figure=null;
-		status = fGraphic.find(cl,(EjbWithId)status);
-		status = fGraphic.loadGraphic(cl,(EjbWithId)status);
+		status = fGraphic.find(cStatus,(EjbWithId)status);
+		status = fGraphic.loadGraphic(cStatus,(EjbWithId)status);
 		logger.debug("selectStatus");
 		status = efLang.persistMissingLangs(fGraphic,localeCodes,(EjbWithLang)status);
 		status = efDescription.persistMissingLangs(fGraphic,localeCodes,(EjbWithDescription)status);
@@ -362,7 +362,7 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 
         	if(debugSave){logger.info("Saving "+status.getClass().getSimpleName()+" "+status.toString());}
 			status = fGraphic.save((EjbSaveable)status);
-			status = fGraphic.loadGraphic(cl,(EjbWithId)status);
+			status = fGraphic.loadGraphic(cStatus,(EjbWithId)status);
 			if(supportsGraphic)
 			{
 				graphic = ((EjbWithGraphic<G>)status).getGraphic();

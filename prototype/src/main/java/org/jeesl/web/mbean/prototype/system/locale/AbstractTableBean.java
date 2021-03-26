@@ -53,6 +53,7 @@ public class AbstractTableBean <L extends JeeslLang, D extends JeeslDescription,
 	protected boolean supportsSymbol; public boolean getSupportsSymbol(){return supportsSymbol;}
 	protected boolean supportsLocked; public boolean isSupportsLocked() {return supportsLocked;}
 	protected boolean supportsDownload; public boolean getSupportsDownload(){return supportsDownload;}
+	protected boolean logOnInfo; public boolean isLogOnInfo() {return logOnInfo;} public void setLogOnInfo(boolean logOnInfo) {this.logOnInfo = logOnInfo;}
 	
 	protected final EjbGraphicFactory<L,D,G,GT,F,FS> efGraphic;
 	protected final EjbGraphicFigureFactory<L,D,G,GT,F,FS> efFigure;
@@ -67,12 +68,11 @@ public class AbstractTableBean <L extends JeeslLang, D extends JeeslDescription,
 	protected F figure; public F getFigure() {return figure;} public void setFigure(F figure) {this.figure = figure;}
 
 	@SuppressWarnings("rawtypes")
-	protected Class cl;
+	protected Class cStatus;
 	
 	protected long index;
 	protected Map<Long,Boolean> allowAdditionalElements; public Map<Long, Boolean> getAllowAdditionalElements(){return allowAdditionalElements;}
 
-	
 	public AbstractTableBean(LocaleFactoryBuilder<L,D,LOC> fbStatus,
 									SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg,
 									IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,?,?,?,?,?> fbRevision)
@@ -96,6 +96,8 @@ public class AbstractTableBean <L extends JeeslLang, D extends JeeslDescription,
 
 		mapEntity = new HashMap<>();
 		categories = new ArrayList<EjbWithPosition>();
+		
+		logOnInfo = false;
 	}
 	
 	protected void reset(boolean rEntity)
