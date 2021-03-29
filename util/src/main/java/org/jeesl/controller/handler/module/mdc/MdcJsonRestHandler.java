@@ -1,5 +1,7 @@
 package org.jeesl.controller.handler.module.mdc;
 
+import org.jeesl.api.facade.io.JeeslIoAttributeFacade;
+import org.jeesl.factory.builder.io.IoAttributeFactoryBuilder;
 import org.jeesl.factory.json.module.attribute.JsonAttributeContainerFactory;
 import org.jeesl.factory.json.module.attribute.JsonAttributeSetFactory;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;
@@ -33,11 +35,13 @@ public class MdcJsonRestHandler<L extends JeeslLang, D extends JeeslDescription,
 	private final JsonAttributeContainerFactory<L,D,LOC,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> jfAttributeContainer;
 	
 	
-	public MdcJsonRestHandler(String localeCode)
+	public MdcJsonRestHandler(IoAttributeFactoryBuilder<L,D,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fbAttribute,
+								JeeslIoAttributeFacade<L,D,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fAttribute,
+								String localeCode)
 	{
 
-		jfAttributeSet = new JsonAttributeSetFactory<>(localeCode,JsonAttributeQueryProvider.set());					//jfAttributeSet.lazy(fCensus,MeisFactoryProvider.ioAttribute());
-		jfAttributeContainer = new JsonAttributeContainerFactory<>(localeCode,JsonAttributeQueryProvider.container());	//jfAttributeContainer.lazy(fCensus,MeisFactoryProvider.ioAttribute());
+		jfAttributeSet = new JsonAttributeSetFactory<>(localeCode,JsonAttributeQueryProvider.set());					jfAttributeSet.lazy(fAttribute,fbAttribute);
+		jfAttributeContainer = new JsonAttributeContainerFactory<>(localeCode,JsonAttributeQueryProvider.container());	jfAttributeContainer.lazy(fAttribute,fbAttribute);
 	}
 	
 	public JsonAttributeSet attriubteSetHousehold(SET set)
