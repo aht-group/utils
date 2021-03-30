@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.module.mne;
+package org.jeesl.interfaces.model.module.lf.outdated;
 
 import java.io.Serializable;
 
