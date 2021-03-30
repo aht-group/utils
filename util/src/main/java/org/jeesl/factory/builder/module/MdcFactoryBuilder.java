@@ -1,51 +1,48 @@
 package org.jeesl.factory.builder.module;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
-import org.jeesl.factory.ejb.module.hd.EjbHdEventFactory;
-import org.jeesl.factory.ejb.module.hd.EjbHdFaqFactory;
-import org.jeesl.factory.ejb.module.hd.EjbHdFgaFactory;
-import org.jeesl.factory.ejb.module.hd.EjbHdMessageFactory;
-import org.jeesl.factory.ejb.module.hd.EjbHdTicketFactory;
-import org.jeesl.factory.ftl.module.hd.FtlHdTicketFactory;
-import org.jeesl.interfaces.model.io.cms.JeeslIoCms;
-import org.jeesl.interfaces.model.io.cms.JeeslIoCmsMarkupType;
-import org.jeesl.interfaces.model.io.cms.JeeslIoCmsSection;
-import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
-import org.jeesl.interfaces.model.module.hd.event.JeeslHdEvent;
-import org.jeesl.interfaces.model.module.hd.event.JeeslHdEventType;
-import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdFaq;
-import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdFga;
-import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdLevel;
-import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdMessage;
-import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdPriority;
-import org.jeesl.interfaces.model.module.hd.resolution.JeeslHdScope;
-import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicket;
-import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketCategory;
-import org.jeesl.interfaces.model.module.hd.ticket.JeeslHdTicketStatus;
+import org.jeesl.factory.ejb.module.mdc.EjbMdcActivityFactory;
+import org.jeesl.interfaces.model.module.attribute.JeeslAttributeSet;
+import org.jeesl.interfaces.model.module.mdc.activity.JeeslMdcActivity;
+import org.jeesl.interfaces.model.module.mdc.activity.JeeslMdcScope;
+import org.jeesl.interfaces.model.module.mdc.activity.JeeslMdcStatus;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
-import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
-import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;
 import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MdcFactoryBuilder<L extends JeeslLang,D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
-							R extends JeeslTenantRealm<L,D,R,?>
+							R extends JeeslTenantRealm<L,D,R,?>,
+							ACTIVITY extends JeeslMdcActivity<R,SCOPE,STATUS,AS>,
+							SCOPE extends JeeslMdcScope<L,D,R,SCOPE,?>,
+							STATUS extends JeeslMdcStatus<L,D,STATUS,?>,
+							AS extends JeeslAttributeSet<?,?,?,?>
 							>
 		extends AbstractFactoryBuilder<L,D>
 {
 	final static Logger logger = LoggerFactory.getLogger(MdcFactoryBuilder.class);
 	
+	private final Class<ACTIVITY> cActivity; public Class<ACTIVITY> getClassActivity() {return cActivity;}
+	private final Class<SCOPE> cScope; public Class<SCOPE> getClassScope() {return cScope;}
+	private final Class<STATUS> cStatus; public Class<STATUS> getClassStatus() {return cStatus;}
+	
+	private final Class<AS> cAttributeSet; public Class<AS> getClassAttributeSet() {return cAttributeSet;}
 
-
-	public MdcFactoryBuilder(final Class<L> cL,final Class<D> cD
-								)
+	public MdcFactoryBuilder(final Class<L> cL,final Class<D> cD,
+							final Class<ACTIVITY> cActivity,
+							final Class<SCOPE> cScope,
+							final Class<STATUS> cStatus,
+							
+							final Class<AS> cAttributeSet)
 	{       
 		super(cL,cD);
-		
+		this.cActivity=cActivity;
+		this.cScope=cScope;
+		this.cStatus=cStatus;
+		this.cAttributeSet=cAttributeSet;
 	}
 
-
+	public EjbMdcActivityFactory<R,ACTIVITY,SCOPE,STATUS,AS> ejbActivity() {return new EjbMdcActivityFactory<>(this);}
 }
