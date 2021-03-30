@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.module.log;
+package org.jeesl.interfaces.model.module.diary;
 
 import java.io.Serializable;
 import java.util.List;

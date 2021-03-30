@@ -9,7 +9,6 @@ import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslMdcFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
-import org.jeesl.factory.builder.io.IoAttributeFactoryBuilder;
 import org.jeesl.factory.builder.module.MdcFactoryBuilder;
 import org.jeesl.factory.ejb.module.mdc.EjbMdcActivityFactory;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeSet;
