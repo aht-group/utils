@@ -68,16 +68,16 @@
 							<f:selectItems value="#{cc.attrs.bean.status}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s}"/>
 						</p:selectOneMenu>
 						
-						<jtp:label entity="MdcActivity" code="attributeSet"/>
-						<p:selectOneMenu value="#{cc.attrs.bean.activity.attributeSet}" effect="fade" autoWidth="false">
+						<jtp:label entity="MdcActivity" code="collectionSet"/>
+						<p:selectOneMenu value="#{cc.attrs.bean.activity.collectionSet}" effect="fade" autoWidth="false">
 							<f:selectItems value="#{cc.attrs.bean.attributes}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s}"/>
 						</p:selectOneMenu>
 						
 						<jtp:label entity="MdcActivity" code="validFrom"/>
-						<h:outputText value="#{cc.attrs.bean.activity.id}"/>
+						<jp:inputCalendar value="#{cc.attrs.bean.activity.validFrom}" />
 						
 						<jtp:label entity="MdcActivity" code="validUntil"/>
-						<h:outputText value="#{cc.attrs.bean.activity.id}"/>
+						<jp:inputCalendar value="#{cc.attrs.bean.activity.validUntil}" />
 						
 					</p:panelGrid>
 					

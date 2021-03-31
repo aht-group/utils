@@ -1,9 +1,9 @@
 package org.jeesl.api.facade.module;
 
 import org.jeesl.interfaces.facade.JeeslFacade;
-import org.jeesl.interfaces.model.module.mdc.activity.JeeslMdcActivity;
-import org.jeesl.interfaces.model.module.mdc.activity.JeeslMdcScope;
-import org.jeesl.interfaces.model.module.mdc.activity.JeeslMdcStatus;
+import org.jeesl.interfaces.model.module.mdc.JeeslMdcActivity;
+import org.jeesl.interfaces.model.module.mdc.JeeslMdcScope;
+import org.jeesl.interfaces.model.module.mdc.JeeslMdcStatus;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;

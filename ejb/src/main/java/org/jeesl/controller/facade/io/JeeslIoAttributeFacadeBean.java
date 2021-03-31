@@ -54,8 +54,7 @@ public class JeeslIoAttributeFacadeBean<L extends JeeslLang, D extends JeeslDesc
 		this.fbAttribute=fbAttribute;
 	}
 	
-	@Override
-	public SET load(SET set)
+	@Override public SET load(SET set)
 	{
 		set = em.find(fbAttribute.getClassSet(), set.getId());
 		set.getItems().size();
@@ -88,6 +87,18 @@ public class JeeslIoAttributeFacadeBean<L extends JeeslLang, D extends JeeslDesc
 		cQ.select(root);
 
 		return em.createQuery(cQ).getResultList();
+	}
+	
+	@Override
+	public List<CRITERIA> fAttributeCriteria(SET set) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public List<OPTION> fAttributeOption(SET set) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	@Override

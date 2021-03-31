@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.module.mdc.activity;
+package org.jeesl.interfaces.model.module.mdc;
 
 import java.io.Serializable;
 

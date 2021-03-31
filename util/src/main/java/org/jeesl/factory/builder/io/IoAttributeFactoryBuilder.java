@@ -62,39 +62,15 @@ public class IoAttributeFactoryBuilder<L extends JeeslLang, D extends JeeslDescr
 		this.cData=cData;
 	}
 	
-	public EjbAttributeCriteriaFactory<L,D,CATEGORY,CRITERIA,TYPE> ejbCriteria()
-	{
-		return new EjbAttributeCriteriaFactory<L,D,CATEGORY,CRITERIA,TYPE>(cCriteria);
-	}
-	
-	public EjbAttributeOptionFactory<CRITERIA,OPTION> ejbOption()
-	{
-		return new EjbAttributeOptionFactory<CRITERIA,OPTION>(cOption);
-	}
-	
-	public EjbAttributeSetFactory<L,D,CATEGORY,SET,ITEM> ejbSet()
-	{
-		return new EjbAttributeSetFactory<L,D,CATEGORY,SET,ITEM>(cSet);
-	}
-	
+	public EjbAttributeCriteriaFactory<L,D,CATEGORY,CRITERIA,TYPE> ejbCriteria(){return new EjbAttributeCriteriaFactory<L,D,CATEGORY,CRITERIA,TYPE>(cCriteria);}
+	public EjbAttributeOptionFactory<CRITERIA,OPTION> ejbOption() {return new EjbAttributeOptionFactory<CRITERIA,OPTION>(cOption);}
+	public EjbAttributeSetFactory<L,D,CATEGORY,SET,ITEM> ejbSet() {return new EjbAttributeSetFactory<L,D,CATEGORY,SET,ITEM>(cSet);}
 	public EjbAttributeItemFactory<CRITERIA,SET,ITEM> ejbItem() {return new EjbAttributeItemFactory<>(cItem);}
-	
-	public EjbAttributeContainerFactory<SET,CONTAINER> ejbContainer()
-	{
-		return new EjbAttributeContainerFactory<SET,CONTAINER>(cContainer);
-	}
-	
-	public EjbAttributeDataFactory<CRITERIA,OPTION,CONTAINER,DATA> ejbData()
-	{
-		return new EjbAttributeDataFactory<CRITERIA,OPTION,CONTAINER,DATA>(cData);
-	}
+	public EjbAttributeContainerFactory<SET,CONTAINER> ejbContainer() {return new EjbAttributeContainerFactory<SET,CONTAINER>(cContainer);}
+	public EjbAttributeDataFactory<CRITERIA,OPTION,CONTAINER,DATA> ejbData() {return new EjbAttributeDataFactory<CRITERIA,OPTION,CONTAINER,DATA>(cData);}
 	
 	public XmlAttributesFactory<L,D,CATEGORY,CRITERIA,OPTION,SET,ITEM,DATA> xmlAttributes(QueryAttribute query) {return new XmlAttributesFactory<>(query);}
-	
-	public XmlAttributeFactory<L,D,CRITERIA,OPTION,ITEM,DATA> xmlAttribute(QueryAttribute query)
-	{
-		return new XmlAttributeFactory<L,D,CRITERIA,OPTION,ITEM,DATA>(query);
-	}
+	public XmlAttributeFactory<L,D,CRITERIA,OPTION,ITEM,DATA> xmlAttribute(QueryAttribute query) {return new XmlAttributeFactory<L,D,CRITERIA,OPTION,ITEM,DATA>(query);}
 	
 	public AttributeHandler<L,D,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> handler(JeeslFacesMessageBean bMessage, JeeslIoAttributeFacade<L,D,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fAttribute, JeeslAttributeBean<L,D,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> bAttribute, AttributeBean<CONTAINER> bean)
 	{

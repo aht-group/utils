@@ -10,11 +10,12 @@ import org.jeesl.api.facade.module.JeeslMdcFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.MdcFactoryBuilder;
-import org.jeesl.factory.ejb.module.mdc.EjbMdcActivityFactory;
+import org.jeesl.factory.ejb.module.mdc.EjbMdcCollectionFactory;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeSet;
-import org.jeesl.interfaces.model.module.mdc.activity.JeeslMdcActivity;
-import org.jeesl.interfaces.model.module.mdc.activity.JeeslMdcScope;
-import org.jeesl.interfaces.model.module.mdc.activity.JeeslMdcStatus;
+import org.jeesl.interfaces.model.module.mdc.JeeslMdcActivity;
+import org.jeesl.interfaces.model.module.mdc.JeeslMdcData;
+import org.jeesl.interfaces.model.module.mdc.JeeslMdcScope;
+import org.jeesl.interfaces.model.module.mdc.JeeslMdcStatus;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
@@ -27,28 +28,30 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public abstract class AbstractMdcConfigBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 								R extends JeeslTenantRealm<L,D,R,?>, RREF extends EjbWithId,
-								ACTIVITY extends JeeslMdcActivity<R,SCOPE,STATUS,AS>,
+								COLLECTION extends JeeslMdcActivity<R,SCOPE,STATUS,ASET>,
 								SCOPE extends JeeslMdcScope<L,D,R,SCOPE,?>,
 								STATUS extends JeeslMdcStatus<L,D,STATUS,?>,
 								
-								AS extends JeeslAttributeSet<L,D,?,?>
+								CDATA extends JeeslMdcData<COLLECTION,?>,
+								
+								ASET extends JeeslAttributeSet<L,D,?,?>
 								>
-					extends AbstractMdcBean<L,D,LOC,R,RREF,ACTIVITY,SCOPE,STATUS,AS>
+					extends AbstractMdcBean<L,D,LOC,R,RREF,COLLECTION,SCOPE,STATUS,CDATA,ASET>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractMdcConfigBean.class);
 
-	private final EjbMdcActivityFactory<R,ACTIVITY,SCOPE,STATUS,AS> efActivity;
+	private final EjbMdcCollectionFactory<R,COLLECTION,SCOPE,STATUS,ASET> efActivity;
 	
-	private final List<ACTIVITY> activities; public List<ACTIVITY> getActivities() {return activities;}
+	private final List<COLLECTION> activities; public List<COLLECTION> getActivities() {return activities;}
 	private final List<SCOPE> scopes; public List<SCOPE> getScopes() {return scopes;}
 	private final List<STATUS> status; public List<STATUS> getStatus() {return status;}
-	private final List<AS> attributes; public List<AS> getAttributes() {return attributes;}
+	private final List<ASET> attributes; public List<ASET> getAttributes() {return attributes;}
 	
-	private ACTIVITY activity; public ACTIVITY getActivity() {return activity;} public void setActivity(ACTIVITY activity) {this.activity = activity;}
+	private COLLECTION activity; public COLLECTION getActivity() {return activity;} public void setActivity(COLLECTION activity) {this.activity = activity;}
 
-	public AbstractMdcConfigBean(MdcFactoryBuilder<L,D,LOC,R,ACTIVITY,SCOPE,STATUS,AS> fbMdc)
+	public AbstractMdcConfigBean(MdcFactoryBuilder<L,D,LOC,R,COLLECTION,SCOPE,STATUS,CDATA,ASET> fbMdc)
 	{
 		super(fbMdc);
 		
@@ -61,7 +64,7 @@ public abstract class AbstractMdcConfigBean <L extends JeeslLang, D extends Jees
 	}
 
 	protected void postConstructMdcConfig(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-											JeeslMdcFacade<L,D,R,ACTIVITY,SCOPE,STATUS> fMdc,
+											JeeslMdcFacade<L,D,R,COLLECTION,SCOPE,STATUS> fMdc,
 											R realm)
 	{
 		super.postConstructMdc(bTranslation,bMessage,fMdc,realm);
