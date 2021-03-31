@@ -89,16 +89,31 @@ public class JeeslIoAttributeFacadeBean<L extends JeeslLang, D extends JeeslDesc
 		return em.createQuery(cQ).getResultList();
 	}
 	
-	@Override
-	public List<CRITERIA> fAttributeCriteria(SET set) {
-		// TODO Auto-generated method stub
-		return null;
+	@Override public List<CRITERIA> fAttributeCriteria(SET set)
+	{
+		List<CRITERIA> result = new ArrayList<>();
+ 		if(set==null){return result;}
+ 		
+ 		set = this.find(fbAttribute.getClassSet(),set);
+ 		for(ITEM item : set.getItems())
+ 		{
+ 			result.add(item.getCriteria());
+ 		}
+		return result;
 	}
 	
 	@Override
-	public List<OPTION> fAttributeOption(SET set) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<OPTION> fAttributeOption(SET set)
+	{
+		List<OPTION> result = new ArrayList<>();
+ 		if(set==null){return result;}
+ 		
+ 		set = this.find(fbAttribute.getClassSet(),set);
+ 		for(ITEM item : set.getItems())
+ 		{
+ 			result.addAll(item.getCriteria().getOptions());
+ 		}
+		return result;
 	}
 	
 	@Override

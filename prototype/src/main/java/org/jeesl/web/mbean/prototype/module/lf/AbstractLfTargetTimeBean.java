@@ -46,7 +46,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	{
 		if(getUiAllowGenerate() && uiGenerate)
 		{
-			if(timeGroup.getEndDate()!= null && timeGroup.getStartDate()!= null && timeGroup.getValue() > 0) {return false;}
+			if(timeGroup.getEndDate()!= null && timeGroup.getStartDate()!= null && timeGroup.getValues() > 0) {return false;}
 			return true;
 		}
 		return false;
@@ -55,7 +55,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	protected boolean uiAllowGenerate;
 	public boolean getUiAllowGenerate()
 	{
-		if(timeGroup!=null && timeGroup.getId() > 0 && timeGroup.getValue()==0) {return true;}
+		if(timeGroup!=null && timeGroup.getId() > 0 && timeGroup.getValues()==0) {return true;}
 		return false;
 	}
 	protected List<TTG> timeGroups; public List<TTG> getTimeGroups() {return timeGroups;} public void setTimeGroups(List<TTG> timeGroups) {this.timeGroups = timeGroups;}
@@ -180,7 +180,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 			if(interval.getCode().equals("quarter")){cal.setTime(record); cal.add(Calendar.MONTH, 3);}
 			record = cal.getTime();
 		}
-		timeGroup.setValue(count);
+		timeGroup.setValues(count);
 		saveTimeGroup();
 
 	}
