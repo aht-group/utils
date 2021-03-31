@@ -16,4 +16,8 @@ public interface JeeslMdcData <ACTIVITY extends JeeslMdcActivity<?,?,?,?>,
 	
 	ACTIVITY getActivity();
 	void setActivity(ACTIVITY activity);
+	
+	AC getCollectionContainer();
+	void setCollectionContainer(AC collectionContainer);
+
 }
