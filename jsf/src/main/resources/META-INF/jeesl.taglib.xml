@@ -118,4 +118,25 @@
 		<function-class>org.jeesl.jsf.function.SimpleArithmetic</function-class>
 		<function-signature>java.util.Integer add(java.lang.Integer,java.lang.Integer)</function-signature>
 	</function>
+	
+	<function>
+		<function-name>dateDifference</function-name>
+		<function-class>org.jeesl.jsf.function.DateTimeFunction</function-class>
+		<function-signature>java.lang.Integer dateDifference(java.util.Date,java.util.Date)</function-signature>
+	</function>
+	<function>
+		<function-name>dateDayDeviation</function-name>
+		<function-class>org.jeesl.jsf.function.DateTimeFunction</function-class>
+		<function-signature>java.lang.Integer dayDeviation(java.util.Date,java.util.Date,java.lang.Integer)</function-signature>
+	</function>
+	<function>
+		<function-name>datePlusDays</function-name>
+		<function-class>org.jeesl.jsf.function.DateTimeFunction</function-class>
+		<function-signature>java.util.Date plusDay(java.util.Date,java.lang.Integer)</function-signature>
+	</function>
+	<function>
+		<function-name>timeSeconds2Minutes</function-name>
+		<function-class>org.jeesl.jsf.function.DateTimeFunction</function-class>
+		<function-signature>java.util.String seconds2Minutes(java.lang.Integer)</function-signature>
+	</function>
 </facelet-taglib> 

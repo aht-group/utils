@@ -59,21 +59,7 @@
         </component>
     </tag>
 	
-	<function>
-		<function-name>dateDifference</function-name>
-		<function-class>net.sf.ahtutils.jsf.functions.DateDifference</function-class>
-		<function-signature>java.lang.Integer dateDifference(java.util.Date,java.util.Date)</function-signature>
-	</function>
-	<function>
-		<function-name>dayDeviation</function-name>
-		<function-class>net.sf.ahtutils.jsf.functions.DateDifference</function-class>
-		<function-signature>java.lang.Integer dayDeviation(java.util.Date,java.util.Date,java.lang.Integer)</function-signature>
-	</function>
-	<function>
-		<function-name>plusDay</function-name>
-		<function-class>net.sf.ahtutils.jsf.functions.DateDifference</function-class>
-		<function-signature>java.util.Date plusDay(java.util.Date,java.lang.Integer)</function-signature>
-	</function>
+	
 	<function>
 		<function-name>byteCount</function-name>
 		<function-class>net.sf.exlp.util.io.ByteCount</function-class>
