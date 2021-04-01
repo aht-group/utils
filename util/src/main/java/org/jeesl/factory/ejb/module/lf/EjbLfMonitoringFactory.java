@@ -1,6 +1,6 @@
 package org.jeesl.factory.ejb.module.lf;
 
-import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicatorMonitoring;
+import org.jeesl.interfaces.model.module.lf.monitoring.JeeslLfIndicatorMonitoring;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

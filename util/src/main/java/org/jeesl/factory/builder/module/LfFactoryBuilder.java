@@ -8,7 +8,7 @@ import org.jeesl.factory.ejb.module.lf.EjbLfTargetTimeElementFactory;
 import org.jeesl.factory.ejb.module.lf.EjbLfTargetTimeGroupFactory;
 import org.jeesl.interfaces.model.module.lf.JeeslLfLogframe;
 import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicator;
-import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicatorMonitoring;
+import org.jeesl.interfaces.model.module.lf.monitoring.JeeslLfIndicatorMonitoring;
 import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeElement;
 import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeGroup;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;

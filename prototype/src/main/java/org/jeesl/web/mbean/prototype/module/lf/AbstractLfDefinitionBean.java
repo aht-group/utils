@@ -17,8 +17,8 @@ import org.jeesl.factory.builder.module.LfFactoryBuilder;
 import org.jeesl.interfaces.model.module.lf.JeeslLfLogframe;
 import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicator;
 import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicatorLevel;
-import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicatorMonitoring;
 import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicatorType;
+import org.jeesl.interfaces.model.module.lf.monitoring.JeeslLfIndicatorMonitoring;
 import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeElement;
 import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeGroup;
 import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeInterval;
@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public abstract class AbstractLfBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
+public abstract class AbstractLfDefinitionBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 								R extends JeeslTenantRealm<L,D,R,?>,
 								LF extends JeeslLfLogframe<L,D,R,?,?,?>,
 								LFI extends JeeslLfIndicator<LF,LFL,LFT,TTG,LFM>,
@@ -48,7 +48,7 @@ public abstract class AbstractLfBean <L extends JeeslLang, D extends JeeslDescri
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
-	final static Logger logger = LoggerFactory.getLogger(AbstractLfBean.class);
+	final static Logger logger = LoggerFactory.getLogger(AbstractLfDefinitionBean.class);
 
 	private final UiSlotWidthHandler slotHandler; public UiSlotWidthHandler getSlotHandler() {return slotHandler;}
 	protected final LfFactoryBuilder<L,D,LF,LFI,TTG,TTE,LFM> fbLfIndicator;
@@ -72,34 +72,14 @@ public abstract class AbstractLfBean <L extends JeeslLang, D extends JeeslDescri
 	protected final Class<LFL> cLFL; public Class<LFL>  getClassLFL() {return cLFL;}
 	protected final Class<LFT> cLFT; public Class<LFT>  getClassLFT() {return cLFT;}
 	private Class cTTI; public Class<TTI>  getClassTTI() {return cTTI;}
-	private LF logframe;
-
-
-	private void findDefaultLogFrame()
-	{
-		try
-		{
-			logframe=fLfIndicator.fByName(fbLfIndicator.getClassLF(), "test");
-		} catch (JeeslNotFoundException e)
-		{
-			logframe =  fbLfIndicator.ejbLfLogFrame().build();
-			logframe.setName("test");
-			try
-			{
-				logframe = fLfIndicator.save(logframe);
-			} catch (JeeslConstraintViolationException | JeeslLockingException e1)
-			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
-
-	}
-
-	public AbstractLfBean(LfFactoryBuilder<L,D,LF,LFI,TTG,TTE,LFM> fbLf,Class<LFL> cLFL,Class<LFT> cLFT,Class<TTI> cTTI)
+	
+	private LF logframe; public LF getLogframe() {return logframe;} public void setLogframe(LF logframe) {this.logframe = logframe;}
+	
+	public AbstractLfDefinitionBean(LfFactoryBuilder<L,D,LF,LFI,TTG,TTE,LFM> fbLf,Class<LFL> cLFL,Class<LFT> cLFT,Class<TTI> cTTI)
 	{
 		super(fbLf.getClassL(),fbLf.getClassD());
 		this.fbLfIndicator=fbLf;
+		
 		this.lfIndicators = new ArrayList<LFI>();
 		this.lfIndicatorLevels = new ArrayList<LFL>();
 		this.lfIndicatorTypes = new ArrayList<LFT>();
@@ -109,6 +89,7 @@ public abstract class AbstractLfBean <L extends JeeslLang, D extends JeeslDescri
 		this.cLFL = cLFL;
 		this.cLFT = cLFT;
 		this.cTTI = cTTI;
+		
 		slotHandler = new UiSlotWidthHandler();
 		slotHandler.set(12);
 	}
@@ -117,14 +98,12 @@ public abstract class AbstractLfBean <L extends JeeslLang, D extends JeeslDescri
 									JeeslLogframeFacade<L,D,LF,LFI,TTG,TTE,LFM> fLf)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
-		this.fLfIndicator= fLf;
+		this.fLfIndicator = fLf;
 		this.lfIndicatorLevels = fLf.all(this.cLFL);
 		this.lfIndicatorTypes = fLf.all(this.cLFT);
 		this.intervalTypes = fLf.all(this.cTTI);
 		this.timeGroups = fLf.all(fbLfIndicator.getClassTTG());
 		this.timeElements = fLf.all(fbLfIndicator.getClassTTE());
-
-		findDefaultLogFrame();
 
 		reloadLfIndicators();
 	}

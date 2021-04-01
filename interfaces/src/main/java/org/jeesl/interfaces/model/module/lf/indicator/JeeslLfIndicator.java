@@ -6,6 +6,7 @@ import java.util.List;
 import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.lf.JeeslLfLogframe;
+import org.jeesl.interfaces.model.module.lf.monitoring.JeeslLfIndicatorMonitoring;
 import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeGroup;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.text.EjbWithName;
