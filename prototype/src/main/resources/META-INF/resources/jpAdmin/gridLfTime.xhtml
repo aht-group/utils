@@ -86,7 +86,7 @@
 						</p:panel>
 					</h:form>
 					<h:form id="fElements" >
-						<p:dataTable var="o" value="#{cc.attrs.bean.elements}" draggableRows="true"
+						<p:dataTable var="o" value="#{cc.attrs.bean.elements}" draggableRows="false"
 							rendered="#{(not empty cc.attrs.bean.timeGroup) and (cc.attrs.bean.timeGroup.id gt 0)}"
 							selection="#{cc.attrs.bean.element}" selectionMode="single" rowKey="#{o.id}">
 							<f:facet name="header">
