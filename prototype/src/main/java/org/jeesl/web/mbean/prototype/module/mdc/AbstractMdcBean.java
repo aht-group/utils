@@ -6,6 +6,10 @@ import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslMdcFacade;
 import org.jeesl.factory.builder.module.MdcFactoryBuilder;
+import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;
+import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCriteria;
+import org.jeesl.interfaces.model.module.attribute.JeeslAttributeData;
+import org.jeesl.interfaces.model.module.attribute.JeeslAttributeItem;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeSet;
 import org.jeesl.interfaces.model.module.mdc.JeeslMdcActivity;
 import org.jeesl.interfaces.model.module.mdc.JeeslMdcData;
@@ -23,13 +27,17 @@ import org.slf4j.LoggerFactory;
 
 public abstract class AbstractMdcBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 								R extends JeeslTenantRealm<L,D,R,?>, RREF extends EjbWithId,
-								COLLECTION extends JeeslMdcActivity<R,SCOPE,STATUS,AS>,
+								COLLECTION extends JeeslMdcActivity<R,SCOPE,STATUS,ASET>,
 								SCOPE extends JeeslMdcScope<L,D,R,SCOPE,?>,
 								STATUS extends JeeslMdcStatus<L,D,STATUS,?>,
 								
-								CDATA extends JeeslMdcData<COLLECTION,?>,
+								CDATA extends JeeslMdcData<COLLECTION,ACON>,
 								
-								AS extends JeeslAttributeSet<L,D,?,?>
+								ACRIT extends JeeslAttributeCriteria<L,D,?,?,?>,
+								ASET extends JeeslAttributeSet<L,D,?,?>,
+								AITEM extends JeeslAttributeItem<ACRIT,ASET>,
+								ACON extends JeeslAttributeContainer<ASET,ADATA>,
+								ADATA extends JeeslAttributeData<ACRIT,?,?>
 								>
 					extends AbstractAdminBean<L,D,LOC>
 					implements Serializable
@@ -37,7 +45,7 @@ public abstract class AbstractMdcBean <L extends JeeslLang, D extends JeeslDescr
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractMdcBean.class);
 	
-	protected final MdcFactoryBuilder<L,D,LOC,R,COLLECTION,SCOPE,STATUS,CDATA,AS> fbMdc;
+	protected final MdcFactoryBuilder<L,D,LOC,R,COLLECTION,SCOPE,STATUS,CDATA,ASET,ACON> fbMdc;
 
 	protected JeeslMdcFacade<L,D,R,COLLECTION,SCOPE,STATUS> fMdc;
 	
@@ -49,7 +57,7 @@ public abstract class AbstractMdcBean <L extends JeeslLang, D extends JeeslDescr
 	
 	protected Section ofxUser; public Section getOfxUser() {return ofxUser;}
 	
-	public AbstractMdcBean(MdcFactoryBuilder<L,D,LOC,R,COLLECTION,SCOPE,STATUS,CDATA,AS> fbMdc)
+	public AbstractMdcBean(MdcFactoryBuilder<L,D,LOC,R,COLLECTION,SCOPE,STATUS,CDATA,ASET,ACON> fbMdc)
 	{
 		super(fbMdc.getClassL(),fbMdc.getClassD());
 		this.fbMdc=fbMdc;

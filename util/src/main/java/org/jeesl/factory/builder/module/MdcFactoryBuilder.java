@@ -3,6 +3,7 @@ package org.jeesl.factory.builder.module;
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
 import org.jeesl.factory.ejb.module.mdc.EjbMdcCollectionFactory;
 import org.jeesl.factory.ejb.module.mdc.EjbMdcDataFactory;
+import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeSet;
 import org.jeesl.interfaces.model.module.mdc.JeeslMdcActivity;
 import org.jeesl.interfaces.model.module.mdc.JeeslMdcData;
@@ -17,13 +18,14 @@ import org.slf4j.LoggerFactory;
 
 public class MdcFactoryBuilder<L extends JeeslLang,D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 							R extends JeeslTenantRealm<L,D,R,?>,
-							COLLECTION extends JeeslMdcActivity<R,SCOPE,STATUS,AS>,
+							COLLECTION extends JeeslMdcActivity<R,SCOPE,STATUS,ASET>,
 							SCOPE extends JeeslMdcScope<L,D,R,SCOPE,?>,
 							STATUS extends JeeslMdcStatus<L,D,STATUS,?>,
 							
-							CDATA extends JeeslMdcData<COLLECTION,?>,
+							CDATA extends JeeslMdcData<COLLECTION,ACON>,
 							
-							AS extends JeeslAttributeSet<?,?,?,?>
+							ASET extends JeeslAttributeSet<?,?,?,?>,
+							ACON extends JeeslAttributeContainer<ASET,?>
 							>
 		extends AbstractFactoryBuilder<L,D>
 {
@@ -34,14 +36,14 @@ public class MdcFactoryBuilder<L extends JeeslLang,D extends JeeslDescription, L
 	private final Class<STATUS> cStatus; public Class<STATUS> getClassStatus() {return cStatus;}
 	private final Class<CDATA> cData; public Class<CDATA> getClassData() {return cData;}
 	
-	private final Class<AS> cAttributeSet; public Class<AS> getClassAttributeSet() {return cAttributeSet;}
+	private final Class<ASET> cAttributeSet; public Class<ASET> getClassAttributeSet() {return cAttributeSet;}
 
 	public MdcFactoryBuilder(final Class<L> cL,final Class<D> cD,
 							final Class<COLLECTION> cActivity,
 							final Class<SCOPE> cScope,
 							final Class<STATUS> cStatus,
 							final Class<CDATA> cData,
-							final Class<AS> cAttributeSet)
+							final Class<ASET> cAttributeSet)
 	{       
 		super(cL,cD);
 		this.cActivity=cActivity;
@@ -51,6 +53,6 @@ public class MdcFactoryBuilder<L extends JeeslLang,D extends JeeslDescription, L
 		this.cAttributeSet=cAttributeSet;
 	}
 
-	public EjbMdcCollectionFactory<R,COLLECTION,SCOPE,STATUS,AS> ejbActivity() {return new EjbMdcCollectionFactory<>(this);}
-	public EjbMdcDataFactory<COLLECTION,CDATA> ejbData() {return new EjbMdcDataFactory<>(cData);}
+	public EjbMdcCollectionFactory<R,COLLECTION,SCOPE,STATUS,ASET> ejbActivity() {return new EjbMdcCollectionFactory<>(this);}
+	public EjbMdcDataFactory<COLLECTION,CDATA,ACON> ejbData() {return new EjbMdcDataFactory<>(cData);}
 }

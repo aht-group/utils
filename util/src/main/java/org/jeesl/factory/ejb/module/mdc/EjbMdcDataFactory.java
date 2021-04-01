@@ -1,12 +1,17 @@
 package org.jeesl.factory.ejb.module.mdc;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;
 import org.jeesl.interfaces.model.module.mdc.JeeslMdcActivity;
 import org.jeesl.interfaces.model.module.mdc.JeeslMdcData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbMdcDataFactory<COLLECTION extends JeeslMdcActivity<?,?,?,?>,
-								CDATA extends JeeslMdcData<COLLECTION,?>>
+								CDATA extends JeeslMdcData<COLLECTION,ACON>,
+								ACON extends JeeslAttributeContainer<?,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbMdcDataFactory.class);
 
@@ -29,5 +34,12 @@ public class EjbMdcDataFactory<COLLECTION extends JeeslMdcActivity<?,?,?,?>,
 		catch (IllegalAccessException e) {e.printStackTrace();}
 
 		return ejb;
+	}
+	
+	public List<ACON> toCollectionContainer(List<CDATA> list)
+	{
+		List<ACON> result = new ArrayList<>();
+		for(CDATA d : list) {result.add(d.getCollectionContainer());}
+		return result;
 	}
 }

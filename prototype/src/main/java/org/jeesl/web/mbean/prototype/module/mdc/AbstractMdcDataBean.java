@@ -7,10 +7,9 @@ import java.util.List;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslMdcFacade;
-import org.jeesl.exception.ejb.JeeslConstraintViolationException;
-import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.factory.builder.io.IoAttributeFactoryBuilder;
 import org.jeesl.factory.builder.module.MdcFactoryBuilder;
-import org.jeesl.factory.ejb.module.mdc.EjbMdcCollectionFactory;
+import org.jeesl.factory.ejb.module.mdc.EjbMdcDataFactory;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCriteria;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeData;
@@ -25,12 +24,11 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.model.pojo.map.generic.Nested2Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
-
-public abstract class AbstractMdcConfigBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
+public abstract class AbstractMdcDataBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 								R extends JeeslTenantRealm<L,D,R,?>, RREF extends EjbWithId,
 								COLLECTION extends JeeslMdcActivity<R,SCOPE,STATUS,ASET>,
 								SCOPE extends JeeslMdcScope<L,D,R,SCOPE,?>,
@@ -48,66 +46,69 @@ public abstract class AbstractMdcConfigBean <L extends JeeslLang, D extends Jees
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
-	final static Logger logger = LoggerFactory.getLogger(AbstractMdcConfigBean.class);
-
-	private final EjbMdcCollectionFactory<R,COLLECTION,SCOPE,STATUS,ASET> efActivity;
+	final static Logger logger = LoggerFactory.getLogger(AbstractMdcDataBean.class);
 	
-	private final List<COLLECTION> activities; public List<COLLECTION> getActivities() {return activities;}
-	private final List<SCOPE> scopes; public List<SCOPE> getScopes() {return scopes;}
-	private final List<STATUS> status; public List<STATUS> getStatus() {return status;}
-	private final List<ASET> attributes; public List<ASET> getAttributes() {return attributes;}
+	private final IoAttributeFactoryBuilder<L,D,?,?,?,?,ASET,AITEM,ACON,ADATA> fbAttribute;
 	
-	private COLLECTION activity; public COLLECTION getActivity() {return activity;} public void setActivity(COLLECTION activity) {this.activity = activity;}
-
-	public AbstractMdcConfigBean(MdcFactoryBuilder<L,D,LOC,R,COLLECTION,SCOPE,STATUS,CDATA,ASET,ACON> fbMdc)
+	private final EjbMdcDataFactory<COLLECTION,CDATA,ACON> efData;
+	
+	private final Nested2Map<ACON,ACRIT,ADATA> n2Data; public Nested2Map<ACON, ACRIT, ADATA> getN2Data() {return n2Data;}
+	
+	private final List<COLLECTION> collections; public List<COLLECTION> getCollections() {return collections;}
+	private final List<CDATA> datas; public List<CDATA> getDatas() {return datas;}
+	private final List<AITEM> items; public List<AITEM> getItems() {return items;}
+	
+	private COLLECTION collection; public COLLECTION getCollection() {return collection;} public void setCollection(COLLECTION collection) {this.collection = collection;}
+	private CDATA data; public CDATA getData() {return data;} public void setData(CDATA data) {this.data = data;}
+	
+	public AbstractMdcDataBean(MdcFactoryBuilder<L,D,LOC,R,COLLECTION,SCOPE,STATUS,CDATA,ASET,ACON> fbMdc,
+								IoAttributeFactoryBuilder<L,D,?,?,?,?,ASET,AITEM,ACON,ADATA> fbAttribute)
 	{
 		super(fbMdc);
+		this.fbAttribute=fbAttribute;
 		
-		efActivity = fbMdc.ejbActivity();
+		efData = fbMdc.ejbData();
 		
-		activities = new ArrayList<>();
-		scopes = new ArrayList<>();
-		status = new ArrayList<>();
-		attributes = new ArrayList<>();
+		n2Data = new Nested2Map<>();
+		
+		collections = new ArrayList<>();
+		datas = new ArrayList<>();
+		items = new ArrayList<>();
 	}
 
-	protected void postConstructMdcConfig(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
+	protected void postConstructMdcData(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
 											JeeslMdcFacade<L,D,R,COLLECTION,SCOPE,STATUS> fMdc,
 											R realm)
 	{
 		super.postConstructMdc(bTranslation,bMessage,fMdc,realm);
-		status.addAll(fMdc.allOrderedPositionVisible(fbMdc.getClassStatus()));
 	}
 
 	@Override protected void updatedRealmReference()
 	{
-		scopes.clear();scopes.addAll(fMdc.all(fbMdc.getClassScope(),realm,rref));
-		attributes.clear();attributes.addAll(fMdc.all(fbMdc.getClassAttributeSet()));
 		reload();
 	}
 
 	private void reload()
 	{
-		activities.clear();
-		activities.addAll(fMdc.all(fbMdc.getClassActivity(),realm,rref));
+		collections.clear();
+		collections.addAll(fMdc.all(fbMdc.getClassActivity(),realm,rref));
+		if(!collections.isEmpty())
+		{
+			collection = collections.get(0);
+			reloadCollection();
+		}
 	}
 	
-	public void selectActivity()
+	private void reloadCollection()
 	{
-		logger.info(AbstractLogMessage.selectEntity(activity));
-	}
-	
-	public void addActivity()
-	{
-		logger.info(AbstractLogMessage.addEntity(fbMdc.getClassActivity()));
-		activity = efActivity.build(realm,rref);
-	}
-	
-	public void saveActivity() throws JeeslConstraintViolationException, JeeslLockingException
-	{
-		logger.info(AbstractLogMessage.saveEntity(activity));
-		efActivity.converter(fMdc,activity);
-		activity = fMdc.save(activity);
-		reload();
+		datas.clear(); datas.addAll(fMdc.allForParent(fbMdc.getClassData(),collection));
+		items.clear(); items.addAll(fMdc.allForParent(fbAttribute.getClassItem(),collection.getCollectionSet()));
+		
+		List<ACON> containers = efData.toCollectionContainer(datas);
+		n2Data.clear();
+		for(ADATA d : fMdc.allForParents(fbAttribute.getClassData(), containers))
+		{
+			n2Data.put(d.getContainer(),d.getCriteria(),d);
+		}
 	}
 }

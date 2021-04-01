@@ -21,21 +21,21 @@
 				<p:dataTable var="a" value="#{cc.attrs.bean.activities}" draggableRows="false"
 								selection="#{cc.attrs.bean.activity}" selectionMode="single" rowKey="#{a.id}">
 					<f:facet name="header">
-						<j:dtHeader entity="MdcActivity" code="listOf">
+						<j:dtHeader entity="MdcCollection" code="listOf">
 							<j:svg type="jeeslAdd" listener="#{cc.attrs.bean.addActivity()}" update=":#{cc.id}:grid" library="jeeslGfx"/>
 						</j:dtHeader>
 					</f:facet>
 					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectActivity()}" update=":#{cc.id}:sActivity"/>
 					<p:column >
-						<f:facet name="header"><jtp:label entity="MdcActivity" code="scope"/></f:facet>
+						<f:facet name="header"><jtp:label entity="MdcCollection" code="scope"/></f:facet>
 						<h:outputText value="#{a.scope.name[localeCode].lang}"/>
 					</p:column>
 					<p:column >
-						<f:facet name="header"><jtp:label entity="MdcActivity" code="name"/></f:facet>
+						<f:facet name="header"><jtp:label entity="MdcCollection" code="name"/></f:facet>
 						<h:outputText value="#{a.name}"/>
 					</p:column>
 					<p:column>
-						<f:facet name="header"><jtp:label entity="MdcActivity" code="status"/></f:facet>
+						<f:facet name="header"><jtp:label entity="MdcCollection" code="status"/></f:facet>
 						<jtp:symbolizer value="#{a.status}" marginRight="5"/>
 						<h:outputText value="#{a.status.name[localeCode].lang}"/>
 					</p:column>
@@ -45,38 +45,38 @@
 		<j:slot id="sActivity" width="5">
 			<h:form id="fTicket" rendered="#{not empty cc.attrs.bean.activity}">
 				<p:panel styleClass="jeeslPanel">
-					<f:facet name="header"><j:pHeader entity="MdcActivity"/></f:facet>
+					<f:facet name="header"><j:pHeader entity="MdcCollection"/></f:facet>
 					<f:facet name="actions">
 						<j:icon type="jeeslSave" listener="#{cc.attrs.bean.saveActivity()}" update=":#{cc.id}:grid"/>
 					</f:facet>
 					<p:messages redisplay="false" severity="warn,error" showSummary="true" showDetail="true" closable="true"/>
 					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
 						
-						<jtp:label entity="MdcActivity" code="id"/>
+						<jtp:label entity="MdcCollection" code="id"/>
 						<h:outputText value="#{cc.attrs.bean.activity.id}"/>
 
-						<jtp:label entity="MdcActivity" code="name"/>
+						<jtp:label entity="MdcCollection" code="name"/>
 						<p:inputText value="#{cc.attrs.bean.activity.name}"/>
 						
-						<jtp:label entity="MdcActivity" code="scope"/>
+						<jtp:label entity="MdcCollection" code="scope"/>
 						<p:selectOneMenu value="#{cc.attrs.bean.activity.scope}" effect="fade" autoWidth="false">
 							<f:selectItems value="#{cc.attrs.bean.scopes}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s}"/>
 						</p:selectOneMenu>
 						
-						<jtp:label entity="MdcActivity" code="status"/>
+						<jtp:label entity="MdcCollection" code="status"/>
 						<p:selectOneMenu value="#{cc.attrs.bean.activity.status}" effect="fade" autoWidth="false">
 							<f:selectItems value="#{cc.attrs.bean.status}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s}"/>
 						</p:selectOneMenu>
 						
-						<jtp:label entity="MdcActivity" code="collectionSet"/>
+						<jtp:label entity="MdcCollection" code="collectionSet"/>
 						<p:selectOneMenu value="#{cc.attrs.bean.activity.collectionSet}" effect="fade" autoWidth="false">
 							<f:selectItems value="#{cc.attrs.bean.attributes}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s}"/>
 						</p:selectOneMenu>
 						
-						<jtp:label entity="MdcActivity" code="validFrom"/>
+						<jtp:label entity="MdcCollection" code="validFrom"/>
 						<jp:inputCalendar value="#{cc.attrs.bean.activity.validFrom}" />
 						
-						<jtp:label entity="MdcActivity" code="validUntil"/>
+						<jtp:label entity="MdcCollection" code="validUntil"/>
 						<jp:inputCalendar value="#{cc.attrs.bean.activity.validUntil}" />
 						
 					</p:panelGrid>

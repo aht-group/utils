@@ -144,8 +144,7 @@ public class JeeslIoAttributeFacadeBean<L extends JeeslLang, D extends JeeslDesc
 		return em.createQuery(cQ).getResultList();
 	}
 
-	@Override
-	public List<DATA> fAttributeData(CONTAINER container)
+	@Override public List<DATA> fAttributeData(CONTAINER container)
 	{
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		CriteriaBuilder cB = em.getCriteriaBuilder();
@@ -162,16 +161,14 @@ public class JeeslIoAttributeFacadeBean<L extends JeeslLang, D extends JeeslDesc
 		return tQ.getResultList();
 	}
 	
-	@Override
-	public DATA fAttributeData(CRITERIA criteria, CONTAINER container) throws JeeslNotFoundException
+	@Override public DATA fAttributeData(CRITERIA criteria, CONTAINER container) throws JeeslNotFoundException
 	{
 		List<DATA> datas = fAttributeData(container);
 		for(DATA data : datas) {if(data.getCriteria().equals(criteria)) {return data;}}
 		throw new JeeslNotFoundException("no data for container");
 	}
 	
-	@Override
-	public List<DATA> fAttributeData(CRITERIA criteria, List<CONTAINER> containers)
+	@Override public List<DATA> fAttributeData(CRITERIA criteria, List<CONTAINER> containers)
 	{
 		if(containers==null || containers.isEmpty()) {return new ArrayList<>();}
 		

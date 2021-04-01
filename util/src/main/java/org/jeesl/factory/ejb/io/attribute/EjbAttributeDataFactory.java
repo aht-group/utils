@@ -5,10 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jeesl.controller.handler.module.mdc.MdcJsonRestHandler;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCriteria;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeData;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeOption;
+import org.jeesl.model.json.module.attribute.JsonAttributeData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,6 +39,18 @@ public class EjbAttributeDataFactory<CRITERIA extends JeeslAttributeCriteria<?,?
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();}
+		
+		return ejb;
+	}
+	
+	public DATA build(CONTAINER container, CRITERIA criteria, JsonAttributeData json)
+	{
+		DATA ejb = build(container,criteria);
+		switch(JeeslAttributeCriteria.Types.valueOf(criteria.getType().getCode()))
+		{
+			case text:	ejb.setValueString(json.getValueString()); break;
+			default: logger.warn("No handling for "+criteria.getType().getCode());break;
+		}
 		
 		return ejb;
 	}

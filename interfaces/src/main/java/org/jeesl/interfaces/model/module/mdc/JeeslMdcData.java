@@ -5,10 +5,11 @@ import java.io.Serializable;
 import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;
+import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 
 public interface JeeslMdcData <COLLECTION extends JeeslMdcActivity<?,?,?,?>,
 								ACONTAINER extends JeeslAttributeContainer<?,?>>
-		extends Serializable,EjbSaveable,EjbRemoveable
+		extends Serializable,EjbSaveable,EjbRemoveable,EjbWithParentAttributeResolver
 				
 {
 	public enum Attributes{activity}

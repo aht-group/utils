@@ -19,9 +19,9 @@ public class EjbMdcCollectionFactory<R extends JeeslTenantRealm<?,?,R,?>,
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbMdcCollectionFactory.class);
 
-	private final MdcFactoryBuilder<?,?,?,R,COLLECTION,SCOPE,STATUS,?,AS> fbMdc;
+	private final MdcFactoryBuilder<?,?,?,R,COLLECTION,SCOPE,STATUS,?,AS,?> fbMdc;
 
-	public EjbMdcCollectionFactory(MdcFactoryBuilder<?,?,?,R,COLLECTION,SCOPE,STATUS,?,AS> fbMdc)
+	public EjbMdcCollectionFactory(MdcFactoryBuilder<?,?,?,R,COLLECTION,SCOPE,STATUS,?,AS,?> fbMdc)
 	{
 		this.fbMdc = fbMdc;
 	}
