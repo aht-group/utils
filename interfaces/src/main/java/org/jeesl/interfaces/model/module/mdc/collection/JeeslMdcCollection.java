@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.module.mdc;
+package org.jeesl.interfaces.model.module.mdc.collection;
 
 import java.io.Serializable;
 
@@ -10,7 +10,7 @@ import org.jeesl.interfaces.model.system.tenant.JeeslWithTenantSupport;
 import org.jeesl.interfaces.model.with.primitive.date.EjbWithValidFromUntil;
 import org.jeesl.interfaces.model.with.primitive.text.EjbWithName;
 
-public interface JeeslMdcActivity <R extends JeeslTenantRealm<?,?,R,?>,
+public interface JeeslMdcCollection <R extends JeeslTenantRealm<?,?,R,?>,
 									
 									SCOPE extends JeeslMdcScope<?,?,R,SCOPE,?>,
 									STATUS extends JeeslMdcStatus<?,?,STATUS,?>,

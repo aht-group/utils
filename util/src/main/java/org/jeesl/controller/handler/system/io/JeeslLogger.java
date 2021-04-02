@@ -10,10 +10,10 @@ import java.util.List;
 
 import org.jeesl.factory.builder.io.IoLogFactoryBuilder;
 import org.jeesl.factory.ejb.io.log.EjbIoLogMilestoneFactory;
-import org.jeesl.interfaces.model.io.log.JeeslIoLog;
-import org.jeesl.interfaces.model.io.log.JeeslIoLogMilestone;
-import org.jeesl.interfaces.model.io.log.JeeslIoLogRetention;
-import org.jeesl.interfaces.model.io.log.JeeslIoLogStatus;
+import org.jeesl.interfaces.model.io.logging.JeeslIoLog;
+import org.jeesl.interfaces.model.io.logging.JeeslIoLogMilestone;
+import org.jeesl.interfaces.model.io.logging.JeeslIoLogRetention;
+import org.jeesl.interfaces.model.io.logging.JeeslIoLogStatus;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.user.JeeslSimpleUser;

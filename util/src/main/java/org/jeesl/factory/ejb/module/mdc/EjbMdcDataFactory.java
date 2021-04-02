@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;
-import org.jeesl.interfaces.model.module.mdc.JeeslMdcActivity;
-import org.jeesl.interfaces.model.module.mdc.JeeslMdcData;
+import org.jeesl.interfaces.model.module.mdc.collection.JeeslMdcCollection;
+import org.jeesl.interfaces.model.module.mdc.collection.JeeslMdcData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbMdcDataFactory<COLLECTION extends JeeslMdcActivity<?,?,?,?>,
+public class EjbMdcDataFactory<COLLECTION extends JeeslMdcCollection<?,?,?,?>,
 								CDATA extends JeeslMdcData<COLLECTION,ACON>,
 								ACON extends JeeslAttributeContainer<?,?>>
 {

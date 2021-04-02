@@ -3,16 +3,16 @@ package org.jeesl.factory.ejb.module.mdc;
 import org.jeesl.factory.builder.module.MdcFactoryBuilder;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeSet;
-import org.jeesl.interfaces.model.module.mdc.JeeslMdcActivity;
-import org.jeesl.interfaces.model.module.mdc.JeeslMdcScope;
-import org.jeesl.interfaces.model.module.mdc.JeeslMdcStatus;
+import org.jeesl.interfaces.model.module.mdc.collection.JeeslMdcCollection;
+import org.jeesl.interfaces.model.module.mdc.collection.JeeslMdcScope;
+import org.jeesl.interfaces.model.module.mdc.collection.JeeslMdcStatus;
 import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbMdcCollectionFactory<R extends JeeslTenantRealm<?,?,R,?>,
-									COLLECTION extends JeeslMdcActivity<R,SCOPE,STATUS,AS>,
+									COLLECTION extends JeeslMdcCollection<R,SCOPE,STATUS,AS>,
 									SCOPE extends JeeslMdcScope<?,?,R,SCOPE,?>,
 									STATUS extends JeeslMdcStatus<?,?,STATUS,?>,
 									AS extends JeeslAttributeSet<?,?,?,?>>

@@ -1,7 +1,7 @@
 package org.jeesl.factory.ejb.io.log;
 
-import org.jeesl.interfaces.model.io.log.JeeslIoLog;
-import org.jeesl.interfaces.model.io.log.JeeslIoLogMilestone;
+import org.jeesl.interfaces.model.io.logging.JeeslIoLog;
+import org.jeesl.interfaces.model.io.logging.JeeslIoLogMilestone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

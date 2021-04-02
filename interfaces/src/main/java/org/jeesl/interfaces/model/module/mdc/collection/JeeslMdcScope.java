@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.module.mdc;
+package org.jeesl.interfaces.model.module.mdc.collection;
 
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;

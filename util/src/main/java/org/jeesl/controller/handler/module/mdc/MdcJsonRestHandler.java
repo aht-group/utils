@@ -16,10 +16,10 @@ import org.jeesl.interfaces.model.module.attribute.JeeslAttributeData;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeItem;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeOption;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeSet;
-import org.jeesl.interfaces.model.module.mdc.JeeslMdcActivity;
-import org.jeesl.interfaces.model.module.mdc.JeeslMdcData;
-import org.jeesl.interfaces.model.module.mdc.JeeslMdcScope;
-import org.jeesl.interfaces.model.module.mdc.JeeslMdcStatus;
+import org.jeesl.interfaces.model.module.mdc.collection.JeeslMdcCollection;
+import org.jeesl.interfaces.model.module.mdc.collection.JeeslMdcData;
+import org.jeesl.interfaces.model.module.mdc.collection.JeeslMdcScope;
+import org.jeesl.interfaces.model.module.mdc.collection.JeeslMdcStatus;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
@@ -34,7 +34,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MdcJsonRestHandler<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
-								COLLECTION extends JeeslMdcActivity<?,SCOPE,STATUS,ASET>,
+								COLLECTION extends JeeslMdcCollection<?,SCOPE,STATUS,ASET>,
 
 								SCOPE extends JeeslMdcScope<L,D,?,SCOPE,?>,
 								STATUS extends JeeslMdcStatus<L,D,STATUS,?>,

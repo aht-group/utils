@@ -16,10 +16,10 @@ import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCriteria;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeData;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeItem;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeSet;
-import org.jeesl.interfaces.model.module.mdc.JeeslMdcActivity;
-import org.jeesl.interfaces.model.module.mdc.JeeslMdcData;
-import org.jeesl.interfaces.model.module.mdc.JeeslMdcScope;
-import org.jeesl.interfaces.model.module.mdc.JeeslMdcStatus;
+import org.jeesl.interfaces.model.module.mdc.collection.JeeslMdcCollection;
+import org.jeesl.interfaces.model.module.mdc.collection.JeeslMdcData;
+import org.jeesl.interfaces.model.module.mdc.collection.JeeslMdcScope;
+import org.jeesl.interfaces.model.module.mdc.collection.JeeslMdcStatus;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
@@ -32,7 +32,7 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public abstract class AbstractMdcConfigBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 								R extends JeeslTenantRealm<L,D,R,?>, RREF extends EjbWithId,
-								COLLECTION extends JeeslMdcActivity<R,SCOPE,STATUS,ASET>,
+								COLLECTION extends JeeslMdcCollection<R,SCOPE,STATUS,ASET>,
 								SCOPE extends JeeslMdcScope<L,D,R,SCOPE,?>,
 								STATUS extends JeeslMdcStatus<L,D,STATUS,?>,
 								

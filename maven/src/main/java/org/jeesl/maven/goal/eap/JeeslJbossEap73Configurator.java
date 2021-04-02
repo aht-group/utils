@@ -38,7 +38,7 @@ public class JeeslJbossEap73Configurator extends AbstractJbossEapConfigurator
 		getLog().info("JBoss EAP 7.3 directoy: "+f.getAbsolutePath());
     	
     	ModelControllerClient client;
-    	JbossModuleConfigurator jbossModule = new JbossModuleConfigurator(JbossModuleConfigurator.Product.eap,"7.3",jbossDir);
+    	JbossModuleConfigurator jbossModule = new JbossModuleConfigurator(JbossModuleConfigurator.Product.eap,"7.3.4",jbossDir);
     	try {client = ModelControllerClient.Factory.create(InetAddress.getByName("localhost"), 9990);}
     	catch (UnknownHostException e) {throw new MojoExecutionException(e.getMessage());}
     	

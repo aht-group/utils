@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.io.log;
+package org.jeesl.interfaces.model.io.logging;
 
 import java.io.Serializable;
 
@@ -11,13 +11,11 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatusFixedCode;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 
-public interface JeeslIoLogStatus <L extends JeeslLang, D extends JeeslDescription,
-								S extends JeeslStatus<S,L,D>,
-								G extends JeeslGraphic<L,D,?,?,?>>
+public interface JeeslIoLogRetention <L extends JeeslLang, D extends JeeslDescription,S extends JeeslStatus<S,L,D>, G extends JeeslGraphic<L,D,?,?,?>>
 					extends Serializable,EjbPersistable,
 								JeeslOptionRestDownload,
 								JeeslStatusFixedCode,
 								EjbWithCodeGraphic<G>,JeeslStatus<S,L,D>
 {	
-	public enum Code{info,warn,error,pending};
+	public enum Code{hour,day,week,month,year,forever};
 }
