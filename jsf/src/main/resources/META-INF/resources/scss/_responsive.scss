@@ -58,6 +58,7 @@
 		
 		.jeesl-dropdown-item {
 			opacity: 1;
+			padding: 0;
 		    pointer-events: all;
 		    transition: opacity 0s .2s;
 			
@@ -77,22 +78,42 @@
 			
 			.jeesl-dropdown-item-label {
 				background: transparent;
+				box-sizing: border-box;
 				color: $foreground;
     			display: block;
+				height: 30px;
+				margin: 0;
+				padding: 8px 15px 8px 20px;
 			    position: relative;
 			    white-space: nowrap;
 
 				@media (max-width: 768px) {
 					border-bottom: 2px solid $separator;
-				    box-sizing: border-box;
-				    font-size: 1.2em;
+					display: flex;
+					font-size: 1.2em;
 					font-weight: bold;
-				    height: 50px;
-				    line-height: 50px;
-				    margin: 0;
-				    padding: 0 10px;
-				    text-align: left;
-				    width: 100%;
+					height: 50px;
+					line-height: 50px;
+					margin: 0;
+					padding: 0 10px;
+					text-align: left;
+					width: 100%;
+				}
+				
+				.jeesl-dropdown-item-label-text {
+					flex: 1;
+				}
+				
+				.jeesl-dropdown-item-label-icon {
+					height: 100%;
+				    box-sizing: border-box;
+					margin-left: 5px;
+				    padding: 2px 0;
+
+					@media (max-width: 768px) {
+						margin: 0;
+						padding: 9px;
+					}
 				}
 			}
 		}
@@ -217,6 +238,25 @@
     					font-size: 1.25em;
 					}
 				}
+				
+				.jeesl-menu-bar-button-summary {
+					display: none;
+					font-style: italic;
+					margin-left: -.25em;
+					opacity: .5;
+					padding-right: 6px;
+					vertical-align: middle;
+					
+					@media (max-width: 768px) {
+						display: inline-block;
+					}
+				}
+				
+				.jeesl-menu-bar-button-selected-items {
+					@media (max-width: 768px) {
+						display: none;
+					}
+				}
 			}
 		}
 	}
@@ -304,11 +344,13 @@ body {
 			
 			.jeesl-dropdown-item-label {
 				float: left;
+				height: 38px;
 				text-decoration: none;
 				text-transform: uppercase;
 				
 				@media (max-width: 768px) {
 					float: none;
+					height: 50px;
 				}
 			}
 		}
@@ -435,10 +477,6 @@ body {
 			.jeesl-dropdown-list {
 				right: 16px;
 				
-				&:last-child {
-					right: 0;
-				}
-				
 				@media (max-width: 768px) {
 					right: 0;
 				}
@@ -500,7 +538,7 @@ body {
 			
 			&:first-child, &.jeesl-right:last-child {
 				.jeesl-menu-bar-button:before {
-					display: none;
+					border: 0;
 				}
 			}
 
@@ -547,6 +585,60 @@ body {
 
 					&:first-child {
 						padding-left: 6px;
+					}
+				}
+			}
+			
+			.jeesl-dropdown-list {
+				&.jeesl-dropdown-list-multi {
+					.jeesl-dropdown-item {
+						&:first-child {
+							@media (max-width: 768px) {
+								background: $dark-colour;
+								border-top: 2px solid $medium-colour;
+							}
+							
+							.jeesl-dropdown-multi-summary {
+							    font-style: italic;
+							    opacity: .5;
+			
+								@media (max-width: 768px) {
+							    	font-size: 1.2em;
+								}
+							}
+							
+							.jeesl-dropdown-item-label {
+								display: inline-block;
+								padding: 8px 7px 8px 5px;
+								width: auto;
+								
+								@media (max-width: 768px) {
+									padding: 0;
+								}
+									
+								.jeesl-dropdown-item-label-icon:last-child {
+									margin: 0;
+								}
+							}
+						}
+						
+						.jeesl-dropdown-item-label {
+							.jeesl-dropdown-item-label-icon {
+								@media (max-width: 768px) {
+									padding: 12px 0;
+								}
+								
+								&:last-child {
+									margin-right: -8px;
+									padding: 0;
+									
+									@media (max-width: 768px) {									
+										margin-right: -10px;
+										padding: 12px;
+									}
+								}
+							}
+						}
 					}
 				}
 			}
@@ -605,32 +697,28 @@ body {
 @mixin jeesl-titlebar-actions {
 	float: none;
 	height: 100%;
-	
-	.ui-outputpanel {
-		height: 100%;
 		
-		.pf-action-icon {
-			box-sizing: border-box;
-			height: 100%;
-			margin: 0;
-			padding: 4px 0;
-			transition: background .2s linear;
+	.pf-action-icon {
+		box-sizing: border-box;
+		height: 100%;
+		margin: 0;
+		padding: 4px 0;
+		transition: background .2s linear;
 
+		@media (max-width: 768px) {
+			padding: 7px 0 6px;
+		}
+		
+		&:hover {
+			background: $header-background-colour;
+		}
+		
+		img {
+			padding: 0 4px;
+			
 			@media (max-width: 768px) {
-				padding: 7px 0 6px;
-			}
-			
-			&:hover {
-				background: $header-background-colour;
-			}
-			
-			img {
-				padding: 0 4px;
-				
-				@media (max-width: 768px) {
-					border-left: 1px solid $border-colour;
-					padding: 0 6px;
-				}
+				border-left: 1px solid $border-colour;
+				padding: 0 6px;
 			}
 		}
 	}

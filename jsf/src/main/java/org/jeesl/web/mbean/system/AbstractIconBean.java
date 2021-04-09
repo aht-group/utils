@@ -212,6 +212,9 @@ public class AbstractIconBean implements Serializable
 		svg.put("jeeslCheckMark", "ui/info/mark/check.svg");
 		svg.put("jeeslCrossMark", "ui/info/mark/cross.svg");
 		svg.put("jeeslQuestionMark", "ui/info/mark/question.svg");
+		
+		svg.put("jeeslCheckbox", "ui/control/checkbox/bright-unchecked.svg");
+		svg.put("jeeslCheckboxChecked", "ui/control/checkbox/bright-checked.svg");
 
 		svg.put("jeeslOnlineHelp", "ui/info/help.svg");
 	}
