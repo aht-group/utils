@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.io.log;
+package org.jeesl.interfaces.model.io.logging;
 
 import java.io.Serializable;
 

@@ -2,8 +2,8 @@ package org.jeesl.factory.builder.io;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
 import org.jeesl.factory.ejb.io.log.EjbIoLogMilestoneFactory;
-import org.jeesl.interfaces.model.io.log.JeeslIoLog;
-import org.jeesl.interfaces.model.io.log.JeeslIoLogMilestone;
+import org.jeesl.interfaces.model.io.logging.JeeslIoLog;
+import org.jeesl.interfaces.model.io.logging.JeeslIoLogMilestone;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;

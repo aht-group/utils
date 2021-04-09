@@ -20,6 +20,10 @@ public class EjbIdCache <T extends EjbWithId> implements JeeslIdCache<T>
 	
 	private final Map<Long,T> map; public Map<Long,T> getMap() {return map;}
 
+	public EjbIdCache(Class<T> c)
+	{
+		this(null,c);
+	}
 	public EjbIdCache(JeeslFacade fUtils, Class<T> c)
 	{
 		this.fUtils=fUtils;
@@ -29,7 +33,7 @@ public class EjbIdCache <T extends EjbWithId> implements JeeslIdCache<T>
 	
 	public T ejb(long id)
 	{
-		if(!map.containsKey(id))
+		if(!map.containsKey(id) && fUtils!=null)
 		{
 			try
 			{
@@ -45,4 +49,6 @@ public class EjbIdCache <T extends EjbWithId> implements JeeslIdCache<T>
 	{
 		for(T t : ids) {map.put(t.getId(),t);}
 	}
+	
+	public boolean contains(long id) {return map.containsKey(id);}
 }

@@ -54,8 +54,7 @@ public class JeeslIoAttributeFacadeBean<L extends JeeslLang, D extends JeeslDesc
 		this.fbAttribute=fbAttribute;
 	}
 	
-	@Override
-	public SET load(SET set)
+	@Override public SET load(SET set)
 	{
 		set = em.find(fbAttribute.getClassSet(), set.getId());
 		set.getItems().size();
@@ -90,6 +89,33 @@ public class JeeslIoAttributeFacadeBean<L extends JeeslLang, D extends JeeslDesc
 		return em.createQuery(cQ).getResultList();
 	}
 	
+	@Override public List<CRITERIA> fAttributeCriteria(SET set)
+	{
+		List<CRITERIA> result = new ArrayList<>();
+ 		if(set==null){return result;}
+ 		
+ 		set = this.find(fbAttribute.getClassSet(),set);
+ 		for(ITEM item : set.getItems())
+ 		{
+ 			result.add(item.getCriteria());
+ 		}
+		return result;
+	}
+	
+	@Override
+	public List<OPTION> fAttributeOption(SET set)
+	{
+		List<OPTION> result = new ArrayList<>();
+ 		if(set==null){return result;}
+ 		
+ 		set = this.find(fbAttribute.getClassSet(),set);
+ 		for(ITEM item : set.getItems())
+ 		{
+ 			result.addAll(item.getCriteria().getOptions());
+ 		}
+		return result;
+	}
+	
 	@Override
 	public List<SET> fAttributeSets(List<CATEGORY> categories, long refId)
 	{
@@ -118,8 +144,7 @@ public class JeeslIoAttributeFacadeBean<L extends JeeslLang, D extends JeeslDesc
 		return em.createQuery(cQ).getResultList();
 	}
 
-	@Override
-	public List<DATA> fAttributeData(CONTAINER container)
+	@Override public List<DATA> fAttributeData(CONTAINER container)
 	{
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		CriteriaBuilder cB = em.getCriteriaBuilder();
@@ -136,16 +161,14 @@ public class JeeslIoAttributeFacadeBean<L extends JeeslLang, D extends JeeslDesc
 		return tQ.getResultList();
 	}
 	
-	@Override
-	public DATA fAttributeData(CRITERIA criteria, CONTAINER container) throws JeeslNotFoundException
+	@Override public DATA fAttributeData(CRITERIA criteria, CONTAINER container) throws JeeslNotFoundException
 	{
 		List<DATA> datas = fAttributeData(container);
 		for(DATA data : datas) {if(data.getCriteria().equals(criteria)) {return data;}}
 		throw new JeeslNotFoundException("no data for container");
 	}
 	
-	@Override
-	public List<DATA> fAttributeData(CRITERIA criteria, List<CONTAINER> containers)
+	@Override public List<DATA> fAttributeData(CRITERIA criteria, List<CONTAINER> containers)
 	{
 		if(containers==null || containers.isEmpty()) {return new ArrayList<>();}
 		

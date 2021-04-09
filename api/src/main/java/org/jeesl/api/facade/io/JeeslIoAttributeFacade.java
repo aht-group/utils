@@ -28,10 +28,17 @@ public interface JeeslIoAttributeFacade <L extends JeeslLang, D extends JeeslDes
 			extends JeeslFacade
 {	
 	SET load(SET set);
+	
 	List<CRITERIA> fAttributeCriteria(List<CATEGORY> categories, long refId);
+	List<CRITERIA> fAttributeCriteria(SET set);
+	List<OPTION> fAttributeOption(SET set);
+	
 	List<SET> fAttributeSets(List<CATEGORY> categories, long refId);
+	
 	List<DATA> fAttributeData(CONTAINER container);
-	DATA fAttributeData(CRITERIA criteria, CONTAINER container) throws JeeslNotFoundException;
 	List<DATA> fAttributeData(CRITERIA criteria, List<CONTAINER> containers);
+	
+	DATA fAttributeData(CRITERIA criteria, CONTAINER container) throws JeeslNotFoundException;
+	
 	CONTAINER copy(CONTAINER container) throws JeeslConstraintViolationException, JeeslLockingException;
 }

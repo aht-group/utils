@@ -51,6 +51,7 @@ public class JsonAttributeCriteriaFactory<L extends JeeslLang, D extends JeeslDe
 	}
 	
 	public static JsonAttributeCriteria build(){return new JsonAttributeCriteria();}
+	public static JsonAttributeCriteria build(long id){JsonAttributeCriteria json = build(); json.setId(id); return json;}
 	
 	public JsonAttributeCriteria build(CRITERIA criteria)
 	{

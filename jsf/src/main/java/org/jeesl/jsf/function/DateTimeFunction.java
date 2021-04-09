@@ -1,17 +1,18 @@
-package net.sf.ahtutils.jsf.functions;
+package org.jeesl.jsf.function;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public final class DateDifference
+public final class DateTimeFunction
 {
-	final static Logger logger = LoggerFactory.getLogger(DateDifference.class);
+	final static Logger logger = LoggerFactory.getLogger(DateTimeFunction.class);
 	
-    private DateDifference() {}
+    private DateTimeFunction() {}
     
     public static Integer dateDifference(Date from, Date to)
     {
@@ -34,5 +35,17 @@ public final class DateDifference
     	if(from==null || days==null){return null;}
     	DateTime dt = new DateTime(from);
 		return dt.plusDays(days).toDate();
+    }
+    
+    public static String seconds2Minutes(Integer seconds)
+    {
+    	if(seconds==null) {return null;}
+    	else
+    	{
+        	return String.format("%d:%d", 
+        		    TimeUnit.SECONDS.toMinutes(seconds),
+        		    TimeUnit.SECONDS.toSeconds(seconds) - (TimeUnit.MINUTES.toSeconds(TimeUnit.SECONDS.toMinutes(seconds)))
+        		);
+    	}
     }
 }

@@ -29,16 +29,15 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 								R extends JeeslTenantRealm<L,D,R,?>,
 								TTG extends JeeslLfTargetTimeGroup<L,TTI>,
 								TTI extends JeeslLfTargetTimeInterval<L,D,TTI,?>,
-								TTE extends JeeslLfTargetTimeElement<L,TTG>
-								>
+								TTE extends JeeslLfTargetTimeElement<L,TTG>								>
 					extends AbstractAdminBean<L,D,LOC>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractLfTargetTimeBean.class);
 
-	protected final LfFactoryBuilder<L,D,?,TTG,TTE> fbLogFrame;
-	protected JeeslLogframeFacade<L,D,?,TTG,TTE> fLogFrame;
+	protected final LfFactoryBuilder<L,D,?,?,TTG,TTE,?> fbLogFrame;
+	protected JeeslLogframeFacade<L,D,?,?,TTG,TTE,?> fLogFrame;
 	protected final Class<TTI> cTTI; public Class<TTI> getClassTTI() {return cTTI;}
 
 	protected boolean uiGenerate;
@@ -46,7 +45,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	{
 		if(getUiAllowGenerate() && uiGenerate)
 		{
-			if(timeGroup.getEndDate()!= null && timeGroup.getStartDate()!= null && timeGroup.getValue() > 0) {return false;}
+			if(timeGroup.getEndDate()!= null && timeGroup.getStartDate()!= null && timeGroup.getValues() > 0) {return false;}
 			return true;
 		}
 		return false;
@@ -55,7 +54,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	protected boolean uiAllowGenerate;
 	public boolean getUiAllowGenerate()
 	{
-		if(timeGroup!=null && timeGroup.getId() > 0 && timeGroup.getValue()==0) {return true;}
+		if(timeGroup!=null && timeGroup.getId() > 0 && timeGroup.getValues()==0) {return true;}
 		return false;
 	}
 	protected List<TTG> timeGroups; public List<TTG> getTimeGroups() {return timeGroups;} public void setTimeGroups(List<TTG> timeGroups) {this.timeGroups = timeGroups;}
@@ -66,7 +65,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 
 
 
-	public AbstractLfTargetTimeBean(LfFactoryBuilder<L,D,?,TTG,TTE> fbLf,Class<TTI> cTTI)
+	public AbstractLfTargetTimeBean(LfFactoryBuilder<L,D,?,?,TTG,TTE,?> fbLf,Class<TTI> cTTI)
 	{
 		super(fbLf.getClassL(),fbLf.getClassD());
 		this.fbLogFrame=fbLf;
@@ -76,7 +75,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	}
 
 	protected void postConstructHd(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslLogframeFacade<L,D,?,TTG,TTE> fLf)
+									JeeslLogframeFacade<L,D,?,?,TTG,TTE,?> fLf)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fLogFrame=fLf;
@@ -180,7 +179,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 			if(interval.getCode().equals("quarter")){cal.setTime(record); cal.add(Calendar.MONTH, 3);}
 			record = cal.getTime();
 		}
-		timeGroup.setValue(count);
+		timeGroup.setValues(count);
 		saveTimeGroup();
 
 	}

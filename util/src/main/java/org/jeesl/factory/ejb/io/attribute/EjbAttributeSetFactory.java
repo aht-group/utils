@@ -1,7 +1,5 @@
 package org.jeesl.factory.ejb.io.attribute;
 
-import java.util.Date;
-
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeItem;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeSet;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;

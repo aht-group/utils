@@ -1,7 +1,7 @@
 package org.jeesl.factory.ejb.module.log;
 
-import org.jeesl.interfaces.model.module.log.JeeslLogBook;
-import org.jeesl.interfaces.model.module.log.JeeslLogScope;
+import org.jeesl.interfaces.model.module.diary.JeeslLogBook;
+import org.jeesl.interfaces.model.module.diary.JeeslLogScope;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

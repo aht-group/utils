@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:of="http://omnifaces.org/functions"
+	xmlns:j="http://www.jeesl.org/jsf" xmlns:jp="http://jsf.jeesl.org/prototype" xmlns:jtp="http://jsf.jeesl.org/prototype/tag"
+	xmlns:ofx="http://www.openfuxml.org/jsf"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+		
+	<composite:interface>
+		<composite:attribute name="bean" required="true"/>
+	</composite:interface>
+	
+	<composite:implementation>
+<jp:grid id="grid">
+	<j:row>
+		<j:slot id="sActivities" width="12">
+			<h:form id="fTickets">
+				<p:dataTable var="d" value="#{cc.attrs.bean.datas}" draggableRows="false"
+								selection="#{cc.attrs.bean.data}" selectionMode="single" rowKey="#{d.id}">
+					<f:facet name="header">
+						<j:dtHeader entity="MdcData" code="listOf">
+							<j:svg type="jeeslAdd" listener="#{cc.attrs.bean.addActivity()}" update=":#{cc.id}:grid" library="jeeslGfx"/>
+						</j:dtHeader>
+					</f:facet>
+					<p:column >
+						<f:facet name="header"><jtp:label entity="MdcData" code="id"/></f:facet>
+						<h:outputText value="#{d.id}"/>
+					</p:column>
+					<p:columns var="i" value="#{cc.attrs.bean.items}" columnIndexVar="colIndex">
+						<f:facet name="header">
+							<h:outputText value="#{i.criteria.name[localeCode].lang}" />
+						</f:facet>
+						<h:outputText value="#{cc.attrs.bean.n2Data.m[d.collectionContainer][i.criteria].valueString}" />
+						
+					</p:columns>
+			   	</p:dataTable>
+			</h:form>
+		</j:slot>
+	</j:row>
+</jp:grid>
+	</composite:implementation>
+</html>
