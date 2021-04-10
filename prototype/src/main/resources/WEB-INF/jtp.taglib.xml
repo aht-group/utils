@@ -83,6 +83,10 @@
         <tag-name>sbMulti</tag-name>
         <source>jeeslPrototype/sb/multi.xhtml</source>
     </tag>
+    <tag>
+        <tag-name>sbNewMulti</tag-name>
+        <source>jeeslPrototype/sb/newMulti.xhtml</source>
+    </tag>
 	<tag>
         <tag-name>sbSingle</tag-name>
         <source>jeeslPrototype/sb/single.xhtml</source>

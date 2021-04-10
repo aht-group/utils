@@ -15,11 +15,13 @@
 	</composite:interface>
 	
 	<composite:implementation>
-		<h:panelGroup rendered="#{cc.attrs.value}" styleClass="aupFontUnicode">
-   				&#9745;
-		</h:panelGroup>
-        <h:panelGroup rendered="#{not cc.attrs.value}" styleClass="aupFontUnicode">
-   				&#9744;
-		</h:panelGroup>
+		<h:graphicImage rendered="#{cc.attrs.value}"
+						library="jeeslGfx"
+						name="#{appIconBean.svg['jeeslCheckboxChecked']}"
+						class="jeesl-dropdown-item-label-icon jeesl-dropdown-item-label-checkbox"/>
+		<h:graphicImage rendered="#{not cc.attrs.value}"
+						library="jeeslGfx"
+						name="#{appIconBean.svg['jeeslCheckbox']}"
+						class="jeesl-dropdown-item-label-icon jeesl-dropdown-item-label-checkbox"/>
 	</composite:implementation>
 </html>

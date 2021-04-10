@@ -57,9 +57,11 @@
 				<p:panel styleClass="jeeslPanel">
 					<f:facet name="header"><jtp:label entity="HdTicket"/></f:facet>
 					<f:facet name="actions">
-						<j:svg type="jeeslArrowRight" listener="#{cc.attrs.bean.addMessage()}" update=":#{cc.id}:sMessage" library="jeeslGfx" rendered="#{cc.attrs.bean.uiSlot.showC}"/>
-						<j:svg type="jeeslSave" listener="#{cc.attrs.bean.saveTicket()}" update=":#{cc.id}:grid" library="jeeslGfx"/>
-						<j:svg type="jeeslArrowLeft" listener="#{cc.attrs.bean.cancelTicket()}" update=":#{cc.id}:grid" library="jeeslGfx" rendered="#{cc.attrs.bean.uiSlot.showC}"/>
+						<p:outputPanel>
+							<j:svg type="jeeslArrowRight" listener="#{cc.attrs.bean.addMessage()}" update=":#{cc.id}:sMessage" library="jeeslGfx" rendered="#{cc.attrs.bean.uiSlot.showC}"/>
+							<j:svg type="jeeslSave" listener="#{cc.attrs.bean.saveTicket()}" update=":#{cc.id}:grid" library="jeeslGfx"/>
+							<j:svg type="jeeslArrowLeft" listener="#{cc.attrs.bean.cancelTicket()}" update=":#{cc.id}:grid" library="jeeslGfx" rendered="#{cc.attrs.bean.uiSlot.showC}"/>
+						</p:outputPanel>
 					</f:facet>
 					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
 					
