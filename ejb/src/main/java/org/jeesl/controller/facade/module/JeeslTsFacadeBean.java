@@ -25,6 +25,7 @@ import org.jeesl.factory.ejb.module.ts.EjbTsFactory;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.factory.json.system.io.db.tuple.t1.Json1TuplesFactory;
 import org.jeesl.factory.sql.module.SqlTimeSeriesFactory;
+import org.jeesl.interfaces.facade.ParentPredicate;
 import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsCategory;
 import org.jeesl.interfaces.model.module.ts.config.JeeslTsInterval;
@@ -46,8 +47,6 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithLangDescription;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
-
-import net.sf.ahtutils.controller.util.ParentPredicate;
 
 public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 							CAT extends JeeslTsCategory<L,D,CAT,?>,

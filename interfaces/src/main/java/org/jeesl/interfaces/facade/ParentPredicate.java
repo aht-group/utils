@@ -1,4 +1,4 @@
-package net.sf.ahtutils.controller.util;
+package org.jeesl.interfaces.facade;
 
 import java.io.Serializable;
 import java.util.ArrayList;

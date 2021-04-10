@@ -183,7 +183,7 @@ public class JbossModuleConfigurator
 		String src = srcBaseDir+"/"+product+"/"+version+"/hibernate.xml";
 		InputStream input = mrl.searchIs(src);
 		FileUtils.copyInputStreamToFile(input, moduleXml);
-//		System.out.println("Copy "+src+" to "+moduleXml.getAbsolutePath());
+		System.out.println("Copy "+src+" to "+moduleXml.getAbsolutePath());
 		
 		if(version.equals("6.3"))
 		{

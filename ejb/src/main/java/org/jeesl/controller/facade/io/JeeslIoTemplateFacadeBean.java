@@ -14,6 +14,7 @@ import org.jeesl.api.facade.io.JeeslIoTemplateFacade;
 import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoTemplateFactoryBuilder;
+import org.jeesl.interfaces.facade.ParentPredicate;
 import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplateDefinition;
 import org.jeesl.interfaces.model.io.mail.template.JeeslIoTemplateToken;
@@ -24,8 +25,6 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.controller.util.ParentPredicate;
 
 public class JeeslIoTemplateFacadeBean<L extends JeeslLang,D extends JeeslDescription,
 						CATEGORY extends JeeslStatus<CATEGORY,L,D>,

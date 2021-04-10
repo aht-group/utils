@@ -42,10 +42,14 @@ public final class DateTimeFunction
     	if(seconds==null) {return null;}
     	else
     	{
-        	return String.format("%d:%d", 
-        		    TimeUnit.SECONDS.toMinutes(seconds),
-        		    TimeUnit.SECONDS.toSeconds(seconds) - (TimeUnit.MINUTES.toSeconds(TimeUnit.SECONDS.toMinutes(seconds)))
-        		);
+    		long lMinutes = TimeUnit.SECONDS.toMinutes(seconds);
+    		long lSeconds = TimeUnit.SECONDS.toSeconds(seconds) - (TimeUnit.MINUTES.toSeconds(TimeUnit.SECONDS.toMinutes(seconds)));
+    		StringBuilder sb = new StringBuilder();
+    		sb.append(lMinutes);
+    		sb.append(":");
+    		if(lSeconds<10) {sb.append("0");}
+    		sb.append(lSeconds);
+        	return sb.toString();
     	}
     }
 }

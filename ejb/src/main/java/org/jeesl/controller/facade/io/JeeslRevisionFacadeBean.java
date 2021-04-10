@@ -20,6 +20,7 @@ import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.factory.json.system.revision.JsonRevisionFactory;
+import org.jeesl.interfaces.facade.ParentPredicate;
 import org.jeesl.interfaces.model.io.revision.core.JeeslRevisionCategory;
 import org.jeesl.interfaces.model.io.revision.core.JeeslRevisionView;
 import org.jeesl.interfaces.model.io.revision.core.JeeslRevisionViewMapping;
@@ -39,8 +40,6 @@ import org.jeesl.util.query.sql.SqlNativeQueryHelper;
 import org.jeesl.util.query.sql.SqlRevisionQueries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.sf.ahtutils.controller.util.ParentPredicate;
 
 public class JeeslRevisionFacadeBean<L extends JeeslLang,D extends JeeslDescription,
 									RC extends JeeslRevisionCategory<L,D,RC,?>,

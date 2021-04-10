@@ -105,7 +105,7 @@ public class EjbIdFactory
 		Set<Long> existing = new HashSet<Long>(EjbIdFactory.toIds(list));
 		
 		boolean search = true;
-		long next = 0-existing.size();
+		long next = -1-existing.size();
 		while(search)
 		{
 			if(existing.contains(next)){next--;}
