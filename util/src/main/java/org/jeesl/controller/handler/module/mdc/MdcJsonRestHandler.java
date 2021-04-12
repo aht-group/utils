@@ -99,13 +99,15 @@ public class MdcJsonRestHandler<L extends JeeslLang, D extends JeeslDescription,
 		EjbIdCache<CRITERIA> cacheCriteria = new EjbIdCache<>(fbAttribute.getClassCriteria());
 		cacheCriteria.populate(fAttribute.fAttributeCriteria(collection.getCollectionSet()));
 		
+		EjbIdCache<OPTION> cacheOption = new EjbIdCache<>(fAttribute,fbAttribute.getClassOption());
+		
 		ACON aContainer = fAttribute.save(efAttributeContainer.build(collection.getCollectionSet()));
 		for(JsonAttributeData jData : data.getCollectionContainer().getDatas())
 		{
 			if(cacheCriteria.contains(jData.getCriteria().getId()))
 			{
 				CRITERIA aCriteria = cacheCriteria.ejb(jData.getCriteria().getId());
-				ADATA d = efAttributeData.build(aContainer,aCriteria,jData);
+				ADATA d = efAttributeData.build(aContainer,aCriteria,jData,cacheOption);
 				fAttribute.save(d);
 			}
 		}

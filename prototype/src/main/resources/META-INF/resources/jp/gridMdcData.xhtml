@@ -24,7 +24,7 @@
 							<j:svg type="jeeslAdd" listener="#{cc.attrs.bean.addActivity()}" update=":#{cc.id}:grid" library="jeeslGfx"/>
 						</j:dtHeader>
 					</f:facet>
-					<p:column >
+					<p:column>
 						<f:facet name="header"><jtp:label entity="MdcData" code="id"/></f:facet>
 						<h:outputText value="#{d.id}"/>
 					</p:column>
@@ -32,9 +32,23 @@
 						<f:facet name="header">
 							<h:outputText value="#{i.criteria.name[localeCode].lang}" />
 						</f:facet>
-						<h:outputText value="#{cc.attrs.bean.n2Data.m[d.collectionContainer][i.criteria].valueString}" />
-						
+						<h:outputText value="#{cc.attrs.bean.n2Data.m[d.collectionContainer][i.criteria].valueString}" rendered="#{i.criteria.type.code eq 'text'}"/>
+						<h:outputText value="#{cc.attrs.bean.n2Data.m[d.collectionContainer][i.criteria].valueString}" rendered="#{i.criteria.type.code eq 'remark'}"/>
+						<h:outputText value="#{cc.attrs.bean.n2Data.m[d.collectionContainer][i.criteria].valueBoolean}" rendered="#{i.criteria.type.code eq 'bool'}"/>
+						<h:outputText value="#{cc.attrs.bean.n2Data.m[d.collectionContainer][i.criteria].valueInteger}" rendered="#{i.criteria.type.code eq 'intNumber'}"/>
+						<h:outputText value="#{cc.attrs.bean.n2Data.m[d.collectionContainer][i.criteria].valueDouble}" rendered="#{i.criteria.type.code eq 'doubleNumber'}"/>
+						<jp:outputDate value="#{cc.attrs.bean.n2Data.m[d.collectionContainer][i.criteria].valueRecord}" rendered="#{i.criteria.type.code eq 'date'}"/>
+						<h:outputText value="#{cc.attrs.bean.n2Data.m[d.collectionContainer][i.criteria].valueOption.name[localeCode].lang}" rendered="#{i.criteria.type.code eq 'selectOne'}"/>
+						<ui:fragment rendered="#{i.criteria.type.code eq 'selectMany'}">
+							<ui:repeat var="o" value="#{cc.attrs.bean.n2Data.m[d.collectionContainer][i.criteria].valueOptions}">
+								<h:outputText value="#{o.name[localeCode].lang}"/><br/>
+							</ui:repeat>
+						</ui:fragment>
+						<f:facet name="footer">
+							<h:outputText value="#{i.criteria.type.code}" />
+						</f:facet>
 					</p:columns>
+					
 			   	</p:dataTable>
 			</h:form>
 		</j:slot>

@@ -11,6 +11,7 @@ import org.jeesl.interfaces.model.module.attribute.JeeslAttributeSet;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.model.json.module.attribute.JsonAttributeCriteria;
 import org.jeesl.model.json.module.attribute.JsonAttributeData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +43,12 @@ public class JsonAttributeDataFactory<L extends JeeslLang, D extends JeeslDescri
 	}
 	
 	public static JsonAttributeData build(){return new JsonAttributeData();}
+	public static JsonAttributeData build(JsonAttributeCriteria criteria)
+	{
+		JsonAttributeData json = build();
+		json.setCriteria(criteria);
+		return json;
+	}
 	
 	public JsonAttributeData build(DATA data)
 	{

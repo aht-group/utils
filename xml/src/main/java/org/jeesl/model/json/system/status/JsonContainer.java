@@ -16,4 +16,13 @@ public class JsonContainer implements Serializable
 	private List<JsonStatus> status;
 	public List<JsonStatus> getStatus() {if(status==null){status = new ArrayList<JsonStatus>();}return status;}
 	public void setStatus(List<JsonStatus> status) {this.status = status;}
+	
+	@JsonProperty("categories")
+	private List<JsonCategory> categories;
+	public List<JsonCategory> getCategories() {
+		return categories;
+	}
+	public void setCategories(List<JsonCategory> categories) {
+		this.categories = categories;
+	}
 }

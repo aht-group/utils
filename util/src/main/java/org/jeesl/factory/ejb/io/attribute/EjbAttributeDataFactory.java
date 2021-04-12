@@ -5,12 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.jeesl.controller.handler.module.mdc.MdcJsonRestHandler;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCriteria;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeData;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeOption;
 import org.jeesl.model.json.module.attribute.JsonAttributeData;
+import org.jeesl.model.json.module.attribute.JsonAttributeOption;
+import org.jeesl.util.db.cache.EjbIdCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,12 +44,19 @@ public class EjbAttributeDataFactory<CRITERIA extends JeeslAttributeCriteria<?,?
 		return ejb;
 	}
 	
-	public DATA build(CONTAINER container, CRITERIA criteria, JsonAttributeData json)
+	public DATA build(CONTAINER container, CRITERIA criteria, JsonAttributeData json, EjbIdCache<OPTION> cacheOption)
 	{
 		DATA ejb = build(container,criteria);
 		switch(JeeslAttributeCriteria.Types.valueOf(criteria.getType().getCode()))
 		{
 			case text:	ejb.setValueString(json.getValueString()); break;
+			case remark:	ejb.setValueString(json.getValueString()); break;
+			case bool:	ejb.setValueBoolean(json.getValueBoolean()); break;
+			case intNumber:	ejb.setValueInteger(json.getValueInteger()); break;
+			case doubleNumber:	ejb.setValueDouble(json.getValueDouble()); break;
+			case date:	ejb.setValueRecord(json.getValueDate()); break;
+			case selectOne:	ejb.setValueOption(cacheOption.ejb(json.getValueOption().getId())); break;
+			case selectMany: ejb.setValueOptions(new ArrayList<>()); for(JsonAttributeOption o : json.getValueOptions()){ejb.getValueOptions().add(cacheOption.ejb(o.getId()));} break;
 			default: logger.warn("No handling for "+criteria.getType().getCode());break;
 		}
 		
