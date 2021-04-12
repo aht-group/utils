@@ -23,10 +23,8 @@
 					<h:form id="fTree" >
 						<p:panel header="#{msg.jeeslSecurityMenu}" styleClass="jeeslTree">
 							<f:facet id="fActions" name="actions">
-								<p:outputPanel id="cActions">
-									<j:svg type="jeeslTreeExpandAll" listener="#{cc.attrs.bean.expandTree()}" update="@form" tooltip="#{msg.jeeslTtExpandAllChildren}" library="jeeslGfx"/>
-									<j:svg type="jeeslTreeCollapseAll" listener="#{cc.attrs.bean.collapseTree()}" update="@form" rendered="#{cc.attrs.bean.isExpanded()}" tooltip="#{msg.jeeslTtCollapseAllChildren}" library="jeeslGfx"/>
-								</p:outputPanel>
+								<j:svg type="jeeslTreeExpandAll" listener="#{cc.attrs.bean.expandTree()}" update="@form" tooltip="#{msg.jeeslTtExpandAllChildren}" library="jeeslGfx"/>
+								<j:svg type="jeeslTreeCollapseAll" listener="#{cc.attrs.bean.collapseTree()}" update="@form" rendered="#{cc.attrs.bean.isExpanded()}" tooltip="#{msg.jeeslTtCollapseAllChildren}" library="jeeslGfx"/>
 							</f:facet>
 							<p:tree id="tree1" value="#{cc.attrs.bean.tree}" var="node" 
 								selection="#{cc.attrs.bean.node}" selectionMode="single"
@@ -92,10 +90,8 @@
 					<h:form id="fHelp" rendered="#{not empty cc.attrs.bean.helpTree}">
 						<p:panel header="#{msg.jeeslSecurityHelp}" styleClass="jeeslTree">
 							<f:facet id="fHelpActions" name="actions">
-								<p:outputPanel id="cHelpActions">
-									<j:svg type="jeeslTreeExpandAll" listener="#{cc.attrs.bean.expandHelp()}" update="@form" tooltip="#{msg.jeeslTtExpandAllChildren}" library="jeeslGfx"/>
-									<j:svg type="jeeslTreeCollapseAll" listener="#{cc.attrs.bean.collapseHelp()}" update="@form" rendered="#{cc.attrs.bean.isHelpExpanded()}" tooltip="#{msg.jeeslTtCollapseAllChildren}" library="jeeslGfx"/>
-								</p:outputPanel>
+								<j:svg type="jeeslTreeExpandAll" listener="#{cc.attrs.bean.expandHelp()}" update="@form" tooltip="#{msg.jeeslTtExpandAllChildren}" library="jeeslGfx"/>
+								<j:svg type="jeeslTreeCollapseAll" listener="#{cc.attrs.bean.collapseHelp()}" update="@form" rendered="#{cc.attrs.bean.isHelpExpanded()}" tooltip="#{msg.jeeslTtCollapseAllChildren}" library="jeeslGfx"/>
 							</f:facet>
 							<p:tree id="tHelp" value="#{cc.attrs.bean.helpTree}" var="helpNode"
 								selection="#{cc.attrs.bean.helpNode}" selectionMode="single"
