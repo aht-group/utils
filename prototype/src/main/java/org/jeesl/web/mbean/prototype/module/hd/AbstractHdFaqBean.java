@@ -235,7 +235,7 @@ public abstract class AbstractHdFaqBean <L extends JeeslLang, D extends JeeslDes
 	private TreeNode helpTree; public TreeNode getHelpTree() {return helpTree;}
 	private TreeNode helpNode; public TreeNode getHelpNode() {return helpNode;} public void setHelpNode(TreeNode helpNode) {this.helpNode = helpNode;}
 	    
-    public void addHelp(DOC doc)
+    public void selectDocument(DOC doc)
     {
     	this.document=doc;
     	logger.info(document.toString());
@@ -276,5 +276,12 @@ public abstract class AbstractHdFaqBean <L extends JeeslLang, D extends JeeslDes
 		TreeNode n = TreeHelper.getNode(helpTree,ddEvent.getDragId(),3);
 		SEC section = (SEC)n.getData();
 		logger.info(section.toString());
+		
+		fga = fbHd.ejbFga().build(faq,document,answers);
+		fga.setSection(section);
+		fbHd.ejbFga().converter(fHd,fga);
+		fga = fHd.save(fga);
+		reloadAnswers();
+		
     }
 }
