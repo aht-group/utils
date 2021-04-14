@@ -51,8 +51,10 @@ public abstract class AbstractCmsCacheBean <L extends JeeslLang,D extends JeeslD
 	final static Logger logger = LoggerFactory.getLogger(AbstractCmsCacheBean.class);
 	
 	private final IoCmsFactoryBuilder<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fbCms;
-	private JeeslCmsRenderer<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC> ofx;
+	
 	private JeeslIoCmsFacade<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fCms;
+	
+	private JeeslCmsRenderer<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC> ofx;
 	
 	private final Map<Long,S> mapId;
 	private final Map<S,Map<String,Section>> mapSection;

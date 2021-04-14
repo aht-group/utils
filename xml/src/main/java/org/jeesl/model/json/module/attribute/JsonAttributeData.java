@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
-@JsonRootName(value="item")
+@JsonRootName(value="attributeDate")
 public class JsonAttributeData implements Serializable
 {
     private final static long serialVersionUID = 1L;

@@ -15,6 +15,10 @@ public interface SsiMappingProcessor <MAPPING extends JeeslIoSsiMapping<?,?>,
 	
 	Class<?> getClassA();
 	Class<?> getClassB();
+	Class<?> getClassC();
+	Class<?> getClassJson();
+	Class<?> getClassLocal();
+	Class<?> getClassTarget();
 
 	void evaluateData(List<DATA> datas);
 	void linkData(List<DATA> datas);

@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
-@JsonRootName(value="collection")
+@JsonRootName(value="mdcData")
 public class JsonMdcData implements Serializable
 {
     private final static long serialVersionUID = 1L;
