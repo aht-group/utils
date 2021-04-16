@@ -31,6 +31,7 @@
 									<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addTimeGroup()}" update=":#{cc.id}:grid" tooltip="#{msg.ttNew}" />
 								</aht:pfDataTableHeader>
 							</f:facet>
+							<p:ajax event="rowReorder" listener="#{cc.attrs.bean.reorderTimeGroups()}" update="@form"/>
 							<p:ajax event="rowSelect" update=":#{cc.id}:sTimeGroup" listener="#{cc.attrs.bean.selectTimeGroup()}"/>
 
 					         <p:column>
@@ -43,11 +44,11 @@
 					         </p:column>
 					         <p:column>
 					         	<f:facet name="header"><jtp:label entity="LfTargetTimeGroup" code="startDate"/></f:facet>    
-								<h:outputText value="#{c.startDate}"/>
+								 <jp:outputDate value="#{c.startDate}"/>
 					         </p:column>
 					         <p:column headerText="#{msg.jeeslEndDate}">
 					         	<f:facet name="header"><jtp:label entity="LfTargetTimeGroup" code="endDate"/></f:facet>    
-								<h:outputText value="#{c.endDate}"/>
+								 <jp:outputDate value="#{c.endDate}"/>
 					         </p:column>
 					   	</p:dataTable>
 					</h:form>
@@ -71,15 +72,27 @@
 								<p:selectOneMenu value="#{cc.attrs.bean.timeGroup.interval}" effect="fade" >
 									<f:selectItems value="#{cc.attrs.bean.intervalTypes}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t}"/>
 								</p:selectOneMenu>
-								<jtp:label entity="LfTargetTimeGroup" code="values" rendered="#{cc.attrs.bean.uiGenerate or cc.attrs.bean.timeGroup.value gt 0}" />
-								<p:outputLabel  value="#{cc.attrs.bean.timeGroup.values}" rendered="#{cc.attrs.bean.uiGenerate or cc.attrs.bean.timeGroup.value gt 0}" />
+								<jtp:label entity="LfTargetTimeGroup" code="values" rendered="#{cc.attrs.bean.uiGenerate or cc.attrs.bean.timeGroup.values gt 0}" />
+								<p:outputLabel  value="#{cc.attrs.bean.timeGroup.values}" rendered="#{cc.attrs.bean.uiGenerate or cc.attrs.bean.timeGroup.values gt 0}" />
 							
 								<jtp:label entity="LfTargetTimeGroup" code="startDate" rendered="#{cc.attrs.bean.uiGenerate or not empty cc.attrs.bean.timeGroup.startDate}" />
+								<jp:outputDate  value="#{cc.attrs.bean.timeGroup.startDate}" rendered="#{cc.attrs.bean.uiGenerate or not empty cc.attrs.bean.timeGroup.startDate}" />
+								<jtp:label entity="LfTargetTimeGroup" code="endDate" rendered="#{cc.attrs.bean.uiGenerate or not empty cc.attrs.bean.timeGroup.endDate}"/>
+								<jp:outputDate  value="#{cc.attrs.bean.timeGroup.endDate}" rendered="#{cc.attrs.bean.uiGenerate or not empty cc.attrs.bean.timeGroup.endDate}" />
+							</p:panelGrid>
+						</p:panel>
+						<p:panel id="pViewGenerate" rendered="#{not empty cc.attrs.bean.timeGroup and cc.attrs.bean.uiGenerate}" styleClass="jeeslPanel">
+							<f:facet name="header"><jtp:label entity="LfTargetTimeGroup"/></f:facet>    
+							<p:messages redisplay="false" severity="warn,error" showSummary="true" showDetail="true" closable="true"/>
+							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
+								<jtp:label entity="LfTargetTimeGroup" code="startDate" rendered="#{cc.attrs.bean.uiGenerate or not empty cc.attrs.bean.timeGroup.startDate}" />
 								<jp:inputCalendar  value="#{cc.attrs.bean.timeGroup.startDate}" rendered="#{cc.attrs.bean.uiGenerate}" />
-								<jp:outputDate  value="#{cc.attrs.bean.timeGroup.startDate}" rendered="#{not cc.attrs.bean.uiGenerate or not empty cc.attrs.bean.timeGroup.startDate}" />
 								<jtp:label entity="LfTargetTimeGroup" code="endDate" rendered="#{cc.attrs.bean.uiGenerate or not empty cc.attrs.bean.timeGroup.endDate}"/>
 								<jp:inputCalendar  value="#{cc.attrs.bean.timeGroup.endDate}" rendered="#{cc.attrs.bean.uiGenerate}" />
-								<jp:outputDate  value="#{cc.attrs.bean.timeGroup.endDate}" rendered="#{not cc.attrs.bean.uiGenerate or not empty cc.attrs.bean.timeGroup.endDate}" />
+								<jtp:label entity="LfTargetTimeGroup" code="grid" rendered="#{cc.attrs.bean.uiGenerate}" />
+						        <p:selectOneRadio  value="#{cc.attrs.bean.intervalConfig}" layout="grid" columns="1" styleClass="grid-radio">
+						            <f:selectItems value="#{cc.attrs.bean.intervalConfigs}" var="config" itemLabel="#{config}" itemValue="#{config}"/>
+						        </p:selectOneRadio>
 								<p:commandButton  disabled="#{not cc.attrs.bean.uiGenerate}" value="#{msg.Generate}" update=":#{cc.id}:grid" 
 												actionListener="#{cc.attrs.bean.generateTimeGroup()}" />
 							</p:panelGrid>
@@ -101,7 +114,7 @@
 							</p:column>
 							<p:column> 
 								<f:facet name="header"><jtp:label entity="LfTargetTimeElement" code="record"/></f:facet>
-								<h:outputText value="#{o.record}"/>
+								<jp:outputDate value="#{o.record}"/>
 					     	</p:column>
 					   	</p:dataTable>
 					</h:form>
@@ -109,9 +122,9 @@
 						<p:panel id="pView" rendered="#{not empty cc.attrs.bean.element}" styleClass="jeeslPanel">
 							<f:facet name="header"><jtp:label entity="LfTargetTimeElement"/></f:facet>
 							<f:facet name="actions">
-								<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.resetElement()}" update=":#{cc.id}:sTimeGroup" tooltip="#{msg.jeeslTtCancel}" mayDisappear="true"/>
-								<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveElement()}" update=":#{cc.id}:sTimeGroup" rendered="#{cc.attrs.bean.uiAllowSave}" tooltip="#{msg.ttSave}"/>
-								<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteElement()}" update=":#{cc.id}:sTimeGroup" rendered="#{cc.attrs.bean.element.id gt 0}" tooltip="#{msg.ttDelete}" mayDisappear="true"/>
+								<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.resetElement()}" update=":#{cc.id}:sTimeGroup :#{cc.id}:sTimeGroups" tooltip="#{msg.jeeslTtCancel}" mayDisappear="true"/>
+								<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveElement()}" update=":#{cc.id}:sTimeGroup :#{cc.id}:sTimeGroups" rendered="#{cc.attrs.bean.uiAllowSave}" tooltip="#{msg.ttSave}"/>
+								<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteElement()}" update=":#{cc.id}:sTimeGroup :#{cc.id}:sTimeGroups" rendered="#{cc.attrs.bean.element.id gt 0}" tooltip="#{msg.ttDelete}" mayDisappear="true"/>
 							</f:facet>
 							<p:messages redisplay="false" severity="warn,error" showSummary="true" showDetail="true" closable="true"/>
 							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
