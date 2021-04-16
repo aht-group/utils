@@ -5,6 +5,7 @@ import javax.persistence.EntityManager;
 import org.jeesl.api.facade.module.JeeslLogframeFacade;
 import org.jeesl.controller.facade.JeeslFacadeBean;
 import org.jeesl.factory.builder.module.LfFactoryBuilder;
+import org.jeesl.interfaces.model.module.lf.JeeslLfConfiguration;
 import org.jeesl.interfaces.model.module.lf.JeeslLfLogframe;
 import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicator;
 import org.jeesl.interfaces.model.module.lf.monitoring.JeeslLfIndicatorMonitoring;
@@ -20,17 +21,18 @@ public class JeeslLogFrameFacadeBean<	L extends JeeslLang, D extends JeeslDescri
 										LFI extends JeeslLfIndicator<LF, ?, ?,TTG,LFM>,
 										TTG extends JeeslLfTargetTimeGroup<L,?>,
 										TTE extends JeeslLfTargetTimeElement<L,TTG>,
-										LFM extends JeeslLfIndicatorMonitoring<LFI,TTG,TTE>>
+										LFM extends JeeslLfIndicatorMonitoring<LFI,TTG,TTE>,
+										LFC extends JeeslLfConfiguration<LF,?>>
 					extends JeeslFacadeBean
-					implements JeeslLogframeFacade<L,D,LF,LFI,TTG,TTE,LFM>
+					implements JeeslLogframeFacade<L,D,LF,LFI,TTG,TTE,LFM,LFC>
 {
 	private static final long serialVersionUID = 1L;
 
 	final static Logger logger = LoggerFactory.getLogger(JeeslAssetFacadeBean.class);
 
-	private final LfFactoryBuilder<L,D,LF,LFI,TTG,TTE,LFM> fbLogFrame;
+	private final LfFactoryBuilder<L,D,LF,LFI,TTG,TTE,LFM,LFC> fbLogFrame;
 
-	public JeeslLogFrameFacadeBean(EntityManager em, final LfFactoryBuilder<L,D,LF,LFI,TTG,TTE,LFM> fbLogFrame)
+	public JeeslLogFrameFacadeBean(EntityManager em, final LfFactoryBuilder<L,D,LF,LFI,TTG,TTE,LFM,LFC> fbLogFrame)
 	{
 		super(em);
 		this.fbLogFrame=fbLogFrame;

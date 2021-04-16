@@ -1,6 +1,7 @@
 package org.jeesl.api.facade.module;
 
 import org.jeesl.interfaces.facade.JeeslFacade;
+import org.jeesl.interfaces.model.module.lf.JeeslLfConfiguration;
 import org.jeesl.interfaces.model.module.lf.JeeslLfLogframe;
 import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicator;
 import org.jeesl.interfaces.model.module.lf.monitoring.JeeslLfIndicatorMonitoring;
@@ -14,7 +15,8 @@ public interface JeeslLogframeFacade < L extends JeeslLang, D extends JeeslDescr
 									LFI extends JeeslLfIndicator<LF,?,?,TTG,LFM>,
 									TTG extends JeeslLfTargetTimeGroup<?,?>,
 									TTE extends JeeslLfTargetTimeElement<?,TTG>,
-									LFM extends JeeslLfIndicatorMonitoring<LFI,TTG,TTE>
+									LFM extends JeeslLfIndicatorMonitoring<LFI,TTG,TTE>,
+									LFC extends JeeslLfConfiguration<LF,?>
 									>
 			extends JeeslFacade
 {
