@@ -19,10 +19,6 @@ public class JsonContainer implements Serializable
 	
 	@JsonProperty("categories")
 	private List<JsonCategory> categories;
-	public List<JsonCategory> getCategories() {
-		return categories;
-	}
-	public void setCategories(List<JsonCategory> categories) {
-		this.categories = categories;
-	}
+	public List<JsonCategory> getCategories() {return categories;}
+	public void setCategories(List<JsonCategory> categories) {this.categories = categories;}
 }

@@ -61,8 +61,7 @@ public class JeeslLogger<L extends JeeslLang, D extends JeeslDescription,
 	
 	public String start(String log, USER user)
 	{
-		
-		
+		reset();
 		timeStart = Instant.now();
 		timeMilestone = Instant.now();
 		StringBuilder sb = new StringBuilder();
