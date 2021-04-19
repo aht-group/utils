@@ -30,6 +30,14 @@
 						<h:outputText value="#{h.code}"/>
 					</p:column>
 					<p:column>
+						<f:facet name="header"><jtp:label entity="IoSsiHost" code="ipAddr"/></f:facet>
+						<h:outputText value="#{h.ipAddr}"/>
+					</p:column>
+					<p:column>
+						<f:facet name="header"><jtp:label entity="IoSsiHost" code="fqdn"/></f:facet>
+						<h:outputText value="#{h.fqdn}"/>
+					</p:column>
+					<p:column>
 						<f:facet name="header"><h:outputText value="#{msg.jeeslIoSsiHost}"/></f:facet>
 						<h:outputText value="#{h.name[localeCode].lang}"/>
 					</p:column>
@@ -56,6 +64,9 @@
 						
 						<jtp:label entity="IoSsiHost" code="fqdn"/>
 						<p:inputText value="#{cc.attrs.bean.host.fqdn}" autocomplete="off"/>
+						
+						<jtp:label entity="IoSsiHost" code="ipAddr"/>
+						<p:inputText value="#{cc.attrs.bean.host.ipAddr}" autocomplete="off"/>
 						
 					</p:panelGrid>
 					<j:tabTranslationEditor value="#{cc.attrs.bean.host}" withDescription="true"/>

@@ -23,4 +23,7 @@ public interface JeeslIoSsiHost <L extends JeeslLang, D extends JeeslDescription
 	
 	String getFqdn();
 	void setFqdn(String fqdn);
+	
+	String getIpAddr();
+	void setIpAddr(String ipAddr);
 }
