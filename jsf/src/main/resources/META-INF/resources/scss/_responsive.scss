@@ -549,6 +549,10 @@ body {
 				
 				.jeesl-menu-bar-button {
 					background: $dark-colour;
+					
+					&.jeesl-disabled {
+						background: transparent;
+					}
 				}
 				
 				.jeesl-dropdown-list {
@@ -570,6 +574,14 @@ body {
 				    display: inline-block;
 				    height: 100%;
 				    vertical-align: middle;
+				}
+				
+				&.jeesl-disabled {
+					pointer-events: none;
+					
+					.ui-commandlink {
+						filter: grayscale(1);
+					}
 				}
 					
 				.jeesl-menu-bar-button-icon {

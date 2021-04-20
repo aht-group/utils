@@ -13,10 +13,12 @@
 		<composite:attribute name="orientation" required="false"/>
 		<composite:attribute name="tooltip" required="false" default="Opens a popup window to show further information"/>
 		<composite:attribute name="header" required="false" default="Popup"/>
+		<composite:attribute name="disabled" required="false" default="Popup"/>
 	</composite:interface>
 
 	<composite:implementation>
-		<jp:sbButton onclick="toggleDialog('jeesl-sb-dialog')"
+		<jp:sbButton disabled="#{cc.attrs.disabled}"
+					 onclick="toggleDialog('jeesl-sb-dialog')"
 					 listener="#{cc.attrs.listener}"
 					 icon="#{cc.attrs.icon}"
 					 label="#{cc.attrs.label}"

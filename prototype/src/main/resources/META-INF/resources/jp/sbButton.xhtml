@@ -7,18 +7,19 @@
 	  xmlns:composite="http://java.sun.com/jsf/composite">
     
 	<composite:interface>
-		<composite:attribute name="onclick" required="false"/>
-		<composite:attribute name="listener" required="false"/>
+		<composite:attribute name="disabled" required="false" default="false"/>
 		<composite:attribute name="icon" required="false"/>
 		<composite:attribute name="label" required="false"/>
-		<composite:attribute name="tooltip" required="false"/>
+		<composite:attribute name="listener" required="false"/>
+		<composite:attribute name="onclick" required="false"/>
 		<composite:attribute name="orientation" required="false" default="left"/>
-		<composite:attribute name="styleClass"/>
+		<composite:attribute name="styleClass" required="false"/>
+		<composite:attribute name="tooltip" required="false"/>
 	</composite:interface>
 
 	<composite:implementation>
-	    <jp:sbItem orientation="#{cc.attrs.orientation}" styleClass="#{cc.attrs.styleClass}">
-			<f:facet name="label">
+	    <jp:sbItem orientation="#{cc.attrs.orientation}" styleClass="#{cc.attrs.styleClass} #{cc.attrs.disabled ? 'jeesl-disabled' : ''}">
+	    	<f:facet name="label">
 				<p:commandLink id="buttonLink" onclick="#{cc.attrs.onclick}" listener="#{cc.attrs.listener}">
 					<h:graphicImage name="#{appIconBean.svg[cc.attrs.icon]}"
 									library="jeeslGfx"
