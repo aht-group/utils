@@ -108,7 +108,11 @@ public class JeeslLogger<L extends JeeslLang, D extends JeeslDescription,
 		return sb.toString();
 	}
 	
-	public String loop(String loop, Integer elements)
+	public String loopStart(String loop)
+	{
+		return "";
+	}
+	public String loopEnd(String loop, Integer elements)
 	{
 		if(!mapLoopCount.containsKey(loop)) {mapLoopCount.put(loop,0);}
 		if(elements!=null && !mapLoopElements.containsKey(loop)) {mapLoopElements.put(loop,0);}
