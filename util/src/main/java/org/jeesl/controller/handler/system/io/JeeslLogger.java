@@ -13,6 +13,7 @@ import java.util.Map;
 import org.jeesl.factory.builder.io.IoLogFactoryBuilder;
 import org.jeesl.factory.ejb.io.log.EjbIoLogMilestoneFactory;
 import org.jeesl.interfaces.model.io.logging.JeeslIoLog;
+import org.jeesl.interfaces.model.io.logging.JeeslIoLogLoop;
 import org.jeesl.interfaces.model.io.logging.JeeslIoLogMilestone;
 import org.jeesl.interfaces.model.io.logging.JeeslIoLogRetention;
 import org.jeesl.interfaces.model.io.logging.JeeslIoLogStatus;
@@ -29,35 +30,40 @@ public class JeeslLogger<L extends JeeslLang, D extends JeeslDescription,
 							STATUS extends JeeslIoLogStatus<L,D,STATUS,?>,
 							RETENTION extends JeeslIoLogRetention<L,D,RETENTION,?>,
 							MILESTONE extends JeeslIoLogMilestone<LOG>,
+							LOOP extends JeeslIoLogLoop<LOG>,
 							USER extends JeeslSimpleUser>
 				implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(JeeslLogger.class);
 	
-	private final IoLogFactoryBuilder<L,D,LOG,MILESTONE> fbLog;
+	private final IoLogFactoryBuilder<L,D,LOG,MILESTONE,LOOP> fbLog;
 	private final EjbIoLogMilestoneFactory<LOG,MILESTONE> efMilestone;
 	
 	private Instant timeStart;
 	private Instant timeMilestone;
 	
 	private final List<MILESTONE> milestones;
+	
 	private final Map<String,Integer> mapLoopCount;
 	private final Map<String,Integer> mapLoopElements;
+	private final Map<String,Integer> mapLoopInstant;
 	
 	private final Class<?> c;
 	private LOG log;
 	
-	public JeeslLogger(IoLogFactoryBuilder<L,D,LOG,MILESTONE> fbLog,
+	public JeeslLogger(IoLogFactoryBuilder<L,D,LOG,MILESTONE,LOOP> fbLog,
 					   Class<?> c)
 	{
 		this.fbLog=fbLog;
 		this.c=c;
 		efMilestone = fbLog.ejbMilestone();
 		
+		milestones = new ArrayList<>();
+		
 		mapLoopCount = new HashMap<>();
 		mapLoopElements = new HashMap<>();
-		milestones = new ArrayList<>();
+		mapLoopInstant = new HashMap<>();
 	}
 	
 	private void reset()
@@ -110,6 +116,7 @@ public class JeeslLogger<L extends JeeslLang, D extends JeeslDescription,
 	
 	public String loopStart(String loop)
 	{
+		
 		return "";
 	}
 	public String loopEnd(String loop, Integer elements)
