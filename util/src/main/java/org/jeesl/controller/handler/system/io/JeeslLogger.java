@@ -6,7 +6,9 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jeesl.factory.builder.io.IoLogFactoryBuilder;
 import org.jeesl.factory.ejb.io.log.EjbIoLogMilestoneFactory;
@@ -40,6 +42,8 @@ public class JeeslLogger<L extends JeeslLang, D extends JeeslDescription,
 	private Instant timeMilestone;
 	
 	private final List<MILESTONE> milestones;
+	private final Map<String,Integer> mapLoopCount;
+	private final Map<String,Integer> mapLoopElements;
 	
 	private final Class<?> c;
 	private LOG log;
@@ -51,12 +55,16 @@ public class JeeslLogger<L extends JeeslLang, D extends JeeslDescription,
 		this.c=c;
 		efMilestone = fbLog.ejbMilestone();
 		
+		mapLoopCount = new HashMap<>();
+		mapLoopElements = new HashMap<>();
 		milestones = new ArrayList<>();
 	}
 	
 	private void reset()
 	{
 		milestones.clear();
+		mapLoopCount.clear();
+		mapLoopElements.clear();
 	}
 	
 	public String start(String log, USER user)
@@ -100,10 +108,15 @@ public class JeeslLogger<L extends JeeslLang, D extends JeeslDescription,
 		return sb.toString();
 	}
 	
-	public String info(String message)
+	public String loop(String loop, Integer elements)
 	{
+		if(!mapLoopCount.containsKey(loop)) {mapLoopCount.put(loop,0);}
+		if(elements!=null && !mapLoopElements.containsKey(loop)) {mapLoopElements.put(loop,0);}
 		
-		return message;
+		mapLoopCount.put(loop,1+mapLoopCount.get(loop));
+		if(elements!=null) {mapLoopElements.put(loop,elements+mapLoopElements.get(loop));}
+		
+		return "";
 	}
 	
 	public void ofxMilestones(OutputStream os)
@@ -133,6 +146,29 @@ public class JeeslLogger<L extends JeeslLang, D extends JeeslDescription,
 			
 			cell[5] = ejb.getName();
 			cell[6] = ejb.getMessage();
+			data.add(cell);
+		}
+		
+		OfxTextSilentRenderer.table(XmlTableFactory.build(c.getSimpleName(),header,data),os);
+	}
+	
+	public void ofxLoops(OutputStream os)
+	{
+		List<String> header = new ArrayList<>();
+		header.add("Count");
+		header.add("Elements");
+		header.add("Loop");
+		
+		List<Object[]> data = new ArrayList<>();
+		
+		for(String loop : mapLoopCount.keySet())
+		{
+			String[] cell = new String[3];
+			
+			cell[0] = mapLoopCount.get(loop).toString();
+			if(mapLoopElements.containsKey(loop)) {cell[1] = mapLoopElements.get(loop).toString();} else {cell[1] ="-";}
+			cell[2] = loop;
+			
 			data.add(cell);
 		}
 		
