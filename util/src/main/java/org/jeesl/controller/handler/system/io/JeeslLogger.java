@@ -6,11 +6,14 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jeesl.factory.builder.io.IoLogFactoryBuilder;
 import org.jeesl.factory.ejb.io.log.EjbIoLogMilestoneFactory;
 import org.jeesl.interfaces.model.io.logging.JeeslIoLog;
+import org.jeesl.interfaces.model.io.logging.JeeslIoLogLoop;
 import org.jeesl.interfaces.model.io.logging.JeeslIoLogMilestone;
 import org.jeesl.interfaces.model.io.logging.JeeslIoLogRetention;
 import org.jeesl.interfaces.model.io.logging.JeeslIoLogStatus;
@@ -27,13 +30,14 @@ public class JeeslLogger<L extends JeeslLang, D extends JeeslDescription,
 							STATUS extends JeeslIoLogStatus<L,D,STATUS,?>,
 							RETENTION extends JeeslIoLogRetention<L,D,RETENTION,?>,
 							MILESTONE extends JeeslIoLogMilestone<LOG>,
+							LOOP extends JeeslIoLogLoop<LOG>,
 							USER extends JeeslSimpleUser>
 				implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(JeeslLogger.class);
 	
-	private final IoLogFactoryBuilder<L,D,LOG,MILESTONE> fbLog;
+	private final IoLogFactoryBuilder<L,D,LOG,MILESTONE,LOOP> fbLog;
 	private final EjbIoLogMilestoneFactory<LOG,MILESTONE> efMilestone;
 	
 	private Instant timeStart;
@@ -41,10 +45,14 @@ public class JeeslLogger<L extends JeeslLang, D extends JeeslDescription,
 	
 	private final List<MILESTONE> milestones;
 	
+	private final Map<String,Integer> mapLoopCount;
+	private final Map<String,Integer> mapLoopElements;
+	private final Map<String,Integer> mapLoopInstant;
+	
 	private final Class<?> c;
 	private LOG log;
 	
-	public JeeslLogger(IoLogFactoryBuilder<L,D,LOG,MILESTONE> fbLog,
+	public JeeslLogger(IoLogFactoryBuilder<L,D,LOG,MILESTONE,LOOP> fbLog,
 					   Class<?> c)
 	{
 		this.fbLog=fbLog;
@@ -52,11 +60,17 @@ public class JeeslLogger<L extends JeeslLang, D extends JeeslDescription,
 		efMilestone = fbLog.ejbMilestone();
 		
 		milestones = new ArrayList<>();
+		
+		mapLoopCount = new HashMap<>();
+		mapLoopElements = new HashMap<>();
+		mapLoopInstant = new HashMap<>();
 	}
 	
 	private void reset()
 	{
 		milestones.clear();
+		mapLoopCount.clear();
+		mapLoopElements.clear();
 	}
 	
 	public String start(String log, USER user)
@@ -100,10 +114,20 @@ public class JeeslLogger<L extends JeeslLang, D extends JeeslDescription,
 		return sb.toString();
 	}
 	
-	public String info(String message)
+	public String loopStart(String loop)
 	{
 		
-		return message;
+		return "";
+	}
+	public String loopEnd(String loop, Integer elements)
+	{
+		if(!mapLoopCount.containsKey(loop)) {mapLoopCount.put(loop,0);}
+		if(elements!=null && !mapLoopElements.containsKey(loop)) {mapLoopElements.put(loop,0);}
+		
+		mapLoopCount.put(loop,1+mapLoopCount.get(loop));
+		if(elements!=null) {mapLoopElements.put(loop,elements+mapLoopElements.get(loop));}
+		
+		return "";
 	}
 	
 	public void ofxMilestones(OutputStream os)
@@ -133,6 +157,29 @@ public class JeeslLogger<L extends JeeslLang, D extends JeeslDescription,
 			
 			cell[5] = ejb.getName();
 			cell[6] = ejb.getMessage();
+			data.add(cell);
+		}
+		
+		OfxTextSilentRenderer.table(XmlTableFactory.build(c.getSimpleName(),header,data),os);
+	}
+	
+	public void ofxLoops(OutputStream os)
+	{
+		List<String> header = new ArrayList<>();
+		header.add("Count");
+		header.add("Elements");
+		header.add("Loop");
+		
+		List<Object[]> data = new ArrayList<>();
+		
+		for(String loop : mapLoopCount.keySet())
+		{
+			String[] cell = new String[3];
+			
+			cell[0] = mapLoopCount.get(loop).toString();
+			if(mapLoopElements.containsKey(loop)) {cell[1] = mapLoopElements.get(loop).toString();} else {cell[1] ="-";}
+			cell[2] = loop;
+			
 			data.add(cell);
 		}
 		
