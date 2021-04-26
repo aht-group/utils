@@ -12,6 +12,10 @@
 		<composite:attribute name="update" required="false" />
 		<composite:attribute name="pattern" required="false" default="#{appSettingsBean.patternDate}"/>
 		<composite:attribute name="stepMinute" required="false" default="5"/>
+		<composite:attribute name="showWeek" required="false"  default="false"/>
+		<composite:attribute name="navigator" required="false"  default="false"/>
+		<composite:attribute name="widgetVar" required="false"/>
+		<composite:attribute name="pagedate" required="false"/>
 		<composite:clientBehavior name="change" targets="pCalendar" event="change" />
 		<composite:clientBehavior name="dateSelect" targets="pCalendar" event="dateSelect" />
 	</composite:interface>
@@ -23,7 +27,11 @@
 						pattern="#{cc.attrs.pattern}"
 						mindate="#{cc.attrs.mindate}"
 						maxdate="#{cc.attrs.maxdate}"
+						showWeek="#{cc.attrs.showWeek}"
+						navigator="#{cc.attrs.navigator}"
 						stepMinute="#{cc.attrs.stepMinute}"
+						widgetVar="#{cc.attrs.widgetVar}"
+						pagedate="#{cc.attrs.pagedate}"
 						required="#{cc.attrs.required}">
 			<p:ajax event="dateSelect" update="#{cc.attrs.update}"/>
 		</p:calendar>

@@ -6,6 +6,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslLogframeFacade;
@@ -63,9 +66,31 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	protected List<TTE> elements; public List<TTE> getElements() {return elements;} public void setElements(List<TTE> elements) {this.elements = elements;}
 	protected TTE element; public TTE getElement() {return element;} public void setElement(TTE element) {this.element = element;}
 	protected List<TTI> intervalTypes; public List<TTI> getIntervalTypes() {return intervalTypes;} public void setIntervalTypes(List<TTI> intervalTypes) {this.intervalTypes = intervalTypes;}
-	protected List<String> intervalConfigs; public List<String> getIntervalConfigs() {return intervalConfigs;} public void setIntervalConfigs(List<String> intervalConfigs) {this.intervalConfigs = intervalConfigs;}
-	protected String intervalConfig; public String getIntervalConfig() {return intervalConfig;} public void setIntervalConfig(String intervalConfig) {this.intervalConfig = intervalConfig;}
+	protected List<IntervalStatus> intervalConfigs; public List<IntervalStatus> getIntervalConfigs() {return intervalConfigs;} public void setIntervalConfigs(List<IntervalStatus> intervalConfigs) {this.intervalConfigs = intervalConfigs;}
+	protected IntervalStatus intervalConfig; public IntervalStatus getIntervalConfig() {return intervalConfig;} public void setIntervalConfig(IntervalStatus intervalConfig) {this.intervalConfig = intervalConfig;}
 
+
+	public enum IntervalStatus
+	{
+	    FIRST_DAY_OF_YEAR("First Day of Year"),
+	    LAST_DAY_OF_YEAR("Last Day of Year"),
+	    FIRST_DAY_OF_QUARTER("First Day of Quarter"),
+	    LAST_DAY_OF_QUARTER("Last Day of Quarter"),
+	    FIRST_DAY_OF_MONTH("First Day of Month"),
+	    LAST_DAY_OF_MONTH("Last Day of Month"),
+	    FIRST_DAY_OF_WEEK("First Day of Week"),
+	    LAST_DAY_OF_WEEK("Last Day of Week");
+
+	    private String label;
+
+	    private IntervalStatus(String label) {
+	        this.label = label;
+	    }
+
+	    public String getLabel() {
+	        return label;
+	    }
+	}
 
 	public AbstractLfTargetTimeBean(LfFactoryBuilder<L,D,?,?,TTG,TTE,?,?> fbLf,Class<TTI> cTTI)
 	{
@@ -107,6 +132,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 		timeGroup = fLogFrame.save(timeGroup);
 		reloadTimeGroups();
 		reloadElements();
+		resetElement();
 	}
 
 	public void selectTimeGroup() throws JeeslConstraintViolationException
@@ -114,6 +140,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 		if(debugOnInfo) {logger.info(AbstractLogMessage.selectEntity(timeGroup));}
 		timeGroup = fLogFrame.find(fbLogFrame.getClassTTG(),timeGroup);
 		reloadElements();
+		resetElement();
 	}
 
 	public void deleteTimeGroup() throws JeeslConstraintViolationException
@@ -133,7 +160,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbLogFrame.getClassTTE()));}
 		if(element ==null || element.getId()!=0)
 		{
-			element = fbLogFrame.ejbTargetTimeElement().build(timeGroup,elements);
+			element = fbLogFrame.ejbTargetTimeElement().build();
 		}
 	}
 
@@ -145,7 +172,9 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	public void saveElement() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(element));}
+		element.setGroup(timeGroup);
 		element = fLogFrame.save(element);
+		elements.add(element);
 		reloadElements();
 		saveElementTimeGroup();
 		reloadTimeGroups();
@@ -163,7 +192,8 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 		reset(false,true);
 	}
 
-	private void saveElementTimeGroup() throws JeeslConstraintViolationException, JeeslLockingException {
+	private void saveElementTimeGroup() throws JeeslConstraintViolationException, JeeslLockingException
+	{
 		if(elements.size() > 0)
 		{
 			timeGroup.setStartDate(elements.get(0).getRecord());
@@ -191,12 +221,6 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 		Date record = timeGroup.getStartDate();
 		TTI interval = timeGroup.getInterval();
 
-		if(interval.getCode().equals("quarter")){
-			cal.setTime(record);
-			cal.set(Calendar.MONTH, 0);
-			cal.set(Calendar.DAY_OF_MONTH, 1);
-			record = cal.getTime();
-		}
 		int count = 0;
 		while (record.getTime() <= timeGroup.getEndDate().getTime() && !interval.getCode().equals("none"))
 		{
@@ -214,15 +238,17 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 		timeGroup.setValues(count);
 		saveTimeGroup();
 		reloadElements();
-
 	}
+
 	private  void generateElement(Date record, String name) throws JeeslConstraintViolationException, JeeslLockingException{
 		logger.info("generating element with record  " + record.toString());
 		addElement();
 		element.setRecord(record);
+		element.setGroup(timeGroup);
 		element.setName(name);
 		logger.info("saving element with record  " + record.toString());
 		element = fLogFrame.save(element);
+		elements.add(element);
 		logger.info("save" + record.toString());
 	}
 	private void reset(boolean rTimeGroup, boolean rElement)
@@ -235,15 +261,83 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	public void resetTimeGroup() {reset(true, false);}
 	public void resetElement() {reset(false,true);}
 
+	public void selectDay()
+	{
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.HOUR_OF_DAY, 0);
+		c.clear(Calendar.MINUTE);
+		c.clear(Calendar.SECOND);
+		c.clear(Calendar.MILLISECOND);
+		switch (intervalConfig)
+		{
+		case FIRST_DAY_OF_YEAR:
+			c.set(Calendar.DAY_OF_YEAR, 1);
+			break;
+		case LAST_DAY_OF_YEAR:
+			c.set(Calendar.DAY_OF_YEAR, 1);
+			c.add(Calendar.MONTH, 12);
+			c.add(Calendar.DATE, -1);
+			break;
+		case FIRST_DAY_OF_QUARTER:
+			 c.set(Calendar.DAY_OF_MONTH, 1);
+			 c.set(Calendar.MONTH, c.get(Calendar.MONTH)/3 * 3);
+			 break;
+		case LAST_DAY_OF_QUARTER:
+			c.set(Calendar.DAY_OF_MONTH, 1);
+			c.set(Calendar.MONTH, c.get(Calendar.MONTH)/3 * 3 + 2);
+			c.set(Calendar.DAY_OF_MONTH, c.getActualMaximum(Calendar.DAY_OF_MONTH));
+			break;
+		case FIRST_DAY_OF_MONTH:
+			 c.set(Calendar.DAY_OF_MONTH, 1);
+			break;
+		case LAST_DAY_OF_MONTH:
+			c.add(Calendar.MONTH, 1);
+			c.set(Calendar.DAY_OF_MONTH, 1);
+			c.add(Calendar.DATE, -1);
+			break;
+		case FIRST_DAY_OF_WEEK:
+			c.set(Calendar.DAY_OF_WEEK, c.getFirstDayOfWeek());
+			break;
+		case LAST_DAY_OF_WEEK:
+			c.set(Calendar.DAY_OF_WEEK, c.getFirstDayOfWeek());
+			c.add(Calendar.WEEK_OF_YEAR, 1);
+			c.add(Calendar.DATE, -1);
+			break;
+		default:
+			break;
+		}
+		timeGroup.setStartDate(c.getTime());
+		timeGroup.setEndDate(c.getTime());
+	}
+
+	public void selectIntervalType()
+	{
+		if(debugOnInfo) {logger.info(AbstractLogMessage.selectEntity(timeGroup));}
+		resetElement();
+		if(this.elements.size() > 0)
+		{
+			timeGroup = fLogFrame.find(fbLogFrame.getClassTTG(),timeGroup);
+			FacesContext context = FacesContext.getCurrentInstance();
+	        FacesMessage message = new FacesMessage("Changing Interval not allowed");
+	        message.setSeverity(FacesMessage.SEVERITY_ERROR);
+	        context.addMessage("msgTimeGroup", message);
+		}
+		else
+		{
+		timeGroup.setInterval(fLogFrame.find(this.cTTI,timeGroup.getInterval()));
+		updateUiTimeGroup();
+		}
+	}
+
 	public void updateUiTimeGroup()
 	{
 		uiGenerate = true;
-		intervalConfigs = new ArrayList<>();
+		intervalConfigs = new ArrayList<IntervalStatus>();
 		TTI interval = fLogFrame.find(this.cTTI,timeGroup.getInterval());
-		if(interval.getCode().equals("week")){intervalConfigs.add("First Day of week");intervalConfigs.add("Last Day of week");}
-		if(interval.getCode().equals("month")){intervalConfigs.add("First Day of month");intervalConfigs.add("Last Day of month");}
-		if(interval.getCode().equals("year")){intervalConfigs.add("First Day of year");intervalConfigs.add("Last Day of year");}
-		if(interval.getCode().equals("quarter")){intervalConfigs.add("First Day of quarter");intervalConfigs.add("Last Day of quarter");}
+		if(interval.getCode().equals("week")){intervalConfigs.add(IntervalStatus.FIRST_DAY_OF_WEEK); intervalConfigs.add(IntervalStatus.LAST_DAY_OF_WEEK);}
+		if(interval.getCode().equals("month")){intervalConfigs.add(IntervalStatus.FIRST_DAY_OF_MONTH);intervalConfigs.add(IntervalStatus.LAST_DAY_OF_MONTH);}
+		if(interval.getCode().equals("year")){intervalConfigs.add(IntervalStatus.FIRST_DAY_OF_YEAR);intervalConfigs.add(IntervalStatus.LAST_DAY_OF_YEAR);}
+		if(interval.getCode().equals("quarter")){intervalConfigs.add(IntervalStatus.FIRST_DAY_OF_QUARTER);intervalConfigs.add(IntervalStatus.LAST_DAY_OF_QUARTER);}
 	}
 
 }
