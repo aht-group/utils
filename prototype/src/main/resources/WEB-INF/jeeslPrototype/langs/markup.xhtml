@@ -6,17 +6,18 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:p="http://primefaces.org/ui"
 >
-  	<p:inputTextarea value="#{value.content}" style="w100" autocomplete="off" rendered="#{value.type.code eq 'text'}"/>
-	<p:textEditor value="#{value.content}" height="300" style="margin-bottom:10px" rendered="#{value.type.code eq 'xhtml'}">
-        <f:facet name="toolbar">
-             <span class="ql-formats">
-                <button class="ql-bold"></button>
-                <button class="ql-italic"></button>
-            </span>
-			<span class="ql-formats">
-				<button class="ql-list" value="ordered"></button>
-				<button class="ql-list" value="bullet"></button>
-			</span>
-        </f:facet>
-    </p:textEditor>
+<p:inputTextarea value="#{value.content}" style="w100" autocomplete="off" rendered="#{value.type.code eq 'text'}"/>
+
+<p:textEditor value="#{value.content}" height="300" rendered="#{value.type.code eq 'xhtml'}">
+	<f:facet name="toolbar">
+		<span class="ql-formats">
+			<button class="ql-bold"></button>
+			<button class="ql-italic"></button>
+		</span>
+		<span class="ql-formats">
+			<button class="ql-list" value="ordered"></button>
+			<button class="ql-list" value="bullet"></button>
+		</span>
+	</f:facet>
+</p:textEditor>
 </ui:composition>

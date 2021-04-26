@@ -1,8 +1,10 @@
 package org.jeesl.web.mbean.prototype.io.cms;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.jeesl.api.bean.cache.JeeslCmsCacheBean;
@@ -20,10 +22,10 @@ import org.jeesl.interfaces.model.io.cms.JeeslIoCmsSection;
 import org.jeesl.interfaces.model.io.cms.JeeslIoCmsVisiblity;
 import org.jeesl.interfaces.model.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.io.fr.JeeslFileMeta;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.slf4j.Logger;
@@ -58,6 +60,9 @@ public abstract class AbstractCmsCacheBean <L extends JeeslLang,D extends JeeslD
 	
 	private final Map<Long,S> mapId;
 	private final Map<S,Map<String,Section>> mapSection;
+	
+	private final List<MT> markupTypes; public List<MT> getMarkupTypes() {return markupTypes;}
+
 	private boolean debugOnInfo; protected void setDebugOnInfo(boolean debugOnInfo) {this.debugOnInfo = debugOnInfo;}
 
 	public AbstractCmsCacheBean(IoCmsFactoryBuilder<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fbCms)
@@ -66,6 +71,8 @@ public abstract class AbstractCmsCacheBean <L extends JeeslLang,D extends JeeslD
 		
 		mapSection = new HashMap<S,Map<String,Section>>();
 		mapId = new HashMap<Long,S>();
+		
+		markupTypes = new ArrayList<>();
 	}
 	
 	protected void postConstructCms(JeeslIoCmsFacade<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fCms,
@@ -73,6 +80,8 @@ public abstract class AbstractCmsCacheBean <L extends JeeslLang,D extends JeeslD
 	{
 		this.fCms=fCms;
 		this.ofx=ofx;
+		
+		markupTypes.addAll(fCms.allOrderedPositionVisible(fbCms.getClassMarkupType()));
 	}
 	
 	public void clearCache(S section)
