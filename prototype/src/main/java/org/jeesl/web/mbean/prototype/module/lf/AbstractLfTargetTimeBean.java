@@ -24,6 +24,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.jeesl.jsf.handler.PositionListReorderer;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
+import org.primefaces.event.SlideEndEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,6 +69,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	protected List<TTI> intervalTypes; public List<TTI> getIntervalTypes() {return intervalTypes;} public void setIntervalTypes(List<TTI> intervalTypes) {this.intervalTypes = intervalTypes;}
 	protected List<IntervalStatus> intervalConfigs; public List<IntervalStatus> getIntervalConfigs() {return intervalConfigs;} public void setIntervalConfigs(List<IntervalStatus> intervalConfigs) {this.intervalConfigs = intervalConfigs;}
 	protected IntervalStatus intervalConfig; public IntervalStatus getIntervalConfig() {return intervalConfig;} public void setIntervalConfig(IntervalStatus intervalConfig) {this.intervalConfig = intervalConfig;}
+	private int noOfIntervalRequired; public int getNoOfIntervalRequired() {return noOfIntervalRequired;} public void setNoOfIntervalRequired(int noOfIntervalRequired) {this.noOfIntervalRequired = noOfIntervalRequired;}
 
 
 	public enum IntervalStatus
@@ -122,6 +124,8 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbLogFrame.getClassTTG()));}
 		timeGroup = fbLogFrame.ejbTargetTimeGroup().build();
+		elements = new ArrayList<>();
+		noOfIntervalRequired=1;
 		reset(false,true);
 	}
 
@@ -152,6 +156,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 		fLogFrame.rm(timeGroup);
 		reloadTimeGroups();
 		reset(true,true);
+		noOfIntervalRequired=1;
 	}
 
 	public void reorderTimeGroups() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fLogFrame, timeGroups);}
@@ -210,7 +215,9 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	public void reloadElements()
 	{
 		elements = fLogFrame.allForParent(fbLogFrame.getClassTTE(),timeGroup);
+		if(elements==null) {elements=new ArrayList<>();}
 		uiGenerate = false;
+		noOfIntervalRequired=1;
 	}
 
 	public void generateTimeGroup() throws JeeslConstraintViolationException, JeeslLockingException
@@ -339,5 +346,48 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 		if(interval.getCode().equals("year")){intervalConfigs.add(IntervalStatus.FIRST_DAY_OF_YEAR);intervalConfigs.add(IntervalStatus.LAST_DAY_OF_YEAR);}
 		if(interval.getCode().equals("quarter")){intervalConfigs.add(IntervalStatus.FIRST_DAY_OF_QUARTER);intervalConfigs.add(IntervalStatus.LAST_DAY_OF_QUARTER);}
 	}
+
+
+    public void onChangeNoOfIntervalRequired()
+	{
+		Calendar cal = Calendar.getInstance();
+		Date record = timeGroup.getStartDate();
+		TTI interval = fLogFrame.find(this.cTTI,timeGroup.getInterval());
+		logger.info(interval.getCode());
+		logger.info("noOfIntervalRequired:" + noOfIntervalRequired);
+		noOfIntervalRequired--;
+		logger.info("record:" + record.toString());
+
+		if(interval.getCode().equals("week")){cal.setTime(record); cal.add(Calendar.WEEK_OF_MONTH, 1*noOfIntervalRequired);}
+		if(interval.getCode().equals("month")){cal.setTime(record); cal.add(Calendar.MONTH, 1*noOfIntervalRequired);}
+		if(interval.getCode().equals("year")){cal.setTime(record); cal.add(Calendar.YEAR, 1*noOfIntervalRequired);}
+		if(interval.getCode().equals("quarter")){cal.setTime(record); cal.add(Calendar.MONTH, 3*noOfIntervalRequired);}
+
+		logger.info("record:" + cal.getTime().toString());
+		noOfIntervalRequired++;
+		timeGroup.setEndDate(cal.getTime());
+	}
+
+    public void onSlideEnd(SlideEndEvent event)
+ 	{
+ 		Calendar cal = Calendar.getInstance();
+ 		Date record = timeGroup.getStartDate();
+ 		TTI interval = fLogFrame.find(this.cTTI,timeGroup.getInterval());
+ 		logger.info(interval.getCode());
+ 		logger.info("event.getValue : " + event.getValue());
+ 		logger.info("noOfIntervalRequired:" + noOfIntervalRequired);
+ 		noOfIntervalRequired = event.getValue();
+ 		noOfIntervalRequired--;
+ 		logger.info("record:" + record.toString());
+
+ 		if(interval.getCode().equals("week")){cal.setTime(record); cal.add(Calendar.WEEK_OF_MONTH, 1*noOfIntervalRequired);}
+ 		if(interval.getCode().equals("month")){cal.setTime(record); cal.add(Calendar.MONTH, 1*noOfIntervalRequired);}
+ 		if(interval.getCode().equals("year")){cal.setTime(record); cal.add(Calendar.YEAR, 1*noOfIntervalRequired);}
+ 		if(interval.getCode().equals("quarter")){cal.setTime(record); cal.add(Calendar.MONTH, 3*noOfIntervalRequired);}
+
+ 		logger.info("record:" + cal.getTime().toString());
+ 		noOfIntervalRequired++;
+ 		timeGroup.setEndDate(cal.getTime());
+ 	}
 
 }

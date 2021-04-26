@@ -114,10 +114,20 @@
 								<f:selectItems value="#{cc.attrs.bean.intervalConfigs}" var="config" itemLabel="#{config.label}" itemValue="#{config}"/>
 						         <p:ajax process="@this" update="@form" listener="#{cc.attrs.bean.selectDay}"/>
 						     </p:selectOneRadio>
+							
+							
 							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
-								
 								<jtp:label entity="LfTargetTimeGroup" code="startDate" rendered="#{cc.attrs.bean.uiGenerate or not empty cc.attrs.bean.timeGroup.startDate}"/>
 								<jp:inputCalendar  value="#{cc.attrs.bean.timeGroup.startDate}" navigator="true" showWeek="true" widgetVar="startDay" rendered="#{cc.attrs.bean.uiGenerate}" />
+							</p:panelGrid>
+
+							<h:outputText id="output" value="No of intervals #{cc.attrs.bean.noOfIntervalRequired}"/>
+							<h:inputHidden id="noOfIntervalRequired" value="#{cc.attrs.bean.noOfIntervalRequired}"/>
+							<p:slider for="noOfIntervalRequired" display="output" style="width: 200px"  minValue="0" maxValue="20" stepFactor="1" displayTemplate="No of intervals {value}">
+								<p:ajax process="@form" update="@form" listener="#{cc.attrs.bean.onChangeNoOfIntervalRequired}"/>
+							</p:slider>
+
+							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
 								<jtp:label entity="LfTargetTimeGroup" code="endDate" rendered="#{cc.attrs.bean.uiGenerate or not empty cc.attrs.bean.timeGroup.endDate}"/>
 								<jp:inputCalendar  value="#{cc.attrs.bean.timeGroup.endDate}" navigator="true" showWeek="true" widgetVar="endDay" rendered="#{cc.attrs.bean.uiGenerate}" />
 								
