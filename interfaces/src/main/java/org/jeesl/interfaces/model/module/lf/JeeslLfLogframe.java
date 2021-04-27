@@ -13,7 +13,7 @@ import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.text.EjbWithName;
 
-public interface JeeslLfLogframe<L extends JeeslLang, D extends JeeslDescription,R extends JeeslTenantRealm<L,D,R,?>,
+public interface JeeslLfLogframe<L extends JeeslLang, D extends JeeslDescription, R extends JeeslTenantRealm<L,D,R,?>,
 								LFI extends JeeslLfIndicator<?,LFL,LFT,?,?>,
 								LFL extends JeeslLfIndicatorLevel<L,D,R,LFL,?>,
 								LFT extends JeeslLfIndicatorType<L,D,R,LFT,?>>

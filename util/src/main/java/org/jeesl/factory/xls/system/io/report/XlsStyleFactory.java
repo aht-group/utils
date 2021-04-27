@@ -160,12 +160,12 @@ public class XlsStyleFactory<
         	}
         	else if(dataType.getCode().startsWith(JeeslRevisionAttribute.Type.number.toString()))
         	{
-        		logger.info("Creating Number "+dataType.getSymbol());
+        		logger.trace("Creating Number "+dataType.getSymbol());
         		style.setDataFormat(xlsWorkbook.getCreationHelper().createDataFormat().getFormat(transformJavaToPoiPattern(dataType.getSymbol())));
         	}
         	else if(dataType.getCode().startsWith(JeeslRevisionAttribute.Type.date.toString()))
         	{
-        		logger.info("Creating Date "+dataType.getSymbol());
+        		logger.trace("Creating Date "+dataType.getSymbol());
         		style.setDataFormat(xlsWorkbook.getCreationHelper().createDataFormat().getFormat(dataType.getSymbol()));
         	}
         }

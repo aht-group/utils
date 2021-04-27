@@ -11,6 +11,7 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.LfFactoryBuilder;
+import org.jeesl.factory.ejb.module.lf.EjbLfConfigurationFactory;
 import org.jeesl.interfaces.model.module.lf.JeeslLfConfiguration;
 import org.jeesl.interfaces.model.module.lf.JeeslLfLogframe;
 import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicatorType;
@@ -26,17 +27,19 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public abstract class AbstractLfConfigurationBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 								R extends JeeslTenantRealm<L,D,R,?>,
-								LF extends JeeslLfLogframe<L,D,R,?,?,?>,
+								LF extends JeeslLfLogframe<L,D,R,?,?,LFT>,
 								LFT extends JeeslLfIndicatorType<L,D,R,LFT,?>,
-								LFC extends JeeslLfConfiguration<LF,?>>
+								LFC extends JeeslLfConfiguration<LF,LFT>>
 					extends AbstractAdminBean<L,D,LOC>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractLfConfigurationBean.class);
 
-	protected final LfFactoryBuilder<L,D,LF,?,?,?,?,LFC> fbLfConfiguration;
-	protected JeeslLogframeFacade<L,D,LF,?,?,?,?,LFC> fLfConfiguration;
+	protected final LfFactoryBuilder<L,D,LF,?,?,?,?,LFC> fbLf;
+	protected JeeslLogframeFacade<L,D,LF,?,?,?,?,LFC> fLf;
+	
+	private final EjbLfConfigurationFactory<LFC> efConfiguration;
 
 	protected List<LFT> lfIndicatorTypes; public List<LFT> getLfIndicatorTypes() {return lfIndicatorTypes;}
 
@@ -49,7 +52,9 @@ public abstract class AbstractLfConfigurationBean <L extends JeeslLang, D extend
 	public AbstractLfConfigurationBean(LfFactoryBuilder<L,D,LF,?,?,?,?,LFC> fbLf,Class<LFT> cLFT)
 	{
 		super(fbLf.getClassL(),fbLf.getClassD());
-		this.fbLfConfiguration=fbLf;
+		this.fbLf=fbLf;
+		
+		efConfiguration = fbLf.ejbLfConfiguration();
 
 		this.lfIndicatorTypes = new ArrayList<LFT>();
 
@@ -61,7 +66,7 @@ public abstract class AbstractLfConfigurationBean <L extends JeeslLang, D extend
 									JeeslLogframeFacade<L,D,LF,?,?,?,?,LFC> fLf)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
-		this.fLfConfiguration = fLf;
+		this.fLf = fLf;
 		this.lfIndicatorTypes = fLf.all(this.cLFT);
 		reloadLfConfigurations();
 	}
@@ -69,37 +74,38 @@ public abstract class AbstractLfConfigurationBean <L extends JeeslLang, D extend
 	protected void reloadLfConfigurations()
 	{
 		lfConfigurations = new ArrayList<>();
-		if(logframe.getId() != 0){lfConfigurations = fLfConfiguration.allForParent(fbLfConfiguration.getClassLFC(), logframe);}
+		if(logframe.getId() != 0){lfConfigurations = fLf.allForParent(fbLf.getClassLFC(), logframe);}
 
-		if(debugOnInfo) {logger.info(AbstractLogMessage.reloaded(fbLfConfiguration.getClassLFC(),lfConfigurations));}
+		if(debugOnInfo) {logger.info(AbstractLogMessage.reloaded(fbLf.getClassLFC(),lfConfigurations));}
 	}
 
 	public void addLfConfiguration()
 	{
-		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbLfConfiguration.getClassLFC()));}
-		lfConfiguration =  fbLfConfiguration.ejbLfConfiguration().build();
+		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbLf.getClassLFC()));}
+		lfConfiguration =  efConfiguration.build();
 		lfConfiguration.setLogframe(logframe);
 	}
 
 	public void saveLfConfiguration() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
+		logger.info(lfConfiguration.getLogframe().toString());
 		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(lfConfiguration));}
-		LFT type = fLfConfiguration.find(this.cLFT, lfConfiguration.getType().getId());
+		LFT type = fLf.find(this.cLFT, lfConfiguration.getType().getId());
 		lfConfiguration.setType(type);
-		lfConfiguration = fLfConfiguration.save(lfConfiguration);
+		lfConfiguration = fLf.save(lfConfiguration);
 		reloadLfConfigurations();
 	}
 
 	public void selectLfConfiguration(LFC selectdLfConfiguration) throws JeeslConstraintViolationException
 	{
-		lfConfiguration = fLfConfiguration.find(fbLfConfiguration.getClassLFC(),selectdLfConfiguration);
+		lfConfiguration = fLf.find(fbLf.getClassLFC(),selectdLfConfiguration);
 		if(debugOnInfo) {logger.info(AbstractLogMessage.selectEntity(selectdLfConfiguration));}
 	}
 
 	public void deleteLfConfiguration() throws JeeslConstraintViolationException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.rmEntity(lfConfiguration));}
-		fLfConfiguration.rm(lfConfiguration);
+		fLf.rm(lfConfiguration);
 		reloadLfConfigurations();
 		reset();
 		resetLfConfiguration();

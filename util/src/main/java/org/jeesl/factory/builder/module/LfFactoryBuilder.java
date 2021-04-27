@@ -25,9 +25,10 @@ public class LfFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 							TTE extends JeeslLfTargetTimeElement<L,TTG>,
 							LFM extends JeeslLfIndicatorMonitoring<LFI,TTG,TTE>,
 							LFC extends JeeslLfConfiguration<LF,?>>
-extends AbstractFactoryBuilder<L,D>
+			extends AbstractFactoryBuilder<L,D>
 {
 	final static Logger logger = LoggerFactory.getLogger(LfFactoryBuilder.class);
+	
 	protected final Class<TTG> cTTG; public Class<TTG> getClassTTG() {return cTTG;}
 	protected final Class<TTE> cTTE; public Class<TTE> getClassTTE() {return cTTE;}
 	protected final Class<LF> cLF; public Class<LF>  getClassLF() {return cLF;}

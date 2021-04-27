@@ -57,6 +57,9 @@ public class JeeslEap61FacadeLookup implements JeeslFacadeLookup
 		properties.put("remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS", "false");
 		if(username!=null){properties.put("remote.connection.default.username", username);}
 		if(password!=null){properties.put("remote.connection.default.password", password);}
+//		if(username!=null){properties.put(Context.SECURITY_PRINCIPAL, username);}
+//		if(password!=null){properties.put(Context.SECURITY_CREDENTIALS, password);}
+//		logger.info(username+" "+password);
 		
 		EJBClientConfiguration clientConfiguration = new PropertiesBasedEJBClientConfiguration(properties);
 		ContextSelector<EJBClientContext> contextSelector = new ConfigBasedEJBClientContextSelector(clientConfiguration);

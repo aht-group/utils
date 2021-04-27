@@ -8,8 +8,8 @@ import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicatorType;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
-public interface JeeslLfConfiguration<LF extends JeeslLfLogframe,
-									LFT extends JeeslLfIndicatorType<?,?,?,?,?>>
+public interface JeeslLfConfiguration<LF extends JeeslLfLogframe<?,?,?,?,?,LFT>,
+									LFT extends JeeslLfIndicatorType<?,?,?,LFT,?>>
 						extends Serializable,EjbWithId,EjbSaveable,EjbRemoveable,EjbWithParentAttributeResolver
 {
 	public enum Attributes{interval,logframe}
@@ -18,7 +18,7 @@ public interface JeeslLfConfiguration<LF extends JeeslLfLogframe,
 	void setLogframe(LF logframe);
 
 	LFT getType();
-	void setType(JeeslLfIndicatorType<?,?,?,?,?> type);
+	void setType(LFT type);
 
 	boolean isAllowTargetValues();
 	void setAllowTargetValues(boolean allowTargetValues);
