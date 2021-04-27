@@ -22,12 +22,12 @@
 	<composite:implementation>
 		<j:grid id="grid">
 			<j:row>
-				<j:slot id="sLfConfigurations" width="8">				
-					<h:form id="fLfConfigurations">
-						<p:dataTable var="config" value="#{cc.attrs.bean.lfConfigurations}" draggableRows="false">
+				<j:slot id="sConfigurations" width="8">				
+					<h:form id="fConfigurations">
+						<p:dataTable var="config" value="#{cc.attrs.bean.configurations}" draggableRows="false">
 							<f:facet name="header">
 								<aht:pfDataTableHeader title="#{appLabelBean.labels['LfConfiguration']['listOf'][localeCode].lang}">
-									<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addLfConfiguration()}" update=":#{cc.id}:grid" tooltip="#{msg.ttNew}" />
+									<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addConfiguration()}" update=":#{cc.id}:grid" tooltip="#{msg.ttNew}" />
 								</aht:pfDataTableHeader>
 							</f:facet>
 							<p:column>
@@ -41,24 +41,24 @@
 					   	</p:dataTable>
 					</h:form>
 				</j:slot>
-				<j:slot id="sLfConfiguration" width="4">
-					<h:form id="fLfConfiguration">
-						<p:panel id="pView" rendered="#{not empty cc.attrs.bean.lfConfiguration}" styleClass="jeeslPanel">
+				<j:slot id="sConfiguration" width="4">
+					<h:form id="fConfiguration">
+						<p:panel id="pView" rendered="#{not empty cc.attrs.bean.configuration}" styleClass="jeeslPanel">
 							<f:facet name="header"><jtp:label entity="LfConfiguration"/></f:facet>    
 							<f:facet name="actions">
-								<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.resetLfConfiguration()}" update=":#{cc.id}:grid" tooltip="#{msg.jeeslTtCancel}" mayDisappear="true"/>
-								<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveLfConfiguration()}" update=":#{cc.id}:grid" rendered="#{cc.attrs.bean.uiAllowSave}" tooltip="#{msg.ttSave}"/>
-								<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteLfConfiguration()}" update=":#{cc.id}:grid" rendered="#{cc.attrs.bean.lfConfiguration.id gt 0}" tooltip="#{msg.ttDelete}" mayDisappear="true"/>
+								<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.resetConfiguration()}" update=":#{cc.id}:grid" tooltip="#{msg.jeeslTtCancel}" mayDisappear="true"/>
+								<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveConfiguration()}" update=":#{cc.id}:grid" rendered="#{cc.attrs.bean.uiAllowSave}" tooltip="#{msg.ttSave}"/>
+								<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteConfiguration()}" update=":#{cc.id}:grid" rendered="#{cc.attrs.bean.configuration.id gt 0}" tooltip="#{msg.ttDelete}" mayDisappear="true"/>
 							</f:facet>
 							<p:messages redisplay="false" severity="warn,error" showSummary="true" showDetail="true" closable="true"/>
 							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
 								<jtp:label entity="LfConfiguration" code="type"/>
-								<p:selectOneMenu value="#{cc.attrs.bean.lfConfiguration.type}" effect="fade" >
-									<f:selectItems value="#{cc.attrs.bean.lfIndicatorTypes}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t}" dynamic="true"/>
+								<p:selectOneMenu value="#{cc.attrs.bean.configuration.type}" effect="fade" >
+									<f:selectItems value="#{cc.attrs.bean.indicatorTypes}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t}" dynamic="true"/>
 								</p:selectOneMenu>
 
 								<jtp:label entity="LfConfiguration" code="allowTargetValues"/>
-								<p:selectBooleanCheckbox value="#{cc.attrs.bean.lfConfiguration.allowTargetValues}"/>
+								<p:selectBooleanCheckbox value="#{cc.attrs.bean.configuration.allowTargetValues}"/>
 							</p:panelGrid>
 							
 						</p:panel>

@@ -6,8 +6,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:j="http://www.jeesl.org/jsf" 
-	xmlns:jp="http://jsf.jeesl.org/prototype" 
 	xmlns:jtp="http://jsf.jeesl.org/prototype/tag" 
+	xmlns:jp="http://jsf.jeesl.org/prototype" 
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:aht="http://ahtutils.sourceforge.net/jsf"
 	xmlns:aup="http://ahtutils.sourceforge.net/prototype"
@@ -26,23 +26,23 @@
         </h:outputStylesheet>
 		<j:grid id="grid">
 			<j:row>
-				<j:slot id="sLfIndicators" width="#{cc.attrs.bean.slotHandler.a}">				
-					<h:form id="fLfIndicators">
-						<p:dataTable var="level" value="#{cc.attrs.bean.lfIndicatorLevels}" draggableRows="false">
+				<j:slot id="sIndicators" width="#{cc.attrs.bean.slotHandler.a}">				
+					<h:form id="fIndicators">
+						<p:dataTable var="level" value="#{cc.attrs.bean.indicatorLevels}" draggableRows="false">
 							<f:facet name="header">
 								<aht:pfDataTableHeader title="#{appLabelBean.labels['LfIndicator']['listOf'][localeCode].lang}">
-									<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addLfIndicator()}" update=":#{cc.id}:grid" tooltip="#{msg.ttNew}" />
+									<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addIndicator()}" update=":#{cc.id}:grid" tooltip="#{msg.ttNew}" />
 								</aht:pfDataTableHeader>
 							</f:facet>
 							<p:column>
 					         	<h:outputText value="#{level.name[localeCode].lang}"/>
 					         </p:column>
-							 <p:columns value="#{cc.attrs.bean.lfIndicatorTypes}"  var="type" style="vertical-align: top;">  
+							 <p:columns value="#{cc.attrs.bean.indicatorTypes}"  var="type" style="vertical-align: top;">  
 								<f:facet name="header">#{type.name[localeCode].lang}</f:facet>
 								<div style="vertical-align: top;">
 									<ul class="lfIndicator">
-										<ui:repeat var="lg" value="#{cc.attrs.bean.lfTypesMap[type][level]}" varStatus="statusLg">
-											<ui:fragment rendered="true"><li><h:commandLink value="#{lg.name}" action="#{cc.attrs.bean.selectLfIndicator(lg)}" update=":#{cc.id}:sLfIndicator"/></li></ui:fragment>
+										<ui:repeat var="lg" value="#{cc.attrs.bean.typesMap[type][level]}" varStatus="statusLg">
+											<ui:fragment rendered="true"><li><h:commandLink value="#{lg.name}" action="#{cc.attrs.bean.selectIndicator(lg)}" update=":#{cc.id}:sIndicator"/></li></ui:fragment>
 										</ui:repeat>
 									</ul>
 								</div>
@@ -50,39 +50,39 @@
 					   	</p:dataTable>
 					</h:form>
 				</j:slot>
-				<j:slot id="sLfIndicator" width="#{cc.attrs.bean.slotHandler.b}" rendered="#{cc.attrs.bean.slotHandler.showB}" >
-					<h:form id="fLfIndicator">
-						<p:panel id="pView" rendered="#{not empty cc.attrs.bean.lfIndicator}" styleClass="jeeslPanel">
+				<j:slot id="sIndicator" width="#{cc.attrs.bean.slotHandler.b}" rendered="#{cc.attrs.bean.slotHandler.showB}" >
+					<h:form id="fIndicator">
+						<p:panel id="pView" rendered="#{not empty cc.attrs.bean.indicator}" styleClass="jeeslPanel">
 							<f:facet name="header"><jtp:label entity="LfIndicator"/></f:facet>    
 							<f:facet name="actions">
-								<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.resetLfIndicator()}" update=":#{cc.id}:grid" tooltip="#{msg.jeeslTtCancel}" mayDisappear="true"/>
-								<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveLfIndicator()}" update=":#{cc.id}:grid" rendered="#{cc.attrs.bean.uiAllowSave}" tooltip="#{msg.ttSave}"/>
-								<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteLfIndicator()}" update=":#{cc.id}:grid" rendered="#{cc.attrs.bean.lfIndicator.id gt 0}" tooltip="#{msg.ttDelete}" mayDisappear="true"/>
+								<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.resetIndicator()}" update=":#{cc.id}:grid" tooltip="#{msg.jeeslTtCancel}" mayDisappear="true"/>
+								<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveIndicator()}" update=":#{cc.id}:grid" rendered="#{cc.attrs.bean.uiAllowSave}" tooltip="#{msg.ttSave}"/>
+								<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteIndicator()}" update=":#{cc.id}:grid" rendered="#{cc.attrs.bean.indicator.id gt 0}" tooltip="#{msg.ttDelete}" mayDisappear="true"/>
 							</f:facet>
 							<p:messages redisplay="false" severity="warn,error" showSummary="true" showDetail="true" closable="true"/>
 							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
 								<jtp:label entity="LfIndicator" code="name"/>
-								<p:inputText value="#{cc.attrs.bean.lfIndicator.name}" size="45"/>
+								<p:inputText value="#{cc.attrs.bean.indicator.name}" size="45"/>
 
 								<jtp:label entity="LfIndicator" code="type"/>
-								<p:selectOneMenu value="#{cc.attrs.bean.lfIndicator.type}" effect="fade" >
-									<f:selectItems value="#{cc.attrs.bean.lfIndicatorTypes}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t}" dynamic="true"/>
+								<p:selectOneMenu value="#{cc.attrs.bean.indicator.type}" effect="fade" >
+									<f:selectItems value="#{cc.attrs.bean.indicatorTypes}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t}" dynamic="true"/>
 								</p:selectOneMenu>
 
 								<jtp:label entity="LfIndicator" code="level"/>
-								<p:selectOneMenu value="#{cc.attrs.bean.lfIndicator.level}" effect="fade" dynamic="true">
-									<f:selectItems value="#{cc.attrs.bean.lfIndicatorLevels}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t}"/>
+								<p:selectOneMenu value="#{cc.attrs.bean.indicator.level}" effect="fade" dynamic="true">
+									<f:selectItems value="#{cc.attrs.bean.indicatorLevels}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t}"/>
 								</p:selectOneMenu>
 							</p:panelGrid>
-							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80" rendered="#{cc.attrs.bean.lfIndicator.type.code eq 'Indicators'}">
-								<jtp:label entity="LfTargetTimeInterval" rendered="#{cc.attrs.bean.lfIndicator.targetTimeGroup}"/>
+							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80" rendered="#{cc.attrs.bean.indicator.type.code eq 'Indicators'}">
+								<jtp:label entity="LfTargetTimeInterval" rendered="#{cc.attrs.bean.indicator.targetTimeGroup}"/>
 								<p:selectOneMenu value="#{cc.attrs.bean.interval}" effect="fade">
 									<f:selectItems value="#{cc.attrs.bean.intervalTypes}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t}"/>
-									<p:ajax listener="#{cc.attrs.bean.onIntervalChanged}" update=":#{cc.id}:sLfIndicator"/>
+									<p:ajax listener="#{cc.attrs.bean.onIntervalChanged}" update=":#{cc.id}:sIndicator"/>
 								</p:selectOneMenu>
 
 								<jtp:label entity="LfTargetTimeGroup"/>
-								<p:selectOneMenu value="#{cc.attrs.bean.lfIndicator.targetTimeGroup}" effect="fade" >
+								<p:selectOneMenu value="#{cc.attrs.bean.indicator.targetTimeGroup}" effect="fade" >
 									<f:selectItems value="#{cc.attrs.bean.timeGroups}" var="t" itemLabel="#{t.name}" itemValue="#{t}"/>
 								</p:selectOneMenu>
 							</p:panelGrid>
@@ -90,13 +90,13 @@
 						</p:panel>
 					</h:form>
 					<h:form id="fLFTargetMonitorings">
-						<p:dataTable var="monitoring" value="#{cc.attrs.bean.lfMonitorings}" selection="#{cc.attrs.bean.lfMonitoring}" selectionMode="single" rowKey="#{monitoring.id}" draggableRows="false">
+						<p:dataTable var="monitoring" value="#{cc.attrs.bean.monitorings}" selection="#{cc.attrs.bean.monitoring}" selectionMode="single" rowKey="#{monitoring.id}" draggableRows="false">
 							<f:facet name="header">
 								<aht:pfDataTableHeader title="#{appLabelBean.labels['LfIndicatorMonitoring']['listOf'][localeCode].lang}">
-									<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addLfMonitoring()}" update=":#{cc.id}:fLFTargetMonitoring" tooltip="#{msg.ttNew}" oncomplete="PF('dlgTargetMonitorings').show();"/>
+									<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addMonitoring()}" update=":#{cc.id}:fLFTargetMonitoring" tooltip="#{msg.ttNew}" oncomplete="PF('dlgTargetMonitorings').show();"/>
 								</aht:pfDataTableHeader>
 							</f:facet>
-							<p:ajax event="rowSelect" update=":#{cc.id}:fLFTargetMonitoring" listener="#{cc.attrs.bean.selectLfMonitoring()}"/>
+							<p:ajax event="rowSelect" update=":#{cc.id}:fLFTargetMonitoring" listener="#{cc.attrs.bean.selectMonitoring()}"/>
 							<p:column>
 								<h:outputText id="monitoringName" value="#{monitoring.name}(#{monitoring.targetTimeElement.record})"/> 
 								<p:spacer width="1" height="22" style="position: relative; bottom: -5px;background-color: #A8A8A8; margin-left: 10px;margin-right: 10px" />
@@ -134,43 +134,43 @@
 				<p:panelGrid columns="2">
 					
 					<h:form id="fLFTargetMonitoring">
-						<p:panel id="pMonitoringView" rendered="#{not empty cc.attrs.bean.lfMonitoring}" styleClass="jeeslPanel">
+						<p:panel id="pMonitoringView" rendered="#{not empty cc.attrs.bean.monitoring}" styleClass="jeeslPanel">
 							<f:facet name="header"><jtp:label entity="LfIndicatorMonitoring"/></f:facet>    
 							<f:facet name="actions">
-								<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.resetLfMonitoring()}" update=":#{cc.id}:fLFTargetMonitorings :#{cc.id}:fLFTargetMonitoring" tooltip="#{msg.jeeslTtCancel}" mayDisappear="true"/>
-								<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveLfMonitoring()}" update=":#{cc.id}:fLFTargetMonitorings :#{cc.id}:fLFTargetMonitoring" rendered="#{cc.attrs.bean.uiAllowSave}" tooltip="#{msg.ttSave}"/>
-								<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteLfMonitoring()}" update=":#{cc.id}:fLFTargetMonitorings :#{cc.id}:fLFTargetMonitoring" rendered="#{cc.attrs.bean.lfIndicator.id gt 0}" tooltip="#{msg.ttDelete}" mayDisappear="true"/>
+								<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.resetMonitoring()}" update=":#{cc.id}:fLFTargetMonitorings :#{cc.id}:fLFTargetMonitoring" tooltip="#{msg.jeeslTtCancel}" mayDisappear="true"/>
+								<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveMonitoring()}" update=":#{cc.id}:fLFTargetMonitorings :#{cc.id}:fLFTargetMonitoring" rendered="#{cc.attrs.bean.uiAllowSave}" tooltip="#{msg.ttSave}"/>
+								<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteMonitoring()}" update=":#{cc.id}:fLFTargetMonitorings :#{cc.id}:fLFTargetMonitoring" rendered="#{cc.attrs.bean.indicator.id gt 0}" tooltip="#{msg.ttDelete}" mayDisappear="true"/>
 							</f:facet>
 							<p:messages redisplay="false" severity="warn,error" showSummary="true" showDetail="true" closable="true"/>
 							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
 									<jtp:label entity="LfIndicatorMonitoring" code="targetTimeElement"/>
-									<p:selectOneMenu value="#{cc.attrs.bean.lfMonitoring.targetTimeElement}" effect="fade" >
+									<p:selectOneMenu value="#{cc.attrs.bean.monitoring.targetTimeElement}" effect="fade" >
 										<f:selectItems value="#{cc.attrs.bean.timeElements}" var="t" itemLabel="#{t.record}" itemValue="#{t}"/>
 									</p:selectOneMenu>
 
 									<jtp:label entity="LfIndicatorMonitoring" code="name"/>
-									<p:inputText value="#{cc.attrs.bean.lfMonitoring.name}"  size="45"/>
+									<p:inputText value="#{cc.attrs.bean.monitoring.name}"  size="45"/>
 									
 									<jtp:label entity="LfIndicatorMonitoring" code="targetAchived"/>
-									<p:inputNumber value="#{cc.attrs.bean.lfMonitoring.targetAchived}" size="45" symbol="%" symbolPosition="s" emptyValue="empty"/>
+									<p:inputNumber value="#{cc.attrs.bean.monitoring.targetAchived}" size="45" symbol="%" symbolPosition="s" emptyValue="empty"/>
 
 									<jtp:label entity="LfIndicatorMonitoring" code="workCompleted"/>
-									<p:inputNumber value="#{cc.attrs.bean.lfMonitoring.workCompleted}" size="45" symbol="%" symbolPosition="s" emptyValue="empty"/>
+									<p:inputNumber value="#{cc.attrs.bean.monitoring.workCompleted}" size="45" symbol="%" symbolPosition="s" emptyValue="empty"/>
 
 									<jtp:label entity="LfIndicatorMonitoring" code="workFromPrevious"/>
-									<p:inputNumber value="#{cc.attrs.bean.lfMonitoring.workFromPrevious}" size="45" symbol="%" symbolPosition="s" emptyValue="empty"/>
+									<p:inputNumber value="#{cc.attrs.bean.monitoring.workFromPrevious}" size="45" symbol="%" symbolPosition="s" emptyValue="empty"/>
 
 									<jtp:label entity="LfIndicatorMonitoring" code="workFromNext"/>
-									<p:inputNumber value="#{cc.attrs.bean.lfMonitoring.workFromNext}" size="45" symbol="%" symbolPosition="s" emptyValue="empty"/>
+									<p:inputNumber value="#{cc.attrs.bean.monitoring.workFromNext}" size="45" symbol="%" symbolPosition="s" emptyValue="empty"/>
 
 									<jtp:label entity="LfIndicatorMonitoring" code="allocatedBudget"/>
-									<p:inputNumber value="#{cc.attrs.bean.lfMonitoring.allocatedBudget}" symbol=" EUR" symbolPosition="s" decimalSeparator="," thousandSeparator="." />
+									<p:inputNumber value="#{cc.attrs.bean.monitoring.allocatedBudget}" symbol=" EUR" symbolPosition="s" decimalSeparator="," thousandSeparator="." />
 
 									<jtp:label entity="LfIndicatorMonitoring" code="budgetExpences"/>
-									<p:inputNumber value="#{cc.attrs.bean.lfMonitoring.budgetExpences}" symbol=" EUR" symbolPosition="s" decimalSeparator="," thousandSeparator="." />
+									<p:inputNumber value="#{cc.attrs.bean.monitoring.budgetExpences}" symbol=" EUR" symbolPosition="s" decimalSeparator="," thousandSeparator="." />
 									
 									<jtp:label entity="LfIndicatorMonitoring" code="comment"/>
-									<p:inputText value="#{cc.attrs.bean.lfMonitoring.comment}" size="45"/>
+									<p:inputText value="#{cc.attrs.bean.monitoring.comment}" size="45"/>
 							</p:panelGrid>
 						</p:panel>
 					</h:form>

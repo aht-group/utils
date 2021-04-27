@@ -15,6 +15,12 @@ import org.jeesl.api.facade.module.JeeslLogframeFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.LfFactoryBuilder;
+import org.jeesl.interfaces.model.module.lf.JeeslLfConfiguration;
+import org.jeesl.interfaces.model.module.lf.JeeslLfLogframe;
+import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicator;
+import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicatorLevel;
+import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicatorType;
+import org.jeesl.interfaces.model.module.lf.monitoring.JeeslLfIndicatorMonitoring;
 import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeElement;
 import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeGroup;
 import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeInterval;
@@ -31,19 +37,24 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
-								R extends JeeslTenantRealm<L,D,R,?>,
-								TTG extends JeeslLfTargetTimeGroup<L,TTI>,
-								TTI extends JeeslLfTargetTimeInterval<L,D,TTI,?>,
-								TTE extends JeeslLfTargetTimeElement<L,TTG>>
+												R extends JeeslTenantRealm<L,D,R,?>,
+												LF extends JeeslLfLogframe<L,D,R,LFI,IL,IT>,
+												LFI extends JeeslLfIndicator<LF,IL,IT,TTG,LFM>,
+												IL extends JeeslLfIndicatorLevel<L, D,R, IL, ?>,
+												IT extends JeeslLfIndicatorType<L, D,R, IT, ?>,
+												TTG extends JeeslLfTargetTimeGroup<L,TTI>,
+												TTI extends JeeslLfTargetTimeInterval<L,D,TTI,?>,
+												TTE extends JeeslLfTargetTimeElement<L,TTG>,
+												LFM extends JeeslLfIndicatorMonitoring<LFI,TTG,TTE>,
+												LFC extends JeeslLfConfiguration<LF,IT>>
 					extends AbstractAdminBean<L,D,LOC>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractLfTargetTimeBean.class);
 
-	protected final LfFactoryBuilder<L,D,?,?,TTG,TTE,?,?> fbLogFrame;
-	protected JeeslLogframeFacade<L,D,?,?,TTG,TTE,?,?> fLogFrame;
-	protected final Class<TTI> cTTI; public Class<TTI> getClassTTI() {return cTTI;}
+	protected final LfFactoryBuilder<L,D,R,LF,LFI,IL,IT,TTG,TTI,TTE,LFM,LFC> fbLf;
+	protected JeeslLogframeFacade<L,D,R,LF,LFI,IL,IT,TTG,TTI,TTE,LFM,LFC> fLf;
 
 	protected boolean uiGenerate;
 	public boolean getUiGenerate()
@@ -94,36 +105,35 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	    }
 	}
 
-	public AbstractLfTargetTimeBean(LfFactoryBuilder<L,D,?,?,TTG,TTE,?,?> fbLf,Class<TTI> cTTI)
+	public AbstractLfTargetTimeBean(LfFactoryBuilder<L,D,R,LF,LFI,IL,IT,TTG,TTI,TTE,LFM,LFC> fbLf)
 	{
 		super(fbLf.getClassL(),fbLf.getClassD());
-		this.fbLogFrame=fbLf;
+		this.fbLf=fbLf;
 		this.timeGroups = new ArrayList<TTG>();
 		this.intervalTypes = new ArrayList<TTI>();
-		this.cTTI = cTTI;
 		intervalConfigs = new ArrayList<>();
 	}
 
 	protected void postConstructHd(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslLogframeFacade<L,D,?,?,TTG,TTE,?,?> fLf)
+			JeeslLogframeFacade<L,D,R,LF,LFI,IL,IT,TTG,TTI,TTE,LFM,LFC> fLf)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
-		this.fLogFrame=fLf;
-		this.intervalTypes = fLf.all(this.cTTI);
+		this.fLf=fLf;
+		this.intervalTypes = fLf.all(fbLf.getClassTTI());
 		reloadTimeGroups();
 	}
 
 	protected void reloadTimeGroups()
 	{
-		timeGroups = fLogFrame.all(fbLogFrame.getClassTTG());
-		if(debugOnInfo) {logger.info(AbstractLogMessage.reloaded(fbLogFrame.getClassTTG(),timeGroups));}
+		timeGroups = fLf.all(fbLf.getClassTTG());
+		if(debugOnInfo) {logger.info(AbstractLogMessage.reloaded(fbLf.getClassTTG(),timeGroups));}
 		uiGenerate = false;
 	}
 
 	public void addTimeGroup()
 	{
-		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbLogFrame.getClassTTG()));}
-		timeGroup = fbLogFrame.ejbTargetTimeGroup().build();
+		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbLf.getClassTTG()));}
+		timeGroup = fbLf.ejbTargetTimeGroup().build();
 		elements = new ArrayList<>();
 		noOfIntervalRequired=1;
 		reset(false,true);
@@ -132,8 +142,8 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	public void saveTimeGroup() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(timeGroup));}
-		timeGroup.setInterval(fLogFrame.find(this.cTTI,timeGroup.getInterval()));
-		timeGroup = fLogFrame.save(timeGroup);
+		timeGroup.setInterval(fLf.find(fbLf.getClassTTI(),timeGroup.getInterval()));
+		timeGroup = fLf.save(timeGroup);
 		reloadTimeGroups();
 		reloadElements();
 		resetElement();
@@ -142,7 +152,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	public void selectTimeGroup() throws JeeslConstraintViolationException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.selectEntity(timeGroup));}
-		timeGroup = fLogFrame.find(fbLogFrame.getClassTTG(),timeGroup);
+		timeGroup = fLf.find(fbLf.getClassTTG(),timeGroup);
 		reloadElements();
 		resetElement();
 	}
@@ -150,22 +160,22 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	public void deleteTimeGroup() throws JeeslConstraintViolationException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.rmEntity(timeGroup));}
-		elements = fLogFrame.allForParent(fbLogFrame.getClassTTE(),timeGroup);
-		for (TTE tte : elements){fLogFrame.rm(tte);}
+		elements = fLf.allForParent(fbLf.getClassTTE(),timeGroup);
+		for (TTE tte : elements){fLf.rm(tte);}
 		elements.clear();
-		fLogFrame.rm(timeGroup);
+		fLf.rm(timeGroup);
 		reloadTimeGroups();
 		reset(true,true);
 		noOfIntervalRequired=1;
 	}
 
-	public void reorderTimeGroups() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fLogFrame, timeGroups);}
+	public void reorderTimeGroups() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fLf, timeGroups);}
 	public void addElement()
 	{
-		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbLogFrame.getClassTTE()));}
+		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbLf.getClassTTE()));}
 		if(element ==null || element.getId()!=0)
 		{
-			element = fbLogFrame.ejbTargetTimeElement().build();
+			element = fbLf.ejbTargetTimeElement().build();
 		}
 	}
 
@@ -178,7 +188,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(element));}
 		element.setGroup(timeGroup);
-		element = fLogFrame.save(element);
+		element = fLf.save(element);
 		elements.add(element);
 		reloadElements();
 		saveElementTimeGroup();
@@ -188,7 +198,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	public void deleteElement() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.rmEntity(timeGroup));}
-		fLogFrame.rm(element);
+		fLf.rm(element);
 
 		reloadElements();
 		saveElementTimeGroup();
@@ -210,11 +220,11 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 			timeGroup.setEndDate(null);
 		}
 		timeGroup.setValues(elements.size());
-		timeGroup = fLogFrame.save(timeGroup);
+		timeGroup = fLf.save(timeGroup);
 	}
 	public void reloadElements()
 	{
-		elements = fLogFrame.allForParent(fbLogFrame.getClassTTE(),timeGroup);
+		elements = fLf.allForParent(fbLf.getClassTTE(),timeGroup);
 		if(elements==null) {elements=new ArrayList<>();}
 		uiGenerate = false;
 		noOfIntervalRequired=1;
@@ -232,7 +242,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 		while (record.getTime() <= timeGroup.getEndDate().getTime() && !interval.getCode().equals("none"))
 		{
 			count++;
-			//element = fbLogFrame.ejbTargetTimeElement().build(timeGroup,elements);
+			//element = fbLf.ejbTargetTimeElement().build(timeGroup,elements);
 			//element.setRecord(record);
 			generateElement(record,String.valueOf(count));
 
@@ -254,7 +264,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 		element.setGroup(timeGroup);
 		element.setName(name);
 		logger.info("saving element with record  " + record.toString());
-		element = fLogFrame.save(element);
+		element = fLf.save(element);
 		elements.add(element);
 		logger.info("save" + record.toString());
 	}
@@ -323,7 +333,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 		resetElement();
 		if(this.elements.size() > 0)
 		{
-			timeGroup = fLogFrame.find(fbLogFrame.getClassTTG(),timeGroup);
+			timeGroup = fLf.find(fbLf.getClassTTG(),timeGroup);
 			FacesContext context = FacesContext.getCurrentInstance();
 	        FacesMessage message = new FacesMessage("Changing Interval not allowed");
 	        message.setSeverity(FacesMessage.SEVERITY_ERROR);
@@ -331,7 +341,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 		}
 		else
 		{
-		timeGroup.setInterval(fLogFrame.find(this.cTTI,timeGroup.getInterval()));
+		timeGroup.setInterval(fLf.find(fbLf.getClassTTI(),timeGroup.getInterval()));
 		updateUiTimeGroup();
 		}
 	}
@@ -340,7 +350,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	{
 		uiGenerate = true;
 		intervalConfigs = new ArrayList<IntervalStatus>();
-		TTI interval = fLogFrame.find(this.cTTI,timeGroup.getInterval());
+		TTI interval = fLf.find(fbLf.getClassTTI(),timeGroup.getInterval());
 		if(interval.getCode().equals("week")){intervalConfigs.add(IntervalStatus.FIRST_DAY_OF_WEEK); intervalConfigs.add(IntervalStatus.LAST_DAY_OF_WEEK);}
 		if(interval.getCode().equals("month")){intervalConfigs.add(IntervalStatus.FIRST_DAY_OF_MONTH);intervalConfigs.add(IntervalStatus.LAST_DAY_OF_MONTH);}
 		if(interval.getCode().equals("year")){intervalConfigs.add(IntervalStatus.FIRST_DAY_OF_YEAR);intervalConfigs.add(IntervalStatus.LAST_DAY_OF_YEAR);}
@@ -352,7 +362,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	{
 		Calendar cal = Calendar.getInstance();
 		Date record = timeGroup.getStartDate();
-		TTI interval = fLogFrame.find(this.cTTI,timeGroup.getInterval());
+		TTI interval = fLf.find(fbLf.getClassTTI(),timeGroup.getInterval());
 		logger.info(interval.getCode());
 		logger.info("noOfIntervalRequired:" + noOfIntervalRequired);
 		noOfIntervalRequired--;
@@ -372,7 +382,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
  	{
  		Calendar cal = Calendar.getInstance();
  		Date record = timeGroup.getStartDate();
- 		TTI interval = fLogFrame.find(this.cTTI,timeGroup.getInterval());
+ 		TTI interval = fLf.find(fbLf.getClassTTI(),timeGroup.getInterval());
  		logger.info(interval.getCode());
  		logger.info("event.getValue : " + event.getValue());
  		logger.info("noOfIntervalRequired:" + noOfIntervalRequired);
