@@ -11,10 +11,15 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.LfFactoryBuilder;
-import org.jeesl.factory.ejb.module.lf.EjbLfConfigurationFactory;
 import org.jeesl.interfaces.model.module.lf.JeeslLfConfiguration;
 import org.jeesl.interfaces.model.module.lf.JeeslLfLogframe;
+import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicator;
+import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicatorLevel;
 import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicatorType;
+import org.jeesl.interfaces.model.module.lf.monitoring.JeeslLfIndicatorMonitoring;
+import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeElement;
+import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeGroup;
+import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeInterval;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
@@ -26,96 +31,90 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public abstract class AbstractLfConfigurationBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
-								R extends JeeslTenantRealm<L,D,R,?>,
-								LF extends JeeslLfLogframe<L,D,R,?,?,LFT>,
-								LFT extends JeeslLfIndicatorType<L,D,R,LFT,?>,
-								LFC extends JeeslLfConfiguration<LF,LFT>>
+												R extends JeeslTenantRealm<L,D,R,?>,
+												LF extends JeeslLfLogframe<L,D,R,LFI,IL,IT>,
+												LFI extends JeeslLfIndicator<LF,IL,IT,TTG,LFM>,
+												IL extends JeeslLfIndicatorLevel<L, D,R, IL, ?>,
+												IT extends JeeslLfIndicatorType<L, D,R, IT, ?>,
+												TTG extends JeeslLfTargetTimeGroup<L,TTI>,
+												TTI extends JeeslLfTargetTimeInterval<L,D,TTI,?>,
+												TTE extends JeeslLfTargetTimeElement<L,TTG>,
+												LFM extends JeeslLfIndicatorMonitoring<LFI,TTG,TTE>,
+												LFC extends JeeslLfConfiguration<LF,IT>>
 					extends AbstractAdminBean<L,D,LOC>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractLfConfigurationBean.class);
 
-	protected final LfFactoryBuilder<L,D,LF,?,?,?,?,LFC> fbLf;
-	protected JeeslLogframeFacade<L,D,LF,?,?,?,?,LFC> fLf;
-	
-	private final EjbLfConfigurationFactory<LFC> efConfiguration;
+	protected final LfFactoryBuilder<L,D,R,LF,LFI,IL,IT,TTG,TTI,TTE,LFM,LFC> fbLf;
+	protected JeeslLogframeFacade<L,D,R,LF,LFI,IL,IT,TTG,TTI,TTE,LFM,LFC> fLf;
 
-	protected List<LFT> lfIndicatorTypes; public List<LFT> getLfIndicatorTypes() {return lfIndicatorTypes;}
-
-	protected final Class<LFT> cLFT; public Class<LFT>  getClassLFT() {return cLFT;}
+	protected List<IT> indicatorTypes; public List<IT> getIndicatorTypes() {return indicatorTypes;}
 
 	private LF logframe; public LF getLogframe() {return logframe;} public void setLogframe(LF logframe) {this.logframe = logframe;}
-	private List<LFC> lfConfigurations; public List<LFC> getLfConfigurations() {return lfConfigurations;}
-	private LFC lfConfiguration; public LFC getLfConfiguration() {return lfConfiguration;} public void setLfConfiguration(LFC lfConfiguration) {this.lfConfiguration = lfConfiguration;}
+	private List<LFC> configurations; public List<LFC> getConfigurations() {return configurations;}
+	private LFC configuration; public LFC getConfiguration() {return configuration;} public void setConfiguration(LFC configuration) {this.configuration = configuration;}
 
-	public AbstractLfConfigurationBean(LfFactoryBuilder<L,D,LF,?,?,?,?,LFC> fbLf,Class<LFT> cLFT)
+	public AbstractLfConfigurationBean(LfFactoryBuilder<L,D,R,LF,LFI,IL,IT,TTG,TTI,TTE,LFM,LFC> fbLf)
 	{
 		super(fbLf.getClassL(),fbLf.getClassD());
 		this.fbLf=fbLf;
-		
-		efConfiguration = fbLf.ejbLfConfiguration();
-
-		this.lfIndicatorTypes = new ArrayList<LFT>();
-
-		this.cLFT = cLFT;
-
+		this.indicatorTypes = new ArrayList<IT>();
 	}
 
-	protected void postConstructHd(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslLogframeFacade<L,D,LF,?,?,?,?,LFC> fLf)
+	protected void postConstructHd(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,JeeslLogframeFacade<L,D,R,LF,LFI,IL,IT,TTG,TTI,TTE,LFM,LFC> fLf)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fLf = fLf;
-		this.lfIndicatorTypes = fLf.all(this.cLFT);
-		reloadLfConfigurations();
+		this.indicatorTypes = fLf.all(fbLf.getClassIT());
+		reloadConfigurations();
 	}
 
-	protected void reloadLfConfigurations()
+	protected void reloadConfigurations()
 	{
-		lfConfigurations = new ArrayList<>();
-		if(logframe.getId() != 0){lfConfigurations = fLf.allForParent(fbLf.getClassLFC(), logframe);}
+		configurations = new ArrayList<>();
+		if(logframe.getId() != 0){configurations = fLf.allForParent(fbLf.getClassLFC(), logframe);}
 
-		if(debugOnInfo) {logger.info(AbstractLogMessage.reloaded(fbLf.getClassLFC(),lfConfigurations));}
+		if(debugOnInfo) {logger.info(AbstractLogMessage.reloaded(fbLf.getClassLFC(),configurations));}
 	}
 
-	public void addLfConfiguration()
+	public void addConfiguration()
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbLf.getClassLFC()));}
-		lfConfiguration =  efConfiguration.build();
-		lfConfiguration.setLogframe(logframe);
+		configuration =  fbLf.ejbLfConfiguration().build();
+		configuration.setLogframe(logframe);
 	}
 
-	public void saveLfConfiguration() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
+	public void saveConfiguration() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
-		logger.info(lfConfiguration.getLogframe().toString());
-		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(lfConfiguration));}
-		LFT type = fLf.find(this.cLFT, lfConfiguration.getType().getId());
-		lfConfiguration.setType(type);
-		lfConfiguration = fLf.save(lfConfiguration);
-		reloadLfConfigurations();
+		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(configuration));}
+		IT type = fLf.find(fbLf.getClassIT(), configuration.getType().getId());
+		configuration.setType(type);
+		configuration = fLf.save(configuration);
+		reloadConfigurations();
 	}
 
-	public void selectLfConfiguration(LFC selectdLfConfiguration) throws JeeslConstraintViolationException
+	public void selectConfiguration(LFC selectdConfiguration) throws JeeslConstraintViolationException
 	{
-		lfConfiguration = fLf.find(fbLf.getClassLFC(),selectdLfConfiguration);
-		if(debugOnInfo) {logger.info(AbstractLogMessage.selectEntity(selectdLfConfiguration));}
+		configuration = fLf.find(fbLf.getClassLFC(),selectdConfiguration);
+		if(debugOnInfo) {logger.info(AbstractLogMessage.selectEntity(selectdConfiguration));}
 	}
 
-	public void deleteLfConfiguration() throws JeeslConstraintViolationException
+	public void deleteConfiguration() throws JeeslConstraintViolationException
 	{
-		if(debugOnInfo) {logger.info(AbstractLogMessage.rmEntity(lfConfiguration));}
-		fLf.rm(lfConfiguration);
-		reloadLfConfigurations();
+		if(debugOnInfo) {logger.info(AbstractLogMessage.rmEntity(configuration));}
+		fLf.rm(configuration);
+		reloadConfigurations();
 		reset();
-		resetLfConfiguration();
+		resetConfiguration();
 	}
 
-	public void resetLfConfiguration() {reset();}
+	public void resetConfiguration() {reset();}
 
 	private void reset()
 	{
-		lfConfiguration=null; lfConfigurations=new ArrayList<>();
+		configuration=null; configurations=new ArrayList<>();
 	}
 
 
