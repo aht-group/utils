@@ -101,7 +101,7 @@ public abstract class AbstractLfDefinitionBean <L extends JeeslLang, D extends J
 
 	protected void reloadIndicators()
 	{
-		indicators = fLf.all(fbLf.getClassLFI());
+		indicators = fLf.allForParent(fbLf.getClassLFI(), logframe);
 		typesMap = new HashMap<>();
 
 		for (LFI lf : indicators)

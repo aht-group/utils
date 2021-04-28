@@ -1,10 +1,13 @@
 package org.jeesl.web.mbean.prototype.module.lf;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslLogframeFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.LfFactoryBuilder;
 import org.jeesl.interfaces.model.module.lf.JeeslLfConfiguration;
 import org.jeesl.interfaces.model.module.lf.JeeslLfLogframe;
@@ -56,10 +59,24 @@ public abstract class AbstractLfBean <L extends JeeslLang, D extends JeeslDescri
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fLf = fLf;
+
+		List<LF> list = fLf.all(fbLf.getClassLF(),1);
+		if(list.isEmpty())
+		{
+			try
+			{
+				logframe = fbLf.ejbLfLogFrame().build();
+				logframe.setName("JEESL Logframe");
+				logframe = fLf.save(logframe);
+				list =  fLf.all(fbLf.getClassLF(),1);
+			}
+			catch (JeeslConstraintViolationException | JeeslLockingException e) {e.printStackTrace();}
+		}
+		else
+		{
+			logframe = list.get(0);
+		}
+		logger.info("logframe id: -----------------------------------------------------" + logframe.getId());
 	}
-
-
-
-
 
 }

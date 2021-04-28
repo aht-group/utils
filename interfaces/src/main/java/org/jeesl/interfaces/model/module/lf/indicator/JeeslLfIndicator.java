@@ -8,6 +8,7 @@ import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.lf.JeeslLfLogframe;
 import org.jeesl.interfaces.model.module.lf.monitoring.JeeslLfIndicatorMonitoring;
 import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeGroup;
+import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.text.EjbWithName;
 
@@ -17,10 +18,10 @@ public interface JeeslLfIndicator<LF extends JeeslLfLogframe<?,?,?,?,?,?>,
 									TTG extends JeeslLfTargetTimeGroup<?,?>,
 									LFM extends JeeslLfIndicatorMonitoring<?,TTG,?>>
 						extends  Serializable,EjbSaveable,EjbRemoveable,
-						EjbWithId,EjbWithName
+						EjbWithId,EjbWithName,EjbWithParentAttributeResolver
 
 {
-	public enum Attributes{interval}
+	public enum Attributes{interval,logframe}
 
 	LF getLogframe();
 	void setLogframe(LF logframe);
