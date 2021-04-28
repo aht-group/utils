@@ -31,8 +31,6 @@ html, body {
 
 .jeesl-tabs {
   background: #f0f0f0; }
-  .jeesl-tabs.ui-tabs.ui-tabs-top .ui-tabs-nav li.ui-tabs-selected {
-    border-bottom: 1px solid #f0f0f0; }
   .jeesl-tabs .ui-tabs-nav {
     background: #c4c4c4 url(/jeesl/javax.faces.resource/images/ui-bg_highlight-soft_100_c4c4c4_1x100.png.xhtml?ln=primefaces-aristo) 50% 50% repeat-x;
     background: #c4c4c4 linear-gradient(top, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));

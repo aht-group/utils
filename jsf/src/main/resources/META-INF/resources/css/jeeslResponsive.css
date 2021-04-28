@@ -1,6 +1,9 @@
 body {
   min-width: 400px; }
 
+pre code {
+  background: #f0f0f0; }
+
 #container {
   max-width: 982px;
   width: auto; }
@@ -219,9 +222,13 @@ body {
         @media (max-width: 768px) {
           .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button {
             transition-duration: .4s; } }
-        @media (max-width: 768px) {
-          .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button.jeesl-active {
-            background: #00663a; } }
+        .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button.jeesl-active {
+          background: linear-gradient(to bottom, #00663a, #009957); }
+          .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button.jeesl-active.jeesl-menu-bar-dropdown {
+            background: transparent; }
+            @media (max-width: 768px) {
+              .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button.jeesl-active.jeesl-menu-bar-dropdown {
+                background: #00663a; } }
         .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button .jeesl-menu-bar-button-icon {
           box-sizing: border-box;
           height: 100%;
@@ -469,9 +476,13 @@ body {
         @media (max-width: 768px) {
           .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button {
             transition-duration: .4s; } }
-        @media (max-width: 768px) {
-          .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button.jeesl-active {
-            background: #00663a; } }
+        .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button.jeesl-active {
+          background: linear-gradient(to bottom, #00663a, #009957); }
+          .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button.jeesl-active.jeesl-menu-bar-dropdown {
+            background: transparent; }
+            @media (max-width: 768px) {
+              .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button.jeesl-active.jeesl-menu-bar-dropdown {
+                background: #00663a; } }
         .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button .jeesl-menu-bar-button-icon {
           box-sizing: border-box;
           height: 100%;
@@ -751,6 +762,22 @@ body {
 @media (max-width: 768px) {
   .jeesl-content .jeesl-content-container .ui-panel {
     padding: 0; } }
+.jeesl-content .jeesl-content-container .ui-panel.jeesl-editor .ui-widget-content {
+  margin: 0 -.2em -.2em;
+  padding: 0 !important; }
+  @media (max-width: 768px) {
+    .jeesl-content .jeesl-content-container .ui-panel.jeesl-editor .ui-widget-content {
+      margin: 0; } }
+  .jeesl-content .jeesl-content-container .ui-panel.jeesl-editor .ui-widget-content .ql-toolbar {
+    border: 0;
+    margin: 0; }
+  .jeesl-content .jeesl-content-container .ui-panel.jeesl-editor .ui-widget-content .ql-container {
+    border: solid #c4c4c4;
+    border-radius: 0 0 3px 3px;
+    border-width: 1px 0 0;
+    overflow: hidden; }
+    .jeesl-content .jeesl-content-container .ui-panel.jeesl-editor .ui-widget-content .ql-container .ql-editor {
+      background: white; }
 .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable {
   margin: 0; }
   .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header {
@@ -858,6 +885,28 @@ body {
       .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content .ui-treenode-label.ui-state-hover {
         background: #c4c4c4;
         box-shadow: none; }
+.jeesl-content .jeesl-content-container .ui-panel .jeesl-tabs {
+  border: 0;
+  margin: 4px calc(-.2em - 10px); }
+  @media (max-width: 768px) {
+    .jeesl-content .jeesl-content-container .ui-panel .jeesl-tabs {
+      margin: 4px -10px; } }
+  .jeesl-content .jeesl-content-container .ui-panel .jeesl-tabs.jeesl-editor:first-child {
+    margin-top: calc(-.2em - 4px); }
+    @media (max-width: 768px) {
+      .jeesl-content .jeesl-content-container .ui-panel .jeesl-tabs.jeesl-editor:first-child {
+        margin-top: -4px; } }
+  .jeesl-content .jeesl-content-container .ui-panel .jeesl-tabs.jeesl-editor:last-child {
+    margin-bottom: calc(-.2em - 4px); }
+    @media (max-width: 768px) {
+      .jeesl-content .jeesl-content-container .ui-panel .jeesl-tabs.jeesl-editor:last-child {
+        margin-bottom: -4px; } }
+    .jeesl-content .jeesl-content-container .ui-panel .jeesl-tabs.jeesl-editor:last-child .ui-widget-content .ql-container {
+      border-bottom: 0;
+      border-radius: 0 0 3px 3px; }
+  .jeesl-content .jeesl-content-container .ui-panel .jeesl-tabs.jeesl-editor .ui-widget-content .ql-container {
+    border-radius: 0;
+    border-width: 1px 0; }
 .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-fluid .p-grid {
   position: relative; }
   @media (max-width: 768px) {
@@ -963,8 +1012,6 @@ body {
     background: #dedede;
     height: 2px;
     margin: 6px 0; } }
-.jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-texteditor .ql-editor {
-  background: white; }
 @media (max-width: 768px) {
   .jeesl-content .jeesl-content-container .ui-panel .ui-panel-footer {
     margin: 5px 0 0;
@@ -1071,3 +1118,75 @@ body {
 @media (max-width: 768px) {
   .ui-dialog .ui-dialog-content .ui-resizable-handle {
     display: none; } }
+
+.jeesl-tabs {
+  background: #f0f0f0; }
+  @media (max-width: 768px) {
+    .jeesl-tabs {
+      padding: 0; } }
+  .jeesl-tabs.ui-tabs-top .ui-tabs-nav {
+    padding: 2px 3px 0; }
+  .jeesl-tabs.jeesl-editor .ui-widget-content {
+    margin: 0 -.2em -.2em;
+    padding: 0 !important; }
+    @media (max-width: 768px) {
+      .jeesl-tabs.jeesl-editor .ui-widget-content {
+        margin: 0; } }
+    .jeesl-tabs.jeesl-editor .ui-widget-content .ql-toolbar {
+      border: 0;
+      margin: 0; }
+    .jeesl-tabs.jeesl-editor .ui-widget-content .ql-container {
+      border: solid #c4c4c4;
+      border-radius: 0 0 3px 3px;
+      border-width: 1px 0 0;
+      overflow: hidden; }
+      .jeesl-tabs.jeesl-editor .ui-widget-content .ql-container .ql-editor {
+        background: white; }
+  .jeesl-tabs .ui-tabs-nav {
+    box-sizing: border-box;
+    display: flex;
+    height: 22px;
+    margin-bottom: 2px;
+    padding: 0 0 0 10px;
+    display: block;
+    height: auto; }
+    @media (max-width: 768px) {
+      .jeesl-tabs .ui-tabs-nav {
+        border: 0 solid #00663a;
+        border-bottom-width: 4px;
+        border-radius: 3px 3px 0 0;
+        height: 46px; } }
+    .jeesl-tabs .ui-tabs-nav .ui-tabs-header {
+      flex-grow: 1;
+      line-height: 22px;
+      background: linear-gradient(to bottom, #dedede 87%, #c4c4c4 100%);
+      box-shadow: inset 0 1px 0 white;
+      height: 22px;
+      margin: 0 2px 0; }
+      @media (max-width: 768px) {
+        .jeesl-tabs .ui-tabs-nav .ui-tabs-header {
+          color: #00663a;
+          font-size: 18px;
+          letter-spacing: -.5px;
+          line-height: 42px; } }
+      @media (max-width: 768px) {
+        .jeesl-tabs .ui-tabs-nav .ui-tabs-header {
+          height: 38px;
+          line-height: 38px; } }
+      .jeesl-tabs .ui-tabs-nav .ui-tabs-header:hover {
+        background: linear-gradient(to bottom, #f2f2f2 87%, #c4c4c4 100%); }
+      .jeesl-tabs .ui-tabs-nav .ui-tabs-header.ui-tabs-selected {
+        background: linear-gradient(to bottom, white, #f0f0f0);
+        padding-bottom: 1px; }
+        @media (max-width: 768px) {
+          .jeesl-tabs .ui-tabs-nav .ui-tabs-header.ui-tabs-selected {
+            background: linear-gradient(to bottom, #007a45, #00663a);
+            border: 0;
+            box-shadow: inset 0 1px 0 #008a4e;
+            padding: 1px; } }
+        @media (max-width: 768px) {
+          .jeesl-tabs .ui-tabs-nav .ui-tabs-header.ui-tabs-selected a {
+            color: white;
+            text-shadow: none; } }
+      .jeesl-tabs .ui-tabs-nav .ui-tabs-header a {
+        padding: 0 11px; }

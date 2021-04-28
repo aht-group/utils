@@ -73,19 +73,6 @@ html, body {
 .jeesl-tabs {
 	background: $panel-background;
 	
-	// Refined selector necessary to overwrite existing css rule
-	&.ui-tabs {
-		&.ui-tabs-top {
-			.ui-tabs-nav {
-				li {
-					&.ui-tabs-selected {
-						border-bottom: 1px solid $panel-background;
-					}
-				}
-			}
-		}
-	}
-	
 	.ui-tabs-nav {
 		@include panel-header();
 	}
