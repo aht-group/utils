@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1"
+	 id="svg2" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" inkscape:version="0.48.4 r9939" inkscape:export-ydpi="4.2538862" inkscape:export-xdpi="4.2538862" inkscape:export-filename="C:\Users\Yann\Desktop\shield-green.png" sodipodi:docname="shield-green.svg"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="666.665px"
+	 height="533.429px" viewBox="-175.034 -1.167 666.665 533.429" enable-background="new -175.034 -1.167 666.665 533.429"
+	 xml:space="preserve">
+<g>
+	<path fill="#595959" stroke="#383838" stroke-width="4.6705" d="M477.586,254.9L231.204,10.401
+		c-6.002-5.955-13.893-9.232-22.214-9.232h-0.001h-0.001c-8.146,0-15.914,3.065-21.874,8.635
+		c-6.417,5.995-9.952,14.201-9.952,23.105v122.238v6.333l4.539,4.417l102.413,99.651l-102.412,99.65l-4.54,4.417v6.334v122.239
+		c0,8.904,3.534,17.109,9.952,23.104c5.959,5.567,13.728,8.634,21.874,8.634c8.321,0,16.212-3.276,22.213-9.229l246.385-244.504
+		l10.73-10.647L477.586,254.9z"/>
+	
+		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="192.177" y1="267.5823" x2="467.0374" y2="267.5823" gradientTransform="matrix(1 0 0 -1 -0.0151 533.1294)">
+		<stop  offset="0" style="stop-color:#0F66CE"/>
+		<stop  offset="1" style="stop-color:#0E76DD"/>
+	</linearGradient>
+	<path fill="url(#SVGID_1_)" d="M305.623,265.548l-113.46-110.4V32.908c0-14.854,17.932-22.322,28.477-11.86l246.382,244.5
+		l-246.383,244.5c-10.545,10.459-28.477,2.994-28.477-11.859V375.949L305.623,265.548z"/>
+</g>
+<g>
+	<polygon fill="#595959" stroke="#383838" stroke-width="4.6705" points="246.464,265.548 109.12,333.331 87.096,484.898 
+		-19.81,375.223 -170.765,401.114 -99.493,265.548 -170.765,129.982 -19.81,155.873 87.096,46.198 109.12,197.765 	"/>
+	<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="-142.7317" y1="265.5481" x2="211.8127" y2="265.5481">
+		<stop  offset="0" style="stop-color:#BC9800"/>
+		<stop  offset="1" style="stop-color:#EFDD03"/>
+	</linearGradient>
+	<polygon fill="url(#SVGID_2_)" points="95.104,323.148 101.233,320.123 211.813,265.548 101.233,210.974 95.104,207.949 
+		94.121,201.186 76.389,79.153 -9.685,167.457 -14.456,172.351 -21.192,171.196 -142.732,150.349 -85.348,259.499 -82.168,265.548 
+		-85.348,271.598 -142.732,380.746 -21.192,359.902 -14.456,358.746 -9.685,363.64 76.389,451.943 94.121,329.911 	"/>
+</g>
+<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="-34.4348" y1="19.552" x2="182.6867" y2="367.0192">
+	<stop  offset="0" style="stop-color:#FFFFFF"/>
+	<stop  offset="1" style="stop-color:#FFFFFF;stop-opacity:0"/>
+</linearGradient>
+<path fill="url(#SVGID_3_)" d="M170.906,245.36C69.872,267.87-28.547,310.424-115.844,376.135l-26.888,4.611l57.383-109.148
+	l3.18-6.05l-3.18-6.049l-57.383-109.149l121.54,20.846l6.736,1.155l4.771-4.894l86.074-88.304l17.732,122.033l0.982,6.763
+	l6.129,3.025L170.906,245.36z M430.841,229.644L220.639,21.048c-10.545-10.462-28.477-2.994-28.477,11.86v122.239l76.688,74.62
+	C323.318,224.443,377.748,224.557,430.841,229.644z"/>
+</svg>

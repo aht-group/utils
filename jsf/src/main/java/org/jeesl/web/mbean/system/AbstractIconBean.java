@@ -206,6 +206,7 @@ public class AbstractIconBean implements Serializable
 		svg.put("jeeslTreeExpandTwo", "ui/control/tree/expand-2.svg");
 		svg.put("jeeslTreeExpandThree", "ui/control/tree/expand-3.svg");
 		svg.put("jeeslTreeExpandAll", "ui/control/tree/expand-all.svg");
+		svg.put("jeeslTreeExpandRelevant", "ui/control/tree/expand-relevant.svg");
 		svg.put("jeeslTreeCollapseAll", "ui/control/tree/collapse-all.svg");
 
 		svg.put("jeeslExclamationMark", "ui/info/mark/exclamation.svg");
