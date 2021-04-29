@@ -49,7 +49,6 @@
 							</p:panelGrid>
 						</p:panel>
 					</h:form>
-					
 					<h:form id="fCategory" rendered="#{not empty cc.attrs.bean.category}">
 						<p:dataTable var="s" value="#{cc.attrs.bean.items}" draggableRows="#{cc.attrs.bean.uiAllowReorder}"
 					          selection="#{cc.attrs.bean.status}" selectionMode="single" rowKey="#{s.id}">

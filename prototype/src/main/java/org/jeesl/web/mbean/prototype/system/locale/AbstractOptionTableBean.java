@@ -84,12 +84,6 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 	final static Logger logger = LoggerFactory.getLogger(AbstractOptionTableBean.class);
 	private static final long serialVersionUID = 1L;
 
-//	protected JeeslFacade fUtils;
-
-//	private final LocaleFactoryBuilder<L,D,LOC> fbStatus;
-//	private final SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg;
-//	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,?,?,?,?,?> fbRevision;
-
 	private final JeeslDbGraphicUpdater<G,GT> dbuGraphic;
 
 	protected boolean allowSvg; public boolean isAllowSvg() {return allowSvg;}
@@ -104,13 +98,6 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 	protected boolean supportsFigure; public boolean isSupportsFigure() {return supportsFigure;}
 //	protected boolean supportsLocked; public boolean isSupportsLocked() {return supportsLocked;}
 
-//	protected long index;
-//	protected Map<Long,Boolean> allowAdditionalElements; public Map<Long, Boolean> getAllowAdditionalElements(){return allowAdditionalElements;}
-//
-//	protected Object category; public Object getCategory() {return category;} public void setCategory(Object category) {this.category = category;}
-//	protected Object status; public Object getStatus() {return status;} public void setStatus(Object status) {this.status = status;}
-//	private G graphic; public G getGraphic() {return graphic;} public void setGraphic(G graphic) {this.graphic = graphic;}
-//	private RE entity; public RE getEntity() {return entity;}
 
 	@SuppressWarnings("rawtypes")
 	protected Class clParent;

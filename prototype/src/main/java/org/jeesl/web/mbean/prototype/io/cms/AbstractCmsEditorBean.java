@@ -191,7 +191,6 @@ public abstract class AbstractCmsEditorBean <L extends JeeslLang,D extends Jeesl
 		}
 		reset(true);
 	}
-	
 	protected void cmsSelected(){}
 	
 	private void reset(boolean rElement)
@@ -224,7 +223,9 @@ public abstract class AbstractCmsEditorBean <L extends JeeslLang,D extends Jeesl
 	
 	public void selectDocument()
 	{
+		reset(true);
 		if(debugOnInfo){logger.info(AbstractLogMessage.selectEntity(cms));}
+	
 		reloadCms();
 	}
 	

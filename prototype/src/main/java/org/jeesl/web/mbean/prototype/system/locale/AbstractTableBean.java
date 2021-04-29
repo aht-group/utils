@@ -45,6 +45,13 @@ public class AbstractTableBean <L extends JeeslLang, D extends JeeslDescription,
 	protected final SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg;
 	protected final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,?,?,?,?,?> fbRevision;
 
+	protected final Map<EjbWithPosition,RE> mapEntity; public Map<EjbWithPosition, RE> getMapEntity() {return mapEntity;}
+	protected final List<EjbWithPosition> categories; public List<EjbWithPosition> getCategories(){return categories;}
+	protected List<EjbWithPosition> items; public List<EjbWithPosition> getItems() {return items;}
+	protected List<GT> graphicTypes; public List<GT> getGraphicTypes() {return graphicTypes;}
+	protected List<FS> graphicStyles; public List<FS> getGraphicStyles() {return graphicStyles;}
+	protected List<F> figures; public List<F> getFigures() {return figures;}
+	
 	protected Object category; public Object getCategory() {return category;} public void setCategory(Object category) {this.category = category;}
 	protected Object status; public Object getStatus() {return status;} public void setStatus(Object status) {this.status = status;}
 	protected G graphic; public G getGraphic() {return graphic;} public void setGraphic(G graphic) {this.graphic = graphic;}
@@ -58,12 +65,7 @@ public class AbstractTableBean <L extends JeeslLang, D extends JeeslDescription,
 	protected final EjbGraphicFactory<L,D,G,GT,F,FS> efGraphic;
 	protected final EjbGraphicFigureFactory<L,D,G,GT,F,FS> efFigure;
 
-	protected final Map<EjbWithPosition,RE> mapEntity; public Map<EjbWithPosition, RE> getMapEntity() {return mapEntity;}
-	protected final List<EjbWithPosition> categories; public List<EjbWithPosition> getCategories(){return categories;}
-	protected List<EjbWithPosition> items; public List<EjbWithPosition> getItems() {return items;}
-	protected List<GT> graphicTypes; public List<GT> getGraphicTypes() {return graphicTypes;}
-	protected List<FS> graphicStyles; public List<FS> getGraphicStyles() {return graphicStyles;}
-	protected List<F> figures; public List<F> getFigures() {return figures;}
+	
 
 	protected F figure; public F getFigure() {return figure;} public void setFigure(F figure) {this.figure = figure;}
 
