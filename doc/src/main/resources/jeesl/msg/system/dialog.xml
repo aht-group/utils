@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<s:translations xmlns:s="http://ahtutils.aht-group.com/status">
+ 	<s:translation key="jeeslConfirmDialogYes">
+    	<s:langs>
+    		<s:lang key="de" translation="Ja"/>
+    		<s:lang key="en" translation="Yes"/>
+    		<s:lang key="fr" translation="Oui"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslConfirmDialogNo">
+    	<s:langs>
+    		<s:lang key="de" translation="Nein"/>
+    		<s:lang key="en" translation="No"/>
+    		<s:lang key="fr" translation="Non"/>
+    	</s:langs>
+    </s:translation>
+    
+	<s:translation key="jeeslConfirmDialogDefaultMsg">
+    	<s:langs>
+    		<s:lang key="de" translation="Sind Sie sicher, dass Sie fortfahren möchten?"/>
+    		<s:lang key="en" translation="Are you sure you want to proceed?"/>
+    		<s:lang key="fr" translation="Êtes-vous sur de vouloir continuer?"/>
+    	</s:langs>
+    </s:translation>
+    
+	<s:translation key="jeeslConfirmDialogDefaultHeader">
+    	<s:langs>
+    		<s:lang key="de" translation="Bestätigung"/>
+    		<s:lang key="en" translation="Confirmation"/>
+    		<s:lang key="fr" translation="Confirmation"/>
+    	</s:langs>
+    </s:translation>
+    
+   
+    	
+</s:translations>

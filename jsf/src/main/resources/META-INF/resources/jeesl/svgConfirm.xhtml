@@ -4,7 +4,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
 	xmlns:composite="http://java.sun.com/jsf/composite">
     
-	<composite:interface componentType="org.jeesl.jsf.components.IconListener">
+	<composite:interface componentType="org.jeesl.jsf.components.IconConfirmListener">
 		<composite:attribute name="listener" required="true" method-signature="java.lang.Void action(javax.faces.event.ActionEvent)"/>
 		<composite:attribute name="update"/>
 		<composite:attribute name="styleClass" required="false" default="pf-action-icon"/>
@@ -18,6 +18,8 @@
 		<composite:attribute name="tooltip" required="false"/>
 		<composite:attribute name="immediate" required="false" default="false"/>
 		<composite:attribute name="library" required="false" default="gfx"/>
+		<composite:attribute name="dialogHdr" required="false" default="#{msg.jeeslConfirmDialogDefaultHeader}"/>
+		<composite:attribute name="dialogMsg" required="false" default="#{msg.jeeslConfirmDialogDefaultMsg}"/>
 	</composite:interface>
 
 	<composite:implementation>
@@ -38,7 +40,7 @@
 						<f:attribute name="height" value="12"/>
 					</h:graphicImage>
 					<p:tooltip for="image2" rendered="#{not empty cc.attrs.tooltip}" value="#{cc.attrs.tooltip}" showDelay="1500" hideEvent="mouseleave click"/>
-					<p:confirm header="Confirmation" message="Are you sure you want to proceed?" icon="pi pi-exclamation-triangle"/>
+					<p:confirm header="#{cc.attrs.dialogHdr}" message="#{cc.attrs.dialogMsg}" icon="pi pi-exclamation-triangle"/>
 				</p:commandLink>
 			</c:if>
 			<c:if test="#{cc.attrs.mayDisappear}">
@@ -57,7 +59,7 @@
 						<f:attribute name="height" value="12"/>
 					</h:graphicImage>
 					<p:tooltip for="image2" rendered="#{not empty cc.attrs.tooltip}" value="#{cc.attrs.tooltip}" showDelay="1500" hideEvent="mouseleave click"/>
-					<p:confirm header="Confirmation" message="Are you sure you want to proceed?" icon="pi pi-exclamation-triangle"/>
+					<p:confirm header="#{cc.attrs.dialogHdr}" message="#{cc.attrs.dialogMsg}" icon="pi pi-exclamation-triangle"/>
 				</p:commandLink>
 			</c:if>
 		</c:if>
@@ -78,7 +80,7 @@
 					<f:attribute name="height" value="12"/>
 				</h:graphicImage>
 				<p:tooltip rendered="#{not empty cc.attrs.tooltip}" for="image" value="#{cc.attrs.tooltip}" hideEvent="mouseleave click"/>
-				<p:confirm header="Confirmation" message="Are you sure you want to proceed?" icon="pi pi-exclamation-triangle"/>
+				<p:confirm header="#{cc.attrs.dialogHdr}" message="#{cc.attrs.dialogMsg}" icon="pi pi-exclamation-triangle"/>
 			</p:commandLink>
 
 			

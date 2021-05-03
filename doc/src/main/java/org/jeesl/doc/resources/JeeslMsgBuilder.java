@@ -88,6 +88,7 @@ public class JeeslMsgBuilder
 	public static final String systemProperty = "jeesl/msg/admin/system/property.xml";
 	public static final String systemFeature = "jeesl/msg/admin/system/feature.xml";
 	public static final String systemLights = "jeesl/msg/system/lights.xml";
+	public static final String systemDialog = "jeesl/msg/system/dialog.xml";
 	public static final String systemConstraint = "jeesl/msg/system/constraint.xml";
 	public static final String srcAdminSync = "jeesl/msg/system/sync.xml";
 	public static final String srcAdminAuditLog = "jeesl/msg/system/auditLog.xml";
