@@ -80,8 +80,17 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 	private final List<FAQ> faqs; public List<FAQ> getFaqs() {return faqs;}
 	private final List<FGA> answers; public List<FGA> getAnswers() {return answers;}
 	private final List<SEC> sections; public List<SEC> getSections() {return sections;}
-	
+	protected final List<USER> reporters; public List<USER> getReporters() {return reporters;}
+
 	private USER reporter;
+	public USER getReporter() {
+		return reporter;
+	}
+	public void setReporter(USER reporter) {
+		this.reporter = reporter;
+	}
+
+
 	private FAQ faq; public FAQ getFaq() {return faq;} public void setFaq(FAQ faq) {this.faq = faq;}
 	private FGA fga; public FGA getFga() {return fga;} public void setFga(FGA fga) {this.fga = fga;}
 	private CAT category; public CAT getCategory() {return category;} public void setCategory(CAT category) {this.category = category;}
@@ -92,9 +101,11 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		super(fbHd);
 		this.fbCms=fbCms;
 		this.editHandler = new UiEditSavedHandler<>();
+		
 		faqs = new ArrayList<>();
 		answers = new ArrayList<>();
 		sections = new ArrayList<>();
+		reporters = new ArrayList<>();
 	}
 
 	protected void postConstructHdTicket(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
@@ -177,6 +188,8 @@ public abstract class AbstractHdTicketBean <L extends JeeslLang, D extends Jeesl
 		fbHd.ejbEvent().converter(fHd,lastEvent);
 		if(EjbIdFactory.isUnSaved(ticket))
 		{
+			lastEvent.setInitiator(reporter);
+			lastEvent.setReporter(reporter);
 			ticket = fHd.saveHdTicket(ticket,lastEvent,reporter);
 			callBackNewTicket(ticket);
 		}

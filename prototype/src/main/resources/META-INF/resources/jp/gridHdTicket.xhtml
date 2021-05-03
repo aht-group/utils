@@ -27,7 +27,7 @@
 							<j:svg type="jeeslAdd" listener="#{cc.attrs.bean.addTicket()}" update=":#{cc.id}:sTicket :#{cc.id}:sFaqs" library="jeeslGfx"/>
 						</j:dtHeader>
 					</f:facet>
-					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectTicket()}" update=":#{cc.id}:sTicket :#{cc.id}:fProgress :#{cc.id}:sFaqs :#{cc.id}:sAnswers"/>
+					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectTicket()}" update=":#{cc.id}:sTicket :#{cc.id}:sFaqs :#{cc.id}:sAnswers"/>
 					<p:column headerText="#{msg.jeeslHdRecord}">
 						<jtp:symbolizer value="#{t.lastEvent.status}" marginRight="5"/>
 						<jp:outputDate value="#{t.firstEvent.record}"/>
@@ -41,30 +41,6 @@
 						<h:outputText value="#{of:abbreviate(t.name,30)}"/>
 					</p:column>
 			   	</p:dataTable>
-			</h:form>
-			<h:form id="fProgress" rendered="#{cc.attrs.bean.ticket !=null and cc.attrs.bean.ticket.id !=null and cc.attrs.bean.ticket.id !=0}">
-				<p:panel header="#{msg.jeeslHdTicketProgress}" styleClass="jeeslPanel" rendered="#{not empty cc.attrs.bean.ticket}">
-					<f:facet name="actions">
-						
-					</f:facet>
-					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
-						
-						<p:outputLabel value="#{msg.jeeslHdRecord}"/>
-						<jp:outputDate value="#{cc.attrs.bean.ticket.lastEvent.record}" withTime="true"/>
-						
-						<p:outputLabel value="#{msg.jeeslHdStatus}"/>
-						<ui:fragment>
-							<jtp:symbolizer value="#{cc.attrs.bean.ticket.lastEvent.status}" marginRight="5"/>
-							<h:outputText value="#{cc.attrs.bean.ticket.lastEvent.status.name[localeCode].lang}"/>
-						</ui:fragment>
-						<p:outputLabel value="#{msg.jeeslHdLevel}"/>
-						<ui:fragment>
-							
-							<h:outputText value="#{cc.attrs.bean.ticket.lastEvent.level.name[localeCode].lang}"/>
-						</ui:fragment>
-						
-					</p:panelGrid>
-				</p:panel>
 			</h:form>
 		</j:slot>
 		<j:slot id="sTicket" width="8">
@@ -102,6 +78,12 @@
 					
 						<jtp:label entity="HdEvent" code="record"/>
 						<h:outputText value="#{cc.attrs.bean.firstEvent.record}"/>
+						
+						<jtp:label entity="HdEvent" code="reporter"/>
+						<h:outputText value="#{cc.attrs.bean.reporter.firstName} #{cc.attrs.bean.reporter.lastName}" rendered="#{empty cc.attrs.bean.reporters}"/>
+						<p:selectOneMenu value="#{cc.attrs.bean.reporter}" rendered="#{not empty cc.attrs.bean.reporters}" effect="fade" autoWidth="false" dynamic="true">
+							<f:selectItems value="#{cc.attrs.bean.reporters}" var="r" itemLabel="#{r.lastName}, #{r.firstName}" itemValue="#{r}"/>
+						</p:selectOneMenu>
 						
 						<jtp:label entity="HdCategory"/>
 						<p:selectOneMenu value="#{cc.attrs.bean.lastEvent.category}" effect="fade" autoWidth="false">
