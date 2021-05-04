@@ -18,7 +18,11 @@ public class JeeslEap71FacadeLookup implements JeeslFacadeLookup
 
 	private final String appName;
 	private final String moduleName;
-
+	
+	private String username; public String getUsername() {return username;} public void setUsername(String username) {this.username = username;}
+	private String password; public String getPassword() {return password;} public void setPassword(String password) {this.password = password;}
+	
+	private String host; public String getHost() {return host;} public void setHost(String host) {this.host = host;}
 	private int port; public int getPort() {return port;} public void setPort(int port) {this.port = port;}
 	
 	public JeeslEap71FacadeLookup(String appName)
@@ -29,6 +33,7 @@ public class JeeslEap71FacadeLookup implements JeeslFacadeLookup
 	{
 		this.appName=appName;
 		this.moduleName=moduleName;
+		host = "localhost";
 		port = 8080;
 	}
 
@@ -53,13 +58,16 @@ public class JeeslEap71FacadeLookup implements JeeslFacadeLookup
 	{
 		if(context==null)
 		{
-			Properties props = new Properties();
-			props.put(Context.INITIAL_CONTEXT_FACTORY,  "org.wildfly.naming.client.WildFlyInitialContextFactory");
-			props.put(Context.PROVIDER_URL, String.format("%s://%s:%d", "remote+http", "localhost", port));
-			props.put("jboss.naming.client.ejb.context", true);
-//			props.put(Context.SECURITY_PRINCIPAL, username)
-//			props.put(Context.SECURITY_CREDENTIALS, password);
-			context =  new InitialContext(props);
+			Properties properties = new Properties();
+			properties.put(Context.INITIAL_CONTEXT_FACTORY,  "org.wildfly.naming.client.WildFlyInitialContextFactory");
+			properties.put(Context.PROVIDER_URL, String.format("%s://%s:%d", "remote+http", host, port));
+			properties.put("jboss.naming.client.ejb.context", true);
+			if(username!=null && password!=null)
+			{
+				properties.put(Context.SECURITY_PRINCIPAL, username);
+				properties.put(Context.SECURITY_CREDENTIALS, password);
+			}
+			context =  new InitialContext(properties);
 		}
 	}
 }
