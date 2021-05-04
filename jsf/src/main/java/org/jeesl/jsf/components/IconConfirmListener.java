@@ -1,13 +1,9 @@
 package org.jeesl.jsf.components;
 
-import javax.el.ELContext;
-import javax.el.ExpressionFactory;
-import javax.el.ValueExpression;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.component.html.HtmlForm;
-import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ListenerFor;
@@ -20,14 +16,14 @@ import org.primefaces.component.confirmdialog.ConfirmDialog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.sf.ahtutils.jsf.util.FacesContextUtil;
+
 @FacesComponent(value="org.jeesl.jsf.components.IconConfirmListener")
 @ListenersFor({ @ListenerFor(systemEventClass = PostAddToViewEvent.class, sourceClass = IconConfirmListener.class),
 				@ListenerFor(systemEventClass = PostRestoreStateEvent.class, sourceClass = IconConfirmListener.class)})
 public class IconConfirmListener extends IconListener implements ClientBehaviorHolder
 {
 	final static Logger logger = LoggerFactory.getLogger(IconConfirmListener.class);
-
-
 
 	@Override
 	public void processEvent(ComponentSystemEvent event) throws AbortProcessingException
@@ -81,14 +77,14 @@ public class IconConfirmListener extends IconListener implements ClientBehaviorH
 				confirmDialog.getAttributes().put("responsive", true);
 
 				CommandButton noButton = new CommandButton();
-				noButton.setValue(evalAsString("#{msg.jeeslConfirmDialogNo}"));
+				noButton.setValue(FacesContextUtil.evalAsString("#{msg.jeeslConfirmDialogNo}"));
 				//noButton.setId("dialog_no");
 				noButton.setType("button");
 				noButton.setStyleClass("ui-confirmdialog-no ui-button-flat");
 				confirmDialog.getChildren().add(noButton);
 
 				CommandButton yesButton = new CommandButton();
-				yesButton.setValue(evalAsString("#{msg.jeeslConfirmDialogYes}"));
+				yesButton.setValue(FacesContextUtil.evalAsString("#{msg.jeeslConfirmDialogYes}"));
 				//yesButton.setId("dialog_yes");
 				yesButton.setType("button");
 				yesButton.setStyleClass("ui-confirmdialog-yes");
@@ -99,14 +95,4 @@ public class IconConfirmListener extends IconListener implements ClientBehaviorH
 			}
     	}
     }
-
-    private String evalAsString(String pathExpression)
-	{
-		FacesContext context = FacesContext.getCurrentInstance();
-		ExpressionFactory expressionFactory = context.getApplication().getExpressionFactory();
-		ELContext elContext = context.getELContext();
-		ValueExpression vex = expressionFactory.createValueExpression(elContext, pathExpression, String.class);
-		String result = (String) vex.getValue(elContext);
-		return result;
-	}
 }

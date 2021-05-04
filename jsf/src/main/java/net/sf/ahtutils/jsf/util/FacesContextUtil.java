@@ -1,5 +1,8 @@
 package net.sf.ahtutils.jsf.util;
 
+import javax.el.ELContext;
+import javax.el.ExpressionFactory;
+import javax.el.ValueExpression;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
@@ -25,14 +28,14 @@ public class FacesContextUtil
 			throw new JeeslNotFoundException("HTTP Request Paramater '"+key+"' not available");
 		}
 	}
-	
+
 	public static String url()
 	{
-		FacesContext ctx = FacesContext.getCurrentInstance();	
+		FacesContext ctx = FacesContext.getCurrentInstance();
 		HttpServletRequest request = (HttpServletRequest) ctx.getExternalContext().getRequest();
 		return request.getRequestURI().substring(request.getContextPath().length());
 	}
-	
+
 	public static HttpServletRequest getHttpServletRequest(final FacesContext facesContext)
 	{
 		final Object request = facesContext.getExternalContext().getRequest();
@@ -52,7 +55,7 @@ public class FacesContextUtil
 		}
 		else {return null;}
 	}
-	
+
 	public static BeanManager lookBeanManager()
 	{
 		try
@@ -65,4 +68,14 @@ public class FacesContextUtil
 			throw new IllegalStateException("Lookup bean manager", e);
 		}
 	}
+
+	public static String evalAsString(String pathExpression)
+		{
+			FacesContext context = FacesContext.getCurrentInstance();
+			ExpressionFactory expressionFactory = context.getApplication().getExpressionFactory();
+			ELContext elContext = context.getELContext();
+			ValueExpression vex = expressionFactory.createValueExpression(elContext, pathExpression, String.class);
+			String result = (String) vex.getValue(elContext);
+			return result;
+		}
 }
