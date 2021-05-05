@@ -70,8 +70,8 @@
 					                	draggable="true" droppable="true" dragdropScope="demo">
 						            <p:ajax event="dragdrop" listener="#{cc.attrs.bean.onDragDrop}" update=":#{cc.id}:sSection"/>
 						            <p:ajax event="select" listener="#{cc.attrs.bean.onSectionSelect}" update=":#{cc.id}:sSection"/>
-						            <p:ajax event="expand" listener="#{cc.attrs.bean.onNodeExpand}" update="@form:pPanel" />
-									<p:ajax event="collapse" listener="#{cc.attrs.bean.onNodeCollapse}" update="@form:pPanel" />
+						            <p:ajax event="expand" listener="#{cc.attrs.bean.onNodeExpand}"  />
+									<p:ajax event="collapse" listener="#{cc.attrs.bean.onNodeCollapse}" />
 						            <p:treeNode>
 						                <h:outputText value="#{node.name[cc.attrs.bean.sbhLocale.selection.code].lang}" />
 						            </p:treeNode>
