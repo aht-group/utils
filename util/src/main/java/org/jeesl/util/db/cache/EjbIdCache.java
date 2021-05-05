@@ -22,12 +22,12 @@ public class EjbIdCache <T extends EjbWithId> implements JeeslIdCache<T>
 
 	public EjbIdCache(Class<T> c)
 	{
-		this(null,c);
+		this(c,null);
 	}
-	public EjbIdCache(JeeslFacade fUtils, Class<T> c)
+	public EjbIdCache(Class<T> c, JeeslFacade fUtils)
 	{
-		this.fUtils=fUtils;
 		this.c=c;
+		this.fUtils=fUtils;
 		map = new HashMap<>();
 	}
 	
