@@ -12,6 +12,9 @@
     margin: 0 0 0 5px;
     float: right;
     height: 22px; }
+.ui-datatable .jeesl-cell-table tbody tr, .ui-datatable .jeesl-cell-table tbody td {
+  border: none;
+  padding: 0; }
 
 .ui-panel .ui-panel-titlebar {
   display: flex;
