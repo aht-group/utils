@@ -95,6 +95,26 @@ public class SurveyOptionHandler<QUESTION extends JeeslSurveyQuestion<?,?,?,?,?,
 		else {logger.warn("No Options for "+question.toString());}
 		return list;
 	}
+	public List<OPTION> toCells(QUESTION question)
+	{
+		List<OPTION> list = new ArrayList<>();
+		if(mapOption.containsKey(question))
+		{
+			for(OPTION o : mapOption.get(question).values())
+			{
+				if(o.getCell()) {list.add(o);}
+			}
+		}
+		else {logger.warn("No Options for "+question.toString());}
+		return list;
+	}
+	public Map<String,OPTION> toMapCode(List<OPTION> list)
+	{
+		Map<String,OPTION> map = new HashMap<>();
+		for(OPTION o : list) {map.put(o.getCode(),o);}
+		return map;
+	}
+	
 	
 	public OPTION toCol(List<OPTION> options, String code)
 	{
@@ -102,6 +122,8 @@ public class SurveyOptionHandler<QUESTION extends JeeslSurveyQuestion<?,?,?,?,?,
 		logger.warn("No Options for "+code.toString());
 		return null;
 	}
+	
+	
 	
 	public String toPrefixCode(OPTION o)
     {
