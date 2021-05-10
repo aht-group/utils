@@ -15,7 +15,7 @@
 		<composite:attribute name="orientation" required="false" default="left"/>
 		<composite:attribute name="styleClass" required="false"/>
 		<composite:attribute name="multi" required="false"/>
-		<composite:attribute name="toggle" required="false"/>
+		<composite:attribute name="toggled" required="false" default="false"/>
 		
 		<composite:facet name="label" required="false"/>
 		<composite:facet name="top" required="false"/>
@@ -25,7 +25,7 @@
 		<aht:li>
 			<c:if test="#{cc.attrs.orientation eq 'left'}"><f:attribute name="styleClass" value="aupStatusBarLeft jeesl-menu-bar-item jeesl-left"/></c:if>
 			<c:if test="#{cc.attrs.orientation eq 'right'}"><f:attribute name="styleClass" value="aupStatusBarRight jeesl-menu-bar-item jeesl-right"/></c:if>
-			<p:outputLabel id="sbItemLabel" class="jeesl-menu-bar-button #{cc.attrs.styleClass} #{cc.attrs.toggle ? 'jeesl-active' : ''}">
+			<p:outputLabel id="sbItemLabel" class="jeesl-menu-bar-button #{cc.attrs.styleClass} #{cc.attrs.toggled ? 'jeesl-active' : ''}">
 				<h:outputText rendered="#{not empty cc.attrs.label}" value="#{cc.attrs.label}"/>
 				<c:if test="#{not empty cc.facets.label}">
 					<composite:renderFacet name="label"/>
