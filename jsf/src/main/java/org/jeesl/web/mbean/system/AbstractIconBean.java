@@ -199,6 +199,8 @@ public class AbstractIconBean implements Serializable
 		mapStatic.put("jeeslUnsaved", "ui/jeesl/generic/unsaved.png");
 
 		svg.put("jeeslHome", "svg/jeesl/icon/ui/system/home.svg");
+		
+		svg.put("jeeslSbLogging", "svg/jeesl/icon/ui/ui/io/logging/sbLogging.svg");
 
 		svg.put("jeeslEmail","ui/control/email/email.svg");
 		svg.put("jeeslEmailSend","ui/control/email/send.svg");
