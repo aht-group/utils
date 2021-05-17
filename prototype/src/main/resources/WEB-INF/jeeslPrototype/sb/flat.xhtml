@@ -11,19 +11,26 @@
 	xmlns:jp="http://jsf.jeesl.org/prototype"
   	xmlns:jtp="http://jsf.jeesl.org/prototype/tag"
     xmlns:aup="http://ahtutils.sourceforge.net/prototype">
-
+    
 	<c:set var="rendered"  value="#{not empty rendered ? rendered : true}" />
 
-	<ui:repeat var="var" value="#{handler.list}">
-		<aht:li>
-			<f:attribute name="styleClass" value="aupStatusBarRight jeeslSbFlat"/>
-			<j:label styleClass="#{(handler.selection.id eq var.id) ? 'jeeslSbFlatSelected' : 'jeeslSbFlatUnSelected'}">
-				<p:commandLink>
-					<h:outputText value="#{var.name[localeCode].lang}"/>
-					<p:ajax event="click" listener="#{handler.selectSbSingle(var)}" update="#{update}"/>
-				</p:commandLink>
-			</j:label>
-		</aht:li>
-	</ui:repeat>
-	
+	<aht:li>
+	    <c:choose>
+			<c:when test="#{orientation eq 'left'}"><f:attribute name="styleClass" value="jeesl-menu-bar-radio-item jeesl-left"/></c:when>
+			<c:otherwise><f:attribute name="styleClass" value="jeesl-menu-bar-radio-item jeesl-right"/></c:otherwise>
+		</c:choose>
+		
+		<ul class="jeesl-menu-bar-radio-item-list">
+			<ui:repeat var="var" value="#{handler.list}">
+				<aht:li styleClass="aupStatusBarRight jeeslSbFlat jeesl-menu-bar-item jeesl-left">
+					<j:label styleClass="jeesl-menu-bar-button #{(handler.selection.id eq var.id) ? 'jeeslSbFlatSelected' : 'jeeslSbFlatUnSelected'} #{(handler.selection.id eq var.id) ? 'jeesl-active' : ''}">
+						<p:commandLink>
+							<h:outputText value="#{var.name[localeCode].lang}" class="jeesl-menu-bar-button-label"/>
+							<p:ajax event="click" listener="#{handler.selectSbSingle(var)}" update="#{update}"/>
+						</p:commandLink>
+					</j:label>
+				</aht:li>
+			</ui:repeat>
+		</ul>
+	</aht:li>
 </ui:composition>

@@ -12,6 +12,7 @@
 @mixin jeesl-dropdown($foreground, $background, $hover, $separator, $zindex: 1) {
 	.jeesl-dropdown-list {
 		background: $background;
+		font-size: 12px;
 		opacity: 0;
 	    overflow: visible;
 		padding: 0;
@@ -57,6 +58,8 @@
 		}
 		
 		.jeesl-dropdown-item {
+			font-weight: bold;
+			letter-spacing: -1px;
 			opacity: 1;
 			padding: 0;
 		    pointer-events: all;
@@ -81,8 +84,9 @@
 				box-sizing: border-box;
 				color: $foreground;
     			display: block;
+				font-size: 1.2em;
 				height: 30px;
-				line-height: 24px;
+				line-height: 14px;
 				margin: 0;
 				padding: 8px 15px 8px 20px;
 			    position: relative;
@@ -91,7 +95,6 @@
 				@media (max-width: 768px) {
 					border-bottom: 2px solid $separator;
 					display: flex;
-					font-size: 1.2em;
 					font-weight: bold;
 					height: 50px;
 					line-height: 50px;
@@ -190,7 +193,9 @@
 		}
 
 		.jeesl-menu-bar-item {
+			background: transparent;
 		    box-sizing: border-box;
+			font-size: 0;
 			height: 100%;
 		    margin: 0;
 		    padding: 0;
@@ -201,23 +206,8 @@
 				position: initial;
 			}
 
-			.jeesl-menu-bar-button {
-				box-sizing: border-box;
-			    color: $white-100;
-				cursor: pointer;
-			    display: block;
-			    height: 100%;
-				transition: background .2s linear;
-			    position: relative;
-			    white-space: nowrap;
-
-				@media (max-width: 768px) {
-					transition-duration: .4s;
-				}
-
-				&.jeesl-active {
-					background: linear-gradient(to bottom, $dark-colour, hsla(154,100%,30%,1));
-					
+			&.jeesl-active {
+				.jeesl-menu-bar-button {
 					&.jeesl-menu-bar-dropdown {
 						background: transparent;
 						
@@ -225,6 +215,25 @@
 							background: $dark-colour;
 						}
 					}
+					
+					.ui-commandlink {
+						text-decoration: none;
+					}
+				}
+			}
+
+			.jeesl-menu-bar-button {
+				box-sizing: border-box;
+			    color: $white-100;
+				cursor: pointer;
+			    display: inline-block;
+			    height: 100%;
+				transition: background .2s linear;
+			    position: relative;
+			    white-space: nowrap;
+
+				@media (max-width: 768px) {
+					transition-duration: .4s;
 				}
 
 				.jeesl-menu-bar-button-icon {
@@ -357,7 +366,10 @@ pre {
 			
 			.jeesl-dropdown-item-label {
 				float: left;
+				font-size: 1em;
 				height: 38px;
+				letter-spacing: normal;
+				line-height: 24px;
 				text-decoration: none;
 				text-transform: uppercase;
 				
@@ -459,13 +471,15 @@ pre {
 				
 				@media (max-width: 768px) {
 					padding: 11px 15px 10px 15px;
-				
-					&.jeesl-active {
-						background: $main-background-gradient 12500% 0 / 99% 100% no-repeat;
-					}
 					
 					a.jeesl-menu-bar-button-label {
 						display: none;
+					}
+				}
+				
+				&.jeesl-active {
+					@media (max-width: 768px) {
+						background: $main-background-gradient 12500% 0 / 99% 100% no-repeat;
 					}
 				}
 				
@@ -540,28 +554,29 @@ pre {
 	background: $status-background-gradient;
     height: 25px;
     margin: -10px 10px 10px;
+
+	// Overriding more specific rule necessary.
+	> .jeesl-menu-bar-list {
+		> .jeesl-menu-bar-item {
+			&.jeesl-left:not(:first-child):before, &.jeesl-right:not(:last-child):before {
+				content: '';
+				position: initial;
+				left: 0;
+				top: 0;
+			}
+		}
+	}
 	
 	.jeesl-menu-bar-list {
 		.jeesl-menu-bar-item {
-		    position: relative;
-
-			@media (max-width: 768px) {
-				position: initial;
-			}
-			
-			&:first-child, &.jeesl-right:last-child {
-				.jeesl-menu-bar-button:before {
-					border: 0;
-				}
-			}
-
-			&:hover {
-				// Overriding of old hover effect necessary.
-				background: transparent;
-				
+		    &:hover {
 				.jeesl-menu-bar-button {
 					background: $dark-colour;
 					
+					&.jeesl-active {
+						background: $bright-colour;
+					}
+						
 					&.jeesl-disabled {
 						background: transparent;
 					}
@@ -573,29 +588,61 @@ pre {
 				}
 			}
 			
-			&:before, &:after {
-				display: none;
+			&:before {
+				border-left: 1px solid $bright-colour;
+			    content: '';
+			    display: inline-block;
+			    height: calc(100% - 14px);
+				margin: 7px 0;
+				position: initial;
+			    vertical-align: top;
+			}
+
+			&.jeesl-left:first-child, &.jeesl-right:last-child {
+				&:before {
+					display: none;
+				}
 			}
 
 			.jeesl-menu-bar-button {
+				background: $medium-colour;
 			    padding: 7px 0 6px;
-
-				&:before {
-					border-left: 1px solid $bright-colour;
-				    content: '';
-				    display: inline-block;
-				    height: 100%;
-				    vertical-align: middle;
-				}
 				
 				&.jeesl-disabled {
-					pointer-events: none;
+					cursor: default;
 					
 					.ui-commandlink {
+						cursor: default;
 						filter: grayscale(1);
 					}
 				}
-					
+			
+				&.jeesl-active {
+					background: $brighter-colour;
+				}
+				
+				&.jeesl-menu-bar-dropdown {
+					&.jeesl-active {
+				    	background: $dark-colour;
+					}
+				}
+			
+				&:before {
+					background: linear-gradient(to bottom, $dark-colour, transparent);
+				    content: '';
+				    display: block;
+				    height: 100%;
+				    position: absolute;
+				    top: 0;
+				    transition: opacity .4s linear;
+				    width: 100%;
+				}
+				
+				.ui-commandlink {
+					position: relative;
+					text-decoration: none;
+				}
+				
 				.jeesl-menu-bar-button-icon {
 					padding-left: 6px;
 
@@ -605,8 +652,13 @@ pre {
 				}
 					
 				.jeesl-menu-bar-button-label {
+					align-items: center;
+					display: flex;
+					font-weight: 400;
+					height: 100%;
 				    letter-spacing: -.5px;
 					padding-right: 6px;
+					position: relative;
 
 					&:first-child {
 						padding-left: 6px;
@@ -669,6 +721,30 @@ pre {
 			}
 			
 			@include jeesl-dropdown($white-100, $medium-colour, $dark-colour, $dark-colour);
+		}
+		
+		.jeesl-menu-bar-radio-item, .jeesl-menu-bar-radio-item:hover {
+			background: transparent;
+			height: 100%;
+			padding: 0;
+			
+			.jeesl-menu-bar-radio-item-list, .jeesl-menu-bar-radio-item-list:hover {
+			    display: flex;
+			    height: 100%;
+			    opacity: 1;
+			    position: inherit;
+				visibility: visible;
+				
+				.jeesl-menu-bar-item {
+					&:before {
+						border-color: $darker-colour;
+					}
+					
+					&:last-child:after {
+						display: none;
+					}
+				}
+			}
 		}
 	}
 }

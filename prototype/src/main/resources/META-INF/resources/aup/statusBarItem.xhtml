@@ -22,9 +22,9 @@
 	
 	<composite:implementation>
 		<aht:li>
-			<c:if test="#{cc.attrs.orientation eq 'left'}"><f:attribute name="styleClass" value="aupStatusBarLeft jeesl-menu-bar-item jeesl-left #{cc.attrs.styleClass}"/></c:if>
-			<c:if test="#{cc.attrs.orientation eq 'right'}"><f:attribute name="styleClass" value="aupStatusBarRight jeesl-menu-bar-item jeesl-right #{cc.attrs.styleClass}"/></c:if>
-			<label for="#{cc.id}" class="jeesl-menu-bar-button">
+			<c:if test="#{cc.attrs.orientation eq 'left'}"><f:attribute name="styleClass" value="aupStatusBarLeft jeesl-menu-bar-item jeesl-left"/></c:if>
+			<c:if test="#{cc.attrs.orientation eq 'right'}"><f:attribute name="styleClass" value="aupStatusBarRight jeesl-menu-bar-item jeesl-right"/></c:if>
+			<label for="#{cc.id}" class="jeesl-menu-bar-button #{cc.attrs.styleClass}">
 				<h:outputText rendered="#{not empty cc.attrs.label}" value="#{cc.attrs.label}"/>
 				<c:if test="#{not empty cc.facets.label}">
                     <composite:renderFacet name="label"/>

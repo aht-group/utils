@@ -17,6 +17,9 @@
 	<composite:implementation>
 
 		<aup:statusBarItem orientation="left" childs="#{cc.attrs.handler.roles}">
+			<c:if test="#{cc.attrs.handler.noRoles}">
+				<f:attribute name="styleClass" value="jeesl-disabled"/>
+			</c:if>
 			<f:facet name="label">
 				<h:graphicImage id="sbGiSecurity"
 								library="jeeslPrototypeGfx"
