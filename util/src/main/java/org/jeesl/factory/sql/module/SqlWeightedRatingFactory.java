@@ -8,7 +8,6 @@ import org.apache.commons.lang.StringUtils;
 import org.jeesl.interfaces.model.module.rating.JeeslRating;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +18,7 @@ public class SqlWeightedRatingFactory
 
 
 	public static <L extends JeeslLang, D extends JeeslDescription,
-					CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+					CATEGORY extends EjbWithId,
 					DOMAIN extends EjbWithId,
 					RATING extends JeeslRating<L,D,CATEGORY,DOMAIN>>
 					String build(String table, String category, String domain, Collection<RATING> ratings)
@@ -29,16 +28,16 @@ public class SqlWeightedRatingFactory
 		sb.append("SELECT ").append(domain).append("_id").append(System.lineSeparator());
 		sb.append("       ,SUM(rating*weight) as rate").append(System.lineSeparator());
 		sb.append("FROM ").append(table).append(System.lineSeparator());
-		sb.append("INNER JOIN weights ON ").append(category.toString()).append("_id=weights.id").append(System.lineSeparator()); 
+		sb.append("INNER JOIN weights ON ").append(category.toString()).append("_id=weights.id").append(System.lineSeparator());
 		sb.append("GROUP BY ").append(domain).append("_id").append(System.lineSeparator());
 		sb.append("HAVING SUM(rating*weight)>0").append(System.lineSeparator());
 		sb.append("ORDER BY SUM(rating*weight) DESC");
 		sb.append(";");
 		return sb.toString();
 	}
-	
+
 	private static <L extends JeeslLang, D extends JeeslDescription,
-				CATEGORY extends JeeslStatus<CATEGORY,L,D>, DOMAIN extends EjbWithId,
+				CATEGORY extends EjbWithId, DOMAIN extends EjbWithId,
 				RATING extends JeeslRating<L,D,CATEGORY,DOMAIN>>
 				String weightValues(Collection<RATING> ratings)
 	{
@@ -47,7 +46,7 @@ public class SqlWeightedRatingFactory
 		{
 			pairs.add("("+rating.getCategory().getId()+","+rating.getRating()+")");
 		}
-		
+
 		StringBuilder sb = new StringBuilder();
 		sb.append("VALUES ").append(StringUtils.join(pairs,","));
 		return sb.toString();
