@@ -65,7 +65,7 @@ public class AbstractAdminSecurityBean <L extends JeeslLang, D extends JeeslDesc
 	protected JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity;
 	protected JeeslSecurityCategory.Type categoryType;
 	
-	protected JeeslSecurityBean<L,D,C,R,V,U,A,AT,CTX,M,USER> bSecurity;
+	protected JeeslSecurityBean<L,D,C,R,V,U,A,AT,AR,CTX,M,USER> bSecurity;
 	
 	protected final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,?,?,USER> fbSecurity;
 	
@@ -117,7 +117,9 @@ public class AbstractAdminSecurityBean <L extends JeeslLang, D extends JeeslDesc
 		comparatorAction = (new SecurityActionComparator<L,D,C,R,V,U,A,AT,USER>()).factory(SecurityActionComparator.Type.position);
 	}
 	
-	public void postConstructSecurity(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity, JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslSecurityBean<L,D,C,R,V,U,A,AT,CTX,M,USER> bSecurity)
+	public void postConstructSecurity(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity,
+									JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
+									JeeslSecurityBean<L,D,C,R,V,U,A,AT,AR,CTX,M,USER> bSecurity)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fSecurity=fSecurity;

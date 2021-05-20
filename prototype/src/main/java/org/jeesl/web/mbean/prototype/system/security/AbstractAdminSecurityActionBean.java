@@ -60,7 +60,9 @@ public class AbstractAdminSecurityActionBean <L extends JeeslLang, D extends Jee
 		super(fbSecurity);
 	}
 	
-	public void initSuper(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity, JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslSecurityBean<L,D,C,R,V,U,A,AT,CTX,M,USER> bSecurity)
+	public void initSuper(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity, JeeslTranslationBean<L,D,LOC> bTranslation,
+											JeeslFacesMessageBean bMessage,
+											JeeslSecurityBean<L,D,C,R,V,U,A,AT,AR,CTX,M,USER> bSecurity)
 	{
 		categoryType = JeeslSecurityCategory.Type.action;
 		super.postConstructSecurity(fSecurity,bTranslation,bMessage,bSecurity);

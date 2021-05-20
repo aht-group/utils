@@ -68,7 +68,7 @@ public class AbstractAdminSecurityContextBean <L extends JeeslLang, D extends Je
 	public void postConstructSecurityContext(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity,
 											JeeslTranslationBean<L,D,LOC> bTranslation,
 											JeeslFacesMessageBean bMessage,
-											JeeslSecurityBean<L,D,C,R,V,U,A,AT,CTX,M,USER> bSecurity)
+											JeeslSecurityBean<L,D,C,R,V,U,A,AT,AR,CTX,M,USER> bSecurity)
 	{
 		categoryType = JeeslSecurityCategory.Type.role;
 		super.postConstructSecurity(fSecurity,bTranslation,bMessage,bSecurity);

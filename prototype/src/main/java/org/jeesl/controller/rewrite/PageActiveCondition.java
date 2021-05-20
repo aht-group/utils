@@ -39,9 +39,9 @@ public class PageActiveCondition <L extends JeeslLang, D extends JeeslDescriptio
 	
 	private boolean debugOnInfo;
 	
-	private JeeslSecurityBean<L,D,C,R,V,U,A,AT,CTX,M,USER> bSecurity;
+	private JeeslSecurityBean<L,D,C,R,V,U,A,AT,?,CTX,M,USER> bSecurity;
 	
-	public PageActiveCondition(boolean debugOnInfo, JeeslSecurityBean<L,D,C,R,V,U,A,AT,CTX,M,USER> bSecurity)
+	public PageActiveCondition(boolean debugOnInfo, JeeslSecurityBean<L,D,C,R,V,U,A,AT,?,CTX,M,USER> bSecurity)
 	{
 		this.debugOnInfo=debugOnInfo;
 		this.bSecurity=bSecurity;

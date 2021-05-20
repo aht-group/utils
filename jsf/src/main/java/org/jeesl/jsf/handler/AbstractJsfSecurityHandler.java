@@ -46,7 +46,7 @@ public abstract class AbstractJsfSecurityHandler <L extends JeeslLang, D extends
 
 	private SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,?,AR,?,?,?,?,USER> fbSecurity;
 	protected JeeslSecurityFacade<L,D,C,R,V,U,A,AT,?,?,USER> fSecurity;
-	protected JeeslSecurityBean<L,D,C,R,V,U,A,AT,?,?,USER> bSecurity;
+	protected JeeslSecurityBean<L,D,C,R,V,U,A,AT,AR,?,?,USER> bSecurity;
 	
 	protected I identity;
 	
@@ -62,7 +62,7 @@ public abstract class AbstractJsfSecurityHandler <L extends JeeslLang, D extends
 	
 	protected final Map<R,Boolean> mapHasRole; @Override public Map<R,Boolean> getMapHasRole() {return mapHasRole;}
 	protected final Map<String,Boolean> mapAllow; public Map<String,Boolean> getMapAllow(){return mapAllow;}
-	protected final Map<AR,Boolean> mapAreaToggle; public Map<AR, Boolean> getMapAreaToggle() {return mapAreaToggle;}
+	protected final Map<String,Boolean> mapArea; public Map<String,Boolean> getMapArea() {return mapArea;}
 	
 	protected boolean noActions; public boolean isNoActions() {return noActions;}
 	protected boolean noRoles; public boolean isNoRoles() {return noRoles;}
@@ -74,6 +74,7 @@ public abstract class AbstractJsfSecurityHandler <L extends JeeslLang, D extends
 									JeeslSecurityFacade<L,D,C,R,V,U,A,AT,?,?,USER> fSecurity,
 									String pageCode)
 	{
+		logger.trace(this.getClass().getSimpleName()+" with "+JeeslSecurityFacade.class.getSimpleName());
 		this.fbSecurity=fbSecurity;
 		this.identity=identity;
 		this.fSecurity=fSecurity;
@@ -84,7 +85,7 @@ public abstract class AbstractJsfSecurityHandler <L extends JeeslLang, D extends
 		noRoles=true;
 		
 		mapAllow = new HashMap<>();
-		mapAreaToggle = new HashMap<>();
+		mapArea = new HashMap<>();
 		mapHasRole = new HashMap<>();
 		actions = new ArrayList<A>();
 		areas = new ArrayList<AR>();
@@ -106,7 +107,7 @@ public abstract class AbstractJsfSecurityHandler <L extends JeeslLang, D extends
 			areas.addAll(fSecurity.allForParent(fbSecurity.getClassArea(),view));
 			for(AR a : areas)
 			{
-				mapAreaToggle.put(a,BooleanComparator.active(a.getVisible()));
+				mapArea.put(a.getCode(),BooleanComparator.active(a.getVisible()));
 			}
 		}
 		catch (JeeslNotFoundException e) {e.printStackTrace();}
@@ -114,10 +115,11 @@ public abstract class AbstractJsfSecurityHandler <L extends JeeslLang, D extends
 	
 	public AbstractJsfSecurityHandler(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,?,AR,?,?,?,?,USER> fbSecurity,
 										JeeslSecurityFacade<L,D,C,R,V,U,A,AT,?,?,USER> fSecurity,
-										JeeslSecurityBean<L,D,C,R,V,U,A,AT,?,?,USER> bSecurity,
+										JeeslSecurityBean<L,D,C,R,V,U,A,AT,AR,?,?,USER> bSecurity,
 										I identity,
 										String viewCode)
 	{
+		logger.trace(this.getClass().getSimpleName()+" with "+JeeslSecurityBean.class.getSimpleName());
 		this.fbSecurity=fbSecurity;
 		this.identity=identity;
 		this.fSecurity=fSecurity;
@@ -131,10 +133,9 @@ public abstract class AbstractJsfSecurityHandler <L extends JeeslLang, D extends
 		noRoles=true;
 		
 		mapAllow = new HashMap<String,Boolean>();
-		mapAreaToggle = new HashMap<>();
+		mapArea = new HashMap<>();
 		mapHasRole = new HashMap<R,Boolean>();
 		actions = new ArrayList<A>();
-		areas = new ArrayList<AR>();
 		
 		SecurityActionComparator<L,D,C,R,V,U,A,AT,USER> cfAction = new SecurityActionComparator<L,D,C,R,V,U,A,AT,USER>();
 		cfAction.factory(SecurityActionComparator.Type.position);
@@ -144,6 +145,13 @@ public abstract class AbstractJsfSecurityHandler <L extends JeeslLang, D extends
 		
 		roles = bSecurity.fRoles(view);
 		
+		areas = bSecurity.fAreas(view);
+		for(AR a : areas)
+		{
+			mapArea.put(a.getCode(),BooleanComparator.active(a.getVisible()));
+		}
+		logger.warn(JeeslSecurityArea.class.getSimpleName()+" "+areas.size());
+		
 		noRoles = roles.size()==0;
 		update();
 	}
@@ -151,7 +159,7 @@ public abstract class AbstractJsfSecurityHandler <L extends JeeslLang, D extends
 	protected void update()
 	{
 		clear();	
-		if(debugOnInfo) {logger.info("Checking Assignment of "+view.getActions()+" "+fbSecurity.getClassAction().getSimpleName()+" for user");}
+		if(debugOnInfo) {logger.info("Checking assignment of "+view.getActions().size()+" "+fbSecurity.getClassAction().getSimpleName()+" for user");}
 		for(A action : view.getActions())
 		{
 			boolean allow = false;
@@ -167,7 +175,7 @@ public abstract class AbstractJsfSecurityHandler <L extends JeeslLang, D extends
 		areas.clear();
 		
 		mapAllow.clear();
-		mapAreaToggle.clear();
+		mapArea.clear();
 		mapHasRole.clear();
 		
 		if(debugOnInfo) {logger.info("Checking Assignment of "+roles.size()+" "+fbSecurity.getClassRole().getSimpleName()+" for user");}
@@ -265,13 +273,15 @@ public abstract class AbstractJsfSecurityHandler <L extends JeeslLang, D extends
 			{
 				logger.info("\t"+key+": "+mapAllow.get(key));
 			}
+			logger.info("\t"+JeeslSecurityAction.class.getSimpleName()+": "+actions.size());
 			for(A a : actions)
 			{
-				logger.info("\t"+a.toString());
+				logger.info("\t\t"+a.toString());
 			}
+			logger.info("\t"+JeeslSecurityArea.class.getSimpleName()+": "+areas.size());
 			for(AR area : areas)
 			{
-				logger.info("\tAR\t"+area.toString()+" "+BooleanComparator.active(mapAreaToggle.get(area)));
+				logger.info("\t\t"+area.toString()+" "+BooleanComparator.active(mapArea.get(area.getCode())));
 			}
 		}
 	}
@@ -298,13 +308,27 @@ public abstract class AbstractJsfSecurityHandler <L extends JeeslLang, D extends
 		return null;
 	}
 	
+	public <E extends Enum<E>> void toggleArea(E code, boolean value)
+	{
+		for(AR a : areas)
+		{
+			if(a.getCode().equals(code.toString())) {mapArea.put(a.getCode(),value);}
+		}
+	}
+	public <E extends Enum<E>> void toggleArea(E code)
+	{
+		for(AR a : areas)
+		{
+			if(a.getCode().equals(code.toString())) {toggleArea(a);}
+		}
+	}
 	public void toggleArea(AR area)
 	{
-		mapAreaToggle.put(area, !BooleanComparator.active(mapAreaToggle.get(area)));
+		mapArea.put(area.getCode(), !BooleanComparator.active(mapArea.get(area.getCode())));
 	}
 	
 	public boolean toggleActive(AR area)
 	{
-		return BooleanComparator.active(mapAreaToggle.get(area));
+		return BooleanComparator.active(mapArea.get(area.getCode()));
 	}
 }

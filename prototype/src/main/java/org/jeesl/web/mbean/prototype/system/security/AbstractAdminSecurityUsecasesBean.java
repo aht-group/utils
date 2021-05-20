@@ -66,7 +66,9 @@ public class AbstractAdminSecurityUsecasesBean <L extends JeeslLang, D extends J
 		categoryType = JeeslSecurityCategory.Type.usecase;
 	}
 	
-	public void postConstructUsecase(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity, JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslSecurityBean<L,D,C,R,V,U,A,AT,CTX,M,USER> bSecurity)
+	public void postConstructUsecase(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity,
+									JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
+									JeeslSecurityBean<L,D,C,R,V,U,A,AT,AR,CTX,M,USER> bSecurity)
 	{
 		super.postConstructSecurity(fSecurity,bTranslation,bMessage,bSecurity);		
 		opViews = fSecurity.all(fbSecurity.getClassView());

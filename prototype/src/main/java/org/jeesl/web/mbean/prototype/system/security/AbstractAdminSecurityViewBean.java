@@ -65,7 +65,7 @@ public abstract class AbstractAdminSecurityViewBean <L extends JeeslLang, D exte
 	private A action; public A getAction(){return action;} public void setAction(A action) {this.action = action;}
 	private AR area; public AR getArea(){return area;} public void setArea(AR area) {this.area = area;}
 	
-	private JeeslSecurityBean<L,D,C,R,V,U,A,AT,CTX,M,USER> bSecurity;
+	private JeeslSecurityBean<L,D,C,R,V,U,A,AT,AR,CTX,M,USER> bSecurity;
 	private final TriStateBinder tsb; public TriStateBinder getTsb() {return tsb;}
 	
 	public AbstractAdminSecurityViewBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,?,?,USER> fbSecurity)
@@ -75,7 +75,9 @@ public abstract class AbstractAdminSecurityViewBean <L extends JeeslLang, D exte
 		tsb = new TriStateBinder();
 	}
 	
-	public void initSuper(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity, JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslSecurityBean<L,D,C,R,V,U,A,AT,CTX,M,USER> bSecurity)
+	public void initSuper(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity,
+							JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
+							JeeslSecurityBean<L,D,C,R,V,U,A,AT,AR,CTX,M,USER> bSecurity)
 	{
 		super.postConstructSecurity(fSecurity,bTranslation,bMessage,bSecurity);
 		this.bSecurity=bSecurity;

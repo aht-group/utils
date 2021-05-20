@@ -1,6 +1,7 @@
 package org.jeesl.web.mbean.prototype.system.security;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -28,8 +29,6 @@ import org.jeesl.util.comparator.ejb.system.security.SecurityRoleComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.itextpdf.text.pdf.StringUtils;
-
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 import net.sf.exlp.util.io.StringUtil;
 
@@ -46,7 +45,7 @@ public class AbstractAppSecurityBean <L extends JeeslLang,D extends JeeslDescrip
 											OT extends JeeslSecurityOnlineTutorial<L,D,V>,
 											OH extends JeeslSecurityOnlineHelp<V,?,?>,
 											USER extends JeeslUser<R>>
-					implements Serializable,JeeslSecurityBean<L,D,C,R,V,U,A,AT,CTX,M,USER>
+					implements Serializable,JeeslSecurityBean<L,D,C,R,V,U,A,AT,AR,CTX,M,USER>
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAppSecurityBean.class);
@@ -61,6 +60,7 @@ public class AbstractAppSecurityBean <L extends JeeslLang,D extends JeeslDescrip
 	private final Map<String,V> mapUrlMapping;
 	private final Map<String,V> mapCodeView;
 	private final Map<V,List<R>> mapRoles;
+	private final Map<V,List<AR>> mapAreas;
 	private final Map<R,List<V>> mapViewsByRole;
 	private final Map<R,List<U>> mapUsecasesByRole;
 	private final Map<U,List<V>> mapViewsByUsecase;
@@ -80,6 +80,7 @@ public class AbstractAppSecurityBean <L extends JeeslLang,D extends JeeslDescrip
 		mapUrlMapping = new HashMap<String,V>();
 		mapCodeView = new HashMap<String,V>();
 		mapRoles = new HashMap<V,List<R>>();
+		mapAreas = new HashMap<>();
 		mapViewsByRole = new HashMap<R,List<V>>();
 		mapUsecasesByRole = new HashMap<R,List<U>>();
 		mapViewsByUsecase = new HashMap<U,List<V>>();
@@ -104,22 +105,17 @@ public class AbstractAppSecurityBean <L extends JeeslLang,D extends JeeslDescrip
 		views = fSecurity.all(fbSecurity.getClassView());
 		for(V v : views){update(v);}
 		if(debugOnInfo) {logger.info(AbstractLogMessage.reloaded(fbSecurity.getClassView(), views));}
-		
-//		roles = fSecurity.all(fbSecurity.getClassRole());
-//		for(R r : roles){update(r);}
-//		
-//		List<U> usecases = fSecurity.all(fbSecurity.getClassUsecase());
-//		for(U u : usecases){update(u);}
 	}
 	
 	public void update(V view)
 	{
-		if(debugOnInfo) {logger.info("Updating "+JeeslSecurityView.class.getSimpleName()+" "+view.getCode());}
 		view = fSecurity.load(fbSecurity.getClassView(), view);
 		mapUrlPattern.put(view.getViewPattern(),view);
 		mapUrlMapping.put(view.getUrlMapping(),view);
 		mapCodeView.put(view.getCode(),view);
 		mapActionsByView.put(view,view.getActions());
+		mapAreas.put(view,fSecurity.allForParent(fbSecurity.getClassArea(),view));
+		if(debugOnInfo) {logger.info("Updated "+JeeslSecurityView.class.getSimpleName()+" "+view.getCode()+" "+mapAreas.get(view).size());}
 	}
 	
 	public void update(R role)
@@ -170,6 +166,20 @@ public class AbstractAppSecurityBean <L extends JeeslLang,D extends JeeslDescrip
 			mapRoles.put(view,list);
 		}
 		return mapRoles.get(view);
+	}
+	@Override public List<AR> fAreas(V view)
+	{
+		List<AR> result = new ArrayList<>();
+		StringBuilder sb = null;
+		if(debugOnInfo) {sb = new StringBuilder(); sb.append("fAreas("+view.getCode()+") "+mapAreas.containsKey(view));}
+		if(!mapAreas.containsKey(view))
+		{
+			if(debugOnInfo) {sb.append(" Updating "+JeeslSecurityView.class.getSimpleName());}
+			update(view);
+		}
+		result.addAll(mapAreas.get(view));
+		if(debugOnInfo) {sb.append(" ").append(result.size());logger.info(sb.toString());}
+		return result;
 	}
 	
 	@Override public List<V> fViews(R role)
