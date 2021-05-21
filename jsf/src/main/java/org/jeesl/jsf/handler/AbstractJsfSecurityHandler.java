@@ -146,10 +146,7 @@ public abstract class AbstractJsfSecurityHandler <L extends JeeslLang, D extends
 		roles = bSecurity.fRoles(view);
 		
 		areas = bSecurity.fAreas(view);
-		for(AR a : areas)
-		{
-			mapArea.put(a.getCode(),BooleanComparator.active(a.getVisible()));
-		}
+		
 		logger.warn(JeeslSecurityArea.class.getSimpleName()+" "+areas.size());
 		
 		noRoles = roles.size()==0;
@@ -172,11 +169,16 @@ public abstract class AbstractJsfSecurityHandler <L extends JeeslLang, D extends
 	protected void clear()
 	{
 		actions.clear();
-		areas.clear();
+//		areas.clear();
 		
 		mapAllow.clear();
 		mapArea.clear();
 		mapHasRole.clear();
+		
+		for(AR a : areas)
+		{
+			mapArea.put(a.getCode(),BooleanComparator.active(a.getVisible()));
+		}
 		
 		if(debugOnInfo) {logger.info("Checking Assignment of "+roles.size()+" "+fbSecurity.getClassRole().getSimpleName()+" for user");}
 		for(R r : roles)
