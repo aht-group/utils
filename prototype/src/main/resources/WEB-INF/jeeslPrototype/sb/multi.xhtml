@@ -37,13 +37,13 @@
                      <h:graphicImage library="jeeslGfx"
 									 name="#{appIconBean.svg['jeeslCheckboxChecked']}"
 									 class="jeesl-dropdown-item-label-icon jeesl-dropdown-item-label-checkbox"/>
-                     <p:ajax event="click" listener="#{handler.toggleAll()}" update="@(.jeesl-menu-bar-button-summary, .jeesl-menu-bar-button-selected-items, .jeesl-dropdown-multi-summary, .jeesl-dropdown-item-label)"/>
+                     <p:ajax event="click" listener="#{handler.toggleAll()}" update="#{update} @(.jeesl-menu-bar-button-summary, .jeesl-menu-bar-button-selected-items, .jeesl-dropdown-multi-summary, .jeesl-dropdown-item-label)"/>
                  </h:commandLink>
                  <h:commandLink class="jeesl-dropdown-item-label">
                      <h:graphicImage library="jeeslGfx"
 									 name="#{appIconBean.svg['jeeslCheckbox']}"
 									 class="jeesl-dropdown-item-label-icon jeesl-dropdown-item-label-checkbox"/>
-                     <p:ajax event="click" listener="#{handler.toggleNone()}" update="@(.jeesl-menu-bar-button-summary, .jeesl-menu-bar-button-selected-items, .jeesl-dropdown-multi-summary, .jeesl-dropdown-item-label)"/>
+                     <p:ajax event="click" listener="#{handler.toggleNone()}" update="#{update} @(.jeesl-menu-bar-button-summary, .jeesl-menu-bar-button-selected-items, .jeesl-dropdown-multi-summary, .jeesl-dropdown-item-label)"/>
                  </h:commandLink>
 			</ui:fragment>
 		</f:facet>
@@ -52,7 +52,7 @@
 			<span class="jeesl-dropdown-item-label-text"><ui:insert /></span>
 			<jtp:symbolizer value="#{var}" height="12" rendered="#{listIcons}" styleClass="jeesl-dropdown-item-label-icon"/>
 			<aup:sbCheckmark value="#{handler.map[var]}"/>
-			<p:ajax event="click" listener="#{handler.toggle(var)}" update="@(.jeesl-menu-bar-button-summary, .jeesl-menu-bar-button-selected-items, .jeesl-dropdown-multi-summary, .jeesl-dropdown-item-label)" oncomplete="try{updateSb()}catch{}"/>
+			<p:ajax event="click" listener="#{handler.toggle(var)}" update="#{update} @(.jeesl-menu-bar-button-summary, .jeesl-menu-bar-button-selected-items, .jeesl-dropdown-multi-summary, .jeesl-dropdown-item-label)" oncomplete="try{updateSb()}catch{}"/>
 		</h:commandLink>
 	</jp:sbItem>
 </ui:composition>
