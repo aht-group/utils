@@ -239,6 +239,7 @@
 				.jeesl-menu-bar-button-icon {
 					box-sizing: border-box;
 					height: 100%;
+					position: relative;
 				    vertical-align: middle;
 					
 					&.jeesl-greyscale {
@@ -508,6 +509,10 @@ pre {
 					right: 0;
 				}
 				
+				&:last-child {
+					right: 0;
+				}
+				
 				.jeesl-dropdown-item {
 					&:first-child {
 						display: none;
@@ -601,6 +606,14 @@ pre {
 			&.jeesl-left:first-child, &.jeesl-right:last-child {
 				&:before {
 					display: none;
+				}
+			}
+			
+			&.jeesl-left {
+				.jeesl-dropdown-list {
+					left: 0;
+					right: auto;
+					text-align: left;
 				}
 			}
 

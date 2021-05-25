@@ -15,11 +15,13 @@
 		<composite:attribute name="size" required="false" default="6"/>
 		<composite:attribute name="widgetVar" required="false" default="#{cc.id}Widget"/>
 		<composite:attribute name="onHide" required="false"/>
+		
+		<composite:clientBehavior name="close" targets="#{cc.id}" event="close"/>
 	</composite:interface>
         
  	<composite:implementation>
   
-		<p:dialog id="dJeesl"
+		<p:dialog id="#{cc.id}"
 				  widgetVar="#{cc.attrs.widgetVar}"
 				  modal="true"
 				  styleClass="jeeslPanel #{cc.styleClass(cc.attrs.size)}"

@@ -7,6 +7,8 @@
 @mixin grid-children($width) {
 	@for $i from 1 to 13 {
 		.auGrid_#{$i} {
+			width: $i * $width - 10px;
+		
 			@include grid-children-width($i, $width);
 		}
 	}

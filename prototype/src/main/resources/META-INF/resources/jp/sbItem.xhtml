@@ -19,6 +19,7 @@
 		
 		<composite:facet name="label" required="false"/>
 		<composite:facet name="top" required="false"/>
+		<composite:facet name="bottom" required="false"/>
 	</composite:interface>
 	
 	<composite:implementation>
@@ -39,11 +40,22 @@
 	                </li>
 	            </c:if>
 	            
-				<ui:repeat var="var" value="#{cc.attrs.childs}">
+	            <c:if test="#{!empty cc.attrs.childs}">
+					<ui:repeat var="var" value="#{cc.attrs.childs}">
+						<li class="jeesl-dropdown-item">
+							<composite:insertChildren/>
+						</li>
+					</ui:repeat>
+	            </c:if>
+	            <c:if test="#{empty cc.attrs.childs}">
+	            	<composite:insertChildren/>
+	            </c:if>
+				
+				<c:if test="#{!empty cc.facets.bottom}">
 					<li class="jeesl-dropdown-item">
-						<composite:insertChildren/>
+						<composite:renderFacet name="bottom"/>
 					</li>
-				</ui:repeat>
+				</c:if>
 			</ul>
 		</aht:li>
 	</composite:implementation>

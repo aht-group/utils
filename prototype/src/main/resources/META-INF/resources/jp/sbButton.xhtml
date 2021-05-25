@@ -8,7 +8,7 @@
 	  xmlns:composite="http://java.sun.com/jsf/composite">
     
 	<composite:interface componentType="org.jeesl.jsf.components.IconListener">
-		<composite:attribute name="listener" required="true" method-signature="java.lang.Void action(javax.faces.event.ActionEvent)"/>
+		<composite:attribute name="listener" required="false" method-signature="java.lang.Void action(javax.faces.event.ActionEvent)"/>
 		<composite:attribute name="disabled" required="false" default="false"/>
 		<composite:attribute name="icon" required="false"/>
 		<composite:attribute name="label" required="false"/>
@@ -23,8 +23,8 @@
 	<composite:implementation>
 	    <jp:sbItem id="sbItem" orientation="#{cc.attrs.orientation}" styleClass="#{cc.attrs.styleClass} #{cc.attrs.disabled ? 'jeesl-disabled' : ''}" toggled="#{cc.attrs.toggled}">
 	    	<f:facet name="label">
-				<p:commandLink id="buttonLink" 
-							  actionListener="#{cc.listener}">
+				<p:commandLink id="buttonLink" >
+				<c:if test="#{!empty cc.attrs.listener}"><f:attribute name="listener" value="#{cc.attrs.listener}"/></c:if>
 					<f:attribute name="update" value="sbItem:sbItemLabel #{cc.attrs.update}"/>
 					
 					<c:if test="#{not empty cc.attrs.onclick}"><f:attribute name="onclick" value="#{cc.attrs.onclick}"/></c:if>

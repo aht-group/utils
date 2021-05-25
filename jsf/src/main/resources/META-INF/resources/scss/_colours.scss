@@ -25,11 +25,14 @@ $status-background-gradient: linear-gradient(to bottom, $dark-colour, $medium-co
 
 $panel-header-gradient: linear-gradient(to bottom, $bright-grey, $soft-grey);
 
-@mixin setColours($bright, $medium, $dark) {
+@mixin setColours($brighter, $bright, $medium, $dark, $darker) {
+	$brighter-colour: $brighter;
 	$bright-colour: $bright;
 	$medium-colour: $medium;
 	$dark-colour: $dark;
+	$darker-colour: $darker;
 
 	$main-background-gradient: linear-gradient(to right, $dark-colour, $bright-colour);
+	$breadcrumb-background-gradient: linear-gradient(to right, $white-0, $bright-colour);
 	$status-background-gradient: linear-gradient(to bottom, $dark-colour, $medium-colour);
 }

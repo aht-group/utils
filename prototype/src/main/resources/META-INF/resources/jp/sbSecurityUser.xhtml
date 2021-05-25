@@ -5,6 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:jp="http://jsf.jeesl.org/prototype"
 	xmlns:jtp="http://jsf.jeesl.org/prototype/tag"
 	xmlns:aht="http://ahtutils.sourceforge.net/jsf"
 	xmlns:aup="http://ahtutils.sourceforge.net/prototype"
@@ -16,26 +17,29 @@
 	</composite:interface>
 
 	<composite:implementation>
-		<aup:statusBarItem rendered="#{identity.loggedIn}" orientation="left">
-			<f:facet name="label">
-				<h:graphicImage library="gfx" name="#{iconBean.icon12['ubuHouseHead']}"/>
-				<pe:gravatar rendered="false" id="gravatar" value="#{identity.user.email}" size="16" style="height: 16px;" notFound="identicon"/>
+		<jp:sbItem rendered="#{identity.loggedIn}" orientation="left" styleClass="jeesl-menu-bar-dropdown">
+	    	<f:facet name="label">
+				<h:graphicImage library="jeeslGfx"
+								name="#{appIconBean.svg['jeeslHome']}"
+								class="jeesl-menu-bar-button-icon"/>
+				<pe:gravatar rendered="false" id="gravatar" value="#{identity.user.email}" notFound="identicon"/>
 			</f:facet>
 			<f:facet name="top">
 				<ui:fragment>
-					<aht:li>
-						<h:outputLink id="link1" value="#{request.contextPath}/admin/me">
-							<h:outputText value="#{currentUser.firstName} #{currentUser.lastName}"/>
-						</h:outputLink>
-					</aht:li>
-					<jtp:sbLocaleItem/>
-					<aht:li>
-						<h:commandLink action="#{userBean.logout}">
-							<h:outputText value="Logout"/>
-						</h:commandLink>
-					</aht:li>
+					<h:outputLink id="link1" value="#{request.contextPath}/admin/me" class="jeesl-dropdown-item-label">
+						<h:outputText value="#{identity.user.firstName} #{identity.user.lastName}"/>
+					</h:outputLink>
 				</ui:fragment>
 			</f:facet>
-	    </aup:statusBarItem>
+			<f:facet name="bottom">
+				<ui:fragment>
+					<h:commandLink action="#{userBean.logout}" class="jeesl-dropdown-item-label">
+						<h:outputText value="Logout"/>
+					</h:commandLink>
+				</ui:fragment>
+			</f:facet>
+			
+			<jtp:sbLocaleItem/>
+	    </jp:sbItem>
 	</composite:implementation>
 </html>

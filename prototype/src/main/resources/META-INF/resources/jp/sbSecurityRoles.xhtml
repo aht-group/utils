@@ -33,8 +33,10 @@
 					<p:tooltip rendered="#{cc.attrs.handler.noRoles}" for="sbGiSecurity" value="#{msg.NoRoleSecurities}" />
 				</c:if>
 			</f:facet>
-			<aup:sbCheckmark value="#{cc.attrs.handler.mapHasRole[var]}"/>
-			<h:outputText value="#{var.category.name[localeCode].lang}: #{var.name[localeCode].lang}"/>
+			<span class="jeesl-dropdown-item-label">
+				<aup:sbCheckmark value="#{cc.attrs.handler.mapHasRole[var]}"/>
+				<h:outputText value="#{var.category.name[localeCode].lang}: #{var.name[localeCode].lang}"/>
+			</span>
 		</aup:statusBarItem>
 	</composite:implementation>
 </html>
