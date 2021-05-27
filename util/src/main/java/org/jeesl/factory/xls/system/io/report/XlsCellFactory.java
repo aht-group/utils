@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.commons.jxpath.JXPathContext;
+import org.apache.commons.jxpath.JXPathException;
 import org.apache.commons.jxpath.JXPathInvalidSyntaxException;
 import org.apache.commons.jxpath.JXPathNotFoundException;
 import org.apache.commons.lang.mutable.MutableInt;
@@ -23,8 +24,6 @@ import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportColumnGroup;
 import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportRow;
 import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportSheet;
 import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportWorkbook;
-import org.jeesl.interfaces.model.system.locale.JeeslDescription;
-import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
@@ -176,6 +175,7 @@ public class XlsCellFactory <REPORT extends JeeslIoReport<?,?,?,WORKBOOK>,
 			else {columnNr.add(1);}
 		}
 		catch(JXPathNotFoundException e){columnNr.add(1);}
+		catch(JXPathException e){columnNr.add(1);}
 	}
 	
 	public void label(Row xlsRow, MutableInt columnNr, ROW ioRow)

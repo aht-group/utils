@@ -32,8 +32,9 @@ public class ThMultiFilterHandler <T extends EjbWithId> implements Serializable,
 	private final List<T> list; public List<T> getList() {return list;} public void setList(List<T> list) {this.list.clear();this.list.addAll(list);}
 	private final List<T> selected; public List<T> getSelected() {return selected;}
 	private final List<T> memory;
-	private Map<T,Boolean> map; public Map<T,Boolean> getMap() {return map;}
+	private final Map<T,Boolean> map; public Map<T,Boolean> getMap() {return map;}
 	public boolean toggleMode; public boolean isToggleMode() {return toggleMode;} public void setToggleMode(boolean toggleMode) {this.toggleMode = toggleMode;}
+	
 	public ThMultiFilterHandler(ThMultiFilterBean bean)
 	{
 		this.bean=bean;
@@ -173,8 +174,12 @@ public class ThMultiFilterHandler <T extends EjbWithId> implements Serializable,
 	public boolean hasSelected(){return !selected.isEmpty();}
 	public boolean allSelected(){return selected.size()==list.size();}
 
-	public boolean isSelectedA() {if(list.size()==0) {return false;} else {return map.get(list.get(0));}}
-	public boolean isSelectedB() {if(list.size()<1) {return false;} else {return map.get(list.get(1));}}
+	public boolean isSelectedA() {if(list.size()==0) {return false;} else {return isSelected(0);}}
+	public boolean isSelectedB() {if(list.size()<1) {return false;} else {return isSelected(1);}}
+	public boolean isSelectedC() {if(list.size()<2) {return false;} else {return isSelected(2);}}
+	public boolean isSelectedD() {if(list.size()<3) {return false;} else {return isSelected(3);}}
+	public boolean isSelectedE() {if(list.size()<4) {return false;} else {return isSelected(4);}}
+	private boolean isSelected(int index) {return map.containsKey(list.get(index)) && map.get(list.get(index));}
 
 	public void debug(boolean debug)
 	{

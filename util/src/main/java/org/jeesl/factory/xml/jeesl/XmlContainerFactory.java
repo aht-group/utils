@@ -37,14 +37,14 @@ public class XmlContainerFactory
 	
 	public static Container buildStatusList(List<Status> list)
     {
-	    	Container xml = build();
-	    	xml.getStatus().addAll(list);
-	    	return xml;
+    	Container xml = build();
+    	xml.getStatus().addAll(list);
+    	return xml;
     }
 	
     public static Container build()
     {
-	    	Container xml = new Container();
-	    	return xml;
+    	Container xml = new Container();
+    	return xml;
     }
 }
