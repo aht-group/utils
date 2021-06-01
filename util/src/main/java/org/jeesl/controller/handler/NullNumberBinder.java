@@ -97,6 +97,22 @@ public class NullNumberBinder
 	public Integer iToInteger() {return integerFromString(i);}
 	public Double iToDouble() {return doubleFromString(i);}
 	
+	private String j;
+	public String getJ() {return j;}
+	public void setJ(String j) {this.j = j;}
+	public void integerToJ(Integer value) {j = toString(value);}
+	public void doubleToJ(Double value) {j = toString(value);}
+	public Integer jToInteger() {return integerFromString(j);}
+	public Double jToDouble() {return doubleFromString(j);}
+	
+	private String k;
+	public String getK() {return k;}
+	public void setK(String k) {this.k = k;}
+	public void integerToK(Integer value) {k = toString(value);}
+	public void doubleToK(Double value) {k = toString(value);}
+	public Integer kToInteger() {return integerFromString(k);}
+	public Double kToDouble() {return doubleFromString(k);}
+	
 	private String toString(Integer i)
 	{
 		StringBuffer sb = new StringBuffer();
