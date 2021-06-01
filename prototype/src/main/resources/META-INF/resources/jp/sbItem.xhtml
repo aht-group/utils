@@ -15,6 +15,7 @@
 		<composite:attribute name="orientation" required="false" default="left"/>
 		<composite:attribute name="styleClass" required="false"/>
 		<composite:attribute name="multi" required="false"/>
+		<composite:attribute name="readonly" required="false" default="false"/>
 		<composite:attribute name="toggled" required="false" default="false"/>
 		
 		<composite:facet name="label" required="false"/>
@@ -42,7 +43,7 @@
 	            
 	            <c:if test="#{!empty cc.attrs.childs}">
 					<ui:repeat var="var" value="#{cc.attrs.childs}">
-						<li class="jeesl-dropdown-item">
+						<li class="jeesl-dropdown-item #{cc.attrs.readonly ? 'jeesl-greyscale' : ''}">
 							<composite:insertChildren/>
 						</li>
 					</ui:repeat>

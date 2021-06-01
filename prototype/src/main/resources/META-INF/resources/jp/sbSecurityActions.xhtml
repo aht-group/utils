@@ -5,6 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:jp="http://jsf.jeesl.org/prototype"
 	xmlns:aht="http://ahtutils.sourceforge.net/jsf"
     xmlns:aup="http://ahtutils.sourceforge.net/prototype"
     xmlns:composite="http://java.sun.com/jsf/composite">
@@ -14,25 +15,29 @@
 	</composite:interface>
 
 	<composite:implementation>
-		<aup:statusBarItem orientation="left" childs="#{cc.attrs.handler.actions}">
-			<c:if test="#{cc.attrs.handler.noRoles}">
+		<jp:sbItem orientation="left" childs="#{cc.attrs.handler.actions}" readonly="true" styleClass="jeesl-menu-bar-dropdown">
+			<c:if test="#{cc.attrs.handler.noActions}">
 				<f:attribute name="styleClass" value="jeesl-disabled"/>
 			</c:if>
-			<aup:sbCheckmark value="#{cc.attrs.handler.mapAllow[var.toCode()]}"/>
-			<h:outputText value="#{var.toName()[localeCode].lang}"/>
 			<f:facet name="label">
 				<h:graphicImage id="sbGiSecurity"
 								library="jeeslPrototypeGfx"
 								name="12/sb/shield-green.svg"
 								styleClass="jeesl-menu-bar-button-icon">
-					<c:if test="#{cc.attrs.handler.noRoles}">
+					<c:if test="#{cc.attrs.handler.noActions}">
 						<f:attribute name="styleClass" value="jeesl-menu-bar-button-icon jeesl-greyscale"/>
 					</c:if>
 				</h:graphicImage>
-				<c:if test="#{cc.attrs.handler.noRoles}">
-					<p:tooltip rendered="#{cc.attrs.handler.noRoles}" for="sbGiSecurity" value="#{msg.ttJeeslSecurityNoPageSpecifcActionsDefined}" />
+				<c:if test="#{cc.attrs.handler.noActions}">
+					<p:tooltip rendered="#{cc.attrs.handler.noActions}" for="sbGiSecurity" value="#{msg.ttJeeslSecurityNoPageSpecifcActionsDefined}" />
 				</c:if>
 			</f:facet>
-		</aup:statusBarItem>
+			<span class="jeesl-dropdown-item-label">
+				<aup:sbCheckmark value="#{cc.attrs.handler.mapAllow[var.toCode()]}"/>
+				<span class="jeesl-dropdown-item-label-text">
+					<h:outputText value="#{var.toName()[localeCode].lang}"/>
+				</span>
+			</span>
+		</jp:sbItem>
 	</composite:implementation>
 </html>

@@ -105,7 +105,6 @@ pre code {
         transition: opacity 0s 0s; }
     .jeesl-header .jeesl-dropdown-list .jeesl-dropdown-item {
       font-weight: bold;
-      letter-spacing: -1px;
       opacity: 1;
       padding: 0;
       pointer-events: all;
@@ -126,11 +125,11 @@ pre code {
         box-sizing: border-box;
         color: #333333;
         display: block;
-        font-size: 1.2em;
+        font-size: 1.2em !important;
         height: 30px;
         line-height: 14px;
         margin: 0;
-        padding: 8px 15px 8px 20px;
+        padding: 8px 15px;
         position: relative;
         white-space: nowrap; }
         @media (max-width: 768px) {
@@ -145,7 +144,10 @@ pre code {
             text-align: left;
             width: 100%; } }
         .jeesl-header .jeesl-dropdown-list .jeesl-dropdown-item .jeesl-dropdown-item-label .jeesl-dropdown-item-label-text {
-          flex: 1; }
+          flex: 1;
+          min-width: 0;
+          overflow: hidden;
+          text-overflow: ellipsis; }
         .jeesl-header .jeesl-dropdown-list .jeesl-dropdown-item .jeesl-dropdown-item-label .jeesl-dropdown-item-label-icon {
           height: 100%;
           box-sizing: border-box;
@@ -177,14 +179,14 @@ pre code {
       float: left;
       font-size: 1em;
       height: 38px;
-      letter-spacing: normal;
       line-height: 24px;
       text-decoration: none;
       text-transform: uppercase; }
       @media (max-width: 768px) {
         .jeesl-header .jeesl-dropdown-list .jeesl-dropdown-item .jeesl-dropdown-item-label {
           float: none;
-          height: 50px; } }
+          height: 50px;
+          line-height: 50px; } }
 
 .jeesl-breadcrumb-header {
   box-sizing: border-box;
@@ -303,6 +305,11 @@ pre code {
             padding-right: 36px; }
             .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item:not(:last-child) .jeesl-menu-bar-button:before, .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item:not(:last-child) .jeesl-menu-bar-button:after {
               border-width: 21px 1px 21px 21px; } }
+      .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item:not(:last-child) .jeesl-dropdown-list {
+        right: 16px; }
+        @media (max-width: 768px) {
+          .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item:not(:last-child) .jeesl-dropdown-list {
+            right: 0; } }
       .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item:hover .jeesl-menu-bar-button {
         background: linear-gradient(to right, #00663a, #008a4e) 12500% 0/99% 100% no-repeat; }
       .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item:hover .jeesl-dropdown-list {
@@ -370,7 +377,6 @@ pre code {
             transition: opacity 0s 0s; }
         .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list .jeesl-dropdown-item {
           font-weight: bold;
-          letter-spacing: -1px;
           opacity: 1;
           padding: 0;
           pointer-events: all;
@@ -391,11 +397,11 @@ pre code {
             box-sizing: border-box;
             color: white;
             display: block;
-            font-size: 1.2em;
+            font-size: 1.2em !important;
             height: 30px;
             line-height: 14px;
             margin: 0;
-            padding: 8px 15px 8px 20px;
+            padding: 8px 15px;
             position: relative;
             white-space: nowrap; }
             @media (max-width: 768px) {
@@ -410,7 +416,10 @@ pre code {
                 text-align: left;
                 width: 100%; } }
             .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list .jeesl-dropdown-item .jeesl-dropdown-item-label .jeesl-dropdown-item-label-text {
-              flex: 1; }
+              flex: 1;
+              min-width: 0;
+              overflow: hidden;
+              text-overflow: ellipsis; }
             .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list .jeesl-dropdown-item .jeesl-dropdown-item-label .jeesl-dropdown-item-label-icon {
               height: 100%;
               box-sizing: border-box;
@@ -420,13 +429,11 @@ pre code {
                 .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list .jeesl-dropdown-item .jeesl-dropdown-item-label .jeesl-dropdown-item-label-icon {
                   margin: 0;
                   padding: 9px; } }
-      .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list {
-        right: 16px; }
+      .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list .jeesl-dropdown-item {
+        letter-spacing: -1px; }
         @media (max-width: 768px) {
-          .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list {
-            right: 0; } }
-        .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list:last-child {
-          right: 0; }
+          .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list .jeesl-dropdown-item {
+            letter-spacing: normal; } }
         .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list .jeesl-dropdown-item:first-child {
           display: none; }
           @media (max-width: 768px) {
@@ -531,9 +538,16 @@ pre code {
     position: initial;
     left: 0;
     top: 0; }
+  .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button {
+    background: #007a45; }
+    @media (max-width: 768px) {
+      .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button.jeesl-active {
+        background: #00663a; } }
+    .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button:not(.jeesl-menu-bar-dropdown).jeesl-active {
+      background: #00a85f; }
   .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item:hover .jeesl-menu-bar-button {
     background: #00663a; }
-    .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item:hover .jeesl-menu-bar-button.jeesl-active {
+    .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item:hover .jeesl-menu-bar-button:not(.jeesl-menu-bar-dropdown).jeesl-active {
       background: #008a4e; }
     .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item:hover .jeesl-menu-bar-button.jeesl-disabled {
       background: transparent; }
@@ -562,10 +576,6 @@ pre code {
       .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button.jeesl-disabled .ui-commandlink {
         cursor: default;
         filter: grayscale(1); }
-    .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button.jeesl-active {
-      background: #00a85f; }
-    .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button.jeesl-menu-bar-dropdown.jeesl-active {
-      background: #00663a; }
     .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button:before {
       background: linear-gradient(to bottom, #00663a, transparent);
       content: '';
@@ -575,52 +585,24 @@ pre code {
       top: 0;
       transition: opacity .4s linear;
       width: 100%; }
+    .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button:after {
+      content: '';
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle; }
     .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button .ui-commandlink {
       position: relative;
       text-decoration: none; }
     .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button .jeesl-menu-bar-button-icon {
-      padding-left: 6px; }
-      .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button .jeesl-menu-bar-button-icon:last-child {
-        padding-right: 6px; }
+      padding: 0 6px; }
     .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button .jeesl-menu-bar-button-label {
       align-items: center;
-      display: flex;
       font-weight: 400;
-      height: 100%;
       letter-spacing: -.5px;
       padding-right: 6px;
       position: relative; }
       .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button .jeesl-menu-bar-button-label:first-child {
         padding-left: 6px; }
-  @media (max-width: 768px) {
-    .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list.jeesl-dropdown-list-multi .jeesl-dropdown-item:first-child {
-      background: #00663a;
-      border-top: 2px solid #007a45; } }
-  .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list.jeesl-dropdown-list-multi .jeesl-dropdown-item:first-child .jeesl-dropdown-multi-summary {
-    font-style: italic;
-    opacity: .5; }
-    @media (max-width: 768px) {
-      .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list.jeesl-dropdown-list-multi .jeesl-dropdown-item:first-child .jeesl-dropdown-multi-summary {
-        font-size: 1.2em; } }
-  .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list.jeesl-dropdown-list-multi .jeesl-dropdown-item:first-child .jeesl-dropdown-item-label {
-    display: inline-block;
-    padding: 8px 7px 8px 5px;
-    width: auto; }
-    @media (max-width: 768px) {
-      .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list.jeesl-dropdown-list-multi .jeesl-dropdown-item:first-child .jeesl-dropdown-item-label {
-        padding: 0; } }
-    .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list.jeesl-dropdown-list-multi .jeesl-dropdown-item:first-child .jeesl-dropdown-item-label .jeesl-dropdown-item-label-icon:last-child {
-      margin: 0; }
-  @media (max-width: 768px) {
-    .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list.jeesl-dropdown-list-multi .jeesl-dropdown-item .jeesl-dropdown-item-label .jeesl-dropdown-item-label-icon {
-      padding: 12px 0; } }
-  .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list.jeesl-dropdown-list-multi .jeesl-dropdown-item .jeesl-dropdown-item-label .jeesl-dropdown-item-label-icon:last-child {
-    margin-right: -8px;
-    padding: 0; }
-    @media (max-width: 768px) {
-      .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list.jeesl-dropdown-list-multi .jeesl-dropdown-item .jeesl-dropdown-item-label .jeesl-dropdown-item-label-icon:last-child {
-        margin-right: -10px;
-        padding: 12px; } }
   .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list {
     background: #007a45;
     font-size: 12px;
@@ -658,7 +640,6 @@ pre code {
         transition: opacity 0s 0s; }
     .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list .jeesl-dropdown-item {
       font-weight: bold;
-      letter-spacing: -1px;
       opacity: 1;
       padding: 0;
       pointer-events: all;
@@ -679,11 +660,11 @@ pre code {
         box-sizing: border-box;
         color: white;
         display: block;
-        font-size: 1.2em;
+        font-size: 1.2em !important;
         height: 30px;
         line-height: 14px;
         margin: 0;
-        padding: 8px 15px 8px 20px;
+        padding: 8px 15px;
         position: relative;
         white-space: nowrap; }
         @media (max-width: 768px) {
@@ -698,7 +679,10 @@ pre code {
             text-align: left;
             width: 100%; } }
         .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list .jeesl-dropdown-item .jeesl-dropdown-item-label .jeesl-dropdown-item-label-text {
-          flex: 1; }
+          flex: 1;
+          min-width: 0;
+          overflow: hidden;
+          text-overflow: ellipsis; }
         .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list .jeesl-dropdown-item .jeesl-dropdown-item-label .jeesl-dropdown-item-label-icon {
           height: 100%;
           box-sizing: border-box;
@@ -708,6 +692,57 @@ pre code {
             .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list .jeesl-dropdown-item .jeesl-dropdown-item-label .jeesl-dropdown-item-label-icon {
               margin: 0;
               padding: 9px; } }
+  @media (max-width: 768px) {
+    .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list.jeesl-dropdown-list-multi .jeesl-dropdown-item:first-child {
+      background: #00663a;
+      border-top: 2px solid #007a45; } }
+  .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list.jeesl-dropdown-list-multi .jeesl-dropdown-item:first-child .jeesl-dropdown-multi-summary {
+    font-style: italic;
+    opacity: .5; }
+    @media (max-width: 768px) {
+      .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list.jeesl-dropdown-list-multi .jeesl-dropdown-item:first-child .jeesl-dropdown-multi-summary {
+        font-size: 1.2em; } }
+  .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list.jeesl-dropdown-list-multi .jeesl-dropdown-item:first-child .jeesl-dropdown-item-label {
+    display: inline-block;
+    padding: 8px 7px 8px 5px;
+    width: auto; }
+    @media (max-width: 768px) {
+      .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list.jeesl-dropdown-list-multi .jeesl-dropdown-item:first-child .jeesl-dropdown-item-label {
+        padding: 0; } }
+    .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list.jeesl-dropdown-list-multi .jeesl-dropdown-item:first-child .jeesl-dropdown-item-label .jeesl-dropdown-item-label-icon:last-child {
+      margin: 0; }
+  @media (max-width: 768px) {
+    .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list.jeesl-dropdown-list-multi .jeesl-dropdown-item .jeesl-dropdown-item-label .jeesl-dropdown-item-label-icon {
+      padding: 12px 0; } }
+  .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list.jeesl-dropdown-list-multi .jeesl-dropdown-item .jeesl-dropdown-item-label .jeesl-dropdown-item-label-icon:last-child {
+    margin-right: -8px;
+    padding: 0; }
+    @media (max-width: 768px) {
+      .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list.jeesl-dropdown-list-multi .jeesl-dropdown-item .jeesl-dropdown-item-label .jeesl-dropdown-item-label-icon:last-child {
+        margin-right: -10px;
+        padding: 12px; } }
+  @media (min-width: 768px) {
+    .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list .jeesl-dropdown-item .jeesl-dropdown-item-label {
+      font-size: 1em;
+      font-weight: 400;
+      height: 26px;
+      padding: 6px 15px; } }
+  .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list .jeesl-dropdown-item .jeesl-dropdown-item-label .jeesl-dropdown-item-label-icon {
+    margin: 0;
+    padding: 2px 0; }
+    @media (max-width: 768px) {
+      .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list .jeesl-dropdown-item .jeesl-dropdown-item-label .jeesl-dropdown-item-label-icon {
+        padding: 12px 0; } }
+    .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list .jeesl-dropdown-item .jeesl-dropdown-item-label .jeesl-dropdown-item-label-icon:not(:first-child) {
+      margin-left: 5px; }
+      @media (max-width: 768px) {
+        .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list .jeesl-dropdown-item .jeesl-dropdown-item-label .jeesl-dropdown-item-label-icon:not(:first-child) {
+          margin-left: 12px; } }
+    .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list .jeesl-dropdown-item .jeesl-dropdown-item-label .jeesl-dropdown-item-label-icon:not(:last-child) {
+      margin-right: 5px; }
+      @media (max-width: 768px) {
+        .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list .jeesl-dropdown-item .jeesl-dropdown-item-label .jeesl-dropdown-item-label-icon:not(:last-child) {
+          margin-right: 12px; } }
   .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-radio-item, .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-radio-item:hover {
     background: transparent;
     height: 100%;
@@ -771,6 +806,10 @@ pre code {
     .jeesl-content .jeesl-content-container .jeesl-grid-11 {
       width: calc((100% / 12) * 11 - 10px); }
       .jeesl-content .jeesl-content-container .jeesl-grid-11 > * {
+        width: 100%; }
+    .jeesl-content .jeesl-content-container .jeesl-grid-12 {
+      width: calc((100% / 12) * 12 - 10px); }
+      .jeesl-content .jeesl-content-container .jeesl-grid-12 > * {
         width: 100%; }
 
 /******************

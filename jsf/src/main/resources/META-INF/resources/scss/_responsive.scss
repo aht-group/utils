@@ -59,7 +59,6 @@
 		
 		.jeesl-dropdown-item {
 			font-weight: bold;
-			letter-spacing: -1px;
 			opacity: 1;
 			padding: 0;
 		    pointer-events: all;
@@ -84,11 +83,11 @@
 				box-sizing: border-box;
 				color: $foreground;
     			display: block;
-				font-size: 1.2em;
+				font-size: 1.2em !important; // overriding erp rule necessary.
 				height: 30px;
 				line-height: 14px;
 				margin: 0;
-				padding: 8px 15px 8px 20px;
+				padding: 8px 15px;
 			    position: relative;
 			    white-space: nowrap;
 
@@ -106,6 +105,9 @@
 				
 				.jeesl-dropdown-item-label-text {
 					flex: 1;
+				    min-width: 0;
+				    overflow: hidden;
+					text-overflow: ellipsis;
 				}
 				
 				.jeesl-dropdown-item-label-icon {
@@ -369,7 +371,6 @@ pre {
 				float: left;
 				font-size: 1em;
 				height: 38px;
-				letter-spacing: normal;
 				line-height: 24px;
 				text-decoration: none;
 				text-transform: uppercase;
@@ -377,6 +378,7 @@ pre {
 				@media (max-width: 768px) {
 					float: none;
 					height: 50px;
+					line-height: 50px;
 				}
 			}
 		}
@@ -436,6 +438,14 @@ pre {
 						&:before, &:after {
 							border-width: 21px 1px 21px 21px;
 						}
+					}
+				}
+				
+				.jeesl-dropdown-list {
+					right: 16px;
+					
+					@media (max-width: 768px) {
+						right: 0;
 					}
 				}
 			}
@@ -503,17 +513,13 @@ pre {
 			@include jeesl-dropdown($white-100, $main-background-gradient, $dark-colour, $dark-colour, 10);
 			
 			.jeesl-dropdown-list {
-				right: 16px;
-				
-				@media (max-width: 768px) {
-					right: 0;
-				}
-				
-				&:last-child {
-					right: 0;
-				}
-				
 				.jeesl-dropdown-item {
+					letter-spacing: -1px;
+					
+					@media (max-width: 768px) {
+						letter-spacing: normal;
+					}
+					
 					&:first-child {
 						display: none;
 						
@@ -574,11 +580,26 @@ pre {
 	
 	.jeesl-menu-bar-list {
 		.jeesl-menu-bar-item {
-		    &:hover {
+			
+			
+			.jeesl-menu-bar-button {
+				background: $medium-colour;
+				
+				@media (max-width: 768px) {
+					&.jeesl-active {
+						background: $dark-colour;
+					}
+				}
+				
+				&:not(.jeesl-menu-bar-dropdown).jeesl-active {
+					background: $brighter-colour;
+				}
+			}
+			&:hover {
 				.jeesl-menu-bar-button {
 					background: $dark-colour;
 					
-					&.jeesl-active {
+					&:not(.jeesl-menu-bar-dropdown).jeesl-active {
 						background: $bright-colour;
 					}
 						
@@ -586,6 +607,23 @@ pre {
 						background: transparent;
 					}
 				}
+			}
+			
+			
+			
+			
+		    &:hover {
+//				.jeesl-menu-bar-button {
+//					background: $dark-colour;
+//					
+//					&.jeesl-active {
+//						background: $bright-colour;
+//					}
+//						
+//					&.jeesl-disabled {
+//						background: transparent;
+//					}
+//				}
 				
 				.jeesl-dropdown-list {
 					opacity: 1;
@@ -630,16 +668,6 @@ pre {
 					}
 				}
 			
-				&.jeesl-active {
-					background: $brighter-colour;
-				}
-				
-				&.jeesl-menu-bar-dropdown {
-					&.jeesl-active {
-				    	background: $dark-colour;
-					}
-				}
-			
 				&:before {
 					background: linear-gradient(to bottom, $dark-colour, transparent);
 				    content: '';
@@ -651,24 +679,25 @@ pre {
 				    width: 100%;
 				}
 				
+				&:after {
+					content: '';
+				    display: inline-block;
+				    height: 100%;
+				    vertical-align: middle;
+				}
+				
 				.ui-commandlink {
 					position: relative;
 					text-decoration: none;
 				}
 				
 				.jeesl-menu-bar-button-icon {
-					padding-left: 6px;
-
-					&:last-child {
-						padding-right: 6px;
-					}
+					padding: 0 6px;
 				}
 					
 				.jeesl-menu-bar-button-label {
 					align-items: center;
-					display: flex;
 					font-weight: 400;
-					height: 100%;
 				    letter-spacing: -.5px;
 					padding-right: 6px;
 					position: relative;
@@ -678,6 +707,8 @@ pre {
 					}
 				}
 			}
+			
+			@include jeesl-dropdown($white-100, $medium-colour, $dark-colour, $dark-colour);
 			
 			.jeesl-dropdown-list {
 				&.jeesl-dropdown-list-multi {
@@ -731,9 +762,43 @@ pre {
 						}
 					}
 				}
-			}
 			
-			@include jeesl-dropdown($white-100, $medium-colour, $dark-colour, $dark-colour);
+				.jeesl-dropdown-item {
+					.jeesl-dropdown-item-label {
+						@media (min-width: 768px) {
+							font-size: 1em;
+							font-weight: 400;
+							height: 26px;
+							padding: 6px 15px;
+						}
+						
+						.jeesl-dropdown-item-label-icon {
+							margin: 0;
+							padding: 2px 0;
+							
+							@media (max-width: 768px) {
+								padding: 12px 0;
+							}
+							
+							&:not(:first-child) {
+								margin-left: 5px;
+								
+								 @media (max-width: 768px) {
+									margin-left: 12px;
+								}
+							}
+							
+							&:not(:last-child) {
+								margin-right: 5px;
+								
+								 @media (max-width: 768px) {
+									margin-right: 12px;
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 		
 		.jeesl-menu-bar-radio-item, .jeesl-menu-bar-radio-item:hover {
@@ -769,7 +834,7 @@ pre {
 		padding: 0;
 		width: 100%;
 	
-		@for $i from 1 to 12 {
+		@for $i from 1 to 13 {
 			.jeesl-grid-#{$i} {
 				width: calc((100% / 12) * #{$i} - 10px);
 				

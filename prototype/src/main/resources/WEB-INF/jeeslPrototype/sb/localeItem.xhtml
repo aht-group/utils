@@ -18,8 +18,8 @@
 		<ui:repeat var="l" value="#{appTranslationBean.locales}">
 			<aht:li class="jeesl-dropdown-item">
 				<h:commandLink class="jeesl-dropdown-item-label">
-					<jtp:symbolizer value="#{l}"/>
-					<h:outputText value="#{l.code}"/>
+					<jtp:symbolizer value="#{l}" styleClass="jeesl-dropdown-item-label-icon"/>
+					<span class="jeesl-dropdown-item-label-text"><h:outputText value="#{l.code}"/></span>
 					<p:ajax event="click" listener="#{userBean.setLocale(l.code)}" update="@form" oncomplete="javascript:location.reload(true)"/>
 				</h:commandLink>
 			</aht:li>
