@@ -18,10 +18,10 @@
 	<jp:sbItem orientation="right" childs="#{handler.list}" styleClass="jeesl-menu-bar-dropdown" multi="true" rendered="#{rendered}">
 		<f:facet name="label">
 			<jtp:symbolizer rendered="#{not empty icon}" value="#{icon}" styleClass="jeesl-menu-bar-button-icon" height="12"/>
-			<h:outputText value="#{label}" rendered="#{not empty label}" class="jeesl-menu-bar-button-label"/>
+			<h:outputText value="#{label}" rendered="#{not empty label}" stlyeClass="jeesl-menu-bar-button-label"/>
 			<h:outputText rendered="#{counter}" value="(#{fn:length(handler.selected)}/#{fn:length(handler.list)})"/>
-			<h:panelGroup id="summary" class="jeesl-menu-bar-button-summary">(#{fn:length(handler.selected)}/#{fn:length(handler.list)})</h:panelGroup>
-			<h:panelGroup class="jeesl-menu-bar-button-selected-items">
+			<h:panelGroup id="summary" stlyeClass="jeesl-menu-bar-button-summary">(#{fn:length(handler.selected)}/#{fn:length(handler.list)})</h:panelGroup>
+			<h:panelGroup stlyeClass="jeesl-menu-bar-button-selected-items">
 				<ui:fragment rendered="#{headerIcons}">
 					<ui:repeat var="s" value="#{handler.selected}">
 						<jtp:symbolizer value="#{s}" height="15"/>
@@ -32,24 +32,24 @@
 		
 		<f:facet name="top">
 			<ui:fragment>
-                 <h:panelGroup id="topSummary" class="jeesl-dropdown-multi-summary">(#{fn:length(handler.selected)}/#{fn:length(handler.list)})</h:panelGroup>
-                 <h:commandLink class="jeesl-dropdown-item-label">
+                 <h:panelGroup id="topSummary" stlyeClass="jeesl-dropdown-multi-summary">(#{fn:length(handler.selected)}/#{fn:length(handler.list)})</h:panelGroup>
+                 <h:commandLink stlyeClass="jeesl-dropdown-item-label">
                      <h:graphicImage library="jeeslGfx"
 									 name="#{appIconBean.svg['jeeslCheckboxChecked']}"
-									 class="jeesl-dropdown-item-label-icon jeesl-dropdown-item-label-checkbox"/>
+									 stlyeClass="jeesl-dropdown-item-label-icon jeesl-dropdown-item-label-checkbox"/>
                      <p:ajax event="click" listener="#{handler.toggleAll()}" update="#{update} @(.jeesl-menu-bar-button-summary, .jeesl-menu-bar-button-selected-items, .jeesl-dropdown-multi-summary, .jeesl-dropdown-item-label)"/>
                  </h:commandLink>
-                 <h:commandLink class="jeesl-dropdown-item-label">
+                 <h:commandLink stlyeClass="jeesl-dropdown-item-label">
                      <h:graphicImage library="jeeslGfx"
 									 name="#{appIconBean.svg['jeeslCheckbox']}"
-									 class="jeesl-dropdown-item-label-icon jeesl-dropdown-item-label-checkbox"/>
+									 stlyeClass="jeesl-dropdown-item-label-icon jeesl-dropdown-item-label-checkbox"/>
                      <p:ajax event="click" listener="#{handler.toggleNone()}" update="#{update} @(.jeesl-menu-bar-button-summary, .jeesl-menu-bar-button-selected-items, .jeesl-dropdown-multi-summary, .jeesl-dropdown-item-label)"/>
                  </h:commandLink>
 			</ui:fragment>
 		</f:facet>
 		
-		<h:commandLink id="itemLink" class="jeesl-dropdown-item-label">
-			<span class="jeesl-dropdown-item-label-text"><ui:insert /></span>
+		<h:commandLink id="itemLink" stlyeClass="jeesl-dropdown-item-label">
+			<span stlyeClass="jeesl-dropdown-item-label-text"><ui:insert /></span>
 			<jtp:symbolizer value="#{var}" height="12" rendered="#{listIcons}" styleClass="jeesl-dropdown-item-label-icon"/>
 			<aup:sbCheckmark value="#{handler.map[var]}"/>
 			<p:ajax event="click" listener="#{handler.toggle(var)}" update="#{update} @(.jeesl-menu-bar-button-summary, .jeesl-menu-bar-button-selected-items, .jeesl-dropdown-multi-summary, .jeesl-dropdown-item-label)" oncomplete="try{updateSb()}catch{}"/>

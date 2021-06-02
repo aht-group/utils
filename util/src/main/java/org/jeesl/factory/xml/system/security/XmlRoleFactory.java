@@ -50,6 +50,8 @@ public class XmlRoleFactory<L extends JeeslLang, D extends JeeslDescription,
 		if(q.isSetActions()) {xfAction = new XmlActionsFactory<L,D,C,R,V,U,A,AT,USER>(q.getActions());}
 		if(q.isSetUsecases()) {xfUsecase = new XmlUsecasesFactory<L,D,C,R,V,U,A,AT,USER>(q.getUsecases());}
 	}
+	
+	public static Role build() {return new Role();}
 		
 	public Role build(R role)
 	{

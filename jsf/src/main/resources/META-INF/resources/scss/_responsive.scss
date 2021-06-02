@@ -1,3 +1,5 @@
+@import '_fonts';
+
 @mixin triangle($colour: transparent, $width: 0) {
 	border-color: $colour;
     border-style: solid;
@@ -12,7 +14,6 @@
 @mixin jeesl-dropdown($foreground, $background, $hover, $separator, $zindex: 1) {
 	.jeesl-dropdown-list {
 		background: $background;
-		font-size: 12px;
 		opacity: 0;
 	    overflow: visible;
 		padding: 0;
@@ -58,7 +59,6 @@
 		}
 		
 		.jeesl-dropdown-item {
-			font-weight: bold;
 			opacity: 1;
 			padding: 0;
 		    pointer-events: all;
@@ -83,7 +83,6 @@
 				box-sizing: border-box;
 				color: $foreground;
     			display: block;
-				font-size: 1.2em !important; // overriding erp rule necessary.
 				height: 30px;
 				line-height: 14px;
 				margin: 0;
@@ -94,7 +93,6 @@
 				@media (max-width: 768px) {
 					border-bottom: 2px solid $separator;
 					display: flex;
-					font-weight: bold;
 					height: 50px;
 					line-height: 50px;
 					margin: 0;
@@ -223,6 +221,14 @@
 					}
 				}
 			}
+			
+			> * {
+				font-size: $font-size;
+				
+				@media (max-width: 768px) {
+					font-size: $font-size-responsive;
+				}
+			}
 
 			.jeesl-menu-bar-button {
 				box-sizing: border-box;
@@ -252,10 +258,6 @@
 				.jeesl-menu-bar-button-label {
 				    display: inline-block;
 					vertical-align: middle;
-					
-					@media (max-width: 768px) {
-    					font-size: 1.25em;
-					}
 				}
 				
 				.jeesl-menu-bar-button-summary {
@@ -288,6 +290,15 @@ body {
 pre {
 	code {
 		background: $panel-background;
+	}
+}
+
+body, .ui-widget {
+	font-size: $font-size;
+	font-weight: normal;
+	
+	@media (max-width: 768px) {
+		font-size: $font-size-responsive;
 	}
 }
 
@@ -368,12 +379,11 @@ pre {
 			}
 			
 			.jeesl-dropdown-item-label {
+				@include font-nav;
+				
 				float: left;
-				font-size: 1em;
 				height: 38px;
 				line-height: 24px;
-				text-decoration: none;
-				text-transform: uppercase;
 				
 				@media (max-width: 768px) {
 					float: none;
@@ -392,10 +402,6 @@ pre {
     height: 30px;
     margin: 10px;
 
-	// Overriding aupHeadline arguments necessary.
-	font-size: 1em;
-    letter-spacing: normal;
-
 	.jeesl-menu-bar-list {
 	    right: 0;
 	    top: 0;
@@ -411,9 +417,6 @@ pre {
 		}
 
 		.jeesl-menu-bar-item {
-			font-size: 15px;
-			letter-spacing: -1px;
-			
 			&:not(:last-child) {
 				.jeesl-menu-bar-button {
 					padding-right: 30px;
@@ -468,8 +471,6 @@ pre {
 			
 			.jeesl-menu-bar-button {
 				background: $main-background-gradient 0 0 / 99% 100% no-repeat;
-			    font-weight: 600;
-			    letter-spacing: -1px;
 				padding: 7px 15px 6px 15px;
 				
 				@media (min-width: 769px) {
@@ -495,6 +496,8 @@ pre {
 				}
 				
 				.jeesl-menu-bar-button-label {
+					@include font-breadcrumb;
+
 					padding: 0;
 					
 					// Blending out the old triangles for the breadcrumbs is necessary.
@@ -514,11 +517,8 @@ pre {
 			
 			.jeesl-dropdown-list {
 				.jeesl-dropdown-item {
-					letter-spacing: -1px;
-					
-					@media (max-width: 768px) {
-						letter-spacing: normal;
-					}
+					@include font-breadcrumb;
+					@include font-dropdown;
 					
 					&:first-child {
 						display: none;
@@ -580,8 +580,6 @@ pre {
 	
 	.jeesl-menu-bar-list {
 		.jeesl-menu-bar-item {
-			
-			
 			.jeesl-menu-bar-button {
 				background: $medium-colour;
 				
@@ -696,9 +694,9 @@ pre {
 				}
 					
 				.jeesl-menu-bar-button-label {
+					@include font-statusbar;
+					
 					align-items: center;
-					font-weight: 400;
-				    letter-spacing: -.5px;
 					padding-right: 6px;
 					position: relative;
 
@@ -722,10 +720,6 @@ pre {
 							.jeesl-dropdown-multi-summary {
 							    font-style: italic;
 							    opacity: .5;
-			
-								@media (max-width: 768px) {
-							    	font-size: 1.2em;
-								}
 							}
 							
 							.jeesl-dropdown-item-label {
@@ -765,9 +759,9 @@ pre {
 			
 				.jeesl-dropdown-item {
 					.jeesl-dropdown-item-label {
+						@include font-dropdown;
+					
 						@media (min-width: 768px) {
-							font-size: 1em;
-							font-weight: 400;
 							height: 26px;
 							padding: 6px 15px;
 						}
@@ -862,13 +856,13 @@ pre {
 }
 
 @mixin jeesl-titlebar-title {
+	@include font-header;
+	
 	flex-grow: 1;
 	line-height: 22px;
 
 	@media (max-width: 768px) {
 		color: $dark-colour;
-	    font-size: 18px;
-	    letter-spacing: -.5px;
 	    line-height: 42px;
 	}
 }
@@ -1033,7 +1027,7 @@ pre {
 						height: 100%;
 						
 						@media (max-width: 768px) {
-							font-size: 18px !important;
+//							font-size: 18px !important;
 							padding-left: 10px;
 							width: 100%;
 						}
@@ -1205,6 +1199,8 @@ pre {
 					padding: 0;
 					
 					.ui-treenode-content {
+						@include font-interactable;
+						
 						display: flex;
 						height: 22px;
 						width: 100%;
@@ -1212,7 +1208,6 @@ pre {
 						@media (max-width: 768px) {
 							border-bottom: 2px solid $soft-grey;
 							box-sizing: border-box;
-							font-size: 15px;
 							height: 50px;
 							line-height: 50px;
 						}

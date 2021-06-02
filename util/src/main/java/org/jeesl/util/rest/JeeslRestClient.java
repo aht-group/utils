@@ -61,8 +61,9 @@ public class JeeslRestClient
 	public <T extends Object> T json(Class<T> c, String url) throws ClientProtocolException, IOException
 	{
 		HttpGet httpGet = new HttpGet(url);
-		logger.info(url);
+//		logger.info(url);
 		HttpResponse httpRespnse = client.execute(httpGet,context);
+//		logger.info("Result: "+EntityUtils.toString(httpRespnse.getEntity()));
 		return JsonUtil.read(EntityUtils.toString(httpRespnse.getEntity(),"UTF-8"),c);
 	}
 	
