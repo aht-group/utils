@@ -37,6 +37,7 @@ import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityUsecase
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
+import org.jeesl.jsf.handler.PositionListReorderer;
 import org.jeesl.jsf.helper.TreeHelper;
 import org.primefaces.event.DragDropEvent;
 import org.primefaces.event.NodeCollapseEvent;
@@ -322,6 +323,16 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 	public void onHelpExpand(NodeExpandEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}
     public void onHelpCollapse(NodeCollapseEvent event) {if(debugOnInfo) {logger.info("Collapsed "+event.getTreeNode().toString());}}
 
+    public void selectHelp(){}
+    
+    public void reorderHelp() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fSecurity, helps);}
+    
+    public void removeHelp() throws JeeslConstraintViolationException
+    {
+    	fSecurity.rm(help);
+    	reloadHelps();
+    }
+    
     // Handler Tree-Select
 
     @SuppressWarnings("unchecked")
@@ -340,4 +351,6 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 		help = fSecurity.save(help);
 		reloadHelps();
     }
+    
+    
 }
