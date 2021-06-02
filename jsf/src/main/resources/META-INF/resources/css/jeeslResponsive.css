@@ -110,6 +110,7 @@ body, .ui-widget {
         opacity: 1;
         transition: opacity 0s 0s; }
     .jeesl-header .jeesl-dropdown-list .jeesl-dropdown-item {
+      background: white;
       opacity: 1;
       padding: 0;
       pointer-events: all;
@@ -175,22 +176,24 @@ body, .ui-widget {
         .jeesl-header .jeesl-dropdown-list.jeesl-active {
           opacity: 1;
           visibility: visible; } }
-    .jeesl-header .jeesl-dropdown-list .jeesl-dropdown-item:hover .jeesl-dropdown-item-label {
-      border-bottom: 2px solid #00663a;
-      color: #00663a; }
-    .jeesl-header .jeesl-dropdown-list .jeesl-dropdown-item .jeesl-dropdown-item-label {
-      font-size: 1.1em;
-      font-weight: 700;
-      text-decoration: none;
-      text-transform: uppercase;
-      float: left;
-      height: 38px;
-      line-height: 24px; }
-      @media (max-width: 768px) {
-        .jeesl-header .jeesl-dropdown-list .jeesl-dropdown-item .jeesl-dropdown-item-label {
-          float: none;
-          height: 50px;
-          line-height: 50px; } }
+    .jeesl-header .jeesl-dropdown-list .jeesl-dropdown-item {
+      background: transparent; }
+      .jeesl-header .jeesl-dropdown-list .jeesl-dropdown-item:hover .jeesl-dropdown-item-label {
+        border-bottom: 2px solid #00663a;
+        color: #00663a; }
+      .jeesl-header .jeesl-dropdown-list .jeesl-dropdown-item .jeesl-dropdown-item-label {
+        font-size: 1.1em;
+        font-weight: 700;
+        text-decoration: none;
+        text-transform: uppercase;
+        float: left;
+        height: 38px;
+        line-height: 24px; }
+        @media (max-width: 768px) {
+          .jeesl-header .jeesl-dropdown-list .jeesl-dropdown-item .jeesl-dropdown-item-label {
+            float: none;
+            height: 50px;
+            line-height: 50px; } }
 
 .jeesl-breadcrumb-header {
   box-sizing: border-box;
@@ -377,6 +380,7 @@ body, .ui-widget {
           opacity: 1;
           transition: opacity 0s 0s; }
       .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list .jeesl-dropdown-item {
+        background: linear-gradient(to right, #00663a, #008a4e);
         opacity: 1;
         padding: 0;
         pointer-events: all;
@@ -644,6 +648,7 @@ body, .ui-widget {
         opacity: 1;
         transition: opacity 0s 0s; }
     .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-dropdown-list .jeesl-dropdown-item {
+      background: #007a45;
       opacity: 1;
       padding: 0;
       pointer-events: all;

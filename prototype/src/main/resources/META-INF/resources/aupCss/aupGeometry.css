@@ -220,7 +220,7 @@ a:hover { color: #333; text-decoration: none; }
 
 
 /* PF Font size */
-.ui-widget, .ui-widget .ui-widget {font-size: 11px !important;}
+/* .ui-widget, .ui-widget .ui-widget {font-size: 11px !important;} */
 
 /* PF-3.5 Font size
 .ui-widget {font-size: 90%;}

@@ -26,15 +26,15 @@
 			</f:facet>
 			<f:facet name="top">
 				<ui:fragment>
-					<h:outputLink id="link1" value="#{request.contextPath}/admin/me" stlyeClass="jeesl-dropdown-item-label">
-						<h:outputText value="#{identity.user.firstName} #{identity.user.lastName}"/>
+					<h:outputLink id="link1" value="#{request.contextPath}/admin/me" styleClass="jeesl-dropdown-item-label">
+						<h:outputText styleClass="jeesl-dropdown-item-label-text" value="#{identity.user.firstName} #{identity.user.lastName}"/>
 					</h:outputLink>
 				</ui:fragment>
 			</f:facet>
 			<f:facet name="bottom">
 				<ui:fragment>
-					<h:commandLink action="#{userBean.logout}" stlyeClass="jeesl-dropdown-item-label">
-						<h:outputText value="Logout"/>
+					<h:commandLink action="#{userBean.logout}" styleClass="jeesl-dropdown-item-label">
+						<h:outputText styleClass="jeesl-dropdown-item-label-text" value="Logout"/>
 					</h:commandLink>
 				</ui:fragment>
 			</f:facet>
