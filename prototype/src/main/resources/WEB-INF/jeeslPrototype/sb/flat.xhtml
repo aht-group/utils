@@ -25,7 +25,7 @@
 				<aht:li styleClass="aupStatusBarRight jeeslSbFlat jeesl-menu-bar-item jeesl-left">
 					<j:label styleClass="jeesl-menu-bar-button #{(handler.selection.id eq var.id) ? 'jeeslSbFlatSelected' : 'jeeslSbFlatUnSelected'} #{(handler.selection.id eq var.id) ? 'jeesl-active' : ''}">
 						<p:commandLink>
-							<h:outputText value="#{var.name[localeCode].lang}" class="jeesl-menu-bar-button-label"/>
+							<h:outputText value="#{var.name[localeCode].lang}" stlyeClass="jeesl-menu-bar-button-label"/>
 							<p:ajax event="click" listener="#{handler.selectSbSingle(var)}" update="#{update}"/>
 						</p:commandLink>
 					</j:label>

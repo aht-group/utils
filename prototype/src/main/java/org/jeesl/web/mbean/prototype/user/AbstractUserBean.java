@@ -93,7 +93,8 @@ public abstract class AbstractUserBean <L extends JeeslLang, D extends JeeslDesc
 	    ec.redirect(ec.getRequestContextPath());
 	}
 
-	protected void goToInitalPage() {
+	protected void goToInitalPage()
+	{
 		ExternalContext eContext = FacesContext.getCurrentInstance().getExternalContext();
 	    String forwardedUri = (String) eContext.getRequestMap().get(RequestDispatcher.FORWARD_REQUEST_URI);
 		try{FacesContext.getCurrentInstance().getExternalContext().redirect(forwardedUri);}
