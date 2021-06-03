@@ -35,13 +35,13 @@
 			</p:outputLabel>
 			<input type="checkbox"/>
 			<ul class="jeesl-dropdown-list #{not empty cc.attrs.multi ? 'jeesl-dropdown-list-multi' : ''}">
-				<c:if test="#{!empty cc.facets.top}">
+				<c:if test="#{not empty cc.facets.top}">
 	                <li class="jeesl-dropdown-item">
 	                	<composite:renderFacet name="top"/>
 	                </li>
 	            </c:if>
 	            
-	            <c:if test="#{!empty cc.attrs.childs}">
+	            <c:if test="#{not empty cc.attrs.childs}">
 					<ui:repeat var="var" value="#{cc.attrs.childs}">
 						<li class="jeesl-dropdown-item #{cc.attrs.readonly ? 'jeesl-greyscale' : ''}">
 							<composite:insertChildren/>
@@ -52,7 +52,7 @@
 	            	<composite:insertChildren/>
 	            </c:if>
 				
-				<c:if test="#{!empty cc.facets.bottom}">
+				<c:if test="#{not empty cc.facets.bottom}">
 					<li class="jeesl-dropdown-item">
 						<composite:renderFacet name="bottom"/>
 					</li>
