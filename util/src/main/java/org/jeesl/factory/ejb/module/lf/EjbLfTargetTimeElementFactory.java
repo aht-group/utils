@@ -1,13 +1,13 @@
 package org.jeesl.factory.ejb.module.lf;
 
-import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeElement;
-import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeGroup;
+import org.jeesl.interfaces.model.module.lf.time.JeeslLfTimeElement;
+import org.jeesl.interfaces.model.module.lf.time.JeeslLfTimeGroup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbLfTargetTimeElementFactory<
-										TTG extends JeeslLfTargetTimeGroup<?,?>,
-										TTE extends JeeslLfTargetTimeElement<?,TTG>>
+										TTG extends JeeslLfTimeGroup<?,?>,
+										TTE extends JeeslLfTimeElement<?,TTG>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbLfTargetTimeElementFactory.class);
 

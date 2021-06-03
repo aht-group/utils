@@ -16,10 +16,10 @@ import org.jeesl.interfaces.model.module.lf.JeeslLfLogframe;
 import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicator;
 import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicatorLevel;
 import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicatorType;
-import org.jeesl.interfaces.model.module.lf.monitoring.JeeslLfIndicatorMonitoring;
-import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeElement;
-import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeGroup;
-import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeInterval;
+import org.jeesl.interfaces.model.module.lf.monitoring.JeeslLfMonitoring;
+import org.jeesl.interfaces.model.module.lf.time.JeeslLfTimeElement;
+import org.jeesl.interfaces.model.module.lf.time.JeeslLfTimeGroup;
+import org.jeesl.interfaces.model.module.lf.time.JeeslLfTimeInterval;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
@@ -36,10 +36,10 @@ public abstract class AbstractLfConfigurationBean <L extends JeeslLang, D extend
 												LFI extends JeeslLfIndicator<LF,IL,IT,TTG,LFM>,
 												IL extends JeeslLfIndicatorLevel<L, D,R, IL, ?>,
 												IT extends JeeslLfIndicatorType<L, D,R, IT, ?>,
-												TTG extends JeeslLfTargetTimeGroup<L,TTI>,
-												TTI extends JeeslLfTargetTimeInterval<L,D,TTI,?>,
-												TTE extends JeeslLfTargetTimeElement<L,TTG>,
-												LFM extends JeeslLfIndicatorMonitoring<LFI,TTG,TTE>,
+												TTG extends JeeslLfTimeGroup<L,TTI>,
+												TTI extends JeeslLfTimeInterval<L,D,TTI,?>,
+												TTE extends JeeslLfTimeElement<L,TTG>,
+												LFM extends JeeslLfMonitoring<LFI,TTG,TTE>,
 												LFC extends JeeslLfConfiguration<LF,IT>>
 					extends AbstractAdminBean<L,D,LOC>
 					implements Serializable

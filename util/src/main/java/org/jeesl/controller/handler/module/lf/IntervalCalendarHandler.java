@@ -7,12 +7,12 @@ import java.util.Date;
 import java.util.List;
 
 import org.jeesl.interfaces.bean.lf.TargetTimeBean;
-import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeInterval;
+import org.jeesl.interfaces.model.module.lf.time.JeeslLfTimeInterval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class IntervalCalendarHandler<TTI extends JeeslLfTargetTimeInterval<?,?,TTI,?>> implements Serializable
+public class IntervalCalendarHandler<TTI extends JeeslLfTimeInterval<?,?,TTI,?>> implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(IntervalCalendarHandler.class);

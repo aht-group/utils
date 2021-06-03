@@ -49,6 +49,8 @@ import org.primefaces.model.TreeNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
+
 public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 											C extends JeeslSecurityCategory<L,D>,
 											R extends JeeslSecurityRole<L,D,C,V,U,A,USER>,
@@ -89,6 +91,8 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 	private DC document;
 	private OH help; public OH getHelp() {return help;} public void setHelp(OH help) {this.help = help;}
 
+	private boolean disabledMenuImportFromDefaultContext; public boolean isDisabledMenuImportFromDefaultContext() {return disabledMenuImportFromDefaultContext;}
+
 	public AbstractAdminSecurityMenuBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,DC,DS,USER> fbSecurity, IoCmsFactoryBuilder<L,D,LOC,?,DC,?,DS,?,?,?,?,?,?,?> fbCms)
 	{
 		super(fbSecurity);
@@ -115,20 +119,20 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 		sbhContext.setList(fSecurity.allOrderedPosition(fbSecurity.getClassContext()));
 		sbhContext.setDefault();
 
-		createMissingItems();
-		reloadMenu();
+		buildMenu(createMissingItems());
 
 		try {reloadDocuments();}
 		catch (JeeslNotFoundException e) {e.printStackTrace();}
 	}
+	
+	protected void reloadDocuments()  throws JeeslNotFoundException{};
 
 	@Override public void selectSbSingle(EjbWithId ejb)
 	{
-		createMissingItems();
-		reloadMenu();
+		buildMenu(createMissingItems());
 	}
 
-	private void createMissingItems()
+	private List<M> createMissingItems()
 	{
 		List<M> list = new ArrayList<>();
 		if(sbhContext.isSelected())
@@ -157,20 +161,31 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 					{
 						M m = efMenu.build(v);
 						if(sbhContext.isSelected()) {m.setContext(sbhContext.getSelection());}
-						fSecurity.save(m);
+						m = fSecurity.save(m);
+						list.add(m);
 					}
 					catch (JeeslConstraintViolationException e) {e.printStackTrace();}
 					catch (JeeslLockingException e) {e.printStackTrace();}
 				}
 			}
 		}
-		else
-		{
-			// This happens if a new and empty context is selected, then we provide the "Import from other context" feature
-		}
+		return list;
 	}
+	
+	private void buildMenu(List<M> list)
+    {
+		if(sbhContext.isSelected()) {disabledMenuImportFromDefaultContext = !list.isEmpty();}
+		else {disabledMenuImportFromDefaultContext = true;}
 
-	public void importFromDefaultContext() {
+		Map<M,List<M>> map = efMenu.toMapChild(list);
+	    tree = new DefaultTreeNode(null, null);
+
+	    buildTree(tree, efMenu.toListRoot(list),map);
+	    
+	    if(debugOnInfo) {logger.info("Reloaded Menu with "+list.size()+" elements. sbhContext.isSelected():"+sbhContext.isSelected()+" disabledMenuImportFromDefaultContext:"+disabledMenuImportFromDefaultContext);}
+    }
+
+	public void importFromDefaultContext(){
 		try {
 		if(sbhContext.isSelected()) {
 			CTX defaultCtx = fSecurity.fByCode(fbSecurity.getClassContext(), "core");
@@ -202,36 +217,14 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 				}
 			}
 			logger.info("Updating menu parents....done");
-			createMissingItems();
-			reloadMenu();
+			buildMenu(createMissingItems());
 		}
 		} catch (JeeslNotFoundException | JeeslConstraintViolationException | JeeslLockingException e) {
 			logger.info("import of menu item failed : " + e.getMessage());
 		}
 	}
 
-	public boolean isMenuReloaded() {
-		if(sbhContext.isSelected()) {
-			if(fSecurity.allForParent(fbSecurity.getClassMenu(), JeeslSecurityMenu.Attributes.context,sbhContext.getSelection()).size() > 0) {
-			return true;
-			}
-		}
-		return false;
-	}
 
-	protected void reloadDocuments()  throws JeeslNotFoundException{};
-
-	public void reloadMenu()
-    {
-		List<M> list = new ArrayList<>();
-		if(sbhContext.isSelected()) {list.addAll(fSecurity.allForParent(fbSecurity.getClassMenu(), JeeslSecurityMenu.Attributes.context,sbhContext.getSelection()));}
-		else {list.addAll(fSecurity.all(fbSecurity.getClassMenu()));}
-
-		Map<M,List<M>> map = efMenu.toMapChild(list);
-	    tree = new DefaultTreeNode(null, null);
-
-	    buildTree(tree, efMenu.toListRoot(list),map);
-    }
 
 	private void buildTree(TreeNode parent, List<M> items, Map<M,List<M>> map)
 	{
@@ -263,12 +256,12 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
         int index=1;
         for(TreeNode n : dropNode.getChildren())
         {
-        		M child =(M)n.getData();
-        		child = fSecurity.find(fbSecurity.getClassMenu(),child);
-        		child.setParent(parent);
-        		child.setPosition(index);
-        		fSecurity.save(child);
-        		index++;
+    		M child =(M)n.getData();
+    		child = fSecurity.find(fbSecurity.getClassMenu(),child);
+    		child.setParent(parent);
+    		child.setPosition(index);
+    		fSecurity.save(child);
+    		index++;
         }
         propagateChanges();
 	}
@@ -322,14 +315,15 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 	public void onHelpNodeSelect(NodeSelectEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}
 	public void onHelpExpand(NodeExpandEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}
     public void onHelpCollapse(NodeCollapseEvent event) {if(debugOnInfo) {logger.info("Collapsed "+event.getTreeNode().toString());}}
-
-    public void selectHelp(){}
     
     public void reorderHelp() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fSecurity, helps);}
     
+    public void selectHelp(){}
     public void removeHelp() throws JeeslConstraintViolationException
     {
-    	fSecurity.rm(help);
+    	if(debugOnInfo) {logger.info(AbstractLogMessage.rmEntity(help));}
+    	logger.warn("NYI rm(help) .. commented out");
+//    	fSecurity.rm(help);
     	reloadHelps();
     }
     
@@ -341,7 +335,7 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
     	if(debugOnInfo) {logger.info("DRAG "+ddEvent.getDragId());}
     	if(debugOnInfo) {logger.info("DROP "+ddEvent.getDropId());}
 		Object data = ddEvent.getData();
-		if(debugOnInfo) {if(data==null) {logger.info("data = null");} else{logger.info("Data "+data.getClass().getSimpleName());}}
+		if(debugOnInfo) {if(data==null) {logger.info("data = null");} else {logger.info("Data "+data.getClass().getSimpleName());}}
 
 		TreeNode n = TreeHelper.getNode(helpTree,ddEvent.getDragId(),3);
 		DS section = (DS)n.getData();

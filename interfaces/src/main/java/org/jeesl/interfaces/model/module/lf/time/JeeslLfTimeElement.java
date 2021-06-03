@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.module.lf.target.time;
+package org.jeesl.interfaces.model.module.lf.time;
 
 import java.io.Serializable;
 
@@ -10,8 +10,8 @@ import org.jeesl.interfaces.model.with.primitive.date.EjbWithRecord;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.text.EjbWithName;
 
-public interface JeeslLfTargetTimeElement<L extends JeeslLang,
-											TTG extends JeeslLfTargetTimeGroup<L,?>>
+public interface JeeslLfTimeElement<L extends JeeslLang,
+											TTG extends JeeslLfTimeGroup<L,?>>
 						extends Serializable,EjbSaveable,EjbRemoveable,EjbWithName,
 								EjbWithId,EjbWithRecord,EjbWithParentAttributeResolver
 {

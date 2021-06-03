@@ -6,8 +6,8 @@ import java.util.List;
 import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.lf.JeeslLfLogframe;
-import org.jeesl.interfaces.model.module.lf.monitoring.JeeslLfIndicatorMonitoring;
-import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeGroup;
+import org.jeesl.interfaces.model.module.lf.monitoring.JeeslLfMonitoring;
+import org.jeesl.interfaces.model.module.lf.time.JeeslLfTimeGroup;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.text.EjbWithName;
@@ -15,8 +15,8 @@ import org.jeesl.interfaces.model.with.primitive.text.EjbWithName;
 public interface JeeslLfIndicator<LF extends JeeslLfLogframe<?,?,?,?,?,?>,
 									IL extends JeeslLfIndicatorLevel<?,?,?,?,?>,
 									IT extends JeeslLfIndicatorType<?,?,?,?,?>,
-									TTG extends JeeslLfTargetTimeGroup<?,?>,
-									LFM extends JeeslLfIndicatorMonitoring<?,TTG,?>>
+									TTG extends JeeslLfTimeGroup<?,?>,
+									LFM extends JeeslLfMonitoring<?,TTG,?>>
 						extends  Serializable,EjbSaveable,EjbRemoveable,
 						EjbWithId,EjbWithName,EjbWithParentAttributeResolver
 

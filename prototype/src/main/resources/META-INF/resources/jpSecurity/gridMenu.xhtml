@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
 	xmlns:j="http://www.jeesl.org/jsf" xmlns:jp="http://jsf.jeesl.org/prototype" xmlns:jtp="http://jsf.jeesl.org/prototype/tag"
-	xmlns:aht="http://ahtutils.sourceforge.net/jsf"
-	xmlns:aup="http://ahtutils.sourceforge.net/prototype"
-	xmlns:aupSec="http://ahtutils.sourceforge.net/prototype/security"
 	xmlns:composite="http://java.sun.com/jsf/composite">
 	
 	<composite:interface>
@@ -17,99 +9,101 @@
 	</composite:interface>
 	
 	<composite:implementation>
-		<jp:grid id="grid">
-			<j:row>
-				<j:slot width="5">
-					<h:form id="fTree" >
-						<p:panel header="#{msg.jeeslSecurityMenu}" styleClass="jeeslTree">
-							<f:facet id="fActions" name="actions">
-								<j:svg type="jeeslTreeExpandAll" listener="#{cc.attrs.bean.expandTree()}" update="@form" tooltip="#{msg.jeeslTtExpandAllChildren}" library="jeeslGfx"/>
-								<j:svg type="jeeslTreeCollapseAll" listener="#{cc.attrs.bean.collapseTree()}" update="@form" rendered="#{cc.attrs.bean.isExpanded()}" tooltip="#{msg.jeeslTtCollapseAllChildren}" library="jeeslGfx"/>
-							</f:facet>
-							<p:tree id="tree1" value="#{cc.attrs.bean.tree}" var="node" 
-								selection="#{cc.attrs.bean.node}" selectionMode="single"
-				                draggable="true" droppable="true" dragdropScope="demo">
-				                <p:ajax event="select" listener="#{cc.attrs.bean.onNodeSelect}" update=":#{cc.id}:sView"/>
-								<p:ajax event="dragdrop" listener="#{cc.attrs.bean.onDragDrop}" oncomplete="try{calculateTreeHeight();}catch(e){}"/>
-					            <p:ajax event="expand" listener="#{cc.attrs.bean.onNodeExpand}" />
-								<p:ajax event="collapse" listener="#{cc.attrs.bean.onNodeCollapse}" />
-					            <p:treeNode>
-					                <h:outputText value="#{node.view.category.position}.#{node.view.position} #{node.view.name[localeCode].lang}" />
-					            </p:treeNode>
-					        </p:tree>
-						</p:panel>
-						<p:commandButton value="#{msg.jeeslSecurityImportMenuFromDefaultContext}" disabled="#{cc.attrs.bean.isMenuReloaded()}" update=":#{cc.id}:grid">
-							<f:actionListener binding="#{cc.attrs.bean.importFromDefaultContext()}"/>
-						</p:commandButton>
-					</h:form>
-				</j:slot>
-				<j:slot id="sView" width="7">
-					<p:panel header="#{msg.jeeslSecurityMenu}" styleClass="jeeslPanel" rendered="#{not empty cc.attrs.bean.menu}">
-						<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
-							<p:outputLabel value="#{msg.jeeslCategory}"/>
-							<h:outputText value="#{cc.attrs.bean.menu.view.category.name[localeCode].lang}"/>
-							<p:outputLabel value="#{msg.jeeslCode}"/>
-							<h:outputText value="#{cc.attrs.bean.menu.view.code}"/>
-							<p:outputLabel value="#{msg.aupSecurityView}"/>
-							<h:outputText value="#{cc.attrs.bean.menu.view.name[localeCode].lang}"/>
-							<p:outputLabel value="#{msg.aupSecurityViewPattern}"/>
-							<h:outputText value="#{cc.attrs.bean.menu.view.viewPattern}"/>
-							<p:outputLabel value="#{msg.jeeslSecurityViewMapping}"/>
-							<h:outputText value="#{cc.attrs.bean.menu.view.urlMapping}"/>
-							<p:outputLabel value="#{msg.jeeslDescription}"/>
-							<h:outputText value="#{cc.attrs.bean.menu.view.description[localeCode].lang}"/>
-						</p:panelGrid>
-					</p:panel>
-					<h:form id="fHelps" rendered="#{not empty cc.attrs.bean.menu}">
-						<p:dataTable var="h" value="#{cc.attrs.bean.helps}" draggableRows="true"
-							selection="#{cc.attrs.bean.help}" selectionMode="single" rowKey="#{h.id}">
-							<f:facet name="header">
-								<j:dtHeader title="Documents">
-									<ui:repeat var="d" value="#{cc.attrs.bean.documents}">
-								     	<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addHelp(d)}" update=":#{cc.id}:sView" tooltip="#{d.id}"/>						
-							    	</ui:repeat>
-									<aht:icon rendered="#{not empty cc.attrs.bean.help}" type="jeeslRemove" mayDisappear="true" listener="#{cc.attrs.bean.removeHelp()}" update=":#{cc.id}:sView" tooltip="#{msg.ttRemove}"/>
-								</j:dtHeader>
-							</f:facet>
-							<p:ajax event="rowSelect"  listener="#{cc.attrs.bean.selectHelp()}" update=":#{cc.id}:fHelps"/>
-							<p:ajax event="rowReorder" listener="#{cc.attrs.bean.reorderHelp()}" update="@form"/>
-							<p:column rendered="false">
-								<h:graphicImage rendered="#{not h.visible}" name="12/ui/status/ghost.png"  library="jeeslPrototypeGfx"/>
-								<h:outputText rendered="#{h.visible}" value="#{h.position}"/>
-				            </p:column>
-				            <p:column headerText="Document">
-								<h:outputText value="#{h.document.name[localeCode].lang}" />
-				            </p:column>
-				            <p:column headerText="Section">
-								<h:outputText value="#{h.section.name[localeCode].lang}" />
-				            </p:column>
-				       	</p:dataTable>
-					</h:form>
-					<p:droppable for=":#{cc.id}:fHelps" tolerance="touch">
-						<p:ajax listener="#{cc.attrs.bean.onHelpDrop}" update=":#{cc.id}:fHelps" />  
-					</p:droppable>
-					<h:form id="fHelp" rendered="#{not empty cc.attrs.bean.helpTree}">
-						<p:panel header="#{msg.jeeslSecurityHelp}" styleClass="jeeslTree">
-							<f:facet id="fHelpActions" name="actions">
-								<j:svg type="jeeslTreeExpandAll" listener="#{cc.attrs.bean.expandHelp()}" update="@form" tooltip="#{msg.jeeslTtExpandAllChildren}" library="jeeslGfx"/>
-								<j:svg type="jeeslTreeCollapseAll" listener="#{cc.attrs.bean.collapseHelp()}" update="@form" rendered="#{cc.attrs.bean.isHelpExpanded()}" tooltip="#{msg.jeeslTtCollapseAllChildren}" library="jeeslGfx"/>
-							</f:facet>
-							<p:tree id="tHelp" value="#{cc.attrs.bean.helpTree}" var="helpNode"
-								selection="#{cc.attrs.bean.helpNode}" selectionMode="single"
-				                draggable="true" droppable="true" dragdropScope="demo">
-				                <p:ajax event="select" listener="#{cc.attrs.bean.onHelpNodeSelect}" update=":#{cc.id}:sView"/>
-				                <p:ajax event="dragdrop" listener="#{cc.attrs.bean.onDragDrop}" update=":#{cc.id}:fHelp"/>
-					            <p:ajax event="expand" listener="#{cc.attrs.bean.onHelpExpand}" />
-								<p:ajax event="collapse" listener="#{cc.attrs.bean.onHelpCollapse}" />
-					            <p:treeNode>
-					                <h:outputText id="otText" value="#{helpNode.name[localeCode].lang}" />
-					                <p:draggable for="otText" helper="clone" appendTo="@(body)" zindex="5" />
-					            </p:treeNode>
-					        </p:tree>
-						</p:panel>
-					</h:form>
-				</j:slot>
-			</j:row>
-	    </jp:grid>
+<jp:grid id="grid">
+	<j:row>
+		<j:slot width="5">
+			<h:form id="fTree" >
+				<p:panel styleClass="jeeslTree">
+					<f:facet name="header"><j:pHeader entity="SecurityMenu"/></f:facet>
+					<f:facet id="fActions" name="actions">
+						<j:svg type="jeeslTreeExpandAll" listener="#{cc.attrs.bean.expandTree()}" update="@form" tooltip="#{msg.jeeslTtExpandAllChildren}" library="jeeslGfx"/>
+						<j:svg type="jeeslTreeCollapseAll" listener="#{cc.attrs.bean.collapseTree()}" update="@form" rendered="#{cc.attrs.bean.isExpanded()}" tooltip="#{msg.jeeslTtCollapseAllChildren}" library="jeeslGfx"/>
+					</f:facet>
+					<p:tree id="tree1" value="#{cc.attrs.bean.tree}" var="node" 
+						selection="#{cc.attrs.bean.node}" selectionMode="single"
+		                draggable="true" droppable="true" dragdropScope="demo">
+		                <p:ajax event="select" listener="#{cc.attrs.bean.onNodeSelect}" update=":#{cc.id}:sView"/>
+						<p:ajax event="dragdrop" listener="#{cc.attrs.bean.onDragDrop}" oncomplete="try{calculateTreeHeight();}catch(e){}"/>
+			            <p:ajax event="expand" listener="#{cc.attrs.bean.onNodeExpand}" />
+						<p:ajax event="collapse" listener="#{cc.attrs.bean.onNodeCollapse}" />
+			            <p:treeNode>
+			                <h:outputText value="#{node.view.category.position}.#{node.view.position} #{node.view.name[localeCode].lang}" />
+			            </p:treeNode>
+			        </p:tree>
+				</p:panel>
+				<p:commandButton value="#{appLabelBean.labels['SecurityMenu']['btnImportFromDefault'][localeCode].lang}"
+								disabled="#{cc.attrs.bean.disabledMenuImportFromDefaultContext}" update=":#{cc.id}:grid">
+					<f:actionListener binding="#{cc.attrs.bean.importFromDefaultContext()}"/>
+				</p:commandButton>
+			</h:form>
+		</j:slot>
+		<j:slot id="sView" width="7">
+			<p:panel header="#{msg.jeeslSecurityMenu}" styleClass="jeeslPanel" rendered="#{not empty cc.attrs.bean.menu}">
+				<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
+					<p:outputLabel value="#{msg.jeeslCategory}"/>
+					<h:outputText value="#{cc.attrs.bean.menu.view.category.name[localeCode].lang}"/>
+					<p:outputLabel value="#{msg.jeeslCode}"/>
+					<h:outputText value="#{cc.attrs.bean.menu.view.code}"/>
+					<p:outputLabel value="#{msg.aupSecurityView}"/>
+					<h:outputText value="#{cc.attrs.bean.menu.view.name[localeCode].lang}"/>
+					<p:outputLabel value="#{msg.aupSecurityViewPattern}"/>
+					<h:outputText value="#{cc.attrs.bean.menu.view.viewPattern}"/>
+					<p:outputLabel value="#{msg.jeeslSecurityViewMapping}"/>
+					<h:outputText value="#{cc.attrs.bean.menu.view.urlMapping}"/>
+					<p:outputLabel value="#{msg.jeeslDescription}"/>
+					<h:outputText value="#{cc.attrs.bean.menu.view.description[localeCode].lang}"/>
+				</p:panelGrid>
+			</p:panel>
+			<h:form id="fHelps" rendered="#{not empty cc.attrs.bean.menu}">
+				<p:dataTable var="h" value="#{cc.attrs.bean.helps}" draggableRows="true"
+					selection="#{cc.attrs.bean.help}" selectionMode="single" rowKey="#{h.id}">
+					<f:facet name="header">
+						<j:dtHeader title="Documents">
+							<ui:repeat var="d" value="#{cc.attrs.bean.documents}">
+						     	<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addHelp(d)}" update=":#{cc.id}:sView" tooltip="#{d.id}"/>						
+					    	</ui:repeat>
+							<j:icon rendered="#{not empty cc.attrs.bean.help}" type="jeeslRemove" listener="#{cc.attrs.bean.removeHelp()}" update=":#{cc.id}:sView"/>
+						</j:dtHeader>
+					</f:facet>
+					<p:ajax event="rowSelect"  listener="#{cc.attrs.bean.selectHelp()}" update=":#{cc.id}:fHelps"/>
+					<p:ajax event="rowReorder" listener="#{cc.attrs.bean.reorderHelp()}" update="@form"/>
+					<p:column rendered="false">
+						<h:graphicImage rendered="#{not h.visible}" name="12/ui/status/ghost.png"  library="jeeslPrototypeGfx"/>
+						<h:outputText rendered="#{h.visible}" value="#{h.position}"/>
+		            </p:column>
+		            <p:column headerText="Document">
+						<h:outputText value="#{h.document.name[localeCode].lang}" />
+		            </p:column>
+		            <p:column headerText="Section">
+						<h:outputText value="#{h.section.name[localeCode].lang}" />
+		            </p:column>
+		       	</p:dataTable>
+			</h:form>
+			<p:droppable for=":#{cc.id}:fHelps" tolerance="touch">
+				<p:ajax listener="#{cc.attrs.bean.onHelpDrop}" update=":#{cc.id}:fHelps" />  
+			</p:droppable>
+			<h:form id="fHelp" rendered="#{not empty cc.attrs.bean.helpTree}">
+				<p:panel header="#{msg.jeeslSecurityHelp}" styleClass="jeeslTree">
+					<f:facet id="fHelpActions" name="actions">
+						<j:svg type="jeeslTreeExpandAll" listener="#{cc.attrs.bean.expandHelp()}" update="@form" tooltip="#{msg.jeeslTtExpandAllChildren}" library="jeeslGfx"/>
+						<j:svg type="jeeslTreeCollapseAll" listener="#{cc.attrs.bean.collapseHelp()}" update="@form" rendered="#{cc.attrs.bean.isHelpExpanded()}" tooltip="#{msg.jeeslTtCollapseAllChildren}" library="jeeslGfx"/>
+					</f:facet>
+					<p:tree id="tHelp" value="#{cc.attrs.bean.helpTree}" var="helpNode"
+						selection="#{cc.attrs.bean.helpNode}" selectionMode="single"
+		                draggable="true" droppable="true" dragdropScope="demo">
+		                <p:ajax event="select" listener="#{cc.attrs.bean.onHelpNodeSelect}" update=":#{cc.id}:sView"/>
+		                <p:ajax event="dragdrop" listener="#{cc.attrs.bean.onDragDrop}" update=":#{cc.id}:fHelp"/>
+			            <p:ajax event="expand" listener="#{cc.attrs.bean.onHelpExpand}" />
+						<p:ajax event="collapse" listener="#{cc.attrs.bean.onHelpCollapse}" />
+			            <p:treeNode>
+			                <h:outputText id="otText" value="#{helpNode.name[localeCode].lang}" />
+			                <p:draggable for="otText" helper="clone" appendTo="@(body)" zindex="5" />
+			            </p:treeNode>
+			        </p:tree>
+				</p:panel>
+			</h:form>
+		</j:slot>
+	</j:row>
+</jp:grid>
 	</composite:implementation>
 </html>

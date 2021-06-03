@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.module.lf.target.time;
+package org.jeesl.interfaces.model.module.lf.time;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,9 +12,9 @@ import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 import org.jeesl.interfaces.model.with.primitive.text.EjbWithName;
 import org.jeesl.interfaces.model.with.system.status.JeeslWithInterval;
 
-public interface JeeslLfTargetTimeGroup<L extends JeeslLang,
+public interface JeeslLfTimeGroup<L extends JeeslLang,
 //										R extends JeeslTenantRealm<?,?,R,?>,		/tk: will be activated soon
-										TTI extends JeeslLfTargetTimeInterval<?,?,TTI,?>>
+										TTI extends JeeslLfTimeInterval<?,?,TTI,?>>
 						extends Serializable,EjbSaveable,EjbRemoveable,EjbWithParentAttributeResolver,EjbWithPosition,
 								EjbWithId,EjbWithName,
 								JeeslWithInterval<TTI>

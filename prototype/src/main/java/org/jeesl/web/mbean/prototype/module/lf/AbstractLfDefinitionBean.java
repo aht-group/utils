@@ -13,15 +13,16 @@ import org.jeesl.controller.handler.ui.UiSlotWidthHandler;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.LfFactoryBuilder;
+import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.interfaces.model.module.lf.JeeslLfConfiguration;
 import org.jeesl.interfaces.model.module.lf.JeeslLfLogframe;
 import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicator;
 import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicatorLevel;
 import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicatorType;
-import org.jeesl.interfaces.model.module.lf.monitoring.JeeslLfIndicatorMonitoring;
-import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeElement;
-import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeGroup;
-import org.jeesl.interfaces.model.module.lf.target.time.JeeslLfTargetTimeInterval;
+import org.jeesl.interfaces.model.module.lf.monitoring.JeeslLfMonitoring;
+import org.jeesl.interfaces.model.module.lf.time.JeeslLfTimeElement;
+import org.jeesl.interfaces.model.module.lf.time.JeeslLfTimeGroup;
+import org.jeesl.interfaces.model.module.lf.time.JeeslLfTimeInterval;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
@@ -39,10 +40,10 @@ public abstract class AbstractLfDefinitionBean <L extends JeeslLang, D extends J
 												LFI extends JeeslLfIndicator<LF,IL,IT,TTG,LFM>,
 												IL extends JeeslLfIndicatorLevel<L, D,R, IL, ?>,
 												IT extends JeeslLfIndicatorType<L, D,R, IT, ?>,
-												TTG extends JeeslLfTargetTimeGroup<L,TTI>,
-												TTI extends JeeslLfTargetTimeInterval<L,D,TTI,?>,
-												TTE extends JeeslLfTargetTimeElement<L,TTG>,
-												LFM extends JeeslLfIndicatorMonitoring<LFI,TTG,TTE>,
+												TTG extends JeeslLfTimeGroup<L,TTI>,
+												TTI extends JeeslLfTimeInterval<L,D,TTI,?>,
+												TTE extends JeeslLfTimeElement<L,TTG>,
+												LFM extends JeeslLfMonitoring<LFI,TTG,TTE>,
 												LFC extends JeeslLfConfiguration<LF,IT>>
 					extends AbstractAdminBean<L,D,LOC>
 					implements Serializable
@@ -54,7 +55,7 @@ public abstract class AbstractLfDefinitionBean <L extends JeeslLang, D extends J
 	protected final LfFactoryBuilder<L,D,R,LF,LFI,IL,IT,TTG,TTI,TTE,LFM,LFC> fbLf;
 	protected JeeslLogframeFacade<L,D,R,LF,LFI,IL,IT,TTG,TTI,TTE,LFM,LFC> fLf;
 
-	protected List<LFI> indicators; public List<LFI> getIndicators() {return indicators;} public void setIndicators(List<LFI> indicators) {this.indicators = indicators;}
+	protected final List<LFI> indicators; public List<LFI> getIndicators() {return indicators;}
 	protected List<LFM> monitorings; public List<LFM> getMonitorings() {return monitorings;} public void setMonitorings(List<LFM> monitorings) {this.monitorings = monitorings;}
 
 	protected LFI indicator; public LFI getIndicator() {return indicator;} public void setIndicator(LFI indicator) {this.indicator = indicator;}
@@ -86,7 +87,7 @@ public abstract class AbstractLfDefinitionBean <L extends JeeslLang, D extends J
 		slotHandler.set(12);
 	}
 
-	protected void postConstructHd(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,JeeslLogframeFacade<L,D,R,LF,LFI,IL,IT,TTG,TTI,TTE,LFM,LFC> fLf)
+	protected void postConstructLfDefinition(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,JeeslLogframeFacade<L,D,R,LF,LFI,IL,IT,TTG,TTI,TTE,LFM,LFC> fLf)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fLf = fLf;
@@ -101,7 +102,11 @@ public abstract class AbstractLfDefinitionBean <L extends JeeslLang, D extends J
 
 	protected void reloadIndicators()
 	{
-		indicators = fLf.allForParent(fbLf.getClassLFI(), logframe);
+		if(EjbIdFactory.isSaved(logframe))
+		{
+			indicators.addAll(fLf.allForParent(fbLf.getClassLFI(), logframe));
+		}
+		
 		typesMap = new HashMap<>();
 
 		for (LFI lf : indicators)
@@ -125,6 +130,13 @@ public abstract class AbstractLfDefinitionBean <L extends JeeslLang, D extends J
 		}
 		if(debugOnInfo) {logger.info(AbstractLogMessage.reloaded(fbLf.getClassLFI(),indicators));}
 	}
+	
+	public void resetMonitoring() {reset(false,true);}
+	private void reset(boolean rInterval, boolean rMonitoring)
+	{
+		if(rInterval) {indicator=null; monitorings=new ArrayList<>();}
+		if(rMonitoring) {monitoring=null;}
+	}
 
 	public void addIndicator()
 	{
@@ -134,18 +146,13 @@ public abstract class AbstractLfDefinitionBean <L extends JeeslLang, D extends J
 		indicator.setLogframe(logframe);
 	}
 
-	public void addIndicator(IL level,IT type)
-	{
-		slotHandler.set(8,4);
-		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbLf.getClassLF()));}
-		indicator =  fbLf.ejbLfIndicator().build();
-		indicator.setLevel(fLf.find(fbLf.getClassIL(),level));
-		indicator.setType(fLf.find(fbLf.getClassIT(),type));
-	}
 
 	public void saveIndicator() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(indicator));}
+		
+		logger.info("Saving "+indicator.getLogframe().toString());
+		
 		indicator.setLevel(fLf.find(fbLf.getClassIL(),indicator.getLevel()));
 		indicator.setType(fLf.find(fbLf.getClassIT(),indicator.getType()));
 		indicator = fLf.save(indicator);
@@ -190,7 +197,6 @@ public abstract class AbstractLfDefinitionBean <L extends JeeslLang, D extends J
 		monitoring.setIndicator(indicator);
 	}
 
-
 	public void saveMonitoring() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(monitoring));}
@@ -221,42 +227,7 @@ public abstract class AbstractLfDefinitionBean <L extends JeeslLang, D extends J
 		reset(false,true);
 	}
 
-	public void resetMonitoring() {reset(false,true);}
 
-	public MeterGaugeChartModel getTargetAchivedModel(LFM selectdMonitoring)
-	{
-		 List<Number> intervals = new ArrayList<Number>(){{
-		 add(50);
-		 add(80);
-		 add(100);
-		 add(200);
-		 }};
-		 MeterGaugeChartModel targetAchivedModel= new MeterGaugeChartModel((int) Math.round(selectdMonitoring.getTargetAchived()), intervals);
-		targetAchivedModel.setGaugeLabel("%");
-		targetAchivedModel.setSeriesColors("cc6666,E7E658,81ff00,66cc66");
-		targetAchivedModel.setTitle("Target Achived");
-	    return targetAchivedModel;
-	}
-
-	public MeterGaugeChartModel getBudgetModel(LFM selectdMonitoring)
-	{
-		List<Number> intervals = new ArrayList<Number>(){{
-			 add(50);
-			 add(80);
-			 add(100);
-			 add(200);
-			 }};
-		MeterGaugeChartModel budgetModel= new MeterGaugeChartModel((int) Math.round(selectdMonitoring.getBudgetExpences()*100/selectdMonitoring.getAllocatedBudget()), intervals);
-		budgetModel.setSeriesColors("E7E658,81ff00,66cc66,cc6666");
-		budgetModel.setGaugeLabel("%");
-		budgetModel.setTitle("Budget Expenses");
-		return budgetModel;
-	}
-	private void reset(boolean rInterval, boolean rMonitoring)
-	{
-		if(rInterval) {indicator=null; monitorings=new ArrayList<>();}
-		if(rMonitoring) {monitoring=null;}
-	}
 
 
 	public void resetTimeGroup() {reset(true, false);}
