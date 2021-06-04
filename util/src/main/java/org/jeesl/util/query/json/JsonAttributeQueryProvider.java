@@ -66,7 +66,7 @@ public class JsonAttributeQueryProvider
 		return json;
 	}
 	
-	private static JsonAttributeData data()
+	public static JsonAttributeData data()
 	{
 		JsonAttributeData json = new JsonAttributeData();
 		json.setId(0l);
@@ -78,11 +78,13 @@ public class JsonAttributeQueryProvider
 		JsonAttributeCriteria criteria = new JsonAttributeCriteria();
 		criteria.setId(0l);
 		criteria.setCode("");
+		criteria.setLabel("");
 		json.setCriteria(criteria);
 		
 		JsonAttributeOption option = new JsonAttributeOption();
 		option.setId(0l);
 		option.setCode("");
+		option.setLabel("");
 		json.setValueOption(option);
 		
 		json.setValueOptions(new ArrayList<>());

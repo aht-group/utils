@@ -11,6 +11,7 @@ import org.jeesl.factory.ejb.io.attribute.EjbAttributeDataFactory;
 import org.jeesl.factory.ejb.io.attribute.EjbAttributeItemFactory;
 import org.jeesl.factory.ejb.io.attribute.EjbAttributeOptionFactory;
 import org.jeesl.factory.ejb.io.attribute.EjbAttributeSetFactory;
+import org.jeesl.factory.json.module.attribute.JsonAttributeDataFactory;
 import org.jeesl.factory.xml.system.io.attribute.XmlAttributeFactory;
 import org.jeesl.factory.xml.system.io.attribute.XmlAttributesFactory;
 import org.jeesl.interfaces.bean.AttributeBean;
@@ -23,6 +24,7 @@ import org.jeesl.interfaces.model.module.attribute.JeeslAttributeSet;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.model.json.module.attribute.JsonAttributeData;
 import org.jeesl.model.xml.jeesl.QueryAttribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,6 +73,8 @@ public class IoAttributeFactoryBuilder<L extends JeeslLang, D extends JeeslDescr
 	
 	public XmlAttributesFactory<L,D,CATEGORY,CRITERIA,OPTION,SET,ITEM,DATA> xmlAttributes(QueryAttribute query) {return new XmlAttributesFactory<>(query);}
 	public XmlAttributeFactory<L,D,CRITERIA,OPTION,ITEM,DATA> xmlAttribute(QueryAttribute query) {return new XmlAttributeFactory<L,D,CRITERIA,OPTION,ITEM,DATA>(query);}
+	
+	public JsonAttributeDataFactory<L,D,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> jsonData(String localeCode, JsonAttributeData q){return new JsonAttributeDataFactory<>(localeCode,q);} 
 	
 	public AttributeHandler<L,D,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> handler(JeeslFacesMessageBean bMessage, JeeslIoAttributeFacade<L,D,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fAttribute, JeeslAttributeBean<L,D,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> bAttribute, AttributeBean<CONTAINER> bean)
 	{

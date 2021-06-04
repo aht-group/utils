@@ -14,7 +14,8 @@ import org.jeesl.interfaces.model.with.system.graphic.EjbWithImageAlt;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithLangDescription;
 
 public interface JeeslStatus<S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription>
-			extends Serializable,EjbRemoveable,EjbWithId,EjbWithCode,EjbWithPositionVisible,EjbWithImage,EjbWithImageAlt,
+			extends Serializable,EjbRemoveable,EjbWithId,
+						EjbWithCode,EjbWithPositionVisible,EjbWithImage,EjbWithImageAlt,
 						EjbWithLangDescription<L,D>,EjbWithParent
 {	
 	enum EjbAttributes{code,parent}
