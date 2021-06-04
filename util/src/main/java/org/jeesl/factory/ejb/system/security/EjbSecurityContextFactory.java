@@ -1,5 +1,6 @@
 package org.jeesl.factory.ejb.system.security;
 
+import org.jeesl.controller.handler.NullNumberBinder;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,4 +30,13 @@ public class EjbSecurityContextFactory <CTX extends JeeslSecurityContext<?,?>>
     	
     	return ejb;
     }
+    
+    public void ejb2nnb(CTX ctx, NullNumberBinder nnb)
+	{
+    	nnb.longToA(ctx.getContextId());
+	}
+	public void nnb2ejb(CTX ctx, NullNumberBinder nnb)
+	{
+		ctx.setContextId(nnb.aToLong());
+	}
 }

@@ -25,6 +25,7 @@ public interface JeeslAttributeCriteria<L extends JeeslLang, D extends JeeslDesc
 					EjbWithLang<L>,EjbWithDescription<D>
 {
 	public enum Attributes{category,refId,position,type}
+	public enum Upcoming{realm,rref}
 	public enum Types{text,bool,intNumber,doubleNumber,date,selectOne,selectMany,remark}
 	
 	CATEGORY getCategory();

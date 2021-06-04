@@ -8,10 +8,12 @@ import org.jeesl.api.bean.JeeslSecurityBean;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
+import org.jeesl.controller.handler.NullNumberBinder;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
+import org.jeesl.factory.ejb.system.security.EjbSecurityContextFactory;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
@@ -51,18 +53,19 @@ public class AbstractAdminSecurityContextBean <L extends JeeslLang, D extends Je
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAdminSecurityContextBean.class);
-			
+	
+	private final EjbSecurityContextFactory<CTX> efContext;
+	
 	private final List<CTX> contexts; public List<CTX> getContexts(){return contexts;}
 	
 	private CTX context; public CTX getContext() {return context;} public void setContext(CTX context) {this.context = context;}
-
-	private final Class<CTX> cCtx;
 	
-	public AbstractAdminSecurityContextBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,?,?,USER> fbSecurity, Class<CTX> cCtx)
+	public AbstractAdminSecurityContextBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,CTX,M,AR,OT,OH,?,?,USER> fbSecurity)
 	{
 		super(fbSecurity);
-		this.cCtx=cCtx;
+		efContext = fbSecurity.ejbContext();
 		contexts = new ArrayList<CTX>();
+		nnb = new NullNumberBinder();
 	}
 	
 	public void postConstructSecurityContext(JeeslSecurityFacade<L,D,C,R,V,U,A,AT,CTX,M,USER> fSecurity,
@@ -85,16 +88,16 @@ public class AbstractAdminSecurityContextBean <L extends JeeslLang, D extends Je
 	private void reloadContexts()
 	{
 		contexts.clear();
-		contexts.addAll(fSecurity.all(cCtx));
+		contexts.addAll(fSecurity.allOrderedPosition(fbSecurity.getClassContext()));
 	}
 
-	//Role
-	public void addContext() throws JeeslConstraintViolationException, InstantiationException, IllegalAccessException
+	public void addContext()
 	{
 		logger.info(AbstractLogMessage.addEntity(fbSecurity.getClassRole()));
-		context = cCtx.newInstance();
+		context = efContext.build();
 		context.setName(efLang.createEmpty(localeCodes));
 		context.setDescription(efDescription.createEmpty(localeCodes));
+		efContext.ejb2nnb(context,nnb);
 	}
 	
 	public void deleteContext() throws JeeslConstraintViolationException, JeeslNotFoundException
@@ -108,7 +111,7 @@ public class AbstractAdminSecurityContextBean <L extends JeeslLang, D extends Je
 	public void saveContext() throws JeeslLockingException, JeeslNotFoundException, JeeslConstraintViolationException
 	{
 		logger.info(AbstractLogMessage.saveEntity(context));
-
+		efContext.nnb2ejb(context,nnb);
 		context = fSecurity.save(context);
 		selectContext();
 		reloadContexts();
@@ -117,13 +120,11 @@ public class AbstractAdminSecurityContextBean <L extends JeeslLang, D extends Je
 	public void selectContext()
 	{
 		logger.trace(AbstractLogMessage.selectEntity(context));
-		context = fSecurity.find(cCtx,context);
+		context = fSecurity.find(fbSecurity.getClassContext(),context);
 		context = efLang.persistMissingLangs(fSecurity,localeCodes,context);
-		context = efDescription.persistMissingLangs(fSecurity,localeCodes,context);		
+		context = efDescription.persistMissingLangs(fSecurity,localeCodes,context);	
+		efContext.ejb2nnb(context,nnb);
 	}
-	
-	protected void roleUpdatePerformed(){}
-	
 	
 	public void reorderContexts() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fSecurity,contexts);}
 }

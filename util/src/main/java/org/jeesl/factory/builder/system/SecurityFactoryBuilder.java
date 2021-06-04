@@ -5,6 +5,7 @@ import org.jeesl.factory.ejb.system.security.EjbSecurityActionFactory;
 import org.jeesl.factory.ejb.system.security.EjbSecurityActionTemplateFactory;
 import org.jeesl.factory.ejb.system.security.EjbSecurityAreaFactory;
 import org.jeesl.factory.ejb.system.security.EjbSecurityCategoryFactory;
+import org.jeesl.factory.ejb.system.security.EjbSecurityContextFactory;
 import org.jeesl.factory.ejb.system.security.EjbSecurityHelpFactory;
 import org.jeesl.factory.ejb.system.security.EjbSecurityMenuFactory;
 import org.jeesl.factory.ejb.system.security.EjbSecurityRoleFactory;
@@ -97,7 +98,8 @@ public class SecurityFactoryBuilder<L extends JeeslLang, D extends JeeslDescript
 		this.cUser=cUser;
 	}
 	
-	public EjbSecurityCategoryFactory<C> ejbCategory(){return new EjbSecurityCategoryFactory<C>(cCategory);}
+	public EjbSecurityContextFactory<CTX> ejbContext(){return new EjbSecurityContextFactory<>(cContext);}
+	public EjbSecurityCategoryFactory<C> ejbCategory(){return new EjbSecurityCategoryFactory<>(cCategory);}
 	public EjbSecurityRoleFactory<C,R> ejbRole(){return new EjbSecurityRoleFactory<C,R>(cRole);}
 	public EjbSecurityViewFactory<C,V> ejbView(){return new EjbSecurityViewFactory<C,V>(cView);}
 	public EjbSecurityUsecaseFactory<C,U> ejbUsecase() {return new EjbSecurityUsecaseFactory<C,U>(cUsecase);}

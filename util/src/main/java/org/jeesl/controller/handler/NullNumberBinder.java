@@ -30,8 +30,10 @@ public class NullNumberBinder
 	public void setA(String a) {this.a = a;}
 	public void integerToA(Integer value) {a = toString(value);}
 	public void doubleToA(Double value) {a = toString(value);}
+	public void longToA(Long value) {a = toString(value);}
 	public Integer aToInteger() {return integerFromString(a);}
 	public Double aToDouble() {return doubleFromString(a);}
+	public Long aToLong() {return longFromString(a);}
 	
 	private String b;
 	public String getB() {return b;}
@@ -151,6 +153,25 @@ public class NullNumberBinder
 		return sb.toString();
 	}
 	
+	private String toString(Long l)
+	{
+		StringBuffer sb = new StringBuffer();
+		if(i==null){sb.append("");}
+		else{sb.append(l.longValue());}
+		
+		if(logger.isTraceEnabled())
+		{
+			StringBuffer sbd = new StringBuffer();
+			sbd.append("Integer ");
+			if(i==null){sbd.append("null");}
+			else{sbd.append(l.longValue());}
+			sbd.append(" returns ").append(sb.toString());
+			logger.trace(sbd.toString());
+		}
+		
+		return sb.toString();
+	}
+	
 	private Integer integerFromString(String x)
 	{
 		Integer result = null;
@@ -158,6 +179,28 @@ public class NullNumberBinder
 		else
 		{
 			result = Integer.valueOf(x);
+		}
+		
+		if(logger.isTraceEnabled())
+		{
+			StringBuffer sb = new StringBuffer();
+			sb.append("String: ").append(x);
+			sb.append(" returns ");
+			if(result==null){sb.append("null");}
+			else{sb.append(result.intValue());}
+			logger.trace(sb.toString());
+		}
+		
+		return result;
+	}
+	
+	private Long longFromString(String x)
+	{
+		Long result = null;
+		if(x==null || x.trim().length()==0){}
+		else
+		{
+			result = Long.valueOf(x);
 		}
 		
 		if(logger.isTraceEnabled())
