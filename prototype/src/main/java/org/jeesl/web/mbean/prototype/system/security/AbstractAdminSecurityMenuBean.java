@@ -2,10 +2,10 @@ package org.jeesl.web.mbean.prototype.system.security;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.map.HashedMap;
 import org.jeesl.api.bean.JeeslSecurityBean;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
@@ -124,7 +124,7 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 		try {reloadDocuments();}
 		catch (JeeslNotFoundException e) {e.printStackTrace();}
 	}
-	
+
 	protected void reloadDocuments()  throws JeeslNotFoundException{};
 
 	@Override public void selectSbSingle(EjbWithId ejb)
@@ -171,7 +171,7 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 		}
 		return list;
 	}
-	
+
 	private void buildMenu(List<M> list)
     {
 		if(sbhContext.isSelected()) {disabledMenuImportFromDefaultContext = !list.isEmpty();}
@@ -181,45 +181,52 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 	    tree = new DefaultTreeNode(null, null);
 
 	    buildTree(tree, efMenu.toListRoot(list),map);
-	    
+
 	    if(debugOnInfo) {logger.info("Reloaded Menu with "+list.size()+" elements. sbhContext.isSelected():"+sbhContext.isSelected()+" disabledMenuImportFromDefaultContext:"+disabledMenuImportFromDefaultContext);}
     }
 
 	public void importFromDefaultContext(){
-		try {
-		if(sbhContext.isSelected()) {
-			CTX defaultCtx = fSecurity.fByCode(fbSecurity.getClassContext(), "core");
-			CTX currentCtx =sbhContext.getSelection();
-			List<M> list = new ArrayList<>();
-			list.addAll(fSecurity.allForParent(fbSecurity.getClassMenu(), JeeslSecurityMenu.Attributes.context,defaultCtx));
-			Map<M,List<M>> map = efMenu.toMapChild(list);
+		try
+		{
+			if(sbhContext.isSelected())
+			{
+				CTX defaultCtx = fSecurity.fByCode(fbSecurity.getClassContext(), "core");
+				CTX currentCtx =sbhContext.getSelection();
+				List<M> list = new ArrayList<>();
+				list.addAll(fSecurity.allForParent(fbSecurity.getClassMenu(), JeeslSecurityMenu.Attributes.context,defaultCtx));
+				Map<M,List<M>> map = efMenu.toMapChild(list);
 
-			Map<M,M> defaultVsCurrentMap = new HashedMap();
-			logger.info("copying menu items....");
-			for (M m :  list) {
-				M newMenu = efMenu.build();
-				newMenu.setPosition(m.getPosition());
-				newMenu.setView(m.getView());
-				newMenu.setContext(currentCtx);
-				newMenu = fSecurity.save(newMenu);
-				//logger.info("copying ids from = " + m.getId() +" to " + newMenu.getId());
-				defaultVsCurrentMap.put(m, newMenu);
-			}
-			logger.info("copying menu items....done");
-			logger.info("Updating menu parents....");
-			for (Map.Entry<M,List<M>> defautlMenuEntry : map.entrySet()) {
-				M currentParentMenu= fSecurity.find(fbSecurity.getClassMenu(),defaultVsCurrentMap.get(defautlMenuEntry.getKey()));
-				for (M m :  defautlMenuEntry.getValue()) {
-					M currentMenu = fSecurity.find(fbSecurity.getClassMenu(), defaultVsCurrentMap.get(m));
-					//logger.info("new MenuId:" + currentMenu.getId() + "parent :" + currentParentMenu.getId());
-					currentMenu.setParent(currentParentMenu);
-					fSecurity.update(currentMenu);
+				Map<M,M> defaultVsCurrentMap = new HashMap<>();
+				logger.info("copying menu items....");
+				for (M m :  list)
+				{
+					M newMenu = efMenu.build();
+					newMenu.setPosition(m.getPosition());
+					newMenu.setView(m.getView());
+					newMenu.setContext(currentCtx);
+					newMenu = fSecurity.save(newMenu);
+					//logger.info("copying ids from = " + m.getId() +" to " + newMenu.getId());
+					defaultVsCurrentMap.put(m, newMenu);
 				}
+				logger.info("copying menu items....done");
+				logger.info("Updating menu parents....");
+				for (Map.Entry<M,List<M>> defautlMenuEntry : map.entrySet())
+				{
+					M currentParentMenu= fSecurity.find(fbSecurity.getClassMenu(),defaultVsCurrentMap.get(defautlMenuEntry.getKey()));
+					for (M m :  defautlMenuEntry.getValue())
+					{
+						M currentMenu = fSecurity.find(fbSecurity.getClassMenu(), defaultVsCurrentMap.get(m));
+						//logger.info("new MenuId:" + currentMenu.getId() + "parent :" + currentParentMenu.getId());
+						currentMenu.setParent(currentParentMenu);
+						fSecurity.update(currentMenu);
+					}
+				}
+				logger.info("Updating menu parents....done");
+				buildMenu(createMissingItems());
 			}
-			logger.info("Updating menu parents....done");
-			buildMenu(createMissingItems());
 		}
-		} catch (JeeslNotFoundException | JeeslConstraintViolationException | JeeslLockingException e) {
+		catch (JeeslNotFoundException | JeeslConstraintViolationException | JeeslLockingException e)
+		{
 			logger.info("import of menu item failed : " + e.getMessage());
 		}
 	}
@@ -315,9 +322,9 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 	public void onHelpNodeSelect(NodeSelectEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}
 	public void onHelpExpand(NodeExpandEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}
     public void onHelpCollapse(NodeCollapseEvent event) {if(debugOnInfo) {logger.info("Collapsed "+event.getTreeNode().toString());}}
-    
+
     public void reorderHelp() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fSecurity, helps);}
-    
+
     public void selectHelp(){}
     public void removeHelp() throws JeeslConstraintViolationException
     {
@@ -326,7 +333,7 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 //    	fSecurity.rm(help);
     	reloadHelps();
     }
-    
+
     // Handler Tree-Select
 
     @SuppressWarnings("unchecked")
@@ -345,6 +352,6 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 		help = fSecurity.save(help);
 		reloadHelps();
     }
-    
-    
+
+
 }
