@@ -72,7 +72,7 @@ public class EjbLangFactory<L extends JeeslLang>
 		return map;
 	}
 
-	public <S extends JeeslStatus<S,L,D>, D extends JeeslDescription> Map<String,L> createEmpty(List<S> locales)
+	public <S extends JeeslStatus<L,D,S>, D extends JeeslDescription> Map<String,L> createEmpty(List<S> locales)
 	{
 		return createEmpty(TxtStatusFactory.toCodes(locales).toArray(new String[0]));
 	}
@@ -145,11 +145,11 @@ public class EjbLangFactory<L extends JeeslLang>
 		return createLang(lang.getKey(), lang.getTranslation());
 	}
 
-	public <T extends EjbWithLang<L>, LOC extends JeeslStatus<LOC,L,D>, D extends JeeslDescription> T persistMissingLangs(JeeslFacade fUtils, List<LOC> locales, T ejb)
+	public <T extends EjbWithLang<L>, LOC extends JeeslStatus<L,D,LOC>, D extends JeeslDescription> T persistMissingLangs(JeeslFacade fUtils, List<LOC> locales, T ejb)
 	{
 		return persistMissingLangs(fUtils,TxtStatusFactory.toCodes(locales).toArray(new String[0]),ejb);
 	}
-	public <T extends EjbWithLang<L>, LOC extends JeeslStatus<LOC,L,D>, D extends JeeslDescription> T persistMissingLangsForCode(JeeslFacade fUtils, List<String> codes, T ejb)
+	public <T extends EjbWithLang<L>, LOC extends JeeslStatus<L,D,LOC>, D extends JeeslDescription> T persistMissingLangsForCode(JeeslFacade fUtils, List<String> codes, T ejb)
 	{
 		String[] localeCodes = new String[codes.size()];
 		for(int i=0;i<codes.size();i++)
@@ -178,7 +178,7 @@ public class EjbLangFactory<L extends JeeslLang>
 		return ejb;
 	}
 
-	public <LOC extends JeeslStatus<LOC,L,?>> Map<String,L> checkMissigLangs(JeeslFacade fUtils, List<LOC> locales, Map<String,L> map)
+	public <LOC extends JeeslStatus<L,?,LOC>> Map<String,L> checkMissigLangs(JeeslFacade fUtils, List<LOC> locales, Map<String,L> map)
 	{
 		for(LOC loc : locales)
 		{

@@ -7,7 +7,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
 public interface JeeslTranslationBean <L extends JeeslLang, D extends JeeslDescription,
-										LOC extends JeeslStatus<LOC,L,D>>
+										LOC extends JeeslStatus<L,D,LOC>>
 {
 	void ping();
 	List<String> getLangKeys();

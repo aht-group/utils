@@ -7,7 +7,7 @@ import org.jeesl.interfaces.model.with.system.status.JeeslWithType;
 
 public interface JeeslWithSurveyType<SURVEY extends JeeslSurvey<?,?,?,?,?>,
 										W extends JeeslWithType<TYPE>,
-										TYPE extends JeeslStatus<TYPE,?,?>>
+										TYPE extends JeeslStatus<?,?,TYPE>>
 			extends EjbWithId, JeeslWithSurvey<SURVEY>
 {
 	public enum Attributes{survey}

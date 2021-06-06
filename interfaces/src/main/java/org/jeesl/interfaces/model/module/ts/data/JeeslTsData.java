@@ -13,7 +13,7 @@ public interface JeeslTsData <TS extends JeeslTimeSeries<?,TS,?,?,?>,
 								TRANSACTION extends JeeslTsTransaction<?,?,?,?>,
 								SAMPLE extends JeeslTsSample, 
 								POINT extends JeeslTsDataPoint<?,?>,
-								WS extends JeeslStatus<WS,?,?>>
+								WS extends JeeslStatus<?,?,WS>>
 		extends JeeslTsValue,EjbSaveable,Serializable,EjbRemoveable,EjbPersistable
 {
 	public enum Attributes{transaction,timeSeries,workspace,record,value}

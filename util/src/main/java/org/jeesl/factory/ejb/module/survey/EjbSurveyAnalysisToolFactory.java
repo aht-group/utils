@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 public class EjbSurveyAnalysisToolFactory<L extends JeeslLang, D extends JeeslDescription,
 				AQ extends JeeslSurveyAnalysisQuestion<L,D,?,?>,
 				TOOL extends JeeslSurveyAnalysisTool<L,D,?,?,?,AQ,ATT>,
-				ATT extends JeeslStatus<ATT,L,D>>
+				ATT extends JeeslStatus<L,D,ATT>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbSurveyAnalysisToolFactory.class);
 	

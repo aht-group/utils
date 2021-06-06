@@ -38,7 +38,7 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 import org.jeesl.model.json.db.tuple.two.Json2Tuples;
 
-public interface JeeslWorkflowFacade <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
+public interface JeeslWorkflowFacade <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<L,D,LOC>,
 										WX extends JeeslWorkflowContext<L,D,WX,?>,
 										WP extends JeeslWorkflowProcess<L,D,WX,WS>,
 										WPD extends JeeslWorkflowDocument<L,D,WP>,

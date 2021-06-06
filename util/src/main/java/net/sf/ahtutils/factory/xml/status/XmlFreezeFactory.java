@@ -20,7 +20,7 @@ public class XmlFreezeFactory
 		this.q=q;
 	}
 	
-	public <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription> Freeze build(S ejb)
+	public <S extends JeeslStatus<L,D,S>,L extends JeeslLang, D extends JeeslDescription> Freeze build(S ejb)
 	{
 		Freeze xml = new Freeze();
 		if(q.isSetCode()){xml.setCode(ejb.getCode());}

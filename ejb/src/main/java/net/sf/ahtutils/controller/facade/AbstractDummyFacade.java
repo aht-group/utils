@@ -478,14 +478,14 @@ public class AbstractDummyFacade implements JeeslFacade
 	}
 
 	@Override
-	public <L extends JeeslLang, D extends JeeslDescription, S extends EjbWithId, G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslGraphicType<L,D,GT,G>, F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS, L, D>> S loadGraphic(
+	public <L extends JeeslLang, D extends JeeslDescription, S extends EjbWithId, G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslGraphicType<L,D,GT,G>, F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<L,D,FS>> S loadGraphic(
 			Class<S> cS, S status) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <L extends JeeslLang, D extends JeeslDescription, C extends JeeslStatus<C, L, D>, W extends JeeslWithCategory<C>> List<W> allForCategory(Class<W> w, C c) {
+	public <L extends JeeslLang, D extends JeeslDescription, C extends JeeslStatus<L,D,C>, W extends JeeslWithCategory<C>> List<W> allForCategory(Class<W> w, C c) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -497,14 +497,14 @@ public class AbstractDummyFacade implements JeeslFacade
 	}
 
 	@Override
-	public <L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<S, L, D>, W extends JeeslWithStatus<S>> List<W> allForStatus(
+	public <L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<L,D,S>, W extends JeeslWithStatus<S>> List<W> allForStatus(
 			Class<W> w, S status) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <L extends JeeslLang, D extends JeeslDescription, T extends JeeslStatus<T,L,D>, W extends JeeslWithType<T>> List<W> allForType(
+	public <L extends JeeslLang, D extends JeeslDescription, T extends JeeslStatus<L,D,T>, W extends JeeslWithType<T>> List<W> allForType(
 			Class<W> w, T type) {
 		// TODO Auto-generated method stub
 		return null;
@@ -524,20 +524,20 @@ public class AbstractDummyFacade implements JeeslFacade
 	}
 
 	@Override
-	public <T extends JeeslWithParentAttributeStatus<STATUS>, P extends EjbWithId, STATUS extends JeeslStatus<STATUS, ?, ?>> List<T> allForParentStatus(
+	public <T extends JeeslWithParentAttributeStatus<STATUS>, P extends EjbWithId, STATUS extends JeeslStatus<?,?,STATUS>> List<T> allForParentStatus(
 			Class<T> type, P parent, List<STATUS> status) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <T extends JeeslWithParentAttributeType<TYPE>, P extends EjbWithId, TYPE extends JeeslStatus<TYPE, ?, ?>> List<T> allForParentType(
+	public <T extends JeeslWithParentAttributeType<TYPE>, P extends EjbWithId, TYPE extends JeeslStatus<?,?,TYPE>> List<T> allForParentType(
 			Class<T> type, P parent, List<TYPE> type2) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override public <C extends JeeslStatus<C,?,?>, W extends JeeslWithContext<C>> List<W> allForContext(Class<W> w, C category) {return null;}
+	@Override public <C extends JeeslStatus<?,?,C>, W extends JeeslWithContext<C>> List<W> allForContext(Class<W> w, C category) {return null;}
 
 	@Override public <T extends EjbWithVisible, P extends EjbWithId> List<T> allVisible(Class<T> cl) {return null;}
 

@@ -14,7 +14,7 @@ import net.sf.ahtutils.model.qualifier.EjbErNode;
 
 @EjbErNode(name="Style",category="symbol",subset="symbol",level=3)
 public class GraphicStyle implements Serializable,EjbRemoveable,EjbPersistable,
-								JeeslStatus<GraphicStyle,Lang,Description>
+								JeeslStatus<Lang,Description,GraphicStyle>
 {
 	public static enum Code {welcome}
 	public static final long serialVersionUID=1;

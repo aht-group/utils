@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public class AbstractAdminSystemNewsBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
-									CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+									CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 									NEWS extends JeeslSystemNews<L,D,CATEGORY,NEWS,USER>,
 									USER extends EjbWithId>
 					extends AbstractAdminBean<L,D,LOC>

@@ -8,7 +8,7 @@ import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslIoSsiData <MAPPING extends JeeslIoSsiMapping<?,?>,
-									LINK extends JeeslStatus<LINK,?,?>>
+									LINK extends JeeslStatus<?,?,LINK>>
 		extends EjbWithId,EjbSaveable,EjbRemoveable,EjbWithCode,EjbWithParentAttributeResolver
 {	
 	public enum Attributes{mapping,code,link,targetId,localId,refA,refB}

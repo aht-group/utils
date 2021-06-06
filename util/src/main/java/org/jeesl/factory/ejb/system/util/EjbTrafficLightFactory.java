@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbTrafficLightFactory<L extends JeeslLang,D extends JeeslDescription,
-									SCOPE extends JeeslStatus<SCOPE,L,D>,
+									SCOPE extends JeeslStatus<L,D,SCOPE>,
 									LIGHT extends JeeslTrafficLight<L,D,SCOPE>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbTrafficLightFactory.class);
@@ -32,7 +32,7 @@ public class EjbTrafficLightFactory<L extends JeeslLang,D extends JeeslDescripti
 	}
 	
 	public static <L extends JeeslLang,D extends JeeslDescription,
-					SCOPE extends JeeslStatus<SCOPE,L,D>,
+					SCOPE extends JeeslStatus<L,D,SCOPE>,
 					LIGHT extends JeeslTrafficLight<L,D,SCOPE>>
 		EjbTrafficLightFactory<L,D,SCOPE,LIGHT> factory(final Class<L> cLang,final Class<D> cDescription,final Class<LIGHT> cLight)
 	{

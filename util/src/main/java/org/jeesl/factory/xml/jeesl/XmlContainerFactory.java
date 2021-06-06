@@ -25,7 +25,7 @@ public class XmlContainerFactory
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription> Container build(List<S> list)
+	public <S extends JeeslStatus<L,D,S>,L extends JeeslLang, D extends JeeslDescription> Container build(List<S> list)
 	{
 		Container xml = build();
 		for(S s : list)

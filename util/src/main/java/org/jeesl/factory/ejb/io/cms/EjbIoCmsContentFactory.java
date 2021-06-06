@@ -7,7 +7,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbIoCmsContentFactory<LOC extends JeeslStatus<LOC,?,?>,
+public class EjbIoCmsContentFactory<LOC extends JeeslStatus<?,?,LOC>,
 									E extends JeeslIoCmsElement<?,?,?,?,C,?>,
 									C extends JeeslIoCmsContent<?,E,MT>,
 									MT extends JeeslIoCmsMarkupType<?,?,MT,?>>

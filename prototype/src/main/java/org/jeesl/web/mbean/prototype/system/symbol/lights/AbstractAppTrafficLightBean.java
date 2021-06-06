@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 public class AbstractAppTrafficLightBean <L extends JeeslLang,D extends JeeslDescription,
 										LIGHT extends JeeslTrafficLight<L,D,SCOPE>,
-										SCOPE extends JeeslStatus<SCOPE,L,D>>
+										SCOPE extends JeeslStatus<L,D,SCOPE>>
 					implements Serializable,JeeslTrafficLightBean<L,D,LIGHT,SCOPE>
 {
 	private static final long serialVersionUID = 1L;

@@ -9,9 +9,9 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 
-public interface JeeslGraphicStyle <S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription,G extends JeeslGraphic<L,D,?,?,?>>
+public interface JeeslGraphicStyle <S extends JeeslStatus<L,D,S>, L extends JeeslLang, D extends JeeslDescription,G extends JeeslGraphic<L,D,?,?,?>>
 							extends Serializable,EjbPersistable,JeeslOptionRestDownload,EjbWithCodeGraphic<G>,
-									JeeslStatus<S,L,D>
+									JeeslStatus<L,D,S>
 {
 	public static enum Code{circle,square,triangle}
 	public static enum Group{outer,inner}

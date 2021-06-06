@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.xml.status.DataType;
 import net.sf.ahtutils.xml.status.Status;
 
-public class XmlDataTypeFactory<S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription>
+public class XmlDataTypeFactory<S extends JeeslStatus<L,D,S>,L extends JeeslLang, D extends JeeslDescription>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlDataTypeFactory.class);
 		

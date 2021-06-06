@@ -31,7 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class XlsCellFactory <REPORT extends JeeslIoReport<?,?,?,WORKBOOK>,
-							IMPLEMENTATION extends JeeslStatus<IMPLEMENTATION,?,?>,
+							IMPLEMENTATION extends JeeslStatus<?,?,IMPLEMENTATION>,
 							WORKBOOK extends JeeslReportWorkbook<REPORT,SHEET>,
 							SHEET extends JeeslReportSheet<?,?,IMPLEMENTATION,WORKBOOK,GROUP,ROW>,
 							GROUP extends JeeslReportColumnGroup<?,?,SHEET,COLUMN,STYLE>,
@@ -40,12 +40,13 @@ public class XlsCellFactory <REPORT extends JeeslIoReport<?,?,?,WORKBOOK>,
 							TEMPLATE extends JeeslReportTemplate<?,?,CELL>,
 							CELL extends JeeslReportCell<?,?,?,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS>,
 							STYLE extends JeeslReportStyle<?,?>,
-							CDT extends JeeslStatus<CDT,?,?>,CW extends JeeslStatus<CW,?,?>,
-							RT extends JeeslStatus<RT,?,?>,
+							CDT extends JeeslStatus<?,?,CDT>,
+							CW extends JeeslStatus<?,?,CW>,
+							RT extends JeeslStatus<?,?,RT>,
 							ENTITY extends EjbWithId,
 							ATTRIBUTE extends EjbWithId,
 							TL extends JeeslTrafficLight<?,?,TLS>,
-							TLS extends JeeslStatus<TLS,?,?>>
+							TLS extends JeeslStatus<?,?,TLS>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XlsCellFactory.class);
 		

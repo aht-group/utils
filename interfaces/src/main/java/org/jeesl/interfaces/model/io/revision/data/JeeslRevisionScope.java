@@ -17,7 +17,7 @@ import org.jeesl.interfaces.model.with.system.locale.EjbWithDescription;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 
 public interface JeeslRevisionScope<L extends JeeslLang,D extends JeeslDescription,
-									RC extends JeeslStatus<RC,L,D>,
+									RC extends JeeslStatus<L,D,RC>,
 									RA extends JeeslRevisionAttribute<L,D,?,?,?>>
 		extends Serializable,EjbPersistable,EjbSaveable,EjbRemoveable,
 				EjbWithPositionVisible,EjbWithParentAttributeResolver,EjbWithPositionParent,

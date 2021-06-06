@@ -46,7 +46,7 @@ public class AbstractIconBean implements Serializable
     }
 
     @Deprecated
-    public <L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<S,L,D>>
+    public <L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<L,D,S>>
     String urlFilter(Integer size, UtilsStatusFilter<L,D,S> filter)
     {
 //    	logger.info("URL for "+filter.getValue().getCode()+" active="+filter.isActive());
@@ -65,7 +65,7 @@ public class AbstractIconBean implements Serializable
     }
 
     @Deprecated
-    public <L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<S,L,D>>
+    public <L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<L,D,S>>
     String filter(Integer size, UtilsStatusFilter<L,D,S> filter)
     {
 //    	logger.info("Filter for "+filter.getValue().getCode()+" active="+filter.isActive());

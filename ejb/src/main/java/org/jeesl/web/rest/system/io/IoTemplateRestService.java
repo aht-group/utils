@@ -20,13 +20,13 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 
 public class IoTemplateRestService <L extends JeeslLang,D extends JeeslDescription,
-									CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+									CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 									CHANNEL extends JeeslTemplateChannel<L,D,CHANNEL,?>,
 									TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>,
-									SCOPE extends JeeslStatus<SCOPE,L,D>,
+									SCOPE extends JeeslStatus<L,D,SCOPE>,
 									DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 									TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,TOKENTYPE>,
-									TOKENTYPE extends JeeslStatus<TOKENTYPE,L,D>>
+									TOKENTYPE extends JeeslStatus<L,D,TOKENTYPE>>
 		extends AbstractJeeslRestService<L,D>
 		implements JeeslIoTemplateRestExport,JeeslIoTemplateRestImport
 {
@@ -57,13 +57,13 @@ public class IoTemplateRestService <L extends JeeslLang,D extends JeeslDescripti
 	}
 	
 	public static <L extends JeeslLang,D extends JeeslDescription,
-					CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+					CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 					CHANNEL extends JeeslTemplateChannel<L,D,CHANNEL,?>,
 					TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>,
-					SCOPE extends JeeslStatus<SCOPE,L,D>,
+					SCOPE extends JeeslStatus<L,D,SCOPE>,
 					DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 					TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,TOKENTYPE>,
-					TOKENTYPE extends JeeslStatus<TOKENTYPE,L,D>>
+					TOKENTYPE extends JeeslStatus<L,D,TOKENTYPE>>
 		IoTemplateRestService<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE>
 		factory(JeeslIoTemplateFacade<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fTemplate,final Class<L> cL, final Class<D> cD, Class<CATEGORY> cCategory, final Class<CHANNEL> cType, final Class<TEMPLATE> cTemplate, final Class<SCOPE> cScope, final Class<DEFINITION> cDefinition, final Class<TOKEN> cToken)
 	{

@@ -56,7 +56,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-public class JeeslWorkflowCommunicator <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
+public class JeeslWorkflowCommunicator <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<L,D,LOC>,
 										WX extends JeeslWorkflowContext<L,D,WX,?>,
 										WP extends JeeslWorkflowProcess<L,D,WX,WS>,
 										WPD extends JeeslWorkflowDocument<L,D,WP>,

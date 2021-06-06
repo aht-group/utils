@@ -7,7 +7,7 @@ import org.jeesl.model.json.system.status.JsonType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class JsonTypeFactory<L extends JeeslLang, D extends JeeslDescription,S extends JeeslStatus<S,L,D>>
+public class JsonTypeFactory<L extends JeeslLang, D extends JeeslDescription,S extends JeeslStatus<L,D,S>>
 {
 	final static Logger logger = LoggerFactory.getLogger(JsonTypeFactory.class);
 	

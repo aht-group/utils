@@ -9,7 +9,7 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslRegistration <L extends JeeslLang, D extends JeeslDescription,
 							USER extends JeeslUser<?>,
-							REGSTATUS extends JeeslStatus<REGSTATUS,L,D>>
+							REGSTATUS extends JeeslStatus<L,D,REGSTATUS>>
 		extends EjbWithId,EjbSaveable,EjbRemoveable
 {	
 	USER getUser();

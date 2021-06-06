@@ -59,7 +59,7 @@ import org.jeesl.interfaces.model.with.system.status.JeeslWithType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class JeeslSurveyCoreFacadeBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
+public class JeeslSurveyCoreFacadeBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<L,D,LOC>,
 									SURVEY extends JeeslSurvey<L,D,SS,TEMPLATE,DATA>,
 									SS extends JeeslSurveyStatus<L,D,SS,?>,
 									SCHEME extends JeeslSurveyScheme<L,D,TEMPLATE,SCORE>,
@@ -272,7 +272,7 @@ public class JeeslSurveyCoreFacadeBean <L extends JeeslLang, D extends JeeslDesc
 		this.rmProtected(option);
 	}
 	
-	@Override public <TYPE extends JeeslStatus<TYPE,L,D>, WT extends JeeslWithType<TYPE>, W extends JeeslWithSurveyType<SURVEY,WT,TYPE>>
+	@Override public <TYPE extends JeeslStatus<L,D,TYPE>, WT extends JeeslWithType<TYPE>, W extends JeeslWithSurveyType<SURVEY,WT,TYPE>>
 		List<W> fWithSurveys(Class<W> c, List<SS> status, TYPE type, Date date)
 	{
 		logger.info("Looking für wSurvey for type="+type.getCode()+" and status="+TxtStatusFactory.toCodes(status)+" and c="+c.getSimpleName());

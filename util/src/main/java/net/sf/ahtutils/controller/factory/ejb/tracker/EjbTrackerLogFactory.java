@@ -13,8 +13,8 @@ import org.slf4j.LoggerFactory;
 
 public class EjbTrackerLogFactory<TR extends UtilsTracker<TR,TL,T,S,L,D>,
 			TL extends UtilsTrackerLog<TR,TL,T,S,L,D>,
-			T extends JeeslStatus<T,L,D>,
-			S extends JeeslStatus<S,L,D>,
+			T extends JeeslStatus<L,D,T>,
+			S extends JeeslStatus<L,D,S>,
 			L extends JeeslLang,
 			D extends JeeslDescription>
 {
@@ -24,8 +24,8 @@ public class EjbTrackerLogFactory<TR extends UtilsTracker<TR,TL,T,S,L,D>,
 	
     public static <TR extends UtilsTracker<TR,TL,T,S,L,D>,
 	  TL extends UtilsTrackerLog<TR,TL,T,S,L,D>,
-	  T extends JeeslStatus<T,L,D>,
-	  S extends JeeslStatus<S,L,D>,
+	  T extends JeeslStatus<L,D,T>,
+	  S extends JeeslStatus<L,D,S>,
 	  L extends JeeslLang,
 	  D extends JeeslDescription> EjbTrackerLogFactory<TR,TL,T,S,L,D> createFactory(final Class<TL> clTrackerLog)
     {

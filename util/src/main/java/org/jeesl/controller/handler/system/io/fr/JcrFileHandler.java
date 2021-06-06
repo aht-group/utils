@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.exlp.xml.io.File;
 
-public class JcrFileHandler<L extends JeeslLang,D extends JeeslDescription, T extends JeeslStatus<T,L,D>> implements Serializable
+public class JcrFileHandler<L extends JeeslLang,D extends JeeslDescription, T extends JeeslStatus<L,D,T>> implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(JcrFileHandler.class);

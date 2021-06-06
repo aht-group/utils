@@ -16,7 +16,7 @@ import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 import org.jeesl.model.xml.system.io.mail.Mail;
 
 public interface JeeslIoMailFacade <L extends JeeslLang,D extends JeeslDescription,
-									CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+									CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 									MAIL extends JeeslIoMail<L,D,CATEGORY,STATUS,RETENTION,FRC>,
 									STATUS extends JeeslMailStatus<L,D,STATUS,?>,
 									RETENTION extends JeeslMailRetention<L,D,RETENTION,?>,

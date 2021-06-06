@@ -61,12 +61,12 @@ public class RevisionRestService <L extends JeeslLang,D extends JeeslDescription
 								RV extends JeeslRevisionView<L,D,RVM>,
 								RVM extends JeeslRevisionViewMapping<RV,RE,REM>,
 								RS extends JeeslRevisionScope<L,D,RC,RA>,
-								RST extends JeeslStatus<RST,L,D>,
+								RST extends JeeslStatus<L,D,RST>,
 								RE extends JeeslRevisionEntity<L,D,RC,REM,RA,ERD>,
 								REM extends JeeslRevisionEntityMapping<RS,RST,RE>,
 								RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>,
-								RER extends JeeslStatus<RER,L,D>,
-								RAT extends JeeslStatus<RAT,L,D>,
+								RER extends JeeslStatus<L,D,RER>,
+								RAT extends JeeslStatus<L,D,RAT>,
 								ERD extends JeeslRevisionDiagram<L,D,RC>
 >
 					implements JeeslRevisionRestExport,JeeslRevisionRestImport
@@ -269,7 +269,7 @@ public class RevisionRestService <L extends JeeslLang,D extends JeeslDescription
 	}
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public <S extends JeeslStatus<S,L,D>, P extends JeeslStatus<P,L,D>> DataUpdate importStatus(Class<S> clStatus, Class<L> clLang, Class<D> clDescription, Aht container, Class<P> clParent)
+    public <S extends JeeslStatus<L,D,S>, P extends JeeslStatus<L,D,P>> DataUpdate importStatus(Class<S> clStatus, Class<L> clLang, Class<D> clDescription, Aht container, Class<P> clParent)
     {
     	for(Status xml : container.getStatus()){xml.setGroup(clStatus.getSimpleName());}
 		JeeslDbStatusUpdater asdi = new JeeslDbStatusUpdater();
@@ -281,7 +281,7 @@ public class RevisionRestService <L extends JeeslLang,D extends JeeslDescription
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public <S extends JeeslStatus<S,L,D>, P extends JeeslStatus<P,L,D>> DataUpdate importStatus(Class<S> clStatus, Class<L> clLang, Class<D> clDescription, Container container, Class<P> clParent)
+    public <S extends JeeslStatus<L,D,S>, P extends JeeslStatus<L,D,P>> DataUpdate importStatus(Class<S> clStatus, Class<L> clLang, Class<D> clDescription, Container container, Class<P> clParent)
     {
     	for(Status xml : container.getStatus()){xml.setGroup(clStatus.getSimpleName());}
 		JeeslDbStatusUpdater asdi = new JeeslDbStatusUpdater();

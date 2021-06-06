@@ -14,8 +14,8 @@ import org.jeesl.interfaces.model.with.system.status.JeeslWithCategory;
 import org.jeesl.interfaces.model.with.system.status.JeeslWithStatus;
 
 public interface JeeslSync<L extends JeeslLang, D extends JeeslDescription,
-							STATUS extends JeeslStatus<STATUS,L,D>,
-							CATEGORY extends JeeslStatus<CATEGORY,L,D>>
+							STATUS extends JeeslStatus<L,D,STATUS>,
+							CATEGORY extends JeeslStatus<L,D,CATEGORY>>
 			extends EjbWithId,EjbWithCode,EjbWithRecord,Serializable,EjbPersistable,EjbSaveable,
 						JeeslWithStatus<STATUS>,
 						JeeslWithCategory<CATEGORY>

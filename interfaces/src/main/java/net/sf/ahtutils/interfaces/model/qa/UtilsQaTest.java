@@ -17,7 +17,7 @@ public interface UtilsQaTest<
 							QAR extends UtilsQaResult<?,?,?>,
 							QATD extends UtilsQaTestDiscussion<?,?>,
 							QATI extends UtilsQaTestInfo<?>,
-							QATS extends JeeslStatus<QATS,?,?>>
+							QATS extends JeeslStatus<?,?,QATS>>
 			extends Serializable,EjbSaveable,EjbWithNr,EjbWithId,EjbWithName,EjbWithCode
 {
 	QAC getCategory();

@@ -22,13 +22,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class AbstractSystemConstraintBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
-													ALGCAT extends JeeslStatus<ALGCAT,L,D>,
+													ALGCAT extends JeeslStatus<L,D,ALGCAT>,
 													ALGO extends JeeslConstraintAlgorithm<L,D,ALGCAT>,
 													SCOPE extends JeeslConstraintScope<L,D,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>,
-													CONCAT extends JeeslStatus<CONCAT,L,D>,
+													CONCAT extends JeeslStatus<L,D,CONCAT>,
 													CONSTRAINT extends JeeslConstraint<L,D,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>,
-													LEVEL extends JeeslStatus<LEVEL,L,D>,
-													TYPE extends JeeslStatus<TYPE,L,D>,
+													LEVEL extends JeeslStatus<L,D,LEVEL>,
+													TYPE extends JeeslStatus<L,D,TYPE>,
 													RESOLUTION extends JeeslConstraintResolution<L,D,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>>
 					extends AbstractAdminBean<L,D,LOC>
 					implements Serializable,SbToggleBean

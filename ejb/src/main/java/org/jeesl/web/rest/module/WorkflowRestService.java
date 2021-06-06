@@ -44,7 +44,7 @@ import org.jeesl.web.rest.AbstractJeeslRestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class WorkflowRestService <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
+public class WorkflowRestService <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<L,D,LOC>,
 									WX extends JeeslWorkflowContext<L,D,WX,?>,
 									WP extends JeeslWorkflowProcess<L,D,WX,WS>,
 									WPD extends JeeslWorkflowDocument<L,D,WP>,
@@ -92,7 +92,7 @@ public class WorkflowRestService <L extends JeeslLang, D extends JeeslDescriptio
 		xfProcess.lazy(fbWorkflow, fWorkflow);
 	}
 	
-	public static <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
+	public static <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<L,D,LOC>,
 						WX extends JeeslWorkflowContext<L,D,WX,?>,
 						WP extends JeeslWorkflowProcess<L,D,WX,WS>,
 						WPD extends JeeslWorkflowDocument<L,D,WP>,

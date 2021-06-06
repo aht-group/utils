@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 public class EjbTsScopeFactory<CAT extends JeeslTsCategory<?,?,CAT,?>,
 								SCOPE extends JeeslTsScope<?,?,CAT,?,UNIT,?,?>,
-								UNIT extends JeeslStatus<UNIT,?,?>
+								UNIT extends JeeslStatus<?,?,UNIT>
 								>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbTsScopeFactory.class);

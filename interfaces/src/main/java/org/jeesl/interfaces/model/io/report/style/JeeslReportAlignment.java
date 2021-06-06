@@ -14,12 +14,12 @@ import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
 
 public interface JeeslReportAlignment <L extends JeeslLang, D extends JeeslDescription,
-										S extends JeeslStatus<S,L,D>,
+										S extends JeeslStatus<L,D,S>,
 										G extends JeeslGraphic<L,D,?,?,?>>
 										extends Serializable,EjbPersistable,
 											EjbWithCode,JeeslStatusFixedCode,
 											JeeslOptionRestDownload,JeeslOptionRestDescription,
-											EjbWithCodeGraphic<G>,JeeslStatus<S,L,D>
+											EjbWithCodeGraphic<G>,JeeslStatus<L,D,S>
 {
 	public static enum Code{left,center,right}
 }

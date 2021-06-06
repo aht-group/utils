@@ -14,8 +14,8 @@ import org.jeesl.interfaces.model.with.primitive.text.EjbWithEmail;
 public class JeeslFeedbackFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 										THREAD extends JeeslFeedbackThread<L,D,THREAD,FEEDBACK,STYLE,TYPE,USER>,
 										FEEDBACK extends JeeslFeedback<L,D,THREAD,FEEDBACK,STYLE,TYPE,USER>,
-										STYLE extends JeeslStatus<STYLE,L,D>,
-										TYPE extends JeeslStatus<TYPE,L,D>,
+										STYLE extends JeeslStatus<L,D,STYLE>,
+										TYPE extends JeeslStatus<L,D,TYPE>,
 										USER extends EjbWithEmail>
 					extends JeeslFacadeBean
 					implements JeeslFeedbackFacade<L,D,THREAD,FEEDBACK,STYLE,TYPE,USER>

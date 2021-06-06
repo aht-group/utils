@@ -23,7 +23,7 @@ public interface UtilsAuditTrail<L extends JeeslLang,
 								 A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 								 AT extends JeeslSecurityTemplate<L,D,C>,
 								 USER extends JeeslUser<R>,
-								 TY extends JeeslStatus<TY,L,D>>
+								 TY extends JeeslStatus<L,D,TY>>
 					extends EjbWithId
 {
 	public USER getUser();

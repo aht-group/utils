@@ -13,7 +13,7 @@ import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 
 public class UtilsTrafficLightFacadeBean <L extends JeeslLang,D extends JeeslDescription,
 											LIGHT extends JeeslTrafficLight<L,D,SCOPE>,
-											SCOPE extends JeeslStatus<SCOPE,L,D>>
+											SCOPE extends JeeslStatus<L,D,SCOPE>>
 	extends JeeslFacadeBean implements JeeslTrafficLightFacade<L,D,LIGHT,SCOPE>
 {	
 	private final Class<LIGHT> cLight;

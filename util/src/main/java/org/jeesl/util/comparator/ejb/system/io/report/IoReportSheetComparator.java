@@ -21,9 +21,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class IoReportSheetComparator<L extends JeeslLang,D extends JeeslDescription,
-								CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+								CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 								REPORT extends JeeslIoReport<L,D,CATEGORY,WORKBOOK>,
-								IMPLEMENTATION extends JeeslStatus<IMPLEMENTATION,L,D>,
+								IMPLEMENTATION extends JeeslStatus<L,D,IMPLEMENTATION>,
 								WORKBOOK extends JeeslReportWorkbook<REPORT,SHEET>,
 								SHEET extends JeeslReportSheet<L,D,IMPLEMENTATION,WORKBOOK,GROUP,ROW>,
 								GROUP extends JeeslReportColumnGroup<L,D,SHEET,COLUMN,STYLE>,
@@ -31,13 +31,13 @@ public class IoReportSheetComparator<L extends JeeslLang,D extends JeeslDescript
 								ROW extends JeeslReportRow<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS>,
 								TEMPLATE extends JeeslReportTemplate<L,D,CELL>,
 								CELL extends JeeslReportCell<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS>,
-								STYLE extends JeeslReportStyle<L,D>,CDT extends JeeslStatus<CDT,L,D>,
-								CW extends JeeslStatus<CW,L,D>,
-								RT extends JeeslStatus<RT,L,D>,
+								STYLE extends JeeslReportStyle<L,D>,CDT extends JeeslStatus<L,D,CDT>,
+								CW extends JeeslStatus<L,D,CW>,
+								RT extends JeeslStatus<L,D,RT>,
 								ENTITY extends EjbWithId,
 								ATTRIBUTE extends EjbWithId,
 								TL extends JeeslTrafficLight<L,D,TLS>,
-								TLS extends JeeslStatus<TLS,L,D>>
+								TLS extends JeeslStatus<L,D,TLS>>
 {
 	final static Logger logger = LoggerFactory.getLogger(IoReportSheetComparator.class);
 

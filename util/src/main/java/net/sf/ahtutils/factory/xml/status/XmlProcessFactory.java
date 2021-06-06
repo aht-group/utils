@@ -22,8 +22,8 @@ public class XmlProcessFactory
 		this.q=q;
 	}
 	
-	public <S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription> net.sf.ahtutils.xml.status.Process build(S ejb){return build(ejb,null);}
-	public <S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription> net.sf.ahtutils.xml.status.Process build(S ejb, String group)
+	public <S extends JeeslStatus<L,D,S>, L extends JeeslLang, D extends JeeslDescription> net.sf.ahtutils.xml.status.Process build(S ejb){return build(ejb,null);}
+	public <S extends JeeslStatus<L,D,S>, L extends JeeslLang, D extends JeeslDescription> net.sf.ahtutils.xml.status.Process build(S ejb, String group)
 	{
 		net.sf.ahtutils.xml.status.Process xml = new net.sf.ahtutils.xml.status.Process();
 		xml.setGroup(group);

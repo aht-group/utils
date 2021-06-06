@@ -13,12 +13,12 @@ import org.jeesl.interfaces.model.system.option.JeeslOptionRestDescription;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
 
-public interface JeeslWorkflowStageType <L extends JeeslLang, D extends JeeslDescription,S extends JeeslStatus<S,L,D>,G extends JeeslGraphic<L,D,?,?,?>>
+public interface JeeslWorkflowStageType <L extends JeeslLang, D extends JeeslDescription,S extends JeeslStatus<L,D,S>,G extends JeeslGraphic<L,D,?,?,?>>
 									extends Serializable,EjbPersistable,
 									EjbWithCode,JeeslStatusFixedCode,
 									JeeslOptionRestDescription,JeeslOptionRestDownload,
 									EjbWithCodeGraphic<G>,
-									JeeslStatus<S,L,D>
+									JeeslStatus<L,D,S>
 {
 	public enum Code{start,intermediate,end}
 }

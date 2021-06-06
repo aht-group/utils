@@ -13,9 +13,9 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.text.EjbWithEmail;
 
 public interface JeeslJob<TEMPLATE extends JeeslJobTemplate<?,?,?,?,?,?>,
-							PRIORITY extends JeeslStatus<PRIORITY,?,?>,
+							PRIORITY extends JeeslStatus<?,?,PRIORITY>,
 							FEEDBACK extends JeeslJobFeedback<?,?,USER>,
-							STATUS extends JeeslStatus<STATUS,?,?>,
+							STATUS extends JeeslStatus<?,?,STATUS>,
 							USER extends EjbWithEmail>
 		extends Serializable,EjbWithId,EjbSaveable,EjbRemoveable,EjbWithNonUniqueCode,EjbWithParentAttributeResolver
 {	

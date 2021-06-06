@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbAttributeSetFactory<L extends JeeslLang, D extends JeeslDescription,
-									CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+									CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 									SET extends JeeslAttributeSet<L,D,CATEGORY,ITEM>,
 									ITEM extends JeeslAttributeItem<?,SET>>
 {

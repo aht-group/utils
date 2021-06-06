@@ -13,12 +13,12 @@ import org.jeesl.interfaces.model.system.option.JeeslOptionRestDescription;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 
 public interface JeeslTemplateChannel <L extends JeeslLang, D extends JeeslDescription,
-									S extends JeeslStatus<S,L,D>,
+									S extends JeeslStatus<L,D,S>,
 									G extends JeeslGraphic<L,D,?,?,?>>
 					extends Serializable,EjbPersistable,
 							JeeslStatusFixedCode,
 							JeeslOptionRestDescription,JeeslOptionRestDownload,
-							EjbWithCodeGraphic<G>,JeeslStatus<S,L,D>
+							EjbWithCodeGraphic<G>,JeeslStatus<L,D,S>
 {	
 	public static enum Code{sms,email,box,pdf};
 }

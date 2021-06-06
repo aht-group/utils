@@ -42,7 +42,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SurveySelectOneProcessor<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
+public class SurveySelectOneProcessor<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<L,D,LOC>,
 										SURVEY extends JeeslSurvey<L,D,SS,TEMPLATE,DATA>,
 										SS extends JeeslSurveyStatus<L,D,SS,?>,
 										SCHEME extends JeeslSurveyScheme<L,D,TEMPLATE,SCORE>,
@@ -72,7 +72,7 @@ public class SurveySelectOneProcessor<L extends JeeslLang, D extends JeeslDescri
 										ANALYSIS extends JeeslSurveyAnalysis<L,D,TEMPLATE,DOMAIN,DENTITY,DATTRIBUTE>,
 										AQ extends JeeslSurveyAnalysisQuestion<L,D,QUESTION,ANALYSIS>,
 										TOOL extends JeeslSurveyAnalysisTool<L,D,QE,QUERY,DATTRIBUTE,AQ,ATT>,
-										ATT extends JeeslStatus<ATT,L,D>,
+										ATT extends JeeslStatus<L,D,ATT>,
 										TOOLCACHETEMPLATE extends JeeslJobTemplate<L,D,?,?,?,?>,
 										CACHE extends JeeslJobCache<TOOLCACHETEMPLATE,?>>
 {

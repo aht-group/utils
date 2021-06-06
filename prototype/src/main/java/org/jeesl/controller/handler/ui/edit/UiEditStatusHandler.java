@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 //jeesl.highlight:showcase
-public class UiEditStatusHandler <S extends JeeslStatus<S,?,?>> implements UiEditHandler
+public class UiEditStatusHandler <S extends JeeslStatus<?,?,S>> implements UiEditHandler
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(UiEditStatusHandler.class);

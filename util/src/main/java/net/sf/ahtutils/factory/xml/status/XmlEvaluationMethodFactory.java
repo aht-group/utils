@@ -10,7 +10,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class XmlEvaluationMethodFactory <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription>
+public class XmlEvaluationMethodFactory <S extends JeeslStatus<L,D,S>,L extends JeeslLang, D extends JeeslDescription>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlEvaluationMethodFactory.class);
 		

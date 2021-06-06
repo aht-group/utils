@@ -16,12 +16,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbTsFactory<SCOPE extends JeeslTsScope<?,?,?,?,UNIT,EC,INT>,
-							UNIT extends JeeslStatus<UNIT,?,?>,
+							UNIT extends JeeslStatus<?,?,UNIT>,
 							TS extends JeeslTimeSeries<SCOPE,TS,BRIDGE,INT,STAT>,
 							SOURCE extends EjbWithLangDescription<?,?>, 
 							BRIDGE extends JeeslTsBridge<EC>,
 							EC extends JeeslTsEntityClass<?,?,?,?>,
-							INT extends JeeslStatus<INT,?,?>,
+							INT extends JeeslStatus<?,?,INT>,
 							STAT extends JeeslTsStatistic<?,?,STAT,?>
 							>
 {

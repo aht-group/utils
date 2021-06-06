@@ -12,10 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TxtIoTemplateFactory<L extends JeeslLang,D extends JeeslDescription,
-									CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+									CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 									CHANNEL extends JeeslTemplateChannel<L,D,CHANNEL,?>,
 									TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>,
-									SCOPE extends JeeslStatus<SCOPE,L,D>,
+									SCOPE extends JeeslStatus<L,D,SCOPE>,
 									DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 									TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,?>>
 {
@@ -31,10 +31,10 @@ public class TxtIoTemplateFactory<L extends JeeslLang,D extends JeeslDescription
 	}
 	
 	public static <L extends JeeslLang,D extends JeeslDescription,
-					CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+					CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 					CHANNEL extends JeeslTemplateChannel<L,D,CHANNEL,?>,
 					TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>,
-					SCOPE extends JeeslStatus<SCOPE,L,D>,
+					SCOPE extends JeeslStatus<L,D,SCOPE>,
 					DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 					TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,?>>
 		String buildCode(DEFINITION definition, String localeCode)
@@ -82,10 +82,10 @@ public class TxtIoTemplateFactory<L extends JeeslLang,D extends JeeslDescription
 	}
 	
 	public static <L extends JeeslLang,D extends JeeslDescription,
-					CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+					CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 					CHANNEL extends JeeslTemplateChannel<L,D,CHANNEL,?>,
 					TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>,
-					SCOPE extends JeeslStatus<SCOPE,L,D>,
+					SCOPE extends JeeslStatus<L,D,SCOPE>,
 					DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 					TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,?>>
 	String buildCode(JeeslIoTemplateEnvelope<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN> envelope)

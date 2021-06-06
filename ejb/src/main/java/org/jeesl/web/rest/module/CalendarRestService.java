@@ -20,9 +20,9 @@ public class CalendarRestService <L extends JeeslLang,
 								D extends JeeslDescription,
 								CALENDAR extends JeeslCalendar<L,D,CALENDAR,ZONE,CT,ITEM,IT>,
 								ZONE extends JeeslCalendarTimeZone<L,D,CALENDAR,ZONE,CT,ITEM,IT>,
-								CT extends JeeslStatus<CT,L,D>,
+								CT extends JeeslStatus<L,D,CT>,
 								ITEM extends JeeslCalendarItem<L,D,CALENDAR,ZONE,CT,ITEM,IT>,
-								IT extends JeeslStatus<IT,L,D>
+								IT extends JeeslStatus<L,D,IT>
 								>
 					extends AbstractJeeslRestService<L,D>
 					implements JeeslCalendarRestExport,JeeslCalendarRestImport
@@ -46,9 +46,9 @@ public class CalendarRestService <L extends JeeslLang,
 	public static <L extends JeeslLang,
 					D extends JeeslDescription,
 					CALENDAR extends JeeslCalendar<L,D,CALENDAR,ZONE,CT,ITEM,IT>, ZONE extends JeeslCalendarTimeZone<L,D,CALENDAR,ZONE,CT,ITEM,IT>,
-					CT extends JeeslStatus<CT,L,D>,
+					CT extends JeeslStatus<L,D,CT>,
 					ITEM extends JeeslCalendarItem<L,D,CALENDAR,ZONE,CT,ITEM,IT>,
-					IT extends JeeslStatus<IT,L,D>>
+					IT extends JeeslStatus<L,D,IT>>
 			CalendarRestService<L,D,CALENDAR,ZONE,CT,ITEM,IT>
 			factory(JeeslCalendarFacade<L,D,CALENDAR,ZONE,CT,ITEM,IT> fCalendar,final Class<L> cL, final Class<D> cD, final Class<CT> cType, final Class<IT> cItemType)
 	{

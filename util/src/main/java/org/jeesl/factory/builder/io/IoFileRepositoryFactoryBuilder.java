@@ -25,7 +25,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class IoFileRepositoryFactoryBuilder<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
+public class IoFileRepositoryFactoryBuilder<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<L,D,LOC>,
 											SYSTEM extends JeeslIoSsiSystem<L,D>,
 											STORAGE extends JeeslFileStorage<L,D,SYSTEM,STYPE,SENGINE>,
 											STYPE extends JeeslFileStorageType<L,D,STYPE,?>,

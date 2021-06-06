@@ -60,7 +60,7 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
+public class JeeslWorkflowFacadeBean<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<L,D,LOC>,
 									AX extends JeeslWorkflowContext<L,D,AX,?>,
 									WP extends JeeslWorkflowProcess<L,D,AX,WS>,
 									WPD extends JeeslWorkflowDocument<L,D,WP>,

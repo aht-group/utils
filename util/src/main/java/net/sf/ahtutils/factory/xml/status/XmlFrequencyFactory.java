@@ -20,8 +20,8 @@ public class XmlFrequencyFactory
 		this.q=q;
 	}
 	
-	public <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription> Frequency build(S ejb){return build(ejb,null);}
-	public <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription> Frequency build(S ejb, String group)
+	public <S extends JeeslStatus<L,D,S>,L extends JeeslLang, D extends JeeslDescription> Frequency build(S ejb){return build(ejb,null);}
+	public <S extends JeeslStatus<L,D,S>,L extends JeeslLang, D extends JeeslDescription> Frequency build(S ejb, String group)
 	{
 		Frequency xml = new Frequency();
 		if(q.isSetCode()){xml.setCode(ejb.getCode());}

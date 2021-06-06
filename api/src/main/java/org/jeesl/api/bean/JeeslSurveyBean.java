@@ -49,7 +49,7 @@ public interface JeeslSurveyBean<L extends JeeslLang, D extends JeeslDescription
 					OPTIONS extends JeeslSurveyOptionSet<L,D,TEMPLATE,OPTION>,
 					OPTION extends JeeslSurveyOption<L,D>,
 					CORRELATION extends JeeslSurveyCorrelation<DATA>,
-					ATT extends JeeslStatus<ATT,L,D>>
+					ATT extends JeeslStatus<L,D,ATT>>
 				extends JeeslSurveyCache<TEMPLATE,SECTION,QUESTION,CONDITION,VALIDATION>
 {	
 	List<ATT> getToolTypes();

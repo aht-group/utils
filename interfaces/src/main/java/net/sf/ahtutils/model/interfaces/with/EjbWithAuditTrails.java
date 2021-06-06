@@ -25,7 +25,7 @@ public interface EjbWithAuditTrails <L extends JeeslLang,
 									AT extends JeeslSecurityTemplate<L,D,C>,
 									USER extends JeeslUser<R>,
 									T extends UtilsAuditTrail<L,D,C,R,V,U,A,AT,USER,TY>,
-									TY extends JeeslStatus<TY,L,D>>
+									TY extends JeeslStatus<L,D,TY>>
 {
 	List<T> getAuditTrails();
 	void setAuditTrails(List<T> auditTrails);

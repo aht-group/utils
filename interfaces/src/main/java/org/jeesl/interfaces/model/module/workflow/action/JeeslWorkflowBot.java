@@ -12,11 +12,11 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDescription;
 import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
 
-public interface JeeslWorkflowBot <S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription,G extends JeeslGraphic<L,D,?,?,?>>
+public interface JeeslWorkflowBot <S extends JeeslStatus<L,D,S>, L extends JeeslLang, D extends JeeslDescription,G extends JeeslGraphic<L,D,?,?,?>>
 									extends Serializable,EjbPersistable,
 									EjbWithCode,JeeslStatusFixedCode,
 									JeeslOptionRestDescription,EjbWithCodeGraphic<G>,
-									JeeslStatus<S,L,D>
+									JeeslStatus<L,D,S>
 {
 	public enum Code{callbackCommand}
 }

@@ -23,7 +23,7 @@ import net.sf.ahtutils.xml.sync.DataUpdate;
 import net.sf.ahtutils.xml.utils.TrafficLight;
 import net.sf.ahtutils.xml.utils.TrafficLights;
 
-public class TrafficLightRestService <L extends JeeslLang,D extends JeeslDescription,SCOPE extends JeeslStatus<SCOPE,L,D>,LIGHT extends JeeslTrafficLight<L,D,SCOPE>>
+public class TrafficLightRestService <L extends JeeslLang,D extends JeeslDescription,SCOPE extends JeeslStatus<L,D,SCOPE>,LIGHT extends JeeslTrafficLight<L,D,SCOPE>>
 		implements JeeslTrafficLightRestExport,JeeslTrafficLightRestImport
 {
 	final static Logger logger = LoggerFactory.getLogger(TrafficLightRestService.class);
@@ -46,7 +46,7 @@ public class TrafficLightRestService <L extends JeeslLang,D extends JeeslDescrip
 		efLight = EjbTrafficLightFactory.factory(cLang,cDescription,cLight);
 	}
 	
-	public static <L extends JeeslLang,D extends JeeslDescription,SCOPE extends JeeslStatus<SCOPE,L,D>,LIGHT extends JeeslTrafficLight<L,D,SCOPE>>
+	public static <L extends JeeslLang,D extends JeeslDescription,SCOPE extends JeeslStatus<L,D,SCOPE>,LIGHT extends JeeslTrafficLight<L,D,SCOPE>>
 		TrafficLightRestService<L,D,SCOPE,LIGHT>
 			factory(JeeslFacade fUtils,final Class<L> cL,final Class<D> cD,final Class<SCOPE> cScope,final Class<LIGHT> cLight)
 	{

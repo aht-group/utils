@@ -15,7 +15,7 @@ import org.jeesl.interfaces.model.with.system.locale.EjbWithDescription;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 
 public interface JeeslHydroYear <L extends JeeslLang, D extends JeeslDescription,
-								HD extends JeeslStatus<HD,L,D>,
+								HD extends JeeslStatus<L,D,HD>,
 								HY extends JeeslHydroYear<L,D,HD,HY>>
 					extends Serializable,EjbSaveable,EjbRemoveable,
 							EjbWithParentAttributeResolver,

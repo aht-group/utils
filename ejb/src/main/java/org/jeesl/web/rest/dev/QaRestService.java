@@ -62,10 +62,10 @@ public class QaRestService <L extends JeeslLang, D extends JeeslDescription,
 							QASH extends UtilsQaStakeholder<QA>,
 							QATD extends UtilsQaTestDiscussion<STAFF,QAT>,
 							QATI extends UtilsQaTestInfo<QATC>,
-							QATC extends JeeslStatus<QATC,L2,D2>,
-							QATS extends JeeslStatus<QATS,L2,D2>,
-							QARS extends JeeslStatus<QARS,L2,D2>,
-							QAUS extends JeeslStatus<QAUS,L2,D2>>
+							QATC extends JeeslStatus<L2,D2,QATC>,
+							QATS extends JeeslStatus<L2,D2,QATS>,
+							QARS extends JeeslStatus<L2,D2,QARS>,
+							QAUS extends JeeslStatus<L2,D2,QAUS>>
 					//implements UtilsQualityAssuranceRest
 {
 	final static Logger logger = LoggerFactory.getLogger(QaRestService.class);
@@ -115,10 +115,10 @@ public class QaRestService <L extends JeeslLang, D extends JeeslDescription,
 					QASH extends UtilsQaStakeholder<QA>,
 					QATD extends UtilsQaTestDiscussion<STAFF,QAT>,
 					QATI extends UtilsQaTestInfo<QATC>,
-					QATC extends JeeslStatus<QATC,L2,D2>,
-					QATS extends JeeslStatus<QATS,L2,D2>,
-					QARS extends JeeslStatus<QARS,L2,D2>,
-					QAUS extends JeeslStatus<QAUS,L2,D2>>
+					QATC extends JeeslStatus<L2,D2,QATC>,
+					QATS extends JeeslStatus<L2,D2,QATS>,
+					QARS extends JeeslStatus<L2,D2,QARS>,
+					QAUS extends JeeslStatus<L2,D2,QAUS>>
 		QaRestService<L,D,L2,D2,C,R,V,U,A,AT,USER,STAFF,GROUP,QA,QASD,QASS,QAC,QAT,QAU,QAR,QASH,QATD,QATI,QATC,QATS,QARS,QAUS>
 			factory(JeeslQaFacade<L,D,L2,D2,C,R,V,U,A,AT,USER,STAFF,GROUP,QA,QASD,QASS,QAC,QAT,QAU,QAR,QASH,QATD,QATI,QATC,QATS,QARS,QAUS> fQa,final Class<L> cL,final Class<D> cD,final Class<GROUP> cGroup,final Class<QA> cQa,final Class<QAC> cQAC,final Class<QAT> cQAT)
 	{

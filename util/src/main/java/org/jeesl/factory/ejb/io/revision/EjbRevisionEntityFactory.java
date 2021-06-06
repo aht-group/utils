@@ -30,8 +30,8 @@ public class EjbRevisionEntityFactory<L extends JeeslLang,D extends JeeslDescrip
 									
 									RE extends JeeslRevisionEntity<L,D,RC,REM,RA,ERD>,
 									REM extends JeeslRevisionEntityMapping<?,?,RE>,
-									RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>, RER extends JeeslStatus<RER,L,D>,
-									RAT extends JeeslStatus<RAT,L,D>,
+									RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>, RER extends JeeslStatus<L,D,RER>,
+									RAT extends JeeslStatus<L,D,RAT>,
 									ERD extends JeeslRevisionDiagram<L,D,RC>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbRevisionEntityFactory.class);

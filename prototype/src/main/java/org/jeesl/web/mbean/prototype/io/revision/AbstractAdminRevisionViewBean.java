@@ -34,12 +34,12 @@ public class AbstractAdminRevisionViewBean <L extends JeeslLang, D extends Jeesl
 											RV extends JeeslRevisionView<L,D,RVM>,
 											RVM extends JeeslRevisionViewMapping<RV,RE,REM>,
 											RS extends JeeslRevisionScope<L,D,RC,RA>,
-											RST extends JeeslStatus<RST,L,D>,
+											RST extends JeeslStatus<L,D,RST>,
 											RE extends JeeslRevisionEntity<L,D,RC,REM,RA,ERD>,
 											REM extends JeeslRevisionEntityMapping<RS,RST,RE>,
 											RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>,
-											RER extends JeeslStatus<RER,L,D>,
-											RAT extends JeeslStatus<RAT,L,D>,
+											RER extends JeeslStatus<L,D,RER>,
+											RAT extends JeeslStatus<L,D,RAT>,
 											ERD extends JeeslRevisionDiagram<L,D,RC>>
 					extends AbstractAdminRevisionBean<L,D,LOC,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD>
 					implements Serializable

@@ -10,7 +10,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.property.JeeslProperty;
 
 public interface JeeslSystemPropertyFacade <L extends JeeslLang,D extends JeeslDescription,
-											C extends JeeslStatus<C,L,D>,
+											C extends JeeslStatus<L,D,C>,
 											P extends JeeslProperty<L,D,C,P>>
 			extends JeeslFacade
 {	

@@ -17,7 +17,7 @@ import org.jeesl.interfaces.model.with.system.locale.EjbWithDescription;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 
 public interface JeeslReportSheet<L extends JeeslLang,D extends JeeslDescription,
-									IMPLEMENTATION extends JeeslStatus<IMPLEMENTATION,L,D>,
+									IMPLEMENTATION extends JeeslStatus<L,D,IMPLEMENTATION>,
 									WORKBOOK extends JeeslReportWorkbook<?,?>,
 									GROUP extends JeeslReportColumnGroup<L,D,?,?,?>,
 									ROW extends JeeslReportRow<L,D,?,?,IMPLEMENTATION,WORKBOOK,?,GROUP,?,ROW,?,?,?,?,?,?,?,?,?,?>>

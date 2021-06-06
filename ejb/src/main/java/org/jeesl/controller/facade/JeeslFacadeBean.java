@@ -93,7 +93,7 @@ public class JeeslFacadeBean implements JeeslFacade
 	@Override public <L extends JeeslLang, D extends JeeslDescription,
 						S extends EjbWithId,
 						G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslGraphicType<L,D,GT,G>,
-						F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>>
+						F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<L,D,FS>>
 					S loadGraphic(Class<S> cS, S status)
 	{
 		status = em.find(cS, status.getId());
@@ -623,7 +623,7 @@ public class JeeslFacadeBean implements JeeslFacade
 	}
 
 
-	@Override public <C extends JeeslStatus<C,?,?>, W extends JeeslWithContext<C>> List<W> allForContext(Class<W> w, C context)
+	@Override public <C extends JeeslStatus<?,?,C>, W extends JeeslWithContext<C>> List<W> allForContext(Class<W> w, C context)
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<W> cQ = cB.createQuery(w);
@@ -640,7 +640,7 @@ public class JeeslFacadeBean implements JeeslFacade
 		TypedQuery<W> tQ = em.createQuery(select);
 		return tQ.getResultList();
 	}
-	@Override public <L extends JeeslLang, D extends JeeslDescription, C extends JeeslStatus<C, L, D>, W extends JeeslWithCategory<C>> List<W> allForCategory(Class<W> w, C category)
+	@Override public <L extends JeeslLang, D extends JeeslDescription, C extends JeeslStatus<L,D,C>, W extends JeeslWithCategory<C>> List<W> allForCategory(Class<W> w, C category)
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<W> cQ = cB.createQuery(w);
@@ -658,7 +658,7 @@ public class JeeslFacadeBean implements JeeslFacade
 		return tQ.getResultList();
 	}
 
-	@Override public <L extends JeeslLang, D extends JeeslDescription, T extends JeeslStatus<T,L,D>, W extends JeeslWithType<T>> List<W> allForType(Class<W> w, T type)
+	@Override public <L extends JeeslLang, D extends JeeslDescription, T extends JeeslStatus<L,D,T>, W extends JeeslWithType<T>> List<W> allForType(Class<W> w, T type)
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<W> cQ = cB.createQuery(w);
@@ -676,7 +676,7 @@ public class JeeslFacadeBean implements JeeslFacade
 		return tQ.getResultList();
 	}
 
-	@Override public <L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<S,L,D>, W extends JeeslWithStatus<S>> List<W> allForStatus(Class<W> w, S status)
+	@Override public <L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<L,D,S>, W extends JeeslWithStatus<S>> List<W> allForStatus(Class<W> w, S status)
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<W> cQ = cB.createQuery(w);
@@ -823,7 +823,7 @@ public class JeeslFacadeBean implements JeeslFacade
 		return tQ.getResultList();
 	}
 
-	@Override public <T extends JeeslWithParentAttributeStatus<STATUS>, P extends EjbWithId, STATUS extends JeeslStatus<STATUS, ?, ?>>
+	@Override public <T extends JeeslWithParentAttributeStatus<STATUS>, P extends EjbWithId, STATUS extends JeeslStatus<?,?,STATUS>>
 			List<T> allForParentStatus(Class<T> c, P parent, List<STATUS> status)
 	{
 		T prototype = null;
@@ -856,7 +856,7 @@ public class JeeslFacadeBean implements JeeslFacade
 		catch (NoResultException ex){return new ArrayList<T>();}
 	}
 
-	@Override public <T extends JeeslWithParentAttributeType<TYPE>, P extends EjbWithId, TYPE extends JeeslStatus<TYPE,?,?>>
+	@Override public <T extends JeeslWithParentAttributeType<TYPE>, P extends EjbWithId, TYPE extends JeeslStatus<?,?,TYPE>>
 				List<T> allForParentType(Class<T> c, P parent, List<TYPE> type)
 	{
 		T prototype = null;

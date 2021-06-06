@@ -8,7 +8,8 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SystemConstraintAlgorithmComparator<ALGCAT extends JeeslStatus<ALGCAT,?,?>, ALGO extends JeeslConstraintAlgorithm<?,?,ALGCAT>>
+public class SystemConstraintAlgorithmComparator<ALGCAT extends JeeslStatus<?,?,ALGCAT>,
+										ALGO extends JeeslConstraintAlgorithm<?,?,ALGCAT>>
 {
 	final static Logger logger = LoggerFactory.getLogger(SystemConstraintAlgorithmComparator.class);
 

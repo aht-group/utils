@@ -50,7 +50,7 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 								STAT extends JeeslTsStatistic<?,?,STAT,?>,
 								DATA extends JeeslTsData<TS,?,?,POINT,WS>,
 								POINT extends JeeslTsDataPoint<DATA,MP>,
-								WS extends JeeslStatus<WS,?,?>>
+								WS extends JeeslStatus<?,?,WS>>
 {
 	final static Logger logger = LoggerFactory.getLogger(McTimeSeriesFactory.class);
 

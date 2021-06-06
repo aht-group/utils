@@ -18,13 +18,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public interface JeeslCmsRenderer <L extends JeeslLang,D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
-								CAT extends JeeslStatus<CAT,L,D>,
+								CAT extends JeeslStatus<L,D,CAT>,
 								CMS extends JeeslIoCms<L,D,LOC,CAT,S>,
 								V extends JeeslIoCmsVisiblity,
 								S extends JeeslIoCmsSection<L,S>,
 								E extends JeeslIoCmsElement<V,S,EC,ET,C,FC>,
-								EC extends JeeslStatus<EC,L,D>,
-								ET extends JeeslStatus<ET,L,D>,
+								EC extends JeeslStatus<L,D,EC>,
+								ET extends JeeslStatus<L,D,ET>,
 								C extends JeeslIoCmsContent<V,E,MT>,
 								MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
 								FC extends JeeslFileContainer<?,?>

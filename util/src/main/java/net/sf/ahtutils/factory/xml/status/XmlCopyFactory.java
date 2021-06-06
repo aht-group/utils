@@ -29,8 +29,8 @@ public class XmlCopyFactory
 		this.q=q;
 	}
 	
-	public <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription> Copy build(S ejb){return build(ejb,null);}
-	public <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription> Copy build(S ejb, String group)
+	public <S extends JeeslStatus<L,D,S>,L extends JeeslLang, D extends JeeslDescription> Copy build(S ejb){return build(ejb,null);}
+	public <S extends JeeslStatus<L,D,S>,L extends JeeslLang, D extends JeeslDescription> Copy build(S ejb, String group)
 	{
 		Copy xml = new Copy();
 		if(q.isSetCode()){xml.setCode(ejb.getCode());}

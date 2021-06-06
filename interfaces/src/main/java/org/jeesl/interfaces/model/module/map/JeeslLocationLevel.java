@@ -12,12 +12,12 @@ import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
 public interface JeeslLocationLevel <L extends JeeslLang, D extends JeeslDescription,
-											S extends JeeslStatus<S,L,D>,
+											S extends JeeslStatus<L,D,S>,
 											G extends JeeslGraphic<L,D,?,?,?>>
 									extends Serializable,EjbPersistable,
 									EjbWithCode,JeeslStatusFixedCode,
 									EjbWithCodeGraphic<G>,
-									JeeslStatus<S,L,D>
+									JeeslStatus<L,D,S>
 {
 	
 }

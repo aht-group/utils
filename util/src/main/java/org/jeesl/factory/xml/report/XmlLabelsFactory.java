@@ -27,7 +27,7 @@ public class XmlLabelsFactory
 		return xml;
 	}
 	
-	public static <S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription>
+	public static <S extends JeeslStatus<L,D,S>, L extends JeeslLang, D extends JeeslDescription>
 		void aggregationGroups(String localeCode, Labels labels, List<S> aggregations)
 	{
 		for(int i=1;i<=aggregations.size();i++)

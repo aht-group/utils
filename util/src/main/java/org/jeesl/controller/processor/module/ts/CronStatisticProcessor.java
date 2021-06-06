@@ -34,7 +34,7 @@ public class CronStatisticProcessor <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT
 									STAT extends JeeslTsStatistic<?,?,STAT,?>,
 									DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,?,WS>,
 									SAMPLE extends JeeslTsSample,
-									WS extends JeeslStatus<WS,?,?>,
+									WS extends JeeslStatus<?,?,WS>,
 									CRON extends JeeslTsCron<SCOPE,INT,STAT>
 									>
 	extends AbstractStatisticProcessor<TS,TRANSACTION,DATA,SAMPLE,WS>

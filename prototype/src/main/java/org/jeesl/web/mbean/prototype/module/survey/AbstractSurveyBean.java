@@ -99,7 +99,7 @@ public abstract class AbstractSurveyBean <L extends JeeslLang, D extends JeeslDe
 						ANALYSIS extends JeeslSurveyAnalysis<L,D,TEMPLATE,DOMAIN,DENTITY,DATTRIBUTE>,
 						AQ extends JeeslSurveyAnalysisQuestion<L,D,QUESTION,ANALYSIS>,
 						TOOL extends JeeslSurveyAnalysisTool<L,D,QE,QUERY,DATTRIBUTE,AQ,ATT>,
-						ATT extends JeeslStatus<ATT,L,D>,
+						ATT extends JeeslStatus<L,D,ATT>,
 						TOOLCACHETEMPLATE extends JeeslJobTemplate<L,D,?,?,?,?>,
 						CACHE extends JeeslJobCache<TOOLCACHETEMPLATE,?>>
 					extends AbstractAdminBean<L,D,LOC>

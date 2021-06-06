@@ -40,7 +40,7 @@ public class AbstractTimeSeriesProcessor<SCOPE extends JeeslTsScope<?,?,?,ST,?,E
 									STAT extends JeeslTsStatistic<?,?,STAT,?>,
 									DATA extends JeeslTsData<TS,TRANSACTION,?,POINT,WS>,
 									POINT extends JeeslTsDataPoint<DATA,MP>,
-									WS extends JeeslStatus<WS,?,?>
+									WS extends JeeslStatus<?,?,WS>
 >
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractTimeSeriesProcessor.class);

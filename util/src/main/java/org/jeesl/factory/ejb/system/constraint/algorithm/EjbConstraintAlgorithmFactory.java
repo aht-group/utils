@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbConstraintAlgorithmFactory <L extends JeeslLang, D extends JeeslDescription,
-											ALGCAT extends JeeslStatus<ALGCAT,L,D>,
+											ALGCAT extends JeeslStatus<L,D,ALGCAT>,
 											ALGO extends JeeslConstraintAlgorithm<L,D,ALGCAT>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbConstraintAlgorithmFactory.class);

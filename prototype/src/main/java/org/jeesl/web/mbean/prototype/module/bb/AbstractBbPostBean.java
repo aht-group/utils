@@ -36,9 +36,9 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public class AbstractBbPostBean <L extends JeeslLang,D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
-									SCOPE extends JeeslStatus<SCOPE,L,D>,
+									SCOPE extends JeeslStatus<L,D,SCOPE>,
 									BB extends JeeslBbBoard<L,D,SCOPE,BB,PUB,USER>,
-									PUB extends JeeslStatus<PUB,L,D>,
+									PUB extends JeeslStatus<L,D,PUB>,
 									THREAD extends JeeslBbThread<BB>,
 									POST extends JeeslBbPost<THREAD,M,USER>,
 									M extends JeeslMarkup<MT>,

@@ -36,7 +36,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class JeeslIoMailFacadeBean<L extends JeeslLang,D extends JeeslDescription,
-									CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+									CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 									MAIL extends JeeslIoMail<L,D,CATEGORY,STATUS,RETENTION,FRC>,
 									STATUS extends JeeslMailStatus<L,D,STATUS,?>,
 									RETENTION extends JeeslMailRetention<L,D,RETENTION,?>,

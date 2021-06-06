@@ -16,7 +16,7 @@ import net.sf.exlp.factory.xml.io.XmlFileFactory;
 
 public class XmlGraphicFactory <L extends JeeslLang,D extends JeeslDescription,
 								G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslGraphicType<L,D,GT,G>,
-								F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>>
+								F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<L,D,FS>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlGraphicFactory.class);
 	

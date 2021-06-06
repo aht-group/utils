@@ -8,9 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbAttributeCriteriaFactory<L extends JeeslLang, D extends JeeslDescription,
-										CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+										CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 										CRITERIA extends JeeslAttributeCriteria<L,D,CATEGORY,TYPE,?>,
-										TYPE extends JeeslStatus<TYPE,L,D>>
+										TYPE extends JeeslStatus<L,D,TYPE>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbAttributeCriteriaFactory.class);
 	

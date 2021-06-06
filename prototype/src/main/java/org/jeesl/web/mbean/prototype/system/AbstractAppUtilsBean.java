@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 
 public abstract class AbstractAppUtilsBean<L extends JeeslLang, D extends JeeslDescription,
 											G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslGraphicType<L,D,GT,G>,
-											F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>>
+											F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<L,D,FS>>
 	implements Serializable
 {
 	private static final long serialVersionUID = 1L;

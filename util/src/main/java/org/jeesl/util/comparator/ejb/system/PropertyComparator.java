@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class PropertyComparator<L extends JeeslLang,D extends JeeslDescription,
-								C extends JeeslStatus<C,L,D>,
+								C extends JeeslStatus<L,D,C>,
 								P extends JeeslProperty<L,D,C,P>>
 {
 	final static Logger logger = LoggerFactory.getLogger(PropertyComparator.class);

@@ -28,9 +28,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class JeeslBulletinBoardFacadeBean<L extends JeeslLang,D extends JeeslDescription,
-										SCOPE extends JeeslStatus<SCOPE,L,D>,
+										SCOPE extends JeeslStatus<L,D,SCOPE>,
 										BB extends JeeslBbBoard<L,D,SCOPE,BB,PUB,USER>,
-										PUB extends JeeslStatus<PUB,L,D>,
+										PUB extends JeeslStatus<L,D,PUB>,
 										THREAD extends JeeslBbThread<BB>,
 										POST extends JeeslBbPost<THREAD,M,USER>,
 										M extends JeeslMarkup<MT>,

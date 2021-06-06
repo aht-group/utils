@@ -18,7 +18,7 @@ public interface JeeslTraining<L extends JeeslLang,D extends JeeslDescription,
 								TRAINING extends JeeslTraining<L,D,MODULE,SESSION,PAGE,TRAINING,DAY,SLOT,TYPE>,
 								DAY extends JeeslTrainingDay<L,D,MODULE,SESSION,PAGE,TRAINING,DAY,SLOT,TYPE>,
 								SLOT extends JeeslTrainingSlot<L,D,MODULE,SESSION,PAGE,TRAINING,DAY,SLOT,TYPE>,
-								TYPE extends JeeslStatus<TYPE,L,D>
+								TYPE extends JeeslStatus<L,D,TYPE>
 								>
 		extends EjbWithId,EjbSaveable,EjbRemoveable,
 				EjbWithCode,EjbWithPositionVisible,

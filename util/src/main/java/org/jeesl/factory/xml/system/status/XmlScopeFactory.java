@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.xml.status.Scope;
 
-public class XmlScopeFactory<L extends JeeslLang, D extends JeeslDescription,S extends JeeslStatus<S,L,D>>
+public class XmlScopeFactory<L extends JeeslLang, D extends JeeslDescription,S extends JeeslStatus<L,D,S>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlScopeFactory.class);
 	

@@ -7,7 +7,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
 public interface JeeslReportSelectorTransformation <L extends JeeslLang, D extends JeeslDescription,
 														REPORT extends JeeslIoReport<L,D,?,?>,
-														TRANSFORMATION extends JeeslStatus<TRANSFORMATION,L,D>
+														TRANSFORMATION extends JeeslStatus<L,D,TRANSFORMATION>
 														>
 				extends JeeslReport<REPORT>
 {	

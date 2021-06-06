@@ -14,7 +14,7 @@ import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class XmlTrafficLightFactory<L extends JeeslLang,D extends JeeslDescription,SCOPE extends JeeslStatus<SCOPE,L,D>,LIGHT extends JeeslTrafficLight<L,D,SCOPE>>
+public class XmlTrafficLightFactory<L extends JeeslLang,D extends JeeslDescription,SCOPE extends JeeslStatus<L,D,SCOPE>,LIGHT extends JeeslTrafficLight<L,D,SCOPE>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlTrafficLightFactory.class);
 		

@@ -6,7 +6,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
 public interface JeeslTrainingFacade <L extends JeeslLang,D extends JeeslDescription,
-										TYPE extends JeeslStatus<TYPE,L,D>>
+										TYPE extends JeeslStatus<L,D,TYPE>>
 			extends JeeslFacade
 {	
 	

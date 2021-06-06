@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class HydroFactoryBuilder<L extends JeeslLang, D extends JeeslDescription,
-									HD extends JeeslStatus<HD,L,D>,
+									HD extends JeeslStatus<L,D,HD>,
 									HY extends JeeslHydroYear<L,D,HD,HY>>
 				extends AbstractFactoryBuilder<L,D>
 {

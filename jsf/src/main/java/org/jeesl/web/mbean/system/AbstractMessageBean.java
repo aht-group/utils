@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.jsf.util.FacesContextMessage;
 
 public class AbstractMessageBean <L extends JeeslLang, D extends JeeslDescription,
-									LOC extends JeeslStatus<LOC,L,D>>
+									LOC extends JeeslStatus<L,D,LOC>>
 								implements Serializable
 {
 	private static final long serialVersionUID = 1;

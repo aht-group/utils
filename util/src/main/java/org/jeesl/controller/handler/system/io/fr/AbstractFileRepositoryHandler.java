@@ -48,7 +48,7 @@ import net.sf.exlp.factory.xml.io.XmlDataFactory;
 import net.sf.exlp.factory.xml.io.XmlFileFactory;
 import net.sf.exlp.xml.io.File;
 
-public abstract class AbstractFileRepositoryHandler<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
+public abstract class AbstractFileRepositoryHandler<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<L,D,LOC>,
 									SYSTEM extends JeeslIoSsiSystem<L,D>,
 									STORAGE extends JeeslFileStorage<L,D,SYSTEM,STYPE,ENGINE>,
 									STYPE extends JeeslFileStorageType<L,D,STYPE,?>,

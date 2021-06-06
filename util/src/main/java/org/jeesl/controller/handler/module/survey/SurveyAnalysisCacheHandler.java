@@ -53,7 +53,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import net.sf.exlp.util.io.JsonUtil;
 
-public class SurveyAnalysisCacheHandler<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
+public class SurveyAnalysisCacheHandler<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<L,D,LOC>,
 										SURVEY extends JeeslSurvey<L,D,SS,TEMPLATE,DATA>,
 										SS extends JeeslSurveyStatus<L,D,SS,?>,
 										SCHEME extends JeeslSurveyScheme<L,D,TEMPLATE,SCORE>,
@@ -82,7 +82,7 @@ public class SurveyAnalysisCacheHandler<L extends JeeslLang, D extends JeeslDesc
 										ANALYSIS extends JeeslSurveyAnalysis<L,D,TEMPLATE,DOMAIN,DENTITY,DATTRIBUTE>,
 										AQ extends JeeslSurveyAnalysisQuestion<L,D,QUESTION,ANALYSIS>,
 										TOOL extends JeeslSurveyAnalysisTool<L,D,QE,QUERY,DATTRIBUTE,AQ,ATT>,
-										ATT extends JeeslStatus<ATT,L,D>,
+										ATT extends JeeslStatus<L,D,ATT>,
 										TOOLCACHETEMPLATE extends JeeslJobTemplate<L,D,?,?,?,?>,
 										CACHE extends JeeslJobCache<TOOLCACHETEMPLATE,?>>
 	implements Serializable

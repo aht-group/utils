@@ -27,13 +27,13 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
 public class JeeslSystemConstraintFacadeBean<L extends JeeslLang, D extends JeeslDescription,
-												ALGCAT extends JeeslStatus<ALGCAT,L,D>,
+												ALGCAT extends JeeslStatus<L,D,ALGCAT>,
 												ALGO extends JeeslConstraintAlgorithm<L,D,ALGCAT>,
 												SCOPE extends JeeslConstraintScope<L,D,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>,
-												CONCAT extends JeeslStatus<CONCAT,L,D>,
+												CONCAT extends JeeslStatus<L,D,CONCAT>,
 												CONSTRAINT extends JeeslConstraint<L,D,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>,
-												LEVEL extends JeeslStatus<LEVEL,L,D>,
-												TYPE extends JeeslStatus<TYPE,L,D>,
+												LEVEL extends JeeslStatus<L,D,LEVEL>,
+												TYPE extends JeeslStatus<L,D,TYPE>,
 												RESOLUTION extends JeeslConstraintResolution<L,D,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>>
 					extends JeeslFacadeBean
 					implements JeeslSystemConstraintFacade<L,D,ALGCAT,ALGO,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>

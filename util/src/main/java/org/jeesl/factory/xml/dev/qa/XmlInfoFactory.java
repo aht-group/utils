@@ -13,7 +13,7 @@ import net.sf.ahtutils.xml.qa.Info;
 
 public class XmlInfoFactory<L extends JeeslLang, D extends JeeslDescription,
 							QATI extends UtilsQaTestInfo<QATC>,
-							QATC extends JeeslStatus<QATC,L,D>>
+							QATC extends JeeslStatus<L,D,QATC>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlInfoFactory.class);
 		

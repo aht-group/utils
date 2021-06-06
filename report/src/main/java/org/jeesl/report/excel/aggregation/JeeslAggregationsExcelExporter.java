@@ -15,7 +15,7 @@ import net.sf.ahtutils.xml.report.Info;
 
 public class JeeslAggregationsExcelExporter
 {
-    public static <L extends JeeslLang,D extends JeeslDescription,TYPE extends JeeslStatus<TYPE,L,D>>
+    public static <L extends JeeslLang,D extends JeeslDescription,TYPE extends JeeslStatus<L,D,TYPE>>
     	InputStream export(TYPE filling, Info info, Figures figures) throws IOException
     {
     	switch(JeeslReportSetting.Filling.valueOf(filling.getCode()))

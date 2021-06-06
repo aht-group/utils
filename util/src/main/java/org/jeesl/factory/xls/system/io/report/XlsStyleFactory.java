@@ -11,7 +11,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.jeesl.factory.builder.system.ReportFactoryBuilder;
 import org.jeesl.factory.ejb.io.report.EjbIoReportColumnFactory;
 import org.jeesl.factory.txt.system.io.report.TxtIoColumnFactory;
-import org.jeesl.interfaces.model.io.report.JeeslIoReport;
 import org.jeesl.interfaces.model.io.report.data.JeeslReportTemplate;
 import org.jeesl.interfaces.model.io.report.style.JeeslReportLayout;
 import org.jeesl.interfaces.model.io.report.style.JeeslReportStyle;
@@ -20,10 +19,7 @@ import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportColumn;
 import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportColumnGroup;
 import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportRow;
 import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportSheet;
-import org.jeesl.interfaces.model.io.report.xlsx.JeeslReportWorkbook;
 import org.jeesl.interfaces.model.io.revision.entity.JeeslRevisionAttribute;
-import org.jeesl.interfaces.model.system.locale.JeeslDescription;
-import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
@@ -38,12 +34,13 @@ public class XlsStyleFactory<
 								TEMPLATE extends JeeslReportTemplate<?,?,CELL>,
 								CELL extends JeeslReportCell<?,?,?,?,?,?,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS>,
 								STYLE extends JeeslReportStyle<?,?>,
-								CDT extends JeeslStatus<CDT,?,?>,CW extends JeeslStatus<CW,?,?>,
-								RT extends JeeslStatus<RT,?,?>,
+								CDT extends JeeslStatus<?,?,CDT>,
+								CW extends JeeslStatus<?,?,CW>,
+								RT extends JeeslStatus<?,?,RT>,
 								ENTITY extends EjbWithId,
 								ATTRIBUTE extends EjbWithId,
 								TL extends JeeslTrafficLight<?,?,TLS>,
-								TLS extends JeeslStatus<TLS,?,?>>
+								TLS extends JeeslStatus<?,?,TLS>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XlsStyleFactory.class);
 	

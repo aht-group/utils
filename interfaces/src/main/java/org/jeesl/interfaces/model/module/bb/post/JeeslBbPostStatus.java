@@ -12,11 +12,11 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
 
-public interface JeeslBbPostStatus <S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription,G extends JeeslGraphic<L,D,?,?,?>>
+public interface JeeslBbPostStatus <S extends JeeslStatus<L,D,S>, L extends JeeslLang, D extends JeeslDescription,G extends JeeslGraphic<L,D,?,?,?>>
 									extends Serializable,EjbPersistable,
 											EjbWithCode,JeeslStatusFixedCode,
 											JeeslOptionRestDownload,EjbWithCodeGraphic<G>,
-											JeeslStatus<S,L,D>
+											JeeslStatus<L,D,S>
 {
 	public static enum Code{regular,waiting,deletedByModerator,deletedByUser};
 }

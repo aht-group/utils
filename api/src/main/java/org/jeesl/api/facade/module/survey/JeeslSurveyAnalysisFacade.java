@@ -60,7 +60,7 @@ public interface JeeslSurveyAnalysisFacade <L extends JeeslLang, D extends Jeesl
 											ANALYSIS extends JeeslSurveyAnalysis<L,D,TEMPLATE,DOMAIN,DENTITY,DATTRIBUTE>,
 											AQ extends JeeslSurveyAnalysisQuestion<L,D,QUESTION,ANALYSIS>,
 											TOOL extends JeeslSurveyAnalysisTool<L,D,QE,QUERY,DATTRIBUTE,AQ,TOOLT>,
-											TOOLT extends JeeslStatus<TOOLT,L,D>>
+											TOOLT extends JeeslStatus<L,D,TOOLT>>
 	extends JeeslFacade
 {
 	TOOL load(TOOL tool);

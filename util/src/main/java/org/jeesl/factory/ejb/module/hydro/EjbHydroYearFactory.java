@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbHydroYearFactory<L extends JeeslLang, D extends JeeslDescription,
-								HD extends JeeslStatus<HD,L,D>,
+								HD extends JeeslStatus<L,D,HD>,
 								HY extends JeeslHydroYear<L,D,HD,HY>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbHydroYearFactory.class);
@@ -21,7 +21,7 @@ public class EjbHydroYearFactory<L extends JeeslLang, D extends JeeslDescription
 	}
 
 	public static <L extends JeeslLang, D extends JeeslDescription,
-					HD extends JeeslStatus<HD,L,D>,
+					HD extends JeeslStatus<L,D,HD>,
 					HY extends JeeslHydroYear<L,D,HD,HY>>
 	EjbHydroYearFactory<L,D,HD,HY> factory(final Class<HY> cYear)
 	{

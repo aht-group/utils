@@ -14,8 +14,8 @@ import org.jeesl.interfaces.model.with.primitive.position.EjbWithPositionParent;
 public interface JeeslIoCmsElement<
 									V extends JeeslIoCmsVisiblity,
 									S extends JeeslIoCmsSection<?,S>,
-									EC extends JeeslStatus<EC,?,?>,
-									ET extends JeeslStatus<ET,?,?>,
+									EC extends JeeslStatus<?,?,EC>,
+									ET extends JeeslStatus<?,?,ET>,
 									C extends JeeslIoCmsContent<V,?,?>,
 									FC extends JeeslFileContainer<?,?>>
 		extends Serializable,EjbWithId,EjbPersistable,EjbSaveable,EjbWithPositionParent,

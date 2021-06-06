@@ -26,7 +26,7 @@ public class EjbJobFactory <L extends JeeslLang,D extends JeeslDescription,
 									PRIORITY extends JeeslJobPriority<L,D,PRIORITY,?>,
 									FEEDBACK extends JeeslJobFeedback<JOB,FT,USER>,
 									FT extends JeeslJobFeedbackType<L,D,FT,?>,
-									STATUS extends JeeslStatus<STATUS,L,D>,
+									STATUS extends JeeslStatus<L,D,STATUS>,
 									ROBOT extends JeeslJobRobot<L,D>,
 									CACHE extends JeeslJobCache<TEMPLATE,?>,
 									USER extends EjbWithEmail

@@ -11,7 +11,8 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslGraphic<L extends JeeslLang, D extends JeeslDescription,
 								GT extends JeeslGraphicType<L,D,GT,?>,
-								F extends JeeslGraphicFigure<L,D,?,GT,F,FS>, FS extends JeeslStatus<FS,L,D>>
+								F extends JeeslGraphicFigure<L,D,?,GT,F,FS>,
+								FS extends JeeslStatus<L,D,FS>>
 		extends Serializable,EjbWithId,EjbSaveable
 {		
 	Long getVersionLock();

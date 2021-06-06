@@ -29,9 +29,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class AbstractIoReportBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
-							CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+							CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 							REPORT extends JeeslIoReport<L,D,CATEGORY,WORKBOOK>,
-							IMPLEMENTATION extends JeeslStatus<IMPLEMENTATION,L,D>,
+							IMPLEMENTATION extends JeeslStatus<L,D,IMPLEMENTATION>,
 							WORKBOOK extends JeeslReportWorkbook<REPORT,SHEET>,
 							SHEET extends JeeslReportSheet<L,D,IMPLEMENTATION,WORKBOOK,GROUP,ROW>,
 							GROUP extends JeeslReportColumnGroup<L,D,SHEET,COLUMN,STYLE>,
@@ -41,15 +41,15 @@ public class AbstractIoReportBean <L extends JeeslLang, D extends JeeslDescripti
 							CELL extends JeeslReportCell<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS>,
 							STYLE extends JeeslReportStyle<L,D>,
 							
-							CDT extends JeeslStatus<CDT,L,D>,
-							CW extends JeeslStatus<CW,L,D>,
-							RT extends JeeslStatus<RT,L,D>,
+							CDT extends JeeslStatus<L,D,CDT>,
+							CW extends JeeslStatus<L,D,CW>,
+							RT extends JeeslStatus<L,D,RT>,
 							ENTITY extends EjbWithId,
 							ATTRIBUTE extends EjbWithId,
 							TL extends JeeslTrafficLight<L,D,TLS>,
-							TLS extends JeeslStatus<TLS,L,D>,
-							FILLING extends JeeslStatus<FILLING,L,D>,
-							TRANSFORMATION extends JeeslStatus<TRANSFORMATION,L,D>,
+							TLS extends JeeslStatus<L,D,TLS>,
+							FILLING extends JeeslStatus<L,D,FILLING>,
+							TRANSFORMATION extends JeeslStatus<L,D,TRANSFORMATION>,
 							RCAT extends JeeslRevisionCategory<L,D,RCAT,?>,
 							RE extends JeeslRevisionEntity<L,D,RCAT,?,RA,?>,
 							RA extends JeeslRevisionAttribute<L,D,RE,?,CDT>

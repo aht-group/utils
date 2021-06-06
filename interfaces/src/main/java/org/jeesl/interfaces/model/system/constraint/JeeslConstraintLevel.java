@@ -12,12 +12,12 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 
 public interface JeeslConstraintLevel <L extends JeeslLang, D extends JeeslDescription,
-										S extends JeeslStatus<S,L,D>,
+										S extends JeeslStatus<L,D,S>,
 										G extends JeeslGraphic<L,D,?,?,?>>
 										extends Serializable,EjbPersistable,
 												JeeslStatusFixedCode,JeeslOptionRestDownload,
 												EjbWithCodeGraphic<G>,
-												JeeslStatus<S,L,D>
+												JeeslStatus<L,D,S>
 {
 	public static String xmlResourceContainer = "jeesl/db/system/constraint/level.xml";
 	

@@ -54,7 +54,7 @@ public class ThMultiFilterHandler <T extends EjbWithId> implements Serializable,
 	}
 
 	@SuppressWarnings("unchecked")
-	public <E extends Enum<E>, S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription> void add(JeeslFacade fUtils, Class<S> c, E code)
+	public <E extends Enum<E>, S extends JeeslStatus<L,D,S>, L extends JeeslLang, D extends JeeslDescription> void add(JeeslFacade fUtils, Class<S> c, E code)
 	{
 		try
 		{

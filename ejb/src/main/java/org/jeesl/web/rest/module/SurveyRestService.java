@@ -91,7 +91,7 @@ import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 
-public class SurveyRestService <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
+public class SurveyRestService <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<L,D,LOC>,
 				SURVEY extends JeeslSurvey<L,D,SS,TEMPLATE,DATA>,
 				SS extends JeeslSurveyStatus<L,D,SS,?>,
 				SCHEME extends JeeslSurveyScheme<L,D,TEMPLATE,SCORE>,
@@ -120,7 +120,7 @@ public class SurveyRestService <L extends JeeslLang, D extends JeeslDescription,
 				ANALYSIS extends JeeslSurveyAnalysis<L,D,TEMPLATE,DOMAIN,DENTITY,?>,
 				AQ extends JeeslSurveyAnalysisQuestion<L,D,QUESTION,ANALYSIS>,
 				AT extends JeeslSurveyAnalysisTool<L,D,QE,QUERY,?,AQ,ATT>,
-				ATT extends JeeslStatus<ATT,L,D>>
+				ATT extends JeeslStatus<L,D,ATT>>
 			extends AbstractJeeslRestService<L,D>	
 			implements JeeslSurveyRestExport,JeeslSurveyRestImport,JeeslSurveyJsonRest,JeeslSurveyXmlRest
 {
@@ -201,7 +201,7 @@ public class SurveyRestService <L extends JeeslLang, D extends JeeslDescription,
 		efMatrix = fbCore.ejbMatrix();
 	}
 	
-	public static <L extends JeeslLang, D extends JeeslDescription,LOC extends JeeslStatus<LOC,L,D>,
+	public static <L extends JeeslLang, D extends JeeslDescription,LOC extends JeeslStatus<L,D,LOC>,
 					SURVEY extends JeeslSurvey<L,D,SS,TEMPLATE,DATA>,
 					SS extends JeeslSurveyStatus<L,D,SS,?>,
 					SCHEME extends JeeslSurveyScheme<L,D,TEMPLATE,SCORE>,
@@ -220,7 +220,7 @@ public class SurveyRestService <L extends JeeslLang, D extends JeeslDescription,
 					ANSWER extends JeeslSurveyAnswer<L,D,QUESTION,MATRIX,DATA,OPTION>, MATRIX extends JeeslSurveyMatrix<L,D,ANSWER,OPTION>,
 					DATA extends JeeslSurveyData<L,D,SURVEY,ANSWER,CORRELATION>, OPTIONS extends JeeslSurveyOptionSet<L,D,TEMPLATE,OPTION>,
 					OPTION extends JeeslSurveyOption<L,D>,
-					OT extends JeeslStatus<OT,L,D>,
+					OT extends JeeslStatus<L,D,OT>,
 					CORRELATION extends JeeslSurveyCorrelation<DATA>,
 					DOMAIN extends JeeslDomain<L,DENTITY>,
 					QUERY extends JeeslDomainQuery<L,D,DOMAIN,PATH>,
@@ -229,7 +229,7 @@ public class SurveyRestService <L extends JeeslLang, D extends JeeslDescription,
 					ANALYSIS extends JeeslSurveyAnalysis<L,D,TEMPLATE,DOMAIN,DENTITY,?>,
 					AQ extends JeeslSurveyAnalysisQuestion<L,D,QUESTION,ANALYSIS>,
 					AT extends JeeslSurveyAnalysisTool<L,D,QE,QUERY,?,AQ,ATT>,
-					ATT extends JeeslStatus<ATT,L,D>>
+					ATT extends JeeslStatus<L,D,ATT>>
 		SurveyRestService<L,D,LOC,SURVEY,SS,SCHEME,VALGORITHM,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,CONDITION,VALIDATION,QE,SCORE,UNIT,ANSWER,MATRIX,DATA,OPTIONS,OPTION,CORRELATION,DOMAIN,QUERY,PATH,DENTITY,ANALYSIS,AQ,AT,ATT>
 			factory(JeeslSurveyCoreFacade<L,D,LOC,SURVEY,SS,SCHEME,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,QE,SCORE,UNIT,ANSWER,MATRIX,DATA,OPTIONS,OPTION,CORRELATION> fSurvey,
 					SurveyTemplateFactoryBuilder<L,D,LOC,SCHEME,VALGORITHM,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,CONDITION,VALIDATION,QE,SCORE,UNIT,OPTIONS,OPTION> ffTemplate,
@@ -316,7 +316,7 @@ public class SurveyRestService <L extends JeeslLang, D extends JeeslDescription,
 	@Override public DataUpdate importSurveyStatus(Aht categories){return importStatus(fbCore.getClassSurveyStatus(),cL,cD,categories,null);}
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public <S extends JeeslStatus<S,L,D>, P extends JeeslStatus<P,L,D>> DataUpdate importStatus(Class<S> clStatus, Class<L> clLang, Class<D> clDescription, Aht container, Class<P> clParent)
+    public <S extends JeeslStatus<L,D,S>, P extends JeeslStatus<L,D,P>> DataUpdate importStatus(Class<S> clStatus, Class<L> clLang, Class<D> clDescription, Aht container, Class<P> clParent)
     {
     	for(Status xml : container.getStatus()){xml.setGroup(clStatus.getSimpleName());}
 		JeeslDbStatusUpdater asdi = new JeeslDbStatusUpdater();

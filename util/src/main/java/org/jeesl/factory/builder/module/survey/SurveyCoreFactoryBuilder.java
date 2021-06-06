@@ -54,7 +54,7 @@ import org.jeesl.util.filter.ejb.module.survey.EjbSurveyQuestionFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SurveyCoreFactoryBuilder<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
+public class SurveyCoreFactoryBuilder<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<L,D,LOC>,
 				SURVEY extends JeeslSurvey<L,D,SS,TEMPLATE,DATA>,
 				SS extends JeeslSurveyStatus<L,D,SS,?>,
 				SCHEME extends JeeslSurveyScheme<L,D,TEMPLATE,SCORE>,
@@ -76,7 +76,7 @@ public class SurveyCoreFactoryBuilder<L extends JeeslLang, D extends JeeslDescri
 				OPTIONS extends JeeslSurveyOptionSet<L,D,TEMPLATE,OPTION>,
 				OPTION extends JeeslSurveyOption<L,D>,
 				CORRELATION extends JeeslSurveyCorrelation<DATA>,
-				ATT extends JeeslStatus<ATT,L,D>>
+				ATT extends JeeslStatus<L,D,ATT>>
 	extends AbstractFactoryBuilder<L,D>
 {
 	final static Logger logger = LoggerFactory.getLogger(SurveyCoreFactoryBuilder.class);

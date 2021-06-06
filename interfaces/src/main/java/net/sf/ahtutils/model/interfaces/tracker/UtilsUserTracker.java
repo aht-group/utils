@@ -10,8 +10,8 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 public interface UtilsUserTracker<TR extends UtilsUserTracker<TR,UL,U,T,S,L,D>,
 							  UL extends UtilsUserTrackerLog<TR,UL,U,T,S,L,D>,
 							  U extends EjbWithId,
-							  T extends JeeslStatus<S,L,D>,
-							  S extends JeeslStatus<S,L,D>,
+							  T extends JeeslStatus<L,D,S>,
+							  S extends JeeslStatus<L,D,S>,
 							  L extends JeeslLang,
 							  D extends JeeslDescription>
 		extends EjbWithId

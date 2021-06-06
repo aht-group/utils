@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 @FacesComponent("org.jeesl.jsf.components.TrafficLight")
 public class TrafficLight <L extends JeeslLang,D extends JeeslDescription,
 							LIGHT extends JeeslTrafficLight<L,D,SCOPE>,
-							SCOPE extends JeeslStatus<SCOPE,L,D>>
+							SCOPE extends JeeslStatus<L,D,SCOPE>>
 							extends UIOutput 
 {
     final static Logger logger = LoggerFactory.getLogger(TrafficLight.class);

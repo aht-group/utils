@@ -19,8 +19,8 @@ import net.sf.ahtutils.xml.sync.DataUpdate;
 public class FeedbackRestService <L extends JeeslLang, D extends JeeslDescription,
 								THREAD extends JeeslFeedbackThread<L,D,THREAD,FEEDBACK,STYLE,TYPE,USER>,
 								FEEDBACK extends JeeslFeedback<L,D,THREAD,FEEDBACK,STYLE,TYPE,USER>,
-								STYLE extends JeeslStatus<STYLE,L,D>,
-								TYPE extends JeeslStatus<TYPE,L,D>,
+								STYLE extends JeeslStatus<L,D,STYLE>,
+								TYPE extends JeeslStatus<L,D,TYPE>,
 								USER extends EjbWithEmail>
 					extends AbstractJeeslRestService<L,D>
 					implements JeeslFeedbackRestExport,JeeslFeedbackRestImport
@@ -44,8 +44,8 @@ public class FeedbackRestService <L extends JeeslLang, D extends JeeslDescriptio
 	public static <L extends JeeslLang, D extends JeeslDescription,
 					THREAD extends JeeslFeedbackThread<L,D,THREAD,FEEDBACK,STYLE,TYPE,USER>,
 					FEEDBACK extends JeeslFeedback<L,D,THREAD,FEEDBACK,STYLE,TYPE,USER>,
-					STYLE extends JeeslStatus<STYLE,L,D>,
-					TYPE extends JeeslStatus<TYPE,L,D>,
+					STYLE extends JeeslStatus<L,D,STYLE>,
+					TYPE extends JeeslStatus<L,D,TYPE>,
 					USER extends EjbWithEmail>
 			FeedbackRestService<L,D,THREAD,FEEDBACK,STYLE,TYPE,USER>
 			factory(JeeslFeedbackFacade<L,D,THREAD,FEEDBACK,STYLE,TYPE,USER> fFeedback,final Class<L> cL, final Class<D> cD, final Class<STYLE> cStyle, final Class<TYPE> cType)

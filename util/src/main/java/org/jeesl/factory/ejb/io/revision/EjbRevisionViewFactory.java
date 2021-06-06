@@ -18,11 +18,11 @@ public class EjbRevisionViewFactory<L extends JeeslLang,D extends JeeslDescripti
 									RV extends JeeslRevisionView<L,D,RVM>,
 									RVM extends JeeslRevisionViewMapping<RV,RE,REM>,
 									RS extends JeeslRevisionScope<L,D,RC,RA>,
-									RST extends JeeslStatus<RST,L,D>,
+									RST extends JeeslStatus<L,D,RST>,
 									RE extends JeeslRevisionEntity<L,D,RC,REM,RA,?>,
 									REM extends JeeslRevisionEntityMapping<RS,RST,RE>,
-									RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>, RER extends JeeslStatus<RER,L,D>,
-									RAT extends JeeslStatus<RAT,L,D>>
+									RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>, RER extends JeeslStatus<L,D,RER>,
+									RAT extends JeeslStatus<L,D,RAT>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbRevisionViewFactory.class);
 	

@@ -11,11 +11,11 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatusFixedCode;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
 public interface JeeslSurveyQuestionElement <L extends JeeslLang, D extends JeeslDescription,
-											S extends JeeslStatus<S,L,D>,
+											S extends JeeslStatus<L,D,S>,
 											G extends JeeslGraphic<L,D,?,?,?>>
 					extends Serializable,EjbPersistable,
 								JeeslStatusFixedCode,EjbWithCodeGraphic<G>,
-								JeeslStatus<S,L,D>
+								JeeslStatus<L,D,S>
 {	
 
 }

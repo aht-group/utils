@@ -55,7 +55,7 @@ public class AbstractUtilsRest <L extends JeeslLang, D extends JeeslDescription>
 		mapGroups.put(c,code);
 	}
 	
-	protected <S extends JeeslStatus<S,L,D>> Aht exportStatus(Class<S> c)
+	protected <S extends JeeslStatus<L,D,S>> Aht exportStatus(Class<S> c)
 	{
 		XmlStatusFactory f = new XmlStatusFactory(XmlStatusQuery.get(XmlStatusQuery.Key.StatusExport).getStatus());
 		
@@ -69,7 +69,7 @@ public class AbstractUtilsRest <L extends JeeslLang, D extends JeeslDescription>
 		return xml;
 	}
 	
-	protected <S extends JeeslStatus<S,L,D>> Container exportContainer(Class<S> c)
+	protected <S extends JeeslStatus<L,D,S>> Container exportContainer(Class<S> c)
 	{
 		XmlStatusFactory f = new XmlStatusFactory(XmlStatusQuery.get(XmlStatusQuery.Key.StatusExport).getStatus());
 		
@@ -83,7 +83,7 @@ public class AbstractUtilsRest <L extends JeeslLang, D extends JeeslDescription>
 		return xml;
 	}
 	
-	protected <S extends JeeslStatus<S,L,D>, P extends JeeslStatus<P,L,D>, G extends JeeslGraphic<L,D,?,?,?>> DataUpdate importStatus(Class<S> cS, Class<P> cP, Aht container)
+	protected <S extends JeeslStatus<L,D,S>, P extends JeeslStatus<L,D,P>, G extends JeeslGraphic<L,D,?,?,?>> DataUpdate importStatus(Class<S> cS, Class<P> cP, Aht container)
 	{
 		for(Status xml : container.getStatus()){xml.setGroup(cS.getSimpleName());}
 		JeeslDbStatusUpdater<L,D,S,G> asdi = new JeeslDbStatusUpdater<L,D,S,G>();

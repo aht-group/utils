@@ -17,7 +17,7 @@ import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 
 public interface JeeslTsMultiPoint <L extends JeeslLang, D extends JeeslDescription,
 									SCOPE extends JeeslTsScope<L,D,?,?,UNIT,?,?>,
-									UNIT extends JeeslStatus<UNIT,L,D>>
+									UNIT extends JeeslStatus<L,D,UNIT>>
 		extends Serializable,EjbWithId,EjbSaveable,EjbRemoveable,EjbWithCode,EjbWithNonUniqueCode,
 				EjbWithParentAttributeResolver,EjbWithPositionParent,
 				EjbWithLang<L>,EjbWithDescription<D>

@@ -28,7 +28,7 @@ public class EjbAuditTrailFactory <L extends JeeslLang,
 										 AT extends JeeslSecurityTemplate<L,D,C>,
 										 USER extends JeeslUser<R>,
 							 			 T extends UtilsAuditTrail<L,D,C,R,V,U,A,AT,USER,TY>,
-							 			 TY extends JeeslStatus<TY,L,D>>
+							 			 TY extends JeeslStatus<L,D,TY>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbAuditTrailFactory.class);
 	
@@ -53,7 +53,7 @@ public class EjbAuditTrailFactory <L extends JeeslLang,
 	 			  AT extends JeeslSecurityTemplate<L,D,C>,
 	 			  USER extends JeeslUser<R>,
 	 			   T extends UtilsAuditTrail<L,D,C,R,V,U,A,AT,USER,TY>,
-	 			   TY extends JeeslStatus<TY,L,D>>
+	 			   TY extends JeeslStatus<L,D,TY>>
     	EjbAuditTrailFactory<L,D,C,R,V,U,A,AT,USER,T,TY> factory(final Class<L> clLang,final Class<D> clDescription,final Class<C> clCategory,final Class<R> clRole,final Class<V> clView,final Class<U> clUsecase,final Class<A> clAction,final Class<USER> clUser, final Class<T> clTrail,final Class<TY> clType)
     {
         return new EjbAuditTrailFactory<L,D,C,R,V,U,A,AT,USER,T,TY>(clLang,clDescription,clCategory,clRole,clView,clUsecase,clAction,clUser,clTrail,clType);

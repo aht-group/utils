@@ -14,13 +14,14 @@ import org.jeesl.interfaces.model.io.mail.template.JeeslTemplateChannel;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 
 public interface JeeslTemplateHandler <L extends JeeslLang,D extends JeeslDescription,LOC extends JeeslLocale<L,D,LOC,?>,
-										CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+										CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 										CHANNEL extends JeeslTemplateChannel<L,D,CHANNEL,?>,
 										TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>,
-										SCOPE extends JeeslStatus<SCOPE,L,D>,
+										SCOPE extends JeeslStatus<L,D,SCOPE>,
 										DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 										TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,TOKENTYPE>,
-										TOKENTYPE extends JeeslStatus<TOKENTYPE,L,D>> extends Serializable
+										TOKENTYPE extends JeeslStatus<L,D,TOKENTYPE>> 
+							extends Serializable
 {
 	
 	JeeslMail<TEMPLATE> getMail();

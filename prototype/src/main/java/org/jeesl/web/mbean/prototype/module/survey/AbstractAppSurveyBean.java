@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public abstract class AbstractAppSurveyBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
+public abstract class AbstractAppSurveyBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<L,D,LOC>,
 						SURVEY extends JeeslSurvey<L,D,SS,TEMPLATE,DATA>,
 						SS extends JeeslSurveyStatus<L,D,SS,?>,
 						SCHEME extends JeeslSurveyScheme<L,D,TEMPLATE,SCORE>,
@@ -66,7 +66,7 @@ public abstract class AbstractAppSurveyBean <L extends JeeslLang, D extends Jees
 						OPTIONS extends JeeslSurveyOptionSet<L,D,TEMPLATE,OPTION>,
 						OPTION extends JeeslSurveyOption<L,D>,
 						CORRELATION extends JeeslSurveyCorrelation<DATA>,
-						ATT extends JeeslStatus<ATT,L,D>,
+						ATT extends JeeslStatus<L,D,ATT>,
 						TOOLCACHETEMPLATE extends JeeslJobTemplate<L,D,?,?,?,?>>
 					implements Serializable,
 			JeeslSurveyBean<L,D,SURVEY,SS,SCHEME,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,CONDITION,VALIDATION,QE,SCORE,UNIT,ANSWER,MATRIX,DATA,OPTIONS,OPTION,CORRELATION,ATT>

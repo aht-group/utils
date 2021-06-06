@@ -19,7 +19,7 @@ import net.sf.ahtutils.xml.status.Status;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 
 public class SystemNewsRestService <L extends JeeslLang,D extends JeeslDescription,
-									CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+									CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 									NEWS extends JeeslSystemNews<L,D,CATEGORY,NEWS,USER>,
 									USER extends EjbWithId>
 					extends AbstractUtilsRest<L,D>
@@ -44,7 +44,7 @@ public class SystemNewsRestService <L extends JeeslLang,D extends JeeslDescripti
 	}
 	
 	public static <L extends JeeslLang,D extends JeeslDescription,
-					CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+					CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 					NEWS extends JeeslSystemNews<L,D,CATEGORY,NEWS,USER>,
 					USER extends EjbWithId>
 		SystemNewsRestService<L,D,CATEGORY,NEWS,USER>
@@ -57,7 +57,7 @@ public class SystemNewsRestService <L extends JeeslLang,D extends JeeslDescripti
 	@Override public DataUpdate importSystemNewsCategories(Aht categories){return importStatus2(cCategory,null,categories);}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-    public <S extends JeeslStatus<S,L,D>, P extends JeeslStatus<P,L,D>> DataUpdate importStatus2(Class<S> clStatus, Class<P> clParent, Aht container)
+    public <S extends JeeslStatus<L,D,S>, P extends JeeslStatus<L,D,P>> DataUpdate importStatus2(Class<S> clStatus, Class<P> clParent, Aht container)
     {
     	for(Status xml : container.getStatus()){xml.setGroup(clStatus.getSimpleName());}
 		JeeslDbStatusUpdater asdi = new JeeslDbStatusUpdater();

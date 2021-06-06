@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class IoDashboardFactoryBuilder<L extends JeeslLang, D extends JeeslDescription,
-									DBR extends JeeslStatus<DBR,L,D>,
+									DBR extends JeeslStatus<L,D,DBR>,
 									DBC extends JeeslIoDashComponent<L,D,DBC>,
 									DBCP extends JeeslIoDashComponentPosition<L,D,DBR,DBC,DB,DBCP>,
 									DB extends JeeslIoDashboard<L,D,DBR,DBCP,DB>>

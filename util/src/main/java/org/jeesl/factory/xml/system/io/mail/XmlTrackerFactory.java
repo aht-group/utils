@@ -22,7 +22,7 @@ public class XmlTrackerFactory
 		this.q=q;
 	}
 	
-    public <T extends UtilsMailTracker<S,L,U,D>, S extends JeeslStatus<S,L,D>, L extends JeeslLang, U extends EjbWithId,D extends JeeslDescription>
+    public <T extends UtilsMailTracker<S,L,U,D>, S extends JeeslStatus<L,D,S>, L extends JeeslLang, U extends EjbWithId,D extends JeeslDescription>
     	Tracker create(T ejb)
     {
     	Tracker xml = new Tracker();

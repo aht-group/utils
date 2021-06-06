@@ -10,7 +10,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslLogFrameArea<L extends JeeslLang, D extends JeeslDescription,
-									IT extends JeeslStatus<IT,L,D>
+									IT extends JeeslStatus<L,D,IT>
 									>
 				extends Serializable,EjbWithId,EjbPersistable,EjbRemoveable
 {

@@ -12,14 +12,14 @@ import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 
 public interface JeeslRevisionCategory <L extends JeeslLang, D extends JeeslDescription,
-								S extends JeeslStatus<S,L,D>,
+								S extends JeeslStatus<L,D,S>,
 								G extends JeeslGraphic<L,D,?,?,?>>
 							extends Serializable,EjbPersistable,
 									EjbWithCode,
 //									UtilsStatusFixedCode,
 //									JeeslOptionRestDownload,
 									EjbWithPosition,
-									EjbWithCodeGraphic<G>,JeeslStatus<S,L,D>
+									EjbWithCodeGraphic<G>,JeeslStatus<L,D,S>
 {	
 
 }

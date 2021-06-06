@@ -27,8 +27,8 @@ public class XmlSubTypeFactory
 		this.q=q;
 	}
 	
-	public <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription> SubType build(S ejb){return build(ejb,null);}
-	public <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription> SubType build(S ejb, String group)
+	public <S extends JeeslStatus<L,D,S>,L extends JeeslLang, D extends JeeslDescription> SubType build(S ejb){return build(ejb,null);}
+	public <S extends JeeslStatus<L,D,S>,L extends JeeslLang, D extends JeeslDescription> SubType build(S ejb, String group)
 	{
 		SubType xml = new SubType();
 		if(q.isSetId()){xml.setId(ejb.getId());}

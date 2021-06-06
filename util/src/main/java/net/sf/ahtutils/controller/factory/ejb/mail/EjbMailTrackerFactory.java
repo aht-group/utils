@@ -11,13 +11,13 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbMailTrackerFactory<T extends UtilsMailTracker<S,L,U,D>,S extends JeeslStatus<S,L,D>, L extends JeeslLang, U extends EjbWithId, D extends JeeslDescription>
+public class EjbMailTrackerFactory<T extends UtilsMailTracker<S,L,U,D>,S extends JeeslStatus<L,D,S>, L extends JeeslLang, U extends EjbWithId, D extends JeeslDescription>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbMailTrackerFactory.class);
 	
     final Class<T> clTracker;
 	
-    public static <T extends UtilsMailTracker<S,L,U,D>,S extends JeeslStatus<S,L,D>, L extends JeeslLang, U extends EjbWithId,D extends JeeslDescription> EjbMailTrackerFactory<T,S,L,U,D> createFactory(final Class<T> clTracker)
+    public static <T extends UtilsMailTracker<S,L,U,D>,S extends JeeslStatus<L,D,S>, L extends JeeslLang, U extends EjbWithId,D extends JeeslDescription> EjbMailTrackerFactory<T,S,L,U,D> createFactory(final Class<T> clTracker)
     {
         return new EjbMailTrackerFactory<T,S,L,U,D>(clTracker);
     }

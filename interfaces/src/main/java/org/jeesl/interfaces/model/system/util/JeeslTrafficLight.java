@@ -10,7 +10,7 @@ import org.jeesl.interfaces.model.with.system.locale.EjbWithLangDescription;
 import org.jeesl.interfaces.model.with.system.status.JeeslWithScope;
 
 public interface JeeslTrafficLight<L extends JeeslLang, D extends JeeslDescription,
-								SCOPE extends JeeslStatus<SCOPE,L,D>>
+								SCOPE extends JeeslStatus<L,D,SCOPE>>
 			extends EjbWithId,
 					EjbSaveable,EjbRemoveable,
 					JeeslWithScope<SCOPE>,

@@ -20,7 +20,7 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public class AbstractAdminTrafficLightBean <L extends JeeslLang, D extends JeeslDescription,
 											LIGHT extends JeeslTrafficLight<L,D,SCOPE>,
-											SCOPE extends JeeslStatus<SCOPE,L,D>>
+											SCOPE extends JeeslStatus<L,D,SCOPE>>
 	implements Serializable
 {
 	private static final long serialVersionUID = 1L;

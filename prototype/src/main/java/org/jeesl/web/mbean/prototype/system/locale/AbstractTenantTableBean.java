@@ -68,7 +68,7 @@ import net.sf.exlp.util.xml.JaxbUtil;
 public class AbstractTenantTableBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,G>,
 										R extends JeeslTenantRealm<L,D,R,G>, RREF extends EjbWithId,
 										G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslGraphicType<L,D,GT,G>,
-										F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>,
+										F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<L,D,FS>,
 										RE extends JeeslRevisionEntity<L,D,?,?,?,?>>
 					extends AbstractTableBean<L,D,LOC,G,GT,F,FS,RE> implements Serializable
 {
@@ -397,7 +397,7 @@ public class AbstractTenantTableBean <L extends JeeslLang, D extends JeeslDescri
 
 	//JEESL REST DATA
 	@SuppressWarnings("unchecked")
-	public <REST extends JeeslOptionRest, Y extends JeeslMcsStatus<L,D,R,Y,G>, X extends JeeslStatus<X,L,D>> void downloadData() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UtilsConfigurationException
+	public <REST extends JeeslOptionRest, Y extends JeeslMcsStatus<L,D,R,Y,G>, X extends JeeslStatus<L,D,X>> void downloadData() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UtilsConfigurationException
 	{
 		logger.info("Downloading REST");
 

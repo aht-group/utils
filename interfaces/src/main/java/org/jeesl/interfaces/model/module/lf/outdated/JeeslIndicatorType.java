@@ -13,11 +13,11 @@ import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
 
 public interface JeeslIndicatorType <L extends JeeslLang, D extends JeeslDescription,
 //									R extends JeeslMcsRealm<L,D,R,G>,
-									S extends JeeslStatus<S,L,D>,
+									S extends JeeslStatus<L,D,S>,
 									G extends JeeslGraphic<L,D,?,?,?>>
 								extends Serializable,EjbPersistable,
 										EjbWithCode,JeeslStatusFixedCode,
-										EjbWithCodeGraphic<G>,JeeslStatus<S,L,D>
+										EjbWithCodeGraphic<G>,JeeslStatus<L,D,S>
 {
 	public static enum Code{impact,outcome,output,activity};
 }

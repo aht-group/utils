@@ -35,7 +35,7 @@ public class OfxMultiLocaleFactory<L extends JeeslLang, LOC extends JeeslLocale<
 	}
 	
 	public Cell cell(JeeslLocaleProvider<LOC> lp, Langs langs) {return XmlCellFactory.build(paragraphs(lp,langs,false));}
-	public <S extends JeeslStatus<S,L,D>, D extends JeeslDescription> Cell cellLabel(JeeslLocaleProvider<LOC> lp, JeeslStatus<S,L,D> status)
+	public <S extends JeeslStatus<L,D,S>, D extends JeeslDescription> Cell cellLabel(JeeslLocaleProvider<LOC> lp, JeeslStatus<L,D,S> status)
 	{
 		Cell cell = XmlCellFactory.build();
 //		if(font!=null){cell.getContent().add(font);}
@@ -43,7 +43,7 @@ public class OfxMultiLocaleFactory<L extends JeeslLang, LOC extends JeeslLocale<
 		return cell;
 	}
 	
-	private <S extends JeeslStatus<S,L,D>, D extends JeeslDescription> List<Paragraph> paragraphLabels(JeeslLocaleProvider<LOC> lp, JeeslStatus<S,L,D> status)
+	private <S extends JeeslStatus<L,D,S>, D extends JeeslDescription> List<Paragraph> paragraphLabels(JeeslLocaleProvider<LOC> lp, JeeslStatus<L,D,S> status)
 	{
 		List<Paragraph> paragraphs = new ArrayList<Paragraph>();
 		
@@ -59,8 +59,8 @@ public class OfxMultiLocaleFactory<L extends JeeslLang, LOC extends JeeslLocale<
 		return paragraphs;
 	}
 	
-	public <S extends JeeslStatus<S,L,D>, D extends JeeslDescription> Title title(JeeslLocaleProvider<LOC> lp, JeeslStatus<S,L,D> status) {return title(lp,status,null);}
-	public <S extends JeeslStatus<S,L,D>, D extends JeeslDescription> Title title(JeeslLocaleProvider<LOC> lp, JeeslStatus<S,L,D> status, String suffix)
+	public <S extends JeeslStatus<L,D,S>, D extends JeeslDescription> Title title(JeeslLocaleProvider<LOC> lp, JeeslStatus<L,D,S> status) {return title(lp,status,null);}
+	public <S extends JeeslStatus<L,D,S>, D extends JeeslDescription> Title title(JeeslLocaleProvider<LOC> lp, JeeslStatus<L,D,S> status, String suffix)
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.append(status.getName().get(lp.getPrimaryLocaleCode()).getLang());

@@ -51,7 +51,7 @@ import org.jeesl.interfaces.model.with.system.status.JeeslWithType;
 
 public interface JeeslFacade extends JeeslIdFacade
 {
-	<L extends JeeslLang,D extends JeeslDescription, S extends EjbWithId,G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslGraphicType<L,D,GT,G>, F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>> S loadGraphic(Class<S> cS, S status);
+	<L extends JeeslLang,D extends JeeslDescription, S extends EjbWithId,G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslGraphicType<L,D,GT,G>, F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<L,D,FS>> S loadGraphic(Class<S> cS, S status);
 	
 	//NAME
 	<T extends EjbWithName> T fByName(Class<T> type, String name) throws JeeslNotFoundException;
@@ -72,10 +72,10 @@ public interface JeeslFacade extends JeeslIdFacade
 	<T extends EjbWithType> List<T> allForType(Class<T> c, String type);
 	
 	//Category,Type,Status ...
-	<C extends JeeslStatus<C,?,?>, W extends JeeslWithContext<C>> List<W> allForContext(Class<W> w, C context);
-	<L extends JeeslLang, D extends JeeslDescription, C extends JeeslStatus<C,L,D>, W extends JeeslWithCategory<C>> List<W> allForCategory(Class<W> w, C category);
-	<L extends JeeslLang, D extends JeeslDescription, T extends JeeslStatus<T,L,D>, W extends JeeslWithType<T>> List<W> allForType(Class<W> w, T type);
-	<L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<S,L,D>, W extends JeeslWithStatus<S>> List<W> allForStatus(Class<W> w, S status);
+	<C extends JeeslStatus<?,?,C>, W extends JeeslWithContext<C>> List<W> allForContext(Class<W> w, C context);
+	<L extends JeeslLang, D extends JeeslDescription, C extends JeeslStatus<L,D,C>, W extends JeeslWithCategory<C>> List<W> allForCategory(Class<W> w, C category);
+	<L extends JeeslLang, D extends JeeslDescription, T extends JeeslStatus<L,D,T>, W extends JeeslWithType<T>> List<W> allForType(Class<W> w, T type);
+	<L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<L,D,S>, W extends JeeslWithStatus<S>> List<W> allForStatus(Class<W> w, S status);
 	
 	// ORDERING
 	<T extends Object> List<T> allOrdered(Class<T> cl, String by, boolean ascending);
@@ -120,8 +120,8 @@ public interface JeeslFacade extends JeeslIdFacade
 	
 	//Parent
 	<T extends EjbWithParentAttributeResolver, P extends EjbWithId> List<T> allForParent(Class<T> c, P parent);
-	<T extends JeeslWithParentAttributeStatus<STATUS>, P extends EjbWithId, STATUS extends JeeslStatus<STATUS,?,?>> List<T> allForParentStatus(Class<T> type, P parent, List<STATUS> status);
-	<T extends JeeslWithParentAttributeType<TYPE>, P extends EjbWithId, TYPE extends JeeslStatus<TYPE,?,?>> List<T> allForParentType(Class<T> c, P parent, List<TYPE> type);
+	<T extends JeeslWithParentAttributeStatus<STATUS>, P extends EjbWithId, STATUS extends JeeslStatus<?,?,STATUS>> List<T> allForParentStatus(Class<T> type, P parent, List<STATUS> status);
+	<T extends JeeslWithParentAttributeType<TYPE>, P extends EjbWithId, TYPE extends JeeslStatus<?,?,TYPE>> List<T> allForParentType(Class<T> c, P parent, List<TYPE> type);
 	<T extends EjbWithParentAttributeResolver, I extends EjbWithId> List<T> allForParents(Class<T> type, List<I> parents);
 //	<T extends EjbWithId, I extends EjbWithId, A1 extends Enum<A1>> List<T> allForParent(Class<T> type, String p1Name, I p1);
 	<T extends EjbWithId, A1 extends Enum<A1>, P1 extends EjbWithId> List<T> allForParent(Class<T> type, A1 a1, P1 p1);

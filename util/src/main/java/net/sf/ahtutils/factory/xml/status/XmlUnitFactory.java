@@ -22,8 +22,8 @@ public class XmlUnitFactory
 		this.q=q;
 	}
 	
-	public <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription> Unit build(S ejb){return build(ejb,null);}
-	public <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription> Unit build(S ejb, String group)
+	public <S extends JeeslStatus<L,D,S>,L extends JeeslLang, D extends JeeslDescription> Unit build(S ejb){return build(ejb,null);}
+	public <S extends JeeslStatus<L,D,S>,L extends JeeslLang, D extends JeeslDescription> Unit build(S ejb, String group)
 	{
 		Unit xml = new Unit();
 		if(q.isSetCode()){xml.setCode(ejb.getCode());}

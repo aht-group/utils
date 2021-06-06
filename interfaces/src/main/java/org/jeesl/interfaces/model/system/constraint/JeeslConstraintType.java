@@ -11,7 +11,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatusFixedCode;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 
-public interface JeeslConstraintType <S extends JeeslStatus<S,L,D>,L extends JeeslLang,D extends JeeslDescription,G extends JeeslGraphic<L,D,?,?,?>>
+public interface JeeslConstraintType <S extends JeeslStatus<L,D,S>,L extends JeeslLang,D extends JeeslDescription,G extends JeeslGraphic<L,D,?,?,?>>
 									extends Serializable,EjbPersistable,JeeslStatusFixedCode,JeeslOptionRestDownload,EjbWithCodeGraphic<G>
 {
 	public static String xmlResourceContainer = "jeesl/db/system/constraint/type.xml";

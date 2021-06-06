@@ -18,7 +18,7 @@ import net.sf.ahtutils.xml.status.Langs;
 import net.sf.ahtutils.xml.status.Parent;
 import net.sf.ahtutils.xml.status.Status;
 
-public class XmlStatusFactory<S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription>
+public class XmlStatusFactory<S extends JeeslStatus<L,D,S>,L extends JeeslLang, D extends JeeslDescription>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlStatusFactory.class);
 	

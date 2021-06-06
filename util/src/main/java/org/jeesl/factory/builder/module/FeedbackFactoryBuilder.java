@@ -15,8 +15,8 @@ import org.slf4j.LoggerFactory;
 public class FeedbackFactoryBuilder<L extends JeeslLang, D extends JeeslDescription,
 									THREAD extends JeeslFeedbackThread<L,D,THREAD,FEEDBACK,STYLE,TYPE,USER>,
 									FEEDBACK extends JeeslFeedback<L,D,THREAD,FEEDBACK,STYLE,TYPE,USER>,
-									STYLE extends JeeslStatus<STYLE,L,D>,
-									TYPE extends JeeslStatus<TYPE,L,D>,
+									STYLE extends JeeslStatus<L,D,STYLE>,
+									TYPE extends JeeslStatus<L,D,TYPE>,
 									USER extends EjbWithEmail>
 		extends AbstractFactoryBuilder<L,D>
 {

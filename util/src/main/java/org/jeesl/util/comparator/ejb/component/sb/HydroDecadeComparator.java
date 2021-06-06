@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 
 public class HydroDecadeComparator<L extends JeeslLang,D extends JeeslDescription,
-HD extends JeeslStatus<HD,L,D>>
+HD extends JeeslStatus<L,D,HD>>
 {
     final static Logger logger = LoggerFactory.getLogger(HydroDecadeComparator.class);
 

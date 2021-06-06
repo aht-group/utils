@@ -9,8 +9,8 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
 public interface JeeslSyncFacade <L extends JeeslLang,
 									D extends JeeslDescription,
-									STATUS extends JeeslStatus<STATUS,L,D>,
-									CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+									STATUS extends JeeslStatus<L,D,STATUS>,
+									CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 									SYNC extends JeeslSync<L,D,STATUS,CATEGORY>>
 					extends JeeslFacade
 {	

@@ -12,7 +12,7 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 public interface JeeslTimeSeries <SCOPE extends JeeslTsScope<?,?,?,?,?,?,INT>,
 									TS extends JeeslTimeSeries<SCOPE,TS,?,INT,STAT>,
 									BRIDGE extends JeeslTsBridge<?>,
-									INT extends JeeslStatus<INT,?,?>,
+									INT extends JeeslStatus<?,?,INT>,
 									STAT extends JeeslTsStatistic<?,?,STAT,?>
 >
 		extends EjbWithId,Serializable,EjbRemoveable,EjbPersistable

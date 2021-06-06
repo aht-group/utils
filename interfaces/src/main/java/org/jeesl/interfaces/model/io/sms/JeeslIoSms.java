@@ -11,9 +11,9 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithRefId;
 
 public interface JeeslIoSms<L extends JeeslLang,D extends JeeslDescription,
-								CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+								CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 								SMS extends JeeslIoSms<L,D,CATEGORY,SMS,STATUS>,
-								STATUS extends JeeslStatus<STATUS,L,D>
+								STATUS extends JeeslStatus<L,D,STATUS>
 								>
 		extends EjbWithId,EjbWithRefId,EjbSaveable,EjbRemoveable
 {	

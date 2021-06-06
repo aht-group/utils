@@ -11,11 +11,11 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatusFixedCode;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 
-public interface JeeslMailRetention <L extends JeeslLang, D extends JeeslDescription,S extends JeeslStatus<S,L,D>, G extends JeeslGraphic<L,D,?,?,?>>
+public interface JeeslMailRetention <L extends JeeslLang, D extends JeeslDescription,S extends JeeslStatus<L,D,S>, G extends JeeslGraphic<L,D,?,?,?>>
 					extends Serializable,EjbPersistable,
 								JeeslOptionRestDownload,
 								JeeslStatusFixedCode,
-								EjbWithCodeGraphic<G>,JeeslStatus<S,L,D>
+								EjbWithCodeGraphic<G>,JeeslStatus<L,D,S>
 {	
 	public enum Code{fully,split,text,header,delete};
 }

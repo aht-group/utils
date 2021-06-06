@@ -18,14 +18,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class OfxStatusTableFactory <L extends JeeslLang, D extends JeeslDescription,
-								S extends JeeslStatus<S,L,D>>
+								S extends JeeslStatus<L,D,S>>
 {
 	final static Logger logger = LoggerFactory.getLogger(OfxStatusTableFactory.class);
 	
 	private final String localeCode;
 	private final Class<S> c;
 	
-	public static <L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<S,L,D>, E extends Enum<E>>
+	public static <L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<L,D,S>, E extends Enum<E>>
 					OfxStatusTableFactory<L,D,S> instance(Class<S> c, Enum<E> e)
 					{
 						return new OfxStatusTableFactory<>(e.toString(),c);

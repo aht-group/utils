@@ -50,7 +50,7 @@ public class XmlResultFactory<L extends JeeslLang, D extends JeeslDescription,
 							QAU extends UtilsQaUsability,
 							QAR extends UtilsQaResult<STAFF,QAT,QARS>,
 							QASH extends UtilsQaStakeholder<QA>,
-							QARS extends JeeslStatus<QARS,L2,D2>>
+							QARS extends JeeslStatus<L2,D2,QARS>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlResultFactory.class);
 		

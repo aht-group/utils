@@ -10,7 +10,7 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface UtilsQaResult<STAFF extends UtilsQaStaff<?,?,?,?,?>,
 				QAT extends UtilsQaTest<?,?,?,?,?,?>,
-				QARS extends JeeslStatus<QARS,?,?>>
+				QARS extends JeeslStatus<?,?,QARS>>
 			extends Serializable,EjbSaveable,EjbWithRecord,EjbWithId
 {
 	QAT getTest();

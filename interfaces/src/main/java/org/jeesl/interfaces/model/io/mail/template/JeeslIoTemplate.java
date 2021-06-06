@@ -16,8 +16,8 @@ import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 import org.jeesl.interfaces.model.with.system.status.JeeslWithCategory;
 
 public interface JeeslIoTemplate<L extends JeeslLang,D extends JeeslDescription,
-								CATEGORY extends JeeslStatus<CATEGORY,L,D>,
-								SCOPE extends JeeslStatus<SCOPE,L,D>,
+								CATEGORY extends JeeslStatus<L,D,CATEGORY>,
+								SCOPE extends JeeslStatus<L,D,SCOPE>,
 								DEFINITION extends JeeslIoTemplateDefinition<D,?,?>,
 								TOKEN extends JeeslIoTemplateToken<L,D,?,?>
 								>

@@ -22,7 +22,7 @@ import net.sf.ahtutils.xml.status.Langs;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-public class EjbStatusFactory<S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription>
+public class EjbStatusFactory<S extends JeeslStatus<L,D,S>, L extends JeeslLang, D extends JeeslDescription>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbStatusFactory.class);
 	
@@ -52,13 +52,13 @@ public class EjbStatusFactory<S extends JeeslStatus<S,L,D>, L extends JeeslLang,
         efDescription = EjbDescriptionFactory.factory(cD);
     }
     
-    public static <S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription> EjbStatusFactory<S, L, D>
+    public static <S extends JeeslStatus<L,D,S>, L extends JeeslLang, D extends JeeslDescription> EjbStatusFactory<S, L, D>
     		createFactory(final Class<S> cStatus, final Class<L> cLang, final Class<D> descriptionClass)
     {
         return new EjbStatusFactory<S,L,D>(cStatus, cLang, descriptionClass);
     }
     
-    public static <S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription> EjbStatusFactory<S, L, D>
+    public static <S extends JeeslStatus<L,D,S>, L extends JeeslLang, D extends JeeslDescription> EjbStatusFactory<S, L, D>
 		createFactory(final Class<S> cStatus, final Class<L> cL, final Class<D> cD, List<String> localeCodes)
 	{
     	return new EjbStatusFactory<S,L,D>(cStatus,cL,cD,localeCodes);
@@ -167,7 +167,7 @@ public class EjbStatusFactory<S extends JeeslStatus<S,L,D>, L extends JeeslLang,
 		return mapDesc;
 	}
 	
-	public static <S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription>
+	public static <S extends JeeslStatus<L,D,S>, L extends JeeslLang, D extends JeeslDescription>
 		S build(final Class<S> cStatus, final Class<L> cLang, final Class<D> descriptionClass, String[] localeCodes, long id, String code, String name)
 	{
 		EjbStatusFactory<S,L,D> f = EjbStatusFactory.createFactory(cStatus, cLang, descriptionClass);

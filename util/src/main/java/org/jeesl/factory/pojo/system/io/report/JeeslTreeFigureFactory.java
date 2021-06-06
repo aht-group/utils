@@ -22,7 +22,7 @@ public class JeeslTreeFigureFactory
 	
 	public enum Type {data,tree,transformation}
 	
-	public static <L extends JeeslLang, D extends JeeslDescription, A extends JeeslStatus<A,L,D>,TRANSFORMATION extends JeeslStatus<TRANSFORMATION,L,D>>
+	public static <L extends JeeslLang, D extends JeeslDescription, A extends JeeslStatus<L,D,A>,TRANSFORMATION extends JeeslStatus<L,D,TRANSFORMATION>>
 		Figures build(String localeCode, JeeslPivotFactory<L,D,A> pivotFactory, int lvl, List<A> aggregations, JeeslPivotAggregator dpa, List<EjbWithId> parents, JeeslReportSetting.Transformation transformation)
 	{	
 		Figures data = XmlFiguresFactory.build(Type.data);
@@ -48,7 +48,7 @@ public class JeeslTreeFigureFactory
 		return figures;
 	}
 	
-	private static <L extends JeeslLang, D extends JeeslDescription, A extends JeeslStatus<A,L,D>, TRANSFORMATION extends JeeslStatus<TRANSFORMATION,L,D>>
+	private static <L extends JeeslLang, D extends JeeslDescription, A extends JeeslStatus<L,D,A>, TRANSFORMATION extends JeeslStatus<L,D,TRANSFORMATION>>
 		List<Figures> aggregationLevel(String localeCode, JeeslPivotFactory<L,D,A> pivotFactory, int lvl, List<A> aggregations, JeeslPivotAggregator dpa, List<EjbWithId> parents, JeeslReportSetting.Transformation transformation)
 	{
 		List<Figures> list = new ArrayList<Figures>();
@@ -102,7 +102,7 @@ public class JeeslTreeFigureFactory
 		return list;
 	}
 	
-	public static <S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription>
+	public static <S extends JeeslStatus<L,D,S>, L extends JeeslLang, D extends JeeslDescription>
 		Figures tree(String localeCode, List<S> aggregations, JeeslReportSetting.Transformation transformation)
 	{
 		int toIndex = 0;

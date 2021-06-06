@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 
 public class AbstractTableBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 								G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslGraphicType<L,D,GT,G>,
-								F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>,
+								F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<L,D,FS>,
 								RE extends JeeslRevisionEntity<L,D,?,?,?,?>
 >
 			extends AbstractAdminBean<L,D,LOC>

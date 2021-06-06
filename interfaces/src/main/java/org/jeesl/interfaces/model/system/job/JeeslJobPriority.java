@@ -11,9 +11,9 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 
 public interface JeeslJobPriority <L extends JeeslLang, D extends JeeslDescription,
-									S extends JeeslStatus<S,L,D>,
+									S extends JeeslStatus<L,D,S>,
 									G extends JeeslGraphic<L,D,?,?,?>>
-		extends Serializable,EjbPersistable,JeeslOptionRestDownload,EjbWithCodeGraphic<G>,JeeslStatus<S,L,D>
+		extends Serializable,EjbPersistable,JeeslOptionRestDownload,EjbWithCodeGraphic<G>,JeeslStatus<L,D,S>
 {
 	public static enum Attributes{position};
 	public static enum Code{low,medium,high}

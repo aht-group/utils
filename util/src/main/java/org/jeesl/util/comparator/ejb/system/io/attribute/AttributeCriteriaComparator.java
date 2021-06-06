@@ -8,7 +8,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AttributeCriteriaComparator<CATEGORY extends JeeslStatus<CATEGORY,?,?>,
+public class AttributeCriteriaComparator<CATEGORY extends JeeslStatus<?,?,CATEGORY>,
 										CRITERIA extends JeeslAttributeCriteria<?,?,CATEGORY,?,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(AttributeCriteriaComparator.class);

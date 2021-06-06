@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.xml.utils.Property;
 
 public class EjbPropertyFactory<L extends JeeslLang, D extends JeeslDescription,
-								C extends JeeslStatus<C,L,D>,
+								C extends JeeslStatus<L,D,C>,
 								P extends JeeslProperty<L,D,C,P>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbPropertyFactory.class);
@@ -23,7 +23,7 @@ public class EjbPropertyFactory<L extends JeeslLang, D extends JeeslDescription,
 	}
 	
 	public static <L extends JeeslLang, D extends JeeslDescription,
-					C extends JeeslStatus<C,L,D>,
+					C extends JeeslStatus<L,D,C>,
 					P extends JeeslProperty<L,D,C,P>>
 			EjbPropertyFactory<L,D,C,P> factory(final Class<P> cProperty)
 	{

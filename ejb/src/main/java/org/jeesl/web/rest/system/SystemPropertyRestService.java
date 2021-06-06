@@ -26,7 +26,7 @@ import net.sf.ahtutils.xml.utils.Property;
 import net.sf.ahtutils.xml.utils.Utils;
 
 public class SystemPropertyRestService <L extends JeeslLang,D extends JeeslDescription,
-										C extends JeeslStatus<C,L,D>,
+										C extends JeeslStatus<L,D,C>,
 										P extends JeeslProperty<L,D,C,P>>
 					extends AbstractUtilsRest<L,D>
 					implements JeeslSystemPropertyRestExport,JeeslSystemPropertyRestImport
@@ -48,7 +48,7 @@ public class SystemPropertyRestService <L extends JeeslLang,D extends JeeslDescr
 	}
 	
 	public static <L extends JeeslLang,D extends JeeslDescription,
-					C extends JeeslStatus<C,L,D>,
+					C extends JeeslStatus<L,D,C>,
 					P extends JeeslProperty<L,D,C,P>>
 		SystemPropertyRestService<L,D,C,P>
 			factory(JeeslSystemPropertyFacade<L,D,C,P> fNews, final String[] localeCodes, final PropertyFactoryBuilder<L,D,C,P> fbProperty)
@@ -60,7 +60,7 @@ public class SystemPropertyRestService <L extends JeeslLang,D extends JeeslDescr
 	@Override public DataUpdate importSystemPropertyCategories(Container categories){return importStatus2(fbProperty.getClassCategory(),null,categories);}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-    public <S extends JeeslStatus<S,L,D>, P extends JeeslStatus<P,L,D>> DataUpdate importStatus2(Class<S> clStatus, Class<P> clParent, Container container)
+    public <S extends JeeslStatus<L,D,S>, P extends JeeslStatus<L,D,P>> DataUpdate importStatus2(Class<S> clStatus, Class<P> clParent, Container container)
     {
     	for(Status xml : container.getStatus()){xml.setGroup(clStatus.getSimpleName());}
 		JeeslDbStatusUpdater asdi = new JeeslDbStatusUpdater();

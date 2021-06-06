@@ -29,8 +29,8 @@ public class XmlOriginalFactory
 		this.q=q;
 	}
 	
-	public <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription> Original build(S ejb){return build(ejb,null);}
-	public <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription> Original build(S ejb, String group)
+	public <S extends JeeslStatus<L,D,S>,L extends JeeslLang, D extends JeeslDescription> Original build(S ejb){return build(ejb,null);}
+	public <S extends JeeslStatus<L,D,S>,L extends JeeslLang, D extends JeeslDescription> Original build(S ejb, String group)
 	{
 		Original xml = new Original();
 		if(q.isSetCode()){xml.setCode(ejb.getCode());}

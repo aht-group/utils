@@ -4,7 +4,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
-public class UtilsStatusFilter<L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<S,L,D>>		
+public class UtilsStatusFilter<L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<L,D,S>>		
 {		
 	private S value;
 	private boolean active;

@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 public class EjbSurveyConditionFactory<QUESTION extends JeeslSurveyQuestion<?,?,?,?,?,?,?,?,?,?,?>,
 										CONDITION extends JeeslSurveyCondition<QUESTION,QE,?>,
-										QE extends JeeslStatus<QE,?,?>>
+										QE extends JeeslStatus<?,?,QE>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbSurveyConditionFactory.class);
 

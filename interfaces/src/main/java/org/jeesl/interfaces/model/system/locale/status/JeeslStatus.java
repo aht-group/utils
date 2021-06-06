@@ -13,7 +13,7 @@ import org.jeesl.interfaces.model.with.system.graphic.EjbWithImage;
 import org.jeesl.interfaces.model.with.system.graphic.EjbWithImageAlt;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithLangDescription;
 
-public interface JeeslStatus<S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription>
+public interface JeeslStatus<L extends JeeslLang, D extends JeeslDescription,S extends JeeslStatus<L,D,S>>
 			extends Serializable,EjbRemoveable,EjbWithId,
 						EjbWithCode,EjbWithPositionVisible,EjbWithImage,EjbWithImageAlt,
 						EjbWithLangDescription<L,D>,EjbWithParent

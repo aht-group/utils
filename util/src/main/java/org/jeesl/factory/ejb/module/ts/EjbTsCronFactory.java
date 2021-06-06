@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 
 public class EjbTsCronFactory <	SCOPE extends JeeslTsScope<?,?,?,?,?,?,INT>,
-								INT extends JeeslStatus<INT,?,?>,
+								INT extends JeeslStatus<?,?,INT>,
 								STAT extends JeeslTsStatistic<?,?,STAT,?>,
 								CRON extends JeeslTsCron<SCOPE,INT,STAT>>
 {

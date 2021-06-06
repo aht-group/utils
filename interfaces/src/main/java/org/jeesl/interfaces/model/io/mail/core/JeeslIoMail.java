@@ -13,9 +13,9 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslIoMail<L extends JeeslLang,D extends JeeslDescription,
-								CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+								CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 								STATUS extends JeeslMailStatus<L,D,STATUS,?>,
-								RETENTION extends JeeslStatus<RETENTION,L,D>,
+								RETENTION extends JeeslStatus<L,D,RETENTION>,
 								FRC extends JeeslFileContainer<?,?>
 								>
 		extends Serializable,EjbWithId,

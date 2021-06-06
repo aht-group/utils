@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.xml.status.Category;
 import net.sf.ahtutils.xml.status.Status;
 
-public class XmlCategoryFactory<L extends JeeslLang, D extends JeeslDescription,S extends JeeslStatus<S,L,D>>
+public class XmlCategoryFactory<L extends JeeslLang, D extends JeeslDescription,S extends JeeslStatus<L,D,S>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlCategoryFactory.class);
 	

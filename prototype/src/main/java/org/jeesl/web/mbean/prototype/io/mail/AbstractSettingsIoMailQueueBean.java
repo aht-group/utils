@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public class AbstractSettingsIoMailQueueBean <L extends JeeslLang,D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
-											CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+											CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 											MAIL extends JeeslIoMail<L,D,CATEGORY,STATUS,RETENTION,FRC>,
 											STATUS extends JeeslMailStatus<L,D,STATUS,?>,
 											RETENTION extends JeeslMailRetention<L,D,RETENTION,?>,

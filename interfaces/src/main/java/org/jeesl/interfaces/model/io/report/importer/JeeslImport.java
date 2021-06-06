@@ -12,7 +12,7 @@ import org.jeesl.interfaces.model.with.system.locale.EjbWithDescription;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 
 public interface JeeslImport<L extends JeeslLang,D extends JeeslDescription,
-								CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+								CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 								IMPORTER extends JeeslImport<L,D,CATEGORY,IMPORTER,VALIDATOR,HANDLER>,
 								VALIDATOR extends JeeslImportValidator<L,D,CATEGORY,IMPORTER,VALIDATOR,HANDLER>,
 								HANDLER extends JeeslImportHandler<L,D,CATEGORY,IMPORTER,VALIDATOR,HANDLER>

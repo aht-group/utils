@@ -28,7 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class JeeslSystemNewsFacadeBean<L extends JeeslLang,D extends JeeslDescription,
-										CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+										CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 										NEWS extends JeeslSystemNews<L,D,CATEGORY,NEWS,USER>,
 										USER extends EjbWithId>
 					extends JeeslFacadeBean

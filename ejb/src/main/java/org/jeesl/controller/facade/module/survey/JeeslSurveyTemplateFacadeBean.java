@@ -37,7 +37,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class JeeslSurveyTemplateFacadeBean <L extends JeeslLang, D extends JeeslDescription,LOC extends JeeslStatus<LOC,L,D>,
+public class JeeslSurveyTemplateFacadeBean <L extends JeeslLang, D extends JeeslDescription,LOC extends JeeslStatus<L,D,LOC>,
 											SCHEME extends JeeslSurveyScheme<L,D,TEMPLATE,SCORE>,
 											VALGORITHM extends JeeslSurveyValidationAlgorithm<L,D>,
 											TEMPLATE extends JeeslSurveyTemplate<L,D,SCHEME,TEMPLATE,VERSION,TS,TC,SECTION,OPTIONS,?>,

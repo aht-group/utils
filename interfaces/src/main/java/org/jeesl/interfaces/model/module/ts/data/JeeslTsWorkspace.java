@@ -12,12 +12,12 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatusFixedCode;
 
 public interface JeeslTsWorkspace <L extends JeeslLang, D extends JeeslDescription,
-								S extends JeeslStatus<S,L,D>, 
+								S extends JeeslStatus<L,D,S>, 
 								G extends JeeslGraphic<L,D,?,?,?>>
 					extends Serializable,EjbPersistable,
 								EjbWithCode,JeeslStatusFixedCode,JeeslStatusWithSymbol,
 //								JeeslOptionRestDownload,EjbWithCodeGraphic<G>,
-								JeeslStatus<S,L,D>
+								JeeslStatus<L,D,S>
 {	
 	public enum Code{live}
 }

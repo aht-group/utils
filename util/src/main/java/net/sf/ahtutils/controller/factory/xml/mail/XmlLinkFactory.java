@@ -12,7 +12,7 @@ public class XmlLinkFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlLinkFactory.class);
 	
-	public static <S extends JeeslStatus<S,L,D>, L extends JeeslLang, LI extends JeeslMailLink<L,D,S>, D extends JeeslDescription> Link create(LI ejb, String url)
+	public static <S extends JeeslStatus<L,D,S>, L extends JeeslLang, LI extends JeeslMailLink<L,D,S>, D extends JeeslDescription> Link create(LI ejb, String url)
 	{
 		Link xml = new Link();
 		xml.setCode(ejb.getCode());

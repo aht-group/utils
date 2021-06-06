@@ -18,7 +18,7 @@ import org.jeesl.interfaces.model.with.system.status.JeeslWithType;
 
 public interface JeeslIoTemplateToken<L extends JeeslLang,D extends JeeslDescription,
 								TEMPLATE extends JeeslIoTemplate<L,D,?,?,?,?>,
-								TOKENTYPE extends JeeslStatus<TOKENTYPE,?,D>>
+								TOKENTYPE extends JeeslStatus<L,D,TOKENTYPE>>
 		extends Serializable,EjbPersistable,EjbWithId,EjbSaveable,EjbRemoveable,
 				EjbWithCode,EjbWithPositionVisible,EjbWithPositionParent,
 				EjbWithLang<L>,EjbWithDescription<D>,JeeslWithType<TOKENTYPE>

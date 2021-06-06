@@ -40,13 +40,13 @@ public class JeeslRestService <L extends JeeslLang,D extends JeeslDescription,
 								R extends JeeslTenantRealm<L,D,R,G>,
 								S extends EjbWithId,
 								G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslGraphicType<L,D,GT,G>,
-								F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>,
+								F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<L,D,FS>,
 								RC extends JeeslRevisionCategory<L,D,RC,?>,
 								REM extends JeeslRevisionEntityMapping<?,?,?>,
 								RE extends JeeslRevisionEntity<L,D,RC,REM,RA,ERD>,
 								RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>,
-								RER extends JeeslStatus<RER,L,D>,
-								RAT extends JeeslStatus<RAT,L,D>,
+								RER extends JeeslStatus<L,D,RER>,
+								RAT extends JeeslStatus<L,D,RAT>,
 								ERD extends JeeslRevisionDiagram<L,D,RC>>
 					extends AbstractJeeslRestService<L,D>
 					implements JeeslExportRest<L,D,R,G>
@@ -77,13 +77,13 @@ public class JeeslRestService <L extends JeeslLang,D extends JeeslDescription,
 						R extends JeeslTenantRealm<L,D,R,G>,
 						S extends EjbWithId,
 						G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslGraphicType<L,D,GT,G>,
-						F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>,
+						F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<L,D,FS>,
 						RC extends JeeslRevisionCategory<L,D,RC,?>,
 						REM extends JeeslRevisionEntityMapping<?,?,?>,
 						RE extends JeeslRevisionEntity<L,D,RC,REM,RA,ERD>,
-						RER extends JeeslStatus<RER,L,D>,
+						RER extends JeeslStatus<L,D,RER>,
 						RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>,
-						RAT extends JeeslStatus<RAT,L,D>,
+						RAT extends JeeslStatus<L,D,RAT>,
 						ERD extends JeeslRevisionDiagram<L,D,RC>>
 	JeeslRestService<L,D,R,S,G,GT,F,FS,RC,REM,RE,RA,RER,RAT,ERD>
 		factory(IoRevisionFactoryBuilder<L,D,RC,?,?,?,?,RE,?,RA,RER,RAT,ERD,?> fbRevision,
@@ -95,7 +95,7 @@ public class JeeslRestService <L extends JeeslLang,D extends JeeslDescription,
 
 
 	@SuppressWarnings("unchecked")
-	@Override public <X extends JeeslStatus<X,L,D>> org.jeesl.model.xml.jeesl.Container exportStatus(String code) throws UtilsConfigurationException
+	@Override public <X extends JeeslStatus<L,D,X>> org.jeesl.model.xml.jeesl.Container exportStatus(String code) throws UtilsConfigurationException
 	{
 		try
 		{
@@ -122,7 +122,7 @@ public class JeeslRestService <L extends JeeslLang,D extends JeeslDescription,
 	}
 
 	@SuppressWarnings("unchecked")
-	public <Y extends JeeslMcsStatus<L,D,R,Y,G>, X extends JeeslStatus<X,L,D>, RREF extends EjbWithId> org.jeesl.model.xml.jeesl.Container exportMcsStatus(R realm, RREF rref, String code) throws UtilsConfigurationException
+	public <Y extends JeeslMcsStatus<L,D,R,Y,G>, X extends JeeslStatus<L,D,X>, RREF extends EjbWithId> org.jeesl.model.xml.jeesl.Container exportMcsStatus(R realm, RREF rref, String code) throws UtilsConfigurationException
 	{
 		try
 		{

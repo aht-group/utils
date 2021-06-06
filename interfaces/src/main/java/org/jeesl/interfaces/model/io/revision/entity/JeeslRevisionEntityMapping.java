@@ -10,7 +10,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPositionVisible;
 
 public interface JeeslRevisionEntityMapping<RS extends JeeslRevisionScope<?,?,?,?>,
-											RST extends JeeslStatus<RST,?,?>,
+											RST extends JeeslStatus<?,?,RST>,
 											RE extends JeeslRevisionEntity<?,?,?,?,?,?>>
 		extends Serializable,EjbPersistable,EjbSaveable,EjbRemoveable,
 				EjbWithPositionVisible

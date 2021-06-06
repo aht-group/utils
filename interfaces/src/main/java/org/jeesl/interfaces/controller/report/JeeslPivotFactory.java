@@ -12,7 +12,7 @@ import net.sf.ahtutils.interfaces.controller.report.JeeslPivotAggregator;
 import net.sf.ahtutils.xml.finance.Finance;
 
 public interface JeeslPivotFactory <L extends JeeslLang, D extends JeeslDescription,
-									A extends JeeslStatus<A,L,D>>
+									A extends JeeslStatus<L,D,A>>
 {	
 	int getSizeAggregation();
 	int getSizeValue();

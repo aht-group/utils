@@ -20,10 +20,10 @@ import net.sf.ahtutils.xml.system.Constraint;
 
 public class EjbConstraintFactory <L extends JeeslLang, D extends JeeslDescription,
 										SCOPE extends JeeslConstraintScope<L,D,SCOPE,CATEGORY,CONSTRAINT,LEVEL,TYPE,RESOLUTION>,
-										CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+										CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 										CONSTRAINT extends JeeslConstraint<L,D,SCOPE,CATEGORY,CONSTRAINT,LEVEL,TYPE,RESOLUTION>,
-										LEVEL extends JeeslStatus<LEVEL,L,D>,
-										TYPE extends JeeslStatus<TYPE,L,D>,
+										LEVEL extends JeeslStatus<L,D,LEVEL>,
+										TYPE extends JeeslStatus<L,D,TYPE>,
 										RESOLUTION extends JeeslConstraintResolution<L,D,SCOPE,CATEGORY,CONSTRAINT,LEVEL,TYPE,RESOLUTION>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbConstraintFactory.class);

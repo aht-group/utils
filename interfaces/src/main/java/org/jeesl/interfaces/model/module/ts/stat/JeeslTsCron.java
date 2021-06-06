@@ -11,7 +11,7 @@ import org.jeesl.interfaces.model.with.primitive.bool.EjbWithVisible;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslTsCron <SCOPE extends JeeslTsScope<?,?,?,?,?,?,INT>,
-									INT extends JeeslStatus<INT,?,?>,
+									INT extends JeeslStatus<?,?,INT>,
 									STAT extends JeeslTsStatistic<?,?,STAT,?>>
 		extends EjbWithId,Serializable,EjbRemoveable,EjbPersistable,
 				EjbWithVisible,EjbSaveable

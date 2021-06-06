@@ -13,13 +13,13 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
 public interface JeeslIoTemplateFacade <L extends JeeslLang,D extends JeeslDescription,
-										CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+										CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 										CHANNEL extends JeeslTemplateChannel<L,D,CHANNEL,?>,
 										TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>,
-										SCOPE extends JeeslStatus<SCOPE,L,D>,
+										SCOPE extends JeeslStatus<L,D,SCOPE>,
 										DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 										TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,TOKENTYPE>,
-										TOKENTYPE extends JeeslStatus<TOKENTYPE,L,D>>
+										TOKENTYPE extends JeeslStatus<L,D,TOKENTYPE>>
 			extends JeeslFacade
 {	
 	TEMPLATE load(TEMPLATE template);

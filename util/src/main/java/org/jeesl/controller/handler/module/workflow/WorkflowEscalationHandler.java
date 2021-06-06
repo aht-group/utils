@@ -44,7 +44,7 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class WorkflowEscalationHandler<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
+public class WorkflowEscalationHandler<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<L,D,LOC>,
 									WX extends JeeslWorkflowContext<L,D,WX,?>,
 									WP extends JeeslWorkflowProcess<L,D,WX,WS>,
 									WPD extends JeeslWorkflowDocument<L,D,WP>,

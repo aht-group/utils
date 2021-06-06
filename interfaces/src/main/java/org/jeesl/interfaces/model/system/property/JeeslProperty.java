@@ -10,7 +10,7 @@ import org.jeesl.interfaces.model.with.system.locale.EjbWithDescription;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 
 public interface JeeslProperty <L extends JeeslLang, D extends JeeslDescription,
-								C extends JeeslStatus<C,L,D>,
+								C extends JeeslStatus<L,D,C>,
 								P extends JeeslProperty<L,D,C,P>>
 		extends Serializable,EjbSaveable,EjbWithLang<L>,EjbWithDescription<D>
 {

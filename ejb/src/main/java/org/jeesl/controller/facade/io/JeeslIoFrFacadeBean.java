@@ -53,7 +53,7 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.exlp.util.io.HashUtil;
 
-public class JeeslIoFrFacadeBean<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<LOC,L,D>,
+public class JeeslIoFrFacadeBean<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslStatus<L,D,LOC>,
 									SYSTEM extends JeeslIoSsiSystem<L,D>,
 									STORAGE extends JeeslFileStorage<L,D,SYSTEM,STYPE,ENGINE>,
 									STYPE extends JeeslFileStorageType<L,D,STYPE,?>,

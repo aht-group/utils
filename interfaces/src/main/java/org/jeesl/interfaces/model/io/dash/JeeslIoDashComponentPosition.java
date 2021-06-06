@@ -10,7 +10,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslIoDashComponentPosition<L extends JeeslLang, D extends JeeslDescription,
-											DBR extends JeeslStatus<DBR,L,D>,
+											DBR extends JeeslStatus<L,D,DBR>,
 											DBC extends JeeslIoDashComponent<?,?,DBC>,
 											DB extends JeeslIoDashboard<L,D,DBR,DBCP,DB>,
 											DBCP extends JeeslIoDashComponentPosition<L,D,DBR,DBC,DB,DBCP>>

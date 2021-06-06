@@ -17,7 +17,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class IoDmsFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,LOC extends JeeslStatus<LOC,L,D>,
+public class IoDmsFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,LOC extends JeeslStatus<L,D,LOC>,
 								DMS extends JeeslIoDms<L,D,STORAGE,?,?,SECTION>,
 								STORAGE extends JeeslFileStorage<L,D,?,?,?>,
 								SECTION extends JeeslIoDmsSection<L,D,SECTION>,

@@ -19,8 +19,8 @@ public class XmlRelationFactory <L extends JeeslLang,D extends JeeslDescription,
 									REM extends JeeslRevisionEntityMapping<?,?,?>,
 									RE extends JeeslRevisionEntity<L,D,RC,REM,RA,ERD>,										
 									RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>,
-									RER extends JeeslStatus<RER,L,D>,
-									RAT extends JeeslStatus<RAT,L,D>,
+									RER extends JeeslStatus<L,D,RER>,
+									RAT extends JeeslStatus<L,D,RAT>,
 									ERD extends JeeslRevisionDiagram<L,D,RC>>
 
 {

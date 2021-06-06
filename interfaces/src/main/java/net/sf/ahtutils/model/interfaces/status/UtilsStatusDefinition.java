@@ -6,7 +6,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
-public interface UtilsStatusDefinition<S extends JeeslStatus<S,L,D>,
+public interface UtilsStatusDefinition<S extends JeeslStatus<L,D,S>,
 										L extends JeeslLang,
 										D extends JeeslDescription,
 										DEF extends EjbWithId> extends EjbWithId,EjbRemoveable

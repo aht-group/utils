@@ -48,10 +48,10 @@ QAR extends UtilsQaResult<STAFF,QAT,QARS>,
 QASH extends UtilsQaStakeholder<QA>,
 QATD extends UtilsQaTestDiscussion<STAFF,QAT>,
 QATI extends UtilsQaTestInfo<QATC>,
-QATC extends JeeslStatus<QATC,L,D>,
-QATS extends JeeslStatus<QATS,L,D>,
-QARS extends JeeslStatus<QARS,L,D>,
-QAUS extends JeeslStatus<QAUS,L,D>>
+QATC extends JeeslStatus<L,D,QATC>,
+QATS extends JeeslStatus<L,D,QATS>,
+QARS extends JeeslStatus<L,D,QARS>,
+QAUS extends JeeslStatus<L,D,QAUS>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlQaFactory.class);
 		

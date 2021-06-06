@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.xml.status.Realm;
 
-public class XmlRealmFactory<L extends JeeslLang, D extends JeeslDescription,S extends JeeslStatus<S,L,D>>
+public class XmlRealmFactory<L extends JeeslLang, D extends JeeslDescription,S extends JeeslStatus<L,D,S>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlRealmFactory.class);
 		

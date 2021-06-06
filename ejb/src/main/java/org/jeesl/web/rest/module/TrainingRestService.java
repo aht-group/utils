@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 
 public class TrainingRestService <L extends JeeslLang,D extends JeeslDescription,
-									TYPE extends JeeslStatus<TYPE,L,D>>
+									TYPE extends JeeslStatus<L,D,TYPE>>
 					extends AbstractJeeslRestService<L,D>
 					implements JeeslTrainingRestExport,JeeslTrainingRestImport
 {
@@ -33,7 +33,7 @@ public class TrainingRestService <L extends JeeslLang,D extends JeeslDescription
 	}
 	
 	public static <L extends JeeslLang,D extends JeeslDescription,
-							TYPE extends JeeslStatus<TYPE,L,D>>
+							TYPE extends JeeslStatus<L,D,TYPE>>
 			TrainingRestService<L,D,TYPE>
 			factory(JeeslTrainingFacade<L,D,TYPE> fTraining,final Class<L> cL, final Class<D> cD, final Class<TYPE> cType)
 	{

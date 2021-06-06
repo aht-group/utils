@@ -26,9 +26,9 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.xml.report.ColumnGroup;
 
 public class XmlColumnGroupFactory <L extends JeeslLang,D extends JeeslDescription,
-								CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+								CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 								REPORT extends JeeslIoReport<L,D,CATEGORY,WORKBOOK>,
-								IMPLEMENTATION extends JeeslStatus<IMPLEMENTATION,L,D>,
+								IMPLEMENTATION extends JeeslStatus<L,D,IMPLEMENTATION>,
 								WORKBOOK extends JeeslReportWorkbook<REPORT,SHEET>,
 								SHEET extends JeeslReportSheet<L,D,IMPLEMENTATION,WORKBOOK,GROUP,ROW>,
 								GROUP extends JeeslReportColumnGroup<L,D,SHEET,COLUMN,STYLE>,
@@ -36,15 +36,15 @@ public class XmlColumnGroupFactory <L extends JeeslLang,D extends JeeslDescripti
 								ROW extends JeeslReportRow<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS>,
 								TEMPLATE extends JeeslReportTemplate<L,D,CELL>,
 								CELL extends JeeslReportCell<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS>,
-								STYLE extends JeeslReportStyle<L,D>,CDT extends JeeslStatus<CDT,L,D>,
-								CW extends JeeslStatus<CW,L,D>,
-								RT extends JeeslStatus<RT,L,D>,
+								STYLE extends JeeslReportStyle<L,D>,CDT extends JeeslStatus<L,D,CDT>,
+								CW extends JeeslStatus<L,D,CW>,
+								RT extends JeeslStatus<L,D,RT>,
 								ENTITY extends EjbWithId,
 								ATTRIBUTE extends EjbWithId,
 								TL extends JeeslTrafficLight<L,D,TLS>,
-								TLS extends JeeslStatus<TLS,L,D>,
-								FILLING extends JeeslStatus<FILLING,L,D>,
-								TRANSFORMATION extends JeeslStatus<TRANSFORMATION,L,D>
+								TLS extends JeeslStatus<L,D,TLS>,
+								FILLING extends JeeslStatus<L,D,FILLING>,
+								TRANSFORMATION extends JeeslStatus<L,D,TRANSFORMATION>
 								>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlColumnGroupFactory.class);

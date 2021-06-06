@@ -10,7 +10,7 @@ import org.jeesl.interfaces.model.system.news.JeeslSystemNews;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslSystemNewsFacade <L extends JeeslLang,D extends JeeslDescription,
-										CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+										CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 										NEWS extends JeeslSystemNews<L,D,CATEGORY,NEWS,USER>,
 										USER extends EjbWithId>
 			extends JeeslFacade

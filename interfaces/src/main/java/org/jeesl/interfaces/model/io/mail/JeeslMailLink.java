@@ -12,7 +12,7 @@ import org.jeesl.interfaces.model.with.primitive.date.EjbWithValidUntil;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslMailLink<L extends JeeslLang, D extends JeeslDescription,
-							S extends JeeslStatus<S,L,D>>
+							S extends JeeslStatus<L,D,S>>
 						extends Serializable,EjbPersistable,EjbRemoveable, EjbWithId,EjbWithCode,EjbWithValidUntil
 {
 	long getRefId();

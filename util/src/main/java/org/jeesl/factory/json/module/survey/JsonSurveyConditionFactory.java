@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class JsonSurveyConditionFactory<CONDITION extends JeeslSurveyCondition<?,QE,OPTION>,
-										QE extends JeeslStatus<QE,?,?>,
+										QE extends JeeslStatus<?,?,QE>,
 										OPTION extends JeeslSurveyOption<?,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(JsonSurveyConditionFactory.class);

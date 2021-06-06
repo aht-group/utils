@@ -14,6 +14,6 @@ public interface JeeslExportRest <L extends JeeslLang, D extends JeeslDescriptio
 									R extends JeeslTenantRealm<L,D,R,?>,
 									G extends JeeslGraphic<L,D,?,?,?>>
 {	
-	<X extends JeeslStatus<X,L,D>> org.jeesl.model.xml.jeesl.Container exportStatus(String code) throws UtilsConfigurationException;
+	<X extends JeeslStatus<L,D,X>> org.jeesl.model.xml.jeesl.Container exportStatus(String code) throws UtilsConfigurationException;
 	Entity exportRevisionEntity(@PathParam("code") String code) throws UtilsConfigurationException;
 }

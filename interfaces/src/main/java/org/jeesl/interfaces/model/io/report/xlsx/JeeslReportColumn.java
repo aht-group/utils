@@ -18,9 +18,9 @@ import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 public interface JeeslReportColumn<L extends JeeslLang,D extends JeeslDescription,
 									GROUP extends JeeslReportColumnGroup<L,D,?,?,STYLE>,
 									STYLE extends JeeslReportStyle<L,D>,
-									CDT extends JeeslStatus<CDT,L,D>,
-									CW extends JeeslStatus<CW,L,D>,
-									TLS extends JeeslStatus<TLS,L,D>>
+									CDT extends JeeslStatus<L,D,CDT>,
+									CW extends JeeslStatus<L,D,CW>,
+									TLS extends JeeslStatus<L,D,TLS>>
 
 		extends Serializable,EjbRemoveable,EjbPersistable,EjbSaveable,
 				EjbWithCode,EjbWithPositionVisible,EjbWithPositionParent,

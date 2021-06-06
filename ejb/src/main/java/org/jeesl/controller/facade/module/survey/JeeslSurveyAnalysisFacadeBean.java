@@ -89,7 +89,7 @@ public class JeeslSurveyAnalysisFacadeBean <L extends JeeslLang, D extends Jeesl
 				ANALYSIS extends JeeslSurveyAnalysis<L,D,TEMPLATE,DOMAIN,DENTITY,DATTRIBUTE>,
 				AQ extends JeeslSurveyAnalysisQuestion<L,D,QUESTION,ANALYSIS>,
 				TOOL extends JeeslSurveyAnalysisTool<L,D,QE,QUERY,DATTRIBUTE,AQ,TOOLT>,
-				TOOLT extends JeeslStatus<TOOLT,L,D>,
+				TOOLT extends JeeslStatus<L,D,TOOLT>,
 				TOOLCACHETEMPLATE extends JeeslJobTemplate<L,D,?,?,?,?>,
 				TOOLCACHE extends JeeslJobCache<TOOLCACHETEMPLATE,?>>
 	extends JeeslFacadeBean implements JeeslSurveyAnalysisFacade<L,D,SURVEY,SS,SCHEME,TEMPLATE,VERSION,SECTION,QUESTION,QE,SCORE,UNIT,ANSWER,MATRIX,DATA,OPTIONS,OPTION,CORRELATION,DOMAIN,QUERY,PATH,DENTITY,DATTRIBUTE,ANALYSIS,AQ,TOOL,TOOLT>

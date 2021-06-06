@@ -16,7 +16,7 @@ public class TxtLabelsFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(TxtLabelsFactory.class);
 		
-	public static <S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription>
+	public static <S extends JeeslStatus<L,D,S>, L extends JeeslLang, D extends JeeslDescription>
 		String aggregationGroups(String localeCode, List<S> aggregations)
 	{
 		List<String> labels = new ArrayList<String>();

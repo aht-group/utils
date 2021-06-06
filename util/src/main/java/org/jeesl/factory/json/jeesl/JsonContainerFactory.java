@@ -24,7 +24,7 @@ public class JsonContainerFactory
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription> JsonContainer build(List<S> list)
+	public <S extends JeeslStatus<L,D,S>,L extends JeeslLang, D extends JeeslDescription> JsonContainer build(List<S> list)
 	{
 		JsonContainer xml = build();
 		for(S s : list){xml.getStatus().add(jfStatus.build(s));}

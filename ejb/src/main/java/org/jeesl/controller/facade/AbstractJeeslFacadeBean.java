@@ -65,7 +65,7 @@ public class AbstractJeeslFacadeBean implements JeeslFacade
 	protected JeeslFacadeBean fJeesl;
 	
 	@Override public <E extends EjbEquals<T>, T extends EjbWithId> boolean equalsAttributes(Class<T> c,E object){return fJeesl.equalsAttributes(c,object);}
-	@Override public <L extends JeeslLang,D extends JeeslDescription, S extends EjbWithId,G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslGraphicType<L,D,GT,G>, F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS,L,D>> S loadGraphic(Class<S> cS, S status){return fJeesl.loadGraphic(cS,status);}
+	@Override public <L extends JeeslLang,D extends JeeslDescription, S extends EjbWithId,G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslGraphicType<L,D,GT,G>, F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<L,D,FS>> S loadGraphic(Class<S> cS, S status){return fJeesl.loadGraphic(cS,status);}
 	
 	// Persist
 	@Override public <T extends EjbSaveable> void save(List<T> list) throws JeeslConstraintViolationException,JeeslLockingException {fJeesl.save(list);}
@@ -122,10 +122,10 @@ public class AbstractJeeslFacadeBean implements JeeslFacade
 	@Override public <T extends EjbWithId> List<T> list(Class<T> c, List<Long> list) {return fJeesl.list(c,list);}
 	@Override public List<Long> listId(String nativeQuery) {return fJeesl.listId(nativeQuery);}
 	
-	@Override public <C extends JeeslStatus<C,?,?>, W extends JeeslWithContext<C>> List<W> allForContext(Class<W> w, C context) {return fJeesl.allForContext(w,context);}
-	@Override public <L extends JeeslLang, D extends JeeslDescription, C extends JeeslStatus<C,L,D>, W extends JeeslWithCategory<C>> List<W> allForCategory(Class<W> w, C category) {return fJeesl.allForCategory(w, category);}
-	@Override public <L extends JeeslLang, D extends JeeslDescription, T extends JeeslStatus<T,L,D>, W extends JeeslWithType<T>> List<W> allForType(Class<W> w, T type) {return fJeesl.allForType(w, type);}
-	@Override public <L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<S,L,D>, W extends JeeslWithStatus<S>> List<W> allForStatus(Class<W> w, S status) {return fJeesl.allForStatus(w, status);}
+	@Override public <C extends JeeslStatus<?,?,C>, W extends JeeslWithContext<C>> List<W> allForContext(Class<W> w, C context) {return fJeesl.allForContext(w,context);}
+	@Override public <L extends JeeslLang, D extends JeeslDescription, C extends JeeslStatus<L,D,C>, W extends JeeslWithCategory<C>> List<W> allForCategory(Class<W> w, C category) {return fJeesl.allForCategory(w, category);}
+	@Override public <L extends JeeslLang, D extends JeeslDescription, T extends JeeslStatus<L,D,T>, W extends JeeslWithType<T>> List<W> allForType(Class<W> w, T type) {return fJeesl.allForType(w, type);}
+	@Override public <L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<L,D,S>, W extends JeeslWithStatus<S>> List<W> allForStatus(Class<W> w, S status) {return fJeesl.allForStatus(w, status);}
 	
 	// Ordering
 	public <T extends EjbWithPosition> List<T> allOrderedPosition(Class<T> type) {return fJeesl.allOrderedPosition(type);}
@@ -150,8 +150,8 @@ public class AbstractJeeslFacadeBean implements JeeslFacade
 	// Parent
 	@Override public <T extends EjbWithParentAttributeResolver, I extends EjbWithId> T oneForParent(Class<T> type, I p1) throws JeeslNotFoundException{return fJeesl.oneForParent(type, p1);}
 	@Override public <T extends EjbWithParentAttributeResolver, I extends EjbWithId> List<T> allForParent(Class<T> type, I p1) {return fJeesl.allForParent(type, p1);}
-	@Override public <T extends JeeslWithParentAttributeStatus<STATUS>, P extends EjbWithId, STATUS extends JeeslStatus<STATUS,?,?>> List<T> allForParentStatus(Class<T> c, P parent, List<STATUS> status) {return fJeesl.allForParentStatus(c, parent, status);}
-	@Override public <T extends JeeslWithParentAttributeType<TYPE>, P extends EjbWithId, TYPE extends JeeslStatus<TYPE, ?, ?>> List<T> allForParentType(Class<T> c, P parent, List<TYPE> type) {return fJeesl.allForParentType(c, parent, type);}
+	@Override public <T extends JeeslWithParentAttributeStatus<STATUS>, P extends EjbWithId, STATUS extends JeeslStatus<?,?,STATUS>> List<T> allForParentStatus(Class<T> c, P parent, List<STATUS> status) {return fJeesl.allForParentStatus(c, parent, status);}
+	@Override public <T extends JeeslWithParentAttributeType<TYPE>, P extends EjbWithId, TYPE extends JeeslStatus<?,?,TYPE>> List<T> allForParentType(Class<T> c, P parent, List<TYPE> type) {return fJeesl.allForParentType(c, parent, type);}
 	@Override public <T extends EjbWithParentAttributeResolver, I extends EjbWithId> List<T> allForParents(Class<T> c, List<I> parents) {{return fJeesl.allForParents(c, parents);}}
 	@Override public <T extends EjbWithId, A1 extends Enum<A1>, P1 extends EjbWithId> List<T> allForParent(Class<T> type, A1 a1, P1 p1){return fJeesl.allForParent(type,a1,p1);}
 	@Override public <T extends EjbWithId, I extends EjbWithId> List<T> allForParent(Class<T> type, String p1Name, I p1, int maxResults) {return fJeesl.allForParent(type, p1Name, p1,maxResults);}

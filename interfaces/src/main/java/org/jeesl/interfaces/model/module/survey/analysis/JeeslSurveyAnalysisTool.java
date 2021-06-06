@@ -14,11 +14,11 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPositionVisible;
 
 public interface JeeslSurveyAnalysisTool<L extends JeeslLang, D extends JeeslDescription,
-											QE extends JeeslStatus<QE,L,D>,
+											QE extends JeeslStatus<L,D,QE>,
 											QUERY extends JeeslDomainQuery<L,D,?,?>,
 											DATTRIBUTE extends JeeslRevisionAttribute<L,D,?,?,?>,
 											AQ extends JeeslSurveyAnalysisQuestion<L,D,?,?>,
-											ATT extends JeeslStatus<ATT,L,D>>
+											ATT extends JeeslStatus<L,D,ATT>>
 			extends Serializable,EjbWithId,EjbSaveable,EjbRemoveable,
 						EjbWithParentAttributeResolver,EjbWithPositionVisible
 {

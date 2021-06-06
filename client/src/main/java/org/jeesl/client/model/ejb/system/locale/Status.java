@@ -33,7 +33,7 @@ import net.sf.ahtutils.model.qualifier.EjbErNode;
 @DiscriminatorValue("generic")
 @Table(name = "UtilsStatus", uniqueConstraints=@UniqueConstraint(columnNames = {"type","code"}))
 @EjbErNode(name="Status",category="status",subset="status")
-public class Status implements JeeslStatus<Status,Lang,Description>,EjbRemoveable,Serializable
+public class Status implements JeeslStatus<Lang,Description,Status>,EjbRemoveable,Serializable
 {
 	private static final long serialVersionUID = 1;
 

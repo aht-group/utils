@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 public class TsDataComparator <	TS extends JeeslTimeSeries<?,TS,?,?,?>,
 								DATA extends JeeslTsData<TS,?,SAMPLE,?,WS>,
 								SAMPLE extends JeeslTsSample, 
-								WS extends JeeslStatus<WS,?,?>>
+								WS extends JeeslStatus<?,?,WS>>
 {
 	final static Logger logger = LoggerFactory.getLogger(TsDataComparator.class);
 	

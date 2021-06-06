@@ -9,13 +9,13 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbLinkFactory<LI extends JeeslMailLink<L,D,T>, T extends JeeslStatus<T,L,D>,L extends JeeslLang,D extends JeeslDescription>
+public class EjbLinkFactory<LI extends JeeslMailLink<L,D,T>, T extends JeeslStatus<L,D,T>,L extends JeeslLang,D extends JeeslDescription>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbLinkFactory.class);
 	
     final Class<LI> clLink;
 	
-    public static <LI extends JeeslMailLink<L,D,T>,T extends JeeslStatus<T,L,D>,L extends JeeslLang, D extends JeeslDescription>
+    public static <LI extends JeeslMailLink<L,D,T>,T extends JeeslStatus<L,D,T>,L extends JeeslLang, D extends JeeslDescription>
     	EjbLinkFactory<LI,T,L,D> createFactory(final Class<LI> clLink)
   {
       return new EjbLinkFactory<LI,T,L,D>(clLink);

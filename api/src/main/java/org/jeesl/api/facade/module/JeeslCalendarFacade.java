@@ -15,9 +15,9 @@ public interface JeeslCalendarFacade <L extends JeeslLang,
 										D extends JeeslDescription,
 										CALENDAR extends JeeslCalendar<L,D,CALENDAR,ZONE,CT,ITEM,IT>,
 										ZONE extends JeeslCalendarTimeZone<L,D,CALENDAR,ZONE,CT,ITEM,IT>,
-										CT extends JeeslStatus<CT,L,D>,
+										CT extends JeeslStatus<L,D,CT>,
 										ITEM extends JeeslCalendarItem<L,D,CALENDAR,ZONE,CT,ITEM,IT>,
-										IT extends JeeslStatus<IT,L,D>
+										IT extends JeeslStatus<L,D,IT>
 										>
 			extends JeeslFacade
 {	

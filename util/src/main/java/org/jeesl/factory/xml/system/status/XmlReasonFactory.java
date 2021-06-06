@@ -15,7 +15,7 @@ import net.sf.ahtutils.xml.status.Reason;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.ahtutils.xml.status.Type;
 
-public class XmlReasonFactory<S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription>
+public class XmlReasonFactory<S extends JeeslStatus<L,D,S>,L extends JeeslLang, D extends JeeslDescription>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlReasonFactory.class);
 		

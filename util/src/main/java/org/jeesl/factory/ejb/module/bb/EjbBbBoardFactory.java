@@ -8,9 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbBbBoardFactory<L extends JeeslLang,D extends JeeslDescription,
-								SCOPE extends JeeslStatus<SCOPE,L,D>,
+								SCOPE extends JeeslStatus<L,D,SCOPE>,
 								BB extends JeeslBbBoard<L,D,SCOPE,BB,PUB,?>,
-								PUB extends JeeslStatus<PUB,L,D>>
+								PUB extends JeeslStatus<L,D,PUB>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbBbBoardFactory.class);
 	

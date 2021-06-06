@@ -25,8 +25,8 @@ public class XmlAggregationMethodFactory
 		this.q=q;
 	}
 	
-	public <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription> AggregationMethod build(S ejb){return build(ejb,null);}
-	public <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription> AggregationMethod build(S ejb, String group)
+	public <S extends JeeslStatus<L,D,S>,L extends JeeslLang, D extends JeeslDescription> AggregationMethod build(S ejb){return build(ejb,null);}
+	public <S extends JeeslStatus<L,D,S>,L extends JeeslLang, D extends JeeslDescription> AggregationMethod build(S ejb, String group)
 	{
 		AggregationMethod xml = new AggregationMethod();
 		if(q.isSetId()){xml.setId(ejb.getId());}

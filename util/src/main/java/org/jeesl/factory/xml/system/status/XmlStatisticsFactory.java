@@ -7,7 +7,7 @@ import org.jeesl.model.xml.module.ts.Statistic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class XmlStatisticsFactory<S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription>
+public class XmlStatisticsFactory<S extends JeeslStatus<L,D,S>,L extends JeeslLang, D extends JeeslDescription>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlStatisticsFactory.class);
 

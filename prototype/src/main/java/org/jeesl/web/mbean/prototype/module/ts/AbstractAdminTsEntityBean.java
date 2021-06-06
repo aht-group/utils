@@ -43,7 +43,7 @@ public class AbstractAdminTsEntityBean <L extends JeeslLang, D extends JeeslDesc
 											CAT extends JeeslTsCategory<L,D,CAT,?>,
 											SCOPE extends JeeslTsScope<L,D,CAT,ST,UNIT,EC,INT>,
 											ST extends JeeslTsScopeType<L,D,ST,?>,
-											UNIT extends JeeslStatus<UNIT,L,D>,
+											UNIT extends JeeslStatus<L,D,UNIT>,
 											MP extends JeeslTsMultiPoint<L,D,SCOPE,UNIT>,
 											TS extends JeeslTimeSeries<SCOPE,TS,BRIDGE,INT,STAT>,
 											TRANSACTION extends JeeslTsTransaction<SOURCE,DATA,USER,?>,
@@ -57,8 +57,8 @@ public class AbstractAdminTsEntityBean <L extends JeeslLang, D extends JeeslDesc
 											POINT extends JeeslTsDataPoint<DATA,MP>,
 											SAMPLE extends JeeslTsSample, 
 											USER extends EjbWithId, 
-											WS extends JeeslStatus<WS,L,D>,
-											QAF extends JeeslStatus<QAF,L,D>,
+											WS extends JeeslStatus<L,D,WS>,
+											QAF extends JeeslStatus<L,D,QAF>,
 											CRON extends JeeslTsCron<SCOPE,INT,STAT>>
 					extends AbstractAdminTsBean<L,D,LOC,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,ENTITY,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON>
 					implements Serializable

@@ -9,8 +9,8 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface UtilsTracker<TR extends UtilsTracker<TR,TL,T,S,L,D>,
 							  TL extends UtilsTrackerLog<TR,TL,T,S,L,D>,
-							  T extends JeeslStatus<T,L,D>,
-							  S extends JeeslStatus<S,L,D>,
+							  T extends JeeslStatus<L,D,T>,
+							  S extends JeeslStatus<L,D,S>,
 							  L extends JeeslLang,
 							  D extends JeeslDescription>
 		extends EjbWithId

@@ -7,7 +7,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
-public interface UtilsMailTracker<S extends JeeslStatus<S,L,D>,
+public interface UtilsMailTracker<S extends JeeslStatus<L,D,S>,
 									L extends JeeslLang,
 									U extends EjbWithId,
 									D extends JeeslDescription>

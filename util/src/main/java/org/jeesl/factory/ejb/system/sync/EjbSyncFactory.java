@@ -11,8 +11,8 @@ import org.slf4j.LoggerFactory;
 
 public class EjbSyncFactory<L extends JeeslLang,
 							D extends JeeslDescription,
-							STATUS extends JeeslStatus<STATUS,L,D>,
-							CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+							STATUS extends JeeslStatus<L,D,STATUS>,
+							CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 							SYNC extends JeeslSync<L,D,STATUS,CATEGORY>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbSyncFactory.class);
@@ -24,7 +24,7 @@ public class EjbSyncFactory<L extends JeeslLang,
         this.cSync = cSync;
 	}
 	
-	public static <L extends JeeslLang,D extends JeeslDescription,STATUS extends JeeslStatus<STATUS,L,D>,CATEGORY extends JeeslStatus<CATEGORY,L,D>,SYNC extends JeeslSync<L,D,STATUS,CATEGORY>>  EjbSyncFactory<L,D,STATUS,CATEGORY,SYNC>
+	public static <L extends JeeslLang,D extends JeeslDescription,STATUS extends JeeslStatus<L,D,STATUS>,CATEGORY extends JeeslStatus<L,D,CATEGORY>,SYNC extends JeeslSync<L,D,STATUS,CATEGORY>>  EjbSyncFactory<L,D,STATUS,CATEGORY,SYNC>
 		factory(final Class<SYNC> cSync)
 	{
 		return new EjbSyncFactory<L,D,STATUS,CATEGORY,SYNC>(cSync);

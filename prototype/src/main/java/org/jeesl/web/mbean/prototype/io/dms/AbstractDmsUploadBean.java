@@ -68,9 +68,9 @@ public abstract class AbstractDmsUploadBean <L extends JeeslLang,D extends Jeesl
 											
 											DS extends JeeslDomainSet<L,D,?>,
 											
-											ACATEGORY extends JeeslStatus<ACATEGORY,L,D>,
+											ACATEGORY extends JeeslStatus<L,D,ACATEGORY>,
 											ACRITERIA extends JeeslAttributeCriteria<L,D,ACATEGORY,ATYPE,AOPTION>,
-											ATYPE extends JeeslStatus<ATYPE,L,D>,
+											ATYPE extends JeeslStatus<L,D,ATYPE>,
 											AOPTION extends JeeslAttributeOption<L,D,ACRITERIA>,
 											ASET extends JeeslAttributeSet<L,D,ACATEGORY,AITEM>,
 											AITEM extends JeeslAttributeItem<ACRITERIA,ASET>,

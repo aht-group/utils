@@ -20,9 +20,9 @@ import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 public interface JeeslTsScope <L extends JeeslLang, D extends JeeslDescription,
 									CAT extends JeeslTsCategory<L,D,CAT,?>,
 									ST extends JeeslTsScopeType<L,D,ST,?>,
-									UNIT extends JeeslStatus<UNIT,L,D>,
+									UNIT extends JeeslStatus<L,D,UNIT>,
 									EC extends JeeslTsEntityClass<L,D,CAT,?>,
-									INT extends JeeslStatus<INT,L,D>
+									INT extends JeeslStatus<L,D,INT>
 //									,AS extends JeeslAttributeSet<L,D,?,?>
 									>
 		extends Serializable,EjbWithId,EjbSaveable,EjbRemoveable,EjbWithCode,

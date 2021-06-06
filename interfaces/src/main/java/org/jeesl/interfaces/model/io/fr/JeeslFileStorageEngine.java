@@ -13,12 +13,12 @@ import org.jeesl.interfaces.model.system.option.JeeslOptionRestDescription;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 
 public interface JeeslFileStorageEngine <L extends JeeslLang, D extends JeeslDescription,
-										S extends JeeslStatus<S,L,D>,
+										S extends JeeslStatus<L,D,S>,
 										G extends JeeslGraphic<L,D,?,?,?>>
 							extends Serializable,EjbPersistable,
 									JeeslOptionRestDescription,JeeslOptionRestDownload,
 									EjbWithCodeGraphic<G>,JeeslStatusFixedCode,
-									JeeslStatus<S,L,D>
+									JeeslStatus<L,D,S>
 {	
 	public enum Code{fs,oak,gridFS,amazonS3,postgres}
 }

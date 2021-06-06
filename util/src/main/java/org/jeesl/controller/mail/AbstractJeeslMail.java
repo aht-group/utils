@@ -43,14 +43,14 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 public class AbstractJeeslMail<L extends JeeslLang,D extends JeeslDescription,LOC extends JeeslLocale<L,D,LOC,?>,
-								CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+								CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 								CHANNEL extends JeeslTemplateChannel<L,D,CHANNEL,?>,
 								TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>,
-								SCOPE extends JeeslStatus<SCOPE,L,D>,
+								SCOPE extends JeeslStatus<L,D,SCOPE>,
 								DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 								TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,TOKENTYPE>,
 								TOKENTYPE extends JeeslTemplateTokenType<L,D,TOKENTYPE,?>,
-								MAILCAT extends JeeslStatus<MAILCAT,L,D>,
+								MAILCAT extends JeeslStatus<L,D,MAILCAT>,
 								MAIL extends JeeslIoMail<L,D,MAILCAT,STATUS,RETENTION,FRC>,
 								STATUS extends JeeslMailStatus<L,D,STATUS,?>,
 								RETENTION extends JeeslMailRetention<L,D,RETENTION,?>,

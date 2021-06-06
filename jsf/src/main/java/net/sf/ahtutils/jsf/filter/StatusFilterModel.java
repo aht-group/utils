@@ -9,7 +9,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class StatusFilterModel <L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<S,L,D>>
+public class StatusFilterModel <L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<L,D,S>>
 {    
 	final static Logger logger = LoggerFactory.getLogger(StatusFilterModel.class);
 	
@@ -32,7 +32,7 @@ public class StatusFilterModel <L extends JeeslLang, D extends JeeslDescription,
 		sfList.setActive(!sfList.isActive());	
 	}
 	
-	public void toggle(JeeslStatus<S,L,D> status)
+	public void toggle(JeeslStatus<L,D,S> status)
 	{
 		logger.info("Toggle: "+status);
 		for(UtilsStatusFilter<L,D,S> usf : list)

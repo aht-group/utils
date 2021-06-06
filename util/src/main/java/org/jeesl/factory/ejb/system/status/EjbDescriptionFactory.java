@@ -115,7 +115,7 @@ public class EjbDescriptionFactory<D extends JeeslDescription>
 		return map;
 	}
 	
-	public <S extends JeeslStatus<S,L,D>, L extends JeeslLang> Map<String,D> createEmpty(List<S> locales)
+	public <S extends JeeslStatus<L,D,S>, L extends JeeslLang> Map<String,D> createEmpty(List<S> locales)
 	{
 		return createEmpty(TxtStatusFactory.toCodes(locales).toArray(new String[0]));
 	}
@@ -168,7 +168,7 @@ public class EjbDescriptionFactory<D extends JeeslDescription>
 		}
 	}
 	
-	public <T extends EjbWithDescription<D>, S extends JeeslStatus<S,L,D>, L extends JeeslLang> T persistMissingLangs(JeeslFacade fUtils, List<S> locales, T ejb)
+	public <T extends EjbWithDescription<D>, S extends JeeslStatus<L,D,S>, L extends JeeslLang> T persistMissingLangs(JeeslFacade fUtils, List<S> locales, T ejb)
 	{
 		return persistMissingLangs(fUtils,TxtStatusFactory.toCodes(locales).toArray(new String[0]),ejb);
 	}

@@ -7,7 +7,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.with.primitive.date.EjbWithRecord;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
-public interface UtilsQaTestInfo<QATC extends JeeslStatus<QATC,?,?>>
+public interface UtilsQaTestInfo<QATC extends JeeslStatus<?,?,QATC>>
 			extends Serializable,EjbSaveable,EjbWithRecord,EjbWithId
 {
 	QATC getCondition();

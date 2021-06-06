@@ -34,7 +34,7 @@ import net.sf.ahtutils.xml.sync.DataUpdate;
 import net.sf.exlp.util.xml.JaxbUtil;
 
 public class IoMailRestService <L extends JeeslLang,D extends JeeslDescription,
-								CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+								CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 								MAIL extends JeeslIoMail<L,D,CATEGORY,STATUS,RETENTION,FRC>,
 								STATUS extends JeeslMailStatus<L,D,STATUS,?>,
 								RETENTION extends JeeslMailRetention<L,D,RETENTION,?>,
@@ -62,7 +62,7 @@ public class IoMailRestService <L extends JeeslLang,D extends JeeslDescription,
 	}
 	
 	public static <L extends JeeslLang,D extends JeeslDescription,
-					CATEGORY extends JeeslStatus<CATEGORY,L,D>,
+					CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 					MAIL extends JeeslIoMail<L,D,CATEGORY,STATUS,RETENTION,FRC>,
 					STATUS extends JeeslMailStatus<L,D,STATUS,?>,
 					RETENTION extends JeeslMailRetention<L,D,RETENTION,?>,

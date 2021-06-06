@@ -9,7 +9,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
-public class TxtStatusFactory <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription>
+public class TxtStatusFactory <S extends JeeslStatus<L,D,S>,L extends JeeslLang, D extends JeeslDescription>
 {
 	private final String localeCode;
 	
@@ -18,7 +18,7 @@ public class TxtStatusFactory <S extends JeeslStatus<S,L,D>,L extends JeeslLang,
 		this.localeCode=localeCode;
 	}
 	
-	public static <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription> TxtStatusFactory<S,L,D> factory(String localeCode)
+	public static <S extends JeeslStatus<L,D,S>,L extends JeeslLang, D extends JeeslDescription> TxtStatusFactory<S,L,D> factory(String localeCode)
 	{
 		return new TxtStatusFactory<S,L,D>(localeCode);
 	}
@@ -37,7 +37,7 @@ public class TxtStatusFactory <S extends JeeslStatus<S,L,D>,L extends JeeslLang,
 		return label(localeCode,list);
 	}
 		
-	public static <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription>
+	public static <S extends JeeslStatus<L,D,S>,L extends JeeslLang, D extends JeeslDescription>
 		String label(String lang, List<S> list)
 	{
 		if(list==null || list.isEmpty()){return null;}
@@ -46,7 +46,7 @@ public class TxtStatusFactory <S extends JeeslStatus<S,L,D>,L extends JeeslLang,
 		return StringUtils.join(result, ", ");
 	}
 	
-	public static <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription>
+	public static <S extends JeeslStatus<L,D,S>,L extends JeeslLang, D extends JeeslDescription>
 			String label(String lang, S ejb)
 	{
 		return ejb.getName().get(lang).getLang();
@@ -54,7 +54,7 @@ public class TxtStatusFactory <S extends JeeslStatus<S,L,D>,L extends JeeslLang,
 	
 	
 	
-	public static <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription>
+	public static <S extends JeeslStatus<L,D,S>,L extends JeeslLang, D extends JeeslDescription>
 		List<String> toCodes(Collection<S> list)
 	{
 		List<String> result = new ArrayList<String>();
@@ -62,7 +62,7 @@ public class TxtStatusFactory <S extends JeeslStatus<S,L,D>,L extends JeeslLang,
 		return toCodes(new ArrayList<S>(list));
 	}
 	
-	public static <S extends JeeslStatus<S,L,D>,L extends JeeslLang, D extends JeeslDescription>
+	public static <S extends JeeslStatus<L,D,S>,L extends JeeslLang, D extends JeeslDescription>
 		List<String> toCodes(List<S> list)
 	{
 		List<String> result = new ArrayList<String>();

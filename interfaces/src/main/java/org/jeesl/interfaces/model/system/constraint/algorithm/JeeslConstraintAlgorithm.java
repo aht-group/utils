@@ -15,7 +15,7 @@ import org.jeesl.interfaces.model.with.system.locale.EjbWithLangDescription;
 import org.jeesl.interfaces.model.with.system.status.JeeslWithCategory;
 
 public interface JeeslConstraintAlgorithm<L extends JeeslLang, D extends JeeslDescription,
-									CATEGORY extends JeeslStatus<CATEGORY,L,D>
+									CATEGORY extends JeeslStatus<L,D,CATEGORY>
 									>
 			extends Serializable,EjbSaveable,EjbRemoveable,
 					EjbWithId,EjbWithCode,

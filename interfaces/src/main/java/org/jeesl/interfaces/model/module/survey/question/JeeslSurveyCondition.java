@@ -10,7 +10,7 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 
 public interface JeeslSurveyCondition<QUESTION extends JeeslSurveyQuestion<?,?,?,?,?,?,?,?,?,?,?>,
-										QE extends JeeslStatus<QE,?,?>,
+										QE extends JeeslStatus<?,?,QE>,
 										OPTION extends JeeslSurveyOption<?,?>>
 			extends Serializable,EjbWithId,EjbSaveable,EjbRemoveable,
 					EjbWithPosition,EjbWithParentAttributeResolver

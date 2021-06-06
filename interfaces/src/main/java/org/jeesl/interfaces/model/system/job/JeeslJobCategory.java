@@ -10,9 +10,9 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
 public interface JeeslJobCategory <L extends JeeslLang,D extends JeeslDescription,
-										S extends JeeslStatus<S,L,D>,
+										S extends JeeslStatus<L,D,S>,
 										G extends JeeslGraphic<L,D,?,?,?>>
-		extends Serializable,EjbPersistable,EjbWithCodeGraphic<G>,JeeslStatus<S,L,D>
+		extends Serializable,EjbPersistable,EjbWithCodeGraphic<G>,JeeslStatus<L,D,S>
 {
 
 }
