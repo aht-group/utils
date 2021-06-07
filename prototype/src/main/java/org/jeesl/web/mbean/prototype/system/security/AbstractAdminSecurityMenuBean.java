@@ -325,12 +325,11 @@ public abstract class AbstractAdminSecurityMenuBean <L extends JeeslLang, D exte
 
     public void reorderHelp() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fSecurity, helps);}
 
-    public void selectHelp(){}
+    public void selectHelp(){if(debugOnInfo) {logger.info(AbstractLogMessage.selectEntity(help));}}
     public void removeHelp() throws JeeslConstraintViolationException
     {
     	if(debugOnInfo) {logger.info(AbstractLogMessage.rmEntity(help));}
-    	logger.warn("NYI rm(help) .. commented out");
-//    	fSecurity.rm(help);
+    	fSecurity.rm(help);
     	reloadHelps();
     }
 
