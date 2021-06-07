@@ -24,17 +24,19 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.jeesl.util.comparator.ejb.system.io.attribute.AttributeCriteriaComparator;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class AbstractAdminIoAttributeBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
+													R extends JeeslTenantRealm<L,D,R,?>,
 													CATEGORY extends JeeslStatus<L,D,CATEGORY>,
-													CRITERIA extends JeeslAttributeCriteria<L,D,CATEGORY,TYPE,OPTION>,
+													CRITERIA extends JeeslAttributeCriteria<L,D,R,CATEGORY,TYPE,OPTION>,
 													TYPE extends JeeslStatus<L,D,TYPE>,
 													OPTION extends JeeslAttributeOption<L,D,CRITERIA>,
-													SET extends JeeslAttributeSet<L,D,CATEGORY,ITEM>,
+													SET extends JeeslAttributeSet<L,D,R,CATEGORY,ITEM>,
 													ITEM extends JeeslAttributeItem<CRITERIA,SET>,
 													CONTAINER extends JeeslAttributeContainer<SET,DATA>,
 													DATA extends JeeslAttributeData<CRITERIA,OPTION,CONTAINER>>
@@ -44,13 +46,13 @@ public abstract class AbstractAdminIoAttributeBean <L extends JeeslLang, D exten
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAdminIoAttributeBean.class);
 	
-	protected JeeslIoAttributeFacade<L,D,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fAttribute;
-	protected JeeslAttributeBean<L,D,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> bAttribute;
-	protected final IoAttributeFactoryBuilder<L,D,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fbAttribute;
+	protected JeeslIoAttributeFacade<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fAttribute;
+	protected JeeslAttributeBean<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> bAttribute;
+	protected final IoAttributeFactoryBuilder<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fbAttribute;
 	
 	protected final SbMultiHandler<CATEGORY> sbhCategory; public SbMultiHandler<CATEGORY> getSbhCategory() {return sbhCategory;}
 	
-	protected final EjbAttributeCriteriaFactory<L,D,CATEGORY,CRITERIA,TYPE> efCriteria;
+	protected final EjbAttributeCriteriaFactory<L,D,R,CATEGORY,CRITERIA,TYPE> efCriteria;
 	protected final EjbAttributeOptionFactory<CRITERIA,OPTION> efOption;
 	protected final EjbAttributeSetFactory<L,D,CATEGORY,SET,ITEM> efSet;
 	protected final EjbAttributeItemFactory<CRITERIA,SET,ITEM> efItem;
@@ -58,7 +60,7 @@ public abstract class AbstractAdminIoAttributeBean <L extends JeeslLang, D exten
 	protected final Comparator<CRITERIA> cpCriteria;
 	protected long refId;
 
-	public AbstractAdminIoAttributeBean(IoAttributeFactoryBuilder<L,D,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fbAttribute)
+	public AbstractAdminIoAttributeBean(IoAttributeFactoryBuilder<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fbAttribute)
 	{
 		super(fbAttribute.getClassL(),fbAttribute.getClassD());
 		this.fbAttribute=fbAttribute;
@@ -74,7 +76,9 @@ public abstract class AbstractAdminIoAttributeBean <L extends JeeslLang, D exten
 		sbhCategory = new SbMultiHandler<CATEGORY>(fbAttribute.getClassCategory(),this);
 	}
 	
-	protected void initAttribute(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslAttributeBean<L,D,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> bAttribute, JeeslIoAttributeFacade<L,D,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fAttribute)
+	protected void initAttribute(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
+									JeeslAttributeBean<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> bAttribute,
+									JeeslIoAttributeFacade<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fAttribute)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fAttribute=fAttribute;

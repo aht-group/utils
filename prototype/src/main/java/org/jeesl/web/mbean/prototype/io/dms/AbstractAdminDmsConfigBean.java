@@ -28,15 +28,17 @@ import org.jeesl.interfaces.model.module.attribute.JeeslAttributeSet;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
+import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public abstract class AbstractAdminDmsConfigBean <L extends JeeslLang,D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
+public abstract class AbstractAdminDmsConfigBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
+													R extends JeeslTenantRealm<L,D,R,?>,
 													DMS extends JeeslIoDms<L,D,STORAGE,AS,DS,S>,
 													STORAGE extends JeeslFileStorage<L,D,?,?,?>,
-													AS extends JeeslAttributeSet<L,D,?,?>,
+													AS extends JeeslAttributeSet<L,D,R,?,?>,
 													DS extends JeeslDomainSet<L,D,?>,
 													S extends JeeslIoDmsSection<L,D,S>,
 													F extends JeeslIoDmsDocument<L,S,FC,AC>,
@@ -51,7 +53,7 @@ public abstract class AbstractAdminDmsConfigBean <L extends JeeslLang,D extends 
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAdminDmsConfigBean.class);
 	
-	private final IoAttributeFactoryBuilder<L,D,?,?,?,?,AS,?,?,?> fbAttribute;
+	private final IoAttributeFactoryBuilder<L,D,?,?,?,?,?,AS,?,?,?> fbAttribute;
 	
 	private final EjbIoDmsFactory<DMS> efDms;
 	private final EjbIoDmsViewFactory<DMS,VIEW> efView;
@@ -64,7 +66,8 @@ public abstract class AbstractAdminDmsConfigBean <L extends JeeslLang,D extends 
 
 	private VIEW dmsView; public VIEW getDmsView() {return dmsView;} public void setDmsView(VIEW dmsView) {this.dmsView = dmsView;}
 
-	public AbstractAdminDmsConfigBean(IoDmsFactoryBuilder<L,D,LOC,DMS,STORAGE,S,F,VIEW,LAYER> fbDms, final IoAttributeFactoryBuilder<L,D,?,?,?,?,AS,?,?,?> fbAttribute)
+	public AbstractAdminDmsConfigBean(IoDmsFactoryBuilder<L,D,LOC,DMS,STORAGE,S,F,VIEW,LAYER> fbDms,
+										final IoAttributeFactoryBuilder<L,D,R,?,?,?,?,AS,?,?,?> fbAttribute)
 	{
 		super(fbDms);
 		this.fbAttribute=fbAttribute;

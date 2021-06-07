@@ -6,13 +6,14 @@ import org.jeesl.interfaces.model.module.attribute.JeeslAttributeItem;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeOption;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.jeesl.model.xml.jeesl.QueryAttribute;
 import org.jeesl.model.xml.system.io.attribute.Attribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class XmlAttributeFactory <L extends JeeslLang, D extends JeeslDescription,
-									CRITERIA extends JeeslAttributeCriteria<L,D,?,?,OPTION>,
+									CRITERIA extends JeeslAttributeCriteria<L,D,?,?,?,OPTION>,
 									OPTION extends JeeslAttributeOption<L,D,CRITERIA>,
 									ITEM extends JeeslAttributeItem<CRITERIA,?>,
 									DATA extends JeeslAttributeData<CRITERIA,OPTION,?>>

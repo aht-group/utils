@@ -41,6 +41,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.jsf.handler.PositionListReorderer;
 import org.primefaces.event.NodeCollapseEvent;
@@ -54,6 +55,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public abstract class AbstractDmsUploadBean <L extends JeeslLang,D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
+R extends JeeslTenantRealm<L,D,R,?>,
 											DMS extends JeeslIoDms<L,D,FSTORAGE,ASET,DS,S>,
 											S extends JeeslIoDmsSection<L,D,S>,
 											FILE extends JeeslIoDmsDocument<L,S,FCONTAINER,ACONTAINER>,
@@ -69,10 +71,10 @@ public abstract class AbstractDmsUploadBean <L extends JeeslLang,D extends Jeesl
 											DS extends JeeslDomainSet<L,D,?>,
 											
 											ACATEGORY extends JeeslStatus<L,D,ACATEGORY>,
-											ACRITERIA extends JeeslAttributeCriteria<L,D,ACATEGORY,ATYPE,AOPTION>,
+											ACRITERIA extends JeeslAttributeCriteria<L,D,R,ACATEGORY,ATYPE,AOPTION>,
 											ATYPE extends JeeslStatus<L,D,ATYPE>,
 											AOPTION extends JeeslAttributeOption<L,D,ACRITERIA>,
-											ASET extends JeeslAttributeSet<L,D,ACATEGORY,AITEM>,
+											ASET extends JeeslAttributeSet<L,D,R,ACATEGORY,AITEM>,
 											AITEM extends JeeslAttributeItem<ACRITERIA,ASET>,
 											ACONTAINER extends JeeslAttributeContainer<ASET,ADATA>,
 											ADATA extends JeeslAttributeData<ACRITERIA,AOPTION,ACONTAINER>
@@ -83,15 +85,15 @@ public abstract class AbstractDmsUploadBean <L extends JeeslLang,D extends Jeesl
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractDmsUploadBean.class);	
 
-	private JeeslIoAttributeFacade<L,D,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> fAttribute; 
+	private JeeslIoAttributeFacade<L,D,R,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> fAttribute; 
 	private JeeslIoFrFacade<L,D,?,FSTORAGE,?,FENGINE,FCONTAINER,FMETA,FTYPE,?,?,?> fFr;
 	
-	private final IoAttributeFactoryBuilder<L,D,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> fbAttribute;
+	private final IoAttributeFactoryBuilder<L,D,R,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> fbAttribute;
 //	private final IoFileRepositoryFactoryBuilder<L,D,FSTORAGE,FENGINE,FCONTAINER,FMETA,FTYPE> fbFr;
 	
 	protected final SbSingleHandler<DMS> sbhDms; public SbSingleHandler<DMS> getSbhDms() {return sbhDms;}
 
-	private AttributeHandler<L,D,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> attributeHandler; public AttributeHandler<L,D,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> getAttributeHandler() {return attributeHandler;}
+	private AttributeHandler<L,D,R,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> attributeHandler; public AttributeHandler<L,D,R,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> getAttributeHandler() {return attributeHandler;}
 	private JeeslFileRepositoryHandler<FSTORAGE,FCONTAINER,FMETA> fileHandler; public JeeslFileRepositoryHandler<FSTORAGE,FCONTAINER,FMETA> getFileHandler() {return fileHandler;}
 
 	private List<FILE> files; public List<FILE> getFiles() {return files;} public void setFiles(List<FILE> files) {this.files = files;}
@@ -102,7 +104,7 @@ public abstract class AbstractDmsUploadBean <L extends JeeslLang,D extends Jeesl
 	private FILE file; public FILE getFile() {return file;} public void setFile(FILE file) {this.file = file;}
 
 	public AbstractDmsUploadBean(final IoDmsFactoryBuilder<L,D,LOC,DMS,FSTORAGE,S,FILE,VIEW,LAYER> fbDms,
-								final IoAttributeFactoryBuilder<L,D,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> fbAttribute,
+								final IoAttributeFactoryBuilder<L,D,R,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> fbAttribute,
 								final IoFileRepositoryFactoryBuilder<L,D,LOC,?,FSTORAGE,?,FENGINE,FCONTAINER,FMETA,FTYPE,?,?,?> fbFr)
 	{
 		super(fbDms);
@@ -114,8 +116,8 @@ public abstract class AbstractDmsUploadBean <L extends JeeslLang,D extends Jeesl
 	protected void postConstructDmsUpload(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
 								JeeslIoDmsFacade<L,D,LOC,DMS,FSTORAGE,ASET,DS,S,FILE,VIEW,FCONTAINER,ACONTAINER> fDms,
 								JeeslIoFrFacade<L,D,?,FSTORAGE,?,FENGINE,FCONTAINER,FMETA,FTYPE,?,?,?> fFr,
-								JeeslIoAttributeFacade<L,D,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> fAttribute,
-								JeeslAttributeBean<L,D,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> bAttribute,
+								JeeslIoAttributeFacade<L,D,R,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> fAttribute,
+								JeeslAttributeBean<L,D,R,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> bAttribute,
 								JeeslFileRepositoryHandler<FSTORAGE,FCONTAINER,FMETA> fileHandler
 								)
 	{
