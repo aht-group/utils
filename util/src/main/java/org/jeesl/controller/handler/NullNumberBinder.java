@@ -153,18 +153,18 @@ public class NullNumberBinder
 		return sb.toString();
 	}
 	
-	private String toString(Long l)
+	private String toString(Long value)
 	{
 		StringBuffer sb = new StringBuffer();
-		if(i==null){sb.append("");}
-		else{sb.append(l.longValue());}
+		if(value==null){sb.append("");}
+		else{sb.append(value.longValue());}
 		
 		if(logger.isTraceEnabled())
 		{
 			StringBuffer sbd = new StringBuffer();
 			sbd.append("Integer ");
-			if(i==null){sbd.append("null");}
-			else{sbd.append(l.longValue());}
+			if(value==null){sbd.append("null");}
+			else{sbd.append(value.longValue());}
 			sbd.append(" returns ").append(sb.toString());
 			logger.trace(sbd.toString());
 		}
