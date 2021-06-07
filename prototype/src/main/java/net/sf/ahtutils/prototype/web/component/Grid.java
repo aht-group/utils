@@ -37,7 +37,7 @@ public class Grid extends AbstractUtilsGrid
 			if(event.getComponent().getFacets().containsKey("left")) {slot=slot-15;}
 			if(event.getComponent().getFacets().containsKey("right")) {slot=slot-15;}
 					
-			super.pushCssToHead();
+//			super.pushCssToHead();
 		 }
 		super.processEvent(event);
 	}
