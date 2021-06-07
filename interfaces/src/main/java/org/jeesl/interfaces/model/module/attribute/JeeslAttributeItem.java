@@ -7,8 +7,8 @@ import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPositionVisibleParent;
 
-public interface JeeslAttributeItem <CRITERIA extends JeeslAttributeCriteria<?,?,?,?,?>,
-									SET extends JeeslAttributeSet<?,?,?,?>>
+public interface JeeslAttributeItem <CRITERIA extends JeeslAttributeCriteria<?,?,?,?,?,?>,
+									SET extends JeeslAttributeSet<?,?,?,?,?>>
 		extends Serializable,EjbWithId,EjbSaveable,EjbWithPositionVisibleParent,EjbRemoveable
 {
 	public enum Attributes{itemSet,criteria}

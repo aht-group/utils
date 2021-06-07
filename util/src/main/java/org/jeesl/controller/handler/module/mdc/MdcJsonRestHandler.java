@@ -24,6 +24,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.jeesl.model.json.module.attribute.JsonAttributeData;
 import org.jeesl.model.json.module.attribute.JsonAttributeSet;
 import org.jeesl.model.json.module.mdc.JsonMdcCollection;
@@ -34,6 +35,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MdcJsonRestHandler<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
+								R extends JeeslTenantRealm<L,D,R,?>,
 								COLLECTION extends JeeslMdcCollection<?,SCOPE,STATUS,ASET>,
 
 								SCOPE extends JeeslMdcScope<L,D,?,SCOPE,?>,
@@ -42,31 +44,31 @@ public class MdcJsonRestHandler<L extends JeeslLang, D extends JeeslDescription,
 								CDATA extends JeeslMdcData<COLLECTION,ACON>,
 								
 								CATEGORY extends JeeslStatus<L,D,CATEGORY>,
-								CRITERIA extends JeeslAttributeCriteria<L,D,CATEGORY,TYPE,OPTION>,
+								CRITERIA extends JeeslAttributeCriteria<L,D,R,CATEGORY,TYPE,OPTION>,
 								TYPE extends JeeslStatus<L,D,TYPE>,
 								OPTION extends JeeslAttributeOption<L,D,CRITERIA>,
-								ASET extends JeeslAttributeSet<L,D,CATEGORY,AITEM>,
+								ASET extends JeeslAttributeSet<L,D,R,CATEGORY,AITEM>,
 								AITEM extends JeeslAttributeItem<CRITERIA,ASET>,
 								ACON extends JeeslAttributeContainer<ASET,ADATA>,
 								ADATA extends JeeslAttributeData<CRITERIA,OPTION,ACON>>
 {
 	final static Logger logger = LoggerFactory.getLogger(MdcJsonRestHandler.class);
 	
-	private final JeeslIoAttributeFacade<L,D,CATEGORY,CRITERIA,TYPE,OPTION,ASET,AITEM,ACON,ADATA> fAttribute;
+	private final JeeslIoAttributeFacade<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,ASET,AITEM,ACON,ADATA> fAttribute;
 	
-	private final IoAttributeFactoryBuilder<L,D,CATEGORY,CRITERIA,TYPE,OPTION,ASET,AITEM,ACON,ADATA> fbAttribute;
+	private final IoAttributeFactoryBuilder<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,ASET,AITEM,ACON,ADATA> fbAttribute;
 	
 	private final EjbMdcDataFactory<COLLECTION,CDATA,ACON> efCollectionData;
 	private final EjbAttributeContainerFactory<ASET,ACON> efAttributeContainer;
 	private final EjbAttributeDataFactory<CRITERIA,OPTION,ACON,ADATA> efAttributeData;
 	
-	private final JsonAttributeSetFactory<L,D,LOC,CATEGORY,CRITERIA,TYPE,OPTION,ASET,AITEM> jfAttributeSet;
-	private final JsonAttributeContainerFactory<L,D,LOC,CATEGORY,CRITERIA,TYPE,OPTION,ASET,AITEM,ACON,ADATA> jfAttributeContainer;
+	private final JsonAttributeSetFactory<L,D,LOC,R,CATEGORY,CRITERIA,TYPE,OPTION,ASET,AITEM> jfAttributeSet;
+	private final JsonAttributeContainerFactory<L,D,LOC,R,CATEGORY,CRITERIA,TYPE,OPTION,ASET,AITEM,ACON,ADATA> jfAttributeContainer;
 	
 	
 	public MdcJsonRestHandler(MdcFactoryBuilder<L,D,LOC,?,COLLECTION,SCOPE,STATUS,CDATA,ASET,ACON> fbMdc,
-								IoAttributeFactoryBuilder<L,D,CATEGORY,CRITERIA,TYPE,OPTION,ASET,AITEM,ACON,ADATA> fbAttribute,
-								JeeslIoAttributeFacade<L,D,CATEGORY,CRITERIA,TYPE,OPTION,ASET,AITEM,ACON,ADATA> fAttribute,
+								IoAttributeFactoryBuilder<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,ASET,AITEM,ACON,ADATA> fbAttribute,
+								JeeslIoAttributeFacade<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,ASET,AITEM,ACON,ADATA> fAttribute,
 								String localeCode)
 	{
 		this.fbAttribute=fbAttribute;

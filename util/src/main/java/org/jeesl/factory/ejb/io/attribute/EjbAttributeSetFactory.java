@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 public class EjbAttributeSetFactory<L extends JeeslLang, D extends JeeslDescription,
 									CATEGORY extends JeeslStatus<L,D,CATEGORY>,
-									SET extends JeeslAttributeSet<L,D,CATEGORY,ITEM>,
+									SET extends JeeslAttributeSet<L,D,?,CATEGORY,ITEM>,
 									ITEM extends JeeslAttributeItem<?,SET>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbAttributeSetFactory.class);

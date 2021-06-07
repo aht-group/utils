@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class AttributeSetComparator<CATEGORY extends JeeslStatus<?,?,CATEGORY>,
-									SET extends JeeslAttributeSet<?,?,CATEGORY,?>>
+									SET extends JeeslAttributeSet<?,?,?,CATEGORY,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(AttributeSetComparator.class);
 

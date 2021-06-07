@@ -11,17 +11,19 @@ import org.jeesl.interfaces.model.module.attribute.JeeslAttributeSet;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.jeesl.model.json.module.attribute.JsonAttributeCriteria;
 import org.jeesl.model.json.module.attribute.JsonAttributeData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class JsonAttributeDataFactory<L extends JeeslLang, D extends JeeslDescription,
+										R extends JeeslTenantRealm<L,D,R,?>,
 										CATEGORY extends JeeslStatus<L,D,CATEGORY>,
-										CRITERIA extends JeeslAttributeCriteria<L,D,CATEGORY,TYPE,OPTION>,
+										CRITERIA extends JeeslAttributeCriteria<L,D,R,CATEGORY,TYPE,OPTION>,
 										TYPE extends JeeslStatus<L,D,TYPE>,
 										OPTION extends JeeslAttributeOption<L,D,CRITERIA>,
-										SET extends JeeslAttributeSet<L,D,CATEGORY,ITEM>,
+										SET extends JeeslAttributeSet<L,D,R,CATEGORY,ITEM>,
 										ITEM extends JeeslAttributeItem<CRITERIA,SET>,
 										CONTAINER extends JeeslAttributeContainer<SET,DATA>,
 										DATA extends JeeslAttributeData<CRITERIA,OPTION,CONTAINER>>
@@ -30,7 +32,7 @@ public class JsonAttributeDataFactory<L extends JeeslLang, D extends JeeslDescri
 	
 	private final JsonAttributeData q;
 	
-	private JsonAttributeCriteriaFactory<L,D,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM> jfCriteria;
+	private JsonAttributeCriteriaFactory<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM> jfCriteria;
 	private JsonAttributeOptionFactory<L,D,OPTION> jfOption;
 	private JsonAttributeOptionFactory<L,D,OPTION> jfOptions;
 	

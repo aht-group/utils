@@ -13,16 +13,18 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.jeesl.model.json.module.attribute.JsonAttributeSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class JsonAttributeSetFactory<L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
+									R extends JeeslTenantRealm<L,D,R,?>,
 									CATEGORY extends JeeslStatus<L,D,CATEGORY>,
-									CRITERIA extends JeeslAttributeCriteria<L,D,CATEGORY,TYPE,OPTION>,
+									CRITERIA extends JeeslAttributeCriteria<L,D,R,CATEGORY,TYPE,OPTION>,
 									TYPE extends JeeslStatus<L,D,TYPE>,
 									OPTION extends JeeslAttributeOption<L,D,CRITERIA>,
-									SET extends JeeslAttributeSet<L,D,CATEGORY,ITEM>,
+									SET extends JeeslAttributeSet<L,D,R,CATEGORY,ITEM>,
 									ITEM extends JeeslAttributeItem<CRITERIA,SET>>
 {
 	final static Logger logger = LoggerFactory.getLogger(JsonAttributeSetFactory.class);
@@ -30,9 +32,9 @@ public class JsonAttributeSetFactory<L extends JeeslLang, D extends JeeslDescrip
 	private final JsonAttributeSet q;
 	
 	private JeeslFacade facade;
-	private IoAttributeFactoryBuilder<L,D,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,?,?> fbAttribute;
+	private IoAttributeFactoryBuilder<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,?,?> fbAttribute;
 	
-	private JsonAttributeItemFactory<L,D,LOC,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM> jfItem;
+	private JsonAttributeItemFactory<L,D,LOC,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM> jfItem;
 	
 	public JsonAttributeSetFactory(String localeCode, JsonAttributeSet q)
 	{
@@ -40,7 +42,7 @@ public class JsonAttributeSetFactory<L extends JeeslLang, D extends JeeslDescrip
 		if(q.getItems()!=null && !q.getItems().isEmpty()) {jfItem = new JsonAttributeItemFactory<>(localeCode,q.getItems().get(0));}
 	}
 	
-	public void lazy(JeeslFacade facade, IoAttributeFactoryBuilder<L,D,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,?,?> fbAttribute)
+	public void lazy(JeeslFacade facade, IoAttributeFactoryBuilder<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,?,?> fbAttribute)
 	{
 		this.facade=facade;
 		this.fbAttribute=fbAttribute;
