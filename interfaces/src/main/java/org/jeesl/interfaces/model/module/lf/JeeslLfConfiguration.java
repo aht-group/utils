@@ -22,5 +22,7 @@ public interface JeeslLfConfiguration<LF extends JeeslLfLogframe<?,?,?,?,?,LFT>,
 
 	boolean isAllowTargetValues();
 	void setAllowTargetValues(boolean allowTargetValues);
+	
+	
 
 }
