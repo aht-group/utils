@@ -24,7 +24,8 @@ import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfVerificationSource;
 import org.jeesl.interfaces.model.module.lf.time.JeeslLfTimeElement;
 import org.jeesl.interfaces.model.module.lf.time.JeeslLfTimeGroup;
 import org.jeesl.interfaces.model.module.lf.time.JeeslLfTimeInterval;
-import org.jeesl.interfaces.model.module.lf.value.JeeslLfValueMonitoring;
+import org.jeesl.interfaces.model.module.lf.value.JeeslLfValue;
+import org.jeesl.interfaces.model.module.lf.value.JeeslLfValueType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
@@ -47,7 +48,8 @@ public abstract class AbstractLfDefinitionBean <L extends JeeslLang, D extends J
 												TTG extends JeeslLfTimeGroup<L,TTI>,
 												TTI extends JeeslLfTimeInterval<L,D,TTI,?>,
 												TTE extends JeeslLfTimeElement<L,TTG>,
-												LFM extends JeeslLfValueMonitoring<LFI,TTG,TTE>,
+												LFM extends JeeslLfValue<LFI,VT,TTG,TTE>,
+												VT extends JeeslLfValueType<L,D,R,VT,?>,
 												LFC extends JeeslLfConfiguration<LF,IT>>
 					extends AbstractAdminBean<L,D,LOC>
 					implements Serializable
@@ -56,8 +58,8 @@ public abstract class AbstractLfDefinitionBean <L extends JeeslLang, D extends J
 	final static Logger logger = LoggerFactory.getLogger(AbstractLfDefinitionBean.class);
 
 	private final UiSlotWidthHandler slotHandler; public UiSlotWidthHandler getSlotHandler() {return slotHandler;}
-	protected final LfFactoryBuilder<L,D,R,LF,LFI,IL,IT,IU,IV,TTG,TTI,TTE,LFM,LFC> fbLf;
-	protected JeeslLogframeFacade<L,D,R,LF,LFI,IL,IT,IU,IV,TTG,TTI,TTE,LFM,LFC> fLf;
+	protected final LfFactoryBuilder<L,D,R,LF,LFI,IL,IT,IU,IV,TTG,TTI,TTE,LFM,VT,LFC> fbLf;
+	protected JeeslLogframeFacade<L,D,R,LF,LFI,IL,IT,IU,IV,TTG,TTI,TTE,LFM,VT,LFC> fLf;
 
 	protected final List<LFI> indicators; public List<LFI> getIndicators() {return indicators;}
 	protected List<LFM> monitorings; public List<LFM> getMonitorings() {return monitorings;} public void setMonitorings(List<LFM> monitorings) {this.monitorings = monitorings;}
@@ -76,7 +78,7 @@ public abstract class AbstractLfDefinitionBean <L extends JeeslLang, D extends J
 
 	private LF logframe; public LF getLogframe() {return logframe;} public void setLogframe(LF logframe) {this.logframe = logframe;}
 
-	public AbstractLfDefinitionBean(LfFactoryBuilder<L,D,R,LF,LFI,IL,IT,IU,IV,TTG,TTI,TTE,LFM,LFC> fbLf)
+	public AbstractLfDefinitionBean(LfFactoryBuilder<L,D,R,LF,LFI,IL,IT,IU,IV,TTG,TTI,TTE,LFM,VT,LFC> fbLf)
 	{
 		super(fbLf.getClassL(),fbLf.getClassD());
 		this.fbLf=fbLf;
@@ -92,7 +94,7 @@ public abstract class AbstractLfDefinitionBean <L extends JeeslLang, D extends J
 	}
 
 	protected void postConstructLfDefinition(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-												JeeslLogframeFacade<L,D,R,LF,LFI,IL,IT,IU,IV,TTG,TTI,TTE,LFM,LFC> fLf)
+												JeeslLogframeFacade<L,D,R,LF,LFI,IL,IT,IU,IV,TTG,TTI,TTE,LFM,VT,LFC> fLf)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fLf = fLf;

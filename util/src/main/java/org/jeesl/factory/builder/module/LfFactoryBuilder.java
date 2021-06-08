@@ -17,7 +17,8 @@ import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfVerificationSource;
 import org.jeesl.interfaces.model.module.lf.time.JeeslLfTimeElement;
 import org.jeesl.interfaces.model.module.lf.time.JeeslLfTimeGroup;
 import org.jeesl.interfaces.model.module.lf.time.JeeslLfTimeInterval;
-import org.jeesl.interfaces.model.module.lf.value.JeeslLfValueMonitoring;
+import org.jeesl.interfaces.model.module.lf.value.JeeslLfValue;
+import org.jeesl.interfaces.model.module.lf.value.JeeslLfValueType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
@@ -34,7 +35,8 @@ public class LfFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,R e
 							TTG extends JeeslLfTimeGroup<L,?>,
 							TTI extends JeeslLfTimeInterval<L,D,TTI,?>,
 							TTE extends JeeslLfTimeElement<L,TTG>,
-							LFM extends JeeslLfValueMonitoring<I,TTG,TTE>,
+							LFM extends JeeslLfValue<I,VT,TTG,TTE>,
+							VT extends JeeslLfValueType<L,D,R,VT,?>,
 							LFC extends JeeslLfConfiguration<LF,?>>
 extends AbstractFactoryBuilder<L,D>
 {

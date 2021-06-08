@@ -27,7 +27,8 @@ import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfVerificationSource;
 import org.jeesl.interfaces.model.module.lf.time.JeeslLfTimeElement;
 import org.jeesl.interfaces.model.module.lf.time.JeeslLfTimeGroup;
 import org.jeesl.interfaces.model.module.lf.time.JeeslLfTimeInterval;
-import org.jeesl.interfaces.model.module.lf.value.JeeslLfValueMonitoring;
+import org.jeesl.interfaces.model.module.lf.value.JeeslLfValue;
+import org.jeesl.interfaces.model.module.lf.value.JeeslLfValueType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
@@ -50,7 +51,8 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 												TTG extends JeeslLfTimeGroup<L,TTI>,
 												TTI extends JeeslLfTimeInterval<L,D,TTI,?>,
 												TTE extends JeeslLfTimeElement<L,TTG>,
-												LFM extends JeeslLfValueMonitoring<LFI,TTG,TTE>,
+												LFM extends JeeslLfValue<LFI,VT,TTG,TTE>,
+												VT extends JeeslLfValueType<L,D,R,VT,?>,
 												LFC extends JeeslLfConfiguration<LF,IT>>
 					extends AbstractAdminBean<L,D,LOC>
 					implements Serializable,TargetTimeBean
@@ -58,8 +60,8 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractLfTargetTimeBean.class);
 
-	protected final LfFactoryBuilder<L,D,R,LF,LFI,IL,IT,IU,IV,TTG,TTI,TTE,LFM,LFC> fbLf;
-	protected JeeslLogframeFacade<L,D,R,LF,LFI,IL,IT,IU,IV,TTG,TTI,TTE,LFM,LFC> fLf;
+	protected final LfFactoryBuilder<L,D,R,LF,LFI,IL,IT,IU,IV,TTG,TTI,TTE,LFM,VT,LFC> fbLf;
+	protected JeeslLogframeFacade<L,D,R,LF,LFI,IL,IT,IU,IV,TTG,TTI,TTE,LFM,VT,LFC> fLf;
 
 	protected IntervalCalendarHandler<TTI> intervalCalendarHandler; public IntervalCalendarHandler<TTI> getIntervalCalendarHandler() {return intervalCalendarHandler;}
 	protected boolean uiGenerate;
@@ -108,7 +110,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	    }
 	}
 
-	public AbstractLfTargetTimeBean(LfFactoryBuilder<L,D,R,LF,LFI,IL,IT,IU,IV,TTG,TTI,TTE,LFM,LFC> fbLf)
+	public AbstractLfTargetTimeBean(LfFactoryBuilder<L,D,R,LF,LFI,IL,IT,IU,IV,TTG,TTI,TTE,LFM,VT,LFC> fbLf)
 	{
 		super(fbLf.getClassL(),fbLf.getClassD());
 		this.fbLf=fbLf;
@@ -117,7 +119,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 	}
 
 	protected void postConstructHd(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslLogframeFacade<L,D,R,LF,LFI,IL,IT,IU,IV,TTG,TTI,TTE,LFM,LFC> fLf)
+									JeeslLogframeFacade<L,D,R,LF,LFI,IL,IT,IU,IV,TTG,TTI,TTE,LFM,VT,LFC> fLf)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fLf=fLf;
