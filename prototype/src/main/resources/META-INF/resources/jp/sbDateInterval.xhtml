@@ -17,13 +17,13 @@
 		<aup:statusBarItem orientation="right">
             <f:facet name="label">
                 <ui:fragment>
-                    <p:calendar styleClass="aupStatusBarCalendar aupStatusBarDpFirst" value="#{cc.attrs.handler.date1}" pattern="dd.MM.yyyy">
+                    <p:calendar styleClass="aupStatusBarCalendar aupStatusBarDpFirst jeesl-menu-bar-button-label" value="#{cc.attrs.handler.date1}" pattern="dd.MM.yyyy">
                         <p:ajax update="#{cc.attrs.update}" event="dateSelect" listener="#{cc.attrs.handler.dateChanged()}"/>
                         <p:ajax update="#{cc.attrs.update}" event="change" listener="#{cc.attrs.handler.dateChanged()}"/>
                     </p:calendar>
 
                     <h:graphicImage styleClass="aupDateGraphic" name="ui/control/dates.svg" library="jeeslGfx" height="12"/>
-                    <p:calendar styleClass="aupStatusBarCalendar" value="#{cc.attrs.handler.date2}" pattern="dd.MM.yyyy" >
+                    <p:calendar styleClass="aupStatusBarCalendar jeesl-menu-bar-button-label" value="#{cc.attrs.handler.date2}" pattern="dd.MM.yyyy" >
                         <p:ajax update="#{cc.attrs.update}" event="dateSelect" listener="#{cc.attrs.handler.dateChanged()}"/>
                         <p:ajax update="#{cc.attrs.update}" event="change" listener="#{cc.attrs.handler.dateChanged()}"/>
                     </p:calendar>
