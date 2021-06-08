@@ -19,10 +19,12 @@ import org.jeesl.interfaces.model.module.lf.JeeslLfLogframe;
 import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicator;
 import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicatorLevel;
 import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicatorType;
-import org.jeesl.interfaces.model.module.lf.monitoring.JeeslLfMonitoring;
+import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfUnit;
+import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfVerificationSource;
 import org.jeesl.interfaces.model.module.lf.time.JeeslLfTimeElement;
 import org.jeesl.interfaces.model.module.lf.time.JeeslLfTimeGroup;
 import org.jeesl.interfaces.model.module.lf.time.JeeslLfTimeInterval;
+import org.jeesl.interfaces.model.module.lf.value.JeeslLfValueMonitoring;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
@@ -37,13 +39,15 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 public abstract class AbstractLfDefinitionBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 												R extends JeeslTenantRealm<L,D,R,?>,
 												LF extends JeeslLfLogframe<L,D,R,LFI,IL,IT>,
-												LFI extends JeeslLfIndicator<LF,IL,IT,TTG,LFM>,
+												LFI extends JeeslLfIndicator<LF,IL,IT,IU,IV,TTG,LFM>,
 												IL extends JeeslLfIndicatorLevel<L, D,R, IL, ?>,
 												IT extends JeeslLfIndicatorType<L, D,R, IT, ?>,
+												IU extends JeeslLfUnit<L,D,R,IU,?>,
+												IV extends JeeslLfVerificationSource<L,D,R,IV,?>,
 												TTG extends JeeslLfTimeGroup<L,TTI>,
 												TTI extends JeeslLfTimeInterval<L,D,TTI,?>,
 												TTE extends JeeslLfTimeElement<L,TTG>,
-												LFM extends JeeslLfMonitoring<LFI,TTG,TTE>,
+												LFM extends JeeslLfValueMonitoring<LFI,TTG,TTE>,
 												LFC extends JeeslLfConfiguration<LF,IT>>
 					extends AbstractAdminBean<L,D,LOC>
 					implements Serializable
@@ -52,8 +56,8 @@ public abstract class AbstractLfDefinitionBean <L extends JeeslLang, D extends J
 	final static Logger logger = LoggerFactory.getLogger(AbstractLfDefinitionBean.class);
 
 	private final UiSlotWidthHandler slotHandler; public UiSlotWidthHandler getSlotHandler() {return slotHandler;}
-	protected final LfFactoryBuilder<L,D,R,LF,LFI,IL,IT,TTG,TTI,TTE,LFM,LFC> fbLf;
-	protected JeeslLogframeFacade<L,D,R,LF,LFI,IL,IT,TTG,TTI,TTE,LFM,LFC> fLf;
+	protected final LfFactoryBuilder<L,D,R,LF,LFI,IL,IT,IU,IV,TTG,TTI,TTE,LFM,LFC> fbLf;
+	protected JeeslLogframeFacade<L,D,R,LF,LFI,IL,IT,IU,IV,TTG,TTI,TTE,LFM,LFC> fLf;
 
 	protected final List<LFI> indicators; public List<LFI> getIndicators() {return indicators;}
 	protected List<LFM> monitorings; public List<LFM> getMonitorings() {return monitorings;} public void setMonitorings(List<LFM> monitorings) {this.monitorings = monitorings;}
@@ -72,7 +76,7 @@ public abstract class AbstractLfDefinitionBean <L extends JeeslLang, D extends J
 
 	private LF logframe; public LF getLogframe() {return logframe;} public void setLogframe(LF logframe) {this.logframe = logframe;}
 
-	public AbstractLfDefinitionBean(LfFactoryBuilder<L,D,R,LF,LFI,IL,IT,TTG,TTI,TTE,LFM,LFC> fbLf)
+	public AbstractLfDefinitionBean(LfFactoryBuilder<L,D,R,LF,LFI,IL,IT,IU,IV,TTG,TTI,TTE,LFM,LFC> fbLf)
 	{
 		super(fbLf.getClassL(),fbLf.getClassD());
 		this.fbLf=fbLf;
@@ -87,7 +91,8 @@ public abstract class AbstractLfDefinitionBean <L extends JeeslLang, D extends J
 		slotHandler.set(12);
 	}
 
-	protected void postConstructLfDefinition(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,JeeslLogframeFacade<L,D,R,LF,LFI,IL,IT,TTG,TTI,TTE,LFM,LFC> fLf)
+	protected void postConstructLfDefinition(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
+												JeeslLogframeFacade<L,D,R,LF,LFI,IL,IT,IU,IV,TTG,TTI,TTE,LFM,LFC> fLf)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fLf = fLf;

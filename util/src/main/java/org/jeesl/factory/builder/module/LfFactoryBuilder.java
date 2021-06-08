@@ -12,10 +12,12 @@ import org.jeesl.interfaces.model.module.lf.JeeslLfLogframe;
 import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicator;
 import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicatorLevel;
 import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfIndicatorType;
-import org.jeesl.interfaces.model.module.lf.monitoring.JeeslLfMonitoring;
+import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfUnit;
+import org.jeesl.interfaces.model.module.lf.indicator.JeeslLfVerificationSource;
 import org.jeesl.interfaces.model.module.lf.time.JeeslLfTimeElement;
 import org.jeesl.interfaces.model.module.lf.time.JeeslLfTimeGroup;
 import org.jeesl.interfaces.model.module.lf.time.JeeslLfTimeInterval;
+import org.jeesl.interfaces.model.module.lf.value.JeeslLfValueMonitoring;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
@@ -23,14 +25,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class LfFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,R extends JeeslTenantRealm<L,D,R,?>,
-							LF extends JeeslLfLogframe<L,D,R,LFI,IL,IT>,
-							LFI extends JeeslLfIndicator<LF,IL,IT,TTG,LFM>,
+							LF extends JeeslLfLogframe<L,D,R,I,IL,IT>,
+							I extends JeeslLfIndicator<LF,IL,IT,IU,IV,TTG,LFM>,
 							IL extends JeeslLfIndicatorLevel<L, D,R, IL, ?>,
 							IT extends JeeslLfIndicatorType<L, D,R, IT, ?>,
+							IU extends JeeslLfUnit<L,D,R,IU,?>,
+							IV extends JeeslLfVerificationSource<L,D,R,IV,?>,
 							TTG extends JeeslLfTimeGroup<L,?>,
 							TTI extends JeeslLfTimeInterval<L,D,TTI,?>,
 							TTE extends JeeslLfTimeElement<L,TTG>,
-							LFM extends JeeslLfMonitoring<LFI,TTG,TTE>,
+							LFM extends JeeslLfValueMonitoring<I,TTG,TTE>,
 							LFC extends JeeslLfConfiguration<LF,?>>
 extends AbstractFactoryBuilder<L,D>
 {
@@ -41,18 +45,18 @@ extends AbstractFactoryBuilder<L,D>
 	private final Class<TTI> cTTI; public Class<TTI> getClassTTI() {return cTTI;}
 	private final Class<TTE> cTTE; public Class<TTE> getClassTTE() {return cTTE;}
 	private final Class<LF> cLF; public Class<LF>  getClassLF() {return cLF;}
-	private final Class<LFI> cLFI; public Class<LFI>  getClassLFI() {return cLFI;}
+	private final Class<I> cI; public Class<I>  getClassLFI() {return cI;}
 	private final Class<LFM> cLFM; public Class<LFM>  getClassLFM() {return cLFM;}
-	private  final Class<LFC> cLFC; public Class<LFC>  getClassLFC() {return cLFC;}
-	private  final Class<IL> cIL; public Class<IL>  getClassIL() {return cIL;}
-	private  final Class<IT> cIT; public Class<IT>  getClassIT() {return cIT;}
+	private final Class<LFC> cLFC; public Class<LFC>  getClassLFC() {return cLFC;}
+	private final Class<IL> cIL; public Class<IL>  getClassIL() {return cIL;}
+	private final Class<IT> cIT; public Class<IT>  getClassIT() {return cIT;}
 
 
 	public LfFactoryBuilder(final Class<L> cL,
 							final Class<D> cD,
 							final Class<R> cRealm,
 							final Class<LF> cLf,
-							final Class<LFI> cLfI,
+							final Class<I> cI,
 							final Class<IL> cIL,
 							final Class<IT> cIT,
 							final Class<TTG> cTTG,
@@ -64,7 +68,7 @@ extends AbstractFactoryBuilder<L,D>
 		super(cL,cD);
 		this.cRealm = cRealm;
 		this.cLF = cLf;
-		this.cLFI = cLfI;
+		this.cI = cI;
 		this.cIL =cIL;
 		this.cIT =cIT;
 		this.cLFM = cLfM;
@@ -74,14 +78,12 @@ extends AbstractFactoryBuilder<L,D>
 		this.cLFC = cLFC;
 	}
 
-
 	public EjbLfTargetTimeGroupFactory<TTG> ejbTargetTimeGroup() {return new EjbLfTargetTimeGroupFactory<>(cTTG);}
 
 	public EjbLfTargetTimeElementFactory<TTG,TTE> ejbTargetTimeElement(){return new EjbLfTargetTimeElementFactory<>(cTTE);}
 
 	public EjbLfLogFrameFactory<LF> ejbLfLogFrame() {return new EjbLfLogFrameFactory<>(cLF);}
-	public EjbLfIndicatorFactory<LFI> ejbLfIndicator() {return new EjbLfIndicatorFactory<>(cLFI);}
+	public EjbLfIndicatorFactory<I,IT,IU,IV> ejbLfIndicator() {return new EjbLfIndicatorFactory<>(cI);}
 	public EjbLfMonitoringFactory<LFM> ejbLfMonitoring() {return new EjbLfMonitoringFactory<>(cLFM);}
 	public EjbLfConfigurationFactory<LFC> ejbLfConfiguration() {return new EjbLfConfigurationFactory<>(cLFC);}
-
 }

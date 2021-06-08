@@ -1,10 +1,10 @@
 package org.jeesl.factory.ejb.module.lf;
 
-import org.jeesl.interfaces.model.module.lf.monitoring.JeeslLfMonitoring;
+import org.jeesl.interfaces.model.module.lf.value.JeeslLfValueMonitoring;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbLfMonitoringFactory<LFM extends JeeslLfMonitoring<?,?,?>>
+public class EjbLfMonitoringFactory<LFM extends JeeslLfValueMonitoring<?,?,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbLfMonitoringFactory.class);
 
