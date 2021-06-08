@@ -65,23 +65,23 @@
 								<p:inputText value="#{cc.attrs.bean.indicator.name}" size="45"/>
 
 								<jtp:label entity="LfIndicator" code="type"/>
-								<p:selectOneMenu value="#{cc.attrs.bean.indicator.type}" effect="fade" >
+								<p:selectOneMenu value="#{cc.attrs.bean.indicator.type}" effect="fade" autoWidth="false" dynamic="true">
 									<f:selectItems value="#{cc.attrs.bean.indicatorTypes}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t}" dynamic="true"/>
 								</p:selectOneMenu>
 
 								<jtp:label entity="LfIndicator" code="level"/>
-								<p:selectOneMenu value="#{cc.attrs.bean.indicator.level}" effect="fade" dynamic="true">
+								<p:selectOneMenu value="#{cc.attrs.bean.indicator.level}" effect="fade" autoWidth="false" dynamic="true">
 									<f:selectItems value="#{cc.attrs.bean.indicatorLevels}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t}"/>
 								</p:selectOneMenu>
 							</p:panelGrid>
-							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80" rendered="#{cc.attrs.bean.indicator.type.code eq 'Indicators'}">
-								<jtp:label entity="LfTargetTimeInterval" rendered="#{cc.attrs.bean.indicator.targetTimeGroup}"/>
+							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
+								<jtp:label entity="LfTimeInterval"/>
 								<p:selectOneMenu value="#{cc.attrs.bean.interval}" effect="fade">
 									<f:selectItems value="#{cc.attrs.bean.intervalTypes}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t}"/>
 									<p:ajax listener="#{cc.attrs.bean.onIntervalChanged}" update=":#{cc.id}:sIndicator"/>
 								</p:selectOneMenu>
 
-								<jtp:label entity="LfTargetTimeGroup"/>
+								<jtp:label entity="LfTimeGroup"/>
 								<p:selectOneMenu value="#{cc.attrs.bean.indicator.targetTimeGroup}" effect="fade" >
 									<f:selectItems value="#{cc.attrs.bean.timeGroups}" var="t" itemLabel="#{t.name}" itemValue="#{t}"/>
 								</p:selectOneMenu>

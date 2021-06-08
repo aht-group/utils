@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.module.lf.monitoring;
+package org.jeesl.interfaces.model.module.lf.value;
 
 import java.io.Serializable;
 
@@ -10,7 +10,7 @@ import org.jeesl.interfaces.model.module.lf.time.JeeslLfTimeGroup;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
-public interface JeeslLfMonitoring<LFI extends JeeslLfIndicator<?,?,?,TTG,?>,
+public interface JeeslLfValueMonitoring<LFI extends JeeslLfIndicator<?,?,?,?,?,TTG,?>,
 						TTG extends JeeslLfTimeGroup<?,?>,
 						TTE extends JeeslLfTimeElement<?,?>>
 				extends  Serializable,EjbSaveable,EjbRemoveable,EjbWithId,EjbWithParentAttributeResolver

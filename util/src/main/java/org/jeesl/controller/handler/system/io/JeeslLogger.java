@@ -52,6 +52,7 @@ public class JeeslLogger<L extends JeeslLang, D extends JeeslDescription,
 	private final Class<?> c;
 	private LOG log;
 	
+	
 	public JeeslLogger(IoLogFactoryBuilder<L,D,LOG,MILESTONE,LOOP> fbLog,
 					   Class<?> c)
 	{
@@ -109,6 +110,10 @@ public class JeeslLogger<L extends JeeslLang, D extends JeeslDescription,
 		sb.append("Milestone ");
 		sb.append(milestone);
 		if(message!=null) {sb.append(": ").append(message);}
+		
+		sb.append(" (");
+		if(elements!=null) {sb.append(elements).append(" ");}
+		sb.append("in ").append(ejb.getMilliStep()).append("ms)");
 		
 		timeMilestone = timeNow;
 		return sb.toString();
