@@ -835,6 +835,7 @@ body, .ui-widget {
 			.jeesl-grid-#{$i} {
 				width: calc((100% / 12) * #{$i} - 10px);
 				display: inline-block;
+				vertical-align: top;
 				
 				> * {
 					width: 100%;
