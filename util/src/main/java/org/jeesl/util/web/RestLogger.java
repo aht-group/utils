@@ -20,18 +20,16 @@ public class RestLogger implements ClientRequestFilter
         sb.append(ctx.getUri().toString());
         
         logger.info("URL "+sb.toString());
-        
+        logger.info("Header:");
         for(String key : ctx.getStringHeaders().keySet())
         {
-        	logger.info(key+"-"+ctx.getStringHeaders().get(key));
+        	logger.info(key+": "+ctx.getStringHeaders().get(key));
         }
-        
-        
 
+        logger.info("Properties:");
         for(String prop : ctx.getPropertyNames())
         {
-        	logger.info(prop+" - "+ctx.getProperty(prop));
-        }
-        
+        	logger.info(prop+": "+ctx.getProperty(prop));
+        }        
     }
 }
