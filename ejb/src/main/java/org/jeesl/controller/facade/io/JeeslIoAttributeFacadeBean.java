@@ -19,6 +19,7 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoAttributeFactoryBuilder;
+import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCategory;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCriteria;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeData;
@@ -33,24 +34,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class JeeslIoAttributeFacadeBean<L extends JeeslLang, D extends JeeslDescription,
-R extends JeeslTenantRealm<L,D,R,?>,
+										R extends JeeslTenantRealm<L,D,R,?>,
+										CAT extends JeeslAttributeCategory<L,D,R,CAT,?>,
 										CATEGORY extends JeeslStatus<L,D,CATEGORY>,
-										CRITERIA extends JeeslAttributeCriteria<L,D,R,CATEGORY,TYPE,OPTION>,
+										CRITERIA extends JeeslAttributeCriteria<L,D,R,CAT,CATEGORY,TYPE,OPTION>,
 										TYPE extends JeeslStatus<L,D,TYPE>,
 										OPTION extends JeeslAttributeOption<L,D,CRITERIA>,
-										SET extends JeeslAttributeSet<L,D,R,CATEGORY,ITEM>,
+										SET extends JeeslAttributeSet<L,D,R,CAT,CATEGORY,ITEM>,
 										ITEM extends JeeslAttributeItem<CRITERIA,SET>,
 										CONTAINER extends JeeslAttributeContainer<SET,DATA>,
 										DATA extends JeeslAttributeData<CRITERIA,OPTION,CONTAINER>>
 					extends JeeslFacadeBean
-					implements JeeslIoAttributeFacade<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA>
+					implements JeeslIoAttributeFacade<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA>
 {	
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(JeeslIoAttributeFacadeBean.class);
 	
-	private final IoAttributeFactoryBuilder<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fbAttribute;
+	private final IoAttributeFactoryBuilder<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fbAttribute;
 	
-	public JeeslIoAttributeFacadeBean(EntityManager em, IoAttributeFactoryBuilder<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fbAttribute)
+	public JeeslIoAttributeFacadeBean(EntityManager em, IoAttributeFactoryBuilder<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fbAttribute)
 	{
 		super(em);
 		this.fbAttribute=fbAttribute;

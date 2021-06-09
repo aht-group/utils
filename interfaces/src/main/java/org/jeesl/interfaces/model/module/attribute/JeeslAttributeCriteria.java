@@ -18,6 +18,7 @@ import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 
 public interface JeeslAttributeCriteria<L extends JeeslLang, D extends JeeslDescription,
 										R extends JeeslTenantRealm<L,D,R,?>,
+										CAT extends JeeslAttributeCategory<L,D,R,CAT,?>,
 										CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 										TYPE extends JeeslStatus<L,D,TYPE>,
 										OPTION extends JeeslAttributeOption<L,D,?>>

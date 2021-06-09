@@ -8,6 +8,7 @@ import java.util.Map;
 import org.jeesl.api.bean.JeeslAttributeBean;
 import org.jeesl.api.facade.io.JeeslIoAttributeFacade;
 import org.jeesl.factory.builder.io.IoAttributeFactoryBuilder;
+import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCategory;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCriteria;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeData;
@@ -24,23 +25,24 @@ import org.slf4j.LoggerFactory;
 
 public abstract class AbstractAppAttributeBean <L extends JeeslLang, D extends JeeslDescription,
 											R extends JeeslTenantRealm<L,D,R,?>,
+											CAT extends JeeslAttributeCategory<L,D,R,CAT,?>,
 											CATEGORY extends JeeslStatus<L,D,CATEGORY>,
-											CRITERIA extends JeeslAttributeCriteria<L,D,R,CATEGORY,TYPE,OPTION>,
+											CRITERIA extends JeeslAttributeCriteria<L,D,R,CAT,CATEGORY,TYPE,OPTION>,
 											TYPE extends JeeslStatus<L,D,TYPE>,
 											OPTION extends JeeslAttributeOption<L,D,CRITERIA>,
-											SET extends JeeslAttributeSet<L,D,R,CATEGORY,ITEM>,
+											SET extends JeeslAttributeSet<L,D,R,CAT,CATEGORY,ITEM>,
 											ITEM extends JeeslAttributeItem<CRITERIA,SET>,
 											CONTAINER extends JeeslAttributeContainer<SET,DATA>,
 											DATA extends JeeslAttributeData<CRITERIA,OPTION,CONTAINER>>
-					implements JeeslAttributeBean<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA>
+					implements JeeslAttributeBean<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA>
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAppAttributeBean.class);
 
-	private JeeslIoAttributeFacade<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fAttribute;
-	private final IoAttributeFactoryBuilder<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fbAttribute;
+	private JeeslIoAttributeFacade<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fAttribute;
+	private final IoAttributeFactoryBuilder<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fbAttribute;
 
-	public AbstractAppAttributeBean(IoAttributeFactoryBuilder<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fbAttribute)
+	public AbstractAppAttributeBean(IoAttributeFactoryBuilder<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fbAttribute)
 	{
 		this.fbAttribute=fbAttribute;
 		categories = new ArrayList<CATEGORY>();
@@ -50,7 +52,7 @@ public abstract class AbstractAppAttributeBean <L extends JeeslLang, D extends J
 		mapOption = new HashMap<CRITERIA,List<OPTION>>();
 	}
 	
-	public void initSuper(JeeslIoAttributeFacade<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fAttribute)
+	public void initSuper(JeeslIoAttributeFacade<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fAttribute)
 	{
 		this.fAttribute=fAttribute;
 		

@@ -6,6 +6,7 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.facade.JeeslFacade;
+import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCategory;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCriteria;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeData;
@@ -19,11 +20,12 @@ import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 
 public interface JeeslIoAttributeFacade <L extends JeeslLang, D extends JeeslDescription,
 										R extends JeeslTenantRealm<L,D,R,?>,
+										CAT extends JeeslAttributeCategory<L,D,R,CAT,?>,
 										CATEGORY extends JeeslStatus<L,D,CATEGORY>,
-										CRITERIA extends JeeslAttributeCriteria<L,D,R,CATEGORY,TYPE,OPTION>,
+										CRITERIA extends JeeslAttributeCriteria<L,D,R,CAT,CATEGORY,TYPE,OPTION>,
 										TYPE extends JeeslStatus<L,D,TYPE>,
 										OPTION extends JeeslAttributeOption<L,D,CRITERIA>,
-										SET extends JeeslAttributeSet<L,D,?,CATEGORY,ITEM>,
+										SET extends JeeslAttributeSet<L,D,?,CAT,CATEGORY,ITEM>,
 										ITEM extends JeeslAttributeItem<CRITERIA,SET>,
 										CONTAINER extends JeeslAttributeContainer<SET,DATA>,
 										DATA extends JeeslAttributeData<CRITERIA,OPTION,CONTAINER>>

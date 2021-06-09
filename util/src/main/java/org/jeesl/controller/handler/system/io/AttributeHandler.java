@@ -18,6 +18,7 @@ import org.jeesl.factory.ejb.io.attribute.EjbAttributeDataFactory;
 import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.interfaces.bean.AttributeBean;
 import org.jeesl.interfaces.controller.handler.JeeslAttributeHandler;
+import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCategory;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCriteria;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeData;
@@ -34,11 +35,12 @@ import org.slf4j.LoggerFactory;
 
 public class AttributeHandler<L extends JeeslLang, D extends JeeslDescription,
 								R extends JeeslTenantRealm<L,D,R,?>,
+								CAT extends JeeslAttributeCategory<L,D,R,CAT,?>,
 								CATEGORY extends JeeslStatus<L,D,CATEGORY>,
-								CRITERIA extends JeeslAttributeCriteria<L,D,R,CATEGORY,TYPE,OPTION>,
+								CRITERIA extends JeeslAttributeCriteria<L,D,R,CAT,CATEGORY,TYPE,OPTION>,
 								TYPE extends JeeslStatus<L,D,TYPE>,
 								OPTION extends JeeslAttributeOption<L,D,CRITERIA>,
-								SET extends JeeslAttributeSet<L,D,R,CATEGORY,ITEM>,
+								SET extends JeeslAttributeSet<L,D,R,CAT,CATEGORY,ITEM>,
 								ITEM extends JeeslAttributeItem<CRITERIA,SET>,
 								CONTAINER extends JeeslAttributeContainer<SET,DATA>,
 								DATA extends JeeslAttributeData<CRITERIA,OPTION,CONTAINER>>
@@ -50,11 +52,11 @@ public class AttributeHandler<L extends JeeslLang, D extends JeeslDescription,
 	private final boolean debugOnInfo = false;
 	private boolean showDescription; public boolean isShowDescription() {return showDescription;}
 	
-	private final JeeslIoAttributeFacade<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fAttribute;
-	private final JeeslAttributeBean<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> bAttribute;
+	private final JeeslIoAttributeFacade<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fAttribute;
+	private final JeeslAttributeBean<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> bAttribute;
 	private final AttributeBean<CONTAINER> bean;
 	
-	private final IoAttributeFactoryBuilder<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fbAttribute;
+	private final IoAttributeFactoryBuilder<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fbAttribute;
 	private final EjbAttributeContainerFactory<SET,CONTAINER> efContainer;
 	private final EjbAttributeDataFactory<CRITERIA,OPTION,CONTAINER,DATA> efData;
 	
@@ -66,9 +68,9 @@ public class AttributeHandler<L extends JeeslLang, D extends JeeslDescription,
 	private CONTAINER container;
 	
 	public AttributeHandler(JeeslFacesMessageBean bMessage,
-			final JeeslIoAttributeFacade<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fAttribute,
-			final JeeslAttributeBean<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> bAttribute,
-			final IoAttributeFactoryBuilder<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fbAttribute,
+			final JeeslIoAttributeFacade<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fAttribute,
+			final JeeslAttributeBean<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> bAttribute,
+			final IoAttributeFactoryBuilder<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fbAttribute,
 			final AttributeBean<CONTAINER> bean)
 	{
 		this.fAttribute=fAttribute;

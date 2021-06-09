@@ -15,6 +15,7 @@ import org.jeesl.factory.json.module.attribute.JsonAttributeDataFactory;
 import org.jeesl.factory.xml.system.io.attribute.XmlAttributeFactory;
 import org.jeesl.factory.xml.system.io.attribute.XmlAttributesFactory;
 import org.jeesl.interfaces.bean.AttributeBean;
+import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCategory;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCriteria;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeData;
@@ -32,11 +33,12 @@ import org.slf4j.LoggerFactory;
 
 public class IoAttributeFactoryBuilder<L extends JeeslLang, D extends JeeslDescription,
 									R extends JeeslTenantRealm<L,D,R,?>,
+									CAT extends JeeslAttributeCategory<L,D,R,CAT,?>,
 									CATEGORY extends JeeslStatus<L,D,CATEGORY>,
-									CRITERIA extends JeeslAttributeCriteria<L,D,R,CATEGORY,TYPE,OPTION>,
+									CRITERIA extends JeeslAttributeCriteria<L,D,R,CAT,CATEGORY,TYPE,OPTION>,
 									TYPE extends JeeslStatus<L,D,TYPE>,
 									OPTION extends JeeslAttributeOption<L,D,CRITERIA>,
-									SET extends JeeslAttributeSet<L,D,R,CATEGORY,ITEM>,
+									SET extends JeeslAttributeSet<L,D,R,CAT,CATEGORY,ITEM>,
 									ITEM extends JeeslAttributeItem<CRITERIA,SET>,
 									CONTAINER extends JeeslAttributeContainer<SET,DATA>,
 									DATA extends JeeslAttributeData<CRITERIA,OPTION,CONTAINER>>
@@ -66,19 +68,19 @@ public class IoAttributeFactoryBuilder<L extends JeeslLang, D extends JeeslDescr
 		this.cData=cData;
 	}
 	
-	public EjbAttributeCriteriaFactory<L,D,R,CATEGORY,CRITERIA,TYPE> ejbCriteria(){return new EjbAttributeCriteriaFactory<>(cCriteria);}
+	public EjbAttributeCriteriaFactory<L,D,R,CAT,CATEGORY,CRITERIA,TYPE> ejbCriteria(){return new EjbAttributeCriteriaFactory<>(cCriteria);}
 	public EjbAttributeOptionFactory<CRITERIA,OPTION> ejbOption() {return new EjbAttributeOptionFactory<>(cOption);}
-	public EjbAttributeSetFactory<L,D,CATEGORY,SET,ITEM> ejbSet() {return new EjbAttributeSetFactory<>(cSet);}
+	public EjbAttributeSetFactory<L,D,CAT,CATEGORY,SET,ITEM> ejbSet() {return new EjbAttributeSetFactory<>(cSet);}
 	public EjbAttributeItemFactory<CRITERIA,SET,ITEM> ejbItem() {return new EjbAttributeItemFactory<>(cItem);}
 	public EjbAttributeContainerFactory<SET,CONTAINER> ejbContainer() {return new EjbAttributeContainerFactory<SET,CONTAINER>(cContainer);}
 	public EjbAttributeDataFactory<CRITERIA,OPTION,CONTAINER,DATA> ejbData() {return new EjbAttributeDataFactory<CRITERIA,OPTION,CONTAINER,DATA>(cData);}
 	
-	public XmlAttributesFactory<L,D,CATEGORY,CRITERIA,OPTION,SET,ITEM,DATA> xmlAttributes(QueryAttribute query) {return new XmlAttributesFactory<>(query);}
+	public XmlAttributesFactory<L,D,CAT,CATEGORY,CRITERIA,OPTION,SET,ITEM,DATA> xmlAttributes(QueryAttribute query) {return new XmlAttributesFactory<>(query);}
 	public XmlAttributeFactory<L,D,CRITERIA,OPTION,ITEM,DATA> xmlAttribute(QueryAttribute query) {return new XmlAttributeFactory<L,D,CRITERIA,OPTION,ITEM,DATA>(query);}
 	
-	public JsonAttributeDataFactory<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> jsonData(String localeCode, JsonAttributeData q){return new JsonAttributeDataFactory<>(localeCode,q);} 
+	public JsonAttributeDataFactory<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> jsonData(String localeCode, JsonAttributeData q){return new JsonAttributeDataFactory<>(localeCode,q);} 
 	
-	public AttributeHandler<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> handler(JeeslFacesMessageBean bMessage, JeeslIoAttributeFacade<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fAttribute, JeeslAttributeBean<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> bAttribute, AttributeBean<CONTAINER> bean)
+	public AttributeHandler<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> handler(JeeslFacesMessageBean bMessage, JeeslIoAttributeFacade<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fAttribute, JeeslAttributeBean<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> bAttribute, AttributeBean<CONTAINER> bean)
 	{
 		return new AttributeHandler<>(bMessage,fAttribute,bAttribute,this,bean);
 	}

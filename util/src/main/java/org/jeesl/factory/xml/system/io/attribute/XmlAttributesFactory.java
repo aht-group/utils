@@ -1,5 +1,6 @@
 package org.jeesl.factory.xml.system.io.attribute;
 
+import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCategory;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCriteria;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeData;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeItem;
@@ -14,10 +15,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class XmlAttributesFactory <L extends JeeslLang, D extends JeeslDescription,
+									CAT extends JeeslAttributeCategory<L,D,?,CAT,?>,
 									CATEGORY extends JeeslStatus<L,D,CATEGORY>,
-									CRITERIA extends JeeslAttributeCriteria<L,D,?,CATEGORY,?,OPTION>,
+									CRITERIA extends JeeslAttributeCriteria<L,D,?,CAT,CATEGORY,?,OPTION>,
 									OPTION extends JeeslAttributeOption<L,D,CRITERIA>,
-									SET extends JeeslAttributeSet<L,D,?,CATEGORY,ITEM>,
+									SET extends JeeslAttributeSet<L,D,?,CAT,CATEGORY,ITEM>,
 									ITEM extends JeeslAttributeItem<CRITERIA,SET>,
 									DATA extends JeeslAttributeData<CRITERIA,OPTION,?>>
 {

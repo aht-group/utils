@@ -1,5 +1,6 @@
 package org.jeesl.factory.ejb.io.attribute;
 
+import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCategory;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeItem;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeSet;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
@@ -9,8 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbAttributeSetFactory<L extends JeeslLang, D extends JeeslDescription,
+									CAT extends JeeslAttributeCategory<L,D,?,CAT,?>,
 									CATEGORY extends JeeslStatus<L,D,CATEGORY>,
-									SET extends JeeslAttributeSet<L,D,?,CATEGORY,ITEM>,
+									SET extends JeeslAttributeSet<L,D,?,CAT,CATEGORY,ITEM>,
 									ITEM extends JeeslAttributeItem<?,SET>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbAttributeSetFactory.class);

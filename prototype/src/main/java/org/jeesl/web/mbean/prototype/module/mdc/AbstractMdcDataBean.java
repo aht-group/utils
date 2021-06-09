@@ -36,8 +36,8 @@ public abstract class AbstractMdcDataBean <L extends JeeslLang, D extends JeeslD
 								
 								CDATA extends JeeslMdcData<COLLECTION,ACON>,
 								
-								ACRIT extends JeeslAttributeCriteria<L,D,R,?,?,?>,
-								ASET extends JeeslAttributeSet<L,D,R,?,AITEM>,
+								ACRIT extends JeeslAttributeCriteria<L,D,R,?,?,?,?>,
+								ASET extends JeeslAttributeSet<L,D,R,?,?,AITEM>,
 								AITEM extends JeeslAttributeItem<ACRIT,ASET>,
 								ACON extends JeeslAttributeContainer<ASET,ADATA>,
 								ADATA extends JeeslAttributeData<ACRIT,?,ACON>
@@ -48,7 +48,7 @@ public abstract class AbstractMdcDataBean <L extends JeeslLang, D extends JeeslD
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractMdcDataBean.class);
 	
-	private final IoAttributeFactoryBuilder<L,D,R,?,?,?,?,ASET,AITEM,ACON,ADATA> fbAttribute;
+	private final IoAttributeFactoryBuilder<L,D,R,?,?,?,?,?,ASET,AITEM,ACON,ADATA> fbAttribute;
 	
 	private final EjbMdcDataFactory<COLLECTION,CDATA,ACON> efData;
 	
@@ -62,7 +62,7 @@ public abstract class AbstractMdcDataBean <L extends JeeslLang, D extends JeeslD
 	private CDATA data; public CDATA getData() {return data;} public void setData(CDATA data) {this.data = data;}
 	
 	public AbstractMdcDataBean(MdcFactoryBuilder<L,D,LOC,R,COLLECTION,SCOPE,STATUS,CDATA,ASET,ACON> fbMdc,
-								IoAttributeFactoryBuilder<L,D,R,?,?,?,?,ASET,AITEM,ACON,ADATA> fbAttribute)
+								IoAttributeFactoryBuilder<L,D,R,?,?,?,?,?,ASET,AITEM,ACON,ADATA> fbAttribute)
 	{
 		super(fbMdc);
 		this.fbAttribute=fbAttribute;

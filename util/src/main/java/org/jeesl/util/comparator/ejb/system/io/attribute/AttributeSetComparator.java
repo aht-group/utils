@@ -3,13 +3,15 @@ package org.jeesl.util.comparator.ejb.system.io.attribute;
 import java.util.Comparator;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
+import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCategory;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeSet;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AttributeSetComparator<CATEGORY extends JeeslStatus<?,?,CATEGORY>,
-									SET extends JeeslAttributeSet<?,?,?,CATEGORY,?>>
+public class AttributeSetComparator<CAT extends JeeslAttributeCategory<?,?,?,CAT,?>,
+									CATEGORY extends JeeslStatus<?,?,CATEGORY>,
+									SET extends JeeslAttributeSet<?,?,?,CAT,CATEGORY,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(AttributeSetComparator.class);
 
@@ -23,7 +25,7 @@ public class AttributeSetComparator<CATEGORY extends JeeslStatus<?,?,CATEGORY>,
     public Comparator<SET> factory(Type type)
     {
         Comparator<SET> c = null;
-        AttributeSetComparator<CATEGORY,SET> factory = new AttributeSetComparator<CATEGORY,SET>();
+        AttributeSetComparator<CAT,CATEGORY,SET> factory = new AttributeSetComparator<CAT,CATEGORY,SET>();
         switch (type)
         {
             case position: c = factory.new PositionComparator();break;

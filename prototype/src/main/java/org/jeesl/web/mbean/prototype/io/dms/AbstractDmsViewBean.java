@@ -31,6 +31,7 @@ import org.jeesl.interfaces.model.io.fr.JeeslFileMeta;
 import org.jeesl.interfaces.model.io.fr.JeeslFileStorage;
 import org.jeesl.interfaces.model.io.fr.JeeslFileStorageEngine;
 import org.jeesl.interfaces.model.io.fr.JeeslFileType;
+import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCategory;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCriteria;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeData;
@@ -70,11 +71,12 @@ R extends JeeslTenantRealm<L,D,R,?>,
 
 											DS extends JeeslDomainSet<L,D,?>,
 
+											ACAT extends JeeslAttributeCategory<L,D,R,ACAT,?>,
 											ACATEGORY extends JeeslStatus<L,D,ACATEGORY>,
-											ACRITERIA extends JeeslAttributeCriteria<L,D,R,ACATEGORY,ATYPE,AOPTION>,
+											ACRITERIA extends JeeslAttributeCriteria<L,D,R,ACAT,ACATEGORY,ATYPE,AOPTION>,
 											ATYPE extends JeeslStatus<L,D,ATYPE>,
 											AOPTION extends JeeslAttributeOption<L,D,ACRITERIA>,
-											ASET extends JeeslAttributeSet<L,D,R,ACATEGORY,AITEM>,
+											ASET extends JeeslAttributeSet<L,D,R,ACAT,ACATEGORY,AITEM>,
 											AITEM extends JeeslAttributeItem<ACRITERIA,ASET>,
 											ACONTAINER extends JeeslAttributeContainer<ASET,ADATA>,
 											ADATA extends JeeslAttributeData<ACRITERIA,AOPTION,ACONTAINER>
@@ -85,15 +87,15 @@ R extends JeeslTenantRealm<L,D,R,?>,
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractDmsViewBean.class);
 
-	private JeeslIoAttributeFacade<L,D,R,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> fAttribute;
+	private JeeslIoAttributeFacade<L,D,R,ACAT,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> fAttribute;
 	private JeeslIoFrFacade<L,D,?,FSTORAGE,?,FENGINE,FCONTAINER,FMETA,FTYPE,?,?,?> fFr;
 
-	private final IoAttributeFactoryBuilder<L,D,R,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> fbAttribute;
+	private final IoAttributeFactoryBuilder<L,D,R,ACAT,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> fbAttribute;
 //	private final IoFileRepositoryFactoryBuilder<L,D,FSTORAGE,FENGINE,FCONTAINER,FMETA,FTYPE> fbFr;
 
 	protected final SbSingleHandler<DMS> sbhDms; public SbSingleHandler<DMS> getSbhDms() {return sbhDms;}
 
-	private AttributeHandler<L,D,R,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> attributeHandler; public AttributeHandler<L,D,R,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> getAttributeHandler() {return attributeHandler;}
+	private AttributeHandler<L,D,R,ACAT,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> attributeHandler; public AttributeHandler<L,D,R,ACAT,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> getAttributeHandler() {return attributeHandler;}
 	private JeeslFileRepositoryHandler<FSTORAGE,FCONTAINER,FMETA> fileHandler; public JeeslFileRepositoryHandler<FSTORAGE,FCONTAINER,FMETA> getFileHandler() {return fileHandler;}
 
 	private List<FILE> files; public List<FILE> getFiles() {return files;} public void setFiles(List<FILE> files) {this.files = files;}
@@ -104,7 +106,7 @@ R extends JeeslTenantRealm<L,D,R,?>,
 	private FILE file; public FILE getFile() {return file;} public void setFile(FILE file) {this.file = file;}
 
 	public AbstractDmsViewBean(final IoDmsFactoryBuilder<L,D,LOC,DMS,FSTORAGE,S,FILE,VIEW,LAYER> fbDms,
-								final IoAttributeFactoryBuilder<L,D,R,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> fbAttribute,
+								final IoAttributeFactoryBuilder<L,D,R,ACAT,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> fbAttribute,
 								final IoFileRepositoryFactoryBuilder<L,D,LOC,?,FSTORAGE,?,FENGINE,FCONTAINER,FMETA,FTYPE,?,?,?> fbFr)
 	{
 		super(fbDms);
@@ -116,8 +118,8 @@ R extends JeeslTenantRealm<L,D,R,?>,
 	protected void postConstructDmsView(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
 								JeeslIoDmsFacade<L,D,LOC,DMS,FSTORAGE,ASET,DS,S,FILE,VIEW,FCONTAINER,ACONTAINER> fDms,
 								JeeslIoFrFacade<L,D,?,FSTORAGE,?,FENGINE,FCONTAINER,FMETA,FTYPE,?,?,?> fFr,
-								JeeslIoAttributeFacade<L,D,R,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> fAttribute,
-								JeeslAttributeBean<L,D,R,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> bAttribute,
+								JeeslIoAttributeFacade<L,D,R,ACAT,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> fAttribute,
+								JeeslAttributeBean<L,D,R,ACAT,ACATEGORY,ACRITERIA,ATYPE,AOPTION,ASET,AITEM,ACONTAINER,ADATA> bAttribute,
 								JeeslFileRepositoryHandler<FSTORAGE,FCONTAINER,FMETA> fileHandler
 								)
 	{

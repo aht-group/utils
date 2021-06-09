@@ -13,6 +13,7 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.io.IoAttributeFactoryBuilder;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
+import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCategory;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCriteria;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeData;
@@ -32,15 +33,16 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public abstract class AbstractAdminIoAttributePoolBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 												R extends JeeslTenantRealm<L,D,R,?>,
+												CAT extends JeeslAttributeCategory<L,D,R,CAT,?>,
 												CATEGORY extends JeeslStatus<L,D,CATEGORY>,
-												CRITERIA extends JeeslAttributeCriteria<L,D,R,CATEGORY,TYPE,OPTION>,
+												CRITERIA extends JeeslAttributeCriteria<L,D,R,CAT,CATEGORY,TYPE,OPTION>,
 												TYPE extends JeeslStatus<L,D,TYPE>,
 												OPTION extends JeeslAttributeOption<L,D,CRITERIA>,
-												SET extends JeeslAttributeSet<L,D,R,CATEGORY,ITEM>,
+												SET extends JeeslAttributeSet<L,D,R,CAT,CATEGORY,ITEM>,
 												ITEM extends JeeslAttributeItem<CRITERIA,SET>,
 												CONTAINER extends JeeslAttributeContainer<SET,DATA>,
 												DATA extends JeeslAttributeData<CRITERIA,OPTION,CONTAINER>>
-					extends AbstractAdminIoAttributeBean<L,D,LOC,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA>
+					extends AbstractAdminIoAttributeBean<L,D,LOC,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA>
 					implements Serializable,SbToggleBean
 {
 	private static final long serialVersionUID = 1L;
@@ -52,11 +54,11 @@ public abstract class AbstractAdminIoAttributePoolBean <L extends JeeslLang, D e
 	private CRITERIA criteria; public CRITERIA getCriteria() {return criteria;} public void setCriteria(CRITERIA criteria) {this.criteria = criteria;}
 	private OPTION option; public OPTION getOption() {return option;} public void setOption(OPTION option) {this.option = option;}
 	
-	public AbstractAdminIoAttributePoolBean(IoAttributeFactoryBuilder<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fbAttribute){super(fbAttribute);}
+	public AbstractAdminIoAttributePoolBean(IoAttributeFactoryBuilder<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fbAttribute){super(fbAttribute);}
 	
 	protected void initAttributePool(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslAttributeBean<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> bAttribute,
-									JeeslIoAttributeFacade<L,D,R,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fAttribute)
+									JeeslAttributeBean<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> bAttribute,
+									JeeslIoAttributeFacade<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fAttribute)
 	{
 		super.initAttribute(bTranslation,bMessage,bAttribute,fAttribute);
 		reloadCriterias();
