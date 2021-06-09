@@ -1174,8 +1174,14 @@ body, .ui-widget {
 		.ui-panel {
 			@include jeesl-panel-titlebar;
 			
+			margin-bottom: 10px;
+			
 			@media (max-width: 768px) {
 				padding: 0;
+			}
+			
+			&:last-child {
+				margin-bottom: 0;
 			}
 			
 			&.jeesl-editor {

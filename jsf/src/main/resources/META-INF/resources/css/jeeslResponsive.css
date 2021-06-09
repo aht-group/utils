@@ -847,102 +847,36 @@ body, .ui-widget {
  * TREE ANIMATION *
  ******************/
 /******************/
-.jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar {
-  box-sizing: border-box;
-  display: flex;
-  height: 22px;
-  margin-bottom: 2px;
-  padding: 0 0 0 10px; }
-  @media (max-width: 768px) {
-    .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar {
-      border: 0 solid #00663a;
-      border-bottom-width: 4px;
-      border-radius: 3px 3px 0 0;
-      height: 46px; } }
-  .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-title {
-    font-weight: 700;
-    flex-grow: 1;
-    line-height: 22px; }
-    @media (max-width: 768px) {
-      .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-title {
-        font-size: 1.4em;
-        letter-spacing: -.5px; } }
-    @media (max-width: 768px) {
-      .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-title {
-        color: #00663a;
-        line-height: 42px; } }
-  .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions {
-    float: none;
-    height: 100%; }
-    .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions .pf-action-icon, .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions .jeesl-action-icon {
-      box-sizing: border-box;
-      display: inline-block;
-      height: 100%;
-      margin: 0;
-      padding: 4px 0;
-      transition: background .2s linear; }
-      @media (max-width: 768px) {
-        .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions .pf-action-icon, .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions .jeesl-action-icon {
-          padding: 7px 0 6px; } }
-      .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions .pf-action-icon:hover, .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions .jeesl-action-icon:hover {
-        background: #c4c4c4; }
-      .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions .pf-action-icon img, .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions .jeesl-action-icon img {
-        padding: 0 4px; }
-        @media (max-width: 768px) {
-          .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions .pf-action-icon img, .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions .jeesl-action-icon img {
-            border-left: 1px solid #a8a8a8;
-            padding: 0 6px; } }
-    .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions img {
-      height: 100%; }
-@media (max-width: 768px) {
-  .jeesl-content .jeesl-content-container .ui-panel {
-    padding: 0; } }
-.jeesl-content .jeesl-content-container .ui-panel.jeesl-editor .ui-widget-content {
-  margin: 0 -.2em -.2em;
-  padding: 0 !important; }
-  @media (max-width: 768px) {
-    .jeesl-content .jeesl-content-container .ui-panel.jeesl-editor .ui-widget-content {
-      margin: 0; } }
-  .jeesl-content .jeesl-content-container .ui-panel.jeesl-editor .ui-widget-content .ql-toolbar {
-    border: 0;
-    margin: 0; }
-  .jeesl-content .jeesl-content-container .ui-panel.jeesl-editor .ui-widget-content .ql-container {
-    border: solid #c4c4c4;
-    border-radius: 0 0 3px 3px;
-    border-width: 1px 0 0;
-    overflow: hidden; }
-    .jeesl-content .jeesl-content-container .ui-panel.jeesl-editor .ui-widget-content .ql-container .ql-editor {
-      background: white; }
-.jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable {
-  margin: 0; }
-  .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header {
+.jeesl-content .jeesl-content-container .ui-panel {
+  margin-bottom: 10px; }
+  .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar {
     box-sizing: border-box;
     display: flex;
     height: 22px;
     margin-bottom: 2px;
     padding: 0 0 0 10px; }
     @media (max-width: 768px) {
-      .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header {
+      .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar {
         border: 0 solid #00663a;
         border-bottom-width: 4px;
         border-radius: 3px 3px 0 0;
         height: 46px; } }
-    .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-title {
+    .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-title {
       font-weight: 700;
       flex-grow: 1;
       line-height: 22px; }
       @media (max-width: 768px) {
-        .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-title {
+        .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-title {
           font-size: 1.4em;
           letter-spacing: -.5px; } }
       @media (max-width: 768px) {
-        .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-title {
+        .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-title {
           color: #00663a;
           line-height: 42px; } }
-    .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions {
+    .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions {
       float: none;
       height: 100%; }
-      .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions .pf-action-icon, .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions .jeesl-action-icon {
+      .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions .pf-action-icon, .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions .jeesl-action-icon {
         box-sizing: border-box;
         display: inline-block;
         height: 100%;
@@ -950,211 +884,281 @@ body, .ui-widget {
         padding: 4px 0;
         transition: background .2s linear; }
         @media (max-width: 768px) {
-          .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions .pf-action-icon, .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions .jeesl-action-icon {
+          .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions .pf-action-icon, .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions .jeesl-action-icon {
             padding: 7px 0 6px; } }
-        .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions .pf-action-icon:hover, .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions .jeesl-action-icon:hover {
+        .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions .pf-action-icon:hover, .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions .jeesl-action-icon:hover {
           background: #c4c4c4; }
-        .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions .pf-action-icon img, .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions .jeesl-action-icon img {
+        .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions .pf-action-icon img, .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions .jeesl-action-icon img {
           padding: 0 4px; }
           @media (max-width: 768px) {
-            .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions .pf-action-icon img, .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions .jeesl-action-icon img {
+            .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions .pf-action-icon img, .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions .jeesl-action-icon img {
               border-left: 1px solid #a8a8a8;
               padding: 0 6px; } }
-      .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions img {
+      .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions img {
         height: 100%; }
-.jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-tree-droppoint.ui-droppable-active.ui-state-hover {
-  background: #007a45;
-  color: white; }
-.jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode {
-  padding: 0; }
-  .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content {
-    display: flex;
-    height: 22px;
-    width: 100%; }
+  @media (max-width: 768px) {
+    .jeesl-content .jeesl-content-container .ui-panel {
+      padding: 0; } }
+  .jeesl-content .jeesl-content-container .ui-panel:last-child {
+    margin-bottom: 0; }
+  .jeesl-content .jeesl-content-container .ui-panel.jeesl-editor .ui-widget-content {
+    margin: 0 -.2em -.2em;
+    padding: 0 !important; }
     @media (max-width: 768px) {
-      .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content {
-        font-size: 1.1em; } }
-    @media (max-width: 768px) {
-      .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content {
-        border-bottom: 2px solid #c4c4c4;
-        box-sizing: border-box;
-        height: 50px;
-        line-height: 50px; } }
-    @media (max-width: 768px) {
-      .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content.ui-droppable {
-        height: 46px;
-        line-height: 42px; } }
-    .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content.ui-droppable-active .ui-treenode-label.ui-state-hover {
-      background: #007a45;
-      color: white; }
-    @media (max-width: 768px) {
-      .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content .ui-treenode-leaf-icon {
-        display: none; }
-        .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content .ui-treenode-leaf-icon ~ .ui-treenode-label {
-          padding-left: 43px; } }
-    .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content .ui-tree-toggler {
-      background: none;
-      height: 100%;
-      text-align: center;
-      text-indent: 0; }
+      .jeesl-content .jeesl-content-container .ui-panel.jeesl-editor .ui-widget-content {
+        margin: 0; } }
+    .jeesl-content .jeesl-content-container .ui-panel.jeesl-editor .ui-widget-content .ql-toolbar {
+      border: 0;
+      margin: 0; }
+    .jeesl-content .jeesl-content-container .ui-panel.jeesl-editor .ui-widget-content .ql-container {
+      border: solid #c4c4c4;
+      border-radius: 0 0 3px 3px;
+      border-width: 1px 0 0;
+      overflow: hidden; }
+      .jeesl-content .jeesl-content-container .ui-panel.jeesl-editor .ui-widget-content .ql-container .ql-editor {
+        background: white; }
+  .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable {
+    margin: 0; }
+    .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header {
+      box-sizing: border-box;
+      display: flex;
+      height: 22px;
+      margin-bottom: 2px;
+      padding: 0 0 0 10px; }
       @media (max-width: 768px) {
-        .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content .ui-tree-toggler {
-          width: 40px; } }
-      .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content .ui-tree-toggler:hover {
-        background: #c4c4c4; }
-      .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content .ui-tree-toggler:after {
-        border-color: transparent transparent transparent #545454;
-        border-style: solid;
-        border-width: 4px 0 4px 4px;
-        content: '';
-        position: absolute;
-        top: 0;
-        margin-top: 0;
-        display: block;
-        display: inline-block;
-        position: relative;
-        vertical-align: middle; }
+        .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header {
+          border: 0 solid #00663a;
+          border-bottom-width: 4px;
+          border-radius: 3px 3px 0 0;
+          height: 46px; } }
+      .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-title {
+        font-weight: 700;
+        flex-grow: 1;
+        line-height: 22px; }
         @media (max-width: 768px) {
-          .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content .ui-tree-toggler:after {
-            border-width: 8px 0 8px 8px; } }
-      .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content .ui-tree-toggler.ui-icon-triangle-1-s:after {
-        transform: rotate(90deg); }
-    .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content .ui-treenode-label {
+          .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-title {
+            font-size: 1.4em;
+            letter-spacing: -.5px; } }
+        @media (max-width: 768px) {
+          .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-title {
+            color: #00663a;
+            line-height: 42px; } }
+      .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions {
+        float: none;
+        height: 100%; }
+        .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions .pf-action-icon, .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions .jeesl-action-icon {
+          box-sizing: border-box;
+          display: inline-block;
+          height: 100%;
+          margin: 0;
+          padding: 4px 0;
+          transition: background .2s linear; }
+          @media (max-width: 768px) {
+            .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions .pf-action-icon, .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions .jeesl-action-icon {
+              padding: 7px 0 6px; } }
+          .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions .pf-action-icon:hover, .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions .jeesl-action-icon:hover {
+            background: #c4c4c4; }
+          .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions .pf-action-icon img, .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions .jeesl-action-icon img {
+            padding: 0 4px; }
+            @media (max-width: 768px) {
+              .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions .pf-action-icon img, .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions .jeesl-action-icon img {
+                border-left: 1px solid #a8a8a8;
+                padding: 0 6px; } }
+        .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions img {
+          height: 100%; }
+  .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-tree-droppoint.ui-droppable-active.ui-state-hover {
+    background: #007a45;
+    color: white; }
+  .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode {
+    padding: 0; }
+    .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content {
+      display: flex;
+      height: 22px;
+      width: 100%; }
+      @media (max-width: 768px) {
+        .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content {
+          font-size: 1.1em; } }
+      @media (max-width: 768px) {
+        .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content {
+          border-bottom: 2px solid #c4c4c4;
+          box-sizing: border-box;
+          height: 50px;
+          line-height: 50px; } }
+      @media (max-width: 768px) {
+        .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content.ui-droppable {
+          height: 46px;
+          line-height: 42px; } }
+      .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content.ui-droppable-active .ui-treenode-label.ui-state-hover {
+        background: #007a45;
+        color: white; }
+      @media (max-width: 768px) {
+        .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content .ui-treenode-leaf-icon {
+          display: none; }
+          .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content .ui-treenode-leaf-icon ~ .ui-treenode-label {
+            padding-left: 43px; } }
+      .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content .ui-tree-toggler {
+        background: none;
+        height: 100%;
+        text-align: center;
+        text-indent: 0; }
+        @media (max-width: 768px) {
+          .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content .ui-tree-toggler {
+            width: 40px; } }
+        .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content .ui-tree-toggler:hover {
+          background: #c4c4c4; }
+        .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content .ui-tree-toggler:after {
+          border-color: transparent transparent transparent #545454;
+          border-style: solid;
+          border-width: 4px 0 4px 4px;
+          content: '';
+          position: absolute;
+          top: 0;
+          margin-top: 0;
+          display: block;
+          display: inline-block;
+          position: relative;
+          vertical-align: middle; }
+          @media (max-width: 768px) {
+            .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content .ui-tree-toggler:after {
+              border-width: 8px 0 8px 8px; } }
+        .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content .ui-tree-toggler.ui-icon-triangle-1-s:after {
+          transform: rotate(90deg); }
+      .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content .ui-treenode-label {
+        border-radius: 0;
+        flex: 1; }
+        .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content .ui-treenode-label.ui-state-hover {
+          background: #c4c4c4;
+          box-shadow: none; }
+  .jeesl-content .jeesl-content-container .ui-panel .jeesl-tabs {
+    border: 0;
+    margin: 4px calc(-.2em - 10px); }
+    @media (max-width: 768px) {
+      .jeesl-content .jeesl-content-container .ui-panel .jeesl-tabs {
+        margin: 4px -10px; } }
+    .jeesl-content .jeesl-content-container .ui-panel .jeesl-tabs.jeesl-editor:first-child {
+      margin-top: calc(-.2em - 4px); }
+      @media (max-width: 768px) {
+        .jeesl-content .jeesl-content-container .ui-panel .jeesl-tabs.jeesl-editor:first-child {
+          margin-top: -4px; } }
+    .jeesl-content .jeesl-content-container .ui-panel .jeesl-tabs.jeesl-editor:last-child {
+      margin-bottom: calc(-.2em - 4px); }
+      @media (max-width: 768px) {
+        .jeesl-content .jeesl-content-container .ui-panel .jeesl-tabs.jeesl-editor:last-child {
+          margin-bottom: -4px; } }
+      .jeesl-content .jeesl-content-container .ui-panel .jeesl-tabs.jeesl-editor:last-child .ui-widget-content .ql-container {
+        border-bottom: 0;
+        border-radius: 0 0 3px 3px; }
+    .jeesl-content .jeesl-content-container .ui-panel .jeesl-tabs.jeesl-editor .ui-widget-content .ql-container {
       border-radius: 0;
-      flex: 1; }
-      .jeesl-content .jeesl-content-container .ui-panel .ui-tree .ui-treenode .ui-treenode-content .ui-treenode-label.ui-state-hover {
-        background: #c4c4c4;
-        box-shadow: none; }
-.jeesl-content .jeesl-content-container .ui-panel .jeesl-tabs {
-  border: 0;
-  margin: 4px calc(-.2em - 10px); }
-  @media (max-width: 768px) {
-    .jeesl-content .jeesl-content-container .ui-panel .jeesl-tabs {
-      margin: 4px -10px; } }
-  .jeesl-content .jeesl-content-container .ui-panel .jeesl-tabs.jeesl-editor:first-child {
-    margin-top: calc(-.2em - 4px); }
+      border-width: 1px 0; }
+  .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-fluid .p-grid {
+    position: relative; }
     @media (max-width: 768px) {
-      .jeesl-content .jeesl-content-container .ui-panel .jeesl-tabs.jeesl-editor:first-child {
-        margin-top: -4px; } }
-  .jeesl-content .jeesl-content-container .ui-panel .jeesl-tabs.jeesl-editor:last-child {
-    margin-bottom: calc(-.2em - 4px); }
+      .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-fluid .p-grid {
+        display: block;
+        padding: 4px 0 0; } }
     @media (max-width: 768px) {
-      .jeesl-content .jeesl-content-container .ui-panel .jeesl-tabs.jeesl-editor:last-child {
-        margin-bottom: -4px; } }
-    .jeesl-content .jeesl-content-container .ui-panel .jeesl-tabs.jeesl-editor:last-child .ui-widget-content .ql-container {
-      border-bottom: 0;
-      border-radius: 0 0 3px 3px; }
-  .jeesl-content .jeesl-content-container .ui-panel .jeesl-tabs.jeesl-editor .ui-widget-content .ql-container {
-    border-radius: 0;
-    border-width: 1px 0; }
-.jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-fluid .p-grid {
-  position: relative; }
-  @media (max-width: 768px) {
-    .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-fluid .p-grid {
-      display: block;
-      padding: 4px 0 0; } }
-  @media (max-width: 768px) {
-    .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-fluid .p-grid .p-col.ui-outputlabel {
-      left: 50%;
-      line-height: 14px;
-      padding: 0;
-      position: absolute;
-      top: 0;
-      transform: translate(-50%, 0); }
-      .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-fluid .p-grid .p-col.ui-outputlabel:first-child {
-        left: 15px;
-        transform: none; }
-      .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-fluid .p-grid .p-col.ui-outputlabel:last-child {
-        left: auto;
-        right: 15px;
-        transform: none; } }
-  @media (max-width: 768px) {
-    .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-fluid .p-grid .p-col:not(.ui-outputlabel) {
-      height: 56px;
-      line-height: 50px;
-      padding: 3px 0;
-      width: 100% !important; } }
-  .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-fluid .p-grid .p-col:not(.ui-outputlabel) > * {
-    border-radius: 3px;
-    box-sizing: border-box;
-    height: 100%; }
-    @media (max-width: 768px) {
-      .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-fluid .p-grid .p-col:not(.ui-outputlabel) > * {
-        padding-left: 10px;
-        width: 100%; } }
-  .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-fluid .p-grid .p-col:not(.ui-outputlabel) > span {
-    display: inline-block; }
-    @media (max-width: 768px) {
-      .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-fluid .p-grid .p-col:not(.ui-outputlabel) > span {
-        background: #dedede; } }
-.jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-galleria {
-  width: 100% !important; }
-  .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-galleria .ui-galleria-panel-wrapper {
-    margin: 0 auto; }
-  .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-galleria .ui-galleria-filmstrip-wrapper {
-    height: 50px !important;
-    margin: 0;
-    width: 100% !important; }
-  .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-galleria .ui-icon {
-    background-image: none;
-    bottom: 0 !important;
-    height: 50px;
-    width: 42px;
-    text-align: center;
-    text-indent: initial;
-    transition: background .2s linear; }
-    .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-galleria .ui-icon:hover {
-      background: #c4c4c4; }
-    .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-galleria .ui-icon.ui-icon-circle-triangle-w {
-      left: 0; }
-      .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-galleria .ui-icon.ui-icon-circle-triangle-w:before {
-        border-color: transparent #545454 transparent transparent;
-        border-style: solid;
-        border-width: 8px 8px 8px 0;
-        content: '';
+      .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-fluid .p-grid .p-col.ui-outputlabel {
+        left: 50%;
+        line-height: 14px;
+        padding: 0;
         position: absolute;
         top: 0;
-        margin-top: 0;
-        display: block;
-        display: inline-block;
-        position: relative;
-        vertical-align: middle; }
-    .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-galleria .ui-icon.ui-icon-circle-triangle-e {
-      right: 0; }
-      .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-galleria .ui-icon.ui-icon-circle-triangle-e:before {
-        border-color: transparent transparent transparent #545454;
-        border-style: solid;
-        border-width: 8px 0 8px 8px;
-        content: '';
-        position: absolute;
-        top: 0;
-        margin-top: 0;
-        display: block;
-        display: inline-block;
-        position: relative;
-        vertical-align: middle; }
-    .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-galleria .ui-icon:after {
-      content: '';
-      display: inline-block;
-      height: 100%;
-      position: relative;
-      vertical-align: middle; }
-  .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-galleria .ui-galleria-caption {
+        transform: translate(-50%, 0); }
+        .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-fluid .p-grid .p-col.ui-outputlabel:first-child {
+          left: 15px;
+          transform: none; }
+        .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-fluid .p-grid .p-col.ui-outputlabel:last-child {
+          left: auto;
+          right: 15px;
+          transform: none; } }
+    @media (max-width: 768px) {
+      .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-fluid .p-grid .p-col:not(.ui-outputlabel) {
+        height: 56px;
+        line-height: 50px;
+        padding: 3px 0;
+        width: 100% !important; } }
+    .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-fluid .p-grid .p-col:not(.ui-outputlabel) > * {
+      border-radius: 3px;
+      box-sizing: border-box;
+      height: 100%; }
+      @media (max-width: 768px) {
+        .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-fluid .p-grid .p-col:not(.ui-outputlabel) > * {
+          padding-left: 10px;
+          width: 100%; } }
+    .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-fluid .p-grid .p-col:not(.ui-outputlabel) > span {
+      display: inline-block; }
+      @media (max-width: 768px) {
+        .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-fluid .p-grid .p-col:not(.ui-outputlabel) > span {
+          background: #dedede; } }
+  .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-galleria {
     width: 100% !important; }
-.jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-galleria {
-  border: 0;
-  margin: -6px -10px -4px;
-  max-width: calc(100% + 20px);
-  width: calc(100% + 20px) !important; }
-@media (max-width: 768px) {
-  .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-separator {
-    background: #dedede;
-    height: 2px;
-    margin: 6px 0; } }
-@media (max-width: 768px) {
-  .jeesl-content .jeesl-content-container .ui-panel .ui-panel-footer {
-    margin: 5px 0 0;
-    border-width: 4px 0 0; } }
+    .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-galleria .ui-galleria-panel-wrapper {
+      margin: 0 auto; }
+    .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-galleria .ui-galleria-filmstrip-wrapper {
+      height: 50px !important;
+      margin: 0;
+      width: 100% !important; }
+    .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-galleria .ui-icon {
+      background-image: none;
+      bottom: 0 !important;
+      height: 50px;
+      width: 42px;
+      text-align: center;
+      text-indent: initial;
+      transition: background .2s linear; }
+      .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-galleria .ui-icon:hover {
+        background: #c4c4c4; }
+      .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-galleria .ui-icon.ui-icon-circle-triangle-w {
+        left: 0; }
+        .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-galleria .ui-icon.ui-icon-circle-triangle-w:before {
+          border-color: transparent #545454 transparent transparent;
+          border-style: solid;
+          border-width: 8px 8px 8px 0;
+          content: '';
+          position: absolute;
+          top: 0;
+          margin-top: 0;
+          display: block;
+          display: inline-block;
+          position: relative;
+          vertical-align: middle; }
+      .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-galleria .ui-icon.ui-icon-circle-triangle-e {
+        right: 0; }
+        .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-galleria .ui-icon.ui-icon-circle-triangle-e:before {
+          border-color: transparent transparent transparent #545454;
+          border-style: solid;
+          border-width: 8px 0 8px 8px;
+          content: '';
+          position: absolute;
+          top: 0;
+          margin-top: 0;
+          display: block;
+          display: inline-block;
+          position: relative;
+          vertical-align: middle; }
+      .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-galleria .ui-icon:after {
+        content: '';
+        display: inline-block;
+        height: 100%;
+        position: relative;
+        vertical-align: middle; }
+    .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-galleria .ui-galleria-caption {
+      width: 100% !important; }
+  .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-galleria {
+    border: 0;
+    margin: -6px -10px -4px;
+    max-width: calc(100% + 20px);
+    width: calc(100% + 20px) !important; }
+  @media (max-width: 768px) {
+    .jeesl-content .jeesl-content-container .ui-panel .ui-panel-content .ui-separator {
+      background: #dedede;
+      height: 2px;
+      margin: 6px 0; } }
+  @media (max-width: 768px) {
+    .jeesl-content .jeesl-content-container .ui-panel .ui-panel-footer {
+      margin: 5px 0 0;
+      border-width: 4px 0 0; } }
 
 @media (max-width: 768px) {
   .jeesl-content .jeesl-content-container .jeesl-grid-1 {
