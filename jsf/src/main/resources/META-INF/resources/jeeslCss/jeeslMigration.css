@@ -1,0 +1,16 @@
+.auContainer {
+  width: auto;
+}
+
+.auContainer .auGrid_1  {width: calc((100% * (1 / 12)) - 10px);}
+.auContainer .auGrid_2  {width: calc((100% * (2 / 12)) - 10px);}
+.auContainer .auGrid_3  {width: calc((100% * (3 / 12)) - 10px);}
+.auContainer .auGrid_4  {width: calc((100% * (4 / 12)) - 10px);}
+.auContainer .auGrid_5  {width: calc((100% * (5 / 12)) - 10px);}
+.auContainer .auGrid_6  {width: calc((100% * (6 / 12)) - 10px);}
+.auContainer .auGrid_7  {width: calc((100% * (7 / 12)) - 10px);}
+.auContainer .auGrid_8  {width: calc((100% * (8 / 12)) - 10px);}
+.auContainer .auGrid_9  {width: calc((100% * (9 / 12)) - 10px);}
+.auContainer .auGrid_10 {width: calc((100% * (10 / 12)) - 10px);}
+.auContainer .auGrid_11 {width: calc((100% * (11 / 12)) - 10px);}
+.auContainer .auGrid_12 {width: calc(100% - 10px);}
