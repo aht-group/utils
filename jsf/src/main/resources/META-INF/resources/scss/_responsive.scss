@@ -284,6 +284,8 @@
 	}
 }
 
+$content-width: 982px;
+
 body {
 	min-width: 400px;
 }
@@ -304,7 +306,7 @@ body, .ui-widget {
 }
 
 #container {
-	max-width: 982px;
+	max-width: $content-width;
 	width: auto;
 }
 
@@ -837,7 +839,7 @@ body, .ui-widget {
 				display: inline-block;
 				vertical-align: top;
 				
-				> * {
+				> *:not(.jeesl-dialog) {
 					width: 100%;
 				}
 			}
@@ -894,6 +896,7 @@ body, .ui-widget {
 		
 		img {
 			padding: 0 4px;
+			vertical-align: top;
 			
 			@media (max-width: 768px) {
 				border-left: 1px solid $border-colour;
@@ -1378,13 +1381,23 @@ body, .ui-widget {
 
 .ui-dialog {
 	@include jeesl-dialog-titlebar;
+
+	max-width: $content-width;
 	
-	@media (max-width: 768px) {
-		left: 15px !important;
-		max-width: none;
-		min-width: 370px;
-		transform: translateX(0);
-		width: calc(100% - 30px) !important;
+	@for $i from 1 to 13 {
+		&.jeesl-dialog-#{$i} {
+			width: calc(#{$content-width} * (#{$i} / 12)) !important;
+			
+			@media (max-width: $content-width) {
+				width: calc(100% * (#{$i} / 12)) !important;
+			}
+	
+			@media (max-width: 768px) {
+				left: 15px !important;
+				transform: translate(0, -50%);
+				width: calc(100% - 30px) !important;
+			}
+		}
 	}
 
 	.ui-dialog-content {
