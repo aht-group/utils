@@ -204,6 +204,7 @@ input[class="ui-spinner-input ui-inputfield ui-state-default ui-corner-all ui-st
 	vertical-align: middle;
 	padding: 6px 0;
 	transform: rotate(180deg);
+	min-width: 12px;
 }
 
 .jeeslPanel .ui-panelgrid .ui-panelgrid-cell {padding-right: 13px;}
