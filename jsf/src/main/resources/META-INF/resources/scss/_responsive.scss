@@ -275,8 +275,14 @@
 				}
 				
 				.jeesl-menu-bar-button-selected-items {
+					padding: 0 5px;
+					
 					@media (max-width: 768px) {
 						display: none;
+					}
+					
+					img {
+						padding: 0 1px;
 					}
 				}
 			}

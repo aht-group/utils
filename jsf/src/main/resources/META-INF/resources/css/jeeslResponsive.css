@@ -269,9 +269,13 @@ body, .ui-widget {
           @media (max-width: 768px) {
             .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button .jeesl-menu-bar-button-summary {
               display: inline-block; } }
-        @media (max-width: 768px) {
-          .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button .jeesl-menu-bar-button-selected-items {
-            display: none; } }
+        .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button .jeesl-menu-bar-button-selected-items {
+          padding: 0 5px; }
+          @media (max-width: 768px) {
+            .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button .jeesl-menu-bar-button-selected-items {
+              display: none; } }
+          .jeesl-breadcrumb-header .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button .jeesl-menu-bar-button-selected-items img {
+            padding: 0 1px; }
   .jeesl-breadcrumb-header .jeesl-menu-bar-list {
     right: 0;
     top: 0;
@@ -538,9 +542,13 @@ body, .ui-widget {
           @media (max-width: 768px) {
             .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button .jeesl-menu-bar-button-summary {
               display: inline-block; } }
-        @media (max-width: 768px) {
-          .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button .jeesl-menu-bar-button-selected-items {
-            display: none; } }
+        .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button .jeesl-menu-bar-button-selected-items {
+          padding: 0 5px; }
+          @media (max-width: 768px) {
+            .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button .jeesl-menu-bar-button-selected-items {
+              display: none; } }
+          .jeesl-status-bar .jeesl-menu-bar-list .jeesl-menu-bar-item .jeesl-menu-bar-button .jeesl-menu-bar-button-selected-items img {
+            padding: 0 1px; }
   .jeesl-status-bar > .jeesl-menu-bar-list > .jeesl-menu-bar-item.jeesl-left:not(:first-child):before, .jeesl-status-bar > .jeesl-menu-bar-list > .jeesl-menu-bar-item.jeesl-right:not(:last-child):before {
     content: '';
     position: initial;
