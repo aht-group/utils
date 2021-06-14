@@ -1,5 +1,10 @@
+body {
+	font-size: 10px;
+}
+
 .auContainer {
-  width: auto;
+	flex: 1;
+	width: auto;
 }
 
 .auContainer .auGrid_1  {width: calc((100% * (1 / 12)) - 10px);}
