@@ -30,6 +30,8 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
+import org.jeesl.interfaces.model.system.tenant.JeeslWithTenantSupport;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -82,6 +84,34 @@ public class JeeslIoAttributeFacadeBean<L extends JeeslLang, D extends JeeslDesc
 			Expression<Long> eRefId = root.get(JeeslAttributeCriteria.Attributes.refId.toString());
 			predicates.add(cB.equal(eRefId,refId));
 		}
+		
+		Path<Integer> pPosition = root.get(JeeslAttributeCriteria.Attributes.position.toString());
+		Path<Integer> pCategoryPosition = jCategory.get(JeeslAttributeCriteria.Attributes.position.toString());
+		
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.orderBy(cB.asc(pCategoryPosition),cB.asc(pPosition));
+		cQ.select(root);
+
+		return em.createQuery(cQ).getResultList();
+	}
+	
+	@Override
+	public <RREF extends EjbWithId> List<CRITERIA> fAttributeCriteria(R realm, RREF rref, List<CAT> categories)
+	{
+		if(categories==null || categories.isEmpty()){return new ArrayList<CRITERIA>();}
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<CRITERIA> cQ = cB.createQuery(fbAttribute.getClassCriteria());
+		Root<CRITERIA> root = cQ.from(fbAttribute.getClassCriteria());
+		
+		Expression<R> rRealm = root.get(JeeslWithTenantSupport.Attributes.realm.toString());
+		predicates.add(cB.equal(rRealm,realm));
+		
+		Expression<Long> eRref = root.get(JeeslWithTenantSupport.Attributes.rref.toString());
+		predicates.add(cB.equal(eRref,rref.getId()));
+		
+		Join<CRITERIA,CATEGORY> jCategory = root.join(JeeslAttributeCriteria.Attributes.category.toString());
+		predicates.add(jCategory.in(categories));
 		
 		Path<Integer> pPosition = root.get(JeeslAttributeCriteria.Attributes.position.toString());
 		Path<Integer> pCategoryPosition = jCategory.get(JeeslAttributeCriteria.Attributes.position.toString());

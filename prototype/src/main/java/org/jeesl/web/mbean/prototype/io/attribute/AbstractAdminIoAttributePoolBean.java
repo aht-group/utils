@@ -25,6 +25,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.jsf.handler.PositionListReorderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +33,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public abstract class AbstractAdminIoAttributePoolBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
-												R extends JeeslTenantRealm<L,D,R,?>,
+												R extends JeeslTenantRealm<L,D,R,?>, RREF extends EjbWithId,
 												CAT extends JeeslAttributeCategory<L,D,R,CAT,?>,
 												CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 												CRITERIA extends JeeslAttributeCriteria<L,D,R,CAT,CATEGORY,TYPE,OPTION>,
@@ -42,19 +43,23 @@ public abstract class AbstractAdminIoAttributePoolBean <L extends JeeslLang, D e
 												ITEM extends JeeslAttributeItem<CRITERIA,SET>,
 												CONTAINER extends JeeslAttributeContainer<SET,DATA>,
 												DATA extends JeeslAttributeData<CRITERIA,OPTION,CONTAINER>>
-					extends AbstractAdminIoAttributeBean<L,D,LOC,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA>
+					extends AbstractAdminIoAttributeBean<L,D,LOC,R,RREF,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA>
 					implements Serializable,SbToggleBean
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAdminIoAttributePoolBean.class);
 		
-	private List<CRITERIA> criterias; public List<CRITERIA> getCriterias() {return criterias;}
+	private final List<CRITERIA> criterias; public List<CRITERIA> getCriterias() {return criterias;}
 	private List<OPTION> options; public List<OPTION> getOptions() {return options;}
 
 	private CRITERIA criteria; public CRITERIA getCriteria() {return criteria;} public void setCriteria(CRITERIA criteria) {this.criteria = criteria;}
 	private OPTION option; public OPTION getOption() {return option;} public void setOption(OPTION option) {this.option = option;}
 	
-	public AbstractAdminIoAttributePoolBean(IoAttributeFactoryBuilder<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fbAttribute){super(fbAttribute);}
+	public AbstractAdminIoAttributePoolBean(IoAttributeFactoryBuilder<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fbAttribute)
+	{
+		super(fbAttribute);
+		criterias = new ArrayList<CRITERIA>();
+	}
 	
 	protected void postConstructAttributePool(R realm,
 			JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
@@ -62,7 +67,6 @@ public abstract class AbstractAdminIoAttributePoolBean <L extends JeeslLang, D e
 			JeeslIoAttributeFacade<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fAttribute)
 	{
 		super.postConstructAttribute(realm,bTranslation,bMessage,bAttribute,fAttribute);
-		reloadCriterias();
 	}
 	
 	protected void initAttributePool(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
@@ -71,6 +75,14 @@ public abstract class AbstractAdminIoAttributePoolBean <L extends JeeslLang, D e
 	{
 		super.initAttribute(bTranslation,bMessage,bAttribute,fAttribute);
 		reloadCriterias();
+	}
+	
+	protected void updateRealm(RREF rref)
+	{
+		this.rref=null;
+		this.reset(true,true);
+		sbhCat.clear();
+		reloadCategories();
 	}
 	
 	public void toggled(Class<?> c)
@@ -94,8 +106,10 @@ public abstract class AbstractAdminIoAttributePoolBean <L extends JeeslLang, D e
 	
 	protected void reloadCriterias()
 	{
-		if(refId<0) {criterias = new ArrayList<CRITERIA>();}
-		else {criterias = fAttribute.fAttributeCriteria(sbhCategory.getSelected(),refId);}
+		criterias.clear();
+		if(realm!=null && rref!=null) {}
+		if(refId<0) {}
+		else {criterias.addAll(fAttribute.fAttributeCriteria(sbhCategory.getSelected(),refId));}
 		if(debugOnInfo) {logger.info(AbstractLogMessage.reloaded(fbAttribute.getClassCriteria(),criterias));}
 	}
 	
@@ -111,8 +125,7 @@ public abstract class AbstractAdminIoAttributePoolBean <L extends JeeslLang, D e
 	public void saveCriteria() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(criteria));}
-		criteria.setCategory(fAttribute.find(fbAttribute.getClassCategory(),criteria.getCategory()));
-		criteria.setType(fAttribute.find(fbAttribute.getClassType(),criteria.getType()));
+		efCriteria.converter(fAttribute,criteria);
 		criteria = fAttribute.save(criteria);
 		bAttribute.updateCriteria(criteria);
 		reloadCriterias();

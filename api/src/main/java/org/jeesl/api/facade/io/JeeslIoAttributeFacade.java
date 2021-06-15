@@ -17,6 +17,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 
 public interface JeeslIoAttributeFacade <L extends JeeslLang, D extends JeeslDescription,
 										R extends JeeslTenantRealm<L,D,R,?>,
@@ -33,7 +34,9 @@ public interface JeeslIoAttributeFacade <L extends JeeslLang, D extends JeeslDes
 {	
 	SET load(SET set);
 	
+	
 	List<CRITERIA> fAttributeCriteria(List<CATEGORY> categories, long refId);
+	<RREF extends EjbWithId> List<CRITERIA> fAttributeCriteria(R realm, RREF rref, List<CAT> categories);
 	List<CRITERIA> fAttributeCriteria(SET set);
 	List<OPTION> fAttributeOption(SET set);
 	

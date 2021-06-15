@@ -1,5 +1,7 @@
 package org.jeesl.factory.ejb.io.attribute;
 
+import org.jeesl.factory.builder.io.IoAttributeFactoryBuilder;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCategory;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeCriteria;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
@@ -18,11 +20,11 @@ public class EjbAttributeCriteriaFactory<L extends JeeslLang, D extends JeeslDes
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbAttributeCriteriaFactory.class);
 	
-	private final Class<CRITERIA> cCriteria;
+	private final IoAttributeFactoryBuilder<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,?,?,?,?,?> fbAttribute;
     
-	public EjbAttributeCriteriaFactory(final Class<CRITERIA> cCriteria)
+	public EjbAttributeCriteriaFactory(IoAttributeFactoryBuilder<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,?,?,?,?,?> fbAttribute)
 	{       
-        this.cCriteria = cCriteria;
+        this.fbAttribute = fbAttribute;
 	}
     
 	public CRITERIA build(CATEGORY category, TYPE type, long refId)
@@ -30,7 +32,7 @@ public class EjbAttributeCriteriaFactory<L extends JeeslLang, D extends JeeslDes
 		CRITERIA ejb = null;
 		try
 		{
-			ejb = cCriteria.newInstance();
+			ejb = fbAttribute.getClassCriteria().newInstance();
 			ejb.setRefId(refId);
 			ejb.setCategory(category);
 			ejb.setType(type);
@@ -40,4 +42,12 @@ public class EjbAttributeCriteriaFactory<L extends JeeslLang, D extends JeeslDes
 		
 		return ejb;
 	}
+	
+	public void converter(JeeslFacade facade, CRITERIA ejb)
+	{
+		if(ejb.getCategory()!=null) {ejb.setCategory(facade.find(fbAttribute.getClassCategory(),ejb.getCategory()));}
+		if(ejb.getCategory2()!=null) {ejb.setCategory2(facade.find(fbAttribute.getClassCat(),ejb.getCategory2()));}
+		if(ejb.getType()!=null) {ejb.setType(facade.find(fbAttribute.getClassType(),ejb.getType()));}
+	}
+	
 }

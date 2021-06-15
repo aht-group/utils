@@ -26,6 +26,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.jsf.handler.PositionListReorderer;
 import org.jeesl.util.comparator.ejb.system.io.attribute.AttributeSetComparator;
 import org.slf4j.Logger;
@@ -34,7 +35,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public abstract class AbstractAdminIoAttributeSetBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
-												R extends JeeslTenantRealm<L,D,R,?>,
+												R extends JeeslTenantRealm<L,D,R,?>, RREF extends EjbWithId,
 												CAT extends JeeslAttributeCategory<L,D,R,CAT,?>,
 												CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 												CRITERIA extends JeeslAttributeCriteria<L,D,R,CAT,CATEGORY,TYPE,OPTION>,
@@ -44,7 +45,7 @@ public abstract class AbstractAdminIoAttributeSetBean <L extends JeeslLang, D ex
 												ITEM extends JeeslAttributeItem<CRITERIA,SET>,
 												CONTAINER extends JeeslAttributeContainer<SET,DATA>,
 												DATA extends JeeslAttributeData<CRITERIA,OPTION,CONTAINER>>
-					extends AbstractAdminIoAttributeBean<L,D,LOC,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA>
+					extends AbstractAdminIoAttributeBean<L,D,LOC,R,RREF,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA>
 					implements Serializable,SbToggleBean
 {
 	private static final long serialVersionUID = 1L;
@@ -72,7 +73,6 @@ public abstract class AbstractAdminIoAttributeSetBean <L extends JeeslLang, D ex
 		super.initAttribute(bTranslation,bMessage,bAttribute,fAttribute);
 		reloadSets();
 	}
-	protected abstract void initPageConfiguration();
 	
 	@Override public void toggled(Class<?> c)
 	{

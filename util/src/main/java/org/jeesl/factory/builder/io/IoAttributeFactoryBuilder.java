@@ -70,7 +70,7 @@ public class IoAttributeFactoryBuilder<L extends JeeslLang, D extends JeeslDescr
 		this.cData=cData;
 	}
 	
-	public EjbAttributeCriteriaFactory<L,D,R,CAT,CATEGORY,CRITERIA,TYPE> ejbCriteria(){return new EjbAttributeCriteriaFactory<>(cCriteria);}
+	public EjbAttributeCriteriaFactory<L,D,R,CAT,CATEGORY,CRITERIA,TYPE> ejbCriteria(){return new EjbAttributeCriteriaFactory<>(this);}
 	public EjbAttributeOptionFactory<CRITERIA,OPTION> ejbOption() {return new EjbAttributeOptionFactory<>(cOption);}
 	public EjbAttributeSetFactory<L,D,CAT,CATEGORY,SET,ITEM> ejbSet() {return new EjbAttributeSetFactory<>(cSet);}
 	public EjbAttributeItemFactory<CRITERIA,SET,ITEM> ejbItem() {return new EjbAttributeItemFactory<>(cItem);}

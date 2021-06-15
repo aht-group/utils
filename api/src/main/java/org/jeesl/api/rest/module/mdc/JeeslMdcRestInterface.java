@@ -13,11 +13,11 @@ import org.jeesl.model.json.module.mdc.JsonMdcData;
 
 public interface JeeslMdcRestInterface
 {
-	@GET @Path("/attribute/set") @Produces(MediaType.APPLICATION_JSON)
-	JsonAttributeSet attributeSet();
-	
 	@GET @Path("/collection") @Produces(MediaType.APPLICATION_JSON)
 	JsonMdcCollection collection();
+	
+	@GET @Path("/attribute/set") @Produces(MediaType.APPLICATION_JSON)
+	JsonAttributeSet attributeSet();
 	
 	@POST @Path("/upload") @Produces(MediaType.APPLICATION_JSON) @Consumes(MediaType.APPLICATION_JSON)
 	JsonMdcData upload(JsonMdcData data);

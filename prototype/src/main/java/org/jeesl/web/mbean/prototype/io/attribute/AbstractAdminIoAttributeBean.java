@@ -26,13 +26,14 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.util.comparator.ejb.system.io.attribute.AttributeCriteriaComparator;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class AbstractAdminIoAttributeBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
-													R extends JeeslTenantRealm<L,D,R,?>,
+													R extends JeeslTenantRealm<L,D,R,?>, RREF extends EjbWithId,
 													CAT extends JeeslAttributeCategory<L,D,R,CAT,?>,
 													CATEGORY extends JeeslStatus<L,D,CATEGORY>,
 													CRITERIA extends JeeslAttributeCriteria<L,D,R,CAT,CATEGORY,TYPE,OPTION>,
@@ -53,7 +54,7 @@ public abstract class AbstractAdminIoAttributeBean <L extends JeeslLang, D exten
 	protected final IoAttributeFactoryBuilder<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fbAttribute;
 	
 	protected final SbMultiHandler<CATEGORY> sbhCategory; public SbMultiHandler<CATEGORY> getSbhCategory() {return sbhCategory;}
-//	protected final SbMultiHandler<CAT> sbhCat; public SbMultiHandler<CAT> getSbhCat() {return sbhCat;}
+	protected final SbMultiHandler<CAT> sbhCat; public SbMultiHandler<CAT> getSbhCat() {return sbhCat;}
 	
 	protected final EjbAttributeCriteriaFactory<L,D,R,CAT,CATEGORY,CRITERIA,TYPE> efCriteria;
 	protected final EjbAttributeOptionFactory<CRITERIA,OPTION> efOption;
@@ -62,6 +63,7 @@ public abstract class AbstractAdminIoAttributeBean <L extends JeeslLang, D exten
 	
 	protected final Comparator<CRITERIA> cpCriteria;
 	protected R realm;
+	protected RREF rref;
 	protected long refId;
 
 	public AbstractAdminIoAttributeBean(IoAttributeFactoryBuilder<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fbAttribute)
@@ -78,7 +80,7 @@ public abstract class AbstractAdminIoAttributeBean <L extends JeeslLang, D exten
 		cpCriteria = (new AttributeCriteriaComparator<CAT,CATEGORY,CRITERIA>()).factory(AttributeCriteriaComparator.Type.position);
 		
 		sbhCategory = new SbMultiHandler<CATEGORY>(fbAttribute.getClassCategory(),this);
-//		sbhCat = new SbMultiHandler<CAT>(fbAttribute.getClassCategory(),this);
+		sbhCat = new SbMultiHandler<CAT>(fbAttribute.getClassCat(),this);
 	}
 	
 	protected void postConstructAttribute(R realm,
@@ -90,7 +92,6 @@ public abstract class AbstractAdminIoAttributeBean <L extends JeeslLang, D exten
 		this.realm=realm;
 		this.fAttribute=fAttribute;
 		this.bAttribute=bAttribute;
-		initPageConfiguration();
 	}
 	
 	protected void initAttribute(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
@@ -100,8 +101,8 @@ public abstract class AbstractAdminIoAttributeBean <L extends JeeslLang, D exten
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fAttribute=fAttribute;
 		this.bAttribute=bAttribute;
-		initPageConfiguration();
+		reloadCategories();
 	}
 	
-	protected abstract void initPageConfiguration();
+	protected abstract void reloadCategories();
 }
