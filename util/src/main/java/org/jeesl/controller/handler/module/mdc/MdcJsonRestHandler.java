@@ -1,5 +1,7 @@
 package org.jeesl.controller.handler.module.mdc;
 
+import javax.ws.rs.PathParam;
+
 import org.jeesl.api.facade.io.JeeslIoAttributeFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
@@ -29,7 +31,9 @@ import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 import org.jeesl.model.json.module.attribute.JsonAttributeData;
 import org.jeesl.model.json.module.attribute.JsonAttributeSet;
 import org.jeesl.model.json.module.mdc.JsonMdcCollection;
+import org.jeesl.model.json.module.mdc.JsonMdcContainer;
 import org.jeesl.model.json.module.mdc.JsonMdcData;
+import org.jeesl.model.json.module.mdc.JsonMdcEnrolment;
 import org.jeesl.util.db.cache.EjbIdCache;
 import org.jeesl.util.query.json.JsonAttributeQueryProvider;
 import org.slf4j.Logger;
@@ -58,6 +62,7 @@ public class MdcJsonRestHandler<L extends JeeslLang, D extends JeeslDescription,
 	
 	private final JeeslIoAttributeFacade<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,ASET,AITEM,ACON,ADATA> fAttribute;
 	
+	private final MdcFactoryBuilder<L,D,LOC,?,COLLECTION,SCOPE,STATUS,CDATA,ASET,ACON> fbMdc;
 	private final IoAttributeFactoryBuilder<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,ASET,AITEM,ACON,ADATA> fbAttribute;
 	
 	private final EjbMdcDataFactory<COLLECTION,CDATA,ACON> efCollectionData;
@@ -73,6 +78,7 @@ public class MdcJsonRestHandler<L extends JeeslLang, D extends JeeslDescription,
 								JeeslIoAttributeFacade<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,ASET,AITEM,ACON,ADATA> fAttribute,
 								String localeCode)
 	{
+		this.fbMdc=fbMdc;
 		this.fbAttribute=fbAttribute;
 		this.fAttribute=fAttribute;
 		
@@ -82,6 +88,33 @@ public class MdcJsonRestHandler<L extends JeeslLang, D extends JeeslDescription,
 		efCollectionData = fbMdc.ejbData();
 		efAttributeContainer = fbAttribute.ejbContainer();
 		efAttributeData = fbAttribute.ejbData();
+	}
+	
+	public JsonMdcContainer enrolment(String token)
+	{
+		JsonMdcContainer json = new JsonMdcContainer();
+		JsonMdcEnrolment enrolment = new JsonMdcEnrolment();
+		enrolment.setName(token);
+		json.setEnrolment(enrolment);
+		
+		COLLECTION eCollection = fAttribute.all(fbMdc.getClassActivity(),1).get(0);
+		JsonMdcCollection jCollection = new JsonMdcCollection();
+		jCollection.setId(eCollection.getId());
+		json.setCollection(jCollection);
+		
+		return json;
+	}
+	public JsonMdcContainer download(Long id)
+	{
+		JsonMdcContainer json = new JsonMdcContainer();
+		
+		COLLECTION eCollection = fAttribute.all(fbMdc.getClassActivity(),1).get(0);
+		JsonMdcCollection jCollection = new JsonMdcCollection();
+		jCollection.setName(eCollection.getName());
+		jCollection.setCollectionSet(jfAttributeSet.build(eCollection.getCollectionSet()));
+		json.setCollection(jCollection);
+		
+		return json;
 	}
 	
 	public JsonAttributeSet attriubteSetHousehold(ASET set)
