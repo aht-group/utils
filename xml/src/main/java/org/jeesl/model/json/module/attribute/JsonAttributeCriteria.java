@@ -30,6 +30,11 @@ public class JsonAttributeCriteria implements Serializable
 	private Boolean visible;
 	public Boolean getVisible() {return visible;}
 	public void setVisible(Boolean visible) {this.visible = visible;}
+	
+	@JsonProperty("allowEmpty")
+	private Boolean allowEmpty;
+	public Boolean getAllowEmpty() {return allowEmpty;}
+	public void setAllowEmpty(Boolean allowEmpty) {this.allowEmpty = allowEmpty;}
 
 	@JsonProperty("label")
 	private String label;

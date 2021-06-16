@@ -27,7 +27,7 @@ public class JsonAttributeItem implements Serializable
 	private Boolean visible;
 	public Boolean getVisible() {return visible;}
 	public void setVisible(Boolean visible) {this.visible = visible;}
-	
+
 	@JsonProperty("criteria")
 	private JsonAttributeCriteria criteria;
 	public JsonAttributeCriteria getCriteria() {return criteria;}
