@@ -8,6 +8,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,6 +28,7 @@ public class EjbAttributeCriteriaFactory<L extends JeeslLang, D extends JeeslDes
         this.fbAttribute = fbAttribute;
 	}
     
+	@Deprecated
 	public CRITERIA build(CATEGORY category, TYPE type, long refId)
 	{
 		CRITERIA ejb = null;
@@ -35,6 +37,23 @@ public class EjbAttributeCriteriaFactory<L extends JeeslLang, D extends JeeslDes
 			ejb = fbAttribute.getClassCriteria().newInstance();
 			ejb.setRefId(refId);
 			ejb.setCategory(category);
+			ejb.setType(type);
+		}
+		catch (InstantiationException e) {e.printStackTrace();}
+		catch (IllegalAccessException e) {e.printStackTrace();}
+		
+		return ejb;
+	}
+	
+	public <RREF extends EjbWithId> CRITERIA build(R realm, RREF rref, CAT category, TYPE type)
+	{
+		CRITERIA ejb = null;
+		try
+		{
+			ejb = fbAttribute.getClassCriteria().newInstance();
+			ejb.setRealm(realm);
+			ejb.setRref(rref.getId());
+			ejb.setCategory2(category);
 			ejb.setType(type);
 		}
 		catch (InstantiationException e) {e.printStackTrace();}

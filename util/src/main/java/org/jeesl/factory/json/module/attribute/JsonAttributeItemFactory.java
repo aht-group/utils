@@ -52,7 +52,6 @@ public class JsonAttributeItemFactory<L extends JeeslLang, D extends JeeslDescri
 		if(q.getVisible()!=null) {json.setVisible(item.isVisible());}
 		if(q.getCriteria()!=null) {json.setCriteria(jfCriteria.build(item.getCriteria()));}
 		
-		
 		return json;
 	}
 }

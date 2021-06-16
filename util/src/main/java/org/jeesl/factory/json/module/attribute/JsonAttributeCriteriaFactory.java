@@ -63,6 +63,7 @@ public class JsonAttributeCriteriaFactory<L extends JeeslLang, D extends JeeslDe
 		if(q.getId()!=null) {json.setId(criteria.getId());}
 		if(q.getCode()!=null) {json.setCode(criteria.getCode());}
 		if(q.getVisible()!=null) {json.setVisible(criteria.isVisible());}
+		if(q.getAllowEmpty()!=null) {json.setAllowEmpty(criteria.getAllowEmpty());}
 		if(q.getLabel()!=null && criteria.getName().containsKey(localeCode)) {json.setLabel(criteria.getName().get(localeCode).getLang());}
 		if(q.getDescription()!=null && criteria.getDescription().containsKey(localeCode)) {json.setDescription(criteria.getDescription().get(localeCode).getLang());}
 		if(q.getType()!=null) {json.setType(jfType.build(criteria.getType()));}

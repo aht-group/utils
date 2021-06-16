@@ -37,6 +37,7 @@ public class JsonAttributeQueryProvider
 		json.setId(0l);
 		json.setCode("");
 		json.setVisible(true);
+		json.setAllowEmpty(true);
 		json.setLabel("");
 		json.setDescription("");
 		json.setType(JsonStatusQueryProvider.typeCode());
