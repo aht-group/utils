@@ -73,7 +73,7 @@
 						            <p:ajax event="expand" listener="#{cc.attrs.bean.onNodeExpand}"  />
 									<p:ajax event="collapse" listener="#{cc.attrs.bean.onNodeCollapse}" />
 						            <p:treeNode>
-						                <h:outputText value="#{node.name[cc.attrs.bean.sbhLocale.selection.code].lang}" />
+						                <h:outputText value="#{node.name[cc.attrs.bean.sbhLocale.selection.code].lang}" style="#{not node.visible? 'opacity: 0.5; font-style: italic;':''}"/>
 						            </p:treeNode>
 						        </p:tree>
 							</p:panel>
@@ -215,7 +215,7 @@
 						            <p:ajax event="expand" listener="#{cc.attrs.bean.onNodeExpand}" />
 									<p:ajax event="collapse" listener="#{cc.attrs.bean.onNodeCollapse}" />
 						            <p:treeNode>
-						                <h:outputText value="#{node.name[cc.attrs.bean.sbhLocale.selection.code].lang}" />
+						                <h:outputText value="#{node.name[cc.attrs.bean.sbhLocale.selection.code].lang}" style="#{not node.visible? 'opacity: 0.5; font-style: italic;':''}"/>
 						            </p:treeNode>
 						        </p:tree>
 							</p:panel>
