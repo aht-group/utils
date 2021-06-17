@@ -1,10 +1,11 @@
-package org.jeesl.interfaces.model.module.mdc.collection;
+package org.jeesl.interfaces.model.module.mdc.data;
 
 import java.io.Serializable;
 
 import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;
+import org.jeesl.interfaces.model.module.mdc.collection.JeeslMdcCollection;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 
 public interface JeeslMdcData <COLLECTION extends JeeslMdcCollection<?,?,?,?>,
@@ -14,8 +15,8 @@ public interface JeeslMdcData <COLLECTION extends JeeslMdcCollection<?,?,?,?>,
 {
 	public enum Attributes{activity}
 	
-	COLLECTION getActivity();
-	void setActivity(COLLECTION activity);
+	COLLECTION getCollection();
+	void setCollection(COLLECTION activity);
 	
 	ACONTAINER getCollectionContainer();
 	void setCollectionContainer(ACONTAINER collectionContainer);

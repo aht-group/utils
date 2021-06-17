@@ -12,7 +12,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatusFixedCode;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
 
-public interface JeeslMdcType <L extends JeeslLang, D extends JeeslDescription,
+public interface JeeslMdcAccess <L extends JeeslLang, D extends JeeslDescription,
 									S extends JeeslStatus<L,D,S>,
 									G extends JeeslGraphic<L,D,?,?,?>>
 									extends Serializable,EjbPersistable,
@@ -20,5 +20,5 @@ public interface JeeslMdcType <L extends JeeslLang, D extends JeeslDescription,
 										JeeslOptionRestDownload,EjbWithCodeGraphic<G>,
 										JeeslStatus<L,D,S>
 {
-	public static enum Code{uploadRemove};
+	public static enum Code{everyone,token,role};
 }

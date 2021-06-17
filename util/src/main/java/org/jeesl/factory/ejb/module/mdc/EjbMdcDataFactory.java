@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;
 import org.jeesl.interfaces.model.module.mdc.collection.JeeslMdcCollection;
-import org.jeesl.interfaces.model.module.mdc.collection.JeeslMdcData;
+import org.jeesl.interfaces.model.module.mdc.data.JeeslMdcData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +28,7 @@ public class EjbMdcDataFactory<COLLECTION extends JeeslMdcCollection<?,?,?,?>,
 		try
 		{
 			ejb = cData.newInstance();
-			ejb.setActivity(collection);
+			ejb.setCollection(collection);
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();}
