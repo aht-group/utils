@@ -51,8 +51,8 @@ public abstract class AbstractAdminIoAttributeSetBean <L extends JeeslLang, D ex
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAdminIoAttributeSetBean.class);
 		
-	private List<CRITERIA> criterias; public List<CRITERIA> getCriterias() {return criterias;}
-	private List<SET> sets; public List<SET> getSets() {return sets;}
+	private final List<CRITERIA> criterias; public List<CRITERIA> getCriterias() {return criterias;}
+	private final List<SET> sets; public List<SET> getSets() {return sets;}
 	private List<ITEM> items; public List<ITEM> getItems() {return items;}
 	
 	private SET set; public SET getSet() {return set;} public void setSet(SET set) {this.set = set;}
@@ -64,13 +64,35 @@ public abstract class AbstractAdminIoAttributeSetBean <L extends JeeslLang, D ex
 	{
 		super(fbAttribute);
 		comparatorSet = new AttributeSetComparator<CAT,CATEGORY,SET>().factory(AttributeSetComparator.Type.position);
+		criterias = new ArrayList<>();
+		sets = new ArrayList<>();
 	}
 	
+	protected void postConstructAttributePool(R realm,
+			JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
+			JeeslAttributeBean<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> bAttribute,
+			JeeslIoAttributeFacade<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fAttribute)
+	{
+		super.postConstructAttribute(realm,bTranslation,bMessage,bAttribute,fAttribute);
+	}
+	
+	@Deprecated
 	protected void initAttributeSet(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
 									JeeslAttributeBean<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> bAttribute,
 									JeeslIoAttributeFacade<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fAttribute)
 	{
 		super.initAttribute(bTranslation,bMessage,bAttribute,fAttribute);
+		reloadSets();
+	}
+	
+	protected void updateRealm(RREF rref)
+	{
+		this.reset(true,true,true);
+		this.rref=rref;
+		reloadCategories();
+		
+		criterias.addAll(fAttribute.fAttributeCriteria(realm,rref,sbhCat.getSelected()));
+		logger.info("Criterias: "+realm.toString()+" "+rref.toString()+" "+criterias.size());
 		reloadSets();
 	}
 	
@@ -83,25 +105,23 @@ public abstract class AbstractAdminIoAttributeSetBean <L extends JeeslLang, D ex
 		}
 	}
 	
-	public void resetAll() {reset(true,true);}
-	public void resetSet() {reset(true,true);}
-	private void reset(boolean rSet, boolean rItem)
+	public void resetAll() {reset(true,true,true);}
+	public void resetSet() {reset(false,true,true);}
+	private void reset(boolean rCriterias, boolean rSet, boolean rItem)
 	{
+		if(rCriterias) {criterias.clear();}
 		if(rSet) {set=null;}
 		if(rItem){item=null;}
 	}
 	
 	protected void reloadSets()
 	{
-		if(refId<0)
-		{
-			criterias = new ArrayList<CRITERIA>();
-			sets = new ArrayList<SET>();
-		}
+		sets.clear();
+		if(realm!=null && rref!=null) {sets.addAll(fAttribute.fAttributeSets(realm,rref,sbhCat.getSelected()));}
+		if(refId<0){}
 		else
 		{
-			criterias = fAttribute.fAttributeCriteria(sbhCategory.getSelected(),refId);
-			sets = fAttribute.fAttributeSets(sbhCategory.getSelected(), refId);
+			sets.addAll(fAttribute.fAttributeSets(sbhCategory.getSelected(), refId));
 		}
 		if(debugOnInfo) {logger.info(AbstractLogMessage.reloaded(fbAttribute.getClassSet(),sets));}
 	}
@@ -109,7 +129,7 @@ public abstract class AbstractAdminIoAttributeSetBean <L extends JeeslLang, D ex
 	public void addSet()
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbAttribute.getClassCriteria()));}
-		set = efSet.build(sbhCategory.getSelected().get(0),refId);
+		set = efSet.build(realm,rref,sbhCat.getSelected().get(0));
 		set.setName(efLang.createEmpty(localeCodes));
 		set.setDescription(efDescription.createEmpty(localeCodes));
 	}
@@ -117,7 +137,7 @@ public abstract class AbstractAdminIoAttributeSetBean <L extends JeeslLang, D ex
 	public void saveSet() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(set));}
-		set.setCategory(fAttribute.find(fbAttribute.getClassCategory(),set.getCategory()));
+		efSet.converter(fAttribute, set);
 		set = fAttribute.save(set);
 		reloadSets();
 		reloadItems();
@@ -128,7 +148,7 @@ public abstract class AbstractAdminIoAttributeSetBean <L extends JeeslLang, D ex
 		if(debugOnInfo) {logger.info(AbstractLogMessage.rmEntity(set));}
 		fAttribute.rm(set);
 		reloadSets();
-		reset(true,true);
+		reset(false,true,true);
 	}
 	
 	public void selectSet()
@@ -137,7 +157,7 @@ public abstract class AbstractAdminIoAttributeSetBean <L extends JeeslLang, D ex
 		set = efLang.persistMissingLangs(fAttribute,localeCodes,set);
 		set = efDescription.persistMissingLangs(fAttribute,localeCodes,set);
 		reloadItems();
-		reset(false,true);
+		reset(false,false,true);
 	}
 	
 	private void reloadItems()
@@ -166,7 +186,7 @@ public abstract class AbstractAdminIoAttributeSetBean <L extends JeeslLang, D ex
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.rmEntity(item));}
 		fAttribute.rm(item);
-		reset(false,true);
+		reset(false,false,true);
 		reloadItems();
 	}
 	

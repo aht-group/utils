@@ -51,6 +51,7 @@ public abstract class AbstractAdminIoAttributeBean <L extends JeeslLang, D exten
 	
 	protected JeeslIoAttributeFacade<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fAttribute;
 	protected JeeslAttributeBean<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> bAttribute;
+	
 	protected final IoAttributeFactoryBuilder<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fbAttribute;
 	
 	protected final SbMultiHandler<CATEGORY> sbhCategory; public SbMultiHandler<CATEGORY> getSbhCategory() {return sbhCategory;}
@@ -58,7 +59,7 @@ public abstract class AbstractAdminIoAttributeBean <L extends JeeslLang, D exten
 	
 	protected final EjbAttributeCriteriaFactory<L,D,R,CAT,CATEGORY,CRITERIA,TYPE> efCriteria;
 	protected final EjbAttributeOptionFactory<CRITERIA,OPTION> efOption;
-	protected final EjbAttributeSetFactory<L,D,CAT,CATEGORY,SET,ITEM> efSet;
+	protected final EjbAttributeSetFactory<L,D,R,CAT,CATEGORY,SET,ITEM> efSet;
 	protected final EjbAttributeItemFactory<CRITERIA,SET,ITEM> efItem;
 	
 	protected final Comparator<CRITERIA> cpCriteria;

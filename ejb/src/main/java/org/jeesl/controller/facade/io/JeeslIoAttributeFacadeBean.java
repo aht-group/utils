@@ -110,7 +110,7 @@ public class JeeslIoAttributeFacadeBean<L extends JeeslLang, D extends JeeslDesc
 		Expression<Long> eRref = root.get(JeeslWithTenantSupport.Attributes.rref.toString());
 		predicates.add(cB.equal(eRref,rref.getId()));
 		
-		Join<CRITERIA,CATEGORY> jCategory = root.join(JeeslAttributeCriteria.Attributes.category.toString());
+		Join<CRITERIA,CAT> jCategory = root.join(JeeslAttributeCriteria.Attributes.category2.toString());
 		predicates.add(jCategory.in(categories));
 		
 		Path<Integer> pPosition = root.get(JeeslAttributeCriteria.Attributes.position.toString());
@@ -150,8 +150,7 @@ public class JeeslIoAttributeFacadeBean<L extends JeeslLang, D extends JeeslDesc
 		return result;
 	}
 	
-	@Override
-	public List<SET> fAttributeSets(List<CATEGORY> categories, long refId)
+	@Override public List<SET> fAttributeSets(List<CATEGORY> categories, long refId)
 	{
 		if(categories==null || categories.isEmpty()){return new ArrayList<SET>();}
 		List<Predicate> predicates = new ArrayList<Predicate>();
@@ -167,6 +166,33 @@ public class JeeslIoAttributeFacadeBean<L extends JeeslLang, D extends JeeslDesc
 			Expression<Long> eRefId = root.get(JeeslAttributeSet.Attributes.refId.toString());
 			predicates.add(cB.equal(eRefId,refId));
 		}
+		
+		Path<Integer> pPosition = root.get(JeeslAttributeSet.Attributes.position.toString());
+		Path<Integer> pCategoryPosition = jCategory.get(JeeslAttributeSet.Attributes.position.toString());
+		
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.orderBy(cB.asc(pCategoryPosition),cB.asc(pPosition));
+		cQ.select(root);
+
+		return em.createQuery(cQ).getResultList();
+	}
+	
+	@Override public <RREF extends EjbWithId> List<SET> fAttributeSets(R realm, RREF rref, List<CAT> categories)
+	{
+		if(categories==null || categories.isEmpty()){return new ArrayList<SET>();}
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<SET> cQ = cB.createQuery(fbAttribute.getClassSet());
+		Root<SET> root = cQ.from(fbAttribute.getClassSet());
+		
+		Expression<R> rRealm = root.get(JeeslWithTenantSupport.Attributes.realm.toString());
+		predicates.add(cB.equal(rRealm,realm));
+		
+		Expression<Long> eRref = root.get(JeeslWithTenantSupport.Attributes.rref.toString());
+		predicates.add(cB.equal(eRref,rref.getId()));
+		
+		Join<SET,CAT> jCategory = root.join(JeeslAttributeSet.Attributes.category2.toString());
+		predicates.add(jCategory.in(categories));
 		
 		Path<Integer> pPosition = root.get(JeeslAttributeSet.Attributes.position.toString());
 		Path<Integer> pCategoryPosition = jCategory.get(JeeslAttributeSet.Attributes.position.toString());

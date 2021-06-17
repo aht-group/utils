@@ -26,7 +26,7 @@ public interface JeeslIoAttributeFacade <L extends JeeslLang, D extends JeeslDes
 										CRITERIA extends JeeslAttributeCriteria<L,D,R,CAT,CATEGORY,TYPE,OPTION>,
 										TYPE extends JeeslStatus<L,D,TYPE>,
 										OPTION extends JeeslAttributeOption<L,D,CRITERIA>,
-										SET extends JeeslAttributeSet<L,D,?,CAT,CATEGORY,ITEM>,
+										SET extends JeeslAttributeSet<L,D,R,CAT,CATEGORY,ITEM>,
 										ITEM extends JeeslAttributeItem<CRITERIA,SET>,
 										CONTAINER extends JeeslAttributeContainer<SET,DATA>,
 										DATA extends JeeslAttributeData<CRITERIA,OPTION,CONTAINER>>
@@ -37,10 +37,12 @@ public interface JeeslIoAttributeFacade <L extends JeeslLang, D extends JeeslDes
 	
 	List<CRITERIA> fAttributeCriteria(List<CATEGORY> categories, long refId);
 	<RREF extends EjbWithId> List<CRITERIA> fAttributeCriteria(R realm, RREF rref, List<CAT> categories);
+	
 	List<CRITERIA> fAttributeCriteria(SET set);
 	List<OPTION> fAttributeOption(SET set);
 	
 	List<SET> fAttributeSets(List<CATEGORY> categories, long refId);
+	<RREF extends EjbWithId> List<SET> fAttributeSets(R realm, RREF rref, List<CAT> categories);
 	
 	List<DATA> fAttributeData(CONTAINER container);
 	List<DATA> fAttributeData(CRITERIA criteria, List<CONTAINER> containers);

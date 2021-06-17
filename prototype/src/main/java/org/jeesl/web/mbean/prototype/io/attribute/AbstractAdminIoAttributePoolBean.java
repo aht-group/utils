@@ -79,10 +79,10 @@ public abstract class AbstractAdminIoAttributePoolBean <L extends JeeslLang, D e
 	
 	protected void updateRealm(RREF rref)
 	{
-		this.rref=null;
-		this.reset(true,true);
-		sbhCat.clear();
+		this.reset(true,true,true);
+		this.rref=rref;
 		reloadCategories();
+		reloadCriterias();
 	}
 	
 	public void toggled(Class<?> c)
@@ -95,11 +95,11 @@ public abstract class AbstractAdminIoAttributePoolBean <L extends JeeslLang, D e
 		sbhCategory.debug(true);
 	}
 	
-	protected void resetAll() {reset(true,true);}
-	public void resetOption() {reset(false,true);}
-	public void resetCriteria() {reset(true,true);}
-	private void reset(boolean rCriteria, boolean rOption)
+//	private void resetOption() {reset(false,false,true);}
+//	private void resetCriteria() {reset(false,true,true);}
+	private void reset(boolean rCategories, boolean rCriteria, boolean rOption)
 	{
+		if(rCategories) {sbhCat.clear();}
 		if(rCriteria) {criteria=null;}
 		if(rOption) {option=null;}
 	}
@@ -107,8 +107,8 @@ public abstract class AbstractAdminIoAttributePoolBean <L extends JeeslLang, D e
 	protected void reloadCriterias()
 	{
 		criterias.clear();
-		if(realm!=null && rref!=null) {}
-		if(refId<0) {}
+		if(realm!=null && rref!=null) {criterias.addAll(fAttribute.fAttributeCriteria(realm,rref,sbhCat.getSelected()));}
+		else if(refId<0) {}
 		else {criterias.addAll(fAttribute.fAttributeCriteria(sbhCategory.getSelected(),refId));}
 		if(debugOnInfo) {logger.info(AbstractLogMessage.reloaded(fbAttribute.getClassCriteria(),criterias));}
 	}
@@ -119,7 +119,7 @@ public abstract class AbstractAdminIoAttributePoolBean <L extends JeeslLang, D e
 		criteria = efCriteria.build(realm,rref,sbhCat.getSelected().get(0),bAttribute.getTypes().get(0));
 		criteria.setName(efLang.createEmpty(localeCodes));
 		criteria.setDescription(efDescription.createEmpty(localeCodes));
-		reset(false,true);
+		reset(false,false,true);
 	}
 	
 	public void saveCriteria() throws JeeslConstraintViolationException, JeeslLockingException
@@ -138,7 +138,7 @@ public abstract class AbstractAdminIoAttributePoolBean <L extends JeeslLang, D e
 		criteria = efLang.persistMissingLangs(fAttribute,localeCodes,criteria);
 		criteria = efDescription.persistMissingLangs(fAttribute,localeCodes,criteria);
 		reloadOptions();
-		reset(false,true);
+		reset(false,false,true);
 	}
 	
 	public void deleteCriteria() throws JeeslConstraintViolationException
@@ -146,7 +146,7 @@ public abstract class AbstractAdminIoAttributePoolBean <L extends JeeslLang, D e
 		if(debugOnInfo) {logger.info(AbstractLogMessage.rmEntity(criteria));}
 		fAttribute.rm(criteria);
 		reloadCriterias();
-		reset(true,true);
+		reset(false,true,true);
 	}
 	
 	private void reloadOptions()
@@ -188,7 +188,7 @@ public abstract class AbstractAdminIoAttributePoolBean <L extends JeeslLang, D e
 		fAttribute.rm(option);
 		reloadOptions();
 		bAttribute.updateCriteria(option.getCriteria());
-		reset(false,true);
+		reset(false,false,true);
 	}
 	
 	public void reorderCriterias() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fAttribute, fbAttribute.getClassCriteria(),criterias);Collections.sort(criterias,cpCriteria);}

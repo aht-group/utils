@@ -30,6 +30,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
+import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -94,7 +95,7 @@ public class AttributeHandler<L extends JeeslLang, D extends JeeslDescription,
 		if(debugOnInfo) {logger.info("Changed Description to "+showDescription);}
 	}
 	
-	public <E extends Enum<E>> void init(E code)
+	public <RREF extends EjbWithId, E extends Enum<E>> void init(E code)
 	{
 		try {init(fAttribute.fByCode(fbAttribute.getClassSet(), code));}
 		catch (JeeslNotFoundException e) {e.printStackTrace();}

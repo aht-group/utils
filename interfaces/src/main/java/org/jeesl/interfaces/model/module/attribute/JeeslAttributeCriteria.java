@@ -29,7 +29,7 @@ public interface JeeslAttributeCriteria<L extends JeeslLang, D extends JeeslDesc
 					EjbWithLang<L>,EjbWithDescription<D>,
 					JeeslWithTenantSupport<R>
 {
-	public enum Attributes{category,refId,position,type}
+	public enum Attributes{category,category2,refId,position,type}
 	public enum Types{text,bool,intNumber,doubleNumber,date,selectOne,selectMany,remark}
 	
 	CATEGORY getCategory();

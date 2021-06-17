@@ -144,10 +144,7 @@ public abstract class AbstractJsfSecurityHandler <L extends JeeslLang, D extends
 		txtAction = new TxtSecurityActionFactory<L,D,C,R,V,U,A,AT,USER>();
 		
 		roles = bSecurity.fRoles(view);
-		
 		areas = bSecurity.fAreas(view);
-		
-		logger.warn(JeeslSecurityArea.class.getSimpleName()+" "+areas.size());
 		
 		noRoles = roles.size()==0;
 		update();

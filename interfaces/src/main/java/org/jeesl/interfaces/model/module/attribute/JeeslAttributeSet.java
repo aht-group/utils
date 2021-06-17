@@ -9,6 +9,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
+import org.jeesl.interfaces.model.system.tenant.JeeslWithTenantSupport;
 import org.jeesl.interfaces.model.with.primitive.code.EjbWithCode;
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPositionParent;
@@ -22,12 +23,16 @@ public interface JeeslAttributeSet <L extends JeeslLang, D extends JeeslDescript
 									ITEM extends JeeslAttributeItem<?,?>>
 		extends Serializable,EjbSaveable,EjbRemoveable,
 				EjbWithPosition,EjbWithPositionParent,EjbWithCode,
-				EjbWithLang<L>,EjbWithDescription<D>
+				EjbWithLang<L>,EjbWithDescription<D>,
+				JeeslWithTenantSupport<R>
 {
-	public enum Attributes{category,refId,position}
+	public enum Attributes{category,category2,refId,position}
 	
 	CATEGORY getCategory();
 	void setCategory(CATEGORY category);
+	
+	CAT getCategory2();
+	void setCategory2(CAT category2);
 	
 	Long getRefId();
 	void setRefId(Long refId);
