@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractHelpCacheBean <L extends JeeslLang,D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 										VIEW extends JeeslSecurityView<L,D,?,?,?,?>,
 										CTX extends JeeslSecurityContext<L,D>,
-										M extends JeeslSecurityMenu<VIEW,CTX,M>,
+										M extends JeeslSecurityMenu<L,VIEW,CTX,M>,
 										OH extends JeeslSecurityOnlineHelp<VIEW,CMS,S>,
 										CAT extends JeeslIoCmsCategory<L,D,CAT,?>,
 										CMS extends JeeslIoCms<L,D,LOC,CAT,S>,

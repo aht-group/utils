@@ -44,7 +44,7 @@ public class AbstractAdminSecurityRoleBean <L extends JeeslLang, D extends Jeesl
 											A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 											AT extends JeeslSecurityTemplate<L,D,C>,
 											CTX extends JeeslSecurityContext<L,D>,
-											M extends JeeslSecurityMenu<V,CTX,M>,
+											M extends JeeslSecurityMenu<L,V,CTX,M>,
 											AR extends JeeslSecurityArea<L,D,V>,
 											OT extends JeeslSecurityOnlineTutorial<L,D,V>,
 											OH extends JeeslSecurityOnlineHelp<V,?,?>,

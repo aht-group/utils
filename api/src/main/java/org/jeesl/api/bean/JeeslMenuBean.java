@@ -17,7 +17,7 @@ public interface JeeslMenuBean<L extends JeeslLang, D extends JeeslDescription,
 								U extends JeeslSecurityUsecase<L,D,?,R,V,A>,
 								A extends JeeslSecurityAction<L,D,R,V,U,?>,
 								CTX extends JeeslSecurityContext<L,D>,
-								M extends JeeslSecurityMenu<V,CTX,M>,
+								M extends JeeslSecurityMenu<L,V,CTX,M>,
 								USER extends JeeslUser<R>,
 								I extends JeeslIdentity<R,V,U,A,USER>>
 {	

@@ -24,7 +24,7 @@ public interface JeeslSecurityBean<L extends JeeslLang,D extends JeeslDescriptio
 									AT extends JeeslSecurityTemplate<L,D,C>,
 									AR extends JeeslSecurityArea<L,D,V>,
 									CTX extends JeeslSecurityContext<L,D>,
-									M extends JeeslSecurityMenu<V,CTX,M>,
+									M extends JeeslSecurityMenu<L,V,CTX,M>,
 									USER extends JeeslUser<R>>
 {	
 	void update(V view);

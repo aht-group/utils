@@ -41,7 +41,7 @@ public class JeeslSecurityRoleReport <L extends JeeslLang, D extends JeeslDescri
 								A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 								AT extends JeeslSecurityTemplate<L,D,C>,
 								CTX extends JeeslSecurityContext<L,D>,
-								M extends JeeslSecurityMenu<V,CTX,M>,
+								M extends JeeslSecurityMenu<L,V,CTX,M>,
 								USER extends JeeslUser<R>>
 {
 	final static Logger logger = LoggerFactory.getLogger(JeeslSecurityRoleReport.class);

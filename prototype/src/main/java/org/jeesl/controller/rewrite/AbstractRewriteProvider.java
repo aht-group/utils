@@ -34,7 +34,7 @@ public abstract class AbstractRewriteProvider <L extends JeeslLang, D extends Je
 											A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 											AT extends JeeslSecurityTemplate<L,D,C>,
 											CTX extends JeeslSecurityContext<L,D>,
-											M extends JeeslSecurityMenu<V,CTX,M>,
+											M extends JeeslSecurityMenu<L,V,CTX,M>,
 											USER extends JeeslUser<R>>
 		extends HttpConfigurationProvider
 		implements Serializable

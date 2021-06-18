@@ -53,7 +53,7 @@ public class EjbSurveyAnswerFactory<SECTION extends JeeslSurveySection<?,?,?,SEC
 		return build(question,data,null,null);
 	}
 	
-	public ANSWER build(QUESTION question, DATA data,Boolean valueBoolean,Integer valueNumber)
+	public ANSWER build(QUESTION question, DATA data, Boolean valueBoolean, Integer valueNumber)
 	{
 		ANSWER ejb = null;
 		try
@@ -86,7 +86,7 @@ public class EjbSurveyAnswerFactory<SECTION extends JeeslSurveySection<?,?,?,SEC
 	
 	public Map<QUESTION,ANSWER> toMapQuestion(List<ANSWER> list)
 	{
-		Map<QUESTION,ANSWER> map = new HashMap<QUESTION,ANSWER>();
+		Map<QUESTION,ANSWER> map = new HashMap<>();
 		for(ANSWER a : list){map.put(a.getQuestion(),a);}
 		return map;
 	}

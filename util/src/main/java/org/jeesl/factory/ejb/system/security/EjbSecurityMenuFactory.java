@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 public class EjbSecurityMenuFactory <V extends JeeslSecurityView<?,?,?,?,?,?>,
 									CTX extends JeeslSecurityContext<?,?>,
-									M extends JeeslSecurityMenu<V,CTX,M>>
+									M extends JeeslSecurityMenu<?,V,CTX,M>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbSecurityMenuFactory.class);
 	

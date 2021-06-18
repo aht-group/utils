@@ -39,7 +39,7 @@ public class AbstractAdminSecurityDomainBean <L extends JeeslLang, D extends Jee
 												A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 												AT extends JeeslSecurityTemplate<L,D,C>,
 												CTX extends JeeslSecurityContext<L,D>,
-												M extends JeeslSecurityMenu<V,CTX,M>,
+												M extends JeeslSecurityMenu<L,V,CTX,M>,
 												USER extends JeeslUser<R>,
 												STAFF extends JeeslStaff<R,USER,D1,D2>,
 												D1 extends EjbWithId, D2 extends EjbWithId>

@@ -4,15 +4,19 @@ import java.io.Serializable;
 
 import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
+import org.jeesl.interfaces.model.with.system.locale.EjbWithLang;
 
-public interface JeeslSecurityMenu<V extends JeeslSecurityView<?,?,?,?,?,?>,
-									CTX extends JeeslSecurityContext<?,?>,
-									M extends JeeslSecurityMenu<V,CTX,M>>
+public interface JeeslSecurityMenu<L extends JeeslLang,
+									V extends JeeslSecurityView<L,?,?,?,?,?>,
+									CTX extends JeeslSecurityContext<L,?>,
+									M extends JeeslSecurityMenu<L,V,CTX,M>>
 			extends Serializable,EjbSaveable,EjbRemoveable,
-						EjbWithPosition,
+						EjbWithPosition,EjbWithLang<L>,
 						EjbWithParentAttributeResolver
+						
 {
 	public static final String extractId = "securityMenu";
 	public static final String keyRoot = "root";

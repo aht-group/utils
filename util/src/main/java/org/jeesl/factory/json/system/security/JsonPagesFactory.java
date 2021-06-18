@@ -33,7 +33,7 @@ public class JsonPagesFactory<L extends JeeslLang, D extends JeeslDescription,
 									A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 									AT extends JeeslSecurityTemplate<L,D,C>,
 									CTX extends JeeslSecurityContext<L,D>,
-									M extends JeeslSecurityMenu<V,CTX,M>,
+									M extends JeeslSecurityMenu<L,V,CTX,M>,
 									AR extends JeeslSecurityArea<L,D,V>,
 									USER extends JeeslUser<R>>
 {

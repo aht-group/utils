@@ -31,7 +31,7 @@ public class PageDeniedCondition <L extends JeeslLang, D extends JeeslDescriptio
 											A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 											AT extends JeeslSecurityTemplate<L,D,C>,
 											CTX extends JeeslSecurityContext<L,D>,
-											M extends JeeslSecurityMenu<V,CTX,M>,
+											M extends JeeslSecurityMenu<L,V,CTX,M>,
 											USER extends JeeslUser<R>>
 		extends HttpCondition
 		implements Condition,Serializable

@@ -45,7 +45,7 @@ public class PrototypeDb2MenuBean <L extends JeeslLang, D extends JeeslDescripti
 									A extends JeeslSecurityAction<L,D,R,V,U,AT>,
 									AT extends JeeslSecurityTemplate<L,D,C>,
 									CTX extends JeeslSecurityContext<L,D>,
-									M extends JeeslSecurityMenu<V,CTX,M>,
+									M extends JeeslSecurityMenu<L,V,CTX,M>,
 									USER extends JeeslUser<R>,
 									I extends JeeslIdentity<R,V,U,A,USER>>
 		implements Serializable,JeeslMenuBean<L,D,R,V,U,A,CTX,M,USER,I>

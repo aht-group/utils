@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractSystemPageBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 											V extends JeeslSecurityView<L,D,?,?,?,?>,
 											CTX extends JeeslSecurityContext<L,D>,
-											M extends JeeslSecurityMenu<V,CTX,M>>
+											M extends JeeslSecurityMenu<L,V,CTX,M>>
 		extends AbstractAdminBean<L,D,LOC>
 		implements Serializable
 {

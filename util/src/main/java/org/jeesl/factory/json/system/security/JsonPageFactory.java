@@ -14,7 +14,7 @@ public class JsonPageFactory<L extends JeeslLang, D extends JeeslDescription,
 									C extends JeeslSecurityCategory<L,D>,
 									V extends JeeslSecurityView<L,D,C,?,?,?>,
 									CTX extends JeeslSecurityContext<L,D>,
-									M extends JeeslSecurityMenu<V,CTX,M>>
+									M extends JeeslSecurityMenu<L,V,CTX,M>>
 {
 	final static Logger logger = LoggerFactory.getLogger(JsonPageFactory.class);
 	
