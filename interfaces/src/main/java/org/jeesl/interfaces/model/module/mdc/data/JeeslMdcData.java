@@ -13,10 +13,10 @@ public interface JeeslMdcData <COLLECTION extends JeeslMdcCollection<?,?,?,?>,
 		extends Serializable,EjbSaveable,EjbRemoveable,EjbWithParentAttributeResolver
 				
 {
-	public enum Attributes{activity}
+	public enum Attributes{collection}
 	
 	COLLECTION getCollection();
-	void setCollection(COLLECTION activity);
+	void setCollection(COLLECTION collection);
 	
 	ACONTAINER getCollectionContainer();
 	void setCollectionContainer(ACONTAINER collectionContainer);

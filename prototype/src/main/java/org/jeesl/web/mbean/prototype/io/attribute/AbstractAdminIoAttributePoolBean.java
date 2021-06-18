@@ -116,7 +116,9 @@ public abstract class AbstractAdminIoAttributePoolBean <L extends JeeslLang, D e
 	public void addCriteria()
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbAttribute.getClassCriteria()));}
-		criteria = efCriteria.build(realm,rref,sbhCat.getSelected().get(0),bAttribute.getTypes().get(0));
+		CAT c = null; if(!sbhCat.getSelected().isEmpty()) {c = sbhCat.getSelected().get(0);}
+		TYPE t = null; if(bAttribute!=null && bAttribute.getTypes()!=null && !bAttribute.getTypes().isEmpty()) {t = bAttribute.getTypes().get(0);}
+		criteria = efCriteria.build(realm,rref,c,t);
 		criteria.setName(efLang.createEmpty(localeCodes));
 		criteria.setDescription(efDescription.createEmpty(localeCodes));
 		reset(false,false,true);
