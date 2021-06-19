@@ -473,13 +473,13 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 		Container xml;
 		if(fGraphic instanceof JeeslExportRestFacade)
 		{
-			logger.info("Using Facade Connection for JBoss EAP6 ("+fGraphic.getClass().getSimpleName()+" implements "+JeeslExportRestFacade.class.getSimpleName()+")");
+			logger.info("Using Facade Connection for JBoss EAP6 ("+fGraphic.getClass().getSimpleName()+" implements "+JeeslExportRestFacade.class.getSimpleName()+") "+x.getRestCode());
 			xml = ((JeeslExportRestFacade)fGraphic).exportJeeslReferenceRest(x.getRestCode());
 		}
 		else
 		{
-			logger.info("Using Direct Connection (JBoss EAP7)");
-			xml = downloadOptionsFromRest(x.getRestCode());
+			logger.info("Using Direct Connection (JBoss EAP7) "+x.getRestCode());
+			xml = this.downloadOptionsFromRest(x.getRestCode());
 		}
 
 		JaxbUtil.info(xml);

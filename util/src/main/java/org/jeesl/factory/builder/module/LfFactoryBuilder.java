@@ -36,7 +36,7 @@ public class LfFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,R e
 							TTI extends JeeslLfTimeInterval<L,D,TTI,?>,
 							TTE extends JeeslLfTimeElement<L,TTG>,
 							LFM extends JeeslLfValue<I,VT,TTG,TTE>,
-							VT extends JeeslLfValueType<L,D,R,VT,?>,
+							VT extends JeeslLfValueType<L,D,VT,?>,
 							LFC extends JeeslLfConfiguration<LF,?>>
 extends AbstractFactoryBuilder<L,D>
 {

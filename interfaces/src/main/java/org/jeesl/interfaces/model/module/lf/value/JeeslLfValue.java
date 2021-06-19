@@ -12,7 +12,7 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.system.status.JeeslWithType;
 
 public interface JeeslLfValue<I extends JeeslLfIndicator<?,?,?,?,?,TTG,?>,
-								VT extends JeeslLfValueType<?,?,?,VT,?>,
+								VT extends JeeslLfValueType<?,?,VT,?>,
 						TTG extends JeeslLfTimeGroup<?,?>,
 						TTE extends JeeslLfTimeElement<?,?>>
 				extends  Serializable,EjbSaveable,EjbRemoveable,EjbWithId,EjbWithParentAttributeResolver,

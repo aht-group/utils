@@ -186,7 +186,14 @@ public class JeeslDbMcsStatusUpdater <L extends JeeslLang, D extends JeeslDescri
 			ejb.setDescription(fbLocale.ejbDescription().build(lp,xml.getDescriptions()));
 			ejb = fGraphic.persist(ejb);
 			
-			try {uGraphic.updateSvg(cStatus,ejb,xml);}
+			try
+			{
+				switch(JeeslGraphicType.Code.valueOf(xml.getGraphic().getType().getCode()))
+				{
+					case svg:		uGraphic.updateSvg(cStatus,ejb,xml); break;
+					default: break;
+				}
+			}
 			catch (JeeslConstraintViolationException | JeeslLockingException e) {e.printStackTrace();}
 			
 			logger.info("Added: "+ejb);

@@ -28,7 +28,7 @@ public interface JeeslLogframeFacade <L extends JeeslLang,D extends JeeslDescrip
 									TTI extends JeeslLfTimeInterval<L,D,TTI,?>,
 									TTE extends JeeslLfTimeElement<L,TTG>,
 									VM extends JeeslLfValue<I,VT,TTG,TTE>,
-									VT extends JeeslLfValueType<L,D,R,VT,?>,
+									VT extends JeeslLfValueType<L,D,VT,?>,
 									LFC extends JeeslLfConfiguration<LF,?>>
 			extends JeeslFacade
 {

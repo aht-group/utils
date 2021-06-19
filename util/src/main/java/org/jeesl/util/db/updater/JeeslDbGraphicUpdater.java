@@ -71,7 +71,6 @@ public class JeeslDbGraphicUpdater <G extends JeeslGraphic<?,?,GT,?,?>, GT exten
 	
 	public <W extends EjbWithGraphic<G>> void updateSvg(Class<W> cStatus, W ejb, Status xml) throws JeeslConstraintViolationException, JeeslLockingException
 	{
-		JaxbUtil.info(xml);
 		GT svg = fGraphic.fByEnum(fbGraphic.getClassGraphicType(),JeeslGraphicType.Code.svg);
 		
 		G graphic;
@@ -91,9 +90,9 @@ public class JeeslDbGraphicUpdater <G extends JeeslGraphic<?,?,GT,?,?>, GT exten
 		fGraphic.update(graphic);
 	}
 	
-	public <W extends EjbWithCodeGraphic<G>> void updateSymbol(Class<W> cStatus, W ejb, Status xml) throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException
+	public <W extends EjbWithCodeGraphic<G>> void updateSymbol(Class<W> cStatus, W ejb, Status xml) throws JeeslConstraintViolationException, JeeslLockingException
 	{
-		GT symbol = fGraphic.fByCode(fbGraphic.getClassGraphicType(), JeeslGraphicType.Code.symbol);
+		GT symbol = fGraphic.fByEnum(fbGraphic.getClassGraphicType(), JeeslGraphicType.Code.symbol);
 		
 		G graphic;
 		try

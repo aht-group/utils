@@ -52,7 +52,7 @@ public abstract class AbstractLfTargetTimeBean <L extends JeeslLang, D extends J
 												TTI extends JeeslLfTimeInterval<L,D,TTI,?>,
 												TTE extends JeeslLfTimeElement<L,TTG>,
 												LFM extends JeeslLfValue<LFI,VT,TTG,TTE>,
-												VT extends JeeslLfValueType<L,D,R,VT,?>,
+												VT extends JeeslLfValueType<L,D,VT,?>,
 												LFC extends JeeslLfConfiguration<LF,IT>>
 					extends AbstractAdminBean<L,D,LOC>
 					implements Serializable,TargetTimeBean

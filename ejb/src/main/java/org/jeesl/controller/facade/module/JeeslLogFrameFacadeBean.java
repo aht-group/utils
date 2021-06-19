@@ -34,7 +34,7 @@ public class JeeslLogFrameFacadeBean<L extends JeeslLang,D extends JeeslDescript
 									TTI extends JeeslLfTimeInterval<L,D,TTI,?>,
 									TTE extends JeeslLfTimeElement<L,TTG>,
 									V extends JeeslLfValue<I,VT,TTG,TTE>,
-									VT extends JeeslLfValueType<L,D,R,VT,?>,
+									VT extends JeeslLfValueType<L,D,VT,?>,
 									LFC extends JeeslLfConfiguration<LF,?>>
 					extends JeeslFacadeBean
 					implements JeeslLogframeFacade<L,D,R,LF,I,IL,IT,IU,IV,TTG,TTI,TTE,V,VT,LFC>
