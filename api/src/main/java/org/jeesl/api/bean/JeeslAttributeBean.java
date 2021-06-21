@@ -27,7 +27,7 @@ public interface JeeslAttributeBean<L extends JeeslLang, D extends JeeslDescript
 									ITEM extends JeeslAttributeItem<CRITERIA,SET>,
 									CONTAINER extends JeeslAttributeContainer<SET,DATA>,
 									DATA extends JeeslAttributeData<CRITERIA,OPTION,CONTAINER>>
-	extends Serializable
+	extends Serializable//,JeeslAttributeCriteriaCacheBean<CRITERIA,OPTION,SET>
 {	
 	List<CATEGORY> getCategories();
 	void reloadCategories();

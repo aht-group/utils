@@ -50,7 +50,7 @@ public class AttributeHandler<L extends JeeslLang, D extends JeeslDescription,
 	final static Logger logger = LoggerFactory.getLogger(AttributeHandler.class);
 	private static final long serialVersionUID = 1L;
 
-	private final boolean debugOnInfo = false;
+	private boolean debugOnInfo; public void setDebugOnInfo(boolean debugOnInfo) {this.debugOnInfo = debugOnInfo;}
 	private boolean showDescription; public boolean isShowDescription() {return showDescription;}
 	
 	private final JeeslIoAttributeFacade<L,D,R,CAT,CATEGORY,CRITERIA,TYPE,OPTION,SET,ITEM,CONTAINER,DATA> fAttribute;
@@ -79,6 +79,7 @@ public class AttributeHandler<L extends JeeslLang, D extends JeeslDescription,
 		this.fbAttribute=fbAttribute;
 		this.bean=bean;
 		
+		debugOnInfo = false;
 		showDescription = false;
 		
 		efContainer = fbAttribute.ejbContainer();
@@ -144,6 +145,7 @@ public class AttributeHandler<L extends JeeslLang, D extends JeeslDescription,
 	
 	public void save() throws JeeslConstraintViolationException, JeeslLockingException
 	{
+		logger.info("aaargh");
 		if(debugOnInfo){logger.info(this.getClass().getName()+" saveData");}
 		if(bean!=null) {bean.save(this);}
 	}

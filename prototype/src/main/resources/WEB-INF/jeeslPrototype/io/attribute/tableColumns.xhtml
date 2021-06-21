@@ -13,6 +13,7 @@
 		<f:facet name="header"><h:outputText value="#{criteria.name[loc].lang}"/></f:facet>
 		<h:outputText value="#{handler.containers[var.attributeContainer][criteria].valueString}" rendered="#{criteria.type.code eq 'text'}"/>
 		<jp:iconCheckmark value="#{handler.containers[var.attributeContainer][criteria].valueBoolean}" rendered="#{(criteria.type.code eq 'bool') and (not empty handler.containers[var.attributeContainer][criteria].valueBoolean)}"/>
+		<h:outputText value="#{handler.containers[var.attributeContainer][criteria].valueOption.name[localeCode].lang}" rendered="#{criteria.type.code eq 'selectOne'}"/>
 	</p:columns>	
 	
 </ui:composition>

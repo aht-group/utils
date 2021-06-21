@@ -130,8 +130,7 @@ public abstract class AbstractAppAttributeBean <L extends JeeslLang, D extends J
 		
 	}
 	
-	private final Map<CRITERIA,List<OPTION>> mapOption;
-	@Override public Map<CRITERIA,List<OPTION>> getMapOption() {return mapOption;}
+	private final Map<CRITERIA,List<OPTION>> mapOption; @Override public Map<CRITERIA,List<OPTION>> getMapOption() {return mapOption;}
 	private void reloadOptions()
 	{
 		mapOption.clear();
