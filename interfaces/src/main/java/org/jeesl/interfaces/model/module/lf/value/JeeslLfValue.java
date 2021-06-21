@@ -14,7 +14,7 @@ import org.jeesl.interfaces.model.with.system.status.JeeslWithType;
 public interface JeeslLfValue<I extends JeeslLfIndicator<?,?,?,?,?,TTG,?>,
 								VT extends JeeslLfValueType<?,?,VT,?>,
 						TTG extends JeeslLfTimeGroup<?,?>,
-						TTE extends JeeslLfTimeElement<?,?>>
+						TTE extends JeeslLfTimeElement<?,TTG>>
 				extends  Serializable,EjbSaveable,EjbRemoveable,EjbWithId,EjbWithParentAttributeResolver,
 						JeeslWithType<VT>
 {
@@ -22,5 +22,10 @@ public interface JeeslLfValue<I extends JeeslLfIndicator<?,?,?,?,?,TTG,?>,
 	
 	I getIndicator();
 	void setIndicator(I indicator);
-
+	
+//	TTE getTimeElement();
+//	void setTimeElement(TTE element);
+//
+//	double getValue();
+//	void setValue(double value);
 }

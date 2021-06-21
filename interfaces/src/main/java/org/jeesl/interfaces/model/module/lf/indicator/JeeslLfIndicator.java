@@ -34,6 +34,10 @@ public interface JeeslLfIndicator<LF extends JeeslLfLogframe<?,?,?,?,?,?>,
 	IT getType();
 	void setType(IT type);
 	
+	//TODO @sm (2016-06-21 tk) Add Unit to indicator
+//	IU getUnit();
+//	void setUnit(IU unit);
+	
 	TTG getTargetTimeGroup();
 	void setTargetTimeGroup(TTG targetTimeGroup);
 
