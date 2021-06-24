@@ -60,7 +60,6 @@ public class SbTree1Handler <L1 extends EjbWithId>
 		showLevel4 = false;
 		showLevel5 = false;
 		
-		
 		xpath1 = "@id";
 	}
 	

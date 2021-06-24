@@ -1,6 +1,7 @@
 package org.jeesl.controller.handler.module.mdc;
 
-import javax.ws.rs.PathParam;
+import java.time.ZoneId;
+import java.util.Date;
 
 import org.jeesl.api.facade.io.JeeslIoAttributeFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
@@ -94,12 +95,19 @@ public class MdcJsonRestHandler<L extends JeeslLang, D extends JeeslDescription,
 	{
 		JsonMdcContainer json = new JsonMdcContainer();
 		JsonMdcEnrolment enrolment = new JsonMdcEnrolment();
-		enrolment.setName(token);
+		enrolment.setToken(token);
 		json.setEnrolment(enrolment);
 		
 		COLLECTION eCollection = fAttribute.all(fbMdc.getClassActivity(),1).get(0);
 		JsonMdcCollection jCollection = new JsonMdcCollection();
 		jCollection.setId(eCollection.getId());
+		jCollection.setName(eCollection.getName());
+		
+		jCollection.setValidFrom(eCollection.getValidFrom());
+		jCollection.setValidUntil(eCollection.getValidUntil());
+//		jCollection.setTest3(new Date());
+		
+		
 		json.setCollection(jCollection);
 		
 		return json;

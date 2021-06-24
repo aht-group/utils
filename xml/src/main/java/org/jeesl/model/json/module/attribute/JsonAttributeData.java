@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -25,8 +26,8 @@ public class JsonAttributeData implements Serializable
 	public JsonAttributeCriteria getCriteria() {return criteria;}
 	public void setCriteria(JsonAttributeCriteria criteria) {this.criteria = criteria;}
 	
-	
 	@JsonProperty("valueDate")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date valueDate;
 	public Date getValueDate() {return valueDate;}
 	public void setValueDate(Date valueDate) {this.valueDate = valueDate;}

@@ -3,8 +3,6 @@ package org.jeesl.model.json.module.mdc;
 
 import java.io.Serializable;
 
-import org.jeesl.model.json.module.attribute.JsonAttributeSet;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -20,11 +18,8 @@ public class JsonMdcEnrolment implements Serializable
 	public Long getId() {return id;}
 	public void setId(Long id) {this.id = id;}
 	
-	@JsonProperty("name")
-	private String name;
-	public String getName() {return name;}
-	public void setName(String name) {this.name = name;}
-
-
-	
+	@JsonProperty("token")
+	private String token;
+	public String getToken() {return token;}
+	public void setToken(String token) {this.token = token;}
 }
