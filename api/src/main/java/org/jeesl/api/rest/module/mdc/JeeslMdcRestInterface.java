@@ -8,21 +8,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.jeesl.model.json.module.attribute.JsonAttributeSet;
-import org.jeesl.model.json.module.mdc.JsonMdcCollection;
 import org.jeesl.model.json.module.mdc.JsonMdcContainer;
 import org.jeesl.model.json.module.mdc.JsonMdcData;
 
 public interface JeeslMdcRestInterface
-{
-	@Deprecated // Will be removed soon
-	@GET @Path("/attribute/set") @Produces(MediaType.APPLICATION_JSON)
-	JsonAttributeSet attributeSet();
-	
-	@Deprecated // Will be removed soon and replaced by /collection/download
-	@GET @Path("/collection") @Produces(MediaType.APPLICATION_JSON)
-	JsonMdcCollection collection();
-	
+{	
 	@GET @Path("/collection/enrolment/{token}") @Produces(MediaType.APPLICATION_JSON)
 	JsonMdcContainer enrolment(@PathParam("token") String token);
 
@@ -31,5 +21,4 @@ public interface JeeslMdcRestInterface
 	
 	@POST @Path("/upload") @Produces(MediaType.APPLICATION_JSON) @Consumes(MediaType.APPLICATION_JSON)
 	JsonMdcData upload(JsonMdcData data);
-	
 }
