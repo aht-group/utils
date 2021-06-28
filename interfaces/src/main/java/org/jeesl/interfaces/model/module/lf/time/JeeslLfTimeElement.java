@@ -11,12 +11,12 @@ import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.text.EjbWithName;
 
 public interface JeeslLfTimeElement<L extends JeeslLang,
-											TTG extends JeeslLfTimeGroup<L,?>>
+											TG extends JeeslLfTimeGroup<L,?>>
 						extends Serializable,EjbSaveable,EjbRemoveable,EjbWithName,
 								EjbWithId,EjbWithRecord,EjbWithParentAttributeResolver
 {
 	public enum Attributes{group}
 
-	TTG getGroup();
-	void setGroup(TTG group);
+	TG getGroup();
+	void setGroup(TG group);
 }

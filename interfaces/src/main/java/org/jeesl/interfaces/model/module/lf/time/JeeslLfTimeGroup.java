@@ -14,10 +14,10 @@ import org.jeesl.interfaces.model.with.system.status.JeeslWithInterval;
 
 public interface JeeslLfTimeGroup<L extends JeeslLang,
 //										R extends JeeslTenantRealm<?,?,R,?>,		/tk: will be activated soon
-										TTI extends JeeslLfTimeInterval<?,?,TTI,?>>
+										TI extends JeeslLfTimeInterval<?,?,TI,?>>
 						extends Serializable,EjbSaveable,EjbRemoveable,EjbWithParentAttributeResolver,EjbWithPosition,
 								EjbWithId,EjbWithName,
-								JeeslWithInterval<TTI>
+								JeeslWithInterval<TI>
 //								,JeeslWithTenantSupport<R>
 {
 	public enum Attributes{interval}

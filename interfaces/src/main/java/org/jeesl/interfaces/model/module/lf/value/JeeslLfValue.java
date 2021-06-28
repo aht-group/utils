@@ -11,21 +11,21 @@ import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.system.status.JeeslWithType;
 
-public interface JeeslLfValue<I extends JeeslLfIndicator<?,?,?,?,?,TTG,?>,
+public interface JeeslLfValue<I extends JeeslLfIndicator<?,?,?,?,?,TG,?>,
 								VT extends JeeslLfValueType<?,?,VT,?>,
-						TTG extends JeeslLfTimeGroup<?,?>,
-						TTE extends JeeslLfTimeElement<?,TTG>>
+						TG extends JeeslLfTimeGroup<?,?>,
+						TE extends JeeslLfTimeElement<?,TG>>
 				extends  Serializable,EjbSaveable,EjbRemoveable,EjbWithId,EjbWithParentAttributeResolver,
 						JeeslWithType<VT>
 {
 	public enum Attributes{indicator}
-	
+
 	I getIndicator();
 	void setIndicator(I indicator);
-	
-//	TTE getTimeElement();
-//	void setTimeElement(TTE element);
-//
-//	double getValue();
-//	void setValue(double value);
+
+	TE getTimeElement();
+	void setTimeElement(TE timeElement);
+
+	double getValue();
+	void setValue(double value);
 }

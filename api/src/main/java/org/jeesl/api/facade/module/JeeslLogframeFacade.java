@@ -19,15 +19,15 @@ import org.jeesl.interfaces.model.system.tenant.JeeslTenantRealm;
 
 public interface JeeslLogframeFacade <L extends JeeslLang,D extends JeeslDescription,R extends JeeslTenantRealm<L,D,R,?>,
 									LF extends JeeslLfLogframe<L,D,R,I,IL,IT>,
-									I extends JeeslLfIndicator<LF,IL,IT,IU,IV,TTG,VM>,
+									I extends JeeslLfIndicator<LF,IL,IT,IU,IV,TG,VM>,
 									IL extends JeeslLfIndicatorLevel<L,D,R,IL,?>,
 									IT extends JeeslLfIndicatorType<L,D,R, IT,?>,
 									IU extends JeeslLfUnit<L,D,R,IU,?>,
 									IV extends JeeslLfVerificationSource<L,D,R,IV,?>,
-									TTG extends JeeslLfTimeGroup<L,?>,
-									TTI extends JeeslLfTimeInterval<L,D,TTI,?>,
-									TTE extends JeeslLfTimeElement<L,TTG>,
-									VM extends JeeslLfValue<I,VT,TTG,TTE>,
+									TG extends JeeslLfTimeGroup<L,?>,
+									TI extends JeeslLfTimeInterval<L,D,TI,?>,
+									TE extends JeeslLfTimeElement<L,TG>,
+									VM extends JeeslLfValue<I,VT,TG,TE>,
 									VT extends JeeslLfValueType<L,D,VT,?>,
 									LFC extends JeeslLfConfiguration<LF,?>>
 			extends JeeslFacade

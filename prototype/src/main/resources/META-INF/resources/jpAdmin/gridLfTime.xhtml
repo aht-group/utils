@@ -93,8 +93,8 @@
 								<p:inputText  value="#{cc.attrs.bean.timeGroup.name}"/>
 							
 								<jtp:label entity="LfTimeGroup" code="interval"/>
-								<p:selectOneMenu value="#{cc.attrs.bean.timeGroup.interval}" effect="fade" >
-									<f:selectItems value="#{cc.attrs.bean.intervalTypes}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t}"/>
+								<p:selectOneMenu value="#{cc.attrs.bean.timeGroup.interval}" effect="fade" disabled="#{cc.attrs.bean.uiGenerate or cc.attrs.bean.timeGroup.id gt 0}">
+									<f:selectItems value="#{cc.attrs.bean.intervals}" var="t" itemLabel="#{t.name[localeCode].lang}" itemValue="#{t}"/>
 									<p:ajax event="change" process="@form" update="@form" listener="#{cc.attrs.bean.selectIntervalType}"/>
 								</p:selectOneMenu>
 								<jtp:label entity="LfTimeGroup" code="values" rendered="#{cc.attrs.bean.uiGenerate or cc.attrs.bean.timeGroup.values gt 0}" />
@@ -161,7 +161,7 @@
 						<p:panel id="pView" rendered="#{not empty cc.attrs.bean.element}" styleClass="jeeslPanel">
 							<f:facet name="header"><jtp:label entity="LfTimeElement"/></f:facet>
 							<f:facet name="actions">
-								<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.resetElement()}" update=":#{cc.id}:sTimeGroup :#{cc.id}:sTimeGroups" tooltip="#{msg.jeeslTtCancel}" mayDisappear="true"/>
+								<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.resetElement()}" update=":#{cc.id}:sTimeGroup :#{cc.id}:sTimeGroups" tooltip="#{msg.jeeslTtCancel}" mayDisappear="true" immediate="true"/>
 								<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveElement()}" update=":#{cc.id}:sTimeGroup :#{cc.id}:sTimeGroups" rendered="#{cc.attrs.bean.uiAllowSave}" tooltip="#{msg.ttSave}"/>
 								<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteElement()}" update=":#{cc.id}:sTimeGroup :#{cc.id}:sTimeGroups" rendered="#{cc.attrs.bean.element.id gt 0}" tooltip="#{msg.ttDelete}" mayDisappear="true"/>
 							</f:facet>
