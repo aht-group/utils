@@ -14,6 +14,6 @@ public interface JiraRest
 	@GET @Path("/issue/{key}") @Produces(MediaType.APPLICATION_JSON)
     Issue test(@PathParam("key") String key);
 	
-	@GET @Path("/issue/{key}") @Produces(MediaType.APPLICATION_JSON)
+	@GET @Path("/issue/{key}") @Produces(MediaType.TEXT_PLAIN)
     String debug(@PathParam("key") String key);
 }

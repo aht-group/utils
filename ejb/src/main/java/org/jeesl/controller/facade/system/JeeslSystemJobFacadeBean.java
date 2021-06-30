@@ -241,7 +241,7 @@ public class JeeslSystemJobFacadeBean<L extends JeeslLang,D extends JeeslDescrip
 	}
 	
 	
-	@Override public <T extends EjbWithMigrationJob1<STATUS>> List<T> fEntitiesWithPendingJob1(Class<T> c, int maxResult)
+	@Override public <T extends EjbWithMigrationJob1<STATUS>> List<T> fEntitiesWithPendingJob1(Class<T> c, int maxResult, boolean includeNull)
 	{
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		CriteriaBuilder cB = em.getCriteriaBuilder();
@@ -250,7 +250,8 @@ public class JeeslSystemJobFacadeBean<L extends JeeslLang,D extends JeeslDescrip
 		
 		Expression<STATUS> eStatus = item.get(EjbWithMigrationJob1.Attributes.job1.toString());
 		STATUS queue = this.fByEnum(fbJob.getClassStatus(),JeeslJobStatus.Code.queue);
-		predicates.add(cB.or(cB.isNull(eStatus),cB.equal(eStatus, queue)));
+		if(includeNull) {predicates.add(cB.or(cB.isNull(eStatus),cB.equal(eStatus, queue)));}
+		else {predicates.add(cB.equal(eStatus,queue));}
 
 		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
 		cQ.select(item);
