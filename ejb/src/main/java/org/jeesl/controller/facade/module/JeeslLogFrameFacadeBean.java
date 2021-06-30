@@ -25,27 +25,27 @@ import org.slf4j.LoggerFactory;
 
 public class JeeslLogFrameFacadeBean<L extends JeeslLang,D extends JeeslDescription,R extends JeeslTenantRealm<L,D,R,?>,
 									LF extends JeeslLfLogframe<L,D,R,I,IL,IT>,
-									I extends JeeslLfIndicator<LF,IL,IT,IU,IV,TTG,V>,
+									I extends JeeslLfIndicator<LF,IL,IT,IU,IV,TG,V>,
 									IL extends JeeslLfIndicatorLevel<L, D,R, IL, ?>,
 									IT extends JeeslLfIndicatorType<L, D,R, IT, ?>,
 									IU extends JeeslLfUnit<L,D,R,IU,?>,
 									IV extends JeeslLfVerificationSource<L,D,R,IV,?>,
-									TTG extends JeeslLfTimeGroup<L,?>,
-									TTI extends JeeslLfTimeInterval<L,D,TTI,?>,
-									TTE extends JeeslLfTimeElement<L,TTG>,
-									V extends JeeslLfValue<I,VT,TTG,TTE>,
+									TG extends JeeslLfTimeGroup<L,?>,
+									TI extends JeeslLfTimeInterval<L,D,TI,?>,
+									TE extends JeeslLfTimeElement<L,TG>,
+									V extends JeeslLfValue<I,VT,TG,TE>,
 									VT extends JeeslLfValueType<L,D,VT,?>,
 									LFC extends JeeslLfConfiguration<LF,?>>
 					extends JeeslFacadeBean
-					implements JeeslLogframeFacade<L,D,R,LF,I,IL,IT,IU,IV,TTG,TTI,TTE,V,VT,LFC>
+					implements JeeslLogframeFacade<L,D,R,LF,I,IL,IT,IU,IV,TG,TI,TE,V,VT,LFC>
 {
 	private static final long serialVersionUID = 1L;
 
 	final static Logger logger = LoggerFactory.getLogger(JeeslAssetFacadeBean.class);
 
-	protected final LfFactoryBuilder<L,D,R,LF,I,IL,IT,IU,IV,TTG,TTI,TTE,V,VT,LFC> fbLf;
+	protected final LfFactoryBuilder<L,D,R,LF,I,IL,IT,IU,IV,TG,TI,TE,V,VT,LFC> fbLf;
 
-	public JeeslLogFrameFacadeBean(EntityManager em, final LfFactoryBuilder<L,D,R,LF,I,IL,IT,IU,IV,TTG,TTI,TTE,V,VT,LFC> fbLf)
+	public JeeslLogFrameFacadeBean(EntityManager em, final LfFactoryBuilder<L,D,R,LF,I,IL,IT,IU,IV,TG,TI,TE,V,VT,LFC> fbLf)
 	{
 		super(em);
 		this.fbLf=fbLf;

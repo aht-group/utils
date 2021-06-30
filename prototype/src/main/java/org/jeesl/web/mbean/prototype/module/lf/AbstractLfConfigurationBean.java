@@ -36,15 +36,15 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 public abstract class AbstractLfConfigurationBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 												R extends JeeslTenantRealm<L,D,R,?>,
 												LF extends JeeslLfLogframe<L,D,R,LFI,IL,IT>,
-												LFI extends JeeslLfIndicator<LF,IL,IT,IU,IV,TTG,LFM>,
+												LFI extends JeeslLfIndicator<LF,IL,IT,IU,IV,TG,LFM>,
 												IL extends JeeslLfIndicatorLevel<L, D,R, IL, ?>,
 												IT extends JeeslLfIndicatorType<L,D,R,IT, ?>,
 												IU extends JeeslLfUnit<L,D,R,IU,?>,
 												IV extends JeeslLfVerificationSource<L,D,R,IV,?>,
-												TTG extends JeeslLfTimeGroup<L,TTI>,
-												TTI extends JeeslLfTimeInterval<L,D,TTI,?>,
-												TTE extends JeeslLfTimeElement<L,TTG>,
-												LFM extends JeeslLfValue<LFI,VT,TTG,TTE>,
+												TG extends JeeslLfTimeGroup<L,TI>,
+												TI extends JeeslLfTimeInterval<L,D,TI,?>,
+												TE extends JeeslLfTimeElement<L,TG>,
+												LFM extends JeeslLfValue<LFI,VT,TG,TE>,
 												VT extends JeeslLfValueType<L,D,VT,?>,
 												LFC extends JeeslLfConfiguration<LF,IT>>
 					extends AbstractAdminBean<L,D,LOC>
@@ -53,8 +53,8 @@ public abstract class AbstractLfConfigurationBean <L extends JeeslLang, D extend
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractLfConfigurationBean.class);
 
-	protected final LfFactoryBuilder<L,D,R,LF,LFI,IL,IT,IU,IV,TTG,TTI,TTE,LFM,VT,LFC> fbLf;
-	protected JeeslLogframeFacade<L,D,R,LF,LFI,IL,IT,IU,IV,TTG,TTI,TTE,LFM,VT,LFC> fLf;
+	protected final LfFactoryBuilder<L,D,R,LF,LFI,IL,IT,IU,IV,TG,TI,TE,LFM,VT,LFC> fbLf;
+	protected JeeslLogframeFacade<L,D,R,LF,LFI,IL,IT,IU,IV,TG,TI,TE,LFM,VT,LFC> fLf;
 
 	protected List<IT> indicatorTypes; public List<IT> getIndicatorTypes() {return indicatorTypes;}
 
@@ -62,7 +62,7 @@ public abstract class AbstractLfConfigurationBean <L extends JeeslLang, D extend
 	private List<LFC> configurations; public List<LFC> getConfigurations() {return configurations;}
 	private LFC configuration; public LFC getConfiguration() {return configuration;} public void setConfiguration(LFC configuration) {this.configuration = configuration;}
 
-	public AbstractLfConfigurationBean(LfFactoryBuilder<L,D,R,LF,LFI,IL,IT,IU,IV,TTG,TTI,TTE,LFM,VT,LFC> fbLf)
+	public AbstractLfConfigurationBean(LfFactoryBuilder<L,D,R,LF,LFI,IL,IT,IU,IV,TG,TI,TE,LFM,VT,LFC> fbLf)
 	{
 		super(fbLf.getClassL(),fbLf.getClassD());
 		this.fbLf=fbLf;
@@ -70,7 +70,7 @@ public abstract class AbstractLfConfigurationBean <L extends JeeslLang, D extend
 	}
 
 	protected void postConstructHd(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslLogframeFacade<L,D,R,LF,LFI,IL,IT,IU,IV,TTG,TTI,TTE,LFM,VT,LFC> fLf)
+									JeeslLogframeFacade<L,D,R,LF,LFI,IL,IT,IU,IV,TG,TI,TE,LFM,VT,LFC> fLf)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fLf = fLf;

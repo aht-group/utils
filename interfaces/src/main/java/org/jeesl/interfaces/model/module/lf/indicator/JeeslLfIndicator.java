@@ -17,8 +17,8 @@ public interface JeeslLfIndicator<LF extends JeeslLfLogframe<?,?,?,?,?,?>,
 									IT extends JeeslLfIndicatorType<?,?,?,IT,?>,
 									IU extends JeeslLfUnit<?,?,?,IU,?>,
 									IV extends JeeslLfVerificationSource<?,?,?,IV,?>,
-									TTG extends JeeslLfTimeGroup<?,?>,
-									LFM extends JeeslLfValue<?,?,TTG,?>>
+									TG extends JeeslLfTimeGroup<?,?>,
+									LFV extends JeeslLfValue<?,?,TG,?>>
 						extends  Serializable,EjbSaveable,EjbRemoveable,
 						EjbWithId,EjbWithName,EjbWithParentAttributeResolver
 
@@ -33,15 +33,14 @@ public interface JeeslLfIndicator<LF extends JeeslLfLogframe<?,?,?,?,?,?>,
 
 	IT getType();
 	void setType(IT type);
-	
-	//TODO @sm (2016-06-21 tk) Add Unit to indicator
-//	IU getUnit();
-//	void setUnit(IU unit);
-	
-	TTG getTargetTimeGroup();
-	void setTargetTimeGroup(TTG targetTimeGroup);
 
-	List<LFM> getMonitoringItems();
-	void setMonitoringItems(List<LFM> monitoringItems);
+	IU getUnit();
+	void setUnit(IU unit);
+
+	TG getTimeGroup();
+	void setTimeGroup(TG timeGroup);
+
+	List<LFV> getIndicatorValues();
+	void setIndicatorValues(List<LFV> indicatorValues);
 
 }
