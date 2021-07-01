@@ -8,6 +8,7 @@ import org.jeesl.model.json.system.status.JsonCategory;
 import org.jeesl.model.json.system.status.JsonInterval;
 import org.jeesl.model.json.system.status.JsonWorkspace;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -49,11 +50,13 @@ public class JsonTsSeries implements Serializable
 	public void setSize(Integer size) {this.size = size;}
 
 	@JsonProperty("dateStart")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
 	private Date dateStart;
 	public Date getDateStart() {return dateStart;}
 	public void setDateStart(Date dateStart) {this.dateStart = dateStart;}
 
 	@JsonProperty("dateEnd")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
 	private Date dateEnd;
 	public Date getDateEnd() {return dateEnd;}
 	public void setDateEnd(Date dateEnd) {this.dateEnd = dateEnd;}

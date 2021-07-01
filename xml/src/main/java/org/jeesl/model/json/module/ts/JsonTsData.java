@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -22,10 +23,16 @@ public class JsonTsData implements Serializable
 	@JsonIgnore public boolean isSetId() {return id!=null;}
 
 	@JsonProperty("record")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSXXX")	//This is new, ISO 8601
 	private Date record;
 	public Date getRecord() {return record;}
 	public void setRecord(Date record) {this.record = record;}
 	@JsonIgnore public boolean isSetRecord() {return record!=null;}
+	
+	@JsonProperty("vbaRecord")
+	private String vbaRecord;
+	public String getVbaRecord() {return vbaRecord;}
+	public void setVbaRecord(String vbaRecord) {this.vbaRecord = vbaRecord;}
 
 	@JsonProperty("value")
 	private Double value;
@@ -38,14 +45,8 @@ public class JsonTsData implements Serializable
 	public List<JsonTsPoint> getPoints() {return points;}
 	public void setPoints(List<JsonTsPoint> points) {this.points = points;}
 
-	@JsonProperty("vbaRecord")
-	private String vbaRecord;
-	public String getVbaRecord() {return vbaRecord;}
-	public void setVbaRecord(String vbaRecord) {this.vbaRecord = vbaRecord;}
-
 	@Override public String toString()
 	{
-
 		StringBuffer sb = new StringBuffer();
 		return sb.toString();
 	}

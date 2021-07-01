@@ -482,7 +482,7 @@ public class AbstractOptionTableBean <L extends JeeslLang, D extends JeeslDescri
 			xml = this.downloadOptionsFromRest(x.getRestCode());
 		}
 
-		JaxbUtil.info(xml);
+//		JaxbUtil.info(xml);
 
 		JeeslDbStatusUpdater asdi = new JeeslDbStatusUpdater();
         asdi.setStatusEjbFactory(EjbStatusFactory.createFactory(cS,cL,cD,bTranslation.getLangKeys()));

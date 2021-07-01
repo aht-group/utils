@@ -14,8 +14,4 @@ public interface JeeslSystemHealthRest
 	@GET @Path("ts/{indicator}/{minutes}")
 	@Produces(MediaType.APPLICATION_JSON)
 	JsonTsSeries timeseries(@PathParam("indicator") String indicator, @PathParam("minutes") int minutes);
-	
-//	@GET @Path("upload/gc")
-//	@Consumes(MediaType.APPLICATION_JSON)
-//	void timeseries(JsonTsSeries event);
 }
