@@ -1,8 +1,10 @@
 package org.jeesl.factory.json.system.io.report.xls;
 
+import java.util.List;
+
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
 import org.jeesl.model.json.system.io.report.xlsx.JsonXlsCell;
+import org.jeesl.model.json.system.io.report.xlsx.JsonXlsColumn;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,5 +39,14 @@ public class JsonXlsCellFactory
 //		}
 		
 		return json;
+	}
+	
+	public static JsonXlsCell toCell(List<JsonXlsCell> cells, String code)
+	{
+		if(cells!=null && !cells.isEmpty())
+		{
+			for(JsonXlsCell c : cells) {if(c.getColumn().getCode().contentEquals(code)) {return c;}}
+		}
+		return null;
 	}
 }
