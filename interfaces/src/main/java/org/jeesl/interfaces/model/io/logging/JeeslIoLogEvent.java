@@ -9,7 +9,7 @@ import org.jeesl.interfaces.model.with.primitive.code.EjbWithNonUniqueCode;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.text.EjbWithName;
 
-public interface JeeslIoLogLoop<LOG extends JeeslIoLog<?,?,?,?,?>
+public interface JeeslIoLogEvent<LOG extends JeeslIoLog<?,?,?,?,?>
 								>
 		extends Serializable,EjbWithId,EjbRemoveable,EjbPersistable,EjbSaveable,
 				EjbWithNonUniqueCode,EjbWithName
@@ -18,13 +18,7 @@ public interface JeeslIoLogLoop<LOG extends JeeslIoLog<?,?,?,?,?>
 	
 	LOG getLog();
 	void setLog(LOG log);
-	
-	long getMilliTotal();
-	void setMilliTotal(long milliTotal);
 
 	int getCounter();
 	void setCounter(int counter);
-	
-	Integer getElements();
-	void setElements(Integer elements);
 }

@@ -254,4 +254,15 @@ public class SqlFactory
 		sb.append(";");
 		newLine(newLine,sb);
 	}
+	
+	public static void transactionBegin(StringBuilder sb, boolean newLine)
+	{
+		sb.append("BEGIN");
+		semicolon(sb,newLine);
+	}
+	public static void transactionCommit(StringBuilder sb, boolean newLine)
+	{
+		sb.append("COMMIT");
+		semicolon(sb,newLine);
+	}
 }

@@ -10,9 +10,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jeesl.controller.processor.arithmetic.NullCalculator;
+import org.jeesl.controller.processor.finance.AmountRounder;
 import org.jeesl.factory.builder.io.IoLogFactoryBuilder;
 import org.jeesl.factory.ejb.io.log.EjbIoLogMilestoneFactory;
 import org.jeesl.interfaces.model.io.logging.JeeslIoLog;
+import org.jeesl.interfaces.model.io.logging.JeeslIoLogEvent;
 import org.jeesl.interfaces.model.io.logging.JeeslIoLogLoop;
 import org.jeesl.interfaces.model.io.logging.JeeslIoLogMilestone;
 import org.jeesl.interfaces.model.io.logging.JeeslIoLogRetention;
@@ -31,6 +34,7 @@ public class JeeslLogger<L extends JeeslLang, D extends JeeslDescription,
 							RETENTION extends JeeslIoLogRetention<L,D,RETENTION,?>,
 							MILESTONE extends JeeslIoLogMilestone<LOG>,
 							LOOP extends JeeslIoLogLoop<LOG>,
+							EVENT extends JeeslIoLogEvent<LOG>,
 							USER extends JeeslSimpleUser>
 				implements Serializable
 {
@@ -44,10 +48,9 @@ public class JeeslLogger<L extends JeeslLang, D extends JeeslDescription,
 	private Instant timeMilestone;
 	
 	private final List<MILESTONE> milestones;
+	private final Map<String,LOOP> loops;
 	
-	private final Map<String,Integer> mapLoopCount;
-	private final Map<String,Integer> mapLoopElements;
-	private final Map<String,Integer> mapLoopInstant;
+	private final Map<String,Instant> mapLoopInstant;
 	
 	private final Class<?> c;
 	private LOG log;
@@ -61,17 +64,16 @@ public class JeeslLogger<L extends JeeslLang, D extends JeeslDescription,
 		efMilestone = fbLog.ejbMilestone();
 		
 		milestones = new ArrayList<>();
+		loops = new HashMap<>();
 		
-		mapLoopCount = new HashMap<>();
-		mapLoopElements = new HashMap<>();
 		mapLoopInstant = new HashMap<>();
 	}
 	
 	private void reset()
 	{
 		milestones.clear();
-		mapLoopCount.clear();
-		mapLoopElements.clear();
+		loops.clear();
+		mapLoopInstant.clear();
 	}
 	
 	public String start(String log, USER user)
@@ -119,18 +121,29 @@ public class JeeslLogger<L extends JeeslLang, D extends JeeslDescription,
 		return sb.toString();
 	}
 	
-	public String loopStart(String loop)
+	public <E extends Enum<E>> String loopStart(E code) {return loopStart(code.toString());}
+	private String loopStart(String loopCode)
 	{
-		
+		if(!loops.containsKey(loopCode))
+		{
+			loops.put(loopCode,fbLog.ejbLoop().build(log,loopCode));
+		}
+		mapLoopInstant.put(loopCode,Instant.now());
 		return "";
 	}
-	public String loopEnd(String loop, Integer elements)
+	public <E extends Enum<E>> String loopEnd(E code, Integer elements)
 	{
-		if(!mapLoopCount.containsKey(loop)) {mapLoopCount.put(loop,0);}
-		if(elements!=null && !mapLoopElements.containsKey(loop)) {mapLoopElements.put(loop,0);}
-		
-		mapLoopCount.put(loop,1+mapLoopCount.get(loop));
-		if(elements!=null) {mapLoopElements.put(loop,elements+mapLoopElements.get(loop));}
+		if(!loops.containsKey(code.toString())) {logger.warn("Loop not started");}
+		else
+		{
+			LOOP loop = loops.get(code.toString());
+			loop.setCounter(loop.getCounter()+1);
+			loop.setElements(NullCalculator.add(loop.getElements(),elements));
+			
+			Instant timeBefore = mapLoopInstant.get(code.toString());
+			Instant timeNow = Instant.now();
+			loop.setMilliTotal(loop.getMilliTotal()+ChronoUnit.MILLIS.between(timeBefore,timeNow));
+		}
 		
 		return "";
 	}
@@ -173,17 +186,22 @@ public class JeeslLogger<L extends JeeslLang, D extends JeeslDescription,
 		List<String> header = new ArrayList<>();
 		header.add("Count");
 		header.add("Elements");
+		header.add("Total");
+		header.add("ms/loop");
 		header.add("Loop");
 		
 		List<Object[]> data = new ArrayList<>();
 		
-		for(String loop : mapLoopCount.keySet())
+		for(String key : loops.keySet())
 		{
-			String[] cell = new String[3];
+			LOOP loop = loops.get(key);
+			String[] cell = new String[5];
 			
-			cell[0] = mapLoopCount.get(loop).toString();
-			if(mapLoopElements.containsKey(loop)) {cell[1] = mapLoopElements.get(loop).toString();} else {cell[1] ="-";}
-			cell[2] = loop;
+			cell[0] = Integer.valueOf(loop.getCounter()).toString();
+			if(loop.getElements()!=null) {cell[1] = loop.getElements().toString();} else {cell[1] ="-";}
+			cell[2] = Long.valueOf(loop.getMilliTotal()).toString();
+			cell[3] = Double.valueOf(AmountRounder.one(loop.getMilliTotal()/loop.getCounter())).toString();
+			cell[4] = loop.getCode();
 			
 			data.add(cell);
 		}
