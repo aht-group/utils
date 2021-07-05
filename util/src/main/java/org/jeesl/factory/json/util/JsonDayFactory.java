@@ -81,7 +81,7 @@ public class JsonDayFactory
 	
 	public List<JsonDay> buildMonth(int year, int month)
 	{
-		DateTime dt1 = new DateTime(year, month, 1, 12,0,0,0);
+		DateTime dt1 = new DateTime(year,month,1,12,0,0,0);
 		int maxDays = dt1.dayOfMonth().getMaximumValue();
 		
 		List<JsonDay> days = new ArrayList<JsonDay>();
