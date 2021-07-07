@@ -1,5 +1,8 @@
 package org.jeesl.factory.ejb.io.ssi.core;
 
+import java.util.List;
+
+import org.jeesl.factory.ejb.util.EjbPositionFactory;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiHost;
 import org.jeesl.interfaces.model.io.ssi.core.JeeslIoSsiSystem;
@@ -17,14 +20,16 @@ public class EjbIoSsiHostFactory <SYSTEM extends JeeslIoSsiSystem<?,?>,
         this.cHost = cHost;
 	}
 		
-	public HOST build(SYSTEM system, String code)
+	public HOST build(SYSTEM system, String code, List<HOST> list)
 	{
 		HOST ejb = null;
 		try
 		{
 			ejb = cHost.newInstance();
-//			ejb.sets
+			ejb.setSystem(system);
 	        ejb.setCode(code);
+	        ejb.setPosition(0);
+	        EjbPositionFactory.calcNext(ejb,list);
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();}

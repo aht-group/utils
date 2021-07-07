@@ -3,6 +3,7 @@ package org.jeesl.factory.ejb.util;
 import java.util.List;
 
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
+import org.jeesl.interfaces.model.with.primitive.position.EjbWithPositionMigration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,6 +24,17 @@ public class EjbPositionFactory
 		{
 			int max = 0;
 			for(T t : list) {if(t.getPosition()>max){max=t.getPosition();}}
+			ejb.setPosition(max+1);
+		}
+	}
+	
+	public static <T extends EjbWithPositionMigration> void calcNext(T ejb, List<T> list)
+	{
+		if(list==null) {ejb.setPosition(1);}
+		else
+		{
+			int max = 0;
+			for(T t : list) {if(t.getPosition()!=null && t.getPosition()>max){max=t.getPosition();}}
 			ejb.setPosition(max+1);
 		}
 	}

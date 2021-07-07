@@ -95,7 +95,7 @@ public class AbstractSsiHostBean <L extends JeeslLang, D extends JeeslDescriptio
 	public void addHost()
 	{
 		reset(true);
-		host = fbSsiCore.ejbHost().build(systems.get(0),"");
+		host = fbSsiCore.ejbHost().build(systems.get(0),"",hosts);
 		host.setName(efLang.createEmpty(localeCodes));
 		host.setDescription(efDescription.createEmpty(localeCodes));
 	}

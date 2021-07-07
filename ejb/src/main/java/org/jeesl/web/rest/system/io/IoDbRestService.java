@@ -91,7 +91,7 @@ public class IoDbRestService<L extends JeeslLang,D extends JeeslDescription,
 		try{eHost = fDb.fByCode(fbDb.getClassDumpHost(), directory.getCode());}
 		catch (JeeslNotFoundException e)
 		{
-			try{eHost = fDb.persist(fbSsi.ejbHost().build(system,directory.getCode()));}
+			try{eHost = fDb.persist(fbSsi.ejbHost().build(system,directory.getCode(),null));}
 			catch (JeeslConstraintViolationException e1) {dut.fail(e1, true);return dut.toDataUpdate();}
 		}
 		
