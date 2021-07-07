@@ -16,4 +16,15 @@ public class Fields implements Serializable
 	private Status status;
 	public Status getStatus() {return status;}
 	public void setStatus(Status status) {this.status = status;}
+	
+	@JsonProperty("description")
+	private String description;
+	public String getDescription() {return description;}
+	public void setDescription(String description) {this.description = description;}
+	
+	@JsonProperty("comment")
+	private Comment comment;
+	public Comment getComment() {return comment;}
+	public void setComment(Comment comment) {this.comment = comment;}
+	
 }
