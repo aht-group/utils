@@ -22,6 +22,7 @@ import org.jeesl.interfaces.model.io.ssi.data.JeeslIoSsiMapping;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
+import org.jeesl.jsf.handler.PositionListReorderer;
 import org.jeesl.web.mbean.prototype.system.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,7 +79,7 @@ public class AbstractSsiHostBean <L extends JeeslLang, D extends JeeslDescriptio
 	private void reloadHosts()
 	{
 		hosts.clear();
-		for(HOST h : fSsi.all(fbSsiCore.getClassHost()))
+		for(HOST h : fSsi.allOrderedPosition(fbSsiCore.getClassHost()))
 		{
 			hosts.add(h);
 		}
@@ -107,4 +108,6 @@ public class AbstractSsiHostBean <L extends JeeslLang, D extends JeeslDescriptio
 		host = fSsi.save(host);
 		reloadHosts();
 	}
+	
+	public void reorderHosts() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fSsi,hosts);}
 }
