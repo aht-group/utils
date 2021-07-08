@@ -196,8 +196,7 @@
 							<h:outputScript>
 								console.log('Progress Bar triggered');
 							</h:outputScript>
-							<p:outputPanel>
-								<p:autoUpdate/>
+							<p:outputPanel autoUpdate="true">
 								<h:outputText rendered="false" value="#{cc.attrs.bean.processing}"/>
 								<h:outputScript value="#{cc.attrs.bean.processing}">
 									console.log('Progress Bar triggered');
