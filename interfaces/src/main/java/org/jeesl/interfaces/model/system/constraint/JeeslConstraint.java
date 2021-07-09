@@ -10,6 +10,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import org.jeesl.interfaces.model.with.primitive.code.EjbWithNonUniqueCode;
+import org.jeesl.interfaces.model.with.primitive.code.EjbWithNrString;
 import org.jeesl.interfaces.model.with.primitive.number.EjbWithId;
 import org.jeesl.interfaces.model.with.primitive.position.EjbWithPosition;
 import org.jeesl.interfaces.model.with.system.locale.EjbWithLangDescription;
@@ -25,8 +26,7 @@ public interface JeeslConstraint<L extends JeeslLang, D extends JeeslDescription
 									RESOLUTION extends JeeslConstraintResolution<L,D,SCOPE,CATEGORY,CONSTRAINT,LEVEL,TYPE,RESOLUTION>>
 			extends Serializable,EjbWithId,
 					EjbRemoveable,EjbPersistable,EjbSaveable,
-					EjbWithNonUniqueCode,
-					
+					EjbWithNonUniqueCode,EjbWithNrString,
 					EjbWithPosition,
 					EjbWithParentAttributeResolver,
 					EjbWithLangDescription<L,D>,

@@ -21,5 +21,6 @@ public interface JeeslSystemConstraintFacade <L extends JeeslLang, D extends Jee
 									RESOLUTION extends JeeslConstraintResolution<L,D,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>>
 			extends JeeslFacade
 {	
+	<E extends Enum<E>> CONSTRAINT fSystemConstraint(Class<?> c, E code);
 	CONSTRAINT fSystemConstraint(SCOPE scope, String code) throws JeeslNotFoundException;
 }

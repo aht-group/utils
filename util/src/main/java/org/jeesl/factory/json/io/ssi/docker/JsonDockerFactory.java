@@ -1,4 +1,4 @@
-package org.jeesl.factory.json.system.io.ssi.docker;
+package org.jeesl.factory.json.io.ssi.docker;
 
 import java.util.ArrayList;
 import java.util.List;

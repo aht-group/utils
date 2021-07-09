@@ -38,6 +38,7 @@ public class JeeslSystemConstraintFacadeBean<L extends JeeslLang, D extends Jees
 					extends JeeslFacadeBean
 					implements JeeslSystemConstraintFacade<L,D,ALGCAT,ALGO,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION>
 {	
+	private static final long serialVersionUID = 1L;
 	private final ConstraintFactoryBuilder<L,D,ALGCAT,ALGO,SCOPE,CONCAT,CONSTRAINT,LEVEL,TYPE,RESOLUTION> fbConstraint;
 
 	
@@ -45,6 +46,16 @@ public class JeeslSystemConstraintFacadeBean<L extends JeeslLang, D extends Jees
 	{
 		super(em);
 		this.fbConstraint=fbConstraint;
+	}
+	
+	@Override public <E extends Enum<E>> CONSTRAINT fSystemConstraint(Class<?> c, E code)
+	{
+		try
+		{
+			SCOPE scope = this.fByCode(fbConstraint.getClassScope(),c.getSimpleName());
+			return this.fSystemConstraint(scope,code.toString());
+		}
+		catch (JeeslNotFoundException e) {e.printStackTrace();return null;}
 	}
 	
 	@Override public CONSTRAINT fSystemConstraint(SCOPE scope, String code) throws JeeslNotFoundException
@@ -68,4 +79,6 @@ public class JeeslSystemConstraintFacadeBean<L extends JeeslLang, D extends Jees
 		catch (NoResultException ex){throw new JeeslNotFoundException("No "+fbConstraint.getClassConstraint().getSimpleName()+" found for scope="+scope.toString()+" and code="+code);}
 		catch (NonUniqueResultException ex){throw new JeeslNotFoundException("No unique results in "+fbConstraint.getClassConstraint().getSimpleName()+" for type="+scope.toString()+" and code="+code);}
 	}
+
+	
 }

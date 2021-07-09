@@ -1,4 +1,4 @@
-package org.jeesl.factory.json.system.io.ssi;
+package org.jeesl.factory.json.io.ssi;
 
 import org.jeesl.model.json.system.io.ssi.SsiCrendentials;
 

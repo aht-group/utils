@@ -13,7 +13,7 @@ import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import org.jeesl.JeeslBootstrap;
 import org.jeesl.api.rest.system.io.ssi.JeeslIoDockerRest;
 import org.jeesl.exception.processing.UtilsConfigurationException;
-import org.jeesl.factory.json.system.io.ssi.docker.JsonDockerFactory;
+import org.jeesl.factory.json.io.ssi.docker.JsonDockerFactory;
 import org.jeesl.factory.xml.system.io.ssi.XmlSystemFactory;
 import org.jeesl.factory.xml.system.io.ssi.docker.XmlContainerFactory;
 import org.jeesl.factory.xml.system.io.ssi.docker.XmlDockerFactory;
