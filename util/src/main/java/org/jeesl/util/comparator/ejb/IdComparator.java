@@ -17,4 +17,13 @@ public class IdComparator<T extends EjbWithId> implements Comparator<T>
 		  ctb.append(a.getId(), b.getId());
 		  return ctb.toComparison();
     }
+	
+	public static <T extends EjbWithId> boolean lastDigit(T t, int value)
+	{
+		String s = ""+t.getId();
+		String digit = s.substring(s.length()-1);
+		int i = Integer.valueOf(digit);
+		logger.info(digit+" "+i+" "+value);
+		return i==value;
+	}
 }

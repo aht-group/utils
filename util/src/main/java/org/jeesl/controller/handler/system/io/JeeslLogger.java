@@ -76,11 +76,13 @@ public class JeeslLogger<L extends JeeslLang, D extends JeeslDescription,
 		mapLoopInstant.clear();
 	}
 	
-	public String start(String log, USER user)
+	public String start(String log, USER user) {return start(log,null,user);}
+	public String start(String log, String message, USER user)
 	{
 		reset();
 		timeStart = Instant.now();
 		timeMilestone = Instant.now();
+		milestone(log,message);
 		StringBuilder sb = new StringBuilder();
 		sb.append("Starting ");
 		sb.append(c.getSimpleName());
