@@ -94,14 +94,14 @@ public class AbstractAdminTsImportManualBean<L extends JeeslLang, D extends Jees
 	private TRANSACTION transaction; public TRANSACTION getTransaction() {return transaction;} public void setTransaction(TRANSACTION transaction) {this.transaction = transaction;}
 	private TS ts;
 	private USER transactionUser;
-	
+
 	private TimeSeries timeSeries; public TimeSeries getTimeSeries() {return timeSeries;} public void setTimeSeries(TimeSeries timeSeries) {this.timeSeries = timeSeries;}
 	private final Map<TS,EjbWithId> mapTsEntity; public Map<TS,EjbWithId> getMapTsEntity() {return mapTsEntity;}
 
 	private Ds ds; public Ds getDs() {return ds;} public void setDs(Ds ds) {this.ds = ds;}
 
 	private Comparator<Data> cTsData;
-	
+
 	private List<DATA> datas; public List<DATA> getDatas() {return datas;}
 	private DATA data; public DATA getData() { return data; } public void setData(DATA data) { this.data = data; }
 
@@ -122,7 +122,7 @@ public class AbstractAdminTsImportManualBean<L extends JeeslLang, D extends Jees
 		this.transactionUser=transactionUser;
 		cTsData = TsDataComparator.factory(TsDataComparator.Type.date);
 		sources.addAll(fTs.all(fbTs.getClassSource()));
-		
+
 		initTransaction();
 	}
 
@@ -132,13 +132,13 @@ public class AbstractAdminTsImportManualBean<L extends JeeslLang, D extends Jees
 		category = null; if(categories.size()>0){category = categories.get(0);}
 		changeCategory();
 	}
-	
+
 	public void cancelData(){reset(false,true);}
 	private void reset(boolean rTransaction, boolean rData)
 	{
 		if(rTransaction) {transaction = null;}
 		if(rData) {data = null;}
-		
+
 	}
 
 	public void changeCategory()
@@ -158,7 +158,7 @@ public class AbstractAdminTsImportManualBean<L extends JeeslLang, D extends Jees
 		}
 	}
 
-	private void changeScope()
+	public void changeScope()
 	{
 		clas=null;
 		interval=null;
@@ -178,7 +178,7 @@ public class AbstractAdminTsImportManualBean<L extends JeeslLang, D extends Jees
 		}
 	}
 
-	private void changeClass()
+	public void changeClass()
 	{
 		if(clas!=null)
 		{
@@ -213,7 +213,7 @@ public class AbstractAdminTsImportManualBean<L extends JeeslLang, D extends Jees
 		catch (ClassNotFoundException e){e.printStackTrace();} catch(JeeslConstraintViolationException e) { e.printStackTrace(); }
 		if(debugOnInfo){logger.info(AbstractLogMessage.reloaded(EjbWithId.class,entities));}
 	}
-	
+
 	public void initTransaction()
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.addEntity(fbTs.getClassData()));}
@@ -222,7 +222,7 @@ public class AbstractAdminTsImportManualBean<L extends JeeslLang, D extends Jees
 		transaction = fbTs.ejbTransaction().build(transactionUser, sources.get(0));
 		transaction.setRecord(new Date());
 	}
-	
+
 	public void saveTransaction() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.addEntity(fbTs.getClassData()));}
@@ -240,7 +240,7 @@ public class AbstractAdminTsImportManualBean<L extends JeeslLang, D extends Jees
 		ts = fTs.fcTimeSeries(scope,interval,statistic,fTs.fcBridge(fbTs.getClassBridge(), clas,entity));
 		reloadData();
 	}
-	
+
 	private void reloadData()
 	{
 		datas = fTs.fData(workspace, ts);
