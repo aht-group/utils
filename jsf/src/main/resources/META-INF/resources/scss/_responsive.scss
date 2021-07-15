@@ -1,4 +1,7 @@
 @import '_fonts';
+@import '_sizes';
+
+@import '_responsiveCommon';
 
 @mixin triangle($colour: transparent, $width: 0) {
 	border-color: $colour;
@@ -904,6 +907,10 @@ body, .ui-widget {
 		}
 		
 		.ui-panel-actions {
+			.ui-outputpanel {
+				height: 100%;
+			}
+			
 			@include jeesl-titlebar-actions;
 		}
 	}
@@ -1490,5 +1497,56 @@ body, .ui-widget {
 				padding: 0 11px;
 			}
 		}
+	}
+}
+
+.fc {
+	.fc-toolbar {
+		display: flex;
+		
+		.fc-left {
+			order: 1;
+		}
+		
+		.fc-center {
+			flex-grow: 1;
+			order: 2;
+		}
+		
+		.fc-right {
+			order: 3;
+		}
+		
+		.fc-left, .fc-center, .fc-right {
+			float: none;
+			
+			&:before {
+				content: '';
+			    height: 100%;
+			    display: inline-block;
+			    vertical-align: middle;
+			}
+			
+			> * {
+				display: inline-block;
+				float: none;
+				vertical-align: middle;
+			}
+		}
+	}
+	
+	.fc-head {
+		@include jeesl-titlebar;
+		
+		margin: 0;
+		padding: 0;
+		
+		.fc-day-header > span {
+			@include jeesl-titlebar-title;
+		}
+	}
+	
+	.fc-scroller {
+		min-height: 312px;
 	}
 }
