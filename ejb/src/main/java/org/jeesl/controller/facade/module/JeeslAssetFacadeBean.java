@@ -171,8 +171,7 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 		return tQ.getResultList();
 	}
 
-	@Override
-	public <RREF extends EjbWithId> ATYPE fcAomRootType(REALM realm, RREF rref, VIEW view)
+	@Override public <RREF extends EjbWithId> ATYPE fcAomRootType(REALM realm, RREF rref, VIEW view)
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<ATYPE> cQ = cB.createQuery(fbAsset.getClassAssetType());
@@ -197,7 +196,6 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 		catch (NoResultException e1)
 		{
 			ATYPE result = fbAsset.ejbType().build(realm,rref,view, null, "root");
-			
 			try {return this.save(result);}
 			catch (JeeslConstraintViolationException | JeeslLockingException e2)
 			{

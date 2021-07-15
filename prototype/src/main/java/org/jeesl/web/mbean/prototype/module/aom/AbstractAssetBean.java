@@ -190,6 +190,7 @@ public class AbstractAssetBean <L extends JeeslLang, D extends JeeslDescription,
 	
 	private void reloadTree()
 	{
+		if(debugOnInfo) {logger.info("Loading root: realm:"+realm.toString()+" rref:"+rref);}
 		root = fAsset.fcAssetRoot(realm,rref);
 		
 		tree = new DefaultTreeNode(root, null);
@@ -240,6 +241,15 @@ public class AbstractAssetBean <L extends JeeslLang, D extends JeeslDescription,
 	{
 		ASSET parent = null; if(asset!=null) {parent = asset;} else {parent = root;}
 		ASTATUS status = fAsset.fByEnum(fbAsset.getClassStatus(),JeeslAomAssetStatus.Code.na);
+		if(debugOnInfo)
+		{
+			StringBuilder sb = new StringBuilder();
+			sb.append("fcAomRootType ");
+			sb.append("realm:").append(realm.toString());
+			sb.append(" rref:").append(rref);
+			sb.append(" alevel:");if(sbhView.getSelection()!=null) {sb.append(sbhView.getSelection());}else {sb.append("null");}
+			logger.info(sb.toString());
+		}
 		ATYPE type = fAsset.fcAomRootType(realm,rref,sbhView.getSelection());
 		reset(true,true,true);
 		asset = efAsset.build(realm,rref,parent,status,type);

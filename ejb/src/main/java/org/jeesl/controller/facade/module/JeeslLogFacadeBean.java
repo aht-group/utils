@@ -10,6 +10,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -60,10 +61,12 @@ public class JeeslLogFacadeBean<L extends JeeslLang, D extends JeeslDescription,
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		
 		Join<ITEM,LOG> jLog = item.join(JeeslLogItem.Attributes.log.toString());
+		Path<Date> pRecord = item.get(JeeslLogItem.Attributes.record.toString());
 		
 		predicates.add(jLog.in(logs));
 		
 		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.orderBy(cB.asc(pRecord));
 		cQ.select(item);
 
 		TypedQuery<ITEM> tQ = em.createQuery(cQ);

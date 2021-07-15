@@ -25,10 +25,10 @@ public class JsonIntervalFactory<L extends JeeslLang, D extends JeeslDescription
 	{
 		JsonInterval json = new JsonInterval();
 	
-		if(q.isSetId()){json.setId(ejb.getId());}
-		if(q.isSetCode()){json.setCode(ejb.getCode());}
-		if(q.isSetLabel() && ejb.getName().containsKey(localeCode)){json.setLabel(ejb.getName().get(localeCode).getLang());}
-		if(q.isSetDescription() && ejb.getDescription().containsKey(localeCode)){json.setDescription(ejb.getDescription().get(localeCode).getLang());}
+		if(q.getId()!=null){json.setId(ejb.getId());}
+		if(q.getCode()!=null){json.setCode(ejb.getCode());}
+		if(q.getLabel()!=null && ejb.getName().containsKey(localeCode)){json.setLabel(ejb.getName().get(localeCode).getLang());}
+		if(q.getDescription()!=null && ejb.getDescription().containsKey(localeCode)){json.setDescription(ejb.getDescription().get(localeCode).getLang());}
 	
 		return json;
 	}

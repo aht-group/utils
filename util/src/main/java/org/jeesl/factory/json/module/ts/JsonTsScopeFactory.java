@@ -22,7 +22,7 @@ public class JsonTsScopeFactory<L extends JeeslLang, D extends JeeslDescription,
 	public JsonTsScopeFactory(JsonTsScope q)
 	{
 		this.q=q;
-		if(q.isSetType()) {jfType = new JsonTypeFactory<>(q.getType());}
+		if(q.getType()!=null) {jfType = new JsonTypeFactory<>(q.getType());}
 	}
 	
 	public static JsonTsScope build(){return new JsonTsScope();}
@@ -30,8 +30,8 @@ public class JsonTsScopeFactory<L extends JeeslLang, D extends JeeslDescription,
 	public JsonTsScope build(SCOPE ejb)
 	{
 		JsonTsScope json = build();
-		if(q.isSetCode()) {json.setCode(ejb.getCode());}
-		if(q.isSetType()) {json.setType(jfType.build(ejb.getType()));}
+		if(q.getCode()!=null) {json.setCode(ejb.getCode());}
+		if(q.getType()!=null) {json.setType(jfType.build(ejb.getType()));}
 		return json;
 	}
 }

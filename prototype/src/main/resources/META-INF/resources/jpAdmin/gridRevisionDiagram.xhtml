@@ -26,7 +26,7 @@
 							<p:ajax event="rowReorder" listener="#{cc.attrs.bean.reorderDiagrams()}" update="@form"/>
 							<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectDiagram}" update=":#{cc.id}:sDiagram :#{cc.id}:sSvg"/>
 							<p:column rendered="true">  
-								<h:outputText value="#{d.category.position}.#{erd.position}"/>
+								<h:outputText value="#{d.category.position}.#{d.position}"/>
 				            </p:column>
 				            <p:column headerText="#{msg.jeeslCategory}" >  
 								<h:outputText value="#{d.category.name[localeCode].lang}" />  
