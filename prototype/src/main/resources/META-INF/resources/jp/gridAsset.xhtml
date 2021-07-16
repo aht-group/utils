@@ -49,9 +49,9 @@
 			<h:form id="fType" rendered="#{not empty cc.attrs.bean.asset}">
 				<p:panel header="#{msg.jeeslAsset}" styleClass="jeeslPanel">
 					<f:facet name="actions">
-						<j:svg type="jeeslCancel" listener="#{cc.attrs.bean.cancelAsset()}" update=":#{cc.id}:grid" mayDisappear="true" library="jeeslGfx"/>
+						<j:svg type="jeeslCancel" listener="#{cc.attrs.bean.cancelAsset()}" update=":#{cc.id}:grid" library="jeeslGfx"/>
 						<j:svg type="jeeslSave"   listener="#{cc.attrs.bean.saveAsset()}" update=":#{cc.id}:grid" library="jeeslGfx"/>
-						<j:svg type="jeeslDelete" listener="#{cc.attrs.bean.deleteAsset()}" update=":#{cc.id}:grid" rendered="#{cc.attrs.bean.asset.id gt 0}" mayDisappear="true" library="jeeslGfx"/>
+						<j:svg type="jeeslDelete" listener="#{cc.attrs.bean.deleteAsset()}" update=":#{cc.id}:grid" rendered="#{cc.attrs.bean.asset.id gt 0}" library="jeeslGfx"/>
 					</f:facet>
 					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
 						<p:outputLabel value="#{msg.jeeslCode}" rendered="#{cc.attrs.withCode}"/>
@@ -138,10 +138,10 @@
 			<h:form id="fEvent">
 				<p:panel id="pEvent" header="#{msg.jeeslAssetEvent}" styleClass="jeeslPanel" rendered="#{not empty cc.attrs.bean.event}">
 					<f:facet name="actions">
-						<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.cancelEvent()}" update=":#{cc.id}:sAsset" mayDisappear="true"/>
+						<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.cancelEvent()}" update=":#{cc.id}:sAsset"/>
 						<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveEvent()}" update=":#{cc.id}:sAsset"/>
-						<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteEvent()}" update=":#{cc.id}:sAsset" rendered="#{false and cc.attrs.bean.event.id gt 0}" mayDisappear="true"/>
-						<j:icon type="jeeslRemove" listener="#{cc.attrs.bean.removeEvent()}" update=":#{cc.id}:sAsset" rendered="#{(cc.attrs.bean.event.id gt 0) and (cc.attrs.bean.event.assets.size() gt 1)}" mayDisappear="true"/>
+						<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteEvent()}" update=":#{cc.id}:sAsset" rendered="#{false and cc.attrs.bean.event.id gt 0}"/>
+						<j:icon type="jeeslRemove" listener="#{cc.attrs.bean.removeEvent()}" update=":#{cc.id}:sAsset" rendered="#{(cc.attrs.bean.event.id gt 0) and (cc.attrs.bean.event.assets.size() gt 1)}"/>
 						<j:icon type="jeeslClone"  listener="#{cc.attrs.bean.cloneEvent()}" update=":#{cc.id}:fEvents :#{cc.id}:fEvent :#{cc.id}:pgFr" rendered="#{cc.attrs.bean.event.id gt 0}"/>
 					</f:facet>
 					<p:messages redisplay="false" severity="warn,error" showSummary="true" showDetail="true" closable="true"/>

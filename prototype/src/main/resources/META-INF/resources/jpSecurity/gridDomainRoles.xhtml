@@ -7,6 +7,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:aht="http://ahtutils.sourceforge.net/jsf"
+	xmlns:j="http://www.jeesl.org/jsf" xmlns:jp="http://jsf.jeesl.org/prototype" xmlns:jtp="http://jsf.jeesl.org/prototype/tag"
 	xmlns:aup="http://ahtutils.sourceforge.net/prototype"
 	xmlns:aupAdm="http://ahtutils.sourceforge.net/prototype/admin"
 	xmlns:composite="http://java.sun.com/jsf/composite">
@@ -61,9 +62,9 @@
 	                <h:form id="fUser" rendered="#{not empty cc.attrs.bean.staff}">
 	                    <p:panel header="#{msg.jeeslDetails}" styleClass="jeeslPanel">
 							<f:facet name="actions">
-		                        	<aht:icon type="jeeslCancel" mayDisappear="true" process="@this" listener="#{cc.attrs.bean.cancel()}" update=":#{cc.id}:sUser" tooltip="#{msg.jeeslTtCancel}"/>
-		                        	<aht:icon type="jeeslSave" listener="#{cc.attrs.bean.save()}" update=":#{cc.id}:grid" tooltip="#{msg.ttSave}"/>
-		                        	<aht:icon type="jeeslDelete" mayDisappear="true" listener="#{cc.attrs.bean.rmStaff()}" update=":#{cc.id}:grid" tooltip="#{msg.ttDelete}"/>
+		                        	<j:icon type="jeeslCancel" process="@this" listener="#{cc.attrs.bean.cancel()}" update=":#{cc.id}:sUser" tooltip="#{msg.jeeslTtCancel}"/>
+		                        	<j:icon type="jeeslSave" listener="#{cc.attrs.bean.save()}" update=":#{cc.id}:grid" tooltip="#{msg.ttSave}"/>
+		                        	<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.rmStaff()}" update=":#{cc.id}:grid" tooltip="#{msg.ttDelete}"/>
 		                        	<h:graphicImage id="giContactSelection" styleClass="pf-action-icon" library="gfx" name="#{appIconBean.icon12['jeeslAddressBook']}"/>
 	                            	<p:tooltip for="giContactSelection" value="#{msg.ttAddressBook}"/>
 	                        </f:facet>

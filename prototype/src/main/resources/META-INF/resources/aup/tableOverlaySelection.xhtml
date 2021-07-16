@@ -7,6 +7,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:aht="http://ahtutils.sourceforge.net/jsf"
 	xmlns:aup="http://ahtutils.sourceforge.net/prototype"
+	xmlns:j="http://www.jeesl.org/jsf" xmlns:jp="http://jsf.jeesl.org/prototype" xmlns:jtp="http://jsf.jeesl.org/prototype/tag"
 	xmlns:composite="http://java.sun.com/jsf/composite">
     
 <composite:interface>
@@ -22,7 +23,7 @@
 			<f:facet name="header">
 				<aht:pfDataTableHeader id="dth" title="#{msg.aupSecurityActionTemplates}">
 					<h:graphicImage id="giAdd" styleClass="pf-action-icon" library="gfx" name="#{iconBean.icon12['aupAdd']}"/>
-					<aht:icon rendered="#{not empty cc.attrs.handler.tb}" type="aupRm" mayDisappear="true" listener="#{cc.attrs.handler.rmTb()}" update="@form" tooltip="#{msg.ttRemove}"/>
+					<j:icon rendered="#{not empty cc.attrs.handler.tb}" type="aupRm" listener="#{cc.attrs.handler.rmTb()}" update="@form" tooltip="#{msg.ttRemove}"/>
 					<p:tooltip for="giAdd" value="#{msg.ttAdd}"/>
 				</aht:pfDataTableHeader>
 			</f:facet>

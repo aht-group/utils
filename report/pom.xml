@@ -175,12 +175,6 @@
 			<artifactId>poi-ooxml</artifactId>
 		</dependency>
 		
-		<!-- Logging -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
-		</dependency>
-		
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -188,15 +182,7 @@
 			<scope>provided</scope>
 		</dependency>
 		
-		<!-- Logging -->
-		<dependency>
-	        	<groupId>org.slf4j</groupId>
-	        	<artifactId>slf4j-api</artifactId>
-		</dependency>
-		<dependency>
-	        	<groupId>org.slf4j</groupId>
-	        	<artifactId>slf4j-log4j12</artifactId>
-		</dependency>
+		
 
 		<!-- Chart -->
 		<dependency>
@@ -238,18 +224,36 @@
 			</exclusions>
 		</dependency>
                 
-            <dependency>
-                <!--GeoTools - required to work with Esri SHP Shape files -->
-                <groupId>org.geotools</groupId>
-                <artifactId>gt-shapefile</artifactId>
-		<version>19.4</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>commons-logging</artifactId>
-                        <groupId>commons-logging</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
+		<dependency>
+			<!--GeoTools - required to work with Esri SHP Shape files -->
+			<groupId>org.geotools</groupId>
+			<artifactId>gt-shapefile</artifactId>
+			<version>19.4</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- 2021-07-16 tk removed for cleanup 
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+		</dependency>
+		-->
 	</dependencies>
 	
 	<dependencyManagement>

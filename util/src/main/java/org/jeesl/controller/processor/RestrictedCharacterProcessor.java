@@ -32,7 +32,6 @@ public final class RestrictedCharacterProcessor
         return input;
     }
     
-    
     public static String prettyFile(String input)
     {
     	if(instance==null){instance = new RestrictedCharacterProcessor();}
@@ -51,7 +50,5 @@ public final class RestrictedCharacterProcessor
     	input=input.replace("?", "-");
     	input=input.replace("*", "-");
         return input;
-    }
-    
-   
+    }  
 }
