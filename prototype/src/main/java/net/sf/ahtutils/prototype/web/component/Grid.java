@@ -78,7 +78,7 @@ public class Grid extends AbstractUtilsGrid
 		if(this.getFacets().containsKey("right"))
 		{
 			responseWriter.startElement("div", this);
-			responseWriter.writeAttribute("class","aupContentRight",null);
+			responseWriter.writeAttribute("class","aupContentRight jeesl-content-right",null);
 			this.getFacet("right").encodeAll(context);
 			responseWriter.endElement("div");
 		}

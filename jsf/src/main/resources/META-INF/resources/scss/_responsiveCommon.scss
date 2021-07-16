@@ -1,0 +1,74 @@
+html, body {
+	height: 100%;
+}
+
+.ui-button.ui-state-default {
+	background: $panel-header-gradient;
+	box-shadow: 0 -1px inset $white-80;
+	color: $foreground;
+	height: $button-height;
+	padding: 0 $half-spacing;
+	transition: border-color .2s linear, color .2s linear, text-shadow .2s linear;
+	z-index: 0;
+	
+	@media (max-width: 768px) {
+		height: $button-height-mobile;
+		padding: 0 wide-spacing;
+	}
+	
+	&.ui-state-active, &.ui-state-hover {
+		background: $panel-header-gradient;
+		border-color: $medium-grey;
+		box-shadow: none;
+		color: $anthracite;
+		
+		&:before {
+			opacity: 1;
+			transition: background .2s linear, opacity .2s linear;
+		}
+	}
+	
+	&.ui-state-active {
+		border-color: $dark-colour;
+		color: $white-100;
+		text-shadow: none;
+		
+		&:before {
+			background: $dark-colour;
+		}
+	}
+	
+	&:before {
+		background: $soft-grey;
+		content: '';
+	    height: 100%;
+	    left: 0;
+		opacity: 0;
+	    position: absolute;
+	    top: 0;
+		transition: background .2s linear, opacity .2s linear;
+	    width: 100%;
+	    z-index: -1;
+	}
+	
+	.ui-icon {
+		background: none;
+		height: auto;
+		text-indent: 0;
+		width: auto;
+		
+		&:before {
+			@media (max-width: 768px) {
+				font-size: 2em;
+			}
+		}
+	}
+	
+	.ui-icon-circle-triangle-e:before {
+		content: "\25ba";
+	}
+	
+	.ui-icon-circle-triangle-w:before {
+		content: "\25c4";
+	}
+}

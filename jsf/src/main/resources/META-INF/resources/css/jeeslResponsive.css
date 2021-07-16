@@ -1,3 +1,56 @@
+html, body {
+  height: 100%; }
+
+.ui-button.ui-state-default {
+  background: linear-gradient(to bottom, #ededed, #c4c4c4);
+  box-shadow: 0 -1px inset rgba(255, 255, 255, 0.8);
+  color: #333333;
+  height: 22px;
+  padding: 0 5px;
+  transition: border-color .2s linear, color .2s linear, text-shadow .2s linear;
+  z-index: 0; }
+  @media (max-width: 768px) {
+    .ui-button.ui-state-default {
+      height: 42px;
+      padding: 0 wide-spacing; } }
+  .ui-button.ui-state-default.ui-state-active, .ui-button.ui-state-default.ui-state-hover {
+    background: linear-gradient(to bottom, #ededed, #c4c4c4);
+    border-color: #ababab;
+    box-shadow: none;
+    color: #333333; }
+    .ui-button.ui-state-default.ui-state-active:before, .ui-button.ui-state-default.ui-state-hover:before {
+      opacity: 1;
+      transition: background .2s linear, opacity .2s linear; }
+  .ui-button.ui-state-default.ui-state-active {
+    border-color: #00663a;
+    color: white;
+    text-shadow: none; }
+    .ui-button.ui-state-default.ui-state-active:before {
+      background: #00663a; }
+  .ui-button.ui-state-default:before {
+    background: #c4c4c4;
+    content: '';
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    transition: background .2s linear, opacity .2s linear;
+    width: 100%;
+    z-index: -1; }
+  .ui-button.ui-state-default .ui-icon {
+    background: none;
+    height: auto;
+    text-indent: 0;
+    width: auto; }
+    @media (max-width: 768px) {
+      .ui-button.ui-state-default .ui-icon:before {
+        font-size: 2em; } }
+  .ui-button.ui-state-default .ui-icon-circle-triangle-e:before {
+    content: "\25ba"; }
+  .ui-button.ui-state-default .ui-icon-circle-triangle-w:before {
+    content: "\25c4"; }
+
 body {
   min-width: 400px; }
 
@@ -919,6 +972,8 @@ body, .ui-widget {
         .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions {
           float: none;
           height: 100%; }
+          .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions .ui-outputpanel {
+            height: 100%; }
           .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions .pf-action-icon, .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions .jeesl-action-icon {
             box-sizing: border-box;
             display: inline-block;
@@ -936,7 +991,7 @@ body, .ui-widget {
               vertical-align: top; }
               @media (max-width: 768px) {
                 .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions .pf-action-icon img, .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions .jeesl-action-icon img {
-                  border-left: 1px solid #a8a8a8;
+                  border-left: 1px solid #ababab;
                   padding: 0 6px; } }
           .jeesl-content .jeesl-content-container .ui-panel .ui-panel-titlebar .ui-panel-actions img {
             height: 100%; }
@@ -1007,7 +1062,7 @@ body, .ui-widget {
                 vertical-align: top; }
                 @media (max-width: 768px) {
                   .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions .pf-action-icon img, .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions .jeesl-action-icon img {
-                    border-left: 1px solid #a8a8a8;
+                    border-left: 1px solid #ababab;
                     padding: 0 6px; } }
             .jeesl-content .jeesl-content-container .ui-panel .ui-panelgrid .ui-datatable .ui-datatable-header .pf-datatable-header-actions img {
               height: 100%; }
@@ -1273,7 +1328,7 @@ body, .ui-widget {
             vertical-align: top; }
             @media (max-width: 768px) {
               .ui-dialog .ui-dialog-titlebar > .ui-dialog-title .ui-dialog-titlebar-actions .pf-action-icon img, .ui-dialog .ui-dialog-titlebar > .ui-dialog-title .ui-dialog-titlebar-actions .jeesl-action-icon img {
-                border-left: 1px solid #a8a8a8;
+                border-left: 1px solid #ababab;
                 padding: 0 6px; } }
         .ui-dialog .ui-dialog-titlebar > .ui-dialog-title .ui-dialog-titlebar-actions img {
           height: 100%; }
@@ -1488,3 +1543,52 @@ body, .ui-widget {
             text-shadow: none; } }
       .jeesl-tabs .ui-tabs-nav .ui-tabs-header a {
         padding: 0 11px; }
+
+.fc .fc-toolbar {
+  display: flex; }
+  .fc .fc-toolbar .fc-left {
+    order: 1; }
+  .fc .fc-toolbar .fc-center {
+    flex-grow: 1;
+    order: 2; }
+  .fc .fc-toolbar .fc-right {
+    order: 3; }
+  .fc .fc-toolbar .fc-left, .fc .fc-toolbar .fc-center, .fc .fc-toolbar .fc-right {
+    float: none; }
+    .fc .fc-toolbar .fc-left:before, .fc .fc-toolbar .fc-center:before, .fc .fc-toolbar .fc-right:before {
+      content: '';
+      height: 100%;
+      display: inline-block;
+      vertical-align: middle; }
+    .fc .fc-toolbar .fc-left > *, .fc .fc-toolbar .fc-center > *, .fc .fc-toolbar .fc-right > * {
+      display: inline-block;
+      float: none;
+      vertical-align: middle; }
+.fc .fc-head {
+  box-sizing: border-box;
+  display: flex;
+  height: 22px;
+  margin-bottom: 2px;
+  padding: 0 0 0 10px;
+  margin: 0;
+  padding: 0; }
+  @media (max-width: 768px) {
+    .fc .fc-head {
+      border: 0 solid #00663a;
+      border-bottom-width: 4px;
+      border-radius: 3px 3px 0 0;
+      height: 46px; } }
+  .fc .fc-head .fc-day-header > span {
+    font-weight: 700;
+    flex-grow: 1;
+    line-height: 22px; }
+    @media (max-width: 768px) {
+      .fc .fc-head .fc-day-header > span {
+        font-size: 1.4em;
+        letter-spacing: -.5px; } }
+    @media (max-width: 768px) {
+      .fc .fc-head .fc-day-header > span {
+        color: #00663a;
+        line-height: 42px; } }
+.fc .fc-scroller {
+  min-height: 312px; }

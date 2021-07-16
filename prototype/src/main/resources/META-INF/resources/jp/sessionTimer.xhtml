@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"  xmlns:p="http://primefaces.org/ui"
+    xmlns:j="http://www.jeesl.org/jsf" xmlns:jp="http://jsf.jeesl.org/prototype" xmlns:jtp="http://jsf.jeesl.org/prototype/tag"
+	xmlns:aht="http://ahtutils.sourceforge.net/jsf"
+	xmlns:meis="http://meis.loda.gov.rw/jsf"
+    xmlns:composite="http://java.sun.com/jsf/composite">
+    
+	<composite:interface>
+		<composite:attribute name="timeout" required="false" default="600" />
+		<composite:attribute name="warning" required="false" default="120" />
+	</composite:interface>
+
+	<composite:implementation>
+		<p:growl for="growl" widgetVar="growlWV" autoUpdate="true" severity="info" showDetail="true" life="3000" sticky="false" />
+		<div id="sessionTimeoutCounter"/>
+		<script>
+			var time = #{cc.attrs.timeout};
+			var warning = #{cc.attrs.warning};
+			var timeoutCounter = $('#sessionTimeoutCounter');
+			var interval;
+			
+			function getUserFriendlyTime(seconds) {
+				let timeString = Math.floor(seconds / 60) + ' min';
+				if (seconds % 60) {
+					timeString += ' and ' + (seconds % 60) + ' sec';
+				}
+				return timeString;
+			}
+			
+			var warningMessage = 'System idle for ' + getUserFriendlyTime(#{cc.attrs.timeout} - warning) + ', it will close down in ' + getUserFriendlyTime(warning) + '.';
+			
+			function startTimer() {
+				if (interval) { return; }
+				
+				interval = setInterval(function() {
+					if (time === 0) {
+						timeoutCounter.html('Session expired.');
+						window.location.href = '#{request.contextPath}/index.jsf';
+						return;
+					}
+					
+					if (time === #{cc.attrs.warning}) {
+						//alert("your session expires in x minutes!");
+						PF('growlWV').renderMessage({'summary':'Inactivity Warning',
+													 'detail':warningMessage,
+													 'severity':'warn'});
+					}
+	
+					timeoutCounter.html(String(Math.floor(time / 60)).padStart(2, '0') + ':' + String(time % 60).padstart(2, '0') + ' until your session expires');
+					time--;
+				}, 1000);
+			}
+			
+			function resetTimer() {
+				clearInterval(interval);
+				time = #{cc.attrs.timeout};
+				startTimer();
+			}
+			
+			startTimer();
+		</script>
+	</composite:implementation>
+</html>

@@ -5,6 +5,7 @@ $white-100: hsla(0,0%,100%,1);
 $bright-grey: hsla(0,0%,93%,1);
 $light-grey: hsla(0,0%,87%,1);
 $soft-grey: hsla(0,0%,77%,1);
+$medium-grey: hsla(0,0%,67%,1);
 $dark-grey: hsla(0,0%,33%,1);
 $anthracite: hsla(0,0%,20%,1);
 $brighter-colour: hsla(154,100%,33%,1);
@@ -13,9 +14,10 @@ $medium-colour: hsla(154,100%,24%,1);
 $dark-colour: hsla(154,100%,20%,1);
 $darker-colour: hsla(154,100%,18%,1);
 
-$border-colour: hsla(0,0%,66%,1);
+$border-colour: $medium-grey;
 $editor-background: $white-100;
 $error-foreground: hsla(0,100%,50%,1);
+$foreground: $anthracite;
 $panel-background: hsla(0,0%,94%,1);
 $header-background-colour: $soft-grey;
 
