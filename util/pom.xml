@@ -38,10 +38,11 @@
                     <groupId>commons-collections</groupId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency>  
         <dependency>
             <groupId>net.sf.exlp</groupId>
             <artifactId>exlp-shell</artifactId>
+            <scope>provided</scope>
         </dependency>
 		<dependency>
         	<groupId>net.sf.exlp</groupId>
