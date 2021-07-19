@@ -1,13 +1,15 @@
 package net.sf.ahtutils.net.auth;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.jeesl.JeeslUtilTestBootstrap;
 import org.jeesl.util.db.ActiveDirectoryAuthenticator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import net.sf.ahtutils.controller.jboss.CliJbossConfigConfigurator;
 
 public class TstActiveDirectoryAuthenticator
 {
-	static Log logger = LogFactory.getLog(TstActiveDirectoryAuthenticator.class);
+	final static Logger logger = LoggerFactory.getLogger(CliJbossConfigConfigurator.class);
 		
 	private ActiveDirectoryAuthenticator adsAuth;
 	
@@ -22,7 +24,7 @@ public class TstActiveDirectoryAuthenticator
 	
 	public void direct()
 	{
-		logger.debug(adsAuth.authenticate("y", ""));
+		logger.debug(""+adsAuth.authenticate("y", ""));
 	}
 	
 	public static void main (String[] args) throws Exception

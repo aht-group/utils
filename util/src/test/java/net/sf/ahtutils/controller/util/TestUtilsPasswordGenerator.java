@@ -1,16 +1,16 @@
 package net.sf.ahtutils.controller.util;
 
-import net.sf.ahtutils.controller.util.UtilsPasswordGenerator;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.jeesl.JeeslUtilTestBootstrap;
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import net.sf.ahtutils.controller.jboss.CliJbossConfigConfigurator;
 
 public class TestUtilsPasswordGenerator
 {
-	static Log logger = LogFactory.getLog(TestUtilsPasswordGenerator.class);
+	final static Logger logger = LoggerFactory.getLogger(CliJbossConfigConfigurator.class);
 		
 	@Test
 	public void pwdSize()

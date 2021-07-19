@@ -86,7 +86,6 @@
             <artifactId>jaxb-impl</artifactId>
             <scope>provided</scope>
         </dependency>
-
         
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
@@ -247,7 +246,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
-            <scope>test</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
