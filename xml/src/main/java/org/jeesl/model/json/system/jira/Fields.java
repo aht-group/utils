@@ -12,6 +12,11 @@ public class Fields implements Serializable
 {
 	public static final long serialVersionUID=1;
 
+	@JsonProperty("summary")
+	private String summary;
+	public String getSummary() {return summary;}
+	public void setSummary(String summary) {this.summary = summary;}
+
 	@JsonProperty("status")
 	private Status status;
 	public Status getStatus() {return status;}

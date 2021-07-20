@@ -42,6 +42,12 @@ public class TxtUserFactory <USER extends JeeslUser<?>>
 		return StringUtils.join(list,", "); 
     }
     
+    public String debug(USER user)
+    {
+    	StringBuilder sb = new StringBuilder();
+    	sb.append("[").append(user.getId()).append("]");
+    	return sb.toString();
+    }
     
     public static String buildSalt() 
     {
