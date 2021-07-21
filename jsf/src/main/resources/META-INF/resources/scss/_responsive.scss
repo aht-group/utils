@@ -1,6 +1,9 @@
 @import '_fonts';
 @import '_sizes';
 
+$enable-pointer-cursor-for-buttons: true;
+
+@import '_reboot';
 @import '_responsiveCommon';
 
 @mixin triangle($colour: transparent, $width: 0) {
@@ -252,7 +255,7 @@
 					box-sizing: border-box;
 					height: 100%;
 					position: relative;
-				    vertical-align: middle;
+				    vertical-align: top;
 					
 					&.jeesl-greyscale {
 						cursor: default;
@@ -293,47 +296,17 @@
 	}
 }
 
-$content-width: 982px;
-
-body {
-	min-width: 400px;
-}
-
-pre {
-	code {
-		background: $panel-background;
-	}
-}
-
-body, .ui-widget {
-	font-size: $font-size;
-	font-weight: normal;
-	
-	@media (max-width: 768px) {
-		font-size: $font-size-responsive;
-	}
-}
-
 #container {
-	max-width: $content-width;
+	background: $white-100;
+	box-shadow: 0 0 $regular-spacing $medium-grey;
+	max-width: $max-content-width;
+	padding: 0 0 $wide-spacing 0;
 	width: auto;
-}
-
-.jeesl-left {
-	float: left;
-}
-
-.jeesl-right {
-	float: right;
-}
-
-.jeesl-greyscale {
-	filter: grayscale(1);
 }
 
 .jeesl-header {
 	border-bottom: 2px solid $bright-grey;
-	height: 36px;
+	height: 41px;
     padding: 3px 0 0;
 	position: relative;
 	width: 100%;
@@ -578,6 +551,7 @@ body, .ui-widget {
 	
 	background: $status-background-gradient;
     height: 25px;
+	line-height: normal;
     margin: -10px 10px 10px;
 
 	// Overriding more specific rule necessary.
@@ -689,13 +663,6 @@ body, .ui-widget {
 				    top: 0;
 				    transition: opacity .4s linear;
 				    width: 100%;
-				}
-				
-				&:after {
-					content: '';
-				    display: inline-block;
-				    height: 100%;
-				    vertical-align: middle;
 				}
 				
 				.ui-commandlink {
@@ -838,14 +805,14 @@ body, .ui-widget {
 @mixin jeesl-titlebar {
 	box-sizing: border-box;
 	display: flex;
-    height: 22px;
+//    height: 22px;
 	margin-bottom: 2px;
     padding: 0 0 0 10px;
 	
 	@media (max-width: 768px) {
 		border: 0 solid $dark-colour;
 		border-bottom-width: 4px;
-		border-radius: 3px 3px 0 0;
+		border-radius: $border-radius-top;
 		height: 46px;
 	}
 }
@@ -1022,7 +989,7 @@ body, .ui-widget {
 					}
 
 					> * {
-						border-radius: 3px;
+						border-radius: $border-radius;
 						box-sizing: border-box;
 						height: 100%;
 						
@@ -1153,7 +1120,7 @@ body, .ui-widget {
 		
 		.ql-container {
 			border: solid $soft-grey;
-			border-radius: 0 0 3px 3px;
+			border-radius: $border-radius-bottom;
 			border-width: 1px 0 0;
 			overflow: hidden;
 			
@@ -1230,7 +1197,7 @@ body, .ui-widget {
 						@include font-interactable;
 						
 						display: flex;
-						height: 22px;
+//						height: 22px;
 						width: 100%;
 						
 						@media (max-width: 768px) {
@@ -1268,7 +1235,7 @@ body, .ui-widget {
 						
 						.ui-tree-toggler {
 							background: none;
-							height: 100%;
+							height: auto;
 							text-align: center;
 							text-indent: 0;
 							
@@ -1278,6 +1245,13 @@ body, .ui-widget {
 							
 							&:hover {
 								background: $soft-grey;
+							}
+							
+							&:before {
+								content: '';
+							    display: inline-block;
+							    height: 100%;
+							    vertical-align: middle;
 							}
 
 							&:after {
@@ -1390,8 +1364,13 @@ body, .ui-widget {
 		width: calc(100% - 10px);
     	margin: 10px 5px 0;
 
+		.jeesl-menu-bar-button {
+			display: none;
+		}
+
 		.jeesl-dropdown-item-label {
 			background: linear-gradient(to right, $dark-colour, $bright-colour);
+			max-width: none;
 			
 			&:hover {
 				background: $dark-colour;
@@ -1403,13 +1382,13 @@ body, .ui-widget {
 .ui-dialog {
 	@include jeesl-dialog-titlebar;
 
-	max-width: $content-width;
+	max-width: $max-content-width;
 	
 	@for $i from 1 to 13 {
 		&.jeesl-dialog-#{$i} {
-			width: calc(#{$content-width} * (#{$i} / 12)) !important;
+			width: calc(#{$max-content-width} * (#{$i} / 12)) !important;
 			
-			@media (max-width: $content-width) {
+			@media (max-width: $max-content-width) {
 				width: calc(100% * (#{$i} / 12)) !important;
 			}
 	
@@ -1462,7 +1441,7 @@ body, .ui-widget {
 			
 			background: linear-gradient(to bottom, $light-grey 87%, $soft-grey 100%);
 			box-shadow: inset 0 1px 0 $white-100;
-			height: 22px;
+//			height: 22px;
 			margin: 0 2px 0;
 			
 			@media (max-width: 768px) {

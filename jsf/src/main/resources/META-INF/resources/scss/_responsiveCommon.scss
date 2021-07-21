@@ -1,19 +1,77 @@
+$border: $border-width solid $border-colour;
+
+@mixin vertical-center {
+	&:after {
+		content: '';
+		display: inline-block;
+		height: 100%;
+		vertical-align: middle;
+	}
+	
+	> * {
+		display: inline-block;
+		vertical-align: middle;
+	}
+}
+
 html, body {
 	height: 100%;
 }
 
-.ui-button.ui-state-default {
+body {
+	min-width: $min-content-width;
+	padding: $regular-spacing 0;
+	background: $light-grey url("/erp/javax.faces.resource/background.jpg.xhtml?ln=aupGfx&buildVersion=1626445190") repeat fixed;
+}
+
+body, .ui-widget {
+	font-size: $font-size;
+	font-weight: normal;
+	
+	@media (max-width: 768px) {
+		font-size: $font-size-responsive;
+	}
+}
+
+.jeesl-left {
+	float: left;
+}
+
+.jeesl-right {
+	float: right;
+}
+
+.jeesl-greyscale {
+	filter: grayscale(1);
+}
+
+@mixin button {
+	@include element-height;
+	@include min-button-width;
+	
 	background: $panel-header-gradient;
+	border: $border;
 	box-shadow: 0 -1px inset $white-80;
 	color: $foreground;
-	height: $button-height;
 	padding: 0 $half-spacing;
 	transition: border-color .2s linear, color .2s linear, text-shadow .2s linear;
 	z-index: 0;
 	
 	@media (max-width: 768px) {
-		height: $button-height-mobile;
-		padding: 0 wide-spacing;
+		padding: 0 $regular-spacing;
+	}
+	
+	&:before {
+		background: $soft-grey;
+		content: '';
+	    height: 100%;
+	    left: 0;
+		opacity: 0;
+	    position: absolute;
+	    top: 0;
+		transition: background .2s linear, opacity .2s linear;
+	    width: 100%;
+	    z-index: -1;
 	}
 	
 	&.ui-state-active, &.ui-state-hover {
@@ -37,31 +95,43 @@ html, body {
 			background: $dark-colour;
 		}
 	}
+}
+
+@mixin inputfield {
+	@include element-height;
+	
+    border: none;
+	border-radius: $border-radius;
+    box-shadow: none;
+	line-height: normal;
+    padding: $half-spacing $slim-spacing;
+
+	@media (max-width: 768px) {
+		line-height: calc($element-height-mobile - $regular-spacing);
+	}
+}
+
+@mixin icon {
+	background: none;
+	height: auto;
+	text-align: center;
+	text-indent: 0;
+	width: auto;
 	
 	&:before {
-		background: $soft-grey;
-		content: '';
-	    height: 100%;
-	    left: 0;
-		opacity: 0;
-	    position: absolute;
-	    top: 0;
-		transition: background .2s linear, opacity .2s linear;
-	    width: 100%;
-	    z-index: -1;
+		vertical-align: top;
+		
+		@media (max-width: 768px) {
+			font-size: 2em;
+		}
 	}
+}
+
+.ui-button.ui-state-default {
+	@include button;
 	
 	.ui-icon {
-		background: none;
-		height: auto;
-		text-indent: 0;
-		width: auto;
-		
-		&:before {
-			@media (max-width: 768px) {
-				font-size: 2em;
-			}
-		}
+		@include icon;
 	}
 	
 	.ui-icon-circle-triangle-e:before {
@@ -70,5 +140,54 @@ html, body {
 	
 	.ui-icon-circle-triangle-w:before {
 		content: "\25c4";
+	}
+}
+
+.ui-inputfield.ui-state-default {
+	@include inputfield;
+}
+
+.ui-selectonemenu.ui-state-default {
+	background: $panel-header-gradient;
+	border: none;
+	display: flex;
+	padding: 0;
+	
+	&.ui-state-active, &.ui-state-hover, &.ui-state-focus {
+		border-color: $medium-grey;
+		box-shadow: none;
+		color: $anthracite;
+	}
+	
+	.ui-inputfield {
+		@include inputfield;
+		
+		border-radius: $border-radius-left;
+		width: calc(85% + 6px);
+	}
+	
+	.ui-selectonemenu-trigger {
+		@include button;
+		@include vertical-center;
+		
+		flex-grow: 1;
+		padding: 0;
+		position: relative;
+		text-align: center;
+		
+		@media (max-width: 768px) {
+			padding: 0;
+		}
+
+		.ui-icon {
+			@include icon;
+			
+			position: relative;
+		}
+		
+		.ui-icon-triangle-1-s:before {
+			content: "\25bc";
+			transform: scale(1.5,0.7);
+		}
 	}
 }

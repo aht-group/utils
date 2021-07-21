@@ -36,7 +36,7 @@
 	}
 	
 	.jeesl-cell-table {
-		tbody {
+		tbody {	
 			tr, td {
 				border: none;
 				padding: 0;
@@ -82,7 +82,7 @@
 .ui-widget-content {
 	.ui-inputfield {
 		border: 0;
-		padding: 4px 2px;
+//		padding: 4px 2px;
 		width: 85%;
 	}
 }
@@ -123,7 +123,7 @@
 }
 
 .ui-panel-content {
-	.ui-selectonemenu, .ui-selectcheckboxmenu {
+	.ui-selectcheckboxmenu {
 		border-width: 0;
 		box-sizing: border-box;
 		display: flex;
@@ -131,14 +131,14 @@
 		padding: 0;
 		width: 100%;
 
-		.ui-selectonemenu-label, .ui-selectcheckboxmenu-multiple-container {
+		.ui-selectcheckboxmenu-multiple-container {
 			border-radius: 3px 0 0 3px;
 			box-sizing: border-box;
 			line-height: normal;
 			width: calc(85% + 6px);
 		}
 
-		.ui-selectonemenu-trigger, .ui-selectcheckboxmenu-trigger {
+		.ui-selectcheckboxmenu-trigger {
 			align-items: center;
 			border: 1px solid #a8a8a8;
 			display: flex;

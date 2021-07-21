@@ -40,7 +40,6 @@
 .ui-widget-header .ui-inputfield,
 .ui-widget-content .ui-inputfield {
   border: 0;
-  padding: 4px 2px;
   width: 85%; }
 
 .ui-widget-content .ui-separator {
@@ -62,19 +61,19 @@
   line-height: normal;
   padding: 0 10px; }
 
-.ui-panel-content .ui-selectonemenu, .ui-panel-content .ui-selectcheckboxmenu {
+.ui-panel-content .ui-selectcheckboxmenu {
   border-width: 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
   padding: 0;
   width: 100%; }
-  .ui-panel-content .ui-selectonemenu .ui-selectonemenu-label, .ui-panel-content .ui-selectonemenu .ui-selectcheckboxmenu-multiple-container, .ui-panel-content .ui-selectcheckboxmenu .ui-selectonemenu-label, .ui-panel-content .ui-selectcheckboxmenu .ui-selectcheckboxmenu-multiple-container {
+  .ui-panel-content .ui-selectcheckboxmenu .ui-selectcheckboxmenu-multiple-container {
     border-radius: 3px 0 0 3px;
     box-sizing: border-box;
     line-height: normal;
     width: calc(85% + 6px); }
-  .ui-panel-content .ui-selectonemenu .ui-selectonemenu-trigger, .ui-panel-content .ui-selectonemenu .ui-selectcheckboxmenu-trigger, .ui-panel-content .ui-selectcheckboxmenu .ui-selectonemenu-trigger, .ui-panel-content .ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger {
+  .ui-panel-content .ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger {
     align-items: center;
     border: 1px solid #a8a8a8;
     display: flex;
@@ -83,7 +82,7 @@
     justify-content: center;
     padding: 0;
     position: relative; }
-    .ui-panel-content .ui-selectonemenu .ui-selectonemenu-trigger:after, .ui-panel-content .ui-selectonemenu .ui-selectcheckboxmenu-trigger:after, .ui-panel-content .ui-selectcheckboxmenu .ui-selectonemenu-trigger:after, .ui-panel-content .ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger:after {
+    .ui-panel-content .ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger:after {
       border-bottom: 1px solid #ebebeb;
       box-sizing: border-box;
       content: 'ui-button';
@@ -95,7 +94,7 @@
       width: 100%;
       border-radius: 2px;
       border-radius: 0 0 2px 2px; }
-    .ui-panel-content .ui-selectonemenu .ui-selectonemenu-trigger .ui-icon, .ui-panel-content .ui-selectonemenu .ui-selectcheckboxmenu-trigger .ui-icon, .ui-panel-content .ui-selectcheckboxmenu .ui-selectonemenu-trigger .ui-icon, .ui-panel-content .ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger .ui-icon {
+    .ui-panel-content .ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger .ui-icon {
       left: 50%;
       margin: -8px;
       position: absolute;
@@ -162,7 +161,7 @@
     top: 50%; }
     .ui-colorpicker .ui-button .ui-button-text > span {
       /* important has to be used because primefaces sets border color and size as inline style */
-      border-color: #a8a8a8 !important;
+      border-color: #ababab !important;
       border-radius: 6px;
       height: 10px !important;
       width: 10px !important; }

@@ -1,3 +1,9 @@
+$font-family-base: "Arial", Verdana, Helvetica, sans-serif;
+$font-family-monospace: monospace;
+$font-size-base: 11px;
+$font-weight-base: 400;
+$line-height-base: 22px;
+
 $font-size: 11px;
 $font-size-responsive: 13px;
 
@@ -8,6 +14,12 @@ $font-size-nav: 1.1em;
 $font-size-status: 1.1em;
 
 $font-weight-bold: 700;
+
+$dt-font-weight: $font-weight-base;
+$table-th-font-weight: $font-weight-base;
+
+$link-decoration: none;
+$link-hover-decoration: underline;
 
 @mixin font-breadcrumb {
 	font-size: $font-size-breadcrumb;

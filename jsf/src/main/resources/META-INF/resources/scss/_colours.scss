@@ -8,11 +8,20 @@ $soft-grey: hsla(0,0%,77%,1);
 $medium-grey: hsla(0,0%,67%,1);
 $dark-grey: hsla(0,0%,33%,1);
 $anthracite: hsla(0,0%,20%,1);
+$black: $anthracite;
 $brighter-colour: hsla(154,100%,33%,1);
 $bright-colour: hsla(154,100%,27%,1);
 $medium-colour: hsla(154,100%,24%,1);
 $dark-colour: hsla(154,100%,20%,1);
 $darker-colour: hsla(154,100%,18%,1);
+
+$body-foreground: $anthracite;
+$body-background: $light-grey;
+
+$link-colour: $dark-colour;
+$link-hover-colour: $bright-colour;
+
+$table-caption-colour: $medium-grey;
 
 $border-colour: $medium-grey;
 $editor-background: $white-100;
