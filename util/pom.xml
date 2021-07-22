@@ -168,19 +168,15 @@
 		    <version>3.6</version>
 		</dependency>
 
+		<!-- 2021-07-22 tk deactivate 
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20090211</version>
             <type>jar</type>
             <scope>compile</scope>
-        </dependency>
-<!-- 
-		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-		</dependency>
- -->
+        </dependency> -->
+
 		<dependency>
 		    <groupId>org.apache.commons</groupId>
 		    <artifactId>commons-email</artifactId>

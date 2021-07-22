@@ -1,17 +1,10 @@
 package net.sf.ahtutils.controller.factory.xml.cloud.facebook;
 
-import java.util.Date;
-
-import net.sf.ahtutils.xml.cloud.facebook.Oauth;
-import net.sf.ahtutils.xml.cloud.facebook.SignedRequest;
-import net.sf.ahtutils.xml.cloud.facebook.User;
-import net.sf.exlp.util.DateUtil;
-
 import org.apache.commons.codec.binary.Base64;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import net.sf.ahtutils.xml.cloud.facebook.SignedRequest;
 
 public class SignedRequestFactory
 {
@@ -44,37 +37,38 @@ public class SignedRequestFactory
 	private void decodeWithJson(String s)
 	{
 		signedRequest = new SignedRequest();
-		JSONObject json = null;
-		try
-		{
-			json = new JSONObject(s);
-			if(json.has("issued_at"))
-			{
-				Date issuedAt = new Date(json.getLong("issued_at")*1000);
-				logger.trace("IssuedAt: "+issuedAt);
-				signedRequest.setIssuedAt(DateUtil.toXmlGc(issuedAt));
-			}
-			if(json.has("expires"))
-			{
-				Date exipires = new Date(json.getLong("expires")*1000);
-				logger.trace("Expires: "+exipires);
-				signedRequest.setExpires(DateUtil.toXmlGc(exipires));
-			}
-			if(json.has("user_id"))
-			{
-				User user = new User();
-				user.setId(json.getString("user_id"));
-				signedRequest.setUser(user);
-			}
-			if(json.has("oauth_token"))
-			{
-				Oauth oauth = new Oauth();
-				oauth.setToken(json.getString("oauth_token"));
-				signedRequest.setOauth(oauth);
-				
-			}
-		}
-		catch (JSONException e) {e.printStackTrace();}
+		logger.warn("NYI: Deactivated to get rid of the org.json lib");
+//		JSONObject json = null;
+//		try
+//		{
+//			json = new JSONObject(s);
+//			if(json.has("issued_at"))
+//			{
+//				Date issuedAt = new Date(json.getLong("issued_at")*1000);
+//				logger.trace("IssuedAt: "+issuedAt);
+//				signedRequest.setIssuedAt(DateUtil.toXmlGc(issuedAt));
+//			}
+//			if(json.has("expires"))
+//			{
+//				Date exipires = new Date(json.getLong("expires")*1000);
+//				logger.trace("Expires: "+exipires);
+//				signedRequest.setExpires(DateUtil.toXmlGc(exipires));
+//			}
+//			if(json.has("user_id"))
+//			{
+//				User user = new User();
+//				user.setId(json.getString("user_id"));
+//				signedRequest.setUser(user);
+//			}
+//			if(json.has("oauth_token"))
+//			{
+//				Oauth oauth = new Oauth();
+//				oauth.setToken(json.getString("oauth_token"));
+//				signedRequest.setOauth(oauth);
+//				
+//			}
+//		}
+//		catch (JSONException e) {e.printStackTrace();}
 	}
 	
 	public SignedRequest getSignedRequest() {return signedRequest;}
