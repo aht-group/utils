@@ -1,7 +1,7 @@
 $border: $border-width solid $border-colour;
 
-@mixin vertical-center {
-	&:after {
+@mixin vertical-center($pseudo) {
+	&:#{$pseudo} {
 		content: '';
 		display: inline-block;
 		height: 100%;
@@ -168,7 +168,7 @@ body, .ui-widget {
 	
 	.ui-selectonemenu-trigger {
 		@include button;
-		@include vertical-center;
+		@include vertical-center(after);
 		
 		flex-grow: 1;
 		padding: 0;

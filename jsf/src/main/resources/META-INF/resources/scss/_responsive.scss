@@ -804,8 +804,7 @@ $enable-pointer-cursor-for-buttons: true;
 
 @mixin jeesl-titlebar {
 	box-sizing: border-box;
-	display: flex;
-//    height: 22px;
+	display: flex;	
 	margin-bottom: 2px;
     padding: 0 0 0 10px;
 	
@@ -813,7 +812,6 @@ $enable-pointer-cursor-for-buttons: true;
 		border: 0 solid $dark-colour;
 		border-bottom-width: 4px;
 		border-radius: $border-radius-top;
-		height: 46px;
 	}
 }
 
@@ -830,19 +828,26 @@ $enable-pointer-cursor-for-buttons: true;
 }
 
 @mixin jeesl-titlebar-actions {
+	display: flex;
 	float: none;
-	height: 100%;
+	height: auto;
 		
 	.pf-action-icon, .jeesl-action-icon {
+		@include vertical-center(before);
+		
+		align-items: center;
 		box-sizing: border-box;
-		display: inline-block;
-		height: 100%;
+		display: flex;
 		margin: 0;
 		padding: 4px 0;
 		transition: background .2s linear;
 
 		@media (max-width: 768px) {
 			padding: 7px 0 6px;
+			
+			&:before {
+			    border-left: 1px solid #a8a8a8;
+			}
 		}
 		
 		&:hover {
@@ -850,11 +855,12 @@ $enable-pointer-cursor-for-buttons: true;
 		}
 		
 		img {
+			height: 12px;
 			padding: 0 4px;
-			vertical-align: top;
+			vertical-align: middle;
 			
 			@media (max-width: 768px) {
-				border-left: 1px solid $border-colour;
+				height: 29px;
 				padding: 0 6px;
 			}
 		}
